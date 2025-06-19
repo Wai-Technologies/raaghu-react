@@ -164,9 +164,8 @@ describe('RdsCompEditionList Component', () => {
   const renderComponent = (props = {}) => {
     return render(
       <RdsCompEditionList 
-        {...defaultProps} 
-        {...props} 
-      />
+      tenantInfoData={undefined} editions={undefined} setPasswordField={undefined} settingsTenantEditionList={[]} allowSelfRegistration={false} useCaptchaOnRegistration={false} isNewRegisteredTenantActiveByDefault={false} onLogin={undefined} {...defaultProps}
+      {...props}      />
     );
   };
 

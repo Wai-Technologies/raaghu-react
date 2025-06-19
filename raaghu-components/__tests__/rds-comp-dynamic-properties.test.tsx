@@ -88,7 +88,8 @@ describe('RdsCompDynamicProperties', () => {
     propertyData: mockPropertyData,
     propertyHeaders: mockPropertyHeaders,
     actions: mockActions,
-    onActionSelection: mockOnActionSelection
+    onActionSelection: mockOnActionSelection,
+    parameterList: []
   };
 
   beforeEach(() => {

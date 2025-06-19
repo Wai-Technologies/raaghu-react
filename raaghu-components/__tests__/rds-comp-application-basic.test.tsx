@@ -57,8 +57,9 @@ describe("RdsCompApplicationBasic", () => {
             <RdsCompApplicationBasic
                 basicData={mockBasicData}
                 onSuccess={mockOnSuccess}
-                editApplicationData={mockEditApplicationData}
-            />
+                editApplicationData={mockEditApplicationData} scopesList={[]} typeList={[]} consentType={[]} handleSubmit={function (event: any): void {
+                    throw new Error('Function not implemented.');
+                } }            />
         );
 
         // Check for presence of all required elements
@@ -82,8 +83,9 @@ describe("RdsCompApplicationBasic", () => {
             <RdsCompApplicationBasic
                 basicData={mockBasicData}
                 onSuccess={mockOnSuccess}
-                editApplicationData={mockEditApplicationData}
-            />
+                editApplicationData={mockEditApplicationData} scopesList={[]} typeList={[]} consentType={[]} handleSubmit={function (event: any): void {
+                    throw new Error('Function not implemented.');
+                } }            />
         );
 
         // Verify all inputs have the correct initial values
@@ -101,8 +103,9 @@ describe("RdsCompApplicationBasic", () => {
             <RdsCompApplicationBasic
                 basicData={mockBasicData}
                 onSuccess={mockOnSuccess}
-                editApplicationData={mockEditApplicationData}
-            />
+                editApplicationData={mockEditApplicationData} scopesList={[]} typeList={[]} consentType={[]} handleSubmit={function (event: any): void {
+                    throw new Error('Function not implemented.');
+                } }            />
         );
 
         const clientIdInput = screen.getByTestId("input-client-id");
@@ -129,8 +132,9 @@ describe("RdsCompApplicationBasic", () => {
                 <RdsCompApplicationBasic
                     basicData={{}}
                     onSuccess={mockOnSuccess}
-                    editApplicationData={mockEditApplicationData}
-                />
+                    editApplicationData={mockEditApplicationData} scopesList={[]} typeList={[]} consentType={[]} handleSubmit={function (event: any): void {
+                        throw new Error('Function not implemented.');
+                    } }                />
             );
 
             const saveButton = screen.getByTestId("save");
@@ -157,8 +161,9 @@ describe("RdsCompApplicationBasic", () => {
                 <RdsCompApplicationBasic
                     basicData={{}}
                     onSuccess={mockOnSuccess}
-                    editApplicationData={mockEditApplicationData}
-                />
+                    editApplicationData={mockEditApplicationData} scopesList={[]} typeList={[]} consentType={[]} handleSubmit={function (event: any): void {
+                        throw new Error('Function not implemented.');
+                    } }                />
             );
 
             const saveButton = screen.getByTestId("save");
@@ -202,8 +207,9 @@ describe("RdsCompApplicationBasic", () => {
             <RdsCompApplicationBasic
                 basicData={mockBasicData}
                 onSuccess={mockOnSuccess}
-                editApplicationData={mockEditApplicationData}
-            />
+                editApplicationData={mockEditApplicationData} scopesList={[]} typeList={[]} consentType={[]} handleSubmit={function (event: any): void {
+                    throw new Error('Function not implemented.');
+                } }            />
         );
 
         // Submit the form
@@ -225,8 +231,9 @@ describe("RdsCompApplicationBasic", () => {
                 basicData={mockBasicData}
                 onSuccess={mockOnSuccess}
                 editApplicationData={mockEditApplicationData}
-                reset={false}
-            />
+                reset={false} scopesList={[]} typeList={[]} consentType={[]} handleSubmit={function (event: any): void {
+                    throw new Error('Function not implemented.');
+                } }            />
         );
 
         // Trigger a reset by changing the reset prop
@@ -236,8 +243,9 @@ describe("RdsCompApplicationBasic", () => {
                     basicData={mockBasicData}
                     onSuccess={mockOnSuccess}
                     editApplicationData={mockEditApplicationData}
-                    reset={true}
-                />
+                    reset={true} scopesList={[]} typeList={[]} consentType={[]} handleSubmit={function (event: any): void {
+                        throw new Error('Function not implemented.');
+                    } }                />
             );
         });
 

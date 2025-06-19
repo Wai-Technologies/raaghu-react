@@ -56,7 +56,8 @@ describe('RdsCompSecurity Component', () => {
   ];
 
   const defaultProps: RdsCompSecurityProps = {
-    checkgroupList: [...mockCheckgroupList]
+    checkgroupList: [...mockCheckgroupList],
+    tableHeaders: []
   };
 
   beforeEach(() => {
@@ -121,7 +122,7 @@ describe('RdsCompSecurity Component', () => {
 
     it('should handle multiple checkbox interactions', () => {
       const { checkgroupList } = defaultProps;
-      render(<RdsCompSecurity checkgroupList={checkgroupList} />);
+      render(<RdsCompSecurity checkgroupList={checkgroupList} tableHeaders={[]} />);
       
       // Click multiple checkboxes
       const checkboxes = screen.getAllByTestId(/checkbox-require/);
@@ -142,7 +143,7 @@ describe('RdsCompSecurity Component', () => {
         { label: 'Custom Option 2', checked: false, onCheck: jest.fn() }
       ];
       
-      render(<RdsCompSecurity checkgroupList={customCheckgroupList} />);
+      render(<RdsCompSecurity checkgroupList={customCheckgroupList} tableHeaders={[]} />);
       
       // Check if custom checkboxes are rendered
       expect(screen.getByText('Custom Option 1')).toBeInTheDocument();
@@ -151,7 +152,7 @@ describe('RdsCompSecurity Component', () => {
 
     it('should attach onCheck handler to each checkbox in checkgroupList', () => {
       const checkgroupList = [...mockCheckgroupList];
-      render(<RdsCompSecurity checkgroupList={checkgroupList} />);
+      render(<RdsCompSecurity checkgroupList={checkgroupList} tableHeaders={[]} />);
       
       // Find and click a checkbox
       const checkbox = screen.getByText('Require Digit').closest('div');
@@ -165,7 +166,7 @@ describe('RdsCompSecurity Component', () => {
 
   describe('Edge Cases', () => {
     it('should handle empty checkgroupList', () => {
-      expect(() => render(<RdsCompSecurity checkgroupList={[]} />)).not.toThrow();
+      expect(() => render(<RdsCompSecurity checkgroupList={[]} tableHeaders={[]} />)).not.toThrow();
     });
 
     it('should handle checkgroupList with missing properties', () => {
@@ -174,7 +175,7 @@ describe('RdsCompSecurity Component', () => {
         { checked: true, label: 'Missing onCheck but checked' }
       ];
       
-      expect(() => render(<RdsCompSecurity checkgroupList={incompleteList as any} />)).not.toThrow();
+      expect(() => render(<RdsCompSecurity checkgroupList={incompleteList as any} tableHeaders={[]} />)).not.toThrow();
     });
   });
 

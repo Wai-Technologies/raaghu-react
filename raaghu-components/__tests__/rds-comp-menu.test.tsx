@@ -139,7 +139,13 @@ describe('RdsCompMenu Component', () => {
 
   // Test 1: Basic rendering
   test('renders all form elements correctly', () => {
-    render(<RdsCompMenu {...mockProps} />);
+    render(<RdsCompMenu offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps} />);
     
     // Check for all form fields
     expect(screen.getByTestId('url')).toBeInTheDocument();
@@ -158,7 +164,13 @@ describe('RdsCompMenu Component', () => {
 
   // Test 2: Pre-filled data display
   test('displays pre-filled data from props', () => {
-    render(<RdsCompMenu {...mockProps} />);
+    render(<RdsCompMenu offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps} />);
     
     // Check if fields have the correct initial values
     expect(screen.getByTestId('url')).toHaveValue('https://example.com');
@@ -172,7 +184,13 @@ describe('RdsCompMenu Component', () => {
 
   // Test 3: Form validation - valid data
   test('enables save button when form is valid', () => {
-    render(<RdsCompMenu {...mockProps} />);
+    render(<RdsCompMenu offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps} />);
     
     // With valid URL and displayName, the save button should be enabled
     expect(screen.getByTestId('save')).not.toBeDisabled();
@@ -185,7 +203,13 @@ describe('RdsCompMenu Component', () => {
       url: "invalid-url"
     };
     
-    render(<RdsCompMenu {...mockProps} menusData={invalidData} />);
+    render(<RdsCompMenu offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps} menusData={invalidData} />);
     
     // With invalid URL, the save button should be disabled
     expect(screen.getByTestId('save')).toBeDisabled();
@@ -198,7 +222,13 @@ describe('RdsCompMenu Component', () => {
       displayName: ""
     };
     
-    render(<RdsCompMenu {...mockProps} menusData={invalidData} />);
+    render(<RdsCompMenu offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps} menusData={invalidData} />);
     
     // With empty display name, the save button should be disabled
     expect(screen.getByTestId('save')).toBeDisabled();
@@ -206,7 +236,13 @@ describe('RdsCompMenu Component', () => {
 
   // Test 6: Input field updates
   test('updates state when input fields change', () => {
-    render(<RdsCompMenu {...mockProps} />);
+    render(<RdsCompMenu offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps} />);
     
     // Change URL input
     fireEvent.change(screen.getByTestId('url'), { 
@@ -225,7 +261,13 @@ describe('RdsCompMenu Component', () => {
 
   // Test 7: Checkbox toggle
   test('toggles active status when checkbox is clicked', () => {
-    render(<RdsCompMenu {...mockProps} />);
+    render(<RdsCompMenu offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps} />);
     
     // Initially checked
     expect(screen.getByTestId('active')).toBeChecked();
@@ -239,7 +281,13 @@ describe('RdsCompMenu Component', () => {
 
   // Test 8: Select list functionality
   test('changes page selection when dropdown value changes', () => {
-    render(<RdsCompMenu {...mockProps} />);
+    render(<RdsCompMenu offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps} />);
     
     // Change selected page
     fireEvent.change(screen.getByTestId('selpa'), { 
@@ -253,7 +301,13 @@ describe('RdsCompMenu Component', () => {
 
   // Test 9: Form submission
   test('calls onSubmit with correct data when save button is clicked', () => {
-    render(<RdsCompMenu {...mockProps} />);
+    render(<RdsCompMenu offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps} />);
     
     // Update some fields
     fireEvent.change(screen.getByTestId('url'), { 
@@ -273,7 +327,13 @@ describe('RdsCompMenu Component', () => {
 
   // Test 10: Cancel button
   test('calls onCancel when cancel button is clicked', () => {
-    render(<RdsCompMenu {...mockProps} />);
+    render(<RdsCompMenu offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps} />);
     
     // Click cancel button
     fireEvent.click(screen.getByTestId('cancel'));
@@ -283,7 +343,13 @@ describe('RdsCompMenu Component', () => {
   });
   // Test 11: Reset functionality - testing form reset with new data
   test('resets form with new data when menusData prop changes', () => {
-    const { rerender } = render(<RdsCompMenu {...mockProps} />);
+    const { rerender } = render(<RdsCompMenu offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps} />);
     
     // Update a field
     fireEvent.change(screen.getByTestId('url'), { 
@@ -301,7 +367,13 @@ describe('RdsCompMenu Component', () => {
     };
     
     // Rerender with new data
-    rerender(<RdsCompMenu {...mockProps} menusData={newMenusData} />);
+    rerender(<RdsCompMenu offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps} menusData={newMenusData} />);
     
     // Fields should update to the new data values
     expect(screen.getByTestId('url')).toHaveValue('https://new-example-data.com');
@@ -311,7 +383,13 @@ describe('RdsCompMenu Component', () => {
   // Test 12: Reset functionality with reset prop
   test('clears form when reset prop is true', () => {
     // Start with initial data
-    const { rerender } = render(<RdsCompMenu {...mockProps} />);
+    const { rerender } = render(<RdsCompMenu offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps} />);
     
     // Verify initial data is displayed
     expect(screen.getByTestId('url')).toHaveValue('https://example.com');
@@ -335,10 +413,15 @@ describe('RdsCompMenu Component', () => {
     
     // Rerender with reset=true and empty menusData
     rerender(<RdsCompMenu 
-      {...mockProps} 
-      reset={true} 
-      menusData={emptyData}
-    />);
+    offId={''} onCreateSubMenu={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } onDeleteMenu={function (id: any): void {
+      throw new Error('Function not implemented.');
+    } } onMenuEdit={function (data: any): void {
+      throw new Error('Function not implemented.');
+    } } listItems={[]} {...mockProps}
+    reset={true}
+    menusData={emptyData}    />);
     
     // Form should be reset to empty values
     expect(screen.getByTestId('url')).toHaveValue('');

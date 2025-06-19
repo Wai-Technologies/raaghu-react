@@ -120,7 +120,18 @@ describe('RdsCompEdition', () => {
     accountTwoFactorSettings: mockAccountTwoFactorSettings,
     planListLabel: 'Select Plan',
     displayType: 'basic',
-    onSaveHandler: mockOnSaveHandler
+    onSaveHandler: mockOnSaveHandler,
+    radioItems: [],
+    tableHeaders: [],
+    actions: [],
+    tableData: [],
+    pagination: false,
+    onActionSelection: function (arg: any): void {
+      throw new Error('Function not implemented.');
+    },
+    onNewTenantClick: function (event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>): void {
+      throw new Error('Function not implemented.');
+    }
   };
 
   const defaultAdvancedProps: RdsCompEditionProps = {

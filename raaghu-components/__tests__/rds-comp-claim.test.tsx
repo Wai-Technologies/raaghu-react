@@ -59,11 +59,11 @@ describe('RdsCompClaim', () => {
   });
 
   it('renders without crashing', () => {
-    const { container } = render(<RdsCompClaim {...defaultProps} />);
+    const { container } = render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     expect(container).toBeTruthy();
   });
   it('renders all resources and their children', () => {
-    render(<RdsCompClaim {...defaultProps} />);
+    render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
     // Check if all resource headings are rendered
     expect(screen.getByText('Resource 1')).toBeInTheDocument();
@@ -83,7 +83,7 @@ describe('RdsCompClaim', () => {
     });
   });
   it('toggles parent checkbox when clicked', () => {
-    render(<RdsCompClaim {...defaultProps} />);
+    render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
     // Find the parent checkbox for Resource 1
     // We need to use a more robust selector since the previous approach was failing
@@ -128,7 +128,7 @@ describe('RdsCompClaim', () => {
     });
   });
   it('toggles child checkbox when clicked', () => {
-    render(<RdsCompClaim {...defaultProps} />);
+    render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
     // Get a child checkbox
     const childCheckbox = document.getElementById('00') as HTMLInputElement;
@@ -157,7 +157,7 @@ describe('RdsCompClaim', () => {
     expect(parentCheckbox.checked).toBeTruthy();
   });
   it('toggles all checkboxes when "Select all" is clicked', () => {
-    render(<RdsCompClaim {...defaultProps} />);
+    render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
     // Get the main "Select all" checkbox (the first one)
     const selectAllCheckbox = document.querySelector('.form-check-input') as HTMLInputElement;
@@ -189,7 +189,7 @@ describe('RdsCompClaim', () => {
     });
   });
   it('calls onCreate with updated resources when Save button is clicked', () => {
-    render(<RdsCompClaim {...defaultProps} />);
+    render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
     // Select a checkbox
     const childCheckbox = document.getElementById('00') as HTMLInputElement;
@@ -207,7 +207,7 @@ describe('RdsCompClaim', () => {
     expect(updatedResources[0].selected).toBe(false); // Parent 1 should not be selected
   });
   it('resets form after saving', () => {
-    render(<RdsCompClaim {...defaultProps} />);
+    render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
     // Select some checkboxes
     const childCheckbox1 = document.getElementById('00') as HTMLInputElement;
@@ -228,7 +228,7 @@ describe('RdsCompClaim', () => {
   });
 
   it('renders the Cancel button', () => {
-    render(<RdsCompClaim {...defaultProps} />);
+    render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
     // Check if Cancel button exists
     const cancelButton = screen.getByTestId('button-cancel');
@@ -237,7 +237,7 @@ describe('RdsCompClaim', () => {
   });
 
   it('provides proper aria accessibility', () => {
-    render(<RdsCompClaim {...defaultProps} />);
+    render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
     // Check that all checkboxes have associated labels
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');

@@ -95,9 +95,8 @@ describe('RdsCompApiResourceBasic Component', () => {
   it('renders with provided API resource data', () => {
     render(
       <RdsCompApiResourceBasic 
-        apiResourceBasic={mockApiResourceBasic} 
-        onSaveHandler={mockOnSaveHandler} 
-      />
+        apiResourceBasic={mockApiResourceBasic}
+        onSaveHandler={mockOnSaveHandler} scopeData={undefined}      />
     );
     
     // Check if all fields are rendered with correct values
@@ -115,9 +114,8 @@ describe('RdsCompApiResourceBasic Component', () => {
   it('updates state when input fields change', () => {
     render(
       <RdsCompApiResourceBasic 
-        apiResourceBasic={mockApiResourceBasic} 
-        onSaveHandler={mockOnSaveHandler} 
-      />
+        apiResourceBasic={mockApiResourceBasic}
+        onSaveHandler={mockOnSaveHandler} scopeData={undefined}      />
     );
     
     // Change name field
@@ -162,9 +160,8 @@ describe('RdsCompApiResourceBasic Component', () => {
     
     render(
       <RdsCompApiResourceBasic 
-        apiResourceBasic={emptyNameData} 
-        onSaveHandler={mockOnSaveHandler} 
-      />
+        apiResourceBasic={emptyNameData}
+        onSaveHandler={mockOnSaveHandler} scopeData={undefined}      />
     );
     
     // Save button should be disabled
@@ -184,10 +181,9 @@ describe('RdsCompApiResourceBasic Component', () => {
     
     const { rerender } = render(
       <RdsCompApiResourceBasic 
-        apiResourceBasic={initialApiResource} 
-        onSaveHandler={mockOnSaveHandler} 
-        reset={false}
-      />
+        apiResourceBasic={initialApiResource}
+        onSaveHandler={mockOnSaveHandler}
+        reset={false} scopeData={undefined}      />
     );
     
     // Change name field
@@ -198,10 +194,9 @@ describe('RdsCompApiResourceBasic Component', () => {
     // Toggle the reset prop without changing apiResourceBasic
     rerender(
       <RdsCompApiResourceBasic 
-        apiResourceBasic={initialApiResource} 
-        onSaveHandler={mockOnSaveHandler} 
-        reset={true}
-      />
+        apiResourceBasic={initialApiResource}
+        onSaveHandler={mockOnSaveHandler}
+        reset={true} scopeData={undefined}      />
     );
     
     // The component maintains the modified value when only reset prop changes
@@ -213,9 +208,8 @@ describe('RdsCompApiResourceBasic Component', () => {
   it('updates form when apiResourceBasic prop changes', () => {
     const { rerender } = render(
       <RdsCompApiResourceBasic 
-        apiResourceBasic={mockApiResourceBasic} 
-        onSaveHandler={mockOnSaveHandler} 
-      />
+        apiResourceBasic={mockApiResourceBasic}
+        onSaveHandler={mockOnSaveHandler} scopeData={undefined}      />
     );
     
     const updatedApiResource = {
@@ -227,9 +221,8 @@ describe('RdsCompApiResourceBasic Component', () => {
     
     rerender(
       <RdsCompApiResourceBasic 
-        apiResourceBasic={updatedApiResource} 
-        onSaveHandler={mockOnSaveHandler} 
-      />
+        apiResourceBasic={updatedApiResource}
+        onSaveHandler={mockOnSaveHandler} scopeData={undefined}      />
     );
     
     // Check if fields were updated with new props

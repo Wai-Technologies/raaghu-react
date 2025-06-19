@@ -92,19 +92,19 @@ describe('RdsCompPage', () => {
   describe('Component Rendering', () => {
     it('should render without crashing', () => {
       expect(() => {
-        render(<RdsCompPage />);
+        render(<RdsCompPage tableHeaders={[]} />);
       }).not.toThrow();
     });
 
     it('should render title and slug input fields', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       expect(screen.getByTestId('title')).toBeInTheDocument();
       expect(screen.getByTestId('slug')).toBeInTheDocument();
     });
 
     it('should render navigation tabs', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       expect(screen.getByTestId('rds-navtabs')).toBeInTheDocument();
       expect(screen.getByTestId('nav-tab-content')).toBeInTheDocument();
@@ -113,14 +113,14 @@ describe('RdsCompPage', () => {
     });
 
     it('should render save and cancel buttons', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       expect(screen.getByTestId('save')).toBeInTheDocument();
       expect(screen.getByTestId('cancel')).toBeInTheDocument();
     });
 
     it('should display initial data in input fields', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       expect(screen.getByTestId('title')).toHaveValue('Test Page');
       expect(screen.getByTestId('slug')).toHaveValue('test-page');
@@ -129,13 +129,13 @@ describe('RdsCompPage', () => {
 
   describe('Tab Navigation', () => {
     it('should show content tab as active by default', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       expect(screen.getByTestId('rds-text-editor')).toBeInTheDocument();
     });
 
     it('should switch to script tab when clicked', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const scriptTab = screen.getByTestId('nav-tab-script');
       fireEvent.click(scriptTab);
@@ -145,7 +145,7 @@ describe('RdsCompPage', () => {
     });
 
     it('should switch to style tab when clicked', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const styleTab = screen.getByTestId('nav-tab-style');
       fireEvent.click(styleTab);
@@ -155,7 +155,7 @@ describe('RdsCompPage', () => {
     });
 
     it('should switch back to content tab', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       // Switch to script tab first
       fireEvent.click(screen.getByTestId('nav-tab-script'));
@@ -169,7 +169,7 @@ describe('RdsCompPage', () => {
 
   describe('Form Input Handling', () => {
     it('should update title when input changes', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const titleInput = screen.getByTestId('title');
       fireEvent.change(titleInput, { target: { value: 'New Title' } });
@@ -178,7 +178,7 @@ describe('RdsCompPage', () => {
     });
 
     it('should update slug when input changes', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const slugInput = screen.getByTestId('slug');
       fireEvent.change(slugInput, { target: { value: 'new-slug' } });
@@ -187,7 +187,7 @@ describe('RdsCompPage', () => {
     });
 
     it('should update content in text editor', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const textEditor = screen.getByTestId('rds-text-editor');
       fireEvent.change(textEditor, { target: { value: 'New content' } });
@@ -196,7 +196,7 @@ describe('RdsCompPage', () => {
     });
 
     it('should update script in textarea', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       // Switch to script tab
       fireEvent.click(screen.getByTestId('nav-tab-script'));
@@ -208,7 +208,7 @@ describe('RdsCompPage', () => {
     });
 
     it('should update style in textarea', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       // Switch to style tab
       fireEvent.click(screen.getByTestId('nav-tab-style'));
@@ -223,7 +223,7 @@ describe('RdsCompPage', () => {
   describe('Form Validation', () => {
     it('should disable save button when title is empty', () => {
       const emptyData = { ...mockPageData, title: '' };
-      render(<RdsCompPage {...defaultProps} newPageData={emptyData} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} newPageData={emptyData} />);
       
       const saveButton = screen.getByTestId('save');
       expect(saveButton).toBeDisabled();
@@ -231,21 +231,21 @@ describe('RdsCompPage', () => {
 
     it('should disable save button when slug is empty', () => {
       const emptyData = { ...mockPageData, slug: '' };
-      render(<RdsCompPage {...defaultProps} newPageData={emptyData} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} newPageData={emptyData} />);
       
       const saveButton = screen.getByTestId('save');
       expect(saveButton).toBeDisabled();
     });
 
     it('should enable save button when both title and slug are provided', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const saveButton = screen.getByTestId('save');
       expect(saveButton).not.toBeDisabled();
     });
 
     it('should validate form when inputs change', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const titleInput = screen.getByTestId('title');
       const saveButton = screen.getByTestId('save');
@@ -262,7 +262,7 @@ describe('RdsCompPage', () => {
 
   describe('Button Interactions', () => {
     it('should call onSaveHandler when save button is clicked', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const saveButton = screen.getByTestId('save');
       fireEvent.click(saveButton);
@@ -271,7 +271,7 @@ describe('RdsCompPage', () => {
     });
 
     it('should call onCancel when cancel button is clicked', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const cancelButton = screen.getByTestId('cancel');
       fireEvent.click(cancelButton);
@@ -280,7 +280,7 @@ describe('RdsCompPage', () => {
     });
 
     it('should reset form data after successful save', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const saveButton = screen.getByTestId('save');
       fireEvent.click(saveButton);
@@ -291,7 +291,7 @@ describe('RdsCompPage', () => {
     });
 
     it('should save with updated data', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       // Update title
       const titleInput = screen.getByTestId('title');
@@ -316,19 +316,19 @@ describe('RdsCompPage', () => {
   describe('Props Handling', () => {
     it('should handle missing props gracefully', () => {
       expect(() => {
-        render(<RdsCompPage />);
+        render(<RdsCompPage tableHeaders={[]} />);
       }).not.toThrow();
     });
 
     it('should handle undefined newPageData', () => {
-      render(<RdsCompPage newPageData={undefined} />);
+      render(<RdsCompPage newPageData={undefined} tableHeaders={[]} />);
       
       expect(screen.getByTestId('title')).toHaveValue('');
       expect(screen.getByTestId('slug')).toHaveValue('');
     });
 
     it('should update when newPageData prop changes', () => {
-      const { rerender } = render(<RdsCompPage {...defaultProps} />);
+      const { rerender } = render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const newData = {
         title: 'New Page Title',
@@ -338,16 +338,16 @@ describe('RdsCompPage', () => {
         style: 'New style'
       };
       
-      rerender(<RdsCompPage {...defaultProps} newPageData={newData} />);
+      rerender(<RdsCompPage tableHeaders={[]} {...defaultProps} newPageData={newData} />);
       
       expect(screen.getByTestId('title')).toHaveValue('New Page Title');
       expect(screen.getByTestId('slug')).toHaveValue('new-page-slug');
     });
 
     it('should handle reset prop changes', () => {
-      const { rerender } = render(<RdsCompPage {...defaultProps} reset={false} />);
+      const { rerender } = render(<RdsCompPage tableHeaders={[]} {...defaultProps} reset={false} />);
       
-      rerender(<RdsCompPage {...defaultProps} reset={true} />);
+      rerender(<RdsCompPage tableHeaders={[]} {...defaultProps} reset={true} />);
       
       // Component should handle reset prop change
       expect(screen.getByTestId('title')).toBeInTheDocument();
@@ -356,21 +356,21 @@ describe('RdsCompPage', () => {
 
   describe('Component Structure', () => {
     it('should have correct CSS classes for layout', () => {
-      const { container } = render(<RdsCompPage {...defaultProps} />);
+      const { container } = render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       expect(container.querySelector('.custom-content-scroll')).toBeInTheDocument();
       expect(container.querySelector('.footer-buttons')).toBeInTheDocument();
     });
 
     it('should have form groups with proper structure', () => {
-      const { container } = render(<RdsCompPage {...defaultProps} />);
+      const { container } = render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const formGroups = container.querySelectorAll('.form-group');
       expect(formGroups.length).toBeGreaterThan(0);
     });
 
     it('should have tab content area with proper styling', () => {
-      const { container } = render(<RdsCompPage {...defaultProps} />);
+      const { container } = render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const tabContent = container.querySelector('.mt-3.mb-4.overflow-x-hidden.overflow-y-scroll');
       expect(tabContent).toBeInTheDocument();
@@ -379,7 +379,7 @@ describe('RdsCompPage', () => {
 
   describe('Accessibility', () => {
     it('should have accessible form elements', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const inputs = screen.getAllByRole('textbox');
       inputs.forEach(input => {
@@ -388,7 +388,7 @@ describe('RdsCompPage', () => {
     });
 
     it('should have accessible buttons', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       const buttons = screen.getAllByRole('button');
       buttons.forEach(button => {
@@ -398,7 +398,7 @@ describe('RdsCompPage', () => {
     });
 
     it('should have proper labels for inputs', () => {
-      render(<RdsCompPage {...defaultProps} />);
+      render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       expect(screen.getByText('Title')).toBeInTheDocument();
       expect(screen.getByText('Slug')).toBeInTheDocument();
@@ -407,23 +407,23 @@ describe('RdsCompPage', () => {
 
   describe('Component Stability', () => {
     it('should not crash on multiple renders', () => {
-      const { rerender } = render(<RdsCompPage {...defaultProps} />);
+      const { rerender } = render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       expect(() => {
-        rerender(<RdsCompPage {...defaultProps} />);
-        rerender(<RdsCompPage {...defaultProps} newPageData={undefined} />);
+        rerender(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
+        rerender(<RdsCompPage tableHeaders={[]} {...defaultProps} newPageData={undefined} />);
       }).not.toThrow();
     });
 
     it('should maintain tab state during re-renders', () => {
-      const { rerender } = render(<RdsCompPage {...defaultProps} />);
+      const { rerender } = render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       // Switch to script tab
       fireEvent.click(screen.getByTestId('nav-tab-script'));
       expect(screen.getByTestId('rds-textarea')).toBeInTheDocument();
       
       // Re-render with same props
-      rerender(<RdsCompPage {...defaultProps} />);
+      rerender(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
       // Should still be on script tab
       expect(screen.getByTestId('rds-textarea')).toBeInTheDocument();

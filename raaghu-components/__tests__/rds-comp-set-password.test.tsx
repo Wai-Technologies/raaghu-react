@@ -57,7 +57,11 @@ describe('RdsCompSetPassword Component', () => {
 
   describe('Component Rendering', () => {
     it('should render without crashing', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} />);
       
       expect(screen.getByTestId('password')).toBeInTheDocument();
       expect(screen.getByTestId('button-save')).toBeInTheDocument();
@@ -65,7 +69,11 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should render with the correct structure', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} />);
       
       // Check for form elements
       expect(document.querySelector('form')).toBeInTheDocument();
@@ -75,7 +83,11 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should display password input with correct attributes', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       expect(passwordInput).toHaveAttribute('type', 'password');
@@ -87,14 +99,22 @@ describe('RdsCompSetPassword Component', () => {
 
   describe('Form Validation', () => {
     it('should initially disable the save button', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} />);
       
       const saveButton = screen.getByTestId('button-save');
       expect(saveButton).toBeDisabled();
     });
 
     it('should enable save button when valid password is entered', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       fireEvent.change(passwordInput!, { target: { value: 'StrongPass123!' } });
@@ -104,7 +124,11 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should show error message for invalid password', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       
@@ -116,7 +140,11 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should not show error message for valid password', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       
@@ -130,7 +158,11 @@ describe('RdsCompSetPassword Component', () => {
 
   describe('Form Interaction', () => {
     it('should update password state when input changes', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       fireEvent.change(passwordInput!, { target: { value: 'StrongPass123!' } });
@@ -139,7 +171,11 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should handle password blur event', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       fireEvent.blur(passwordInput!);
@@ -149,7 +185,11 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should call onSaveHandler with password data when save button is clicked', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       fireEvent.change(passwordInput!, { target: { value: 'StrongPass123!' } });
@@ -161,7 +201,11 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should reset form after save', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       fireEvent.change(passwordInput!, { target: { value: 'StrongPass123!' } });
@@ -176,7 +220,11 @@ describe('RdsCompSetPassword Component', () => {
 
   describe('Props Handling', () => {
     it('should update component when setPasswordField prop changes', async () => {
-      const { rerender } = render(<RdsCompSetPassword {...defaultProps} />);
+      const { rerender } = render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} />);
       
       // Update the props with a new password
       const updatedProps = {
@@ -184,7 +232,11 @@ describe('RdsCompSetPassword Component', () => {
         setPasswordField: { password: 'NewPassword123!' }
       };
       
-      rerender(<RdsCompSetPassword {...updatedProps} />);
+      rerender(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...updatedProps} />);
       
       // Check if the password input is updated
       await waitFor(() => {
@@ -194,10 +246,18 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should handle reset prop changes', async () => {
-      const { rerender } = render(<RdsCompSetPassword {...defaultProps} reset={false} />);
+      const { rerender } = render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} reset={false} />);
       
       // Update the reset prop
-      rerender(<RdsCompSetPassword {...defaultProps} reset={true} />);
+      rerender(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} reset={true} />);
       
       // This is mainly to ensure the component doesn't crash when reset prop changes
       // Since inputReset is an internal state, we can't directly test its value
@@ -209,7 +269,11 @@ describe('RdsCompSetPassword Component', () => {
         onSaveHandler: undefined
       };
       
-      render(<RdsCompSetPassword {...propsWithoutHandler} />);
+      render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...propsWithoutHandler} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       fireEvent.change(passwordInput!, { target: { value: 'StrongPass123!' } });
@@ -223,7 +287,11 @@ describe('RdsCompSetPassword Component', () => {
 
   describe('Password Validation', () => {
     it('should validate password with at least 8 characters including uppercase, lowercase, number, and special character', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompSetPassword onResend={function (isForgotPasswordClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } onLogin={function (isLoginClicked?: boolean): void {
+        throw new Error('Function not implemented.');
+      } } languageData={undefined} registerFields={undefined} {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       

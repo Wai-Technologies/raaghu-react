@@ -152,7 +152,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 1: Basic rendering
   it("renders without crashing", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     expect(screen.getByTestId("input-first-name")).toBeInTheDocument();
     expect(screen.getByTestId("input-last-name")).toBeInTheDocument();
@@ -164,7 +168,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 2: Renders all form fields with correct labels
   it("renders all form fields with correct labels", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     expect(screen.getByLabelText("First Name")).toBeInTheDocument();
     expect(screen.getByLabelText("Last Name")).toBeInTheDocument();
@@ -176,7 +184,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 3: Renders all checkboxes
   it("renders all checkbox options", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     expect(screen.getByTestId("checkbox-two-factor-authentication")).toBeInTheDocument();
     expect(screen.getByTestId("checkbox-active")).toBeInTheDocument();
@@ -186,7 +198,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 4: Renders action buttons
   it("renders save and cancel buttons", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     expect(screen.getByTestId("save")).toBeInTheDocument();
     expect(screen.getByTestId("cancel")).toBeInTheDocument();
@@ -194,7 +210,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 5: Shows correct placeholders
   it("displays correct placeholder texts", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     expect(screen.getByPlaceholderText("Enter First Name")).toBeInTheDocument();
     expect(screen.getByPlaceholderText("Enter Last Name")).toBeInTheDocument();
@@ -206,7 +226,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 6: Populates form with initial userData
   it("populates form with provided userData", () => {
-    render(<RdsCompUserBasics userData={mockUserData} />);
+    render(<RdsCompUserBasics userData={mockUserData} onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     expect(screen.getByTestId("input-first-name")).toHaveValue("John");
     expect(screen.getByTestId("input-last-name")).toHaveValue("Doe");
@@ -219,7 +243,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 7: Handles input changes
   it("handles input field changes correctly", () => {
-    render(<RdsCompUserBasics userData={mockUserData} />);
+    render(<RdsCompUserBasics userData={mockUserData} onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     const firstNameInput = screen.getByTestId("input-first-name");
     
@@ -230,7 +258,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 8: Handles checkbox changes
   it("handles checkbox changes correctly", () => {
-    render(<RdsCompUserBasics userData={mockUserData} />);
+    render(<RdsCompUserBasics userData={mockUserData} onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     const twoFactorCheckbox = screen.getByTestId("checkbox-two-factor-authentication");
     
@@ -243,7 +275,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 9: Save button is disabled when form is invalid
   it("disables save button when form is invalid", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     const saveButton = screen.getByTestId("save");
     
@@ -252,7 +288,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 10: Save button is enabled when form is valid
   it("enables save button when form is valid", () => {
-    render(<RdsCompUserBasics userData={mockUserData} />);
+    render(<RdsCompUserBasics userData={mockUserData} onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     const saveButton = screen.getByTestId("save");
     
@@ -262,7 +302,11 @@ describe("RdsCompUserBasics", () => {
   // Test 11: Calls onSaveHandler when save button is clicked
   it("calls onSaveHandler when save button is clicked", () => {
     const mockSaveHandler = jest.fn();
-    render(<RdsCompUserBasics userData={mockUserData} onSaveHandler={mockSaveHandler} />);
+    render(<RdsCompUserBasics userData={mockUserData} onSaveHandler={mockSaveHandler} onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     const saveButton = screen.getByTestId("save");
     
@@ -273,7 +317,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 12: Form validation - email pattern
   it("applies email validation pattern", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     const emailInput = screen.getByTestId("input-email-address");
     
@@ -283,14 +331,22 @@ describe("RdsCompUserBasics", () => {
 
   // Test 13: Password field shows icon
   it("shows password visibility icon", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     expect(screen.getByTestId("password-icon")).toBeInTheDocument();
   });
 
   // Test 14: Phone number input restrictions
   it("restricts phone number input to numbers and plus sign", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     const phoneInput = screen.getByTestId("input-phone-number");
     
@@ -303,7 +359,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 15: Phone number length restrictions
   it("restricts phone number length correctly", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     const phoneInput = screen.getByTestId("input-phone-number");
     
@@ -318,10 +378,18 @@ describe("RdsCompUserBasics", () => {
 
   // Test 16: Reset functionality
   it("handles reset prop correctly", () => {
-    const { rerender } = render(<RdsCompUserBasics userData={mockUserData} reset={false} />);
+    const { rerender } = render(<RdsCompUserBasics userData={mockUserData} reset={false} onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     // Change reset prop
-    rerender(<RdsCompUserBasics userData={mockUserData} reset={true} />);
+    rerender(<RdsCompUserBasics userData={mockUserData} reset={true} onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     // Component should handle reset without crashing
     expect(screen.getByTestId("input-first-name")).toBeInTheDocument();
@@ -329,7 +397,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 17: Required fields are marked as required
   it("marks all input fields as required", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     expect(screen.getByTestId("input-first-name")).toBeRequired();
     expect(screen.getByTestId("input-last-name")).toBeRequired();
@@ -341,7 +413,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 18: Form structure and CSS classes
   it("renders with correct form structure", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     // Check for form element
     const form = document.querySelector("form");
@@ -355,7 +431,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 19: Button attributes and styling
   it("applies correct attributes to buttons", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     const saveButton = screen.getByTestId("save");
     const cancelButton = screen.getByTestId("cancel");
@@ -369,7 +449,11 @@ describe("RdsCompUserBasics", () => {
   // Test 20: Form clears after successful save
   it("clears form after successful save", () => {
     const mockSaveHandler = jest.fn();
-    render(<RdsCompUserBasics userData={mockUserData} onSaveHandler={mockSaveHandler} />);
+    render(<RdsCompUserBasics userData={mockUserData} onSaveHandler={mockSaveHandler} onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     const saveButton = screen.getByTestId("save");
     
@@ -383,7 +467,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 21: Checkbox labels are correct
   it("displays correct checkbox labels", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     expect(screen.getByLabelText("Two Factor Authentication")).toBeInTheDocument();
     expect(screen.getByLabelText("Active")).toBeInTheDocument();
@@ -393,7 +481,11 @@ describe("RdsCompUserBasics", () => {
 
   // Test 22: Form validation with empty fields
   it("validates form correctly with empty fields", () => {
-    render(<RdsCompUserBasics userData={{}} />);
+    render(<RdsCompUserBasics userData={{}} onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     const saveButton = screen.getByTestId("save");
     
@@ -409,7 +501,11 @@ describe("RdsCompUserBasics", () => {
       // Missing password, userName, phoneNumber
     };
     
-    render(<RdsCompUserBasics userData={partialData} />);
+    render(<RdsCompUserBasics userData={partialData} onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     const saveButton = screen.getByTestId("save");
     
@@ -418,19 +514,31 @@ describe("RdsCompUserBasics", () => {
 
   // Test 24: Updates userData when props change
   it("updates form data when userData prop changes", () => {
-    const { rerender } = render(<RdsCompUserBasics userData={mockUserData} />);
+    const { rerender } = render(<RdsCompUserBasics userData={mockUserData} onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     expect(screen.getByTestId("input-first-name")).toHaveValue("John");
     
     const newUserData = { ...mockUserData, firstName: "Jane" };
-    rerender(<RdsCompUserBasics userData={newUserData} />);
+    rerender(<RdsCompUserBasics userData={newUserData} onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     expect(screen.getByTestId("input-first-name")).toHaveValue("Jane");
   });
 
   // Test 25: Phone number with plus sign handling
   it("handles phone number with plus sign correctly", () => {
-    render(<RdsCompUserBasics />);
+    render(<RdsCompUserBasics onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } selectuser={[]} Usermanagementsettings={undefined} tableHeaders={[]} tableData={[]} actions={[]} pagination={false} onActionSelection={function (arg: any) {
+      throw new Error("Function not implemented.");
+    } } usersRole={undefined} recordsPerPage={0} recordsPerPageSelectListOption={false} />);
     
     const phoneInput = screen.getByTestId("input-phone-number");
     
