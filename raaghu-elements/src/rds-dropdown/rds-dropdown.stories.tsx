@@ -126,7 +126,6 @@ export const Default: Story = {
         darkDropdown: false,
         disable: false,
         isSelected: false,
-        selectIcon: "circle",
         profileImage: "https://www.svgrepo.com/show/497407/profile-circle.svg",
         tooltip: true,
         tooltipPlacement:TooltipPlacement.Right,
@@ -137,16 +136,19 @@ export const Default: Story = {
                 label: "Option 1",
                 id: "1",
                 path: "",
+                icon: "circle"
             },
             {
                 label: "Option 2",
                 id: "2",
                 path: "",
+                icon: "circle"
             },
             {
                 label: "Option 3",
                 id: "3",
                 path: "",
+                icon: "circle"
             },
         ],
     }
