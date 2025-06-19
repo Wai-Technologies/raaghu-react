@@ -34,7 +34,6 @@ type Story = StoryObj<typeof RdsCompTopNavigation>;
 
 export const Default: Story = {
     args: {
-        navbarTitle: "Dashboard",
         navbarSubTitle: "Statistics and reports",
         brandName: "Raaghu",
         brandLogo: "assets/Raaghu-logo-mfe-black.png",
