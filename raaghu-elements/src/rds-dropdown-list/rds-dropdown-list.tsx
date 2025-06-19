@@ -241,9 +241,10 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
     ? "form-control " + fieldSize
     : expand
     ? "form-control border-primary " + fieldSize
-    : props.borderDropdown
-    ? "form-control " + fieldSize
-    : "border-0";
+    : props.borderDropdown === false
+    ? "border-0"
+    : "form-control " + fieldSize;
+    
   const bottomLine = props.style === "Bottom Line"
       ? props.state === "Disabled"
         ? "bottom-line-disabled"

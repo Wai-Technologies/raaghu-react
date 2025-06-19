@@ -8,7 +8,7 @@ import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 import { BreadcrumbSeparator } from "../../../raaghu-elements/src/rds-breadcrumb/rds-breadcrumb";
 import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
-import { DropdownState } from "../../../raaghu-elements/src/rds-dropdown-list/rds-dropdown-list";
+import { DropdownSize, DropdownState } from "../../../raaghu-elements/src/rds-dropdown-list/rds-dropdown-list";
 
 export interface RdsCompTopNavigationProps {
   ShowProfileSection?: boolean; // Determines whether to show the profile section.
@@ -615,7 +615,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
               </div>
 
               {(props.ecommerce2 && <div
-                className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list"}
+                className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language rounded dropdown-list"}
               >
                 <RdsDropdownList
                   labelIconWidth="18px"
@@ -635,7 +635,9 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   tooltipPlacement="bottom"
                   isCode={true}
                   state={DropdownState.Default}
-                ></RdsDropdownList>
+                  size={DropdownSize.Small}
+                  borderDropdown={true}
+                />
               </div>
               )}
               {/* dropdown----------------------------------------------------------------------------------------------- */}
@@ -1604,6 +1606,8 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   tooltipPlacement="bottom"
                   isCode={true}
                   state={DropdownState.Default}
+                  size={DropdownSize.Small}
+                  borderDropdown={false}
                 ></RdsDropdownList>
                 <div className="d-block d-none fs-8 text-center">Language</div>
               </div>
@@ -1637,6 +1641,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   tooltipTitle="Change Theme"
                   tooltipStyle={TooltipStyle.MiddleTopArrow}
                   tooltipPlacement="bottom"
+                  borderDropdown={false}
                 />
               </div>
               {props.professional5 && (
@@ -1794,6 +1799,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   tooltipTitle="Change Theme"
                   tooltipStyle={TooltipStyle.MiddleTopArrow}
                   tooltipPlacement="bottom"
+                  borderDropdown={false}
                 />
               </div>
 
@@ -1860,6 +1866,8 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                       tooltipPlacement="bottom"
                       isCode={true}
                       state={DropdownState.Default}
+                      size={DropdownSize.Small}
+                      borderDropdown={false}
                     ></RdsDropdownList>
                   </div>
                 </div>
@@ -2069,6 +2077,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                         tooltipTitle="Change Theme"
                         tooltipStyle={TooltipStyle.MiddleTopArrow}
                         tooltipPlacement="bottom"
+                        borderDropdown={false}
                       />
                       {/* <div className="d-block d-none fs-8 text-center">Light</div> */}
                     </div>
@@ -2134,6 +2143,8 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                         tooltipPlacement="bottom"
                         isCode={true}
                         state={DropdownState.Default}
+                        size={DropdownSize.Small}
+                        borderDropdown={false}
                       ></RdsDropdownList>
                       <div className="d-block d-none fs-8 text-center">Language</div>
                     </div>
@@ -2246,7 +2257,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   {props.product2 &&
                     <div id="topnav">
                       <div
-                        className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language border-custom-dropdown-menu rounded dropdown-list"}
+                        className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language rounded dropdown-list"}
                       >
                         <RdsDropdownList
                           labelIconWidth="18px"
@@ -2266,6 +2277,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                           tooltipPlacement="bottom"
                           isCode={true}
                           state={DropdownState.Default}
+                          size={DropdownSize.Small}
                         ></RdsDropdownList>
                       </div>
                     </div>
