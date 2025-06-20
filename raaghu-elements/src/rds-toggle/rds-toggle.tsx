@@ -47,7 +47,7 @@ const RdsToggle = (props: RdsToggleProps) => {
     setChecked(props.checked || props.state === ToggleState.On);
   }, [props.checked, props.state]);
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>,event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (props.state === ToggleState.DisabledOn || props.state === ToggleState.DisabledOff) {
       return;
     }
