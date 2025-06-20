@@ -6,6 +6,13 @@ import RdsCompGenerateCodeMetrics, { RdsCompGenerateCodeMetricsProps } from '../
 // Mock CSS import
 jest.mock('../src/rds-comp-generate-code-metrics/rds-comp-generate-code-metrics.css', () => ({}));
 
+// Mock TooltipStyle import
+jest.mock('../../raaghu-elements/src/rds-tooltip/rds-tooltip', () => ({
+  TooltipStyle: {
+    MiddleTopArrow: 'middle-top-arrow'
+  }
+}));
+
 // Mock RDS elements
 jest.mock('../src/rds-elements', () => ({
   RdsIcon: ({ 
@@ -14,43 +21,64 @@ jest.mock('../src/rds-elements', () => ({
     isCursorPointer,
     tooltip,
     tooltipTitle,
+    style, // Accept style but don't pass it to React
     ...props 
-  }: any) => (
-    <div 
-      data-testid={`icon-${name}`} 
-      onClick={onClick}
-      title={tooltip ? tooltipTitle : undefined}
-      style={{ cursor: isCursorPointer ? 'pointer' : 'default' }}
-      {...props}
-    >
-      {name}
-    </div>
-  ),
+  }: any) => {
+    // Filter out the style prop to prevent React validation errors
+    const { style: _, ...safeProps } = props;
+    return (
+      <div 
+        data-testid={`icon-${name}`} 
+        onClick={onClick}
+        title={tooltip ? tooltipTitle : undefined}
+        className={isCursorPointer ? 'cursor-pointer' : 'cursor-default'}
+        {...safeProps}
+      >
+        {name}
+      </div>
+    );
+  },
   RdsCarousel: ({ 
     carouselItems,
     Indicators,
     controls,
+    style, // Accept style prop but don't pass it to React
+    state,
+    type,
+    chevronColor,
+    chevronHeight,
+    chevronWidth,
     ...props 
-  }: any) => (
-    <div data-testid="carousel">
-      {carouselItems.map((item: any, index: number) => (
-        <div key={index} data-testid={`carousel-item-${index}`} className="carousel-item">
-          <img src={item.imgUrl} alt={item.name} />
-          <div className="carousel-caption">
-            <h5>{item.name}</h5>
-            <p>{item.subTitle}</p>
+  }: any) => {
+    // Filter out any problematic props that might cause React validation errors
+    const { style: _, ...safeProps } = props;
+    return (
+      <div 
+        data-testid="carousel"
+        data-style={style}
+        data-state={state}
+        data-type={type}
+        {...safeProps}
+      >
+        {carouselItems && carouselItems.map((item: any, index: number) => (
+          <div key={index} data-testid={`carousel-item-${index}`} className="carousel-item">
+            <img src={item.imgUrl} alt={item.name} />
+            <div className="carousel-caption">
+              <h5>{item.name}</h5>
+              <p>{item.subTitle}</p>
+            </div>
           </div>
-        </div>
-      ))}
-      {Indicators && <div data-testid="carousel-indicators"></div>}
-      {controls && (
-        <>
-          <button data-testid="carousel-prev">Previous</button>
-          <button data-testid="carousel-next">Next</button>
-        </>
-      )}
-    </div>
-  )
+        ))}
+        {Indicators && <div data-testid="carousel-indicators"></div>}
+        {controls && (
+          <>
+            <button data-testid="carousel-prev">Previous</button>
+            <button data-testid="carousel-next">Next</button>
+          </>
+        )}
+      </div>
+    );
+  }
 }));
 
 describe('RdsCompGenerateCodeMetrics', () => {
@@ -60,6 +88,9 @@ describe('RdsCompGenerateCodeMetrics', () => {
     jest.clearAllMocks();
   });
 
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
   // 1. Basic Rendering Tests
   it('should render the component with metrics information', () => {
     render(<RdsCompGenerateCodeMetrics {...defaultProps} />);
@@ -70,7 +101,7 @@ describe('RdsCompGenerateCodeMetrics', () => {
     expect(screen.getByText('Lines of code Generated')).toBeInTheDocument();
     expect(screen.getByText('Development Hours Saved')).toBeInTheDocument();
     
-    // Check for metric values
+    // Check for metric values (these are hardcoded in the component)
     expect(screen.getByText('20')).toBeInTheDocument();
     expect(screen.getByText('86')).toBeInTheDocument();
     expect(screen.getByText('4050')).toBeInTheDocument();
@@ -78,7 +109,7 @@ describe('RdsCompGenerateCodeMetrics', () => {
     
     // Check for the toggle icon (initially showing chevron_down)
     expect(screen.getByTestId('icon-chevron_down')).toBeInTheDocument();
-  });  it('should initially render with the metrics panel closed', () => {
+  });it('should initially render with the metrics panel closed', () => {
     render(<RdsCompGenerateCodeMetrics {...defaultProps} />);
     
     // The metrics open panel should have the "hide" class initially
@@ -218,12 +249,16 @@ describe('RdsCompGenerateCodeMetrics', () => {
     // Check for indicators
     expect(screen.getByTestId('carousel-indicators')).toBeInTheDocument();
   });
-
   // 5. Component Cleanup Test
   it('should clean up event listeners when unmounted', () => {
+    // Create spies for the actual document methods
+    const addEventListenerSpy = jest.spyOn(document, 'addEventListener');
     const removeEventListenerSpy = jest.spyOn(document, 'removeEventListener');
     
     const { unmount } = render(<RdsCompGenerateCodeMetrics {...defaultProps} />);
+    
+    // Verify that addEventListener was called during mount
+    expect(addEventListenerSpy).toHaveBeenCalledWith('mousedown', expect.any(Function));
     
     // Unmount the component
     unmount();
@@ -231,6 +266,8 @@ describe('RdsCompGenerateCodeMetrics', () => {
     // Check that the event listener was removed
     expect(removeEventListenerSpy).toHaveBeenCalledWith('mousedown', expect.any(Function));
     
+    // Restore the spies
+    addEventListenerSpy.mockRestore();
     removeEventListenerSpy.mockRestore();
   });
 });

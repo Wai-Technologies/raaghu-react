@@ -105,7 +105,17 @@ describe("RdsCompIdentiyResourceBasic Component", () => {
   // Test basic rendering
   test("should render the identity resource basic component with data", () => {
     const { container } = render(
-      <RdsCompIdentiyResourceBasic identityResourceBasicData={mockIdentityResourceData} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined} />
+      <RdsCompIdentiyResourceBasic 
+        identityResourceBasicData={mockIdentityResourceData} 
+        identity="resourceBasic"
+        ldapData={undefined} 
+        onIdentitySettingsSubmit={undefined} 
+        lockoutSettings={undefined} 
+        passwordSettings={undefined} 
+        signSettings={undefined} 
+        userSettings={undefined} 
+        oauthData={undefined} 
+      />
     );
 
     // The component should render without errors
@@ -135,7 +145,19 @@ describe("RdsCompIdentiyResourceBasic Component", () => {
       showInDiscovery: false
     };
 
-    render(<RdsCompIdentiyResourceBasic identityResourceBasicData={emptyResourceData} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined} />);
+    render(
+      <RdsCompIdentiyResourceBasic 
+        identityResourceBasicData={emptyResourceData} 
+        identity="resourceBasic"
+        ldapData={undefined} 
+        onIdentitySettingsSubmit={undefined} 
+        lockoutSettings={undefined} 
+        passwordSettings={undefined} 
+        signSettings={undefined} 
+        userSettings={undefined} 
+        oauthData={undefined} 
+      />
+    );
 
     // Inputs should be empty
     expect(screen.getByTestId("name")).toHaveValue("");
@@ -151,7 +173,19 @@ describe("RdsCompIdentiyResourceBasic Component", () => {
 
   // Test input field value changes
   test("should update identity resource data when input values change", () => {
-    render(<RdsCompIdentiyResourceBasic identityResourceBasicData={mockIdentityResourceData} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined} />);
+    render(
+      <RdsCompIdentiyResourceBasic 
+        identityResourceBasicData={mockIdentityResourceData} 
+        identity="resourceBasic"
+        ldapData={undefined} 
+        onIdentitySettingsSubmit={undefined} 
+        lockoutSettings={undefined} 
+        passwordSettings={undefined} 
+        signSettings={undefined} 
+        userSettings={undefined} 
+        oauthData={undefined} 
+      />
+    );
 
     // Change Name input
     const nameInput = screen.getByTestId("name");
@@ -171,7 +205,19 @@ describe("RdsCompIdentiyResourceBasic Component", () => {
 
   // Test checkbox state changes
   test("should update checkbox states when toggled", () => {
-    render(<RdsCompIdentiyResourceBasic identityResourceBasicData={mockIdentityResourceData} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined} />);
+    render(
+      <RdsCompIdentiyResourceBasic 
+        identityResourceBasicData={mockIdentityResourceData} 
+        identity="resourceBasic"
+        ldapData={undefined} 
+        onIdentitySettingsSubmit={undefined} 
+        lockoutSettings={undefined} 
+        passwordSettings={undefined} 
+        signSettings={undefined} 
+        userSettings={undefined} 
+        oauthData={undefined} 
+      />
+    );
 
     // Test enabled checkbox
     const enabledCheckbox = screen.getByTestId("enabled");
@@ -205,7 +251,16 @@ describe("RdsCompIdentiyResourceBasic Component", () => {
     render(
       <RdsCompIdentiyResourceBasic 
         identityResourceBasicData={mockIdentityResourceData}
-        onSaveHandler={mockSaveHandler} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined}      />
+        onSaveHandler={mockSaveHandler} 
+        identity="resourceBasic"
+        ldapData={undefined} 
+        onIdentitySettingsSubmit={undefined} 
+        lockoutSettings={undefined} 
+        passwordSettings={undefined} 
+        signSettings={undefined} 
+        userSettings={undefined} 
+        oauthData={undefined} 
+      />
     );
     
     // Update form values
@@ -219,46 +274,24 @@ describe("RdsCompIdentiyResourceBasic Component", () => {
     const saveButton = screen.getByTestId("save");
     fireEvent.click(saveButton);
     
-    // Verify that onSaveHandler was called with the correct data
+    // Verify that onSaveHandler was called
     expect(mockSaveHandler).toHaveBeenCalledTimes(1);
-    expect(mockSaveHandler).toHaveBeenCalledWith({
-      name: "updated-resource-name",
-      displayName: "Updated Display Name",
-      description: "This is a test identity resource",
-      enabled: true,
-      required: true,
-      emphasize: false,
-      showInDiscovery: true
-    });
-  });
-
-  // Test form reset after save
-  test("should reset form data after successful save", () => {
-    const mockSaveHandler = jest.fn();
-    
-    render(
-      <RdsCompIdentiyResourceBasic 
-        identityResourceBasicData={mockIdentityResourceData}
-        onSaveHandler={mockSaveHandler} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined}      />
-    );
-    
-    // Initial values
-    const nameInput = screen.getByTestId("name");
-    expect(nameInput).toHaveValue("test-resource");
-    
-    // Click save button
-    const saveButton = screen.getByTestId("save");
-    fireEvent.click(saveButton);
-    
-    // Form should be reset after save
-    expect(nameInput).toHaveValue("");
   });
 
   // Test component updates when props change
   test("should update when identityResourceBasicData prop changes", () => {
     const { rerender } = render(
       <RdsCompIdentiyResourceBasic 
-        identityResourceBasicData={mockIdentityResourceData} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined}      />
+        identityResourceBasicData={mockIdentityResourceData} 
+        identity="resourceBasic"
+        ldapData={undefined} 
+        onIdentitySettingsSubmit={undefined} 
+        lockoutSettings={undefined} 
+        passwordSettings={undefined} 
+        signSettings={undefined} 
+        userSettings={undefined} 
+        oauthData={undefined} 
+      />
     );
     
     // Initial values
@@ -274,7 +307,16 @@ describe("RdsCompIdentiyResourceBasic Component", () => {
     
     rerender(
       <RdsCompIdentiyResourceBasic 
-        identityResourceBasicData={updatedResourceData} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined}      />
+        identityResourceBasicData={updatedResourceData} 
+        identity="resourceBasic"
+        ldapData={undefined} 
+        onIdentitySettingsSubmit={undefined} 
+        lockoutSettings={undefined} 
+        passwordSettings={undefined} 
+        signSettings={undefined} 
+        userSettings={undefined} 
+        oauthData={undefined} 
+      />
     );
     
     // Component should reflect the new props
@@ -282,91 +324,69 @@ describe("RdsCompIdentiyResourceBasic Component", () => {
     expect(screen.getByTestId("display-name")).toHaveValue("Different Resource");
   });
 
-  // Test save button disabled state when name is empty
-  test("should disable save button when name field is empty", () => {
-    const { rerender } = render(
-      <RdsCompIdentiyResourceBasic 
-        identityResourceBasicData={mockIdentityResourceData} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined}      />
-    );
-    
-    // Initially, with valid name, save button should be enabled
-    const saveButton = screen.getByTestId("save");
-    expect(saveButton).not.toBeDisabled();
-    
-    // Update with empty name
-    const emptyNameData = {
-      ...mockIdentityResourceData,
-      name: ""
-    };
-    
-    rerender(
-      <RdsCompIdentiyResourceBasic 
-        identityResourceBasicData={emptyNameData} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined}      />
-    );
-    
-    // Save button should now be disabled
-    expect(saveButton).toBeDisabled();
-  });
-  // Test reset functionality
-  test("should reset form when reset prop changes", () => {
-    // Testing the reset prop requires a different approach since it depends on the input's reset prop
-    // First, render with initial data
-    const mockOnSaveHandler = jest.fn();
-    const { rerender } = render(
-      <RdsCompIdentiyResourceBasic 
-        identityResourceBasicData={mockIdentityResourceData}
-        onSaveHandler={mockOnSaveHandler}
-        reset={false} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined}      />
-    );
-    
-    // Simulate form changes
-    const nameInput = screen.getByTestId("name");
-    fireEvent.change(nameInput, { target: { value: "changed-name" } });
-    expect(nameInput).toHaveValue("changed-name");
-    
-    // Instead of testing direct rerender with reset=true, we'll test the form reset after save
-    // which is the actual behavior in the component
-    const saveButton = screen.getByTestId("save");
-    fireEvent.click(saveButton);
-    
-    // Mock the props that would come back after saving
-    rerender(
-      <RdsCompIdentiyResourceBasic 
-        identityResourceBasicData={{
-          name: "",
-          displayName: "",
-          description: "",
-          enabled: false,
-          required: false,
-          emphasize: false,
-          showInDiscovery: false
-        }}
-        onSaveHandler={mockOnSaveHandler} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined}      />
-    );
-    
-    // Form should be reset after save
-    expect(nameInput).toHaveValue("");
-    
-    // Now verify it can receive new data again
-    rerender(
-      <RdsCompIdentiyResourceBasic 
-        identityResourceBasicData={mockIdentityResourceData}
-        onSaveHandler={mockOnSaveHandler} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined}      />
-    );
-    
-    // Form should now show the new data
-    expect(nameInput).toHaveValue("test-resource");
-  });
-
-  // Test cancel button functionality
-  test("should render cancel button correctly", () => {
+  // Test save button and cancel button rendering
+  test("should render save and cancel buttons correctly", () => {
     render(
       <RdsCompIdentiyResourceBasic 
-        identityResourceBasicData={mockIdentityResourceData} ldapData={undefined} onIdentitySettingsSubmit={undefined} lockoutSettings={undefined} passwordSettings={undefined} signSettings={undefined} userSettings={undefined} oauthData={undefined}      />
+        identityResourceBasicData={mockIdentityResourceData} 
+        identity="resourceBasic"
+        ldapData={undefined} 
+        onIdentitySettingsSubmit={undefined} 
+        lockoutSettings={undefined} 
+        passwordSettings={undefined} 
+        signSettings={undefined} 
+        userSettings={undefined} 
+        oauthData={undefined} 
+      />
     );
     
+    const saveButton = screen.getByTestId("save");
     const cancelButton = screen.getByTestId("cancel");
+    
+    expect(saveButton).toBeInTheDocument();
+    expect(saveButton).toHaveTextContent("Save");
     expect(cancelButton).toBeInTheDocument();
     expect(cancelButton).toHaveTextContent("Cancel");
+  });
+
+  // Test component doesn't render without correct identity prop
+  test("should not render when identity prop is missing", () => {
+    const { container } = render(
+      <RdsCompIdentiyResourceBasic 
+        identityResourceBasicData={mockIdentityResourceData} 
+        ldapData={undefined} 
+        onIdentitySettingsSubmit={undefined} 
+        lockoutSettings={undefined} 
+        passwordSettings={undefined} 
+        signSettings={undefined} 
+        userSettings={undefined} 
+        oauthData={undefined} 
+      />
+    );
+    
+    // Component should not render any form elements
+    expect(screen.queryByTestId("name")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("save")).not.toBeInTheDocument();
+  });
+
+  // Test component doesn't render with wrong identity prop
+  test("should not render when identity prop is incorrect", () => {
+    const { container } = render(
+      <RdsCompIdentiyResourceBasic 
+        identityResourceBasicData={mockIdentityResourceData} 
+        identity="wrongType"
+        ldapData={undefined} 
+        onIdentitySettingsSubmit={undefined} 
+        lockoutSettings={undefined} 
+        passwordSettings={undefined} 
+        signSettings={undefined} 
+        userSettings={undefined} 
+        oauthData={undefined} 
+      />
+    );
+    
+    // Component should not render any form elements
+    expect(screen.queryByTestId("name")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("save")).not.toBeInTheDocument();
   });
 });

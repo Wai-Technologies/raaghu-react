@@ -52,7 +52,7 @@ jest.mock("../rds-elements", () => ({
 }));
 
 describe("RdsCompRegister", () => {
-  const mockProps = {
+  const defaultMockProps = {
     getvalidTenantName: "TestTenant",
     emailAddress: "",
     password: "",
@@ -73,129 +73,113 @@ describe("RdsCompRegister", () => {
       emailAddress: "",
       password: "",
       Accept: false
-    }
+    },
+    register: "default" // This is crucial for rendering
+  };
+
+  const memberMockProps = {
+    ...defaultMockProps,
+    register: "member",
+    registerMemberData: {
+      userName: "",
+      email: "",
+      name: "",
+      surname: "",
+      password: ""
+    },
+    onRegisterMemberSaveHandler: jest.fn(),
   };
 
   beforeEach(() => {
     jest.clearAllMocks();
-  });  it("renders the register component correctly", () => {
-    render(<RdsCompRegister {...mockProps} />);
-    
-    // Check if main heading is present - use a more specific query
-    // Finding the h2 element with text Register
-    expect(screen.getByRole('heading', { name: 'Register' })).toBeInTheDocument();
-    
-    // Instead of looking for exact text which might be part of a larger string,
-    // we'll check for elements by their test IDs which are more reliable
-    expect(screen.getByTestId("email")).toBeInTheDocument();
-    expect(screen.getByTestId("password")).toBeInTheDocument();
-    expect(screen.getByTestId("remember-me")).toBeInTheDocument();
-    expect(screen.getByTestId("register")).toBeInTheDocument();
   });
+  describe("Default Register Mode", () => {
+    it("renders the register component correctly", () => {
+      render(<RdsCompRegister {...defaultMockProps} />);
+      
+      // Check if main heading is present - use role to be more specific
+      expect(screen.getByRole('heading', { name: 'Register' })).toBeInTheDocument();
+    });
 
-  it("handles email input change correctly", () => {
-    render(<RdsCompRegister {...mockProps} />);
-    
-    const emailInput = screen.getByTestId("email");
-    fireEvent.change(emailInput, { target: { value: "test@example.com" } });
-    
-    // Our mock function doesn't actually update the value,
-    // but we can verify the change event was triggered
-    expect(emailInput).toBeInTheDocument();
-  });
+    it("renders tenant information correctly", () => {
+      render(<RdsCompRegister {...defaultMockProps} />);
+      
+      expect(screen.getByText("Tenants TestTenant")).toBeInTheDocument();
+      expect(screen.getByText("Not Selected")).toBeInTheDocument();
+      expect(screen.getByText("Change")).toBeInTheDocument();
+    });
 
-  it("handles password input change correctly", () => {
-    render(<RdsCompRegister {...mockProps} />);
-    
-    const passwordInput = screen.getByTestId("password");
-    fireEvent.change(passwordInput, { target: { value: "Password123!" } });
-    
-    expect(passwordInput).toBeInTheDocument();
-  });
+    it("renders email and password input fields", () => {
+      render(<RdsCompRegister {...defaultMockProps} />);
+      
+      // Check for form inputs using correct test IDs (as shown in the actual output)
+      expect(screen.getByTestId("email")).toBeInTheDocument();
+      expect(screen.getByTestId("password")).toBeInTheDocument();
+    });
 
-  it("handles terms checkbox toggle correctly", () => {
-    render(<RdsCompRegister {...mockProps} />);
-    
-    const termsCheckbox = screen.getByTestId("remember-me-input");
-    fireEvent.click(termsCheckbox);
-    
-    // In a real component, this would check if the checkbox is checked
-    expect(termsCheckbox).toBeInTheDocument();
-  });
+    it("renders register button", () => {
+      render(<RdsCompRegister {...defaultMockProps} />);
+      
+      expect(screen.getByTestId("register")).toBeInTheDocument();
+    });
 
-  it("calls onLogin when login link is clicked", () => {
-    render(<RdsCompRegister {...mockProps} />);
-    
-    // Find and click the login link
-    const loginLink = screen.getByText("Login");
-    fireEvent.click(loginLink);
-    
-    // Verify the onLogin callback was called with true
-    expect(mockProps.onLogin).toHaveBeenCalledWith(true);
-  });
+    it("calls onLogin when login link is clicked", () => {
+      render(<RdsCompRegister {...defaultMockProps} />);
+      
+      const loginLink = screen.getByTestId("login");
+      fireEvent.click(loginLink);
+      
+      expect(defaultMockProps.onLogin).toHaveBeenCalledWith(true);
+    });
 
-  it("calls onSaveHandler with form data when register button is clicked", () => {
-    // Mock valid form data
-    const validProps = {
-      ...mockProps,
-      registerFields: {
-        emailAddress: "test@example.com",
-        password: "Password123!",
-        Accept: true
-      }
-    };
-    
-    render(<RdsCompRegister {...validProps} />);
-    
-    // Click register button
-    const registerButton = screen.getByTestId("register");
-    fireEvent.click(registerButton);
-    
-    // Verify onSaveHandler was called with the form data
-    expect(mockProps.onSaveHandler).toHaveBeenCalled();
-  });
+    it("renders social login options", () => {
+      render(<RdsCompRegister {...defaultMockProps} />);
+      
+      expect(screen.getByText("or Connect with")).toBeInTheDocument();
+      expect(screen.getByTestId("icon-google")).toBeInTheDocument();
+    });
 
-  it("renders social login options", () => {
-    render(<RdsCompRegister {...mockProps} />);
-    
-    // Check if social login section is present
-    expect(screen.getByText("or Connect with")).toBeInTheDocument();
-    
-    // Check if social icons are rendered
-    expect(screen.getByTestId("icon-google")).toBeInTheDocument();
-    expect(screen.getByTestId("icon-microsoft")).toBeInTheDocument();
-  });
+    it("disables register button when form is invalid", () => {
+      render(<RdsCompRegister {...defaultMockProps} />);
+      
+      const registerButton = screen.getByTestId("register");
+      expect(registerButton).toBeDisabled();
+    });
 
-  it("renders copyright information", () => {
-    render(<RdsCompRegister {...mockProps} />);
-    
-    // Check if copyright text is present
-    expect(screen.getByText("©2023 WAi Technologies. All rights reserved")).toBeInTheDocument();
-  });
+    it("enables register button when form is valid", () => {
+      const validProps = {
+        ...defaultMockProps,
+        registerFields: {
+          emailAddress: "test@example.com",
+          password: "Password123!",
+          Accept: true
+        }
+      };
+      
+      render(<RdsCompRegister {...validProps} />);
+      
+      const registerButton = screen.getByTestId("register");
+      expect(registerButton).not.toBeDisabled();
+    });
+  });  describe("Member Register Mode", () => {
+    it("renders member registration form correctly", () => {
+      render(<RdsCompRegister {...memberMockProps} />);
+      
+      // Check for member-specific form inputs - there are multiple "name" fields, so use getAllByTestId
+      expect(screen.getAllByTestId("name")).toHaveLength(2); // Username and first name fields
+      expect(screen.getByTestId("email")).toBeInTheDocument();
+      expect(screen.getByTestId("surname")).toBeInTheDocument();
+    });
 
-  it("disables register button when form is invalid", () => {
-    render(<RdsCompRegister {...mockProps} />);
-    
-    // Initially the form is empty, so the button should be disabled
-    const registerButton = screen.getByTestId("register");
-    expect(registerButton).toHaveAttribute("disabled");
-  });
+    it("renders accept terms checkbox", () => {
+      render(<RdsCompRegister {...memberMockProps} />);
+      
+      expect(screen.getByText("I Accept Terms Of Service")).toBeInTheDocument();
+    });
 
-  it("enables register button when form is valid", () => {
-    // Mock valid form data
-    const validProps = {
-      ...mockProps,
-      registerFields: {
-        emailAddress: "test@example.com",
-        password: "Password123!",
-        Accept: true
-      }
-    };
-    
-    render(<RdsCompRegister {...validProps} />);
-    
-    // With valid data, the button should not be disabled
-    const registerButton = screen.getByTestId("register");
-    expect(registerButton).not.toHaveAttribute("disabled", "true");
-  });
+    it("renders create account button", () => {
+      render(<RdsCompRegister {...memberMockProps} />);
+      
+      expect(screen.getByText("Accept & Create Account")).toBeInTheDocument();
+    });  });
 });

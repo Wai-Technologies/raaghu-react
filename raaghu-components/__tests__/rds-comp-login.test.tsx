@@ -165,12 +165,12 @@ jest.mock('../src/rds-elements', () => ({
   )
 }));
 
-describe('RdsCompLogin Component', () => {
-  // Mock props for testing
+describe('RdsCompLogin Component', () => {  // Mock props for testing
   const mockProps = {
     getvalidTenantName: "Default",
     email: "",
     password: "",
+    login: "default", // Required prop for component to render
     onDismissAlert: jest.fn(),
     onEmailChange: jest.fn(),
     onPasswordChange: jest.fn(),
@@ -184,21 +184,16 @@ describe('RdsCompLogin Component', () => {
       { option: "French", value: "fr" }
     ],
     onClickHandler: jest.fn(),
-    languageLabel: "English"
+    languageLabel: "English",
+    onActionSelection: jest.fn()
   };
 
   beforeEach(() => {
     jest.clearAllMocks();
-  });
-  // Test 1: Basic rendering
+  });  // Test 1: Basic rendering
   test('renders login form correctly', () => {
-    render(<RdsCompLogin onActionSelection={function (arg: any) {
-      throw new Error('Function not implemented.');
-    } } {...mockProps} />);
-    
+    render(<RdsCompLogin {...mockProps} />);    
     // Check if component renders the main elements
-    // Use role to select specific elements when there are multiple with the same text
-    expect(screen.getByRole('heading', { name: 'Login' })).toBeInTheDocument();
     expect(screen.getByTestId('username')).toBeInTheDocument();
     expect(screen.getByTestId('password')).toBeInTheDocument();
     expect(screen.getByTestId('remember-me')).toBeInTheDocument();
@@ -214,12 +209,9 @@ describe('RdsCompLogin Component', () => {
     expect(screen.getByText('Current Tenant')).toBeInTheDocument();
     expect(screen.getByText('Default')).toBeInTheDocument();
   });
-
   // Test 2: Form validation
   test('disables login button until form is valid', () => {
-    render(<RdsCompLogin onActionSelection={function (arg: any) {
-      throw new Error('Function not implemented.');
-    } } {...mockProps} />);
+    render(<RdsCompLogin {...mockProps} />);
     
     // Login button should be disabled initially
     expect(screen.getByTestId('Login')).toBeDisabled();
@@ -239,9 +231,7 @@ describe('RdsCompLogin Component', () => {
 
   // Test 3: Form submission
   test('calls onLogin with correct values when form is submitted', () => {
-    render(<RdsCompLogin onActionSelection={function (arg: any) {
-      throw new Error('Function not implemented.');
-    } } {...mockProps} />);
+    render(<RdsCompLogin {...mockProps} />);
     
     // Fill in form fields
     fireEvent.change(screen.getByTestId('username'), { target: { value: 'test@example.com' } });
@@ -256,9 +246,7 @@ describe('RdsCompLogin Component', () => {
 
   // Test 4: Remember me checkbox
   test('updates rememberMe state when checkbox is clicked', () => {
-    render(<RdsCompLogin onActionSelection={function (arg: any) {
-      throw new Error('Function not implemented.');
-    } } {...mockProps} />);
+    render(<RdsCompLogin {...mockProps} />);
     
     // Initially checkbox should be unchecked
     expect(screen.getByTestId('remember-me')).not.toBeChecked();
@@ -276,9 +264,7 @@ describe('RdsCompLogin Component', () => {
   });
   // Test 5: Forgot password link
   test('calls onForgotPassword when forgot password link is clicked', () => {
-    render(<RdsCompLogin onActionSelection={function (arg: any) {
-      throw new Error('Function not implemented.');
-    } } {...mockProps} />);
+    render(<RdsCompLogin {...mockProps} />);
     
     // Mock the implementation to properly handle the event
     mockProps.onForgotPassword.mockImplementation((event) => {
@@ -294,9 +280,7 @@ describe('RdsCompLogin Component', () => {
   });
   // Test 6: Register link
   test('calls onRegister when register link is clicked', () => {
-    render(<RdsCompLogin onActionSelection={function (arg: any) {
-      throw new Error('Function not implemented.');
-    } } {...mockProps} />);
+    render(<RdsCompLogin {...mockProps} />);
     
     // Mock the implementation to properly handle the event
     mockProps.onRegister.mockImplementation((event) => {
@@ -322,9 +306,7 @@ describe('RdsCompLogin Component', () => {
       }
     };
     
-    render(<RdsCompLogin onActionSelection={function (arg: any) {
-      throw new Error('Function not implemented.');
-    } } {...propsWithError} />);
+    render(<RdsCompLogin {...propsWithError} />);
     
     // Check if error alert is displayed
     expect(screen.getByTestId(`alert-${AlertType.error}`)).toBeInTheDocument();
@@ -342,9 +324,7 @@ describe('RdsCompLogin Component', () => {
       }
     };
     
-    render(<RdsCompLogin onActionSelection={function (arg: any) {
-      throw new Error('Function not implemented.');
-    } } {...propsWithError} />);
+    render(<RdsCompLogin {...propsWithError} />);
     
     // Click dismiss button on alert
     fireEvent.click(screen.getByTestId('alert-dismiss-button'));
@@ -354,9 +334,7 @@ describe('RdsCompLogin Component', () => {
   });
   // Test 9: Tenant switching
   test('handles tenant switch functionality', () => {
-    render(<RdsCompLogin onActionSelection={function (arg: any) {
-      throw new Error('Function not implemented.');
-    } } {...mockProps} />);
+    render(<RdsCompLogin {...mockProps} />);
     
     // This test is using a mocked Modal component, so we can directly simulate
     // the validation of the tenant name
@@ -373,9 +351,7 @@ describe('RdsCompLogin Component', () => {
 
   // Test 10: Language selection
   test('calls onClickHandler when language is selected', () => {
-    render(<RdsCompLogin onActionSelection={function (arg: any) {
-      throw new Error('Function not implemented.');
-    } } {...mockProps} />);
+    render(<RdsCompLogin {...mockProps} />);
     
     // Find and click the dropdown button
     fireEvent.click(screen.getByTestId('dropdown-button-langDrop'));
@@ -395,9 +371,7 @@ describe('RdsCompLogin Component', () => {
       password: 'prefilledpass'
     };
     
-    render(<RdsCompLogin onActionSelection={function (arg: any) {
-      throw new Error('Function not implemented.');
-    } } {...propsWithData} />);
+    render(<RdsCompLogin {...propsWithData} />);
     
     // Check if fields have pre-filled values
     expect(screen.getByTestId('username')).toHaveValue('prefilled@example.com');

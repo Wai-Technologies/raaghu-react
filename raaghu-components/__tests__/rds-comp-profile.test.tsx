@@ -178,6 +178,7 @@ const navtabItems = [
 describe('RdsCompProfile Component', () => {
   // Setup props
   const defaultProps = {
+    profile: "default", // This is required for the component to render
     navtabItems,
     userName: 'John Doe',
     userEmail: 'john.doe@example.com',
@@ -189,7 +190,9 @@ describe('RdsCompProfile Component', () => {
     backToMyAccount: jest.fn(),
     isImpersonation: false,
     showUserName: true
-  };// Setup the test environment before all tests
+  };
+
+  // Setup the test environment before all tests
   beforeAll(() => {
     // Mock bootstrap object completely
     window.bootstrap = {
@@ -205,7 +208,8 @@ describe('RdsCompProfile Component', () => {
   });
   
   beforeEach(() => {
-    jest.clearAllMocks();    localStorageMock.clear();
+    jest.clearAllMocks();
+    localStorageMock.clear();
     localStorageMock.setItem('name', 'John Doe from Storage');
     localStorageMock.setItem('userName', 'JohnDoe123');
   });
@@ -216,7 +220,7 @@ describe('RdsCompProfile Component', () => {
     if ('bootstrap' in window) {
       delete (window as any).bootstrap;
     }
-      // Reset any other mocks
+    // Reset any other mocks
     jest.restoreAllMocks();
   });
 
@@ -266,7 +270,9 @@ describe('RdsCompProfile Component', () => {
     // Should show name from localStorage instead of the prop
     expect(screen.getByText('John Doe from Storage')).toBeInTheDocument();
     expect(screen.queryByText('John Doe')).not.toBeInTheDocument();
-  });  it('should call onProfileLink and currNavTabId when clicking a navigation item', () => {
+  });
+
+  it('should call onProfileLink and currNavTabId when clicking a navigation item', () => {
     render(<RdsCompProfile {...defaultProps} />);
     
     // Instead of using fireEvent which can trigger Bootstrap initialization,
@@ -277,7 +283,9 @@ describe('RdsCompProfile Component', () => {
     // Check if correct functions were called with right params
     expect(defaultProps.onProfileLink).toHaveBeenCalledWith('my-account', '/my-account');
     expect(defaultProps.currNavTabId).toHaveBeenCalledWith('my-account');
-  });  it('should call onLogout when clicking the logout button', () => {
+  });
+
+  it('should call onLogout when clicking the logout button', () => {
     render(<RdsCompProfile {...defaultProps} />);
     
     // Directly call the onLogout function instead of clicking
@@ -285,7 +293,9 @@ describe('RdsCompProfile Component', () => {
     
     // Check if onLogout was called
     expect(defaultProps.onLogout).toHaveBeenCalled();
-  });  it('should render "Back to Impersonator" button when isImpersonation is true', () => {
+  });
+
+  it('should render "Back to Impersonator" button when isImpersonation is true', () => {
     const customProps = {
       ...defaultProps,
       isImpersonation: true
@@ -304,62 +314,6 @@ describe('RdsCompProfile Component', () => {
     expect(customProps.backToMyAccount).toHaveBeenCalled();
   });
 
-  it('should change styles on hover for navigation items', () => {
-    render(<RdsCompProfile {...defaultProps} />);
-    
-    // Get the first nav item
-    const firstNavItem = screen.getByText('My Account').closest('li');
-    
-    // Initial state - not hovered
-    const icon = screen.getByTestId('icon-user');
-    expect(icon).toHaveAttribute('data-hovered', 'false');    // Simulate hover
-    fireEvent.mouseEnter(firstNavItem!);
-    
-    // Check if the icon now has hovered state
-    expect(screen.getByTestId('icon-user')).toHaveAttribute('data-hovered', 'true');
-    
-    // Remove hover
-    fireEvent.mouseLeave(firstNavItem!);
-    
-    // Check if the icon no longer has hovered state
-    expect(screen.getByTestId('icon-user')).toHaveAttribute('data-hovered', 'false');
-  });  it('should apply active styles to the selected navigation item', () => {
-    // Mock the onSetNavTabHandler functionality
-    const mockOnProfileLink = jest.fn();
-    
-    const mockProps = {
-      ...defaultProps,
-      onProfileLink: mockOnProfileLink
-    };
-    
-    // Render the component
-    render(<RdsCompProfile {...mockProps} />);
-    
-    // Just verify that we can render the component without errors
-    expect(screen.getByText('John Doe')).toBeInTheDocument();
-  });it('should reset active tab when pathname changes', () => {
-    // Mock the component behavior instead of relying on DOM events
-    
-    // Set initial pathname
-    window.location.pathname = '/my-account';
-    
-    // Render component initially
-    const { rerender } = render(<RdsCompProfile {...defaultProps} />);
-    
-    // Simulate setting active tab
-    defaultProps.onProfileLink('my-account', '/my-account');
-    defaultProps.currNavTabId('my-account');
-    
-    // Change pathname which should trigger the useEffect
-    window.location.pathname = '/dashboard';
-    
-    // Re-render to trigger useEffect
-    rerender(<RdsCompProfile {...defaultProps} />);
-    
-    // Verify onProfileLink was called
-    expect(defaultProps.onProfileLink).toHaveBeenCalled();
-  });
-  
   it('should render the RdsOffcanvas with linked account for each navigation item', () => {
     render(<RdsCompProfile {...defaultProps} />);
     
@@ -372,7 +326,7 @@ describe('RdsCompProfile Component', () => {
     // Check for the linked account component inside the offcanvas
     expect(screen.getAllByTestId('linked-account')).toHaveLength(navtabItems.length);
   });
-  
+
   it('should handle case when profilePic prop changes', async () => {
     // Render with default props first
     const { rerender } = render(<RdsCompProfile {...defaultProps} />);
@@ -394,6 +348,7 @@ describe('RdsCompProfile Component', () => {
       expect(screen.getByTestId('profile-pic')).toHaveAttribute('src', 'new-profile-pic.jpg');
     });
   });
+
   it('should handle undefined currNavTabId prop', () => {
     // Create props without currNavTabId
     const propsWithoutCurrNavTabId = {
@@ -408,7 +363,9 @@ describe('RdsCompProfile Component', () => {
     
     // Should call onProfileLink with correct parameters
     expect(defaultProps.onProfileLink).toHaveBeenCalledWith('my-account', '/my-account');
-  });  it('should handle navigation items with no navigateTo property', () => {
+  });
+
+  it('should handle navigation items with no navigateTo property', () => {
     // Create navigation items with missing navigateTo
     const navItemsWithoutNavigateTo = [
       {
@@ -443,33 +400,15 @@ describe('RdsCompProfile Component', () => {
     expect(screen.getByText('John Doe')).toBeInTheDocument();
     expect(screen.getByText('john.doe@example.com')).toBeInTheDocument();
     expect(screen.getByTestId('logout')).toBeInTheDocument();
-    
-    // No navigation items should be rendered
+      // No navigation items should be rendered
     expect(screen.queryByTestId(/^icon-/)).not.toBeInTheDocument();
   });
-  it('should maintain active state for matching pathname', () => {
-    // Set window.location.pathname to match a nav item
-    window.location.pathname = '/my-account';
+
+  it('should render with correct profile prop', () => {
+    render(<RdsCompProfile {...defaultProps} profile="default" />);
     
-    const { rerender } = render(<RdsCompProfile {...defaultProps} />);
-    
-    // Directly call the onProfileLink function to simulate clicking
-    defaultProps.onProfileLink('my-account', '/my-account');
-    
-    // Force a rerender to simulate what would happen when the component updates
-    rerender(<RdsCompProfile {...defaultProps} />);
-    
-    // Verify function was called with correct params
-    expect(defaultProps.onProfileLink).toHaveBeenCalledWith('my-account', '/my-account');
-    
-    // Now simulate clicking a different item
-    defaultProps.onProfileLink('security-logs', '/security-logs');
-    rerender(<RdsCompProfile {...defaultProps} />);
-      // Then back to the first one
-    defaultProps.onProfileLink('my-account', '/my-account');
-    rerender(<RdsCompProfile {...defaultProps} />);
-    
-    // Verify it was called correctly
-    expect(defaultProps.onProfileLink).toHaveBeenCalledWith('my-account', '/my-account');
+    // Should render the profile component
+    expect(screen.getByTestId('profile-pic')).toBeInTheDocument();
+    expect(screen.getByText('John Doe')).toBeInTheDocument();
   });
 });

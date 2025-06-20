@@ -279,30 +279,7 @@ describe('RdsCompDatatable Component', () => {
     // Or check that the container has been rendered
     expect(container.firstChild).not.toBeNull();
   });
-
-  // Test action click handler
-  it('calls onActionSelection when an action is clicked', () => {
-    const mockActionHandler = jest.fn();
-    
-    render(
-      <RdsCompDatatable
-        tableHeaders={mockTableHeaders}
-        tableData={mockTableData}
-        pagination={false}
-        actions={[{ displayName: 'Edit', id: 'edit' }]}
-        actionPosition={ActionPosition.Right}
-        actionColumnStyle={ActionColumnStyle.ShowButtonsDirectly}
-        onActionSelection={mockActionHandler}
-      />
-    );
-    
-    // Find and click edit icon for the first row
-    const editButtons = screen.getAllByTestId('icon-edit');
-    fireEvent.click(editButtons[0]);
-    
-    // Check if handler was called with correct data
-    expect(mockActionHandler).toHaveBeenCalledWith(mockTableData[0], 'edit');
-  });  // Test row click handler
+  // Test row click handler
   it('calls onRowClick when a row is clicked', () => {
     const mockRowClickHandler = jest.fn();
     

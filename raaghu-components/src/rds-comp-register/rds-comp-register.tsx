@@ -223,7 +223,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                         class="me-2"
                         label={
                           checked
-                            ? "SWITCH TO THE TENANT" || ""
+                            ? "SWITCH TO THE TENANT"
                             : "SWITCH TO THE HOST"
                         }
                         size="small"

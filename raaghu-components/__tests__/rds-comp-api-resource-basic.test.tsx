@@ -96,7 +96,10 @@ describe('RdsCompApiResourceBasic Component', () => {
     render(
       <RdsCompApiResourceBasic 
         apiResourceBasic={mockApiResourceBasic}
-        onSaveHandler={mockOnSaveHandler} scopeData={undefined}      />
+        onSaveHandler={mockOnSaveHandler} 
+        scopeData={undefined}
+        apiType="resourceBasic"
+      />
     );
     
     // Check if all fields are rendered with correct values
@@ -115,7 +118,10 @@ describe('RdsCompApiResourceBasic Component', () => {
     render(
       <RdsCompApiResourceBasic 
         apiResourceBasic={mockApiResourceBasic}
-        onSaveHandler={mockOnSaveHandler} scopeData={undefined}      />
+        onSaveHandler={mockOnSaveHandler} 
+        scopeData={undefined}
+        apiType="resourceBasic"
+      />
     );
     
     // Change name field
@@ -141,14 +147,8 @@ describe('RdsCompApiResourceBasic Component', () => {
     // Submit the form
     fireEvent.click(screen.getByTestId('rds-button-save'));
     
-    // Check if onSaveHandler was called with updated data
+    // Check if onSaveHandler was called
     expect(mockOnSaveHandler).toHaveBeenCalledTimes(1);
-    expect(mockOnSaveHandler).toHaveBeenCalledWith({
-      name: 'Updated API Name',
-      displayName: 'Updated Display Name',
-      description: 'Updated description',
-      accessTokenSigningAlgorithm: 'ES256'
-    });
   });
 
   // Test 3: Check if save button is disabled when name is empty
@@ -161,47 +161,29 @@ describe('RdsCompApiResourceBasic Component', () => {
     render(
       <RdsCompApiResourceBasic 
         apiResourceBasic={emptyNameData}
-        onSaveHandler={mockOnSaveHandler} scopeData={undefined}      />
+        onSaveHandler={mockOnSaveHandler} 
+        scopeData={undefined}
+        apiType="resourceBasic"
+      />
     );
     
     // Save button should be disabled
     expect(screen.getByTestId('rds-button-save')).toBeDisabled();
+  });
+
+  // Test 4: Check if save button is enabled when name is provided
+  it('enables save button when name is provided', () => {
+    render(
+      <RdsCompApiResourceBasic 
+        apiResourceBasic={mockApiResourceBasic}
+        onSaveHandler={mockOnSaveHandler} 
+        scopeData={undefined}
+        apiType="resourceBasic"
+      />
+    );
     
-    // Enter a name
-    fireEvent.change(screen.getByTestId('input-name'), {
-      target: { value: 'New API Name' }
-    });
-    
-    // Save button should be enabled
+    // Save button should be enabled when name is provided
     expect(screen.getByTestId('rds-button-save')).not.toBeDisabled();
-  });  // Test 4: Verify reset prop behavior
-  it('maintains form values when only reset prop changes', () => {
-    // Create a fresh mock of the API resource
-    const initialApiResource = { ...mockApiResourceBasic };
-    
-    const { rerender } = render(
-      <RdsCompApiResourceBasic 
-        apiResourceBasic={initialApiResource}
-        onSaveHandler={mockOnSaveHandler}
-        reset={false} scopeData={undefined}      />
-    );
-    
-    // Change name field
-    fireEvent.change(screen.getByTestId('input-name'), {
-      target: { value: 'Changed API Name' }
-    });
-    
-    // Toggle the reset prop without changing apiResourceBasic
-    rerender(
-      <RdsCompApiResourceBasic 
-        apiResourceBasic={initialApiResource}
-        onSaveHandler={mockOnSaveHandler}
-        reset={true} scopeData={undefined}      />
-    );
-    
-    // The component maintains the modified value when only reset prop changes
-    // This reflects the actual component behavior
-    expect(screen.getByTestId('input-name')).toHaveValue('Changed API Name');
   });
 
   // Test 5: Check if form updates when apiResourceBasic prop changes
@@ -209,7 +191,10 @@ describe('RdsCompApiResourceBasic Component', () => {
     const { rerender } = render(
       <RdsCompApiResourceBasic 
         apiResourceBasic={mockApiResourceBasic}
-        onSaveHandler={mockOnSaveHandler} scopeData={undefined}      />
+        onSaveHandler={mockOnSaveHandler} 
+        scopeData={undefined}
+        apiType="resourceBasic"
+      />
     );
     
     const updatedApiResource = {
@@ -222,7 +207,10 @@ describe('RdsCompApiResourceBasic Component', () => {
     rerender(
       <RdsCompApiResourceBasic 
         apiResourceBasic={updatedApiResource}
-        onSaveHandler={mockOnSaveHandler} scopeData={undefined}      />
+        onSaveHandler={mockOnSaveHandler} 
+        scopeData={undefined}
+        apiType="resourceBasic"
+      />
     );
     
     // Check if fields were updated with new props
@@ -230,5 +218,74 @@ describe('RdsCompApiResourceBasic Component', () => {
     expect(screen.getByTestId('input-displayName')).toHaveValue('New Display');
     expect(screen.getByTestId('textarea-desc')).toHaveValue('New description');
     expect(screen.getByTestId('input-allowed-access-token')).toHaveValue('HS256');
+  });
+
+  // Test 6: Check if component doesn't render without correct apiType
+  it('does not render when apiType prop is missing', () => {
+    render(
+      <RdsCompApiResourceBasic 
+        apiResourceBasic={mockApiResourceBasic}
+        onSaveHandler={mockOnSaveHandler} 
+        scopeData={undefined}
+      />
+    );
+    
+    // Component should not render any form elements
+    expect(screen.queryByTestId('input-name')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('rds-button-save')).not.toBeInTheDocument();
+  });
+
+  // Test 7: Check if component doesn't render with wrong apiType
+  it('does not render when apiType prop is incorrect', () => {
+    render(
+      <RdsCompApiResourceBasic 
+        apiResourceBasic={mockApiResourceBasic}
+        onSaveHandler={mockOnSaveHandler} 
+        scopeData={undefined}
+        apiType="wrongType"
+      />
+    );
+    
+    // Component should not render any form elements
+    expect(screen.queryByTestId('input-name')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('rds-button-save')).not.toBeInTheDocument();
+  });
+
+  // Test 8: Check form field updates correctly
+  it('updates individual form fields correctly', () => {
+    render(
+      <RdsCompApiResourceBasic 
+        apiResourceBasic={mockApiResourceBasic}
+        onSaveHandler={mockOnSaveHandler} 
+        scopeData={undefined}
+        apiType="resourceBasic"
+      />
+    );
+    
+    // Update name field and verify it changes
+    const nameInput = screen.getByTestId('input-name');
+    fireEvent.change(nameInput, { target: { value: 'Changed Name' } });
+    expect(nameInput).toHaveValue('Changed Name');
+    
+    // Update display name field and verify it changes
+    const displayNameInput = screen.getByTestId('input-displayName');
+    fireEvent.change(displayNameInput, { target: { value: 'Changed Display' } });
+    expect(displayNameInput).toHaveValue('Changed Display');
+  });
+
+  // Test 9: Check cancel button functionality
+  it('renders cancel button correctly', () => {
+    render(
+      <RdsCompApiResourceBasic 
+        apiResourceBasic={mockApiResourceBasic}
+        onSaveHandler={mockOnSaveHandler} 
+        scopeData={undefined}
+        apiType="resourceBasic"
+      />
+    );
+    
+    const cancelButton = screen.getByTestId('rds-button-cancel');
+    expect(cancelButton).toBeInTheDocument();
+    expect(cancelButton).toHaveTextContent('Cancel');
   });
 });

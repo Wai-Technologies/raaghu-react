@@ -3,15 +3,48 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompClaim from '../src/rds-comp-claim/rds-comp-claim';
 
+// Mock Bootstrap to prevent offcanvas errors
+jest.mock('bootstrap', () => ({
+  Offcanvas: jest.fn().mockImplementation(() => ({
+    show: jest.fn(),
+    hide: jest.fn(),
+    toggle: jest.fn(),
+    dispose: jest.fn(),
+  })),
+}));
+
+// Mock Bootstrap modules to prevent any initialization
+jest.mock('bootstrap/js/src/offcanvas', () => ({
+  default: jest.fn().mockImplementation(() => ({
+    show: jest.fn(),
+    hide: jest.fn(),
+    toggle: jest.fn(),
+    dispose: jest.fn(),
+  }))
+}), { virtual: true });
+
+jest.mock('bootstrap/js/src/util/component-functions', () => ({
+  enableDismissTrigger: jest.fn(),
+}), { virtual: true });
+
+jest.mock('bootstrap/js/src/base-component', () => ({
+  default: jest.fn().mockImplementation(() => ({})),
+  getOrCreateInstance: jest.fn(() => ({
+    show: jest.fn(),
+    hide: jest.fn(),
+    toggle: jest.fn(),
+  })),
+}), { virtual: true });
+
 // Mock the RdsButton component from rds-elements
 jest.mock('../src/rds-elements', () => ({
-  RdsButton: ({ label, onClick, colorVariant, size, databsdismiss, type, class: className }: any) => (
+  RdsButton: ({ label, onClick, colorVariant, size, databsdismiss, type, class: className, dataTestId }: any) => (
     <button 
-      data-testid={`button-${label.toLowerCase()}`}
+      data-testid={dataTestId || `button-${label.toLowerCase()}`}
       onClick={onClick}
       className={`btn btn-${colorVariant} btn-${size} ${className}`}
-      data-bs-dismiss={databsdismiss}
       type={type}
+      // Remove data-bs-dismiss to prevent Bootstrap errors
     >
       {label}
     </button>
@@ -45,51 +78,70 @@ describe('RdsCompClaim', () => {
   // Mock functions
   const mockOnCreate = jest.fn();
   const mockOnCancel = jest.fn();
-
   // Default props
   const defaultProps = {
+    claim: "default", // Required for the component to render the checkbox interface
     resources: mockResources,
     onCreate: mockOnCreate,
     onCancel: mockOnCancel
   };
-
   beforeEach(() => {
     // Clear all mocks before each test
     jest.clearAllMocks();
   });
 
-  it('renders without crashing', () => {
+  beforeAll(() => {
+    // Mock bootstrap object completely
+    window.bootstrap = {
+      Offcanvas: {
+        getInstance: jest.fn(() => null),
+        getOrCreateInstance: jest.fn(() => ({
+          show: jest.fn(),
+          hide: jest.fn(),
+          toggle: jest.fn()
+        }))
+      }
+    } as any;
+  });
+
+  afterAll(() => {
+    // Clean up bootstrap mock
+    if ('bootstrap' in window) {
+      delete (window as any).bootstrap;
+    }
+    // Reset any other mocks
+    jest.restoreAllMocks();
+  });it('renders without crashing', () => {
     const { container } = render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     expect(container).toBeTruthy();
-  });
-  it('renders all resources and their children', () => {
+    
+    // Verify that the main "Select all" checkbox is rendered by its ID
+    const mainSelectAllCheckbox = document.getElementById('flexCheckDefault');
+    expect(mainSelectAllCheckbox).toBeInTheDocument();
+    
+    // Verify that the associated label exists
+    const mainSelectAllLabel = document.querySelector('label[for="flexCheckDefault"]');
+    expect(mainSelectAllLabel).toBeInTheDocument();
+    expect(mainSelectAllLabel).toHaveTextContent('Select all');
+  });it('renders all resources and their children', () => {
     render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
     // Check if all resource headings are rendered
     expect(screen.getByText('Resource 1')).toBeInTheDocument();
     expect(screen.getByText('Resource 2')).toBeInTheDocument();
     
-    // Check if all children are rendered
-    // Since label and input relationships are based on IDs, we'll check these directly
-    const childLabels = document.querySelectorAll('.form-check-label');
-    const childNames = ['Child 1-1', 'Child 1-2', 'Child 1-3', 'Child 2-1', 'Child 2-2'];
-    
-    // Create an array of text contents from the labels
-    const labelTexts = Array.from(childLabels).map(label => label.textContent?.trim());
-    
-    // Check if each child name is present in the label texts
-    childNames.forEach(childName => {
-      expect(labelTexts.includes(childName)).toBe(true);
-    });
-  });
-  it('toggles parent checkbox when clicked', () => {
+    // Check if all children are rendered by their labels
+    expect(screen.getByLabelText('Child 1-1')).toBeInTheDocument();
+    expect(screen.getByLabelText('Child 1-2')).toBeInTheDocument();
+    expect(screen.getByLabelText('Child 1-3')).toBeInTheDocument();
+    expect(screen.getByLabelText('Child 2-1')).toBeInTheDocument();
+    expect(screen.getByLabelText('Child 2-2')).toBeInTheDocument();
+  });  it('toggles parent checkbox when clicked', () => {
     render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
-    // Find the parent checkbox for Resource 1
-    // We need to use a more robust selector since the previous approach was failing
-    const parentCheckboxes = document.querySelectorAll('.form-check-input');
-    // The second checkbox should be for Resource 1 (after the main "Select all" checkbox)
-    const resource1Checkbox = parentCheckboxes[1] as HTMLInputElement;
+    // Find the parent checkbox for Resource 1 by its ID (should be "0" based on the component code)
+    const resource1Checkbox = document.getElementById('0') as HTMLInputElement;
+    expect(resource1Checkbox).toBeTruthy();
     
     // Initially it should be unchecked
     expect(resource1Checkbox.checked).toBeFalsy();
@@ -100,19 +152,14 @@ describe('RdsCompClaim', () => {
     // It should be checked now
     expect(resource1Checkbox.checked).toBeTruthy();
     
-    // All children should also be checked
-    // Find children of Resource 1 by their IDs which should be "01", "02", "03"
-    const childCheckboxes = [
-      document.getElementById('01') as HTMLInputElement,
-      document.getElementById('02') as HTMLInputElement,
-      document.getElementById('03') as HTMLInputElement
-    ];
+    // All children should also be checked (IDs: "00", "01", "02")
+    const childCheckbox1 = document.getElementById('00') as HTMLInputElement;
+    const childCheckbox2 = document.getElementById('01') as HTMLInputElement;
+    const childCheckbox3 = document.getElementById('02') as HTMLInputElement;
     
-    childCheckboxes.forEach(checkbox => {
-      if (checkbox) {
-        expect(checkbox.checked).toBeTruthy();
-      }
-    });
+    expect(childCheckbox1.checked).toBeTruthy();
+    expect(childCheckbox2.checked).toBeTruthy();
+    expect(childCheckbox3.checked).toBeTruthy();
     
     // Click again to uncheck
     fireEvent.click(resource1Checkbox);
@@ -121,17 +168,15 @@ describe('RdsCompClaim', () => {
     expect(resource1Checkbox.checked).toBeFalsy();
     
     // All children should also be unchecked
-    childCheckboxes.forEach(checkbox => {
-      if (checkbox) {
-        expect(checkbox.checked).toBeFalsy();
-      }
-    });
-  });
-  it('toggles child checkbox when clicked', () => {
+    expect(childCheckbox1.checked).toBeFalsy();
+    expect(childCheckbox2.checked).toBeFalsy();
+    expect(childCheckbox3.checked).toBeFalsy();
+  });  it('toggles child checkbox when clicked', () => {
     render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
-    // Get a child checkbox
+    // Get a child checkbox (first child of Resource 1: "00")
     const childCheckbox = document.getElementById('00') as HTMLInputElement;
+    expect(childCheckbox).toBeTruthy();
     
     // Initially it should be unchecked
     expect(childCheckbox.checked).toBeFalsy();
@@ -143,11 +188,10 @@ describe('RdsCompClaim', () => {
     expect(childCheckbox.checked).toBeTruthy();
     
     // Parent should still be unchecked (since not all children are checked)
-    const parentCheckboxes = document.querySelectorAll('.form-check-input');
-    const parentCheckbox = parentCheckboxes[1] as HTMLInputElement;
+    const parentCheckbox = document.getElementById('0') as HTMLInputElement;
     expect(parentCheckbox.checked).toBeFalsy();
     
-    // Check all siblings
+    // Check all siblings (Resource 1 has 3 children: "00", "01", "02")
     const childCheckbox2 = document.getElementById('01') as HTMLInputElement;
     const childCheckbox3 = document.getElementById('02') as HTMLInputElement;
     fireEvent.click(childCheckbox2);
@@ -155,12 +199,12 @@ describe('RdsCompClaim', () => {
     
     // Now parent should be checked as all children are checked
     expect(parentCheckbox.checked).toBeTruthy();
-  });
-  it('toggles all checkboxes when "Select all" is clicked', () => {
+  });  it('toggles all checkboxes when "Select all" is clicked', () => {
     render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
-    // Get the main "Select all" checkbox (the first one)
-    const selectAllCheckbox = document.querySelector('.form-check-input') as HTMLInputElement;
+    // Get the main "Select all" checkbox by its ID
+    const selectAllCheckbox = document.getElementById('flexCheckDefault') as HTMLInputElement;
+    expect(selectAllCheckbox).toBeTruthy();
     
     // Initially it should be unchecked
     expect(selectAllCheckbox.checked).toBeFalsy();
@@ -187,16 +231,20 @@ describe('RdsCompClaim', () => {
     allCheckboxes.forEach(checkbox => {
       expect(checkbox as HTMLInputElement).not.toBeChecked();
     });
-  });
-  it('calls onCreate with updated resources when Save button is clicked', () => {
+  });  it('calls onCreate with updated resources when Save button is clicked', () => {
     render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
-    // Select a checkbox
+    // Select a child checkbox
     const childCheckbox = document.getElementById('00') as HTMLInputElement;
     fireEvent.click(childCheckbox);
     
-    // Click Save button
-    fireEvent.click(screen.getByTestId('button-save'));
+    // Get the Save button and simulate its onClick behavior directly
+    const saveButton = screen.getByTestId('button-save');
+    expect(saveButton).toBeInTheDocument();
+    
+    // Simulate the save action by calling the onClick handler directly
+    // Since the button has an onClick that calls props.onCreate and resetForm
+    fireEvent.click(saveButton);
     
     // Check if onCreate was called with the updated resources
     expect(mockOnCreate).toHaveBeenCalledTimes(1);
@@ -204,9 +252,8 @@ describe('RdsCompClaim', () => {
     // Check that the updated state was passed to onCreate
     const updatedResources = mockOnCreate.mock.calls[0][0];
     expect(updatedResources[0].children[0].selected).toBe(true); // Child 1-1 should be selected
-    expect(updatedResources[0].selected).toBe(false); // Parent 1 should not be selected
-  });
-  it('resets form after saving', () => {
+    expect(updatedResources[0].selected).toBe(false); // Parent 1 should not be selected (not all children selected)
+  });  it('resets form after saving', () => {
     render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     
     // Select some checkboxes
@@ -219,14 +266,14 @@ describe('RdsCompClaim', () => {
     expect(childCheckbox1.checked).toBeTruthy();
     expect(childCheckbox2.checked).toBeTruthy();
     
-    // Click Save button
-    fireEvent.click(screen.getByTestId('button-save'));
+    // Get the Save button and click it
+    const saveButton = screen.getByTestId('button-save');
+    fireEvent.click(saveButton);
     
-    // Checkboxes should be reset
+    // Checkboxes should be reset to their original state
     expect(childCheckbox1.checked).toBeFalsy();
     expect(childCheckbox2.checked).toBeFalsy();
   });
-
   it('renders the Cancel button', () => {
     render(<RdsCompClaim valueType={[]} {...defaultProps} />);
     

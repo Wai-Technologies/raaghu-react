@@ -70,7 +70,8 @@ describe('RdsCompFormsBasic', () => {
     },
     handleNewFormData: jest.fn(),
     questions: [],
-    reset: false
+    reset: false,
+    forms: 'basic' // Add this prop to render the form
   };
 
   // Setup props with existing data
@@ -82,7 +83,8 @@ describe('RdsCompFormsBasic', () => {
     },
     handleNewFormData: jest.fn(),
     questions: [],
-    reset: false
+    reset: false,
+    forms: 'basic' // Add this prop to render the form
   };
 
   beforeEach(() => {
@@ -241,7 +243,8 @@ describe('RdsCompFormsBasic', () => {
   it('should render correctly without handleNewFormData prop', () => {
     const propsWithoutHandler = {
       ...defaultProps,
-      handleNewFormData: undefined
+      handleNewFormData: undefined,
+      forms: 'basic' // Ensure the forms prop is set
     };
     
     // We're just testing that rendering doesn't throw an error
@@ -274,11 +277,11 @@ describe('RdsCompFormsBasic', () => {
     //     description: ""
     //   });
     // }
-    
-    // For testing purposes, we'll just verify the component renders
+      // For testing purposes, we'll just verify the component renders
     const propsWithoutHandler = {
       ...defaultProps,
-      handleNewFormData: undefined
+      handleNewFormData: undefined,
+      forms: 'basic' // Ensure the forms prop is set
     };
     
     render(<RdsCompFormsBasic {...propsWithoutHandler} />);
