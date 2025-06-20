@@ -362,10 +362,10 @@ export const With_Cart: Story = {
                 iconWidth: "15px",
                 iconHeight: "15px",
                 iconColor: "primary",
-                active: true,
+                active: false,
             },
             {
-                label: "About",
+                label: "About Us",
                 id: 2,
                 route: "#",
                 disabled: false,
@@ -380,7 +380,7 @@ export const With_Cart: Story = {
             {
                 label: "Shop",
                 id: 3,
-                active: false,
+                active: true,
                 disabled: true,
                 icon: "",
                 iconFill: false,
@@ -464,10 +464,10 @@ export const With_Currency_Switcher: Story = {
                 iconWidth: "15px",
                 iconHeight: "15px",
                 iconColor: "primary",
-                active: true,
+                active: false,
             },
             {
-                label: "About",
+                label: "About Us",
                 id: 2,
                 route: "#",
                 disabled: false,
@@ -618,10 +618,10 @@ export const With_Social_Media: Story = {
                 iconWidth: "15px",
                 iconHeight: "15px",
                 iconColor: "primary",
-                active: true,
+                active: false,
             },
             {
-                label: "About",
+                label: "About Us",
                 id: 2,
                 route: "#",
                 disabled: false,
@@ -636,7 +636,7 @@ export const With_Social_Media: Story = {
             {
                 label: "Shop",
                 id: 3,
-                active: false,
+                active: true,
                 disabled: true,
                 icon: "",
                 iconFill: false,
@@ -778,10 +778,10 @@ export const With_Favorites: Story = {
                 iconWidth: "15px",
                 iconHeight: "15px",
                 iconColor: "primary",
-                active: true,
+                active: false,
             },
             {
-                label: "About",
+                label: "About Us",
                 id: 2,
                 route: "#",
                 disabled: false,
@@ -796,7 +796,7 @@ export const With_Favorites: Story = {
             {
                 label: "Shop",
                 id: 3,
-                active: false,
+                active: true,
                 disabled: true,
                 icon: "",
                 iconFill: false,
@@ -937,7 +937,7 @@ export const Basic_Navigation: Story = {
                 iconWidth: "15px",
                 iconHeight: "15px",
                 iconColor: "primary",
-                active: true,
+                active: false,
             },
             {
                 label: "Orgnizational Members",
@@ -955,7 +955,7 @@ export const Basic_Navigation: Story = {
             {
                 label: "Details",
                 id: 3,
-                active: false,
+                active: true,
                 disabled: true,
                 icon: "user_identity",
                 iconFill: false,
@@ -1021,6 +1021,19 @@ export const With_Social_Links: Story = {
 
         breadcrumItem: [
             {
+                label: "Home",
+                id: 4,
+                route: "#",
+                disabled: false,
+                icon: "user",
+                iconFill: false,
+                iconstroke: true,
+                iconWidth: "15px",
+                iconHeight: "15px",
+                iconColor: "primary",
+                active: true,
+            },
+            {
                 label: "Tab 1",
                 id: 1,
                 route: "#",
@@ -1031,7 +1044,7 @@ export const With_Social_Links: Story = {
                 iconWidth: "15px",
                 iconHeight: "15px",
                 iconColor: "primary",
-                active: true,
+                active: false,
             },
             {
                 label: "Tab 1",
@@ -1348,7 +1361,7 @@ export const With_User_Avatar: Story = {
                 id: 1,
                 route: "#",
                 disabled: false,
-                icon: "dashboard_new",
+                icon: "dashboard",
                 iconFill: false,
                 iconstroke: true,
                 iconWidth: "15px",
@@ -2220,7 +2233,7 @@ export const App_Shell: Story = {
                 iconWidth: "15px",
                 iconHeight: "15px",
                 iconColor: "primary",
-                active: true,
+                active: false,
             },
             {
                 label: "Saas",
