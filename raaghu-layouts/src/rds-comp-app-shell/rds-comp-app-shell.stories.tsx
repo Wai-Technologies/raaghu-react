@@ -1037,8 +1037,8 @@ export const SideNav: Story = {
           <span className="rds-appshell-add-layout-text">Add Layout</span>
         </div>
         {/* Right Side Navigation aligned to end */}
-        <div className="rds-appshell-side-nav-right d-flex align-items-end justify-content-end" style={{ flex: "0 0 80px", minWidth: 80, maxWidth: 120, height: '100%' }}>
-          <div style={{ width: "100%", display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }}>
+        <div className="rds-appshell-side-nav-right d-flex align-items-end justify-content-end"  style={{ flex: "0 0 80px", minWidth: 80, maxWidth: 120, height: '100%' }}>
+          <div style={{ width: "100%", display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }} id="side-nav-icon-list">
             <BrowserRouter>
               <RdsCompSideNavigation1
                 layout="RightSideNav"
@@ -1062,6 +1062,8 @@ export const SideNav: Story = {
     ),
   },
 };
+
+
 
 //DoubleNav Story
 export const DoubleNav: Story = {
@@ -1288,7 +1290,7 @@ export const DoubleNav: Story = {
         <div className="rds-appshell-add-layout-flex-center">
           <span className="rds-appshell-add-layout-text">Add Layout</span>
         </div>
-        <div>
+        <div  id="details-pane-app-shell"> 
           <RdsCompDetailsPaneFavouites
             estateDescription="This studio room is located in Major city. The famous Amazon and Amazonia beaches are approximately 10 minutes walk from here. The room has a kitchenette with basic utensils for cooking. There is a private attached bathroom. We have a smart tv for your entertainment. We provide complimentary Wi-Fi to our guests who also want to work."
             estateTitle="Serene Studio Housing"
@@ -1475,7 +1477,7 @@ export const OneThreeOne : Story = {
         <div className="rds-appshell-add-layout-flex-center">
           <span className="rds-appshell-add-layout-text">Add Layout</span>
         </div>
-        <div>
+        <div id="detail-pane-one-three-one">
           <RdsCompDetailsPaneFavouites style="Toolbar" headerText={""} />
         </div>
       </div>

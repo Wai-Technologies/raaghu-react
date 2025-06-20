@@ -117,17 +117,7 @@
 }
 
 
-button.btn.btn-undefined.position-relative.align-items-center.btn-lg.d-flex.btn-icon.justify-content-center.gap-2:hover{
-  background-color: aliceblue !important;
-}
-/* 
-span.close:hover{
-  background-color: red !important;
-} */
 
-.offcanvas .offcanvas-header .close:hover{
-  background: none !important;
-}
 
 #sidebar.toggle.hide{
  box-shadow: 1px 0px 6px 0px rgba(0, 0, 0, 0.16) !important;
@@ -161,12 +151,32 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
    
 }
 
-.mt-5.double-nav-sidebar{
+/* .mt-5.double-nav-sidebar{
 gap: none !important;
-}
+} */
 
-.detail-pane-container {
+#details-pane-app-shell .detail-pane-container {
   min-height: calc(100vh - 98px) !important;
   height: 609px !important;
 } 
 
+
+/* a.align-items-center.d-inline-flex.text-decoration-none.cursor-pointer.ps-3.pe-2{
+padding-top: 100px;
+} */
+
+/* sidebar.li[value="4_"] a {
+    background-color: red;
+    padding-top: 174px !important;
+    border-radius: 8px;
+  
+} */
+
+#side-nav-icon-list li.pe-xxl-0.pe-xl-0.pe-lg-0.pe-md-0.pe-0[value="4_"]:has(svg path[d*="M9.207,2.002c.643"])  {
+ margin-top: 200px;
+}
+ 
+#detail-pane-one-three-one .detail-pane-container {
+height: 609px;
+  
+}
