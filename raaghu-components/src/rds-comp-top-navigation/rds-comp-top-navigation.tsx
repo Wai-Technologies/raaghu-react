@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import RdsCompProfile from "../rds-comp-profile/rds-comp-profile";
 import { RdsIcon, RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsSearch, RdsAvatar } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import "./rds-comp-top-navigation.css";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
-import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
+import { AvatarSize, AvatarStyle } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 import { BreadcrumbSeparator } from "../../../raaghu-elements/src/rds-breadcrumb/rds-breadcrumb";
 import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
+import RdsCompProfile from "../rds-comp-profile";
 import { DropdownSize, DropdownState } from "../../../raaghu-elements/src/rds-dropdown-list/rds-dropdown-list";
 
 export interface RdsCompTopNavigationProps {
@@ -104,6 +104,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [themeIcon, setThemeIcon] = useState("sun");
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
   const navtabItems = [
     {
@@ -160,6 +161,123 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
       props.onClickThemeCheck(e, val);
     }
   };
+
+  const InlineProfileComponent = ({ profilePic, profileTitle, profileEmail, tenantName, onLogout, isImpersonation, backToMyAccount }: any) => (
+    <div className="profile-dropdown-border">
+      {/* Simple Profile Section with Light Purple Background */}    <div style={{ backgroundColor: '#d1c4e9' }}>      {/* My Profile Header Text */}
+        <div className="pe-2 pt-2 pb-1" style={{ paddingLeft: '8px', marginBottom: '6px', textAlign: 'left' }}>
+          <span className="fw-normal" style={{ fontSize: '14px' }}>My Profile</span>
+        </div>
+
+        {/* User Avatar and Info */}
+        <div className="d-flex align-items-center px-2 pb-2">
+          <RdsAvatar
+            activeDotBottom
+            activityRing
+            avatars={[
+              {
+                profilePic: profilePic || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU'
+              },
+              {
+                profilePic: profilePic || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU'
+              },
+              {
+                profilePic: profilePic || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU'
+              },
+              {
+                profilePic: profilePic || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU'
+              },
+              {
+                profilePic: profilePic || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU'
+              }
+            ]}
+            colorVariant="primary"
+            firstName={profileTitle ? profileTitle.split(' ')[0] : "Jane"}
+            lastName={profileTitle ? (profileTitle.split(' ')[1] || "Doe") : "Doe"}
+            maxVisibleAvatars={3}
+            profilePic={profilePic || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"}
+            role={tenantName || "janedoe..."}
+            showName
+            showNameDesignation
+            size={AvatarSize.medium}
+            style={AvatarStyle.withname}
+            type="image" />
+        </div>
+      </div>
+
+      {/* Simple Menu Items with reduced padding */}
+      <div>
+        <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item">
+          <RdsIcon
+            colorVariant="primary"
+            height="16px"
+            isCursorPointer
+            name="profile_picture_square"
+            stroke
+            width="16px"
+          />
+          <span className="ms-3 fw-medium">My Profile</span>
+        </div>
+
+        <div className="profile-menu-separator"></div>
+
+        <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item">
+          <RdsIcon
+            colorVariant="primary"
+            height="16px"
+            isCursorPointer
+            name="sun"
+            stroke
+            width="16px"
+          />
+          <span className="ms-3 fw-medium">Theme</span>
+        </div>
+
+        <div className="profile-menu-separator"></div>
+
+        <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item">
+          <RdsIcon
+            colorVariant="primary"
+            height="16px"
+            isCursorPointer
+            name="setting"
+            stroke
+            width="16px"
+          />
+          <span className="ms-3 fw-medium">Setting</span>
+        </div>
+
+        <div className="profile-menu-separator"></div>
+
+        <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item">
+          <RdsIcon
+            colorVariant="primary"
+            height="16px"
+            isCursorPointer
+            name="help"
+            stroke
+            width="16px"
+          />
+          <span className="ms-3 fw-medium">Help</span>
+        </div>
+
+        <div className="profile-menu-separator"></div>
+
+        <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item" onClick={(e) => onLogout && onLogout(e as any)}>
+          <RdsIcon
+            colorVariant="primary"
+            height="16px"
+            isCursorPointer
+            name="logout"
+            stroke
+            width="16px"
+          />
+          <span className="ms-3 fw-medium">Logout</span>
+        </div>
+      </div>
+    </div>
+  );
+
 
   useEffect(() => {
     const logo = props.top_nav_logo === 'custom logo' ? (props.brandLogo || "") : "assets/Raaghu-logo-mfe-black.png";
@@ -337,7 +455,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "RaaghuPortal") {
       return (
         <div>
-          <nav className="navbar d-flex justify-content-between py-2 px-4 min-width align-items-center justify-content-md-end justify-content-lg-between light-shadow" data-style={props.style}>
+          <nav className="navbar d-flex justify-content-between p-2 min-width align-items-center justify-content-md-end justify-content-lg-between light-shadow">
             <div
               onClick={handlerLogoClick}
               id="raaghuLogo"
@@ -366,7 +484,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   <div className="d-flex align-items-center">
                     {props.showLogo && (
                       props.top_nav_logo === "raaghu logo" ? (
-                        <img className="cursor-pointer pe-4 raaghu-logo-size" src={brandLogo} alt="raaghu-logo" />
+                        <img className="cursor-pointer pe-4" src={brandLogo} alt="raaghu-logo" />
                       ) : (
                         <span className="custom-logo-text custom-logo-font">Your Logo</span>
                       )
@@ -429,26 +547,32 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 <div className="d-block d-none fs-8 text-center">Profile</div>
               </div>
               <div className="px-2 px-md-3 d-none d-lg-block">
-                <RdsOffcanvas
-                  className="pb-0"
-                  placement={RdsOffcanvasPlacement.End}
-                  offcanvaswidth={307}
-                  offId="Profile"
-                  offcanvasbutton={
-                    <div className="d-flex align-items-center cursorpointer">
+                <div className="dropdown">
+                  <button
+                    className="btn d-flex align-items-center cursorpointer border-0 bg-transparent p-0"
+                    type="button"
+                    onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                    aria-expanded={isProfileDropdownOpen}
+                  >
                       <img
                         className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
                         src={profilePic}
                       ></img>
                       <div className="ms-2 fs-6">
-                        <div className="text-nowrap">
+                        <div className="text-nowrap text-start">
                           {props.profileTitle}{" "}
                         </div>
-                        <div className="text-nowrap text-muted">
+                        <div className="text-nowrap text-muted text-start">
                           {props.role}
                         </div>
                       </div>
-                      <span className="ms-3">
+                      <span className="ms-3"
+                      style={{
+                        transform: isProfileDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.2s ease',
+                        display: 'inline-block'
+                      }}
+                    >
                         <RdsIcon
                           name="chevron_down"
                           height="11px"
@@ -457,26 +581,21 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                           stroke={true}
                         ></RdsIcon>
                       </span>
+                  </button>
+                  {isProfileDropdownOpen && (
+                    <div className=" custom-profile-dropdown" style={{ position: 'absolute', top: '100%', right: 0, zIndex: 1000 }}>
+                      <InlineProfileComponent
+                        profilePic={profilePic}
+                        profileTitle={props.profileTitle}
+                        profileEmail={props.profileEmail}
+                        tenantName={props.tenantName}
+                        onLogout={props.onLogout}
+                        isImpersonation={props.isImpersonation}
+                        backToMyAccount={props.backToMyAccount}
+                      />
                     </div>
-                  }
-                  backDrop={RdsOffcanvasBackDrop.True}
-                  scrolling={false}
-                  preventEscapeKey={false}
-                  canvasTitle={""}
-                >
-                  <RdsCompProfile
-                    navtabItems={navtabItems}
-                    profilePic={profilePic}
-                    userName={props.profileTitle}
-                    userEmail={props.profileEmail}
-                    userRole={props.tenantName}
-                    onLogout={props.onLogout}
-                    isImpersonation={props.isImpersonation}
-                    backToMyAccount={props.backToMyAccount}
-                    onProfileLink={profileLinkListHandler}
-                    showUserName={true}
-                  ></RdsCompProfile>
-                </RdsOffcanvas>
+                  )}
+                </div>
               </div>
             </div>
           </nav>
@@ -490,7 +609,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
             <div id="raaghuLogo" className="d-block m-2">
               {props.showLogo && (
                 props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo" />
+                  <img className="cursor-pointer sidenav-logo mx-4" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font" >Your Logo</span>
                 )
@@ -569,7 +688,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
             <div id="raaghuLogo" className="d-block m-2">
               {props.showLogo && (
                 props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo" />
+                  <img className="cursor-pointer sidenav-logo mx-4" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )
@@ -642,7 +761,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
               )}
               {/* dropdown----------------------------------------------------------------------------------------------- */}
               {(props.ecommerce2 && <div
-                className={"position-relative  px-md-1  col text-center d-flex align-items-center language  border-start-custom signin-section-adjust"}
+                className={"position-relative  px-md-1  col text-center d-flex align-items-center language  border-start-custom"}
               >
                 <img src={avatarBlankImage} className="px-md-2" alt="avtaar image" />
                 <span className="px-md-1 signInOption cursor-pointer" onClick={signInClick}>Sign In</span>
@@ -672,7 +791,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
             <div id="raaghuLogo" className="d-block m-2">
               {props.showLogo && (
                 props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo" />
+                  <img className="cursor-pointer sidenav-logo mx-4" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )
@@ -760,7 +879,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
             <div id="raaghuLogo" className="d-block m-2 ">
               {props.showLogo && (
                 props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-logo mx-4 raaghu-logo-size" src={brandLogo} alt="logo" />
+                  <img className="cursor-pointer sidenav-logo mx-4" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )
@@ -806,7 +925,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
               </div>
 
               {(props.ecommerce4 && <div
-                className={`position-relative   col text-center d-flex align-items-center language icon-up-adjust ${props.ecommerce4 ? "" : "px-md-3"} `}
+                className={`position-relative   col text-center d-flex align-items-center language ${props.ecommerce4 ? "" : "px-md-3"} `}
               >
                 {props.ecommerce3 && props.socialMediaIcons?.map((icon: any) => (
                   <img
@@ -838,7 +957,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
 
               {(props.ecommerce4 && <div
-                className={"position-relative px-1 col text-center d-flex align-items-center cursor-pointer icon-up-adjust"} onClick={onAvtarClick}
+                className={"position-relative px-1 col text-center d-flex align-items-center cursor-pointer"} onClick={onAvtarClick}
               >
                 <RdsAvatar
                   avtarOnly
@@ -889,7 +1008,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 className=""
               >
                 {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
@@ -953,7 +1072,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 className=""
               >
                 {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" style={{ marginTop: "-12px" }} />
+                  <img className="cursor-pointer sidenav-mobile-logo " src={brandLogo} alt="logo"  />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
@@ -985,7 +1104,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
             <div className="d-flex align-items-center right-side-menu">
               {props.entertainment2 && props.icons?.map((icon: any) => (
-                <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`} style={{ marginTop: "-8px" }}>
+                <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`} >
                   <RdsIcon
                     name={icon.name}
                     fill={false}
@@ -997,7 +1116,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 </span>
               ))}
               {props.entertainment2 && (
-                <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick} style={{ marginTop: "-11px" }}>
+                <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick} >
                   <RdsAvatar
                     avtarOnly
                     colorVariant={props.colorVariant}
@@ -1026,7 +1145,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 className=""
               >
                 {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" style={{ marginTop: "-10px", display: "inline-block" }} />
+                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
@@ -1049,8 +1168,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
             <div className="d-flex align-items-center right-side-menu">
               {props.entertainment3 && props.icons?.map((icon: any) => (
-                <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}
-                  style={{ transform: "translateY(-9px)", display: "inline-block" }}>
+                <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
                   <RdsIcon
                     name={icon.name}
                     fill={false}
@@ -1072,7 +1190,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 </div>
               )}
               {props.entertainment3 && (
-                <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick} style={{ transform: "translateY(-9px)", display: "inline-block" }}>
+                <div className="position-relative px-md-1 col text-center d-flex align-items-center language cursor-pointer" onClick={onAvtarClick}>
                   <RdsAvatar
                     avtarOnly
                     colorVariant={props.colorVariant}
@@ -1101,7 +1219,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 className=""
               >
                 {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
@@ -1182,7 +1300,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "For_Corporate") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow" data-style={props.style}>
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow">
             <div className="d-flex align-items-center">
               {props.showLogo && (<div
                 onClick={handlerLogoClick}
@@ -1190,7 +1308,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 className=""
               >
                 {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
@@ -1274,7 +1392,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "With_Tabs") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow" data-style={props.style}>
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow">
             <div className="d-flex align-items-center">
               {props.showLogo && (<div
                 onClick={handlerLogoClick}
@@ -1282,7 +1400,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 className=""
               >
                 {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
@@ -1368,7 +1486,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
     if (props.style === "With_Language_Switcher") {
       return (
         <div id="topnav">
-          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow" data-style={props.style}>
+          <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow">
             <div className="d-flex align-items-center">
               {props.showLogo && (<div
                 onClick={handlerLogoClick}
@@ -1376,7 +1494,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 className=""
               >
                 {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text custom-logo-font">Your Logo</span>
                 )}
@@ -1487,7 +1605,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   className=""
                 >
                   {props.top_nav_logo === "raaghu logo" ? (
-                    <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                    <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" />
                   ) : (
                     <span className="custom-logo-text custom-logo-font">Your Logo</span>
                   )}
@@ -1528,7 +1646,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 <div className="position-relative px-md-2 col text-center d-flex align-items-center language">
                   <div className="">
                     {props.navButtons.map((button: any) =>
-                      <button className={`btn btn-${button.btnBackground} text-${button.textColor} me-3 p-2`} onClick={() => handleNavButtonClick(button.id)} style={{ fontSize: '13px', fontWeight: '500', marginTop: '-15px' }}>{button.name}</button>)
+                      <button className={`btn btn-${button.btnBackground} text-${button.textColor} me-3 p-2`} onClick={() => handleNavButtonClick(button.id)} style={{ fontSize: '13px', fontWeight: '500' }}>{button.name}</button>)
                     }
                   </div>
                 </div>
@@ -1557,7 +1675,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 className=""
               >
                 {props.top_nav_logo === "raaghu logo" ? (
-                  <img className="cursor-pointer sidenav-mobile-logo raaghu-logo-size" src={brandLogo} alt="logo" />
+                  <img className="cursor-pointer sidenav-mobile-logo" src={brandLogo} alt="logo" />
                 ) : (
                   <span className="custom-logo-text p-3 custom-logo-font">Your Logo</span>
                 )}
@@ -1684,48 +1802,57 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                     </RdsOffcanvas>
 
                     <div className="d-block d-none fs-8 text-center">Profile</div>
-                  </div>
-                  <div className=" d-none d-lg-block px-1">
-                    <RdsOffcanvas
-                      className="pb-0"
-                      placement={RdsOffcanvasPlacement.End}
-                      offcanvaswidth={307}
-                      offId="Profile"
-                      offcanvasbutton={
-                        <div className="d-flex align-items-center cursorpointer">
-                          <img
-                            className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
-                            src={profilePic}
-                          ></img>
-                          <span className="ms-2">
-                            <RdsIcon
-                              name="chevron_down"
-                              height="11px"
-                              width="11px"
-                              fill={false}
-                              stroke={true}
-                            ></RdsIcon>
-                          </span>
+                  </div>                  <div className=" d-none d-lg-block px-1">
+                    <div className="dropdown">
+                      <button
+                        className="btn d-flex align-items-center cursorpointer border-0 bg-transparent p-0"
+                        type="button"
+                        onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                        aria-expanded={isProfileDropdownOpen}
+                      >
+                        <img
+                          className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
+                          src={profilePic}
+                        />
+                        <div className="ms-2 fs-6">
+                          <div className="text-nowrap text-start">
+                            {props.profileTitle}{" "}
+                          </div>
+                          <div className="text-nowrap text-muted text-start">
+                            {props.role}
+                          </div>
                         </div>
-                      }
-                      backDrop={RdsOffcanvasBackDrop.True}
-                      scrolling={false}
-                      preventEscapeKey={false}
-                      canvasTitle={""}
-                    >
-                      <RdsCompProfile
-                        navtabItems={navtabItems}
-                        profilePic={profilePic}
-                        userName={props.profileTitle}
-                        userEmail={props.profileEmail}
-                        userRole={props.tenantName}
-                        onLogout={props.onLogout}
-                        isImpersonation={props.isImpersonation}
-                        backToMyAccount={props.backToMyAccount}
-                        onProfileLink={profileLinkListHandler}
-                        showUserName={true}
-                      ></RdsCompProfile>
-                    </RdsOffcanvas>
+                        <span
+                          className="ms-3"
+                          style={{
+                            transform: isProfileDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.2s ease',
+                            display: 'inline-block'
+                          }}
+                        >
+                          <RdsIcon
+                            name="chevron_down"
+                            height="11px"
+                            width="11px"
+                            fill={false}
+                            stroke={true}
+                          />
+                        </span>
+                      </button>
+                      {isProfileDropdownOpen && (
+                        <div className="custom-profile-dropdown" style={{ position: 'absolute', top: '100%', right: 0, zIndex: 1000 }}>
+                          <InlineProfileComponent
+                            profilePic={profilePic}
+                            profileTitle={props.profileTitle}
+                            profileEmail={props.profileEmail}
+                            tenantName={props.tenantName}
+                            onLogout={props.onLogout}
+                            isImpersonation={props.isImpersonation}
+                            backToMyAccount={props.backToMyAccount}
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
@@ -1912,54 +2039,55 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 <div className="d-block d-none fs-8 text-center">Profile</div>
               </div>
               <div className="px-2 px-md-3 d-none d-lg-block">
-                <RdsOffcanvas
-                  className="pb-0"
-                  placement={RdsOffcanvasPlacement.End}
-                  offcanvaswidth={307}
-                  offId="Profile"
-                  offcanvasbutton={
-                    <div className="d-flex align-items-center cursorpointer">
-                      <img
-                        className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
-                        src={profilePic}
-                      ></img>
-                      <div className="ms-2 fs-6">
-                        <div className="text-nowrap">
-                          {props.profileTitle}{" "}
-                        </div>
-                        <div className="text-nowrap text-muted">
-                          {props.role}
-                        </div>
+                <div className="dropdown">
+                  <button
+                    className="btn d-flex align-items-center cursorpointer border-0 bg-transparent p-0"
+                    type="button"
+                    onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                    aria-expanded={isProfileDropdownOpen}
+                  >
+                    <img
+                      className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
+                      src={profilePic}
+                    />
+                    <div className="ms-2 fs-6">
+                      <div className="text-nowrap text-start">
+                        {props.profileTitle}{" "}
                       </div>
-                      <span className="ms-3">
-                        <RdsIcon
-                          name="chevron_down"
-                          height="11px"
-                          width="11px"
-                          fill={false}
-                          stroke={true}
-                        ></RdsIcon>
-                      </span>
+                      <div className="text-nowrap text-muted text-start">
+                        {props.role}
+                      </div>
+                    </div>                    <span
+                      className="ms-3"
+                      style={{
+                        transform: isProfileDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.2s ease',
+                        display: 'inline-block'
+                      }}
+                    >
+                      <RdsIcon
+                        name="chevron_down"
+                        height="11px"
+                        width="11px"
+                        fill={false}
+                        stroke={true}
+                      />
+                    </span>
+                  </button>
+                  {isProfileDropdownOpen && (
+                    <div className="custom-profile-dropdown" style={{ position: 'absolute', top: '100%', right: 0, zIndex: 1000 }}>
+                      <InlineProfileComponent
+                        profilePic={profilePic}
+                        profileTitle={props.profileTitle}
+                        profileEmail={props.profileEmail}
+                        tenantName={props.tenantName}
+                        onLogout={props.onLogout}
+                        isImpersonation={props.isImpersonation}
+                        backToMyAccount={props.backToMyAccount}
+                      />
                     </div>
-                  }
-                  backDrop={RdsOffcanvasBackDrop.True}
-                  scrolling={false}
-                  preventEscapeKey={false}
-                  canvasTitle={""}
-                >
-                  <RdsCompProfile
-                    navtabItems={navtabItems}
-                    profilePic={profilePic}
-                    userName={props.profileTitle}
-                    userEmail={props.profileEmail}
-                    userRole={props.tenantName}
-                    onLogout={props.onLogout}
-                    isImpersonation={props.isImpersonation}
-                    backToMyAccount={props.backToMyAccount}
-                    onProfileLink={profileLinkListHandler}
-                    showUserName={true}
-                  ></RdsCompProfile>
-                </RdsOffcanvas>
+                  )}
+                </div>
               </div>
 
 
@@ -1976,6 +2104,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                       breadcrumbItems={breacrumItem}
                       separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                       topnavPlusIcon={props.product2 || props.product3}
+                      showIcon={true}
                     ></RdsBreadcrumb>
                   </div>
                 )}
@@ -1999,7 +2128,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
           props.style === "With_User_Avatar") && (
 
             <div>
-              <nav className="navbar top-nav d-flex justify-content-between p-1 min-width align-items-center justify-content-lg-between light-shadow avatar-icons-adjustment" data-style={props.style}>
+              <nav className="navbar top-nav d-flex justify-content-between p-1 min-width align-items-center justify-content-lg-between light-shadow">
                 <div
                   onClick={handlerLogoClick}
                   id="raaghuLogo"
@@ -2027,7 +2156,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                         {props.showLogo && (
                           <img
                             className="cursor-pointer pe-4 d-md-flex d-none"
-                            width={150}
+                            width={120}
                             src={brandLogo}
                             alt="raaghu-logo"
                           ></img>
@@ -2047,7 +2176,9 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                             borderColor={props.breadcrumbBorderColor}
                             borderPlacement={props.breadcrumbBorderPlacement}
                             breadcrumbItems={breacrumItem}
-                            separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined} topnavPlusIcon={props.product2 || props.product3}
+                            separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
+                            topnavPlusIcon={props.product2 || props.product3}
+                            showIcon={true}
                           ></RdsBreadcrumb>
                         </>
                       </div>
@@ -2166,7 +2297,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   ))}
 
                   {((!props.product2 && !props.product3 && !props.product4 && !props.entertainment1) && <>
-                    <div className="position-relative px-2 px-md-4 d-block d-lg-none col text-center profile-off icon-up-adjust">
+                    <div className="position-relative px-2 px-md-4 d-block d-lg-none col text-center profile-off">
                       <RdsOffcanvas
                         className="pb-5 m-auto"
                         placement={RdsOffcanvasPlacement.End}
@@ -2205,54 +2336,55 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                       <div className="d-block d-none fs-8 text-center">Profile</div>
                     </div>
                     <div className="px-2 px-md-3 d-none d-lg-block">
-                      <RdsOffcanvas
-                        className="pb-0"
-                        placement={RdsOffcanvasPlacement.End}
-                        offcanvaswidth={307}
-                        offId="Profile"
-                        offcanvasbutton={
-                          <div className="d-flex align-items-center cursorpointer">
-                            <img
-                              className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
-                              src={profilePic}
-                            ></img>
-                            <div className="ms-2 fs-6">
-                              <div className="text-nowrap">
-                                {props.profileTitle}{" "}
-                              </div>
-                              <div className="text-nowrap text-muted">
-                                {props.role}
-                              </div>
+                      <div className="dropdown">
+                        <button
+                          className="btn d-flex align-items-center cursorpointer border-0 bg-transparent p-0"
+                          type="button"
+                          onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                          aria-expanded={isProfileDropdownOpen}
+                        >
+                          <img
+                            className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
+                            src={profilePic}
+                          />
+                          <div className="ms-2 fs-6">
+                            <div className="text-nowrap text-start">
+                              {props.profileTitle}{" "}
                             </div>
-                            <span className="ms-3">
-                              <RdsIcon
-                                name="chevron_down"
-                                height="11px"
-                                width="11px"
-                                fill={false}
-                                stroke={true}
-                              ></RdsIcon>
-                            </span>
+                            <div className="text-nowrap text-muted text-start">
+                              {props.role}
+                            </div>
+                          </div>                          <span
+                            className="ms-3"
+                            style={{
+                              transform: isProfileDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                              transition: 'transform 0.2s ease',
+                              display: 'inline-block'
+                            }}
+                          >
+                            <RdsIcon
+                              name="chevron_down"
+                              height="11px"
+                              width="11px"
+                              fill={false}
+                              stroke={true}
+                            />
+                          </span>
+                        </button>
+                        {isProfileDropdownOpen && (
+                          <div className="custom-profile-dropdown" style={{ position: 'absolute', top: '100%', right: 0, zIndex: 1000 }}>
+                            <InlineProfileComponent
+                              profilePic={profilePic}
+                              profileTitle={props.profileTitle}
+                              profileEmail={props.profileEmail}
+                              tenantName={props.tenantName}
+                              onLogout={props.onLogout}
+                              isImpersonation={props.isImpersonation}
+                              backToMyAccount={props.backToMyAccount}
+                            />
                           </div>
-                        }
-                        backDrop={RdsOffcanvasBackDrop.True}
-                        scrolling={false}
-                        preventEscapeKey={false}
-                        canvasTitle={""}
-                      >
-                        <RdsCompProfile
-                          navtabItems={navtabItems}
-                          profilePic={profilePic}
-                          userName={props.profileTitle}
-                          userEmail={props.profileEmail}
-                          userRole={props.tenantName}
-                          onLogout={props.onLogout}
-                          isImpersonation={props.isImpersonation}
-                          backToMyAccount={props.backToMyAccount}
-                          onProfileLink={profileLinkListHandler}
-                          showUserName={true}
-                        ></RdsCompProfile>
-                      </RdsOffcanvas>
+                        )}
+                      </div>
                     </div>
                   </>)}
                   {props.product2 &&
@@ -2353,6 +2485,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                         borderPlacement={props.breadcrumbBorderPlacement}
                         separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                         topnavPlusIcon={props.product2 || props.product3}
+                        showIcon={true}
                       ></RdsBreadcrumb>
                     </div>
                     )}
@@ -2369,6 +2502,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                     borderPlacement={props.breadcrumbBorderPlacement}
                     separator={props.product1 ? BreadcrumbSeparator.GreaterThan : undefined}
                     topnavPlusIcon={props.product2 || props.product3}
+                    showIcon={true}
                   ></RdsBreadcrumb>
                 </>
               </div>

@@ -365,7 +365,7 @@ export const With_Cart: Story = {
                 active: false,
             },
             {
-                label: "About",
+                label: "About Us",
                 id: 2,
                 route: "#",
                 disabled: false,
@@ -467,7 +467,7 @@ export const With_Currency_Switcher: Story = {
                 active: false,
             },
             {
-                label: "About",
+                label: "About Us",
                 id: 2,
                 route: "#",
                 disabled: false,
@@ -621,7 +621,7 @@ export const With_Social_Media: Story = {
                 active: false,
             },
             {
-                label: "About",
+                label: "About Us",
                 id: 2,
                 route: "#",
                 disabled: false,
@@ -781,7 +781,7 @@ export const With_Favorites: Story = {
                 active: false,
             },
             {
-                label: "About",
+                label: "About Us",
                 id: 2,
                 route: "#",
                 disabled: false,
@@ -1361,7 +1361,7 @@ export const With_User_Avatar: Story = {
                 id: 1,
                 route: "#",
                 disabled: false,
-                icon: "dashboard_new",
+                icon: "dashboard",
                 iconFill: false,
                 iconstroke: true,
                 iconWidth: "15px",
