@@ -182,13 +182,12 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                             alt="img"
                             style={{ width: "50px" }}
                         />
-                        <h3 className="pb-3">Email has been sent!</h3>
-                        <div>
+                        <h3 className="pb-3">Email has been sent!</h3>                        <div>
                             Please check your inbox and click in the received link to reset a password
                         </div>
                         <br />
                         <div>
-                            {"Didn't receive the link" || ""} ?
+                            Didn't receive the link ?
                             <a
                                 className="link-primary text-decoration-none px-1"
                                 href="javascript:void(0)"

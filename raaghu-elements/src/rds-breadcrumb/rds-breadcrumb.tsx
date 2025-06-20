@@ -119,16 +119,24 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
           const isHovered = hoveredItem === breadItem.id;
 
           // Dynamically determine item class names based on state
-          const itemClassNames = `breadcrumb-item 
-            ${breadItem.active ? `active ${styleClass}` : ""}
-            ${isHovered && props.state === "Hover" ? "breadcrumb-hover" : ""}
-            ${breadItem.active && props.state === "Selected" ? "breadcrumb-selected" : ""}
-            ${!breadItem.active && !isHovered ? "breadcrumb-default" : ""}
-            ${isLastItem && props.style === "Pill Background" && props.state !== "Hover" && props.state !== "Selected" ? "breadcrumb-pill background-filled" : ""}
-            ${isLastItem && props.style === "Square Background" && props.state !== "Hover" && props.state !== "Selected" ? "breadcrumb-square background-filled" : ""}
-            ${isLastItem && props.style === "Without Background" ? "breadcrumb-no-background ms-2 me-2" : ""}
-            ${isLastItem ? roundedClass : ""}
-          `;
+          const itemClassNames = [
+            'breadcrumb-item',
+            breadItem.active ? 'active' : '',
+            isHovered && props.state === 'Hover' ? 'breadcrumb-hover' : '',
+            breadItem.active && props.state === 'Selected' ? 'breadcrumb-selected' : '',
+            !breadItem.active && !isHovered ? 'breadcrumb-default' : '',
+            isLastItem && props.style === 'Pill Background' ? 'breadcrumb-pill background-filled' : '',
+            isLastItem && props.style === 'Square Background' ? 'breadcrumb-square background-filled' : '',
+            isLastItem && props.style === 'Without Background' ? 'breadcrumb-no-background ms-2 me-2' : '',
+            isLastItem ? roundedClass : '',
+          ].filter(Boolean).join(' ');
+
+          // Always apply border style to last item if borderColor and borderPlacement are set
+          const itemStyle = isLastItem && props.borderColor && props.borderPlacement
+            ? (props.borderPlacement === 'top'
+                ? { borderTop: `2px solid ${props.borderColor}` }
+                : { borderBottom: `2px solid ${props.borderColor}` })
+            : {};
 
           // Allow last item to be clickable regardless of state
           const isClickable = true;
@@ -137,10 +145,10 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
             <React.Fragment key={breadItem.id}>
               <li
                 className={itemClassNames}
-                onClick={() => isClickable && onClickHandler(breadItem.id)}  // Allow clicking
+                onClick={() => isClickable && onClickHandler(breadItem.id)}
                 onMouseEnter={() => setHoveredItem(breadItem.id)}
                 onMouseLeave={() => setHoveredItem(null)}
-                style={breadItem.active ? (props.borderPlacement === "top" ? { borderTop: `2px solid ${props.borderColor}` } : { borderBottom: `2px solid ${props.borderColor}` }) : {}}
+                style={itemStyle}
               >
                 {(() => {
                   const resolvedIconName = props.icons && props.icons.length > index ? props.icons[index] : breadItem.icon || "IN";

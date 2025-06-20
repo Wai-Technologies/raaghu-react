@@ -1,34 +1,41 @@
-// import React from "react";
-// import { render, fireEvent } from "@testing-library/react";
-// import { RdsScrollspy } from "../src";
-// import "@testing-library/jest-dom";
-// jest.mock('lottie-web')
-// jest.mock('react-lottie-player', () => ({
-//     __esModule: true,
-//     default: jest.fn(),
-//   }));
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import RdsScrollspy from "../src/rds-scrollspy/rds-scrollspy";
+import "@testing-library/jest-dom";
 
-   
-// // Mock the useTranslation hook
-// jest.mock("react-i18next", () => ({
-//     useTranslation: () => ({ t: (key: string) => key }),
-//   }));
+const mockData = [
+  { id: "1", title: "First", header: "First header", content: "First content" },
+  { id: "2", title: "Second", header: "Second header", content: "Second content" },
+  { id: "3", title: "Third", header: "Third header", content: "Third content" },
+];
 
-// describe("RdsScrollspy", () => {
-//     test("renders six navigation links", () => {
-//         const { getAllByRole } = render(<RdsScrollspy />);
-//         const navLinks = getAllByRole("link");
-//         expect(navLinks.length).toBe(6);
-//     });
-//     test("clicking a navigation link scrolls to the appropriate section", () => {
-//         const { getAllByText, getByText } = render(<RdsScrollspy />);
-//         const firstSectionLink = getByText("First");
-//         fireEvent.click(firstSectionLink);
-//         const secondSection = getAllByText((content, element) => {
-//             return content.startsWith("First header");
-//         });
-//         expect(secondSection[0]).toBeInTheDocument();
-//     });
+describe("RdsScrollspy", () => {
+  it("renders navigation links for each item", () => {
+    render(<RdsScrollspy data={mockData} />);
+    mockData.forEach(item => {
+      expect(screen.getByText(item.title)).toBeInTheDocument();
+    });
+  });
 
+  it("renders headers and content for each item", () => {
+    render(<RdsScrollspy data={mockData} />);
+    mockData.forEach(item => {
+      expect(screen.getByText(item.header)).toBeInTheDocument();
+      expect(screen.getByText(item.content)).toBeInTheDocument();
+    });
+  });
 
-// });
+  it("renders 'Go Top' link for each section", () => {
+    render(<RdsScrollspy data={mockData} />);
+    const goTopLinks = screen.getAllByText("Go Top");
+    expect(goTopLinks.length).toBe(mockData.length);
+  });
+
+  test("clicking a navigation link scrolls to the appropriate section", () => {
+    const { getAllByText, getByText } = render(<RdsScrollspy data={mockData} />);
+    const firstSectionLink = getByText("First");
+    fireEvent.click(firstSectionLink);
+    const firstHeader = getByText("First header");
+    expect(firstHeader).toBeInTheDocument();
+  });
+});

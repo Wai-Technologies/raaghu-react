@@ -153,6 +153,11 @@ return (
         </div>
       </div>
     </div>
+    {props.errorMessage && (
+      <div className="text-danger mt-1" data-testid="radio-error-message">
+        {props.errorMessage}
+      </div>
+    )}
   </>
 );
 };

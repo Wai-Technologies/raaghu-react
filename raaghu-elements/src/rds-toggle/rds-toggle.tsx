@@ -61,6 +61,7 @@ const RdsToggle = (props: RdsToggleProps) => {
       } as unknown as React.MouseEvent<HTMLInputElement>;
       props.onClick(syntheticEvent);
     }
+    
   };
 
   const classes = () => {
