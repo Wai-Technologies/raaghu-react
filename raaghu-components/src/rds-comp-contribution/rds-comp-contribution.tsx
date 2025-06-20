@@ -207,6 +207,8 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
           contributions[i + 1]?.[0] && c.month !== contributions[i + 1][0]?.month))
       );
       
+      const isDarkTheme = document.body.classList.contains('theme-dark');
+
       if (shouldShowLabel) {
         const textBasePos = getPanelPosition(i, 0);
         innerDom.push(
@@ -215,7 +217,7 @@ export const RdsCompContribution = (props: RdsCompContributionProps) => {
             style={{
               fontSize: 10,
               alignmentBaseline: 'central',
-              fill: '#AAA',
+              fill: isDarkTheme ? '#fcfcfc' : '#202020', 
             }}
             x={textBasePos.x + dynamicPanelSize / 2}
             y={textBasePos.y - dynamicPanelSize / 2 - 2}

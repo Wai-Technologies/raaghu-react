@@ -36,18 +36,32 @@ export interface RdsToggleProps {
 }
 
 const RdsToggle = (props: RdsToggleProps) => {
-  const [checked, setChecked] = useState(props.checked);
+  const [checked, setChecked] = useState(props.checked || props.state === ToggleState.On);
   const [styleClass, setStyleClass] = useState(props.style);
 
   useEffect(() => {
     setStyleClass(props.style);
   }, [props.style]);
 
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked((prev) => !prev);
-    if (props.onClick) {
-      props.onClick(event as unknown as React.MouseEvent<HTMLInputElement, MouseEvent>);
+  useEffect(() => {
+    setChecked(props.checked || props.state === ToggleState.On);
+  }, [props.checked, props.state]);
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>,event: React.ChangeEvent<HTMLInputElement>) => {
+    if (props.state === ToggleState.DisabledOn || props.state === ToggleState.DisabledOff) {
+      return;
     }
+    const newChecked = !checked;
+    setChecked(newChecked);
+    if (props.onClick) {
+      const syntheticEvent = {
+        ...e,
+        currentTarget: { ...e.currentTarget, checked: newChecked },
+        target: { ...e.target, checked: newChecked }
+      } as unknown as React.MouseEvent<HTMLInputElement>;
+      props.onClick(syntheticEvent);
+    }
+    
   };
 
   const classes = () => {
@@ -64,7 +78,7 @@ const RdsToggle = (props: RdsToggleProps) => {
     return classList;
   };
 
-  const isChecked = props.state === ToggleState.On || props.state === ToggleState.DisabledOn;
+  const isChecked = checked || props.state === ToggleState.DisabledOn;
 
   return (
     <div className="rds-toggle">

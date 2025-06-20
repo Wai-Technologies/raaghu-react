@@ -65,10 +65,9 @@
 {
   color: #ffffff !important;
 }
-.theme-dark  .dialog-container
-{
-  background-color: #343a40;
-  color: #ffffff!important;
+.theme-dark .dialog-container[style*="background-color: #FEF7FF"] {
+  background-color: #202020 !important;
+  color: #ffffff !important;
 }
 .theme-dark  .dialog-title
 {

@@ -19,17 +19,24 @@ interface RdsCompDialogProps {
 const RdsCompDialog = (props: RdsCompDialogProps) => {
   
   const getDialogStyle = () => {
+  const isDarkTheme = document.body.classList.contains('theme-dark');
+  
     switch (props.Style?.toLowerCase()) {
       case "outlined":
         return {
-          border: "1px solid #adb5bd",
+          border: "1px solid #7e2eef",
+          backgroundColor: isDarkTheme ? "#000000" : "#ffffff",
         };
       case "filled":
         return {
-          backgroundColor: "#FEF7FF",
+          backgroundColor: isDarkTheme ? "#202020" : "#FEF7FF",
+          border: isDarkTheme ? "1px solid #646464" : "1px solid transparent",
         };
       default:
-        return {};
+        return {
+          backgroundColor: isDarkTheme ? "#000000" : "#ffffff",
+          border: isDarkTheme ? "1px solid #646464" : "1px solid transparent",
+        };
     }
   };
   const getSizeClass = () => {

@@ -46,7 +46,12 @@ export interface RdsDropdownProps {
   darkDropdown: boolean;
   label: string;
   displayType?: DisplayType;
-  listItems: any[];
+  listItems: {
+    label: string;
+    id: string;
+    path?: string;
+    icon?: string;
+  }[];
   id: string;
   buttonIcon?: string;
   showChevron?: boolean;
@@ -112,7 +117,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
           <>
             {props.buttonIcon && (
               <span className="icon-before ">
-                <RdsIcon name={props.buttonIcon} stroke />
+                <RdsIcon name={props.buttonIcon} />
               </span>
             )}
             {props.label && <span className="mx-1 ">{props.label}</span>}
@@ -238,16 +243,18 @@ const RdsDropdown = (props: RdsDropdownProps) => {
                 )}
                 {props.profileImage && (
                   <img src={props.profileImage} className="me-1 text-bg-light" alt="" height={20} width={20} />
-                )}
-                {props.selectIcon && (
-                  <RdsIcon
-                    colorVariant="dark"
-                    stroke
-                    height="20px"
-                    isCursorPointer
-                    name={props.selectIcon}
-                    width="20px"
-                  />
+                )}                {/* Display item-specific icon if available, otherwise fallback to selectIcon */}
+                {(listItem.icon || props.selectIcon) && (
+                  <span className="me-1">
+                    <RdsIcon
+                      colorVariant="dark"
+                      stroke={false}
+                      height="20px"
+                      isCursorPointer
+                      name={listItem.icon || props.selectIcon}
+                      width="20px"
+                    />
+                  </span>
                 )}
                 <a className="dropdown-item text-wrap" href={listItem.path}>
                   {listItem.label}
