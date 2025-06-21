@@ -43,8 +43,29 @@ const RdsToggle = (props: RdsToggleProps) => {
     setStyleClass(props.style);
   }, [props.style]);
 
+<<<<<<< Updated upstream
   const onChangeHandler = () => {
     setChecked((prev) => !prev);
+=======
+  useEffect(() => {
+    setChecked(props.checked || props.state === ToggleState.On);
+  }, [props.checked, props.state]);
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (props.state === ToggleState.DisabledOn || props.state === ToggleState.DisabledOff) {
+      return;
+    }
+    const newChecked = !checked;
+    setChecked(newChecked);
+    if (props.onClick) {
+      const syntheticEvent = {
+        ...e,
+        currentTarget: { ...e.currentTarget, checked: newChecked },
+        target: { ...e.target, checked: newChecked }
+      } as unknown as React.MouseEvent<HTMLInputElement>;
+      props.onClick(syntheticEvent);
+    }
+>>>>>>> Stashed changes
   };
 
   const classes = () => {
