@@ -1,46 +1,7 @@
-// import React from "react";
-// import { ComponentStory, ComponentMeta } from "@storybook/react";
-// import RdsCompCalendar from "./rds-comp-calendar";
-
-// export default {
-//     title: "Components/Calendar",
-//     component: RdsCompCalendar,
-
-//     argTypes: {
-//         onclick: { action: "deleted" },
-//     },
-// } as ComponentMeta<typeof RdsCompCalendar>;
-
-// const Template: ComponentStory<typeof RdsCompCalendar> = (args: any) => (
-//     <RdsCompCalendar {...args} />
-// );
-
-// export const Calendar = Template.bind({});
-
-// Calendar.args = {
-//     events: [
-//         {
-//             title: "Big Meeting",
-//             allDay: true,
-//             start: new Date(2021, 6, 10),
-//             end: new Date(2021, 6, 12),
-//         },
-//         {
-//             title: "Vacation",
-//             start: new Date(2021, 6, 7),
-//             end: new Date(2021, 6, 10),
-//         },
-//         {
-//             title: "Conference",
-//             start: new Date(2021, 6, 20),
-//             end: new Date(2021, 6, 23),
-//         },
-//     ],
-// };
-
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompCalendar from "./rds-comp-calendar";
+import RdsCompCalendar, { getSampleEvents } from "./rds-comp-calendar";
 
+const sampleEvents = getSampleEvents();
 
 const meta: Meta = { 
     title: "Components/Calendar",
@@ -56,31 +17,61 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        defaultView: {
+            control: 'select',
+            options: ['month', 'week', 'day', 'agenda'],
+            description: 'Default view to display'
+        },
     },
 } satisfies Meta<typeof RdsCompCalendar>;
 
 export default meta;
 type Story = StoryObj<typeof RdsCompCalendar>;
 
-export const Default: Story = {
+export const Agenda: Story = {
     args: {
-        events: [
-                    {
-                        title: "Big Meeting",
-                        allDay: true,
-                        start: new Date(2021, 6, 10),
-                        end: new Date(2021, 6, 12),
-                    },
-                    {
-                        title: "Vacation",
-                        start: new Date(2021, 6, 7),
-                        end: new Date(2021, 6, 10),
-                    },
-                    {
-                        title: "Conference",
-                        start: new Date(2021, 6, 20),
-                        end: new Date(2021, 6, 23),
-                    },
-                ],
+        events: sampleEvents,
+        defaultView: 'agenda',
+        styleClass: 'agenda-view'
+    },
+} satisfies Story;
+Agenda.parameters = { controls: { include: ['events'] } };
+
+export const Day: Story = {
+    args: {
+        events: sampleEvents,
+        defaultView: 'day'
+    },
+} satisfies Story;
+Day.parameters = { controls: { include: ['events'] } };
+
+export const Mini: Story = {
+    args: {
+        events: sampleEvents,
+        minicalendar: true
+    },
+} satisfies Story;
+Mini.parameters = { controls: { include: ['events'] } };
+
+export const Month: Story = {
+    args: {
+        events: sampleEvents,
     }
 } satisfies Story;
+Month.parameters = { controls: { include: ['events'] } };
+
+export const NoToolbar: Story = {
+    args: {
+        events: sampleEvents,
+        showToolbar: false
+    },
+} satisfies Story;
+NoToolbar.parameters = { controls: { include: ['events'] } };
+
+export const Week: Story = {
+    args: {
+        events: sampleEvents,
+        defaultView: 'work_week'
+    },
+} satisfies Story;
+Week.parameters = { controls: { include: ['events'] } };
