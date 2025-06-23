@@ -92,25 +92,36 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsStepper>;
 
-export const Simple: Story = {
+export const advance: Story = {
     args: {
-        stepperType: "simple",
-    }
+        stepperType: "advance",
+        stepperSectionClass: "m-3",
+        headerClass: "fs-9 lh-base fw-semibold",
+        checkBoxClass: "float-end", 
+        showDetailsClass: "fs-9 fw-normal lh-sm mt-3", 
+        advanceList: [{headerContain: 'Header 1', type: "Circular", isDisabled: true, checkedValue: true, checkBoxLabel: '', checkBoxId: '1', checkBoxWithLabel: false, showDetails: false, detailsContain: 'Details of header 1'},
+                    {headerContain: 'Header 2', type: "Circular", isDisabled: true, checkedValue: true, checkBoxLabel: '', checkBoxId: '2', checkBoxWithLabel: false, showDetails: true, detailsContain: 'Details of header 2'},
+                    {headerContain: 'Header 3', type: "Circular", isDisabled: true, checkedValue: false, checkBoxLabel: '', checkBoxId: '3', checkBoxWithLabel: false, showDetails: false, detailsContain: 'Details of header 3'}
+                ]
+    },
 } satisfies Story;
-Simple.parameters = { controls: { include: [] } };
 
-export const withcheckbox: Story = {
+advance.parameters = { controls: { include: [ 'stepperSectionClass', 'headerClass', 'checkBoxClass', 'showDetailsClass', 'advanceList'] } };
+
+export const Block: Story = {
     args: {
-        stepperType: "withcheckbox",  
-        stepperDetails: [
-        { label: "Project Details", subtitle: "You can initiate a project which will be workspace to track, monitor project progress" },
-        { label: "Design System", subtitle: "Create and customize your design system based on your branding guidelines. AI Pundit will help you generate it." },
-        { label: "Resource Allocation", subtitle: "Create and customize your design system based on your branding guidelines. AI Pundit will help you generate it" },
-    ],
-    showSubtitles: true,
-    }
+        role: "Block",
+        steps: 3,
+        // state: 'default',
+        stepDetailsName: [{stepName: "Step 1", stepState: 'completed'}, {stepName: "Step 2", stepState: 'completed'}, {stepName: "Step 3", stepState: 'completed'}]
+    },
 } satisfies Story;
-withcheckbox.parameters = { controls: { include: ['stepperDetails', 'showSubtitles'] } };
+
+Block.parameters = {
+    controls: {
+        include: ['steps', 'stepDetailsName']
+    }
+};
 
 export const Dash: Story = {
     args: {
@@ -125,22 +136,6 @@ export const Dash: Story = {
 Dash.parameters = {
     controls: {
         include: [ 'height', 'steps', 'stepDetails']
-    }
-};
-
-
-export const Block: Story = {
-    args: {
-        role: "Block",
-        steps: 3,
-        // state: 'default',
-        stepDetailsName: [{stepName: "Step 1", stepState: 'completed'}, {stepName: "Step 2", stepState: 'completed'}, {stepName: "Step 3", stepState: 'completed'}]
-    },
-} satisfies Story;
-
-Block.parameters = {
-    controls: {
-        include: ['steps', 'stepDetailsName']
     }
 };
 
@@ -167,18 +162,22 @@ NumberStepper.parameters = {
     }
 };
 
-export const advance: Story = {
+export const Simple: Story = {
     args: {
-        stepperType: "advance",
-        stepperSectionClass: "m-3",
-        headerClass: "fs-9 lh-base fw-semibold",
-        checkBoxClass: "float-end", 
-        showDetailsClass: "fs-9 fw-normal lh-sm mt-3", 
-        advanceList: [{headerContain: 'Header 1', type: "Circular", isDisabled: true, checkedValue: true, checkBoxLabel: '', checkBoxId: '1', checkBoxWithLabel: false, showDetails: false, detailsContain: 'Details of header 1'},
-                    {headerContain: 'Header 2', type: "Circular", isDisabled: true, checkedValue: true, checkBoxLabel: '', checkBoxId: '2', checkBoxWithLabel: false, showDetails: true, detailsContain: 'Details of header 2'},
-                    {headerContain: 'Header 3', type: "Circular", isDisabled: true, checkedValue: false, checkBoxLabel: '', checkBoxId: '3', checkBoxWithLabel: false, showDetails: false, detailsContain: 'Details of header 3'}
-                ]
-    },
+        stepperType: "simple",
+    }
 } satisfies Story;
+Simple.parameters = { controls: { include: [] } };
 
-advance.parameters = { controls: { include: [ 'stepperSectionClass', 'headerClass', 'checkBoxClass', 'showDetailsClass', 'advanceList'] } };
+export const withcheckbox: Story = {
+    args: {
+        stepperType: "withcheckbox",  
+        stepperDetails: [
+        { label: "Project Details", subtitle: "You can initiate a project which will be workspace to track, monitor project progress" },
+        { label: "Design System", subtitle: "Create and customize your design system based on your branding guidelines. AI Pundit will help you generate it." },
+        { label: "Resource Allocation", subtitle: "Create and customize your design system based on your branding guidelines. AI Pundit will help you generate it" },
+    ],
+    showSubtitles: true,
+    }
+} satisfies Story;
+withcheckbox.parameters = { controls: { include: ['stepperDetails', 'showSubtitles'] } };
