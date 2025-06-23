@@ -44,10 +44,28 @@ describe("RdsTextArea component", () => {
         expect(textarea).toBeInTheDocument();
     });
 
-    test("renders a label if provided", () => {
-        render(<RdsTextArea label="My Label" placeholder={""} />);
+    test("renders a label if provided with showTitle prop", () => {
+        render(<RdsTextArea label="My Label" placeholder="With label" showTitle={true} />);
         const label = screen.getByText("My Label");
         expect(label).toBeInTheDocument();
+    });
+
+    test("renders a label with floating input label", () => {
+        render(<RdsTextArea label="Floating Label" placeholder="With floating label" isFloatingInputLabel={true} />);
+        const label = screen.getByText("Floating Label");
+        expect(label).toBeInTheDocument();
+    });
+
+    test("renders a label when labelPosition is bottom", () => {
+        render(<RdsTextArea label="Bottom Label" placeholder="With bottom label" labelPosition="bottom" />);
+        const label = screen.getByText("Bottom Label");
+        expect(label).toBeInTheDocument();
+    });
+
+    test("does not render a label by default without specific display props", () => {
+        const { container } = render(<RdsTextArea label="Hidden Label" placeholder="No visible label" />);
+        // Label should not be visible in the DOM without showTitle, isFloatingInputLabel, or labelPosition="bottom"
+        expect(screen.queryByText("Hidden Label")).not.toBeInTheDocument();
     });
 
 });

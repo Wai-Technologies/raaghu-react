@@ -1,43 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RdsToggle renders the component 1`] = `
-<label
-  class="toggle-switch pt-1 switch btn-color-mode-switch border-0"
+<div
+  class="rds-toggle"
 >
-  <input
-    id="flexSwitchCheckDefault"
-    type="checkbox"
-  />
-  <span
-    class="  toggle-switch-slider d-flex align-items-center justify-content-around btn-color-mode-switch-inner border-0"
-    id="toggleId"
+  <div
+    class="position-relative form-check form-switch style-1 disabled"
   >
-    <div
-      class="position-relative z-3"
-    >
-      <p
-        class=" p-0 m-0  singleLine   undefined"
-      >
-        <label
-          class="form-label mb-0 fw-undefined "
-        >
-          uncheck
-        </label>
-      </p>
-    </div>
-    <div
-      class="position-relative z-3"
-    >
-      <p
-        class=" p-0 m-0  singleLine   undefined"
-      >
-        <label
-          class="form-label mb-0 fw-undefined "
-        >
-          check
-        </label>
-      </p>
-    </div>
-  </span>
-</label>
+    <input
+      checked=""
+      class="form-check-input"
+      id="flexSwitchCheckDefault"
+      role="switch"
+      type="checkbox"
+    />
+  </div>
+</div>
 `;

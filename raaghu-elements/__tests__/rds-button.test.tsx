@@ -4,10 +4,16 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import RdsButton from "../src/rds-button/rds-button";
 import { TooltipStyle } from "../src/rds-tooltip/rds-tooltip";
 
+// Mock RdsIcon component
+jest.mock('../src/rds-icon', () => ({
+    __esModule: true,
+    default: () => <div data-testid="mocked-icon">IconMock</div>
+}));
+
 jest.mock('react-lottie-player', () => ({
     __esModule: true,
     default: jest.fn(),
-  }));
+}));
 
 describe("RdsButton", () => {
     it("renders button with label", () => {
@@ -30,12 +36,13 @@ describe("RdsButton", () => {
         render(<RdsButton isDisabled={true} type={"button"} />);
         const button = screen.getByRole("button");
         expect(button).toBeDisabled();
-    });
-
-    it("renders button with icon", () => {
+    });    it("renders button with icon", () => {
         render(<RdsButton type={"button"} icon="plus" />);
-        const button = screen.getByRole("img");
+        const button = screen.getByRole("button");
+        const mockedIcon = screen.getByTestId("mocked-icon");
         expect(button).toBeInTheDocument();
+        expect(mockedIcon).toBeInTheDocument();
+        expect(button.querySelector(".d-inline-block")).toBeInTheDocument();
     });
 
     it("renders button with tooltip", () => {

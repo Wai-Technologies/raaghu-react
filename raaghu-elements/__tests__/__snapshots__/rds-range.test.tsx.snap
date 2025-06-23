@@ -6,11 +6,12 @@ exports[`RdsRange renders the component 1`] = `
 >
   <div
     class="slider-track"
+    style="background: linear-gradient(90deg,#5C82E3 0%,#D0D7DD 0%);"
   >
     <span
       class="sliderTooltipRange"
       id="range1"
-      style="top: -55px; padding: 5px 10px;"
+      style="left: calc(0% + (-5px)); top: -55px; padding: 5px 10px;"
     >
       0
     </span>

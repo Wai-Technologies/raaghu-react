@@ -34,7 +34,19 @@
 }
                
  .theme-dark .menu-color {
-    background-color: #ffffff;
+    background-color: #222327;
+    color: #f0f0f0;
+}
+
+.dropdown-menu li:hover {
+    background-color: #EBDCFF;
+    color: #353535;
+}
+
+.dropdown-menu li.highlight-option:hover,
+.dropdown-menu li.highlight-option:active,
+.dropdown-menu li.highlight-option {
+    color: #BD0D1D;
 }
 
 .profile-dropdown-container {

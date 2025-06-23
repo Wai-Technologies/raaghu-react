@@ -156,16 +156,15 @@ const isFormValid = isNameValid(assistance?.name) && isContactNumberValid(assist
           <div className="mt-3 d-flex pb-3 ps-4 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row footer-buttons gap-2 p-4">
             <RdsButton
               class="me-2"
-              tooltipTitle={""}
-              type={"button"}
-              label={"Cancel" || ""}
+              tooltipTitle={""}              type={"button"}
+              label="Cancel"
               colorVariant="outline-primary"
               size="small"
               databsdismiss="offcanvas"
             ></RdsButton>
             <RdsButton
               class="me-2"
-              label={"Send" || ""}
+              label="Send"
               size="small"
               colorVariant="primary"
               tooltipTitle={""}

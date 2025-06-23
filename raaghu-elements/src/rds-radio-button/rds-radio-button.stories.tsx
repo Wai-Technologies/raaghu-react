@@ -51,7 +51,7 @@ const meta: Meta = {
         selected: {
             control: { type: "boolean" },
         },
-        text: {
+        title: {
             control: { type: "text" },
         }
     },
@@ -68,7 +68,7 @@ export const Default: Story = {
         layout: RdsRadioButtonLayout.Icon, // Use the enum here
         state: RdsRadioButtonState.Default, // Use the enum here
         selected: false,
-        text: "Label",
+        title: "Label",
         itemList: [
             {
                 id: 1,
@@ -92,7 +92,7 @@ export const Default: Story = {
     }
 } satisfies Story;
 //Default.parameters = { controls: { include: ['displayType', 'itemList'] } };
-Default.parameters = { controls: { include: ['layout', 'state', 'selected', 'text'] } };
+Default.parameters = { controls: { include: ['layout', 'state', 'selected', 'title'] } };
 
 // export const Horizontal: Story = {
 //     args: {
