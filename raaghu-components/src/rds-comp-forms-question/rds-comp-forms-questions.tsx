@@ -185,9 +185,8 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
             <form className="mb-3 px-0 pt-2">
               <div className="custom-content-scroll">
               <div className="row align-items-center justify-content-between">
-                <span className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-12 mb-3">
-                  <h5 className="fw-medium">
-                    {("Question") || ""} {i + 1}
+                <span className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-12 mb-3">                  <h5 className="fw-medium">
+                    {"Question"} {i + 1}
                   </h5>
                 </span>
                 {element.lastModificationTime ? (

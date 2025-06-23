@@ -5,7 +5,7 @@ import RdsCheckbox, { CheckboxStatus } from "../src/rds-checkbox/rds-checkbox";
 
 describe("RdsCheckbox", () => {
     const defaultProps = {
-        label: "Checkbox label",
+        labelText: "Checkbox label",
         checked: false,
     };
 
@@ -20,14 +20,14 @@ describe("RdsCheckbox", () => {
     it("renders with checked prop", () => {
         const handleChange = jest.fn();
         render(<RdsCheckbox {...defaultProps} checked={true} id='checkbox' onChange={handleChange}/>);
-        const checkbox = screen.getByLabelText(defaultProps.label)  as HTMLInputElement;
+        const checkbox = screen.getByLabelText(defaultProps.labelText)  as HTMLInputElement;
         expect(checkbox.checked).toBe(true);
     });
 
     it("calls onChange prop when clicked", () => {
         const handleChange = jest.fn();
         render(<RdsCheckbox {...defaultProps} id='checkbox' onChange={handleChange} />);
-        const checkbox = screen.getByLabelText(defaultProps.label);
+        const checkbox = screen.getByLabelText(defaultProps.labelText);
         fireEvent.click(checkbox);
         expect(handleChange).toHaveBeenCalledTimes(1);
     });
@@ -35,14 +35,14 @@ describe("RdsCheckbox", () => {
     it("renders disabled checkbox", () => {
         const handleChange = jest.fn();
         render(<RdsCheckbox {...defaultProps} isDisabled={true} id='checkbox' onChange={handleChange}/>);
-        const checkbox = screen.getByLabelText(defaultProps.label)  as HTMLInputElement;
+        const checkbox = screen.getByLabelText(defaultProps.labelText)  as HTMLInputElement;
         expect(checkbox.disabled).toBe(true);
     });
 
     it("renders checkbox with indeterminate state", () => {
         const handleChange = jest.fn();
         render(<RdsCheckbox {...defaultProps} status={CheckboxStatus.Indeterminate} id='checkbox' onChange={handleChange}/>);
-        const checkbox = screen.getByLabelText(defaultProps.label)  as HTMLInputElement;
+        const checkbox = screen.getByLabelText(defaultProps.labelText)  as HTMLInputElement;
         expect(checkbox.classList).toContain("form-check-input-intermediate");
     });
 });

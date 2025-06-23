@@ -32,7 +32,7 @@ export interface RdsRadioButtonProps {
   customClass?: string;
   layout?: RdsRadioButtonLayout;
   selected?: boolean;
-  text?: string;
+  title?: string;
 }
 
 
@@ -65,7 +65,7 @@ const RdsRadioButton = (props: RdsRadioButtonProps) => {
   props.onChange && props.onChange(selectedPaymentMethod);
 }
 const renderLabel = (item: any) => {
-  const label = t(item.label) || props.text ; // Use the text prop if provided
+  const label = t(item.label) ; // Use the text prop if provided
   switch (props.layout) {
     case "Icon":
       return <i className={item.iconClass}></i>;
@@ -92,6 +92,11 @@ return (
   <>
     <div key={props.id}>
       <div>
+        {props.title && (
+          <label className="form-label mb-2">
+            {props.title}
+          </label>
+        )}
         <div className={`${radioButtonClass} ${stateClass}`}>
           {list?.map((item: any, idx: any) => (
             <div
@@ -148,6 +153,11 @@ return (
         </div>
       </div>
     </div>
+    {props.errorMessage && (
+      <div className="text-danger mt-1" data-testid="radio-error-message">
+        {props.errorMessage}
+      </div>
+    )}
   </>
 );
 };

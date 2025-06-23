@@ -35,5 +35,18 @@ export const Default: Story = {
         colorVariant: "#353535",
         placeholderText: "How can AI Pundit help you today?",
         icon_name: "enhancer",
+        type: "default",
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['placeholderText'] } };
+
+export const Advanced: Story = {
+    args: {
+        type: "advanced",
+        warningMsg: true,
+        advancedControls: true,
+        isTheme: true,
+        warningText: "You have 4 credits remaining",
+    }
+} satisfies Story;
+Advanced.parameters = { controls: { include: ['warningMsg', 'advancedControls', 'isTheme', 'warningText', 'type'] } };

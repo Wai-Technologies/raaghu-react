@@ -36,17 +36,13 @@ export interface RdsToggleProps {
 }
 
 const RdsToggle = (props: RdsToggleProps) => {
-  const [checked, setChecked] = useState(props.checked);
+  const [checked, setChecked] = useState(props.checked || props.state === ToggleState.On);
   const [styleClass, setStyleClass] = useState(props.style);
 
   useEffect(() => {
     setStyleClass(props.style);
   }, [props.style]);
 
-<<<<<<< Updated upstream
-  const onChangeHandler = () => {
-    setChecked((prev) => !prev);
-=======
   useEffect(() => {
     setChecked(props.checked || props.state === ToggleState.On);
   }, [props.checked, props.state]);
@@ -65,7 +61,7 @@ const RdsToggle = (props: RdsToggleProps) => {
       } as unknown as React.MouseEvent<HTMLInputElement>;
       props.onClick(syntheticEvent);
     }
->>>>>>> Stashed changes
+    
   };
 
   const classes = () => {
@@ -82,7 +78,7 @@ const RdsToggle = (props: RdsToggleProps) => {
     return classList;
   };
 
-  const isChecked = props.state === ToggleState.On || props.state === ToggleState.DisabledOn;
+  const isChecked = checked || props.state === ToggleState.DisabledOn;
 
   return (
     <div className="rds-toggle">

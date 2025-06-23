@@ -3,10 +3,19 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import RdsPopularPage, { RdsPopularPageProps } from "../src/rds-popular-page/rds-popular-page";
 
+// Mock react-lottie-player
 jest.mock('react-lottie-player', () => ({
     __esModule: true,
     default: jest.fn(),
-  }));
+}));
+
+// Mock the RdsIcon component that's causing the fetch issue
+jest.mock('../src/rds-icon', () => ({
+    __esModule: true,
+    default: jest.fn().mockImplementation(({ name }) => {
+        return <img src="test-icon.svg" alt={name} role="img" data-testid={`icon-${name}`} />;
+    })
+}));
 
 describe("RdsPopularPage", () => {
     const itemList: RdsPopularPageProps["itemList"] = [
@@ -24,28 +33,36 @@ describe("RdsPopularPage", () => {
         }
     ];
 
-    it("should render the list of popular pages", () => {
+    it("should render the popular pages heading", () => {
         render(<RdsPopularPage itemList={itemList} />);
-
         expect(screen.getByText("POPULAR PAGES")).toBeInTheDocument();
-        expect(screen.getAllByTestId("container-div")).toHaveLength(2);
     });
 
-    it("should render the correct information for each item", () => {
+    it("should render the correct number of items", () => {
         render(<RdsPopularPage itemList={itemList} />);
+        const containerDivs = screen.getAllByTestId("container-div");
+        expect(containerDivs).toHaveLength(2);
+    });
 
+    it("should render the correct title and subtitle for each item", () => {
+        render(<RdsPopularPage itemList={itemList} />);
+        
+        // Check first item
         expect(screen.getByText("Page 1")).toBeInTheDocument();
         expect(screen.getByText("Description of page 1")).toBeInTheDocument();
+        
+        // Check second item
         expect(screen.getByText("Page 2")).toBeInTheDocument();
         expect(screen.getByText("Description of page 2")).toBeInTheDocument();
-    });
-
-    it("should render the icons correctly", () => {
+    });    it("should render icons with correct names", () => {
         render(<RdsPopularPage itemList={itemList} />);
-
-        const iconElements = screen.getAllByRole("img");
-        iconElements.forEach(item => {
-            expect(item).toBeInTheDocument();
-        });
+        
+        // Using the mocked icons' testids
+        expect(screen.getByTestId("icon-users")).toBeInTheDocument();
+        expect(screen.getByTestId("icon-folder")).toBeInTheDocument();
+        
+        // Each item has a chevron_right icon, so we should have 2 of them
+        const chevronIcons = screen.getAllByTestId("icon-chevron_right");
+        expect(chevronIcons).toHaveLength(2);
     });
 });

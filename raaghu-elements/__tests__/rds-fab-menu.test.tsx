@@ -8,6 +8,18 @@ jest.mock('react-lottie-player', () => ({
     default: jest.fn(),
   }));
 
+// Mock global fetch for icon loading in RdsIcon
+beforeAll(() => {
+  global.fetch = jest.fn(() =>
+    Promise.resolve({ ok: true, text: () => Promise.resolve('<svg></svg>') })
+  ) as jest.Mock;
+});
+
+afterAll(() => {
+  // @ts-ignore
+  global.fetch = undefined;
+});
+
 describe("RdsFabMenu", () => {
     const mockOnClick = jest.fn();
     const mockListItems = [
@@ -68,8 +80,8 @@ describe("RdsFabMenu", () => {
     });
 
     it("renders icon correctly", () => {
-        render(<RdsFabMenu {...defaultProps} />);
-        const iconElements = screen.getAllByRole("img");
+        const { container } = render(<RdsFabMenu {...defaultProps} />);
+        const iconElements = container.querySelectorAll("svg");
 
         iconElements.forEach((element) => {
             expect(element).toBeInTheDocument();

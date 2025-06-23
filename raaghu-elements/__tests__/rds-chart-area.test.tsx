@@ -29,13 +29,20 @@ describe("RdsToggle", () => {
     });
 
 
-    it("calls onChangeHandler function when checkbox is clicked", () => {
+    it("calls onClick handler when switch is clicked and enabled", async () => {
         const { getByRole } = render(
-            <RdsToggle style={ToggleStyle.Style1} layout={ToggleLayout.SwitchLabel} checked={false} state={ToggleState.DisabledOn} {...defaultProps} onClick={mockOnClick} />
+            <RdsToggle
+                style={ToggleStyle.Style1}
+                layout={ToggleLayout.SwitchLabel}
+                checked={false}
+                state={ToggleState.Off} // Must be enabled for click
+                {...defaultProps}
+                onClick={mockOnClick}
+            />
         );
-        fireEvent.click(getByRole("checkbox"));
+        const switchInput = getByRole("switch");
+        await userEvent.click(switchInput);
         expect(mockOnClick).toHaveBeenCalledTimes(1);
     });
-
 });
 

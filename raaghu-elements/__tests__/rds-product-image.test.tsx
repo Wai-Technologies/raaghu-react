@@ -8,14 +8,14 @@ describe("RdsProductImage", () => {
     const itemList = ["item1.jpg", "item2.jpg", "item3.jpg", "item4.jpg", "item5.jpg"];
 
     it("renders basic display type correctly", () => {
-        render(<RdsProductImage displayType="basic" images={images} itemList={itemList} />);
+        render(<RdsProductImage displayType="default" images={images} itemList={itemList} />);
         expect(screen.getByAltText("image1.jpg")).toBeInTheDocument();
         expect(screen.getByAltText("image2.jpg")).toBeInTheDocument();
         expect(screen.getByAltText("image3.jpg")).toBeInTheDocument();
     });
 
     it("renders product overview 1 display type correctly", () => {
-        render(<RdsProductImage displayType="product-overview1" images={images} itemList={itemList} />);
+        render(<RdsProductImage displayType="column-layout" images={images} itemList={itemList} />);
         expect(screen.getByAltText("item1.jpg")).toBeInTheDocument();
         expect(screen.getByAltText("item2.jpg")).toBeInTheDocument();
         expect(screen.getByAltText("item3.jpg")).toBeInTheDocument();
@@ -23,14 +23,14 @@ describe("RdsProductImage", () => {
     });
 
     it("renders product overview 2 display type correctly", () => {
-        render(<RdsProductImage displayType="product-overview2" images={images} itemList={itemList} />);
+        render(<RdsProductImage displayType="enlarge-view" images={images} itemList={itemList} />);
         expect(screen.getByAltText("item1.jpg")).toBeInTheDocument();
         expect(screen.getByAltText("item2.jpg")).toBeInTheDocument();
         expect(screen.getByAltText("item3.jpg")).toBeInTheDocument();
     });
 
     it("renders product overview 3 display type correctly", () => {
-        render(<RdsProductImage displayType="product-overview3" images={images} itemList={itemList} />);
+        render(<RdsProductImage displayType="image-gallary" images={images} itemList={itemList} />);
         expect(screen.getByAltText("item1.jpg")).toBeInTheDocument();
         expect(screen.getByAltText("item2.jpg")).toBeInTheDocument();
         expect(screen.getByAltText("item3.jpg")).toBeInTheDocument();
