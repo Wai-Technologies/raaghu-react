@@ -1338,7 +1338,7 @@ export const TriPane : Story = {
     ),
 
     sidebar: (
-      <div className="mt-5 OneThreeOne-sidebar" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px', width: '100%' }}>
+      <div className="mt-5 tripane-sidebar" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px', width: '100%' }}>
         <div>
           <RdsCompSideNavigation1
     layout="LeftSideNav"
