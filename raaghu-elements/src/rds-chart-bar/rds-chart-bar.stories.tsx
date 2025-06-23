@@ -24,7 +24,47 @@ type Story = StoryObj<typeof RdsBarChart>;
 
 
 
-export const HorizontalBarChart: Story = {
+export const BorderRadius: Story = {
+    args: {
+        id: 1,
+        dataSets: [
+            {
+                label: "Fully Radius",
+                data: [20, 30, 50, 80, 98, 95, 55],
+                backgroundColor: "rgba(75, 192, 192, 1)",
+                borderColor: "rgba(75, 192, 192, 1)",
+                borderWidth: 2,
+                borderRadius: 5,
+                borderSkipped: false,
+            },
+            {
+                label: "Small Radius",
+                data: [15, 67, 34, 78, 45, 87, 76],
+                backgroundColor: "rgba(54, 162, 235, 1)",
+                borderColor: "rgba(54, 162, 245, 1)",
+                borderWidth: 2,
+                borderRadius: 5,
+                borderSkipped: false,
+            }
+        ],
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: "top",
+                },
+                title: {
+                    display: true,
+                    text: "Border Radius Bar Chart"
+                }
+            }
+        }
+    }
+} satisfies Story;
+export const Horizontal: Story = {
     args: {
         id: 1,
         dataSets: [
@@ -88,91 +128,7 @@ export const HorizontalBarChart: Story = {
 } satisfies Story;
 
 
-export const VerticalBarChart: Story = {
-    args: {
-        id: 1,
-        dataSets: [
-            {
-                label: "Dataset 1",
-                data: [20, 30, 50, 80, 98, 95, 55],
-                backgroundColor: "rgba(75, 192, 192, 1)",
-                borderColor: "rgba(75, 192, 192, 1)"
-            },
-            {
-                label: "Dataset 2",
-                data: [15, 67, 34, 78, 45, 87, 76],
-                backgroundColor: "rgba(54, 162, 235, 1)",
-            },
-            {
-                label: "Dataset 3",
-                data: [31, 52, 43, 91, 74, 93, 76],
-                backgroundColor: "rgba(255, 159, 64, 1)",
-            }
-        ],
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: "top",
-                },
-                title: {
-                    display: true,
-                    text: "Vertical Bar Chart"
-                }
-            }
-        }
-    }
-} satisfies Story;
-
-export const StackedBarChart: Story = {
-    args: {
-        id: 1,
-        dataSets: [
-            {
-                label: "Dataset 1",
-                data: [20, 30, 50, 80, 98, 95, 55],
-                backgroundColor: "rgba(75, 192, 192, 1)",
-                borderColor: "rgba(75, 192, 192, 1)"
-            },
-            {
-                label: "Dataset 2",
-                data: [15, 67, 34, 78, 45, 87, 76],
-                backgroundColor: "rgba(54, 162, 235, 1)",
-            },
-            {
-                label: "Dataset 3",
-                data: [31, 52, 43, 91, 74, 93, 76],
-                backgroundColor: "rgba(255, 159, 64, 1)",
-            }
-        ],
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: "Stacked Bar Chart"
-                },
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    stacked: true,
-                },
-                y: {
-                    stacked: true
-                }
-            }
-        }
-    }
-} satisfies Story;
-
-
-export const PerformanceStackedBarChart: Story = {
+export const PerformanceStacked: Story = {
     args: {
         id: 1,
         dataSets: [
@@ -233,27 +189,69 @@ export const PerformanceStackedBarChart: Story = {
     }
 } satisfies Story;
 
-export const BarChartWithBorderRadius: Story = {
+export const Stacked: Story = {
     args: {
         id: 1,
         dataSets: [
             {
-                label: "Fully Radius",
+                label: "Dataset 1",
                 data: [20, 30, 50, 80, 98, 95, 55],
                 backgroundColor: "rgba(75, 192, 192, 1)",
-                borderColor: "rgba(75, 192, 192, 1)",
-                borderWidth: 2,
-                borderRadius: 5,
-                borderSkipped: false,
+                borderColor: "rgba(75, 192, 192, 1)"
             },
             {
-                label: "Small Radius",
+                label: "Dataset 2",
                 data: [15, 67, 34, 78, 45, 87, 76],
                 backgroundColor: "rgba(54, 162, 235, 1)",
-                borderColor: "rgba(54, 162, 245, 1)",
-                borderWidth: 2,
-                borderRadius: 5,
-                borderSkipped: false,
+            },
+            {
+                label: "Dataset 3",
+                data: [31, 52, 43, 91, 74, 93, 76],
+                backgroundColor: "rgba(255, 159, 64, 1)",
+            }
+        ],
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
+
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: "Stacked Bar Chart"
+                },
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        }
+    }
+} satisfies Story;
+
+export const Vertical: Story = {
+    args: {
+        id: 1,
+        dataSets: [
+            {
+                label: "Dataset 1",
+                data: [20, 30, 50, 80, 98, 95, 55],
+                backgroundColor: "rgba(75, 192, 192, 1)",
+                borderColor: "rgba(75, 192, 192, 1)"
+            },
+            {
+                label: "Dataset 2",
+                data: [15, 67, 34, 78, 45, 87, 76],
+                backgroundColor: "rgba(54, 162, 235, 1)",
+            },
+            {
+                label: "Dataset 3",
+                data: [31, 52, 43, 91, 74, 93, 76],
+                backgroundColor: "rgba(255, 159, 64, 1)",
             }
         ],
         labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -267,7 +265,7 @@ export const BarChartWithBorderRadius: Story = {
                 },
                 title: {
                     display: true,
-                    text: "Border Radius Bar Chart"
+                    text: "Vertical Bar Chart"
                 }
             }
         }
