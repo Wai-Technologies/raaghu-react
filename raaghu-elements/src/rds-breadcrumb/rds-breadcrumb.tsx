@@ -132,7 +132,7 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
           ].filter(Boolean).join(' ');
 
           // Always apply border style to last item if borderColor and borderPlacement are set
-          const itemStyle = isLastItem && props.borderColor && props.borderPlacement
+          const itemStyle = breadItem.active && props.borderColor && props.borderPlacement
             ? (props.borderPlacement === 'top'
                 ? { borderTop: `2px solid ${props.borderColor}` }
                 : { borderBottom: `2px solid ${props.borderColor}` })
