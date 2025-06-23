@@ -1,18 +1,32 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import "./rds-icon-label.css";
 import RdsIcon from "../rds-icon/rds-icon";
 import RdsLabel from "../rds-label/rds-label";
+import { fontWeight } from "../../libs";
 
 export interface RdsIconLabelProps {
+    children?: ReactNode;
     label?: string;
     icon?: string;
     size: string;
     fill?: boolean;
     iconposition?: string;
     colorVariant?: string;
+    multiline?: boolean;
+    class?: string;
+    italic?: boolean;
+    fontWeight?: fontWeight;
+    required?: boolean;
+    id?: any;
+    onClick?: React.MouseEventHandler<HTMLElement>;
+    withIcon?: boolean;
+    custom?: boolean;
 }
 
 const RdsIconLabel = (props: RdsIconLabelProps) => {
+    const isItalic = props.italic ? ' fst-italic' : ''
+    const fontWeightClass = props.fontWeight ? "fw-" + props.fontWeight : ""
+
     const classes = () => {
         let classes: string = 'd-flex';
         if (props.size) {
@@ -36,6 +50,8 @@ const RdsIconLabel = (props: RdsIconLabelProps) => {
 
     return (
         <>
+    {
+    props.withIcon && (
             <div className={inputClass()}>
                 <RdsIcon
                     classes={classes()}
@@ -47,6 +63,19 @@ const RdsIconLabel = (props: RdsIconLabelProps) => {
                 />
                 <RdsLabel label={props.label} size={classes()} class={"align-items-center " + classes()} />
             </div>
+        )
+    }
+    {
+        props.custom && (
+            <p className={`d-flex p-0 m-0 ${props.multiline ? ' text-break' : ' singleLine'} ${props.class ? props.class : ""}`}>
+                <label className={`form-label mb-0 ${fontWeightClass} ${isItalic}`} htmlFor={props?.id}
+                    onClick={props.onClick}>{props.label}</label>
+                {props.required && (
+                    <span className="text-danger ms-1">*</span>
+                )}
+        </p>
+        )
+    }
         </>
     );
 };
