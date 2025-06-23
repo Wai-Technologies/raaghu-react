@@ -193,6 +193,11 @@ const RdsCompApiScopeResource = (props: RdsCompApiScopeResourceProps) => {
                         colorVariant="outline-primary"
                         size="small"
                         databsdismiss="offcanvas"
+                        dataTestId="cancel"
+                        onClick={() => {
+                            props.onCancel && props.onCancel(Res);
+                            resetForm();
+                        }}
                     ></RdsButton>
                     <RdsButton
                         class="me-2"

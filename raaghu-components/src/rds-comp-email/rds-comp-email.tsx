@@ -344,6 +344,7 @@ const isFormValid = isSenderEmailValid(sendTestEmailData?.senderEmailAddress)&& 
                                         <div className="col-12">
                                             <RdsTextArea
                                                 label="Short Description"
+                                                showTitle={true}
                                                 placeholder="Enter Description"
                                                 value={sendTestEmailData?.body}
                                                 rows={3}

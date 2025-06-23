@@ -60,7 +60,7 @@ export const Default: Story = {
             { label: "Link", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about" },
             { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled" },
         ],
-        style: "BottomSelect",
+        style: "Bottom Select",
         justified: false,
         layout: "Horizontal"
     }
@@ -148,7 +148,7 @@ export const WithIcon: Story = {
             { label: "About", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about", icon: "profile_picture" },
             { label: "Disabled", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled", icon: "eye_slash" },
         ],
-       
+        style: "Bottom Select",
         justified: false,
         layout:"Horizontal"
     }
@@ -163,6 +163,7 @@ export const IconOnly: Story = {
             { label: "", tablink: "#nav-contact", ariacontrols: "nav-contact", subText: "Home subtext", id: "about", icon: "profile_picture" },
             { label: "", tablink: "#nav-deabled", disabled: true, subText: "Disble subtext", id: "disabled", icon: "eye_slash" },
         ],       
+        style: "Bottom Select", 
         justified: false,
         layout:"Horizontal",
         iconOnly: true

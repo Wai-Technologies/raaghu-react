@@ -120,6 +120,7 @@ const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
                 rows={2}
                 value={formData?.description}
                 data-testId="desc"
+                showTitle={true}
               />
 
               <div className="mb-4">
@@ -226,6 +227,7 @@ const RdsCompApiResourceBasic = (props: RdsCompApiResourceBasicProps) => {
                   rows={3}
                   value={fieldScopeData?.resources}
                   dataTestId="resources"
+                  showTitle={true}
                 />
               </div>
             </div>

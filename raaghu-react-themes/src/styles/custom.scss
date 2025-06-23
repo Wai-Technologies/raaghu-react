@@ -3582,9 +3582,9 @@ figure.worldmap__figure-container {
     color: #dee2e6 !important;
 }
 
-.theme-dark div p {
-    color: #dee2e6 !important;
-}
+// .theme-dark div p {
+//     color: #dee2e6 !important;
+// }
 
 .astric {
     color: $danger;
@@ -3786,13 +3786,6 @@ label.form-check-label.ms-2.undefined {
 
 #topnav #serachOption {
     width: 15rem !important;
-}
-
-#topnav .border-custom-dropdown-menu {
-    background: #ffffff 0% 0% no-repeat padding-box;
-    border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
-    opacity: 1;
-    margin-top: -4px !important;
 }
 
 #topnav .signInOption {

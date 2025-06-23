@@ -3,11 +3,11 @@
 exports[`RdsBankCardDetail renders correctly 1`] = `
 <div>
   <div
-    class="m-1 p-1 "
+    class="m-1 p-1"
   >
     <div>
       <div
-        class=" mb-4"
+        class="cursor-pointer mb-4"
       >
         <div
           class="border__gray p-4"
@@ -19,32 +19,26 @@ exports[`RdsBankCardDetail renders correctly 1`] = `
               class="d-flex justify-content-between"
             >
               <div
-                class="d-flex  align-items-center"
+                class="d-flex align-items-center"
               >
-                <span
-                  class="cursor-pointer undefined"
-                  role="img"
+                <div
+                  class=""
+                  style="height: 24px; width: 24px; stroke-width: inherit; margin: auto;"
                 />
                 <div
-                  class="ms-3  "
+                  class="ms-1"
                 >
                   <div
-                    class="ms-3 d-flex fs-6"
+                    class="ms-2 fs-6"
                   >
                     <span>
                       Test Card 1
-                    </span>
-                    <span
-                      class="ms-1 me-1 "
-                    >
-                      Ending with
-                    </span>
-                    <span>
+                       Ending with 
                       1234
                     </span>
                   </div>
                   <div
-                    class=" ms-3 fs-7"
+                    class="ms-2 fs-7"
                   >
                     <span
                       class="text-muted fs-7"
@@ -69,15 +63,15 @@ exports[`RdsBankCardDetail renders correctly 1`] = `
             </div>
           </div>
           <div
-            class="mt-2  ms-5"
+            class="mt-2 ms-4"
           >
             <a
-              class="ms-3 text-primary text-decoration-none "
+              class="ms-3 text-primary text-decoration-none"
             >
               Set as default
             </a>
             <a
-              class="text-primary ms-2 text-decoration-none "
+              class="text-primary ms-2 text-decoration-none"
               style="text-decoration: auto;"
             >
               Edit
@@ -88,7 +82,7 @@ exports[`RdsBankCardDetail renders correctly 1`] = `
     </div>
     <div>
       <div
-        class=" mb-4"
+        class="cursor-pointer mb-4"
       >
         <div
           class="border__gray p-4"
@@ -100,32 +94,26 @@ exports[`RdsBankCardDetail renders correctly 1`] = `
               class="d-flex justify-content-between"
             >
               <div
-                class="d-flex  align-items-center"
+                class="d-flex align-items-center"
               >
-                <span
-                  class="cursor-pointer undefined"
-                  role="img"
+                <div
+                  class=""
+                  style="height: 24px; width: 24px; stroke-width: inherit; margin: auto;"
                 />
                 <div
-                  class="ms-3  "
+                  class="ms-1"
                 >
                   <div
-                    class="ms-3 d-flex fs-6"
+                    class="ms-2 fs-6"
                   >
                     <span>
                       Test Card 2
-                    </span>
-                    <span
-                      class="ms-1 me-1 "
-                    >
-                      Ending with
-                    </span>
-                    <span>
+                       Ending with 
                       5678
                     </span>
                   </div>
                   <div
-                    class=" ms-3 fs-7"
+                    class="ms-2 fs-7"
                   >
                     <span
                       class="text-muted fs-7"
@@ -150,15 +138,15 @@ exports[`RdsBankCardDetail renders correctly 1`] = `
             </div>
           </div>
           <div
-            class="mt-2  ms-5"
+            class="mt-2 ms-4"
           >
             <a
-              class="ms-3 text-primary text-decoration-none "
+              class="ms-3 text-primary text-decoration-none"
             >
               Set as default
             </a>
             <a
-              class="text-primary ms-2 text-decoration-none "
+              class="text-primary ms-2 text-decoration-none"
               style="text-decoration: auto;"
             >
               Edit

@@ -41,3 +41,11 @@
   padding-left: 10px; 
   padding-right: 10px;
 }
+
+.breadcrumb-pill {
+  border-radius: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #D4BBFF !important;
+  color: #6610f2 !important;
+}

@@ -171,3 +171,7 @@
   stroke: #FFFFFF;
   color: #FFFFFF;
 }
+
+.theme-dark .btn.btn-transparent-primary {
+  color: #7825e9 !important;
+}

@@ -2738,8 +2738,8 @@ textarea::placeholder {
 }
 
 .form-check-input {
-    background-color: $dark-200;
-    border-color: $light-950;
+    background-color: transparent;
+    border-color: $neutral-400;
 }
 
 .remember-me .form-check-input {

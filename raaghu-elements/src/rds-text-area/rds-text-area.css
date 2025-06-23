@@ -16,3 +16,8 @@
   .inputError {
     border-color: #E02D30 !important;
 }
+
+.textarea::placeholder {
+    font-weight: 400 !important; 
+}
+
