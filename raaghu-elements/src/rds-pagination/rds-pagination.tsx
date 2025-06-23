@@ -231,7 +231,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
 
         {paginType === "default" && (props.style!="Style5" && props.style!="Style6" && props.style !="Style8" && props.style!="Style9" && props.style!="Style10" && props.style!="Style11") && (
           <nav aria-label="page navigation" className={"d-flex align-items-center" + `${size}` +`${align} ${props.style=='Style3' ?'bg-white ':''} ${props.style=='Style7' ?'bg-white rounded-5 ':''}`}>
-            <ul className={"pagination rounded align-items-center mb-0 mt-2" + `${size}` + `${align} `}>
+            <ul className={"pagination rounded align-items-center mt-2" + `${size}` + `${align} `}>
               {/* Previous Page Button */}
 
               {(
@@ -271,14 +271,11 @@ const RdsPagination = (props: RdsPaginationProps) => {
                   )}
               </li>
             
-              
-
               {/* Displayed Pages */}
               {previous.map((number, index) => (
                 <li
                   key={number}
                   className={`m-1 page-item cursor-pointer ${typeof number === 'number' ? ((number === currentPage) ? "active" : "") : ""} ${(props.style =='Style3' && number === currentPage) ? 'pagination-border-bottom-custom' : ''}`}
-                 
                 >
                   <a onClick={() => typeof number === 'number' && onPage(number)}  style={getLinkStyles()}>
                     {number}

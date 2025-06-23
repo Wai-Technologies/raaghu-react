@@ -109,23 +109,30 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
         tempArray.push(false);
       });
       setArray(tempArray);
+      
+      // When data changes, reset pagination to first page if needed
+      if (props.pagination) {
+        const defaultRecordsPerPage = props.recordsPerPage || 10;
+        setRowStatus({
+          startingRow: 0,
+          endingRow: defaultRecordsPerPage,
+        });
+      }
     }
-  }, [props.tableData]);
-
-  const onPageChangeHandler = (currentPage: number, recordsPerPage: number) => {
-    props.onPaginationHandler &&
+  }, [props.tableData]);const onPageChangeHandler = (currentPage: number, recordsPerPage: number) => {
+    
+    if (props.onPaginationHandler) {
       props.onPaginationHandler(currentPage, recordsPerPage);
-    if (totalRecords) {
-      setRowStatus({
-        startingRow: 0, //0-index
-        endingRow: recordsPerPage, //considering that 1st element has '0' index
-      });
-    } else {
-      setRowStatus({
-        startingRow: (currentPage - 1) * recordsPerPage, //0-index
-        endingRow: currentPage * recordsPerPage, //considering that 1st element has '0' index
-      });
     }
+    
+    // Calculate row status regardless of totalRecords
+    const dataLength = props.tableData ? props.tableData.length : 0;
+    const totalItems = totalRecords || dataLength;
+    
+    setRowStatus({
+        startingRow: (currentPage - 1) * recordsPerPage,      
+        endingRow: Math.min(currentPage * recordsPerPage, totalItems),
+    });
   };
 
   const [html, setHtml] = useState("");
@@ -557,9 +564,8 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                                     isCursorPointer={true}
                                   />
                         </span>
-                      </th>
-                    )}
-                    {/* {props.isSwap && <th></th>}
+                      </th>                    )}
+                    {props.isSwap && <th></th>}
                     {props.enablecheckboxselection && (
                       <th scope="col">
                         <input
@@ -629,7 +635,7 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                         <th className="text-center fw-medium actionWidth">
                           Actions
                         </th>
-                      )} */}
+                      )}
                       {props.enablecheckboxselection && (
                       <th scope="col">
                        <label className="fw-medium">Text</label>
@@ -1709,9 +1715,8 @@ const RdsCompDatatable = (props: RdsCompDatatableProps) => {
                   props.recordsPerPage ? props.recordsPerPage : 10
                 }
                 onPageChange={onPageChangeHandler}
-                paginationType={
-                  props.recordsPerPageSelectListOption ? "default" : "advanced"
-                }
+                paginationType={"default"}
+                showLegend={true}
               ></RdsPagination>
             </div>
           )}
