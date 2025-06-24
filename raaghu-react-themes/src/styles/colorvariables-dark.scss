@@ -3477,7 +3477,11 @@ hr {
 
 
 .customWidthClass {
-    border-color: $dark-300 !important;
+    border-color: $primary !important;
+}
+
+.bg-pagination{
+    background-color: $neutral-900;
 }
 
 .custom-navigation .customWidthForBtn {
