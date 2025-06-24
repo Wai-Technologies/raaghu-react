@@ -226,7 +226,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
             colorVariant="primary"
             height="16px"
             isCursorPointer
-            name="sun"
+            name="sun_2"
             stroke
             width="16px"
           />
@@ -646,7 +646,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   className={"position-relative px-2 px-md-3 col text-center d-flex align-items-center"}
                 >
                   <RdsIcon
-                    name="notification"
+                    name="notification_dot"
                     fill={false}
                     stroke={true}
                     height="18px"
@@ -1761,6 +1761,8 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   tooltipStyle={TooltipStyle.MiddleTopArrow}
                   tooltipPlacement="bottom"
                   borderDropdown={false}
+                  
+                  
                 />
               </div>
               {props.professional5 && (
@@ -2191,7 +2193,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   }
                 >
                   {((!props.product1 && !props.product2 && !props.product3 && !props.product4 && !props.entertainment1) && <>
-                    <div className="position-relative px-2 px-md-3 col text-center">
+                    <div className="position-relative px-2 px-md-3 col text-center" id="dropdown-list-theme">
                       <RdsDropdownList
                         labelIconWidth="30px"
                         iconFill={true}
@@ -2206,11 +2208,12 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                         onClick={onClicktheme}
                         showIcon={true}
                         tooltip={true}
-                        tooltipTitle="Change Theme"
+                        tooltipTitle="Select Theme"
                         tooltipStyle={TooltipStyle.MiddleTopArrow}
                         tooltipPlacement="bottom"
                         borderDropdown={false}
                       />
+                      
                       {/* <div className="d-block d-none fs-8 text-center">Light</div> */}
                     </div>
 
@@ -2224,7 +2227,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                           <RdsIcon
                             name="chatting"
                             tooltip={true}
-                            tooltipTitle={"Chat"}
+                            tooltipTitle={"Notification"}
                             tooltipPlacement="bottom"
                             style={TooltipStyle.MiddleTopArrow}
                             width="18px"

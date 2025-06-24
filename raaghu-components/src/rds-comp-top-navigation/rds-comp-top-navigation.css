@@ -121,3 +121,7 @@
   background: #ffffff !important;
   padding: 0 !important;
 }
+
+#dropdown-list-theme li{
+  border-bottom: 1px solid #e1e3ea;
+}
