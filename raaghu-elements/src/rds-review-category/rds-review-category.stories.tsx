@@ -16,6 +16,14 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+         display_type: {
+            options: [
+                "Basic",
+                "ReviewType_1",
+                "ReviewType_2",
+            ],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsReviewCategory>;
 
