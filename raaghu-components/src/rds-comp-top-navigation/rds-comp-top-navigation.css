@@ -120,6 +120,7 @@
   box-shadow: none !important;
   background: #ffffff !important;
   padding: 0 !important;
+  overflow-y: auto;
 }
 
 #dropdown-list-theme li{
@@ -128,8 +129,11 @@
 #notification-list .notification-card{
       padding: 0px !important;
     border-radius: 0.5rem !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.5rem !important;
     position: relative;
+    box-shadow: 2px 8px 16px 0px #3C3C3C1F !important;
+    
+
 }
 
 #notification-list .notification-header {

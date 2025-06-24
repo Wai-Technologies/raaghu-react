@@ -682,11 +682,16 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                       top: '100%', 
                       right: 0, 
                       zIndex: 1000, 
-                      width: '416px', 
+                      width: '420px', 
                       maxHeight: '500px', 
                       overflowY: 'auto',
                       marginTop: '8px',
-                      padding:'5px'
+                      padding:'7px',
+                      border:'1px solid #7d7d7d',
+                      boxShadow: '2px 8px 16px 0px #3C3C3C1F',
+                      
+
+
                     }}>                      
                     {/* <div className="p-3 border-bottom">
                         <h6 className="mb-0 fw-semibold">Notifications</h6>
@@ -700,15 +705,19 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                               status: 'success',
                               time: '10 min ago',
                               title: 'Notification Title',
-                              urlTitle: 'hello'
+                              urlTitle: 'hello',
+
                             }
                           ]}
                           showButton
                           showDismissIcon
                           style={NotificationStyle.Default}
-                          type={NotificationType.Info}
+                          type={NotificationType.Success}
+                          
                          
                         />
+
+                        
                         <RdsNotification
                           layout={NotificationLayout.Horizontal}
                           notifications={[
