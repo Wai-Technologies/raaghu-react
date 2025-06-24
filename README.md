@@ -40,9 +40,9 @@
 
 - [What is Raaghu Design System?](#raaghu-intro)
 - [Why Choose Raaghu Design System??](#why)
-- [How Raaghu Design System Works?](#how)
-- [Features](#features)
-- [More about Raaghu Design System](#learn-more)
+<!-- - [How Raaghu Design System Works?](#how) -->
+<!-- - [Features](#features) -->
+<!-- - [More about Raaghu Design System](#learn-more) -->
 - [Raaghu Resources](#insights)
 - [Getting Started with Raaghu](#started)
 - [License](#license)
