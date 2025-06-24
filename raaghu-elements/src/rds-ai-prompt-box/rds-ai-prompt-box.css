@@ -300,6 +300,20 @@
   padding: 5px 10px;
   border-radius: 3px;
   cursor: pointer;
+  .form-check-input{
+    background-color: transparent !important;
+    
+  }
+  .form-check-input:hover{
+    background-color: #7825e9 !important;
+  }
+  .form-check-input:checked{
+    background-color: #7825e9 !important;
+  }
+}
+
+.hover-button :hover {
+    fill: #7825e9;
 }
 
 .customcheckbox{
@@ -590,9 +604,10 @@
 .hover-buttons {
   position: absolute; /* Change to absolute */
   top: 22px;
-  right: -55px;
+  /* right: -55px; */
+  right: -195px;
   display: none; /* Keep it hidden by default */
-  flex-direction: row; /* Arrange buttons in a row */
+  flex-direction: row !important; /* Arrange buttons in a row */
 }
 
 /* Show hover buttons on output content hover */
