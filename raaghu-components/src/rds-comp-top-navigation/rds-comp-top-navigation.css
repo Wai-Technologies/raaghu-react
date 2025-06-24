@@ -125,3 +125,32 @@
 #dropdown-list-theme li{
   border-bottom: 1px solid #e1e3ea;
 }
+#notification-list .notification-card{
+      padding: 0px !important;
+    border-radius: 0.5rem !important;
+    margin-bottom: 1rem !important;
+    position: relative;
+}
+
+#notification-list .notification-header {
+   
+    justify-content: space-between;
+    position: relative ;
+    text-align: start !important;
+    margin-left: 10px !important;
+}
+
+#notification-list .notification-dismiss-icon{
+    position: absolute;
+    top: 5px !important;
+    right: 0.5rem !important;
+}
+
+#notification-list .layout-horizontal .notification-header, .layout-horizontal .notification-body, .layout-horizontal .notification-footer
+ {
+    display: flex;
+    align-items: center;
+    text-align: start !important;
+    margin-left: 10px !important;
+    font-size: 13px !important;
+}

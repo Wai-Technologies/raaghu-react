@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { RdsIcon, RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsSearch, RdsAvatar } from "../rds-elements";
+import { RdsIcon, RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsSearch, RdsAvatar, RdsNotification } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import "./rds-comp-top-navigation.css";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
@@ -9,6 +9,7 @@ import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 import RdsCompProfile from "../rds-comp-profile";
 import { DropdownSize, DropdownState } from "../../../raaghu-elements/src/rds-dropdown-list/rds-dropdown-list";
+import { NotificationLayout, NotificationStyle, NotificationType } from "../../../raaghu-elements/src/rds-notification/rds-notification";
 
 export interface RdsCompTopNavigationProps {
   ShowProfileSection?: boolean; // Determines whether to show the profile section.
@@ -101,10 +102,10 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   const [resetDrop, setResetDrop] = useState(false);
   const currentPath = window.location.pathname;
   const [activeImage, setActiveImage] = useState<string | null>(null);
-  const [showSearchInput, setShowSearchInput] = useState(false);
-  const [searchInput, setSearchInput] = useState("");
+  const [showSearchInput, setShowSearchInput] = useState(false);  const [searchInput, setSearchInput] = useState("");
   const [themeIcon, setThemeIcon] = useState("sun");
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useState(false);
 
   const navtabItems = [
     {
@@ -312,8 +313,26 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
       props.navbarTitle != navtitle
     ) {
       setResetDrop(!resetDrop);
+    }  }, [props.breadcrumItem, props.navbarTitle]);
+
+  // Handle click outside notification dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (isNotificationDropdownOpen && target && !target.closest('.notification-dropdown-container')) {
+        setIsNotificationDropdownOpen(false);
+      }
+    };
+
+    if (isNotificationDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
     }
-  }, [props.breadcrumItem, props.navbarTitle]);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isNotificationDropdownOpen]);
+
   const avatarBlankImage = "./assets/avatar-svg-blank.svg";
   const handleImageClick = (imageName: string) => {
     setActiveImage(imageName);
@@ -331,9 +350,12 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   const handleSearchMouseEnter = () => {
     setShowSearchInput(true);
   };
-
   const handleIconClick = (icon?: any) => {
     console.log("Icon clicked");
+  };
+
+  const handleNotificationClick = () => {
+    setIsNotificationDropdownOpen(!isNotificationDropdownOpen);
   };
 
   const handleSearchMouseLeave = () => {
@@ -639,11 +661,9 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
               className={
                 "d-flex align-items-center justify-content-between right-side-menu"
               }
-            >
-
-              {(props.ecommerce1 &&
-                <div
-                  className={"position-relative px-2 px-md-3 col text-center d-flex align-items-center"}
+            >              {(props.ecommerce1 &&
+                <div id="notification-list"
+                  className={"position-relative px-2 px-md-3 col text-center d-flex align-items-center notification-dropdown-container"}
                 >
                   <RdsIcon
                     name="notification_dot"
@@ -651,13 +671,96 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                     stroke={true}
                     height="18px"
                     width="18px"
-                    onClick={props.mobileViewLogoClick}
+                    onClick={handleNotificationClick}
                     isCursorPointer={true}
                     tooltip={true}
                     tooltipTitle={"Notification"}
                     tooltipPlacement="bottom"
                     style={TooltipStyle.MiddleTopArrow}                        
-                  ></RdsIcon>
+                  ></RdsIcon>                  {isNotificationDropdownOpen && (
+                    <div className="position-absolute bg-white  rounded shadow-lg" style={{ 
+                      top: '100%', 
+                      right: 0, 
+                      zIndex: 1000, 
+                      width: '416px', 
+                      maxHeight: '500px', 
+                      overflowY: 'auto',
+                      marginTop: '8px',
+                      padding:'5px'
+                    }}>                      
+                    {/* <div className="p-3 border-bottom">
+                        <h6 className="mb-0 fw-semibold">Notifications</h6>
+                      </div> */}
+                      {/* <div className="mb-2"> */}
+                        <RdsNotification
+                          layout={NotificationLayout.Horizontal}
+                          notifications={[
+                            {
+                              description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                              status: 'success',
+                              time: '10 min ago',
+                              title: 'Notification Title',
+                              urlTitle: 'hello'
+                            }
+                          ]}
+                          showButton
+                          showDismissIcon
+                          style={NotificationStyle.Default}
+                          type={NotificationType.Info}
+                         
+                        />
+                        <RdsNotification
+                          layout={NotificationLayout.Horizontal}
+                          notifications={[
+                            {
+                              description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard.',
+                              status: 'success',
+                              time: '10 min ago',
+                              title: 'Notification Title',
+                              urlTitle: 'hello'
+                            }
+                          ]}
+                          showButton
+                          showDismissIcon
+                          showPrimaryButton
+                          style={NotificationStyle.Default}
+                          type={NotificationType.Info}
+                        />
+                        <RdsNotification
+                          layout={NotificationLayout.Horizontal}
+                          notifications={[
+                            {
+                              description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                              status: 'success',
+                              time: '10 min ago',
+                              title: 'Notification Title',
+                              urlTitle: 'hello'
+                            }
+                          ]}
+                          showButton
+                          showDismissIcon
+                          style={NotificationStyle.Default}
+                          type={NotificationType.Info}
+                        />
+                        <RdsNotification
+                          layout={NotificationLayout.Horizontal}
+                          notifications={[
+                            {
+                              description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                              status: 'success',
+                              time: '10 min ago',
+                              title: 'Notification Title',
+                              urlTitle: 'hello'
+                            }
+                          ]}
+                          showButton
+                          showDismissIcon
+                          style={NotificationStyle.Default}
+                          type={NotificationType.Info}
+                        />
+                      </div>
+                    // </div>
+                  )}
                 </div>)}
               {/* notification----------------------------------------------------------------------------------------------- */}
 
