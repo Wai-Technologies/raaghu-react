@@ -23,6 +23,7 @@
 .border-start-custom {
   border-left: 2px solid #dee2e6;
   min-height: 16px;
+  
 }
 
 .breadcrumb-item.active a {
@@ -120,4 +121,9 @@
   box-shadow: none !important;
   background: #ffffff !important;
   padding: 0 !important;
+}
+
+
+#dropdown-list-language div.d-flex.align-items-center.justify-content-xxl-between.justify-content-xl-between.justify-content-lg-between.justify-content-md-between.justify-content-between{
+gap: 12px;
 }

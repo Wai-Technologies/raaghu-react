@@ -268,7 +268,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
             colorVariant="primary"
             height="16px"
             isCursorPointer
-            name="logout"
+            name="leave_logout"
             stroke
             width="16px"
           />
@@ -2255,7 +2255,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                       </div>
                     </div>
 
-                    <div
+                    <div id="dropdown-list-language"
                       className={`position-relative px-2 px-md-4 ${!props.ShowProfileSection && "border-start-custom"
                         }  border-end-custom col text-center d-flex align-items-center language`}
                     >
