@@ -2148,7 +2148,7 @@ export const With_Theme_Switcher: Story = {
 } satisfies Story;
 
 With_Theme_Switcher.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'showLogo', 'style'] } };
-export const App_Shell: Story = {
+export const Application_Shell: Story = {
     args: {
         navbarTitle: "Dashboard",
         navbarSubTitle: "Statistics and reports",
@@ -2321,4 +2321,4 @@ export const App_Shell: Story = {
     }
 } satisfies Story;
 
-App_Shell.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'style'] } };
+Application_Shell.parameters = { controls: { include: ['brandName', 'brandLogo', 'profilePic', 'top_nav_logo', 'profileTitle', 'profileName', 'logo', 'themeItems', 'style'] } };
