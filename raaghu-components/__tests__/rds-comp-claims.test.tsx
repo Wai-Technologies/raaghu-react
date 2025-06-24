@@ -3,8 +3,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompClaims from '../src/rds-comp-claims/rds-comp-claims';
 
-// Mock RdsCompDatatable component
-jest.mock('../src/rds-comp-data-table', () => ({
+// Mock RdsDatatable component
+jest.mock('../src/rds-data-table', () => ({
   __esModule: true,
   default: ({ tableHeaders, tableData, actions, onActionSelection }: any) => (
     <div data-testid="mock-data-table">

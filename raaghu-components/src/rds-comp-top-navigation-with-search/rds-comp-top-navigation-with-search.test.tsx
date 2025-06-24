@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import RdsCompTopNavigationWithSearch from "./rds-comp-top-navigation-with-search";
+import RdsCompTopNavigationWithSearch from "./rds-top-navigation-with-search";
 import "@testing-library/jest-dom";
 
 // Mock react-i18next

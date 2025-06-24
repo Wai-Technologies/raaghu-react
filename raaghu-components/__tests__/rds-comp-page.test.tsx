@@ -3,8 +3,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompPage from '../src/rds-comp-page/rds-comp-page';
 
-// Mock RdsCompDatatable
-jest.mock('../src/rds-comp-data-table', () => {
+// Mock RdsDatatable
+jest.mock('../src/rds-data-table', () => {
   return function MockRdsCompDatatable(props: any) {
     return <div data-testid="rds-comp-datatable">Datatable Mock</div>;
   };

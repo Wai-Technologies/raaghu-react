@@ -2,11 +2,11 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompSecurityLogs, { RdsCompSecurityLogsProps } from '../src/rds-comp-security-logs/rds-comp-security-logs';
-import { ActionPosition } from '../src/rds-comp-data-table/rds-comp-data-table';
+import { ActionPosition } from '../../raaghu-elements/src/rds-data-table/rds-data-table';
 
-// Mock the RdsCompDatatable component
-jest.mock('../src/rds-comp-data-table/rds-comp-data-table', () => {
-  const originalModule = jest.requireActual('../src/rds-comp-data-table/rds-comp-data-table');
+// Mock the RdsDatatable component
+jest.mock('../src/rds-data-table/rds-data-table', () => {
+  const originalModule = jest.requireActual('../src/rds-data-table/rds-data-table');
   return {
     __esModule: true,
     ...originalModule,

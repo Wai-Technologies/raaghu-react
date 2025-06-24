@@ -6,7 +6,6 @@ export { default as RdsCompLogin } from "./rds-comp-login";
 export { default as RdsCompOrganizationTree } from "./rds-comp-organization-tree";
 export { default as RdsCompSideNavigation } from "./rds-comp-side-navigation";
 export { default as RdsCompTenantList } from "./rds-comp-tenant-list";
-export { default as RdsCompTopNavigation } from "./rds-comp-top-navigation";
 export { default as RdsCompWebsiteLog } from "./rds-comp-website-log";
 export { default as RdsCompAlertPopup } from "./rds-comp-alert-popup";
 export { default as RdsCompUserManagement } from "./rds-comp-user-management";
@@ -16,7 +15,6 @@ export { default as RdsCompTenantInformation } from "./rds-comp-tenant-informati
 export { default as RdsCompTenantSettings } from "./rds-comp-tenant-settings";
 export { default as RdsCompWebhookSubscription } from "./rds-comp-webhook-subscriptions";
 export { default as RdsCompVisualSetting } from "./rds-comp-visual-setting";
-export { default as RdsCompDatatable } from "./rds-comp-data-table";
 export { default as RdsCompEditionList } from "./rds-comp-edition-list";
 export { default as RdsCompEditionInformation } from "./rds-comp-edition-information";
 export { default as RdsCompPermissionTree } from "./rds-comp-permission-tree";
@@ -108,11 +106,9 @@ export { default as RdsCompInvoiceDetailReceipt } from "./rds-comp-invoice-detai
 export { default as RdsCompGetAssistance } from "./rds-comp-get-assistance";
 export { default as RdsCompCopyText } from "./rds-comp-copy-text";
 export { default as RdsCompRegisterMember } from "./rds-comp-register-member";
-export { default as RdsCompContribution } from "./rds-comp-contribution";
 
 export { default as RdsCompUserComments } from "./rds-comp-chat";
 export { default as RdsCompSkeleton } from "./rds-comp-skeleton";
-export { default as RdsCompDialog } from "./rds-comp-dialog";
 export { default as RdsCompTransferList } from "./rds-comp-transfer-list";
 export {default as RdsCompMessageBox} from "./rds-comp-message-box";
 export { default as  RdsCompSubscriptionPlan} from "./rds-comp-subscription-plan";
@@ -122,3 +118,11 @@ export {default as RdsCompGenerateCodeMetrics} from "./rds-comp-generate-code-me
 export {default as RdsCompKanbanBoard} from "./rds-comp-kanban-board";
 export {default as RdsCompSideNavigation1} from "./rds-comp-side-navigation1";
 export {default as RdsCompAdaptiveCards} from "./rds-comp-adaptive-cards"
+
+export { default as RdsCompCommunityFileWidget } from "./rds-comp-community-file-widget";
+export { default as RdsCompGradientTextWithIcon } from "./rds-comp-gradient-text-with-icon";
+export { default as RdsCompPlanSwitcher } from "./rds-comp-plan-switcher";
+export { default as RdsCompProfileDropdown } from "./rds-comp-profile-dropdown";
+export { default as RdsCompChatHeader } from "./rds-comp-chat-header";
+export { default as RdsCompAttachement } from "./rds-comp-attachement";
+export { default as RdsCompOutput } from "./rds-comp-output";

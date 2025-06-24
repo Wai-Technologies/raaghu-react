@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import RdsDatatable, { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 import { useTranslation } from "react-i18next";
 import "./rds-comp-tenant-list.css";
 import { ScriptableContext } from "chart.js";
@@ -405,7 +405,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
   return (
     <>
     {props.tenant === "list" && (
-    <RdsCompDatatable
+    <RdsDatatable
       actionPosition={ActionPosition.Right}
       tableHeaders={props.tableHeaders}
       actions={props.actions}
@@ -416,7 +416,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
       recordsPerPageSelectListOption={props.recordsPerPageSelectListOption}
       noDataheaderTitle="No Records Available"
       noDataTitle="Click on the button to add"
-    ></RdsCompDatatable>
+    ></RdsDatatable>
     )}
     {props.tenant === "dashboard" && (
         <div className="dark dashboard bg-grey p-2 p-lg-4 p-md-4">

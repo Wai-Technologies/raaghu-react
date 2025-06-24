@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import RdsCompTopNavigationWithSearch from "./rds-comp-top-navigation-with-search";
+import RdsCompTopNavigationWithSearch from "./rds-top-navigation-with-search";
 
 const meta: Meta = {
     title: "Components/Top Navigation With Search",

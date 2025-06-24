@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { RdsButton, RdsCheckbox, RdsInput, RdsSelectList, RdsTextArea } from "../rds-elements";
 import "./rds-comp-claim.css";
-import RdsCompDatatable from "../rds-comp-data-table";
-import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
+import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 
 export interface RdsCompClaimProps {
     resources?: any[];
@@ -360,7 +360,7 @@ const RdsCompClaim = (props: RdsCompClaimProps) => {
                 </div>
 
                 <div className="row mt-3">
-                    <RdsCompDatatable
+                    <RdsDatatable
                         key={tableData.length} 
                         actionPosition={ActionPosition.Right}
                         tableHeaders={props.tableHeaders || []}

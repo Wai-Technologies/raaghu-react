@@ -5,8 +5,8 @@ import {
     RdsCheckboxGroup,
     RdsCounter,
 } from "../rds-elements";
-import RdsCompDatatable from "../rds-comp-data-table";
-import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
+import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 
 export interface RdsCompSecurityProps {
     checkgroupList: any[];
@@ -119,7 +119,7 @@ const RdsCompSecurity = (props: RdsCompSecurityProps) => {
             )}
             {props.security === "logs" && (
                 <div className="card p-2 border-0 rounded-0 card-full-stretch">
-                    <RdsCompDatatable
+                    <RdsDatatable
                         actionPosition={ActionPosition.Right}
                         tableHeaders={props.tableHeaders}
                         actions={props.actions}

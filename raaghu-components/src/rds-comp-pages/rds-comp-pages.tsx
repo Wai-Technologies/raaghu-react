@@ -1,6 +1,6 @@
 import React from "react";
-import RdsCompDatatable from "../rds-comp-data-table";
-import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
+import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 
 export interface RdsCompPagesProps {
     tableHeaders: {
@@ -26,7 +26,7 @@ export interface RdsCompPagesProps {
 
 const RdsCompPages = (props: RdsCompPagesProps) => {
     return (
-        <RdsCompDatatable
+        <RdsDatatable
             actionPosition={ActionPosition.Right}
             tableHeaders={props.tableHeaders}
             actions={props.actions}
@@ -35,7 +35,7 @@ const RdsCompPages = (props: RdsCompPagesProps) => {
             pagination={props.pagination!}
             recordsPerPage={props.recordsPerPage}
             onActionSelection={props.onActionSelection!}
-        ></RdsCompDatatable>
+        ></RdsDatatable>
 
     );
 

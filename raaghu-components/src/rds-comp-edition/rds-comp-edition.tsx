@@ -12,8 +12,8 @@ import {
 import RdsCompAlertPopup from "../rds-comp-alert-popup";
 import "./rds-comp-edition.css";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
-import RdsCompDatatable from "../rds-comp-data-table";
-import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
+import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 import { CounterState, LayoutOptions } from "../../../raaghu-elements/src/rds-counter/rds-counter";
 
 export interface RdsCompEditionProps {
@@ -525,7 +525,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
         
         {props.displayType == "list" && (
             <div className="row">
-                <RdsCompDatatable
+                <RdsDatatable
                     actionPosition={ActionPosition.Right}
                     enablecheckboxselection={props.enablecheckboxselection}
                     tableHeaders={props.tableHeaders}
@@ -535,7 +535,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                     recordsPerPage={props.recordsPerPage}
                     onActionSelection={props.onActionSelection}
                     recordsPerPageSelectListOption={props.recordsPerPageSelectListOption}
-                ></RdsCompDatatable>
+                ></RdsDatatable>
             </div>
         )}
         </>

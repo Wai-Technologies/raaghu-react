@@ -3,8 +3,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompDynamicProperties, { RdsCompDynamicPropertiesProp } from '../src/rds-comp-dynamic-properties/rds-comp-dynamic-properties';
 
-// Mock RdsCompDatatable component
-jest.mock('../src/rds-comp-data-table/rds-comp-data-table', () => {
+// Mock RdsDatatable component
+jest.mock('../src/rds-data-table/rds-data-table', () => {
   return {
     __esModule: true,
     default: ({ 

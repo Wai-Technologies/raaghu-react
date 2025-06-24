@@ -5,7 +5,7 @@ import RdsCompAppShell, {
   RdsSideNav,
 } from "./rds-comp-app-shell";
 import RdsCompSideNavigation from "../../../raaghu-components/src/rds-comp-side-navigation";
-import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation/rds-comp-top-navigation";
+import RdsTopNavigation from "../../../raaghu-elements/src/rds-top-navigation/rds-top-navigation";
 import { BrowserRouter } from "react-router-dom";
 import RdsCompSideNavigation1 from '../../../raaghu-components/src/rds-comp-side-navigation1/rds-comp-side-navigation1';
 import "./rds-comp-app-shell.css";
@@ -148,7 +148,7 @@ type Story = StoryObj<typeof RdsCompAppShell>;
 //       />
 //     ),
 //     topbar: (
-//       <RdsCompTopNavigation
+//       <RdsTopNavigation
 //         brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
 //         brandName="Raaghu Design System"
 //         languageItems={[
@@ -260,7 +260,7 @@ type Story = StoryObj<typeof RdsCompAppShell>;
 //   args: {
 //     displayType: AppShellDisplayType.TopNav,
 //     topbar: (
-//       <RdsCompTopNavigation
+//       <RdsTopNavigation
 //         brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
 //         brandName="Raaghu Design System"
 //         languageItems={[
@@ -465,7 +465,7 @@ export const Default: Story = {
       </BrowserRouter>
     ),
     topbar: (
-      <RdsCompTopNavigation
+      <RdsTopNavigation
         brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
         brandName="Raaghu Design System"
         languageItems={[
@@ -585,7 +585,7 @@ export const Relaxing: Story = {
     displayType: AppShellDisplayType.TopNav,
     topbar: (
       <div className="fixed-top">
-        {/* <RdsCompTopNavigation
+        {/* <RdsTopNavigation
           brandLogo="assets/Raaghu-logo-mfe-black.png"
           brandName="Raaghu"
           firstName="John"
@@ -656,7 +656,7 @@ export const Relaxing: Story = {
             throw new Error("Function not implemented.");
           }}
         /> */}
-        <RdsCompTopNavigation
+        <RdsTopNavigation
           brandLogo="assets/Raaghu-logo-mfe-black.png"
           brandName="Raaghu"
           firstName="John"
@@ -762,7 +762,7 @@ export const TopNav: Story = {
     displayType: AppShellDisplayType.Default,
 
     topbar: (
-      <RdsCompTopNavigation
+      <RdsTopNavigation
         appshell3
         brandLogo="assets/Raaghu-logo-mfe-black.png"
         brandName="Raaghu"        breadcrumItem={[
@@ -1071,7 +1071,7 @@ export const DoubleNav: Story = {
     displayType: AppShellDisplayType.TopNav,
     topbar: (
       <div className="fixed-top">
-        <RdsCompTopNavigation
+        <RdsTopNavigation
           brandLogo="assets/Raaghu-logo-mfe-black.png"
           brandName="Raaghu"
           languageItems={[
@@ -1307,7 +1307,7 @@ export const OneThreeOne : Story = {
     displayType: AppShellDisplayType.TopNav,
     topbar: (
       <div className="fixed-top">
-        <RdsCompTopNavigation
+        <RdsTopNavigation
           brandLogo="assets/Raaghu-logo-mfe-black.png"
           brandName="Raaghu"
           languageItems={[

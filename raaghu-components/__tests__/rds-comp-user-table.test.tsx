@@ -2,10 +2,10 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompUserTable from '../src/rds-comp-user-table/rds-comp-user-table';
-import { ActionPosition } from '../src/rds-comp-data-table/rds-comp-data-table';
+import { ActionPosition } from '../../raaghu-elements/src/rds-data-table/rds-data-table';
 
 // Mock the dependencies
-jest.mock('../src/rds-comp-data-table', () => {
+jest.mock('../src/rds-data-table', () => {
   return jest.fn(({ tableHeaders, tableData, actions, pagination, recordsPerPage, onActionSelection, actionPosition, classes, recordsPerPageSelectListOption }) => (
     <div data-testid="rds-comp-datatable">
       <div data-testid="action-position">{actionPosition}</div>
@@ -131,7 +131,7 @@ describe('RdsCompUserTable', () => {
       expect(datatable).toBeInTheDocument();
     });
 
-    it('passes all required props to RdsCompDatatable', () => {
+    it('passes all required props to RdsDatatable', () => {
       render(<RdsCompUserTable {...defaultProps} />);
       
       expect(screen.getByTestId('action-position')).toHaveTextContent('Right');
@@ -370,12 +370,12 @@ describe('RdsCompUserTable', () => {
   });
 
   // Integration Tests
-  describe('Integration with RdsCompDatatable', () => {
-    it('passes all props correctly to RdsCompDatatable', () => {
-      const RdsCompDatatable = require('../src/rds-comp-data-table');
+  describe('Integration with RdsDatatable', () => {
+    it('passes all props correctly to RdsDatatable', () => {
+      const RdsDatatable = require('../src/rds-data-table');
       render(<RdsCompUserTable {...defaultProps} />);
       
-      expect(RdsCompDatatable).toHaveBeenCalledWith(
+      expect(RdsDatatable).toHaveBeenCalledWith(
         expect.objectContaining({
           actionPosition: ActionPosition.Right,
           classes: 'table__userTable',

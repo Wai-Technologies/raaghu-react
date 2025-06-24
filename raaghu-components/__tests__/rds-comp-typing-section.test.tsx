@@ -84,7 +84,7 @@ jest.mock("../src/rds-elements", () => ({
       </button>
     );
   },
-  RdsAttachement: ({ 
+  RdsCompAttachement: ({ 
     onFileSelect,
     handleAddComment,
     onFigmaSubmit,

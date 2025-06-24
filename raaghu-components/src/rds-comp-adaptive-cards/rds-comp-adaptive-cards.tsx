@@ -29,7 +29,7 @@ import RdsInput, {
   InputSize,
   LabelPosition,
 } from "../../../raaghu-elements/src/rds-input/rds-input";
-import { State } from "../rds-comp-grid/rds-comp-grid";
+import { State } from "../../../raaghu-elements/src/rds-grid/rds-grid";
 import {
   RdsRadioButtonLayout,
   RdsRadioButtonState,

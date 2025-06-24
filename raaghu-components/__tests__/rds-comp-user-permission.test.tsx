@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import RdsCompUserPermission from '../src/rds-comp-user-permission/rds-comp-user-permission';
 
 // Mock the dependencies
-jest.mock('../src/rds-comp-data-table', () => {
+jest.mock('../src/rds-data-table', () => {
   return jest.fn(({ tableHeaders, tableData, actions, onActionSelection, ...props }) => (
     <div data-testid="rds-comp-datatable" {...props}>
       <table>
@@ -225,12 +225,12 @@ describe('RdsCompUserPermission', () => {
     });
   });
 
-  // RdsCompDatatable Integration Tests
-  describe('RdsCompDatatable Integration', () => {
-    it('passes correct props to RdsCompDatatable in basic mode', () => {
-      const RdsCompDatatable = require('../src/rds-comp-data-table');
+  // RdsDatatable Integration Tests
+  describe('RdsDatatable Integration', () => {
+    it('passes correct props to RdsDatatable in basic mode', () => {
+      const RdsDatatable = require('../src/rds-data-table');
       render(<RdsCompUserPermission {...defaultProps} displayType="basic" />);
-        expect(RdsCompDatatable).toHaveBeenCalledWith(
+        expect(RdsDatatable).toHaveBeenCalledWith(
         expect.objectContaining({
           actionPosition: 'Right', // ActionPosition.Right as string
           tableHeaders: mockTableHeaders,
@@ -245,10 +245,10 @@ describe('RdsCompUserPermission', () => {
       );
     });
 
-    it('passes correct props to RdsCompDatatable in advanced mode', () => {
-      const RdsCompDatatable = require('../src/rds-comp-data-table');
+    it('passes correct props to RdsDatatable in advanced mode', () => {
+      const RdsDatatable = require('../src/rds-data-table');
       render(<RdsCompUserPermission {...defaultProps} displayType="advanced" />);
-        expect(RdsCompDatatable).toHaveBeenCalledWith(
+        expect(RdsDatatable).toHaveBeenCalledWith(
         expect.objectContaining({
           actionPosition: 'Right', // ActionPosition.Right as string
           tableHeaders: mockTableHeaders,
@@ -269,10 +269,10 @@ describe('RdsCompUserPermission', () => {
     });
 
     it('passes enablecheckboxselection prop correctly', () => {
-      const RdsCompDatatable = require('../src/rds-comp-data-table');
+      const RdsDatatable = require('../src/rds-data-table');
       render(<RdsCompUserPermission {...defaultProps} enablecheckboxselection={true} />);
       
-      expect(RdsCompDatatable).toHaveBeenCalledWith(
+      expect(RdsDatatable).toHaveBeenCalledWith(
         expect.objectContaining({
           enablecheckboxselection: true,
         }),
@@ -281,11 +281,11 @@ describe('RdsCompUserPermission', () => {
     });
 
     it('handles pagination prop correctly', () => {
-      const RdsCompDatatable = require('../src/rds-comp-data-table');
+      const RdsDatatable = require('../src/rds-data-table');
       render(<RdsCompUserPermission {...defaultProps} pagination={true} />);
       
       // Note: Component always passes pagination as false regardless of prop
-      expect(RdsCompDatatable).toHaveBeenCalledWith(
+      expect(RdsDatatable).toHaveBeenCalledWith(
         expect.objectContaining({
           pagination: false,
         }),
@@ -405,10 +405,10 @@ describe('RdsCompUserPermission', () => {
     });
 
     it('renders table with correct class in basic mode', () => {
-      const RdsCompDatatable = require('../src/rds-comp-data-table');
+      const RdsDatatable = require('../src/rds-data-table');
       render(<RdsCompUserPermission {...defaultProps} displayType="basic" />);
       
-      expect(RdsCompDatatable).toHaveBeenCalledWith(
+      expect(RdsDatatable).toHaveBeenCalledWith(
         expect.objectContaining({
           classes: 'table',
         }),
@@ -417,10 +417,10 @@ describe('RdsCompUserPermission', () => {
     });
 
     it('does not pass classes prop in advanced mode', () => {
-      const RdsCompDatatable = require('../src/rds-comp-data-table');
+      const RdsDatatable = require('../src/rds-data-table');
       render(<RdsCompUserPermission {...defaultProps} displayType="advanced" />);
       
-      const datatableCall = RdsCompDatatable.mock.calls[0];
+      const datatableCall = RdsDatatable.mock.calls[0];
       expect(datatableCall[0]).not.toHaveProperty('classes');
     });
   });
@@ -485,10 +485,10 @@ describe('RdsCompUserPermission', () => {
       // This test ensures the import doesn't break the component
       expect(() => render(<RdsCompUserPermission {...defaultProps} />)).not.toThrow();
     });    it('passes ActionPosition.Right correctly', () => {
-      const RdsCompDatatable = require('../src/rds-comp-data-table');
+      const RdsDatatable = require('../src/rds-data-table');
       render(<RdsCompUserPermission {...defaultProps} />);
       
-      expect(RdsCompDatatable).toHaveBeenCalledWith(
+      expect(RdsDatatable).toHaveBeenCalledWith(
         expect.objectContaining({
           actionPosition: 'Right', // ActionPosition.Right as string
         }),

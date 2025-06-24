@@ -14,8 +14,8 @@ import {
 import "./rds-comp-login.css";
 import { useTranslation } from "react-i18next";
 import { AlertType } from "../../../raaghu-elements/src/rds-alert/rds-alert";
-import RdsCompDatatable from "../rds-comp-data-table";
-import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
+import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 export interface RdsCompLoginProps {
   error?: any;
@@ -473,7 +473,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
             )}
             {!page && (
                 <div className="table">
-                    <RdsCompDatatable
+                    <RdsDatatable
                         actionPosition={ActionPosition.Right}
                         tableHeaders={props.tableHeaders || []}
                         tableData={Tdata || []}
@@ -482,7 +482,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                         recordsPerPageSelectListOption={props.recordsPerPageSelectListOption || false}
                         onActionSelection={props.onActionSelection}
                         actions={[]}
-                    ></RdsCompDatatable>
+                    ></RdsDatatable>
                 </div>
             )}
         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { RdsInput, RdsIcon, RdsButton, RdsAttachement, RdsSelectList, RdsDropdown, RdsDropdownList, RdsFabMenu } from "../rds-elements";
+import { RdsInput, RdsIcon, RdsButton, RdsSelectList, RdsDropdown, RdsDropdownList, RdsFabMenu } from "../rds-elements";
 import './rds-comp-typing-section.css';
-import { Comment as AttachmentComment } from "../../../raaghu-elements/src/rds-attachement/rds-attachement";
+import RdsCompAttachement, { Comment as AttachmentComment } from "../rds-comp-attachement/rds-comp-attachement";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 import { DisplayType, Layout, Shape, State, Style } from "../../../raaghu-elements/src/rds-dropdown/rds-dropdown";
 import { TooltipPlacement } from "../../../raaghu-elements/src/rds-input/rds-input";
@@ -162,7 +162,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                   } gap-1`}
                 >
                   <div className="attach" id="Premium">
-                    <RdsAttachement
+                    <RdsCompAttachement
                       badgeColor="success"
                       badgeLabel="Premium"
                       handleAddComment={handleAddComment}

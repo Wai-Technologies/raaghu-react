@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import RdsCompDatatable from "../rds-comp-data-table";
+import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
 import { RdsDatePicker, RdsDropdownList, RdsIllustration, RdsLabel, RdsPagination, RdsSelectList } from "../rds-elements";
 import "./rds-comp-login-attempts.css";
-import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 
 export interface RdsCompLoginAttemptsProps {
     tableHeaders?: {
@@ -118,7 +118,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
 
             {!page && (
                 <div className="table">
-                    <RdsCompDatatable
+                    <RdsDatatable
                         actionPosition={ActionPosition.Right}
                         tableHeaders={props.tableHeaders || []}
                         tableData={Tdata || []}
@@ -127,7 +127,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
                         recordsPerPageSelectListOption={props.recordsPerPageSelectListOption || false}
                         onActionSelection={props.onActionSelection}
                         actions={[]}
-                    ></RdsCompDatatable>
+                    ></RdsDatatable>
                 </div>
             )}
         </div>

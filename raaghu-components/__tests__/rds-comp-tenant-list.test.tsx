@@ -15,14 +15,14 @@ jest.mock('react-i18next', () => ({
   }
 }));
 
-// Mock the RdsCompDatatable component
-jest.mock('../src/rds-comp-data-table/rds-comp-data-table', () => {
+// Mock the RdsDatatable component
+jest.mock('../src/rds-data-table/rds-data-table', () => {
   const ActionPosition = {
     Right: 'Right',
     Left: 'Left'
   };
   
-  const RdsCompDatatable = (props: any) => (
+  const RdsDatatable = (props: any) => (
     <div data-testid="rds-comp-datatable">
       <div data-testid="datatable-headers">
         {props.tableHeaders?.map((header: any, index: number) => (
@@ -74,7 +74,7 @@ jest.mock('../src/rds-comp-data-table/rds-comp-data-table', () => {
     </div>
   );
   
-  return Object.assign(RdsCompDatatable, { ActionPosition });
+  return Object.assign(RdsDatatable, { ActionPosition });
 });
 
 // Mock rds-elements

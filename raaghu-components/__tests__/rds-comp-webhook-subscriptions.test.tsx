@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import RdsCompWebhookSubscription from '../src/rds-comp-webhook-subscriptions/rds-comp-webhook-subscriptions';
 
 // Mock the dependencies
-jest.mock('../src/rds-comp-data-table/rds-comp-data-table', () => ({
+jest.mock('../src/rds-data-table/rds-data-table', () => ({
   __esModule: true,
   default: jest.fn(({ tableHeaders, tableData, actions, pagination, recordsPerPage, onActionSelection, actionPosition, classes, recordsPerPageSelectListOption }) => (
     <div data-testid="rds-comp-datatable">

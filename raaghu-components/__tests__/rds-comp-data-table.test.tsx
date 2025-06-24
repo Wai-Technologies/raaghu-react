@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import RdsCompDatatable, { ActionPosition, ActionColumnStyle } from '../src/rds-comp-data-table/rds-comp-data-table';
+import RdsDatatable, { ActionPosition, ActionColumnStyle } from '../../raaghu-elements/src/rds-data-table/rds-data-table';
 
 // Mock the translation hook
 jest.mock('react-i18next', () => ({
@@ -116,7 +116,7 @@ jest.mock('../src/rds-elements', () => ({
   ),
 }));
 
-describe('RdsCompDatatable Component', () => {
+describe('RdsDatatable Component', () => {
   // Sample table headers for testing
   const mockTableHeaders = [
     {
@@ -177,7 +177,7 @@ describe('RdsCompDatatable Component', () => {
   // Basic render test
   it('renders without crashing', () => {
     const { container } = render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={mockTableData}
         pagination={false}
@@ -187,7 +187,7 @@ describe('RdsCompDatatable Component', () => {
   });  // Test table headers rendering
   it('renders table headers correctly', () => {
     const { container } = render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={mockTableData}
         pagination={false}
@@ -205,7 +205,7 @@ describe('RdsCompDatatable Component', () => {
   });  // Test table data rendering
   it('renders table data correctly', () => {
     const { container } = render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={mockTableData}
         pagination={false}
@@ -225,7 +225,7 @@ describe('RdsCompDatatable Component', () => {
   // Test pagination rendering
   it('renders pagination when enabled', () => {
     render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={mockTableData}
         pagination={true}
@@ -243,7 +243,7 @@ describe('RdsCompDatatable Component', () => {
     const mockPaginationHandler = jest.fn();
     
     render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={mockTableData}
         pagination={true}
@@ -262,7 +262,7 @@ describe('RdsCompDatatable Component', () => {
   });  // Test actions rendering
   it('renders action buttons when actions are provided', () => {
     const { container } = render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={mockTableData}
         pagination={false}
@@ -284,7 +284,7 @@ describe('RdsCompDatatable Component', () => {
     const mockRowClickHandler = jest.fn();
     
     const { container } = render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={mockTableData}
         pagination={false}
@@ -315,7 +315,7 @@ describe('RdsCompDatatable Component', () => {
   // Test checkbox selection
   it('enables checkbox selection when enablecheckboxselection is true', () => {
     render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={mockTableData}
         pagination={false}
@@ -331,7 +331,7 @@ describe('RdsCompDatatable Component', () => {
   // Test radio button selection
   it('enables radio button selection when enableRadioButtonselection is true', () => {
     render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={mockTableData}
         pagination={false}
@@ -345,7 +345,7 @@ describe('RdsCompDatatable Component', () => {
   });  // Test illustration rendering when no data
   it('renders illustration when data is empty and illustration is enabled', () => {
     const { container } = render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={[]}
         pagination={false}
@@ -369,7 +369,7 @@ describe('RdsCompDatatable Component', () => {
   });  // Test sorting functionality
   it('sorts data when a sortable column header is clicked', async () => {
     const { container } = render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={mockTableData}
         pagination={false}
@@ -399,7 +399,7 @@ describe('RdsCompDatatable Component', () => {
   // Test class application
   it('applies custom classes when provided', () => {
     const { container } = render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={mockTableData}
         pagination={false}
@@ -412,7 +412,7 @@ describe('RdsCompDatatable Component', () => {
   });  // Test different table styles
   it('applies different table styles when tableStyle is provided', () => {
     const { container } = render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={mockTableData}
         pagination={false}
@@ -440,7 +440,7 @@ describe('RdsCompDatatable Component', () => {
   // Test records per page options
   it('displays records per page select list when recordsPerPageSelectListOption is true', () => {
     render(
-      <RdsCompDatatable
+      <RdsDatatable
         tableHeaders={mockTableHeaders}
         tableData={mockTableData}
         pagination={true}

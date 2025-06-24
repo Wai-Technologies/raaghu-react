@@ -47,8 +47,8 @@ jest.mock('../src/rds-elements', () => ({
   )
 }));
 
-// Mock RdsCompDatatable
-jest.mock('../src/rds-comp-data-table', () => {
+// Mock RdsDatatable
+jest.mock('../src/rds-data-table', () => {
   return function MockRdsCompDatatable(props: any) {
     return (
       <div data-testid="rds-comp-datatable">
