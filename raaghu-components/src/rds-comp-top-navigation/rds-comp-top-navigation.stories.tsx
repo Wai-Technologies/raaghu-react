@@ -971,7 +971,7 @@ export const Basic_Navigation: Story = {
             { id: "settings", name: "settings", },
             { id: "help_question_circle", name: "help_question_circle", },
             { id: "import", name: "import", },
-            { id: "notification", name: "notification_dot", },
+            { id: "notification", name: "notification_new", },
         ],
         top_nav_logo: "raaghu logo",
         style: "Basic_Navigation"
@@ -1424,7 +1424,7 @@ export const With_User_Avatar: Story = {
         product4: true,
         profilePic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
         icons: [
-            { id: "notification", name: "notification_dot", },
+            { id: "notification", name: "notification_new", },
             { id: "chat_left_corner", name: "chat_left_corner", },
             { id: "administration", name: "administration", },
 
@@ -1546,7 +1546,7 @@ export const For_Media_Portal: Story = {
         icons: [
             { id: "video_icon", name: "video_icon", },
             { id: "multiple_circle", name: "multiple_circle", },
-            { id: "notification_new", name: "notification_dot", },
+            { id: "notification_new", name: "notification_new", },
 
         ],
         showLogo: true,
@@ -1603,7 +1603,7 @@ export const For_Streaming_Service: Story = {
             { id: "travel_map", name: "travel_map", },
             { id: "entertainment_playlist", name: "entertainment_playlist", },
             { id: "fevorite", name: "fevorite", },
-            { id: "notification_new", name: "notification_dot", },
+            { id: "notification_new", name: "notification_new", },
 
 
         ],
@@ -1661,7 +1661,7 @@ export const For_Music_App: Story = {
             { id: "travel_map", name: "travel_map", },
             { id: "entertainment_playlist", name: "entertainment_playlist", },
             { id: "fevorite", name: "fevorite", },
-            { id: "notification_new", name: "notification_dot", },
+            { id: "notification_new", name: "notification_new", },
 
 
         ],
@@ -1718,7 +1718,7 @@ export const For_Video_Platform: Story = {
             { id: "travel_map", name: "travel_map", },
             { id: "entertainment_playlist", name: "entertainment_playlist", },
             { id: "fevorite", name: "fevorite", },
-            { id: "notification_new", name: "notification_dot", },
+            { id: "notification_new", name: "notification_new", },
 
 
         ],
@@ -1775,7 +1775,7 @@ export const For_Corporate: Story = {
             { id: "home", name: "home", },
             { id: "hierarchy", name: "hierarchy", },
             { id: "countries", name: "countries", },
-            { id: "notification_new", name: "notification_dot", },
+            { id: "notification_new", name: "notification_new", },
 
 
         ],

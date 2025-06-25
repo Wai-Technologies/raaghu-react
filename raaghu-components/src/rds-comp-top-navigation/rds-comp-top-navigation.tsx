@@ -101,11 +101,46 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   const [navtitle, setNavtitle] = useState(props.navbarTitle);
   const [resetDrop, setResetDrop] = useState(false);
   const currentPath = window.location.pathname;
-  const [activeImage, setActiveImage] = useState<string | null>(null);
-  const [showSearchInput, setShowSearchInput] = useState(false);  const [searchInput, setSearchInput] = useState("");
+  const [activeImage, setActiveImage] = useState<string | null>(null);  const [showSearchInput, setShowSearchInput] = useState(false);  const [searchInput, setSearchInput] = useState("");
   const [themeIcon, setThemeIcon] = useState("sun");
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useState(false);
+
+  // Notifications state
+  const [notifications, setNotifications] = useState([
+    {
+      id: 1,
+      description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+      status: 'success',
+      time: '10 min ago',
+      title: 'Notification Title',
+      urlTitle: 'hello',
+    },
+    {
+      id: 2,
+      description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard.',
+      status: 'success',
+      time: '10 min ago',
+      title: 'Notification Title',
+      urlTitle: 'hello'
+    },
+    {
+      id: 3,
+      description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+      status: 'success',
+      time: '10 min ago',
+      title: 'Notification Title',
+      urlTitle: 'hello'
+    },
+    {
+      id: 4,
+      description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+      status: 'success',
+      time: '10 min ago',
+      title: 'Notification Title',
+      urlTitle: 'hello'
+    }
+  ]);
 
   const navtabItems = [
     {
@@ -353,9 +388,15 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
   const handleIconClick = (icon?: any) => {
     console.log("Icon clicked");
   };
-
   const handleNotificationClick = () => {
     setIsNotificationDropdownOpen(!isNotificationDropdownOpen);
+  };
+
+  // Handle notification dismiss
+  const handleNotificationDismiss = (notificationId: number) => {
+    setNotifications(prevNotifications => 
+      prevNotifications.filter(notification => notification.id !== notificationId)
+    );
   };
 
   const handleSearchMouseLeave = () => {
@@ -661,23 +702,22 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
               className={
                 "d-flex align-items-center justify-content-between right-side-menu"
               }
-            >              {(props.ecommerce1 &&
-                <div id="notification-list"
-                  className={"position-relative px-2 px-md-3 col text-center d-flex align-items-center notification-dropdown-container"}
-                >
-                  <RdsIcon
-                    name="notification_dot"
-                    fill={false}
-                    stroke={true}
-                    height="18px"
-                    width="18px"
-                    onClick={handleNotificationClick}
-                    isCursorPointer={true}
-                    tooltip={true}
-                    tooltipTitle={"Notification"}
-                    tooltipPlacement="bottom"
-                    style={TooltipStyle.MiddleTopArrow}                        
-                  ></RdsIcon>                  {isNotificationDropdownOpen && (
+            >              {(props.ecommerce1 &&                <div id="notification-list"
+                  className={`position-relative px-2 px-md-3 col text-center d-flex align-items-center notification-dropdown-container ${isNotificationDropdownOpen ? 'dropdown-open' : ''}`}
+                >                  <div className="position-relative">
+                    <RdsIcon
+                      name={isNotificationDropdownOpen ? "notification_dot" : "notification_new"}
+                      stroke={true}
+                      height="18px"
+                      width="18px"
+                      onClick={handleNotificationClick}
+                      isCursorPointer={true} 
+                      tooltip={true}
+                      tooltipTitle={"Notification"}
+                      tooltipPlacement="bottom"
+                      style={TooltipStyle.MiddleTopArrow}                        
+                    ></RdsIcon>
+                  </div>{isNotificationDropdownOpen && (
                     <div className="position-absolute bg-white  rounded shadow-lg" style={{ 
                       top: '100%', 
                       right: 0, 
@@ -689,86 +729,34 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                       padding:'7px',
                       border:'1px solid #7d7d7d',
                       boxShadow: '2px 8px 16px 0px #3C3C3C1F',
-                      
-
-
                     }}>                      
-                    {/* <div className="p-3 border-bottom">
-                        <h6 className="mb-0 fw-semibold">Notifications</h6>
-                      </div> */}
-                      {/* <div className="mb-2"> */}
-                        <RdsNotification
-                          layout={NotificationLayout.Horizontal}
-                          notifications={[
-                            {
-                              description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                              status: 'success',
-                              time: '10 min ago',
-                              title: 'Notification Title',
-                              urlTitle: 'hello',
-
-                            }
-                          ]}
-                          showButton
-                          showDismissIcon
-                          style={NotificationStyle.Default}
-                          type={NotificationType.Success}
-                          
-                         
-                        />
-
-                        
-                        <RdsNotification
-                          layout={NotificationLayout.Horizontal}
-                          notifications={[
-                            {
-                              description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard.',
-                              status: 'success',
-                              time: '10 min ago',
-                              title: 'Notification Title',
-                              urlTitle: 'hello'
-                            }
-                          ]}
-                          showButton
-                          showDismissIcon
-                          showPrimaryButton
-                          style={NotificationStyle.Default}
-                          type={NotificationType.Info}
-                        />
-                        <RdsNotification
-                          layout={NotificationLayout.Horizontal}
-                          notifications={[
-                            {
-                              description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                              status: 'success',
-                              time: '10 min ago',
-                              title: 'Notification Title',
-                              urlTitle: 'hello'
-                            }
-                          ]}
-                          showButton
-                          showDismissIcon
-                          style={NotificationStyle.Default}
-                          type={NotificationType.Info}
-                        />
-                        <RdsNotification
-                          layout={NotificationLayout.Horizontal}
-                          notifications={[
-                            {
-                              description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                              status: 'success',
-                              time: '10 min ago',
-                              title: 'Notification Title',
-                              urlTitle: 'hello'
-                            }
-                          ]}
-                          showButton
-                          showDismissIcon
-                          style={NotificationStyle.Default}
-                          type={NotificationType.Info}
-                        />
-                      </div>
-                    // </div>
+                      {notifications.length === 0 ? (
+                        <div className="p-3 text-center text-muted">
+                          <p>No notifications</p>
+                        </div>
+                      ) : (                        <div className="mb-2">
+                          {notifications.map((notification, index) => (
+                            <RdsNotification
+                              key={notification.id}
+                              layout={NotificationLayout.Horizontal}
+                              notifications={[{
+                                description: notification.description,
+                                status: notification.status,
+                                time: notification.time,
+                                title: notification.title,
+                                urlTitle: notification.urlTitle,
+                              }]}
+                              showButton={index === 1} // Show button only for second notification
+                              showDismissIcon
+                              showPrimaryButton={index === 1} // Show primary button only for second notification
+                              style={NotificationStyle.Default}
+                              type={notification.id === 1 ? NotificationType.Success : NotificationType.Info}
+                              onDismiss={() => handleNotificationDismiss(notification.id)}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>)}
               {/* notification----------------------------------------------------------------------------------------------- */}
@@ -845,7 +833,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                 </div>)}
               </div>
 
-              {(props.ecommerce2 && <div
+              {(props.ecommerce2 && <div id="list-version"
                 className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language rounded dropdown-list"}
               >
                 <RdsDropdownList
@@ -1838,11 +1826,13 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   isCode={true}
                   state={DropdownState.Default}
                   size={DropdownSize.Small}
-                  borderDropdown={false}
-                ></RdsDropdownList>
+                  borderDropdown={false}                ></RdsDropdownList>
                 <div className="d-block d-none fs-8 text-center">Language</div>
-              </div>
-              {props.professional5 && props.icons?.map((icon: any) => (
+              </div>             
+                 
+               {props.professional5 && props.icons?.filter((icon: any) => 
+                !icon.name.includes('notification') // Filter out notification icons to prevent duplicates
+              ).map((icon: any) => (
                 <span key={icon.id} className={`px-3 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
                   <RdsIcon
                     name={icon.name}
@@ -1854,6 +1844,66 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   ></RdsIcon>
                 </span>
               ))}
+{(props.professional5 &&                <div id="notification-list"
+                  className={`position-relative px-2 px-md-3 col text-center d-flex align-items-center notification-dropdown-container ${isNotificationDropdownOpen ? 'dropdown-open' : ''}`}
+                >                  <div className="position-relative">
+                    <RdsIcon
+                      name="notification_new"
+                      stroke={true}
+                      height="18px"
+                      width="18px"
+                      onClick={handleNotificationClick}
+                      isCursorPointer={true} 
+                      tooltip={true}
+                      tooltipTitle={"Notification"}
+                      tooltipPlacement="bottom"
+                      style={TooltipStyle.MiddleTopArrow}                        
+                    ></RdsIcon>
+                  </div>{isNotificationDropdownOpen && (
+                    <div className="position-absolute bg-white  rounded shadow-lg" style={{ 
+                      top: '100%', 
+                      right: 0, 
+                      zIndex: 1000, 
+                      width: '420px', 
+                      maxHeight: '500px', 
+                      overflowY: 'auto',
+                      marginTop: '8px',
+                      padding:'7px',
+                      border:'1px solid #7d7d7d',
+                      boxShadow: '2px 8px 16px 0px #3C3C3C1F',
+                    }}>                      
+                      {notifications.length === 0 ? (
+                        <div className="p-3 text-center text-muted">
+                          <p>No notifications</p>
+                        </div>
+                      ) : (                        <div className="mb-2">
+                          {notifications.map((notification, index) => (
+                            <RdsNotification
+                              key={notification.id}
+                              layout={NotificationLayout.Horizontal}
+                              notifications={[{
+                                description: notification.description,
+                                status: notification.status,
+                                time: notification.time,
+                                title: notification.title,
+                                urlTitle: notification.urlTitle,
+                              }]}
+                              showButton={index === 1} // Show button only for second notification
+                              showDismissIcon
+                              showPrimaryButton={index === 1} // Show primary button only for second notification
+                              style={NotificationStyle.Default}
+                              type={notification.id === 1 ? NotificationType.Success : NotificationType.Info}
+                              onDismiss={() => handleNotificationDismiss(notification.id)}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>)}  
+
+
+
               <div className="position-relative px-2 px-md-1 col text-center  ">
                 <RdsDropdownList
                   labelIconWidth="30px"
@@ -2023,7 +2073,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
               }
             >
 
-              <div className="position-relative px-2 px-md-3 col text-center  ">
+              <div className="position-relative px-2 px-md-3 col text-center  " id="list-versions">
                 <RdsDropdownList
                   labelIconWidth="30px"
                   iconFill={true}
@@ -2504,7 +2554,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
                   </>)}
                   {props.product2 &&
                     <div id="topnav">
-                      <div
+                      <div 
                         className={"position-relative  px-md-3 p-1 me-3 col text-center d-flex align-items-center language rounded dropdown-list"}
                       >
                         <RdsDropdownList
