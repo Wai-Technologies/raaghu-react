@@ -51,7 +51,6 @@ export const Tooltip: Story = {
         tooltipPlacement: "right",
         tooltipTitle: "This is tooltip",
         isCursorPointer: true,
-        style: TooltipStyle.LeftArrow
     },
     argTypes: {
         tooltipPlacement: {
@@ -60,7 +59,7 @@ export const Tooltip: Story = {
         },
     },
 } satisfies Story;
-Tooltip.parameters = { controls: { include: ['name', 'width', 'height', 'databstoggle', 'tooltip', 'tooltipPlacement', 'style', 'tooltipTitle', 'colorVariant', 'isCursorPointer'] } };
+Tooltip.parameters = { controls: { include: ['name', 'width', 'height', 'databstoggle', 'tooltip', 'tooltipPlacement', 'tooltipTitle', 'colorVariant', 'isCursorPointer'] } };
 
 export const WithImage: Story = {
     args: {
@@ -72,7 +71,6 @@ export const WithImage: Story = {
         tooltipPlacement: "right",
         tooltipTitle: "This is tooltip",
         isCursorPointer: true,
-        style: TooltipStyle.LeftArrow
     },
     argTypes: {
         tooltipPlacement: {
