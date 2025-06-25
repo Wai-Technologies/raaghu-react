@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { RdsDropdownList, RdsIcon } from "../../../raaghu-components/src/rds-elements";
+import { RdsDropdownList } from "../../../raaghu-components/src/rds-elements";
 import elementList from "./element-list";
 import componentList from "./components-list";
 import chartList from "./charts-list";
 import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 
 const MultiLevelDropdown = (props: any) => {
     const [currUI, setCurrUI] = useState<any>({
@@ -143,14 +144,14 @@ const MultiLevelDropdown = (props: any) => {
                     <div className="d-flex align-items-baseline">
                         <Tooltip label="UI Library" style={TooltipStyle.MiddleTopArrow}>
                             <span className="fs-6 ms-2 me-2 flex-grow-1 text-nowrap">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="ui_library"
                                     fill={false}
                                     stroke={true}
                                     height="20px"
                                     width="20px"
                                     classes="ui-lib"
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </Tooltip>
                     </div>
@@ -175,13 +176,13 @@ const MultiLevelDropdown = (props: any) => {
                                 <div data-name={listItem.val}>{listItem.label} </div>
                                 {listItem.val !== "icon" && (
                                     <div>
-                                        <RdsIcon
+                                        <RdsCompIcon
                                             name="chevron_right"
                                             fill={false}
                                             stroke={true}
                                             height="11px"
                                             width="18px"
-                                        ></RdsIcon>
+                                        ></RdsCompIcon>
                                     </div>
                                 )}
                             </span>

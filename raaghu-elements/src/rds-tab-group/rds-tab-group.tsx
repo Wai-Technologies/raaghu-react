@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./rds-tab-group.css";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import RdsLabel from "../rds-label";
 
 export interface TabItem {
@@ -91,22 +91,22 @@ const RdsTabGroup = (props: RdsTabGroupProps) => {
               {props.type === TabType.Vertical && (
                 <p className="mb-0 d-flex align-items-center">
                   {props.showLeftIcon && (
-                    <RdsIcon name={props.leftIcon} height="13px" width="13px" classes="mx-1" />
+                    <RdsCompIcon name={props.leftIcon} height="13px" width="13px" classes="mx-1" />
                   )}
                   <RdsLabel label={item.label} />
                   {props.showRightIcon && (
-                    <RdsIcon name={props.rightIcon} height="11px" width="11px" classes="mx-2" />
+                    <RdsCompIcon name={props.rightIcon} height="11px" width="11px" classes="mx-2" />
                   )}
                 </p>
               )}
               {props.type === TabType.Horizontal && (
                 <p className="mb-0 d-flex align-items-center">
                   {props.showLeftIcon && (
-                    <RdsIcon name={props.leftIcon} height="13px" width="13px" classes="mx-1"/>
+                    <RdsCompIcon name={props.leftIcon} height="13px" width="13px" classes="mx-1"/>
                   )}
                   <RdsLabel label={item.label} />
                   {props.showRightIcon && (
-                    <RdsIcon name={props.rightIcon} height="13px" width="13px" classes="mx-1" />
+                    <RdsCompIcon name={props.rightIcon} height="13px" width="13px" classes="mx-1" />
                   )}
                 </p>
               )}

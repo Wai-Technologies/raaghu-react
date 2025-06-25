@@ -14,8 +14,8 @@ jest.mock('chart.js', () => ({
 
 // Mock the RDS elements
 jest.mock('../src/rds-elements', () => ({
-  RdsBigNumber: (props: any) => (
-    <div data-testid="rds-big-number" data-number={props.bigNumber}>
+  RdsCompBigNumber: (props: any) => (
+    <div data-testid="rds-comp-big-number" data-number={props.bigNumber}>
       {props.bigNumber}
     </div>
   ),
@@ -148,7 +148,7 @@ describe('RdsCompTenantDashboard Component', () => {
       render(<RdsCompTenantDashboard />);
       
       // Check if BigNumber is rendered
-      const bigNumbers = screen.getAllByTestId('rds-big-number');
+      const bigNumbers = screen.getAllByTestId('rds-comp-big-number');
       expect(bigNumbers.length).toBeGreaterThan(0);
       
       // Check if at least one BigNumber has the value "10"

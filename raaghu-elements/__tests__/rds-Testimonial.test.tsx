@@ -10,7 +10,7 @@ jest.mock('react-lottie-player', () => ({
     default: jest.fn(),
 }));
 
-// Mock the RdsIcon component to prevent fetch issues
+// Mock the RdsCompIcon component to prevent fetch issues
 jest.mock("../src/rds-icon/rds-icon", () => ({
     __esModule: true,
     default: jest.fn(({ name, fill, stroke, height, width }) => (

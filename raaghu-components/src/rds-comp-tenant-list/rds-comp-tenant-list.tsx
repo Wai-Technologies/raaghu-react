@@ -3,8 +3,10 @@ import RdsDatatable, { ActionPosition } from "../../../raaghu-elements/src/rds-d
 import { useTranslation } from "react-i18next";
 import "./rds-comp-tenant-list.css";
 import { ScriptableContext } from "chart.js";
-import { RdsWidget, RdsLineChart, RdsBigNumber, RdsRadarChart, RdsDoughnutChart, RdsBooleanChart, RdsBarChart, RdsTable, RdsProgressBar, RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsRadioButton, RdsSelectList, RdsTextArea, RdsDropdownList, RdsIcon } from "../rds-elements";
+import { RdsWidget, RdsLineChart, RdsRadarChart, RdsDoughnutChart, RdsBooleanChart, RdsBarChart, RdsTable, RdsProgressBar, RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsRadioButton, RdsSelectList, RdsTextArea, RdsDropdownList } from "../rds-elements";
 import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
+import RdsCompBigNumber from "../rds-comp-big-number";
+import RdsCompIcon from "../rds-comp-icon";
 export interface Edition {
     option: string;
     value: string;
@@ -625,7 +627,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                     <RdsWidget
                         headerTitle="License"
                         isCardStretch={true}>
-                        <RdsBigNumber bigNumber="10"></RdsBigNumber>
+                        <RdsCompBigNumber bigNumber="10"></RdsCompBigNumber>
                         <RdsRadarChart
                             id="newRadar"
                             labels={["Jan", "Feb", "Mar", "Apr", "May", "June", "July"]}
@@ -773,7 +775,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                         isCardStretch={true}
                     >
                         <div>
-                            <RdsBigNumber bigNumber="$39,330"></RdsBigNumber>
+                            <RdsCompBigNumber bigNumber="$39,330"></RdsCompBigNumber>
                             <div className="col col-sm-12">
                                 <RdsDoughnutChart
                                     id="doughnutchart"
@@ -1063,7 +1065,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                    
 
                                 >
-                                    <RdsBigNumber bigNumber="$8,425"></RdsBigNumber>
+                                    <RdsCompBigNumber bigNumber="$8,425"></RdsCompBigNumber>
                                     <RdsLineChart
 
                                         id="linechart1"
@@ -2468,7 +2470,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                         <p className="divider line one-line">Or Connect With</p>
                         <div className="w-100 mt-4 pt-2">
                             <span className="w-20px h-20px border p-2 mx-3 rounded-2">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="google"
                                     height="20px"
                                     width="20px"
@@ -2479,9 +2481,9 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                     tooltipTitle={"Connect with Google"}
                                     tooltipPlacement="bottom"
                                     isCursorPointer={true}
-                                ></RdsIcon></span>
+                                ></RdsCompIcon></span>
                             <span className="w-20px h-20px border p-2 mx-3 rounded-2">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="microsoft"
                                     height="20px"
                                     width="20px"
@@ -2492,7 +2494,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                     tooltipTitle={"Connect with Microsoft"}
                                     tooltipPlacement="bottom"
                                     isCursorPointer={true}
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </div>
                     </div>

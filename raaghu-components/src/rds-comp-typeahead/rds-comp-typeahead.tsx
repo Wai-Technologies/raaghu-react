@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { RdsButton, RdsSelectList, RdsIcon } from "../rds-elements";
+import { RdsButton, RdsSelectList } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompTypeaheadProps {
     selectItems: Array<{ option: string; value: string; }>;
@@ -91,7 +92,7 @@ const RdsCompTypeahead = (props: RdsCompTypeaheadProps) => {
                                             <th></th>
                                             <td scope="col" className="ps-2">{item.option}</td>
                                             <td scope="col" className="text-center">
-                                                <RdsIcon
+                                                <RdsCompIcon
                                                     name="delete"
                                                     height="15px"
                                                     width="15px"

@@ -22,7 +22,7 @@ jest.mock('../../raaghu-elements/src/rds-outside-click', () => ({
 
 // Mock rds-elements components
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ name, height, width, colorVariant, fill, stroke, dataTestId }: any) => (
+  RdsCompIcon: ({ name, height, width, colorVariant, fill, stroke, dataTestId }: any) => (
     <div 
       data-testid={dataTestId || `icon-${name}`}
       data-name={name}

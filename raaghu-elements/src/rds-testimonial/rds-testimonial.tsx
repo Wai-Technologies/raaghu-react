@@ -1,5 +1,5 @@
 import React from "react";
-import RdsIcon from "../rds-icon/rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon/rds-comp-icon";
 
 export interface RdsTestimmonialProps {
     testimonialItems: any[];
@@ -14,7 +14,7 @@ export const RdsTestimonial = (props: RdsTestimmonialProps) => {
                         <div className="mb-3">
                             <div className="card text-center p-4 rounded-0 shadow border-0">
                                 <div className="mt-3">
-                                    <RdsIcon
+                                    <RdsCompIcon
                                         name={testimonialItem.icon}
                                         fill={testimonialItem.iconFill}
                                         stroke={testimonialItem.iconStroke}
@@ -22,7 +22,7 @@ export const RdsTestimonial = (props: RdsTestimmonialProps) => {
                                         width={testimonialItem.iconWidth}
                                         colorVariant="primary"
                                     // class="fs-6 me-2"
-                                    ></RdsIcon>
+                                    ></RdsCompIcon>
                                 </div>
                                 <div className="card-body p-2 my-3 ">
                                     <label className="text-muted py-2 ">

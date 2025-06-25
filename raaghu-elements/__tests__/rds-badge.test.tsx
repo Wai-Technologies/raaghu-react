@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import RdsBadge, { RdsBadgeProps } from "../src/rds-badge/rds-badge";
 
-// Mock RdsIcon to prevent any fetch issues
+// Mock RdsCompIcon to prevent any fetch issues
 jest.mock("../src/rds-icon/rds-icon", () => {
   return function MockRdsIcon(props: any) {
     return <div data-testid="mocked-icon">{props.name}</div>;

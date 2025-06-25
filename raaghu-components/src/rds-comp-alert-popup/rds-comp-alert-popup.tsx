@@ -1,5 +1,6 @@
 import React from "react";
-import { RdsModal, RdsIcon, RdsButton, RdsLabel } from "../rds-elements";
+import { RdsModal, RdsButton, RdsLabel } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompAlertPopupProps {
     alertID: any;
@@ -44,7 +45,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
             >
                 <div className="text-center py-3 px-4">
                     <p className="align-items-center d-flex justify-content-center">
-                        <RdsIcon
+                        <RdsCompIcon
                             height={`${props.type == "confirm" || props.type == "transfer_ownership"  ? "65px":"28px"}`}
                             width={`${props.type == "confirm" || props.type == "transfer_ownership" ? "65px":"28px"}`}
                             name={iconUrl}

@@ -1,5 +1,5 @@
 import React from "react";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import "./rds-popular-page.css";
 export interface RdsPopularPageProps {
     itemList: any;
@@ -16,7 +16,7 @@ const RdsPopularPage = (props: RdsPopularPageProps) => {
                         <div className="border-bottom d-flex align-items-center py-2 gap-2" data-testId="container-div">
                             <div className="p-3">
                                 <div className="bg-opacity-25 bg-primary border p-2 rounded-3 text-primary-emphasis">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name={item.icon}
                                     height="18px"
                                     width="18px"
@@ -33,7 +33,7 @@ const RdsPopularPage = (props: RdsPopularPageProps) => {
                             </div>
                             <div>
                                 <a href="#">
-                                    <RdsIcon
+                                    <RdsCompIcon
                                         name="chevron_right"
                                         height="47px"
                                         width="7px"

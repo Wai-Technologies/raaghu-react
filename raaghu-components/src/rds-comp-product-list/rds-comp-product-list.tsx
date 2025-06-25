@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { RdsLabel, RdsIcon, RdsButton } from "../rds-elements";
+import { RdsLabel, RdsButton } from "../rds-elements";
 import RdsCompProductImage, {
     Item,
 } from "../rds-comp-product-image/rds-comp-product-image";
 import "./rds-comp-product-list.css";
 import { useTranslation } from "react-i18next";
+import RdsCompIcon from "../rds-comp-icon";
 export interface RdsCompProductListProps {
     items: Item[];
     type?: string;
@@ -24,14 +25,14 @@ const RdsCompProductList = (props: RdsCompProductListProps) => {
                     </h5>
                     <a href="" className="text-decoration-none">
                         Shop the collection{" "}
-                        <RdsIcon
+                        <RdsCompIcon
                             height="16px"
                             fill={false}
                             stroke={true}
                             width="16px"
                             name="right"
                             colorVariant="primary"
-                        ></RdsIcon>
+                        ></RdsCompIcon>
                     </a>
                 </div>
             )}
@@ -42,14 +43,14 @@ const RdsCompProductList = (props: RdsCompProductListProps) => {
                     </h5>
                     <a href="" className="text-decoration-none">
                         Shop everything{" "}
-                        <RdsIcon
+                        <RdsCompIcon
                             height="16px"
                             fill={false}
                             stroke={true}
                             width="16px"
                             name="right"
                             colorVariant="primary"
-                        ></RdsIcon>
+                        ></RdsCompIcon>
                     </a>
                 </div>
             )}

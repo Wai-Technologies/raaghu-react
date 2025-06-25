@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import './rds-comp-chat.scss';
-import { RdsIcon, RdsInput, RdsButton } from "../rds-elements";
+import { RdsInput, RdsButton } from "../rds-elements";
 import Picker from 'emoji-picker-react';
+import RdsCompIcon from "../rds-comp-icon";
 
 interface Comment {
     firstName: string;
@@ -230,7 +231,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
                 </div>
                 {isSelected && allowDelete && (
                   <div className="delete-option mt-2">
-                    <RdsIcon
+                    <RdsCompIcon
                     name="delete"
                     fill={false}
                     stroke={true}
@@ -278,7 +279,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
 
         {isEmojiPicker && (
           <span className="me-2 mb-3">
-            <RdsIcon
+            <RdsCompIcon
               name="smileys"
               fill={false}
               stroke={true}
@@ -306,7 +307,7 @@ const RdsCompUserComments = (props: RdsCompUserCommentsProps) => {
       showIcon={false} 
     />
     <span className="position-absolute end-0 top-50 translate-middle-y pe-2 pb-3">
-      <RdsIcon
+      <RdsCompIcon
         name="send_email"
         fill={false}
         stroke={true}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./rds-comp-details-pane.css";
-import { RdsAlert, RdsBadge, RdsButton, RdsButtonGrid, RdsCard, RdsCarousel, RdsIcon, RdsLabel, RdsSearch } from "../rds-elements";
+import { RdsAlert, RdsBadge, RdsButton, RdsButtonGrid, RdsCard, RdsCarousel, RdsLabel, RdsSearch } from "../rds-elements";
 import RdsCounter, { CounterState, LayoutOptions } from "../../../raaghu-elements/src/rds-counter/rds-counter";
 import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
 import { AlertBorder, AlertPosition, AlertType } from "../../../raaghu-elements/src/rds-alert/rds-alert";
@@ -8,6 +8,7 @@ import RdsAvatar, { AvatarSize, AvatarStyle } from "../../../raaghu-elements/src
 import { color } from "html2canvas/dist/types/css/types/color";
 import RdsTreeStructure, { IconType, NodeState, TreeLevel } from "../../../raaghu-elements/src/rds-tree-structure/rds-tree-structure";
 import RdsAccordion, { AccordionBorder, AccordionSize, AccordionState, AccordionType } from "../../../raaghu-elements/src/rds-accordion/rds-accordion";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompDetailsPaneProps {
   headerText: string; 
@@ -96,7 +97,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                     onClick={() => setActiveTab(tab.key)}
                   >
                     <span className="custom-tab-icon">
-                      <RdsIcon
+                      <RdsCompIcon
                         name={tab.icon}
                         width="18px"
                         height="18px"
@@ -132,9 +133,9 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                         key={item.id}
                         className="activity-item d-flex align-items-center justify-content-between mb-3"
                       >
-                        <RdsIcon name="history_watch" strokeColor="#969696"/>
+                        <RdsCompIcon name="history_watch" strokeColor="#969696"/>
                         <span className="ms-3 flex-grow-1 text-start">{item.name}</span>
-                        <RdsIcon
+                        <RdsCompIcon
                           colorVariant="danger"
                           height="15px"
                           isCursorPointer
@@ -156,9 +157,9 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                         key={item.id}
                         className="activity-item d-flex align-items-center justify-content-between mb-3"
                       >
-                        <RdsIcon name="history_watch" />
+                        <RdsCompIcon name="history_watch" />
                         <span className="ms-3 flex-grow-1 text-start">{item.name}</span>
-                        <RdsIcon
+                        <RdsCompIcon
                           colorVariant="danger"
                           height="15px"
                           isCursorPointer
@@ -208,7 +209,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                             button.
                           </span>
                           <span className="favourite-edit-icon-wrapper ">
-                            <RdsIcon name="edit_underline" width="17px" height="17px" strokeColor="#7D7D7D"/>
+                            <RdsCompIcon name="edit_underline" width="17px" height="17px" strokeColor="#7D7D7D"/>
                           </span>
                         </div>
                         <div className="favourite-card-image-wrapper">
@@ -218,7 +219,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                             className="favourite-card-image"
                           />
                           <span className="favourite-card-image-star">
-                            <RdsIcon
+                            <RdsCompIcon
                               name="star_border"
                               width="21px"
                               height="14px"
@@ -434,7 +435,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                     <div className="d-flex align-items-center ms-auto gap-3">
                       <span className="profile-badge bg-primary text-white rounded-pill d-flex align-items-center px-3" style={{ width: 50, height: 40, fontSize: 18,}}>4</span>
                       <span className="ms-2">
-                        <RdsIcon
+                        <RdsCompIcon
                           colorVariant="primary"
                           height="20px"
                           isCursorPointer
@@ -743,7 +744,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                             className="favourite-card-image"
                           />
                           <span className="thumbnail-image-square">
-                            <RdsIcon
+                            <RdsCompIcon
                               name="downloads"
                               width="19px"
                               height="13px"
@@ -762,7 +763,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                             className="favourite-card-image"
                           />
                           <span className="thumbnail-image-square">
-                            <RdsIcon
+                            <RdsCompIcon
                               name="downloads"
                               width="19px"
                               height="13px"
@@ -781,7 +782,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                             className="favourite-card-image"
                           />
                           <span className="thumbnail-image-square">
-                            <RdsIcon
+                            <RdsCompIcon
                               name="downloads"
                               width="19px"
                               height="13px"

@@ -1,5 +1,5 @@
 import React from "react";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 
 export interface RdsPlandiscountProps {
   discount: string;
@@ -13,7 +13,7 @@ const RdsPlandiscount = (props: RdsPlandiscountProps) => {
     <div className="CTA d-flex px-2 py-1 rounded-1 text-white justify-content-between">
       <div className="align-items-center d-flex gap-2">
         <div>
-          <RdsIcon
+          <RdsCompIcon
             colorVariant="light"
             height="12px"
             name="arrow_down"

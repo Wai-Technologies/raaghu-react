@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { RdsCompChatHeader } from "../rds-elements";
 import RdsMessageBox from "../rds-comp-message-box";
 import RdsCompTypingSection from "../rds-comp-typing-section/rds-comp-typing-section";
 import { Comment as AttachmentComment } from "../rds-comp-attachement/rds-comp-attachement";
+import RdsCompChatHeader from "../rds-comp-chat-header";
 
 export interface RdsAiChatBotProps {
     aiLogoUrl: string;

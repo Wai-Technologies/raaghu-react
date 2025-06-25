@@ -25,7 +25,7 @@ jest.mock('../src/rds-elements', () => ({
     </div>
   ),
   RdsRating: ({ rating }: any) => <div data-testid="rds-rating">Rating: {rating}</div>,
-  RdsIcon: ({ 
+  RdsCompIcon: ({ 
     name, 
     fill, 
     stroke, 

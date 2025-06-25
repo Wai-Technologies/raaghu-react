@@ -10,7 +10,6 @@ import {
 } from "../rds-elements";
 import { useState } from "react";
 import { RdsInput } from "../rds-elements";
-import { RdsIcon } from "../rds-elements";
 import { RdsCard } from "../rds-elements";
 import { RdsBadge } from "../rds-elements";
 import "./rds-comp-kanban-board.css";
@@ -18,6 +17,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 import { CardTypes } from "../../../raaghu-elements/src/rds-card/rds-card";
 import { DropdownSize, DropdownState, DropdownStyle } from "../../../raaghu-elements/src/rds-dropdown-list/rds-dropdown-list";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface boardInfo {
   cardId?: number;
@@ -610,7 +610,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                               title="More options"
                               onClick={() => toggleDropdown(index)}
                             >
-                              <RdsIcon
+                              <RdsCompIcon
                                 name={"three_dots"}
                                 height="14px"
                                 width="14px"
@@ -732,7 +732,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                                       )
                                                     }
                                                   >
-                                                    <RdsIcon
+                                                    <RdsCompIcon
                                                       name={"three_dots"}
                                                       height="14px"
                                                       width="14px"
@@ -889,7 +889,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                         style="outline"
                                         onClick={() => onAddSubCardClick(index)}
                                       />
-                                      <RdsIcon
+                                      <RdsCompIcon
                                         classes={"m-2 close-board"}
                                         colorVariant="black"
                                         name="cancel"
@@ -995,7 +995,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                        textCase="unset"
                                         onClick={() => onAddSubCardClick(index)}
                                       />
-                                      <RdsIcon
+                                      <RdsCompIcon
                                         classes={"close-board mt-2 mx-2"}
                                         colorVariant="black"
                                         name="cancel"
@@ -1064,7 +1064,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
             state="hover"
             onClick={onAddButtonClick}
           />
-          <RdsIcon
+          <RdsCompIcon
             classes={"m-2"}
             colorVariant="black"
             name="cancel"

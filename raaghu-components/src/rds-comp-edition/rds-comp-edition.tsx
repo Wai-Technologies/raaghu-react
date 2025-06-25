@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
     RdsLabel,
-    RdsIcon,
     RdsOffcanvas,
     RdsNavtabs,
     RdsButton,
@@ -15,6 +14,7 @@ import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-ele
 import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
 import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 import { CounterState, LayoutOptions } from "../../../raaghu-elements/src/rds-counter/rds-counter";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompEditionProps {
     EditionItems: any;
@@ -228,7 +228,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                 placement={RdsOffcanvasPlacement.End}
                                 offcanvasbutton={<div>
                                     <span className="position-relative btn btn-outline-primary btn-sm btn-icon p-1 rounded-pill">
-                                        <RdsIcon
+                                        <RdsCompIcon
                                             name="pencil"
                                             height="15px"
                                             width="15px"
@@ -320,7 +320,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                     data-bs-target="#targetId"
                                     className="position-relative btn btn-outline-danger btn-sm btn-icon p-1 rounded-pill"
                                 >
-                                    <RdsIcon
+                                    <RdsCompIcon
                                         name="delete"
                                         height="15px"
                                         width="15px"

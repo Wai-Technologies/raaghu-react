@@ -3,7 +3,7 @@ import { colors } from "../../libs/types";
 import RdsAvatar from "../rds-avatar";
 import "./rds-card.css";
 import RdsButton from "../rds-button";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import RdsLabel from "../rds-label";
 import RdsBadge from "../rds-badge";
 import RdsTag from "../rds-tag";
@@ -206,7 +206,7 @@ const RdsCard = (props: RdsCardProps) => {
           <div className="headerClass mt-3 ms-3">
             <div className="d-flex align-items-center">
               {props.showIcon && (
-                <RdsIcon
+                <RdsCompIcon
                   colorVariant={props.colorVariant}
                   height="20px"
                   isCursorPointer
@@ -268,7 +268,7 @@ const RdsCard = (props: RdsCardProps) => {
                     {props.layout === "Vertical" && (
                       <>
                         {props.showIcon && (
-                          <RdsIcon
+                          <RdsCompIcon
                             colorVariant={props.colorVariant}
                             height="20px"
                             isCursorPointer
@@ -284,7 +284,7 @@ const RdsCard = (props: RdsCardProps) => {
                     {props.layout === "Horizontal" && (
                       <div className="d-flex align-items-center">
                         {props.showIcon && (
-                          <RdsIcon
+                          <RdsCompIcon
                             colorVariant={props.colorVariant}
                             height="20px"
                             isCursorPointer
@@ -302,7 +302,7 @@ const RdsCard = (props: RdsCardProps) => {
                   </div>
                   <div className="col-md-2 justify-content-end align-items-end text-end mt-3">
                     {props.type === "With Avatar" && props.isEditing && (
-                      <RdsIcon
+                      <RdsCompIcon
                         name="pencil"
                         height="20px"
                         width="20px"
@@ -315,7 +315,7 @@ const RdsCard = (props: RdsCardProps) => {
               {props.layout === undefined && (
                 <>
                   {props.showIcon && (
-                    <RdsIcon
+                    <RdsCompIcon
                       colorVariant={props.colorVariant}
                       height="20px"
                       isCursorPointer

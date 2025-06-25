@@ -5,7 +5,7 @@ import RdsCompDetailsPaneFavouites from '../src/rds-comp-details-pane/rds-comp-d
 
 // Mock the child components
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ name, onClick }: any) => (
+  RdsCompIcon: ({ name, onClick }: any) => (
     <div
       data-testid={`rds-icon-${name}`}
       onClick={onClick}

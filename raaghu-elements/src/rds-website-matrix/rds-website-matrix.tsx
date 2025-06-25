@@ -1,6 +1,6 @@
 import React from "react";
 import "./rds-website-matrix.css";
-import RdsIcon from "../rds-icon/rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon/rds-comp-icon";
 import { colors } from "../../libs/types";
 
 export interface RdsWebsiteMatrixProps {
@@ -38,7 +38,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                         <div className={"pt-2  fw-medium " + `${textColor}`} data-testid="icon">
                             <a onClick={onLinkClick}>
                                 {props.item.link} {"   "}
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="right"
                                     height="18px"
                                     width="18px"
@@ -58,7 +58,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
             {displaytype == "leftAligned" && (
                 <div>
                     <button type="button" className={"btn btn-icon rounded-circle " + `${btnColor}`}>
-                        <RdsIcon
+                        <RdsCompIcon
                             name={props.item.icon}
                             height={props.item.iconHeight}
                             width={props.item.iconWidth}
@@ -79,7 +79,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                         <div className={"pt-2  fw-medium " + `${textColor}`}>
                             <a onClick={onLinkClick}>
                                 {props.item.link} {"   "}
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="right"
                                     height="18px"
                                     width="18px"
@@ -114,7 +114,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                         <div className={"pt-2  fw-medium " + `${textColor}`}>
                             <a onClick={onLinkClick}>
                                 {props.item.link} {"   "}
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="right"
                                     height="18px"
                                     width="18px"
@@ -147,7 +147,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                             <div className={"pt-2  fw-medium " + `${textColor}`}>
                                 <a onClick={onLinkClick}>
                                     {props.item.link} {"   "}
-                                    <RdsIcon
+                                    <RdsCompIcon
                                         name="right"
                                         height="18px"
                                         width="18px"
@@ -174,7 +174,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                             type="button"
                             className={"btn btn-icon rounded-circle d-inline-block " + `${btnColor}`}
                         >
-                            <RdsIcon
+                            <RdsCompIcon
                                 name={props.item.icon}
                                 height={props.item.iconHeight}
                                 width={props.item.iconWidth}
@@ -195,7 +195,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                             <div className={"pt-2  fw-medium " + `${textColor}`}>
                                 <a onClick={onLinkClick}>
                                     {props.item.link} {"   "}
-                                    <RdsIcon
+                                    <RdsCompIcon
                                         name="right"
                                         height="18px"
                                         width="18px"
@@ -220,7 +220,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                                 type="button"
                                 className={"btn btn-icon rounded-circle d-inline-block " + `${btnColor}`}
                             >
-                                <RdsIcon
+                                <RdsCompIcon
                                     name={props.item.icon}
                                     height={props.item.iconHeight}
                                     width={props.item.iconWidth}
@@ -242,7 +242,7 @@ const RdsWebsiteMatrix = (props: RdsWebsiteMatrixProps) => {
                                 <div className={"pt-2  fw-medium " + `${textColor}`}>
                                     <a onClick={onLinkClick}>
                                         {props.item.link} {"   "}
-                                        <RdsIcon
+                                        <RdsCompIcon
                                             name="right"
                                             height="18px"
                                             width="18px"

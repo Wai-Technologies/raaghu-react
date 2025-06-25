@@ -3,9 +3,9 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompCopyText from '../src/rds-comp-copy-text/rds-comp-copy-text';
 
-// Mock the RdsIcon and RdsLabel components
+// Mock the RdsCompIcon and RdsLabel components
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ 
+  RdsCompIcon: ({ 
     name, 
     colorVariant, 
     height, 

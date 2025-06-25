@@ -19,7 +19,7 @@ jest.mock('../src/rds-elements', () => ({
       {label}
     </span>
   ),
-  RdsIcon: ({ name, width, height, fill, stroke }: any) => (
+  RdsCompIcon: ({ name, width, height, fill, stroke }: any) => (
     <span
       data-testid={`rds-icon-${name}`}
       className={`icon-${name}`}
@@ -262,7 +262,7 @@ describe('RdsCompPageNotFound', () => {
       expect(labels[1]).toHaveClass('text-muted', 'fw-medium', 'mb-3');
     });
 
-    it('should render RdsIcon with correct props', () => {
+    it('should render RdsCompIcon with correct props', () => {
       render(<RdsCompPageNotFound />);
       
       const icon = screen.getByTestId('rds-icon-right');

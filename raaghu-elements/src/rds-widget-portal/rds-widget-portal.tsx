@@ -1,7 +1,7 @@
 import React from "react";
 import RdsProgressBar from "../rds-progress-bar";
 import RdsButton from "../rds-button";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import "./rds-widget-portal.css";
 
 export interface RdsWidgetPortalProps {
@@ -20,7 +20,7 @@ const RdsWidgetPortal = (props: RdsWidgetPortalProps) => {
     <div className="border border-1 rounded-3 border-danger-50 py-4 px-4 box-gradient-shadow">
       <div className="d-flex gap-3 align-items-center justify-content-between">
         <div className="d-flex align-items-center gap-2">
-          <RdsIcon
+          <RdsCompIcon
             name={props.icon}
             width="33px"
             height="30px"

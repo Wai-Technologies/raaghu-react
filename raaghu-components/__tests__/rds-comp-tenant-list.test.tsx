@@ -85,7 +85,7 @@ jest.mock('../src/rds-elements', () => ({
     </div>
   ),
   RdsLineChart: (props: any) => <div data-testid="rds-line-chart" {...props} />,
-  RdsBigNumber: (props: any) => <div data-testid="rds-big-number" {...props} />,
+  RdsCompBigNumber: (props: any) => <div data-testid="rds-comp-big-number" {...props} />,
   RdsRadarChart: (props: any) => <div data-testid="rds-radar-chart" {...props} />,
   RdsDoughnutChart: (props: any) => <div data-testid="rds-doughnut-chart" {...props} />,
   RdsBooleanChart: (props: any) => <div data-testid="rds-boolean-chart" {...props} />,
@@ -151,7 +151,7 @@ jest.mock('../src/rds-elements', () => ({
       ))}
     </div>
   ),
-  RdsIcon: ({ name, ...props }: any) => <i data-testid={`icon-${name}`} {...props} />
+  RdsCompIcon: ({ name, ...props }: any) => <i data-testid={`icon-${name}`} {...props} />
 }));
 
 describe('RdsCompEditionList Component', () => {

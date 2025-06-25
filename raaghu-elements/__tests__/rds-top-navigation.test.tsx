@@ -32,7 +32,7 @@ jest.mock('../src/rds-comp-profile/rds-comp-profile', () => {
 });
 
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ name, onClick, ...props }: any) => (
+  RdsCompIcon: ({ name, onClick, ...props }: any) => (
     <div data-testid={`rds-icon-${name}`} onClick={onClick} {...props}>
       {name}
     </div>

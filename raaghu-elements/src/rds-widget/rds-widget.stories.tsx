@@ -4,7 +4,7 @@ import RdsWidget from "./rds-widget";
 import RdsLineChart from "../rds-chart-line";
 import RdsBarChart from "../rds-chart-bar";
 import RdsDoughnutChart from "../rds-chart-doughnut";
-import RdsBigNumber from "../rds-big-number/rds-big-number";
+import RdsCompBigNumber from "../../../raaghu-components/src/rds-comp-big-number/rds-comp-big-number";
 import { ScriptableContext } from "chart.js/auto";
 import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 
@@ -247,7 +247,7 @@ export const WithDoughnutChart: Story = {
         iconTooltipPosition: "top",
         children: (
             <>
-                <RdsBigNumber bigNumber="$39,330"></RdsBigNumber>
+                <RdsCompBigNumber bigNumber="$39,330"></RdsCompBigNumber>
                 <RdsDoughnutChart
                     id="doughnutchart"
                     labels={["Total Sales - 60%", "Revenue - 25%", "Expenses - 15%"]}

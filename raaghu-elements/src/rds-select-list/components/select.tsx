@@ -1,7 +1,7 @@
 import React, { ReactNode, useState, useRef } from "react";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import { SelectContext } from "./selectContext";
-import RdsIcon from "../../rds-icon";
+import RdsCompIcon from "../../../../raaghu-components/src/rds-comp-icon";
 import RdsBadge from "../../rds-badge";
 import RdsSearch from "../../rds-search";
 
@@ -75,13 +75,13 @@ const Select: React.FC<{
                         ) : (selectedOption.length > 0 ? selectedOption : selectPlaceholder)}
                     </div>
                     <div>
-                        <RdsIcon
+                        <RdsCompIcon
                             name={showDropdown ? "chevron_up" : "chevron_down"}
                             fill={false}
                             stroke={true}
                             height="11px"
                             width="11px"
-                        ></RdsIcon>
+                        ></RdsCompIcon>
                     </div>
                 </div>
                 <ul

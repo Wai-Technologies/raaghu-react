@@ -5,7 +5,7 @@ import { RdsCompFileManagementTree, FileManagementTree } from '../src/rds-comp-f
 
 // Mock RDS components
 jest.mock('../src/rds-elements', () => ({
-    RdsButtonGroup: ({ buttonGroupItems, onButtonClick, ...props }: any) => (
+    RdsCompButtonGroup: ({ buttonGroupItems, onButtonClick, ...props }: any) => (
         <div data-testid="rds-button-group" {...props}>
             {buttonGroupItems?.map((item: any, index: number) => (
                 <button

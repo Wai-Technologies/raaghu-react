@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RdsIcon from "../../../raaghu-elements/src/rds-icon";
+import RdsCompIcon from "../rds-comp-icon";
 import "./rds-comp-plan-switcher.css";
 
 export interface RdsCompPlanSwitcherProps {
@@ -32,7 +32,7 @@ const RdsCompPlanSwitcher = (props: RdsCompPlanSwitcherProps) => {
         <div className={`premiumContent ${isPlanFree ? 'free' : ''}`}>
           {isPlanFree ?
             <div className="icon-background-white">
-              <RdsIcon
+              <RdsCompIcon
                 name="crown"
                 height="20px"
                 width="20px"
@@ -41,7 +41,7 @@ const RdsCompPlanSwitcher = (props: RdsCompPlanSwitcherProps) => {
                 stroke={false} />
             </div> :
             <div className="icon-background">
-              <RdsIcon
+              <RdsCompIcon
                 name="crown_white"
                 height="20px"
                 width="20px"

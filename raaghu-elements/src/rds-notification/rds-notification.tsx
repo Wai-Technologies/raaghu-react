@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { colors } from "../../libs/types";
-import RdsIcon from "../rds-icon/rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon/rds-comp-icon";
 import RdsButton from "../rds-button";
 import "./rds-notification.css";
 
@@ -84,7 +84,7 @@ const RdsNotification = (props: RdsNotificationProps) => {
               />
             )}
             {props.style === "icon" && (
-              <RdsIcon
+              <RdsCompIcon
                 name={notification.icon || "notification_icon"}
                 stroke={true}
                 width="38px"
@@ -104,7 +104,7 @@ const RdsNotification = (props: RdsNotificationProps) => {
 
             {props.showDismissIcon && (
               <div className="notification-dismiss-icon">
-                <RdsIcon
+                <RdsCompIcon
                   name="close"
                   stroke={true}
                   width="13px"
@@ -171,7 +171,7 @@ export default RdsNotification;
 
 // import React, { Fragment, useEffect, useState } from "react";
 // import { colors } from "../../libs/types";
-// import RdsIcon from "../rds-icon/rds-icon";
+// import RdsCompIcon from "../rds-icon/rds-icon";
 // import RdsBadge from "../rds-badge/rds-badge";
 // import RdsButton from "../rds-button";
 // import "./rds-notification.css";
@@ -266,7 +266,7 @@ export default RdsNotification;
 //                 <div className={"card-header p-3 text-start headerStyle " + `${bgColor}`}>
 //                     <div className="head ps-2 position-relative">
 //                         <span>
-//                             <RdsIcon
+//                             <RdsCompIcon
 //                                 name="notification"
 //                                 fill={false}
 //                                 stroke={true}
@@ -291,7 +291,7 @@ export default RdsNotification;
 //                         )}{" "}
 //                     </div>
 //                     <div>
-//                         <RdsIcon
+//                         <RdsCompIcon
 //                             name="gear"
 //                             fill={false}
 //                             stroke={true}
@@ -312,7 +312,7 @@ export default RdsNotification;
 //                                 <div
 //                                     className="px-3 d-flex ps-0 align-items-center"
 //                                 >
-//                                     <RdsIcon
+//                                     <RdsCompIcon
 //                                         name={getIcon(notification)}
 //                                         fill={false}
 //                                         stroke={true}

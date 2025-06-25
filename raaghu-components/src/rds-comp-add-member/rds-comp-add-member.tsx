@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { RdsButton, RdsCheckbox, RdsIcon, RdsInput, RdsLabel, RdsOffcanvas } from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsOffcanvas } from "../rds-elements";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 import "./rds-comp-add-member.css"
+import RdsCompIcon from "../rds-comp-icon";
 export interface RdsCompAddMemberProps {
   addMemberData?: any;
   assignableRolesList?: any;
@@ -309,7 +310,7 @@ const isRoleIdValid = (roleId: any) => {
                                             </h5>
                                         </div>
                                         <div className="d-flex justify-content-center text-muted gap-2">
-                                            <RdsIcon
+                                            <RdsCompIcon
                                                 name={teamItems.twitterIcon}
                                                 height="27px"
                                                 fill={false}
@@ -317,8 +318,8 @@ const isRoleIdValid = (roleId: any) => {
                                                 width="27px"
                                                 colorVariant=""
                                                 isCursorPointer={true}
-                                            ></RdsIcon>
-                                            <RdsIcon
+                                            ></RdsCompIcon>
+                                            <RdsCompIcon
                                                 //	class="mx-2"
                                                 name={teamItems.twitterIcon}
                                                 height="27px"
@@ -327,7 +328,7 @@ const isRoleIdValid = (roleId: any) => {
                                                 width="27px"
                                                 colorVariant=""
                                                 isCursorPointer={true}
-                                            ></RdsIcon>
+                                            ></RdsCompIcon>
                                         </div>
                                     </div>
                                 </div>

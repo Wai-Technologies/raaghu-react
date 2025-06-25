@@ -3,8 +3,8 @@ import {
     RdsLabel,
     RdsProgressBar,
     RdsRating,
-    RdsIcon,
 } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
 export interface RdsCompCustomerReviewsProps {
     itemList: { value: number; count: number }[];
 }
@@ -35,14 +35,14 @@ const RdsCompCustomerReviews = (props: RdsCompCustomerReviewsProps) => {
                     <div className="d-flex mt-3 gap-4 align-items-baseline">
                         <div className="d-flex align-items-center gap-3">
                             <RdsLabel label={item.value}></RdsLabel>
-                            <RdsIcon
+                            <RdsCompIcon
                                 height="20px"
                                 fill={true}
                                 stroke={true}
                                 width="20px"
                                 name="star"
                                 colorVariant="review"
-                            ></RdsIcon>
+                            ></RdsCompIcon>
                         </div>
                         <div className="w-100">
                             <div className="mt-1">

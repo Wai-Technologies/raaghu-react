@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { RdsIcon, RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsSearch, RdsAvatar } from "../../../raaghu-components/src/rds-elements";
+import { RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsSearch, RdsAvatar } from "../../../raaghu-components/src/rds-elements";
 import { useTranslation } from "react-i18next";
 import "./rds-top-navigation.css";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../rds-offcanvas/rds-offcanvas";
@@ -9,6 +9,7 @@ import { IconPosition } from "../rds-search/rds-search";
 import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import RdsCompProfile from "../../../raaghu-components/src/rds-comp-profile";
 import { DropdownSize, DropdownState } from "../rds-dropdown-list/rds-dropdown-list";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 
 export interface RdsTopNavigationProps {
   ShowProfileSection?: boolean; // Determines whether to show the profile section.
@@ -208,7 +209,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
       {/* Simple Menu Items with reduced padding */}
       <div>
         <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item">
-          <RdsIcon
+          <RdsCompIcon
             colorVariant="primary"
             height="16px"
             isCursorPointer
@@ -222,7 +223,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
         <div className="profile-menu-separator"></div>
 
         <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item">
-          <RdsIcon
+          <RdsCompIcon
             colorVariant="primary"
             height="16px"
             isCursorPointer
@@ -236,7 +237,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
         <div className="profile-menu-separator"></div>
 
         <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item">
-          <RdsIcon
+          <RdsCompIcon
             colorVariant="primary"
             height="16px"
             isCursorPointer
@@ -250,7 +251,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
         <div className="profile-menu-separator"></div>
 
         <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item">
-          <RdsIcon
+          <RdsCompIcon
             colorVariant="primary"
             height="16px"
             isCursorPointer
@@ -264,7 +265,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
         <div className="profile-menu-separator"></div>
 
         <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item" onClick={(e) => onLogout && onLogout(e as any)}>
-          <RdsIcon
+          <RdsCompIcon
             colorVariant="primary"
             height="16px"
             isCursorPointer
@@ -573,13 +574,13 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                         display: 'inline-block'
                       }}
                     >
-                        <RdsIcon
+                        <RdsCompIcon
                           name="chevron_down"
                           height="11px"
                           width="11px"
                           fill={false}
                           stroke={true}
-                        ></RdsIcon>
+                        ></RdsCompIcon>
                       </span>
                   </button>
                   {isProfileDropdownOpen && (
@@ -645,7 +646,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                 <div
                   className={"position-relative px-2 px-md-3 col text-center d-flex align-items-center"}
                 >
-                  <RdsIcon
+                  <RdsCompIcon
                     name="notification"
                     fill={false}
                     stroke={true}
@@ -657,7 +658,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                     tooltipTitle={"Notification"}
                     tooltipPlacement="bottom"
                     style={TooltipStyle.MiddleTopArrow}                        
-                  ></RdsIcon>
+                  ></RdsCompIcon>
                 </div>)}
               {/* notification----------------------------------------------------------------------------------------------- */}
 
@@ -940,7 +941,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                 {props.ecommerce4 && props.icons?.map((icon: any) => (
                   <>
                     <span className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}>
-                      <RdsIcon
+                      <RdsCompIcon
                         key={icon.id}
                         name={icon.name}
                         fill={false}
@@ -948,7 +949,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                         height="18px"
                         width="18px"
                         onClick={() => handleIconClick(icon)}
-                      ></RdsIcon>
+                      ></RdsCompIcon>
                     </span>
                   </>
                 ))}
@@ -993,14 +994,14 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
           <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow">
             <div className="d-flex align-items-center">
               <span className={`px-2 cursor-pointer active}`}>
-                <RdsIcon
+                <RdsCompIcon
                   name="collapsable"
                   fill={false}
                   stroke={true}
                   height="18px"
                   width="18px"
                   onClick={() => handleCollapsebleIconClick()}
-                ></RdsIcon>
+                ></RdsCompIcon>
               </span>
               {props.showLogo && (<div
                 onClick={handlerLogoClick}
@@ -1040,14 +1041,14 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
             <div className="d-flex align-items-center right-side-menu">
               {props.entertainment1 && props.icons?.map((icon: any) => (
                 <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
-                  <RdsIcon
+                  <RdsCompIcon
                     name={icon.name}
                     fill={false}
                     stroke={true}
                     height="18px"
                     width="18px"
                     onClick={() => handleIconClick(icon)}
-                  ></RdsIcon>
+                  ></RdsCompIcon>
                 </span>
               ))}
               {props.entertainment1 && (
@@ -1105,14 +1106,14 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
             <div className="d-flex align-items-center right-side-menu">
               {props.entertainment2 && props.icons?.map((icon: any) => (
                 <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`} >
-                  <RdsIcon
+                  <RdsCompIcon
                     name={icon.name}
                     fill={false}
                     stroke={true}
                     height="18px"
                     width="18px"
                     onClick={() => handleIconClick(icon)}
-                  ></RdsIcon>
+                  ></RdsCompIcon>
                 </span>
               ))}
               {props.entertainment2 && (
@@ -1169,14 +1170,14 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
             <div className="d-flex align-items-center right-side-menu">
               {props.entertainment3 && props.icons?.map((icon: any) => (
                 <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
-                  <RdsIcon
+                  <RdsCompIcon
                     name={icon.name}
                     fill={false}
                     stroke={true}
                     height="18px"
                     width="18px"
                     onClick={() => handleIconClick(icon)}
-                  ></RdsIcon>
+                  ></RdsCompIcon>
                 </span>
               ))}
               {props.showSearch && props.entertainment3 && (
@@ -1243,14 +1244,14 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
             <div className="d-flex align-items-center right-side-menu">
               {props.entertainment4 && props.icons?.map((icon: any) => (
                 <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
-                  <RdsIcon
+                  <RdsCompIcon
                     name={icon.name}
                     fill={false}
                     stroke={true}
                     height="18px"
                     width="18px"
                     onClick={() => handleIconClick(icon)}
-                  ></RdsIcon>
+                  ></RdsCompIcon>
                 </span>
               ))}
               {props.showSearch && props.entertainment4 && (
@@ -1260,7 +1261,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                   onMouseEnter={handleSearchMouseEnter}
                   onMouseLeave={handleSearchMouseLeave}
                 >
-                  {!showSearchInput && (<RdsIcon
+                  {!showSearchInput && (<RdsCompIcon
                     name="search"
                     fill={false}
                     stroke={true}
@@ -1341,14 +1342,14 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
             <div className="d-flex align-items-center right-side-menu">
               {props.professional1 && props.icons?.map((icon: any) => (
                 <span key={icon.id} className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
-                  <RdsIcon
+                  <RdsCompIcon
                     name={icon.name}
                     fill={false}
                     stroke={true}
                     height="18px"
                     width="18px"
                     onClick={() => handleIconClick(icon)}
-                  ></RdsIcon>
+                  ></RdsCompIcon>
                 </span>
               ))}
               {props.professional1 && (
@@ -1362,25 +1363,25 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                   </div>
                   <div className="position-relative px-md-1 col text-center d-flex align-items-center cursor-pointer ">
                     <span className="ps-2">
-                      <RdsIcon
+                      <RdsCompIcon
                         name="multiple_circle"
                         fill={false}
                         stroke={true}
                         height="18px"
                         width="18px"
                         onClick={() => handleIconClick()}
-                      ></RdsIcon>
+                      ></RdsCompIcon>
                     </span>
                   </div>
                   <div className="position-relative px-md-2 col text-center d-flex align-items-center cursor-pointer ">
-                    <RdsIcon
+                    <RdsCompIcon
                       name="blogs"
                       fill={false}
                       stroke={true}
                       height="18px"
                       width="18px"
                       onClick={() => handleIconClick()}
-                    ></RdsIcon>
+                    ></RdsCompIcon>
                   </div>
                 </>
               )}
@@ -1589,14 +1590,14 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
           <nav className="navbar d-flex justify-content-between p-0 min-width align-items-center light-shadow">
             <div className="d-flex align-items-center">
               <span className={`px-2 cursor-pointer active}`}>
-                <RdsIcon
+                <RdsCompIcon
                   name="collapsable"
                   fill={false}
                   stroke={true}
                   height="18px"
                   width="18px"
                   onClick={() => handleCollapsebleIconClick()}
-                ></RdsIcon>
+                ></RdsCompIcon>
               </span>
               <div className="d-flex align-items-center">
                 {props.showLogo && (<div
@@ -1732,14 +1733,14 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
               </div>
               {props.professional5 && props.icons?.map((icon: any) => (
                 <span key={icon.id} className={`px-3 cursor-pointer ${activeImage === icon.id ? "active" : ""}`}>
-                  <RdsIcon
+                  <RdsCompIcon
                     name={icon.name}
                     fill={false}
                     stroke={true}
                     height="18px"
                     width="18px"
                     onClick={() => handleIconClick(icon)}
-                  ></RdsIcon>
+                  ></RdsCompIcon>
                 </span>
               ))}
               <div className="position-relative px-2 px-md-1 col text-center  ">
@@ -1830,7 +1831,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                             display: 'inline-block'
                           }}
                         >
-                          <RdsIcon
+                          <RdsCompIcon
                             name="chevron_down"
                             height="11px"
                             width="11px"
@@ -1938,7 +1939,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
               >
                 <div className="py-xxl-0 py-xl-0 py-lg-0 py-1 d-flex align-items-center justify-content-center">
                   <span className="cursor-pointer" onClick={props.chatsHandler}>
-                    <RdsIcon
+                    <RdsCompIcon
                       name="chatting"
                       tooltip={true}
                       tooltipTitle={"Chat"}
@@ -1948,7 +1949,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                       height="18px"
                       type="lottie"
                       isHovered
-                    ></RdsIcon>
+                    ></RdsCompIcon>
                   </span>
                 </div>{" "}
               </div>
@@ -1960,7 +1961,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                   } justify-content-center d-lg-none d-md-none col text-center border-end-custom border-2 align-items-center`}
               >
                 <div className="rounded-circle mbhome bg-primary">
-                  <RdsIcon
+                  <RdsCompIcon
                     name="home"
                     fill={false}
                     stroke={true}
@@ -1968,7 +1969,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                     width="18px"
                     colorVariant="light"
                     onClick={props.mobileViewLogoClick}
-                  ></RdsIcon>
+                  ></RdsCompIcon>
                 </div>
               </div>
               {props.appshell3 &&
@@ -2065,7 +2066,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                         display: 'inline-block'
                       }}
                     >
-                      <RdsIcon
+                      <RdsCompIcon
                         name="chevron_down"
                         height="11px"
                         width="11px"
@@ -2221,7 +2222,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                     >
                       <div className="py-xxl-0 py-xl-0 py-lg-0 py-1 d-flex align-items-center justify-content-center">
                         <span className="cursor-pointer" onClick={props.chatsHandler}>
-                          <RdsIcon
+                          <RdsCompIcon
                             name="chatting"
                             tooltip={true}
                             tooltipTitle={"Chat"}
@@ -2231,7 +2232,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                             height="18px"
                             type="lottie"
                             isHovered
-                          ></RdsIcon>
+                          ></RdsCompIcon>
                         </span>
                       </div>{" "}
                     </div>
@@ -2243,7 +2244,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                         } justify-content-center d-lg-none d-md-none col text-center border-end-custom border-2 align-items-center`}
                     >
                       <div className="rounded-circle mbhome bg-primary">
-                        <RdsIcon
+                        <RdsCompIcon
                           name="home"
                           fill={false}
                           stroke={true}
@@ -2251,7 +2252,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                           width="18px"
                           colorVariant="light"
                           onClick={props.mobileViewLogoClick}
-                        ></RdsIcon>
+                        ></RdsCompIcon>
                       </div>
                     </div>
 
@@ -2283,7 +2284,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                   </>)}
                   {props.product1 && props.icons?.map((icon: any) => (
                     <span className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}>
-                      <RdsIcon
+                      <RdsCompIcon
                         key={icon.id}
                         name={icon.name}
                         fill={false}
@@ -2292,7 +2293,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                         width="18px"
                         colorVariant="dark"
                         onClick={() => handleIconClick(icon)}
-                      ></RdsIcon>
+                      ></RdsCompIcon>
                     </span>
                   ))}
 
@@ -2362,7 +2363,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                               display: 'inline-block'
                             }}
                           >
-                            <RdsIcon
+                            <RdsCompIcon
                               name="chevron_down"
                               height="11px"
                               width="11px"
@@ -2444,7 +2445,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                     {props.product4 && props.icons?.map((icon: any) => (
                       <>
                         <span className={`px-2 cursor-pointer ${activeImage === icon.id ? "active" : ""} `}>
-                          <RdsIcon
+                          <RdsCompIcon
                             key={icon.id}
                             name={icon.name}
                             fill={false}
@@ -2452,7 +2453,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                             height="18px"
                             width="18px"
                             onClick={() => handleIconClick(icon)}
-                          ></RdsIcon>
+                          ></RdsCompIcon>
                         </span>
                       </>
                     ))}

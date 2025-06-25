@@ -1,5 +1,5 @@
 import React from "react";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import "./rds-search.css";
 import { placements } from "../../libs";
 
@@ -64,7 +64,7 @@ const RdsSearch = (props: RdsSearchProps) => {
             <div className={`input-group border mt-2 rounded ` + classes()} id={props.id}>
                 {props.iconPosition === IconPosition.Left && (
                     <span className="input-group-text border-0">
-                        <RdsIcon name="search" fill={false} stroke={true} isCursorPointer={true} ></RdsIcon>
+                        <RdsCompIcon name="search" fill={false} stroke={true} isCursorPointer={true} ></RdsCompIcon>
                     </span>)}
                 <input className={`form-control border-bottom-0 border-top-0 border-end-0` + (props.iconPosition === IconPosition.Left ? ' border-end-0' : ' border-start-0')} type="search"
                     defaultValue={props.value}
@@ -78,12 +78,12 @@ const RdsSearch = (props: RdsSearchProps) => {
                     data-testid={props.dataTestId} />
                 {props.iconPosition === IconPosition.Right && (
                     <span className="input-group-text border-0">
-                        <RdsIcon
+                        <RdsCompIcon
                             name="search"
                             fill={false}
                             stroke={true}
                             isCursorPointer={true}
-                        ></RdsIcon>
+                        ></RdsCompIcon>
                     </span>)}
             </div>
             {/* </div> */}

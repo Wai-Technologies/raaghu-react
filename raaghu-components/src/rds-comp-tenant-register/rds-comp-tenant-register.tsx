@@ -3,11 +3,11 @@ import {
     RdsButton,
     RdsInput,
     RdsCheckbox,
-    RdsIcon,
     RdsDropdownList,
     RdsLabel,
 } from "../rds-elements";
 import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompTenantRegisterProps {
     registerData?: any;
@@ -217,7 +217,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                         <p className="divider line one-line">Or Connect With</p>
                         <div className="w-100 mt-4 pt-2">
                             <span className="w-20px h-20px border p-2 mx-3 rounded-2">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="google"
                                     height="20px"
                                     width="20px"
@@ -228,9 +228,9 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                                     tooltipTitle={"Connect with Google"}
                                     tooltipPlacement="bottom"
                                     isCursorPointer={true}
-                                ></RdsIcon></span>
+                                ></RdsCompIcon></span>
                             <span className="w-20px h-20px border p-2 mx-3 rounded-2">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="microsoft"
                                     height="20px"
                                     width="20px"
@@ -241,7 +241,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                                     tooltipTitle={"Connect with Microsoft"}
                                     tooltipPlacement="bottom"
                                     isCursorPointer={true}
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </div>
                     </div>

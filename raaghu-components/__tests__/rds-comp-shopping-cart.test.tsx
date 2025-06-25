@@ -5,7 +5,7 @@ import RdsCompShoppingCart from '../src/rds-comp-shopping-cart/rds-comp-shopping
 
 // Mock the rds-elements components
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ name, height, width, colorVariant, fill, stroke, dataTestId }: any) => (
+  RdsCompIcon: ({ name, height, width, colorVariant, fill, stroke, dataTestId }: any) => (
     <div 
       data-testid={dataTestId || `icon-${name}`}
       data-name={name}
@@ -18,7 +18,7 @@ jest.mock('../src/rds-elements', () => ({
       {name}
     </div>
   ),
-  RdsIconLabel: ({ colorVariant, icon, label, size, fill, iconposition, dataTestId }: any) => (
+  RdsCompIconLabel: ({ colorVariant, icon, label, size, fill, iconposition, dataTestId }: any) => (
     <div 
       data-testid={dataTestId || `icon-label-${label?.replace(/\s+/g, '-').toLowerCase()}`}
       data-color-variant={colorVariant}

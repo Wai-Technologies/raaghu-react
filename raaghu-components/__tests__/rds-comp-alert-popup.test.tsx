@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import RdsCompAlertPopup from '../src/rds-comp-alert-popup/rds-comp-alert-popup';
 
 // Define interfaces for mock components
-interface RdsIconProps {
+interface RdsCompIconProps {
   name: string;
   colorVariant: string;
   height?: string;
@@ -39,7 +39,7 @@ jest.mock('../src/rds-elements', () => ({
       {children}
     </div>
   ),
-  RdsIcon: ({ name, colorVariant, height, width, classes, fill, stroke, ...props }: RdsIconProps) => (
+  RdsCompIcon: ({ name, colorVariant, height, width, classes, fill, stroke, ...props }: RdsCompIconProps) => (
     <div 
       data-testid="rds-icon" 
       data-icon-name={name} 

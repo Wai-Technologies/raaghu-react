@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./styles.css";
-import { RdsButton, RdsIcon, RdsInput } from "../rds-elements";
+import { RdsButton, RdsInput } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
 
 
 export enum FieldStyle {
@@ -99,7 +100,7 @@ const RdsCompOtpInput = (props: RdsOtpInputProps) => {
       {props.fieldStyle == FieldStyle.Advance && (
         <div className="otp-verification-container">
           <div className="iconotpalert">
-            <RdsIcon
+            <RdsCompIcon
               name={props.iconUrl}
               height="3rem"
               width="4rem"

@@ -1,5 +1,7 @@
 import React from "react";
-import { RdsIcon, RdsIconLabel, RdsLabel, RdsSelectList } from "../rds-elements";
+import { RdsLabel, RdsSelectList } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompIconLabel from "../rds-comp-icon-label";
 
 export interface RdsCompShoppingCartProp {
     cart: any,
@@ -44,7 +46,7 @@ const RdsCompShoppingCart = (props: RdsCompShoppingCartProp) => {
                       label={item.price}
                     ></RdsLabel>
                     <div className="mt-4">
-                      <RdsIconLabel
+                      <RdsCompIconLabel
                       
                         colorVariant="success"
                         icon={item.highlightsIcon}
@@ -67,7 +69,7 @@ const RdsCompShoppingCart = (props: RdsCompShoppingCartProp) => {
                       />
                     </div>
                     <div className="mt-3">
-                      <RdsIcon
+                      <RdsCompIcon
                         name="cancel"
                         height="14px"
                         width="14px"

@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { colors } from "../../libs/types";
 import "./rds-illustration.css";
-import RdsIcon from "../rds-icon/rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon/rds-comp-icon";
 
 export interface RdsIllustrationProps {
     mode?: string; // Mode of the illustration, e.g., "Dark NRA" or "Light NRA"
@@ -31,7 +31,7 @@ const RdsIllustration = (props: RdsIllustrationProps) => {
         <Fragment>
             <div className="align-items-center d-flex justify-content-center vh-75">
                 <div className="text-center lottie-border-0 lottie-filter-0" data-testid="icon">
-                    <RdsIcon
+                    <RdsCompIcon
                         width={props.iconWidth}
                         height={props.iconHeight}
                         fill={false}

@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import "./rds-navtabs.css";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import RdsBadge from "../rds-badge"; // Ensure you import the RdsBadge component
 
 export interface RdsNavtabsProps {
@@ -186,7 +186,7 @@ const RdsNavtabs = (props: RdsNavtabsProps) => {
             >
               {navtabsItem.icon && (
                 <span>
-                  <RdsIcon
+                  <RdsCompIcon
                     name={navtabsItem.icon}
                     height="20px"
                     width="20px"

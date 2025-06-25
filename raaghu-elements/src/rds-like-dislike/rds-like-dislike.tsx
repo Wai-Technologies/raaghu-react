@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import RdsIcon from "../rds-icon/rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon/rds-comp-icon";
 import "./rds-like-dislike.css";
 
 export interface RdsLikeDislikeProps {
@@ -30,7 +30,7 @@ const RdsLikeDislike = (props: RdsLikeDislikeProps) => {
     <Fragment>
       <div className="like-dislike-container">
         <div className="like-dislike-item">
-          <RdsIcon
+          <RdsCompIcon
             name="like"
             fill={false}
             stroke={true}
@@ -44,7 +44,7 @@ const RdsLikeDislike = (props: RdsLikeDislikeProps) => {
         </div>
 
         <div className="like-dislike-item mt-2">
-          <RdsIcon
+          <RdsCompIcon
             name="dislike"
             fill={false}
             stroke={true}

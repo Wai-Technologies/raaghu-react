@@ -1,1 +1,1 @@
-export { default } from "./rds-top-navigation-with-search";
+export { default } from "./rds-comp-top-navigation-with-search";

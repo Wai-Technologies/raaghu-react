@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import { render, fireEvent } from "@testing-library/react";
 import RdsReviewCategory, { Item, RdsReviewCategoryProps } from "../src/rds-review-category/rds-review-category";
 
-// Mock RdsIcon to prevent fetch issues
+// Mock RdsCompIcon to prevent fetch issues
 jest.mock("../src/rds-icon", () => ({
     __esModule: true,
     default: jest.fn(({ name, colorVariant, height, width }) => (

@@ -1,5 +1,5 @@
 import React from "react";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import RdsLabel from "../rds-label";
 import "./rds-team-member.css";
 
@@ -47,7 +47,7 @@ const RdsTeamMember = (props: RdsTeamMemberProps) => {
                                             </h5>
                                         </div>
                                         <div className="d-flex justify-content-center text-muted gap-2">
-                                            <RdsIcon
+                                            <RdsCompIcon
                                                 name={teamItems.twitterIcon}
                                                 height="27px"
                                                 fill={false}
@@ -55,8 +55,8 @@ const RdsTeamMember = (props: RdsTeamMemberProps) => {
                                                 width="27px"
                                                 colorVariant=""
                                                 isCursorPointer={true}
-                                            ></RdsIcon>
-                                            <RdsIcon
+                                            ></RdsCompIcon>
+                                            <RdsCompIcon
                                                 //	class="mx-2"
                                                 name={teamItems.twitterIcon}
                                                 height="27px"
@@ -65,7 +65,7 @@ const RdsTeamMember = (props: RdsTeamMemberProps) => {
                                                 width="27px"
                                                 colorVariant=""
                                                 isCursorPointer={true}
-                                            ></RdsIcon>
+                                            ></RdsCompIcon>
                                         </div>
                                     </div>
                                 </div>

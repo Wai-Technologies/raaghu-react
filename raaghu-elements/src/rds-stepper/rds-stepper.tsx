@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./rds-stepper.css";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import RdsCheckbox, {
   CheckboxStatus,
   CheckboxStyle,
@@ -349,7 +349,7 @@ const RdsStepper = (props: RdsStepperProps) => {
                 <div className="step-content">
                   <div className={`step-icon ${getStepClass()}`}>
                     {props.Icon && step ? (
-                      <RdsIcon
+                      <RdsCompIcon
                         name={step.iconName}
                         fill={step.iconFill}
                         stroke={step.iconStroke}
@@ -357,7 +357,7 @@ const RdsStepper = (props: RdsStepperProps) => {
                         height={step.iconHeight}
                       />
                     ) : props.Icon ? (
-                      <RdsIcon
+                      <RdsCompIcon
                         name={props.iconName}
                         fill={props.iconFill}
                         stroke={props.iconStroke}

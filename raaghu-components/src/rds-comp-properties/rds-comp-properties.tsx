@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import RdsDatatable, { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
-import { RdsInput, RdsButton, RdsIcon } from "../rds-elements";
+import { RdsInput, RdsButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompPropertiesProp {
     propertyData: any[];
@@ -105,12 +106,12 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                         onClick={() => onDelete(propertyData.key)}
                         data-testid="delete"
                     >
-                        <RdsIcon
+                        <RdsCompIcon
                             name={"delete"}
                             height="16px"
                             width="20px"
                             stroke={true}                           
-                        ></RdsIcon>
+                        ></RdsCompIcon>
                     </a>
                 </>
             ),

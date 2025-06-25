@@ -39,7 +39,7 @@ jest.mock("../rds-elements", () => ({
       <label>{labelText}</label>
     </div>
   )),
-  RdsIcon: jest.fn(({ name }) => (
+  RdsCompIcon: jest.fn(({ name }) => (
     <img src="test-icon.svg" alt={name} role="img" data-testid={`icon-${name}`} />
   )),
   RdsModal: jest.fn(({ children, modalbutton }) => (

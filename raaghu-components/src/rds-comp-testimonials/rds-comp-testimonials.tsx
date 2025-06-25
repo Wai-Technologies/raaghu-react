@@ -2,9 +2,9 @@ import React from "react";
 import {
     RdsLabel,
     RdsTestimonial,
-    RdsIcon,
     RdsCarousel,
 } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompTestimonialsProps {
     testimonialItems?: any;
@@ -23,22 +23,22 @@ const RdsCompTestimonials = (props: RdsCompTestimonialsProps) => {
                                 <RdsLabel label="Testimonials" fontWeight={"bold"}></RdsLabel>
                             </h2>
                             <span>
-                                <RdsIcon
+                                <RdsCompIcon
                                     height="15px"
                                     fill={false}
                                     stroke={true}
                                     width="15px"
                                     name="chevron_left"
                                     dataTestId="chevron_left"
-                                ></RdsIcon>
-                                <RdsIcon
+                                ></RdsCompIcon>
+                                <RdsCompIcon
                                     height="15px"
                                     fill={false}
                                     stroke={true}
                                     width="15px"
                                     name="chevron_right"
                                     dataTestId="chevron_right"
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </div>
                         <div className="mt-4">

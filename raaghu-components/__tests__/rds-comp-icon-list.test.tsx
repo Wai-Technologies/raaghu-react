@@ -24,7 +24,7 @@ jest.mock("../../raaghu-elements/src/rds-search/rds-search", () => ({
 
 // Mock the rds-elements
 jest.mock("../src/rds-elements", () => ({
-  RdsIcon: jest.fn(({ name, dataTestId }) => (
+  RdsCompIcon: jest.fn(({ name, dataTestId }) => (
     <div data-testid={dataTestId || "mocked-icon"} data-name={name}>
       {name}
     </div>
@@ -58,7 +58,7 @@ describe("RdsCompIconList Component", () => {
     const sampleIconKeys = iconKeys.slice(0, 3);
     
     // Check if those icons are rendered in the DOM
-    // The icons are rendered by the mocked RdsIcon component with the name as text content
+    // The icons are rendered by the mocked RdsCompIcon component with the name as text content
     for (const iconName of sampleIconKeys) {
       const iconElements = screen.getAllByTestId("icon-list");
       const matchingIcon = iconElements.find(el => el.getAttribute('data-name') === iconName);
@@ -113,7 +113,7 @@ describe("RdsCompIconList Component", () => {
     fireEvent.click(iconCard);
     
     // Check if clipboard.writeText was called with correct template
-    const expectedTemplate = `<RdsIcon name="${iconKey}" height="20px" width="20px" fill={false} stroke={true} />`;
+    const expectedTemplate = `<RdsCompIcon name="${iconKey}" height="20px" width="20px" fill={false} stroke={true} />`;
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expectedTemplate);
     
     // After click, the "copy" icon should change to "check" icon temporarily

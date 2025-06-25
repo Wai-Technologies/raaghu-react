@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { RdsButton, RdsIcon, RdsInput, RdsLabel, RdsNavtabs, RdsTextArea, RdsTextEditor } from "../rds-elements";
+import { RdsButton, RdsInput, RdsLabel, RdsNavtabs, RdsTextArea, RdsTextEditor } from "../rds-elements";
 import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
 import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompPageProps {
   newPageData?: any;
@@ -239,13 +240,13 @@ const RdsCompPage = (props: RdsCompPageProps) => {
                         <p className="mb-0 pt-4">
                             <a className="go-back-home text-primary" href="#">
                                 <span className="me-2">Go back home</span>
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="right"
                                     fill={false}
                                     stroke={true}
                                     width="16px"
                                     height="16px"
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </a>
                         </p>
                     </div>

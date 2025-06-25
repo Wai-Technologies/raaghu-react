@@ -1,7 +1,6 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import {
-  RdsIcon,
   RdsButton,
   RdsInput,
   RdsCheckbox,
@@ -13,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { CheckboxStyle } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 import {LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompFormsQuestionProps {
   formQuestionsData?: any;
@@ -220,7 +220,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                     </div>
                   </div>
                   <RdsTooltip label="Delete" style={TooltipStyle.MiddleBottomArrow}>
-                    <RdsIcon
+                    <RdsCompIcon
                       width="17px"
                       height="17px"
                       name="delete"
@@ -231,7 +231,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                       }}
                       classes="cursor-pointer"
                       dataTestId="delete-question"
-                    ></RdsIcon>
+                    ></RdsCompIcon>
                   </RdsTooltip>
                 </span>
               </div>
@@ -324,7 +324,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                                 ></RdsInput>
                               </div>
                               {element.choices.length > 0 && (
-                                <RdsIcon
+                                <RdsCompIcon
                                   classes={
                                     "input-group-text bg-transparent border-0 cursor-pointer p-0 ps-3"
                                   }
@@ -335,7 +335,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                                   colorVariant="danger"
                                   onClick={() => handleDelete(i, idx)}
                                   dataTestId="handle-delete"
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                               )}
                             </div>
                           </div>

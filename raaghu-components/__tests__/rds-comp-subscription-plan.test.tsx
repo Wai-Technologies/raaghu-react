@@ -5,7 +5,7 @@ import RdsCompSubscriptionPlan from '../src/rds-comp-subscription-plan/rds-comp-
 
 // Mock the RDS elements components
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ name, height, width, isCursorPointer, stroke, onClick, dataTestId }: any) => (
+  RdsCompIcon: ({ name, height, width, isCursorPointer, stroke, onClick, dataTestId }: any) => (
     <div 
       data-testid={dataTestId || `rds-icon-${name}`}
       data-name={name}

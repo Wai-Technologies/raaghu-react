@@ -2,10 +2,10 @@ import React, { useState, useEffect, useReducer } from "react";
 import {
     RdsButton,
     RdsCheckbox,
-    RdsIcon,
     RdsSelectList,
 } from "../rds-elements";
 import "./rds-comp-visual-setting.css";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompVisualSettingProps {
   visualsettingsItem: any[];
@@ -189,7 +189,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                 >
                                                     {navtabsItem.icon && (
                                                         <span className="pe-3">
-                                                            <RdsIcon
+                                                            <RdsCompIcon
                                                                 name={navtabsItem.icon}
                                                                 height="20px"
                                                                 width="20px"

@@ -75,7 +75,7 @@ jest.mock('../src/rds-elements', () => ({
     </div>
   ),
   RdsLabel: ({ label, ...props }: any) => <span {...props}>{label}</span>,
-  RdsIcon: ({ name, ...props }: any) => <i data-testid={`icon-${name}`} {...props}></i>,
+  RdsCompIcon: ({ name, ...props }: any) => <i data-testid={`icon-${name}`} {...props}></i>,
 }));
 
 describe('RdsCompPage', () => {

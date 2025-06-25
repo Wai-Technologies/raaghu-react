@@ -6,7 +6,6 @@ import {
   RdsButton,
   RdsDropdown,
   RdsDropdownList,
-  RdsIcon,
   RdsLabel,
   RdsRadioButton,
 } from "../rds-elements";
@@ -34,6 +33,7 @@ import {
   RdsRadioButtonLayout,
   RdsRadioButtonState,
 } from "../../../raaghu-elements/src/rds-radio-button/rds-radio-button";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompAdaptiveCardsProps {
   title?: boolean;
@@ -162,7 +162,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
               <div className="d-flex align-items-center gap-2">
                 {props.titleIcon && (
                   <div className="Adaptive-header-icon">
-                    <RdsIcon
+                    <RdsCompIcon
                       colorVariant="dark"
                       isCursorPointer
                       name="circle"
@@ -175,7 +175,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                 )}
               </div>
               {props.closeIcon && (
-                <RdsIcon
+                <RdsCompIcon
                   colorVariant="dark"
                   height="16px"
                   isCursorPointer

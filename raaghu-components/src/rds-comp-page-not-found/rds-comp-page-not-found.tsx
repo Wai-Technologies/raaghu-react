@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import "./rds-comp-page-not-found.css";
-import { RdsLabel, RdsIcon } from "../rds-elements";
+import { RdsLabel } from "../rds-elements";
 import { Link } from "react-router-dom";
+import RdsCompIcon from '../rds-comp-icon';
 
 // Import your context if you're using it
 // import { YourContext } from "path/to/context";
@@ -34,13 +35,13 @@ const RdsCompPageNotFound = (props: RdsCompPageNotFoundProps) => {
                         <p className="mb-0 pt-4">
                             <a className="go-back-home text-primary" href="#">
                                 <span className="me-2">Go back home</span>
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="right"
                                     fill={false}
                                     stroke={true}
                                     width="16px"
                                     height="16px"
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </a>
                         </p>
                     </div>

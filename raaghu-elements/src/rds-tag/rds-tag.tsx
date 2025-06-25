@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import "./rds-tag.css";
 
 export enum TagType {
@@ -102,7 +102,7 @@ const RdsTag = (props: RdsTagProps) => {
 
 
                                                         >
-                                                            <RdsIcon
+                                                            <RdsCompIcon
                                                                 name="cancel"
                                                                 fill={false}
                                                                 stroke={true}

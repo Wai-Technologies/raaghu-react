@@ -1,6 +1,6 @@
 import React from "react";
 import RdsButton from "../rds-button";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import RdsLabel from "../rds-label";
 import RdsModal from "../rds-modal";
 import "./rds-confirmation-popup.css";
@@ -52,7 +52,7 @@ const RdsConfirmationPopup = (props: RdsCompAlertPopupProps) => {
                         {props.showIcon && (
                             <p className="align-items-center d-flex justify-content-center">
                                 <div className="icon-circle">
-                                    <RdsIcon
+                                    <RdsCompIcon
                                         height="50px"
                                         width="50px"
                                         name={props.iconUrl}

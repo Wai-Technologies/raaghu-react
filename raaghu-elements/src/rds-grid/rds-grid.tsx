@@ -1,6 +1,5 @@
 import React, { MouseEvent, useState, useEffect, useRef, useCallback } from "react";
 import {
-  RdsIcon,
   RdsBadge,
   RdsInput,
   RdsButton,
@@ -31,6 +30,7 @@ import {
 } from "../rds-dropdown/rds-dropdown";
 import { InputSize } from "../rds-input/rds-input";
 import { IconPosition } from "../rds-search/rds-search";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 
 export enum ActionPosition {
   Right = "right",
@@ -824,7 +824,7 @@ useEffect(() => {
                                 className="btn btn-link text-purple d-flex align-items-center gap-2 p-0"
                                 onClick={() => {}}
                               >
-                                <RdsIcon
+                                <RdsCompIcon
                                   name="plus"
                                   height="16px"
                                   width="16px"
@@ -920,7 +920,7 @@ useEffect(() => {
                                 className="btn btn-link text-purple d-flex align-items-center gap-2 p-0"
                                 onClick={() => {}}
                               >
-                                <RdsIcon
+                                <RdsCompIcon
                                   name="plus"
                                   height="16px"
                                   width="16px"
@@ -990,7 +990,7 @@ useEffect(() => {
                                   size={InputSize.Medium}
                                 />
                                 <span className="position-absolute end-0 top-50 translate-middle-y pe-3 mt-md-3">
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="search"
                                     height="16px"
                                     width="16px"
@@ -1072,7 +1072,7 @@ useEffect(() => {
                   <div className="d-flex">
                     <RdsLabel fontWeight="bolder" label="Title" />
                     <div className="ms-3" style={{ gap: "10px" }}>
-                      <RdsIcon
+                      <RdsCompIcon
                         classes="stroke"
                         name="three_dotshorizontal"
                         height="12px"
@@ -1082,7 +1082,7 @@ useEffect(() => {
                       />
                     </div>
                     <div className="ms-5">
-                      <RdsIcon
+                      <RdsCompIcon
                         classes="ms-2"
                         name="chevron_down"
                         height="8px"
@@ -1106,7 +1106,7 @@ useEffect(() => {
                     {props.showSubHeader && (
                       <tr className="align-middle ">
                         <th className="text-center fw-medium">
-                          <RdsIcon
+                          <RdsCompIcon
                             name=""
                             height="16px"
                             width="16px"
@@ -1115,7 +1115,7 @@ useEffect(() => {
                           />
                         </th>
                         <th className="text-center fw-medium">
-                          <RdsIcon
+                          <RdsCompIcon
                             name=""
                             height="16px"
                             width="16px"
@@ -1246,7 +1246,7 @@ useEffect(() => {
                                 ]}
                               />
                               <span className="ms-2 position-relative">
-                                <RdsIcon
+                                <RdsCompIcon
                                   name="filter"
                                   height="12px"
                                   width="30px"
@@ -1420,7 +1420,7 @@ useEffect(() => {
                               key={"tableRow-" + index}
                             >
                               <td className="text-center align-middle">
-                                <RdsIcon
+                                <RdsCompIcon
                                   name="shuffle"
                                   height="16px"
                                   width="16px"
@@ -1700,7 +1700,7 @@ useEffect(() => {
                                                 : "block",
                                           }}
                                         >
-                                          <RdsIcon
+                                          <RdsCompIcon
                                             name={"check"}
                                             height="14px"
                                             width="14px"
@@ -1726,7 +1726,7 @@ useEffect(() => {
                                             );
                                           }}
                                         >
-                                          <RdsIcon
+                                          <RdsCompIcon
                                             name={"close"}
                                             height="14px"
                                             width="14px"
@@ -1747,7 +1747,7 @@ useEffect(() => {
                                       {totalActions?.map(
                                         (action, actionIndex) => (
                                           <>
-                                            <RdsIcon
+                                            <RdsCompIcon
                                               key={
                                                 "action-" +
                                                 actionIndex +
@@ -1796,7 +1796,7 @@ useEffect(() => {
 
                               {props.isSwap && (
                                 <th>
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="six_dots_vertical"
                                     height="14px"
                                     width="14px"
@@ -2030,7 +2030,7 @@ useEffect(() => {
                                         {tableHeader.datatype === "button" &&
                                           tableHeader.key === "delete" && (
                                             <div className="d-flex justify-content-center">
-                                              <RdsIcon
+                                              <RdsCompIcon
                                                 name="deleteIcon"
                                                 height="16px"
                                                 width="16px"
@@ -2050,7 +2050,7 @@ useEffect(() => {
                                           "iconAvatarTitle" && (
                                           <div className=" ms-2 justify-content-evenly align-items-center">
                                             <div className="col-1">
-                                              <RdsIcon
+                                              <RdsCompIcon
                                                 colorVariant="danger"
                                                 height="20px"
                                                 isCursorPointer
@@ -2165,7 +2165,7 @@ useEffect(() => {
                                               id="dropdownMenuButton"
                                               data-testid="action-btn"
                                             >
-                                              <RdsIcon
+                                              <RdsCompIcon
                                                 name={"three_dots"}
                                                 height="14px"
                                                 width="14px"
@@ -2361,7 +2361,7 @@ useEffect(() => {
                                             );
                                           }}
                                         >
-                                          <RdsIcon
+                                          <RdsCompIcon
                                             name={"check"}
                                             height="14px"
                                             width="14px"
@@ -2387,7 +2387,7 @@ useEffect(() => {
                                             );
                                           }}
                                         >
-                                          <RdsIcon
+                                          <RdsCompIcon
                                             name={"close"}
                                             height="14px"
                                             width="14px"
@@ -2408,7 +2408,7 @@ useEffect(() => {
                                       {totalActions?.map(
                                         (action, actionIndex) => (
                                           <>
-                                            <RdsIcon
+                                            <RdsCompIcon
                                               key={
                                                 "action-" +
                                                 actionIndex +
@@ -2462,7 +2462,7 @@ useEffect(() => {
                 </table>
               )}
               <div className="ps-3 ms-1">
-                <RdsIcon
+                <RdsCompIcon
                   colorVariant="dark"
                   isCursorPointer
                   onClick={handleToggleColumn}

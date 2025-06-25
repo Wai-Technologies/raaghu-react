@@ -10,7 +10,7 @@ jest.mock("../src/rds-elements", () => ({
             {children}
         </div>
     ),
-    RdsIcon: ({ ...props }: any) => <div data-testid="rds-icon" {...props} />,
+    RdsCompIcon: ({ ...props }: any) => <div data-testid="rds-icon" {...props} />,
     RdsButton: ({ label, onClick, ...props }: any) => (
         <button data-testid={`rds-button-${label?.toLowerCase()}`} onClick={onClick} {...props}>
             {label}

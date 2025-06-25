@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import {
     RdsLabel,
     RdsBadge,
-    RdsIcon,
     RdsRating,
-    RdsColorSwitcher,
     RdsButton,
 } from "../rds-elements";
 import "./rds-comp-product-image.css";
 import { ColorVariant } from "../../../raaghu-elements/src/rds-rating/rds-rating";
+import RdsCompColorSwitcher from "../rds-comp-color-switcher";
+import RdsCompIcon from "../rds-comp-icon";
 export interface Item {
     imgUrl?: string;
     rating?: 0 | 1 | 2 | 3 | 4 | 5;
@@ -62,7 +62,7 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
                     <h5><RdsLabel  label={props.item.productTitle} size="28px"></RdsLabel></h5>
                 </div>
                 <div className="position-absolute iconposition-heart">
-                    <RdsIcon
+                    <RdsCompIcon
                         name="heart"
                         colorVariant={heartIconColor}
                         height="21px"
@@ -70,7 +70,7 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
                         fill={heartIconFill}
                         stroke={true}
                         onClick={HeartIconClickHandler}
-                    ></RdsIcon>
+                    ></RdsCompIcon>
                 </div>
                 {props.item.rating && (
                     <div className="mt-1 me-4 d-inline-block">
@@ -114,14 +114,14 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
                                     shape="pill"
                                     colorVariant="warning"
                                     children={
-                                        <RdsIcon
+                                        <RdsCompIcon
                                             name={props.item.badgeWithIcon?.icon}
                                             colorVariant="danger"
                                             height="15px"
                                             width="15px"
                                             fill={false}
                                             stroke={true}
-                                        ></RdsIcon>
+                                        ></RdsCompIcon>
                                     }
                                 ></RdsBadge>
                             </div>
@@ -130,7 +130,7 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
                 </div>
                 {props.item.ColorSwitcherList && (
                     <div className="">
-                        <RdsColorSwitcher itemList={props.item.ColorSwitcherList} />
+                        <RdsCompColorSwitcher itemList={props.item.ColorSwitcherList} />
                     </div>
                 )}
 

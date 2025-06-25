@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import RdsBadge from "../rds-badge";
 import "./rds-dropdown-list.css";
 import Tooltip, { TooltipStyle, TooltipTrigger } from "../rds-tooltip/rds-tooltip";
@@ -326,7 +326,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                     <span>
                       {props.listItems[selectedOption]?.iconPath ? (
                         <span>
-                          <RdsIcon
+                          <RdsCompIcon
                             iconPath={props.listItems[selectedOption]?.iconPath}
                             width={props.listItems[selectedOption]?.iconWidth || ""}
                             height={props.listItems[selectedOption]?.iconHeight || ""}
@@ -334,16 +334,16 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                             stroke={true}
                             isHovered={hoveredItem === props.listItems[selectedOption]?.label}
                             type="lottie"
-                          ></RdsIcon>
+                          ></RdsCompIcon>
                         </span>
                       ) : (
-                        <RdsIcon
+                        <RdsCompIcon
                           name={props.listItems[selectedOption]?.icon || ""}
                           width={IconWidth}
                           height={IconHeight}
                           stroke={true}
                           fill={false}
-                        ></RdsIcon>
+                        ></RdsCompIcon>
                       )}
                     </span>
                   )}
@@ -364,13 +364,13 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               <div className="d-flex align-items-center">
                 {showIcon && props.icon && (
                   <span>
-                    <RdsIcon
+                    <RdsCompIcon
                       name={props.icon}
                       width="16px"
                       height="16px"
                       fill={false}
                       stroke={true}
-                    ></RdsIcon>
+                    ></RdsCompIcon>
                   </span>
                 )}
                 {!props.isIconPlaceholder && (
@@ -392,7 +392,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                   >
                     <div className="d-flex align-items-center">
                       {showIcon && (
-                        <RdsIcon
+                        <RdsCompIcon
                           name={props.icon}
                           width="16px"
                           height="16px"
@@ -410,7 +410,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                 ) : (
                   <>
                     {showIcon && (
-                      <RdsIcon
+                      <RdsCompIcon
                         name={props.icon}
                         width="16px"
                         height="16px"
@@ -432,13 +432,13 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
               <div className="d-flex align-items-center">
                 {showIcon && props.icon && (
                   <span>
-                    <RdsIcon
+                    <RdsCompIcon
                       name={props.icon}
                       width="16px"
                       height="16px"
                       fill={false}
                       stroke={true}
-                    ></RdsIcon>
+                    ></RdsCompIcon>
                   </span>
                 )}
               </div>
@@ -450,7 +450,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             props.placeholder && (
               <div className="d-flex align-items-center">
                 {showIcon && (
-                  <RdsIcon
+                  <RdsCompIcon
                     name={props.icon}
                     width="16px"
                     height="16px"
@@ -500,13 +500,13 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                   clickedOnDropDown();
                 }}
               >
-                <RdsIcon
+                <RdsCompIcon
                   name={expand ? "chevron_up" : "chevron_down"}
                   fill={false}
                   stroke={true}
                   height="11px"
                   width="11px"
-                ></RdsIcon>
+                ></RdsCompIcon>
               </span>
             )}
           </div>
@@ -523,7 +523,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
             {/* Search Input */}
             {props.showSearch && (
               <li className="form-control d-flex align-items-center ps-3 search-border-bottom">
-                <RdsIcon
+                <RdsCompIcon
                   colorVariant="dark"
                   height="15px"
                   isCursorPointer
@@ -576,19 +576,19 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                       className={`${language.icon === "isNull" ? "ms-4 me-2 " : "ms-2 me-2"
                       }`}
                     >
-                      <RdsIcon
+                      <RdsCompIcon
                         name={language.icon}
                         height={language.iconWidth ? language.iconWidth : "20px"}
                         width={language.iconWidth ? language.iconWidth : "20px"}
                         fill={false}
                         stroke={true}
-                      ></RdsIcon>
+                      ></RdsCompIcon>
                     </div>
                   )}
 
                   {language.iconPath && (
                     <div>
-                      <RdsIcon
+                      <RdsCompIcon
                         iconPath={language.iconPath}
                         height={language.iconWidth ? language.iconWidth : "30px"}
                         width={language.iconWidth ? language.iconWidth : "30px"}
@@ -596,7 +596,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
                         stroke={true}
                         isHovered={hoveredItem === language.val}
                         type="lottie"
-                      ></RdsIcon>
+                      ></RdsCompIcon>
                     </div>
                   )}
 

@@ -10,7 +10,7 @@ jest.mock('../src/rds-elements', () => ({
       Avatar
     </div>
   ),
-  RdsIcon: ({ name, width, height, fill, stroke }: any) => (
+  RdsCompIcon: ({ name, width, height, fill, stroke }: any) => (
     <div data-testid="rds-icon" data-name={name} data-width={width} data-height={height}>
       Icon
     </div>

@@ -1,5 +1,6 @@
 import React from "react";
-import { RdsLabel, RdsIcon, RdsTeamMember } from "../rds-elements";
+import { RdsLabel, RdsTeamMember } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompTeamsProps {
   teamItem: any[];
@@ -16,20 +17,20 @@ const RdsCompTeams = (props: RdsCompTeamsProps) => {
                                 <RdsLabel label="Meet the Team"></RdsLabel>
                             </h2>
                             <span>
-                                <RdsIcon
+                                <RdsCompIcon
                                     height="15px"
                                     fill={false}
                                     stroke={true}
                                     width="15px"
                                     name="arrow_right"
-                                ></RdsIcon>
-                                <RdsIcon
+                                ></RdsCompIcon>
+                                <RdsCompIcon
                                     height="15px"
                                     fill={false}
                                     stroke={true}
                                     width="15px"
                                     name="arrow_left"
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </div>
                     </div>

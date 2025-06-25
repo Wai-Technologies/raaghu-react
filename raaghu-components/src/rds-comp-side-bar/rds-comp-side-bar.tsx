@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./rds-comp-side-bar.css";
 import RdsButton from "../../../raaghu-elements/src/rds-button";
-import RdsIcon from "../../../raaghu-elements/src/rds-icon";
+import RdsCompIcon from "../rds-comp-icon";
 import Tooltip from "../../../raaghu-elements/src/rds-tooltip";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 import RdsScrollBar from "../../../raaghu-elements/src/rds-scroll-bar";
@@ -206,7 +206,7 @@ const RdsCompSidebar = (props: RdsCompSidebarProps) => {
             label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             style={TooltipStyle.MiddleTopArrow}
           >
-            <RdsIcon
+            <RdsCompIcon
               colorVariant="primary"
               height="15px"
               isCursorPointer

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import RdsIcon from "./../../../raaghu-elements/src/rds-icon";
+import RdsCompIcon from "../rds-comp-icon";
 import "./rds-comp-output.css";
 
 // Define enum for button types
@@ -31,7 +31,7 @@ const RdsCompOutput = (props: RdsCompOutputProps) => {
           className={`equalWidthOutPut ${isSelected?.id === button.id ? "activeButton" : ""}`}
         >
           <span>
-            <RdsIcon
+            <RdsCompIcon
               name={
                 button.text === RdsOutputButtonType.Preview
                   ? isSelected?.id === button.id

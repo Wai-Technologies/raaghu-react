@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import RdsCompTopNavigationWithSearch from "./rds-top-navigation-with-search";
+import RdsCompTopNavigationWithSearch from "./rds-comp-top-navigation-with-search";
 import "@testing-library/jest-dom";
 
 // Mock react-i18next
@@ -12,7 +12,7 @@ jest.mock("react-i18next", () => ({
 
 // Mock child components and enums that use hooks or cause issues
 jest.mock("../rds-elements", () => ({
-  RdsIcon: ({ name, onClick, ...props }: any) => (
+  RdsCompIcon: ({ name, onClick, ...props }: any) => (
     <div data-testid={`rds-icon-${name}`} onClick={onClick} {...props}>
       {name}
     </div>

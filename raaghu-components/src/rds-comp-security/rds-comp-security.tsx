@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
     RdsInput,
     RdsCheckbox,
-    RdsCheckboxGroup,
     RdsCounter,
 } from "../rds-elements";
 import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";

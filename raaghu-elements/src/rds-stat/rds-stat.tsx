@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import "./rds-stat.css";
 
 export interface RdsStatProps {
@@ -24,7 +24,7 @@ const RdsStat = (props: RdsStatProps) => {
             {props.items.map((item: any) => (
               <div>
                 <div className="grow mt-4 text-center">
-                  <RdsIcon
+                  <RdsCompIcon
                     name={item.icon}
                     fill={item.iconFill}
                     colorVariant={props.colorVariant}

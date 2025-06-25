@@ -19,7 +19,7 @@ interface CardData {
 
 // Mock the rds-elements components
 jest.mock('../src/rds-elements', () => ({
-  RdsBankCardDetail: ({ 
+  RdsCompBankCardDetail: ({ 
     cardDatas, 
     isSelectable, 
     isEditable, 
@@ -32,7 +32,7 @@ jest.mock('../src/rds-elements', () => ({
     onEdit?: (cardID: string) => void;
     onActiveButton?: (cardID: string) => void;
   }) => (
-    <div data-testid="rds-bank-card-detail">
+    <div data-testid="rds-comp-bank-card-detail">
       {cardDatas.map((card, index) => (
         <div key={index} data-testid={`card-${index}`}>
           <div data-testid="card-name">{card.cardName}</div>
@@ -107,7 +107,7 @@ describe('RdsCompBankCardDetailList', () => {
   it('renders all cards in the list', () => {
     render(<RdsCompBankCardDetailList cardDatas={mockCardData} />);
     
-    expect(screen.getByTestId('rds-bank-card-detail')).toBeInTheDocument();
+    expect(screen.getByTestId('rds-comp-bank-card-detail')).toBeInTheDocument();
     expect(screen.getByTestId('card-0')).toBeInTheDocument();
     expect(screen.getByTestId('card-1')).toBeInTheDocument();
   });

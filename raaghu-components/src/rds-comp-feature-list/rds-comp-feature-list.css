@@ -1,0 +1,15 @@
+.RdsCompFeatureList__Heading {
+  font-weight: 500;
+  margin-bottom: 24px;
+  font-size: 18px;
+}
+
+.RdsCompFeatureList__Ul {
+  all: unset;
+  list-style-type: none;
+  font-size: 16px;
+  color: #6f6f6f;
+}
+.RdsCompFeatureList__Ul .bullet {
+  margin-right: 8px;
+}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./rds-table.css";
-import RdsIcon from "../rds-icon/rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon/rds-comp-icon";
 
 export interface RdsTableProps {
     headerDatas: any[];
@@ -68,7 +68,7 @@ const RdsTable = (props: RdsTableProps) => {
                                     }}
                                 >
                                     {headerData.dataType == "icon" && (
-                                        <RdsIcon
+                                        <RdsCompIcon
                                             name={tableData.icon}
                                             height="15px"
                                             width="15px"
@@ -76,7 +76,7 @@ const RdsTable = (props: RdsTableProps) => {
                                             stroke={false}
                                             colorVariant={props.iconColorVariant}
                                             isCursorPointer={false}
-                                        ></RdsIcon>
+                                        ></RdsCompIcon>
                                     )}
                                     {headerData.dataType != "icon" && tableData[headerData.key]}
                                 </td>

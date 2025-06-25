@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-//import RdsIcon from "../rds-icon/rds-icon";
+//import RdsCompIcon from "../rds-icon/rds-icon";
 //import useOutsideClick from "../rds-outside-click";
 //import RdsAvatar from "../rds-avatar";
 //import RdsSearch from "../rds-search";
@@ -7,10 +7,11 @@ import { useNavigate } from "react-router-dom";
 //import { AvatarSize } from "../rds-avatar/rds-avatar";
 import { use } from "i18next";
 import useOutsideClick from "../../../raaghu-elements/src/rds-outside-click";
-import { RdsAvatar, RdsIcon } from "../rds-elements";
+import { RdsAvatar } from "../rds-elements";
 import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 import RdsSearch, { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
+import RdsCompIcon from "../rds-comp-icon";
 //import { IconPosition } from "../rds-search/rds-search";
 
 export enum NavLayout {
@@ -268,7 +269,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                     >
                         <span>
                             {item.iconPath ? (
-                                <RdsIcon
+                                <RdsCompIcon
                                     iconPath={item.iconPath}
                                     fill={false}
                                     stroke={true}
@@ -281,9 +282,9 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                                     style={props.layout === "RightSideNav" ? TooltipStyle.RightArrow : TooltipStyle.LeftArrow}
                                     isCursorPointer={true}
                                     databstoggle="tooltip"
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             ) : (
-                                <RdsIcon
+                                <RdsCompIcon
                                     name={item.icon}
                                     fill={false}
                                     stroke={true}
@@ -295,7 +296,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                                     style={props.layout === "RightSideNav" ? TooltipStyle.RightArrow : TooltipStyle.LeftArrow}
                                     isCursorPointer={true}
                                     databstoggle="tooltip"
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             )}
                         </span>
                         <span style={{ lineHeight: "initial" }} className={collapse ? "menuLabels" : ""}
@@ -335,7 +336,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                             {/* <span className="collpase-button cursor-pointer d-flex lock-icon"
                                 onMouseEnter={(e) => e.stopPropagation()}
                                 onMouseLeave={(e) => e.stopPropagation()}>
-                                <RdsIcon
+                                <RdsCompIcon
                                     name={!isLocked ? "unlock" : "lock_nav"
                                     height="21px"
                                     width="21px"
@@ -344,7 +345,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                                     strokeWidth="1.2"
                                     colorVariant="white"
                                     onClick={() => setIsLocked(!isLocked)}
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span> */}
                         </div>
                     </div>
@@ -390,7 +391,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                                     {collapse ? "Lock Sidebar" : "Unlock Sidebar"}
                                 </div>
                             )}
-                            <RdsIcon
+                            <RdsCompIcon
                                 name={!collapse ? "unlock" : "lock_nav"}
                                 height="21px"
                                 width="21px"
@@ -399,7 +400,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                                 strokeWidth="1.2"
                                 colorVariant="white"
                                 onClick={() => setCollapse(!collapse)}
-                            ></RdsIcon>
+                            ></RdsCompIcon>
                         </span>
                     )}
                     <div>
@@ -437,7 +438,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                             </div>
                         )}
                         {props.layout === "LeftSideNavList" && props.collapse && (
-                            <RdsIcon
+                            <RdsCompIcon
                                 name="search"
                                 colorVariant="primary"
                             />
@@ -469,7 +470,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
 export default RdsCompSideNavigation1;
 
 // import React, { useEffect, useState } from "react";
-// import RdsIcon from "../rds-icon/rds-icon";
+// import RdsCompIcon from "../rds-icon/rds-icon";
 // import useOutsideClick from "../rds-outside-click";
 // import RdsAvatar from "../rds-avatar";
 // import RdsSearch from "../rds-search";
@@ -719,7 +720,7 @@ export default RdsCompSideNavigation1;
 //                     >
 //                         <span>
 //                             {item.iconPath ? (
-//                                 <RdsIcon
+//                                 <RdsCompIcon
 //                                     iconPath={item.iconPath}
 //                                     fill={false}
 //                                     stroke={true}
@@ -728,16 +729,16 @@ export default RdsCompSideNavigation1;
 //                                     classes="me-2"
 //                                     type="lottie"
 //                                     isHovered={hoveredItem === item.key}
-//                                 ></RdsIcon>
+//                                 ></RdsCompIcon>
 //                             ) : (
-//                                 <RdsIcon
+//                                 <RdsCompIcon
 //                                     name={item.icon}
 //                                     fill={false}
 //                                     stroke={true}
 //                                     height="20px"
 //                                     width="20px"
 //                                     classes="me-2 "
-//                                 ></RdsIcon>
+//                                 ></RdsCompIcon>
 //                             )}
 //                         </span>
 //                         <span style={{ lineHeight: "initial" }} className={collapse ? "menuLabels" : ""}
@@ -780,7 +781,7 @@ export default RdsCompSideNavigation1;
 //                         <span className="collpase-button cursor-pointer d-flex lock-icon"
 //                             onMouseEnter={(e) => e.stopPropagation()}
 //                             onMouseLeave={(e) => e.stopPropagation()}>
-//                                 <RdsIcon
+//                                 <RdsCompIcon
 //                                 name={!isLocked ? "unlock" : "lock_nav"}
 //                                 height="21px"
 //                                 width="21px"
@@ -789,7 +790,7 @@ export default RdsCompSideNavigation1;
 //                                 strokeWidth="1.2"
 //                                 colorVariant="white"
 //                                 onClick={() => setIsLocked(!isLocked)}
-//                             ></RdsIcon>
+//                             ></RdsCompIcon>
 //                         </span>
 //                     </div>
 //                     </div>
@@ -837,7 +838,7 @@ export default RdsCompSideNavigation1;
 //                             </div>
 //                         )}
 //                         {props.layout === "LeftSideNavList" && props.collapse && (
-//                             <RdsIcon 
+//                             <RdsCompIcon 
 //                                 name="search"
 //                                 colorVariant="primary"
 //                             />

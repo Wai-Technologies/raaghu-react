@@ -36,7 +36,7 @@ jest.mock('../src/rds-elements', () => ({
       </div>
     );
   },
-  RdsIcon: (props: any) => (
+  RdsCompIcon: (props: any) => (
     <span 
       data-testid={props.dataTestId || `rds-icon-${props.name}`}
       data-name={props.name}

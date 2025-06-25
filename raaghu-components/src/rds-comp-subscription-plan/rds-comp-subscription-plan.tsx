@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./rds-comp-subscription-plan.css";
-import { RdsIcon, RdsCard } from "../rds-elements";
+import { RdsCard } from "../rds-elements";
 import RdsCompPlanSwitcher from "../rds-comp-plan-switcher/rds-comp-plan-switcher";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsSubscriptionPlanProps {
   planAmount?: string;
@@ -39,7 +40,7 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
 
   return (<>
     <div className="subscriptionContainer responsiveContainer">
-      <div className="closeButton" ><RdsIcon
+      <div className="closeButton" ><RdsCompIcon
         height="16px"
         isCursorPointer
         name="close"

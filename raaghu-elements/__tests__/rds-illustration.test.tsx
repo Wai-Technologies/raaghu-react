@@ -2,7 +2,6 @@ import React from "react";
 import '@testing-library/jest-dom';
 import { render, screen } from "@testing-library/react";
 import RdsIllustration from "../src/rds-illustration/rds-illustration";
-import { RdsIcon } from "../src";
 
 jest.mock('lottie-web')
 jest.mock('react-lottie-player', () => ({

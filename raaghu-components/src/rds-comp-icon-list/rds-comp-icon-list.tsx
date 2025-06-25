@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Icons } from "./Icons";
-import { RdsIcon, RdsSearch } from "../rds-elements";
+import { RdsSearch } from "../rds-elements";
 import "./rds-comp-icon-list.css"
 import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
+import RdsCompIcon from "../rds-comp-icon/rds-comp-icon";
 
 export interface RdsCompIconListProps { }
 
@@ -12,7 +13,7 @@ const RdsCompIconList = (props: RdsCompIconListProps) => {
   const [value, setValue] = useState("");
 
   const copyToClipboard = (text: string) => {
-    const template = `<RdsIcon name="${text}" height="20px" width="20px" fill={false} stroke={true} />`;
+    const template = `<RdsCompIcon name="${text}" height="20px" width="20px" fill={false} stroke={true} />`;
     navigator.clipboard.writeText(template).then(
       () => { },
       (err) => {
@@ -67,7 +68,7 @@ const RdsCompIconList = (props: RdsCompIconListProps) => {
             >
               <div className="card-body border rounded-2 text-center icon-box w-100 d-flex justify-content-center align-items-center position-relative">
                 <div>
-                  <RdsIcon
+                  <RdsCompIcon
                     key={id}
                     name={iconName}
                     height="35px"
@@ -76,7 +77,7 @@ const RdsCompIconList = (props: RdsCompIconListProps) => {
                     stroke={true}
                     isAnimate={true}
                     dataTestId="icon-list"
-                  ></RdsIcon>
+                  ></RdsCompIcon>
                   <div className="mt-2">
                     <a className="fs-7 pe-auto text-center">
                       {id == identity ? (

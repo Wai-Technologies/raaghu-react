@@ -1,6 +1,6 @@
 import React, { useState } from "react"; 
 import "./rds-comp-sorting-dropdown.css";
-import RdsIcon from "../../../raaghu-elements/src/rds-icon";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompSortingDropdownProps {
     label: string;
@@ -19,7 +19,7 @@ const RdsCompSortingDropdown = (props: RdsCompSortingDropdownProps) => {
             >
                 {props.label}
                 <span className="ms-4">
-                    <RdsIcon
+                    <RdsCompIcon
                         fill={false}
                         stroke={true}
                         height="25px"
@@ -27,7 +27,7 @@ const RdsCompSortingDropdown = (props: RdsCompSortingDropdownProps) => {
                         name="chevron_right_sorting_dropdown"
                         dataTestId="chevron_right_sorting_dropdown"
                         colorVariant="primary"
-                    ></RdsIcon>
+                    ></RdsCompIcon>
                 </span>
             </span>
             {show && (

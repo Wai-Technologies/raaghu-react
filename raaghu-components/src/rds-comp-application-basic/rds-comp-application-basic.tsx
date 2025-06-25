@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   RdsButton,
   RdsCheckbox,
-  RdsCheckboxGroup,
   RdsDropdownList,
   RdsInput,
   RdsTextArea,
@@ -12,6 +11,7 @@ import {
   InputSize,
   LabelPosition,
 } from "../../../raaghu-elements/src/rds-input/rds-input";
+import RdsCompCheckboxGroup from "../rds-comp-checkbox-group";
 export interface RdsCompApplicationBasicProps {
   basicData?: any;
   onSuccess?: any;
@@ -256,7 +256,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
       {props.application === "scopes" && (
         <div className="row">
           <div className="col-12 col-6 col-lg-6 col-md-6 col-xl-6 col-xxl-6">
-            <RdsCheckboxGroup itemList={scopeList} onClick={handlerChange} />
+            <RdsCompCheckboxGroup itemList={scopeList} onClick={handlerChange} />
           </div>
         </div>
       )}

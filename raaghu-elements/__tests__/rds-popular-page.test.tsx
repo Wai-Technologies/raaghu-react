@@ -9,7 +9,7 @@ jest.mock('react-lottie-player', () => ({
     default: jest.fn(),
 }));
 
-// Mock the RdsIcon component that's causing the fetch issue
+// Mock the RdsCompIcon component that's causing the fetch issue
 jest.mock('../src/rds-icon', () => ({
     __esModule: true,
     default: jest.fn().mockImplementation(({ name }) => {

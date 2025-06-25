@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { RdsWebsiteMatrix } from "../src";
 
-// Mock the RdsIcon component properly to prevent fetch issues
+// Mock the RdsCompIcon component properly to prevent fetch issues
 jest.mock("../src/rds-icon/rds-icon", () => ({
   __esModule: true,
   default: jest.fn(({ name, colorVariant }) => (

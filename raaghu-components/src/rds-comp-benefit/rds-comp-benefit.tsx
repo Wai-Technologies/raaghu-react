@@ -1,13 +1,13 @@
 import React from "react";
-import { RdsBenefit } from "../rds-elements";
+import RdsCompBenefits from "../rds-comp-benefits";
 
 export interface RdsCompBenefitProps {
   displayType: string;
   colsize: number;
-  itemList: RdsBenefitItem[];
+  itemList: RdsCompBenefitItem[];
 }
 
-export interface RdsBenefitItem {
+export interface RdsCompBenefitItem {
   id: number;
   title: string;
   description: string;
@@ -25,9 +25,9 @@ const RdsCompBenefit = (props: RdsCompBenefitProps) => {
   return (
     <>
       <div className="row">
-        {props.itemList?.map((items: RdsBenefitItem, index: number) => (
-          <div className={`${Colmun}`} key={index} data-testId="rds-benefit">
-            <RdsBenefit displayType={props.displayType} item={items} />
+        {props.itemList?.map((items: RdsCompBenefitItem, index: number) => (
+          <div className={`${Colmun}`} key={index} data-testId="rds-comp-benefits">
+            <RdsCompBenefits displayType={props.displayType} item={items} />
           </div>
         ))}
       </div>

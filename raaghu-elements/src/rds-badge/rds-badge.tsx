@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 import "./rds-badge.css";
-import { Icons } from "../rds-icon/Icons";
-import { Flags } from "../rds-icon/flag-icons";
+import { Icons } from "../../../raaghu-components/src/rds-comp-icon/Icons";
+import { Flags } from "../../../raaghu-components/src/rds-comp-icon/flag-icons";
 import { colors, size } from "../../libs";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import RdsButton from "../rds-button/rds-button";
 
 export interface RdsBadgeProps {
@@ -122,7 +122,7 @@ const RdsBadge = (props: RdsBadgeProps) => {
 
                     {/* Render icon for Icon_only, Icon+Text, and Text+Icon layouts if iconName is provided */}
                     {props.iconName && (props.layout === "Icon_only" || props.layout === "Icon+Text") && (
-                        <RdsIcon
+                        <RdsCompIcon
                             name={props.iconName}
                             fill={props.iconFill}
                             stroke={props.iconStroke}
@@ -135,7 +135,7 @@ const RdsBadge = (props: RdsBadgeProps) => {
 
                     {/* Render icon for Text+Icon layout if iconName is provided */}
                     {props.iconName && props.layout === "Text+Icon" && (
-                        <RdsIcon
+                        <RdsCompIcon
                             name={props.iconName}
                             fill={props.iconFill}
                             stroke={props.iconStroke}

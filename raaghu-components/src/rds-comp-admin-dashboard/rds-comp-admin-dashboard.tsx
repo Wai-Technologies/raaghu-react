@@ -3,15 +3,15 @@ import {
     RdsProgressBar,
     RdsWidget,
     RdsLineChart,
-    RdsBigNumber,
     RdsDoughnutChart,
     RdsBooleanChart,
     RdsBarChart,
     RdsTable,
-    RdsIcon,
     RdsMap
 } from "../rds-elements";
 import { ScriptableContext } from "chart.js";
+import RdsCompBigNumber from "../rds-comp-big-number";
+import RdsCompIcon from "../rds-comp-icon";
 export interface RdsCompAdminDashboardProps {
     user: string,
 }
@@ -679,7 +679,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                         isCardStretch={true}
                     >
                         <div>
-                            <RdsBigNumber bigNumber="$39,330"></RdsBigNumber>
+                            <RdsCompBigNumber bigNumber="$39,330"></RdsCompBigNumber>
                             <div className="col col-sm-12">
                                 <RdsDoughnutChart
                                     id="doughnutchart"
@@ -965,7 +965,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                     height="auto"
 
                                 >
-                                    <RdsBigNumber bigNumber="$8,425"></RdsBigNumber>
+                                    <RdsCompBigNumber bigNumber="$8,425"></RdsCompBigNumber>
                                     <RdsLineChart
 
                                         id="linechart1"
@@ -1321,7 +1321,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                 isCardStretch={true}
                             >
                                 <div>
-                                    <RdsBigNumber
+                                    <RdsCompBigNumber
                                         bigNumber="$373,960"
                                         icon={"triangle_down"}
                                         iconHeight={"12px"}
@@ -1330,10 +1330,10 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                         iconFill={true}
                                         iconWidth={"12px"}
                                         subTitleColorVariant="danger"
-                                    ></RdsBigNumber>
+                                    ></RdsCompBigNumber>
                                     <div className="d-flex align-items-center fw-normal my-2 mb-4">
                                         <span>
-                                            <RdsIcon
+                                            <RdsCompIcon
                                                 name="triangle_up"
                                                 height="14px"
                                                 width="14px"

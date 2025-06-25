@@ -1,5 +1,5 @@
 import React from "react";
-import { RdsAvatar, RdsIcon, RdsLikeDislike, RdsRating, RdsReviewCategory } from "../rds-elements";
+import { RdsAvatar, RdsLikeDislike, RdsRating, RdsReviewCategory } from "../rds-elements";
 import RdsCompFeeds, { Item } from "../rds-comp-feeds/rds-comp-feeds";
 import { ColorVariant, RatingStyle, RatingType } from "../../../raaghu-elements/src/rds-rating/rds-rating";
 import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";

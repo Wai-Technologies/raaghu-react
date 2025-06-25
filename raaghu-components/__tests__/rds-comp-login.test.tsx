@@ -130,7 +130,7 @@ jest.mock('../src/rds-elements', () => ({
       )}
     </div>
   ),
-  RdsIcon: ({ 
+  RdsCompIcon: ({ 
     name, 
     height, 
     width, 

@@ -35,7 +35,7 @@ Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 // Mock child components
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ name, onClick, isCursorPointer, stroke, fill, height, width, ...rest }: any) => (
+  RdsCompIcon: ({ name, onClick, isCursorPointer, stroke, fill, height, width, ...rest }: any) => (
     <div 
       data-testid={`icon-${name}`} 
       onClick={onClick}

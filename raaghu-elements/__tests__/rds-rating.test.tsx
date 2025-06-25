@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import RdsRating, { RatingType, RatingStyle } from "../src/rds-rating/rds-rating";
 
-// Mock the RdsIcon component
+// Mock the RdsCompIcon component
 jest.mock("../src/rds-icon", () => ({
   __esModule: true,
   default: jest.fn(({ name, colorVariant, classes, onClick }) => (

@@ -1,8 +1,8 @@
 import React, { Fragment, ReactNode } from "react";
-import RdsIcon from "../rds-icon/rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon/rds-comp-icon";
 import { colors } from "../../libs/types";
-import RdsButtonGroup, { Role } from "../rds-button-group/rds-button-group";
-import RdsBigNumber from "../rds-big-number/rds-big-number";
+import RdsCompButtonGroup, { Role } from "../../../raaghu-components/src/rds-comp-button-group/rds-comp-button-group";
+import RdsCompBigNumber from "../../../raaghu-components/src/rds-comp-big-number/rds-comp-big-number";
 import RdsProgressBar from "../rds-progress-bar";
 import RdsButton from "../rds-button";
 import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
@@ -102,7 +102,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
             <div className="card-toolbar" onClick={props.onRefresh}>
               {isRefreshIcon && (
                 <span className="cursor-pointer">
-                  <RdsIcon
+                  <RdsCompIcon
                     name={props.iconName}
                     height="20px"
                     width="20px"
@@ -118,7 +118,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
                 </span>
               )}
               {isButtonGroupRequired && (
-                <RdsButtonGroup
+                <RdsCompButtonGroup
                   buttonGroupItems={props.buttonGroupList}
                   colorVariant="primary"
                   isOutline={true}
@@ -131,7 +131,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
               {isIcon && (
                 <div className="d-flex align-items-center fw-normal">
                   <span>
-                    <RdsIcon
+                    <RdsCompIcon
                       name="triangle_up"
                       height="14px"
                       width="14px"
@@ -153,12 +153,12 @@ const RdsWidget = (props: RdsWidgetProps) => {
           <div className="card-body pt-0 px-0" style={props.style}>
             {props.isBignumberIcon && (
               <div className="d-flex justify-content-between align-items-center mb-2">
-                <RdsBigNumber
+                <RdsCompBigNumber
                   bigNumber={props.bigNumberLabel}
                   isIconSubTitle={false}
-                ></RdsBigNumber>
+                ></RdsCompBigNumber>
                 <div>
-                  <RdsIcon
+                  <RdsCompIcon
                     name="triangle_up"
                     height="14px"
                     width="14px"
@@ -177,7 +177,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
               <div className="border border-1 rounded-3 border-danger-50 py-4 px-4 box-gradient-shadow">
                 <div className="d-flex gap-3 align-items-center justify-content-between">
                   <div className="d-flex align-items-center gap-2">
-                    <RdsIcon
+                    <RdsCompIcon
                       name={props.icon}
                       width="33px"
                       height="30px"

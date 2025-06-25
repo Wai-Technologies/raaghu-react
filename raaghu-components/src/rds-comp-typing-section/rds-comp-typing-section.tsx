@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { RdsInput, RdsIcon, RdsButton, RdsSelectList, RdsDropdown, RdsDropdownList, RdsFabMenu } from "../rds-elements";
+import { RdsInput, RdsButton, RdsSelectList, RdsDropdown, RdsDropdownList, RdsFabMenu } from "../rds-elements";
 import './rds-comp-typing-section.css';
 import RdsCompAttachement, { Comment as AttachmentComment } from "../rds-comp-attachement/rds-comp-attachement";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
@@ -7,6 +7,7 @@ import { DisplayType, Layout, Shape, State, Style } from "../../../raaghu-elemen
 import { TooltipPlacement } from "../../../raaghu-elements/src/rds-input/rds-input";
 import { DropdownSize, DropdownState, DropdownStyle } from "../../../raaghu-elements/src/rds-dropdown-list/rds-dropdown-list";
 import Picker from 'emoji-picker-react';
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsTypingAltProps {
     colorVariant?: string;
@@ -145,7 +146,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                   />
 
                   <div className="mt-1 position-absolute top-0 end-0 ">
-                    <RdsIcon
+                    <RdsCompIcon
                       classes="gradient-text"
                       height="20px"
                       isCursorPointer
@@ -279,7 +280,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                 <div className="prompt-warning">
                   <div className="text">{props.warningText}</div>
                   <div className="text">
-                    <RdsIcon
+                    <RdsCompIcon
                       classes="gradient-text"
                       height="20px"
                       isCursorPointer
@@ -306,7 +307,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                 />
 
                 <div className="mt-1 position-absolute top-0 end-0 ">
-                  <RdsIcon
+                  <RdsCompIcon
                     classes=""
                     height="20px"
                     isCursorPointer
@@ -377,7 +378,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                   } gap-2`}
                 >
                   <div className="setting-container" id="Premium">
-                    <RdsIcon
+                    <RdsCompIcon
                       classes="setting-svg"
                       height="20px"
                       isCursorPointer
@@ -414,7 +415,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                 <div className="advanced-control-header">
                   <div className="d-flex align-items-center gap-2">
                     <div>
-                      <RdsIcon
+                      <RdsCompIcon
                         height="20px"
                         isCursorPointer
                         name="new_settings"
@@ -427,7 +428,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                     </div>
                   </div>
                   <div>
-                    <RdsIcon
+                    <RdsCompIcon
                       height="16px"
                       isCursorPointer
                       name="close"
@@ -582,7 +583,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
               />
             </span>
             <span className="me-2 mb-3 mt-2">
-              <RdsIcon
+              <RdsCompIcon
                 name="smileys"
                 fill={false}
                 stroke={true}
@@ -601,7 +602,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                   name="Comment"
                 />
                 <span className="position-absolute end-0 top-50 translate-middle-y pe-2 pb-2">
-                  <RdsIcon
+                  <RdsCompIcon
                     name="send_email"
                     fill={false}
                     stroke={true}

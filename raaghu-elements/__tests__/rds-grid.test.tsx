@@ -6,7 +6,7 @@ import RdsGrid, { ActionColumnStyle, ActionPosition, State } from "../src/rds-gr
 
 // Mock the raaghu elements - using the correct import path
 jest.mock("../src/rds-elements", () => ({
-  RdsIcon: jest.fn(() => <div data-testid="mocked-icon" />),
+  RdsCompIcon: jest.fn(() => <div data-testid="mocked-icon" />),
   RdsBadge: jest.fn(({ label }) => <div data-testid="mocked-badge">{label}</div>),
   RdsInput: jest.fn(({ value }) => <input data-testid="mocked-input" value={value || ""} onChange={() => {}} />),
   RdsButton: jest.fn(({ children, onClick }) => <button data-testid="mocked-button" onClick={onClick}>{children}</button>),

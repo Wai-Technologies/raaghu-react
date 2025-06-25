@@ -63,7 +63,7 @@ jest.mock("../src/rds-elements", () => ({
       </button>
     );
   },
-  RdsIcon: ({ 
+  RdsCompIcon: ({ 
     name, 
     onClick, 
     dataTestId,

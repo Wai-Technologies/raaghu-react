@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { RdsLabel, RdsButton, RdsInput,  RdsCheckbox, RdsIcon,  RdsModal, RdsDropdownList,} from "../rds-elements";
+import { RdsLabel, RdsButton, RdsInput,  RdsCheckbox,  RdsModal, RdsDropdownList,} from "../rds-elements";
 import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 import { LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompRegisterProps {
   error?: any;
@@ -335,7 +336,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                   </div>
                   <div className="w-100 mt-4 pt-2">
                     <span className="w-20px h-20px border p-2 mx-3 rounded-2">
-                      <RdsIcon
+                      <RdsCompIcon
                         name="google"
                         height="20px"
                         width="20px"
@@ -347,10 +348,10 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                         tooltipPlacement="bottom"
                         style={TooltipStyle.MiddleTopArrow}
                         isCursorPointer={true}
-                      ></RdsIcon>
+                      ></RdsCompIcon>
                     </span>
                     <span className="w-20px h-20px border p-2 mx-3 rounded-2">
-                      <RdsIcon
+                      <RdsCompIcon
                         name="microsoft"
                         height="20px"
                         width="20px"
@@ -362,7 +363,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                         tooltipPlacement="bottom"
                         style={TooltipStyle.MiddleTopArrow}
                         isCursorPointer={true}
-                      ></RdsIcon>
+                      ></RdsCompIcon>
                     </span>
                   </div>
                 </div>

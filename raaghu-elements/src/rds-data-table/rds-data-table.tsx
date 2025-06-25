@@ -1,6 +1,5 @@
 import React, { MouseEvent, useState, useEffect, useRef } from "react";
 import {
-  RdsIcon,
   RdsBadge,
   RdsInput,
   RdsButton,
@@ -15,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import { fontWeight } from "../../libs/types/fontWeight";
 import { AvatarSize } from "../rds-avatar/rds-avatar";
 import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 
 export enum ActionPosition {
   Right = "Right",
@@ -413,7 +413,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                       <th scope="col">
                        <label className="fw-medium">Text</label>
                         <span className="ms-2">
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="sort"
                                     height="12px"
                                     width="auto"
@@ -427,7 +427,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                       <th scope="col">
                        <label className="fw-medium">Text</label>
                         <span className="ms-2">
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="sort"
                                     height="12px"
                                     width="auto"
@@ -441,7 +441,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                       <th scope="col">
                        <label className="fw-medium">Text</label>
                         <span className="ms-2">
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="sort"
                                     height="12px"
                                     width="auto"
@@ -455,7 +455,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                       <th scope="col">
                        <label className="fw-medium">Text</label>
                         <span className="ms-2">
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="sort"
                                     height="12px"
                                     width="auto"
@@ -469,7 +469,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                       <th scope="col">
                        <label className="fw-medium">Text</label>
                         <span className="ms-2">
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="sort"
                                     height="12px"
                                     width="auto"
@@ -483,7 +483,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                       <th scope="col">
                        <label className="fw-medium">Text</label>
                         <span className="ms-2">
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="sort"
                                     height="12px"
                                     width="auto"
@@ -497,7 +497,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                       <th scope="col">
                        <label className="fw-medium">Text</label>
                         <span className="ms-2">
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="sort"
                                     height="12px"
                                     width="auto"
@@ -511,7 +511,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                       <th scope="col">
                        <label className="fw-medium">Text</label>
                         <span className="ms-2">
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="sort"
                                     height="12px"
                                     width="auto"
@@ -526,7 +526,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                             <th scope="col">
                               <label className="fw-medium">Text</label>
                               <span className="ms-2">
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="sort"
                                     height="12px"
                                     width="auto"
@@ -542,7 +542,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                       <th scope="col">
                        <label className="fw-medium">Text</label>
                         <span className="ms-2">
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="sort"
                                     height="12px"
                                     width="auto"
@@ -556,7 +556,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                       <th scope="col">
                        <label className="fw-medium">Text</label>
                         <span className="ms-2">
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="sort"
                                     height="12px"
                                     width="auto"
@@ -614,7 +614,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                               }
                             >
                               <span>
-                                <RdsIcon
+                                <RdsCompIcon
                                   name="sort"
                                   height="12px"
                                   width="auto"
@@ -640,7 +640,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                       <th scope="col">
                        <label className="fw-medium">Text</label>
                         <span className="ms-2">
-                                  <RdsIcon
+                                  <RdsCompIcon
                                     name="sort"
                                     height="12px"
                                     width="auto"
@@ -718,7 +718,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                                             id="dropdownMenuButton"
                                             data-testid="action-btn"
                                           >
-                                            <RdsIcon
+                                            <RdsCompIcon
                                               name={"three_dots"}
                                               height="14px"
                                               width="14px"
@@ -918,7 +918,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                                               : "block",
                                         }}
                                       >
-                                        <RdsIcon
+                                        <RdsCompIcon
                                           name={"check"}
                                           height="14px"
                                           width="14px"
@@ -942,7 +942,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                                           );
                                         }}
                                       >
-                                        <RdsIcon
+                                        <RdsCompIcon
                                           name={"close"}
                                           height="14px"
                                           width="14px"
@@ -963,7 +963,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                                     {totalActions?.map(
                                       (action, actionIndex) => (
                                         <>
-                                          <RdsIcon
+                                          <RdsCompIcon
                                             key={
                                               "action-" +
                                               actionIndex +
@@ -1012,7 +1012,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                               )}
                             {props.isSwap &&  (
                               <th>
-                                <RdsIcon
+                                <RdsCompIcon
                                   name="six_dots_vertical"
                                   height="14px"
                                   width="14px"
@@ -1279,7 +1279,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                                       {tableHeader.datatype === "button" &&
                                         tableHeader.key === "delete" && (
                                           <div className="d-flex justify-content-center">
-                                            <RdsIcon
+                                            <RdsCompIcon
                                               name="deleteIcon"
                                               height="16px"
                                               width="16px"
@@ -1300,7 +1300,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                                         "iconAvatarTitle" && (
                                         <div className=" ms-2 justify-content-evenly align-items-center">
                                           <div className="col-1">
-                                            <RdsIcon
+                                            <RdsCompIcon
                                               colorVariant="danger"
                                               height="20px"
                                               isCursorPointer
@@ -1410,7 +1410,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                                             id="dropdownMenuButton"
                                             data-testid="action-btn"
                                           >
-                                            <RdsIcon
+                                            <RdsCompIcon
                                               name={"three_dots"}
                                               height="14px"
                                               width="14px"
@@ -1605,7 +1605,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                                           );
                                         }}
                                       >
-                                        <RdsIcon
+                                        <RdsCompIcon
                                           name={"check"}
                                           height="14px"
                                           width="14px"
@@ -1629,7 +1629,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                                           );
                                         }}
                                       >
-                                        <RdsIcon
+                                        <RdsCompIcon
                                           name={"close"}
                                           height="14px"
                                           width="14px"
@@ -1650,7 +1650,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                                     {totalActions?.map(
                                       (action, actionIndex) => (
                                         <>
-                                          <RdsIcon
+                                          <RdsCompIcon
                                             key={
                                               "action-" +
                                               actionIndex +

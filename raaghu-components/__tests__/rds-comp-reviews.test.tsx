@@ -11,7 +11,7 @@ jest.mock('../src/rds-elements', () => ({
       <img src={profilePic} alt="avatar" data-size={size} data-with-profile-pic={withProfilePic} />
     </div>
   ),
-  RdsIcon: ({ name }: any) => <span data-testid="rds-icon" data-name={name}></span>,
+  RdsCompIcon: ({ name }: any) => <span data-testid="rds-icon" data-name={name}></span>,
   RdsLikeDislike: ({ like, dislike, colorVariant }: any) => (
     <div data-testid="rds-like-dislike" data-like={like} data-dislike={dislike} data-color-variant={colorVariant}>
       <span>👍 {like}</span>

@@ -1,6 +1,7 @@
 import React from "react";
 import "./rds-dialog.css";
-import { RdsButton, RdsIcon } from "../../../raaghu-components/src/rds-elements";
+import { RdsButton } from "../../../raaghu-components/src/rds-elements";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 
 interface RdsCompDialogProps {
   Size?: string; //Size of the dialog
@@ -69,7 +70,7 @@ const RdsDialog = (props: RdsCompDialogProps) => {
   )}
   {props.ShowDissmiss && (
     <span className="ms-auto mt-0">
-      <RdsIcon
+      <RdsCompIcon
         name="close"
         fill={false}
         stroke={true}
@@ -85,7 +86,7 @@ const RdsDialog = (props: RdsCompDialogProps) => {
       {props.ContentPosition?.toLowerCase() === "bottom" ? (
   <div className="d-flex flex-column align-items-center">
     {props.Icon && (
-      <RdsIcon
+      <RdsCompIcon
         height="30px"
         width="30px"
         colorVariant="danger"
@@ -99,7 +100,7 @@ const RdsDialog = (props: RdsCompDialogProps) => {
 ) : (
   <div className="d-flex flex-column align-items-center">
     {props.Icon && (
-      <RdsIcon
+      <RdsCompIcon
         height="28px"
         width="28px"
         colorVariant={props.ColorVariant}

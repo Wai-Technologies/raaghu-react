@@ -1,9 +1,11 @@
-import { RdsButtonGroup, RdsCheckbox, RdsIcon, RdsSelectList } from "../rds-elements";
+import { RdsCheckbox, RdsSelectList } from "../rds-elements";
 import React, { useState, useEffect, useRef } from "react";
 import { RdsInput, RdsButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-import { Role } from "../../../raaghu-elements/src/rds-button-group/rds-button-group";
 import RdsCompMenuDirectory from "../rds-comp-menus-directories/rds-comp-menus-directories";
+import RdsCompButtonGroup from "../rds-comp-button-group";
+import { Role } from "../rds-comp-button-group/rds-comp-button-group";
+import RdsCompIcon from "../rds-comp-icon";
 export interface RdsCompMenuProps {
   onSubmit: any;
   menusData: any;
@@ -114,7 +116,7 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
             className=" me-1 border-0 bg-transparent"
             onClick={handleClick(item.data.id)}
           >
-            <RdsIcon
+            <RdsCompIcon
               name={
                 expandedItems?.includes(item.data.id)
                   ? "chevron_up"
@@ -131,7 +133,7 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
           </button>
         )}
         <span className="mx-1">
-          <RdsIcon
+          <RdsCompIcon
             name="folder"
             height="17px"
             width="20px"
@@ -146,7 +148,7 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
         <span className="mt-1 ms-2 node-label d-flex">
           <span className="my-1">{item.data.displayName}</span>
           <span className="node-icon ms-2">
-            <RdsButtonGroup
+            <RdsCompButtonGroup
               buttonGroupItems={buttonGroupList}
               colorVariant="primary"
               isOutline={true}
@@ -399,7 +401,7 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
             aria-expanded={isMenuOpen ? "true" : "false"}
             data-testid="fab-menu-btn"
           >
-            <RdsIcon
+            <RdsCompIcon
               name={props.menuIcon || "list"}
               fill={false}
               stroke={true}
@@ -412,7 +414,7 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
                   ? "light"
                   : "dark"
               }
-            ></RdsIcon>
+            ></RdsCompIcon>
           </button>
           <div id="fab-list" ref={menuRef}>
             <div
@@ -432,13 +434,13 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
                   }`}
                   onClick={handleItemClick(listItem.onClick)}
                 >
-                  <RdsIcon
+                  <RdsCompIcon
                     name={listItem.icon}
                     height={listItem.iconHeight}
                     width={listItem.iconWidth}
                     fill={false}
                     stroke={true}
-                  ></RdsIcon>
+                  ></RdsCompIcon>
                   <span className="ms-3">{listItem.value}</span>
                 </a>
               ))}

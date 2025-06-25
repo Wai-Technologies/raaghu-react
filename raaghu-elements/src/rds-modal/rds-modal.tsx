@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect } from "react";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import "./rds-modal.css";
 
 export interface RdsModalProps {
