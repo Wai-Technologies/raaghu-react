@@ -178,5 +178,7 @@ padding-top: 100px;
  
 #detail-pane-one-three-one .detail-pane-container {
 height: 609px;
+ min-height: calc(100vh - 98px) !important;
   
 }
+
