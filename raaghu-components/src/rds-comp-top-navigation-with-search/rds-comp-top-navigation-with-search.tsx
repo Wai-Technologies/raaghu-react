@@ -176,13 +176,15 @@ const RdsCompTopNavigationWithSearch = (
 
     return (
         <div>
-            <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between shadow">
+            <nav className="navbar d-flex justify-content-between p-1 min-width align-items-center justify-content-md-end justify-content-lg-between "style={{ boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)' }}>
+            <div className="d-flex align-items-center justify-content-between px-3">
                 <div id="raaghuLogo" className="d-block">
                     <img
                         className="cursor-pointer sidenav-logo mx-1"
                         src={logoImage}
                         alt="logo"
                     ></img>
+                    </div>
                 </div>
 
                 <button
