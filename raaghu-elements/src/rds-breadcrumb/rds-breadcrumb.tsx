@@ -88,9 +88,9 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
     setData((prevData) =>
       prevData.map((item) => {
         // Deselect the last item when any other item is clicked
-        if (item.id === prevData[prevData.length - 1]?.id) {
-          return { ...item, active: false }; // Deselect last item
-        }
+        // if (item.id === prevData[prevData.length - 1]?.id) {
+        //   return { ...item, active: false }; // Deselect last item
+        // }
         // Keep the clicked item active
         return { ...item, active: item.id === key };
       })

@@ -193,6 +193,22 @@ const RdsIcon = (props: RdsIconProps) => {
     props.classes || ""
   }`.trim();
 
+  const getTooltipStyle = (): TooltipStyle => {
+    if (props.style) return props.style; 
+    switch (props.tooltipPlacement) {
+      case "top":
+        return TooltipStyle.MiddleBottomArrow;
+      case "bottom":
+        return TooltipStyle.MiddleTopArrow;
+      case "left":
+        return TooltipStyle.RightArrow;
+      case "right":
+        return TooltipStyle.LeftArrow;
+      default:
+        return TooltipStyle.MiddleTopArrow;
+    }
+  };
+
   // If using a provided SvgIcon component
   if (IconComponent) {
     const Icon = IconComponent;
@@ -215,7 +231,7 @@ const RdsIcon = (props: RdsIconProps) => {
     return props.tooltip ? (
        <Tooltip 
          label={props.tooltipTitle}
-         style={props.style}
+         style={getTooltipStyle()}
          trigger={TooltipTrigger.Hover}
        >
         <div className="icon-tooltip-wrapper">
@@ -291,7 +307,7 @@ const RdsIcon = (props: RdsIconProps) => {
   return props.tooltip ? (
      <Tooltip 
        label={props.tooltipTitle} 
-       style={props.style}
+       style={getTooltipStyle()}
        trigger={TooltipTrigger.Hover}
      >
       <div className="icon-tooltip-wrapper">
