@@ -364,6 +364,10 @@ html[theme="dark"] {
     border-color: $input-bg-border;
   }
 }
+/* Docs Spacing */
+.css-k7lbue {
+  padding: 3rem 1rem !important;
+}
 
 @import "./custom.scss";
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
