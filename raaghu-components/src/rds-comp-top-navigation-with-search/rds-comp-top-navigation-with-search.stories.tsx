@@ -57,6 +57,7 @@ export const Default: Story = {
             {
                 label: "Contact",
                 id: 3,
+                route: "#",
                 active: false,
                 disabled: true,
                 icon: "phone",
