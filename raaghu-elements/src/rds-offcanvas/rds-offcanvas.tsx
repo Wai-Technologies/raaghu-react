@@ -100,7 +100,7 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
               {props.canvasTitle}
             </h5>
           )}
-          <span className="close">
+          <span className="close" id="close-btn">
             <RdsButton
               icon="cross"
               size="large"

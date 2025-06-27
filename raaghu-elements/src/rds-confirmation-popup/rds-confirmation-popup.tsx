@@ -47,11 +47,11 @@ const RdsConfirmationPopup = (props: RdsCompAlertPopupProps) => {
                 size="default"
                 verticallyCentered={true}
             >
-                <div className="popup-btn-color">
+                <div className="popup-btn-color"  id="pop_up-btns">
                     <div className="text-center py-3 px-4">
                         {props.showIcon && (
                             <p className="align-items-center d-flex justify-content-center">
-                                <div className="icon-circle">
+                                <div className="icon-circle" id="icon-circle-id">
                                     <RdsCompIcon
                                         height="50px"
                                         width="50px"
@@ -64,16 +64,16 @@ const RdsConfirmationPopup = (props: RdsCompAlertPopupProps) => {
                                 </div>
                             </p>
                         )}
-                        <h4>
+                        <h4 id="h4-text">
                             <RdsCompLabel class="align-items-center  justify-content-center" label={props.alertConfirmation} />
                         </h4>
                         {props.showDescription && (
-                            <span>
+                            <span id="text-description">
                                 <RdsCompLabel class="text-muted align-items-center  justify-content-center" label={props.messageAlert} />
                             </span>
                         )}
                         {props.children}
-                        <div className="mt-4 pt-2 d-flex gap-3 justify-content-center">
+                        <div className="mt-4 pt-2 d-flex gap-3 justify-content-center" id="btns">
                             <RdsButton
                                 onClick={props.onCancel}
                                 class="px-2"
