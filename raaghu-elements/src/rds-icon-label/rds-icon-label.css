@@ -27,10 +27,12 @@
 }
 
 /* Label styles merged from rds-label */
-.singleLine {
+/*------------------------For future enhancement--------------------------------- */
+/* .singleLine {
   white-space: nowrap;
   overflow: hidden;
-}
+} */
+ 
 .multiline{
   word-break: break-all;
 }

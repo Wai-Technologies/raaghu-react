@@ -250,11 +250,19 @@
   height: 18px !important;
   width: 18px !important;
 }
-
+/* Dark mode styles */
 .theme-dark .adaptive-card-container {
-    color: #A8A8A8 !important;
+    background: var(--background-bg-neutral-darker-default, #1a1a1a) !important;
+    border: 1px solid var(--line-line-neutral-dark-default, #333333) !important;
 }
-
-.adaptive-card-container .dw-selected-value {
-    color: #A8A8A8 !important;
+.theme-dark .adaptive-card-title { color: var(--text-txt-neutral-white-default, #fcfcfc) !important; }
+.theme-dark .adaptive-card-text,
+.theme-dark .form-check-label { color: var(--text-txt-neutral-light-default, #A8A8A8) !important; }
+/* Dark mode for Image Gallery */
+.theme-dark .adaptive-image-container {
+    background: var(--background-bg-neutral-darker-default, #1a1a1a) !important;
+    border: 1px solid var(--line-line-neutral-dark-default, #333333) !important;
+}
+.theme-dark .adaptive-image-body {
+    background: var(--background-bg-neutral-dark-default, #2d2d2d) !important;
 }
