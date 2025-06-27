@@ -1,5 +1,6 @@
 import React from "react";
 import RdsIcon from "../rds-icon";
+import "./rds-benefit.css";
 
 export interface RdsBenefitProps {
     item: any,
@@ -10,7 +11,7 @@ const RdsBenefit = (props: RdsBenefitProps) => {
     const bg = "bg-" + props.item.colorVarient || "primary";
 
     return (
-        <>
+        <div className="rds-benefit">
             {/* Default  */}
             {props.displayType == "default" && <div className="pt-1 mb-4">
                 <div className="border p-4 text-center bg-light rounded" data-testid="defaultAligned">
@@ -113,7 +114,7 @@ const RdsBenefit = (props: RdsBenefitProps) => {
                     </div>
                 </div>
             </div>}
-        </>
+        </div>
     );
 };
 export default RdsBenefit;
