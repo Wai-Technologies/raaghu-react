@@ -86,7 +86,7 @@ export { default as RdsCompFileManagementTree } from "./rds-comp-fileManagement-
 export { default as RdsCompTypeahead } from "./rds-comp-typeahead";
 export { default as RdsCompPageNotFound } from "./rds-comp-page-not-found";
 export { default as RdsCompDatabaseConnection } from "./rds-comp-database-connection";
-export { default as RdsCompSetPassword } from "./rds-comp-set-password";
+export { default as RdsCompPassword } from "./rds-comp-password";
 export { default as RdsCompTestimonials } from "./rds-comp-testimonials";
 export { default as RdsCompDeveloperMode } from "./rds-comp-developer-mode";
 export { default as RdsCompProfile }   from "./rds-comp-profile";

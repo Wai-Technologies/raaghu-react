@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import RdsCompSetPassword from '../src/rds-comp-set-password/rds-comp-set-password';
+import RdsCompPassword from '../src/rds-comp-password/rds-comp-password';
 
 // Mock the react-i18next hook
 jest.mock('react-i18next', () => ({
@@ -51,7 +51,7 @@ jest.mock('../src/rds-elements', () => ({
   RdsCompLabel: ({ label, ...props }: any) => <span {...props}>{label}</span>
 }));
 
-describe('RdsCompSetPassword Component', () => {
+describe('RdsCompPassword Component', () => {
   const mockPassword = jest.fn().mockReturnValue([{}, {}]);
   
   const defaultProps = {
@@ -72,7 +72,7 @@ describe('RdsCompSetPassword Component', () => {
 
   describe('Component Rendering - Set Password Type', () => {
     it('should render without crashing', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompPassword {...defaultProps} />);
       
       expect(screen.getByTestId('password')).toBeInTheDocument();
       expect(screen.getByTestId('button-save')).toBeInTheDocument();
@@ -80,7 +80,7 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should render with the correct structure', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompPassword {...defaultProps} />);
       
       // Check for form elements
       expect(document.querySelector('form')).toBeInTheDocument();
@@ -90,7 +90,7 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should display password input with correct attributes', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompPassword {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       expect(passwordInput).toHaveAttribute('type', 'password');
@@ -102,14 +102,14 @@ describe('RdsCompSetPassword Component', () => {
 
   describe('Form Validation - Set Password Type', () => {
     it('should initially disable the save button', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompPassword {...defaultProps} />);
       
       const saveButton = screen.getByTestId('button-save');
       expect(saveButton).toBeDisabled();
     });
 
     it('should enable save button when valid password is entered', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompPassword {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       fireEvent.change(passwordInput!, { target: { value: 'StrongPass123!' } });
@@ -119,7 +119,7 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should show error message for invalid password', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompPassword {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       
@@ -131,7 +131,7 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should not show error message for valid password', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompPassword {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       
@@ -144,7 +144,7 @@ describe('RdsCompSetPassword Component', () => {
   });
   describe('Form Interaction - Set Password Type', () => {
     it('should update password state when input changes', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompPassword {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       fireEvent.change(passwordInput!, { target: { value: 'StrongPass123!' } });
@@ -153,7 +153,7 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should handle password blur event', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompPassword {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       fireEvent.blur(passwordInput!);
@@ -171,7 +171,7 @@ describe('RdsCompSetPassword Component', () => {
     };
 
     it('should render setting password form', () => {
-      render(<RdsCompSetPassword {...settingProps} />);
+      render(<RdsCompPassword {...settingProps} />);
       
       expect(screen.getByTestId('current-password')).toBeInTheDocument();
       expect(screen.getByTestId('new-password')).toBeInTheDocument();
@@ -181,7 +181,7 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should disable save button initially', () => {
-      render(<RdsCompSetPassword {...settingProps} />);
+      render(<RdsCompPassword {...settingProps} />);
       
       const saveButton = screen.getByTestId('save');
       expect(saveButton).toBeDisabled();
@@ -196,7 +196,7 @@ describe('RdsCompSetPassword Component', () => {
     };
 
     it('should render change password form', () => {
-      render(<RdsCompSetPassword {...changeProps} />);
+      render(<RdsCompPassword {...changeProps} />);
       
       expect(screen.getByTestId('password-form')).toBeInTheDocument();
       expect(screen.getByTestId('curr-password')).toBeInTheDocument();
@@ -216,7 +216,7 @@ describe('RdsCompSetPassword Component', () => {
     };
 
     it('should render forgot password form', () => {
-      render(<RdsCompSetPassword {...forgotProps} />);
+      render(<RdsCompPassword {...forgotProps} />);
       
       expect(screen.getByText('Forgot Password')).toBeInTheDocument();
       expect(screen.getByTestId('email')).toBeInTheDocument();
@@ -225,7 +225,7 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should validate email input', () => {
-      render(<RdsCompSetPassword {...forgotProps} />);
+      render(<RdsCompPassword {...forgotProps} />);
       
       const emailInput = screen.getByTestId('email').querySelector('input');
       fireEvent.change(emailInput!, { target: { value: 'invalid-email' } });
@@ -235,7 +235,7 @@ describe('RdsCompSetPassword Component', () => {
   });
   describe('Props Handling', () => {
     it('should update component when setPasswordField prop changes', async () => {
-      const { rerender } = render(<RdsCompSetPassword {...defaultProps} />);
+      const { rerender } = render(<RdsCompPassword {...defaultProps} />);
       
       // Update the props with a new password
       const updatedProps = {
@@ -243,7 +243,7 @@ describe('RdsCompSetPassword Component', () => {
         setPasswordField: { password: 'NewPassword123!' }
       };
       
-      rerender(<RdsCompSetPassword {...updatedProps} />);
+      rerender(<RdsCompPassword {...updatedProps} />);
       
       // Check if the password input is updated
       await waitFor(() => {
@@ -253,10 +253,10 @@ describe('RdsCompSetPassword Component', () => {
     });
 
     it('should handle reset prop changes', () => {
-      const { rerender } = render(<RdsCompSetPassword {...defaultProps} reset={false} />);
+      const { rerender } = render(<RdsCompPassword {...defaultProps} reset={false} />);
       
       // Update the reset prop
-      rerender(<RdsCompSetPassword {...defaultProps} reset={true} />);
+      rerender(<RdsCompPassword {...defaultProps} reset={true} />);
       
       // This is mainly to ensure the component doesn't crash when reset prop changes
       expect(screen.getByTestId('password')).toBeInTheDocument();
@@ -265,7 +265,7 @@ describe('RdsCompSetPassword Component', () => {
 
   describe('Password Validation', () => {
     it('should validate password with at least 8 characters', () => {
-      render(<RdsCompSetPassword {...defaultProps} />);
+      render(<RdsCompPassword {...defaultProps} />);
       
       const passwordInput = screen.getByTestId('password').querySelector('input');
       

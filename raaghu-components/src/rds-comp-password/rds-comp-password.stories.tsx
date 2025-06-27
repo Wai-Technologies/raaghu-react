@@ -2,11 +2,11 @@
 // import React from 'react';
 // import { I18nextProvider } from 'react-i18next';
 import type { Meta, StoryObj } from '@storybook/react';
-import RdsCompSetPassword from './rds-comp-set-password';
+import RdsCompPassword from './rds-comp-password';
 
 const meta: Meta = { 
     title: "Components/Password",
-    component: RdsCompSetPassword,
+    component: RdsCompPassword,
     parameters: {
         layout: 'padded',
         docs: {
@@ -19,10 +19,10 @@ const meta: Meta = {
     tags: ['autodocs'],
     argTypes: {
     },
-} satisfies Meta<typeof RdsCompSetPassword>;
+} satisfies Meta<typeof RdsCompPassword>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompSetPassword>;
+type Story = StoryObj<typeof RdsCompPassword>;
 
 export const Set: Story = {
     args: {

@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { RdsIcon, RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsAvatar, RdsNotification } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-import "./rds-comp-top-navigation.css";
-import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
-import { AvatarSize, AvatarStyle } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
-import { BreadcrumbSeparator } from "../../../raaghu-elements/src/rds-breadcrumb/rds-breadcrumb";
+import "./rds-top-navigation.css";
+import RdsOffcanvas, { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
+import RdsAvatar, { AvatarSize, AvatarStyle } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
+import RdsBreadcrumb, { BreadcrumbSeparator } from "../../../raaghu-elements/src/rds-breadcrumb/rds-breadcrumb";
 import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import RdsCompProfile from "../../../raaghu-components/src/rds-comp-profile";
-import { DropdownSize, DropdownState } from "../../../raaghu-elements/src/rds-dropdown-list/rds-dropdown-list";
+import RdsDropdownList, { DropdownSize, DropdownState } from "../../../raaghu-elements/src/rds-dropdown-list/rds-dropdown-list";
 import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
-import { NotificationLayout, NotificationStyle, NotificationType } from "../../../raaghu-elements/src/rds-notification/rds-notification";
+import RdsNotification, { NotificationLayout, NotificationStyle, NotificationType } from "../../../raaghu-elements/src/rds-notification/rds-notification";
 import RdsCompSearch, { IconPosition } from "../../../raaghu-components/src/rds-comp-search/rds-comp-search";
 
 export interface RdsTopNavigationProps {
@@ -1848,7 +1847,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
 {(props.professional5 &&                <div id="notification-list"
                   className={`position-relative px-2 px-md-3 col text-center d-flex align-items-center notification-dropdown-container ${isNotificationDropdownOpen ? 'dropdown-open' : ''}`}
                 >                  <div className="position-relative">
-                    <RdsIcon
+                    <RdsCompIcon
                       name="notification_new"
                       stroke={true}
                       height="18px"
@@ -1859,7 +1858,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                       tooltipTitle={"Notification"}
                       tooltipPlacement="bottom"
                       style={TooltipStyle.MiddleTopArrow}                        
-                    ></RdsIcon>
+                    ></RdsCompIcon>
                   </div>{isNotificationDropdownOpen && (
                     <div className="position-absolute bg-white  rounded shadow-lg" style={{ 
                       top: '100%', 

@@ -14,7 +14,7 @@ export interface Edition {
   password?: string;
 }
 
-interface RdsCompSetPasswordProps {
+interface RdsCompPasswordProps {
   password(password: any): [any, any];
   reset?: boolean;
   setPasswordField: any;
@@ -33,7 +33,7 @@ interface RdsCompSetPasswordProps {
   onUserSaveHandler?: (data: any) => void;
 }
 
-const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
+const RdsCompPassword = (props: RdsCompPasswordProps) => {
   const [inputReset, setInputReset] = useState(props.reset);
   const [passwordField, setPasswordField] = useState(props.setPasswordField);
   const [formData, setFormData] = useState(props.passwordSettingData);
@@ -839,4 +839,4 @@ const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
   );
 };
 
-export default RdsCompSetPassword;
+export default RdsCompPassword;

@@ -1,11 +1,9 @@
 import React, { Fragment, ReactNode, useEffect, useState } from "react";
 import RdsCompIcon from "../rds-comp-icon";
-import RdsButton from "../rds-button";
-import RdsDropdownList from "../rds-dropdown-list";
-import RdsInput from "../rds-input";
 import { useTranslation } from "react-i18next";
-import { InputSize } from "../rds-input/rds-input";
-import RdsSelectList from "../rds-select-list";
+import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
+import { RdsInput, RdsDropdownList, RdsButton } from "../rds-elements";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompAddressDetailProps {
 	children?: ReactNode;
@@ -561,7 +559,7 @@ const RdsCompAddressDetail = (props: RdsCompAddressDetailProps) => {
                                         </div>
                                     )}
                                 </div>
-                                <div className="col-md-6 mb-3">                                    <RdsSelectList
+                                <div className="col-md-6 mb-3">                                    <RdsCompSelectList
                                         id="seleCou"
                                         label="Country"
                                         placeholder="Select Country"
@@ -580,7 +578,7 @@ const RdsCompAddressDetail = (props: RdsCompAddressDetailProps) => {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-6 mb-3">                                    <RdsSelectList
+                                <div className="col-md-6 mb-3">                                    <RdsCompSelectList
                                         id="seleSta"
                                         label="State/Province"
                                         placeholder="Select State/Province"
@@ -788,7 +786,7 @@ const RdsCompAddressDetail = (props: RdsCompAddressDetailProps) => {
                             </div>
                             <div className="col-md-6 ">
                                 <div className="form-group">
-                                    <RdsSelectList
+                                    <RdsCompSelectList
                                         id="seleCon"
                                         label="Country"
                                         placeholder="Select Country"
@@ -798,7 +796,7 @@ const RdsCompAddressDetail = (props: RdsCompAddressDetailProps) => {
                                         onChange={(item: any) => {
                                             handleDataChanges(item.value, "country");
                                         }}
-                                    ></RdsSelectList>
+                                    ></RdsCompSelectList>
                                 </div>
                             </div>
                         </div>
@@ -866,4 +864,4 @@ const RdsCompAddressDetail = (props: RdsCompAddressDetailProps) => {
     );
 };
 
-export default RdsAddressDetail;
+export default RdsCompAddressDetail;

@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import "./rds-comp-icon-label.css";
 import RdsCompIcon from "../rds-comp-icon/rds-comp-icon";
 import RdsCompLabel from "../rds-comp-label/rds-comp-label";
-import { fontWeight } from "../../libs";
+import { fontWeight } from "../../../raaghu-elements/libs";
 
 export interface RdsCompIconLabelProps {
     children?: ReactNode;
