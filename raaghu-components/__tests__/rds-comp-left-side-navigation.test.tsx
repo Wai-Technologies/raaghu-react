@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import RdsCompSideNavigation1, { NavType, NavLayout, Platform } from '../src/rds-comp-side-navigation1/rds-comp-side-navigation1';
+import RdsCompLeftSideNavigation, { NavType, NavLayout, Platform } from '../src/rds-comp-left-side-navigation/rds-comp-left-side-navigation';
 
 // Mock react-router-dom
 jest.mock('react-router-dom', () => ({
@@ -73,7 +73,7 @@ jest.mock('../../raaghu-elements/src/rds-comp-search/rds-comp-search', () => ({
   }
 }));
 
-describe('RdsCompSideNavigation1 Component', () => {
+describe('RdsCompLeftSideNavigation Component', () => {
   // Sample navigation items for testing
   const mockSideNavItems = [
     {
@@ -121,19 +121,19 @@ describe('RdsCompSideNavigation1 Component', () => {
     jest.clearAllMocks();  });
   
   describe('Component Rendering', () => {    it('should render without crashing', () => {
-      render(<RdsCompSideNavigation1 {...defaultProps} />);
+      render(<RdsCompLeftSideNavigation {...defaultProps} />);
       // The component should be in the document
       expect(document.querySelector('.aside')).toBeInTheDocument();
     });
     
     it('should render the logo when logoVisible is true', () => {
-      render(<RdsCompSideNavigation1 {...defaultProps} logoVisible={true} />);
+      render(<RdsCompLeftSideNavigation {...defaultProps} logoVisible={true} />);
       // Logo container should be present - look for the actual img tag
       expect(document.querySelector('img.main-logo')).toBeInTheDocument();
     });
     
     it('should not render the logo when logoVisible is false', () => {
-      render(<RdsCompSideNavigation1 {...defaultProps} logoVisible={false} />);
+      render(<RdsCompLeftSideNavigation {...defaultProps} logoVisible={false} />);
       // Logo container should not be present or be hidden
       const logoContainer = document.querySelector('img.main-logo');
       if (logoContainer) {
@@ -144,13 +144,13 @@ describe('RdsCompSideNavigation1 Component', () => {
     });
     
     it('should render the lock icon when lockIconVisible is true', () => {
-      render(<RdsCompSideNavigation1 {...defaultProps} lockIconVisible={true} />);
+      render(<RdsCompLeftSideNavigation {...defaultProps} lockIconVisible={true} />);
       // Just check that the component renders without error when lockIconVisible is true
       expect(document.querySelector('.aside')).toBeInTheDocument();
     });
 
     it('should render all navigation items', () => {
-      render(<RdsCompSideNavigation1 {...defaultProps} />);
+      render(<RdsCompLeftSideNavigation {...defaultProps} />);
       // Check if all top-level menu items are rendered
       expect(screen.getByText('Dashboard')).toBeInTheDocument();
       expect(screen.getByText('Administration')).toBeInTheDocument();
@@ -158,7 +158,7 @@ describe('RdsCompSideNavigation1 Component', () => {
   });
     describe('Navigation State and Behavior', () => {
     it('should toggle the menu when the menu icon is clicked', () => {
-      render(<RdsCompSideNavigation1 {...defaultProps} />);
+      render(<RdsCompLeftSideNavigation {...defaultProps} />);
       
       // Based on the test error output, we know the menu toggle exists in this structure
       const menuToggle = document.querySelector('.text-center.cursor-pointer');
@@ -176,7 +176,7 @@ describe('RdsCompSideNavigation1 Component', () => {
     });
 
     it('should handle menu item click', () => {
-      render(<RdsCompSideNavigation1 {...defaultProps} />);
+      render(<RdsCompLeftSideNavigation {...defaultProps} />);
       
       // From the test error output, we can see Administration is rendered in a span
       // Find the Administration menu item
@@ -202,7 +202,7 @@ describe('RdsCompSideNavigation1 Component', () => {
     it('should filter menu items based on search query', () => {
       // First, let's ensure we mock the search functionality properly
       const { rerender } = render(
-        <RdsCompSideNavigation1 
+        <RdsCompLeftSideNavigation 
           {...defaultProps} 
           // Override the initial props with a proper search handler if needed
         />
@@ -217,7 +217,7 @@ describe('RdsCompSideNavigation1 Component', () => {
     });
 
     it('should restore all menu items when search is cleared', () => {
-      render(<RdsCompSideNavigation1 {...defaultProps} />);
+      render(<RdsCompLeftSideNavigation {...defaultProps} />);
       
       // Instead of searching for items, we'll just verify all items are rendered initially
       expect(screen.getByText('Dashboard')).toBeInTheDocument();
@@ -230,7 +230,7 @@ describe('RdsCompSideNavigation1 Component', () => {
   
   describe('Props Handling', () => {
     it('should use default logo if no logo prop is provided', () => {
-      render(<RdsCompSideNavigation1 {...defaultProps} logoVisible={true} />);
+      render(<RdsCompLeftSideNavigation {...defaultProps} logoVisible={true} />);
       
       // Check if the img element is rendered with the default logo URL
       const logoImg = document.querySelector('img.main-logo');
@@ -240,7 +240,7 @@ describe('RdsCompSideNavigation1 Component', () => {
 
     it('should use custom logo if logo prop is provided', () => {
       const customLogo = 'https://example.com/logo.png';
-      render(<RdsCompSideNavigation1 {...defaultProps} logo={customLogo} logoVisible={true} />);
+      render(<RdsCompLeftSideNavigation {...defaultProps} logo={customLogo} logoVisible={true} />);
       
       // Check if the img element is rendered with the custom URL
       const logoImg = document.querySelector('img.main-logo');
@@ -254,7 +254,7 @@ describe('RdsCompSideNavigation1 Component', () => {
       // Instead of checking for specific layout classes that may not exist,
       // we'll verify that the component renders with different layouts
       const { rerender } = render(
-        <RdsCompSideNavigation1 {...defaultProps} navLayout={NavLayout.List} />
+        <RdsCompLeftSideNavigation {...defaultProps} navLayout={NavLayout.List} />
       );
       
       // Check that basic sidebar structure exists
@@ -262,7 +262,7 @@ describe('RdsCompSideNavigation1 Component', () => {
       
       // Rerender with Toolbar layout
       rerender(
-        <RdsCompSideNavigation1 {...defaultProps} navLayout={NavLayout.Toolbar} />
+        <RdsCompLeftSideNavigation {...defaultProps} navLayout={NavLayout.Toolbar} />
       );
       
       // Check that the basic structure still exists
@@ -271,7 +271,7 @@ describe('RdsCompSideNavigation1 Component', () => {
   
   describe('Edge Cases', () => {
     it('should handle empty sideNavItems array', () => {
-      render(<RdsCompSideNavigation1 {...defaultProps} sideNavItems={[]} />);
+      render(<RdsCompLeftSideNavigation {...defaultProps} sideNavItems={[]} />);
       
       // The component should render without errors - check for the nav element
       expect(document.querySelector('nav')).toBeInTheDocument();
@@ -289,7 +289,7 @@ describe('RdsCompSideNavigation1 Component', () => {
         { key: 'profile', label: 'Profile', icon: 'user', path: '/profile' }
       ];
       
-      render(<RdsCompSideNavigation1 {...defaultProps} sideNavItems={itemsWithoutChildren} />);
+      render(<RdsCompLeftSideNavigation {...defaultProps} sideNavItems={itemsWithoutChildren} />);
       
       // Both items should be rendered
       expect(screen.getByText('Home')).toBeInTheDocument();
@@ -316,7 +316,7 @@ describe('RdsCompSideNavigation1 Component', () => {
         }
       ];
       
-      render(<RdsCompSideNavigation1 {...defaultProps} sideNavItems={deeplyNestedItems} />);
+      render(<RdsCompLeftSideNavigation {...defaultProps} sideNavItems={deeplyNestedItems} />);
       
       // Check if the Admin item is rendered
       expect(screen.getByText('Admin')).toBeInTheDocument();

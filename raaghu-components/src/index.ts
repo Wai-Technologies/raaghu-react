@@ -116,7 +116,7 @@ export { default as RdsCompTypingSection } from "./rds-comp-typing-section";
 export {default as RdsAiChatBot} from "./rds-comp-ai-chat-bot";
 export {default as RdsCompGenerateCodeMetrics} from "./rds-comp-generate-code-metrics";
 export {default as RdsCompKanbanBoard} from "./rds-comp-kanban-board";
-export {default as RdsCompSideNavigation1} from "./rds-comp-side-navigation1";
+export {default as RdsCompLeftSideNavigation} from "./rds-comp-left-side-navigation";
 export {default as RdsCompAdaptiveCards} from "./rds-comp-adaptive-cards"
 
 export { default as RdsCompCommunityFileWidget } from "./rds-comp-community-file-widget";

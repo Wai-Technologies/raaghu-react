@@ -7,7 +7,7 @@ import RdsCompAppShell, {
 import RdsCompSideNavigation from "../../../raaghu-components/src/rds-comp-side-navigation";
 import RdsTopNavigation from "../../../raaghu-elements/src/rds-top-navigation/rds-top-navigation";
 import { BrowserRouter } from "react-router-dom";
-import RdsCompSideNavigation1 from '../../../raaghu-components/src/rds-comp-side-navigation1/rds-comp-side-navigation1';
+import RdsCompLeftSideNavigation from '../../../raaghu-components/src/rds-comp-left-side-navigation/rds-comp-left-side-navigation';
 import "./rds-comp-app-shell.css";
 import {
   NavLayout,
@@ -404,7 +404,7 @@ export const Default: Story = {
     displayType: AppShellDisplayType.Default,
     sidebar: (
       <BrowserRouter>
-        <RdsCompSideNavigation1
+        <RdsCompLeftSideNavigation
           layout="LeftSideNav"
           lockIconVisible={false}
           logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
@@ -724,7 +724,7 @@ export const Relaxing: Story = {
           {/* Sidebar */}
           <div style={{ minWidth: 245, maxWidth: 245, height: '100%' }} >
             <BrowserRouter >
-              <RdsCompSideNavigation1
+              <RdsCompLeftSideNavigation
              
                 layout="LeftSideNav"
                 logoVisible={false}
@@ -979,7 +979,7 @@ export const SideNav: Story = {
         {/* Left Side Navigation */}
         <div className="rds-appshell-side-nav-left" style={{ flex: "0 0 245px", minWidth: 245, maxWidth: 245, height: '100%' }}>
           <BrowserRouter>
-            <RdsCompSideNavigation1
+            <RdsCompLeftSideNavigation
               lockIconVisible={false}
               sideNavItems={[
                 {
@@ -1041,7 +1041,7 @@ export const SideNav: Story = {
         <div className="rds-appshell-side-nav-right d-flex align-items-end justify-content-end"  style={{ flex: "0 0 80px", minWidth: 80, maxWidth: 120, height: '100%' }}>
           <div style={{ width: "100%", display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }} id="side-nav-icon-list">
             <BrowserRouter>
-              <RdsCompSideNavigation1
+              <RdsCompLeftSideNavigation
                 layout="RightSideNav"
                 logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
                 navLayout={NavLayout.Toolbar}
@@ -1178,7 +1178,7 @@ export const DoubleNav: Story = {
       <div className="mt-5 double-nav-sidebar" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
         <div style={{ display: 'flex', flexDirection: 'row', gap: '7px' }}>
           <BrowserRouter>
-            <RdsCompSideNavigation1
+            <RdsCompLeftSideNavigation
               layout="LeftSideNav"
               logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
               navLayout={NavLayout.Raaghu}
@@ -1234,7 +1234,7 @@ export const DoubleNav: Story = {
                   path: ''
                 }
               ]} />
-            <RdsCompSideNavigation1
+            <RdsCompLeftSideNavigation
               lockIconVisible={false}
               sideNavItems={[
                 {
@@ -1415,7 +1415,7 @@ export const TriPane : Story = {
     sidebar: (
       <div className="mt-5 tripane-sidebar" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
         <div>
-          <RdsCompSideNavigation1
+          <RdsCompLeftSideNavigation
     layout="LeftSideNav"
     lockIconVisible={false}
     logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"

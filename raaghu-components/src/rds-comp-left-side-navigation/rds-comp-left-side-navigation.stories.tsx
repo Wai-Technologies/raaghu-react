@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import { Meta, StoryObj } from "@storybook/react";
-import RdsCompSideNavigation1, { NavLayout, NavType, Platform } from "./rds-comp-side-navigation1";
+import RdsCompLeftSideNavigation, { NavLayout, NavType, Platform } from "./rds-comp-left-side-navigation";
 
 const meta: Meta = {
     title: "Components/Left Side Nav",
-    component: RdsCompSideNavigation1,
+    component: RdsCompLeftSideNavigation,
     parameters: {
         layout: "padded",
         docs:   {
@@ -40,10 +40,10 @@ const meta: Meta = {
             options: ['Side Navigation-ABP List', 'Side Navigation-ANZ List'],
         },
     },
-} satisfies Meta<typeof RdsCompSideNavigation1>;
+} satisfies Meta<typeof RdsCompLeftSideNavigation>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompSideNavigation1>;
+type Story = StoryObj<typeof RdsCompLeftSideNavigation>;
 
 const getSideNavItems = (platform: string[], navLayout: string) => {
     if (platform.length === 0 && navLayout === 'Toolbar') {
@@ -185,7 +185,7 @@ const getLayout = (navLayout: string) => {
 
 export const Default: Story = (args: any) => (
     <BrowserRouter>
-        <RdsCompSideNavigation1 
+        <RdsCompLeftSideNavigation 
             {...args} 
             sideNavItems={getSideNavItems(args.platform, args.navLayout)} 
             layout={getLayout(args.navLayout)} 

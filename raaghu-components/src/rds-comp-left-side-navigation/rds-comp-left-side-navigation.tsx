@@ -33,7 +33,7 @@ export enum Platform {
     Mobile = "Mobile",
   }
   
-  export interface RdsCompSideNavigation1Props {
+  export interface RdsCompLeftSideNavigationProps {
     sideNavItems: any;
     toggleTheme?: React.MouseEventHandler<HTMLInputElement>;
     collapse?: boolean;
@@ -48,7 +48,7 @@ export enum Platform {
     logoVisible?: boolean; // New prop to control the visibility of the logo
 }
 
-const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
+const RdsCompLeftSideNavigation = (props: RdsCompLeftSideNavigationProps) => {
     const [isLocked, setIsLocked] = useState(false);
     const [collapse, setCollapse] = useState(props.navType === "Collapsed");
     const [isMenuClick, setMenuClick] = useState(false);
@@ -467,7 +467,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
     );
 };
 
-export default RdsCompSideNavigation1;
+export default RdsCompLeftSideNavigation;
 
 // import React, { useEffect, useState } from "react";
 // import RdsCompIcon from "../rds-icon/rds-icon";
