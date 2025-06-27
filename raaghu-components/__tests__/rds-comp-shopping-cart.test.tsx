@@ -31,7 +31,7 @@ jest.mock('../src/rds-elements', () => ({
       {label}
     </div>
   ),
-  RdsLabel: ({ fontWeight, label, dataTestId }: any) => (
+  RdsCompLabel: ({ fontWeight, label, dataTestId }: any) => (
     <div 
       data-testid={dataTestId || `label-${fontWeight}`}
       data-font-weight={fontWeight}
@@ -39,7 +39,7 @@ jest.mock('../src/rds-elements', () => ({
       {label}
     </div>
   ),
-  RdsSelectList: ({ id, isSearchable, onChange, placeholder, selectItems, selectedValue, dataTestId }: any) => (
+  RdsCompSelectList: ({ id, isSearchable, onChange, placeholder, selectItems, selectedValue, dataTestId }: any) => (
     <div 
       data-testid={dataTestId || `select-${id}`}
       data-id={id}

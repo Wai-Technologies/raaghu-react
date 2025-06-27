@@ -62,8 +62,8 @@ jest.mock('../src/rds-elements', () => ({
       </select>
     </div>
   ),
-  RdsSearch: (props: any) => (
-    <input data-testid="rds-search" placeholder={props.placeholder} {...props} />
+  RdsCompSearch: (props: any) => (
+    <input data-testid="rds-comp-search" placeholder={props.placeholder} {...props} />
   ),
   RdsAvatar: (props: any) => (
     <div data-testid="rds-avatar" {...props}>
@@ -179,7 +179,7 @@ describe('RdsTopNavigation Component', () => {  const defaultProps = {
       });
       
       // RaaghuPortal style may not support search, so use flexible assertion
-      const searchInput = screen.queryByTestId('rds-search');
+      const searchInput = screen.queryByTestId('rds-comp-search');
       if (searchInput) {
         expect(searchInput).toBeInTheDocument();
       } else {
@@ -194,7 +194,7 @@ describe('RdsTopNavigation Component', () => {  const defaultProps = {
         product4: true
       });
       
-      const searchInput = screen.queryByTestId('rds-search');
+      const searchInput = screen.queryByTestId('rds-comp-search');
       expect(searchInput).not.toBeInTheDocument();
     });
   });

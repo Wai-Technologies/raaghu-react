@@ -1,8 +1,9 @@
 import React from "react";
-import { RdsAvatar, RdsLikeDislike, RdsRating, RdsReviewCategory } from "../rds-elements";
+import { RdsAvatar, RdsRating, RdsReviewCategory } from "../rds-elements";
 import RdsCompFeeds, { Item } from "../rds-comp-feeds/rds-comp-feeds";
 import { ColorVariant, RatingStyle, RatingType } from "../../../raaghu-elements/src/rds-rating/rds-rating";
 import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
+import RdsCompLikeDislike from "../rds-comp-like-dislike";
 
 export enum VariantType {
   Default = "Default",
@@ -271,7 +272,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
             
                   {/* Like/Dislike Section */}
                   <div className="d-flex align-items-center justify-content-start my-3 card-title">
-                    <RdsLikeDislike dislike={10} like={35} colorVariant="primary" />
+                    <RdsCompLikeDislike dislike={10} like={35} colorVariant="primary" />
                   </div>
                 </div>
               );
@@ -353,7 +354,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
                   <p className="mt-3">{item.description}</p>
 
                   <div className="d-flex align-items-center justify-content-start my-3 card-title">
-                    <RdsLikeDislike dislike={10} like={35} colorVariant="primary" />
+                    <RdsCompLikeDislike dislike={10} like={35} colorVariant="primary" />
                   </div>
                 </div>
               ); 
@@ -392,7 +393,7 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
               
                   <p className="mt-3">{item.description}</p>
                   <div className="d-flex align-items-center justify-content-start my-3 card-title">
-                    <RdsLikeDislike dislike={10} like={35} colorVariant="primary" />
+                    <RdsCompLikeDislike dislike={10} like={35} colorVariant="primary" />
                   </div>
                 </div>
               );

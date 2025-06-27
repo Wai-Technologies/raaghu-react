@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./rds-tab-group.css";
 import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
-import RdsLabel from "../rds-label";
+import RdsCompLabel from "../../../raaghu-components/src/rds-comp-label";
 
 export interface TabItem {
   label: string;
@@ -93,7 +93,7 @@ const RdsTabGroup = (props: RdsTabGroupProps) => {
                   {props.showLeftIcon && (
                     <RdsCompIcon name={props.leftIcon} height="13px" width="13px" classes="mx-1" />
                   )}
-                  <RdsLabel label={item.label} />
+                  <RdsCompLabel label={item.label} />
                   {props.showRightIcon && (
                     <RdsCompIcon name={props.rightIcon} height="11px" width="11px" classes="mx-2" />
                   )}
@@ -104,7 +104,7 @@ const RdsTabGroup = (props: RdsTabGroupProps) => {
                   {props.showLeftIcon && (
                     <RdsCompIcon name={props.leftIcon} height="13px" width="13px" classes="mx-1"/>
                   )}
-                  <RdsLabel label={item.label} />
+                  <RdsCompLabel label={item.label} />
                   {props.showRightIcon && (
                     <RdsCompIcon name={props.rightIcon} height="13px" width="13px" classes="mx-1" />
                   )}

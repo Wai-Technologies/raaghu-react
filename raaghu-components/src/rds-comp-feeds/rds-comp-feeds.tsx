@@ -1,9 +1,10 @@
 import React from "react";
-import { RdsAvatar, RdsLikeDislike, RdsRating } from "../rds-elements";
+import { RdsAvatar, RdsRating } from "../rds-elements";
 import "./rds-comp-feeds.css";
 import { ColorVariant } from "../../../raaghu-elements/src/rds-rating/rds-rating";
 import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLikeDislike from "../rds-comp-like-dislike";
 export interface Item {
     name: string;
     username?: string;
@@ -142,7 +143,7 @@ const RdsCompFeeds = (props: RdsCompFeedProps) => {
                         </div>
                     )}
                     <div className="h-25 my-3">
-                        <RdsLikeDislike dislike={10} like={35} />
+                        <RdsCompLikeDislike dislike={10} like={35} />
                     </div>
                 
                     {item.replies && (

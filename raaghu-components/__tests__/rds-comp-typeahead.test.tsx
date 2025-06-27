@@ -5,7 +5,7 @@ import RdsCompTypeahead from "../src/rds-comp-typeahead/rds-comp-typeahead";
 
 // Mock the RdsElements components
 jest.mock("../src/rds-elements", () => ({
-  RdsSelectList: ({ 
+  RdsCompSelectList: ({ 
     id, 
     selectedValue, 
     selectItems, 

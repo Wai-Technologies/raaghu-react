@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
-    RdsLabel,
     RdsOffcanvas,
-    RdsNavtabs,
     RdsButton,
     RdsInput,
-    RdsSelectList,
     RdsCounter,
 } from "../rds-elements";
 import RdsCompAlertPopup from "../rds-comp-alert-popup";
@@ -15,6 +12,9 @@ import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
 import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 import { CounterState, LayoutOptions } from "../../../raaghu-elements/src/rds-counter/rds-counter";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompNavtabs from "../rds-comp-navtabs";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompEditionProps {
     EditionItems: any;
@@ -187,11 +187,11 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                 {props.EditionItems.EditionName}
                             </label>
                             <p className="fw-medium text-muted pt-2">
-                                <RdsLabel
+                                <RdsCompLabel
                                     label={props.EditionItems.EditionTitle}
                                     size="10px"
                                     multiline={true}
-                                ></RdsLabel>
+                                ></RdsCompLabel>
                             </p>
                         </div>
                     </div>
@@ -240,7 +240,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                 scrolling={false}
                                 preventEscapeKey={false}
                                 offId={"compEditionOff"}>
-                                <RdsNavtabs
+                                <RdsCompNavtabs
                                     activeNavTabId={0}
                                     navtabsItems={navtabsItems}
                                     type="tabs"
@@ -271,13 +271,13 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                             </div>
                                             <div className="col-md-6 sm-p-0">
                                                 <div className="form-group mb-3">                                              
-                                                    <RdsSelectList
+                                                    <RdsCompSelectList
                                                        id="selePla"
                                                        classes="text-theme-change"
                                                        label="Select Plan"
                                                        onChange={(e: any) => handleChangeform(e.target.checked, "selePlan")}                                                       
                                                        selectItems={[]}
-                                                    ></RdsSelectList>
+                                                    ></RdsCompSelectList>
                                                 </div>
                                             </div>
                                         </div>
@@ -357,7 +357,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
-                        <RdsSelectList
+                        <RdsCompSelectList
                             id="planLis"
                             label={props.planListLabel}
                             isDisabled={false}

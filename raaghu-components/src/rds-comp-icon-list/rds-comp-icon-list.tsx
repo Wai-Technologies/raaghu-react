@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Icons } from "./Icons";
-import { RdsSearch } from "../rds-elements";
 import "./rds-comp-icon-list.css"
-import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
 import RdsCompIcon from "../rds-comp-icon/rds-comp-icon";
+import RdsCompSearch, { IconPosition } from "../rds-comp-search/rds-comp-search";
 
 export interface RdsCompIconListProps { }
 
@@ -49,14 +48,14 @@ const RdsCompIconList = (props: RdsCompIconListProps) => {
       <div className="container-fluid p-0 m-0">
         <div className="row">
           <div className="col-md-12">
-            <RdsSearch
+            <RdsCompSearch
               placeholder="Search Icon"
               size={""}
               value={value}
               onChange={onIconSearchHandler}
                iconPosition={IconPosition.Left}
               dataTestId="search"
-            ></RdsSearch>
+            ></RdsCompSearch>
           </div>
         </div>
         <div className="row lcon-list-row">

@@ -3,10 +3,13 @@ import RdsDatatable, { ActionPosition } from "../../../raaghu-elements/src/rds-d
 import { useTranslation } from "react-i18next";
 import "./rds-comp-tenant-list.css";
 import { ScriptableContext } from "chart.js";
-import { RdsWidget, RdsLineChart, RdsRadarChart, RdsDoughnutChart, RdsBooleanChart, RdsBarChart, RdsTable, RdsProgressBar, RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsRadioButton, RdsSelectList, RdsTextArea, RdsDropdownList } from "../rds-elements";
+import { RdsWidget, RdsLineChart, RdsRadarChart, RdsDoughnutChart, RdsBooleanChart, RdsBarChart, RdsProgressBar, RdsButton, RdsCheckbox, RdsInput, RdsRadioButton, RdsTextArea, RdsDropdownList } from "../rds-elements";
 import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 import RdsCompBigNumber from "../rds-comp-big-number";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompSelectList from "../rds-comp-select-list";
+import RdsCompTable from "../rds-comp-table";
 export interface Edition {
     option: string;
     value: string;
@@ -1619,7 +1622,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                         isCardStretch={true}
                                     >
                                         <div className="table-responsive">
-                                            <RdsTable
+                                            <RdsCompTable
                                                 tableHeightForScroll="356px"
                 
                                                 headerDatas={[
@@ -1892,7 +1895,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                                         ),
                                                     },
                                                 ]}
-                                            ></RdsTable>
+                                            ></RdsCompTable>
                                         </div>
                                     </RdsWidget>
                 </div>
@@ -1905,7 +1908,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                         isCardStretch={true}
                     >
                         <div className="table-responsive">
-                            <RdsTable id="sortable"
+                            <RdsCompTable id="sortable"
 
                                 headerDatas={[
                                     {
@@ -2105,7 +2108,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                         ),
                                     },
                                 ]}
-                            ></RdsTable>
+                            ></RdsCompTable>
                         </div>
                     </RdsWidget>
                 </div>
@@ -2136,7 +2139,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3">
-                                <RdsSelectList
+                                <RdsCompSelectList
                                     id={"saasEditionlist"}
                                     label="Edition"
                                     placeholder="Select Edition"
@@ -2146,7 +2149,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                     required={false}
                                     selectedValue={tenantInformationData?.editions}
                                     onChange={(item: any) => {handleDataChanges(item.value,"editions"); }}                                  
-                                ></RdsSelectList>
+                                ></RdsCompSelectList>
                             </div>
                         </div>
                     </div>
@@ -2201,7 +2204,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                         </div>
                         <div className="row mb-3">
                             <div className="col-md-8">
-                                <RdsLabel
+                                <RdsCompLabel
                                     label="Connection Strings"
                                     required={true}
                                 />
@@ -2256,7 +2259,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="form-group text-capitalize mb-3">
-                                <RdsSelectList
+                                <RdsCompSelectList
                                     id={"saasActivelist"}
                                     label="Activation State"
                                     placeholder="Select Activation State"
@@ -2265,7 +2268,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                     selectedValue={tenantInformationData?.activationState}
                                     onChange={(e: any) => handleDataChanges(e.value, "activationState")}
                                     required={true}
-                                ></RdsSelectList>
+                                ></RdsCompSelectList>
                             </div>
                         </div>
                     </div>
@@ -2299,7 +2302,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
     {props.tenant === "management" && (
         <div className="mt-4" >
             <div className="fw-medium" >
-                <RdsLabel label="Form-Based Registration" />
+                <RdsCompLabel label="Form-Based Registration" />
             </div>
             <div className="form-group py-2 fw-medium">
                 <RdsCheckbox
@@ -2408,7 +2411,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
 
                         <div className="row text-start">
                             <div className="col-md-6 mt-2">
-                                <RdsLabel label="Country" required={true} />
+                                <RdsCompLabel label="Country" required={true} />
                                 <RdsDropdownList
                                     key={countryList.length}
                                     placeholder="Select Country"
@@ -2499,11 +2502,11 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                         </div>
                     </div>
                     {/* <div className="pt-2">
-                        <RdsLabel
+                        <RdsCompLabel
                             class="text-mute pt-2 secondary "
                             label="©2023 WAi Technologies. All rights reserved "
                             size="0.7rem"
-                        ></RdsLabel>
+                        ></RdsCompLabel>
                     </div> */}
                 </div>
             </div>

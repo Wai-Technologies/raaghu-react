@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { RdsButton, RdsSelectList } from "../rds-elements";
+import { RdsButton } from "../rds-elements";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompTypeaheadProps {
     selectItems: Array<{ option: string; value: string; }>;
@@ -53,7 +54,7 @@ const RdsCompTypeahead = (props: RdsCompTypeaheadProps) => {
             <div>
                 <div className="row align-items-end d-flex px-2">
                     <div className="col-lg-11 col-md-11 col-sm-12 mt-2">
-                        <RdsSelectList
+                        <RdsCompSelectList
                             id="selCat"
                             selectedValue={tempSelectedValue}
                             selectItems={selectItems}
@@ -61,7 +62,7 @@ const RdsCompTypeahead = (props: RdsCompTypeaheadProps) => {
                             placeholder="Select Authors"
                             key={`selectItem-${tempSelectedValue}`}
                             onChange={(item: any) => handleListChange(item.value)}>
-                        </RdsSelectList>
+                        </RdsCompSelectList>
                     </div>
                     <div className="col-lg-1 col-md-1 col-sm-12 mt-2">
                         <RdsButton

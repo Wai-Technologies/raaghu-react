@@ -25,7 +25,7 @@ jest.mock('../rds-elements', () => ({
             placeholder={props.placeholder}
         />
     ),
-    RdsLabel: (props: any) => <label data-testid="label">{props.label}</label>,
+    RdsCompLabel: (props: any) => <label data-testid="label">{props.label}</label>,
     RdsRadioButton: (props: any) => (
         <div data-testid={`radio-group-${Math.random()}`}>
             {props.itemList?.map((item: any, index: number) => (
@@ -43,7 +43,7 @@ jest.mock('../rds-elements', () => ({
             ))}
         </div>
     ),
-    RdsSelectList: (props: any) => (
+    RdsCompSelectList: (props: any) => (
         <select 
             data-testid="grant-type-select"
             value={props.selectedValue || ""}

@@ -4,7 +4,6 @@ import {
   RdsButton,
   RdsInput,
   RdsCheckbox,
-  RdsSelectList,
   RdsTextArea,
   RdsTooltip,
 } from "../rds-elements";
@@ -13,6 +12,7 @@ import { CheckboxStyle } from "../../../raaghu-elements/src/rds-checkbox/rds-che
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 import {LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompFormsQuestionProps {
   formQuestionsData?: any;
@@ -261,14 +261,14 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
               </div>
               <div className="row pb-1">
                 <div className="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-12 mt-2 pe-0">
-                  <RdsSelectList
+                  <RdsCompSelectList
                     id="questy"
                     label="Type"
                     placeholder="Type"
                     selectItems={questionsTypeList}
                     selectedValue={element.questionType}
                     onChange={(item: any) => setSelectedOption(i, item.value)}
-                  ></RdsSelectList>
+                  ></RdsCompSelectList>
                 </div>
               </div>
               {element.questionType !== 1 && (

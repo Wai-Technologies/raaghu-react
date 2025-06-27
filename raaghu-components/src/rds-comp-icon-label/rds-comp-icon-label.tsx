@@ -1,7 +1,7 @@
 import React from "react";
 import "./rds-comp-icon-label.css";
 import RdsCompIcon from "../rds-comp-icon/rds-comp-icon";
-import RdsLabel from "../../../raaghu-elements/src/rds-label/rds-label";
+import RdsCompLabel from "../rds-comp-label/rds-comp-label";
 
 export interface RdsCompIconLabelProps {
     label?: string;
@@ -45,7 +45,7 @@ const RdsCompIconLabel = (props: RdsCompIconLabelProps) => {
                     colorVariant={props.colorVariant}
                     isCursorPointer={true}
                 />
-                <RdsLabel label={props.label} size={classes()} class={"align-items-center " + classes()} />
+                <RdsCompLabel label={props.label} size={classes()} class={"align-items-center " + classes()} />
             </div>
         </>
     );

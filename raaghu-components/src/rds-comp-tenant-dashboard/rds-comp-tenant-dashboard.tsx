@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RdsProgressBar, RdsRadarChart, RdsTable, RdsWidget } from "../rds-elements";
+import { RdsProgressBar, RdsRadarChart, RdsWidget } from "../rds-elements";
 import {
     RdsLineChart,
     RdsDoughnutChart,
@@ -8,6 +8,7 @@ import {
 } from "../rds-elements";
 import { ScriptableContext } from "chart.js";
 import RdsCompBigNumber from "../rds-comp-big-number";
+import RdsCompTable from "../rds-comp-table";
 
 const RdsCompTenantDashboard = () => {
 
@@ -1210,7 +1211,7 @@ const RdsCompTenantDashboard = () => {
                                         isCardStretch={true}
                                     >
                                         <div className="table-responsive">
-                                            <RdsTable
+                                            <RdsCompTable
                                                 tableHeightForScroll="356px"
                 
                                                 headerDatas={[
@@ -1483,7 +1484,7 @@ const RdsCompTenantDashboard = () => {
                                                         ),
                                                     },
                                                 ]}
-                                            ></RdsTable>
+                                            ></RdsCompTable>
                                         </div>
                                     </RdsWidget>
                 </div>
@@ -1496,7 +1497,7 @@ const RdsCompTenantDashboard = () => {
                         isCardStretch={true}
                     >
                         <div className="table-responsive">
-                            <RdsTable id="sortable"
+                            <RdsCompTable id="sortable"
 
                                 headerDatas={[
                                     {
@@ -1696,7 +1697,7 @@ const RdsCompTenantDashboard = () => {
                                         ),
                                     },
                                 ]}
-                            ></RdsTable>
+                            ></RdsCompTable>
                         </div>
                     </RdsWidget>
                 </div>

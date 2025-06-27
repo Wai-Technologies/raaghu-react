@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import RdsDatatable, { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 import {
     RdsButton,
-    RdsIllustration,
+    RdsEmptyState,
     RdsInput,
     RdsTextArea,
-    RdsLabel,
 } from "../rds-elements";
 
 export interface RdsCompWebhookSubscriptionProps {
@@ -209,7 +208,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                     </div> 
                     {webhookheaderfile.length == 0 && (
                         <div>
-                            <RdsIllustration
+                            <RdsEmptyState
                                 iconHeight="250px"
                                 iconPath="/assets/lottie-files/outlined/dual-color/illustration-light.json"
                                 iconWidth="250px"

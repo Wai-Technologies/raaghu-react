@@ -6,7 +6,6 @@ import {
   RdsButton,
   RdsDropdown,
   RdsDropdownList,
-  RdsLabel,
   RdsRadioButton,
 } from "../rds-elements";
 import {
@@ -34,6 +33,7 @@ import {
   RdsRadioButtonState,
 } from "../../../raaghu-elements/src/rds-radio-button/rds-radio-button";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompAdaptiveCardsProps {
   title?: boolean;
@@ -195,7 +195,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
               {props.type == "CalendarReminder" && (
                 <>
                   <div className="my-2">
-                    <RdsLabel fontWeight="normal" label={props.label} />
+                    <RdsCompLabel fontWeight="normal" label={props.label} />
                     <div className="adaptive-card-small-text">
                       {props.smallText}
                     </div>

@@ -52,11 +52,11 @@ jest.mock('../src/rds-elements', () => ({
   )
 }));
 
-// Mock RdsSearch component
-jest.mock('../../raaghu-elements/src/rds-search/rds-search', () => ({
+// Mock RdsCompSearch component
+jest.mock('../../raaghu-elements/src/rds-comp-search/rds-comp-search', () => ({
   __esModule: true,  default: ({ placeholder, value, onKeyPress, onChange, dataTestId }: any) => (
     <div 
-      data-testid={dataTestId || 'rds-search'}
+      data-testid={dataTestId || 'rds-comp-search'}
       data-placeholder={placeholder}
     >
       <input 

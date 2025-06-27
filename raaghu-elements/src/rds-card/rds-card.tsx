@@ -4,12 +4,12 @@ import RdsAvatar from "../rds-avatar";
 import "./rds-card.css";
 import RdsButton from "../rds-button";
 import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
-import RdsLabel from "../rds-label";
+import RdsCompLabel from "../../../raaghu-components/src/rds-comp-label";
 import RdsBadge from "../rds-badge";
-import RdsTag from "../rds-tag";
+import RdsCompTag from "../../../raaghu-components/src/rds-comp-tag";
 import RdsInput from "../rds-input";
 import { AvatarSize } from "../rds-avatar/rds-avatar";
-import { ColorVariant, Role, TagType } from "../rds-tag/rds-tag";
+import { ColorVariant, Role, TagType } from "../../../raaghu-components/src/rds-comp-tag/rds-comp-tag";
 
 export enum CardTypes {  //types of cards
   WithImage = "With Image",
@@ -220,7 +220,7 @@ const RdsCard = (props: RdsCardProps) => {
               </h6>
             </div>
             <span className="mt-1 fs-4 mb-2">
-              <RdsLabel label={props.cardSubTitle} fontWeight="bold" />
+              <RdsCompLabel label={props.cardSubTitle} fontWeight="bold" />
             </span>
           </div>
         )}
@@ -357,7 +357,7 @@ const RdsCard = (props: RdsCardProps) => {
               )}
               {props.type === "With Tags" && (
                 <div className="d-flex justify-content-start align-items-center gap-1">
-                  <RdsTag tagType={TagType.Round} role={Role.Basic} colorVariant={ColorVariant.Primary} />
+                  <RdsCompTag tagType={TagType.Round} role={Role.Basic} colorVariant={ColorVariant.Primary} />
                 </div>
               )}
               {props.type === "With Avatar" && (

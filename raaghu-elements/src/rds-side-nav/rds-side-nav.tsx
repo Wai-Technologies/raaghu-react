@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon/rds-comp-icon";
 import useOutsideClick from "../rds-outside-click";
 import RdsAvatar from "../rds-avatar";
-import RdsSearch from "../rds-search";
 import { useNavigate } from "react-router-dom";
 import { AvatarSize } from "../rds-avatar/rds-avatar";
 import { use } from "i18next";
-import { IconPosition } from "../rds-search/rds-search";
+import RdsCompSearch from "../../../raaghu-components/src/rds-comp-search";
+import { IconPosition } from "../../../raaghu-components/src/rds-comp-search/rds-comp-search";
 
 export enum NavLayout {
     Raaghu = "Raaghu",
@@ -408,7 +408,7 @@ const RdsSideNav = (props: RdsSideNavProps) => {
                             </div>
                         )}
                         {props.layout === "LeftSideNavList" && !props.collapse && (
-                            <div className={`${collapse ? "LeftSideNavList" : "LeftSideNavListCollapse"}`}><RdsSearch
+                            <div className={`${collapse ? "LeftSideNavList" : "LeftSideNavListCollapse"}`}><RdsCompSearch
                                 label=""
                                 placeholder="Search"
                                 value={searchQuery}
@@ -455,7 +455,7 @@ export default RdsSideNav;
 // import RdsCompIcon from "../rds-icon/rds-icon";
 // import useOutsideClick from "../rds-outside-click";
 // import RdsAvatar from "../rds-avatar";
-// import RdsSearch from "../rds-search";
+// import RdsCompSearch from "../rds-comp-search";
 
 // export interface RdsSideNavProps {
 //   sideNavItems: any;
@@ -808,7 +808,7 @@ export default RdsSideNav;
 //                         )}
 
 //                         {props.layout === "LeftSideNavList" && !props.collapse && (
-//                             <div className={`${collapse ? "LeftSideNavList" : "LeftSideNavListCollapse" }`}><RdsSearch 
+//                             <div className={`${collapse ? "LeftSideNavList" : "LeftSideNavListCollapse" }`}><RdsCompSearch 
 //                                 label=""
 //                                 placeholder="Search"
 //                                 value={searchQuery}

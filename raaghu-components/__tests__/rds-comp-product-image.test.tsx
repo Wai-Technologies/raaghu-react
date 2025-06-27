@@ -12,7 +12,7 @@ jest.mock('../../raaghu-elements/src/rds-rating/rds-rating', () => ({
 
 // Mock the dependencies
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: ({ label, size }: any) => <div data-testid="rds-label" data-size={size}>{label}</div>,
+  RdsCompLabel: ({ label, size }: any) => <div data-testid="rds-comp-label" data-size={size}>{label}</div>,
   RdsBadge: ({ label, size, shape, colorVariant, children }: any) => (
     <div data-testid="rds-badge" data-color={colorVariant} data-shape={shape} data-size={size}>
       {label}

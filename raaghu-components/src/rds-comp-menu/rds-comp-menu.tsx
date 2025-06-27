@@ -1,4 +1,4 @@
-import { RdsCheckbox, RdsSelectList } from "../rds-elements";
+import { RdsCheckbox } from "../rds-elements";
 import React, { useState, useEffect, useRef } from "react";
 import { RdsInput, RdsButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
@@ -6,6 +6,7 @@ import RdsCompMenuDirectory from "../rds-comp-menus-directories/rds-comp-menus-d
 import RdsCompButtonGroup from "../rds-comp-button-group";
 import { Role } from "../rds-comp-button-group/rds-comp-button-group";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompSelectList from "../rds-comp-select-list";
 export interface RdsCompMenuProps {
   onSubmit: any;
   menusData: any;
@@ -287,7 +288,7 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
                 />
               </div>
               <div className="col-md-12 mb-2">
-                <RdsSelectList
+                <RdsCompSelectList
                   id="selpa"
                   label="Page"
                   placeholder="Select Page"
@@ -295,7 +296,7 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
                   isSearchable={true}
                   selectedValue={data?.pageId}
                   onChange={(item: any) => handlePageId(item.value)}
-                ></RdsSelectList>
+                ></RdsCompSelectList>
               </div>
               <div className="col-md-12">
                 <RdsInput

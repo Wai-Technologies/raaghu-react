@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import { RdsLabel } from "../rds-elements";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface DirectoryItem {
     id: string;
@@ -92,13 +92,13 @@ export const RdsCompDirectoryList = (props: RdsCompDirectoryListProps) => {
                         colorVariant={isSelected ? "primary" : undefined}
                         onClick={handleClick(item.id, item.name)}
                     />
-                    <RdsLabel
+                    <RdsCompLabel
                         class="ps-3 pe-2 cursor-pointer"
                         label={item.name}
 
                     />
                     {item.children && (
-                        <RdsLabel label={`(${item.children.length})`} />
+                        <RdsCompLabel label={`(${item.children.length})`} />
                     )}
                 </div>
 

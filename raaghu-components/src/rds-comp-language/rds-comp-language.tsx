@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
-    RdsSelectList,
     RdsCheckbox,
     RdsInput,
     RdsButton
 } from "../rds-elements";
 import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
+import RdsCompSelectList from "../rds-comp-select-list";
 export interface RdsCompLanguageProps {
     cultureList: { option: any, value: any }[];
     flagIconList: { option: any, value: any }[];
@@ -103,7 +103,7 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                         {!props.edit && (
                             <div className="col-md-6 mb-3">
                                 <div className="form-group">
-                                    <RdsSelectList
+                                    <RdsCompSelectList
                                         id="langC"
                                         label="Culture Name"
                                         selectItems={props.cultureList}
@@ -111,7 +111,7 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                                         onChange={(item: any) => onChangeSelectList("cultureName", item.value)}
                                         required={true}
                                         key={`cultureName-${cultureName}`}
-                                    ></RdsSelectList>
+                                    ></RdsCompSelectList>
                                 </div>
                             </div>
                         )}
@@ -119,7 +119,7 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                         {!props.edit && (
                             <div className="col-md-6 mb-3">
                                 <div className="form-group">
-                                    <RdsSelectList
+                                    <RdsCompSelectList
                                         id="langU"
                                         label="UI Culture Name"
                                         selectItems={props.cultureList}
@@ -127,7 +127,7 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                                         onChange={(item: any) => onChangeSelectList("cultureUIName", item.value)}
                                         required={true}
                                         key={`cultureUIName-${cultureUIName}`}
-                                    ></RdsSelectList>
+                                    ></RdsCompSelectList>
                                 </div>
                             </div>
                         )}
@@ -156,14 +156,14 @@ const RdsCompLanguage = (props: RdsCompLanguageProps) => {
                         <div className="col-md-6 pt-2">
                             <div className="form-group">
                                 <div className="form-group">
-                                    <RdsSelectList
+                                    <RdsCompSelectList
                                         id="langF"
                                         label="Flag Icon"
                                         selectItems={props.flagIconList}
                                         onChange={(item: any) => onChangeSelectList("flagIcon", item.value)}
                                         selectedValue={flagIcon}
                                         key={`flagIcon-${flagIcon}`}
-                                    ></RdsSelectList>
+                                    ></RdsCompSelectList>
                                 </div>
                             </div>
                         </div>

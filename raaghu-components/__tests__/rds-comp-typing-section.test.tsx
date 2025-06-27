@@ -116,7 +116,7 @@ jest.mock("../src/rds-elements", () => ({
       )}
     </div>
   ),
-  RdsSelectList: ({ 
+  RdsCompSelectList: ({ 
     id, 
     selectedValue, 
     selectItems, 

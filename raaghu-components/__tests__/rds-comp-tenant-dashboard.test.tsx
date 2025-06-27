@@ -37,8 +37,8 @@ jest.mock('../src/rds-elements', () => ({
       Radar Chart: {props.id}
     </div>
   ),
-  RdsTable: (props: any) => (
-    <div data-testid="rds-table">
+  RdsCompTable: (props: any) => (
+    <div data-testid="rds-comp-table">
       Table with {props.tableHeaders?.length || 0} headers and {props.tableData?.length || 0} rows
     </div>
   ),

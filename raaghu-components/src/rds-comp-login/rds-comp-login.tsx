@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  RdsLabel,
   RdsButton,
   RdsInput,
   RdsCheckbox,
@@ -8,7 +7,7 @@ import {
   RdsAlert,
   RdsDropdownList,
   RdsDatePicker,
-  RdsIllustration,
+  RdsEmptyState,
 } from "../rds-elements";
 import "./rds-comp-login.css";
 import { useTranslation } from "react-i18next";
@@ -17,6 +16,7 @@ import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
 import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 export interface RdsCompLoginProps {
   error?: any;
   getvalidTenantName: string;
@@ -222,16 +222,16 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
             <small className="d-flex justify-content-center col-md-11">
               <span className="d-flex">
                 {" "}
-                <RdsLabel label={`${"Current Tenant"}`}></RdsLabel>:
+                <RdsCompLabel label={`${"Current Tenant"}`}></RdsCompLabel>:
               </span>
               &nbsp;
               <span className="fw-semibold pe-1">
                 {" "}
-                <RdsLabel
+                <RdsCompLabel
                   label={
                     `${props.getvalidTenantName}`
                   }
-                ></RdsLabel>
+                ></RdsCompLabel>
               </span>
               (
               <span>
@@ -259,10 +259,10 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                       dataTestId="tenancy-name"
                     />
                     <div className="text-start p-0">
-                      <RdsLabel
+                      <RdsCompLabel
                         label="Leave the name field blank to switch to the host side."
                         size="0.7rem"
-                      ></RdsLabel>
+                      ></RdsCompLabel>
                     </div>
                   </div>
                   <div className="mb-2 mt-3 d-flex justify-content-end gap-2">
@@ -439,7 +439,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
         <div>
             <div className="row mb-3 d-flex justify-content-between">
                 <div className="col-md-4">
-                <RdsLabel label="Select Date Range"></RdsLabel>
+                <RdsCompLabel label="Select Date Range"></RdsCompLabel>
                     <RdsDatePicker
                         type="advanced"
                         DatePickerLabel={"Select Date Range"}
@@ -449,7 +449,7 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
                 </div>
                 <div className="col-md-4">
                     <div className="Select">
-                        <RdsLabel label="Result"></RdsLabel>
+                        <RdsCompLabel label="Result"></RdsCompLabel>
                         <RdsDropdownList
                             data-testid="Result"
                             placeholder="All"
@@ -465,10 +465,10 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
             </div>
             {page && (
                 <div>
-                    <RdsIllustration
+                    <RdsEmptyState
                         subLabel="Currently you do not have any data "
                         colorVariant="light"
-                    ></RdsIllustration>
+                    ></RdsEmptyState>
                 </div>
             )}
             {!page && (

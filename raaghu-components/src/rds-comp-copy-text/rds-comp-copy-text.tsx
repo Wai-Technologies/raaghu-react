@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import { RdsLabel } from "../rds-elements";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompCopyTextProps { }
 
@@ -37,7 +37,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
 
               <div className="row mb-3 pb-1">
                 <div className="w-100">
-                    <RdsLabel
+                    <RdsCompLabel
                       fontWeight=""
                       label="Download the CLI tool"
                     />
@@ -66,7 +66,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
 
               <div className="row mb-3 pb-1">
                 <div className="w-100">
-                    <RdsLabel
+                    <RdsCompLabel
                       fontWeight=""
                       label="Update the CLI tool to the latest version"
                     />
@@ -95,7 +95,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
               {/* New paragraph and copy button */}
               <div className="row mb-2 pb-1">
                 <div className="w-100">
-                    <RdsLabel
+                    <RdsCompLabel
                       fontWeight=""
                       label="Create a new solution "
                     />

@@ -6,12 +6,12 @@ import {
     RdsDoughnutChart,
     RdsBooleanChart,
     RdsBarChart,
-    RdsTable,
     RdsMap
 } from "../rds-elements";
 import { ScriptableContext } from "chart.js";
 import RdsCompBigNumber from "../rds-comp-big-number";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompTable from "../rds-comp-table";
 export interface RdsCompAdminDashboardProps {
     user: string,
 }
@@ -1451,7 +1451,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                         >
                         <div className="table-responsive">
                             <div className="tableheigthMemberActivity">
-                            <RdsTable
+                            <RdsCompTable
                                 headerDatas={[
                                     {
                                         displayName: "Members",
@@ -1722,7 +1722,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                         ),
                                     },
                                 ]}
-                            ></RdsTable>
+                            ></RdsCompTable>
                             </div>
                         </div>
 
@@ -1737,7 +1737,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                         isCardStretch={true}
                     >
                         <div className="table-responsive">
-                            <RdsTable id="sortable"
+                            <RdsCompTable id="sortable"
                                 // tableHeightForScroll="356px"
                                 headerDatas={[
                                     {
@@ -1937,7 +1937,7 @@ const RdsCompAdminDashboard = (props: RdsCompAdminDashboardProps) => {
                                         ),
                                     },
                                 ]}
-                            ></RdsTable>
+                            ></RdsCompTable>
                         </div>
                     </RdsWidget>
                 </div>

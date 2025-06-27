@@ -1,7 +1,8 @@
 import React from "react";
 import "./rds-comp-message-box.css"; // Import custom styles
-import { RdsAvatar, RdsLabel } from "../rds-elements";
+import { RdsAvatar } from "../rds-elements";
 import { AvatarSize, AvatarStyle } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsMessageBoxProps {
   isImage?: boolean;
@@ -31,7 +32,7 @@ const RdsMessageBox = (props: RdsMessageBoxProps) => {
               profilePic={props.avtar}
               maxVisibleAvatars={3}
             />
-            <RdsLabel class="m-2 word-wrap" label={props.message} />
+            <RdsCompLabel class="m-2 word-wrap" label={props.message} />
           </div>
           {props.isImage &&
           <div className="imageDiv">

@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState, useRef } from 'react';
 import RdsCompIcon from '../../../raaghu-components/src/rds-comp-icon';
 import RdsInput from '../rds-input';
-import RdsNavtabs from '../rds-navtabs';
+import RdsCompNavtabs from '../../../raaghu-components/src/rds-comp-navtabs';
 import RdsFabMenu from '../rds-fab-menu';
 import RdsAvatar from '../rds-avatar';
 import Picker from 'emoji-picker-react';
@@ -278,7 +278,7 @@ const RdsChat = (props: RdsChatProps) => {
                     </div>
                     <div className='chat-window-header-options justify-content-between'>
                         <span>
-                            <RdsNavtabs layout="Horizontal" type='tabs' id='chat' activeNavTabId="chat" navtabsItems={[
+                            <RdsCompNavtabs layout="Horizontal" type='tabs' id='chat' activeNavTabId="chat" navtabsItems={[
                                 {
                                     id: 'chat',
                                     label: 'Chat',

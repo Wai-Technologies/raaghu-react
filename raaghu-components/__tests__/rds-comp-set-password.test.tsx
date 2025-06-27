@@ -48,7 +48,7 @@ jest.mock('../src/rds-elements', () => ({
       <option value="">Select Language</option>
     </select>
   ),
-  RdsLabel: ({ label, ...props }: any) => <span {...props}>{label}</span>
+  RdsCompLabel: ({ label, ...props }: any) => <span {...props}>{label}</span>
 }));
 
 describe('RdsCompSetPassword Component', () => {

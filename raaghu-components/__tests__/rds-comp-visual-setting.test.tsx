@@ -36,7 +36,7 @@ jest.mock('../src/rds-elements', () => ({
       {...props}
     />
   )),
-  RdsSelectList: jest.fn(({ 
+  RdsCompSelectList: jest.fn(({ 
     id, 
     label, 
     placeholder, 

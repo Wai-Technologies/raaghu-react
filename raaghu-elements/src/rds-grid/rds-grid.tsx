@@ -4,13 +4,10 @@ import {
   RdsInput,
   RdsButton,
   RdsPagination,
-  RdsIllustration,
+  RdsEmptyState,
   RdsAvatar,
   RdsTooltip,
   RdsProgressBar,
-  RdsSearch,
-  RdsLabel,
-  RdsSelectList,
   RdsDropdown,
   RdsCheckboxParentChild,
 } from "../../../raaghu-components/src/rds-elements";
@@ -29,8 +26,11 @@ import {
   Style,
 } from "../rds-dropdown/rds-dropdown";
 import { InputSize } from "../rds-input/rds-input";
-import { IconPosition } from "../rds-search/rds-search";
 import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
+import RdsCompLabel from "../../../raaghu-components/src/rds-comp-label";
+import RdsCompSearch from "../../../raaghu-components/src/rds-comp-search";
+import { IconPosition } from "../../../raaghu-components/src/rds-comp-search/rds-comp-search";
+import RdsCompSelectList from "../../../raaghu-components/src/rds-comp-select-list/rds-comp-select-list";
 
 export enum ActionPosition {
   Right = "right",
@@ -603,7 +603,7 @@ useEffect(() => {
                   <div className="table-controls d-flex align-items-center justify-content-between flex-wrap">
                     <div className="d-flex align-items-center flex-grow-1">
                       <div className="mt-2 flex-grow-1 w-100 w-md-auto">
-                        <RdsSearch
+                        <RdsCompSearch
                           iconPosition={IconPosition.Right}
                           labelPosition="top"
                           placeholder="Search"
@@ -1070,7 +1070,7 @@ useEffect(() => {
                   colSpan={props.tableHeaders.length + (props.actions ? 1 : 0)}
                 >
                   <div className="d-flex">
-                    <RdsLabel fontWeight="bolder" label="Title" />
+                    <RdsCompLabel fontWeight="bolder" label="Title" />
                     <div className="ms-3" style={{ gap: "10px" }}>
                       <RdsCompIcon
                         classes="stroke"
@@ -1233,7 +1233,7 @@ useEffect(() => {
                               )}
                             </div>
                             <div className="d-flex align-items-center mt-1 ps-1 px-4 custom-select-list">
-                              <RdsSelectList
+                              <RdsCompSelectList
                                 classes="fixed-selectlist px-3"
                                 id="story"
                                 isMultiple={true}

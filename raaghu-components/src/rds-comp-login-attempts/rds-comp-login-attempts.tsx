@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
-import { RdsDatePicker, RdsDropdownList, RdsIllustration, RdsLabel, RdsPagination, RdsSelectList } from "../rds-elements";
+import { RdsDatePicker, RdsDropdownList, RdsEmptyState, RdsPagination } from "../rds-elements";
 import "./rds-comp-login-attempts.css";
 import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompLoginAttemptsProps {
     tableHeaders?: {
@@ -80,7 +81,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
             <div className="row mb-3 d-flex justify-content-between">
 
                 <div className="col-md-4">
-                <RdsLabel label="Select Date Range"></RdsLabel>
+                <RdsCompLabel label="Select Date Range"></RdsCompLabel>
                     <RdsDatePicker
                         type="advanced"
                         DatePickerLabel={"Select Date Range"}
@@ -90,7 +91,7 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
                 </div>
                 <div className="col-md-4">
                     <div className="Select">
-                        <RdsLabel label="Result"></RdsLabel>
+                        <RdsCompLabel label="Result"></RdsCompLabel>
                         <RdsDropdownList
                             data-testid="Result"
                             placeholder="All"
@@ -109,10 +110,10 @@ const RdsCompLoginAttempts = (props: RdsCompLoginAttemptsProps) => {
 
             {page && (
                 <div>
-                    <RdsIllustration
+                    <RdsEmptyState
                         subLabel="Currently you do not have any data "
                         colorVariant="light"
-                    ></RdsIllustration>
+                    ></RdsEmptyState>
                 </div>
             )}
 

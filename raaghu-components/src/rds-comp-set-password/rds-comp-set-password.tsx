@@ -3,10 +3,10 @@ import {
   RdsInput,
   RdsButton,
   RdsDropdownList,
-  RdsLabel,
 } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface Edition {
   option?: string;
@@ -657,10 +657,10 @@ const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
                 </div>
                 <div className="fs-6">
                   <label>
-                    <RdsLabel
+                    <RdsCompLabel
                       label="A password reset link will be sent to your email to reset your password. If you don't get an email in a few minutes, please re-try."
                       size="13px"
-                    ></RdsLabel>
+                    ></RdsCompLabel>
                   </label>
                 </div>
                 <div className="mt-4">

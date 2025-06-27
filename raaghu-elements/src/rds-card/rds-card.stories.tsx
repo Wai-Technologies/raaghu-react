@@ -7,12 +7,11 @@ import RdsAreaChart from "../rds-chart-area";
 import RdsBooleanChart from "../rds-chart-boolean";
 import { ScriptableContext } from "chart.js";
 import RdsCompBigNumber from "../../../raaghu-components/src/rds-comp-big-number";
-import RdsWidget from "../rds-widget";
+import RdsWidget from "../../../raaghu-components/src/rds-comp-widget";
 import RdsBarChart from "../rds-chart-bar";
-import RdsTable from "../rds-table";
 import RdsLineChart from "../rds-chart-line";
 import RdsProgressBar from "../rds-progress-bar";
-import { RdsCompIcon } from "../../../raaghu-components/src";
+import { RdsCompIcon, RdsCompTable } from "../../../raaghu-components/src";
 
 const meta: Meta = {
   title: 'Elements/Card',
@@ -807,7 +806,7 @@ export const WithDataTable: Story = {
                         isRefreshRequired={true}
                     >
                         <div className="table-responsive">
-                            <RdsTable
+                            <RdsCompTable
                                 tableHeightForScroll="356px"
 
                                 headerDatas={[
@@ -1080,7 +1079,7 @@ export const WithDataTable: Story = {
                                         ),
                                     },
                                 ]}
-                            ></RdsTable>
+                            ></RdsCompTable>
                         </div>
 
                     </RdsWidget>
@@ -1478,7 +1477,7 @@ export const WithTable : Story = {
                         isRefreshRequired={true}
                     >
                         <div className="table-responsive">
-                            <RdsTable id="sortable"
+                            <RdsCompTable id="sortable"
 
                                 headerDatas={[
                                     {
@@ -1683,7 +1682,7 @@ export const WithTable : Story = {
                                         ),
                                     },
                                 ]}
-                            ></RdsTable>
+                            ></RdsCompTable>
                         </div>
                     </RdsWidget>
     )},

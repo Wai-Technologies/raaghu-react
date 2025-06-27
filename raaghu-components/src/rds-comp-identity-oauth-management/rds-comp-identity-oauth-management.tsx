@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { RdsButton, RdsCheckbox, RdsInput, RdsLabel } from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsInput } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import RdsCompLabel from "../rds-comp-label";
 
 
 export interface RdsCompIdentityOauthManagementProps {
@@ -58,7 +59,7 @@ const isFormValid=isClientIdValid(oauth?.clientId) && isAuthorityValid(oauth?.au
             <form>
                 <div className="custom-content-scroll">
                 <div className="mb-3 fw-medium">
-                    <RdsLabel label="OAuth Login Settings"></RdsLabel>
+                    <RdsCompLabel label="OAuth Login Settings"></RdsCompLabel>
                 </div>
 
                 <div className="col-lg-12 col-md-12 col-sm-12 mb-3">

@@ -71,7 +71,7 @@ jest.mock('../src/rds-elements', () => ({
         required={required}
       />
     </div>
-  ),  RdsSelectList: ({ 
+  ),  RdsCompSelectList: ({ 
     id, 
     label, 
     placeholder, 

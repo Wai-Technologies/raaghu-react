@@ -14,8 +14,8 @@ jest.mock('react-router-dom', () => ({
 
 // Mock the rds-elements components
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: ({ label, class: className }: any) => (
-    <span data-testid="rds-label" className={className}>
+  RdsCompLabel: ({ label, class: className }: any) => (
+    <span data-testid="rds-comp-label" className={className}>
       {label}
     </span>
   ),
@@ -251,10 +251,10 @@ describe('RdsCompPageNotFound', () => {
   });
 
   describe('Mocked Components Integration', () => {
-    it('should render RdsLabel components with correct props', () => {
+    it('should render RdsCompLabel components with correct props', () => {
       render(<RdsCompPageNotFound />);
       
-      const labels = screen.getAllByTestId('rds-label');
+      const labels = screen.getAllByTestId('rds-comp-label');
       expect(labels).toHaveLength(2);
       
       expect(labels[0]).toHaveTextContent('Page not found');

@@ -102,6 +102,7 @@
     "react-redux": "^8.0.5",
     "react-resizable": "^3.0.5",
     "react-router-dom": "^6.20.0",
+    "react-select": "^5.10.1",
     "react-simple-code-editor": "^0.13.1",
     "react-slick": "^0.29.0",
     "redux-persist": "^6.0.0",

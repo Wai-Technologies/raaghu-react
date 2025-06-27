@@ -21,9 +21,9 @@ jest.mock('../src/rds-elements', () => ({
             ))}
         </div>
     ),
-    RdsLabel: ({ label, onClick, ...props }: any) => (
+    RdsCompLabel: ({ label, onClick, ...props }: any) => (
         <span 
-            data-testid="rds-label"
+            data-testid="rds-comp-label"
             onClick={onClick}
             {...props}
         >

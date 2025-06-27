@@ -83,7 +83,7 @@ jest.mock('../src/rds-elements', () => ({
       <button data-testid="pagination-next">Next</button>
     </div>
   ),
-  RdsIllustration: ({ name }: any) => (
+  RdsEmptyState: ({ name }: any) => (
     <div data-testid={`illustration-${name}`}>
       {name}
     </div>

@@ -2,10 +2,10 @@ import React, { useState, useEffect, useReducer } from "react";
 import {
     RdsButton,
     RdsCheckbox,
-    RdsSelectList,
 } from "../rds-elements";
 import "./rds-comp-visual-setting.css";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompVisualSettingProps {
   visualsettingsItem: any[];
@@ -246,7 +246,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                     >
                                         {props.listskin && (
                                             <div className="col-lg-4 col-md-6 mb-3">
-                                                <RdsSelectList
+                                                <RdsCompSelectList
                                                     id="asideSkin"
                                                     label="Skin"
                                                     placeholder={
@@ -310,7 +310,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
 
                                         {props.listSubmenu && (
                                             <div className=" col-md-4 mb-3 mt-1 mb-4">
-                                                <RdsSelectList
+                                                <RdsCompSelectList
                                                     id="submenuToggle"
                                                     label="Submenu Toggle"
                                                     placeholder={
@@ -401,7 +401,7 @@ const RdsCompVisualSetting = (props: RdsCompVisualSettingProps) => {
                                                             }`}
                                                         >
                                                             <label className="">Skin</label>
-                                                            <RdsSelectList
+                                                            <RdsCompSelectList
                                                                 id="headerSkin"
                                                                 placeholder={
                                                                     vsItem.filter(

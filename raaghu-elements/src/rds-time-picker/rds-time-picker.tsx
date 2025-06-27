@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './rds-time-picker.css';
 import RdsCompIcon from '../../../raaghu-components/src/rds-comp-icon/rds-comp-icon';
-import RdsSelectList from '../rds-select-list';
+import RdsCompSelectList from '../../../raaghu-components/src/rds-comp-select-list/rds-comp-select-list';
 
 export interface RdsTimePickerProps {
   style?: string;
@@ -146,7 +146,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
             {props.style === 'compact' ? (
               <>
                <div className="time-controls">
-  <RdsSelectList
+  <RdsCompSelectList
     color="primary"
     id="hours-select"
     isSearchable={false}
@@ -167,7 +167,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
 </div>
 
 <div className="time-controls dropdown-height">
-  <RdsSelectList
+  <RdsCompSelectList
     color="primary"
     id="minutes-select"
     isSearchable={false}
@@ -185,7 +185,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
 </div>
 
 <div className="time-controls">
-  <RdsSelectList
+  <RdsCompSelectList
     color="primary"
     id="period-select"
     isSearchable={false}

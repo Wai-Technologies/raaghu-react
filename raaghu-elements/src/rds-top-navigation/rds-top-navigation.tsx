@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsSearch, RdsAvatar } from "../../../raaghu-components/src/rds-elements";
+import { RdsOffcanvas, RdsBreadcrumb, RdsDropdownList, RdsAvatar } from "../../../raaghu-components/src/rds-elements";
 import { useTranslation } from "react-i18next";
 import "./rds-top-navigation.css";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../rds-offcanvas/rds-offcanvas";
 import { AvatarSize, AvatarStyle } from "../rds-avatar/rds-avatar";
 import { BreadcrumbSeparator } from "../rds-breadcrumb/rds-breadcrumb";
-import { IconPosition } from "../rds-search/rds-search";
 import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import RdsCompProfile from "../../../raaghu-components/src/rds-comp-profile";
 import { DropdownSize, DropdownState } from "../rds-dropdown-list/rds-dropdown-list";
 import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
+import RdsCompSearch, { IconPosition } from "../../../raaghu-components/src/rds-comp-search/rds-comp-search";
 
 export interface RdsTopNavigationProps {
   ShowProfileSection?: boolean; // Determines whether to show the profile section.
@@ -724,7 +724,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                 className={"position-relative px-2 px-md-3  col text-center d-flex align-items-center "}
               >
                 {((props.showSearch && props.ecommerce2) && <div className="searchBackground right-side-menu" id="serachOption">
-                  <RdsSearch
+                  <RdsCompSearch
                     iconPosition={IconPosition.Right}
                     labelPosition="right"
                     placeholder="Search"
@@ -819,7 +819,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
               </div>
             </div>
             {((props.showSearch && props.ecommerce3) && <div className="searchBackground" id="serachOption">
-              <RdsSearch
+              <RdsCompSearch
                 iconPosition={IconPosition.Right}
                 labelPosition="right"
                 placeholder="Search"
@@ -915,7 +915,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                 className={"position-relative px-2 px-md-3  col text-center d-flex align-items-center "}
               >
                 {((props.showSearch && props.ecommerce4) && <div className="searchBackground right-side-menu" id="serachOption">
-                  <RdsSearch
+                  <RdsCompSearch
                     iconPosition={IconPosition.Right}
                     labelPosition="right"
                     placeholder="Search"
@@ -1028,7 +1028,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
             <div className="d-flex align-items-center flex-grow-1 justify-content-center">
               {props.showSearch && props.entertainment1 && (
                 <div className="searchBackground" id="serachOption">
-                  <RdsSearch
+                  <RdsCompSearch
                     iconPosition={IconPosition.Right}
                     labelPosition="right"
                     placeholder="Search"
@@ -1082,7 +1082,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
               <div >
                 {props.showSearch && props.entertainment2 && (
                   <div className="searchBackground ps-2" id="serachOption">
-                    <RdsSearch
+                    <RdsCompSearch
                       iconPosition={IconPosition.Right}
                       labelPosition="right"
                       placeholder="Search"
@@ -1182,7 +1182,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
               ))}
               {props.showSearch && props.entertainment3 && (
                 <div className="searchBackground pe-2 ps-2" id="serachOption">
-                  <RdsSearch
+                  <RdsCompSearch
                     iconPosition={IconPosition.Right}
                     labelPosition="right"
                     placeholder="Search"
@@ -1270,7 +1270,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                   />
                   )}
                   {showSearchInput && (
-                    <RdsSearch
+                    <RdsCompSearch
                       iconPosition={IconPosition.Right}
                       labelPosition="right"
                       placeholder="Search"
@@ -1318,7 +1318,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
               <div >
                 {props.showSearch && props.professional1 && (
                   <div className="searchBackground ps-2" id="serachOption">
-                    <RdsSearch
+                    <RdsCompSearch
                       iconPosition={IconPosition.Right}
                       labelPosition="right"
                       placeholder="Search"
@@ -1410,7 +1410,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
               <div >
                 {props.showSearch && props.professional2 && (
                   <div className="searchBackground ps-2" id="serachOption">
-                    <RdsSearch
+                    <RdsCompSearch
                       iconPosition={IconPosition.Right}
                       labelPosition="right"
                       placeholder="Search"
@@ -1504,7 +1504,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
               <div >
                 {props.showSearch && props.professional3 && (
                   <div className="searchBackground ps-2" id="serachOption">
-                    <RdsSearch
+                    <RdsCompSearch
                       iconPosition={IconPosition.Right}
                       labelPosition="right"
                       placeholder="Search"
@@ -1635,7 +1635,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
             <div className="d-flex align-items-center right-side-menu">
               {props.showSearch && props.professional4 && (
                 <div className="searchBackground" id="serachOption">
-                  <RdsSearch
+                  <RdsCompSearch
                     iconPosition={IconPosition.Right}
                     labelPosition="right"
                     placeholder="Search"
@@ -1696,7 +1696,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
             <div className="d-flex align-items-center flex-grow-1 justify-content-center d-none d-md-flex">
               {props.showSearch && props.professional5 && (
                 <div className="searchBackground" id="serachOption">
-                  <RdsSearch
+                  <RdsCompSearch
                     iconPosition={IconPosition.Right}
                     labelPosition="right"
                     placeholder="Search"
@@ -2431,7 +2431,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                     id="topnav"
                   >
                     {((props.showSearch && (props.product4 || props.entertainment1)) && <div className="searchBackground right-side-menu" id="serachOption">
-                      <RdsSearch
+                      <RdsCompSearch
                         iconPosition={IconPosition.Right}
                         labelPosition="right"
                         placeholder="Search"

@@ -4,10 +4,10 @@ import {
     RdsInput,
     RdsCheckbox,
     RdsDropdownList,
-    RdsLabel,
 } from "../rds-elements";
 import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompTenantRegisterProps {
     registerData?: any;
@@ -155,7 +155,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
 
                         <div className="row text-start">
                             <div className="col-md-6 mt-2">
-                                <RdsLabel label="Country" required={true} />
+                                <RdsCompLabel label="Country" required={true} />
                                 <RdsDropdownList
                                     key={countryList.length}
                                     placeholder="Select Country"
@@ -246,11 +246,11 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                         </div>
                     </div>
                     {/* <div className="pt-2">
-                        <RdsLabel
+                        <RdsCompLabel
                             class="text-mute pt-2 secondary "
                             label="©2023 WAi Technologies. All rights reserved "
                             size="0.7rem"
-                        ></RdsLabel>
+                        ></RdsCompLabel>
                     </div> */}
                 </div>
             </div>

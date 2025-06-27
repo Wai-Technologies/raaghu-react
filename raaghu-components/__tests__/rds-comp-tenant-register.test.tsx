@@ -83,9 +83,9 @@ jest.mock('../src/rds-elements', () => ({
       </select>
     </div>
   ),
-  RdsLabel: (props: any) => (
+  RdsCompLabel: (props: any) => (
     <label 
-      data-testid="rds-label"
+      data-testid="rds-comp-label"
       className={props.class}
       style={{ fontSize: props.size }}
     >

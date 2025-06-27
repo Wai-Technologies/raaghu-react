@@ -5,7 +5,6 @@ import "./rds-dropdown-list.css";
 import Tooltip, { TooltipStyle, TooltipTrigger } from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 import "../../../raaghu-react-themes/src/styles/dropdown.scss";
-import RdsSearch from "../rds-search";
 
 export enum DropdownSize {
   Default = "Default",

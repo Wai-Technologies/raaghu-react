@@ -4,7 +4,6 @@ import {
   RdsCheckbox,
   RdsDatePicker,
   RdsDropdownList,
-  RdsLabel,
   RdsModal,
   RdsProgressBar,
 } from "../rds-elements";
@@ -18,6 +17,7 @@ import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input
 import { CardTypes } from "../../../raaghu-elements/src/rds-card/rds-card";
 import { DropdownSize, DropdownState, DropdownStyle } from "../../../raaghu-elements/src/rds-dropdown-list/rds-dropdown-list";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface boardInfo {
   cardId?: number;
@@ -627,7 +627,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                   data-bs-toggle="modal"
                                   className="dropdown-item"
                                 >
-                                  <RdsLabel label="Edit" />
+                                  <RdsCompLabel label="Edit" />
                                 </a>
                               </li> */}
                               <li onClick={() => deleteCard(index)}>
@@ -635,7 +635,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                   data-bs-toggle="modal"
                                   className="dropdown-item"
                                 >
-                                  <RdsLabel label="Delete Board" />
+                                  <RdsCompLabel label="Delete Board" />
                                 </a>
                               </li>
 
@@ -657,7 +657,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                     area-control={option.value}
                                     className="dropdown-item"
                                   >
-                                    <RdsLabel label={option.key} />
+                                    <RdsCompLabel label={option.key} />
                                   </a>
                                 </li>
                               ))}
@@ -748,13 +748,13 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                                                                                             onClick={() =>
                                                                                                                 deleteSubCard( index, subCard.SubcardId )} >
                                                                                                             <a data-bs-toggle="modal" className="dropdown-item" >
-                                                                                                                <RdsLabel label="Delete Card" />
+                                                                                                                <RdsCompLabel label="Delete Card" />
                                                                                                             </a>
                                                                                                         </li><li
                                                                                                             onClick={() =>
                                                                                                                 deleteSubCard( index, subCard.SubcardId )} >
                                                                                                             <a data-bs-toggle="modal" className="dropdown-item" >
-                                                                                                                <RdsLabel label="View" />
+                                                                                                                <RdsCompLabel label="View" />
                                                                                                             </a>
                                                                                                         </li>
                                                                                                     </ul> */}
@@ -790,7 +790,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                                             }
                                                             className="dropdown-item"
                                                           >
-                                                            <RdsLabel
+                                                            <RdsCompLabel
                                                               label={option.key}
                                                             />
                                                           </a>

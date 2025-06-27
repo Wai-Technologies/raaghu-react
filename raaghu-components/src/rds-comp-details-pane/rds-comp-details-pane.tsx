@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import "./rds-comp-details-pane.css";
-import { RdsAlert, RdsBadge, RdsButton, RdsButtonGrid, RdsCard, RdsCarousel, RdsLabel, RdsSearch } from "../rds-elements";
+import { RdsAlert, RdsBadge, RdsButton, RdsButtonGrid, RdsCard, RdsCarousel } from "../rds-elements";
 import RdsCounter, { CounterState, LayoutOptions } from "../../../raaghu-elements/src/rds-counter/rds-counter";
-import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
 import { AlertBorder, AlertPosition, AlertType } from "../../../raaghu-elements/src/rds-alert/rds-alert";
 import RdsAvatar, { AvatarSize, AvatarStyle } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 import { color } from "html2canvas/dist/types/css/types/color";
 import RdsTreeStructure, { IconType, NodeState, TreeLevel } from "../../../raaghu-elements/src/rds-tree-structure/rds-tree-structure";
 import RdsAccordion, { AccordionBorder, AccordionSize, AccordionState, AccordionType } from "../../../raaghu-elements/src/rds-accordion/rds-accordion";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompSearch, { IconPosition } from "../rds-comp-search/rds-comp-search";
 
 export interface RdsCompDetailsPaneProps {
   headerText: string; 
@@ -292,7 +293,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                   />
                   </div>
                     <div className="mt-4 real-estate-title" id="text-color-change">
-                  <RdsLabel
+                  <RdsCompLabel
                     fontWeight="bold"
                     label={props.estateTitle}
                   />
@@ -335,7 +336,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                     </div>
 
                     <div className="mt-3 fs-7" id="estate-description">
-                      <RdsLabel
+                      <RdsCompLabel
                         fontWeight="normal"
                         label={props.estateDescription}
                       />
@@ -343,11 +344,11 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
 
                   <div className="real-estate-footer-fixed" id="lable-adult-children-text">
                     <div className="d-flex mb-2" >
-                      <RdsLabel
+                      <RdsCompLabel
                         fontWeight="semibold"
                         label="1 Adult"
                       />,  
-                      <RdsLabel
+                      <RdsCompLabel
                         fontWeight="semibold"
                         label="0 Children"
                       />
@@ -390,12 +391,12 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
         ) : props.style === "Selection" ? (
           <div className="custom-content-wrapper" id="detail-pane-container-2">
             <div className="detail-pane-container p-3" id="detail-pain-lable">
-              <RdsLabel
+              <RdsCompLabel
                 fontWeight="bold"
                 label={props.headerText}
                 class="fs-5"
               />
-              <RdsLabel
+              <RdsCompLabel
                 fontWeight="normal"
                 label={props.headerSubText}
                 class="fs-6 mt-2"
@@ -404,7 +405,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                 <span className="section-heading-linebar"></span>
               </div>
               <div className="mt-4">
-                <RdsSearch
+                <RdsCompSearch
                   iconPosition={IconPosition.Right}
                   labelPosition={IconPosition.Right}
                   placeholder="Search for Agents by Name or # ID"
@@ -455,7 +456,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
             <div className="detail-pane-container toolbar-pane-container p-3">
               <div className="detail-pane-scroll-content">
                 <div>
-                  <RdsLabel
+                  <RdsCompLabel
                     fontWeight="bold"
                     label="Toolbar"
                     class="fs-5"
@@ -550,12 +551,12 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                   <div>
                     {activeToolbarTab === 'icon_font' && (
                       <div>
-                        <RdsLabel
+                        <RdsCompLabel
                           fontWeight="semibold"
                           label="Font Name : Poppins"
                           class="fs-small-size"
                         />
-                        <RdsLabel
+                        <RdsCompLabel
                           fontWeight="semibold"
                           label="Font Size"
                           class="fs-7 mt-3"
@@ -572,7 +573,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                             </button>
                           ))}
                         </div>
-                        <RdsLabel
+                        <RdsCompLabel
                           fontWeight="semibold"
                           label="Font Weight"
                           class="fs-7 mt-3"
@@ -589,7 +590,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                     )}
                     {activeToolbarTab === 'icon_color' && (
                       <div>
-                        <RdsLabel
+                        <RdsCompLabel
                           fontWeight="semibold"
                           label="Font Size"
                           class="fs-7 mt-3"
@@ -606,7 +607,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                     )}
                     {activeToolbarTab === 'icon_frame' && (
                       <div>
-                        <RdsLabel
+                        <RdsCompLabel
                           fontWeight="semibold"
                           label="Corner Radius Size"
                           class="fs-7 mt-3"
@@ -627,7 +628,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                     )}
                     {activeToolbarTab === 'icon_line_height' && (
                       <div>
-                        <RdsLabel
+                        <RdsCompLabel
                           fontWeight="semibold"
                           label="Spacing Size"
                           class="fs-7 mt-3"
@@ -648,7 +649,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
                     )}
                     {activeToolbarTab === 'icon_block' && (
                       <div>
-                        <RdsLabel
+                        <RdsCompLabel
                             fontWeight="semibold"
                             label="Component List"
                             class="fs-7 mt-3"
@@ -712,7 +713,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
           <div className="custom-content-wrapper">
             <div className="detail-pane-container p-3">
               <div>
-                  <RdsLabel
+                  <RdsCompLabel
                     fontWeight="bold"
                     label="Pages"
                     class="fs-5"

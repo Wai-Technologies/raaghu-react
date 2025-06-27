@@ -1,6 +1,6 @@
 import React from "react";
 import RdsCompIcon from "../rds-comp-icon/rds-comp-icon";
-import RdsLikeDislike from "../../../raaghu-elements/src/rds-like-dislike";
+import RdsCompLikeDislike from "../rds-comp-like-dislike";
 import RdsRating from "../../../raaghu-elements/src/rds-rating";
 import "./rds-comp-feed.styled.css";
 
@@ -87,7 +87,7 @@ const RdsCompFeed = (props: RdsCompFeedProps) => {
                             </div>
                             <div className="d-flex">
                                 <div>
-                                    <RdsLikeDislike like={0} dislike={0}></RdsLikeDislike>
+                                    <RdsCompLikeDislike like={0} dislike={0}></RdsCompLikeDislike>
                                 </div>
                             </div>
                         </div>

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { RdsLabel, RdsButton } from "../rds-elements";
+import { RdsButton } from "../rds-elements";
 import RdsCompProductImage, {
     Item,
 } from "../rds-comp-product-image/rds-comp-product-image";
 import "./rds-comp-product-list.css";
 import { useTranslation } from "react-i18next";
 import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 export interface RdsCompProductListProps {
     items: Item[];
     type?: string;
@@ -21,7 +22,7 @@ const RdsCompProductList = (props: RdsCompProductListProps) => {
             {props.type === "With Tall Images And CTA Link" && (
                 <div className="d-flex justify-content-between">
                     <h5>
-                        <RdsLabel label="Trending Products" multiline={false}></RdsLabel>
+                        <RdsCompLabel label="Trending Products" multiline={false}></RdsCompLabel>
                     </h5>
                     <a href="" className="text-decoration-none">
                         Shop the collection{" "}
@@ -39,7 +40,7 @@ const RdsCompProductList = (props: RdsCompProductListProps) => {
             {props.type === "With Color Swatches and Horizontal Scrolling" && (
                 <div className="d-flex justify-content-between">
                     <h5>
-                        <RdsLabel label="Trending Products" multiline={false}></RdsLabel>
+                        <RdsCompLabel label="Trending Products" multiline={false}></RdsCompLabel>
                     </h5>
                     <a href="" className="text-decoration-none">
                         Shop everything{" "}

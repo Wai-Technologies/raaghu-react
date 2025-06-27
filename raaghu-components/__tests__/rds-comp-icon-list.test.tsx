@@ -15,7 +15,7 @@ Object.assign(navigator, {
 jest.useFakeTimers();
 
 // Mock the IconPosition enum
-jest.mock("../../raaghu-elements/src/rds-search/rds-search", () => ({
+jest.mock("../../raaghu-elements/src/rds-comp-search/rds-comp-search", () => ({
   IconPosition: {
     Left: "left",
     Right: "right",
@@ -29,7 +29,7 @@ jest.mock("../src/rds-elements", () => ({
       {name}
     </div>
   )),
-  RdsSearch: jest.fn(({ placeholder, onChange, value, dataTestId }) => (
+  RdsCompSearch: jest.fn(({ placeholder, onChange, value, dataTestId }) => (
     <input
       data-testid={dataTestId}
       placeholder={placeholder}

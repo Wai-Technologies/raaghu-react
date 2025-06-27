@@ -15,19 +15,19 @@ jest.mock("../src/rds-elements", () => ({
       <button onClick={() => onPageChange && onPageChange(2, 2)}>Next page</button>
     </nav>
   )),
-  RdsIllustration: jest.fn(() => <img alt="illustration" data-testid="mocked-illustration" />),
+  RdsEmptyState: jest.fn(() => <img alt="illustration" data-testid="mocked-illustration" />),
   RdsAvatar: jest.fn(() => <div data-testid="mocked-avatar" />),
   RdsTooltip: jest.fn(({ children }) => <div data-testid="mocked-tooltip">{children}</div>),
   RdsProgressBar: jest.fn(() => <div data-testid="mocked-progress" />),
-  RdsSearch: jest.fn(({ onChange }) => (
+  RdsCompSearch: jest.fn(({ onChange }) => (
     <input 
       data-testid="mocked-search" 
       placeholder="Search" 
       onChange={(e) => onChange && onChange(e)} 
     />
   )),
-  RdsLabel: jest.fn(({ label }) => <span data-testid="mocked-label">{label}</span>),
-  RdsSelectList: jest.fn(() => <div data-testid="mocked-select-list" />),
+  RdsCompLabel: jest.fn(({ label }) => <span data-testid="mocked-label">{label}</span>),
+  RdsCompSelectList: jest.fn(() => <div data-testid="mocked-select-list" />),
   RdsDropdown: jest.fn(({ label }) => <div data-testid="mocked-dropdown">{label}</div>),
   RdsCheckboxParentChild: jest.fn(() => <div data-testid="mocked-checkbox-parent-child" />),
 }));
@@ -96,7 +96,7 @@ jest.mock("../../raaghu-elements/src/rds-input/rds-input", () => ({
   }
 }));
 
-jest.mock("../../raaghu-elements/src/rds-search/rds-search", () => ({
+jest.mock("../../raaghu-elements/src/rds-comp-search/rds-comp-search", () => ({
   IconPosition: {
     Right: "right",
   }

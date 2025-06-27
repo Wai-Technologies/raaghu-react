@@ -4,7 +4,7 @@ import {
   RdsInput,
   RdsButton,
   RdsPagination,
-  RdsIllustration,
+  RdsEmptyState,
   RdsAvatar,
   RdsTooltip,
   RdsProgressBar,
@@ -348,7 +348,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
           ) : (
             <>
               {iconForIllustration === "light" && (
-                <RdsIllustration
+                <RdsEmptyState
                   label={props.noDataheaderTitle}
                   subLabel={props.noDataTitle}
                   colorVariant="dark"
@@ -359,7 +359,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                 />
               )}
               {iconForIllustration === "dark" && (
-                <RdsIllustration
+                <RdsEmptyState
                   label={props.noDataheaderTitle}
                   subLabel={props.noDataTitle}
                   colorVariant="dark"
@@ -370,7 +370,7 @@ const RdsDatatable = (props: RdsDatatableProps) => {
                 />
               )}
               {iconForIllustration === "semidark" && (
-                <RdsIllustration
+                <RdsEmptyState
                   label={props.noDataheaderTitle}
                   subLabel={props.noDataTitle}
                   colorVariant="dark"

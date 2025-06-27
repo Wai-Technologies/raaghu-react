@@ -5,9 +5,9 @@ import RdsCompTestimonials from '../src/rds-comp-testimonials/rds-comp-testimoni
 
 // Mock the RDS elements
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: (props: any) => (
+  RdsCompLabel: (props: any) => (
     <label 
-      data-testid="rds-label"
+      data-testid="rds-comp-label"
       className={props.class}
       style={{ 
         fontWeight: props.fontWeight,
@@ -17,12 +17,12 @@ jest.mock('../src/rds-elements', () => ({
       {props.label}
       {props.required && <span className="text-danger">*</span>}
     </label>
-  ),  RdsTestimonial: (props: any) => {
+  ),  RdsCompTestimonial: (props: any) => {
     // Handle both single object and array cases
     const items = Array.isArray(props.testimonialItems) ? props.testimonialItems : [props.testimonialItems];
     
     return (
-      <div data-testid="rds-testimonial">
+      <div data-testid="rds-comp-testimonial">
         {items && items.length > 0 ? 
           items.map((item: any, index: number) => (
             <div key={index} data-testid="testimonial-item">
@@ -172,13 +172,13 @@ describe('RdsCompTestimonials Component', () => {
       expect(screen.getByTestId('chevron_left')).toBeInTheDocument();
       expect(screen.getByTestId('chevron_right')).toBeInTheDocument();
         // Check testimonial components are rendered
-      expect(screen.getAllByTestId('rds-testimonial')).toHaveLength(3);
+      expect(screen.getAllByTestId('rds-comp-testimonial')).toHaveLength(3);
     });
 
     it('displays testimonial heading with correct styling', () => {
       renderComponent({ displayType: 'advanced' });
       
-      const heading = screen.getByTestId('rds-label');
+      const heading = screen.getByTestId('rds-comp-label');
       expect(heading).toHaveStyle({ fontWeight: 'bold' });
       expect(heading).toHaveTextContent('Testimonials');
     });
@@ -204,7 +204,7 @@ describe('RdsCompTestimonials Component', () => {
 
     it('renders testimonial items in grid layout', () => {
       renderComponent({ displayType: 'advanced' });
-        const testimonials = screen.getAllByTestId('rds-testimonial');
+        const testimonials = screen.getAllByTestId('rds-comp-testimonial');
       expect(testimonials).toHaveLength(3);
       
       // Check testimonial content
@@ -222,7 +222,7 @@ describe('RdsCompTestimonials Component', () => {
       expect(screen.getByTestId('chevron_left')).toBeInTheDocument();
       expect(screen.getByTestId('chevron_right')).toBeInTheDocument();
         // But no testimonial components
-      expect(screen.queryByTestId('rds-testimonial')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('rds-comp-testimonial')).not.toBeInTheDocument();
       expect(screen.queryByTestId('testimonial-item')).not.toBeInTheDocument();
     });
   });
@@ -242,7 +242,7 @@ describe('RdsCompTestimonials Component', () => {
     it('displays testimonial heading with correct styling for basic type', () => {
       renderComponent({ displayType: 'basic' });
       
-      const heading = screen.getByTestId('rds-label');
+      const heading = screen.getByTestId('rds-comp-label');
       expect(heading).toHaveStyle({ fontWeight: 'bold' });
       expect(heading).toHaveTextContent("'Testimonials'");
     });
@@ -300,7 +300,7 @@ describe('RdsCompTestimonials Component', () => {
       });
       
       expect(screen.getByText('Testimonials')).toBeInTheDocument();
-      expect(screen.queryByTestId('rds-testimonial')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('rds-comp-testimonial')).not.toBeInTheDocument();
       expect(screen.queryByTestId('testimonial-item')).not.toBeInTheDocument();
     });
 
@@ -319,7 +319,7 @@ describe('RdsCompTestimonials Component', () => {
         testimonialItems: customTestimonials
       });
       
-      expect(screen.getByTestId('rds-testimonial')).toBeInTheDocument();
+      expect(screen.getByTestId('rds-comp-testimonial')).toBeInTheDocument();
       expect(screen.getByText('Custom Title')).toBeInTheDocument();
     });
 
@@ -361,7 +361,7 @@ describe('RdsCompTestimonials Component', () => {
     it('centers testimonial heading for basic type', () => {
       renderComponent({ displayType: 'basic' });
       
-      const headingContainer = screen.getByTestId('rds-label').closest('h2');
+      const headingContainer = screen.getByTestId('rds-comp-label').closest('h2');
       expect(headingContainer).toHaveClass('text-center');
     });
 
@@ -385,7 +385,7 @@ describe('RdsCompTestimonials Component', () => {
       });
       
       expect(screen.getByText('Testimonials')).toBeInTheDocument();
-      expect(screen.queryByTestId('rds-testimonial')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('rds-comp-testimonial')).not.toBeInTheDocument();
       expect(screen.queryByTestId('testimonial-item')).not.toBeInTheDocument();
     });
 
@@ -395,7 +395,7 @@ describe('RdsCompTestimonials Component', () => {
         testimonialItems: [mockTestimonialItems[0]]
       });
       
-      expect(screen.getByTestId('rds-testimonial')).toBeInTheDocument();
+      expect(screen.getByTestId('rds-comp-testimonial')).toBeInTheDocument();
       expect(screen.getByText('John Doe')).toBeInTheDocument();
       expect(screen.queryByText('Jane Smith')).not.toBeInTheDocument();
     });
@@ -413,7 +413,7 @@ describe('RdsCompTestimonials Component', () => {
         testimonialItems: incompleteTestimonials
       });
       
-      expect(screen.getByTestId('rds-testimonial')).toBeInTheDocument();
+      expect(screen.getByTestId('rds-comp-testimonial')).toBeInTheDocument();
       expect(screen.getByText('Incomplete Item')).toBeInTheDocument();
     });
 
@@ -432,7 +432,7 @@ describe('RdsCompTestimonials Component', () => {
         testimonialItems: longTestimonials
       });
       
-      expect(screen.getByTestId('rds-testimonial')).toBeInTheDocument();
+      expect(screen.getByTestId('rds-comp-testimonial')).toBeInTheDocument();
       expect(screen.getByText('Very Long Title That Might Cause Layout Issues When Rendered')).toBeInTheDocument();
     });
   });
@@ -488,7 +488,7 @@ describe('RdsCompTestimonials Component', () => {
       
       expect(screen.getByTestId('chevron_left')).toBeInTheDocument();
       expect(screen.getByTestId('chevron_right')).toBeInTheDocument();
-      expect(screen.getAllByTestId('rds-testimonial')).toHaveLength(3);
+      expect(screen.getAllByTestId('rds-comp-testimonial')).toHaveLength(3);
     });
   });
 });

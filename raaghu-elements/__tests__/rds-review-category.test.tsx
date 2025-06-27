@@ -36,8 +36,8 @@ jest.mock("../src/rds-avatar", () => ({
     ))
 }));
 
-// Mock RdsLikeDislike component
-jest.mock("../src/rds-like-dislike", () => ({
+// Mock RdsCompLikeDislike component
+jest.mock("../src/rds-comp-like-dislike", () => ({
     __esModule: true,
     default: jest.fn(({ like, dislike }) => (
         <div data-testid="like-dislike">

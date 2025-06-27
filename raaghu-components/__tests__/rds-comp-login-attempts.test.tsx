@@ -67,10 +67,10 @@ jest.mock('../src/rds-elements', () => ({
       </select>
     </div>
   ),
-  RdsLabel: ({ label }: any) => <label data-testid="mock-label">{label}</label>,
+  RdsCompLabel: ({ label }: any) => <label data-testid="mock-label">{label}</label>,
   RdsPagination: () => <div data-testid="mock-pagination">Pagination</div>,
-  RdsSelectList: () => <div data-testid="mock-select-list">Select List</div>,
-  RdsIllustration: ({ subLabel, colorVariant }: any) => (
+  RdsCompSelectList: () => <div data-testid="mock-select-list">Select List</div>,
+  RdsEmptyState: ({ subLabel, colorVariant }: any) => (
     <div data-testid="mock-illustration" className={`illustration-${colorVariant}`}>
       <p>{subLabel}</p>
     </div>

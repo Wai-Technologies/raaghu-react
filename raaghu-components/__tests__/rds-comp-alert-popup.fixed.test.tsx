@@ -16,7 +16,7 @@ jest.mock("../src/rds-elements", () => ({
             {label}
         </button>
     ),
-    RdsLabel: ({ label, ...props }: any) => <span data-testid="rds-label" {...props}>{label}</span>
+    RdsCompLabel: ({ label, ...props }: any) => <span data-testid="rds-comp-label" {...props}>{label}</span>
 }));
 
 describe("RdsCompAlertPopup", () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import RdsButton from "../rds-button";
 import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
-import RdsLabel from "../rds-label";
+import RdsCompLabel from "../../../raaghu-components/src/rds-comp-label";
 import RdsModal from "../rds-modal";
 import "./rds-confirmation-popup.css";
 
@@ -65,11 +65,11 @@ const RdsConfirmationPopup = (props: RdsCompAlertPopupProps) => {
                             </p>
                         )}
                         <h4>
-                            <RdsLabel class="align-items-center  justify-content-center" label={props.alertConfirmation} />
+                            <RdsCompLabel class="align-items-center  justify-content-center" label={props.alertConfirmation} />
                         </h4>
                         {props.showDescription && (
                             <span>
-                                <RdsLabel class="text-muted align-items-center  justify-content-center" label={props.messageAlert} />
+                                <RdsCompLabel class="text-muted align-items-center  justify-content-center" label={props.messageAlert} />
                             </span>
                         )}
                         {props.children}

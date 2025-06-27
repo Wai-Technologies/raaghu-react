@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 //import RdsCompIcon from "../rds-icon/rds-icon";
 //import useOutsideClick from "../rds-outside-click";
 //import RdsAvatar from "../rds-avatar";
-//import RdsSearch from "../rds-search";
+//import RdsCompSearch from "../rds-comp-search";
 import { useNavigate } from "react-router-dom";
 //import { AvatarSize } from "../rds-avatar/rds-avatar";
 import { use } from "i18next";
 import useOutsideClick from "../../../raaghu-elements/src/rds-outside-click";
 import { RdsAvatar } from "../rds-elements";
 import { AvatarSize } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
-import RdsSearch, { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 import RdsCompIcon from "../rds-comp-icon";
-//import { IconPosition } from "../rds-search/rds-search";
+import RdsCompSearch, { IconPosition } from "../rds-comp-search/rds-comp-search";
+//import { IconPosition } from "../rds-comp-search/rds-comp-search";
 
 export enum NavLayout {
     Raaghu = "Raaghu",
@@ -426,7 +426,7 @@ const RdsCompSideNavigation1 = (props: RdsCompSideNavigation1Props) => {
                             </div>
                         )}
                         {props.layout === "LeftSideNavList" && !props.collapse && (
-                            <div className={`${collapse ? "LeftSideNavList" : "LeftSideNavListCollapse"}`}><RdsSearch
+                            <div className={`${collapse ? "LeftSideNavList" : "LeftSideNavListCollapse"}`}><RdsCompSearch
                                 label=""
                                 placeholder="Search"
                                 value={searchQuery}
@@ -473,7 +473,7 @@ export default RdsCompSideNavigation1;
 // import RdsCompIcon from "../rds-icon/rds-icon";
 // import useOutsideClick from "../rds-outside-click";
 // import RdsAvatar from "../rds-avatar";
-// import RdsSearch from "../rds-search";
+// import RdsCompSearch from "../rds-comp-search";
 
 // export interface RdsSideNavProps {
 //   sideNavItems: any;
@@ -826,7 +826,7 @@ export default RdsCompSideNavigation1;
 //                         )}
 
 //                         {props.layout === "LeftSideNavList" && !props.collapse && (
-//                             <div className={`${collapse ? "LeftSideNavList" : "LeftSideNavListCollapse" }`}><RdsSearch 
+//                             <div className={`${collapse ? "LeftSideNavList" : "LeftSideNavListCollapse" }`}><RdsCompSearch 
 //                                 label=""
 //                                 placeholder="Search"
 //                                 value={searchQuery}

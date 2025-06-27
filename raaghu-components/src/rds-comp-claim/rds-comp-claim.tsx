@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useReducer } from "react";
-import { RdsButton, RdsCheckbox, RdsInput, RdsSelectList, RdsTextArea } from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsInput, RdsTextArea } from "../rds-elements";
 import "./rds-comp-claim.css";
 import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
 import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompClaimProps {
     resources?: any[];
@@ -309,7 +310,7 @@ const RdsCompClaim = (props: RdsCompClaimProps) => {
             <div className="form">
                 <div className="row">
                     <div className="col-md-5 mb-3">
-                        <RdsSelectList
+                        <RdsCompSelectList
                             key={dropdownKey}
                             id="claim"                            
                             label="Claim Types"
@@ -404,7 +405,7 @@ const RdsCompClaim = (props: RdsCompClaimProps) => {
                         />
                     </div>
                     <div className="col-md-6 mb-md-0 pt-2 ">
-                        <RdsSelectList
+                        <RdsCompSelectList
                             id="idenval"
                             label="Value Type"
                             placeholder="Select Value Type"
@@ -415,7 +416,7 @@ const RdsCompClaim = (props: RdsCompClaimProps) => {
                             required={true}
                             key={`valueType-${formData?.valueType}`}
                             color="primary"
-                        ></RdsSelectList>
+                        ></RdsCompSelectList>
 
                     </div>
                     <div className="col-md-12 pt-2">

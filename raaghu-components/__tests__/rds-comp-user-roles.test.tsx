@@ -28,7 +28,7 @@ jest.mock('../src/rds-elements', () => ({
       </div>
     );
   }),
-  RdsLabel: jest.fn(({ label, ...props }) => (
+  RdsCompLabel: jest.fn(({ label, ...props }) => (
     <label {...props}>{label}</label>
   )),
 }));

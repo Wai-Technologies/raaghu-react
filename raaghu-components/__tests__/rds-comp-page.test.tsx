@@ -37,8 +37,8 @@ jest.mock('../src/rds-elements', () => ({
       {label}
     </button>
   ),
-  RdsNavtabs: ({ navtabsItems, activeNavtabOrder, activeNavTabId }: any) => (
-    <div data-testid="rds-navtabs">
+  RdsCompNavtabs: ({ navtabsItems, activeNavtabOrder, activeNavTabId }: any) => (
+    <div data-testid="rds-comp-navtabs">
       {navtabsItems?.map((item: any, index: number) => (
         <button
           key={index}
@@ -74,7 +74,7 @@ jest.mock('../src/rds-elements', () => ({
       />
     </div>
   ),
-  RdsLabel: ({ label, ...props }: any) => <span {...props}>{label}</span>,
+  RdsCompLabel: ({ label, ...props }: any) => <span {...props}>{label}</span>,
   RdsCompIcon: ({ name, ...props }: any) => <i data-testid={`icon-${name}`} {...props}></i>,
 }));
 
@@ -116,7 +116,7 @@ describe('RdsCompPage', () => {
     it('should render navigation tabs for default type', () => {
       render(<RdsCompPage tableHeaders={[]} {...defaultProps} />);
       
-      expect(screen.getByTestId('rds-navtabs')).toBeInTheDocument();
+      expect(screen.getByTestId('rds-comp-navtabs')).toBeInTheDocument();
       expect(screen.getByTestId('nav-tab-content')).toBeInTheDocument();
       expect(screen.getByTestId('nav-tab-script')).toBeInTheDocument();
       expect(screen.getByTestId('nav-tab-style')).toBeInTheDocument();

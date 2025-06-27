@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { RdsCheckbox, RdsLabel } from "../rds-elements";
+import { RdsCheckbox } from "../rds-elements";
 
 import {
    RdsButton,
    RdsRadioButton,
    RdsTextArea
 } from "../rds-elements";
+import RdsCompLabel from "../rds-comp-label";
 interface RdsCompDatabaseConnectionProps {
    connectionStrings: any;
    reset?: boolean;
@@ -111,7 +112,7 @@ const RdsCompDatabaseConnection = (props: RdsCompDatabaseConnectionProps) => {
                <div className="custom-content-scroll">
                   <div className="row mb-3">
                      <div className="col-md-8">
-                        <RdsLabel
+                        <RdsCompLabel
                            label="Connection Strings"
                            required={true}
                         />

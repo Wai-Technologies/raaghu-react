@@ -81,7 +81,7 @@ jest.mock('../src/rds-elements', () => ({
       {...props}
     />
   ),
-  RdsSelectList: ({ 
+  RdsCompSelectList: ({ 
     selectItems, 
     selectedValue, 
     onChange, 

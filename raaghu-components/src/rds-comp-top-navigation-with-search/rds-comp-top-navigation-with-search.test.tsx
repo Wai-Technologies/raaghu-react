@@ -35,8 +35,8 @@ jest.mock("../rds-elements", () => ({
       {children}
     </div>
   ),
-  RdsSearch: ({ placeholder, ...props }: any) => (
-    <input data-testid="rds-search" placeholder={placeholder} {...props} />
+  RdsCompSearch: ({ placeholder, ...props }: any) => (
+    <input data-testid="rds-comp-search" placeholder={placeholder} {...props} />
   ),
   RdsBreadcrumb: ({ breadcrumbItems, ...props }: any) => (
     <nav data-testid="rds-breadcrumb" {...props}>
@@ -52,7 +52,7 @@ jest.mock("../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas", () => ({
   RdsOffcanvasBackDrop: { True: "true", False: "false", Static: "static" },
 }));
 
-jest.mock("../../../raaghu-elements/src/rds-search/rds-search", () => ({
+jest.mock("../../../raaghu-elements/src/rds-comp-search/rds-comp-search", () => ({
   IconPosition: { Left: "left", Right: "right" },
 }));
 
@@ -120,7 +120,7 @@ describe("RdsCompTopNavigationWithSearch", () => {
   // Test 3: Search component
   it('renders search component', () => {
     render(<RdsCompTopNavigationWithSearch {...defaultProps} />);
-    const searchInput = screen.getByTestId('rds-search');
+    const searchInput = screen.getByTestId('rds-comp-search');
     expect(searchInput).toBeInTheDocument();
     expect(searchInput).toHaveAttribute('placeholder', 'Search');
   });

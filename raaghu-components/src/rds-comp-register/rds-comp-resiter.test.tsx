@@ -5,8 +5,8 @@ import RdsCompRegister from "./rds-comp-register";
 
 // Mock all the child components used in RdsCompRegister
 jest.mock("../rds-elements", () => ({
-  RdsLabel: jest.fn(({ label, className }) => (
-    <div data-testid="rds-label" className={className}>{label}</div>
+  RdsCompLabel: jest.fn(({ label, className }) => (
+    <div data-testid="rds-comp-label" className={className}>{label}</div>
   )),
   RdsButton: jest.fn(({ label, onClick, dataTestId, isDisabled, block }) => (
     <button 

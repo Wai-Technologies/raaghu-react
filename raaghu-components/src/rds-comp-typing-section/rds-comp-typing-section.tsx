@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { RdsInput, RdsButton, RdsSelectList, RdsDropdown, RdsDropdownList, RdsFabMenu } from "../rds-elements";
+import { RdsInput, RdsButton, RdsDropdown, RdsDropdownList, RdsFabMenu } from "../rds-elements";
 import './rds-comp-typing-section.css';
 import RdsCompAttachement, { Comment as AttachmentComment } from "../rds-comp-attachement/rds-comp-attachement";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
