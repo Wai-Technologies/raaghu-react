@@ -119,6 +119,8 @@ const RdsCompBanner = (props: RdsCompBannerProps) => {
                         size="medium"
                         dataTestId={props.firstButtonText}
                          icon={props.firstButtonIcon}
+                         iconFill={false}
+                         iconStroke={true}
                          isBanerButton={true}
                          onClick={(e) => onButtonClick(e)}
                     ></RdsButton>)}
@@ -129,6 +131,8 @@ const RdsCompBanner = (props: RdsCompBannerProps) => {
                         size="medium"
                         dataTestId={props.secondButtonText}
                         icon={props.secondButtonIcon}
+                        iconFill={false}
+                        iconStroke={true}
                         isBanerButton={true}
                         onClick={(e) => onButtonClick(e)}
                     ></RdsButton>)}

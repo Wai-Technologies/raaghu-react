@@ -106,8 +106,8 @@ const RdsCompTag = (props: RdsCompTagProps) => {
                                                                 name="cancel"
                                                                 fill={false}
                                                                 stroke={true}
-                                                                width="15"
-                                                                height="15"
+                                                                width="12"
+                                                                height="12"
                                                                 borderRadius={
                                                                     closeFill == true
                                                                         ? "50%"

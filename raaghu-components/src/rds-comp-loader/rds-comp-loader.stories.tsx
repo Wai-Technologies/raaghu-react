@@ -53,12 +53,6 @@ export const LineWobble: Story = {
 } satisfies Story;
 // No parameters needed here
 
-export const LoaderMoving: Story = {
-  args: {
-    loaderType: 'loader-moving',
-  },
-} satisfies Story;
-
 export const LoaderHash: Story = {
   args: {
     loaderType: 'loader-hash',
@@ -71,15 +65,9 @@ export const LoaderJump: Story = {
   },
 } satisfies Story;
 
-export const Sand: Story = {
+export const LoaderMoving: Story = {
   args: {
-    loaderType: 'sand',
-  },
-} satisfies Story;
-
-export const RollingRock: Story = {
-  args: {
-    loaderType: 'rolling-rock',
+    loaderType: 'loader-moving',
   },
 } satisfies Story;
 
@@ -95,15 +83,21 @@ export const Rotate: Story = {
   },
 } satisfies Story;
 
-export const Spin: Story = {
+export const RollingRock: Story = {
   args: {
-    loaderType: 'spin',
+    loaderType: 'rolling-rock',
   },
 } satisfies Story;
 
-export const Triangle: Story = {
+export const Sand: Story = {
   args: {
-    loaderType: 'triangle',
+    loaderType: 'sand',
+  },
+} satisfies Story;
+
+export const Spin: Story = {
+  args: {
+    loaderType: 'spin',
   },
 } satisfies Story;
 
@@ -114,3 +108,9 @@ export const Spinner: Story = {
   },
 } satisfies Story;
 // Controls for size will show automatically due to argTypes 'if' condition
+
+export const Triangle: Story = {
+  args: {
+    loaderType: 'triangle',
+  },
+} satisfies Story;

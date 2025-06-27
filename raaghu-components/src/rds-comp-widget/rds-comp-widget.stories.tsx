@@ -56,7 +56,6 @@ export const Default: Story = {
         iconTooltipLabel: "Refresh",
         iconTooltipPosition: "top",
         border: true,
-        style: TooltipStyle.MiddleBottomArrow
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'border'] } };

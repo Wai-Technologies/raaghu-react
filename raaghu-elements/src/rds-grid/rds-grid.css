@@ -149,3 +149,7 @@ svg.text-dark {
 .resizable-table th.resizing {
   user-select: none;
 }
+/* Target the three dots icon inside RdsDropdown */
+#sortTable tbody td.text-center.align-middle svg {
+  overflow: visible !important;
+}

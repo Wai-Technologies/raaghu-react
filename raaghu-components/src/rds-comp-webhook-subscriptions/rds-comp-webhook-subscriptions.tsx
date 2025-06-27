@@ -179,12 +179,13 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                                 dataTestId="header-key"
                             ></RdsInput>
                         </div>
-                        <div className="col-12 col-md-5 mb-2">
+                        <div className="col-12 col-md-5 mb-3">
                             <RdsInput
+                                label={true}
                                 placeholder="Header Value"
                                 reset={inputReset}
                                 inputType="text"
-                                name={"headerValue"}
+                                name="Header Value"
                                
                                 onChange={(e) => {
                                   handleDataChanges(e.target.value, "headerValue");

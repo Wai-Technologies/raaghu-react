@@ -28,8 +28,8 @@ export const GetShellLayoutCss = (displayType: AppShellDisplayType) => {
             return "side-nav";
         case AppShellDisplayType.DoubleNav:
             return "double-nav";
-        case AppShellDisplayType.OneThreeOne:
-            return "one-three-one";
+        case AppShellDisplayType.TriPane:
+            return "triPane";
         default:
             return "default";
     }

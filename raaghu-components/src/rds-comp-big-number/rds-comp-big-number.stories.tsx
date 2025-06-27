@@ -63,32 +63,6 @@ Default.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'tex
 
 Default.argTypes = textAlignArgTypes;
 
-export const standard: Story = {
-    args: {
-        subTitleColorVariant: "primary",
-        subTitle: "Visitors",
-        bigNumber: "2,236",
-        bigNumberColor: "dark",
-        children: <></>
-    },
-    argTypes: {
-        subTitleColorVariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "danger",
-                "warning",
-                "info",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
-        },
-    }
-} satisfies Story;
-standard.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
-
 export const delta: Story = {
     args: {
         subTitleColorVariant: "primary",
@@ -200,6 +174,42 @@ export const histogram: Story = {
 } satisfies Story;
 histogram.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle', 'chartHeight', 'chartWidth'] } };
 
+export const icon: Story = {
+    args: {
+        subTitleColorVariant: "primary",
+        subTitle: "Visitors",
+        bigNumber: "2,236",
+        bigNumberColor: "dark",
+        children: (
+            <RdsCompIcon
+                name="users"
+                fill={false}
+                stroke={true}
+                width="50px"
+                height="50px"
+                colorVariant="primary"
+                isCursorPointer={true}
+            />
+        ),
+    },
+    argTypes: {
+        subTitleColorVariant: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "danger",
+                "warning",
+                "info",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        },
+    }
+} satisfies Story;
+icon.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
+
 export const sparkLine: Story = {
     args: {
         subTitleColorVariant: "primary",
@@ -272,23 +282,13 @@ export const sparkLine: Story = {
 } satisfies Story;
 sparkLine.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle', 'chartHeight', 'chartWidth'] } };
 
-export const icon: Story = {
+export const standard: Story = {
     args: {
         subTitleColorVariant: "primary",
         subTitle: "Visitors",
         bigNumber: "2,236",
         bigNumberColor: "dark",
-        children: (
-            <RdsCompIcon
-                name="users"
-                fill={false}
-                stroke={true}
-                width="50px"
-                height="50px"
-                colorVariant="primary"
-                isCursorPointer={true}
-            />
-        ),
+        children: <></>
     },
     argTypes: {
         subTitleColorVariant: {
@@ -306,6 +306,6 @@ export const icon: Story = {
         },
     }
 } satisfies Story;
-icon.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
+standard.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
 
 

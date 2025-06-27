@@ -4,7 +4,7 @@ import RdsCompLabel from "../../../raaghu-components/src/rds-comp-label";
 import RdsCompLikeDislike from "../../../raaghu-components/src/rds-comp-like-dislike";
 import RdsRating from "../rds-rating";
 import "./rds-review-category.css";
-import { ColorVariant } from "../rds-rating/rds-rating";
+import { ColorVariant, RatingStyle, RatingType } from "../rds-rating/rds-rating";
 export interface Item {
     name: string;
     date?: Date;
@@ -58,6 +58,9 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                 <RdsRating
                                     rating={props.item.rating}
                                     size="small"
+                                    colorVariant={ColorVariant.Warning}
+                                    style={RatingStyle.Outline}
+                                    type={RatingType.Star}
                                 />
                             </div>
                         </div>}
@@ -97,6 +100,8 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                     rating={props.item.rating}
                                     colorVariant={ColorVariant.Warning}
                                     size="small"
+                                    style={RatingStyle.Outline}
+                                    type={RatingType.Star}
                                 />
                             </div>}
                             {props.item.likes && props.item.dislikes && <div className="mt-3">
@@ -143,6 +148,8 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                         rating={props.item.rating}
                                         colorVariant={ColorVariant.Warning}
                                         size="small"
+                                        style={RatingStyle.Outline}
+                                        type={RatingType.Star}
                                     />
                                 </div>}
                             </div>

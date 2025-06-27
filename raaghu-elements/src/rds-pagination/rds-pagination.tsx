@@ -230,13 +230,13 @@ const RdsPagination = (props: RdsPaginationProps) => {
         )} */}
 
         {paginType === "default" && (props.style!="Style5" && props.style!="Style6" && props.style !="Style8" && props.style!="Style9" && props.style!="Style10" && props.style!="Style11") && (
-          <nav aria-label="page navigation" className={"d-flex align-items-center" + `${size}` +`${align} ${props.style=='Style3' ?'bg-white ':''} ${props.style=='Style7' ?'bg-white rounded-5 ':''}`}>
-            <ul className={"pagination rounded align-items-center mt-2" + `${size}` + `${align} `}>
+          <nav aria-label="page navigation" className={"d-flex align-items-center p-1" + `${size}` +`${align} ${props.style=='Style3' ?'bg-pagination ':''} ${props.style=='Style7' ?'bg-pagination rounded-5 shadow ':''}`}>
+            <ul className={"pagination rounded align-items-center mb-0" + `${size}` + `${align} `}>
               {/* Previous Page Button */}
 
               {(
               props.showFirst && props.style != "Style4" && (
-                <li className={`me-3 page-item chevron cursor-pointer}`}>
+                <li className={`me-3 page-item chevron cursor-pointer`}>
                 <a onClick={() => onFirstClick()}>
                   {totalRecords > recordsPerPage && (
                     <RdsCompIcon
@@ -315,7 +315,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
               </li>
               {(
               props.showLast && props.style !== "Style4" &&(
-                <li className={`me-3 page-item chevron cursor-pointer}`}>
+                <li className={`me-3 page-item chevron cursor-pointer`}>
                 <a onClick={() => onLastClick()}>
                   {totalRecords > recordsPerPage && (
                     <RdsCompIcon
@@ -334,7 +334,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
             </ul>
 
             {/* Dropdown for Records Per Page */}
-            {(totalRecords > recordsPerPage && props.showDropdown) && (<div className={` custom-navigation mt-2  ${props.style =='Style3' ? 'pagination-border-bottom-custom' : ''}`}>
+            {(totalRecords > recordsPerPage && props.showDropdown) && (<div className={` custom-navigation  ${props.style =='Style3' ? 'pagination-border-bottom-custom' : ''}`}>
               <button
                 className={`btn  btn-outline btn-${props.size}  ${(props.style =='Style3') ? 'text-dark border-0' : 'customWidthForBtn'}`}
                 id="paginationBtnId"
@@ -369,7 +369,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
             )}
              {(
               props.showLegend && (
-                <li className={` ms-3 mt-2 page-item chevron cursor-pointer}`}>
+                <li className={` ms-3 page-item chevron cursor-pointer`}>
                   {totalRecords > recordsPerPage && (
                     <span>{currentPage} of {int} items</span>
                   )}
@@ -379,10 +379,10 @@ const RdsPagination = (props: RdsPaginationProps) => {
 
         {(     
               props.showManualInput && (
-                <li className={` page-item cursor-pointer}`}>
+                <li className={` page-item cursor-pointer`}>
                   {totalRecords > recordsPerPage && (
-                    <div className="d-flex mt-2"> <span className="m-2 nowrap">Go to</span>
-                      <input type="text"  className={`form-control btn-outline border-primary gotopageinput   ${(props.style=="Style3"||props.style=="Style7")?"bg-white text-dark":""}`} onChange={(e) => handleGotoPage(e.target.value)} /> 
+                    <div className="d-flex align-items-center"> <span className="m-2 nowrap">Go to</span>
+                      <input type="text"  className={`form-control btn-outline border-primary gotopageinput   ${(props.style=="Style3"||props.style=="Style7")?"bg-pagination text-dark":""}`} onChange={(e) => handleGotoPage(e.target.value)} /> 
                       <span className="m-2">Page</span> </div>
                   )}
               </li>
@@ -391,7 +391,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
           </nav>
         )}
         {paginType === "default" && (props.style == "Style5" || props.style==="Style6" || props.style =="Style8" || props.style=="Style9" || props.style=="Style10" || props.style=="Style11") && (
-          <nav aria-label="page navigation" className={"d-flex align-items-center" + `${align} ` }>
+          <nav aria-label="page navigation" className={"d-flex align-items-center p-1" + `${align} ` }>
           <ul className={"pagination rounded align-items-center mb-0" + `${size}` + `${align} `}>
             {/* Previous Page Button */}
             <li className={`m-1 page-item chevron cursor-pointer  ${currentPage === 1 ? "disabled" : ""}`}>
@@ -411,7 +411,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
             </li>
             {(
               props.showLegend && (props.style==='Style6' || props.style==='Style8' ) && (
-                <li className={` ms-3 page-item chevron cursor-pointer}`}>
+                <li className={` ms-3 page-item chevron cursor-pointer`}>
                   {totalRecords > recordsPerPage && (
                     <span style={{fontWeight:'600'}}>{currentPage} of {int} </span>
                   )}

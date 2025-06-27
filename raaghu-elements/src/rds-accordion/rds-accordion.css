@@ -17,10 +17,9 @@
     color: rgba(0, 0, 0, 0.8); /* Darker text */
 }
 
-.accordion-selected .accordion-button {
-    background-color: #ffffff; /* Change this to your desired selected color */
-
-}
+/* .accordion-selected .accordion-button {
+    background-color: #ffffff; 
+} */
 
 
 .hover-content-wrapper {
@@ -48,7 +47,7 @@
 }
 /* Accordion body hover effect */
 .accordion-content {
-    background-color: white !important;
+    /* background-color: white !important; */
     transition: all 0.3s ease-in-out;
 }
 
@@ -58,10 +57,10 @@
     font-weight: bold;
     background-color: transparent;
 }
-.default .accordion-button:not(.collapsed) {
+/* .default .accordion-button:not(.collapsed) {
     color: rgba(0, 0, 0, 0.6);
-    background-color: transparent; /* Maintain faded text color when expanded in default state */
-}
+    background-color: transparent; 
+} */
 .default .accordion-button.collapse {
     color: rgba(0, 0, 0, 0.6);
     background-color: transparent; /* Maintain faded text color */
@@ -117,10 +116,10 @@
 }
 
 /* Clear hover effect on mouseleave after clicking */
-.accordion-item:not(:hover) .hover-content-wrapper {
+/* .accordion-item:not(:hover) .hover-content-wrapper {
     background-color: transparent !important;
     color: rgba(0, 0, 0, 0.6) !important;
-}
+} */
 
 /* Ensure focus and active states don't persist hover styles */
 .accordion-button:active,

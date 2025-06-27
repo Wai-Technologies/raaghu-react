@@ -112,7 +112,6 @@ const RdsWidget = (props: RdsCompWidgetProps) => {
                     colorVariant={props.iconHeaderColor}
                     tooltipTitle={props.iconTooltipLabel}
                     tooltipPlacement={props.iconTooltipPosition}
-                    style={TooltipStyle.MiddleBottomArrow}
                     onClick={props.onIconClick}
                   />
                 </span>
