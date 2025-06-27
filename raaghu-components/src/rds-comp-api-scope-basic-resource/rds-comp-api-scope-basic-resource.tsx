@@ -100,6 +100,7 @@ const RdsCompApiScopeBasicResource = (props: RdsCompApiScopeBasicResourceProps) 
                             rows={3}
                             value={fieldScopeData?.resources}
                             dataTestId="resources"
+                            showTitle={true}
                         />
                     </div>
                     <div>

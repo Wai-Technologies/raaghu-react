@@ -4324,3 +4324,30 @@ $error-progress-color: conic-gradient( $bg-error-dark-default calc(var(--progres
                             padding: 1rem;
                         }
                     }
+
+.input-with-image {
+    background-color: $neutral-10;
+}
+
+.bg-input-wrpper{
+    background-color: $neutral-10;
+}
+
+.bg-pagination{
+    background-color: $white;
+}
+
+/* Clear hover effect on mouseleave after clicking */
+.accordion-item:not(:hover) .hover-content-wrapper {
+    background-color: transparent !important;
+    color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.default .accordion-button:not(.collapsed) {
+    color: rgba(0, 0, 0, 0.6);
+    background-color: transparent; 
+}
+
+.accordion-selected .accordion-button {
+    background-color: #ffffff; /* Change this to your desired selected color */
+}

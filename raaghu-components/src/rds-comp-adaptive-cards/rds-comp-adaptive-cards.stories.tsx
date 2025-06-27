@@ -38,8 +38,9 @@ export const ActivityUpdateCard: Story = {
         closeIcon: false,
     }
 } satisfies Story;
+ActivityUpdateCard.parameters = { controls: { include: ['cardTitle','cardText','showBtn1','showBtn2','titleIcon','closeIcon'] } };
 
-export const CalenderReminder: Story = {
+export const CalendarReminder: Story = {
     args: {
         cardTitle: "Title",
         title: true,
@@ -50,14 +51,16 @@ export const CalenderReminder: Story = {
         btn1Label: "Snooze",
         btn2Label: "I'll be Late",
         block: false,
-        type: "CalenderReminder",
+        type: "CalendarReminder",
         smallText: "20:30 - 09:30",
         titleIcon: false,
         closeIcon: false,
         label: "Conf Room 112/3377 (10)",
         inputForm: false,
+        textCase: "unset"
     }
 } satisfies Story;
+CalendarReminder.parameters = { controls: { include: ['cardTitle','label','smallText','showBtn1','showBtn2','titleIcon','closeIcon'] } };
 
 export const Default: Story = {
     args: {
@@ -75,6 +78,7 @@ export const Default: Story = {
         closeIcon: true,
     }
 } satisfies Story;
+Default.parameters = { controls: { include: ['cardTitle','showBtn1','showBtn2','titleIcon','closeIcon'] } };
 
 export const ImageGallery: Story = {
     args: {
@@ -83,6 +87,7 @@ export const ImageGallery: Story = {
         type: "ImageGallery",
     }
 } satisfies Story;
+ImageGallery.parameters = { controls: { include: ['cardTitle','smallText'] } };
 
 export const InputForm: Story = {
     args: {
@@ -93,7 +98,7 @@ export const InputForm: Story = {
         btn1style: "filled",
         btn1Label: "Submit",
         block: true,
-        type: "CalenderReminder",
+        type: "CalendarReminder",
         smallText: "Don't worry, we'll never share or sell your information.",
         titleIcon: false,
         closeIcon: false,
@@ -101,6 +106,7 @@ export const InputForm: Story = {
         inputForm: true,
     }
 } satisfies Story;
+InputForm.parameters = { controls: { include: ['cardTitle','label','smallText','block','showBtn1','titleIcon','closeIcon'] } };
 
 export const RestaurantOrder: Story = {
     args: {
@@ -116,10 +122,16 @@ export const RestaurantOrder: Story = {
         closeIcon: false,
     }
 } satisfies Story;
+RestaurantOrder.parameters = { controls: { include: ['cardTitle','block','showBtn1','titleIcon','closeIcon'] } };
 
 export const FootballScorecard: Story = {
     args: {
         type: "FootballScorecard",
-        closeIcon: true,
+        homeTeam: "Real Madrid",
+        awayTeam: "Barcelona",
+        score: "2 : 2",
+        time: "90:00",
+        tournament: "La Liga"
     }
 } satisfies Story;
+FootballScorecard.parameters = { controls: { include: ['homeTeam','awayTeam','tournament','score','time'] } };

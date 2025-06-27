@@ -6,6 +6,7 @@ import RdsBarChart from "../rds-chart-bar";
 import RdsDoughnutChart from "../rds-chart-doughnut";
 import RdsBigNumber from "../rds-big-number/rds-big-number";
 import { ScriptableContext } from "chart.js/auto";
+import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 
 const meta: Meta = {
     title: "Components/Widget",

@@ -158,6 +158,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <RdsTextArea
                         reset={inputReset}
                         isMultiUrl={true}
+                        showTitle={true}
                         label="Redirect Uris"
                         placeholder="Enter Redirect Uris"
                         onChange={(e: any) => handleDataChanges(e.target.value, "redirectUris")}
@@ -186,6 +187,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                     <RdsTextArea
                         reset={inputReset}
                         isMultiUrl={true}
+                        showTitle={true}
                         label="Post Logout Redirect Uris"
                         placeholder="Enter Post Logout Redirect Uris"
                         onChange={e => handleDataChanges(e.target.value, "postLogoutRedirectUris")}

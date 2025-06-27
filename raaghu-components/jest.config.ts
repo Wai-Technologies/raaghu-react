@@ -21,3 +21,17 @@
 //     ],
 // };
 // export default config;
+import type { Config } from "jest";
+import { defaults } from "jest-config";
+
+const config: Config = {
+    moduleFileExtensions: [...defaults.moduleFileExtensions, "mts"],
+    preset: "ts-jest",
+    testEnvironment: "jsdom",
+    setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+    moduleNameMapper: {
+        "\\.(scss|sass|css)$": "../../__mocks__/styleMock.ts",
+    },
+};
+
+export default config;

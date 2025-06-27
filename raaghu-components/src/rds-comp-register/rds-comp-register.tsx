@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { RdsLabel, RdsButton, RdsInput,  RdsCheckbox, RdsIcon,  RdsModal, RdsDropdownList,} from "../rds-elements";
 import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 import { LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
+import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 
 export interface RdsCompRegisterProps {
   error?: any;
@@ -222,7 +223,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                         class="me-2"
                         label={
                           checked
-                            ? "SWITCH TO THE TENANT" || ""
+                            ? "SWITCH TO THE TENANT"
                             : "SWITCH TO THE HOST"
                         }
                         size="small"
@@ -344,6 +345,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                         tooltip={true}
                         tooltipTitle={"Connect with Google"}
                         tooltipPlacement="bottom"
+                        style={TooltipStyle.MiddleTopArrow}
                         isCursorPointer={true}
                       ></RdsIcon>
                     </span>
@@ -358,6 +360,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                         tooltip={true}
                         tooltipTitle={"Connect with Microsoft"}
                         tooltipPlacement="bottom"
+                        style={TooltipStyle.MiddleTopArrow}
                         isCursorPointer={true}
                       ></RdsIcon>
                     </span>

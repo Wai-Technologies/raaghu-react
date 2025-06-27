@@ -40,7 +40,7 @@
 .bottom-dot-md{
   right: 0px !important;
     bottom: 0px;
-    top: 27px;
+    top: 27px !important;
     width: 11px;
     height: 11px;
 

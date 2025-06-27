@@ -738,7 +738,7 @@ const RdsCompSetPassword = (props: RdsCompSetPasswordProps) => {
                 </div>
                 <br />
                 <div>
-                  {"Didn't receive the link" || ""} ?
+                  Didn't receive the link ?
                   <a
                     className="link-primary text-decoration-none px-1"
                     href="javascript:void(0)"

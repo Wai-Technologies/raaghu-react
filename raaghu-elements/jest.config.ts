@@ -10,12 +10,11 @@
 import type { Config } from "jest";
 import { defaults } from "jest-config";
 
-const config: Config = {
-    moduleFileExtensions: [...defaults.moduleFileExtensions, "mts"],
+const config: Config = {    moduleFileExtensions: [...defaults.moduleFileExtensions, "mts"],
     preset: "ts-jest",
     testEnvironment: "jsdom",
     moduleNameMapper: {
-        "\\.(scss|sass|css)$": "<rootDir>/__mocks__/styleMock.ts",
+        "\\.(scss|sass|css)$": "../../__mocks__/styleMock.ts",
     },
 };
 

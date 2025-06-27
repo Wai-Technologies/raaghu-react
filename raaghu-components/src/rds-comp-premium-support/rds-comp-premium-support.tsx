@@ -11,13 +11,13 @@ export interface RdsCompPremiumSupportProps {
   onClickOffcanvas?: () => void;
 }
 
-const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {
-
-    const [premiumSupportData, setPremiumSupportData] = useState<any>(props.premiumSupportData);
+const RdsCompPremiumSupport = (props: RdsCompPremiumSupportProps) => {    const [premiumSupportData, setPremiumSupportData] = useState<any>(props.premiumSupportData || { phoneNumber: "", message: "", name: "", email: "" });
     const [inputReset, setInputReset] = useState(false);
 
     useEffect(() => {
-        setPremiumSupportData(props.premiumSupportData);
+        if (props.premiumSupportData) {
+            setPremiumSupportData(props.premiumSupportData);
+        }
     }, [props.premiumSupportData]);
 
     useEffect(() => {

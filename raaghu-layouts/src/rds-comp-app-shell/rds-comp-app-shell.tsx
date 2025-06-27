@@ -21,7 +21,7 @@ export enum AppShellDisplayType {
   TopNav = "Top Nav",
   SideNav = "Side Nav",
   DoubleNav = "Double Nav",
-  OneThreeOne = "1-3-1"
+  TriPane = "TriPane"
 }
  
  

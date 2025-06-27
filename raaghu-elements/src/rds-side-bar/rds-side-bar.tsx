@@ -190,8 +190,9 @@ const RdsSidebar = (props: RdsSidebarProps) => {
   };
  
   return (
+    <div className="sidebar-container">
     <div
-    className={`background-color rds-sidebar ${
+    className={`background-color nav-sidebars ${
       isCollapsed ? "collapsed" : ""
     } d-flex flex-column justify-content-between vh-100`}
   >
@@ -282,6 +283,7 @@ const RdsSidebar = (props: RdsSidebarProps) => {
         ))}
       </div>
     </div>
+  </div>
   </div>
   );
  

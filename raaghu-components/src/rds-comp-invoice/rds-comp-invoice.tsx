@@ -91,6 +91,7 @@ const RdsCompInvoice = (props: RdsCompInvoiceProps) => {
                 <div className="mb-3">
                     <RdsTextArea
                         label="Address"
+                        showTitle={true}
                         placeholder="Enter Address"
                         onChange={e => setAddress(e.target.value)}
                         value={invoiceData.address}

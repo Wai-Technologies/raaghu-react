@@ -122,3 +122,34 @@ svg.text-dark {
   stroke: #ffffff;
   color: #727277 !important;
 }
+
+
+/* Resizable columns styles */
+.resizable-table th.resizable {
+  position: relative;
+  resize: horizontal;
+  overflow: auto;
+  min-width: 100px;
+}
+
+.resizable-table th.resizable::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: col-resize;
+}
+
+.resizable-table th.resizable:hover::after {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.resizable-table th.resizing {
+  user-select: none;
+}
+/* Target the three dots icon inside RdsDropdown */
+#sortTable tbody td.text-center.align-middle svg {
+  overflow: visible !important;
+}

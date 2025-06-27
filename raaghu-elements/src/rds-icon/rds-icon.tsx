@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ReactElement } from "react";
-import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
+import Tooltip, { TooltipStyle, TooltipTrigger } from "../rds-tooltip/rds-tooltip";
 import { placements } from "../../libs";
 
 // Define the type for our icon cache more explicitly
@@ -77,8 +77,14 @@ const RdsIcon = (props: RdsIconProps) => {
     setLoadFailed(false);
 
     // Use fetch to get the SVG content
-    const iconPath = `/assets/icons/${name}.svg`;
-    
+    let iconPath = `/assets/icons/${name}.svg`;
+    // If running in Node (test), use absolute file path
+    if (typeof window === 'undefined' && typeof process !== 'undefined') {
+      const path = require('path');
+      iconPath = path.resolve(__dirname, '../../public/assets/icons/', `${name}.svg`);
+      // node-fetch requires file:// protocol for local files
+      iconPath = 'file://' + iconPath.replace(/\\/g, '/');
+    }
     fetch(iconPath)
       .then(response => {
         if (!response.ok) {
@@ -187,6 +193,22 @@ const RdsIcon = (props: RdsIconProps) => {
     props.classes || ""
   }`.trim();
 
+  const getTooltipStyle = (): TooltipStyle => {
+    if (props.style) return props.style; 
+    switch (props.tooltipPlacement) {
+      case "top":
+        return TooltipStyle.MiddleBottomArrow;
+      case "bottom":
+        return TooltipStyle.MiddleTopArrow;
+      case "left":
+        return TooltipStyle.RightArrow;
+      case "right":
+        return TooltipStyle.LeftArrow;
+      default:
+        return TooltipStyle.MiddleTopArrow;
+    }
+  };
+
   // If using a provided SvgIcon component
   if (IconComponent) {
     const Icon = IconComponent;
@@ -207,9 +229,15 @@ const RdsIcon = (props: RdsIconProps) => {
     const iconElement = <Icon {...svgProps} />;
     
     return props.tooltip ? (
-       <Tooltip label={props.tooltipTitle} style={props.style}>
-        {iconElement}
-      </Tooltip>
+       <Tooltip 
+         label={props.tooltipTitle}
+         style={getTooltipStyle()}
+         trigger={TooltipTrigger.Hover}
+       >
+        <div className="icon-tooltip-wrapper">
+          {iconElement}
+        </div>
+       </Tooltip>
     ) : (
       iconElement
     );
@@ -276,11 +304,16 @@ const RdsIcon = (props: RdsIconProps) => {
     // No icon found or provided
     return null;
   }
-
   return props.tooltip ? (
-     <Tooltip label={props.tooltipTitle} style={props.style}>
-      {iconElement}
-    </Tooltip>
+     <Tooltip 
+       label={props.tooltipTitle} 
+       style={getTooltipStyle()}
+       trigger={TooltipTrigger.Hover}
+     >
+      <div className="icon-tooltip-wrapper">
+        {iconElement}
+      </div>
+     </Tooltip>
   ) : (
     iconElement
   );

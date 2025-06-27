@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./rds-ai-prompt-box.css";
 import RdsIcon from "../rds-icon/rds-icon";
 
@@ -13,6 +13,10 @@ export interface RdsAiPromptBoxProps {
   codeText?: string;
   aiPunditLogoImage?: string;
   placeholderText?: string;
+  isShowPrefilledPrompt?: boolean;
+  defaultExpanded?: boolean;
+  designIcon?: string;
+  codeIcon?: string;
 }
 
 const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
@@ -26,12 +30,23 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
   const [selectedViews, setSelectedViews] = useState<{ [key: number]: string }>(
     {}
   );
+  const [expandedStates, setExpandedStates] = useState<{ [key: number]: boolean }>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isChecked, setIsChecked] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
   const defaultImage = "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/default-image.png";
+
+  useEffect(() => {
+    if (props.defaultExpanded !== undefined && chatHistory.length > 0) {
+      const updatedStates = { ...expandedStates };
+      chatHistory.forEach((_, index) => {
+        updatedStates[index] = props.defaultExpanded || false;
+      });
+      setExpandedStates(updatedStates);
+    }
+  }, [props.defaultExpanded, chatHistory.length]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -93,6 +108,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
       const generatedText = `${textToUse}`;
       setOutputText(generatedText);
       setOutputImages(imagesToUse);
+      const newEntryIndex = chatHistory.length + 1;
       setChatHistory((prevHistory) => [
         ...prevHistory,
         { type: "output", text: generatedText, images: imagesToUse },
@@ -101,7 +117,11 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
       // Set default view to "Design" for the new response
       setSelectedViews((prevViews) => ({
         ...prevViews,
-        [chatHistory.length + 1]: "Design",
+        [newEntryIndex]: "Design",
+      }));
+      setExpandedStates((prevStates) => ({
+        ...prevStates,
+        [newEntryIndex]: props.defaultExpanded !== undefined ? props.defaultExpanded : true,
       }));
     }, 1000); // Simulate delay for generating response
 
@@ -238,7 +258,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
  </html>`;
 
   return (
-    <div className="container-fluid p-0">
+    <div className={`container-fluid py-3 ${props.outputtype === "Raaghu" ? "bg-gradient-purple" : ""}`}>
       {/* Chat History Section */}
       <div className="chat-history form-controls">
         {chatHistory.map((entry, index) => (
@@ -256,19 +276,19 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                     style={{ height: "3.3rem" }}
                   />
                 </span>
-                <div className="output-content">
+                <div className={`output-content ${expandedStates[index] ? 'expanded' : 'collapsed'}`}>
                   {entry && (
                     <>
                       <div
                         id="custominputoutput"
-                        className={`p-3 text-light rounded bg-white border position-relative`}
+                        className={`p-3 text-light rounded bg-white border position-relative ${expandedStates[index] ? 'expanded-content' : 'collapsed-content'}`}
                       >
                         {entry.text && (
                           <div className="d-flex justify-content-between align-items-center mb-2">
                             <div>{entry.text}</div>
                             <div className="d-flex ml-auto">
                               {props.outputtype ===
-                                "Raaghu_reply_with_design" && (
+                                "Raaghu" && (
                                 <div className="toggle-container ms-2">
                                   <div
                                     className={`toggle-option ${
@@ -278,7 +298,17 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                                     }`}
                                     onClick={() => handleClick(index, "Design")}
                                   >
-                                    {props.designText || "Design"}
+                                    <span className="toggle-text">{props.designText || "Design"}</span>
+                                    <span className="toggle-icon">
+                                      <RdsIcon
+                                        name={props.designIcon || "eye"}
+                                        height="18px"
+                                        width="18px"
+                                        colorVariant={selectedViews[index] === "Design" ? "light" : "primary"}
+                                        fill={false}
+                                        stroke={true}
+                                      />
+                                    </span>
                                   </div>
                                   <div
                                     className={`toggle-option ${
@@ -288,7 +318,17 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                                     }`}
                                     onClick={() => handleClick(index, "Code")}
                                   >
-                                    {props.codeText || "Code"}
+                                    <span className="toggle-text">{props.codeText || "Code"}</span>
+                                    <span className="toggle-icon">
+                                      <RdsIcon
+                                        name={props.codeIcon || "code"}
+                                        height="18px"
+                                        width="18px"
+                                        colorVariant={selectedViews[index] === "Code" ? "light" : "primary"}
+                                        fill={false}
+                                        stroke={true}
+                                      />
+                                    </span>
                                   </div>
                                 </div>
                               )}
@@ -310,25 +350,29 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                             </div>
                           </div>
                         )}
-                        {entry.images.length > 0 &&
-                          selectedViews[index] === "Design" && (
-                            <div className="mb-3">
-                              {entry.images.map((image, imgIndex) => (
-                                <img
-                                  key={imgIndex}
-                                  src={image}
-                                  alt={`Chat ${entry.type} ${imgIndex}`}
-                                  className="chat-image mt-2"
-                                />
-                              ))}
-                            </div>
-                          )}
-                        {selectedViews[index] === "Code" && (
-                          <div className="mb-3">
-                            <pre className="code-block">{preCode}</pre>
-                          </div>
+                        {expandedStates[index] && (
+                          <>
+                            {entry.images.length > 0 &&
+                              selectedViews[index] === "Design" && (
+                                <div className="mb-3">
+                                  {entry.images.map((image, imgIndex) => (
+                                    <img
+                                      key={imgIndex}
+                                      src={image}
+                                      alt={`Chat ${entry.type} ${imgIndex}`}
+                                      className="chat-image mt-2"
+                                    />
+                                  ))}
+                                </div>
+                              )}
+                            {selectedViews[index] === "Code" && (
+                              <div className="mb-3">
+                                <pre className="code-block">{preCode}</pre>
+                              </div>
+                            )}
+                          </>
                         )}
-                        <div className="hover-buttons">
+                        <div className="hover-buttons flex-md-column overflow-scroll">
                           <span className="hover-button" title="Select All">
                             <input
                               type="checkbox"
@@ -412,24 +456,26 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
             )}
           </div>
         ))}
-      </div>
-      <div className={`prefilled-prompts d-flex justify-content-between`}>
-        {props.prefilledprompt &&
-          props.prefilledprompt.map(
-            (prompt: { question: string }, index: number) => (
-              <button
-                key={index}
-                className={`form-controls prompt-button text-primary border-primary`}
-                onClick={(e) =>
-                  handlePromptText((e.target as HTMLButtonElement).value)
-                }
-                value={prompt.question}
-              >
-                {prompt.question}
-              </button>
-            )
+      </div>      
+      {props.isShowPrefilledPrompt && (
+        <div className={`prefilled-prompts d-flex justify-content-between`}>
+          {props.prefilledprompt &&
+            props.prefilledprompt.map(
+              (prompt: { question: string }, index: number) => (
+                <button
+                  key={index}
+                  className={`form-controls prompt-button text-primary border-primary`}
+                  onClick={(e) =>
+                    handlePromptText((e.target as HTMLButtonElement).value)
+                  }
+                  value={prompt.question}
+                >
+                  {prompt.question}
+                </button>
+              )
           )}
       </div>
+      )}      
       <div className="main-content d-lg-flex d-md-flex">
         <div className="d-flex w-100">
           <div className="button-column">
@@ -451,13 +497,14 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
             )}
             <div className={`button-row ${props.showVariations ? "mt-2" : ""}`}>
               {props.showVariations && (
+                <>
                 <button
                   className={`form-controls sidebar-button me-2 text-primary border-primary`}
                   onClick={() => handleButtonClick({ id: "4" })}
                 >
                   4
                 </button>
-              )}
+              
               <button
                 className={`form-controls sidebar-button me-2 text-primary border-primary`}
                 onClick={() => handleButtonClick({ id: "Chat" })}
@@ -472,6 +519,8 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
                   stroke={false}
                 />
               </button>
+              </>
+              )}
             </div>
           </div>
           <div className="input-column">
@@ -479,7 +528,7 @@ const RdsAiPromptBox = (props: RdsAiPromptBoxProps) => {
               <div className="ai-prompt">
               <div className="input-with-image">
                 <textarea
-                  className={`form-controls input-box text-${props.colorVariant} border-${props.colorVariant}`}
+                  className={`form-controls input-box bg-input-wrpper text-${props.colorVariant} border-${props.colorVariant}`}
                   placeholder={props.placeholderText || "Placeholder Text"}
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}

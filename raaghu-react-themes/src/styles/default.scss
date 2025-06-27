@@ -252,7 +252,7 @@ $success: #24993A;
 
 /* Missing Colors for darkvariables */
 $line-success-light-default: #C1F1C9;
-$progress-bg: #33383e;
+$progress-bg: #EEEEEE;
 $high-rate-color: #9EFCB0;
 $subcription-bg-green: #00a443;
 $file-uploader-border-color: #9bacbc;
@@ -363,6 +363,10 @@ html[theme="dark"] {
     background-color: $input-group-addon-bg;
     border-color: $input-bg-border;
   }
+}
+/* Docs Spacing */
+.css-k7lbue {
+  padding: 3rem 1rem !important;
 }
 
 @import "./custom.scss";
