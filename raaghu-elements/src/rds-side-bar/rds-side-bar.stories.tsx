@@ -22,7 +22,7 @@ const meta: Meta = {
  
 export default meta;
 type Story = StoryObj<typeof RdsSideBar>;
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         labels: [
             "New Chat",

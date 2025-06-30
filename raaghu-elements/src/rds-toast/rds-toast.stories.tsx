@@ -62,7 +62,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsToast>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         state: ToastState.Basic,
         headerText: "Toast Headline",
@@ -82,4 +82,4 @@ export const Default: Story = {
         chatTime: "12.29 PM"
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ["layout", "state", "headerText", "showSubText", "subText", "showHeader", "showDismiss", "leadingIcon", "showLeading"] } };
+Standard.parameters = { controls: { include: ["layout", "state", "headerText", "showSubText", "subText", "showHeader", "showDismiss", "leadingIcon", "showLeading"] } };

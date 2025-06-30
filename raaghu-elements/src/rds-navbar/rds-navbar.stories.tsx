@@ -26,7 +26,7 @@
     export default meta;
     type Story = StoryObj<typeof RdsNavbar>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         title: "Navbar",
         size: "small",

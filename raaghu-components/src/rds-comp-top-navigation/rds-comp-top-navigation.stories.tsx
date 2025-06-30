@@ -32,7 +32,7 @@ Designed with clarity, accessibility, and responsiveness in mind, this component
 export default meta;
 type Story = StoryObj<typeof RdsCompTopNavigation>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         navbarSubTitle: "Statistics and reports",
         brandName: "Raaghu",
@@ -135,7 +135,7 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['navbarTitle', 'top_nav_logo', 'navbarSubTitle', 'brandName', 'brandLogo', 'profileTitle', 'profileName', 'logo', 'notifications', 'languageItems', 'themeItems', 'showLogo', 'role', 'style'] } };
+Standard.parameters = { controls: { include: ['navbarTitle', 'top_nav_logo', 'navbarSubTitle', 'brandName', 'brandLogo', 'profileTitle', 'profileName', 'logo', 'notifications', 'languageItems', 'themeItems', 'showLogo', 'role', 'style'] } };
 export const ABP: Story = {
     args: {
         navbarTitle: "Home",

@@ -73,7 +73,7 @@ const buttonInputs: ButtonInput[] = [
     },
 ];
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         rows: 2,
         columns: 4,
@@ -81,7 +81,7 @@ export const Default: Story = {
         buttonInputs: buttonInputs,       
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ["rows", "columns", "colorVariant", "buttonInputs"] } };
+Standard.parameters = { controls: { include: ["rows", "columns", "colorVariant", "buttonInputs"] } };
 
 
 const buttonInputsWithColor: ButtonInput[] = [

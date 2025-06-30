@@ -26,7 +26,7 @@ type Story = StoryObj<typeof RdsProductImage>;
 
 
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         displayType: "default",
         images: [
@@ -34,7 +34,7 @@ export const Default: Story = {
         ]
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ["displayType", "images"] } };
+Standard.parameters = { controls: { include: ["displayType", "images"] } };
 
 export const Column_Layout: Story = {
     args: {

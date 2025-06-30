@@ -26,7 +26,7 @@ With customizable icon sizes and color variants, the component ensures visual co
 export default meta;
 type Story = StoryObj<typeof RdsCardDetail>;
 
-export const cardDetailManager: Story = {
+export const Standard: Story = {
     args: {
         cardDatas: [
             {

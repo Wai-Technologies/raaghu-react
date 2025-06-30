@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsConfirmationPopup>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         alertID: "alert_popup",
         iconUrl: "delete",
@@ -35,4 +35,4 @@ export const Default: Story = {
     },
 };
 
-Default.parameters = { controls: { include: ['showIcon', 'showDescription'] } };
+Standard.parameters = { controls: { include: ['showIcon', 'showDescription'] } };

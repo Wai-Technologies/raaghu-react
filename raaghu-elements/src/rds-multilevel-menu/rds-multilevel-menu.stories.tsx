@@ -46,7 +46,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsMultilevelMenu>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         type: MenuType.Expandable,
         state: MenuState.Default,
@@ -54,4 +54,4 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-Default.parameters = {controls: {include: ['size', 'type', 'state']}};
+Standard.parameters = {controls: {include: ['size', 'type', 'state']}};

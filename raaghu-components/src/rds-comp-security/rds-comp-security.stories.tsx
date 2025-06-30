@@ -23,7 +23,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompSecurity>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         security: "default",
         checkgroupList: [
@@ -53,7 +53,7 @@ export const Default: Story = {
         ]
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['checkgroupList'] } };
+Standard.parameters = { controls: { include: ['checkgroupList'] } };
 
 export const Logs: Story = {
     args: {

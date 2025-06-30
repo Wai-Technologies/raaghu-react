@@ -52,7 +52,7 @@ type Story = StoryObj<typeof RdsNavtabs>;
 
 
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         navtabsItems: [
             { label: "Active", tablink: "#nav-home", ariacontrols: "nav-home", subText: "Active subtext", id: "active" },
@@ -65,7 +65,7 @@ export const Default: Story = {
         layout: "Horizontal"
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['navtabsItems', 'justified', 'style'] } };
+Standard.parameters = { controls: { include: ['navtabsItems', 'justified', 'style'] } };
 
 
 //export const Pills: Story = {

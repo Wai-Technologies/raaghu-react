@@ -70,7 +70,7 @@ const meta: Meta =  {
 export default meta;
 type Story = StoryObj<typeof RdsTabGroup>;
 
-export const Default : Story = {
+export const Standard : Story = {
   args: {
     level: 1,
     type: TabType.Horizontal,
@@ -85,4 +85,4 @@ export const Default : Story = {
   }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['level', 'type', 'layout', 'state', 'showLeftIcon', 'showRightIcon', 'title', 'leftIcon', 'rightIcon'] } };
+Standard.parameters = { controls: { include: ['level', 'type', 'layout', 'state', 'showLeftIcon', 'showRightIcon', 'title', 'leftIcon', 'rightIcon'] } };

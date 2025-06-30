@@ -59,7 +59,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsColorPicker>;
 
-export const Advanced_ColorPicker: Story = {
+export const Standard: Story = {
     args: {
         value: "#e1e1e1",
         label: "Color-Picker",
@@ -70,7 +70,7 @@ export const Advanced_ColorPicker: Story = {
         colorMode: ColorMode.HEX, // Use enum
     },
 } satisfies Story;
-Advanced_ColorPicker.parameters = { controls: { include: ['type', 'showSwatches', 'pickerType', 'showTabs'] } };
+Standard.parameters = { controls: { include: ['type', 'showSwatches', 'pickerType', 'showTabs'] } };
 
 
 // import RdsColorPicker from "./rds-color-picker";

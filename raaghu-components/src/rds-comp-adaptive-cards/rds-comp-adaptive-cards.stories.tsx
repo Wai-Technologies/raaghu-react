@@ -62,7 +62,7 @@ export const CalendarReminder: Story = {
 } satisfies Story;
 CalendarReminder.parameters = { controls: { include: ['cardTitle','label','smallText','showBtn1','showBtn2','titleIcon','closeIcon'] } };
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         cardTitle: "Title",
         title: true,
@@ -78,7 +78,7 @@ export const Default: Story = {
         closeIcon: true,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['cardTitle','showBtn1','showBtn2','titleIcon','closeIcon'] } };
+Standard.parameters = { controls: { include: ['cardTitle','showBtn1','showBtn2','titleIcon','closeIcon'] } };
 
 export const ImageGallery: Story = {
     args: {

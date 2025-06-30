@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompLanguage>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         cultureList: [
             { option: "Invariant Language", value: "" },

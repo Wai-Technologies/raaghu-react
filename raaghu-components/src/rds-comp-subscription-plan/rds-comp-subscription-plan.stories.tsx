@@ -31,7 +31,7 @@ export default meta;
 
 type Story = StoryObj<typeof RdsCompSubscriptionPlan>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     freePlanText: "Free",
   premiumPlanText: "Premium",
