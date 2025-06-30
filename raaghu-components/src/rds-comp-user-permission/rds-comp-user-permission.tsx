@@ -34,7 +34,7 @@ const RdsCompUserPermission = (props: RdsCompUserPermissionProps) => {
     <>
     {props.displayType == "basic" && (
     <div>
-      <div className="d-flex justify-content-end">
+      <div className="d-flex justify-content-end mb-3">
         <RdsButton
           type={"button"}
           colorVariant="primary"
