@@ -18,3 +18,56 @@
     color: #ffffff !important;
     border: 1px solid #7825e9;
 }
+
+@media (min-width: 320px) and (max-width: 568px) {
+   #confirmation-popup .modal-content{
+        margin-left: 5px !important;
+    }
+     #confirmation-popup .text-center.py-3.px-4 {
+        padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+    }
+
+ #pop_up-btns .icon-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 65px !important;
+    height: 65px !important;
+    border-radius: 50%;
+    border: 2px solid #dc3545;
+    padding: 10px;
+}
+
+#pop_up-btns .py-3{
+        padding-top: .25rem !important;
+    padding-bottom: .25rem !important;
+}
+#pop_up-btns .px-3{
+    padding-right: .5rem !important;
+    padding-left: .5rem !important;
+}
+#icon-circle-id svg#a{
+height: 42px !important;
+    width: 44px !important;
+    fill: none;
+    stroke: currentcolor;
+}
+
+#h4-text label.form-label.mb-0.fw-undefined{
+    font-size: 17px !important;
+}
+#text-description p.d-flex.p-0.m-0.singleLine.text-muted.align-items-center.justify-content-center{
+    font-size: 14px !important;
+}
+
+#btns .mt-4.pt-2.d-flex.gap-3.justify-content-center{
+margin-top: 10px !important;
+}
+
+div#btns {
+    margin-top: 1rem !important;
+}
+}

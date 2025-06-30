@@ -409,6 +409,9 @@ margin-left: -2px;
   border:1px solid #353535 !important;
   border-radius: 5px 5px 5px 5px;
 }
+.theme-dark #toolbar-footer-storybook span{
+ color: #000;
+}
 
 .toolbar-pane-container {
   /* display: flex; */
@@ -496,7 +499,7 @@ margin-left: -2px;
 }                  
 
 .theme-dark #estate-description label.form-label.mb-0.fw-normal {
-  color: #000;
+  color: #000 !important;
 }
 
 .theme-dark #lable-adult-children-text label.form-label.mb-0.fw-semibold {
@@ -629,4 +632,12 @@ background-color: #fff !important;
 
 .theme-dark #detail-pane-container-2 .detail-pane-container{
 background-color: #fff !important;
+}
+
+.theme-dark #toolbar-footer-storybook button.btn.btn-undefined.position-relative.align-items-center.btn-md.d-flex.justify-content-center.gap-2.w-100{
+  background-color: #fff;
+}
+
+.theme-dark .detail-pane-footer-fixed {
+  background: none;
 }
