@@ -23,6 +23,7 @@
 .border-start-custom {
   border-left: 2px solid #dee2e6;
   min-height: 16px;
+  
 }
 
 .breadcrumb-item.active a {
@@ -120,4 +121,133 @@
   box-shadow: none !important;
   background: #ffffff !important;
   padding: 0 !important;
+  overflow-y: auto;
+}
+
+#dropdown-list-theme li{
+  border-bottom: 1px solid #e1e3ea;
+}
+#notification-list .notification-card{
+    padding: 0px !important;
+    border-radius: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+    position: relative;
+    box-shadow: 2px 8px 16px 0px rgba(60, 60, 60, 0.12) !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+#notification-list .notification-card:hover {
+    box-shadow: 4px 12px 24px 0px rgba(60, 60, 60, 0.18) !important;
+    transform: translateY(-2px);
+    
+}
+
+#notification-list .notification-header {
+   
+    justify-content: space-between;
+    position: relative ;
+    text-align: start !important;
+    margin-left: 10px !important;
+}
+
+#notification-list .notification-dismiss-icon{
+    position: absolute;
+    top: 5px !important;
+    right: 0.5rem !important;
+}
+
+#notification-list .layout-horizontal .notification-header, .layout-horizontal .notification-body, .layout-horizontal .notification-footer
+ {
+    display: flex;
+    align-items: center;
+    text-align: start !important;
+    margin-left: 10px !important;
+    font-size: 13px !important;
+}
+
+/* #notification-list .notification-card:first-child { */
+    /* background: linear-gradient(135deg, #f8f9ff 0%, #EBDCFF 100%) !important; */
+    /* background-color: #EBDCFF; */
+    /* border-left: 4px solid #7e2eef !important; */
+/* } */
+
+/* Optional: Add a subtle highlight to the first notification */
+/* #notification-list .notification-card:first-child:hover {
+    background: linear-gradient(135deg, #EBDCFF 0%, #e8f0ff 100%) !important;
+} */
+
+/* Second notification card hover */
+/* #notification-list .notification-card:nth-child(2):hover {
+    background: linear-gradient(135deg, #EBDCFF 0%, #e8f0ff 100%) !important;
+} */
+
+/* Third notification card hover */
+/* #notification-list .notification-card:nth-child(3):hover {
+    background: linear-gradient(135deg, #EBDCFF 0%, #e8f0ff 100%) !important;
+} */
+
+/* Fourth notification card hover */
+/* #notification-list .notification-card:nth-child(4):hover {
+   background: linear-gradient(135deg, #EBDCFF 0%, #e8f0ff 100%) !important;
+} */
+
+/* Fifth and beyond notification cards hover (fallback) */
+/* #notification-list .notification-card:nth-child(n+5):hover {
+   background: linear-gradient(135deg, #EBDCFF 0%, #e8f0ff 100%) !important;
+} */
+
+/* Target only the notification bell icon SVG */
+/* .icon-tooltip-wrapper {
+  color: red !important;
+} */
+
+/* Alternative: Target the wrapper within notification container only when dropdown is open */
+/* #notification-list .notification-dropdown-container.dropdown-open .icon-tooltip-wrapper {
+  color: #7e2eef !important;
+} */
+
+/* Alternative shorter syntax */
+#notification-list.notification-dropdown-container.dropdown-open .icon-tooltip-wrapper {
+  color: #7e2eef !important;
+}
+
+/* Default state - original color when dropdown is closed */
+/* .notification-dropdown-container .icon-tooltip-wrapper {
+  color: #7D7D7D !important;
+  transition: color 0.3s ease;
+} */
+
+/* Target the SVG within the icon wrapper */
+
+/* #notification-list .icon-tooltip-wrapper {
+  color: #7e2eef !important;
+} */
+
+
+
+@media (min-width: 1200px) {
+    .justify-content-xl-between {
+        justify-content: space-between !important;
+        gap: 10px;
+    }
+    #list-version .d-flex.align-items-center.justify-content-xxl-between.justify-content-xl-between.justify-content-lg-between.justify-content-md-between.justify-content-between{
+  gap: 10px ;
+}
+}
+
+@media (min-width: 992px) {
+    .justify-content-lg-between {
+        justify-content: space-between !important;
+   
+    }
+      #list-version .d-flex.align-items-center.justify-content-xxl-between.justify-content-xl-between.justify-content-lg-between.justify-content-md-between.justify-content-between{
+  gap: 10px ;
+      }
+}
+
+
+#dropdown-list-language div.d-flex.align-items-center.justify-content-xxl-between.justify-content-xl-between.justify-content-lg-between.justify-content-md-between.justify-content-between{
+gap: 12px;
 }

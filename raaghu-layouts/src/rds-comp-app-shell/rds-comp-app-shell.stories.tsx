@@ -326,7 +326,7 @@ export const Relaxing: Story = {
           profileName="John Doe"
           profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
           profileTitle="John Doe"
-          role="Admin"
+          
           showLogo
           showSearch
           style="With_Theme_Switcher"
@@ -361,13 +361,14 @@ export const Relaxing: Story = {
       </div>
     ),
     children: (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%' }} >
         {/* Content Row: Sidebar + Add Layout */}
         <div style={{ display: 'flex', flexDirection: 'row', minHeight: 0 ,paddingTop: '50px' }}>
           {/* Sidebar */}
-          <div style={{ minWidth: 245, maxWidth: 245, height: '100%' }}>
-            <BrowserRouter>
+          <div style={{ minWidth: 245, maxWidth: 245, height: '100%' }} >
+            <BrowserRouter >
               <RdsCompSideNavigation1
+             
                 layout="LeftSideNav"
                 logoVisible={false}
                 lockIconVisible={false}
@@ -690,7 +691,7 @@ export const SideNav: Story = {
                 navType={NavType.Collapsed}
                 showUserProfile
                 sideNavItems={[
-                  { icon: "language", key: "0", label: "Language", path: "" },
+                  // { icon: "language", key: "0", label: "Language", path: "" },
                   { icon: "chat", key: "1", label: "Chat", path: "" },
                   { icon: "sun", key: "2", label: "Theme", path: "" },
                   { icon: "grid_layout", key: "3", label: "Layout", path: "" },
@@ -934,10 +935,11 @@ export const DoubleNav: Story = {
           <span className="rds-appshell-add-layout-text">Add Layout</span>
         </div>
         <div  id="details-pane-app-shell"> 
-          <RdsCompDetailsPaneFavouites
-            estateDescription="This studio room is located in Major city. The famous Amazon and Amazonia beaches are approximately 10 minutes walk from here. The room has a kitchenette with basic utensils for cooking. There is a private attached bathroom. We have a smart tv for your entertainment. We provide complimentary Wi-Fi to our guests who also want to work."
-            estateTitle="Serene Studio Housing"
-            style="Real Estate" headerText={""} />
+              <RdsCompDetailsPaneFavouites
+                  headerSubText="Agent Information"
+                  headerText="Bayshore Transportation System"
+                  style="Selection"
+            />
         </div>
       </div>
     ),
@@ -945,7 +947,7 @@ export const DoubleNav: Story = {
 };
 
 //OneThreeOne Story
-export const OneThreeOne : Story = {
+export const TriPane : Story = {
   args: {
     displayType: AppShellDisplayType.TopNav,
     topbar: (
@@ -1054,7 +1056,7 @@ export const OneThreeOne : Story = {
     ),
 
     sidebar: (
-      <div className="mt-5 OneThreeOne-sidebar" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
+      <div className="mt-5 tripane-sidebar" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
         <div>
           <RdsCompSideNavigation1
     layout="LeftSideNav"

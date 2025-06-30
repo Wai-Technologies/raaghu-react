@@ -3477,7 +3477,11 @@ hr {
 
 
 .customWidthClass {
-    border-color: $dark-300 !important;
+    border-color: $primary !important;
+}
+
+.bg-pagination{
+    background-color: $neutral-900;
 }
 
 .custom-navigation .customWidthForBtn {
@@ -3685,4 +3689,39 @@ hr {
 
 .bg-input-wrpper{
     background-color: $neutral-900;
+}
+
+label{
+    color: $neutral-10 !important;
+}
+
+/* Clear hover effect on mouseleave after clicking */
+.accordion-item:not(:hover) .hover-content-wrapper {
+    background-color: transparent !important;
+    color: $neutral-400 !important;
+}
+
+.default .accordion-button:not(.collapsed) {
+    color: $white;
+    background-color: transparent; 
+}
+
+.accordion-hover .default .accordion-button:not(.collapsed) {
+    color: $black;
+    background-color: transparent; 
+    svg{
+        color: $black;
+    }
+}
+
+.accordion-hover .accordion-button.collapsed:hover {
+    background: transparent;
+    color: $black;
+    svg{
+        color: $black;
+    }
+}
+
+.accordion-selected .accordion-button {
+    background-color: $neutral-400; /* Change this to your desired selected color */
 }

@@ -25,3 +25,24 @@
   height: 25px !important;
   width: 25px !important;
 }
+
+/* Label styles merged from rds-label */
+/*------------------------For future enhancement--------------------------------- */
+/* .singleLine {
+  white-space: nowrap;
+  overflow: hidden;
+} */
+ 
+.multiline{
+  word-break: break-all;
+}
+.bold {
+  font-weight: bold;
+}
+.italic {
+  font-style: italic;
+}
+
+.poppins {
+  font-family: Poppins;
+}
