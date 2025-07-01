@@ -45,10 +45,11 @@ export const Standard: Story = {
   }
 } satisfies Story;
 
-export const Square: Story = {
+export const Advance: Story = {
   args: {
-    fieldStyle: FieldStyle.Square,
-    otpSize: 4,
+    fieldStyle: FieldStyle.Advance,
+    otpSize: 6,
+    iconUrl : 'otpvalidation'
   }
 } satisfies Story;
 
@@ -58,10 +59,12 @@ export const Circle: Story = {
     otpSize: 4,
   }
 } satisfies Story;
-export const Advance: Story = {
+
+
+export const Square: Story = {
   args: {
-    fieldStyle: FieldStyle.Advance,
-    otpSize: 6,
-    iconUrl : 'otpvalidation'
+    fieldStyle: FieldStyle.Square,
+    otpSize: 4,
   }
 } satisfies Story;
+

@@ -65,34 +65,6 @@ Standard.parameters = {
     }
 };
 
-export const OtpValidation: Story = (args: any) => (
-    <>
-        <button
-            type="button"
-            className="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target={`#${args.alertID}`}
-        >
-            OTP VALIDATION POPUP
-        </button>
-        <RdsCompAlertPopup {...args}>
-            <RdsCompOtpInput otpSize={6} fieldStyle={FieldStyle.Advance} iconUrl={args.iconUrl}/>
-        </RdsCompAlertPopup>
-    </>
-);
-
-OtpValidation.args = {
-    alertID: "otp_validation_popup",
-    iconUrl: "otpvalidation",
-    type: "otpvalidation",
-};
-
-OtpValidation.parameters = {
-    controls: {
-        include: [ 'iconUrl']
-    }
-};
-
 export const Confirm: Story = (args: any) => (
     <>
         <button
@@ -122,6 +94,37 @@ Confirm.parameters = {
         include: ['alertID', 'iconUrl', 'colorVariant', 'alertConfirmation', 'messageAlert', 'buttonlabel','type']
     }
 };
+
+
+export const OtpValidation: Story = (args: any) => (
+    <>
+        <button
+            type="button"
+            className="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target={`#${args.alertID}`}
+        >
+            OTP VALIDATION POPUP
+        </button>
+        <RdsCompAlertPopup {...args}>
+            <RdsCompOtpInput otpSize={6} fieldStyle={FieldStyle.Advance} iconUrl={args.iconUrl}/>
+        </RdsCompAlertPopup>
+    </>
+);
+
+OtpValidation.args = {
+    alertID: "otp_validation_popup",
+    iconUrl: "otpvalidation",
+    type: "otpvalidation",
+};
+
+OtpValidation.parameters = {
+    controls: {
+        include: [ 'iconUrl']
+    }
+};
+
+
 export const Transfer_Ownership: Story = (args: any) => (
     <>
         <button
