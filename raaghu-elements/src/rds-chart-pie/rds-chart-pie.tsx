@@ -34,7 +34,6 @@ const RdsPieChart = (props: RdsPieProps) => {
       },
     });
 
-    // Resize the canvas to fit the container
   }, [props]);
 
   return (
