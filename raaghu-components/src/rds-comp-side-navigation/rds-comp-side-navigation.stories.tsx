@@ -31,7 +31,7 @@ export const Standard: Story = (args: any) => (
     </BrowserRouter>
 );
 
-Default.args = {
+Standard.args = {
     logo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
     sideNavItems: [
         {
