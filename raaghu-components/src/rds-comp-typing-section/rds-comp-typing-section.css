@@ -450,3 +450,12 @@ background-color: #353535 !important;
 .advanced-control-body .dropdown-item:hover, .advanced-control-body .dropdown-item:focus {
     background-color: #EBDCFF;
 }
+
+.typing-section .btn.btn-outline-primary:hover {
+    background-color: #ebdcff;
+    color: #7825e9;
+}
+
+.typing-section .btn.btn-primary:hover {
+    background-color: var(--bs-btn-hover-bg) !important;
+}
