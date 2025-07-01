@@ -1978,7 +1978,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                           className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
                           src={profilePic}
                         />
-                        <div className="ms-2 fs-6">
+                        <div className="fs-6">
                           <div className="text-nowrap text-start">
                             {props.profileTitle}{" "}
                           </div>
@@ -1987,7 +1987,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                           </div>
                         </div>
                         <span
-                          className="ms-3"
+                          className="ms-2"
                           style={{
                             transform: isProfileDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                             transition: 'transform 0.2s ease',
