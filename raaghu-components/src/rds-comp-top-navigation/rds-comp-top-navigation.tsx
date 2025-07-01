@@ -1805,7 +1805,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
               )}
             </div>
 
-            <div className="d-flex align-items-center right-side-menu top-nav">
+            <div className="d-flex align-items-center right-side-menu top-nav" id="language-dropdown-list">
               <div
                 className={`position-relative px-2 px-md-3 col text-center d-flex align-items-center language`}
               >
@@ -1904,7 +1904,7 @@ const RdsCompTopNavigation = (props: RdsCompTopNavigationProps) => {
 
 
 
-              <div className="position-relative px-2 px-md-1 col text-center  ">
+              <div className="position-relative px-3 px-md-1 col text-center mx-1" id="theme-icon">
                 <RdsDropdownList
                   labelIconWidth="30px"
                   iconFill={true}

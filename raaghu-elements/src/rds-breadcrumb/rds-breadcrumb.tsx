@@ -138,6 +138,12 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                 : { borderBottom: `2px solid ${props.borderColor}` })
             : {};
 
+          // Add cursor pointer for level 5 items or when there are multiple items in array
+          const shouldShowCursor = props.level === 'Level 5' || props.breadcrumbItems.length > 1;
+          const finalItemStyle = shouldShowCursor 
+            ? { ...itemStyle, cursor: 'pointer' }
+            : itemStyle;
+
           // Allow last item to be clickable regardless of state
           const isClickable = true;
 
@@ -148,7 +154,7 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                 onClick={() => isClickable && onClickHandler(breadItem.id)}
                 onMouseEnter={() => setHoveredItem(breadItem.id)}
                 onMouseLeave={() => setHoveredItem(null)}
-                style={itemStyle}
+                style={finalItemStyle}
               >
                 {(() => {
                   const resolvedIconName = props.icons && props.icons.length > index ? props.icons[index] : breadItem.icon || "IN";
