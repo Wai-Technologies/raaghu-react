@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsPagination, RdsRadioButton, RdsSelectList, RdsTextArea, RdsTextEditor} from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsInput, RdsPagination, RdsRadioButton, RdsTextArea, RdsTextEditor} from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import RdsCompAlertPopup from "../rds-comp-alert-popup";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompFormsBasicProps {
   basicInfo?: any;
@@ -370,7 +372,7 @@ function emitEmailSaveData(event: any) {
             dataTestId="subject"
           ></RdsInput>
           <div className="pt-3 mb-3">
-            <RdsLabel>Body</RdsLabel>
+            <RdsCompLabel>Body</RdsCompLabel>
             <RdsTextEditor
               onChange={(e) => handleDataChanges(e, "body")}
               value={emailData?.body}
@@ -438,15 +440,15 @@ function emitEmailSaveData(event: any) {
                             <>
                               <div className="mt-4">
                                 <div className="d-flex py-2 align-items-center">
-                                  <RdsLabel
+                                  <RdsCompLabel
                                     class="pe-2"
                                     label={ele.title}
                                     required={ele.isRequired}
-                                  ></RdsLabel>
-                                  <RdsLabel
+                                  ></RdsCompLabel>
+                                  <RdsCompLabel
                                     class="opacity-75 fs-6 text-muted"
                                     label={ele.description}
-                                  ></RdsLabel>
+                                  ></RdsCompLabel>
                                 </div>
                                 <RdsTextArea
                                   placeholder={""}
@@ -459,15 +461,15 @@ function emitEmailSaveData(event: any) {
                             <>
                               <div className="mt-4">
                                 <div className="d-flex py-2 align-items-center">
-                                  <RdsLabel
+                                  <RdsCompLabel
                                     class="pe-2"
                                     label={ele.title}
                                     required={ele.isRequired}
-                                  ></RdsLabel>
-                                  <RdsLabel
+                                  ></RdsCompLabel>
+                                  <RdsCompLabel
                                     class="opacity-75 fs-6 text-muted"
                                     label={ele.description}
-                                  ></RdsLabel>
+                                  ></RdsCompLabel>
                                 </div>
                                 <RdsRadioButton
                                   itemList={multipleChoice[i]}
@@ -481,15 +483,15 @@ function emitEmailSaveData(event: any) {
                             <>
                               <div className="mt-4">
                                 <div className="d-flex py-2 align-items-center">
-                                  <RdsLabel
+                                  <RdsCompLabel
                                     class="pe-2"
                                     label={ele.title}
                                     required={ele.isRequired}
-                                  ></RdsLabel>
-                                  <RdsLabel
+                                  ></RdsCompLabel>
+                                  <RdsCompLabel
                                     class="opacity-75 fs-6 text-muted"
                                     label={ele.description}
-                                  ></RdsLabel>
+                                  ></RdsCompLabel>
                                 </div>
                                 {ele.choices &&
                                   ele.choices.length &&
@@ -507,17 +509,17 @@ function emitEmailSaveData(event: any) {
                             <>
                               <div className="mt-4">
                                 <div className="d-flex py-2 align-items-center">
-                                  <RdsLabel
+                                  <RdsCompLabel
                                     class="pe-2"
                                     label={ele.title}
                                     required={ele.isRequired}
-                                  ></RdsLabel>
-                                  <RdsLabel
+                                  ></RdsCompLabel>
+                                  <RdsCompLabel
                                     class="opacity-75 fs-6 text-muted"
                                     label={ele.description}
-                                  ></RdsLabel>
+                                  ></RdsCompLabel>
                                 </div>
-                                <RdsSelectList
+                                <RdsCompSelectList
                                   id="formres"
                                   label={""}
                                   selectItems={dropDownList[i]}
@@ -526,7 +528,7 @@ function emitEmailSaveData(event: any) {
                                       ? selectedData[i][0]
                                       : ""
                                   }
-                                ></RdsSelectList>
+                                ></RdsCompSelectList>
                               </div>
                             </>
                           ) : (

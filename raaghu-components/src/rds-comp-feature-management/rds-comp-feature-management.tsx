@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsNavtabs, RdsSelectList } from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsInput } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompNavtabs from "../rds-comp-navtabs";
+import RdsCompSelectList from "../rds-comp-select-list";
 export interface RdsCompFeatureManagementProps {
   featureManagementData: any;
   onSubmit?: any
@@ -66,7 +69,7 @@ const handlerSubmit = (e: any) => {
       <form onSubmit={handlerSubmit}>
         <div className="row pt-3">
           <div className="col-xxl-3 col-xl-5 col-lg-5 col-12 d-xxl-block d-xl-block d-lg-block pb-4 border-end pe-xxl-4 pe-xl-4 pe-lg-4 pe-md-4 pe-0">
-            <RdsNavtabs
+            <RdsCompNavtabs
               navtabsItems={navtabsItems}
               // type="vertical"
               fill={false}
@@ -81,7 +84,7 @@ const handlerSubmit = (e: any) => {
             {activeNavTabId === "0" && featureManagementData && featureManagementData.length > 0 && featureManagementData[0]?.displayName === "IdentityGroup" && (
               <>
                 <div className="col-xxl-4 col-xl-4 col-lg-8 col-12">
-                  <RdsSelectList
+                  <RdsCompSelectList
                     id="twoFac"
                     label={(featureManagementData[0].features[0].displayName)}
                     selectItems={twoFactorItems}
@@ -89,7 +92,7 @@ const handlerSubmit = (e: any) => {
                     onChange={(item: any) => {
                       handlerChanges(item.value, featureManagementData[0].features[0].name)
                     }}
-                  ></RdsSelectList>
+                  ></RdsCompSelectList>
                 </div>
                 <small className="text-secondary-50"> {(featureManagementData[0].features[0].description) || ''}</small>
                 <div className="col-xxl-4 col-xl-4 col-lg-8 col-12 mt-3 mb-3">
@@ -136,7 +139,7 @@ const handlerSubmit = (e: any) => {
             {activeNavTabId === "1" && featureManagementData[1].displayName === ("LanguageManagement.Feature:LanguageManagementGroup") && (
               <>
                 <div className="fw-medium my-3">
-                  <RdsLabel label={(featureManagementData[1].displayName) || ""}></RdsLabel>
+                  <RdsCompLabel label={(featureManagementData[1].displayName) || ""}></RdsCompLabel>
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
@@ -154,7 +157,7 @@ const handlerSubmit = (e: any) => {
             {activeNavTabId === "2" && featureManagementData[2].displayName === ("TextTemplateManagement.Feature:TextManagementGroup") && (
               <>
                 <div className="fw-medium my-3">
-                  <RdsLabel label={(featureManagementData[2].displayName) || ""}></RdsLabel>
+                  <RdsCompLabel label={(featureManagementData[2].displayName) || ""}></RdsCompLabel>
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
@@ -170,7 +173,7 @@ const handlerSubmit = (e: any) => {
             {activeNavTabId === "3" && featureManagementData[3].displayName === ("FileManagement.Feature:FileManagementGroup") && (
               <>
                 <div className="fw-medium my-3">
-                  <RdsLabel label={(featureManagementData[3].displayName) || ""}></RdsLabel>
+                  <RdsCompLabel label={(featureManagementData[3].displayName) || ""}></RdsCompLabel>
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
@@ -203,7 +206,7 @@ const handlerSubmit = (e: any) => {
             {activeNavTabId === "4" && featureManagementData[4].displayName === ("Forms.Feature:FormsGroup") && (
               <>
                 <div className="fw-medium my-3">
-                  <RdsLabel label={(featureManagementData[4].displayName) || ""}></RdsLabel>
+                  <RdsCompLabel label={(featureManagementData[4].displayName) || ""}></RdsCompLabel>
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
@@ -219,7 +222,7 @@ const handlerSubmit = (e: any) => {
             {activeNavTabId === "5" && featureManagementData[5].displayName === ("Chat.Feature:ChatGroup") && (
               <>
                 <div className="fw-medium my-3">
-                  <RdsLabel label={(featureManagementData[5].displayName) || ""}></RdsLabel>
+                  <RdsCompLabel label={(featureManagementData[5].displayName) || ""}></RdsCompLabel>
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox
@@ -235,7 +238,7 @@ const handlerSubmit = (e: any) => {
             {activeNavTabId === "6" && (
               <>
                 <div className="fw-medium my-3">
-                  <RdsLabel label={(featureManagementData[6].displayName) || ""}></RdsLabel>
+                  <RdsCompLabel label={(featureManagementData[6].displayName) || ""}></RdsCompLabel>
                 </div>
                 {featureManagementData[6].features.map((item: any, index: any,) =>
                 (
@@ -254,7 +257,7 @@ const handlerSubmit = (e: any) => {
             {activeNavTabId === "7" && featureManagementData[7].displayName === ("CmsKit.Feature:CmsKitProGroup") && (
               <>
                 <div className="fw-medium my-3">
-                  <RdsLabel label="CmsKit.Feature:CmsKitProGroup"></RdsLabel>
+                  <RdsCompLabel label="CmsKit.Feature:CmsKitProGroup"></RdsCompLabel>
                 </div>
                 {featureManagementData[7].features.map((item: any, index: any) =>
                 (
@@ -273,7 +276,7 @@ const handlerSubmit = (e: any) => {
             {activeNavTabId === "8" && (
               <>
                 <div className="fw-medium my-3">
-                  <RdsLabel label={(featureManagementData[8].displayName) || ""}></RdsLabel>
+                  <RdsCompLabel label={(featureManagementData[8].displayName) || ""}></RdsCompLabel>
                 </div>
                 <div className="col-md-12">
                   <RdsCheckbox

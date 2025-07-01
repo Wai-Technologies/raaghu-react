@@ -1,6 +1,7 @@
-import { RdsCheckbox, RdsSelectList } from "../rds-elements";
+import { RdsCheckbox } from "../rds-elements";
 import React, { useState, useEffect } from "react";
 import { RdsInput, RdsTextArea, RdsButton } from "../rds-elements";
+import RdsCompSelectList from "../rds-comp-select-list";
 export interface RdsCompClaimTypeProps {
    
     claimsData?: any;
@@ -89,7 +90,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                         />
                     </div>
                     <div className="col-md-6 mb-md-0 pt-2 ">
-                        <RdsSelectList
+                        <RdsCompSelectList
                             id="idenval"
                             label="Value Type"
                             placeholder="Select Value Type"
@@ -100,7 +101,7 @@ const RdsCompClaimType = (props: RdsCompClaimTypeProps) => {
                             required={true}
                             key={`valueType-${formData?.valueType}`}
                             color="primary"
-                        ></RdsSelectList>
+                        ></RdsCompSelectList>
 
                     </div>
                     <div className="col-md-12 pt-2">

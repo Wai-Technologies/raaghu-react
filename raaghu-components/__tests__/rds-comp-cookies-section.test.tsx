@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompCookiesSection from '../src/rds-comp-cookies-section/rds-comp-cookies-section';
 
-// Mock the RdsButton and RdsIcon components
+// Mock the RdsButton and RdsCompIcon components
 jest.mock('../src/rds-elements', () => ({
   RdsButton: ({ 
     label, 
@@ -26,7 +26,7 @@ jest.mock('../src/rds-elements', () => ({
       {label}
     </button>
   ),
-  RdsIcon: ({ 
+  RdsCompIcon: ({ 
     name,
     fill,
     stroke,

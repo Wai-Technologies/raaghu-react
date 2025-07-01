@@ -1,6 +1,6 @@
 import React from "react";
-import { RdsIcon } from "../rds-elements";
 import "./rds-comp-hierarcy.css";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompHierarcyProps {
     treeData: any[];
@@ -39,7 +39,7 @@ const RdsCompHierarcy = (props: RdsCompHierarcyProps) => {
                                 }
                             >
                                 {" "}
-                                <RdsIcon
+                                <RdsCompIcon
                                     name={node.children.length > 0 ? "minus" : "plus"}
                                     width="10px"
                                     height="10px"

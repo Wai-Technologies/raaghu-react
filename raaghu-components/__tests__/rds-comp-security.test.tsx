@@ -28,8 +28,8 @@ jest.mock('../src/rds-elements', () => ({
       <label>{labelText}</label>
     </div>
   ),
-  RdsCheckboxGroup: ({ items, dataTestId }: any) => (
-    <div data-testid={dataTestId || 'rds-checkbox-group'} className="rds-checkbox-group">
+  RdsCompCheckboxGroup: ({ items, dataTestId }: any) => (
+    <div data-testid={dataTestId || 'rds-comp-checkbox-group'} className="rds-comp-checkbox-group">
       {items?.map((item: any, index: number) => (
         <div key={index} data-label={item.label} data-checked={item.checked} />
       ))}
@@ -47,8 +47,8 @@ jest.mock('../src/rds-elements', () => ({
   )
 }));
 
-// Mock RdsCompDatatable
-jest.mock('../src/rds-comp-data-table', () => {
+// Mock RdsDatatable
+jest.mock('../src/rds-data-table', () => {
   return function MockRdsCompDatatable(props: any) {
     return (
       <div data-testid="rds-comp-datatable">

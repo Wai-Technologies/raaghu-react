@@ -1,5 +1,5 @@
 import React from "react";
-import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import RdsDatatable, { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 export interface RdsCompEditionListProps {
   enablecheckboxselection?: boolean;
   tableHeaders: {
@@ -30,7 +30,7 @@ export interface RdsCompEditionListProps {
 const RdsCompEditionList = (props: RdsCompEditionListProps) => {
   return (
     <div className="row">
-      <RdsCompDatatable
+      <RdsDatatable
         actionPosition={ActionPosition.Right}
         enablecheckboxselection={props.enablecheckboxselection}
         tableHeaders={props.tableHeaders}
@@ -40,7 +40,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
         recordsPerPage={props.recordsPerPage}
         onActionSelection={props.onActionSelection}
         recordsPerPageSelectListOption={props.recordsPerPageSelectListOption}
-      ></RdsCompDatatable>
+      ></RdsDatatable>
     </div>
   );
 };

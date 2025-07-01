@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { colors } from "../../libs/types";
 import "./rds-toast.css";
-import RdsIcon from "../rds-icon/rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon/rds-comp-icon";
 import { toaster_placements } from "../../libs/types/placement";
 
 export enum ToastLayout {
@@ -107,13 +107,13 @@ const RdsToast = (props: RdsToastProps) => {
                             <div className="toast-header d-flex justify-content-between align-items-end pb-0">
                             <div className={props.showLeading ? "me-2" : ""}>
                                     {props.showLeading && (
-                                        <RdsIcon
+                                        <RdsCompIcon
                                             name={props.leadingIcon}
                                             stroke={true}
                                             height="20px"
                                             isCursorPointer
                                             width="20px"
-                                        ></RdsIcon>
+                                        ></RdsCompIcon>
                                     )}
                                 </div>
 
@@ -180,11 +180,11 @@ const RdsToast = (props: RdsToastProps) => {
                                 <div className="toast-body toastbody d-flex justify-content-between  align-items-end ">
                                 <div className={props.showLeading ? "me-2" : ""}>
                                         {props.showLeading && (
-                                            <RdsIcon
+                                            <RdsCompIcon
                                                 name={props.leadingIcon}
                                                 stroke={true}
 
-                                            ></RdsIcon>
+                                            ></RdsCompIcon>
                                         )}
                                     </div>
                                     {props.showSubText && props.subText}

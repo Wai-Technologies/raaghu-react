@@ -77,7 +77,7 @@ jest.mock('../src/rds-elements', () => ({
       </div>
     );
   },
-  RdsPlandiscount: ({ 
+  RdsCompPlandiscount: ({ 
     discount,
     saveLabel,
     discountValue,

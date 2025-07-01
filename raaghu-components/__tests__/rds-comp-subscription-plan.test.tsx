@@ -5,7 +5,7 @@ import RdsCompSubscriptionPlan from '../src/rds-comp-subscription-plan/rds-comp-
 
 // Mock the RDS elements components
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ name, height, width, isCursorPointer, stroke, onClick, dataTestId }: any) => (
+  RdsCompIcon: ({ name, height, width, isCursorPointer, stroke, onClick, dataTestId }: any) => (
     <div 
       data-testid={dataTestId || `rds-icon-${name}`}
       data-name={name}
@@ -19,8 +19,8 @@ jest.mock('../src/rds-elements', () => ({
       {name}
     </div>
   ),
-  RdsPlanSwitcher: ({ button1Text, button2Text, setIsPlanFree, dataTestId }: any) => (
-    <div data-testid={dataTestId || "rds-plan-switcher"}>
+  RdsCompPlanSwitcher: ({ button1Text, button2Text, setIsPlanFree, dataTestId }: any) => (
+    <div data-testid={dataTestId || "rds-comp-plan-switcher"}>
       <button 
         data-testid="plan-switcher-button1" 
         onClick={() => setIsPlanFree(true)}
@@ -95,7 +95,7 @@ describe('RdsCompSubscriptionPlan Component', () => {
       expect(screen.getByText('Choose your plan')).toBeInTheDocument();
       
       // Check if the plan switcher is rendered
-      expect(screen.getByTestId('rds-plan-switcher')).toBeInTheDocument();
+      expect(screen.getByTestId('rds-comp-plan-switcher')).toBeInTheDocument();
       expect(screen.getByTestId('plan-switcher-button1')).toHaveTextContent('Free');
       expect(screen.getByTestId('plan-switcher-button2')).toHaveTextContent('Premium');
       

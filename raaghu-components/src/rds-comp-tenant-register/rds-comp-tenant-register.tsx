@@ -3,11 +3,11 @@ import {
     RdsButton,
     RdsInput,
     RdsCheckbox,
-    RdsIcon,
     RdsDropdownList,
-    RdsLabel,
 } from "../rds-elements";
 import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompTenantRegisterProps {
     registerData?: any;
@@ -155,7 +155,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
 
                         <div className="row text-start">
                             <div className="col-md-6 mt-2">
-                                <RdsLabel label="Country" required={true} />
+                                <RdsCompLabel label="Country" required={true} />
                                 <RdsDropdownList
                                     key={countryList.length}
                                     placeholder="Select Country"
@@ -217,7 +217,7 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                         <p className="divider line one-line">Or Connect With</p>
                         <div className="w-100 mt-4 pt-2">
                             <span className="w-20px h-20px border p-2 mx-3 rounded-2">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="google"
                                     height="20px"
                                     width="20px"
@@ -228,9 +228,9 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                                     tooltipTitle={"Connect with Google"}
                                     tooltipPlacement="bottom"
                                     isCursorPointer={true}
-                                ></RdsIcon></span>
+                                ></RdsCompIcon></span>
                             <span className="w-20px h-20px border p-2 mx-3 rounded-2">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="microsoft"
                                     height="20px"
                                     width="20px"
@@ -241,16 +241,16 @@ const RdsCompTenantRegister = (props: RdsCompTenantRegisterProps) => {
                                     tooltipTitle={"Connect with Microsoft"}
                                     tooltipPlacement="bottom"
                                     isCursorPointer={true}
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </div>
                     </div>
                     {/* <div className="pt-2">
-                        <RdsLabel
+                        <RdsCompLabel
                             class="text-mute pt-2 secondary "
                             label="©2023 WAi Technologies. All rights reserved "
                             size="0.7rem"
-                        ></RdsLabel>
+                        ></RdsCompLabel>
                     </div> */}
                 </div>
             </div>

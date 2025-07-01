@@ -11,9 +11,9 @@ jest.mock('../src/rds-elements', () => ({
       <img src={profilePic} alt="avatar" data-size={size} data-with-profile-pic={withProfilePic} />
     </div>
   ),
-  RdsIcon: ({ name }: any) => <span data-testid="rds-icon" data-name={name}></span>,
-  RdsLikeDislike: ({ like, dislike, colorVariant }: any) => (
-    <div data-testid="rds-like-dislike" data-like={like} data-dislike={dislike} data-color-variant={colorVariant}>
+  RdsCompIcon: ({ name }: any) => <span data-testid="rds-icon" data-name={name}></span>,
+  RdsCompLikeDislike: ({ like, dislike, colorVariant }: any) => (
+    <div data-testid="rds-comp-like-dislike" data-like={like} data-dislike={dislike} data-color-variant={colorVariant}>
       <span>👍 {like}</span>
       <span>👎 {dislike}</span>
     </div>
@@ -240,7 +240,7 @@ describe('RdsCompReviews Component', () => {
         render(<RdsCompReviews {...style7Props} />);
         
         expect(screen.getByText('John Doe')).toBeInTheDocument();
-        expect(screen.getAllByTestId('rds-like-dislike')).toHaveLength(2);
+        expect(screen.getAllByTestId('rds-comp-like-dislike')).toHaveLength(2);
         expect(screen.getAllByTestId('rating-test')).toHaveLength(2);
       });
 
@@ -251,7 +251,7 @@ describe('RdsCompReviews Component', () => {
         };
         render(<RdsCompReviews {...style7Props} />);
         
-        const likeDislikeComponents = screen.getAllByTestId('rds-like-dislike');
+        const likeDislikeComponents = screen.getAllByTestId('rds-comp-like-dislike');
         likeDislikeComponents.forEach(component => {
           expect(component).toHaveAttribute('data-like', '35');
           expect(component).toHaveAttribute('data-dislike', '10');
@@ -283,7 +283,7 @@ describe('RdsCompReviews Component', () => {
         
         expect(screen.getByText('John Doe')).toBeInTheDocument();
         expect(screen.getByText('johndoe')).toBeInTheDocument();
-        expect(screen.getAllByTestId('rds-like-dislike')).toHaveLength(2);
+        expect(screen.getAllByTestId('rds-comp-like-dislike')).toHaveLength(2);
         expect(screen.getAllByTestId('rating-test')).toHaveLength(2);
       });
     });
@@ -299,7 +299,7 @@ describe('RdsCompReviews Component', () => {
         expect(screen.getByText('John Doe')).toBeInTheDocument();
         expect(screen.getByText('johndoe')).toBeInTheDocument();
         expect(screen.queryByTestId('rds-avatar')).not.toBeInTheDocument();
-        expect(screen.getAllByTestId('rds-like-dislike')).toHaveLength(2);
+        expect(screen.getAllByTestId('rds-comp-like-dislike')).toHaveLength(2);
       });
     });
 
@@ -454,14 +454,14 @@ describe('RdsCompReviews Component', () => {
       expect(firstRating).toHaveAttribute('data-size', 'medium');
     });
 
-    it('should pass correct props to RdsLikeDislike in applicable styles', () => {
+    it('should pass correct props to RdsCompLikeDislike in applicable styles', () => {
       const style7Props = {
         ...defaultProps,
         style: RevieweStyle.Style7
       };
       render(<RdsCompReviews {...style7Props} />);
       
-      const likeDislike = screen.getAllByTestId('rds-like-dislike')[0];
+      const likeDislike = screen.getAllByTestId('rds-comp-like-dislike')[0];
       expect(likeDislike).toHaveAttribute('data-like', '35');
       expect(likeDislike).toHaveAttribute('data-dislike', '10');
       expect(likeDislike).toHaveAttribute('data-color-variant', 'primary');

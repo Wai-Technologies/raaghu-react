@@ -69,8 +69,8 @@ jest.mock('../src/rds-elements', () => ({
     </button>
   ),
   RdsDropdownList: () => <div data-testid="dropdown-list"></div>,
-  RdsSelectList: () => <div data-testid="select-list"></div>,
-  RdsLabel: ({ children, ...props }: any) => (
+  RdsCompSelectList: () => <div data-testid="select-list"></div>,
+  RdsCompLabel: ({ children, ...props }: any) => (
     <label data-testid="label" {...props}>
       {children}
     </label>

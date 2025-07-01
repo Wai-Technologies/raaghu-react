@@ -14,8 +14,8 @@ jest.mock('../src/rds-elements', () => ({
       {label}
     </button>
   ),
-  RdsLabel: ({ label }: any) => (
-    <span data-testid="rds-label">{label}</span>
+  RdsCompLabel: ({ label }: any) => (
+    <span data-testid="rds-comp-label">{label}</span>
   ),
 }));
 
@@ -40,7 +40,7 @@ describe('RdsCompOrderSummary', () => {
       expect(screen.getByText('subtotal')).toBeInTheDocument();
       expect(screen.getByText('Shipping estimate')).toBeInTheDocument();
       expect(screen.getByText('Tax estimate')).toBeInTheDocument();
-      expect(screen.getByTestId('rds-label')).toHaveTextContent('Order Total');
+      expect(screen.getByTestId('rds-comp-label')).toHaveTextContent('Order Total');
     });
 
     it('should display correct monetary values', () => {
@@ -168,10 +168,10 @@ describe('RdsCompOrderSummary', () => {
       expect(boldElements.length).toBeGreaterThanOrEqual(2); // At least header and total
     });
 
-    it('should render RdsLabel component in the total row', () => {
+    it('should render RdsCompLabel component in the total row', () => {
       render(<RdsCompOrderSummary isCheckout={false} />);
       
-      const label = screen.getByTestId('rds-label');
+      const label = screen.getByTestId('rds-comp-label');
       expect(label).toBeInTheDocument();
       expect(label).toHaveTextContent('Order Total');
     });

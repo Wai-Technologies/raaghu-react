@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { RdsInput, RdsButton, RdsSelectList } from "../rds-elements";
+import { RdsInput, RdsButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
+import RdsCompSelectList from "../rds-comp-select-list";
 export interface RdsCompBillingAddressProps {
     onSaveHandler?: (data: any) => void;
     countryList: { option: string, value: any }[];
@@ -298,7 +299,7 @@ function emitSaveData(event: any) {
                             )}
                         </div>
                         <div className="col-md-6 mb-3">
-                            <RdsSelectList
+                            <RdsCompSelectList
                                 id="seleCou"
                                 label="Country"
                                 placeholder="Select Country"
@@ -318,7 +319,7 @@ function emitSaveData(event: any) {
                     </div>
                     <div className="row">
                         <div className="col-md-6 mb-3">
-                            <RdsSelectList
+                            <RdsCompSelectList
                                 id="seleSta"
                                 label="State/Province"
                                 placeholder="Select State/Province"

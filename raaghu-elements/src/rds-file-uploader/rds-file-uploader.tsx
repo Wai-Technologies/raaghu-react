@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 //import "./rds-file-uploader.css";
-import RdsIcon from "../rds-icon/rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon/rds-comp-icon";
 import RdsAvatar from "../rds-avatar";
 import { useTranslation } from "react-i18next";
 import "../../../raaghu-react-themes/src/styles/file-uploader.scss";
@@ -383,7 +383,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
             style={{ cursor: "pointer" }}
           >
             <div className="col-md-12 text-center">
-              <RdsIcon
+              <RdsCompIcon
                 colorVariant={props.colorVariant}
                 height="20px"
                 name="upload_data"
@@ -431,7 +431,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                       className="file-thumbnail"
                     />
                   ) : (
-                    <RdsIcon
+                    <RdsCompIcon
                       name={"file"}
                       height="16px"
                       width="16px"
@@ -451,7 +451,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   {(file.size / 1048576).toFixed(2)} MB
                 </span>
                 <span className="iconbox ms-2" onClick={() => onDelete(index)}>
-                  <RdsIcon
+                  <RdsCompIcon
                     colorVariant="secondary"
                     name={"close_circle"}
                     height="16px"
@@ -514,7 +514,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   </div>
                 </div>
                 <span className="ms-2">
-                  <RdsIcon
+                  <RdsCompIcon
                     colorVariant={props.colorVariant}
                     height="20px"
                     isAnimate
@@ -559,7 +559,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                         className="file-thumbnail"
                       />
                     ) : (
-                      <RdsIcon
+                      <RdsCompIcon
                         name={"file"}
                         height="16px"
                         width="16px"
@@ -582,7 +582,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                     {(fileSize[i] / 1048576).toFixed(2)} MB
                   </span>
                   <span className="iconbox ms-2" onClick={() => onDelete(i)}>
-                    <RdsIcon
+                    <RdsCompIcon
                       colorVariant="secondary"
                       name={"close_circle"}
                       height="16px"
@@ -656,7 +656,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       //                     </div>
       //                 </div>
       //                 <span className="ms-2">
-      //                     <RdsIcon
+      //                     <RdsCompIcon
       //                         colorVariant={props.colorVariant}
       //                         height="20px"
       //                         isAnimate
@@ -704,7 +704,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       //                                 className="file-thumbnail"
       //                             />
       //                         ) : (
-      //                             <RdsIcon
+      //                             <RdsCompIcon
       //                                 name={"file"}
       //                                 height="16px"
       //                                 width="16px"
@@ -720,7 +720,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
       //                         {(file.size / 1048576).toFixed(2)} MB
       //                     </span>
       //                     <span className="iconbox ms-2" onClick={() => onDelete(index)}>
-      //                         <RdsIcon
+      //                         <RdsCompIcon
       //                             colorVariant="danger"
       //                             name={"delete"}
       //                             height="16px"
@@ -776,7 +776,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               style={{ cursor: "pointer" }}
             >
               <span className="me-2 upload-icon-color">
-                <RdsIcon
+                <RdsCompIcon
                   colorVariant={props.colorVariant}
                   height="20px"
                   isAnimate
@@ -841,7 +841,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                       className="file-thumbnail"
                     />
                   ) : (
-                    <RdsIcon
+                    <RdsCompIcon
                       name={"file"}
                       height="16px"
                       width="16px"
@@ -861,7 +861,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                   {(file.size / 1048576).toFixed(2)} MB
                 </span>
                 <span className="iconbox ms-2" onClick={() => onDelete(index)}>
-                  <RdsIcon
+                  <RdsCompIcon
                     colorVariant="secondary"
                     name={"close_circle"}
                     height="16px"
@@ -996,7 +996,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                     className="ms-auto iconbox"
                     onClick={() => onDeleteHandlerForSingleSelection()}
                   >
-                    <RdsIcon
+                    <RdsCompIcon
                       colorVariant="danger"
                       name={"delete"}
                       height="16px"

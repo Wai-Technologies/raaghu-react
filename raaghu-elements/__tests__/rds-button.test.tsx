@@ -4,7 +4,7 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import RdsButton from "../src/rds-button/rds-button";
 import { TooltipStyle } from "../src/rds-tooltip/rds-tooltip";
 
-// Mock RdsIcon component
+// Mock RdsCompIcon component
 jest.mock('../src/rds-icon', () => ({
     __esModule: true,
     default: () => <div data-testid="mocked-icon">IconMock</div>

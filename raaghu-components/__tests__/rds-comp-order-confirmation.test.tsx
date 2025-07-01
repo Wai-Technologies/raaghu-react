@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompOrderConfirmation from '../src/rds-comp-order-confirmation/rds-comp-order-confirmation';
 
-// Mock the RdsButton and RdsLabel components
+// Mock the RdsButton and RdsCompLabel components
 jest.mock('../src/rds-elements', () => ({
   RdsButton: ({ label, onClick, colorVariant, block, size, showLoadingSpinner, type, class: className }: any) => (
     <button
@@ -16,7 +16,7 @@ jest.mock('../src/rds-elements', () => ({
       {label}
     </button>
   ),
-  RdsLabel: ({ label }: any) => <span data-testid="rds-label">{label}</span>,
+  RdsCompLabel: ({ label }: any) => <span data-testid="rds-comp-label">{label}</span>,
 }));
 
 describe('RdsCompOrderConfirmation', () => {
@@ -138,10 +138,10 @@ describe('RdsCompOrderConfirmation', () => {
       expect(checkoutButton).not.toBeInTheDocument();
     });
 
-    it('should render RdsLabel for Order Total', () => {
+    it('should render RdsCompLabel for Order Total', () => {
       render(<RdsCompOrderConfirmation {...defaultSummaryProps} />);
       
-      const orderTotalLabel = screen.getByTestId('rds-label');
+      const orderTotalLabel = screen.getByTestId('rds-comp-label');
       expect(orderTotalLabel).toBeInTheDocument();
       expect(orderTotalLabel).toHaveTextContent('Order Total');
     });

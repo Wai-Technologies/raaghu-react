@@ -3,10 +3,10 @@ import {
   RdsButton,
   RdsCheckbox,
   RdsInput,
-  RdsNavtabs,
-  RdsSelectList,
 } from "../../../raaghu-elements/src";
 import { useTranslation } from "react-i18next";
+import RdsCompNavtabs from "../rds-comp-navtabs";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompFeatureProps {
   featuresData: any[];
@@ -137,7 +137,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
   return (
     <div className="row">
       <div className="col-md-5 pe-4 border-end custom-content-scroll mb-0 px-lg-3">
-        <RdsNavtabs
+        <RdsCompNavtabs
           navtabsItems={navtabs}
           layout="Vertical"
                   fill={false}
@@ -159,7 +159,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                       <>
                         {feature.valueType.validator.name === "NULL" ? (
                           <div className="form-group mb-2">
-                            <RdsSelectList
+                            <RdsCompSelectList
                               id="feaDis"
                               label={(feature.displayName) || ""}
                               selectItems={feature.valueType?.itemSource?.items?.map(
@@ -169,7 +169,7 @@ const RdsCompFeatures = (props: RdsCompFeatureProps) => {
                                 onChangeFn(item.value, feature)
                               }
                               selectedValue={feature.value}
-                            ></RdsSelectList>
+                            ></RdsCompSelectList>
                             <small className="text-secondary-50">
                               {" "}
                               {(feature.description) || ""}

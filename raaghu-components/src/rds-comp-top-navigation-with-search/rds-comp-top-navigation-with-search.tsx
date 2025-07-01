@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import {
-    RdsIcon,
     RdsBreadcrumb,
     RdsDropdownList,
-    RdsSearch,
     RdsOffcanvas
 } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import RdsCompProfile from "../rds-comp-profile";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
-import { IconPosition } from "../../../raaghu-elements/src/rds-search/rds-search";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompSearch, { IconPosition } from "../rds-comp-search/rds-comp-search";
 export interface RdsCompTopNavigationWithSearchProps {
   ShowProfileSection?: boolean;
   onClick?: (event: React.MouseEvent<HTMLLIElement>, val: string) => void;
@@ -216,7 +215,7 @@ const RdsCompTopNavigationWithSearch = (
                     </div>
                 </div>
                 <div className="searchBackground">
-                    <RdsSearch
+                    <RdsCompSearch
                        iconPosition={IconPosition.Right}
                         labelPosition="right"
                         placeholder="Search"
@@ -257,7 +256,7 @@ const RdsCompTopNavigationWithSearch = (
                     <div
                         className={"position-relative px-2 px-md-3  col text-center d-flex align-items-center"}
                     >
-                        <RdsIcon
+                        <RdsCompIcon
                             name="star"
                             fill={false}
                             stroke={true}
@@ -265,14 +264,14 @@ const RdsCompTopNavigationWithSearch = (
                             width="18px"
                             onClick={props.mobileViewLogoClick}
                             isCursorPointer={true}
-                        ></RdsIcon>
+                        ></RdsCompIcon>
                     </div>
                     {/* star----------------------------------------------------------------------------------------------- */}
 
                     <div
                         className={"position-relative px-2 px-md-3 col text-center d-flex align-items-center"}
                     >
-                        <RdsIcon
+                        <RdsCompIcon
                             name="notification"
                             fill={false}
                             stroke={true}
@@ -280,14 +279,14 @@ const RdsCompTopNavigationWithSearch = (
                             width="18px"
                             onClick={props.mobileViewLogoClick}
                             isCursorPointer={true}
-                        ></RdsIcon>
+                        ></RdsCompIcon>
                     </div>
                     {/* notification----------------------------------------------------------------------------------------------- */}
 
                     <div
                         className={"position-relative px-2 px-md-3 col text-center d-flex align-items-center"}
                     >
-                        <RdsIcon
+                        <RdsCompIcon
                             name="question"
                             fill={false}
                             stroke={true}
@@ -295,7 +294,7 @@ const RdsCompTopNavigationWithSearch = (
                             width="18px"
                             onClick={props.mobileViewLogoClick}
                             isCursorPointer={true}
-                        ></RdsIcon>
+                        ></RdsCompIcon>
                     </div>
                     
                     {/* theme----------------------------------------------------------------------------------------------- */}
@@ -319,14 +318,14 @@ const RdsCompTopNavigationWithSearch = (
                                         </div>
                                     </div>
                                     <span className="ms-3">
-                                        <RdsIcon
+                                        <RdsCompIcon
                                             name="chevron_down"
                                             height="11px"
                                             width="11px"
                                             fill={false}
                                             stroke={true}
                                             isCursorPointer={true}
-                                        ></RdsIcon>
+                                        ></RdsCompIcon>
                                     </span>
                                 </div>
                             }

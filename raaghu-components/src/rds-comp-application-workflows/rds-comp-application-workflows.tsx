@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { RdsButton, RdsCheckbox, RdsDropdownList, RdsInput, RdsSelectList, RdsTextArea } from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsDropdownList, RdsInput, RdsTextArea } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 
 export interface RdsCompApplicationWorkflowsProps {

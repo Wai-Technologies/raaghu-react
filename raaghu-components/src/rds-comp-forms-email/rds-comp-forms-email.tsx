@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { RdsButton, RdsInput, RdsLabel, RdsTextEditor } from "../rds-elements";
+import { RdsButton, RdsInput, RdsTextEditor } from "../rds-elements";
 import React, { useEffect, useState } from "react";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompFormsEmailProps {
     formsEmailData?: any;
@@ -81,7 +82,7 @@ const RdsCompFormsEmail = (props: RdsCompFormsEmailProps) => {
                     dataTestId="subject">
                 </RdsInput>
                 <div className="pt-3 mb-3">
-                    <RdsLabel>Body</RdsLabel>
+                    <RdsCompLabel>Body</RdsCompLabel>
                     <RdsTextEditor onChange={(e) => handleDataChanges(e, "body")} value={emailData?.body} ></RdsTextEditor >
                 </div>
                 <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">

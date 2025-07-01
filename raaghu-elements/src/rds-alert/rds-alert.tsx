@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"; 
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import "./rds-alert.css";
 import RdsButton from "../rds-button";
 
@@ -141,7 +141,7 @@ const RdsAlert = (props: RdsAlertProps) => {
           <span className="custom-alert-message wordbreak d-flex align-items-top">
             <div className="d-flex">
             {props.icon && props.showIcon && (
-              <RdsIcon
+              <RdsCompIcon
                 name={props.icon || " "}
                 fill={props.iconFill}
                 stroke={props.iconStroke}
@@ -191,7 +191,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                 className={`d-flex align-items-center justify-content-end gap-2 alert-close alert-${props.size}`}
               >
                 {props.showDismiss && (
-                  <RdsIcon
+                  <RdsCompIcon
                     colorVariant="primary"
                     name="close"
                     stroke={true}
@@ -213,7 +213,7 @@ const RdsAlert = (props: RdsAlertProps) => {
           <span className="custom-alert-message wordbreak align-items-baseline d-flex align-items-center flex-column flex-md-row">
             {props.icon && props.showIcon && (
               <div className=" d-flex" id="rdicon">
-                <RdsIcon
+                <RdsCompIcon
                   name={props.icon || " "}
                   fill={props.iconFill}
                   stroke={props.iconStroke}
@@ -244,7 +244,7 @@ const RdsAlert = (props: RdsAlertProps) => {
           <span>
             <div className="d-flex align-items-top justify-content-end gap-2 alert-close pe-2">
               {props.showDismiss && (
-                <RdsIcon
+                <RdsCompIcon
                   colorVariant="primary"
                   name="close"
                   stroke={true}

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import {
     RdsButton,
-    RdsSelectList,
 } from "../rds-elements";
 
 import "./rds-comp-theme.css";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 
 export interface RdsCompThemeProps {
@@ -45,7 +45,7 @@ const RdsCompTheme = (props: RdsCompThemeProps) => {
                 <div className="custom-content-scroll">
                     <div className="row pt-4">
                         <div className="col-lg-6 col-md-6 form-group">
-                            <RdsSelectList
+                            <RdsCompSelectList
                                 id="style"
                                 label="Style"
                                 placeholder="Select Style"
@@ -58,7 +58,7 @@ const RdsCompTheme = (props: RdsCompThemeProps) => {
                             />
                         </div>
                         <div className="col-lg-6 col-md-6">
-                            <RdsSelectList
+                            <RdsCompSelectList
                                 id="webL"
                                 label="Public Website Style"
                                 placeholder="Select Public Website Style"
@@ -74,7 +74,7 @@ const RdsCompTheme = (props: RdsCompThemeProps) => {
 
                     <div className="row">
                         <div className="col-lg-6 col-md-6 form-group">
-                            <RdsSelectList
+                            <RdsCompSelectList
                                 id="menuL"
                                 label="Menu Placement"
                                 placeholder="Select Menu Placement"
@@ -87,7 +87,7 @@ const RdsCompTheme = (props: RdsCompThemeProps) => {
                             />
                         </div>
                         <div className="col-lg-6 col-md-6">
-                            <RdsSelectList
+                            <RdsCompSelectList
                                 id="statl"
                                 label="Menu Status"
                                 placeholder="Select Menu Status"

@@ -3,9 +3,9 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompCollapsibleContainer, { Position, MenuItem } from '../src/rds-comp-collapsible-container/rds-comp-collapsible-container';
 
-// Mock the RdsIcon component
+// Mock the RdsCompIcon component
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ name, width, height, onClick, classes }: any) => (
+  RdsCompIcon: ({ name, width, height, onClick, classes }: any) => (
     <div 
       data-testid={`icon-${name}`}
       onClick={onClick}

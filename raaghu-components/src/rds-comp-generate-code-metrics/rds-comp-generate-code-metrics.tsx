@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import { RdsCarousel, RdsIcon } from "../rds-elements";
+import { RdsCarousel } from "../rds-elements";
 import "./rds-comp-generate-code-metrics.css";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompGenerateCodeMetricsProps { }
 
@@ -35,7 +36,7 @@ const RdsCompGenerateCodeMetrics = (props: RdsCompGenerateCodeMetricsProps) => {
         <div>
             <div className="d-flex metrics-container metrics-layout">
                 <div className="d-flex justify-content-center px-2">
-                    <RdsIcon
+                    <RdsCompIcon
                         name={isMetricsOpen ? "chevron_up" : "chevron_down"}
                         height="16px"
                         width="16px"
@@ -67,7 +68,7 @@ const RdsCompGenerateCodeMetrics = (props: RdsCompGenerateCodeMetricsProps) => {
                     <div className="d-flex justify-content-between metrics-open-header">
                         <div className="metrics-open-heading">Summary</div>
                         <div className="position-relative" ref={dropdownRef}>
-                            <RdsIcon
+                            <RdsCompIcon
                                 name="share_color"
                                 height="15px"
                                 width="15px"

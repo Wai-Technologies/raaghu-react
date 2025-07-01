@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import {
-    RdsLabel,
-    RdsIcon,
     RdsOffcanvas,
-    RdsNavtabs,
     RdsButton,
     RdsInput,
-    RdsSelectList,
     RdsCounter,
 } from "../rds-elements";
 import RdsCompAlertPopup from "../rds-comp-alert-popup";
 import "./rds-comp-edition.css";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
-import RdsCompDatatable from "../rds-comp-data-table";
-import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
+import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 import { CounterState, LayoutOptions } from "../../../raaghu-elements/src/rds-counter/rds-counter";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompNavtabs from "../rds-comp-navtabs";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompEditionProps {
     EditionItems: any;
@@ -187,11 +187,11 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                 {props.EditionItems.EditionName}
                             </label>
                             <p className="fw-medium text-muted pt-2">
-                                <RdsLabel
+                                <RdsCompLabel
                                     label={props.EditionItems.EditionTitle}
                                     size="10px"
                                     multiline={true}
-                                ></RdsLabel>
+                                ></RdsCompLabel>
                             </p>
                         </div>
                     </div>
@@ -228,7 +228,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                 placement={RdsOffcanvasPlacement.End}
                                 offcanvasbutton={<div>
                                     <span className="position-relative btn btn-outline-primary btn-sm btn-icon p-1 rounded-pill">
-                                        <RdsIcon
+                                        <RdsCompIcon
                                             name="pencil"
                                             height="15px"
                                             width="15px"
@@ -240,7 +240,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                 scrolling={false}
                                 preventEscapeKey={false}
                                 offId={"compEditionOff"}>
-                                <RdsNavtabs
+                                <RdsCompNavtabs
                                     activeNavTabId={0}
                                     navtabsItems={navtabsItems}
                                     type="tabs"
@@ -271,13 +271,13 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                             </div>
                                             <div className="col-md-6 sm-p-0">
                                                 <div className="form-group mb-3">                                              
-                                                    <RdsSelectList
+                                                    <RdsCompSelectList
                                                        id="selePla"
                                                        classes="text-theme-change"
                                                        label="Select Plan"
                                                        onChange={(e: any) => handleChangeform(e.target.checked, "selePlan")}                                                       
                                                        selectItems={[]}
-                                                    ></RdsSelectList>
+                                                    ></RdsCompSelectList>
                                                 </div>
                                             </div>
                                         </div>
@@ -320,7 +320,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                                     data-bs-target="#targetId"
                                     className="position-relative btn btn-outline-danger btn-sm btn-icon p-1 rounded-pill"
                                 >
-                                    <RdsIcon
+                                    <RdsCompIcon
                                         name="delete"
                                         height="15px"
                                         width="15px"
@@ -357,7 +357,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                 </div>
                 <div className="col-md-6">
                     <div className="form-group">
-                        <RdsSelectList
+                        <RdsCompSelectList
                             id="planLis"
                             label={props.planListLabel}
                             isDisabled={false}
@@ -525,7 +525,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
         
         {props.displayType == "list" && (
             <div className="row">
-                <RdsCompDatatable
+                <RdsDatatable
                     actionPosition={ActionPosition.Right}
                     enablecheckboxselection={props.enablecheckboxselection}
                     tableHeaders={props.tableHeaders}
@@ -535,7 +535,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                     recordsPerPage={props.recordsPerPage}
                     onActionSelection={props.onActionSelection}
                     recordsPerPageSelectListOption={props.recordsPerPageSelectListOption}
-                ></RdsCompDatatable>
+                ></RdsDatatable>
             </div>
         )}
         </>

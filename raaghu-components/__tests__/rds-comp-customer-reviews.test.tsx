@@ -5,7 +5,7 @@ import RdsCompCustomerReviews from '../src/rds-comp-customer-reviews/rds-comp-cu
 
 // Mock the child components used in RdsCompCustomerReviews
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: ({ label }: any) => <div data-testid="rds-label">{label}</div>,
+  RdsCompLabel: ({ label }: any) => <div data-testid="rds-comp-label">{label}</div>,
   RdsProgressBar: ({ 
     progressWidth, 
     colorVariant, 
@@ -25,7 +25,7 @@ jest.mock('../src/rds-elements', () => ({
     </div>
   ),
   RdsRating: ({ rating }: any) => <div data-testid="rds-rating">Rating: {rating}</div>,
-  RdsIcon: ({ 
+  RdsCompIcon: ({ 
     name, 
     fill, 
     stroke, 
@@ -89,7 +89,7 @@ describe('RdsCompCustomerReviews Component', () => {
       .reverse(); // Component displays them in reverse order
     
     // Get all labels that contain percentage values
-    const allLabels = screen.getAllByTestId('rds-label');
+    const allLabels = screen.getAllByTestId('rds-comp-label');
     
     // The percentage labels are every second label (after the rating value labels)
     const percentageLabels = [];
@@ -132,7 +132,7 @@ describe('RdsCompCustomerReviews Component', () => {
     render(<RdsCompCustomerReviews itemList={testItemList} />);
     
     // Get all rating value labels - they are at positions 0, 2, 4, etc.
-    const allLabels = screen.getAllByTestId('rds-label');
+    const allLabels = screen.getAllByTestId('rds-comp-label');
     const ratingLabels = [];
     for (let i = 0; i < testItemList.length; i++) {
       ratingLabels.push(allLabels[i * 2]);
@@ -182,7 +182,7 @@ describe('RdsCompCustomerReviews Component', () => {
     });
     
     // Also check the percentage labels - they should all show 0
-    const allLabels = screen.getAllByTestId('rds-label');
+    const allLabels = screen.getAllByTestId('rds-comp-label');
     
     // Get only the percentage labels (skip the rating value labels)
     // Every other label starting from index 1 should be a percentage

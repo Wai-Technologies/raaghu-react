@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./rds-fab-menu.css";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 
 export interface RdsFabMenuProps {
     colorVariant?: string;
@@ -55,7 +55,7 @@ const RdsFabMenu = (props: RdsFabMenuProps) => {
                 aria-expanded={isMenuOpen ? "true" : "false"}
                 data-testid="fab-menu-btn"
             >
-                <RdsIcon
+                <RdsCompIcon
                     name={props.menuIcon || "list"}  
                     fill={false}
                     stroke={true}
@@ -64,14 +64,14 @@ const RdsFabMenu = (props: RdsFabMenuProps) => {
                     colorVariant={customClasses.includes('btn-dark') || customClasses.includes('btn-primary') || customClasses.includes('btn-danger') ? 'light' : 'dark'}
                     tooltip
                     tooltipTitle="Attach File"
-                ></RdsIcon>
+                ></RdsCompIcon>
             </button>
             <div id="fab-list" ref={menuRef}>
                 <div className={`${props.isShowBorder ? props.className : "border-0 dropdown-menu dropdown-menu-list fab-dropdown shadow mb-1"} ${isMenuOpen ? " show" : ""}`}  role="menu">
                     {props.listItems.map((listItem) => (
                         <a key={listItem.key} role="link"  className={`dropdown-item fab-dropdown-item d-flex ${props.id === "attachment-text" ? "py-2" : "py-3"}`}
                         onClick={handleItemClick(listItem.onClick)}>
-                            <RdsIcon name={listItem.icon} height={listItem.iconHeight} width={listItem.iconWidth} fill={false} stroke={true}></RdsIcon>
+                            <RdsCompIcon name={listItem.icon} height={listItem.iconHeight} width={listItem.iconWidth} fill={false} stroke={true}></RdsCompIcon>
                             <span className="ms-3">{listItem.value}</span>
                         </a>
                     ))}

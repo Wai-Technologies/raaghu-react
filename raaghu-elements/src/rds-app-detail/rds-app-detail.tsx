@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import "./rds-app-detail.css";
 
 export enum IconPosition {
@@ -45,7 +45,7 @@ const RdsAppDetail = (props: RdsAppDetailProps) => {
       <div className="card">
         <div className="p-3 d-flex" style={getIconPositionStyle()}>
           <span className="icon-bg border p-1 rounded d-inline-block">
-            <RdsIcon
+            <RdsCompIcon
               name={props.appDetailsItem?.icon}
               colorVariant={props.appDetailsItem?.iconColor}
               height={props.appDetailsItem?.iconHeight}

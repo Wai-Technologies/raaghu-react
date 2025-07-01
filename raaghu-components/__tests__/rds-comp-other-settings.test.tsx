@@ -5,8 +5,8 @@ import RdsCompOtherSettings from '../src/rds-comp-other-settings/rds-comp-other-
 
 // Mock the rds-elements components
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: ({ label }: any) => (
-    <span data-testid="rds-label">{label}</span>
+  RdsCompLabel: ({ label }: any) => (
+    <span data-testid="rds-comp-label">{label}</span>
   ),
   RdsCheckbox: ({ labelText, checked, dataTestId, ...props }: any) => (
     <div data-testid={dataTestId}>
@@ -32,7 +32,7 @@ describe('RdsCompOtherSettings', () => {
     it('should render the Quick Theme Selection label', () => {
       render(<RdsCompOtherSettings />);
       
-      const label = screen.getByTestId('rds-label');
+      const label = screen.getByTestId('rds-comp-label');
       expect(label).toBeInTheDocument();
       expect(label).toHaveTextContent('Quick Theme Selection');
     });
@@ -176,10 +176,10 @@ describe('RdsCompOtherSettings', () => {
   });
 
   describe('Mocked Components Integration', () => {
-    it('should render RdsLabel with correct props', () => {
+    it('should render RdsCompLabel with correct props', () => {
       render(<RdsCompOtherSettings />);
       
-      const label = screen.getByTestId('rds-label');
+      const label = screen.getByTestId('rds-comp-label');
       expect(label).toHaveTextContent('Quick Theme Selection');
     });
 

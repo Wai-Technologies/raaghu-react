@@ -1,8 +1,8 @@
 import React, {useState } from "react";
-import { RdsButtonGroup } from "../rds-elements";
-import { RdsLabel } from "../rds-elements";
 import "./rds-comp-fileManagement-Tree.css";
-import { Role } from "../../../raaghu-elements/src/rds-button-group/rds-button-group";
+import RdsCompButtonGroup from "../rds-comp-button-group";
+import { Role } from "../rds-comp-button-group/rds-comp-button-group";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface FileManagementTree {
     id: string;
@@ -124,19 +124,19 @@ export const RdsCompFileManagementTree = (props: RdsCompFileManagementTreeProps)
                                 <div className="NodeHorizontal" ></div>
                             </div>
                             <div className="d-xxl-flex d-xl-flex d-lg-flex d-md-flex cursor-pointer file-tree d-flex d-sm-flex d-inline-flex">
-                                <RdsLabel
+                                <RdsCompLabel
                                     class="ps-1 pe-1 cursor-pointer"
                                     label={prop.item.name}
                                     onClick={handleClick(prop.item.id, prop.item.name)}
                                 />
                                 {prop.item.children && (
-                                    <RdsLabel
+                                    <RdsCompLabel
                                         onClick={handleClick(prop.item.id, prop.item.name)} />
                                 )}
                                 <span className="node-icon1 btn-group-size pb-0 "
                                     onClick={handleClick(prop.item.id, prop.item.name)}
                                 >
-                                    <RdsButtonGroup
+                                    <RdsCompButtonGroup
                                         buttonGroupItems={buttonGroupList}
                                         colorVariant="primary"
                                         isOutline={true}

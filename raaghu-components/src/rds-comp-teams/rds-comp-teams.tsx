@@ -1,5 +1,7 @@
 import React from "react";
-import { RdsLabel, RdsIcon, RdsTeamMember } from "../rds-elements";
+import { RdsTeamMember } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompTeamsProps {
   teamItem: any[];
@@ -13,23 +15,23 @@ const RdsCompTeams = (props: RdsCompTeamsProps) => {
                     <div className="col-md-12">
                         <div className="align-items-center col-md-12 d-flex justify-content-between">
                             <h2>
-                                <RdsLabel label="Meet the Team"></RdsLabel>
+                                <RdsCompLabel label="Meet the Team"></RdsCompLabel>
                             </h2>
                             <span>
-                                <RdsIcon
+                                <RdsCompIcon
                                     height="15px"
                                     fill={false}
                                     stroke={true}
                                     width="15px"
                                     name="arrow_right"
-                                ></RdsIcon>
-                                <RdsIcon
+                                ></RdsCompIcon>
+                                <RdsCompIcon
                                     height="15px"
                                     fill={false}
                                     stroke={true}
                                     width="15px"
                                     name="arrow_left"
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </div>
                     </div>

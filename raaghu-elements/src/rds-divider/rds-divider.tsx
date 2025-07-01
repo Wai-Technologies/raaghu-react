@@ -1,6 +1,6 @@
 import React from "react";
 import "./rds-divider.css";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 
 export interface RdsDividerProps {
   Style: string;
@@ -22,7 +22,7 @@ const RdsDivider = (props: RdsDividerProps) => {
   return ( props.layout==="horizontal" ? (
     <div className={`separator ${props.Style} border-${props.size} divider ${props.textalign} separator-${props.withdashed ? "dashed" : "solid"} `}>
       {props.iconShow && props.hasOwnProperty("icon") && (
-      <RdsIcon
+      <RdsCompIcon
         name={props.icon || " "}
         fill={props.iconFill}
         stroke={props.iconStroke}

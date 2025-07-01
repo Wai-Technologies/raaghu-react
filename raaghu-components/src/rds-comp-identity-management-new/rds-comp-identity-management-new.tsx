@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { RdsButton, RdsCheckbox, RdsInput, RdsLabel } from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsInput } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import { set } from "date-fns";
 import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
+import RdsCompLabel from "../rds-comp-label";
 export interface RdsCompIdentityManagementProps {
     onIdentitySettingsSubmit: any;
     lockoutSettings: any;
@@ -61,7 +62,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                 <div className="custom-content-scroll">
                     {/* Password Settings */}
                     <div className="mb-3 fw-medium">
-                        <RdsLabel label="Password Settings"></RdsLabel>
+                        <RdsCompLabel label="Password Settings"></RdsCompLabel>
                     </div>
                     <div className="row">
                         <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
@@ -149,7 +150,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     </div>
                     {/*Password renewing settings */}
                     <div className="mb-3 fw-medium">
-                        <RdsLabel label="Password Renewing Settings"></RdsLabel>
+                        <RdsCompLabel label="Password Renewing Settings"></RdsCompLabel>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
@@ -186,7 +187,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     </div>
                     {/* Lockout Settings */}
                     <div className="mb-3 fw-medium">
-                        <RdsLabel label="Lockout Settings"></RdsLabel>
+                        <RdsCompLabel label="Lockout Settings"></RdsCompLabel>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
@@ -240,7 +241,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
 
                     {/* Signin Settings */}
                     <div className=" mb-3 fw-medium">
-                        <RdsLabel label="SignInSettings"></RdsLabel>
+                        <RdsCompLabel label="SignInSettings"></RdsCompLabel>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">
@@ -277,7 +278,7 @@ const RdsCompIdentityManagement = (props: RdsCompIdentityManagementProps) => {
                     </div>
                     {/* User Settings */}
                     <div className="mb-3 fw-medium">
-                        <RdsLabel label="UserSettings"></RdsLabel>
+                        <RdsCompLabel label="UserSettings"></RdsCompLabel>
                     </div>
                     <div className="row">
                         <div className="col-md-12 mb-3">

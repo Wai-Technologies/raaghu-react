@@ -5,9 +5,9 @@ import RdsCompAppShell, {
   RdsSideNav,
 } from "./rds-comp-app-shell";
 import RdsCompSideNavigation from "../../../raaghu-components/src/rds-comp-side-navigation";
-import RdsCompTopNavigation from "../../../raaghu-components/src/rds-comp-top-navigation/rds-comp-top-navigation";
+import RdsTopNavigation from "../../../raaghu-elements/src/rds-top-navigation/rds-top-navigation";
 import { BrowserRouter } from "react-router-dom";
-import RdsCompSideNavigation1 from '../../../raaghu-components/src/rds-comp-side-navigation1/rds-comp-side-navigation1';
+import RdsCompLeftSideNavigation from '../../../raaghu-components/src/rds-comp-left-side-navigation/rds-comp-left-side-navigation';
 import "./rds-comp-app-shell.css";
 import {
   NavLayout,
@@ -148,7 +148,7 @@ type Story = StoryObj<typeof RdsCompAppShell>;
 //       />
 //     ),
 //     topbar: (
-//       <RdsCompTopNavigation
+//       <RdsTopNavigation
 //         brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
 //         brandName="Raaghu Design System"
 //         languageItems={[
@@ -260,7 +260,7 @@ type Story = StoryObj<typeof RdsCompAppShell>;
 //   args: {
 //     displayType: AppShellDisplayType.TopNav,
 //     topbar: (
-//       <RdsCompTopNavigation
+//       <RdsTopNavigation
 //         brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
 //         brandName="Raaghu Design System"
 //         languageItems={[
@@ -404,7 +404,7 @@ export const Standard: Story = {
     displayType: AppShellDisplayType.Default,
     sidebar: (
       <BrowserRouter>
-        <RdsCompSideNavigation1
+        <RdsCompLeftSideNavigation
           layout="LeftSideNav"
           lockIconVisible={false}
           logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
@@ -465,7 +465,7 @@ export const Standard: Story = {
       </BrowserRouter>
     ),
     topbar: (
-      <RdsCompTopNavigation
+      <RdsTopNavigation
         brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
         brandName="Raaghu Design System"
         languageItems={[
@@ -585,7 +585,7 @@ export const Relaxing: Story = {
     displayType: AppShellDisplayType.TopNav,
     topbar: (
       <div className="fixed-top">
-        {/* <RdsCompTopNavigation
+        {/* <RdsTopNavigation
           brandLogo="assets/Raaghu-logo-mfe-black.png"
           brandName="Raaghu"
           firstName="John"
@@ -656,7 +656,7 @@ export const Relaxing: Story = {
             throw new Error("Function not implemented.");
           }}
         /> */}
-        <RdsCompTopNavigation
+        <RdsTopNavigation
           brandLogo="assets/Raaghu-logo-mfe-black.png"
           brandName="Raaghu"
           firstName="John"
@@ -724,7 +724,7 @@ export const Relaxing: Story = {
           {/* Sidebar */}
           <div style={{ minWidth: 245, maxWidth: 245, height: '100%' }} >
             <BrowserRouter >
-              <RdsCompSideNavigation1
+              <RdsCompLeftSideNavigation
              
                 layout="LeftSideNav"
                 logoVisible={false}
@@ -763,7 +763,7 @@ export const TopNav: Story = {
     displayType: AppShellDisplayType.Default,
 
     topbar: (
-      <RdsCompTopNavigation
+      <RdsTopNavigation
         appshell3
         brandLogo="assets/Raaghu-logo-mfe-black.png"
         brandName="Raaghu"        breadcrumItem={[
@@ -979,7 +979,7 @@ export const SideNav: Story = {
         {/* Left Side Navigation */}
         <div className="rds-appshell-side-nav-left" style={{ flex: "0 0 245px", minWidth: 245, maxWidth: 245, height: '100%' }}>
           <BrowserRouter>
-            <RdsCompSideNavigation1
+            <RdsCompLeftSideNavigation
               lockIconVisible={false}
               sideNavItems={[
                 {
@@ -1041,7 +1041,7 @@ export const SideNav: Story = {
         <div className="rds-appshell-side-nav-right d-flex align-items-end justify-content-end"  style={{ flex: "0 0 80px", minWidth: 80, maxWidth: 120, height: '100%' }}>
           <div style={{ width: "100%", display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' }} id="side-nav-icon-list">
             <BrowserRouter>
-              <RdsCompSideNavigation1
+              <RdsCompLeftSideNavigation
                 layout="RightSideNav"
                 logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
                 navLayout={NavLayout.Toolbar}
@@ -1072,7 +1072,7 @@ export const DoubleNav: Story = {
     displayType: AppShellDisplayType.TopNav,
     topbar: (
       <div className="fixed-top">
-        <RdsCompTopNavigation
+        <RdsTopNavigation
           brandLogo="assets/Raaghu-logo-mfe-black.png"
           brandName="Raaghu"
           languageItems={[
@@ -1178,7 +1178,7 @@ export const DoubleNav: Story = {
       <div className="mt-5 double-nav-sidebar" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
         <div style={{ display: 'flex', flexDirection: 'row', gap: '7px' }}>
           <BrowserRouter>
-            <RdsCompSideNavigation1
+            <RdsCompLeftSideNavigation
               layout="LeftSideNav"
               logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
               navLayout={NavLayout.Raaghu}
@@ -1234,7 +1234,7 @@ export const DoubleNav: Story = {
                   path: ''
                 }
               ]} />
-            <RdsCompSideNavigation1
+            <RdsCompLeftSideNavigation
               lockIconVisible={false}
               sideNavItems={[
                 {
@@ -1309,7 +1309,7 @@ export const TriPane : Story = {
     displayType: AppShellDisplayType.TopNav,
     topbar: (
       <div className="fixed-top">
-        <RdsCompTopNavigation
+        <RdsTopNavigation
           brandLogo="assets/Raaghu-logo-mfe-black.png"
           brandName="Raaghu"
           languageItems={[
@@ -1415,7 +1415,7 @@ export const TriPane : Story = {
     sidebar: (
       <div className="mt-5 tripane-sidebar" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%' }}>
         <div>
-          <RdsCompSideNavigation1
+          <RdsCompLeftSideNavigation
     layout="LeftSideNav"
     lockIconVisible={false}
     logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"

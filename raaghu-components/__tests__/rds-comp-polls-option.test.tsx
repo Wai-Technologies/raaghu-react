@@ -31,7 +31,7 @@ jest.mock('../src/rds-elements', () => ({
   ),
 }));
 
-jest.mock('../src/rds-comp-data-table', () => {
+jest.mock('../src/rds-data-table', () => {
   return function MockRdsCompDatatable({
     tableData,
     onActionSelection,

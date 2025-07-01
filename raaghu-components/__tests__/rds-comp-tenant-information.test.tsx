@@ -18,8 +18,8 @@ jest.mock('react-i18next', () => ({
 
 // Mock the RDS elements
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: (props: any) => (
-    <label data-testid="rds-label" className={props.required ? "required" : ""}>
+  RdsCompLabel: (props: any) => (
+    <label data-testid="rds-comp-label" className={props.required ? "required" : ""}>
       {props.label}
     </label>
   ),
@@ -38,7 +38,7 @@ jest.mock('../src/rds-elements', () => ({
       />
     </div>
   ),
-  RdsSelectList: (props: any) => (
+  RdsCompSelectList: (props: any) => (
     <div data-testid={`rds-select-${props.id}`}>
       {props.label && <label>{props.label}</label>}
       <select

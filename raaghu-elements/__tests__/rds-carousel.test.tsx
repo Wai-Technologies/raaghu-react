@@ -13,7 +13,7 @@ if (typeof global.fetch !== 'function') {
   ) as jest.Mock;
 }
 
-// Mock RdsIcon component to avoid fetch issues
+// Mock RdsCompIcon component to avoid fetch issues
 jest.mock("../src/rds-icon/rds-icon", () => {
   return {
     __esModule: true,

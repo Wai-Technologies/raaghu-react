@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import RdsDatatable, { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 import { useTranslation } from "react-i18next";
 import "./rds-comp-tenant-list.css";
 import { ScriptableContext } from "chart.js";
-import { RdsWidget, RdsLineChart, RdsBigNumber, RdsRadarChart, RdsDoughnutChart, RdsBooleanChart, RdsBarChart, RdsTable, RdsProgressBar, RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsRadioButton, RdsSelectList, RdsTextArea, RdsDropdownList, RdsIcon } from "../rds-elements";
+import { RdsWidget, RdsLineChart, RdsRadarChart, RdsDoughnutChart, RdsBooleanChart, RdsBarChart, RdsProgressBar, RdsButton, RdsCheckbox, RdsInput, RdsRadioButton, RdsTextArea, RdsDropdownList } from "../rds-elements";
 import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
+import RdsCompBigNumber from "../rds-comp-big-number";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompSelectList from "../rds-comp-select-list";
+import RdsCompTable from "../rds-comp-table";
 export interface Edition {
     option: string;
     value: string;
@@ -405,7 +410,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
   return (
     <>
     {props.tenant === "list" && (
-    <RdsCompDatatable
+    <RdsDatatable
       actionPosition={ActionPosition.Right}
       tableHeaders={props.tableHeaders}
       actions={props.actions}
@@ -416,7 +421,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
       recordsPerPageSelectListOption={props.recordsPerPageSelectListOption}
       noDataheaderTitle="No Records Available"
       noDataTitle="Click on the button to add"
-    ></RdsCompDatatable>
+    ></RdsDatatable>
     )}
     {props.tenant === "dashboard" && (
         <div className="dark dashboard bg-grey p-2 p-lg-4 p-md-4">
@@ -625,7 +630,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                     <RdsWidget
                         headerTitle="License"
                         isCardStretch={true}>
-                        <RdsBigNumber bigNumber="10"></RdsBigNumber>
+                        <RdsCompBigNumber bigNumber="10"></RdsCompBigNumber>
                         <RdsRadarChart
                             id="newRadar"
                             labels={["Jan", "Feb", "Mar", "Apr", "May", "June", "July"]}
@@ -773,7 +778,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                         isCardStretch={true}
                     >
                         <div>
-                            <RdsBigNumber bigNumber="$39,330"></RdsBigNumber>
+                            <RdsCompBigNumber bigNumber="$39,330"></RdsCompBigNumber>
                             <div className="col col-sm-12">
                                 <RdsDoughnutChart
                                     id="doughnutchart"
@@ -1063,7 +1068,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                    
 
                                 >
-                                    <RdsBigNumber bigNumber="$8,425"></RdsBigNumber>
+                                    <RdsCompBigNumber bigNumber="$8,425"></RdsCompBigNumber>
                                     <RdsLineChart
 
                                         id="linechart1"
@@ -1617,7 +1622,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                         isCardStretch={true}
                                     >
                                         <div className="table-responsive">
-                                            <RdsTable
+                                            <RdsCompTable
                                                 tableHeightForScroll="356px"
                 
                                                 headerDatas={[
@@ -1890,7 +1895,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                                         ),
                                                     },
                                                 ]}
-                                            ></RdsTable>
+                                            ></RdsCompTable>
                                         </div>
                                     </RdsWidget>
                 </div>
@@ -1903,7 +1908,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                         isCardStretch={true}
                     >
                         <div className="table-responsive">
-                            <RdsTable id="sortable"
+                            <RdsCompTable id="sortable"
 
                                 headerDatas={[
                                     {
@@ -2103,7 +2108,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                         ),
                                     },
                                 ]}
-                            ></RdsTable>
+                            ></RdsCompTable>
                         </div>
                     </RdsWidget>
                 </div>
@@ -2134,7 +2139,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3">
-                                <RdsSelectList
+                                <RdsCompSelectList
                                     id={"saasEditionlist"}
                                     label="Edition"
                                     placeholder="Select Edition"
@@ -2144,7 +2149,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                     required={false}
                                     selectedValue={tenantInformationData?.editions}
                                     onChange={(item: any) => {handleDataChanges(item.value,"editions"); }}                                  
-                                ></RdsSelectList>
+                                ></RdsCompSelectList>
                             </div>
                         </div>
                     </div>
@@ -2199,7 +2204,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                         </div>
                         <div className="row mb-3">
                             <div className="col-md-8">
-                                <RdsLabel
+                                <RdsCompLabel
                                     label="Connection Strings"
                                     required={true}
                                 />
@@ -2254,7 +2259,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="form-group text-capitalize mb-3">
-                                <RdsSelectList
+                                <RdsCompSelectList
                                     id={"saasActivelist"}
                                     label="Activation State"
                                     placeholder="Select Activation State"
@@ -2263,7 +2268,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                     selectedValue={tenantInformationData?.activationState}
                                     onChange={(e: any) => handleDataChanges(e.value, "activationState")}
                                     required={true}
-                                ></RdsSelectList>
+                                ></RdsCompSelectList>
                             </div>
                         </div>
                     </div>
@@ -2297,7 +2302,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
     {props.tenant === "management" && (
         <div className="mt-4" >
             <div className="fw-medium" >
-                <RdsLabel label="Form-Based Registration" />
+                <RdsCompLabel label="Form-Based Registration" />
             </div>
             <div className="form-group py-2 fw-medium">
                 <RdsCheckbox
@@ -2406,7 +2411,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
 
                         <div className="row text-start">
                             <div className="col-md-6 mt-2">
-                                <RdsLabel label="Country" required={true} />
+                                <RdsCompLabel label="Country" required={true} />
                                 <RdsDropdownList
                                     key={countryList.length}
                                     placeholder="Select Country"
@@ -2468,7 +2473,7 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                         <p className="divider line one-line">Or Connect With</p>
                         <div className="w-100 mt-4 pt-2">
                             <span className="w-20px h-20px border p-2 mx-3 rounded-2">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="google"
                                     height="20px"
                                     width="20px"
@@ -2479,9 +2484,9 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                     tooltipTitle={"Connect with Google"}
                                     tooltipPlacement="bottom"
                                     isCursorPointer={true}
-                                ></RdsIcon></span>
+                                ></RdsCompIcon></span>
                             <span className="w-20px h-20px border p-2 mx-3 rounded-2">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="microsoft"
                                     height="20px"
                                     width="20px"
@@ -2492,16 +2497,16 @@ const RdsCompEditionList = (props: RdsCompEditionListProps) => {
                                     tooltipTitle={"Connect with Microsoft"}
                                     tooltipPlacement="bottom"
                                     isCursorPointer={true}
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </div>
                     </div>
                     {/* <div className="pt-2">
-                        <RdsLabel
+                        <RdsCompLabel
                             class="text-mute pt-2 secondary "
                             label="©2023 WAi Technologies. All rights reserved "
                             size="0.7rem"
-                        ></RdsLabel>
+                        ></RdsCompLabel>
                     </div> */}
                 </div>
             </div>

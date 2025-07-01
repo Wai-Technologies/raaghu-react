@@ -6,13 +6,12 @@ import RdsDoughnutChart from "../rds-chart-doughnut";
 import RdsAreaChart from "../rds-chart-area";
 import RdsBooleanChart from "../rds-chart-boolean";
 import { ScriptableContext } from "chart.js";
-import RdsBigNumber from "../rds-big-number";
-import RdsWidget from "../rds-widget";
-import RdsIcon from "../rds-icon";
+import RdsCompBigNumber from "../../../raaghu-components/src/rds-comp-big-number";
+import RdsWidget from "../../../raaghu-components/src/rds-comp-widget";
 import RdsBarChart from "../rds-chart-bar";
-import RdsTable from "../rds-table";
 import RdsLineChart from "../rds-chart-line";
 import RdsProgressBar from "../rds-progress-bar";
+import { RdsCompIcon, RdsCompTable } from "../../../raaghu-components/src";
 
 const meta: Meta = {
   title: 'Elements/Card',
@@ -163,7 +162,7 @@ export const WithRingChart: Story = {
       isCardStretch={false}
   >
       <div>
-          <RdsBigNumber bigNumber="$39,330"></RdsBigNumber>
+          <RdsCompBigNumber bigNumber="$39,330"></RdsCompBigNumber>
           <div className="col col-sm-12">
               <RdsDoughnutChart
                   id="doughnutchart"
@@ -665,7 +664,7 @@ export const WithLineChart: Story = {
 
                             >
                                 <div>
-                                    <RdsBigNumber
+                                    <RdsCompBigNumber
                                         bigNumber="$373,960"
                                         icon={"triangle_down"}
                                         iconHeight={"12px"}
@@ -674,10 +673,10 @@ export const WithLineChart: Story = {
                                         iconFill={true}
                                         iconWidth={"12px"}
                                         subTitleColorVariant="danger"
-                                    ></RdsBigNumber>
+                                    ></RdsCompBigNumber>
                                     <div className="d-flex align-items-center fw-normal my-2 mb-4">
                                         <span>
-                                            <RdsIcon
+                                            <RdsCompIcon
                                                 name="triangle_up"
                                                 height="14px"
                                                 width="14px"
@@ -807,7 +806,7 @@ export const WithDataTable: Story = {
                         isRefreshRequired={true}
                     >
                         <div className="table-responsive">
-                            <RdsTable
+                            <RdsCompTable
                                 tableHeightForScroll="356px"
 
                                 headerDatas={[
@@ -1080,7 +1079,7 @@ export const WithDataTable: Story = {
                                         ),
                                     },
                                 ]}
-                            ></RdsTable>
+                            ></RdsCompTable>
                         </div>
 
                     </RdsWidget>
@@ -1109,7 +1108,7 @@ export const WithChart: Story = {
       height="auto"
 
   >
-      <RdsBigNumber bigNumber="$8,425"></RdsBigNumber>
+      <RdsCompBigNumber bigNumber="$8,425"></RdsCompBigNumber>
       <RdsLineChart
 
           id="linechart1"
@@ -1478,7 +1477,7 @@ export const WithTable : Story = {
                         isRefreshRequired={true}
                     >
                         <div className="table-responsive">
-                            <RdsTable id="sortable"
+                            <RdsCompTable id="sortable"
 
                                 headerDatas={[
                                     {
@@ -1683,7 +1682,7 @@ export const WithTable : Story = {
                                         ),
                                     },
                                 ]}
-                            ></RdsTable>
+                            ></RdsCompTable>
                         </div>
                     </RdsWidget>
     )},

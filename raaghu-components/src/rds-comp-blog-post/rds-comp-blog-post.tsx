@@ -1,7 +1,7 @@
 import React from "react";
-import RdsCompDatatable from "../rds-comp-data-table";
+import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
 import './rds-comp-blog-post.css';
-import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 
 interface RdsCompBlogPostProps {
   tableHeaders: {
@@ -30,7 +30,7 @@ interface RdsCompBlogPostProps {
 }
 const RdsCompBlogPost = (props: RdsCompBlogPostProps) => {
     return (
-        <div className="bloglist"><RdsCompDatatable
+        <div className="bloglist"><RdsDatatable
       actionPosition={ActionPosition.Right}
       tableHeaders={props.tableHeaders}
       actions={props.actions}
@@ -40,7 +40,7 @@ const RdsCompBlogPost = (props: RdsCompBlogPostProps) => {
       tableData={props.tableData!}
       pagination={props.pagination!}
       recordsPerPage={props.recordsPerPage}
-    ></RdsCompDatatable></div>
+    ></RdsDatatable></div>
   );
 };
 export default RdsCompBlogPost;

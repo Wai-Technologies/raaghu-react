@@ -1,5 +1,5 @@
 import React, { useState, ReactNode } from "react";
-import { RdsIcon } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
 
 export enum Position {
    Right = "right",
@@ -29,7 +29,7 @@ const RdsCompCollapsibleContainer = (props: RdsCompCollapsibleContainerProps) =>
          {props.position === Position.Right &&
             <div className="leftChevronPosition">
                <div className="chevron-container">
-                  <RdsIcon
+                  <RdsCompIcon
                      name={isCollapsed ? 'chevron_left' : 'chevron_right'}
                      width="22px"
                      height="11px"
@@ -43,7 +43,7 @@ const RdsCompCollapsibleContainer = (props: RdsCompCollapsibleContainerProps) =>
             <div className="content">
                {Array.isArray(props.menuItems) && props.menuItems.map((item, index) => (
                   <div className="menu-item-collapsible-container" key={index}>
-                     {item.icon && <RdsIcon name={item.icon} width="20px" height="20px" fill={false} classes="mx-3" />}
+                     {item.icon && <RdsCompIcon name={item.icon} width="20px" height="20px" fill={false} classes="mx-3" />}
                      {!isCollapsed && item.name && <span>{item.name}</span>}
                      <div className="px-3">
                      {item.component && item.component}
@@ -55,7 +55,7 @@ const RdsCompCollapsibleContainer = (props: RdsCompCollapsibleContainerProps) =>
          {props.position === Position.Left &&
             <div className="rightChevronPosition">
                <div className="chevron-container">
-                  <RdsIcon
+                  <RdsCompIcon
                      name={isCollapsed ? 'chevron_right' : 'chevron_left'}
                      width="22px"
                      height="11px"

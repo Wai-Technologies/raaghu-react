@@ -5,12 +5,12 @@ import RdsCompEdition, { RdsCompEditionProps } from '../src/rds-comp-edition/rds
 
 // Mock RDS elements
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: ({ label, size, multiline, ...props }: any) => (
-    <div data-testid="rds-label" data-size={size} data-multiline={multiline} {...props}>
+  RdsCompLabel: ({ label, size, multiline, ...props }: any) => (
+    <div data-testid="rds-comp-label" data-size={size} data-multiline={multiline} {...props}>
       {label}
     </div>
   ),
-  RdsIcon: ({ name, width, height, fill, stroke, ...props }: any) => (
+  RdsCompIcon: ({ name, width, height, fill, stroke, ...props }: any) => (
     <div data-testid="rds-icon" data-name={name} data-width={width} data-height={height} data-fill={fill} data-stroke={stroke} {...props}>
       Icon
     </div>
@@ -20,8 +20,8 @@ jest.mock('../src/rds-elements', () => ({
       {children}
     </div>
   ),
-  RdsNavtabs: ({ activeNavTabId, navtabsItems, type, isNextPressed, activeNavtabOrder, ...props }: any) => (
-    <div data-testid="rds-navtabs" data-active-nav-tab-id={activeNavTabId} data-type={type} data-is-next-pressed={isNextPressed} {...props}>
+  RdsCompNavtabs: ({ activeNavTabId, navtabsItems, type, isNextPressed, activeNavtabOrder, ...props }: any) => (
+    <div data-testid="rds-comp-navtabs" data-active-nav-tab-id={activeNavTabId} data-type={type} data-is-next-pressed={isNextPressed} {...props}>
       {navtabsItems?.map((item: any, index: number) => (
         <button
           key={index}
@@ -61,7 +61,7 @@ jest.mock('../src/rds-elements', () => ({
       />
     </div>
   ),
-  RdsSelectList: ({ id, label, selectItems, onChange, selectedValue, classes, isDisabled, isMultiple, required, dataTestId, ...props }: any) => (
+  RdsCompSelectList: ({ id, label, selectItems, onChange, selectedValue, classes, isDisabled, isMultiple, required, dataTestId, ...props }: any) => (
     <div data-testid={`select-container-${id}`}>
       {label && <label>{label}</label>}
       <select

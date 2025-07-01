@@ -60,7 +60,7 @@ jest.mock("../src/rds-elements", () => ({
       />
     </div>
   ),
-  RdsSelectList: (props: any) => <div>{props.label}</div>,
+  RdsCompSelectList: (props: any) => <div>{props.label}</div>,
 }));
 
 // Mock the i18n functionality

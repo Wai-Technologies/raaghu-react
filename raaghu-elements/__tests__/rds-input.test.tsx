@@ -6,7 +6,7 @@ import RdsInput from "../src/rds-input/rds-input";
 // Polyfill fetch for icon loading in tests
 import 'whatwg-fetch';
 
-// Mock RdsIcon component since it may be causing issues
+// Mock RdsCompIcon component since it may be causing issues
 jest.mock("../src/rds-icon/rds-icon", () => ({
   __esModule: true,
   default: (props: any) => (
