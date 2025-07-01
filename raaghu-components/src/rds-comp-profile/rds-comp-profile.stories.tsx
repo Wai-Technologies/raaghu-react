@@ -72,7 +72,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompProfile>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         profile: "default",
         navtabItems: [
@@ -101,7 +101,7 @@ export const Default: Story = {
         showUserName: true,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['navtabItems', 'profilePic', 'userName', 'userRole'] } };
+Standard.parameters = { controls: { include: ['navtabItems', 'profilePic', 'userName', 'userRole'] } };
 
 export const Edit: Story = {
     args: {

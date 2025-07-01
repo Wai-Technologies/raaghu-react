@@ -33,11 +33,11 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof Tooltip>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         label: "This is tooltip",
         style: TooltipStyle.RightArrow,
         children: <button className="btn btn-primary">Button</button>
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['label', 'style'] } };
+Standard.parameters = { controls: { include: ['label', 'style'] } };

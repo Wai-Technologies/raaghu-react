@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompLoginAttempts>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         selectvalue: [
             { value: "All", displayText: "All" },
@@ -205,4 +205,4 @@ export const Default: Story = {
         totalRecords: 16,      
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['selectvalue', 'tableHeaders', 'tableData'] } };
+Standard.parameters = { controls: { include: ['selectvalue', 'tableHeaders', 'tableData'] } };

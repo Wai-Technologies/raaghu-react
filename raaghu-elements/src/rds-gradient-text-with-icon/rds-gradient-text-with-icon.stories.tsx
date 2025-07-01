@@ -24,7 +24,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsGradientTextWithIcon>;
  
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         logoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png",
         logo: "./assets/pundit_loader.gif",

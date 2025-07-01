@@ -27,7 +27,7 @@ export default meta;
 type Story = StoryObj<typeof Todos>;
 
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         sizeType: "withoutDescription",
         sizeData: [
@@ -43,7 +43,7 @@ export const Default: Story = {
 
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['sizeType', 'sizeData'] } };
+Standard.parameters = { controls: { include: ['sizeType', 'sizeData'] } };
 
 export const WithDescription: Story = {
     args: {

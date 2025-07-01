@@ -42,7 +42,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsFeatureList>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         heading: "Features",
         fontStyle: FontStyle.Normal,
@@ -58,7 +58,7 @@ export const Default: Story = {
         ],        
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['heading', 'fontStyle', 'colorVariant','itemList'] } };
+Standard.parameters = { controls: { include: ['heading', 'fontStyle', 'colorVariant','itemList'] } };
 
 export const With_multiple_column: Story = {
     args: {

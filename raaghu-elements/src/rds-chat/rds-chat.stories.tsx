@@ -18,7 +18,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsChat>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         isChatScreenEnabled: true,
         userData: [
@@ -84,4 +84,4 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ["isChatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "OtherUserCommentTextColor"] } };
+Standard.parameters = { controls: { include: ["isChatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "OtherUserCommentTextColor"] } };

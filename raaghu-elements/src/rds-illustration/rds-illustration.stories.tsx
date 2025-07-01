@@ -26,7 +26,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsIllustration>;
 
-export const EmptyDataView: Story = {
+export const Standard: Story = {
   args: {
     mode: "Dark NRA",
     label: "Currently you don't have any data",
@@ -37,7 +37,7 @@ export const EmptyDataView: Story = {
       "/assets/lottie-files/outlined/dual-color/illustration-light.json",
   },
 } satisfies Story;
-EmptyDataView.parameters = {
+Standard.parameters = {
   controls: {
     include: [
       "mode",

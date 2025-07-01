@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompUserTable>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         pagination: true,
         recordsPerPage: 10,

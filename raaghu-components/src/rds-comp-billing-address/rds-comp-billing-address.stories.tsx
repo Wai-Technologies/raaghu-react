@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompBillingAddress>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         countryList: [
             { option: "Afghanistan" , value: "AF" },
@@ -69,6 +69,6 @@ export const Default: Story = {
         ]
     }
 } satisfies Story;
-// Default.parameters = { controls: { include: ['countryList', 'IndianStateList'] } };
+// Standard.parameters = { controls: { include: ['countryList', 'IndianStateList'] } };
 
 

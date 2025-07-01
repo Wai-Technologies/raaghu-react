@@ -25,7 +25,7 @@ type Story = StoryObj<typeof RdsMap>;
 
 
 
-export const WorldMapWithCounter: Story = {
+export const Standard: Story = {
   args: {
     title: 'Map ',
     color: '#A478E6',

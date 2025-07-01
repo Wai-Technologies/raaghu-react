@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompTeams>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         teamItem: [
             [{
@@ -60,4 +60,4 @@ export const Default: Story = {
         ]
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['teamItem'] } };
+Standard.parameters = { controls: { include: ['teamItem'] } };

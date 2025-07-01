@@ -42,13 +42,13 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsHeader>;
 
-export const OnlyHeader: Story = {
+export const Standard: Story = {
   args: {
     headerText: "Header",
     size: "h1",
   },
 } satisfies Story;
-OnlyHeader.parameters = {
+Standard.parameters = {
   controls: { include: ["headerText", "colorVariant", "size"] },
 };
 

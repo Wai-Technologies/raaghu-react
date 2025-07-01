@@ -30,14 +30,14 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsRange>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         max: 200,
         min: 10,
         rangeType: "default"
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['max', 'min', 'rangeType'] } };
+Standard.parameters = { controls: { include: ['max', 'min', 'rangeType'] } };
 
 export const RangeType_1: Story = {
     args: {

@@ -399,7 +399,7 @@ type Story = StoryObj<typeof RdsCompAppShell>;
 // };
 
 //Default story
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     displayType: AppShellDisplayType.Default,
     sidebar: (

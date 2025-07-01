@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompProductImage>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
       item: {
         imgUrl: "https://www.crestedschoolwear.co.uk/wp-content/uploads/2018/07/white-tshirt.jpg",

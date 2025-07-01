@@ -42,7 +42,7 @@ const meta: Meta<typeof RdsChatHeader> = {
 export default meta;
 type Story = StoryObj<typeof RdsChatHeader>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     logoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png",
     title: "New Chat Started",

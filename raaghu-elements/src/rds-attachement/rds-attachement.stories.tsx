@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsAttachement>;
  
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         menuIcon: "attachment_icon",
         modalTitle: "Import From Figma",

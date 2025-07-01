@@ -34,7 +34,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompAlertPopup>;
 
-export const Default: Story = (args: any) => (
+export const Standard: Story = (args: any) => (
     <>
         <button
             type="button"
@@ -48,7 +48,7 @@ export const Default: Story = (args: any) => (
     </>
 );
 
-Default.args = {
+Standard.args = {
     alertID: "alert_popup",
     iconUrl: "delete",
     colorVariant: "danger",
@@ -59,7 +59,7 @@ Default.args = {
     type: "default"
 };
 
-Default.parameters = {
+Standard.parameters = {
     controls: {
         include: ['alertID', 'iconUrl', 'colorVariant', 'alertConfirmation', 'messageAlert', 'cancelBtnLabel', 'deleteBtnLabel','type']
     }

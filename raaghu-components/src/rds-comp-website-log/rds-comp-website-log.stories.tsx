@@ -30,7 +30,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompWebsiteLog>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         pagination: true,
         recordsPerPage: 5,
@@ -74,7 +74,7 @@ export const Default: Story = {
         ]       
     }
 } satisfies Story;
-Default.parameters = { controls: {include : ['pagination', 'recordsPerPage', 'alignmentType', 'websiteLogData']}}
+Standard.parameters = { controls: {include : ['pagination', 'recordsPerPage', 'alignmentType', 'websiteLogData']}}
 
 
 
