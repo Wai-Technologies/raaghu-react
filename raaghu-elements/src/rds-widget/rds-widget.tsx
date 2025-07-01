@@ -5,6 +5,7 @@ import RdsButtonGroup, { Role } from "../rds-button-group/rds-button-group";
 import RdsBigNumber from "../rds-big-number/rds-big-number";
 import RdsProgressBar from "../rds-progress-bar";
 import RdsButton from "../rds-button";
+import "./rds-widget.css";
 
 export interface RdsWidgetProps {
   isRefreshRequired?: boolean;
@@ -86,6 +87,7 @@ const RdsWidget = (props: RdsWidgetProps) => {
           `card ${props.isCardStretch ? "card-stretch gutter-b" : ""} ` +
           classes()
         }
+        data-component="rds-widget"
         style={{
           height: `${props.height}`,
           minHeight: `${props.minHeight}`,

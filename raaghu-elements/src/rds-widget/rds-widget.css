@@ -1,2 +1,29 @@
+/* Shared styles for specific charts in dark theme */
+.theme-dark .card[data-component="rds-widget"]:has(#linechart),
+.theme-dark .card[data-component="rds-widget"]:has(#doughnutchart),
+.theme-dark .card[data-component="rds-widget"]:has(#barchart),
+.theme-dark .card[data-component="rds-widget"]:has(#linechart) .card-body,
+.theme-dark .card[data-component="rds-widget"]:has(#linechart) .card-header,
+.theme-dark .card[data-component="rds-widget"]:has(#doughnutchart) .card-body,
+.theme-dark .card[data-component="rds-widget"]:has(#doughnutchart) .card-header,
+.theme-dark .card[data-component="rds-widget"]:has(#barchart) .card-body,
+.theme-dark .card[data-component="rds-widget"]:has(#barchart) .card-header {
+  background-color: #232933 !important;
+  border-color: #343a40 !important;
+  color: #dee2e6 !important;
+}
 
+.theme-dark .card[data-component="rds-widget"] .border-danger-50 {
+  background-color: #2b3138 !important;
+  border-color: #495057 !important;
+  color: #dee2e6 !important;
+}
 
+.theme-dark .card[data-component="rds-widget"] .border-danger-50 .fw-bold,
+.theme-dark .card[data-component="rds-widget"] .border-danger-50 .text-secondary.fw-medium {
+  color: #dee2e6 !important;
+}
+
+.theme-dark .card[data-component="rds-widget"] p.text-secondary {
+  color: #0d6efd !important;
+}
