@@ -412,7 +412,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
               </div>
               <div className="d-flex flex-column gap-3">
                 {[1, 2, 3].map((item, idx) => (
-                  <div key={idx} className="custom-profile-card d-flex align-items-center p-3 shadow-sm rounded-4 border-left-highlight" style={{ background: '#fff', minHeight: 70 }}>
+                  <div key={idx} className="custom-profile-card d-flex align-items-center p-3 shadow-sm left-border-highlight" style={{ background: '#fff', minHeight: 70 }}>
                     <div className="me-2 position-relative">
                       <RdsAvatar
                         activityRing
@@ -452,7 +452,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
         ) : props.style === "Toolbar" ? (
           <div className="custom-content-wrapper">
             <div className="detail-pane-container toolbar-pane-container p-3">
-              <div className="detail-pane-scroll-content">
+              <div className="detail-pane-scroll-content" id="btn-sizes">
                 <div>
                   <RdsLabel
                     fontWeight="bold"
