@@ -151,6 +151,8 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                       isCursorPointer
                       name="sparkle"
                       width="20px"
+                      tooltip
+                      tooltipTitle="Enhance Prompt"
                     />
                   </div>
                 </div>
