@@ -49,12 +49,17 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     overflow-x: auto;
+    gap: 5px;
+    padding: 0;
   }
 
   .navButton {
     min-width: 80px;
     height: 32px;
     font-size: 12px;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    flex-shrink: 0;
   }
 
   .scrossSpyItem {
@@ -128,4 +133,22 @@
 }
 #scrollspy p{
  color: black !important;
+}
+
+/* Dark mode styles for scrollspy component - using specific container selector */
+.theme-dark .container #scrollspy ~ div .scrossSpyItem {
+  background: #232933 !important;
+  color: #dee2e6 !important;
+}
+
+.theme-dark .container #scrollspy ~ div .contentHeader {
+  color: #fcfcfc !important;
+}
+
+.theme-dark .container #scrollspy ~ div .contentParagraph {
+  color: #A8A8A8 !important;
+}
+
+.theme-dark .container #scrollspy ~ div .scrossSpyItem p {
+  color: #A8A8A8 !important;
 }

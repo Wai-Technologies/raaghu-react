@@ -452,7 +452,7 @@ const RdsCompDetailsPaneFavouites = (props: RdsCompDetailsPaneProps) => {
         ) : props.style === "Toolbar" ? (
           <div className="custom-content-wrapper">
             <div className="detail-pane-container toolbar-pane-container p-3">
-              <div className="detail-pane-scroll-content">
+              <div className="detail-pane-scroll-content" id="btn-sizes">
                 <div>
                   <RdsLabel
                     fontWeight="bold"
