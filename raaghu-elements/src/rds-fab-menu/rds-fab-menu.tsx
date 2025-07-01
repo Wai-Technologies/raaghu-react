@@ -62,6 +62,8 @@ const RdsFabMenu = (props: RdsFabMenuProps) => {
                     height="17px"
                     width="17px"
                     colorVariant={customClasses.includes('btn-dark') || customClasses.includes('btn-primary') || customClasses.includes('btn-danger') ? 'light' : 'dark'}
+                    tooltip
+                    tooltipTitle="Attach File"
                 ></RdsIcon>
             </button>
             <div id="fab-list" ref={menuRef}>
