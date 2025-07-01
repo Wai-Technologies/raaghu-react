@@ -35,7 +35,7 @@ export const Standard: Story = {
         styleClass: 'agenda-view'
     },
 } satisfies Story;
-Agenda.parameters = { controls: { include: ['events'] } };
+Standard.parameters = { controls: { include: ['events'] } };
 
 export const Day: Story = {
     args: {
