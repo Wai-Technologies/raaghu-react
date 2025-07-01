@@ -1,5 +1,5 @@
 import RdsCheckbox, { CheckboxState, CheckboxStatus, CheckboxStyle, LabelPosition } from "./rds-checkbox";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Elements/Checkbox",

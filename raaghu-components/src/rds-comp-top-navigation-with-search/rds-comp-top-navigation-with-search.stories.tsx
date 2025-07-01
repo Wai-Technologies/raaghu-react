@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompTopNavigationWithSearch from "./rds-comp-top-navigation-with-search";
 
 const meta: Meta = {

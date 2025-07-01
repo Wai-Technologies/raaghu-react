@@ -1,6 +1,6 @@
 import RdsBooleanChart from "./rds-chart-boolean";
 import "./rds-chart-boolean.css";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Charts/Boolean Chart',

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsNotification, { NotificationLayout, NotificationStyle, NotificationType } from "./rds-notification";
 
 const meta: Meta = {
@@ -75,7 +75,7 @@ Default.parameters = { controls: { include: ['layout', 'style', 'type','notifica
 
 
 
-// import { Meta, StoryObj } from "@storybook/react";
+// import { Meta, StoryObj } from "@storybook/react-vite";
 // import RdsNotification from "./rds-notification";
 
 

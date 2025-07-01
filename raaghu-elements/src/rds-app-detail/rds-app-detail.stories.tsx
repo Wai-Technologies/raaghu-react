@@ -1,6 +1,6 @@
 import React from "react";
 import RdsAppDetail, { IconPosition } from "./rds-app-detail";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
   title: "Elements/App Detail",

@@ -1,6 +1,6 @@
 import React from "react";
 import RdsIconLabel from "./rds-icon-label";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
   title: 'Components/Icon Label',

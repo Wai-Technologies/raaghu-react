@@ -1,6 +1,6 @@
 import React from "react";
 import RdsStepper from "./rds-stepper";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 export interface StepIconName {
     iconName: string;

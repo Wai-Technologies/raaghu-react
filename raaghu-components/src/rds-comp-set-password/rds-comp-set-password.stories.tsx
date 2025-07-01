@@ -1,7 +1,7 @@
 // /* eslint-disable */
 // import React from 'react';
 // import { I18nextProvider } from 'react-i18next';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompSetPassword from './rds-comp-set-password';
 
 const meta: Meta = { 

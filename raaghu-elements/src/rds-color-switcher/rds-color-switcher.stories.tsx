@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsColorSwitcher, { DisplayType } from "./rds-color-switcher";
 
 const meta: Meta = {

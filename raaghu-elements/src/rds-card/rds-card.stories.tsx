@@ -1,6 +1,6 @@
 import React from "react";
 import RdsCard, { CardTypes } from "./rds-card";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsMap from "../rds-map";
 import RdsDoughnutChart from "../rds-chart-doughnut";
 import RdsAreaChart from "../rds-chart-area";

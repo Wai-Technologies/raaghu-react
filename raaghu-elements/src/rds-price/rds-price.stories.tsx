@@ -1,6 +1,6 @@
 import React from "react";
 import RdsPrice from "./rds-price";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Price',

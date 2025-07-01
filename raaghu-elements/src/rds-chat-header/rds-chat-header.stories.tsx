@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsChatHeader, { ChatHeaderSize } from "./rds-chat-header";
 
 const meta: Meta<typeof RdsChatHeader> = {

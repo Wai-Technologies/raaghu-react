@@ -1,5 +1,5 @@
 // import React from "react";
-// import { ComponentStory, ComponentMeta } from "@storybook/react";
+// import { ComponentStory, ComponentMeta } from "@storybook/react-vite";
 // import RdsCompProfile from "./rds-comp-profile";
 // import { I18nextProvider } from "react-i18next";
 // import i18n from "../../../.storybook/i18n";
@@ -48,7 +48,7 @@
 //     userRole: " Admin",
 // };
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompProfile from "./rds-comp-profile";
 
 

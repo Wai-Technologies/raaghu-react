@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompLoginAttempts from "./rds-comp-login-attempts";
 
 const meta: Meta = { 

@@ -1,6 +1,6 @@
 import React from "react";
 import RdsInput, { InputSize, LabelPosition } from "./rds-input";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
   title: 'Elements/Input',

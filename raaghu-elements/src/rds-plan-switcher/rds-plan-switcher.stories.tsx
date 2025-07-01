@@ -1,4 +1,4 @@
-  import type { Meta, StoryObj } from '@storybook/react';
+  import type { Meta, StoryObj } from '@storybook/react-vite';
   import RdsPlanSwitcher from "./rds-plan-switcher";
 
   const meta: Meta = {

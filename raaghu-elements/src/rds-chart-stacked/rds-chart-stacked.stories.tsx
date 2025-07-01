@@ -1,6 +1,6 @@
 import React from "react";
 import RdsStackedChart from "./rds-chart-stacked";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Charts/Stacked Chart',

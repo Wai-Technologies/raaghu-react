@@ -1,6 +1,6 @@
 import React from "react";
 import RdsPopover, { PopoverState } from "./rds-popover";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Popover',

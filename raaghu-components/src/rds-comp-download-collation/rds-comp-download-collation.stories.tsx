@@ -1,5 +1,5 @@
 // import React from "react";
-// import { ComponentStory, ComponentMeta } from "@storybook/react";
+// import { ComponentStory, ComponentMeta } from "@storybook/react-vite";
 // import RdsCompDownloadCollation from "./rds-comp-download-collation";
 
 // export default {
@@ -36,7 +36,7 @@
 //     ]
 // };
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompDownloadCollation from "./rds-comp-download-collation";
 
 

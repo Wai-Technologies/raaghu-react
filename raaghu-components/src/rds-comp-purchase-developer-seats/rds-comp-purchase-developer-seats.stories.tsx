@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompPurchaseDeveloperSeats from "./rds-comp-purchase-developer-seats";
 
 const meta: Meta = { 

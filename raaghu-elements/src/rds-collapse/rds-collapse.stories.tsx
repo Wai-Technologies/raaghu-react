@@ -1,5 +1,5 @@
 import RdsCollapse from "./rds-collapse";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Collapse',

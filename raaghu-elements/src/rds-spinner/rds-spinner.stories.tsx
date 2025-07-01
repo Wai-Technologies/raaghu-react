@@ -1,4 +1,4 @@
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsSpinner, { SpinnerLayout, SpinnerSize } from "./rds-spinner";
 
 const meta: Meta = {

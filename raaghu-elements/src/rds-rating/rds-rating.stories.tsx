@@ -1,6 +1,6 @@
 import React from "react";
 import RdsRating, { ColorVariant, RatingStyle, RatingType } from "./rds-rating";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Rating',

@@ -1,5 +1,5 @@
 import RdsTag, { ColorVariant, Role, TagType } from "./rds-tag";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Tag',

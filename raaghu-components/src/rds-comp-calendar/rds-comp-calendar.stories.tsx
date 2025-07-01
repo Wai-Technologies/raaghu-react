@@ -1,5 +1,5 @@
 // import React from "react";
-// import { ComponentStory, ComponentMeta } from "@storybook/react";
+// import { ComponentStory, ComponentMeta } from "@storybook/react-vite";
 // import RdsCompCalendar from "./rds-comp-calendar";
 
 // export default {
@@ -38,7 +38,7 @@
 //     ],
 // };
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompCalendar from "./rds-comp-calendar";
 
 

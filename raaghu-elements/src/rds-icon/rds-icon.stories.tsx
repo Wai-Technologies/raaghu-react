@@ -1,6 +1,6 @@
 import React from "react";
 import RdsIcon from "./rds-icon";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 
 const meta: Meta = {

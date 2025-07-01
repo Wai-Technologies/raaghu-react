@@ -1,6 +1,6 @@
 import React from "react";
 import RdsLikeDislike from "./rds-like-dislike";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Like-Dislike',

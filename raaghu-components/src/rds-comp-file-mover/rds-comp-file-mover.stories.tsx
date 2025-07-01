@@ -1,5 +1,5 @@
 // import React from 'react';
-// import { ComponentStory, ComponentMeta } from "@storybook/react";
+// import { ComponentStory, ComponentMeta } from "@storybook/react-vite";
 // import RdsCompFileMover, { FileItem } from './rds-comp-file-mover';
 
 // export default {
@@ -55,7 +55,7 @@
 //   },
 // };
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompFileMover, { FileItem } from './rds-comp-file-mover';
 
 

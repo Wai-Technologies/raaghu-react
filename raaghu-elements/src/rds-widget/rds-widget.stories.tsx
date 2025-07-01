@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsWidget from "./rds-widget";
 import RdsLineChart from "../rds-chart-line";
 import RdsBarChart from "../rds-chart-bar";

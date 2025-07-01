@@ -1,6 +1,6 @@
 import React from "react";
 import RdsDropdown, { DisplayType, Layout, Shape, State, Style, TooltipPlacement } from "./rds-dropdown";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Dropdown Button',

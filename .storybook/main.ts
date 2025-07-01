@@ -8,18 +8,16 @@ const config: StorybookConfig = {
     "../raaghu-components/**/**/*.stories.@(js|jsx|ts|tsx)",
     "../raaghu-layouts/**/**/*.stories.@(js|jsx|ts|tsx)",
   ],
+
   addons: [
     "@storybook/addon-links",
-    "@storybook/addon-essentials",
     "@storybook/addon-onboarding",
-    "@storybook/addon-interactions",
     "@storybook/preset-scss",
-   // "@storybook/addon-toolbars",
-    // "@storybook/addon-themes",
-    "@storybook/addon-mdx-gfm",
     "@chromatic-com/storybook",
-    "storybook-addons"
+    "storybook-addons",
+    "@storybook/addon-docs"
   ],
+
   managerHead: (headHtmlContent) => {
     const style = `
     <style>
@@ -161,21 +159,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     return `${headHtmlContent}\n${style}\n${fetchVersionsScript}`;
   },
+
   core: {
     builder: '@storybook/builder-vite',
   },
+
   typescript: {
     reactDocgen: 'react-docgen',
   },
+
   framework: {
     name: "@storybook/react-vite",
     options: {
       legacyRootApi: true,
     },
   },
-  docs: {
-    autodocs: "tag",
-  },
+
   staticDirs: [
     {
       from: "./assets", to: "/assets"
@@ -184,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
       from: "./public", to: "/"
     }
   ],
-  logLevel: 'debug',
+
+  logLevel: 'debug'
 };
 export default config;

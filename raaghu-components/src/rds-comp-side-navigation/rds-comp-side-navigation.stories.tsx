@@ -1,5 +1,5 @@
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompSideNavigation from "./rds-comp-side-navigation";
 import { BrowserRouter } from 'react-router-dom';
 import React from 'react';

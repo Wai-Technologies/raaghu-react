@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import TruncatedText, { RdsTruncateTextProps, TruncateTextState } from './rds-truncate-text';
 
 const meta: Meta = {

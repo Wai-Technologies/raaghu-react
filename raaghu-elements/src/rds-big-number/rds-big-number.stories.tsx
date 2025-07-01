@@ -3,7 +3,7 @@ import RdsBigNumber from "./rds-big-number";
 import RdsLineChart from "../rds-chart-line";
 import RdsIcon from "../rds-icon";
 import RdsBarChart from "../rds-chart-bar";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const textAlignArgTypes = {
     textAlign: {

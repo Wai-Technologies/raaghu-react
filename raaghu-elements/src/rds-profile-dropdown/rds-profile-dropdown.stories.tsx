@@ -1,6 +1,6 @@
 import React from "react";
 import RdsProfileDropdown from "./rds-profile-dropdown";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/AI ChatBox/Profile Dropdown',

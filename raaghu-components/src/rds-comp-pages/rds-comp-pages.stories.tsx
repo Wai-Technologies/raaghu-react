@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompDatatable, { ActionPosition } from '../rds-comp-data-table/rds-comp-data-table';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 
 const meta: Meta = { 
   title: "components/Pages",

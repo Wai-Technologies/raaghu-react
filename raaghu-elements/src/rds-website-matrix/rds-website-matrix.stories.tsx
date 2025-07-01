@@ -1,6 +1,6 @@
 import React from "react";
 import RdsWebsiteMatrix from "./rds-website-matrix";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Website Matrix',

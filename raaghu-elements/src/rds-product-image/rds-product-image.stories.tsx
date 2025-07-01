@@ -1,6 +1,6 @@
 import React from "react";
 import RdsProductImage from "./rds-product-image";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 
 

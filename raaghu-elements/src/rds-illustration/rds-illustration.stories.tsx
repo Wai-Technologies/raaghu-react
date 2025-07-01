@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsIllustration from "./rds-illustration";
 
 const meta: Meta = {

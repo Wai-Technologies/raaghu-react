@@ -1,5 +1,5 @@
 // import React from "react";
-// import { ComponentStory, ComponentMeta } from "@storybook/react";
+// import { ComponentStory, ComponentMeta } from "@storybook/react-vite";
 // import RdsCompCustomerReviews from "./rds-comp-customer-reviews";
 
 // export default {
@@ -23,7 +23,7 @@
 //         { value: 5, count: 4069 },
 //     ],
 // };
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompCustomerReviews from "./rds-comp-customer-reviews";
 
 const meta: Meta = { 

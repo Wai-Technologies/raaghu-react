@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsRadioButton, { RdsRadioButtonLayout, RdsRadioButtonState } from "./rds-radio-button";
 
 const meta: Meta = {

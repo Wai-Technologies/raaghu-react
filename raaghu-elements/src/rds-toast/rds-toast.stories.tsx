@@ -1,5 +1,5 @@
 import RdsToast, {ToastLayout, ToastState, ToastPosition, ToastLeadingIcon} from "./rds-toast";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 
 const meta: Meta = {

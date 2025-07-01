@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsCompSkeleton from "./rds-comp-skeleton";
 
 const meta: Meta = {

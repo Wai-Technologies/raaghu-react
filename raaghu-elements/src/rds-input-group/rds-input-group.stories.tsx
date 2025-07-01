@@ -1,5 +1,5 @@
 import React from "react";
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsInputGroup, { InputGroupSize } from "./rds-input-group";
 import { input_size } from "../../libs/types/size";
 import { button_colors } from "../../libs/types/colorvariant";

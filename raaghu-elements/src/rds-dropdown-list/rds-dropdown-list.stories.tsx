@@ -1,6 +1,6 @@
 import React from "react";
 import RdsDropdownList, {DropdownSize, DropdownState, DropdownStyle} from "./rds-dropdown-list";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Dropdown List',

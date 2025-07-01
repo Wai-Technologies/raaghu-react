@@ -1,6 +1,6 @@
 import React from "react";
 import RdsModal from "./rds-modal";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
   title: 'Elements/Modal',

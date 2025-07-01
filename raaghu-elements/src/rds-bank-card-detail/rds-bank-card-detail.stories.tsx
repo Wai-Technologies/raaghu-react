@@ -1,5 +1,5 @@
 import RdsBankCardDetail from "./rds-bank-card-detail";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Bank Card Detail',

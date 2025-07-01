@@ -1,5 +1,5 @@
 // import React from "react";
-// import { ComponentStory, ComponentMeta } from "@storybook/react";
+// import { ComponentStory, ComponentMeta } from "@storybook/react-vite";
 // import RdsCompClaims from "./rds-comp-claims";
 // import { I18nextProvider } from "react-i18next";
 // import i18n from "../../../.storybook/i18n";
@@ -71,7 +71,7 @@
 //     ],
 //     pagination: false,
 // };
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompClaims from "./rds-comp-claims"
 
 const meta: Meta = {

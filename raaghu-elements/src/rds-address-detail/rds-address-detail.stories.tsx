@@ -1,7 +1,7 @@
 import React from "react";
 import RdsAddressDetail from "./rds-address-detail";
-import { Meta, StoryObj } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 
 
 const meta: Meta = {

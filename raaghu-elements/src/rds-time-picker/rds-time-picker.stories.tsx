@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import TimePicker from "./rds-time-picker";
 import RdsTimePicker from "./rds-time-picker";
 

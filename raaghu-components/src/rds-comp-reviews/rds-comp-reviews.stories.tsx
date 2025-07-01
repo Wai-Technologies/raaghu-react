@@ -1,5 +1,5 @@
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompReviews, { RevieweStyle, VariantType } from "./rds-comp-reviews";
 
 const meta: Meta = { 

@@ -1,6 +1,6 @@
 import { Alert } from "bootstrap";
 import RdsAlert, { AlertBorder, AlertPosition, AlertType } from "./rds-alert";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof RdsAlert> = {
   title: "Elements/Alerts",

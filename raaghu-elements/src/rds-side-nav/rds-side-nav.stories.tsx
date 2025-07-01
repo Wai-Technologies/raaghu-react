@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import RdsSideNav, { NavLayout, NavType, Platform } from "./rds-side-nav";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Elements/Side Navigation",
@@ -215,7 +215,7 @@ Default.parameters = { controls: { include: ["navLayout", "navType", "platform",
 // import React, { Children } from "react";
 // import { BrowserRouter } from "react-router-dom";
 // import RdsSideNav from "./rds-side-nav";
-// import { Meta, StoryObj } from "@storybook/react";
+// import { Meta, StoryObj } from "@storybook/react-vite";
 
 // const meta: Meta = {
 //     title: "Elements/Side Navigation",

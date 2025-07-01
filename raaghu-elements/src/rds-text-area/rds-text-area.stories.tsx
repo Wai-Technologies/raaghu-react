@@ -1,6 +1,6 @@
 import React from "react";
 import RdsTextArea, { TextareaState, TextareaStyle } from "./rds-text-area";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 //whatever code is commented below is required for the future reference
 

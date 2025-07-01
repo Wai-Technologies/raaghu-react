@@ -1,6 +1,6 @@
 import React from "react";
 import RdsCardDetail from "./rds-card-detail";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Card Detail',

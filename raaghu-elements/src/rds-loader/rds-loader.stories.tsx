@@ -1,4 +1,4 @@
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsLoader from "./rds-loader";
 import type { LoaderSize } from "./rds-loader"; // Import the type
 

@@ -1,6 +1,6 @@
 import React from "react";
 import RdsTeamMember from "./rds-team-member";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Team Member',

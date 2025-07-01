@@ -3,7 +3,7 @@ import RdsAiChatBot from "./rds-comp-ai-chat-bot";
 import { I18nextProvider } from "react-i18next";
 import i18n from 'i18next';
 import { Message } from "./rds-comp-ai-chat-bot";
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react-vite";
 
 const meta: Meta = {
   title: "Components/AI ChatBox/Ai Chat Bot",

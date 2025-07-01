@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsThemeToggle from "./rds-theme-toggle";
 
 const meta: Meta =  {

@@ -1,5 +1,5 @@
 // import React from "react";
-// import { ComponentStory, ComponentMeta } from "@storybook/react";
+// import { ComponentStory, ComponentMeta } from "@storybook/react-vite";
 // import RdsCompApiScopeResource from "./rds-comp-api-scope-resource";
 
 // export default {
@@ -188,7 +188,7 @@
 // };
 
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompApiScopeResource from "./rds-comp-api-scope-resource";
 
 const meta: Meta = { 

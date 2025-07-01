@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompTopNavigation from "./rds-comp-top-navigation";
 import { id } from 'date-fns/locale';
 

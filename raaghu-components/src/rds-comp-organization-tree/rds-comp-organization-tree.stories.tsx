@@ -1,5 +1,5 @@
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsComporganizationTree from "./rds-comp-organization-tree";
 
 const meta: Meta = {

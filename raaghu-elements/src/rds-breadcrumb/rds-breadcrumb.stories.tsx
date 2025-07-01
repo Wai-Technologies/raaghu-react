@@ -1,5 +1,5 @@
 import RdsBreadcrumb, { BreadcrumbLevel, BreadcrumbSeparator, BreadcrumbState, BreadcrumbStyle } from "./rds-breadcrumb";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof RdsBreadcrumb> = {
   title: "Elements/Breadcrumb",
