@@ -46,7 +46,7 @@ export { default as RdsTabGroup } from "./rds-tab-group";
 // //Charts
 export { default as RdsAreaChart } from "./rds-chart-area";
 export { default as RdsLineChart } from "./rds-chart-line";
-export { default as RdsPieChart } from "./rds-chart-pie";
+export { default as RdsPieChart } from "./rds-chart-temp";
 export { default as RdsDoughnutChart } from "./rds-chart-doughnut";
 export { default as RdsBarChart } from "./rds-chart-bar";
 export { default as RdsBooleanChart } from "./rds-chart-boolean";
