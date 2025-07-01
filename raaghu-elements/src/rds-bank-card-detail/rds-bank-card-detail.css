@@ -16,3 +16,7 @@
 #flexRadioD:checked {
     border-radius: 50% !important;
 }
+
+.bank-card-detail-align {
+    margin-left: 1rem !important;
+}

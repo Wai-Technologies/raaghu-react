@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompAssistance>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
       assistanceData: {
         

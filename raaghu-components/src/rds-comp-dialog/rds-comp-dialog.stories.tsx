@@ -49,7 +49,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompDialog>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     Size: "Large",
     Style: "Default",
@@ -64,7 +64,7 @@ export const Default: Story = {
     ContentPosition: "Bottom",
   },
 } satisfies Story;
-Default.parameters = {
+Standard.parameters = {
   controls: {
     include: [
       "Size",

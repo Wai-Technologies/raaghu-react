@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompInvoiceDetailReceipt>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     invoiceDetails: {
       purchaseDate: "2024-05-29T14:30:00Z",

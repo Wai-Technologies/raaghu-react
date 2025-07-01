@@ -43,7 +43,7 @@ const handleCommentCountChange = (newCount: number) => {
     console.log("Updated comment count:", newCount);
 };
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         currentUser: {
             firstName: "Max",

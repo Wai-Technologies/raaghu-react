@@ -64,7 +64,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsTable>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         id: "1",
         striped: false,
@@ -127,4 +127,4 @@ export const Default: Story = {
 } satisfies Story;
 
 
-Default.parameters = { controls: { include: ['id', 'striped', 'bordered', 'tableHeightForScroll', 'colorVariant', 'headerTextColor', 'headerDatas', 'tableDatas', 'iconColorVariant', ] } };
+Standard.parameters = { controls: { include: ['id', 'striped', 'bordered', 'tableHeightForScroll', 'colorVariant', 'headerTextColor', 'headerDatas', 'tableDatas', 'iconColorVariant', ] } };

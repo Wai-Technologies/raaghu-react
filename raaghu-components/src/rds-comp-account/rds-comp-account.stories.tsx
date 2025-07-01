@@ -31,12 +31,12 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompAccount>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         accountType: "resourceBasic",
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ["accountGeneralSettings", "accountTwoFactorSettings", "accountCaptchaSettings", "developerModeSettings", "onSubmit", "reset", "onShow", "onShowDeveloperMode"] } };
+Standard.parameters = { controls: { include: ["accountGeneralSettings", "accountTwoFactorSettings", "accountCaptchaSettings", "developerModeSettings", "onSubmit", "reset", "onShow", "onShowDeveloperMode"] } };
 
 export const ExternalProvider: Story = {
     args: {

@@ -69,7 +69,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsRating>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         colorVariant: ColorVariant.Primary, 
         type: RatingType.Star,
@@ -79,7 +79,7 @@ export const Default: Story = {
         //dataTestId: "rating-test"
     }
 } satisfies Story;
-Default.parameters = { controls: { include: [ 'type', 'rating', 'style'] } };
+Standard.parameters = { controls: { include: [ 'type', 'rating', 'style'] } };
 
 // whatever code is commented in this file is needed in further reference - enhancement as per the figma design
 

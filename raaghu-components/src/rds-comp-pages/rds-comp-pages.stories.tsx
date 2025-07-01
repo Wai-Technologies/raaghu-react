@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompDatatable>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
       actionPosition: ActionPosition.Right,
       tableHeaders: [

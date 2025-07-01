@@ -62,7 +62,7 @@ export default meta;
 type Story = StoryObj<typeof RdsRadioButton>;
 
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         displayType: "Default",
         layout: RdsRadioButtonLayout.Icon, // Use the enum here
@@ -91,8 +91,8 @@ export const Default: Story = {
         ]
     }
 } satisfies Story;
-//Default.parameters = { controls: { include: ['displayType', 'itemList'] } };
-Default.parameters = { controls: { include: ['layout', 'state', 'selected', 'title'] } };
+//Standard.parameters = { controls: { include: ['displayType', 'itemList'] } };
+Standard.parameters = { controls: { include: ['layout', 'state', 'selected', 'title'] } };
 
 // export const Horizontal: Story = {
 //     args: {

@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompSecurityLogs>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         tableHeaders: [
             { displayName: "Time", key: "time", datatype: "text", sortable: true, },
@@ -41,7 +41,7 @@ export const Default: Story = {
             { id: 4, time: "03/22/2024, 07:13 AM" , actions: "Login" , ipAddress: "122.179.143.80", browserOs: "Chrome 98.0.4758.102 on Windows 10", application: "abp_react_7_2_2.HttpApi.Host", identity: "johndoe", users: "John Doe" ,},]
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['tableHeaders', 'tableData'] } };
+Standard.parameters = { controls: { include: ['tableHeaders', 'tableData'] } };
 
 
 

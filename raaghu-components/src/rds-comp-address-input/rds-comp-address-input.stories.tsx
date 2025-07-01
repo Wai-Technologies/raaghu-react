@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompAddressInput>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         countriesList: [
             { label: "United States", val: "United States" },

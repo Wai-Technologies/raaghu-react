@@ -13,3 +13,9 @@
 .RdsFeatureList__Ul .bullet {
   margin-right: 8px;
 }
+
+.theme-dark #featurelist .form-control, .theme-dark .form-control:focus, .theme-dark .select-container, .theme-dark .select-container:focus{
+      background-color: transparent;
+    border: none;
+    color: #dee2e6;
+}

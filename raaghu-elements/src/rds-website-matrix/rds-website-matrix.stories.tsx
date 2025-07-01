@@ -27,7 +27,7 @@ export default meta;
 type Story = StoryObj<typeof RdsWebsiteMatrix>;
 
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         item: {
             "title": "510+",
@@ -38,7 +38,7 @@ export const Default: Story = {
         colorVariant: "primary",
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['displayType', 'colorVariant', 'item'] } };
+Standard.parameters = { controls: { include: ['displayType', 'colorVariant', 'item'] } };
 
 export const withTopBorder: Story = {
     args: {

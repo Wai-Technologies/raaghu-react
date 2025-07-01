@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompSyntaxHighlighter>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
       disabled: false,
         maxLength: 550,

@@ -48,7 +48,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsDropdownList>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         placeholder: "Filter",
         size:DropdownSize.Default,
@@ -121,7 +121,7 @@ export const Default: Story = {
         reset: false,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['size', 'state', 'style', 'showTitle', 'title', 'isMandatory', 'showIcon', 'placeholder', 'showHint', 'hint', 'multiSelect', 'showSearch'] } };
+Standard.parameters = { controls: { include: ['size', 'state', 'style', 'showTitle', 'title', 'isMandatory', 'showIcon', 'placeholder', 'showHint', 'hint', 'multiSelect', 'showSearch'] } };
 
 // export const WithMultiSelect: Story = {
 //     args: {

@@ -21,7 +21,7 @@ export default meta;
 
 type Story = StoryObj<typeof RdsCompDirectoryList>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     items: [
       { id: "1", name: "Directory 1" },

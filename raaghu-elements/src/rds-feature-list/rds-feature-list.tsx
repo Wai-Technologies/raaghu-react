@@ -38,7 +38,7 @@ const RdsFeatureList = (props: RdsFeatureListProps) => {
                 <div className="row">
                     {columnArray.map(colNumber =>
                         <div key={"col-" + colNumber} className="col" data-testId="column">
-                            <ul className="RdsFeatureList__Ul">
+                            <ul className="RdsFeatureList__Ul" id="featurelist">
                                 {props.itemList.map((item, index) =>
                                     <Fragment key={"listitem" + index + "-col" + colNumber}>
                                         {index >= ((colNumber - 1) * listItemInEachRow - ((colNumber - ExtraListElements > 0 && ExtraListElements > 0) ? colNumber - ExtraListElements - 1 : 0))

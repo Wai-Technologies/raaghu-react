@@ -26,7 +26,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompEdition>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         displayType: "basic",
         EditionItems: {
@@ -42,7 +42,7 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
-Default.parameters = { controls: { include: [ "displayType", "planListLabel", "planList", "EditionItems", "features", "editionName", "reset", "onSaveHandler", "accountTwoFactorSettings"]},};
+Standard.parameters = { controls: { include: [ "displayType", "planListLabel", "planList", "EditionItems", "features", "editionName", "reset", "onSaveHandler", "accountTwoFactorSettings"]},};
 
 export const Advanced: Story = {
     args: {

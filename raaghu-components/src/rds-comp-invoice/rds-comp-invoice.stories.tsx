@@ -22,12 +22,12 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompInvoice>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
     invoice: "default",
     }
 } satisfies Story;
-Default.parameters = { controls: { include: [] } };
+Standard.parameters = { controls: { include: [] } };
 
 export const DetailReceipt: Story = {
   args: {

@@ -23,7 +23,7 @@ export default meta;
 type Story = StoryObj<typeof RdsSortingDropdown>;
 
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         label: "Trending",
         listItems: [
@@ -33,4 +33,4 @@ export const Default: Story = {
         ],
     }
 }
-Default.parameters = { controls: { include: ['label'] } };
+Standard.parameters = { controls: { include: ['label'] } };

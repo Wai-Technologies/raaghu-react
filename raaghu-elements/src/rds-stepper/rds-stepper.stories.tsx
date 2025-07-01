@@ -92,7 +92,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsStepper>;
 
-export const advance: Story = {
+export const Standard: Story = {
     args: {
         stepperType: "advance",
         stepperSectionClass: "m-3",
@@ -106,7 +106,7 @@ export const advance: Story = {
     },
 } satisfies Story;
 
-advance.parameters = { controls: { include: [ 'stepperSectionClass', 'headerClass', 'checkBoxClass', 'showDetailsClass', 'advanceList'] } };
+Standard.parameters = { controls: { include: [ 'stepperSectionClass', 'headerClass', 'checkBoxClass', 'showDetailsClass', 'advanceList'] } };
 
 export const Block: Story = {
     args: {

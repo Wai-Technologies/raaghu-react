@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompAccountExternalProvider>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         accountExternalProvider: [
             {
