@@ -427,6 +427,12 @@ margin-left: -2px;
   color: #000;
 }
 
+#btn-sizes .btn-icon.btn-md{
+padding: 12px;
+    width: 36px !important;
+    height: 36px;
+}
+
 
 .detail-pane-footer-fixed {
   position: absolute;
