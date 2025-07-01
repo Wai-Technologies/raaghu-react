@@ -1,5 +1,5 @@
 import React from "react";
-import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import RdsDatatable, { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 
 export interface RdsCompSecurityLogsProps {
   enablecheckboxselection?: boolean;
@@ -28,7 +28,7 @@ const RdsCompSecurityLogs = (props: RdsCompSecurityLogsProps) => {
   return (
 
     <div className="card p-2 border-0 rounded-0 card-full-stretch">
-      <RdsCompDatatable
+      <RdsDatatable
         actionPosition={ActionPosition.Right}
         tableHeaders={props.tableHeaders}
         actions={props.actions}
@@ -37,7 +37,7 @@ const RdsCompSecurityLogs = (props: RdsCompSecurityLogsProps) => {
         recordsPerPage={props.recordsPerPage}
         recordsPerPageSelectListOption={props.recordsPerPageSelectListOption}
 
-      ></RdsCompDatatable>
+      ></RdsDatatable>
     </div>
 
   );

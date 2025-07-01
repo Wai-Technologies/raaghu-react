@@ -1,15 +1,15 @@
 import { useTranslation } from "react-i18next";
 import {
   RdsTextArea,
-  RdsLabel,
   RdsRadioButton,
   RdsCheckbox,
-  RdsSelectList,
   RdsButton,
   RdsPagination,
 } from "../rds-elements";
 import RdsCompAlertPopup from "../rds-comp-alert-popup";
 import React, { useEffect, useState } from "react";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompFormsResponseProps {
   response?: any;
@@ -186,15 +186,15 @@ const RdsCompFormsResponse = (props: RdsCompFormsResponseProps) => {
                         <>
                           <div className="mt-4">
                             <div className="d-flex py-2 align-items-center">
-                              <RdsLabel
+                              <RdsCompLabel
                                 class="pe-2"
                                 label={ele.title}
                                 required={ele.isRequired}
-                              ></RdsLabel>
-                              <RdsLabel
+                              ></RdsCompLabel>
+                              <RdsCompLabel
                                 class="opacity-75 fs-6 text-muted"
                                 label={ele.description}
-                              ></RdsLabel>
+                              ></RdsCompLabel>
                             </div>
                             <RdsTextArea
                               placeholder={""}
@@ -207,15 +207,15 @@ const RdsCompFormsResponse = (props: RdsCompFormsResponseProps) => {
                         <>
                           <div className="mt-4">
                             <div className="d-flex py-2 align-items-center">
-                              <RdsLabel
+                              <RdsCompLabel
                                 class="pe-2"
                                 label={ele.title}
                                 required={ele.isRequired}
-                              ></RdsLabel>
-                              <RdsLabel
+                              ></RdsCompLabel>
+                              <RdsCompLabel
                                 class="opacity-75 fs-6 text-muted"
                                 label={ele.description}
-                              ></RdsLabel>
+                              ></RdsCompLabel>
                             </div>
                             <RdsRadioButton
                               itemList={multipleChoice[i]}
@@ -227,15 +227,15 @@ const RdsCompFormsResponse = (props: RdsCompFormsResponseProps) => {
                         <>
                           <div className="mt-4">
                             <div className="d-flex py-2 align-items-center">
-                              <RdsLabel
+                              <RdsCompLabel
                                 class="pe-2"
                                 label={ele.title}
                                 required={ele.isRequired}
-                              ></RdsLabel>
-                              <RdsLabel
+                              ></RdsCompLabel>
+                              <RdsCompLabel
                                 class="opacity-75 fs-6 text-muted"
                                 label={ele.description}
-                              ></RdsLabel>
+                              ></RdsCompLabel>
                             </div>
                             {ele.choices &&
                               ele.choices.length &&
@@ -253,17 +253,17 @@ const RdsCompFormsResponse = (props: RdsCompFormsResponseProps) => {
                         <>
                           <div className="mt-4">
                             <div className="d-flex py-2 align-items-center">
-                              <RdsLabel
+                              <RdsCompLabel
                                 class="pe-2"
                                 label={ele.title}
                                 required={ele.isRequired}
-                              ></RdsLabel>
-                              <RdsLabel
+                              ></RdsCompLabel>
+                              <RdsCompLabel
                                 class="opacity-75 fs-6 text-muted"
                                 label={ele.description}
-                              ></RdsLabel>
+                              ></RdsCompLabel>
                             </div>
-                            <RdsSelectList
+                            <RdsCompSelectList
                               id="formres"
                               label={""}
                               selectItems={dropDownList[i]}
@@ -272,7 +272,7 @@ const RdsCompFormsResponse = (props: RdsCompFormsResponseProps) => {
                                   ? selectedData[i][0]
                                   : ""
                               }
-                            ></RdsSelectList>
+                            ></RdsCompSelectList>
                           </div>
                         </>
                       ) : (

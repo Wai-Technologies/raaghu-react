@@ -87,7 +87,7 @@ jest.mock('../src/rds-elements', () => ({
       {label}
     </button>
   ),
-  RdsLabel: ({ children, ...rest }: any) => <label {...rest}>{children}</label>
+  RdsCompLabel: ({ children, ...rest }: any) => <label {...rest}>{children}</label>
 }));
 
 describe('RdsCompContactInformation', () => {

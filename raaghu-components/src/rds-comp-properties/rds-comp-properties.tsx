@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
-import { RdsInput, RdsButton, RdsIcon } from "../rds-elements";
+import RdsDatatable, { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
+import { RdsInput, RdsButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompPropertiesProp {
     propertyData: any[];
@@ -105,12 +106,12 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                         onClick={() => onDelete(propertyData.key)}
                         data-testid="delete"
                     >
-                        <RdsIcon
+                        <RdsCompIcon
                             name={"delete"}
                             height="16px"
                             width="20px"
                             stroke={true}                           
-                        ></RdsIcon>
+                        ></RdsCompIcon>
                     </a>
                 </>
             ),
@@ -127,13 +128,13 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
         <>
         {props.displayType == "basic" && (
             <form onSubmit={handleSubmit}>
-                <RdsCompDatatable
+                <RdsDatatable
                     actionPosition={ActionPosition.Right}
                     tableHeaders={props.propertyHeaders}
                     tableData={props.propertyData}
                     pagination={false}
                     onActionSelection={props.onActionSelection}
-                ></RdsCompDatatable>
+                ></RdsDatatable>
 
                 <div className=" fw-normal row mb-3 mt-2">
                     <div className="col-md-5 col-sm-12 mb-3">
@@ -233,12 +234,12 @@ const RdsCompProperties = (props: RdsCompPropertiesProp) => {
                 </div>
             </div>
             <div className="mt-3 px-2">
-                <RdsCompDatatable
+                <RdsDatatable
                     actionPosition={ActionPosition.Right}
                     tableHeaders={tableHeaders}
                     tableData={tableData}
                     pagination={false}
-                ></RdsCompDatatable>
+                ></RdsDatatable>
             </div>
             <div className=" mt-5 pb-3 p-4 footer-buttons d-flex gap-2 flex-column-reverse flex-lg-row flex-md-column-reverse flex-xl-row flex-xxl-row flex-row">
                 <RdsButton

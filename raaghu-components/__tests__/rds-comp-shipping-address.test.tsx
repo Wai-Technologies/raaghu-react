@@ -22,7 +22,7 @@ jest.mock('../src/rds-elements', () => ({
       />
     </div>
   ),
-  RdsSelectList: ({ id, label, placeholder, selectItems, selectedValue, onChange }: any) => (
+  RdsCompSelectList: ({ id, label, placeholder, selectItems, selectedValue, onChange }: any) => (
     <div data-testid={`select-${label.toLowerCase()}`}>
       <label>{label}</label>
       <select 

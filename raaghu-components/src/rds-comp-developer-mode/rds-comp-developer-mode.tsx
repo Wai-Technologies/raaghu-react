@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsRadioButton, RdsSelectList } from '../rds-elements';
+import { RdsButton, RdsCheckbox, RdsInput, RdsRadioButton } from '../rds-elements';
+import RdsCompLabel from '../rds-comp-label';
+import RdsCompSelectList from '../rds-comp-select-list';
 
 interface RdsCompDeveloperModeProps {
 
@@ -288,7 +290,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
             <form>
                <div className="custom-content-scroll">
                   <div className='mb-3 fw-medium'>
-                     <RdsLabel label="Configuration"></RdsLabel>
+                     <RdsCompLabel label="Configuration"></RdsCompLabel>
                   </div>
                   <div className="row pb-2">
                      <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -309,7 +311,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                   </div>
                   <div className='row pb-2'>
                      <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
-                        <RdsLabel
+                        <RdsCompLabel
                            label="Application URL"
                            required={true}
                         />
@@ -368,7 +370,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                   <div className="row pb-2">
                      <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div className="form-group mb-3">
-                        <RdsSelectList
+                        <RdsCompSelectList
                            id={"grantType"}
                            label="Application Grant Type"
                            placeholder="Select Application Grant Type"
@@ -379,7 +381,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                            key={`grantType-${modeData.grantType}`} 
                            onChange={(e: any) => onSubmitModeData(e.value, "grantType")}
                            color="primary"
-                           ></RdsSelectList>
+                           ></RdsCompSelectList>
                         </div>
                      </div>
                   </div>
@@ -419,7 +421,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                   </div>
                   <div className='row pb-2'>
                      <div className="col-md-6 col-12 col-lg-12 col-xl-12 col-xxl-12 mb-2">
-                        <RdsLabel
+                        <RdsCompLabel
                            label="Application Replace URL"
                            required={true}
                         />
@@ -435,7 +437,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                   </div>
                   <div className='row'>
                      <div className='mb-3 fw-medium'>
-                        <RdsLabel label="Settings "></RdsLabel>
+                        <RdsCompLabel label="Settings "></RdsCompLabel>
                      </div>
                      <div className="col-md-12 mb-3">
                         <RdsCheckbox

@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import RdsCompWebhookSubscription from '../src/rds-comp-webhook-subscriptions/rds-comp-webhook-subscriptions';
 
 // Mock the dependencies
-jest.mock('../src/rds-comp-data-table/rds-comp-data-table', () => ({
+jest.mock('../src/rds-data-table/rds-data-table', () => ({
   __esModule: true,
   default: jest.fn(({ tableHeaders, tableData, actions, pagination, recordsPerPage, onActionSelection, actionPosition, classes, recordsPerPageSelectListOption }) => (
     <div data-testid="rds-comp-datatable">
@@ -110,11 +110,11 @@ jest.mock('../src/rds-elements', () => ({
       {validationMsg && <span data-testid={`validation-${dataTestId}`}>{validationMsg}</span>}
     </div>
   )),
-  RdsLabel: jest.fn(({ label, ...props }) => (
+  RdsCompLabel: jest.fn(({ label, ...props }) => (
     <label {...props}>{label}</label>
   )),
-  RdsIllustration: jest.fn(({ iconHeight, iconWidth, iconPath, label, subLabel, ...props }) => (
-    <div data-testid="rds-illustration" {...props}>
+  RdsEmptyState: jest.fn(({ iconHeight, iconWidth, iconPath, label, subLabel, ...props }) => (
+    <div data-testid="rds-empty-state" {...props}>
       <div data-testid="illustration-icon" style={{ height: iconHeight, width: iconWidth }}>
         {iconPath}
       </div>
@@ -404,7 +404,7 @@ describe('RdsCompWebhookSubscription', () => {
     it('shows illustration when no headers are added', () => {
       render(<RdsCompWebhookSubscription {...defaultProps} />);
       
-      expect(screen.getByTestId('rds-illustration')).toBeInTheDocument();
+      expect(screen.getByTestId('rds-empty-state')).toBeInTheDocument();
       expect(screen.getByTestId('illustration-label')).toHaveTextContent("Currently you don't have any data");
       expect(screen.getByTestId('illustration-sublabel')).toHaveTextContent('Click on the button above to add data');
     });
@@ -422,7 +422,7 @@ describe('RdsCompWebhookSubscription', () => {
       
       await waitFor(() => {
         expect(screen.getByTestId('rds-comp-datatable')).toBeInTheDocument();
-        expect(screen.queryByTestId('rds-illustration')).not.toBeInTheDocument();
+        expect(screen.queryByTestId('rds-empty-state')).not.toBeInTheDocument();
       });
     });
 

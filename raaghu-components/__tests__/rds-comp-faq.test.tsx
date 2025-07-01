@@ -5,9 +5,9 @@ import RdsCompFaq, { RdsCompFaqProps } from '../src/rds-comp-faq/rds-comp-faq';
 
 // Mock RDS elements
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: ({ label, multiline, fontWeight, size, ...props }: any) => (
+  RdsCompLabel: ({ label, multiline, fontWeight, size, ...props }: any) => (
     <span 
-      data-testid="rds-label" 
+      data-testid="rds-comp-label" 
       data-multiline={multiline} 
       data-font-weight={fontWeight} 
       data-size={size}
@@ -211,12 +211,12 @@ describe('RdsCompFaq', () => {
     });
   });
 
-  // 7. RdsLabel Integration Tests
-  describe('RdsLabel Integration', () => {
-    it('should pass correct props to RdsLabel components for heading', () => {
+  // 7. RdsCompLabel Integration Tests
+  describe('RdsCompLabel Integration', () => {
+    it('should pass correct props to RdsCompLabel components for heading', () => {
       render(<RdsCompFaq {...defaultProps} />);
       
-      const headingLabels = screen.getAllByTestId('rds-label');
+      const headingLabels = screen.getAllByTestId('rds-comp-label');
       const headingLabel = headingLabels.find(label => 
         label.textContent === 'Frequently Asked Questions'
       );
@@ -225,10 +225,10 @@ describe('RdsCompFaq', () => {
       expect(headingLabel).toHaveAttribute('data-font-weight', 'bold');
     });
 
-    it('should pass correct props to RdsLabel components for descriptions', () => {
+    it('should pass correct props to RdsCompLabel components for descriptions', () => {
       render(<RdsCompFaq {...defaultProps} />);
       
-      const descriptionLabels = screen.getAllByTestId('rds-label');
+      const descriptionLabels = screen.getAllByTestId('rds-comp-label');
       const descriptionLabel = descriptionLabels.find(label => 
         label.textContent === 'Find answers to common questions about our services and products.'
       );

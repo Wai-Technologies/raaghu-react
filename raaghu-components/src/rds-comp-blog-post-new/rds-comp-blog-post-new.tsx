@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   RdsButton,
   RdsInput,
-  RdsLabel,
-  RdsSelectList,
   RdsTextArea,
   RdsTextEditor,
 } from "../rds-elements";
@@ -13,6 +11,8 @@ import { content } from "html2canvas/dist/types/css/property-descriptors/content
 import { Size } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
 import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 import { FileUploaderState } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompSelectList from "../rds-comp-select-list";
 export interface RdsCompBlogPostNewProps {
   blogPostData?: any;
   blogList:{ option: any, value: any }[];
@@ -113,7 +113,7 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
         <form>
           <div className="custom-content-scroll">
             <div className="form-group mb-3">
-            <RdsLabel label="Cover Image" />
+            <RdsCompLabel label="Cover Image" />
               <RdsFileUploader
                 key={counter}
                 colorVariant="dark"
@@ -135,7 +135,7 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
             </div>
             <div className="form-group mb-2">
 
-              <RdsSelectList
+              <RdsCompSelectList
                 id="Fea"
                 label="Blog Id"
                 placeholder="Select Option"
@@ -147,7 +147,7 @@ const isFormValid =isTitleValid(postData?.title) && isSlugValid(postData?.slug) 
                   handlerBlogDataChange(item.value, "blogId");
                 }}
                 dataTestId="blog-id"
-              ></RdsSelectList>
+              ></RdsCompSelectList>
             </div>
             <div className="form-group">
               <RdsInput

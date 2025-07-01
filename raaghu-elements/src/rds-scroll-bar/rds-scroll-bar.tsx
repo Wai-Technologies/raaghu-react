@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import "./rds-scroll-bar.scss";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 
 export enum ScrollBarType {
   Mac = "Mac",
@@ -52,14 +52,14 @@ const RdsScrollBar: React.FC<RdsScrollBarProps> = ({
             onClick={() => scrollToPosition(ScrollPosition.Start)}
             style={{ backgroundColor: "lightgray" }}
           >
-            <RdsIcon width="8px" height="8px" name="chevron_up" />
+            <RdsCompIcon width="8px" height="8px" name="chevron_up" />
           </button>
           <button
             className="scroll-button"
             onClick={() => scrollToPosition(ScrollPosition.End)}
             style={{ backgroundColor: "lightgray" }}
           >
-            <RdsIcon width="8px" height="8px" name="chevron_down" />
+            <RdsCompIcon width="8px" height="8px" name="chevron_down" />
           </button>
         </div>
       )}

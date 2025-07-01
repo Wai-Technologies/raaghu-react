@@ -45,7 +45,7 @@ jest.mock('../src/rds-elements', () => ({
       <label>{labelText}</label>
     </div>
   ),
-  RdsLabel: ({ label, class: className, ...props }: any) => (
+  RdsCompLabel: ({ label, class: className, ...props }: any) => (
     <label className={className} {...props}>
       {label}
     </label>

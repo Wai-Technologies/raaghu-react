@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompBilling from '../src/rds-comp-billing/rds-comp-billing';
-import { ActionPosition } from '../src/rds-comp-data-table/rds-comp-data-table';
+import { ActionPosition } from '../../raaghu-elements/src/rds-data-table/rds-data-table';
 
 // Define interfaces for better type checking
 interface SubscriptionItem {
@@ -51,7 +51,7 @@ jest.mock('../src/rds-comp-subscription', () => ({
   ),
 }));
 
-jest.mock('../src/rds-comp-data-table', () => ({
+jest.mock('../src/rds-data-table', () => ({
   __esModule: true,
   default: ({ 
     tableHeaders, 

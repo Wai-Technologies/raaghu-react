@@ -5,7 +5,7 @@ import RdsCompRole from "../src/rds-comp-role/rds-comp-role";
 
 // Mock the rds-elements used in the role component
 jest.mock("../src/rds-elements", () => ({
-  RdsLabel: jest.fn(({ label, size }) => (
+  RdsCompLabel: jest.fn(({ label, size }) => (
     <div data-testid="mocked-label" data-size={size}>
       {label}
     </div>

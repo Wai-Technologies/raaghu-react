@@ -1,7 +1,8 @@
 import { useTranslation } from "react-i18next";
-import { RdsButton, RdsCheckbox, RdsInput, RdsLabel, RdsTextArea } from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsInput, RdsTextArea } from "../rds-elements";
 import React, { useEffect, useState } from "react";
 import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompIdentiyResourceBasicProps {
     identityResourceBasicData?: any;
@@ -498,7 +499,7 @@ const isClientFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlVa
                     <form>
                       <div className="custom-content-scroll">
                         <div className="mb-3 fw-medium">
-                            <RdsLabel label="Ldap Login Settings"></RdsLabel>
+                            <RdsCompLabel label="Ldap Login Settings"></RdsCompLabel>
                         </div>
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                             <RdsCheckbox
@@ -618,7 +619,7 @@ const isClientFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlVa
                         <div className="custom-content-scroll">
                             {/* Password Settings */}
                             <div className="mb-3 fw-medium">
-                                <RdsLabel label="Password Settings"></RdsLabel>
+                                <RdsCompLabel label="Password Settings"></RdsCompLabel>
                             </div>
                             <div className="row">
                                 <div className="col-xxl-4 col-xl-4 col-lg-6 col-12">
@@ -706,7 +707,7 @@ const isClientFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlVa
                             </div>
                             {/*Password renewing settings */}
                             <div className="mb-3 fw-medium">
-                                <RdsLabel label="Password Renewing Settings"></RdsLabel>
+                                <RdsCompLabel label="Password Renewing Settings"></RdsCompLabel>
                             </div>
                             <div className="row">
                                 <div className="col-md-12 mb-3">
@@ -743,7 +744,7 @@ const isClientFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlVa
                             </div>
                             {/* Lockout Settings */}
                             <div className="mb-3 fw-medium">
-                                <RdsLabel label="Lockout Settings"></RdsLabel>
+                                <RdsCompLabel label="Lockout Settings"></RdsCompLabel>
                             </div>
                             <div className="row">
                                 <div className="col-md-12 mb-3">
@@ -797,7 +798,7 @@ const isClientFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlVa
         
                             {/* Signin Settings */}
                             <div className=" mb-3 fw-medium">
-                                <RdsLabel label="SignInSettings"></RdsLabel>
+                                <RdsCompLabel label="SignInSettings"></RdsCompLabel>
                             </div>
                             <div className="row">
                                 <div className="col-md-12 mb-3">
@@ -834,7 +835,7 @@ const isClientFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlVa
                             </div>
                             {/* User Settings */}
                             <div className="mb-3 fw-medium">
-                                <RdsLabel label="UserSettings"></RdsLabel>
+                                <RdsCompLabel label="UserSettings"></RdsCompLabel>
                             </div>
                             <div className="row">
                                 <div className="col-md-12 mb-3">
@@ -879,7 +880,7 @@ const isClientFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlVa
                     <form>
                         <div className="custom-content-scroll">
                         <div className="mb-3 fw-medium">
-                            <RdsLabel label="OAuth Login Settings"></RdsLabel>
+                            <RdsCompLabel label="OAuth Login Settings"></RdsCompLabel>
                         </div>
         
                         <div className="col-lg-12 col-md-12 col-sm-12 mb-3">

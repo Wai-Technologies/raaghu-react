@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { RdsButton, RdsCheckbox, RdsInput, RdsLabel } from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsInput } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import RdsCompLabel from "../rds-comp-label";
 
 
 export interface RdsCompIdentityLdapManagementProps {
@@ -46,7 +47,7 @@ const RdsCompIdentityLdapManagement = (props: RdsCompIdentityLdapManagementProps
             <form>
               <div className="custom-content-scroll">
                 <div className="mb-3 fw-medium">
-                    <RdsLabel label="Ldap Login Settings"></RdsLabel>
+                    <RdsCompLabel label="Ldap Login Settings"></RdsCompLabel>
                 </div>
                 <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                     <RdsCheckbox

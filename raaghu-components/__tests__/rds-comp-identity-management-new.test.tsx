@@ -48,7 +48,7 @@ jest.mock("../src/rds-elements", () => ({  RdsInput: jest.fn(({
       <label htmlFor={`checkbox-${labelText?.replace(/\s+/g, '-').toLowerCase()}`}>{labelText}</label>
     </div>
   )),
-  RdsLabel: jest.fn(({ label }) => (
+  RdsCompLabel: jest.fn(({ label }) => (
     <label data-testid={`label-${label.toLowerCase().replace(/\s+/g, '-')}`}>{label}</label>
   )),
   RdsButton: jest.fn(({ 

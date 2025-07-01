@@ -2,17 +2,17 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompBenefit from '../src/rds-comp-benefit/rds-comp-benefit';
-import { RdsBenefitItem } from '../src/rds-comp-benefit/rds-comp-benefit';
+import { RdsCompBenefitItem } from '../src/rds-comp-benefit/rds-comp-benefit';
 
 // Define interfaces for better type checking
 interface BenefitItemProps {
-  item: RdsBenefitItem;
+  item: RdsCompBenefitItem;
   displayType: string;
 }
 
 // Mock the rds-elements components
 jest.mock('../src/rds-elements', () => ({
-  RdsBenefit: ({ displayType, item }: BenefitItemProps) => {
+  RdsCompBenefit: ({ displayType, item }: BenefitItemProps) => {
     let testId = '';
     switch (displayType) {
       case 'default':
@@ -45,7 +45,7 @@ jest.mock('../src/rds-elements', () => ({
 
 describe('RdsCompBenefit', () => {
   // Sample data for testing
-  const sampleBenefitItems: RdsBenefitItem[] = [
+  const sampleBenefitItems: RdsCompBenefitItem[] = [
     {
       id: 1,
       title: 'Fast Performance',
@@ -101,7 +101,7 @@ describe('RdsCompBenefit', () => {
       />
     );
     
-    const benefitElements = screen.getAllByTestId('rds-benefit');
+    const benefitElements = screen.getAllByTestId('rds-comp-benefits');
     expect(benefitElements).toHaveLength(sampleBenefitItems.length);
   });
 
@@ -115,7 +115,7 @@ describe('RdsCompBenefit', () => {
       />
     );
     
-    const firstBenefitElement = screen.getAllByTestId('rds-benefit')[0];
+    const firstBenefitElement = screen.getAllByTestId('rds-comp-benefits')[0];
     expect(firstBenefitElement).toHaveClass(`col-md-${colsize}`);
   });
 
@@ -128,7 +128,7 @@ describe('RdsCompBenefit', () => {
       />
     );
     
-    // The RdsBenefit mock should render with defaultAligned testId
+    // The RdsCompBenefit mock should render with defaultAligned testId
     const defaultAlignedElements = screen.getAllByTestId('defaultAligned');
     expect(defaultAlignedElements).toHaveLength(sampleBenefitItems.length);
   });
@@ -159,7 +159,7 @@ describe('RdsCompBenefit', () => {
     expect(centerAlignedElements).toHaveLength(sampleBenefitItems.length);
   });
 
-  it('passes correct props to child RdsBenefit components', () => {
+  it('passes correct props to child RdsCompBenefit components', () => {
     render(
       <RdsCompBenefit 
         displayType="default" 
@@ -192,7 +192,7 @@ describe('RdsCompBenefit', () => {
       />
     );
     
-    const benefitElements = screen.queryAllByTestId('rds-benefit');
+    const benefitElements = screen.queryAllByTestId('rds-comp-benefits');
     expect(benefitElements).toHaveLength(0);
   });
 });

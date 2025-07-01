@@ -1,7 +1,7 @@
 import React from "react";
 import RdsButton from "../rds-button";
-import RdsIcon from "../rds-icon";
-import RdsLabel from "../rds-label";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
+import RdsCompLabel from "../../../raaghu-components/src/rds-comp-label";
 import RdsModal from "../rds-modal";
 import "./rds-confirmation-popup.css";
 
@@ -52,7 +52,7 @@ const RdsConfirmationPopup = (props: RdsCompAlertPopupProps) => {
                         {props.showIcon && (
                             <p className="align-items-center d-flex justify-content-center">
                                 <div className="icon-circle" id="icon-circle-id">
-                                    <RdsIcon
+                                    <RdsCompIcon
                                         height="50px"
                                         width="50px"
                                         name={props.iconUrl}
@@ -65,11 +65,11 @@ const RdsConfirmationPopup = (props: RdsCompAlertPopupProps) => {
                             </p>
                         )}
                         <h4 id="h4-text">
-                            <RdsLabel class="align-items-center  justify-content-center" label={props.alertConfirmation} />
+                            <RdsCompLabel class="align-items-center  justify-content-center" label={props.alertConfirmation} />
                         </h4>
                         {props.showDescription && (
                             <span id="text-description">
-                                <RdsLabel class="text-muted align-items-center  justify-content-center" label={props.messageAlert} />
+                                <RdsCompLabel class="text-muted align-items-center  justify-content-center" label={props.messageAlert} />
                             </span>
                         )}
                         {props.children}

@@ -1,5 +1,7 @@
 import React from "react";
-import { RdsModal, RdsIcon, RdsButton, RdsLabel } from "../rds-elements";
+import { RdsModal, RdsButton } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompAlertPopupProps {
     alertID: any;
@@ -44,7 +46,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
             >
                 <div className="text-center py-3 px-4">
                     <p className="align-items-center d-flex justify-content-center">
-                        <RdsIcon
+                        <RdsCompIcon
                             height={`${props.type == "confirm" || props.type == "transfer_ownership"  ? "65px":"28px"}`}
                             width={`${props.type == "confirm" || props.type == "transfer_ownership" ? "65px":"28px"}`}
                             name={iconUrl}
@@ -55,10 +57,10 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                         />
                     </p>
                     <h4>
-                        <RdsLabel class="align-items-center  justify-content-center" label={alertConfirmation} />
+                        <RdsCompLabel class="align-items-center  justify-content-center" label={alertConfirmation} />
                     </h4>
                     <span>
-                        <RdsLabel class="text-muted align-items-center  justify-content-center" label={messageAlert} />
+                        <RdsCompLabel class="text-muted align-items-center  justify-content-center" label={messageAlert} />
                     </span>
                     {props.children}
                   {type=="default" &&(  <div className="mt-4 pt-2 d-flex gap-3 justify-content-center">

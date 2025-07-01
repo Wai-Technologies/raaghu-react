@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import "./rds-carousel.css";
 import "../../../raaghu-react-themes/src/styles/carousel.scss";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 
 export interface CarouselItem {
   id: number;
@@ -121,7 +121,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                   data-bs-slide="prev"
                   onClick={handlePrev}
                 >
-                  <RdsIcon
+                  <RdsCompIcon
                     name="chevron_left"
                     height={props.chevronHeight || "40px"}
                     width={props.chevronWidth || "40px"}
@@ -138,7 +138,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                   data-bs-slide="next"
                   onClick={handleNext}
                 >
-                  <RdsIcon
+                  <RdsCompIcon
                     name="chevron_right"
                     height={props.chevronHeight || "40px"}
                     width={props.chevronWidth || "40px"}
@@ -288,7 +288,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                       alt="..."
                     />
                     <span className="position-absolute top-0 end-0 m-2 close-icon-border-radius bg-white p-2">
-                      <RdsIcon
+                      <RdsCompIcon
                         name="close"
                         fill={false}
                         stroke={true}
@@ -299,7 +299,7 @@ const RdsCarousel = (props: RdsCarouselProps) => {
                       />
                     </span>
                     <span className="position-absolute close-icon-border-radius top-0 end-0 m-2 me-5 bg-white p-2">
-                      <RdsIcon
+                      <RdsCompIcon
                         name="heart"
                         fill={false}
                         stroke={true}

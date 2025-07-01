@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import "./rds-pagination.css";
 import { useTranslation } from "react-i18next";
 import RdsButton from "../rds-button/rds-button";
@@ -189,7 +189,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
               <li className={"page-item cursor-pointer " + `${currentPage === 1 ? "disabled d-none" : " "}`}>
                 <a className="page-link b d-flex border-0" onClick={() => onPrevious(currentPage)}>
                   {totalRecords > recordsPerPage && (
-                    <RdsIcon
+                    <RdsCompIcon
                       name="chevron_left"
                       width="15px"
                       height="15px"
@@ -214,7 +214,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
                 <a className="page-link b d-flex border-0" onClick={() => onNext(currentPage)}>
                   <span className="pagination-next me-1">Next</span>
                   {totalRecords > recordsPerPage && (
-                    <RdsIcon
+                    <RdsCompIcon
                       name="chevron_right"
                       width="15px"
                       height="15px"
@@ -239,7 +239,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
                 <li className={`me-3 page-item chevron cursor-pointer`}>
                 <a onClick={() => onFirstClick()}>
                   {totalRecords > recordsPerPage && (
-                    <RdsIcon
+                    <RdsCompIcon
                       name="chevron_left_pagination"
                       width="20px"
                       height="20px"
@@ -255,7 +255,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
               <li className={`m-1 page-item chevron cursor-pointer ${currentPage === 1 ? "disabled" : ""}`}>
               {( props.style != "Style4" &&  <a onClick={() => onPrevious(currentPage)}>
                   {totalRecords > recordsPerPage && (
-                    <RdsIcon
+                    <RdsCompIcon
                       name="chevron_left"
                       width="15px"
                       height="15px"
@@ -271,14 +271,11 @@ const RdsPagination = (props: RdsPaginationProps) => {
                   )}
               </li>
             
-              
-
               {/* Displayed Pages */}
               {previous.map((number, index) => (
                 <li
                   key={number}
                   className={`m-1 page-item cursor-pointer ${typeof number === 'number' ? ((number === currentPage) ? "active" : "") : ""} ${(props.style =='Style3' && number === currentPage) ? 'pagination-border-bottom-custom' : ''}`}
-                 
                 >
                   <a onClick={() => typeof number === 'number' && onPage(number)}  style={getLinkStyles()}>
                     {number}
@@ -302,7 +299,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
               <li className={`m-1 page-item chevron ${currentPage === int ? "disabled" : ""}`}>
             {(  props.style !== "Style4" &&  <a onClick={() => onNext(currentPage)}>
                   {totalRecords > recordsPerPage &&  (
-                    <RdsIcon
+                    <RdsCompIcon
                       name="chevron_right"
                       width="15px"
                       height="15px"
@@ -321,7 +318,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
                 <li className={`me-3 page-item chevron cursor-pointer`}>
                 <a onClick={() => onLastClick()}>
                   {totalRecords > recordsPerPage && (
-                    <RdsIcon
+                    <RdsCompIcon
                       name="chevron_right_pagination"
                       width="20px"
                       height="20px"
@@ -352,7 +349,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
                   {selectedRecordsPerPage}
                   <span className="mt-0 toggledropdown" onClick={toggleDropdown}>
                     <div style={{ pointerEvents: "none" }}>
-                      <RdsIcon name={dropdownIcon} fill={false} stroke={true} height="12px" width="12px" />
+                      <RdsCompIcon name={dropdownIcon} fill={false} stroke={true} height="12px" width="12px" />
                     </div>
                   </span>
                 </div>
@@ -400,7 +397,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
             <li className={`m-1 page-item chevron cursor-pointer  ${currentPage === 1 ? "disabled" : ""}`}>
             <button onClick={() => onPrevious(currentPage)} className={`btn btn-primary ms-2 me-2 btn-${props.size} ${(props.style =="Style8" ||props.style =="Style9"|| props.style=="Style10" || props.style=="Style11")?"custom-border-radius-left":""}`}>
                 {totalRecords > recordsPerPage && (
-                  <RdsIcon
+                  <RdsCompIcon
                     name="chevron_left"
                     width="20px"
                     height="20px"
@@ -446,7 +443,7 @@ const RdsPagination = (props: RdsPaginationProps) => {
             <li className={`m-1 page-item chevron ${currentPage === int ? "disabled" : ""}`}>
               {totalRecords > recordsPerPage &&  (
                  <> <button className={`btn btn-primary pagination-next ms-2 me-2 btn-${props.size} ${props.style == "Style5" || props.style == "Style11" ?"ps-3 pe-4":''} ${(props.style =="Style8" ||props.style =="Style9" || props.style=="Style10" || props.style=="Style11")?"custom-border-radius-right":""}`} onClick={() => onNext(currentPage)}> <span className="ps-2 pe-1">
-                  <RdsIcon
+                  <RdsCompIcon
                  name="chevron_right"
                  width="20px"
                  height="20px"

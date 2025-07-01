@@ -6,7 +6,7 @@ import RdsCompLanguage from '../src/rds-comp-language/rds-comp-language';
 
 // Mock the rds-elements components
 jest.mock('../src/rds-elements', () => ({
-  RdsSelectList: ({ 
+  RdsCompSelectList: ({ 
     id,
     label,
     selectItems,

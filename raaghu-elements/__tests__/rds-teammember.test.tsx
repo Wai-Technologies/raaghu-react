@@ -13,7 +13,7 @@ jest.mock("react-i18next", () => ({
     useTranslation: () => ({ t: (key: string) => key }),
 }));
 
-// Mock the RdsIcon component to prevent fetch issues
+// Mock the RdsCompIcon component to prevent fetch issues
 jest.mock("../src/rds-icon", () => ({
     __esModule: true,
     default: jest.fn(({ name }) => (

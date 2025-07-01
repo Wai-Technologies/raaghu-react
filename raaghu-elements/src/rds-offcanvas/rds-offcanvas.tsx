@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import "./rds-offcanvas.css";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import { useTranslation } from "react-i18next";
 import RdsButton from "../rds-button";
 import { TooltipStyle } from "../rds-tooltip/rds-tooltip";

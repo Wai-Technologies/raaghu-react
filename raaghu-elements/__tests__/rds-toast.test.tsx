@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import RdsToast, { RdsToastProps, ToastLayout, ToastLeadingIcon, ToastPosition, ToastState } from "../src/rds-toast/rds-toast";
 
-// Mock RdsIcon to prevent fetch issues
+// Mock RdsCompIcon to prevent fetch issues
 jest.mock("../src/rds-icon", () => ({
     __esModule: true,
     default: jest.fn(({ name, colorVariant, height, width }) => (
@@ -63,7 +63,7 @@ describe("RdsToast", () => {
             showSubText: true,
             state: ToastState.Success,
             layout: ToastLayout.Padded,
-            showLeading: false // Set to false to avoid the fetch call in RdsIcon
+            showLeading: false // Set to false to avoid the fetch call in RdsCompIcon
         };
         const { getByText, getByRole } = render(<RdsToast {...testProps} />);
         

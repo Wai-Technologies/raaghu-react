@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./rds-breadcrumb.css";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 
 export enum BreadcrumbStyle {
   PillBackground = "Pill Background",
@@ -162,7 +162,7 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                   return (
                     props.showIcon && (
                       <span className="me-2">
-                        <RdsIcon
+                        <RdsCompIcon
                           name={resolvedIconName}
                           fill={breadItem.iconFill}
                           stroke={breadItem.iconstroke}
@@ -186,7 +186,7 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                 </a>
                 {props.topnavPlusIcon && (
                   <span className="ps-2">
-                    <RdsIcon
+                    <RdsCompIcon
                       name="plus"
                       fill={breadItem.iconFill}
                       stroke={breadItem.iconstroke}

@@ -173,7 +173,7 @@ export const Standard: Story = {
     /*render: (args) => (
         if:
         <RdsButton {...args}></RdsButton>
-      ),RdsIcon*/
+      ),RdsCompIcon*/
 } satisfies Story;
 //Standard.parameters = { controls: { include: ["state", "label", "icon", "size",/*"showLoadingSpinner", "colorVariant"*/,"style", "shape",/*"textCase"*/,"displayType"] } };
 

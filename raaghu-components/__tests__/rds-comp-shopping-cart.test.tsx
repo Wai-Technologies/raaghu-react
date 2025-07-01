@@ -5,7 +5,7 @@ import RdsCompShoppingCart from '../src/rds-comp-shopping-cart/rds-comp-shopping
 
 // Mock the rds-elements components
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ name, height, width, colorVariant, fill, stroke, dataTestId }: any) => (
+  RdsCompIcon: ({ name, height, width, colorVariant, fill, stroke, dataTestId }: any) => (
     <div 
       data-testid={dataTestId || `icon-${name}`}
       data-name={name}
@@ -18,7 +18,7 @@ jest.mock('../src/rds-elements', () => ({
       {name}
     </div>
   ),
-  RdsIconLabel: ({ colorVariant, icon, label, size, fill, iconposition, dataTestId }: any) => (
+  RdsCompIconLabel: ({ colorVariant, icon, label, size, fill, iconposition, dataTestId }: any) => (
     <div 
       data-testid={dataTestId || `icon-label-${label?.replace(/\s+/g, '-').toLowerCase()}`}
       data-color-variant={colorVariant}
@@ -31,7 +31,7 @@ jest.mock('../src/rds-elements', () => ({
       {label}
     </div>
   ),
-  RdsLabel: ({ fontWeight, label, dataTestId }: any) => (
+  RdsCompLabel: ({ fontWeight, label, dataTestId }: any) => (
     <div 
       data-testid={dataTestId || `label-${fontWeight}`}
       data-font-weight={fontWeight}
@@ -39,7 +39,7 @@ jest.mock('../src/rds-elements', () => ({
       {label}
     </div>
   ),
-  RdsSelectList: ({ id, isSearchable, onChange, placeholder, selectItems, selectedValue, dataTestId }: any) => (
+  RdsCompSelectList: ({ id, isSearchable, onChange, placeholder, selectItems, selectedValue, dataTestId }: any) => (
     <div 
       data-testid={dataTestId || `select-${id}`}
       data-id={id}

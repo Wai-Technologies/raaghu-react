@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { RdsLabel, RdsButton, RdsInput,  RdsCheckbox, RdsIcon,  RdsModal, RdsDropdownList,} from "../rds-elements";
+import { RdsButton, RdsInput,  RdsCheckbox,  RdsModal, RdsDropdownList,} from "../rds-elements";
 import { CheckboxStatus } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 import { LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompRegisterProps {
   error?: any;
@@ -160,11 +162,11 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
             <div>
               <small className="pb-3 d-flex justify-content-center">
                 <span className="d-flex">
-                  <RdsLabel
+                  <RdsCompLabel
                     label={`${"Tenants"} ${props.getvalidTenantName || ""}`}
-                  ></RdsLabel>:
+                  ></RdsCompLabel>:
                 </span>&nbsp;<span className="fw-semibold">
-                  <RdsLabel label={"Not Selected"}></RdsLabel>
+                  <RdsCompLabel label={"Not Selected"}></RdsCompLabel>
                 </span>
                 ({" "}
                 <span>
@@ -335,7 +337,7 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                   </div>
                   <div className="w-100 mt-4 pt-2">
                     <span className="w-20px h-20px border p-2 mx-3 rounded-2">
-                      <RdsIcon
+                      <RdsCompIcon
                         name="google"
                         height="20px"
                         width="20px"
@@ -347,10 +349,10 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                         tooltipPlacement="bottom"
                         style={TooltipStyle.MiddleTopArrow}
                         isCursorPointer={true}
-                      ></RdsIcon>
+                      ></RdsCompIcon>
                     </span>
                     <span className="w-20px h-20px border p-2 mx-3 rounded-2">
-                      <RdsIcon
+                      <RdsCompIcon
                         name="microsoft"
                         height="20px"
                         width="20px"
@@ -362,17 +364,17 @@ const RdsCompRegister = (props: RdsCompRegisterProps) => {
                         tooltipPlacement="bottom"
                         style={TooltipStyle.MiddleTopArrow}
                         isCursorPointer={true}
-                      ></RdsIcon>
+                      ></RdsCompIcon>
                     </span>
                   </div>
                 </div>
               </form>
               <div className="d-flex justify-content-center pt-2 pt-lg-3 pt-xl-3 pt-xxl-3">
-                <RdsLabel
+                <RdsCompLabel
                   class="p-0 m-0 singleLine bottom-0 pt-xxl-0 pt-xl-0 pt-lg-4 pt-md-4 pt-4 mt-4 mb-4"
                   label="©2023 WAi Technologies. All rights reserved "
                   size="0.7rem"
-                ></RdsLabel>
+                ></RdsCompLabel>
               </div>
             </div>
           </div>

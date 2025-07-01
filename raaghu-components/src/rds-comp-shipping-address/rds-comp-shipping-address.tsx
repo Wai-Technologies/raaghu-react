@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./rds-comp-shipping-address.css";
-import { RdsInput, RdsSelectList, RdsButton } from "../rds-elements";
+import { RdsInput, RdsButton } from "../rds-elements";
+import RdsCompSelectList from "../rds-comp-select-list";
 export interface RdsCompShippingAddressProps {
     countryList: { option: any, value: any }[];
     onSaveHandler?: (data: any) => void;
@@ -231,7 +232,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
             </div>
             <div className="col-md-6 ">
               <div className="form-group">
-                <RdsSelectList
+                <RdsCompSelectList
                   id="seleCon"
                   label="Country"
                   placeholder="Select Country"
@@ -241,7 +242,7 @@ const RdsCompShippingAddress = (props: RdsCompShippingAddressProps) => {
                   onChange={(item: any) => {
                     handleDataChanges(item.value, "country");
                   }}
-                ></RdsSelectList>
+                ></RdsCompSelectList>
               </div>
             </div>
           </div>

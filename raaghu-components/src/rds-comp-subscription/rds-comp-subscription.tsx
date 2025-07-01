@@ -1,7 +1,8 @@
 import React from "react";
-import { RdsButton, RdsIcon } from "../rds-elements";
+import { RdsButton } from "../rds-elements";
 import "./rds-comp-subscription.css";
 import { useTranslation } from "react-i18next";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompSubscriptionProps {
     subscriptionData: any[];
@@ -34,7 +35,7 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
                                     {" "}
                                     <div className="ribbon">
                                         <span className="ribbon2">
-                                            <RdsIcon
+                                            <RdsCompIcon
                                                 name="star"
                                                 colorVariant="light"
                                                 fill={true}
@@ -53,7 +54,7 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
                             <div className={`card  ${border}`} style={{ width: width }}>
                                 <h5 className={` card-header Header___name text-white ${bg}`}>{item.name}</h5>
                                 <div className="card-body Card__body">
-                                    <RdsIcon
+                                    <RdsCompIcon
                                         name={item.icon}
                                         colorVariant={item.colorVariant}
                                         fill={false}
@@ -70,7 +71,7 @@ const RdsCompSubscription = (props: RdsCompSubscriptionProps) => {
                                                 return (
                                                     <div key={index} className="d-flex" >
                                                         <div className="me-2">
-                                                            <RdsIcon
+                                                            <RdsCompIcon
                                                                 name={getIcon(feature)}
                                                                 fill={false}
                                                                 stroke={true}

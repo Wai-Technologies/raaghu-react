@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { RdsButton, RdsFileUploader, RdsIcon, RdsInput, RdsOffcanvas, RdsRadioButton } from "../rds-elements";
+import { RdsButton, RdsFileUploader, RdsInput, RdsOffcanvas, RdsRadioButton } from "../rds-elements";
 import React from "react";
 import "./rds-comp-profile.css";
 import RdsCompLinkedAccount from "../rds-comp-linked-account/rds-comp-linked-account";
 import { useTranslation } from "react-i18next";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../../../raaghu-elements/src/rds-offcanvas/rds-offcanvas";
 import { FileUploaderState, Size } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompProfileProps {
     navtabItems: any[];
@@ -339,7 +340,7 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
                                     onMouseLeave={handleMouseLeave} onClick={() => onSetNavTabHandler(item.id, item.navigateTo)}
                                 >
                                     <span className="me-2">
-                                        <RdsIcon
+                                        <RdsCompIcon
                                             name={item.iconPath}
                                             fill={false}
                                             stroke={true}
@@ -347,7 +348,7 @@ const RdsCompProfile = (props: RdsCompProfileProps) => {
                                             width="30px"
                                             classes="me-2"
                                             isHovered={hoveredItem === item.id}
-                                        ></RdsIcon>
+                                        ></RdsCompIcon>
                                     </span>
                                     <div>
                                         <div

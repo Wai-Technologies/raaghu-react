@@ -3,8 +3,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompPages from '../src/rds-comp-pages/rds-comp-pages';
 
-// Mock the RdsCompDatatable component
-jest.mock('../src/rds-comp-data-table', () => {
+// Mock the RdsDatatable component
+jest.mock('../src/rds-data-table', () => {
   return function MockRdsCompDatatable({ 
     tableHeaders, 
     tableData, 
@@ -62,7 +62,7 @@ jest.mock('../src/rds-comp-data-table', () => {
 });
 
 // Mock ActionPosition enum
-jest.mock('../src/rds-comp-data-table/rds-comp-data-table', () => ({
+jest.mock('../src/rds-data-table/rds-data-table', () => ({
   ActionPosition: {
     Right: 'Right',
     Left: 'Left',
@@ -167,7 +167,7 @@ describe('RdsCompPages', () => {
       }).not.toThrow();
     });
 
-    it('should render RdsCompDatatable component', () => {
+    it('should render RdsDatatable component', () => {
       render(<RdsCompPages {...defaultProps} />);
       
       expect(screen.getByTestId('rds-comp-datatable')).toBeInTheDocument();
@@ -361,7 +361,7 @@ describe('RdsCompPages', () => {
   });
 
   describe('Component Integration', () => {
-    it('should properly integrate with RdsCompDatatable', () => {
+    it('should properly integrate with RdsDatatable', () => {
       render(<RdsCompPages {...defaultProps} />);
       
       // Verify all props are passed correctly

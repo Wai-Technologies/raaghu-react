@@ -54,13 +54,13 @@ jest.mock('../src/rds-elements', () => ({
       />
     </div>
   ),
-  RdsLabel: ({ label, ...props }: any) => (
-    <span data-testid="rds-label" {...props}>
+  RdsCompLabel: ({ label, ...props }: any) => (
+    <span data-testid="rds-comp-label" {...props}>
       {label}
     </span>
   ),
-  RdsNavtabs: ({ navtabsItems, activeNavTabId, activeNavtabOrder, type, fill, justified, ...props }: any) => (
-    <div data-testid="rds-navtabs" data-type={type} data-fill={fill} data-justified={justified} {...props}>
+  RdsCompNavtabs: ({ navtabsItems, activeNavTabId, activeNavtabOrder, type, fill, justified, ...props }: any) => (
+    <div data-testid="rds-comp-navtabs" data-type={type} data-fill={fill} data-justified={justified} {...props}>
       {navtabsItems?.map((item: any, index: number) => (
         <button
           key={index}
@@ -73,7 +73,7 @@ jest.mock('../src/rds-elements', () => ({
       ))}
     </div>
   ),
-  RdsSelectList: ({ id, label, selectItems, selectedValue, onChange, ...props }: any) => (
+  RdsCompSelectList: ({ id, label, selectItems, selectedValue, onChange, ...props }: any) => (
     <div data-testid={`select-container-${id}`}>
       {label && <label>{label}</label>}
       <select
@@ -400,7 +400,7 @@ describe('RdsCompFeatureManagement', () => {
     it('should render with correct layout structure', () => {
       render(<RdsCompFeatureManagement {...defaultProps} />);
       
-      const navColumn = screen.getByTestId('rds-navtabs').closest('.col-xxl-3');
+      const navColumn = screen.getByTestId('rds-comp-navtabs').closest('.col-xxl-3');
       const contentColumn = screen.getByTestId('max-user-count').closest('.col-xxl-9');
       
       expect(navColumn).toBeInTheDocument();

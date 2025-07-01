@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./rds-input.css";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import { useTranslation } from "react-i18next";
 
@@ -333,7 +333,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
           {/* Error Messages */}
           
           {props.inputType === "password" && props.showIcon ? (
-            <RdsIcon
+            <RdsCompIcon
               name={showPassword ? "eye" : "eye_slash"}
               classes="password-toggle mysettingspage pt-3"
               height="16px"
@@ -346,7 +346,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             />
           ) : (
             props.showIcon && (
-              <RdsIcon
+              <RdsCompIcon
                 name="information"
                 classes={`password-toggle mt-4 ${isNumberPlaceholder ? "number-placeholder-style" : "" }`}
                 height="16px"

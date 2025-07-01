@@ -29,7 +29,7 @@ jest.mock('../src/rds-elements', () => ({
       {label}
     </button>
   ),
-  RdsIcon: ({ name, height, width, colorVariant }: any) => (
+  RdsCompIcon: ({ name, height, width, colorVariant }: any) => (
     <span data-testid="rds-icon" className={`icon ${colorVariant}`}>
       {name}
     </span>

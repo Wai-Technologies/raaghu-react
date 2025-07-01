@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ReactNode, useRef } from "react";
 import "./rds-accordion.css";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
  
 export interface AccordionItem {
     id: string;
@@ -218,7 +218,7 @@ const RdsAccordion = (props: RdsAccordionProps) => {
                                 >
                                     {props.icon && (
                                         <span className={iconClasses()}>
-                                            <RdsIcon
+                                            <RdsCompIcon
                                                 name={props.icon}
                                                 fill={props.iconFill}
                                                 stroke={props.iconStroke} />

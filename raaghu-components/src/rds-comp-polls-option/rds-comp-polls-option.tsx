@@ -1,8 +1,8 @@
 import { RdsButton, RdsInput } from "../rds-elements";
 import React, { useEffect, useState } from "react";
-import RdsCompDatatable from "../rds-comp-data-table";
+import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
 import { useTranslation } from "react-i18next";
-import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 
 interface RdsCompPollsOptionProps {
   getPollsOptionData?: any;
@@ -177,7 +177,7 @@ const RdsCompPollsOption = (props: RdsCompPollsOptionProps) => {
           </div>
         </div>
         <div className="mt-3">
-          <RdsCompDatatable
+          <RdsDatatable
             actionPosition={ActionPosition.Right}
             actions={actions}
             onActionSelection={onActionHandler}

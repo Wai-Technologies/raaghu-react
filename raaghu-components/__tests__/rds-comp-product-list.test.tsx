@@ -12,10 +12,10 @@ jest.mock('react-i18next', () => ({
 }));
 
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: ({ label, multiline }: any) => (
-    <div data-testid="rds-label" data-multiline={multiline}>{label}</div>
+  RdsCompLabel: ({ label, multiline }: any) => (
+    <div data-testid="rds-comp-label" data-multiline={multiline}>{label}</div>
   ),
-  RdsIcon: ({ name, colorVariant, height, width, fill, stroke }: any) => (
+  RdsCompIcon: ({ name, colorVariant, height, width, fill, stroke }: any) => (
     <div 
       data-testid={`rds-icon-${name}`} 
       data-color={colorVariant}

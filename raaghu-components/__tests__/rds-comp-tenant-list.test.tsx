@@ -15,14 +15,14 @@ jest.mock('react-i18next', () => ({
   }
 }));
 
-// Mock the RdsCompDatatable component
-jest.mock('../src/rds-comp-data-table/rds-comp-data-table', () => {
+// Mock the RdsDatatable component
+jest.mock('../src/rds-data-table/rds-data-table', () => {
   const ActionPosition = {
     Right: 'Right',
     Left: 'Left'
   };
   
-  const RdsCompDatatable = (props: any) => (
+  const RdsDatatable = (props: any) => (
     <div data-testid="rds-comp-datatable">
       <div data-testid="datatable-headers">
         {props.tableHeaders?.map((header: any, index: number) => (
@@ -74,7 +74,7 @@ jest.mock('../src/rds-comp-data-table/rds-comp-data-table', () => {
     </div>
   );
   
-  return Object.assign(RdsCompDatatable, { ActionPosition });
+  return Object.assign(RdsDatatable, { ActionPosition });
 });
 
 // Mock rds-elements
@@ -85,12 +85,12 @@ jest.mock('../src/rds-elements', () => ({
     </div>
   ),
   RdsLineChart: (props: any) => <div data-testid="rds-line-chart" {...props} />,
-  RdsBigNumber: (props: any) => <div data-testid="rds-big-number" {...props} />,
+  RdsCompBigNumber: (props: any) => <div data-testid="rds-comp-big-number" {...props} />,
   RdsRadarChart: (props: any) => <div data-testid="rds-radar-chart" {...props} />,
   RdsDoughnutChart: (props: any) => <div data-testid="rds-doughnut-chart" {...props} />,
   RdsBooleanChart: (props: any) => <div data-testid="rds-boolean-chart" {...props} />,
   RdsBarChart: (props: any) => <div data-testid="rds-bar-chart" {...props} />,
-  RdsTable: (props: any) => <div data-testid="rds-table" {...props} />,
+  RdsCompTable: (props: any) => <div data-testid="rds-comp-table" {...props} />,
   RdsProgressBar: (props: any) => <div data-testid="rds-progress-bar" {...props} />,
   RdsButton: ({ label, onClick, dataTestId, ...props }: any) => (
     <button onClick={onClick} data-testid={dataTestId || 'rds-button'} {...props}>
@@ -115,7 +115,7 @@ jest.mock('../src/rds-elements', () => ({
       />
     </div>
   ),
-  RdsLabel: ({ label, ...props }: any) => <label {...props}>{label}</label>,
+  RdsCompLabel: ({ label, ...props }: any) => <label {...props}>{label}</label>,
   RdsRadioButton: ({ itemList, onChange, ...props }: any) => (
     <div data-testid="radio-group">
       {itemList?.map((item: any, index: number) => (
@@ -130,7 +130,7 @@ jest.mock('../src/rds-elements', () => ({
       ))}
     </div>
   ),
-  RdsSelectList: ({ selectItems, selectedValue, onChange, ...props }: any) => (
+  RdsCompSelectList: ({ selectItems, selectedValue, onChange, ...props }: any) => (
     <select value={selectedValue} onChange={onChange} data-testid="select-list" {...props}>
       {selectItems?.map((item: any, index: number) => (
         <option key={index} value={item.value}>
@@ -151,7 +151,7 @@ jest.mock('../src/rds-elements', () => ({
       ))}
     </div>
   ),
-  RdsIcon: ({ name, ...props }: any) => <i data-testid={`icon-${name}`} {...props} />
+  RdsCompIcon: ({ name, ...props }: any) => <i data-testid={`icon-${name}`} {...props} />
 }));
 
 describe('RdsCompEditionList Component', () => {

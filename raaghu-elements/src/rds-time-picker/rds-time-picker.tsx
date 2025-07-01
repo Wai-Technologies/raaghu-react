@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './rds-time-picker.css';
-import RdsIcon from '../rds-icon/rds-icon';
-import RdsSelectList from '../rds-select-list';
+import RdsCompIcon from '../../../raaghu-components/src/rds-comp-icon/rds-comp-icon';
+import RdsCompSelectList from '../../../raaghu-components/src/rds-comp-select-list/rds-comp-select-list';
 
 export interface RdsTimePickerProps {
   style?: string;
@@ -122,7 +122,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
           placeholder="12:00 AM"
         />
         <span className="time-icon">
-          <RdsIcon
+          <RdsCompIcon
             name="clock"
             height="16px"
             width="16px"
@@ -146,7 +146,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
             {props.style === 'compact' ? (
               <>
                <div className="time-controls">
-  <RdsSelectList
+  <RdsCompSelectList
     color="primary"
     id="hours-select"
     isSearchable={false}
@@ -167,7 +167,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
 </div>
 
 <div className="time-controls dropdown-height">
-  <RdsSelectList
+  <RdsCompSelectList
     color="primary"
     id="minutes-select"
     isSearchable={false}
@@ -185,7 +185,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
 </div>
 
 <div className="time-controls">
-  <RdsSelectList
+  <RdsCompSelectList
     color="primary"
     id="period-select"
     isSearchable={false}
@@ -207,7 +207,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
               <>
                 <div className="time-controls">
                   <div className="arrow" onClick={incrementHours}>
-                    <RdsIcon
+                    <RdsCompIcon
                       name="chevron_up_outline"
                       height="14px"
                       width="14px"
@@ -223,7 +223,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
                     readOnly
                   />
                   <div className="arrow" onClick={decrementHours}>
-                    <RdsIcon
+                    <RdsCompIcon
                       name="chevron_down_outline"
                       height="14px"
                       width="14px"
@@ -235,7 +235,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
                 </div>
                 <div className="time-controls">
                   <div className="arrow" onClick={incrementMinutes}>
-                    <RdsIcon
+                    <RdsCompIcon
                       name="chevron_up_outline"
                       height="14px"
                       width="14px"
@@ -251,7 +251,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
                     readOnly
                   />
                   <div className="arrow" onClick={decrementMinutes}>
-                    <RdsIcon
+                    <RdsCompIcon
                       name="chevron_down_outline"
                       height="14px"
                       width="14px"
@@ -263,7 +263,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
                 </div>
                 <div className="time-controls">
                   <div className="arrow" onClick={togglePeriod}>
-                    <RdsIcon
+                    <RdsCompIcon
                       name="chevron_up_outline"
                       height="14px"
                       width="14px"
@@ -279,7 +279,7 @@ const RdsTimePicker = (props: RdsTimePickerProps) => {
                     readOnly
                   />
                   <div className="arrow" onClick={togglePeriod}>
-                    <RdsIcon
+                    <RdsCompIcon
                       name="chevron_down_outline"
                       height="14px"
                       width="14px"

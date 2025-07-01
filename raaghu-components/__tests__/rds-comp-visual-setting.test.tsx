@@ -28,7 +28,7 @@ jest.mock('../src/rds-elements', () => ({
       <label>{labelText}</label>
     </div>
   )),
-  RdsIcon: jest.fn(({ name, height, width, stroke, ...props }) => (
+  RdsCompIcon: jest.fn(({ name, height, width, stroke, ...props }) => (
     <i 
       data-testid={`icon-${name}`}
       className={`icon-${name}`}
@@ -36,7 +36,7 @@ jest.mock('../src/rds-elements', () => ({
       {...props}
     />
   )),
-  RdsSelectList: jest.fn(({ 
+  RdsCompSelectList: jest.fn(({ 
     id, 
     label, 
     placeholder, 

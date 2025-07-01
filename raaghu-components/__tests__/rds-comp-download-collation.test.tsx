@@ -5,7 +5,7 @@ import RdsCompDownloadCollation, { RdsCompDownloadCollationProps } from '../src/
 
 // Mock RDS components
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ name, onClick, colorVariant, isCursorPointer, ...props }: any) => (
+  RdsCompIcon: ({ name, onClick, colorVariant, isCursorPointer, ...props }: any) => (
     <div 
       data-testid={`icon-${name}`}
       onClick={onClick}

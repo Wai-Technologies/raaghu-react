@@ -1,5 +1,6 @@
 import React from "react";
-import { RdsButton, RdsLabel } from "../rds-elements";
+import { RdsButton } from "../rds-elements";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompOrderSummaryProps {
     isCheckout: boolean;
@@ -36,7 +37,7 @@ const RdsCompOrderSummary = (props: RdsCompOrderSummaryProps) => {
                                     <tr>
                                         <td className="p-2">
                                             <b>
-                                                <RdsLabel label="Order Total"></RdsLabel>
+                                                <RdsCompLabel label="Order Total"></RdsCompLabel>
                                             </b>
                                         </td>
                                         <td className="p-2 text-end">
