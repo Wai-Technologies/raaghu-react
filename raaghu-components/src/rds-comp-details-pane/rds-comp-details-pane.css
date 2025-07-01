@@ -319,7 +319,7 @@ margin-left: -2px;
   position: relative;
   border-radius: 18px;
 }
-.border-left-highlight::before {
+/* .border-left-highlight::before {
   content: "";
   position: absolute;
   left: 0;
@@ -332,6 +332,12 @@ margin-left: -2px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   z-index: 1;
+} */
+
+
+.left-border-highlight{
+    border-radius: 4.9px;
+    border-left: 5px solid #646464;
 }
 
 #font-size-button-grid btn{
@@ -425,6 +431,12 @@ margin-left: -2px;
   flex: 1 1 auto;
   overflow-y: auto;
   color: #000;
+}
+
+#btn-sizes .btn-icon.btn-md{
+padding: 12px;
+    width: 36px !important;
+    height: 36px;
 }
 
 
