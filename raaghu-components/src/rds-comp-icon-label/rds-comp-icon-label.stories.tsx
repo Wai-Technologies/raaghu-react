@@ -53,7 +53,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompIconLabel>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     label: "User Name",
     icon: "users",
@@ -62,7 +62,7 @@ export const Default: Story = {
     withIcon: true,
   }
 } satisfies Story;
-Default.parameters = { controls: { include: ['label', 'icon', 'colorVariant', 'size'] } };
+Standard.parameters = { controls: { include: ['label', 'icon', 'colorVariant', 'size'] } };
 
 export const WithPosition: Story = {
   args: {

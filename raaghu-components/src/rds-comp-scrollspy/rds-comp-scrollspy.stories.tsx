@@ -23,7 +23,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompScrollspy>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         data: [
             {
@@ -47,6 +47,6 @@ export const Default: Story = {
         ]
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['data'] } };
+Standard.parameters = { controls: { include: ['data'] } };
 
 

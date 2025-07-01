@@ -36,7 +36,7 @@ const RdsCompButtonGroup = (props: RdsCompButtonGroupProps) => {
  
  
     return (
-        <>
+        <div className="rds-button-group">
             {props.role != Role.Button && (
                 <div
                     className={`${props.vertical == true ? "btn-group-vertical" : "btn-group member-count"
@@ -108,7 +108,7 @@ const RdsCompButtonGroup = (props: RdsCompButtonGroupProps) => {
  
  
  
-        </>
+        </div>
     );
 };
  

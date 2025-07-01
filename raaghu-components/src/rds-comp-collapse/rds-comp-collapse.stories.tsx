@@ -21,7 +21,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCompCollapse>;
 
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         buttonList: [
             {
@@ -32,7 +32,7 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['buttonList'] } };
+Standard.parameters = { controls: { include: ['buttonList'] } };
 
 
 

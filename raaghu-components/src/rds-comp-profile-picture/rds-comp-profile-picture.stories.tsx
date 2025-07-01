@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompProfilePicture>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
       profilePictureData: "https://abpstagereact12.raaghu.io/assets/profile-picture-circle.svg",
     }

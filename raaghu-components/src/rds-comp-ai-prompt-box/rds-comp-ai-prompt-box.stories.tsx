@@ -27,7 +27,7 @@ export default meta;
 
 type Story = StoryObj<typeof RdsCompAiPromptBox>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     prefilledprompt: [
       { question: "Prefilled Prompt 1" },
@@ -46,7 +46,7 @@ export const Default: Story = {
     placeholderText: "Type your prompt here...",
   },
 } satisfies Story;
-Default.parameters = {
+Standard.parameters = {
   controls: {
     include: [
       "prefilledprompt",

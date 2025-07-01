@@ -25,7 +25,7 @@
 //     <RdsCompClaims {...args} />
 // );
 
-// export const Default = Template.bind({});
+// export const Standard = Template.bind({});
 
 // Default.args = {
 //     allClaimsArray: [
@@ -94,7 +94,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompClaims>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         allClaimsArray: [
             {

@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsComporganizationTree>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         mutable: true,
         organizationTreeData: [

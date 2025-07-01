@@ -21,7 +21,7 @@ const meta: Meta =  {
 export default meta;
 type Story = StoryObj<typeof RdsCompCommunityFileWidget>;
 
-export const Default : Story = {
+export const Standard : Story = {
   args: {
     cardImage:"./assets/community_file_widget.png",
     avtar :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",

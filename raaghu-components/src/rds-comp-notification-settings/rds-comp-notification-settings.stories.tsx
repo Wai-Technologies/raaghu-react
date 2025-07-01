@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompNotificationSettings>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
       default: [{ enabled: false, NewUser: false, NewTenant: false }],
     }

@@ -3,6 +3,10 @@
   transition-timing-function: ease-in-out !important;
 }
 
+/* Dark mode styles for default stat component */
+.theme-dark .card-body[data-testId="rds-stat"] {
+  background-color: #232933 !important;
+}
 
 .app-shell-layout {
   height: 77vh;

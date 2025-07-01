@@ -25,7 +25,7 @@ This component is ideal for showcasing service highlights, product features, or 
 export default meta;
 type Story = StoryObj<typeof RdsCompBenefits>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         displayType: "default",
         item: {
@@ -41,7 +41,7 @@ export const Default: Story = {
         }
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['displayType', 'item'] } };
+Standard.parameters = { controls: { include: ['displayType', 'item'] } };
 
 export const LeftAligned: Story = {
     args: {

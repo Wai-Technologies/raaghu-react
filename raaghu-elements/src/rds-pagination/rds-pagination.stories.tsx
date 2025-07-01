@@ -45,7 +45,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsPagination>;
 
-// export const Default: Story = {
+// export const Standard: Story = {
 //     args: {
 //         paginationType: "default",
 //         totalRecords: 10,  // Ensure this value matches your test cases
@@ -54,7 +54,7 @@ type Story = StoryObj<typeof RdsPagination>;
 //         alignmentType: "start",
 //     }
 // } satisfies Story;
-// Default.parameters = { controls: { include: ['paginationType', 'totalRecords', 'recordsPerPage', 'size', 'alignmentType'] } };
+// Standard.parameters = { controls: { include: ['paginationType', 'totalRecords', 'recordsPerPage', 'size', 'alignmentType'] } };
 
 // export const Advanced: Story = {
 //     args: {
@@ -73,7 +73,7 @@ type Story = StoryObj<typeof RdsPagination>;
 // } satisfies Story;
 // Advanced.parameters = { controls: { include: ['paginationType', 'totalRecords', 'recordsPerPage', 'size', 'alignmentType','style','showFirst','showLast','showManualInput','showDropdown','showLegend'] } };
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         paginationType: "default",
         totalRecords: 10,
@@ -88,4 +88,4 @@ export const Default: Story = {
         showLegend:true,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['style','showFirst','showLast','showManualInput','showDropdown','showLegend'] } };
+Standard.parameters = { controls: { include: ['style','showFirst','showLast','showManualInput','showDropdown','showLegend'] } };

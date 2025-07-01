@@ -47,7 +47,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsWidget>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         colorVariant: "gradient-primary",
         headerTitle: "Widget",
@@ -58,7 +58,7 @@ export const Default: Story = {
         border: true,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'border'] } };
+Standard.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'border'] } };
 
 export const WithLineChart: Story = {
     args: {

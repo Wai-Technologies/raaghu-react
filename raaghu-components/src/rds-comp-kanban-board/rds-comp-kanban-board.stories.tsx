@@ -104,7 +104,7 @@ const sampleItems: boardInfo[] = [
 export default meta;
 type Story = StoryObj<typeof RdsCompKanbanBoard>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         allowAddingNewCard: true,
         //boardName: "Board123",

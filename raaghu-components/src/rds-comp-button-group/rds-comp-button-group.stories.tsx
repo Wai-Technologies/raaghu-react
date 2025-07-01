@@ -55,7 +55,7 @@ type Story = StoryObj<typeof RdsCompButtonGroup>;
 
 
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         vertical: false,
         size: "medium",
@@ -82,7 +82,7 @@ export const Default: Story = {
         ]
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'buttonGroupItems'] } };
+Standard.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'buttonGroupItems'] } };
 
 
 export const CheckboxButtonGroup: Story = {

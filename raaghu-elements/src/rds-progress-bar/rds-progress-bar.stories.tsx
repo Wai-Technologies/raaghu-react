@@ -78,7 +78,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsProgressBar>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     role: "single",
     colorVariant: "primary",
@@ -116,7 +116,7 @@ export const Default: Story = {
   },
 } satisfies Story;
 
-Default.parameters = {
+Standard.parameters = {
   controls: { include: ['role', 'colorVariant', 'striped', 'progressWidth', 'progressValues', 'steps', 'completedSteps', 'animation', 
     'height', /*'displayLabel',*/ 'displayPercentage', 'stepperVariant', 'Icon', /*'StepIconName'*/] },
 };

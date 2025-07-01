@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompTheme>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         StyleList: [{ option: "Style 1", value: "style 1" }, { option: "Style 2", value: "style 2" }],
         WebList: [{ option: "Public 1", value: "public 1" }, { option: "Public 2", value: "public 2" }],

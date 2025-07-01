@@ -28,7 +28,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCompPopularPage>;
 
 
-export const PopularItemsPage: Story = {
+export const Standard: Story = {
     args: {
         itemList: [
             {
@@ -58,6 +58,6 @@ export const PopularItemsPage: Story = {
         ]
     }
 } satisfies Story;
-PopularItemsPage.parameters = { controls: { include: ['itemList'] } };
+Standard.parameters = { controls: { include: ['itemList'] } };
 
 

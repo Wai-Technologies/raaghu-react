@@ -26,11 +26,11 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompPlandiscount>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
       discount: "10",
       discountValue: "100",
       saveLabel: "Save"
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['discount', 'discountValue', 'saveLabel'] } };
+Standard.parameters = { controls: { include: ['discount', 'discountValue', 'saveLabel'] } };

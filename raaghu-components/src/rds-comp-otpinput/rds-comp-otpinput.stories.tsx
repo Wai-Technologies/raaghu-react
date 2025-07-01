@@ -38,7 +38,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompOtpinput>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     fieldStyle: FieldStyle.Default,
     otpSize: 4,

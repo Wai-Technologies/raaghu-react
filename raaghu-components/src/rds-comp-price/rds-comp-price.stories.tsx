@@ -28,14 +28,14 @@ export default meta;
 type Story = StoryObj<typeof RdsCompPrice>;
 
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         mrp: 100,
         currentPrice: 90,
         withDiscount: true
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['mrp', 'currentPrice', 'withDiscount'] } };
+Standard.parameters = { controls: { include: ['mrp', 'currentPrice', 'withDiscount'] } };
 
 export const Price_on_Right: Story = {
     args: {

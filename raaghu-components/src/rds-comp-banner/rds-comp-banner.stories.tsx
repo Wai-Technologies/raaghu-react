@@ -61,7 +61,7 @@ The extended version (Actionable Banner) is ideal for promotional use cases. It 
 export default meta;
 type Story = StoryObj<typeof RdsCompBanner>;
 
-export const Banner: Story = {
+export const Standard: Story = {
   args: {
     textAlign: TextAlign.Start,
     bannerText: "Big news ! We are excited to announce a brand new product.",
@@ -75,7 +75,7 @@ export const Banner: Story = {
     iconFill: false,
   },
 };
-Banner.parameters = {
+Standard.parameters = {
   controls: {
     include: [
       "textAlign",

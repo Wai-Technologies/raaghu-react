@@ -30,7 +30,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCompColorSwitcher>;
 
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         displayType: DisplayType.Rounded,
         header: "Color",
@@ -42,6 +42,6 @@ export const Default: Story = {
         ]
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['displayType', 'header', 'defaultValue', 'itemList'] } };
+Standard.parameters = { controls: { include: ['displayType', 'header', 'defaultValue', 'itemList'] } };
 
 

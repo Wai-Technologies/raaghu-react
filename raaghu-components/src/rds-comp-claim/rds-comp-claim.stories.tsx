@@ -213,7 +213,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompClaim>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         claim: "default",
         resources: [
@@ -385,7 +385,7 @@ export const Default: Story = {
                 ],
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['resources', 'onCreate', 'onCancel'] } };
+Standard.parameters = { controls: { include: ['resources', 'onCreate', 'onCancel'] } };
 
 export const Advanced: Story = {
     args: {

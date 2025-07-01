@@ -99,7 +99,7 @@ const Positioned = (args: any) => (
   </>
 );*/
 
-export const TextBadge: Story = {
+export const Standard: Story = {
   args: {
     size: "small",
     shape: "rectangle",
@@ -113,7 +113,7 @@ export const TextBadge: Story = {
     //iconPosition: "right",
   },
 } satisfies Story;
-TextBadge.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'shape', 'layout', 'style', 'state', 'iconName'] } };
+Standard.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'shape', 'layout', 'style', 'state', 'iconName'] } };
 /*
 export const WithLabel: Story = {
   args: {

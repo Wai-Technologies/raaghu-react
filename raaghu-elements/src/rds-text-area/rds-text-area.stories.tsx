@@ -54,7 +54,7 @@ export default meta;
 type Story = StoryObj<typeof RdsTextArea>;
 
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         state: TextareaState.Default,
         style: TextareaStyle.Default,
@@ -67,7 +67,7 @@ export const Default: Story = {
 
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['state', 'style', 'showTitle', 'isMandatory', 'label'] } };
+Standard.parameters = { controls: { include: ['state', 'style', 'showTitle', 'isMandatory', 'label'] } };
 
 // export const Disabled: Story = {
 //     args: {

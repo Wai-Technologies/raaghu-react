@@ -23,7 +23,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompProductList>;
 
-export const ProductListWithTitle: Story = {
+export const WithTitle: Story = {
     args: {
             items: [
                 {
@@ -55,7 +55,7 @@ export const ProductListWithTitle: Story = {
     }
 } satisfies Story;
 
-export const DefaProductListWithInfolt: Story = {
+export const WithInfolt: Story = {
   args : {
         items: [
             {
@@ -92,7 +92,7 @@ export const DefaProductListWithInfolt: Story = {
     }
 } satisfies Story;
 
-export const ProductListWithInlinePrice: Story = {
+export const WithInlinePrice: Story = {
     args : {
         items: [
             {
@@ -123,7 +123,7 @@ export const ProductListWithInlinePrice: Story = {
     }
 } satisfies Story;
 
-export const ProductListSimple: Story = {
+export const Simple: Story = {
     args : {
         items: [
             {
@@ -151,7 +151,7 @@ export const ProductListSimple: Story = {
     }
 } satisfies Story;
 
-export const ProductListCardWithFullDetails: Story = {
+export const WithFullDetails: Story = {
     args : {
         items: [
             {
@@ -188,7 +188,7 @@ export const ProductListCardWithFullDetails: Story = {
     }
 } satisfies Story;
 
-export const ProductListWithBorder: Story = {
+export const WithBorder: Story = {
     args : {
         items: [
             {

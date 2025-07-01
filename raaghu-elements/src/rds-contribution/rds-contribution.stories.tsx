@@ -42,7 +42,7 @@ const generateValues = () => {
   return values;
 };
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     weekNames: ['', 'M', '', 'W', '', 'F', ''],
     monthNames: [
@@ -70,7 +70,7 @@ export const Default: Story = {
     showMonthLabels: true, 
   },
 } satisfies Story;
-Default.parameters = {
+Standard.parameters = {
   controls: {
     include: [
       // "weekNames",

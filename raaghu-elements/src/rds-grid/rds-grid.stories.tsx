@@ -44,7 +44,7 @@ Key features include control over the visibility of table sections via the \`sta
 export default meta;
 type Story = StoryObj<typeof RdsGrid>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         resizableColumns: false,
         tableHeaders: [
@@ -115,14 +115,14 @@ export const Default: Story = {
    
 } satisfies Story;
 
-Default.parameters = { 
+Standard.parameters = { 
     controls: { 
         include: ['state', 'showHeader', 'showSubHeader', 'resizableColumns'] 
     } 
 };
 
 
-// export const Default: Story = {
+// export const Standard: Story = {
 //     args: {
      
 //                  tableHeaders : [
@@ -137,7 +137,7 @@ Default.parameters = {
 //                   ],                      
 //     }
 // } satisfies Story;
-// Default.parameters = { controls: { include: ['tableHeaders','tableData', 'allSearch', 'allFilter'] } };
+// Standard.parameters = { controls: { include: ['tableHeaders','tableData', 'allSearch', 'allFilter'] } };
 
 // export const WithAllSearch: Story = {
 //   args: {

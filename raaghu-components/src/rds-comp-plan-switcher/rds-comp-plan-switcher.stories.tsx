@@ -21,7 +21,7 @@
   export default meta;
   type Story = StoryObj<typeof RdsCompPlanSwitcher>;
 
-  export const Default: Story = {
+  export const Standard: Story = {
     args: {
       button1Text: "Free",
       button2Text: "Premium",

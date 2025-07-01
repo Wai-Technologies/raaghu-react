@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompMember>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     addMemberData: { email: "", roleId: "" },
     assignableRolesList: [
@@ -33,7 +33,7 @@ export const Default: Story = {
     onClickAddNewMember: () => console.log("Add new member clicked"),
   }
 } satisfies Story;
-Default.parameters = { controls: { include: ['addMemberData', 'assignableRolesList', 'reset', 'onAddMemberSaveHandler', 'onClickAddNewMember'] } };
+Standard.parameters = { controls: { include: ['addMemberData', 'assignableRolesList', 'reset', 'onAddMemberSaveHandler', 'onClickAddNewMember'] } };
 
 export const Team: Story = {
     args: {

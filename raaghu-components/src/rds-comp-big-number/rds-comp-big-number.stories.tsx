@@ -52,16 +52,16 @@ export default meta;
 type Story = StoryObj<typeof RdsCompBigNumber>;
 
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         bigNumber: "$13,20,21",
         bigNumberColor: "dark",
         textAlign: "text-start",
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'textAlign'] } };
+Standard.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'textAlign'] } };
 
-Default.argTypes = textAlignArgTypes;
+Standard.argTypes = textAlignArgTypes;
 
 export const delta: Story = {
     args: {
@@ -282,7 +282,7 @@ export const sparkLine: Story = {
 } satisfies Story;
 sparkLine.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle', 'chartHeight', 'chartWidth'] } };
 
-export const standard: Story = {
+export const Basic: Story = {
     args: {
         subTitleColorVariant: "primary",
         subTitle: "Visitors",
@@ -306,6 +306,6 @@ export const standard: Story = {
         },
     }
 } satisfies Story;
-standard.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
+Basic.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
 
 

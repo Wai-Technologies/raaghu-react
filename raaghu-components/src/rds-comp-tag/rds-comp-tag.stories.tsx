@@ -58,7 +58,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCompTag>;
 
 
-export const MultiTagInput :Story={
+export const MultiInput :Story={
     args:{
         tagType: TagType.Square,
         role:Role.Basic,
@@ -75,4 +75,4 @@ export const MultiTagInput :Story={
     }
 } satisfies Story;
 
-MultiTagInput.parameters = { controls: { include: ["tagType","role","colorVariant","fillClose","tagArray"] } };
+MultiInput.parameters = { controls: { include: ["tagType","role","colorVariant","fillClose","tagArray"] } };

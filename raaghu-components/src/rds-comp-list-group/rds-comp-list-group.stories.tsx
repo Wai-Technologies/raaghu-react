@@ -27,7 +27,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompListGroup>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         labelPosition: "top",
         label: "List Group",
@@ -62,9 +62,9 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['labelPosition', 'label', 'listItem'] } };
+Standard.parameters = { controls: { include: ['labelPosition', 'label', 'listItem'] } };
 
-export const ListGroupWithMultiSelect: Story = {
+export const WithMultiSelect: Story = {
     args: {
         labelPosition: "top",
         label: "List Group",
@@ -100,9 +100,9 @@ export const ListGroupWithMultiSelect: Story = {
         ],
     }
 } satisfies Story;
-ListGroupWithMultiSelect.parameters = { controls: { include: ['labelPosition', 'label', 'listGroupWithMultiSelect', 'listItem'] } };
+WithMultiSelect.parameters = { controls: { include: ['labelPosition', 'label', 'listGroupWithMultiSelect', 'listItem'] } };
 
-export const ListGroupWithBadge: Story = {
+export const WithBadge: Story = {
     args: {
         labelPosition: "top",
         label: "List Group",
@@ -138,9 +138,9 @@ export const ListGroupWithBadge: Story = {
         ],
     }
 } satisfies Story;
-ListGroupWithBadge.parameters = { controls: { include: ['labelPosition', 'label', 'withBadge', 'listItem'] } };
+WithBadge.parameters = { controls: { include: ['labelPosition', 'label', 'withBadge', 'listItem'] } };
 
-export const MultiSelectListGroupWithBadge: Story = {
+export const MultiSelectWithBadge: Story = {
     args: {
         labelPosition: "top",
         label: "List Group",
@@ -177,4 +177,4 @@ export const MultiSelectListGroupWithBadge: Story = {
         ],
     }
 } satisfies Story;
-MultiSelectListGroupWithBadge.parameters = { controls: { include: ['labelPosition', 'label', 'listGroupWithMultiSelect', 'withBadge', 'listItem'] } };
+MultiSelectWithBadge.parameters = { controls: { include: ['labelPosition', 'label', 'listGroupWithMultiSelect', 'withBadge', 'listItem'] } };
