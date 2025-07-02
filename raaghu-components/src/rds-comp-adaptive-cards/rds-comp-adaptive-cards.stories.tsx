@@ -21,6 +21,26 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompAdaptiveCards>;
 
+
+export const Standard: Story = {
+    args: {
+        cardTitle: "Title",
+        title: true,
+        showBtn1: true,
+        showBtn2: true,
+        btn1style: "transparent",
+        btn2style: "filled",
+        btn1Label: "Cancel",
+        btn2Label: "Done",
+        block: false,
+        type: "Default",
+        titleIcon: true,
+        closeIcon: true,
+    }
+} satisfies Story;
+Standard.parameters = { controls: { include: ['cardTitle','showBtn1','showBtn2','titleIcon','closeIcon'] } };
+
+
 export const ActivityUpdateCard: Story = {
     args: {
         cardTitle: "Title",
@@ -62,23 +82,18 @@ export const CalendarReminder: Story = {
 } satisfies Story;
 CalendarReminder.parameters = { controls: { include: ['cardTitle','label','smallText','showBtn1','showBtn2','titleIcon','closeIcon'] } };
 
-export const Standard: Story = {
+export const FootballScorecard: Story = {
     args: {
-        cardTitle: "Title",
-        title: true,
-        showBtn1: true,
-        showBtn2: true,
-        btn1style: "transparent",
-        btn2style: "filled",
-        btn1Label: "Cancel",
-        btn2Label: "Done",
-        block: false,
-        type: "Default",
-        titleIcon: true,
-        closeIcon: true,
+        type: "FootballScorecard",
+        homeTeam: "Real Madrid",
+        awayTeam: "Barcelona",
+        score: "2 : 2",
+        time: "90:00",
+        tournament: "La Liga"
     }
 } satisfies Story;
-Standard.parameters = { controls: { include: ['cardTitle','showBtn1','showBtn2','titleIcon','closeIcon'] } };
+FootballScorecard.parameters = { controls: { include: ['homeTeam','awayTeam','tournament','score','time'] } };
+
 
 export const ImageGallery: Story = {
     args: {
@@ -124,14 +139,3 @@ export const RestaurantOrder: Story = {
 } satisfies Story;
 RestaurantOrder.parameters = { controls: { include: ['cardTitle','block','showBtn1','titleIcon','closeIcon'] } };
 
-export const FootballScorecard: Story = {
-    args: {
-        type: "FootballScorecard",
-        homeTeam: "Real Madrid",
-        awayTeam: "Barcelona",
-        score: "2 : 2",
-        time: "90:00",
-        tournament: "La Liga"
-    }
-} satisfies Story;
-FootballScorecard.parameters = { controls: { include: ['homeTeam','awayTeam','tournament','score','time'] } };

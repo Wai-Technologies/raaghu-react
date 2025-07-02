@@ -87,6 +87,7 @@ const RdsWidget = (props: RdsCompWidgetProps) => {
           `card ${props.isCardStretch ? "card-stretch gutter-b" : ""} ` +
           classes()
         }
+        data-component="rds-widget"
         style={{
           height: `${props.height}`,
           minHeight: `${props.minHeight}`,

@@ -16,10 +16,12 @@ box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04);
   border: none;
 }
 
-@media (max-width: 480px) {
-  .detail-pane-container {
-        width:300px;
-  }
+/* Large Mobile responsive - center container */
+@media (min-width: 414px) and (max-width: 834px) {
+    .detail-pane-container {
+        width:325px;
+        margin: 0 auto;
+    }
 }
 
 .detail-pane-header{
