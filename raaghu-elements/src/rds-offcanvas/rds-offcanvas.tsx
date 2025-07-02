@@ -117,7 +117,7 @@ const RdsOffcanvas = (props: RdsOffcanvasProps) => {
         <div className={`offcanvas-body ${props.className}`}>
           {props.children}
         
-          <div className="d-flex justify-content-start mt-auto offcanvas-margin">
+          <div className="d-flex justify-content-start mt-auto offcanvas-margin" id="offcanvas-btns">
             {props.showTertiaryButton && (
               <div className="me-2">
                 <RdsButton
