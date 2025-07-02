@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./rds-breadcrumb.css";
 import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
+// import { pointer } from "@testing-library/user-event/dist/types/pointer";
 
 export enum BreadcrumbStyle {
   PillBackground = "Pill Background",
@@ -139,10 +140,13 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
             : {};
 
           // Add cursor pointer for multiple items in array
-          const shouldShowCursor = props.breadcrumbItems?.length > 1;
-          const finalItemStyle = shouldShowCursor 
-            ? { ...itemStyle, cursor: 'pointer' }
-            : itemStyle;
+
+
+
+          // const shouldShowCursor = props.breadcrumbItems?.length > 1;
+          // const finalItemStyle = shouldShowCursor 
+          //   ? { ...itemStyle, cursor: 'pointer' }
+          //   : itemStyle;
 
           // Allow last item to be clickable regardless of state
           const isClickable = true;
@@ -150,11 +154,11 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
           return (
             <React.Fragment key={breadItem.id}>
               <li
-                className={itemClassNames}
+                className={`${itemClassNames} ${props.breadcrumbItems?.length > 1?'list-cursor': '' }`}
                 onClick={() => isClickable && onClickHandler(breadItem.id)}
                 onMouseEnter={() => setHoveredItem(breadItem.id)}
                 onMouseLeave={() => setHoveredItem(null)}
-                style={finalItemStyle}
+                style={itemStyle}
               >
                 {(() => {
                   const resolvedIconName = props.icons && props.icons.length > index ? props.icons[index] : breadItem.icon || "IN";
