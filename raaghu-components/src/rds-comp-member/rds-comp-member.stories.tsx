@@ -35,6 +35,13 @@ export const Standard: Story = {
 } satisfies Story;
 Standard.parameters = { controls: { include: ['addMemberData', 'assignableRolesList', 'reset', 'onAddMemberSaveHandler', 'onClickAddNewMember'] } };
 
+export const Register: Story = {
+  args: {
+    member: "register",
+  }
+} satisfies Story;
+Register.parameters = { controls: { include: ['registerMemberData', 'isEmailFieldVisible', 'onRegisterMemberSaveHandler'] } };
+
 export const Team: Story = {
     args: {
         teamItem: [
@@ -52,9 +59,3 @@ export const Team: Story = {
 } satisfies Story;
 Team.parameters = { controls: { include: ['teamItem'] } };
 
-export const Register: Story = {
-  args: {
-    member: "register",
-  }
-} satisfies Story;
-Register.parameters = { controls: { include: ['registerMemberData', 'isEmailFieldVisible', 'onRegisterMemberSaveHandler'] } };

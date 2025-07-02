@@ -43,23 +43,6 @@ export const Standard: Story = {
 } satisfies Story;
 Standard.parameters = { controls: { include: ['displayType', 'item'] } };
 
-export const LeftAligned: Story = {
-    args: {
-        displayType: "Left Aligned",
-        item: {
-            "id": 3,
-            "icon": "currency_dollar_circle",
-            "iconHeight": "35px",
-            "iconWidth": "35px",
-            "iconFill": false,
-            "iconstroke": true,
-            "iconColorVarient": "primary",
-            "title": "Free delivery all year long",
-            "description": "Name another place that offers year long free delivery? We'll be waiting. Order now and you'll get delivery absolutely free."
-        }
-    }
-} satisfies Story;
-LeftAligned.parameters = { controls: { include: ['displayType', 'item'] } };
 
 export const CenterAligned: Story = {
     args: {
@@ -78,6 +61,44 @@ export const CenterAligned: Story = {
     }
 } satisfies Story;
 CenterAligned.parameters = { controls: { include: ['displayType', 'item'] } };
+
+export const HeadingWithIcon: Story = {
+    args: {
+        displayType: "Heading With Icon",
+        item:
+        {
+            "iconHeight": "40px",
+            "iconWidth": "40px",
+            "icon": "truck",
+            "iconFill": false,
+            "iconstroke": true,
+            "iconColorVarient": "primary",
+            "title": "Free delivery all year long",
+        }
+    }
+} satisfies Story;
+HeadingWithIcon.parameters = { controls: { include: ['displayType', 'item'] } };
+
+
+
+export const LeftAligned: Story = {
+    args: {
+        displayType: "Left Aligned",
+        item: {
+            "id": 3,
+            "icon": "currency_dollar_circle",
+            "iconHeight": "35px",
+            "iconWidth": "35px",
+            "iconFill": false,
+            "iconstroke": true,
+            "iconColorVarient": "primary",
+            "title": "Free delivery all year long",
+            "description": "Name another place that offers year long free delivery? We'll be waiting. Order now and you'll get delivery absolutely free."
+        }
+    }
+} satisfies Story;
+LeftAligned.parameters = { controls: { include: ['displayType', 'item'] } };
+
 
 export const WithLabel: Story = {
     args: {
@@ -115,21 +136,5 @@ export const WithoutLabel: Story = {
 WithoutLabel.parameters = { controls: { include: ['displayType', 'item'] } };
 
 
-export const HeadingWithIcon: Story = {
-    args: {
-        displayType: "Heading With Icon",
-        item:
-        {
-            "iconHeight": "40px",
-            "iconWidth": "40px",
-            "icon": "truck",
-            "iconFill": false,
-            "iconstroke": true,
-            "iconColorVarient": "primary",
-            "title": "Free delivery all year long",
-        }
-    }
-} satisfies Story;
-HeadingWithIcon.parameters = { controls: { include: ['displayType', 'item'] } };
 
 

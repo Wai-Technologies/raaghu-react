@@ -24,26 +24,19 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompPassword>;
 
-export const Set: Story = {
-    args: {
-        passwordType:"set"
-    }
-} satisfies Story;
-Set.parameters = { controls: { include: ['reset', 'setPasswordField', 'onSaveHandler'] } };
-
-export const Setting: Story = {
-  args: {
-        passwordType:"setting"
-  }
-} satisfies Story;
-Setting.parameters = { controls: { include: ['reset', 'passwordSettingData', 'onSaveHandler'] } };
-
 export const Change: Story = {
     args: {
         passwordType:"change"
     }
 } satisfies Story;
 Change.parameters = { controls: { include: ['reset', 'changePasswordData', 'onChangeSaveHandler'] } };
+
+export const ChangeUser: Story = {
+    args: {
+        passwordType:"changeUser"
+    },
+} satisfies Story;
+ChangeUser.parameters = { controls: { include: ['reset', 'changeUserPasswordData', 'onUserSaveHandler'] } };
 
 export const Forgot: Story = {
     args: {
@@ -159,9 +152,21 @@ export const Forgot: Story = {
 } satisfies Story;
 Forgot.parameters = { controls: { include: ['reset', 'languageData', 'onForgotPassword', 'onResend', 'onLogin', 'languageLabel', 'registerFields'] } };
 
-export const ChangeUser: Story = {
+
+
+export const Set: Story = {
     args: {
-        passwordType:"changeUser"
-    },
+        passwordType:"set"
+    }
 } satisfies Story;
-ChangeUser.parameters = { controls: { include: ['reset', 'changeUserPasswordData', 'onUserSaveHandler'] } };
+Set.parameters = { controls: { include: ['reset', 'setPasswordField', 'onSaveHandler'] } };
+
+export const Setting: Story = {
+  args: {
+        passwordType:"setting"
+  }
+} satisfies Story;
+Setting.parameters = { controls: { include: ['reset', 'passwordSettingData', 'onSaveHandler'] } };
+
+
+
