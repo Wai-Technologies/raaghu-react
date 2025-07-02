@@ -2163,13 +2163,13 @@ export const With_Theme_Switcher: Story = {
         navbarSubTitle: "Statistics and reports",
         brandName: "Raaghu",
         brandLogo: "assets/Raaghu-logo-mfe-black.png",
-        profileTitle: "John Doe",
+        // profileTitle: "John Doe",
         profileEmail: "john.doe@raaghu.io",
         profileName: "John Doe",
         logo: "https://anzstageui.raaghu.io/assets/raaghu_icon.png",
         firstName: "John",
         lastName: "Doe",
-        role: "Admin",
+        // role: "Admin",
         themeItems: [
             {
                 label: "Light",
