@@ -682,8 +682,6 @@ export const Relaxing: Story = {
           profileEmail="john.doe@raaghu.io"
           profileName="John Doe"
           profilePic="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU"
-          profileTitle="John Doe"
-          
           showLogo
           showSearch
           style="With_Theme_Switcher"
@@ -714,7 +712,7 @@ export const Relaxing: Story = {
             throw new Error("Function not implemented.");
           } } onProfileLinkTopNav={function (id: string, navigateTo?: string, label?: string): void {
             throw new Error("Function not implemented.");
-          } }/>
+          } }          />
       </div>
     ),
     children: (
