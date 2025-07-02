@@ -38,7 +38,7 @@ const chartList = [
     {
         label: "Doughnut Chart",
         val: "doughnut",
-    }, ,
+    },
     {
         label: "Polar Area Chart",
         val: "polarArea",
