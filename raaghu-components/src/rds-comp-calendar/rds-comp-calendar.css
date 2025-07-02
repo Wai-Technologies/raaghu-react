@@ -43,16 +43,3 @@
         font-size: 12px !important;
     }
 }
-
-/* Dark mode styles for calendar toolbar */
-.theme-dark .calenderHeight .rbc-toolbar button {
-    color: #ffffff !important;
-}
-
-.theme-dark .calenderHeight .rbc-toolbar button:hover {
-    color: #000000 !important;
-}
-
-.theme-dark .calenderHeight .rbc-toolbar button.rbc-active {
-    color: #000000 !important;
-}
