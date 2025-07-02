@@ -49,3 +49,7 @@
   background-color: #D4BBFF !important;
   color: #6610f2 !important;
 }
+
+.list-cursor{
+  cursor: pointer;
+}

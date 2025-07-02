@@ -3710,3 +3710,16 @@ label{
 .accordion-selected .accordion-button {
     background-color: $neutral-400; /* Change this to your desired selected color */
 }
+
+/* Dark mode styles for calendar toolbar */
+ .calenderHeight .rbc-toolbar button {
+    color: #ffffff !important;
+}
+
+.calenderHeight .rbc-toolbar button:hover {
+    color: #000000 !important;
+}
+
+.calenderHeight .rbc-toolbar button.rbc-active {
+    color: #000000 !important;
+}
