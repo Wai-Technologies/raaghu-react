@@ -28,7 +28,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCompAddressDetail>;
 
 
-export const AddressInput: Story = {
+export const Input: Story = {
     args: {
         countriesList: [
             { label: "United States", val: "United States" },
@@ -55,9 +55,9 @@ export const AddressInput: Story = {
         onSaveHandler: action("address-input-saved")
     }
 } satisfies Story;
-AddressInput.parameters = { controls: { include: ['countriesList', 'citiesList', 'statesList', 'address', 'address2', 'city', 'zip', 'AddressData', 'reset', 'label','onSaveHandler'] } };
+Input.parameters = { controls: { include: ['countriesList', 'citiesList', 'statesList', 'address', 'address2', 'city', 'zip', 'AddressData', 'reset', 'label','onSaveHandler'] } };
 
-export const BillingAddress: Story = {
+export const Billing: Story = {
     args: {
         countryList: [
             { option: "Afghanistan" , value: "AF" },
@@ -104,9 +104,9 @@ export const BillingAddress: Story = {
         addressType: "billing",
     }
 } satisfies Story;
-BillingAddress.parameters = { controls: { include: ['countryList', 'IndianStateList', 'onSaveHandler', 'billingAddressDetails'] } };
+Billing.parameters = { controls: { include: ['countryList', 'IndianStateList', 'onSaveHandler', 'billingAddressDetails'] } };
 
-export const DetailedAddressCard: Story = {
+export const DetailedCard: Story = {
   args: {
     withIcon: true,
     header: "Address Header",
@@ -117,9 +117,9 @@ export const DetailedAddressCard: Story = {
     addressType: "address",
   }
 } satisfies Story;
-DetailedAddressCard.parameters = { controls: { include: ['withIcon', 'header', 'addressLine1', 'addressLine2', 'addressLine3', 'cardborder'] } };
+DetailedCard.parameters = { controls: { include: ['withIcon', 'header', 'addressLine1', 'addressLine2', 'addressLine3', 'cardborder'] } };
 
-export const ShippingAddress: Story = {
+export const Shipping: Story = {
     args: {
         countryList: [
                     {
@@ -161,4 +161,4 @@ export const ShippingAddress: Story = {
       addressType: "shipping",
     }
 } satisfies Story;
-ShippingAddress.parameters = { controls: { include: ['countryList', 'shippingAddressData', 'onSaveHandler','reset'] } };
+Shipping.parameters = { controls: { include: ['countryList', 'shippingAddressData', 'onSaveHandler','reset'] } };
