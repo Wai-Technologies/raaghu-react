@@ -1805,7 +1805,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
               )}
             </div>
 
-            <div className="d-flex align-items-center right-side-menu top-nav">
+            <div className="d-flex align-items-center right-side-menu top-nav" id="language-dropdown-list">
               <div
                 className={`position-relative px-2 px-md-3 col text-center d-flex align-items-center language`}
               >
@@ -1904,7 +1904,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
 
 
 
-              <div className="position-relative px-2 px-md-1 col text-center  ">
+              <div className="position-relative px-3 px-md-1 col text-center mx-1" id="theme-icon">
                 <RdsDropdownList
                   labelIconWidth="30px"
                   iconFill={true}
@@ -1978,7 +1978,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                           className="avatar bg-light avatar-sm rounded rounded-circle mb-0"
                           src={profilePic}
                         />
-                        <div className="ms-2 fs-6">
+                        <div className="fs-6">
                           <div className="text-nowrap text-start">
                             {props.profileTitle}{" "}
                           </div>
@@ -1987,7 +1987,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
                           </div>
                         </div>
                         <span
-                          className="ms-3"
+                          className="ms-2"
                           style={{
                             transform: isProfileDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                             transition: 'transform 0.2s ease',
