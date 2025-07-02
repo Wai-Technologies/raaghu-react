@@ -138,8 +138,8 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                 : { borderBottom: `2px solid ${props.borderColor}` })
             : {};
 
-          // Add cursor pointer for level 5 items or when there are multiple items in array
-          const shouldShowCursor = props.level === 'Level 5' || props.breadcrumbItems.length > 1;
+          // Add cursor pointer for multiple items in array
+          const shouldShowCursor = props.breadcrumbItems?.length > 1;
           const finalItemStyle = shouldShowCursor 
             ? { ...itemStyle, cursor: 'pointer' }
             : itemStyle;
