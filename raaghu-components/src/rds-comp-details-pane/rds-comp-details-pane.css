@@ -16,9 +16,11 @@ padding: 0;
 border: none;
 }
 
-@media (max-width: 480px) {
+/* Large Mobile responsive - center container */
+@media (min-width: 414px) and (max-width: 834px) {
     .detail-pane-container {
-        width:300px;
+        width:325px;
+        margin: 0 auto;
     }
 }
 
