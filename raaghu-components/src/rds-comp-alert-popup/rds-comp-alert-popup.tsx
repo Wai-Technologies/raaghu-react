@@ -32,7 +32,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
     const type = props.type || "default";
 
     return (
-        <div>
+        <div id="alert-popup-content">
            {(type=="default" || type =="confirm" || type== "transfer_ownership") &&( <RdsModal
                 modalId={props.alertID}
                 modalBackdrop={true} 
@@ -53,7 +53,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             fill={false}
                             stroke={true}
                             colorVariant={colorVariant}
-                            classes={`border-${props.type == "default" ?"danger" :"none"} px-3 py-3  rounded-5`}
+                            classes={`border-${props.type == "default" ? colorVariant :"none"} px-3 py-3  rounded-5`}
                         />
                     </p>
                     <h4>
@@ -73,7 +73,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             size="small"
                             type="button"
                             tooltipTitle=""
-                            colorVariant="danger"
+                            colorVariant={colorVariant}
                             isOutline={true}
                         />
                         <RdsButton
@@ -82,7 +82,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             label={DeleteButtonLabel}
                             size="small"
                             tooltipTitle=""
-                            colorVariant="danger"
+                            colorVariant={colorVariant}
                             databsdismiss="modal"
                             aria-label="close"
                             onClick={props.onSuccess}
@@ -95,7 +95,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             label={props.buttonlabel}
                             size="small"
                             tooltipTitle=""
-                            colorVariant={props.colorVariant}
+                            colorVariant={colorVariant}
                             databsdismiss="modal"
                             aria-label="close"
                             onClick={props.onSuccess}
