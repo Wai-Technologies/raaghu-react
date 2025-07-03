@@ -3753,3 +3753,17 @@ label{
 .calenderHeight .rbc-toolbar button.rbc-active {
     color: #000000 !important;
 }
+/* Dark mode styles for rds-benefit component */
+[data-component="rds-benefit"] svg {
+    color: #dee2e6 !important;
+}
+
+[data-component="rds-benefit"] svg path,
+[data-component="rds-benefit"] svg circle,
+[data-component="rds-benefit"] svg rect,
+[data-component="rds-benefit"] svg line,
+[data-component="rds-benefit"] svg polyline,
+[data-component="rds-benefit"] svg polygon {
+    stroke: #dee2e6 !important;
+    fill: none !important;
+}
