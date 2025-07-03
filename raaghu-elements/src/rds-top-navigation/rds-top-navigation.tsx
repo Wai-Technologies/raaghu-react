@@ -246,11 +246,10 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
         <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item">
           <RdsCompIcon
             colorVariant="primary"
-            height="16px"
+            height="18px"
             isCursorPointer
-            name="profile_picture_square"
-            stroke
-            width="16px"
+            name="profile_new"
+            width="18px"
           />
           <span className="ms-3 fw-medium">My Profile</span>
         </div>
@@ -260,11 +259,10 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
         <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item">
           <RdsCompIcon
             colorVariant="primary"
-            height="16px"
+            height="18px"
             isCursorPointer
-            name="sun_2"
-            stroke
-            width="16px"
+            name="theme_new"
+            width="18px"
           />
           <span className="ms-3 fw-medium">Theme</span>
         </div>
@@ -274,11 +272,10 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
         <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item">
           <RdsCompIcon
             colorVariant="primary"
-            height="16px"
+            height="18px"
             isCursorPointer
-            name="setting"
-            stroke
-            width="16px"
+            name="setting_new"
+            width="18px"
           />
           <span className="ms-3 fw-medium">Setting</span>
         </div>
@@ -288,11 +285,10 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
         <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item">
           <RdsCompIcon
             colorVariant="primary"
-            height="16px"
+            height="18px"
             isCursorPointer
-            name="help"
-            stroke
-            width="16px"
+            name="help_new"
+            width="18px"
           />
           <span className="ms-3 fw-medium">Help</span>
         </div>
@@ -302,11 +298,10 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
         <div className="d-flex align-items-center px-3 py-2 custom-profile-cursor-pointer custom-profile-menu-item" onClick={(e) => onLogout && onLogout(e as any)}>
           <RdsCompIcon
             colorVariant="primary"
-            height="16px"
+            height="18px"
             isCursorPointer
             name="leave_logout"
-            stroke
-            width="16px"
+            width="18px"
           />
           <span className="ms-3 fw-medium">Logout</span>
         </div>
