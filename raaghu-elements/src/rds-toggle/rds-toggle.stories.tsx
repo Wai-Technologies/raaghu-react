@@ -47,7 +47,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsToggle>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         style: ToggleStyle.Style1,
         layout: ToggleLayout.SwitchLabel,
@@ -57,4 +57,4 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: [ "style", "layout", "state", "showLabel", "label"] } };
+Standard.parameters = { controls: { include: [ "style", "layout", "state", "showLabel", "label"] } };

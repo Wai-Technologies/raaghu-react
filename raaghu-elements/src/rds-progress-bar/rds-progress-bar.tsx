@@ -1,6 +1,6 @@
 import React from "react";
 import "./rds-progress-bar.css";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 export interface RdsProgressBarProps {
     colorVariant: string;
     striped?: boolean;
@@ -209,7 +209,7 @@ const RdsProgressBar = (props: RdsProgressBarProps) => {
                                             : 'bg-default'
                                     }`}>
                                         {props.Icon ? (
-                                            <RdsIcon
+                                            <RdsCompIcon
                                                 name={"circle"} // Default icon if none provided
                                                 fill={index % 1 === 0}
                                                 stroke={index % 1 === 1}

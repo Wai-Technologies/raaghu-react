@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
 import './rds-dropdown.css';
 
@@ -117,7 +117,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
           <>
             {props.buttonIcon && (
               <span className="icon-before ">
-                <RdsIcon name={props.buttonIcon} />
+                <RdsCompIcon name={props.buttonIcon} />
               </span>
             )}
             {props.label && <span className="mx-1 ">{props.label}</span>}
@@ -130,7 +130,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
           <>
             {props.buttonIcon && (
               <span className="only-icon ps-2">
-                <RdsIcon name={props.buttonIcon} stroke />
+                <RdsCompIcon name={props.buttonIcon} stroke />
               </span>
             )}
           </>
@@ -206,7 +206,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
       {renderContent()}
       <span className={`ms-2 chevron-icon ${show ? 'chevron-up' : 'chevron-down'}`}> 
         {props.showChevron && (
-          <RdsIcon
+          <RdsCompIcon
             name={show ? "chevron_up" : "chevron_down"}
             height="8px"
             width="12px"
@@ -246,7 +246,7 @@ const RdsDropdown = (props: RdsDropdownProps) => {
                 )}                {/* Display item-specific icon if available, otherwise fallback to selectIcon */}
                 {(listItem.icon || props.selectIcon) && (
                   <span className="me-1">
-                    <RdsIcon
+                    <RdsCompIcon
                       colorVariant="dark"
                       stroke={false}
                       height="20px"

@@ -3,14 +3,14 @@ import {
   RdsButton,
   RdsCheckbox,
   RdsInput,
-  RdsLabel,
-  RdsSelectList,
-  RdsNavtabs,
 } from "../../../raaghu-elements/src";
 import {
   InputSize,
   LabelPosition,
 } from "../../../raaghu-elements/src/rds-input/rds-input";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompNavtabs from "../rds-comp-navtabs";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompAccountProps {
   accountGeneralSettings?: any;
@@ -225,7 +225,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
           <div className="custom-content-scroll">
             <div className="row pt-xxl-3 pt-xl-3 pt-lg-3 pt-md-3 pt-0 ">
               <div className="col-xxl-3 col-xl-3 col-lg-3  d-xxl-block d-xl-block d-lg-block d-md-table d-flex pb-0  pe-xxl-4 pe-xl-4 pe-lg-4 pe-md-4 pe-0">
-                <RdsNavtabs
+                <RdsCompNavtabs
                   navtabsItems={navtabsItems}
                   layout="Vertical"
                   fill={false}
@@ -243,7 +243,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                 {activeNavTabId === "0" && (
                   <>
                     <div className="fw-medium mb-3">
-                      <RdsLabel label="General Settings" size="14px"></RdsLabel>
+                      <RdsCompLabel label="General Settings" size="14px"></RdsCompLabel>
                     </div>
                     <div className="row">
                       <div className="col-md-12 mb-3">
@@ -283,13 +283,13 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                   <>
                     {" "}
                     <div className="fw-medium mb-3">
-                      <RdsLabel
+                      <RdsCompLabel
                         label="Two Factor Authentication"
                         size="14px"
-                      ></RdsLabel>
+                      ></RdsCompLabel>
                     </div>
                     <div className="col-xxl-3 col-xl-3 col-lg-6 col-12 mb-3">
-                      <RdsSelectList
+                      <RdsCompSelectList
                         id="Fea"
                         label="Two Factor"
                         placeholder="Select Option"
@@ -302,7 +302,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                           );
                         }}
                         dataTestId="twofactList"
-                      ></RdsSelectList>
+                      ></RdsCompSelectList>
                     </div>
                     <div className="row">
                       <div className="col-md-12 mb-3">
@@ -325,7 +325,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                   <>
                     <div className="">
                       <div className="fw-medium mb-3">
-                        <RdsLabel label="Captcha" size="14px"></RdsLabel>
+                        <RdsCompLabel label="Captcha" size="14px"></RdsCompLabel>
                       </div>
                       <div className="row">
                         <div className="col-md-12 mb-3">
@@ -385,7 +385,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                           </div>
                         </div>
                         <div className="col-xxl-6 col-xl-6 col-lg-6 col-12">
-                          <RdsSelectList
+                          <RdsCompSelectList
                             id="dis"
                             label="Version"
                             placeholder="Select Version"
@@ -396,7 +396,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                             }}
                             key={`version-${accountGeneralData?.version}`}
                             dataTestId="version-list"
-                          ></RdsSelectList>
+                          ></RdsCompSelectList>
                         </div>
                       </div>
                       <div className="row">
@@ -480,7 +480,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                 externalProvider?.map((item: any, index: number) => (
                   <div className={` ${index == 0 ? "pt-3" : ""}`} key={index}>
                     <div className="fw-medium mb-3">
-                      <RdsLabel label={item?.name}></RdsLabel>
+                      <RdsCompLabel label={item?.name}></RdsCompLabel>
                     </div>
                     <div className="row">
                       <div className="col-md-12 mb-3">

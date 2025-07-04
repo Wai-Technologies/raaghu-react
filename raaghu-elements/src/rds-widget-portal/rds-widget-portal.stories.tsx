@@ -20,7 +20,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsWidgetPortal>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
       btnLabel: "Buy Ticket",
       widgetTitle: "Team",
@@ -31,4 +31,4 @@ export const Default: Story = {
       statusBarMsg: false
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['btnLabel', 'widgetTitle', 'statusMsg', 'subTitle', 'icon', 'btnShow', 'statusBarMsg'] } };
+Standard.parameters = { controls: { include: ['btnLabel', 'widgetTitle', 'statusMsg', 'subTitle', 'icon', 'btnShow', 'statusBarMsg'] } };

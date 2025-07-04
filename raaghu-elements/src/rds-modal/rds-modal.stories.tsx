@@ -126,7 +126,7 @@ const scrollableTemplate = (args:any) => (
   </>
 );
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     modalId: "modal1234",
     modalAnimation: "modal-fade",
@@ -142,7 +142,7 @@ export const Default: Story = {
   render: Template
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'verticallyCentered', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
+Standard.parameters = { controls: { include: ['modalId', 'modalAnimation', 'showModalFooter', 'showModalHeader', 'verticallyCentered', 'modalTitle', 'saveChangesName', 'cancelButtonName', 'modalbutton', 'size'] } };
 
 export const StaticBackdrop: Story = {
   args: {

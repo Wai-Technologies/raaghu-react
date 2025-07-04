@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { RdsInput, RdsButton, RdsDropdownList, RdsLabel } from "../rds-elements";
+import { RdsInput, RdsButton, RdsDropdownList } from "../rds-elements";
 import React from "react";
 import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
 import { useTranslation } from "react-i18next";
+import RdsCompLabel from "../rds-comp-label";
 export interface RdsForgotPasswordProps {
     onForgotPassword?: (email?: string) => void;
     onResend: (isForgotPasswordClicked?: boolean) => void;
@@ -109,11 +110,11 @@ const RdsCompForgotPassword = (props: RdsForgotPasswordProps) => {
                     </div>
                         <div className="fs-6">
                             <label>
-                            <RdsLabel 
+                            <RdsCompLabel 
                                 label="A password reset link will be sent to your email to reset your password. If you don't get an email in a few minutes, please re-try." 
                                 size="13px"
                             >
-                            </RdsLabel>
+                            </RdsCompLabel>
                             </label>
                         </div>
                         <div className="mt-4">

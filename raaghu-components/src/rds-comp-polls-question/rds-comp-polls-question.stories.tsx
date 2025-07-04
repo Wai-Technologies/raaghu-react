@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompPollsQuestion>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
       name: 'default', 
   widgetList: [
@@ -45,7 +45,7 @@ export const Default: Story = {
   ]
     }
 } satisfies Story;
-Default.parameters = { controls: { include: [] } };
+Standard.parameters = { controls: { include: [] } };
 
 
 

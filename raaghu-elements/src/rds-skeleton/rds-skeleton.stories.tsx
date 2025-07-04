@@ -45,7 +45,7 @@ export default meta;
 
 type Story = StoryObj<typeof RdsSkeleton>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     shape: RdsSkeletonShape.RECTANGLE,
     isAnimated: false,
@@ -53,7 +53,7 @@ export const Default: Story = {
   },
 } satisfies Story;
 
-Default.parameters = {
+Standard.parameters = {
   controls: {
     include: ["shape", "isAnimated", "state"],
   },

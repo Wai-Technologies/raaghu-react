@@ -74,7 +74,7 @@ This component is ideal for dashboards, settings panels, user preference forms, 
 export default meta;
 type Story = StoryObj<typeof RdsSlider>;
  
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         colorVariant: ColorVariant.Primary,
         type: SliderType.OneWay,
@@ -86,4 +86,4 @@ export const Default: Story = {
         style: SliderStyle.Default
     },
   } satisfies Story;
-  Default.parameters = { controls: { include: ['type', 'leftLabel', 'rightLabel', 'showLabels', 'level', 'style'] } };
+  Standard.parameters = { controls: { include: ['type', 'leftLabel', 'rightLabel', 'showLabels', 'level', 'style'] } };

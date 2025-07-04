@@ -108,7 +108,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsDropdown>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         id: "1",
         state: "default",
@@ -153,7 +153,7 @@ export const Default: Story = {
         ],
     }
 }
-Default.parameters = { controls: { include: ['state','size','states','style', 'shape', 'layout', 'label', 'showChevron', /*'colorVariant', 'displayType','buttonIcon','disable', 'isSelected', 'selectIcon', 'iconFill', 'iconStroke', 'profileImage', 'tooltip', 'tooltipPlacement', 'tooltipTitle',*/ ] } };
+Standard.parameters = { controls: { include: ['state','size','states','style', 'shape', 'layout', 'label', 'showChevron', /*'colorVariant', 'displayType','buttonIcon','disable', 'isSelected', 'selectIcon', 'iconFill', 'iconStroke', 'profileImage', 'tooltip', 'tooltipPlacement', 'tooltipTitle',*/ ] } };
 
 
 
@@ -198,7 +198,7 @@ Default.parameters = { controls: { include: ['state','size','states','style', 's
 //         ],
 //     }
 // }
-// Default.parameters = { controls: { include: ['state', 'displayType', 'colorVariant', 'layout', 'iconFill', 'iconStroke', 'buttonIcon', 'size', 'label', 'disable', 'isSelected', 'selectIcon', 'profileImage', ] } };
+// Standard.parameters = { controls: { include: ['state', 'displayType', 'colorVariant', 'layout', 'iconFill', 'iconStroke', 'buttonIcon', 'size', 'label', 'disable', 'isSelected', 'selectIcon', 'profileImage', ] } };
 
 // export const LinkButton: Story = {
 //     args: {
@@ -240,7 +240,7 @@ Default.parameters = { controls: { include: ['state','size','states','style', 's
 //     }
 // } satisfies Story;
 
-// Default.parameters = {
+// Standard.parameters = {
 //     controls: {
 //         include: [
 //             'state',

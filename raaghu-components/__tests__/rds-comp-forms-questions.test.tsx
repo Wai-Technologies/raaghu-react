@@ -12,7 +12,7 @@ jest.mock('moment', () => {
 
 // Mock RDS elements
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ 
+  RdsCompIcon: ({ 
     name, 
     onClick, 
     dataTestId,
@@ -81,7 +81,7 @@ jest.mock('../src/rds-elements', () => ({
       {...props}
     />
   ),
-  RdsSelectList: ({ 
+  RdsCompSelectList: ({ 
     selectItems, 
     selectedValue, 
     onChange, 

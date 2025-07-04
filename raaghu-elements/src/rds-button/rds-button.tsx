@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import "./rds-button.css";
 import { RdsButtonProps } from "./rds-button.types";
 import Tooltip, { TooltipStyle } from "../rds-tooltip/rds-tooltip";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 
 export interface ButtonInput {
         id: string;
@@ -210,7 +210,7 @@ const RdsButton = (props: RdsButtonProps) => {
                         >
                             {props.icon && (
                                 <span className={iconClasses()}>
-                                    <RdsIcon
+                                    <RdsCompIcon
                                         name={props.icon}
                                         fill={props.iconFill}
                                         stroke={props.iconStroke}
@@ -250,7 +250,7 @@ const RdsButton = (props: RdsButtonProps) => {
                     >
                         {props.icon && (
                             <span className={iconClasses()}>
-                                <RdsIcon
+                                <RdsCompIcon
                                     name={props.icon}
                                     fill={props.iconFill}
                                     stroke={props.iconStroke}

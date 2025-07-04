@@ -32,7 +32,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsAppDetail>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     iconPosition: IconPosition.Left,
     showUpperBorder: true,
@@ -52,6 +52,6 @@ export const Default: Story = {
     },
   },
 } satisfies Story;
-Default.parameters = {
+Standard.parameters = {
   controls: { include: ["iconPosition", "appDetailsItem", "showUpperBorder"] },
 };

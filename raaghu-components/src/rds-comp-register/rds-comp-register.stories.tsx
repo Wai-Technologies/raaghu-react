@@ -22,12 +22,12 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompRegister>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         register: "default",
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['error', 'getvalidTenantName', 'emailAddress', 'password', 'userName', 'appName', 'onDismissAlert', 'onLogin', 'onRegister', 'currentTenant', 'validTenant', 'onSaveHandler', 'languageData', 'onClickHandler', 'languageLabel', 'registerFields'] } };
+Standard.parameters = { controls: { include: ['error', 'getvalidTenantName', 'emailAddress', 'password', 'userName', 'appName', 'onDismissAlert', 'onLogin', 'onRegister', 'currentTenant', 'validTenant', 'onSaveHandler', 'languageData', 'onClickHandler', 'languageLabel', 'registerFields'] } };
 
 export const Member: Story = {
   args: {

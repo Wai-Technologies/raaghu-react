@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { RdsInput, RdsLabel, RdsButton } from "../rds-elements";
+import { RdsInput, RdsButton } from "../rds-elements";
 import { InputSize } from "../../../raaghu-elements/src/rds-input/rds-input";
 export interface RdsCompUserClaimsProps { 
     userClaimData?: any;

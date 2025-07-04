@@ -25,7 +25,7 @@ export default meta;
 
 type Story = StoryObj<typeof RdsAiChatBot>;
 
-export const Default: Story = {
+export const Standard: Story = {
   render: (args) => {
     const [messages, setMessages] = useState<Message[]>([]);
     return (

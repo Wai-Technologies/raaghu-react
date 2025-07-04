@@ -45,7 +45,7 @@
 //   },
 // ];
 
-// export const Default: ComponentStory<typeof RdsCompFileMover> = (args) => (
+// export const Standard: ComponentStory<typeof RdsCompFileMover> = (args) => (
 //   <RdsCompFileMover {...args} />
 // );
 
@@ -130,7 +130,7 @@ const sampleItems: FileItem[] = [
 export default meta;
 type Story = StoryObj<typeof RdsCompFileMover>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
       items: sampleItems,
         path: (id: string) => {

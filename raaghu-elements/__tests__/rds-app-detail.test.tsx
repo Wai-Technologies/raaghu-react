@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import RdsAppDetail, { RdsAppDetailProps, IconPosition } from "../src/rds-app-detail/rds-app-detail";
 
-// Mock RdsIcon to prevent fetch issues
+// Mock RdsCompIcon to prevent fetch issues
 jest.mock("../src/rds-icon", () => ({
     __esModule: true,
     default: jest.fn(({ name, colorVariant, height, width }) => (

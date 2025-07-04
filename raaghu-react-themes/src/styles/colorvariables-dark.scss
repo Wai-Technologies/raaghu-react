@@ -3710,3 +3710,60 @@ label{
 .accordion-selected .accordion-button {
     background-color: $neutral-400; /* Change this to your desired selected color */
 }
+
+/* Dark mode styles for widget components */
+.card[data-component="rds-widget"]:has(#linechart),
+.card[data-component="rds-widget"]:has(#doughnutchart),
+.card[data-component="rds-widget"]:has(#barchart),
+.card[data-component="rds-widget"]:has(#linechart) .card-body,
+.card[data-component="rds-widget"]:has(#linechart) .card-header,
+.card[data-component="rds-widget"]:has(#doughnutchart) .card-body,
+.card[data-component="rds-widget"]:has(#doughnutchart) .card-header,
+.card[data-component="rds-widget"]:has(#barchart) .card-body,
+.card[data-component="rds-widget"]:has(#barchart) .card-header {
+    background-color: #232933 !important;
+    border-color: #343a40 !important;
+    color: #dee2e6 !important;
+}
+
+.card[data-component="rds-widget"] .border-danger-50 {
+    background-color: #2b3138 !important;
+    border-color: #495057 !important;
+    color: #dee2e6 !important;
+}
+
+.card[data-component="rds-widget"] .border-danger-50 .fw-bold,
+.card[data-component="rds-widget"] .border-danger-50 .text-secondary.fw-medium {
+    color: #dee2e6 !important;
+}
+
+.card[data-component="rds-widget"] p.text-secondary {
+    color: #0d6efd !important;
+}
+
+/* Dark mode styles for calendar toolbar */
+.calenderHeight .rbc-toolbar button {
+    color: #ffffff !important;
+}
+
+.calenderHeight .rbc-toolbar button:hover {
+    color: #000000 !important;
+}
+
+.calenderHeight .rbc-toolbar button.rbc-active {
+    color: #000000 !important;
+}
+/* Dark mode styles for rds-benefit component */
+[data-component="rds-benefit"] svg {
+    color: #dee2e6 !important;
+}
+
+[data-component="rds-benefit"] svg path,
+[data-component="rds-benefit"] svg circle,
+[data-component="rds-benefit"] svg rect,
+[data-component="rds-benefit"] svg line,
+[data-component="rds-benefit"] svg polyline,
+[data-component="rds-benefit"] svg polygon {
+    stroke: #dee2e6 !important;
+    fill: none !important;
+}

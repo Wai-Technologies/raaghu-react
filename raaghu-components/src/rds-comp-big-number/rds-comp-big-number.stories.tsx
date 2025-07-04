@@ -1,0 +1,311 @@
+import React from "react";
+import RdsCompBigNumber from "./rds-comp-big-number";
+import RdsLineChart from "../../../raaghu-elements/src/rds-chart-line";
+import RdsBarChart from "../../../raaghu-elements/src/rds-chart-bar";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import RdsCompIcon from "../rds-comp-icon";
+
+const textAlignArgTypes = {
+    textAlign: {
+        options: ["text-start", "text-center", "text-end"],
+        control: { type: "select"},
+    } as const,
+};
+
+const meta: Meta = {
+    title: 'Components/Big Number',
+    component: RdsCompBigNumber,
+    parameters: {
+        layout: 'padded',
+        docs:{
+            description: {
+  component: `The **Big Number** component is designed to prominently showcase a key numerical value, such as a critical metric or KPI, in a visually impactful way. It allows customization of the main number’s color to fit different semantic contexts like \`primary\`, \`success\`, \`danger\`, or \`warning\`, making it flexible for various UI themes.
+
+Along with the big number itself, the component supports an optional subtitle that can be styled independently, providing additional context or labels to help users understand what the number represents. Text alignment is also configurable, allowing the content to be aligned to \`text-start\`, \`text-center\`, or \`text-end\` to best fit the surrounding layout.
+
+A powerful aspect of this component is its ability to include child elements, which can be anything from icons and delta indicators (such as arrows with percentage changes) to embedded charts. This means you can visually enhance the big number with supplementary information like trend lines, histograms, or symbolic icons, offering a richer and more informative display.
+
+The component integrates seamlessly with line and bar chart components to visualize data trends or distributions directly alongside the numeric value, making it especially useful in dashboards or analytics interfaces where immediate insights are critical. The combination of clear numeric display, contextual subtitles, and integrated visual elements makes the **Big Number** component an effective building block for presenting key data clearly and attractively in any React-based UI.`
+}
+
+        }
+    },
+    tags: ['autodocs'],
+    argTypes: {
+        bigNumberColor: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "danger",
+                "warning",
+                "info",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        }
+    },
+} satisfies Meta<typeof RdsCompBigNumber>;
+
+export default meta;
+type Story = StoryObj<typeof RdsCompBigNumber>;
+
+
+export const Standard: Story = {
+    args: {
+        bigNumber: "$13,20,21",
+        bigNumberColor: "dark",
+        textAlign: "text-start",
+    }
+} satisfies Story;
+Standard.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'textAlign'] } };
+
+Standard.argTypes = textAlignArgTypes;
+
+export const delta: Story = {
+    args: {
+        subTitleColorVariant: "primary",
+        subTitle: "Visitors",
+        bigNumber: "2,236",
+        bigNumberColor: "dark",
+        children: (
+            <>
+                <RdsCompIcon
+                    name="triangle_up"
+                    fill={true}
+                    stroke={true}
+                    width="15px"
+                    height="15px"
+                    colorVariant="primary"
+                    isCursorPointer={true}
+                />
+                <label className="ps-2 text-primary fs-5">75%</label>
+            </>
+        ),
+    },
+    argTypes: {
+        subTitleColorVariant: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "danger",
+                "warning",
+                "info",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        },
+    }
+} satisfies Story;
+delta.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
+
+export const histogram: Story = {
+    args: {
+        subTitleColorVariant: "primary",
+        subTitle: "Average Numbers Of Visitors",
+        bigNumber: "2,236",
+        bigNumberColor: "dark",
+        chartHeight: 50,
+        chartWidth: 50,
+        children: (
+            <RdsBarChart
+                id="histogram"
+                dataSets={[
+                    {
+                        label: "Sales Growth",
+                        data: [15, 67, 34, 78, 45, 87, 76, 32, 50, 14, 35, 22],
+                        backgroundColor: "rgba(54, 162, 235, 1)",
+                        borderColor: "rgba(54, 162, 245, 1)",
+                        borderWidth: 1,
+                        borderRadius: 10,
+                        barThickness: 4,
+                        borderSkipped: false,
+                    },
+                ]}
+                labels={["10k", "20k", "25k", "30k", "40k", "50k", "60k"]}
+                options={{
+                    indexAxis: "x",
+                    elements: {
+                        bar: {
+                            borderWidth: 0,
+                            width: 1,
+                        },
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: {
+                            enabled: false, // <-- this option disables tooltips
+                        },
+                    },
+                    scales: {
+                        y: {
+                            display: false,
+                        },
+                        x: {
+                            display: false,
+                        },
+                    },
+                }}
+            />
+        ),
+    },
+    argTypes: {
+        subTitleColorVariant: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "danger",
+                "warning",
+                "info",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        },
+    }
+} satisfies Story;
+histogram.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle', 'chartHeight', 'chartWidth'] } };
+
+export const icon: Story = {
+    args: {
+        subTitleColorVariant: "primary",
+        subTitle: "Visitors",
+        bigNumber: "2,236",
+        bigNumberColor: "dark",
+        children: (
+            <RdsCompIcon
+                name="users"
+                fill={false}
+                stroke={true}
+                width="50px"
+                height="50px"
+                colorVariant="primary"
+                isCursorPointer={true}
+            />
+        ),
+    },
+    argTypes: {
+        subTitleColorVariant: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "danger",
+                "warning",
+                "info",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        },
+    }
+} satisfies Story;
+icon.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
+
+export const sparkLine: Story = {
+    args: {
+        subTitleColorVariant: "primary",
+        subTitle: "Visitors",
+        bigNumber: "2,236",
+        bigNumberColor: "dark",
+        chartHeight: 50,
+        chartWidth: 50,
+        children: (
+            <RdsLineChart
+                id="linechart2"
+                labels={["Jan", "Feb", "Mar", "Apr"]}
+                options={{
+                    radius: 0,
+                    pointStyle: "circle",
+                    responsive: true,
+                    borderWidth: 1,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: false,
+                        },
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: { enabled: false },
+                    },
+                    scales: {
+                        y: {
+                            display: false,
+                        },
+                        x: {
+                            display: false,
+                        },
+                    },
+                    tooltip: {
+                        display: false,
+                        usePointStyle: true,
+                    },
+                }}
+                dataSets={[
+                    {
+                        label: "",
+                        data: [0, 3, -3, 3],
+                        borderColor: "#4DCFFF",
+                        fill: false,
+                        pointRadius: 2,
+                        cubicInterpolationMode: "monotone",
+                        tension: 0.4,
+                    },
+                ]}
+            />
+        ),
+    },
+    argTypes: {
+        subTitleColorVariant: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "danger",
+                "warning",
+                "info",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        },
+    }
+} satisfies Story;
+sparkLine.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle', 'chartHeight', 'chartWidth'] } };
+
+export const Basic: Story = {
+    args: {
+        subTitleColorVariant: "primary",
+        subTitle: "Visitors",
+        bigNumber: "2,236",
+        bigNumberColor: "dark",
+        children: <></>
+    },
+    argTypes: {
+        subTitleColorVariant: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "danger",
+                "warning",
+                "info",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        },
+    }
+} satisfies Story;
+Basic.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
+
+

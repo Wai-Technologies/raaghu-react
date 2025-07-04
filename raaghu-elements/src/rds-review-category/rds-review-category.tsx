@@ -1,7 +1,7 @@
 import React from "react";
 import RdsAvatar from "../rds-avatar";
-import RdsLabel from "../rds-label";
-import RdsLikeDislike from "../rds-like-dislike";
+import RdsCompLabel from "../../../raaghu-components/src/rds-comp-label";
+import RdsCompLikeDislike from "../../../raaghu-components/src/rds-comp-like-dislike";
 import RdsRating from "../rds-rating";
 import "./rds-review-category.css";
 import { ColorVariant, RatingStyle, RatingType } from "../rds-rating/rds-rating";
@@ -30,7 +30,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                         <div className="col-md-2">
                             <div className="d-flex justify-content-start align-items-start flex-column gap-5 sm-gap-0">
                                 <div>
-                                    <RdsLabel
+                                    <RdsCompLabel
                                         label={props.item.name}
                                         multiline={false}
                                         fontWeight="bold"
@@ -46,7 +46,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                     )}
                                 </div>
                                 {props.item.likes && props.item.dislikes && <div>
-                                    <RdsLikeDislike
+                                    <RdsCompLikeDislike
                                         like={props.item.likes}
                                         dislike={props.item.dislikes}
                                     />
@@ -65,13 +65,13 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                             </div>
                         </div>}
                         <div className="col-md-6">
-                            <RdsLabel
+                            <RdsCompLabel
                                 label={props.item.reviewTitle}
                                 multiline={true}
                                 fontWeight="bold"
                             />
-                            <RdsLabel label={props.item.reviewSubTitle} multiline={true} />
-                            <RdsLabel label={props.item.description} multiline={true} />
+                            <RdsCompLabel label={props.item.reviewSubTitle} multiline={true} />
+                            <RdsCompLabel label={props.item.description} multiline={true} />
                         </div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                 />
                             </div>
                             <div>
-                                <RdsLabel
+                                <RdsCompLabel
                                     label={props.item.name}
                                     multiline={false}
                                     fontWeight="bold"
@@ -105,20 +105,20 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                                 />
                             </div>}
                             {props.item.likes && props.item.dislikes && <div className="mt-3">
-                                <RdsLikeDislike
+                                <RdsCompLikeDislike
                                     like={props.item.likes}
                                     dislike={props.item.dislikes}
                                 />
                             </div>}
                         </div>
                         <div className="col-12 col-lg-8 col-md-7 ">
-                            <RdsLabel
+                            <RdsCompLabel
                                 label={props.item.reviewTitle}
                                 multiline={true}
                                 fontWeight="bold"
                             />
-                            <RdsLabel label={props.item.reviewTitle} multiline={true} />
-                            <RdsLabel label={props.item.description} multiline={true} />
+                            <RdsCompLabel label={props.item.reviewTitle} multiline={true} />
+                            <RdsCompLabel label={props.item.description} multiline={true} />
                         </div>
                     </div>
                 </div>
@@ -137,7 +137,7 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                             </div>
                             <div>
                                 <div>
-                                    <RdsLabel
+                                    <RdsCompLabel
                                         label={props.item.name}
                                         multiline={false}
                                         fontWeight="bold"
@@ -155,10 +155,10 @@ const RdsReviewCategory = (props: RdsReviewCategoryProps) => {
                             </div>
                         </div>
                         <div className="description mt-1">
-                            <RdsLabel label={props.item.description} multiline={true} />
+                            <RdsCompLabel label={props.item.description} multiline={true} />
                         </div>
                         {props.item.likes && props.item.dislikes && <div className="mt-2">
-                            <RdsLikeDislike
+                            <RdsCompLikeDislike
                                 like={props.item.likes}
                                 dislike={props.item.dislikes}
                             />

@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsPaymentSummary>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
       summaryDetailsList : 
             {
@@ -40,4 +40,4 @@ export const Default: Story = {
             }
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['summaryDetailsList'] } };
+Standard.parameters = { controls: { include: ['summaryDetailsList'] } };

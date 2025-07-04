@@ -86,7 +86,7 @@ jest.mock('../src/rds-elements', () => ({
     >
       {label}
     </button>
-  ),  RdsSelectList: ({ 
+  ),  RdsCompSelectList: ({ 
     id, 
     label, 
     placeholder, 
@@ -364,7 +364,7 @@ describe('RdsCompBillingAddress', () => {
     fireEvent.change(screen.getByTestId('city'), { target: { value: 'London' } });
     fireEvent.change(screen.getByTestId('postal-code'), { target: { value: 'SW1A 1AA' } });
     
-    // For RdsSelectList we need to simulate the selection properly based on how our mock works
+    // For RdsCompSelectList we need to simulate the selection properly based on how our mock works
     // Our mock calls onChange with {value: selectedValue} when the select changes
     const countrySelect = screen.getByTestId('select-country');
     fireEvent.change(countrySelect, { target: { value: 'UK' } });
@@ -413,7 +413,7 @@ describe('RdsCompBillingAddress', () => {
     fireEvent.change(screen.getByTestId('city'), { target: { value: 'Mumbai' } });
     fireEvent.change(screen.getByTestId('postal-code'), { target: { value: '400001' } });
     
-    // For RdsSelectList we need to simulate the selection properly
+    // For RdsCompSelectList we need to simulate the selection properly
     fireEvent.change(screen.getByTestId('select-country'), { target: { value: 'IN' } });
     
     // Focus on state selection for this test

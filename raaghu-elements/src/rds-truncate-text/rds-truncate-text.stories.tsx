@@ -43,7 +43,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof TruncatedText>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     state: TruncateTextState.Hover,
     text: 'This is a sample text.',
@@ -67,6 +67,6 @@ export const Default: Story = {
 //   },
 // } satisfies Story;
 
-Default.parameters = {
+Standard.parameters = {
   controls: { include: ['state', 'text', 'maxLength'] },
 };

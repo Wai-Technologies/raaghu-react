@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 //import "react-quill/dist/quill.snow.css";
-import RdsLabel from "../rds-label";
+import RdsCompLabel from "../../../raaghu-components/src/rds-comp-label";
 import "../../../raaghu-react-themes/src/styles/quillEditor.scss";
 //import "./rds-text-editor.css";
  
@@ -67,7 +67,7 @@ const RdsTextEditor = (props: RdsTextEditorProps) => {
  
     return (
         <>
-            <RdsLabel label={props.label} required={props.isMandatory} class={"mb-2 " + props.labelClass}></RdsLabel>
+            <RdsCompLabel label={props.label} required={props.isMandatory} class={"mb-2 " + props.labelClass}></RdsCompLabel>
             <ReactQuill
             theme="snow"
             bounds={props.bounds}

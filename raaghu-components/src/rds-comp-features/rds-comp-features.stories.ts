@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompFeatures>;
  
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         featuresData: [
             {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RdsBigNumber, RdsProgressBar, RdsRadarChart, RdsTable, RdsWidget } from "../rds-elements";
+import { RdsProgressBar, RdsRadarChart, RdsWidget } from "../rds-elements";
 import {
     RdsLineChart,
     RdsDoughnutChart,
@@ -7,6 +7,8 @@ import {
     RdsBarChart
 } from "../rds-elements";
 import { ScriptableContext } from "chart.js";
+import RdsCompBigNumber from "../rds-comp-big-number";
+import RdsCompTable from "../rds-comp-table";
 
 const RdsCompTenantDashboard = () => {
 
@@ -217,7 +219,7 @@ const RdsCompTenantDashboard = () => {
                     <RdsWidget
                         headerTitle="License"
                         isCardStretch={true}>
-                        <RdsBigNumber bigNumber="10"></RdsBigNumber>
+                        <RdsCompBigNumber bigNumber="10"></RdsCompBigNumber>
                         <RdsRadarChart
                             id="newRadar"
                             labels={["Jan", "Feb", "Mar", "Apr", "May", "June", "July"]}
@@ -365,7 +367,7 @@ const RdsCompTenantDashboard = () => {
                         isCardStretch={true}
                     >
                         <div>
-                            <RdsBigNumber bigNumber="$39,330"></RdsBigNumber>
+                            <RdsCompBigNumber bigNumber="$39,330"></RdsCompBigNumber>
                             <div className="col col-sm-12">
                                 <RdsDoughnutChart
                                     id="doughnutchart"
@@ -655,7 +657,7 @@ const RdsCompTenantDashboard = () => {
                                    
 
                                 >
-                                    <RdsBigNumber bigNumber="$8,425"></RdsBigNumber>
+                                    <RdsCompBigNumber bigNumber="$8,425"></RdsCompBigNumber>
                                     <RdsLineChart
 
                                         id="linechart1"
@@ -1209,7 +1211,7 @@ const RdsCompTenantDashboard = () => {
                                         isCardStretch={true}
                                     >
                                         <div className="table-responsive">
-                                            <RdsTable
+                                            <RdsCompTable
                                                 tableHeightForScroll="356px"
                 
                                                 headerDatas={[
@@ -1482,7 +1484,7 @@ const RdsCompTenantDashboard = () => {
                                                         ),
                                                     },
                                                 ]}
-                                            ></RdsTable>
+                                            ></RdsCompTable>
                                         </div>
                                     </RdsWidget>
                 </div>
@@ -1495,7 +1497,7 @@ const RdsCompTenantDashboard = () => {
                         isCardStretch={true}
                     >
                         <div className="table-responsive">
-                            <RdsTable id="sortable"
+                            <RdsCompTable id="sortable"
 
                                 headerDatas={[
                                     {
@@ -1695,7 +1697,7 @@ const RdsCompTenantDashboard = () => {
                                         ),
                                     },
                                 ]}
-                            ></RdsTable>
+                            ></RdsCompTable>
                         </div>
                     </RdsWidget>
                 </div>

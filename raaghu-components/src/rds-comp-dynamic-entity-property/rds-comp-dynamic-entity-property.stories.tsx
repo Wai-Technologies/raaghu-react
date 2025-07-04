@@ -24,7 +24,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompDynamicEntityProperty>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
 
         parameterList: [
@@ -56,5 +56,5 @@ export const Default: Story = {
         },]
     }
 } satisfies Story;
-//Default.parameters = { controls: { include: ['initialSelectedItems', 'parameterList', 'entityNames'] } };
+//Standard.parameters = { controls: { include: ['initialSelectedItems', 'parameterList', 'entityNames'] } };
 

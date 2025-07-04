@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import { RdsButton, RdsCounter, RdsInput, RdsPlandiscount, RdsRadioButton } from "../rds-elements";
+import { RdsButton, RdsCounter, RdsInput, RdsRadioButton } from "../rds-elements";
 import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
+import RdsCompPlandiscount from "../rds-comp-plan-discount";
 export interface RdsCompPaymentCardProps {
   paymentCardData?: any;
   onSaveHandler?: (data: any) => void;
@@ -458,7 +459,7 @@ const RdsCompPaymentCard = (props: RdsCompPaymentCardProps) => {
                   />
                 </div>
                 <div className="col-md-4">
-                  {data.discountPercentage > 0 && (<RdsPlandiscount discount={data.discountPercentage} saveLabel={data.saveLabel} discountValue={data.discountAmount} />)}
+                  {data.discountPercentage > 0 && (<RdsCompPlandiscount discount={data.discountPercentage} saveLabel={data.saveLabel} discountValue={data.discountAmount} />)}
                 </div>
               </div>
             ))}

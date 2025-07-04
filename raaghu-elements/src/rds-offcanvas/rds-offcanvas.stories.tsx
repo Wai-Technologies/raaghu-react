@@ -43,7 +43,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsOffcanvas>;
 
-export const CustomSlideOutOffcanvas: Story = {
+export const Standard: Story = {
   args: {
     offId: "canvasExample",
     canvasTitle: "NEW TENENT",
@@ -78,4 +78,4 @@ export const CustomSlideOutOffcanvas: Story = {
     ),
   },
 } satisfies Story;
-CustomSlideOutOffcanvas.parameters = { controls: { include: ['showPrimaryButton', 'showSecondaryButton', 'showTertiaryButton'] } };
+Standard.parameters = { controls: { include: ['showPrimaryButton', 'showSecondaryButton', 'showTertiaryButton'] } };

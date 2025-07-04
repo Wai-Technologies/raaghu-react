@@ -21,12 +21,12 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompFormsBasic>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         forms: "basic",
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['basicInfo', 'handleNewFormData', 'questions', 'reset'] } };
+Standard.parameters = { controls: { include: ['basicInfo', 'handleNewFormData', 'questions', 'reset'] } };
 
 export const Email: Story = {
     args: {

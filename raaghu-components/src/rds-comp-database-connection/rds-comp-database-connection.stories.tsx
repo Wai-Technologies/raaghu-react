@@ -49,7 +49,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompDatabaseConnection>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         
     }

@@ -11,7 +11,7 @@ interface CacheItem {
 
 // Mock the dependencies
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ 
+  RdsCompIcon: ({ 
     name, 
     tooltipTitle, 
     width, 

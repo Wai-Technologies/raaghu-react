@@ -12,14 +12,14 @@ jest.mock('../../raaghu-elements/src/rds-rating/rds-rating', () => ({
 
 // Mock the dependencies
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: ({ label, size }: any) => <div data-testid="rds-label" data-size={size}>{label}</div>,
+  RdsCompLabel: ({ label, size }: any) => <div data-testid="rds-comp-label" data-size={size}>{label}</div>,
   RdsBadge: ({ label, size, shape, colorVariant, children }: any) => (
     <div data-testid="rds-badge" data-color={colorVariant} data-shape={shape} data-size={size}>
       {label}
       {children}
     </div>
   ),
-  RdsIcon: ({ name, colorVariant, height, width, fill, stroke, onClick }: any) => (
+  RdsCompIcon: ({ name, colorVariant, height, width, fill, stroke, onClick }: any) => (
     <div 
       data-testid={`rds-icon-${name}`} 
       data-color={colorVariant} 
@@ -34,8 +34,8 @@ jest.mock('../src/rds-elements', () => ({
       Rating: {rating}
     </div>
   ),
-  RdsColorSwitcher: ({ itemList }: any) => (
-    <div data-testid="rds-color-switcher">
+  RdsCompColorSwitcher: ({ itemList }: any) => (
+    <div data-testid="rds-comp-color-switcher">
       {itemList && itemList.map((item: any) => (
         <div key={item.id} data-color={item.color}></div>
       ))}
@@ -104,7 +104,7 @@ describe('RdsCompProductImage', () => {
     expect(screen.getByText('Available Colors')).toBeInTheDocument();
     
     // Check color switcher
-    expect(screen.getByTestId('rds-color-switcher')).toBeInTheDocument();
+    expect(screen.getByTestId('rds-comp-color-switcher')).toBeInTheDocument();
     
     // Check cost
     expect(screen.getByText('$35')).toBeInTheDocument();
@@ -209,7 +209,7 @@ describe('RdsCompProductImage', () => {
     const itemWithoutColorSwitcher = { ...defaultItem, ColorSwitcherList: undefined };
     render(<RdsCompProductImage item={itemWithoutColorSwitcher} />);
     
-    expect(screen.queryByTestId('rds-color-switcher')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('rds-comp-color-switcher')).not.toBeInTheDocument();
   });
 
   it('should not render badge when badgeWithIcon is not provided', () => {

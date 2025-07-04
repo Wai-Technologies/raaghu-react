@@ -85,7 +85,7 @@ export default meta;
 
 type Story = StoryObj<typeof RdsCounter>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         counterValue: 0,
         min: 0,
@@ -103,6 +103,6 @@ export const Default: Story = {
     },
 };
 
-Default.parameters = { controls: { include: [/*'min', 'max', 'width', 'colorVariant',*/ 'layout', 'state', 'titleText', 'isMandatory', 'placeholder', 'showTitle',/*'position'*/] } };
+Standard.parameters = { controls: { include: [/*'min', 'max', 'width', 'colorVariant',*/ 'layout', 'state', 'titleText', 'isMandatory', 'placeholder', 'showTitle',/*'position'*/] } };
 
 

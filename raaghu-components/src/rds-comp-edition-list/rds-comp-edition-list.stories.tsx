@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompEditionList>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         tableHeaders: [
             { displayName: "Edition Name", key: "editionName", datatype: "text", sortable: true },

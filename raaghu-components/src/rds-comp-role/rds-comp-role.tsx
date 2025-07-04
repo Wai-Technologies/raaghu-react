@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { RdsLabel, RdsInput, RdsCheckbox, RdsButton } from "../rds-elements";
+import { RdsInput, RdsCheckbox, RdsButton } from "../rds-elements";
 import { InputSize, LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompRoleProps {
     roleData: any;
@@ -67,10 +68,10 @@ const isFormValid = isRoleNameValid(roleData?.displayName);
                                         }}
                                     ></RdsCheckbox>
                                     <div className="fw-normal opacity-50 mt-1">
-                                        <RdsLabel
+                                        <RdsCompLabel
                                             label="Assign to new users by default"
                                             size="14px"
-                                        ></RdsLabel>
+                                        ></RdsCompLabel>
                                     </div>
                                 </div>
                             </div>

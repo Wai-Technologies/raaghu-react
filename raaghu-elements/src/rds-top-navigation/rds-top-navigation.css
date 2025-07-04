@@ -1,0 +1,274 @@
+/* .title {
+  font-size: 19px;
+}
+
+.min-width {
+  width: 269%;
+}
+
+.breadcrumd-ps {
+  left: 150px;
+  position: relative;
+} */
+
+.dropdown-menu[data-bs-popper] {
+  transform: translateY(14px);
+}
+
+.dropdown-list {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.border-start-custom {
+  border-left: 2px solid #dee2e6;
+  min-height: 16px;
+  
+}
+
+.breadcrumb-item.active a {
+  color: #7e2eef;
+}
+
+.breadcrumb-item a,
+.theme-light .breadcrumb-items a {
+  color: #6c757d;
+}
+
+.col {
+  flex: none !important;
+}
+.custom-logo-font {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+/* Add size constraints for logo images to prevent large display */
+.sidenav-logo,
+.sidenav-mobile-logo,
+.cursor-pointer[alt="logo"],
+.cursor-pointer[alt="raaghu-logo"] {
+  max-width: 120px;
+  height: auto;
+}
+
+/* Common adjustments -  */
+.light-shadow { box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important; }
+
+/* Custom Profile Dropdown Styles */
+.custom-profile-menu-item {
+  transition: background-color 0.2s ease;
+  border-radius: 8px;
+  margin: 1px 0;
+  display: flex;           
+  align-items: center;     
+  gap: 0px; 
+}
+.custom-profile-menu-item span 
+{  
+  margin-left: -4px;  
+}
+.custom-profile-menu-item > span:last-child {
+  margin-left: 10px !important;
+}
+
+.custom-profile-menu-item:hover {
+  background-color: #f8f9fa;
+}
+
+.custom-profile-cursor-pointer {
+  cursor: pointer;
+}
+
+/* Border around the entire profile dropdown */
+.profile-dropdown-border {
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 220px;
+  max-height: none;
+  overflow-y: visible;
+}
+
+/* Separator line between menu items */
+.profile-menu-separator {
+  height: 1px;
+  background-color: #d1d5db;
+  margin: 2px 0;
+}
+
+/* Custom dropdown menu positioning and styling */
+.custom-profile-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  margin-top: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: #ffffff !important;
+  padding: 0 !important;
+}
+
+.custom-profile-dropdown .dropdown-menu {
+  position: static !important;
+  display: block !important;
+  float: none !important;
+  width: 280px !important;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: #ffffff !important;
+  padding: 0 !important;
+  overflow-y: auto;
+}
+
+#dropdown-list-theme li{
+  border-bottom: 1px solid #e1e3ea;
+}
+#notification-list .notification-card{
+    padding: 0px !important;
+    border-radius: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+    position: relative;
+    box-shadow: 2px 8px 16px 0px rgba(60, 60, 60, 0.12) !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+#notification-list .notification-card:hover {
+    box-shadow: 4px 12px 24px 0px rgba(60, 60, 60, 0.18) !important;
+    transform: translateY(-2px);
+    
+}
+
+#notification-list .notification-header {
+   
+    justify-content: space-between;
+    position: relative ;
+    text-align: start !important;
+    margin-left: 10px !important;
+}
+
+#notification-list .notification-dismiss-icon{
+    position: absolute;
+    top: 5px !important;
+    right: 0.5rem !important;
+}
+
+#notification-list .layout-horizontal .notification-header, .layout-horizontal .notification-body, .layout-horizontal .notification-footer
+ {
+    display: flex;
+    align-items: center;
+    text-align: start !important;
+    margin-left: 10px !important;
+    font-size: 13px !important;
+}
+
+/* #notification-list .notification-card:first-child { */
+    /* background: linear-gradient(135deg, #f8f9ff 0%, #EBDCFF 100%) !important; */
+    /* background-color: #EBDCFF; */
+    /* border-left: 4px solid #7e2eef !important; */
+/* } */
+
+/* Optional: Add a subtle highlight to the first notification */
+/* #notification-list .notification-card:first-child:hover {
+    background: linear-gradient(135deg, #EBDCFF 0%, #e8f0ff 100%) !important;
+} */
+
+/* Second notification card hover */
+/* #notification-list .notification-card:nth-child(2):hover {
+    background: linear-gradient(135deg, #EBDCFF 0%, #e8f0ff 100%) !important;
+} */
+
+/* Third notification card hover */
+/* #notification-list .notification-card:nth-child(3):hover {
+    background: linear-gradient(135deg, #EBDCFF 0%, #e8f0ff 100%) !important;
+} */
+
+/* Fourth notification card hover */
+/* #notification-list .notification-card:nth-child(4):hover {
+   background: linear-gradient(135deg, #EBDCFF 0%, #e8f0ff 100%) !important;
+} */
+
+/* Fifth and beyond notification cards hover (fallback) */
+/* #notification-list .notification-card:nth-child(n+5):hover {
+   background: linear-gradient(135deg, #EBDCFF 0%, #e8f0ff 100%) !important;
+} */
+
+/* Target only the notification bell icon SVG */
+/* .icon-tooltip-wrapper {
+  color: red !important;
+} */
+
+/* Alternative: Target the wrapper within notification container only when dropdown is open */
+/* #notification-list .notification-dropdown-container.dropdown-open .icon-tooltip-wrapper {
+  color: #7e2eef !important;
+} */
+
+/* Alternative shorter syntax */
+#notification-list.notification-dropdown-container.dropdown-open .icon-tooltip-wrapper {
+  color: #7e2eef !important;
+}
+
+/* Default state - original color when dropdown is closed */
+/* .notification-dropdown-container .icon-tooltip-wrapper {
+  color: #7D7D7D !important;
+  transition: color 0.3s ease;
+} */
+
+/* Target the SVG within the icon wrapper */
+
+/* #notification-list .icon-tooltip-wrapper {
+  color: #7e2eef !important;
+} */
+
+
+
+@media (min-width: 1200px) {
+    .justify-content-xl-between {
+        justify-content: space-between !important;
+        gap: 10px;
+    }
+    #list-version .d-flex.align-items-center.justify-content-xxl-between.justify-content-xl-between.justify-content-lg-between.justify-content-md-between.justify-content-between{
+  gap: 10px ;
+}
+}
+
+@media (min-width: 992px) {
+    .justify-content-lg-between {
+        justify-content: space-between !important;
+   
+    }
+      #list-version .d-flex.align-items-center.justify-content-xxl-between.justify-content-xl-between.justify-content-lg-between.justify-content-md-between.justify-content-between{
+  gap: 10px ;
+      }
+}
+
+
+#dropdown-list-language div.d-flex.align-items-center.justify-content-xxl-between.justify-content-xl-between.justify-content-lg-between.justify-content-md-between.justify-content-between{
+gap: 12px;
+}
+
+#theme-icon .dropdown.w-100.mt-1.d-flex{
+  padding-top: 2.5px !important;
+  
+}
+
+#theme-icon svg#a{
+  height: 18px !important;
+  width: 18px !important;
+}
+
+#language-dropdown-list .position-relative.px-2.px-md-3.col.text-center.d-flex.align-items-center.language{
+padding-top: 8px !important;
+
+}
+
+#language-dropdown-list .position-relative.px-2.px-md-3.col.text-center.d-flex.align-items-center.language .dw-placeholder{
+color: #353535;
+}
+
+

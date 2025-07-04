@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { RdsButton, RdsIcon, RdsInput, RdsLabel, RdsNavtabs, RdsTextArea, RdsTextEditor } from "../rds-elements";
-import RdsCompDatatable from "../rds-comp-data-table";
-import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import { RdsButton, RdsInput, RdsTextArea, RdsTextEditor } from "../rds-elements";
+import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
+import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompNavtabs from "../rds-comp-navtabs";
 
 export interface RdsCompPageProps {
   newPageData?: any;
@@ -116,7 +119,7 @@ const RdsCompPage = (props: RdsCompPageProps) => {
                   ></RdsInput>
                 </div>
               </div>
-              <RdsNavtabs
+              <RdsCompNavtabs
                 type="tabs"
                 activeNavtabOrder={handleractiveNavtabOrder}
                 activeNavTabId={"content"}
@@ -210,7 +213,7 @@ const RdsCompPage = (props: RdsCompPageProps) => {
         </>
       )}
       {props.type == "pages" && (
-        <RdsCompDatatable
+        <RdsDatatable
           actionPosition={ActionPosition.Right}
           tableHeaders={props.tableHeaders}
           actions={props.actions}
@@ -219,7 +222,7 @@ const RdsCompPage = (props: RdsCompPageProps) => {
           pagination={props.pagination!}
           recordsPerPage={props.recordsPerPage}
           onActionSelection={props.onActionSelection!}
-        ></RdsCompDatatable>
+        ></RdsDatatable>
       )}
       {props.type == "pageNotFound" && (
             <div className="row">
@@ -229,23 +232,23 @@ const RdsCompPage = (props: RdsCompPageProps) => {
                     <div className="mt-mb-custom text-center">
                         <h1 className="pb-1">
                             <b>
-                                <RdsLabel label="Page not found"></RdsLabel>
+                                <RdsCompLabel label="Page not found"></RdsCompLabel>
                             </b>
                         </h1>
-                        <RdsLabel
+                        <RdsCompLabel
                             label="Sorry, we couldn't find the page you were looking for."
                             class="text-muted fw-medium mb-3" 
-                        ></RdsLabel>
+                        ></RdsCompLabel>
                         <p className="mb-0 pt-4">
                             <a className="go-back-home text-primary" href="#">
                                 <span className="me-2">Go back home</span>
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="right"
                                     fill={false}
                                     stroke={true}
                                     width="16px"
                                     height="16px"
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </a>
                         </p>
                     </div>

@@ -4,7 +4,6 @@ import {
   RdsButton,
   RdsTextArea,
   RdsFileUploader,
-  RdsLabel,
 } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import { FileUploaderStyle, Size } from "../../../raaghu-elements/src/rds-file-uploader/rds-file-uploader";

@@ -21,10 +21,10 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompContactUs>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {}
 } satisfies Story;
-//Default.parameters = { controls: { include: [] } };
+//Standard.parameters = { controls: { include: [] } };
 
 
 

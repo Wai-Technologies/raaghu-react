@@ -1,11 +1,11 @@
 import React from "react";
 import {
-    RdsIcon,
     RdsButton,
-    RdsButtonGroup,
 } from "../rds-elements";
 import "./rds-comp-organization-tree.css";
-import { Role } from "../../../raaghu-elements/src/rds-button-group/rds-button-group";
+import RdsCompButtonGroup from "../rds-comp-button-group";
+import { Role } from "../rds-comp-button-group/rds-comp-button-group";
+import RdsCompIcon from "../rds-comp-icon";
 export interface RdsCompOrganizationTreeProps {
     counter?: number;
     nodeColor: any[];
@@ -174,23 +174,23 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
                                             <div className="d-flex">
                                                 <span className="mbdropdown mt-1">
                                                     {hasChildren && (
-                                                        <RdsIcon
+                                                        <RdsCompIcon
                                                             name="plussquare"
                                                             fill={false}
                                                             stroke={true}
                                                             height="14px"
                                                             width="14px"
 
-                                                        ></RdsIcon>)}
+                                                        ></RdsCompIcon>)}
                                                     {lastnode && (
-                                                        <RdsIcon
+                                                        <RdsCompIcon
                                                             name="minussquare"
                                                             fill={false}
                                                             stroke={true}
                                                             height="14px"
                                                             width="14px"
 
-                                                        ></RdsIcon>)}
+                                                        ></RdsCompIcon>)}
                                                 </span>
                                                 <span className="ms-2 node-label d-flex">
                                                     <div className="NodeLabel">
@@ -201,7 +201,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
                                                         </div>
                                                     </div>
                                                     <span className=" node-icon1 btn-group-size pb-0 spacingbetweenbtn">
-                                                        <RdsButtonGroup
+                                                        <RdsCompButtonGroup
                                                             buttonGroupItems={buttonGroupList}
                                                             colorVariant="primary"
                                                             isOutline={true}
@@ -224,7 +224,7 @@ const RdsCompOrganizationTree = (props: RdsCompOrganizationTreeProps) => {
                                                 data-bs-boundary="clippingParents"
                                                 id="dropdownMenuButton"
                                                 data-testid="action-btn">
-                                                <RdsIcon
+                                                <RdsCompIcon
                                                     name={"three_dots"}
                                                     height="14px"
                                                     width="14px"

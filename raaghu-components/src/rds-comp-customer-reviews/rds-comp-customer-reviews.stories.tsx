@@ -46,7 +46,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompCustomerReviews>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         itemList: [
                     { value: 1, count: 1017 },

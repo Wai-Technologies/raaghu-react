@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
-import { RdsButton, RdsCounter, RdsRadioButton, RdsPlandiscount } from "../rds-elements";
+import { RdsButton, RdsCounter, RdsRadioButton } from "../rds-elements";
+import RdsCompPlandiscount from "../rds-comp-plan-discount";
 
 export interface RdsCompPaymentProps {
   paymentTenure?: any;
@@ -100,7 +101,7 @@ const RdsCompPaymentTenure = (props: RdsCompPaymentProps) => {
                   />
                 </div>
                 <div className="col-md-4">
-                  {data.discountPercentage > 0 && (<RdsPlandiscount discount={data.discountPercentage} saveLabel={data.saveLabel} discountValue={data.discountAmount} />)}
+                  {data.discountPercentage > 0 && (<RdsCompPlandiscount discount={data.discountPercentage} saveLabel={data.saveLabel} discountValue={data.discountAmount} />)}
                 </div>
               </div>
             ))}

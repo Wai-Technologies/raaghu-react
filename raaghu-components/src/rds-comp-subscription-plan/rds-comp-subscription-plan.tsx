@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./rds-comp-subscription-plan.css";
-import { RdsIcon, RdsPlanSwitcher, RdsCard } from "../rds-elements";
+import { RdsCard } from "../rds-elements";
+import RdsCompPlanSwitcher from "../rds-comp-plan-switcher/rds-comp-plan-switcher";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsSubscriptionPlanProps {
   planAmount?: string;
@@ -38,7 +40,7 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
 
   return (<>
     <div className="subscriptionContainer responsiveContainer">
-      <div className="closeButton" ><RdsIcon
+      <div className="closeButton" ><RdsCompIcon
         height="16px"
         isCursorPointer
         name="close"
@@ -55,7 +57,7 @@ const RdsCompSubscriptionPlan = (props: RdsSubscriptionPlanProps) => {
           <div className="upgradeText">{props.upgradeText}<img src={props.aiPunditLogoSrc} alt="AI Pundit Logo" />
             <span className="aiPunditChat">{props.aiPunditChatText}</span><span className="proText">{props.proText}</span></div>
           <div className="currentPlanText">{props.currentPlanText}</div>
-          <RdsPlanSwitcher
+          <RdsCompPlanSwitcher
             button1Text={props.freePlanText}
             button2Text={props.premiumPlanText}
             setIsPlanFree={setIsPlanFree}

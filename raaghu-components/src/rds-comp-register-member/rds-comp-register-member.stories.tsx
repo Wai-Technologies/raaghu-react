@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompRegisterMember>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
       
   }

@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompInformation>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         inputTypeList: [
             {
@@ -46,7 +46,7 @@ export const Default: Story = {
         reset: false,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['inputTypeList', 'informationItemInitial', 'reset'] } };
+Standard.parameters = { controls: { include: ['inputTypeList', 'informationItemInitial', 'reset'] } };
 
 
 

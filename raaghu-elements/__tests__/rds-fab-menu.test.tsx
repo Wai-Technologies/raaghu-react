@@ -8,7 +8,7 @@ jest.mock('react-lottie-player', () => ({
     default: jest.fn(),
   }));
 
-// Mock global fetch for icon loading in RdsIcon
+// Mock global fetch for icon loading in RdsCompIcon
 beforeAll(() => {
   global.fetch = jest.fn(() =>
     Promise.resolve({ ok: true, text: () => Promise.resolve('<svg></svg>') })

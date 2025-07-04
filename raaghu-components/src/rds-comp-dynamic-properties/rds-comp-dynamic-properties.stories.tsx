@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompDynamicProperties>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         dynamic: "default",
         propertyHeaders: [
@@ -78,7 +78,7 @@ export const Default: Story = {
         actions: [{ id: "Download", displayName: "Download" }],
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['propertyHeaders', 'propertyData', 'actions'] } };
+Standard.parameters = { controls: { include: ['propertyHeaders', 'propertyData', 'actions'] } };
 
 export const Advanced: Story = {
     args: {

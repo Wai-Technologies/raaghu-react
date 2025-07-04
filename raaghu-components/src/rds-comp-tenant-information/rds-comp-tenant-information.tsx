@@ -1,12 +1,13 @@
-import { RdsCheckbox, RdsDropdownList, RdsLabel } from "../rds-elements";
+import { RdsCheckbox, RdsDropdownList } from "../rds-elements";
 import React, { useState, useEffect } from "react";
 import {
     RdsInput,
-    RdsSelectList,
     RdsButton,
     RdsRadioButton, RdsTextArea
 } from "../rds-elements";
 import { useTranslation } from "react-i18next";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface Edition {
     option: string;
@@ -234,7 +235,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                         </div>
                         <div className="col-md-6">
                             <div className="mb-3">
-                                <RdsSelectList
+                                <RdsCompSelectList
                                     id={"saasEditionlist"}
                                     label="Edition"
                                     placeholder="Select Edition"
@@ -244,7 +245,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                     required={false}
                                     selectedValue={tenantInformationData?.editions}
                                     onChange={(item: any) => {handleDataChanges(item.value,"editions"); }}                                  
-                                ></RdsSelectList>
+                                ></RdsCompSelectList>
                             </div>
                         </div>
                     </div>
@@ -299,7 +300,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                         </div>
                         <div className="row mb-3">
                             <div className="col-md-8">
-                                <RdsLabel
+                                <RdsCompLabel
                                     label="Connection Strings"
                                     required={true}
                                 />
@@ -354,7 +355,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="form-group text-capitalize mb-3">
-                                <RdsSelectList
+                                <RdsCompSelectList
                                     id={"saasActivelist"}
                                     label="Activation State"
                                     placeholder="Select Activation State"
@@ -363,7 +364,7 @@ const RdsCompTenantInformation = (props: rdsCompTenantInformationProps) => {
                                     selectedValue={tenantInformationData?.activationState}
                                     onChange={(e: any) => handleDataChanges(e.value, "activationState")}
                                     required={true}
-                                ></RdsSelectList>
+                                ></RdsCompSelectList>
                             </div>
                         </div>
                     </div>

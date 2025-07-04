@@ -23,7 +23,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompPollsOption>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
   
     }

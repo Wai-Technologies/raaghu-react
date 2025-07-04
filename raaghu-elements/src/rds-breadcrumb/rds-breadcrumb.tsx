@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./rds-breadcrumb.css";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
+// import { pointer } from "@testing-library/user-event/dist/types/pointer";
 
 export enum BreadcrumbStyle {
   PillBackground = "Pill Background",
@@ -138,13 +139,22 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                 : { borderBottom: `2px solid ${props.borderColor}` })
             : {};
 
+          // Add cursor pointer for multiple items in array
+
+
+
+          // const shouldShowCursor = props.breadcrumbItems?.length > 1;
+          // const finalItemStyle = shouldShowCursor 
+          //   ? { ...itemStyle, cursor: 'pointer' }
+          //   : itemStyle;
+
           // Allow last item to be clickable regardless of state
           const isClickable = true;
 
           return (
             <React.Fragment key={breadItem.id}>
               <li
-                className={itemClassNames}
+                className={`${itemClassNames} ${props.breadcrumbItems?.length > 1?'list-cursor': '' }`}
                 onClick={() => isClickable && onClickHandler(breadItem.id)}
                 onMouseEnter={() => setHoveredItem(breadItem.id)}
                 onMouseLeave={() => setHoveredItem(null)}
@@ -156,7 +166,7 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                   return (
                     props.showIcon && (
                       <span className="me-2">
-                        <RdsIcon
+                        <RdsCompIcon
                           name={resolvedIconName}
                           fill={breadItem.iconFill}
                           stroke={breadItem.iconstroke}
@@ -180,7 +190,7 @@ const RdsBreadcrumb = (props: BreadcrumbProps) => {
                 </a>
                 {props.topnavPlusIcon && (
                   <span className="ps-2">
-                    <RdsIcon
+                    <RdsCompIcon
                       name="plus"
                       fill={breadItem.iconFill}
                       stroke={breadItem.iconstroke}

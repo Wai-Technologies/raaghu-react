@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import "../../../raaghu-react-themes/src/styles/multilevel-menu.scss";
 
 export enum MenuSize {
@@ -118,7 +118,7 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
                 </label>
                 {props.type === MenuType.Expandable && item.submenu ? (
                   <span onClick={(e) => { e.stopPropagation(); handleMenuOpen(item.id); }} style={{ cursor: "pointer" }}>
-                    <RdsIcon
+                    <RdsCompIcon
                       name={"chevron_right"}
                       fill={false}
                       stroke={true}
@@ -164,7 +164,7 @@ const RdsMultilevelMenu = (props: RdsMultilevelMenuProps) => {
                             </label>
                             {props.type === MenuType.Expandable && child.submenu ? (
                               <span onClick={(e) => { e.stopPropagation(); handleMenuOpen(child.id); }} style={{ cursor: "pointer" }}>
-                                <RdsIcon
+                                <RdsCompIcon
                                   name={"chevron_right"}
                                   fill={false}
                                   stroke={true}

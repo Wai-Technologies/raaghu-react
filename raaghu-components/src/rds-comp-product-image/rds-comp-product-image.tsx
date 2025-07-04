@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import {
-    RdsLabel,
     RdsBadge,
-    RdsIcon,
     RdsRating,
-    RdsColorSwitcher,
     RdsButton,
 } from "../rds-elements";
 import "./rds-comp-product-image.css";
 import { ColorVariant } from "../../../raaghu-elements/src/rds-rating/rds-rating";
+import RdsCompColorSwitcher from "../rds-comp-color-switcher";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 export interface Item {
     imgUrl?: string;
     rating?: 0 | 1 | 2 | 3 | 4 | 5;
@@ -59,10 +59,10 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
             ></img>
             <div className={props.item.bordered ? "m-3" : ""}>
                 <div className="mt-3">
-                    <h5><RdsLabel  label={props.item.productTitle} size="28px"></RdsLabel></h5>
+                    <h5><RdsCompLabel  label={props.item.productTitle} size="28px"></RdsCompLabel></h5>
                 </div>
                 <div className="position-absolute iconposition-heart">
-                    <RdsIcon
+                    <RdsCompIcon
                         name="heart"
                         colorVariant={heartIconColor}
                         height="21px"
@@ -70,7 +70,7 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
                         fill={heartIconFill}
                         stroke={true}
                         onClick={HeartIconClickHandler}
-                    ></RdsIcon>
+                    ></RdsCompIcon>
                 </div>
                 {props.item.rating && (
                     <div className="mt-1 me-4 d-inline-block">
@@ -93,16 +93,16 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
                 )}
                 {props.item.colorLabel && (
                     <div className="mt-2">
-                        <RdsLabel
+                        <RdsCompLabel
                             label={props.item.colorLabel}
                             size="20px"
-                        ></RdsLabel>
+                        ></RdsCompLabel>
                     </div>
                 )}
                 <div className="d-flex justify-content-between mt-4">
                     {props.item.cost && (
                         <div>
-                            <RdsLabel label="$35" size="32px"></RdsLabel>
+                            <RdsCompLabel label="$35" size="32px"></RdsCompLabel>
                         </div>
                     )}
                     {props.item.badgeWithIcon && (
@@ -114,14 +114,14 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
                                     shape="pill"
                                     colorVariant="warning"
                                     children={
-                                        <RdsIcon
+                                        <RdsCompIcon
                                             name={props.item.badgeWithIcon?.icon}
                                             colorVariant="danger"
                                             height="15px"
                                             width="15px"
                                             fill={false}
                                             stroke={true}
-                                        ></RdsIcon>
+                                        ></RdsCompIcon>
                                     }
                                 ></RdsBadge>
                             </div>
@@ -130,7 +130,7 @@ const RdsCompProductImage = (props: RdsCompProductImageProps) => {
                 </div>
                 {props.item.ColorSwitcherList && (
                     <div className="">
-                        <RdsColorSwitcher itemList={props.item.ColorSwitcherList} />
+                        <RdsCompColorSwitcher itemList={props.item.ColorSwitcherList} />
                     </div>
                 )}
 

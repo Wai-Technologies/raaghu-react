@@ -63,7 +63,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsDatepicker>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         state: DatePickerState.Default,
         type: "Custom",
@@ -79,7 +79,7 @@ export const Default: Story = {
         isDefaultDate: false,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['state', 'type', 'changeIcon', 'layout', 'showTitle', 'title', 'isMandatory', 'placeholderText', 'datePickerStyleType', 'isDisabled', 'showClearDate', 'isDefaultDate'] } };
+Standard.parameters = { controls: { include: ['state', 'type', 'changeIcon', 'layout', 'showTitle', 'title', 'isMandatory', 'placeholderText', 'datePickerStyleType', 'isDisabled', 'showClearDate', 'isDefaultDate'] } };
 
 // export const Advanced: Story = {
 //     args: {

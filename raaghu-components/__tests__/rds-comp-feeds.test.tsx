@@ -10,13 +10,13 @@ jest.mock('../src/rds-elements', () => ({
       Avatar
     </div>
   ),
-  RdsIcon: ({ name, width, height, fill, stroke }: any) => (
+  RdsCompIcon: ({ name, width, height, fill, stroke }: any) => (
     <div data-testid="rds-icon" data-name={name} data-width={width} data-height={height}>
       Icon
     </div>
   ),
-  RdsLikeDislike: ({ like, dislike }: any) => (
-    <div data-testid="rds-like-dislike" data-like={like} data-dislike={dislike}>
+  RdsCompLikeDislike: ({ like, dislike }: any) => (
+    <div data-testid="rds-comp-like-dislike" data-like={like} data-dislike={dislike}>
       Like: {like} Dislike: {dislike}
     </div>
   ),
@@ -108,7 +108,7 @@ describe('RdsCompFeeds', () => {
     expect(screen.getAllByTestId('rating')).toHaveLength(2);
 
     // Check if like/dislike components are rendered
-    expect(screen.getAllByTestId('rds-like-dislike')).toHaveLength(2);
+    expect(screen.getAllByTestId('rds-comp-like-dislike')).toHaveLength(2);
 
     // Check if icons are rendered (only for John Doe who has feedIcon)
     expect(screen.getByTestId('rds-icon')).toBeInTheDocument();

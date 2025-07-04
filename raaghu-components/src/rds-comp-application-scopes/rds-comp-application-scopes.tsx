@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RdsCheckboxGroup } from "../rds-elements";
+import RdsCompCheckboxGroup from "../rds-comp-checkbox-group";
 
 export interface RdsCompApplicationScopesProps {
     scopesList: any[];
@@ -26,7 +26,7 @@ const RdsCompApplicationScopes = (props: RdsCompApplicationScopesProps) => {
         <>
             <div className="row">
                 <div className="col-12 col-6 col-lg-6 col-md-6 col-xl-6 col-xxl-6">
-                    <RdsCheckboxGroup
+                    <RdsCompCheckboxGroup
                         itemList={scopeList}
                         onClick={handlerChange}
                     />

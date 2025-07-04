@@ -5,7 +5,7 @@ import RdsCompOrganizationTree from '../src/rds-comp-organization-tree/rds-comp-
 
 // Mock the rds-elements components
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ name, height, width, stroke, fill }: any) => (
+  RdsCompIcon: ({ name, height, width, stroke, fill }: any) => (
     <span data-testid={`rds-icon-${name}`} className={`icon-${name}`}>
       {name}
     </span>
@@ -21,7 +21,7 @@ jest.mock('../src/rds-elements', () => ({
       {label}
     </button>
   ),
-  RdsButtonGroup: ({ buttonGroupItems, onButtonClick, colorVariant, size }: any) => (
+  RdsCompButtonGroup: ({ buttonGroupItems, onButtonClick, colorVariant, size }: any) => (
     <div data-testid="rds-button-group" className={`btn-group ${colorVariant} ${size}`}>
       {buttonGroupItems?.map((item: any, index: number) => (
         <button

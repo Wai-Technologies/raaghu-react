@@ -68,7 +68,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsSpinner>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         layout: SpinnerLayout.LabelAndSpinner,
         size: SpinnerSize.Small,
@@ -80,4 +80,4 @@ export const Default: Story = {
         height: '50px',
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['spinnerType','size','colorVariant', 'width', 'height', 'showLabel', 'layout',"labelText"] } };
+Standard.parameters = { controls: { include: ['spinnerType','size','colorVariant', 'width', 'height', 'showLabel', 'layout',"labelText"] } };

@@ -1,22 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import RdsCompDatatable, { ActionPosition } from '../rds-comp-data-table/rds-comp-data-table';
+import RdsDatatable, { ActionPosition } from '../../../raaghu-elements/src/rds-data-table/rds-data-table';
 import { fn } from 'storybook/test';
 
 const meta: Meta = { 
   title: "components/Pages",
-    component: RdsCompDatatable,
+    component: RdsDatatable,
     parameters: {
         layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {
     },
-} satisfies Meta<typeof RdsCompDatatable>;
+} satisfies Meta<typeof RdsDatatable>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompDatatable>;
+type Story = StoryObj<typeof RdsDatatable>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
       actionPosition: ActionPosition.Right,
       tableHeaders: [

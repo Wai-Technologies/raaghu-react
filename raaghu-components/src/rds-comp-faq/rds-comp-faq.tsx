@@ -1,5 +1,5 @@
 import React from "react";
-import { RdsLabel } from "../rds-elements";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompFaqProps {
     questionList: any[];
@@ -14,10 +14,10 @@ const RdsCompFaq = (props: RdsCompFaqProps) => {
                     <div className="col-md-4">
                         <div className="mt-4">
                             <h2>
-                                <RdsLabel label={props.QuestionHeading.question} multiline={true} fontWeight="bold"></RdsLabel>
+                                <RdsCompLabel label={props.QuestionHeading.question} multiline={true} fontWeight="bold"></RdsCompLabel>
                             </h2>
                             <div className="text-dark mt-3">
-                                <RdsLabel label={props.QuestionHeading.description} size="14px" multiline={true}></RdsLabel>
+                                <RdsCompLabel label={props.QuestionHeading.description} size="14px" multiline={true}></RdsCompLabel>
                             </div>
                         </div>
                     </div>
@@ -26,10 +26,10 @@ const RdsCompFaq = (props: RdsCompFaqProps) => {
                             {props.questionList.map((questionList) => (
                                 <>
                                     <h5>
-                                        <RdsLabel label={questionList.question} multiline={true} fontWeight="bold"></RdsLabel>
+                                        <RdsCompLabel label={questionList.question} multiline={true} fontWeight="bold"></RdsCompLabel>
                                     </h5>
                                     <div className="text-muted mb-2">
-                                        <RdsLabel label={questionList.description} size="14px" multiline={true}></RdsLabel>
+                                        <RdsCompLabel label={questionList.description} size="14px" multiline={true}></RdsCompLabel>
                                     </div>
                                 </>
                             ))}

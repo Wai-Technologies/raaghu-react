@@ -26,7 +26,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompProperties>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         displayType: "basic",
         propertyHeaders: [

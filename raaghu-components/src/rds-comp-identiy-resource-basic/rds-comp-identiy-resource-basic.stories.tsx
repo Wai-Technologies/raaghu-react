@@ -22,12 +22,6 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompIdentiyResourceBasic>;
 
-export const ResourceBasic: Story = {
-    args: {
-        identity: "resourceBasic"
-    }
-} satisfies Story;
-ResourceBasic.parameters = { controls: { include: ["identityResourceBasicData", "onSaveHandler", "reset"] } };
 
 export const ClientBasic: Story = {
     args: {
@@ -56,3 +50,14 @@ export const OauthManagement: Story = {
     }
 } satisfies Story;
 OauthManagement.parameters = { controls: { include: ["oauthData", "onOauthDataSubmit", "reset"] } };
+
+export const ResourceBasic: Story = {
+    args: {
+        identity: "resourceBasic"
+    }
+} satisfies Story;
+ResourceBasic.parameters = { controls: { include: ["identityResourceBasicData", "onSaveHandler", "reset"] } };
+
+
+
+

@@ -3,9 +3,9 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import RdsCompApplicationScopes from "./rds-comp-application-scopes";
 
-// Mock the RdsCheckboxGroup component to avoid React hooks issues
+// Mock the RdsCompCheckboxGroup component to avoid React hooks issues
 jest.mock("../rds-elements", () => ({
-    RdsCheckboxGroup: ({ itemList, onClick }: any) => (
+    RdsCompCheckboxGroup: ({ itemList, onClick }: any) => (
         <div data-testid="checkbox-group">
             {itemList?.map((item: any) => (
                 <div key={item.id} data-testid={`checkbox-item-${item.id}`}>

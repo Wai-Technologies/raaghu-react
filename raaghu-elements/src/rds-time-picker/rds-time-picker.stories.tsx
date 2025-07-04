@@ -44,7 +44,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsTimePicker>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     colorVariant: "primary",
     style: "default",
@@ -52,6 +52,6 @@ export const Default: Story = {
   },
 } satisfies Story;
 
-Default.parameters = {
+Standard.parameters = {
   controls: { include: ["colorVariant", "style", "state"] },
 };

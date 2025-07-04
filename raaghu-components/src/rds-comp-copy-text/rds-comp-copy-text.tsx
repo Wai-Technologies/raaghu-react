@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import { RdsIcon, RdsLabel } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompCopyTextProps { }
 
@@ -36,7 +37,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
 
               <div className="row mb-3 pb-1">
                 <div className="w-100">
-                    <RdsLabel
+                    <RdsCompLabel
                       fontWeight=""
                       label="Download the CLI tool"
                     />
@@ -47,7 +48,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
                       </div>
                       <div onClick={() => handleCopyClick(textToCopyRef1, setCopySuccess1)}>
                         {!copySuccess1 && (
-                          <RdsIcon
+                          <RdsCompIcon
                             colorVariant="primary"
                             height="17px"
                             name="clipboard"
@@ -57,7 +58,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
                           />
                         )}
                       </div>
-                      {copySuccess1 && <span><RdsIcon name="clipboard_check" height="20px" width="20px" fill={false} stroke={true} /></span>}
+                      {copySuccess1 && <span><RdsCompIcon name="clipboard_check" height="20px" width="20px" fill={false} stroke={true} /></span>}
                     </div>
                   </div>
                 </div>
@@ -65,7 +66,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
 
               <div className="row mb-3 pb-1">
                 <div className="w-100">
-                    <RdsLabel
+                    <RdsCompLabel
                       fontWeight=""
                       label="Update the CLI tool to the latest version"
                     />
@@ -76,7 +77,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
                       </div>
                       <div onClick={() => handleCopyClick(textToCopyRef2, setCopySuccess2)}>
                         {!copySuccess2 && (
-                          <RdsIcon
+                          <RdsCompIcon
                             colorVariant="primary"
                             height="17px"
                             name="clipboard"
@@ -86,7 +87,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
                           />
                         )}
                       </div>
-                      {copySuccess2 && <span><RdsIcon name="clipboard_check" height="20px" width="20px" fill={false} stroke={true} /></span>}
+                      {copySuccess2 && <span><RdsCompIcon name="clipboard_check" height="20px" width="20px" fill={false} stroke={true} /></span>}
                     </div>
                   </div>
                 </div>
@@ -94,7 +95,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
               {/* New paragraph and copy button */}
               <div className="row mb-2 pb-1">
                 <div className="w-100">
-                    <RdsLabel
+                    <RdsCompLabel
                       fontWeight=""
                       label="Create a new solution "
                     />
@@ -105,7 +106,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
                       </div>
                       <div onClick={() => handleCopyClick(textToCopyRef5, setCopySuccess5)}>
                         {!copySuccess5 && (
-                          <RdsIcon
+                          <RdsCompIcon
                             colorVariant="primary"
                             height="17px"
                             name="clipboard"
@@ -115,7 +116,7 @@ const RdsCompCopyText = (props: RdsCompCopyTextProps) => {
                           />
                         )}
                       </div>
-                      {copySuccess5 && <span><RdsIcon name="clipboard_check" height="20px" width="20px" fill={false} stroke={true} /></span>}
+                      {copySuccess5 && <span><RdsCompIcon name="clipboard_check" height="20px" width="20px" fill={false} stroke={true} /></span>}
                     </div>
                   </div>
                 </div>

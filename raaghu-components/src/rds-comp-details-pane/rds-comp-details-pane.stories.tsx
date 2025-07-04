@@ -20,7 +20,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompDetailsPane>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         headerText: "My Activity",
         historyTabLabel: "History",
@@ -30,7 +30,7 @@ export const Default: Story = {
         style: "Favourites"
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['headerText','historyTabLabel','favouritesTabLabel','addtoscreen','addtofolder','style'] } };
+Standard.parameters = { controls: { include: ['headerText','historyTabLabel','favouritesTabLabel','addtoscreen','addtofolder','style'] } };
 
 
 export const Favourites: Story = {

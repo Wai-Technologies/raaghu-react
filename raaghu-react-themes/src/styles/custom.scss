@@ -1336,7 +1336,7 @@ p.by a {
 }
 
 // /*  rds banner */
-rds-banner {
+rds-comp-banner {
     z-index: 0;
 }
 
@@ -1827,7 +1827,7 @@ app-rds-comp-product-list .card-body {
     padding: 1rem !important;
 }
 
-rds-product-image .imgWidth {
+rds-comp-product-images .imgWidth {
     bottom: 170px !important;
     top: 0px !important;
 }
@@ -2713,7 +2713,7 @@ rds-popular-pages {
     }
 }
 
-rds-stat {
+rds-comp-stat {
     rds-icon {
         display: grid;
     }
@@ -3825,4 +3825,37 @@ label.form-check-label.ms-2.undefined {
 
 .theme-dark .custom-text {
     color: #A8A8AC !important;
+}
+
+
+
+@media (min-width:320px)and (max-width:414px){
+
+   #alert-popup-content div.modal-content{
+        margin-left: 5px !important;
+        
+    }
+    #alert-popup-content div.modal-body{
+      padding: 20px !important;
+    }
+
+   #alert-popup-content .text-center.py-3.px-4 {
+      padding:  10px !important;
+    }
+
+   #alert-popup-content span.border-danger.px-3.py-3.rounded-5{
+    
+     padding: 10px !important;
+    }
+
+    #alert-popup-content label.form-label.mb-0.fw-undefined{
+      font-size: 17px !important;
+    }
+
+    #alert-popup-content label.form-label.mb-0.fw-undefined{
+      font-size: 1rem !important;
+    }
+    #alert-popup-content .mt-4.pt-2.d-flex.gap-3.justify-content-center{
+      margin-top: 15px !important;
+    }
 }

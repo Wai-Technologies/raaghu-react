@@ -85,7 +85,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsTreeStructure>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     level: TreeLevel.Level4,  // Use enum instead of string
     state: NodeState.Default, // Use enum instead of string
@@ -207,6 +207,6 @@ export const Default: Story = {
   },
 } satisfies Story;
 
-Default.parameters = {
+Standard.parameters = {
   controls: { include: ['level', 'state', 'showChewron', 'showCheckbox', 'showFolder', 'showFile',  'text', 'showActions', 'showCollapsed', 'Language', 'type', 'treeData'] },
 };

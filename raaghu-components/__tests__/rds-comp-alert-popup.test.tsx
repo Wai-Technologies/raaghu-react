@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import RdsCompAlertPopup from '../src/rds-comp-alert-popup/rds-comp-alert-popup';
 
 // Define interfaces for mock components
-interface RdsIconProps {
+interface RdsCompIconProps {
   name: string;
   colorVariant: string;
   height?: string;
@@ -27,7 +27,7 @@ interface RdsButtonProps {
   'aria-label'?: string;
 }
 
-interface RdsLabelProps {
+interface RdsCompLabelProps {
   label: string;
   class?: string;
 }
@@ -39,7 +39,7 @@ jest.mock('../src/rds-elements', () => ({
       {children}
     </div>
   ),
-  RdsIcon: ({ name, colorVariant, height, width, classes, fill, stroke, ...props }: RdsIconProps) => (
+  RdsCompIcon: ({ name, colorVariant, height, width, classes, fill, stroke, ...props }: RdsCompIconProps) => (
     <div 
       data-testid="rds-icon" 
       data-icon-name={name} 
@@ -66,9 +66,9 @@ jest.mock('../src/rds-elements', () => ({
       {label}
     </button>
   ),
-  RdsLabel: ({ label, class: className, ...props }: RdsLabelProps) => (
+  RdsCompLabel: ({ label, class: className, ...props }: RdsCompLabelProps) => (
     <span 
-      data-testid="rds-label" 
+      data-testid="rds-comp-label" 
       data-class={className}
       data-props={JSON.stringify(props)}
     >
@@ -102,7 +102,7 @@ describe('RdsCompAlertPopup Component', () => {
     expect(icon).toHaveAttribute('data-color-variant', 'danger');
     
     // Check confirmation text
-    const labels = screen.getAllByTestId('rds-label');
+    const labels = screen.getAllByTestId('rds-comp-label');
     expect(labels[0]).toHaveTextContent('Are You Sure?');
     expect(labels[1]).toHaveTextContent('This record will be deleted permanently.');
     
@@ -131,7 +131,7 @@ describe('RdsCompAlertPopup Component', () => {
     expect(icon).toHaveAttribute('data-color-variant', 'warning');
     
     // Check confirmation text
-    const labels = screen.getAllByTestId('rds-label');
+    const labels = screen.getAllByTestId('rds-comp-label');
     expect(labels[0]).toHaveTextContent('Custom Confirmation');
     expect(labels[1]).toHaveTextContent('Custom Message');
     

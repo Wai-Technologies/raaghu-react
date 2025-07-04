@@ -40,7 +40,7 @@ interface RdsButtonProps {
   [key: string]: any;
 }
 
-interface RdsIconProps {
+interface RdsCompIconProps {
   name?: string;
   fill?: boolean;
   stroke?: boolean;
@@ -94,7 +94,7 @@ jest.mock('../src/rds-elements', () => ({
       {icon && <span data-testid={`icon-${icon}`}>{icon}</span>}
     </button>
   ),
-  RdsIcon: ({
+  RdsCompIcon: ({
     name,
     fill,
     stroke,
@@ -104,7 +104,7 @@ jest.mock('../src/rds-elements', () => ({
     height,
     onClick,
     ...rest
-  }: RdsIconProps) => (
+  }: RdsCompIconProps) => (
     <span
       data-testid={`icon-${name}`}
       onClick={onClick}

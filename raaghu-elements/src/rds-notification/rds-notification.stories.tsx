@@ -49,7 +49,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsNotification>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         layout: NotificationLayout.Horizontal,
         style: NotificationStyle.Default,
@@ -69,7 +69,7 @@ export const Default: Story = {
         ]
     }
 }
-Default.parameters = { controls: { include: ['layout', 'style', 'type','notifications','showButtons','showPrimaryButton','showSecondaryButton','showDismissIcon'] } };
+Standard.parameters = { controls: { include: ['layout', 'style', 'type','notifications','showButtons','showPrimaryButton','showSecondaryButton','showDismissIcon'] } };
 
 
 
@@ -108,7 +108,7 @@ Default.parameters = { controls: { include: ['layout', 'style', 'type','notifica
 // export default meta;
 // type Story = StoryObj<typeof RdsNotification>;
 
-// export const Default: Story = {
+// export const Standard: Story = {
 //     args: {
 //         colorVariant: "light",
 //         notifications: [
@@ -152,6 +152,6 @@ Default.parameters = { controls: { include: ['layout', 'style', 'type','notifica
 //         ]
 //     }
 // }
-// Default.parameters = { controls: { include: ['colorVariant', 'notifications'] } };
+// Standard.parameters = { controls: { include: ['colorVariant', 'notifications'] } };
 
 

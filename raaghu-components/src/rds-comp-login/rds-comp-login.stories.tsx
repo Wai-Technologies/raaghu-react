@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompLogin>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         login: "default",
         languageData: [
@@ -70,7 +70,7 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['languageData', 'error', 'getvalidTenantName', 'email', 'password', 'onDismissAlert', 'onEmailChange', 'onPasswordChange', 'onLogin', 'onForgotPassword', 'onRegister', 'currentTenant', , 'validTenant', 'onClickHandler', 'languageLabel'] } };
+Standard.parameters = { controls: { include: ['languageData', 'error', 'getvalidTenantName', 'email', 'password', 'onDismissAlert', 'onEmailChange', 'onPasswordChange', 'onLogin', 'onForgotPassword', 'onRegister', 'currentTenant', , 'validTenant', 'onClickHandler', 'languageLabel'] } };
 
 export const Attempts: Story = {
     args: {

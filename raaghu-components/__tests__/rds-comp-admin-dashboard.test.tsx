@@ -3,7 +3,7 @@ import { render, screen, fireEvent, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 // Define interfaces for component props
-interface RdsWidgetProps {
+interface RdsCompWidgetProps {
   children: React.ReactNode;
   headerTitle: string;
   isButtonGroupRequired?: boolean;
@@ -20,7 +20,7 @@ interface RdsLineChartProps {
   options?: any;
 }
 
-interface RdsBigNumberProps {
+interface RdsCompBigNumberProps {
   bigNumber: string;
 }
 
@@ -33,7 +33,7 @@ jest.mock('../src/rds-elements', () => ({
     isButtonGroupRequired, 
     buttonGroupList, 
     handleButtonClick 
-  }: RdsWidgetProps) => (
+  }: RdsCompWidgetProps) => (
     <div data-testid={`widget-${headerTitle}`}>
       <div data-testid="widget-header">
         <h3 data-testid="widget-title">{headerTitle}</h3>
@@ -58,14 +58,14 @@ jest.mock('../src/rds-elements', () => ({
   RdsLineChart: ({ id }: { id: string }) => (
     <div data-testid={`line-chart-${id}`}>Line Chart</div>
   ),
-  RdsBigNumber: ({ bigNumber }: { bigNumber: string }) => (
+  RdsCompBigNumber: ({ bigNumber }: { bigNumber: string }) => (
     <div data-testid="big-number">{bigNumber}</div>
   ),
   RdsDoughnutChart: () => <div data-testid="doughnut-chart">Doughnut Chart</div>,
   RdsBooleanChart: () => <div data-testid="boolean-chart">Boolean Chart</div>,
   RdsBarChart: () => <div data-testid="bar-chart">Bar Chart</div>,
-  RdsTable: () => <div data-testid="table">Table</div>,
-  RdsIcon: () => <div data-testid="icon">Icon</div>,
+  RdsCompTable: () => <div data-testid="table">Table</div>,
+  RdsCompIcon: () => <div data-testid="icon">Icon</div>,
   RdsMap: () => <div data-testid="map">Map</div>
 }));
 

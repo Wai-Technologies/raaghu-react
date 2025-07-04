@@ -205,7 +205,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompApiScopeResource>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
     role: "basic",
     resources: [

@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompFeatureManagement>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     featureManagementData: {
       id: 1,

@@ -30,7 +30,7 @@ Ideal for chat interfaces or AI assistants, this component ensures a seamless an
 export default meta;
 type Story = StoryObj<typeof RdsCompTypingSection>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         colorVariant: "#353535",
         placeholderText: "How can AI Pundit help you today?",
@@ -38,7 +38,7 @@ export const Default: Story = {
         type: "default",
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['placeholderText'] } };
+Standard.parameters = { controls: { include: ['placeholderText'] } };
 
 export const Advanced: Story = {
     args: {

@@ -72,7 +72,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsFileUploader>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     state: FileUploaderState.Default,
     style: FileUploaderStyle.Basic,
@@ -89,7 +89,7 @@ export const Default: Story = {
   },
 } satisfies Story;
 
-Default.parameters = {
+Standard.parameters = {
   controls: {
     include: [
       "state",

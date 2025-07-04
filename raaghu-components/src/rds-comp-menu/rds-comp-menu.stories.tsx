@@ -21,12 +21,12 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompMenu>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         menu: "default"
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['onSubmit', 'menusData', 'valueType', 'reset', 'onCancel', 'menuPage'] } };
+Standard.parameters = { controls: { include: ['onSubmit', 'menusData', 'valueType', 'reset', 'onCancel', 'menuPage'] } };
 
 export const Directories: Story = {
     args: {

@@ -1,5 +1,7 @@
 import React from "react";
-import { RdsModal, RdsIcon, RdsButton, RdsLabel } from "../rds-elements";
+import { RdsModal, RdsButton } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompAlertPopupProps {
     alertID: any;
@@ -30,7 +32,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
     const type = props.type || "default";
 
     return (
-        <div>
+        <div id="alert-popup-content">
            {(type=="default" || type =="confirm" || type== "transfer_ownership") &&( <RdsModal
                 modalId={props.alertID}
                 modalBackdrop={true} 
@@ -44,21 +46,21 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
             >
                 <div className="text-center py-3 px-4">
                     <p className="align-items-center d-flex justify-content-center">
-                        <RdsIcon
+                        <RdsCompIcon
                             height={`${props.type == "confirm" || props.type == "transfer_ownership"  ? "65px":"28px"}`}
                             width={`${props.type == "confirm" || props.type == "transfer_ownership" ? "65px":"28px"}`}
                             name={iconUrl}
                             fill={false}
                             stroke={true}
                             colorVariant={colorVariant}
-                            classes={`border-${props.type == "default" ?"danger" :"none"} px-3 py-3  rounded-5`}
+                            classes={`border-${props.type == "default" ? colorVariant :"none"} px-3 py-3  rounded-5`}
                         />
                     </p>
                     <h4>
-                        <RdsLabel class="align-items-center  justify-content-center" label={alertConfirmation} />
+                        <RdsCompLabel class="align-items-center  justify-content-center" label={alertConfirmation} />
                     </h4>
                     <span>
-                        <RdsLabel class="text-muted align-items-center  justify-content-center" label={messageAlert} />
+                        <RdsCompLabel class="text-muted align-items-center  justify-content-center" label={messageAlert} />
                     </span>
                     {props.children}
                   {type=="default" &&(  <div className="mt-4 pt-2 d-flex gap-3 justify-content-center">
@@ -71,7 +73,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             size="small"
                             type="button"
                             tooltipTitle=""
-                            colorVariant="danger"
+                            colorVariant={colorVariant}
                             isOutline={true}
                         />
                         <RdsButton
@@ -80,7 +82,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             label={DeleteButtonLabel}
                             size="small"
                             tooltipTitle=""
-                            colorVariant="danger"
+                            colorVariant={colorVariant}
                             databsdismiss="modal"
                             aria-label="close"
                             onClick={props.onSuccess}
@@ -93,7 +95,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             label={props.buttonlabel}
                             size="small"
                             tooltipTitle=""
-                            colorVariant={props.colorVariant}
+                            colorVariant={colorVariant}
                             databsdismiss="modal"
                             aria-label="close"
                             onClick={props.onSuccess}

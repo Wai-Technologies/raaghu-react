@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./rds-tree-structure.css";
-import RdsIcon from "../rds-icon/rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon/rds-comp-icon";
 
 export enum TreeLevel {
   Level1 = "Level1",
@@ -170,7 +170,7 @@ const TreeNode = ({
                 transition: "transform 0.2s",
               }}
             >
-              <RdsIcon
+              <RdsCompIcon
                 height="16px"
                 width="16px"
                 name="chevron_right"
@@ -199,7 +199,7 @@ const TreeNode = ({
                   }}
                 ></span>
               ) : (
-                <RdsIcon
+                <RdsCompIcon
                   height="18px"
                   width="18px"
                   name="treefolder"
@@ -211,7 +211,7 @@ const TreeNode = ({
           )}
           {props.showFile && (
             <span style={{ color: "#0066cc" }}>
-              <RdsIcon
+              <RdsCompIcon
                 height="18px"
                 width="18px"
                 name={getFileIcon(props.Language as keyof typeof fileTypeIcons || "Default")}
@@ -228,7 +228,7 @@ const TreeNode = ({
                 onMouseEnter={() => handleIconMouseEnter("plus")}
                 onMouseLeave={handleIconMouseLeave}
               >
-                <RdsIcon
+                <RdsCompIcon
                   height="16px"
                   width="16px"
                   name="plus"
@@ -244,7 +244,7 @@ const TreeNode = ({
                 onMouseEnter={() => handleIconMouseEnter("pencil")}
                 onMouseLeave={handleIconMouseLeave}
               >
-                <RdsIcon
+                <RdsCompIcon
                   height="16px"
                   width="16px"
                   name="pencil"
@@ -260,7 +260,7 @@ const TreeNode = ({
                 onMouseEnter={() => handleIconMouseEnter("move")}
                 onMouseLeave={handleIconMouseLeave}
               >
-                <RdsIcon
+                <RdsCompIcon
                   height="16px"
                   width="16px"
                   name="move"
@@ -276,7 +276,7 @@ const TreeNode = ({
                 onMouseEnter={() => handleIconMouseEnter("delete")}
                 onMouseLeave={handleIconMouseLeave}
               >
-                <RdsIcon
+                <RdsCompIcon
                   height="16px"
                   width="16px"
                   name="delete"

@@ -123,7 +123,7 @@ const breadItems = [
   },
 ];
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     style: BreadcrumbStyle.PillBackground,
     level: BreadcrumbLevel.Level3, // Updated to Level 4

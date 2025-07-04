@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import { RdsOffcanvas } from "../src";
 import { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "../src/rds-offcanvas/rds-offcanvas";
 
-// Mock RdsIcon component to fix fetch issue
+// Mock RdsCompIcon component to fix fetch issue
 jest.mock("../src/rds-icon", () => ({
   __esModule: true,
   default: jest.fn(({ name }) => (

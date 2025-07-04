@@ -187,7 +187,7 @@ const getLayout = (navLayout: string) => {
     }
 };
 
-export const Default: Story = (args: any) => (
+export const Standard: Story = (args: any) => (
     <BrowserRouter>
         <RdsSideNav 
             {...args} 
@@ -198,7 +198,7 @@ export const Default: Story = (args: any) => (
     </BrowserRouter>
 );
 
-Default.args = {
+Standard.args = {
     logo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
     showUserProfile:true,
     navLayout: NavLayout.Raaghu, 
@@ -207,7 +207,7 @@ Default.args = {
     lockIconVisible: true, // Default value for lockIcon
 };
 
-Default.parameters = { controls: { include: ["navLayout", "navType", "platform", "lockIconVisible"] } };
+Standard.parameters = { controls: { include: ["navLayout", "navType", "platform", "lockIconVisible"] } };
 
 
 

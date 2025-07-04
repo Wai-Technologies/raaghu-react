@@ -39,7 +39,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompReviews>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         variantType: VariantType.Default,
         style: RevieweStyle.Style1,
@@ -59,7 +59,7 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['itemList','style','variantType'] } };
+Standard.parameters = { controls: { include: ['itemList','style','variantType'] } };
 
 // whatever code is commented in this file is needed in further reference - enhancement as per the figma design
 

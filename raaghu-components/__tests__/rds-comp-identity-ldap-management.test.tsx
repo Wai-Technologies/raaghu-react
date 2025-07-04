@@ -44,7 +44,7 @@ jest.mock("../src/rds-elements", () => ({
       <label>{labelText}</label>
     </div>
   )),
-  RdsLabel: jest.fn(({ label }) => (
+  RdsCompLabel: jest.fn(({ label }) => (
     <label data-testid="ldap-settings-label">{label}</label>
   )),
   RdsButton: jest.fn(({ 

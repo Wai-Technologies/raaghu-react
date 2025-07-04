@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompBlogPost from '../src/rds-comp-blog-post/rds-comp-blog-post';
-import { ActionPosition } from '../src/rds-comp-data-table/rds-comp-data-table';
+import { ActionPosition } from '../../raaghu-elements/src/rds-data-table/rds-data-table';
 
 // Define interfaces for type checking
 interface TableHeader {
@@ -27,8 +27,8 @@ interface TableRow {
   id: number;
 }
 
-// Mock the RdsCompDatatable component
-jest.mock('../src/rds-comp-data-table', () => ({
+// Mock the RdsDatatable component
+jest.mock('../src/rds-data-table', () => ({
   __esModule: true,
   default: ({ 
     tableHeaders, 

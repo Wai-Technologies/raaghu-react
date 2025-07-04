@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { RdsButton, RdsCheckbox, RdsLabel } from "../rds-elements";
+import { RdsButton, RdsCheckbox } from "../rds-elements";
 import { useTranslation } from "react-i18next";
 import { LabelPosition } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 interface RdsCompUserRolesProps {

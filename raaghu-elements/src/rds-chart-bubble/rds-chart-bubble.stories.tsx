@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsBubbleChart>;
 
-export const BubbleChart: Story = {
+export const Standard: Story = {
     args: {
         id: "bubblecha",
         labels: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],

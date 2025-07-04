@@ -24,7 +24,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompPaymentTenure>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     paymentTenure: [
       {

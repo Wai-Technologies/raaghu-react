@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompMenuDirectory from '../src/rds-comp-menus-directories/rds-comp-menus-directories';
-import { Role } from '../../raaghu-elements/src/rds-button-group/rds-button-group';
 
 // Mock the translation hook
 jest.mock('react-i18next', () => ({
@@ -29,7 +28,7 @@ jest.mock('bootstrap', () => {
 }, { virtual: true });
 
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ 
+  RdsCompIcon: ({ 
     name, 
     height, 
     width, 

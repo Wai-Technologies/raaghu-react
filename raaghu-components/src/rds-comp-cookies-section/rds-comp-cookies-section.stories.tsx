@@ -21,12 +21,12 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompCookiesSection>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         showDeclineButton: true,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['showDeclineButton'] } };
+Standard.parameters = { controls: { include: ['showDeclineButton'] } };
 
 
 

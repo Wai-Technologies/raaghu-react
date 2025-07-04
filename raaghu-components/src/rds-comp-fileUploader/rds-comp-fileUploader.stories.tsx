@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompFileUploader>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
 
   }

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import RdsDatatable, { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 import {
     RdsButton,
-    RdsIllustration,
+    RdsEmptyState,
     RdsInput,
     RdsTextArea,
-    RdsLabel,
 } from "../rds-elements";
 
 export interface RdsCompWebhookSubscriptionProps {
@@ -210,7 +209,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                     </div> 
                     {webhookheaderfile.length == 0 && (
                         <div>
-                            <RdsIllustration
+                            <RdsEmptyState
                                 iconHeight="250px"
                                 iconPath="/assets/lottie-files/outlined/dual-color/illustration-light.json"
                                 iconWidth="250px"
@@ -221,7 +220,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                     )}
 
                     {webhookheaderfile.length != 0 && (
-                        <RdsCompDatatable
+                        <RdsDatatable
                             actionPosition={ActionPosition.Right}
                             classes="table__userTable"
                             tableHeaders={tableHeaders}
@@ -231,7 +230,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                             recordsPerPage={5}
                             onActionSelection={onActionSelection}
                             recordsPerPageSelectListOption={true}
-                        ></RdsCompDatatable>
+                        ></RdsDatatable>
                     )}
                 </div>
                     <div className="d-flex flex-column-reverse ps-4 flex-lg-row flex-md-column-reverse flex-row flex-xl-row flex-xxl-row footer-buttons gap-2 mt-3 pb-3 p-4">

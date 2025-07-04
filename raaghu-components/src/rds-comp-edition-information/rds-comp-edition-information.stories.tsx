@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompEditionInformation>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         sizeDataWithDescription: [
                     { type: "Standard", days: "4-10 buisness days", cost: "$5.00" },

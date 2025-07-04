@@ -5,8 +5,8 @@ import RdsCompDatabaseConnection from '../src/rds-comp-database-connection/rds-c
 
 // Mock the child components
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: ({ label, required }: any) => (
-    <div data-testid="rds-label" data-required={required}>
+  RdsCompLabel: ({ label, required }: any) => (
+    <div data-testid="rds-comp-label" data-required={required}>
       {label}
     </div>
   ),
@@ -102,7 +102,7 @@ describe('RdsCompDatabaseConnection Component', () => {
       />
     );
     
-    const label = screen.getByTestId('rds-label');
+    const label = screen.getByTestId('rds-comp-label');
     expect(label).toHaveTextContent('Connection Strings');
     expect(label).toHaveAttribute('data-required', 'true');
   });
@@ -284,7 +284,7 @@ describe('RdsCompDatabaseConnection Component', () => {
     );
     
     // Form should still be rendered correctly after reset
-    expect(screen.getByTestId('rds-label')).toHaveTextContent('Connection Strings');
+    expect(screen.getByTestId('rds-comp-label')).toHaveTextContent('Connection Strings');
   });
   // Test textarea value change
   it('updates connection string value when textarea is changed', () => {

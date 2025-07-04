@@ -23,7 +23,7 @@ interface RdsInputProps {
   [key: string]: any;
 }
 
-interface RdsLabelProps {
+interface RdsCompLabelProps {
   label: string;
   [key: string]: any;
 }
@@ -88,8 +88,8 @@ jest.mock('../src/rds-elements', () => ({
       />
     </div>
   ),
-  RdsLabel: ({ label, ...rest }: RdsLabelProps) => <label {...rest}>{label}</label>,
-  RdsSelectList: ({ label, onChange, dataTestId, selectItems, selectedValue, ...rest }: RdsSelectListProps) => (
+  RdsCompLabel: ({ label, ...rest }: RdsCompLabelProps) => <label {...rest}>{label}</label>,
+  RdsCompSelectList: ({ label, onChange, dataTestId, selectItems, selectedValue, ...rest }: RdsSelectListProps) => (
     <div>
       <label>{label}</label>
       <select 

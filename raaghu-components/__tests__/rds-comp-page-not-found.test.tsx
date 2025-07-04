@@ -14,12 +14,12 @@ jest.mock('react-router-dom', () => ({
 
 // Mock the rds-elements components
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: ({ label, class: className }: any) => (
-    <span data-testid="rds-label" className={className}>
+  RdsCompLabel: ({ label, class: className }: any) => (
+    <span data-testid="rds-comp-label" className={className}>
       {label}
     </span>
   ),
-  RdsIcon: ({ name, width, height, fill, stroke }: any) => (
+  RdsCompIcon: ({ name, width, height, fill, stroke }: any) => (
     <span
       data-testid={`rds-icon-${name}`}
       className={`icon-${name}`}
@@ -251,10 +251,10 @@ describe('RdsCompPageNotFound', () => {
   });
 
   describe('Mocked Components Integration', () => {
-    it('should render RdsLabel components with correct props', () => {
+    it('should render RdsCompLabel components with correct props', () => {
       render(<RdsCompPageNotFound />);
       
-      const labels = screen.getAllByTestId('rds-label');
+      const labels = screen.getAllByTestId('rds-comp-label');
       expect(labels).toHaveLength(2);
       
       expect(labels[0]).toHaveTextContent('Page not found');
@@ -262,7 +262,7 @@ describe('RdsCompPageNotFound', () => {
       expect(labels[1]).toHaveClass('text-muted', 'fw-medium', 'mb-3');
     });
 
-    it('should render RdsIcon with correct props', () => {
+    it('should render RdsCompIcon with correct props', () => {
       render(<RdsCompPageNotFound />);
       
       const icon = screen.getByTestId('rds-icon-right');

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./rds-comp-cache.css";
-import { RdsIcon, RdsPagination } from "../rds-elements";
+import { RdsPagination } from "../rds-elements";
 import { useEffect } from "react";
 import RdsCompAlertPopup from "../rds-comp-alert-popup/rds-comp-alert-popup";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCacheProps {
     cachedata: any[];
@@ -67,7 +68,7 @@ const RdsCompCache = (props: RdsCacheProps) => {
                             <div key={i} className=" border-bottom">
                                 <div>{element.name}</div>
                                 <div className="icon">
-                                    <RdsIcon
+                                    <RdsCompIcon
                                         width="17px"
                                         height="17px"
                                         name="delete"
@@ -75,7 +76,7 @@ const RdsCompCache = (props: RdsCacheProps) => {
                                         tooltip={true}
                                         tooltipTitle={"Delete"}
                                         tooltipPlacement="right"
-                                    ></RdsIcon>
+                                    ></RdsCompIcon>
                                     <RdsCompAlertPopup
                                         alertID={element.id}
                                         onSuccess={() => deleteHandler(element.id)}

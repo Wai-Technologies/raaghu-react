@@ -3,8 +3,8 @@ import {
     RdsButton,
     RdsCheckbox,
     RdsInput,
-    RdsLabel,
 } from "../../../raaghu-elements/src";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompAccountExternalProviderProps {
     accountExternalProvider: any;
@@ -51,7 +51,7 @@ const RdsCompAccountExternalProvider = (props: RdsCompAccountExternalProviderPro
                     {externalProvider?.length !== 0 && (externalProvider?.map((item: any, index: number) => (
                        <div className={` ${index == 0 ? "pt-3" : ""}`} key={index}>
                        <div className="fw-medium mb-3">
-                           <RdsLabel label={item?.name} ></RdsLabel>
+                           <RdsCompLabel label={item?.name} ></RdsCompLabel>
                        </div>
                        <div className="row">
                            <div className="col-md-12 mb-3">

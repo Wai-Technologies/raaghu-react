@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompBlogPostNew>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         blogList: [
             { option: "Blog1" , value: "blog1"},
@@ -25,4 +25,4 @@ export const Default: Story = {
         ],
     }
 } satisfies Story;
-// Default.parameters = { controls: { include: [] } };
+// Standard.parameters = { controls: { include: [] } };

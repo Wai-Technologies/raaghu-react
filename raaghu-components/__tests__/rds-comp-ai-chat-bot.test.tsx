@@ -5,8 +5,8 @@ import RdsAiChatBot, { Message } from '../src/rds-comp-ai-chat-bot/rds-comp-ai-c
 
 // Mock child components
 jest.mock('../src/rds-elements', () => ({
-  RdsChatHeader: ({ logoUrl, title }: { logoUrl: string, title: string }) => (
-    <div data-testid="rds-chat-header">
+  RdsCompChatHeader: ({ logoUrl, title }: { logoUrl: string, title: string }) => (
+    <div data-testid="rds-comp-chat-header">
       <img src={logoUrl} alt="AI Logo" data-testid="ai-logo" />
       <h2 data-testid="chat-title">{title}</h2>
     </div>
@@ -87,7 +87,7 @@ describe('RdsAiChatBot Component', () => {
     render(<RdsAiChatBot {...mockProps} />);
     
     // Check if the header is rendered
-    expect(screen.getByTestId('rds-chat-header')).toBeInTheDocument();
+    expect(screen.getByTestId('rds-comp-chat-header')).toBeInTheDocument();
     expect(screen.getByTestId('ai-logo')).toBeInTheDocument();
     expect(screen.getByTestId('chat-title')).toHaveTextContent('New Chat Started');
     

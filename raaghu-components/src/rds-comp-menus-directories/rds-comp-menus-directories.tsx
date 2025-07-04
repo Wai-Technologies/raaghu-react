@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { RdsIcon, RdsButtonGroup } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-import { Role } from "../../../raaghu-elements/src/rds-button-group/rds-button-group";
+import RdsCompButtonGroup from "../rds-comp-button-group";
+import { Role } from "../rds-comp-button-group/rds-comp-button-group";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompMenuDirectoryProps {
     items?: any;
@@ -81,7 +82,7 @@ const RdsCompMenuDirectory = (props: RdsCompMenuDirectoryProps) => {
                         className=" me-1 border-0 bg-transparent"
                         onClick={handleClick(item.data.id)}
                     >
-                        <RdsIcon
+                        <RdsCompIcon
                             name={expandedItems?.includes(item.data.id) ? "chevron_up" : "chevron_down"}
                             height="8px"
                             width="12px"
@@ -94,7 +95,7 @@ const RdsCompMenuDirectory = (props: RdsCompMenuDirectoryProps) => {
                     </button>
                 )}
                 <span className="mx-1">
-                    <RdsIcon
+                    <RdsCompIcon
                         name="folder"
                         height="17px"
                         width="20px"
@@ -110,7 +111,7 @@ const RdsCompMenuDirectory = (props: RdsCompMenuDirectoryProps) => {
                     <span className="my-1">{item.data.displayName}</span>
                     <span className="node-icon ms-2">
 
-                        <RdsButtonGroup
+                        <RdsCompButtonGroup
                             buttonGroupItems={buttonGroupList}
                             colorVariant="primary"
                             isOutline={true}

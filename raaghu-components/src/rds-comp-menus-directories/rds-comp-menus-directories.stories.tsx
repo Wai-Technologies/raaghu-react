@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompMenuDirectory>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         items: [
             {

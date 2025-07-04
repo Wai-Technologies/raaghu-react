@@ -24,7 +24,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompAdminDashboard>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         
     }

@@ -72,7 +72,7 @@ const placeholderMapping: { [key: string]: string } = {
   "card number": "xxxx xxxx xxxx xxxx",
 };
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     size: InputSize.Medium,
     inputType: "text",
@@ -108,7 +108,7 @@ export const Default: Story = {
   ],
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'required', 'showIcon', 'HintText', 'ShowHintText',/* 'singleDigit', 'value','fontWeight','id''labelPosition', */] } };// export const Tooltip: Story = {
+Standard.parameters = { controls: { include: ['size', 'inputType', 'state', 'style', 'placeholder', 'label', 'required', 'showIcon', 'HintText', 'ShowHintText',/* 'singleDigit', 'value','fontWeight','id''labelPosition', */] } };// export const Tooltip: Story = {
 
 //   args: {
 //     size: "medium",

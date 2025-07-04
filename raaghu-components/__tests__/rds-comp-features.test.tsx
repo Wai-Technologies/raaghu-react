@@ -40,8 +40,8 @@ jest.mock('../../raaghu-elements/src', () => ({
       />
     </div>
   ),
-  RdsNavtabs: ({ navtabsItems, activeNavTabId, activeNavtabOrder, layout }: any) => (
-    <div data-testid="rds-navtabs" data-layout={layout} data-style="Vertical -Pointer">
+  RdsCompNavtabs: ({ navtabsItems, activeNavTabId, activeNavtabOrder, layout }: any) => (
+    <div data-testid="rds-comp-navtabs" data-layout={layout} data-style="Vertical -Pointer">
       {navtabsItems?.map((item: any, index: number) => (
         <button
           key={index}
@@ -54,7 +54,7 @@ jest.mock('../../raaghu-elements/src', () => ({
       ))}
     </div>
   ),
-  RdsSelectList: ({ label, onChange, selectedValue, selectItems, id }: any) => (
+  RdsCompSelectList: ({ label, onChange, selectedValue, selectItems, id }: any) => (
     <div>
       {label && <label>{label}</label>}
       <select
@@ -136,8 +136,8 @@ describe('RdsCompFeatures', () => {
   it('should initialize with correct navigation tabs', () => {
     render(<RdsCompFeatures {...defaultProps} />);
     
-    expect(screen.getByTestId('rds-navtabs')).toHaveAttribute('data-layout', 'Vertical');
-    expect(screen.getByTestId('rds-navtabs')).toHaveAttribute('data-style', 'Vertical -Pointer');
+    expect(screen.getByTestId('rds-comp-navtabs')).toHaveAttribute('data-layout', 'Vertical');
+    expect(screen.getByTestId('rds-comp-navtabs')).toHaveAttribute('data-style', 'Vertical -Pointer');
     expect(screen.getByTestId('nav-tab-0')).toHaveTextContent('General Settings');
     expect(screen.getByTestId('nav-tab-1')).toHaveTextContent('Security Features');
   });
@@ -224,7 +224,7 @@ describe('RdsCompFeatures', () => {
     };
     
     render(<RdsCompFeatures {...propsWithoutData} />);
-    expect(screen.getByTestId('rds-navtabs')).toBeInTheDocument();
+    expect(screen.getByTestId('rds-comp-navtabs')).toBeInTheDocument();
   });
 
   it('should persist changes in localStorage', () => {

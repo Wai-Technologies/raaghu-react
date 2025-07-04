@@ -25,7 +25,7 @@ jest.mock('../src/rds-elements', () => ({
       />
     </div>
   ),
-  RdsSelectList: ({ onChange, selectItems, placeholder, label, size }: any) => (
+  RdsCompSelectList: ({ onChange, selectItems, placeholder, label, size }: any) => (
     <div>
       {label && <label>{label}</label>}
       <select

@@ -11,7 +11,7 @@ jest.mock('react-i18next', () => ({
 
 // Mock the rds-elements components
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: ({ label }: any) => <span data-testid="rds-label">{label}</span>,
+  RdsCompLabel: ({ label }: any) => <span data-testid="rds-comp-label">{label}</span>,
   RdsButton: ({ 
     label, 
     colorVariant, 
@@ -130,7 +130,7 @@ jest.mock('../src/rds-elements', () => ({
       )}
     </div>
   ),
-  RdsIcon: ({ 
+  RdsCompIcon: ({ 
     name, 
     height, 
     width, 

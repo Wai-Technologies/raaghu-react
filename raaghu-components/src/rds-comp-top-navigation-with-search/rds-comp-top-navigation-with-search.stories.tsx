@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompTopNavigationWithSearch>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         logo: "assets/Raaghu-logo-mfe-black.png",
         profileTitle: "John Doe",
@@ -71,4 +71,4 @@ export const Default: Story = {
     },
 } satisfies Story;
 
-Default.parameters = { controls: { include: ["logo"] } };
+Standard.parameters = { controls: { include: ["logo"] } };

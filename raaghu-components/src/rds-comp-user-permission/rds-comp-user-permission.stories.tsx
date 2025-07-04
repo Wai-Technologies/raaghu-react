@@ -26,7 +26,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompUserPermission>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         displayType: "basic",
     tableHeaders: [
@@ -54,7 +54,7 @@ export const Default: Story = {
     enablecheckboxselection: false
     }
 } satisfies Story;
-Default.parameters = { controls : { include : ['tableHeaders', 'tableData', 'actions', 'enablecheckboxselection']}};
+Standard.parameters = { controls : { include : ['tableHeaders', 'tableData', 'actions', 'enablecheckboxselection']}};
 
 export const Advanced: Story = {
     args: {

@@ -25,13 +25,13 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompSideNavigation>;
 
-export const Default: Story = (args: any) => (
+export const Standard: Story = (args: any) => (
     <BrowserRouter>
         <RdsCompSideNavigation {...args} />
     </BrowserRouter>
 );
 
-Default.args = {
+Standard.args = {
     logo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
     lockIconVisible: false,
     sideNavItems: [
@@ -173,7 +173,7 @@ Default.args = {
         },
     ]
 };
-Default.parameters = { controls: { include: ['sideNavItems','logo','lockIconVisible'] } };
+Standard.parameters = { controls: { include: ['sideNavItems','logo'] } };
 
 
 

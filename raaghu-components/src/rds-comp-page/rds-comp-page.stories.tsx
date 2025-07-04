@@ -21,12 +21,12 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompPage>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     type:"default",
   }
 } satisfies Story;
-Default.parameters = { controls: { include: [ "newPageData", "reset", "onSaveHandler", "onCancel"]},};
+Standard.parameters = { controls: { include: [ "newPageData", "reset", "onSaveHandler", "onCancel"]},};
 
 export const Pages: Story = {
     args: {
