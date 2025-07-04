@@ -15,6 +15,7 @@ const config: StorybookConfig = {
     "@storybook/preset-scss",
     "@chromatic-com/storybook",
     "storybook-addons",
+    // "@storybook/addon-actions",
     "@storybook/addon-docs"
   ],
 

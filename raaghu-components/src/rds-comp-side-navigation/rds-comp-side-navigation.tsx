@@ -18,7 +18,7 @@ export interface RdsCompSideNavigationProps {
 }
 
 const RdsCompSideNavigation = (props: RdsCompSideNavigationProps) => {
-  return <RdsSideNav logo={props.logo} sideNavItems={props.sideNavItems} toggleTheme={props.toggleTheme} collapse={props.collapse} toggleClass={props.toggleClass} lockIconVisible></RdsSideNav>;
+  return <RdsSideNav logo={props.logo} sideNavItems={props.sideNavItems} toggleTheme={props.toggleTheme} collapse={props.collapse} toggleClass={props.toggleClass} lockIconVisible={props.lockIconVisible}></RdsSideNav>;
 };
 
 export default RdsCompSideNavigation;

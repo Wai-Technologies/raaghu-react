@@ -6,7 +6,7 @@ import React from 'react';
 
 
 const meta: Meta = {
-    title: "Components/Side Navigation",
+    title: "Components/Side Nav",
     component: RdsCompSideNavigation,
     parameters: {
         layout: 'padded',
@@ -33,6 +33,7 @@ export const Default: Story = (args: any) => (
 
 Default.args = {
     logo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
+    lockIconVisible: false,
     sideNavItems: [
         {
             key: "0",
@@ -172,7 +173,7 @@ Default.args = {
         },
     ]
 };
-Default.parameters = { controls: { include: ['sideNavItems','logo'] } };
+Default.parameters = { controls: { include: ['sideNavItems','logo','lockIconVisible'] } };
 
 
 
