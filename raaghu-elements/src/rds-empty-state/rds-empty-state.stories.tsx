@@ -29,12 +29,11 @@ type Story = StoryObj<typeof RdsEmptyState>;
 export const Standard: Story = {
   args: {
     mode: "Dark NRA",
-    label: "Currently you don't have any data",
-    subLabel: "Click on the button above to add data",
-    iconHeight: "250px",
-    iconWidth: "250px",
-    iconPath:
-      "/assets/lottie-files/outlined/dual-color/illustration-light.json",
+    label: "No Data Available",
+    subLabel: "No data available at the moment. Would you like to add new data?",
+    iconHeight: "160px",
+    iconWidth: "160px",
+    iconPath: "/assets/empty_state.svg",
   },
 } satisfies Story;
 Standard.parameters = {
@@ -42,9 +41,9 @@ Standard.parameters = {
     include: [
       "mode",
       "label",
-    //   "subLabel",
-    //   "iconHeight",
-    //   "iconWidth",
+      "subLabel",
+      "iconHeight",
+      "iconWidth",
     //   "iconPath",
     ],
   },
