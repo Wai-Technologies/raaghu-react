@@ -5,9 +5,9 @@ import RdsCompTeams from '../src/rds-comp-teams/rds-comp-teams';
 
 // Mock the RDS elements
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: (props: any) => (
+  RdsCompLabel: (props: any) => (
     <div 
-      data-testid="rds-label"
+      data-testid="rds-comp-label"
       data-label={props.label}
       data-multiline={props.multiline ? 'true' : 'false'}
       data-size={props.size}
@@ -16,7 +16,7 @@ jest.mock('../src/rds-elements', () => ({
       {props.label}
     </div>
   ),
-  RdsIcon: (props: any) => (
+  RdsCompIcon: (props: any) => (
     <span 
       data-testid={`rds-icon-${props.name}`}
       data-name={props.name}

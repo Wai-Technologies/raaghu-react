@@ -2,11 +2,11 @@ import { useTranslation } from "react-i18next";
 import {
     RdsCheckbox,
     RdsInput,
-    RdsSelectList,
     RdsDatePicker,
     RdsButton
 } from "../rds-elements";
 import React, { useEffect, useState } from "react";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompPollsQuestion {
     widgetList: { option: any, value: any }[];
@@ -122,7 +122,7 @@ function RdsCompPollsQuestion(props: any) {
                     </div>
 
                     <div className="col-md-6">
-                        <RdsSelectList
+                        <RdsCompSelectList
                             id="cmwi"
                             label="Widget"
                             selectItems={props.widgetList}
@@ -131,7 +131,7 @@ function RdsCompPollsQuestion(props: any) {
                             }
                             placeholder="Select Widget"
                             size="small"
-                        ></RdsSelectList>
+                        ></RdsCompSelectList>
                     </div>
                     <div className="col-md-6 mt-1">
                         <RdsDatePicker

@@ -1,0 +1,11 @@
+/* Button Group Light Mode Styles */
+.hover-button :hover {
+    background: #7825e9;
+}
+/* Dark Mode - Only used button variants */
+.theme-dark .rds-button-group .btn-outline-primary,
+.theme-dark .rds-button-group .btn-outline-light {
+    color: #ffffff !important;
+}
+/* Icons */
+.theme-dark .rds-button-group svg { fill: currentColor !important; }

@@ -20,7 +20,7 @@
 //     <RdsCompSubscription {...args} />
 // );
 
-// export const Default = Template.bind({});
+// export const Standard = Template.bind({});
 
 // Default.args = {
 //     width: "226px",
@@ -92,7 +92,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompSubscription>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         width: "226px",
         subscriptionData: [
@@ -138,4 +138,4 @@ export const Default: Story = {
         
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['width', 'subscriptionData'] } };
+Standard.parameters = { controls: { include: ['width', 'subscriptionData'] } };

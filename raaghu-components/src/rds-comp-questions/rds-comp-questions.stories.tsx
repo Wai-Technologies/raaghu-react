@@ -16,7 +16,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompQuestions>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         // questions: [
         //     { id: 1, question: 'Question 1' },

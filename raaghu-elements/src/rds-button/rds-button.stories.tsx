@@ -108,7 +108,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsButton>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         size: "medium",
         state: "default",
@@ -173,9 +173,9 @@ export const Default: Story = {
     /*render: (args) => (
         if:
         <RdsButton {...args}></RdsButton>
-      ),RdsIcon*/
+      ),RdsCompIcon*/
 } satisfies Story;
-//Default.parameters = { controls: { include: ["state", "label", "icon", "size",/*"showLoadingSpinner", "colorVariant"*/,"style", "shape",/*"textCase"*/,"displayType"] } };
+//Standard.parameters = { controls: { include: ["state", "label", "icon", "size",/*"showLoadingSpinner", "colorVariant"*/,"style", "shape",/*"textCase"*/,"displayType"] } };
 
 /* (may be used in future)(these are the other stories which have been now combined into the default story)
 export const Disable: Story = {

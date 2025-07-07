@@ -1,6 +1,7 @@
 import React from "react";
-import { RdsLabel, RdsCheckbox, RdsDropdownList } from "../rds-elements";
+import { RdsCheckbox, RdsDropdownList } from "../rds-elements";
 import "./rds-comp-tenant-management.css";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompTenantManagementProps {
     settingsTenantEditionList: any[];
@@ -30,7 +31,7 @@ const RdsCompTenantManagement = (props: RdsCompTenantManagementProps) => {
     return (
         <div className="mt-4" >
             <div className="fw-medium" >
-                <RdsLabel label="Form-Based Registration" />
+                <RdsCompLabel label="Form-Based Registration" />
             </div>
             <div className="form-group py-2 fw-medium">
                 <RdsCheckbox

@@ -32,7 +32,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsTextEditor>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         State: "Default",
         showTitle: true,
@@ -40,4 +40,4 @@ export const Default: Story = {
         isMandatory: true,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory'] } };
+Standard.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory'] } };

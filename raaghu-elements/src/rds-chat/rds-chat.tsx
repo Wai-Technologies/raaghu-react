@@ -1,8 +1,8 @@
 import React from 'react';
 import { useEffect, useState, useRef } from 'react';
-import RdsIcon from '../rds-icon';
+import RdsCompIcon from '../../../raaghu-components/src/rds-comp-icon';
 import RdsInput from '../rds-input';
-import RdsNavtabs from '../rds-navtabs';
+import RdsCompNavtabs from '../../../raaghu-components/src/rds-comp-navtabs';
 import RdsFabMenu from '../rds-fab-menu';
 import RdsAvatar from '../rds-avatar';
 import Picker from 'emoji-picker-react';
@@ -252,8 +252,8 @@ const RdsChat = (props: RdsChatProps) => {
                     <div className='chat-screen-header'>
                         <div className='chat-screen-header-title'>Chat</div>
                         <div className='chat-screen-header-icon'>
-                            <span style={{ marginRight: '9px' }}><RdsIcon colorVariant="dark" height="16px" isCursorPointer name="filter" stroke width="16px" /></span>
-                            <span><RdsIcon colorVariant="dark" height="16px" isCursorPointer name="message_bubble" stroke width="16px" /></span>
+                            <span style={{ marginRight: '9px' }}><RdsCompIcon colorVariant="dark" height="16px" isCursorPointer name="filter" stroke width="16px" /></span>
+                            <span><RdsCompIcon colorVariant="dark" height="16px" isCursorPointer name="message_bubble" stroke width="16px" /></span>
                         </div>
                     </div>
                     <div className='chat-screen-main'>
@@ -278,7 +278,7 @@ const RdsChat = (props: RdsChatProps) => {
                     </div>
                     <div className='chat-window-header-options justify-content-between'>
                         <span>
-                            <RdsNavtabs layout="Horizontal" type='tabs' id='chat' activeNavTabId="chat" navtabsItems={[
+                            <RdsCompNavtabs layout="Horizontal" type='tabs' id='chat' activeNavTabId="chat" navtabsItems={[
                                 {
                                     id: 'chat',
                                     label: 'Chat',
@@ -292,13 +292,13 @@ const RdsChat = (props: RdsChatProps) => {
                             ]}
                             />
                         </span>
-                        <span><RdsIcon
+                        <span><RdsCompIcon
                             name={"action_button"}
                             fill={false}
                             stroke={true}
                             height="20px"
                             width="20px"
-                        ></RdsIcon></span>
+                        ></RdsCompIcon></span>
                     </div>
                 </div>
                 <div className='chat-window-main'>
@@ -378,7 +378,7 @@ const RdsChat = (props: RdsChatProps) => {
                         />
                     </span>
                     <span className="me-2 mb-3 mt-2" ref={emojiButtonRef}>
-                        <RdsIcon
+                        <RdsCompIcon
                             name="smileys"
                             fill={false}
                             stroke={true}
@@ -400,7 +400,7 @@ const RdsChat = (props: RdsChatProps) => {
                                 onChange={(e) => setCommentText(e.target.value)}
                             />
                             <span className="position-absolute end-0 top-50 translate-middle-y pe-2 pb-2">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="send_email"
                                     fill={false}
                                     stroke={true}

@@ -31,7 +31,7 @@ jest.mock('../src/rds-elements', () => ({
       Avatar Component
     </div>
   ),
-  RdsLabel: ({ 
+  RdsCompLabel: ({ 
     label, 
     class: className 
   }: any) => (

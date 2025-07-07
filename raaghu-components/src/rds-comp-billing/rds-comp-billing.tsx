@@ -1,10 +1,10 @@
 import React from "react";
 import { RdsButton } from "../rds-elements";
 import { useTranslation } from "react-i18next";
-import RdsCompDatatable from "../rds-comp-data-table";
+import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
 import RdsCompSubscription from "../rds-comp-subscription";
 import './rds-comp-billing.css';
-import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 
 export interface RdsCompBillingProp {
     subscriptionData: any[];
@@ -41,14 +41,14 @@ const RdsCompBilling = (props: RdsCompBillingProp) => {
                     </div>
                     <p>Check your billing history.</p>
                     <div>
-                        <RdsCompDatatable
+                        <RdsDatatable
                             actionPosition={ActionPosition.Right}
                             tableHeaders={props.billingHeaders}
                             actions={props.actions}
                             tableData={props.billingData}
                             pagination={false}
                             onActionSelection={props.onActionSelection}
-                        ></RdsCompDatatable>
+                        ></RdsDatatable>
                     </div>
                 </div>
             </div>

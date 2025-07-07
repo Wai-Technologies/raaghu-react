@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RdsCompDatatable, { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import RdsDatatable, { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
 import { RdsDropdownList, RdsButton } from "../rds-elements";
 
 export interface RdsCompDynamicPropertiesProp {
@@ -48,7 +48,7 @@ const RdsCompDynamicProperties = (props: RdsCompDynamicPropertiesProp) => {
     return (
       <>
         {props.dynamic === "default" && (
-          <RdsCompDatatable
+          <RdsDatatable
             actionPosition={ActionPosition.Right}
             tableHeaders={props.propertyHeaders}
             actions={props.actions}
@@ -58,7 +58,7 @@ const RdsCompDynamicProperties = (props: RdsCompDynamicPropertiesProp) => {
             onActionSelection={props.onActionSelection}
             recordsPerPageSelectListOption={true}
             classes="table"
-          ></RdsCompDatatable>
+          ></RdsDatatable>
         )}
         {props.dynamic === "advanced" && (
           <form>

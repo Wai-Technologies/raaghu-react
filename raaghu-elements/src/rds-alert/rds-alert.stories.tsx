@@ -106,7 +106,7 @@ SingleLineAlert.parameters = {
   },
 };*/
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     type: AlertType.info,
     border: AlertBorder.none,
@@ -135,7 +135,7 @@ export const Default: Story = {
     linkUrl: "https://example.com",
   },
 };
-Default.parameters = {
+Standard.parameters = {
   controls: {
     include: [
       "type",

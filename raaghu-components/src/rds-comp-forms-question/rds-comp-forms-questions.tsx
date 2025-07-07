@@ -1,11 +1,9 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import {
-  RdsIcon,
   RdsButton,
   RdsInput,
   RdsCheckbox,
-  RdsSelectList,
   RdsTextArea,
   RdsTooltip,
 } from "../rds-elements";
@@ -13,6 +11,8 @@ import { useTranslation } from "react-i18next";
 import { CheckboxStyle } from "../../../raaghu-elements/src/rds-checkbox/rds-checkbox";
 import { TooltipStyle } from "../../../raaghu-elements/src/rds-tooltip/rds-tooltip";
 import {LabelPosition } from "../../../raaghu-elements/src/rds-input/rds-input";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompFormsQuestionProps {
   formQuestionsData?: any;
@@ -220,7 +220,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                     </div>
                   </div>
                   <RdsTooltip label="Delete" style={TooltipStyle.MiddleBottomArrow}>
-                    <RdsIcon
+                    <RdsCompIcon
                       width="17px"
                       height="17px"
                       name="delete"
@@ -231,7 +231,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                       }}
                       classes="cursor-pointer"
                       dataTestId="delete-question"
-                    ></RdsIcon>
+                    ></RdsCompIcon>
                   </RdsTooltip>
                 </span>
               </div>
@@ -261,14 +261,14 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
               </div>
               <div className="row pb-1">
                 <div className="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-12 mt-2 pe-0">
-                  <RdsSelectList
+                  <RdsCompSelectList
                     id="questy"
                     label="Type"
                     placeholder="Type"
                     selectItems={questionsTypeList}
                     selectedValue={element.questionType}
                     onChange={(item: any) => setSelectedOption(i, item.value)}
-                  ></RdsSelectList>
+                  ></RdsCompSelectList>
                 </div>
               </div>
               {element.questionType !== 1 && (
@@ -324,7 +324,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                                 ></RdsInput>
                               </div>
                               {element.choices.length > 0 && (
-                                <RdsIcon
+                                <RdsCompIcon
                                   classes={
                                     "input-group-text bg-transparent border-0 cursor-pointer p-0 ps-3"
                                   }
@@ -335,7 +335,7 @@ const RdsCompFormsQuestions = (props: RdsCompFormsQuestionProps) => {
                                   colorVariant="danger"
                                   onClick={() => handleDelete(i, idx)}
                                   dataTestId="handle-delete"
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                               )}
                             </div>
                           </div>

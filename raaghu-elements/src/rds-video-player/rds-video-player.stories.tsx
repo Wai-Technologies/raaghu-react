@@ -27,7 +27,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsVideoPlayer>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         type: "Default",
         width: "480px", 
@@ -38,5 +38,5 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['type'] } };
+Standard.parameters = { controls: { include: ['type'] } };
 

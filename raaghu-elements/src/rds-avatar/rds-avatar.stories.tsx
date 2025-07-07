@@ -72,7 +72,7 @@ const avatars = [
     { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
     { profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU', },
 ];
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         size: AvatarSize.medium,
         type: "image",
@@ -95,16 +95,16 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['size', 'showName', 'showNameDesignation', 'maxVisibleAvatars', 'avatars', 'firstName','style', 'lastName', 'role', /*'isTitle',*/'profilePic','colorVariant','activeDotTop','activeDotBottom','activityRing','type'] } };
+Standard.parameters = { controls: { include: ['size', 'showName', 'showNameDesignation', 'maxVisibleAvatars', 'avatars', 'firstName','style', 'lastName', 'role', /*'isTitle',*/'profilePic','colorVariant','activeDotTop','activeDotBottom','activityRing','type'] } };
 
 /*
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     size: "medium",
     border: "NoBorder",
   },
 } satisfies Story;
-Default.parameters = { controls: { include: ["size", "border"] } };
+Standard.parameters = { controls: { include: ["size", "border"] } };
 
 export const withInitials: Story = {
   args: {

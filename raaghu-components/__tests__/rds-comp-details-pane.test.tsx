@@ -5,7 +5,7 @@ import RdsCompDetailsPaneFavouites from '../src/rds-comp-details-pane/rds-comp-d
 
 // Mock the child components
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ name, onClick }: any) => (
+  RdsCompIcon: ({ name, onClick }: any) => (
     <div
       data-testid={`rds-icon-${name}`}
       onClick={onClick}
@@ -13,9 +13,9 @@ jest.mock('../src/rds-elements', () => ({
       {name}
     </div>
   ),
-  RdsLabel: ({ label, fontWeight, class: className }: any) => (
+  RdsCompLabel: ({ label, fontWeight, class: className }: any) => (
     <div
-      data-testid="rds-label"
+      data-testid="rds-comp-label"
       data-font-weight={fontWeight}
       className={className}
     >
@@ -47,8 +47,8 @@ jest.mock('../src/rds-elements', () => ({
       ))}
     </div>
   ),
-  RdsSearch: ({ placeholder }: any) => (
-    <input data-testid="rds-search" placeholder={placeholder} />
+  RdsCompSearch: ({ placeholder }: any) => (
+    <input data-testid="rds-comp-search" placeholder={placeholder} />
   ),
 }));
 
@@ -241,8 +241,8 @@ describe('RdsCompDetailsPaneFavouites Component', () => {
     // Mock the RdsCompDetailsPaneFavouites implementation for Real Estate style
     const mockRdsCompDetailsPaneFavouites = jest.fn(() => (
       <div data-testid="mock-real-estate">
-        <div data-testid="rds-label">Luxury Apartment</div>
-        <div data-testid="rds-label">This is a beautiful apartment with modern amenities</div>
+        <div data-testid="rds-comp-label">Luxury Apartment</div>
+        <div data-testid="rds-comp-label">This is a beautiful apartment with modern amenities</div>
         <div data-testid="rds-carousel"></div>
         <div data-testid="rds-badge">Badge</div>
         <div data-testid="rds-counter">Counter</div>
@@ -257,8 +257,8 @@ describe('RdsCompDetailsPaneFavouites Component', () => {
     // Render the mock
     render(
       <div data-testid="mock-real-estate">
-        <div data-testid="rds-label">Luxury Apartment</div>
-        <div data-testid="rds-label">This is a beautiful apartment with modern amenities</div>
+        <div data-testid="rds-comp-label">Luxury Apartment</div>
+        <div data-testid="rds-comp-label">This is a beautiful apartment with modern amenities</div>
         <div data-testid="rds-carousel"></div>
         <div data-testid="rds-badge">Badge</div>
         <div data-testid="rds-counter">Counter</div>
@@ -288,9 +288,9 @@ describe('RdsCompDetailsPaneFavouites Component', () => {
     // Mock the Selection style
     render(
       <div>
-        <div data-testid="rds-label">Select Agent</div>
-        <div data-testid="rds-label">Choose an agent from the list below</div>
-        <input data-testid="rds-search" placeholder="Search for Agents by Name or # ID" />
+        <div data-testid="rds-comp-label">Select Agent</div>
+        <div data-testid="rds-comp-label">Choose an agent from the list below</div>
+        <input data-testid="rds-comp-search" placeholder="Search for Agents by Name or # ID" />
         <div data-testid="rds-avatar">Avatar 1</div>
         <div data-testid="rds-avatar">Avatar 2</div>
         <div data-testid="rds-avatar">Avatar 3</div>
@@ -302,7 +302,7 @@ describe('RdsCompDetailsPaneFavouites Component', () => {
     expect(screen.getByText('Choose an agent from the list below')).toBeInTheDocument();
 
     // Check search is rendered
-    expect(screen.getByTestId('rds-search')).toBeInTheDocument();
+    expect(screen.getByTestId('rds-comp-search')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Search for Agents by Name or # ID')).toBeInTheDocument();
 
     // Check profiles are rendered (we have 3 in the mock data)
@@ -337,7 +337,7 @@ describe('RdsCompDetailsPaneFavouites Component', () => {
     // Mock the Thumbnail View style
     render(
       <div>
-        <div data-testid="rds-label">Pages</div>
+        <div data-testid="rds-comp-label">Pages</div>
         <button data-testid="rds-button-add-new-page">Add New Page</button>
         <div data-testid="rds-accordion">
           <div data-testid="accordion-item-1">Item 1</div>
@@ -445,7 +445,7 @@ describe('RdsCompDetailsPaneFavouites Component', () => {
     // Let's create a simplified test that doesn't depend on the actual component
     const { rerender } = render(
       <div>
-        <div data-testid="rds-label">Toolbar</div>
+        <div data-testid="rds-comp-label">Toolbar</div>
         <span data-testid="button-icon-icon_font">Icon Font</span>
         <span data-testid="button-icon-icon_color">Icon Color</span>
         <span data-testid="button-icon-icon_frame">Icon Frame</span>
@@ -461,7 +461,7 @@ describe('RdsCompDetailsPaneFavouites Component', () => {
     // Simulate clicking on the icon_color tab by re-rendering with different content
     rerender(
       <div>
-        <div data-testid="rds-label">Toolbar</div>
+        <div data-testid="rds-comp-label">Toolbar</div>
         <span data-testid="button-icon-icon_font">Icon Font</span>
         <span data-testid="button-icon-icon_color">Icon Color</span>
         <span data-testid="button-icon-icon_frame">Icon Frame</span>
@@ -478,7 +478,7 @@ describe('RdsCompDetailsPaneFavouites Component', () => {
     // Simulate clicking on the icon_frame tab
     rerender(
       <div>
-        <div data-testid="rds-label">Toolbar</div>
+        <div data-testid="rds-comp-label">Toolbar</div>
         <span data-testid="button-icon-icon_font">Icon Font</span>
         <span data-testid="button-icon-icon_color">Icon Color</span>
         <span data-testid="button-icon-icon_frame">Icon Frame</span>
@@ -494,7 +494,7 @@ describe('RdsCompDetailsPaneFavouites Component', () => {
     // Simulate clicking on the icon_line_height tab
     rerender(
       <div>
-        <div data-testid="rds-label">Toolbar</div>
+        <div data-testid="rds-comp-label">Toolbar</div>
         <span data-testid="button-icon-icon_font">Icon Font</span>
         <span data-testid="button-icon-icon_color">Icon Color</span>
         <span data-testid="button-icon-icon_frame">Icon Frame</span>
@@ -510,7 +510,7 @@ describe('RdsCompDetailsPaneFavouites Component', () => {
     // Simulate clicking on the icon_block tab
     rerender(
       <div>
-        <div data-testid="rds-label">Toolbar</div>
+        <div data-testid="rds-comp-label">Toolbar</div>
         <span data-testid="button-icon-icon_font">Icon Font</span>
         <span data-testid="button-icon-icon_color">Icon Color</span>
         <span data-testid="button-icon-icon_frame">Icon Frame</span>

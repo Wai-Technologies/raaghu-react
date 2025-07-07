@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RdsBankCardDetail renders correctly 1`] = `
+exports[`RdsCompBankCardDetail renders correctly 1`] = `
 <div>
   <div
     class="m-1 p-1"

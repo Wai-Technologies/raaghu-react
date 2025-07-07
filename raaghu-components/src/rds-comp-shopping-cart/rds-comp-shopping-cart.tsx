@@ -1,5 +1,8 @@
 import React from "react";
-import { RdsIcon, RdsIconLabel, RdsLabel, RdsSelectList } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompIconLabel from "../rds-comp-icon-label";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompShoppingCartProp {
     cart: any,
@@ -31,20 +34,20 @@ const RdsCompShoppingCart = (props: RdsCompShoppingCartProp) => {
                     ></img>
                   </div>
                   <div>
-                    <RdsLabel
+                    <RdsCompLabel
                       fontWeight="bold"
                       label={item.prodName}
-                    ></RdsLabel>
-                    <RdsLabel
+                    ></RdsCompLabel>
+                    <RdsCompLabel
                       fontWeight="lighter"
                       label={item.description}
-                    ></RdsLabel>
-                    <RdsLabel
+                    ></RdsCompLabel>
+                    <RdsCompLabel
                       fontWeight="semibold"
                       label={item.price}
-                    ></RdsLabel>
+                    ></RdsCompLabel>
                     <div className="mt-4">
-                      <RdsIconLabel
+                      <RdsCompIconLabel
                       
                         colorVariant="success"
                         icon={item.highlightsIcon}
@@ -57,7 +60,7 @@ const RdsCompShoppingCart = (props: RdsCompShoppingCartProp) => {
                   </div>
                   <div className="d-flex">
                     <div className="me-3 mx-md-3 ">
-                      <RdsSelectList
+                      <RdsCompSelectList
                         id="story"
                         isSearchable
                         onChange={() => {}}
@@ -67,7 +70,7 @@ const RdsCompShoppingCart = (props: RdsCompShoppingCartProp) => {
                       />
                     </div>
                     <div className="mt-3">
-                      <RdsIcon
+                      <RdsCompIcon
                         name="cancel"
                         height="14px"
                         width="14px"

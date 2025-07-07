@@ -1,10 +1,10 @@
 import React from "react";
 import {
-    RdsLabel,
     RdsProgressBar,
     RdsRating,
-    RdsIcon,
 } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 export interface RdsCompCustomerReviewsProps {
     itemList: { value: number; count: number }[];
 }
@@ -34,15 +34,15 @@ const RdsCompCustomerReviews = (props: RdsCompCustomerReviewsProps) => {
                 .map((item: any, index: number) => (
                     <div className="d-flex mt-3 gap-4 align-items-baseline">
                         <div className="d-flex align-items-center gap-3">
-                            <RdsLabel label={item.value}></RdsLabel>
-                            <RdsIcon
+                            <RdsCompLabel label={item.value}></RdsCompLabel>
+                            <RdsCompIcon
                                 height="20px"
                                 fill={true}
                                 stroke={true}
                                 width="20px"
                                 name="star"
                                 colorVariant="review"
-                            ></RdsIcon>
+                            ></RdsCompIcon>
                         </div>
                         <div className="w-100">
                             <div className="mt-1">
@@ -54,7 +54,7 @@ const RdsCompCustomerReviews = (props: RdsCompCustomerReviewsProps) => {
                             </div>
                         </div>
                         <div className="d-flex align-items-center">
-                            <RdsLabel label={getReviewRateString(item.count)}></RdsLabel>
+                            <RdsCompLabel label={getReviewRateString(item.count)}></RdsCompLabel>
                             <span className="fs-5 fw-bolder mt-1">%</span>
                         </div>
                     </div>

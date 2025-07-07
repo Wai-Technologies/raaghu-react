@@ -1,6 +1,6 @@
 import React from "react";
-import RdsIcon from "../rds-icon";
-import RdsLabel from "../rds-label";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
+import RdsCompLabel from "../../../raaghu-components/src/rds-comp-label";
 import "./rds-team-member.css";
 
 export interface RdsTeamMemberProps {
@@ -29,25 +29,25 @@ const RdsTeamMember = (props: RdsTeamMemberProps) => {
                                     <div className="mt-3">
                                         <div className="d-flex justify-content-center mt-2">
                                             <h2 className="mb-0">
-                                                <RdsLabel
+                                                <RdsCompLabel
                                                     label={teamItems.title}
                                                     multiline={false}
                                                     fontWeight="bold"
                                                     size="32px"
-                                                ></RdsLabel>
+                                                ></RdsCompLabel>
                                             </h2>
                                         </div>
                                         <div className="d-flex justify-content-center text-primary">
                                             <h5>
-                                                <RdsLabel
+                                                <RdsCompLabel
                                                     label={teamItems.subTitle}
                                                     multiline={false}
                                                     size="16px"
-                                                ></RdsLabel>
+                                                ></RdsCompLabel>
                                             </h5>
                                         </div>
                                         <div className="d-flex justify-content-center text-muted gap-2">
-                                            <RdsIcon
+                                            <RdsCompIcon
                                                 name={teamItems.twitterIcon}
                                                 height="27px"
                                                 fill={false}
@@ -55,8 +55,8 @@ const RdsTeamMember = (props: RdsTeamMemberProps) => {
                                                 width="27px"
                                                 colorVariant=""
                                                 isCursorPointer={true}
-                                            ></RdsIcon>
-                                            <RdsIcon
+                                            ></RdsCompIcon>
+                                            <RdsCompIcon
                                                 //	class="mx-2"
                                                 name={teamItems.twitterIcon}
                                                 height="27px"
@@ -65,15 +65,15 @@ const RdsTeamMember = (props: RdsTeamMemberProps) => {
                                                 width="27px"
                                                 colorVariant=""
                                                 isCursorPointer={true}
-                                            ></RdsIcon>
+                                            ></RdsCompIcon>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="text-center mt-3">
-                                    <RdsLabel
+                                    <RdsCompLabel
                                         label={teamItems.description}
                                         multiline={true}
-                                    ></RdsLabel>
+                                    ></RdsCompLabel>
                                 </div>
                             </div>
                         </div>

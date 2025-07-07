@@ -53,7 +53,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsDivider>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         icon: "information_divider",
         iconShow: true,
@@ -70,4 +70,4 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: ['icon','iconShow','Style', 'size', 'textalign','withdashed','dividerMessage','layout'] } };
+Standard.parameters = { controls: { include: ['icon','iconShow','Style', 'size', 'textalign','withdashed','dividerMessage','layout'] } };

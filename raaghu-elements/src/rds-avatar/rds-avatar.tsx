@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import "./rds-avatar.css";
 import validator from "validator";
 import { colors } from "../../libs/types";
-import RdsIcon from "../rds-icon/rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon/rds-comp-icon";
 
 export enum AvatarSize {
   smallest = "smallest",
@@ -397,13 +397,13 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                   getBorderClasses(props.border)
                 }
               >
-                <RdsIcon
+                <RdsCompIcon
                   name="user_identity"
                   fill={false}
                   stroke={false}
                   height={iconSize.height}
                   width={iconSize.width}
-                ></RdsIcon>
+                ></RdsCompIcon>
                 {props.activeDotTop && (
                   <div
                     className={`dot ${
@@ -607,7 +607,7 @@ const RdsAvatar = (props: RdsAvatarProps) => {
                       getBorderClasses(props.border)
                     }
                     >
-                    <RdsIcon
+                    <RdsCompIcon
                       name="user_identity"
                       fill={false}
                       stroke={false}
@@ -722,13 +722,13 @@ const RdsAvatar = (props: RdsAvatarProps) => {
 
         {withIcon && props.type !== "image" && (
           <div className={`d-flex justify-content-center align-items-center avatar rounded-circle ` + classes() + getBorderClasses(props.border)}>
-            <RdsIcon
+            <RdsCompIcon
               name={props.iconName}
               fill={false}
               stroke={true}
               height={iconSize.height}
               width={iconSize.width}
-            ></RdsIcon>
+            ></RdsCompIcon>
           </div>
         )}
          {stackingAvatar && (

@@ -48,7 +48,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCheckbox>;
 
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         status: CheckboxStatus.Checked,   
         style: CheckboxStyle.Square,     
@@ -65,4 +65,4 @@ export const Default: Story = {
     }
 } satisfies Story;
 
-Default.parameters = { controls: { include: [ "status", "style", "state", "showText", "labelText",   /* "checked", "isSwitch", "isDisabled", "id", "labelPosition", "isInputGroup"*/] } };
+Standard.parameters = { controls: { include: [ "status", "style", "state", "showText", "labelText",   /* "checked", "isSwitch", "isDisabled", "id", "labelPosition", "isInputGroup"*/] } };

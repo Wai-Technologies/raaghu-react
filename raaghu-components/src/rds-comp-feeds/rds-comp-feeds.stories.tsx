@@ -23,7 +23,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompFeeds>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         variantType: "Basic",
     itemList: [

@@ -1,5 +1,5 @@
-import { RdsIcon } from "../rds-elements";
 import React, { useState } from "react";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface FileItem {
     id: string;
@@ -37,7 +37,7 @@ export const RdsCompFileMover = ({
             <div key={item.name}>
                 <div className="d-flex align-items-center pt-2 me-3 cursor-pointer" onClick={handleClick(item.id, item.name)}>
                     {item.hasChildren && (
-                        <span className="me-2"> <RdsIcon
+                        <span className="me-2"> <RdsCompIcon
                             name={
                                 expandedItems.includes(item.id)
                                     ? "chevron_down"
@@ -51,7 +51,7 @@ export const RdsCompFileMover = ({
                         />
                         </span>
                     )}
-                    <RdsIcon
+                    <RdsCompIcon
                         name={item.iconName}
                         height="15px"
                         width="15px"

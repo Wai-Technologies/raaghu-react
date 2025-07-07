@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./rds-rating.css";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 
 export enum ColorVariant {
   Primary = "primary",
@@ -144,7 +144,7 @@ const RdsRating = (props: RdsRatingProps) => {
     for (let i = 1; i <= totalStars; i++) {
       if (i <= rating) {
         stars.push(
-          <RdsIcon
+          <RdsCompIcon
             key={i}
             height={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
             width={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
@@ -158,7 +158,7 @@ const RdsRating = (props: RdsRatingProps) => {
         );
       } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
         stars.push(
-          <RdsIcon
+          <RdsCompIcon
             key={i}
             height={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
             width={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
@@ -172,7 +172,7 @@ const RdsRating = (props: RdsRatingProps) => {
         );
       } else {
         stars.push(
-          <RdsIcon
+          <RdsCompIcon
             key={i}
             height={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}
             width={props.size === 'small' ? '14px' : props.size === 'large' ? '22px' : '19px'}

@@ -19,7 +19,7 @@ jest.mock('../src/rds-elements', () => ({
       {...props}
     />
   ),
-  RdsLabel: ({ 
+  RdsCompLabel: ({ 
     label, 
     required,
     ...props 
@@ -69,7 +69,7 @@ jest.mock('../src/rds-elements', () => ({
       <label htmlFor={id}>{labelText}</label>
     </div>
   ),
-  RdsSelectList: ({ 
+  RdsCompSelectList: ({ 
     selectItems, 
     selectedValue,
     ...props 

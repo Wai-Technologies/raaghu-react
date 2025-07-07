@@ -1,7 +1,7 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import "./rds-datepicker.css";
 import RdsButton from "../rds-button";
 
@@ -175,7 +175,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                     title="Clear date"
                 >
                     {/* Clear/Cross Icon - Always Visible */}
-                    <RdsIcon
+                    <RdsCompIcon
                         colorVariant="primary"
                         height="12px"
                         isCursorPointer
@@ -306,13 +306,13 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                         <div className="input-group input-group-datePicker mb-3">
                             {/* <div className="input-group-append datepicker__icon-box">
                             <span className="input-group-text cursor-pointer" id="basic-addon2">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="calendar"
                                     width="20px"
                                     height="20px"
                                     colorVariant="secondary"
                                     stroke={true}
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </div> */}
 
@@ -342,12 +342,12 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                                     datePickerRef.current.setOpen(true);
                                 }
                             }}>
-                                <RdsIcon
+                                <RdsCompIcon
                                     name={props.changeIcon}
                                     width="20px"
                                     height="20px"
                                     stroke={true}
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </div>
                     )}
@@ -362,24 +362,24 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                         //         aria-expanded={props.isDropdownOpen ? "true" : "false"}
                         //         onClick={toggleDropdown}>
                         //         <span className="d-flex">
-                        //             <RdsIcon
+                        //             <RdsCompIcon
                         //                 name="calendar"
                         //                 width="20px"
                         //                 height="20px"
                         //                 colorVariant="secondary"
                         //                 stroke={true}
-                        //             ></RdsIcon>
+                        //             ></RdsCompIcon>
                         //             <span className="ps-2 mt-1 datePicker-text">{dropdownDisplayValue}</span>
                         //         </span>
 
                         //         <span className="d-flex">
-                        //             <RdsIcon
+                        //             <RdsCompIcon
                         //                 name={isDropdownOpen && dropdownDisplayValue ? "chevron_up" : "chevron_down"}
                         //                 fill={false}
                         //                 stroke={true}
                         //                 height="27px"
                         //                 width="11px"
-                        //             ></RdsIcon>
+                        //             ></RdsCompIcon>
                         //         </span>
                         //     </button>
                         //     <ul className={`dropdown-menu overflow-visible ${isDropdownOpen ? "show" : ""} z-4`}>
@@ -463,12 +463,12 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                             autoFocus ref={expandedDatePickerRef}
                         />
                             <span className={`input-group-text ${props.isDisabled ? 'disabled' : 'cursor-pointer'}`} id="basic-addon2" onClick={() => !props.isDisabled && expandedDatePickerRef.current && expandedDatePickerRef.current.setFocus()}>
-                                <RdsIcon
+                                <RdsCompIcon
                                     name={props.changeIcon}
                                     width="20px"
                                     height="20px"
                                     stroke={true}
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </div>
                     )}
@@ -497,12 +497,12 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                                 ref={selectedDatePickerRef}
                             />
                             <span className={`input-group-text ${props.isDisabled ? 'disabled' : 'cursor-pointer'}`} id="basic-addon2" onClick={() => !props.isDisabled && selectedDatePickerRef.current && selectedDatePickerRef.current.setFocus()}>
-                                <RdsIcon
+                                <RdsCompIcon
                                     name={props.changeIcon}
                                     width="20px"
                                     height="20px"
                                     stroke={true}
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </div>
                     )}
@@ -538,12 +538,12 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                                     datePickerRef.current.setOpen(true);
                                 }
                             }}>
-                                <RdsIcon
+                                <RdsCompIcon
                                     name={props.changeIcon}
                                     width="20px"
                                     height="20px"
                                     stroke={true}
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </div>
                     )}
@@ -558,13 +558,13 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                             onClick={toggleDropdown}
                             disabled={props.isDisabled}>
                             <span className="d-flex">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="calendar"
                                     width="20px"
                                     height="20px"
                                     colorVariant="secondary"
                                     stroke={true}
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                                 <span className="ps-2 mt-1 datePicker-text">{dropdownDisplayValue}</span>
                             </span>
 
@@ -584,7 +584,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                                     }}
                                     title="Clear date"
                                 >
-                                    <RdsIcon
+                                    <RdsCompIcon
                                         colorVariant="primary"
                                         height="12px"
                                         isCursorPointer
@@ -594,13 +594,13 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
                                     />
                                 </span>
                             )}
-                                <RdsIcon
+                                <RdsCompIcon
                                     name={isDropdownOpen && dropdownDisplayValue ? "chevron_up" : "chevron_down"}
                                     fill={false}
                                     stroke={true}
                                     height="27px"
                                     width="11px"
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </button>
                             <ul className={`dropdown-menu overflow-visible ${isDropdownOpen ? "show" : ""} z-4`}>

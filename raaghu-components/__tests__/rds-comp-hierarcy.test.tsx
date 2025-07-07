@@ -5,7 +5,7 @@ import RdsCompHierarcy from "../src/rds-comp-hierarcy/rds-comp-hierarcy";
 
 // Mock the rds-elements
 jest.mock("../src/rds-elements", () => ({
-  RdsIcon: jest.fn(({ name, colorVariant }) => (
+  RdsCompIcon: jest.fn(({ name, colorVariant }) => (
     <div data-testid="mocked-icon" data-name={name} data-color={colorVariant}>
       {name}
     </div>

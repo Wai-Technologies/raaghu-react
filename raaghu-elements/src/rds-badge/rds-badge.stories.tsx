@@ -1,6 +1,5 @@
 import React from "react";
 import RdsBadge from "./rds-badge";
-import RdsIcon from "../rds-icon/rds-icon";
 import RdsButton from "../rds-button/rds-button";
 import { Meta, StoryObj, } from "@storybook/react";
 import { alert_colors } from "../../libs";
@@ -86,7 +85,7 @@ const Positioned = (args: any) => (
 /*const PositionedIcon = (args: any) => (
   <>
     <span className={`icon-${args.size}`}>
-      <RdsIcon
+      <RdsCompIcon
         name={args.iconName}
         width="25px"
         height="25px"
@@ -100,7 +99,7 @@ const Positioned = (args: any) => (
   </>
 );*/
 
-export const TextBadge: Story = {
+export const Standard: Story = {
   args: {
     size: "small",
     shape: "rectangle",
@@ -114,7 +113,7 @@ export const TextBadge: Story = {
     //iconPosition: "right",
   },
 } satisfies Story;
-TextBadge.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'shape', 'layout', 'style', 'state', 'iconName'] } };
+Standard.parameters = { controls: { include: ['size', 'label', 'colorVariant', 'shape', 'layout', 'style', 'state', 'iconName'] } };
 /*
 export const WithLabel: Story = {
   args: {
@@ -183,11 +182,11 @@ BadgeWithIcon.parameters = { controls: { include: ['size', 'colorVariant', 'badg
   render: (args) => (
     <RdsBadge {...args}>
       {args.iconPosition === "left" && (
-        <RdsIcon name={args.iconName} width="16px" height="16px" classes="me-1" />
+        <RdsCompIcon name={args.iconName} width="16px" height="16px" classes="me-1" />
       )}
       {args.label}
       {args.iconPosition === "right" && (
-        <RdsIcon name={args.iconName} width="16px" height="16px" classes="ms-1" />
+        <RdsCompIcon name={args.iconName} width="16px" height="16px" classes="ms-1" />
       )}
     </RdsBadge>
   ),
@@ -209,11 +208,11 @@ export const BadgeWithRightIconAndText: Story = {
   render: (args) => (
     <RdsBadge {...args}>
       {args.iconPosition === "left" && (
-        <RdsIcon name={args.iconName} width="16px" height="16px" classes="me-1" />
+        <RdsCompIcon name={args.iconName} width="16px" height="16px" classes="me-1" />
       )}
       {args.label}
       {args.iconPosition === "right" && (
-        <RdsIcon name={args.iconName} width="16px" height="16px" classes="ms-1" />
+        <RdsCompIcon name={args.iconName} width="16px" height="16px" classes="ms-1" />
       )}
     </RdsBadge>
   ),

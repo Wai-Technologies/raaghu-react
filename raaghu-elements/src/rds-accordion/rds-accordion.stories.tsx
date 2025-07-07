@@ -63,7 +63,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsAccordion>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         accordionId: "1",
         accordionType: AccordionType.multiple,

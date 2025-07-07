@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { RdsButton, RdsCheckbox, RdsInput, RdsLabel } from "../rds-elements";
+import { RdsButton, RdsCheckbox, RdsInput } from "../rds-elements";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompEmailSettingsProps {
     emailSettings: any;
@@ -53,7 +54,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
         <form>
         <div className="form-group px-2 ps-2 row align-items-center mb-2">
             <div className="col-12 col-sm-4 col-md-3 text-sm-end">
-                <RdsLabel label="Current Email" class="control-label"></RdsLabel>
+                <RdsCompLabel label="Current Email" class="control-label"></RdsCompLabel>
             </div>
             <div className="col-12 col-sm-8 col-md-9">
                 <RdsInput
@@ -70,7 +71,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
     
         <div className="form-group px-2 ps-2 row align-items-center mb-2">
             <div className="col-12 col-sm-4 col-md-3 text-sm-end">
-                <RdsLabel label="New Email" class="control-label"></RdsLabel>
+                <RdsCompLabel label="New Email" class="control-label"></RdsCompLabel>
             </div>
             <div className="col-12 col-sm-8 col-md-9">
                 <RdsInput
@@ -87,7 +88,7 @@ const RdsCompEmailSettings = (props: RdsCompEmailSettingsProps) => {
     
         <div className="form-group px-2 ps-2 row align-items-center mb-5">
             <div className="col-12 col-sm-4 col-md-3 text-sm-end">
-                <RdsLabel label="Confirm New Email" class="control-label"></RdsLabel>
+                <RdsCompLabel label="Confirm New Email" class="control-label"></RdsCompLabel>
             </div>
             <div className="col-12 col-sm-8 col-md-9">
                 <RdsInput

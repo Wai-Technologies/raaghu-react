@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"; 
-import RdsIcon from "../rds-icon";
+import RdsCompIcon from "../../../raaghu-components/src/rds-comp-icon";
 import "./rds-alert.css";
 import RdsButton from "../rds-button";
 
@@ -141,7 +141,7 @@ const RdsAlert = (props: RdsAlertProps) => {
           <span className="custom-alert-message wordbreak d-flex align-items-top">
             <div className="d-flex">
             {props.icon && props.showIcon && (
-              <RdsIcon
+              <RdsCompIcon
                 name={props.icon || " "}
                 fill={props.iconFill}
                 stroke={props.iconStroke}
@@ -159,16 +159,17 @@ const RdsAlert = (props: RdsAlertProps) => {
               )}
             </div>
           </span>
-          <span className="d-flex me-3">
-            <div className="d-flex gap-2 alertBtns pe-1 align-items-center">
+          <span className="d-flex me-lg-3 me-md-3">
+            <div className="d-flex gap-2 alertBtns single-line-btn pe-lg-1 pe-md-1 align-items-center">
               {props.showLink && (
                 <a
-                  className="text-decoration-underline ms-2 cursor-pointer"
+                  className="text-decoration-underline cursor-pointer"
                   href={props.linkUrl}
                 >
                   Link
                 </a>
               )}
+              <div className="d-flex align-items-center gap-2">
               {props.showSecondary && (
                 <button
                   type="button"
@@ -187,11 +188,12 @@ const RdsAlert = (props: RdsAlertProps) => {
                   label="Okay"
                 />
               )}
+              </div>
               <div
                 className={`d-flex align-items-center justify-content-end gap-2 alert-close alert-${props.size}`}
               >
                 {props.showDismiss && (
-                  <RdsIcon
+                  <RdsCompIcon
                     colorVariant="primary"
                     name="close"
                     stroke={true}
@@ -210,71 +212,81 @@ const RdsAlert = (props: RdsAlertProps) => {
       {/* Render multi-line alert */}
       {multiline && (
         <>
-          <span className="custom-alert-message wordbreak align-items-baseline d-flex align-items-center flex-column flex-md-row">
-            {props.icon && props.showIcon && (
-              <div className=" d-flex" id="rdicon">
-                <RdsIcon
-                  name={props.icon || " "}
-                  fill={props.iconFill}
-                  stroke={props.iconStroke}
-                  height={props.iconHeight}
-                  width={props.iconWidth}
-                  colorVariant={colorType}
-                  classes="me-2"
-                />
-                {/* {props.title && props.showTitle && <strong>{props.title}</strong>} */}
+          <div className="w-100 d-flex flex-column">
+            <div className="d-flex justify-content-between align-items-start">
+              <div className="custom-alert-message wordbreak d-flex align-items-start flex-grow-1">
+                {props.icon && props.showIcon && (
+                  <div className="d-flex align-items-center" id="rdicon">
+                    <RdsCompIcon
+                      name={props.icon || " "}
+                      fill={props.iconFill}
+                      stroke={props.iconStroke}
+                      height={props.iconHeight}
+                      width={props.iconWidth}
+                      colorVariant={colorType}
+                      classes="me-2"
+                    />
+                    {props.title && props.showTitle && <strong>{props.title}</strong>}
+                  </div>
+                )}
+                {!props.icon && props.title && props.showTitle && (
+                  <div><strong>{props.title}</strong></div>
+                )}
               </div>
-            )}
-            <div className="flex-grow-1">
-              {props.icon && props.title && props.showTitle && <strong>{props.title}</strong>}
-              {props.description && props.showDescription && (
-                <p>{props.description}</p>
-              )}
-              {props.showLink && (
-                <a
-                  className="text-decoration-underline mt-4 mt-md-6 cursor-pointer"
-                  href={props.linkUrl}
-                  id="alertlinks"
-                >
-                  Link
-                </a>
-              )}
-            </div>
-          </span>
-          <span>
-            <div className="d-flex align-items-top justify-content-end gap-2 alert-close pe-2">
               {props.showDismiss && (
-                <RdsIcon
-                  colorVariant="primary"
-                  name="close"
-                  stroke={true}
-                  height="12px"
-                  width="12px"
-                  onClick={(e: any) => closeHandler(e)}
-                  isCursorPointer={true}
-                />
+                <div className="d-flex align-items-center">
+                  <RdsCompIcon
+                    colorVariant="primary"
+                    name="close"
+                    stroke={true}
+                    height="12px"
+                    width="12px"
+                    onClick={(e: any) => closeHandler(e)}
+                    isCursorPointer={true}
+                  />
+                </div>
               )}
             </div>
-            <div className="d-flex align-items-flex-end mt-5 gap-2 alertBtns">
-              {props.showSecondary && (
-                <button
-                  className={`border-0 bg-transparent ${
-                    props.type === "error" ? "text-danger" : "text-primary"
-                  }`}
-                  onClick={(e: any) => closeHandler(e)}
-                >
-                  Cancel
-                </button>
-              )}
-              {props.showPrimary && (
-                <RdsButton
-                  colorVariant={props.type === "error" ? "danger" : "primary"}
-                  onClick={(e: any) => closeHandler(e)}
-                  label="Okay"
-                />
+            
+            <div className="flex-grow-1 mt-2">
+              {props.description && props.showDescription && (
+                <p className="mb-2">{props.description}</p>
               )}
             </div>
-          </span>
+            
+            <div className="d-flex justify-content-between align-items-center w-100 alertBtns mt-2">
+              <div className="d-flex align-items-center">
+                {props.showLink && (
+                  <a
+                    className="text-decoration-underline cursor-pointer"
+                    href={props.linkUrl}
+                    id="alertlinks"
+                  >
+                    Link
+                  </a>
+                )}
+              </div>
+              <div className="d-flex align-items-center gap-2">
+                {props.showSecondary && (
+                  <button
+                    className={`border-0 bg-transparent ${
+                      props.type === "error" ? "text-danger" : "text-primary"
+                    }`}
+                    onClick={(e: any) => closeHandler(e)}
+                  >
+                    Cancel
+                  </button>
+                )}
+                {props.showPrimary && (
+                  <RdsButton
+                    colorVariant={props.type === "error" ? "danger" : "primary"}
+                    onClick={(e: any) => closeHandler(e)}
+                    label="Okay"
+                  />
+                )}
+              </div>
+            </div>
+          </div>
         </>
       )}
     </div>

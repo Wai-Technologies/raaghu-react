@@ -40,7 +40,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCarousel>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         style: "Default",
         state: "1",
@@ -85,7 +85,7 @@ export const Default: Story = {
         );
     }]
 } satisfies Story;
-Default.parameters = { controls: { include: ['style','state','Indicators','type', 'controls'] } };
+Standard.parameters = { controls: { include: ['style','state','Indicators','type', 'controls'] } };
 
 
 // export const Style1: Story = {

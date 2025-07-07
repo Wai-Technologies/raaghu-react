@@ -5,7 +5,7 @@ import { RdsCompDirectoryList, DirectoryItem, RdsCompDirectoryListProps } from '
 
 // Mock RDS components
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ name, onClick, dataTestId, ...props }: any) => (
+  RdsCompIcon: ({ name, onClick, dataTestId, ...props }: any) => (
     <div 
       data-testid={dataTestId || `icon-${name}`} 
       onClick={onClick}
@@ -14,7 +14,7 @@ jest.mock('../src/rds-elements', () => ({
       {name}
     </div>
   ),
-  RdsLabel: ({ label, class: className, ...props }: any) => (
+  RdsCompLabel: ({ label, class: className, ...props }: any) => (
     <span className={className} {...props}>
       {label}
     </span>

@@ -7,7 +7,7 @@ import RdsNotification, {
   NotificationStyle 
 } from "../src/rds-notification/rds-notification";
 
-// Mock RdsIcon to prevent fetch errors
+// Mock RdsCompIcon to prevent fetch errors
 jest.mock("../src/rds-icon/rds-icon", () => ({
   __esModule: true,
   default: jest.fn(({ name, onClick }) => (

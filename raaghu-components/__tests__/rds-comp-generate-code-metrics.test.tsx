@@ -15,7 +15,7 @@ jest.mock('../../raaghu-elements/src/rds-tooltip/rds-tooltip', () => ({
 
 // Mock RDS elements
 jest.mock('../src/rds-elements', () => ({
-  RdsIcon: ({ 
+  RdsCompIcon: ({ 
     name, 
     onClick, 
     isCursorPointer,

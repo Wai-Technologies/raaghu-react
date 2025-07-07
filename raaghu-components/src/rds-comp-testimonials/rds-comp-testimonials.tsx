@@ -1,10 +1,10 @@
 import React from "react";
 import {
-    RdsLabel,
-    RdsTestimonial,
-    RdsIcon,
     RdsCarousel,
 } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
+import RdsCompTestimonial from "../rds-comp-testimonial/rds-comp-testimonial";
 
 export interface RdsCompTestimonialsProps {
     testimonialItems?: any;
@@ -20,25 +20,25 @@ const RdsCompTestimonials = (props: RdsCompTestimonialsProps) => {
                     <div className="col-md-12">
                         <div className="align-items-center col-md-12 d-flex justify-content-between">
                             <h2>
-                                <RdsLabel label="Testimonials" fontWeight={"bold"}></RdsLabel>
+                                <RdsCompLabel label="Testimonials" fontWeight={"bold"}></RdsCompLabel>
                             </h2>
                             <span>
-                                <RdsIcon
+                                <RdsCompIcon
                                     height="15px"
                                     fill={false}
                                     stroke={true}
                                     width="15px"
                                     name="chevron_left"
                                     dataTestId="chevron_left"
-                                ></RdsIcon>
-                                <RdsIcon
+                                ></RdsCompIcon>
+                                <RdsCompIcon
                                     height="15px"
                                     fill={false}
                                     stroke={true}
                                     width="15px"
                                     name="chevron_right"
                                     dataTestId="chevron_right"
-                                ></RdsIcon>
+                                ></RdsCompIcon>
                             </span>
                         </div>
                         <div className="mt-4">
@@ -46,9 +46,9 @@ const RdsCompTestimonials = (props: RdsCompTestimonialsProps) => {
                                 {props.testimonialItems.map((testimonialItem: any) => (
                                     <>
                                         <div className="col-lg-4 col-md-4 col-sm-4">
-                                            <RdsTestimonial
+                                            <RdsCompTestimonial
                                                 testimonialItems={testimonialItem}
-                                            ></RdsTestimonial>
+                                            ></RdsCompTestimonial>
                                         </div>
                                     </>
                                 ))}
@@ -60,11 +60,11 @@ const RdsCompTestimonials = (props: RdsCompTestimonialsProps) => {
             {props.displayType == "basic" && (
                 <div>
                     <h2 className="text-center">
-                        <RdsLabel
+                        <RdsCompLabel
                             label="'Testimonials'"
                             multiline={false}
                             fontWeight="bold"
-                        ></RdsLabel>
+                        ></RdsCompLabel>
                     </h2>
                     <RdsCarousel
                         crossFade={true}

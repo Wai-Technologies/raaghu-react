@@ -5,7 +5,7 @@ import RdsCompTypingSection from "../src/rds-comp-typing-section/rds-comp-typing
 
 // Mock the RdsElements components
 jest.mock("../src/rds-elements", () => ({
-  RdsIcon: ({ name, onClick, classes, height, width, isCursorPointer, style, ...props }: any) => {
+  RdsCompIcon: ({ name, onClick, classes, height, width, isCursorPointer, style, ...props }: any) => {
     const { style: _, ...restProps } = props; // Remove style from spreading
     return (
       <span
@@ -37,7 +37,7 @@ jest.mock("../src/rds-elements", () => ({
       </button>
     );
   },
-  RdsAttachement: ({ onFileSelect, badgeLabel, showBadge, menuIcon, handleAddComment, onFigmaSubmit, style, ...props }: any) => {
+  RdsCompAttachement: ({ onFileSelect, badgeLabel, showBadge, menuIcon, handleAddComment, onFigmaSubmit, style, ...props }: any) => {
     const { style: _, ...restProps } = props; // Remove style from spreading
     return (
       <div data-testid="rds-attachment" {...restProps}>
@@ -75,7 +75,7 @@ jest.mock("../src/rds-elements", () => ({
       </div>
     );
   },
-  RdsSelectList: ({ id, label, placeholder, selectedValue, selectItems, onChange, style, ...props }: any) => {
+  RdsCompSelectList: ({ id, label, placeholder, selectedValue, selectItems, onChange, style, ...props }: any) => {
     const { style: _, ...restProps } = props; // Remove style from spreading
     return (
       <div data-testid={`select-list-${id}`} {...restProps}>

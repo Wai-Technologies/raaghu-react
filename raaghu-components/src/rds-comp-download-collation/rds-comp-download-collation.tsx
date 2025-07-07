@@ -1,5 +1,5 @@
 import React from "react";
-import { RdsIcon } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
 
 export interface RdsCompDownloadCollationProps {
     downloadTable: any[];
@@ -24,7 +24,7 @@ const RdsCompDownloadCollation = (props: RdsCompDownloadCollationProps) => {
                     <div className="d-flex justify-content-between p-3" role="listitem" key={index}>
                         <div className="d-flex justify-content-between">
                             <span className="align-self-center ms-2 me-3">
-                                <RdsIcon
+                                <RdsCompIcon
                                     name="information"
                                     fill={false}
                                     stroke={true}
@@ -40,7 +40,7 @@ const RdsCompDownloadCollation = (props: RdsCompDownloadCollationProps) => {
                             </span>
                         </div>
                         <div onClick={() => handleDownloadTXT(item)}>
-                            <RdsIcon
+                            <RdsCompIcon
                                 name="download"
                                 fill={false}
                                 stroke={true}

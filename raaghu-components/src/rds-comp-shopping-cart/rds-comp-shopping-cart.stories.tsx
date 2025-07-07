@@ -22,7 +22,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompShoppingCart>;
 
-export const Default: Story = {
+export const Standard: Story = {
   args: {
     itemList: [
       {
@@ -80,7 +80,7 @@ export const Default: Story = {
     ],
   }
 } satisfies Story;
-Default.parameters = { controls: { include: ['itemList'] } };
+Standard.parameters = { controls: { include: ['itemList'] } };
 
 
 

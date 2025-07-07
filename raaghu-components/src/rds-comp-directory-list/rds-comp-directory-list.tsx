@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import { RdsIcon } from "../rds-elements";
-import { RdsLabel } from "../rds-elements";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface DirectoryItem {
     id: string;
@@ -72,7 +72,7 @@ export const RdsCompDirectoryList = (props: RdsCompDirectoryListProps) => {
                             className="me-3 border-0 bg-transparent cursor-pointer"
                             onClick={handleClick(item.id, item.name)}
                         >
-                            <RdsIcon
+                            <RdsCompIcon
                                 name={isExpanded ? "chevron_down" : "chevron_right"}
                                 height="12px"
                                 width="12px"
@@ -83,7 +83,7 @@ export const RdsCompDirectoryList = (props: RdsCompDirectoryListProps) => {
                             />
                         </button>
                     )}
-                    <RdsIcon
+                    <RdsCompIcon
                         name="folder"
                         height="30px"
                         width="20px"
@@ -92,13 +92,13 @@ export const RdsCompDirectoryList = (props: RdsCompDirectoryListProps) => {
                         colorVariant={isSelected ? "primary" : undefined}
                         onClick={handleClick(item.id, item.name)}
                     />
-                    <RdsLabel
+                    <RdsCompLabel
                         class="ps-3 pe-2 cursor-pointer"
                         label={item.name}
 
                     />
                     {item.children && (
-                        <RdsLabel label={`(${item.children.length})`} />
+                        <RdsCompLabel label={`(${item.children.length})`} />
                     )}
                 </div>
 

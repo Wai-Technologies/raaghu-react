@@ -5,8 +5,8 @@ import RdsCompTenantManagement from '../src/rds-comp-tenant-management/rds-comp-
 
 // Mock the RDS elements
 jest.mock('../src/rds-elements', () => ({
-  RdsLabel: (props: any) => (
-    <div data-testid="rds-label" data-label={props.label}>
+  RdsCompLabel: (props: any) => (
+    <div data-testid="rds-comp-label" data-label={props.label}>
       {props.label}
     </div>
   ),

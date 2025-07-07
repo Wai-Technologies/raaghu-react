@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import RdsCompLoginAttempts from '../src/rds-comp-login-attempts/rds-comp-login-attempts';
 
 // Mock child components
-jest.mock('../src/rds-comp-data-table', () => ({
+jest.mock('../src/rds-data-table', () => ({
   __esModule: true,
   default: ({ tableHeaders, tableData, pagination, recordsPerPage, onActionSelection }: any) => (
     <div data-testid="mock-data-table">
@@ -67,10 +67,10 @@ jest.mock('../src/rds-elements', () => ({
       </select>
     </div>
   ),
-  RdsLabel: ({ label }: any) => <label data-testid="mock-label">{label}</label>,
+  RdsCompLabel: ({ label }: any) => <label data-testid="mock-label">{label}</label>,
   RdsPagination: () => <div data-testid="mock-pagination">Pagination</div>,
-  RdsSelectList: () => <div data-testid="mock-select-list">Select List</div>,
-  RdsIllustration: ({ subLabel, colorVariant }: any) => (
+  RdsCompSelectList: () => <div data-testid="mock-select-list">Select List</div>,
+  RdsEmptyState: ({ subLabel, colorVariant }: any) => (
     <div data-testid="mock-illustration" className={`illustration-${colorVariant}`}>
       <p>{subLabel}</p>
     </div>
@@ -244,7 +244,7 @@ describe('RdsCompLoginAttempts', () => {
   test('calls onActionSelection when an action is selected', () => {
     render(<RdsCompLoginAttempts {...mockProps} />);
     
-    // Since the actual action selection is handled by the mocked RdsCompDatatable,
+    // Since the actual action selection is handled by the mocked RdsDatatable,
     // we can verify that we're passing the function correctly
     expect(mockProps.onActionSelection).not.toHaveBeenCalled();
     

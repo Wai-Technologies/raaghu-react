@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import RdsCompDatatable from "../rds-comp-data-table";
-import { RdsButton, RdsInput, RdsSelectList } from "../rds-elements";
+import RdsDatatable from "../../../raaghu-elements/src/rds-data-table";
+import { RdsButton, RdsInput } from "../rds-elements";
 import "./rds-comp-claims.css";
-import { ActionPosition } from "../rds-comp-data-table/rds-comp-data-table";
+import { ActionPosition } from "../../../raaghu-elements/src/rds-data-table/rds-data-table";
+import RdsCompSelectList from "../rds-comp-select-list";
 
 export interface RdsCompClaimsProps {
     allClaimsArray?: any[];
@@ -89,7 +90,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
             <div className="form">
                 <div className="row">
                     <div className="col-md-5 mb-3">
-                        <RdsSelectList
+                        <RdsCompSelectList
                             key={dropdownKey}
                             id="claim"                            
                             label="Claim Types"
@@ -101,7 +102,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                             }}
                             dataTestId="select"
                             color="primary"
-                        ></RdsSelectList>
+                        ></RdsCompSelectList>
                     </div>
 
                     <div className="col-md-5">
@@ -140,7 +141,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                 </div>
 
                 <div className="row mt-3">
-                    <RdsCompDatatable
+                    <RdsDatatable
                      key={tableData.length} 
                         actionPosition={ActionPosition.Right}
                         tableHeaders={props.tableHeaders || []}
@@ -150,7 +151,7 @@ const RdsCompClaims = (props: RdsCompClaimsProps) => {
                         actions={tableActions}  
                         recordsPerPageSelectListOption={true}
                         onActionSelection={props.onActionSelection}
-                    ></RdsCompDatatable>
+                    ></RdsDatatable>
                 </div>
             </div>
         </>

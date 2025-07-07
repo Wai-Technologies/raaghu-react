@@ -14,7 +14,7 @@ if (typeof global !== 'undefined' && typeof global.fetch === 'undefined') {
   global.fetch = require('node-fetch');
 }
 
-// Mock RdsIcon to avoid fetch and SVG loading in tests
+// Mock RdsCompIcon to avoid fetch and SVG loading in tests
 jest.mock('../src/rds-icon/rds-icon', () => ({
   __esModule: true,
   default: (props: any) => <svg data-testid="mock-rds-icon" {...props} />,

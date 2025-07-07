@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsCompProperties from '../src/rds-comp-properties/rds-comp-properties';
-import { ActionPosition } from '../src/rds-comp-data-table/rds-comp-data-table';
+import { ActionPosition } from '../../raaghu-elements/src/rds-data-table/rds-data-table';
 
 // Mock the rds-elements components
 jest.mock('../src/rds-elements', () => ({
@@ -43,7 +43,7 @@ jest.mock('../src/rds-elements', () => ({
       />
     </div>
   ),
-  RdsIcon: ({ 
+  RdsCompIcon: ({ 
     name, 
     height, 
     width, 
@@ -59,8 +59,8 @@ jest.mock('../src/rds-elements', () => ({
   )
 }));
 
-// Mock the RdsCompDatatable component
-jest.mock('../src/rds-comp-data-table/rds-comp-data-table', () => {
+// Mock the RdsDatatable component
+jest.mock('../src/rds-data-table/rds-data-table', () => {
   return {
     __esModule: true,
     ActionPosition: {

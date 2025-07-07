@@ -3,9 +3,9 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { RdsCompFileMover, FileItem } from '../src/rds-comp-file-mover/rds-comp-file-mover';
 
-// Mock RdsIcon component
+// Mock RdsCompIcon component
 jest.mock('../src/rds-elements', () => ({
-    RdsIcon: ({ name, onClick, colorVariant, ...props }: any) => (
+    RdsCompIcon: ({ name, onClick, colorVariant, ...props }: any) => (
         <div
             data-testid={`rds-icon-${name}`}
             onClick={onClick}

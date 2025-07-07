@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RdsRange renders the component 1`] = `
+exports[`RdsCompRange renders the component 1`] = `
 <div
   class="position-relative py-5"
 >

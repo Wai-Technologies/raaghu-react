@@ -189,10 +189,10 @@ jest.mock("../../raaghu-elements/src/rds-dropdown/rds-dropdown", () => ({
   )
 }));
 
-jest.mock("../../raaghu-elements/src/rds-label/rds-label", () => ({
+jest.mock("../../raaghu-elements/src/rds-comp-label/rds-comp-label", () => ({
   __esModule: true,
   default: ({ label }: any) => (
-    <label data-testid="rds-label">{label}</label>
+    <label data-testid="rds-comp-label">{label}</label>
   )
 }));
 

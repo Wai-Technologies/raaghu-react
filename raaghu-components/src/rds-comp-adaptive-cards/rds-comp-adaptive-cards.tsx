@@ -6,8 +6,6 @@ import {
   RdsButton,
   RdsDropdown,
   RdsDropdownList,
-  RdsIcon,
-  RdsLabel,
   RdsRadioButton,
 } from "../rds-elements";
 import {
@@ -29,11 +27,13 @@ import RdsInput, {
   InputSize,
   LabelPosition,
 } from "../../../raaghu-elements/src/rds-input/rds-input";
-import { State } from "../rds-comp-grid/rds-comp-grid";
+import { State } from "../../../raaghu-elements/src/rds-grid/rds-grid";
 import {
   RdsRadioButtonLayout,
   RdsRadioButtonState,
 } from "../../../raaghu-elements/src/rds-radio-button/rds-radio-button";
+import RdsCompIcon from "../rds-comp-icon";
+import RdsCompLabel from "../rds-comp-label";
 
 export interface RdsCompAdaptiveCardsProps {
   title?: boolean;
@@ -162,7 +162,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
               <div className="d-flex align-items-center gap-2">
                 {props.titleIcon && (
                   <div className="Adaptive-header-icon">
-                    <RdsIcon
+                    <RdsCompIcon
                       colorVariant="dark"
                       isCursorPointer
                       name="circle"
@@ -175,7 +175,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                 )}
               </div>
               {props.closeIcon && (
-                <RdsIcon
+                <RdsCompIcon
                   colorVariant="dark"
                   height="16px"
                   isCursorPointer
@@ -195,7 +195,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
               {props.type == "CalendarReminder" && (
                 <>
                   <div className="my-2">
-                    <RdsLabel fontWeight="normal" label={props.label} />
+                    <RdsCompLabel fontWeight="normal" label={props.label} />
                     <div className="adaptive-card-small-text">
                       {props.smallText}
                     </div>
