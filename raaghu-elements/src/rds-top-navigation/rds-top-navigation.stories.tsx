@@ -84,14 +84,14 @@ export const Standard: Story = {
         ],
         languageItems: [
             {
-                label: "EN(US)",
+                label: "EN (US)",
                 val: "en",
                 icon: "us",
                 iconWidth: "20px",
                 iconHeight: "20px",
             },
             {
-                label: "English(IND)",
+                label: "English (IND)",
                 val: "en",
                 icon: "in",
                 iconWidth: "20px",
@@ -189,14 +189,14 @@ export const ABP: Story = {
         ],
         languageItems: [
             {
-                label: "EN(US)",
+                label: "EN (US)",
                 val: "en",
                 icon: "us",
                 iconWidth: "20px",
                 iconHeight: "20px",
             },
             {
-                label: "English(IND)",
+                label: "English (IND)",
                 val: "en",
                 icon: "in",
                 iconWidth: "20px",
@@ -280,14 +280,14 @@ export const Application_Shell: Story = {
         ],
         listItems: [
             {
-                label: "EN(US)",
+                label: "EN (US)",
                 val: "en",
                 icon: "us",
                 iconWidth: "20px",
                 iconHeight: "20px",
             },
             {
-                label: "English(IND)",
+                label: "English (IND)",
                 val: "en",
                 icon: "in",
                 iconWidth: "20px",
