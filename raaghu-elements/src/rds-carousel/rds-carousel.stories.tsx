@@ -1,6 +1,6 @@
 import React from "react";
 import RdsCarousel from "./rds-carousel";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Carousel',

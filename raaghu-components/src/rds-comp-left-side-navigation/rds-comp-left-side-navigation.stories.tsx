@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompLeftSideNavigation, { NavLayout, NavType, Platform } from "./rds-comp-left-side-navigation";
 
 const meta: Meta = {

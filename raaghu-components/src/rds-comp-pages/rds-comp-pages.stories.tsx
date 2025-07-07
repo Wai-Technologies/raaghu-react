@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsDatatable, { ActionPosition } from '../../../raaghu-elements/src/rds-data-table/rds-data-table';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 
 const meta: Meta = { 
   title: "components/Pages",

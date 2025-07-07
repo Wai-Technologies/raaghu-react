@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompHeader from "./rds-comp-header";
 const meta: Meta = {
   title: "Components/Header",

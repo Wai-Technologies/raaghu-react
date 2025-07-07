@@ -1,4 +1,4 @@
-import { create } from '@storybook/theming/create';
+import { create } from 'storybook/theming/create';
 // import logoUrl from "./assets/raaghu_icon.png";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Styles from node_modules
 

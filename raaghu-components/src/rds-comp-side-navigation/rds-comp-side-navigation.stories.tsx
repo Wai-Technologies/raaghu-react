@@ -1,12 +1,12 @@
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompSideNavigation from "./rds-comp-side-navigation";
 import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 
 
 const meta: Meta = {
-    title: "Components/Side Navigation",
+    title: "Components/Side Nav",
     component: RdsCompSideNavigation,
     parameters: {
         layout: 'padded',
@@ -33,6 +33,7 @@ export const Standard: Story = (args: any) => (
 
 Standard.args = {
     logo:"https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png",
+    lockIconVisible: false,
     sideNavItems: [
         {
             key: "0",
