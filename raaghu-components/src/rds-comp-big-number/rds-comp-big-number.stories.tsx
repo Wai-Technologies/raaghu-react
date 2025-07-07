@@ -2,7 +2,7 @@ import React from "react";
 import RdsCompBigNumber from "./rds-comp-big-number";
 import RdsLineChart from "../../../raaghu-elements/src/rds-chart-line";
 import RdsBarChart from "../../../raaghu-elements/src/rds-chart-bar";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompIcon from "../rds-comp-icon";
 
 const textAlignArgTypes = {

@@ -1,6 +1,6 @@
 import RdsPolarAreaChart from "./rds-chart-polar-area";
 import "./rds-chart-polar-area.css";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Charts/Polar Area Chart',

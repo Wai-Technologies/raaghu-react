@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompChatHeader, { ChatHeaderSize } from "./rds-comp-chat-header";
 
 const meta: Meta<typeof RdsCompChatHeader> = {

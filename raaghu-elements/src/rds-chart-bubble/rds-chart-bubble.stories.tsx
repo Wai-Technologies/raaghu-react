@@ -1,6 +1,6 @@
 import RdsBubbleChart from "./rds-chart-bubble";
 import "./rds-chart-bubble.css";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Charts/Bubble Chart',

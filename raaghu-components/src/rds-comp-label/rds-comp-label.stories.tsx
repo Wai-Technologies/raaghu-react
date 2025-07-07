@@ -1,5 +1,5 @@
 import RdsCompLabel from "./rds-comp-label";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 
 

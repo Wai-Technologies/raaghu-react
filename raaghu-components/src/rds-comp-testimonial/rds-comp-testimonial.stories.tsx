@@ -1,6 +1,6 @@
 import React from "react";
 import RdsCompTestimonial from "./rds-comp-testimonial";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 
 const meta: Meta = {

@@ -1,5 +1,5 @@
 import RdsPieChart from "./rds-chart-pie";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Charts/Pie Chart',

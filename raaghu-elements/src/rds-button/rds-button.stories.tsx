@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import RdsButton, { ButtonInput }  from "./rds-button";
 import React from "react";
 import RdsBadge from "../rds-badge/rds-badge"; // Import RdsBadge

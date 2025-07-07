@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import RdsTreeStructure, { IconType, NodeState, RdsTreeStructureProps, TreeLevel } from './rds-tree-structure';
 
 const meta: Meta = {

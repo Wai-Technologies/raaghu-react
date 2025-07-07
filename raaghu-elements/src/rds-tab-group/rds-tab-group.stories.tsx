@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsTabGroup, { TabType, TabState } from "./rds-tab-group";
 
 const meta: Meta =  {

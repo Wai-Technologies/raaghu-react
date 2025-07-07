@@ -4,7 +4,7 @@
 // import RdsCompDatabaseConnection from './rds-comp-database-connection';
 // import { I18nextProvider } from 'react-i18next';
 // import i18n from '../../../.storybook/i18n';
-// import { ComponentStory, ComponentMeta } from "@storybook/react";
+// import { ComponentStory, ComponentMeta } from "@storybook/react-vite";
 
 // export default {
 //   title: "Components/Database Connection",
@@ -25,7 +25,7 @@
 
 // export const Database_Connection = Template.bind({});
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompDatabaseConnection from './rds-comp-database-connection';
 
 

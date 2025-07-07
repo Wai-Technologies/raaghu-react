@@ -1,7 +1,7 @@
 import React from "react";
 import RdsScatterChart from "./rds-chart-scatter";
 import "./rds-chart-scatter.css";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Charts/Scatter Chart',
