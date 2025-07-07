@@ -116,7 +116,8 @@ const RdsCompTopNavigationWithSearch = (
     };
 
     useEffect(() => {
-        setLogoImage(props.logo);
+        const logo = props.logo === 'custom logo' ? (props.brandLogo || "") : "assets/Raaghu-logo-mfe-black.png";
+        setLogoImage(logo);
     }, [props.logo, props.brandLogo]);
 
     //side effect for breadcrum
@@ -179,7 +180,7 @@ const RdsCompTopNavigationWithSearch = (
             <div className="d-flex align-items-center justify-content-between px-3">
                 <div id="raaghuLogo" className="d-block">
                     <img
-                        className="cursor-pointer sidenav-logo mx-1"
+                        className="cursor-pointer sidenav-logo"
                         src={logoImage}
                         alt="logo"
                     ></img>
@@ -194,7 +195,7 @@ const RdsCompTopNavigationWithSearch = (
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none">
+                <div className="d-flex align-items-center mt-5 mt-md-0 d-xxl-block d-xl-block d-lg-block d-none ms-3">
                     <div>
                         {breacrumItem?.length == 0 && (
                             <>
@@ -206,7 +207,7 @@ const RdsCompTopNavigationWithSearch = (
                             </>
                         )}
                         {breacrumItem?.length > 0 && (
-                            <div className="mob-description ">
+                            <div className="mob-description">
                                 <>
                                     <RdsBreadcrumb breadcrumbItems={breacrumItem}></RdsBreadcrumb>
                                 </>
