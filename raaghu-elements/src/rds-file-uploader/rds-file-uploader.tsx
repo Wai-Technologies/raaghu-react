@@ -976,8 +976,9 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
               >
                 Choose File
               </label>
-              <span
-                className={`chosenFileSpan deleteOptionCss ps-3 small-placeholder file-name ${sizeClass} d-flex align-items-center`}
+             <label
+                htmlFor="file1"
+                className={`chosenFileSpan deleteOptionCss ps-3 small-placeholder file-name ${sizeClass} d-flex align-items-center cursor-pointer`}
               >
                 {props.state === "Default" && (
                   <>
@@ -994,7 +995,11 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                 {selectedFiles.length > 0 && (
                   <span
                     className="ms-auto iconbox"
-                    onClick={() => onDeleteHandlerForSingleSelection()}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onDeleteHandlerForSingleSelection();
+                    }}
                   >
                     <RdsCompIcon
                       colorVariant="danger"
@@ -1006,7 +1011,7 @@ const RdsFileUploader = (props: RdsFileUploaderProps) => {
                     />
                   </span>
                 )}
-              </span>
+              </label>
               <input
                 ref={fileInputRef}
                 data-testid="rds-file-uploader-input"

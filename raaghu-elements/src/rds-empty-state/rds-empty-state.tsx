@@ -15,17 +15,18 @@ export interface RdsEmptyStateProps {
 }
 
 const RdsEmptyState = (props: RdsEmptyStateProps) => {
-    // Define icon paths for different modes
-    const darkNRAIcon = '/assets/lottie-files/outlined/dual-color/illustration-dark.json';  
-    const lightNRAIcon = '/assets/lottie-files/outlined/dual-color/illustration-light.json'; 
+    // Define icon names for different modes
+    const darkNRAIcon = 'empty_state_dark'; 
+    const lightNRAIcon = 'empty_state_light'; 
 
     // Determine which icon to use based on the mode
-    let iconSource = props.iconPath;
+    let iconName;
     if (props.mode === "Dark NRA") {
-        iconSource = darkNRAIcon;
+        iconName = darkNRAIcon;
     } else if (props.mode === "Light NRA") {
-        iconSource = lightNRAIcon;
+        iconName = lightNRAIcon;
     }
+    const iconSource = props.iconPath || '/assets/empty_state_light.svg';
 
     return (
         <Fragment>
@@ -35,16 +36,28 @@ const RdsEmptyState = (props: RdsEmptyStateProps) => {
                         width={props.iconWidth}
                         height={props.iconHeight}
                         fill={false}
-                        stroke={true}
-                        type="lottie"
+                        stroke={false}
+                        isCursorPointer={true}
+                        //type="lottie"
+                        name={iconName} // Dynamic icon name based on mode
                         isHovered={true}
                         iconPath={iconSource} // Dynamic icon path
                         isContinueAnimate={props.isContinueAnimate}
                     />
                     <h5 data-testid="labelElement" className="fw-medium">
-                        <label className="mt-4">{props.label}</label>
+                        <label className="mt-1">{props.label}</label>
                     </h5>
-                    <div data-testid="sublabelElement" className="mt-1 text-muted">{props.subLabel}</div>
+                    <div data-testid="sublabelElement" className="mt-1 fw-regular text-black">{props.subLabel}</div>
+                    <div className="my-3">
+                        <RdsCompIcon
+                            height="24px"
+                            isCursorPointer
+                            name="empty_button"
+                            width="162px"
+                            fill={true}
+                            stroke={false}
+                        />
+                    </div>
                 </div>
             </div>
         </Fragment>

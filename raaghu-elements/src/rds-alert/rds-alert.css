@@ -52,8 +52,6 @@
 /* Large screen (desktops, 1200px and above) */
 @media (min-width: 1200px) {
   #alertlinks {
-    margin-left: -26px;
-    margin-top: 8px !important;
     display: block;
   }
   #rdicon {
@@ -66,8 +64,6 @@
 /* Tablet (between 600px and 1200px) */
 @media (min-width: 600px) and (max-width: 1199px) {
   #alertlinks {
-    margin-left: -26px;
-    margin-top: 8px !important;
     display: block;
   }
   #rdicon {
@@ -81,7 +77,6 @@
 @media (max-width: 599px) {
   #alertlinks {
     margin-left: 0;
-    margin-top: 8px !important;
     display: block;
     text-align: left;
   }
@@ -99,5 +94,27 @@
     display: flex;
     align-items: center;
   }
+  
+  .alert .w-100.d-flex.flex-column .alertBtns {
+    margin-top: 10px;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+  
+  .alert .w-100.d-flex.flex-column {
+    width: 100%;
+  }
 }
 
+@media (min-width: 600px) and (max-width: 767px) {
+  .alert .w-100.d-flex.flex-column .alertBtns {
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+}
+
+.single-line-btn {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
