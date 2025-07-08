@@ -29,8 +29,8 @@ figma.connect(
     brandLogo="assets/Raaghu-logo-mfe-black.png"
     brandName="Raaghu"
     languageItems={[
-      { icon: 'us', iconHeight: '20px', iconWidth: '20px', label: 'EN(US)', val: 'en' },
-      { icon: 'in', iconHeight: '20px', iconWidth: '20px', label: 'English(IND)', val: 'en' },
+      { icon: 'us', iconHeight: '20px', iconWidth: '20px', label: 'EN (US)', val: 'en' },
+      { icon: 'in', iconHeight: '20px', iconWidth: '20px', label: 'English (IND)', val: 'en' },
       { icon: 'us', iconHeight: '20px', iconWidth: '20px', label: 'French', val: 'fr' }
     ]}
     logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
