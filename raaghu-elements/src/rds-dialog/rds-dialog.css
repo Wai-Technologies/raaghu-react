@@ -75,3 +75,33 @@
 {
   color: #ffffff!important;
 }
+
+
+@media (min-width:320px)and (max-width:414px) {
+  .dialog-container {
+    padding: 10px !important;
+  }
+
+  .dialog-title{
+    font-size: 15px !important;
+  }
+
+  #close-btn svg#a.text-primary{
+    height: 16px !important;
+    width: 16px !important;
+  }
+  #dialog-icon svg.text-danger{
+    height: 23px !important;
+    width: 23px !important;
+  }
+
+  .dialog-content{
+    font-size: 13px !important;
+  }
+
+  div#dialog-icon{
+    margin-top: 5px !important;
+  }
+
+
+}
