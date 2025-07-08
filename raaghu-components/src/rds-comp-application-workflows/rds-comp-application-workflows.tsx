@@ -168,7 +168,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         isDisabled={!isDivVisible}
                         isMandatory={false}
                         validationPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                        validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
+                        validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp URL"
 
                     />
                 </div>
@@ -197,7 +197,7 @@ const RdsCompApplicationWorkflows = (props: RdsCompApplicationWorkflowsProps) =>
                         isDisabled={!basicApplicationData?.allowLogoutEndpoint}
                         isMandatory={false}
                         validationPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                        validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
+                        validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp URL"
 
                     />
                     {/* </>)
