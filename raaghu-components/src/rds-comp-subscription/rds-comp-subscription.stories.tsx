@@ -1,5 +1,5 @@
 // import React from "react";
-// import { ComponentStory, ComponentMeta } from "@storybook/react";
+// import { ComponentStory, ComponentMeta } from "@storybook/react-vite";
 // import RdsCompSubscription from "./rds-comp-subscription";
 // import { I18nextProvider } from "react-i18next";
 // import i18n from "../../../.storybook/i18n";
@@ -68,7 +68,7 @@
 
 // };
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompSubscription from "./rds-comp-subscription";
 
 

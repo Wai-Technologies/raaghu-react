@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsProgressBar, { RdsProgressBarProps } from "./rds-progress-bar";
 import { progress_colors } from "../../libs/types/colorvariant";
 

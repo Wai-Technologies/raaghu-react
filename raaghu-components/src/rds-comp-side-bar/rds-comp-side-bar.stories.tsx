@@ -1,6 +1,6 @@
 import React from "react";
 import RdsSideBar from "./rds-comp-side-bar";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
  
 const meta: Meta = {
     title: 'Components/AI ChatBox/Side Bar',

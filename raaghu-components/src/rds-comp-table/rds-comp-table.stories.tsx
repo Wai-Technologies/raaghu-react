@@ -1,6 +1,6 @@
 import React from "react";
 import RdsCompTable from "./rds-comp-table";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Table',

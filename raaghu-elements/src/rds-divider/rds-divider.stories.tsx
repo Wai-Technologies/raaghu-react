@@ -1,5 +1,5 @@
 import RdsDivider from "./rds-divider";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Divider',

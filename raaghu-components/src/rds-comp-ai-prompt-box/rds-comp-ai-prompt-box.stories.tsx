@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompAiPromptBox from "./rds-comp-ai-prompt-box";
 
 const meta: Meta = {

@@ -279,11 +279,11 @@ const RdsCompMenu = (props: RdsCompMenuProps) => {
                   name="URL"
                   label={true}
                   value={data?.url}
-                  placeholder="Enter Url"
+                  placeholder="Enter URL"
                   onChange={(e) => handlerChangeInput(e, "url")}
                   dataTestId="url"
                   validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                  validationMsg="Enter valid url"
+                  validationMsg="Enter valid URL"
                   required={true}
                 />
               </div>
