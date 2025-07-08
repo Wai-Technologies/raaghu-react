@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompCalendar, { getSampleEvents } from "./rds-comp-calendar";
 
 const sampleEvents = getSampleEvents();

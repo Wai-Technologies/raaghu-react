@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompAlertPopup from "./rds-comp-alert-popup";
 import React from 'react';
 import RdsCompOtpInput, { FieldStyle } from '../rds-comp-otpinput/rds-comp-otpinput';

@@ -2,7 +2,7 @@ import React from "react";
 import RdsCompSubscriptionPlan from "./rds-comp-subscription-plan";
 import { I18nextProvider } from "react-i18next";
 import i18n from 'i18next';
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react-vite";
 
 const meta: Meta = {
   title: "Components/AI ChatBox/Subscription Plan",

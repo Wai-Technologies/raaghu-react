@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsAvatar, { AvatarSize, AvatarStyle, AvatarBorder} from "./rds-avatar";
 
 const textAlignArgTypes = {

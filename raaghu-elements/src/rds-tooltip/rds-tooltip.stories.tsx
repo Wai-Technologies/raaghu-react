@@ -1,6 +1,6 @@
 import React from "react";
 import Tooltip, { TooltipStyle, TooltipTrigger } from "./rds-tooltip";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Tooltip',

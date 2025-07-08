@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import RdsContribution from "./rds-contribution";
 import dayjs from 'dayjs';
 const meta: Meta = {

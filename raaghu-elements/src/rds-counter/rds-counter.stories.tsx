@@ -1,6 +1,6 @@
 import { position } from "html2canvas/dist/types/css/property-descriptors/position";
 import RdsCounter, { CounterState, LayoutOptions } from "./rds-counter";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Counter',

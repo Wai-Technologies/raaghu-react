@@ -1,6 +1,6 @@
 // /* eslint-disable */
 // import React from 'react';
-// import { ComponentStory, ComponentMeta } from "@storybook/react";
+// import { ComponentStory, ComponentMeta } from "@storybook/react-vite";
 // import RdsCompApplicationScopes from './rds-comp-application-scopes';
 
 // export default {
@@ -18,7 +18,7 @@
 //   name: 'default',
 // };
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompApplicationScopes from './rds-comp-application-scopes';
 
 

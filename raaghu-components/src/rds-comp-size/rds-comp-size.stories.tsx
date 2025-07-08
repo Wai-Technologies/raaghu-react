@@ -1,6 +1,6 @@
 import React from "react";
 import Todos from "./rds-comp-size";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Size',

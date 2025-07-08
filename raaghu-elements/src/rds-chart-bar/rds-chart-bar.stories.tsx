@@ -1,4 +1,4 @@
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsBarChart from "./rds-chart-bar";
 import "./rds-chart-bar.css";
 

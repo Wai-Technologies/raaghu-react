@@ -1,7 +1,7 @@
 import React from "react";
 import RdsBadge from "./rds-badge";
 import RdsButton from "../rds-button/rds-button";
-import { Meta, StoryObj, } from "@storybook/react";
+import { Meta, StoryObj, } from "@storybook/react-vite";
 import { alert_colors } from "../../libs";
 import { badge_colors } from "../../libs/types/colorvariant";
 

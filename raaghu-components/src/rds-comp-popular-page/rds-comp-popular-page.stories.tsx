@@ -1,6 +1,6 @@
 import React from "react";
 import RdsCompPopularPage from "./rds-comp-popular-page";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Popular-Page',

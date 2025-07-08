@@ -1,6 +1,6 @@
 import React from "react";
 import RdsCompFeatureList, { ColorVariant, FontStyle } from "./rds-comp-feature-list";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 
 const meta: Meta = {
