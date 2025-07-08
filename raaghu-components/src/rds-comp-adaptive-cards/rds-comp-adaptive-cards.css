@@ -266,3 +266,173 @@
 .theme-dark .adaptive-image-body {
     background: var(--background-bg-neutral-dark-default, #2d2d2d) !important;
 }
+
+/* Responsive css */
+
+@media (min-width:414px) and (max-width:834px) {
+  #footer-btn .btn{
+        min-width: 3rem !important;
+        /* border-radius: 3px !important; */
+        padding-top: 3px;
+        padding-bottom: 3px;
+  }
+
+  .adaptive-card-title{
+    font-size: 16px !important; 
+  }
+  
+  .adaptive-card-container{
+    width: 100%;
+  }
+
+  .adaptive-card-footer {
+    margin-top: 15px !important;
+  }
+  .adaptive-card-body{
+    margin-top: 10px !important;
+  }
+
+ #footer-btn div.dropdown.rectangle {
+    width: 86px;
+    height: 28px;
+  }
+
+ button#chevron.btn.btn-outline.btn-rectangle.btn-primary.btn-md.btn-default {
+  padding: 1px !important;
+  }
+
+  /* Image Gallery Responsive Styles */
+.adaptive-image-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 6px;
+  }
+
+  .adaptive-image-body img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    padding: 4px;
+  }
+}
+
+
+@media (min-width:320px) and (max-width:414px) {
+  #footer-btn .btn{
+       min-width: 2.5rem !important;
+        padding-top: 2.5px;
+        padding-bottom: 2.5px;
+  }
+
+  .adaptive-card-title{
+    font-size: 16px !important; 
+  }
+  
+  .adaptive-card-container{
+    width: 100%;
+  }
+
+  .adaptive-card-footer {
+    margin-top: 15px !important;
+  }
+  .adaptive-card-body{
+    margin-top: 10px !important;
+    height: 100px;
+  }
+
+ 
+ #footer-btn div.dropdown.rectangle {
+    width: 86px;
+    height: 28px;
+  }
+
+ button#chevron.btn.btn-outline.btn-rectangle.btn-primary.btn-md.btn-default {
+  padding: 1px !important;
+  }
+
+  /* Image Gallery Responsive Styles */
+.adaptive-image-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 4px;
+    gap: 6px;
+  }
+
+  .adaptive-image-body img {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    padding: 2px;
+    border-radius: 4px;
+  }
+
+
+  
+  /* Football Scoreboard Responsive Styles */
+  .adaptive-scorecard-container {
+    width: 100%;
+    max-width: 350px;
+    padding: 8px;
+  }
+
+  .adaptive-scorecard-text {
+    font-size: var(--font-size-lg, 18px);
+  }
+
+  .adaptive-scorecard-subtext {
+    font-size: var(--font-size-xs, 12px);
+  }
+
+  .adaptive-scorecard-body {
+    gap: var(--spacing-sm, 10px);
+    padding-top: var(--spacing-sm, 6px);
+    margin-left: 10px;
+  }
+
+  .team-container {
+    width: 60px;
+    height: 60px;
+    padding: var(--spacing-xs, 4px);
+  }
+
+  .match-score {
+    font-size: var(--font-size-2xl, 24px);
+    padding-bottom: var(--spacing-sm, 4px);
+  }
+
+  .team-scorecard {
+    width: 65px;
+    gap: var(--spacing-sm, 8px);
+    padding-top: var(--spacing-sm, 8px);
+  }
+
+  .team-name {
+    font-size: var(--font-size-sm, 14px);
+    padding-top: var(--spacing-sm, 8px);
+  }
+
+  .team-status {
+    font-size: var(--font-size-xs, 12px);
+  }
+
+  .timer-container {
+    padding: var(--spacing-xxs, 2px);
+    gap: 8px;
+  }
+
+  .match-timer {
+    font-size: var(--font-size-xs, 12px);
+    line-height: 18px;
+  }
+
+  .team-wrapper {
+    gap: 2px;
+  }
+
+  .adaptive-badge{
+    position: absolute !important;
+    top: 25px !important;
+    left: 250px !important;
+  }
+  
+}
