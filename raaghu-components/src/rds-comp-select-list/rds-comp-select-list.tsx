@@ -142,7 +142,7 @@ const RdsCompSelectList = (props: RdsCompSelectListProps) => {
           ? "1.875rem"
           : props.size === "large"
           ? "3.125rem"
-          : "1.875rem",
+          : "2.3rem",
       fontSize:
         props.size === "small"
           ? "0.75rem"
