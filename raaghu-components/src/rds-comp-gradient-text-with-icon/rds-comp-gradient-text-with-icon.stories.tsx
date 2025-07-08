@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompGradientTextWithIcon from "./rds-comp-gradient-text-with-icon";
  
 const meta: Meta = {

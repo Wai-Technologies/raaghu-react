@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompGenerateCodeMetrics from "./rds-comp-generate-code-metrics";
 
 const meta: Meta = { 

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsAccordion, { AccordionBorder, AccordionLayout, AccordionSize, AccordionState, AccordionType } from './rds-accordion';
 
 const meta: Meta = {

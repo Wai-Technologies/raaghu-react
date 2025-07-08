@@ -1,7 +1,7 @@
 import React from "react";
 import RdsOffcanvas, { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "./rds-offcanvas";
 import RdsButton from "../rds-button/rds-button";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
   title: 'Elements/Offcanvas',

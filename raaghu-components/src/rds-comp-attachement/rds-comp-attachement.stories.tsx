@@ -1,5 +1,5 @@
 import RdsCompAttachement from "./rds-comp-attachement";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
  
 const meta: Meta = {
     title: "Components/AI ChatBox/Attachement",

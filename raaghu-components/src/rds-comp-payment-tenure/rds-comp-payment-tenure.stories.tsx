@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompPaymentTenure from "./rds-comp-payment-tenure";
 
 

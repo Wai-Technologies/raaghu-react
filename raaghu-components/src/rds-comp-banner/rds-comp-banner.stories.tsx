@@ -1,6 +1,6 @@
 import React from "react";
 import RdsCompBanner, { ColorVariant, Position, TextAlign } from "./rds-comp-banner";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof RdsCompBanner> = {
   title: "Components/Banner",

@@ -158,7 +158,7 @@ const RdsCompWebhookSubscription = (props: RdsCompWebhookSubscriptionProps) => {
                             value={user?.event}
                             dataTestId="webhook-event"
                             validationPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
-                            validationMsg="Enter valid url"
+                            validationMsg="Enter valid URL"
                         />
                     </div>
 

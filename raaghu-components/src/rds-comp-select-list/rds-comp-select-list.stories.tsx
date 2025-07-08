@@ -1,6 +1,6 @@
 import React from "react";
 import RdsCompSelectList from "./rds-comp-select-list";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 
 const meta: Meta = {

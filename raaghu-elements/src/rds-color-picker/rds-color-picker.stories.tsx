@@ -1,5 +1,5 @@
 import RdsColorPicker, { ColorMode, ColorPickerType, PickerType } from "./rds-color-picker";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Color Picker',
@@ -74,7 +74,7 @@ Standard.parameters = { controls: { include: ['type', 'showSwatches', 'pickerTyp
 
 
 // import RdsColorPicker from "./rds-color-picker";
-// import { Meta, StoryObj } from "@storybook/react";
+// import { Meta, StoryObj } from "@storybook/react-vite";
 
 // const meta: Meta = {
 //     title: 'Elements/Color Picker',
