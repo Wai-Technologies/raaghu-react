@@ -1,5 +1,5 @@
 import RdsCompRange, { DoubleRangeType } from "./rds-comp-range";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Components/Range',

@@ -1,6 +1,6 @@
 import RdsMixedChart from "./rds-chart-mixed";
 import "./rds-chart-mixed.css";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta = {
     title: 'Elements/Charts/Mixed Chart',

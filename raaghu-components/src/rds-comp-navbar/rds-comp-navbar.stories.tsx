@@ -1,6 +1,6 @@
     import React from "react";
     import RdsCompNavbar from "./rds-comp-navbar";
-    import { Meta, StoryObj } from "@storybook/react";
+    import { Meta, StoryObj } from "@storybook/react-vite";
 
     const meta: Meta = {
         title: 'Components/Navbar',

@@ -1,9 +1,9 @@
-import { Preview } from "@storybook/react"; // Import the 'Story' component
+import { Preview } from "@storybook/react-vite"; // Import the 'Story' component
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import '../raaghu-react-themes/src/styles/default.scss';
-import { themes } from '@storybook/theming';
+import { themes } from 'storybook/theming';
  
 // Helper function to apply the theme class to the document's body
 const applyTheme = (theme) => {
@@ -25,9 +25,6 @@ const preview: Preview = {
       theme: themes.light,
     },
   },
-  globals: {
-    theme: 'light', // Default theme
-  },
   globalTypes: {
     theme: {
       name: 'Theme',
@@ -43,6 +40,9 @@ const preview: Preview = {
         // dynamicTitle: true, // Use dynamic titles for buttons
       },
     },
+  },
+  initialGlobals: {
+    theme: 'light', // Default theme
   },
 };
  

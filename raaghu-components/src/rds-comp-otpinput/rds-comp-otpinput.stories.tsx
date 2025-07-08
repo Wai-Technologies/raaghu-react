@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompOtpinput, { FieldStyle } from './rds-comp-otpinput'; 
 
 const meta: Meta = {

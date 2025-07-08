@@ -11,7 +11,7 @@ export interface RdsCompBankCardDetailListProps {
 const RdsCompBankCardDetailList = (props: RdsCompBankCardDetailListProps) => {
     return (
         <>
-            <div className="m-1 p-1 ">
+            <div className="m-1 p-1 " id="bank-card-details">
                 <RdsCompBankCardDetail
                     cardDatas={props.cardDatas}
                     isSelectable={props.isSelectable || false}

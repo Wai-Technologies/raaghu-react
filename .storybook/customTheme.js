@@ -1,4 +1,4 @@
-import { create } from "@storybook/theming";
+import { create } from "storybook/theming";
 import './custom-theme.css'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 export default create({

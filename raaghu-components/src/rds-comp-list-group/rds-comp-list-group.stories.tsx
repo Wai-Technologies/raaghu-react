@@ -1,6 +1,6 @@
 import React from "react";
 import RdsCompListGroup from "./rds-comp-list-group";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 
 const meta: Meta = {

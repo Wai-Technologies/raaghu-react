@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsDialog from "./rds-dialog";
 
 //Whatever code is commented in this file is needed in fututre reference - enhancement as per figma design
