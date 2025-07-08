@@ -205,7 +205,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                       reset={inputReset}
                       dataTestId="site-key-url"
                       validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                      validationMsg="Please Enter valid url (https or http)"
+                      validationMsg="Please Enter valid URL (https or http)"
                     ></RdsInput>
                   </div>
                   <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3">
@@ -223,7 +223,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                       reset={inputReset}
                       dataTestId="site-key-url"
                       validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                      validationMsg="Please Enter valid url (https or http)"
+                      validationMsg="Please Enter valid URL (https or http)"
                     ></RdsInput>
                   </div>
                 </div>
@@ -410,7 +410,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                   isDisabled={!isDivVisible}
                   isMandatory={false}
                   validationPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                  validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
+                  validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp URL"
                 />
               </div>
               <div className="mb-3">
@@ -446,7 +446,7 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                   isDisabled={!basicApplicationData?.allowLogoutEndpoint}
                   isMandatory={false}
                   validationPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                  validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp Url"
+                  validationMsg="This Field Is Not A Valid Fully Qualified Http Https Or Ftp URL"
                 />
                 {/* </>)
                         } */}

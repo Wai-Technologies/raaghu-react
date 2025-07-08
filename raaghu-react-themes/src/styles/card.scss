@@ -265,3 +265,9 @@
   width: 100%;
   padding: 9px;
 }
+/* Media query for assistance component footer buttons on large mobile devices */
+@media (min-width: 414px) and (max-width: 896px) {
+  .assistance-footer-buttons {
+    margin-bottom: 24rem !important;
+  }
+}
