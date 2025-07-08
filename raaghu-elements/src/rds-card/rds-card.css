@@ -207,3 +207,7 @@ text-decoration: none !important;
 .table-responsive {
   min-height: calc(75vh  - 439px) !important;
 }
+#card-image-border.card-img-top{
+  border-bottom-left-radius:  var(--bs-card-inner-border-radius);
+  border-bottom-right-radius: var(--bs-card-inner-border-radius);
+}
