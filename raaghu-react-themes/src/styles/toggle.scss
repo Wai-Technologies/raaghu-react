@@ -221,7 +221,7 @@
   border: 0px;
   border-radius: 0.125rem;
   background-position: 0.78rem;
-  background-color: #7825E9;
+  background-color: #7825E9 !important;
 }
 
 .form-switch.style-6 .form-check-input:checked {
@@ -230,7 +230,7 @@
   border: 0px;
   border-radius: 0.125rem;
   background-position: 1.35rem;
-  background-color: #7825E9;
+  background-color: #7825E9 !important;
 }
 
 .form-switch.style-3 .form-check-input, .form-switch.style-6 .form-check-input {
@@ -246,14 +246,14 @@
   background-image: url("data:image/svg+xml,%3csvg width='13' height='13' viewBox='0 0 13 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='13' height='13' rx='2' ry='2' fill='%23EBDCFF'/%3e%3c/svg%3e");
   background-size: auto;
   background-position: 0.78rem;
-  background-color: #D4BBFF;
+  background-color: #D4BBFF !important;
 }
 
 .form-switch.style-6.disabled .form-check-input:checked {
   background-image: url("data:image/svg+xml,%3csvg width='13' height='13' viewBox='0 0 13 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='13' height='13' rx='2' ry='2' fill='%23EBDCFF'/%3e%3c/svg%3e");
   background-size: auto;
   background-position: 1.35rem;
-  background-color: #D4BBFF;
+  background-color: #D4BBFF !important;
 }
 
 .form-switch.style-3.disabled .form-check-input, .form-switch.style-6.disabled .form-check-input {
@@ -374,4 +374,8 @@
 
 .theme-dark .form-switch.style-2 .form-check-input:checked[type=checkbox], .theme-dark .form-switch.style-4 .form-check-input:checked[type=checkbox] {
   background-color: transparent !important;
+}
+
+.theme-dark .style-5 .off, .theme-dark .style-6 .off {
+    color: #6c757d;
 }
