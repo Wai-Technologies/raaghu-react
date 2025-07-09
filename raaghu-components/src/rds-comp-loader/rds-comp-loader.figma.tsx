@@ -28,6 +28,7 @@ figma.connect(
         Triangle: "triangle",
       }),
     },
-    example: (props) => <RdsCompLoader {...props} />,
+    example: (props: any) => <RdsCompLoader {...props} />,
   },
 )
+

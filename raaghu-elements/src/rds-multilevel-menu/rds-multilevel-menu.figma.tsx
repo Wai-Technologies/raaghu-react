@@ -29,6 +29,7 @@ figma.connect(
       //   Expandable: MenuType.Expandable,
       // }),
     },
-    example: (props) => <RdsMultilevelMenu  state={MenuState.Default} type={MenuType.Expandable}  {...props} />,
+    example: (props: any) => <RdsMultilevelMenu  state={MenuState.Default} type={MenuType.Expandable}  {...props} />,
   }
 );
+

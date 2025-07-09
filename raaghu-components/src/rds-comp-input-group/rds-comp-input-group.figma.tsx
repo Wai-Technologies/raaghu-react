@@ -21,6 +21,7 @@ figma.connect(
         Large: InputGroupSize.Large,
       }),
     },
-    example: (props) => <RdsCompInputGroup {...props} colorVariant={"Primary"}/>,
+    example: (props: any) => <RdsCompInputGroup {...props} colorVariant={"Primary"}/>,
   },
 )
+

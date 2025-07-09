@@ -37,6 +37,7 @@ figma.connect(
         Error: "error",
       }),
     },
-    example: (props) => <RdsCompHeader {...props} />,
+    example: (props: any) => <RdsCompHeader {...props} />,
   },
 )
+

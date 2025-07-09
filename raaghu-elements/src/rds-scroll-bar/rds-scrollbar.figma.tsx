@@ -26,8 +26,9 @@ figma.connect(
         End: ScrollPosition.End,
       }),
     },
-    example: (props) => <RdsScrollBar 
+    example: (props: any) => <RdsScrollBar 
     {...props}
     />,
   },
 )
+

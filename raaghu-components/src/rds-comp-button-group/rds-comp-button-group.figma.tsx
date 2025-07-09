@@ -20,6 +20,7 @@ figma.connect(
         Vertical: "vertical",
       }),
     },
-    example: (props) => <RdsCompButtonGroup {...props} vertical={false} isOutline={false} size={""}  role={Role.Checkbox} buttonGroupItems={[]} />,
+    example: (props: any) => <RdsCompButtonGroup {...props} vertical={false} isOutline={false} size={""}  role={Role.Checkbox} buttonGroupItems={[]} />,
   },
 )
+

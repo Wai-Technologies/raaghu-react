@@ -23,6 +23,7 @@ figma.connect(
         "Level 5": "level-5",
       }),
     },
-    example: (props) => <RdsCompStepper {...props} detail={undefined} />,
+    example: (props: any) => <RdsCompStepper {...props} detail={undefined} />,
   },
 )
+

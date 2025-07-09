@@ -26,6 +26,7 @@ figma.connect(
         "3": SkeletonState.State3,
       }),
     },
-    example: (props) => <RdsSkeleton {...props} />,
+    example: (props: any) => <RdsSkeleton {...props} />,
   },
 );
+

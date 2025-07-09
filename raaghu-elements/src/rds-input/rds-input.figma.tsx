@@ -45,10 +45,11 @@ figma.connect(
         Pill: "pill",
       }),
     },
-    example: (props) => <RdsInput {...props} 
+    example: (props: any) => <RdsInput {...props} 
     name="Label"
     label
     required
     ShowHintText />,
   },
 )
+

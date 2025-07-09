@@ -27,6 +27,7 @@ figma.connect(
         Success: "success",
       }),
     },
-    example: (props) => <RdsCompStat {...props}  items={[]} />,
+    example: (props: any) => <RdsCompStat {...props}  items={[]} />,
   },
 )
+

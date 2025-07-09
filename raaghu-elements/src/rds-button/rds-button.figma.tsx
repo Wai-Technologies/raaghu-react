@@ -42,7 +42,7 @@ figma.connect(
         Transparent: "transparent",
       }),
     },
-    example: (props) => <RdsButton {...props}
+    example: (props: any) => <RdsButton {...props}
     badgeState={props.state}
     badgeStyle="primary"
     colorVariant="primary"
@@ -56,3 +56,4 @@ figma.connect(
     />,
   },
 )
+

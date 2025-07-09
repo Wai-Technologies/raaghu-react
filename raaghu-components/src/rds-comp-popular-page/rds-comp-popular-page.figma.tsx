@@ -15,6 +15,7 @@ figma.connect(
   "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=110-39152",
   {
     props: {},
-    example: (props) => <RdsCompPopularPage {...props} itemList={undefined} />,
+    example: (props: any) => <RdsCompPopularPage {...props} itemList={undefined} />,
   },
 )
+

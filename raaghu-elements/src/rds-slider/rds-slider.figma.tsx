@@ -23,10 +23,11 @@ figma.connect(
         "Two Way": SliderType.TwoWay,
       }),
     },
-    example: (props) => <RdsSlider {...props} size={SliderSize.Small} 
+    example: (props: any) => <RdsSlider {...props} size={SliderSize.Small} 
     colorVariant={ColorVariant.Primary}
     level={SliderLevel.Level1}
     style={SliderStyle.Default}
     />,
   },
 )
+

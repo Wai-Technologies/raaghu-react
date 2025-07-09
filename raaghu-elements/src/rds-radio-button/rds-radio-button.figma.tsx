@@ -28,7 +28,7 @@ figma.connect(
       }),
       selected: figma.boolean("⚠️ Selected"),
     },
-    example: (props) => <RdsRadioButton {...props} itemList={[
+    example: (props: any) => <RdsRadioButton {...props} itemList={[
       {
         checked: true,
         id: 1,
@@ -50,3 +50,4 @@ figma.connect(
     ]} value={""} />,
   },
 )
+

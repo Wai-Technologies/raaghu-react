@@ -21,6 +21,7 @@ figma.connect(
         First: "first",
       }),
     },
-    example: (props) => <RdsCompScrollspy {...props} data={[]} />,
+    example: (props: any) => <RdsCompScrollspy {...props} data={[]} />,
   },
 )
+

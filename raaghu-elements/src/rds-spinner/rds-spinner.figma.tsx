@@ -29,6 +29,7 @@ figma.connect(
         Large: SpinnerSize.Large,
       }),
     },
-    example: (props) => <RdsSpinner {...props} colorVariant='primary'  spinnerType='border'/>,
+    example: (props: any) => <RdsSpinner {...props} colorVariant='primary'  spinnerType='border'/>,
   },
 )
+

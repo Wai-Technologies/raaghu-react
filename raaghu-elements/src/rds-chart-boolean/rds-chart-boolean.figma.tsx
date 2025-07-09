@@ -28,6 +28,7 @@ figma.connect(
         "100%": "100-",
       }),
     },
-    example: (props) => <RdsBooleanChart {...props} labels={[]} options={undefined} dataSets={[]} id={""} />,
+    example: (props: any) => <RdsBooleanChart {...props} labels={[]} options={undefined} dataSets={[]} id={""} />,
   },
 )
+

@@ -22,7 +22,7 @@ figma.connect(
         "Level 4": TreeLevel.Level4,
       }),
     },
-    example: (props) => <RdsTreeStructure {...props} 
+    example: (props: any) => <RdsTreeStructure {...props} 
     Language="CSS"
     showActions
     showCheckbox
@@ -141,3 +141,4 @@ figma.connect(
     />,
   },
 );
+

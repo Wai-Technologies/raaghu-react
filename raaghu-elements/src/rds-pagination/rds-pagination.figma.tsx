@@ -33,9 +33,10 @@ figma.connect(
         "Style 11": "Style11",
       }),
     },
-    example: (props) => <RdsPagination totalRecords={10} {...props} alignmentType="start" paginationType="default" 
+    example: (props: any) => <RdsPagination totalRecords={10} {...props} alignmentType="start" paginationType="default" 
     recordsPerPage={3}
     showLegend
     size="small"/>,
   },
 )
+

@@ -42,6 +42,7 @@ figma.connect(
       }),
 
     },
-    example: (props) => <RdsRating {...props} colorVariant={ColorVariant.Primary} />,
+    example: (props: any) => <RdsRating {...props} colorVariant={ColorVariant.Primary} />,
   },
 )
+

@@ -33,6 +33,7 @@ figma.connect(
         Warning: "warning",
       }),
     },
-    example: (props) => <RdsCompIconLabel {...props}   />,
+    example: (props: any) => <RdsCompIconLabel {...props}   />,
   },
 )
+

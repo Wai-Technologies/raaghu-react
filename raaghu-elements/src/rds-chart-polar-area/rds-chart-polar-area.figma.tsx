@@ -30,6 +30,7 @@ figma.connect(
         Hover: "hover",
       }),
     },
-    example: (props) => <RdsPolarAreaChart {...props} labels={[]} options={undefined} dataSets={[]} id={""} />,
+    example: (props: any) => <RdsPolarAreaChart {...props} labels={[]} options={undefined} dataSets={[]} id={""} />,
   },
 )
+

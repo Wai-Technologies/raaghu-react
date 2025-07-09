@@ -26,6 +26,7 @@ figma.connect(
         Error: "error",
       }),
     },
-    example: (props) => <RdsTextEditor {...props} />,
+    example: (props: any) => <RdsTextEditor {...props} />,
   },
 )
+

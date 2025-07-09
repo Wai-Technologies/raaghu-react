@@ -22,8 +22,9 @@ figma.connect(
         Hover: TruncateTextState.Hover,
       }),
     },
-    example: (props) => (
+    example: (props: any) => (
       <RdsTruncateText {...props} maxLength={100} />
     ),
   }
 );
+

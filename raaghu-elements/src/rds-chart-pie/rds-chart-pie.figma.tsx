@@ -27,6 +27,7 @@ figma.connect(
         Hover: "hover",
       }),
     },
-    example: (props) => <RdsPieChart {...props} labels={[]} options={undefined} dataSets={[]} radius={0} id={""} />,
+    example: (props: any) => <RdsPieChart {...props} labels={[]} options={undefined} dataSets={[]} radius={0} id={""} />,
   },
 )
+

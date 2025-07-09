@@ -21,7 +21,7 @@ figma.connect(
         Selected: State.Selected,
       }),
     },
-    example: (props) => <RdsDropdown 
+    example: (props: any) => <RdsDropdown 
       colorVariant="primary"
       listItems={[
         {
@@ -59,3 +59,4 @@ figma.connect(
       />,
   },
 )
+

@@ -45,7 +45,7 @@ figma.connect(
         Error: ToastState.Error,
       }),
     },
-    example: (props) => <RdsToast   {...props}
+    example: (props: any) => <RdsToast   {...props}
     borderColor="primary"
     colorVariant="light"
     filename="Filename.txt"
@@ -58,3 +58,4 @@ figma.connect(
     leadingIcon={ToastLeadingIcon.Circle}    />,
   },
 )
+

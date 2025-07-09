@@ -23,6 +23,7 @@ figma.connect(
         Selection: "selection",
       }),
     },
-    example: (props) => <RdsCompCardDetail {...props} cardDatas={undefined} />,
+    example: (props: any) => <RdsCompCardDetail {...props} cardDatas={undefined} />,
   },
 )
+

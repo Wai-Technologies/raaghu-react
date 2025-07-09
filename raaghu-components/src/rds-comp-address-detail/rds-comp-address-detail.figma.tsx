@@ -27,6 +27,7 @@ figma.connect(
         "Level 3": "level-3",
       }),
     },
-    example: (props) => <RdsCompAddressDetail {...props} children={undefined} />,
+    example: (props: any) => <RdsCompAddressDetail {...props} children={undefined} />,
   },
 )
+

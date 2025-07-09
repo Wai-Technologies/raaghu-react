@@ -31,6 +31,7 @@ figma.connect(
         "Style 11": "style-11",
       }),
     },
-    example: (props) => <RdsReviewCategory {...props} display_type={""} item={{ name: "Example Name" }}  />,
+    example: (props: any) => <RdsReviewCategory {...props} display_type={""} item={{ name: "Example Name" }}  />,
   },
 )
+

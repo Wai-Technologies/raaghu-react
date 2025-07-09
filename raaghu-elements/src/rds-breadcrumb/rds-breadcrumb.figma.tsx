@@ -28,7 +28,7 @@ figma.connect(
         "Level 5": BreadcrumbLevel.Level5,
       }),
     },
-    example: (props) => <RdsBreadcrumb 
+    example: (props: any) => <RdsBreadcrumb 
     {...props} icon="home" showIcon title="home" state={BreadcrumbState.Hover} separator={BreadcrumbSeparator.GreaterThan}
     breadcrumbItems={[
       {
@@ -89,3 +89,4 @@ figma.connect(
      />,
   },
 )
+

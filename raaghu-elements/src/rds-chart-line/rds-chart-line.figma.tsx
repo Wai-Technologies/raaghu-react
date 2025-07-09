@@ -22,6 +22,7 @@ figma.connect(
         Hover: "hover",
       }),
     },
-    example: (props) => <RdsLineChart {...props} labels={[]} options={undefined} dataSets={[]} id={""} />,
+    example: (props: any) => <RdsLineChart {...props} labels={[]} options={undefined} dataSets={[]} id={""} />,
   },
 )
+

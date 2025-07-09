@@ -39,10 +39,11 @@ figma.connect(
         "Style 6": ToggleStyle.Style6,
       }),
     },
-    example: (props) => <RdsToggle
+    example: (props: any) => <RdsToggle
     {...props}
     checked={false}
 />
 
   },
 )
+

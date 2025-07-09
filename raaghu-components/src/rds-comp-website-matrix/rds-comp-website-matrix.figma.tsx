@@ -31,6 +31,7 @@ figma.connect(
         Error: "error",
       }),
     },
-    example: (props) => <RdsCompWebsiteMatrix  {...props} item={undefined}  />,
+    example: (props: any) => <RdsCompWebsiteMatrix  {...props} item={undefined}  />,
   },
 )
+

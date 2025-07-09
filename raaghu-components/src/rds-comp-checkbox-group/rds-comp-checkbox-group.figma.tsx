@@ -29,6 +29,7 @@ figma.connect(
         Vertical: "vertical",
       }),
     },
-    example: (props) => <RdsCompCheckboxGroup {...props} itemList={undefined} />,
+    example: (props: any) => <RdsCompCheckboxGroup {...props} itemList={undefined} />,
   },
 )
+

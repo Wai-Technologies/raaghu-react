@@ -36,7 +36,7 @@ figma.connect(
         Warning: NotificationType.Warning,
       }),
     },
-    example: (props) => <RdsNotification {...props} notifications={[
+    example: (props: any) => <RdsNotification {...props} notifications={[
       {
         description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
         status: 'success',
@@ -47,3 +47,4 @@ figma.connect(
     ]}/>,
   },
 )
+

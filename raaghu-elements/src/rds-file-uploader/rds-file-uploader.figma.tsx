@@ -32,6 +32,7 @@ figma.connect(
         "Drop Area - With Upload Button": FileUploaderStyle.DropAreaWithUploadButton,
       }),
     },
-    example: (props) => <RdsFileUploader  {...props}  extensions={""} label={"Title"}  multiple showThumbnail placeholderImage={""} />,
+    example: (props: any) => <RdsFileUploader  {...props}  extensions={""} label={"Title"}  multiple showThumbnail placeholderImage={""} />,
   },
 )
+

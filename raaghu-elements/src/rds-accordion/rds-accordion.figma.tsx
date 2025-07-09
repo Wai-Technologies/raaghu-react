@@ -35,7 +35,7 @@ figma.connect(
         "Base Line": AccordionBorder.bottomline,
       }),
     },
-    example: (props) => (
+    example: (props: any) => (
       <RdsAccordion
         {...props}
         items={[

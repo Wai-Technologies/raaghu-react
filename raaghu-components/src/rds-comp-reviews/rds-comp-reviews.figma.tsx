@@ -32,7 +32,7 @@ figma.connect(
         "Style 13": RevieweStyle.Style13,
       }),
     },
-    example: (props) => (
+    example: (props: any) => (
       <RdsCompReviews
         {...props}
         variantType={VariantType.Default}
@@ -54,3 +54,4 @@ figma.connect(
     ),
   }
 );
+

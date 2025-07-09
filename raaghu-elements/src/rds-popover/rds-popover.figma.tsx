@@ -31,6 +31,7 @@ figma.connect(
         "Right Top": PopoverState.RightTop,
       }),
     },
-    example: (props) => <RdsPopover  children={<p>Replace with your content component </p>} {...props} />,
+    example: (props: any) => <RdsPopover  children={<p>Replace with your content component </p>} {...props} />,
   },
 )
+

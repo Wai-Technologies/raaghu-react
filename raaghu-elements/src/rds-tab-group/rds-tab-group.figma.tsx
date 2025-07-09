@@ -42,6 +42,7 @@ figma.connect(
         Disabled: TabState.Disabled,
       }),
     },
-    example: (props) => <RdsTabGroup {...props}  rightIcon="plus" level={1} leftIcon="user_tab" icon="cancel"/>,
+    example: (props: any) => <RdsTabGroup {...props}  rightIcon="plus" level={1} leftIcon="user_tab" icon="cancel"/>,
   }
 );
+

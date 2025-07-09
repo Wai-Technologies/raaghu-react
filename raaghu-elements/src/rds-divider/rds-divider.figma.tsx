@@ -30,7 +30,7 @@ figma.connect(
         Vertical: "vertical",
       }),
     },
-    example: (props) => <RdsDivider   
+    example: (props: any) => <RdsDivider   
     dividerMessage="Content"
     icon="information"
     iconHeight="20px"
@@ -41,3 +41,4 @@ figma.connect(
     {...props} />,
   },
 )
+

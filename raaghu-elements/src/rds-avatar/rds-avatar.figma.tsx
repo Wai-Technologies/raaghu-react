@@ -38,7 +38,7 @@ figma.connect(
         Stacking: AvatarStyle.stacking,
       }),
     },
-    example: (props) => (
+    example: (props: any) => (
       <RdsAvatar
         {...props}
         style={AvatarStyle.withname}
@@ -74,3 +74,4 @@ figma.connect(
     ),
   }
 );
+

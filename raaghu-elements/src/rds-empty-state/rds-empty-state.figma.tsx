@@ -22,10 +22,11 @@ figma.connect(
         "Light NCS": "light-ncs",
       }),
     },
-    example: (props) => <RdsEmptyState {...props} iconHeight="250px"
+    example: (props: any) => <RdsEmptyState {...props} iconHeight="250px"
     iconPath="/assets/lottie-files/outlined/dual-color/illustration-light.json"
     iconWidth="250px"
     label="Currently you don't have any data"
     subLabel="Click on the button above to add data"  />,
   },
 )
+

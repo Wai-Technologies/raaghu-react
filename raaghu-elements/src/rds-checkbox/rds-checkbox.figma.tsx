@@ -32,7 +32,7 @@ figma.connect(
         Hover: CheckboxState.Hover,
       }),
   },
-    example: (props) => (
+    example: (props: any) => (
       <RdsCheckbox
         {...props}
         labelPosition={LabelPosition.Right}

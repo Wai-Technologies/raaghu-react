@@ -30,7 +30,7 @@ figma.connect(
       }),
 
     },
-    example: (props) => <RdsCard 
+    example: (props: any) => <RdsCard 
     {...props}
       borderColor=""
       buttonLabel1="Link Button"
@@ -52,3 +52,4 @@ figma.connect(
      />,
   },
 )
+

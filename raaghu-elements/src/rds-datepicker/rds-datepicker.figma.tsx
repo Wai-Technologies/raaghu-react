@@ -32,6 +32,7 @@ figma.connect(
       }),
       
     },
-    example: (props) => <RdsDatepicker isDropdownOpen={false} {...props} changeIcon="calendar" type="Custom" />,
+    example: (props: any) => <RdsDatepicker isDropdownOpen={false} {...props} changeIcon="calendar" type="Custom" />,
   }
 );
+

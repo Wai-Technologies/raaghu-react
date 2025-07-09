@@ -29,6 +29,7 @@ figma.connect(
         Large: "large",
       }),
     },
-    example: (props) => <RdsCompSearch  {...props} placeholder={""}/>,
+    example: (props: any) => <RdsCompSearch  {...props} placeholder={""}/>,
   },
 )
+

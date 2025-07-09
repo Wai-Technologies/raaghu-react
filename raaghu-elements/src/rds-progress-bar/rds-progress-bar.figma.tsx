@@ -23,7 +23,7 @@ figma.connect(
         Block: "block",
       }),
     },
-    example: (props) => <RdsProgressBar 
+    example: (props: any) => <RdsProgressBar 
     striped
     height={4}
     role={props.style} 

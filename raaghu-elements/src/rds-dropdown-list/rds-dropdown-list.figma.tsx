@@ -38,7 +38,7 @@ figma.connect(
         "Bottom Line": DropdownStyle.BottomLine,
       }),
     },
-    example: (props) => <RdsDropdownList  {...props} 
+    example: (props: any) => <RdsDropdownList  {...props} 
     borderDropdown
     hint="Hint Text"
     icon="dropdown_icon"
@@ -100,3 +100,4 @@ figma.connect(
     ]}/>,
   },
 )
+

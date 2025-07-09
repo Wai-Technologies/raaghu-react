@@ -17,7 +17,7 @@ figma.connect(
     props: {
       showMonths: figma.boolean("📅 - Show Months"),
     },
-    example: (props) => <RdsContribution
+    example: (props: any) => <RdsContribution
       dateFormat="YYYY-MM-DD"
       monthLabelHeight={15}
       monthNames={[
@@ -425,3 +425,4 @@ figma.connect(
       ]} weekLabelAttributes={undefined} monthLabelAttributes={undefined} panelAttributes={undefined}    />,
   },
 )
+

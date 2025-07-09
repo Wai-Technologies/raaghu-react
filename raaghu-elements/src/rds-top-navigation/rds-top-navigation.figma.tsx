@@ -24,7 +24,7 @@ figma.connect(
         Default: "Default"
       }),
     },
-    example: (props) => <RdsTopNavigation 
+    example: (props: any) => <RdsTopNavigation 
     {...props}
     brandLogo="assets/Raaghu-logo-mfe-black.png"
     brandName="Raaghu"
@@ -64,3 +64,4 @@ figma.connect(
     />,
   },  
 )
+

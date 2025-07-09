@@ -23,6 +23,7 @@ figma.connect(
         Hover: "hover",
       }),
     },
-    example: (props) => <RdsMixedChart {...props} labels={[]} options={undefined} dataSets={[]} chartStyle={""} id={""} />,
+    example: (props: any) => <RdsMixedChart {...props} labels={[]} options={undefined} dataSets={[]} chartStyle={""} id={""} />,
   },
 )
+

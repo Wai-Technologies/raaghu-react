@@ -21,7 +21,7 @@ figma.connect(
         "Button - Expanded": ColorPickerType.ButtonExpanded,
       }),
     },
-    example: (props) => (
+    example: (props: any) => (
       <RdsColorPicker
       label="Color-Picker"
       value="#e1e1e1"
@@ -34,3 +34,4 @@ figma.connect(
     ),
   }
 );
+

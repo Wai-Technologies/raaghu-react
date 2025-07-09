@@ -29,6 +29,7 @@ figma.connect(
         "Example - Avatar Alt": "example---avatar-alt",
       }),
     },
-    example: (props) => <RdsWidget {...props} headerTitle={"Demo"} />,
+    example: (props: any) => <RdsWidget {...props} headerTitle={"Demo"} />,
   },
 )
+

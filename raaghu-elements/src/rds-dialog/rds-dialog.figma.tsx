@@ -31,7 +31,7 @@ figma.connect(
         Filled: "filled",
       }),
     },
-    example: (props) => <RdsDialog 
+    example: (props: any) => <RdsDialog 
     Size={props.size}
     Style={props.style}
     ShowDissmiss
@@ -45,3 +45,4 @@ figma.connect(
     ContentPosition="Bottom"/>,
   },
 )
+

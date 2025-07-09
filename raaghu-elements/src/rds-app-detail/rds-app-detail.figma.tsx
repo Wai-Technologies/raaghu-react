@@ -21,7 +21,7 @@ figma.connect(
         Outlined: "outlined",
       }),
     },
-    example: (props) => <RdsAppDetail {...props} appDetailsItem={{
+    example: (props: any) => <RdsAppDetail {...props} appDetailsItem={{
       title: "",
       subtitle: "",
       icon: "",
@@ -36,3 +36,4 @@ figma.connect(
     }} />,
   },
 )
+

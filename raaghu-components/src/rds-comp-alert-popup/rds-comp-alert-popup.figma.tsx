@@ -18,7 +18,7 @@ figma.connect(
       //showIcon: figma.boolean("Show Icon"),
      // showDescription: figma.boolean("Show Description"),
     },
-    example: (props) => (
+    example: (props: any) => (
       <>
         <RdsCompAlertPopup
           alertConfirmation="Are you sure to Delete?"
@@ -44,3 +44,4 @@ figma.connect(
     ),
   }
 );
+

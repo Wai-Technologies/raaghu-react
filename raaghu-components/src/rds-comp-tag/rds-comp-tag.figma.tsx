@@ -22,6 +22,7 @@ figma.connect(
         "Level 5": "level-5",
       }),
     },
-    example: (props) => <RdsCompTag {...props} tagType={TagType.Square} role={Role.Basic} colorVariant={ColorVariant.Primary} />,
+    example: (props: any) => <RdsCompTag {...props} tagType={TagType.Square} role={Role.Basic} colorVariant={ColorVariant.Primary} />,
   },
 )
+

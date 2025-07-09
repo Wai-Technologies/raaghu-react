@@ -28,6 +28,7 @@ figma.connect(
         Error: "error",
       }),
     },
-    example: (props) => <RdsCompFeatureList {...props} heading={"Feature"} itemList={[]} columns={0} />,
+    example: (props: any) => <RdsCompFeatureList {...props} heading={"Feature"} itemList={[]} columns={0} />,
   },
 )
+

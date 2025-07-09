@@ -27,7 +27,7 @@ figma.connect(
         "4": "4",
       }),
     },
-    example: (props) => <RdsCarousel Indicators={true}  type="Line"  controls={true}
+    example: (props: any) => <RdsCarousel Indicators={true}  type="Line"  controls={true}
     carouselItems={[
       {
         id: 1,
@@ -56,3 +56,4 @@ figma.connect(
     ]} />,
   },
 )
+

@@ -32,7 +32,7 @@ figma.connect(
         Fixed: NavType.Fixed,
       }),
     },
-    example: (props) => <RdsSideNav  {...props} platform={props.platform}
+    example: (props: any) => <RdsSideNav  {...props} platform={props.platform}
     layout="LeftSideNav" 
     logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
     showUserProfile
@@ -88,3 +88,4 @@ figma.connect(
     />,
   },
 )
+

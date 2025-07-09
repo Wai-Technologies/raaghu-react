@@ -30,10 +30,11 @@ figma.connect(
         Disabled: CounterState.Disabled,
       }),
     },
-    example: (props) => <RdsCounter  counterValue={0} min={0} max={50} width={280} 
+    example: (props: any) => <RdsCounter  counterValue={0} min={0} max={50} width={280} 
     titleText="Label"
     placeholder="00"
     colorVariant="primary"
     {...props}/>,
   },
 )
+

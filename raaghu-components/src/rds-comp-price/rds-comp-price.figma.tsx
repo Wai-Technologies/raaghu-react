@@ -21,6 +21,7 @@ figma.connect(
         "Price on Right": "price-on-right",
       }),
     },
-    example: (props) => <RdsCompPrice {...props} mrp={0} currentPrice={0} withDiscount={false} />,
+    example: (props: any) => <RdsCompPrice {...props} mrp={0} currentPrice={0} withDiscount={false} />,
   },
 )
+

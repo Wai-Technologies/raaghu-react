@@ -21,6 +21,7 @@ figma.connect(
         Outlined: "outlined",
       }),
     },
-    example: (props) => <RdsCompBenefits {...props} item={undefined} displayType={""} />,
+    example: (props: any) => <RdsCompBenefits {...props} item={undefined} displayType={""} />,
   },
 )
+

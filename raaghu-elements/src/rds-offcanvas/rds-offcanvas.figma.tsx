@@ -20,7 +20,7 @@ figma.connect(
       showSecondaryButton: figma.boolean("🔶 Show Secondary Button"),
       showPrimaryButton: figma.boolean("🔷 Show Primary Button"),
     },
-    example: (props) => (
+    example: (props: any) => (
       <RdsOffcanvas
         canvasTitle="NEW TENENT"
         offId="canvasExample"
@@ -47,3 +47,4 @@ figma.connect(
     ),
   }
 );
+

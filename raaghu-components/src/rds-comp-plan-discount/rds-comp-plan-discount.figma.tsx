@@ -15,6 +15,7 @@ figma.connect(
   "https://www.figma.com/design/wGW5jiXyoAdO4DVLgCKXmw/Raaghu-Storybook-Elements?node-id=107-89",
   {
     props: {},
-    example: (props) => <RdsCompPlandiscount {...props} discount={""} discountValue={""} />,
+    example: (props: any) => <RdsCompPlandiscount {...props} discount={""} discountValue={""} />,
   },
 )
+

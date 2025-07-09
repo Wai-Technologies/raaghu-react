@@ -28,6 +28,7 @@ figma.connect(
         "7": "7",
       }),
     },
-    example: (props) => <RdsRadarChart {...props} labels={[]} options={undefined} dataSets={[]} id={""} />,
+    example: (props: any) => <RdsRadarChart {...props} labels={[]} options={undefined} dataSets={[]} id={""} />,
   },
 )
+

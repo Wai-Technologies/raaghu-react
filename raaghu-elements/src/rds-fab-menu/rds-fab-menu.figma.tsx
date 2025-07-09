@@ -21,6 +21,7 @@ figma.connect(
         Selected: "selected",
       }),
     },
-    example: (props) => <RdsFabMenu {...props} listItems={[]} />,
+    example: (props: any) => <RdsFabMenu {...props} listItems={[]} />,
   },
 )
+

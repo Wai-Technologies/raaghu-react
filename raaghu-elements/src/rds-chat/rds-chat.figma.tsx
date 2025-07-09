@@ -17,7 +17,7 @@ figma.connect(
     props: {
   
     },
-    example: (props) => (
+    example: (props: any) => (
       <RdsChat 
         {...props} 
         OtherUserCommentTextColor="#202020"

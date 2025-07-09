@@ -18,6 +18,7 @@ figma.connect(
       showProgressBar: figma.boolean("Show Progress Bar"),
       showButton: figma.boolean("Show Button"),
     },
-    example: (props) => <RdsWidgetPortal {...props} widgetTitle={"Title"} subTitle={"SubTitle"}  />,
+    example: (props: any) => <RdsWidgetPortal {...props} widgetTitle={"Title"} subTitle={"SubTitle"}  />,
   },
 )
+

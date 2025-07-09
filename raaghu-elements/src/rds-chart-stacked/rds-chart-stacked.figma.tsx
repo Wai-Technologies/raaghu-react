@@ -25,6 +25,7 @@ figma.connect(
         Hover: "hover",
       }),
     },
-    example: (props) => <RdsStackedChart {...props} labels={[]} options={undefined} dataSets={[]} id={""} />,
+    example: (props: any) => <RdsStackedChart {...props} labels={[]} options={undefined} dataSets={[]} id={""} />,
   },
 )
+

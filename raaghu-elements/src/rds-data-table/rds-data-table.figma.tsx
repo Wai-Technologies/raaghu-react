@@ -19,7 +19,7 @@ figma.connect(
         Default: "default",
       }),
     },
-    example: (props) => <RdsDatatable 
+    example: (props: any) => <RdsDatatable 
     actionPosition={ActionPosition.Left}
   actions={[
     {
@@ -380,3 +380,4 @@ figma.connect(
    />,
   },
 )
+

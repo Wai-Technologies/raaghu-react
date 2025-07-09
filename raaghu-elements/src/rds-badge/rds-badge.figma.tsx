@@ -45,6 +45,7 @@ figma.connect(
         Lottie: "lottie",
       }),
     },
-    example: (props) => <RdsBadge  {...props} label={"Badge"} colorVariant="primary" iconName="circle" isIconshow />,
+    example: (props: any) => <RdsBadge  {...props} label={"Badge"} colorVariant="primary" iconName="circle" isIconshow />,
   },
 );
+
