@@ -219,10 +219,6 @@
     "lint": "eslint . --fix",
     "lint:check": "eslint ."
   },
-  "overrides": {
-    "ajv": "^6.12.6",
-    "ajv-keywords": "^3.5.2"
-  },
   "bugs": {
     "url": "https://github.com/Wai-Technologies/raaghu-react/issues"
   }
