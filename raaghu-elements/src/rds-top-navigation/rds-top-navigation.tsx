@@ -426,11 +426,11 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
 
   const languageItems = [
     {
-      label: "EN(US)",
+      label: "EN (US)",
       val: "en",
     },
     {
-      label: "English(IND)",
+      label: "English (IND)",
       val: "en",
     },
     {

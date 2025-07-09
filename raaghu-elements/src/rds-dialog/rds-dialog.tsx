@@ -69,7 +69,7 @@ const RdsDialog = (props: RdsCompDialogProps) => {
     <h2 className="dialog-title mt-1">{props.Title}</h2>
   )}
   {props.ShowDissmiss && (
-    <span className="ms-auto mt-0">
+    <span className="ms-auto mt-0" id="close-btn">
       <RdsCompIcon
         name="close"
         fill={false}
@@ -84,7 +84,7 @@ const RdsDialog = (props: RdsCompDialogProps) => {
 </div>
 
       {props.ContentPosition?.toLowerCase() === "bottom" ? (
-  <div className="d-flex flex-column align-items-center">
+  <div className="d-flex flex-column align-items-center" id="dialog-icon">
     {props.Icon && (
       <RdsCompIcon
         height="30px"
