@@ -5,8 +5,8 @@ import postcss from "rollup-plugin-postcss";
 import terser from "@rollup/plugin-terser";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import million from "million/compiler";
-
-const packageJson = require("./package.json");
+import { readFileSync } from "fs";
+const packageJson = JSON.parse(readFileSync("./package.json", "utf8"));
 
 export default [
     {

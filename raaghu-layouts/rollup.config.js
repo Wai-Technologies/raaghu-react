@@ -7,8 +7,8 @@ import dts from "rollup-plugin-dts";
 import { babel } from "@rollup/plugin-babel";
 import external from "rollup-plugin-peer-deps-external";
 import million from "million/compiler";
-
-const packageJson = require("./package.json");
+import { readFileSync } from "fs";
+const packageJson = JSON.parse(readFileSync("./package.json", "utf8"));
 
 export default [
     {

@@ -6,11 +6,9 @@ import { babel } from "@rollup/plugin-babel";
 import external from "rollup-plugin-peer-deps-external";
 import terser from "@rollup/plugin-terser";
 import million from "million/compiler";
-
-// NEW
 import postcss from "rollup-plugin-postcss";
-
-const packageJson = require("./package.json");
+import { readFileSync } from "fs";
+const packageJson = JSON.parse(readFileSync("./package.json", "utf8"));
 
 export default [
     {
