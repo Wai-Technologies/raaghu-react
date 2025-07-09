@@ -59,8 +59,8 @@
   "overrides": {
     "glob": "^11.0.0",
     "rimraf": "^6.0.1",
-    "@humanwhocodes/object-schema": "$@eslint/object-schema",
-    "@humanwhocodes/config-array": "$@eslint/config-array",
+    "@humanwhocodes/object-schema": "@eslint/object-schema",
+    "@humanwhocodes/config-array": "@eslint/config-array",
     "sourcemap-codec": "@jridgewell/sourcemap-codec",
     "svgo": "^3.3.2",
     "workbox-google-analytics": "^7.3.0",
