@@ -65,16 +65,7 @@
     "svgo": "^3.3.2",
     "workbox-google-analytics": "^7.3.0",
     "workbox-cacheable-response": "^7.3.0",
-    "workbox-background-sync": "^7.3.0",
-    "lodash.isequal": false,
-    "lodash.get": false,
-    "inflight": false,
-    "domexception": false,
-    "w3c-hr-time": false,
-    "node-domexception": false,
-    "abab": false,
-    "q": false,
-    "stable": false
+    "workbox-background-sync": "^7.3.0"
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
