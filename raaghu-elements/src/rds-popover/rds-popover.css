@@ -124,7 +124,7 @@
   width: 10px;
   height: 10px;
   left: 50%;
-  bottom: -6px;
+  bottom: -5px;
   transform: rotate(45deg);
   background: white;
 }
@@ -186,7 +186,7 @@
   border-left: 0;
   width: 10px;
   height: 10px;
-  bottom: -6px;
+  bottom: -5px;
   transform: rotate(45deg);
   background: white;
 }
@@ -273,7 +273,7 @@
   border-top: 0;
   width: 10px;
   height: 10px;
-  left: -6px;
+  left: -5px;
   transform: rotate(45deg);
   background: white;
 }
