@@ -174,7 +174,7 @@
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "install": "npm install",
+    "install-all": "npm install",
     "pages": "npm run dev --workspace=raaghu-pages",
     "start": "node utils/start-scripts.js",
     "build": "npm run build --workspaces --if-present",
