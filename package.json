@@ -232,7 +232,6 @@
     "test:ci": "jest --ci --coverage",
     "test:verbose": "jest --verbose",
     "test:all": "npm run test --workspaces --if-present",
-    "modernize-deps": "node scripts/modernize-dependencies.js",
     "lint": "eslint . --fix",
     "lint:check": "eslint ."
   },
