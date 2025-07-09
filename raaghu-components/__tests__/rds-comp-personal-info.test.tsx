@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import RdsCompPersonalInfo from '../src/rds-comp-personal-info/rds-comp-personal-info';
 
 // Mock the RdsInput and RdsButton components
