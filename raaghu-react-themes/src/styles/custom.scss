@@ -3859,3 +3859,24 @@ label.form-check-label.ms-2.undefined {
       margin-top: 15px !important;
     }
 }
+/* CMS Component - Mobile and Tablet Button Positioning */
+/* Small devices: 320px to 568px */
+@media (min-width: 320px) and (max-width: 568px) {
+    .cms-footer-buttons {
+      margin-bottom: 24rem !important;
+    }
+}
+
+/* Large mobile devices: 414px to 896px */
+@media (min-width: 414px) and (max-width: 896px) {
+    .cms-footer-buttons {
+      margin-bottom: 44rem !important;
+    }
+}
+
+/* Tablet devices: 834px to 1112px */
+@media (min-width: 834px) and (max-width: 1112px) {
+    .cms-footer-buttons {
+      margin-bottom: 57.5rem !important;
+    }
+}
