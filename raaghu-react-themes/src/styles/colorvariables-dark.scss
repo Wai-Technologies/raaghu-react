@@ -3767,3 +3767,11 @@ label{
     stroke: #dee2e6 !important;
     fill: none !important;
 }
+/* Dark mode styling for collapse component */
+.collapseContent-text {
+    color: #ffffff !important;
+}
+.collapseContent {
+    background: #2d2d2d !important;
+    border: 1px solid #404040 !important;
+}      
