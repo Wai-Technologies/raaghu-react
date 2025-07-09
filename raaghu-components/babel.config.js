@@ -3,10 +3,22 @@ module.exports = {
     globals: {
         "ts-jest": {
             babelConfig: {
-                presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"],
+                presets: [
+                    ["@babel/preset-env", { targets: { node: "current" } }], 
+                    "@babel/preset-react", 
+                    "@babel/preset-typescript"
+                ],
+                plugins: [
+                    "@babel/plugin-syntax-jsx",
+                    "@babel/plugin-transform-class-properties",
+                    "@babel/plugin-transform-private-methods",
+                    "@babel/plugin-transform-private-property-in-object",
+                    "@babel/plugin-transform-nullish-coalescing-operator",
+                    "@babel/plugin-transform-optional-chaining",
+                    "@babel/plugin-transform-numeric-separator"
+                ],
             },
         },
     },
-    plugins: ["@babel/plugin-syntax-jsx"],
-    compact : true
+    compact: true
 };
