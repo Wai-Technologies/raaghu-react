@@ -2,7 +2,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
-import babel from "rollup-plugin-babel";
+import { babel } from "@rollup/plugin-babel";
 import external from "rollup-plugin-peer-deps-external";
 import terser from "@rollup/plugin-terser";
 import million from "million/compiler";
@@ -38,6 +38,7 @@ export default [
             babel({
                 exclude: ["node_modules/**"],
                 presets: ["@babel/preset-typescript"],
+                babelHelpers: "runtime"
             }),
             resolve({ preferBuiltins: true, mainFields: ["browser"] }),
             commonjs(),

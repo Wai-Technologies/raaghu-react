@@ -39,6 +39,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^25.0.8",
     "@rollup/plugin-node-resolve": "^15.3.1",
     "@rollup/plugin-terser": "^0.4.4",
@@ -53,7 +54,6 @@
   },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.6.0",
-    "@rollup/plugin-babel": "^6.0.4",
     "canvas": "^3.1.2",
     "in": "^0.19.0",
     "level": "^8.0.1",

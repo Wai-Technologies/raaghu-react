@@ -4,7 +4,7 @@ import typescript from "@rollup/plugin-typescript";
 import postcss from "rollup-plugin-postcss";
 import terser from "@rollup/plugin-terser";
 import dts from "rollup-plugin-dts";
-import babel from "rollup-plugin-babel";
+import { babel } from "@rollup/plugin-babel";
 import external from "rollup-plugin-peer-deps-external";
 import million from "million/compiler";
 
@@ -36,6 +36,7 @@ export default [
               babel({
                 exclude: ["node_modules/**"],
                 presets: ["@babel/preset-typescript"],
+                babelHelpers: "runtime"
             }),
             resolve({ preferBuiltins: true, mainFields: ["browser"] }),
             commonjs(),
