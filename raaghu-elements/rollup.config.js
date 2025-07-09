@@ -4,7 +4,7 @@ import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
 import babel from "rollup-plugin-babel";
 import external from "rollup-plugin-peer-deps-external";
-import { terser } from "rollup-plugin-terser";
+import { terser } from "@rollup/plugin-terser";
 import million from "million/compiler";
 
 // NEW
