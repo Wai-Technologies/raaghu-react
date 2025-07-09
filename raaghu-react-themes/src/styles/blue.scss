@@ -1,3 +1,35 @@
+@use "./custom.scss";
+@use "./node_modules/bootstrap/scss/bootstrap";
+@use "./accordion.scss";
+@use "./alert.scss";
+@use "./avatar.scss";
+@use "./badge.scss";
+@use "./breadcrumb.scss";
+@use "./button.scss";
+@use "./card.scss";
+@use "./carousel.scss";
+@use "./checkbox.scss";
+@use "./counter.scss";
+@use "./dropdown.scss";
+@use "./file-uploader.scss";
+@use "./input.scss";
+@use "./list-group.scss";
+@use "./nav-tab.scss";
+@use "./offcanvas.scss";
+@use "./pagination.scss";
+@use "./radio-button.scss";
+@use "./scrollspy.scss";
+@use "./search-input.scss";
+@use "./side-nav.scss";
+@use "./table.scss";
+@use "./tags.scss";
+@use "./textarea.scss";
+@use "./colorvariables.scss";
+@use "./cookieconsent.scss";
+@use "./calender.scss";
+@use "./tooltip.scss";
+@use "./multilevel-menu.scss";
+
 $theme: "blue" !default;
 
 $secondary: #2b0066;
@@ -233,35 +265,3 @@ html[theme="dark"] {
     background-color: $notification-header-bg;
   }
 }
-
-@import "./custom.scss";
-@import "./node_modules/bootstrap/scss/bootstrap";
-@import "./accordion.scss";
-@import "./alert.scss";
-@import "./avatar.scss";
-@import "./badge.scss";
-@import "./breadcrumb.scss";
-@import "./button.scss";
-@import "./card.scss";
-@import "./carousel.scss";
-@import "./checkbox.scss";
-@import "./counter.scss";
-@import "./dropdown.scss";
-@import "./file-uploader.scss";
-@import "./input.scss";
-@import "./list-group.scss";
-@import "./nav-tab.scss";
-@import "./offcanvas.scss";
-@import "./pagination.scss";
-@import "./radio-button.scss";
-@import "./scrollspy.scss";
-@import "./search-input.scss";
-@import "./side-nav.scss";
-@import "./table.scss";
-@import "./tags.scss";
-@import "./textarea.scss";
-@import "./colorvariables.scss";
-@import "./cookieconsent.scss";
-@import "./calender.scss";
-@import "./tooltip.scss";
-@import "./multilevel-menu.scss"

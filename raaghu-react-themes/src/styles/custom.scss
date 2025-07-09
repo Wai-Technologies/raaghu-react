@@ -1,3 +1,6 @@
+@use "sass:math";
+@use "sass:color";
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 $path: "../../fonts/Poppins-Regular.ttf";
 
@@ -1135,7 +1138,6 @@ div.btn-container i {
     background-repeat: no-repeat;
     width: 24px;
     height: 24px;
-    font-size: 20px;
 }
 
 html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:after {
@@ -1168,17 +1170,70 @@ html[theme="dark"] .btn-color-mode-switch>label.btn-color-mode-switch-inner:afte
     position: absolute;
     left: 8px;
     top: 5px;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0px 0px 6px -2px #111;
-    padding: 5px 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    background-color: white;
-    filter: grayscale(1);
-    rotate: 93de;
+}
+
+// sidebar toggle css
+#sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner {
+    width: 70px;
+    height: 30px;
+}
+
+#sidebar.toggle .btn-color-mode-switch input[type="checkbox"]:checked+label.btn-color-mode-switch-inner:after {
+    left: 30px;
+}
+
+#sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:after {
+    content: "";
+    background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g><path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></g></svg>');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+}
+
+html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:after {
+    content: "";
+    background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g> <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></g></svg>');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    font-size: 20px;
+}
+
+.btn-color-mode-switch>label.btn-color-mode-switch-inner:before {
+    content: "";
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g><path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></g></svg>');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 33px;
+    height: 33px;
+    border-radius: 26px;
+    position: absolute;
+    left: 8px;
+    top: 5px;
+}
+
+html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:after {
+    content: "";
+    background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g> <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></g></svg>');
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 33px;
+    height: 33px;
+    border-radius: 26px;
+    position: absolute;
+    left: 8px;
+    top: 5px;
+}
+
+html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:before {
+    content: "";
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g><path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></g></svg>');
+    background-position: center center;
+    background-repeat: no-repeat;
+    right: 14px;
+    left: 7px;
 }
 
 .btn-color-mode-switch>label.btn-color-mode-switch-inner:after {
@@ -1192,78 +1247,24 @@ html[theme="dark"] .btn-color-mode-switch>label.btn-color-mode-switch-inner:afte
     position: absolute;
     left: 8px;
     top: 5px;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: 0px 0px 6px -2px #111;
-    padding: 5px 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    background-color: white;
-    filter: grayscale(1);
-    rotate: 93de;
 }
 
-#sidebar.toggle .switcher {
-    position: relative;
-    left: 0px;
-}
-
-.btn-color-mode-switch>.alert {
-    display: none;
-    background: #ff9800;
-    border: none;
-}
-
-.btn-color-mode-switch input[type="checkbox"] {
-    cursor: pointer;
-    width: 50px;
-    height: 25px;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0px;
-    width: 100%;
-    z-index: 1;
-    margin: 0px;
-}
-
-.btn-color-mode-switch input[type="checkbox"]:checked+label.btn-color-mode-switch-inner {
-    background: #222325;
-    color: #fff;
-}
-
-.btn-color-mode-switch input[type="checkbox"]:checked+label.btn-color-mode-switch-inner:after {
+html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:after {
     content: "";
     background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g> <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></g></svg>');
     background-position: center center;
     background-repeat: no-repeat;
-    left: 44px;
+    width: 33px;
+    height: 33px;
+    border-radius: 26px;
+    position: absolute;
+    left: 8px;
+    top: 5px;
 }
 
-html[theme="dark"] #sidebar.toggle .btn-color-mode-switch input[type="checkbox"]:checked+label.btn-color-mode-switch-inner:after {
-    color: #fff;
-    width: 25px;
-}
-
-.btn-color-mode-switch input[type="checkbox"]:checked+label.btn-color-mode-switch-inner:before {
+html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:before {
     content: "";
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g><path fill="white" d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></g></svg>');
-    background-position: center center;
-    background-repeat: no-repeat;
-    right: auto;
-    left: 15px;
-    width: 20px;
-    height: 20px;
-}
-
-.btn-color-mode-switch input[type="checkbox"]:checked~.alert {
-    display: block;
-}
-
-// /*mode preview*/
-.dark-preview {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g><path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></g></svg>');
     background: #0d0d0d;
 }
 
@@ -1727,14 +1728,14 @@ $size: 10;
 }
 
 @for $i from 1 through $total {
-    $color: hsl(random(250), 100%, 50%);
+    $color: hsl(math.random() * 250, 100%, 50%);
 
     .c2:nth-child(#{$i}) {
         animation: anim#{$i} 10.1s infinite;
         animation-delay: $i;
         background: $color;
-        /*  background: radial-gradient(circle at top left, lighten($color, 15%), $color); */
-        box-shadow: 0 0 15px 2px lighten($color, 15%);
+        /*  background: radial-gradient(circle at top left, color.adjust($color, $lightness: 15%), $color); */
+        box-shadow: 0 0 15px 2px color.adjust($color, $lightness: 15%);
         border: 1px solid $color;
         border-radius: 2px;
     }
@@ -1743,8 +1744,8 @@ $size: 10;
         animation: anim#{$i} 50.1s infinite;
         animation-delay: $i;
         background: $color;
-        /*   background: radial-gradient(circle at top left, lighten($color, 15%), $color); */
-        box-shadow: 0 0 15px 2px lighten($color, 15%);
+        /*   background: radial-gradient(circle at top left, color.adjust($color, $lightness: 15%), $color); */
+        box-shadow: 0 0 15px 2px color.adjust($color, $lightness: 15%);
         border: 1px solid $color;
         border-radius: 2px;
     }
@@ -1767,7 +1768,7 @@ $size: 10;
         }
 
         100% {
-            transform: translate3d(random(30) + vw, random(100) + vh, 0);
+            transform: translate3d(math.random() * 30 + vw, math.random() * 100 + vh, 0);
             opacity: 0;
         }
     }

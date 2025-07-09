@@ -113,6 +113,8 @@
     "@typescript-eslint/eslint-plugin": "^8.36.0",
     "@typescript-eslint/parser": "^8.36.0",
     "@vitejs/plugin-react": "^4.6.0",
+    "ajv": "^8.17.1",
+    "ajv-keywords": "^5.1.0",
     "autoprefixer": "^10.4.21",
     "axios": "^1.10.0",
     "babel-loader": "^9.1.3",
@@ -216,6 +218,10 @@
     "test:all": "npm run test --workspaces --if-present",
     "lint": "eslint . --fix",
     "lint:check": "eslint ."
+  },
+  "overrides": {
+    "ajv": "^6.12.6",
+    "ajv-keywords": "^3.5.2"
   },
   "bugs": {
     "url": "https://github.com/Wai-Technologies/raaghu-react/issues"

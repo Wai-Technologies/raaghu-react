@@ -1,3 +1,5 @@
+@use "sass:math";
+@use "sass:color";
 //background-color: white;
 $theme-colors: (
     "primary": $primary,
@@ -1010,7 +1012,7 @@ svg {
     $avatar-color: shift-color($value, $avatar-color-scale);
 
     @if (contrast-ratio($avatar-background, $avatar-color) < $min-contrast-ratio) {
-        $avatar-color: mix($value, color-contrast($avatar-background), abs($avatar-color-scale));
+        $avatar-color: mix($value, color-contrast($avatar-background), math.abs($avatar-color-scale));
     }
 
     .avatar-#{$state} {
@@ -1032,7 +1034,7 @@ svg {
     $badge-color: shift-color($value, $badge-color-scale);
 
     @if (contrast-ratio($badge-background, $badge-color) < $min-contrast-ratio) {
-        $badge-color: mix($value, color-contrast($badge-background), abs($badge-color-scale));
+        $badge-color: mix($value, color-contrast($badge-background), math.abs($badge-color-scale));
     }
 
     .badge-#{$state} {
@@ -1054,7 +1056,7 @@ svg {
     $counter-color: $white;
 
     @if (contrast-ratio($counter-background, $counter-color) < $min-contrast-ratio) {
-        $counter-color: mix($value, color-contrast($counter-background), abs($counter-color-scale));
+        $counter-color: mix($value, color-contrast($counter-background), math.abs($counter-color-scale));
     }
 
     .counter-#{$state} {
@@ -2547,7 +2549,7 @@ $form-feedback-color: $gray-200;
     $tag-color: shift-color($value, $tag-color-scale);
 
     @if (contrast-ratio($tag-background, $tag-color) < $min-contrast-ratio) {
-        $tag-color: mix($value, color-contrast($tag-background), abs($tag-color-scale));
+        $tag-color: mix($value, color-contrast($tag-background), math.abs($tag-color-scale));
     }
 
     .tag-#{$state} {
@@ -2666,7 +2668,7 @@ $form-feedback-color: $gray-200;
     $alert-color: shift-color($value, $alert-color-scale);
 
     @if (contrast-ratio($alert-background, $alert-color) < $min-contrast-ratio) {
-        $alert-color: mix($value, color-contrast($alert-background), abs($alert-color-scale));
+        $alert-color: mix($value, color-contrast($alert-background), math.abs($alert-color-scale));
     }
 
     @each $color, $value in $theme-colors {

@@ -1,7 +1,7 @@
-@import "../../node_modules/bootstrap/scss/functions";
-@import "../../node_modules/bootstrap/scss/variables";
-@import "../../node_modules/bootstrap/scss/mixins";
-@import "../../node_modules/bootstrap/scss/_utilities";
+@use "../../node_modules/bootstrap/scss/functions";
+@use "../../node_modules/bootstrap/scss/variables";
+@use "../../node_modules/bootstrap/scss/mixins";
+@use "../../node_modules/bootstrap/scss/_utilities";
 
 .theme-dark {
   background-color: $black;
