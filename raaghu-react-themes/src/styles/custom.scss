@@ -1,6 +1,8 @@
 @use "sass:math";
 @use "sass:color";
 
+$primary: #7e2eef !default;
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 $path: "../../fonts/Poppins-Regular.ttf";
 
@@ -1107,8 +1109,6 @@ div.btn-container i {
     font-weight: 500;
     top: 10px;
     right: 11px;
-    width: 20px;
-    height: 20px;
 }
 
 #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:before {
@@ -1150,68 +1150,13 @@ html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-s
     font-size: 20px;
 }
 
-html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:before {
-    content: "";
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g><path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></g></svg>');
-    background-position: center center;
-    background-repeat: no-repeat;
-    right: 14px;
-    left: 7px;
-}
-
-html[theme="dark"] .btn-color-mode-switch>label.btn-color-mode-switch-inner:after {
-    content: "";
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g><path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></g></svg>');
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 33px;
-    height: 33px;
-    border-radius: 26px;
-    position: absolute;
-    left: 8px;
-    top: 5px;
-}
-
-// sidebar toggle css
-#sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner {
-    width: 70px;
-    height: 30px;
-}
-
-#sidebar.toggle .btn-color-mode-switch input[type="checkbox"]:checked+label.btn-color-mode-switch-inner:after {
-    left: 30px;
-}
-
-#sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:after {
-    content: "";
-    background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g><path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></g></svg>');
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 24px;
-    height: 24px;
-}
-
-html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:after {
-    content: "";
-    background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g> <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></g></svg>');
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 24px;
-    height: 24px;
-    font-size: 20px;
-}
-
 .btn-color-mode-switch>label.btn-color-mode-switch-inner:before {
     content: "";
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g><path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></g></svg>');
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g> <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></g></svg>');
     background-position: center center;
     background-repeat: no-repeat;
     width: 33px;
     height: 33px;
-    border-radius: 26px;
-    position: absolute;
-    left: 8px;
-    top: 5px;
 }
 
 html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:after {
@@ -1221,10 +1166,7 @@ html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-s
     background-repeat: no-repeat;
     width: 33px;
     height: 33px;
-    border-radius: 26px;
-    position: absolute;
-    left: 8px;
-    top: 5px;
+    font-size: 20px;
 }
 
 html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:before {
@@ -1243,10 +1185,6 @@ html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-s
     background-repeat: no-repeat;
     width: 33px;
     height: 33px;
-    border-radius: 26px;
-    position: absolute;
-    left: 8px;
-    top: 5px;
 }
 
 html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:after {
@@ -1256,100 +1194,23 @@ html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-s
     background-repeat: no-repeat;
     width: 33px;
     height: 33px;
-    border-radius: 26px;
-    position: absolute;
-    left: 8px;
-    top: 5px;
+    font-size: 20px;
 }
 
 html[theme="dark"] #sidebar.toggle .btn-color-mode-switch>label.btn-color-mode-switch-inner:before {
     content: "";
     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve" height="16px" width="16px"><g><path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></g></svg>');
-    background: #0d0d0d;
+    background-position: center center;
+    background-repeat: no-repeat;
+    right: 14px;
+    left: 7px;
 }
 
-.dark-preview div.btn-container i.fa-sun-o {
-    color: #777;
+.theme-dark .card {
+    //background-color: #1c1d20 !important;
+    border-color: #343a40;
 }
 
-.dark-preview div.btn-container i.fa-moon-o {
-    color: #fff;
-    text-shadow: 0px 0px 11px #fff;
-}
-
-.white-preview {
-    background: #fff;
-}
-
-.white-preview div.btn-container i.fa-sun-o {
-    color: #ffa500;
-    text-shadow: 0px 0px 16px #ffa500;
-}
-
-.white-preview div.btn-container i.fa-moon-o {
-    color: #777;
-}
-
-p.by a {
-    text-decoration: none;
-    color: #000;
-}
-
-.dark-preview p.by a {
-    color: #777;
-}
-
-.white-preview p.by a {
-    color: #000;
-}
-
-// /* Font weights */
-.fw-lighter {
-    font-weight: $font-weight-lighter;
-}
-
-.fw-light {
-    font-weight: $font-weight-light !important;
-}
-
-.fw-normal {
-    font-weight: $font-weight-normal !important;
-}
-
-.fw-medium {
-    font-weight: $font-weight-medium !important;
-}
-
-.fw-semibold {
-    font-weight: $font-weight-semibold !important;
-}
-
-.fw-bold {
-    font-weight: $font-weight-bold !important;
-}
-
-.fw-extrabold {
-    font-weight: $font-weight-extrabold !important;
-}
-
-.fw-black {
-    font-weight: $font-weight-black !important;
-}
-
-// /*  rds banner */
-rds-comp-banner {
-    z-index: 0;
-}
-
-// /*  rds banner */
-.alert {
-    z-index: 1045;
-}
-
-// /*==================================================================================================================================
-//    ELEMENT  : FILE UPLOADER
-// ==================================================================================================================================*/
-// /* Put your css in here */
 .rds-fileuploader {
     position: relative;
 }
@@ -1481,6 +1342,144 @@ a.nav-link.breadcrumb-navlink.active {
     position: relative;
     right: 30px;
     margin: none;
+    top: 4px;
+    z-index: 0;
+}
+
+.horizontalPermi {
+    height: 0rem;
+    width: 2.30rem;
+    border-bottom: 1px dashed;
+    position: relative;
+    right: 37px;
+    margin: none;
+    top: 10px;
+    z-index: 0;
+}
+
+.NodeHorizontal {
+    height: 0rem;
+    width: 1.75rem;
+    border-bottom: 1px dashed;
+    position: relative;
+    right: 28px;
+    margin: none;
+    top: 4px;
+    z-index: 0;
+}
+
+.vertical {
+    position: absolute;
+    left: -27px;
+    bottom: 0;
+    top: 17px;
+    width: 0.1875rem;
+    height: 108%;
+    border-right: 1px dashed;
+    z-index: 0;
+}
+
+.verticall {
+    position: absolute;
+    left: -63px;
+    bottom: 0;
+    top: -25px;
+    width: 0.1875rem;
+    height: 150%;
+    border-right: 1px dashed;
+    z-index: 0;
+}
+
+.verticalPermi {
+    position: absolute;
+    left: 7px;
+    bottom: 0;
+    top: 1.2rem;
+    width: 0.1875rem;
+    height: 102%;
+    border-right: 1px dashed;
+    z-index: 0;
+}
+
+.verticallPermi {
+    position: absolute;
+    left: -41px;
+    /* bottom: 0px; */
+    top: -25px;
+    width: 0.1875rem;
+    height: 169%;
+    border-right: 1px dashed #adb5bd;
+    z-index: -1;
+}
+
+.verticalNode {
+    position: absolute;
+    left: 0px;
+    bottom: 0;
+    top: 1.2rem;
+    width: 0.1875rem;
+    height: 106%;
+    border-right: 1px dashed;
+    z-index: 0;
+}
+
+.verticalNodefile {
+    position: absolute;
+    left: -31px;
+    bottom: 10px;
+    top: -26px;
+    width: 0.1875rem;
+    border-right: 1px dashed lightgray;
+    z-index: 0;
+}
+
+.verticalNodeSiblingfile {
+    position: absolute;
+    left: 0px;
+    bottom: 0;
+    top: 15px;
+    width: 0.1875rem;
+    height: 129%;
+    border-right: 1px dashed lightgray;
+    z-index: 0;
+}
+
+.unitName {
+    margin-left: -28px;
+}
+
+.member-count {
+    margin-left: -10px;
+}
+
+.node_dot {
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    margin-right: 0.5625px;
+    margin-left: -1px;
+    margin-top: 0.3125rem;
+    z-index: 0;
+}
+
+.FileNode_dot {
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    margin-right: 0.5625px;
+    margin-left: -1px;
+    margin-top: 0.3125rem;
+    z-index: 0;
+}
+
+.node-icons {
+    position: absolute;
+    left: -27px;
+    top: 10px;
+}
+
+.FileNode-dot {
+    border-radius: 4px;
     top: 4px;
     z-index: 0;
 }
