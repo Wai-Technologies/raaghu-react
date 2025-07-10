@@ -2168,8 +2168,8 @@ svg {
 }
 
 /*top nav bar variables*/
-.navbar {
-    background-color: $nav-background-color;
+#scrollspy .navbar {
+    background-color: $black;
 }
 
 .lf-player-container {
