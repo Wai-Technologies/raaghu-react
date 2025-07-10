@@ -19,6 +19,7 @@
 
 .Default .sidebar-layout{
   width: fit-content;
+  z-index: 1;
 }
 
 /* Top navigation layout styles */
