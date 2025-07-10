@@ -263,8 +263,8 @@
 }
 
 .selected {
-  background-color: #8000ff;
-  color: white;
+  background-color: #8000ff !important;
+  color: white !important;
 }
 
 .unselected {
@@ -497,26 +497,6 @@
   max-width: 200px; /* Optional: Set a maximum width */
 }
 
-.toggle-option {
-  flex: 1;
-  text-align: center;
-  padding: 7px 10px; /* Reduced padding for smaller screens */
-  cursor: pointer;
-  transition: background-color 0.3s;
-  font-size: 0.875rem; /* Reduced font size for smaller screens */
-  white-space: nowrap; /* Prevent text from wrapping */
-}
-
-.selected {
-  background-color: #8000ff;
-  color: white;
-}
-
-.unselected {
-  background-color: white;
-  color: #8000ff;
-}
-
 .form-controls.border-primary.ms-1.cursor-pointer {
   height: 2.5rem;
   display: flex;
@@ -567,16 +547,6 @@
   transition: background-color 0.3s;
   font-size: 0.875rem;
   white-space: nowrap;
-}
-
-.selected {
-  background-color: #8000ff;
-  color: white;
-}
-
-.unselected {
-  background-color: white;
-  color: #8000ff;
 }
 
 .form-controls.border-primary.ms-1.cursor-pointer {

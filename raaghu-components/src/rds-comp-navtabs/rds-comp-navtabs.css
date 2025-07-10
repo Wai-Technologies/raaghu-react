@@ -86,3 +86,8 @@
 #features.nav-tabs .nav-link {
   text-align: start !important;
 }
+
+.nav-tabs.vertical-pointer .nav-link.selected {
+  background-color: #8000ff !important;
+  color: white !important;
+}
