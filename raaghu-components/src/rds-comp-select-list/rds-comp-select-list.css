@@ -86,3 +86,11 @@
     transform: translateY(-50%);
     z-index: 1;
 }
+
+.css-17pj0yt-control {
+    border-color: hsl(210, 14%, 89%, 1) !important;
+}
+
+.css-1jqq78o-placeholder {
+    color: hsl(0, 0%, 76%, 1) !important;
+}
