@@ -441,6 +441,20 @@ margin-top:65px !important;
   height: 36px;
 }
 
+#btn-sizes .btn{
+  min-width: 2.5rem !important;
+}
+#btn-sizes .d-flex.flex-row.gap-4.mt-3 {
+  gap: 1.2rem !important;
+}
+
+.theme-light #btn-sizes svg {
+    stroke: #343a40 !important;
+}
+
+.theme-light #btn-sizes .btn-primary svg{
+ stroke: #fff !important;
+}
 
 .detail-pane-footer-fixed {
   position: absolute;
