@@ -16,7 +16,9 @@
 #flexRadioD:checked {
     border-radius: 50% !important;
 }
-
-.bank-card-detail-align {
-    margin-left: 1rem !important;
+/* Align "Set as default" links to the left for vertical alignment */
+#set-as-default-link {
+    margin-left: 1.1rem !important;
+    position: relative !important;
+    display: inline-block !important;
 }
