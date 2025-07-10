@@ -120,7 +120,8 @@ const RdsCompAddressDetail = (props: RdsCompAddressDetailProps) => {
     const [countryErrorMessage, setCountryErrorMessage] = useState<string>("");
     const [stateProvinceErrorMessage, setProvinceStateErrorMessage] =
         useState<string>("");
-    const { t } = useTranslation();    const isFirstNameValid = (firstName: any) => {
+    const { t } = useTranslation();    
+    const isFirstNameValid = (firstName: any) => {
         if (!firstName || firstName.length === 0) {
             return false;
         }
@@ -559,7 +560,8 @@ const RdsCompAddressDetail = (props: RdsCompAddressDetailProps) => {
                                         </div>
                                     )}
                                 </div>
-                                <div className="col-md-6 mb-3">                                    <RdsCompSelectList
+                                <div className="col-md-6 mb-3">                                    
+                                    <RdsCompSelectList
                                         id="seleCou"
                                         label="Country"
                                         placeholder="Select Country"
@@ -567,7 +569,7 @@ const RdsCompAddressDetail = (props: RdsCompAddressDetailProps) => {
                                         key={`country-${formData?.countryList}`}
                                         selectedValue={formData?.countryList}
                                         dataTestId="select-country"
-                                        onChange={(item: any) => { handleChange(item.value, "countryList"); }}
+                                        onChange={(value: any) => { handleChange(value, "countryList"); }}
                                         required
                                     />
                                     {countryErrorMessage != "" && (
@@ -578,7 +580,8 @@ const RdsCompAddressDetail = (props: RdsCompAddressDetailProps) => {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-6 mb-3">                                    <RdsCompSelectList
+                                <div className="col-md-6 mb-3">                                    
+                                    <RdsCompSelectList
                                         id="seleSta"
                                         label="State/Province"
                                         placeholder="Select State/Province"
@@ -586,7 +589,7 @@ const RdsCompAddressDetail = (props: RdsCompAddressDetailProps) => {
                                         key={`state-${formData?.indianStateList}`}
                                         selectedValue={formData?.indianStateList}
                                         dataTestId="select-state"
-                                        onChange={(item: any) => { handleChange(item.value, "indianStateList"); }}
+                                        onChange={(value: any) => { handleChange(value, "indianStateList"); }}
                                         required
                                     />
                                     {stateProvinceErrorMessage != "" && (
