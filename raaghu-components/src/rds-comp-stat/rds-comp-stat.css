@@ -18,6 +18,13 @@
   border-width: 30px !important;
   width: 285px !important;
 }
+
+/* Large mobile view centering */
+@media (max-width: 576px) {
+  .advancestat{
+    margin: 0 auto !important;
+  }
+}
 div.grow {
   transition: all 0.2s ease-in-out;
   transform: translate(0px, 0px);
