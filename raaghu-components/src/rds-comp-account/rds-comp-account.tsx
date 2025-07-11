@@ -295,9 +295,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                         placeholder="Select Option"
                         selectItems={twoFactList}
                         selectedValue={accountGeneralData?.twoFactorBehaviour}
-                        onChange={(item: any) => {
+                        onChange={(value: any) => {
                           handlerChangeGeneral(
-                            item.value,
+                            value,
                             "twoFactorBehaviour"
                           );
                         }}
@@ -391,8 +391,8 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                             placeholder="Select Version"
                             selectItems={versionList}
                             selectedValue={accountGeneralData?.version}
-                            onChange={(item: any) => {
-                              handlerChangeGeneral(item.value, "version");
+                            onChange={(value: any) => {
+                              handlerChangeGeneral(value, "version");
                             }}
                             key={`version-${accountGeneralData?.version}`}
                             dataTestId="version-list"

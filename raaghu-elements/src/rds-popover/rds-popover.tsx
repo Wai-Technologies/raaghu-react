@@ -3,19 +3,19 @@ import "./rds-popover.css";
 import RdsButton from "../rds-button";
 
 export enum PopoverState {
-  NoArrow = "NoArrow",
-  TopLeft = "TopLeft",
-  TopCentre = "TopCentre",
-  TopRight = "TopRight",
-  BottomLeft = "BottomLeft",
-  BottomCentre = "BottomCentre",
-  BottomRight = "BottomRight",
-  LeftTop = "LeftTop",
-  LeftCentre = "LeftCentre",
-  LeftBottom = "LeftBottom",
-  RightBottom = "RightBottom",
-  RightCentre = "RightCentre",
-  RightTop = "RightTop"
+  NoArrow = "no-arrow",
+  TopLeft = "top-left",
+  TopCentre = "top-centre",
+  TopRight = "top-right",
+  BottomLeft = "bottom-left",
+  BottomCentre = "bottom-centre",
+  BottomRight = "bottom-right",
+  LeftTop = "left-top",
+  LeftCentre = "left-centre",
+  LeftBottom = "left-bottom",
+  RightBottom = "right-bottom",
+  RightCentre = "right-centre",
+  RightTop = "right-top"
 }
 
 export interface RdsPopoverProps {

@@ -91,21 +91,24 @@ const RdsCompBankCardDetail = (props: RdsCompBankCardDetailProps) => {
                                     <div className="mt-2 ms-4">
                                         {activeButton == index ? (clicked == false ? (
                                             <a
-                                                className="bank-card-detail-align text-primary text-decoration-none"
+                                                id="set-as-default-link"
+                                                className="text-primary text-decoration-none"
                                                 onClick={setDefaultHandler}
                                             >
                                                 Set as default
                                             </a>
                                         ) : (
-                                            <a
-                                                className="bank-card-detail-align text-muted me-1 text-decoration-none"
+                                                <a
+                                                id="set-as-default-link"
+                                                className="text-muted me-1 text-decoration-none"
                                                 onClick={setDefaultHandler}
                                             >
                                                 Default
                                             </a>
                                         )) : (
                                             <a
-                                                className="bank-card-detail-align text-primary text-decoration-none"
+                                                id="set-as-default-link"
+                                                className="text-primary text-decoration-none"
                                             >
                                                 Set as default
                                             </a>
