@@ -111,7 +111,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             size="small"
                             type="button"
                             tooltipTitle=""
-                            colorVariant="primary"
+                            colorVariant={colorVariant}
                             isOutline={true}
                         />
                        <RdsButton
@@ -120,7 +120,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             label={props.buttonlabel}
                             size="small"
                             tooltipTitle=""
-                            colorVariant="primary"
+                           colorVariant={colorVariant}
                             databsdismiss="modal"
                             aria-label="close"
                             onClick={props.onSuccess}
