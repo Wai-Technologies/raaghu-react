@@ -14,7 +14,7 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/preset-scss",
     "@chromatic-com/storybook",
-    "storybook-addons",
+    // "storybook-addons",
     // "@storybook/addon-actions",
     "@storybook/addon-docs"
   ],
@@ -173,7 +173,34 @@ document.addEventListener('DOMContentLoaded', () => {
     name: "@storybook/react-vite",
     options: {
       legacyRootApi: true,
+      builder: {
+        viteConfigPath: undefined,
+      },
     },
+  },
+
+  viteFinal: async (config, { configType }) => {
+    // Handle build optimization for preventing object extensibility issues
+    if (config.build) {
+      config.build.rollupOptions = {
+        ...config.build.rollupOptions,
+        output: {
+          ...config.build.rollupOptions?.output,
+          // Disable property mangling that could cause extensibility issues
+          manualChunks: undefined,
+        },
+        // Add preserveEntrySignatures to prevent aggressive optimization
+        preserveEntrySignatures: 'strict',
+        // Disable tree shaking for problematic patterns
+        treeshake: {
+          moduleSideEffects: false,
+          propertyReadSideEffects: false,
+          tryCatchDeoptimization: false,
+        },
+      };
+    }
+    
+    return config;
   },
 
   staticDirs: [
