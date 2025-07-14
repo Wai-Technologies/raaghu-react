@@ -1,4 +1,15 @@
+
 import type { StorybookConfig } from "@storybook/react-vite";
+import { readFileSync } from "fs";
+import { join } from "path";
+
+let version = "unknown";
+try {
+  const pkg = JSON.parse(readFileSync(join(__dirname, "../package.json"), "utf-8"));
+  version = pkg.version || "unknown";
+} catch (e) {
+  // fallback
+}
 
 const config: StorybookConfig = {
   stories: [
@@ -14,7 +25,6 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/preset-scss",
     "@chromatic-com/storybook",
-    "storybook-addons",
     // "@storybook/addon-actions",
     "@storybook/addon-docs"
   ],
@@ -58,13 +68,6 @@ const config: StorybookConfig = {
     </style>
     `;
 
-    // Read version from root package.json
-    let version = 'unknown';
-    try {
-      version = require('../package.json').version || 'unknown';
-    } catch (e) {
-      // fallback if file not found
-    }
     const staticVersionScript = [
       '<script>',
       'document.addEventListener("DOMContentLoaded", function() {',
