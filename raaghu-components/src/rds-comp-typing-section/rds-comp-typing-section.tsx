@@ -204,12 +204,12 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                   </div>
                 </div>
               </div>
-              <div
+              <div id="button-sections"
                 className={`${
                   isMobile ? "d-flex flex-column gap-3" : "d-flex gap-3"
                 } mt-3 mb-1`}
               >
-                <div className="action-button-item plus_chat project">
+                <div id="project-btn" className="action-button-item plus_chat project">
                   <RdsButton
                     badgeLayout="Text_only"
                     badgeState="default"
@@ -225,7 +225,7 @@ const RdsCompTypingSection = (props: RdsTypingAltProps) => {
                     textCase="unset"
                   />
                 </div>
-                <div className="action-button-item ">
+                <div id="figma-btn" className="action-button-item ">
                   <RdsButton
                     size="medium"
                     shape="rectangle"

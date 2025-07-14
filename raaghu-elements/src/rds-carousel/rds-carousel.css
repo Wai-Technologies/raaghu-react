@@ -106,3 +106,23 @@
   height: 20px;
   color: red;
 }
+
+@media(min-width:414px) and (max-width:834px){
+  
+.carousel-indicators-default{
+  top: 230px !important;
+}
+
+}
+
+@media(min-width:320px) and (max-width:414px)  {
+  .carousel-indicators-default{
+  top: 170px !important;
+}
+}
+
+@media(min-width:834px) and (max-width:1024px){
+ .carousel-indicators-default{
+  top: 475px !important;
+}
+}

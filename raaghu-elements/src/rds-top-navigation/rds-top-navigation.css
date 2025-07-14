@@ -13,6 +13,7 @@
 
 .dropdown-menu[data-bs-popper] {
   transform: translateY(14px);
+  z-index: 1000;
 }
 
 .dropdown-list {

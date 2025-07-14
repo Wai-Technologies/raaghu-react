@@ -120,7 +120,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                 }}
                 value={clientData?.clientUrl}
                 validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}    
-                validationMsg="Please Enter valid url (https or http)"
+                validationMsg="Please Enter valid URL (https or http)"
               ></RdsInput>
             </div>
             <div className="col-lg-6 col-md-6">
@@ -137,7 +137,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                   }}
                   value={clientData?.logoUrl}
                   validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
-                  validationMsg="Please Enter valid url (https or http)"
+                  validationMsg="Please Enter valid URL (https or http)"
                 ></RdsInput>
               </div>
             </div>
@@ -156,7 +156,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                 }}
                 value={clientData?.callbackUrl}
                 validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
-                validationMsg="Please Enter valid url (https or http)"
+                validationMsg="Please Enter valid URL (https or http)"
               ></RdsInput>
             </div>
             <div className="col-lg-6 col-md-6">
@@ -172,7 +172,7 @@ const isFormValid = isClientUrlValid(clientData?.clientUrl) && isLogoUrlValid(cl
                 }}
                 value={clientData?.logoutUrl}
                 validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}                   
-                validationMsg="Please Enter valid url (https or http)"
+                validationMsg="Please Enter valid URL (https or http)"
               ></RdsInput>
             </div>
           </div>

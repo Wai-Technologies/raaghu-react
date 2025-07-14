@@ -295,9 +295,9 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                         placeholder="Select Option"
                         selectItems={twoFactList}
                         selectedValue={accountGeneralData?.twoFactorBehaviour}
-                        onChange={(item: any) => {
+                        onChange={(value: any) => {
                           handlerChangeGeneral(
-                            item.value,
+                            value,
                             "twoFactorBehaviour"
                           );
                         }}
@@ -380,7 +380,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                               reset={inputReset}
                               dataTestId="url"
                               validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                              validationMsg="Please Enter valid url (https or http)"
+                              validationMsg="Please Enter valid URL (https or http)"
                             ></RdsInput>
                           </div>
                         </div>
@@ -391,8 +391,8 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                             placeholder="Select Version"
                             selectItems={versionList}
                             selectedValue={accountGeneralData?.version}
-                            onChange={(item: any) => {
-                              handlerChangeGeneral(item.value, "version");
+                            onChange={(value: any) => {
+                              handlerChangeGeneral(value, "version");
                             }}
                             key={`version-${accountGeneralData?.version}`}
                             dataTestId="version-list"
@@ -416,7 +416,7 @@ const RdsCompAccount = (props: RdsCompAccountProps) => {
                               reset={inputReset}
                               dataTestId="site-key-url"
                               validatonPattern={/^(ftp|http|https):\/\/[^ "]+$/}
-                              validationMsg="Please Enter valid url (https or http)"
+                              validationMsg="Please Enter valid URL (https or http)"
                             ></RdsInput>
                           </div>
                         </div>

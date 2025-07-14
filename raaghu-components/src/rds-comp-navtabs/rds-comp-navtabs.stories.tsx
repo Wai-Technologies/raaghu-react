@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import RdsCompNavtabs from "./rds-comp-navtabs";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 
 const meta: Meta = {

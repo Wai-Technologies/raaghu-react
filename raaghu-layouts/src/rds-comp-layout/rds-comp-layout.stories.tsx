@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompLayout from "./rds-comp-layout";
 import RdsCompLayoutItem from "./rds-comp-layout-item";
 

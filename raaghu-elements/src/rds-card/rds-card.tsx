@@ -328,7 +328,7 @@ const RdsCard = (props: RdsCardProps) => {
                 </>
               )}
               <br />
-              {props.type === "With Image" && props.imageUrl && <img src={props.imageUrl} className="card-img-top" alt="Card Image" />}
+              {props.type === "With Image" && props.imageUrl && <img src={props.imageUrl} id="card-image-border" className="card-img-top" alt="Card Image" />}
               {props.children}
               {props.type === "With Badges" && (
                 <div className="d-flex justify-content-start align-items-center gap-1">

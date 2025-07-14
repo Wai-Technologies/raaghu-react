@@ -1,5 +1,5 @@
 // import React from "react";
-// import { ComponentStory, ComponentMeta } from "@storybook/react";
+// import { ComponentStory, ComponentMeta } from "@storybook/react-vite";
 // import RdsCompCardDetailList from "./rds-comp-card-detail-list";
 
 // export default {
@@ -59,7 +59,7 @@
 //     ],
 // };
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompBankCardDetailList from "./rds-comp-bank-card-detail-list";
 
 

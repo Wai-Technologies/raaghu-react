@@ -21,6 +21,7 @@ box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04);
     .detail-pane-container {
         width:325px;
         margin: 0 auto;
+        margin-right: 23px;
     }
 }
 
@@ -441,6 +442,20 @@ margin-top:65px !important;
   height: 36px;
 }
 
+#btn-sizes .btn{
+  min-width: 2.5rem !important;
+}
+#btn-sizes .d-flex.flex-row.gap-4.mt-3 {
+  gap: 1.2rem !important;
+}
+
+.theme-light #btn-sizes svg {
+    stroke: #343a40 !important;
+}
+
+.theme-light #btn-sizes .btn-primary svg{
+ stroke: #fff !important;
+}
 
 .detail-pane-footer-fixed {
   position: absolute;

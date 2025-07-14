@@ -1,5 +1,5 @@
 import RdsCompButtonGroup, { Role } from "./rds-comp-button-group";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 
 const meta: Meta = {

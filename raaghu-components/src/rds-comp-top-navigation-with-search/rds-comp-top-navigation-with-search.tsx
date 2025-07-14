@@ -153,11 +153,11 @@ const RdsCompTopNavigationWithSearch = (
 
     const languageItems = [
         {
-            label: "EN(US)",
+            label: "EN (US)",
             val: "en",
         },
         {
-            label: "English(IND)",
+            label: "English (IND)",
             val: "en",
         },
         {
@@ -180,7 +180,7 @@ const RdsCompTopNavigationWithSearch = (
             <div className="d-flex align-items-center justify-content-between px-3">
                 <div id="raaghuLogo" className="d-block">
                     <img
-                        className="cursor-pointer sidenav-logo"
+                        className="cursor-pointer sidenav-logo mx-1 mt-1"
                         src={logoImage}
                         alt="logo"
                     ></img>
