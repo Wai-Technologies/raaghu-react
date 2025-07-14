@@ -1,15 +1,7 @@
 
 import type { StorybookConfig } from "@storybook/react-vite";
-import { readFileSync } from "fs";
-import { join } from "path";
 
-let version = "unknown";
-try {
-  const pkg = JSON.parse(readFileSync(join(__dirname, "../package.json"), "utf-8"));
-  version = pkg.version || "unknown";
-} catch (e) {
-  // fallback
-}
+const version = process.env.npm_package_version || 'unknown';
 
 const config: StorybookConfig = {
   stories: [
