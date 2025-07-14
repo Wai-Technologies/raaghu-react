@@ -3,7 +3,7 @@ import type { StorybookConfig } from "@storybook/react-vite";
 const config: StorybookConfig = {
   stories: [
     "../stories/**/*.mdx",
-    // "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+    "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
     "../raaghu-elements/src/**/*.stories.@(js|jsx|ts|tsx)",
     "../raaghu-components/**/**/*.stories.@(js|jsx|ts|tsx)",
     "../raaghu-layouts/**/**/*.stories.@(js|jsx|ts|tsx)",
@@ -14,7 +14,7 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/preset-scss",
     "@chromatic-com/storybook",
-    "storybook-addons",
+    // "storybook-addons", // removed for troubleshooting
     // "@storybook/addon-actions",
     "@storybook/addon-docs"
   ],
@@ -82,29 +82,29 @@ const config: StorybookConfig = {
     },
   },
 
-  viteFinal: async (config, { configType }) => {
-    // Handle build optimization for preventing object extensibility issues
-    if (config.build) {
-      config.build.rollupOptions = {
-        ...config.build.rollupOptions,
-        output: {
-          ...config.build.rollupOptions?.output,
-          // Disable property mangling that could cause extensibility issues
-          manualChunks: undefined,
-        },
-        // Add preserveEntrySignatures to prevent aggressive optimization
-        preserveEntrySignatures: 'strict',
-        // Disable tree shaking for problematic patterns
-        treeshake: {
-          moduleSideEffects: false,
-          propertyReadSideEffects: false,
-          tryCatchDeoptimization: false,
-        },
-      };
-    }
-    
-    return config;
-  },
+  // viteFinal: async (config, { configType }) => {
+  //   // Handle build optimization for preventing object extensibility issues
+  //   if (config.build) {
+  //     config.build.rollupOptions = {
+  //       ...config.build.rollupOptions,
+  //       output: {
+  //         ...config.build.rollupOptions?.output,
+  //         // Disable property mangling that could cause extensibility issues
+  //         manualChunks: undefined,
+  //       },
+  //       // Add preserveEntrySignatures to prevent aggressive optimization
+  //       preserveEntrySignatures: 'strict',
+  //       // Disable tree shaking for problematic patterns
+  //       treeshake: {
+  //         moduleSideEffects: false,
+  //         propertyReadSideEffects: false,
+  //         tryCatchDeoptimization: false,
+  //       },
+  //     };
+  //   }
+  //   
+  //   return config;
+  // },
 
   staticDirs: [
     {
