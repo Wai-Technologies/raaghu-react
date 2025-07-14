@@ -1,7 +1,4 @@
-
 import type { StorybookConfig } from "@storybook/react-vite";
-
-const version = process.env.npm_package_version || 'unknown';
 
 const config: StorybookConfig = {
   stories: [
@@ -17,67 +14,152 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/preset-scss",
     "@chromatic-com/storybook",
+    // "storybook-addons",
     // "@storybook/addon-actions",
     "@storybook/addon-docs"
   ],
 
-  managerHead: (headHtmlContent) => {
-    const style = `
-    <style>
-      .sidebar-header {
-        margin-bottom: 36px;
-        position: relative;
-      }
+//   managerHead: (headHtmlContent) => {
+//     const style = `
+//     <style>
+//       .sidebar-header {
+//         margin-bottom: 36px;
+//         position: relative;
+//       }
 
-      .version-container {
-        font-weight: bold;
-        position: absolute;
-        font-size: 12px;
-        color:rgb(197, 204, 209);
-        font-weight: bold;
-        top: 34px;
-        left: 74px;
-      }
+//       .version-container {
+//         font-weight: bold;
+//         position: absolute;
+//         font-size: 12px;
+//         color:rgb(197, 204, 209);
+//         font-weight: bold;
+//         top: 34px;
+//         left: 74px;
+//       }
 
-      /* Responsive styles for mobile */
-      @media (max-width: 737px) {
-        .version-container {
-          position: absolute;
-          font-size: 11px;
-          top: 34px;
-          left: 73px;
-        }
-      }
+//       /* Responsive styles for mobile */
+//       @media (max-width: 737px) {
+//         .version-container {
+//           position: absolute;
+//           font-size: 11px;
+//           top: 34px;
+//           left: 73px;
+//         }
+//       }
 
-      // @media (max-width: 480px) {
-      //   .version-container {
-      //     position: absolute;
-      //     // font-size: 10px;
-      //     // top: 70px;
-      //     // left: 100px;
-      //   }
-      // }
-    </style>
-    `;
+//       // @media (max-width: 480px) {
+//       //   .version-container {
+//       //     position: absolute;
+//       //     // font-size: 10px;
+//       //     // top: 70px;
+//       //     // left: 100px;
+//       //   }
+//       // }
+//     </style>
+//     `;
 
-    const staticVersionScript = [
-      '<script>',
-      'document.addEventListener("DOMContentLoaded", function() {',
-      '  const sidebarHeader = document.querySelector(".sidebar-header");',
-      '  if (sidebarHeader) {',
-      '    let versionContainer = sidebarHeader.querySelector(".version-container");',
-      '    if (!versionContainer) {',
-      '      versionContainer = document.createElement("div");',
-      '      versionContainer.className = "version-container";',
-      '      sidebarHeader.appendChild(versionContainer);',
-      '    }',
-      `    versionContainer.textContent = '${version}';`,
-      '  }',
-      '});',
-      '</script>'
-    ].join('\n');
-    return `${headHtmlContent}\n${style}\n${staticVersionScript}`;
-  },
+// //     // JavaScript for dynamically fetching the latest and pre-release versions
+// //     const fetchVersionsScript = `
+// //     <script>
+// //       // Configuration variable to choose the version to display (change to 'preRelease' to show pre-release)
+// //       //For Production change showVersion to 'production'
+// //       //For Staging and Development change showVersion to 'preRelease'
+// //       //
+// //       //
+// //       //---------------------------------------------------------------------------------
+// //         const showVersion = 'production';
+// //       //---------------------------------------------------------------------------------
+// //       //
+// //       //
+// //       //
+// //       async function fetchGitHubReleases() {
+// //         try {
+// //           // Fetch latest production release
+// //           const productionRes = await fetch('https://api.github.com/repos/Wai-Technologies/raaghu-react/releases/latest');
+// //           if (!productionRes.ok) {
+// //             console.error('Failed to fetch production release:', productionRes.statusText);
+// //             return;
+// //           }
+// //           const productionData = await productionRes.json();
+// //           const productionVersion = productionData.tag_name || 'Unknown';
+
+// //           // Fetch all releases to get the latest pre-release
+// //           const releasesRes = await fetch('https://api.github.com/repos/Wai-Technologies/raaghu-react/releases');
+// //           if (!releasesRes.ok) {
+// //             console.error('Failed to fetch releases:', releasesRes.statusText);
+// //             return;
+// //           }
+// //           const releasesData = await releasesRes.json();
+// //           const preRelease = releasesData.find(release => release.prerelease);
+// //           const preReleaseVersion = preRelease ? preRelease.tag_name : 'None';
+
+// //           // Select which version to display based on the configuration
+// //           const versionToDisplay = showVersion === 'preRelease' ? preReleaseVersion : productionVersion;
+
+// //           // Update the sidebar header with the selected version
+// //           const versionContainer = document.querySelector('.version-container');
+// //           if (versionContainer) {
+// //             versionContainer.innerHTML = \`
+// //               v\${versionToDisplay}
+// //             \`;
+// //           } else {
+// //             console.warn('No version container found in the sidebar header.');
+// //           }
+// //         } catch (error) {
+// //           console.error('Error fetching GitHub releases:', error);
+// //         }
+// //       }
+
+// // document.addEventListener('DOMContentLoaded', () => {
+// //   const sidebarHeaderSelector = '.sidebar-header';
+
+// //   let apiCallCount = 0; // To track how many times the API has been called
+// //   const maxApiCalls = 50; // Limit the number of API calls to 10
+
+// //   // Function to add or refresh the version container
+// //   function ensureVersionContainerExists() {
+// //     const sidebarHeader = document.querySelector(sidebarHeaderSelector);
+
+// //     if (sidebarHeader) {
+// //       let versionContainer = sidebarHeader.querySelector('.version-container');
+// //       if (!versionContainer) {
+// //         // If version-container is not found, create and append it
+// //         versionContainer = document.createElement('div');
+// //         versionContainer.className = 'version-container';
+// //         versionContainer.textContent = '...'; // Placeholder text
+// //         sidebarHeader.appendChild(versionContainer);
+// //         console.log('Version container added!');
+// //       }
+
+// //       // Check if the API call limit is reached
+// //       if (apiCallCount < maxApiCalls) {
+// //         fetchGitHubReleases();
+// //         apiCallCount++; // Increment the API call count
+// //       } else {
+// //         console.log('API call limit reached. No more API calls.');
+// //       }
+// //     } else {
+// //       console.warn('Sidebar header not found.');
+// //     }
+// //   }
+
+// //   // Periodically check and re-render the version container
+// //   const refreshInterval = 2000; // Refresh every 2 seconds
+// //   setInterval(() => {
+// //     ensureVersionContainerExists();
+// //   }, refreshInterval);
+
+// //   // Initial rendering after a short delay
+// //   setTimeout(() => {
+// //     ensureVersionContainerExists();
+// //   }, 1000);
+// // });
+
+// //     </script>
+// //     `;
+
+//     // return `${headHtmlContent}\n${style}\n${fetchVersionsScript}`;
+//   },
 
   core: {
     builder: '@storybook/builder-vite',
@@ -91,7 +173,34 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {
       legacyRootApi: true,
+      builder: {
+        viteConfigPath: undefined,
+      },
     },
+  },
+
+  viteFinal: async (config, { configType }) => {
+    // Handle build optimization for preventing object extensibility issues
+    if (config.build) {
+      config.build.rollupOptions = {
+        ...config.build.rollupOptions,
+        output: {
+          ...config.build.rollupOptions?.output,
+          // Disable property mangling that could cause extensibility issues
+          manualChunks: undefined,
+        },
+        // Add preserveEntrySignatures to prevent aggressive optimization
+        preserveEntrySignatures: 'strict',
+        // Disable tree shaking for problematic patterns
+        treeshake: {
+          moduleSideEffects: false,
+          propertyReadSideEffects: false,
+          tryCatchDeoptimization: false,
+        },
+      };
+    }
+    
+    return config;
   },
 
   staticDirs: [
