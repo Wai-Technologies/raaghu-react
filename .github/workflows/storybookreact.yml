@@ -30,6 +30,12 @@ jobs:
         with:
           node-version: "22.x"
 
+      - name: Check Node.js version
+        run: node --version
+
+      - name: Clean install dependencies
+        run: npm ci
+
       - name: install and build storybook
         run: |
           npm run install-all
