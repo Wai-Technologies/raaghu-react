@@ -145,7 +145,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
     const CustomInputWithClear = forwardRef(({ value, onClick, placeholder }: any, ref: any) => (
         <div className="position-relative w-100">
             <input
-                className={`form-control ${props.isDisabled ? 'date-picker-disable' : ''}`}
+                className={`form-control form-control-md ${props.isDisabled ? 'date-picker-disable' : ''}`}
                 value={value || ''}
                 onClick={onClick}
                 placeholder={placeholder}
