@@ -180,26 +180,25 @@ document.addEventListener('DOMContentLoaded', () => {
   },
 
   viteFinal: async (config, { configType }) => {
-    // Handle build optimization for preventing object extensibility issues
-    if (config.build) {
-      config.build.rollupOptions = {
-        ...config.build.rollupOptions,
-        output: {
-          ...config.build.rollupOptions?.output,
-          // Disable property mangling that could cause extensibility issues
-          manualChunks: undefined,
-        },
-        // Add preserveEntrySignatures to prevent aggressive optimization
-        preserveEntrySignatures: 'strict',
-        // Disable tree shaking for problematic patterns
-        treeshake: {
-          moduleSideEffects: false,
-          propertyReadSideEffects: false,
-          tryCatchDeoptimization: false,
+    // Only modify if build and rollupOptions exist
+    if (config.build && config.build.rollupOptions) {
+      config.build = {
+        ...config.build,
+        rollupOptions: {
+          ...config.build.rollupOptions,
+          // output: {
+          //   ...config.build.rollupOptions.output,
+          //   manualChunks: undefined,
+          // },
+          // preserveEntrySignatures: 'strict',
+          // treeshake: {
+          //   moduleSideEffects: false,
+          //   propertyReadSideEffects: false,
+          //   tryCatchDeoptimization: false,
+          // },
         },
       };
     }
-    
     return config;
   },
 
