@@ -43,6 +43,6 @@ figma.connect(
         Medium: "medium",
       }),
     },
-    example: (props) => <RdsAlert {...props} icon="information" iconHeight="20px" iconWidth="20px" />,
+    example: (props) => <RdsAlert {...props} changeIcon="information" iconHeight="20px" iconWidth="20px" />,
   },
 )
