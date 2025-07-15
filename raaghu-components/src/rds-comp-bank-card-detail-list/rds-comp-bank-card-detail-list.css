@@ -21,8 +21,7 @@
 
 #bank-card-details div.form-check{
     display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    justify-content: end !important;
 }
 
 
@@ -30,4 +29,8 @@
     padding: 15px !important;
 }
 
+#bank-card-details .d-flex.align-items-center{
+    display: flex !important;
+    align-items: start !important;
+}
 }
