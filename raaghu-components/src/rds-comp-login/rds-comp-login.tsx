@@ -193,33 +193,57 @@ const RdsCompLogin = (props: RdsCompLoginProps) => {
     {props.login === "default" && (
       <div className="">
         <div className="text-center">
-        <div className="container">
-          <div className="row align-items-center mb-1 mx-md-1">
-            <div className="col-12 col-md-10 text-center mb-3">
-              <h2 className="mb-0 ms-4">Login</h2>
-            </div>
-            <div className="col-12 col-md-1 text-center text-md-end mb-3 px-md-0">
-              <RdsDropdownList
-                labelIcon={currentLanguageIcon}
-                labelIconWidth="18px"
-                labelIconHeight="18px"
-                placeholder="Select Language"
-                block={false}
-                icon="en"
-                iconFill={false}
-                iconStroke={false}
-                isPlaceholder={true}
-                id={"langDrop"}
-                showIcon={false}
-                listItems={props.languageData}
-                isCode={true}
-                onClick={props.onClickHandler}
-              />
+          <div className="container-fluid">
+            <div className="row justify-content-center align-items-center mb-1">
+              <div className="col-12">
+                <div className="d-flex justify-content-between align-items-center mb-3 position-relative">
+                  <div className="w-100 text-center">
+                    <h2 className="mb-0">Login</h2>
+                  </div>
+                  <div className="login-dropdown-position">
+                    <div className="d-none d-md-block">
+                      <RdsDropdownList
+                        labelIcon={currentLanguageIcon}
+                        labelIconWidth="18px"
+                        labelIconHeight="18px"
+                        placeholder="Select Language"
+                        block={false}
+                        icon="en"
+                        iconFill={false}
+                        iconStroke={false}
+                        isPlaceholder={true}
+                        id={"langDrop"}
+                        showIcon={false}
+                        listItems={props.languageData}
+                        isCode={true}
+                        onClick={props.onClickHandler}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="d-block d-md-none text-end mb-3">
+                  <RdsDropdownList
+                    labelIcon={currentLanguageIcon}
+                    labelIconWidth="18px"
+                    labelIconHeight="18px"
+                    placeholder="Select Language"
+                    block={false}
+                    icon="en"
+                    iconFill={false}
+                    iconStroke={false}
+                    isPlaceholder={true}
+                    id={"langDropMobile"}
+                    showIcon={false}
+                    listItems={props.languageData}
+                    isCode={true}
+                    onClick={props.onClickHandler}
+                  />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-          <div>
-            <small className="d-flex justify-content-center col-md-11">
+          <div className="w-100 d-flex justify-content-center">
+            <small className="d-flex align-items-center">
               <span className="d-flex">
                 {" "}
                 <RdsCompLabel label={`${"Current Tenant"}`}></RdsCompLabel>:
