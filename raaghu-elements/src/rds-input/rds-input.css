@@ -168,3 +168,7 @@ input[type=number]::-webkit-outer-spin-button {
 .inputOutlineError {
   border-bottom: solid 2px #E02D30 !important;
 }
+.mt-large-icon {
+    margin-top: 28px;
+    margin-right: 15px;
+}
