@@ -19,6 +19,21 @@ This component is ideal for showcasing service highlights, product features, or 
     },
     tags: ['autodocs'],
     argTypes: {
+        colsize: {
+            control: { type: "number" },
+            description: "Column size for grid layout (used when itemList is provided)",
+        },
+        displayType: {
+            options: [
+                "default",
+                "Heading With Icon", 
+                "Left Aligned",
+                "With Label",
+                "Without Label",
+                "Center Aligned",
+            ],
+            control: { type: "select" },
+        },
     },
 } satisfies Meta<typeof RdsCompBenefits>;
 
@@ -134,6 +149,56 @@ export const WithoutLabel: Story = {
     }
 } satisfies Story;
 WithoutLabel.parameters = { controls: { include: ['displayType', 'item'] } };
+
+// Array Layout Example
+export const BenifitLayoutExample: Story = {
+    args: {
+        displayType: "default",
+        colsize: 4,
+        itemList: [
+            {
+                id: 1,
+                icon: "currency_dollar_circle",
+                iconHeight: "35px",
+                iconWidth: "35px",
+                iconFill: false,
+                iconstroke: true,
+                iconColorVarient: "dark",
+                title: "Royalty Rewards",
+                description: "Dont look at other tees",
+                status: "Active",
+                colorVarient: "success",
+            },
+            {
+                id: 2,
+                icon: "roles",
+                iconHeight: "35px",
+                iconWidth: "35px",
+                title: "International delivery",
+                description: "Get your order in 2 years",
+                iconFill: false,
+                iconstroke: true,
+                iconColorVarient: "dark",
+                status: "Beta",
+                colorVarient: "warning",
+            },
+            {
+                id: 3,
+                iconHeight: "35px",
+                iconWidth: "35px",
+                icon: "truck",
+                iconFill: false,
+                iconstroke: true,
+                iconColorVarient: "dark",
+                title: "Free shipping",
+                description: "Free delivery is our main part.",
+                status: "New",
+                colorVarient: "info",
+            },
+        ],
+    }
+} satisfies Story;
+BenifitLayoutExample.parameters = { controls: { include: ['displayType', 'colsize', 'itemList'] } };
 
 
 
