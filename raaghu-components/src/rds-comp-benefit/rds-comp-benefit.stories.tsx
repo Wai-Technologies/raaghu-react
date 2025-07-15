@@ -81,8 +81,8 @@ export const CenterAligned: Story = {
     itemList: [
       {
         id: 1,
-        iconHeight: "40px",
-        iconWidth: "40px",
+        iconHeight: "60px",
+        iconWidth: "60px",
         icon: "truck",
         iconFill: false,
         iconstroke: true,
@@ -93,8 +93,8 @@ export const CenterAligned: Story = {
       },
       {
         id: 2,
-        iconHeight: "40px",
-        iconWidth: "40px",
+        iconHeight: "60px",
+        iconWidth: "60px",
         icon: "refresh_sync",
         iconFill: false,
         iconstroke: true,
@@ -105,9 +105,8 @@ export const CenterAligned: Story = {
       },
       {
         id: 3,
-
-        iconHeight: "40px",
-        iconWidth: "40px",
+        iconHeight: "60px",
+        iconWidth: "60px",
         icon: "shield_check",
         iconFill: false,
         iconstroke: true,
