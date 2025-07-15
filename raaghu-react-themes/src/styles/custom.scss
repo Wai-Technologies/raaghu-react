@@ -3879,4 +3879,13 @@ label.form-check-label.ms-2.undefined {
     .cms-footer-buttons {
       margin-bottom: 57.5rem !important;
     }
+    
+    /* Benefit component alignment fixes for tablet view */
+    .rds-benefit .border.p-4.bg-light.rounded {
+        min-height: 160px !important;
+    }
+    
+    .rds-benefit [data-testid="centerAligned"] .border.p-4.bg-light.rounded {
+        min-height: 300px !important;
+    }
 }

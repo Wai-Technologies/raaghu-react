@@ -14,7 +14,6 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/preset-scss",
     "@chromatic-com/storybook",
-    "storybook-addons",
     // "@storybook/addon-actions",
     "@storybook/addon-docs"
   ],
@@ -173,8 +172,12 @@ document.addEventListener('DOMContentLoaded', () => {
     name: "@storybook/react-vite",
     options: {
       legacyRootApi: true,
+      builder: {
+        viteConfigPath: undefined,
+      },
     },
   },
+
 
   staticDirs: [
     {

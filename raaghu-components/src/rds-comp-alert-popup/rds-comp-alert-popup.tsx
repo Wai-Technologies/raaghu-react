@@ -24,12 +24,17 @@ export interface RdsCompAlertPopupProps {
 
 const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
     const iconUrl = props.iconUrl || "delete";
-    const colorVariant = props.colorVariant || "danger";
+    const colorVariant = props.colorVariant || "error";
     const alertConfirmation = props.alertConfirmation || "Are You Sure?";
     const messageAlert = props.messageAlert || "This record will be deleted permanently.";
     const CancelButtonLabel = props.cancelBtnLabel || "Cancel";
     const DeleteButtonLabel = props.deleteBtnLabel || "Delete";
     const type = props.type || "default";
+    // Map "error" to "danger" for CSS classes to maintain the same styling
+    const getCssColorVariant = (variant: string) => {
+        return variant === "error" ? "danger" : variant;
+    };
+    const cssColorVariant = getCssColorVariant(colorVariant);
 
     return (
         <div id="alert-popup-content">
@@ -52,8 +57,8 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             name={iconUrl}
                             fill={false}
                             stroke={true}
-                            colorVariant={colorVariant}
-                            classes={`border-${props.type == "default" ? colorVariant :"none"} px-3 py-3  rounded-5`}
+                            colorVariant={cssColorVariant}
+                            classes={`border-${props.type == "default" ? cssColorVariant :"none"} px-3 py-3  rounded-5`}
                         />
                     </p>
                     <h4>
@@ -73,7 +78,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             size="small"
                             type="button"
                             tooltipTitle=""
-                            colorVariant={colorVariant}
+                            colorVariant={cssColorVariant}
                             isOutline={true}
                         />
                         <RdsButton
@@ -82,7 +87,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             label={DeleteButtonLabel}
                             size="small"
                             tooltipTitle=""
-                            colorVariant={colorVariant}
+                            colorVariant={cssColorVariant}
                             databsdismiss="modal"
                             aria-label="close"
                             onClick={props.onSuccess}
@@ -95,7 +100,7 @@ const RdsCompAlertPopup = (props: RdsCompAlertPopupProps) => {
                             label={props.buttonlabel}
                             size="small"
                             tooltipTitle=""
-                            colorVariant={colorVariant}
+                            colorVariant={cssColorVariant}
                             databsdismiss="modal"
                             aria-label="close"
                             onClick={props.onSuccess}

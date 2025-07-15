@@ -25,7 +25,7 @@ const meta: Meta = {
     tags: ['autodocs'],
     argTypes: {
             colorVariant: {
-                options: ["primary", "success", "danger", "warning", "info", "secondary"],
+                options: ["primary", "success", "error", "warning", "info", "secondary"],
                 control: { type: "select" },
             }
     },
@@ -51,7 +51,7 @@ export const Standard: Story = (args: any) => (
 Standard.args = {
     alertID: "alert_popup",
     iconUrl: "delete",
-    colorVariant: "danger",
+    colorVariant: "error",
     alertConfirmation: "Are you sure to Delete?",
     messageAlert: "This record will be deleted permanently.",
     cancelBtnLabel: "Cancel",

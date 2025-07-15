@@ -83,7 +83,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
   );
   const [showBoard, setShowBoard] = useState(true);
   const [isEditingBoardName, setIsEditingBoardName] = useState<boolean[]>(
-    props.boardData ? props.boardData.map(() => false) : []
+    props.boardData ? [...props.boardData.map(() => false)] : []
   );
 
   const [boards, setBoards] = useState<
@@ -106,17 +106,17 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
       cardId: number;
       key: string;
     }[]
-  >(props.boardData);
-  const [totalRecords, setBoardsRecord] = useState<any>(props.boardData);
+  >(props.boardData ? [...props.boardData] : []);
+  const [totalRecords, setBoardsRecord] = useState<any>(props.boardData ? [...props.boardData] : []);
   const illusPath =
     "../../../.storybook/assets/lottie-files/outlined/dual-color/illustration-light.json";
 
   useEffect(() => {
-    setBoards(props.boardData);
+    setBoards(props.boardData ? [...props.boardData] : []);
   }, [props.boardData]);
 
   const [isBoardDropdownOpen, setIsBoardDropdownOpen] = useState<boolean[]>(
-    props.boardData ? props.boardData.map(() => false) : []
+    props.boardData ? [...props.boardData.map(() => false)] : []
   );
   const [isSubCardDropdownOpen, setIsSubCardDropdownOpen] = useState<{
     [key: number]: boolean;
@@ -344,7 +344,10 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
 
     setBoards((prevCards) => {
       const updatedCards = [...prevCards];
-      updatedCards[index].subCards.push(newSubcard);
+      updatedCards[index] = {
+        ...updatedCards[index],
+        subCards: [...updatedCards[index].subCards, newSubcard]
+      };
       return updatedCards;
     });
 
@@ -383,10 +386,10 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
 
     if (type === "subCard") {
       const startCard = boards.find(
-        (card) => card.subCardIndex == source.droppableId
+        (card) => card.subCardIndex === Number(source.droppableId)
       );
       const finishCard = boards.find(
-        (card) => card.subCardIndex == destination.droppableId
+        (card) => card.subCardIndex === Number(destination.droppableId)
       );
 
       if (!startCard || !finishCard) {
@@ -402,15 +405,17 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
         const movedSubCard = newSubCards.find(
           (subCard) => subCard.SubcardId === Number(draggableId)
         );
-        const sourceIndex = movedSubCard
-          ? newSubCards.indexOf(movedSubCard)
-          : -1;
+        let sourceIndex = -1;
+        if (movedSubCard) {
+          sourceIndex = newSubCards.indexOf(movedSubCard);
+        }
         const secondSubCard = newSubCards.find(
           (subCard) => subCard.SubcardId === Number(destination.index)
         );
-        const secondsourceIndex = secondSubCard
-          ? newSubCards.indexOf(secondSubCard)
-          : -1;
+        let secondsourceIndex = -1;
+        if (secondSubCard) {
+          secondsourceIndex = newSubCards.indexOf(secondSubCard);
+        }
 
         if (movedSubCard && sourceIndex !== -1) {
           const temp = newSubCards[sourceIndex];
@@ -449,9 +454,10 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
         const movedSubCard = startSubCards.find(
           (subCard) => subCard.SubcardId === Number(draggableId)
         );
-        const sourceIndex = movedSubCard
-          ? startSubCards.indexOf(movedSubCard)
-          : -1;
+        let sourceIndex = -1;
+        if (movedSubCard) {
+          sourceIndex = startSubCards.indexOf(movedSubCard);
+        }
 
         if (movedSubCard && sourceIndex !== -1) {
           startSubCards.splice(sourceIndex, 1);

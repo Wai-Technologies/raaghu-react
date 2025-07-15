@@ -139,16 +139,16 @@ const RdsCompSelectList = (props: RdsCompSelectListProps) => {
       ...provided,
       minHeight:
         props.size === "small"
-          ? "1.875rem"
+          ? "2.2rem"
           : props.size === "large"
           ? "3.125rem"
-          : "1.875rem",
+          : "2.375rem",
       fontSize:
         props.size === "small"
           ? "0.75rem"
           : props.size === "large"
           ? "1.125rem"
-          : "0.75rem",
+          : "0.875rem",
       borderBottomWidth:
         props.style === "BottomLine" ? props.borderBottomWidth || "2px" : undefined,
       borderBottomStyle: props.style === "BottomLine" ? "solid" : undefined,

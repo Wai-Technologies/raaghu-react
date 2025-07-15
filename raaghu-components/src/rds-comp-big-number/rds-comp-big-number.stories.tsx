@@ -8,8 +8,8 @@ import RdsCompIcon from "../rds-comp-icon";
 const textAlignArgTypes = {
     textAlign: {
         options: ["text-start", "text-center", "text-end"],
-        control: { type: "select"},
-    } as const,
+       control: { type: "select" as const }
+    },
 };
 
 const meta: Meta = {
@@ -52,16 +52,31 @@ export default meta;
 type Story = StoryObj<typeof RdsCompBigNumber>;
 
 
-export const Standard: Story = {
+export const Basic: Story = {
     args: {
-        bigNumber: "$13,20,21",
+        subTitleColorVariant: "primary",
+        subTitle: "Visitors",
+        bigNumber: "2,236",
         bigNumberColor: "dark",
-        textAlign: "text-start",
+        children: <></>
+    },
+    argTypes: {
+        subTitleColorVariant: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "danger",
+                "warning",
+                "info",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        },
     }
 } satisfies Story;
-Standard.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'textAlign'] } };
-
-Standard.argTypes = textAlignArgTypes;
+Basic.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
 
 export const delta: Story = {
     args: {
@@ -174,6 +189,7 @@ export const histogram: Story = {
 } satisfies Story;
 histogram.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle', 'chartHeight', 'chartWidth'] } };
 
+
 export const icon: Story = {
     args: {
         subTitleColorVariant: "primary",
@@ -209,6 +225,8 @@ export const icon: Story = {
     }
 } satisfies Story;
 icon.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
+
+
 
 export const sparkLine: Story = {
     args: {
@@ -282,30 +300,21 @@ export const sparkLine: Story = {
 } satisfies Story;
 sparkLine.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle', 'chartHeight', 'chartWidth'] } };
 
-export const Basic: Story = {
+
+
+export const Standard: Story = {
     args: {
-        subTitleColorVariant: "primary",
-        subTitle: "Visitors",
-        bigNumber: "2,236",
+        bigNumber: "$13,20,21",
         bigNumberColor: "dark",
-        children: <></>
-    },
-    argTypes: {
-        subTitleColorVariant: {
-            options: [
-                "primary",
-                "secondary",
-                "success",
-                "danger",
-                "warning",
-                "info",
-                "dark",
-                "light",
-            ],
-            control: { type: "select" },
-        },
+        textAlign: "text-start",
     }
 } satisfies Story;
-Basic.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'children', 'subTitleColorVariant', 'subTitle'] } };
+Standard.parameters = { controls: { include: ['bigNumber', 'bigNumberColor', 'textAlign'] } };
+
+Standard.argTypes = textAlignArgTypes;
+
+
+
+
 
 
