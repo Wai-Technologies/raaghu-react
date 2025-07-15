@@ -33,11 +33,11 @@ const preview: Preview = {
       toolbar: {
         icon: 'photo',
         items: [
-          { value: 'light', title: 'light' },
-          { value: 'dark', title: 'dark' },
+          { value: 'light', title: 'Light' },
+          { value: 'dark', title: 'Dark' },
         ],
          showName: true,
-        // dynamicTitle: true, // Use dynamic titles for buttons
+        dynamicTitle: true, // Use dynamic titles for buttons
       },
     },
   },
