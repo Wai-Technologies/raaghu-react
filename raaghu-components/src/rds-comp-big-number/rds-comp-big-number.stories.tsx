@@ -8,8 +8,8 @@ import RdsCompIcon from "../rds-comp-icon";
 const textAlignArgTypes = {
     textAlign: {
         options: ["text-start", "text-center", "text-end"],
-        control: { type: "select"},
-    } as const,
+       control: { type: "select" as const }
+    },
 };
 
 const meta: Meta = {

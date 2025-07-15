@@ -14,7 +14,6 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/preset-scss",
     "@chromatic-com/storybook",
-    "storybook-addons",
     // "@storybook/addon-actions",
     "@storybook/addon-docs"
   ],
@@ -179,28 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   },
 
-  viteFinal: async (config, { configType }) => {
-    // Only modify if build and rollupOptions exist
-    if (config.build && config.build.rollupOptions) {
-      config.build = {
-        ...config.build,
-        rollupOptions: {
-          ...config.build.rollupOptions,
-          // output: {
-          //   ...config.build.rollupOptions.output,
-          //   manualChunks: undefined,
-          // },
-          // preserveEntrySignatures: 'strict',
-          // treeshake: {
-          //   moduleSideEffects: false,
-          //   propertyReadSideEffects: false,
-          //   tryCatchDeoptimization: false,
-          // },
-        },
-      };
-    }
-    return config;
-  },
 
   staticDirs: [
     {
