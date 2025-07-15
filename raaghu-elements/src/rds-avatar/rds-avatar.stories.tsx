@@ -5,7 +5,7 @@ const textAlignArgTypes = {
   titleAlign: {
     options: ["horizontal", "vertical"],
     control: { type: "select" },
-  } as const,
+  },
 };
 
 const meta: Meta = {
