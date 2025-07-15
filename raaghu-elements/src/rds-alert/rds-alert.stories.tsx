@@ -1,5 +1,5 @@
 import { Alert } from "bootstrap";
-import RdsAlert, { AlertBorder, AlertPosition, AlertType } from "./rds-alert";
+import RdsAlert, { AlertStyle, AlertPosition, AlertType } from "./rds-alert";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 const meta: Meta<typeof RdsAlert> = {
@@ -30,8 +30,8 @@ const meta: Meta<typeof RdsAlert> = {
       options: ["info", "success", "warning", "error"],
       control: { type: "select" },
     },
-    border: {
-      options: ["none", "single", "left border"],
+    style: {
+      options: ["Style 1", "Style 2", "Style 3"],
       control: { type: "select" },
     },
     position: {
@@ -44,10 +44,10 @@ const meta: Meta<typeof RdsAlert> = {
       //if: { arg: "showlink"},
     },
     showPrimary: {
-      if: { arg: "showbutton"},
+      if: { arg: "showButton"},
     },
     showSecondary: {
-      if: { arg: "showbutton"},
+      if: { arg: "showButton"},
     },
     size: {
       options: ["small", "medium", "large"],
@@ -109,20 +109,18 @@ SingleLineAlert.parameters = {
 export const Standard: Story = {
   args: {
     type: AlertType.info,
-    border: AlertBorder.none,
+    style: AlertStyle.style1,
     multiline: false,
-    icon: "information",
+    changeIcon: "information",
     showTitle: true,
     title: "Heading Title.",
     description: "This is the description of the message bar.",
-    //description: "This is the description which should not exceed 100 character limit.",
-    //border: "none",
     iconStroke: true,
     iconHeight: "20px",
     iconWidth: "20px",
     size: "medium",
     showLink: true,
-    showButtons:true,
+    showButton: true,
     showPrimary: true,
     showSecondary: true,
     showDismiss: true,
@@ -130,8 +128,6 @@ export const Standard: Story = {
     showIcon: true,
     iconFill: false,
     delay: 5000,
-    sticky: false,
-    position: AlertPosition.top,
     linkUrl: "https://example.com",
   },
 };
@@ -139,25 +135,20 @@ Standard.parameters = {
   controls: {
     include: [
       "type",
-      "icon",
+      "changeIcon",
       "showTitle",
       "title",
-      //"message",
       "description",
-      "border",
+      "style",
       "size",
       "dismisable",
-      "sticky",
-      "position",
       "showLink",
-      "showbutton",
-      "showprimarybutton",
-      "showsecondarybutton",
+      "showButton",
+      "showPrimary",
+      "showSecondary",
+      "showDismiss",
       "showDescription",
       "showIcon",
-      //"linkUrl",
-      //"iconFill",
-      //"delay",
       "multiline",
     ],
   },
