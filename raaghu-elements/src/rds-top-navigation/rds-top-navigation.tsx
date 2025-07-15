@@ -430,7 +430,7 @@ const RdsTopNavigation = (props: RdsTopNavigationProps) => {
       val: "en",
     },
     {
-      label: "English (IND)",
+      label: "English (UK)",
       val: "en",
     },
     {
