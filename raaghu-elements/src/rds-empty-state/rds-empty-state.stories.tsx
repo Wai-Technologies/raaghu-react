@@ -30,7 +30,7 @@ export const Standard: Story = {
   args: {
     mode: "Dark NRA",
     label: "No Data Available",
-    subLabel: "No data available at the moment. Would you like to add new data?",
+    subLabel: "No record found at this time. Would you like to add new data?",
     iconHeight: "160px",
     iconWidth: "160px",
     iconPath: "/assets/empty_state.svg",
