@@ -19,6 +19,10 @@ This component is ideal for showcasing service highlights, product features, or 
     },
     tags: ['autodocs'],
     argTypes: {
+        colsize: {
+            control: { type: "number" },
+            description: "Column size for grid layout (used when useArrayLayout is true)",
+        },
     },
 } satisfies Meta<typeof RdsCompBenefits>;
 
@@ -28,6 +32,7 @@ type Story = StoryObj<typeof RdsCompBenefits>;
 export const Standard: Story = {
     args: {
         displayType: "default",
+        colsize: 12,
         item: {
             "id": 1,
             "icon": "currency_dollar_circle",
@@ -41,12 +46,13 @@ export const Standard: Story = {
         }
     }
 } satisfies Story;
-Standard.parameters = { controls: { include: ['displayType', 'item'] } };
+Standard.parameters = { controls: { include: ['displayType', 'item', 'colsize'] } };
 
 
 export const CenterAligned: Story = {
     args: {
         displayType: "Center Aligned",
+        colsize: 12,
         item: {
             "id": 6,
             "iconHeight": "40px",
@@ -60,11 +66,12 @@ export const CenterAligned: Story = {
         }
     }
 } satisfies Story;
-CenterAligned.parameters = { controls: { include: ['displayType', 'item'] } };
+CenterAligned.parameters = { controls: { include: ['displayType', 'item','colsize'] } };
 
 export const HeadingWithIcon: Story = {
     args: {
         displayType: "Heading With Icon",
+         colsize: 12,
         item:
         {
             "iconHeight": "40px",
@@ -77,13 +84,14 @@ export const HeadingWithIcon: Story = {
         }
     }
 } satisfies Story;
-HeadingWithIcon.parameters = { controls: { include: ['displayType', 'item'] } };
+HeadingWithIcon.parameters = { controls: { include: ['displayType', 'item','colsize'] } };
 
 
 
 export const LeftAligned: Story = {
     args: {
         displayType: "Left Aligned",
+         colsize: 12,
         item: {
             "id": 3,
             "icon": "currency_dollar_circle",
@@ -97,12 +105,13 @@ export const LeftAligned: Story = {
         }
     }
 } satisfies Story;
-LeftAligned.parameters = { controls: { include: ['displayType', 'item'] } };
+LeftAligned.parameters = { controls: { include: ['displayType', 'item', 'colsize'] } };
 
 
 export const WithLabel: Story = {
     args: {
         displayType: "With Label",
+         colsize: 12,
         item: {
             "id": 7,
             "status": "Active",
@@ -115,11 +124,12 @@ export const WithLabel: Story = {
         }
     }
 } satisfies Story;
-WithLabel.parameters = { controls: { include: ['displayType', 'item'] } };
+WithLabel.parameters = { controls: { include: ['displayType', 'item', 'colsize'] } };
 
 export const WithoutLabel: Story = {
     args: {
         displayType: "Without Label",
+         colsize: 12,
         item: {
             "id": 7,
             "iconHeight": "40px",
@@ -133,7 +143,7 @@ export const WithoutLabel: Story = {
         }
     }
 } satisfies Story;
-WithoutLabel.parameters = { controls: { include: ['displayType', 'item'] } };
+WithoutLabel.parameters = { controls: { include: ['displayType', 'item', 'colsize'] } };
 
 
 

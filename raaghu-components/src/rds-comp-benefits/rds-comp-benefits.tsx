@@ -5,13 +5,15 @@ import "./rds-benefit.css";
 export interface RdsCompBenefitsProps {
     item: any,
     displayType: string,
+    colsize?: number,
 }
 
 const RdsCompBenefits = (props: RdsCompBenefitsProps) => {
     const bg = "bg-" + props.item.colorVarient || "primary";
+    const columnClass = props.colsize ? `col-md-${props.colsize}` : "col-md-12";
 
     return (
-        <div className="rds-benefit" data-component="rds-benefit">
+      <div className={`rds-benefit ${columnClass}`} data-component="rds-benefit">
             {/* Default  */}
             {props.displayType == "default" && <div className="pt-1 mb-4">
                 <div className="border p-4 text-center bg-light rounded" data-testid="defaultAligned">

@@ -91,7 +91,7 @@ export const Standard: Story = {
                 iconHeight: "20px",
             },
             {
-                label: "English (IND)",
+                label: "English (UK)",
                 val: "en",
                 icon: "in",
                 iconWidth: "20px",
@@ -196,7 +196,7 @@ export const ABP: Story = {
                 iconHeight: "20px",
             },
             {
-                label: "English (IND)",
+                label: "English (UK)",
                 val: "en",
                 icon: "in",
                 iconWidth: "20px",
@@ -287,7 +287,7 @@ export const Application_Shell: Story = {
                 iconHeight: "20px",
             },
             {
-                label: "English (IND)",
+                label: "English (UK)",
                 val: "en",
                 icon: "in",
                 iconWidth: "20px",
