@@ -314,6 +314,10 @@
     max-height: 200px;
     padding: 4px;
   }
+
+  .adaptive-scorecard-container{
+    margin: 0 auto;
+  }
 }
 
 
@@ -373,6 +377,7 @@
     width: 100%;
     max-width: 350px;
     padding: 8px;
+   
   }
 
   .adaptive-scorecard-text {
