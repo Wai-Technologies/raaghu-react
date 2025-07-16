@@ -105,3 +105,8 @@
 
 
 }
+
+#okay-btn .btn.btn-primary:not(:disabled):active {
+  background-color: #5f23b3 !important;
+  
+}
