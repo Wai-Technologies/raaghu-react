@@ -457,14 +457,10 @@ background-color: #353535 !important;
 }
 
 .typing-section .btn.btn-primary:hover {
-    background-color: var(--bs-btn-hover-bg) !important;
+    background-color: #4400a4 !important;
 }
 
-
-
-
 @media (min-width: 414px) and (max-width: 834px) {
-    
 
    #Premium .attachement-dropdown #fab-list .dropdown-menu.show{
     top: auto !important;
@@ -474,7 +470,6 @@ background-color: #353535 !important;
     transform: translate3d(30px, 97.5px, 0px) !important;
     }
 
-    
     #button-sections.d-flex.flex-column.gap-3.mt-3.mb-1 {
         flex-direction: row !important;
         gap: 3px !important;
@@ -483,14 +478,13 @@ background-color: #353535 !important;
     }
 
 
-    #project-btn button.btn.btn-primary.position-relative.align-items-center.btn-md.d-flex.justify-content-center.gap-2.text-unset {
+    #project-btn .btn-primary {
         padding: 4px;
         font-size: 11px;
         white-space: nowrap;
         min-width: auto;
         gap: 6px !important;
     }
-
 
     #chat div.dropdown{
         width: 134px !important;
@@ -500,8 +494,7 @@ background-color: #353535 !important;
         --bs-dropdown-min-width: 8rem !important;
     }
 
- 
-    #figma-btn button.btn.btn-outline-undefined.position-relative.align-items-center.btn-md.d-flex.justify-content-center.gap-2.btn.btn-outline-primary.text-unset{
+    #figma-btn .btn-outline-primary {
         padding: 4px;
         font-size: 11px;
         gap: 5px !important;
@@ -511,7 +504,6 @@ background-color: #353535 !important;
         font-size: 12px;
     }
 
-    
     .advanced-control-container {
         padding: 8px !important;
         gap: 12px !important;
@@ -542,7 +534,6 @@ background-color: #353535 !important;
     .advanced-control-body .col-3:last-child {
         margin-bottom: 0;
     }
-    
    
     .advanced-control-body .dropdown-menu {
         max-width: 100%;
@@ -553,12 +544,15 @@ background-color: #353535 !important;
         font-size: 13px !important;
         padding: 6px 12px !important;
     }
-
-    
 }
 
 /*  Advanced Controls  */
 @media (min-width: 414px) and (max-width: 834px) {
+
+    #chat .dropdown-menu.show {
+        transform: translate3d(0px, 28px, 0px) !important;
+    }
+
 .advanced-control-container {
         padding: 10px 8px !important;
         gap: 14px !important;
@@ -570,9 +564,6 @@ background-color: #353535 !important;
         flex-wrap: nowrap;
         gap: 10px;
         margin-bottom: 4px;
-    }
-    
-   .advanced-control-header .d-flex.align-items-center.gap-2 {
         flex: 1;
     }
     
@@ -626,22 +617,19 @@ background-color: #353535 !important;
         font-size: 12px !important;
     }
     
-  
     .advanced-control-body .form-label,
     .advanced-control-body label {
         font-size: 11px !important;
         margin-bottom: 4px !important;
         font-weight: 500;
     }
-    
-    
-    
-    
-    
 }
 
 @media (min-width: 320px) and (max-width: 414px) {
     
+    #chat .dropdown-menu.show {
+        transform: translate3d(0px, 28px, 0px) !important;
+    }
 
    #Premium .attachement-dropdown #fab-list .dropdown-menu.show{
     top: auto !important;
@@ -650,8 +638,7 @@ background-color: #353535 !important;
     right: 0px !important;
     transform: translate3d(30px, 97.5px, 0px) !important;
     }
-
-    
+ 
     #button-sections.d-flex.flex-column.gap-3.mt-3.mb-1 {
         flex-direction: row !important;
         gap: 3px !important;
@@ -659,12 +646,11 @@ background-color: #353535 !important;
         align-items: center;
     }
 
-
     div#project-btn{
         width: 46%;
     }
 
-    #project-btn button.btn.btn-primary.position-relative.align-items-center.btn-md.d-flex.justify-content-center.gap-2.text-unset {
+    #project-btn .btn-primary {
         padding: 4px;
         font-size: 11px;
         white-space: nowrap;
@@ -697,11 +683,10 @@ padding: 0px !important
         --bs-dropdown-min-width: 8rem !important;
     }
 
- 
     div#figma-btn{
         width: 52%;
     }
-    #figma-btn button.btn.btn-outline-undefined.position-relative.align-items-center.btn-md.d-flex.justify-content-center.gap-2.btn.btn-outline-primary.text-unset{
+    #figma-btn .btn-outline-primary {
         padding: 4px;
         font-size: 10px;
         gap: 5px !important;
@@ -712,7 +697,6 @@ padding: 0px !important
         font-size: 12px;
     }
 
-   
     .advanced-control-container {
         padding: 8px 6px !important;
         gap: 10px !important;
@@ -722,13 +706,9 @@ padding: 0px !important
     
     .advanced-control-header {
         flex-wrap: wrap;
-        gap: 6px;
-        margin-bottom: 6px;
-    }
-    
-    .advanced-control-header .d-flex.align-items-center.gap-2 {
         flex: 1;
         gap: 6px !important;
+        margin-bottom: 6px;
     }
     
     .advanced-control-header-text {
@@ -754,8 +734,7 @@ padding: 0px !important
     .advanced-control-body .col-3:last-child {
         margin-bottom: 0;
     }
-    
- 
+   
     .advanced-control-body .dropdown-menu {
         max-width: 100%;
         min-width: 120px !important;
@@ -773,7 +752,6 @@ padding: 0px !important
         font-size: 11px !important;
     }
     
-
     .advanced-control-body .form-label,
     .advanced-control-body label {
         font-size: 10px !important;
@@ -781,14 +759,9 @@ padding: 0px !important
         font-weight: 500;
     }
     
-  
     .advanced-control-header svg {
         width: 16px !important;
         height: 16px !important;
     }
 
-    
-    
 }
-
-
