@@ -3832,7 +3832,7 @@ label.form-check-label.ms-2.undefined {
 @media (min-width:320px)and (max-width:414px){
 
    #alert-popup-content div.modal-content{
-        margin-left: 5px !important;
+        margin-left: 5.5px !important;
         
     }
     #alert-popup-content div.modal-body{
@@ -3878,5 +3878,14 @@ label.form-check-label.ms-2.undefined {
 @media (min-width: 834px) and (max-width: 1112px) {
     .cms-footer-buttons {
       margin-bottom: 57.5rem !important;
+    }
+    
+    /* Benefit component alignment fixes for tablet view */
+    .rds-benefit .border.p-4.bg-light.rounded {
+        min-height: 160px !important;
+    }
+    
+    .rds-benefit [data-testid="centerAligned"] .border.p-4.bg-light.rounded {
+        min-height: 300px !important;
     }
 }

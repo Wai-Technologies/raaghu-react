@@ -214,6 +214,12 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
       if (props.labelPosition === LabelPosition.Floating) {
         labelPositionClass = "";
       }
+        if (props.size === 'small') {
+            labelPositionClass = labelPositionClass + ' form-control-sm px-0 py-0';
+        }
+        if (props.size === 'large') {
+            labelPositionClass = labelPositionClass + ' form-control-lg';
+        }
       return labelPositionClass;
     };
 
@@ -348,7 +354,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
             props.showIcon && (
               <RdsCompIcon
                 name="information"
-                classes={`password-toggle mt-4 ${isNumberPlaceholder ? "number-placeholder-style" : "" }`}
+                classes={`password-toggle ${props.size === InputSize.Large ? "mt-large-icon" : "mt-4"} ${isNumberPlaceholder ? "number-placeholder-style" : "" }`}
                 height="16px"
                 width="16px"
                 id={"icon" + props.labelPosition}
@@ -360,7 +366,7 @@ const RdsInput = React.forwardRef<HTMLInputElement, RdsInputProps>(
           )}
         </div>
         {props.ShowHintText && props.HintText && (
-          <div className={`d-flex justify-content-start text-muted`}>
+          <div className={`d-flex justify-content-start ${labelClass()} text-muted`}>
             {props.HintText}
           </div>
         )}

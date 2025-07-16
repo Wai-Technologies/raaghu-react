@@ -43,7 +43,7 @@ describe("RdsAlert", () => {
         const icon = "check-circle";
         render(
             <RdsAlert
-                icon={icon}
+                changeIcon={icon}
                 showIcon={true}
                 description="Test alert description"
                 showDescription={true}

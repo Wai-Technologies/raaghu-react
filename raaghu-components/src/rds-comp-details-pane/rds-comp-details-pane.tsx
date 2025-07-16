@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./rds-comp-details-pane.css";
 import { RdsAlert, RdsBadge, RdsButton, RdsButtonGrid, RdsCard, RdsCarousel } from "../rds-elements";
 import RdsCounter, { CounterState, LayoutOptions } from "../../../raaghu-elements/src/rds-counter/rds-counter";
-import { AlertBorder, AlertPosition, AlertType } from "../../../raaghu-elements/src/rds-alert/rds-alert";
+import { AlertStyle, AlertPosition, AlertType } from "../../../raaghu-elements/src/rds-alert/rds-alert";
 import RdsAvatar, { AvatarSize, AvatarStyle } from "../../../raaghu-elements/src/rds-avatar/rds-avatar";
 import { color } from "html2canvas/dist/types/css/types/color";
 import RdsTreeStructure, { IconType, NodeState, TreeLevel } from "../../../raaghu-elements/src/rds-tree-structure/rds-tree-structure";

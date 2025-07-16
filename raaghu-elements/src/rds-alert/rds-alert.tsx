@@ -12,10 +12,10 @@ export enum AlertType {
 }
 
 
-export enum AlertBorder {
-  none = "none",
-  single = "single",
-  left_border = "left border",
+export enum AlertStyle {
+  style1 = "Style 1",
+  style2 = "Style 2",
+  style3 = "Style 3",
 }
 
 export enum AlertPosition {
@@ -31,7 +31,7 @@ export enum AlertDisplayType {
 export interface RdsAlertProps {
   type: AlertType; // Use enum instead of string literal
   showDismiss?: boolean;
-  icon?: string;
+  changeIcon?: string;
   iconFill?: boolean;
   iconStroke?: boolean;
   iconHeight?: string;
@@ -40,7 +40,7 @@ export interface RdsAlertProps {
   linkUrl?: string;
   description?: string;
   showDescription?: boolean;
-  border?: AlertBorder; // Use enum for border
+  style?: AlertStyle; // Use enum for border
   delay?: number;
   position?: AlertPosition; // Use enum for position
   onDismiss?: React.MouseEventHandler<HTMLButtonElement>;
@@ -48,7 +48,7 @@ export interface RdsAlertProps {
   sticky?: boolean;
   size?: string;
   showLink?: boolean;
-  showButtons?: boolean;
+  showButton?: boolean;
   showPrimary?: boolean;
   showSecondary?: boolean;
   showTitle?: boolean;
@@ -106,15 +106,15 @@ const RdsAlert = (props: RdsAlertProps) => {
       defaultClass += ` ${position}`;
     }
 
-    if (props.border === "none") {
+    if (props.style === "Style 1") {
       defaultClass += " shadow";
     }
 
-    if (props.border === "single") {
+    if (props.style === "Style 2") {
       defaultClass += ` border-${props.type === "info" ? "dark" : colorType}`;
     }
 
-    if (props.border === "left border") {
+    if (props.style === "Style 3") {
       defaultClass += ` border-${
         props.type === "info" ? "dark" : colorType
       } alert-left-border ${colorType}`;
@@ -140,9 +140,9 @@ const RdsAlert = (props: RdsAlertProps) => {
         <>
           <span className="custom-alert-message wordbreak d-flex align-items-top">
             <div className="d-flex">
-            {props.icon && props.showIcon && (
+            {props.changeIcon && props.showIcon && (
               <RdsCompIcon
-                name={props.icon || " "}
+                name={props.changeIcon || " "}
                 fill={props.iconFill}
                 stroke={props.iconStroke}
                 height={props.iconHeight}
@@ -215,10 +215,10 @@ const RdsAlert = (props: RdsAlertProps) => {
           <div className="w-100 d-flex flex-column">
             <div className="d-flex justify-content-between align-items-start">
               <div className="custom-alert-message wordbreak d-flex align-items-start flex-grow-1">
-                {props.icon && props.showIcon && (
+                {props.changeIcon && props.showIcon && (
                   <div className="d-flex align-items-center" id="rdicon">
                     <RdsCompIcon
-                      name={props.icon || " "}
+                      name={props.changeIcon || " "}
                       fill={props.iconFill}
                       stroke={props.iconStroke}
                       height={props.iconHeight}
@@ -229,7 +229,7 @@ const RdsAlert = (props: RdsAlertProps) => {
                     {props.title && props.showTitle && <strong>{props.title}</strong>}
                   </div>
                 )}
-                {!props.icon && props.title && props.showTitle && (
+                {!props.changeIcon && props.title && props.showTitle && (
                   <div><strong>{props.title}</strong></div>
                 )}
               </div>
