@@ -92,7 +92,7 @@ Standard.parameters = {
   },
 };
 
-export const ActionableBanner: Story = {
+export const Actionable: Story = {
     args: {
         colorVariant: ColorVariant.Light,
         headingText: "Discover",
@@ -113,5 +113,5 @@ export const ActionableBanner: Story = {
      
     }
 } satisfies Story;
-ActionableBanner.parameters = { controls: { include: ['headingText', 'titleText', 'subTitleText', 'colorVariant', 'imageUrl','showFirstButton','showSecondButton','firstButtonText','secondButtonText','firstButtonIcon','secondButtonIcon','showHyperlink','hyperlink','hyperlinkText','hyperlinkIcon'] } };
+Actionable.parameters = { controls: { include: ['headingText', 'titleText', 'subTitleText', 'colorVariant', 'imageUrl','showFirstButton','showSecondButton','firstButtonText','secondButtonText','firstButtonIcon','secondButtonIcon','showHyperlink','hyperlink','hyperlinkText','hyperlinkIcon'] } };
 
