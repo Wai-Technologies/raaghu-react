@@ -3779,8 +3779,12 @@ label{
 .cookies {
     background-color: #2d2d2d !important;
 }
-// Dark theme for edition information container counters
-.theme-dark .edition-information-container .rds-counter {
+// Dark theme for edition information container counters - forced dark mode (multiple selectors for reliability)
+.edition-information-container .rds-counter,
+.theme-dark .edition-information-container .rds-counter,
+[data-theme="dark"] .edition-information-container .rds-counter,
+html[data-theme="dark"] .edition-information-container .rds-counter,
+body.theme-dark .edition-information-container .rds-counter {
     #counter-back-color,
     #counter-back-color .form-control {
         background-color: #363636 !important;
@@ -3794,6 +3798,34 @@ label{
     label {
         color: #ffffff !important;
     }
+}
+
+//  forced styling for counter elements
+#counter-back-color,
+#counter-back-color .form-control,
+.edition-information-container #counter-back-color,
+.edition-information-container #counter-back-color .form-control,
+[id="counter-back-color"],
+[id="counter-back-color"] .form-control {
+    background-color: #363636 !important;
+    color: #ffffff !important;
+    border-color: #555 !important;
+}
+
+.edition-information-container .rds-counter label,
+.edition-information-container label,
+.rds-counter label,
+#counter-back-color label {
+    color: #ffffff !important;
+}
+
+[class*="counter"] #counter-back-color,
+[class*="counter"] #counter-back-color .form-control,
+[class*="edition"] [class*="counter"] #counter-back-color,
+[class*="edition"] [class*="counter"] #counter-back-color .form-control {
+    background-color: #363636 !important;
+    color: #ffffff !important;
+    border-color: #555 !important;
 }
 
 .form-switch.style-2 .form-check-input:checked[type=checkbox], .form-switch.style-4 .form-check-input:checked[type=checkbox] {
