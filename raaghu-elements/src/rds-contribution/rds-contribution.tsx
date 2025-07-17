@@ -241,7 +241,7 @@ export const RdsContribution = (props: RdsContributionProps) => {
     {({ measureRef }: any) => (
       <div
         ref={measureRef}
-        className="full-width custom-content-scroll position-absolute ms-3"
+        className="contribution-container mx-3"
         style={{
           background: 'none',
           width: '100%',
