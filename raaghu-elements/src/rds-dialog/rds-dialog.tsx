@@ -113,7 +113,7 @@ const RdsDialog = (props: RdsCompDialogProps) => {
   </div>
 )}
 
-<div className={`dialog-actions gap-2 ${props.Size?.toLowerCase() === 'small' ? 'flex-column' : ''}`}>
+<div className={`dialog-actions gap-2 ${props.Size?.toLowerCase() === 'small' ? 'flex-column' : ''}`} id="okay-btn">
   {props.ShowSecondary && (
     <RdsButton
       type="button"
