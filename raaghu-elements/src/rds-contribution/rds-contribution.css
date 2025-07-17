@@ -80,6 +80,15 @@
     fill: transparent;   
   }  
 
+  .contribution-container {
+    width: 100%;
+    height: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+    padding-bottom: 8px;
+    background: transparent;
+  }
+
   .full-width {
     width: 100% !important;
     height: 100% !important;
