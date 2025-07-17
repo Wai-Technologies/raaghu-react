@@ -61,6 +61,32 @@ The extended version (Actionable Banner) is ideal for promotional use cases. It 
 export default meta;
 type Story = StoryObj<typeof RdsCompBanner>;
 
+
+export const ActionableBanner: Story = {
+    args: {
+        colorVariant: ColorVariant.Light,
+        headingText: "Discover",
+        titleText: "15 days challenge",
+        subTitleText: " We will deliver an MVP in a record time of 15 days",
+        imageUrl: "../../../stories/assets/raaghubannerimage.png",
+        firstButtonText: "About Us",
+        secondButtonText: "Contact Us",
+        firstButtonIcon: "learn_more",
+        secondButtonIcon: "phone",
+        showFirstButton: true,
+        showSecondButton: true,
+        raaghuBanner: true,
+        showHyperlink: true,
+        hyperlink: "https://www.raaghu.com",
+        hyperlinkText: "Learn More",
+        hyperlinkIcon: "learn_more"
+     
+    }
+} satisfies Story;
+ActionableBanner.parameters = { controls: { include: ['headingText', 'titleText', 'subTitleText', 'colorVariant', 'imageUrl','showFirstButton','showSecondButton','firstButtonText','secondButtonText','firstButtonIcon','secondButtonIcon','showHyperlink','hyperlink','hyperlinkText','hyperlinkIcon'] } };
+
+
+
 export const Standard: Story = {
   args: {
     textAlign: TextAlign.Start,
@@ -91,27 +117,3 @@ Standard.parameters = {
     ],
   },
 };
-
-export const ActionableBanner: Story = {
-    args: {
-        colorVariant: ColorVariant.Light,
-        headingText: "Discover",
-        titleText: "15 days challenge",
-        subTitleText: " We will deliver an MVP in a record time of 15 days",
-        imageUrl: "../../../stories/assets/raaghubannerimage.png",
-        firstButtonText: "About Us",
-        secondButtonText: "Contact Us",
-        firstButtonIcon: "learn_more",
-        secondButtonIcon: "phone",
-        showFirstButton: true,
-        showSecondButton: true,
-        raaghuBanner: true,
-        showHyperlink: true,
-        hyperlink: "https://www.raaghu.com",
-        hyperlinkText: "Learn More",
-        hyperlinkIcon: "learn_more"
-     
-    }
-} satisfies Story;
-ActionableBanner.parameters = { controls: { include: ['headingText', 'titleText', 'subTitleText', 'colorVariant', 'imageUrl','showFirstButton','showSecondButton','firstButtonText','secondButtonText','firstButtonIcon','secondButtonIcon','showHyperlink','hyperlink','hyperlinkText','hyperlinkIcon'] } };
-

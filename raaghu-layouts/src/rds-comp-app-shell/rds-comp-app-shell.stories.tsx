@@ -399,185 +399,7 @@ type Story = StoryObj<typeof RdsCompAppShell>;
 // };
 
 //Default story
-export const Standard: Story = {
-  args: {
-    displayType: AppShellDisplayType.Default,
-    sidebar: (
-      <BrowserRouter>
-        <RdsCompLeftSideNavigation
-          layout="LeftSideNav"
-          lockIconVisible={false}
-          logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-          navLayout={NavLayout.Raaghu}
-          navType={NavType.Expanded}
-          platform={Platform.SideNavigationABPList}
-          showUserProfile
-          sideNavItems={[
-            {
-              icon: 'home',
-              key: '0',
-              label: 'Home',
-              path: '/dashboard'
-            },
-            {
-              icon: 'dashboard_meter',
-              key: '1',
-              label: 'Dashboard'
-            },
-            {
-              icon: 'saas',
-              key: '2',
-              label: 'Saas',
-              path: ''
-            },
-            {
-              icon: 'administration_new',
-              key: '3',
-              label: 'Administration',
-              path: ''
-            },
-            {
-              icon: 'folder',
-              key: '4',
-              label: 'File Management',
-              path: ''
-            },
-            {
-              icon: 'forms',
-              key: '5',
-              label: 'Payments',
-              path: ''
-            },
-            {
-              icon: 'payment_new',
-              key: '6',
-              label: 'Payments',
-              path: ''
-            },
-            {
-              icon: 'cms',
-              key: '7',
-              label: 'CMS',
-              path: ''
-            }
-          ]}
-        />
-      </BrowserRouter>
-    ),
-    topbar: (
-      <RdsTopNavigation
-        brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-        brandName="Raaghu Design System"
-        languageItems={[
-          {
-            icon: "us",
-            iconHeight: "20px",
-            iconWidth: "20px",
-            label: "EN(US)",
-            val: "en",
-          },
-          {
-            icon: "in",
-            iconHeight: "20px",
-            iconWidth: "20px",
-            label: "English(IND)",
-            val: "en",
-          },
-          {
-            icon: "us",
-            iconHeight: "20px",
-            iconWidth: "20px",
-            label: "French",
-            val: "fr",
-          },
-        ]}
-        logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
-        navbarSubTitle="Statistics and reports"
-        navbarTitle="Dashboard"
-        notifications={[
-          {
-            selected: false,
-            state: 1,
-            status: "success",
-            time: "a month ago",
-            title: "Tenant added",
-            urlTitle: "hello",
-            userNotificationId: 0,
-          },
-          {
-            selected: false,
-            state: 1,
-            status: "error",
-            time: "a month ago",
-            title: "Tenant deleted",
-            urlTitle: "hello",
-            userNotificationId: 1,
-          },
-          {
-            selected: false,
-            state: 1,
-            status: "warn",
-            time: "a month ago",
-            title: "Tenant added  warn",
-            urlTitle: "hello",
-            userNotificationId: 2,
-          },
-          {
-            selected: false,
-            state: 1,
-            status: "info",
-            time: "a month ago",
-            title: "Tenant deleted info",
-            urlTitle: "hello",
-            userNotificationId: 3,
-          },
-        ]}
-        profileTitle="John Doe"
-        profileEmail="john.doe@raaghu.io"
-        profileName="John Doe"
-        themeItems={[
-          {
-            icon: "sun",
-            iconHeight: "20px",
-            iconWidth: "20px",
-            label: "Light",
-            val: "light",
-          },
-          {
-            icon: "moon",
-            iconHeight: "20px",
-            iconWidth: "20px",
-            label: "Dark",
-            val: "dark",
-          },
-        ]}
-        toggleItems={[]}
-        elementList={[]}
-        componentsList={[]}
-        languageLabel={""}
-        themeLabel={""}
-        onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
-          console.log("Forgot password clicked:", isForgotPasswordClicked);
-        }}
-        onProfileLinkTopNav={function (
-          id: string,
-          navigateTo?: string,
-          label?: string
-        ): void {
-          console.log("Profile link clicked:", id, navigateTo, label);
-        }}
-        style={"ABP"}
-      />
-    ),
-    children: (
-      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-        <div className="rds-appshell-add-layout-center">
-          Add Layout
-        </div>
-      </div>
-    ),
-  },
-};
+
 
 export const DoubleNav: Story = {
   args: {
@@ -1088,7 +910,185 @@ export const SideNav: Story = {
   },
 };
 
-
+export const Standard: Story = {
+  args: {
+    displayType: AppShellDisplayType.Default,
+    sidebar: (
+      <BrowserRouter>
+        <RdsCompLeftSideNavigation
+          layout="LeftSideNav"
+          lockIconVisible={false}
+          logo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+          navLayout={NavLayout.Raaghu}
+          navType={NavType.Expanded}
+          platform={Platform.SideNavigationABPList}
+          showUserProfile
+          sideNavItems={[
+            {
+              icon: 'home',
+              key: '0',
+              label: 'Home',
+              path: '/dashboard'
+            },
+            {
+              icon: 'dashboard_meter',
+              key: '1',
+              label: 'Dashboard'
+            },
+            {
+              icon: 'saas',
+              key: '2',
+              label: 'Saas',
+              path: ''
+            },
+            {
+              icon: 'administration_new',
+              key: '3',
+              label: 'Administration',
+              path: ''
+            },
+            {
+              icon: 'folder',
+              key: '4',
+              label: 'File Management',
+              path: ''
+            },
+            {
+              icon: 'forms',
+              key: '5',
+              label: 'Payments',
+              path: ''
+            },
+            {
+              icon: 'payment_new',
+              key: '6',
+              label: 'Payments',
+              path: ''
+            },
+            {
+              icon: 'cms',
+              key: '7',
+              label: 'CMS',
+              path: ''
+            }
+          ]}
+        />
+      </BrowserRouter>
+    ),
+    topbar: (
+      <RdsTopNavigation
+        brandLogo="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
+        brandName="Raaghu Design System"
+        languageItems={[
+          {
+            icon: "us",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "EN(US)",
+            val: "en",
+          },
+          {
+            icon: "in",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "English(IND)",
+            val: "en",
+          },
+          {
+            icon: "us",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "French",
+            val: "fr",
+          },
+        ]}
+        logo="https://anzstageui.raaghu.io/assets/raaghu_icon.png"
+        navbarSubTitle="Statistics and reports"
+        navbarTitle="Dashboard"
+        notifications={[
+          {
+            selected: false,
+            state: 1,
+            status: "success",
+            time: "a month ago",
+            title: "Tenant added",
+            urlTitle: "hello",
+            userNotificationId: 0,
+          },
+          {
+            selected: false,
+            state: 1,
+            status: "error",
+            time: "a month ago",
+            title: "Tenant deleted",
+            urlTitle: "hello",
+            userNotificationId: 1,
+          },
+          {
+            selected: false,
+            state: 1,
+            status: "warn",
+            time: "a month ago",
+            title: "Tenant added  warn",
+            urlTitle: "hello",
+            userNotificationId: 2,
+          },
+          {
+            selected: false,
+            state: 1,
+            status: "info",
+            time: "a month ago",
+            title: "Tenant deleted info",
+            urlTitle: "hello",
+            userNotificationId: 3,
+          },
+        ]}
+        profileTitle="John Doe"
+        profileEmail="john.doe@raaghu.io"
+        profileName="John Doe"
+        themeItems={[
+          {
+            icon: "sun",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "Light",
+            val: "light",
+          },
+          {
+            icon: "moon",
+            iconHeight: "20px",
+            iconWidth: "20px",
+            label: "Dark",
+            val: "dark",
+          },
+        ]}
+        toggleItems={[]}
+        elementList={[]}
+        componentsList={[]}
+        languageLabel={""}
+        themeLabel={""}
+        onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
+          console.log("Forgot password clicked:", isForgotPasswordClicked);
+        }}
+        onProfileLinkTopNav={function (
+          id: string,
+          navigateTo?: string,
+          label?: string
+        ): void {
+          console.log("Profile link clicked:", id, navigateTo, label);
+        }}
+        style={"ABP"}
+      />
+    ),
+    children: (
+      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+        <div className="rds-appshell-add-layout-center">
+          Add Layout
+        </div>
+      </div>
+    ),
+  },
+};
 
 
 //TopNav Story

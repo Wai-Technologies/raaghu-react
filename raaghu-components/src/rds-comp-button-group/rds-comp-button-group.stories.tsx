@@ -55,34 +55,6 @@ type Story = StoryObj<typeof RdsCompButtonGroup>;
 
 
 
-export const Standard: Story = {
-    args: {
-        vertical: false,
-        size: "medium",
-        colorVariant: "primary",
-        role: Role.Button,
-        buttonGroupItems: [
-            {
-                label: "Left",
-                id: "",
-                name: "",
-
-            },
-            {
-                label: "Middle",
-                id: "",
-                name: "",
-            },
-            {
-                label: "Right",
-                id: "",
-                name: "",
-            }
-
-        ]
-    }
-} satisfies Story;
-Standard.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'buttonGroupItems'] } };
 
 
 export const CheckboxButtonGroup: Story = {
@@ -188,6 +160,34 @@ export const RadioButtonGroup: Story = {
 } satisfies Story;
 RadioButtonGroup.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'isOutline', 'buttonGroupItems'] } };
 
+export const Standard: Story = {
+    args: {
+        vertical: false,
+        size: "medium",
+        colorVariant: "primary",
+        role: Role.Button,
+        buttonGroupItems: [
+            {
+                label: "Left",
+                id: "",
+                name: "",
+
+            },
+            {
+                label: "Middle",
+                id: "",
+                name: "",
+            },
+            {
+                label: "Right",
+                id: "",
+                name: "",
+            }
+
+        ]
+    }
+} satisfies Story;
+Standard.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'buttonGroupItems'] } };
 
 
 export const Vertical: Story = {

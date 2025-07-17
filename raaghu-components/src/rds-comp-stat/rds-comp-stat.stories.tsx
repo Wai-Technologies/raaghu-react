@@ -38,6 +38,21 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompStat>;
 
+
+export const Advanced: Story = {
+    args: {
+        displayType: "advanced",
+        colorVariant: "primary",
+        items: [
+            {
+                title: "Downloads",
+                value: "2370"
+            },
+        ],
+    }
+} satisfies Story;
+Advanced.parameters = { controls: { include: ['displayType', 'colorVariant', 'items'] } };
+
 export const Standard: Story = {
     args: {
         displayType: "basic",
@@ -56,17 +71,3 @@ export const Standard: Story = {
     }
 } satisfies Story;
 Standard.parameters = { controls: { include: ['displayType', 'colorVariant', 'items'] } };
-
-export const Advanced: Story = {
-    args: {
-        displayType: "advanced",
-        colorVariant: "primary",
-        items: [
-            {
-                title: "Downloads",
-                value: "2370"
-            },
-        ],
-    }
-} satisfies Story;
-Advanced.parameters = { controls: { include: ['displayType', 'colorVariant', 'items'] } };
