@@ -61,7 +61,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
     const [activeNavTabId, setActiveNavTabId] = useState("0");
     const [showTenantSettings, setShowTenantSettings] = useState(false);
     const [inputReset, setInputReset] = useState(false);
-    const [twoFactorData, settwoFactorData] = useState(props.accountTwoFactorSettings);
+    const [twoFactorData, settwoFactorData] = useState(props.accountTwoFactorSettings || { planList: null });
     const [values, setValues] = useState(props.edition);
     const [trialPeriodCounter, setTrialPeriodCounter] = useState(0);
     const [expiryNotificationCounter, setExpiryNotificationCounter] = useState(0);
@@ -115,7 +115,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
     };
 
     useEffect(() => {
-        settwoFactorData(props.accountTwoFactorSettings);
+        settwoFactorData(props.accountTwoFactorSettings || { planList: null });
     }, [props.accountTwoFactorSettings]);
 
     useEffect(() => {
@@ -125,12 +125,21 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
 
     function emitSaveData(event: any) {
         event.preventDefault();
-        props.onSaveHandler && props.onSaveHandler(FormData);
-        setInputReset(!inputReset);
+        const combinedData = {
+            editionName: FormData?.editionName || "",
+            planList: twoFactorData?.planList
+        };
+        props.onSaveHandler && props.onSaveHandler(combinedData);
+        
+        // Reset both FormData and twoFactorData
         setFormData({
             editionName: "",
             plan: "",
         });
+        settwoFactorData({
+            planList: null
+        });
+        setInputReset(!inputReset);
     }
 
     const getRadioGroups = () => {
@@ -358,6 +367,7 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                 <div className="col-md-6">
                     <div className="form-group">
                         <RdsCompSelectList
+                            key={inputReset.toString()}
                             id="planLis"
                             label={props.planListLabel}
                             isDisabled={false}
@@ -365,9 +375,9 @@ const RdsCompEdition = (props: RdsCompEditionProps) => {
                             selectItems={props.planList}
                             selectedValue={twoFactorData?.planList}
                             onChange={(item: any) => {
-                                handlerChangeTwoFact(item.value, "planList");
+                                const selectedValue = item?.value || item?.option || item;
+                                handlerChangeTwoFact(selectedValue, "planList");
                             }}
-
                             dataTestId="plan-list"
                             required={true}
                         />

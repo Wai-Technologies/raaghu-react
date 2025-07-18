@@ -85,7 +85,7 @@ export const Standard: Story = {
 Standard.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'buttonGroupItems'] } };
 
 
-export const CheckboxButtonGroup: Story = {
+export const Checkbox: Story = {
     args: {
         vertical: false,
         size: "medium",
@@ -113,9 +113,9 @@ export const CheckboxButtonGroup: Story = {
         ]
     }
 } satisfies Story;
-CheckboxButtonGroup.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'isOutline', 'buttonGroupItems'] } };
+Checkbox.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'isOutline', 'buttonGroupItems'] } };
 
-export const IconButtonGroup: Story = {
+export const Icon: Story = {
     args: {
         vertical: false,
         size: "medium",
@@ -154,9 +154,9 @@ export const IconButtonGroup: Story = {
         ]
     }
 } satisfies Story;
-IconButtonGroup.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'isOutline', 'buttonGroupItems'] } };
+Icon.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'isOutline', 'buttonGroupItems'] } };
 
-export const RadioButtonGroup: Story = {
+export const Radio: Story = {
     args: {
         vertical: false,
         size: "medium",
@@ -186,7 +186,7 @@ export const RadioButtonGroup: Story = {
         ]
     }
 } satisfies Story;
-RadioButtonGroup.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'isOutline', 'buttonGroupItems'] } };
+Radio.parameters = { controls: { include: ['vertical', 'size', 'colorVariant', 'isOutline', 'buttonGroupItems'] } };
 
 
 
