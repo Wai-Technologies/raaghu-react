@@ -127,7 +127,25 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
 
   function emitSaveData(event: any) {
     event.preventDefault();
-    props.handleSubmit(event);
+    const completeFormData = {
+      ...basicApplicationData,
+      type: basicApplicationData?.type || "",
+      clientSecret: basicApplicationData?.clientSecret || "",
+      allowAuthorizationCodeFlow: basicApplicationData?.allowAuthorizationCodeFlow || false,
+      allowImplicitFlow: basicApplicationData?.allowImplicitFlow || false,
+      allowHybridFlow: basicApplicationData?.allowHybridFlow || false,
+      allowPasswordFlow: basicApplicationData?.allowPasswordFlow || false,
+      allowRefreshTokenFlow: basicApplicationData?.allowRefreshTokenFlow || false,
+      allowClientCredentialsFlow: basicApplicationData?.allowClientCredentialsFlow || false,
+      allowDeviceEndpoint: basicApplicationData?.allowDeviceEndpoint || false,
+      redirectUris: basicApplicationData?.redirectUris || "",
+      allowLogoutEndpoint: basicApplicationData?.allowLogoutEndpoint || false,
+      postLogoutRedirectUris: basicApplicationData?.postLogoutRedirectUris || "",
+      consentType: basicApplicationData?.consentType || "",
+      enabled: basicApplicationData?.enabled || false,
+    };
+    props.onSuccess && props.onSuccess(completeFormData);
+    props.handleSubmit && props.handleSubmit(event);
     setInputReset(!inputReset);
     setBasicApplicationData({
       type: "",
@@ -256,7 +274,12 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
       {props.application === "scopes" && (
         <div className="row">
           <div className="col-12 col-6 col-lg-6 col-md-6 col-xl-6 col-xxl-6">
-            <RdsCompCheckboxGroup itemList={scopeList} onClick={handlerChange} />
+            <RdsCompCheckboxGroup 
+              itemList={scopeList} 
+              onClick={handlerChange}
+              multiOptionCheck={true}
+              label="Application Scopes"
+            />
           </div>
         </div>
       )}
@@ -271,10 +294,11 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                   isPlaceholder
                   placeholder="Select Consent Type"
                   listItems={props.typeList || []}
-                  onClick={(item: any) => handleDataChanges(item.value, "type")}
+                  onClick={(event: any, val: string) => handleDataChanges(val, "type")}
+                  reset={inputReset}
                 />
               </div>
-              <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3 pt-3">
+              <div className="col-12 col-6 col-lg-6 col-md-6 col-xl4 col-xxl-6 mb-3 pt-2">
                 {basicApplicationData?.type == "confidential" && (
                   <RdsInput
                     reset={inputReset}
@@ -458,9 +482,10 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                   isPlaceholder
                   placeholder="Consent Type"
                   listItems={props.consentType || []}
-                  onClick={(item: any) => {
-                    handleDataChanges(item.value, "consentType");
+                  onClick={(event: any, val: string) => {
+                    handleDataChanges(val, "consentType");
                   }}
+                  reset={inputReset}
                 />
               </div>
             </div>
@@ -469,6 +494,9 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
                 <RdsCheckbox
                   labelText="Enabled"
                   checked={basicApplicationData?.enabled}
+                  onChange={(e) => {
+                    handleDataChanges(e.target.checked, "enabled");
+                  }}
                   dataTestId="enabled"
                 ></RdsCheckbox>
               </div>
