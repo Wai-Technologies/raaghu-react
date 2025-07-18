@@ -122,6 +122,12 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
          name: "radio_button",
       },
    ]);
+
+   // Track user interaction with radio buttons
+   const [userInteracted, setUserInteracted] = useState({
+      replaceItems: false,
+      radioItemsApp: false
+   });
 //    const handleRadioClick = (event: any) => {
 //       console.log("event",event.target)
 //       const items = {
@@ -157,7 +163,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
               : { ...item, checked: false }
       );
       setRadioItemsApp(updatedItems);
-     
+      setUserInteracted(prev => ({ ...prev, radioItemsApp: true }));
   };
 
   const handleRadioClickReplace = (event: any) => {
@@ -173,6 +179,8 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
               : { ...item, checked: false }
       );
       setReplaceItems(updatedItems);
+      setUserInteracted(prev => ({ ...prev, replaceItems: true }));
+      
       if (items.id === 2) {
          localStorage.setItem("REACT_APP_URL", "https://staging.rdsconnect.com");
       }
@@ -215,6 +223,34 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
          sideNav: '',
          staticIcons: '',
       });
+      setUserInteracted({
+         replaceItems: false,
+         radioItemsApp: false
+      });
+      setRadioItemsApp([
+         {
+            id: 1,
+            label: "Local Host",
+            checked: true,
+            name: "radio_buttona",
+         }
+      ]);
+
+      setReplaceItems([
+         {
+            id: 1,
+            label: "True",
+            checked: false,
+            name: "radio_button",
+         },
+         {
+            id: 2,
+            label: "False",
+            checked: true,
+            name: "radio_button",
+         }
+      ]);
+      setInputReset(!inputReset);
    };
    const [touched, setTouched] = useState({
       apiUrl: false,
@@ -223,8 +259,9 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
       event.preventDefault();
       props.onModeDataSubmit && props.onModeDataSubmit(modeData);
       setInputReset(!inputReset);
-      setModeData((prevModeData) => ({
-         ...prevModeData,
+      
+      // Clear all form data
+      setModeData({
          environment: '',
          apiUrl: '',
          grantType: '',
@@ -234,21 +271,33 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
          replaceUrl: '',
          sideNav: '',
          staticIcons: ''
-
-      }));
-      const resetRadioItemsApp = radioItemsApp.map(item => ({
-         ...item,
-         checked: false,
-      }));
-      setRadioItemsApp(resetRadioItemsApp);
-
-      const resetReplaceItems = replaceItems.map(item => ({
-         ...item,
-         checked: false,
-      }));
-      setReplaceItems(resetReplaceItems);
-
-     
+      });
+      setUserInteracted({
+         replaceItems: false,
+         radioItemsApp: false
+      });
+      setRadioItemsApp([
+         {
+            id: 1,
+            label: "Local Host",
+            checked: true,
+            name: "radio_buttona",
+         }
+      ]);
+      setReplaceItems([
+         {
+            id: 1,
+            label: "True",
+            checked: false,
+            name: "radio_button",
+         },
+         {
+            id: 2,
+            label: "False",
+            checked: true,
+            name: "radio_button",
+         }
+      ]);
    };
    const handleBlur = (key: string) => {
       setTouched({ ...touched, [key]: true });
@@ -278,9 +327,8 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
       return true;
    }
 
-   const isReplaceItemsValid = replaceItems.some(item => item.checked);
-
-   const isRadioItemsAppValid = radioItemsApp.some(item => item.checked);
+   const isReplaceItemsValid = replaceItems.some(item => item.checked) && userInteracted.replaceItems;
+   const isRadioItemsAppValid = radioItemsApp.some(item => item.checked) && userInteracted.radioItemsApp;
    const isGrantTypevalid = !!modeData.grantType && modeData.grantType?.length > 0;
    const isFormValid = isEnvironmentValid(modeData?.environment) && isApplicationApiUrlValid(modeData?.apiUrl) && isClientIdValid(modeData?.clientId) && isScopeValid(modeData?.scope) && isReplaceItemsValid && isRadioItemsAppValid && isGrantTypevalid   ; 
 
@@ -323,6 +371,7 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                               onClick={handleRadioClickApp}
                               onChange={(e: any) => onSubmitModeData(e, "radioItemsApp")} 
                               value={''}
+                              key={`radioApp-${inputReset}`}
                              >
                              </RdsRadioButton>
                             
@@ -374,12 +423,21 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                            id={"grantType"}
                            label="Application Grant Type"
                            placeholder="Select Application Grant Type"
-                           selectItems={props.grantType}
+                           selectItems={props.grantType?.map((item: any) => ({ 
+                             label: item.option || item.label, 
+                             value: item.value 
+                           })) || []}
                            isSearchable={true}
                            required={true}
-                           selectedValue={modeData.grantType} 
-                           key={`grantType-${modeData.grantType}`} 
-                           onChange={(e: any) => onSubmitModeData(e.value, "grantType")}
+                           selectedValue={modeData.grantType}
+                           key={`grantType-reset-${inputReset}`}
+                           onChange={(selectedOption: any) => {
+                              if (selectedOption && selectedOption.value) {
+                                 onSubmitModeData(selectedOption.value, "grantType");
+                              } else if (typeof selectedOption === 'string') {
+                                 onSubmitModeData(selectedOption, "grantType");
+                              }
+                           }}
                            color="primary"
                            ></RdsCompSelectList>
                         </div>
@@ -431,7 +489,10 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                               label=""
                               onClick={handleRadioClickReplace}
                               onChange={(e: any) => onSubmitModeData(e, "replaceItems")}
-                              itemList={replaceItems} value={''}                           ></RdsRadioButton>
+                              itemList={replaceItems} 
+                              value={''}
+                              key={`radioReplace-${inputReset}`}
+                           ></RdsRadioButton>
                         </div>
                      </div>
                   </div>
@@ -443,15 +504,19 @@ const RdsCompDeveloperMode = (props: RdsCompDeveloperModeProps) => {
                         <RdsCheckbox
                            labelText="Disable Collapsible Side Menu"
                            checked={modeData?.sideNav === 'true'}
-                           onChange={(e: any) => onSubmitModeData(e.target.checked, "sideNav")}
-                           dataTestId="sideMenu"></RdsCheckbox>
+                           onChange={(e: any) => onSubmitModeData(e.target.checked.toString(), "sideNav")}
+                           dataTestId="sideMenu"
+                           key={`sideNav-${inputReset}`}
+                        ></RdsCheckbox>
                      </div>
                      <div className="col-md-12 mb-3">
                         <RdsCheckbox
                            labelText="Enable Static Icons"
                            checked={modeData?.staticIcons === 'true'}
-                           onChange={(e: any) => onSubmitModeData(e.target.checked, "staticIcons")}
-                           dataTestId="staticIcons"></RdsCheckbox>
+                           onChange={(e: any) => onSubmitModeData(e.target.checked.toString(), "staticIcons")}
+                           dataTestId="staticIcons"
+                           key={`staticIcons-${inputReset}`}
+                        ></RdsCheckbox>
                      </div>
                   </div>
                </div>
