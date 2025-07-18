@@ -34,36 +34,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompAlertPopup>;
 
-export const Standard: Story = (args: any) => (
-    <>
-        <button
-            type="button"
-            className="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target={`#${args.alertID}`}
-        >
-            ALERT POPUP
-        </button>
-        <RdsCompAlertPopup {...args} />
-    </>
-);
 
-Standard.args = {
-    alertID: "alert_popup",
-    iconUrl: "delete",
-    colorVariant: "error",
-    alertConfirmation: "Are you sure to Delete?",
-    messageAlert: "This record will be deleted permanently.",
-    cancelBtnLabel: "Cancel",
-    deleteBtnLabel: "Delete",
-    type: "default"
-};
-
-Standard.parameters = {
-    controls: {
-        include: ['alertID', 'iconUrl', 'colorVariant', 'alertConfirmation', 'messageAlert', 'cancelBtnLabel', 'deleteBtnLabel','type']
-    }
-};
 
 export const Confirm: Story = (args: any) => (
     <>
@@ -116,6 +87,37 @@ OtpValidation.args = {
     alertID: "otp_validation_popup",
     iconUrl: "otpvalidation",
     type: "otpvalidation",
+};
+
+export const Standard: Story = (args: any) => (
+    <>
+        <button
+            type="button"
+            className="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target={`#${args.alertID}`}
+        >
+            ALERT POPUP
+        </button>
+        <RdsCompAlertPopup {...args} />
+    </>
+);
+
+Standard.args = {
+    alertID: "alert_popup",
+    iconUrl: "delete",
+    colorVariant: "error",
+    alertConfirmation: "Are you sure to Delete?",
+    messageAlert: "This record will be deleted permanently.",
+    cancelBtnLabel: "Cancel",
+    deleteBtnLabel: "Delete",
+    type: "default"
+};
+
+Standard.parameters = {
+    controls: {
+        include: ['alertID', 'iconUrl', 'colorVariant', 'alertConfirmation', 'messageAlert', 'cancelBtnLabel', 'deleteBtnLabel','type']
+    }
 };
 
 OtpValidation.parameters = {

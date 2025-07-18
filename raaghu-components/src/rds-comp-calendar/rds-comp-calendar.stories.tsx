@@ -28,14 +28,6 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompCalendar>;
 
-export const Standard: Story = {
-    args: {
-        events: sampleEvents,
-        defaultView: 'agenda',
-        styleClass: 'agenda-view'
-    },
-} satisfies Story;
-Standard.parameters = { controls: { include: ['events'] } };
 
 export const Day: Story = {
     args: {
@@ -67,6 +59,16 @@ export const NoToolbar: Story = {
     },
 } satisfies Story;
 NoToolbar.parameters = { controls: { include: ['events'] } };
+
+export const Standard: Story = {
+    args: {
+        events: sampleEvents,
+        defaultView: 'agenda',
+        styleClass: 'agenda-view'
+    },
+} satisfies Story;
+Standard.parameters = { controls: { include: ['events'] } };
+
 
 export const Week: Story = {
     args: {

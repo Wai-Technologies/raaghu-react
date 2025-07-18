@@ -27,18 +27,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCompWebsiteMatrix>;
 
 
-export const Standard: Story = {
-    args: {
-        item: {
-            "title": "510+",
-            "link": "Learn more",
-            "subtitle": "Clients Worked with"
-        },
-        displayType: "default",
-        colorVariant: "primary",
-    }
-} satisfies Story;
-Standard.parameters = { controls: { include: ['displayType', 'colorVariant', 'item'] } };
+
 
 export const centerAligned: Story = {
     args: {
@@ -69,6 +58,19 @@ export const leftAligned: Story = {
     }
 } satisfies Story;
 leftAligned.parameters = { controls: { include: ['displayType', 'colorVariant', 'item'] } };
+
+export const Standard: Story = {
+    args: {
+        item: {
+            "title": "510+",
+            "link": "Learn more",
+            "subtitle": "Clients Worked with"
+        },
+        displayType: "default",
+        colorVariant: "primary",
+    }
+} satisfies Story;
+Standard.parameters = { controls: { include: ['displayType', 'colorVariant', 'item'] } };
 
 export const withCenterAlignedIcon: Story = {
     args: {

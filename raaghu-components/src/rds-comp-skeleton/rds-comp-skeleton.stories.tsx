@@ -54,18 +54,6 @@ CardSkeleton.parameters = {
   },
 };
 
-export const PaginationSkeleton: Story = {
-  args: {
-    type: "pagination",
-    isAnimated: false,
-    count: 5,
-  },
-} satisfies Story;
-PaginationSkeleton.parameters = {
-  controls: {
-    include: ["type", "isAnimated", "count"],
-  },
-};
 
 export const DropdownSkeleton: Story = {
   args: {
@@ -79,6 +67,21 @@ DropdownSkeleton.parameters = {
     include: ["type", "isAnimated", "count"],
   },
 };
+
+export const PaginationSkeleton: Story = {
+  args: {
+    type: "pagination",
+    isAnimated: false,
+    count: 5,
+  },
+} satisfies Story;
+PaginationSkeleton.parameters = {
+  controls: {
+    include: ["type", "isAnimated", "count"],
+  },
+};
+
+
 
 // export const DataTableSkeleton: Story = {
 //   args: {

@@ -22,6 +22,41 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompEditionList>;
 
+
+
+export const Dashboard: Story = {
+    args: {
+      tenant:"dashboard",
+    }
+} satisfies Story;
+Dashboard.parameters = { controls: { include: [] } };
+
+export const Information: Story = {
+    args: {
+      tenant:"information",
+        editions: [
+                    {
+                        option: "Not assigned",
+                        value:1
+                    },
+                    {
+                        option: "Standard",
+                        value:2
+                    },
+                    {
+                        option: "apple",
+                        value:3
+                    },
+                    {
+                        option: "Apple1",
+                        value:4
+                    },
+                ],
+    }
+} satisfies Story;
+Information.parameters = { controls: { include: ['editions', 'tenantInfoData', 'reset', 'isModuleSpecificDb', 'setPasswordField'] } };
+
+
 export const List: Story = {
     args: {
       tenant:"list",
@@ -116,37 +151,7 @@ export const List: Story = {
 } satisfies Story;
 List.parameters = { controls: { include: ['tableHeaders', 'tableData', 'actions', 'pagination', 'recordsPerPage'] } };
 
-export const Dashboard: Story = {
-    args: {
-      tenant:"dashboard",
-    }
-} satisfies Story;
-Dashboard.parameters = { controls: { include: [] } };
 
-export const Information: Story = {
-    args: {
-      tenant:"information",
-        editions: [
-                    {
-                        option: "Not assigned",
-                        value:1
-                    },
-                    {
-                        option: "Standard",
-                        value:2
-                    },
-                    {
-                        option: "apple",
-                        value:3
-                    },
-                    {
-                        option: "Apple1",
-                        value:4
-                    },
-                ],
-    }
-} satisfies Story;
-Information.parameters = { controls: { include: ['editions', 'tenantInfoData', 'reset', 'isModuleSpecificDb', 'setPasswordField'] } };
 
 export const Management: Story = {
     args: {
@@ -154,6 +159,8 @@ export const Management: Story = {
     }
 } satisfies Story;
 Management.parameters = { controls: { include: ['settingsTenantEditionList', 'allowSelfRegistration', 'useCaptchaOnRegistration', 'isNewRegisteredTenantActiveByDefault'] } };
+
+
 
 export const Register: Story = {
   args: {

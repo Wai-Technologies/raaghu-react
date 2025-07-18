@@ -23,28 +23,6 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompTestimonials>;
 
-export const Standard: Story = {
-    args: {
-        displayType: "basic",
-        carousalItem: [
-            {
-                id: 1,
-                imgUrl: "https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
-                name: "Sam Smith",
-                roleName: "Product Manager",
-                subTitle: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat condimentum veilt class patent taciti sociosqu and litara ad litora torquent per conubia nastra."
-            },
-            {
-                id: 2,
-                imgUrl: "https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
-                name: "king John",
-                roleName: "Tech Lead",
-                subTitle: "this is the caption section were u can add the caption for the image",
-            }
-        ],
-    }
-} satisfies Story;
-
 
 export const Advanced: Story = {
     args: {
@@ -102,4 +80,29 @@ export const Advanced: Story = {
         ],
     }
 } satisfies Story;
+
+
+export const Standard: Story = {
+    args: {
+        displayType: "basic",
+        carousalItem: [
+            {
+                id: 1,
+                imgUrl: "https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
+                name: "Sam Smith",
+                roleName: "Product Manager",
+                subTitle: "Nulla metus metus ullamcorper vel tincidunt set euismod nibh quisque volutpat condimentum veilt class patent taciti sociosqu and litara ad litora torquent per conubia nastra."
+            },
+            {
+                id: 2,
+                imgUrl: "https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg",
+                name: "king John",
+                roleName: "Tech Lead",
+                subTitle: "this is the caption section were u can add the caption for the image",
+            }
+        ],
+    }
+} satisfies Story;
+
+
 

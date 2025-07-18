@@ -29,24 +29,6 @@ This component is ideal for showcasing service highlights, product features, or 
 export default meta;
 type Story = StoryObj<typeof RdsCompBenefits>;
 
-export const Standard: Story = {
-    args: {
-        displayType: "default",
-        colsize: 12,
-        item: {
-            "id": 1,
-            "icon": "currency_dollar_circle",
-            "iconHeight": "35px",
-            "iconWidth": "35px",
-            "iconFill": false,
-            "iconstroke": true,
-            "iconColorVarient": "primary",
-            "title": "International delivery",
-            "description": "Get your order in 2 days"
-        }
-    }
-} satisfies Story;
-Standard.parameters = { controls: { include: ['displayType', 'item', 'colsize'] } };
 
 
 export const CenterAligned: Story = {
@@ -106,6 +88,25 @@ export const LeftAligned: Story = {
     }
 } satisfies Story;
 LeftAligned.parameters = { controls: { include: ['displayType', 'item', 'colsize'] } };
+
+export const Standard: Story = {
+    args: {
+        displayType: "default",
+        colsize: 12,
+        item: {
+            "id": 1,
+            "icon": "currency_dollar_circle",
+            "iconHeight": "35px",
+            "iconWidth": "35px",
+            "iconFill": false,
+            "iconstroke": true,
+            "iconColorVarient": "primary",
+            "title": "International delivery",
+            "description": "Get your order in 2 days"
+        }
+    }
+} satisfies Story;
+Standard.parameters = { controls: { include: ['displayType', 'item', 'colsize'] } };
 
 
 export const WithLabel: Story = {

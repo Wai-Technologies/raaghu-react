@@ -47,19 +47,6 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsWidget>;
 
-export const Standard: Story = {
-    args: {
-        colorVariant: "gradient-primary",
-        headerTitle: "Widget",
-        isRefreshRequired: true,
-        iconName: "refresh",
-        iconTooltipLabel: "Refresh",
-        iconTooltipPosition: "top",
-        border: true,
-    }
-} satisfies Story;
-Standard.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'border'] } };
-
 
 export const Portal: Story = {
     args: {
@@ -74,6 +61,21 @@ export const Portal: Story = {
     }
 } satisfies Story;
 Portal.parameters = { controls: { include: ['btnLabel', 'widgetTitle', 'statusMsg', 'subTitle', 'icon', 'btnShow', 'statusBarMsg'] } };
+
+
+export const Standard: Story = {
+    args: {
+        colorVariant: "gradient-primary",
+        headerTitle: "Widget",
+        isRefreshRequired: true,
+        iconName: "refresh",
+        iconTooltipLabel: "Refresh",
+        iconTooltipPosition: "top",
+        border: true,
+    }
+} satisfies Story;
+Standard.parameters = { controls: { include: ['colorVariant', 'headerTitle', 'isRefreshRequired', 'iconName', 'iconTooltipLabel', 'iconTooltipPosition', 'border'] } };
+
 
 export const WithBarChart: Story = {
     args: {
