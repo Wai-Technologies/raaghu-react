@@ -1067,15 +1067,12 @@ export const Standard: Story = {
         componentsList={[]}
         languageLabel={""}
         themeLabel={""}
-        onForgotPassword={function (isForgotPasswordClicked?: boolean): void {
-          console.log("Forgot password clicked:", isForgotPasswordClicked);
-        }}
+        onForgotPassword={function (isForgotPasswordClicked?: boolean): void { }}
         onProfileLinkTopNav={function (
           id: string,
           navigateTo?: string,
           label?: string
         ): void {
-          console.log("Profile link clicked:", id, navigateTo, label);
         }}
         style={"ABP"}
       />
