@@ -65,4 +65,4 @@ export const workflows: Story = {
         ]
     }
 } satisfies Story;
-workflows.parameters = { controls: { include: [ "typeList", "consentType", "basicData", "handleSubmit", "reset", "editApplicationData"]},};
+workflows.parameters = { controls: { include: [ "typeList", "consentType", "basicData", "handleSubmit", "reset", "editApplicationData", "onSuccess"]},};
