@@ -274,7 +274,12 @@ const RdsCompApplicationBasic = (props: RdsCompApplicationBasicProps) => {
       {props.application === "scopes" && (
         <div className="row">
           <div className="col-12 col-6 col-lg-6 col-md-6 col-xl-6 col-xxl-6">
-            <RdsCompCheckboxGroup itemList={scopeList} onClick={handlerChange} />
+            <RdsCompCheckboxGroup 
+              itemList={scopeList} 
+              onClick={handlerChange}
+              multiOptionCheck={true}
+              label="Application Scopes"
+            />
           </div>
         </div>
       )}
