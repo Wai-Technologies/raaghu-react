@@ -253,6 +253,7 @@ const RdsDropdownList = (props: RdsDropdownListProps) => {
   useEffect(() => {
     setIsTouch(false);
     setCheckedCategoryList([]);
+    setSelectedOption(null);
   }, [props.reset]);
   useEffect(() => {
     props.multiSelect === undefined &&
