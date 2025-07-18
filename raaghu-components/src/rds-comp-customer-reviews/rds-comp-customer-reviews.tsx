@@ -1,8 +1,5 @@
 import React from "react";
-import {
-    RdsProgressBar,
-    RdsRating,
-} from "../rds-elements";
+import { RdsProgressBar, RdsRating } from "../rds-elements";
 import RdsCompIcon from "../rds-comp-icon";
 import RdsCompLabel from "../rds-comp-label";
 export interface RdsCompCustomerReviewsProps {
@@ -50,12 +47,13 @@ const RdsCompCustomerReviews = (props: RdsCompCustomerReviewsProps) => {
                                     height={15}
                                     colorVariant="warning"
                                     progressWidth={getReviewRate(item.count)}
-                                    role={"single"} steps={0} completedSteps={0}                                ></RdsProgressBar>
+                                    role={"single"} steps={0} completedSteps={0}                                
+                                ></RdsProgressBar>
                             </div>
                         </div>
                         <div className="d-flex align-items-center">
                             <RdsCompLabel label={getReviewRateString(item.count)}></RdsCompLabel>
-                            <span className="fs-5 fw-bolder mt-1">%</span>
+                            <span className="fs-6">%</span>
                         </div>
                     </div>
                 ))}
