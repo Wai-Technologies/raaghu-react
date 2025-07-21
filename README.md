@@ -4,7 +4,7 @@
 <!-- Custom style -->
 
 <p align="center">
-  <a href="https://raaghu.io" target="_blank">
+  <a href="https://raaghu.ai" target="_blank">
     <p>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/hero-banner-dark.png?raw=trues">
