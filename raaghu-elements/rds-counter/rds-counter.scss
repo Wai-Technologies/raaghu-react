@@ -1,0 +1,72 @@
+// RDS Counter Component Styles
+// Counter component for displaying and updating numeric values
+
+.rds-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--rds-spacing-sm);
+  
+  &__value {
+    font-size: 1var(--rds-spacing-sm);
+    font-weight: 500;
+    min-width: 40px;
+    text-align: center;
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+    border: 1px solid var(--rds-border-default);
+    border-radius: var(--rds-spacing-xs);
+  }
+  
+  &__button {
+    background: var(--rds-background-surface);
+    border: 1px solid var(--rds-border-default);
+    border-radius: var(--rds-border-radius-full);
+    width: var(--rds-spacing-xl);
+    height: var(--rds-spacing-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color var(--rds-transition-base);
+    
+    &:hover {
+      background-color: #eeeeee;
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+  
+  &__label {
+    font-size: 1var(--rds-spacing-xs);
+    color: var(--rds-text-secondary);
+  }
+  
+  // Size variants
+  &--small {
+    .rds-counter__value {
+      font-size: 1var(--rds-spacing-xs);
+      min-width: var(--rds-spacing-xl);
+      padding: 2px 6px;
+    }
+    
+    .rds-counter__button {
+      width: 2var(--rds-spacing-xs);
+      height: 2var(--rds-spacing-xs);
+    }
+  }
+  
+  &--large {
+    .rds-counter__value {
+      font-size: var(--rds-font-size-2xl);
+      min-width: 4var(--rds-spacing-sm);
+      padding: 6px var(--rds-font-size-xs);
+    }
+    
+    .rds-counter__button {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

@@ -1,0 +1,99 @@
+// RDS Menu Component Styles
+// Dropdown menu component with navigation items
+
+.rds-menu {
+  background-color: var(--rds-background-paper);
+  border-radius: var(--rds-spacing-xs);
+  box-shadow: 0 2px var(--rds-spacing-sm) rgba(0, 0, 0, 0.15);
+  padding: var(--rds-spacing-sm) 0;
+  min-width: 160px;
+  max-width: 280px;
+  outline: none;
+  
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: var(--rds-font-size-sm) var(--rds-font-size-lg);
+    cursor: pointer;
+    font-size: 1var(--rds-spacing-xs);
+    color: var(--rds-text-primary);
+    text-decoration: none;
+    transition: background-color var(--rds-transition-base);
+    
+    &:hover {
+      background-color: var(--rds-background-surface);
+    }
+    
+    &:focus {
+      background-color: var(--rds-background-surface);
+      outline: none;
+    }
+    
+    &--selected {
+      background-color: rgba(25, 118, 210, 0.08);
+      color: var(--rds-primary-main);
+    }
+    
+    &--disabled {
+      color: var(--rds-text-disabled);
+      cursor: not-allowed;
+      
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+  
+  &__icon {
+    margin-right: var(--rds-font-size-sm);
+    font-size: 1var(--rds-spacing-sm);
+    flex-shrink: 0;
+  }
+  
+  &__text {
+    flex: 1;
+  }
+  
+  &__shortcut {
+    margin-left: var(--rds-font-size-sm);
+    font-size: var(--rds-font-size-sm);
+    color: var(--rds-text-secondary);
+  }
+  
+  &__divider {
+    height: 1px;
+    background-color: var(--rds-border-default);
+    margin: var(--rds-spacing-sm) 0;
+  }
+  
+  &__header {
+    padding: var(--rds-spacing-sm) var(--rds-font-size-lg) var(--rds-spacing-xs);
+    font-size: var(--rds-font-size-sm);
+    font-weight: 500;
+    color: var(--rds-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  // Animation states
+  &--enter {
+    opacity: 0;
+    transform: scale(0.9) translateY(-var(--rds-font-size-xs));
+  }
+  
+  &--enter-active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition: opacity var(--rds-transition-base), transform var(--rds-transition-base);
+  }
+  
+  &--exit {
+    opacity: 1;
+  }
+  
+  &--exit-active {
+    opacity: 0;
+    transform: scale(0.9) translateY(-var(--rds-font-size-xs));
+    transition: opacity var(--rds-transition-fast), transform var(--rds-transition-fast);
+  }
+}

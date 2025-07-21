@@ -1,0 +1,43 @@
+// RDS App Bar Component Styles
+.rds-app-bar {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--rds-font-size-lg);
+  background-color: var(--rds-primary-main);
+  color: var(--rds-background-paper);
+  min-height: 6var(--rds-spacing-xs);
+  box-shadow: 0 2px var(--rds-spacing-xs) rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: var(--rds-z-index-sticky);
+  
+  &__title {
+    flex: 1;
+    font-size: var(--rds-font-size-2xl);
+    font-weight: 500;
+    margin: 0 var(--rds-font-size-lg);
+  }
+  
+  &__menu-button {
+    margin-right: var(--rds-spacing-sm);
+  }
+  
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--rds-spacing-sm);
+  }
+  
+  // Color variants
+  &--primary {
+    background-color: var(--rds-primary-main);
+  }
+  
+  &--secondary {
+    background-color: #dc004e;
+  }
+  
+  &--transparent {
+    background-color: transparent;
+    box-shadow: var(--rds-elevation-0);
+  }
+}

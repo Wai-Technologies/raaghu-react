@@ -1,0 +1,73 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import RdsRadio from './rds-radio';
+
+const meta: Meta<typeof RdsRadio> = {
+  title: 'Elements/Radio',
+  component: RdsRadio,
+  parameters: {
+    layout: 'padded',
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    options: {
+      control: 'object',
+      description: 'Array of radio options',
+    },
+    direction: {
+      control: 'select',
+      options: ['row', 'column'],
+      description: 'Direction of radio group layout',
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+const basicOptions = [
+  { label: 'Option 1', value: 'option1' },
+  { label: 'Option 2', value: 'option2' },
+  { label: 'Option 3', value: 'option3' },
+];
+
+export const Default: Story = {
+  args: {
+    label: 'Choose an option',
+    options: basicOptions,
+  },
+};
+
+export const WithSelectedValue: Story = {
+  args: {
+    label: 'Pre-selected Option',
+    options: basicOptions,
+    value: 'option2',
+  },
+};
+
+export const Horizontal: Story = {
+  args: {
+    label: 'Horizontal Layout',
+    options: basicOptions,
+    direction: 'row',
+  },
+};
+
+export const WithDisabledOptions: Story = {
+  args: {
+    label: 'Some Disabled Options',
+    options: [
+      { label: 'Available Option', value: 'option1' },
+      { label: 'Disabled Option', value: 'option2', disabled: true },
+      { label: 'Another Available', value: 'option3' },
+      { label: 'Also Disabled', value: 'option4', disabled: true },
+    ],
+  },
+};
+
+export const WithoutLabel: Story = {
+  args: {
+    options: basicOptions,
+    value: 'option1',
+  },
+};

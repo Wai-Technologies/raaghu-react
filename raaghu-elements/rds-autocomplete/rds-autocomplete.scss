@@ -1,0 +1,55 @@
+// RDS Autocomplete Component Styles
+// Autocomplete input with dropdown suggestions
+
+.rds-autocomplete {
+  display: block;
+  position: relative;
+
+  &__field {
+    // Field styles
+    display: block;
+  }
+
+  &__dropdown {
+    // Dropdown styles
+    display: block;
+  }
+
+  &__option {
+    // Option styles
+    display: block;
+  }
+
+  &__loading {
+    // Loading styles
+    display: block;
+  }
+
+  &--disabled {
+    // Disabled state styles
+  }
+
+  &--error {
+    // Error state styles
+  }
+
+  &--focused {
+    // Focused state styles
+  }
+
+  // Interactive states
+  &:hover {
+    // Hover styles
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset);
+  }
+
+  &:disabled,
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,42 @@
+// RDS Carousel Component Styles
+// Image carousel component
+
+.rds-carousel {
+  display: block;
+  position: relative;
+
+  &__slide {
+    // Slide styles
+    display: block;
+  }
+
+  &__navigation {
+    // Navigation styles
+    display: block;
+  }
+
+  &__indicators {
+    // Indicators styles
+    display: block;
+  }
+
+  &--auto-play {
+    // Auto-play state styles
+  }
+
+  // Interactive states
+  &:hover {
+    // Hover styles
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset);
+  }
+
+  &:disabled,
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}

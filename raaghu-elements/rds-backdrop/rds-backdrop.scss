@@ -1,0 +1,27 @@
+// RDS Backdrop Component Styles
+// Modal backdrop overlay
+
+.rds-backdrop {
+  display: block;
+  position: relative;
+
+  &--invisible {
+    // Invisible state styles
+  }
+
+  // Interactive states
+  &:hover {
+    // Hover styles
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset);
+  }
+
+  &:disabled,
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}

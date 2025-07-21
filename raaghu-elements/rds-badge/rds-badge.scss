@@ -1,0 +1,76 @@
+// RDS Badge Component Styles
+.rds-badge {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  
+  &__badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--rds-alert-error-border);
+    color: var(--rds-background-paper);
+    border-radius: var(--rds-border-radius-full);
+    min-width: var(--rds-font-size-2xl);
+    height: var(--rds-font-size-2xl);
+    padding: 0 6px;
+    font-size: var(--rds-font-size-sm);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(50%, -50%);
+    transform-origin: 100% 0;
+    
+    &--dot {
+      width: var(--rds-spacing-sm);
+      height: var(--rds-spacing-sm);
+      min-width: var(--rds-spacing-sm);
+      padding: 0;
+      border-radius: var(--rds-border-radius-full);
+    }
+  }
+  
+  // Color variants
+  &--primary {
+    .rds-badge__badge {
+      background-color: var(--rds-badge-primary-bg);
+      color: var(--rds-badge-primary-text);
+    }
+  }
+  
+  &--secondary {
+    .rds-badge__badge {
+      background-color: var(--rds-badge-secondary-bg);
+      color: var(--rds-badge-secondary-text);
+    }
+  }
+  
+  &--success {
+    .rds-badge__badge {
+      background-color: var(--rds-badge-success-bg);
+      color: var(--rds-badge-success-text);
+    }
+  }
+  
+  &--warning {
+    .rds-badge__badge {
+      background-color: var(--rds-badge-warning-bg);
+      color: var(--rds-badge-warning-text);
+    }
+  }
+  
+  &--error {
+    .rds-badge__badge {
+      background-color: var(--rds-badge-error-bg);
+      color: var(--rds-badge-error-text);
+    }
+  }
+  
+  &--neutral {
+    .rds-badge__badge {
+      background-color: var(--rds-badge-neutral-bg);
+      color: var(--rds-badge-neutral-text);
+    }
+  }
+}

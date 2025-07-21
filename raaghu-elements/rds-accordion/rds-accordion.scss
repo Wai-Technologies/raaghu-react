@@ -1,0 +1,40 @@
+// RDS Accordion Component Styles
+.rds-accordion {
+  border: 1px solid var(--rds-border-default);
+  border-radius: var(--rds-spacing-xs);
+  overflow: hidden;
+  
+  &__summary {
+    padding: var(--rds-font-size-lg);
+    background-color: var(--rds-background-surface);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color var(--rds-transition-base);
+    
+    &:hover {
+      background-color: #eeeeee;
+    }
+  }
+  
+  &__details {
+    padding: var(--rds-font-size-lg);
+    background-color: var(--rds-background-paper);
+    border-top: 1px solid var(--rds-border-default);
+  }
+  
+  &__icon {
+    transition: transform var(--rds-transition-base);
+  }
+  
+  // State modifiers
+  &--expanded {
+    .rds-accordion__icon {
+      transform: rotate(180deg);
+    }
+  }
+  
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}

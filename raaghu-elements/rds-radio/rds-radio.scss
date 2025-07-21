@@ -1,0 +1,46 @@
+// RDS Radio Component Styles
+// Radio button form control
+
+.rds-radio {
+  display: block;
+  position: relative;
+
+  &__input {
+    // Input styles
+    display: block;
+  }
+
+  &__label {
+    // Label styles
+    display: block;
+  }
+
+  &__circle {
+    // Circle styles
+    display: block;
+  }
+
+  &--checked {
+    // Checked state styles
+  }
+
+  &--disabled {
+    // Disabled state styles
+  }
+
+  // Interactive states
+  &:hover {
+    // Hover styles
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset);
+  }
+
+  &:disabled,
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}

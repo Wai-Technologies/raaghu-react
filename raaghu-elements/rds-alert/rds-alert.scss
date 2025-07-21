@@ -1,0 +1,62 @@
+// RDS Alert Component Styles
+.rds-alert {
+  padding: var(--rds-spacing-md);
+  border-radius: var(--rds-border-radius-sm);
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: var(--rds-spacing-md);
+  font-family: var(--rds-font-family-base);
+  font-size: var(--rds-font-size-sm);
+  line-height: var(--rds-line-height-base);
+  
+  &__icon {
+    flex-shrink: 0;
+    font-size: var(--rds-font-size-lg);
+  }
+  
+  &__content {
+    flex: 1;
+  }
+  
+  &__close {
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: var(--rds-spacing-xs);
+    border-radius: var(--rds-border-radius-xs);
+    opacity: 0.7;
+    transition: opacity var(--rds-transition-base);
+    
+    &:hover {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+  }
+  
+  // Severity variants
+  &--success {
+    background-color: var(--rds-alert-success-bg);
+    border-color: var(--rds-alert-success-border);
+    color: var(--rds-alert-success-text);
+  }
+  
+  &--info {
+    background-color: var(--rds-alert-info-bg);
+    border-color: var(--rds-alert-info-border);
+    color: var(--rds-alert-info-text);
+  }
+  
+  &--warning {
+    background-color: var(--rds-alert-warning-bg);
+    border-color: var(--rds-alert-warning-border);
+    color: var(--rds-alert-warning-text);
+  }
+  
+  &--error {
+    background-color: var(--rds-alert-error-bg);
+    border-color: var(--rds-alert-error-border);
+    color: var(--rds-alert-error-text);
+  }
+}

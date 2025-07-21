@@ -1,0 +1,73 @@
+// RDS Table Component Styles
+.rds-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--rds-background-paper);
+  
+  &__head {
+    background-color: var(--rds-background-surface);
+  }
+  
+  &__header {
+    padding: var(--rds-font-size-lg);
+    text-align: left;
+    font-weight: 500;
+    color: var(--rds-text-secondary);
+    border-bottom: 1px solid var(--rds-border-default);
+    
+    &--sortable {
+      cursor: pointer;
+      user-select: none;
+      
+      &:hover {
+        background-color: #eeeeee;
+      }
+    }
+  }
+  
+  &__body {
+    background-color: var(--rds-background-paper);
+  }
+  
+  &__row {
+    border-bottom: 1px solid var(--rds-border-default);
+    transition: background-color var(--rds-transition-base);
+    
+    &:hover {
+      background-color: #f9f9f9;
+    }
+    
+    &--selected {
+      background-color: rgba(25, 118, 210, 0.08);
+      
+      &:hover {
+        background-color: rgba(25, 118, 210, 0.12);
+      }
+    }
+  }
+  
+  &__cell {
+    padding: var(--rds-font-size-lg);
+    border-bottom: 1px solid var(--rds-border-default);
+    vertical-align: middle;
+    
+    &--numeric {
+      text-align: right;
+    }
+  }
+  
+  // Size variants
+  &--dense {
+    .rds-table__header,
+    .rds-table__cell {
+      padding: var(--rds-spacing-sm) var(--rds-font-size-lg);
+    }
+  }
+  
+  &--spacious {
+    .rds-table__header,
+    .rds-table__cell {
+      padding: var(--rds-font-size-2xl) var(--rds-font-size-lg);
+    }
+  }
+}

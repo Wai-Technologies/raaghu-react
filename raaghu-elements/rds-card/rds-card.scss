@@ -1,0 +1,70 @@
+// RDS Card Component Styles
+.rds-card {
+  background-color: var(--rds-card-bg);
+  border-radius: var(--rds-border-radius-md);
+  box-shadow: var(--rds-elevation-2);
+  overflow: hidden;
+  transition: box-shadow var(--rds-transition-base);
+  
+  &:hover {
+    box-shadow: var(--rds-elevation-3);
+  }
+  
+  &__header {
+    padding: var(--rds-spacing-md);
+    border-bottom: 1px solid var(--rds-border-light);
+    
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  
+  &__media {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  &__content {
+    padding: var(--rds-spacing-md);
+  }
+  
+  &__actions {
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-md);
+    display: flex;
+    gap: var(--rds-spacing-sm);
+    align-items: center;
+  }
+  
+  // Elevation variants
+  &--elevation-0 {
+    box-shadow: var(--rds-elevation-0);
+    border: 1px solid var(--rds-card-border);
+  }
+  
+  &--elevation-1 {
+    box-shadow: var(--rds-elevation-1);
+  }
+  
+  &--elevation-2 {
+    box-shadow: var(--rds-elevation-2);
+  }
+  
+  &--elevation-3 {
+    box-shadow: var(--rds-elevation-3);
+  }
+  
+  // Interactive states
+  &--clickable {
+    cursor: pointer;
+    transition: transform var(--rds-transition-base), box-shadow var(--rds-transition-base);
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}

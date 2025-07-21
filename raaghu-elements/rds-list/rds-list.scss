@@ -1,0 +1,118 @@
+// RDS List Component Styles
+// List component for displaying items with consistent styling
+
+.rds-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: var(--rds-background-paper);
+  
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: var(--rds-font-size-sm) var(--rds-font-size-lg);
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color var(--rds-transition-base);
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &--clickable {
+      cursor: pointer;
+      
+      &:hover {
+        background-color: #f9f9f9;
+      }
+    }
+    
+    &--selected {
+      background-color: rgba(25, 118, 210, 0.08);
+      
+      &:hover {
+        background-color: rgba(25, 118, 210, 0.12);
+      }
+    }
+    
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+  
+  &__avatar {
+    margin-right: var(--rds-font-size-lg);
+    flex-shrink: 0;
+  }
+  
+  &__icon {
+    margin-right: var(--rds-font-size-lg);
+    font-size: var(--rds-font-size-2xl);
+    color: var(--rds-text-secondary);
+    flex-shrink: 0;
+  }
+  
+  &__content {
+    flex: 1;
+    min-width: 0;
+    
+    &-primary {
+      font-size: var(--rds-font-size-lg);
+      font-weight: 400;
+      margin-bottom: var(--rds-spacing-xs);
+      color: var(--rds-text-primary);
+    }
+    
+    &-secondary {
+      font-size: 1var(--rds-spacing-xs);
+      color: var(--rds-text-secondary);
+      line-height: 1.4;
+    }
+  }
+  
+  &__action {
+    margin-left: var(--rds-font-size-lg);
+    flex-shrink: 0;
+  }
+  
+  &__divider {
+    height: 1px;
+    background-color: var(--rds-border-default);
+    margin: 0 var(--rds-font-size-lg);
+  }
+  
+  &__subheader {
+    padding: var(--rds-font-size-lg) var(--rds-font-size-lg) var(--rds-spacing-sm);
+    font-size: 1var(--rds-spacing-xs);
+    font-weight: 500;
+    color: var(--rds-text-secondary);
+    background-color: #fafafa;
+  }
+  
+  // Dense variant
+  &--dense {
+    .rds-list__item {
+      padding: var(--rds-spacing-sm) var(--rds-font-size-lg);
+    }
+    
+    .rds-list__content-primary {
+      font-size: 1var(--rds-spacing-xs);
+      margin-bottom: 2px;
+    }
+    
+    .rds-list__content-secondary {
+      font-size: var(--rds-font-size-sm);
+    }
+  }
+  
+  // Inset variant
+  &--inset {
+    .rds-list__item {
+      padding-left: 72px;
+    }
+  }
+}

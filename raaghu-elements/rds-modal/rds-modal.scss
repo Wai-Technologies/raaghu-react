@@ -1,0 +1,88 @@
+// RDS Modal Component Styles
+.rds-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--rds-z-index-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &__backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--rds-modal-backdrop);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    animation: rds-modal-fade-in var(--rds-transition-base)-out forwards;
+  }
+  
+  &__container {
+    position: relative;
+    background-color: var(--rds-background-paper);
+    border-radius: var(--rds-spacing-sm);
+    box-shadow: 0 var(--rds-spacing-sm) var(--rds-spacing-xl) rgba(0, 0, 0, 0.3);
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: hidden;
+    transform: scale(0.9);
+    opacity: 0;
+    animation: rds-modal-scale-in var(--rds-transition-base)-out forwards;
+    animation-delay: 0.1s;
+  }
+  
+  &__header {
+    padding: 2var(--rds-spacing-xs) 2var(--rds-spacing-xs) 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  &__title {
+    font-size: var(--rds-font-size-2xl);
+    font-weight: 500;
+    margin: 0;
+  }
+  
+  &__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--rds-spacing-sm);
+    border-radius: var(--rds-spacing-xs);
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+  }
+  
+  &__content {
+    padding: 2var(--rds-spacing-xs);
+    overflow-y: auto;
+  }
+  
+  &__actions {
+    padding: 0 2var(--rds-spacing-xs) 2var(--rds-spacing-xs);
+    display: flex;
+    gap: var(--rds-spacing-sm);
+    justify-content: flex-end;
+  }
+}
+
+@keyframes rds-modal-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rds-modal-scale-in {
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

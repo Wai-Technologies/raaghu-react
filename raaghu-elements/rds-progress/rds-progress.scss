@@ -1,0 +1,37 @@
+// RDS Progress Component Styles
+// Progress indicator
+
+.rds-progress {
+  display: block;
+  position: relative;
+
+  &__bar {
+    // Bar styles
+    display: block;
+  }
+
+  &__label {
+    // Label styles
+    display: block;
+  }
+
+  &--indeterminate {
+    // Indeterminate state styles
+  }
+
+  // Interactive states
+  &:hover {
+    // Hover styles
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset);
+  }
+
+  &:disabled,
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
