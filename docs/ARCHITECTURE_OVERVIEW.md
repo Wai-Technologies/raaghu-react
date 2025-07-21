@@ -6,12 +6,13 @@ The Raaghu Design System is built as a monorepo containing multiple packages tha
 
 ```
 @waiin/raaghu-react/
-├── raaghu-elements/          # Atomic UI components
-├── raaghu-layouts/           # Layout compositions  
+├── raaghu-elements/         # Atomic UI components
+├── raaghu-layouts/          # Layout compositions  
 ├── raaghu-pages/            # Page Solution
 ├── raaghu-react-themes/     # Theme system
 ├── stories/                 # Storybook documentation
 └── docs/                    # Architecture documentation
+└── utils/                   # Other Tools
 ```
 
 ## Package Structure
