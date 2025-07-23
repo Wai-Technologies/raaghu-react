@@ -11,6 +11,12 @@
     color: var(--rds-text-secondary);
     margin-bottom: var(--rds-spacing-xs);
   }
+      &__asterisk {
+      color: var(--rds-alert-error-border);
+      margin-left: 2px;
+      font-size: inherit;
+      font-weight: 700;
+    }
   
   &__field {
     padding: var(--rds-font-size-sm) var(--rds-font-size-lg);
