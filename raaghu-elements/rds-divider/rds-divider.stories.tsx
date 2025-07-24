@@ -18,22 +18,48 @@ const meta: Meta<typeof RdsDivider> = {
       </Box>
     ),
   ],
+  argTypes: {
+    orientation: {
+      control: 'select',
+      options: ['horizontal', 'vertical'],
+    },
+    text: {
+      control: 'text',
+    },
+    position: {
+      control: 'select',
+      options: ['left', 'center', 'right'],
+    },
+    flexItem: {
+      control: 'boolean',
+    },
+      showIcon: {
+      control: 'boolean',
+      defaultValue: true,
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    text: 'Default Divider',
+    position: 'center',
+    showIcon: true,
+  },
 };
-
 export const Vertical: Story = {
   args: {
-    orientation: 'vertical',
+    
+    flexItem: true,
+    text: 'Vertical Divider',
+    
   },
   decorators: [
     (Story) => (
-      <Box sx={{ display: 'flex', alignItems: 'center', height: 50 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', height: 120 }}>
         <Typography>Left</Typography>
         <Story />
         <Typography>Right</Typography>
@@ -42,14 +68,19 @@ export const Vertical: Story = {
   ],
 };
 
+
 export const WithText: Story = {
   args: {
-    children: 'OR',
+    text: 'OR',
+    position: 'center',
+    showIcon: true,
   },
 };
 
 export const Flexed: Story = {
   args: {
+    text: 'Flexed',
     flexItem: true,
+    showIcon: true,
   },
 };
