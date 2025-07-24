@@ -9,64 +9,27 @@ export interface RdsLoaderProps {
   label?: string;
   overlay?: boolean;
   thickness?: number;
-  loaderType?: string;
+  loaderType?: string; // Optional prop for loader type
 }
 
 
 const RdsLoader: React.FC<RdsLoaderProps> = (props) => {
   // loaderType logic: if present, render custom loader type and size
   if (props.loaderType) {
-    const size = props.size || 'medium';
-    const color = props.color || 'primary';
-    
+    const size = props.size || "medium";
+    // Remove 'loader-' prefix if present for BEM compliance
     let type = props.loaderType;
     if (type.startsWith('loader-')) {
       type = type.replace(/^loader-/, '');
     }
-    // BEM: rds-loader__type rds-loader--size rds-loader--color rds-loader--variant
     const loaderClass = `rds-loader__${type}`;
-    const sizeClass = `rds-loader--${size}`;
-    const colorClass = `rds-loader--${color}`;
-    const variantClass = props.variant ? `rds-loader--${props.variant}` : '';
-    const classes = [loaderClass, sizeClass, colorClass, variantClass].filter(Boolean).join(' ');
-
-    // Inline style for custom loader types using CSS variables (design tokens)
-    let style: React.CSSProperties = {};
-    // Color CSS variable for all custom loaders
-    if (props.color) {
-      style['--rds-loader-color' as any] = `var(--rds-color-${props.color})`;
-    }
-    // Size CSS variable for all custom loaders
-    if (props.size) {
-      const sizeMap: Record<string, string> = {
-        small: '40px',
-        medium: '80px',
-        large: '120px',
-      };
-      style['--rds-loader-size' as any] = sizeMap[props.size] || '80px';
-    }
-    // Loader-specific variables
-    if (type === 'moving') {
-      style['--loader-color' as any] = `var(--rds-color-${props.color})`;
-    }
-    if (type === 'line-wobble') {
-      style['--uib-color' as any] = `var(--rds-color-${props.color})`;
-    }
-    if (type === 'spinner-ring') {
-      if (props.size) {
-        style['--spinner-ring-size' as any] = style['--rds-loader-size'];
-      }
-      if (props.color) {
-        const cssVar = `var(--rds-color-${props.color})`;
-        style['borderTopColor'] = cssVar;
-        style['borderRightColor'] = cssVar;
-      }
-    }
+    const sizeClass = `loader-${size}`;
+    const classes = `${loaderClass} ${sizeClass}`.trim();
     return (
-      <div className="rds-loader__container">
-        <div className={classes} style={style} />
+      <div className="d-flex justify-content-center my-5">
+        <div className={classes} />
         {props.label && (
-          <div className="rds-loader__label-container">
+          <div style={{ marginTop: 12, textAlign: "center", width: "100%" }}>
             <span className="rds-loader__label">{props.label}</span>
           </div>
         )}
