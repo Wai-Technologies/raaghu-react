@@ -9,6 +9,7 @@ import {
   Paper,
 } from '@mui/material';
 import { CloudUpload, Delete, InsertDriveFile } from '@mui/icons-material';
+import './rds-file-uploader.scss';
 
 export interface FileWithProgress {
   file: File;
@@ -143,143 +144,101 @@ const RdsFileUploader: React.FC<RdsFileUploaderProps> = ({
     fileInputRef.current?.click();
   };
 
-  return (
-    <Box sx={{ width: '100%' }}>
-      {/* Hidden file input */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept={accept}
-        multiple={multiple}
-        onChange={handleFileSelect}
-        style={{ display: 'none' }}
-        disabled={disabled}
-      />
+ return (
+  <Box className="rds-file-uploader">
+    {/* Hidden file input */}
+    <input
+      ref={fileInputRef}
+      type="file"
+      accept={accept}
+      multiple={multiple}
+      onChange={handleFileSelect}
+      style={{ display: 'none' }}
+      disabled={disabled}
+    />
 
-      {/* Drop zone */}
-      <Paper
-        variant="outlined"
-        sx={{
-          p: 3,
-          textAlign: 'center',
-          border: isDragOver ? 2 : 1,
-          borderColor: isDragOver ? 'primary.main' : 'grey.300',
-          borderStyle: 'dashed',
-          backgroundColor: isDragOver ? 'primary.50' : 'transparent',
-          cursor: disabled ? 'not-allowed' : 'pointer',
-          transition: 'all 0.2s ease',
-          '&:hover': {
-            borderColor: disabled ? 'grey.300' : 'primary.main',
-            backgroundColor: disabled ? 'transparent' : 'primary.50',
-          },
-        }}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-        onClick={!disabled ? openFileDialog : undefined}
-      >
-        <CloudUpload sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />
-        <Typography variant="h6" gutterBottom>
-          {dragAndDrop ? 'Drag & drop files here' : 'Select files to upload'}
+    {/* Drop zone */}
+    <Paper
+      variant="outlined"
+      className={
+        `rds-file-uploader__drop-zone` +
+        (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
+        (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
+      }
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      onClick={!disabled ? openFileDialog : undefined}
+    >
+      <CloudUpload className="rds-file-uploader__icon" />
+      <Typography className="rds-file-uploader__title" variant="h6" gutterBottom>
+        Drag and Drop files or <span className="rds-file-uploader__browse-link" onClick={openFileDialog}>Browse</span>
+      </Typography>
+      <Typography className="rds-file-uploader__info" variant="caption" color="text.secondary">
+        (PNG, JPG, DOC, PDF, PPT)
+      </Typography>
+    </Paper>
+
+    {/* File list */}
+    {showPreview && files.length > 0 && (
+      <Box className="rds-file-uploader__file-list">
+        <Typography className="rds-file-uploader__file-list-title" variant="subtitle2" gutterBottom>
+          Selected Files ({files.length})
         </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
-          {dragAndDrop && 'or '}
-          <Button
-            variant="contained"
-            disabled={disabled}
-            onClick={(e) => {
-              e.stopPropagation();
-              openFileDialog();
-            }}
+        {files.map((fileWithProgress, index) => (
+          <Paper
+            key={index}
+            variant="outlined"
+            className="rds-file-uploader__file-item"
           >
-            Browse Files
-          </Button>
-        </Typography>
-        <Typography variant="caption" color="text.secondary">
-          Max file size: {formatFileSize(maxSize)} | Max files: {maxFiles}
-          {accept && ` | Accepted: ${accept}`}
-        </Typography>
-      </Paper>
-
-      {/* File list */}
-      {showPreview && files.length > 0 && (
-        <Box sx={{ mt: 2 }}>
-          <Typography variant="subtitle2" gutterBottom>
-            Selected Files ({files.length})
-          </Typography>
-          {files.map((fileWithProgress, index) => (
-            <Paper
-              key={index}
-              variant="outlined"
-              sx={{ p: 2, mb: 1, display: 'flex', alignItems: 'center', gap: 2 }}
-            >
-              <InsertDriveFile color="primary" />
-              <Box sx={{ flex: 1 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                  <Typography variant="body2" noWrap>
-                    {fileWithProgress.file.name}
-                  </Typography>
+            <InsertDriveFile className="rds-file-uploader__file-icon" color="primary" />
+            <Box className="rds-file-uploader__file-details">
+              <Box className="rds-file-uploader__file-meta">
+                <Typography className="rds-file-uploader__file-name" variant="body2" noWrap>
+                  {fileWithProgress.file.name}
+                </Typography>
+                <Chip
+                  className="rds-file-uploader__file-size"
+                  label={formatFileSize(fileWithProgress.file.size)}
+                  size="small"
+                  variant="outlined"
+                />
+                {fileWithProgress.error && (
                   <Chip
-                    label={formatFileSize(fileWithProgress.file.size)}
+                    className="rds-file-uploader__file-error"
+                    label="Error"
                     size="small"
-                    variant="outlined"
-                  />
-                  {fileWithProgress.error && (
-                    <Chip
-                      label="Error"
-                      size="small"
-                      color="error"
-                      variant="filled"
-                    />
-                  )}
-                </Box>
-                {fileWithProgress.error ? (
-                  <Typography variant="caption" color="error">
-                    {fileWithProgress.error}
-                  </Typography>
-                ) : (
-                  <LinearProgress
-                    variant="determinate"
-                    value={fileWithProgress.progress}
-                    sx={{ height: 6, borderRadius: 3 }}
+                    color="error"
+                    variant="filled"
                   />
                 )}
               </Box>
-              <IconButton
-                size="small"
-                onClick={() => removeFile(index)}
-                disabled={isUploading}
-              >
-                <Delete />
-              </IconButton>
-            </Paper>
-          ))}
-
-          {/* Upload button */}
-          <Box sx={{ mt: 2, display: 'flex', gap: 2 }}>
-            <Button
-              variant="contained"
-              onClick={handleUpload}
-              disabled={isUploading || files.every(f => f.error)}
-              startIcon={<CloudUpload />}
-            >
-              {isUploading ? 'Uploading...' : 'Upload Files'}
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                setFiles([]);
-                onFilesChange?.([]);
-              }}
+              {fileWithProgress.error ? (
+                <Typography className="rds-file-uploader__file-error-msg" variant="caption" color="error">
+                  {fileWithProgress.error}
+                </Typography>
+              ) : (
+                <LinearProgress
+                  className="rds-file-uploader__file-progress"
+                  variant="determinate"
+                  value={fileWithProgress.progress}
+                />
+              )}
+            </Box>
+            <IconButton
+              className="rds-file-uploader__file-remove"
+              size="small"
+              onClick={() => removeFile(index)}
               disabled={isUploading}
             >
-              Clear All
-            </Button>
-          </Box>
-        </Box>
-      )}
-    </Box>
-  );
+              <Delete />
+            </IconButton>
+          </Paper>
+        ))}
+      </Box>
+    )}
+  </Box>
+);
 };
 
 export default RdsFileUploader;

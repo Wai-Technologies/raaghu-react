@@ -1,5 +1,219 @@
+// Standard UI styles
+.rds-file-uploader__standard {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.rds-file-uploader__title-row {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.rds-file-uploader__title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #222;
+}
+
+.rds-file-uploader__mandatory {
+  color: #d32f2f;
+  margin-left: 4px;
+  font-size: 1rem;
+}
+
+.rds-file-uploader__input-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  padding: 8px 0 8px 8px;
+}
+
+.rds-file-uploader__input {
+  border: none;
+  background: none;
+  font-size: 1rem;
+  color: #555;
+  flex: 1;
+}
+
+.rds-file-uploader__hint {
+  font-size: 1rem;
+  color: #5c5c5c;
+  margin-left: auto;
+  padding-right: 12px;
+}
+
+.rds-file-uploader__choose-btn {
+  background: #3390e6 !important;
+  color: #fff !important;
+  border-radius: 6px;
+  min-width: 120px;
+  font-weight: 500;
+  font-size: 16px;
+  text-transform: none;
+  box-shadow: none;
+}
+
+.rds-file-uploader__filename {
+  font-size: 16px;
+  color: #222;
+  font-weight: 500;
+  padding-left: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rds-file-uploader__file-remove {
+  color: #d32f2f !important;
+  margin-left: 8px;
+}
+
+.rds-file-uploader__hint {
+  font-size: 1rem;
+  color: #5c5c5c;
+  margin-left: auto;
+  padding-right: 12px;
+  align-self: flex-end;
+}
 // RDS File uploader Component Styles
 .rds-file-uploader {
+    width: 100%;
   display: block;
   position: relative;
+}
+
+.rds-file-uploader__drop-zone {
+  padding: 32px 24px;
+  text-align: center;
+  border: 2px dashed #3390e6 !important;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+  border-radius: 8px;
+  position: relative;
+  min-width: 500px;
+
+  &--drag-over {
+    border-color: #3390e6;
+    background-color: #fff;
+  }
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: #fff;
+    border-color: #bcdffb;
+  }
+}
+
+
+
+.rds-file-uploader__icon {
+  font-size: 32px;
+  color: #3390e6;
+  margin-bottom: 8px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rds-file-uploader__title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #222;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.rds-file-uploader__subtitle {
+  margin-bottom: 0;
+  color: #222;
+  font-size: 16px;
+}
+
+.rds-file-uploader__browse-btn {
+  display: none;
+}
+// Browse link styling for wireframe
+.rds-file-uploader__browse-link {
+  color: #3390e6;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.rds-file-uploader__browse-link:hover {
+  color: #1976d2;
+}
+
+.rds-file-uploader__info {
+  font-size: 14px;
+  color: #666;
+  margin-top: 8px;
+  letter-spacing: 0.5px;
+}
+
+
+.rds-file-uploader__file-list {
+  margin-top: 16px;
+}
+
+.rds-file-uploader__file-list-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.rds-file-uploader__file-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  margin-bottom: 8px;
+  // Add border, background, etc. as per wireframe
+}
+
+.rds-file-uploader__file-icon {
+  font-size: 32px;
+  color: var(--rds-color-primary, #1976d2);
+}
+
+.rds-file-uploader__file-details {
+  flex: 1;
+}
+
+.rds-file-uploader__file-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.rds-file-uploader__file-name {
+  font-weight: 500;
+}
+
+.rds-file-uploader__file-size {
+  // Custom chip styles if needed
+}
+
+.rds-file-uploader__file-error {
+  // Error chip styles
+}
+
+.rds-file-uploader__file-error-msg {
+  color: var(--rds-color-error, #d32f2f);
+  font-size: 12px;
+}
+
+.rds-file-uploader__file-progress {
+  height: 6px;
+  border-radius: 3px;
+}
+
+.rds-file-uploader__file-remove {
+  // Remove button styles
 }
