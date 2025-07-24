@@ -1,5 +1,7 @@
+
 import React from 'react';
 import { Pagination as MuiPagination, PaginationProps } from '@mui/material';
+import './rds-pagination.scss';
 
 export interface RdsPaginationProps extends PaginationProps {
   totalPages?: number;
@@ -29,6 +31,7 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
 
   return (
     <MuiPagination
+      className="rds-pagination"
       count={count || totalPages}
       page={page || currentPage}
       onChange={handleChange}
