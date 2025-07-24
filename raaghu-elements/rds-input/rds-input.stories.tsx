@@ -17,6 +17,10 @@ const meta: Meta<typeof RdsInput> = {
       control: "select",
       options: ['text', 'password', 'phone number', 'number', 'card number'],
     },
+    inputStyle: {
+      control: "select",
+      options: ['default', 'pill', 'bottom outline'],
+    },
   },
 };
 
@@ -28,16 +32,17 @@ export const Default: Story = {
     placeholder: 'Enter text...',
     inputSize: 'small',
     type: 'text',
+    inputStyle: 'default',
   },
 };
-
-export const WithLabel: Story = {
+export const Disabled: Story = {
   args: {
-    label: 'Input',
-    placeholder: 'Enter value',
+    label: 'Disabled Input',
+    disabled: true,
+    value: 'Cannot edit this',
     inputSize: 'small',
-    type: 'text',
     labelposition: true,
+    type: 'text',
   },
 };
 
@@ -51,15 +56,13 @@ export const Required: Story = {
     labelposition: true,
   },
 };
-
-export const Disabled: Story = {
+export const WithLabel: Story = {
   args: {
-    label: 'Disabled Input',
-    disabled: true,
-    value: 'Cannot edit this',
+    label: 'Input',
+    placeholder: 'Enter value',
     inputSize: 'small',
-    labelposition: true,
     type: 'text',
+    labelposition: true,
   },
 };
 

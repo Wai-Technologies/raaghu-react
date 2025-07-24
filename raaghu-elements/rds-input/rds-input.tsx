@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField as MuiTextField, TextFieldProps } from '@mui/material';
-
+import './rds-input.scss';
 
 export interface RdsInputProps extends Omit<TextFieldProps, 'variant'> {
   label?: string;
@@ -12,6 +12,7 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant'> {
   inputSize?: 'small' | 'medium';
   layout?: 'text' | 'password' | 'phone number' |'number' | 'card number';
   labelposition?: boolean;
+  inputStyle?: 'default' | 'pill' | 'bottom outline'; // New prop for pill style
 }
 
 const RdsInput: React.FC<RdsInputProps> = ({
@@ -24,12 +25,16 @@ const RdsInput: React.FC<RdsInputProps> = ({
   inputSize = 'small',
   layout = 'text',
   labelposition = true,
+  inputStyle = 'default',
   error,
   ...props
 }) => {
   // Custom styles for input size
   // Determine size class
   const sizeClass = inputSize === 'small' ? 'rds-input--small' : 'rds-input--medium';
+
+  // Pill style class
+  const pillClass = inputStyle === 'pill' ? 'rds-input--pill' : inputStyle === 'bottom outline' ? 'rds-input--bottom-outline' : '';
 
   // Map layout to MUI type
   let inputType: string = 'text';
@@ -49,7 +54,7 @@ const RdsInput: React.FC<RdsInputProps> = ({
   }
 
   return (
-    <div className={`rds-input ${sizeClass}`}>
+    <div className={`rds-input ${sizeClass} ${pillClass}`.trim()}>
       {!labelposition && label && (
         <label className="rds-input__label">
           {label}
