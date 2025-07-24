@@ -18,6 +18,16 @@ const meta: Meta<typeof RdsRadio> = {
       options: ['row', 'column'],
       description: 'Direction of radio group layout',
     },
+    layout: {
+      control: 'select',
+      options: ['icon', 'icon with label', 'icon with bottom label'],
+      description: 'Layout configuration for radio buttons',
+    },
+    state: {
+      control: 'select',
+      options: ['default', 'hover', 'disabled'],
+      description: 'State of the radio buttons',
+    },
   },
 };
 
