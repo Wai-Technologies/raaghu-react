@@ -14,10 +14,10 @@ const meta: Meta<typeof RdsButton> = {
       control: 'text',
       description: 'The text to display on the button',
     },
-    variant: {
+    style: {
       control: 'select',
-      options: ['contained', 'outlined', 'text'],
-      description: 'The variant of the button',
+      options: ['filled', 'outlined', 'transparent'],
+      description: 'The style of the button',
     },
     color: {
       control: 'select',
@@ -37,6 +37,26 @@ const meta: Meta<typeof RdsButton> = {
       control: 'boolean',
       description: 'Whether the button is in loading state',
     },
+    shape: {
+      control: 'select',
+      options: ['pill', 'rectangle'],
+      description: 'The shape of the button',
+    },
+    state: {
+      control: 'select',
+      options: ['default', 'hover', 'disabled', 'selected'],
+      description: 'The state of the button',
+    },
+    layout: {
+      control: 'select',
+      options: ['icon+text', 'icon-only', 'text-only'],
+      description: 'The layout of the button',
+    },
+    icon: {
+      control: 'select',
+      options: ['add', 'delete', 'save'],
+      description: 'The predefined icon to display on the button',
+    },
   },
 };
 
@@ -52,7 +72,7 @@ export const Default: Story = {
 export const Primary: Story = {
   args: {
     label: 'Primary Button',
-    variant: 'contained',
+    style: 'filled',
     color: 'primary',
   },
 };
@@ -60,7 +80,7 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     label: 'Secondary Button',
-    variant: 'contained',
+    style: 'filled',
     color: 'secondary',
   },
 };
@@ -68,21 +88,21 @@ export const Secondary: Story = {
 export const Outlined: Story = {
   args: {
     label: 'Outlined Button',
-    variant: 'outlined',
+    style: 'outlined',
   },
 };
 
-export const Text: Story = {
+export const Transparent: Story = {
   args: {
-    label: 'Text Button',
-    variant: 'text',
+    label: 'Transparent Button',
+    style: 'transparent',
   },
 };
 
 export const WithStartIcon: Story = {
   args: {
     label: 'Add Item',
-    variant: 'contained',
+    style: 'filled',
     startIcon: <Add />,
   },
 };
@@ -90,7 +110,7 @@ export const WithStartIcon: Story = {
 export const WithEndIcon: Story = {
   args: {
     label: 'Delete Item',
-    variant: 'contained',
+    style: 'filled',
     color: 'error',
     endIcon: <Delete />,
   },
@@ -114,7 +134,7 @@ export const Small: Story = {
   args: {
     label: 'Small Button',
     size: 'small',
-    variant: 'contained',
+    style: 'filled',
   },
 };
 
@@ -122,6 +142,6 @@ export const Large: Story = {
   args: {
     label: 'Large Button',
     size: 'large',
-    variant: 'contained',
+    style: 'filled',
   },
 };

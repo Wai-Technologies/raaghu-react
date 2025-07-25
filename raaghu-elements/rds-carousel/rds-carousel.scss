@@ -1,42 +1,194 @@
 // RDS Carousel Component Styles
-// Image carousel component
+// Follows BEM, RDS prefix, and design token usage per guidelines
 
 .rds-carousel {
   display: block;
   position: relative;
+  overflow: hidden;
 
+  // Slide
   &__slide {
-    // Slide styles
     display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: inherit;
   }
 
+  // Navigation arrows
   &__navigation {
-    // Navigation styles
-    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--rds-color-on-primary, #fff);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    opacity: 0.85;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    &--prev {
+      left: var(--rds-spacing-sm, 8px);
+    }
+    &--next {
+      right: var(--rds-spacing-sm, 8px);
+    }
   }
 
+  // Indicators (dots/lines)
   &__indicators {
-    // Indicators styles
-    display: block;
+    position: absolute;
+    bottom: var(--rds-spacing-md, 16px);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: var(--rds-spacing-xs, 4px);
+    z-index: 2;
   }
 
+  &__indicator {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    background-color: rgba(255, 255, 255, 0.5);
+
+    &--circle {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    &--line {
+      width: 24px;
+      height: 4px;
+      border-radius: 2px;
+    }
+    &--active {
+      background-color: var(--rds-color-primary, #1976d2);
+    }
+    &:hover:not(.rds-carousel__indicator--active) {
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  // Title overlay
+  &__title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), transparent);
+    color: var(--rds-color-on-primary, #fff);
+    padding: var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
+    z-index: 1;
+
+    &-text {
+      font-size: var(--rds-font-size-h6, 1.25rem);
+      font-weight: var(--rds-font-weight-medium, 500);
+      margin: 0;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+    &-subtitle {
+      font-size: var(--rds-font-size-body2, 0.875rem);
+      opacity: 0.9;
+      margin: var(--rds-spacing-xs, 4px) 0 0;
+    }
+  }
+
+  // Style variants
+  &--default,
+  &--with-title {
+    border-radius: var(--rds-border-radius, 4px);
+    box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+
+  &--full-width-image {
+    border-radius: 0;
+    box-shadow: none;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+
+    .rds-carousel__slide {
+      border-radius: 0;
+    }
+    .rds-carousel__slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  // Auto-play state
   &--auto-play {
-    // Auto-play state styles
+    .rds-carousel__indicators::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: inherit;
+      opacity: 0.3;
+      animation: rds-carousel-pulse 2s infinite;
+    }
   }
 
   // Interactive states
   &:hover {
-    // Hover styles
+    .rds-carousel__navigation {
+      opacity: 1;
+    }
   }
-
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset);
+    outline: 2px solid var(--rds-color-primary, #1976d2);
+    outline-offset: 2px;
   }
-
   &:disabled,
   &--disabled {
     opacity: 0.6;
     pointer-events: none;
+  }
+}
+
+// Animations
+@keyframes rds-carousel-pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .rds-carousel {
+    &__navigation {
+      width: 36px;
+      height: 36px;
+    }
+    &__title {
+      padding: var(--rds-spacing-md, 16px) var(--rds-spacing-sm, 8px) var(--rds-spacing-sm, 8px);
+      &-text {
+        font-size: var(--rds-font-size-body1, 1rem);
+      }
+      &-subtitle {
+        font-size: var(--rds-font-size-body2, 0.875rem);
+      }
+    }
+    &--full-width-image {
+      .rds-carousel__indicators {
+        bottom: var(--rds-spacing-sm, 8px);
+      }
+    }
   }
 }

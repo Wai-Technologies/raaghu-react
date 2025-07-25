@@ -25,6 +25,20 @@ const meta: Meta<typeof RdsCheckbox> = {
       control: 'boolean',
       description: 'Whether the checkbox is in indeterminate state',
     },
+    style: {
+      control: 'select',
+      options: ['square', 'circular'],
+      description: 'Visual style variant of the checkbox',
+    },
+    state: {
+      control: 'select',
+      options: ['default', 'disabled', 'hover'],
+      description: 'State of the checkbox (default, disabled, hover)',
+    },
+    showText: {
+      control: 'boolean',
+      description: 'Whether to show the label text',
+    },
     color: {
       control: 'select',
       options: ['primary', 'secondary', 'default'],
