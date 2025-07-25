@@ -41,10 +41,13 @@ const RdsRadio: React.FC<RdsRadioProps> = ({
   const radioRow = row ?? direction === 'row';
 
   const renderOption = (option: RdsRadioOption) => {
+    const optionDisabled = option.disabled ?? false;
+    const finalDisabled = optionDisabled || state === 'disabled';
+    
     const commonProps = {
       value: option.value,
-      control: <MuiRadio {...radioProps} disabled={isDisabled(option.disabled ?? false)} />,
-      disabled: isDisabled(option.disabled ?? false),
+      control: <MuiRadio {...radioProps} disabled={finalDisabled} />,
+      disabled: finalDisabled,
     };
 
     if (layout === 'icon') {
@@ -55,16 +58,16 @@ const RdsRadio: React.FC<RdsRadioProps> = ({
       return (
         <Box
           key={option.value}
-          className={`rds-radio__bottom-label-container ${isDisabled(option.disabled ?? false) ? 'rds-radio__bottom-label-container--disabled' : ''}`}
+          className={`rds-radio__bottom-label-container ${finalDisabled ? 'rds-radio__bottom-label-container--disabled' : ''}`}
         >
           <MuiRadio 
             {...radioProps} 
             value={option.value}
-            disabled={isDisabled(option.disabled ?? false)}
+            disabled={finalDisabled}
             checked={props.value === option.value}
             name={props.name}
             onChange={(event) => {
-              if (!isDisabled(option.disabled ?? false) && props.onChange) {
+              if (!finalDisabled && props.onChange) {
                 props.onChange(event, option.value);
               }
             }}
@@ -80,14 +83,19 @@ const RdsRadio: React.FC<RdsRadioProps> = ({
           {option.label && (
             <Typography
               component="span"
-              className={`rds-radio__bottom-label ${isDisabled(option.disabled ?? false) ? 'rds-radio__bottom-label--disabled' : ''}`}
+              className={`rds-radio__bottom-label ${finalDisabled ? 'rds-radio__bottom-label--disabled' : ''}`}
               onClick={() => {
-                if (!isDisabled(option.disabled ?? false) && props.onChange) {
+                if (!finalDisabled && props.onChange) {
                   const event = {
                     target: { value: option.value }
                   } as React.ChangeEvent<HTMLInputElement>;
                   props.onChange(event, option.value);
                 }
+              }}
+              sx={{
+                pointerEvents: finalDisabled ? 'none' : 'auto',
+                opacity: finalDisabled ? 0.6 : 1,
+                color: finalDisabled ? 'var(--rds-text-disabled, #9e9e9e)' : 'inherit'
               }}
             >
               {option.label}

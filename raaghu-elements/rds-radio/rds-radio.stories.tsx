@@ -43,15 +43,15 @@ const basicOptions = [
 export const Default: Story = {
   args: {
     label: 'Choose an option',
-    options: basicOptions,
+    options: [{ label: 'Option 1', value: 'option1' }],
   },
 };
 
 export const WithSelectedValue: Story = {
   args: {
     label: 'Pre-selected Option',
-    options: basicOptions,
-    value: 'option2',
+    options:  [{ label: 'Option 1', value: 'option1' }],
+    value: 'option1',
   },
 };
 
