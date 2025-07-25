@@ -7,6 +7,11 @@ const meta: Meta<typeof RdsDivider> = {
   component: RdsDivider,
   parameters: {
     layout: 'padded',
+      docs: {
+      source: { type: 'dynamic' },
+      story: { inline: false },
+      page: null // Use autodocs default page
+    }
   },
   tags: ['autodocs'],
   decorators: [
@@ -52,10 +57,11 @@ export const Default: Story = {
 };
 export const Vertical: Story = {
   args: {
-    
     flexItem: true,
-    text: 'Vertical Divider',
-    
+    orientation: "vertical",
+  },
+  parameters: {
+    controls: { exclude: ['orientation'] }, // Hide orientation control for this story
   },
   decorators: [
     (Story) => (

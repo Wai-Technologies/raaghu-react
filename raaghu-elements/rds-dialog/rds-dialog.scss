@@ -40,3 +40,112 @@
     pointer-events: none;
   }
 }
+
+.rds-dialog__paper {
+  max-width: 600px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  margin: 32px auto;
+}
+
+// .rds-dialog__title {
+//   font-size: 1.125rem;
+//   font-weight: 500;
+//   padding: 24px 24px 0 24px;
+//   color: #222;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+// }
+
+.rds-dialog__close-button {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  color: #888;
+}
+
+.rds-dialog__content {
+  padding: 32px 24px;
+  text-align: center;
+  font-size: 1rem;
+  color: #444;
+}
+
+.rds-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px 24px 24px;
+  background: transparent;
+}
+
+.rds-dialog__button {
+  min-width: 80px;
+  font-size: 1rem;
+  border-radius: 6px;
+
+  &--primary {
+    background: #1976d2;
+    color: #fff;
+    box-shadow: none;
+
+    &:hover {
+      background: #1565c0;
+    }
+  }
+
+  &--secondary {
+    color: #1976d2;
+    border: 1px solid #1976d2;
+    background: #fff;
+
+    &:hover {
+      background: #e3f2fd;
+    }
+  }
+
+  &--dismiss {
+    color: #1976d2;
+    background: transparent;
+
+    &:hover {
+      background: #e3f2fd;
+    }
+  }
+}
+
+// .rds-dialog__paper--maxwidth-xs {
+//   max-width: 360px !important;
+//   width: 100% !important;
+// }
+// .rds-dialog__paper--maxwidth-sm {
+//   max-width: 480px !important;
+//   width: 100% !important;
+// }
+// .rds-dialog__paper--maxwidth-md {
+//   max-width: 600px !important;
+//   width: 100% !important;
+// }
+// .rds-dialog__paper--maxwidth-lg {
+//   max-width: 800px !important;
+//   width: 100% !important;
+// }
+// .rds-dialog__paper--maxwidth-xl {
+//   max-width: 1200px !important;
+//   width: 100% !important;
+// }
+// .rds-dialog__paper--maxwidth-false {
+//   max-width: none !important;
+//   width: 100% !important;
+// }
+// .rds-dialog__paper--fullwidth {
+//   width: 100vw !important;
+//   min-width: 0 !important;
+//   max-width: 100vw !important;
+//   margin-left: 0 !important;
+//   margin-right: 0 !important;
+//   border-radius: 12px;
+// }

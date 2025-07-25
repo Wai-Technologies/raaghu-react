@@ -1,7 +1,8 @@
-// Standard UI styles
 .rds-file-uploader__standard {
-  width: 100%;
+  
   margin-bottom: 24px;
+  width: 80vw !important;
+  // box-sizing: border-box;
 }
 
 .rds-file-uploader__title-row {
@@ -25,11 +26,12 @@
 .rds-file-uploader__input-row {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 0;
   background: #fff;
   border-radius: 6px;
   border: 1px solid #e0e0e0;
-  padding: 8px 0 8px 8px;
+
+  box-sizing: border-box;
 }
 
 .rds-file-uploader__input {
@@ -40,37 +42,46 @@
   flex: 1;
 }
 
-.rds-file-uploader__hint {
-  font-size: 1rem;
-  color: #5c5c5c;
-  margin-left: auto;
-  padding-right: 12px;
-}
-
 .rds-file-uploader__choose-btn {
-  background: #3390e6 !important;
+  background: #7c3aed !important;
   color: #fff !important;
-  border-radius: 6px;
+  border-radius: 6px 0 0 6px !important;
   min-width: 120px;
   font-weight: 500;
   font-size: 16px;
   text-transform: none;
   box-shadow: none;
+  // flex-shrink: 0;
 }
 
 .rds-file-uploader__filename {
-  font-size: 16px;
+  background: #fff;
+  border-radius: 0 6px 6px 0;
+ 
+  height: 40px;
+  display: flex;
+  align-items: center;
+  flex: 1;
   color: #222;
   font-weight: 500;
+  font-size: 16px;
   padding-left: 16px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-left: -1px;
+  // width: 100%;
 }
 
-.rds-file-uploader__file-remove {
-  color: #d32f2f !important;
-  margin-left: 8px;
+// Hint row for standard mode
+.rds-file-uploader__hint-row {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 20px;
+  margin-top: 4px;
 }
 
 .rds-file-uploader__hint {
@@ -79,7 +90,10 @@
   margin-left: auto;
   padding-right: 12px;
   align-self: flex-end;
+  text-align: right;
+  width: auto;
 }
+
 // RDS File uploader Component Styles
 .rds-file-uploader {
     width: 100%;

@@ -145,7 +145,7 @@ export const Interactive: Story = {
 args: {
   multiple: true,
   maxFiles: 5,
-  accept: "image/*,.pdf,.doc,.docx",
+  accept: "image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   showPreview: true,
   dragAndDrop: true,
   disabled: false,
@@ -184,6 +184,43 @@ args: {
 //     </Box>
 //   );
 // },
+
+
+
+};
+
+export const standard: Story = {
+  args: {
+    showTitle: true,
+    isMandatory: true,
+    showHint: true,
+    hintText: 'Maximum 5MB',
+    mode: 'standard',
+    maxFiles: 1,
+    multiple: false, // Only one file can be selected
+    maxSize: 2 * 1024 * 1024,
+    accept: '.pdf,.doc,.docx',
+    showPreview: true,
+    dragAndDrop: true,
+    disabled: false,
+  },
+  render: (args) => {
+    // Show one file selected by default
+    const [files, setFiles] = React.useState<FileWithProgress[]>([
+      {
+        file: new File([''], 'example.pdf', { type: 'application/pdf' }),
+        progress: 0,
+      },
+    ]);
+    return (
+      <RdsFileUploader
+        {...args}
+        onFilesChange={setFiles}
+        // Pass the default file to the component
+        // If you want to show preview, ensure showPreview is true
+      />
+    );
+  },
 };
 
 

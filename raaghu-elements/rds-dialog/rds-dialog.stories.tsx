@@ -24,6 +24,11 @@ const meta: Meta<typeof RdsDialog> = {
     fullScreen: {
       control: { type: 'boolean' },
     },
+    ShowTitle: { control: 'boolean' },
+    Title: { control: 'text' },
+    ShowDismiss: { control: 'boolean' },
+    ShowPrimary: { control: 'boolean' },
+    ShowSecondary: { control: 'boolean' },
   },
 };
 
@@ -131,5 +136,21 @@ export const LargeContent: Story = {
         </Typography>
       </div>
     ),
+  },
+};
+
+
+
+export const StandardDialog: Story = {
+  args: {
+    open: true,
+    mode:"standard",
+    maxWidth: 'sm',
+    fullWidth: true,
+    ShowTitle: true,
+    Title: 'My Custom Dialog Title',
+    ShowPrimary: true,
+    ShowSecondary: true,
+    ShowDismiss: true,
   },
 };
