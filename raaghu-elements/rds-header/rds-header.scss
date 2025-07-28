@@ -142,4 +142,19 @@
   &--shadow {
     box-shadow: var(--rds-elevation-2, 0 2px 8px 0 rgba(60,60,60,0.03));
   }
+  // Search wrapper for input and clear button
+  &__search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 220px;
+}
+
+  &__search-clear {
+  position: absolute !important;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppBar as MuiAppBar, Toolbar, Typography, IconButton, AppBarProps, InputBase, Tabs, Tab } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import './rds-header.scss';
 
@@ -64,12 +65,24 @@ const RdsHeader = ({
         )}
         <span className="rds-header__title">{title}</span>
         {typeof searchValue === 'string' && typeof onSearchChange === 'function' && (
-          <InputBase
-            className="rds-header__search"
-            placeholder={searchPlaceholder || 'Search…'}
-            value={searchValue}
-            onChange={e => onSearchChange(e.target.value)}
-          />
+          <div className="rds-header__search-wrapper">
+            <InputBase
+              className="rds-header__search"
+              placeholder={searchPlaceholder || 'Search…'}
+              value={searchValue}
+              onChange={e => onSearchChange(e.target.value)}
+            />
+            {searchValue && (
+              <IconButton
+                className="rds-header__search-clear"
+                size="small"
+                aria-label="Clear search"
+                onClick={() => onSearchChange('')}
+              >
+                <ClearIcon fontSize="small" />
+              </IconButton>
+            )}
+          </div>
         )}
         {actions && <span className="rds-header__actions">{actions}</span>}
         {children}
