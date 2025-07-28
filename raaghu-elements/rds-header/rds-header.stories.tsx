@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsHeader from './rds-header';
-import { Button, IconButton, Avatar, Badge } from '@mui/material';
+import { Button, IconButton, Avatar, Badge, Menu, Box, MenuItem } from '@mui/material';
 import { Search, Notifications, AccountCircle } from '@mui/icons-material';
 
 const meta: Meta<typeof RdsHeader> = {
@@ -49,6 +49,97 @@ export const WithMenuButton: Story = {
     onMenuClick: () => alert('Menu clicked!'),
   },
 };
+// ProfileMenu component for profile dropdown UI
+interface ProfileMenuProps {
+  name: string;
+  shortName: string;
+  email: string;
+}
+const ProfileMenu = ({ name, shortName, email }: ProfileMenuProps) => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  return (
+    <>
+      <IconButton
+        color="inherit"
+        onClick={handleClick}
+        size="small"
+        sx={{ ml: 1, pl: 0.5, pr: 1, borderRadius: 2, display: 'flex', alignItems: 'center', gap: 1 }}
+      >
+        <Avatar sx={{ width: 32, height: 32, bgcolor: '#e0d7fa', color: '#7c4dff', fontWeight: 600 }}>{shortName}</Avatar>
+        <span style={{
+          marginLeft: 8,
+          fontWeight: 600,
+          fontSize: 15,
+          color: '#3d2461',
+          fontFamily: 'inherit',
+          letterSpacing: 0.1,
+          textTransform: 'none',
+        }}>{name}</span>
+        <svg style={{ marginLeft: 4 }} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 8L10 12L14 8" stroke="#7c4dff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </IconButton>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 4,
+          sx: {
+            mt: 1.5,
+            minWidth: 260,
+            borderRadius: 2,
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.12))',
+            p: 0,
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center', px: 2, py: 2, bgcolor: '#ede7f6', borderRadius: '8px 8px 0 0', mb: 1 }}>
+          <Avatar sx={{ width: 44, height: 44, mr: 1.5, bgcolor: '#e0d7fa', color: '#7c4dff', fontWeight: 600 }}>{shortName}</Avatar>
+          <Box>
+            <Box sx={{ fontWeight: 700, fontSize: 16, color: '#3d2461', lineHeight: 1.2 }}>{name}</Box>
+            <Box sx={{ fontSize: 13, color: '#7c4dff', fontWeight: 500 }}>{email}</Box>
+          </Box>
+        </Box>
+        <MenuItem onClick={handleClose} sx={{ py: 1.2, fontSize: 15 }}>My Profile</MenuItem>
+        <MenuItem onClick={handleClose} sx={{ py: 1.2, fontSize: 15 }}>Theme</MenuItem>
+        <MenuItem onClick={handleClose} sx={{ py: 1.2, fontSize: 15 }}>Setting</MenuItem>
+        <MenuItem onClick={handleClose} sx={{ py: 1.2, fontSize: 15 }}>Help</MenuItem>
+        <MenuItem onClick={handleClose} sx={{ py: 1.2, fontSize: 15, borderRadius: '0 0 8px 8px' }}>Logout</MenuItem>
+      </Menu>
+    </>
+  );
+};
+
+
+export const WithUserProfile: Story = {
+  args: {
+    title: 'User Dashboard',
+    showMenuButton: true,
+    userName: 'John Doe',
+    userShortName: 'JD',
+    userEmail: 'Janedoe...'
+  },
+};
+
+// export const WithUserProfile: Story = {
+//   args: {
+//     title: 'User Dashboard',
+//     showMenuButton: true,
+//     actions: <ProfileMenu />,
+//   },
+// };
 
 export const WithActions: Story = {
   args: {
@@ -77,21 +168,6 @@ export const WithLoginButton: Story = {
       <Button color="inherit">
         Login
       </Button>
-    ),
-  },
-};
-
-export const WithUserProfile: Story = {
-  args: {
-    title: 'User Dashboard',
-    showMenuButton: true,
-    actions: (
-      <>
-        <IconButton color="inherit">
-          <Notifications />
-        </IconButton>
-        <Avatar sx={{ ml: 1 }}>JD</Avatar>
-      </>
     ),
   },
 };

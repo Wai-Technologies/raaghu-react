@@ -1,3 +1,93 @@
+.rds-profile-menu__item-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 12px;
+  font-size: 18px;
+  vertical-align: middle;
+}
+.rds-profile-menu__dropdown .MuiList-root {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  outline: 0;
+}
+.rds-profile-menu__button.MuiIconButton-root:hover {
+  background-color: transparent !important;
+}
+// ProfileMenu BEM styles
+.rds-profile-menu__button {
+  margin-left: 4px;
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rds-profile-menu__avatar {
+  width: 32px !important;
+  height: 32px !important;
+  background: #e0d7fa !important;
+  color: #7c4dff !important;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.rds-profile-menu__chevron {
+  margin-left: 4px;
+}
+.rds-profile-menu__name {
+  margin-left: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #3d2461;
+  font-family: inherit;
+  letter-spacing: 0.1px;
+  text-transform: none;
+}
+.rds-profile-menu__dropdown {
+  margin-top: 1.5rem;
+  min-width: 260px;
+  border-radius: 8px;
+  overflow: visible;
+  filter: drop-shadow(0px 2px 8px rgba(0,0,0,0.12));
+  padding: 0;
+}
+.rds-profile-menu__header {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px 8px 8px;
+  background: #ede7f6;
+  margin-bottom: 8px;
+}
+.rds-profile-menu__avatar-lg {
+  width: 44px !important;
+  height: 44px !important;
+  margin-right: 1rem;
+  background: #e0d7fa !important;
+  color: #7c4dff !important;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.rds-profile-menu__name-lg {
+  font-weight: 700;
+  font-size: 16px;
+  color: #3d2461;
+  line-height: 1.2;
+}
+.rds-profile-menu__email {
+  font-size: 13px;
+  color: #7c4dff;
+  font-weight: 500;
+}
+.rds-profile-menu__item {
+  font-size: 15px !important;
+}
+.rds-profile-menu__item--last {
+  border-radius: 0 0 8px 8px !important;
+}
 // RDS Header Component Styles
 // Transparent modifier
 .rds-header--transparent {

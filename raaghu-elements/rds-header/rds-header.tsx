@@ -1,7 +1,10 @@
 import React from 'react';
-import { AppBar as MuiAppBar, Toolbar, Typography, IconButton, AppBarProps, InputBase, Tabs, Tab } from '@mui/material';
+import { AppBar as MuiAppBar, Toolbar, Typography, IconButton, AppBarProps, InputBase, Tabs, Tab, Avatar, Menu as MuiMenu, Box, MenuItem } from '@mui/material';
+import { ProfileMenu } from './ProfileMenu';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Menu as MenuIcon } from '@mui/icons-material';
+import LogoutIcon from '@mui/icons-material/Logout';
+import Person from '@mui/icons-material/Person';
 import './rds-header.scss';
 
 export interface RdsHeaderProps extends AppBarProps {
@@ -10,19 +13,22 @@ export interface RdsHeaderProps extends AppBarProps {
   onMenuClick?: () => void;
   showMenuButton?: boolean;
   actions?: React.ReactNode;
+  // User profile
+  userName?: string;
+  userShortName?: string;
+  userEmail?: string;
   // Search
   searchValue?: string;
   onSearchChange?: (value: string) => void;
   searchPlaceholder?: string;
   // Tabs
-  tabs?: Array<string | { label: string; [key: string]: any }>;
+  tabs?: Array<string | { label: string;[key: string]: any }>;
   tabValue?: number;
   onTabChange?: (value: number) => void;
   // Sub-header
   subHeader?: React.ReactNode;
   children?: React.ReactNode;
 }
-
 const RdsHeader = ({
   title,
   logo,
@@ -37,6 +43,9 @@ const RdsHeader = ({
   onTabChange,
   subHeader,
   children,
+  userName,
+  userShortName,
+  userEmail,
   ...props
 }: RdsHeaderProps) => {
   // Add transparent class if color is 'transparent'
@@ -84,7 +93,22 @@ const RdsHeader = ({
             )}
           </div>
         )}
-        {actions && <span className="rds-header__actions">{actions}</span>}
+        {/* Render profile menu if user props are provided, else render actions */}
+        {userName && userShortName && userEmail ? (
+          <span className="rds-header__actions">
+            <ProfileMenu
+              name={userName}
+              shortName={userShortName}
+              email={userEmail}
+              menuItems={[
+               { label: 'My Profile', icon: <Person />, onClick: () => alert('Profile clicked!') },
+    { label: 'Logout', icon: <LogoutIcon />, onClick: () => alert('Logout clicked!'), sx: { color: 'red' } }
+              ]}
+            />
+          </span>
+        ) : (
+          actions && <span className="rds-header__actions">{actions}</span>
+        )}
         {children}
       </div>
       {Array.isArray(tabs) && typeof tabValue === 'number' && typeof onTabChange === 'function' && (
