@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsHeader from './rds-header';
-import { Button, IconButton, Avatar } from '@mui/material';
+import { Button, IconButton, Avatar, Badge } from '@mui/material';
 import { Search, Notifications, AccountCircle } from '@mui/icons-material';
 
 const meta: Meta<typeof RdsHeader> = {
   title: 'Elements/Header',
   component: RdsHeader,
   parameters: {
-    layout: 'fullscreen',
+    layout: 'padded',
   },
   tags: ['autodocs'],
   argTypes: {
@@ -99,14 +99,232 @@ export const Secondary: Story = {
   args: {
     title: 'Secondary Header',
     color: 'secondary',
-    showMenuButton: true,
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" alt="Logo" style={{ height: 32 }} />,
+    actions: (
+      <>
+        <IconButton color="inherit"><Notifications /></IconButton>
+        <Avatar sx={{ ml: 1 }}>JD</Avatar>
+      </>
+    ),
+    tabs: ['Overview', 'Settings', 'Team'],
+    tabValue: 0,
+    onTabChange: () => {},
   },
+  render: (args) => (
+    <RdsHeader {...args} onTabChange={v => { args.tabValue = v; }} />
+  ),
 };
 
 export const Transparent: Story = {
   args: {
     title: 'Transparent Header',
     color: 'transparent',
-    showMenuButton: true,
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" alt="Logo" style={{ height: 32 }} />,
+    actions: (
+      <IconButton color="inherit"><AccountCircle /></IconButton>
+    ),
+    tabs: ['Home', 'Explore', 'Profile'],
+    tabValue: 0,
+    onTabChange: () => {},
   },
+  parameters: {
+    backgrounds: { default: 'transparent' },
+  },
+  render: (args) => (
+    <div style={{ minHeight: 100 }}>
+      <RdsHeader {...args} onTabChange={v => { args.tabValue = v; }} />
+    </div>
+  ),
+};
+export const WithLogo: Story = {
+  args: {
+    title: '',
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" alt="Logo" style={{ height: 32 }} />,
+    actions: (
+      <IconButton color="inherit">
+        <Notifications />
+      </IconButton>
+    ),
+  },
+  render: (args) => (
+    <RdsHeader {...args} />
+  ),
+};
+
+export const WithSearch: Story = {
+  args: {
+    title: '',
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" alt="Logo" style={{ height: 32 }} />,
+    searchValue: '',
+    searchPlaceholder: 'Search…',
+    actions: (
+      <IconButton color="inherit">
+        <AccountCircle />
+      </IconButton>
+    ),
+    onSearchChange: () => {},
+  },
+  render: (args) => (
+    <RdsHeader
+      {...args}
+      onSearchChange={v => { args.searchValue = v; }}
+    />
+  ),
+};
+
+export const WithTabs: Story = {
+  args: {
+    title: '',
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" alt="Logo" style={{ height: 32 }} />,
+    tabs: ['HOME', 'NEWS', 'MARKETPLACE', 'JOBS'],
+    tabValue: 0,
+    onTabChange: () => {},
+  },
+  render: (args) => (
+    <RdsHeader
+      {...args}
+      onTabChange={v => { args.tabValue = v; }}
+    />
+  ),
+};
+
+export const WithSubHeader: Story = {
+  args: {
+    title: 'Header with SubHeader',
+    subHeader: <div>Sub-header content (filters, breadcrumbs, etc.)</div>,
+  },
+};
+
+export const WithNotificationBadge: Story = {
+  args: {
+    title: 'Header with Badge',
+    actions: (
+      <IconButton color="inherit">
+        <Badge badgeContent={4} color="error">
+          <Notifications />
+        </Badge>
+      </IconButton>
+    ),
+  },
+};
+
+export const WithLogoAndTabs: Story = {
+  args: {
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" alt="Logo" style={{ height: 32 }} />,
+    title: '',
+    tabs: ['Dashboard', 'Projects', 'Calendar'],
+    tabValue: 0,
+    onTabChange: () => {},
+  },
+  render: (args) => (
+    <RdsHeader
+      {...args}
+      onTabChange={v => { args.tabValue = v; }}
+    />
+  ),
+};
+
+export const Minimal: Story = {
+  args: {
+    title: '',
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" alt="Logo" style={{ height: 32 }} />,
+  },
+};
+export const LogoSearchActions: Story = {
+  args: {
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" alt="Logo" style={{ height: 32 }} />,
+    title: '',
+    searchValue: '',
+    searchPlaceholder: 'Search…',
+    actions: (
+      <>
+        <IconButton color="inherit"><Notifications /></IconButton>
+        <IconButton color="inherit"><AccountCircle /></IconButton>
+      </>
+    ),
+    onSearchChange: () => {},
+  },
+  render: (args) => (
+    <RdsHeader {...args} onSearchChange={v => { args.searchValue = v; }} />
+  ),
+};
+
+export const LogoSearchTabs: Story = {
+  args: {
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" alt="Logo" style={{ height: 32 }} />,
+    title: '',
+    searchValue: '',
+    searchPlaceholder: 'Search…',
+    tabs: ['Home', 'Jobs', 'Marketplace'],
+    tabValue: 0,
+    onSearchChange: () => {},
+    onTabChange: () => {},
+  },
+  render: (args) => (
+    <RdsHeader {...args} onSearchChange={v => { args.searchValue = v; }} onTabChange={v => { args.tabValue = v; }} />
+  ),
+};
+
+export const LogoTabsActions: Story = {
+  args: {
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" alt="Logo" style={{ height: 32 }} />,
+    title: '',
+    tabs: ['Dashboard', 'Projects', 'Calendar'],
+    tabValue: 0,
+    actions: (
+      <>
+        <IconButton color="inherit"><Notifications /></IconButton>
+        <Avatar sx={{ ml: 1 }}>JD</Avatar>
+      </>
+    ),
+    onTabChange: () => {},
+  },
+  render: (args) => (
+    <RdsHeader {...args} onTabChange={v => { args.tabValue = v; }} />
+  ),
+};
+
+export const LogoSearchTabsActions: Story = {
+  args: {
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" alt="Logo" style={{ height: 32 }} />,
+    title: '',
+    searchValue: '',
+    searchPlaceholder: 'Search…',
+    tabs: ['Home', 'News', 'Marketplace', 'Jobs'],
+    tabValue: 0,
+    actions: (
+      <>
+        <IconButton color="inherit"><Notifications /></IconButton>
+        <IconButton color="inherit"><AccountCircle /></IconButton>
+      </>
+    ),
+    onSearchChange: () => {},
+    onTabChange: () => {},
+  },
+  render: (args) => (
+    <RdsHeader {...args} onSearchChange={v => { args.searchValue = v; }} onTabChange={v => { args.tabValue = v; }} />
+  ),
+};
+
+export const LogoSearchTabsActionsSubHeader: Story = {
+  args: {
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" alt="Logo" style={{ height: 32 }} />,
+    title: '',
+    searchValue: '',
+    searchPlaceholder: 'Search…',
+    tabs: ['Home', 'News', 'Marketplace', 'Jobs'],
+    tabValue: 0,
+    actions: (
+      <>
+        <IconButton color="inherit"><Notifications /></IconButton>
+        <IconButton color="inherit"><AccountCircle /></IconButton>
+      </>
+    ),
+    subHeader: <div>Sub-header content (filters, breadcrumbs, etc.)</div>,
+    onSearchChange: () => {},
+    onTabChange: () => {},
+  },
+  render: (args) => (
+    <RdsHeader {...args} onSearchChange={v => { args.searchValue = v; }} onTabChange={v => { args.tabValue = v; }} />
+  ),
 };

@@ -1,5 +1,145 @@
 // RDS Header Component Styles
+// Transparent modifier
+.rds-header--transparent {
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--rds-color-on-surface, #222);
+}
+
 .rds-header {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  background: var(--rds-color-surface, #fff);
+  color: var(--rds-color-on-surface, #222);
+  // Only show border-bottom if no tabs are present
+  border-bottom: 1px solid var(--rds-color-border, #e0e0e0);
+  &__tabs {
+    // Remove border-bottom from header when tabs are present
+    ~ .rds-header__sub-header {
+      border-top: none;
+    }
+  }
+  box-shadow: 0 2px 8px 0 rgba(60,60,60,0.03);
   position: relative;
+  width: 100%;
+  z-index: 10;
+  font-family: var(--rds-font-family, inherit);
+
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    padding-left: 32px;
+    padding-right: 32px;
+    gap: 24px;
+    background: transparent;
+    position: relative;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    min-width: 120px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+  }
+
+  &__title {
+    flex-grow: 1;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--rds-color-on-surface, #222);
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    min-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__search {
+    min-width: 220px;
+    color: var(--rds-color-on-surface, #222);
+    background: var(--rds-color-surface-alt, #f5f5f7);
+    padding: 0 12px;
+    border-radius: 6px;
+    font-size: 15px;
+    border: 1px solid var(--rds-color-border, #e0e0e0);
+    box-shadow: none;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.2s;
+    &:focus-within {
+      border-color: var(--rds-color-primary, #1976d2);
+      outline: 2px solid var(--rds-color-primary, #1976d2);
+      outline-offset: 2px;
+    }
+    input {
+      background: transparent;
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 15px;
+      color: var(--rds-color-on-surface, #222);
+      padding: 0;
+      height: 34px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__tabs {
+    min-height: 40px;
+    border-bottom: none;
+    .MuiTabs-indicator {
+      height: 2px;
+      background: var(--rds-color-primary, #1976d2);
+      border-radius: 2px 2px 0 0;
+    }
+    .MuiTabs-flexContainer {
+      gap: 8px;
+    }
+    .MuiTab-root {
+      min-height: 40px;
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--rds-color-on-surface, #222);
+      padding: 0 20px;
+      border-radius: 6px 6px 0 0;
+      border-bottom: none;
+      &.Mui-selected {
+        color: var(--rds-color-primary, #1976d2);
+        background: var(--rds-color-surface, #fff);
+        box-shadow: none;
+      }
+    }
+  }
+
+  &__sub-header {
+    background: var(--rds-color-surface-alt, #f5f5f7);
+    padding: 8px 32px;
+    border-top: 1px solid var(--rds-color-border, #e0e0e0);
+    font-size: 15px;
+    color: var(--rds-color-on-surface, #222);
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+  }
+
+  // State modifiers
+  &--sticky {
+    position: sticky;
+    top: 0;
+  }
+  &--shadow {
+    box-shadow: var(--rds-elevation-2, 0 2px 8px 0 rgba(60,60,60,0.03));
+  }
 }
