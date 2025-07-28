@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsHeader from './rds-header';
 import { Button, IconButton, Avatar, Badge } from '@mui/material';
@@ -108,11 +109,13 @@ export const Secondary: Story = {
     ),
     tabs: ['Overview', 'Settings', 'Team'],
     tabValue: 0,
-    onTabChange: () => {},
   },
-  render: (args) => (
-    <RdsHeader {...args} onTabChange={v => { args.tabValue = v; }} />
-  ),
+  render: (args) => {
+    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
+    return (
+      <RdsHeader {...args} tabValue={tabValue} onTabChange={setTabValue} />
+    );
+  },
 };
 
 export const Transparent: Story = {
@@ -125,16 +128,18 @@ export const Transparent: Story = {
     ),
     tabs: ['Home', 'Explore', 'Profile'],
     tabValue: 0,
-    onTabChange: () => {},
   },
   parameters: {
     backgrounds: { default: 'transparent' },
   },
-  render: (args) => (
-    <div style={{ minHeight: 100 }}>
-      <RdsHeader {...args} onTabChange={v => { args.tabValue = v; }} />
-    </div>
-  ),
+  render: (args) => {
+    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
+    return (
+      <div style={{ minHeight: 100 }}>
+        <RdsHeader {...args} tabValue={tabValue} onTabChange={setTabValue} />
+      </div>
+    );
+  },
 };
 export const WithLogo: Story = {
   args: {
@@ -178,14 +183,13 @@ export const WithTabs: Story = {
     logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Raaghu%20Logo%20SD.svg" alt="Logo" style={{ height: 32 }} />,
     tabs: ['HOME', 'NEWS', 'MARKETPLACE', 'JOBS'],
     tabValue: 0,
-    onTabChange: () => {},
   },
-  render: (args) => (
-    <RdsHeader
-      {...args}
-      onTabChange={v => { args.tabValue = v; }}
-    />
-  ),
+  render: (args) => {
+    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
+    return (
+      <RdsHeader {...args} tabValue={tabValue} onTabChange={setTabValue} />
+    );
+  },
 };
 
 export const WithSubHeader: Story = {
@@ -214,14 +218,13 @@ export const WithLogoAndTabs: Story = {
     title: '',
     tabs: ['Dashboard', 'Projects', 'Calendar'],
     tabValue: 0,
-    onTabChange: () => {},
   },
-  render: (args) => (
-    <RdsHeader
-      {...args}
-      onTabChange={v => { args.tabValue = v; }}
-    />
-  ),
+  render: (args) => {
+    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
+    return (
+      <RdsHeader {...args} tabValue={tabValue} onTabChange={setTabValue} />
+    );
+  },
 };
 
 export const Minimal: Story = {
