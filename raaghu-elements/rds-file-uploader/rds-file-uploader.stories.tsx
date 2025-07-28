@@ -29,6 +29,22 @@ const meta: Meta<typeof RdsFileUploader> = {
     maxSize: {
       control: 'number',
     },
+    showTitle: {
+      control: 'boolean',
+    },
+    isMandatory: {
+      control: 'boolean',
+    },
+    showHint: {
+      control: 'boolean',
+    },
+    hintText: {
+      control: 'text',
+    },
+    mode: {
+      control: 'select',
+      options: ['default', 'standard'],
+    },
   },
 };
 
@@ -189,7 +205,7 @@ args: {
 
 };
 
-export const standard: Story = {
+export const Standard: Story = {
   args: {
     showTitle: true,
     isMandatory: true,

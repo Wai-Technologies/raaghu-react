@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { Dialog as MuiDialog, DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Dialog, Button } from '@mui/material';
+import { Dialog as MuiDialog, DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 
@@ -9,13 +10,11 @@ export interface RdsDialogProps extends DialogProps {
   actions?: React.ReactNode;
   showCloseButton?: boolean;
   onClose?: () => void;
-   mode?:'standard',
-    ShowDismiss?: boolean;
-  ShowPrimary?: boolean;
+  variant?: 'standard' | 'default';
+   ShowPrimary?: boolean;
   ShowSecondary?: boolean;
-  ShowTitle?: boolean;
-  Title?: string;
 }
+
 
 const RdsDialog: React.FC<RdsDialogProps> = ({
   title,
@@ -23,130 +22,88 @@ const RdsDialog: React.FC<RdsDialogProps> = ({
   actions,
   showCloseButton = true,
   onClose,
-  mode,
-  ShowDismiss,
-  ShowPrimary,
+  variant = 'default',
+   ShowPrimary,
   ShowSecondary,
-  ShowTitle,
-  Title,
- 
   ...props
 }) => {
-
-if(mode === "standard"){
-  return (
-    <Dialog
-      open={props.open}
-      PaperProps={{
-        sx: {
-          maxWidth: props.fullWidth ? '100vw' :
-            props.maxWidth === 'xs' ? 360 :
-            props.maxWidth === 'sm' ? 480 :
-            props.maxWidth === 'md' ? 600 :
-            props.maxWidth === 'lg' ? 800 :
-            props.maxWidth === 'xl' ? 1200 :
-            400, // Default width matching wireframe
-          width: props.fullWidth ? '100vw' : '100%',
-          marginLeft: props.fullWidth ? 0 : 'auto',
-          marginRight: props.fullWidth ? 0 : 'auto',
-          borderRadius: '8px',
-          boxShadow: '0px 8px 32px rgba(0, 0, 0, 0.12)',
-          padding: 0,
-          overflow: 'hidden',
-          border: '1px solid #CDCDCD'
-        }
-      }}
-      sx={{
-        '& .MuiBackdrop-root': {
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        }
-      }}
-    >
-      {(ShowTitle || showCloseButton) && (
-        <DialogTitle 
-          className="rds-dialog__title"
-          sx={{
-            padding: '15px 8px 8px 20px',
-            fontSize: '16px',
-            fontWeight: 500,
-            color: '#202020',
-            lineHeight: '20px',
-            margin: 0,
-            minHeight: 'auto',
-            boxSizing: 'border-box',
-            height: '50px', // fixed height to prevent layout shift
-            position: 'relative'
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '100%' }}>
-            <div style={{ flex: 1 }}>
-              {ShowTitle && (
-                <span style={{ textAlign: 'left' }}>{Title || title}</span>
+  if (variant === 'standard') {
+    return (
+      <MuiDialog onClose={onClose} {...props}>
+        {(title || showCloseButton) && (
+          <DialogTitle
+            className="rds-dialog__title"
+            sx={{
+              padding: '15px 8px 8px 20px',
+              fontSize: '16px',
+              fontWeight: 500,
+              color: '#202020',
+              lineHeight: '20px',
+              margin: 0,
+              minHeight: 'auto',
+              boxSizing: 'border-box',
+              height: '50px',
+              position: 'relative',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '100%' }}>
+              <div style={{ flex: 1 }}>{title}</div>
+              {showCloseButton && (
+                <IconButton
+                  aria-label="close"
+                  className="rds-dialog__close-button"
+                  onClick={onClose}
+                  size="medium"
+                  sx={{
+                    color: '#7D7D7D',
+                    padding: '8px',
+                    marginLeft: '16px',
+                    '&:hover': {
+                      backgroundColor: '#f5f5f5',
+                      color: '#202020',
+                    },
+                  }}
+                >
+                  <CloseIcon sx={{ fontSize: '24px' }} />
+                </IconButton>
               )}
             </div>
-            {ShowDismiss && (
-              <IconButton
-                aria-label="close"
-                className="rds-dialog__close-button"
-                onClick={onClose}
-                size="medium"
-                sx={{
-                  color: '#7D7D7D',
-                  padding: '8px',
-                  marginLeft: '16px',
-                  '&:hover': {
-                    backgroundColor: '#f5f5f5',
-                    color: '#202020'
-                  }
-                }}
-              >
-                <CloseIcon sx={{ fontSize: '24px' }} />
-              </IconButton>
-            )}
-          </div>
-        </DialogTitle>
-      )}
-      
-      <DialogContent 
-        className="rds-dialog__content"
-        sx={{
-          padding: '16px', // Reduce padding to decrease gap
-          paddingTop: '10px', // Remove extra top padding
-          minHeight: '120px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#fafafa',
-          border: '1px solid #7D7D7D',
-          margin: '0px 20px 0px 20px',
-          borderRadius: '4px',
-          fontSize: '14px',
-          color: '#7D7D7D',
-          textAlign: 'center',
-          fontWeight: 400,
-          lineHeight: '18px'
-        }}
-      >
-        {  (
-          <div>
-            Replace with your content
-            <br />
-            component
-          </div>
+          </DialogTitle>
         )}
-      </DialogContent>
-      
-      <DialogActions 
-        className="rds-dialog__actions"
-        sx={{
-          padding: '12px 20px 16px 20px',
-          gap: '8px',
-          justifyContent: 'flex-end',
-          borderTop: 'none',
-          margin: 0
-        }}
-      >
-        {ShowSecondary && (
+        <DialogContent
+          className="rds-dialog__content"
+          sx={{
+            padding: '16px',
+            paddingTop: '10px',
+            minHeight: '120px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#fafafa',
+            border: '1px solid #7D7D7D',
+            margin: '0px 20px 0px 20px',
+            borderRadius: '4px',
+            fontSize: '14px',
+            color: '#7D7D7D',
+            textAlign: 'center',
+            fontWeight: 400,
+            lineHeight: '18px',
+          }}
+        >
+          {children}
+        </DialogContent>
+       
+          <DialogActions
+            className="rds-dialog__actions"
+            sx={{
+              padding: '12px 20px 16px 20px',
+              gap: '8px',
+              justifyContent: 'flex-end',
+              borderTop: 'none',
+              margin: 0,
+            }}
+          >
+            {ShowSecondary && (
           <Button 
             onClick={onClose} 
             className="rds-dialog__button rds-dialog__button--dismiss" 
@@ -197,15 +154,16 @@ if(mode === "standard"){
             Okay
           </Button>
         )}
-      </DialogActions>
-    </Dialog>
-  );
-}
-
+          </DialogActions>
+        
+      </MuiDialog>
+    );
+  }
+ 
   return (
     <MuiDialog onClose={onClose} {...props}>
-      {title && (
-        <DialogTitle>
+      {(title || showCloseButton) && (
+        <DialogTitle sx={{ position: 'relative', paddingRight: showCloseButton ? '40px' : undefined }}>
           {title}
           {showCloseButton && onClose && (
             <IconButton

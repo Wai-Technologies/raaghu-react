@@ -48,16 +48,18 @@
   border-radius: 6px 0 0 6px !important;
   min-width: 120px;
   font-weight: 500;
-  font-size: 16px;
   text-transform: none;
   box-shadow: none;
+  
+   border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  
   // flex-shrink: 0;
 }
 
 .rds-file-uploader__filename {
   background: #fff;
   border-radius: 0 6px 6px 0;
- 
   height: 40px;
   display: flex;
   align-items: center;
@@ -70,7 +72,25 @@
   overflow: hidden;
   text-overflow: ellipsis;
   margin-left: -1px;
+  
   // width: 100%;
+    // fontWeight: 500,
+              // fontSize: 16,
+              // paddingLeft: 2,
+              // whiteSpace: 'nowrap',
+              // overflow: 'hidden',
+              // textOverflow: 'ellipsis',
+              // border: 'none',
+              // height: 40,
+              // display: 'flex',
+              // alignItems: 'center',
+              // marginLeft: '-1px',
+              // width: '100%',
+
+                 //   background: '#fff',
+            //   borderTopLeftRadius: 0,
+            //   borderBottomLeftRadius: 0,
+            //   flex: 1,
 }
 
 // Hint row for standard mode
