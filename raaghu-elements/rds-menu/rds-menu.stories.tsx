@@ -45,14 +45,29 @@ export const WithIcons: Story = {
   },
 };
 
+
 export const Dense: Story = {
   args: {
     open: false,
+    size: 'small',
     items: [
-      { id: 1, label: 'Cut', icon: <ContentCut fontSize="small" /> },
-      { id: 2, label: 'Copy', icon: <ContentCopy fontSize="small" /> },
-      { id: 3, label: 'Paste', icon: <ContentPaste fontSize="small" /> },
+      { id: 1, label: 'Dense Cut', icon: <ContentCut fontSize="small" /> },
+      { id: 2, label: 'Dense Copy', icon: <ContentCopy fontSize="small" /> },
+      { id: 3, label: 'Dense Paste', icon: <ContentPaste fontSize="small" /> },
     ],
+  },
+};
+// Custom color menu example
+export const WithCustomColor: Story = {
+  args: {
+    open: false,
+    size: 'medium',
+    items: [
+      { id: 1, label: 'Primary', icon: <ContentCopy fontSize="small" /> },
+      { id: 2, label: 'Success', icon: <ContentPaste fontSize="small" /> },
+      { id: 3, label: 'Danger', icon: <Delete fontSize="small" /> },
+    ],
+    // You can add a className or style prop to RdsMenu for custom color demo if supported
   },
 };
 
