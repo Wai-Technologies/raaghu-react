@@ -35,6 +35,7 @@ export interface RdsFileUploaderProps {
   placeholderImage?: string;
   state?: 'default' | 'selected';
   mode?: 'standard';
+  style?:'Drop Area - Side Icon' | 'Drop Area - Top Icon' |'Drop Area - With Upload Button';
 }
 
 const RdsFileUploader: React.FC<RdsFileUploaderProps> = ({
@@ -54,6 +55,7 @@ const RdsFileUploader: React.FC<RdsFileUploaderProps> = ({
   placeholderImage = '',
   state = 'default',
   mode = 'default',
+  style,
 }) => {
   const [files, setFiles] = React.useState<FileWithProgress[]>([]);
   const [isDragOver, setIsDragOver] = React.useState(false);
@@ -301,11 +303,7 @@ return (
             File Upload{isMandatory && <span style={{ color: 'red' }}> *</span>}
           </Typography>
         )}
-        {showHint && hintText && (
-          <Typography variant="caption" color="text.secondary" sx={{ mb: 1, display: 'block' }}>
-            {hintText}
-          </Typography>
-        )}
+        {/* Hint text will be rendered below the uploader instead of here */}
 
         {/* Placeholder image */}
         {placeholderImage && files.length === 0 && (
@@ -326,28 +324,105 @@ return (
         />
 
         {/* Drop zone */}
-        <Paper
-          variant={mode === 'standard' ? 'elevation' : 'outlined'}
-          className={
-            `rds-file-uploader__drop-zone` +
-            (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
-            (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
-          }
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-          onClick={!disabled ? openFileDialog : undefined}
-          sx={mode === 'standard' ? { boxShadow: 3 } : {}}
-        >
-          <CloudUpload className="rds-file-uploader__icon" />
-          <Typography className="rds-file-uploader__title" variant="h6" gutterBottom>
-            Drag and Drop files or <span className="rds-file-uploader__browse-link" onClick={openFileDialog}>Browse</span>
-          </Typography>
-          <Typography className="rds-file-uploader__info" variant="caption" color="text.secondary">
-            (PNG, JPG, DOC, PDF, PPT)
-          </Typography>
-        </Paper>
+        {style === 'Drop Area - Side Icon' ? (
+          <Paper
+            variant={mode === 'standard' ? 'elevation' : 'outlined'}
+            className={
+              `rds-file-uploader__drop-zone rds-file-uploader__drop-zone--side-icon` +
+              (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
+              (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
+            }
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            onClick={!disabled ? openFileDialog : undefined}
+            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: 60, px: 3, py: 2, border: '1.5px dashed #2196F3', cursor: disabled ? 'not-allowed' : 'pointer', borderRadius: 2 }}
+          >
+            <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', pl: 1 }}>
+              <Typography className="rds-file-uploader__title" variant="h6" gutterBottom sx={{ fontWeight: 500, color: '#353535', mb: 0, textAlign: 'left', fontSize: 20 }}>
+                Drag and Drop files or <span className="rds-file-uploader__browse-link" style={{ color: '#3390e6', fontWeight: 600, cursor: 'pointer' }} onClick={openFileDialog}>Browse</span>
+              </Typography>
+              <Typography className="rds-file-uploader__info" variant="caption" sx={{ color: '#646464', fontWeight: 400, textAlign: 'left', fontSize: 15, mt: 0.5 }}>
+                (PNG, JPG, DOC, PDF, PPT)
+              </Typography>
+            </Box>
+            <Box sx={{ ml: 2, display: 'flex', alignItems: 'center' }}>
+              {/* Custom upload arrow out of a box icon */}
+              <svg className="rds-file-uploader__icon" width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 13.3077V14.5385C1 15.1913 1.25934 15.8174 1.72097 16.279C2.1826 16.7407 2.8087 17 3.46154 17H14.5385C15.1913 17 15.8174 16.7407 16.279 16.279C16.7407 15.8174 17 15.1913 17 14.5385V13.3077M5.30769 5.30769L9 1M9 1L12.6923 5.30769M9 1L9 12.0769" stroke="#7D7D7D" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </Box>
+          </Paper>
+        ) : style === 'Drop Area - With Upload Button' ? (
+          <Paper
+            variant={mode === 'standard' ? 'elevation' : 'outlined'}
+            className={
+              `rds-file-uploader__drop-zone rds-file-uploader__drop-zone--with-upload-btn` +
+              (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
+              (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
+            }
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: 60, px: 3, py: 2, border: '1.5px dashed #2196F3', background: '#fff', cursor: disabled ? 'not-allowed' : 'pointer' }}
+          >
+            <Box className="rds-file-uploader__icon-box">
+              {/* Custom upload arrow out of a box icon */}
+              <svg className="rds-file-uploader__icon" width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 13.3077V14.5385C1 15.1913 1.25934 15.8174 1.72097 16.279C2.1826 16.7407 2.8087 17 3.46154 17H14.5385C15.1913 17 15.8174 16.7407 16.279 16.279C16.7407 15.8174 17 15.1913 17 14.5385V13.3077M5.30769 5.30769L9 1M9 1L12.6923 5.30769M9 1L9 12.0769" stroke="#7D7D7D" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </Box>
+            <Box className="rds-file-uploader__title-box">
+            <Typography className="rds-file-uploader__title rds-file-uploader__title--inline" variant="h6" gutterBottom>
+                Drag and Drop files <span className="rds-file-uploader__title-or">or</span>
+              </Typography>
+            </Box>
+            <Button
+              variant="contained"
+              onClick={openFileDialog}
+              disabled={disabled}
+              sx={{ ml: 2, minWidth: 120, fontWeight: 600, fontSize: 14, padding: '4px 14px', textTransform: 'uppercase', background: '#3390e6' }}
+            >
+              Upload Files
+            </Button>
+          </Paper>
+        ) : (
+          <Paper
+            variant={mode === 'standard' ? 'elevation' : 'outlined'}
+            className={
+              `rds-file-uploader__drop-zone` +
+              (isDragOver ? ' rds-file-uploader__drop-zone--drag-over' : '') +
+              (disabled ? ' rds-file-uploader__drop-zone--disabled' : '')
+            }
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            onClick={!disabled ? openFileDialog : undefined}
+            sx={mode === 'standard' ? { boxShadow: 3 } : {}}
+          >
+            {/* Custom upload arrow out of a box icon */}
+            <svg className="rds-file-uploader__icon" width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 13.3077V14.5385C1 15.1913 1.25934 15.8174 1.72097 16.279C2.1826 16.7407 2.8087 17 3.46154 17H14.5385C15.1913 17 15.8174 16.7407 16.279 16.279C16.7407 15.8174 17 15.1913 17 14.5385V13.3077M5.30769 5.30769L9 1M9 1L12.6923 5.30769M9 1L9 12.0769" stroke="#7D7D7D" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <Typography className="rds-file-uploader__title" variant="h6" gutterBottom>
+              Drag and Drop files or <span className="rds-file-uploader__browse-link" onClick={openFileDialog}>Browse</span>
+            </Typography>
+            <Typography className="rds-file-uploader__info" variant="caption" color="text.secondary">
+              (PNG, JPG, DOC, PDF, PPT)
+            </Typography>
+          </Paper>
+        )}
 
+        {/* Hint row: always rendered, left aligned below uploader and above preview */}
+        <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', mt: 1.5, minHeight: 20, ml: 0 }}>
+          <Typography
+            className="rds-file-uploader__hint"
+            variant="caption"
+            sx={{ color: showHint ? '#353535' : 'transparent', fontWeight: 400, textAlign: 'left', minWidth: 0 }}
+          >
+            {showHint ? (hintText || 'Maximum 5MB') : '\u00A0'}
+          </Typography>
+        </Box>
         {/* File list */}
         {showPreview && files.length > 0 && (
           <Box className="rds-file-uploader__file-list">
@@ -355,54 +430,67 @@ return (
               Selected Files ({files.length})
             </Typography>
             {files.map((fileWithProgress, index) => (
-              <Paper
+              <Box
                 key={index}
-                variant="outlined"
-                className="rds-file-uploader__file-item"
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  width: 500,
+                  minWidth: 400,
+                  height: 36,
+                  background: '#E1E3EA',
+                  borderRadius: 1,
+                  border: '1px solid #7D7D7D',
+                  px: 1,
+                  py: 0,
+                  mb: 1,
+                  fontSize: 15,
+                }}
               >
-                <InsertDriveFile className="rds-file-uploader__file-icon" color="primary" />
-                <Box className="rds-file-uploader__file-details">
-                  <Box className="rds-file-uploader__file-meta">
-                    <Typography className="rds-file-uploader__file-name" variant="body2" noWrap>
-                      {fileWithProgress.file.name}
-                    </Typography>
-                    <Chip
-                      className="rds-file-uploader__file-size"
-                      label={formatFileSize(fileWithProgress.file.size)}
-                      size="small"
-                      variant="outlined"
-                    />
-                    {fileWithProgress.error && (
-                      <Chip
-                        className="rds-file-uploader__file-error"
-                        label="Error"
-                        size="small"
-                        color="error"
-                        variant="filled"
-                      />
-                    )}
-                  </Box>
-                  {fileWithProgress.error ? (
-                    <Typography className="rds-file-uploader__file-error-msg" variant="caption" color="error">
-                      {fileWithProgress.error}
-                    </Typography>
-                  ) : (
-                    <LinearProgress
-                      className="rds-file-uploader__file-progress"
-                      variant="determinate"
-                      value={fileWithProgress.progress}
-                    />
-                  )}
-                </Box>
+                {/* File name, left aligned, no icon */}
+                <Typography
+                  sx={{
+                    color: '#353535',
+                    fontWeight: 500,
+                    flex: 1,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}
+                  title={fileWithProgress.file.name}
+                >
+                  {fileWithProgress.file.name}
+                </Typography>
+                {/* File size, right side */}
+                <Typography
+                  sx={{
+                    color: '#646464',
+                    fontWeight: 400,
+                    fontSize: 14,
+                    ml: 2,
+                    minWidth: 70,
+                    textAlign: 'right',
+                  }}
+                >
+                  {formatFileSize(fileWithProgress.file.size)}
+                </Typography>
+                {/* Remove (cross) icon, rightmost */}
                 <IconButton
                   className="rds-file-uploader__file-remove"
                   size="small"
                   onClick={() => removeFile(index)}
                   disabled={isUploading}
+                  sx={{ ml: 1, color: '#7D7D7D', background: 'transparent', borderRadius: '50%', '&:hover': { background: '#D1D3DA' }, p: 0.5 }}
+                  aria-label="Remove file"
                 >
-                  <Delete />
+                  {/* Cross SVG icon */}
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.5 4.5L13.5 13.5" stroke="#7D7D7D" strokeWidth="2" strokeLinecap="round"/>
+                    <path d="M13.5 4.5L4.5 13.5" stroke="#7D7D7D" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
                 </IconButton>
-              </Paper>
+              </Box>
             ))}
           </Box>
         )}

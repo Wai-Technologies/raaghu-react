@@ -45,6 +45,14 @@ const meta: Meta<typeof RdsFileUploader> = {
       control: 'select',
       options: ['default', 'standard'],
     },
+    style: {
+      control: 'select',
+      options: [
+        'Drop Area - Top Icon',
+        'Drop Area - Side Icon',
+        'Drop Area - With Upload Button'
+      ]
+    }
   },
 };
 
@@ -60,6 +68,9 @@ export const Default: Story = {
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
+    style:'Drop Area - Top Icon',
+    showHint: true,
+     hintText: 'Maximum 5MB',
   },
 };
 
@@ -70,6 +81,9 @@ export const SingleFile: Story = {
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
+     style:'Drop Area - Top Icon',
+    showHint: true,
+     hintText: 'Maximum 5MB',
   },
 };
 
@@ -82,6 +96,9 @@ export const ImagesOnly: Story = {
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
+     style:'Drop Area - Top Icon',
+    showHint: true,
+     hintText: 'Maximum 5MB',
   },
 };
 
@@ -91,6 +108,9 @@ export const NoDragAndDrop: Story = {
     multiple: true,
     showPreview: true,
     disabled: false,
+     style:'Drop Area - Top Icon',
+    showHint: true,
+     hintText: 'Maximum 5MB',
   },
 };
 
@@ -100,6 +120,9 @@ export const NoPreview: Story = {
     multiple: true,
     dragAndDrop: true,
     disabled: false,
+     style:'Drop Area - Top Icon',
+    showHint: true,
+     hintText: 'Maximum 5MB',
   },
 };
 
@@ -112,6 +135,9 @@ export const DocumentsOnly: Story = {
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
+     style:'Drop Area - Top Icon',
+    showHint: true,
+     hintText: 'Maximum 5MB',
   },
 };
 
@@ -121,6 +147,9 @@ export const Disabled: Story = {
     multiple: true,
     showPreview: true,
     dragAndDrop: true,
+     style:'Drop Area - Top Icon',
+    showHint: true,
+     hintText: 'Maximum 5MB',
   },
 };
 
@@ -132,6 +161,9 @@ args: {
   showPreview: true,
   dragAndDrop: true,
   disabled: false,
+   style:'Drop Area - Top Icon',
+    showHint: true,
+     hintText: 'Maximum 5MB',
 },
 // render: (args) => {
 //   const [files, setFiles] = useState<FileWithProgress[]>([]);
@@ -165,6 +197,9 @@ args: {
   showPreview: true,
   dragAndDrop: true,
   disabled: false,
+   style:'Drop Area - Top Icon',
+    showHint: true,
+     hintText: 'Maximum 5MB',
 },
 // render: (args) => {
 //   const [files, setFiles] = useState<FileWithProgress[]>([]);
