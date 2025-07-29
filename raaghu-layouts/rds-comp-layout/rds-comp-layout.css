@@ -1,3 +1,66 @@
+/* Inner wrapper for RdsCompLayout */
+
+.rds-comp-layout-wrapper_basic {
+  min-height: 83vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  transition: box-shadow 0.3s;
+}
+
+.rds-comp-layout-inner-wrapper_basic {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.rds-comp-layout__card_basic {
+  position: relative;
+  padding: 20px; 
+  border: 1px solid #d3dcea;
+  background: #fff;
+  min-height: 200px;
+  height: 83vh;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  transition: box-shadow 0.3s, border 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.rds-comp-layout-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.rds-comp-layout-inner-wrapper {
+  min-height: 300px;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 600px) {
+  .rds-comp-layout-inner-wrapper {
+    padding: 16px;
+  }
+}
 .rds-layout {
   display: flex;
 }

@@ -1,3 +1,4 @@
+
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompLayout from './rds-comp-layout';
 import { Paper, Typography, Box } from '@mui/material';
@@ -40,6 +41,15 @@ const meta: Meta<typeof RdsCompLayout> = {
     fullWidth: {
       control: 'boolean',
       description: 'Whether layout should take full width',
+    },
+    displayType: {
+      control: 'select',
+      options: ['Basic', 'Board','Boxify','Cardify','Collage'],
+      description: 'Type of layout display style',
+    },
+    hasShadow: {
+      control: 'boolean',
+      description: 'Whether the layout has a shadow',
     },
   },
 };
@@ -139,3 +149,73 @@ export const GridLikeLayout: Story = {
     ),
   },
 };
+
+// Board style story using displayType and hasShadow, with conditional rendering
+export const Basic: Story = {
+  args: {
+    displayType: 'Basic',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    // children: (
+    //   <Box className="layout1 layout-shadow" sx={{ minHeight: '200', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', bgcolor: 'transparent', p: 1, boxShadow:'0 0 6px 5px #4d525912' }}>
+    //     <Box sx={{ p: '1rem', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    //       <Paper
+    //         // className="content-with-full-height border-danger"
+    //         elevation={3}
+    //         sx={{
+    //           position: 'relative',
+    //           p: 2.5,
+    //           border: '1px solid #d3dcea',
+    //           borderRadius: 2.5,
+    //           boxShadow: '0 0 6px 5px #4d525912',
+    //           background: '#fff',
+    //           minHeight: 200,
+    //           height: '83vh',
+    //           width: '100%',
+             
+    //           mx: 'auto',
+    //         }}
+    //       >
+    //         {/* Blank card for layout showcase */}
+    //       </Paper>
+    //     </Box>
+    //   </Box>
+    // ),
+  },
+};
+
+
+export const Board: Story ={
+ args: {
+    displayType: 'Board',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+  }
+}
+export const Boxify: Story ={
+ args: {
+    displayType: 'Boxify',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+  }
+}
+
+export const Cardify: Story ={
+ args: {
+    displayType: 'Cardify',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+  }
+}
+export const Collage: Story ={
+ args: {
+    displayType: 'Collage',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+  }
+}
