@@ -2,4 +2,25 @@
 .rds-range {
   display: block;
   position: relative;
+  width: 100%;
+
+  // Header section with label and value
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--rds-spacing-sm, 8px);
+  }
+
+  // Footer section with min/max labels
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--rds-spacing-xs, 4px);
+  }
+
+  // State modifiers
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
 }
