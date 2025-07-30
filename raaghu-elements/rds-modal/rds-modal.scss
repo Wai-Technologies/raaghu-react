@@ -34,6 +34,13 @@
     opacity: 0;
     animation: rds-modal-scale-in var(--rds-transition-base)-out forwards;
     animation-delay: 0.1s;
+
+    @media (max-width: 600px) {
+      max-width: 98vw;
+      max-height: 98vh;
+      border-radius: var(--rds-spacing-xs);
+      margin: 0 4px;
+    }
   }
   
   &__header {
@@ -71,6 +78,30 @@
     display: flex;
     gap: var(--rds-spacing-sm);
     justify-content: flex-end;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-right: var(--rds-spacing-xs);
+    color: var(--rds-color-icon);
+  }
+
+  &__image {
+    width: 70px;
+    height: 70px;
+    margin-right: 8px;
+    border-radius: 4px;
+    object-fit: cover;
+    display: inline-block;
+    @media (max-width: 600px) {
+      width: 34px;
+      height: 34px;
+      margin-right: 6px;
+    }
   }
 }
 
