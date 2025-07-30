@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, LinearProgress, CircularProgress } from '@mui/material';
-
+import './rds-loader.scss';
 export interface RdsLoaderProps {
   variant?: 'linear' | 'circular';
   size?: 'small' | 'medium' | 'large';
@@ -9,17 +9,45 @@ export interface RdsLoaderProps {
   label?: string;
   overlay?: boolean;
   thickness?: number;
+  loaderType?: string; // Optional prop for loader type
 }
 
-const RdsLoader: React.FC<RdsLoaderProps> = ({
-  variant = 'circular',
-  size = 'medium',
-  color = 'primary',
-  value,
-  label,
-  overlay = false,
-  thickness = 3.6,
-}) => {
+
+const RdsLoader: React.FC<RdsLoaderProps> = (props) => {
+  // loaderType logic: if present, render custom loader type and size
+  if (props.loaderType) {
+    const size = props.size || "medium";
+    // Remove 'loader-' prefix if present for BEM compliance
+    let type = props.loaderType;
+    if (type.startsWith('loader-')) {
+      type = type.replace(/^loader-/, '');
+    }
+    const loaderClass = `rds-loader__${type}`;
+    const sizeClass = `loader-${size}`;
+    const classes = `${loaderClass} ${sizeClass}`.trim();
+    return (
+      <div className="d-flex justify-content-center my-5">
+        <div className={classes} />
+        {props.label && (
+          <div style={{ marginTop: 12, textAlign: "center", width: "100%" }}>
+            <span className="rds-loader__label">{props.label}</span>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // --- original code below, unchanged ---
+  const {
+    variant = 'circular',
+    size = 'medium',
+    color = 'primary',
+    value,
+    label,
+    overlay = false,
+    thickness = 3.6,
+  } = props;
+
   const getSizeValue = () => {
     if (variant === 'circular') {
       switch (size) {
