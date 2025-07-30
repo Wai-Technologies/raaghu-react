@@ -48,13 +48,20 @@ const RdsHeader = ({
   userEmail,
   ...props
 }: RdsHeaderProps) => {
-  // Add transparent class if color is 'transparent'
-  const isTransparent = props.color === 'transparent';
+  // Add color modifier class based on color prop
+  const colorClass =
+    props.color === 'primary'
+      ? ' rds-header--primary'
+      : props.color === 'secondary'
+      ? ' rds-header--secondary'
+      : props.color === 'transparent'
+      ? ' rds-header--transparent'
+      : '';
   return (
     <MuiAppBar
       {...props}
-      className={`rds-header${isTransparent ? ' rds-header--transparent' : ''}${props.className ? ' ' + props.className : ''}`}
-      color={isTransparent ? 'transparent' : 'default'}
+      className={`rds-header${colorClass}${props.className ? ' ' + props.className : ''}`}
+      color={props.color === 'transparent' ? 'transparent' : 'default'}
       elevation={0}
     >
       <div className="rds-header__toolbar">

@@ -39,6 +39,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     title: 'My Application',
+    color: 'default',
   },
 };
 export const LogoSearchActions: Story = {
@@ -54,9 +55,10 @@ export const LogoSearchActions: Story = {
       </>
     ),
     onSearchChange: () => {},
+    color: 'default',
   },
   render: (args) => (
-    <RdsHeader {...args} onSearchChange={v => { args.searchValue = v; }} />
+    <RdsHeader {...args} color={args.color} onSearchChange={v => { args.searchValue = v; }} />
   ),
 };
 
@@ -70,9 +72,10 @@ export const LogoSearchTabs: Story = {
     tabValue: 0,
     onSearchChange: () => {},
     onTabChange: () => {},
+    color: 'default',
   },
   render: (args) => (
-    <RdsHeader {...args} onSearchChange={v => { args.searchValue = v; }} onTabChange={v => { args.tabValue = v; }} />
+    <RdsHeader {...args} color={args.color} onSearchChange={v => { args.searchValue = v; }} onTabChange={v => { args.tabValue = v; }} />
   ),
 };
 
@@ -89,9 +92,10 @@ export const LogoTabsActions: Story = {
       </>
     ),
     onTabChange: () => {},
+    color: 'default',
   },
   render: (args) => (
-    <RdsHeader {...args} onTabChange={v => { args.tabValue = v; }} />
+    <RdsHeader {...args} color={args.color} onTabChange={v => { args.tabValue = v; }} />
   ),
 };
 
@@ -111,9 +115,10 @@ export const LogoSearchTabsActions: Story = {
     ),
     onSearchChange: () => {},
     onTabChange: () => {},
+    color: 'default',
   },
   render: (args) => (
-    <RdsHeader {...args} onSearchChange={v => { args.searchValue = v; }} onTabChange={v => { args.tabValue = v; }} />
+    <RdsHeader {...args} color={args.color} onSearchChange={v => { args.searchValue = v; }} onTabChange={v => { args.tabValue = v; }} />
   ),
 };
 
@@ -134,9 +139,10 @@ export const LogoSearchTabsActionsSubHeader: Story = {
     subHeader: <div>Sub-header content (filters, breadcrumbs, etc.)</div>,
     onSearchChange: () => {},
     onTabChange: () => {},
+    color: 'default',
   },
   render: (args) => (
-    <RdsHeader {...args} onSearchChange={v => { args.searchValue = v; }} onTabChange={v => { args.tabValue = v; }} />
+    <RdsHeader {...args} color={args.color} onSearchChange={v => { args.searchValue = v; }} onTabChange={v => { args.tabValue = v; }} />
   ),
 };
 
@@ -144,26 +150,7 @@ export const Minimal: Story = {
   args: {
     title: '',
     logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
-  },
-};
-export const Secondary: Story = {
-  args: {
-    color: 'secondary',
-    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
-    actions: (
-      <>
-        <IconButton color="inherit"><Notifications /></IconButton>
-        <Avatar sx={{ ml: 1 }}>JD</Avatar>
-      </>
-    ),
-    tabs: ['Overview', 'Settings', 'Team'],
-    tabValue: 0,
-  },
-  render: (args) => {
-    const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
-    return (
-      <RdsHeader {...args} tabValue={tabValue} onTabChange={setTabValue} />
-    );
+    color: 'default',
   },
 };
 
@@ -184,7 +171,7 @@ export const Transparent: Story = {
     const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
     return (
       <div style={{ minHeight: 100 }}>
-        <RdsHeader {...args} tabValue={tabValue} onTabChange={setTabValue} />
+        <RdsHeader {...args} color={args.color} tabValue={tabValue} onTabChange={setTabValue} />
       </div>
     );
   },
@@ -198,9 +185,10 @@ export const WithLogo: Story = {
         <Notifications />
       </IconButton>
     ),
+    color: 'default',
   },
   render: (args) => (
-    <RdsHeader {...args} />
+    <RdsHeader {...args} color={args.color} />
   ),
 };
 
@@ -215,12 +203,14 @@ export const WithSearch: Story = {
         <AccountCircle />
       </IconButton>
     ),
+    color: 'default',
   },
   render: (args) => {
     const [searchValue, setSearchValue] = React.useState(args.searchValue ?? '');
     return (
       <RdsHeader
         {...args}
+        color={args.color}
         searchValue={searchValue}
         onSearchChange={setSearchValue}
       />
@@ -234,11 +224,12 @@ export const WithTabs: Story = {
     logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" style={{ height: 32 }} />,
     tabs: ['HOME', 'NEWS', 'MARKETPLACE', 'JOBS'],
     tabValue: 0,
+    color: 'default',
   },
   render: (args) => {
     const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
     return (
-      <RdsHeader {...args} tabValue={tabValue} onTabChange={setTabValue} />
+      <RdsHeader {...args} color={args.color} tabValue={tabValue} onTabChange={setTabValue} />
     );
   },
 };
@@ -247,6 +238,7 @@ export const WithSubHeader: Story = {
   args: {
     title: 'Header with SubHeader',
     subHeader: <div>Sub-header content (filters, breadcrumbs, etc.)</div>,
+    color: 'default',
   },
 };
 
@@ -260,6 +252,7 @@ export const WithNotificationBadge: Story = {
         </Badge>
       </IconButton>
     ),
+    color: 'default',
   },
 };
 
@@ -269,11 +262,12 @@ export const WithLogoAndTabs: Story = {
     title: '',
     tabs: ['Dashboard', 'Projects', 'Calendar'],
     tabValue: 0,
+    color: 'default',
   },
   render: (args) => {
     const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
     return (
-      <RdsHeader {...args} tabValue={tabValue} onTabChange={setTabValue} />
+      <RdsHeader {...args} color={args.color} tabValue={tabValue} onTabChange={setTabValue} />
     );
   },
 };
@@ -284,7 +278,8 @@ export const WithUserProfile: Story = {
     showMenuButton: true,
     userName: 'John Doe',
     userShortName: 'JD',
-    userEmail: 'Janedoe...'
+    userEmail: 'Janedoe...',
+    color: 'default',
   },
 };
 
@@ -305,6 +300,7 @@ export const WithActions: Story = {
         </IconButton>
       </>
     ),
+    color: 'default',
   },
 };
 
@@ -316,6 +312,7 @@ export const WithLoginButton: Story = {
         Login
       </Button>
     ),
+    color: 'default',
   },
 };
 
@@ -324,5 +321,6 @@ export const WithMenuButton: Story = {
     title: 'Dashboard',
     showMenuButton: true,
     onMenuClick: () => alert('Menu clicked!'),
+    color: 'default',
   },
 };
