@@ -18,6 +18,8 @@
   padding: 8px;
 }
 
+
+
 .rds-comp-layout__card_basic {
   position: relative;
   padding: 20px; 
@@ -37,7 +39,7 @@
 
 
 .rds-comp-layout-wrapper {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -47,13 +49,14 @@
 }
 
 .rds-comp-layout-inner-wrapper {
-  min-height: 300px;
+  min-height: 100px;
   width: 100%;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  /* max-width: 1200px; */
+  /* margin-left: auto;
+   */
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 @media (min-width: 600px) {

@@ -44,7 +44,7 @@ const meta: Meta<typeof RdsCompLayout> = {
     },
     displayType: {
       control: 'select',
-      options: ['Basic', 'Board','Boxify','Cardify','Collage'],
+      options: ['Basic', 'Board','Boxify','Cardify','Collage','Gridify', 'Highlight', 'Matrix','Mosaic','Nexus','Pinboard','Sections','Splitz', 'Spotlight', 'Stacks'],
       description: 'Type of layout display style',
     },
     hasShadow: {
@@ -151,71 +151,226 @@ export const GridLikeLayout: Story = {
 };
 
 // Board style story using displayType and hasShadow, with conditional rendering
+// export const Basic: Story = {
+//   args: {
+//     displayType: 'Basic',
+//     hasShadow: false,
+//     spacing: 2,
+//     direction: 'column',
+//     // children: (
+//     //   <Box className="layout1 layout-shadow" sx={{ minHeight: '200', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', bgcolor: 'transparent', p: 1, boxShadow:'0 0 6px 5px #4d525912' }}>
+//     //     <Box sx={{ p: '1rem', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+//     //       <Paper
+//     //         // className="content-with-full-height border-danger"
+//     //         elevation={3}
+//     //         sx={{
+//     //           position: 'relative',
+//     //           p: 2.5,
+//     //           border: '1px solid #d3dcea',
+//     //           borderRadius: 2.5,
+//     //           boxShadow: '0 0 6px 5px #4d525912',
+//     //           background: '#fff',
+//     //           minHeight: 200,
+//     //           height: '83vh',
+//     //           width: '100%',
+             
+//     //           mx: 'auto',
+//     //         }}
+//     //       >
+//     //         {/* Blank card for layout showcase */}
+//     //       </Paper>
+//     //     </Box>
+//     //   </Box>
+//     // ),
+//   },
+// };
+
+
+// export const Board: Story ={
+//  args: {
+//     displayType: 'Board',
+//     hasShadow: false,
+//     spacing: 2,
+//     direction: 'column',
+//   }
+// }
+// export const Boxify: Story ={
+//  args: {
+//     displayType: 'Boxify',
+//     hasShadow: false,
+//     spacing: 2,
+//     direction: 'column',
+//   }
+// }
+
+// export const Cardify: Story ={
+//  args: {
+//     displayType: 'Cardify',
+//     hasShadow: false,
+//     spacing: 2,
+//     direction: 'column',
+//   }
+// }
+// export const Collage: Story ={
+//  args: {
+//     displayType: 'Collage',
+//     hasShadow: false,
+//     spacing: 2,
+//     direction: 'column',
+//   }
+// }
+
 export const Basic: Story = {
   args: {
     displayType: 'Basic',
     hasShadow: false,
     spacing: 2,
     direction: 'column',
-    // children: (
-    //   <Box className="layout1 layout-shadow" sx={{ minHeight: '200', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', bgcolor: 'transparent', p: 1, boxShadow:'0 0 6px 5px #4d525912' }}>
-    //     <Box sx={{ p: '1rem', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-    //       <Paper
-    //         // className="content-with-full-height border-danger"
-    //         elevation={3}
-    //         sx={{
-    //           position: 'relative',
-    //           p: 2.5,
-    //           border: '1px solid #d3dcea',
-    //           borderRadius: 2.5,
-    //           boxShadow: '0 0 6px 5px #4d525912',
-    //           background: '#fff',
-    //           minHeight: 200,
-    //           height: '83vh',
-    //           width: '100%',
-             
-    //           mx: 'auto',
-    //         }}
-    //       >
-    //         {/* Blank card for layout showcase */}
-    //       </Paper>
-    //     </Box>
-    //   </Box>
-    // ),
+    mode: 'standard', // <-- add this
   },
 };
 
-
-export const Board: Story ={
- args: {
+export const Board: Story = {
+  args: {
     displayType: 'Board',
     hasShadow: false,
     spacing: 2,
     direction: 'column',
+    mode: 'standard', 
   }
-}
-export const Boxify: Story ={
- args: {
+};
+
+export const Boxify: Story = {
+  args: {
     displayType: 'Boxify',
     hasShadow: false,
     spacing: 2,
     direction: 'column',
+    mode: 'standard', 
   }
-}
+};
 
-export const Cardify: Story ={
- args: {
+export const Cardify: Story = {
+  args: {
     displayType: 'Cardify',
     hasShadow: false,
     spacing: 2,
     direction: 'column',
+    mode: 'standard',
   }
-}
-export const Collage: Story ={
- args: {
+};
+
+export const Collage: Story = {
+  args: {
     displayType: 'Collage',
     hasShadow: false,
     spacing: 2,
     direction: 'column',
+    mode: 'standard', 
   }
-}
+};
+
+export const Gridify: Story = {
+  args: {
+    displayType: 'Gridify',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+
+export const Highlight: Story = {
+  args: {
+    displayType: 'Highlight',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+
+export const Matrix: Story = {
+  args: {
+    displayType: 'Matrix',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+
+export const Mosaic: Story = {
+  args: {
+    displayType: 'Mosaic',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Nexus: Story = {
+  args: {
+    displayType: 'Nexus',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Pinboard: Story = {
+  args: {
+    displayType: 'Pinboard',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Sections: Story = {
+  args: {
+    displayType: 'Sections',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Snapshots: Story = {
+  args: {
+    displayType: 'Snapshots',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Splitz: Story = {
+  args: {
+    displayType: 'Splitz',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Spotlight: Story = {
+  args: {
+    displayType: 'Spotlight',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Stacks: Story = {
+  args: {
+    displayType: 'Stacks',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+
+
