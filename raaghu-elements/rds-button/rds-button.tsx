@@ -31,6 +31,23 @@ const RdsButton: React.FC<RdsButtonProps> = ({
   icon,
   ...props
 }) => {
+  // Normalize layout prop to support Storybook options
+  let normalizedLayout = layout;
+  if (typeof layout === 'string') {
+    switch (layout.trim().toLowerCase()) {
+      case 'icon + text':
+        normalizedLayout = 'icon+text';
+        break;
+      case 'icon only':
+        normalizedLayout = 'icon-only';
+        break;
+      case 'text only':
+        normalizedLayout = 'text-only';
+        break;
+      default:
+        normalizedLayout = layout;
+    }
+  }
   const getShapeStyles = () => {
     if (shape === 'pill') {
       return {
@@ -76,48 +93,44 @@ const RdsButton: React.FC<RdsButtonProps> = ({
 
   // Determine what to render based on layout
   const getStartIcon = () => {
-    // For icon-only layout, don't use startIcon to avoid left positioning
-    if (layout === 'icon-only') {
+    if (normalizedLayout === 'icon-only') {
       return undefined;
     }
-    // Don't show start icon if endIcon is explicitly provided
-    if (endIcon) {
-      return undefined;
-    }
-    // Priority: explicit startIcon prop, then icon prop with 'start' position
-    if (layout === 'icon+text' && startIcon) {
-      return startIcon;
-    }
-    if (layout === 'icon+text' && icon && iconPosition === 'start') {
+    // If icon prop is set and position is start, always use it
+    if (normalizedLayout === 'icon+text' && icon && iconPosition === 'start') {
       return getIconComponent();
+    }
+    // Otherwise, use explicit startIcon prop
+    if (normalizedLayout === 'icon+text' && startIcon) {
+      return startIcon;
     }
     return undefined;
   };
 
   const getEndIcon = () => {
-    // For icon-only layout, don't use endIcon to avoid positioning issues
-    if (layout === 'icon-only') {
+    if (normalizedLayout === 'icon-only') {
       return undefined;
     }
-    // Priority: explicit endIcon prop, then icon prop with 'end' position
-    if (layout === 'icon+text' && endIcon) {
-      return endIcon;
-    }
-    if (layout === 'icon+text' && icon && iconPosition === 'end') {
+    // If icon prop is set and position is end, always use it
+    if (normalizedLayout === 'icon+text' && icon && iconPosition === 'end') {
       return getIconComponent();
+    }
+    // Otherwise, use explicit endIcon prop
+    if (normalizedLayout === 'icon+text' && endIcon) {
+      return endIcon;
     }
     return undefined;
   };
 
   const renderContent = () => {
-    if (layout === 'icon-only') {
+    if (normalizedLayout === 'icon-only') {
       // For icon-only layout, prioritize icon prop, then fallback to explicit icon props
       if (icon) {
         return getIconComponent();
       }
       return startIcon || endIcon;
     }
-    if (layout === 'icon+text' || layout === 'text-only') {
+    if (normalizedLayout === 'icon+text' || normalizedLayout === 'text-only') {
       return label || children;
     }
     return null;

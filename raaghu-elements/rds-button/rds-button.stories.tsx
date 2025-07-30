@@ -49,7 +49,7 @@ const meta: Meta<typeof RdsButton> = {
     },
     layout: {
       control: 'select',
-      options: ['icon+text', 'icon-only', 'text-only'],
+      options: ["Icon + Text", "Icon Only", "Text Only"],
       description: 'The layout of the button',
     },
     icon: {
@@ -112,7 +112,8 @@ export const WithEndIcon: Story = {
     label: 'Delete Item',
     style: 'filled',
     color: 'error',
-    endIcon: <Delete />,
+    icon: 'delete',
+    iconPosition: 'end',
   },
 };
 
