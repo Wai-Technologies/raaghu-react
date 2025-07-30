@@ -4,6 +4,7 @@
   display: inline-flex;
   flex-direction: column;
   gap: var(--rds-spacing-xs);
+  width: 100%;
   
   &__label {
     font-size: var(--rds-font-size-sm);
@@ -11,12 +12,18 @@
     color: var(--rds-text-secondary);
     margin-bottom: var(--rds-spacing-xs);
   }
+      &__asterisk {
+      color: var(--rds-alert-error-border);
+      margin-left: 2px;
+      font-size: inherit;
+      font-weight: 700;
+    }
   
   &__field {
     padding: var(--rds-font-size-sm) var(--rds-font-size-lg);
     border: 1px solid var(--rds-border-default);
     border-radius: var(--rds-spacing-xs);
-    font-size: 1var(--rds-spacing-xs);
+    font-size: var(--rds-font-size-sm);
     font-family: var(--rds-font-family-base);
     background-color: var(--rds-background-paper);
     transition: border-color var(--rds-transition-base), box-shadow var(--rds-transition-base);
@@ -85,5 +92,35 @@
       padding: var(--rds-font-size-lg) var(--rds-font-size-2xl);
       font-size: var(--rds-font-size-lg);
     }
+  }
+}
+
+// Pill style
+.rds-input--pill {
+  .MuiOutlinedInput-root,
+  .MuiFilledInput-root,
+  .MuiInputBase-root,
+  .rds-input__field {
+    border-radius: 9999px !important;
+    padding-left: 1.5em !important;
+    padding-right: 1.5em !important;
+    box-sizing: border-box;
+  }
+  .MuiOutlinedInput-notchedOutline {
+    border-radius: 9999px !important;
+  }
+  .MuiInputBase-input {
+    border-radius: 9999px !important;
+  }
+}
+
+// Bottom outline style
+.rds-input--bottom-outline {
+  .MuiOutlinedInput-root,
+  .MuiFilledInput-root,
+  .MuiInputBase-root,
+  .rds-input__field {
+  border: none;
+  border-bottom: 2px solid #ced4da;
   }
 }
