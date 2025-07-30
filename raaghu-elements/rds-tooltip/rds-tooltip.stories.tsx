@@ -7,7 +7,7 @@ const meta: Meta<typeof RdsTooltip> = {
   title: 'Elements/Tooltip',
   component: RdsTooltip,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
@@ -15,29 +15,36 @@ const meta: Meta<typeof RdsTooltip> = {
       control: 'text',
       description: 'Tooltip text content',
     },
-    placement: {
-      control: 'select',
-      options: ['top', 'bottom', 'left', 'right'],
-      description: 'Placement of the tooltip',
-    },
     arrow: {
       control: 'boolean',
       description: 'Whether to show arrow',
     },
+    placement: {
+      control: 'select',
+      options: [
+        'top', 'bottom', 'left', 'right',
+        'top-start', 'top-end',
+        'bottom-start', 'bottom-end',
+        'left-start', 'left-end',
+        'right-start', 'right-end',
+      ],
+      description: 'Placement of the tooltip',
+    },
+
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Default: StoryObj<typeof RdsTooltip> = {
   args: {
     title: 'This is a tooltip',
     children: <Button variant="contained">Hover me</Button>,
+    placement: 'top',
   },
 };
 
-export const OnIconButton: Story = {
+export const OnIconButton: StoryObj<typeof RdsTooltip> = {
   args: {
     title: 'Delete item',
     children: (
@@ -45,18 +52,20 @@ export const OnIconButton: Story = {
         <Delete />
       </IconButton>
     ),
+    placement: 'top',
   },
 };
 
-export const WithArrow: Story = {
+export const WithArrow: StoryObj<typeof RdsTooltip> = {
   args: {
     title: 'Tooltip with arrow',
     arrow: true,
     children: <Button variant="outlined">Arrow tooltip</Button>,
+    placement: 'top',
   },
 };
 
-export const Different_Placements: Story = {
+export const Different_Placements: StoryObj<typeof RdsTooltip> = {
   args: {
     title: 'Top placement',
     placement: 'top',
@@ -64,7 +73,7 @@ export const Different_Placements: Story = {
   },
 };
 
-export const LongText: Story = {
+export const LongText: StoryObj<typeof RdsTooltip> = {
   args: {
     title: 'This is a very long tooltip text that might wrap to multiple lines depending on the screen size',
     children: (
@@ -72,5 +81,6 @@ export const LongText: Story = {
         <Help />
       </IconButton>
     ),
+    placement: 'top',
   },
 };
