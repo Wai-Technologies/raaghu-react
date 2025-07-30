@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsPagination from './rds-pagination';
+import React, { useState } from 'react';
 
 const meta: Meta<typeof RdsPagination> = {
   title: 'Elements/Pagination',
@@ -56,6 +57,48 @@ export const Default: Story = {
     page: 5,
   },
 };
+export const Advanced: Story = {
+  render: (args) => {
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+    const totalRecords = 123;
+    return (
+      <RdsPagination
+        {...args}
+        count={totalRecords}
+        page={page}
+        pageSize={pageSize}
+        onChange={(_, value) => setPage(value)}
+        onPageSizeChange={setPageSize}
+        pageSizeOptions={[10, 25, 50, 100]}
+        showFirstLast={true}
+        showRecordsPerPage={true}
+      />
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Advanced pagination with dynamic records per page selector.'
+      }
+    }
+  }
+};
+
+export const Disabled: Story = {
+  args: {
+    count: 10,
+    page: 5,
+    disabled: true,
+  },
+};
+export const Large: Story = {
+  args: {
+    count: 12,
+    page: 6,
+    size: 'large',
+  },
+};
 
 export const Outlined: Story = {
   args: {
@@ -72,6 +115,13 @@ export const Rounded: Story = {
     shape: 'rounded',
   },
 };
+export const Small: Story = {
+  args: {
+    count: 8,
+    page: 4,
+    size: 'small',
+  },
+};
 
 export const WithFirstLast: Story = {
   args: {
@@ -82,26 +132,3 @@ export const WithFirstLast: Story = {
   },
 };
 
-export const Small: Story = {
-  args: {
-    count: 8,
-    page: 4,
-    size: 'small',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    count: 12,
-    page: 6,
-    size: 'large',
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    count: 10,
-    page: 5,
-    disabled: true,
-  },
-};
