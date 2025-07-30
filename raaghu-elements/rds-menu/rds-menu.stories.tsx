@@ -24,100 +24,75 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     open: true,
-    children: (
-      <>
-        <MenuItem>
-          <ListItemText>Profile</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemText>My account</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemText>Logout</ListItemText>
-        </MenuItem>
-      </>
-    ),
+    items: [
+      {
+        label: 'Profile',
+        id: 1
+      },
+      {
+        label: 'My account',
+        id: 2
+      },
+      {
+        label: 'Logout',
+        id: 3
+      },
+    ],
   },
 };
 
 export const WithIcons: Story = {
   args: {
     open: true,
-    children: (
-      <>
-        <MenuItem>
-          <ListItemIcon>
-            <ContentCut fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Cut</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <ContentCopy fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Copy</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <ContentPaste fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Paste</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Delete fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Delete</ListItemText>
-        </MenuItem>
-      </>
-    ),
-  },
-};
-
-export const Dense: Story = {
-  args: {
-    open: true,
-    dense: true,
-    children: (
-      <>
-        <MenuItem dense>
-          <ListItemIcon>
-            <ContentCut fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Cut</ListItemText>
-        </MenuItem>
-        <MenuItem dense>
-          <ListItemIcon>
-            <ContentCopy fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Copy</ListItemText>
-        </MenuItem>
-        <MenuItem dense>
-          <ListItemIcon>
-            <ContentPaste fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Paste</ListItemText>
-        </MenuItem>
-      </>
-    ),
+    items: [
+      {
+        label: 'Cut', icon: <ContentCut fontSize="small" />,
+        id: 1
+      },
+      {
+        label: 'Copy', icon: <ContentCopy fontSize="small" />,
+        id: 2
+      },
+      {
+        label: 'Paste', icon: <ContentPaste fontSize="small" />,
+        id: 3
+      },
+      {
+        label: 'Delete', icon: <Delete fontSize="small" />,
+        id: 4
+      },
+    ],
   },
 };
 
 export const WithDisabled: Story = {
   args: {
     open: true,
-    children: (
-      <>
-        <MenuItem>
-          <ListItemText>Enabled Item</ListItemText>
-        </MenuItem>
-        <MenuItem disabled>
-          <ListItemText>Disabled Item</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemText>Another Enabled Item</ListItemText>
-        </MenuItem>
-      </>
-    ),
+    items: [
+      {
+        label: 'Cut', icon: <ContentCut fontSize="small" />,
+        id: 1
+      },
+      {
+        label: 'Copy', icon: <ContentCopy fontSize="small" />,
+        id: 2
+      },
+      {
+        label: 'Paste', icon: <ContentPaste fontSize="small" />,
+        id: 3
+      },
+      {
+        label: 'Enabled Item',
+        id: 4
+      },
+      {
+        label: 'Disabled Item', disabled: true,
+        id: 5
+      },
+      {
+        label: 'Another Enabled Item',
+        id: 6
+      },
+    ],
   },
 };

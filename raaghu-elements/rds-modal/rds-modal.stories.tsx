@@ -1,3 +1,4 @@
+import { DeleteOutline, Info, Warning } from '@mui/icons-material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsModal from './rds-modal';
 import { Button, Typography } from '@mui/material';
@@ -147,6 +148,32 @@ export const SmallModal = {
         <Button>No</Button>
         <Button variant="contained" color="primary">Yes</Button>
       </>
+    ),
+  },
+};
+
+export const WithIcon = {
+  render: ModalTemplate,
+  args: {
+    title: 'Modal with Icon',
+    icon: <Info color="primary" sx={{ height: 24, width: 24 }} />,
+    children: (
+      <Typography>
+        This modal displays an icon in the header.
+      </Typography>
+    ),
+  },
+};
+
+export const WithImage = {
+  render: ModalTemplate,
+  args: {
+    title: 'Modal with Image',
+    imageSrc: 'https://th.bing.com/th/id/OIP.VVPQIqDqf-OxZPXu07XWKwHaEK?w=326&h=183&c=7&r=0&o=5&dpr=1.3&pid=1.7',
+    children: (
+      <Typography>
+        This modal displays an image in the header.
+      </Typography>
     ),
   },
 };
