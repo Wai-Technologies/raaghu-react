@@ -2,4 +2,25 @@
 .rds-slider {
   display: block;
   position: relative;
+  
+  &__label-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--rds-spacing-sm);
+    font-size: var(--rds-font-size-body);
+    font-family: var(--rds-font-family);
+    color: var(--rds-color-on-surface);
+  }
+
+  &__label-text {
+    font-weight: 500;
+    display: inline-block;
+    position: relative;
+    top: -12px;
+    left: -10px;
+  }
+
+  &__value {
+    font-weight: 400;
+  }
 }

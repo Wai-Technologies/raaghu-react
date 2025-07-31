@@ -2,7 +2,9 @@
 // Loading skeleton placeholder
 
 .rds-skeleton {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   position: relative;
 
   &--text {

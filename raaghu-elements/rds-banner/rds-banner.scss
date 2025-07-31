@@ -10,6 +10,9 @@
   border-radius: var(--rds-spacing-xs);
   gap: var(--rds-font-size-sm);
   
+  &__link-button{
+    text-decoration: underline !important;
+  }
   &__icon {
     flex-shrink: 0;
     font-size: var(--rds-font-size-2xl);

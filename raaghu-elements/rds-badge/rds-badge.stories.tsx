@@ -10,6 +10,44 @@ const meta: Meta<typeof RdsBadge> = {
     layout: 'padded',
   },
   tags: ['autodocs'],
+  argTypes: {
+    size: {
+      control: { type: 'select' },
+      options: ['small', 'medium', 'large'],
+      description: 'Badge size',
+      defaultValue: 'medium',
+    },
+    shape: {
+      control: { type: 'select' },
+      options: ['rectangle', 'pill'],
+      description: 'Badge shape',
+      defaultValue: 'pill',
+    },
+    layout: {
+      control: { type: 'select' },
+      options: ['text', 'icon', 'icon-text', 'text-icon'],
+      description: 'Badge layout',
+      defaultValue: 'text',
+    },
+    styleType: {
+      control: { type: 'select' },
+      options: ['primary', 'outline', 'transparent'],
+      description: 'Badge style',
+      defaultValue: 'primary',
+    },
+    state: {
+      control: { type: 'select' },
+      options: ['default', 'disabled'],
+      description: 'Badge state',
+      defaultValue: 'default',
+    },
+    colorVariant: {
+      control: { type: 'select' },
+      options: ['primary', 'secondary', 'tertiary', 'danger', 'warning', 'light', 'success'],
+      description: 'Badge color variant',
+      defaultValue: 'primary',
+    },
+  },
 };
 
 export default meta;
@@ -47,5 +85,12 @@ export const Dot: Story = {
     variant: 'dot',
     color: 'success',
     children: <Mail />,
+  },
+};
+export const Badge: Story = {
+  args: {
+    badgeContent: 'Badge',
+    color: 'secondary',
+    size: 'medium',
   },
 };
