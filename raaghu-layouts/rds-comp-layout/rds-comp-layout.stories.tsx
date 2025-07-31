@@ -58,10 +58,12 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Sample components for demonstration
-const SampleCard = ({ title, color = '#e3f2fd' }: { title: string; color?: string }) => (
-  <Paper sx={{ p: 2, backgroundColor: color, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-    <Typography variant="h6">{title}</Typography>
-  </Paper>
+const SampleCard = ({ title }: { title: string }) => (
+  <div className="rds-comp-layout__item">
+    <Paper sx={{ p: 2, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Typography variant="h6">{title}</Typography>
+    </Paper>
+  </div>
 );
 
 export const Default: Story = {
@@ -77,21 +79,96 @@ export const Default: Story = {
     ),
   },
 };
-
-export const RowLayout: Story = {
+export const AsymmetricGrid: Story = {
   args: {
     spacing: 2,
     direction: 'row',
+    wrap: true,
     children: (
       <>
-        <SampleCard title="Item 1" color="#e8f5e8" />
-        <SampleCard title="Item 2" color="#fff3e0" />
-        <SampleCard title="Item 3" color="#fce4ec" />
+        <div className="rds-comp-layout__item" style={{ flex: '2 1 60%' }}>
+          <Paper sx={{ p: 2, minHeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h6">Large Card</Typography>
+          </Paper>
+        </div>
+        <div className="rds-comp-layout__item" style={{ flex: '1 1 35%' }}>
+          <Paper sx={{ p: 2, minHeight: 290, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
+            <Typography variant="h6">Small Card 1</Typography>
+          </Paper>
+          <Paper sx={{ p: 2, minHeight: 290, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h6">Small Card 2</Typography>
+          </Paper>
+        </div>
+      </>
+    ),
+  },
+}
+export const DashboardGrid: Story = {
+  args: {
+    spacing: 2,
+    direction: 'row',
+    wrap: true,
+    children: (
+      <>
+        {[...Array(6)].map((_, i) => (
+          <div className="rds-comp-layout__item" key={i} style={{ flex: '1 1 30%', minWidth: 220, marginBottom: 16 }}>
+            <Paper sx={{ p: 2, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Typography variant="h6">Card {i + 1}</Typography>
+            </Paper>
+          </div>
+        ))}
       </>
     ),
   },
 };
-
+export const HeaderContentFooter: Story = {
+  args: {
+    spacing: 2,
+    direction: 'column',
+    children: (
+      <>
+        <div className="rds-comp-layout__item">
+          <Paper sx={{ p: 2, minHeight: 60, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h6">Header</Typography>
+          </Paper>
+        </div>
+        <div className="rds-comp-layout__item">
+          <Paper sx={{ p: 2, minHeight: 200, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h6">Main Content</Typography>
+          </Paper>
+        </div>
+        <div className="rds-comp-layout__item">
+          <Paper sx={{ p: 2, minHeight: 60, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h6">Footer</Typography>
+          </Paper>
+        </div>
+      </>
+    ),
+  },
+};
+export const GridLikeLayout: Story = {
+  args: {
+    spacing: 2,
+    direction: 'row',
+    wrap: true,
+    children: (
+      <>
+        <div className="rds-comp-layout__item" style={{ flexBasis: '45%' }}>
+          <SampleCard title="Card 1" />
+        </div>
+        <div className="rds-comp-layout__item" style={{ flexBasis: '45%' }}>
+          <SampleCard title="Card 2" />
+        </div>
+        <div className="rds-comp-layout__item" style={{ flexBasis: '45%' }}>
+          <SampleCard title="Card 3" />
+        </div>
+        <div className="rds-comp-layout__item" style={{ flexBasis: '45%' }}>
+          <SampleCard title="Card 4" />
+        </div>
+      </>
+    ),
+  },
+};
 export const CenteredLayout: Story = {
   args: {
     spacing: 3,
@@ -108,7 +185,19 @@ export const CenteredLayout: Story = {
     ),
   },
 };
-
+export const RowLayout: Story = {
+  args: {
+    spacing: 2,
+    direction: 'row',
+    children: (
+      <>
+        <SampleCard title="Item 1" />
+        <SampleCard title="Item 2" />
+        <SampleCard title="Item 3" />
+      </>
+    ),
+  },
+};
 export const SpaceBetween: Story = {
   args: {
     spacing: 0,
@@ -118,33 +207,76 @@ export const SpaceBetween: Story = {
     fullWidth: true,
     children: (
       <>
-        <SampleCard title="Left" color="#e8f5e8" />
-        <SampleCard title="Center" color="#fff3e0" />
-        <SampleCard title="Right" color="#fce4ec" />
+        <SampleCard title="Left" />
+        <SampleCard title="Center" />
+        <SampleCard title="Right" />
       </>
     ),
   },
 };
-
-export const GridLikeLayout: Story = {
+export const SidebarLayout: Story = {
+  args: {
+    spacing: 2,
+    direction: 'row',
+    children: (
+      <>
+        <div className="rds-comp-layout__item" style={{ flex: '0 0 220px' }}>
+          <Paper sx={{ p: 2, minHeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h6">Sidebar</Typography>
+          </Paper>
+        </div>
+        <div className="rds-comp-layout__item" style={{ flex: '1 1 auto' }}>
+          <Paper sx={{ p: 2, minHeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h6">Main Content</Typography>
+          </Paper>
+        </div>
+      </>
+    ),
+  },
+};
+export const TwoColumnGrid: Story = {
   args: {
     spacing: 2,
     direction: 'row',
     wrap: true,
     children: (
       <>
-        <Box sx={{ flexBasis: '45%' }}>
-          <SampleCard title="Card 1" color="#e3f2fd" />
-        </Box>
-        <Box sx={{ flexBasis: '45%' }}>
-          <SampleCard title="Card 2" color="#e8f5e8" />
-        </Box>
-        <Box sx={{ flexBasis: '45%' }}>
-          <SampleCard title="Card 3" color="#fff3e0" />
-        </Box>
-        <Box sx={{ flexBasis: '45%' }}>
-          <SampleCard title="Card 4" color="#fce4ec" />
-        </Box>
+        <div className="rds-comp-layout__item" style={{ flex: '1 1 48%' }}>
+          <Paper sx={{ p: 2, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h6">Left Column</Typography>
+          </Paper>
+        </div>
+        <div className="rds-comp-layout__item" style={{ flex: '1 1 48%' }}>
+          <Paper sx={{ p: 2, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h6">Right Column</Typography>
+          </Paper>
+        </div>
+      </>
+    ),
+  },
+};
+export const ThreeColumnGrid: Story = {
+  args: {
+    spacing: 2,
+    direction: 'row',
+    wrap: true,
+    children: (
+      <>
+        <div className="rds-comp-layout__item" style={{ flex: '1 1 30%' }}>
+          <Paper sx={{ p: 2, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h6">Column 1</Typography>
+          </Paper>
+        </div>
+        <div className="rds-comp-layout__item" style={{ flex: '1 1 30%' }}>
+          <Paper sx={{ p: 2, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h6">Column 2</Typography>
+          </Paper>
+        </div>
+        <div className="rds-comp-layout__item" style={{ flex: '1 1 30%' }}>
+          <Paper sx={{ p: 2, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Typography variant="h6">Column 3</Typography>
+          </Paper>
+        </div>
       </>
     ),
   },

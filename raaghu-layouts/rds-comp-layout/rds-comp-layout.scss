@@ -1,0 +1,43 @@
+
+// Raaghu Design System - Layout SCSS (BEM, tokens)
+:root {
+  --rds-comp-layout-gap: 24px;
+  --rds-comp-layout-padding: 24px;
+  --rds-comp-layout-gap-mobile: 16px;
+  --rds-comp-layout-padding-mobile: 12px;
+}
+
+.rds-comp-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rds-comp-layout-gap);
+  padding: var(--rds-comp-layout-padding);
+  width: 100%;
+}
+
+.rds-comp-layout--row {
+  flex-direction: row;
+}
+
+.rds-comp-layout--full-height {
+  height: 100%;
+}
+
+.rds-comp-layout--full-width {
+  width: 100%;
+}
+
+.rds-comp-layout__item {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .rds-comp-layout {
+    flex-direction: column !important;
+    gap: var(--rds-comp-layout-gap-mobile);
+    padding: var(--rds-comp-layout-padding-mobile);
+  }
+  .rds-comp-layout__item {
+    width: 100% !important;
+  }
+}
