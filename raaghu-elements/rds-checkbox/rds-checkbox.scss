@@ -19,7 +19,7 @@
     font-size: var(--rds-font-size-md, 14px);
     margin-left: var(--rds-spacing-xs, 4px);
     
-    &--disabled {
+    &__disabled {
       color: var(--rds-text-disabled, #bdbdbd);
     }
   }
@@ -81,7 +81,7 @@
   }
 
   // Modifier: Text visibility
-  &--text-hidden {
+  &__text-hidden {
     .MuiFormControlLabel-label {
       visibility: hidden;
       width: 0;
@@ -91,13 +91,13 @@
   }
 
   // State modifiers
-  &--checked {
+  &__checked {
     .MuiCheckbox-root {
       color: var(--rds-primary-main, #2196f3);
     }
   }
 
-  &--disabled {
+  &__disabled {
     pointer-events: none;
     
     .MuiCheckbox-root,
@@ -107,7 +107,7 @@
     }
   }
 
-  &--hover {
+  &__hover {
     .MuiCheckbox-root {
       background-color: var(--rds-button-text-bg-hover, rgba(0, 0, 0, 0.04));
       
@@ -139,14 +139,14 @@
     }
   }
 
-  &--indeterminate {
+  &__indeterminate {
     .MuiCheckbox-root {
       color: var(--rds-primary-main, #2196f3);
     }
   }
 
   // Color modifiers
-  &--primary {
+  &__primary {
     .MuiCheckbox-root {
       &.Mui-checked,
       &.MuiCheckbox-indeterminate {
@@ -170,7 +170,7 @@
     }
   }
 
-  &--secondary {
+  &__secondary {
     .MuiCheckbox-root {
       &.Mui-checked,
       &.MuiCheckbox-indeterminate {
@@ -195,7 +195,7 @@
   }
 
   // Modifier: Style variants
-  &--square {
+  &__square {
     .MuiCheckbox-root {
       .MuiSvgIcon-root {
         border-radius: var(--rds-border-radius-sm, 4px);
@@ -211,7 +211,7 @@
   }
 
   // Modifier: Circular variant following RDS guidelines
-  &--circular {
+  &__circular {
     .MuiCheckbox-root {
       position: relative;
       
@@ -287,7 +287,7 @@
     }
     
     // Color-specific overrides for circular variant
-    &.rds-checkbox--secondary {
+    &.rds-checkbox__secondary {
       .MuiCheckbox-root {
         &.Mui-checked::before,
         &.MuiCheckbox-indeterminate::before {

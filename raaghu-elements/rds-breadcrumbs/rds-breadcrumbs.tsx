@@ -76,12 +76,12 @@ const RdsBreadcrumbs: React.FC<RdsBreadcrumbsProps> = ({
     const activeLayout = itemLayout || layout;
     switch (activeLayout) {
       case 'pill background':
-        return 'rds-breadcrumbs--pill';
+        return 'rds-breadcrumbs__pill';
       case 'square background':
-        return 'rds-breadcrumbs--square';
+        return 'rds-breadcrumbs__square';
       case 'without background':
       default:
-        return 'rds-breadcrumbs--plain';
+        return 'rds-breadcrumbs__plain';
     }
   };
 
@@ -91,9 +91,9 @@ const RdsBreadcrumbs: React.FC<RdsBreadcrumbsProps> = ({
     const activeState = itemState || state || 'default';
     switch (activeState) {
       case 'hover':
-        return 'rds-breadcrumbs__item--hover';
+        return 'rds-breadcrumbs__item__hover';
       case 'selected':
-        return 'rds-breadcrumbs__item--selected';
+        return 'rds-breadcrumbs__item__selected';
       case 'default':
       default:
         return '';
@@ -121,9 +121,9 @@ const RdsBreadcrumbs: React.FC<RdsBreadcrumbsProps> = ({
         const isHovered = (item.state === 'hover') || (state === 'hover' && !item.state);
 
         // Compose class list for Typography (last/active/selected)
-        let typographyClass = `rds-breadcrumbs__item rds-breadcrumbs__item--active ${itemLayoutClass}`;
+        let typographyClass = `rds-breadcrumbs__item rds-breadcrumbs__item__active ${itemLayoutClass}`;
         if (isSelected || selectedIdx === index) {
-          typographyClass += ' rds-breadcrumbs__item--selected';
+          typographyClass += ' rds-breadcrumbs__item__selected';
         }
 
         if (isLast || item.active || isSelected || selectedIdx === index) {
@@ -142,7 +142,7 @@ const RdsBreadcrumbs: React.FC<RdsBreadcrumbsProps> = ({
         }
 
         // Only enable hover effect if state is 'hover' (either on item or global)
-        const enableHoverClass = (item.state === 'hover' || (!item.state && state === 'hover')) ? 'rds-breadcrumbs__item--enable-hover' : '';
+        const enableHoverClass = (item.state === 'hover' || (!item.state && state === 'hover')) ? 'rds-breadcrumbs__item__enable-hover' : '';
         return (
           <Link
             key={index}

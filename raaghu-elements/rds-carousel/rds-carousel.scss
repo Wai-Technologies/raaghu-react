@@ -62,20 +62,20 @@
     transition: background-color 0.2s ease;
     background-color: rgba(255, 255, 255, 0.5);
 
-    &--circle {
+    &__circle {
       width: 12px;
       height: 12px;
       border-radius: 50%;
     }
-    &--line {
+    &__line {
       width: 24px;
       height: 4px;
       border-radius: 2px;
     }
-    &--active {
+    &__active {
       background-color: var(--rds-color-primary, #1976d2);
     }
-    &:hover:not(.rds-carousel__indicator--active) {
+    &:hover:not(.rds-carousel__indicator__active) {
       background-color: rgba(255, 255, 255, 0.8);
     }
   }
@@ -106,12 +106,12 @@
 
   // Style variants
   &--default,
-  &--with-title {
+  &__with-title {
     border-radius: var(--rds-border-radius, 4px);
     box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
   }
 
-  &--full-width-image {
+  &__full-width-image {
     border-radius: 0;
     box-shadow: none;
     width: 100vw;
@@ -128,7 +128,7 @@
   }
 
   // Auto-play state
-  &--auto-play {
+  &__auto-play {
     .rds-carousel__indicators::after {
       content: '';
       position: absolute;
@@ -153,7 +153,7 @@
     outline-offset: 2px;
   }
   &:disabled,
-  &--disabled {
+  &__disabled {
     opacity: 0.6;
     pointer-events: none;
   }
@@ -185,7 +185,7 @@
         font-size: var(--rds-font-size-body2, 0.875rem);
       }
     }
-    &--full-width-image {
+    &__full-width-image {
       .rds-carousel__indicators {
         bottom: var(--rds-spacing-sm, 8px);
       }

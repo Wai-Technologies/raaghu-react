@@ -69,26 +69,26 @@
   }
   
   // Size variants
-  &--small {
+  &__small {
     padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     font-size: var(--rds-font-size-xs);
     min-height: 2var(--rds-spacing-sm);
   }
   
-  &--medium {
+  &__medium {
     padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     font-size: var(--rds-font-size-sm);
     min-height: 36px;
   }
   
-  &--large {
+  &__large {
     padding: var(--rds-spacing-md) var(--rds-spacing-lg);
     font-size: var(--rds-font-size-md);
     min-height: 4var(--rds-spacing-xs);
   }
   
   // Color variants
-  &--primary {
+  &__primary {
     background-color: var(--rds-button-primary-bg);
     color: var(--rds-button-primary-text);
     
@@ -100,8 +100,8 @@
       background-color: var(--rds-button-primary-bg-active);
     }
   }
-  
-  &--secondary {
+
+  &__secondary {
     background-color: var(--rds-button-secondary-bg);
     color: var(--rds-button-secondary-text);
     border: 1px solid var(--rds-button-secondary-border);
@@ -115,8 +115,8 @@
       background-color: var(--rds-button-secondary-bg-active);
     }
   }
-  
-  &--text {
+
+  &__text {
     background-color: transparent;
     color: var(--rds-button-text-color);
     
@@ -131,19 +131,19 @@
   
   // States
   &:disabled,
-  &--disabled {
+  &__disabled {
     background-color: var(--rds-button-primary-bg-disabled) !important;
     color: var(--rds-button-primary-text-disabled) !important;
     cursor: not-allowed;
     border-color: var(--rds-border-light) !important;
   }
-  
-  &--loading {
+
+  &__loading {
     pointer-events: none;
   }
 
   // State variants
-  &--state-hover {
+  &__state-hover {
     &:hover {
       background-color: var(--rds-button-primary-bg-hover) !important;
       transform: translateY(-1px);
@@ -151,7 +151,7 @@
     }
   }
 
-  &--state-selected {
+  &__state-selected {
     background-color: var(--rds-button-primary-bg-active) !important;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     
@@ -172,7 +172,7 @@
     }
   }
 
-  &--state-disabled {
+  &__state-disabled {
     background-color: var(--rds-button-primary-bg-disabled) !important;
     color: var(--rds-button-primary-text-disabled) !important;
     cursor: not-allowed !important;
@@ -198,17 +198,17 @@
     }
   }
 
-  &--state-default {
+  &__state-default {
     // Default state - inherits base button styles
     transition: all var(--rds-transition-base);
   }
   
   // Shape variants
-  &--pill {
+  &__pill {
     border-radius: 50px !important;
   }
-  
-  &--rectangle {
+
+  &__rectangle {
     border-radius: var(--rds-border-radius-sm) !important;
   }
 }

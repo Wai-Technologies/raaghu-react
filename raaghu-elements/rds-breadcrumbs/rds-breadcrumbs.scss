@@ -13,11 +13,11 @@
     transition: all 0.2s ease-in-out;
     cursor: pointer;
 
-    &--active {
+    &__active {
       font-weight: 500;
     }
 
-    &--enable-hover:hover {
+    &__enable-hover:hover {
       background-color: var(--rds-color-primary-light, #e3f2fd);
       color: var(--rds-color-primary, #1976d2);
     }
@@ -30,21 +30,21 @@
   }
 
   // Pill Background Variant
-  &--pill {
+  &__pill {
     .rds-breadcrumbs__item {
       padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px);
       border-radius: var(--rds-border-radius-pill, 20px);
       margin-right: var(--rds-spacing-xs, 8px);
 
-      &--enable-hover:hover {
+      &__enable-hover:hover {
         background-color: var(--rds-color-primary-light, #e3f2fd);
         color: var(--rds-color-primary, #1976d2);
       }
-      &--selected {
+      &__selected {
         background-color: var(--rds-color-primary, #1976d2);
         color: var(--rds-color-on-primary, #fff);
       }
-      &--active {
+      &__active {
         background-color: var(--rds-color-primary-light, #e3f2fd);
         color: var(--rds-color-primary, #1976d2);
       }
@@ -52,21 +52,21 @@
   }
 
   // Square Background Variant
-  &--square {
+  &__square {
     .rds-breadcrumbs__item {
       padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px);
       border-radius: var(--rds-border-radius, 4px);
       margin-right: var(--rds-spacing-xs, 8px);
 
-      &--enable-hover:hover {
+      &__enable-hover:hover {
         background-color: var(--rds-color-primary-light, #e3f2fd);
         color: var(--rds-color-primary, #1976d2);
       }
-      &--selected {
+      &__selected {
         background-color: var(--rds-color-primary, #1976d2);
         color: var(--rds-color-on-primary, #fff);
       }
-      &--active {
+      &__active {
         background-color: var(--rds-color-primary-light, #e3f2fd);
         color: var(--rds-color-primary, #1976d2);
       }
@@ -74,17 +74,17 @@
   }
 
   // Without Background Variant (Default)
-  &--plain {
+  &__plain {
     .rds-breadcrumbs__item {
       padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px);
       color: var(--rds-color-text-primary, #333);
 
-      &--enable-hover:hover {
+      &__enable-hover:hover {
         color: var(--rds-color-primary-dark, #1565c0);
         text-decoration: underline;
       }
 
-      &--selected {
+      &__selected {
         background-color: var(--rds-color-primary-light, #e3f2fd);
         color: var(--rds-color-primary, #1976d2);
         border-radius: var(--rds-border-radius, 4px);
@@ -99,7 +99,7 @@
   }
 
   &:disabled,
-  &--disabled {
+  &__disabled {
     opacity: 0.6;
     pointer-events: none;
   }

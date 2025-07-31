@@ -31,31 +31,31 @@ const RdsCheckbox: React.FC<RdsCheckboxProps> = ({
     const classes = ['rds-checkbox'];
     
     if (style) {
-      classes.push(`rds-checkbox--${style}`);
+      classes.push(`rds-checkbox__${style}`);
     }
     
     if (isChecked) {
-      classes.push('rds-checkbox--checked');
+      classes.push('rds-checkbox__checked');
     }
     
     if (isDisabled || state === 'disabled') {
-      classes.push('rds-checkbox--disabled');
+      classes.push('rds-checkbox__disabled');
     }
     
     if (isIndeterminate) {
-      classes.push('rds-checkbox--indeterminate');
+      classes.push('rds-checkbox__indeterminate');
     }
     
     if (state && state !== 'default') {
-      classes.push(`rds-checkbox--${state}`);
+      classes.push(`rds-checkbox__${state}`);
     }
     
     if (color && color !== 'default') {
-      classes.push(`rds-checkbox--${color}`);
+      classes.push(`rds-checkbox__${color}`);
     }
     
     if (label && !showText) {
-      classes.push('rds-checkbox--text-hidden');
+      classes.push('rds-checkbox__text-hidden');
     }
     
     if (className) {

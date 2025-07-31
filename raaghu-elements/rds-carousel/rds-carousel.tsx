@@ -189,7 +189,7 @@ const RdsCarousel: React.FC<RdsCarouselProps> = ({
               key={index}
               onClick={() => goToSlide(index)}
               className={`rds-carousel__indicator rds-carousel__indicator--${type} ${
-                activeIndex === index ? 'rds-carousel__indicator--active' : ''
+                activeIndex === index ? 'rds-carousel__indicator__active' : ''
               }`}
               sx={{
                 width: type === 'circle' ? 12 : 24,
