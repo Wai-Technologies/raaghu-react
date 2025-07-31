@@ -1,22 +1,79 @@
 
 
+
+
+
 // RDS File Uploader Component Styles
 .rds-file-uploader {
   display: block;
   position: relative;
   width: 100%;
 
+  &__side-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-left: 8px; // pl: 1 (theme spacing)
+  }
+
+  // Title left-aligned for side icon style
+  &__title--left {
+    font-weight: 500;
+    color: var(--rds-color-on-surface-variant, #353535);
+    margin-bottom: 0;
+    text-align: left;
+    font-size: 20px;
+  }
+
+  // Browse link left-aligned for side icon style
+  &__browse-link--left {
+    color: #3390e6;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s;
+    &:hover {
+      color: var(--rds-color-primary-hover, #1976d2);
+    }
+  }
+
+  // Info left-aligned for side icon style
+  &__info--left {
+    color: var(--rds-color-on-surface-variant, #646464);
+    font-weight: 400;
+    text-align: left;
+    font-size: 15px;
+    margin-top: 4px;
+  }
+
   // Drop zone (block)
   &__drop-zone {
     padding: 32px 24px;
     text-align: center;
-    border: 2px dashed #3390e6 !important;
-    background-color: #fff;
+    border: 2px dashed var(--rds-color-primary, #3390e6) !important;
+    background-color: var(--rds-color-surface, #fff);
     cursor: pointer;
     transition: border-color 0.2s, background-color 0.2s;
-    border-radius: 8px;
+    border-radius: var(--rds-border-radius, 8px);
     position: relative;
     min-width: 500px;
+
+    // Side icon layout (matches Paper sx styles)
+    &.rds-file-uploader__drop-zone--side-icon {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 60px;
+      padding-left: 24px;
+      padding-right: 24px;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      border: 1.5px dashed var(--rds-color-primary, #2196F3) !important;
+      border-radius: var(--rds-border-radius, 8px);
+      box-sizing: border-box;
+    }
 
     // Modifiers
     &--with-upload-btn {
@@ -26,9 +83,9 @@
       justify-content: space-between;
       min-height: 60px;
       padding: 16px 32px;
-      border: 1.5px dashed #2196f3 !important;
-      background: #fff;
-      border-radius: 8px;
+      border: 1.5px dashed var(--rds-color-primary, #2196f3) !important;
+      background: var(--rds-color-surface, #fff);
+      border-radius: var(--rds-border-radius, 8px);
       box-sizing: border-box;
     }
     &--side-icon {
@@ -38,35 +95,35 @@
       justify-content: space-between;
       min-height: 60px;
       padding: 16px 32px;
-      border: 1.5px dashed #3390e6 !important;
-      background: #fff !important;
-      border-radius: 8px;
+      border: 1.5px dashed var(--rds-color-primary, #3390e6) !important;
+      background: var(--rds-color-surface, #fff) !important;
+      border-radius: var(--rds-border-radius, 8px);
       box-sizing: border-box;
     }
     // States
     &--drag-over {
-      border-color: #3390e6;
-      background-color: #fff;
+      border-color: var(--rds-color-primary, #3390e6);
+      background-color: var(--rds-color-surface, #fff);
     }
     &--disabled {
       cursor: not-allowed;
       opacity: 0.6;
-      background-color: #fff;
-      border-color: #bcdffb;
+      background-color: var(--rds-color-surface, #fff);
+      border-color: var(--rds-color-outline-disabled, #bcdffb);
     }
   }
 
   // Elements
   &__icon {
     font-size: 32px;
-    color: #3390e6;
+    color: var(--rds-color-primary, #3390e6);
     margin-bottom: 8px;
     display: block;
     margin-left: auto;
     margin-right: auto;
     // Modifier for with-upload-btn
     .rds-file-uploader__drop-zone--with-upload-btn & {
-      color: #1976d2;
+      color: var(--rds-color-primary-hover, #1976d2);
       margin: 0 16px 0 0;
       display: flex;
       align-items: center;
@@ -80,7 +137,7 @@
   &__title {
     font-size: 1.125rem;
     font-weight: 600;
-    color: #222;
+    color: var(--rds-color-on-surface, #222);
     margin-bottom: 4px;
     line-height: 1.3;
     .rds-file-uploader__drop-zone--with-upload-btn & {
@@ -91,17 +148,17 @@
   }
   &__subtitle {
     margin-bottom: 0;
-    color: #222;
+    color: var(--rds-color-on-surface, #222);
     font-size: 1rem;
   }
   &__mandatory {
-    color: #d32f2f;
+    color: var(--rds-color-error, #d32f2f);
     margin-left: 4px;
     font-size: 1rem;
   }
   &__info {
     font-size: 0.875rem;
-    color: #666;
+    color: var(--rds-color-on-surface-variant, #666);
     margin-top: 8px;
     letter-spacing: 0.5px;
     .rds-file-uploader__drop-zone--with-upload-btn & {
@@ -117,9 +174,9 @@
     font-size: 0.875rem;
     padding: 4px 13px;
     text-transform: uppercase;
-    background: #3C98FF;
-    color: #fff;
-    border-radius: 5px;
+    background: var(--rds-color-primary, #3C98FF);
+    color: var(--rds-color-on-primary, #fff);
+    border-radius: var(--rds-border-radius, 5px);
     box-shadow: none;
   }
   &__standard {
@@ -154,13 +211,13 @@
     border-bottom-right-radius: 0;
   }
   &__filename {
-    background: #fff;
-    border-radius: 0 6px 6px 0;
+    background: var(--rds-color-surface, #fff);
+    border-radius: 0 var(--rds-border-radius, 6px) var(--rds-border-radius, 6px) 0;
     height: 40px;
     display: flex;
     align-items: center;
     flex: 1;
-    color: #222;
+    color: var(--rds-color-on-surface, #222);
     font-weight: 500;
     font-size: 16px;
     padding-left: 16px;
@@ -213,13 +270,13 @@
     gap: 16px;
     padding: 16px;
     margin-bottom: 8px;
-    border: 1px solid #e0e0e0;
-    background: #fff;
-    border-radius: 6px;
+    border: 1px solid var(--rds-color-outline, #e0e0e0);
+    background: var(--rds-color-surface, #fff);
+    border-radius: var(--rds-border-radius, 6px);
   }
   &__file-icon {
     font-size: 32px;
-    color: #1976d2;
+    color: var(--rds-color-primary, #1976d2);
   }
   &__file-details {
     flex: 1;
@@ -242,96 +299,7 @@
     border-radius: 3px;
   }
 }
-.rds-file-uploader__standard {
-  margin-bottom: 24px;
-  width: 80vw !important;
-}
 
-.rds-file-uploader__title-row {
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-}
-
-.rds-file-uploader__title {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--rds-color-on-surface, #e42d2d);
-}
-
-.rds-file-uploader__mandatory {
-  color: var(--rds-color-error, #d32f2f);
-  margin-left: 4px;
-  font-size: 1rem;
-}
-
-.rds-file-uploader__input-row {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  background: var(--rds-color-surface, #fff);
-  border-radius: var(--rds-border-radius, 6px);
-  border: 1px solid var(--rds-color-outline, #e0e0e0);
-  box-sizing: border-box;
-}
-
-.rds-file-uploader__input {
-  border: none;
-  background: none;
-  font-size: 1rem;
-  color: var(--rds-color-on-surface-variant, #555);
-  flex: 1;
-}
-
-.rds-file-uploader__choose-btn {
-  background: var(--rds-color-primary, #7c3aed) !important;
-  color: var(--rds-color-on-primary, #fff) !important;
-  border-radius: 6px 0 0 6px !important;
-  min-width: 120px;
-  font-weight: 500;
-  text-transform: none;
-  box-shadow: none;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.rds-file-uploader__filename {
-  background: var(--rds-color-surface, #fff);
-  border-radius: 0 6px 6px 0;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  flex: 1;
-  color: var(--rds-color-on-surface, #222);
-  font-weight: 500;
-  font-size: 16px;
-  padding-left: 16px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-left: -1px;
-}
-
-// Hint row for standard mode
-.rds-file-uploader__hint-row {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  min-height: 20px;
-  margin-top: 4px;
-}
-
-.rds-file-uploader__hint {
-  font-size: 1rem;
-  color: var(--rds-color-on-surface-variant, #5c5c5c);
-  margin-left: auto;
-  padding-right: 12px;
-  align-self: flex-end;
-  text-align: right;
-  width: auto;
-}
 
 // RDS File uploader Component Styles
 .rds-file-uploader {
@@ -467,7 +435,6 @@
 // add here 
 
 // Inline style for Typography (converted from sx prop)
-
 .rds-file-uploader__title--inline {
   font-weight: 500;
   color: #353535 !important;
