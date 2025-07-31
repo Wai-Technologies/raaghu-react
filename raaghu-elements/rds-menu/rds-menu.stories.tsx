@@ -1,98 +1,83 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { MenuItem, ListItemIcon, ListItemText } from '@mui/material';
 import { ContentCut, ContentCopy, ContentPaste, Delete } from '@mui/icons-material';
-import { useState } from 'react';
 import RdsMenu from './rds-menu';
 
 const meta: Meta<typeof RdsMenu> = {
   title: 'Elements/Menu',
   component: RdsMenu,
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
   },
   tags: ['autodocs'],
   argTypes: {
-    open: {
-      control: { type: 'boolean' },
-    },
+    open: { control: { type: 'boolean' },
+            description: 'Controls the open state of the menu'
+          },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+
+// Note: Set open: false for Docs. Enable open in Canvas/Preview for live demo.
 export const Default: Story = {
   args: {
-    open: true,
+    open: false,
     items: [
-      {
-        label: 'Profile',
-        id: 1
-      },
-      {
-        label: 'My account',
-        id: 2
-      },
-      {
-        label: 'Logout',
-        id: 3
-      },
+      { id: 1, label: 'Profile' },
+      { id: 2, label: 'My account' },
+      { id: 3, label: 'Logout' },
     ],
   },
 };
 
 export const WithIcons: Story = {
   args: {
-    open: true,
+    open: false,
     items: [
-      {
-        label: 'Cut', icon: <ContentCut fontSize="small" />,
-        id: 1
-      },
-      {
-        label: 'Copy', icon: <ContentCopy fontSize="small" />,
-        id: 2
-      },
-      {
-        label: 'Paste', icon: <ContentPaste fontSize="small" />,
-        id: 3
-      },
-      {
-        label: 'Delete', icon: <Delete fontSize="small" />,
-        id: 4
-      },
+      { id: 1, label: 'Cut', icon: <ContentCut fontSize="small" /> },
+      { id: 2, label: 'Copy', icon: <ContentCopy fontSize="small" /> },
+      { id: 3, label: 'Paste', icon: <ContentPaste fontSize="small" /> },
+      { id: 4, label: 'Delete', icon: <Delete fontSize="small" /> },
     ],
+  },
+};
+
+
+export const Dense: Story = {
+  args: {
+    open: false,
+    size: 'small',
+    items: [
+      { id: 1, label: 'Dense Cut', icon: <ContentCut fontSize="small" /> },
+      { id: 2, label: 'Dense Copy', icon: <ContentCopy fontSize="small" /> },
+      { id: 3, label: 'Dense Paste', icon: <ContentPaste fontSize="small" /> },
+    ],
+  },
+};
+// Custom color menu example
+export const WithCustomColor: Story = {
+  args: {
+    open: false,
+    size: 'medium',
+    items: [
+      { id: 1, label: 'Primary', icon: <ContentCopy fontSize="small" /> },
+      { id: 2, label: 'Success', icon: <ContentPaste fontSize="small" /> },
+      { id: 3, label: 'Danger', icon: <Delete fontSize="small" /> },
+    ],
+    // You can add a className or style prop to RdsMenu for custom color demo if supported
   },
 };
 
 export const WithDisabled: Story = {
   args: {
-    open: true,
+    open: false,
     items: [
-      {
-        label: 'Cut', icon: <ContentCut fontSize="small" />,
-        id: 1
-      },
-      {
-        label: 'Copy', icon: <ContentCopy fontSize="small" />,
-        id: 2
-      },
-      {
-        label: 'Paste', icon: <ContentPaste fontSize="small" />,
-        id: 3
-      },
-      {
-        label: 'Enabled Item',
-        id: 4
-      },
-      {
-        label: 'Disabled Item', disabled: true,
-        id: 5
-      },
-      {
-        label: 'Another Enabled Item',
-        id: 6
-      },
+      { id: 1, label: 'Enabled Item' },
+      { id: 2, label: 'Disabled Item', disabled: true },
+      { id: 3, label: 'Another Enabled Item' },
     ],
   },
 };

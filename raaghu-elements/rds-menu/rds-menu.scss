@@ -1,99 +1,145 @@
-// RDS Menu Component Styles
-// Dropdown menu component with navigation items
+
 
 .rds-menu {
-  background-color: var(--rds-background-paper);
-  border-radius: var(--rds-spacing-xs);
-  box-shadow: 0 2px var(--rds-spacing-sm) rgba(0, 0, 0, 0.15);
-  padding: var(--rds-spacing-sm) 0;
-  min-width: 160px;
-  max-width: 280px;
-  outline: none;
-  
+
+  &__list {
+    min-width: 180px;
+    padding: 6px 0;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    font-family: 'Inter', 'Nunito Sans', Arial, sans-serif;
+  }
   &__item {
     display: flex;
     align-items: center;
-    padding: var(--rds-font-size-sm) var(--rds-font-size-lg);
+    gap: 12px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    min-height: 40px;
     cursor: pointer;
-    font-size: 1var(--rds-spacing-xs);
-    color: var(--rds-text-primary);
-    text-decoration: none;
-    transition: background-color var(--rds-transition-base);
-    
-    &:hover {
-      background-color: var(--rds-background-surface);
+    transition: background 0.18s, color 0.18s;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    color: #222;
+    box-sizing: border-box;
+    outline: none;
+    position: relative;
+    &:hover:not(:disabled), &:focus-visible:not(:disabled) {
+      background: #f0f4fa;
+      color: #1976d2;
     }
-    
-    &:focus {
-      background-color: var(--rds-background-surface);
-      outline: none;
+    &:focus-visible {
+      box-shadow: 0 0 0 2px #1976d2 inset;
+      z-index: 1;
     }
-    
-    &--selected {
-      background-color: rgba(25, 118, 210, 0.08);
-      color: var(--rds-primary-main);
-    }
-    
     &--disabled {
-      color: var(--rds-text-disabled);
+      color: #bbb;
       cursor: not-allowed;
-      
-      &:hover {
-        background-color: transparent;
-      }
+      background: none;
+    }
+    &__icon {
+      margin-right: 8px;
+      display: flex;
+      align-items: center;
+      min-width: 20px;
+      justify-content: center;
+    }
+    &__text {
+      flex: 1 1 auto;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &__shortcut {
+      margin-left: 16px;
+      color: #888;
+      font-size: 0.92em;
+      letter-spacing: 0.5px;
+      font-family: 'Menlo', 'Consolas', monospace;
     }
   }
-  
-  &__icon {
-    margin-right: var(--rds-font-size-sm);
-    font-size: 1var(--rds-spacing-sm);
-    flex-shrink: 0;
+
+
+  // Small size variant (BEM modifier)
+  &--small {
+    .rds-menu__list {
+      min-width: 90px;
+      max-width: 140px;
+    }
+    .rds-menu__item {
+      font-size: 0.80rem;
+      min-height: 26px;
+      padding: 4px 12px;
+    }
+    .rds-menu__header {
+      font-size: 0.85em;
+      padding: 4px 12px 2px 12px;
+    }
   }
-  
-  &__text {
-    flex: 1;
+
+
+  // Large size variant (BEM modifier)
+  &--large {
+    .rds-menu__list {
+      min-width: 260px;
+      max-width: 340px;
+    }
+    .rds-menu__item {
+      font-size: 1.18rem;
+      min-height: 56px;
+      padding: 18px 32px;
+    }
+    .rds-menu__header {
+      font-size: 1.12em;
+      padding: 14px 32px 8px 32px;
+    }
   }
-  
-  &__shortcut {
-    margin-left: var(--rds-font-size-sm);
-    font-size: var(--rds-font-size-sm);
-    color: var(--rds-text-secondary);
+
+
+  &__header {
+    font-weight: 600;
+    font-size: 0.98em;
+    color: #555;
+    padding: 8px 16px 4px 16px;
+    margin-bottom: 2px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: #f7f7fa;
+    border-bottom: 1px solid #eee;
   }
-  
   &__divider {
     height: 1px;
-    background-color: var(--rds-border-default);
-    margin: var(--rds-spacing-sm) 0;
+    background: #e0e0e0;
+    margin: 4px 0;
+    border: none;
   }
-  
-  &__header {
-    padding: var(--rds-spacing-sm) var(--rds-font-size-lg) var(--rds-spacing-xs);
-    font-size: var(--rds-font-size-sm);
-    font-weight: 500;
-    color: var(--rds-text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
+
+
   
   // Animation states
   &--enter {
     opacity: 0;
-    transform: scale(0.9) translateY(-var(--rds-font-size-xs));
+    transform: scale(0.9) translateY(-8px);
   }
-  
   &--enter-active {
     opacity: 1;
     transform: scale(1) translateY(0);
-    transition: opacity var(--rds-transition-base), transform var(--rds-transition-base);
+    transition: opacity 120ms, transform 120ms;
   }
-  
   &--exit {
     opacity: 1;
   }
-  
   &--exit-active {
     opacity: 0;
-    transform: scale(0.9) translateY(-var(--rds-font-size-xs));
-    transition: opacity var(--rds-transition-fast), transform var(--rds-transition-fast);
+    transform: scale(0.9) translateY(-8px);
+    transition: opacity 80ms, transform 80ms;
   }
+
 }
