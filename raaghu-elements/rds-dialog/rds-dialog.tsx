@@ -2,6 +2,7 @@
 import React from 'react';
 import { Dialog as MuiDialog, DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import './rds-dialog.scss';
 
 
 export interface RdsDialogProps extends DialogProps {
@@ -45,26 +46,13 @@ const RdsDialog: React.FC<RdsDialogProps> = ({
         <DialogContent className="rds-dialog__content" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', textAlign: 'center' }}>{children}</DialogContent>
         <DialogActions className="rds-dialog__actions">
           {ShowSecondary && (
-            <Button onClick={onClose} className="rds-dialog__button rds-dialog__button__dismiss" variant="text" sx={{ color: '#3C98FF' }}>Cancel</Button>
+            <Button onClick={onClose} className="rds-dialog__button rds-dialog__button__dismiss" variant="text">Cancel</Button>
           )}
           {ShowPrimary && (
             <Button
               onClick={() => { }}
               className="rds-dialog__button rds-dialog__button__primary"
               variant="contained"
-              sx={{
-                backgroundColor: '#3C98FF',
-                fontWeight: 400,
-                padding: '6px 12px',
-                '&:hover': {
-                  backgroundColor: '#2B7EE6',
-                  boxShadow: 'none',
-                },
-                '&:active': {
-                  backgroundColor: '#1E6BCE',
-                  boxShadow: 'none',
-                },
-              }}
             >Okay</Button>
           )}
         </DialogActions>
@@ -106,3 +94,4 @@ const RdsDialog: React.FC<RdsDialogProps> = ({
 };
 
 export default RdsDialog;
+

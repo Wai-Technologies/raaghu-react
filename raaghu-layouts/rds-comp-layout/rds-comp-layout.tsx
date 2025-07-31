@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, BoxProps, Paper } from '@mui/material';
-import './rds-comp-layout.css';
+import './rds-comp-layout.scss';
 import renderLayoutContent from './renderLayoutContent';
 
 export interface RdsCompLayoutProps extends BoxProps {
@@ -26,6 +26,9 @@ const RdsCompLayout: React.FC<RdsCompLayoutProps> = ({
   fullWidth = false,
   displayType,
   hasShadow = false,
+  wrap = false,
+  justifyContent = 'flex-start',
+  alignItems = 'stretch',
   className,
    mode,
   ...props
@@ -57,29 +60,6 @@ const RdsCompLayout: React.FC<RdsCompLayoutProps> = ({
   </>
 
 
-  // return renderLayoutContent(displayType ?? 'Basic', hasShadow);
-
-  // return (
-
-
-  //   <Box
-  //     className={layoutClass}
-  //     sx={{
-  //       display: 'flex',
-  //       flexDirection: direction,
-  //       flexWrap: wrap ? 'wrap' : 'nowrap',
-  //       justifyContent,
-  //       alignItems,
-  //       gap: spacing,
-  //       height: fullHeight ? '100%' : 'auto',
-  //       width: fullWidth ? '100%' : 'auto',
-  //       ...props.sx,
-  //     }}
-  //     {...props}
-  //   >
-  //     {children}
-  //   </Box>
-  // );
     )
 };
 

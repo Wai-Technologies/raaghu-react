@@ -60,7 +60,7 @@
     }
 
     &__primary {
-      background: #1976d2;
+      background: #3C98FF !important;
       color: #fff;
       box-shadow: none;
 
@@ -89,14 +89,6 @@
     }
   }
 
-  &--full-screen {
-    // Full-screen state styles
-  }
-
-  // Interactive states
-  &:hover {
-    // Hover styles
-  }
 
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));

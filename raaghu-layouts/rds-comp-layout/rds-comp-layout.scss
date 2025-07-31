@@ -1,43 +1,101 @@
+/* Inner wrapper for RdsCompLayout */
 
-// Raaghu Design System - Layout SCSS (BEM, tokens)
-:root {
-  --rds-comp-layout-gap: 24px;
-  --rds-comp-layout-padding: 24px;
-  --rds-comp-layout-gap-mobile: 16px;
-  --rds-comp-layout-padding-mobile: 12px;
-}
-
-.rds-comp-layout {
+.rds-comp-layout-wrapper_basic {
+  min-height: 83vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--rds-comp-layout-gap);
-  padding: var(--rds-comp-layout-padding);
-  width: 100%;
+  align-items: stretch;
+  justify-content: flex-start;
+  transition: box-shadow 0.3s;
 }
 
-.rds-comp-layout--row {
+.rds-comp-layout-inner-wrapper_basic {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+
+
+.rds-comp-layout__card_basic {
+  position: relative;
+  padding: 20px; 
+  border: 1px solid #d3dcea;
+  background: #fff;
+  min-height: 200px;
+  height: 83vh;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  transition: box-shadow 0.3s, border 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.rds-comp-layout-wrapper {
+  /* min-height: 100vh; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.rds-comp-layout-inner-wrapper {
+  min-height: 100px;
+  width: 100%;
+  /* max-width: 1200px; */
+  /* margin-left: auto;
+   */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 600px) {
+  .rds-comp-layout-inner-wrapper {
+    padding: 16px;
+  }
+}
+.rds-layout {
+  display: flex;
+}
+
+.rds-layout.row {
   flex-direction: row;
 }
 
-.rds-comp-layout--full-height {
+.rds-layout.column {
+  flex-direction: column;
+}
+
+.rds-layout.full-height {
   height: 100%;
 }
 
-.rds-comp-layout--full-width {
+.rds-layout.full-width {
   width: 100%;
 }
 
-.rds-comp-layout__item {
+.rds-layout-item {
   display: block;
 }
 
+/* Responsive utilities */
 @media (max-width: 768px) {
-  .rds-comp-layout {
-    flex-direction: column !important;
-    gap: var(--rds-comp-layout-gap-mobile);
-    padding: var(--rds-comp-layout-padding-mobile);
+  .rds-layout.row {
+    flex-direction: column;
   }
-  .rds-comp-layout__item {
+  
+  .rds-layout-item {
+    flex: none !important;
     width: 100% !important;
   }
 }
