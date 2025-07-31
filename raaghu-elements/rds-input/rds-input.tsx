@@ -31,10 +31,10 @@ const RdsInput: React.FC<RdsInputProps> = ({
 }) => {
   // Custom styles for input size
   // Determine size class
-  const sizeClass = inputSize === 'small' ? 'rds-input--small' : 'rds-input--medium';
+  const sizeClass = inputSize === 'small' ? 'rds-input__small' : 'rds-input__medium';
 
   // Pill style class
-  const pillClass = inputStyle === 'pill' ? 'rds-input--pill' : inputStyle === 'bottom outline' ? 'rds-input--bottom-outline' : '';
+  const pillClass = inputStyle === 'pill' ? 'rds-input__pill' : inputStyle === 'bottom outline' ? 'rds-input__bottom-outline' : '';
 
   // Map layout to MUI type
   let inputType: string = 'text';
