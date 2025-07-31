@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, BoxProps } from '@mui/material';
-import './rds-comp-layout.css';
+import './rds-comp-layout.scss';
 
 export interface RdsCompLayoutProps extends BoxProps {
   children?: React.ReactNode;
@@ -17,32 +17,21 @@ const RdsCompLayout: React.FC<RdsCompLayoutProps> = ({
   children,
   spacing = 2,
   direction = 'column',
-  wrap = false,
-  justifyContent = 'flex-start',
-  alignItems = 'stretch',
   fullHeight = false,
   fullWidth = false,
   className,
   ...props
 }) => {
-  const layoutClass = `rds-layout ${direction} ${fullHeight ? 'full-height' : ''} ${fullWidth ? 'full-width' : ''} ${className || ''}`;
+  const layoutClass = [
+    'rds-comp-layout',
+    direction === 'row' ? 'rds-comp-layout--row' : '',
+    fullHeight ? 'rds-comp-layout--full-height' : '',
+    fullWidth ? 'rds-comp-layout--full-width' : '',
+    className || ''
+  ].join(' ').replace(/\s+/g, ' ').trim();
 
   return (
-    <Box
-      className={layoutClass}
-      sx={{
-        display: 'flex',
-        flexDirection: direction,
-        flexWrap: wrap ? 'wrap' : 'nowrap',
-        justifyContent,
-        alignItems,
-        gap: spacing,
-        height: fullHeight ? '100%' : 'auto',
-        width: fullWidth ? '100%' : 'auto',
-        ...props.sx,
-      }}
-      {...props}
-    >
+    <Box className={layoutClass} {...props}>
       {children}
     </Box>
   );
