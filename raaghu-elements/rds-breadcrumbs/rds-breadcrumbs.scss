@@ -2,36 +2,110 @@
 // Breadcrumb navigation
 
 .rds-breadcrumbs {
-  display: block;
+  display: flex;
+  align-items: center;
   position: relative;
 
   &__item {
-    // Item styles
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+
+    &__active {
+      font-weight: 500;
+    }
+
+    &__enable-hover:hover {
+      background-color: var(--rds-color-primary-light, #e3f2fd);
+      color: var(--rds-color-primary, #1976d2);
+    }
   }
 
   &__separator {
-    // Separator styles
-    display: block;
+    margin: 0 var(--rds-spacing-xs, 8px);
+    display: flex;
+    align-items: center;
   }
 
-  &--current {
-    // Current state styles
+  // Pill Background Variant
+  &__pill {
+    .rds-breadcrumbs__item {
+      padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px);
+      border-radius: var(--rds-border-radius-pill, 20px);
+      margin-right: var(--rds-spacing-xs, 8px);
+
+      &__enable-hover:hover {
+        background-color: var(--rds-color-primary-light, #e3f2fd);
+        color: var(--rds-color-primary, #1976d2);
+      }
+      &__selected {
+        background-color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-on-primary, #fff);
+      }
+      &__active {
+        background-color: var(--rds-color-primary-light, #e3f2fd);
+        color: var(--rds-color-primary, #1976d2);
+      }
+    }
+  }
+
+  // Square Background Variant
+  &__square {
+    .rds-breadcrumbs__item {
+      padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px);
+      border-radius: var(--rds-border-radius, 4px);
+      margin-right: var(--rds-spacing-xs, 8px);
+
+      &__enable-hover:hover {
+        background-color: var(--rds-color-primary-light, #e3f2fd);
+        color: var(--rds-color-primary, #1976d2);
+      }
+      &__selected {
+        background-color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-on-primary, #fff);
+      }
+      &__active {
+        background-color: var(--rds-color-primary-light, #e3f2fd);
+        color: var(--rds-color-primary, #1976d2);
+      }
+    }
+  }
+
+  // Without Background Variant (Default)
+  &__plain {
+    .rds-breadcrumbs__item {
+      padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px);
+      color: var(--rds-color-text-primary, #333);
+
+      &__enable-hover:hover {
+        color: var(--rds-color-primary-dark, #1565c0);
+        text-decoration: underline;
+      }
+
+      &__selected {
+        background-color: var(--rds-color-primary-light, #e3f2fd);
+        color: var(--rds-color-primary, #1976d2);
+        border-radius: var(--rds-border-radius, 4px);
+      }
+    }
   }
 
   // Interactive states
-  &:hover {
-    // Hover styles
-  }
-
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset);
+    outline-offset: var(--rds-focus-ring-offset, 2px);
   }
 
   &:disabled,
-  &--disabled {
+  &__disabled {
     opacity: 0.6;
     pointer-events: none;
+  }
+
+  // Remove default MUI styles to apply our custom ones
+  .MuiBreadcrumbs-separator {
+    margin: 0 var(--rds-spacing-xs, 8px);
   }
 }
