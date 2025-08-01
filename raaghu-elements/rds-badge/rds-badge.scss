@@ -3,74 +3,176 @@
   position: relative;
   display: inline-flex;
   vertical-align: middle;
-  
-  &__badge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: var(--rds-alert-error-border);
-    color: var(--rds-background-paper);
-    border-radius: var(--rds-border-radius-full);
-    min-width: var(--rds-font-size-2xl);
-    height: var(--rds-font-size-2xl);
-    padding: 0 6px;
-    font-size: var(--rds-font-size-sm);
-    font-weight: 500;
+  justify-content: center;
+  /* Center badge pill when no children */
+  & > .rds-badge__badge {
+    margin-left: 0;
+    position: static;
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: translate(50%, -50%);
-    transform-origin: 100% 0;
-    
+    left: 0;
+    right: 0;
+    top: 0;
+    transform: none;
+    margin: 0 auto;
+    background: #e0c7ff;
+    color: #6c2eb7;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 0.875rem; /* font/size/sm */
+    line-height: 20px;
+    letter-spacing: 0;
+    text-align: center;
+    vertical-align: middle;
+    box-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);
+    padding: 4px 18px;
+    min-width: 60px;
+    height: 32px;
+    border-radius: 16px;
+  }
+  // 🔁 1. Move fallback styles ABOVE loops (no output change, but ensures proper override)
+  &--primary > .rds-badge__badge {
+    background: #e0c7ff;
+    color: #6c2eb7;
+    border: none;
+  }
+  &--outline > .rds-badge__badge {
+    background: transparent;
+    color: #6c2eb7;
+    border: 2px solid #6c2eb7;
+    box-shadow: none;
+  }
+  &--transparent > .rds-badge__badge {
+    background: transparent !important;
+    color: #6c2eb7;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  &--rectangle > .rds-badge__badge {
+    border-radius: 4px !important;
+  }
+  &--pill > .rds-badge__badge {
+    border-radius: 16px !important;
+  }
+
+  // Color Variant Tokens
+  $rds-badge-colors: (
+    primary: (#6c2eb7, #e0c7ff),
+    secondary: (#1e88e5, #bbdefb),
+    tertiary: (#6d4c41, #d7ccc8),
+    danger: (#d32f2f, #ffcdd2),
+    warning: (#f57c00, #ffe0b2),
+    light: (#757575, #eeeeee),
+    success: (#2e7d32, #c8e6c9)
+  );
+
+  //  Dynamic variant class override (more specific than fallback)
+  @each $key, $value in $rds-badge-colors {
+    // Primary style
+    &.rds-badge--primary.rds-badge--#{$key} > .rds-badge__badge {
+      color: nth($value, 1);
+      background-color: nth($value, 2);
+      border: none;
+    }
+
+    // Outline style
+    &.rds-badge--outline.rds-badge--#{$key} > .rds-badge__badge {
+      color: nth($value, 1);
+      background-color: transparent;
+      border: 2px solid nth($value, 1);
+      box-shadow: none;
+    }
+
+    // Transparent style
+    &.rds-badge--transparent.rds-badge--#{$key} > .rds-badge__badge {
+      color: nth($value, 1);
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+    }
+  }
+  &--primary > .rds-badge__badge {
+    background: #e0c7ff;
+    color: #6c2eb7;
+    border: none;
+  }
+  &--outline > .rds-badge__badge {
+    background: transparent;
+    color: #6c2eb7;
+    border: 2px solid #6c2eb7;
+    box-shadow: none;
+  }
+  &--transparent > .rds-badge__badge {
+    background: transparent !important;
+    color: #6c2eb7;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  &--rectangle > .rds-badge__badge {
+    border-radius: 4px !important;
+  }
+  &--pill > .rds-badge__badge {
+    border-radius: 16px !important;
+  }
+  // Disabled state
+  &--disabled > .rds-badge__badge {
+    background: #f3f3f3 !important;
+    color: #bdbdbd !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+    pointer-events: none;
+    transition: none;
+  }
+  // Size variants
+  &--small .rds-badge__badge {
+    font-size: 0.75rem;
+    padding: 2px 12px;
+    border-radius: 10px;
+    min-width: 40px;
+    height: 24px;
+  }
+  &--medium .rds-badge__badge {
+    font-size: 1rem;
+    padding: 4px 18px;
+    border-radius: 12px;
+    min-width: 60px;
+    height: 32px;
+  }
+  &--large .rds-badge__badge {
+    font-size: 1.25rem;
+    padding: 6px 24px;
+    border-radius: 16px;
+    min-width: 80px;
+    height: 40px;
+  }
+  
+  &__badge {
+    position: static;
+    background: #e0c7ff;
+    color: #6c2eb7;
+    border-radius: 16px;
+    font-family: 'Nunito Sans', Arial, sans-serif;
+    font-weight: 600;
+    box-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);
+    padding: 4px 18px;
+    font-size: 1rem;
+    min-width: 60px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
     &--dot {
       width: var(--rds-spacing-sm);
       height: var(--rds-spacing-sm);
       min-width: var(--rds-spacing-sm);
       padding: 0;
       border-radius: var(--rds-border-radius-full);
-    }
-  }
-  
-  // Color variants
-  &--primary {
-    .rds-badge__badge {
-      background-color: var(--rds-badge-primary-bg);
-      color: var(--rds-badge-primary-text);
-    }
-  }
-  
-  &--secondary {
-    .rds-badge__badge {
-      background-color: var(--rds-badge-secondary-bg);
-      color: var(--rds-badge-secondary-text);
-    }
-  }
-  
-  &--success {
-    .rds-badge__badge {
-      background-color: var(--rds-badge-success-bg);
-      color: var(--rds-badge-success-text);
-    }
-  }
-  
-  &--warning {
-    .rds-badge__badge {
-      background-color: var(--rds-badge-warning-bg);
-      color: var(--rds-badge-warning-text);
-    }
-  }
-  
-  &--error {
-    .rds-badge__badge {
-      background-color: var(--rds-badge-error-bg);
-      color: var(--rds-badge-error-text);
-    }
-  }
-  
-  &--neutral {
-    .rds-badge__badge {
-      background-color: var(--rds-badge-neutral-bg);
-      color: var(--rds-badge-neutral-text);
     }
   }
 }

@@ -34,6 +34,7 @@ export const Default: Story = {
   args: {
     items: navigationItems,
     activeValue: 'home',
+    showLabels: false, 
   },
 };
 
