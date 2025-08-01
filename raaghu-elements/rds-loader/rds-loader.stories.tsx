@@ -38,6 +38,39 @@ const meta: Meta<typeof RdsLoader> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const AnimatedProgress: Story = {
+  render: () => {
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+      const timer = setInterval(() => {
+        setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
+      }, 800);
+      return () => clearInterval(timer);
+    }, []);
+
+    return (
+      <Box sx={{ width: '300px', display: 'flex', flexDirection: 'column', gap: 3 }}>
+        <RdsLoader variant="circular" value={progress} label="Circular Progress" />
+        <RdsLoader variant="linear" value={progress} label="Linear Progress" />
+      </Box>
+    );
+  },
+};
+
+export const Colors: Story = {
+  render: () => (
+    <Box sx={{ display: 'flex', gap: 3, alignItems: 'center' }}>
+      <RdsLoader variant="circular" color="primary" />
+      <RdsLoader variant="circular" color="secondary" />
+      <RdsLoader variant="circular" color="error" />
+      <RdsLoader variant="circular" color="warning" />
+      <RdsLoader variant="circular" color="info" />
+      <RdsLoader variant="circular" color="success" />
+    </Box>
+  ),
+};
+
 export const CircularDefault: Story = {
   args: {
     variant: 'circular',
@@ -65,13 +98,6 @@ export const CircularDeterminate: Story = {
   },
 };
 
-export const LinearDefault: Story = {
-  args: {
-    variant: 'linear',
-    color: 'primary',
-  },
-};
-
 export const LinearWithLabel: Story = {
   args: {
     variant: 'linear',
@@ -89,6 +115,70 @@ export const LinearDeterminate: Story = {
   },
 };
 
+export const LineWobbleWithLabel: Story = {
+  args: {
+    loaderType: 'line-wobble',
+    label: 'Loading...'
+  },
+};
+
+export const LoaderHashWithLabel: Story = {
+  args: {
+    loaderType: 'loader-hash',
+    label: 'Hashing...'
+  },
+};
+
+export const LoaderJumpWithLabel: Story = {
+  args: {
+    loaderType: 'loader-jump',
+    label: 'Jumping...'
+  },
+};
+
+export const LoaderMovingWithLabel: Story = {
+  args: {
+    loaderType: 'loader-moving',
+    label: 'Moving...'
+  },
+};
+
+export const LoaderRoundWithLabel: Story = {
+  args: {
+    loaderType: 'loader-round',
+    label: 'Loading round...'
+  },
+};
+
+export const LoadWithLabel: Story = {
+  args: {
+    loaderType: 'spin',
+    label: 'Spinning...'
+  },
+};
+
+export const LoadingWithLabel: Story = {
+  args: {
+    loaderType: 'spinner-ring',
+    size: 'medium',
+    label: 'Loading spinner...'
+  },
+};
+
+export const RotateWithLabel: Story = {
+  args: {
+    loaderType: 'rotate',
+    label: 'Rotating...'
+  },
+};
+
+export const RollingRockWithLabel: Story = {
+  args: {
+    loaderType: 'rolling-rock',
+    label: 'Rolling...'
+  },
+};
+
 export const Sizes: Story = {
   render: () => (
     <Box sx={{ display: 'flex', gap: 3, alignItems: 'center' }}>
@@ -99,36 +189,17 @@ export const Sizes: Story = {
   ),
 };
 
-export const Colors: Story = {
-  render: () => (
-    <Box sx={{ display: 'flex', gap: 3, alignItems: 'center' }}>
-      <RdsLoader variant="circular" color="primary" />
-      <RdsLoader variant="circular" color="secondary" />
-      <RdsLoader variant="circular" color="error" />
-      <RdsLoader variant="circular" color="warning" />
-      <RdsLoader variant="circular" color="info" />
-      <RdsLoader variant="circular" color="success" />
-    </Box>
-  ),
+export const SandWithLabel: Story = {
+  args: {
+    loaderType: 'sand',
+    label: 'Sifting sand...'
+  },
 };
 
-export const AnimatedProgress: Story = {
-  render: () => {
-    const [progress, setProgress] = useState(0);
-
-    useEffect(() => {
-      const timer = setInterval(() => {
-        setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
-      }, 800);
-      return () => clearInterval(timer);
-    }, []);
-
-    return (
-      <Box sx={{ width: '300px', display: 'flex', flexDirection: 'column', gap: 3 }}>
-        <RdsLoader variant="circular" value={progress} label="Circular Progress" />
-        <RdsLoader variant="linear" value={progress} label="Linear Progress" />
-      </Box>
-    );
+export const TriangleWithLabel: Story = {
+  args: {
+    loaderType: 'triangle',
+    label: 'Loading triangle...'
   },
 };
 

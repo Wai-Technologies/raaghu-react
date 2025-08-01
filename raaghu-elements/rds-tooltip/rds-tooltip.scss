@@ -1,43 +1,94 @@
-// RDS Tooltip Component Styles
-// Tooltip overlay component
-
 .rds-tooltip {
-  display: block;
-  position: relative;
+  // Base popper styles
+  --rds-tooltip-bg: var(--rds-background-paper, #222);
+  --rds-tooltip-color: var(--rds-text-primary, #fff);
+  --rds-tooltip-border: var(--rds-border-default, #222);
+  z-index: 1200;
 
-  &__arrow {
-    // Arrow styles
-    display: block;
+  .MuiTooltip-tooltip {
+    background: var(--rds-tooltip-bg);
+    color: var(--rds-tooltip-color);
+    border: 1.5px solid var(--rds-tooltip-border);
+    border-radius: var(--rds-spacing-xs, 4px);
+    font-size: var(--rds-font-size-sm, 14px);
+    font-family: var(--rds-font-family-base, inherit);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    padding: 8px 16px;
+    min-width: 80px;
+    max-width: 320px;
+    text-align: center;
+    position: relative;
+    transition: background 0.2s, color 0.2s, border 0.2s;
   }
 
-  &--top {
-    // Top state styles
+  // Arrow styling
+  .MuiTooltip-arrow {
+    color: var(--rds-tooltip-bg);
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.12));
   }
 
-  &--bottom {
-    // Bottom state styles
+
+  // Position modifiers (all variants)
+  &--top .MuiTooltip-tooltip,
+  &--top-start .MuiTooltip-tooltip,
+  &--top-end .MuiTooltip-tooltip {
+    margin-bottom: 8px;
+    transform-origin: bottom center;
+  }
+  &--bottom .MuiTooltip-tooltip,
+  &--bottom-start .MuiTooltip-tooltip,
+  &--bottom-end .MuiTooltip-tooltip {
+    margin-top: 8px;
+    transform-origin: top center;
+  }
+  &--left .MuiTooltip-tooltip,
+  &--left-start .MuiTooltip-tooltip,
+  &--left-end .MuiTooltip-tooltip {
+    margin-right: 8px;
+    transform-origin: center right;
+  }
+  &--right .MuiTooltip-tooltip,
+  &--right-start .MuiTooltip-tooltip,
+  &--right-end .MuiTooltip-tooltip {
+    margin-left: 8px;
+    transform-origin: center left;
   }
 
-  &--left {
-    // Left state styles
+  // Arrow position tweaks for visual alignment (all variants)
+  &--top .MuiTooltip-arrow,
+  &--top-start .MuiTooltip-arrow,
+  &--top-end .MuiTooltip-arrow {
+    margin-bottom: -0.4em;
   }
-
-  &--right {
-    // Right state styles
+  &--bottom .MuiTooltip-arrow,
+  &--bottom-start .MuiTooltip-arrow,
+  &--bottom-end .MuiTooltip-arrow {
+    margin-top: -0.4em;
+  }
+  &--left .MuiTooltip-arrow,
+  &--left-start .MuiTooltip-arrow,
+  &--left-end .MuiTooltip-arrow {
+    margin-right: -0.4em;
+  }
+  &--right .MuiTooltip-arrow,
+  &--right-start .MuiTooltip-arrow,
+  &--right-end .MuiTooltip-arrow {
+    margin-left: -0.4em;
   }
 
   // Interactive states
-  &:hover {
-    // Hover styles
+  &:hover .MuiTooltip-tooltip {
+    background: var(--rds-primary-light, #333);
+    color: var(--rds-tooltip-color, #fff);
+    border-color: var(--rds-primary-main, #1976d2);
   }
 
-  &:focus-visible {
+  &:focus-visible .MuiTooltip-tooltip {
     outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset);
+    outline-offset: var(--rds-focus-ring-offset, 2px);
   }
 
-  &:disabled,
-  &--disabled {
+  &--disabled .MuiTooltip-tooltip {
     opacity: 0.6;
     pointer-events: none;
   }

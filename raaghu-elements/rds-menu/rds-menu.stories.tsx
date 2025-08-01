@@ -1,123 +1,83 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { MenuItem, ListItemIcon, ListItemText } from '@mui/material';
 import { ContentCut, ContentCopy, ContentPaste, Delete } from '@mui/icons-material';
-import { useState } from 'react';
 import RdsMenu from './rds-menu';
 
 const meta: Meta<typeof RdsMenu> = {
   title: 'Elements/Menu',
   component: RdsMenu,
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
   },
   tags: ['autodocs'],
   argTypes: {
-    open: {
-      control: { type: 'boolean' },
-    },
+    open: { control: { type: 'boolean' },
+            description: 'Controls the open state of the menu'
+          },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+
+// Note: Set open: false for Docs. Enable open in Canvas/Preview for live demo.
 export const Default: Story = {
   args: {
-    open: true,
-    children: (
-      <>
-        <MenuItem>
-          <ListItemText>Profile</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemText>My account</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemText>Logout</ListItemText>
-        </MenuItem>
-      </>
-    ),
+    open: false,
+    items: [
+      { id: 1, label: 'Profile' },
+      { id: 2, label: 'My account' },
+      { id: 3, label: 'Logout' },
+    ],
   },
 };
 
 export const WithIcons: Story = {
   args: {
-    open: true,
-    children: (
-      <>
-        <MenuItem>
-          <ListItemIcon>
-            <ContentCut fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Cut</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <ContentCopy fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Copy</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <ContentPaste fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Paste</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Delete fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Delete</ListItemText>
-        </MenuItem>
-      </>
-    ),
+    open: false,
+    items: [
+      { id: 1, label: 'Cut', icon: <ContentCut fontSize="small" /> },
+      { id: 2, label: 'Copy', icon: <ContentCopy fontSize="small" /> },
+      { id: 3, label: 'Paste', icon: <ContentPaste fontSize="small" /> },
+      { id: 4, label: 'Delete', icon: <Delete fontSize="small" /> },
+    ],
   },
 };
 
+
 export const Dense: Story = {
   args: {
-    open: true,
-    dense: true,
-    children: (
-      <>
-        <MenuItem dense>
-          <ListItemIcon>
-            <ContentCut fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Cut</ListItemText>
-        </MenuItem>
-        <MenuItem dense>
-          <ListItemIcon>
-            <ContentCopy fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Copy</ListItemText>
-        </MenuItem>
-        <MenuItem dense>
-          <ListItemIcon>
-            <ContentPaste fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Paste</ListItemText>
-        </MenuItem>
-      </>
-    ),
+    open: false,
+    size: 'small',
+    items: [
+      { id: 1, label: 'Dense Cut', icon: <ContentCut fontSize="small" /> },
+      { id: 2, label: 'Dense Copy', icon: <ContentCopy fontSize="small" /> },
+      { id: 3, label: 'Dense Paste', icon: <ContentPaste fontSize="small" /> },
+    ],
+  },
+};
+// Custom color menu example
+export const WithCustomColor: Story = {
+  args: {
+    open: false,
+    size: 'medium',
+    items: [
+      { id: 1, label: 'Primary', icon: <ContentCopy fontSize="small" /> },
+      { id: 2, label: 'Success', icon: <ContentPaste fontSize="small" /> },
+      { id: 3, label: 'Danger', icon: <Delete fontSize="small" /> },
+    ],
+    // You can add a className or style prop to RdsMenu for custom color demo if supported
   },
 };
 
 export const WithDisabled: Story = {
   args: {
-    open: true,
-    children: (
-      <>
-        <MenuItem>
-          <ListItemText>Enabled Item</ListItemText>
-        </MenuItem>
-        <MenuItem disabled>
-          <ListItemText>Disabled Item</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemText>Another Enabled Item</ListItemText>
-        </MenuItem>
-      </>
-    ),
+    open: false,
+    items: [
+      { id: 1, label: 'Enabled Item' },
+      { id: 2, label: 'Disabled Item', disabled: true },
+      { id: 3, label: 'Another Enabled Item' },
+    ],
   },
 };

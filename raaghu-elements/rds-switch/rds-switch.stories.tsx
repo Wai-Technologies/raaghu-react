@@ -8,6 +8,31 @@ const meta: Meta<typeof RdsSwitch> = {
     layout: 'padded',
   },
   tags: ['autodocs'],
+  argTypes: {
+    layout: {
+      control: 'select',
+      options: ["Switch + Label", "Label + Switch", "Top Label + Switch", "Bottom Label + Switch"],
+      description: 'Layout of the switch and label',
+      defaultValue: 'Switch + Label',
+    },
+    state: {
+      control: 'select',
+      options: ["Off", "On", "Disabled On", "Disabled Off"],
+      description: 'Control switch state for demo and Storybook',
+      defaultValue: 'Off',
+    },
+    showLabel: {
+      control: 'boolean',
+      description: 'Control to show/hide label',
+      defaultValue: true,
+    },
+    styleType: {
+      control: 'select',
+      options: ["Style 1", "Style 2", "Style 3", "Style 4", "Style 5", "Style 6"],
+      description: 'Switch style variant',
+      defaultValue: 'Style 1',
+    },
+  },
 };
 
 export default meta;
@@ -46,12 +71,5 @@ export const Colors: Story = {
     label: 'Secondary Color',
     color: 'secondary',
     defaultChecked: true,
-  },
-};
-
-export const Small: Story = {
-  args: {
-    label: 'Small Switch',
-    size: 'small',
   },
 };
