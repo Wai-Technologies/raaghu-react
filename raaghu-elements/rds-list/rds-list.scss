@@ -1,3 +1,8 @@
+// Ensure root list has no padding using BEM and RDS guidelines only
+.rds-list,
+.rds-list.rds-list--root {
+  padding: 0 !important;
+}
 // Expand/collapse icon rotation for nested lists
 .rds-list__expand-icon {
   display: inline-block;
@@ -23,7 +28,7 @@
 
 .rds-list {
   margin: 0;
-  padding: 8px 0;
+  padding: 0px 0;
   list-style: none;
   background-color: #fff;
   border-radius: 8px;
@@ -85,11 +90,9 @@
   }
 
   &__icon {
-    margin-right: 16px;
     font-size: 24px;
     color: var(--rds-text-secondary);
     flex-shrink: 0;
-    align-self: flex-start;
   }
 
   &__content-primary {
