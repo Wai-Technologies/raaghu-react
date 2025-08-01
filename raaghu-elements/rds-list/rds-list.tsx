@@ -18,6 +18,7 @@ export interface RdsListItem {
   secondary?: string;
   icon?: React.ReactNode;
   avatar?: React.ReactNode;
+  secondaryAction?: React.ReactNode; // right-aligned action/icon
   onClick?: () => void;
   selected?: boolean;
   disabled?: boolean;
@@ -52,6 +53,7 @@ const RdsList: React.FC<RdsListProps> = ({
     if (item.onClick || variant === 'button') cls += ' rds-list__item--clickable';
     if (item.selected) cls += ' rds-list__item--selected';
     if (item.disabled) cls += ' rds-list__item--disabled';
+    if (disableGutters) cls += ' rds-list__item--no-gutters';
     return cls;
   };
 
@@ -117,7 +119,7 @@ const RdsList: React.FC<RdsListProps> = ({
       return (
         <MuiListItem disablePadding {...itemProps} key={item.id}>
           <MuiListItemButton onClick={item.onClick}>
-            {item.icon && (
+            {item.icon && !item.secondaryAction && (
               <MuiListItemIcon className="rds-list__icon">
                 {item.icon}
               </MuiListItemIcon>
@@ -131,6 +133,9 @@ const RdsList: React.FC<RdsListProps> = ({
               primary={<span className="rds-list__content-primary">{item.primary}</span>}
               secondary={item.secondary && <span className="rds-list__content-secondary">{item.secondary}</span>}
             />
+            {item.secondaryAction && (
+              <span className="rds-list__secondary-action">{item.secondaryAction}</span>
+            )}
           </MuiListItemButton>
         </MuiListItem>
       );
@@ -138,7 +143,7 @@ const RdsList: React.FC<RdsListProps> = ({
 
     return (
       <MuiListItem {...itemProps} key={item.id}>
-        {item.icon && (
+        {item.icon && !item.secondaryAction && (
           <MuiListItemIcon className="rds-list__icon">
             {item.icon}
           </MuiListItemIcon>
@@ -152,6 +157,9 @@ const RdsList: React.FC<RdsListProps> = ({
           primary={<span className="rds-list__content-primary">{item.primary}</span>}
           secondary={item.secondary && <span className="rds-list__content-secondary">{item.secondary}</span>}
         />
+        {item.secondaryAction && (
+          <span className="rds-list__secondary-action">{item.secondaryAction}</span>
+        )}
       </MuiListItem>
     );
   };

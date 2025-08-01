@@ -1,3 +1,13 @@
+// Secondary action (right-aligned icon) alignment
+.rds-list__secondary-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  margin-left: 16px;
+  margin-right: 8px;
+  height: 100%;
+}
 // Expand/collapse icon rotation for nested lists
 .rds-list__expand-icon {
   display: inline-block;

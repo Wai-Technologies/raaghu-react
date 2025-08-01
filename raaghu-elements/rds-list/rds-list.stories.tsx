@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsList from './rds-list';
 import { Avatar, Checkbox, Switch, ListSubheader } from '@mui/material';
 import { Home, Person, Settings, Info, Send, Drafts, Inbox, Star, LabelImportant } from '@mui/icons-material';
+import CommentIcon from '@mui/icons-material/Comment';
 
 const meta: Meta<typeof RdsList> = {
   title: 'Elements/List',
@@ -82,9 +83,9 @@ export const Gutterless: Story = {
     <RdsList
       withDividers
       items={[
-        { id: 1, primary: 'Line item 1' },
-        { id: 2, primary: 'Line item 2' },
-        { id: 3, primary: 'Line item 3' },
+        { id: 1, primary: 'Line item 1', secondaryAction: <CommentIcon /> },
+        { id: 2, primary: 'Line item 2', secondaryAction: <CommentIcon /> },
+        { id: 3, primary: 'Line item 3', secondaryAction: <CommentIcon /> },
       ]}
       disableGutters
     />
