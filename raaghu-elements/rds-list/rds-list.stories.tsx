@@ -1,7 +1,8 @@
+
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Home, Person, Settings, Info } from '@mui/icons-material';
 import RdsList from './rds-list';
-import { Avatar, Checkbox, Switch, ListSubheader, IconButton } from '@mui/material';
+import { Avatar, Checkbox, Switch, ListSubheader } from '@mui/material';
+import { Home, Person, Settings, Info, Send, Drafts, Inbox, Star, LabelImportant } from '@mui/icons-material';
 
 const meta: Meta<typeof RdsList> = {
   title: 'Elements/List',
@@ -115,25 +116,29 @@ export const Interactive: Story = {
   },
 };
 
-// Nested List (simple example)
+// At the top of your file, outside the story definition:
+const nestedListItems = [
+  { id: 1, primary: 'Sent mail', icon: <Send /> },
+  { id: 2, primary: 'Drafts', icon: <Drafts /> },
+  {
+    id: 3,
+    primary: 'Inbox',
+    secondary: 'Nested items below',
+    icon: <Inbox />,
+    children: [
+      { id: '3-1', primary: 'Starred', icon: <Star /> },
+      { id: '3-2', primary: 'Important', icon: <LabelImportant /> },
+    ],
+  },
+];
+
+// In your story:
 export const Nested: Story = {
   render: (args) => (
     <RdsList
       {...args}
       withDividers
-      items={[
-        { id: 1, primary: 'Sent mail' },
-        { id: 2, primary: 'Drafts' },
-        {
-          id: 3,
-          primary: 'Inbox',
-          secondary: 'Nested items below',
-          children: [
-            { id: '3-1', primary: 'Starred' },
-            { id: '3-2', primary: 'Important' },
-          ],
-        },
-      ]}
+      items={nestedListItems}
     />
   ),
 };

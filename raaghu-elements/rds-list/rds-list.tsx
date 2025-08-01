@@ -80,7 +80,14 @@ const RdsList: React.FC<RdsListProps> = ({
     if (hasChildren) {
       return (
         <React.Fragment key={item.id}>
-          <MuiListItem {...itemProps} disablePadding>
+          <MuiListItem
+            {...itemProps}
+            disablePadding
+            className={[
+              getItemClass(item),
+              isOpen ? 'rds-list__item--expanded' : '',
+            ].filter(Boolean).join(' ')}
+          >
             <MuiListItemButton onClick={() => handleToggle(item.id)}>
               {item.icon && (
                 <MuiListItemIcon className="rds-list__icon">{item.icon}</MuiListItemIcon>
@@ -98,7 +105,7 @@ const RdsList: React.FC<RdsListProps> = ({
           {isOpen && (
             <MuiList disablePadding className="rds-list rds-list--nested">
               {(item.children ?? []).map((child) =>
-                React.cloneElement(renderListItem(child), { key: child.id })
+                renderListItem(child)
               )}
             </MuiList>
           )}
@@ -154,16 +161,20 @@ const RdsList: React.FC<RdsListProps> = ({
   if (withDividers) {
     children = [];
     items.forEach((item, idx) => {
+      const hasChildren = Array.isArray(item.children) && item.children.length > 0;
       children.push(
-        React.cloneElement(renderListItem(item), { key: item.id })
+        renderListItem(item)
       );
-      if (idx < items.length - 1) {
-        children.push(<Divider component="li" className="rds-list__divider" key={`divider-${item.id}`} />);
+      // Only show divider if next item is not a nested child
+      if (idx < items.length - 1 && !hasChildren) {
+        children.push(
+          <Divider component="li" className="rds-list__divider" key={`divider-${item.id}`} />
+        );
       }
     });
   } else {
     children = items.map((item) =>
-      React.cloneElement(renderListItem(item), { key: item.id })
+      renderListItem(item)
     );
   }
 
