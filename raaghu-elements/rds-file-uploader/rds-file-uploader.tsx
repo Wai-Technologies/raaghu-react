@@ -360,8 +360,9 @@ return (
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  width: 500,
-                  minWidth: 400,
+                  width: { xs: '100%', sm: '100%', md: 500 },
+                  minWidth: { xs: 0, sm: 0, md: 400 },
+                  maxWidth: { xs: '98vw', sm: '98vw', md: 500 },
                   height: 36,
                   background: '#E1E3EA',
                   borderRadius: 1,
@@ -369,7 +370,7 @@ return (
                   px: 1,
                   py: 0,
                   mb: 1,
-                  fontSize: 15,
+                  fontSize: { xs: 13, sm: 14, md: 15 },
                 }}
               >
                 {/* File name, left aligned, no icon */}

@@ -350,3 +350,62 @@
   gap: 12px !important;
   height: 44px !important;
 }
+
+// Responsive styles for mobile and tablet
+@media (max-width: 600px) {
+  .rds-counter {
+	width: 100% !important;
+	gap: 6px !important;
+	&__controls {
+	  width: 100% !important;
+	  gap: 4px !important;
+	  height: 32px !important;
+	}
+	&__button {
+	  width: 24px !important;
+	  height: 24px !important;
+	  font-size: 12px !important;
+	}
+	&__input {
+	  width: 60px !important;
+	  font-size: 14px !important;
+	}
+	&__value {
+	  min-width: 32px !important;
+	  font-size: 14px !important;
+	  line-height: 28px !important;
+	}
+	&__icon {
+	  font-size: 16px !important;
+	}
+  }
+}
+
+@media (max-width: 900px) {
+  .rds-counter {
+	width: 100% !important;
+	gap: 8px !important;
+	&__controls {
+	  width: 100% !important;
+	  gap: 6px !important;
+	  height: 36px !important;
+	}
+	&__button {
+	  width: 28px !important;
+	  height: 28px !important;
+	  font-size: 14px !important;
+	}
+	&__input {
+	  width: 80px !important;
+	  font-size: 15px !important;
+	}
+	&__value {
+	  min-width: 36px !important;
+	  font-size: 16px !important;
+	  line-height: 32px !important;
+	}
+	&__icon {
+	  font-size: 18px !important;
+	}
+  }
+}

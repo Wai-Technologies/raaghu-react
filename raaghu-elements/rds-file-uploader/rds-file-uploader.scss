@@ -70,7 +70,7 @@
       padding-right: 24px;
       padding-top: 16px;
       padding-bottom: 16px;
-      border: 1.5px dashed var(--rds-color-primary, #2196F3) !important;
+      border: 2px dashed var(--rds-color-primary, #2196F3) !important;
       border-radius: var(--rds-border-radius, 8px);
       box-sizing: border-box;
     }
@@ -431,6 +431,188 @@
   border-radius: 3px;
 }
 
+// Responsive styles for File Uploader
+// Small mobile: 320px - 414px
+@media (max-width: 834px) and (min-width: 414px) {
+  .rds-file-uploader {
+    width: 320px !important;
+    max-width: 98vw !important;
+    margin: 0 auto;
+    &__drop-zone {
+      min-width: 0 !important;
+      max-width: 98vw !important;
+      margin: 0 auto;
+      padding: 16px 10px !important;
+      font-size: 15px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    &__side-content {
+      padding-left: 2px;
+      padding-right: 2px;
+    }
+    &__title,
+    &__title--left,
+    &__title--inline {
+      font-size: 17px !important;
+      margin-bottom: 6px !important;
+    }
+    &__info,
+    &__info--left {
+      font-size: 13px !important;
+      margin-top: 2px !important;
+    }
+    &__upload-btn {
+      min-width: 100px !important;
+      font-size: 13px !important;
+      padding: 5px 10px !important;
+      margin-top: 6px;
+    }
+    &__file-list {
+      margin-top: 10px;
+      max-width: 98vw;
+    }
+    &__file-item {
+      padding: 10px;
+      gap: 10px;
+      font-size: 14px;
+      border-radius: 6px;
+    }
+    &__file-list-title {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+    &__icon {
+      font-size: 26px !important;
+      margin-bottom: 4px;
+    }
+    &__hint-row {
+      min-height: 14px;
+      margin-top: 2px;
+    }
+    &__hint {
+      font-size: 13px;
+      padding-right: 4px;
+    }
+  }
+}
+
+
+// Tablet: 834px - 1024px
+@media (max-width: 1024px) and (min-width: 835px) {
+  .rds-file-uploader {
+    min-width: 0 !important;
+    &__drop-zone {
+      min-width: 0 !important;
+      padding: 24px 18px !important;
+      font-size: 16px;
+    }
+    &__side-content {
+      padding-left: 8px;
+    }
+    &__title,
+    &__title--left,
+    &__title--inline {
+      font-size: 20px !important;
+    }
+    &__info,
+    &__info--left {
+      font-size: 14px !important;
+    }
+    &__upload-btn {
+      min-width: 110px !important;
+      font-size: 14px !important;
+      padding: 4px 12px !important;
+    }
+    &__file-list {
+      margin-top: 14px;
+    }
+    &__file-item {
+      padding: 14px;
+      gap: 14px;
+      font-size: 15px;
+    }
+    &__file-list-title {
+      font-size: 16px;
+    }
+    &__icon {
+      font-size: 30px !important;
+    }
+    &__hint-row {
+      min-height: 20px;
+    }
+    &__hint {
+      font-size: 14px;
+      padding-right: 10px;
+    }
+  }
+}
+
+
+
+@media (max-width: 414px) and (min-width: 320px) {
+  .rds-file-uploader {
+    min-width: 0 !important;
+    max-width: 98vw !important;
+    margin: 0 auto;
+    &__drop-zone {
+      min-width: 0 !important;
+      max-width: 98vw !important;
+      margin: 0 auto;
+      padding: 16px 10px !important;
+      font-size: 15px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    &__side-content {
+      padding-left: 2px;
+      padding-right: 2px;
+    }
+    &__title,
+    &__title--left,
+    &__title--inline {
+      font-size: 17px !important;
+      margin-bottom: 6px !important;
+    }
+    &__info,
+    &__info--left {
+      font-size: 13px !important;
+      margin-top: 2px !important;
+    }
+    &__upload-btn {
+      min-width: 100px !important;
+      font-size: 13px !important;
+      padding: 5px 10px !important;
+      margin-top: 6px;
+    }
+    &__file-list {
+      margin-top: 10px;
+      max-width: 98vw;
+    }
+    &__file-item {
+      padding: 10px;
+      gap: 10px;
+      font-size: 14px;
+      border-radius: 6px;
+    }
+    &__file-list-title {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+    &__icon {
+      font-size: 26px !important;
+      margin-bottom: 4px;
+    }
+    &__hint-row {
+      min-height: 14px;
+      margin-top: 2px;
+    }
+    &__hint {
+      font-size: 13px;
+      padding-right: 4px;
+    }
+  }
+}
 
 // add here 
 
