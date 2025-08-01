@@ -99,10 +99,8 @@
   &__icon {
     display: flex;
     align-items: center;
-    justify-content: center;
     font-size: 24px;
     color: var(--rds-text-secondary);
-    margin-right: 16px;
     flex-shrink: 0;
   }
 
@@ -161,13 +159,6 @@
     }
     .rds-list__content-secondary {
       font-size: 0.8rem;
-    }
-  }
-
-  // Inset variant
-  &--inset {
-    .rds-list__item {
-      padding-left: 72px;
     }
   }
 }

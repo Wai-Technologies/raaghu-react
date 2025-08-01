@@ -98,7 +98,7 @@ export const Inset: Story = {
       withDividers
       className="rds-list--inset"
       items={[
-        { id: 1, primary: 'Chelsea Otakan' },
+        { id: 1, primary: 'Chelsea Otakan', icon: <Star /> },
         { id: 2, primary: 'Eric Hoffman' },
       ]}
     />
