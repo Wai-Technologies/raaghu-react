@@ -1,46 +1,219 @@
-// RDS Tabs Component Styles
-// Tab navigation component
+.rds-tabs--line-left .MuiTab-root {
+  border-left: 2px solid transparent;
+  &.Mui-selected {
+    border-left: 2px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-primary, #1976d2);
+      border-radius: unset !important;
+  }
+}
+.rds-tabs--line-bottom .MuiTab-root {
+  border-bottom: 2px solid transparent;
+  &.Mui-selected {
+    border-bottom: 2px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-primary, #1976d2);
+      border-radius: unset !important;
+  }
+}
+.rds-tabs--line-bottom-solid .MuiTab-root {
+  border-bottom: 3px solid transparent;
+  &.Mui-selected {
+    border-bottom: 3px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-accent, #3C98FF) !important; // Use accent token
+    border-radius: unset !important;
+    background: var(--rds-color-accent-bg, #3D98FF4D) !important; // Use accent bg token
+  }
+}
+.rds-tabs--line-left-solid .MuiTab-root {
+  border-left: 3px solid transparent;
+  &.Mui-selected {
+    border-left: 3px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-accent, #3C98FF) !important;
+    border-radius: unset !important;
+    background: var(--rds-color-accent-bg, #3D98FF4D) !important;
+  }
+}
+
+.rds-tabs--line-right .MuiTab-root {
+  border-right: 2px solid transparent;
+  &.Mui-selected {
+    border-right: 2px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-primary, #1976d2);
+    border-radius: unset !important;
+  }
+}
+
+.rds-tabs--line-right-solid .MuiTab-root {
+  border-right: 3px solid transparent;
+  &.Mui-selected {
+    border-right: 3px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-accent, #3C98FF) !important;
+    border-radius: unset !important;
+    background: var(--rds-color-accent-bg, #3D98FF4D) !important;
+  }
+}
+
+.rds-tabs--line-top .MuiTab-root {
+  border-top: 2px solid transparent;
+  &.Mui-selected {
+    border-top: 2px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-primary, #1976d2);
+      border-radius: unset !important;
+  }
+}
+
+.rds-tabs--line-top-solid .MuiTab-root {
+  border-top: 3px solid transparent;
+  &.Mui-selected {
+    border-top: 3px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-accent, #3C98FF) !important;
+    border-radius: unset !important;
+    background: var(--rds-color-accent-bg, #3D98FF4D) !important;
+  }
+}
+
+.rds-tabs--pill .MuiTab-root {
+  border-radius: 15rem !important;
+  // background: var(--rds-color-surface-alt, #f5f5f5);
+  margin: 0 4px;
+  &.Mui-selected {
+    border-radius: 15rem !important;
+    background: var(--rds-color-primary, #3C98FF) !important;
+    color: var(--rds-color-on-primary, #fff) !important;
+  }
+}
+.rds-tabs--pill .MuiTab-root:hover {
+  &.Mui-selected {
+     border-radius: 15rem !important;
+  }
+}
+
 
 .rds-tabs {
-  display: block;
+  display: flex;
+  flex-direction: column;
   position: relative;
+  background: var(--rds-color-surface, #fff);
+  font-family: var(--rds-font-family, inherit);
 
-  &__tab {
-    // Tab styles
-    display: block;
+  // Tab label content (BEM: __label)
+  &__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
+}
 
-  &__panel {
-    // Panel styles
-    display: block;
-  }
+.rds-state--default .Mui-selected {
+  color: var(--rds-color-default, #646464) !important;
+  border-radius:  6px 6px 0 0 !important;
+}
+.rds-tabs--filled .Mui-selected {
+  background: var(--rds-color-accent, #3C98FF) !important;
+  color: var(--rds-color-on-accent, #ffffff) !important;
+  border-radius:  6px 6px 0 0 !important;
+  border: unset !important;
+}
 
-  &__indicator {
-    // Indicator styles
-    display: block;
-  }
+.rds-state--hover .Mui-selected:hover {
+  background: var(--rds-color-hover-bg, #EBDCFF) !important;
+  color: var(--rds-color-default, #646464) !important;
+  border-radius: 6px 6px 0 0 !important;
+}
 
-  &--active {
-    // Active state styles
-  }
+.rds-state--selected .Mui-selected {
+  background: var(--rds-color-accent, #3C98FF) !important;
+  color: var(--rds-color-on-accent, #ffffff) !important;
+  border-radius:  6px 6px 0 0 !important;
+}
 
-  &--disabled {
-    // Disabled state styles
-  }
+.rds-state--filled .Mui-selected {
+  background: var(--rds-color-accent, #3C98FF) !important;
+  color: var(--rds-color-on-accent, #ffffff) !important;
+  border-radius:  6px 6px 0 0 !important;
+}
+.rds-tabs--flap .Mui-selected {
+  background: var(--rds-color-accent, #3C98FF) !important;
+  color: var(--rds-color-on-accent, #ffffff) !important;
+  border-radius: 6px 6px 0 0 !important;
+  border: unset !important;
+  position: relative; /* required for positioning the arrow */
+}
 
-  // Interactive states
-  &:hover {
-    // Hover styles
-  }
+.rds-tabs--flap .Mui-selected::after {
+  content: '';
+  position: absolute;
+  bottom: -9px; /* position the arrow just below the tab */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid var(--rds-color-accent, #3C98FF); /* same as tab background */
+}
 
-  &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset);
-  }
+.rds-tabs--flap.rds-state--hover .Mui-selected:hover::after {
+  border-top-color: var(--rds-color-hover-bg, #EBDCFF) !important; /* Change to your desired hover color */
+}
+.css-jhczcq-MuiTabs-root{
+  overflow: unset !important;
+}
+.rds-tabs--flap .Mui-selected {
+  position: relative;
+  z-index: 2;
+}
 
-  &:disabled,
-  &--disabled {
-    opacity: 0.6;
-    pointer-events: none;
-  }
+.css-1qltlow-MuiTabs-indicator {
+  display: none !important;
+
+}
+.MuiTab-root {
+  position: relative !important;
+}
+
+.css-1usuzwp-MuiButtonBase-root-MuiTab-root{
+  overflow: unset !important;
+}
+.MuiTabs-scroller{
+  overflow: unset !important;
+}
+
+.css-1usuzwp-MuiButtonBase-root-MuiTab-root {
+  max-width: 150px !important;
+}
+/* Arrow (flap) on the right side of the selected vertical tab */
+ .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
+ content: "" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 150px;
+    transform: translateY(-50%) !important;
+    width: 0 !important;
+    height: 0 !important;
+    border-top: 8px solid transparent !important;
+    border-bottom: 8px solid transparent !important;
+    border-left: 12px solid var(--rds-color-accent, #3C98FF) !important;
+}
+ .rds-tabs--flap.rds-state--hover .MuiTabs-vertical .MuiTab-root.Mui-selected:hover::after {
+    border-left-color: var(--rds-color-hover-bg, #EBDCFF) !important; /* Change to your desired hover color */
+}
+.rds-state--disabled .Mui-selected{
+  background: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  color: var(--rds-color-disabled, #AFCDFD) !important;
+  border-radius:  6px 6px 0 0 !important;
+}
+
+.rds-tabs__label {
+   display: inline-flex;
+   align-items: center;      
+   justify-content: center;  
+   gap: 8px;                 
+   line-height: 1.5;       
+}
+
+.rds-tabs__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   font-size: 1.2em;        
 }
