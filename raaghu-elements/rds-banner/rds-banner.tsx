@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert as MuiAlert, AlertProps, AlertColor, IconButton, Box, Typography } from '@mui/material';
+import { Alert as MuiAlert, AlertProps, AlertColor, IconButton } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Close } from '@mui/icons-material';
 import Button from '@mui/material/Button';
@@ -63,26 +63,16 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
   const sizeClass = `rds-banner--${size}`;
   const styleClass = `rds-banner--${variantStyle}`;
   const severityClass = `rds-banner--${type}`;
+  const widthClass = fullWidth ? 'rds-banner--full-width' : 'rds-banner--auto-width';
 
   // Map variantStyle to MUI Alert variant
   let muiVariant: AlertProps['variant'] = 'standard';
-  let customSx: any = {
-        width: fullWidth ? '100%' : 'auto',
-        borderRadius: 0,
-        '& .MuiAlert-message': {
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        },
-  };
+  
   // style1: keep original (do not set filled variant)
   if (variantStyle === 'style2') {
     muiVariant = 'outlined';
   } else if (variantStyle === 'style3') {
     muiVariant = 'standard';
-    customSx.borderLeft = '6px solid';
-    customSx.borderLeftColor = (theme: any) => theme.palette[type]?.main || theme.palette.info.main;
   }
 
   return (
@@ -90,10 +80,9 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
       severity={type}
       variant={muiVariant}
       icon={Icon ? <InfoOutlinedIcon /> : false}
-      className={`rds-banner ${sizeClass} ${styleClass} ${severityClass}${props.className ? ` ${props.className}` : ''}`}
-      sx={customSx}
+      className={`rds-banner ${sizeClass} ${styleClass} ${severityClass} ${widthClass}${props.className ? ` ${props.className}` : ''}`}
       action={
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <div className="rds-banner__action-container">
           {actions}
           {closable && (
             <IconButton
@@ -101,17 +90,17 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
               color="inherit"
               size="small"
               onClick={handleClose}
-              sx={{ mt: '-4px' }}
+              className="rds-banner__close-button"
             >
               <Close fontSize="inherit" />
             </IconButton>
           )}
-        </Box>
+        </div>
       }
       {...props}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-        <Box sx={{ flexGrow: 1 }}>
+      <div className="rds-banner__content-wrapper">
+        <div className="rds-banner__text-content">
           {multiline ? (
             <div>
               {showTitle && (
@@ -130,21 +119,21 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
             </span>
           )}
           {React.isValidElement(children) ? children : null}
-        </Box>
+        </div>
         {(showLink || showSecondary || showPrimary) && (
-          <Box className="rds-banner__actions" sx={{ display: 'flex', gap: 1, ml: 2 }}>
+          <div className="rds-banner__actions">
             {showLink && (
-              <Button variant="text" size="small" className="rds-banner__link-button" sx={{ mr: '-9px' }}  >Link</Button>
+              <Button variant="text" size="small" className="rds-banner__link-button">Link</Button>
             )}
             {showSecondary && (
-              <Button variant="text" size="small" sx={{ mr: '10px' }} >Cancel</Button>
+              <Button variant="text" size="small" className="rds-banner__secondary-button">Cancel</Button>
             )}
             {showPrimary && (
-              <Button variant="contained" size="small" sx={{ height: '28px' }}>Okay</Button>
+              <Button variant="contained" size="small" className="rds-banner__primary-button">Okay</Button>
             )}
-          </Box>
+          </div>
         )}
-      </Box>
+      </div>
     </MuiAlert>
   );
 };
