@@ -26,6 +26,7 @@ type Story = StoryObj<typeof meta>;
 export const AlignItems: Story = {
   render: () => (
     <RdsList
+      withDividers
       items={[
         {
           id: 1,
@@ -53,6 +54,7 @@ export const AlignItems: Story = {
 export const Dense: Story = {
   args: {
     dense: true,
+    withDividers: true,
     items: [
       { id: 1, primary: 'Home', icon: <Home /> },
       { id: 2, primary: 'Profile', icon: <Person /> },
@@ -65,6 +67,7 @@ export const Dense: Story = {
 // Folder List
 export const Folder: Story = {
   args: {
+    withDividers: true,
     items: [
       { id: 1, primary: 'Photos', secondary: 'Jan 9, 2014', icon: <Home /> },
       { id: 2, primary: 'Work', secondary: 'Jan 7, 2014', icon: <Settings /> },
@@ -76,6 +79,7 @@ export const Folder: Story = {
 export const Gutterless: Story = {
   render: () => (
     <RdsList
+      withDividers
       items={[
         { id: 1, primary: 'Line item 1' },
         { id: 2, primary: 'Line item 2' },
@@ -89,11 +93,12 @@ export const Gutterless: Story = {
 export const Inset: Story = {
   render: () => (
     <RdsList
+      withDividers
+      className="rds-list--inset"
       items={[
         { id: 1, primary: 'Chelsea Otakan' },
         { id: 2, primary: 'Eric Hoffman' },
       ]}
-      style={{ paddingLeft: 72 }}
     />
   ),
 };
@@ -101,6 +106,7 @@ export const Inset: Story = {
 // Interactive List (with onClick)
 export const Interactive: Story = {
   args: {
+    withDividers: true,
     items: [
       { id: 1, primary: 'Single-line item', onClick: () => alert('Clicked 1') },
       { id: 2, primary: 'Single-line item', onClick: () => alert('Clicked 2') },
@@ -114,6 +120,7 @@ export const Nested: Story = {
   render: (args) => (
     <RdsList
       {...args}
+      withDividers
       items={[
         { id: 1, primary: 'Sent mail' },
         { id: 2, primary: 'Drafts' },
@@ -132,6 +139,7 @@ export const Nested: Story = {
 };
 export const Selected: Story = {
   args: {
+    withDividers: true,
     items: [
       { id: 1, primary: 'Inbox', selected: true },
       { id: 2, primary: 'Drafts' },
@@ -143,6 +151,7 @@ export const Selected: Story = {
 export const StickySubheader: Story = {
   render: () => (
     <RdsList
+      withDividers
       subheader={<ListSubheader>I'm sticky</ListSubheader>}
       items={[
         { id: 1, primary: 'Item 1' },
@@ -156,6 +165,7 @@ export const StickySubheader: Story = {
 // Gutterless List
 export const WithIcons: Story = {
   args: {
+    withDividers: true,
     items: [
       { id: 1, primary: 'Home', icon: <Home /> },
       { id: 2, primary: 'Profile', icon: <Person /> },
@@ -166,6 +176,7 @@ export const WithIcons: Story = {
 
 export const WithSecondaryText: Story = {
   args: {
+    withDividers: true,
     items: [
       { id: 1, primary: 'Home', secondary: 'Navigate to home page', icon: <Home /> },
       { id: 2, primary: 'Profile', secondary: 'View and edit your profile', icon: <Person /> },
@@ -189,6 +200,7 @@ export const WithDividers: Story = {
 export const WithCheckbox: Story = {
   render: () => (
     <RdsList
+      withDividers
       items={[
         { id: 1, primary: 'Line item 1', icon: <Checkbox edge="start" tabIndex={-1} disableRipple /> },
         { id: 2, primary: 'Line item 2', icon: <Checkbox edge="start" tabIndex={-1} disableRipple /> },
@@ -203,6 +215,7 @@ export const WithCheckbox: Story = {
 export const WithSwitch: Story = {
   render: () => (
     <RdsList
+      withDividers
       items={[
         { id: 1, primary: 'Settings', icon: <Switch edge="end" /> },
         { id: 2, primary: 'Wi-Fi', icon: <Switch edge="end" /> },
