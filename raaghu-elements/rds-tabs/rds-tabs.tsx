@@ -1,17 +1,45 @@
 import React from 'react';
 import { Tabs as MuiTabs, Tab as MuiTab, TabsProps } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
+import AddIcon from '@mui/icons-material/Add';
+import './rds-tabs.scss';
 
 export interface RdsTabItem {
   id: string | number;
   label: string;
-  icon?: React.ReactNode;
+  icon?: React.ReactNode; // deprecated, use leftIcon/rightIcon
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   disabled?: boolean;
+  title?: string; 
+  state?: 'default' | 'hover' | 'selected' | 'disabled'; // Control tab state for demo and Storybook
+  level?: number; // Control tab level for nested tabs
 }
+
+export type RdsTabsLayout =
+  | 'filled'
+  | 'flap'
+  | 'line-bottom'
+  | 'line-bottom-solid'
+  | 'line-left'
+  | 'line-left-solid'
+  | 'line-right'
+  | 'line-right-solid'
+  | 'line-top'
+  | 'line-top-solid'
+  | 'pill';
 
 export interface RdsTabsProps extends TabsProps {
   tabs: RdsTabItem[];
   activeTab?: string | number;
   onTabChange?: (tabId: string | number) => void;
+  layout?: RdsTabsLayout;
+  leftIcon?: React.ReactNode; // Icon to display on the left side of the tab label
+  rightIcon?: React.ReactNode; // Icon to display on the right side of the tab
+  showLeftIcon?: boolean; // Control to show/hide left icon
+  showRightIcon?: boolean; // Control to show/hide right icon
+  state?: 'default' | 'hover' | 'selected' | 'disabled'; // Control tab state for demo and Storybook
+  level?: number; // Control tab level for nested tabs
 }
 
 const RdsTabs: React.FC<RdsTabsProps> = ({
@@ -20,6 +48,11 @@ const RdsTabs: React.FC<RdsTabsProps> = ({
   onTabChange,
   value,
   onChange,
+  layout = 'filled',
+  leftIcon,
+  rightIcon,
+  showLeftIcon = true,
+  showRightIcon = true,
   ...props
 }) => {
   const handleChange = (event: React.SyntheticEvent, newValue: any) => {
@@ -31,22 +64,45 @@ const RdsTabs: React.FC<RdsTabsProps> = ({
     }
   };
 
+  // Map layout prop to className
+const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`;
+
+  // Inject icons for all tabs if not already present, but only if showLeftIcon/showRightIcon is true
+  const tabsWithIcons = tabs.map((tab) => ({
+    ...tab,
+    leftIcon: showLeftIcon ? (tab.leftIcon ?? leftIcon ?? <PersonIcon fontSize="small" />) : undefined,
+    rightIcon: showRightIcon ? (tab.rightIcon ?? rightIcon ?? <AddIcon fontSize="small" />) : undefined,
+  }));
+
   return (
     <MuiTabs
       value={value || activeTab}
       onChange={handleChange}
+      className={`rds-tabs ${layoutClass}`}
       {...props}
     >
-      {tabs.map((tab) => (
-        <MuiTab
-          key={tab.id}
-          value={tab.id}
-          label={tab.label}
-          icon={tab.icon as any}
-          disabled={tab.disabled}
-          iconPosition="start"
-        />
-      ))}
+      {tabsWithIcons.map((tab) => {
+        const labelContent = (
+          <span className="rds-tabs__label">
+            {tab.leftIcon && (
+              <span className="rds-tabs__icon rds-tabs__icon--left">{tab.leftIcon}</span>
+            )}
+            <span>{tab.label}</span>
+            {tab.rightIcon && (
+              <span className="rds-tabs__icon rds-tabs__icon--right">{tab.rightIcon}</span>
+            )}
+          </span>
+        );
+        return (
+          <MuiTab
+            key={tab.id}
+            value={tab.id}
+            label={labelContent}
+            disabled={tab.disabled}
+            title={tab.title}
+          />
+        );
+      })}
     </MuiTabs>
   );
 };
