@@ -11,9 +11,66 @@ const meta: Meta<typeof RdsBanner> = {
   },
   tags: ['autodocs'],
   argTypes: {
+    message: {
+      control: 'text',
+      description: 'The message to display in the banner',
+    },
     type: {
       control: 'select',
       options: ['error', 'warning', 'info', 'success'],
+      description: 'The type/severity of the banner',
+    },
+    Icon: {
+      control: 'boolean',
+      description: 'Show the info icon in the banner',
+      defaultValue: true,
+    },
+    showTitle: {
+      control: 'boolean',
+      description: 'Show the heading title before the message',
+      defaultValue: false,
+    },
+    title: {
+      control: 'text',
+      description: 'Heading title text (bold)',
+      defaultValue: 'Heading Title.',
+    },
+    showDescription: {
+      control: 'boolean',
+      description: 'Show the description below the heading',
+      defaultValue: true,
+    },
+    size: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+      description: 'Banner size',
+      defaultValue: 'small',
+    },
+    multiline: {
+      control: 'boolean',
+      description: 'Show heading and description on separate lines (multiline style)',
+      defaultValue: false,
+    },
+    variantStyle: {
+      control: 'select',
+      options: ['style1', 'style2', 'style3'],
+      description: 'The style variant of the banner',
+      defaultValue: 'style1',
+    },
+    showLink: {
+      control: 'boolean',
+      description: 'Show the Link button',
+      defaultValue: true,
+    },
+    showSecondary: {
+      control: 'boolean',
+      description: 'Show the Cancel button',
+      defaultValue: true,
+    },
+    showPrimary: {
+      control: 'boolean',
+      description: 'Show the Okay button',
+      defaultValue: true,
     },
     closable: {
       control: 'boolean',
@@ -32,29 +89,64 @@ type Story = StoryObj<typeof meta>;
 
 export const Info: Story = {
   args: {
-    message: 'This is an informational banner message.',
+    message: 'This is the description of the banner.',
     type: 'info',
+    Icon: true,
+    showTitle: true,
+    title: 'Heading Title.',
+    size: 'medium',
+    multiline: false,
+    showDescription: true,
   },
 };
 
 export const Success: Story = {
   args: {
-    message: 'Your changes have been saved successfully!',
+    message: 'This is the description of the banner.',
     type: 'success',
+    Icon: true,
+    showTitle: true,
+    title: 'Heading Title.',
   },
 };
 
 export const Warning: Story = {
   args: {
-    message: 'Please review your information before continuing.',
+    message: 'This is the description of the banner.',
     type: 'warning',
+    Icon: true,
+    showTitle: true,
+    title: 'Heading Title.',
   },
 };
 
 export const Error: Story = {
   args: {
-    message: 'An error occurred while processing your request.',
+    message: 'This is the description of the banner.',
     type: 'error',
+    Icon: true,
+    showTitle: true,
+    title: 'Heading Title.',
+  },
+};
+
+export const Filled: Story = {
+  args: {
+    message: 'This is the description of the banner.',
+    type: 'success',
+    Icon: true,
+    showTitle: true,
+    title: 'Heading Title.',
+  },
+};
+
+export const Outlined: Story = {
+  args: {
+    message: 'This is the description of the banner.',
+    type: 'warning',
+    Icon: true,
+    showTitle: true,
+    title: 'Heading Title.',
   },
 };
 
@@ -144,6 +236,15 @@ export const AllTypes: Story = {
       <RdsBanner
         message="This is an error banner for critical issues."
         type="error"
+      />
+      <RdsBanner
+        message="This is a filled banner."
+        type="success"
+        variant="filled"
+      />
+      <RdsBanner
+        message="This is an outlined banner."
+        variant="outlined"
       />
     </Box>
   ),

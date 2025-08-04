@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import RdsAccordion from './rds-accordion';
+import RdsAccordion, { RdsAccordionGroup } from './rds-accordion';
 import { Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -20,9 +20,22 @@ const meta: Meta<typeof RdsAccordion> = {
       control: 'boolean',
       description: 'Whether the accordion is expanded by default',
     },
-    disabled: {
-      control: 'boolean',
-      description: 'Whether the accordion is disabled',
+    size: {
+      control: { type: 'select' },
+      options: ['small', 'medium', 'large'],
+      description: 'Accordion size variant',
+      defaultValue: 'medium',
+    },
+    state: {
+      control: { type: 'select' },
+      options: ['default', 'hover', 'selected'],
+      description: 'Accordion state variant',
+      defaultValue: 'default',
+    },
+    Icon: {
+      control: { type: 'boolean' },
+      description: 'Show expand/collapse icon in accordion header',
+      defaultValue: true,
     },
     children: {
       control: false,
@@ -36,20 +49,37 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    title: 'Accordion Title',
-    children: (
+    size: 'medium',
+    state: 'default',
+    Icon: true,
+  },
+  render: ({ size, state, Icon }) => (
+    <>
+      <RdsAccordion title="Accordion Title 1" size={size} state={state} Icon={Icon}>
       <Typography>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
         malesuada lacus ex, sit amet blandit leo lobortis eget.
       </Typography>
-    ),
-  },
+      </RdsAccordion>
+      <RdsAccordion title="Accordion Title 2" size={size} state={state} Icon={Icon}>
+        <Typography>
+          Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+        </Typography>
+      </RdsAccordion>
+      <RdsAccordion title="Accordion Title 3" size={size} state={state} Icon={Icon}>
+        <Typography>
+          Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.
+        </Typography>
+      </RdsAccordion>
+    </>
+  ),
 };
 
 export const Expanded: Story = {
   args: {
     title: 'Expanded Accordion',
     defaultExpanded: true,
+    Icon: true,
     children: (
       <Typography>
         This accordion is expanded by default. Lorem ipsum dolor sit amet,
@@ -63,6 +93,7 @@ export const Disabled: Story = {
   args: {
     title: 'Disabled Accordion',
     disabled: true,
+    Icon: true,
     children: (
       <Typography>
         This accordion is disabled and cannot be expanded.
@@ -75,6 +106,7 @@ export const CustomIcon: Story = {
   args: {
     title: 'Custom Icon Accordion',
     icon: <ArrowDropDownIcon />,
+    Icon: true,
     children: (
       <Typography>
         This accordion uses a custom expand icon.
@@ -86,6 +118,7 @@ export const CustomIcon: Story = {
 export const LongContent: Story = {
   args: {
     title: 'Accordion with Long Content',
+    Icon: true,
     children: (
       <div>
         <Typography paragraph>

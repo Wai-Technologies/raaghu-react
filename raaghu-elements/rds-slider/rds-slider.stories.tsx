@@ -34,6 +34,21 @@ const meta: Meta<typeof RdsSlider> = {
       control: 'boolean',
       description: 'Whether to show marks',
     },
+    showLabel: {
+      control: 'boolean',
+      description: 'Whether to show the label above the slider',
+    },
+    showTooltip: {
+      control: { type: 'select' },
+      options: ['default', 'tooltip'],
+      description: 'Show value tooltip on thumb hover',
+      defaultValue: 'default',
+    },
+    level: {
+      control: { type: 'select' },
+      options: [1, 2, 3, 4, 5],
+      description: 'Slider level (1-5)',
+    },
   },
 };
 
@@ -45,6 +60,11 @@ export const Default: Story = {
     value: 30,
     min: 0,
     max: 100,
+    showLabel: true,
+    label: 'Slider',
+  },
+  argTypes: {
+    level: { table: { disable: true } },
   },
   decorators: [
     (Story) => (
@@ -62,6 +82,8 @@ export const WithMarks: Story = {
     max: 100,
     marks: true,
     step: 10,
+    showLabel: true,
+    label: 'Slider',
   },
   decorators: [
     (Story) => (
@@ -77,6 +99,8 @@ export const Range: Story = {
     value: [20, 80],
     min: 0,
     max: 100,
+    showLabel: true,
+    label: 'Slider',
   },
   decorators: [
     (Story) => (
@@ -91,6 +115,8 @@ export const Disabled: Story = {
   args: {
     value: 40,
     disabled: true,
+    showLabel: true,
+    label: 'Slider',
   },
   decorators: [
     (Story) => (
