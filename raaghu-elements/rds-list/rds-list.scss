@@ -1,206 +1,236 @@
-// Secondary action (right-aligned icon) alignment
-.rds-list__secondary-action {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 40px;
-  margin-left: 16px;
-  margin-right: 8px;
-  height: 100%;
-}
-// Expand/collapse icon rotation for nested lists
-.rds-list__expand-icon {
-  display: inline-block;
-  vertical-align: middle;
-  transition: transform 0.2s;
-  margin-left: 14px;
-  font-size: 20px;
-}
-.rds-list__expand-icon--open {
-  transform: rotate(-180deg);
-}
-
-// Nested list children indentation and background
-.rds-list__children {
-  padding-left: 32px;
-  background: #f5f5f5;
-  border-radius: 0 0 8px 8px;
-}
 // RDS List Component Styles
 // List component for displaying items with consistent styling
 
-
-
 .rds-list {
+  // Base styles
   margin: 0;
-  padding: 0px 0;
+  padding: 0;
   list-style: none;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 1.5px 8px 0 rgba(60,60,60,0.08);
-  border: 1px solid #e0e0e0;
+  background-color: var(--rds-background-paper, #fff);
+  border-radius: var(--rds-border-radius-md, 8px);
+  box-shadow: 0 1.5px 8px 0 rgba(60, 60, 60, 0.08);
+  border: 1px solid var(--rds-border-default, #e0e0e0);
 
+  // Element: List item
   &__item {
     display: flex;
     align-items: center;
     min-height: 48px;
-    padding: 8px 16px;
-    border-bottom: 1px solid var(--rds-border-default);
+    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
     background: transparent;
-    transition: background-color var(--rds-transition-base);
-
-    // Add extra spacing for items with expand icon
-    &.rds-list__item--expandable {
-      padding-right: 32px;
-    }
-
+    transition: background-color 0.2s ease;
+    
+    // Last item has no bottom border
     &:last-child {
       border-bottom: none;
     }
-
+    
+    // Item states and modifiers
+    &--expandable {
+      padding-right: var(--rds-spacing-xl, 32px);
+    }
+    
     &--clickable {
       cursor: pointer;
-      transition: background 0.2s, color 0.2s;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      
       &:hover {
-        background-color: #f5f5f5;
+        background-color: var(--rds-neutral-100, #f5f5f5);
+      }
+      
+      &:focus-visible {
+        outline: 2px solid var(--rds-primary-main, #7e2eef);
+        outline-offset: -2px;
+        position: relative;
+        z-index: 1;
       }
     }
-
+    
     &--selected {
-      background-color: #1976d2;
-      color: #fff;
+      background-color: var(--rds-primary-main, #7e2eef);
+      color: var(--rds-primary-contrast-text, #fff);
+      font-weight: 500;
+      
       .rds-list__content-primary,
       .rds-list__content-secondary {
-        color: #fff;
+        color: var(--rds-primary-contrast-text, #fff);
       }
-      font-weight: 500;
+      
       &:hover {
-        background-color: #1565c0;
+        background-color: var(--rds-primary-dark, #4f00a6);
       }
     }
-
+    
     &--disabled {
       opacity: 0.5;
       cursor: not-allowed;
+      
       &:hover {
         background-color: transparent;
       }
     }
   }
 
+  // Element: Avatar container
   &__avatar {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 16px;
+    margin-right: var(--rds-spacing-md, 16px);
     flex-shrink: 0;
   }
-
+  // Element: Icon container
   &__icon {
     display: flex;
     align-items: center;
-    font-size: 24px;
-    color: var(--rds-text-secondary);
+    font-size: var(--rds-font-size-icon-md, 24px);
+    color: var(--rds-text-secondary, #757575);
     flex-shrink: 0;
+    margin-right: var(--rds-spacing-md, 16px);
   }
 
+  // Element: Primary content text
   &__content-primary {
-    font-size: 1rem;
-      font-weight: 400;
-      transition: color 0.2s;
-    color: var(--rds-text-primary);
-    margin-bottom: 2px;
+    font-size: var(--rds-font-size-body, 1rem);
+    font-weight: 400;
+    transition: color 0.2s;
+    color: var(--rds-text-primary, #212121);
+    margin-bottom: var(--rds-spacing-xxs, 2px);
     line-height: 1.2;
     display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: var(--rds-spacing-md, 16px);
   }
 
+  // Element: Secondary content text
   &__content-secondary {
-    font-size: 0.875rem;
-    color: var(--rds-text-secondary);
+    font-size: var(--rds-font-size-sm, 0.875rem);
+    color: var(--rds-text-secondary, #757575);
     line-height: 1.43;
-      display: block;
-      transition: color 0.2s;
+    display: block;
+    transition: color 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
+  // Element: Action container
   &__action {
-    margin-left: auto;
+    margin-left: var(--rds-spacing-lg, 24px);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
   }
 
+  // Element: Divider
   &__divider {
     height: 1px;
-    background-color: var(--rds-border-default);
+    background-color: var(--rds-border-default, #cdcdcd);
     margin: 0;
   }
 
+  // Element: Subheader
   &__subheader {
-    padding: 16px 16px 8px;
-    font-size: 1rem;
+    padding: var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-sm, 8px);
+    font-size: var(--rds-font-size-body, 1rem);
     font-weight: 500;
-    color: var(--rds-text-secondary);
-    background-color: #fafafa;
+    color: var(--rds-text-secondary, #757575);
+    background-color: var(--rds-neutral-50, #fafafa);
     position: sticky;
     top: 0;
     z-index: 1;
   }
 
-  // Dense variant
+  // Modifier: Dense variant
   &--dense {
     .rds-list__item {
       min-height: 40px;
-      padding: 4px 16px;
+      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-md, 16px);
     }
+    
     .rds-list__content-primary {
-      font-size: 0.95rem;
-      margin-bottom: 1px;
+      font-size: var(--rds-font-size-sm, 0.95rem);
+      margin-bottom: var(--rds-spacing-xxs, 1px);
     }
+    
     .rds-list__content-secondary {
-      font-size: 0.8rem;
+      font-size: var(--rds-font-size-xs, 0.8rem);
+    }
+  }
+  
+  // Accessibility enhancements
+  &:focus {
+    outline: none;
+  }
+  
+  // Secondary action icon styling
+  .MuiSvgIcon-root {
+    margin-left: var(--rds-spacing-md, 16px);
+  }
+  
+  // High contrast mode support
+  @media (forced-colors: active) {
+    .rds-list__divider {
+      border: 1px solid CanvasText;
+    }
+    
+    .rds-list__item--selected {
+      outline: 2px solid CanvasText;
+      outline-offset: -2px;
     }
   }
 }
-// Ensure root list has no padding using BEM and RDS guidelines only
+/* Root list resets - following BEM and RDS guidelines */
 .rds-list,
 .rds-list.rds-list--root {
-  padding: 0 !important;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
+
+/* Framework integration adjustments */
 .rds-list__item .MuiListItemButton-root {
-  padding: 0 !important;
+  padding: 0;
 }
 
-// Demo container for Storybook examples
-.rds-list-demo__container {
-  background-color: #fff;
-  border-radius: 2px;
-  overflow: hidden;
-  
-  &--sticky {
-    max-height: 400px;
-    overflow: auto;
-    width: 300px;
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-  }
-}
-
-// Enhanced styling for sticky subheaders
+/* Variant with sticky subheaders */
 .rds-list--with-subheader {
-  background-color: #fff;
+  background-color: var(--rds-background-paper, #fff);
   margin-bottom: 0;
   border-radius: 0;
 
   .rds-list__subheader {
     font-weight: 500;
     line-height: 48px;
-    color: #616161;
-    background-color: #f5f5f5;
+    color: var(--rds-text-secondary, #616161);
+    background-color: var(--rds-neutral-100, #f5f5f5);
     position: sticky;
     top: 0;
     z-index: 1;
-    padding: 0 16px;
+    padding: 0 var(--rds-spacing-md, 16px);
+  }
+}
+
+/*------------------------------------*\
+  DEMO STYLES - FOR STORYBOOK ONLY
+  These styles should be moved to a separate demo stylesheet
+\*------------------------------------*/
+
+// Demo container for Storybook examples
+.rds-list-demo__container {
+  background-color: var(--rds-background-paper, #fff);
+  border-radius: var(--rds-border-radius-sm, 2px);
+  overflow: hidden;
+  
+  &--sticky {
+    max-height: 400px;
+    overflow: auto;
+    width: 300px;
+    border: 1px solid var(--rds-border-default, #e0e0e0);
+    border-radius: var(--rds-border-radius-sm, 2px);
   }
 }
 
@@ -208,78 +238,78 @@
 .rds-list-demo__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  gap: var(--rds-spacing-xl, 32px);
   max-width: 800px;
 }
 
 // Demo titles
 .rds-list-demo__title {
-  font-size: 16px;
+  font-size: var(--rds-font-size-body, 16px);
   font-weight: 500;
-  margin: 8px 0;
-  color: #333;
+  margin: var(--rds-spacing-sm, 8px) 0;
+  color: var(--rds-text-primary, #333);
 }
 
 // Demo description
 .rds-list-demo__description {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 12px;
+  font-size: var(--rds-font-size-sm, 14px);
+  color: var(--rds-text-secondary, #666);
+  margin-bottom: var(--rds-spacing-sm, 12px);
   line-height: 1.5;
 }
 
-// Demo container
+// Demo container (additional styles)
 .rds-list-demo__container {
-  background-color: #fff;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  background-color: var(--rds-background-paper, #fff);
+  border-radius: var(--rds-border-radius-md, 8px);
+  box-shadow: var(--rds-shadow-1, 0 1px 3px rgba(0,0,0,0.1));
   max-width: 400px;
 }
 
 // Selection status display
 .rds-list-demo__selection-status {
-  font-size: 14px;
-  color: #666;
-  padding: 12px 0;
-  border-top: 1px solid #eee;
-  margin-top: 8px;
+  font-size: var(--rds-font-size-sm, 14px);
+  color: var(--rds-text-secondary, #666);
+  padding: var(--rds-spacing-sm, 12px) 0;
+  border-top: 1px solid var(--rds-border-light, #eee);
+  margin-top: var(--rds-spacing-sm, 8px);
 }
 
-// Custom Firebase-inspired list styling
+// Custom themed container
 .rds-list-demo__custom-container {
   width: 280px;
-  border-radius: 4px;
+  border-radius: var(--rds-border-radius-md, 4px);
   overflow: hidden;
   border: none;
-  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+  box-shadow: var(--rds-shadow-2, 0 3px 5px rgba(0,0,0,0.2));
 }
 
 .rds-list-demo__header {
   display: flex;
   align-items: center;
-  padding: 16px;
+  padding: var(--rds-spacing-md, 16px);
   
   &-icon {
-    font-size: 28px;
-    margin-right: 12px;
+    font-size: var(--rds-font-size-icon-lg, 28px);
+    margin-right: var(--rds-spacing-sm, 12px);
   }
   
   &-title {
-    font-size: 20px;
+    font-size: var(--rds-font-size-h6, 20px);
     font-weight: 500;
   }
 }
 
 .rds-list-demo__section-header {
-  font-size: 12px;
+  font-size: var(--rds-font-size-xs, 12px);
   font-weight: 500;
   text-transform: uppercase;
-  padding: 16px 16px 8px;
+  padding: var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-sm, 8px);
   letter-spacing: 0.5px;
 }
 
-.rds-list--firebase {
+/* Custom themed list variant - should be in a separate theme file */
+.rds-list--custom-theme {
   background-color: transparent;
   border: none;
   box-shadow: none;
@@ -290,6 +320,6 @@
   }
 
   .rds-list__item--clickable:hover {
-    background-color: rgba(255, 255, 255, 0.08);
+    background-color: var(--rds-overlay-hover, rgba(255, 255, 255, 0.08));
   }
 }
