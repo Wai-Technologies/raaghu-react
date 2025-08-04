@@ -10,6 +10,9 @@
   border-radius: var(--rds-spacing-xs);
   gap: var(--rds-font-size-sm);
   
+  &__link-button{
+    text-decoration: underline !important;
+  }
   &__icon {
     flex-shrink: 0;
     font-size: var(--rds-font-size-2xl);
@@ -70,5 +73,95 @@
     background-color: var(--rds-alert-error-bg);
     border-color: var(--rds-alert-error-border);
     color: var(--rds-alert-error-text);
+  }
+
+  // Full width banner
+  &--full-width {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  // Auto width banner
+  &--auto-width {
+    width: auto;
+    border-radius: 0;
+  }
+
+  // Style variants
+  &--style3 {
+    border-left: 6px solid;
+    
+    &.rds-banner--info {
+      border-left-color: var(--rds-info-main);
+    }
+    
+    &.rds-banner--success {
+      border-left-color: var(--rds-alert-success-border);
+    }
+    
+    &.rds-banner--warning {
+      border-left-color: var(--rds-alert-warning-border);
+    }
+    
+    &.rds-banner--error {
+      border-left-color: var(--rds-alert-error-border);
+    }
+  }
+
+  // MUI Alert message override
+  :global(.MuiAlert-message) {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  // Banner content layout
+  &__content-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__text-content {
+    flex-grow: 1;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    margin-left: 16px;
+  }
+
+  // Close button styling
+  &__close-button {
+    margin-top: -4px;
+  }
+
+  // Button specific styling
+  &__link-button {
+    margin-right: -9px;
+  }
+
+  &__secondary-button {
+    margin-right: 10px;
+  }
+
+  &__primary-button {
+    height: 28px;
+  }
+
+  // Heading styles
+  &__heading {
+    &--multiline {
+      display: block;
+    }
+  }
+
+  // Action container
+  &__action-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 }

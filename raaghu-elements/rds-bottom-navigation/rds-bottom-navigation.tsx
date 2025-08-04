@@ -16,12 +16,14 @@ export interface RdsBottomNavigationProps extends Omit<BottomNavigationProps, 'c
   items: RdsBottomNavigationItem[];
   activeValue?: string;
   onItemChange?: (value: string) => void;
+  showLabels?: boolean;  
 }
 
 const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
   items,
   activeValue,
   onItemChange,
+  showLabels = false, 
   value,
   onChange,
   ...props
@@ -44,10 +46,11 @@ const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
       {items.map((item) => (
         <MuiBottomNavigationAction
           key={item.value}
-          label={item.label}
+          label={showLabels ? item.label : undefined}  
           value={item.value}
           icon={item.icon}
           disabled={item.disabled}
+          showLabel={showLabels}
         />
       ))}
     </MuiBottomNavigation>
