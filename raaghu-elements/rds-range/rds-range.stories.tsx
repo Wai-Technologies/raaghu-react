@@ -34,6 +34,20 @@ const meta: Meta<typeof RdsRange> = {
     showValue: {
       control: 'boolean',
     },
+    showLabel: {
+      control: 'boolean',
+    },
+    showTooltip: {
+      control: 'boolean',
+    },
+    type: {
+      control: 'select',
+      options: ['one-way', 'two-way'],
+    },
+    level: {
+      control: 'select',
+      options: ['1', '2', '3', '4', '5'],
+    },
   },
 };
 
@@ -42,10 +56,48 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    value: 30,
+    type: 'one-way',
+    level: '3',
     min: 0,
     max: 100,
-    label: 'Volume',
+    showValue: false,
+    showLabel: true,
+    showTooltip: true,
+  },
+  render: (args) => {
+    const [singleValue, setSingleValue] = useState(30);
+    const [rangeValue, setRangeValue] = useState([20, 80]);
+
+    const isOneWay = args.type === 'one-way';
+
+    return (
+      <Box sx={{ width: 400, display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <RdsRange
+          // For one-way with level, don't pass value to let level control the position
+          value={isOneWay && args.level ? undefined : (isOneWay ? singleValue : rangeValue)}
+          onChange={(value) => {
+            if (isOneWay) {
+              setSingleValue(value as number);
+            } else {
+              setRangeValue(value as number[]);
+            }
+          }}
+          type={args.type}
+          level={args.level}
+          min={args.min}
+          max={args.max}
+          // label={isOneWay ? "One Way Slider" : "Two Way Slider"}
+          showValue={args.showValue}
+          showLabel={args.showLabel}
+          showTooltip={args.showTooltip}
+          step={args.step}
+          disabled={args.disabled}
+          color={args.color}
+          size={args.size}
+          formatValue={args.formatValue}
+        />
+      </Box>
+    );
   },
 };
 
