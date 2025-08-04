@@ -18,6 +18,16 @@ const meta: Meta<typeof RdsRadio> = {
       options: ['row', 'column'],
       description: 'Direction of radio group layout',
     },
+    layout: {
+      control: 'select',
+      options: ['icon', 'icon with label', 'icon with bottom label'],
+      description: 'Layout configuration for radio buttons',
+    },
+    state: {
+      control: 'select',
+      options: ['default', 'hover', 'disabled'],
+      description: 'State of the radio buttons',
+    },
   },
 };
 
@@ -33,15 +43,15 @@ const basicOptions = [
 export const Default: Story = {
   args: {
     label: 'Choose an option',
-    options: basicOptions,
+    options: [{ label: 'Option 1', value: 'option1' }],
   },
 };
 
 export const WithSelectedValue: Story = {
   args: {
     label: 'Pre-selected Option',
-    options: basicOptions,
-    value: 'option2',
+    options:  [{ label: 'Option 1', value: 'option1' }],
+    value: 'option1',
   },
 };
 

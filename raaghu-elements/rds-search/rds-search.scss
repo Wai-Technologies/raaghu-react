@@ -1,5 +1,61 @@
 // RDS Search Component Styles
 .rds-search {
-  display: block;
+  display: flex;
   position: relative;
+  
+  // Layout modifiers
+  &--column {
+    flex-direction: column;
+  }
+  
+  &--column-reverse {
+    flex-direction: column-reverse;
+  }
+  
+  &--row {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  &--row-reverse {
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+  
+  // Elements
+  &__label {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--rds-color-text-secondary, rgba(0, 0, 0, 0.6));
+    
+    // Label position modifiers
+    &--top {
+      margin-bottom: 2px;
+    }
+    
+    &--bottom {
+      margin-top: 2px;
+    }
+    
+    &--left {
+      margin-right: 8px;
+    }
+    
+    &--right {
+      margin-left: 8px;
+    }
+  }
+  
+  // Size variants
+  &--small {
+    gap: 2px;
+  }
+  
+  &--medium {
+    gap: 4px;
+  }
+  
+  &--large {
+    gap: 6px;
+  }
 }

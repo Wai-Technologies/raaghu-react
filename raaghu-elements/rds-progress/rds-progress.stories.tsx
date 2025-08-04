@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsProgress from './rds-progress';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const meta: Meta<typeof RdsProgress> = {
   title: 'Elements/Progress',
@@ -9,6 +9,36 @@ const meta: Meta<typeof RdsProgress> = {
     layout: 'padded',
   },
   tags: ['autodocs'],
+  argTypes: {
+    style: {
+      control: {
+        type: 'select',
+      },
+      options: ['circular', 'line', 'stepper', 'dash', 'block'],
+      description: 'The visual style of the progress indicator',
+    },
+    color: {
+      control: {
+        type: 'select',
+      },
+      options: ['primary', 'secondary', 'error', 'info', 'success', 'warning'],
+      description: 'The color of the progress indicator',
+    },
+    steps: {
+      control: {
+        type: 'select',
+      },
+      options: [0, 1, 2, 3, 4, 5],
+      description: 'Progress steps (1=20%, 2=40%, 3=60%, 4=80%, 5=100%). Only works for circular, stepper, dash, and block styles.',
+    },
+    stepperType: {
+      control: {
+        type: 'select',
+      },
+      options: ['number', 'circle'],
+      description: 'The type of stepper indicator',
+    },
+  }
 };
 
 export default meta;
@@ -16,8 +46,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Circular: Story = {
   args: {
+    style: 'circular',
     variant: 'determinate',
-    value: 50,
+    steps: 4,
+    showLabel: true,
+    color: 'primary',
+    stepperType: 'circle',
   },
 };
 
