@@ -24,7 +24,6 @@ export interface RdsListItem {
   disabled?: boolean;
   children?: RdsListItem[];
 }
-
 export interface RdsListProps extends ListProps {
   items: RdsListItem[];
   variant?: 'simple' | 'button' | 'icon' | 'avatar';
@@ -32,10 +31,6 @@ export interface RdsListProps extends ListProps {
   disableGutters?: boolean;
   withDividers?: boolean;
 }
-
-
-
-
 
 const RdsList: React.FC<RdsListProps> = ({
   items,

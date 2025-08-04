@@ -106,63 +106,63 @@ export const Inset: Story = {
 };
 
 // Interactive List (with onClick)
-export const Interactive: Story = {
-  render: () => {
-    const handleClick = (msg: string) => () => alert(msg);
-    return (
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
-        {/* Text only */}
-        <div>
-          <h4 style={{ margin: '8px 0' }}>Text only</h4>
-          <RdsList
-            withDividers
-            items={[
-              { id: 1, primary: 'Single-line item', onClick: handleClick('Clicked text 1') },
-              { id: 2, primary: 'Single-line item', onClick: handleClick('Clicked text 2') },
-              { id: 3, primary: 'Single-line item', onClick: handleClick('Clicked text 3') },
-            ]}
-          />
-        </div>
-        {/* Icon with text */}
-        <div>
-          <h4 style={{ margin: '8px 0' }}>Icon with text</h4>
-          <RdsList
-            withDividers
-            items={[
-              { id: 1, primary: 'Single-line item', icon: <Home />, onClick: handleClick('Clicked icon 1') },
-              { id: 2, primary: 'Single-line item', icon: <Home />, onClick: handleClick('Clicked icon 2') },
-              { id: 3, primary: 'Single-line item', icon: <Home />, onClick: handleClick('Clicked icon 3') },
-            ]}
-          />
-        </div>
-        {/* Avatar with text */}
-        <div>
-          <h4 style={{ margin: '8px 0' }}>Avatar with text</h4>
-          <RdsList
-            withDividers
-            items={[
-              { id: 1, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: handleClick('Clicked avatar 1') },
-              { id: 2, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: handleClick('Clicked avatar 2') },
-              { id: 3, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: handleClick('Clicked avatar 3') },
-            ]}
-          />
-        </div>
-        {/* Avatar with text and icon (secondary action) */}
-        <div>
-          <h4 style={{ margin: '8px 0' }}>Avatar with text and icon</h4>
-          <RdsList
-            withDividers
-            items={[
-              { id: 1, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: handleClick('Clicked avatar+icon 1') },
-              { id: 2, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: handleClick('Clicked avatar+icon 2') },
-              { id: 3, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: handleClick('Clicked avatar+icon 3') },
-            ]}
-          />
-        </div>
-      </div>
-    );
-  },
-};
+// export const Interactive: Story = {
+//   render: () => {
+//     const handleClick = (msg: string) => () => alert(msg);
+//     return (
+//       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
+//         {/* Text only */}
+//         <div>
+//           <h4 style={{ margin: '8px 0' }}>Text only</h4>
+//           <RdsList
+//             withDividers
+//             items={[
+//               { id: 1, primary: 'Single-line item', onClick: handleClick('Clicked text 1') },
+//               { id: 2, primary: 'Single-line item', onClick: handleClick('Clicked text 2') },
+//               { id: 3, primary: 'Single-line item', onClick: handleClick('Clicked text 3') },
+//             ]}
+//           />
+//         </div>
+//         {/* Icon with text */}
+//         <div>
+//           <h4 style={{ margin: '8px 0' }}>Icon with text</h4>
+//           <RdsList
+//             withDividers
+//             items={[
+//               { id: 1, primary: 'Single-line item', icon: <Home />, onClick: handleClick('Clicked icon 1') },
+//               { id: 2, primary: 'Single-line item', icon: <Home />, onClick: handleClick('Clicked icon 2') },
+//               { id: 3, primary: 'Single-line item', icon: <Home />, onClick: handleClick('Clicked icon 3') },
+//             ]}
+//           />
+//         </div>
+//         {/* Avatar with text */}
+//         <div>
+//           <h4 style={{ margin: '8px 0' }}>Avatar with text</h4>
+//           <RdsList
+//             withDividers
+//             items={[
+//               { id: 1, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: handleClick('Clicked avatar 1') },
+//               { id: 2, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: handleClick('Clicked avatar 2') },
+//               { id: 3, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: handleClick('Clicked avatar 3') },
+//             ]}
+//           />
+//         </div>
+//         {/* Avatar with text and icon (secondary action) */}
+//         <div>
+//           <h4 style={{ margin: '8px 0' }}>Avatar with text and icon</h4>
+//           <RdsList
+//             withDividers
+//             items={[
+//               { id: 1, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: handleClick('Clicked avatar+icon 1') },
+//               { id: 2, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: handleClick('Clicked avatar+icon 2') },
+//               { id: 3, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: handleClick('Clicked avatar+icon 3') },
+//             ]}
+//           />
+//         </div>
+//       </div>
+//     );
+//   },
+// };
 
 // At the top of your file, outside the story definition:
 const nestedListItems = [
