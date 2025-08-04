@@ -7,9 +7,9 @@
   background-color: var(--rds-border-default);
   color: var(--rds-text-secondary);
   font-weight: 500;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
-  
+  // Image inside avatar
   &__image {
     width: 100%;
     height: 100%;
@@ -17,13 +17,276 @@
     border-radius: inherit;
   }
   
-  &__text {
+  &__text,
+  &__icon {
     font-size: 0.8em;
     line-height: 1;
   }
+  &__avatar-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: visible;
+    padding: 5px; // reduced padding for tighter ring
+  }
+
+  &__ring {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border: 2.5px solid currentColor;
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+    background: transparent;
+    border-color: var(--rds-color-primary, #7c3aed); // default fallback
+  }
+
+&__dot {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 0 0 2px var(--rds-background-paper, #f4f6fa);
+  transition: background 0.2s;
+  right: -2px;
+}
+
+
+  // Dot position modifiers
+  &--dot-top &__dot {
+    top: 0px;
+    right: -6px;
+  }
+
+  &--dot-bottom &__dot {
+    bottom: 0px;
+    right: 1px;
+  }
+
+  // Size variants (BEM, design tokens)
+  &--small {
+    width: var(--rds-spacing-xl);
+    height: var(--rds-spacing-xl);
+    font-size: var(--rds-font-size-sm);
+  }
+  &--medium {
+    width: 40px;
+    height: 40px;
+    font-size: var(--rds-font-size-md);
+  }
+  &--large {
+    width: 56px;
+    height: 56px;
+    font-size: var(--rds-font-size-2xl);
+  }
+
+  // Shape variants
+  &--rounded {
+    border-radius: var(--rds-spacing-xs);
+  }
+  &--square {
+    border-radius: 0;
+  }
+
+  // Layout variants
+  &--with-name {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    box-shadow: none;
+  }
+  &--name-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    box-shadow: none;
+    // Ensure ring and dot styles match with-name, but move ring closer and dot accordingly
+    .rds-avatar__avatar-outer,
+    .rds-avatar__avatar-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      overflow: visible;
+      padding: 2px; // reduced padding to bring ring closer
+    }
+    .rds-avatar__ring {
+      position: absolute;
+      top: -0.5px;
+      left: -0.5px;
+      right: -0.5px;
+      bottom: -0.5px;
+      border: 2.5px solid currentColor;
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+      background: transparent;
+    }
+    .rds-avatar__dot {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      z-index: 2;
+      box-shadow: 0 0 0 2px var(--rds-background-paper, #f4f6fa);
+      transition: background 0.2s;
+      right: -4px; // move dot closer to ring
+    }
+    // Dot position modifiers
+    &.rds-avatar--dot-top .rds-avatar__dot {
+      top: -2px; // move dot closer to ring
+      right: -4px;
+    }
+    &.rds-avatar--dot-bottom .rds-avatar__dot {
+      bottom: -2px; // move dot closer to ring
+      right: 0px;
+    }
+  }
   
-  &__icon {
-    font-size: 0.8em;
+
+  // Info (name/designation)
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &--center {
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  &__name {
+    font-size: var(--rds-font-size-md, 1rem);
+    font-weight: 600;
+    color: var(--rds-text-primary, #222);
+    line-height: 1.1;
+  }
+
+  &__designation {
+    font-size: var(--rds-font-size-sm, 0.95rem);
+    color: var(--rds-text-secondary, #888);
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  // Stacking variant
+  &__stacking {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: auto;
+    min-width: 0;
+  }
+
+  &__stacking-avatar {
+    box-shadow: 0 0 0 2px #fff;
+    transition: box-shadow 0.2s;
+    position: absolute;
+    top: 0;
+    background: var(--rds-background-paper, #f4f6fa);
+  }
+
+  // Color variants (prefer design tokens, fallback if needed)
+  &--primary {
+    background-color: var(--rds-color-primary, #7c3aed);
+    color: var(--rds-background-paper, #ffffff);
+    .rds-avatar__ring { border-color: var(--rds-color-primary, #7c3aed); }
+    .rds-avatar__dot { background: var(--rds-color-primary, #7c3aed); }
+  }
+  &--secondary {
+    background-color: var(--rds-color-secondary, #a21caf);
+    color: var(--rds-background-paper, #ffffff);
+    .rds-avatar__ring { border-color: var(--rds-color-secondary, #a21caf); }
+    .rds-avatar__dot { background: var(--rds-color-secondary, #a21caf); }
+  }
+  &--success {
+    background-color: var(--rds-color-success, #34c759);
+    color: var(--rds-background-paper, #ffffff);
+    .rds-avatar__ring { border-color: var(--rds-color-success, #34c759); }
+    .rds-avatar__dot { background: var(--rds-color-success, #34c759); }
+  }
+  &--danger {
+    background-color: var(--rds-color-error, #ef4444);
+    color: var(--rds-background-paper, #ffffff);
+    .rds-avatar__ring { border-color: var(--rds-color-error, #ef4444); }
+    .rds-avatar__dot { background: var(--rds-color-error, #ef4444); }
+  }
+  &--warning {
+    background-color: var(--rds-color-warning, #f59e42);
+    color: var(--rds-background-paper, #ffffff);
+    .rds-avatar__ring { border-color: var(--rds-color-warning, #f59e42); }
+    .rds-avatar__dot { background: var(--rds-color-warning, #f59e42); }
+  }
+  &--info {
+    background-color: var(--rds-color-info, #3b82f6);
+    color: var(--rds-background-paper, #ffffff);
+    .rds-avatar__ring { border-color: var(--rds-color-info, #3b82f6); }
+    .rds-avatar__dot { background: var(--rds-color-info, #3b82f6); }
+  }
+  &--light {
+    background-color: var(--rds-color-light, #e0e0e0);
+    color: var(--rds-text-primary, #222222);
+    .rds-avatar__ring { border-color: var(--rds-color-light, #e0e0e0); }
+    .rds-avatar__dot { background: var(--rds-color-light, #e0e0e0); }
+  }
+  &--dark {
+    background-color: var(--rds-color-dark, #22223b);
+    color: var(--rds-background-paper, #ffffff);
+    .rds-avatar__ring { border-color: var(--rds-color-dark, #22223b); }
+    .rds-avatar__dot { background: var(--rds-color-dark, #22223b); }
+  }
+
+
+// .rds-avatar__dot {
+//   position: absolute;
+//   width: 14px;
+//   height: 14px;
+//   background: var(--rds-color-primary, #7c3aed);
+//   border: 2px solid #fff;
+//   border-radius: 50%;
+//   z-index: 2;
+//   box-shadow: 0 0 0 2px var(--rds-background-paper, #f4f6fa);
+//   transition: background 0.2s;
+//   right: -2px;
+// }
+
+// Position variants for dot
+.rds-avatar--dot-top .rds-avatar__dot {
+  top: 1px;
+}
+.rds-avatar--dot-bottom .rds-avatar__dot {
+  bottom: 1px;
+}
+  
+ // Activity dot 
+  &--dot-top {
+    .rds-avatar__dot {
+      top:0px;
+      right: -3px;
+      bottom: auto;
+      left: auto;
+    }
+  }
+  &--dot-bottom {
+    .rds-avatar__dot {
+      bottom: 0px;
+      right: 1px;
+      top: auto;
+      left: auto;
+    }
   }
   
   // Size variants
@@ -36,7 +299,7 @@
   &--medium {
     width: 40px;
     height: 40px;
-    font-size: 1var(--rds-spacing-xs);
+    font-size: var(--rds-font-size-md);
   }
   
   &--large {
@@ -64,4 +327,63 @@
     background-color: #dc004e;
     color: var(--rds-background-paper);
   }
-}
+  // Horizontal layout (avatar + info)
+  &--with-name {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: none;
+    box-shadow: none;
+  }
+
+  // Vertical layout (avatar above info)
+  &--name-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    box-shadow: none;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &--center {
+      align-items: center;
+      text-align: center;
+    }
+  }
+  &__name {
+    font-size: var(--rds-font-size-md, 1rem);
+    font-weight: 600;
+    color: var(--rds-text-primary, #222);
+    line-height: 1.1;
+  }
+  &__designation {
+    font-size: var(--rds-font-size-sm, 0.95rem);
+    color: var(--rds-text-secondary, #888);
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  // Stacking avatars
+  &__stacking {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: auto;
+    min-width: 0;
+  }
+  &__stacking-avatar {
+    box-shadow: 0 0 0 2px #fff;
+    transition: box-shadow 0.2s;
+    position: absolute;
+    top: 0;
+    background: var(--rds-background-paper, #f4f6fa);
+  }
+  // &__stacking-container {
+  //   /* Used for layout sizing only */
+  // }
+}           

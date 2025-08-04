@@ -7,93 +7,171 @@ import {
   Box,
   Typography
 } from '@mui/material';
+import './rds-progress.scss';
 
 export interface RdsProgressProps {
   type?: 'linear' | 'circular';
+  style?: 'circular' | 'line' | 'stepper' | 'dash' | 'block';
   value?: number;
+  steps?: 0 | 1 | 2 | 3 | 4 | 5;
   variant?: 'determinate' | 'indeterminate' | 'buffer' | 'query';
-  color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | 'inherit';
+  color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
   size?: number;
   thickness?: number;
   showLabel?: boolean;
   label?: string;
+  totalSteps?: number;
+  stepperType?: 'number' | 'circle';
   sx?: any;
 }
 
 const RdsProgress: React.FC<RdsProgressProps> = ({
   type = 'linear',
+  style = 'line',
   value,
+  steps,
   variant = 'indeterminate',
   color = 'primary',
-  size = 40,
+  size = 50,
   thickness = 3.6,
   showLabel = false,
   label,
+  totalSteps = 5,
+  stepperType = 'number',
   sx,
   ...props
 }) => {
-  if (type === 'circular') {
-    const circularProps: CircularProgressProps = {
-      variant: variant as any,
-      value,
-      color,
-      size,
-      thickness,
-      sx,
-      ...props,
-    };
+  const getProgressValue = () => steps !== undefined && ['circular', 'line', 'stepper', 'dash', 'block'].includes(style) ? steps * 20 : value;
 
-    if (showLabel && variant === 'determinate') {
-      return (
+  const getColorValue = () => ({
+    primary: 'var(--rds-color-primary, #1976d2)', secondary: 'var(--rds-color-secondary, #dc004e)', error: 'var(--rds-color-error, #d32f2f)',
+    info: 'var(--rds-color-info, #0288d1)', success: 'var(--rds-color-success, #2e7d32)', warning: 'var(--rds-color-warning, #ed6c02)',
+  })[color] || 'var(--rds-color-primary, #1976d2)';
+
+  const getBaseClasses = (styleType: string) => `rds-progress rds-progress--${styleType} rds-progress--${color}${variant === 'indeterminate' ? ' rds-progress--indeterminate' : ''}`;
+
+  const finalValue = getProgressValue();
+  const colorValue = getColorValue();
+
+  const renderWithLabel = (baseClasses: string, progressElement: React.ReactNode, labelPosition: 'overlay' | 'side') => {
+    if (!showLabel || variant !== 'determinate') return <div className={baseClasses}>{progressElement}</div>;
+    
+    const labelElement = <Typography variant={labelPosition === 'overlay' ? 'caption' : 'body2'} component="div" color="text.secondary" className="rds-progress__label">{label || `${Math.round(finalValue || 0)}%`}</Typography>;
+    
+    return labelPosition === 'overlay' ? (
+      <div className={baseClasses}>
         <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-          <MuiCircularProgress {...circularProps} />
-          <Box
-            sx={{
-              top: 0,
-              left: 0,
-              bottom: 0,
-              right: 0,
-              position: 'absolute',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Typography variant="caption" component="div" color="text.secondary">
-              {label || `${Math.round(value || 0)}%`}
-            </Typography>
+          {progressElement}
+          <Box sx={{ top: 0, left: 0, bottom: 0, right: 0, position: 'absolute', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {labelElement}
           </Box>
         </Box>
-      );
-    }
-
-    return <MuiCircularProgress {...circularProps} />;
-  }
-
-  const linearProps: LinearProgressProps = {
-    variant: variant as any,
-    value,
-    color,
-    sx,
-    ...props,
+      </div>
+    ) : (
+      <div className={baseClasses}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ width: '100%', mr: 1 }} className="rds-progress__bar">{progressElement}</Box>
+          <Box sx={{ minWidth: 35 }}>{labelElement}</Box>
+        </Box>
+      </div>
+    );
   };
 
-  if (showLabel && variant === 'determinate') {
-    return (
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box sx={{ width: '100%', mr: 1 }}>
-          <MuiLinearProgress {...linearProps} />
-        </Box>
-        <Box sx={{ minWidth: 35 }}>
-          <Typography variant="body2" color="text.secondary">
-            {label || `${Math.round(value || 0)}%`}
-          </Typography>
-        </Box>
-      </Box>
-    );
-  }
+  const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as any} value={finalValue} color={color} size={size} thickness={thickness} sx={sx} />, 'overlay');
 
-  return <MuiLinearProgress {...linearProps} />;
+  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant as any} value={finalValue} color={color} sx={sx} />, 'side');
+
+  const renderStepper = () => {
+    const currentStep = Math.ceil(((finalValue || 0) / 100) * totalSteps);
+    return (
+      <div className={`rds-progress rds-progress--stepper rds-progress--${color}`}>
+        <Box sx={{ display: 'flex', alignItems: 'center', ...sx }} className="rds-progress__stepper">
+          {Array.from({ length: totalSteps }, (_, index) => {
+            const stepNumber = index + 1;
+            const isCompleted = index < currentStep;
+            const isCurrent = index === currentStep - 1;
+            const stepClass = isCompleted ? 'completed' : isCurrent ? 'current' : 'upcoming';
+            
+            return (
+              <React.Fragment key={index}>
+                <Box
+                  className={`rds-progress__stepper-step rds-progress__stepper-step--${stepClass}`}
+                  sx={{
+                    width: 40, height: 40, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s ease-in-out',
+                    border: `2px solid ${colorValue}`,
+                    backgroundColor: stepperType === 'circle' && (isCompleted || isCurrent) ? colorValue : (stepperType === 'number' && isCompleted ? colorValue : 'white'),
+                  }}
+                >
+                  {stepperType === 'number' ? (
+                    <Typography variant="body2" sx={{ color: isCompleted ? 'white' : isCurrent ? colorValue : 'var(--rds-color-gray-500, #9e9e9e)', fontWeight: 600, fontSize: '14px' }}>{stepNumber}</Typography>
+                  ) : (
+                    <Box sx={{ width: 20, height: 20, borderRadius: '50%', border: `2px solid ${(isCompleted || isCurrent) ? 'white' : 'var(--rds-color-gray-600, #5c6870)'}`, backgroundColor: 'transparent' }} />
+                  )}
+                </Box>
+                {index < totalSteps - 1 && (
+                  <Box className={`rds-progress__stepper-connector ${isCompleted ? 'rds-progress__stepper-connector--completed' : ''}`} sx={{ width: 60, height: 2, backgroundColor: colorValue, transition: 'background-color 0.2s ease-in-out' }} />
+                )}
+              </React.Fragment>
+            );
+          })}
+        </Box>
+      </div>
+    );
+  };
+
+  const renderSegmented = (type: 'dash' | 'block') => {
+    const count = 5;
+    const filledCount = Math.ceil(((finalValue || 0) / 100) * count);
+    const isDash = type === 'dash';
+    
+    return (
+      <div className={`rds-progress rds-progress--${type} rds-progress--${color}`}>
+        <Box sx={{ display: 'flex', alignItems: 'center', ...sx }}>
+          <Box sx={{ display: 'flex', gap: isDash ? 0.5 : 0, alignItems: 'center' }}>
+            {Array.from({ length: count }, (_, index) => {
+              // Calculate border radius for dash and block styles
+              const getBorderRadius = () => {
+                if (isDash) {
+                  // For dash style: all dashes should have rounded corners
+                  return 'var(--rds-border-radius-sm, 4px)';
+                } else {
+                  // For block style: round outer corners only
+                  if (index === 0) return '4px 0 0 4px'; // First block: left corners rounded
+                  if (index === count - 1) return '0 4px 4px 0'; // Last block: right corners rounded
+                  return '0'; // Middle blocks: no rounding
+                }
+              };
+
+              return (
+                <Box
+                  key={index}
+                  className={`rds-progress__${type} ${index < filledCount ? `rds-progress__${type}--filled` : ''}`}
+                  sx={{
+                    width: isDash ? 50 : 80, 
+                    height: isDash ? 5 : 40, 
+                    backgroundColor: index < filledCount ? colorValue : 'var(--rds-color-gray-300, #e0e0e0)',
+                    borderRadius: getBorderRadius(),
+                    ...(isDash ? {} : { display: 'flex', alignItems: 'center', justifyContent: 'center', color: index < filledCount ? 'white' : 'var(--rds-color-gray-600, #666)', fontWeight: 'bold', fontSize: '14px' })
+                  }}
+                >
+                  {!isDash && `Step ${index + 1}`}
+                </Box>
+              );
+            })}
+          </Box>
+        </Box>
+      </div>
+    );
+  };
+
+  switch (style) {
+    case 'circular': return renderCircular();
+    case 'line': return renderLinear();
+    case 'stepper': return renderStepper();
+    case 'dash': return renderSegmented('dash');
+    case 'block': return renderSegmented('block');
+    default: return renderLinear();
+  }
 };
 
 export default RdsProgress;

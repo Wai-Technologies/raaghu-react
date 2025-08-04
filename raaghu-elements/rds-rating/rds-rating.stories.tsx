@@ -13,12 +13,29 @@ const meta: Meta<typeof RdsRating> = {
     value: {
       control: { type: 'number', min: 0, max: 5, step: 0.5 },
     },
+    type: {
+      control: { type: 'select' },
+      options: ['star', 'slider'],
+    },
+    styles: {
+      control: { type: 'select' },
+      options: ['default', 'filled', 'outlined'],
+    },
     size: {
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
     },
     precision: {
       control: { type: 'number', min: 0.1, max: 1, step: 0.1 },
+    },
+    level: {
+      control: { type: 'select' },
+      options: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 'Left', 'Mid', 'Right'],
+      mapping: {
+        'Left': 0,
+        'Mid': 2.5,
+        'Right': 5,
+      },
     },
     readOnly: {
       control: { type: 'boolean' },
@@ -35,6 +52,39 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     value: 3,
+    type: 'star',
+  },
+  argTypes: {
+    type: {
+      control: { type: 'select' },
+      options: ['star', 'slider'],
+    },
+    level: {
+      control: { type: 'select' },
+      options: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 'Left', 'Mid', 'Right'],
+      mapping: {
+        'Left': 0,
+        'Mid': 2.5,
+        'Right': 5,
+      },
+    },
+    styles: {
+      control: { type: 'select' },
+      options: ['default', 'filled', 'outlined'],
+    },
+    // Hide other controls for Default story
+    value: { table: { disable: true } },
+    showValue: { table: { disable: true } },
+    label: { table: { disable: true } },
+    maxStars: { table: { disable: true } },
+    size: { table: { disable: true } },
+    precision: { table: { disable: true } },
+    readOnly: { table: { disable: true } },
+    disabled: { table: { disable: true } },
+    max: { table: { disable: true } },
+    onChange: { table: { disable: true } },
+    icon: { table: { disable: true } },
+    emptyIcon: { table: { disable: true } },
   },
 };
 
