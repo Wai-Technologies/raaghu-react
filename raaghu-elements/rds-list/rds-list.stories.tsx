@@ -1,10 +1,29 @@
 
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsList from './rds-list';
-import { Avatar, Checkbox, Switch, ListSubheader } from '@mui/material';
-import { Home, Person, Settings, Info, Send, Drafts, Inbox, Star, LabelImportant } from '@mui/icons-material';
+import { Avatar, Checkbox, Switch, ListSubheader, Paper } from '@mui/material';
+import {Home, Person, Settings, Info, Send, Drafts, Inbox, Star, LabelImportant,Storage, Dataset, ManageAccounts, LocalFireDepartment, Cloud 
+} from '@mui/icons-material';
 import CommentIcon from '@mui/icons-material/Comment';
 
+// Common helper functions
+const createLogHandler = (msg: string) => () => console.log(msg);
+// Shared items for nested list example
+const nestedListItems = [
+  { id: 1, primary: 'Sent mail', icon: <Send /> },
+  { id: 2, primary: 'Drafts', icon: <Drafts /> },
+  {
+    id: 3,
+    primary: 'Inbox',
+    secondary: 'Nested items below',
+    icon: <Inbox />,
+    children: [
+      { id: '3-1', primary: 'Starred', icon: <Star /> },
+      { id: '3-2', primary: 'Important', icon: <LabelImportant /> },
+    ],
+  },
+];
 const meta: Meta<typeof RdsList> = {
   title: 'Elements/List',
   component: RdsList,
@@ -53,6 +72,62 @@ export const AlignItems: Story = {
     />
   ),
 };
+// Custom themed list (like Firebase example)
+export const CustomizedList: Story = {
+  render: () => (
+    <Paper className="rds-list-demo__custom-container">
+      <div className="rds-list-demo__header">
+        <LocalFireDepartment className="rds-list-demo__header-icon" />
+        <span className="rds-list-demo__header-title">Firebase</span>
+      </div>
+      
+      {/* Overview section */}
+      <RdsList
+        variant="firebase"
+        items={[
+          {
+            id: 'overview',
+            primary: 'Project Overview',
+            icon: <Home className="rds-list__firebase-icon" />,
+            onClick: createLogHandler('Project Overview clicked')
+          }
+        ]}
+      />
+      
+      {/* Build section */}
+      <div className="rds-list-demo__section-header">Build</div>
+      <RdsList
+        variant="firebase"
+        items={[
+          {
+            id: 'auth',
+            primary: 'Authentication',
+            icon: <ManageAccounts className="rds-list__firebase-icon" />,
+            onClick: createLogHandler('Authentication clicked')
+          },
+          {
+            id: 'database',
+            primary: 'Database',
+            icon: <Dataset className="rds-list__firebase-icon" />,
+            onClick: createLogHandler('Database clicked')
+          },
+          {
+            id: 'storage',
+            primary: 'Storage',
+            icon: <Storage className="rds-list__firebase-icon" />,
+            onClick: createLogHandler('Storage clicked')
+          },
+          {
+            id: 'hosting',
+            primary: 'Hosting',
+            icon: <Cloud className="rds-list__firebase-icon" />,
+            onClick: createLogHandler('Hosting clicked')
+          }
+        ]}
+      />
+    </Paper>
+  ),
+};
 export const Dense: Story = {
   args: {
     dense: true,
@@ -65,7 +140,6 @@ export const Dense: Story = {
     ],
   },
 };
-
 // Folder List
 export const Folder: Story = {
   args: {
@@ -77,7 +151,6 @@ export const Folder: Story = {
     ],
   },
 };
-
 export const Gutterless: Story = {
   render: () => (
     <RdsList
@@ -104,82 +177,118 @@ export const Inset: Story = {
     />
   ),
 };
-
 // Interactive List (with onClick)
-// export const Interactive: Story = {
-//   render: () => {
-//     const handleClick = (msg: string) => () => alert(msg);
-//     return (
-//       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
-//         {/* Text only */}
-//         <div>
-//           <h4 style={{ margin: '8px 0' }}>Text only</h4>
-//           <RdsList
-//             withDividers
-//             items={[
-//               { id: 1, primary: 'Single-line item', onClick: handleClick('Clicked text 1') },
-//               { id: 2, primary: 'Single-line item', onClick: handleClick('Clicked text 2') },
-//               { id: 3, primary: 'Single-line item', onClick: handleClick('Clicked text 3') },
-//             ]}
-//           />
-//         </div>
-//         {/* Icon with text */}
-//         <div>
-//           <h4 style={{ margin: '8px 0' }}>Icon with text</h4>
-//           <RdsList
-//             withDividers
-//             items={[
-//               { id: 1, primary: 'Single-line item', icon: <Home />, onClick: handleClick('Clicked icon 1') },
-//               { id: 2, primary: 'Single-line item', icon: <Home />, onClick: handleClick('Clicked icon 2') },
-//               { id: 3, primary: 'Single-line item', icon: <Home />, onClick: handleClick('Clicked icon 3') },
-//             ]}
-//           />
-//         </div>
-//         {/* Avatar with text */}
-//         <div>
-//           <h4 style={{ margin: '8px 0' }}>Avatar with text</h4>
-//           <RdsList
-//             withDividers
-//             items={[
-//               { id: 1, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: handleClick('Clicked avatar 1') },
-//               { id: 2, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: handleClick('Clicked avatar 2') },
-//               { id: 3, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: handleClick('Clicked avatar 3') },
-//             ]}
-//           />
-//         </div>
-//         {/* Avatar with text and icon (secondary action) */}
-//         <div>
-//           <h4 style={{ margin: '8px 0' }}>Avatar with text and icon</h4>
-//           <RdsList
-//             withDividers
-//             items={[
-//               { id: 1, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: handleClick('Clicked avatar+icon 1') },
-//               { id: 2, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: handleClick('Clicked avatar+icon 2') },
-//               { id: 3, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: handleClick('Clicked avatar+icon 3') },
-//             ]}
-//           />
-//         </div>
-//       </div>
-//     );
-//   },
-// };
-
-// At the top of your file, outside the story definition:
-const nestedListItems = [
-  { id: 1, primary: 'Sent mail', icon: <Send /> },
-  { id: 2, primary: 'Drafts', icon: <Drafts /> },
-  {
-    id: 3,
-    primary: 'Inbox',
-    secondary: 'Nested items below',
-    icon: <Inbox />,
-    children: [
-      { id: '3-1', primary: 'Starred', icon: <Star /> },
-      { id: '3-2', primary: 'Important', icon: <LabelImportant /> },
-    ],
+export const Interactive: Story = {
+  render: () => {
+    return (
+      <div className="rds-list-demo__grid">
+        {/* Text only */}
+        <div>
+          <div className="rds-list-demo__title">Text only</div>
+          <RdsList
+            withDividers
+            items={[
+              { id: 1, primary: 'Single-line item', onClick: createLogHandler('Clicked text 1') },
+              { id: 2, primary: 'Single-line item', onClick: createLogHandler('Clicked text 2') },
+              { id: 3, primary: 'Single-line item', onClick: createLogHandler('Clicked text 3') },
+            ]}
+          />
+        </div>
+        {/* Icon with text */}
+        <div>
+          <div className="rds-list-demo__title">Icon with text</div>
+          <RdsList
+            withDividers
+            items={[
+              { id: 1, primary: 'Single-line item', icon: <Home />, onClick: createLogHandler('Clicked icon 1') },
+              { id: 2, primary: 'Single-line item', icon: <Home />, onClick: createLogHandler('Clicked icon 2') },
+              { id: 3, primary: 'Single-line item', icon: <Home />, onClick: createLogHandler('Clicked icon 3') },
+            ]}
+          />
+        </div>
+        {/* Avatar with text */}
+        <div>
+          <div className="rds-list-demo__title">Avatar with text</div>
+          <RdsList
+            withDividers
+            items={[
+              { id: 1, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: createLogHandler('Clicked avatar 1') },
+              { id: 2, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: createLogHandler('Clicked avatar 2') },
+              { id: 3, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: createLogHandler('Clicked avatar 3') },
+            ]}
+          />
+        </div>
+        {/* Avatar with text and icon (secondary action) */}
+        <div>
+          <div className="rds-list-demo__title">Avatar with text and icon</div>
+          <RdsList
+            withDividers
+            items={[
+              { id: 1, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: createLogHandler('Clicked avatar+icon 1') },
+              { id: 2, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: createLogHandler('Clicked avatar+icon 2') },
+              { id: 3, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: createLogHandler('Clicked avatar+icon 3') },
+            ]}
+          />
+        </div>
+      </div>
+    );
   },
-];
-
+};
+// Interactive Multiple Selection example with state management
+export const MultipleSelection: Story = {
+  render: () => {
+    const [selectedItems, setSelectedItems] = React.useState<number[]>([2]);
+    
+    const handleCheckboxChange = (id: string | number, isChecked: boolean) => {
+      const numId = typeof id === 'string' ? parseInt(id) : id;
+      if (isChecked) {
+        setSelectedItems(prev => [...prev, numId as number]);
+      } else {
+        setSelectedItems(prev => prev.filter(item => item !== numId));
+      }
+    };
+    
+    return (
+      <div className="rds-list-demo__container">
+        <div className="rds-list-demo__title">Interactive Multiple Selection</div>
+        <div className="rds-list-demo__description">
+          Click on an item to toggle its selection. The list maintains state of selected items.
+        </div>
+        <RdsList
+          withDividers
+          withCheckboxes
+          checkedItems={selectedItems}
+          onCheckboxChange={handleCheckboxChange}
+          items={[
+            { 
+              id: 1, 
+              primary: 'Inbox', 
+              secondary: 'Inbox messages'
+            },
+            { 
+              id: 2, 
+              primary: 'Starred', 
+              secondary: 'Starred messages'
+            },
+            { 
+              id: 3, 
+              primary: 'Send email', 
+              secondary: 'Send a new message'
+            },
+            { 
+              id: 4, 
+              primary: 'Drafts', 
+              secondary: 'Saved drafts'
+            }
+          ]}
+        />
+        <div className="rds-list-demo__selection-status">
+          Selected items: {selectedItems.length ? selectedItems.join(', ') : 'none'}
+        </div>
+      </div>
+    );
+  }
+};
 // In your story:
 export const Nested: Story = {
   render: (args) => (
@@ -260,7 +369,6 @@ export const StickySubheader: Story = {
     </div>
   ),
 };
-
 // Gutterless List
 export const WithIcons: Story = {
   args: {
@@ -272,7 +380,6 @@ export const WithIcons: Story = {
     ],
   },
 };
-
 export const WithSecondaryText: Story = {
   args: {
     withDividers: true,
@@ -283,8 +390,6 @@ export const WithSecondaryText: Story = {
     ],
   },
 };
-
-
 export const WithDividers: Story = {
   args: {
     items: [
@@ -295,21 +400,61 @@ export const WithDividers: Story = {
     withDividers: true,
   },
 };
-// List Controls: Checkbox
+// List Controls: Checkbox - Shows different checkbox states
 export const WithCheckbox: Story = {
-  render: () => (
-    <RdsList
-      withDividers
-      items={[
-        { id: 1, primary: 'Line item 1', icon: <Checkbox edge="start" tabIndex={-1} disableRipple /> },
-        { id: 2, primary: 'Line item 2', icon: <Checkbox edge="start" tabIndex={-1} disableRipple /> },
-        { id: 3, primary: 'Line item 3', icon: <Checkbox edge="start" tabIndex={-1} disableRipple /> },
-        { id: 4, primary: 'Line item 4', icon: <Checkbox edge="start" tabIndex={-1} disableRipple /> },
-      ]}
-    />
-  ),
+  render: () => {
+    const [checked, setChecked] = React.useState<(string | number)[]>([1]);
+    
+    const handleCheckboxChange = (id: string | number, isChecked: boolean) => {
+      if (isChecked) {
+        setChecked(prev => [...prev, id]);
+      } else {
+        setChecked(prev => prev.filter(item => item !== id));
+      }
+    };
+    
+    return (
+      <div className="rds-list-demo__container">
+        <div className="rds-list-demo__title">Different Checkbox States</div>
+        <RdsList
+          withDividers
+          withCheckboxes
+          checkedItems={checked}
+          onCheckboxChange={handleCheckboxChange}
+          items={[
+            { 
+              id: 1, 
+              primary: 'Checked checkbox', 
+              secondary: 'This item is checked'
+            },
+            { 
+              id: 2, 
+              primary: 'Unchecked checkbox', 
+              secondary: 'This item is not checked'
+            },
+            { 
+              id: 3, 
+              primary: 'Custom checkbox', 
+              secondary: 'This item has a custom icon', 
+              icon: <Checkbox 
+                edge="start" 
+                indeterminate
+                checked={checked.includes(3)}
+                tabIndex={-1} 
+              />
+            },
+            { 
+              id: 4, 
+              primary: 'Disabled checkbox', 
+              secondary: 'This checkbox cannot be interacted with',
+              disabled: true
+            },
+          ]}
+        />
+      </div>
+    );
+  },
 };
-
 // List Controls: Switch
 export const WithSwitch: Story = {
   render: () => (

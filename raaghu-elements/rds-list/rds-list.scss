@@ -203,3 +203,93 @@
     padding: 0 16px;
   }
 }
+
+// Demo grid layout for examples
+.rds-list-demo__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 800px;
+}
+
+// Demo titles
+.rds-list-demo__title {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 8px 0;
+  color: #333;
+}
+
+// Demo description
+.rds-list-demo__description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+// Demo container
+.rds-list-demo__container {
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  max-width: 400px;
+}
+
+// Selection status display
+.rds-list-demo__selection-status {
+  font-size: 14px;
+  color: #666;
+  padding: 12px 0;
+  border-top: 1px solid #eee;
+  margin-top: 8px;
+}
+
+// Custom Firebase-inspired list styling
+.rds-list-demo__custom-container {
+  width: 280px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+}
+
+.rds-list-demo__header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  
+  &-icon {
+    font-size: 28px;
+    margin-right: 12px;
+  }
+  
+  &-title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
+.rds-list-demo__section-header {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 16px 16px 8px;
+  letter-spacing: 0.5px;
+}
+
+.rds-list--firebase {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  
+  .rds-list__item {
+    border: none;
+  }
+
+  .rds-list__item--clickable:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+}

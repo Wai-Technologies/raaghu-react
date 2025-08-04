@@ -1,17 +1,7 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React, { useState } from 'react';
-import {
-  List as MuiList,
-  ListItem as MuiListItem,
-  ListItemButton as MuiListItemButton,
-  ListItemText as MuiListItemText,
-  ListItemIcon as MuiListItemIcon,
-  ListItemAvatar as MuiListItemAvatar,
-  ListProps,
-  Divider
-} from '@mui/material';
+import { List as MuiList,ListItem as MuiListItem,ListItemButton as MuiListItemButton,ListItemText as MuiListItemText,ListItemIcon as MuiListItemIcon,ListItemAvatar as MuiListItemAvatar,ListProps, Divider,Checkbox } from '@mui/material';
 import './rds-list.scss';
-
 export interface RdsListItem {
   id: string | number;
   primary: string;
@@ -26,10 +16,13 @@ export interface RdsListItem {
 }
 export interface RdsListProps extends ListProps {
   items: RdsListItem[];
-  variant?: 'simple' | 'button' | 'icon' | 'avatar';
+  variant?: 'simple' | 'button' | 'icon' | 'avatar' | 'firebase';
   alignItems?: 'flex-start' | 'center';
   disableGutters?: boolean;
   withDividers?: boolean;
+  withCheckboxes?: boolean;
+  onCheckboxChange?: (id: string | number, checked: boolean) => void;
+  checkedItems?: (string | number)[];
 }
 
 const RdsList: React.FC<RdsListProps> = ({
@@ -38,11 +31,22 @@ const RdsList: React.FC<RdsListProps> = ({
   alignItems,
   disableGutters,
   withDividers,
+  withCheckboxes,
+  onCheckboxChange,
+  checkedItems = [],
   className,
   ...props
 }) => {
   const [openMap, setOpenMap] = useState<Record<string | number, boolean>>({});
-  const rootClass = ['rds-list', className].filter(Boolean).join(' ');
+  const [internalChecked, setInternalChecked] = useState<(string | number)[]>(checkedItems);
+
+  // Use the provided checkedItems or internal state
+  const effectiveCheckedItems = checkedItems.length > 0 ? checkedItems : internalChecked;
+
+  // Root class based on variant and other props
+  const variantClass = variant === 'firebase' ? 'rds-list--firebase' : '';
+  const rootClass = ['rds-list', variantClass, className].filter(Boolean).join(' ');
+
   const getItemClass = (item: RdsListItem) => {
     let cls = 'rds-list__item';
     if (item.onClick || variant === 'button') cls += ' rds-list__item--clickable';
@@ -50,6 +54,22 @@ const RdsList: React.FC<RdsListProps> = ({
     if (item.disabled) cls += ' rds-list__item--disabled';
     if (disableGutters) cls += ' rds-list__item--no-gutters';
     return cls;
+  };
+
+  // Handle checkbox changes
+  const handleCheckboxChange = (id: string | number) => () => {
+    const isChecked = !effectiveCheckedItems.includes(id);
+
+    if (onCheckboxChange) {
+      // Use callback if provided
+      onCheckboxChange(id, isChecked);
+    } else {
+      // Otherwise manage internal state
+      const newChecked = isChecked
+        ? [...effectiveCheckedItems, id]
+        : effectiveCheckedItems.filter(item => item !== id);
+      setInternalChecked(newChecked);
+    }
   };
 
   const handleToggle = (id: string | number) => {
@@ -110,15 +130,35 @@ const RdsList: React.FC<RdsListProps> = ({
       );
     }
 
-    if (variant === 'button' || item.onClick) {
+    if (variant === 'button' || item.onClick || withCheckboxes) {
+      // Create checkbox if withCheckboxes is true and no custom icon is provided
+      const checkbox = withCheckboxes && !item.icon ? (
+        <MuiListItemIcon className="rds-list__icon">
+          <Checkbox
+            edge="start"
+            checked={effectiveCheckedItems.includes(item.id)}
+            tabIndex={-1}
+            disableRipple
+            disabled={item.disabled}
+            onChange={handleCheckboxChange(item.id)}
+          />
+        </MuiListItemIcon>
+      ) : null;
+
+      // Use the provided icon or checkbox
+      const icon = item.icon ? (
+        <MuiListItemIcon className="rds-list__icon">
+          {item.icon}
+        </MuiListItemIcon>
+      ) : checkbox;
+
       return (
         <MuiListItem disablePadding {...itemProps} key={item.id}>
-          <MuiListItemButton onClick={item.onClick}>
-            {item.icon && !item.secondaryAction && (
-              <MuiListItemIcon className="rds-list__icon">
-                {item.icon}
-              </MuiListItemIcon>
-            )}
+          <MuiListItemButton
+            onClick={withCheckboxes ? handleCheckboxChange(item.id) : item.onClick}
+            disabled={item.disabled}
+          >
+            {icon}
             {item.avatar && (
               <MuiListItemAvatar className="rds-list__avatar">
                 {item.avatar}
