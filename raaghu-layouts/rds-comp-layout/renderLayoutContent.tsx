@@ -385,6 +385,63 @@ const renderLayoutContent = (displayType: string, hasShadow: boolean) => {
                 </>
               );
 
+            case 'Dashboard':
+              return (
+                <>
+                  {/* Row 1: Left col-6: 1 Paper, Right col-6: 2 side-by-side Papers (each col-3) */}
+                  <Box sx={{ ...commonGridSx, gridTemplateColumns: { xs: '1fr', sm: 'repeat(12, 1fr)', md: 'repeat(12, 1fr)' }, alignItems: 'stretch' }}>
+                    {/* Left col-6: 1 Paper */}
+                    <Paper key="dashboard-row1-col0" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 120, sm: 240, md: 240 }, gridColumn: { xs: 'auto', sm: '1 / span 6', md: '1 / span 6' } }} />
+                    {/* Right col-6: 2 side-by-side Papers (each col-3) */}
+                    <Paper key="dashboard-row1-col1" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 120, sm: 240, md: 240 }, gridColumn: { xs: 'auto', sm: '7 / span 3', md: '7 / span 3' } }} />
+                    <Paper key="dashboard-row1-col2" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 120, sm: 240, md: 240 }, gridColumn: { xs: 'auto', sm: '10 / span 3', md: '10 / span 3' } }} />
+                  </Box>
+
+                  {/* Row 2: Left col-6 (col-3: 2 stacked, col-3: 1), Right col-6: 1 Paper */}
+                  <Box sx={{ ...commonGridSx, gridTemplateColumns: { xs: '1fr', sm: 'repeat(12, 1fr)', md: 'repeat(12, 1fr)' }, alignItems: 'stretch' }}>
+                    {/* Left col-3: 2 stacked Papers */}
+                    <Paper key="dashboard-row2-col0" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 80, sm: 120, md: 120 }, gridColumn: { xs: 'auto', sm: '1 / span 3', md: '1 / span 3' }, gridRow: { xs: 'auto', sm: '1', md: '1' } }} />
+                    <Paper key="dashboard-row2-col1" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 80, sm: 120, md: 120 }, gridColumn: { xs: 'auto', sm: '1 / span 3', md: '1 / span 3' }, gridRow: { xs: 'auto', sm: '2', md: '2' } }} />
+                    {/* Left col-3: 1 Paper (beside stacked) */}
+                    <Paper key="dashboard-row2-col2" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 180, sm: 240, md: 240 }, gridColumn: { xs: 'auto', sm: '4 / span 3', md: '4 / span 3' }, gridRow: { xs: 'auto', sm: '1 / span 2', md: '1 / span 2' } }} />
+                    {/* Right col-6: 1 Paper */}
+                    <Paper key="dashboard-row2-col3" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 180, sm: 240, md: 240 }, gridColumn: { xs: 'auto', sm: '7 / span 6', md: '7 / span 6' }, gridRow: { xs: 'auto', sm: '1 / span 2', md: '1 / span 2' } }} />
+                  </Box>
+
+                  {/* Row 3: 1 Paper, full width */}
+                  <Box sx={{ ...commonGridSx, gridTemplateColumns: { xs: '1fr', sm: 'repeat(12, 1fr)', md: 'repeat(12, 1fr)' } }}>
+                    <Paper key="dashboard-row3-col0" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 120, sm: 240, md: 240 }, gridColumn: { xs: 'auto', sm: 'span 12', md: 'span 12' } }} />
+                  </Box>
+                </>
+              );
+
+
+
+            case 'Relaxed':
+              return (
+                <>
+                  {/* Main grid: 12 columns, left col-3 full height, right col-9 split as per design */}
+                  <Box sx={{ ...commonGridSx, gridTemplateColumns: { xs: '1fr', sm: 'repeat(12, 1fr)', md: 'repeat(12, 1fr)' }, gridTemplateRows: { xs: 'auto', sm: 'repeat(4, 1fr)', md: 'repeat(4, 1fr)' }, alignItems: 'stretch', minHeight: { xs: 400, sm: 600, md: 600 } }}>
+                    {/* Left: Full height Paper (col-3) */}
+                    <Paper key="relaxed-left" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 180, sm: 600, md: 600 }, gridColumn: { xs: 'auto', sm: '1 / span 3', md: '1 / span 3' }, gridRow: { xs: 'auto', sm: '1 / span 4', md: '1 / span 4' } }} />
+
+                    {/* Row 1: Top right, full width Paper (col-9) */}
+                    <Paper key="relaxed-row1" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 80, sm: 120, md: 120 }, gridColumn: { xs: 'auto', sm: '4 / span 9', md: '4 / span 9' }, gridRow: { xs: 'auto', sm: '1', md: '1' } }} />
+
+                    {/* Row 2: 3 equal Papers (col-2 each, above big Paper, cols 4-9) */}
+                    <Paper key="relaxed-row2-col0" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 80, sm: 120, md: 120 }, gridColumn: { xs: 'auto', sm: '4 / span 2', md: '4 / span 2' }, gridRow: { xs: 'auto', sm: '2', md: '2' } }} />
+                    <Paper key="relaxed-row2-col1" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 80, sm: 120, md: 120 }, gridColumn: { xs: 'auto', sm: '6 / span 2', md: '6 / span 2' }, gridRow: { xs: 'auto', sm: '2', md: '2' } }} />
+                    <Paper key="relaxed-row2-col2" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 80, sm: 120, md: 120 }, gridColumn: { xs: 'auto', sm: '8 / span 2', md: '8 / span 2' }, gridRow: { xs: 'auto', sm: '2', md: '2' } }} />
+
+                    {/* Row 3 & 4: Big Paper (col-6, below the 3 equal Papers, cols 4-9) */}
+                    <Paper key="relaxed-big" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 180, sm: 360, md: 360 }, gridColumn: { xs: 'auto', sm: '4 / span 6', md: '4 / span 6' }, gridRow: { xs: 'auto', sm: '3 / span 2', md: '3 / span 2' } }} />
+
+                    {/* Vertical Paper: right of big Paper, col-10, rows 2-4 */}
+                    <Paper key="relaxed-vertical" elevation={3} className="rds-comp-layout__paper" sx={{ minHeight: { xs: 180, sm: 360, md: 360 }, gridColumn: { xs: 'auto', sm: '10 / span 3', md: '10 / span 3' }, gridRow: { xs: 'auto', sm: '2 / span 3', md: '2 / span 3' } }} />
+                  </Box>
+                </>
+              )
+
 
             default:
               return null;

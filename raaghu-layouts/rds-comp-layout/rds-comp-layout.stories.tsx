@@ -44,7 +44,7 @@ const meta: Meta<typeof RdsCompLayout> = {
     },
     displayType: {
       control: 'select',
-      options: ['Basic', 'Board','Boxify','Cardify','Collage','Gridify', 'Highlight', 'Matrix','Mosaic','Nexus','Pinboard','Sections','Splitz', 'Spotlight', 'Stacks'],
+      options: ['Basic', 'Board','Boxify','Cardify','Collage','Gridify', 'Highlight', 'Matrix','Mosaic','Nexus','Pinboard','Sections','Splitz', 'Spotlight', 'Stacks','Dashboard','Relaxed'],
       description: 'Type of layout display style',
     },
     hasShadow: {
@@ -297,6 +297,24 @@ export const Spotlight: Story = {
 export const Stacks: Story = {
   args: {
     displayType: 'Stacks',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Dashboard: Story = {
+  args: {
+    displayType: 'Dashboard',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Relaxed: Story = {
+  args: {
+    displayType: 'Relaxed',
     hasShadow: false,
     spacing: 2,
     direction: 'column',

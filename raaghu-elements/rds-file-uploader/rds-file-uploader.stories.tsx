@@ -254,6 +254,9 @@ export const Standard: Story = {
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
+    children:(   <svg width="20" height="20" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 3.80979H13M4.46201 3.75519V3.2968C4.46201 2.68765 4.73087 2.10346 5.20946 1.67273C5.68806 1.242 6.33718 1 7.01401 1C7.69084 1 8.33995 1.242 8.81854 1.67273C9.29714 2.10346 9.566 2.68765 9.566 3.2968V3.75581M5.51067 5.572V10.624M8.51733 5.572V10.624M2.53067 3.814H11.498V12.0814C11.4997 12.2006 11.4752 12.3189 11.4261 12.4296C11.3769 12.5403 11.304 12.6411 11.2115 12.7264C11.119 12.8118 11.0087 12.8798 10.887 12.9268C10.7653 12.9737 10.6344 12.9986 10.502 13H3.53C3.26259 12.997 3.00746 12.8986 2.82069 12.7263C2.63392 12.554 2.5308 12.3221 2.53401 12.0814V3.814H2.53067Z" stroke="#BD0D1D" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>),
   },
   render: (args) => {
     // Show one file selected by default
@@ -264,12 +267,12 @@ export const Standard: Story = {
       },
     ]);
     return (
-      <RdsFileUploader
-        {...args}
-        onFilesChange={setFiles}
-        // Pass the default file to the component
-        // If you want to show preview, ensure showPreview is true
-      />
+     
+
+        <RdsFileUploader {...args} onFilesChange={setFiles}>
+          
+   
+    </RdsFileUploader>
     );
   },
 };

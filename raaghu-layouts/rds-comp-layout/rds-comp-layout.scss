@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
+  padding: var(--rds-spacing-sm, 8px);
 }
 
 
@@ -24,7 +24,7 @@
   position: relative;
   padding: 20px; 
   border: 1px solid #d3dcea;
-  background: #fff;
+  background: var(--rds-background-default);
   min-height: 200px;
   height: 83vh;
   width: 100%;
@@ -34,6 +34,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: var(--rds-box-shadow-card, 0 0 6px 5px rgba(77, 82, 89, 0.07)) !important
 }
 
 
@@ -62,9 +63,9 @@
 
 .rds-comp-layout__paper {
   border: 1px solid #d3dcea;
-  border-radius: 5px;
-  background: #fff;
-  box-shadow: 0 0 6px 5px #4d525912 !important;
+  border-radius: 5px !important;
+ background: var(--rds-background-default);
+  box-shadow:  var(--rds-box-shadow-card, 0 0 6px 5px rgba(77, 82, 89, 0.07))!important;
   // Add any other common Paper styles here
 }
 

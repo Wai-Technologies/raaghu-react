@@ -37,6 +37,7 @@ export interface RdsFileUploaderProps {
   state?: 'default' | 'selected';
   mode?: 'standard';
   style?:'Drop Area - Side Icon' | 'Drop Area - Top Icon' |'Drop Area - With Upload Button';
+  children?: React.ReactNode;
 }
 
 const RdsFileUploader: React.FC<RdsFileUploaderProps> = ({
@@ -57,6 +58,7 @@ const RdsFileUploader: React.FC<RdsFileUploaderProps> = ({
   state = 'default',
   mode = 'default',
   style,
+  children,
 }) => {
   const [files, setFiles] = React.useState<FileWithProgress[]>([]);
   const [isDragOver, setIsDragOver] = React.useState(false);
@@ -218,6 +220,7 @@ return (
     setSelectedFileName={setSelectedFileName}
     setFiles={setFiles}
     onFilesChange={onFilesChange}
+    children={children}
     // ...add any other props you need
   />
     ) : (
@@ -271,10 +274,8 @@ return (
               </Typography>
             </Box>
             <Box sx={{ ml: 2, display: 'flex', alignItems: 'center' }}>
-              {/* Custom upload arrow out of a box icon */}
-              <svg className="rds-file-uploader__icon" width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 13.3077V14.5385C1 15.1913 1.25934 15.8174 1.72097 16.279C2.1826 16.7407 2.8087 17 3.46154 17H14.5385C15.1913 17 15.8174 16.7407 16.279 16.279C16.7407 15.8174 17 15.1913 17 14.5385V13.3077M5.30769 5.30769L9 1M9 1L12.6923 5.30769M9 1L9 12.0769" stroke="#7D7D7D" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              {/* MUI CloudUpload icon */}
+              <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: '#7D7D7D' }} />
             </Box>
           </Paper>
         ) : style === 'Drop Area - With Upload Button' ? (
@@ -291,10 +292,8 @@ return (
             sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: 60, px: 3, py: 2, border: '1.5px dashed #2196F3', background: '#fff', cursor: disabled ? 'not-allowed' : 'pointer' }}
           >
             <Box className="rds-file-uploader__icon-box">
-              {/* Custom upload arrow out of a box icon */}
-              <svg className="rds-file-uploader__icon" width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 13.3077V14.5385C1 15.1913 1.25934 15.8174 1.72097 16.279C2.1826 16.7407 2.8087 17 3.46154 17H14.5385C15.1913 17 15.8174 16.7407 16.279 16.279C16.7407 15.8174 17 15.1913 17 14.5385V13.3077M5.30769 5.30769L9 1M9 1L12.6923 5.30769M9 1L9 12.0769" stroke="#7D7D7D" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              {/* MUI CloudUpload icon */}
+              <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: '#7D7D7D' }} />
             </Box>
             <Box className="rds-file-uploader__title-box">
             <Typography className="rds-file-uploader__title rds-file-uploader__title--inline" variant="h6" gutterBottom>
@@ -324,10 +323,8 @@ return (
             onClick={!disabled ? openFileDialog : undefined}
             sx={mode === 'standard' ? { boxShadow: 3 } : {}}
           >
-            {/* Custom upload arrow out of a box icon */}
-            <svg className="rds-file-uploader__icon" width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 13.3077V14.5385C1 15.1913 1.25934 15.8174 1.72097 16.279C2.1826 16.7407 2.8087 17 3.46154 17H14.5385C15.1913 17 15.8174 16.7407 16.279 16.279C16.7407 15.8174 17 15.1913 17 14.5385V13.3077M5.30769 5.30769L9 1M9 1L12.6923 5.30769M9 1L9 12.0769" stroke="#7D7D7D" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            {/* MUI CloudUpload icon */}
+            <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: '#7D7D7D' }} />
             <Typography className="rds-file-uploader__title" variant="h6" gutterBottom>
               Drag and Drop files or <span className="rds-file-uploader__browse-link" onClick={openFileDialog}>Browse</span>
             </Typography>

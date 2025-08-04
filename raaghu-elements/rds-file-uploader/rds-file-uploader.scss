@@ -21,7 +21,7 @@
   // Title left-aligned for side icon style
   &__title--left {
     font-weight: 500;
-    color: var(--rds-color-on-surface-variant, #353535);
+    color: var(--rds-text-hint, #969696);
     margin-bottom: 0;
     text-align: left;
     font-size: 20px;
@@ -29,7 +29,7 @@
 
   // Browse link left-aligned for side icon style
   &__browse-link--left {
-    color: #3390e6;
+    color: var(--rds-color-primary, #3390e6);
     font-weight: 600;
     cursor: pointer;
     text-decoration: underline;
@@ -41,7 +41,7 @@
 
   // Info left-aligned for side icon style
   &__info--left {
-    color: var(--rds-color-on-surface-variant, #646464);
+    color: var(--rds-text-secondary, #646464);
     font-weight: 400;
     text-align: left;
     font-size: 15px;
@@ -52,8 +52,8 @@
   &__drop-zone {
     padding: 32px 24px;
     text-align: center;
-    border: 2px dashed var(--rds-color-primary, #3390e6) !important;
-    background-color: var(--rds-color-surface, #fff);
+    border: 2px dashed var(--rds-color-primary, #3390e6) !important; // --rds-color-primary
+    background-color: var(--rds-background-paper, #fff); // --rds-background-paper
     cursor: pointer;
     transition: border-color 0.2s, background-color 0.2s;
     border-radius: var(--rds-border-radius, 8px);
@@ -70,7 +70,7 @@
       padding-right: 24px;
       padding-top: 16px;
       padding-bottom: 16px;
-      border: 2px dashed var(--rds-color-primary, #2196F3) !important;
+      border: 2px dashed var(--rds-color-primary, #2196F3) !important; // --rds-color-primary
       border-radius: var(--rds-border-radius, 8px);
       box-sizing: border-box;
     }
@@ -83,8 +83,8 @@
       justify-content: space-between;
       min-height: 60px;
       padding: 16px 32px;
-      border: 1.5px dashed var(--rds-color-primary, #2196f3) !important;
-      background: var(--rds-color-surface, #fff);
+      border: 1.5px dashed var(--rds-color-primary, #2196f3) !important; // --rds-color-primary
+      background: var(--rds-background-paper, #fff); // --rds-background-paper
       border-radius: var(--rds-border-radius, 8px);
       box-sizing: border-box;
     }
@@ -95,21 +95,21 @@
       justify-content: space-between;
       min-height: 60px;
       padding: 16px 32px;
-      border: 1.5px dashed var(--rds-color-primary, #3390e6) !important;
-      background: var(--rds-color-surface, #fff) !important;
+      border: 1.5px dashed var(--rds-color-primary, #3390e6) !important; // --rds-color-primary
+      background: var(--rds-background-paper, #fff) !important; // --rds-background-paper
       border-radius: var(--rds-border-radius, 8px);
       box-sizing: border-box;
     }
     // States
     &--drag-over {
-      border-color: var(--rds-color-primary, #3390e6);
-      background-color: var(--rds-color-surface, #fff);
+      border-color: var(--rds-color-primary, #3390e6); // --rds-color-primary
+      background-color: var(--rds-background-paper, #fff); // --rds-background-paper
     }
     &--disabled {
       cursor: not-allowed;
       opacity: 0.6;
-      background-color: var(--rds-color-surface, #fff);
-      border-color: var(--rds-color-outline-disabled, #bcdffb);
+      background-color: var(--rds-background-paper, #fff); // --rds-background-paper
+      border-color: var(--rds-color-outline-disabled, #bcdffb); // --rds-color-outline-disabled
     }
   }
 
@@ -187,21 +187,21 @@
     display: flex;
     align-items: center;
     gap: 0;
-    background: #fff;
+    background: var(--rds-background-paper, #fff); // --rds-background-paper
     border-radius: 6px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--rds-color-outline, #e0e0e0); // --rds-color-outline
     box-sizing: border-box;
   }
   &__input {
     border: none;
     background: none;
     font-size: 1rem;
-    color: #555;
+    color: var(--rds-text-secondary, #555);
     flex: 1;
   }
   &__choose-btn {
-    background: #7c3aed !important;
-    color: #fff !important;
+    background: var(--rds-color-primary, #7c3aed) !important;
+    color: var(--rds-primary-contrast-text, #fff) !important;
     border-radius: 6px 0 0 6px !important;
     min-width: 120px;
     font-weight: 500;
@@ -237,7 +237,7 @@
   }
   &__hint {
     font-size: 1rem;
-    color: #5c5c5c;
+    color: var(--rds-text-secondary, #5c5c5c);
     margin-left: auto;
     padding-right: 12px;
     align-self: flex-end;
@@ -248,13 +248,13 @@
     display: none;
   }
   &__browse-link {
-    color: #3390e6;
+    color: var(--rds-color-primary, #3390e6);
     font-weight: 600;
     cursor: pointer;
     text-decoration: underline;
     transition: color 0.2s;
     &:hover {
-      color: #1976d2;
+color: var(--rds-color-primary, #1976d2); // --rds-color-primary
     }
   }
   &__file-list {
@@ -270,8 +270,8 @@
     gap: 16px;
     padding: 16px;
     margin-bottom: 8px;
-    border: 1px solid var(--rds-color-outline, #e0e0e0);
-    background: var(--rds-color-surface, #fff);
+    border: 1px solid var(--rds-color-outline, #e0e0e0); // --rds-color-outline
+    background: var(--rds-background-paper, #fff); // --rds-background-paper
     border-radius: var(--rds-border-radius, 6px);
   }
   &__file-icon {
@@ -291,7 +291,7 @@
     font-weight: 500;
   }
   &__file-error-msg {
-    color: #d32f2f;
+    color: var(--rds-error-main, #d32f2f); // --rds-error-main
     font-size: 12px;
   }
   &__file-progress {
@@ -311,8 +311,8 @@
 .rds-file-uploader__drop-zone {
   padding: 24px 24px !important;
   text-align: center;
-  border: 2px dashed #3390e6 !important;
-  background-color: #fff;
+  border: 2px dashed var(--rds-color-primary, #3390e6) !important; // --rds-color-primary
+  background-color: var(--rds-background-paper, #fff); // --rds-background-paper
   cursor: pointer;
   transition: border-color 0.2s, background-color 0.2s;
   border-radius: 8px;
@@ -320,14 +320,14 @@
   min-width: 500px;
 
   &--drag-over {
-    border-color: var(--rds-color-primary, #3390e6);
-    background-color: var(--rds-color-surface, #fff);
+    border-color: var(--rds-color-primary, #3390e6); // --rds-color-primary
+    background-color: var(--rds-background-paper, #fff); // --rds-background-paper
   }
   &--disabled {
     cursor: not-allowed;
     opacity: 0.6;
-    background-color: #fff;
-    border-color: #bcdffb;
+    background-color: var(--rds-background-paper, #fff); // --rds-background-paper
+    border-color: var(--rds-color-outline-disabled, #bcdffb); // --rds-color-outline-disabled
   }
 }
 
@@ -335,7 +335,7 @@
 
 .rds-file-uploader__icon {
   font-size: 32px;
-  color: #3390e6;
+  color: var(--rds-color-primary, #3390e6); // --rds-color-primary
   margin-bottom: 8px;
   display: block;
   margin-left: auto;
@@ -345,14 +345,14 @@
 .rds-file-uploader__title {
   font-weight: 600;
   margin-bottom: 4px;
-  color: #222;
+  color: var(--rds-text-primary, #222); // --rds-text-primary
   font-size: 18px;
   line-height: 1.3;
 }
 
 .rds-file-uploader__subtitle {
   margin-bottom: 0;
-  color: #222;
+  color: var(--rds-text-primary, #222); // --rds-text-primary
   font-size: 16px;
 }
 
@@ -361,7 +361,7 @@
 }
 // Browse link styling for wireframe
 .rds-file-uploader__browse-link {
-  color: #3390e6;
+color: var(--rds-color-primary, #3390e6); // --rds-color-primary
   font-weight: 600;
   cursor: pointer;
   text-decoration: underline;
@@ -394,14 +394,14 @@
   gap: 16px;
   padding: 16px;
   margin-bottom: 8px;
-  border: 1px solid var(--rds-color-outline, #e0e0e0);
-  background: var(--rds-color-surface, #fff);
+  border: 1px solid var(--rds-color-outline, #e0e0e0); // --rds-color-outline
+  background: var(--rds-background-paper, #fff); // --rds-background-paper
   border-radius: var(--rds-border-radius, 6px);
 }
 
 .rds-file-uploader__file-icon {
   font-size: 32px;
-  color: var(--rds-color-primary, #1976d2);
+  color: var(--rds-color-primary, #1976d2); // --rds-color-primary
 }
 
 .rds-file-uploader__file-details {
@@ -422,7 +422,7 @@
 
 
 .rds-file-uploader__file-error-msg {
-  color: var(--rds-color-error, #d32f2f);
+    color: var(--rds-error-main, #d32f2f);
   font-size: 12px;
 }
 
@@ -619,14 +619,14 @@
 // Inline style for Typography (converted from sx prop)
 .rds-file-uploader__title--inline {
   font-weight: 500;
-  color: #353535 !important;
+  color: var(--rds-text-primary, #353535) !important;
   margin-bottom: 0;
   display: inline-block;
 }
 
 // BEM flat class for the 'or' span
 .rds-file-uploader__title-or {
-  color: #353535 !important;
+  color: var(--rds-text-primary, #353535) !important;
   font-weight: 400;
   margin: 0 8px 0 15px;
   display: inline;

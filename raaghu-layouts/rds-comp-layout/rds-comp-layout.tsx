@@ -12,7 +12,7 @@ export interface RdsCompLayoutProps extends BoxProps {
   alignItems?: 'flex-start' | 'center' | 'flex-end' | 'stretch' | 'baseline';
   fullHeight?: boolean;
   fullWidth?: boolean;
-  displayType?: 'Basic' | 'Board' | 'Boxify' | 'Cardify' | 'Collage'|'Gridify'|'Highlight'|'Matrix'|'Mosaic'| 'Nexus'|'Pinboard'|'Sections'|'Snapshots'|'Splitz'|'Spotlight' |'Stacks';
+  displayType?: 'Basic' | 'Board' | 'Boxify' | 'Cardify' | 'Collage'|'Gridify'|'Highlight'|'Matrix'|'Mosaic'| 'Nexus'|'Pinboard'|'Sections'|'Snapshots'|'Splitz'|'Spotlight' |'Stacks'| 'Dashboard'|'Relaxed';
   hasShadow?: boolean;
    mode?: 'standard',
 }
