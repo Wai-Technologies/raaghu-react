@@ -170,3 +170,36 @@
 .rds-list__item .MuiListItemButton-root {
   padding: 0 !important;
 }
+
+// Demo container for Storybook examples
+.rds-list-demo__container {
+  background-color: #fff;
+  border-radius: 2px;
+  overflow: hidden;
+  
+  &--sticky {
+    max-height: 400px;
+    overflow: auto;
+    width: 300px;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+  }
+}
+
+// Enhanced styling for sticky subheaders
+.rds-list--with-subheader {
+  background-color: #fff;
+  margin-bottom: 0;
+  border-radius: 0;
+
+  .rds-list__subheader {
+    font-weight: 500;
+    line-height: 48px;
+    color: #616161;
+    background-color: #f5f5f5;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0 16px;
+  }
+}

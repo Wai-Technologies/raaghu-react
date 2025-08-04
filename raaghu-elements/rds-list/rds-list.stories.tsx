@@ -203,15 +203,61 @@ export const Selected: Story = {
 // Sticky Subheader
 export const StickySubheader: Story = {
   render: () => (
-    <RdsList
-      withDividers
-      subheader={<ListSubheader>I'm sticky</ListSubheader>}
-      items={[
-        { id: 1, primary: 'Item 1' },
-        { id: 2, primary: 'Item 2' },
-        { id: 3, primary: 'Item 3' },
-      ]}
-    />
+    <div className="rds-list-demo__container rds-list-demo__container--sticky">
+      {/* First Section */}
+      <RdsList
+        withDividers
+        className="rds-list--with-subheader"
+        subheader={<ListSubheader className="rds-list__subheader">I'm sticky 0</ListSubheader>}
+        items={[
+          { id: '0-1', primary: 'Item 0' },
+          { id: '0-2', primary: 'Item 1' },
+          { id: '0-3', primary: 'Item 2' },
+        ]}
+      />
+      {/* Second Section */}
+      <RdsList
+        withDividers
+        className="rds-list--with-subheader"
+        subheader={<ListSubheader className="rds-list__subheader">I'm sticky 1</ListSubheader>}
+        items={[
+          { id: '1-1', primary: 'Item 0' },
+          { id: '1-2', primary: 'Item 1' },
+        ]}
+      />
+      {/* Third Section */}
+      <RdsList
+        withDividers
+        className="rds-list--with-subheader"
+        subheader={<ListSubheader className="rds-list__subheader">I'm sticky 2</ListSubheader>}
+        items={[
+          { id: '2-1', primary: 'Item 0' },
+          { id: '2-2', primary: 'Item 1' },
+          { id: '2-3', primary: 'Item 2' },
+        ]}
+      />
+      {/* Fourth Section */}
+      <RdsList
+        withDividers
+        className="rds-list--with-subheader"
+        subheader={<ListSubheader className="rds-list__subheader">I'm sticky 3</ListSubheader>}
+        items={[
+          { id: '3-1', primary: 'Item 0' },
+          { id: '3-2', primary: 'Item 1' },
+          { id: '3-3', primary: 'Item 2' },
+        ]}
+      />
+      {/* Fifth Section */}
+      <RdsList
+        withDividers
+        className="rds-list--with-subheader"
+        subheader={<ListSubheader className="rds-list__subheader">I'm sticky 4</ListSubheader>}
+        items={[
+          { id: '4-1', primary: 'Item 0' },
+          { id: '4-2', primary: 'Item 1' },
+        ]}
+      />
+    </div>
   ),
 };
 
