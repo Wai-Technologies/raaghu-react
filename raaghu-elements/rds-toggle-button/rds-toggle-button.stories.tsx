@@ -210,16 +210,11 @@ export const EnforceValueSet: Story = {
     };
     
     return (
-      <div>
         <RdsToggleButton
           {...args}
           value={selected}
           onChange={handleChange}
         />
-        <div style={{ marginTop: 10, fontSize: 14 }}>
-          Selected: {selected}
-        </div>
-      </div>
     );
   }
 };
@@ -274,17 +269,12 @@ export const MultipleSelection: Story = {
     };
     
     return (
-      <div>
         <RdsToggleButton 
           {...args} 
           defaultValue={undefined} // Remove defaultValue to prevent React warnings
           value={selected}
           onChange={handleChange}
         />
-        <div style={{ marginTop: 10, fontSize: 14 }}>
-          Selected: {selected.join(', ')}
-        </div>
-      </div>
     );
   }
 };
