@@ -45,7 +45,7 @@ export { default as RdsSwitch } from './rds-switch/rds-switch';
 export { default as RdsTable } from './rds-table/rds-table';
 export { default as RdsTabs } from './rds-tabs/rds-tabs';
 export { default as RdsTimeline } from './rds-timeline/rds-timeline';
-export { default as RdsToggleButton } from './rds-toggle-button/rds-toggle-button';
+export { default as RdsToggleButton, RdsStandaloneToggleButton } from './rds-toggle-button/rds-toggle-button';
 export { default as RdsTooltip } from './rds-tooltip/rds-tooltip';
 export { default as RdsCarousel } from './rds-carousel/rds-carousel';
 export { default as RdsTag } from './rds-tag/rds-tag';
@@ -106,7 +106,11 @@ export type { RdsSwitchProps } from './rds-switch/rds-switch';
 export type { RdsTableProps, RdsTableColumn } from './rds-table/rds-table';
 export type { RdsTabsProps, RdsTabItem } from './rds-tabs/rds-tabs';
 export type { RdsTimelineProps, RdsTimelineItem } from './rds-timeline/rds-timeline';
-export type { RdsToggleButtonProps, RdsToggleButtonOption } from './rds-toggle-button/rds-toggle-button';
+export type { 
+  RdsToggleButtonProps, 
+  RdsToggleButtonOption, 
+  RdsStandaloneToggleButtonProps 
+} from './rds-toggle-button/rds-toggle-button';
 export type { RdsTooltipProps } from './rds-tooltip/rds-tooltip';
 export type { RdsCarouselProps } from './rds-carousel/rds-carousel';
 export type { RdsTagProps } from './rds-tag/rds-tag';

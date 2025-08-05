@@ -1,5 +1,41 @@
 // RDS Toggle button Component Styles
 .rds-toggle-button {
-  display: block;
+  display: flex;
   position: relative;
+  
+  // Base component styles
+  &--horizontal {
+    flex-direction: row;
+  }
+  
+  &--vertical {
+    flex-direction: column;
+  }
+  
+  &--standalone {
+    display: inline-flex;
+  }
+  
+  // Element styles
+  &__button {
+    transition: var(--rds-transition-base);
+    border-radius: var(--rds-border-radius-sm);
+    
+    &:hover {
+      background-color: var(--rds-background-hover);
+    }
+    
+    &.Mui-selected {
+      z-index: 1; // Minimal styling to prevent empty ruleset error
+    }
+    
+    &.Mui-disabled {
+      color: var(--rds-text-disabled);
+    }
+  }
+  
+  &__icon {
+    display: flex;
+    align-items: center;
+  }
 }
