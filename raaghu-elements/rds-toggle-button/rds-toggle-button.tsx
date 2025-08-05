@@ -124,48 +124,152 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
     // Call onChange handler with final value
     onChange?.(event, finalValue);
   };
+  
+  // Handle custom button click when using spacing
+  const handleCustomButtonClick = useMemo(() => {
+    return (event: React.MouseEvent<HTMLElement>, optionValue: string) => {
+      if (multiple) {
+        // For multiple selection, toggle the value
+        const newValue = Array.isArray(value) ? [...value] : [];
+        const index = newValue.indexOf(optionValue);
+        
+        if (index === -1) {
+          newValue.push(optionValue);
+        } else if (!enforceSelected || newValue.length > 1) {
+          newValue.splice(index, 1);
+        } else {
+          return; // Prevent deselection of last item
+        }
+        
+        handleChange(event, newValue);
+      } else {
+        // For single selection, set the value (or unset if clicking the selected button)
+        const newValue = value === optionValue && !enforceSelected ? null : optionValue;
+        handleChange(event, newValue);
+      }
+    };
+  }, [multiple, value, enforceSelected, handleChange]);
 
   // Extract color from props to ensure it's passed to MUI components
   const { color, ...otherProps } = props;
 
+  // Create a custom class name for proper border styling with spacing
+  // Memoized to avoid recreating on each render
+  const getButtonClassName = useMemo(() => {
+    return (index: number) => {
+      const baseClass = "rds-toggle-button__button";
+      if (spacing === 0) return baseClass;
+      
+      // Add position-specific classes for border styling
+      return `${baseClass} rds-toggle-button__button--spaced`;
+    };
+  }, [spacing]);
+
   // Memoize rendered buttons for performance with large option lists
   const memoizedButtons = useMemo(() => {
-    return options.map((option) => (
-      <MuiToggleButton
-        key={option.value}
-        value={option.value}
-        disabled={option.disabled}
-        className="rds-toggle-button__button"
-        aria-pressed={multiple ? 
-          Array.isArray(value) && value.includes(option.value) : 
-          value === option.value
-        }
-        aria-label={option.label || `Option ${option.value}`}
-      >
-        {option.icon && (
-          <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? iconTextSpacing : 0 }}>
-            {option.icon}
-          </span>
-        )}
-        {option.label}
-      </MuiToggleButton>
-    ));
-  }, [options, value, multiple, iconTextSpacing]);
+    // If not using custom spacing, just render normal toggle buttons
+    if (spacing === 0) {
+      return options.map((option, index) => (
+        <MuiToggleButton
+          key={option.value}
+          value={option.value}
+          disabled={option.disabled}
+          className="rds-toggle-button__button"
+          aria-pressed={multiple ? 
+            Array.isArray(value) && value.includes(option.value) : 
+            value === option.value
+          }
+          aria-label={option.label || `Option ${option.value}`}
+        >
+          {option.icon && (
+            <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? iconTextSpacing : 0 }}>
+              {option.icon}
+            </span>
+          )}
+          {option.label}
+        </MuiToggleButton>
+      ));
+    }
+    
+    // With spacing, render custom button wrappers
+    return options.map((option, index) => {
+      const isSelected = multiple ? 
+        Array.isArray(value) && value.includes(option.value) : 
+        value === option.value;
+        
+      const spacingStyle = index === 0 ? {} : {
+        [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: `${spacing}px`
+      };
+      
+      // Define position-specific classes for proper styling
+      let positionClass = '';
+      if (options.length === 1) {
+        positionClass = 'rds-toggle-button__button-wrapper--single';
+      } else if (index === 0) {
+        positionClass = 'rds-toggle-button__button-wrapper--first';
+      } else if (index === options.length - 1) {
+        positionClass = 'rds-toggle-button__button-wrapper--last';
+      } else {
+        positionClass = 'rds-toggle-button__button-wrapper--middle';
+      }
+        
+      return (
+        <div
+          key={option.value}
+          className={`rds-toggle-button__button-wrapper ${positionClass}`}
+          style={spacingStyle}
+        >
+          <MuiToggleButton
+            value={option.value}
+            disabled={option.disabled}
+            className={getButtonClassName(index)}
+            onClick={(e) => handleCustomButtonClick(e, option.value)}
+            selected={isSelected}
+            aria-pressed={isSelected}
+            aria-label={option.label || `Option ${option.value}`}
+            color={color}
+            fullWidth={orientation === 'vertical'}
+          >
+            {option.icon && (
+              <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? iconTextSpacing : 0 }}>
+                {option.icon}
+              </span>
+            )}
+            {option.label}
+          </MuiToggleButton>
+        </div>
+      );
+    });
+  }, [options, value, multiple, iconTextSpacing, spacing, orientation, color, enforceSelected, getButtonClassName, handleCustomButtonClick]);
+
+  // Determine if we need to use custom spacing rendering
+  const useCustomSpacing = spacing > 0;
 
   return (
-    <div className={`rds-toggle-button rds-toggle-button--${orientation}`} style={{ gap: spacing }}>
-      <MuiToggleButtonGroup
-        exclusive={exclusive !== undefined ? exclusive : !multiple}
-        orientation={orientation}
-        onChange={handleChange}
-        value={value}
-        color={color}
-        role="group"
-        aria-label={otherProps['aria-label'] || "Toggle button group"}
-        {...otherProps}
-      >
-        {memoizedButtons}
-      </MuiToggleButtonGroup>
+    <div className={`rds-toggle-button rds-toggle-button--${orientation} ${useCustomSpacing ? 'rds-toggle-button--spaced' : ''}`}>
+      {useCustomSpacing ? (
+        <div 
+          className="rds-toggle-button__custom-group"
+          role="group"
+          aria-label={otherProps['aria-label'] || "Toggle button group"}
+        >
+          {memoizedButtons}
+        </div>
+      ) : (
+        <MuiToggleButtonGroup
+          exclusive={exclusive !== undefined ? exclusive : !multiple}
+          orientation={orientation}
+          onChange={handleChange}
+          value={value}
+          color={color}
+          role="group"
+          aria-label={otherProps['aria-label'] || "Toggle button group"}
+          {...otherProps}
+          className="rds-toggle-button__group"
+        >
+          {memoizedButtons}
+        </MuiToggleButtonGroup>
+      )}
     </div>
   );
 };

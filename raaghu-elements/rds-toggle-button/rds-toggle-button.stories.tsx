@@ -280,11 +280,27 @@ export const VerticalButtons: Story = {
     options: viewOptions,
     orientation: 'vertical',
     defaultValue: 'list',
+    spacing: 12, // Increased spacing for better visibility
   },
   parameters: {
     docs: {
       description: {
-        story: 'Toggle buttons stacked vertically instead of horizontally.',
+        story: 'Toggle buttons stacked vertically instead of horizontally. The spacing parameter controls the gap between buttons.',
+      },
+    },
+  }
+};
+
+export const WithSpacing: Story = {
+  args: {
+    options: formatOptions,
+    defaultValue: 'bold',
+    spacing: 20, // Large spacing to clearly demonstrate the effect
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Toggle buttons with significant spacing between them. The spacing prop can be adjusted to control the exact distance between buttons.',
       },
     },
   }

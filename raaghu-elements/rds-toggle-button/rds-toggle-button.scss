@@ -15,6 +15,74 @@
   &--standalone {
     display: inline-flex;
   }
+
+  // Custom handling for spaced buttons
+  &--spaced {
+    .rds-toggle-button__custom-group {
+      display: flex;
+      flex-direction: inherit;
+      width: 100%; // Ensure full width for vertical orientation
+    }
+  
+    .rds-toggle-button__button-wrapper {
+      display: inline-flex;
+      width: 100%; // Full width for vertical buttons
+      
+      // Position-specific styling for horizontal orientation
+      &--first .rds-toggle-button__button {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      
+      &--last .rds-toggle-button__button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      
+      &--middle .rds-toggle-button__button {
+        border-radius: 0;
+      }
+      
+      &--single .rds-toggle-button__button {
+        border-radius: var(--rds-border-radius-sm); // Keep default border radius
+      }
+
+      // Make sure buttons take full width in wrapper
+      .rds-toggle-button__button {
+        flex: 1;
+      }
+    }
+
+    // Special handling for vertical orientation
+    &.rds-toggle-button--vertical {
+      .rds-toggle-button__custom-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .rds-toggle-button__button-wrapper {
+        width: 100%;
+        
+        &--first .rds-toggle-button__button {
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+          border-top-left-radius: var(--rds-border-radius-sm, 4px);
+          border-top-right-radius: var(--rds-border-radius-sm, 4px);
+        }
+        
+        &--last .rds-toggle-button__button {
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+          border-bottom-left-radius: var(--rds-border-radius-sm, 4px);
+          border-bottom-right-radius: var(--rds-border-radius-sm, 4px);
+        }
+        
+        &--middle .rds-toggle-button__button {
+          border-radius: 0;
+        }
+      }
+    }
+  }
   
   // Element styles
   &__button {
@@ -39,6 +107,16 @@
       color: var(--rds-text-disabled);
       opacity: 0.6;
       pointer-events: none;
+    }
+
+    // Ensure button style looks good in spaced mode
+    &--spaced {
+      width: 100%;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+      
+      &.Mui-selected {
+        box-shadow: inset 0 0 0 1px currentColor;
+      }
     }
   }
   
