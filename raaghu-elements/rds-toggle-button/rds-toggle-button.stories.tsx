@@ -1,3 +1,14 @@
+/**
+ * Toggle Button Component Stories
+ * 
+ * These stories showcase the RdsToggleButton component with different configurations.
+ * Each story demonstrates a specific feature or styling option.
+ * 
+ * The component itself handles all state management internally, with support for both
+ * controlled and uncontrolled modes. All behaviors shown in these stories are implemented
+ * within the component, making it easy to use in your application.
+ */
+
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { 
@@ -102,6 +113,7 @@ const deviceOptions = [
 export const Default: Story = {
   args: {
     options: formatOptions,
+    defaultValue: 'bold',
   },
   parameters: {
     docs: {
@@ -109,21 +121,6 @@ export const Default: Story = {
         story: 'Basic toggle button with formatting options. Exclusive selection by default (only one button can be selected).',
       },
     },
-  },
-  render: (args) => {
-    const [selected, setSelected] = React.useState<string>('bold');
-    
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string) => {
-      setSelected(newValue);
-    };
-    
-    return (
-      <RdsToggleButton
-        {...args}
-        value={selected}
-        onChange={handleChange}
-      />
-    );
   }
 };
 
@@ -131,6 +128,7 @@ export const Disabled: Story = {
   args: {
     options: formatOptions,
     disabled: true,
+    defaultValue: 'bold',
   },
   parameters: {
     docs: {
@@ -138,27 +136,13 @@ export const Disabled: Story = {
         story: 'Shows a disabled toggle button group where no interactions are possible.',
       },
     },
-  },
-  render: (args) => {
-    const [selected, setSelected] = React.useState<string>('bold');
-    
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string) => {
-      setSelected(newValue);
-    };
-    
-    return (
-      <RdsToggleButton
-        {...args}
-        value={selected}
-        onChange={handleChange}
-      />
-    );
   }
 };
 
 export const ExclusiveSelection: Story = {
   args: {
     options: alignmentOptions,
+    defaultValue: 'left',
   },
   parameters: {
     docs: {
@@ -166,21 +150,6 @@ export const ExclusiveSelection: Story = {
         story: 'Toggle button group with exclusive selection (only one button can be selected at a time).',
       },
     },
-  },
-  render: (args) => {
-    const [selected, setSelected] = React.useState<string>('left');
-    
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string) => {
-      setSelected(newValue);
-    };
-    
-    return (
-      <RdsToggleButton
-        {...args}
-        value={selected}
-        onChange={handleChange}
-      />
-    );
   }
 };
 
@@ -189,33 +158,14 @@ export const EnforceValueSet: Story = {
     options: deviceOptions,
     enforceSelected: true,
     color: 'primary',
+    defaultValue: 'laptop',
   },
   parameters: {
     docs: {
       description: {
-        story: 'Ensures at least one toggle button must always be selected. Try clicking on the selected button - it will not deselect (similar to MUI\'s behavior in the official documentation).',
+        story: 'Ensures at least one toggle button must always be selected. Try clicking on the selected button - it will not deselect. The component handles this behavior internally with the enforceSelected prop.',
       },
     },
-  },
-  render: (args) => {
-    const [selected, setSelected] = React.useState<string>('laptop');
-    
-    // This handler follows MUI's pattern where we manually check if we should update state
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string | null) => {
-      // Only update if there's a valid selection (not null)
-      if (newValue !== null) {
-        setSelected(newValue);
-      }
-      // If newValue is null, we don't update state, effectively enforcing that something must be selected
-    };
-    
-    return (
-        <RdsToggleButton
-          {...args}
-          value={selected}
-          onChange={handleChange}
-        />
-    );
   }
 };
 
@@ -223,6 +173,7 @@ export const Large: Story = {
   args: {
     options: formatOptions,
     size: 'large',
+    defaultValue: 'bold',
   },
   parameters: {
     docs: {
@@ -230,25 +181,9 @@ export const Large: Story = {
         story: 'Toggle buttons with large size.',
       },
     },
-  },
-  render: (args) => {
-    const [selected, setSelected] = React.useState<string>('bold');
-    
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string) => {
-      setSelected(newValue);
-    };
-    
-    return (
-      <RdsToggleButton
-        {...args}
-        value={selected}
-        onChange={handleChange}
-      />
-    );
   }
 };
 
-// Multiple Selection story using the component's built-in state management
 export const MultipleSelection: Story = {
   args: {
     options: formatOptions,
@@ -256,40 +191,38 @@ export const MultipleSelection: Story = {
     defaultValue: ['bold', 'italic'],
     color: 'primary'
   },
-  render: (args) => {
-    // Initialize with the default values from args
-    const initialValues = Array.isArray(args.defaultValue) 
-      ? args.defaultValue 
-      : (typeof args.defaultValue === 'string' ? [args.defaultValue] : []);
-    
-    const [selected, setSelected] = React.useState<string[]>(initialValues);
-    
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string[]) => {
-      setSelected(newValue);
+  parameters: {
+    docs: {
+      description: {
+        story: 'Allows selecting multiple toggle buttons simultaneously. Try clicking on different buttons to select/deselect them.',
+      },
+    },
+  },
+  render: () => {
+    const [selectedValues, setSelectedValues] = React.useState<string[]>(['bold', 'italic']);
+
+    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValues: string[]) => {
+      setSelectedValues(newValues);
     };
-    
+
     return (
-        <RdsToggleButton 
-          {...args} 
-          defaultValue={undefined} // Remove defaultValue to prevent React warnings
-          value={selected}
+        <RdsToggleButton
+          options={formatOptions}
+          multiple={true}
+          value={selectedValues}
           onChange={handleChange}
+          color="primary"
+          aria-label="Format options"
         />
     );
   }
-};
-MultipleSelection.parameters = {
-  docs: {
-    description: {
-      story: 'Allows selecting multiple toggle buttons simultaneously using the component\'s built-in state management. Try clicking on different buttons to select/deselect them.',
-    },
-  },
 };
 
 export const Primary: Story = {
   args: {
     options: formatOptions,
     color: 'primary',
+    defaultValue: 'bold',
   },
   parameters: {
     docs: {
@@ -297,21 +230,6 @@ export const Primary: Story = {
         story: 'Toggle buttons with primary color theme.',
       },
     },
-  },
-  render: (args) => {
-    const [selected, setSelected] = React.useState<string>('bold');
-    
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string) => {
-      setSelected(newValue);
-    };
-    
-    return (
-      <RdsToggleButton
-        {...args}
-        value={selected}
-        onChange={handleChange}
-      />
-    );
   }
 };
 
@@ -319,6 +237,7 @@ export const Small: Story = {
   args: {
     options: formatOptions,
     size: 'small',
+    defaultValue: 'bold',
   },
   parameters: {
     docs: {
@@ -326,21 +245,6 @@ export const Small: Story = {
         story: 'Toggle buttons with small size.',
       },
     },
-  },
-  render: (args) => {
-    const [selected, setSelected] = React.useState<string>('bold');
-    
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string) => {
-      setSelected(newValue);
-    };
-    
-    return (
-      <RdsToggleButton
-        {...args}
-        value={selected}
-        onChange={handleChange}
-      />
-    );
   }
 };
 
@@ -348,6 +252,7 @@ export const Secondary: Story = {
   args: {
     options: formatOptions,
     color: 'secondary',
+    defaultValue: 'bold',
   },
   parameters: {
     docs: {
@@ -355,81 +260,56 @@ export const Secondary: Story = {
         story: 'Toggle buttons with secondary color theme.',
       },
     },
-  },
-  render: (args) => {
-    const [selected, setSelected] = React.useState<string>('bold');
-    
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string) => {
-      setSelected(newValue);
-    };
-    
-    return (
-      <RdsToggleButton
-        {...args}
-        value={selected}
-        onChange={handleChange}
-      />
-    );
   }
 };
 
-// Standalone Toggle Button Story using the component's built-in state management
 export const StandaloneToggleButton: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'A standalone toggle button that can be toggled on and off using internal state management.',
+        story: 'A standalone toggle button that can be toggled on and off. Uses the component\'s internal state management.',
+      },
+    },
+  },
+  render: () => (
+    <div>
+      <RdsStandaloneToggleButton
+        value="check"
+        color="primary"
+        aria-label="Toggle check"
+      >
+        <Check />
+      </RdsStandaloneToggleButton>
+      <div style={{ fontSize: 14, marginTop: 10 }}>
+        This button maintains its own state internally
+      </div>
+    </div>
+  )
+};
+
+export const UncontrolledWithDisplay: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates uncontrolled behavior while still tracking the selected value via onChange.',
       },
     },
   },
   render: () => {
-    const [displayState, setDisplayState] = React.useState(false);
-    
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newSelected: boolean) => {
-      setDisplayState(newSelected);
-    };
-    
-    return (
-        <RdsStandaloneToggleButton
-          value="check"
-          color="primary"
-          onChange={handleChange}
-        >
-          <Check />
-        </RdsStandaloneToggleButton>
-    );
-  }
-};
-
-// Uncontrolled Toggle Button story with display for selected value
-export const UncontrolledWithDisplay: Story = {
-  args: {
-    options: formatOptions,
-    defaultValue: 'italic',
-    color: 'primary',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Demonstrates uncontrolled behavior while still displaying the selected value.',
-      },
-    },
-  },
-  render: (args) => {
-    // Create a ref to track the current selected value
-    const [displayValue, setDisplayValue] = React.useState<string | string[]>(
-      args.defaultValue !== undefined ? args.defaultValue : ''
-    );
+    const [displayValue, setDisplayValue] = React.useState<string>('italic');
     
     // Update display when changed
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string | string[]) => {
+    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string) => {
       setDisplayValue(newValue);
     };
     
     return (
         <RdsToggleButton 
-          {...args} 
+          options={formatOptions}
+          defaultValue="italic"
+          color="primary"
           onChange={handleChange}
+          aria-label="Format options"
         />
     );
   }
@@ -439,6 +319,7 @@ export const VerticalButtons: Story = {
   args: {
     options: viewOptions,
     orientation: 'vertical',
+    defaultValue: 'list',
   },
   parameters: {
     docs: {
@@ -446,21 +327,6 @@ export const VerticalButtons: Story = {
         story: 'Toggle buttons stacked vertically instead of horizontally.',
       },
     },
-  },
-  render: (args) => {
-    const [selected, setSelected] = React.useState<string>('list');
-    
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string) => {
-      setSelected(newValue);
-    };
-    
-    return (
-      <RdsToggleButton
-        {...args}
-        value={selected}
-        onChange={handleChange}
-      />
-    );
   }
 };
 
@@ -471,6 +337,7 @@ export const WithoutIcons: Story = {
       { value: 'center', label: 'Center' },
       { value: 'right', label: 'Right' },
     ],
+    defaultValue: 'center',
   },
   parameters: {
     docs: {
@@ -478,20 +345,5 @@ export const WithoutIcons: Story = {
         story: 'Toggle buttons with text labels only, no icons.',
       },
     },
-  },
-  render: (args) => {
-    const [selected, setSelected] = React.useState<string>('center');
-    
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string) => {
-      setSelected(newValue);
-    };
-    
-    return (
-      <RdsToggleButton
-        {...args}
-        value={selected}
-        onChange={handleChange}
-      />
-    );
   }
 };

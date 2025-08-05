@@ -1,33 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import { ToggleButton as MuiToggleButton, ToggleButtonGroup as MuiToggleButtonGroup, ToggleButtonProps, ToggleButtonGroupProps } from '@mui/material';
 import './rds-toggle-button.scss';
+/**
+ * Represents a single toggle button option
+ */
 export interface RdsToggleButtonOption {
+  /** The value of the toggle button option, used for selection state */
   value: string;
+  /** The text label to display on the button */
   label: string;
+  /** Optional icon to display on the button */
   icon?: React.ReactNode;
+  /** Whether the option is disabled */
   disabled?: boolean;
 }
+
+/**
+ * Props for standalone toggle button component
+ */
 export interface RdsStandaloneToggleButtonProps extends Omit<ToggleButtonProps, 'value'> {
+  /** The value of the toggle button (used for identification) */
   value?: string;
+  /** Whether the button is selected (controlled mode) */
   selected?: boolean;
+  /** Callback fired when the button state changes */
   onChange?: (event: React.MouseEvent<HTMLElement>, selected: boolean) => void;
+  /** Content to render inside the button */
   children?: React.ReactNode;
 }
+
+/**
+ * Props for toggle button group component
+ */
 export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'children'> {
+  /** Array of options to display as toggle buttons */
   options: RdsToggleButtonOption[];
+  /** Whether multiple buttons can be selected */
   multiple?: boolean;
+  /** When true, at least one button must remain selected at all times */
   enforceSelected?: boolean;
+  /** Orientation of the toggle button group */
   orientation?: 'horizontal' | 'vertical';
+  /** Spacing between toggle buttons in pixels */
   spacing?: number;
-  defaultValue?: string | string[];  // Added default value for uncontrolled mode
+  /** Default selected value(s) for uncontrolled mode */
+  defaultValue?: string | string[];
+  /** Spacing between icon and text within a button in pixels */
+  iconTextSpacing?: number;
 }
 
+/**
+ * A toggle button group component that allows selection of options
+ * Supports both controlled and uncontrolled usage patterns
+ */
 const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   options,
   multiple = false,
   exclusive,
   orientation = 'horizontal',
   spacing = 0,
+  iconTextSpacing = 8,
   enforceSelected = false,
   onChange,
   value: controlledValue,
@@ -72,8 +104,6 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: any) => {
     let finalValue = newValue;
     
-    // Apply enforcement logic - follows MUI's behavior where we prevent deselection
-    // See: https://mui.com/material-ui/react-toggle-button/ - "Enforce Value Set" example
     if (enforceSelected) {
       // For multiple selection, ensure at least one option remains selected
       if (multiple && Array.isArray(newValue) && newValue.length === 0) {
@@ -106,6 +136,8 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
         onChange={handleChange}
         value={value}
         color={color}
+        role="group"
+        aria-label={otherProps['aria-label'] || "Toggle button group"}
         {...otherProps}
       >
         {options.map((option) => (
@@ -114,9 +146,14 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
             value={option.value}
             disabled={option.disabled}
             className="rds-toggle-button__button"
+            aria-pressed={multiple ? 
+              Array.isArray(value) && value.includes(option.value) : 
+              value === option.value
+            }
+            aria-label={option.label || `Option ${option.value}`}
           >
             {option.icon && (
-              <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? 8 : 0 }}>
+              <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? iconTextSpacing : 0 }}>
                 {option.icon}
               </span>
             )}
@@ -128,6 +165,10 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   );
 };
 
+/**
+ * A standalone toggle button component that can be toggled on and off
+ * Supports both controlled and uncontrolled usage
+ */
 export const RdsStandaloneToggleButton: React.FC<RdsStandaloneToggleButtonProps> = ({
   selected: controlledSelected,
   onChange,
@@ -160,6 +201,7 @@ export const RdsStandaloneToggleButton: React.FC<RdsStandaloneToggleButtonProps>
         selected={selected}
         onChange={handleChange}
         className="rds-toggle-button__button"
+        aria-pressed={selected}
         {...props}
       >
         {children}
