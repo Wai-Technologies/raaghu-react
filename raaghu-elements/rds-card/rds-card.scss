@@ -558,5 +558,8 @@
 
 .rds-card .rds-avatar {
    justify-content: flex-start !important;
-   margin-left: var(--rds-spacing-md, 15px) !important;
+}
+
+.rds-card__avatar-section--editable .rds-avatar{
+ margin-left: var(--rds-spacing-md, 15px) !important;
 }
