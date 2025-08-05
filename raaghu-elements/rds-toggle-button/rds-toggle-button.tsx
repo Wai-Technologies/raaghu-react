@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ToggleButton as MuiToggleButton, ToggleButtonGroup as MuiToggleButtonGroup, ToggleButtonProps, ToggleButtonGroupProps } from '@mui/material';
 import './rds-toggle-button.scss';
 /**
@@ -128,6 +128,30 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   // Extract color from props to ensure it's passed to MUI components
   const { color, ...otherProps } = props;
 
+  // Memoize rendered buttons for performance with large option lists
+  const memoizedButtons = useMemo(() => {
+    return options.map((option) => (
+      <MuiToggleButton
+        key={option.value}
+        value={option.value}
+        disabled={option.disabled}
+        className="rds-toggle-button__button"
+        aria-pressed={multiple ? 
+          Array.isArray(value) && value.includes(option.value) : 
+          value === option.value
+        }
+        aria-label={option.label || `Option ${option.value}`}
+      >
+        {option.icon && (
+          <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? iconTextSpacing : 0 }}>
+            {option.icon}
+          </span>
+        )}
+        {option.label}
+      </MuiToggleButton>
+    ));
+  }, [options, value, multiple, iconTextSpacing]);
+
   return (
     <div className={`rds-toggle-button rds-toggle-button--${orientation}`} style={{ gap: spacing }}>
       <MuiToggleButtonGroup
@@ -140,26 +164,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
         aria-label={otherProps['aria-label'] || "Toggle button group"}
         {...otherProps}
       >
-        {options.map((option) => (
-          <MuiToggleButton
-            key={option.value}
-            value={option.value}
-            disabled={option.disabled}
-            className="rds-toggle-button__button"
-            aria-pressed={multiple ? 
-              Array.isArray(value) && value.includes(option.value) : 
-              value === option.value
-            }
-            aria-label={option.label || `Option ${option.value}`}
-          >
-            {option.icon && (
-              <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? iconTextSpacing : 0 }}>
-                {option.icon}
-              </span>
-            )}
-            {option.label}
-          </MuiToggleButton>
-        ))}
+        {memoizedButtons}
       </MuiToggleButtonGroup>
     </div>
   );

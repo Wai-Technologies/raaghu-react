@@ -249,7 +249,6 @@ export const StandaloneToggleButton: Story = {
     },
   },
   render: () => (
-    <div>
       <RdsStandaloneToggleButton
         value="check"
         color="primary"
@@ -257,10 +256,6 @@ export const StandaloneToggleButton: Story = {
       >
         <Check />
       </RdsStandaloneToggleButton>
-      <div style={{ fontSize: 14, marginTop: 10 }}>
-        This button maintains its own state internally
-      </div>
-    </div>
   )
 };
 
