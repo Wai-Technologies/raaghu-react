@@ -7,7 +7,6 @@ export interface RdsToggleButtonOption {
   icon?: React.ReactNode;
   disabled?: boolean;
 }
-export type { RdsStandaloneToggleButtonProps } from './rds-standalone-toggle-button';
 export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'children'> {
   options: RdsToggleButtonOption[];
   multiple?: boolean;
@@ -227,5 +226,6 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
     </div>
   );
 };
-export { default as RdsStandaloneToggleButton } from './rds-standalone-toggle-button';
+
+export { default as RdsStandaloneToggleButton, RdsStandaloneToggleButtonProps } from './rds-standalone-toggle-button';
 export default RdsToggleButton;

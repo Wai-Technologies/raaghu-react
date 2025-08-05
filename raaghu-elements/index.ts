@@ -1,3 +1,5 @@
+import { RdsStandaloneToggleButton } from './rds-toggle-button/rds-toggle-button';
+
 export { default as RdsButton } from './rds-button/rds-button';
 export { default as RdsTypography } from './rds-typography/rds-typography';
 export { default as RdsTextField } from './rds-text-field/rds-text-field';
