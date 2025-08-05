@@ -1,14 +1,3 @@
-/**
- * Toggle Button Component Stories
- * 
- * These stories showcase the RdsToggleButton component with different configurations.
- * Each story demonstrates a specific feature or styling option.
- * 
- * The component itself handles all state management internally, with support for both
- * controlled and uncontrolled modes. All behaviors shown in these stories are implemented
- * within the component, making it easy to use in your application.
- */
-
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { 
@@ -189,7 +178,8 @@ export const MultipleSelection: Story = {
     options: formatOptions,
     multiple: true,
     defaultValue: ['bold', 'italic'],
-    color: 'primary'
+    color: 'primary',
+    'aria-label': 'Format options'
   },
   parameters: {
     docs: {
@@ -197,24 +187,6 @@ export const MultipleSelection: Story = {
         story: 'Allows selecting multiple toggle buttons simultaneously. Try clicking on different buttons to select/deselect them.',
       },
     },
-  },
-  render: () => {
-    const [selectedValues, setSelectedValues] = React.useState<string[]>(['bold', 'italic']);
-
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValues: string[]) => {
-      setSelectedValues(newValues);
-    };
-
-    return (
-        <RdsToggleButton
-          options={formatOptions}
-          multiple={true}
-          value={selectedValues}
-          onChange={handleChange}
-          color="primary"
-          aria-label="Format options"
-        />
-    );
   }
 };
 
@@ -269,6 +241,11 @@ export const StandaloneToggleButton: Story = {
       description: {
         story: 'A standalone toggle button that can be toggled on and off. Uses the component\'s internal state management.',
       },
+      source: {
+        code: `<RdsStandaloneToggleButton value="check" color="primary" aria-label="Toggle check">
+  <Check />
+</RdsStandaloneToggleButton>`
+      }
     },
   },
   render: () => (
@@ -288,30 +265,18 @@ export const StandaloneToggleButton: Story = {
 };
 
 export const UncontrolledWithDisplay: Story = {
+  args: {
+    options: formatOptions,
+    defaultValue: "italic",
+    color: "primary",
+    'aria-label': "Format options"
+  },
   parameters: {
     docs: {
       description: {
         story: 'Demonstrates uncontrolled behavior while still tracking the selected value via onChange.',
       },
     },
-  },
-  render: () => {
-    const [displayValue, setDisplayValue] = React.useState<string>('italic');
-    
-    // Update display when changed
-    const handleChange = (_event: React.MouseEvent<HTMLElement>, newValue: string) => {
-      setDisplayValue(newValue);
-    };
-    
-    return (
-        <RdsToggleButton 
-          options={formatOptions}
-          defaultValue="italic"
-          color="primary"
-          onChange={handleChange}
-          aria-label="Format options"
-        />
-    );
   }
 };
 
