@@ -44,6 +44,41 @@ export const Default: Story = {
     children: <Favorite />,
   },
 };
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    children: <Share />,
+  },
+};
+export const Delete_Button: Story = {
+  args: {
+    color: 'error',
+    children: <Delete />,
+  },
+};
+export const FilledVariant: Story = {
+  args: {
+    variant: 'filled',
+    iconOutlined: <FavoriteBorder />,
+    iconFilled: <Favorite />,
+    tooltip: 'Filled Icon',
+  },
+};
+export const Large: Story = {
+  args: {
+    size: 'large',
+    children: <Add />,
+  },
+};
+
+export const OutlinedVariant: Story = {
+  args: {
+    variant: 'outlined',
+    iconOutlined: <FavoriteBorder />,
+    iconFilled: <Favorite />,
+    tooltip: 'Outlined Icon',
+  },
+};
 
 export const Primary: Story = {
   args: {
@@ -59,13 +94,6 @@ export const Secondary: Story = {
   },
 };
 
-export const Delete_Button: Story = {
-  args: {
-    color: 'error',
-    children: <Delete />,
-  },
-};
-
 export const Small: Story = {
   args: {
     size: 'small',
@@ -73,16 +101,5 @@ export const Small: Story = {
   },
 };
 
-export const Large: Story = {
-  args: {
-    size: 'large',
-    children: <Add />,
-  },
-};
 
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-    children: <Share />,
-  },
-};
+

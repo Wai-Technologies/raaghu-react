@@ -20,6 +20,12 @@ const meta: Meta<typeof RdsPopover> = {
     showCloseButton: {
       control: 'boolean',
     },
+    position: {
+      control: 'select',
+      options: ['top-left', 'top-center', 'top-right', 'right-top', 'right-center', 'right-bottom', 'bottom-right', 'bottom-center', 'bottom-left', 'left-bottom', 'left-center', 'left-top', 'no-arrow'],
+      description: 'Position of the popover relative to the anchor element. Organized as [side]-[alignment], or "no-arrow" for a popover without an arrow',
+      defaultValue: 'bottom-left',
+    },
   },
 };
 
@@ -27,7 +33,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => {
+  args: {
+    position: 'bottom-left',
+    showCloseButton: false,
+  },
+  render: (args) => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,6 +54,7 @@ export const Default: Story = {
           Open Popover
         </Button>
         <RdsPopover
+          {...args}
           isOpen={Boolean(anchorEl)}
           onClose={handleClose}
           anchorEl={anchorEl}
@@ -59,6 +70,9 @@ export const Default: Story = {
 };
 
 export const WithCloseButton: Story = {
+  argTypes: {
+    position: { table: { disable: true } },
+  },
   render: () => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
@@ -81,6 +95,7 @@ export const WithCloseButton: Story = {
           anchorEl={anchorEl}
           title="Popover with Close"
           showCloseButton
+          position="no-arrow"
         >
           <Typography paragraph>
             This popover has a close button in the header.
@@ -95,6 +110,9 @@ export const WithCloseButton: Story = {
 };
 
 export const WithList: Story = {
+  argTypes: {
+    position: { table: { disable: true } },
+  },
   render: () => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
@@ -125,6 +143,7 @@ export const WithList: Story = {
           anchorEl={anchorEl}
           title="Menu Options"
           width={250}
+          position="no-arrow"
         >
           <List dense>
             {menuItems.map((item, index) => (
@@ -144,6 +163,9 @@ export const WithList: Story = {
 };
 
 export const CustomPosition: Story = {
+  argTypes: {
+    position: { table: { disable: true } },
+  },
   render: () => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
@@ -173,6 +195,7 @@ export const CustomPosition: Story = {
             vertical: 'bottom',
             horizontal: 'center',
           }}
+          position="no-arrow"
           showCloseButton
         >
           <Typography>
@@ -185,6 +208,9 @@ export const CustomPosition: Story = {
 };
 
 export const WideContent: Story = {
+  argTypes: {
+    position: { table: { disable: true } },
+  },
   render: () => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
@@ -208,6 +234,7 @@ export const WideContent: Story = {
           title="Wide Content Popover"
           width={500}
           showCloseButton
+          position="no-arrow"
         >
           <Typography paragraph>
             This popover has a fixed width of 500px and contains more content to demonstrate how it handles larger amounts of text.

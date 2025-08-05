@@ -2,35 +2,62 @@
 // List component for displaying items with consistent styling
 
 .rds-list {
+  // Base styles
   margin: 0;
   padding: 0;
   list-style: none;
-  background-color: var(--rds-background-paper);
-  
+  background-color: var(--rds-background-paper, #fff);
+  border-radius: var(--rds-border-radius-md, 8px);
+  box-shadow: 0 1.5px 8px 0 rgba(60, 60, 60, 0.08);
+  border: 1px solid var(--rds-border-default, #e0e0e0);
+
+  // Element: List item
   &__item {
     display: flex;
     align-items: center;
-    padding: var(--rds-font-size-sm) var(--rds-font-size-lg);
-    border-bottom: 1px solid #f0f0f0;
-    transition: background-color var(--rds-transition-base);
+    min-height: 48px;
+    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
+    background: transparent;
+    transition: background-color 0.2s ease;
     
+    // Last item has no bottom border
     &:last-child {
       border-bottom: none;
     }
     
+    // Item states and modifiers
+    &--expandable {
+      padding-right: var(--rds-spacing-xl, 32px);
+    }
+    
     &--clickable {
       cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
       
       &:hover {
-        background-color: #f9f9f9;
+        background-color: var(--rds-neutral-100, #f5f5f5);
+      }
+      
+      &:focus-visible {
+        outline: 2px solid var(--rds-primary-main, #7e2eef);
+        outline-offset: -2px;
+        position: relative;
+        z-index: 1;
       }
     }
     
     &--selected {
-      background-color: rgba(25, 118, 210, 0.08);
+      background-color: var(--rds-primary-main, #7e2eef);
+      color: var(--rds-primary-contrast-text, #fff);
+      font-weight: 500;
+      
+      .rds-list__content-primary,
+      .rds-list__content-secondary {
+        color: var(--rds-primary-contrast-text, #fff);
+      }
       
       &:hover {
-        background-color: rgba(25, 118, 210, 0.12);
+        background-color: var(--rds-primary-dark, #4f00a6);
       }
     }
     
@@ -43,76 +70,251 @@
       }
     }
   }
-  
+
+  // Element: Avatar container
   &__avatar {
-    margin-right: var(--rds-font-size-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: var(--rds-spacing-md, 16px);
     flex-shrink: 0;
   }
-  
+  // Element: Icon container
   &__icon {
-    margin-right: var(--rds-font-size-lg);
-    font-size: var(--rds-font-size-2xl);
-    color: var(--rds-text-secondary);
+    display: flex;
+    align-items: center;
+    font-size: var(--rds-font-size-icon-md, 24px);
+    color: var(--rds-text-secondary, #757575);
     flex-shrink: 0;
+    margin-right: var(--rds-spacing-md, 16px);
   }
-  
-  &__content {
-    flex: 1;
-    min-width: 0;
-    
-    &-primary {
-      font-size: var(--rds-font-size-lg);
-      font-weight: 400;
-      margin-bottom: var(--rds-spacing-xs);
-      color: var(--rds-text-primary);
-    }
-    
-    &-secondary {
-      font-size: 1var(--rds-spacing-xs);
-      color: var(--rds-text-secondary);
-      line-height: 1.4;
-    }
+
+  // Element: Primary content text
+  &__content-primary {
+    font-size: var(--rds-font-size-body, 1rem);
+    font-weight: 400;
+    transition: color 0.2s;
+    color: var(--rds-text-primary, #212121);
+    margin-bottom: var(--rds-spacing-xxs, 2px);
+    line-height: 1.2;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: var(--rds-spacing-md, 16px);
   }
-  
+
+  // Element: Secondary content text
+  &__content-secondary {
+    font-size: var(--rds-font-size-sm, 0.875rem);
+    color: var(--rds-text-secondary, #757575);
+    line-height: 1.43;
+    display: block;
+    transition: color 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // Element: Action container
   &__action {
-    margin-left: var(--rds-font-size-lg);
+    margin-left: var(--rds-spacing-lg, 24px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
   }
-  
+
+  // Element: Divider
   &__divider {
     height: 1px;
-    background-color: var(--rds-border-default);
-    margin: 0 var(--rds-font-size-lg);
+    background-color: var(--rds-border-default, #cdcdcd);
+    margin: 0;
   }
-  
+
+  // Element: Subheader
   &__subheader {
-    padding: var(--rds-font-size-lg) var(--rds-font-size-lg) var(--rds-spacing-sm);
-    font-size: 1var(--rds-spacing-xs);
+    padding: var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-sm, 8px);
+    font-size: var(--rds-font-size-body, 1rem);
     font-weight: 500;
-    color: var(--rds-text-secondary);
-    background-color: #fafafa;
+    color: var(--rds-text-secondary, #757575);
+    background-color: var(--rds-neutral-50, #fafafa);
+    position: sticky;
+    top: 0;
+    z-index: 1;
   }
-  
-  // Dense variant
+
+  // Modifier: Dense variant
   &--dense {
     .rds-list__item {
-      padding: var(--rds-spacing-sm) var(--rds-font-size-lg);
+      min-height: 40px;
+      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-md, 16px);
     }
     
     .rds-list__content-primary {
-      font-size: 1var(--rds-spacing-xs);
-      margin-bottom: 2px;
+      font-size: var(--rds-font-size-sm, 0.95rem);
+      margin-bottom: var(--rds-spacing-xxs, 1px);
     }
     
     .rds-list__content-secondary {
-      font-size: var(--rds-font-size-sm);
+      font-size: var(--rds-font-size-xs, 0.8rem);
     }
   }
   
-  // Inset variant
-  &--inset {
-    .rds-list__item {
-      padding-left: 72px;
+  // Accessibility enhancements
+  &:focus {
+    outline: none;
+  }
+  
+  // Secondary action icon styling
+  .MuiSvgIcon-root {
+    margin-left: var(--rds-spacing-md, 16px);
+  }
+  
+  // High contrast mode support
+  @media (forced-colors: active) {
+    .rds-list__divider {
+      border: 1px solid CanvasText;
     }
+    
+    .rds-list__item--selected {
+      outline: 2px solid CanvasText;
+      outline-offset: -2px;
+    }
+  }
+}
+/* Root list resets - following BEM and RDS guidelines */
+.rds-list,
+.rds-list.rds-list--root {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Framework integration adjustments */
+.rds-list__item .MuiListItemButton-root {
+  padding: 0;
+}
+
+/* Variant with sticky subheaders */
+.rds-list--with-subheader {
+  background-color: var(--rds-background-paper, #fff);
+  margin-bottom: 0;
+  border-radius: 0;
+
+  .rds-list__subheader {
+    font-weight: 500;
+    line-height: 48px;
+    color: var(--rds-text-secondary, #616161);
+    background-color: var(--rds-neutral-100, #f5f5f5);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0 var(--rds-spacing-md, 16px);
+  }
+}
+
+// Demo container for Storybook examples
+.rds-list-demo__container {
+  background-color: var(--rds-background-paper, #fff);
+  border-radius: var(--rds-border-radius-sm, 2px);
+  overflow: hidden;
+  
+  &--sticky {
+    max-height: 400px;
+    overflow: auto;
+    width: 300px;
+    border: 1px solid var(--rds-border-default, #e0e0e0);
+    border-radius: var(--rds-border-radius-sm, 2px);
+  }
+}
+
+// Demo grid layout for examples
+.rds-list-demo__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--rds-spacing-xl, 32px);
+  max-width: 800px;
+}
+
+// Demo titles
+.rds-list-demo__title {
+  font-size: var(--rds-font-size-body, 16px);
+  font-weight: 500;
+  margin: var(--rds-spacing-sm, 8px) 0;
+  color: var(--rds-text-primary, #333);
+}
+
+// Demo description
+.rds-list-demo__description {
+  font-size: var(--rds-font-size-sm, 14px);
+  color: var(--rds-text-secondary, #666);
+  margin-bottom: var(--rds-spacing-sm, 12px);
+  line-height: 1.5;
+}
+
+// Demo container (additional styles)
+.rds-list-demo__container {
+  background-color: var(--rds-background-paper, #fff);
+  border-radius: var(--rds-border-radius-md, 8px);
+  box-shadow: var(--rds-shadow-1, 0 1px 3px rgba(0,0,0,0.1));
+  max-width: 400px;
+}
+
+// Selection status display
+.rds-list-demo__selection-status {
+  font-size: var(--rds-font-size-sm, 14px);
+  color: var(--rds-text-secondary, #666);
+  padding: var(--rds-spacing-sm, 12px) 0;
+  border-top: 1px solid var(--rds-border-light, #eee);
+  margin-top: var(--rds-spacing-sm, 8px);
+}
+
+// Custom themed container
+.rds-list-demo__custom-container {
+  width: 280px;
+  border-radius: var(--rds-border-radius-md, 4px);
+  overflow: hidden;
+  border: none;
+  box-shadow: var(--rds-shadow-2, 0 3px 5px rgba(0,0,0,0.2));
+}
+
+.rds-list-demo__header {
+  display: flex;
+  align-items: center;
+  padding: var(--rds-spacing-md, 16px);
+  
+  &-icon {
+    font-size: var(--rds-font-size-icon-lg, 28px);
+    margin-right: var(--rds-spacing-sm, 12px);
+  }
+  
+  &-title {
+    font-size: var(--rds-font-size-h6, 20px);
+    font-weight: 500;
+  }
+}
+
+.rds-list-demo__section-header {
+  font-size: var(--rds-font-size-xs, 12px);
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-sm, 8px);
+  letter-spacing: 0.5px;
+}
+
+/* Custom themed list variant - should be in a separate theme file */
+.rds-list--custom-theme {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  
+  .rds-list__item {
+    border: none;
+  }
+
+  .rds-list__item--clickable:hover {
+    background-color: var(--rds-overlay-hover, rgba(255, 255, 255, 0.08));
   }
 }

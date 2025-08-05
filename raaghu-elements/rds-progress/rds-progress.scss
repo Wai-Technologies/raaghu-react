@@ -1,37 +1,270 @@
 // RDS Progress Component Styles
-// Progress indicator
+// Progress indicator component following BEM naming conventions
+// Supports multiple styles: circular, linear, stepper, dash, and block progress indicators
 
 .rds-progress {
+  // Base component styles - serves as the container for all progress variants
   display: block;
   position: relative;
+  width: 100%;
 
+  // Base progress bar element - used for linear and circular progress bars
   &__bar {
-    // Bar styles
     display: block;
+    width: 100%;
+    // Inherits Material-UI LinearProgress styles when wrapped inside
   }
 
+  // Progress label element - displays percentage or custom label text
   &__label {
-    // Label styles
     display: block;
+    color: var(--rds-color-text-secondary, #666);
+    font-size: var(--rds-font-size-caption, 12px);
+    // Used for displaying progress percentage or custom labels
   }
 
+  // Style variants - different visual representations of progress
+  
+  // Circular progress variant - displays as a circular spinner or ring
+  &--circular {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    // Centers the circular progress indicator
+  }
+
+  // Linear progress variant - displays as a horizontal bar (default)
+  &--line {
+    display: block;
+    // Full width horizontal progress bar
+  }
+
+  // Dash progress variant - displays as a series of dashes
+  &--dash {
+    display: flex;
+    align-items: center;
+    // Horizontal layout for dash segments
+  }
+
+  // Block progress variant - displays as labeled blocks/steps
+  &--block {
+    display: flex;
+    align-items: center;
+    // Horizontal layout for block segments
+  }
+
+  // Stepper progress variant - displays as numbered or circular steps
+  &--stepper {
+    display: flex;
+    align-items: center;
+    // Horizontal layout for stepper elements
+  }
+
+  // Color variants - applies theme colors to progress indicators
+  // Each variant sets a CSS custom property for consistent color usage
+  
+  &--primary {
+    --progress-color: var(--rds-color-primary, #1976d2);
+    // Primary theme color (usually blue)
+  }
+
+  &--secondary {
+    --progress-color: var(--rds-color-secondary, #dc004e);
+    // Secondary theme color (usually pink/purple)
+  }
+
+  &--error {
+    --progress-color: var(--rds-color-error, #d32f2f);
+    // Error state color (usually red)
+  }
+
+  &--info {
+    --progress-color: var(--rds-color-info, #0288d1);
+    // Informational color (usually light blue)
+  }
+
+  &--success {
+    --progress-color: var(--rds-color-success, #2e7d32);
+    // Success state color (usually green)
+  }
+
+  &--warning {
+    --progress-color: var(--rds-color-warning, #ed6c02);
+    // Warning state color (usually orange)
+  }
+
+  // State variants - different behavioral states
+  
   &--indeterminate {
-    // Indeterminate state styles
+    // Styles for indeterminate progress state (unknown duration)
+    animation: rds-progress-indeterminate 1.5s infinite linear;
+    // Subtle pulsing animation for indeterminate progress
   }
 
-  // Interactive states
-  &:hover {
-    // Hover styles
+  // Dash specific elements - individual dash segments in dash progress style
+  &__dash {
+    width: 50px;
+    height: 5px;
+    background-color: var(--rds-color-gray-300, #e0e0e0);
+    border-radius: var(--rds-border-radius-sm, 4px);
+    transition: background-color var(--rds-transition-duration, 0.2s) ease;
+    // Default unfilled dash appearance with smooth color transitions
+
+    &--filled {
+      background-color: var(--progress-color);
+      // Filled state uses the active progress color
+    }
   }
 
+  // Block specific elements - individual block segments in block progress style
+  &__block {
+    width: 80px;
+    height: 40px;
+    background-color: var(--rds-color-gray-300, #e0e0e0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rds-color-gray-600, #666);
+    font-weight: var(--rds-font-weight-bold, 600);
+    font-size: var(--rds-font-size-sm, 14px);
+    transition: background-color var(--rds-transition-duration, 0.2s) ease;
+    // Rectangular blocks with centered text labels
+
+    &--filled {
+      background-color: var(--progress-color);
+      color: var(--rds-color-white, #ffffff);
+      // Filled blocks have contrasting text color for readability
+    }
+  }
+
+  // Stepper specific styles - numbered or circular step indicators
+  &__stepper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    // Container for stepper elements with no gap (connectors provide spacing)
+
+    // Individual step circles in stepper progress
+    &-step {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--rds-color-gray-300, #e0e0e0);
+      background-color: var(--rds-color-white, #ffffff);
+      transition: all var(--rds-transition-duration, 0.2s) ease-in-out;
+      font-weight: var(--rds-font-weight-semibold, 600);
+      font-size: var(--rds-font-size-sm, 14px);
+      color: var(--rds-color-gray-500, #9e9e9e);
+      position: relative;
+      // Circular step indicators with smooth state transitions
+
+      // Completed step state - filled with progress color
+      &--completed {
+        border-color: var(--progress-color);
+        background-color: var(--progress-color);
+        color: var(--rds-color-white, #ffffff);
+        // Fully filled appearance for completed steps
+      }
+
+      // Current step state - highlighted border but not filled
+      &--current {
+        border-color: var(--progress-color);
+        background-color: var(--rds-color-white, #ffffff);
+        color: var(--progress-color);
+        // Highlighted but not filled for current active step
+      }
+
+      // Upcoming step state - neutral appearance for future steps
+      &--upcoming {
+        border-color: var(--rds-color-gray-300, #e0e0e0);
+        background-color: var(--rds-color-white, #ffffff);
+        color: var(--rds-color-gray-500, #9e9e9e);
+        // Muted appearance for steps not yet reached
+      }
+    }
+
+    // Connecting lines between stepper elements
+    &-connector {
+      width: 60px;
+      height: 2px;
+      background-color: var(--rds-color-gray-300, #e0e0e0);
+      transition: background-color var(--rds-transition-duration, 0.2s) ease-in-out;
+      // Horizontal lines connecting step indicators
+
+      &--completed {
+        background-color: var(--progress-color);
+        // Connectors fill with progress color when steps are completed
+      }
+    }
+  }
+
+  // Interactive states - accessibility and user interaction styles
+  
+  // Focus state for keyboard navigation accessibility
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset);
+    outline: 2px solid var(--progress-color);
+    outline-offset: var(--rds-focus-ring-offset, 2px);
+    // Clear focus indicator using current progress color
   }
 
+  // Disabled state - reduced opacity and no pointer events
   &:disabled,
   &--disabled {
-    opacity: 0.6;
+    opacity: var(--rds-opacity-disabled, 0.6);
     pointer-events: none;
+    // Consistent disabled appearance across all variants
+
+    // Apply disabled opacity to all interactive elements
+    .rds-progress__stepper-step,
+    .rds-progress__dash,
+    .rds-progress__block {
+      opacity: var(--rds-opacity-disabled, 0.6);
+    }
+  }
+
+  // Accessibility enhancements for motion preferences
+  @media (prefers-reduced-motion: reduce) {
+    // Disable animations for users who prefer reduced motion
+    .rds-progress__stepper-step,
+    .rds-progress__stepper-connector,
+    .rds-progress__dash,
+    .rds-progress__block {
+      transition: none;
+      // Remove all transitions when reduced motion is preferred
+    }
+  }
+
+  // High contrast mode support for better visibility
+  @media (prefers-contrast: high) {
+    // Increase border thickness for better visibility in high contrast mode
+    .rds-progress__stepper-step {
+      border-width: 3px;
+      // Thicker borders for step indicators
+    }
+
+    .rds-progress__stepper-connector {
+      height: 3px;
+      // Thicker connector lines
+    }
+  }
+}
+
+// Animation keyframes for indeterminate progress
+// Provides subtle pulsing effect for unknown duration progress
+@keyframes rds-progress-indeterminate {
+  0% {
+    opacity: 0.8;
+    // Start with slightly reduced opacity
+  }
+  50% {
+    opacity: 1;
+    // Peak at full opacity
+  }
+  100% {
+    opacity: 0.8;
+    // Return to reduced opacity for smooth loop
   }
 }

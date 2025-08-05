@@ -11,6 +11,24 @@ const meta: Meta<typeof RdsSearch> = {
   },
   tags: ['autodocs'],
   argTypes: {
+    label: {
+      control: 'text',
+      description: 'Label above the search input',
+    },
+    placeholder: {
+      control: 'text',
+      description: 'Placeholder for the search input',
+    },
+    labelPosition: {
+      control: 'select',
+      options: ['top', 'left', 'right', 'bottom'],
+      description: 'Position of the label relative to the input',
+    },
+    iconPosition: {
+      control: 'select',
+      options: ['left', 'right'],
+      description: 'Position of the search icon relative to the input',
+    },
     variant: {
       control: 'select',
       options: ['outlined', 'filled', 'standard'],
@@ -44,7 +62,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => {
+  args: {
+    placeholder: 'Search...',
+    label: 'Search',
+    labelPosition: 'top',
+    iconPosition: 'left',
+    fullWidth: false,
+  },
+  render: (args) => {
     const [searchValue, setSearchValue] = useState('');
 
     return (
@@ -53,7 +78,12 @@ export const Default: Story = {
           value={searchValue}
           onChange={setSearchValue}
           onSearch={(value) => alert(`Searching for: ${value}`)}
-          placeholder="Search..."
+          placeholder={args.placeholder}
+          label={args.label}
+          size={args.size}
+          labelPosition={args.labelPosition}
+          iconPosition={args.iconPosition}
+          fullWidth={args.fullWidth}
         />
       </Box>
     );
