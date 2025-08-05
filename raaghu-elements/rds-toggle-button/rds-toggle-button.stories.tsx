@@ -1,21 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  FormatBold, 
-  FormatItalic, 
-  FormatUnderlined, 
-  FormatAlignLeft, 
-  FormatAlignCenter, 
-  FormatAlignRight, 
-  FormatAlignJustify,
-  ViewList,
-  ViewModule,
-  ViewQuilt,
-  Check,
-  PhoneAndroid,
-  Laptop,
-  Tablet
-} from '@mui/icons-material';
+import {FormatBold,FormatItalic,FormatUnderlined,FormatAlignLeft,FormatAlignCenter,FormatAlignRight,FormatAlignJustify,ViewList,ViewModule,ViewQuilt,Check,PhoneAndroid,Laptop,Tablet} from '@mui/icons-material';
 import RdsToggleButton, { RdsStandaloneToggleButton } from './rds-toggle-button';
 
 const meta: Meta<typeof RdsToggleButton> = {
