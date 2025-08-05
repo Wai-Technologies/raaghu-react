@@ -1,18 +1,144 @@
 // RDS Card Component Styles
 .rds-card {
-  background-color: var(--rds-card-bg);
-  border-radius: var(--rds-border-radius-md);
-  box-shadow: var(--rds-elevation-2);
+  background-color: var(--rds-card-bg, #ffffff);
+  border-radius: var(--rds-border-radius-md, 8px);
+  box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08));
   overflow: hidden;
-  transition: box-shadow var(--rds-transition-base);
+  cursor: pointer;
+  position: relative;
   
-  &:hover {
-    box-shadow: var(--rds-elevation-3);
+  // Layout variants
+  &--layout-horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    
+    .rds-card__icon-container {
+      padding: var(--rds-spacing-md, 16px);
+      padding-right: var(--rds-spacing-sm, 4px); // Slightly more space between icon and content
+    }
+    
+    .rds-card__content-wrapper {
+      flex: 1;
+      min-width: 0; // Prevent content overflow
+    }
+  }
+  
+  &--layout-vertical {
+    display: flex;
+    flex-direction: column;
+    
+    .rds-card__icon-container--vertical {
+      padding: var(--rds-spacing-md, 16px);
+      padding-bottom: var(--rds-spacing-xs, 4px); // Reduced spacing below icon for tighter layout
+    }
+  }
+  
+  // Content wrapper for both layouts
+  &__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  // Icon controls
+  &--hide-icon {
+    .rds-card__icon-container {
+      display: none;
+    }
+  }
+  
+  // Style variants
+  &--style-outlined {
+    background-color: transparent;
+    border: 1px solid var(--rds-color-border-primary, #7d7d7d) !important;
+    box-shadow: none;
+  }
+  
+  &--style-filled {
+    background-color: var(--rds-color-surface-light, #FEF7FF) !important; 
+    border: none;
+    box-shadow: none;
+  }
+  
+  // Title visibility control
+  &--hide-title {
+    // Hide title elements (h1-h6, Typography with title variants)
+    h1, h2, h3, h4, h5, h6,
+    .MuiTypography-h1,
+    .MuiTypography-h2,
+    .MuiTypography-h3,
+    .MuiTypography-h4,
+    .MuiTypography-h5,
+    .MuiTypography-h6,
+    .MuiTypography-root[class*="gutterBottom"] {
+      display: none;
+    }
+    
+    // Also hide any element with specific data attributes or classes indicating it's a title
+    [data-role="card-title"],
+    .card-title,
+    .rds-card-title {
+      display: none;
+    }
+  }
+  
+  // Card indicator (line on the left edge)
+  &__indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--rds-spacing-xs, 4px);
+    z-index: 1;
+  }
+  
+  &__indicator-icon {
+    width: 100%;
+    height: 100%;
+    background-color: var(--rds-color-gray-700, #646464) !important;
+    transition: var(--rds-transition-base, all 0.2s ease-in-out);
+    border-radius: 0 var(--rds-border-radius-sm, 2px) var(--rds-border-radius-sm, 2px) 0;
+  }
+  
+  // Hover state
+  &--hover {
+    box-shadow: var(--rds-elevation-2, 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08));
+    background-color: var(--rds-color-gray-200, #E1E3EA) !important;
+  }
+  
+  // Selected state
+  &--selected {
+    background-color: var(--rds-color-gray-200, #E1E3EA) !important;
+    box-shadow: var(--rds-elevation-focus, 0 0 0 1px rgba(25, 118, 210, 0.2));
+    
+    // Change subtext color to primary when card is selected
+    .rds-card__subtext {
+      color: var(--rds-color-primary, #3C98FF) !important;
+    }
+  }
+  
+  // Disabled state
+  &--disabled {
+    opacity: 0.6;
+    background-color: var(--rds-color-gray-300, #CDCDCD) !important;
+    color: var(--rds-color-disabled-text, #9e9e9e);
+    pointer-events: none;
+    cursor: not-allowed;
+    
+    // Disable and style buttons and interactive elements within disabled card
+    .MuiButton-root,
+    .rds-button,
+    button {
+      color: var(--rds-color-disabled-text, #9e9e9e) !important;
+      pointer-events: none !important;
+      cursor: not-allowed !important;
+    }
   }
   
   &__header {
-    padding: var(--rds-spacing-md);
-    border-bottom: 1px solid var(--rds-border-light);
+    padding: var(--rds-spacing-md, 16px);
+    border-bottom: 1px solid var(--rds-border-light, #e0e0e0);
     
     &:last-child {
       border-bottom: none;
@@ -26,38 +152,39 @@
   }
   
   &__content {
-    padding: var(--rds-spacing-md);
+    padding: var(--rds-spacing-md, 16px);
   }
   
   &__actions {
-    padding: var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-md);
+    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
     display: flex;
-    gap: var(--rds-spacing-sm);
+    gap: var(--rds-spacing-sm, 8px);
     align-items: center;
   }
   
   // Elevation variants
   &--elevation-0 {
-    box-shadow: var(--rds-elevation-0);
-    border: 1px solid var(--rds-card-border);
+    box-shadow: var(--rds-elevation-0, none);
+    border: 1px solid var(--rds-card-border, #e0e0e0);
   }
   
   &--elevation-1 {
-    box-shadow: var(--rds-elevation-1);
+    box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.08));
   }
   
   &--elevation-2 {
-    box-shadow: var(--rds-elevation-2);
+    box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
   }
   
   &--elevation-3 {
-    box-shadow: var(--rds-elevation-3);
+    box-shadow: var(--rds-elevation-3, 0 4px 8px rgba(0, 0, 0, 0.15));
   }
   
-  // Interactive states
+  // Interactive states for clickable cards
   &--clickable {
     cursor: pointer;
-    transition: transform var(--rds-transition-base), box-shadow var(--rds-transition-base);
+    transition: transform var(--rds-transition-base, 0.2s ease-in-out), 
+                box-shadow var(--rds-transition-base, 0.2s ease-in-out);
     
     &:hover {
       transform: translateY(-2px);
@@ -67,4 +194,369 @@
       transform: translateY(0);
     }
   }
+  
+  // Card content structure
+  &__content {
+    padding: var(--rds-spacing-md, 16px);
+    display: flex;
+    flex-direction: column;
+    // Remove generic gap, use specific margins for each element instead
+  }
+  
+  // Tighter content padding for vertical layout with icon
+  &--layout-vertical {
+    .rds-card__content {
+      padding-top: var(--rds-spacing-xs, 4px); // Reduced top padding for tighter icon-to-content spacing
+    }
+  }
+  
+  // Card title styling - matching screenshot specifications
+  &__title {
+    font-weight: var(--rds-font-weight-medium, 500);
+    font-size: var(--rds-font-size-xl, 20px) !important; // Larger title font size as per screenshot
+    line-height: 1.3; // Tighter line height for titles
+    color: var(--rds-color-text-primary, #1a1a1a);
+    margin: 0;
+    margin-bottom: var(--rds-spacing-xs, 2px) !important; // Very small gap after title
+  }
+  
+  // Card subtext styling - matching screenshot specifications
+  &__subtext {
+    font-weight: var(--rds-font-weight-normal, 400);
+    font-size: var(--rds-font-size-sm, 14px) !important; // Smaller subtitle font size as per screenshot
+    color: var(--rds-color-text-secondary, #757575); // Slightly lighter color
+    margin: 0;
+    
+    // Remove default Material-UI margins
+    &.MuiTypography-root {
+      margin-bottom: var(--rds-spacing-xs, 4px) !important; // Reduced spacing after subtext  
+    }
+  }
+  
+  // Card description styling - matching screenshot specifications
+  &__description {
+    font-weight: var(--rds-font-weight-normal, 400);
+    font-size: var(--rds-font-size-sm); // Body text font size as per screenshot
+    color: var(--rds-color-text-secondary, #666666);
+    margin: 0;
+    margin-bottom: var(--rds-spacing-sm, 8px) !important; // Reduced space after description
+  }
+  
+  // Additional content wrapper
+  &__additional-content {
+    margin-top: var(--rds-spacing-sm, 8px);
+    
+    // Reset first child margin to prevent double spacing
+    > *:first-child {
+      margin-top: 0;
+    }
+    
+    // Reset last child margin to prevent overflow
+    > *:last-child {
+      margin-bottom: 0;
+    }
+    
+    // Style buttons and interactive elements
+    .MuiButton-root,
+    .rds-button {
+      margin-top: var(--rds-spacing-xs);
+    }
+    
+    // Button group styling for action buttons
+    .rds-card__button-group {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--rds-spacing-xs, 8px);
+      margin-top: var(--rds-spacing-md, 16px);
+      
+      .rds-button {
+        margin-top: 0; // Override individual button margin
+      }
+    }
+
+    // Image styling for card images
+    .rds-card__image {
+      margin-bottom: var(--rds-spacing-md, 16px);
+      
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: var(--rds-border-radius-sm, 4px);
+        display: block;
+      }
+    }
+
+    // Badges section styling
+    .rds-card__badges {
+      display: flex;
+      gap: var(--rds-spacing-xs, 8px);
+      flex-wrap: wrap;
+      margin-bottom: var(--rds-spacing-sm, 8px);
+      
+      // Individual badge styling
+      .rds-badge {
+        flex-shrink: 0; // Prevent badge compression
+      }
+    }
+
+    // Avatar section styling
+    .rds-card__avatar-section {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--rds-spacing-sm, 4px);
+      margin-bottom: var(--rds-spacing-sm, 8px);
+      position: relative;
+      
+      .rds-card__avatar-info {
+        flex: 1;
+        min-width: 0; // Prevent text overflow
+        
+        // Avatar name styling
+        .rds-card__avatar-name {
+          font-size: var(--rds-font-size-md, 16px);
+          font-weight: var(--rds-font-weight-semibold, 600);
+          color: var(--rds-color-text-primary, #333);
+          margin: 0 0 var(--rds-spacing-xs, 2px) 0;
+          line-height: 1.3;
+        }
+        
+        // Avatar designation styling
+        .rds-card__avatar-designation {
+          font-size: var(--rds-font-size-sm, 14px);
+          font-weight: var(--rds-font-weight-normal, 400);
+          color: var(--rds-color-text-secondary, #666);
+          margin: 0;
+          line-height: 1.3;
+        }
+      }
+      
+      // Edit controls positioning
+      .rds-card__edit-controls {
+        display: flex;
+        align-items: center;
+        gap: var(--rds-spacing-xs, 8px);
+        margin-left: var(--rds-spacing-sm) !important;
+        flex-shrink: 0;
+      }
+    }
+
+    // Custom description styling for specific layouts
+    .rds-card__description {
+      font-size: var(--rds-font-size-sm, 14px);
+      color: var(--rds-color-text-secondary, #666);
+      line-height: 1.5;
+      margin: 0 0 var(--rds-spacing-md, 16px) 0;
+      display: block; // Ensure it's visible
+    }
+  }
+
+  // Global description styling (outside of additional-content for standalone usage)
+  &__description {
+    font-size: var(--rds-font-size-sm, 14px);
+    color: var(--rds-color-text-secondary, #666);
+    line-height: 1.5;
+    margin: 0 0 var(--rds-spacing-md, 16px) 0;
+    display: block; // Ensure it's visible
+  }
+  
+  // Title and subtext visibility controls
+  &--hide-title {
+    .rds-card__title {
+      display: none;
+    }
+  }
+  
+  &--hide-subtext {
+    .rds-card__subtext {
+      display: none;
+    }
+  }
+  
+  &--hide-description {
+    .rds-card__description {
+      display: none;
+    }
+  }
+}
+.rds-card .css-16xl4zq-MuiTypography-root,
+.rds-card .css-1f9xtph-MuiTypography-root {
+  font-size: var(--rds-font-size-lg, 18px) !important;
+}
+
+// Standalone description that should always show (for custom content like in WithImage)
+.rds-card__additional-content .rds-card__description,
+.rds-card > .rds-card__description {
+  display: block !important;
+  font-size: var(--rds-font-size-sm, 14px);
+  color: var(--rds-color-text-secondary, #666);
+  line-height: 1.5;
+  margin: 0 0 var(--rds-spacing-md, 16px) 0;
+}
+
+// Tags section styling (similar to badges but with different context)
+.rds-card__tags {
+  display: flex;
+  gap: var(--rds-spacing-xs, 8px);
+  flex-wrap: wrap;
+  margin-bottom: var(--rds-spacing-md, 16px);
+  
+  // Individual tag styling
+  .rds-badge {
+    flex-shrink: 0; // Prevent tag compression
+  }
+}
+
+// Questions counter or metadata styling
+.rds-card__metadata {
+  font-size: var(--rds-font-size-xs, 12px);
+  color: var(--rds-color-text-secondary, #666);
+  font-weight: var(--rds-font-weight-normal, 400);
+  margin: var(--rds-spacing-md, 16px) 0 0 0;
+  padding-top: var(--rds-spacing-sm, 8px);
+}
+
+// Long description styling for WithTags story
+.rds-card__long-description {
+  font-size: var(--rds-font-size-sm, 14px);
+  color: var(--rds-color-text-secondary, #666);
+  line-height: 1.5;
+  margin: 0 0 var(--rds-spacing-md, 16px) 0;
+  display: block !important;
+}
+
+// Avatar section with editing functionality
+.rds-card__avatar-section {
+  &--editable {
+    position: relative;
+    align-items: flex-start !important; // Override to ensure avatar stays at start in edit mode
+    
+    .rds-card__edit-controls {
+      display: flex;
+      align-items: center;
+      gap: var(--rds-spacing-xs, 8px);
+      margin-left: var(--rds-spacing-xs, 8px) !important;
+    }
+    
+    .rds-card__edit-icon {
+      cursor: pointer;
+      padding: var(--rds-spacing-xs, 4px);
+      border-radius: var(--rds-border-radius-sm, 4px);
+      transition: background-color 0.2s ease;
+      margin-bottom: 50px !important;
+      
+      &:hover {
+        background-color: var(--rds-color-hover, rgba(0, 0, 0, 0.04));
+      }
+      
+      .MuiSvgIcon-root {
+        font-size: var(--rds-font-size-lg);
+        color: var(--rds-color-primary, #1976d2);
+      }
+    }
+    
+    .rds-card__edit-actions {
+      display: flex;
+      gap: var(--rds-spacing-sm, 12px);
+      align-items: center;
+      padding: var(--rds-spacing-sm, 8px);
+      background-color: var(--rds-card-actions-bg, #f8f9fa);
+      
+      // Button styling for RdsButton components
+      .rds-button {
+        font-size: var(--rds-font-size-xs, 12px);
+        padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 12px);
+        min-width: 60px;
+        height: 32px;
+        text-transform: uppercase;
+        font-weight: var(--rds-font-weight-medium, 500);
+        border-radius: var(--rds-border-radius-xs, 4px);
+        line-height: 1.2;
+      }
+      
+      .rds-card__action-icon {
+        cursor: pointer;
+        padding: var(--rds-spacing-xs, 4px);
+        border-radius: var(--rds-border-radius-sm, 4px);
+        transition: background-color 0.2s ease;
+        
+        &:hover {
+          background-color: var(--rds-color-hover, rgba(0, 0, 0, 0.04));
+        }
+      }
+    }
+  }
+}
+
+// Editable input fields
+.rds-card__editable-field {
+  padding: var(--rds-spacing-md, 16px);
+  
+  // Styling for RdsInput components
+  .rds-input {
+    margin-bottom: var(--rds-spacing-sm, 12px);
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    // Override MUI TextField styles for card context
+    .MuiTextField-root {
+      width: 100%;
+      
+      .MuiInputBase-root {
+        font-family: inherit;
+        background-color: var(--rds-input-bg, #fff);
+        
+        &.Mui-focused fieldset {
+          border-color: var(--rds-color-primary, #1976d2);
+        }
+        
+        .MuiInputBase-input {
+          padding: var(--rds-spacing-xs, 8px) var(--rds-spacing-sm, 12px);
+        }
+      }
+    }
+  }
+  
+  // Title input specific styling
+  .rds-card__input--title {
+    .MuiInputBase-input {
+      font-size: var(--rds-font-size-lg);
+      font-weight: var(--rds-font-weight-medium, 500);
+      color: var(--rds-color-text-primary, #1a1a1a);
+    }
+  }
+  
+  // Subtitle input specific styling
+  .rds-card__input--subtitle {
+    .MuiInputBase-input {
+      font-size: var(--rds-font-size-sm, 14px);
+      font-weight: var(--rds-font-weight-normal, 400);
+      color: var(--rds-color-text-secondary, #757575);
+    }
+  }
+  
+  // Avatar name input specific styling
+  .rds-card__input--avatar-name {
+    .MuiInputBase-input {
+      font-size: var(--rds-font-size-md, 16px);
+      font-weight: var(--rds-font-weight-semibold, 600);
+      color: var(--rds-color-text-primary, #333);
+    }
+  }
+  
+  // Avatar designation input specific styling
+  .rds-card__input--avatar-designation {
+    .MuiInputBase-input {
+      font-size: var(--rds-font-size-sm, 14px);
+      font-weight: var(--rds-font-weight-normal, 400);
+      color: var(--rds-color-text-secondary, #666);
+    }
+  }
+} 
+
+.rds-card .rds-avatar {
+   justify-content: flex-start !important;
+   margin-left: var(--rds-spacing-md, 15px) !important;
 }
