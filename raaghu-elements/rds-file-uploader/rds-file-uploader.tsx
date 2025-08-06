@@ -8,7 +8,7 @@ import {
   Chip,
   Paper,
 } from '@mui/material';
-import { CloudUpload, Delete, InsertDriveFile } from '@mui/icons-material';
+import { CloudUpload, Delete, InsertDriveFile, Close } from '@mui/icons-material';
 import './rds-file-uploader.scss';
 import RdsFileUploaderStandardView from './RdsFileUploaderStandardView';
 
@@ -236,7 +236,7 @@ return (
         {/* Placeholder image */}
         {placeholderImage && files.length === 0 && (
           <Box sx={{ mb: 2, textAlign: 'center' }}>
-            <img src={placeholderImage} alt="placeholder" style={{ maxWidth: 120, opacity: 0.7 }} />
+            <img src={placeholderImage} alt="placeholder" style={{ maxWidth: 'var(--rds-spacing-3xl, 120px)', opacity: 0.7 }} />
           </Box>
         )}
 
@@ -275,7 +275,7 @@ return (
             </Box>
             <Box sx={{ ml: 2, display: 'flex', alignItems: 'center' }}>
               {/* MUI CloudUpload icon */}
-              <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: '#7D7D7D' }} />
+              <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: 'var(--rds-neutral-main, #7D7D7D)' }} />
             </Box>
           </Paper>
         ) : style === 'Drop Area - With Upload Button' ? (
@@ -304,7 +304,7 @@ return (
               variant="contained"
               onClick={openFileDialog}
               disabled={disabled}
-              sx={{ ml: 2, minWidth: 120, fontWeight: 600, fontSize: 14, padding: '4px 14px', textTransform: 'uppercase', background: '#3390e6' }}
+              sx={{ ml: 'var(--rds-spacing-md, 16px)', minWidth: 'var(--rds-spacing-2xl, 120px)', fontWeight: 600, fontSize: 'var(--rds-font-size-md, 14px)', p: 'var(--rds-spacing-xs, 4px) var(--rds-spacing-lg, 14px)', textTransform: 'uppercase', background: 'var(--rds-color-primary-hover, #3390e6)' }}
             >
               Upload Files
             </Button>
@@ -324,7 +324,7 @@ return (
             sx={mode === 'standard' ? { boxShadow: 3 } : {}}
           >
             {/* MUI CloudUpload icon */}
-            <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: '#7D7D7D' }} />
+            <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: 'var(--rds-neutral-main, #7D7D7D)' }} />
             <Typography className="rds-file-uploader__title" variant="h6" gutterBottom>
               Drag and Drop files or <span className="rds-file-uploader__browse-link" onClick={openFileDialog}>Browse</span>
             </Typography>
@@ -339,7 +339,7 @@ return (
           <Typography
             className="rds-file-uploader__hint"
             variant="caption"
-            sx={{ color: showHint ? '#353535' : 'transparent', fontWeight: 400, textAlign: 'left', minWidth: 0 }}
+            sx={{ color: showHint ? 'var(--rds-neutral-900, #353535)' : 'transparent', fontWeight: 400, textAlign: 'left', minWidth: 0 }}
           >
             {showHint ? (hintText || 'Maximum 5MB') : '\u00A0'}
           </Typography>
@@ -357,23 +357,23 @@ return (
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  width: { xs: '100%', sm: '100%', md: 500 },
-                  minWidth: { xs: 0, sm: 0, md: 400 },
-                  maxWidth: { xs: '98vw', sm: '98vw', md: 500 },
-                  height: 36,
-                  background: '#E1E3EA',
-                  borderRadius: 1,
-                  border: '1px solid #7D7D7D',
-                  px: 1,
+                  width: { xs: '100%', sm: '100%', md: 'var(--rds-spacing-3xl, 500px)' },
+                  minWidth: { xs: 0, sm: 0, md: 'var(--rds-spacing-2xl, 400px)' },
+                  maxWidth: { xs: '98vw', sm: '98vw', md: 'var(--rds-spacing-3xl, 500px)' },
+                  height: 'var(--rds-spacing-xl, 36px)',
+                  background: 'var(--rds-background-surface, #E1E3EA)',
+                  borderRadius: 'var(--rds-border-radius-sm, 4px)',
+                  border: '1px solid var(--rds-neutral-main, #7D7D7D)',
+                  px: 'var(--rds-spacing-xs, 4px)',
                   py: 0,
-                  mb: 1,
-                  fontSize: { xs: 13, sm: 14, md: 15 },
+                  mb: 'var(--rds-spacing-xs, 4px)',
+                  fontSize: { xs: 'var(--rds-font-size-sm, 13px)', sm: 'var(--rds-font-size-md, 14px)', md: 'var(--rds-font-size-md, 15px)' },
                 }}
               >
                 {/* File name, left aligned, no icon */}
                 <Typography
                   sx={{
-                    color: '#353535',
+                    color: 'var(--rds-neutral-900, #353535)',
                     fontWeight: 500,
                     flex: 1,
                     overflow: 'hidden',
@@ -387,11 +387,11 @@ return (
                 {/* File size, right side */}
                 <Typography
                   sx={{
-                    color: '#646464',
+                    color: 'var(--rds-neutral-700, #646464)',
                     fontWeight: 400,
-                    fontSize: 14,
-                    ml: 2,
-                    minWidth: 70,
+                    fontSize: 'var(--rds-font-size-md, 14px)',
+                    ml: 'var(--rds-spacing-md, 16px)',
+                    minWidth: 'var(--rds-spacing-xl, 70px)',
                     textAlign: 'right',
                   }}
                 >
@@ -403,14 +403,11 @@ return (
                   size="small"
                   onClick={() => removeFile(index)}
                   disabled={isUploading}
-                  sx={{ ml: 1, color: '#7D7D7D', background: 'transparent', borderRadius: '50%', '&:hover': { background: '#D1D3DA' }, p: 0.5 }}
+                  sx={{ ml: 'var(--rds-spacing-xs, 4px)', color: 'var(--rds-neutral-main, #7D7D7D)', background: 'transparent', borderRadius: '50%', '&:hover': { background: 'var(--rds-neutral-300, #D1D3DA)' }, p: 'var(--rds-spacing-xxs, 4px)' }}
                   aria-label="Remove file"
                 >
-                  {/* Cross SVG icon */}
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.5 4.5L13.5 13.5" stroke="#7D7D7D" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M13.5 4.5L4.5 13.5" stroke="#7D7D7D" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
+                  {/* MUI Close (cross) icon (neutral color: var(--rds-neutral-main)) */}
+                  <Close fontSize="small" sx={{ color: 'var(--rds-neutral-main, #7D7D7D)' }} />
                 </IconButton>
               </Box>
             ))}

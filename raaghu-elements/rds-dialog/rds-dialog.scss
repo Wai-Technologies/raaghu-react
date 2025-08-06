@@ -17,40 +17,40 @@
 
   &__content {
     display: block;
-    padding: 32px 24px;
+    padding: var(--rds-spacing-2xl, 32px) var(--rds-spacing-xl, 24px);
     text-align: center;
-    font-size: 1rem;
+    font-size: var(--rds-font-size-md, 16px);
     color: var(--rds-text-primary, #444);
   }
 
   &__actions {
     display: flex;
     justify-content: flex-end;
-    gap: 12px;
-    padding: 16px 24px 24px 24px;
+    gap: var(--rds-spacing-md, 12px);
+    padding: var(--rds-spacing-lg, 16px) var(--rds-spacing-xl, 24px) var(--rds-spacing-2xl, 24px) var(--rds-spacing-xl, 24px);
     background: transparent;
   }
 
   &__paper {
-    max-width: 600px;
+    max-width: var(--rds-dialog-max-width, 600px);
     width: 100%;
-    border-radius: 12px;
+    border-radius: var(--rds-border-radius-lg, 12px);
     box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
     background: var(--rds-background-paper, #fff);
-    margin: 32px auto;
+    margin: var(--rds-spacing-2xl, 32px) auto;
   }
 
   &__close-button {
     position: absolute;
-    right: 16px;
-    top: 16px;
+    right: var(--rds-spacing-lg, 16px);
+    top: var(--rds-spacing-lg, 16px);
     color: var(--rds-text-secondary, #888);
   }
 
   &__button {
-    min-width: 80px;
-    font-size: 1rem;
-    border-radius: 6px;
+    min-width: var(--rds-spacing-xl, 80px);
+    font-size: var(--rds-font-size-md, 16px);
+    border-radius: var(--rds-border-radius, 6px);
     background: var(--rds-background-paper, #fff);
     color: var(--rds-color-primary, #1976d2);
     border: 1px solid var(--rds-color-primary, #1976d2);
