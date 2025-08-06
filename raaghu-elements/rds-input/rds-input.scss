@@ -52,7 +52,7 @@
   }
   
   // State variants
-  &--error {
+  &__error {
     .rds-input__field {
       border-color: var(--rds-alert-error-border);
       
@@ -67,7 +67,7 @@
     }
   }
   
-  &--disabled {
+  &__disabled {
     .rds-input__field {
       background-color: var(--rds-background-surface);
       color: var(--rds-text-disabled);
@@ -80,27 +80,24 @@
   }
   
   // Size variants
-  &--small {
-    .rds-input__field {
-      padding: var(--rds-spacing-sm) var(--rds-font-size-sm);
-      font-size: var(--rds-font-size-sm);
-    }
-  }
-  
-  &--large {
-    .rds-input__field {
-      padding: var(--rds-font-size-lg) var(--rds-font-size-2xl);
-      font-size: var(--rds-font-size-lg);
-    }
+&__small {
+  .rds-input__field {
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important; // 4px 8px
+    font-size: var(--rds-font-size-sm) !important; // 12px
   }
 }
 
-// Pill style
-.rds-input--pill {
+&__medium {
+  .rds-input__field {
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md) !important; // 8px 16px
+    font-size: var(--rds-font-size-md) !important; // 14px
+  }
+}
+  &__pill {
   .MuiOutlinedInput-root,
   .MuiFilledInput-root,
   .MuiInputBase-root,
-  .rds-input__field {
+  &__field {
     border-radius: 9999px !important;
     padding-left: 1.5em !important;
     padding-right: 1.5em !important;
@@ -115,12 +112,13 @@
 }
 
 // Bottom outline style
-.rds-input--bottom-outline {
+  &__bottom-outline {
   .MuiOutlinedInput-root,
   .MuiFilledInput-root,
   .MuiInputBase-root,
-  .rds-input__field {
+  &__field {
   border: none;
-  border-bottom: 2px solid #ced4da;
+  border-bottom: 2px solid currentColor;
   }
+}
 }
