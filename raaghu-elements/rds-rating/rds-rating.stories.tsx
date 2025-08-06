@@ -88,20 +88,6 @@ export const Default: Story = {
   },
 };
 
-export const HalfStar: Story = {
-  args: {
-    value: 3.5,
-    precision: 0.5,
-  },
-};
-
-export const ReadOnly: Story = {
-  args: {
-    value: 4,
-    readOnly: true,
-  },
-};
-
 export const Disabled: Story = {
   args: {
     value: 2,
@@ -109,17 +95,10 @@ export const Disabled: Story = {
   },
 };
 
-export const Small: Story = {
+export const HalfStar: Story = {
   args: {
-    value: 4,
-    size: 'small',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    value: 5,
-    size: 'large',
+    value: 3.5,
+    precision: 0.5,
   },
 };
 
@@ -130,9 +109,30 @@ export const HighPrecision: Story = {
   },
 };
 
+export const Large: Story = {
+  args: {
+    value: 5,
+    size: 'large',
+  },
+};
+
 export const NoValue: Story = {
   args: {
     value: 0,
+  },
+};
+
+export const ReadOnly: Story = {
+  args: {
+    value: 4,
+    readOnly: true,
+  },
+};
+
+export const Small: Story = {
+  args: {
+    value: 4,
+    size: 'small',
   },
 };
 
