@@ -40,6 +40,19 @@ const meta: Meta<typeof RdsSidebar> = {
       options: ['left', 'right', 'top', 'bottom'],
       description: 'Side from which the drawer will appear',
     },
+    layout: {
+      control: 'select',
+      options: ['raaghu', 'list', 'toolbar'],
+    },
+    typeOf: {
+      control: 'select',
+      options: ['collapse', 'expanded', 'fixed'],
+    },
+    platform: {
+      control: 'select',
+      options: ['abp-list', 'anz-list'],
+      description: 'Platform type for the sidebar',
+    },
   },
 };
 
@@ -93,6 +106,22 @@ export const Default = {
   },
 };
 
+export const MailApp = {
+  render: SidebarTemplate,
+  args: {
+    items: mailItems,
+    width: 280,
+  },
+};
+
+export const NarrowSidebar = {
+  render: SidebarTemplate,
+  args: {
+    items: basicItems,
+    width: 180,
+  },
+};
+
 export const Permanent: Story = {
   args: {
     items: basicItems,
@@ -101,24 +130,11 @@ export const Permanent: Story = {
   },
 };
 
-export const WithoutIcons: Story = {
-  args: {
-    items: [
-      { label: 'Home', onClick: () => alert('Home clicked') },
-      { label: 'About', onClick: () => alert('About clicked'), active: true },
-      { label: 'Services', onClick: () => alert('Services clicked') },
-      { label: 'Contact', onClick: () => alert('Contact clicked') },
-    ],
-    isOpen: true,
-    variant: 'permanent',
-  },
-};
-
-export const MailApp = {
+export const WideSidebar = {
   render: SidebarTemplate,
   args: {
-    items: mailItems,
-    width: 280,
+    items: basicItems,
+    width: 320,
   },
 };
 
@@ -135,18 +151,15 @@ export const WithDisabledItems = {
   },
 };
 
-export const NarrowSidebar = {
-  render: SidebarTemplate,
+export const WithoutIcons: Story = {
   args: {
-    items: basicItems,
-    width: 180,
-  },
-};
-
-export const WideSidebar = {
-  render: SidebarTemplate,
-  args: {
-    items: basicItems,
-    width: 320,
+    items: [
+      { label: 'Home', onClick: () => alert('Home clicked') },
+      { label: 'About', onClick: () => alert('About clicked'), active: true },
+      { label: 'Services', onClick: () => alert('Services clicked') },
+      { label: 'Contact', onClick: () => alert('Contact clicked') },
+    ],
+    isOpen: true,
+    variant: 'permanent',
   },
 };
