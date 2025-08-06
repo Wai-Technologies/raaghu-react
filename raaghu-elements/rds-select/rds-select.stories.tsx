@@ -13,6 +13,10 @@ const meta: Meta<typeof RdsSelect> = {
       control: 'object',
       description: 'Array of select options',
     },
+    size: {
+      control: 'select',
+      options: ['small', 'medium'],
+    },
   },
 };
 
@@ -29,22 +33,9 @@ export const Default: Story = {
   args: {
     label: 'Select Option',
     options: basicOptions,
-  },
-};
-
-export const WithValue: Story = {
-  args: {
-    label: 'Pre-selected',
-    value: 'option2',
-    options: basicOptions,
-  },
-};
-
-export const WithPlaceholder: Story = {
-  args: {
-    label: 'Choose an option',
-    placeholder: 'Please select...',
-    options: basicOptions,
+    inputPlaceholder: 'Please select...',
+    labelposition: true,
+    size: 'small',
   },
 };
 
@@ -52,22 +43,6 @@ export const Required: Story = {
   args: {
     label: 'Required Field',
     isRequired: true,
-    options: basicOptions,
-  },
-};
-
-export const WithHelperText: Story = {
-  args: {
-    label: 'Select with Help',
-    helperText: 'Choose one of the available options',
-    options: basicOptions,
-  },
-};
-
-export const WithError: Story = {
-  args: {
-    label: 'Select with Error',
-    errorMessage: 'Please select a valid option',
     options: basicOptions,
   },
 };
@@ -81,5 +56,37 @@ export const WithDisabledOptions: Story = {
       { label: 'Another Available', value: 'option3' },
       { label: 'Also Disabled', value: 'option4', disabled: true },
     ],
+  },
+};
+
+export const WithError: Story = {
+  args: {
+    label: 'Select with Error',
+    errorMessage: 'Please select a valid option',
+    options: basicOptions,
+  },
+};
+
+export const WithHelperText: Story = {
+  args: {
+    label: 'Select with Help',
+    helperText: 'Choose one of the available options',
+    options: basicOptions,
+  },
+};
+
+export const WithPlaceholder: Story = {
+  args: {
+    label: 'Choose an option',
+    placeholder: 'Please select...',
+    options: basicOptions,
+  },
+};
+
+export const WithValue: Story = {
+  args: {
+    label: 'Pre-selected',
+    value: 'option2',
+    options: basicOptions,
   },
 };
