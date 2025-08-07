@@ -16,6 +16,7 @@ export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'chil
   spacing?: number;
   defaultValue?: string | string[];
   iconTextSpacing?: number;
+  inputSize?: 'small' | 'medium' | 'large';
 }
 
 const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
@@ -29,6 +30,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   onChange,
   value: controlledValue,
   defaultValue,
+  inputSize = 'small',
   ...props
 }) => {
   const [internalValue, setInternalValue] = useState<string | string[]>(() => {
@@ -59,6 +61,18 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
       }
     }
   }, [enforceSelected, options, multiple, internalValue, isControlled]);
+
+  // Map inputSize to className
+  const sizeClass =
+    inputSize === 'large'
+      ? 'rds-toggle-button__large'
+      : inputSize === 'medium'
+      ? 'rds-toggle-button__medium'
+      : 'rds-toggle-button__small';
+
+  // Large size style override
+  const largeButtonStyle = inputSize === 'large' ? { fontSize: 18, padding: '12px 32px', minHeight: 48 } : {};
+
 
   // Handle change with enforcement that at least one option must be selected
   const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: any) => {
@@ -129,7 +143,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
           key={option.value}
           value={option.value}
           disabled={option.disabled}
-          className="rds-toggle-button__button"
+          className={`rds-toggle-button__button ${sizeClass}`}
           aria-pressed={multiple ? 
             Array.isArray(value) && value.includes(option.value) : 
             value === option.value

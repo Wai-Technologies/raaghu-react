@@ -169,7 +169,7 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
                 },
               },
             }}
-            size={size === 'large' ? 'medium' : 'small'}
+            size={size === 'small' ? 'small' : 'medium'}
           />
         ) : (
           <Box
