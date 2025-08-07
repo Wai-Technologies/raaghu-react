@@ -2,6 +2,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React, { useState } from 'react';
 import { List as MuiList,ListItem as MuiListItem,ListItemButton as MuiListItemButton,ListItemText as MuiListItemText,ListItemIcon as MuiListItemIcon,ListItemAvatar as MuiListItemAvatar,ListProps, Divider,Checkbox } from '@mui/material';
 import './rds-list.scss';
+import {Paper } from '@mui/material';
 export interface RdsListItem {
   id: string | number;
   primary: string;
@@ -222,9 +223,11 @@ const RdsList: React.FC<RdsListProps> = ({
   }
 
   return (
-    <MuiList className={rootClass} {...props}>
-      {children}
-    </MuiList>
+    <Paper>
+      <MuiList className={rootClass} {...props}>
+        {children}
+      </MuiList>
+    </Paper>
   );
 };
 

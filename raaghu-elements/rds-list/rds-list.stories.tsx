@@ -266,9 +266,6 @@ export const MultipleSelection: Story = {
     return (
       <div className="rds-list-demo__container">
         <div className="rds-list-demo__title">Interactive Multiple Selection</div>
-        <div className="rds-list-demo__description">
-          Click on an item to toggle its selection. The list maintains state of selected items.
-        </div>
         <RdsList
           withDividers
           withCheckboxes
