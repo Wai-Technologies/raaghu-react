@@ -6,10 +6,11 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  background-color: var(--rds-background-paper, #fff);
-  border-radius: var(--rds-border-radius-md, 8px);
-  box-shadow: 0 1.5px 8px 0 rgba(60, 60, 60, 0.08);
-  border: 1px solid var(--rds-border-default, #e0e0e0);
+  background-color: var(--rds-background-paper) !important;
+  box-shadow: var(--rds-shadow-base, 0 1px 1px 0 );
+  border-radius: var(--rds-border-radius-md, 4px);
+  border: none;
+  box-shadow: var(--rds-shadow-2, 0 3px 5px rgba(0,0,0,0.2));
 
   // Element: List item
   &__item {
@@ -17,7 +18,7 @@
     align-items: center;
     min-height: 48px;
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
-    background: transparent;
+    // background: transparent;
     transition: background-color 0.2s ease;
     
     // Last item has no bottom border
@@ -35,11 +36,11 @@
       transition: background-color 0.2s ease, color 0.2s ease;
       
       &:hover {
-        background-color: var(--rds-neutral-100, #f5f5f5);
+        background-color: var(--rds-neutral-100);
       }
       
       &:focus-visible {
-        outline: 2px solid var(--rds-primary-main, #7e2eef);
+        outline: 2px solid var(--rds-primary-main);
         outline-offset: -2px;
         position: relative;
         z-index: 1;
@@ -47,17 +48,17 @@
     }
     
     &--selected {
-      background-color: var(--rds-primary-main, #7e2eef);
-      color: var(--rds-primary-contrast-text, #fff);
+      background-color: var(--rds-primary-main);
+      color: var(--rds-primary-contrast-text);
       font-weight: 500;
       
       .rds-list__content-primary,
       .rds-list__content-secondary {
-        color: var(--rds-primary-contrast-text, #fff);
+        color: var(--rds-primary-contrast-text);
       }
       
       &:hover {
-        background-color: var(--rds-primary-dark, #4f00a6);
+        background-color: var(--rds-primary-dark);
       }
     }
     
@@ -84,9 +85,9 @@
     display: flex;
     align-items: center;
     font-size: var(--rds-font-size-icon-md, 24px);
-    color: var(--rds-text-secondary, #757575);
+    color: var(--rds-text-secondary);
     flex-shrink: 0;
-    margin-right: var(--rds-spacing-md, 16px);
+    margin-right: var(--rds-spacing-md);
   }
 
   // Element: Primary content text
@@ -94,20 +95,20 @@
     font-size: var(--rds-font-size-body, 1rem);
     font-weight: 400;
     transition: color 0.2s;
-    color: var(--rds-text-primary, #212121);
+    color: var(--rds-text-primary);
     margin-bottom: var(--rds-spacing-xxs, 2px);
     line-height: 1.2;
     display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-right: var(--rds-spacing-md, 16px);
+    padding-right: var(--rds-spacing-md);
   }
 
   // Element: Secondary content text
   &__content-secondary {
     font-size: var(--rds-font-size-sm, 0.875rem);
-    color: var(--rds-text-secondary, #757575);
+    color: var(--rds-text-secondary);
     line-height: 1.43;
     display: block;
     transition: color 0.2s;
@@ -128,17 +129,17 @@
   // Element: Divider
   &__divider {
     height: 1px;
-    background-color: var(--rds-border-default, #cdcdcd);
+    background-color: var(--rds-border-default);
     margin: 0;
   }
 
   // Element: Subheader
   &__subheader {
-    padding: var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-sm, 8px);
-    font-size: var(--rds-font-size-body, 1rem);
+    padding: var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-sm);
+    font-size: var(--rds-font-size-body);
     font-weight: 500;
-    color: var(--rds-text-secondary, #757575);
-    background-color: var(--rds-neutral-50, #fafafa);
+    color: var(--rds-text-secondary);
+    background-color: var(--rds-neutral-50);
     position: sticky;
     top: 0;
     z-index: 1;
@@ -184,29 +185,26 @@
   }
 }
 /* Root list resets - following BEM and RDS guidelines */
-.rds-list,
-.rds-list.rds-list--root {
+.rds-list--root {
   padding: 0;
   margin: 0;
   list-style: none;
+  background-color: var(--rds-background-paper) !important;
 }
 
 /* Framework integration adjustments */
 .rds-list__item .MuiListItemButton-root {
   padding: 0;
 }
-
 /* Variant with sticky subheaders */
 .rds-list--with-subheader {
-  background-color: var(--rds-background-paper, #fff);
+  background-color: var(--rds-background-paper);
   margin-bottom: 0;
   border-radius: 0;
 
   .rds-list__subheader {
     font-weight: 500;
     line-height: 48px;
-    color: var(--rds-text-secondary, #616161);
-    background-color: var(--rds-neutral-100, #f5f5f5);
     position: sticky;
     top: 0;
     z-index: 1;
@@ -216,7 +214,7 @@
 
 // Demo container for Storybook examples
 .rds-list-demo__container {
-  background-color: var(--rds-background-paper, #fff);
+  background-color: var(--rds-background-paper);
   border-radius: var(--rds-border-radius-sm, 2px);
   overflow: hidden;
   
@@ -255,7 +253,7 @@
 
 // Demo container (additional styles)
 .rds-list-demo__container {
-  background-color: var(--rds-background-paper, #fff);
+  background-color: var(--rds-background-paper);
   border-radius: var(--rds-border-radius-md, 8px);
   box-shadow: var(--rds-shadow-1, 0 1px 3px rgba(0,0,0,0.1));
   max-width: 400px;
