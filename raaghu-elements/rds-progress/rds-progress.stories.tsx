@@ -55,6 +55,20 @@ export const Circular: Story = {
   },
 };
 
+export const ColorVariants: Story = {
+  args: {
+    variant: 'determinate',
+    value: 60,
+    color: 'secondary',
+  },
+};
+
+export const Indeterminate: Story = {
+  args: {
+    variant: 'indeterminate',
+  },
+};
+
 export const Linear: Story = {
   args: {
     variant: 'determinate',
@@ -67,18 +81,4 @@ export const Linear: Story = {
       </Box>
     ),
   ],
-};
-
-export const Indeterminate: Story = {
-  args: {
-    variant: 'indeterminate',
-  },
-};
-
-export const ColorVariants: Story = {
-  args: {
-    variant: 'determinate',
-    value: 60,
-    color: 'secondary',
-  },
 };
