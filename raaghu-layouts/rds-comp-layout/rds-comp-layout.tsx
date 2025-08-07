@@ -1,6 +1,7 @@
 import React from 'react';
-import { Box, BoxProps } from '@mui/material';
+import { Box, BoxProps, Paper } from '@mui/material';
 import './rds-comp-layout.scss';
+import renderLayoutContent from './renderLayoutContent';
 
 export interface RdsCompLayoutProps extends BoxProps {
   children?: React.ReactNode;
@@ -11,7 +12,11 @@ export interface RdsCompLayoutProps extends BoxProps {
   alignItems?: 'flex-start' | 'center' | 'flex-end' | 'stretch' | 'baseline';
   fullHeight?: boolean;
   fullWidth?: boolean;
+  displayType?: 'Basic' | 'Board' | 'Boxify' | 'Cardify' | 'Collage'|'Gridify'|'Highlight'|'Matrix'|'Mosaic'| 'Nexus'|'Pinboard'|'Sections'|'Snapshots'|'Splitz'|'Spotlight' |'Stacks'| 'Dashboard'|'Relaxed';
+  hasShadow?: boolean;
+   mode?: 'standard',
 }
+
 
 const RdsCompLayout: React.FC<RdsCompLayoutProps> = ({
   children,
@@ -19,22 +24,43 @@ const RdsCompLayout: React.FC<RdsCompLayoutProps> = ({
   direction = 'column',
   fullHeight = false,
   fullWidth = false,
+  displayType,
+  hasShadow = false,
+  wrap = false,
+  justifyContent = 'flex-start',
+  alignItems = 'stretch',
   className,
+   mode,
   ...props
 }) => {
-  const layoutClass = [
-    'rds-comp-layout',
-    direction === 'row' ? 'rds-comp-layout--row' : '',
-    fullHeight ? 'rds-comp-layout--full-height' : '',
-    fullWidth ? 'rds-comp-layout--full-width' : '',
-    className || ''
-  ].join(' ').replace(/\s+/g, ' ').trim();
+  const layoutClass = `rds-layout ${direction} ${fullHeight ? 'full-height' : ''} ${fullWidth ? 'full-width' : ''} ${className || ''}`;
 
-  return (
-    <Box className={layoutClass} {...props}>
+
+ 
+    return (
+  <>
+ {mode ==='standard' ? (renderLayoutContent(displayType?? 'Basic', hasShadow)) : (
+  <Box
+      className={layoutClass}
+      sx={{
+        display: 'flex',
+        flexDirection: direction,
+        flexWrap: wrap ? 'wrap' : 'nowrap',
+        justifyContent,
+        alignItems,
+        gap: spacing,
+        height: fullHeight ? '100%' : 'auto',
+        width: fullWidth ? '100%' : 'auto',
+        ...props.sx,
+      }}
+      {...props}
+    >
       {children}
-    </Box>
-  );
+    </Box>)}
+  </>
+
+
+    )
 };
 
 export default RdsCompLayout;
