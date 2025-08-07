@@ -62,16 +62,20 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
     }
   }, [enforceSelected, options, multiple, internalValue, isControlled]);
 
-  // Map inputSize to className
+  // Map inputSize to BEM modifier class
   const sizeClass =
     inputSize === 'large'
-      ? 'rds-toggle-button__large'
+      ? 'rds-toggle-button--large'
       : inputSize === 'medium'
-      ? 'rds-toggle-button__medium'
-      : 'rds-toggle-button__small';
+      ? 'rds-toggle-button--medium'
+      : 'rds-toggle-button--small';
 
-  // Large size style override
-  const largeButtonStyle = inputSize === 'large' ? { fontSize: 18, padding: '12px 32px', minHeight: 48 } : {};
+  // Large size style override using design tokens
+  const largeButtonStyle = inputSize === 'large' ? {
+    fontSize: 'var(--rds-font-size-lg)',
+    padding: 'var(--rds-spacing-lg, 12px) var(--rds-spacing-2xl)',
+    minHeight: 'var(--rds-toggle-button-min-height-lg)'
+  } : {};
 
 
   // Handle change with enforcement that at least one option must be selected
@@ -144,6 +148,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
           value={option.value}
           disabled={option.disabled}
           className={`rds-toggle-button__button ${sizeClass}`}
+          style={inputSize === 'large' ? largeButtonStyle : {}}
           aria-pressed={multiple ? 
             Array.isArray(value) && value.includes(option.value) : 
             value === option.value
@@ -151,7 +156,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
           aria-label={option.label || `Option ${option.value}`}
         >
           {option.icon && (
-            <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? iconTextSpacing : 0 }}>
+            <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? `var(--rds-spacing-xs, ${iconTextSpacing}px)` : 0 }}>
               {option.icon}
             </span>
           )}
@@ -159,16 +164,16 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
         </MuiToggleButton>
       ));
     }
-    
+
     // With spacing, render custom button wrappers
     return options.map((option, index) => {
       const isSelected = multiple ? 
         Array.isArray(value) && value.includes(option.value) : 
-        value === option.value;  
+        value === option.value;
       const spacingStyle = index === 0 ? {} : {
-        [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: `${spacing}px`
+        [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: `var(--rds-toggle-button-spacing, ${spacing}px)`
       };
-      
+
       // Define position-specific classes for proper styling
       let positionClass = '';
       if (options.length === 1) {
@@ -180,7 +185,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
       } else {
         positionClass = 'rds-toggle-button__button-wrapper--middle';
       }
-        
+
       return (
         <div
           key={option.value}
@@ -190,7 +195,8 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
           <MuiToggleButton
             value={option.value}
             disabled={option.disabled}
-            className={getButtonClassName(index)}
+            className={getButtonClassName(index) + ' ' + sizeClass}
+            style={inputSize === 'large' ? largeButtonStyle : {}}
             onClick={(e) => handleCustomButtonClick(e, option.value)}
             selected={isSelected}
             aria-pressed={isSelected}
@@ -199,7 +205,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
             fullWidth={orientation === 'vertical'}
           >
             {option.icon && (
-              <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? iconTextSpacing : 0 }}>
+              <span className="rds-toggle-button__icon" style={{ marginRight: option.label ? `var(--rds-spacing-xs, ${iconTextSpacing}px)` : 0 }}>
                 {option.icon}
               </span>
             )}
@@ -208,19 +214,19 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
         </div>
       );
     });
-  }, [options, value, multiple, iconTextSpacing, spacing, orientation, color, enforceSelected, getButtonClassName, handleCustomButtonClick]);
+  }, [options, value, multiple, iconTextSpacing, spacing, orientation, color, enforceSelected, getButtonClassName, handleCustomButtonClick, inputSize, largeButtonStyle]);
 
   // Determine if we need to use custom spacing rendering
   const useCustomSpacing = spacing > 0;
 
   return (
-    <div className={`rds-toggle-button rds-toggle-button--${orientation} ${useCustomSpacing ? 'rds-toggle-button--spaced' : ''}`}>
+    <div
+      className={`rds-toggle-button rds-toggle-button--${orientation} ${sizeClass} ${useCustomSpacing ? 'rds-toggle-button--spaced' : ''}`}
+      role="group"
+      aria-label={otherProps['aria-label'] || 'Toggle button group'}
+    >
       {useCustomSpacing ? (
-        <div 
-          className="rds-toggle-button__custom-group"
-          role="group"
-          aria-label={otherProps['aria-label'] || "Toggle button group"}
-        >
+        <div className="rds-toggle-button__custom-group">
           {memoizedButtons}
         </div>
       ) : (
@@ -230,8 +236,6 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
           onChange={handleChange}
           value={value}
           color={color}
-          role="group"
-          aria-label={otherProps['aria-label'] || "Toggle button group"}
           {...otherProps}
           className="rds-toggle-button__group"
         >
