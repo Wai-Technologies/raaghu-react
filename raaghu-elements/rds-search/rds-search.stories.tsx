@@ -90,25 +90,6 @@ export const Default: Story = {
   },
 };
 
-export const WithoutIcons: Story = {
-  render: () => {
-    const [searchValue, setSearchValue] = useState('');
-
-    return (
-      <Box sx={{ width: 300 }}>
-        <RdsSearch
-          value={searchValue}
-          onChange={setSearchValue}
-          onSearch={(value) => alert(`Searching for: ${value}`)}
-          placeholder="Simple search"
-          showSearchIcon={false}
-          showClearButton={false}
-        />
-      </Box>
-    );
-  },
-};
-
 export const AutoSearch: Story = {
   render: () => {
     const [searchValue, setSearchValue] = useState('');
@@ -149,6 +130,48 @@ export const AutoSearch: Story = {
   },
 };
 
+export const FullWidth: Story = {
+  render: () => {
+    const [searchValue, setSearchValue] = useState('');
+
+    return (
+      <Box sx={{ width: '100%', maxWidth: 600 }}>
+        <RdsSearch
+          value={searchValue}
+          onChange={setSearchValue}
+          onSearch={(value) => console.log('Searching:', value)}
+          placeholder="Full width search"
+          fullWidth
+        />
+      </Box>
+    );
+  },
+};
+
+export const Sizes: Story = {
+  render: () => {
+    const [small, setSmall] = useState('');
+    const [medium, setMedium] = useState('');
+
+    return (
+      <Box sx={{ width: 300, display: 'flex', flexDirection: 'column', gap: 3 }}>
+        <RdsSearch
+          value={small}
+          onChange={setSmall}
+          placeholder="Small size"
+          size="small"
+        />
+        <RdsSearch
+          value={medium}
+          onChange={setMedium}
+          placeholder="Medium size (default)"
+          size="medium"
+        />
+      </Box>
+    );
+  },
+};
+
 export const Variants: Story = {
   render: () => {
     const [outlined, setOutlined] = useState('');
@@ -180,42 +203,19 @@ export const Variants: Story = {
   },
 };
 
-export const Sizes: Story = {
-  render: () => {
-    const [small, setSmall] = useState('');
-    const [medium, setMedium] = useState('');
-
-    return (
-      <Box sx={{ width: 300, display: 'flex', flexDirection: 'column', gap: 3 }}>
-        <RdsSearch
-          value={small}
-          onChange={setSmall}
-          placeholder="Small size"
-          size="small"
-        />
-        <RdsSearch
-          value={medium}
-          onChange={setMedium}
-          placeholder="Medium size (default)"
-          size="medium"
-        />
-      </Box>
-    );
-  },
-};
-
-export const FullWidth: Story = {
+export const WithoutIcons: Story = {
   render: () => {
     const [searchValue, setSearchValue] = useState('');
 
     return (
-      <Box sx={{ width: '100%', maxWidth: 600 }}>
+      <Box sx={{ width: 300 }}>
         <RdsSearch
           value={searchValue}
           onChange={setSearchValue}
-          onSearch={(value) => console.log('Searching:', value)}
-          placeholder="Full width search"
-          fullWidth
+          onSearch={(value) => alert(`Searching for: ${value}`)}
+          placeholder="Simple search"
+          showSearchIcon={false}
+          showClearButton={false}
         />
       </Box>
     );

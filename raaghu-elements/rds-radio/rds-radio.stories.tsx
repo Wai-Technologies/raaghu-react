@@ -47,14 +47,6 @@ export const Default: Story = {
   },
 };
 
-export const WithSelectedValue: Story = {
-  args: {
-    label: 'Pre-selected Option',
-    options:  [{ label: 'Option 1', value: 'option1' }],
-    value: 'option1',
-  },
-};
-
 export const Horizontal: Story = {
   args: {
     label: 'Horizontal Layout',
@@ -72,6 +64,14 @@ export const WithDisabledOptions: Story = {
       { label: 'Another Available', value: 'option3' },
       { label: 'Also Disabled', value: 'option4', disabled: true },
     ],
+  },
+};
+
+export const WithSelectedValue: Story = {
+  args: {
+    label: 'Pre-selected Option',
+    options:  [{ label: 'Option 1', value: 'option1' }],
+    value: 'option1',
   },
 };
 
