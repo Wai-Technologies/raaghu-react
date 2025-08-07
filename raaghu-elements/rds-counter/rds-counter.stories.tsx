@@ -34,6 +34,9 @@ const meta: Meta<typeof RdsCounter> = {
     step: {
       control: 'number',
     },
+    controlsClassName: {
+      control: false,
+    },
   },
 };
 
@@ -41,86 +44,107 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => {
-    const [value, setValue] = useState(5);
+
+  args: {
+    value: 5,
+    label: 'Quantity',
+    min: 0,
+    max: 100,
+    size: 'medium',
+    variant: 'default',
+    disabled: false,
+    showInput: true,
+    step: 1,
+  },
+   render: (args) => {
+    const [value, setValue] = useState(args.value);
 
     return (
       <RdsCounter
+      {...args}
         value={value}
         onChange={setValue}
-        label="Quantity"
-        min={0}
-        max={100}
       />
     );
   },
 };
 
 export const Compact: Story = {
-  render: () => {
-    const [value, setValue] = useState(1);
+ args: {
+    value: 1,
+    label: 'Items',
+    variant: 'compact',
+    min: 1,
+    max: 10,
+    size: 'medium',
+    disabled: false,
+    showInput: true,
+  },
+  render: (args) => {
+    const [value, setValue] = useState(args.value);
 
     return (
       <RdsCounter
+        {...args}
         value={value}
         onChange={setValue}
-        label="Items"
-        variant="compact"
-        min={1}
-        max={10}
       />
     );
   },
 };
 
 export const WithoutInput: Story = {
-  render: () => {
-    const [value, setValue] = useState(3);
-
+  args: {
+    value: 3,
+    label: 'Score',
+    showInput: false,
+    min: 0,
+    max: 10,
+  },
+  render: (args) => {
+    const [value, setValue] = useState(args.value);
     return (
       <RdsCounter
+        {...args}
         value={value}
         onChange={setValue}
-        label="Score"
-        showInput={false}
-        min={0}
-        max={10}
       />
     );
   },
 };
 
 export const Sizes: Story = {
-  render: () => {
+  args: {
+    min: 0,
+    max: 10,
+  },
+  render: (args) => {
     const [small, setSmall] = useState(1);
     const [medium, setMedium] = useState(2);
     const [large, setLarge] = useState(3);
 
     return (
-      <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
+      <Box sx={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
         <RdsCounter
+          {...args}
           value={small}
           onChange={setSmall}
           label="Small"
           size="small"
-          min={0}
-          max={10}
         />
         <RdsCounter
+          {...args}
           value={medium}
           onChange={setMedium}
           label="Medium"
           size="medium"
-          min={0}
-          max={10}
         />
         <RdsCounter
+          {...args}
           value={large}
           onChange={setLarge}
           label="Large"
           size="large"
-          min={0}
-          max={10}
         />
       </Box>
     );
@@ -128,39 +152,38 @@ export const Sizes: Story = {
 };
 
 export const CompactSizes: Story = {
-  render: () => {
+  args: {
+    min: 0,
+    max: 10,
+    variant: 'compact',
+  },
+  render: (args) => {
     const [small, setSmall] = useState(1);
     const [medium, setMedium] = useState(2);
     const [large, setLarge] = useState(3);
 
     return (
-      <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
+      <Box sx={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
         <RdsCounter
+          {...args}
           value={small}
           onChange={setSmall}
           label="Small"
-          variant="compact"
           size="small"
-          min={0}
-          max={10}
         />
         <RdsCounter
+          {...args}
           value={medium}
           onChange={setMedium}
           label="Medium"
-          variant="compact"
           size="medium"
-          min={0}
-          max={10}
         />
         <RdsCounter
+          {...args}
           value={large}
           onChange={setLarge}
           label="Large"
-          variant="compact"
           size="large"
-          min={0}
-          max={10}
         />
       </Box>
     );
@@ -168,59 +191,69 @@ export const CompactSizes: Story = {
 };
 
 export const WithConstraints: Story = {
-  render: () => {
-    const [value, setValue] = useState(5);
-
+  args: {
+    value: 5,
+    label: 'Limited Range (2-8)',
+    min: 2,
+    max: 8,
+    step: 1,
+  },
+  render: (args) => {
+    const [value, setValue] = useState(args.value);
     return (
       <RdsCounter
+        {...args}
         value={value}
         onChange={setValue}
-        label="Limited Range (2-8)"
-        min={2}
-        max={8}
-        step={1}
       />
     );
   },
 };
 
 export const StepExample: Story = {
-  render: () => {
-    const [value, setValue] = useState(10);
-
+  args: {
+    value: 10,
+    label: 'Step by 5',
+    min: 0,
+    max: 100,
+    step: 5,
+  },
+  render: (args) => {
+    const [value, setValue] = useState(args.value);
     return (
       <RdsCounter
+        {...args}
         value={value}
         onChange={setValue}
-        label="Step by 5"
-        min={0}
-        max={100}
-        step={5}
       />
     );
   },
 };
 
 export const Disabled: Story = {
-  render: () => {
+  args: {
+    min: 0,
+    max: 10,
+    disabled: true,
+  },
+  render: (args) => {
+    const [defaultValue] = useState(5);
+    const [compactValue] = useState(3);
     return (
-      <Box sx={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
+      <Box sx={{ display: 'flex', gap: 6, alignItems: 'flex-start' }}>
         <RdsCounter
-          value={5}
+          {...args}
+          value={defaultValue}
           onChange={() => {}}
           label="Disabled Default"
-          disabled
-          min={0}
-          max={10}
+          variant="default"
         />
         <RdsCounter
-          value={3}
+          {...args}
+          value={compactValue}
           onChange={() => {}}
           label="Disabled Compact"
           variant="compact"
-          disabled
-          min={0}
-          max={10}
         />
       </Box>
     );
@@ -228,7 +261,13 @@ export const Disabled: Story = {
 };
 
 export const Interactive: Story = {
-  render: () => {
+  args: {
+    min: 0,
+    max: 20,
+    size: 'small',
+    variant: 'compact',
+  },
+  render: (args) => {
     const [cart, setCart] = useState([
       { id: 1, name: 'Apple', quantity: 2, price: 1.50 },
       { id: 2, name: 'Banana', quantity: 1, price: 0.75 },
@@ -242,6 +281,16 @@ export const Interactive: Story = {
     };
 
     const total = cart.reduce((sum, item) => sum + (item.quantity * item.price), 0);
+
+    // Dynamically set controlsClassName for compact variant and size
+    const getControlsClassName = () => {
+      if (args.variant === 'compact') {
+        if (args.size === 'large') return 'rds-counter__controls--large_interactive';
+        if (args.size === 'medium') return 'rds-counter__controls--medium_interactive';
+        return 'rds-counter__controls--small_interactive';
+      }
+      return undefined;
+    };
 
     return (
       <Box sx={{ width: 400 }}>
@@ -264,14 +313,12 @@ export const Interactive: Story = {
               </Box>
             </Box>
             <RdsCounter
+              {...args}
               value={item.quantity}
               onChange={(quantity) => updateQuantity(item.id, quantity)}
-              variant="compact"
-              size="small"
-              min={0}
-              max={20}
+              controlsClassName={getControlsClassName()}
             />
-            <Box sx={{ width: 80, textAlign: 'right', fontWeight: 'medium' }}>
+            <Box sx={{ width: 100, textAlign: 'right', fontWeight: 'medium' }}>
               ${(item.quantity * item.price).toFixed(2)}
             </Box>
           </Box>
