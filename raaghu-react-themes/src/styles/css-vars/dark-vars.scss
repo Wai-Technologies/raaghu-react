@@ -45,4 +45,7 @@
   
   // Body and component colors
   --body-bg: #{$body-bg};
+  
+  // Component-specific theme overrides
+  --rds-background-paper: #{$neutral-800} !important;
 }
