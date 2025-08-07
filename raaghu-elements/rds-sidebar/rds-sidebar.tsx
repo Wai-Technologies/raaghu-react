@@ -32,6 +32,8 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children'> {
   layout?: 'raaghu' | 'list' | 'toolbar';
   typeOf?: 'collapse' | 'expanded' | 'fixed';
   platform?: 'abp-list' | 'anz-list';
+  avatarSrc?: string;
+  avatarCollapsedSrc?: string;
 }
 
 const RdsSidebar: React.FC<RdsSidebarProps> = ({
@@ -42,6 +44,8 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({
   variant = 'temporary',
   showSearch = true,
   typeOf = 'expanded',
+  avatarSrc,
+  avatarCollapsedSrc,
   ...props
 }) => {
   const [searchValue, setSearchValue] = React.useState("");
@@ -114,7 +118,7 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({
               isCollapsed ? (
                 <RdsAvatar
                   activeDotBottom
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                  src={avatarSrc}
                 />
               ) : (
                 <RdsAvatar
@@ -125,12 +129,12 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({
                   showDesignation
                   showName
                   activeDotBottom
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                  src={avatarSrc}
                 />
               )
             ) : (
               <img
-                src={isCollapsed ? '/raaghu.png' : 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png'}
+                src={isCollapsed ? '/raaghu.png' : avatarCollapsedSrc}
                 alt="Raaghu Design System Logo"
                 className={getLogoClass()}
               />
@@ -152,7 +156,7 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({
                 placeholder={isCollapsed ? '' : 'Search...'}
                 size="small"
                 value={searchValue}
-                sx={{ width: isCollapsed ? 38 : 210 }}
+                sx={{ width: isCollapsed ? 38 : 205 }}
               />
             </div>
           </>
@@ -195,12 +199,12 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({
                 showDesignation
                 showName
                 activeDotBottom
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                src={avatarSrc}
               />
             ) : (
               <RdsAvatar
                 activeDotBottom
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                src={avatarSrc}
               />
             )}
           </div>

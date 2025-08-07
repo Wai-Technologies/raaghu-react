@@ -127,6 +127,8 @@ export const Permanent: Story = {
     items: basicItems,
     isOpen: true,
     variant: 'permanent',
+    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
   },
 };
 
