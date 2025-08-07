@@ -1,3 +1,4 @@
+
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompLayout from './rds-comp-layout';
 import { Paper, Typography, Box } from '@mui/material';
@@ -41,6 +42,15 @@ const meta: Meta<typeof RdsCompLayout> = {
       control: 'boolean',
       description: 'Whether layout should take full width',
     },
+    displayType: {
+      control: 'select',
+      options: ['Basic', 'Board','Boxify','Cardify','Collage','Gridify', 'Highlight', 'Matrix','Mosaic','Nexus','Pinboard','Sections','Splitz', 'Spotlight', 'Stacks','Dashboard','Relaxed'],
+      description: 'Type of layout display style',
+    },
+    hasShadow: {
+      control: 'boolean',
+      description: 'Whether the layout has a shadow',
+    },
   },
 };
 
@@ -56,218 +66,260 @@ const SampleCard = ({ title }: { title: string }) => (
   </div>
 );
 
+// export const Default: Story = {
+//   args: {
+//     spacing: 2,
+//     direction: 'column',
+//     children: (
+//       <>
+//         <SampleCard title="Item 1" />
+//         <SampleCard title="Item 2" />
+//         <SampleCard title="Item 3" />
+//       </>
+//     ),
+//   },
+// };
+
+
+// Board style story using displayType and hasShadow, with conditional rendering
+// export const Basic: Story = {
+//   args: {
+//     displayType: 'Basic',
+//     hasShadow: false,
+//     spacing: 2,
+//     direction: 'column',
+//     // children: (
+//     //   <Box className="layout1 layout-shadow" sx={{ minHeight: '200', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start', bgcolor: 'transparent', p: 1, boxShadow:'0 0 6px 5px #4d525912' }}>
+//     //     <Box sx={{ p: '1rem', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+//     //       <Paper
+//     //         // className="content-with-full-height border-danger"
+//     //         elevation={3}
+//     //         sx={{
+//     //           position: 'relative',
+//     //           p: 2.5,
+//     //           border: '1px solid #d3dcea',
+//     //           borderRadius: 2.5,
+//     //           boxShadow: '0 0 6px 5px #4d525912',
+//     //           background: '#fff',
+//     //           minHeight: 200,
+//     //           height: '83vh',
+//     //           width: '100%',
+             
+//     //           mx: 'auto',
+//     //         }}
+//     //       >
+//     //         {/* Blank card for layout showcase */}
+//     //       </Paper>
+//     //     </Box>
+//     //   </Box>
+//     // ),
+//   },
+// };
+
+
+// export const Board: Story ={
+//  args: {
+//     displayType: 'Board',
+//     hasShadow: false,
+//     spacing: 2,
+//     direction: 'column',
+//   }
+// }
+// export const Boxify: Story ={
+//  args: {
+//     displayType: 'Boxify',
+//     hasShadow: false,
+//     spacing: 2,
+//     direction: 'column',
+//   }
+// }
+
+// export const Cardify: Story ={
+//  args: {
+//     displayType: 'Cardify',
+//     hasShadow: false,
+//     spacing: 2,
+//     direction: 'column',
+//   }
+// }
+// export const Collage: Story ={
+//  args: {
+//     displayType: 'Collage',
+//     hasShadow: false,
+//     spacing: 2,
+//     direction: 'column',
+//   }
+// }
+
 export const Default: Story = {
   args: {
+    displayType: 'Basic',
+    hasShadow: false,
     spacing: 2,
     direction: 'column',
-    children: (
-      <>
-        <SampleCard title="Item 1" />
-        <SampleCard title="Item 2" />
-        <SampleCard title="Item 3" />
-      </>
-    ),
+    mode: 'standard', // <-- add this
   },
 };
-export const AsymmetricGrid: Story = {
+
+export const Board: Story = {
   args: {
-    spacing: 2,
-    direction: 'row',
-    wrap: true,
-    children: (
-      <>
-        <div className="rds-comp-layout__item" style={{ flex: '2 1 60%' }}>
-          <Paper sx={{ p: 2, minHeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h6">Large Card</Typography>
-          </Paper>
-        </div>
-        <div className="rds-comp-layout__item" style={{ flex: '1 1 35%' }}>
-          <Paper sx={{ p: 2, minHeight: 290, display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
-            <Typography variant="h6">Small Card 1</Typography>
-          </Paper>
-          <Paper sx={{ p: 2, minHeight: 290, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h6">Small Card 2</Typography>
-          </Paper>
-        </div>
-      </>
-    ),
-  },
-}
-export const DashboardGrid: Story = {
-  args: {
-    spacing: 2,
-    direction: 'row',
-    wrap: true,
-    children: (
-      <>
-        {[...Array(6)].map((_, i) => (
-          <div className="rds-comp-layout__item" key={i} style={{ flex: '1 1 30%', minWidth: 220, marginBottom: 16 }}>
-            <Paper sx={{ p: 2, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Typography variant="h6">Card {i + 1}</Typography>
-            </Paper>
-          </div>
-        ))}
-      </>
-    ),
-  },
-};
-export const HeaderContentFooter: Story = {
-  args: {
+    displayType: 'Board',
+    hasShadow: false,
     spacing: 2,
     direction: 'column',
-    children: (
-      <>
-        <div className="rds-comp-layout__item">
-          <Paper sx={{ p: 2, minHeight: 60, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h6">Header</Typography>
-          </Paper>
-        </div>
-        <div className="rds-comp-layout__item">
-          <Paper sx={{ p: 2, minHeight: 200, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h6">Main Content</Typography>
-          </Paper>
-        </div>
-        <div className="rds-comp-layout__item">
-          <Paper sx={{ p: 2, minHeight: 60, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h6">Footer</Typography>
-          </Paper>
-        </div>
-      </>
-    ),
-  },
+    mode: 'standard', 
+  }
 };
-export const GridLikeLayout: Story = {
+
+export const Boxify: Story = {
   args: {
+    displayType: 'Boxify',
+    hasShadow: false,
     spacing: 2,
-    direction: 'row',
-    wrap: true,
-    children: (
-      <>
-        <div className="rds-comp-layout__item" style={{ flexBasis: '45%' }}>
-          <SampleCard title="Card 1" />
-        </div>
-        <div className="rds-comp-layout__item" style={{ flexBasis: '45%' }}>
-          <SampleCard title="Card 2" />
-        </div>
-        <div className="rds-comp-layout__item" style={{ flexBasis: '45%' }}>
-          <SampleCard title="Card 3" />
-        </div>
-        <div className="rds-comp-layout__item" style={{ flexBasis: '45%' }}>
-          <SampleCard title="Card 4" />
-        </div>
-      </>
-    ),
-  },
-};
-export const CenteredLayout: Story = {
-  args: {
-    spacing: 3,
     direction: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fullHeight: true,
-    sx: { minHeight: '400px' },
-    children: (
-      <>
-        <SampleCard title="Centered Item 1" />
-        <SampleCard title="Centered Item 2" />
-      </>
-    ),
-  },
+    mode: 'standard', 
+  }
 };
-export const RowLayout: Story = {
+
+export const Cardify: Story = {
   args: {
+    displayType: 'Cardify',
+    hasShadow: false,
     spacing: 2,
-    direction: 'row',
-    children: (
-      <>
-        <SampleCard title="Item 1" />
-        <SampleCard title="Item 2" />
-        <SampleCard title="Item 3" />
-      </>
-    ),
-  },
+    direction: 'column',
+    mode: 'standard',
+  }
 };
-export const SpaceBetween: Story = {
+
+export const Collage: Story = {
   args: {
-    spacing: 0,
-    direction: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    fullWidth: true,
-    children: (
-      <>
-        <SampleCard title="Left" />
-        <SampleCard title="Center" />
-        <SampleCard title="Right" />
-      </>
-    ),
-  },
-};
-export const SidebarLayout: Story = {
-  args: {
+    displayType: 'Collage',
+    hasShadow: false,
     spacing: 2,
-    direction: 'row',
-    children: (
-      <>
-        <div className="rds-comp-layout__item" style={{ flex: '0 0 220px' }}>
-          <Paper sx={{ p: 2, minHeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h6">Sidebar</Typography>
-          </Paper>
-        </div>
-        <div className="rds-comp-layout__item" style={{ flex: '1 1 auto' }}>
-          <Paper sx={{ p: 2, minHeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h6">Main Content</Typography>
-          </Paper>
-        </div>
-      </>
-    ),
-  },
+    direction: 'column',
+    mode: 'standard', 
+  }
 };
-export const TwoColumnGrid: Story = {
+
+export const Gridify: Story = {
   args: {
+    displayType: 'Gridify',
+    hasShadow: false,
     spacing: 2,
-    direction: 'row',
-    wrap: true,
-    children: (
-      <>
-        <div className="rds-comp-layout__item" style={{ flex: '1 1 48%' }}>
-          <Paper sx={{ p: 2, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h6">Left Column</Typography>
-          </Paper>
-        </div>
-        <div className="rds-comp-layout__item" style={{ flex: '1 1 48%' }}>
-          <Paper sx={{ p: 2, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h6">Right Column</Typography>
-          </Paper>
-        </div>
-      </>
-    ),
-  },
+    direction: 'column',
+    mode: 'standard', 
+  }
 };
-export const ThreeColumnGrid: Story = {
+
+export const Highlight: Story = {
   args: {
+    displayType: 'Highlight',
+    hasShadow: false,
     spacing: 2,
-    direction: 'row',
-    wrap: true,
-    children: (
-      <>
-        <div className="rds-comp-layout__item" style={{ flex: '1 1 30%' }}>
-          <Paper sx={{ p: 2, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h6">Column 1</Typography>
-          </Paper>
-        </div>
-        <div className="rds-comp-layout__item" style={{ flex: '1 1 30%' }}>
-          <Paper sx={{ p: 2, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h6">Column 2</Typography>
-          </Paper>
-        </div>
-        <div className="rds-comp-layout__item" style={{ flex: '1 1 30%' }}>
-          <Paper sx={{ p: 2, minHeight: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant="h6">Column 3</Typography>
-          </Paper>
-        </div>
-      </>
-    ),
-  },
+    direction: 'column',
+    mode: 'standard', 
+  }
 };
+
+export const Matrix: Story = {
+  args: {
+    displayType: 'Matrix',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+
+export const Mosaic: Story = {
+  args: {
+    displayType: 'Mosaic',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Nexus: Story = {
+  args: {
+    displayType: 'Nexus',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Pinboard: Story = {
+  args: {
+    displayType: 'Pinboard',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Sections: Story = {
+  args: {
+    displayType: 'Sections',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Snapshots: Story = {
+  args: {
+    displayType: 'Snapshots',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Splitz: Story = {
+  args: {
+    displayType: 'Splitz',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Spotlight: Story = {
+  args: {
+    displayType: 'Spotlight',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Stacks: Story = {
+  args: {
+    displayType: 'Stacks',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Dashboard: Story = {
+  args: {
+    displayType: 'Dashboard',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+export const Relaxed: Story = {
+  args: {
+    displayType: 'Relaxed',
+    hasShadow: false,
+    spacing: 2,
+    direction: 'column',
+    mode: 'standard', 
+  }
+};
+
+

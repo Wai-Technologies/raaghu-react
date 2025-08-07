@@ -1,33 +1,94 @@
 // RDS Dialog Component Styles
 // Dialog modal component
 
+
+// RDS Dialog Component Styles
 .rds-dialog {
   display: block;
   position: relative;
 
-  &__title {
-    // Title styles
-    display: block;
-  }
+  // &__title {
+  //   display: flex !important;
+  //   align-items: center !important;
+  //   justify-content: center !important;
+    
+  //   // Title styles
+  // }
 
   &__content {
-    // Content styles
     display: block;
+    padding: var(--rds-spacing-2xl, 32px) var(--rds-spacing-xl, 24px);
+    text-align: center;
+    font-size: var(--rds-font-size-md, 16px);
+    color: var(--rds-text-primary, #444);
   }
 
   &__actions {
-    // Actions styles
-    display: block;
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--rds-spacing-md, 12px);
+    padding: var(--rds-spacing-lg, 16px) var(--rds-spacing-xl, 24px) var(--rds-spacing-2xl, 24px) var(--rds-spacing-xl, 24px);
+    background: transparent;
   }
 
-  &--full-screen {
-    // Full-screen state styles
+  &__paper {
+    max-width: var(--rds-dialog-max-width, 600px);
+    width: 100%;
+    border-radius: var(--rds-border-radius-lg, 12px);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+    background: var(--rds-background-paper, #fff);
+    margin: var(--rds-spacing-2xl, 32px) auto;
   }
 
-  // Interactive states
-  &:hover {
-    // Hover styles
+  &__close-button {
+    position: absolute;
+    right: var(--rds-spacing-lg, 16px);
+    top: var(--rds-spacing-lg, 16px);
+    color: var(--rds-text-secondary, #888);
   }
+
+  &__button {
+    min-width: var(--rds-spacing-xl, 80px);
+    font-size: var(--rds-font-size-md, 16px);
+    border-radius: var(--rds-border-radius, 6px);
+    background: var(--rds-background-paper, #fff);
+    color: var(--rds-color-primary, #1976d2);
+    border: 1px solid var(--rds-color-primary, #1976d2);
+
+    &:hover {
+      background: var(--rds-color-primary-hover-bg, #e3f2fd);
+    }
+
+    &__primary {
+      background: var(--rds-color-primary, #3C98FF) !important;
+      color: var(--rds-primary-contrast-text, #fff);
+      box-shadow: none;
+
+      &:hover {
+        background: var(--rds-color-primary-hover, #1565c0);
+      }
+    }
+
+    &__secondary {
+      color: var(--rds-color-primary, #1976d2);
+      border: 1px solid var(--rds-color-primary, #1976d2);
+      background: var(--rds-background-paper, #fff);
+
+      &:hover {
+        background: var(--rds-color-primary-hover-bg, #e3f2fd);
+      }
+    }
+
+    &__dismiss {
+      color: var(--rds-color-primary, #1976d2);
+      background: transparent;
+
+      &:hover {
+        background: var(--rds-color-primary-hover-bg, #e3f2fd);
+      }
+    }
+  }
+
 
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
@@ -40,3 +101,4 @@
     pointer-events: none;
   }
 }
+
