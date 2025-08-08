@@ -1,3 +1,12 @@
+[data-theme="dark"], .dark {
+  // Existing app bar dark mode overrides...
+  --rds-color-surface-alt: var(--rds-background-surface, #23272b);
+  --rds-color-on-surface: var(--rds-text-primary, #e3e3e3);
+  --rds-color-border: var(--rds-border-default, #444b54);
+  // Optional: search field specific
+  --rds-header__search-field-bg: var(--rds-background-surface, #23272b);
+  --rds-header__search-field-color: var(--rds-text-primary, #e3e3e3);
+}
 // =======================
 //  RDS App Bar Stories Utility Classes  
 // =======================
@@ -50,7 +59,7 @@
 .rds-appbar-separator {
   height: 60px;
   width: 1px;
-  background: #D0D0D0;
+  background: var(--rds-appbar-separator-bg, #D0D0D0);
   margin: 0 4px;
 }
 
@@ -104,10 +113,10 @@
   display: flex;
   align-items: center;
   padding: 0 var(--rds-font-size-lg);
-  background-color: var(--rds-primary-main);
-  color: var(--rds-background-paper);
+  background-color: var(--rds-appbar-bg, var(--rds-primary-main));
+  color: var(--rds-appbar-color, var(--rds-background-paper));
   min-height: 6var(--rds-spacing-xs);
-  box-shadow: 0 2px var(--rds-spacing-xs) rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px var(--rds-spacing-xs) var(--rds-appbar-shadow, rgba(0, 0, 0, 0.2));
   position: relative;
   z-index: var(--rds-z-index-sticky);
 
@@ -130,11 +139,11 @@
 
   // Color variants
   &--primary {
-    background-color: var(--rds-primary-main);
+    background-color: var(--rds-appbar-bg, var(--rds-primary-main));
   }
 
   &--secondary {
-    background-color: #dc004e;
+    background-color: var(--rds-appbar-secondary-bg, #dc004e);
   }
 
   &--transparent {
@@ -535,11 +544,21 @@
   gap: 16px;
 }
 .rds-appbar-badge {
-  background: #EAF3FF;
-  color: #3C98FF;
+  background: var(--rds-appbar-badge-bg, #EAF3FF);
+  color: var(--rds-appbar-badge-color, #3C98FF);
   border-radius: 6px;
   padding: 4px 12px;
   font-weight: 500;
   font-size: 12px;
   margin-right: 8px;
+}
+// DARK MODE OVERRIDES
+[data-theme="dark"], .dark {
+  --rds-appbar-bg: #181c20;
+  --rds-appbar-color: #fff;
+  --rds-appbar-shadow: rgba(0,0,0,0.5);
+  --rds-appbar-separator-bg: #333a42;
+  --rds-appbar-secondary-bg: #7c2946;
+  --rds-appbar-badge-bg: #232e3a;
+  --rds-appbar-badge-color: #90caf9;
 }

@@ -73,7 +73,7 @@ const RdsAlert: React.FC<RdsAlertProps> = ({
           <div className="rds-alert__actions">
             {showLink && (
               <RdsButton
-                variant="text"
+                style="transparent"
                 size="small"
                 className="rds-alert__link-button"
               >
@@ -81,8 +81,8 @@ const RdsAlert: React.FC<RdsAlertProps> = ({
               </RdsButton>
             )}
 
-            {showSecondary && <RdsButton variant="text" size="small" sx={{ mr: showPrimary ? 2 : 0 }}>Cancel</RdsButton>}
-            {showPrimary && <RdsButton variant="contained" size="small">Okay</RdsButton>}
+            {showSecondary && <RdsButton style="transparent" size="small" sx={{ mr: showPrimary ? 2 : 0 }}>Cancel</RdsButton>}
+            {showPrimary && <RdsButton style="filled" size="small">Okay</RdsButton>}
           </div>
         )}
       </div>
