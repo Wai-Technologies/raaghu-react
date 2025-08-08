@@ -1,0 +1,130 @@
+// RDS Spinner Component Styles
+:root {
+  // Spinner color variables
+  --rds-spinner-primary-color: #1976d2;
+  --rds-spinner-secondary-color: #6c757d;
+  --rds-spinner-success-color: #28a745;
+  --rds-spinner-danger-color: #dc3545;
+  --rds-spinner-warning-color: #ffc107;
+  --rds-spinner-info-color: #17a2b8;
+  --rds-spinner-light-color: #f8f9fa;
+  --rds-spinner-dark-color: #343a40;
+  
+  // Animation timing
+  --rds-spinner-animation-duration: 0.75s;
+}
+
+.spinner-border {
+  display: inline-block;
+  vertical-align: middle;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner-border var(--rds-spinner-animation-duration) linear infinite;
+  color: var(--rds-primary-main, var(--rds-spinner-primary-color));
+}
+
+.spinner-grow {
+  display: inline-block;
+  vertical-align: middle;
+  background-color: currentColor;
+  border-radius: 50%;
+  opacity: 0;
+  animation: spinner-grow var(--rds-spinner-animation-duration) linear infinite;
+  color: var(--rds-primary-main, var(--rds-spinner-primary-color));
+}
+
+// Color variants
+.text-primary {
+  color: var(--rds-primary-main, var(--rds-spinner-primary-color)) !important;
+}
+
+.text-secondary {
+  color: var(--rds-secondary-main, var(--rds-spinner-secondary-color)) !important;
+}
+
+.text-success {
+  color: var(--rds-success-main, var(--rds-spinner-success-color)) !important;
+}
+
+.text-danger {
+  color: var(--rds-error-main, var(--rds-spinner-danger-color)) !important;
+}
+
+.text-warning {
+  color: var(--rds-warning-main, var(--rds-spinner-warning-color)) !important;
+}
+
+.text-info {
+  color: var(--rds-info-main, var(--rds-spinner-info-color)) !important;
+}
+
+.text-light {
+  color: var(--rds-grey-300, var(--rds-spinner-light-color)) !important;
+}
+
+.text-dark {
+  color: var(--rds-grey-900, var(--rds-spinner-dark-color)) !important;
+}
+
+// Layout classes
+.spinner-container {
+  // Base container styles
+  &--default {
+    display: flex;
+    align-items: center;
+  }
+
+  // Label on bottom layout
+  &--label-bottom {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  // Label and spinner layout
+  &--label-spinner {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  // Spinner and label layout
+  &--spinner-label {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
+    justify-content: flex-end;
+  }
+
+  // Label on top layout
+  &--label-top {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  // For all types
+  .spinner-label {
+    margin-bottom: 0;
+  }
+}
+
+// Animation keyframes
+@keyframes spinner-border {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes spinner-grow {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
