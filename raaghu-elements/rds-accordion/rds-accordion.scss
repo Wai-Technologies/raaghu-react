@@ -4,8 +4,8 @@
   border-radius: var(--rds-spacing-xs);
   overflow: hidden;
 
-  background-color: var(--rds-accordion-bg, var(--rds-background-surface));
-  color: var(--rds-accordion-text, #333);
+   background-color: var(--rds-accordion-bg, var(--rds-background-surface));
+  color: var(--rds-accordion-text);
   transition: background-color var(--rds-transition-base);
   &__summary {
     display: flex;
@@ -146,3 +146,4 @@
     }
   }
 }
+

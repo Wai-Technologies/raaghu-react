@@ -5,7 +5,7 @@
   justify-content: center;
   border-radius: var(--rds-border-radius-full);
   background-color: var(--rds-border-default);
-  color: var(--rds-text-secondary);
+  // color: var(--rds-text-secondary);
   font-weight: 500;
   overflow: visible;
   position: relative;
@@ -171,13 +171,13 @@
   &__name {
     font-size: var(--rds-font-size-md, 1rem);
     font-weight: 600;
-    color: var(--rds-text-primary, #222);
+    color: var(--rds-text-primary);
     line-height: 1.1;
   }
 
   &__designation {
     font-size: var(--rds-font-size-sm, 0.95rem);
-    color: var(--rds-text-secondary, #888);
+    color: var(--rds-text-secondary,);
     font-weight: 400;
     line-height: 1.1;
   }
@@ -358,12 +358,12 @@
   &__name {
     font-size: var(--rds-font-size-md, 1rem);
     font-weight: 600;
-    color: var(--rds-text-primary, #222);
+    color: var(--rds-text-primary);
     line-height: 1.1;
   }
   &__designation {
     font-size: var(--rds-font-size-sm, 0.95rem);
-    color: var(--rds-text-secondary, #888);
+    color: var(--rds-text-secondary);
     font-weight: 400;
     line-height: 1.1;
   }
@@ -381,7 +381,7 @@
     transition: box-shadow 0.2s;
     position: absolute;
     top: 0;
-    background: var(--rds-background-paper, #f4f6fa);
+    background: var(--rds-background-paper);
   }
   // &__stacking-container {
   //   /* Used for layout sizing only */
