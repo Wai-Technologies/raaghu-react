@@ -10,20 +10,6 @@
     box-shadow: var(--rds-elevation-1);
   }
   
-  // &__scroll-container {
-  //   overflow-x: auto;
-  //   overflow-y: auto;
-    
-  //   &::-webkit-scrollbar {
-  //     display: none !important;
-  //     width: 0 !important;
-  //     height: 0 !important;
-  //   }
-    
-  //   scrollbar-width: none !important;
-  //   -ms-overflow-style: none !important;
-  // }
-
 
   &__table {
     width: 100%;
@@ -200,13 +186,13 @@
     padding: 4px 12px;
     
     &--badge {
-      background-color: #e3f2fd;
-      color: #1976d2;
+      background-color: var(--rds-color-info-light);
+      color: var(--rds-color-info);
     }
     
     &--image {
-      background-color: #e3f2fd;
-      color: #1976d2;
+      background-color: var(--rds-color-info-light);
+      color: var(--rds-color-info);
     }
     
     &--active {
@@ -243,7 +229,7 @@
       
       &:hover {
         background-color: var(--rds-color-info);
-        color: white;
+        color: var(--rds-color-on-info);
       }
     }
     
@@ -391,27 +377,16 @@
     &__avatar-subtitle {
       color: var(--rds-dark-color-text-secondary);
     }
+    
+    // Avatar component text colors in dark theme
+    .rds-avatar {
+      &__name {
+        color: var(--rds-dark-color-text-primary) !important;
+      }
+      
+      &__designation {
+        color: var(--rds-dark-color-text-secondary) !important;
+      }
+    }
   }
 }
-
-// // Global scrollbar hiding for MUI components and all browsers
-// .rds-table .MuiTableContainer-root,
-// .rds-table .MuiTable-root,
-// .rds-table .MuiPaper-root {
-//   &::-webkit-scrollbar {
-//     display: none !important;
-//     width: 0 !important;
-//     height: 0 !important;
-//   }
-  
-//   &::-webkit-scrollbar-track {
-//     display: none !important;
-//   }
-  
-//   &::-webkit-scrollbar-thumb {
-//     display: none !important;
-//   }
-  
-//   scrollbar-width: none !important;
-//   -ms-overflow-style: none !important;
-// }
