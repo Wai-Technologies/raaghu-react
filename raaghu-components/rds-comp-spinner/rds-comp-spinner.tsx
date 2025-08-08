@@ -27,12 +27,23 @@ export interface RdsCompSpinnerProps {
     colorVariant?: string;
 }
 
-const RdsCompSpinner = (props: RdsCompSpinnerProps) => {
-    const spinnerClass = props.spinnerType === "grow" ? "spinner-grow" : "spinner-border";
-    const colorClass = props.colorVariant ? `text-${props.colorVariant}` : "";
+const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
+    spinnerType = "border",
+    width,
+    borderWidth,
+    height,
+    showLabel = false,
+    labelText,
+    size,
+    layout,
+    colorVariant,
+    ...props
+}) => {
+    const spinnerClass = spinnerType === "grow" ? "spinner-grow" : "spinner-border";
+    const colorClass = colorVariant ? `text-${colorVariant}` : "";
 
     const getSizeDimensions = () => {
-        switch (props.size) {
+        switch (size) {
             case SpinnerSize.Default:
                 return { width: "30px", height: "30px" };
             case SpinnerSize.Small:
@@ -42,15 +53,15 @@ const RdsCompSpinner = (props: RdsCompSpinnerProps) => {
             case SpinnerSize.Large:
                 return { width: "45px", height: "45px" };
             default:
-                return { width: props.width, height: props.height };
+                return { width: width, height: height };
         }
     };
 
-    const { width, height } = getSizeDimensions();
+    const dimensions = getSizeDimensions();
     const classes = `${spinnerClass} ${colorClass}`.trim();
     const getLayoutClass = () => {
         // Always use the layout prop to determine the layout, regardless of showLabel
-        switch (props.layout) {
+        switch (layout) {
             case SpinnerLayout.LabelOnBottom:
                 return "spinner-container--label-bottom";
             case SpinnerLayout.LabelAndSpinner:
@@ -66,12 +77,12 @@ const RdsCompSpinner = (props: RdsCompSpinnerProps) => {
 
     return (
         <div className={`spinner-container ${getLayoutClass()}`}>
-            {props.showLabel && (
-                <label className="spinner-label">{props.labelText}</label>
+            {showLabel && (
+                <label className="spinner-label">{labelText}</label>
             )}
             <div 
                 className={classes} 
-                style={{ width, height }}
+                style={{ width: dimensions.width, height: dimensions.height }}
                 role="status"
             >
             </div>
