@@ -1,6 +1,6 @@
 import { addons } from 'storybook/manager-api';
 import { create } from 'storybook/theming/create';
-
+import '../.storybook/custom-theme.css';
 const theme = create({
   base: 'light',
   brandTitle: 'Raaghu Design System',
@@ -16,5 +16,4 @@ addons.setConfig({
   sidebar: {
     showRoots: false,
   },
-  // Don't hide the first theme toggle, but make it work the same way as raaghuTheme
 });
