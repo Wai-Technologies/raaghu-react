@@ -16,15 +16,15 @@ export enum SpinnerLayout {
 }
 
 export interface RdsCompSpinnerProps {
-    spinnerType?: string; //Spinner type: border or grow
-    width?: string; //Width of the spinner
-    borderWidth?: string; //Border width of the spinner
-    height?: string; //Height of the spinner
-    showLabel?: boolean; //Show label
-    labelText?: string; //Label text
-    size?: SpinnerSize; //Size of the spinner
-    layout?: SpinnerLayout; //Layout of the spinner
-    colorVariant?: string; //Color variant for the spinner
+    spinnerType?: string;
+    width?: string;
+    borderWidth?: string;
+    height?: string;
+    showLabel?: boolean;
+    labelText?: string;
+    size?: SpinnerSize;
+    layout?: SpinnerLayout;
+    colorVariant?: string;
 }
 
 const RdsCompSpinner = (props: RdsCompSpinnerProps) => {
