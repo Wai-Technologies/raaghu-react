@@ -16,5 +16,4 @@ addons.setConfig({
   sidebar: {
     showRoots: false,
   },
-  // Don't hide the first theme toggle, but make it work the same way as raaghuTheme
 });

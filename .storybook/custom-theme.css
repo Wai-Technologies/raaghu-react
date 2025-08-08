@@ -4,3 +4,9 @@
   font-family: "Poppins", sans-serif;
   font-weight: 300;
 }
+
+/* Docs theme CSS */
+body.theme-dark .docs-story {
+  background-color: #2a2a2a !important;
+  color: white !important;
+}
