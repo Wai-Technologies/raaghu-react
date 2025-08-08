@@ -14,7 +14,7 @@
   
   // Element: Label styling
   &__label {
-    color: var(--rds-text-primary, #212121);
+    color: var(--rds-text-primary);
     font-family: var(--rds-font-family-base, 'Roboto', sans-serif);
     font-size: var(--rds-font-size-md, 14px);
     margin-left: var(--rds-spacing-xs, 4px);
@@ -63,7 +63,7 @@
     cursor: pointer;
     
     .MuiFormControlLabel-label {
-      color: var(--rds-text-primary, #212121);
+      color: var(--rds-text-primary);
       font-family: var(--rds-font-family-base, 'Roboto', sans-serif);
       font-size: var(--rds-font-size-md, 14px);
       line-height: 1.5;

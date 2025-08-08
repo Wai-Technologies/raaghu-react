@@ -215,7 +215,7 @@
     font-weight: var(--rds-font-weight-medium, 500);
     font-size: var(--rds-font-size-xl, 20px) !important; // Larger title font size as per screenshot
     line-height: 1.3; // Tighter line height for titles
-    color: var(--rds-color-text-primary, #1a1a1a);
+    color: var(--rds-color-text-primary);
     margin: 0;
     margin-bottom: var(--rds-spacing-xs, 2px) !important; // Very small gap after title
   }
@@ -224,7 +224,7 @@
   &__subtext {
     font-weight: var(--rds-font-weight-normal, 400);
     font-size: var(--rds-font-size-sm, 14px) !important; // Smaller subtitle font size as per screenshot
-    color: var(--rds-color-text-secondary, #757575); // Slightly lighter color
+    color: var(--rds-color-text-secondary) !important; // Slightly lighter color
     margin: 0;
     
     // Remove default Material-UI margins
@@ -316,7 +316,7 @@
         .rds-card__avatar-name {
           font-size: var(--rds-font-size-md, 16px);
           font-weight: var(--rds-font-weight-semibold, 600);
-          color: var(--rds-color-text-primary, #333);
+          color: var(--rds-color-text-primary);
           margin: 0 0 var(--rds-spacing-xs, 2px) 0;
           line-height: 1.3;
         }
@@ -325,7 +325,7 @@
         .rds-card__avatar-designation {
           font-size: var(--rds-font-size-sm, 14px);
           font-weight: var(--rds-font-weight-normal, 400);
-          color: var(--rds-color-text-secondary, #666);
+          color: var(--rds-color-text-secondary);
           margin: 0;
           line-height: 1.3;
         }
@@ -344,7 +344,7 @@
     // Custom description styling for specific layouts
     .rds-card__description {
       font-size: var(--rds-font-size-sm, 14px);
-      color: var(--rds-color-text-secondary, #666);
+      color: var(--rds-color-text-secondary);
       line-height: 1.5;
       margin: 0 0 var(--rds-spacing-md, 16px) 0;
       display: block; // Ensure it's visible
@@ -354,7 +354,7 @@
   // Global description styling (outside of additional-content for standalone usage)
   &__description {
     font-size: var(--rds-font-size-sm, 14px);
-    color: var(--rds-color-text-secondary, #666);
+    color: var(--rds-color-text-secondary);
     line-height: 1.5;
     margin: 0 0 var(--rds-spacing-md, 16px) 0;
     display: block; // Ensure it's visible
@@ -389,7 +389,7 @@
 .rds-card > .rds-card__description {
   display: block !important;
   font-size: var(--rds-font-size-sm, 14px);
-  color: var(--rds-color-text-secondary, #666);
+  color: var(--rds-color-text-secondary);
   line-height: 1.5;
   margin: 0 0 var(--rds-spacing-md, 16px) 0;
 }
@@ -410,7 +410,7 @@
 // Questions counter or metadata styling
 .rds-card__metadata {
   font-size: var(--rds-font-size-xs, 12px);
-  color: var(--rds-color-text-secondary, #666);
+  color: var(--rds-color-text-secondary);
   font-weight: var(--rds-font-weight-normal, 400);
   margin: var(--rds-spacing-md, 16px) 0 0 0;
   padding-top: var(--rds-spacing-sm, 8px);
@@ -419,7 +419,7 @@
 // Long description styling for WithTags story
 .rds-card__long-description {
   font-size: var(--rds-font-size-sm, 14px);
-  color: var(--rds-color-text-secondary, #666);
+  color: var(--rds-color-text-secondary);
   line-height: 1.5;
   margin: 0 0 var(--rds-spacing-md, 16px) 0;
   display: block !important;
@@ -460,7 +460,6 @@
       gap: var(--rds-spacing-sm, 12px);
       align-items: center;
       padding: var(--rds-spacing-sm, 8px);
-      background-color: var(--rds-card-actions-bg, #f8f9fa);
       
       // Button styling for RdsButton components
       .rds-button {
@@ -506,7 +505,6 @@
       
       .MuiInputBase-root {
         font-family: inherit;
-        background-color: var(--rds-input-bg, #fff);
         
         &.Mui-focused fieldset {
           border-color: var(--rds-color-primary, #1976d2);
@@ -524,7 +522,7 @@
     .MuiInputBase-input {
       font-size: var(--rds-font-size-lg);
       font-weight: var(--rds-font-weight-medium, 500);
-      color: var(--rds-color-text-primary, #1a1a1a);
+      color: var(--rds-color-text-primary);
     }
   }
   
@@ -533,7 +531,7 @@
     .MuiInputBase-input {
       font-size: var(--rds-font-size-sm, 14px);
       font-weight: var(--rds-font-weight-normal, 400);
-      color: var(--rds-color-text-secondary, #757575);
+      color: var(--rds-color-text-secondary);
     }
   }
   
@@ -542,7 +540,7 @@
     .MuiInputBase-input {
       font-size: var(--rds-font-size-md, 16px);
       font-weight: var(--rds-font-weight-semibold, 600);
-      color: var(--rds-color-text-primary, #333);
+      color: var(--rds-color-text-primary);
     }
   }
   
@@ -551,7 +549,7 @@
     .MuiInputBase-input {
       font-size: var(--rds-font-size-sm, 14px);
       font-weight: var(--rds-font-weight-normal, 400);
-      color: var(--rds-color-text-secondary, #666);
+      color: var(--rds-color-text-secondary);
     }
   }
 } 
