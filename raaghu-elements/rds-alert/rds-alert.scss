@@ -42,24 +42,6 @@
     border: 1.5px solid var(--rds-alert-error-border) !important;
   }
 }
-[data-theme="dark"], .dark {
-  // ...existing dark mode variables...
-  // Ensure filled/outlined variants are visible in dark mode
-  --rds-alert-info-bg: #181c20;
-  --rds-alert-info-border: #3a4a5a;
-  --rds-alert-info-text: #e3f2fd;
-  --rds-alert-success-bg: #1b2e1b;
-  --rds-alert-success-border: #388e3c;
-  --rds-alert-success-text: #b9f6ca;
-  --rds-alert-warning-bg: #2a2112;
-  --rds-alert-warning-border: #ffa000;
-  --rds-alert-warning-text: #ffe082;
-  --rds-alert-error-bg: #2d1818;
-  --rds-alert-error-border: #d32f2f;
-  --rds-alert-error-text: #ffbdbd;
-  --rds-alert-style3-border: transparent;
-  --rds-alert-shadow: rgba(0,0,0,0.5);
-}
 // RDS Alert Component Styles
 .rds-alert {
   position: relative;
@@ -131,7 +113,7 @@
     
     &:hover {
       opacity: 1;
-      background-color: rgba(0, 0, 0, 0.08);
+      // background-color: rgba(0, 0, 0, 0.08);
     }
   }
 
@@ -237,23 +219,6 @@
     color: var(--rds-alert-error-text);
   }
   
-// DARK MODE OVERRIDES
-[data-theme="dark"], .dark {
-  --rds-alert-info-bg: #181c20;
-  --rds-alert-info-border: #3a4a5a;
-  --rds-alert-info-text: #e3f2fd;
-  --rds-alert-success-bg: #1b2e1b;
-  --rds-alert-success-border: #388e3c;
-  --rds-alert-success-text: #b9f6ca;
-  --rds-alert-warning-bg: #2a2112;
-  --rds-alert-warning-border: #ffa000;
-  --rds-alert-warning-text: #ffe082;
-  --rds-alert-error-bg: #2d1818;
-  --rds-alert-error-border: #d32f2f;
-  --rds-alert-error-text: #ffbdbd;
-  --rds-alert-style3-border: transparent;
-  --rds-alert-shadow: rgba(0,0,0,0.5);
-}
 }
 .MuiAlert-message {
   width: 100%;

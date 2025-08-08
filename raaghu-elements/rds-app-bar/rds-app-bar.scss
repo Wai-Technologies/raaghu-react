@@ -1,12 +1,4 @@
-[data-theme="dark"], .dark {
-  // Existing app bar dark mode overrides...
-  --rds-color-surface-alt: var(--rds-background-surface, #23272b);
-  --rds-color-on-surface: var(--rds-text-primary, #e3e3e3);
-  --rds-color-border: var(--rds-border-default, #444b54);
-  // Optional: search field specific
-  --rds-header__search-field-bg: var(--rds-background-surface, #23272b);
-  --rds-header__search-field-color: var(--rds-text-primary, #e3e3e3);
-}
+
 // =======================
 //  RDS App Bar Stories Utility Classes  
 // =======================
@@ -561,4 +553,11 @@
   --rds-appbar-secondary-bg: #7c2946;
   --rds-appbar-badge-bg: #232e3a;
   --rds-appbar-badge-color: #90caf9;
+   // Existing app bar dark mode overrides...
+  --rds-color-surface-alt: var(--rds-background-surface, #23272b);
+  --rds-color-on-surface: var(--rds-text-primary, #e3e3e3);
+  --rds-color-border: var(--rds-border-default, #444b54);
+  // Optional: search field specific
+  --rds-header__search-field-bg: var(--rds-background-surface, #23272b);
+  --rds-header__search-field-color: var(--rds-text-primary, #e3e3e3);
 }

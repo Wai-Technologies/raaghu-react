@@ -5,7 +5,7 @@
   justify-content: center;
   border-radius: var(--rds-border-radius-full);
   background-color: var(--rds-border-default);
-  color: var(--rds-text-secondary);
+  // color: var(--rds-text-secondary);
   font-weight: 500;
   overflow: visible;
   position: relative;
@@ -171,13 +171,13 @@
   &__name {
     font-size: var(--rds-font-size-md, 1rem);
     font-weight: 600;
-    color: var(--rds-text-primary, #222);
+    color: var(--rds-text-primary);
     line-height: 1.1;
   }
 
   &__designation {
     font-size: var(--rds-font-size-sm, 0.95rem);
-    color: var(--rds-text-secondary, #888);
+    color: var(--rds-text-secondary,);
     font-weight: 400;
     line-height: 1.1;
   }
@@ -358,12 +358,12 @@
   &__name {
     font-size: var(--rds-font-size-md, 1rem);
     font-weight: 600;
-    color: var(--rds-text-primary, #222);
+    color: var(--rds-text-primary);
     line-height: 1.1;
   }
   &__designation {
     font-size: var(--rds-font-size-sm, 0.95rem);
-    color: var(--rds-text-secondary, #888);
+    color: var(--rds-text-secondary);
     font-weight: 400;
     line-height: 1.1;
   }
@@ -381,30 +381,9 @@
     transition: box-shadow 0.2s;
     position: absolute;
     top: 0;
-    background: var(--rds-background-paper, #f4f6fa);
+    background: var(--rds-background-paper);
   }
   // &__stacking-container {
   //   /* Used for layout sizing only */
   // }
 }           
-
-// Dark mode: only overrides to improve contrast; no change to light mode visuals
-[data-theme="dark"] .rds-avatar,
-.dark .rds-avatar {
-  // Default/neutral avatar and initials
-  color: var(--rds-text-primary, #e3e3e3);
-
-  // Labels next to avatar
-  .rds-avatar__name {
-    color: var(--rds-text-primary, #e3e3e3);
-  }
-  .rds-avatar__designation {
-    color: var(--rds-text-secondary, #b3b3b3);
-  }
-
-  // Dots and stacking outlines should blend with dark surface, not white
-  .rds-avatar__dot {
-    box-shadow: 0 0 0 2px var(--rds-background-surface, #23272b);
-    border-color: var(--rds-background-surface, #23272b);
-  }
-}

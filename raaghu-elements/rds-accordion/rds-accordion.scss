@@ -4,8 +4,8 @@
   border-radius: var(--rds-spacing-xs);
   overflow: hidden;
 
-  background-color: var(--rds-accordion-bg, var(--rds-background-surface));
-  color: var(--rds-accordion-text, #333);
+   background-color: var(--rds-accordion-bg, var(--rds-background-surface));
+  color: var(--rds-accordion-text);
   transition: background-color var(--rds-transition-base);
   &__summary {
     display: flex;
@@ -147,21 +147,3 @@
   }
 }
 
-// Dark mode: keep light mode visuals intact; only set variables for better contrast
-[data-theme="dark"] .rds-accordion,
-.dark .rds-accordion {
-  // Base surface/text
-  --rds-accordion-bg: var(--rds-background-surface, #23272b);
-  --rds-accordion-text: var(--rds-text-primary, #e3e3e3);
-  --rds-accordion-title-color: var(--rds-text-primary, #e3e3e3);
-  --rds-accordion-icon-color: var(--rds-text-secondary, #b3b3b3);
-  --rds-accordion-content-color: var(--rds-text-secondary, #c7c7c7);
-
-  // States
-  --rds-accordion-disabled-bg: var(
-    --rds-background-surface-alt,
-    #2b2f34
-  );
-  --rds-hover-bg: var(--rds-background-surface-hover, rgba(255, 255, 255, 0.06));
-  --rds-hover-color: var(--rds-text-primary, #e3e3e3);
-}
