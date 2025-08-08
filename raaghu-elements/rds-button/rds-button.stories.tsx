@@ -69,6 +69,35 @@ export const Default: Story = {
   },
 };
 
+export const Disabled: Story = {
+  args: {
+    label: 'Disabled Button',
+    disabled: true,
+  },
+};
+
+export const Large: Story = {
+  args: {
+    label: 'Large Button',
+    size: 'large',
+    style: 'filled',
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    label: 'Loading Button',
+    isLoading: true,
+  },
+};
+
+export const Outlined: Story = {
+  args: {
+    label: 'Outlined Button',
+    style: 'outlined',
+  },
+};
+
 export const Primary: Story = {
   args: {
     label: 'Primary Button',
@@ -85,10 +114,11 @@ export const Secondary: Story = {
   },
 };
 
-export const Outlined: Story = {
+export const Small: Story = {
   args: {
-    label: 'Outlined Button',
-    style: 'outlined',
+    label: 'Small Button',
+    size: 'small',
+    style: 'filled',
   },
 };
 
@@ -96,14 +126,6 @@ export const Transparent: Story = {
   args: {
     label: 'Transparent Button',
     style: 'transparent',
-  },
-};
-
-export const WithStartIcon: Story = {
-  args: {
-    label: 'Add Item',
-    style: 'filled',
-    startIcon: <Add />,
   },
 };
 
@@ -117,32 +139,11 @@ export const WithEndIcon: Story = {
   },
 };
 
-export const Disabled: Story = {
+export const WithStartIcon: Story = {
   args: {
-    label: 'Disabled Button',
-    disabled: true,
-  },
-};
-
-export const Loading: Story = {
-  args: {
-    label: 'Loading Button',
-    isLoading: true,
-  },
-};
-
-export const Small: Story = {
-  args: {
-    label: 'Small Button',
-    size: 'small',
+    label: 'Add Item',
     style: 'filled',
+    startIcon: <Add />,
   },
 };
 
-export const Large: Story = {
-  args: {
-    label: 'Large Button',
-    size: 'large',
-    style: 'filled',
-  },
-};

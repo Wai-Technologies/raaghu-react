@@ -68,20 +68,6 @@ export const Checked: Story = {
   },
 };
 
-export const Unchecked: Story = {
-  args: {
-    label: 'Unchecked Checkbox',
-    isChecked: false,
-  },
-};
-
-export const Indeterminate: Story = {
-  args: {
-    label: 'Indeterminate Checkbox',
-    isIndeterminate: true,
-  },
-};
-
 export const Disabled: Story = {
   args: {
     label: 'Disabled Checkbox',
@@ -94,6 +80,13 @@ export const DisabledChecked: Story = {
     label: 'Disabled Checked',
     isChecked: true,
     isDisabled: true,
+  },
+};
+
+export const Indeterminate: Story = {
+  args: {
+    label: 'Indeterminate Checkbox',
+    isIndeterminate: true,
   },
 };
 
@@ -117,6 +110,13 @@ export const Small: Story = {
   args: {
     label: 'Small Checkbox',
     size: 'small',
+  },
+};
+
+export const Unchecked: Story = {
+  args: {
+    label: 'Unchecked Checkbox',
+    isChecked: false,
   },
 };
 
