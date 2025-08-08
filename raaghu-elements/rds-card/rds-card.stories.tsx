@@ -117,6 +117,58 @@ export const Default: Story = {
   },
 };
 
+export const Elevated: Story = {
+  args: {
+    elevation: 8,
+    children: (
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          Elevated Card
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          This card has increased elevation (shadow).
+        </Typography>
+      </CardContent>
+    ),
+  },
+};
+
+export const Outlined: Story = {
+  args: {
+    variant: 'outlined',
+    children: (
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          Outlined Card
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          This is an outlined card variant.
+        </Typography>
+      </CardContent>
+    ),
+  },
+};
+
+export const WithActions: Story = {
+  args: {
+    children: (
+      <>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Card with Actions
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            This card includes action buttons at the bottom.
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <RdsButton label="Learn More" size="small" style="transparent" />
+          <RdsButton label="Share" size="small" style="transparent" />
+        </CardActions>
+      </>
+    ),
+  },
+};
 export const WithAvatar: Story = {
   args: {
     state: 'default',
@@ -277,61 +329,6 @@ export const WithAvatar: Story = {
   },
 };
 
-export const WithActions: Story = {
-  args: {
-    children: (
-      <>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Card with Actions
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            This card includes action buttons at the bottom.
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <RdsButton label="Learn More" size="small" style="transparent" />
-          <RdsButton label="Share" size="small" style="transparent" />
-        </CardActions>
-      </>
-    ),
-  },
-};
-
-
-export const WithButton: Story = {
-  args: {
-    state: 'default',
-    cardStyle: 'default',
-    showIndicator: true,
-    showTitle: true,
-    showSubtext: true,
-    showDescription: true,
-    layout: 'vertical',
-    showIcon: true,
-    iconName: 'person',
-    cardTitle: 'Card Title',
-    cardSubtext: 'Card Subtitle',
-    description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
-    children: (
-      <div className="rds-card__button-group">
-        <RdsButton 
-          label="Cancel"
-          style="transparent"
-          color="primary"
-          size="small"
-        />
-        <RdsButton 
-          label="Okay"
-          style="filled"
-          color="primary"
-          size="small"
-        />
-      </div>
-    ),
-  },
-};
-
 export const WithBadges: Story = {
   args: {
     state: 'default',
@@ -366,6 +363,39 @@ export const WithBadges: Story = {
   },
 };
 
+export const WithButton: Story = {
+  args: {
+    state: 'default',
+    cardStyle: 'default',
+    showIndicator: true,
+    showTitle: true,
+    showSubtext: true,
+    showDescription: true,
+    layout: 'vertical',
+    showIcon: true,
+    iconName: 'person',
+    cardTitle: 'Card Title',
+    cardSubtext: 'Card Subtitle',
+    description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
+    children: (
+      <div className="rds-card__button-group">
+        <RdsButton 
+          label="Cancel"
+          style="transparent"
+          color="primary"
+          size="small"
+        />
+        <RdsButton 
+          label="Okay"
+          style="filled"
+          color="primary"
+          size="small"
+        />
+      </div>
+    ),
+  },
+};
+
 export const WithCustomPadding: Story = {
   args: {
     padding: '24px',
@@ -373,22 +403,6 @@ export const WithCustomPadding: Story = {
       <Typography>
         This card has custom padding applied.
       </Typography>
-    ),
-  },
-};
-
-export const Elevated: Story = {
-  args: {
-    elevation: 8,
-    children: (
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Elevated Card
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          This card has increased elevation (shadow).
-        </Typography>
-      </CardContent>
     ),
   },
 };
@@ -443,7 +457,6 @@ export const WithImage: Story = {
   },
 };
 
-
 export const WithLinkButton: Story = {
   args: {
     state: 'default',
@@ -465,22 +478,6 @@ export const WithLinkButton: Story = {
         size="small"
         sx={{ mt: 1, p: 0, textTransform: 'none' }}
       />
-    ),
-  },
-};
-
-export const Outlined: Story = {
-  args: {
-    variant: 'outlined',
-    children: (
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Outlined Card
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          This is an outlined card variant.
-        </Typography>
-      </CardContent>
     ),
   },
 };
