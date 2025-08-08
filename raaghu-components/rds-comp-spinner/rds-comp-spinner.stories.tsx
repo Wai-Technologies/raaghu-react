@@ -12,10 +12,12 @@ const meta: Meta = {
         size: {
             options: ["Default", "Small", "Large",],
             control: { type: "select" },
+            description: "Size of the spinner",
         },
         layout: {
             options: ["Label on bottom", "Spinner + Label", "Label + Spinner", "Label on top"],
             control: { type: "select" },
+            description: "Layout of the spinner",
         },
         spinnerType: {
             options: [
@@ -23,10 +25,12 @@ const meta: Meta = {
                 "border"
             ],
             control: { type: "radio" },
+            description: "Type of spinner",
         },
         colorVariant: {
             options: ["primary", "secondary", "success", "danger", "warning", "info", "dark"],
             control: { type: "select" },
+            description: "Color variant of the spinner",
         },
     },
 } satisfies Meta<typeof RdsCompSpinner>;
