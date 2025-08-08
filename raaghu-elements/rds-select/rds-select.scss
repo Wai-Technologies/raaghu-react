@@ -1,55 +1,146 @@
 // RDS Select Component Styles
-// Select dropdown form control
-
 .rds-select {
   display: block;
   position: relative;
+  
+  // Form control wrapper
+  &__form-control {
+    width: 100%;
+  }
 
+  // Label styles (for labelposition=false)
+  &__label {
+    margin-bottom: var(--rds-spacing-xs, 4px);
+    font-weight: var(--rds-font-weight-medium, 500);
+    color: var(--rds-color-on-surface, #333);
+    font-size: var(--rds-font-size-sm, 14px);
+  }
+
+  // Required asterisk
+  &__asterisk {
+    color: var(--rds-color-error, #d32f2f);
+    margin-left: var(--rds-spacing-xs, 4px);
+  }
+
+  // MUI InputLabel (for labelposition=true)
+  &__input-label {
+    color: var(--rds-color-on-surface-variant, #666);
+    
+    &.Mui-focused {
+      color: var(--rds-color-primary, #1976d2);
+    }
+    
+    &.Mui-error {
+      color: var(--rds-color-error, #d32f2f);
+    }
+  }
+
+  // Main select field
   &__field {
-    // Field styles
-    display: block;
+    background-color: var(--rds-color-surface, #fff);
+    border-radius: var(--rds-border-radius, 4px);
+    
+    .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-color-outline, rgba(0, 0, 0, 0.23));
+    }
+    
+    &:hover .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-color-on-surface, #333);
+    }
+    
+    &.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-color-primary, #1976d2);
+      border-width: 2px;
+    }
+    
+    &.Mui-error .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-color-error, #d32f2f);
+    }
+
+    .MuiSelect-select {
+      color: var(--rds-color-on-surface, #333);
+      font-size: var(--rds-font-size-body, 16px);
+      
+      &:focus {
+        background-color: transparent;
+      }
+    }
+
+    .MuiSelect-icon {
+      color: var(--rds-color-on-surface-variant, #666);
+      transition: transform 0.2s ease;
+    }
+    
+    &.Mui-focused .MuiSelect-icon {
+      color: var(--rds-color-primary, #1976d2);
+    }
   }
 
-  &__dropdown {
-    // Dropdown styles
-    display: block;
+  // Placeholder text styling
+  &__placeholder {
+    color: var(--rds-color-on-surface-variant, #aaa);
   }
 
+  // Menu options
   &__option {
-    // Option styles
-    display: block;
+    color: var(--rds-color-on-surface, #333);
+    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
+    
+    &:hover {
+      background-color: var(--rds-color-surface-variant, rgba(0, 0, 0, 0.04));
+    }
+    
+    &.Mui-selected {
+      background-color: var(--rds-color-primary-container, rgba(25, 118, 210, 0.12));
+      color: var(--rds-color-primary, #1976d2);
+      
+      &:hover {
+        background-color: var(--rds-color-primary-container, rgba(25, 118, 210, 0.16));
+      }
+    }
+    
+    &.Mui-disabled {
+      color: var(--rds-color-on-surface-disabled, rgba(0, 0, 0, 0.38));
+    }
   }
 
-  &__arrow {
-    // Arrow styles
-    display: block;
+  // Helper text and error message
+  &__helper-text {
+    color: var(--rds-color-on-surface-variant, #666);
+    font-size: var(--rds-font-size-caption, 12px);
+    margin-top: var(--rds-spacing-xs, 4px);
+    
+    &.Mui-error {
+      color: var(--rds-color-error, #d32f2f);
+    }
   }
 
-  &--open {
-    // Open state styles
-  }
-
-  &--disabled {
-    // Disabled state styles
-  }
-
+  // State modifiers
   &--error {
-    // Error state styles
+    .rds-select__label {
+      color: var(--rds-color-error, #d32f2f);
+    }
   }
 
-  // Interactive states
-  &:hover {
-    // Hover styles
+  // Size variants
+  &.rds-select--small {
+    .rds-select__field .MuiSelect-select {
+      font-size: var(--rds-font-size-sm, 14px);
+      padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
+    }
   }
 
-  &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset);
+  &.rds-select--medium {
+    .rds-select__field .MuiSelect-select {
+      font-size: var(--rds-font-size-body, 16px);
+      padding: var(--rds-spacing-md, 12px) var(--rds-spacing-md, 16px);
+    }
   }
 
-  &:disabled,
-  &--disabled {
-    opacity: 0.6;
-    pointer-events: none;
+  // Disabled state
+  &.rds-select--disabled {
+    .rds-select__label {
+      color: var(--rds-color-on-surface-disabled, rgba(0, 0, 0, 0.38));
+    }
   }
 }

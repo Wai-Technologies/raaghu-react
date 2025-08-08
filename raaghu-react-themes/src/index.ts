@@ -4,6 +4,9 @@
 // Note: Import the SCSS files in your main application entry point:
 // import 'raaghu-react-themes/src/styles/index.scss';
 
+// Export MUI themes
+export * from './styles/themes/index';
+
 // Theme types
 export type ThemeMode = 'light' | 'dark' | 'semi-dark';
 

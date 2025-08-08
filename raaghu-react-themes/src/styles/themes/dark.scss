@@ -1,5 +1,5 @@
 // Dark theme color variables
-@import "../../variables/color-variables";
+@import "../variables/color-variables";
 
 // Theme identifier
 $theme-name: "dark" !default;
@@ -374,3 +374,64 @@ $badge-warning-bg: $btn-warning-solid-default !default;
 $badge-warning-color: $btn-warning-text-invert !default;
 $badge-neutral-bg: $btn-neutral-solid-default !default;
 $badge-neutral-color: $btn-neutral-text-invert !default;
+
+// Apply dark theme CSS custom properties
+// This block connects the SCSS variables to CSS custom properties
+body.theme-dark,
+[data-theme="dark"] {
+  // Import custom properties base
+  @import "../custom-properties";
+  
+  // Primary Colors
+  --rds-primary-main: #{$primary-200};
+  --rds-primary-light: #{$primary-100};
+  --rds-primary-dark: #{$primary-400};
+  --rds-primary-contrast-text: #{$black};
+  
+  // Secondary Colors  
+  --rds-secondary-main: #{$secondary-200};
+  --rds-secondary-light: #{$secondary-100};
+  --rds-secondary-dark: #{$secondary-400};
+  --rds-secondary-contrast-text: #{$black};
+  
+  // Background Colors
+  --rds-background-default: #{$body-bg};
+  --rds-background-paper: #{$bg-neutral-light-default};
+  --rds-background-surface: #{$dark-300};
+  --rds-background-overlay: rgba(0, 0, 0, 0.7);
+  
+  // Text Colors
+  --rds-text-primary: #{$body-color};
+  --rds-text-secondary: #{$txt-neutral-dark-default};
+  --rds-text-disabled: #{$txt-neutral-medium-default};
+  --rds-text-hint: #{$txt-neutral-dark-default};
+  
+  // Button Colors - Primary
+  --rds-button-primary-bg: #{$btn-primary-solid-default};
+  --rds-button-primary-bg-hover: #{$btn-primary-solid-hover};
+  --rds-button-primary-bg-active: #{$btn-primary-solid-selected};
+  --rds-button-primary-bg-disabled: #{$btn-primary-solid-disabled};
+  --rds-button-primary-text: #{$btn-primary-text-default};
+  --rds-button-primary-text-disabled: #{$btn-primary-text-disabled};
+  
+  // Form Colors
+  --rds-form-bg: #{$form-control-bg};
+  --rds-form-border: #{$form-control-border-color};
+  --rds-form-border-focus: #{$form-control-focus-border-color};
+  --rds-form-bg-focus: #{$form-control-focus-bg};
+  
+  // Alert Colors
+  --rds-alert-success-bg: #{$alert-success-bg};
+  --rds-alert-success-border: #{$alert-success-border};
+  --rds-alert-error-bg: #{$alert-error-bg};
+  --rds-alert-error-border: #{$alert-error-border};
+  --rds-alert-warning-bg: #{$alert-warning-bg};
+  --rds-alert-warning-border: #{$alert-warning-border};
+  --rds-alert-info-bg: #{$alert-info-bg};
+  --rds-alert-info-border: #{$alert-info-border};
+  
+  // Card and Modal
+  --rds-card-bg: #{$card-bg-color};
+  --rds-card-border: #{$card-border-color};
+  --rds-modal-backdrop: rgba(0, 0, 0, 0.7);
+}

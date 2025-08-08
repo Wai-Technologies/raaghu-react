@@ -40,6 +40,19 @@ const meta: Meta<typeof RdsSidebar> = {
       options: ['left', 'right', 'top', 'bottom'],
       description: 'Side from which the drawer will appear',
     },
+    layout: {
+      control: 'select',
+      options: ['raaghu', 'list', 'toolbar'],
+    },
+    typeOf: {
+      control: 'select',
+      options: ['collapse', 'expanded', 'fixed'],
+    },
+    platform: {
+      control: 'select',
+      options: ['abp-list', 'anz-list'],
+      description: 'Platform type for the sidebar',
+    },
   },
 };
 
@@ -93,32 +106,37 @@ export const Default = {
   },
 };
 
-export const Permanent: Story = {
-  args: {
-    items: basicItems,
-    isOpen: true,
-    variant: 'permanent',
-  },
-};
-
-export const WithoutIcons: Story = {
-  args: {
-    items: [
-      { label: 'Home', onClick: () => alert('Home clicked') },
-      { label: 'About', onClick: () => alert('About clicked'), active: true },
-      { label: 'Services', onClick: () => alert('Services clicked') },
-      { label: 'Contact', onClick: () => alert('Contact clicked') },
-    ],
-    isOpen: true,
-    variant: 'permanent',
-  },
-};
-
 export const MailApp = {
   render: SidebarTemplate,
   args: {
     items: mailItems,
     width: 280,
+  },
+};
+
+export const NarrowSidebar = {
+  render: SidebarTemplate,
+  args: {
+    items: basicItems,
+    width: 180,
+  },
+};
+
+export const Permanent: Story = {
+  args: {
+    items: basicItems,
+    isOpen: true,
+    variant: 'permanent',
+    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
+  },
+};
+
+export const WideSidebar = {
+  render: SidebarTemplate,
+  args: {
+    items: basicItems,
+    width: 320,
   },
 };
 
@@ -135,18 +153,15 @@ export const WithDisabledItems = {
   },
 };
 
-export const NarrowSidebar = {
-  render: SidebarTemplate,
+export const WithoutIcons: Story = {
   args: {
-    items: basicItems,
-    width: 180,
-  },
-};
-
-export const WideSidebar = {
-  render: SidebarTemplate,
-  args: {
-    items: basicItems,
-    width: 320,
+    items: [
+      { label: 'Home', onClick: () => alert('Home clicked') },
+      { label: 'About', onClick: () => alert('About clicked'), active: true },
+      { label: 'Services', onClick: () => alert('Services clicked') },
+      { label: 'Contact', onClick: () => alert('Contact clicked') },
+    ],
+    isOpen: true,
+    variant: 'permanent',
   },
 };
