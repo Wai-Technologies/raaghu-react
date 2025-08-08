@@ -273,9 +273,6 @@ export const MultipleSelection: Story = {
           onCheckboxChange={handleCheckboxChange}
           items={multiSelectionItems}
         />
-        <div className="rds-list-demo__selection-status">
-          Selected items: {selectedItems.length ? selectedItems.join(', ') : 'none'}
-        </div>
       </div>
     );
   }

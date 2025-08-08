@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 // Import your theme files directly
 import lightTheme from '../raaghu-react-themes/src/styles/themes/lightTheme';
 import darkTheme from '../raaghu-react-themes/src/styles/themes/darkTheme';
+import './custom-theme.css';
 
 const preview: Preview = {
   globalTypes: {

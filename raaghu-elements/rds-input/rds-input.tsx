@@ -71,7 +71,9 @@ const RdsInput: React.FC<RdsInputProps> = ({
         size={inputSize}
         type={inputType}
         fullWidth
-        InputProps={{ className: 'rds-input__field' }}
+        InputProps={{ 
+          className: 'rds-input__field',
+        }}
         {...props}
       />
     </div>
