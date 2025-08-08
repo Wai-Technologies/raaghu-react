@@ -387,3 +387,24 @@
   //   /* Used for layout sizing only */
   // }
 }           
+
+// Dark mode: only overrides to improve contrast; no change to light mode visuals
+[data-theme="dark"] .rds-avatar,
+.dark .rds-avatar {
+  // Default/neutral avatar and initials
+  color: var(--rds-text-primary, #e3e3e3);
+
+  // Labels next to avatar
+  .rds-avatar__name {
+    color: var(--rds-text-primary, #e3e3e3);
+  }
+  .rds-avatar__designation {
+    color: var(--rds-text-secondary, #b3b3b3);
+  }
+
+  // Dots and stacking outlines should blend with dark surface, not white
+  .rds-avatar__dot {
+    box-shadow: 0 0 0 2px var(--rds-background-surface, #23272b);
+    border-color: var(--rds-background-surface, #23272b);
+  }
+}
