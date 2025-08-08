@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCard from './rds-card';
-import { Typography, CardContent, CardActions, Button } from '@mui/material';
+import RdsButton from '../rds-button/rds-button';
+import RdsBadge from '../rds-badge/rds-badge';
+import RdsAvatar from '../rds-avatar/rds-avatar';
+import RdsInput from '../rds-input/rds-input';
+import { Typography, CardContent, CardActions } from '@mui/material';
+import { Edit, Check, Close } from '@mui/icons-material';
+import { useState } from 'react';
 
 const meta: Meta<typeof RdsCard> = {
   title: 'Elements/Card',
@@ -23,6 +29,63 @@ const meta: Meta<typeof RdsCard> = {
       options: ['elevation', 'outlined'],
       description: 'Variant of the card',
     },
+    state: {
+      control: 'select',
+      options: ['default', 'hover', 'selected', 'disabled'],
+      description: 'Choose between four states Default, Hover, Disabled, and Selected to visually indicate the card\'s interaction status.',
+    },
+    showIndicator: {
+      control: 'boolean',
+      description: 'Toggle this switch to show or hide the card\'s indicator, depending on the design needs.',
+    },
+    cardStyle: {
+      control: 'select',
+      options: ['default', 'outlined', 'filled'],
+      description: 'Pick from three styles: Default for a clean look, Filled for a solid background, and Outlined for a bordered appearance.',
+    },
+    showTitle: {
+      control: 'boolean',
+      description: 'Toggle this switch to show or hide the card\'s Title, depending on the design needs.',
+    },
+    showSubtext: {
+      control: 'boolean',
+      description: 'Toggle this to hide or display a subtitle under the header.',
+    },
+    showDescription: {
+      control: 'boolean',
+      description: 'Toggle this to hide or display the description text.',
+    },
+    layout: {
+      control: 'select',
+      options: ['vertical', 'horizontal'],
+      description: 'Choose the layout orientation of the card content.',
+    },
+    showIcon: {
+      control: 'boolean',
+      description: 'Toggle this switch to show or hide the card\'s icon.',
+    },
+    iconName: {
+      control: 'select',
+      options: [
+        'person', 'home', 'settings', 'favorite', 'star', 'email', 'phone', 'location', 
+        'camera', 'image', 'music', 'video', 'document', 'folder', 'calendar', 'clock', 
+        'search', 'add', 'edit', 'delete', 'check', 'close', 'arrow_forward', 'arrow_back', 
+        'download', 'upload', 'share', 'notification'
+      ],
+      description: 'Choose the icon to display.',
+    },
+    cardTitle: {
+      control: 'text',
+      description: 'Set the main title text for the card. This will be displayed as the primary heading.',
+    },
+    cardSubtext: {
+      control: 'text',
+      description: 'Set the subtitle text for the card. This will be displayed below the title.',
+    },
+    description: {
+      control: 'text',
+      description: 'Set the description text for the card. This will be displayed below the subtitle as body content.',
+    },
   },
 };
 
@@ -31,36 +94,41 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    state: 'default',
+    cardStyle: 'default',
+    showIndicator: true,
+    showTitle: true,
+    showSubtext: true,
+    showDescription: true,
+    layout: 'vertical',
+    showIcon: true,
+    iconName: 'person',
+    cardTitle: 'Card Title',
+    cardSubtext: 'Card Subtitle',
+    description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
     children: (
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Card Title
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          This is a simple card with some content. Cards contain content and actions about a single subject.
-        </Typography>
-      </CardContent>
+      <RdsButton 
+        label="Link Button >"
+        style="transparent"
+        size="small"
+        sx={{ mt: 1, p: 0, textTransform: 'none' }}
+      />
     ),
   },
 };
 
-export const WithActions: Story = {
+export const Elevated: Story = {
   args: {
+    elevation: 8,
     children: (
-      <>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Card with Actions
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            This card includes action buttons at the bottom.
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small">Learn More</Button>
-          <Button size="small">Share</Button>
-        </CardActions>
-      </>
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          Elevated Card
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          This card has increased elevation (shadow).
+        </Typography>
+      </CardContent>
     ),
   },
 };
@@ -81,6 +149,253 @@ export const Outlined: Story = {
   },
 };
 
+export const WithActions: Story = {
+  args: {
+    children: (
+      <>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Card with Actions
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            This card includes action buttons at the bottom.
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <RdsButton label="Learn More" size="small" style="transparent" />
+          <RdsButton label="Share" size="small" style="transparent" />
+        </CardActions>
+      </>
+    ),
+  },
+};
+export const WithAvatar: Story = {
+  args: {
+    state: 'default',
+    cardStyle: 'default',
+    showIndicator: true,
+    showTitle: true,
+    showSubtext: true,
+    showDescription: false,
+    layout: 'vertical',
+    showIcon: true,
+    iconName: 'person',
+    cardTitle: 'Card Title',
+    cardSubtext: 'Card Subtitle',
+  } as any,
+  parameters: {
+    controls: {
+      include: ['state', 'cardStyle', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'iconName', 'cardTitle', 'cardSubtext', 'isEditing'],
+    },
+  },
+  argTypes: {
+    isEditing: {
+      control: 'boolean',
+      description: 'Toggle to show or hide the edit icon functionality.',
+      defaultValue: false,
+    },
+  } as any,
+  render: (args) => {
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [editableData, setEditableData] = useState({
+      cardTitle: args.cardTitle || 'Card Title',
+      cardSubtext: args.cardSubtext || 'Card Subtitle',
+      avatarName: 'Jane Doe',
+      avatarDesignation: 'Designation'
+    });
+    const [tempData, setTempData] = useState(editableData);
+
+    // Get the isEditing control value, defaulting to true
+    const isEditingEnabled = (args as any).isEditing !== undefined ? (args as any).isEditing : true;
+
+    const handleEditClick = () => {
+      setTempData(editableData);
+      setIsEditMode(true);
+    };
+
+    const handleSave = () => {
+      setEditableData(tempData);
+      setIsEditMode(false);
+    };
+
+    const handleCancel = () => {
+      setTempData(editableData);
+      setIsEditMode(false);
+    };
+
+    const handleInputChange = (field: string, value: string) => {
+      setTempData(prev => ({ ...prev, [field]: value }));
+    };
+
+    return (
+      <RdsCard
+        {...args}
+        cardTitle={isEditMode ? undefined : editableData.cardTitle}
+        cardSubtext={isEditMode ? undefined : editableData.cardSubtext}
+      >
+        {isEditMode && (
+          <div className="rds-card__editable-field">
+            <RdsInput
+              value={tempData.cardTitle}
+              onChange={(e) => handleInputChange('cardTitle', e.target.value)}
+              placeholder="Card Title"
+              variant="outlined"
+              inputSize="small"
+              fullWidth
+              className="rds-card__input--title"
+            />
+            <RdsInput
+              value={tempData.cardSubtext}
+              onChange={(e) => handleInputChange('cardSubtext', e.target.value)}
+              placeholder="Card Subtitle"
+              variant="outlined"
+              inputSize="small"
+              fullWidth
+              className="rds-card__input--subtitle"
+            />
+          </div>
+        )}
+        <div className={`rds-card__avatar-section${isEditMode ? ' rds-card__avatar-section--editable' : ''}`}>
+          <RdsAvatar 
+            src="https://images.unsplash.com/photo-1494790108755-2616b612b9ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80"
+            alt="Jane Doe"
+            size="small"
+            ring={true}
+          />
+          <div className="rds-card__avatar-info">
+            {isEditMode ? (
+              <div className="rds-card__editable-field">
+                <RdsInput
+                  value={tempData.avatarName}
+                  onChange={(e) => handleInputChange('avatarName', e.target.value)}
+                  placeholder="Name"
+                  variant="outlined"
+                  inputSize="small"
+                  fullWidth
+                  className="rds-card__input--avatar-name"
+                />
+                <RdsInput
+                  value={tempData.avatarDesignation}
+                  onChange={(e) => handleInputChange('avatarDesignation', e.target.value)}
+                  placeholder="Designation"
+                  variant="outlined"
+                  inputSize="small"
+                  fullWidth
+                  className="rds-card__input--avatar-designation"
+                />
+              </div>
+            ) : (
+              <>
+                <div className="rds-card__avatar-name">
+                  {editableData.avatarName}
+                </div>
+                <div className="rds-card__avatar-designation">
+                  {editableData.avatarDesignation}
+                </div>
+              </>
+            )}
+          </div>
+          <div className="rds-card__edit-controls">
+            {isEditingEnabled && (
+              <>
+                {!isEditMode ? (
+                  <div className="rds-card__edit-icon" onClick={handleEditClick}>
+                    <Edit />
+                  </div>
+                ) : (
+                  <div className="rds-card__edit-actions">
+                    <RdsButton 
+                      label="Save"
+                      style="filled"
+                      color="primary"
+                      size="small"
+                      onClick={handleSave}
+                    />
+                    <RdsButton 
+                      label="Cancel"
+                      style="outlined"
+                      color="primary"
+                      size="small"
+                      onClick={handleCancel}
+                    />
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      </RdsCard>
+    );
+  },
+};
+
+export const WithBadges: Story = {
+  args: {
+    state: 'default',
+    cardStyle: 'default',
+    showIndicator: true,
+    showTitle: true,
+    showSubtext: true,
+    showDescription: false,
+    layout: 'vertical',
+    showIcon: true,
+    iconName: 'person',
+    cardTitle: 'Card Title',
+    cardSubtext: 'Card Subtitle',
+    children: (
+      <div className="rds-card__badges">
+        <RdsBadge 
+          badgeContent="Design System"
+          colorVariant="secondary"
+          styleType="primary"
+          size="medium"
+          shape="rectangle"
+        />
+        <RdsBadge 
+          badgeContent="Javascript"
+          colorVariant="primary"
+          styleType="primary"
+          size="medium"
+          shape="rectangle"
+        />
+      </div>
+    ),
+  },
+};
+
+export const WithButton: Story = {
+  args: {
+    state: 'default',
+    cardStyle: 'default',
+    showIndicator: true,
+    showTitle: true,
+    showSubtext: true,
+    showDescription: true,
+    layout: 'vertical',
+    showIcon: true,
+    iconName: 'person',
+    cardTitle: 'Card Title',
+    cardSubtext: 'Card Subtitle',
+    description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
+    children: (
+      <div className="rds-card__button-group">
+        <RdsButton 
+          label="Cancel"
+          style="transparent"
+          color="primary"
+          size="small"
+        />
+        <RdsButton 
+          label="Okay"
+          style="filled"
+          color="primary"
+          size="small"
+        />
+      </div>
+    ),
+  },
+};
+
 export const WithCustomPadding: Story = {
   args: {
     padding: '24px',
@@ -92,18 +407,112 @@ export const WithCustomPadding: Story = {
   },
 };
 
-export const Elevated: Story = {
+export const WithImage: Story = {
   args: {
-    elevation: 8,
+    state: 'default',
+    cardStyle: 'default',
+    showIndicator: true,
+    showTitle: true,
+    showSubtext: true,
+    showDescription: false,
+    layout: 'vertical',
+    showIcon: true,
+    iconName: 'person',
+    cardTitle: 'Card Title',
+    cardSubtext: 'Card Subtitle',
     children: (
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Elevated Card
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          This card has increased elevation (shadow).
-        </Typography>
-      </CardContent>
+      <>
+        <div className="rds-card__image">
+          <img 
+            src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+            alt="Modern living room interior"
+            style={{
+              width: '100%',
+              height: '200px',
+              objectFit: 'cover',
+              borderRadius: '8px',
+              marginBottom: '16px'
+            }}
+          />
+        </div>
+        <div className="rds-card__description">
+          In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo
+        </div>
+        <div className="rds-card__button-group">
+          <RdsButton 
+            label="Cancel"
+            style="transparent"
+            color="primary"
+            size="small"
+          />
+          <RdsButton 
+            label="Okay"
+            style="filled"
+            color="primary"
+            size="small"
+          />
+        </div>
+      </>
+    ),
+  },
+};
+
+export const WithLinkButton: Story = {
+  args: {
+    state: 'default',
+    cardStyle: 'default',
+    showIndicator: true,
+    showTitle: true,
+    showSubtext: true,
+    showDescription: true,
+    layout: 'vertical',
+    showIcon: true,
+    iconName: 'person',
+    cardTitle: 'Card Title',
+    cardSubtext: 'Card Subtitle',
+    description: 'In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo',
+    children: (
+      <RdsButton 
+        label="Link Button >"
+        style="transparent"
+        size="small"
+        sx={{ mt: 1, p: 0, textTransform: 'none' }}
+      />
+    ),
+  },
+};
+
+export const WithTags: Story = {
+  args: {
+    state: 'default',
+    cardStyle: 'default',
+    showIndicator: true,
+    showTitle: true,
+    showSubtext: true,
+    showDescription: false,
+    layout: 'vertical',
+    showIcon: true,
+    iconName: 'person',
+    cardTitle: 'Card Title',
+    cardSubtext: 'Card Subtitle',
+    children: (
+      <>
+        <div className="rds-card__tags">
+          <RdsBadge 
+            badgeContent="Javascript"
+            colorVariant="primary"
+            styleType="primary"
+            size="medium"
+            shape="rectangle"
+          />
+        </div>
+        <div className="rds-card__long-description">
+          In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo In a laoreet purus. Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc. Aliquam erat vo In a laoreet purus. Integer turpis quam, laoreet id orci n...
+        </div>
+        <div className="rds-card__metadata">
+          210 Questions
+        </div>
+      </>
     ),
   },
 };

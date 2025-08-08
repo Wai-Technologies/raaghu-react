@@ -13,6 +13,7 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   icon?: 'add' | 'delete' | 'save';
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  inputSize?: 'small' | 'medium' | 'large';
 }
 
 const RdsButton: React.FC<RdsButtonProps> = ({
@@ -29,6 +30,7 @@ const RdsButton: React.FC<RdsButtonProps> = ({
   endIcon,
   state = 'default',
   icon,
+  inputSize = 'small',
   ...props
 }) => {
   // Normalize layout prop to support Storybook options
@@ -139,11 +141,19 @@ const RdsButton: React.FC<RdsButtonProps> = ({
   // Determine if button should be disabled based on state or disabled prop
   const isButtonDisabled = disabled || isLoading || state === 'disabled';
 
+  // Map inputSize to className
+  const sizeClass =
+    inputSize === 'large'
+      ? 'rds-button__large'
+      : inputSize === 'medium'
+      ? 'rds-button__medium'
+      : 'rds-button__small';
+
   return (
     <MuiButton
       disabled={isButtonDisabled}
       variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
-      className={`rds-button ${getStateClassName()}`}
+      className={`rds-button ${getStateClassName()} ${sizeClass}`.trim()}
       sx={{
         ...getShapeStyles(),
         ...getStateStyles(),

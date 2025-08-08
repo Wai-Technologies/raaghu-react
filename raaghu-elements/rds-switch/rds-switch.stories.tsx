@@ -51,6 +51,14 @@ export const Checked: Story = {
   },
 };
 
+export const Colors: Story = {
+  args: {
+    label: 'Secondary Color',
+    color: 'secondary',
+    defaultChecked: true,
+  },
+};
+
 export const Disabled: Story = {
   args: {
     label: 'Disabled Switch',
@@ -62,14 +70,6 @@ export const DisabledChecked: Story = {
   args: {
     label: 'Disabled Checked',
     disabled: true,
-    defaultChecked: true,
-  },
-};
-
-export const Colors: Story = {
-  args: {
-    label: 'Secondary Color',
-    color: 'secondary',
     defaultChecked: true,
   },
 };

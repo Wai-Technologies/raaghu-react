@@ -101,47 +101,27 @@ export const Default: Story = {
   },
 };
 
-export const WithValue: Story = {
-  args: {
-    value: 50,
-    min: 0,
-    max: 100,
-    label: 'Brightness',
-    showValue: true,
-  },
-};
-
-export const RangeSlider: Story = {
-  args: {
-    value: [20, 80],
-    min: 0,
-    max: 100,
-    label: 'Price Range',
-    showValue: true,
-  },
-};
-
-export const WithCustomFormat: Story = {
-  args: {
-    value: 50,
-    min: 0,
-    max: 100,
-    label: 'Temperature',
-    showValue: true,
-    formatValue: (value: number) => `${value}°C`,
-  },
-};
-
-export const Steps: Story = {
-  args: {
-    value: 20,
-    min: 0,
-    max: 100,
-    step: 10,
-    marks: true,
-    label: 'Progress (10% steps)',
-    showValue: true,
-  },
+export const Colors: Story = {
+  render: () => (
+    <Box sx={{ width: 300, display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <RdsRange
+        value={40}
+        min={0}
+        max={100}
+        color="primary"
+        label="Primary Color"
+        showValue
+      />
+      <RdsRange
+        value={60}
+        min={0}
+        max={100}
+        color="secondary"
+        label="Secondary Color"
+        showValue
+      />
+    </Box>
+  ),
 };
 
 export const Disabled: Story = {
@@ -197,25 +177,45 @@ export const Interactive: Story = {
   },
 };
 
-export const Colors: Story = {
-  render: () => (
-    <Box sx={{ width: 300, display: 'flex', flexDirection: 'column', gap: 3 }}>
-      <RdsRange
-        value={40}
-        min={0}
-        max={100}
-        color="primary"
-        label="Primary Color"
-        showValue
-      />
-      <RdsRange
-        value={60}
-        min={0}
-        max={100}
-        color="secondary"
-        label="Secondary Color"
-        showValue
-      />
-    </Box>
-  ),
+export const RangeSlider: Story = {
+  args: {
+    value: [20, 80],
+    min: 0,
+    max: 100,
+    label: 'Price Range',
+    showValue: true,
+  },
+};
+
+export const Steps: Story = {
+  args: {
+    value: 20,
+    min: 0,
+    max: 100,
+    step: 10,
+    marks: true,
+    label: 'Progress (10% steps)',
+    showValue: true,
+  },
+};
+
+export const WithCustomFormat: Story = {
+  args: {
+    value: 50,
+    min: 0,
+    max: 100,
+    label: 'Temperature',
+    showValue: true,
+    formatValue: (value: number) => `${value}°C`,
+  },
+};
+
+export const WithValue: Story = {
+  args: {
+    value: 50,
+    min: 0,
+    max: 100,
+    label: 'Brightness',
+    showValue: true,
+  },
 };
