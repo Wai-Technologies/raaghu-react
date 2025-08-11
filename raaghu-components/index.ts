@@ -1,1 +1,13 @@
 export {default as RdsCompSpinner} from './rds-comp-spinner/rds-comp-spinner';
+export { default as RdsCompAreaChart } from "./rds-comp-chart-area/rds-comp-chart-area";
+export { default as RdsCompLineChart } from "./rds-comp-chart-line/rds-comp-chart-line";
+export { default as RdsCompPieChart } from "./rds-comp-chart-pie/rds-comp-chart-pie";
+export { default as RdsCompDoughnutChart } from "./rds-comp-chart-doughnut/rds-comp-chart-doughnut";
+export { default as RdsCompBarChart } from "./rds-comp-chart-bar/rds-comp-chart-bar";
+export { default as RdsCompBooleanChart } from "./rds-comp-chart-boolean/rds-comp-chart-boolean";
+export { default as RdsCompMixedChart } from "./rds-comp-chart-mixed/rds-comp-chart-mixed";
+export { default as RdsCompPolarAreaChart } from "./rds-comp-chart-polar-area/rds-comp-chart-polar-area";
+export { default as RdsCompRadarChart } from "./rds-comp-chart-radar/rds-comp-chart-radar";
+export { default as RdsCompScatterChart } from "./rds-comp-chart-scatter/rds-comp-chart-scatter";
+export { default as RdsCompStackedChart } from "./rds-comp-chart-stacked/rds-comp-chart-stacked";
+export { default as RdsCompBubbleChart } from "./rds-comp-chart-bubble/rds-comp-chart-bubble";
