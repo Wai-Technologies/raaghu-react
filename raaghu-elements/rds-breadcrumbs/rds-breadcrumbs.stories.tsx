@@ -13,6 +13,10 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
       control: 'object',
       description: 'Array of breadcrumb items',
     },
+    title: {
+      control: 'text',
+      description: 'Title for the first breadcrumb item',
+    },
     level: {
       control: 'select',
       options: ['level1', 'level2', 'level3', 'level4', 'level5'],
@@ -32,7 +36,7 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
       options: ['default', 'hover', 'selected'],
       description: 'Breadcrumb item state',
     },
-     icon: {
+    icon: {
       control: 'text',
       description: 'Icon to display in breadcrumb items',
     },
@@ -51,6 +55,7 @@ export const Default: Story = {
       { label: 'Subcategory', href: '/products/category/subcategory' },
       { label: 'Current Page', active: true },
     ],
+    title: 'Home',
     layout: 'without background',
     showIcon: true,
     state: 'default',
