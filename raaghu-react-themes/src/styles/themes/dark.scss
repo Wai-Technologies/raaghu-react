@@ -396,7 +396,7 @@ body.theme-dark,
   
   // Background Colors
   --rds-background-default: #{$body-bg};
-  --rds-background-paper: #{$bg-neutral-light-default};
+  --rds-background-paper: #{$bg-neutral-light-default} !important;
   --rds-background-surface: #{$dark-300};
   --rds-background-overlay: rgba(0, 0, 0, 0.7);
   

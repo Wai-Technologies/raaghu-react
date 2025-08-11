@@ -125,87 +125,6 @@ export const Default: Story = {
   },
 };
 
-
-export const SecondTabActive: Story = {
-  args: {
-    tabs: sampleTabs,
-    activeTab: 1,
-    layout: 'filled',
-    leftIcon: 'Person',
-    rightIcon: 'Add',
-  },
-  render: (args) => {
-    const { leftIcon, rightIcon, level, ...rest } = args as any;
-    const tabs = (args.tabs || []).slice(0, level || 1);
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          tabs={tabs}
-          leftIcon={iconMap[leftIcon as keyof typeof iconMap]}
-          rightIcon={iconMap[rightIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
-};
-
-
-export const Vertical: Story = {
-  args: {
-    tabs: sampleTabs,
-    activeTab: 0,
-    orientation: 'vertical',
-    layout: 'filled',
-    leftIcon: 'Person',
-    rightIcon: 'Add',
-  },
-  render: (args) => {
-    const { leftIcon, rightIcon, level, ...rest } = args as any;
-    const tabs = (args.tabs || []).slice(0, level || 1);
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          tabs={tabs}
-          leftIcon={iconMap[leftIcon as keyof typeof iconMap]}
-          rightIcon={iconMap[rightIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
-};
-
-
-export const SimpleTabs: Story = {
-  args: {
-    tabs: [
-      { id: 0, label: 'Tab 1' },
-      { id: 1, label: 'Tab 2' },
-      { id: 2, label: 'Tab 3' },
-    ],
-    activeTab: 0,
-    layout: 'filled',
-    leftIcon: 'Person',
-    rightIcon: 'Add',
-  },
-  render: (args) => {
-    const { leftIcon, rightIcon, level, ...rest } = args as any;
-    const tabs = (args.tabs || []).slice(0, level || 1);
-    return (
-      <>
-        <RdsTabs
-          {...rest}
-          tabs={tabs}
-          leftIcon={iconMap[leftIcon as keyof typeof iconMap]}
-          rightIcon={iconMap[rightIcon as keyof typeof iconMap]}
-        />
-      </>
-    );
-  },
-};
-
-
 export const ManyTabs: Story = {
   args: {
     tabs: Array.from({ length: 8 }, (_, i) => ({ id: i, label: `Tab ${i + 1}` })),
@@ -245,3 +164,81 @@ export const ManyTabs: Story = {
     );
   },
 };
+
+export const SecondTabActive: Story = {
+  args: {
+    tabs: sampleTabs,
+    activeTab: 1,
+    layout: 'filled',
+    leftIcon: 'Person',
+    rightIcon: 'Add',
+  },
+  render: (args) => {
+    const { leftIcon, rightIcon, level, ...rest } = args as any;
+    const tabs = (args.tabs || []).slice(0, level || 1);
+    return (
+      <>
+        <RdsTabs
+          {...rest}
+          tabs={tabs}
+          leftIcon={iconMap[leftIcon as keyof typeof iconMap]}
+          rightIcon={iconMap[rightIcon as keyof typeof iconMap]}
+        />
+      </>
+    );
+  },
+};
+
+export const SimpleTabs: Story = {
+  args: {
+    tabs: [
+      { id: 0, label: 'Tab 1' },
+      { id: 1, label: 'Tab 2' },
+      { id: 2, label: 'Tab 3' },
+    ],
+    activeTab: 0,
+    layout: 'filled',
+    leftIcon: 'Person',
+    rightIcon: 'Add',
+  },
+  render: (args) => {
+    const { leftIcon, rightIcon, level, ...rest } = args as any;
+    const tabs = (args.tabs || []).slice(0, level || 1);
+    return (
+      <>
+        <RdsTabs
+          {...rest}
+          tabs={tabs}
+          leftIcon={iconMap[leftIcon as keyof typeof iconMap]}
+          rightIcon={iconMap[rightIcon as keyof typeof iconMap]}
+        />
+      </>
+    );
+  },
+};
+
+export const Vertical: Story = {
+  args: {
+    tabs: sampleTabs,
+    activeTab: 0,
+    orientation: 'vertical',
+    layout: 'filled',
+    leftIcon: 'Person',
+    rightIcon: 'Add',
+  },
+  render: (args) => {
+    const { leftIcon, rightIcon, level, ...rest } = args as any;
+    const tabs = (args.tabs || []).slice(0, level || 1);
+    return (
+      <>
+        <RdsTabs
+          {...rest}
+          tabs={tabs}
+          leftIcon={iconMap[leftIcon as keyof typeof iconMap]}
+          rightIcon={iconMap[rightIcon as keyof typeof iconMap]}
+        />
+      </>
+    );
+  },
+};
+
