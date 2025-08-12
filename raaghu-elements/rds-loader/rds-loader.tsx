@@ -9,16 +9,16 @@ export interface RdsLoaderProps {
   label?: string;
   overlay?: boolean;
   thickness?: number;
-  loaderType?: string; // Optional prop for loader type
+  type?: string; // Optional prop for loader type
 }
 
 
 const RdsLoader: React.FC<RdsLoaderProps> = (props) => {
-  // loaderType logic: if present, render custom loader type and size
-  if (props.loaderType) {
+  // type logic: if present, render custom loader type and size
+  if (props.type) {
     const size = props.size || "medium";
     // Remove 'loader-' prefix if present for BEM compliance
-    let type = props.loaderType;
+    let type = props.type;
     if (type.startsWith('loader-')) {
       type = type.replace(/^loader-/, '');
     }
