@@ -32,6 +32,23 @@ const meta: Meta<typeof RdsLoader> = {
     thickness: {
       control: { type: 'range', min: 1, max: 10 },
     },
+    type: {
+            options: [
+                "line-wobble",
+                "loader-moving",
+                "loader-hash",
+                "loader-jump",
+                "sand",
+                "rolling-rock",
+                "loader-round",
+                "rotate",
+                "spin",
+                "triangle",
+                "spinner-ring",
+            ],
+            control: { type: "select" },
+            description: "Custom loader type. If specified, overrides variant and size.",
+        },
   },
 };
 
@@ -117,49 +134,49 @@ export const LinearDeterminate: Story = {
 
 export const LineWobbleWithLabel: Story = {
   args: {
-    loaderType: 'line-wobble',
+    type: 'line-wobble',
     label: 'Loading...'
   },
 };
 
 export const LoaderHashWithLabel: Story = {
   args: {
-    loaderType: 'loader-hash',
+    type: 'loader-hash',
     label: 'Hashing...'
   },
 };
 
 export const LoaderJumpWithLabel: Story = {
   args: {
-    loaderType: 'loader-jump',
+    type: 'loader-jump',
     label: 'Jumping...'
   },
 };
 
 export const LoaderMovingWithLabel: Story = {
   args: {
-    loaderType: 'loader-moving',
+    type: 'loader-moving',
     label: 'Moving...'
   },
 };
 
 export const LoaderRoundWithLabel: Story = {
   args: {
-    loaderType: 'loader-round',
+    type: 'loader-round',
     label: 'Loading round...'
   },
 };
 
 export const LoadWithLabel: Story = {
   args: {
-    loaderType: 'spin',
+    type: 'spin',
     label: 'Spinning...'
   },
 };
 
 export const LoadingWithLabel: Story = {
   args: {
-    loaderType: 'spinner-ring',
+    type: 'spinner-ring',
     size: 'medium',
     label: 'Loading spinner...'
   },
@@ -167,14 +184,14 @@ export const LoadingWithLabel: Story = {
 
 export const RotateWithLabel: Story = {
   args: {
-    loaderType: 'rotate',
+    type: 'rotate',
     label: 'Rotating...'
   },
 };
 
 export const RollingRockWithLabel: Story = {
   args: {
-    loaderType: 'rolling-rock',
+    type: 'rolling-rock',
     label: 'Rolling...'
   },
 };
@@ -191,14 +208,14 @@ export const Sizes: Story = {
 
 export const SandWithLabel: Story = {
   args: {
-    loaderType: 'sand',
+    type: 'sand',
     label: 'Sifting sand...'
   },
 };
 
 export const TriangleWithLabel: Story = {
   args: {
-    loaderType: 'triangle',
+    type: 'triangle',
     label: 'Loading triangle...'
   },
 };
