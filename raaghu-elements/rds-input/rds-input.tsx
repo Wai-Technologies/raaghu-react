@@ -1,43 +1,65 @@
 import React from 'react';
 import { TextField as MuiTextField, TextFieldProps, InputAdornment } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-import PhoneIcon from '@mui/icons-material/Phone';
 import './rds-input.scss';
+
+export enum RdsInputSize {
+  Small = 'small',
+  Medium = 'medium',
+  Large = 'large',
+}
+
+export enum RdsInputLayout {
+  Text = 'text',
+  Password = 'password',
+  PhoneNumber = 'phone number',
+  Number = 'number',
+  CardNumber = 'card number',
+}
+
+export enum RdsInputStyle {
+  Default = 'default',
+  Pill = 'pill',
+  BottomOutline = 'bottom outline',
+}
+
+export enum RdsInputState {
+  Default = 'default',
+  Active = 'active',
+  Selected = 'selected',
+  Error = 'error',
+  Disabled = 'disabled',
+}
 
 export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size'> {
   label?: string;
   placeholder?: string;
   hintText?: string;
   errorMessage?: string;
-  isRequired?: boolean;
+  isMandatory?: boolean;
   variant?: 'outlined' | 'filled' | 'standard';
-  size?: 'small' | 'medium' | 'large';
-  layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
+  size?: RdsInputSize;
+  layout?: RdsInputLayout;
   showTitle?: boolean;
-  style?: 'default' | 'pill' | 'bottom outline'; // Now using 'style' instead of 'inputStyle'
-  state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
+  style?: RdsInputStyle; // Now using 'style' instead of 'inputStyle'
+  state?: RdsInputState;
   showIcon?: boolean; // New prop to control icon visibility
   iconPosition?: 'start' | 'end';
   iconName?: string; // Icon name if using custom icon
   icon?: React.ReactNode; // Custom icon component provided by the user
 }
 
-const RdsInput: React.FC<RdsInputProps> = ({
+const RdsInput = ({
   label,
   placeholder,
   hintText,
   errorMessage,
-  isRequired = false,
+  isMandatory = false,
   variant = 'outlined',
-  size = 'small',
-  layout = 'text',
+  size = RdsInputSize.Small,
+  layout = RdsInputLayout.Text,
   showTitle = true,
-  style = 'default',
-  state = 'default',
+  style = RdsInputStyle.Default,
+  state = RdsInputState.Default,
   showIcon = false,
   iconPosition = 'end',
   iconName = 'search',
@@ -45,7 +67,7 @@ const RdsInput: React.FC<RdsInputProps> = ({
   error,
   disabled,
   ...props
-}) => {
+}: RdsInputProps) => {
   // State for password visibility
   const [showPassword, setShowPassword] = React.useState(false);
   
@@ -116,7 +138,7 @@ const RdsInput: React.FC<RdsInputProps> = ({
       {!showTitle && label && (
         <label className="rds-input__label">
           {label}
-          {isRequired === true && (<span className="rds-input__asterisk">*</span>)}
+          {isMandatory === true && (<span className="rds-input__asterisk">*</span>)}
         </label>
       )}
       <MuiTextField
@@ -125,9 +147,9 @@ const RdsInput: React.FC<RdsInputProps> = ({
         helperText={errorMessage || hintText}
         error={!!errorMessage || error || state === 'error'}
         disabled={disabled || state === 'disabled'}
-        required={isRequired}
+        required={isMandatory}
         variant={variant}
-        size={size === 'large' ? 'medium' : size}
+        size={size === RdsInputSize.Large ? 'medium' : (size === RdsInputSize.Small ? 'small' : 'medium')}
         type={inputType}
         fullWidth
         focused={state === 'active'}
