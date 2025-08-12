@@ -30,7 +30,7 @@ const RdsCompTruncateText: React.FC<RdsCompTruncateTextProps> = ({ text, maxLeng
   return (
     <div className="rds-comp-truncate-text" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {state === "Hover" && isHovered && text.length > maxLength ? (
-      <RdsTooltip text={text} title={text} position="bottom" arrow>
+      <RdsTooltip label={text} title={text} style="bottom" arrow>
           <span>{displayText}</span>
         </RdsTooltip>
       ) : (
