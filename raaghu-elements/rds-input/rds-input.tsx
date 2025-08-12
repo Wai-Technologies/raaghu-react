@@ -2,39 +2,54 @@ import React from 'react';
 import { TextField as MuiTextField, TextFieldProps } from '@mui/material';
 import './rds-input.scss';
 
-export interface RdsInputProps extends Omit<TextFieldProps, 'variant'> {
+export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style'> {
   label?: string;
   placeholder?: string;
-  helperText?: string;
+  hintText?: string;
   errorMessage?: string;
   isRequired?: boolean;
   variant?: 'outlined' | 'filled' | 'standard';
-  inputSize?: 'small' | 'medium';
-  layout?: 'text' | 'password' | 'phone number' |'number' | 'card number';
+  size?: 'small' | 'medium';
+  layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
   labelposition?: boolean;
-  inputStyle?: 'default' | 'pill' | 'bottom outline'; // New prop for pill style
+  style?: 'default' | 'pill' | 'bottom outline'; // Now using 'style' instead of 'inputStyle'
+  state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
 }
 
 const RdsInput: React.FC<RdsInputProps> = ({
   label,
   placeholder,
-  helperText,
+  hintText,
   errorMessage,
   isRequired = false,
   variant = 'outlined',
-  inputSize = 'small',
+  size = 'small',
   layout = 'text',
   labelposition = true,
-  inputStyle = 'default',
+  style = 'default',
+  state = 'default',
   error,
+  disabled,
   ...props
 }) => {
   // Custom styles for input size
   // Determine size class
-  const sizeClass = inputSize === 'small' ? 'rds-input__small' : 'rds-input__medium';
+  const sizeClass = size === 'small' ? 'rds-input__small' : 'rds-input__medium';
 
   // Pill style class
-  const pillClass = inputStyle === 'pill' ? 'rds-input__pill' : inputStyle === 'bottom outline' ? 'rds-input__bottom-outline' : '';
+  const pillClass = style === 'pill' ? 'rds-input__pill' : style === 'bottom outline' ? 'rds-input__bottom-outline' : '';
+  
+  // State class
+  let stateClass = '';
+  if (state === 'error' || error) {
+    stateClass = 'rds-input__error';
+  } else if (state === 'disabled' || disabled) {
+    stateClass = 'rds-input__disabled';
+  } else if (state === 'active') {
+    stateClass = 'rds-input__active';
+  } else if (state === 'selected') {
+    stateClass = 'rds-input__selected';
+  }
 
   // Map layout to MUI type
   let inputType: string = 'text';
@@ -54,7 +69,7 @@ const RdsInput: React.FC<RdsInputProps> = ({
   }
 
   return (
-    <div className={`rds-input ${sizeClass} ${pillClass}`.trim()}>
+    <div className={`rds-input ${sizeClass} ${pillClass} ${stateClass}`.trim()}>
       {!labelposition && label && (
         <label className="rds-input__label">
           {label}
@@ -64,15 +79,21 @@ const RdsInput: React.FC<RdsInputProps> = ({
       <MuiTextField
         label={labelposition ? label : ''}
         placeholder={placeholder}
-        helperText={errorMessage || helperText}
-        error={!!errorMessage || error}
+        helperText={errorMessage || hintText}
+        error={!!errorMessage || error || state === 'error'}
+        disabled={disabled || state === 'disabled'}
         required={isRequired}
         variant={variant}
-        size={inputSize}
+        size={size}
         type={inputType}
         fullWidth
+        focused={state === 'active'}
         InputProps={{ 
           className: 'rds-input__field',
+          classes: {
+            root: state === 'active' ? 'Mui-focused' : '',
+            focused: state === 'active' ? 'Mui-focused' : '',
+          },
         }}
         {...props}
       />

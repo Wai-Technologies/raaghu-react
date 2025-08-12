@@ -9,17 +9,21 @@ const meta: Meta<typeof RdsInput> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    inputSize: {
+    size: {
       control:"select",
       options: ['small', 'medium'],
     },
-    type: {
+    layout: {
       control: "select",
       options: ['text', 'password', 'phone number', 'number', 'card number'],
     },
-    inputStyle: {
+    style: {
       control: "select",
       options: ['default', 'pill', 'bottom outline'],
+    },
+    state: {
+      control: "select",
+      options: ['default', 'active', 'selected', 'error', 'disabled'],
     },
   },
 };
@@ -30,19 +34,20 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     placeholder: 'Enter text...',
-    inputSize: 'small',
-    type: 'text',
-    inputStyle: 'default',
+    size: 'small',
+    layout: 'text',
+    style: 'default',
+    state: 'default',
   },
 };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
-    disabled: true,
     value: 'Cannot edit this',
-    inputSize: 'small',
+    size: 'small',
     labelposition: true,
-    type: 'text',
+    layout: 'text',
+    state: 'disabled',
   },
 };
 
@@ -51,8 +56,8 @@ export const Required: Story = {
     label: 'Required Input',
     isRequired: true,
     placeholder: 'This field is required',
-    inputSize: 'small',
-    type: 'text',
+    size: 'small',
+    layout: 'text',
     labelposition: true,
   },
 };
@@ -60,8 +65,8 @@ export const WithLabel: Story = {
   args: {
     label: 'Input',
     placeholder: 'Enter value',
-    inputSize: 'small',
-    type: 'text',
+    size: 'small',
+    layout: 'text',
     labelposition: true,
   },
 };
@@ -69,11 +74,11 @@ export const WithLabel: Story = {
 export const WithError: Story = {
   args: {
     label: 'Input with Error',
-    error: true,
-    helperText: 'This field has an error',
+    hintText: 'This field has an error',
     value: 'Invalid value',
-    inputSize: 'small',
-    type: 'text',
+    size: 'small',
+    layout: 'text',
     labelposition: true,
+    state: 'error',
   },
 };

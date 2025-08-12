@@ -29,12 +29,12 @@
     
     &:focus {
       outline: none;
-      border-color: var(--rds-primary-main);
-      box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+      border-color: var(--rds-primary-main, #1976d2);
+      box-shadow: var(--rds-focus-ring, 0 0 0 2px rgba(25, 118, 210, 0.2));
     }
     
     &::placeholder {
-      color: var(--rds-text-disabled);
+      color: var(--rds-text-disabled, #9e9e9e);
     }
   }
   
@@ -46,35 +46,75 @@
   
   &__error-text {
     font-size: var(--rds-font-size-sm);
-    color: var(--rds-alert-error-border);
+    color: var(--rds-error-main);
     margin-top: var(--rds-spacing-xs);
   }
   
   // State variants
   &__error {
     .rds-input__field {
-      border-color: var(--rds-alert-error-border);
+      border-color: var(--rds-error-main, #d32f2f);
       
       &:focus {
-        border-color: var(--rds-alert-error-border);
-        box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.2);
+        border-color: var(--rds-error-main, #d32f2f);
+        box-shadow: 0 0 0 2px var(--rds-error-light, rgba(211, 47, 47, 0.2));
       }
     }
     
     .rds-input__label {
-      color: var(--rds-alert-error-border);
+      color: var(--rds-error-main, #d32f2f);
+    }
+    
+    .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-error-main, #d32f2f) !important;
+      border-width: 1px;
     }
   }
   
   &__disabled {
     .rds-input__field {
-      background-color: var(--rds-background-surface);
-      color: var(--rds-text-disabled);
+      background-color: var(--rds-background-surface, #f5f5f5);
+      color: var(--rds-text-disabled, #9e9e9e);
       cursor: not-allowed;
     }
     
     .rds-input__label {
-      color: var(--rds-text-disabled);
+      color: var(--rds-text-disabled, #9e9e9e);
+    }
+    
+    .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-border-light, #e0e0e0) !important;
+      border-width: 1px;
+    }
+  }
+  
+  &__active {
+    .rds-input__field {
+      border-color: var(--rds-primary-main, #1976d2);
+    }
+    
+    .rds-input__label {
+      color: var(--rds-primary-main, #1976d2);
+    }
+    
+    .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-primary-main, #1976d2) !important;
+      border-width: 2px;
+    }
+  }
+  
+  &__selected {
+    .rds-input__field {
+      border-color: var(--rds-primary-main, #1976d2);
+    }
+    
+    .rds-input__label {
+      color: var(--rds-primary-main, #1976d2);
+    }
+    
+    .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-primary-main, #1976d2) !important;
+      border-width: 1px;
     }
   }
   
@@ -110,15 +150,84 @@
   }
 }
 
-// Bottom outline style
+  // Bottom outline style
   &__bottom-outline {
     .MuiOutlinedInput-root,
     .MuiFilledInput-root,
     .MuiInputBase-root,
     &__field {
       border: none;
+      border-radius: 0;
       border-bottom: 2px solid currentColor;
     }
+  }
+}
+
+// Override MUI specific styles to match Figma design colors
+.rds-input {
+  &__error {
+    .MuiFormLabel-root.Mui-error {
+      color: var(--rds-error-main, #d32f2f) !important;
+    }
+    .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-error-main, #d32f2f) !important;
+    }
+    .MuiFormHelperText-root.Mui-error {
+      color: var(--rds-error-main, #d32f2f) !important;
+    }
+  }
+  
+  &__active {
+    .MuiFormLabel-root.Mui-focused {
+      color: var(--rds-primary-main, #1976d2) !important;
+    }
+    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-primary-main, #1976d2) !important;
+      border-width: 2px;
+    }
+  }
+  
+  &__selected {
+    .MuiFormLabel-root {
+      color: var(--rds-primary-main, #1976d2) !important;
+    }
+    .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {      border-color: var(--rds-primary-main, #1976d2) !important;
+    }
+  }
+  
+  &__disabled {
+    .MuiFormLabel-root.Mui-disabled {
+      color: var(--rds-text-disabled, #9e9e9e) !important;
+    }
+    .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-border-light, #e0e0e0) !important;
+    }
+    .MuiInputBase-root.Mui-disabled {
+      background-color: var(--rds-background-surface, #f5f5f5);
+      color: var(--rds-text-disabled, #9e9e9e);
+    }
+  }
+}
+
+// Accessibility styles
+.rds-input {
+  // Focus visible styles for keyboard navigation
+  &:focus-visible {
+    outline: var(--rds-focus-ring);
+    outline-offset: var(--rds-focus-ring-offset);
+  }
+  
+  // Screen reader only helper text
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 }
 
