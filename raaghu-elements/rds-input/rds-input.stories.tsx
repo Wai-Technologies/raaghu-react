@@ -65,7 +65,7 @@ export const Default: Story = {
     label: 'Input Label',
     hintText: 'This is a hint text',
     isRequired: false,
-    labelposition: true,
+    showTitle: true,
     error: false,
     disabled: false,
   },
@@ -75,7 +75,7 @@ export const Disabled: Story = {
     label: 'Disabled Input',
     value: 'Cannot edit this',
     size: 'small',
-    labelposition: true,
+    showTitle: true,
     layout: 'text',
     state: 'disabled',
   },
@@ -88,7 +88,7 @@ export const Required: Story = {
     placeholder: 'This field is required',
     size: 'small',
     layout: 'text',
-    labelposition: true,
+    showTitle: true,
   },
 };
 export const WithLabel: Story = {
@@ -97,7 +97,7 @@ export const WithLabel: Story = {
     value: 'Enter value',
     size: 'small',
     layout: 'text',
-    labelposition: true,
+    showTitle: true,
   },
 };
 
@@ -108,7 +108,7 @@ export const WithError: Story = {
     value: 'Invalid value',
     size: 'small',
     layout: 'text',
-    labelposition: true,
+    showTitle: true,
     state: 'error',
   },
 };
