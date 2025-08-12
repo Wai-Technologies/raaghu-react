@@ -160,7 +160,7 @@
   content: '';
   position: absolute;
   bottom: -9px; /* position the arrow just below the tab */
-  left: 150px;
+  left: 68px;
   transform: translateX(-50%);
   width: 0;
   height: 0;
@@ -199,6 +199,7 @@
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
   content: "" !important;
   position: absolute !important;
+  left: 150px !important;
   top: 50% !important;
   right: -12px !important; /* Position to the right of the tab */
   transform: translateY(-50%) !important;
