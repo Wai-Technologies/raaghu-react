@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsInput from './rds-input';
+import SearchIcon from '@mui/icons-material/Search';
+import PersonIcon from '@mui/icons-material/Person';
+import EmailIcon from '@mui/icons-material/Email';
+import HomeIcon from '@mui/icons-material/Home';
 
 const meta: Meta<typeof RdsInput> = {
   title: 'Elements/Input',
@@ -9,17 +13,41 @@ const meta: Meta<typeof RdsInput> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    inputSize: {
+    size: {
       control:"select",
-      options: ['small', 'medium'],
+      options: ['small', 'medium', 'large'],
     },
-    type: {
+    layout: {
       control: "select",
       options: ['text', 'password', 'phone number', 'number', 'card number'],
     },
-    inputStyle: {
+    style: {
       control: "select",
       options: ['default', 'pill', 'bottom outline'],
+    },
+    state: {
+      control: "select",
+      options: ['default', 'active', 'selected', 'error', 'disabled'],
+    },
+    showIcon: {
+      control: 'boolean',
+      description: 'Show icon in the input field',
+    },
+    iconPosition: {
+      control: 'radio',
+      options: ['start', 'end'],
+      description: 'Position of the icon',
+    },
+    icon: {
+      control: 'select',
+      options: ['search', 'person', 'email', 'home'],
+      mapping: {
+        search: <SearchIcon />,
+        person: <PersonIcon />,
+        email: <EmailIcon />,
+        home: <HomeIcon />,
+      },
+      description: 'Custom icon to display',
     },
   },
 };
@@ -29,51 +57,58 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    placeholder: 'Enter text...',
-    inputSize: 'small',
-    type: 'text',
-    inputStyle: 'default',
+    placeholder: 'Enter value',
+    size: 'small',
+    layout: 'text',
+    style: 'default',
+    state: 'default',
+    label: 'Input Label',
+    hintText: 'This is a hint text',
+    isMandatory: false,
+    showTitle: true,
+    error: false,
+    disabled: false,
   },
 };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
-    disabled: true,
     value: 'Cannot edit this',
-    inputSize: 'small',
-    labelposition: true,
-    type: 'text',
+    size: 'small',
+    showTitle: true,
+    layout: 'text',
+    state: 'disabled',
   },
 };
 
 export const Required: Story = {
   args: {
     label: 'Required Input',
-    isRequired: true,
+    isMandatory: true,
     placeholder: 'This field is required',
-    inputSize: 'small',
-    type: 'text',
-    labelposition: true,
+    size: 'small',
+    layout: 'text',
+    showTitle: true,
   },
 };
 export const WithLabel: Story = {
   args: {
     label: 'Input',
-    placeholder: 'Enter value',
-    inputSize: 'small',
-    type: 'text',
-    labelposition: true,
+    value: 'Enter value',
+    size: 'small',
+    layout: 'text',
+    showTitle: true,
   },
 };
 
 export const WithError: Story = {
   args: {
     label: 'Input with Error',
-    error: true,
-    helperText: 'This field has an error',
+    hintText: 'This field has an error',
     value: 'Invalid value',
-    inputSize: 'small',
-    type: 'text',
-    labelposition: true,
+    size: 'small',
+    layout: 'text',
+    showTitle: true,
+    state: 'error',
   },
 };
