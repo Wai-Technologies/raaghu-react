@@ -28,7 +28,6 @@ const RdsTooltip: React.FC<RdsTooltipProps> = ({
   text,
   position = 'top',
   title,
-  placement,
   className,
   style,
   arrow = false,
@@ -37,7 +36,7 @@ const RdsTooltip: React.FC<RdsTooltipProps> = ({
   // Compose BEM class for position
   const tooltipClass = clsx(
     'rds-tooltip',
-    `rds-tooltip--${(placement || position).replace(/-.*/, '')}`,
+    `rds-tooltip--${(position).replace(/-.*/, '')}`,
     className
   );
 
@@ -49,7 +48,7 @@ const RdsTooltip: React.FC<RdsTooltipProps> = ({
   return (
     <MuiTooltip
       title={title || text}
-      placement={placement || position}
+      placement={position}
       arrow={arrow}
       classes={{ popper: tooltipClass }}
       sx={customStyle}
