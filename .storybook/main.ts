@@ -2,7 +2,7 @@ import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
   stories: [
-    // Keep this scoped so Vite's bundler doesn't over-scan and break chunks
+    // Keep the scan restricted for performance & predictable bundling
     '../stories/**/*.mdx',
     '../stories/**/*.stories.@(js|jsx|ts|tsx)',
   ],
@@ -28,17 +28,11 @@ const config: StorybookConfig = {
     },
   },
 
-  // ✅ Important for correct asset + iframe paths in deployments
-  viteFinal: async (viteConfig, { configType }) => {
-    // If Storybook is deployed under a subpath, e.g., /storybook/
-    // set viteConfig.base accordingly:
-    // viteConfig.base = '/storybook/';
-    viteConfig.base = './'; // Safe default for same-folder assets
-
-    // Ensure build is self-contained and paths are relative
+  // ✅ Root deployment safe — works at https://new-react.raaghu.ai/
+  viteFinal: async (viteConfig) => {
+    viteConfig.base = '/'; // Assets & iframe load from root
     viteConfig.build = viteConfig.build || {};
-    viteConfig.build.assetsDir = 'assets';
-
+    viteConfig.build.assetsDir = 'assets'; // Keep chunks organized
     return viteConfig;
   },
 };
