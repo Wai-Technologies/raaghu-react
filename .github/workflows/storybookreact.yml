@@ -32,12 +32,22 @@ jobs:
           node-version: "22.x"
 
       - name: install and build storybook
+        if: ${{ github.event.inputs.environment != 'New' }}
         run: |
           npm run install-all
           npm run build-storybook
           # mkdir storybook-static/assets
           # cp .storybook/assets/* storybook-static/assets
           cp web.config storybook-static
+
+      - name: install and build storybook for new environment
+        if: ${{ github.event.inputs.environment == 'New' }}
+        run: |
+          npm install --legacy-peer-deps
+          npm run build-storybook
+          # mkdir storybook-static/assets
+          # cp .storybook/assets/* storybook-static/assets
+          # cp web.config storybook-static
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
