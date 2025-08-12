@@ -6,7 +6,25 @@ import type { Emoji } from 'emojibase';
 import data from 'emojibase-data/en/data.json';
 
 // Build maps once (data.json format: array of Emoji objects with group/subgroup info)
-const allEmojis: Emoji[] = (data as unknown as Emoji[]).filter(e => !!e.emoji);
+// Filter out newer Unicode emojis that don't render well across all systems
+const allEmojis: Emoji[] = (data as unknown as Emoji[])
+  .filter(e => !!e.emoji)
+  .filter(e => {
+    // Filter out emojis with Unicode version 12.0 or higher to avoid rendering issues
+    if (e.version && parseFloat(e.version.toString()) >= 12.0) {
+      return false;
+    }
+    // Filter out complex multi-codepoint emojis that might not render properly
+    if (e.emoji.length > 7) {
+      return false;
+    }
+    // Filter out regional indicator symbols (flag components) that appear as blank squares
+    const codePoint = e.emoji.codePointAt(0);
+    if (codePoint && codePoint >= 0x1F1E6 && codePoint <= 0x1F1FF) {
+      return false;
+    }
+    return true;
+  });
 
 // Map our local categories to emojibase groups (corrected alignment)
 const categoryGroupMap: Record<EmojiCategory, number[]> = {
@@ -48,18 +66,18 @@ export const applySkinTone = (emoji: string, skinTone: number): string => {
 };
 
 export const getEmojisByCategory = (category: EmojiCategory, skinTone: number = 0): string[] => {
-  const cacheKey = `${category}_${skinTone}`;
+  const cacheKey = `${category}_${skinTone}` as keyof typeof emojiCache;
   
-  if (!emojiCache[cacheKey as EmojiCategory]) {
+  if (!emojiCache[cacheKey]) {
     const groups = categoryGroupMap[category] || [];
     const baseEmojis = allEmojis
       .filter(e => groups.includes(e.group as number))
       .map(e => applySkinTone(e.emoji, skinTone))
       .filter(Boolean); // Remove any undefined/null values
     
-    emojiCache[cacheKey as EmojiCategory] = baseEmojis;
+    emojiCache[cacheKey] = baseEmojis;
   }
-  return emojiCache[cacheKey as EmojiCategory] as string[];
+  return emojiCache[cacheKey] as string[];
 };
 
 export const searchEmojis = (searchTerm: string, category?: EmojiCategory, skinTone: number = 0): string[] => {

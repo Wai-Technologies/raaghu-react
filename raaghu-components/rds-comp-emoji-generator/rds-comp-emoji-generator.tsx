@@ -9,6 +9,7 @@ import {
     IconButton,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import AddIcon from "@mui/icons-material/Add";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import PetsIcon from "@mui/icons-material/Pets";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
@@ -81,7 +82,8 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
 
     // Handle QuickReactions type
     if (Type === EmojiGeneratorType.QuickReactions) {
-        const quickEmojis = getQuickReactionEmojis();
+        // Exact emojis from wireframe: thumbs up, happy, sad, 100, sunglasses
+        const quickEmojis = ["👍", "😊", "😞", "💯", "😎"];
         
          return (
             <Box
@@ -91,7 +93,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                 {quickEmojis.map((emoji, index) => (
                     <Box
                         key={index}
-                        className="rds-emoji-generator__emoji"
+                        className="rds-emoji-generator__emoji rds-emoji-generator__emoji--quick"
                         onClick={() => handleEmojiClick(emoji)}
                     >
                         {emoji}
@@ -99,17 +101,19 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                 ))}
                 
                 {/* Plus icon */}
-                <Box
+                <IconButton
                     className="rds-emoji-generator__plus"
                     onClick={() => {
                         // Handle plus click - could open full emoji picker
                         console.log('Plus clicked - open full emoji picker');
+                        if (onEmojiSelect) {
+                            onEmojiSelect('+'); // You can customize this callback
+                        }
                     }}
+                    size="small"
                 >
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 1V17M1 8.95077H17" stroke="#7D7D7D" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                </Box>
+                    <AddIcon />
+                </IconButton>
             </Box>
         );
     }

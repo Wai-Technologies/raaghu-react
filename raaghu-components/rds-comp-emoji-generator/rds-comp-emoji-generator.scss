@@ -39,15 +39,16 @@
   &--quick {
     flex-direction: row;
     align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    background-color: var(--rds-emoji-generator-quick-bg);
-    border-radius: 20px;
-    border: 1px solid var(--rds-emoji-generator-quick-border);
-    box-shadow: var(--rds-emoji-generator-quick-shadow);
+    gap: 8px; // Reduced gap to match wireframe
+    padding: 8px 12px; // Reduced padding for tighter look
+    background-color: #ffffff;
+    border-radius: 20px; // Less rounded to match wireframe
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Lighter shadow
     width: fit-content;
     min-width: auto;
     max-height: none;
+    height: auto;
   }
   
   // Search section
@@ -283,39 +284,47 @@
     }
 
     // Quick reactions specific styles
-    .rds-emoji-generator--quick & {
-      width: 32px;
+    &--quick {
+      width: 32px; // Smaller size to match wireframe
       height: 32px;
-      border-radius: 6px;
-      font-size: 18px;
+      border-radius: 0; // No border radius - flat design
+      font-size: 20px; // Smaller emoji size
+      background-color: transparent; // No background
+      border: none; // No border
+      transition: transform 0.2s ease;
+      
+      &:hover {
+        background-color: transparent; // Keep transparent on hover
+        border: none;
+        transform: scale(1.1); // Only scale effect
+      }
+      
+      &:active {
+        transform: scale(0.95);
+        background-color: transparent; // Keep transparent when clicked
+      }
     }
   }
 
   // Plus icon for quick reactions
   &__plus {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
+    width: 32px !important; // Match emoji size from wireframe
+    height: 32px !important;
+    border-radius: 0 !important; // No border radius - flat design
     cursor: pointer;
-    transition: all 0.2s ease;
-    border: 1px solid var(--rds-emoji-generator-border-color);
-    background-color: var(--rds-emoji-generator-background);
+    transition: all 0.2s ease !important; // Keep transition for click effect
+    border: none !important; // Remove border
+    background-color: transparent !important; // Transparent background
+    padding: 0 !important;
     
-    &:hover {
-      background-color: var(--rds-emoji-generator-hover-color);
-      border-color: var(--rds-emoji-generator-accent);
+    &:active {
+      transform: scale(0.95) !important; // Add click effect
+      background-color: transparent !important; // Keep transparent
     }
     
-    svg {
-      opacity: 0.6;
-      transition: opacity 0.2s ease;
-    }
-    
-    &:hover svg {
-      opacity: 1;
+    .MuiSvgIcon-root {
+      color: #7D7D7D;
+      font-size: 18px; // Smaller icon to match wireframe
     }
   }
 
