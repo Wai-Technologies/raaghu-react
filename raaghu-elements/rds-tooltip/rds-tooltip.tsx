@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Tooltip as MuiTooltip, TooltipProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-tooltip.scss';
-export interface RdsTooltipProps extends TooltipProps {
+export interface RdsTooltipProps extends  Omit<TooltipProps,'style'> {
   children: React.ReactElement;
-  text?: string;
-  position?:
+  label?: string;
+  style?:
     | 'top'
     | 'bottom'
     | 'left'
@@ -19,37 +19,36 @@ export interface RdsTooltipProps extends TooltipProps {
     | 'right-start'
     | 'right-end';
   className?: string;
-  style?: React.CSSProperties;
+  tooltipStyle?: React.CSSProperties;
   arrow?: boolean;
 }
 
 const RdsTooltip: React.FC<RdsTooltipProps> = ({
   children,
-  text,
-  position = 'top',
+  label,
+  style = 'top',
   title,
-  placement,
   className,
-  style,
+  tooltipStyle,
   arrow = false,
   ...props
 }) => {
   // Compose BEM class for position
   const tooltipClass = clsx(
     'rds-tooltip',
-    `rds-tooltip--${(placement || position).replace(/-.*/, '')}`,
+    `rds-tooltip--${(style).replace(/-.*/, '')}`,
     className
   );
 
   // Inline style for custom colors
   const customStyle = {
-    ...(style || {}),
+    ...(tooltipStyle || {}),
   } as React.CSSProperties;
 
   return (
     <MuiTooltip
-      title={title || text}
-      placement={placement || position}
+      title={title || label}
+      placement={style}
       arrow={arrow}
       classes={{ popper: tooltipClass }}
       sx={customStyle}
