@@ -2,34 +2,6 @@ import React from 'react';
 import { TextField as MuiTextField, TextFieldProps, InputAdornment } from '@mui/material';
 import './rds-input.scss';
 
-export enum RdsInputSize {
-  Small = 'small',
-  Medium = 'medium',
-  Large = 'large',
-}
-
-export enum RdsInputLayout {
-  Text = 'text',
-  Password = 'password',
-  PhoneNumber = 'phone number',
-  Number = 'number',
-  CardNumber = 'card number',
-}
-
-export enum RdsInputStyle {
-  Default = 'default',
-  Pill = 'pill',
-  BottomOutline = 'bottom outline',
-}
-
-export enum RdsInputState {
-  Default = 'default',
-  Active = 'active',
-  Selected = 'selected',
-  Error = 'error',
-  Disabled = 'disabled',
-}
-
 export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size'> {
   label?: string;
   placeholder?: string;
@@ -37,11 +9,11 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   errorMessage?: string;
   isMandatory?: boolean;
   variant?: 'outlined' | 'filled' | 'standard';
-  size?: RdsInputSize;
-  layout?: RdsInputLayout;
+  size?: 'small' | 'medium' | 'large';
+  layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
   showTitle?: boolean;
-  style?: RdsInputStyle; // Now using 'style' instead of 'inputStyle'
-  state?: RdsInputState;
+  style?: 'default' | 'pill' | 'bottom outline'; // Now using 'style' instead of 'inputStyle'
+  state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
   showIcon?: boolean; // New prop to control icon visibility
   iconPosition?: 'start' | 'end';
   iconName?: string; // Icon name if using custom icon
@@ -55,11 +27,11 @@ const RdsInput = ({
   errorMessage,
   isMandatory = false,
   variant = 'outlined',
-  size = RdsInputSize.Small,
-  layout = RdsInputLayout.Text,
+  size = 'small',
+  layout = 'text',
   showTitle = true,
-  style = RdsInputStyle.Default,
-  state = RdsInputState.Default,
+  style = 'default',
+  state = 'default',
   showIcon = false,
   iconPosition = 'end',
   iconName = 'search',
@@ -149,7 +121,7 @@ const RdsInput = ({
         disabled={disabled || state === 'disabled'}
         required={isMandatory}
         variant={variant}
-        size={size === RdsInputSize.Large ? 'medium' : (size === RdsInputSize.Small ? 'small' : 'medium')}
+        size={size === 'large' ? 'medium' : size}
         type={inputType}
         fullWidth
         focused={state === 'active'}
