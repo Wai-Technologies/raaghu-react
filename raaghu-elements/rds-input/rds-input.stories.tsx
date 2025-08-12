@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import RdsInput from './rds-input';
+import RdsInput, { RdsInputLayout, RdsInputSize, RdsInputState, RdsInputStyle } from './rds-input';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
@@ -58,13 +58,13 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     placeholder: 'Enter value',
-    size: 'small',
-    layout: 'text',
-    style: 'default',
-    state: 'default',
+    size: RdsInputSize.Small,
+    layout: RdsInputLayout.Text,
+    style: RdsInputStyle.Default,
+    state: RdsInputState.Default,
     label: 'Input Label',
     hintText: 'This is a hint text',
-    isRequired: false,
+    isMandatory: false,
     showTitle: true,
     error: false,
     disabled: false,
@@ -74,20 +74,20 @@ export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
     value: 'Cannot edit this',
-    size: 'small',
+    size: RdsInputSize.Small,
     showTitle: true,
-    layout: 'text',
-    state: 'disabled',
+    layout: RdsInputLayout.Text,
+    state: RdsInputState.Disabled,
   },
 };
 
 export const Required: Story = {
   args: {
     label: 'Required Input',
-    isRequired: true,
+    isMandatory: true,
     placeholder: 'This field is required',
-    size: 'small',
-    layout: 'text',
+    size: RdsInputSize.Small,
+    layout: RdsInputLayout.Text,
     showTitle: true,
   },
 };
@@ -95,8 +95,8 @@ export const WithLabel: Story = {
   args: {
     label: 'Input',
     value: 'Enter value',
-    size: 'small',
-    layout: 'text',
+    size: RdsInputSize.Small,
+    layout: RdsInputLayout.Text,
     showTitle: true,
   },
 };
@@ -106,9 +106,9 @@ export const WithError: Story = {
     label: 'Input with Error',
     hintText: 'This field has an error',
     value: 'Invalid value',
-    size: 'small',
-    layout: 'text',
+    size: RdsInputSize.Small,
+    layout: RdsInputLayout.Text,
     showTitle: true,
-    state: 'error',
+    state: RdsInputState.Error,
   },
 };
