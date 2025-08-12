@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import RdsInput, { RdsInputLayout, RdsInputSize, RdsInputState, RdsInputStyle } from './rds-input';
+import RdsInput from './rds-input';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
@@ -58,10 +58,10 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     placeholder: 'Enter value',
-    size: RdsInputSize.Small,
-    layout: RdsInputLayout.Text,
-    style: RdsInputStyle.Default,
-    state: RdsInputState.Default,
+    size: 'small',
+    layout: 'text',
+    style: 'default',
+    state: 'default',
     label: 'Input Label',
     hintText: 'This is a hint text',
     isMandatory: false,
@@ -74,10 +74,10 @@ export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
     value: 'Cannot edit this',
-    size: RdsInputSize.Small,
+    size: 'small',
     showTitle: true,
-    layout: RdsInputLayout.Text,
-    state: RdsInputState.Disabled,
+    layout: 'text',
+    state: 'disabled',
   },
 };
 
@@ -86,8 +86,8 @@ export const Required: Story = {
     label: 'Required Input',
     isMandatory: true,
     placeholder: 'This field is required',
-    size: RdsInputSize.Small,
-    layout: RdsInputLayout.Text,
+    size: 'small',
+    layout: 'text',
     showTitle: true,
   },
 };
@@ -95,8 +95,8 @@ export const WithLabel: Story = {
   args: {
     label: 'Input',
     value: 'Enter value',
-    size: RdsInputSize.Small,
-    layout: RdsInputLayout.Text,
+    size: 'small',
+    layout: 'text',
     showTitle: true,
   },
 };
@@ -106,9 +106,9 @@ export const WithError: Story = {
     label: 'Input with Error',
     hintText: 'This field has an error',
     value: 'Invalid value',
-    size: RdsInputSize.Small,
-    layout: RdsInputLayout.Text,
+    size: 'small',
+    layout: 'text',
     showTitle: true,
-    state: RdsInputState.Error,
+    state: 'error',
   },
 };
