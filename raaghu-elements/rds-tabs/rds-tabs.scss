@@ -93,6 +93,23 @@
   flex-direction: column;
   position: relative;
   font-family: var(--rds-font-family, inherit);
+  
+  // Ensure flap arrows are visible
+  &--flap {
+    overflow: visible !important;
+    
+    .MuiTabs-root {
+      overflow: visible !important;
+    }
+    
+    .MuiTabs-scroller {
+      overflow: visible !important;
+    }
+    
+    .MuiTabPanel-root {
+      overflow: visible !important;
+    }
+  }
 
   // Tab label content (BEM: __label)
   &__label {
@@ -135,66 +152,67 @@
   color: var(--rds-color-on-accent, #ffffff) !important;
   border-radius: 6px 6px 0 0 !important;
   border: unset !important;
-  position: relative; /* required for positioning the arrow */
+  position: relative !important; /* required for positioning the arrow */
+  z-index: 2 !important;
 }
 
 .rds-tabs--flap .Mui-selected::after {
   content: '';
   position: absolute;
   bottom: -9px; /* position the arrow just below the tab */
-  left: 50%;
+  left: 68px;
   transform: translateX(-50%);
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-top: 10px solid var(--rds-color-accent, #3C98FF); /* same as tab background */
+  z-index: 1;
 }
 
 .rds-tabs--flap.rds-state--hover .Mui-selected:hover::after {
   border-top-color: var(--rds-color-hover-bg, #EBDCFF) !important; /* Change to your desired hover color */
 }
+
 .css-jhczcq-MuiTabs-root{
-  overflow: unset !important;
-}
-.rds-tabs--flap .Mui-selected {
-  position: relative;
-  z-index: 2;
+  overflow: visible !important;
 }
 
 .css-1qltlow-MuiTabs-indicator {
   display: none !important;
-
 }
+
 .MuiTab-root {
   position: relative !important;
+  overflow: visible !important;
 }
 
 .css-1usuzwp-MuiButtonBase-root-MuiTab-root{
-  overflow: unset !important;
-}
-.MuiTabs-scroller{
-  overflow: unset !important;
-}
-
-.css-1usuzwp-MuiButtonBase-root-MuiTab-root {
+  overflow: visible !important;
   max-width: 150px !important;
 }
-/* Arrow (flap) on the right side of the selected vertical tab */
- .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
- content: "" !important;
-    position: absolute !important;
-    top: 50% !important;
-    left: 150px;
-    transform: translateY(-50%) !important;
-    width: 0 !important;
-    height: 0 !important;
-    border-top: 8px solid transparent !important;
-    border-bottom: 8px solid transparent !important;
-    border-left: 12px solid var(--rds-color-accent, #3C98FF) !important;
+
+.MuiTabs-scroller{
+  overflow: visible !important;
 }
- .rds-tabs--flap.rds-state--hover .MuiTabs-vertical .MuiTab-root.Mui-selected:hover::after {
-    border-left-color: var(--rds-color-hover-bg, #EBDCFF) !important; /* Change to your desired hover color */
+/* Arrow (flap) on the right side of the selected vertical tab */
+.rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 150px !important;
+  top: 50% !important;
+  right: -12px !important; /* Position to the right of the tab */
+  transform: translateY(-50%) !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-top: 8px solid transparent !important;
+  border-bottom: 8px solid transparent !important;
+  border-left: 12px solid var(--rds-color-accent, #3C98FF) !important;
+  z-index: 1 !important;
+}
+
+.rds-tabs--flap.rds-state--hover .MuiTabs-vertical .MuiTab-root.Mui-selected:hover::after {
+  border-left-color: var(--rds-color-hover-bg, #EBDCFF) !important; /* Change to your desired hover color */
 }
 .rds-state--disabled .Mui-selected{
   background: var(--rds-color-disabled-bg, #EBDCFF) !important;
@@ -215,4 +233,9 @@
   align-items: center;
   justify-content: center;
    font-size: 1.2em;        
+}
+
+.css-nowihk-MuiButtonBase-root-MuiTab-root,
+.css-r0euln-MuiButtonBase-root-MuiTab-root {
+  max-width: 150px !important;
 }

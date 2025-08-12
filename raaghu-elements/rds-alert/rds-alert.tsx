@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert as MuiAlert, AlertProps, AlertColor } from '@mui/material';
+import { Alert as MuiAlert, AlertProps, AlertColor, Paper } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import RdsButton from '../rds-button/rds-button';
 import './rds-alert.scss';
@@ -42,6 +42,7 @@ const RdsAlert: React.FC<RdsAlertProps> = ({
   const severityClass = `rds-alert--${(severity || type)}`;
 
   return (
+    <Paper>
     <MuiAlert
       severity={severity || type}
       icon={Icon ? <InfoOutlinedIcon className="rds-alert__icon" /> : false}
@@ -73,7 +74,7 @@ const RdsAlert: React.FC<RdsAlertProps> = ({
           <div className="rds-alert__actions">
             {showLink && (
               <RdsButton
-                variant="text"
+                style="transparent"
                 size="small"
                 className="rds-alert__link-button"
               >
@@ -81,12 +82,13 @@ const RdsAlert: React.FC<RdsAlertProps> = ({
               </RdsButton>
             )}
 
-            {showSecondary && <RdsButton variant="text" size="small" sx={{ mr: showPrimary ? 2 : 0 }}>Cancel</RdsButton>}
-            {showPrimary && <RdsButton variant="contained" size="small">Okay</RdsButton>}
+            {showSecondary && <RdsButton style="transparent" size="small" sx={{ mr: showPrimary ? 2 : 0 }}>Cancel</RdsButton>}
+            {showPrimary && <RdsButton style="filled" size="small">Okay</RdsButton>}
           </div>
         )}
       </div>
-    </MuiAlert>
+      </MuiAlert>
+    </Paper>
   );
 };
 

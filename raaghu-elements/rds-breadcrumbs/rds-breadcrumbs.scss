@@ -77,7 +77,7 @@
   &__plain {
     .rds-breadcrumbs__item {
       padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px);
-      color: var(--rds-color-text-primary, #333);
+      color: var(--rds-color-text-primary);
 
       &__enable-hover:hover {
         color: var(--rds-color-primary-dark, #1565c0);
