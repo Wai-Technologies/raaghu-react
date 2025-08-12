@@ -66,6 +66,17 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: 'Default Button',
+    style: 'filled',
+    color: 'primary',
+    size: 'medium',
+    disabled: false,
+    isLoading: false,
+    shape: 'rectangle',
+    state: 'default',
+    layout: 'text-only',
+    icon: 'add',
+    iconPosition: 'start',
+    inputSize: 'medium',
   },
 };
 

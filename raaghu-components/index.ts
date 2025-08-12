@@ -12,3 +12,4 @@ export { default as RdsCompScatterChart } from "./rds-comp-chart-scatter/rds-com
 export { default as RdsCompStackedChart } from "./rds-comp-chart-stacked/rds-comp-chart-stacked";
 export { default as RdsCompBubbleChart } from "./rds-comp-chart-bubble/rds-comp-chart-bubble";
 export { default as RdsCompAiChatBot } from './rds-comp-ai-chat-bot/rds-comp-ai-chat-bot';
+export {default as RdsCompToast} from './rds-comp-toast/rds-comp-toast';
