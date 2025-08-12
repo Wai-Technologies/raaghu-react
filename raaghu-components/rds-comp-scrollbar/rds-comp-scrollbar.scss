@@ -1,0 +1,116 @@
+.rds-scrollbar {
+  position: relative;
+  overflow: hidden;
+  width: 18px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--rds-color-gray-300, lightgray);
+  background-color: var(--rds-color-white);
+  border-radius: var(--rds-border-radius-lg, 15px);
+
+  &--mac {
+    .rds-scrollbar__controls {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      top: 0;
+      left: 0;
+      padding: 1px;
+      button {
+        background: var(--mac-scrollbar-button-bg, #c1bdbd);
+        border: none;
+        cursor: pointer;
+        font-size: 10px; /* Reduced size */
+        padding: 1px; /* Reduced padding */
+      }
+    }
+  }
+
+  .rds-scrollbar__content {
+    overflow-y: auto;
+    height: 100%;
+  }
+    .rds-scrollbar__inner-content {
+        height:700px
+    }
+}
+
+/* Mac Scrollbar */
+.rds-scrollbar--mac .rds-scrollbar__content {
+  width: 6px;
+  height: 245px;
+  overflow-y: scroll;
+  background-color: transparent;
+}
+
+.rds-scrollbar--mac .rds-scrollbar__content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.rds-scrollbar--mac .rds-scrollbar__content::-webkit-scrollbar-thumb {
+  background-color: var(--rds-color-gray-600, darkgray);
+  border-radius: var(--rds-border-radius-sm, 3px);
+}
+
+/* Simple Scrollbar (Default Browser) */
+.rds-scrollbar--simple .rds-scrollbar__content {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.rds-scrollbar--simple .rds-scrollbar__content::-webkit-scrollbar {
+  width: 6px; /* Full width */
+}
+
+.rds-scrollbar--simple .rds-scrollbar__content::-webkit-scrollbar-thumb {
+  background-color: var(--rds-color-gray-500, gray);
+  border-radius: var(--rds-border-radius-md, 5px);
+}
+
+.rds-scrollbar--simple .rds-scrollbar__content::-webkit-scrollbar-track {
+  background-color: var(--rds-color-gray-400, darkgray);
+  border-radius: var(--rds-border-radius-md, 5px);
+}
+
+/* Override all MUI SVG Icons within scrollbar component */
+.rds-scrollbar {
+  /* Target both the class pattern and the generic MUI class */
+  .MuiSvgIcon-root,
+  [class*="-MuiSvgIcon-root"] {
+    font-size: inherit;
+    width: 12px;
+    height: 12px;
+  }
+  
+  /* Specific styling for scrollbar icons */
+  &__icon {
+    width: 12px;
+    height: 12px;
+    font-size: inherit !important; /* Important to override MUI's default */
+  }
+}
+
+.rds-scrollbar__button {
+  background-color: var(--rds-color-gray-300, lightgray);
+  border-radius: 1px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  max-height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  
+  &:hover {
+    background-color: var(--rds-color-gray-400);
+  }
+  
+  &:focus {
+    outline: 2px solid var(--rds-color-primary);
+  }
+}

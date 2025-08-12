@@ -38,6 +38,7 @@ export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children'> 
   showIcon?: boolean;
   state?: 'default' | 'hover' | 'selected';
   icon?: string; // Icon name to use from iconMap
+  title?: string; // Title for the first breadcrumb
 }
 
 const RdsBreadcrumbs: React.FC<RdsBreadcrumbsProps> = ({
@@ -69,7 +70,18 @@ const RdsBreadcrumbs: React.FC<RdsBreadcrumbsProps> = ({
     return items.slice(0, maxItems);
   };
 
-  const filteredItems = getFilteredItems();
+  // Get filtered items first, then apply title only to the first item
+  let filteredItems = getFilteredItems();
+  
+  // If title prop is provided, override the label of ONLY the first item
+  if (props.title && filteredItems.length > 0) {
+    filteredItems = filteredItems.map((item, index) => {
+      if (index === 0) {
+        return { ...item, label: props.title! };
+      }
+      return item;
+    });
+  }
 
   // Generate CSS classes based on layout
   const getLayoutClass = (itemLayout?: string) => {

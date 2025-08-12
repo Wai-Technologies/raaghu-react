@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsTooltip> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    title: {
+    label: {
       control: 'text',
       description: 'Tooltip text content',
     },
@@ -19,7 +19,7 @@ const meta: Meta<typeof RdsTooltip> = {
       control: 'boolean',
       description: 'Whether to show arrow',
     },
-    placement: {
+    style: {
       control: 'select',
       options: [
         'top', 'bottom', 'left', 'right',
@@ -36,51 +36,51 @@ const meta: Meta<typeof RdsTooltip> = {
 
 export default meta;
 
-export const Default: StoryObj<typeof RdsTooltip> = {
+export const Default = {
   args: {
-    title: 'This is a tooltip',
+    label: 'This is a tooltip',
     children: <Button variant="contained">Hover me</Button>,
-    placement: 'top',
+    style: 'top',
   },
 };
 
-export const OnIconButton: StoryObj<typeof RdsTooltip> = {
+export const OnIconButton = {
   args: {
-    title: 'Delete item',
+    label: 'Delete item',
     children: (
       <IconButton>
         <Delete />
       </IconButton>
     ),
-    placement: 'top',
+    style: 'top',
   },
 };
 
-export const WithArrow: StoryObj<typeof RdsTooltip> = {
+export const WithArrow = {
   args: {
-    title: 'Tooltip with arrow',
+    label: 'Tooltip with arrow',
     arrow: true,
     children: <Button variant="outlined">Arrow tooltip</Button>,
-    placement: 'top',
+    style: 'top',
   },
 };
 
-export const Different_Placements: StoryObj<typeof RdsTooltip> = {
+export const Different_Placements = {
   args: {
-    title: 'Top placement',
-    placement: 'top',
+    label: 'Top placement',
+    style: 'top',
     children: <Button>Top</Button>,
   },
 };
 
-export const LongText: StoryObj<typeof RdsTooltip> = {
+export const LongText = {
   args: {
-    title: 'This is a very long tooltip text that might wrap to multiple lines depending on the screen size',
+    label: 'This is a very long tooltip text that might wrap to multiple lines depending on the screen size',
     children: (
       <IconButton>
         <Help />
       </IconButton>
     ),
-    placement: 'top',
+    style: 'top',
   },
 };
