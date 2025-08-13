@@ -13,3 +13,5 @@ export { default as RdsCompStackedChart } from "./rds-comp-chart-stacked/rds-com
 export { default as RdsCompBubbleChart } from "./rds-comp-chart-bubble/rds-comp-chart-bubble";
 export { default as RdsCompAiChatBot } from './rds-comp-ai-chat-bot/rds-comp-ai-chat-bot';
 export {default as RdsCompToast} from './rds-comp-toast/rds-comp-toast';
+export {default as RdsCompScrollbar} from './rds-comp-scrollbar/rds-comp-scrollbar';
+export {default as RdsCompTruncatedText} from './rds-comp-truncate-text/rds-comp-truncate-text';

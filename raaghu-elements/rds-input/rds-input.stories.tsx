@@ -64,7 +64,7 @@ export const Default: Story = {
     state: 'default',
     label: 'Input Label',
     hintText: 'This is a hint text',
-    isRequired: false,
+    isMandatory: false,
     showTitle: true,
     error: false,
     disabled: false,
@@ -84,7 +84,7 @@ export const Disabled: Story = {
 export const Required: Story = {
   args: {
     label: 'Required Input',
-    isRequired: true,
+    isMandatory: true,
     placeholder: 'This field is required',
     size: 'small',
     layout: 'text',

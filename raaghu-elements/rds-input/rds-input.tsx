@@ -1,11 +1,5 @@
 import React from 'react';
 import { TextField as MuiTextField, TextFieldProps, InputAdornment } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-import PhoneIcon from '@mui/icons-material/Phone';
 import './rds-input.scss';
 
 export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size'> {
@@ -13,7 +7,7 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   placeholder?: string;
   hintText?: string;
   errorMessage?: string;
-  isRequired?: boolean;
+  isMandatory?: boolean;
   variant?: 'outlined' | 'filled' | 'standard';
   size?: 'small' | 'medium' | 'large';
   layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
@@ -26,12 +20,12 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   icon?: React.ReactNode; // Custom icon component provided by the user
 }
 
-const RdsInput: React.FC<RdsInputProps> = ({
+const RdsInput = ({
   label,
   placeholder,
   hintText,
   errorMessage,
-  isRequired = false,
+  isMandatory = false,
   variant = 'outlined',
   size = 'small',
   layout = 'text',
@@ -45,7 +39,7 @@ const RdsInput: React.FC<RdsInputProps> = ({
   error,
   disabled,
   ...props
-}) => {
+}: RdsInputProps) => {
   // State for password visibility
   const [showPassword, setShowPassword] = React.useState(false);
   
@@ -116,7 +110,7 @@ const RdsInput: React.FC<RdsInputProps> = ({
       {!showTitle && label && (
         <label className="rds-input__label">
           {label}
-          {isRequired === true && (<span className="rds-input__asterisk">*</span>)}
+          {isMandatory === true && (<span className="rds-input__asterisk">*</span>)}
         </label>
       )}
       <MuiTextField
@@ -125,7 +119,7 @@ const RdsInput: React.FC<RdsInputProps> = ({
         helperText={errorMessage || hintText}
         error={!!errorMessage || error || state === 'error'}
         disabled={disabled || state === 'disabled'}
-        required={isRequired}
+        required={isMandatory}
         variant={variant}
         size={size === 'large' ? 'medium' : size}
         type={inputType}
