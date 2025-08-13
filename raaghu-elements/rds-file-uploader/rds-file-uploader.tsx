@@ -112,7 +112,7 @@ return (
       <Box className={`rds-file-uploader rds-file-uploader--mode-${mode}`}>
         {/* Title and hint */}
         {showTitle && (
-          <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
+          <Typography className="rds-file-uploader rds-file-uploader__form-title" variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
             File Upload{isMandatory && <span style={{ color: 'red' }}> *</span>}
           </Typography>
         )}
