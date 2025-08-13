@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { RdsAvatar, RdsRating } from "../../raaghu-elements";
 import { Item, RevieweStyle } from "./rds-comp-reviews";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 
 /**
  * Helper function to format dates in a standard way
@@ -79,13 +81,13 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
           <div className="card style3">
             {/* User info with avatar */}
             <div className="d-flex align-items-center mb-3">
-              <img
+              <RdsAvatar
                 src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-                alt={item.name}
-                className="rounded-circle"
+                name={item.name}
+                size="medium"
+                displayStyle="with-name"
               />
               <div className="ms-3">
-                <h5 className="card-title mb-0">{item.name}</h5>
                 <small className="text-muted">
                   {formatDate(item.date)}
                 </small>
@@ -114,7 +116,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
           <div className="card style4">
             {/* User info without avatar */}
             <div className="mb-3">
-              <h5 className="card-title mb-0">{item.name}</h5>
+              <h5 className="card-title bold mb-0">{item.name}</h5>
               <small className="text-muted">
                 {formatDate(item.date)}
               </small>
@@ -142,13 +144,13 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
           <div className="card style5">
             {/* User info with avatar */}
             <div className="d-flex align-items-center mb-3">
-              <img
+              <RdsAvatar
                 src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-                alt={item.name}
-                className="rounded-circle"
+                name={item.name}
+                size="medium"
+                displayStyle="with-name"
               />
               <div className="ms-3">
-                <h5 className="card-title mb-0">{item.name}</h5>
                 <small className="text-muted">
                   {formatDate(item.date)}
                 </small>
@@ -200,59 +202,78 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
       );
       
     case RevieweStyle.Style7:
-      return (
-        <div className="review-item review-item-large">
-          <div className="card style7">
-            {/* Header with Image, Name, and Rating */}
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <div className="d-flex align-items-center">
-                <img
-                  src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-                  alt={item.name}
-                  className="rounded-circle"
-                />
-                <div className="ms-2">
-                  <h5 className="card-title mb-0">{item.name}</h5>
-                  <small className="text-muted d-block">
-                    {formatDate(item.date)}
-                  </small>
+      {
+        const [likes, setLikes] = useState(item.likes || 35);
+        const [dislikes, setDislikes] = useState(item.dislikes || 10);
+        
+        const handleLike = () => {
+          setLikes(prev => prev + 1);
+        };
+        
+        const handleDislike = () => {
+          setDislikes(prev => prev + 1);
+        };
+        
+        return (
+          <div className="review-item review-item-large">
+            <div className="card style7">
+              {/* Header with Image, Name, and Rating */}
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <div className="d-flex align-items-center">
+                  <RdsAvatar
+                    src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+                    name={item.name}
+                    size="medium"
+                    displayStyle="with-name"
+                  />
+                  <div className="ms-2">
+                    <small className="text-muted d-block">
+                      {formatDate(item.date)}
+                    </small>
+                  </div>
+                </div>
+                {/* Rating at the End of the Line */}
+                <div className="rating-wrapper">
+                  <RdsRating
+                    value={item.rating || 4.5}
+                    precision={0.5}
+                    size="small"
+                    readOnly
+                  />
                 </div>
               </div>
-              {/* Rating at the End of the Line */}
-              <div className="rating-wrapper">
-                <RdsRating
-                  value={item.rating || 4.5}
-                  precision={0.5}
-                  size="small"
-                  readOnly
-                />
-              </div>
-            </div>
-            
-            {/* Description */}
-            <p className="card-text">{item.description}</p>
-            
-            {/* Like/Dislike Actions */}
-            <div className="review-footer">
-              <div className="actions-wrapper">
-                <div className="action-btn">
-                  <button className="btn btn-sm btn-outline-primary">
-                    <i className="bi bi-hand-thumbs-up"></i>
-                  </button>
-                  <span className="count">{item.likes || 35}</span>
+              
+              {/* Description */}
+              <p className="card-text">{item.description}</p>
+              
+              {/* Like/Dislike Actions */}
+              <div className="review-footer">
+                <div className="actions-wrapper">
+                  <div className="action-btn">
+                    <button 
+                      className="btn btn-sm btn-outline-primary"
+                      onClick={handleLike}
+                    >
+                      <ThumbUpAltIcon fontSize="small" />
+                    </button>
+                    <span className="count">{likes}</span>
+                  </div>
+                  <div className="action-btn">
+                    <button 
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={handleDislike}
+                    >
+                      <ThumbDownAltIcon fontSize="small" />
+                    </button>
+                    <span className="count">{dislikes}</span>
+                  </div>
                 </div>
-                <div className="action-btn">
-                  <button className="btn btn-sm btn-outline-danger">
-                    <i className="bi bi-hand-thumbs-down"></i>
-                  </button>
-                  <span className="count">{item.dislikes || 10}</span>
-                </div>
+                {/* <small className="text-muted">{item.hashtags}</small> */}
               </div>
-              <small className="text-muted">{item.hashtags}</small>
             </div>
           </div>
-        </div>
-      );
+        );
+      }
 
     case RevieweStyle.Style8:
       return (
@@ -285,113 +306,151 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
       );
       
     case RevieweStyle.Style9: 
-      return (
-        <div className="review-item review-item-large">
-          <div className="card style9">
-            {/* Header with user info */}
-            <div className="d-flex align-items-center">
-              <img
-                src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-                alt={item.name}
-                className="rounded-circle"
-              />
-              <div className="ms-3">
+      {
+        const [likes, setLikes] = useState(item.likes || 35);
+        const [dislikes, setDislikes] = useState(item.dislikes || 10);
+        
+        const handleLike = () => {
+          setLikes(prev => prev + 1);
+        };
+        
+        const handleDislike = () => {
+          setDislikes(prev => prev + 1);
+        };
+        
+        return (
+          <div className="review-item review-item-large">
+            <div className="card style9">
+              {/* Header with user info */}
+              <div className="d-flex align-items-center">
+                <img
+                  src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+                  alt={item.name}
+                  className="rounded-circle"
+                />
+                <div className="ms-3">
+                  <h5 className="card-title mb-0">{item.name}</h5>
+                  <div className="text-muted">{item.username}</div>
+                </div>
+              </div>
+              
+              {/* Rating and date */}
+              <div className="d-flex justify-content-between align-items-center mt-3">
+                <div className="rating-wrapper">
+                  <RdsRating
+                    value={item.rating || 4.5}
+                    precision={0.5}
+                    size="small"
+                    readOnly
+                  />
+                </div>
+
+                <small className="text-muted">
+                  {formatDate(item.date)}
+                </small>
+              </div>
+            
+              {/* Review content */}
+              <p className="card-text">{item.description}</p>
+
+              {/* Like/Dislike Section */}
+              <div className="review-footer">
+                <div className="actions-wrapper">
+                  <div className="action-btn">
+                    <button 
+                      className="btn btn-sm btn-outline-primary"
+                      onClick={handleLike}
+                    >
+                      <ThumbUpAltIcon fontSize="small" />
+                    </button>
+                    <span className="count">{likes}</span>
+                  </div>
+                  <div className="action-btn">
+                    <button 
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={handleDislike}
+                    >
+                      <ThumbDownAltIcon fontSize="small" />
+                    </button>
+                    <span className="count">{dislikes}</span>
+                  </div>
+                </div>
+                {/* <small className="text-muted">{item.hashtags}</small> */}
+              </div>
+            </div>
+          </div>
+        );
+      } 
+      
+    case RevieweStyle.Style10: 
+      {
+        const [likes, setLikes] = useState(item.likes || 35);
+        const [dislikes, setDislikes] = useState(item.dislikes || 10);
+        
+        const handleLike = () => {
+          setLikes(prev => prev + 1);
+        };
+        
+        const handleDislike = () => {
+          setDislikes(prev => prev + 1);
+        };
+        
+        return (
+          <div className="review-item review-item-large">
+            <div className="card style10">
+              {/* User info without avatar */}
+              <div className="mb-2">
                 <h5 className="card-title mb-0">{item.name}</h5>
                 <div className="text-muted">{item.username}</div>
               </div>
-            </div>
+              
+              {/* Rating and date */}
+              <div className="d-flex justify-content-between align-items-center mt-2">
+                <div className="rating-wrapper">
+                  <RdsRating
+                    value={item.rating || 4.5}
+                    precision={0.5}
+                    size="small"
+                    readOnly
+                  />
+                </div>
+
+                <small className="text-muted">
+                  {formatDate(item.date)}
+                </small>
+              </div>
             
-            {/* Rating and date */}
-            <div className="d-flex justify-content-between align-items-center mt-3">
-              <div className="rating-wrapper">
-                <RdsRating
-                  value={item.rating || 4.5}
-                  precision={0.5}
-                  size="small"
-                  readOnly
-                />
-              </div>
-
-              <small className="text-muted">
-                {formatDate(item.date)}
-              </small>
-            </div>
-          
-            {/* Review content */}
-            <p className="card-text">{item.description}</p>
-
-            {/* Like/Dislike Section */}
-            <div className="review-footer">
-              <div className="actions-wrapper">
-                <div className="action-btn">
-                  <button className="btn btn-sm btn-outline-primary">
-                    <i className="bi bi-hand-thumbs-up"></i>
-                  </button>
-                  <span className="count">{item.likes || 35}</span>
+              {/* Review content */}
+              <p className="card-text">{item.description}</p>
+              
+              {/* Like/Dislike Section */}
+              <div className="review-footer">
+                <div className="actions-wrapper">
+                  <div className="action-btn">
+                    <button 
+                      className="btn btn-sm btn-outline-primary"
+                      onClick={handleLike}
+                    >
+                      <ThumbUpAltIcon fontSize="small" />
+                    </button>
+                    <span className="count">{likes}</span>
+                  </div>
+                  <div className="action-btn">
+                    <button 
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={handleDislike}
+                    >
+                      <ThumbDownAltIcon fontSize="small" />
+                    </button>
+                    <span className="count">{dislikes}</span>
+                  </div>
                 </div>
-                <div className="action-btn">
-                  <button className="btn btn-sm btn-outline-danger">
-                    <i className="bi bi-hand-thumbs-down"></i>
-                  </button>
-                  <span className="count">{item.dislikes || 10}</span>
-                </div>
+                {/* <small className="text-muted">{item.hashtags}</small> */}
               </div>
-              <small className="text-muted">{item.hashtags}</small>
             </div>
           </div>
-        </div>
-      ); 
-      
-    case RevieweStyle.Style10: 
-      return (
-        <div className="review-item review-item-large">
-          <div className="card style10">
-            {/* User info without avatar */}
-            <div className="mb-2">
-              <h5 className="card-title mb-0">{item.name}</h5>
-              <div className="text-muted">{item.username}</div>
-            </div>
-            
-            {/* Rating and date */}
-            <div className="d-flex justify-content-between align-items-center mt-2">
-              <div className="rating-wrapper">
-                <RdsRating
-                  value={item.rating || 4.5}
-                  precision={0.5}
-                  size="small"
-                  readOnly
-                />
-              </div>
-
-              <small className="text-muted">
-                {formatDate(item.date)}
-              </small>
-            </div>
-          
-            {/* Review content */}
-            <p className="card-text">{item.description}</p>
-            
-            {/* Like/Dislike Section */}
-            <div className="review-footer">
-              <div className="actions-wrapper">
-                <div className="action-btn">
-                  <button className="btn btn-sm btn-outline-primary">
-                    <i className="bi bi-hand-thumbs-up"></i>
-                  </button>
-                  <span className="count">{item.likes || 35}</span>
-                </div>
-                <div className="action-btn">
-                  <button className="btn btn-sm btn-outline-danger">
-                    <i className="bi bi-hand-thumbs-down"></i>
-                  </button>
-                  <span className="count">{item.dislikes || 10}</span>
-                </div>
-              </div>
-              <small className="text-muted">{item.hashtags}</small>
-            </div>
-          </div>
-        </div>
-      );
+        );
+      }
       
     case RevieweStyle.Style11: 
       return (
