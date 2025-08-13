@@ -43,6 +43,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                 styles="default"
                 type="star"
                 value={item.rating || 4.5}
+                size="large"
                 />
               </div>
               <p className="card-text">{item.description}</p>
