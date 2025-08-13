@@ -35,15 +35,15 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const basicOptions = [
-  { label: 'Option 1', value: 'option1' },
-  { label: 'Option 2', value: 'option2' },
-  { label: 'Option 3', value: 'option3' },
+  { text: 'Option 1', value: 'option1' },
+  { text: 'Option 2', value: 'option2' },
+  { text: 'Option 3', value: 'option3' },
 ];
 
 export const Default: Story = {
   args: {
     label: 'Choose an option',
-    options: [{ label: 'Option 1', value: 'option1' }],
+    options: [{ text: 'Option 1', value: 'option1' }],
   },
 };
 
@@ -59,10 +59,10 @@ export const WithDisabledOptions: Story = {
   args: {
     label: 'Some Disabled Options',
     options: [
-      { label: 'Available Option', value: 'option1' },
-      { label: 'Disabled Option', value: 'option2', disabled: true },
-      { label: 'Another Available', value: 'option3' },
-      { label: 'Also Disabled', value: 'option4', disabled: true },
+      { text: 'Available Option', value: 'option1' },
+      { text: 'Disabled Option', value: 'option2', disabled: true },
+      { text: 'Another Available', value: 'option3' },
+      { text: 'Also Disabled', value: 'option4', disabled: true },
     ],
   },
 };
@@ -70,7 +70,7 @@ export const WithDisabledOptions: Story = {
 export const WithSelectedValue: Story = {
   args: {
     label: 'Pre-selected Option',
-    options:  [{ label: 'Option 1', value: 'option1' }],
+    options:  [{ text: 'Option 1', value: 'option1' }],
     value: 'option1',
   },
 };

@@ -16,4 +16,5 @@ export { default as RdsCompToast } from './rds-comp-toast/rds-comp-toast';
 export { default as RdsCompScrollbar } from './rds-comp-scrollbar/rds-comp-scrollbar';
 export { default as RdsCompTruncatedText } from './rds-comp-truncate-text/rds-comp-truncate-text';
 export { default as RdsCompAudioPlayer } from './rds-comp-audio-player/rds-comp-audio-player';
+export {default as RdsCompVideoPlayer} from './rds-comp-video-player/rds-comp-video-player';
 export {default as RdsCompReviews} from './rds-comp-reviews/rds-comp-reviews';
