@@ -26,7 +26,7 @@ const meta: Meta<typeof RdsSwitch> = {
       description: 'Control to show/hide label',
       defaultValue: true,
     },
-    styleType: {
+    style: {
       control: 'select',
       options: ["Style 1", "Style 2", "Style 3", "Style 4", "Style 5", "Style 6"],
       description: 'Switch style variant',
