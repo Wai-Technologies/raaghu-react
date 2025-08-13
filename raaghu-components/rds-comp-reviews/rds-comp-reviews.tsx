@@ -42,10 +42,6 @@ export interface RdsCompReviewsProps {
   variantType?: VariantType; // Variant type of the component
 }
 
-/**
- * Reviews Component for displaying various styles of reviews
- * Main component file that uses review-styles.tsx for rendering different review styles
- */
 const RdsCompReviews = (props: RdsCompReviewsProps) => {
   const renderContentByStyle = (item: Item) => {
     return renderReviewStyle(item, props.style);
