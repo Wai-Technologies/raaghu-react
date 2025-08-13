@@ -409,3 +409,280 @@
 	}
   }
 }
+
+
+
+
+
+
+// =============================================================================
+// DARK THEME STYLES
+// =============================================================================
+
+.dark-theme .rds-counter,
+[data-theme="dark"] .rds-counter {
+  
+  // Counter label styles for dark theme
+  &__label {
+    color: var(--rds-text-primary, #ffffff) !important;
+    
+    &--compact {
+      color: var(--rds-text-primary, #ffffff) !important;
+    }
+    
+    &--small,
+    &--medium,
+    &--large {
+      color: var(--rds-text-primary, #ffffff) !important;
+    }
+  }
+  
+  // Counter controls container
+  &__controls {
+    background-color: var(--rds-background-paper, #1a1a1a) !important;
+    border: 1px solid var(--rds-border-default, #666666) !important;
+    border-radius: var(--rds-border-radius, 4px) !important;
+    
+    &--compact {
+      background-color: var(--rds-background-paper, #1a1a1a) !important;
+      border-color: var(--rds-border-default, #666666) !important;
+    }
+    
+    &--default {
+      background-color: var(--rds-background-paper, #1a1a1a) !important;
+      border-color: var(--rds-border-default, #666666) !important;
+    }
+    
+    &--small,
+    &--medium,
+    &--large {
+      background-color: var(--rds-background-paper, #1a1a1a) !important;
+      border-color: var(--rds-border-default, #666666) !important;
+    }
+  }
+  
+  // Counter buttons for dark theme
+  &__button {
+    background-color: var(--rds-color-primary, #7e2eef) !important;
+    color: var(--rds-primary-contrast-text, #ffffff) !important;
+    border: 1px solid var(--rds-color-primary, #7e2eef) !important;
+    
+    &:hover:not(&--disabled) {
+      background-color: var(--rds-color-primary-dark, #4f00a6) !important;
+      border-color: var(--rds-color-primary-dark, #4f00a6) !important;
+    }
+    
+    &:focus {
+      outline: none !important;
+      outline-offset: 0 !important;
+      box-shadow: none !important;
+    }
+    
+    &--disabled {
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+      color: var(--rds-text-disabled, #999999) !important;
+      border-color: var(--rds-border-dark, #666666) !important;
+      cursor: not-allowed !important;
+      opacity: 0.5 !important;
+    }
+    
+    // Size variants
+    &--compact {
+      background-color: var(--rds-color-primary, #7e2eef) !important;
+      border-color: var(--rds-color-primary, #7e2eef) !important;
+    }
+    
+    &--default {
+      background-color: var(--rds-color-primary, #7e2eef) !important;
+      border-color: var(--rds-color-primary, #7e2eef) !important;
+    }
+    
+    &--small,
+    &--medium,
+    &--large {
+      background-color: var(--rds-color-primary, #7e2eef) !important;
+      border-color: var(--rds-color-primary, #7e2eef) !important;
+    }
+    
+    // Button variants
+    &--increment,
+    &--decrement {
+      background-color: var(--rds-color-primary, #7e2eef) !important;
+      color: var(--rds-primary-contrast-text, #ffffff) !important;
+    }
+  }
+  
+  // Counter input for dark theme
+  &__input {
+    background-color: transparent !important;
+    color: var(--rds-text-primary, #ffffff) !important;
+    border: none !important;
+    
+    input {
+      background-color: transparent !important;
+      color: var(--rds-text-primary, #ffffff) !important;
+      border: none !important;
+      
+      &::placeholder {
+        color: var(--rds-text-hint, #999999) !important;
+      }
+      
+      &:focus {
+        outline: none !important;
+        background-color: transparent !important;
+      }
+    }
+    
+    &--disabled {
+      color: var(--rds-text-disabled, #999999) !important;
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+      cursor: not-allowed;
+      opacity: 0.5;
+      
+      input {
+        color: var(--rds-text-disabled, #999999) !important;
+        background-color: transparent !important;
+      }
+    }
+    
+    // Size variants
+    &--compact,
+    &--default,
+    &--small,
+    &--medium,
+    &--large {
+      background-color: transparent !important;
+      color: var(--rds-text-primary, #ffffff) !important;
+    }
+  }
+  
+  // Counter value display for dark theme
+  &__value {
+    color: var(--rds-text-primary, #ffffff) !important;
+    background-color: transparent !important;
+    
+    &--disabled {
+      color: var(--rds-text-disabled, #999999) !important;
+      opacity: 0.5;
+    }
+    
+    // Size variants
+    &--compact,
+    &--default,
+    &--small,
+    &--medium,
+    &--large {
+      color: var(--rds-text-primary, #ffffff) !important;
+    }
+  }
+  
+  // Counter icon for dark theme
+  &__icon {
+    color: inherit !important;
+    
+    // Size variants maintain the same color as parent button
+    &--compact,
+    &--default,
+    &--small,
+    &--medium,
+    &--large {
+      color: inherit !important;
+    }
+  }
+  
+  // Disabled state for entire counter in dark theme
+  &--disabled {
+    opacity: 0.6;
+    
+    .rds-counter__label {
+      color: var(--rds-text-disabled, #999999) !important;
+    }
+    
+    .rds-counter__controls {
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+      border-color: var(--rds-border-dark, #666666) !important;
+    }
+    
+    .rds-counter__input,
+    .rds-counter__value {
+      color: var(--rds-text-disabled, #999999) !important;
+    }
+  }
+}
+
+// =============================================================================
+// DARK THEME HOVER & FOCUS STATES
+// =============================================================================
+
+.dark-theme .rds-counter,
+[data-theme="dark"] .rds-counter {
+  
+  // Enhanced hover states for dark theme
+ 
+  
+  // Button interaction states
+  &__button {
+    &:active:not(&--disabled) {
+      background-color: var(--rds-color-primary-dark, #4f00a6) !important;
+      transform: translateY(1px);
+      transition: all 0.1s ease;
+    }
+    
+    &:focus-visible:not(&--disabled) {
+      outline: none !important;
+      outline-offset: 0 !important;
+      box-shadow: none !important;
+    }
+  }
+  
+  // Input focus states
+  &__input {
+    &:focus-within {
+      background-color: var(--rds-background-paper, #1a1a1a) !important;
+      
+      input:focus {
+        background-color: transparent !important;
+        outline: none !important;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// DARK THEME ACCESSIBILITY ENHANCEMENTS
+// =============================================================================
+
+.dark-theme .rds-counter,
+[data-theme="dark"] .rds-counter {
+  
+  // High contrast for better accessibility (removed outline per request)
+  &__button {
+    &:focus {
+      outline: none !important;
+      outline-offset: 0 !important;
+      box-shadow: none !important;
+    }
+  }
+  
+  // Better text contrast for readability
+  &__label,
+  &__value,
+  &__input {
+    text-shadow: none;
+    font-weight: 500; // Slightly bolder for better readability in dark theme
+  }
+  
+  // Enhanced disabled state visibility
+  &--disabled {
+    .rds-counter__button {
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+      border-color: var(--rds-border-dark, #666666) !important;
+      color: var(--rds-text-disabled, #999999) !important;
+    }
+    
+    .rds-counter__controls {
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+      border-color: var(--rds-border-dark, #666666) !important;
+    }
+  }
+}
