@@ -39,7 +39,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompReviews>;
 
-export const Standard: Story = {
+export const Default: Story = {
 args: {
         variantType: VariantType.Default,
         style: RevieweStyle.Style1,
@@ -59,4 +59,4 @@ args: {
     }
 } satisfies Story;
     
-Standard.parameters = { controls: { include: ['itemList','style','variantType'] } };
+Default.parameters = { controls: { include: ['itemList','style','variantType'] } };

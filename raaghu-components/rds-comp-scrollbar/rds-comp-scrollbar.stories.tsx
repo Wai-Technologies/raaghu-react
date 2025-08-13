@@ -31,13 +31,13 @@ export default {
  
     const Template: StoryFn<typeof RdsScrollBar> = (args) => <RdsScrollBar {...args} />;
 
-    export const Standard = Template.bind({});
-    Standard.args = {
+    export const Default = Template.bind({});
+    Default.args = {
       type: ScrollBarType.Mac, 
       position: ScrollPosition.Start, 
       showButtons: true,
       startIcon: <ArrowDropUp />,
       endIcon: <ArrowDropDown />  
     };
-   Standard.parameters = { controls: { include: ['type', 'position', 'showButtons'] } };
+   Default.parameters = { controls: { include: ['type', 'position', 'showButtons'] } };
     
