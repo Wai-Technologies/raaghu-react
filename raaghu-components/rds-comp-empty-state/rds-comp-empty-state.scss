@@ -1,0 +1,159 @@
+// RDS Component Empty State Styles
+
+.rds-comp-empty-state {
+  // Base styles
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--rds-spacing-xl, 32px);
+  background-color: transparent;
+  min-height: var(--rds-size-6xl, 400px);
+  width: 100%;
+
+  // Content container
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: var(--rds-empty-state-max-width, 640px);
+    padding: 0 16px;
+  }
+
+  // Icon styles
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0; // Remove default margin since we're using sx props
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  // Title styles
+  &__title {
+    font-weight: var(--rds-font-weight-medium, 500) !important;
+    color: var(--rds-text-primary, #111827) !important;
+    font-size: var(--rds-font-size-lg, 20px) !important;
+    line-height: 1.4 !important;
+    margin: var(--rds-spacing-xs, 4px) 0 !important;
+  }
+
+  // Subtitle styles
+  &__subtitle {
+    color: var(--rds-text-secondary, #6b7280) !important;
+    font-size: var(--rds-font-size-sm, 16px) !important;
+    line-height: 1.5 !important;
+    margin: var(--rds-spacing-xs, 4px) 0 !important;
+    font-weight: var(--rds-font-weight-normal, 400) !important;
+    max-width: 600px;
+  }
+
+  // Action button area
+  &__action {
+    margin-top: var(--rds-spacing-lg, 24px);
+  }
+
+  // Button styles
+  &__button {
+    background-color: var(--rds-color-neutral-600, #525252) !important; // dark gray base
+    color: var(--rds-color-neutral-50, #ffffff) !important;
+    border-radius: 4px !important;
+    padding: 8px 20px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    min-width: 160px !important;
+    line-height: 1.2 !important;
+    box-shadow: none !important;
+    border: 1px solid var(--rds-color-neutral-600, #525252) !important;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease !important;
+
+    &:hover {
+      background-color: var(--rds-color-neutral-700, #454545) !important;
+      border-color: var(--rds-color-neutral-700, #454545) !important;
+    }
+
+    &:active {
+      background-color: var(--rds-color-neutral-800, #3a3a3a) !important;
+      border-color: var(--rds-color-neutral-800, #3a3a3a) !important;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--rds-focus-ring, #8B5CF6) !important;
+      outline-offset: 2px !important;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .rds-comp-empty-state {
+    padding: var(--rds-spacing-lg, 24px) var(--rds-spacing-md, 16px);
+    min-height: var(--rds-size-4xl, 200px);
+
+    &__content {
+      max-width: 100%;
+    }
+
+    &__icon img {
+      max-width: var(--rds-size-3xl, 120px);
+    }
+
+    &__title {
+      font-size: var(--rds-font-size-md, 16px) !important;
+    }
+
+    &__subtitle {
+      font-size: var(--rds-font-size-sm, 14px) !important;
+    }
+
+    &__action {
+      margin-top: var(--rds-spacing-md, 16px);
+    }
+
+    &__button {
+      min-width: var(--rds-size-xl, 120px) !important;
+      padding: var(--rds-spacing-xs, 8px) var(--rds-spacing-md, 16px) !important;
+      font-size: var(--rds-font-size-xs, 12px) !important;
+    }
+  }
+}
+
+// High contrast mode
+@media (prefers-contrast: high) {
+  .rds-comp-empty-state {
+    &__title {
+      color: var(--rds-text-primary, #000000) !important;
+    }
+
+    &__subtitle {
+      color: var(--rds-text-secondary, #333333) !important;
+    }
+  }
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .rds-comp-empty-state {
+    &__button {
+      transition: none !important;
+      
+      &:hover {
+        transform: none !important;
+      }
+      
+      &:active {
+        transform: none !important;
+      }
+    }
+  }
+}
