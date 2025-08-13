@@ -47,10 +47,11 @@
     .card {
         transition: all 0.2s ease;
         margin-bottom: 1rem;
-        border: 2px solid rgba(0,0,0,0.04);
+        border: 1px solid rgba(0, 0, 0, .175);
         overflow: hidden;
         background-color: var(--rds-color-primary-bg, #ffffff);
         padding: 1.25rem;
+        border-radius: 5px;
     }
 
     &__avatar {
@@ -201,7 +202,7 @@
         text-align: center;
         min-width: 280px;
         min-height: 250px;
-        
+
         .card-body {
             padding: 1.5rem 1.25rem;
         }

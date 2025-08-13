@@ -1,6 +1,8 @@
 import { addons } from 'storybook/manager-api';
 import { create } from 'storybook/theming/create';
 import '../.storybook/custom-theme.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Styles from node_modules
+
 const theme = create({
   base: 'light',
   brandTitle: 'Raaghu Design System',
