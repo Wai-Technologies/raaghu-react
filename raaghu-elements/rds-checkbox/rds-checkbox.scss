@@ -90,13 +90,6 @@
     }
   }
 
-  // State modifiers
-  &__checked {
-    .MuiCheckbox-root {
-      color: var(--rds-primary-main, #2196f3);
-    }
-  }
-
   &__disabled {
     pointer-events: none;
     
