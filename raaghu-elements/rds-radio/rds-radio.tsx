@@ -13,7 +13,7 @@ import {
 
 export interface RdsRadioOption {
   value: string;
-  label: string;
+  text: string;
   disabled?: boolean;
 }
 
@@ -80,7 +80,7 @@ const RdsRadio: React.FC<RdsRadioProps> = ({
               padding: '4px'
             }}
           />
-          {option.label && (
+          {option.text && (
             <Typography
               component="span"
               className={`rds-radio__bottom-label ${finalDisabled ? 'rds-radio__bottom-label--disabled' : ''}`}
@@ -98,7 +98,7 @@ const RdsRadio: React.FC<RdsRadioProps> = ({
                 color: finalDisabled ? 'var(--rds-text-disabled, #9e9e9e)' : 'inherit'
               }}
             >
-              {option.label}
+              {option.text}
             </Typography>
           )}
         </Box>
@@ -110,7 +110,7 @@ const RdsRadio: React.FC<RdsRadioProps> = ({
       <FormControlLabel
         key={option.value}
         {...commonProps}
-        label={option.label}
+        label={option.text}
         className={`rds-radio__option rds-radio__option--with-label ${isHoverable ? 'rds-radio__option--hoverable' : ''}`}
       />
     );
