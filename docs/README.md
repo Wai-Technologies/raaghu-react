@@ -1,4 +1,4 @@
-# Raaghu Design Syst3. **[CSS_IMPLEMENTATION_GUIDE.md](./CSS_IMPLEMENTATION_GUIDE.md)**
+# Raaghu Design System. **[CSS_IMPLEMENTATION_GUIDE.md](./CSS_IMPLEMENTATION_GUIDE.md)**
    - Implementation status and checklist
    - Development workflow
    - Integration instructions
