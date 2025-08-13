@@ -4,46 +4,22 @@ import './rds-comp-empty-state.scss';
 import RdsCompEmptyStateIcon from './icon';
 
 export interface RdsCompEmptyStateProps {
-  /**
-   * Mode of the empty state, e.g., "Dark NRA" or "Light NRA"
-   */
+
   mode?: string;
-  
-
   label?: string;
-  
-
   subLabel?: string;
-  
-
   iconHeight?: string | number;
-  
- 
   iconWidth?: string | number;
-  
-
   iconPath?: string;
-  
-
   buttonText?: string;
-  
-
   onButtonClick?: () => void;
-  
-
-  showButton?: boolean;
-
   isContinueAnimate?: boolean;
-  
-
   className?: string;
-  
-
   testId?: string;
 }
 
 const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
-  // Normalize size (default 250px if not provided)
+
   const rawW = props.iconWidth ?? 150;
   const rawH = props.iconHeight ?? props.iconWidth ?? 150;
   const toCss = (v: string | number): string => (/^\d+$/.test(String(v)) ? `${v}px` : String(v));
@@ -97,7 +73,7 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
             </Typography>
           )}
 
-          {(props.showButton !== false) && (
+          {(
             <Box className="rds-comp-empty-state__action">
               <Button
                 variant="contained"

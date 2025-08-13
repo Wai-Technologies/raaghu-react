@@ -33,10 +33,6 @@ const meta: Meta<typeof RdsCompEmptyState> = {
       control: { type: "text" },
       description: "Text to display on the action button",
     },
-    showButton: {
-      control: { type: "boolean" },
-      description: "Whether to show the action button",
-    },
     onButtonClick: {
       action: "button clicked",
       description: "Function called when button is clicked",
@@ -55,7 +51,6 @@ export const Standard: Story = {
   iconHeight: 150,
   iconWidth: 150,
     buttonText: "Add New Data",
-    showButton: true,
     onButtonClick: () => console.log("Add new data clicked"),
   },
 };
