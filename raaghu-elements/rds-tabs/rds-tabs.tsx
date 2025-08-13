@@ -29,11 +29,12 @@ export type RdsTabsLayout =
   | 'line-top-solid'
   | 'pill';
 
-export interface RdsTabsProps extends TabsProps {
+export interface RdsTabsProps extends Omit<TabsProps, 'orientation'> {
   tabs: RdsTabItem[];
   activeTab?: string | number;
   onTabChange?: (tabId: string | number) => void;
   layout?: RdsTabsLayout;
+  type?: 'horizontal' | 'vertical';
   leftIcon?: React.ReactNode; // Icon to display on the left side of the tab label
   rightIcon?: React.ReactNode; // Icon to display on the right side of the tab
   showLeftIcon?: boolean; // Control to show/hide left icon
@@ -49,6 +50,7 @@ const RdsTabs: React.FC<RdsTabsProps> = ({
   value,
   onChange,
   layout = 'filled',
+  type = 'horizontal',
   leftIcon,
   rightIcon,
   showLeftIcon = true,
@@ -78,6 +80,7 @@ const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`
     <MuiTabs
       value={value || activeTab}
       onChange={handleChange}
+      orientation={type}
       className={`rds-tabs ${layoutClass}`}
       {...props}
     >

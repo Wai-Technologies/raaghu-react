@@ -506,6 +506,7 @@
       
       .MuiInputBase-root {
         font-family: inherit;
+        font-size: var(--rds-font-size-sm, 14px) !important;
         
         &.Mui-focused fieldset {
           border-color: var(--rds-color-primary, #1976d2);
