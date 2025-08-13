@@ -21,10 +21,10 @@ const meta: Meta<typeof RdsTabs> = {
       control: 'number',
       description: 'Index of the active tab',
     },
-    orientation: {
+    type: {
       control: 'select',
       options: ['horizontal', 'vertical'],
-      description: 'Orientation of the tabs',
+      description: 'Type of the tabs',
     },
     layout: {
       control: 'select',
@@ -133,7 +133,7 @@ export const ManyTabs: Story = {
     leftIcon: 'Person',
     rightIcon: 'Add',
     title: '',
-    orientation: "horizontal",
+    type: "horizontal",
     state: "default",
     level: 1
   },
@@ -221,7 +221,7 @@ export const Vertical: Story = {
   args: {
     tabs: sampleTabs,
     activeTab: 0,
-    orientation: 'vertical',
+    type: 'vertical',
     layout: 'filled',
     leftIcon: 'Person',
     rightIcon: 'Add',

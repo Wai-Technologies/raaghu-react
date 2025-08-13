@@ -3,7 +3,7 @@ import { Button as MuiButton, ButtonProps } from '@mui/material';
 import { Add, Delete, Save } from '@mui/icons-material';
 import './rds-button.scss';
 export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
-  label?: string;
+  text?: string;
   isLoading?: boolean;
   iconPosition?: 'start' | 'end';
   shape?: 'pill' | 'rectangle';
@@ -17,7 +17,7 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
 }
 
 const RdsButton: React.FC<RdsButtonProps> = ({
-  label,
+  text,
   children,
   isLoading = false,
   iconPosition = 'start',
@@ -133,7 +133,7 @@ const RdsButton: React.FC<RdsButtonProps> = ({
       return startIcon || endIcon;
     }
     if (normalizedLayout === 'icon+text' || normalizedLayout === 'text-only') {
-      return label || children;
+      return text || children;
     }
     return null;
   };
