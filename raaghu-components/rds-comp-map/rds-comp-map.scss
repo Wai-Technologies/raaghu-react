@@ -1,0 +1,48 @@
+// RDS Component Map Styles
+// Following BEM methodology with RDS prefixes
+
+.rds-comp-map {
+  background: var(--rds-bg, #fff) !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 10px !important;
+  margin: 0 !important;
+  min-height: 100vh;
+  position: relative;
+
+  &__label {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--rds-text, #222);
+    margin-bottom: 12px;
+    margin-left: 0;
+    letter-spacing: 0.2px;
+    text-align: left;
+  }
+
+  &__center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  svg {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    max-width: 700px;
+  }
+
+  // Responsive behavior
+  @media (max-width: 768px) {
+    &__label {
+      font-size: 18px;
+    }
+    
+    svg {
+      max-width: 100%;
+    }
+  }
+}

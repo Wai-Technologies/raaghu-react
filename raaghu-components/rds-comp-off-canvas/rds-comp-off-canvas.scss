@@ -1,0 +1,292 @@
+/* Offcanvas body typography and background override to match global body, but scoped locally */
+.MuiDrawer-paper .offcanvas-body {
+  color: #212121;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: 0.00990em;
+
+}
+.offcanvas-header .close .MuiIconButton-root {
+  color: #757575 !important;
+}
+/* RDS Off Canvas Component Styles */
+
+.offcanvas-header {
+  background-color: #fff !important;
+  color: #23272e !important;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.offcanvas-header .offcanvas-title {
+  color: #23272e !important;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  #profileOffCanvas {
+    width: 375px !important;
+  }
+}
+
+.offcanvas_btn {
+  cursor: pointer;
+  width: fit-content;
+}
+
+.offcanvas .offcanvas-header .close {
+  cursor: pointer;
+  padding: 3px 8px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+  border-radius: 5px;
+}
+
+.theme-dark .offcanvas-text .btn.btn-transparent-primary,
+.theme-dark .offcanvas-text .btn.btn-outline-primary {
+  background: #1c1d20 !important;
+  color: #ffffff !important;
+  border: 1px solid #7825e9;
+}
+
+.theme-dark .offcanvas-text .btn {
+  color: #ffffff !important;
+}
+
+#close-btn button.btn.btn-undefined.position-relative.align-items-center.btn-lg.d-flex.btn-icon.justify-content-center.gap-2:hover{
+  background: aliceblue;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+/* MUI Drawer specific styling to match original */
+.MuiDrawer-paper {
+  .offcanvas-header {
+    padding: 8px 16px !important;
+    
+    .offcanvas-title {
+      color: #202020 !important;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    
+    .close {
+      #close-btn {
+        .MuiIconButton-root {
+          color: white !important;
+          padding: 3px 8px;
+          border: 1px solid transparent;
+          transition: all 0.2s ease-in-out;
+          border-radius: 5px;
+          
+          &:hover {
+            background: rgba(173, 216, 230, 0.1);
+            border-radius: 5px;
+            transition: all 0.2s ease-in-out;
+          }
+        }
+      }
+    }
+  }
+  
+  .offcanvas-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    
+    .offcanvas-margin {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: auto;
+      gap: 8px;
+      padding: 5px;
+      
+      .me-2 {
+        margin-right: 8px;
+        
+        .MuiButton-root {
+          min-width: auto;
+          
+          &.MuiButton-text {
+            background: transparent !important;
+            color: var(--rds-color-primary, #7825e9) !important;
+            border: 1px solid var(--rds-color-primary, #7825e9);
+          }
+          
+          &.MuiButton-outlined {
+            background: var(--rds-color-surface, #ffffff) !important;
+            color: var(--rds-color-primary, #7825e9) !important;
+            border: 1px solid var(--rds-color-primary, #7825e9);
+          }
+          
+          &.MuiButton-contained {
+            background: var(--rds-color-primary, #7825e9) !important;
+            color: white !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Mobile responsive styles */
+@media (max-width: 767px) {
+  .MuiDrawer-paper {
+    &#profileOffCanvas {
+      width: 375px !important;
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 414px) {
+  .offcanvas-margin {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+
+  .offcanvas-margin .me-2 {
+    margin-right: 2px !important;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .offcanvas-margin .btn {
+    font-size: 11px !important;
+    padding: 5px 7px;
+    width: 100% !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    line-height: 1.2;
+  }
+  
+  .offcanvas-margin .btn span {
+    font-size: 11px !important;
+    display: inline-block;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  .offcanvas-margin .me-2:first-child {
+    flex: 1.7;
+  }
+  
+  .offcanvas-margin .me-2:first-child .btn {
+    min-width: auto !important;
+    max-width: none !important;
+  }
+  
+  .offcanvas-margin .me-2:first-child .btn span {
+    font-size: 10px !important;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  #offcanvas-btns {
+    padding: 0 5px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 3px;
+  }
+
+  #offcanvas-btns .me-2 {
+    margin-right: 2px !important;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  #offcanvas-btns .btn {
+    font-size: 11px !important;
+    padding: 5px 7px;
+    width: 100% !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    line-height: 1.2;
+  }
+  
+  #offcanvas-btns .btn span {
+    font-size: 11px !important;
+    display: inline-block;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  #offcanvas-btns .me-2:first-child {
+    flex: 1.7;
+  }
+  
+  #offcanvas-btns .me-2:first-child .btn {
+    min-width: auto !important;
+    max-width: none !important;
+  }
+  
+  #offcanvas-btns .me-2:first-child .btn span {
+    font-size: 10px !important;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  #close-btn {
+    padding: 2px;
+  }
+  
+  #close-btn .btn {
+    padding: 4px 6px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  #close-btn .btn svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
+  
+  #close-btn .btn .alignClass {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+/* General MUI Drawer overrides for RDS styling */
+.MuiDrawer-root {
+  .MuiDrawer-paper {
+    background-color: var(--rds-color-surface, #ffffff);
+    color: var(--rds-color-on-surface, #000000);
+  }
+}
+
+/* Ensure proper backdrop behavior */
+.MuiBackdrop-root {
+  &[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Additional styling for offcanvas text */
+.offcanvas-text {
+  .MuiButton-root {
+    &.MuiButton-outlined {
+      background: var(--rds-color-surface, #ffffff) !important;
+      color: var(--rds-color-primary, #7825e9) !important;
+      border: 1px solid var(--rds-color-primary, #7825e9);
+    }
+    
+    &.MuiButton-text {
+      background: transparent !important;
+      color: var(--rds-color-primary, #7825e9) !important;
+      border: 1px solid var(--rds-color-primary, #7825e9);
+    }
+  }
+}
