@@ -120,7 +120,7 @@ const RdsCompAiChatBot: React.FC<RdsCompAiChatBotProps> = ({
             <RdsButton
               color="primary"
               icon="add"
-              label="New Project"
+              text="New Project"
               style="filled"
               size='medium'
             />
@@ -129,7 +129,7 @@ const RdsCompAiChatBot: React.FC<RdsCompAiChatBotProps> = ({
             <RdsButton
               color="primary"
               icon="add"
-              label="Import From Figma"
+              text="Import From Figma"
               style="outlined"
             />
           </div>
