@@ -1,0 +1,276 @@
+.rds-comp-reviews {
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        transition: all 0.3s ease;
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(0,0,0,0.05);
+        overflow: hidden;
+        background-color: var(--rds-color-primary-bg, #ffffff);
+    }
+
+    .rounded-circle {
+        object-fit: cover;
+        width: 48px;
+        height: 48px;
+    }
+
+    .card-title {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        font-size: 1.1rem;
+        color: var(--rds-text-primary, #374151);
+    }
+
+    .card-text {
+        font-size: 0.875rem;
+        color: var(--rds-text-secondary, #6c757d);
+        line-height: 1.6;
+        margin-top: 0.75rem;
+        margin-bottom: 0;
+        font-weight: 400;
+    }
+
+    .text-muted {
+        color: var(--rds-text-tertiary, #9ca3af) !important;
+        font-size: 0.75rem;
+        font-weight: 400;
+    }
+
+    .btn-outline-primary {
+        border-color: var(--rds-color-primary, #7c3aed);
+        color: var(--rds-color-primary, #7c3aed);
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        border-radius: 4px;
+        min-width: 30px;
+
+        &:hover {
+            background-color: var(--rds-color-primary, #7c3aed);
+            color: white;
+        }
+    }
+
+    .btn-outline-danger {
+        border-color: var(--rds-color-danger, #ef4444);
+        color: var(--rds-color-danger, #ef4444);
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+
+        &:hover {
+            background-color: var(--rds-color-danger, #ef4444);
+            color: white;
+        }
+    }
+
+    .bi-hand-thumbs-up, .bi-hand-thumbs-down, .fa-thumbs-up, .fa-thumbs-down {
+        font-size: 12px;
+    }
+
+    .rating-wrapper {
+        display: flex;
+        align-items: center;
+        
+        .MuiRating-root {
+            font-size: 1rem;
+        }
+    }
+
+    .rating-value {
+        font-weight: 600;
+        margin-left: 0.25rem;
+        font-size: 0.85rem;
+        color: var(--rds-color-primary, #7c3aed);
+    }
+
+    .review-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+        padding-top: 0.75rem;
+    }
+
+    .actions-wrapper {
+        display: flex;
+        gap: 0.75rem;
+    }
+
+    .action-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+
+        .count {
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .btn {
+            padding: 0.25rem 0.5rem;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    
+    // Different style variations
+    
+    // Styles 1 and 2 - Center aligned cards with avatar
+    .style1, .style2 {
+        text-align: center;
+        
+        .card-body {
+            padding: 2rem 1.5rem;
+        }
+        
+        .card-title {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .MuiAvatar-root {
+            width: 64px !important;
+            height: 64px !important;
+            margin: 0 auto;
+        }
+    }
+    
+    // Styles 3, 4, 5, 6 - Review cards with left-aligned content
+    .style3, .style4, .style5, .style6 {
+        padding: 1.5rem;
+        
+        .card-title {
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+        
+        .rounded-circle {
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .rating-wrapper {
+            margin: 0.75rem 0;
+        }
+        
+        .text-muted {
+            margin-top: 0.125rem;
+            display: block;
+        }
+    }
+    
+    // Style 7, 9, 10 - Complex review cards with actions
+    .style7, .style9, .style10 {
+        padding: 1.5rem;
+        
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+        
+        .review-footer {
+            padding-top: 0.75rem;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(0,0,0,0.08);
+        }
+        
+        .rounded-circle {
+            margin-right: 0.75rem;
+        }
+        
+        .action-btn {
+            .btn {
+                min-width: 32px;
+                height: 28px;
+                padding: 0 0.5rem;
+            }
+            
+            .count {
+                min-width: 16px;
+                text-align: center;
+            }
+        }
+    }
+    
+    // Style 8 - Minimalist review card
+    .style8 {
+        padding: 1.75rem;
+        
+        .card-text {
+            margin: 1.25rem 0;
+        }
+        
+        h6 {
+            color: var(--rds-text-primary, #374151);
+            font-weight: 600;
+        }
+    }
+    
+    // Styles 11, 12 - Centered compact review cards
+    .style11, .style12 {
+        text-align: center;
+        
+        .card-body {
+            padding: 2rem 1.5rem;
+        }
+        
+        .review-rating {
+            margin: 0.75rem auto;
+        }
+        
+        .rating-value {
+            font-weight: 600;
+            color: var(--rds-color-primary, #7c3aed);
+            margin-left: 0.25rem;
+        }
+        
+        .MuiAvatar-root {
+            width: 64px !important;
+            height: 64px !important;
+            margin: 0 auto;
+        }
+    }
+    
+    // Improve rating stars appearance
+    .MuiRating-root {
+        color: var(--rds-color-warning, #f59e0b);
+        
+        .MuiRating-iconEmpty {
+            color: rgba(0, 0, 0, 0.15);
+        }
+    }
+    
+    // Add additional polish
+    .action-btn {
+        button.btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 28px;
+        }
+    }
+    
+    // Refinements for shadows, spacing and transitions
+    .card {
+        &.style1, &.style2, &.style11, &.style12 {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        &.style7, &.style9, &.style10 {
+            .review-footer {
+                margin-top: 1.25rem;
+            }
+        }
+        
+        &.style3, &.style4, &.style5, &.style6 {
+            .card-text {
+                margin-bottom: 0.75rem;
+            }
+        }
+    }
+}

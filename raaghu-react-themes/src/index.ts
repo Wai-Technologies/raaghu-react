@@ -137,7 +137,7 @@ export const defaultTheme: RaaghuTheme = {
     12: '3rem',
   },
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Poppins", sans-serif',
     fontSize: {
       xs: '0.75rem',
       sm: '0.875rem',

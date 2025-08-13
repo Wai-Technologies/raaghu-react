@@ -69,7 +69,7 @@ All CSS/SCSS files in the Raaghu Design System now use `raaghu-react-themes` as 
 #### Typography
 ```scss
 // Font Families
---rds-font-family-base: 'Roboto', 'Helvetica', 'Arial', sans-serif
+--rds-font-family-base: "Poppins", sans-serif
 
 // Font Sizes
 --rds-font-size-xs: 10px
