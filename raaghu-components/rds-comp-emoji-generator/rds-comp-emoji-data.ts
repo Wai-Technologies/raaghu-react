@@ -1,9 +1,31 @@
-// Centralized emoji data and helper utilities for RdsEmojiGenerator
-// Keeping raw arrays close to source; can later replace with dynamic fetch or compressed structure.
-
-import { EmojiCategory } from './rds-comp-emoji-types';
 import type { Emoji } from 'emojibase';
 import data from 'emojibase-data/en/data.json';
+
+
+
+// Shared types/enums for RdsEmojiGenerator to avoid circular import issues
+
+export enum EmojiGeneratorType {
+  Default = "Default",
+  QuickReactions = "Quick Reactions",
+}
+
+export enum EmojiCategory {
+  SmileysAndPeople = "SmileysAndPeople",
+  AnimalsAndNature = "AnimalsAndNature", 
+  FoodAndDrink = "FoodAndDrink",
+  TravelAndPlaces = "TravelAndPlaces",
+  Activities = "Activities",
+  Objects = "Objects",
+  Symbols = "Symbols",
+  Flags = "Flags",
+}
+
+export enum SkinToneState {
+  Default = "Default",
+  Expanded = "Expanded",
+}
+
 
 // Build maps once (data.json format: array of Emoji objects with group/subgroup info)
 // Filter out newer Unicode emojis that don't render well across all systems

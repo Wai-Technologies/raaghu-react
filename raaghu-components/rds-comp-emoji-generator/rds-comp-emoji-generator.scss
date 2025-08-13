@@ -1,50 +1,28 @@
 // RDS Emoji Generator Component Styles
-:root {
-  // Updated color variables to match light wireframe design
-  --rds-emoji-generator-primary-color: #FFD700;
-  --rds-emoji-generator-background: #ffffff; // Clean white background like wireframe
-  --rds-emoji-generator-border-color: #e5e7eb; // Light gray borders
-  --rds-emoji-generator-hover-color: #f9fafb; // Very light gray for hover
-  --rds-emoji-generator-selected-color: #FFD700; // Yellow accent
-  --rds-emoji-generator-text-color: #374151; // Dark gray text
-  --rds-emoji-generator-text-secondary: #9ca3af; // Medium gray for secondary text
-  --rds-emoji-generator-secondary-bg: #ffffff; // White background
-  --rds-emoji-generator-search-bg: #f9fafb; // Light gray search background
-  --rds-emoji-generator-chip-bg: #f3f4f6; // Light gray chip background
-  --rds-emoji-generator-chip-text: #374151; // Dark gray chip text
-  --rds-emoji-generator-chip-hover-bg: #e5e7eb; // Slightly darker on hover
-  --rds-emoji-generator-emoji-hover-bg: #f3f4f6; // Light hover for emojis
-  --rds-emoji-generator-quick-bg: #ffffff;
-  --rds-emoji-generator-quick-border: #e5e7eb;
-  --rds-emoji-generator-quick-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --rds-emoji-generator-quick-hover: #f9fafb;
-  --rds-emoji-generator-quick-active: #e5e7eb;
-  --rds-emoji-generator-accent: #FFD700;
-}
 
 .rds-emoji-generator {
   // Base styles - compact and responsive design
   display: flex;
   flex-direction: column;
-  background-color: var(--rds-emoji-generator-background);
-  border: 1px solid var(--rds-emoji-generator-border-color);
-  border-radius: 12px;
+  background-color: var(--rds-background-paper, #ffffff);
+  border: 1px solid var(--rds-border-default, #e5e7eb);
+  border-radius: var(--rds-border-radius-lg, 12px);
   overflow: hidden;
-  width: 360px; // Balanced width for good usability
-  height: 420px; // Fixed height for consistent layout
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 360px; // Component specific width
+  height: 420px; // Component specific height
+  box-shadow: var(--rds-elevation-2, 0 4px 12px rgba(0, 0, 0, 0.08));
   gap: 0;
 
   // Quick reactions variant
   &--quick {
     flex-direction: row;
     align-items: center;
-    gap: 8px; // Reduced gap to match wireframe
-    padding: 8px 12px; // Reduced padding for tighter look
-    background-color: #ffffff;
-    border-radius: 20px; // Less rounded to match wireframe
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Lighter shadow
+    gap: var(--rds-spacing-sm, 8px);
+    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
+    background-color: var(--rds-background-paper, #ffffff);
+    border-radius: var(--rds-border-radius-xl, 20px);
+    border: 1px solid var(--rds-border-light, #e5e7eb);
+    box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.1));
     width: fit-content;
     min-width: auto;
     max-height: none;
@@ -53,51 +31,51 @@
   
   // Search section
   &__search {
-    padding: 12px 16px; // Reduced vertical padding from 16px to 12px
-    background-color: var(--rds-emoji-generator-background);
+    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
+    background-color: var(--rds-background-paper, #ffffff);
     
     &-container {
       display: flex;
       align-items: center;
-      gap: 8px; // Reduced gap from 12px to 8px
+      gap: var(--rds-spacing-sm, 8px);
     }
     
     .MuiTextField-root {
       flex: 1;
       
       .MuiInputBase-root {
-        background-color: #ffffff;
-        border-radius: 4px;
-        border: 1px solid #7D7D7D; // Updated border color as requested
+        background-color: var(--rds-background-paper, #ffffff);
+        border-radius: var(--rds-border-radius-sm, 4px);
+        border: 1px solid var(--rds-border-default, #e5e7eb);
         transition: all 0.2s ease;
         font-size: 14px;
-        color: var(--rds-emoji-generator-text-color);
+        color: var(--rds-text-primary, #111827);
         
         &:hover {
-          border-color: #5A5A5A; // Darker shade for hover (related to #7D7D7D)
-          background-color: #ffffff;
+          border-color: var(--rds-border-hover, #d1d5db);
+          background-color: var(--rds-background-paper, #ffffff);
         }
         
         &.Mui-focused {
-          border-color: #4A4A4A; // Even darker for focused state
-          box-shadow: 0 0 0 2px rgba(125, 125, 125, 0.1); // Focus ring with #7D7D7D
-          background-color: #ffffff;
+          border-color: var(--rds-color-primary, #3b82f6);
+          box-shadow: 0 0 0 2px var(--rds-color-primary-20, rgba(59, 130, 246, 0.2));
+          background-color: var(--rds-background-paper, #ffffff);
         }
       }
       
       .MuiInputBase-input {
-        padding: 6px 16px; // Reduced vertical padding from 8px to 6px for smaller height
+        padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-md, 16px);
         font-size: 14px;
-        color: var(--rds-emoji-generator-text-color);
+        color: var(--rds-text-primary, #111827);
         
         &::placeholder {
-          color: var(--rds-emoji-generator-text-secondary);
+          color: var(--rds-text-secondary, #6b7280);
           opacity: 0.8;
         }
       }
       
       .MuiSvgIcon-root {
-        color: var(--rds-emoji-generator-text-secondary);
+        color: var(--rds-text-secondary, #6b7280);
       }
       
       .MuiOutlinedInput-notchedOutline {
@@ -110,11 +88,29 @@
   &__skin-tone-button {
     transition: all 0.2s ease;
     flex-shrink: 0;
+    width: 29px;
+    height: 29px;
+    border-radius: var(--rds-border-radius-sm, 4px) !important; // force square overriding MUI default (50%)
+    border: 1px solid var(--rds-border-light, #e5e7eb);
+    min-width: 29px;
+    padding: 0;
+    margin-left: var(--rds-spacing-sm, 8px);
     
     &:hover {
       transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: var(--rds-elevation-2, 0 4px 12px rgba(0, 0, 0, 0.08));
     }
+  }
+
+  // Skin tone popover panel
+  &__skin-tone-popover {
+    padding: var(--rds-spacing-xs, 4px);
+    border-radius: var(--rds-border-radius-md, 8px) !important;
+    box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.15)) !important;
+    border: 1px solid var(--rds-border-light, #e5e7eb);
+    margin-top: 2px;
+    min-width: auto;
+    width: 45px;
   }
 
   &__skin-tone-dropdown {
@@ -133,26 +129,37 @@
       
       &:hover {
         transform: scale(1.08);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        box-shadow: var(--rds-elevation-2, 0 4px 12px rgba(0, 0, 0, 0.08));
       }
     }
+  }
+
+  // Individual skin tone option base (dynamic border, boxShadow, bg remain inline)
+  &__skin-tone-option {
+    width: 29px !important;
+    height: 29px !important;
+    border-radius: 0 !important; // square buttons
+    min-width: 29px !important;
+    padding: 0 !important;
+    margin: var(--rds-spacing-xs, 2px) 0 !important;
+    display: block !important;
   }
   
   // Category tabs
   &__categories {
-    background-color: var(--rds-emoji-generator-background);
-    padding: 8px 16px; // Reduced padding
+    background-color: var(--rds-background-paper, #ffffff);
+    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
     overflow: hidden;
     
     &-container {
       display: flex;
       flex-wrap: nowrap;
-      gap: 6px; // Reduced gap
+      gap: var(--rds-spacing-sm, 8px);
       align-items: center;
       overflow-x: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      padding: 2px 0; // Small vertical padding
+      padding: var(--rds-spacing-xs, 2px) 0;
       
       &::-webkit-scrollbar {
         display: none;
@@ -165,23 +172,39 @@
     flex-shrink: 0;
     transition: all 0.2s ease;
     cursor: pointer;
-    min-width: 32px !important; // Smaller width
+    min-width: 32px !important;
     width: 32px !important;
-    height: 32px !important; // Smaller height
+    height: 32px !important;
     padding: 0 !important;
+    border-radius: var(--rds-border-radius-xl, 16px) !important; // circular chip stays (design intent)
+    border: 1px solid var(--rds-border-light, #e5e7eb) !important;
+    background-color: transparent; // outlined default
+    color: var(--rds-text-secondary, #6b7280); // default icon color
+    .MuiChip-icon {
+      font-size: 16px !important;
+      color: inherit;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .MuiChip-label {
+      display: none;
+    }
     
     &:hover {
       transform: translateY(-1px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      background-color: var(--rds-background-neutral-50, #f3f4f6);
+      border-color: var(--rds-color-primary, #3b82f6);
     }
     
     &--selected {
-      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 2px 8px var(--rds-color-primary-30, rgba(59, 130, 246, 0.3));
+      // Let MUI primary filled variant supply its own background & color
     }
     
     .MuiChip-icon {
       margin: 0 !important;
-      font-size: 16px !important; // Smaller icon
+      font-size: var(--rds-font-size-sm, 16px) !important;
     }
   }
   
@@ -189,8 +212,8 @@
   &__grid {
     flex: 1;
     overflow: hidden;
-    padding: 14px;
-    background-color: var(--rds-emoji-generator-background);
+    padding: var(--rds-spacing-md, 14px);
+    background-color: var(--rds-background-paper, #ffffff);
     min-height: 0; // Allow proper flex behavior
     display: flex;
     flex-direction: column;
@@ -199,14 +222,14 @@
   
   // Category title
   &__category-title {
-    margin-bottom: 14px;
-    padding: 0 2px;
+    margin-bottom: var(--rds-spacing-md, 14px);
+    padding: 0 var(--rds-spacing-xs, 2px);
     flex-shrink: 0;
     
     &-text {
-      font-size: 15px !important;
-      font-weight: 600 !important;
-      color: var(--rds-emoji-generator-text-color);
+      font-size: var(--rds-font-size-md, 15px) !important;
+      font-weight: var(--rds-font-weight-semibold, 600) !important;
+      color: var(--rds-text-primary, #111827);
       margin: 0 !important;
       line-height: 1.2 !important;
     }
@@ -217,46 +240,46 @@
     &-container {
       display: grid;
       grid-template-columns: repeat(7, 1fr); // Fixed 7 columns
-      gap: 8px;
+      gap: var(--rds-spacing-sm, 8px);
       justify-items: center;
       align-items: start; // Align to top
       flex: 1;
       overflow-y: auto;
-      padding-right: 8px; // Space for custom scrollbar
+      padding-right: var(--rds-spacing-sm, 8px); // Space for custom scrollbar
       align-content: start; // Content starts from top
       grid-auto-rows: min-content; // Rows adjust to content
       
       // Custom scrollbar styling
       scrollbar-width: thin;
-      scrollbar-color: #cbd5e1 #f8fafc;
+      scrollbar-color: var(--rds-border-default, #cbd5e1) var(--rds-background-neutral-50, #f8fafc);
       
       &::-webkit-scrollbar {
-        width: 6px;
-        background-color: #f8fafc;
-        border-radius: 3px;
+        width: var(--rds-spacing-xs, 6px);
+        background-color: var(--rds-background-neutral-50, #f8fafc);
+        border-radius: var(--rds-border-radius-xs, 3px);
       }
       
       &::-webkit-scrollbar-track {
-        background-color: #f8fafc;
-        border-radius: 3px;
+        background-color: var(--rds-background-neutral-50, #f8fafc);
+        border-radius: var(--rds-border-radius-xs, 3px);
       }
       
       &::-webkit-scrollbar-thumb {
-        background-color: #cbd5e1;
-        border-radius: 3px;
+        background-color: var(--rds-border-default, #cbd5e1);
+        border-radius: var(--rds-border-radius-xs, 3px);
         transition: background-color 0.2s ease;
         
         &:hover {
-          background-color: #94a3b8;
+          background-color: var(--rds-border-hover, #94a3b8);
         }
         
         &:active {
-          background-color: #64748b;
+          background-color: var(--rds-border-strong, #64748b);
         }
       }
       
       &::-webkit-scrollbar-corner {
-        background-color: #f8fafc;
+        background-color: var(--rds-background-neutral-50, #f8fafc);
       }
     }
   }
@@ -266,12 +289,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px; // Balanced size for 7-column grid
-    height: 36px;
-    border-radius: 8px;
+    width: var(--rds-size-lg, 36px); // Balanced size for 7-column grid
+    height: var(--rds-size-lg, 36px);
+    border-radius: var(--rds-border-radius-md, 8px);
     cursor: pointer;
     transition: transform 0.2s ease; // Only transition the scale
-    font-size: 20px; // Good size for visibility
+    font-size: var(--rds-font-size-xl, 20px); // Good size for visibility
     border: 1px solid transparent;
     background-color: transparent;
     
@@ -285,10 +308,10 @@
 
     // Quick reactions specific styles
     &--quick {
-      width: 32px; // Smaller size to match wireframe
-      height: 32px;
+      width: var(--rds-size-md, 32px); // Smaller size to match wireframe
+      height: var(--rds-size-md, 32px);
       border-radius: 0; // No border radius - flat design
-      font-size: 20px; // Smaller emoji size
+      font-size: var(--rds-font-size-xl, 20px); // Smaller emoji size
       background-color: transparent; // No background
       border: none; // No border
       transition: transform 0.2s ease;
@@ -308,8 +331,8 @@
 
   // Plus icon for quick reactions
   &__plus {
-    width: 32px !important; // Match emoji size from wireframe
-    height: 32px !important;
+    width: var(--rds-size-md, 32px) !important; // Match emoji size from wireframe
+    height: var(--rds-size-md, 32px) !important;
     border-radius: 0 !important; // No border radius - flat design
     cursor: pointer;
     transition: all 0.2s ease !important; // Keep transition for click effect
@@ -323,8 +346,8 @@
     }
     
     .MuiSvgIcon-root {
-      color: #7D7D7D;
-      font-size: 18px; // Smaller icon to match wireframe
+      color: var(--rds-text-secondary, #7D7D7D);
+      font-size: var(--rds-font-size-lg, 18px); // Smaller icon to match wireframe
     }
   }
 
@@ -333,22 +356,22 @@
     display: flex;
     align-items: center;
     justify-content: flex-start; // Align to left instead of center
-    gap: 8px; // Space between emoji and text
-    padding: 12px 16px; // Reduced top/bottom padding
-    background-color: var(--rds-emoji-generator-background);
+    gap: var(--rds-spacing-sm, 8px); // Space between emoji and text
+    padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px); // Reduced top/bottom padding
+    background-color: var(--rds-background-paper, #ffffff);
     flex-shrink: 0; // Don't shrink the footer
-    min-height: 48px; // Consistent footer height
+    min-height: var(--rds-size-xl, 48px); // Consistent footer height
     
     &-emoji {
-      font-size: 20px;
+      font-size: var(--rds-font-size-xl, 20px);
       flex-shrink: 0; // Don't shrink the emoji
       line-height: 1;
     }
     
     &-text {
-      color: var(--rds-emoji-generator-text-secondary);
-      font-size: 14px !important;
-      font-weight: 400 !important;
+      color: var(--rds-text-secondary, #6b7280);
+      font-size: var(--rds-font-size-sm, 14px) !important;
+      font-weight: var(--rds-font-weight-normal, 400) !important;
       line-height: 1.4 !important;
       margin: 0 !important;
       flex: 1; // Take up remaining space
@@ -357,20 +380,20 @@
 
   // Scrollbar styling
   &__grid::-webkit-scrollbar {
-    width: 6px;
+    width: var(--rds-spacing-xs, 6px);
   }
   
   &__grid::-webkit-scrollbar-track {
-    background: var(--rds-emoji-generator-secondary-bg);
+    background: var(--rds-background-neutral-50, #ffffff);
   }
   
   &__grid::-webkit-scrollbar-thumb {
-    background: var(--rds-emoji-generator-border-color);
-    border-radius: 3px;
+    background: var(--rds-border-default, #e5e7eb);
+    border-radius: var(--rds-border-radius-xs, 3px);
   }
   
   &__grid::-webkit-scrollbar-thumb:hover {
-    background: var(--rds-emoji-generator-accent);
+    background: var(--rds-border-hover, #d1d5db);
   }
 }
 
@@ -378,47 +401,38 @@
 @media (max-width: 480px) {
   .rds-emoji-generator {
     &__grid-container {
-      grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(var(--rds-size-lg, 35px), 1fr));
     }
     
     &__emoji {
-      font-size: 18px;
+      font-size: var(--rds-font-size-lg, 18px);
     }
     
     &__categories-container {
       .MuiChip-root {
-        font-size: 11px;
+        font-size: var(--rds-font-size-xs, 11px);
       }
     }
   }
 }
 
-// Light theme override (if needed)
+// Light theme override (if needed) - Remove if using proper design tokens
 .rds-emoji-generator--light {
-  --rds-emoji-generator-background: #ffffff;
-  --rds-emoji-generator-border-color: #e5e7eb;
-  --rds-emoji-generator-hover-color: #f9fafb;
-  --rds-emoji-generator-text-color: #111827;
-  --rds-emoji-generator-text-secondary: #6b7280;
-  --rds-emoji-generator-secondary-bg: #ffffff;
-  --rds-emoji-generator-search-bg: #f9fafb;
-  --rds-emoji-generator-chip-bg: #f3f4f6;
-  --rds-emoji-generator-chip-text: #374151;
-  --rds-emoji-generator-chip-hover-bg: #e5e7eb;
-  --rds-emoji-generator-emoji-hover-bg: #f3f4f6;
+  background-color: var(--rds-background-paper, #ffffff);
+  border-color: var(--rds-border-default, #e5e7eb);
+  color: var(--rds-text-primary, #111827);
 }
 
 // High contrast mode
 @media (prefers-contrast: high) {
   .rds-emoji-generator {
-    --rds-emoji-generator-border-color: #000000;
-    --rds-emoji-generator-hover-color: #cccccc;
+    border-color: var(--rds-border-strong, #000000);
     
     &__emoji {
       border: 1px solid transparent;
       
       &:hover {
-        border-color: var(--rds-emoji-generator-accent);
+        border-color: var(--rds-color-primary, #3b82f6);
       }
     }
   }
