@@ -46,7 +46,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                   styles="default"
                   type="star"
                   value={item.rating || 4.5}
-                  size="large"
+                  size="medium"
                   />
                 </div>
                 <p className="card-text">{item.description}</p>
@@ -68,7 +68,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                   <RdsRating
                     value={item.rating || 4.5}
                     precision={0.5}
-                     size="large"
+                     size="medium"
                     readOnly
                   />
                 </div>
@@ -105,7 +105,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
             <RdsRating
               value={item.rating || 4.5}
               precision={0.5}
-               size="large"
+               size="medium"
               readOnly
             />
           </div>
@@ -133,7 +133,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
             <RdsRating
               value={item.rating || 4.5}
               precision={0.5}
-               size="large"
+               size="medium"
               readOnly
             />
           </div>
@@ -164,7 +164,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
             <RdsRating
               value={item.rating || 4.5}
               precision={0.5}
-               size="large"
+               size="medium"
               readOnly
             />
           </div>
@@ -192,7 +192,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
             <RdsRating
               value={item.rating || 4.5}
               precision={0.5}
-               size="large"
+              size="medium"
               readOnly
             />
           </div>
@@ -238,7 +238,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                 <RdsRating
                   value={item.rating || 4.5}
                   precision={0.5}
-                   size="large"
+                   size="medium"
                   readOnly
                 />
               </div>
@@ -286,7 +286,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                   <RdsRating
                     value={item.rating || 4.5}
                     precision={0.5}
-                     size="large"
+                     size="medium"
                     readOnly
                   />
                 </div>
@@ -342,7 +342,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                 <RdsRating
                   value={item.rating || 4.5}
                   precision={0.5}
-                   size="large"
+                   size="medium"
                   readOnly
                 />
               </div>
@@ -364,7 +364,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                     onClick={handleLike}
                     style={{ backgroundColor: 'transparent', border: 'none' }}
                   >
-                    <ThumbUpAltIcon color="primary" fontSize="large" />
+                    <ThumbUpAltIcon color="primary" fontSize="medium" />
                   </button>
                   <span className="ms-1">{likes}</span>
                 </div>
@@ -374,7 +374,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                     onClick={handleDislike}
                     style={{ backgroundColor: 'transparent', border: 'none' }}
                   >
-                    <ThumbDownAltIcon color="error" fontSize="large" />
+                    <ThumbDownAltIcon color="error" fontSize="medium" />
                   </button>
                   <span className="ms-1">{dislikes}</span>
                 </div>
@@ -413,7 +413,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                 <RdsRating
                   value={item.rating || 4.5}
                   precision={0.5}
-                   size="large"
+                   size="medium"
                   readOnly
                 />
               </div>
@@ -435,7 +435,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                     onClick={handleLike}
                     style={{ backgroundColor: 'transparent', border: 'none' }}
                   >
-                    <ThumbUpAltIcon color="primary" fontSize="large" />
+                    <ThumbUpAltIcon color="primary" fontSize="medium" />
                   </button>
                   <span className="ms-1">{likes}</span>
                 </div>
@@ -445,7 +445,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                     onClick={handleDislike}
                     style={{ backgroundColor: 'transparent', border: 'none' }}
                   >
-                    <ThumbDownAltIcon color="error" fontSize="large" />
+                    <ThumbDownAltIcon color="error" fontSize="medium" />
                   </button>
                   <span className="ms-1">{dislikes}</span>
                 </div>
@@ -463,7 +463,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
               <RdsAvatar
                 src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
                 name={item.name}
-                size="large"
+                size="medium"
               />
             </div>
             <h5 className="card-title text-center">{item.name}</h5>
@@ -472,7 +472,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
               <RdsRating
                 value={1}
                 max={1}
-                 size="large"
+                 size="medium"
                 readOnly
               />
               <span className="rating-value">{item.reviews || "4.75"}</span>
@@ -492,7 +492,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
               <RdsRating
                 value={1}
                 max={1}
-                 size="large"
+                 size="medium"
                 readOnly
               />
               <span className="rating-value">{item.reviews || "4.75"}</span>
