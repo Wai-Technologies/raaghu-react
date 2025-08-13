@@ -1,0 +1,68 @@
+
+.rds-comp-contribution {
+  display: block;
+  width: 100%;
+  background: none;
+  
+  &__container {
+    width: 100%;
+    padding: var(--rds-spacing-lg, 20px) 0;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  &__wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: var(--rds-color-neutral-100, rgba(0, 0, 0, 0.05));
+      border-radius: var(--rds-border-radius-sm, 10px);
+    }
+  }
+  
+  &__svg {
+    fill: transparent;
+    stroke: none;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.02));
+  }
+  
+  &__text {
+    font-family: var(--rds-font-family, inherit);
+    font-size: var(--rds-font-size-sm, 0.875rem);
+    
+    &--month {
+      fill: var(--rds-color-text-primary, #333);
+      font-size: var(--rds-font-size-sm, 0.875rem);
+      font-weight: var(--rds-font-weight-medium, 500);
+      letter-spacing: -0.01em;
+    }
+    
+    &--week {
+      fill: var(--rds-color-text-secondary, #666);
+      font-size: var(--rds-font-size-xs, 0.75rem);
+      text-anchor: end;
+      letter-spacing: -0.01em;
+    }
+  }
+  
+  &__panel {
+    rx: 2;
+    ry: 2;
+    transition: all var(--rds-transition-duration-short, 0.15s) var(--rds-transition-timing, ease);
+    
+    &:hover {
+      opacity: 0.85;
+      cursor: pointer;
+    }
+  }
+}
+  
