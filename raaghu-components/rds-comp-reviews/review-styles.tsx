@@ -69,7 +69,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                     value={item.rating || 4.5}
                     precision={0.5}
                      size="medium"
-                    readOnly
+                    
                   />
                 </div>
                 <p className="card-text">{item.description}</p>
@@ -106,7 +106,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
               value={item.rating || 4.5}
               precision={0.5}
                size="medium"
-              readOnly
+              
             />
           </div>
         </div>
@@ -134,7 +134,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
               value={item.rating || 4.5}
               precision={0.5}
                size="medium"
-              readOnly
+              
             />
           </div>
         </div>
@@ -165,7 +165,6 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
               value={item.rating || 4.5}
               precision={0.5}
                size="medium"
-              readOnly
             />
           </div>
           
@@ -193,7 +192,6 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
               value={item.rating || 4.5}
               precision={0.5}
               size="medium"
-              readOnly
             />
           </div>
           
@@ -239,7 +237,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                   value={item.rating || 4.5}
                   precision={0.5}
                    size="medium"
-                  readOnly
+                  
                 />
               </div>
             </div>
@@ -287,7 +285,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                     value={item.rating || 4.5}
                     precision={0.5}
                      size="medium"
-                    readOnly
+                    
                   />
                 </div>
                 <small className="text-muted">
@@ -343,7 +341,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                   value={item.rating || 4.5}
                   precision={0.5}
                    size="medium"
-                  readOnly
+                  
                 />
               </div>
 
@@ -414,7 +412,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                   value={item.rating || 4.5}
                   precision={0.5}
                    size="medium"
-                  readOnly
+                  
                 />
               </div>
 
@@ -473,7 +471,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                 value={1}
                 max={1}
                  size="medium"
-                readOnly
+                
               />
               <span className="rating-value">{item.reviews || "4.75"}</span>
             </div>
@@ -493,7 +491,7 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
                 value={1}
                 max={1}
                  size="medium"
-                readOnly
+                
               />
               <span className="rating-value">{item.reviews || "4.75"}</span>
             </div>
