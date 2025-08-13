@@ -1,6 +1,22 @@
-# Raaghu Design System Documentation
+# Raaghu Design Syst3. **[CSS_IMPLEMENTATION_GUIDE.md](./CSS_IMPLEMENTATION_GUIDE.md)**
+   - Implementation status and checklist
+   - Development workflow
+   - Integration instructions
+   - Production readiness guide
 
-This folder contains comprehensive documentation for the Raaghu Design System architecture.
+4. **[CSS_REFERENCE.md](./CSS_REFERENCE.md)**
+   - Quick reference for developers
+   - Common patterns and templates
+   - Naming conventions cheat sheet
+   - Development best practices
+
+5. **[THEME_INTEGRATION_GUIDE.md](./THEME_INTEGRATION_GUIDE.md)** ✨ **NEW**
+   - Complete theme integration documentation
+   - CSS custom properties system
+   - Single source of truth for all styling
+   - Theme switching implementationation
+
+This folder contains comprehensive documentation for the Raaghu Design System CSS/SCSS architecture.
 
 ## 📚 Documentation Overview
 
