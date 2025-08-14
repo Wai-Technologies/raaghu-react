@@ -1,4 +1,10 @@
 export {default as RdsCompSpinner} from './rds-comp-spinner/rds-comp-spinner';
+export {default as RdsCompContribution} from './rds-comp-contribution/rds-comp-contribution';
+export {default as RdsCompColorPicker} from './rds-comp-color-picker/rds-comp-color-picker';
+export {default as RdsCompCommentBox} from './rds-comp-comment-box/rds-comp-comment-box';
+export {default as RdsCompToast} from './rds-comp-toast/rds-comp-toast';
+export {default as RdsCompScrollbar} from './rds-comp-scrollbar/rds-comp-scrollbar';
+export {default as RdsCompTruncatedText} from './rds-comp-truncate-text/rds-comp-truncate-text';
 export { default as RdsCompAreaChart } from "./rds-comp-chart-area/rds-comp-chart-area";
 export { default as RdsCompLineChart } from "./rds-comp-chart-line/rds-comp-chart-line";
 export { default as RdsCompPieChart } from "./rds-comp-chart-pie/rds-comp-chart-pie";
@@ -12,10 +18,9 @@ export { default as RdsCompScatterChart } from "./rds-comp-chart-scatter/rds-com
 export { default as RdsCompStackedChart } from "./rds-comp-chart-stacked/rds-comp-chart-stacked";
 export { default as RdsCompBubbleChart } from "./rds-comp-chart-bubble/rds-comp-chart-bubble";
 export { default as RdsCompAiChatBot } from './rds-comp-ai-chat-bot/rds-comp-ai-chat-bot';
-export { default as RdsCompToast } from './rds-comp-toast/rds-comp-toast';
-export { default as RdsCompScrollbar } from './rds-comp-scrollbar/rds-comp-scrollbar';
-export { default as RdsCompTruncatedText } from './rds-comp-truncate-text/rds-comp-truncate-text';
 export { default as RdsCompAudioPlayer } from './rds-comp-audio-player/rds-comp-audio-player';
+
 export {default as RdsCompVideoPlayer} from './rds-comp-video-player/rds-comp-video-player';
 export {default as RdsCompReviews} from './rds-comp-reviews/rds-comp-reviews';
 export {default as RdsCompTextEditor} from './rds-comp-text-editor/rds-comp-text-editor';
+export { default as RdsCompTimePicker } from './rds-comp-time-picker/rds-comp-time-picker';
