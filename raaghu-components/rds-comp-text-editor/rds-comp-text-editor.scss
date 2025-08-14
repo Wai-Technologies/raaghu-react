@@ -32,7 +32,7 @@
   
   // Dark theme support
   .dark-theme &, [data-theme="dark"] & {
-    background-color: var(--rds-color-surface-dark, #212529);
+    background-color: #424242;
     color: var(--rds-color-on-surface-dark, #e9ecef);
     border-color: var(--rds-color-border-dark, #495057);
     
@@ -45,7 +45,7 @@
     }
     
     &--disabled {
-      background-color: var(--rds-color-disabled-bg-dark, #343a40);
+      background-color: #424242;
       color: var(--rds-color-disabled-text-dark, #adb5bd);
       border-color: var(--rds-color-disabled-border-dark, #495057);
     }
@@ -129,12 +129,12 @@
     
     // Dark theme support
     .dark-theme &, [data-theme="dark"] & {
-      background-color: var(--rds-color-surface-variant-dark, #2c3034);
+      background-color: #424242;
       border-color: var(--rds-color-border-dark, #495057);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
       
       .rdw-option-wrapper {
-        background: var(--rds-color-surface-dark, #212529);
+        background-color: #424242;
         color: var(--rds-color-on-surface-dark, #fff);
         border-color: var(--rds-color-border-dark, #495057);
         font-weight: 500;
@@ -162,7 +162,7 @@
       
       .rdw-image-wrapper {
         .rdw-image-modal {
-          background-color: var(--rds-color-surface-dark, #212529);
+          background-color: #424242;
           color: var(--rds-color-on-surface-dark, #e9ecef);
           border-color: var(--rds-color-border-dark, #495057);
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -190,7 +190,7 @@
       
       // Dropdown components
       .rdw-dropdown-wrapper {
-        background-color: var(--rds-color-surface-dark, #212529);
+        background-color: #424242;
         border-color: var(--rds-color-border-dark, #495057);
         
         .rdw-dropdown-selectedtext {
@@ -199,7 +199,7 @@
         }
         
         .rdw-dropdown-optionwrapper {
-          background-color: var(--rds-color-surface-dark, #212529);
+          background-color: #424242;
           border-color: var(--rds-color-primary-dark, #0d6efd);
           /* Simplified box-shadow for better performance */
           box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
