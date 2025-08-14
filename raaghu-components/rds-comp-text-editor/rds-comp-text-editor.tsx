@@ -77,13 +77,13 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
         return contentState.getPlainText().trim() === '';
     };    return (
         <>
-            <Label className={`rds-text-editor-label ${props.labelClass || ""}`}>
+            <Label className={`rds-comp-text-editor-label ${props.labelClass || ""}`}>
                 {props.label}
                 {props.isMandatory && <span className="text-danger">*</span>}
             </Label>
             <div
                 id={props.id}
-                className={`draft-editor-container ${props.State === "Selected" ? "editor-selected" : ""} ${props.State === "Error" ? "editor-error" : ""} ${props.State === "Active" ? "editor-active" : ""} ${props.State === "Disabled" ? "editor-disabled" : ""}`}
+                className={`rds-comp-text-editor ${props.State === "Selected" ? "rds-comp-text-editor--selected" : ""} ${props.State === "Error" ? "rds-comp-text-editor--error" : ""} ${props.State === "Active" ? "rds-comp-text-editor--active" : ""} ${props.State === "Disabled" ? "rds-comp-text-editor--disabled" : ""}`}
             >
                 <Editor
                     editorState={editorState}
@@ -91,9 +91,9 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
                     readOnly={props.readOnly || props.State === "Disabled"}
                     placeholder={props.placeholder}
                     ref={editorRef}
-                    toolbarClassName="draft-toolbar"
-                    wrapperClassName="draft-wrapper"
-                    editorClassName="draft-editor"
+                    toolbarClassName="rds-comp-text-editor__toolbar"
+                    wrapperClassName="rds-comp-text-editor__wrapper"
+                    editorClassName="rds-comp-text-editor__content"
                     toolbar={{
                         options: ['inline', 'blockType', 'list', 'textAlign', 'link', 'image', 'history'],
                         inline: {
