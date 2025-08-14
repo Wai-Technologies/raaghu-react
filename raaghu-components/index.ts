@@ -19,3 +19,4 @@ export { default as RdsCompAudioPlayer } from './rds-comp-audio-player/rds-comp-
 export {default as RdsCompVideoPlayer} from './rds-comp-video-player/rds-comp-video-player';
 export {default as RdsCompReviews} from './rds-comp-reviews/rds-comp-reviews';
 export {default as RdsCompTextEditor} from './rds-comp-text-editor/rds-comp-text-editor';
+export { default as RdsCompTimePicker } from './rds-comp-time-picker/rds-comp-time-picker';

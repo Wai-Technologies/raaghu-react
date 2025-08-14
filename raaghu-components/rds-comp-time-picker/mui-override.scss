@@ -1,0 +1,95 @@
+/* MUI Override styles for Time Picker Component */
+.MuiAutocomplete-root {
+  &.time-select-dropdown {
+    width: 100%;
+    max-width: 100%;
+    
+    .MuiOutlinedInput-root {
+      background-color: white;
+      color: #6366f1;
+      padding: 0;
+      font-size: 14px;
+      height: 34px;
+      min-height: 34px;
+      border-radius: 6px;
+      border: 1px solid #E0E0E0;
+      
+      .MuiOutlinedInput-notchedOutline {
+        border: none;
+      }
+      
+      .MuiInputBase-input {
+        color: #6366f1;
+        padding: 4px 6px;
+        text-align: center;
+        font-weight: 500;
+        min-width: 30px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        
+        &::placeholder {
+          color: #6366f1;
+          opacity: 1;
+          font-weight: 500;
+        }
+      }
+      
+      .MuiAutocomplete-endAdornment {
+        right: 2px;
+        
+        .MuiSvgIcon-root {
+          color: #6366f1;
+          font-size: 18px;
+        }
+      }
+      
+      .MuiAutocomplete-popupIndicator {
+        color: #6366f1;
+      }
+    }
+  }
+}
+
+/* Override for icon buttons in time picker */
+.MuiButtonBase-root.MuiIconButton-root {
+  &.time-control-button {
+    padding: 6px;
+    
+    &:hover {
+      background-color: rgba(99, 102, 241, 0.08);
+    }
+    
+    &.Mui-disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* Override for dropdown options */
+.MuiAutocomplete-popper {
+  .MuiPaper-root {
+    margin-top: 4px;
+    border-radius: 4px;
+    max-height: 200px;
+    
+    .MuiAutocomplete-listbox {
+      padding: 4px 0;
+      max-height: 200px;
+      
+      .MuiAutocomplete-option {
+        min-height: 36px;
+        padding: 6px 12px;
+        
+        &[aria-selected="true"] {
+          background-color: rgba(99, 102, 241, 0.08);
+        }
+        
+        &.Mui-focused {
+          background-color: rgba(99, 102, 241, 0.12);
+        }
+      }
+    }
+  }
+}
