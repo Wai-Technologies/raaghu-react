@@ -30,29 +30,6 @@ export interface RdsCompTextEditorProps {
     showTitle?: boolean;
 }
 
-export interface RdsCompTextEditorProps {
-    bounds?: string | HTMLElement;
-    children?: React.ReactElement<any>;
-    className?: string;
-    defaultValue?: any;
-    formats?: string[];
-    id?: string;
-    modules?: any;
-    onChange?(value: string, delta: any, source: any, editor: any): any;
-    placeholder?: string;
-    preserveWhitespace?: boolean;
-    readOnly?: boolean;
-    style?: React.CSSProperties;
-    tabIndex?: number;
-    theme?: string;
-    value?: string;
-    label?: string;
-    isMandatory?: boolean;
-    labelClass?: string;
-    State?:string;
-    showTitle?: boolean;
-}
-
 const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
     const [editorState, setEditorState] = useState(() => {
         if (props.value) {
@@ -118,9 +95,27 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
                     wrapperClassName="draft-wrapper"
                     editorClassName="draft-editor"
                     toolbar={{
-                        options: ['inline', 'blockType', 'list', 'textAlign', 'link', 'history'],
+                        options: ['inline', 'blockType', 'list', 'textAlign', 'link', 'image', 'history'],
                         inline: {
                             options: ['bold', 'italic', 'underline', 'strikethrough']
+                        },
+                        image: {
+                            urlEnabled: true,
+                            uploadEnabled: true,
+                            alignmentEnabled: true,
+                            uploadCallback: (file: File) => {
+                                return new Promise((resolve) => {
+                                    const reader = new FileReader();
+                                    reader.onload = () => {
+                                        const base64Image = reader.result as string;
+                                        resolve({ data: { link: base64Image } });
+                                    };
+                                    reader.readAsDataURL(file);
+                                });
+                            },
+                            previewImage: true,
+                            inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                            alt: { present: true, mandatory: false }
                         }
                     }}
                 />

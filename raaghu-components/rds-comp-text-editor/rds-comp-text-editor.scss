@@ -2,8 +2,9 @@
 .draft-editor-container {
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 5px;
+  padding: 0;
   min-height: 200px;
+  font-family: var(--bs-font-sans-serif);
   
   &.editor-selected {
     border-color: #007bff;
@@ -28,12 +29,62 @@
   .rdw-editor-toolbar {
     border-color: #ddd;
     background-color: #f8f9fa;
-    border-radius: 4px;
+    border-radius: 2px 2px 0 0;
+    padding: 6px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 0;
+    
+    // Style toolbar buttons similar to Quill
+    .rdw-option-wrapper {
+      border: 1px solid #f1f1f1;
+      padding: 5px;
+      min-width: 25px;
+      height: 25px;
+      border-radius: 2px;
+      margin: 0 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      background: white;
+      text-transform: capitalize;
+      
+      &:hover {
+        box-shadow: 1px 1px 0px #bfbdbd;
+      }
+      
+      &.rdw-option-active {
+        background-color: #f1f1f1;
+      }
+    }
+    
+    // Image button styling
+    .rdw-image-wrapper {
+      .rdw-image-modal {
+        border-radius: 4px;
+      }
+    }
   }
   
   .rdw-editor-main {
-    border-top: 1px solid #ddd;
     padding: 10px;
+    font-size: 14px;
     min-height: 150px;
+    line-height: 1.5;
+    
+    blockquote {
+      border-left: 5px solid #eee;
+      padding-left: 10px;
+      margin-left: 0;
+    }
+    
+    .public-DraftStyleDefault-block {
+      margin: 0.5em 0;
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+    }
   }
 }
