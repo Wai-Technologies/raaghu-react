@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import { Buffer } from "buffer";
 import { ChartIcons } from "./chart-icons";
 
 export interface RdsCompBooleanChartProps {
@@ -17,7 +16,7 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
     const CanvasId = props.id;
 
     const svg = ChartIcons[props.centerIconName || ""];
-    const encodedSVG = Buffer.from(svg).toString("base64");
+    const encodedSVG = btoa(unescape(encodeURIComponent(svg)));
     const dataURL = `data:image/svg+xml;base64,${encodedSVG}`;
 
     useEffect(() => {
