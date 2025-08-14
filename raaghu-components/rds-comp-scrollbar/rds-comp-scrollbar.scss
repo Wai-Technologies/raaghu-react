@@ -6,9 +6,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid var(--rds-color-gray-300, lightgray);
-  background-color: var(--rds-color-white);
-  border-radius: var(--rds-border-radius-lg, 15px);
+  border: 1px solid var(--rds-color-gray-300, #e2e8f0);
+  background-color: var(--rds-color-white, #fff);
+  border-radius: var(--rds-border-radius-md, 15px);
+  padding: 0;
 
   &--mac {
     .rds-scrollbar__controls {
@@ -21,12 +22,22 @@
       top: 0;
       left: 0;
       padding: 1px;
+      z-index: 1;
       button {
-        background: var(--mac-scrollbar-button-bg, #c1bdbd);
+        background: transparent;
         border: none;
         cursor: pointer;
-        font-size: 10px; /* Reduced size */
-        padding: 1px; /* Reduced padding */
+        font-size: 10px;
+        padding: 2px;
+        height: 14px;
+        width: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          background-color: var(--rds-color-gray-200, #e2e8f0);
+        }
       }
     }
   }
@@ -34,47 +45,61 @@
   .rds-scrollbar__content {
     overflow-y: auto;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
   }
     .rds-scrollbar__inner-content {
-        height:700px
+        height: 800px;
+        width: 2px;
+        margin: 0 auto;
     }
 }
 
 /* Mac Scrollbar */
 .rds-scrollbar--mac .rds-scrollbar__content {
-  width: 6px;
-  height: 245px;
+  height: calc(100% - 40px);
   overflow-y: scroll;
   background-color: transparent;
+  margin: 0 auto;
 }
 
 .rds-scrollbar--mac .rds-scrollbar__content::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
+  margin: 0 3px;
 }
 
 .rds-scrollbar--mac .rds-scrollbar__content::-webkit-scrollbar-thumb {
-  background-color: var(--rds-color-gray-600, darkgray);
-  border-radius: var(--rds-border-radius-sm, 3px);
+  background-color: var(--rds-color-gray-500, #94a3b8);
+  border-radius: var(--rds-border-radius-full, 9999px);
+  width: 4px;
+  min-height: 40px;
+  margin: 0 auto;
 }
 
 /* Simple Scrollbar (Default Browser) */
 .rds-scrollbar--simple .rds-scrollbar__content {
   height: 100%;
   overflow-y: scroll;
+  margin: 0 auto;
 }
 
 .rds-scrollbar--simple .rds-scrollbar__content::-webkit-scrollbar {
-  width: 6px; /* Full width */
+  width: 4px;
+  margin: 0 3px;
 }
 
 .rds-scrollbar--simple .rds-scrollbar__content::-webkit-scrollbar-thumb {
-  background-color: var(--rds-color-gray-500, gray);
-  border-radius: var(--rds-border-radius-md, 5px);
+  background-color: var(--rds-color-gray-400, #9ca3af);
+  border-radius: var(--rds-border-radius-sm, 2px);
+  width: 4px;
+  min-height: 40px;
+  margin: 0 auto;
 }
 
 .rds-scrollbar--simple .rds-scrollbar__content::-webkit-scrollbar-track {
-  background-color: var(--rds-color-gray-400, darkgray);
-  border-radius: var(--rds-border-radius-md, 5px);
+  background-color: var(--rds-color-gray-100, #f1f5f9);
+  border-radius: var(--rds-border-radius-sm, 2px);
 }
 
 /* Override all MUI SVG Icons within scrollbar component */
@@ -83,34 +108,42 @@
   .MuiSvgIcon-root,
   [class*="-MuiSvgIcon-root"] {
     font-size: inherit;
-    width: 12px;
-    height: 12px;
+    width: 15px;
+    height: 15px;
   }
   
   /* Specific styling for scrollbar icons */
   &__icon {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     font-size: inherit !important; /* Important to override MUI's default */
+    color: var(--rds-color-gray-500, #94a3b8);
   }
 }
 
 .rds-scrollbar__button {
-  background-color: var(--rds-color-gray-300, lightgray);
-  border-radius: 1px;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  max-height: 18px;
+  background-color: transparent;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  max-height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2px;
+  padding: 1px;
   
   &:hover {
-    background-color: var(--rds-color-gray-400);
+    background-color: var(--rds-color-gray-200, #e2e8f0);
+    border-radius: 2px;
   }
   
   &:focus {
-    outline: 2px solid var(--rds-color-primary);
+    outline: none;
+  }
+  
+  .rds-scrollbar__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rds-color-gray-500, #94a3b8);
   }
 }
