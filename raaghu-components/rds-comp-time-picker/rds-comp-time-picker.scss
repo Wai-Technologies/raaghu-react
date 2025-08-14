@@ -74,8 +74,8 @@
     left: 0;
     right: 0;
     width: 100%;
-    min-width: 220px;
-    max-width: 260px;
+    min-width: 325px;
+    max-width: 350px;
     margin-top: 8px;
     background-color: #ffffff;
     border: 1px solid #E0E0E0;
@@ -162,7 +162,7 @@
         
         &:nth-child(1), &:nth-child(2) {
           flex-basis: 60px;
-          max-width: 60px;
+          max-width: 80px;
         }
         
         &:nth-child(3) {
