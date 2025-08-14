@@ -23,17 +23,21 @@
       left: 0;
       padding: 1px;
       z-index: 1;
+      box-sizing: border-box;
       button {
         background: transparent;
         border: none;
         cursor: pointer;
         font-size: 10px;
-        padding: 2px;
-        height: 14px;
-        width: 14px;
+        padding: 0;
+        height: auto;
+        width: 100%;
+        min-height: 16px;
+        max-height: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
+        box-sizing: border-box;
 
         &:hover {
           background-color: var(--rds-color-gray-200, #e2e8f0);
@@ -114,8 +118,10 @@
   
   /* Specific styling for scrollbar icons */
   &__icon {
-    width: 10px;
-    height: 10px;
+    width: 70%;
+    height: auto;
+    max-width: 12px;
+    max-height: 12px;
     font-size: inherit !important; /* Important to override MUI's default */
     color: var(--rds-color-gray-500, #94a3b8);
   }
@@ -123,17 +129,18 @@
 
 .rds-scrollbar__button {
   background-color: transparent;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  max-height: 16px;
+  margin: 0;
+  width: 100%;
+  min-height: 16px;
+  max-height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1px;
+  padding: 0;
+  box-sizing: border-box;
   
   &:hover {
     background-color: var(--rds-color-gray-200, #e2e8f0);
-    border-radius: 2px;
   }
   
   &:focus {
