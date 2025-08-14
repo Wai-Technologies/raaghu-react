@@ -1,0 +1,568 @@
+// RDS E-Signature Component Styles
+:root {
+  // E-Signature color variables
+  --rds-esignature-primary: #1976d2;
+  --rds-esignature-primary-hover: #1565c0;
+  --rds-esignature-primary-active: #0d47a1;
+  --rds-esignature-primary-disabled: #e0e0e0;
+  --rds-esignature-text: #333333;
+  --rds-esignature-text-secondary: #666666;
+  --rds-esignature-text-disabled: #9e9e9e;
+  --rds-esignature-border: #d1d5db;
+  --rds-esignature-border-hover: #1976d2;
+  --rds-esignature-border-active: #0d47a1;
+  --rds-esignature-border-error: #d32f2f;
+  --rds-esignature-background: #ffffff;
+  --rds-esignature-background-hover: #f5f5f5;
+  --rds-esignature-background-disabled: #fafafa;
+  --rds-esignature-canvas-background: #ffffff;
+  --rds-esignature-error-color: #d32f2f;
+  --rds-esignature-success-color: #2e7d32;
+  
+  // Spacing variables
+  --rds-esignature-spacing-xs: 4px;
+  --rds-esignature-spacing-sm: 8px;
+  --rds-esignature-spacing-md: 16px;
+  --rds-esignature-spacing-lg: 24px;
+  --rds-esignature-spacing-xl: 32px;
+  
+  // Border radius
+  --rds-esignature-border-radius: 8px;
+  --rds-esignature-border-radius-sm: 4px;
+  
+  // Shadows
+  --rds-esignature-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --rds-esignature-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.rds-e-signature {
+  width: 100%;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  
+  &__title {
+    font-size: 20px; /* increased per new visual */
+    font-weight: 600;
+    color: #1e1e1e;
+    margin: 0 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  &__required {
+    color: #d32f2f;
+    font-size: 16px;
+  }
+  
+  // Draw Mode Styles
+  &__draw-container {
+    width: 100%;
+  }
+  
+  &__canvas-container {
+    --rds-esignature-draw-height: 280px; /* easy override */
+    border: 2px dashed #b3b3b3;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 100%;
+    height: var(--rds-esignature-draw-height);
+    padding: 0 20px 68px; /* bottom padding for controls */
+    background-color: var(--rds-esignature-canvas-background);
+    transition: border-color .25s ease, background-color .25s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    
+    // Hover feedback (non-disabled)
+    &:hover {
+      background-color: #FEF7FF;
+      // border-color:2px #2E7CE0;
+      // border-style: dotted;
+       border: 2px dashed #2E7CE0;
+    }
+    .rds-e-signature--disabled &:hover {
+      background-color: var(--rds-esignature-background-disabled);
+    }
+    
+    .rds-e-signature--selected & {
+      border-color: var(--rds-esignature-border-hover);
+    }
+    
+    .rds-e-signature--active & {
+      background-color: var(--rds-esignature-background);
+      border-color: var(--rds-esignature-border-active);
+    }
+    
+    .rds-e-signature--disabled & {
+      background-color: var(--rds-esignature-background-disabled);
+      border-color: var(--rds-esignature-primary-disabled);
+      opacity: 0.6;
+    }
+    
+    .rds-e-signature--error & {
+  border-color: var(--rds-esignature-border-error);
+  border-style: dashed;
+    }
+  }
+  &__controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 14px 24px 12px; /* inside dashed border */
+    pointer-events: none; /* palette & actions will re-enable */
+  }
+  &__controls > * { pointer-events: auto; }
+
+  /* Variant sizing based on type */
+  &--type-initials {
+    .rds-e-signature__canvas-container {
+      --rds-esignature-draw-height: 200px; /* smaller for initials */
+      max-width: 420px; /* narrower initials box */
+      padding: 0 16px 56px;
+    }
+    .rds-e-signature__canvas-title { font-size: 16px; }
+    .rds-e-signature__canvas-icon { font-size: 20px; }
+    .rds-e-signature__color-button { width: 28px; height: 28px; }
+    .rds-e-signature__actions { gap: 12px; }
+  }
+  &--type-fullname {
+    .rds-e-signature__canvas-container {
+      --rds-esignature-draw-height: 240px; /* slightly larger */
+      max-width: 960px; /* wider for full name */
+    }
+  }
+  
+  &__canvas-header {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    margin: 0;
+  }
+  
+  &__canvas-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 22px;
+    font-weight: 500;
+    color: #5c5c5c;
+    letter-spacing: .2px;
+  }
+  
+  &__canvas-icon {
+    font-size: 26px;
+    color: #5c5c5c;
+  }
+  
+  &__canvas {
+    width: 100%;
+    height: 100%;
+    border: none;
+    cursor: crosshair;
+    background-color: transparent;
+    flex: 1;
+    
+    .rds-e-signature--disabled & {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+  
+  &__color-palette {
+    display: flex;
+    gap: 10px;
+    position: static;
+  }
+  
+  &__color-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:first-child {
+      background-color: #000000 !important;
+    }
+    
+    &:nth-child(2) {
+      background-color: #0066ff !important;
+    }
+    
+    &:nth-child(3) {
+      background-color: #ff0000 !important;
+    }
+    
+    &--selected {
+      border: 2px solid #000;
+      box-shadow: 0 0 0 1px #000;
+    }
+    
+    &:hover:not(:disabled) {
+      transform: scale(1.05);
+    }
+    
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+  
+  &__checkmark {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+  }
+  
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    position: static;
+  }
+  
+  &__action-button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: color .2s ease, transform .2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5c5c5c;
+  font-size: 20px;
+    
+    &:hover:not(:disabled) {
+      color: #000;
+      transform: translateY(-2px);
+    }
+    
+    &--delete {
+      color: #c30000;
+      &:hover:not(:disabled) { color: #ff1a1a; }
+    }
+    
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+  
+  // Upload Mode Styles
+  &__upload-container {
+    width: 100%;
+  }
+  
+  &__upload-area {
+  border: 2px dashed var(--rds-esignature-border);
+  border-radius: 8px;
+  padding: 28px 36px 32px;
+  background: #fff;
+  transition: border-color .25s ease, background-color .25s ease;
+  position: relative;
+    
+    .rds-e-signature--selected & {
+      border-color: var(--rds-esignature-border-hover);
+      border-style: solid;
+    }
+    
+    .rds-e-signature--disabled & {
+      background-color: var(--rds-esignature-background-disabled);
+      opacity: 0.6;
+    }
+  }
+  
+  &__upload-content {
+  text-align: left;
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  }
+  
+  &__upload-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  }
+  
+  &__file-input-container {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  background: #fff;
+  border: 1px solid #b7b7b7;
+  border-radius: 3px;
+  overflow: hidden;
+  width: 340px;
+  height: 36px;
+  }
+  
+  &__file-input {
+    display: none;
+  }
+  
+  &__file-button {
+    background-color: #0d6efd;
+    color: #fff;
+    border: none;
+    padding: 0 14px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 92px;
+    transition: background-color .2s ease;
+    
+    &:hover:not(:disabled) {
+      background-color: #0b5ed7;
+    }
+    
+    &:disabled {
+      background-color: var(--rds-esignature-primary-disabled);
+      cursor: not-allowed;
+    }
+  }
+  
+  &__file-text {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 13px;
+  color: #555;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+  
+  &__file-limit {
+  color: #6b6b6b;
+  font-size: 11px;
+  margin-left: 0;
+  padding-left: 0;
+  }
+  
+  // Choose Mode Styles
+  &__choose-container {
+    width: 100%;
+  }
+  
+  &__styles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--rds-esignature-spacing-md);
+    margin-bottom: var(--rds-esignature-spacing-lg);
+  }
+  
+  &__style-card {
+    border: 2px solid var(--rds-esignature-border);
+    border-radius: var(--rds-esignature-border-radius);
+    padding: var(--rds-esignature-spacing-md);
+    background-color: var(--rds-esignature-background);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    
+    &:hover:not(.rds-e-signature--disabled *) {
+      border-color: var(--rds-esignature-border-hover);
+      box-shadow: var(--rds-esignature-shadow);
+    }
+    
+    &--selected {
+      border-color: var(--rds-esignature-primary);
+      background-color: var(--rds-esignature-background-hover);
+    }
+    
+    .rds-e-signature--disabled & {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+  
+  &__style-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--rds-esignature-text-secondary);
+    margin-bottom: var(--rds-esignature-spacing-sm);
+    text-align: left;
+  }
+  
+  &__style-preview {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  &__signature-text {
+    font-size: 18px;
+    color: var(--rds-esignature-text);
+    
+    &--cursive {
+      font-family: "Dancing Script", cursive;
+      font-style: italic;
+    }
+    
+    &--print {
+      font-family: "Arial", sans-serif;
+      font-weight: 600;
+    }
+    
+    &--script {
+      font-family: "Pacifico", cursive;
+      font-style: italic;
+    }
+    
+    &--bold {
+      font-family: "Arial Black", sans-serif;
+      font-weight: 900;
+    }
+    
+    &--elegant {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-weight: 400;
+    }
+    
+    &--modern {
+      font-family: "Roboto", sans-serif;
+      font-weight: 300;
+      font-style: italic;
+    }
+  }
+  
+  &__create-custom {
+    text-align: center;
+    margin-top: var(--rds-esignature-spacing-md);
+  }
+  
+  &__create-link {
+    color: var(--rds-esignature-primary);
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--rds-esignature-spacing-xs);
+    
+    &:hover {
+      color: var(--rds-esignature-primary-hover);
+      text-decoration: underline;
+    }
+  }
+  
+  // Error and Disable Messages
+  &__error {
+    color: #d32f2f;
+    font-size: 12px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  &__disable-message {
+    color: #757575;
+    font-size: 12px;
+    margin-top: 8px;
+    text-align: left;
+    font-style: italic;
+  }
+  
+  // State Modifiers
+  &--selected {
+    .rds-e-signature__canvas-container,
+    .rds-e-signature__upload-area {
+      border-color: var(--rds-esignature-border-hover);
+      border-style: solid;
+      box-shadow: var(--rds-esignature-shadow);
+    }
+  }
+  
+  &--active {
+    .rds-e-signature__canvas-container,
+    .rds-e-signature__upload-area {
+      border-color: var(--rds-esignature-border-active);
+      border-style: solid;
+      box-shadow: var(--rds-esignature-shadow-hover);
+    }
+  }
+  
+  &--disabled {
+    pointer-events: none;
+    
+    .rds-e-signature__canvas-container,
+    .rds-e-signature__upload-area,
+    .rds-e-signature__style-card {
+      background-color: var(--rds-esignature-background-disabled);
+      border-color: var(--rds-esignature-primary-disabled);
+      opacity: 0.6;
+    }
+    
+    .rds-e-signature__title,
+    .rds-e-signature__canvas-title,
+    .rds-e-signature__upload-label,
+    .rds-e-signature__style-name,
+    .rds-e-signature__signature-text {
+      color: var(--rds-esignature-text-disabled);
+    }
+  }
+  
+  // Error modifier removed (no validation styling)
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .rds-e-signature {
+    &__styles-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    &__canvas {
+      height: 200px;
+    }
+    
+    &__file-input-container {
+      flex-direction: column;
+      gap: var(--rds-esignature-spacing-xs);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .rds-e-signature {
+    &__styles-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    &__canvas-container,
+    &__upload-area {
+      padding: var(--rds-esignature-spacing-md);
+    }
+  }
+}

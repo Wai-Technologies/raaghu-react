@@ -4,3 +4,4 @@ export {default as RdsCompScrollbar} from './rds-comp-scrollbar/rds-comp-scrollb
 export {default as RdsCompTruncatedText} from './rds-comp-truncate-text/rds-comp-truncate-text';
 export {default as RdsCompEmojiGenerator} from './rds-comp-emoji-generator/rds-comp-emoji-generator';
 export {default as RdsCompEmptyState} from './rds-comp-empty-state/rds-comp-empty-state';
+export {default as RdsCompESignature} from './rds-comp-e-signature/rds-comp-e-signature';
