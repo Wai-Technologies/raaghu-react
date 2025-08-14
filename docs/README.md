@@ -1,4 +1,4 @@
-# Raaghu Design Syst3. **[CSS_IMPLEMENTATION_GUIDE.md](./CSS_IMPLEMENTATION_GUIDE.md)**
+# Raaghu Design System. **[CSS_IMPLEMENTATION_GUIDE.md](./CSS_IMPLEMENTATION_GUIDE.md)**
    - Implementation status and checklist
    - Development workflow
    - Integration instructions
@@ -46,6 +46,12 @@ This folder contains comprehensive documentation for the Raaghu Design System CS
    - Naming conventions cheat sheet
    - Development best practices
 
+5. **[BOOTSTRAP_IMPLEMENTATION_GUIDE.md](./BOOTSTRAP_IMPLEMENTATION_GUIDE.md)** ✨ **NEW**
+   - Bootstrap 5 integration across the system
+   - Grid system implementation patterns
+   - Utility class usage guidelines
+   - Best practices for responsive design
+
 ## 🎯 Quick Start
 
 For developers new to the Raaghu Design System:
@@ -54,6 +60,7 @@ For developers new to the Raaghu Design System:
 2. **Understand Structure**: [CSS_ARCHITECTURE.md](./CSS_ARCHITECTURE.md)  
 3. **Follow Guidelines**: [CSS_QUICK_REFERENCE.md](./CSS_QUICK_REFERENCE.md)
 4. **Check Status**: [CSS_IMPLEMENTATION_GUIDE.md](./CSS_IMPLEMENTATION_GUIDE.md)
+5. **Bootstrap Usage**: [BOOTSTRAP_IMPLEMENTATION_GUIDE.md](./BOOTSTRAP_IMPLEMENTATION_GUIDE.md)
 
 ## 🏗️ Component Structure
 
@@ -82,7 +89,8 @@ All CSS classes follow BEM methodology with RDS prefix:
 ✅ **Complete**: All 60+ components have SCSS files
 ✅ **Documented**: Comprehensive architecture documentation
 ✅ **Standardized**: Consistent naming and structure
-✅ **Theme Integrated**: All components use raaghu-react-themes variables ✨ **NEW**
+✅ **Theme Integrated**: All components use raaghu-react-themes variables
+✅ **Bootstrap Integrated**: Responsive grid system and utilities implemented ✨ **NEW**
 ✅ **Ready**: Production-ready implementation
 
 ## 🛠️ Development Guidelines

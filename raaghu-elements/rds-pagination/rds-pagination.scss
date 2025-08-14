@@ -16,7 +16,7 @@
 
   // Pagination item (button)
   .MuiPaginationItem-root {
-    font-family: var(--rds-font-family, inherit);
+    font-family: var(--rds-font-family, Poppins);
     color: var(--rds-color-primary-contrast, #1976d2);
     background: transparent;
     transition: background 0.2s, color 0.2s, box-shadow 0.2s;

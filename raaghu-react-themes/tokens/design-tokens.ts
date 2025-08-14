@@ -93,8 +93,8 @@ export const colorTokens = {
 // Typography Tokens
 export const typographyTokens = {
   fontFamily: {
-    primary: '"Roboto", "Helvetica", "Arial", sans-serif',
-    secondary: '"Roboto Condensed", "Helvetica", "Arial", sans-serif',
+    primary: '"Poppins", sans-serif',
+    secondary: '"Poppins", sans-serif',
     monospace: '"Roboto Mono", "Monaco", "Consolas", monospace',
   },
   

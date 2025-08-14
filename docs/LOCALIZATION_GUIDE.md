@@ -245,7 +245,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     typography: {
       fontFamily: isRTL 
         ? 'Arial, "Helvetica Neue", sans-serif' // Better Arabic/Hebrew support
-        : 'Roboto, "Helvetica Neue", Arial, sans-serif'
+        : 'Poppins, sans-serif'
     },
   });
 

@@ -170,7 +170,7 @@ Centralized design system tokens:
   --rds-spacing-md: 16px;
   
   // Typography
-  --rds-font-family: 'Roboto', sans-serif;
+  --rds-font-family: 'Poppins', sans-serif;
   --rds-font-size-body: 14px;
   
   // Elevation
