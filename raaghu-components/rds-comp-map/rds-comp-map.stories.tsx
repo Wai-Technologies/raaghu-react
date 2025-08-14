@@ -20,7 +20,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompMap>;
 
-export const Standard: Story = {
+export const Default: Story = {
     args: {
         title: 'Map ',
         color: '#A478E6',

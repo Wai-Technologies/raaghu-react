@@ -51,7 +51,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompNotification>;
 
-export const Standard: Story = {
+export const Default: Story = {
     args: {
         layout: NotificationLayout.Horizontal,
         style: NotificationStyle.Default,
@@ -72,7 +72,7 @@ export const Standard: Story = {
     }
 }
 
-Standard.parameters = {
+Default.parameters = {
     controls: {
         include: ['layout', 'style', 'type', 'notifications', 'showButtons', 'showPrimaryButton', 'showSecondaryButton', 'showDismissIcon']
     }
