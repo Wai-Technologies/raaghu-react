@@ -1,234 +1,39 @@
-@import "quill/dist/quill.core.css";
-@import "quill/dist/quill.bubble.css";
-@import "quill/dist/quill.snow.css";
-
-.ql-toolbar svg .ql-stroke {
-    stroke: currentColor;
-    stroke-width: 1;
-}
-
-.ql-toolbar svg .ql-fill {
-    
-}
-
-.ql-script svg :first-child {
-    stroke: currentColor;
-    stroke-width: 0.1;
-}
-.ql-direction svg rect {
-    stroke: currentColor;
-    stroke-width: 0.1;
-}
-.ql-underline svg rect {
-    stroke: currentColor;
-    stroke-width: 0.1;
-}
-.ql-video svg rect {
-    stroke: currentColor;
-    stroke-width: 0.1;
-}
-.ql-snow.ql-toolbar button:hover,
-.ql-snow .ql-toolbar button:hover,
-.ql-snow.ql-toolbar button:focus,
-.ql-snow .ql-toolbar button:focus,
-.ql-snow.ql-toolbar button.ql-active,
-.ql-snow .ql-toolbar button.ql-active,
-.ql-snow.ql-toolbar .ql-picker-label:hover,
-.ql-snow .ql-toolbar .ql-picker-label:hover,
-.ql-snow.ql-toolbar .ql-picker-label.ql-active,
-.ql-snow .ql-toolbar .ql-picker-label.ql-active,
-.ql-snow.ql-toolbar .ql-picker-item:hover,
-.ql-snow .ql-toolbar .ql-picker-item:hover,
-.ql-snow.ql-toolbar .ql-picker-item.ql-selected,
-.ql-snow .ql-toolbar .ql-picker-item.ql-selected {
-    color: #7e2eef;
-}
-
-.ql-snow.ql-toolbar button:hover .ql-fill,
-.ql-snow .ql-toolbar button:hover .ql-fill,
-.ql-snow.ql-toolbar button:focus .ql-fill,
-.ql-snow .ql-toolbar button:focus .ql-fill,
-.ql-snow.ql-toolbar button.ql-active .ql-fill,
-.ql-snow .ql-toolbar button.ql-active .ql-fill,
-.ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill,
-.ql-snow .ql-toolbar .ql-picker-label:hover .ql-fill,
-.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-fill,
-.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-fill,
-.ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill,
-.ql-snow .ql-toolbar .ql-picker-item:hover .ql-fill,
-.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill,
-.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-fill,
-.ql-snow.ql-toolbar button:hover .ql-stroke.ql-fill,
-.ql-snow .ql-toolbar button:hover .ql-stroke.ql-fill,
-.ql-snow.ql-toolbar button:focus .ql-stroke.ql-fill,
-.ql-snow .ql-toolbar button:focus .ql-stroke.ql-fill,
-.ql-snow.ql-toolbar button.ql-active .ql-stroke.ql-fill,
-.ql-snow .ql-toolbar button.ql-active .ql-stroke.ql-fill,
-.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
-.ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
-.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
-.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
-.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
-.ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
-.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill,
-.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
-    fill: #7e2eef;
-}
-.ql-snow.ql-toolbar button:hover .ql-stroke,
-.ql-snow .ql-toolbar button:hover .ql-stroke,
-.ql-snow.ql-toolbar button:focus .ql-stroke,
-.ql-snow .ql-toolbar button:focus .ql-stroke,
-.ql-snow.ql-toolbar button.ql-active .ql-stroke,
-.ql-snow .ql-toolbar button.ql-active .ql-stroke,
-.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke,
-.ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke,
-.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke,
-.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke,
-.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke,
-.ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke,
-.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
-.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
-.ql-snow.ql-toolbar button:hover .ql-stroke-miter,
-.ql-snow .ql-toolbar button:hover .ql-stroke-miter,
-.ql-snow.ql-toolbar button:focus .ql-stroke-miter,
-.ql-snow .ql-toolbar button:focus .ql-stroke-miter,
-.ql-snow.ql-toolbar button.ql-active .ql-stroke-miter,
-.ql-snow .ql-toolbar button.ql-active .ql-stroke-miter,
-.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke-miter,
-.ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke-miter,
-.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
-.ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter,
-.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
-.ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter,
-.ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter,
-.ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
-    stroke: #7e2eef;
-}
- .quill.editor-error{
-    .ql-toolbar.ql-snow {
-        border: 1px solid #E02D30;
-        border-bottom: none;
-        border-top-right-radius: 4px !important;
-        border-top-left-radius: 4px !important;
-    }
-    .ql-container.ql-snow {
-        border: 1px solid #E02D30;
-        border-top: none;
-        border-bottom-right-radius: 4px !important;
-        border-bottom-left-radius: 4px !important;
-    }
-}
- .quill.editor-selected{
-    .ql-toolbar.ql-snow {
-        border: 1px solid #7D7D7D;
-        border-bottom: none;
-        border-top-right-radius: 4px !important;
-        border-top-left-radius: 4px !important;
-    }
-    .ql-container.ql-snow {
-        border: 1px solid #7D7D7D;
-        border-top: none;
-        border-bottom-right-radius: 4px !important;
-        border-bottom-left-radius: 4px !important;
-    }
-}
- .quill.editor-disabled{
-    .ql-toolbar.ql-snow {
-         opacity: 0.6; /* Make the card look faded */
-        pointer-events: none; /* Prevent any interactions */
-        cursor: not-allowed; /* Show a 'not allowed' cursor */
-        background-color: #e9ecef;
-        border-bottom: none;
-        border-top-right-radius: 4px !important;
-        border-top-left-radius: 4px !important;
-    }
-    .ql-container.ql-snow {
-         opacity: 0.6; /* Make the card look faded */
-        pointer-events: none; /* Prevent any interactions */
-        cursor: not-allowed; /* Show a 'not allowed' cursor */
-        background-color: #e9ecef;
-        border-top: none;
-        border-bottom-right-radius: 4px !important;
-        border-bottom-left-radius: 4px !important;
-    }
-}
- .quill.editor-active{
-    .ql-toolbar.ql-snow {
-        border: 1px solid #7e2eef;
-        border-bottom: none;
-        border-top-right-radius: 4px !important;
-        border-top-left-radius: 4px !important;
-    }
-    .ql-container.ql-snow {
-        border: 1px solid #7e2eef;
-        border-top: none;
-        border-bottom-right-radius: 4px !important;
-        border-bottom-left-radius: 4px !important;
-    }
-}
- // MUI Text Editor Styles
-.mui-text-editor {
-  .MuiTextField-root {
-    .MuiOutlinedInput-root {
-      &.Mui-focused .MuiOutlinedInput-notchedOutline {
-        border-color: #7e2eef;
-      }
-    }
-  }
-
-  // Apply theme states
-  &.editor-error {
-    .MuiToolbar-root {
-      border-color: #E02D30;
-    }
-    .MuiOutlinedInput-notchedOutline {
-      border-color: #E02D30 !important;
-    }
-  }
-
+/* Draft.js editor styles */
+.draft-editor-container {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  min-height: 200px;
+  
   &.editor-selected {
-    .MuiToolbar-root {
-      border-color: #7D7D7D;
-    }
-    .MuiOutlinedInput-notchedOutline {
-      border-color: #7D7D7D !important;
-    }
+    border-color: #007bff;
   }
-
+  
+  &.editor-error {
+    border-color: #dc3545;
+  }
+  
   &.editor-active {
-    .MuiToolbar-root {
-      border-color: #7e2eef;
-    }
-    .MuiOutlinedInput-notchedOutline {
-      border-color: #7e2eef !important;
-    }
+    border-color: #007bff;
   }
-
+  
   &.editor-disabled {
-    .MuiToolbar-root {
-      opacity: 0.6;
-      pointer-events: none;
-      cursor: not-allowed;
-      background-color: #e9ecef;
-    }
-    .MuiOutlinedInput-root {
-      opacity: 0.6;
-      pointer-events: none;
-      cursor: not-allowed;
-      background-color: #e9ecef;
-    }
+    background-color: #e9ecef;
+    opacity: 1;
+    pointer-events: none;
   }
 }
 
- .quill{
-    .ql-toolbar.ql-snow {
-        border: 1px solid #ccc;
-        border-top-right-radius: 4px !important;
-        border-top-left-radius: 4px !important;
-    }
-    .ql-container.ql-snow {
-        border-top: none;
-        border-bottom-right-radius: 4px !important;
-        border-bottom-left-radius: 4px !important;
-    }
+.draft-wrapper {
+  .rdw-editor-toolbar {
+    border-color: #ddd;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+  }
+  
+  .rdw-editor-main {
+    border-top: 1px solid #ddd;
+    padding: 10px;
+    min-height: 150px;
+  }
 }

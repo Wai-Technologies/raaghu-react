@@ -6,7 +6,7 @@ const meta: Meta = {
     title: 'Components/Text Editor',
     component: RdsCompTextEditor,
     parameters: {
-        layout: 'padded', 
+        layout: 'padded',
     },
     tags: ['autodocs'],
     argTypes: {
@@ -19,7 +19,6 @@ const meta: Meta = {
                 "Error"   
             ],
             control: { type: "select" },
-            description: "State of the text editor",
         },
     },
 } satisfies Meta<typeof RdsCompTextEditor>;
@@ -27,7 +26,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompTextEditor>;
 
-export const Default: Story = {
+export const Standard: Story = {
     args: {
         State: "Default",
         showTitle: true,
@@ -35,4 +34,4 @@ export const Default: Story = {
         isMandatory: true,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory'] } };
+Standard.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory'] } };
