@@ -19,6 +19,7 @@ const meta: Meta = {
                 "Error"   
             ],
             control: { type: "select" },
+            description: "State of the text editor",
         },
     },
 } satisfies Meta<typeof RdsCompTextEditor>;
@@ -26,7 +27,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompTextEditor>;
 
-export const Standard: Story = {
+export const Default: Story = {
     args: {
         State: "Default",
         showTitle: true,
@@ -34,4 +35,4 @@ export const Standard: Story = {
         isMandatory: true,
     }
 } satisfies Story;
-Standard.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory'] } };
+Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory'] } };

@@ -1,0 +1,532 @@
+.time-picker-container {
+  position: relative;
+//   width: 100%;
+  
+  .time-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    
+    .time-input {
+      width: 100%;
+      height: 34px;
+      padding: 6px 12px;
+      padding-right: 36px;
+      border: 1px solid var(--rds-border-subtle, #E0E0E0);
+      border-radius: 4px;
+      text-align: left;
+      font-size: 14px;
+      color: var(--rds-text-primary, #333333);
+      cursor: pointer;
+      outline: none;
+      background-color: #fff;
+      transition: border-color 0.2s;
+      
+      &:hover:not(:disabled) {
+        border-color: var(--rds-border-hover, #BDBDBD);
+      }
+      
+      &:focus {
+        border-color: var(--rds-primary-500, #6366f1);
+        box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+      }
+      
+      &:disabled {
+        background-color: var(--rds-background-disabled, #F5F5F5);
+        cursor: not-allowed;
+      }
+      
+      &::placeholder {
+        font-size: 13px;
+      }
+    }
+    
+    .border-primary { border-color: #6366f1; }
+    .border-secondary { border-color: #9ca3af; }
+    .border-success { border-color: #10b981; }
+    .border-error, .border-danger { border-color: #ef4444; }
+    .border-warning { border-color: #f59e0b; }
+    .border-info { border-color: #3b82f6; }
+    .border-light { border-color: #f3f4f6; }
+    .border-dark { border-color: #1f2937; }
+    
+    .time-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: var(--rds-text-secondary, #757575);
+      pointer-events: none;
+    }
+  }
+
+  .time-picker, .time-picker-compact {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-width: 300px;
+    max-width: 350px;
+    margin-top: 8px;
+    background-color: #ffffff;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 14px;
+    
+    &.time-picker-compact {
+      padding: 12px 16px;
+    }
+    
+    &.border-primary { 
+      border-color: #6366f1;
+    }
+    
+    .row {
+      margin: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    
+    .time-display {
+      width: auto;
+      font-weight: 500;
+      font-size: 14px;
+      color: #6366f1;
+      
+      &.time-display-compact {
+        font-size: 13px;
+      }
+    }
+    
+    .time-values-row {
+      .time-value {
+        cursor: pointer;
+        
+        &:hover {
+          background-color: rgba(99, 102, 241, 0.08);
+        }
+      }
+    }
+    
+    .now-button {
+      color: #6366f1;
+      font-size: 11px;
+      cursor: pointer;
+      font-weight: 600;
+      display: inline-block;
+      text-align: right;
+      text-transform: uppercase;
+      width: auto;
+      padding: 4px 6px;
+      letter-spacing: 0.5px;
+      
+      &:hover {
+        color: #4f46e5;
+        text-decoration: underline;
+      }
+    }
+    
+    .time-values-container {
+      margin: 10px 0 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 0 2px;
+    }
+    
+    .time-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
+      margin-bottom: 10px; /* Add spacing before buttons */
+      position: relative; /* For proper stacking context */
+      
+      .time-select-dropdown {
+        flex: 1;
+        min-width: 0;
+        
+        &:nth-child(1), &:nth-child(2) {
+          flex-basis: 60px;
+          max-width: 80px;
+        }
+        
+        &:nth-child(3) {
+          flex-basis: 70px;
+          max-width: 70px;
+        }
+        
+        /* Ensure dropdowns don't overlap the buttons */
+        .MuiAutocomplete-popper {
+          z-index: 1005;
+        }
+      }
+      
+      /* Styles for native select elements */
+      .time-select-container {
+        flex: 1;
+        margin: 0 4px;
+        
+        &:nth-child(1), &:nth-child(2) {
+          max-width: 80px;
+        }
+        
+        &:nth-child(3) {
+          max-width: 70px;
+        }
+        
+        .time-select {
+          width: 100%;
+          height: 38px;
+          padding: 8px;
+          border-radius: 4px;
+          border: 1px solid #ced4da;
+          background-color: white;
+          font-size: 14px;
+          appearance: auto;
+          color: #333333;
+          
+          &:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+          }
+          
+          option {
+            padding: 4px;
+          }
+        }
+      }
+    }
+    
+    .time-values-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      
+      .time-value {
+        font-size: 18px;
+        font-weight: 600;
+        color: #6366f1;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+      }
+    }
+    
+    .time-values-display-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 10px 0;
+      
+      .time-value-display {
+        font-size: 17px;
+        font-weight: 600;
+        color: #6366f1;
+        min-width: 45px;
+        height: 45px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        position: relative;
+        
+        .time-control {
+          position: absolute;
+          font-size: 12px;
+          color: #6366f1;
+          cursor: pointer;
+          opacity: 0.7;
+          
+          &:hover {
+            opacity: 1;
+          }
+          
+          &.up {
+            top: -5px;
+          }
+          
+          &.down {
+            bottom: -5px;
+          }
+        }
+      }
+      
+      .time-value-colon {
+        font-size: 17px;
+        font-weight: 600;
+        color: #6366f1;
+        margin: 0 4px;
+      }
+      
+      .time-value-period {
+        font-size: 17px;
+        font-weight: 600;
+        color: #6366f1;
+        min-width: 45px;
+        margin-left: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+    
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 16px;
+      gap: 8px;
+      position: relative;
+      z-index: 2;
+      
+      &.buttons-compact {
+        margin-top: 12px;
+        position: relative;
+        z-index: 1010; /* Higher than MUI dropdowns which are typically 1000 */
+      }
+      
+      button {
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 13px;
+        min-width: 50px;
+        transition: background-color 0.2s;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.5;
+        
+        &.cancel {
+          background: transparent;
+          color: #6366f1;
+          border: none;
+          padding: 6px 10px;
+          min-width: auto;
+          margin-right: auto;
+          
+          &:hover {
+            background-color: rgba(99, 102, 241, 0.08);
+            text-decoration: none;
+          }
+        }
+        
+        &.set-time {
+          background: #6366f1;
+          color: white;
+          padding: 6px 12px;
+          min-width: 70px;
+          cursor: pointer;
+          pointer-events: auto;
+          
+          &:hover {
+            opacity: 0.9;
+          }
+        }
+        
+        &.bg-primary { background-color: #6366f1; }
+        &.bg-secondary { background-color: #9ca3af; }
+        &.bg-success { background-color: #10b981; }
+        &.bg-error, &.bg-danger { background-color: #ef4444; }
+        &.bg-warning { background-color: #f59e0b; }
+        &.bg-info { background-color: #3b82f6; }
+        &.bg-light { background-color: #f3f4f6; }
+        &.bg-dark { background-color: #1f2937; }
+        
+        &.text-primary { color: #6366f1; }
+        &.text-secondary { color: #9ca3af; }
+        &.text-success { color: #10b981; }
+        &.text-error, &.text-danger { color: #ef4444; }
+        &.text-warning { color: #f59e0b; }
+        &.text-info { color: #3b82f6; }
+        &.text-light { color: #f3f4f6; }
+        &.text-white { color: #ffffff; }
+        &.text-dark { color: #1f2937; }
+      }
+    }
+  }
+}
+
+/* Dark theme styles */
+.theme-dark {
+  .time-picker, .time-picker-compact {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+    
+    .time-display {
+      color: #a5b4fc;
+    }
+    
+    .now-button {
+      color: #a5b4fc;
+      
+      &:hover {
+        background-color: rgba(165, 180, 252, 0.1);
+      }
+    }
+    
+    .time-values-display {
+      .time-value, .time-value-colon, .time-value-period {
+        color: #a5b4fc;
+      }
+    }
+    
+    .time-controls {
+      .time-control-up, .time-control-down {
+        &:hover {
+          background-color: rgba(165, 180, 252, 0.1);
+        }
+      }
+    }
+    
+    .buttons {
+      button {
+        &.cancel {
+          color: #a5b4fc;
+          
+          &:hover {
+            background-color: rgba(165, 180, 252, 0.1);
+          }
+        }
+        
+        &.set-time {
+          background: #6366f1;
+        }
+      }
+    }
+  }
+  
+  .time-input {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+  }
+}
+
+/* MUI Override styles for Time Picker Component */
+.MuiAutocomplete-root {
+  &.time-select-dropdown {
+    width: 100%;
+    max-width: 100%;
+    
+    .MuiOutlinedInput-root {
+      background-color: white;
+      color: #6366f1;
+      padding: 0;
+      font-size: 14px;
+      height: 34px;
+      min-height: 34px;
+      border-radius: 6px;
+      border: 1px solid #E0E0E0;
+      
+      .MuiOutlinedInput-notchedOutline {
+        border: none;
+      }
+      
+      .MuiInputBase-input {
+        color: #6366f1;
+        padding: 4px 6px;
+        text-align: center;
+        font-weight: 500;
+        min-width: 35px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        
+        &::placeholder {
+          color: #6366f1;
+          opacity: 1;
+          font-weight: 500;
+        }
+      }
+      
+      .MuiAutocomplete-endAdornment {
+        right: 2px;
+        
+        .MuiSvgIcon-root {
+          color: #6366f1;
+          font-size: 18px;
+        }
+      }
+      
+      .MuiAutocomplete-popupIndicator {
+        color: #6366f1;
+      }
+    }
+  }
+}
+
+/* Override for icon buttons in time picker */
+.MuiButtonBase-root.MuiIconButton-root {
+  &.time-control-button {
+    padding: 6px;
+    
+    &:hover {
+      background-color: rgba(99, 102, 241, 0.08);
+    }
+    
+    &.Mui-disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* Override for dropdown options */
+.MuiAutocomplete-popper {
+  z-index: 1005; /* Lower than the buttons but still high enough */
+  .MuiPaper-root {
+    margin-top: 4px;
+    border-radius: 4px;
+    max-height: 200px;
+    
+    .MuiAutocomplete-listbox {
+      padding: 4px 0;
+      max-height: 200px;
+      
+      .MuiAutocomplete-option {
+        min-height: 36px;
+        padding: 6px 12px;
+        
+        &[aria-selected="true"] {
+          background-color: rgba(99, 102, 241, 0.08);
+        }
+        
+        &.Mui-focused {
+          background-color: rgba(99, 102, 241, 0.12);
+        }
+      }
+    }
+  }
+}
