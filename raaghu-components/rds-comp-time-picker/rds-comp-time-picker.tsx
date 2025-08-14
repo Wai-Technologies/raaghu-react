@@ -25,20 +25,15 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
 
   const togglePicker = () => {
     // When opening the picker, initialize temp values for compact mode
-    if (!showPicker) {
-      console.log("Opening picker, current time:", time, "hours:", hours, "minutes:", minutes, "period:", period);
-      
+    if (!showPicker) {      
       // Initialize the temp values for compact mode
       if (props.style === 'compact') {
         if (!time) {
-          // If no time is set, initialize with defaults
-          console.log("Initializing compact mode with default values");
           setTempHour(12);
           setTempMinute(0);
           setTempPeriod('AM');
         } else {
           // Initialize with the current time values
-          console.log("Initializing compact mode with current values:", hours, minutes, period);
           setTempHour(hours);
           setTempMinute(minutes);
           setTempPeriod(period);
@@ -49,37 +44,22 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   };
 
   useEffect(() => {
-    console.log('Value or state prop changed:', 
-      'value:', props.value, 
-      'state:', props.state,
-      'style:', props.style
-    );
-    
     // Handle controlled component with value prop
     if (props.value !== undefined) {
-      console.log('Setting time from value prop:', props.value);
       setTime(props.value);
       
       // If there's a valid time value, try to parse and set hours, minutes, period
       if (props.value) {
         const timeParts = props.value.split(' ');
-        console.log('Time parts from value prop:', timeParts);
         
         if (timeParts.length === 2) {
           const [timeStr, ampm] = timeParts;
           const [hourStr, minuteStr] = timeStr.split(':');
-          console.log('Parsed parts:', 'hour:', hourStr, 'minute:', minuteStr, 'period:', ampm);
           
           if (hourStr && minuteStr && ampm) {
             const hourVal = parseInt(hourStr, 10);
             const adjHourVal = hourVal === 0 ? 12 : hourVal;
             const minVal = parseInt(minuteStr, 10);
-            
-            console.log('Parsed time values:', 
-              'hours:', adjHourVal, 
-              'minutes:', minVal, 
-              'period:', ampm
-            );
             
             // Set both the main state and temp state
             setHours(adjHourVal);
@@ -107,16 +87,8 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   // Update display in real-time as temp values change in compact mode
   useEffect(() => {
     if (props.style === 'compact' && showPicker) {
-      console.log("Temp values changed in compact mode:", 
-        "hour:", tempHour, 
-        "minute:", tempMinute, 
-        "period:", tempPeriod
-      );
-      
-      // Force a component update with the selected time values
-      // This is just for UI display, not for onChange
+        // This is just for UI display, not for onChange
       const formattedTempTime = `${String(tempHour).padStart(2, '0')}:${String(tempMinute).padStart(2, '0')} ${tempPeriod}`;
-      console.log("Updated preview time:", formattedTempTime);
     }
   }, [tempHour, tempMinute, tempPeriod, props.style, showPicker]);
 
@@ -127,32 +99,12 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       e.stopPropagation();
     }
     
-    console.log('Debug state before Set Time:',
-      'tempHour:', tempHour,
-      'tempMinute:', tempMinute,
-      'tempPeriod:', tempPeriod,
-      'hours:', hours,
-      'minutes:', minutes,
-      'period:', period,
-      'time:', time,
-      'props.value:', props.value
-    );
-    
     // Get the direct DOM values as a backup check
     try {
       const hourSelect = document.getElementById('hours-select');
       const minuteSelect = document.getElementById('minutes-select');
       const periodSelect = document.getElementById('period-select');
-      
-      if (hourSelect && minuteSelect && periodSelect) {
-        console.log('DOM select values:', {
-          hour: (hourSelect as HTMLSelectElement).value,
-          minute: (minuteSelect as HTMLSelectElement).value,
-          period: (periodSelect as HTMLSelectElement).value
-        });
-      }
     } catch (err) {
-      console.log('Error checking DOM values:', err);
     }
     
     // Get a snapshot of the values before using them
@@ -166,52 +118,33 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     const currentPeriod = period;
     
     if (props.style === 'compact') {
-      // In compact mode, use the temp values to update the state
-      console.log('Set Time clicked in compact mode:', 
-        'tempHour:', currentTempHour, 
-        'tempMinute:', currentTempMinute, 
-        'tempPeriod:', currentTempPeriod
-      );
       
       // Update the main state with temp values
       setHours(currentTempHour);
       setMinutes(currentTempMinute);
       setPeriod(currentTempPeriod);
       
-      const formattedTime = `${String(currentTempHour).padStart(2, '0')}:${String(currentTempMinute).padStart(2, '0')} ${currentTempPeriod}`;
-      console.log('Setting formatted time:', formattedTime);
-      
+      const formattedTime = `${String(currentTempHour).padStart(2, '0')}:${String(currentTempMinute).padStart(2, '0')} ${currentTempPeriod}`;      
       // First update the internal time state
       setTime(formattedTime);
       
       // Then notify parent of change
       if (props.onChange) {
-        console.log("onChange about to be called with:", formattedTime);
         props.onChange(formattedTime);
-        console.log("onChange triggered with:", formattedTime);
       }
       
       // Finally close the picker
       setShowPicker(false);
     } else {
-      // In default mode, use the current hours, minutes and period
-      console.log('Set Time clicked in default mode:', 
-        'hours:', currentHours, 
-        'minutes:', currentMinutes, 
-        'period:', currentPeriod
-      );
       
       const formattedTime = `${String(currentHours).padStart(2, '0')}:${String(currentMinutes).padStart(2, '0')} ${currentPeriod}`;
-      console.log('Setting formatted time:', formattedTime);
       
       // First update the internal time state
       setTime(formattedTime);
       
       // Then notify parent of change
       if (props.onChange) {
-        console.log("onChange about to be called with:", formattedTime);
         props.onChange(formattedTime);
-        console.log("onChange triggered with:", formattedTime);
       }
       
       // Finally close the picker
@@ -373,7 +306,6 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
                     value={tempHour.toString()} 
                     onChange={(e) => {
                       const val = parseInt(e.target.value);
-                      console.log("Hour selected:", val);
                       setTempHour(val);
                     }}
                   >
@@ -395,7 +327,6 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
                     value={tempMinute.toString()} 
                     onChange={(e) => {
                       const val = parseInt(e.target.value);
-                      console.log("Minute selected:", val);
                       setTempMinute(val);
                     }}
                   >
@@ -413,7 +344,6 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
                     className="time-select" 
                     value={tempPeriod} 
                     onChange={(e) => {
-                      console.log("Period selected:", e.target.value);
                       setTempPeriod(e.target.value);
                     }}
                   >
