@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@figma/code-connect": "^1.3.4"
+  }
+}
