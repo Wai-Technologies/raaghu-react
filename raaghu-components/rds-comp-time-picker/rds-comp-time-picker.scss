@@ -155,6 +155,8 @@
       justify-content: space-between;
       gap: 8px;
       width: 100%;
+      margin-bottom: 10px; /* Add spacing before buttons */
+      position: relative; /* For proper stacking context */
       
       .time-select-dropdown {
         flex: 1;
@@ -168,6 +170,47 @@
         &:nth-child(3) {
           flex-basis: 70px;
           max-width: 70px;
+        }
+        
+        /* Ensure dropdowns don't overlap the buttons */
+        .MuiAutocomplete-popper {
+          z-index: 1005;
+        }
+      }
+      
+      /* Styles for native select elements */
+      .time-select-container {
+        flex: 1;
+        margin: 0 4px;
+        
+        &:nth-child(1), &:nth-child(2) {
+          max-width: 80px;
+        }
+        
+        &:nth-child(3) {
+          max-width: 70px;
+        }
+        
+        .time-select {
+          width: 100%;
+          height: 38px;
+          padding: 8px;
+          border-radius: 4px;
+          border: 1px solid #ced4da;
+          background-color: white;
+          font-size: 14px;
+          appearance: auto;
+          color: #333333;
+          
+          &:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+          }
+          
+          option {
+            padding: 4px;
+          }
         }
       }
     }
@@ -263,9 +306,13 @@
       justify-content: flex-end;
       margin-top: 16px;
       gap: 8px;
+      position: relative;
+      z-index: 2;
       
       &.buttons-compact {
         margin-top: 12px;
+        position: relative;
+        z-index: 1010; /* Higher than MUI dropdowns which are typically 1000 */
       }
       
       button {
@@ -300,6 +347,8 @@
           color: white;
           padding: 6px 12px;
           min-width: 70px;
+          cursor: pointer;
+          pointer-events: auto;
           
           &:hover {
             opacity: 0.9;
@@ -383,5 +432,102 @@
     background: #333;
     color: #fff;
     border: 1px solid #555;
+  }
+}
+
+/* MUI Override styles for Time Picker Component */
+.MuiAutocomplete-root {
+  &.time-select-dropdown {
+    width: 100%;
+    max-width: 100%;
+    
+    .MuiOutlinedInput-root {
+      background-color: white;
+      color: #6366f1;
+      padding: 0;
+      font-size: 14px;
+      height: 34px;
+      min-height: 34px;
+      border-radius: 6px;
+      border: 1px solid #E0E0E0;
+      
+      .MuiOutlinedInput-notchedOutline {
+        border: none;
+      }
+      
+      .MuiInputBase-input {
+        color: #6366f1;
+        padding: 4px 6px;
+        text-align: center;
+        font-weight: 500;
+        min-width: 35px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        
+        &::placeholder {
+          color: #6366f1;
+          opacity: 1;
+          font-weight: 500;
+        }
+      }
+      
+      .MuiAutocomplete-endAdornment {
+        right: 2px;
+        
+        .MuiSvgIcon-root {
+          color: #6366f1;
+          font-size: 18px;
+        }
+      }
+      
+      .MuiAutocomplete-popupIndicator {
+        color: #6366f1;
+      }
+    }
+  }
+}
+
+/* Override for icon buttons in time picker */
+.MuiButtonBase-root.MuiIconButton-root {
+  &.time-control-button {
+    padding: 6px;
+    
+    &:hover {
+      background-color: rgba(99, 102, 241, 0.08);
+    }
+    
+    &.Mui-disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* Override for dropdown options */
+.MuiAutocomplete-popper {
+  z-index: 1005; /* Lower than the buttons but still high enough */
+  .MuiPaper-root {
+    margin-top: 4px;
+    border-radius: 4px;
+    max-height: 200px;
+    
+    .MuiAutocomplete-listbox {
+      padding: 4px 0;
+      max-height: 200px;
+      
+      .MuiAutocomplete-option {
+        min-height: 36px;
+        padding: 6px 12px;
+        
+        &[aria-selected="true"] {
+          background-color: rgba(99, 102, 241, 0.08);
+        }
+        
+        &.Mui-focused {
+          background-color: rgba(99, 102, 241, 0.12);
+        }
+      }
+    }
   }
 }
