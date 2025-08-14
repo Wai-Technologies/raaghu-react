@@ -1,13 +1,13 @@
 // RDS Text Editor Component Styles
 .rds-comp-text-editor {
   border: 1px solid var(--rds-color-border, #ccc);
-  border-radius: var(--rds-border-radius, 4px);
+  border-radius: var(--rds-border-radius, 2px);
   padding: 0;
   min-height: 200px;
   font-family: var(--rds-font-family, var(--bs-font-sans-serif));
   background-color: var(--rds-color-surface, #fff);
   color: var(--rds-color-on-surface, #212529);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
   
   // State modifiers
   &--selected {
@@ -23,7 +23,7 @@
   }
   
   &--disabled {
-    background-color: var(--rds-color-disabled-bg, #e9ecef);
+    background-color: var(--rds-color-disabled-bg, #a29c9c);
     color: var(--rds-color-disabled-text, #6c757d);
     border-color: var(--rds-color-disabled-border, #ced4da);
     opacity: 1;
@@ -63,7 +63,7 @@
     padding: var(--rds-spacing-xs, 6px);
     border-bottom: 1px solid var(--rds-color-border, #ccc);
     margin-bottom: 0;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
     
     // Toolbar buttons
     .rdw-option-wrapper {
@@ -80,7 +80,8 @@
       background: var(--rds-color-surface, white);
       color: var(--rds-color-on-surface, #212529);
       text-transform: capitalize;
-      transition: all 0.2s ease;
+      /* More targeted transitions for better performance */
+      transition: color 0.15s ease, background-color 0.15s ease;
       
       // Interactive states
       &:hover {
@@ -119,7 +120,7 @@
           }
           
           &:disabled {
-            background: var(--rds-color-disabled-bg, #e9ecef);
+            background: var(--rds-color-disabled-bg, #a29c9c);
             color: var(--rds-color-disabled-text, #6c757d);
           }
         }
@@ -140,11 +141,13 @@
         text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
         
         svg, img {
-          filter: brightness(1.2) contrast(1.2);
+          /* Removed filter to improve performance */
+          opacity: 0.95;
         }
         
         &:hover {
-          box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+          /* Simplified box-shadow for better performance */
+          box-shadow: 0 0 3px rgba(255, 255, 255, 0.15);
           background-color: var(--rds-color-surface-variant-dark, #343a40);
           border-color: var(--rds-color-primary-dark, #0d6efd);
         }
@@ -153,7 +156,7 @@
           background-color: var(--rds-color-primary-dark, #0d6efd);
           color: #fff;
           border-color: var(--rds-color-primary-light, #6ea8fe);
-          box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+          /* Removed box-shadow for better performance */
         }
       }
       
@@ -198,7 +201,8 @@
         .rdw-dropdown-optionwrapper {
           background-color: var(--rds-color-surface-dark, #212529);
           border-color: var(--rds-color-primary-dark, #0d6efd);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+          /* Simplified box-shadow for better performance */
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
           
           .rdw-dropdownoption-default {
             color: var(--rds-color-on-surface-dark, #e9ecef);
