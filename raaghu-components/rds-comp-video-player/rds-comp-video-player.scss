@@ -55,7 +55,6 @@
   // Disabled message styling
   &__disabled-message {
     color: var(--rds-color-on-surface-variant, #fff);
-    font-family: var(--rds-font-family, system-ui);
     font-size: var(--rds-font-size-body, 14px);
     text-align: center;
     padding: var(--rds-spacing-md, 16px);
