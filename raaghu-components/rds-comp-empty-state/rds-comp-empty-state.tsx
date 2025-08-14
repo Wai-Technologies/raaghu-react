@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import './rds-comp-empty-state.scss';
-import RdsCompEmptyStateIcon from './icon';
+import emptyStatePng from './empty-state.png';
+import emptyStateDarkPng from './empty-state-dark.png';
 
 export interface RdsCompEmptyStateProps {
 
@@ -25,17 +26,26 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
   const toCss = (v: string | number): string => (/^\d+$/.test(String(v)) ? `${v}px` : String(v));
   const width = toCss(rawW);
   const height = toCss(rawH);
+  // Determine image by priority: explicit iconPath prop > mode-based default > light fallback
+  let resolvedImage = emptyStatePng;
+  if (props.mode === 'Dark NRA') {
+    resolvedImage = emptyStateDarkPng;
+  } else if (props.mode === 'Light NRA') {
+    resolvedImage = emptyStatePng;
+  }
+  const imageSrc = props.iconPath || resolvedImage;
 
   return (
     <Fragment>
       <Box className="rds-comp-empty-state">
         <Box className="rds-comp-empty-state__content">
-          <Box className="rds-comp-empty-state__icon" data-testid="icon">
-            <RdsCompEmptyStateIcon
-              sx={{ width, height }}
-              data-testid="emptyStateIconSvg"
-              aria-label="Empty state"
-              focusable="false"
+          <Box className="rds-comp-empty-state__icon" data-testid="icon" style={{ width, height }}>
+            <img
+              src={imageSrc}
+              alt={props.label || props.mode || 'Empty state'}
+              loading="lazy"
+              style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+              data-testid="emptyStateImage"
             />
           </Box>
 
@@ -62,12 +72,7 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
               variant="body1"
               className="rds-comp-empty-state__subtitle"
               data-testid="sublabelElement"
-              sx={{
-                fontSize: '16px',
-                color: '#6B7280',
-                marginBottom: '10px',
-                textAlign: 'center'
-              }}
+              sx={{ textAlign: 'center' }}
             >
               {props.subLabel}
             </Typography>

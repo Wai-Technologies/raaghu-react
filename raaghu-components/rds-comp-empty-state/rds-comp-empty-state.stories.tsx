@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import RdsCompEmptyState from "./rds-comp-empty-state";
+import emptyStatePng from "./empty-state.png";
+import emptyStateDarkPng from "./empty-state-dark.png";
+
 
 const meta: Meta<typeof RdsCompEmptyState> = {
   title: "Components/Empty State",
@@ -10,8 +13,9 @@ const meta: Meta<typeof RdsCompEmptyState> = {
   tags: ["autodocs"],
   argTypes: {
     mode: {
-      control: { type: "text" },
-      description: "Mode or state identifier",
+      control: { type: 'select' },
+      options: ['Light NRA', 'Dark NRA'],
+      description: 'Select visual mode; switches between light and dark empty state illustration',
     },
     label: {
       control: { type: "text" },
@@ -29,14 +33,15 @@ const meta: Meta<typeof RdsCompEmptyState> = {
       control: { type: "number" },
       description: "Icon width (px if number). Default 150",
     },
+    // iconPath: {
+    //   control: { type: "text" },
+    //   description: "Optional custom image path (defaults to built-in empty-state.png)",
+    // },
     buttonText: {
       control: { type: "text" },
       description: "Text to display on the action button",
     },
-    onButtonClick: {
-      action: "button clicked",
-      description: "Function called when button is clicked",
-    },
+    
   },
 };
 
@@ -45,12 +50,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Standard: Story = {
   args: {
-    mode: "no-data",
+  mode: 'Light NRA',
     label: "No Data Available",
-    subLabel: "No data available at the moment. Would you like to add new data?",
+  subLabel: "No data available at this moment. Would you like to add new data?",
   iconHeight: 150,
   iconWidth: 150,
     buttonText: "Add New Data",
-    onButtonClick: () => console.log("Add new data clicked"),
+    
   },
 };
