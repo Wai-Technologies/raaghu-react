@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumbs as MuiBreadcrumbs, BreadcrumbsProps, Link, Typography } from '@mui/material';
+import { Breadcrumbs as MuiBreadcrumbs, type BreadcrumbsProps, Link, Typography } from '@mui/material';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
@@ -41,7 +41,7 @@ export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children'> 
   title?: string; // Title for the first breadcrumb
 }
 
-const RdsBreadcrumbs: React.FC<RdsBreadcrumbsProps> = ({
+const RdsBreadcrumbs = ({
   items,
   separator = <NavigateNextIcon fontSize="small" />,
   level,
@@ -51,7 +51,7 @@ const RdsBreadcrumbs: React.FC<RdsBreadcrumbsProps> = ({
   state,
   icon,
   ...props
-}) => {
+}:RdsBreadcrumbsProps) => {
   // Track which breadcrumb is selected by click (for selected state)
   const [selectedIdx, setSelectedIdx] = React.useState<number | null>(null);
   // Filter items based on level if specified

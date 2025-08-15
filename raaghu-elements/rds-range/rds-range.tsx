@@ -1,5 +1,5 @@
 import React from 'react';
-import { Slider as MuiSlider, SliderProps, Box, Typography } from '@mui/material';
+import { Slider as MuiSlider, type SliderProps, Box, Typography } from '@mui/material';
 import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import './rds-range.scss';
 
@@ -18,7 +18,7 @@ export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange'> {
   rightLabel?: number;
 }
 
-const RdsRange: React.FC<RdsRangeProps> = ({
+const RdsRange= ({
   value,
   onChange,
   label,
@@ -32,10 +32,10 @@ const RdsRange: React.FC<RdsRangeProps> = ({
   leftLabel = 0,
   rightLabel = 100,
   ...props
-}) => {
-  // Use leftLabel and rightLabel instead of min and max
-  const min = leftLabel;
-  const max = rightLabel;
+}:RdsRangeProps) => {
+  // Extract min and max from props with defaults
+  const min = props.min ?? 0;
+  const max = props.max ?? 100;
 
   // Calculate value based on level for one-way type
   const calculateLevelValue = (level: string): number => {
