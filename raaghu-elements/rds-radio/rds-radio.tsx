@@ -5,8 +5,8 @@ import {
   FormControl,
   FormControlLabel,
   FormLabel,
-  RadioProps,
-  RadioGroupProps,
+  type RadioProps,
+  type RadioGroupProps,
   Box,
   Typography
 } from '@mui/material';
@@ -26,7 +26,7 @@ export interface RdsRadioProps extends Omit<RadioGroupProps, 'children'> {
   state?: 'default' | 'hover' | 'disabled';
 }
 
-const RdsRadio: React.FC<RdsRadioProps> = ({
+const RdsRadio= ({
   options,
   label,
   direction = 'column',
@@ -35,7 +35,7 @@ const RdsRadio: React.FC<RdsRadioProps> = ({
   state = 'default',
   row,
   ...props
-}) => {
+}:RdsRadioProps) => {
   const isDisabled = (optDisabled: boolean) => optDisabled || state === 'disabled';
   const isHoverable = state === 'hover' || state === 'default';
   const radioRow = row ?? direction === 'row';

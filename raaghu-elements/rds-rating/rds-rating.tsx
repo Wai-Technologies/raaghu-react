@@ -1,5 +1,5 @@
 import React from 'react';
-import { Rating as MuiRating, RatingProps, Slider, Box } from '@mui/material';
+import { Rating as MuiRating, type RatingProps, Slider, Box } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import './rds-rating.scss';
 
@@ -13,7 +13,7 @@ export interface RdsRatingProps extends RatingProps {
   colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
 }
 
-const RdsRating: React.FC<RdsRatingProps> = ({
+const RdsRating = ({
   label,
   showValue = false,
   maxStars = 5,
@@ -24,7 +24,7 @@ const RdsRating: React.FC<RdsRatingProps> = ({
   level,
   onChange,
   ...props
-}) => {
+}: RdsRatingProps) => {
   const maxRating = max || maxStars;
   
   // Convert string level values to numbers
