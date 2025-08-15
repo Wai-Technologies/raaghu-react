@@ -13,7 +13,7 @@ export interface RdsLoaderProps {
 }
 
 
-const RdsLoader: React.FC<RdsLoaderProps> = (props) => {
+const RdsLoader = (props: RdsLoaderProps) => {
   // type logic: if present, render custom loader type and size
   if (props.type) {
     const size = props.size || "medium";
