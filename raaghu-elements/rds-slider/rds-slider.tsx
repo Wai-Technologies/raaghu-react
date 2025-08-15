@@ -20,8 +20,8 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   range = false,
   value,
   level,
-  min = 0,
-  max = 100,
+    min = 0,
+    max,
   ...props
 }) => {
   const [sliderValue, setSliderValue] = React.useState<number | number[]>(value ?? min);
@@ -29,7 +29,8 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   React.useEffect(() => {
     if (level && typeof level === 'number' && level >= 1 && level <= 5) {
       const percent = (level - 1) * 25;
-      const calculated = min + ((max - min) * percent) / 100;
+      const safeMax = typeof max === 'number' ? max : 100;
+      const calculated = min + ((safeMax - min) * percent) / 100;
       setSliderValue(calculated);
     } else if (value !== undefined) {
       setSliderValue(value);
@@ -64,9 +65,11 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
       <MuiSlider
         value={sliderValue}
         onChange={handleChange}
-        {...props}
-        valueLabelDisplay={props.showTooltip === 'tooltip' ? 'auto' : 'off'}
-      />
+          min={min}
+          max={max}
+          {...props}
+          valueLabelDisplay={props.showTooltip === 'tooltip' ? 'auto' : 'off'}
+        />
     </div>
   );
 };

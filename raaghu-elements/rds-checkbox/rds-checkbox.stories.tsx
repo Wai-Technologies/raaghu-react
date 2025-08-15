@@ -9,21 +9,18 @@ const meta: Meta<typeof RdsCheckbox> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    label: {
+    labeltext: {
       control: 'text',
       description: 'Label text for the checkbox',
     },
-    isChecked: {
-      control: 'boolean',
-      description: 'Whether the checkbox is checked',
+    status: {
+      control: 'select',
+      options: ['checked', 'unchecked', 'indeterminate'],
+      description: 'Status control for the checkbox',
     },
     isDisabled: {
       control: 'boolean',
       description: 'Whether the checkbox is disabled',
-    },
-    isIndeterminate: {
-      control: 'boolean',
-      description: 'Whether the checkbox is in indeterminate state',
     },
     style: {
       control: 'select',
@@ -57,71 +54,71 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: 'Default Checkbox',
+    labeltext: 'Default Checkbox',
   },
 };
 
 export const Checked: Story = {
   args: {
-    label: 'Checked Checkbox',
-    isChecked: true,
+    labeltext: 'Checked Checkbox',
+    status: 'checked',
   },
 };
 
 export const Disabled: Story = {
   args: {
-    label: 'Disabled Checkbox',
+    labeltext: 'Disabled Checkbox',
     isDisabled: true,
   },
 };
 
 export const DisabledChecked: Story = {
   args: {
-    label: 'Disabled Checked',
-    isChecked: true,
+    labeltext: 'Disabled Checked',
+    status: 'checked',
     isDisabled: true,
   },
 };
 
 export const Indeterminate: Story = {
   args: {
-    label: 'Indeterminate Checkbox',
-    isIndeterminate: true,
+    labeltext: 'Indeterminate Checkbox',
+    status: 'indeterminate',
   },
 };
 
 export const Primary: Story = {
   args: {
-    label: 'Primary Color',
+    labeltext: 'Primary Color',
     color: 'primary',
-    isChecked: true,
+    status: 'checked',
   },
 };
 
 export const Secondary: Story = {
   args: {
-    label: 'Secondary Color',
+    labeltext: 'Secondary Color',
     color: 'secondary',
-    isChecked: true,
+    status: 'checked',
   },
 };
 
 export const Small: Story = {
   args: {
-    label: 'Small Checkbox',
+    labeltext: 'Small Checkbox',
     size: 'small',
   },
 };
 
 export const Unchecked: Story = {
   args: {
-    label: 'Unchecked Checkbox',
-    isChecked: false,
+    labeltext: 'Unchecked Checkbox',
+    status: 'unchecked',
   },
 };
 
 export const WithoutLabel: Story = {
   args: {
-    isChecked: true,
+    status: 'checked',
   },
 };

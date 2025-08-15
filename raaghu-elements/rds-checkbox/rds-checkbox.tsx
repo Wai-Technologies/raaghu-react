@@ -3,24 +3,22 @@ import { Checkbox as MuiCheckbox, FormControlLabel, CheckboxProps } from '@mui/m
 import './rds-checkbox.scss';
 
 export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style'> {
-  label?: string;
-  isChecked?: boolean;
+  labeltext?: string;
   isDisabled?: boolean;
-  isIndeterminate?: boolean;
   style?: 'square' | 'circular';
   state?: 'default' | 'disabled' | 'hover';
+  status?: 'checked' | 'unchecked' | 'indeterminate';
   showText?: boolean;
   cssStyle?: React.CSSProperties;
 }
 
 
 const RdsCheckbox: React.FC<RdsCheckboxProps> = ({
-  label,
-  isChecked,
+  labeltext,
   isDisabled = false,
-  isIndeterminate = false,
   style = 'square',
   state = 'default',
+  status,
   showText = true,
   className,
   cssStyle,
@@ -28,13 +26,33 @@ const RdsCheckbox: React.FC<RdsCheckboxProps> = ({
   onChange,
   ...props
 }) => {
-  // Internal checked state for uncontrolled usage
-  const [checked, setChecked] = React.useState(isChecked ?? false);
+  // Determine initial state based on status prop or fallback to legacy props
+  const getInitialCheckedState = () => {
+    if (status !== undefined) {
+      return status === 'checked';
+    }
+    return false;
+  };
 
-  // Sync with controlled prop
+  const getInitialIndeterminateState = () => {
+    if (status !== undefined) {
+      return status === 'indeterminate';
+    }
+    return false;
+  };
+
+  // Internal checked state for uncontrolled usage
+  const [checked, setChecked] = React.useState(getInitialCheckedState());
+
+  // Sync with controlled props (status takes precedence over legacy props)
   React.useEffect(() => {
-    if (typeof isChecked === 'boolean') setChecked(isChecked);
-  }, [isChecked]);
+    if (status !== undefined) {
+      setChecked(status === 'checked');
+    }
+  }, [status]);
+
+  // Determine current indeterminate state
+  const currentIndeterminate = getInitialIndeterminateState();
 
   // Handle change
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
@@ -48,10 +66,11 @@ const RdsCheckbox: React.FC<RdsCheckboxProps> = ({
     if (style) classes.push(`rds-checkbox__${style}`);
     if (checked) classes.push('rds-checkbox__checked');
     if (isDisabled || state === 'disabled') classes.push('rds-checkbox__disabled');
-    if (isIndeterminate) classes.push('rds-checkbox__indeterminate');
+    if (currentIndeterminate) classes.push('rds-checkbox__indeterminate');
     if (state && state !== 'default') classes.push(`rds-checkbox__${state}`);
     if (color && color !== 'default') classes.push(`rds-checkbox__${color}`);
-    if (label && !showText) classes.push('rds-checkbox__text-hidden');
+    if (labeltext && !showText) classes.push('rds-checkbox__text-hidden');
+    if (status) classes.push(`rds-checkbox__${status}`);
     if (className) classes.push(className);
     return classes.join(' ');
   };
@@ -60,19 +79,19 @@ const RdsCheckbox: React.FC<RdsCheckboxProps> = ({
     <MuiCheckbox
       checked={checked}
       disabled={isDisabled || state === 'disabled'}
-      indeterminate={isIndeterminate}
+      indeterminate={currentIndeterminate}
       color={color}
       onChange={handleChange}
       {...props}
     />
   );
 
-  if (label) {
+  if (labeltext) {
     return (
       <div className={getCheckboxClasses()} style={cssStyle}>
         <FormControlLabel
           control={checkbox}
-          label={showText ? label : ''}
+          label={showText ? labeltext : ''}
           disabled={isDisabled || state === 'disabled'}
         />
       </div>

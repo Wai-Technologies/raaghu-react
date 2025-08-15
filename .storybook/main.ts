@@ -3,7 +3,9 @@ import type { StorybookConfig } from '@storybook/react-vite';
 const config: StorybookConfig = {
   stories: [
     '../stories/**/*.mdx',
-    '../**/*.stories.@(js|jsx|ts|tsx|mdx)'
+    "../raaghu-elements/**/**/*.stories.@(js|jsx|ts|tsx)",
+    "../raaghu-components/**/**/*.stories.@(js|jsx|ts|tsx)",
+    "../raaghu-layouts/**/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: ['@storybook/addon-links', '@storybook/addon-docs'],
   framework: {

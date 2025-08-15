@@ -14,6 +14,8 @@ export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange'> {
   showTooltip?: boolean;
   type?: 'one-way' | 'two-way';
   level?: '1' | '2' | '3' | '4' | '5';
+  leftLabel?: number;
+  rightLabel?: number;
 }
 
 const RdsRange= ({
@@ -27,6 +29,8 @@ const RdsRange= ({
   showTooltip = false,
   type = 'one-way',
   level = '1',
+  leftLabel = 0,
+  rightLabel = 100,
   ...props
 }:RdsRangeProps) => {
   // Extract min and max from props with defaults
@@ -159,6 +163,8 @@ const RdsRange= ({
         valueLabelDisplay={showTooltip ? "on" : "off"}
         slots={showTooltip ? { valueLabel: ValueLabelComponent } : undefined}
         marks={marks}
+        min={min}
+        max={max}
         step={type === 'one-way' ? null : props.step}
         {...props}
       />

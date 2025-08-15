@@ -10,6 +10,7 @@ export interface RdsRatingProps extends RatingProps {
   type?: 'star' | 'slider';
   level?: 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5 | 'Left' | 'Mid' | 'Right';
   styles?: 'default' | 'filled' | 'outlined';
+  colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
 }
 
 const RdsRating = ({
