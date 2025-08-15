@@ -24,6 +24,17 @@
     align-items: center;
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
     gap: var(--rds-spacing-xs, 12px);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: calc(-1 * var(--rds-spacing-md, 16px));
+      right: calc(-1 * var(--rds-spacing-md, 16px));
+      height: 1px;
+      background-color: var(--rds-color-border, #e5e7eb);
+    }
 
     // Single line toolbar modifier
     &--single-line {
@@ -31,6 +42,11 @@
       align-items: center;
       justify-content: space-between;
       padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-md, 16px);
+
+      &::after {
+        left: calc(-1 * var(--rds-spacing-md, 16px));
+        right: calc(-1 * var(--rds-spacing-md, 16px));
+      }
     }
   }
 
@@ -168,8 +184,9 @@
     color: var(--rds-color-on-surface, #374151);
 
     .rds-comp-code-snippet__toolbar {
-      background-color: var(--rds-color-surface-variant, #f9fafb);
-      border-bottom: 1px solid var(--rds-color-border, #e5e7eb);
+      &::after {
+        background-color: var(--rds-color-border, #e5e7eb);
+      }
     }
 
     .rds-comp-code-snippet__language-label {
@@ -187,12 +204,7 @@
       }
     }
 
-    .rds-comp-code-snippet__content {
-      background-color: var(--rds-color-surface, #ffffff);
-    }
-
     .rds-comp-code-snippet__line-numbers {
-      background-color: var(--rds-color-surface-variant, #f9fafb);
       border-right-color: var(--rds-color-border, #e5e7eb);
       color: var(--rds-color-on-surface-variant, #9ca3af);
     }
@@ -213,8 +225,9 @@
     border-color: var(--rds-color-border-dark, #374151);
 
     .rds-comp-code-snippet__toolbar {
-      background-color: var(--rds-color-surface-variant-dark, #111827);
-      border-bottom: 1px solid var(--rds-color-border-dark, #374151);
+      &::after {
+        background-color: var(--rds-color-border-dark, #374151);
+      }
     }
 
     .rds-comp-code-snippet__language-label {
@@ -232,12 +245,7 @@
       }
     }
 
-    .rds-comp-code-snippet__content {
-      background-color: var(--rds-color-surface-variant-dark, #111827);
-    }
-
     .rds-comp-code-snippet__line-numbers {
-      background-color: var(--rds-color-surface-variant-dark, #111827);
       border-right-color: var(--rds-color-border-dark, #374151);
       color: var(--rds-color-on-surface-variant-dark, #6b7280);
     }
