@@ -223,7 +223,7 @@ export class ComponentValidator {
   }
 
   // Validate component structure
-  static validateComponentStructure(componentPath: string): {
+  static validateComponentStructure(_componentPath: string): {
     isValid: boolean;
     issues: string[];
   } {
@@ -234,13 +234,15 @@ export class ComponentValidator {
     // - Required files exist (component, styles, stories, tests)
     // - Imports are properly structured
     
-    // Mock validation for now
+    // Mock validation for now - commented out for now as it's not being used
+    /* 
     const requiredFiles = [
       `${componentPath}.tsx`,
       `${componentPath}.scss`,
       `${componentPath}.stories.tsx`,
       `${componentPath}.test.tsx`,
     ];
+    */
 
     // In real implementation, check if files exist
     // For now, assume they exist

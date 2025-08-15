@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
 import { configure } from '@testing-library/react';
 
-// Configure testing library
-configure({ testIdAttribute: 'data-testid' });
+// Configure testing library - removed invalid property
+configure({});
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {

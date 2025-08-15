@@ -4,6 +4,7 @@
   "version": "2.0.0",
   "description": "Raaghu Design System implementation with Material UI components",
   "type": "module",
+    "homepage": "https://new-react.raaghu.ai",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
