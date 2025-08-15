@@ -2,8 +2,6 @@ import React from 'react';
 import {
   LinearProgress as MuiLinearProgress,
   CircularProgress as MuiCircularProgress,
-  LinearProgressProps,
-  CircularProgressProps,
   Box,
   Typography
 } from '@mui/material';
@@ -25,7 +23,7 @@ export interface RdsProgressProps {
   sx?: any;
 }
 
-const RdsProgress: React.FC<RdsProgressProps> = ({
+const RdsProgress = ({
   type = 'linear',
   style = 'line',
   value,
@@ -40,7 +38,7 @@ const RdsProgress: React.FC<RdsProgressProps> = ({
   stepperType = 'number',
   sx,
   ...props
-}) => {
+}:RdsProgressProps) => {
   const getProgressValue = () => steps !== undefined && ['circular', 'line', 'stepper', 'dash', 'block'].includes(style) ? steps * 20 : value;
 
   const getColorValue = () => ({
