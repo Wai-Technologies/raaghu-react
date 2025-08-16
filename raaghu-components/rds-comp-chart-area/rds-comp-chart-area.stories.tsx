@@ -23,7 +23,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCompAreaChart>;
 
 
-export const Standard: Story = {
+export const Default: Story = {
     args: {
         id: "area chart",
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],

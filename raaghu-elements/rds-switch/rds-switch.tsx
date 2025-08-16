@@ -94,19 +94,29 @@ const RdsSwitch: React.FC<RdsSwitchProps> = ({
 
   // Render switch with or without label
   if (showLabel === false) {
-    return <MuiSwitch {...switchProps} />;
+    return (
+      <div className="rds-switch--row">
+        <MuiSwitch {...switchProps} />
+      </div>
+    );
   }
   if (label) {
     return (
-      <FormControlLabel
-        className={styleClass}
-        control={<MuiSwitch {...switchProps} />}
-        label={label}
-        labelPlacement={effectivePlacement}
-      />
+      <div className="rds-switch--row">
+        <FormControlLabel
+          className={styleClass}
+          control={<MuiSwitch {...switchProps} />}
+          label={label}
+          labelPlacement={effectivePlacement}
+        />
+      </div>
     );
   }
-  return <MuiSwitch {...switchProps} />;
+  return (
+    <div className="rds-switch--row">
+      <MuiSwitch {...switchProps} />
+    </div>
+  );
 };
 
 export default RdsSwitch;

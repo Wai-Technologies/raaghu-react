@@ -22,7 +22,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCompRadarChart>;
 
 
-export const Standard: Story = {
+export const Default: Story = {
     args: {
         id: "Radar_Chart",
         labels: [
