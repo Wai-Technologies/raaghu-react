@@ -135,6 +135,39 @@
     .rds-e-signature__canvas-icon { font-size: 20px; }
     .rds-e-signature__color-button { width: 28px; height: 28px; }
     .rds-e-signature__actions { gap: 12px; }
+    /* Upload variant adjustments for initials */
+    .rds-e-signature__upload-panel { 
+      max-width: 420px; 
+      border-color: #3C98FF; /* always blue for initials */
+      padding: 24px 20px; 
+    }
+    .rds-e-signature__file-row { max-width: 360px; }
+    .rds-e-signature__file-hint-row { max-width: 360px; }
+    .rds-e-signature__file-limit { text-align: right; width:100%; }
+    /* More compact button & inputs for initials */
+    .rds-e-signature__file-button { 
+      height: 32px; 
+      min-width: 108px; 
+      font-size: 13px; 
+      padding: 0 12px; 
+      border-radius: 5px 0 0 5px; 
+    }
+    .rds-e-signature__file-text { 
+      height: 32px; 
+      font-size: 13px; 
+      padding: 0 12px; 
+    }
+    .rds-e-signature__file-delete { 
+      height: 32px; 
+      font-size:16px; 
+      padding:0 8px; 
+    }
+    /* Add a subtle icon before button label without changing markup */
+    .rds-e-signature__file-button::before {  /* paperclip symbol */
+      font-size: 14px; 
+      margin-right: 6px; 
+      line-height: 1; 
+    }
   }
   &--type-fullname {
     .rds-e-signature__canvas-container {
@@ -276,33 +309,36 @@
   &__upload-container {
     width: 100%;
   }
-  
-  &__upload-area {
-  border: 2px dashed var(--rds-esignature-border);
-  border-radius: 8px;
-  padding: 28px 36px 32px;
-  background: #fff;
-  transition: border-color .25s ease, background-color .25s ease;
-  position: relative;
-    
-    .rds-e-signature--selected & {
-      border-color: var(--rds-esignature-border-hover);
-      border-style: solid;
-    }
-    
+  &__upload-panel { 
+    background:#fff; 
+    padding:28px 24px; 
+    border:2px dashed #d1d5db; 
+    border-radius:8px; 
+    width:100%; 
+    box-sizing:border-box; 
+    transition:border-color .25s ease, background-color .25s ease;
+    /* Disabled state inheritance */
     .rds-e-signature--disabled & {
-      background-color: var(--rds-esignature-background-disabled);
-      opacity: 0.6;
+      border-color: var(--rds-esignature-border-disabled); /* updated gray */
+      background:#ffffff; /* keep white */
+      cursor:not-allowed;
+    }
+    
+    &--hover {
+      border-color:#2E7CE0;
+      background:#FEF7FF;;
+    }
+    
+    &--error {
+      border-color:#ff4444;
+      background:#fff5f5;
     }
   }
-  
-  &__upload-content {
-  text-align: left;
-  max-width: 620px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  }
+  &__upload-standard { width:100%; display:flex; flex-direction:column; gap:8px; }
+  &__file-row, &__file-input-container { display:flex; align-items:center; gap:0; background:#fff; border:1px solid #e0e0e0; border-radius:6px; box-sizing:border-box; width:100%; max-width:500px; }
+  &__file-row:focus-within { border-color:#1976d2; box-shadow:0 0 0 2px rgba(25,118,210,.15); }
+  /* modifier hook retained for future spacing tweaks when file present */
+  &__upload-content { display:flex; flex-direction:column; gap:10px; }
   
   &__upload-label {
   font-size: 14px;
@@ -314,160 +350,77 @@
   margin: 0;
   }
   
-  &__file-input-container {
-  display: flex;
-  align-items: stretch;
-  gap: 0;
-  background: #fff;
-  border: 1px solid #b7b7b7;
-  border-radius: 3px;
-  overflow: hidden;
-  width: 340px;
-  height: 36px;
-  }
+  &__file-input-container { max-width:620px; }
   
   &__file-input {
     display: none;
   }
   
-  &__file-button {
-    background-color: #0d6efd;
-    color: #fff;
-    border: none;
-    padding: 0 14px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 92px;
-    transition: background-color .2s ease;
-    
-    &:hover:not(:disabled) {
-      background-color: #0b5ed7;
-    }
-    
-    &:disabled {
-      background-color: var(--rds-esignature-primary-disabled);
-      cursor: not-allowed;
-    }
-  }
+  &__file-button { background:#3C98FF; color:#fff; border:none; padding:0 16px; cursor:pointer; font-size:14px; font-weight:500; height:36px; min-width:120px; display:inline-flex; align-items:center; justify-content:center; border-radius:6px 0 0 6px; box-shadow:none; transition:background-color .2s ease; }
+  &__file-button:hover:not(:disabled){ background:#1976d2; }
+  &__file-button:disabled{ background:#c7def5; cursor:not-allowed; color:#fff; }
   
-  &__file-text {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  padding: 0 10px;
-  font-size: 13px;
-  color: #555;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  }
+  &__file-text { flex:1; display:inline-flex; align-items:center; padding:0 14px; font-size:14px; font-weight:500; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; height:36px; background:#fff; margin-left:-1px; }
+  &__file-text--placeholder { color:#888; font-weight:400; }
+  .rds-e-signature--disabled &__file-text { color:#777; }
+
+  &__file-delete { background:transparent; border:none; color:#b30000; display:inline-flex; align-items:center; justify-content:center; padding:0 10px; cursor:pointer; font-size:18px; transition:color .2s ease, background-color .2s ease; height:36px;  }
+  &__file-delete:hover{ color:#e30000; background:#fff3f3; }
+  &__file-delete:focus-visible{ outline:2px solid #1976d2; outline-offset:-2px; }
+  &__file-delete:disabled{ cursor:not-allowed; opacity:.35; }
   
-  &__file-limit {
-  color: #6b6b6b;
-  font-size: 11px;
-  margin-left: 0;
-  padding-left: 0;
+  &__file-hint-row { display:flex; justify-content:flex-end; width:100%; max-width:500px; }
+  &__file-limit { color:#6b6b6b; font-size:13px !important; font-weight:400; margin-top:4px; }
+  
+  &__upload-error { 
+    display:flex; 
+    align-items:center; 
+    gap:8px; 
+    margin-top:8px; 
+    color:#ff4444; 
+    font-size:14px; 
+    font-weight:500; 
+  }
+  &__upload-error .rds-e-signature__error-icon { 
+    /* Match standard error icon style (outlined circle) */
+    display:inline-flex; 
+    align-items:center; 
+    justify-content:center; 
+    width:14px; 
+    height:14px; 
+    border:1px solid var(--rds-esignature-border-error); 
+    border-radius:50%; 
+    background:transparent; 
+    color:var(--rds-esignature-border-error); 
+    font-size:9px; 
+    font-weight:600; 
+    line-height:1; 
+  }
+  &__upload-error .rds-e-signature__error-text { 
+    color:#ff4444; 
+    font-size:14px; 
+    font-weight:500; 
+    margin:0; 
   }
   
   // Choose Mode Styles
-  &__choose-container {
-    width: 100%;
-  }
-  
-  &__styles-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--rds-esignature-spacing-md);
-    margin-bottom: var(--rds-esignature-spacing-lg);
-  }
-  
-  &__style-card {
-    border: 2px solid var(--rds-esignature-border);
-    border-radius: var(--rds-esignature-border-radius);
-    padding: var(--rds-esignature-spacing-md);
-    background-color: var(--rds-esignature-background);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-height: 120px;
-    display: flex;
-    flex-direction: column;
-    
-    &:hover:not(.rds-e-signature--disabled *) {
-      border-color: var(--rds-esignature-border-hover);
-      box-shadow: var(--rds-esignature-shadow);
-    }
-    
-    &--selected {
-      border-color: var(--rds-esignature-primary);
-      background-color: var(--rds-esignature-background-hover);
-    }
-    
-    .rds-e-signature--disabled & {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-  }
-  
-  &__style-name {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--rds-esignature-text-secondary);
-    margin-bottom: var(--rds-esignature-spacing-sm);
-    text-align: left;
-  }
-  
-  &__style-preview {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  &__signature-text {
-    font-size: 18px;
-    color: var(--rds-esignature-text);
-    
-    &--cursive {
-      font-family: "Dancing Script", cursive;
-      font-style: italic;
-    }
-    
-    &--print {
-      font-family: "Arial", sans-serif;
-      font-weight: 600;
-    }
-    
-    &--script {
-      font-family: "Pacifico", cursive;
-      font-style: italic;
-    }
-    
-    &--bold {
-      font-family: "Arial Black", sans-serif;
-      font-weight: 900;
-    }
-    
-    &--elegant {
-      font-family: "Playfair Display", serif;
-      font-style: italic;
-      font-weight: 400;
-    }
-    
-    &--modern {
-      font-family: "Roboto", sans-serif;
-      font-weight: 300;
-      font-style: italic;
-    }
-  }
-  
-  &__create-custom {
-    text-align: center;
-    margin-top: var(--rds-esignature-spacing-md);
-  }
+  &__choose-container { width:100%; padding:0 0 4px; border-radius:8px; }
+  /* Panel now only holds grid; link sits outside */
+  &__choose-panel { border:2px dashed #2E7CE0; background:#fff; border-radius:8px; padding:16px 20px 16px; margin-top:6px; display:inline-block; width:auto; max-width:100%; }
+  &__choose-panel--error { border-color:#c04343; background:#fff5f5; }
+  &__mini-grid { display:grid; grid-template-columns:repeat(3, auto); column-gap:40px; row-gap:18px; }
+  &__mini-group { display:flex; flex-direction:column; gap:4px; align-items:flex-start; }
+  &__mini-label { font-size:13px; font-weight:500; color:#202124; }
+  &__mini-card { border:1px solid #D0D7DE; background:#fff; border-radius:4px; padding:2px 6px; display:inline-flex; align-items:stretch; justify-content:flex-start; gap:6px; cursor:pointer; transition:background .2s ease,border-color .2s ease, box-shadow .2s ease; font-family: var(--rds-esignature-font-secondary); }
+  &__mini-card:hover:not(:disabled){ border-color:#3C98FF; background:#F5FAFF; }
+  &__mini-card--selected { border:1px solid #0862C6; box-shadow:0 0 0 1px #0862C6; }
+  &__mini-full-wrapper { display:flex; align-items:center; justify-content:center; background:#F8F9FA; border-radius:4px; min-height:34px; padding:0 12px; min-width:120px; }
+  &__mini-initials-wrapper { display:flex; align-items:center; justify-content:center; background:#F8F9FA; border-radius:4px; min-height:34px; padding:0 12px; min-width:60px; }
+  &__mini-full { font-size:14px; font-weight:400; font-family:'Segoe UI',sans-serif; }
+  &__mini-initials { font-size:14px; font-style:italic; }
+  &__mini-card:disabled { cursor:not-allowed; opacity:.5; }
+  &__create-custom { margin-top:4px; }
+  &__choose-error { color:#c04343; font-size:12px; display:flex; align-items:center; gap:6px; margin:6px 0 0 4px; font-weight:500; }
   
   &__create-link {
     color: var(--rds-esignature-primary);

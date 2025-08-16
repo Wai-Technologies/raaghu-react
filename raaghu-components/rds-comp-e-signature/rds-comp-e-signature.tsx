@@ -47,8 +47,12 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
   const [isDrawing, setIsDrawing] = useState(false);
   const [selectedColor, setSelectedColor] = useState(penColor);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
+  // Multiple selection support for choose mode
+  const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
+  const multipleChooseError = selectedStyles.length > 1; // show error when more than one selected
   const [isHovered, setIsHovered] = useState(false);
+  const [isUploadHovered, setIsUploadHovered] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   // Track strokes for validation (array of point arrays)
   const strokesRef = useRef<{x:number;y:number;}[][]>([]);
@@ -163,17 +167,52 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Check file size (5MB = 5 * 1024 * 1024 bytes)
+      if (file.size > 5 * 1024 * 1024) {
+        setUploadError('File too large. Max size is 2MB');
+        setSelectedFile(null);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        onSignatureChange?.(null);
+        return;
+      }
+      setUploadError(null);
       setSelectedFile(file);
       onSignatureChange?.(file);
     }
   };
 
+  const handleClearFile = () => {
+    setSelectedFile(null);
+    setUploadError(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    onSignatureChange?.(null);
+  };
+
   const handleStyleSelect = (styleId: string) => {
-    setSelectedStyle(styleId);
-    const selectedSignature = predefinedSignatures.find(sig => sig.id === styleId);
-    if (selectedSignature) {
-      onSignatureChange?.(type === 'fullname' ? selectedSignature.fullName : selectedSignature.initials);
-    }
+    setSelectedStyles(prev => {
+      let next: string[];
+      if (prev.includes(styleId)) {
+        // toggle off
+        next = prev.filter(id => id !== styleId);
+      } else {
+        // add
+        next = [...prev, styleId];
+      }
+      // Emit last clicked signature (still single value contract) if resulting selection count == 1
+      if (next.length === 1) {
+        const onlyId = next[0];
+        const signature = predefinedSignatures.find(sig => sig.id === onlyId);
+        if (signature) {
+          onSignatureChange?.(type === 'fullname' ? signature.fullName : signature.initials);
+        }
+      } else if (next.length === 0) {
+        onSignatureChange?.(null);
+      } else {
+        // multiple selected: emit null to signal invalid selection state
+        onSignatureChange?.(null);
+      }
+      return next;
+    });
   };
 
   // Validation removed
@@ -266,42 +305,66 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
   );
 
   const renderUploadMode = () => (
-    <Box className="rds-e-signature__upload-container">
+    <Box className="rds-e-signature__upload-container" style={{ maxWidth: width ? `${width}px` : '100%' }}>
       <Typography variant="h6" className="rds-e-signature__title">
-        Upload Signature
+        {type === 'initials' ? 'Upload Initial' : 'Upload Signature'}
         <span className="rds-e-signature__required">*</span>
       </Typography>
-      
-      <Paper className="rds-e-signature__upload-area" elevation={0}>
-        <Box className="rds-e-signature__upload-content">
-          <Typography className="rds-e-signature__upload-label">
-            Title <span className="rds-e-signature__required">*</span>
-          </Typography>
-          <Box className="rds-e-signature__file-input-container">
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleFileUpload}
-              className="rds-e-signature__file-input"
-              disabled={disabled}
-            />
+      <Box 
+        className={`rds-e-signature__upload-panel ${!disabled && isUploadHovered ? 'rds-e-signature__upload-panel--hover' : ''} ${uploadError ? 'rds-e-signature__upload-panel--error' : ''}`}
+        onMouseEnter={() => !disabled && setIsUploadHovered(true)}
+        onMouseLeave={() => !disabled && setIsUploadHovered(false)}
+      >
+        <Box className="rds-e-signature__upload-standard">
+        <Typography className="rds-e-signature__upload-label">
+          Title <span className="rds-e-signature__required">*</span>
+        </Typography>
+        <Box className={`rds-e-signature__file-row ${selectedFile ? 'rds-e-signature__file-row--has-file' : ''}`}>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileUpload}
+            className="rds-e-signature__file-input"
+            disabled={disabled}
+          />
+          <button
+            className="rds-e-signature__file-button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={disabled}
+            type="button"
+          >
+            Choose File
+          </button>
+          <span className={`rds-e-signature__file-text ${!selectedFile ? 'rds-e-signature__file-text--placeholder' : ''}`}>
+            {selectedFile ? selectedFile.name : 'No File Chosen'}
+          </span>
+          {selectedFile && (
             <button
-              className="rds-e-signature__file-button"
-              onClick={() => fileInputRef.current?.click()}
+              type="button"
+              className="rds-e-signature__file-delete"
+              onClick={handleClearFile}
+              aria-label="Remove file"
               disabled={disabled}
             >
-              Choose File
+              <Delete fontSize="inherit" />
             </button>
-            <span className="rds-e-signature__file-text">
-              {selectedFile ? selectedFile.name : 'No File Chosen'}
-            </span>
-          </Box>
-          <Typography className="rds-e-signature__file-limit">
-            Maximum 5MB
-          </Typography>
+          )}
         </Box>
-      </Paper>
+        <Box className="rds-e-signature__file-hint-row">
+          <Typography className="rds-e-signature__file-limit">Maximum 5MB</Typography>
+        </Box>
+        </Box>
+      </Box>
+      {uploadError && (
+        <Box className="rds-e-signature__upload-error">
+          <span className="rds-e-signature__error-icon" aria-hidden>!</span>
+          <Typography className="rds-e-signature__error-text">{uploadError}</Typography>
+        </Box>
+      )}
+      {disabled && disabledFooterMessage && (
+        <Typography className="rds-e-signature__disabled-footer">{disabledFooterMessage}</Typography>
+      )}
     </Box>
   );
 
@@ -311,32 +374,42 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
         Choose Signature
         <span className="rds-e-signature__required">*</span>
       </Typography>
-      
-      <Box className="rds-e-signature__styles-grid">
-        {predefinedSignatures.map((signature) => (
-          <Paper
-            key={signature.id}
-            className={`rds-e-signature__style-card ${selectedStyle === signature.id ? 'rds-e-signature__style-card--selected' : ''}`}
-            onClick={() => !disabled && handleStyleSelect(signature.id)}
-            elevation={0}
-          >
-            <Typography className="rds-e-signature__style-name">
-              {signature.name}
-            </Typography>
-            <Box className="rds-e-signature__style-preview">
-              <Typography className={`rds-e-signature__signature-text rds-e-signature__signature-text--${signature.style}`}>
-                {type === 'fullname' ? signature.fullName : signature.initials}
-              </Typography>
+      <Box className={`rds-e-signature__choose-panel ${multipleChooseError ? 'rds-e-signature__choose-panel--error' : ''}`}>        
+        <Box className="rds-e-signature__mini-grid">
+          {predefinedSignatures.map(sig => (
+            <Box key={sig.id} className="rds-e-signature__mini-group">
+              <span className="rds-e-signature__mini-label">{sig.name}</span>
+              <button
+                type="button"
+                className={`rds-e-signature__mini-card ${selectedStyles.includes(sig.id) ? 'rds-e-signature__mini-card--selected' : ''}`}
+                onClick={() => !disabled && handleStyleSelect(sig.id)}
+                disabled={disabled}
+                aria-pressed={selectedStyles.includes(sig.id)}
+              >
+                <span className="rds-e-signature__mini-full-wrapper">
+                  <span className="rds-e-signature__mini-full">{sig.fullName}</span>
+                </span>
+                <span className="rds-e-signature__mini-initials-wrapper">
+                  <span className="rds-e-signature__mini-initials">{sig.initials}</span>
+                </span>
+              </button>
             </Box>
-          </Paper>
-        ))}
+          ))}
+        </Box>
       </Box>
-      
-      <Box className="rds-e-signature__create-custom">
-        <Typography className="rds-e-signature__create-link">
-          ➕ Create your own signature
+      {multipleChooseError && (
+        <Typography className="rds-e-signature__choose-error" role="alert">
+          <span className="rds-e-signature__error-icon" aria-hidden>!</span>
+          Select only one signature style.
         </Typography>
-      </Box>
+      )}
+      {!multipleChooseError && (
+        <Box className="rds-e-signature__create-custom rds-e-signature__create-custom--outside">
+          <Typography className="rds-e-signature__create-link">
+            ⊕ Create your own signature
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 
