@@ -55,7 +55,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompProductTour>;
 
-export const Standard: Story = {
+export const Default: Story = {
     args: {
         state: "Image",
         topLeft: true,
