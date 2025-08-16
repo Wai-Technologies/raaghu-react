@@ -1,29 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Typography, IconButton, Stack, Paper } from '@mui/material';
-import { Brush, Upload, Edit, Clear, Save, Delete, Undo } from '@mui/icons-material';
+import { Box, Typography, IconButton, Paper } from '@mui/material';
+import { Brush, Save, Delete, Undo } from '@mui/icons-material';
 import './rds-comp-e-signature.scss';
 
 export interface RdsCompESignatureProps {
   mode?: 'draw' | 'upload' | 'choose';
-  state?: 'default' | 'selected' | 'active' | 'disabled' | 'error';
   type?: 'fullname' | 'initials';
   colourSwatch?: boolean;
-  errorText?: string; // legacy (unused after removing validation)
-  disableText?: string;
-  disableMessage?: boolean;
-  errorMessage?: boolean; // legacy
-  showError?: boolean; // legacy
-  showDisabled?: boolean;
-  // Validation props removed (kept typed for backwards compatibility but unused)
-  required?: boolean;
-  minBoxWidth?: number;
-  minBoxHeight?: number;
-  maxPointDensity?: number;
-  showValidationMessage?: boolean;
-  onValidationChange?: (valid: boolean, reason?: string) => void;
+  disabled?: boolean;               // NEW: simple disabled flag
+  disabledMessage?: string;         // message displayed when disabled
+  disabledFooterMessage?: string;   // secondary footer note when disabled
   onSignatureChange?: (signature: string | File | null) => void;
   onModeChange?: (mode: 'draw' | 'upload' | 'choose') => void;
-  signatureData?: string | File | null;
+  signatureData?: string | File | null; // external controlled value (future use)
   predefinedSignatures?: Array<{ id: string; name: string; style: string; fullName: string; initials: string; }>;
   width?: number;
   height?: number;
@@ -33,21 +22,11 @@ export interface RdsCompESignatureProps {
 
 const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
   mode = 'draw',
-  state = 'default',
   type = 'fullname',
   colourSwatch = true,
-  errorText = 'Signature not clear. Please draw again.',
-  disableText = 'Another method already selected',
-  disableMessage = true,
-  errorMessage = true,
-  showError = false,
-  showDisabled = false,
-  required = false,
-  minBoxWidth = 100,
-  minBoxHeight = 20,
-  maxPointDensity = 5,
-  showValidationMessage = true,
-  onValidationChange,
+  disabled = false,
+  disabledMessage = 'Draw option is currently disabled.\nClear uploaded signature to enable drawing.',
+  disabledFooterMessage = 'Another method already selected',
   onSignatureChange,
   onModeChange,
   signatureData,
@@ -105,7 +84,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
   }, [mode, selectedColor, type]);
 
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (state === 'disabled') return;
+    if (disabled) return;
     setIsDrawing(true);
   if (!hasDrawn) setHasDrawn(true);
     const canvas = canvasRef.current;
@@ -126,7 +105,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
   };
 
   const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!isDrawing || state === 'disabled') return;
+    if (!isDrawing || disabled) return;
     const canvas = canvasRef.current;
     if (canvas) {
       const rect = canvas.getBoundingClientRect();
@@ -145,7 +124,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
     }
   };
 
-  // Evaluate approximate letter count based on bounding box width & total points
+
   const evaluateSignatureLength = () => {
     const strokes = strokesRef.current;
     const totalPoints = strokes.reduce((a,s)=>a+s.length,0);
@@ -195,8 +174,6 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
     if (selectedSignature) {
       onSignatureChange?.(type === 'fullname' ? selectedSignature.fullName : selectedSignature.initials);
     }
-    // Choosing a signature counts as valid if required
-  // validation removed
   };
 
   // Validation removed
@@ -209,16 +186,9 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
 
   const getStateClassName = () => {
     let className = `rds-e-signature rds-e-signature--${mode} rds-e-signature--type-${type}`;
-    if (state === 'selected' || isHovered) {
-      className += ` rds-e-signature--selected`;
-    }
-    if (state === 'active') {
-      className += ` rds-e-signature--active`;
-    }
-    if (state === 'disabled') {
-      className += ` rds-e-signature--disabled`;
-    }
-  // No external error styling now
+    if (disabled) className += ' rds-e-signature--disabled';
+    if (isHovered && !disabled) className += ' rds-e-signature--hover';
+  if (showLengthError && !disabled && mode==='draw') className += ' rds-e-signature--error';
     return className;
   };
 
@@ -230,15 +200,20 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
       </Typography>
       
       <Paper className="rds-e-signature__canvas-container" elevation={0}>
-        {!hasDrawn && (
-          <Box className="rds-e-signature__canvas-header" aria-hidden={hasDrawn}>
-            <Typography className="rds-e-signature__canvas-title">
-              <Brush className="rds-e-signature__canvas-icon" />
-              {type === 'initials' ? 'Draw Initial' : 'Draw Signature'}
-            </Typography>
+        {(disabled || !hasDrawn) && (
+          <Box className="rds-e-signature__canvas-header" aria-hidden={hasDrawn && !disabled}>
+            {disabled ? (
+              <Typography className="rds-e-signature__disabled-text">
+                {disabledMessage}
+              </Typography>
+            ) : (
+              <Typography className="rds-e-signature__canvas-title">
+                <Brush className="rds-e-signature__canvas-icon" />
+                {type === 'initials' ? 'Draw Initial' : 'Draw Signature'}
+              </Typography>
+            )}
           </Box>
         )}
-        
         <canvas
           ref={canvasRef}
           className="rds-e-signature__canvas"
@@ -246,6 +221,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
           onMouseMove={draw}
           onMouseUp={stopDrawing}
           onMouseLeave={stopDrawing}
+          style={{ width: '100%', height: '100%' }}
         />
         
         <Box className="rds-e-signature__controls">
@@ -264,13 +240,13 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
             </Box>
           )}
           <Box className="rds-e-signature__actions">
-            <IconButton className="rds-e-signature__action-button" onClick={clearCanvas} disabled={state === 'disabled'} aria-label="undo">
+            <IconButton className="rds-e-signature__action-button" onClick={clearCanvas} disabled={disabled} aria-label="undo">
               <Undo fontSize="small" />
             </IconButton>
-    <IconButton className="rds-e-signature__action-button" disabled={state === 'disabled'} aria-label="save" onClick={handleSave}>
+    <IconButton className="rds-e-signature__action-button" disabled={disabled} aria-label="save" onClick={handleSave}>
               <Save fontSize="small" />
             </IconButton>
-            <IconButton className="rds-e-signature__action-button rds-e-signature__action-button--delete" disabled={state === 'disabled'} aria-label="delete">
+            <IconButton className="rds-e-signature__action-button rds-e-signature__action-button--delete" disabled={disabled} aria-label="delete">
               <Delete fontSize="small" />
             </IconButton>
           </Box>
@@ -279,8 +255,12 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
       
     {showLengthError && (
         <Typography className="rds-e-signature__error" role="alert">
+          <span className="rds-e-signature__error-icon" aria-hidden>!</span>
           Signature not clear. Please draw again.
         </Typography>
+      )}
+  {disabled && disabledFooterMessage && (
+        <Typography className="rds-e-signature__disabled-footer">{disabledFooterMessage}</Typography>
       )}
     </Box>
   );
@@ -304,12 +284,12 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
               accept="image/*"
               onChange={handleFileUpload}
               className="rds-e-signature__file-input"
-              disabled={state === 'disabled'}
+              disabled={disabled}
             />
             <button
               className="rds-e-signature__file-button"
               onClick={() => fileInputRef.current?.click()}
-              disabled={state === 'disabled'}
+              disabled={disabled}
             >
               Choose File
             </button>
@@ -337,7 +317,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
           <Paper
             key={signature.id}
             className={`rds-e-signature__style-card ${selectedStyle === signature.id ? 'rds-e-signature__style-card--selected' : ''}`}
-            onClick={() => !state.includes('disabled') && handleStyleSelect(signature.id)}
+            onClick={() => !disabled && handleStyleSelect(signature.id)}
             elevation={0}
           >
             <Typography className="rds-e-signature__style-name">
@@ -370,11 +350,6 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
       {mode === 'upload' && renderUploadMode()}
       {mode === 'choose' && renderChooseMode()}
       
-      {showDisabled && disableMessage && (
-        <Typography className="rds-e-signature__disable-message">
-          {disableText}
-        </Typography>
-      )}
     </Box>
   );
 };

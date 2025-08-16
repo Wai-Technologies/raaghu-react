@@ -22,14 +22,6 @@ const meta: Meta<typeof RdsCompESignature> = {
         defaultValue: { summary: 'draw' },
       },
     },
-    state: {
-      control: 'select',
-      options: ['default', 'error', 'disabled'],
-      description: 'The visual state of the component',
-      table: {
-        defaultValue: { summary: 'default' },
-      },
-    },
     type: {
       control: 'select',
       options: ['fullname', 'initials'],
@@ -45,33 +37,20 @@ const meta: Meta<typeof RdsCompESignature> = {
         defaultValue: { summary: 'true' },
       },
     },
-    errorText: {
-      control: 'text',
-      description: 'Error message text',
-      table: {
-        defaultValue: { summary: 'Signature not clear. Please draw again.' },
-      },
-    },
-    disableText: {
-      control: 'text',
-      description: 'Disable message text',
-      table: {
-        defaultValue: { summary: 'Another method already selected' },
-      },
-    },
-    disableMessage: {
+    disabled: {
       control: 'boolean',
-      description: 'Show disable message',
-      table: {
-        defaultValue: { summary: 'true' },
-      },
+      description: 'Disable interaction',
+      table: { defaultValue: { summary: 'false' } },
     },
-    errorMessage: {
-      control: 'boolean',
-      description: 'Show error message',
-      table: {
-        defaultValue: { summary: 'true' },
-      },
+    disabledMessage: {
+      control: 'text',
+      description: 'Message shown while disabled',
+  table: { defaultValue: { summary: 'Draw option is currently disabled.\\nClear uploaded signature to enable drawing.' } },
+    },
+    title: {
+      control: 'text',
+      description: 'Title for the component',
+      table: { defaultValue: { summary: 'Draw Signature' } },
     },
   },
 };
@@ -79,88 +58,33 @@ const meta: Meta<typeof RdsCompESignature> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Draw Mode - Error State
-export const DrawError: Story = {
+// Draw mode
+export const Draw: Story = {
   args: {
     mode: 'draw',
-    state: 'error',
     type: 'fullname',
     colourSwatch: true,
-    errorText: 'Signature not clear. Please draw again.',
-    errorMessage: true,
     title: 'Draw Signature',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Draw signature mode showing error state with error message.',
-      },
-    },
   },
 };
 
 // Upload Mode - Default State
-export const UploadDefault: Story = {
+export const Upload: Story = {
   args: {
     mode: 'upload',
-    state: 'default',
     type: 'fullname',
     colourSwatch: true,
-    errorText: 'Signature not clear. Please draw again.',
-    disableText: 'Another method already selected',
-    disableMessage: true,
-    errorMessage: true,
     title: 'Upload Signature',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Upload signature mode with file input for uploading signature images.',
-      },
-    },
   },
 };
 
 // Choose Mode - Default State
-export const ChooseDefault: Story = {
+export const Choose: Story = {
   args: {
     mode: 'choose',
-    state: 'default',
     type: 'fullname',
     colourSwatch: true,
-    errorText: 'Signature not clear. Please draw again.',
-    disableText: 'Another method already selected',
-    disableMessage: true,
-    errorMessage: true,
     title: 'Choose Signature',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Choose signature mode with predefined signature styles.',
-      },
-    },
   },
 };
 
-// Interactive Playground
-// export const Playground: Story = {
-//   args: {
-//     mode: 'draw',
-//     state: 'default',
-//     type: 'fullname',
-//     colourSwatch: true,
-//     errorText: 'Signature not clear. Please draw again.',
-//     disableText: 'Another method already selected',
-//     disableMessage: true,
-//     errorMessage: true,
-//     title: 'E-Signature Component',
-//   },
-//   parameters: {
-//     docs: {
-//       description: {
-//         story: 'Interactive playground to test all component features and states.',
-//       },
-//     },
-//   },
-// };

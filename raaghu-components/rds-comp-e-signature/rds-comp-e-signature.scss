@@ -12,6 +12,9 @@
   --rds-esignature-border-hover: #1976d2;
   --rds-esignature-border-active: #0d47a1;
   --rds-esignature-border-error: #d32f2f;
+  --rds-esignature-border-disabled: #AFCDFD;
+  --rds-esignature-font-error: 'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  --rds-esignature-text-placeholder-disabled: #969696;
   --rds-esignature-background: #ffffff;
   --rds-esignature-background-hover: #f5f5f5;
   --rds-esignature-background-disabled: #fafafa;
@@ -37,10 +40,10 @@
 
 .rds-e-signature {
   width: 100%;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+
   
   &__title {
-    font-size: 20px; /* increased per new visual */
+    font-size: 16px !important; /* increased per new visual */
     font-weight: 600;
     color: #1e1e1e;
     margin: 0 0 12px;
@@ -82,7 +85,8 @@
        border: 2px dashed #2E7CE0;
     }
     .rds-e-signature--disabled &:hover {
-      background-color: var(--rds-esignature-background-disabled);
+  background-color: #ffffff; /* no hover tint while disabled */
+  border-color: var(--rds-esignature-border-disabled); /* keep light blue */
     }
     
     .rds-e-signature--selected & {
@@ -95,10 +99,12 @@
     }
     
     .rds-e-signature--disabled & {
-      background-color: var(--rds-esignature-background-disabled);
-      border-color: var(--rds-esignature-primary-disabled);
-      opacity: 0.6;
+      background-color: #ffffff; /* keep white when disabled */
+      border-color: var(--rds-esignature-border-disabled); /* light blue dashed */
+      opacity: 1;
     }
+  .rds-e-signature__controls { z-index: 1; }
+  .rds-e-signature__canvas { z-index: 0; }
     
     .rds-e-signature--error & {
   border-color: var(--rds-esignature-border-error);
@@ -147,6 +153,7 @@
     justify-content: center;
     pointer-events: none;
     margin: 0;
+    width: 100%;
   }
   
   &__canvas-title {
@@ -478,12 +485,29 @@
   
   // Error and Disable Messages
   &__error {
-    color: #d32f2f;
-    font-size: 12px;
-    margin-top: 8px;
-    display: flex;
+    color: var(--rds-esignature-border-error);
+  font-size: 14px !important; /* reduced per request */
+  margin-top: 6px;
+  display: flex;
+  align-items: center; /* center icon & text vertically */
+  gap: 6px;
+  font-family: var(--rds-esignature-font-error);
+  line-height: 1.25;
+  font-weight: 500;
+  }
+  &__error-icon {
+    display: inline-flex;
+  width: 14px; /* slightly smaller to match reduced text */
+  height: 14px;
+    border: 1px solid var(--rds-esignature-border-error);
+    border-radius: 50%;
     align-items: center;
-    gap: 4px;
+    justify-content: center;
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 600;
+  margin-top: 0; /* ensure natural centering */
+  flex-shrink: 0;
   }
   
   &__disable-message {
@@ -493,6 +517,21 @@
     text-align: left;
     font-style: italic;
   }
+  /* overlay removed per latest spec */
+  &__disabled-text { color: var(--rds-esignature-text-placeholder-disabled); line-height: 1.4; white-space: pre-line; text-align: center; font-size:14px; font-weight:500; width:100%; }
+  /* Adjust disabled message specifically for initials variant to keep cleaner wrapping */
+  &--type-initials {
+    .rds-e-signature__disabled-text {
+      font-size:13px;
+      line-height:1.35;
+      width:100%;
+      background:transparent;
+      padding:0;
+      border:none;
+      box-shadow:none;
+    }
+  }
+  &__disabled-footer { color: #2E7CE0; font-size: 14px !important; margin-top: 12px; font-family: 'Poppins','Roboto','Helvetica','Arial',sans-serif; }
   
   // State Modifiers
   &--selected {
@@ -514,23 +553,14 @@
   }
   
   &--disabled {
-    pointer-events: none;
-    
-    .rds-e-signature__canvas-container,
-    .rds-e-signature__upload-area,
-    .rds-e-signature__style-card {
-      background-color: var(--rds-esignature-background-disabled);
-      border-color: var(--rds-esignature-primary-disabled);
-      opacity: 0.6;
-    }
-    
-    .rds-e-signature__title,
-    .rds-e-signature__canvas-title,
-    .rds-e-signature__upload-label,
-    .rds-e-signature__style-name,
-    .rds-e-signature__signature-text {
-      color: var(--rds-esignature-text-disabled);
-    }
+  .rds-e-signature__actions button,
+  .rds-e-signature__color-button,
+  .rds-e-signature__file-button { cursor: not-allowed; }
+  .rds-e-signature__canvas { cursor: not-allowed; }
+  .rds-e-signature__action-button { color:#b3b3b3 !important; }
+  .rds-e-signature__action-button--delete { color:#b3b3b3 !important; }
+  .rds-e-signature__color-button { opacity:.55; }
+  .rds-e-signature__canvas-title { color: var(--rds-esignature-text-placeholder-disabled); }
   }
   
   // Error modifier removed (no validation styling)
