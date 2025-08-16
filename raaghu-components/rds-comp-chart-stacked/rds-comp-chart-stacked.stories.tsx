@@ -23,7 +23,7 @@ export default meta;
 type Story = StoryObj<typeof RdsCompStackedChart>;
 
 
-export const Standard: Story = {
+export const Default: Story = {
     args: {
         id: "Stacked_Chart",
         labels: [

@@ -9,6 +9,8 @@ import './custom-theme.css';
 // Import Bootstrap styles and JS
 import './bootstrap-globals.scss';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+// Import RDS Button styles globally
+import '../raaghu-elements/rds-button/rds-button.scss';
 
 // Need to import the React type for JSX
 import { ReactElement } from 'react';
@@ -48,6 +50,11 @@ const preview: Preview = {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
+      },
+    },
+    options: {
+      storySort: {
+        order: ['Introduction', 'Elements', 'Components', 'Layouts'],
       },
     },
   },

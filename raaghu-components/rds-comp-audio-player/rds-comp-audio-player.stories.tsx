@@ -28,7 +28,7 @@ export default meta;
 
 type Story = StoryObj<typeof RdsCompAudioPlayer>;
 
-export const Standard: Story = {
+export const Default: Story = {
     args: {
         type: 'Audio Player',
         showSettings: true,
