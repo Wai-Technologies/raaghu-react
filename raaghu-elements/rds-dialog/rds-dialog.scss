@@ -102,3 +102,147 @@
   }
 }
 
+
+
+.dark-theme .rds-dialog,
+[data-theme="dark"] .rds-dialog {
+  
+  // Dialog content for dark theme
+  &__content {
+    color: var(--rds-text-primary, #ffffff) !important;
+    background-color: transparent !important;
+  }
+  
+  // Dialog actions section
+  &__actions {
+    background-color: transparent !important;
+  }
+  
+  // Dialog paper/container for dark theme
+  &__paper {
+    background-color: var(--rds-background-paper, #1a1a1a) !important;
+    border: 1px solid var(--rds-border-default, #666666) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+  }
+  
+  // Close button for dark theme
+  &__close-button {
+    color: var(--rds-text-secondary, #cccccc) !important;
+    
+    &:hover {
+      color: var(--rds-text-primary, #ffffff) !important;
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+    }
+  }
+  
+  // Dialog buttons for dark theme
+  &__button {
+    background-color: transparent !important;
+    color: var(--rds-color-primary, #7e2eef) !important;
+    border: none !important;
+    
+    &:hover {
+      background-color: var(--rds-color-primary, #7e2eef) !important;
+      color: var(--rds-primary-contrast-text, #ffffff) !important;
+    }
+    
+    &:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    
+    // Primary button variant
+    &__primary {
+      background-color: var(--rds-color-primary, #7e2eef) !important;
+      color: var(--rds-primary-contrast-text, #ffffff) !important;
+      border: none !important;
+      
+      &:hover {
+        background-color: var(--rds-color-primary-dark, #4f00a6) !important;
+      }
+    }
+    
+    // Secondary button variant
+    &__secondary {
+      background-color: transparent !important;
+      color: var(--rds-color-primary, #7e2eef) !important;
+      border: none !important;
+      
+      &:hover {
+        background-color: var(--rds-color-primary, #7e2eef) !important;
+        color: var(--rds-primary-contrast-text, #ffffff) !important;
+      }
+    }
+    
+    // Dismiss/text button variant
+    &__dismiss {
+      background-color: transparent !important;
+      color: var(--rds-text-secondary, #cccccc) !important;
+      border: none !important;
+      
+      &:hover {
+        background-color: var(--rds-background-paper, #2a2a2a) !important;
+        color: var(--rds-text-primary, #ffffff) !important;
+      }
+    }
+  }
+  
+  // Focus states for dark theme
+  &:focus-visible {
+    outline: none !important;
+    outline-offset: 0 !important;
+  }
+  
+  // Disabled state for dark theme
+  &:disabled,
+  &--disabled {
+    opacity: 0.5 !important;
+    
+    .rds-dialog__content {
+      color: var(--rds-text-disabled, #999999) !important;
+    }
+    
+    .rds-dialog__button {
+      color: var(--rds-text-disabled, #999999) !important;
+      border: none !important;
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+    }
+  }
+}
+
+// =============================================================================
+// DARK THEME ACCESSIBILITY ENHANCEMENTS
+// =============================================================================
+
+.dark-theme .rds-dialog,
+[data-theme="dark"] .rds-dialog {
+  
+  // Enhanced contrast for better readability
+  &__content {
+    text-shadow: none;
+    font-weight: 400;
+  }
+  
+  // Better focus indicators for accessibility
+  &__button {
+    &:focus-visible {
+      outline: none !important;
+      outline-offset: 0 !important;
+      box-shadow: none !important;
+    }
+  }
+  
+  &__close-button {
+    &:focus-visible {
+      outline: none !important;
+      outline-offset: 0 !important;
+      border-radius: var(--rds-border-radius, 4px) !important;
+    }
+  }
+}
+
+
+
+
+
+

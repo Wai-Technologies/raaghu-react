@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button as MuiButton, ButtonProps } from '@mui/material';
 import { Add, Delete, Save } from '@mui/icons-material';
+import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
 import './rds-button.scss';
 export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
-  label?: string;
+  text?: string;
   isLoading?: boolean;
   iconPosition?: 'start' | 'end';
   shape?: 'pill' | 'rectangle';
@@ -14,10 +15,11 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
   inputSize?: 'small' | 'medium' | 'large';
+  textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
 }
 
 const RdsButton: React.FC<RdsButtonProps> = ({
-  label,
+  text,
   children,
   isLoading = false,
   iconPosition = 'start',
@@ -31,6 +33,7 @@ const RdsButton: React.FC<RdsButtonProps> = ({
   state = 'default',
   icon,
   inputSize = 'small',
+  textCase = 'uppercase',
   ...props
 }) => {
   // Normalize layout prop to support Storybook options
@@ -58,6 +61,12 @@ const RdsButton: React.FC<RdsButtonProps> = ({
     }
     return {
       borderRadius: '4px',
+    };
+  };
+
+  const getTextCaseStyles = () => {
+    return {
+      textTransform: textCase === 'unset' ? 'none' as const : textCase as any,
     };
   };
 
@@ -125,6 +134,15 @@ const RdsButton: React.FC<RdsButtonProps> = ({
   };
 
   const renderContent = () => {
+    if (isLoading) {
+      return <RdsCompSpinner
+        colorVariant="secondary"
+        labelText={text || "Loading"}
+        layout={SpinnerLayout.SpinnerAndLabel}
+        showLabel
+        size={SpinnerSize.Small}
+      />;
+    }
     if (normalizedLayout === 'icon-only') {
       // For icon-only layout, prioritize icon prop, then fallback to explicit icon props
       if (icon) {
@@ -133,7 +151,7 @@ const RdsButton: React.FC<RdsButtonProps> = ({
       return startIcon || endIcon;
     }
     if (normalizedLayout === 'icon+text' || normalizedLayout === 'text-only') {
-      return label || children;
+      return text || children;
     }
     return null;
   };
@@ -156,6 +174,7 @@ const RdsButton: React.FC<RdsButtonProps> = ({
       className={`rds-button ${getStateClassName()} ${sizeClass}`.trim()}
       sx={{
         ...getShapeStyles(),
+        ...getTextCaseStyles(),
         ...getStateStyles(),
         ...sx,
       }}

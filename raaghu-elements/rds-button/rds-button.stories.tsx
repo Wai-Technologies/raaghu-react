@@ -10,7 +10,7 @@ const meta: Meta<typeof RdsButton> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    label: {
+    text: {
       control: 'text',
       description: 'The text to display on the button',
     },
@@ -42,6 +42,11 @@ const meta: Meta<typeof RdsButton> = {
       options: ['pill', 'rectangle'],
       description: 'The shape of the button',
     },
+    textCase: {
+      control: { type: "select" },
+      options: ["uppercase", "lowercase", "capitalize", "unset"],
+      description: 'The text case of the button',
+    },
     state: {
       control: 'select',
       options: ['default', 'hover', 'disabled', 'selected'],
@@ -65,31 +70,31 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: 'Default Button',
+    text: 'Default Button',
     style: 'filled',
     color: 'primary',
     size: 'medium',
     disabled: false,
     isLoading: false,
     shape: 'rectangle',
+    textCase: 'uppercase',
     state: 'default',
     layout: 'text-only',
     icon: 'add',
     iconPosition: 'start',
-    inputSize: 'medium',
   },
 };
 
 export const Disabled: Story = {
   args: {
-    label: 'Disabled Button',
+    text: 'Disabled Button',
     disabled: true,
   },
 };
 
 export const Large: Story = {
   args: {
-    label: 'Large Button',
+    text: 'Large Button',
     size: 'large',
     style: 'filled',
   },
@@ -97,21 +102,21 @@ export const Large: Story = {
 
 export const Loading: Story = {
   args: {
-    label: 'Loading Button',
+    text: 'Loading Button',
     isLoading: true,
   },
 };
 
 export const Outlined: Story = {
   args: {
-    label: 'Outlined Button',
+    text: 'Outlined Button',
     style: 'outlined',
   },
 };
 
 export const Primary: Story = {
   args: {
-    label: 'Primary Button',
+    text: 'Primary Button',
     style: 'filled',
     color: 'primary',
   },
@@ -119,7 +124,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
-    label: 'Secondary Button',
+    text: 'Secondary Button',
     style: 'filled',
     color: 'secondary',
   },
@@ -127,7 +132,7 @@ export const Secondary: Story = {
 
 export const Small: Story = {
   args: {
-    label: 'Small Button',
+    text: 'Small Button',
     size: 'small',
     style: 'filled',
   },
@@ -135,14 +140,14 @@ export const Small: Story = {
 
 export const Transparent: Story = {
   args: {
-    label: 'Transparent Button',
+    text: 'Transparent Button',
     style: 'transparent',
   },
 };
 
 export const WithEndIcon: Story = {
   args: {
-    label: 'Delete Item',
+    text: 'Delete Item',
     style: 'filled',
     color: 'error',
     icon: 'delete',
@@ -152,7 +157,7 @@ export const WithEndIcon: Story = {
 
 export const WithStartIcon: Story = {
   args: {
-    label: 'Add Item',
+    text: 'Add Item',
     style: 'filled',
     startIcon: <Add />,
   },

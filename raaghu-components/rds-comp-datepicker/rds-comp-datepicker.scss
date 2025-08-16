@@ -1,0 +1,93 @@
+.rds-comp-datepicker {
+  &__padding {
+    padding-top: 0.16rem !important;
+    padding-bottom: 0.16rem !important;
+  }
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: not-allowed;
+    background-color: var(--rds-color-disabled, #EBEBE4) !important;
+  }
+
+  &__dropdown {
+    .btn {
+      text-align: center;
+    }
+  }
+
+  &__input {
+    &--disabled {
+      background-color: var(--rds-color-input-disabled, #e9ecef) !important;
+      opacity: 1 !important;
+      pointer-events: none !important;
+    }
+  }
+
+  &__calendar-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__arrow-icon {
+    height: 27px;
+    width: 11px;
+  }
+
+  &__close-icon {
+    height: 12px;
+    width: 12px;
+    cursor: pointer;
+  }
+
+  &__clear-button {
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    color: #dc3545;
+    font-size: 16px;
+    font-weight: bold;
+
+    &--dropdown {
+      right: 35px;
+    }
+  }
+
+  &__input-padding {
+    &--with-clear {
+      padding-right: 35px;
+    }
+    &--without-clear {
+      padding-right: 12px;
+    }
+  }
+}
+.react-datepicker {
+  left: -50px;
+  
+  &__day--outside-month {
+    color: var(--rds-color-text-secondary, #6c757d) !important;
+    
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+
+  &__today-button {
+    border-bottom-right-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+  }
+
+  &__navigation {
+    top: 8px;
+  }
+}
+
+.react-datepicker-popper {
+  position: absolute !important;
+  inset: 0px auto auto 50px !important;
+  transform: translate3d(0px, 35.2px, 0px) !important;
+  margin: 9px !important;
+}
+

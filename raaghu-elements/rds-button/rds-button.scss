@@ -46,6 +46,9 @@
   outline: none;
   border: none;
   min-height: 36px;
+  max-width: 220px;
+  width: auto;
+  white-space: nowrap;
   
   &:focus-visible {
     outline: var(--rds-focus-ring);

@@ -9,6 +9,10 @@
   position: relative;
   width: 100%;
 
+  &__form-title {
+  color: var(--rds-text-primary, #222);
+  }
+
   &__side-content {
     flex: 1;
     display: flex;
@@ -645,4 +649,275 @@ color: var(--rds-color-primary, #3390e6); // --rds-color-primary
   flex: 1;
   text-align: right;
 }
+
 // Title 'or' span style (BEM convention, flat class)
+
+.dark-theme .rds-file-uploader,
+[data-theme="dark"] .rds-file-uploader {
+  
+  // Drop zone styles for dark theme
+  &__drop-zone {
+    background-color: var(--rds-background-paper, #1a1a1a) !important;
+    border-color: var(--rds-color-primary, #2196f3) !important;
+    color: var(--rds-text-primary, #ffffff);
+    
+    &--side-icon {
+      background-color: var(--rds-background-paper, #1a1a1a) !important;
+      border-color: var(--rds-color-primary, #2196f3) !important;
+    }
+    
+    &--with-upload-btn {
+      background-color: var(--rds-background-paper, #1a1a1a) !important;
+      border-color: var(--rds-color-primary, #2196f3) !important;
+    }
+    
+    &--drag-over {
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+      border-color: var(--rds-color-primary-light, #a875ff) !important;
+    }
+    
+    &--disabled {
+      background-color: var(--rds-background-paper, #1a1a1a) !important;
+      border-color: var(--rds-border-dark, #666666) !important;
+      opacity: 0.5;
+    }
+  }
+  
+  // Text and content styles
+  &__form-title {
+    color: var(--rds-text-secondary, #cccccc) !important;
+  }
+  &__title {
+    color: var(--rds-text-secondary, #cccccc) !important;
+  }
+  
+  &__title--left {
+    color: var(--rds-text-secondary, #cccccc) !important;
+  }
+  
+  &__title--inline {
+    color: var(--rds-text-secondary, #cccccc) !important;
+  }
+  
+  &__title-or {
+    color: var(--rds-text-secondary, #cccccc) !important;
+  }
+  
+  &__subtitle {
+    color: var(--rds-text-primary, #ffffff) !important;
+  }
+  
+  &__info {
+    color: var(--rds-text-secondary, #cccccc) !important;
+  }
+  
+  &__info--left {
+    color: var(--rds-text-secondary, #cccccc) !important;
+  }
+  
+  &__hint {
+    color: var(--rds-text-secondary, #cccccc) !important;
+  }
+  
+  // Browse link styles
+  &__browse-link {
+    color: var(--rds-color-primary, #2196f3) !important;
+    
+    &:hover {
+      color: var(--rds-color-primary, #2196f3) !important;
+    }
+  }
+  
+  &__browse-link--left {
+    color: var(--rds-color-primary, #2196f3) !important;
+    
+    &:hover {
+      color: var(--rds-color-primary, #2196f3) !important;
+    }
+  }
+  
+  // Icon styles
+  &__icon {
+    color: var(--rds-color-primary, #2196f3) !important;
+  }
+  
+  // Button styles
+  &__upload-btn {
+    background: var(--rds-color-primary, #7e2eef) !important;
+    color: var(--rds-text-secondary, #cccccc) !important;
+    
+    &:hover {
+      background: var(--rds-color-primary-dark, #4f00a6) !important;
+    }
+    
+    &:focus {
+      box-shadow: 0 0 0 2px var(--rds-color-primary-light, #a875ff) !important;
+    }
+  }
+  
+  &__choose-btn {
+    background: var(--rds-color-primary, #7e2eef) !important;
+    color: var(--rds-color-on-primary, #ffffff) !important;
+    
+    &:hover {
+      background: var(--rds-color-primary-dark, #4f00a6) !important;
+    }
+  }
+  
+  // Input and form styles
+  &__input-row {
+    background: var(--rds-background-paper, #2a2a2a) !important;
+    border-color: var(--rds-border-default, #666666) !important;
+  }
+  
+  &__input {
+    color: var(--rds-text-primary, #ffffff) !important;
+    
+    &::placeholder {
+      color: var(--rds-text-hint, #999999) !important;
+    }
+  }
+  
+  &__filename {
+    background: var(--rds-background-paper, #2a2a2a) !important;
+    color: var(--rds-text-primary, #ffffff) !important;
+    border-left: 1px solid var(--rds-border-default, #666666) !important;
+  }
+  
+  // File list styles
+  &__file-item {
+    background: var(--rds-background-paper, #2a2a2a) !important;
+    border-color: var(--rds-border-default, #666666) !important;
+  }
+  
+  &__file-list-title {
+    color: var(--rds-text-primary, #ffffff) !important;
+  }
+  
+  &__file-name {
+    color: var(--rds-text-primary, #ffffff) !important;
+  }
+  
+  &__file-icon {
+    color: var(--rds-color-primary, #7e2eef) !important;
+  }
+  
+  // File meta information
+  &__file-meta {
+    color: var(--rds-text-secondary, #cccccc) !important;
+  }
+  
+  // Error states remain as is (red color is appropriate for dark theme)
+  &__file-error-msg {
+    color: var(--rds-error-main, #ff5252) !important;
+  }
+  
+  &__mandatory {
+    color: var(--rds-error-main, #ff5252) !important;
+  }
+  
+  // Progress bar styles
+  &__file-progress {
+    background-color: var(--rds-background-surface, #1a1a1a) !important;
+    
+    &::-webkit-progress-bar {
+      background-color: var(--rds-background-surface, #1a1a1a) !important;
+    }
+    
+    &::-webkit-progress-value {
+      background-color: var(--rds-color-primary, #7e2eef) !important;
+    }
+    
+    &::-moz-progress-bar {
+      background-color: var(--rds-color-primary, #7e2eef) !important;
+    }
+  }
+  
+  // Standard view specific styles
+  &__standard {
+    .rds-file-uploader__input-row {
+      background: var(--rds-background-paper, #2a2a2a) !important;
+      border-color: var(--rds-border-default, #666666) !important;
+    }
+    
+    .rds-file-uploader__filename {
+      background: var(--rds-background-paper, #2a2a2a) !important;
+      color: var(--rds-text-primary, #ffffff) !important;
+    }
+  }
+}
+
+// =============================================================================
+// DARK THEME HOVER & FOCUS STATES
+// =============================================================================
+
+.dark-theme .rds-file-uploader,
+[data-theme="dark"] .rds-file-uploader {
+  
+  // Enhanced hover states for dark theme
+  &__drop-zone {
+    &:hover:not(&--disabled) {
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+      border-color: var(--rds-color-primary, #2196f3) !important;
+      transition: all 0.2s ease;
+    }
+    // Removed outline per request
+    &:focus-visible:not(&--disabled) {
+      outline: none !important;
+      outline-offset: 0;
+    }
+  }
+  
+  // File item hover states
+  &__file-item {
+    &:hover {
+      background: var(--rds-background-surface, #1a1a1a) !important;
+      border-color: var(--rds-color-primary, #7e2eef) !important;
+      transition: all 0.2s ease;
+    }
+  }
+  
+  // Input row focus states
+  &__input-row {
+    &:focus-within {
+      border-color: var(--rds-color-primary, #7e2eef) !important;
+      box-shadow: 0 0 0 1px var(--rds-color-primary, #7e2eef) !important;
+    }
+  }
+}
+
+// =============================================================================
+// DARK THEME ACCESSIBILITY ENHANCEMENTS
+// =============================================================================
+
+.dark-theme .rds-file-uploader,
+[data-theme="dark"] .rds-file-uploader {
+  
+  // High contrast focus indicators (disabled per request)
+  *:focus {
+    outline: none !important;
+    outline-offset: 0 !important;
+  }
+  
+  // Better text contrast for accessibility
+  &__title,
+  &__subtitle,
+  &__file-name,
+  &__file-list-title {
+    text-shadow: none;
+    font-weight: 500; // Slightly bolder for better readability
+  }
+  
+  // Enhanced button accessibility
+  &__upload-btn,
+  &__choose-btn {
+    &:focus {
+      outline: none !important;
+      outline-offset: 0;
+    }
+    
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+}

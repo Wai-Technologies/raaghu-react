@@ -2,13 +2,13 @@ import React from 'react';
 import { Switch as MuiSwitch, FormControlLabel, SwitchProps } from '@mui/material';
  import './rds-switch.scss';
 
-export interface RdsSwitchProps extends SwitchProps {
+export interface RdsSwitchProps extends Omit<SwitchProps, 'style'> {
   label?: string;
   labelPlacement?: 'end' | 'start' | 'top' | 'bottom';
   layout?: 'switch+label' | 'label+switch' | 'toplabel+switch' | 'bottomlabel+switch';
   state?: 'off' | 'on' | 'disabled on' | 'disabled off';
   showLabel?: boolean;
-  styleType?: 'style1' | 'style2' | 'style3' | 'style4' | 'style5' | 'style6';
+  style?: 'style1' | 'style2' | 'style3' | 'style4' | 'style5' | 'style6';
 }
 
 const layoutToPlacement: Record<NonNullable<RdsSwitchProps['layout']>, RdsSwitchProps['labelPlacement']> = {
@@ -35,7 +35,7 @@ const RdsSwitch: React.FC<RdsSwitchProps> = ({
   labelPlacement = 'end',
   layout,
   state,
-  styleType = 'style1',
+  style: styleProp = 'style1',
   showLabel,
   ...props
 }) => {
@@ -79,7 +79,7 @@ const RdsSwitch: React.FC<RdsSwitchProps> = ({
   };
 
   // Map Storybook values like 'Style 1' to 'style1'
-  const normalizedStyleType = typeof styleType === 'string' ? styleType.replace(/\s+/g, '').toLowerCase() : 'style1';
+  const normalizedStyleType = typeof styleProp === 'string' ? styleProp.replace(/\s+/g, '').toLowerCase() : 'style1';
   // BEM class for style variant
   const styleClass = `rds-switch rds-switch--${normalizedStyleType}`;
 
@@ -94,19 +94,29 @@ const RdsSwitch: React.FC<RdsSwitchProps> = ({
 
   // Render switch with or without label
   if (showLabel === false) {
-    return <MuiSwitch {...switchProps} />;
+    return (
+      <div className="rds-switch--row">
+        <MuiSwitch {...switchProps} />
+      </div>
+    );
   }
   if (label) {
     return (
-      <FormControlLabel
-        className={styleClass}
-        control={<MuiSwitch {...switchProps} />}
-        label={label}
-        labelPlacement={effectivePlacement}
-      />
+      <div className="rds-switch--row">
+        <FormControlLabel
+          className={styleClass}
+          control={<MuiSwitch {...switchProps} />}
+          label={label}
+          labelPlacement={effectivePlacement}
+        />
+      </div>
     );
   }
-  return <MuiSwitch {...switchProps} />;
+  return (
+    <div className="rds-switch--row">
+      <MuiSwitch {...switchProps} />
+    </div>
+  );
 };
 
 export default RdsSwitch;

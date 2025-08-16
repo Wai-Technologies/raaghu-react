@@ -10,19 +10,19 @@ export type CardState = 'default' | 'hover' | 'selected' | 'disabled';
 export type CardStyle = 'default' | 'outlined' | 'filled';
 export type CardLayout = 'vertical' | 'horizontal';
 export type CardIconName = 'person' | 'home' | 'settings' | 'favorite' | 'star' | 'email' | 'phone' | 'location' | 'camera' | 'image' | 'music' | 'video' | 'document' | 'folder' | 'calendar' | 'clock' | 'search' | 'add' | 'edit' | 'delete' | 'check' | 'close' | 'arrow_forward' | 'arrow_back' | 'download' | 'upload' | 'share' | 'notification';
-export interface RdsCardProps extends Omit<CardProps, 'children'> {
+export interface RdsCardProps extends Omit<CardProps, 'children' | 'style'> {
   padding?: number | string;
   state?: CardState;
   showIndicator?: boolean;
-  cardStyle?: CardStyle;
+  style?: CardStyle;
   showTitle?: boolean;
   showSubtext?: boolean;
   showDescription?: boolean;
   layout?: CardLayout;
   showIcon?: boolean;
-  iconName?: CardIconName;
+  changeIcon?: CardIconName;
   children?: ReactNode;
-  cardTitle?: string; 
+  title?: string; 
   cardSubtext?: string; 
   description?: string;
 }
@@ -34,14 +34,14 @@ const RdsCard: React.FC<RdsCardProps> = ({
   state = 'default',
   className,
   showIndicator = true,
-  cardStyle = 'default',
+  style: cardStyleProp = 'default',
   showTitle = true,
   showSubtext = true,
   showDescription = true,
   layout = 'vertical',
   showIcon = true,
-  iconName = 'person',
-  cardTitle,
+  changeIcon = 'person',
+  title,
   cardSubtext,
   description,
   ...props
@@ -49,14 +49,14 @@ const RdsCard: React.FC<RdsCardProps> = ({
   const getCardClassName = () => {
     const baseClass = 'rds-card';
     const stateClass = `rds-card--${state}`;
-    const styleClass = `rds-card--style-${cardStyle}`;
+    const styleClass = `rds-card--style-${cardStyleProp}`;
     const layoutClass = `rds-card--layout-${layout}`;
     const indicatorClass = showIndicator ? 'rds-card--with-indicator' : '';
     const titleClass = showTitle ? '' : 'rds-card--hide-title';
     const subtextClass = showSubtext ? '' : 'rds-card--hide-subtext';
     const descriptionClass = showDescription ? '' : 'rds-card--hide-description';
     const iconClass = showIcon ? '' : 'rds-card--hide-icon';
-    const iconNameClass = showIcon ? `rds-card--icon-${iconName}` : '';
+    const iconNameClass = showIcon ? `rds-card--icon-${changeIcon}` : '';
     const combinedClass = `${baseClass} ${stateClass} ${styleClass} ${layoutClass} ${indicatorClass} ${titleClass} ${subtextClass} ${descriptionClass} ${iconClass} ${iconNameClass}`.trim();
     
     return className ? `${combinedClass} ${className}` : combinedClass;
@@ -68,11 +68,11 @@ const RdsCard: React.FC<RdsCardProps> = ({
     if (!showIcon) return null;
     
     const iconProps = {
-      className: `rds-card__icon rds-card__icon--${iconName}`,
+      className: `rds-card__icon rds-card__icon--${changeIcon}`,
     };
 
     const getIconComponent = () => {
-      switch (iconName) {
+      switch (changeIcon) {
         case 'person': return <Person />;
         case 'home': return <Home />;
         case 'settings': return <Settings />;
@@ -113,17 +113,17 @@ const RdsCard: React.FC<RdsCardProps> = ({
   };
 
   const renderCardContent = () => {
-    // If cardTitle, cardSubtext, or description are provided, render them with proper BEM classes
-    if (cardTitle || cardSubtext || description) {
+    // If title, cardSubtext, or description are provided, render them with proper BEM classes
+    if (title || cardSubtext || description) {
       return (
         <div className="rds-card__content">
-          {cardTitle && showTitle && (
-            <Typography 
-              variant="h5" 
+          {title && showTitle && (
+            <Typography
+              variant="h5"
               component="h2"
               className="rds-card__title"
             >
-              {cardTitle}
+              {title}
             </Typography>
           )}
           {cardSubtext && showSubtext && (
@@ -152,8 +152,8 @@ const RdsCard: React.FC<RdsCardProps> = ({
         </div>
       );
     }
-    
-    // If no cardTitle/cardSubtext/description provided, render children as-is (backward compatibility)
+
+    // If no title/cardSubtext/description provided, render children as-is (backward compatibility)
     return children;
   };
 
