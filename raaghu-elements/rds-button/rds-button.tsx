@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button as MuiButton, ButtonProps } from '@mui/material';
+import { Button as MuiButton, type ButtonProps } from '@mui/material';
 import { Add, Delete, Save } from '@mui/icons-material';
 import './rds-button.scss';
 export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
@@ -16,7 +16,7 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   inputSize?: 'small' | 'medium' | 'large';
 }
 
-const RdsButton: React.FC<RdsButtonProps> = ({
+const RdsButton = ({
   text,
   children,
   isLoading = false,
@@ -32,7 +32,7 @@ const RdsButton: React.FC<RdsButtonProps> = ({
   icon,
   inputSize = 'small',
   ...props
-}) => {
+}:RdsButtonProps) => {
   // Normalize layout prop to support Storybook options
   let normalizedLayout = layout;
   if (typeof layout === 'string') {
