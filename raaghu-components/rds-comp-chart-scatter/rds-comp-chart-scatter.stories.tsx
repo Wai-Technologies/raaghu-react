@@ -24,7 +24,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompScatterChart>;
 
-export const Standard: Story = {
+export const Default: Story = {
     args: {
         id: "Scatter_Chart",
         dataSets: [

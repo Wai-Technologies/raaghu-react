@@ -2,7 +2,6 @@
 // Toggle switch form control
 
 .rds-switch {
-
   &__track {
     // Track styles
     display: block;
@@ -47,7 +46,9 @@
 }
 .css-aqlqb4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase {
   right: 1.2rem !important;
-  // left: -0.1rem !important;
+}
+.css-aqlqb4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase:hover {
+  background-color: unset !important;
 }
 // Style 1: Default rounded, gray thumb
 .rds-switch--style1 .MuiSwitch-track {
@@ -194,4 +195,8 @@
 .rds-switch--style5 .MuiFormControlLabel-label,
 .rds-switch--style6 .MuiFormControlLabel-label {
   margin-top: 0.5rem !important;
+}
+
+.rds-switch--row > * {
+  width: auto !important;
 }

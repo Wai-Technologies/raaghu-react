@@ -5,8 +5,8 @@
   border: 1px solid var(--rds-color-border, #e0e0e0);
   border-radius: var(--rds-border-radius, 8px);
   box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
-  min-width: 420px;
-  max-width: 600px;
+  min-width: 320px;
+  max-width: 420px;
   overflow: hidden;
   
   // State visibility modifiers
@@ -59,10 +59,6 @@
   
   // Container positioning
   &__container {
-    position: fixed;
-    z-index: 9999;
-    pointer-events: none;
-    
     // Position modifiers
     &--top-left {
       top: 1rem;
@@ -424,7 +420,7 @@
     &__container {
       left: 53%;
       right: auto;
-      transform: translateX(-50%);
+      transform: translateX(-5%);
       top: var(--rds-spacing-lg, 1rem);
       margin: 0;
       width: 100vw;

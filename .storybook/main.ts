@@ -2,6 +2,7 @@ import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
   stories: [
+    '../stories/Introduction.mdx',
     '../stories/**/*.mdx',
     "../raaghu-elements/**/**/*.stories.@(js|jsx|ts|tsx)",
     "../raaghu-components/**/**/*.stories.@(js|jsx|ts|tsx)",

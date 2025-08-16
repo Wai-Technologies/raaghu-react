@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField as MuiTextField, TextFieldProps, InputAdornment } from '@mui/material';
+import { TextField as MuiTextField, type TextFieldProps, InputAdornment } from '@mui/material';
 import './rds-input.scss';
 
 export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' | 'size'> {
