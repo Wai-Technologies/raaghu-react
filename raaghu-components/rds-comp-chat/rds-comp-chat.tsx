@@ -11,14 +11,7 @@ import {
 import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 import RdsCompNavtabs from "../rds-comp-navtabs/rds-comp-navtabs";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
-
-export interface Comment {
-  firstName: string;
-  lastName: string;
-  comment: string;
-  image?: string;
-  video?: string;
-}
+import { startCamera, stopCamera, capturePhoto, Comment, updateState, onUserSelect, addComment, handleAddComment as handleAddCommentUtil, handleImageUpload as handleImageUploadUtil } from "./rds-comp-chat-utils";
 
 export interface UserData {
   firstName: string;
@@ -68,17 +61,15 @@ const RdsCompChat = (props: RdsCompChatProps) => {
   const [currentUser, setCurrentUser] = useState(props.userData[0]);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const emojiButtonRef = useRef<HTMLSpanElement>(null);
   const emojiPickerRef = useRef<HTMLDivElement>(null);
 
-  const updateState = (updates: Partial<typeof state>) => 
-    setState(prev => ({ ...prev, ...updates }));
+  const updateStateFn = updateState(setState);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target as Node)) {
-        updateState({ showEmojiPicker: false });
+        updateStateFn({ showEmojiPicker: false });
       }
     };
     if (state.showEmojiPicker) {
@@ -87,83 +78,16 @@ const RdsCompChat = (props: RdsCompChatProps) => {
     }
   }, [state.showEmojiPicker]);
 
-  const onUserSelect = (index: number) => {
-    if (index >= 0 && index < props.userData.length) {
-      setCurrentUser(props.userData[index]);
-      updateState({ 
-        commentList: props.userData[index].comments || [], 
-        selectedIndex: index 
-      });
-    }
-  };
-
-  const addComment = (newComment: Comment) => {
-    const updatedComments = [...state.commentList, newComment];
-    updateState({ commentList: updatedComments });
-    props.handleAddComment?.(newComment);
+  const handleUserSelect = (index: number) => {
+    onUserSelect(index, props, setCurrentUser, updateStateFn);
   };
 
   const handleAddComment = () => {
-    if (state.commentText.trim()) {
-      addComment({
-        firstName: currentUser.firstName,
-        lastName: currentUser.lastName,
-        comment: state.commentText,
-      });
-      updateState({ commentText: "" });
-    }
+    handleAddCommentUtil(state, currentUser, (comment: Comment) => addComment(comment, state, updateStateFn, props.handleAddComment), updateStateFn);
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file?.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        addComment({
-          firstName: currentUser.firstName,
-          lastName: currentUser.lastName,
-          comment: "",
-          image: reader.result as string,
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const startCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play();
-      }
-      return stream;
-    } catch (error) {
-      console.error("Camera error:", error);
-    }
-  };
-
-  const stopCamera = () => {
-    const stream = videoRef.current?.srcObject as MediaStream;
-    stream?.getTracks().forEach(track => track.stop());
-  };
-
-  const capturePhoto = () => {
-    if (canvasRef.current && videoRef.current) {
-      const context = canvasRef.current.getContext("2d");
-      canvasRef.current.width = videoRef.current.videoWidth;
-      canvasRef.current.height = videoRef.current.videoHeight;
-      context?.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
-      
-      addComment({
-        firstName: currentUser.firstName,
-        lastName: currentUser.lastName,
-        comment: "",
-        image: canvasRef.current.toDataURL("image/png"),
-      });
-      updateState({ showCamera: false });
-      stopCamera();
-    }
+    handleImageUploadUtil(event, currentUser, (comment: Comment) => addComment(comment, state, updateStateFn, props.handleAddComment));
   };
 
   const navTabsItems = [
@@ -189,7 +113,7 @@ const RdsCompChat = (props: RdsCompChatProps) => {
                 className={`d-flex align-items-center justify-content-between my-2 mx-1 p-2 rds-comp-chat__user-item ${
                   state.selectedIndex === index ? "rds-comp-chat__user-item--selected" : ""
                 }`}
-                onClick={() => onUserSelect(index)}
+                onClick={() => handleUserSelect(index)}
               >
                 <div className="d-flex align-items-center">
                   <RdsAvatar
@@ -226,13 +150,7 @@ const RdsCompChat = (props: RdsCompChatProps) => {
           </div>
           <div className="rds-comp-chat__window-header-options justify-content-between">
             <span>
-              <RdsCompNavtabs
-                layout="Horizontal"
-                type="tabs"
-                id="chat"
-                activeNavTabId="chat"
-                navtabsItems={navTabsItems}
-              />
+              <RdsCompNavtabs layout="Horizontal" type="tabs" id="chat" activeNavTabId="chat" navtabsItems={navTabsItems} />
             </span>
             <span><MoreIcon /></span>
           </div>
@@ -242,11 +160,7 @@ const RdsCompChat = (props: RdsCompChatProps) => {
           {state.commentList.map((comment, index) => {
             const isCurrentUser = comment.firstName === currentUser.firstName && comment.lastName === currentUser.lastName;
             return (
-              <div
-                key={index}
-                className={`comment-box rds-comp-chat__message ${
-                  isCurrentUser ? "rds-comp-chat__message--current-user" : "rds-comp-chat__message--other-user"
-                }`}
+              <div key={index} className={`comment-box rds-comp-chat__message ${ isCurrentUser ? "rds-comp-chat__message--current-user" : "rds-comp-chat__message--other-user" }`}
               >
                 <div className={`d-flex ${isCurrentUser ? "flex-row-reverse" : ""}`}>
                   <div
@@ -282,17 +196,11 @@ const RdsCompChat = (props: RdsCompChatProps) => {
           </span>
           <input id="fileUpload" type="file" accept="image/*" style={{ display: "none" }} onChange={handleImageUpload} />
           <span className="me-2 mt-2" ref={emojiButtonRef}>
-            <EmojiIcon onClick={() => updateState({ showEmojiPicker: !state.showEmojiPicker })} />
+            <EmojiIcon onClick={() => updateStateFn({ showEmojiPicker: !state.showEmojiPicker })} />
           </span>
           <span className="w-100 d-flex input-box-chat">
             <span className="w-100 position-relative rds-comp-chat__input-send mt-2">
-              <RdsInput
-                layout="text"
-                placeholder="Type comment..."
-                showTitle={false}
-                size="small"
-                onChange={(e) => updateState({ commentText: e.target.value })}
-              />
+              <RdsInput layout="text" placeholder="Type comment..." showTitle={false} size="small" onChange={(e) => updateStateFn({ commentText: e.target.value })} />
               <span className="position-absolute end-0 top-50 translate-middle-y pe-2 pb-2">
                 <SendIcon onClick={handleAddComment} />
               </span>
@@ -304,8 +212,21 @@ const RdsCompChat = (props: RdsCompChatProps) => {
       {state.showCamera && (
         <div className="rds-comp-chat__camera-modal">
           <video ref={videoRef} className="rds-comp-chat__video-feed" />
-          <button onClick={capturePhoto}>Capture Photo</button>
-          <button onClick={() => { updateState({ showCamera: false }); stopCamera(); }}>Close</button>
+          <button
+            onClick={() =>
+              capturePhoto(
+                canvasRef,
+                videoRef,
+                (comment: Comment) => addComment(comment, state, updateStateFn, props.handleAddComment),
+                currentUser,
+                updateStateFn,
+                () => stopCamera(videoRef)
+              )
+            }
+          >
+            Capture Photo
+          </button>
+          <button onClick={() => { updateStateFn({ showCamera: false }); stopCamera(videoRef); }}>Close</button>
           <canvas ref={canvasRef} style={{ display: "none" }} />
         </div>
       )}
