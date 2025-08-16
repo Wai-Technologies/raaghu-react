@@ -4,6 +4,7 @@ export {default as RdsCompColorPicker} from './rds-comp-color-picker/rds-comp-co
 export {default as RdsCompToast} from './rds-comp-toast/rds-comp-toast';
 export {default as RdsCompScrollbar} from './rds-comp-scrollbar/rds-comp-scrollbar';
 export {default as RdsCompTruncatedText} from './rds-comp-truncate-text/rds-comp-truncate-text';
+export {default as RdsCompOffcanvas} from './rds-comp-off-canvas/rds-comp-off-canvas';
 export { default as RdsCompAreaChart } from "./rds-comp-chart-area/rds-comp-chart-area";
 export { default as RdsCompLineChart } from "./rds-comp-chart-line/rds-comp-chart-line";
 export { default as RdsCompPieChart } from "./rds-comp-chart-pie/rds-comp-chart-pie";
@@ -27,3 +28,4 @@ export { default as RdsCompTimePicker } from './rds-comp-time-picker/rds-comp-ti
 export { default as RdsCompToolbar } from './rds-comp-toolbar/rds-comp-toolbar';
 export { default as RdsCompTreeStructure } from './rds-comp-tree-structure/rds-comp-tree-structure';
 export { default as RdsCompDatepicker } from './rds-comp-datepicker/rds-comp-datepicker';
+export { default as RdsCompKanbanBoard, boardInfo, RdsCompKanbanBoardProps } from './rds-comp-kanban-board';

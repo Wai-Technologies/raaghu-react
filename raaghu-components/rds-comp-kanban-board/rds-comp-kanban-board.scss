@@ -1,0 +1,237 @@
+// Dropdown positioning for button groups
+.btn-group.dropstart {
+  position: relative;
+}
+
+.dropdown-menu.dropdown-adjusted.dropdown-right {
+  position: absolute;
+  left: 0 !important;
+  top: 100% !important;
+}
+
+// Main kanban board styles
+.kanban-board {
+  font-family: poppins !important;
+  width: 300px !important;
+  min-width: 300px !important;
+  max-width: 300px !important;
+  margin-right: 20px !important;
+
+  .card {
+    padding: 5px !important;
+    min-height: 600px !important;
+    border: 1px solid #D4BBFF;
+  }
+
+  .card-header {
+    background-color: #ebdcff !important;
+    min-height: 35px !important;
+    height: 35px !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    border-bottom: 1px solid #D4BBFF !important;
+    padding-left: 18px !important;
+    padding-right: 8px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px;
+  }
+
+  .card-body {
+    padding: 0px 12px !important;
+  }
+
+  .pt-3 {
+    padding-top: 8px !important;
+  }
+
+  .btn-sm svg {
+    stroke-width: inherit !important;
+    /* fill: none !important; */
+    display: flex;
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .btn-group {
+    margin-top: -4px !important;
+  }
+
+  ul {
+    min-width: 125px !important;
+    padding: 6px 0px;
+    border-color: #ebdcff !important;
+  }
+
+  .sub-card {
+    .card-header {
+      background-color: transparent !important;
+      min-height: 35px !important;
+      height: 35px !important;
+      display: flex !important;
+      align-items: center !important;
+      flex-direction: row !important;
+      border-bottom: 1px solid #D4BBFF !important;
+      padding-left: 18px !important;
+      padding-right: 8px !important;
+      font-size: 15px !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.5px;
+    }
+
+    .card {
+      padding: 0px !important;
+      background: var(--Background-bg-primary-lighter-default);
+      border-radius: 0px !important;
+      min-height: 133.6px !important;
+    }
+
+    .card-body {
+      padding: 0px 15px !important;
+    }
+
+    .card-body-font {
+      font-size: small !important;
+    }
+  }
+}
+
+// Priority button styling
+.priority-btn {
+  .custom-badge {
+    border-color: #904cec !important;
+    background-color: transparent !important;
+    color: #904cec !important;
+    border: 1px solid #904cec !important;
+  }
+
+  .small {
+    font-size: 0.65rem !important;
+  }
+}
+
+// Font size utilities
+.f-12 {
+  font-size: 12px !important;
+}
+
+.f-14 {
+  font-size: 14px !important;
+}
+
+.f-16 {
+  font-size: 16px !important;
+}
+
+// Font weight utilities
+.fw-400 {
+  font-weight: 400 !important;
+}
+
+.fw-500 {
+  font-weight: 500 !important;
+}
+
+// Text truncation
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 265px;
+  display: inline-block;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+
+.truncate-text:hover {
+  max-width: 130px;
+}
+
+// Add item button styling - exact match to original
+.add-item-btn {
+  margin: 6px 0px !important;
+
+  .btn {
+    width: 100% !important;
+    border: 1px solid #904cec !important;
+    color: #904cec !important;
+    text-transform: none;
+  }
+  
+  svg {
+    stroke-width: inherit !important;
+    fill: none !important;
+    display: flex;
+    width: 16px !important;
+    height: 16px !important;
+    stroke: #904cec !important;
+  }
+
+
+// Button margin utility
+.btn-margin {
+  margin: 20px 0px 6px 0px !important;
+}
+
+// Add board section styling - exact match to original
+.add-board {
+  width: 300px !important;
+  height: 600px !important;
+  background-color: #fff;
+  border: 1px dashed #D4BBFF;
+  border-radius: 0.5rem !important;
+}
+
+.add-board-btn {
+  padding: 0px 6px !important;
+}
+
+.margin-top-5 {
+  margin-top: -5px !important;
+}
+
+// Override Material-UI card border radius
+.kanban-board .card {
+  border-radius: 0px;
+}
+
+// Drag and drop specific styling
+.sub-cards-container {
+  min-height: 50px;
+  padding: 0px 8px 8px 8px;
+}
+
+.sub-card {
+  transition: background-color 0.2s ease;
+  cursor: grab;
+
+  &.dragging {
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+// Override Material-UI card border radius
+.kanban-board .card {
+  border-radius: 0px;
+}
+
+// Responsive adjustments
+@media (max-width: 600px) {
+  .add-board {
+    width: 100% !important;
+    min-width: 280px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .kanban-board .MuiCard-root {
+    min-height: 500px !important;
+  }
+}
+}
