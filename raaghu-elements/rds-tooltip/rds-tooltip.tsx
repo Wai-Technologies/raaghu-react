@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tooltip as MuiTooltip, TooltipProps } from '@mui/material';
+import { Tooltip as MuiTooltip, type TooltipProps } from '@mui/material';
 import clsx from 'clsx';
 import './rds-tooltip.scss';
 export interface RdsTooltipProps extends  Omit<TooltipProps,'style'> {
@@ -23,7 +23,7 @@ export interface RdsTooltipProps extends  Omit<TooltipProps,'style'> {
   arrow?: boolean;
 }
 
-const RdsTooltip: React.FC<RdsTooltipProps> = ({
+const RdsTooltip= ({
   children,
   label,
   style = 'top',
@@ -32,7 +32,7 @@ const RdsTooltip: React.FC<RdsTooltipProps> = ({
   tooltipStyle,
   arrow = false,
   ...props
-}) => {
+}:RdsTooltipProps) => {
   // Compose BEM class for position
   const tooltipClass = clsx(
     'rds-tooltip',

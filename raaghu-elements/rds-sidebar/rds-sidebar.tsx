@@ -6,7 +6,7 @@ import {
   ListItemButton, 
   ListItemIcon, 
   ListItemText,
-  DrawerProps
+  type DrawerProps
 } from '@mui/material';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
@@ -36,7 +36,7 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children'> {
   avatarCollapsedSrc?: string;
 }
 
-const RdsSidebar: React.FC<RdsSidebarProps> = ({
+const RdsSidebar = ({
   items,
   isOpen,
   onClose,
@@ -47,7 +47,7 @@ const RdsSidebar: React.FC<RdsSidebarProps> = ({
   avatarSrc,
   avatarCollapsedSrc,
   ...props
-}) => {
+}:RdsSidebarProps) => {
   const [searchValue, setSearchValue] = React.useState("");
 
   // Derived state for sidebar appearance

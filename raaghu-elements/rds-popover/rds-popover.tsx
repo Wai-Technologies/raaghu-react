@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Popover as MuiPopover, 
-  PopoverProps, 
+  type PopoverProps, 
   Box,
   Typography,
   IconButton 
@@ -21,7 +21,7 @@ export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children'>
   position?: 'top-left' | 'top-center' | 'top-right' | 'right-top' | 'right-center' | 'right-bottom' | 'bottom-right' | 'bottom-center' | 'bottom-left' | 'left-bottom' | 'left-center' | 'left-top' | 'no-arrow';
 }
 
-const RdsPopover: React.FC<RdsPopoverProps> = ({
+const RdsPopover= ({
   isOpen,
   onClose,
   anchorEl,
@@ -32,7 +32,7 @@ const RdsPopover: React.FC<RdsPopoverProps> = ({
   maxWidth = 400,
   position = 'bottom-left',
   ...props
-}) => {
+}:RdsPopoverProps) => {
   // Position mapping for anchor and transform origins
   const positionMap: Record<string, {
     anchorOrigin: { vertical: 'top' | 'center' | 'bottom'; horizontal: 'left' | 'center' | 'right' };

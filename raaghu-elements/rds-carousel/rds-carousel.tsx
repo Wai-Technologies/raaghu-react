@@ -17,7 +17,7 @@ export interface RdsCarouselProps {
   subtitles?: string[]; // Optional subtitles for 'with title' style
 }
 
-const RdsCarousel: React.FC<RdsCarouselProps> = ({
+const RdsCarousel = ({
   children,
   autoPlay = false,
   autoPlayInterval = 3000,
@@ -29,7 +29,7 @@ const RdsCarousel: React.FC<RdsCarouselProps> = ({
   style = 'default',
   titles = [],
   subtitles = [],
-}) => {
+}:RdsCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const theme = useTheme();
 
