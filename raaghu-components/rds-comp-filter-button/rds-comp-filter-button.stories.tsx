@@ -11,30 +11,10 @@ const meta: Meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    size: {
-      options: ['small', 'medium', 'large'],
-      control: { type: 'select' },
-      description: 'Size of the filter button',
-    },
     shape: {
       options: ['rectangle', 'pill'],
       control: { type: 'select' },
       description: 'Shape of the filter button',
-    },
-    state: {
-      options: ['default', 'hover', 'disabled', 'selected'],
-      control: { type: 'select' },
-      description: 'Visual state of the button',
-    },
-    layout: {
-      options: ['icon+text', 'icon-only', 'text-only'],
-      control: { type: 'select' },
-      description: 'Layout of the button content',
-    },
-    style: {
-      options: ['filled', 'outlined', 'transparent'],
-      control: { type: 'select' },
-      description: 'Visual style of the button',
     },
     text: {
       control: 'text',
@@ -48,9 +28,30 @@ const meta: Meta = {
       control: 'boolean',
       description: 'Whether to show the right icon',
     },
+    leftIcon: {
+      control: false,
+    },
+    rightIcon: {
+      control: false,
+    },
+    filters: {
+      control: false,
+    },
+    onFiltersChange: {
+      control: false,
+    },
+    onApply: {
+      control: false,
+    },
+    onClear: {
+      control: false,
+    },
     disabled: {
       control: 'boolean',
       description: 'Whether the button is disabled',
+    },
+    className: {
+      control: false,
     },
   },
 } satisfies Meta<typeof RdsCompFilterButton>;
@@ -99,11 +100,7 @@ const sampleFilters: FilterOption[] = [
 
 export const Default: Story = {
   args: {
-    size: 'medium',
     shape: 'rectangle',
-    state: 'default',
-    layout: 'icon+text',
-    style: 'filled',
     text: 'Filter',
     showLeftIcon: true,
     showRightIcon: true,
@@ -118,5 +115,5 @@ export const Default: Story = {
 } satisfies Story;
 
 Default.parameters = {
-  controls: { include: ['size', 'shape', 'state', 'layout', 'style', 'text', 'showLeftIcon', 'showRightIcon', 'disabled', 'filters', 'leftIcon', 'rightIcon'] },
+  controls: { include: ['shape', 'text', 'showLeftIcon', 'showRightIcon', 'disabled'] },
 };

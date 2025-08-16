@@ -14,7 +14,7 @@ import {
 import { Circle, ExpandMore, Margin } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import './rds-comp-filter-button.scss';
-import { RdsPopover } from '../../raaghu-elements';
+
 
 export interface FilterOption {
   id: string;
@@ -24,11 +24,7 @@ export interface FilterOption {
 }
 
 export interface RdsCompFilterButtonProps {
-  size?: 'small' | 'medium' | 'large';
   shape?: 'rectangle' | 'pill';
-  state?: 'default' | 'hover' | 'disabled' | 'selected';
-  layout?: 'icon+text' | 'icon-only' | 'text-only';
-  style?: 'filled' | 'outlined' | 'transparent';
   text?: string;
   showLeftIcon?: boolean;
   showRightIcon?: boolean;
@@ -43,11 +39,7 @@ export interface RdsCompFilterButtonProps {
 }
 
 const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
-  size = 'medium',
   shape = 'rectangle',
-  state = 'default',
-  layout = 'icon+text',
-  style = 'filled',
   text = 'Filter',
   showLeftIcon = true,
   showRightIcon = true,
@@ -124,11 +116,10 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
       <RdsButton
         ref={buttonRef}
         text={buttonText}
-        size={size}
+        size={'medium'}
         shape={shape}
-        state={state}
-        layout={layout}
-        style={style}
+        layout={'icon+text'}
+        style={'filled'}
         disabled={disabled}
         startIcon={showLeftIcon ? leftIcon : undefined}
         endIcon={showRightIcon ? rightIcon : undefined}
