@@ -21,7 +21,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsCompDoughnutChart>;
 
-export const Standard: Story = {
+export const Default: Story = {
     args: {
         id: "myChart",
         titleText: "35 k",
