@@ -1,0 +1,35 @@
+
+.rds-comp-filter-button {
+  position: relative;
+  display: inline-block;
+
+  .rds-filter-button__trigger {
+    transition: all 0.2s ease-in-out;
+    
+    &--open {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      margin-bottom: 10px;
+    }
+  }
+
+
+
+  .rds-filter-button__content {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+  
+    
+  }
+
+
+
+
+}
+
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-h4boo0-MuiPaper-root-MuiPopover-paper {
+    position: absolute !important;
+    top: 50px !important;
+    left: 25px !important;
+  }
+ 
