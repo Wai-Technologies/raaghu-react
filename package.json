@@ -24,6 +24,8 @@
     "pages:preview": "powershell -c \"$pagesDir = Get-ChildItem -Directory -Name '*-pages' | Select-Object -First 1; if ($pagesDir) { Set-Location $pagesDir; npm run preview } else { Write-Host 'No *-pages directory found' }\""
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@figma/code-connect": "^1.3.4",

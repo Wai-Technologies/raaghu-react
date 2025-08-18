@@ -106,7 +106,9 @@ const RdsGrid = (props: RdsGridProps) => {
   const [filterValues, setFilterValues] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(props.state === State.Collpsed);
-  const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
+    const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
+    // Default resizableColumns to false if not provided
+    const resizableColumns = props.resizableColumns ?? false;
   const [resizingColumn, setResizingColumn] = useState<string | null>(null);
   const [startX, setStartX] = useState<number>(0);
   const [startWidth, setStartWidth] = useState<number>(0);
@@ -180,32 +182,48 @@ const RdsGrid = (props: RdsGridProps) => {
   };
 
   // Resizable columns
+  // Use refs for mouse events to avoid stale closures
+  const resizingRef = useRef<string | null>(null);
+  const startXRef = useRef<number>(0);
+  const startWidthRef = useRef<number>(0);
+
   const handleResizeStart = (e: React.MouseEvent<HTMLDivElement>, key: string) => {
-    if (!props.resizableColumns) return;
+    const header = headers.find(h => h.key === key);
+    if (!resizableColumns || !header?.resizable) return;
     e.preventDefault();
-    setResizingColumn(key);
-    setStartX(e.clientX);
-    setStartWidth(columnWidths[key] || 150);
-    document.addEventListener('mousemove', handleResizeMove as any);
-    document.addEventListener('mouseup', handleResizeEnd as any);
+    resizingRef.current = key;
+    startXRef.current = e.clientX;
+    startWidthRef.current = columnWidths[key] || 150;
+    document.body.style.cursor = 'col-resize';
+    document.addEventListener('mousemove', handleResizeMove);
+    document.addEventListener('mouseup', handleResizeEnd);
   };
-  const handleResizeMove = useCallback((e: MouseEvent) => {
-    if (!resizingColumn) return;
-    const diff = e.clientX - startX;
-    const newWidth = Math.max(100, startWidth + diff);
-    setColumnWidths((prev) => ({ ...prev, [resizingColumn!]: newWidth }));
-  }, [resizingColumn, startX, startWidth]);
-  const handleResizeEnd = useCallback(() => {
-    setResizingColumn(null);
-    document.removeEventListener('mousemove', handleResizeMove as any);
-    document.removeEventListener('mouseup', handleResizeEnd as any);
-  }, [handleResizeMove]);
+
+  const handleResizeMove = (e: MouseEvent) => {
+    const key = resizingRef.current;
+    if (!key) return;
+    const diff = e.clientX - startXRef.current;
+    const newWidth = Math.max(100, startWidthRef.current + diff);
+    setColumnWidths(prev => {
+      // Only update the currently resizing column
+      return { ...prev, [key]: newWidth };
+    });
+  };
+
+  const handleResizeEnd = () => {
+    resizingRef.current = null;
+    document.body.style.cursor = '';
+    document.removeEventListener('mousemove', handleResizeMove);
+    document.removeEventListener('mouseup', handleResizeEnd);
+  };
+
   useEffect(() => {
     return () => {
-      document.removeEventListener('mousemove', handleResizeMove as any);
-      document.removeEventListener('mouseup', handleResizeEnd as any);
+      document.removeEventListener('mousemove', handleResizeMove);
+      document.removeEventListener('mouseup', handleResizeEnd);
+      document.body.style.cursor = '';
     };
-  }, [handleResizeMove, handleResizeEnd]);
+  }, []);
 
   // Collapse toggle
   const toggleCollapse = () => setIsCollapsed((prev) => !prev);
@@ -308,44 +326,64 @@ const RdsGrid = (props: RdsGridProps) => {
                       <TableCell className={clsx('rds-grid__th', 'rds-grid__cell')} style={{ width: 48, minWidth: 48, background: '#f7fafd', borderRight: '1px solid #e0e0e0' }} />
                       <TableCell className={clsx('rds-grid__th', 'rds-grid__cell')} style={{ width: 48, minWidth: 48, background: '#f7fafd', borderRight: '1px solid #e0e0e0' }} />
                       {headers.map((header, idx) => {
-                        const colWidth = header.dataLength ? header.dataLength * 5 : 150;
-                        return (
-                          <Draggable key={header.key} draggableId={header.key} index={idx}>
-                            {(dragProvided, dragSnapshot) => (
-                              <TableCell
-                                ref={dragProvided.innerRef}
-                                {...dragProvided.draggableProps}
-                                style={{
-                                  ...dragProvided.draggableProps.style,
-                                  fontWeight: header.isBold ? 'bold' : 'normal',
-                                  fontSize: '1rem',
-                                  color: '#222',
-                                  textAlign: 'left',
-                                  borderRight: idx < headers.length - 1 ? '1px solid #e0e0e0' : 'none',
-                                  background: dragSnapshot.isDragging ? '#e3f2fd' : '#f7fafd',
-                                  minWidth: colWidth,
-                                  width: colWidth,
-                                  padding: '12px 16px',
-                                  cursor: header.sortable ? 'pointer' : 'default',
-                                }}
-                              >
-                                <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                                  <span {...dragProvided.dragHandleProps} style={{ cursor: 'grab', color: '#1976d2', marginRight: 4 }}>≡</span>
-                                  {header.displayName}
-                                  {header.required && <span style={{ color: '#e53935', marginLeft: 4 }}>*</span>}
-                                  {header.sortable && (
-                                    <TableSortLabel
-                                      active={sortColumn === header.key}
-                                      direction={sortColumn === header.key ? sortOrder : 'asc'}
-                                      onClick={() => handleSort(header.key)}
-                                      sx={{ marginLeft: 1 }}
-                                    />
-                                  )}
-                                </span>
-                              </TableCell>
-                            )}
-                          </Draggable>
-                        );
+                        // Use columnWidths if set, else fallback to dataLength or default
+                        const colWidth = columnWidths[header.key] ?? (header.dataLength ? header.dataLength * 5 : 150);
+                        const isResizable = resizableColumns && header.resizable;
+                         return (
+                           <Draggable key={header.key} draggableId={header.key} index={idx}>
+                             {(dragProvided, dragSnapshot) => (
+                               <TableCell
+                                 ref={dragProvided.innerRef}
+                                 {...dragProvided.draggableProps}
+                                 className={clsx('rds-grid__th', 'rds-grid__cell', { 'rds-grid__th--resizable': isResizable })}
+                                 style={{
+                                   ...dragProvided.draggableProps.style,
+                                   fontWeight: header.isBold ? 'bold' : 'normal',
+                                   fontSize: '1rem',
+                                   color: '#222',
+                                   textAlign: 'left',
+                                   borderRight: idx < headers.length - 1 ? '1px solid #e0e0e0' : 'none',
+                                   background: dragSnapshot.isDragging ? '#e3f2fd' : '#f7fafd',
+                                   minWidth: colWidth,
+                                   width: colWidth,
+                                   padding: '12px 16px',
+                                   cursor: header.sortable ? 'pointer' : 'default',
+                                   position: 'relative',
+                                 }}
+                               >
+                                 <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                                   <span {...dragProvided.dragHandleProps} style={{ cursor: 'grab', color: '#1976d2', marginRight: 4 }}>≡</span>
+                                   {header.displayName}
+                                   {header.required && <span style={{ color: '#e53935', marginLeft: 4 }}>*</span>}
+                                   {header.sortable && (
+                                     <TableSortLabel
+                                       active={sortColumn === header.key}
+                                       direction={sortColumn === header.key ? sortOrder : 'asc'}
+                                       onClick={() => handleSort(header.key)}
+                                       sx={{ marginLeft: 1 }}
+                                     />
+                                   )}
+                                 </span>
+                                 {/* Pixel-perfect resizer indicator and handle at bottom-right if enabled */}
+                                 {isResizable && (
+                                   <span style={{ position: 'absolute', right: 0, bottom: 0, zIndex: 2, display: 'flex', alignItems: 'flex-end', height: '20px', width: '20px', pointerEvents: 'none' }}>
+                                     {/* Crisp angled lines icon for resizable indicator */}
+                                     <svg width="20" height="20" viewBox="0 0 20 20" style={{ display: 'block', pointerEvents: 'none' }}>
+                                       <line x1="8" y1="18" x2="18" y2="8" stroke="#888" strokeWidth="2" />
+                                       <line x1="12" y1="18" x2="18" y2="12" stroke="#888" strokeWidth="2" />
+                                     </svg>
+                                     {/* Enlarged invisible handle for easier interaction */}
+                                     <div
+                                       className="rds-grid__column-resizer"
+                                       onMouseDown={e => handleResizeStart(e, header.key)}
+                                       style={{ position: 'absolute', right: 0, bottom: 0, width: 20, height: 20, cursor: 'col-resize', zIndex: 3, background: 'transparent', pointerEvents: 'auto' }}
+                                     />
+                                   </span>
+                                 )}
+                               </TableCell>
+                             )}
+                           </Draggable>
+                         );
                       })}
                       {provided.placeholder}
                     </TableRow>
@@ -405,9 +443,21 @@ const RdsGrid = (props: RdsGridProps) => {
                               <Radio checked={false} size="small" style={{ color: '#42a5f5' }} />
                             </TableCell>
                             {headers.map((header, colIdx) => (
-                              <TableCell key={`cell-${rowIdx}-${colIdx}`} className="rds-grid__cell rds-grid__cell--compact" style={{ padding: '10px 16px', borderRight: colIdx < headers.length - 1 ? '1px solid #e0e0e0' : 'none', background: '#fff', fontSize: '0.95rem', color: '#222', textAlign: 'left' }}>
-                                {row[header.key]}
-                              </TableCell>
+                               <TableCell
+                                 key={`cell-${rowIdx}-${colIdx}`}
+                                 className="rds-grid__cell rds-grid__cell--compact"
+                                 style={{
+                                   minWidth: columnWidths[header.key] ?? (header.dataLength ? header.dataLength * 5 : 150),
+                                   width: columnWidths[header.key] ?? (header.dataLength ? header.dataLength * 5 : 150),
+                                   padding: '10px 16px',
+                                   borderRight: colIdx < headers.length - 1 ? '1px solid #e0e0e0' : 'none',
+                                   background: '#fff',
+                                   textAlign: 'left',
+                                   position: 'relative',
+                                 }}
+                               >
+                                 {row[header.key]}
+                               </TableCell>
                             ))}
                           </TableRow>
                         )}

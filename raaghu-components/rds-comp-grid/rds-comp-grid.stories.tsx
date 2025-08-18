@@ -23,6 +23,7 @@ export const Standard: Story = {
 	 args: {
 		 showHeader: true,
 		 showSubHeader: true,
+	resizableColumns: false,
 		 state: State.Default,
 		 tableHeaders: [
 			 {
@@ -42,6 +43,7 @@ export const Standard: Story = {
 				 filter: true,
 				 key: 'author',
 				 required: true,
+          resizable: true,
 				 sortable: true
 			 },
 			 {
@@ -51,6 +53,7 @@ export const Standard: Story = {
 				 filter: true,
 				 key: 'year',
 				 required: true,
+          resizable: true,
 				 sortable: true
 			 },
 			 {
@@ -60,6 +63,7 @@ export const Standard: Story = {
 				 filter: true,
 				 key: 'publisher',
 				 required: true,
+          resizable: true,
 				 sortable: true
 			 },
 			 {
@@ -69,6 +73,7 @@ export const Standard: Story = {
 				 filter: true,
 				 key: 'status',
 				 required: true,
+          resizable: true,
 				 sortable: true
 			 },
 			 {
@@ -78,6 +83,7 @@ export const Standard: Story = {
 				 filter: true,
 				 key: 'value',
 				 required: true,
+          resizable: true,
 				 sortable: true
 			 }
 		 ],
