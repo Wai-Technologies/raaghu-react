@@ -1,7 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import { Drawer, Box, Typography } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import { useTranslation } from "react-i18next";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import RdsIconButton from "../../raaghu-elements/rds-icon-button/rds-icon-button";
 import "./rds-comp-off-canvas.scss";
@@ -46,7 +45,6 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
   showTertiaryButton = false,
   ...props
 }) => {
-  const { t } = useTranslation();
   const [internalOpen, setInternalOpen] = useState(false);
   const drawerOpen = internalOpen;
   const handleOpen = () => {
@@ -135,7 +133,7 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
                 </Typography>
               )}
               <span className="close" id="close-btn">
-                <RdsIconButton onClick={handleClose} tooltip={t("Close") || "Close"}
+                <RdsIconButton onClick={handleClose} tooltip={"Close"}
                   sx={{ padding: '8px',border: '1px solid transparent',borderRadius: '5px',transition: 'all 0.2s ease-in-out','&:hover': {backgroundColor: 'aliceblue',borderRadius: '5px',
                     }
                   }}
