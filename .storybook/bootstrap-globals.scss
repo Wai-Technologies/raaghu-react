@@ -1,14 +1,1 @@
-// Bootstrap imports
-@import "bootstrap/dist/css/bootstrap.min.css";
 
-// Custom Bootstrap overrides can go here
-// You can add any custom styles or overrides if needed in the future
-
-// Fix for Bootstrap icons if they're not showing correctly
-.bi::before {
-  display: inline-block;
-  content: "";
-  vertical-align: -.125em;
-  background-repeat: no-repeat;
-  background-size: 1rem 1rem;
-}
