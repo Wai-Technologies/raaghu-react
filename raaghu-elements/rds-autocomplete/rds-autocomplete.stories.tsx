@@ -43,12 +43,17 @@ const meta: Meta<typeof RdsAutocomplete> = {
       control: 'text',
       description: 'Label for the autocomplete input',
     },
+    showTitle: {
+      control: 'boolean',
+      description: 'Show or hide the title/label',
+      defaultValue: true,
+    },
     isMandatory: {
       name: 'IsMandatory',
       control: 'boolean',
       description: 'Show asterisk for required field',
     },
-    showHint: {
+    showHintText: {
       control: 'boolean',
       defaultValue: true,    
       description: 'Toggle to show or hide hint text'
@@ -106,7 +111,7 @@ export const Default: Story = {
     label: 'Choose an option',
     isMandatory: true,
     placeholder: 'Start typing...',
-    showHint: true,
+    showHintText: true,
     selectSize: 'medium',
     helperText: 'Select one of the available options',
     controlStyle: 'default',
@@ -125,7 +130,7 @@ export const WithHelperText: Story = {
     isMandatory: true,
     placeholder: 'Start typing...',
     helperText: 'Select one of the available options',
-    showHint: true,
+    showHintText: true,
     isShowCheckbox: false,
     isShowRadio: false,
     isShowUser: false,

@@ -1,6 +1,6 @@
 import React from 'react';
 import './rds-avatar.scss';
-import { Avatar as MuiAvatar, AvatarProps } from '@mui/material';
+import { Avatar as MuiAvatar, type AvatarProps } from '@mui/material';
 
 export interface RdsAvatarProps extends AvatarProps {
   /** Color variant for activity ring and dot */
@@ -29,7 +29,7 @@ const sizeStyles = {
   large: { width: 56, height: 56, fontSize: 28 }
 };
 
-const RdsAvatar: React.FC<RdsAvatarProps> = ({
+const RdsAvatar = ({
   colorVariant = 'primary',
   name,
   designation,
@@ -44,7 +44,7 @@ const RdsAvatar: React.FC<RdsAvatarProps> = ({
   showName = true,
   showDesignation = true,
   ...props
-}) => {
+}:RdsAvatarProps) => {
 
   if (displayStyle === 'stacking' && avatars && avatars.length > 0) {
     return (
