@@ -43,5 +43,5 @@ const canvasRef = useRef<HTMLCanvasElement | null>(null);
         </div>
     );
 };
-
+RdsCompMixedChart.displayName = 'RdsCompMixedChart';
 export default RdsCompMixedChart;

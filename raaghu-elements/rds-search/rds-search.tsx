@@ -163,5 +163,5 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
     </div>
   );
 };
-
+RdsSearch.displayName = 'RdsSearch';
 export default RdsSearch;

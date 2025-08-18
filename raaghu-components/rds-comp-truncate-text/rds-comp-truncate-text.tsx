@@ -39,5 +39,5 @@ const RdsCompTruncateText: React.FC<RdsCompTruncateTextProps> = ({ text, maxLeng
     </div>
   );
 };
-
+RdsCompTruncateText.displayName = "RdsCompTruncateText";
 export default RdsCompTruncateText;

@@ -46,5 +46,5 @@ const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
         </div>
     );
 };
-
+RdsCompPolarAreaChart.displayName = 'RdsCompPolarAreaChart';
 export default RdsCompPolarAreaChart;

@@ -180,4 +180,5 @@ const RdsBreadcrumbs = ({
   );
 };
 
+RdsBreadcrumbs.displayName = 'RdsBreadcrumbs';
 export default RdsBreadcrumbs;

@@ -231,4 +231,5 @@ const RdsList: React.FC<RdsListProps> = ({
   );
 };
 
+RdsList.displayName = 'RdsList';
 export default RdsList;

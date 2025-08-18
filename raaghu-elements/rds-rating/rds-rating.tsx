@@ -103,5 +103,5 @@ const RdsRating = ({
     </div>
   );
 };
-
+RdsRating.displayName = 'RdsRating';
 export default RdsRating;

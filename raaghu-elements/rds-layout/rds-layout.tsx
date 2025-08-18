@@ -49,5 +49,5 @@ const RdsLayout: React.FC<RdsLayoutProps> = ({
     </Box>
   );
 };
-
+RdsLayout.displayName = 'RdsLayout';
 export default RdsLayout;

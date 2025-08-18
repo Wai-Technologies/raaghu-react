@@ -234,5 +234,5 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
     </div>
   );
 };
-
+RdsCompNavtabs.displayName = "RdsCompNavtabs";
 export default RdsCompNavtabs;
