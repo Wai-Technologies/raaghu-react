@@ -24,5 +24,5 @@ const RdsPaper: React.FC<RdsPaperProps> = ({
     </MuiPaper>
   );
 };
-
+RdsPaper.displayName = 'RdsPaper';
 export default RdsPaper;

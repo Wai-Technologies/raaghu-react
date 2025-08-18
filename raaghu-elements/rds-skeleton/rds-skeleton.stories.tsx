@@ -10,7 +10,12 @@ const meta: Meta<typeof RdsSkeleton> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: {
+    shape: {
+      control: 'select',
+      options: ['text', 'rectangular', 'rounded', 'circular'],
+      description: 'Shape of the skeleton block',
+    },
+    type: {
       control: 'select',
       options: ['text', 'rectangular', 'rounded', 'circular'],
       description: 'Shape variant of the skeleton',
@@ -40,7 +45,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Text: Story = {
   args: {
-    variant: 'text',
+    shape: 'text',
     frames: 3,
     width: '100%',
   },
@@ -48,7 +53,7 @@ export const Text: Story = {
 
 export const Rectangular: Story = {
   args: {
-    variant: 'rectangular',
+    shape: 'rectangular',
     frames: 3,
     width: 210,
     height: 118,
@@ -57,7 +62,7 @@ export const Rectangular: Story = {
 
 export const Circular: Story = {
   args: {
-    variant: 'circular',
+    shape: 'circular',
     frames: 3,
     width: 40,
     height: 40,
@@ -66,7 +71,7 @@ export const Circular: Story = {
 
 export const Rounded: Story = {
   args: {
-    variant: 'rounded',
+    shape: 'rounded',
     frames: 3,
     width: 210,
     height: 60,
@@ -75,7 +80,7 @@ export const Rounded: Story = {
 
 export const WaveAnimation: Story = {
   args: {
-    variant: 'rectangular',
+    shape: 'rectangular',
     frames: 3,
     width: 210,
     height: 118,
@@ -85,7 +90,7 @@ export const WaveAnimation: Story = {
 
 export const NoAnimation: Story = {
   args: {
-    variant: 'rectangular',
+    shape: 'rectangular',
     frames: 3,
     width: 210,
     height: 118,

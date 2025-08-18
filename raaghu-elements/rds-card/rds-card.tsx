@@ -188,4 +188,5 @@ const RdsCard = ({
   );
 };
 
+RdsCard.displayName = 'RdsCard';
 export default RdsCard;

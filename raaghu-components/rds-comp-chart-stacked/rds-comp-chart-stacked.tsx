@@ -53,5 +53,5 @@ const RdsCompStackedChart = (props: RdsCompStackedprops) => {
         </div>
     );
 };
-
+RdsCompStackedChart.displayName = 'RdsCompStackedChart';
 export default RdsCompStackedChart;

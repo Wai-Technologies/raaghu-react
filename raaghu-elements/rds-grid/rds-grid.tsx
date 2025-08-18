@@ -18,5 +18,5 @@ const RdsGrid: React.FC<RdsGridProps> = ({
     </MuiGrid>
   );
 };
-
+RdsGrid.displayName = 'RdsGrid';
 export default RdsGrid;

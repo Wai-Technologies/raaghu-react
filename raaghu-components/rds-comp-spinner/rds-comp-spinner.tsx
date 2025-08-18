@@ -89,5 +89,5 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
         </div>
     );
 };
-
+RdsCompSpinner.displayName = "RdsCompSpinner";
 export default RdsCompSpinner;

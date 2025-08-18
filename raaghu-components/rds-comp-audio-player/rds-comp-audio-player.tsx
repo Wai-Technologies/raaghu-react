@@ -194,5 +194,5 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
     </>
   );
 };
-
+RdsCompAudioPlayer.displayName = 'RdsCompAudioPlayer';
 export default RdsCompAudioPlayer;

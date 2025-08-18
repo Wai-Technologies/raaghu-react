@@ -114,5 +114,5 @@ const RdsSelect: React.FC<RdsSelectProps> = ({
     </div>
   );
 };
-
+RdsSelect.displayName = 'RdsSelect';
 export default RdsSelect;

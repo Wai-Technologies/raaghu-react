@@ -185,4 +185,5 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
     </>
   );
 };
+RdsCompOffcanvas.displayName = "RdsCompOffcanvas";
 export default RdsCompOffcanvas;

@@ -33,5 +33,5 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         </div>
     );
 }
-
+RdsCompMap.displayName = "RdsCompMap";
 export default RdsCompMap;

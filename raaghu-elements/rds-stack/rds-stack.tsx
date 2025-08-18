@@ -24,5 +24,5 @@ const RdsStack: React.FC<RdsStackProps> = ({
     </MuiStack>
   );
 };
-
+RdsStack.displayName = 'RdsStack';
 export default RdsStack;

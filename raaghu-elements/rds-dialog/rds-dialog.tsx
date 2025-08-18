@@ -92,6 +92,6 @@ const RdsDialog: React.FC<RdsDialogProps> = ({
     </MuiDialog>
   );
 };
-
+RdsDialog.displayName = 'RdsDialog';
 export default RdsDialog;
 

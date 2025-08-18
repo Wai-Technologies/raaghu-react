@@ -51,5 +51,5 @@ const RdsSnackbar: React.FC<RdsSnackbarProps> = ({
     </MuiSnackbar>
   );
 };
-
+RdsSnackbar.displayName = 'RdsSnackbar';
 export default RdsSnackbar;

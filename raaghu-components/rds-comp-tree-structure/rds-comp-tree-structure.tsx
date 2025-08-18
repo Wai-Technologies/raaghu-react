@@ -86,4 +86,5 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
   );
 };
 
+RdsCompTreeStructure.displayName = "RdsCompTreeStructure";
 export default RdsCompTreeStructure;
