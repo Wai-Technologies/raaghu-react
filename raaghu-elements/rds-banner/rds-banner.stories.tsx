@@ -11,9 +11,9 @@ const meta: Meta<typeof RdsBanner> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    message: {
+    description: {
       control: 'text',
-      description: 'The message to display in the banner',
+      description: 'Description to display in the banner',
     },
     type: {
       control: 'select',
@@ -89,7 +89,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Info: Story = {
   args: {
-    message: 'This is the description of the banner.',
+    description: 'This is the description of the banner.',
     type: 'info',
     Icon: true,
     showTitle: true,
@@ -102,7 +102,7 @@ export const Info: Story = {
 
 export const Success: Story = {
   args: {
-    message: 'This is the description of the banner.',
+    description: 'This is the description of the banner.',
     type: 'success',
     Icon: true,
     showTitle: true,
@@ -112,7 +112,7 @@ export const Success: Story = {
 
 export const Warning: Story = {
   args: {
-    message: 'This is the description of the banner.',
+    description: 'This is the description of the banner.',
     type: 'warning',
     Icon: true,
     showTitle: true,
@@ -122,7 +122,7 @@ export const Warning: Story = {
 
 export const Error: Story = {
   args: {
-    message: 'This is the description of the banner.',
+    description: 'This is the description of the banner.',
     type: 'error',
     Icon: true,
     showTitle: true,
@@ -132,7 +132,7 @@ export const Error: Story = {
 
 export const Filled: Story = {
   args: {
-    message: 'This is the description of the banner.',
+    description: 'This is the description of the banner.',
     type: 'success',
     Icon: true,
     showTitle: true,
@@ -142,7 +142,7 @@ export const Filled: Story = {
 
 export const Outlined: Story = {
   args: {
-    message: 'This is the description of the banner.',
+    description: 'This is the description of the banner.',
     type: 'warning',
     Icon: true,
     showTitle: true,
@@ -152,7 +152,7 @@ export const Outlined: Story = {
 
 export const NotClosable: Story = {
   args: {
-    message: 'This banner cannot be dismissed.',
+    description: 'This banner cannot be dismissed.',
     type: 'warning',
     closable: false,
   },
@@ -160,7 +160,7 @@ export const NotClosable: Story = {
 
 export const WithActions: Story = {
   args: {
-    message: 'New features are available!',
+    description: 'New features are available!',
     type: 'success',
     actions: (
       <Box sx={{ display: 'flex', gap: 1 }}>
@@ -178,9 +178,9 @@ export const WithActions: Story = {
 export const Interactive: Story = {
   render: () => {
     const [banners, setBanners] = useState([
-      { id: 1, message: 'Welcome to our new dashboard!', type: 'info' as const, visible: true },
-      { id: 2, message: 'Your trial expires in 7 days.', type: 'warning' as const, visible: true },
-      { id: 3, message: 'System maintenance scheduled for tonight.', type: 'error' as const, visible: true },
+      { id: 1, description: 'Welcome to our new dashboard!', type: 'info' as const, visible: true },
+      { id: 2, description: 'Your trial expires in 7 days.', type: 'warning' as const, visible: true },
+      { id: 3, description: 'System maintenance scheduled for tonight.', type: 'error' as const, visible: true },
     ]);
 
     const handleClose = (id: number) => {
@@ -206,7 +206,7 @@ export const Interactive: Story = {
             banner.visible && (
               <RdsBanner
                 key={banner.id}
-                message={banner.message}
+                description={banner.description}
                 type={banner.type}
                 onClose={() => handleClose(banner.id)}
               />
@@ -222,28 +222,28 @@ export const AllTypes: Story = {
   render: () => (
     <Box sx={{ width: 600, display: 'flex', flexDirection: 'column', gap: 1 }}>
       <RdsBanner
-        message="This is an info banner with useful information."
+        description="This is an info banner with useful information."
         type="info"
       />
       <RdsBanner
-        message="This is a success banner for positive feedback."
+        description="This is a success banner for positive feedback."
         type="success"
       />
       <RdsBanner
-        message="This is a warning banner to alert users."
+        description="This is a warning banner to alert users."
         type="warning"
       />
       <RdsBanner
-        message="This is an error banner for critical issues."
+        description="This is an error banner for critical issues."
         type="error"
       />
       <RdsBanner
-        message="This is a filled banner."
+        description="This is a filled banner."
         type="success"
         variant="filled"
       />
       <RdsBanner
-        message="This is an outlined banner."
+        description="This is an outlined banner."
         variant="outlined"
       />
     </Box>
@@ -252,7 +252,7 @@ export const AllTypes: Story = {
 
 export const Persistent: Story = {
   args: {
-    message: 'This is a persistent banner that stays visible even when closed.',
+    description: 'This is a persistent banner that stays visible even when closed.',
     type: 'info',
     persistent: true,
   },
@@ -260,7 +260,7 @@ export const Persistent: Story = {
 
 export const NotFullWidth: Story = {
   args: {
-    message: 'This banner is not full width.',
+    description: 'This banner is not full width.',
     type: 'success',
     fullWidth: false,
   },
