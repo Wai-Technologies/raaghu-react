@@ -111,4 +111,5 @@ export const RdsAccordionGroup: React.FC = () => (
   </>
 );
 
+RdsAccordion.displayName = 'RdsAccordion';
 export default RdsAccordion;

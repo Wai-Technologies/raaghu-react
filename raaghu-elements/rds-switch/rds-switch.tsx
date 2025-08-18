@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch as MuiSwitch, FormControlLabel, SwitchProps } from '@mui/material';
+import { Switch as MuiSwitch, FormControlLabel, type SwitchProps } from '@mui/material';
  import './rds-switch.scss';
 
 export interface RdsSwitchProps extends Omit<SwitchProps, 'style'> {
@@ -30,7 +30,7 @@ const normalizeState = (state?: string): RdsSwitchProps['state'] | undefined => 
   return state.trim().toLowerCase().replace(/ +/g, ' ') as RdsSwitchProps['state'];
 };
 
-const RdsSwitch: React.FC<RdsSwitchProps> = ({
+const RdsSwitch = ({
   label,
   labelPlacement = 'end',
   layout,
@@ -38,7 +38,7 @@ const RdsSwitch: React.FC<RdsSwitchProps> = ({
   style: styleProp = 'style1',
   showLabel,
   ...props
-}) => {
+}:RdsSwitchProps) => {
   // Normalize props for internal logic
   const normalizedLayout = normalizeLayout(layout);
   const normalizedState = normalizeState(state);
@@ -118,5 +118,5 @@ const RdsSwitch: React.FC<RdsSwitchProps> = ({
     </div>
   );
 };
-
+RdsSwitch.displayName = 'RdsSwitch';
 export default RdsSwitch;

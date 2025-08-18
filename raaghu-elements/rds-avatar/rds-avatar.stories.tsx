@@ -17,15 +17,19 @@ const meta: Meta<typeof RdsAvatar> = {
     },
     showName: {
       control: 'boolean',
-      description: 'Show name below/next to avatar',
+      description: 'Show title below/next to avatar',
     },
     showDesignation: {
       control: 'boolean',
-      description: 'Show designation below/next to avatar',
+      description: 'Show subText below/next to avatar',
     },
-    name: {
+    title: {
       control: 'text',
-      description: 'Name to display initial from',
+      description: 'Title to display initial from',
+    },
+    subText: {
+      control: 'text',
+      description: 'Sub text to display below/next to avatar',
     },
     size: {
       control: 'select',
@@ -40,7 +44,7 @@ const meta: Meta<typeof RdsAvatar> = {
       control: 'text',
       description: 'Alt text for the image',
     },
-    ring: {
+    activityRing: {
       control: 'boolean',
       description: 'Show activity ring',
     },
@@ -60,8 +64,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    name: 'John Doe',
-    designation: 'Developer',
+    title: 'John Doe',
+    subText: 'Developer',
     showName: true,
     showDesignation: true,
     displayStyle: 'with-name',
@@ -69,8 +73,8 @@ export const Default: Story = {
 };
 export const WithName: Story = {
   args: {
-    name: 'Jane Doe',
-    designation: 'Designation',
+    title: 'Jane Doe',
+    subText: 'Designation',
     displayStyle: 'with-name',
     size: 'medium',
   },
@@ -78,12 +82,12 @@ export const WithName: Story = {
 
 export const WithInitials: Story = {
   args: {
-    name: 'Wai Technologies',
-    designation: 'Developer',
+    title: 'Wai Technologies',
+    subText: 'Developer',
     displayStyle: 'with-name',
     showName: true,
     showDesignation: true,
-    ring: true,
+    activityRing: true,
     activeDotTop: true,
     colorVariant: 'primary',
   },
@@ -91,8 +95,8 @@ export const WithInitials: Story = {
 
 export const NameOnBottom: Story = {
   args: {
-    name: 'Jane Doe',
-    designation: 'Designation',
+    title: 'Jane Doe',
+    subText: 'Designation',
     displayStyle: 'name-bottom',
     size: 'large',
   },
@@ -102,10 +106,10 @@ export const Stacking: Story = {
   args: {
     displayStyle: 'stacking',
     avatars: [
-      { name: 'Jane Doe', size: 'medium', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
-      { name: 'John Smith', size: 'medium', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
-      { name: 'Ava Lee', size: 'medium', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
-      { name: 'Mike Brown', size: 'medium', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
+      { title: 'Jane Doe', subText: 'Designation', size: 'medium', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
+      { title: 'John Smith', subText: 'Designation', size: 'medium', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
+      { title: 'Ava Lee', subText: 'Designation', size: 'medium', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
+      { title: 'Mike Brown', subText: 'Designation', size: 'medium', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     ],
   },
 }
@@ -115,8 +119,8 @@ export const WithImage: Story = {
     src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     alt: 'User Avatar',
     displayStyle: 'with-name',
-    name: 'Jane Doe', 
-    designation: 'Designation',
+    title: 'Jane Doe', 
+    subText: 'Designation',
     showName: true,
     showDesignation: true,
   },
@@ -124,21 +128,21 @@ export const WithImage: Story = {
 
 export const Small: Story = {
   args: {
-    name: 'Small User',
+    title: 'Small User',
     size: 'small',
   },
 };
 
 export const Medium: Story = {
   args: {
-    name: 'Medium User',
+    title: 'Medium User',
     size: 'medium',
   },
 };
 
 export const Large: Story = {
   args: {
-    name: 'Large User',
+    title: 'Large User',
     size: 'large',
   },
 };
@@ -153,6 +157,6 @@ export const Fallback: Story = {
   args: {
     src: 'broken-image-url',
     alt: 'Broken image',
-    name: 'Fallback User',
+    title: 'Fallback User',
   },
 };

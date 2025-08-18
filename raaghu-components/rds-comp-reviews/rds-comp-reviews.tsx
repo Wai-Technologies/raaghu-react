@@ -1,6 +1,8 @@
 import React from "react";
 import "./rds-comp-reviews.scss";
-import { renderReviewStyle } from "./review-styles";
+import { renderReviewStyle } from "./rds-comp-review-styles";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 
 export interface Item {
   name: string;
@@ -48,18 +50,18 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
   };
 
   return (
-    <div className="rds-comp-reviews">
+    <Box className="rds-comp-reviews">
       {props.variantType === VariantType.Default && (
-        <div className="reviews-grid">
+        <Grid container spacing={2}>
           {props.itemList.map((item: Item, index: number) => (
-            <React.Fragment key={index}>
+            <Grid component="div" key={index} size={{ xs: 12, sm: 6, md: 4 }}>
               {renderContentByStyle(item)}
-            </React.Fragment>
+            </Grid>
           ))}
-        </div>
+        </Grid>
       )}
-    </div>
+    </Box>
   );
 };
-
+RdsCompReviews.displayName = "RdsCompReviews";
 export default RdsCompReviews;

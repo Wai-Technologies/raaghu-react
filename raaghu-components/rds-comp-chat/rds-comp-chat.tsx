@@ -233,5 +233,5 @@ const RdsCompChat = (props: RdsCompChatProps) => {
     </div>
   );
 };
-
+RdsCompChat.displayName = "RdsCompChat";
 export default RdsCompChat;

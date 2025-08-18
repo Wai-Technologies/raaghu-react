@@ -8,19 +8,20 @@ export interface RdsSkeletonProps extends SkeletonProps {
    * Number of skeleton blocks to show in a row/column
    */
   frames?: number;
+  shape?: 'text' | 'rectangular' | 'rounded' | 'circular';
 }
 
 const RdsSkeleton: React.FC<RdsSkeletonProps> = ({
   type = 'text',
   lines = 1,
-  variant,
+  shape,
   frames = 1,
   sx,
   className = '',
   ...props
 }) => {
-  const isText = variant === 'text';
-  const bemClass = `rds-skeleton rds-skeleton--${variant}` + (className ? ` ${className}` : '');
+  const isText = shape === 'text';
+  const bemClass = `rds-skeleton rds-skeleton--${shape}` + (className ? ` ${className}` : '');
 
   if (frames > 1) {
     return (
@@ -36,7 +37,7 @@ const RdsSkeleton: React.FC<RdsSkeletonProps> = ({
         {Array.from({ length: frames }).map((_, index) => (
           <MuiSkeleton
             key={index}
-            variant={variant}
+            variant={shape}
             {...props}
             sx={{ ...sx }}
             className={bemClass}
@@ -48,12 +49,12 @@ const RdsSkeleton: React.FC<RdsSkeletonProps> = ({
 
   return (
     <MuiSkeleton
-      variant={variant}
+      variant={shape}
       {...props}
       sx={sx}
       className={bemClass}
     />
   );
 };
-
+RdsSkeleton.displayName = 'RdsSkeleton';
 export default RdsSkeleton;

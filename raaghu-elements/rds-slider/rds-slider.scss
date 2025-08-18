@@ -25,4 +25,19 @@
   &__value {
     font-weight: 400;
   }
+
+  &__container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__left-label,
+  &__right-label {
+    font-size: var(--rds-font-size-caption, 12px);
+    font-family: var(--rds-font-family);
+    color: var(--rds-color-on-surface-variant, #666);
+    font-weight: 400;
+    white-space: nowrap;
+  }
 }

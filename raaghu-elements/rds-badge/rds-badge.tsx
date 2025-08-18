@@ -17,7 +17,7 @@ export interface RdsBadgeProps extends BadgeProps {
 }
 
 
-const RdsBadge = ({
+const RdsBadge= ({
   children,
   count,
   showZero = false,
@@ -74,4 +74,5 @@ const RdsBadge = ({
   );
 };
 
+RdsBadge.displayName = 'RdsBadge';
 export default RdsBadge;

@@ -136,7 +136,7 @@ const RdsButton = ({
   const renderContent = () => {
     if (isLoading) {
       return <RdsCompSpinner
-        colorVariant="secondary"
+        colorVariant="light"
         labelText={text || "Loading"}
         layout={SpinnerLayout.SpinnerAndLabel}
         showLabel
@@ -157,7 +157,7 @@ const RdsButton = ({
   };
 
   // Determine if button should be disabled based on state or disabled prop
-  const isButtonDisabled = disabled || isLoading || state === 'disabled';
+  const isButtonDisabled = disabled || state === 'disabled';
 
   // Map inputSize to className
   const sizeClass =
@@ -187,4 +187,5 @@ const RdsButton = ({
   );
 };
 
+RdsButton.displayName = 'RdsButton';
 export default RdsButton;

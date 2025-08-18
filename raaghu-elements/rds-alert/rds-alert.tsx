@@ -96,4 +96,5 @@ const RdsAlert= ({
   );
 };
 
+RdsAlert.displayName = 'RdsAlert';
 export default RdsAlert;

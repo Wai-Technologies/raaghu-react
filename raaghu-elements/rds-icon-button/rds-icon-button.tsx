@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { IconButton as MuiIconButton, IconButtonProps } from '@mui/material';
+import { IconButton as MuiIconButton, type IconButtonProps } from '@mui/material';
 import './rds-icon-button.scss';
 
 export interface RdsIconButtonProps extends IconButtonProps {
@@ -16,7 +16,7 @@ export interface RdsIconButtonProps extends IconButtonProps {
 
 type RdsIconButtonComponentProps = React.PropsWithChildren<RdsIconButtonProps>;
 
-const RdsIconButton: React.FC<RdsIconButtonComponentProps> = ({
+const RdsIconButton = ({
   iconOutlined,
   iconFilled,
   variant = 'filled',
@@ -25,7 +25,7 @@ const RdsIconButton: React.FC<RdsIconButtonComponentProps> = ({
   children,
   size,
   ...props
-}) => {
+}:RdsIconButtonComponentProps) => {
 
   // Helper to clone icon with fontSize prop
   const getSizedIcon = (iconNode: React.ReactNode) => {
@@ -71,5 +71,5 @@ const RdsIconButton: React.FC<RdsIconButtonComponentProps> = ({
     </MuiIconButton>
   );
 };
-
+RdsIconButton.displayName = 'RdsIconButton';
 export default RdsIconButton;

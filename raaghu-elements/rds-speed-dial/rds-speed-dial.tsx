@@ -44,5 +44,5 @@ const RdsSpeedDial: React.FC<RdsSpeedDialProps> = ({
     </MuiSpeedDial>
   );
 };
-
+RdsSpeedDial.displayName = 'RdsSpeedDial';
 export default RdsSpeedDial;

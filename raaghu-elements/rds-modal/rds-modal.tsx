@@ -76,5 +76,5 @@ const RdsModal= ({
     </MuiDialog>
   );
 };
-
+RdsModal.displayName = 'RdsModal';
 export default RdsModal;

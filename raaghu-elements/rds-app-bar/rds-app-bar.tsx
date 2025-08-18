@@ -172,4 +172,5 @@ const RdsAppBar = ({
     </MuiAppBar>
   );
 };
+RdsAppBar.displayName = 'RdsAppBar';
 export default RdsAppBar;

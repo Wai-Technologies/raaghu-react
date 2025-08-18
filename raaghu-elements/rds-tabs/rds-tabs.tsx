@@ -43,7 +43,7 @@ export interface RdsTabsProps extends Omit<TabsProps, 'orientation'> {
   level?: number; // Control tab level for nested tabs
 }
 
-const RdsTabs= ({
+const RdsTabs = ({
   tabs,
   activeTab,
   onTabChange,
@@ -109,5 +109,5 @@ const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`
     </MuiTabs>
   );
 };
-
+RdsTabs.displayName = 'RdsTabs';
 export default RdsTabs;

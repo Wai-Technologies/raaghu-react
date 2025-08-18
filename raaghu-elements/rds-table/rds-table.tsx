@@ -9,7 +9,7 @@ import {
   TableCell as MuiTableCell,
   TablePagination as MuiTablePagination,
   Paper,
-  TableProps,
+  type TableProps,
   Checkbox,
   Radio,
   IconButton
@@ -43,7 +43,7 @@ export interface RdsTableProps extends Omit<TableProps, 'children'> {
   className?: string;
 }
 
-const RdsTable: React.FC<RdsTableProps> = ({
+const RdsTable = ({
   columns,
   rows,
   pagination = false,
@@ -59,7 +59,7 @@ const RdsTable: React.FC<RdsTableProps> = ({
   onRowAction,
   className = '',
   ...props
-}) => {
+}:RdsTableProps) => {
   const handleChangePage = (event: unknown, newPage: number) => {
     if (onPageChange) {
       onPageChange(newPage);
@@ -209,5 +209,5 @@ const RdsTable: React.FC<RdsTableProps> = ({
     </Paper>
   );
 };
-
+RdsTable.displayName = 'RdsTable';
 export default RdsTable;

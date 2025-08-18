@@ -26,4 +26,5 @@ const RdsBackdrop: React.FC<RdsBackdropProps> = ({
   );
 };
 
+RdsBackdrop.displayName = 'RdsBackdrop';
 export default RdsBackdrop;

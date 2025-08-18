@@ -55,4 +55,5 @@ const RdsMenu = ({
   );
 };
 
+RdsMenu.displayName = 'RdsMenu';
 export default RdsMenu;

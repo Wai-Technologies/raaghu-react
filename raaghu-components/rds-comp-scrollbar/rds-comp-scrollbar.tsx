@@ -73,5 +73,5 @@ const RdsCompScrollBar: React.FC<RdsScrollBarProps> = ({
     </div>
   );
 };
-
+RdsCompScrollBar.displayName = "RdsCompScrollBar";
 export default RdsCompScrollBar;

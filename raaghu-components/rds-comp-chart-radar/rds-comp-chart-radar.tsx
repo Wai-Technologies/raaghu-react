@@ -46,5 +46,5 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
     </div>
   );
 };
-
+RdsCompRadarChart.displayName = 'RdsCompRadarChart';
 export default RdsCompRadarChart;
