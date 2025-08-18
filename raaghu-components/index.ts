@@ -26,3 +26,4 @@ export { default as RdsCompTimePicker } from './rds-comp-time-picker/rds-comp-ti
 export { default as RdsCompToolbar } from './rds-comp-toolbar/rds-comp-toolbar';
 export { default as RdsCompTreeStructure } from './rds-comp-tree-structure/rds-comp-tree-structure';
 export { default as RdsCompDatepicker } from './rds-comp-datepicker/rds-comp-datepicker';
+export { default as RdsCompGrid } from './rds-comp-grid/rds-comp-grid';
