@@ -105,4 +105,5 @@ const RdsCheckbox = ({
   );
 };
 
+RdsCheckbox.displayName = 'RdsCheckbox';
 export default RdsCheckbox;

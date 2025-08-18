@@ -138,5 +138,5 @@ const RdsRadio= ({
     </FormControl>
   );
 };
-
+RdsRadio.displayName = 'RdsRadio';
 export default RdsRadio;

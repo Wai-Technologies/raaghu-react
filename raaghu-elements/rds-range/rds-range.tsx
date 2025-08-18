@@ -181,5 +181,5 @@ const RdsRange= ({
     </Box>
   );
 };
-
+RdsRange.displayName = 'RdsRange';
 export default RdsRange;

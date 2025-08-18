@@ -171,5 +171,5 @@ const RdsProgress = ({
     default: return renderLinear();
   }
 };
-
+RdsProgress.displayName = 'RdsProgress';
 export default RdsProgress;

@@ -71,5 +71,5 @@ const RdsIconButton = ({
     </MuiIconButton>
   );
 };
-
+RdsIconButton.displayName = 'RdsIconButton';
 export default RdsIconButton;

@@ -54,4 +54,5 @@ const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
   );
 };
 
+RdsCardDetail.displayName = 'RdsCardDetail';
 export default RdsCardDetail;

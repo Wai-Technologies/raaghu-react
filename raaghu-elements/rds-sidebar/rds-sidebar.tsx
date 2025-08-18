@@ -213,5 +213,5 @@ const RdsSidebar = ({
     </MuiDrawer>
   );
 };
-
+RdsSidebar.displayName = 'RdsSidebar';
 export default RdsSidebar;

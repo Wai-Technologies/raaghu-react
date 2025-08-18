@@ -138,4 +138,5 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
   );
 };
 
+RdsBanner.displayName = 'RdsBanner';
 export default RdsBanner;

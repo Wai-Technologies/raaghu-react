@@ -55,5 +55,5 @@ const RdsSkeleton: React.FC<RdsSkeletonProps> = ({
     />
   );
 };
-
+RdsSkeleton.displayName = 'RdsSkeleton';
 export default RdsSkeleton;

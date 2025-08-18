@@ -58,5 +58,5 @@ const RdsCompAreaChart = (props: lineprops) => {
         </div>
     );
 };
-
+RdsCompAreaChart.displayName = 'RdsCompAreaChart';
 export default RdsCompAreaChart;

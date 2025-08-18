@@ -42,5 +42,5 @@ const RdsCompPieChart = (props: RdsCompPieProps) => {
     </div>
   );
 };
-
+RdsCompPieChart.displayName = 'RdsCompPieChart';
 export default RdsCompPieChart;

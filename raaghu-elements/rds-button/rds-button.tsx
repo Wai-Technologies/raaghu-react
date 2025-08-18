@@ -187,4 +187,5 @@ const RdsButton = ({
   );
 };
 
+RdsButton.displayName = 'RdsButton';
 export default RdsButton;

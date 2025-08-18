@@ -55,4 +55,5 @@ const RdsMenu: React.FC<RdsMenuProps> = ({
   );
 };
 
+RdsMenu.displayName = 'RdsMenu';
 export default RdsMenu;
