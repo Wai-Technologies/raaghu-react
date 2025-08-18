@@ -4,6 +4,7 @@ export {default as RdsCompColorPicker} from './rds-comp-color-picker/rds-comp-co
 export {default as RdsCompToast} from './rds-comp-toast/rds-comp-toast';
 export {default as RdsCompScrollbar} from './rds-comp-scrollbar/rds-comp-scrollbar';
 export {default as RdsCompTruncatedText} from './rds-comp-truncate-text/rds-comp-truncate-text';
+export {default as RdsCompOffcanvas} from './rds-comp-off-canvas/rds-comp-off-canvas';
 export { default as RdsCompAreaChart } from "./rds-comp-chart-area/rds-comp-chart-area";
 export { default as RdsCompLineChart } from "./rds-comp-chart-line/rds-comp-chart-line";
 export { default as RdsCompPieChart } from "./rds-comp-chart-pie/rds-comp-chart-pie";
@@ -21,10 +22,14 @@ export { default as RdsCompAudioPlayer } from './rds-comp-audio-player/rds-comp-
 export {default as RdsCompVideoPlayer} from './rds-comp-video-player/rds-comp-video-player';
 export {default as RdsCompReviews} from './rds-comp-reviews/rds-comp-reviews';
 export {default as RdsCompTextEditor} from './rds-comp-text-editor/rds-comp-text-editor';
+export { default as RdsCompMap } from './rds-comp-map/rds-comp-map';
+export {default as RdsCompNotification} from './rds-comp-notification/rds-comp-notification';
 export { default as RdsCompTimePicker } from './rds-comp-time-picker/rds-comp-time-picker';
 export { default as RdsCompToolbar } from './rds-comp-toolbar/rds-comp-toolbar';
 export { default as RdsCompTreeStructure } from './rds-comp-tree-structure/rds-comp-tree-structure';
 export { default as RdsCompDatepicker } from './rds-comp-datepicker/rds-comp-datepicker';
+export { default as RdsCompKanbanBoard, boardInfo, RdsCompKanbanBoardProps } from './rds-comp-kanban-board';
+export { default as RdsCompProductTour } from './rds-comp-product-tour/rds-comp-product-tour';
 export {default as RdsCompEmojiGenerator} from './rds-comp-emoji-generator/rds-comp-emoji-generator';
 export {default as RdsCompEmptyState} from './rds-comp-empty-state/rds-comp-empty-state';
 export {default as RdsCompESignature} from './rds-comp-e-signature/rds-comp-e-signature';

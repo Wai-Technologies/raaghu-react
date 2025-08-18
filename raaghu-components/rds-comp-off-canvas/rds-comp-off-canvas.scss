@@ -1,0 +1,145 @@
+// Off-canvas specific styles
+.offcanvas-header {
+  background-color: primary;
+}
+
+@media (max-width: 767px) {
+  .MuiDrawer-paper {
+    width: 375px !important;
+  }
+}
+
+.offcanvas_btn {
+  cursor: pointer;
+  width: fit-content;
+}
+
+.offcanvas-container .offcanvas-header .close {
+  cursor: pointer;
+  padding: 3px 8px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+  border-radius: 5px;
+}
+#close-btn .rds-icon-button:hover,
+#close-btn .MuiIconButton-root:hover {
+  background: aliceblue;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+@media (min-width: 320px) and (max-width: 414px) {
+  .offcanvas-margin {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+
+  .offcanvas-margin .me-2 {
+    margin-right: 2px !important;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .offcanvas-margin .rds-button {
+    font-size: 11px !important;
+    padding: 5px 7px;
+    width: 100% !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    line-height: 1.2;
+  }
+  
+  .offcanvas-margin .rds-button span {
+    font-size: 11px !important;
+    display: inline-block;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  .offcanvas-margin .me-2:first-child {
+    flex: 1.7;
+  }
+  
+  .offcanvas-margin .me-2:first-child .rds-button {
+    min-width: auto !important;
+    max-width: none !important;
+  }
+  
+  .offcanvas-margin .me-2:first-child .rds-button span {
+    font-size: 10px !important;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  #offcanvas-btns {
+    padding: 0 5px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 3px;
+  }
+
+  #offcanvas-btns .me-2 {
+    margin-right: 2px !important;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  #offcanvas-btns .rds-button {
+    font-size: 11px !important;
+    padding: 5px 7px;
+    width: 100% !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    line-height: 1.2;
+  }
+  
+  #offcanvas-btns .rds-button span {
+    font-size: 11px !important;
+    display: inline-block;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  #offcanvas-btns .me-2:first-child {
+    flex: 1.7;
+  }
+  
+  #offcanvas-btns .me-2:first-child .rds-button {
+    min-width: auto !important;
+    max-width: none !important;
+  }
+  
+  #offcanvas-btns .me-2:first-child .rds-button span {
+    font-size: 10px !important;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  #close-btn {
+    padding: 2px;
+  }
+  
+  #close-btn .rds-icon-button,
+  #close-btn .MuiIconButton-root {
+    padding: 4px 6px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  #close-btn .rds-icon-button svg,
+  #close-btn .MuiIconButton-root svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
+}

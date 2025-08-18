@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button as MuiButton, ButtonProps } from '@mui/material';
+import { Button as MuiButton, type ButtonProps } from '@mui/material';
 import { Add, Delete, Save } from '@mui/icons-material';
 import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
 import './rds-button.scss';
@@ -18,7 +18,7 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
 }
 
-const RdsButton: React.FC<RdsButtonProps> = ({
+const RdsButton = ({
   text,
   children,
   isLoading = false,
@@ -35,7 +35,7 @@ const RdsButton: React.FC<RdsButtonProps> = ({
   inputSize = 'small',
   textCase = 'uppercase',
   ...props
-}) => {
+}:RdsButtonProps) => {
   // Normalize layout prop to support Storybook options
   let normalizedLayout = layout;
   if (typeof layout === 'string') {
@@ -136,7 +136,7 @@ const RdsButton: React.FC<RdsButtonProps> = ({
   const renderContent = () => {
     if (isLoading) {
       return <RdsCompSpinner
-        colorVariant="secondary"
+        colorVariant="light"
         labelText={text || "Loading"}
         layout={SpinnerLayout.SpinnerAndLabel}
         showLabel
@@ -157,7 +157,7 @@ const RdsButton: React.FC<RdsButtonProps> = ({
   };
 
   // Determine if button should be disabled based on state or disabled prop
-  const isButtonDisabled = disabled || isLoading || state === 'disabled';
+  const isButtonDisabled = disabled || state === 'disabled';
 
   // Map inputSize to className
   const sizeClass =
