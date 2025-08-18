@@ -120,4 +120,5 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   );
 };
 
+RdsSlider.displayName = 'RdsSlider';
 export default RdsSlider;

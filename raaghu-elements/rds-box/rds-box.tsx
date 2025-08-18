@@ -19,4 +19,5 @@ const RdsBox: React.FC<RdsBoxProps> = ({
   );
 };
 
+RdsBox.displayName = 'RdsBox';
 export default RdsBox;

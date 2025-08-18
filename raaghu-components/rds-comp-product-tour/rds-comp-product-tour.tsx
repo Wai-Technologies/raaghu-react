@@ -252,4 +252,5 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
     }
     return null;
 };
+RdsCompProductTour.displayName = "RdsCompProductTour";
 export default RdsCompProductTour;

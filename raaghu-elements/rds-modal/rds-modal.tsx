@@ -76,5 +76,5 @@ const RdsModal: React.FC<RdsModalProps> = ({
     </MuiDialog>
   );
 };
-
+RdsModal.displayName = 'RdsModal';
 export default RdsModal;

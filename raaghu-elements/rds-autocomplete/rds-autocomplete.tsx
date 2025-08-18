@@ -147,4 +147,5 @@ const RdsAutocomplete = <T extends { label?: string },>({
   );
 };
 
+RdsAutocomplete.displayName = 'RdsAutocomplete';
 export default RdsAutocomplete;

@@ -35,5 +35,5 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
     </MuiDrawer>
   );
 };
-
+RdsDrawer.displayName = 'RdsDrawer';
 export default RdsDrawer;

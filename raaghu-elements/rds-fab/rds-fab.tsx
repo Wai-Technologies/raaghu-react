@@ -40,5 +40,5 @@ const RdsFab: React.FC<RdsFabProps> = ({
     </MuiFab>
   );
 };
-
+RdsFab.displayName = 'RdsFab';
 export default RdsFab;

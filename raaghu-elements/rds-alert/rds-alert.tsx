@@ -96,4 +96,5 @@ const RdsAlert: React.FC<RdsAlertProps> = ({
   );
 };
 
+RdsAlert.displayName = 'RdsAlert';
 export default RdsAlert;

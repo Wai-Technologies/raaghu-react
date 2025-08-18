@@ -82,5 +82,5 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
         </div>
     );
 };
-
+RdsCompVideoPlayer.displayName = "RdsCompVideoPlayer";
 export default RdsCompVideoPlayer;

@@ -22,5 +22,5 @@ const RdsTextField: React.FC<RdsTextFieldProps> = ({
     />
   );
 };
-
+RdsTextField.displayName = 'RdsTextField';
 export default RdsTextField;

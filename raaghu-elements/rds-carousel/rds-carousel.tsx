@@ -210,4 +210,5 @@ const RdsCarousel = ({
   );
 };
 
+RdsCarousel.displayName = 'RdsCarousel';
 export default RdsCarousel;

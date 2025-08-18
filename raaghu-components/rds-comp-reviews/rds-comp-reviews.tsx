@@ -63,5 +63,5 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
     </Box>
   );
 };
-
+RdsCompReviews.displayName = "RdsCompReviews";
 export default RdsCompReviews;

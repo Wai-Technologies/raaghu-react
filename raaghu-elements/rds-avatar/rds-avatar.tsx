@@ -141,4 +141,5 @@ const RdsAvatar = ({
   );
 };
 
+RdsAvatar.displayName = 'RdsAvatar';
 export default RdsAvatar;

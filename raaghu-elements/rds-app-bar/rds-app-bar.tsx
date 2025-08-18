@@ -172,4 +172,5 @@ const RdsAppBar: React.FC<RdsAppBarProps> = ({
     </MuiAppBar>
   );
 };
+RdsAppBar.displayName = 'RdsAppBar';
 export default RdsAppBar;

@@ -111,5 +111,5 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
     </>
   );
 };
-
+RdsCompDetailsPane.displayName = "RdsCompDetailsPane";
 export default RdsCompDetailsPane;
