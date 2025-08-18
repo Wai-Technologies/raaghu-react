@@ -20,68 +20,74 @@ export default meta;
 type Story = StoryObj<typeof RdsGrid>;
 
 export const Standard: Story = {
-	args: {
-		showHeader: true,
-		showSubHeader: true,
-		state: State.Default,
-		tableHeaders: [
-			{
-				dataLength: 30,
-				datatype: 'text',
-				displayName: 'Title',
-				filter: true,
-				key: 'edition',
-				required: true,
-				resizable: true,
-				sortable: true
-			},
-			{
-				dataLength: 30,
-				datatype: 'text',
-				displayName: 'Title',
-				filter: true,
-				key: 'edition',
-				required: true,
-				sortable: true
-			},
-			{
-				dataLength: 30,
-				datatype: 'text',
-				displayName: 'Title',
-				filter: true,
-				key: 'edition',
-				required: true,
-				sortable: true
-			},
-			{
-				dataLength: 30,
-				datatype: 'text',
-				displayName: 'Title',
-				filter: true,
-				key: 'edition',
-				required: true,
-				sortable: true
-			},
-			{
-				dataLength: 30,
-				datatype: 'text',
-				displayName: 'Title',
-				filter: true,
-				key: 'edition',
-				required: true,
-				sortable: true
-			}
-		],
-		tableData: [
-			{ edition: 'Text', id: 1 },
-			{ edition: 'Text', id: 2 },
-			{ edition: 'Text', id: 3 },
-			{ edition: 'Text', id: 4 },
-			{ edition: 'Text', id: 5 },
-			{ edition: 'Text', id: 6 },
-			{ edition: 'Text', id: 7 },
-			{ edition: 'Text', id: 8 },
-			{ edition: 'Text', id: 9 }
-		]
-	}
+	 args: {
+		 showHeader: true,
+		 showSubHeader: true,
+		 state: State.Default,
+		 tableHeaders: [
+			 {
+				 dataLength: 30,
+				 datatype: 'text',
+				 displayName: 'Edition',
+				 filter: true,
+				 key: 'edition',
+				 required: true,
+				 resizable: true,
+				 sortable: true
+			 },
+			 {
+				 dataLength: 30,
+				 datatype: 'text',
+				 displayName: 'Author',
+				 filter: true,
+				 key: 'author',
+				 required: true,
+				 sortable: true
+			 },
+			 {
+				 dataLength: 30,
+				 datatype: 'text',
+				 displayName: 'Year',
+				 filter: true,
+				 key: 'year',
+				 required: true,
+				 sortable: true
+			 },
+			 {
+				 dataLength: 30,
+				 datatype: 'text',
+				 displayName: 'Publisher',
+				 filter: true,
+				 key: 'publisher',
+				 required: true,
+				 sortable: true
+			 },
+			 {
+				 dataLength: 30,
+				 datatype: 'text',
+				 displayName: 'Status',
+				 filter: true,
+				 key: 'status',
+				 required: true,
+				 sortable: true
+			 },
+			 {
+				 dataLength: 30,
+				 datatype: 'text',
+				 displayName: 'Value',
+				 filter: true,
+				 key: 'value',
+				 required: true,
+				 sortable: true
+			 }
+		 ],
+		 tableData: [
+			 { edition: 'First', author: 'John Doe', year: '2020', publisher: 'Acme', status: 'Active', value: '100' },
+			 { edition: 'Second', author: 'Jane Smith', year: '2021', publisher: 'Beta', status: 'Inactive', value: '200' },
+			 { edition: 'Third', author: 'Alice', year: '2022', publisher: 'Gamma', status: 'Active', value: '300' },
+			 { edition: 'Fourth', author: 'Bob', year: '2023', publisher: 'Delta', status: 'Pending', value: '400' },
+			 { edition: 'Fifth', author: 'Charlie', year: '2024', publisher: 'Epsilon', status: 'Active', value: '500' },
+			 { edition: 'Sixth', author: 'Diana', year: '2025', publisher: 'Zeta', status: 'Inactive', value: '600' }
+		 ]
+	 }
 };

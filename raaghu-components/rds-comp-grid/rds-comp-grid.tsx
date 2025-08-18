@@ -101,11 +101,11 @@ export interface RdsGridProps {
 const RdsGrid = (props: RdsGridProps) => {
   // State setup
   const [data, setData] = useState(props.tableData);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(props.state === State.Collpsed);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [filterValues, setFilterValues] = useState<Record<string, string>>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(props.state === State.Collpsed);
   const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
   const [resizingColumn, setResizingColumn] = useState<string | null>(null);
   const [startX, setStartX] = useState<number>(0);
@@ -129,7 +129,10 @@ const RdsGrid = (props: RdsGridProps) => {
 
   // Sorting
   const handleSort = (key: string) => {
-    const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    let newOrder: 'asc' | 'desc' = 'asc';
+    if (sortColumn === key) {
+      newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    }
     setSortOrder(newOrder);
     setSortColumn(key);
     const sorted = [...data].sort((a, b) => {
@@ -140,14 +143,28 @@ const RdsGrid = (props: RdsGridProps) => {
     setData(sorted);
   };
 
-  // Filtering
-  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: string) => {
-    const value = e.target.value;
+  // Filtering (supports both text and select)
+  const handleFilterChange = (key: string, value: string) => {
     setFilterValues((prev) => ({ ...prev, [key]: value }));
-    const filtered = props.tableData.filter((row) =>
-      row[key]?.toString().toLowerCase().includes(value.toLowerCase())
-    );
+    let filtered = props.tableData;
+    Object.entries({ ...filterValues, [key]: value }).forEach(([k, v]) => {
+      if (v) {
+        filtered = filtered.filter((row) => row[k]?.toString().toLowerCase().includes(v.toLowerCase()));
+      }
+    });
     setData(filtered);
+  };
+
+  // Inline editing
+  const handleCellEdit = (rowIdx: number, key: string, value: string) => {
+    const updated = [...data];
+    updated[rowIdx] = { ...updated[rowIdx], [key]: value };
+    setData(updated);
+  };
+
+  // Utility: get unique values for select filter
+  const getUniqueValues = (key: string) => {
+    return Array.from(new Set(props.tableData.map(row => row[key])));
   };
 
   // Search
@@ -280,11 +297,22 @@ const RdsGrid = (props: RdsGridProps) => {
                       minWidth: colWidth,
                       width: colWidth,
                       padding: '12px 16px',
+                      cursor: header.sortable ? 'pointer' : 'default',
                     }}
                   >
-                    {header.displayName}
-                    {/* Show required indicator if needed */}
-                    {header.required && <span style={{ color: '#e53935', marginLeft: 4 }}>*</span>}
+                    <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      {header.displayName}
+                      {/* Show required indicator if needed */}
+                      {header.required && <span style={{ color: '#e53935', marginLeft: 4 }}>*</span>}
+                      {header.sortable && (
+                        <TableSortLabel
+                          active={sortColumn === header.key}
+                          direction={sortColumn === header.key ? sortOrder : 'asc'}
+                          onClick={() => handleSort(header.key)}
+                          sx={{ marginLeft: 1 }}
+                        />
+                      )}
+                    </span>
                   </TableCell>
                 );
               })}
@@ -300,11 +328,15 @@ const RdsGrid = (props: RdsGridProps) => {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'space-between' }}>
                       {/* Only show filter if header.filter is true */}
                       {header.filter ? (
-                        <select style={{ minWidth: '120px', padding: '4px 8px', borderRadius: '6px', border: '1px solid #e0e0e0', background: '#f7fafd', color: '#888' }}>
+                        <select
+                          style={{ minWidth: '120px', padding: '4px 8px', borderRadius: '6px', border: '1px solid #e0e0e0', background: '#f7fafd', color: '#222' }}
+                          value={filterValues[header.key] || ''}
+                          onChange={e => handleFilterChange(header.key, e.target.value)}
+                        >
                           <option value="">Filter...</option>
-                          <option value="option1">One</option>
-                          <option value="option2">Two</option>
-                          <option value="option3">Three</option>
+                          {getUniqueValues(header.key).map((option, i) => (
+                            <option key={option + i} value={option}>{option}</option>
+                          ))}
                         </select>
                       ) : null}
                       <MoreVert fontSize="small" style={{ color: '#888', marginLeft: '8px' }} />
@@ -316,8 +348,8 @@ const RdsGrid = (props: RdsGridProps) => {
 
             </TableHead>
             <TableBody>
-                          {props.tableData.map((row, rowIdx) => (
-                            <TableRow key={`row-${rowIdx}`} className="rds-grid__row rds-grid__row--compact" style={{ background: '#f7fafd', borderBottom: rowIdx < props.tableData.length - 1 ? '1px solid #e0e0e0' : 'none' }}>
+                          {data.map((row, rowIdx) => (
+                            <TableRow key={`row-${rowIdx}`} className="rds-grid__row rds-grid__row--compact" style={{ background: '#f7fafd', borderBottom: rowIdx < data.length - 1 ? '1px solid #e0e0e0' : 'none' }}>
                               {/* First column: drag handle icon */}
                               <TableCell className="rds-grid__cell rds-grid__cell--compact" style={{ width: 48, minWidth: 48, padding: '10px 0', borderRight: '1px solid #e0e0e0', background: '#f7fafd', textAlign: 'center' }}>
                                 <span style={{ display: 'inline-block', color: '#cfd8dc', fontSize: '1.2rem', letterSpacing: '2px' }}>⋮⋮</span>
