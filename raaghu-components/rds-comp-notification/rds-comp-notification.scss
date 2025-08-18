@@ -1,0 +1,238 @@
+/* RDS Notification Component Styles */
+.rds-comp-notification {
+  // Base component styles
+  &.MuiCard-root {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  // Layout variations
+  &--layout-horizontal {
+    .rds-comp-notification__header {
+      flex-direction: row !important;
+      align-items: center !important;
+    }
+
+    .rds-comp-notification__body {
+      display: block;
+    }
+  }
+
+  &--layout-vertical {
+    .rds-comp-notification__header {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+    }
+  }
+
+  // Vertical layout: ensure image style aligns like avatar
+  &--layout-vertical.rds-comp-notification--style-image {
+    .rds-comp-notification__header img {
+      width: 200px;
+      height: 50px;
+      object-fit: cover;
+      display: block;
+      margin-top: 8px !important;
+      margin-left: 0 !important;
+      margin-bottom: 0 !important;
+    }
+    // Make sure body has no float adjustments in vertical mode
+    .rds-comp-notification__body img {
+      float: none !important;
+      margin: 0 !important;
+    }
+  }
+
+  // Style variations
+  &--style-avatar {
+    .MuiAvatar-root {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  &--style-icon {
+    .rds-comp-notification__icon {
+      display: flex;
+      align-items: center;
+      width: 38px;
+      height: 38px;
+      
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  &--style-image {
+    img {
+      border-radius: 8px;
+      vertical-align: middle;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      display: inline-block;
+    }
+    // For horizontal layout, align image with avatar/icon/title
+    &.rds-comp-notification--layout-horizontal img {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      vertical-align: middle;
+      align-self: center;
+    }
+  }
+
+  // Type variations with proper colors
+  &--type-error {
+    background-color: #ffdad6 !important;
+    border: none !important;
+  }
+
+  &--type-info {
+    background-color: #ffffff !important;
+    border: none !important;
+  }
+
+  &--type-success {
+    background-color: #ebdcff !important;
+    border: none !important;
+  }
+
+  &--type-warning {
+    background-color: #fed99b !important;
+    border: none !important;
+  }
+
+  // Component elements
+  &__header {
+    position: relative;
+    margin-bottom: 8px;
+  }
+
+  &__title-section {
+    flex-grow: 1;
+  }
+
+  &__title {
+    font-weight: 600 !important;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  &__time {
+    font-size: 0.875rem;
+    opacity: 0.7;
+  }
+
+  &__body {
+    .MuiCardContent-root {
+      padding: 0 !important;
+      
+      &:last-child {
+        padding-bottom: 0 !important;
+      }
+    }
+  }
+
+  &__description {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: inherit;
+  }
+
+  &__footer {
+    .MuiCardActions-root {
+      padding: 0 !important;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+  }
+
+  &__dismiss {
+    &.MuiIconButton-root {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 4px;
+      background-color: transparent;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  // Button styling
+  &__primary-button {
+    .rds-button {
+      background-color: transparent !important;
+      color: var(--rds-color-primary) !important;
+      
+      &:hover {
+        background-color: rgba(25, 118, 210, 0.04) !important;
+      }
+    }
+  }
+
+  &__secondary-button {
+    .rds-button {
+      color: var(--rds-color-text-secondary) !important;
+      border-color: var(--rds-color-border) !important;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04) !important;
+      }
+    }
+  }
+
+  // Special handling for horizontal layout with image
+  &--layout-horizontal.rds-comp-notification--style-image {
+    .rds-comp-notification__title-section {
+      padding-left: 75px;
+    }
+    // Lift the image to align visually with the title (like avatar/icon)
+    .rds-comp-notification__body img {
+      margin-top: -35px !important; // pulls image up into header space
+      float: left;                   // keep text wrapping as designed
+      margin-right: 6px;           // consistent gap to text
+    }
+  }
+
+
+
+  // Special handling for horizontal layout with avatar/icon/image
+  &--layout-horizontal.rds-comp-notification--style-avatar,
+  &--layout-horizontal.rds-comp-notification--style-icon,
+  &--layout-horizontal.rds-comp-notification--style-image {
+    .rds-comp-notification__body {
+      margin-left: 0 !important;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .rds-comp-notification {
+    &--layout-horizontal {
+      .rds-comp-notification__header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+      }
+      
+      .rds-comp-notification__body {
+        margin-left: 0 !important;
+      }
+      
+      &.rds-comp-notification--style-image {
+        .rds-comp-notification__title-section {
+          padding-left: 0 !important;
+        }
+      }
+    }
+  }
+}
