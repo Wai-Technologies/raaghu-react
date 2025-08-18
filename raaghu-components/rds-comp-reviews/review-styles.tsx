@@ -3,6 +3,7 @@ import { RdsAvatar, RdsRating } from "../../raaghu-elements";
 import { Item, RevieweStyle } from "./rds-comp-reviews";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 
 /**
  * Helper function to format dates in a standard way
@@ -29,34 +30,30 @@ const Style1 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <div className="row">
-      <div className="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <div className="card h-100">
-          <div className="card-body text-center">
-            <div className="d-flex justify-content-center">
-              <RdsAvatar
-                src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-                name={item.name}
-                size="medium"
-                displayStyle="name-bottom"
-              />
-            </div>
-            <div className="my-3 d-flex justify-content-center">
-             <RdsRating
-              level={3}
-              styles="default"
-              type="star"
-              value={rating}
-              size="medium"
-              onChange={handleRatingChange}
-              readOnly={false}
-              />
-            </div>
-            <p className="card-text">{item.description}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Card sx={{ height: '100%' }}>
+      <CardContent sx={{ textAlign: 'center' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <RdsAvatar
+            src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+            name={item.name}
+            size="medium"
+            displayStyle="name-bottom"
+          />
+        </Box>
+        <Box sx={{ my: 3, display: 'flex', justifyContent: 'center' }}>
+         <RdsRating
+          level={3}
+          styles="default"
+          type="star"
+          value={rating}
+          size="medium"
+          onChange={handleRatingChange}
+          readOnly={false}
+          />
+        </Box>
+        <Typography variant="body1">{item.description}</Typography>
+      </CardContent>
+    </Card>
   );
 };
 
@@ -71,26 +68,22 @@ const Style2 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <div className="row">
-      <div className="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <div className="card h-100">
-          <div className="card-body text-center d-flex flex-column">
-            <h5 className="card-title">{item.name}</h5>
-            <h6 className="text-muted">{item.username}</h6>
-            <div className="my-3 d-flex justify-content-center">
-              <RdsRating
-                value={rating}
-                precision={0.5}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-              />
-            </div>
-            <p className="card-text">{item.description}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Card sx={{ height: '100%' }}>
+      <CardContent sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column' }}>
+        <Typography variant="h5">{item.name}</Typography>
+        <Typography variant="subtitle1" color="text.secondary">{item.username}</Typography>
+        <Box sx={{ my: 3, display: 'flex', justifyContent: 'center' }}>
+          <RdsRating
+            value={rating}
+            precision={0.5}
+            size="medium"
+            onChange={handleRatingChange}
+            readOnly={false}
+          />
+        </Box>
+        <Typography variant="body1">{item.description}</Typography>
+      </CardContent>
+    </Card>
   );
 };
 
@@ -105,27 +98,27 @@ const Style3 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <div className="card p-3 col-lg-4 col-sm-12 col-md-6">
+    <Card sx={{ p: 3, height: '100%' }}>
       {/* User info with avatar */}
-      <div className="d-flex align-items-center mb-3">
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
         <RdsAvatar
           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
           name={item.name}
           size="medium"
           displayStyle="with-name"
         />
-        <div className="ms-3">
-          <small className="text-muted">
+        <Box sx={{ ml: 2 }}>
+          <Typography variant="caption" color="text.secondary">
             {formatDate(item.date)}
-          </small>
-        </div>
-      </div>
+          </Typography>
+        </Box>
+      </Box>
 
       {/* Review content */}
-      <p className="card-text">{item.description}</p>
+      <Typography variant="body1">{item.description}</Typography>
 
       {/* Rating */}
-      <div className="d-flex align-items-center mt-2">
+      <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
         <RdsRating
           value={rating}
           precision={0.5}
@@ -133,8 +126,8 @@ const Style3 = ({ item }: { item: Item }) => {
           onChange={handleRatingChange}
           readOnly={false}
         />
-      </div>
-    </div>
+      </Box>
+    </Card>
   );
 };
 
@@ -149,22 +142,24 @@ const Style4 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <div className="card p-3 col-lg-4 col-sm-12 col-md-6">
+    <Card sx={{ p: 3, height: '100%' }}>
       {/* User info without avatar */}
-      <div className="d-flex align-items-center">
-        <div className="">
-          <h5 className="fw-bold card-title mb-0">{item.name}</h5>
-          <small className="text-muted">
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box>
+          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>
+            {item.name}
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
             {formatDate(item.date)}
-          </small>
-        </div>
-      </div>
+          </Typography>
+        </Box>
+      </Box>
 
       {/* Review content */}
-      <p className="mt-3">{item.description}</p>
+      <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
 
       {/* Rating */}
-      <div className="d-flex align-items-center mt-2">
+      <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
         <RdsRating
           value={rating}
           precision={0.5}
@@ -172,8 +167,8 @@ const Style4 = ({ item }: { item: Item }) => {
           onChange={handleRatingChange}
           readOnly={false}
         />
-      </div>
-    </div>
+      </Box>
+    </Card>
   );
 };
 
@@ -188,25 +183,31 @@ const Style5 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <div className="card p-3 col-lg-4 col-sm-12 col-md-6">
+    <Card sx={{ p: 3, height: '100%' }}>
       {/* User info with avatar */}
-      <div className="d-flex align-items-center">
-        <img
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box
+          component="img"
           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
           alt={item.name}
-          className="rounded-circle"
-          style={{ width: '50px', height: '50px' }}
+          sx={{ 
+            width: 50, 
+            height: 50, 
+            borderRadius: '50%' 
+          }}
         />
-        <div className="ms-3">
-          <h5 className="fw-bold card-title mb-0">{item.name}</h5>
-          <small className="text-muted">
+        <Box sx={{ ml: 2 }}>
+          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>
+            {item.name}
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
             {formatDate(item.date)}
-          </small>
-        </div>
-      </div>
+          </Typography>
+        </Box>
+      </Box>
       
       {/* Rating */}
-      <div className="d-flex align-items-center mt-2">
+      <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
         <RdsRating
           value={rating}
           precision={0.5}
@@ -214,11 +215,11 @@ const Style5 = ({ item }: { item: Item }) => {
           onChange={handleRatingChange}
           readOnly={false}
         />
-      </div>
+      </Box>
       
       {/* Review content */}
-      <p className="mt-3">{item.description}</p>
-    </div>
+      <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
+    </Card>
   );
 };
 
@@ -233,19 +234,21 @@ const Style6 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <div className="card p-3 col-lg-4 col-sm-12 col-md-6">
+    <Card sx={{ p: 3, height: '100%' }}>
       {/* User info without avatar */}
-      <div className="d-flex align-items-center">
-        <div className="">
-          <h5 className="fw-bold card-title mb-0">{item.name}</h5>
-          <small className="text-muted">
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box>
+          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>
+            {item.name}
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
             {formatDate(item.date)}
-          </small>
-        </div>
-      </div>
+          </Typography>
+        </Box>
+      </Box>
       
       {/* Rating */}
-      <div className="d-flex align-items-center mt-2">
+      <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
         <RdsRating
           value={rating}
           precision={0.5}
@@ -253,11 +256,11 @@ const Style6 = ({ item }: { item: Item }) => {
           onChange={handleRatingChange}
           readOnly={false}
         />
-      </div>
+      </Box>
       
       {/* Review content */}
-      <p className="mt-3">{item.description}</p>
-    </div>
+      <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
+    </Card>
   );
 };
 
@@ -282,25 +285,33 @@ const Style7 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <div className="rating-text card p-3 col-lg-5 col-sm-12 col-md-6">
+    <Card sx={{ p: 3, height: '100%' }} className="rating-text">
       {/* Image, Name, and Rating in the Same Line */}
-      <div className="d-flex justify-content-between align-items-center">
-        <div className="nowrap align-items-center d-flex">
-          <img
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'nowrap' }}>
+          <Box
+            component="img"
             src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
             alt={item.name}
-            className="rounded-circle ps-0 px-1"
-            style={{ width: '50px', height: '50px' }}
+            sx={{ 
+              width: 50, 
+              height: 50, 
+              borderRadius: '50%',
+              px: 1,
+              ps: 0
+            }}
           />
-          <div className="ms-1">
-            <h5 className="fw-bold card-title mb-0">{item.name}</h5>
-            <small className="text-muted">
+          <Box sx={{ ml: 1 }}>
+            <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>
+              {item.name}
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
               {formatDate(item.date)}
-            </small>
-          </div>
-        </div>
+            </Typography>
+          </Box>
+        </Box>
         {/* Rating at the End of the Line */}
-        <div className="rating-wrapper">
+        <Box className="rating-wrapper">
           <RdsRating
             value={rating}
             precision={0.5}
@@ -308,38 +319,50 @@ const Style7 = ({ item }: { item: Item }) => {
             onChange={handleRatingChange}
             readOnly={false}
           />
-        </div>
-      </div>
+        </Box>
+      </Box>
       
       {/* Description */}
-      <p className="mt-3">{item.description}</p>
+      <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
       
       {/* Like/Dislike Actions */}
-      <div className="d-flex align-items-center justify-content-start my-3 card-title">
-        <div className="d-flex align-items-center">
-          <div className="d-flex align-items-center me-3">
-            <button 
-              className="btn p-0 text-primary"
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', my: 3 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
+            <Box 
+              component="button" 
               onClick={handleLike}
-              style={{ backgroundColor: 'transparent', border: 'none' }}
+              sx={{ 
+                p: 0, 
+                color: 'primary.main',
+                backgroundColor: 'transparent', 
+                border: 'none',
+                cursor: 'pointer'
+              }}
             >
               <ThumbUpAltIcon color="primary" fontSize="small" />
-            </button>
-            <span className="ms-1">{likes}</span>
-          </div>
-          <div className="d-flex align-items-center">
-            <button 
-              className="btn p-0 text-danger"
+            </Box>
+            <Typography variant="body2" sx={{ ml: 1 }}>{likes}</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box 
+              component="button" 
               onClick={handleDislike}
-              style={{ backgroundColor: 'transparent', border: 'none' }}
+              sx={{ 
+                p: 0, 
+                color: 'error.main',
+                backgroundColor: 'transparent', 
+                border: 'none',
+                cursor: 'pointer'
+              }}
             >
               <ThumbDownAltIcon color="error" fontSize="small" />
-            </button>
-            <span className="ms-1">{dislikes}</span>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Box>
+            <Typography variant="body2" sx={{ ml: 1 }}>{dislikes}</Typography>
+          </Box>
+        </Box>
+      </Box>
+    </Card>
   );
 };
 
@@ -354,34 +377,30 @@ const Style8 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <div className="card p-3 col-lg-5 col-sm-12 col-md-6" style={{ height: '100%' }}>
-      <div>
-        <div className="align-items-center">
-          <div className="">
-            <div className="d-flex align-items-center mb-2 mt-2">
-              <RdsRating
-                value={rating}
-                precision={0.5}
-                size="medium"
-                onChange={handleRatingChange}
-                readOnly={false}
-              />
-            </div>
-            <small className="text-muted">
-              {formatDate(item.date)}
-            </small>
-          </div>
-        </div>
+    <Card sx={{ p: 3, height: '100%' }}>
+      <Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, mt: 2 }}>
+          <RdsRating
+            value={rating}
+            precision={0.5}
+            size="medium"
+            onChange={handleRatingChange}
+            readOnly={false}
+          />
+        </Box>
+        <Typography variant="caption" color="text.secondary">
+          {formatDate(item.date)}
+        </Typography>
         
         {/* Review content */}
-        <p className="mt-3">{item.description}</p>
+        <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
         
         {/* Name at the bottom */}
-        <div className="d-flex justify-content-end">
-          <h6 className="mb-0 text-end">{item.name}</h6>
-        </div>
-      </div>
-    </div>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Typography variant="h6" sx={{ mb: 0, textAlign: 'right' }}>{item.name}</Typography>
+        </Box>
+      </Box>
+    </Card>
   );
 };
 
@@ -406,24 +425,30 @@ const Style9 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <div className="card p-3 col-lg-6 col-md-6 col-sm-12">
+    <Card sx={{ p: 3, height: '100%' }}>
       {/* Header with user info */}
-      <div className="d-flex align-items-center">
-        <img
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box
+          component="img"
           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
           alt={item.name}
-          className="rounded-circle"
-          style={{ width: '50px', height: '50px' }}
+          sx={{ 
+            width: 50, 
+            height: 50, 
+            borderRadius: '50%'
+          }}
         />
-        <div className="ms-3">
-          <h5 className="fw-bold card-title mb-0">{item.name}</h5>
-          <div className="text-muted text-lowercase">{item.username}</div>
-        </div>
-      </div>
+        <Box sx={{ ml: 2 }}>
+          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'lowercase' }}>
+            {item.username}
+          </Typography>
+        </Box>
+      </Box>
       
       {/* Rating and date */}
-      <div className="d-flex justify-content-between align-items-center mt-2">
-        <div className="d-flex align-items-center">
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <RdsRating
             value={rating}
             precision={0.5}
@@ -431,42 +456,54 @@ const Style9 = ({ item }: { item: Item }) => {
             onChange={handleRatingChange}
             readOnly={false}
           />
-        </div>
+        </Box>
 
-        <small className="text-muted">
+        <Typography variant="caption" color="text.secondary">
           {formatDate(item.date)}
-        </small>
-      </div>
+        </Typography>
+      </Box>
     
       {/* Review content */}
-      <p className="mt-3">{item.description}</p>
+      <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
 
       {/* Like/Dislike Section */}
-      <div className="d-flex align-items-center justify-content-start my-3 card-title">
-        <div className="d-flex align-items-center">
-          <div className="d-flex align-items-center me-3">
-            <button 
-              className="btn p-0 text-primary"
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', my: 3 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
+            <Box 
+              component="button"
               onClick={handleLike}
-              style={{ backgroundColor: 'transparent', border: 'none' }}
+              sx={{ 
+                p: 0, 
+                color: 'primary.main',
+                backgroundColor: 'transparent', 
+                border: 'none',
+                cursor: 'pointer'
+              }}
             >
               <ThumbUpAltIcon color="primary" fontSize="medium" />
-            </button>
-            <span className="ms-1">{likes}</span>
-          </div>
-          <div className="d-flex align-items-center">
-            <button 
-              className="btn p-0 text-danger"
+            </Box>
+            <Typography variant="body2" sx={{ ml: 1 }}>{likes}</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box 
+              component="button"
               onClick={handleDislike}
-              style={{ backgroundColor: 'transparent', border: 'none' }}
+              sx={{ 
+                p: 0, 
+                color: 'error.main',
+                backgroundColor: 'transparent', 
+                border: 'none',
+                cursor: 'pointer'
+              }}
             >
               <ThumbDownAltIcon color="error" fontSize="medium" />
-            </button>
-            <span className="ms-1">{dislikes}</span>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Box>
+            <Typography variant="body2" sx={{ ml: 1 }}>{dislikes}</Typography>
+          </Box>
+        </Box>
+      </Box>
+    </Card>
   );
 };
 
@@ -491,18 +528,20 @@ const Style10 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <div className="card p-3 col-lg-6 col-md-6 col-sm-12">
+    <Card sx={{ p: 3, height: '100%' }}>
       {/* User info without avatar */}
-      <div className="d-flex align-items-center">
-        <div>
-          <h5 className="fw-bold card-title mb-0">{item.name}</h5>
-          <div className="text-muted text-lowercase">{item.username}</div>
-        </div>
-      </div>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box>
+          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'lowercase' }}>
+            {item.username}
+          </Typography>
+        </Box>
+      </Box>
       
       {/* Rating and date */}
-      <div className="d-flex justify-content-between align-items-center mt-2">
-        <div className="d-flex align-items-center">
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <RdsRating
             value={rating}
             precision={0.5}
@@ -510,42 +549,54 @@ const Style10 = ({ item }: { item: Item }) => {
             onChange={handleRatingChange}
             readOnly={false}
           />
-        </div>
+        </Box>
 
-        <small className="text-muted">
+        <Typography variant="caption" color="text.secondary">
           {formatDate(item.date)}
-        </small>
-      </div>
+        </Typography>
+      </Box>
       
       {/* Review content */}
-      <p className="mt-3">{item.description}</p>
+      <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
       
       {/* Like/Dislike Section */}
-      <div className="d-flex align-items-center justify-content-start my-3 card-title">
-        <div className="d-flex align-items-center">
-          <div className="d-flex align-items-center me-3">
-            <button 
-              className="btn p-0 text-primary"
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', my: 3 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
+            <Box 
+              component="button"
               onClick={handleLike}
-              style={{ backgroundColor: 'transparent', border: 'none' }}
+              sx={{ 
+                p: 0, 
+                color: 'primary.main',
+                backgroundColor: 'transparent', 
+                border: 'none',
+                cursor: 'pointer'
+              }}
             >
               <ThumbUpAltIcon color="primary" fontSize="medium" />
-            </button>
-            <span className="ms-1">{likes}</span>
-          </div>
-          <div className="d-flex align-items-center">
-            <button 
-              className="btn p-0 text-danger"
+            </Box>
+            <Typography variant="body2" sx={{ ml: 1 }}>{likes}</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box 
+              component="button"
               onClick={handleDislike}
-              style={{ backgroundColor: 'transparent', border: 'none' }}
+              sx={{ 
+                p: 0, 
+                color: 'error.main',
+                backgroundColor: 'transparent', 
+                border: 'none',
+                cursor: 'pointer'
+              }}
             >
               <ThumbDownAltIcon color="error" fontSize="medium" />
-            </button>
-            <span className="ms-1">{dislikes}</span>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Box>
+            <Typography variant="body2" sx={{ ml: 1 }}>{dislikes}</Typography>
+          </Box>
+        </Box>
+      </Box>
+    </Card>
   );
 };
 
@@ -560,18 +611,26 @@ const Style11 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <div className="card col-lg-3 col-sm-12 col-md-6">
-      <div className="card-body">
-        <div className="d-flex justify-content-center mb-3">
+    <Card sx={{ height: '100%' }}>
+      <CardContent>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
           <RdsAvatar
             src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
             name={item.name}
             size="medium"
           />
-        </div>
-        <h5 className="card-title text-center">{item.name}</h5>
-        <h6 className="text-center text-muted">{item.username}</h6>
-        <div className="d-flex justify-content-center align-items-center gap-1 my-3">
+        </Box>
+        <Typography variant="h5" sx={{ textAlign: 'center' }}>{item.name}</Typography>
+        <Typography variant="subtitle1" color="text.secondary" sx={{ textAlign: 'center' }}>
+          {item.username}
+        </Typography>
+        <Box sx={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          gap: '4px', 
+          my: 3 
+        }}>
           <RdsRating
             value={rating}
             max={1}
@@ -579,11 +638,11 @@ const Style11 = ({ item }: { item: Item }) => {
             onChange={handleRatingChange}
             readOnly={false}
           />
-          <span className="rating-value">{item.reviews || "4.75"}</span>
-        </div>
-        <p className="card-text text-center">{item.description}</p>
-      </div>
-    </div>
+          <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
+        </Box>
+        <Typography variant="body1" sx={{ textAlign: 'center' }}>{item.description}</Typography>
+      </CardContent>
+    </Card>
   );
 };
 
@@ -598,11 +657,19 @@ const Style12 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <div className="card col-lg-3 col-sm-12 col-md-6">
-      <div className="card-body">
-        <h5 className="card-title text-center">{item.name}</h5>
-        <h6 className="text-center text-muted">{item.username}</h6>
-        <div className="d-flex justify-content-center align-items-center gap-1 my-3">
+    <Card sx={{ height: '100%' }}>
+      <CardContent>
+        <Typography variant="h5" sx={{ textAlign: 'center' }}>{item.name}</Typography>
+        <Typography variant="subtitle1" color="text.secondary" sx={{ textAlign: 'center' }}>
+          {item.username}
+        </Typography>
+        <Box sx={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          gap: '4px', 
+          my: 3 
+        }}>
           <RdsRating
             value={rating}
             max={1}
@@ -610,11 +677,11 @@ const Style12 = ({ item }: { item: Item }) => {
             onChange={handleRatingChange}
             readOnly={false}
           />
-          <span className="rating-value">{item.reviews || "4.75"}</span>
-        </div>
-        <p className="card-text text-center">{item.description}</p>
-      </div>
-    </div>
+          <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
+        </Box>
+        <Typography variant="body1" sx={{ textAlign: 'center' }}>{item.description}</Typography>
+      </CardContent>
+    </Card>
   );
 };
 
