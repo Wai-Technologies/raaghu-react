@@ -104,6 +104,7 @@ export const Loading: Story = {
   args: {
     text: 'Loading Button',
     isLoading: true,
+    style: 'filled',
   },
 };
 

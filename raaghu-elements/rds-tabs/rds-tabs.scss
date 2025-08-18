@@ -133,7 +133,6 @@
 .rds-state--hover .Mui-selected:hover {
   background: var(--rds-color-hover-bg, #EBDCFF) !important;
   color: var(--rds-color-default, #646464) !important;
-  border-radius: 6px 6px 0 0 !important;
 }
 
 .rds-state--selected .Mui-selected {
@@ -218,6 +217,38 @@
   background: var(--rds-color-disabled-bg, #EBDCFF) !important;
   color: var(--rds-color-disabled, #AFCDFD) !important;
   border-radius:  6px 6px 0 0 !important;
+}
+
+.rds-tabs--flap.rds-state--disabled .Mui-selected::after {
+  border-top-color: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.rds-tabs--flap.rds-state--disabled .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
+  border-left-color: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.rds-tabs--pill.rds-state--disabled .MuiTab-root.Mui-selected {
+  background: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  color: var(--rds-color-disabled, #AFCDFD) !important;
+  border-radius: 15rem !important;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.rds-tabs--line-bottom-solid.rds-state--disabled .MuiTab-root.Mui-selected,
+.rds-tabs--line-left-solid.rds-state--disabled .MuiTab-root.Mui-selected,
+.rds-tabs--line-right-solid.rds-state--disabled .MuiTab-root.Mui-selected,
+.rds-tabs--line-top-solid.rds-state--disabled .MuiTab-root.Mui-selected {
+  background: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  color: var(--rds-color-disabled, #AFCDFD) !important;
+  border-radius: unset !important;
+  border-color: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 .rds-tabs__label {

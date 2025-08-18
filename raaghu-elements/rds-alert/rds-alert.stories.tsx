@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsAlert from './rds-alert';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 const meta: Meta<typeof RdsAlert> = {
   title: 'Elements/Alert',
@@ -9,7 +13,7 @@ const meta: Meta<typeof RdsAlert> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    message: {
+    description: {
       control: 'text',
       description: 'The message to display in the alert',
     },
@@ -23,9 +27,27 @@ const meta: Meta<typeof RdsAlert> = {
       options: ['filled', 'outlined', 'standard'],
       description: 'The variant of the alert',
     },
-    Icon: {
+    showIcon: {
       control: 'boolean',
       description: 'Show the info icon in the alert',
+      defaultValue: true,
+    },
+    changeIconName: {
+      control: 'select',
+      options: ['Info', 'Success', 'Warning', 'Error', 'None'],
+      mapping: {
+        Info: <InfoOutlinedIcon />,
+        Success: <CheckCircleOutlineIcon />,
+        Warning: <WarningAmberIcon />,
+        Error: <ErrorOutlineIcon />,
+        None: null,
+      },
+      description: 'Custom icon for the alert',
+      defaultValue: null,
+    },
+    showButtons: {
+      control: 'boolean',
+      description: 'Show action buttons (Link, Cancel, Okay)',
       defaultValue: true,
     },
     showTitle: {
@@ -83,9 +105,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    message: 'This is the description of the message bar.',
+    description: 'This is the description of the message bar.',
     type: 'info',
-    Icon: true,
+    showIcon: true,
     showTitle: true,
     title: 'Heading Title.',
     size: 'medium',
@@ -107,9 +129,9 @@ export const Default: Story = {
 
 export const Success: Story = {
   args: {
-    message: 'This is the description of the message bar.',
+    description: 'This is the description of the message bar.',
     type: 'success',
-    Icon: true,
+    showIcon: true,
     showTitle: true,
     title: 'Heading Title.',
   },
@@ -117,9 +139,9 @@ export const Success: Story = {
 
 export const Warning: Story = {
   args: {
-    message: 'This is the description of the message bar.',
+    description: 'This is the description of the message bar.',
     type: 'warning',
-    Icon: true,
+    showIcon: true,
     showTitle: true,
     title: 'Heading Title.',
   },
@@ -127,20 +149,20 @@ export const Warning: Story = {
 
 export const Error: Story = {
   args: {
-    message: 'This is the description of the message bar.',
+    description: 'This is the description of the message bar.',
     type: 'error',
-    Icon: true,
+    showIcon: true,
     showTitle: true,
     title: 'Heading Title.',
-  },                                                              
+  },                                                               
 };
 
 export const Filled: Story = {
   args: {
-    message: 'This is the description of the message bar.',
+    description: 'This is the description of the message bar.',
     type: 'success',
     variant: 'filled',
-    Icon: true,
+    showIcon: true,
     showTitle: true,
     title: 'Heading Title.',
   },
@@ -148,10 +170,10 @@ export const Filled: Story = {
 
 export const Outlined: Story = {
   args: {
-    message: 'This is the description of the message bar.',
+    description: 'This is the description of the message bar.',
     type: 'warning',
     variant: 'outlined',
-    Icon: true,
+    showIcon: true,
     showTitle: true,
     title: 'Heading Title.',
   },
