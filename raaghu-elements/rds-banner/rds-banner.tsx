@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import './rds-banner.scss';
 
 export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose'> {
-  message?: string;
+  description?: string;
   type?: AlertColor;
   Icon?: boolean;
   title?: string;
@@ -26,7 +26,7 @@ export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose'>
 }
 
 const RdsBanner: React.FC<RdsBannerProps> = ({
-  message,
+  description,
   children,
   type = 'info',
   Icon = true,
@@ -59,7 +59,7 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
   if (!isVisible && !persistent) {
     return null;
   }
-  const mainText = message !== undefined ? String(message) : (typeof children === 'string' ? children : '');
+  const mainText = description !== undefined ? String(description) : (typeof children === 'string' ? children : '');
   const sizeClass = `rds-banner--${size}`;
   const styleClass = `rds-banner--${variantStyle}`;
   const severityClass = `rds-banner--${type}`;
