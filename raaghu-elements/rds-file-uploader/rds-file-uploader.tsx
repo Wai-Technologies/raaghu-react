@@ -197,4 +197,5 @@ return (
   </>
 );
 };
+RdsFileUploader.displayName = 'RdsFileUploader';
 export default RdsFileUploader;

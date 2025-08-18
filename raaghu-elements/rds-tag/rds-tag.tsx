@@ -22,5 +22,5 @@ const RdsTag: React.FC<RdsTagProps> = ({
     />
   );
 };
-
+RdsTag.displayName = 'RdsTag';
 export default RdsTag;

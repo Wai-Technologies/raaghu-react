@@ -209,5 +209,5 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
         </Fragment>
     );
 };
-
+RdsCompNotification.displayName = "RdsCompNotification";
 export default RdsCompNotification;

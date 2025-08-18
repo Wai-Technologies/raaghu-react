@@ -71,5 +71,5 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutprops) => {
         </div>
     );
 };
-
+RdsCompDoughnutChart.displayName = 'RdsCompDoughnutChart';
 export default RdsCompDoughnutChart;

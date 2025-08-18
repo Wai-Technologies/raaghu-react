@@ -50,5 +50,5 @@ const RdsCompLineChart = (props: RdsComplineprops) => {
         </div>
     );
 };
-
+RdsCompLineChart.displayName = 'RdsCompLineChart';
 export default RdsCompLineChart;

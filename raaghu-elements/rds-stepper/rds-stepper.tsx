@@ -63,5 +63,5 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
     </MuiStepper>
   );
 };
-
+RdsStepper.displayName = 'RdsStepper';
 export default RdsStepper;

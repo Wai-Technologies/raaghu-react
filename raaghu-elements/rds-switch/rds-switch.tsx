@@ -118,5 +118,5 @@ const RdsSwitch = ({
     </div>
   );
 };
-
+RdsSwitch.displayName = 'RdsSwitch';
 export default RdsSwitch;

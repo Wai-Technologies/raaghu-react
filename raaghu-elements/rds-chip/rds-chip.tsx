@@ -18,4 +18,5 @@ const RdsChip: React.FC<RdsChipProps> = ({
   );
 };
 
+RdsChip.displayName = 'RdsChip';
 export default RdsChip;

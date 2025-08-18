@@ -95,5 +95,5 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
     </div>
   );
 };
-
+RdsCompToolbar.displayName = "RdsCompToolbar";
 export default RdsCompToolbar;
