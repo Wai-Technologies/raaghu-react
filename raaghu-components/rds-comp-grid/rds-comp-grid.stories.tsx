@@ -21,47 +21,67 @@ type Story = StoryObj<typeof RdsGrid>;
 
 export const Standard: Story = {
 	args: {
+		showHeader: true,
+		showSubHeader: true,
+		state: State.Default,
 		tableHeaders: [
 			{
-				displayName: "Name",
-				key: "name",
-				datatype: "text",
-				sortable: true,
+				dataLength: 30,
+				datatype: 'text',
+				displayName: 'Title',
 				filter: true,
+				key: 'edition',
+				required: true,
 				resizable: true,
-				isBold: true,
+				sortable: true
 			},
 			{
-				displayName: "Age",
-				key: "age",
-				datatype: "number",
-				sortable: true,
+				dataLength: 30,
+				datatype: 'text',
+				displayName: 'Title',
 				filter: true,
-				resizable: true,
+				key: 'edition',
+				required: true,
+				sortable: true
 			},
 			{
-				displayName: "Email",
-				key: "email",
-				datatype: "text",
-				sortable: true,
+				dataLength: 30,
+				datatype: 'text',
+				displayName: 'Title',
 				filter: true,
-				resizable: true,
+				key: 'edition',
+				required: true,
+				sortable: true
 			},
+			{
+				dataLength: 30,
+				datatype: 'text',
+				displayName: 'Title',
+				filter: true,
+				key: 'edition',
+				required: true,
+				sortable: true
+			},
+			{
+				dataLength: 30,
+				datatype: 'text',
+				displayName: 'Title',
+				filter: true,
+				key: 'edition',
+				required: true,
+				sortable: true
+			}
 		],
 		tableData: [
-			{ id: 1, name: "John Doe", age: 25, email: "john@example.com" },
-			{ id: 2, name: "Jane Smith", age: 30, email: "jane@example.com" },
-			{ id: 3, name: "Alice Brown", age: 28, email: "alice@example.com" },
-		],
-		resizableColumns: true,
-		enablecheckboxselection: true,
-		actions: [
-			{ displayName: "Edit", id: "edit" },
-			{ displayName: "Delete", id: "delete" },
-		],
-		actionColumnStyle: ActionColumnStyle.ShowDots,
-		showHeader: true,
-    showSubHeader:true,
-		state: State.Default,
-	},
+			{ edition: 'Text', id: 1 },
+			{ edition: 'Text', id: 2 },
+			{ edition: 'Text', id: 3 },
+			{ edition: 'Text', id: 4 },
+			{ edition: 'Text', id: 5 },
+			{ edition: 'Text', id: 6 },
+			{ edition: 'Text', id: 7 },
+			{ edition: 'Text', id: 8 },
+			{ edition: 'Text', id: 9 }
+		]
+	}
 };

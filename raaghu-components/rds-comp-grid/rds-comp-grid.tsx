@@ -263,39 +263,61 @@ const RdsGrid = (props: RdsGridProps) => {
                           {/* First two columns: empty header cells */}
                           <TableCell className={clsx('rds-grid__th', 'rds-grid__cell')} style={{ width: 48, minWidth: 48, background: '#f7fafd', borderRight: '1px solid #e0e0e0' }} />
                           <TableCell className={clsx('rds-grid__th', 'rds-grid__cell')} style={{ width: 48, minWidth: 48, background: '#f7fafd', borderRight: '1px solid #e0e0e0' }} />
-                          {[...Array(8)].map((_, idx) => (
-                            <TableCell
-                              key={"col-title-" + idx}
-                              className={clsx('rds-grid__th', 'rds-grid__cell')}
-                              style={{ fontWeight: 'bold', fontSize: '1rem', color: '#222', textAlign: 'left', borderRight: idx < 7 ? '1px solid #e0e0e0' : 'none', background: '#f7fafd', minWidth: 150, padding: '12px 16px' }}
-                            >
-                              Title
-                            </TableCell>
-                          ))}
+              {props.tableHeaders.map((header, idx) => {
+                // Use dataLength for col width if present
+                const colWidth = header.dataLength ? header.dataLength * 5 : 150;
+                return (
+                  <TableCell
+                    key={"col-title-" + header.key + idx}
+                    className={clsx('rds-grid__th', 'rds-grid__cell')}
+                    style={{
+                      fontWeight: header.isBold ? 'bold' : 'normal',
+                      fontSize: '1rem',
+                      color: '#222',
+                      textAlign: 'left',
+                      borderRight: idx < props.tableHeaders.length - 1 ? '1px solid #e0e0e0' : 'none',
+                      background: '#f7fafd',
+                      minWidth: colWidth,
+                      width: colWidth,
+                      padding: '12px 16px',
+                    }}
+                  >
+                    {header.displayName}
+                    {/* Show required indicator if needed */}
+                    {header.required && <span style={{ color: '#e53935', marginLeft: 4 }}>*</span>}
+                  </TableCell>
+                );
+              })}
                         </TableRow>
                         <TableRow className="rds-grid__row rds-grid__row--filter" style={{ background: '#fff', borderBottom: '2px solid #e0e0e0' }}>
                           {/* First two columns: empty filter cells */}
                           <TableCell className="rds-grid__cell rds-grid__cell--filter" style={{ background: '#fff', borderRight: '1px solid #e0e0e0', minWidth: 48, padding: '10px 16px' }} />
                           <TableCell className="rds-grid__cell rds-grid__cell--filter" style={{ background: '#fff', borderRight: '1px solid #e0e0e0', minWidth: 48, padding: '10px 16px' }} />
-                          {[...Array(8)].map((_, idx) => (
-                            <TableCell key={"filter-col-" + idx} className="rds-grid__cell rds-grid__cell--filter" style={{ borderRight: idx < 7 ? '1px solid #e0e0e0' : 'none', background: '#fff', minWidth: 150, padding: '10px 16px' }}>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'space-between' }}>
-                                <select style={{ minWidth: '120px', padding: '4px 8px', borderRadius: '6px', border: '1px solid #e0e0e0', background: '#f7fafd', color: '#888' }}>
-                                  <option value="">Select</option>
-                                  <option value="option1">One</option>
-                                  <option value="option2">Two</option>
-                                  <option value="option3">Three</option>
-                                </select>
-                                <MoreVert fontSize="small" style={{ color: '#888', marginLeft: '8px' }} />
-                              </div>
-                            </TableCell>
-                          ))}
+              {props.tableHeaders.map((header, idx) => {
+                const colWidth = header.dataLength ? header.dataLength * 5 : 150;
+                return (
+                  <TableCell key={"filter-col-" + header.key + idx} className="rds-grid__cell rds-grid__cell--filter" style={{ borderRight: idx < props.tableHeaders.length - 1 ? '1px solid #e0e0e0' : 'none', background: '#fff', minWidth: colWidth, padding: '10px 16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'space-between' }}>
+                      {/* Only show filter if header.filter is true */}
+                      {header.filter ? (
+                        <select style={{ minWidth: '120px', padding: '4px 8px', borderRadius: '6px', border: '1px solid #e0e0e0', background: '#f7fafd', color: '#888' }}>
+                          <option value="">Filter...</option>
+                          <option value="option1">One</option>
+                          <option value="option2">Two</option>
+                          <option value="option3">Three</option>
+                        </select>
+                      ) : null}
+                      <MoreVert fontSize="small" style={{ color: '#888', marginLeft: '8px' }} />
+                    </div>
+                  </TableCell>
+                );
+              })}
                         </TableRow>
 
             </TableHead>
             <TableBody>
-                          {[...Array(6)].map((_, rowIdx) => (
-                            <TableRow key={`row-${rowIdx}`} className="rds-grid__row rds-grid__row--compact" style={{ background: '#f7fafd', borderBottom: rowIdx < 5 ? '1px solid #e0e0e0' : 'none' }}>
+                          {props.tableData.map((row, rowIdx) => (
+                            <TableRow key={`row-${rowIdx}`} className="rds-grid__row rds-grid__row--compact" style={{ background: '#f7fafd', borderBottom: rowIdx < props.tableData.length - 1 ? '1px solid #e0e0e0' : 'none' }}>
                               {/* First column: drag handle icon */}
                               <TableCell className="rds-grid__cell rds-grid__cell--compact" style={{ width: 48, minWidth: 48, padding: '10px 0', borderRight: '1px solid #e0e0e0', background: '#f7fafd', textAlign: 'center' }}>
                                 <span style={{ display: 'inline-block', color: '#cfd8dc', fontSize: '1.2rem', letterSpacing: '2px' }}>⋮⋮</span>
@@ -304,9 +326,9 @@ const RdsGrid = (props: RdsGridProps) => {
                               <TableCell className="rds-grid__cell rds-grid__cell--compact" style={{ width: 48, minWidth: 48, padding: '10px 0', borderRight: '1px solid #e0e0e0', background: '#f7fafd', textAlign: 'center' }}>
                                 <Radio checked={false} size="small" style={{ color: '#42a5f5' }} />
                               </TableCell>
-                              {[...Array(8)].map((_, colIdx) => (
-                                <TableCell key={`cell-${rowIdx}-${colIdx}`} className="rds-grid__cell rds-grid__cell--compact" style={{ padding: '10px 16px', borderRight: colIdx < 7 ? '1px solid #e0e0e0' : 'none', background: '#fff', fontSize: '0.95rem', color: '#222', textAlign: 'left' }}>
-                                  Text
+                              {props.tableHeaders.map((header, colIdx) => (
+                                <TableCell key={`cell-${rowIdx}-${colIdx}`} className="rds-grid__cell rds-grid__cell--compact" style={{ padding: '10px 16px', borderRight: colIdx < props.tableHeaders.length - 1 ? '1px solid #e0e0e0' : 'none', background: '#fff', fontSize: '0.95rem', color: '#222', textAlign: 'left' }}>
+                                  {row[header.key]}
                                 </TableCell>
                               ))}
                             </TableRow>
