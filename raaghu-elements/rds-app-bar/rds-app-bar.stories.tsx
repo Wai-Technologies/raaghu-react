@@ -108,6 +108,11 @@ const meta: Meta<typeof RdsAppBar> = {
       description: 'Toggle to show or hide logo',
       defaultValue: true,
     },
+    showSearch: {
+      control: 'boolean',
+      description: 'Show or hide the search bar',
+      defaultValue: true,
+    },
     position: {
       control: 'select',
       options: ['fixed', 'absolute', 'sticky', 'static', 'relative'],

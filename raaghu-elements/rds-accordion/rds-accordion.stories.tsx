@@ -3,6 +3,7 @@ import RdsAccordion, { RdsAccordionGroup } from './rds-accordion';
 import { Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import AddIcon from '@mui/icons-material/Add';
 
 const meta: Meta<typeof RdsAccordion> = {
   title: 'Elements/Accordion',
@@ -32,10 +33,22 @@ const meta: Meta<typeof RdsAccordion> = {
       description: 'Accordion state variant',
       defaultValue: 'default',
     },
-    Icon: {
+  ShowLeftIcon: {
       control: { type: 'boolean' },
       description: 'Show expand/collapse icon in accordion header',
       defaultValue: true,
+    },
+    changeleftIcon: {
+      control: 'select',
+      options: ['Add', 'ExpandMore', 'ArrowDropDown', 'None'],
+      mapping: {
+        Add: <AddIcon />,
+        ExpandMore: <ExpandMoreIcon />,
+        ArrowDropDown: <ArrowDropDownIcon />,
+        None: null,
+      },
+      description: 'Custom left icon for the accordion header',
+      defaultValue: null,
     },
     children: {
       control: false,
@@ -51,22 +64,22 @@ export const Default: Story = {
   args: {
     size: 'medium',
     state: 'default',
-    Icon: true,
+    ShowLeftIcon: true,
   },
-  render: ({ size, state, Icon }) => (
+  render: ({ size, state, ShowLeftIcon }) => (
     <>
-      <RdsAccordion title="Accordion Title 1" size={size} state={state} Icon={Icon}>
+  <RdsAccordion title="Accordion Title 1" size={size} state={state} ShowLeftIcon={ShowLeftIcon}>
       <Typography>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
         malesuada lacus ex, sit amet blandit leo lobortis eget.
       </Typography>
       </RdsAccordion>
-      <RdsAccordion title="Accordion Title 2" size={size} state={state} Icon={Icon}>
+  <RdsAccordion title="Accordion Title 2" size={size} state={state} ShowLeftIcon={ShowLeftIcon}>
         <Typography>
           Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
         </Typography>
       </RdsAccordion>
-      <RdsAccordion title="Accordion Title 3" size={size} state={state} Icon={Icon}>
+  <RdsAccordion title="Accordion Title 3" size={size} state={state} ShowLeftIcon={ShowLeftIcon}>
         <Typography>
           Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.
         </Typography>
@@ -79,7 +92,7 @@ export const Expanded: Story = {
   args: {
     title: 'Expanded Accordion',
     defaultExpanded: true,
-    Icon: true,
+  ShowLeftIcon: true,
     children: (
       <Typography>
         This accordion is expanded by default. Lorem ipsum dolor sit amet,
@@ -93,7 +106,7 @@ export const Disabled: Story = {
   args: {
     title: 'Disabled Accordion',
     disabled: true,
-    Icon: true,
+  ShowLeftIcon: true,
     children: (
       <Typography>
         This accordion is disabled and cannot be expanded.
@@ -106,7 +119,7 @@ export const CustomIcon: Story = {
   args: {
     title: 'Custom Icon Accordion',
     icon: <ArrowDropDownIcon />,
-    Icon: true,
+  ShowLeftIcon: true,
     children: (
       <Typography>
         This accordion uses a custom expand icon.
@@ -118,7 +131,7 @@ export const CustomIcon: Story = {
 export const LongContent: Story = {
   args: {
     title: 'Accordion with Long Content',
-    Icon: true,
+  ShowLeftIcon: true,
     children: (
       <div>
         <Typography paragraph>

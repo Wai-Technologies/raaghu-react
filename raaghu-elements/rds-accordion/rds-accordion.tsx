@@ -12,7 +12,8 @@ import clsx from 'clsx';
 import './rds-accordion.scss';
 
 export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
-  Icon?: boolean;
+  ShowLeftIcon?: boolean;
+  changeleftIcon?: React.ReactNode;
   title: string;
   children: React.ReactNode;
   icon?: React.ReactNode;
@@ -23,7 +24,8 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
 }
 
 const RdsAccordion: React.FC<RdsAccordionProps> = ({
-  Icon = true,
+  ShowLeftIcon = true,
+  changeleftIcon,
   title,
   children,
   icon,
@@ -59,11 +61,11 @@ const RdsAccordion: React.FC<RdsAccordionProps> = ({
           className="rds-accordion__summary"
         >
           <div className="rds-accordion__header">
-            {Icon && (
+            {ShowLeftIcon && (changeleftIcon !== null ? (
               <span className="rds-accordion__icon">
-                {icon || <AddIcon fontSize="small" />}
+                {changeleftIcon !== undefined ? changeleftIcon : (icon || <AddIcon fontSize="small" />)}
               </span>
-            )}
+            ) : null)}
             <Typography component="span" className="rds-accordion__title">
               {title}
             </Typography>
