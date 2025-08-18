@@ -4,7 +4,7 @@ import {
   DialogTitle, 
   DialogContent, 
   DialogActions,
-  DialogProps,
+  type DialogProps,
   IconButton,
   Typography
 } from '@mui/material';
@@ -21,7 +21,7 @@ export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open'> {
   imageSrc?: string;
 }
 
-const RdsModal: React.FC<RdsModalProps> = ({
+const RdsModal= ({
   title,
   isOpen,
   onClose,
@@ -31,7 +31,7 @@ const RdsModal: React.FC<RdsModalProps> = ({
   imageSrc,
   children,
   ...props
-}) => {
+}:RdsModalProps) => {
   return (
     <MuiDialog
       open={isOpen}

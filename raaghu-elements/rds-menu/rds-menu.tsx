@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu as MuiMenu, MenuItem as MuiMenuItem, MenuProps } from '@mui/material';
+import { Menu as MuiMenu, MenuItem as MuiMenuItem, type MenuProps } from '@mui/material';
 
 export interface RdsMenuItem {
   id: string | number;
@@ -17,11 +17,11 @@ export interface RdsMenuProps extends Omit<MenuProps, 'children'> {
   size?: 'small' | 'medium' | 'large';
 }
 
-const RdsMenu: React.FC<RdsMenuProps> = ({
+const RdsMenu = ({
   items,
   size = 'medium',
   ...props
-}) => {
+}:RdsMenuProps) => {
   const menuClass = `rds-menu rds-menu--${size}`;
   return (
     <MuiMenu {...props} MenuListProps={{ className: menuClass }}>
