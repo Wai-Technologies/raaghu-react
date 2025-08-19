@@ -1,20 +1,19 @@
 import React from 'react';
 import { Button as MuiButton, type ButtonProps } from '@mui/material';
-import { Add, Delete, Save } from '@mui/icons-material';
+import { Add, Delete, Save, Edit, Close, ArrowForward, ArrowBack } from '@mui/icons-material';
 import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
 import './rds-button.scss';
 export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   text?: string;
   isLoading?: boolean;
-  iconPosition?: 'start' | 'end';
   shape?: 'pill' | 'rectangle';
   state?: 'default' | 'hover' | 'disabled' | 'selected';
   layout?: 'icon+text' | 'icon-only' | 'text-only';
   style?: 'filled' | 'outlined' | 'transparent';
-  icon?: 'add' | 'delete' | 'save';
-  startIcon?: React.ReactNode;
-  endIcon?: React.ReactNode;
-  inputSize?: 'small' | 'medium' | 'large';
+  showLeftIcon?: boolean;
+  showRightIcon?: boolean;
+  changeLeftIcon?: 'add' | 'delete' | 'save' | 'edit' | 'close' | 'arrow-forward' | 'arrow-back';
+  changeRightIcon?: 'add' | 'delete' | 'save' | 'edit' | 'close' | 'arrow-forward' | 'arrow-back';
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
 }
 
@@ -22,17 +21,16 @@ const RdsButton = ({
   text,
   children,
   isLoading = false,
-  iconPosition = 'start',
   disabled,
   shape = 'rectangle',
   sx,
   style,
   layout = 'icon+text',
-  startIcon,
-  endIcon,
+  showLeftIcon = false,
+  showRightIcon = false,
+  changeLeftIcon = 'add',
+  changeRightIcon = 'save',
   state = 'default',
-  icon,
-  inputSize = 'small',
   textCase = 'uppercase',
   ...props
 }:RdsButtonProps) => {
@@ -70,14 +68,22 @@ const RdsButton = ({
     };
   };
 
-  const getIconComponent = () => {
-    switch (icon) {
+  const getIconComponent = (iconType?: string) => {
+    switch (iconType) {
       case 'add':
         return <Add />;
       case 'delete':
         return <Delete />;
       case 'save':
         return <Save />;
+      case 'edit':
+        return <Edit />;
+      case 'close':
+        return <Close />;
+      case 'arrow-forward':
+        return <ArrowForward />;
+      case 'arrow-back':
+        return <ArrowBack />;
       default:
         return null;
     }
@@ -107,14 +113,11 @@ const RdsButton = ({
     if (normalizedLayout === 'icon-only') {
       return undefined;
     }
-    // If icon prop is set and position is start, always use it
-    if (normalizedLayout === 'icon+text' && icon && iconPosition === 'start') {
-      return getIconComponent();
+    // Handle showLeftIcon control with changeLeftIcon
+    if (normalizedLayout === 'icon+text' && showLeftIcon) {
+      return getIconComponent(changeLeftIcon);
     }
-    // Otherwise, use explicit startIcon prop
-    if (normalizedLayout === 'icon+text' && startIcon) {
-      return startIcon;
-    }
+  // icon prop removed
     return undefined;
   };
 
@@ -122,13 +125,9 @@ const RdsButton = ({
     if (normalizedLayout === 'icon-only') {
       return undefined;
     }
-    // If icon prop is set and position is end, always use it
-    if (normalizedLayout === 'icon+text' && icon && iconPosition === 'end') {
-      return getIconComponent();
-    }
-    // Otherwise, use explicit endIcon prop
-    if (normalizedLayout === 'icon+text' && endIcon) {
-      return endIcon;
+    // Handle showRightIcon control with changeRightIcon
+    if (normalizedLayout === 'icon+text' && showRightIcon) {
+      return getIconComponent(changeRightIcon);
     }
     return undefined;
   };
@@ -144,11 +143,15 @@ const RdsButton = ({
       />;
     }
     if (normalizedLayout === 'icon-only') {
-      // For icon-only layout, prioritize icon prop, then fallback to explicit icon props
-      if (icon) {
-        return getIconComponent();
+      // For icon-only layout, prioritize showLeftIcon/showRightIcon with controls, then icon prop
+      if (showLeftIcon) {
+        return getIconComponent(changeLeftIcon);
       }
-      return startIcon || endIcon;
+      if (showRightIcon) {
+        return getIconComponent(changeRightIcon);
+      }
+  // icon prop removed
+      return null;
     }
     if (normalizedLayout === 'icon+text' || normalizedLayout === 'text-only') {
       return text || children;
@@ -159,19 +162,13 @@ const RdsButton = ({
   // Determine if button should be disabled based on state or disabled prop
   const isButtonDisabled = disabled || state === 'disabled';
 
-  // Map inputSize to className
-  const sizeClass =
-    inputSize === 'large'
-      ? 'rds-button__large'
-      : inputSize === 'medium'
-      ? 'rds-button__medium'
-      : 'rds-button__small';
+  // inputSize logic removed
 
   return (
     <MuiButton
       disabled={isButtonDisabled}
       variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
-      className={`rds-button ${getStateClassName()} ${sizeClass}`.trim()}
+      className={`rds-button ${getStateClassName()}`.trim()}
       sx={{
         ...getShapeStyles(),
         ...getTextCaseStyles(),
