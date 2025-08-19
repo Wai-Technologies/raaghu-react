@@ -200,14 +200,14 @@ export const HistoryFavoritesTabs: React.FC<{
               {style === "Favourites - New Folder" ? (
                 <RdsButton
                   color="primary"
-                  inputSize="medium"
+                  size="medium"
                   fullWidth
                   text={`${addtofolder} (${selectedIndexes.length})`}
                 />
               ) : style === "Favourites" ? (
                 <RdsButton
                   color="primary"
-                  inputSize="medium"
+                  size="medium"
                   fullWidth
                   text={`${addtoscreen}`}
                 />
@@ -334,7 +334,7 @@ export const RealEstateContent: React.FC<{
                 layout="icon+text"
                 text="Add Guests"
                 shape="rectangle"
-                inputSize="small"
+                size="small"
                 state="default"
                 style="filled"
                 startIcon={<Group />}
@@ -441,12 +441,11 @@ export const ToolbarContent: React.FC<{
               <div className="rds-comp-details-pane__circle-btn-container">
                 <RdsButton
                   color="primary"
-                  icon="add"
-                  iconPosition="start"
-                  inputSize="medium"
+                  changeLeftIcon='add'
+                  showLeftIcon
+                  size="medium"
                   layout="icon-only"
                   shape="rectangle"
-                  size="medium"
                   state="default"
                   style="filled"
                   text="Default Button"
@@ -455,12 +454,11 @@ export const ToolbarContent: React.FC<{
               <div className="rds-comp-details-pane__circle-btn-container">
                 <RdsButton
                   color="primary"
-                  icon="add"
-                  iconPosition="start"
-                  inputSize="medium"
+                  changeLeftIcon='add'
+                  showLeftIcon
+                  size="medium"
                   layout="icon-only"
                   shape="rectangle"
-                  size="medium"
                   state="default"
                   style="filled"
                   text="Default Button"
@@ -469,9 +467,8 @@ export const ToolbarContent: React.FC<{
               <div className="rds-comp-details-pane__circle-btn-container">
                 <RdsButton
                   color="primary"
-                  icon="add"
-                  iconPosition="start"
-                  inputSize="medium"
+                  changeLeftIcon='add'
+                  showLeftIcon
                   layout="icon-only"
                   shape="rectangle"
                   size="medium"

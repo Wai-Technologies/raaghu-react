@@ -109,7 +109,8 @@ const RdsCompAiChatBot: React.FC<RdsCompAiChatBotProps> = ({
               </button>
             </div>
             <div className="rds-comp-ai-chat-bot__send">
-              <RdsButton color="primary" icon="add" style="filled" layout='icon-only' />
+              <RdsButton color="primary" changeLeftIcon='add'
+              showLeftIcon style="filled" layout='icon-only' />
             </div>
           </div>
         </div>
@@ -119,7 +120,8 @@ const RdsCompAiChatBot: React.FC<RdsCompAiChatBotProps> = ({
           <div className="rds-comp-ai-chat-bot__action-button rds-comp-ai-chat-bot__action-button--project">
             <RdsButton
               color="primary"
-              icon="add"
+              changeLeftIcon='add'
+              showLeftIcon
               text="New Project"
               style="filled"
               size='medium'
@@ -128,7 +130,8 @@ const RdsCompAiChatBot: React.FC<RdsCompAiChatBotProps> = ({
           <div className="rds-comp-ai-chat-bot__action-button rds-comp-ai-chat-bot__action-button--figma">
             <RdsButton
               color="primary"
-              icon="add"
+              changeLeftIcon='add'
+              showLeftIcon
               text="Import From Figma"
               style="outlined"
             />
@@ -153,5 +156,5 @@ const RdsCompAiChatBot: React.FC<RdsCompAiChatBotProps> = ({
     </div>
   );
 };
-RdsAutocomplete.displayName = 'RdsAutocomplete';
+RdsCompAiChatBot.displayName = 'RdsCompAiChatBot';
 export default RdsCompAiChatBot;

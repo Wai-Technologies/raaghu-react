@@ -1,3 +1,14 @@
+// Mandatory indicator for label (BEM convention)
+.rds-counter__mandatory {
+  display: inline-block;
+  width: 1em;
+  color: var(--rds-color-error, #d32f2f); // Use design system error color variable
+  margin-left: 4px;
+  font-size: 1em;
+  font-weight: bold;
+  vertical-align: middle;
+  text-align: center;
+}
 
 
 	// RDS Counter Component Styles

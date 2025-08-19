@@ -24,23 +24,28 @@ const meta: Meta<typeof RdsDivider> = {
     ),
   ],
   argTypes: {
-    orientation: {
+    layout: {
       control: 'select',
       options: ['horizontal', 'vertical'],
     },
-    text: {
+    dividerMessage: {
       control: 'text',
     },
-    position: {
+    textAlign: {
       control: 'select',
       options: ['left', 'center', 'right'],
     },
     flexItem: {
       control: 'boolean',
     },
-      showIcon: {
+    iconShow: {
       control: 'boolean',
       defaultValue: true,
+    },
+    iconName: {
+      control: 'text',
+      description: 'Enter the icon name to display (e.g., InfoOutlined, Add)',
+      defaultValue: 'InfoOutlined',
     },
   },
 };
@@ -50,18 +55,20 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    text: 'Default Divider',
-    position: 'center',
-    showIcon: true,
+    dividerMessage: 'Default Divider',
+    textAlign: 'center',
+    iconShow: true,
+    iconName: 'InfoOutlined',
   },
 };
 export const Vertical: Story = {
   args: {
     flexItem: true,
-    orientation: "vertical",
+    layout: "vertical",
+    iconName: 'InfoOutlined',
   },
   parameters: {
-    controls: { exclude: ['orientation'] }, // Hide orientation control for this story
+    controls: { exclude: ['layout'] }, // Hide layout control for this story
   },
   decorators: [
     (Story) => (
@@ -77,16 +84,18 @@ export const Vertical: Story = {
 
 export const WithText: Story = {
   args: {
-    text: 'OR',
-    position: 'center',
-    showIcon: true,
+    dividerMessage: 'OR',
+    textAlign: 'center',
+    iconShow: true,
+    iconName: 'InfoOutlined',
   },
 };
 
 export const Flexed: Story = {
   args: {
-    text: 'Flexed',
+    dividerMessage: 'Flexed',
     flexItem: true,
-    showIcon: true,
+    iconShow: true,
+    iconName: 'InfoOutlined',
   },
 };

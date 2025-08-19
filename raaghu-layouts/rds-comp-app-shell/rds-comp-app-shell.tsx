@@ -45,5 +45,5 @@ const RdsCompAppShell: React.FC<RdsCompAppShellProps> = ({
     </Box>
   );
 };
-
+RdsCompAppShell.displayName = 'RdsCompAppShell';
 export default RdsCompAppShell;

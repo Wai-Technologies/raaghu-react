@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton as MuiSkeleton, SkeletonProps, Box } from '@mui/material';
+import { Skeleton as MuiSkeleton, type SkeletonProps, Box } from '@mui/material';
 
 export interface RdsSkeletonProps extends SkeletonProps {
   type?: 'text' | 'rectangular' | 'rounded' | 'circular';
@@ -9,19 +9,33 @@ export interface RdsSkeletonProps extends SkeletonProps {
    */
   frames?: number;
   shape?: 'text' | 'rectangular' | 'rounded' | 'circular';
+  /**
+   * Enable animation for the skeleton. When true, shows animated loading effect.
+   * When false, shows static placeholder.
+   */
+  animated?: boolean;
+  /**
+   * Animation type: 'pulse', 'wave', or false. Overrides animated if provided.
+   */
+  animation?: 'pulse' | 'wave' | false;
 }
 
-const RdsSkeleton: React.FC<RdsSkeletonProps> = ({
+const RdsSkeleton= ({
   type = 'text',
   lines = 1,
   shape,
   frames = 1,
+  animated = true,
+  animation,
   sx,
   className = '',
   ...props
-}) => {
+}:RdsSkeletonProps) => {
   const isText = shape === 'text';
   const bemClass = `rds-skeleton rds-skeleton--${shape}` + (className ? ` ${className}` : '');
+
+  // Determine animation value: use animation prop if provided, else fallback to animated boolean
+  const animationValue = typeof animation !== 'undefined' ? animation : (animated ? 'pulse' : false);
 
   if (frames > 1) {
     return (
@@ -38,6 +52,7 @@ const RdsSkeleton: React.FC<RdsSkeletonProps> = ({
           <MuiSkeleton
             key={index}
             variant={shape}
+            animation={animationValue}
             {...props}
             sx={{ ...sx }}
             className={bemClass}
@@ -50,6 +65,7 @@ const RdsSkeleton: React.FC<RdsSkeletonProps> = ({
   return (
     <MuiSkeleton
       variant={shape}
+      animation={animationValue}
       {...props}
       sx={sx}
       className={bemClass}

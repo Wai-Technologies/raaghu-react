@@ -262,5 +262,5 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
     </Box>
   );
 };
-
+RdsCompESignature.displayName = 'RdsCompESignature';
 export default RdsCompESignature;
