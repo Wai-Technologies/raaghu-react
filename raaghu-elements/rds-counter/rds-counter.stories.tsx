@@ -37,6 +37,8 @@ const meta: Meta<typeof RdsCounter> = {
     controlsClassName: {
       control: false,
     },
+    showTitle: { control: 'boolean', },
+    isMandatory: { control: 'boolean', description: 'Show required indicator on label.' },
   },
 };
 
@@ -55,6 +57,8 @@ export const Default: Story = {
     disabled: false,
     showInput: true,
     step: 1,
+    showTitle: true,
+    isMandatory: false,
   },
    render: (args) => {
     const [value, setValue] = useState(args.placeholder);

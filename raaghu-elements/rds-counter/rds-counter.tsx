@@ -16,6 +16,8 @@ export interface RdsCounterProps {
   titleText?: string;
   variant?: 'default' | 'compact';
   controlsClassName?: string;
+    showTitle?: boolean;
+    isMandatory?: boolean;
 }
 
 const RdsCounter: React.FC<RdsCounterProps> = ({
@@ -30,7 +32,9 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
   titleText,
   variant = 'default',
   controlsClassName,
-}) => {
+    showTitle = true,
+    isMandatory = false,
+  }) => {
   const handleIncrement = () => {
     const newValue = Math.min(placeholder + step, max);
     onChange(newValue);
@@ -78,9 +82,16 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
   if (isCompact) {
     return (
       <Box className={`rds-counter rds-counter--compact rds-counter--${size}${disabled ? ' rds-counter--disabled' : ''}`}> 
-        {titleText && (
-          <Typography className={`rds-counter__label rds-counter__label--compact rds-counter__label--${size}`}>{titleText}</Typography>
-        )}
+          {showTitle && titleText && (
+            <Typography className={`rds-counter__label rds-counter__label--compact rds-counter__label--${size}`}>
+              {titleText}
+              <span
+                className="rds-counter__mandatory"
+                style={{ visibility: isMandatory ? 'visible' : 'hidden' }}
+              >*
+              </span>
+            </Typography>
+          )}
         <Box className={`rds-counter__controls rds-counter__controls--compact rds-counter__controls--${size}${controlsClassName ? ' ' + controlsClassName : ''}`}> 
           <IconButton
             onClick={handleDecrement}
@@ -122,9 +133,16 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
 
   return (
     <Box className={`rds-counter rds-counter--${size}${disabled ? ' rds-counter--disabled' : ''}`}> 
-      {titleText && (
-        <Typography className={`rds-counter__label rds-counter__label--${size}`}>{titleText}</Typography>
-      )}
+        {showTitle && titleText && (
+          <Typography className={`rds-counter__label rds-counter__label--${size}`}>
+            {titleText}
+            <span
+              className="rds-counter__mandatory"
+              style={{ visibility: isMandatory ? 'visible' : 'hidden' }}
+            >*
+            </span>
+          </Typography>
+        )}
       <Box 
         className={`rds-counter__controls rds-counter__controls--${size}`}
         sx={
