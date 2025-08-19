@@ -159,7 +159,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
 
         {/* Color Picker Container */}
         {(showPicker && (type === ColorPickerType.ButtonExpanded || type === ColorPickerType.Default || type === ColorPickerType.Button)) && (
-          <div className="rds-comp-color-picker__container mt-1">
+          <div className="rds-comp-color-picker__container">
             {/* Tab Selection UI */}
             {showTabs && (
               <div className="rds-comp-color-picker__tabs">
