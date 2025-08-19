@@ -8,12 +8,6 @@ import {
   ThumbnailViewContent
 } from "./details-pane-components";
 
-export enum ColorMode {
-  HEX = "HEX",
-  RGB = "RGB",
-  HSB = "HSB",
-  HSL = "HSL",
-}
 
 export interface RdsCompDetailsPaneProps {
   headerText: string; 
@@ -80,7 +74,7 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
               setActiveTab={setActiveTab}
               historyTabLabel={props.historyTabLabel}
               favouritesTabLabel={props.favouritesTabLabel}
-              addtoscreen={props.addtoscreen}
+              addtoscreen={props.addtoscreen || "Add to Screen"}
               addtofolder={props.addtofolder}
               style={props.style}
               historyItems={historyItems}

@@ -17,11 +17,10 @@ import {
   RdsAvatar,
   RdsAccordion
 } from "../../raaghu-elements";
+import RdsCompTreeStructure, { IconType, TreeLevel } from '../rds-comp-tree-structure/rds-comp-tree-structure';
 
-/**
- * HistoryFavoritesTabs - Component for displaying history and favorites tabs
- */
-export const HistoryFavoritesTabs: React.FC<{
+// Type definitions for component props
+export interface HistoryFavoriteTabsProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   historyTabLabel?: string;
@@ -33,25 +32,69 @@ export const HistoryFavoritesTabs: React.FC<{
   olderHistoryItems: { id: number; name: string }[];
   handleDeleteHistoryItem: (id: number) => void;
   handleDeleteOlderHistoryItem: (id: number) => void;
-}> = ({
+}
+
+export interface RealEstateContentProps {
+  estateTitle?: string;
+  estateDescription?: string;
+}
+
+export interface SelectionContentProps {
+  headerText?: string;
+  headerSubText?: string;
+}
+
+export interface ToolbarContentProps {
+  initialTab?: string;
+}
+
+export interface ThumbnailViewContentProps {
+  thumbnailButtonName?: string;
+}
+
+export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
   activeTab,
   setActiveTab,
-  historyTabLabel,
-  favouritesTabLabel,
-  addtoscreen,
-  addtofolder,
+  historyTabLabel = "History",
+  favouritesTabLabel = "Favourites",
+  addtoscreen = "Add to screen",
+  addtofolder = "Add to folder",
   style,
-  historyItems,
-  olderHistoryItems,
+  historyItems = [],
+  olderHistoryItems = [],
   handleDeleteHistoryItem,
   handleDeleteOlderHistoryItem
 }) => {
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
   const TABS = [
-    { key: "history", label: historyTabLabel || "History", icon: "history_watch" },
-    { key: "favourites", label: favouritesTabLabel || "Favourites", icon: "starempty_outline" },
+    { key: "history", label: historyTabLabel, icon: <History /> },
+    { key: "favourites", label: favouritesTabLabel, icon: <StarBorder /> },
   ];
+
+  // Helper for toggling selection of favorites
+  const toggleSelection = (idx: number) => {
+    setSelectedIndexes(prev => 
+      prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]
+    );
+  };
+
+  // Render history item row
+  const renderHistoryItem = (item: { id: number; name: string }, handleDelete: (id: number) => void) => (
+    <div key={item.id} className="rds-comp-details-pane__activity-item mb-3">
+      <div className="rds-comp-details-pane__activity-icon">
+        <History className="rds-comp-details-pane__icon-history" />
+      </div>
+      <span className="rds-comp-details-pane__activity-text">{item.name}</span>
+      <div className="rds-comp-details-pane__activity-delete">
+        <Delete
+          color="error"
+          className="rds-comp-details-pane__icon-delete"
+          onClick={() => handleDelete(item.id)}
+        />
+      </div>
+    </div>
+  );
 
   return (
     <div>
@@ -66,13 +109,7 @@ export const HistoryFavoritesTabs: React.FC<{
               type="button"
               onClick={() => setActiveTab(tab.key)}
             >
-              <span className="rds-comp-details-pane__tab-icon">
-                {tab.icon === "history_watch" ? (
-                  <History />
-                ) : (
-                  <StarBorder />
-                )}
-              </span>
+              <span className="rds-comp-details-pane__tab-icon">{tab.icon}</span>
               <span>{tab.label}</span>
             </button>
           ))}
@@ -91,56 +128,26 @@ export const HistoryFavoritesTabs: React.FC<{
             id="history"
             role="tabpanel"
           >
+            {/* Today's history */}
             <div className="rds-comp-details-pane__section-heading mb-2">
               <span className="rds-comp-details-pane__section-heading-text">Today</span>
               <span className="rds-comp-details-pane__section-heading-line"></span>
             </div>
             <div>
-              {historyItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="rds-comp-details-pane__activity-item mb-3"
-                >
-                  <div className="rds-comp-details-pane__activity-icon">
-                    <History style={{ color: "#969696" }} />
-                  </div>
-                  <span className="rds-comp-details-pane__activity-text">{item.name}</span>
-                  <div className="rds-comp-details-pane__activity-delete">
-                    <Delete
-                      color="error"
-                      style={{ height: "15px", width: "15px", cursor: "pointer" }}
-                      onClick={() => handleDeleteHistoryItem(item.id)}
-                    />
-                  </div>
-                </div>
-              ))}
+              {historyItems.map(item => renderHistoryItem(item, handleDeleteHistoryItem))}
             </div>
+            
+            {/* Older history */}
             <div className="rds-comp-details-pane__section-heading mt-3 mb-2">
               <span className="rds-comp-details-pane__section-heading-text">Older</span>
               <span className="rds-comp-details-pane__section-heading-line"></span>
             </div>
             <div>
-              {olderHistoryItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="rds-comp-details-pane__activity-item mb-3"
-                >
-                  <div className="rds-comp-details-pane__activity-icon">
-                    <History style={{ color: "#969696" }} />
-                  </div>
-                  <span className="rds-comp-details-pane__activity-text">{item.name}</span>
-                  <div className="rds-comp-details-pane__activity-delete">
-                    <Delete
-                      color="error"
-                      style={{ height: "15px", width: "15px", cursor: "pointer" }}
-                      onClick={() => handleDeleteOlderHistoryItem(item.id)}
-                    />
-                  </div>
-                </div>
-              ))}
+              {olderHistoryItems.map(item => renderHistoryItem(item, handleDeleteOlderHistoryItem))}
             </div>
           </div>
         )}
+        
         {activeTab === "favourites" && (
           <div
             className="rds-comp-details-pane__tab-pane"
@@ -154,13 +161,7 @@ export const HistoryFavoritesTabs: React.FC<{
                     selectedIndexes.includes(idx) ? " rds-comp-details-pane__favourite-card--selected" : ""
                   }`}
                   key={idx}
-                  onClick={() => {
-                    setSelectedIndexes((prev) =>
-                      prev.includes(idx)
-                        ? prev.filter((i) => i !== idx)
-                        : [...prev, idx]
-                    );
-                  }}
+                  onClick={() => toggleSelection(idx)}
                   style={{ cursor: "pointer" }}
                 >
                   <div className="rds-comp-details-pane__favourite-card-header">
@@ -176,7 +177,7 @@ export const HistoryFavoritesTabs: React.FC<{
                       button.
                     </span>
                     <span className="rds-comp-details-pane__favourite-edit-icon-wrapper">
-                      <Edit style={{ width: "17px", height: "17px", color: "#7D7D7D" }} />
+                      <Edit className="rds-comp-details-pane__icon-edit" />
                     </span>
                   </div>
                   <div className="rds-comp-details-pane__favourite-card-image-wrapper">
@@ -187,7 +188,7 @@ export const HistoryFavoritesTabs: React.FC<{
                     />
                     <span className="rds-comp-details-pane__favourite-card-image-star">
                       <Star
-                        style={{ width: "19px", height: "13px" }}
+                        className="rds-comp-details-pane__icon-star"
                         color="primary"
                       />
                     </span>
@@ -209,11 +210,10 @@ export const HistoryFavoritesTabs: React.FC<{
                   color="primary"
                   size="medium"
                   fullWidth
-                  text={`${addtoscreen}`}
+                  text={addtoscreen}
                 />
               ) : null}
             </div>
-            
           </div>
         )}
       </div>
@@ -224,122 +224,115 @@ export const HistoryFavoritesTabs: React.FC<{
 /**
  * RealEstateContent - Component for the real estate view
  */
-export const RealEstateContent: React.FC<{
-  estateTitle?: string;
-  estateDescription?: string;
-}> = ({
-  estateTitle,
-  estateDescription
+export const RealEstateContent: React.FC<RealEstateContentProps> = ({
+  estateTitle = "Serene Studio Housing",
+  estateDescription = "This studio room is located in Major city. The famous Amazon and Amazonia beaches are approximately 10 minutes walk from here. The room has a kitchenette with basic utensils for cooking. There is a private attached bathroom. We have a smart tv for your entertainment. We provide complimentary Wi-Fi to our guests who also want to work."
 }) => {
+  // Image carousel data
+  const carouselImages = [
+    { src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80", alt: "Night Sky" },
+    { src: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80", alt: "Night Sky" },
+    { src: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80", alt: "Night Sky" }
+  ];
+  
+  // Badge data
+  const badges = Array(3).fill({ content: "O Badge", color: "primary", size: "small", shape: "rectangle" });
+
   return (
     <div className="custom-content-wrapper" id="details-pane-container">
       <div className="rds-comp-details-pane__detail-pane-container p-0">
+        {/* Image Carousel */}
         <div className="rds-comp-details-pane__real-estate-carousel" id="carousel-indicator">
           <RdsCarousel
             autoPlay={false}
             height="200px"
-            showArrows={true}
+            showArrows={false}
             showDots={true}
             style="default"
             type="circle"
           >
-            <div>
-              <img 
-                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
-                alt="Night Sky"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            </div>
-            <div>
-              <img 
-                src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80"
-                alt="Mountain View"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            </div>
-            <div>
-              <img 
-                src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80"
-                alt="Nature View"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            </div>
+            {carouselImages.map((image, index) => (
+              <div key={index}>
+                <img 
+                  src={image.src}
+                  alt={image.alt}
+                  className="rds-comp-details-pane__thumbnail-img-square"
+                />
+              </div>
+            ))}
           </RdsCarousel>
         </div>
         
-        <div className="p-3">
+        <div>
+          {/* Title */}
           <div className="rds-comp-details-pane__real-estate-title" id="text-color-change">
-            <RdsTypography
-              variant="h6"
-              fontWeight="bold"
-            >
-              {estateTitle || "Serene Studio Housing"}
+            <RdsTypography variant="h6" fontWeight="bold">
+              {estateTitle}
             </RdsTypography>
           </div>
 
+          {/* Badges */}
           <div className="rds-comp-details-pane__real-estate-badges mt-2">
-            <span className="rds-comp-details-pane__badge-item me-2">
-              <RdsBadge 
-                badgeContent="O Badge" 
-                color="secondary" 
-                size="small"
-              />
-            </span>
-            <span className="rds-comp-details-pane__badge-item me-2">
-              <RdsBadge 
-                badgeContent="O Badge" 
-                color="secondary" 
-                size="small"
-              />
-            </span>
-            <span className="rds-comp-details-pane__badge-item">
-              <RdsBadge 
-                badgeContent="O Badge" 
-                color="secondary" 
-                size="small"
-              />
-            </span>
+            {badges.map((badge, index) => (
+              <span 
+                key={index} 
+                className={`rds-comp-details-pane__badge-item${index < badges.length - 1 ? ' me-2' : ''}`}
+              >
+                <RdsBadge 
+                  badgeContent={badge.content} 
+                  color={badge.color} 
+                  size={badge.size}
+                  shape={badge.shape}
+                />
+              </span>
+            ))}
           </div>
 
+          {/* Description */}
           <div className="mt-2 rds-comp-details-pane__real-estate-description" id="estate-description">
-            <RdsTypography
-              variant="body2"
-              fontWeight="normal"
-            >
-              {estateDescription || "This studio room is located in Major city. The famous Amazon and Amazonia beaches are approximately 10 minutes walk from here. The room has a kitchenette with basic utensils for cooking. There is a private attached bathroom. We have a smart tv for your entertainment. We provide complimentary Wi-Fi to our guests who also want to work."}
+            <RdsTypography variant="body2" fontWeight="normal">
+              {estateDescription}
             </RdsTypography>
           </div>
 
-          <div className="mt-4 mb-2 rds-comp-details-pane__real-estate-footer">
-            <RdsTypography
-              variant="body1"
-              fontWeight="600"
-            >
+          {/* Guest Information */}
+          <div className="rds-comp-details-pane__real-estate-footer">
+            <RdsTypography variant="body1" fontWeight="600">
               1 Adult, 0 Children
             </RdsTypography>
           </div>
 
+          {/* Guest Selection Controls */}
           <div className="rds-comp-details-pane__guest-selection-container d-flex align-items-center justify-content-between">
-            <div className="rds-comp-details-pane__guest-counter">
-              <RdsCounter
-                value={1}
-                onChange={() => {}}
-                max={10}
-                min={0}
-              />
+            <div className="rds-comp-details-pane__guest-counter d-flex h-100">
+              <div className="h-100 d-flex align-items-center">
+<RdsCounter
+  max={98}
+  min={1}
+  onChange={function OY(){}}
+  placeholder={5}
+  showInput
+  size="small"
+  step={2}  
+  variant="default"
+/>
+              </div>
             </div>
             <div className="rds-comp-details-pane__counter-button-left">
               <RdsButton
-                color="primary"
-                layout="icon+text"
-                text="Add Guests"
-                shape="rectangle"
-                size="small"
-                state="default"
-                style="filled"
-                startIcon={<Group />}
-                fullWidth
-              />
+  changeLeftIcon="circle"
+  changeRightIcon="circle"
+  color="primary"
+  layout="icon+text"
+  shape="rectangle"
+  showLeftIcon
+  showRightIcon
+  size="medium"
+  state="default"
+  style="filled"
+  text=" Add Guests"
+  textCase="uppercase"
+/>
             </div>
           </div>
         </div>
@@ -351,29 +344,35 @@ export const RealEstateContent: React.FC<{
 /**
  * SelectionContent - Component for the selection view
  */
-export const SelectionContent: React.FC<{
-  headerText?: string;
-  headerSubText?: string;
-}> = ({
-  headerText,
-  headerSubText
+export const SelectionContent: React.FC<SelectionContentProps> = ({
+  headerText = "Bayshore Transportation System",
+  headerSubText = "Agent Information"
 }) => {
+  // Sample agent data
+  const agents = [
+    { id: 1, name: "Jane Doe", designation: "Designation", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face", count: 4 },
+    { id: 2, name: "Jane Doe", designation: "Designation", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face", count: 4 },
+    { id: 3, name: "Jane Doe", designation: "Designation", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face", count: 4 }
+  ];
+
+  const [searchValue, setSearchValue] = useState<string>("");
+
   return (
     <div className="custom-content-wrapper" id="detail-pane-container-2">
       <div className="detail-pane-container px-4 py-4 rds-comp-details-pane__selection-container" id="detail-pain-lable">
+        {/* Header */}
         <div className="rds-comp-details-pane__header-container">
-          <h2 className="rds-comp-details-pane__title">
-            {headerText || "Bayshore Transportation System"}
-          </h2>
-          <p className="rds-comp-details-pane__subtitle">
-            {headerSubText || "Agent Information"}
-          </p>
+          <h2 className="rds-comp-details-pane__title">{headerText}</h2>
+          <p className="rds-comp-details-pane__subtitle">{headerSubText}</p>
         </div>
+        
         <hr className="rds-comp-details-pane__divider" />
+        
+        {/* Search */}
         <div className="rds-comp-details-pane__search-container">
           <RdsSearch
-            value=""
-            onChange={() => {}}
+            value={searchValue}
+            onChange={value => setSearchValue(value)}
             iconPosition="right"
             labelPosition="top"
             placeholder="Search for Agents by Name or # ID"
@@ -381,32 +380,34 @@ export const SelectionContent: React.FC<{
             fullWidth
             className="rds-comp-details-pane__search-field rds-comp-details-pane__search-field--compact"
           />
+          
         </div>
+        
+        {/* Agent list */}
         <div className="d-flex flex-column">
-          {[
-            { id: 1, image: "https://i.pravatar.cc/150?img=5" },
-            { id: 2, image: "https://i.pravatar.cc/150?img=5" },
-            { id: 3, image: "https://i.pravatar.cc/150?img=5" }
-          ].map((item) => (
-            <div key={item.id} className="rds-comp-details-pane__agent-card">
+          {agents.map((agent) => (
+            <div key={agent.id} className="rds-comp-details-pane__agent-card">
               <div className="rds-comp-details-pane__agent-left">
                 <div className="rds-comp-details-pane__agent-avatar">
                   <RdsAvatar
-                    color="primary"                          
-                    src={item.image}
-                    size="medium"
-                    style={{ width: '45px', height: '45px' }}
+                    alt="User Avatar"
+                    displayStyle="with-name"
+                    showDesignation
+                    showName
+                    src={agent.avatar}
+                    subText={agent.designation}
+                    title={agent.name}
                   />
-                </div>
-                <div className="rds-comp-details-pane__agent-info">
-                  <div className="rds-comp-details-pane__agent-name">Jane Doe</div>
-                  <div className="rds-comp-details-pane__agent-designation">Designation</div>
-                </div>
+                </div>                
               </div>
               <div className="rds-comp-details-pane__agent-actions">
-                <div className="rds-comp-details-pane__agent-badge">4</div>
+                <div className="rds-comp-details-pane__agent-badge">{agent.count}</div>
                 <div className="rds-comp-details-pane__agent-radio">
-                  <input type="radio" name="agent-select" className="rds-comp-details-pane__agent-radio-input" />
+                  <input 
+                    type="radio" 
+                    name="agent-select" 
+                    className="rds-comp-details-pane__agent-radio-input" 
+                  />
                 </div>
               </div>
             </div>
@@ -429,7 +430,7 @@ export const ToolbarContent: React.FC<{
   const [selectedFontSize, setSelectedFontSize] = useState<number>(16);
   const [selectedFontWeight, setSelectedFontWeight] = useState<string>('Regular');
   const [selectedCornerRadius, setSelectedCornerRadius] = useState<string | number>(0);
-  const [selectedSpacingSize, setSelectedSpacingSize] = useState<number>(0);
+  const [selectedSpacingSize, setSelectedSpacingSize] = useState<number | string>(0);
 
   return (
     <div className="custom-content-wrapper">
@@ -437,45 +438,81 @@ export const ToolbarContent: React.FC<{
         <div className="rds-comp-details-pane__toolbar-content">
           <div>
             <h3 className="mb-3">Toolbar</h3>
-            <div className="rds-comp-details-pane__toolbar-buttons-row mb-3">
+            <div className="rds-comp-details-pane__toolbar-buttons-row">
               <div className="rds-comp-details-pane__circle-btn-container">
                 <RdsButton
-                  color="primary"
-                  changeLeftIcon='add'
-                  showLeftIcon
-                  size="medium"
-                  layout="icon-only"
-                  shape="rectangle"
-                  state="default"
-                  style="filled"
-                  text="Default Button"
-                />
+  color="primary"
+  changeLeftIcon='circle'
+  showLeftIcon
+  layout="icon-only"
+  shape="rectangle"
+  size="medium"
+  state="default"
+  style={activeToolbarTab === 'icon_font' ? 'filled' : 'transparent'}
+  text="Default Button"
+  textCase="uppercase"
+  onClick={() => setActiveToolbarTab('icon_font')}
+/>
               </div>
               <div className="rds-comp-details-pane__circle-btn-container">
-                <RdsButton
-                  color="primary"
-                  changeLeftIcon='add'
-                  showLeftIcon
-                  size="medium"
-                  layout="icon-only"
-                  shape="rectangle"
-                  state="default"
-                  style="filled"
-                  text="Default Button"
-                />
+               <RdsButton
+  color="primary"
+  changeLeftIcon='circle'
+  showLeftIcon
+  layout="icon-only"
+  shape="rectangle"
+  size="medium"
+  state="default"
+  style={activeToolbarTab === 'icon_color' ? 'filled' : 'transparent'}
+  text="Default Button"
+  textCase="uppercase"
+  onClick={() => setActiveToolbarTab('icon_color')}
+/>
               </div>
               <div className="rds-comp-details-pane__circle-btn-container">
-                <RdsButton
-                  color="primary"
-                  changeLeftIcon='add'
-                  showLeftIcon
-                  layout="icon-only"
-                  shape="rectangle"
-                  size="medium"
-                  state="default"
-                  style="filled"
-                  text="Default Button"
-                />
+               <RdsButton
+  color="primary"
+  changeLeftIcon='circle'
+  showLeftIcon  
+  layout="icon-only"
+  shape="rectangle"
+  size="medium"
+  state="default"
+  style={activeToolbarTab === 'icon_frame' ? 'filled' : 'transparent'}
+  text="Default Button"
+  textCase="uppercase"
+   onClick={() => setActiveToolbarTab('icon_frame')}
+/>
+              </div>
+               <div className="rds-comp-details-pane__circle-btn-container">
+               <RdsButton
+  color="primary"
+  changeLeftIcon='circle'
+  showLeftIcon
+ layout="icon-only"
+  shape="rectangle"
+  size="medium"
+  state="default"
+  style={activeToolbarTab === 'icon_line_height' ? 'filled' : 'transparent'}
+  text="Default Button"
+  textCase="uppercase"
+  onClick={() => setActiveToolbarTab('icon_line_height')}
+/>
+              </div>
+               <div className="rds-comp-details-pane__circle-btn-container">
+               <RdsButton
+  color="primary"
+  changeLeftIcon='circle'
+  showLeftIcon
+  layout="icon-only"
+  shape="rectangle"
+  size="medium"
+  state="default"
+  style={activeToolbarTab === 'icon_block' ? 'filled' : 'transparent'}
+  text="Default Button"
+  textCase="uppercase"
+  onClick={() => setActiveToolbarTab('icon_block')}
+/>
               </div>
             </div>
             <hr className="rds-comp-details-pane__toolbar-divider mb-4" />
@@ -559,15 +596,41 @@ export const ToolbarContent: React.FC<{
                     fontWeight="600"
                     sx={{ mt: 3 }}
                   >
-                    Font Size
+                    Your Color Palette
                   </RdsTypography>
-                  <div className="font-weight-btn-group mt-2">
-                    <button type="button" className="font-weight-btn bg-primary text-white">Primary</button>
-                    <button type="button" className="font-weight-btn bg-primary text-white">Primary</button>
-                  </div>
-                  <div className="font-weight-btn-group mt-3">
-                    <button type="button" className="font-weight-btn bg-primary text-white">Primary</button>
-                    <button type="button" className="font-weight-btn bg-primary text-white">Primary</button>
+                  <div className="rds-comp-details-pane__palette-grid">
+                    <RdsButton
+                      color="primary"
+                      size="small"
+                      layout="text-only"
+                      style="filled"
+                      text="Primary"
+                      fullWidth
+                    />
+                    <RdsButton
+                      color="primary"
+                      size="small"
+                      layout="text-only"
+                      style="filled"
+                      text="Primary"
+                      fullWidth
+                    />
+                    <RdsButton
+                      color="primary"
+                      size="small"
+                      layout="text-only"
+                      style="filled"
+                      text="Primary"
+                      fullWidth
+                    />
+                    <RdsButton
+                      color="primary"
+                      size="small"
+                      layout="text-only"
+                      style="filled"
+                      text="Primary"
+                      fullWidth
+                    />
                   </div>
                 </div>
               )}
@@ -580,18 +643,34 @@ export const ToolbarContent: React.FC<{
                   >
                     Corner Radius Size
                   </RdsTypography>
-                  <div className="font-size-btn-group mt-2 mb-4">
-                    {[0, 2, 4, 6, 8, 12, 24, 48, 96, "MAX"].map((size) => (
-                      <button
-                        key={size}
-                        type="button"
-                        className={`font-size-btn${selectedCornerRadius === size ? ' selected' : ''}`}
-                        onClick={() => setSelectedCornerRadius(size)}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
+                   <div className="rds-comp-details-pane__corner-size-grid">
+                      <div className="rds-comp-details-pane__row">
+                        {[0, 2, 4, 6, 8].map(size => (
+                          <div key={size} className="rds-comp-details-pane__grid-cell">
+                            <button
+                              type="button"
+                              className={`rds-comp-details-pane__font-size-btn${selectedCornerRadius === size ? ' rds-comp-details-pane__font-size-btn--selected' : ''}`}
+                              onClick={() => setSelectedCornerRadius(size)}
+                            >
+                              {size}
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="rds-comp-details-pane__row">
+                        {[12, 24, 48, 96, 'MAX'].map(size => (
+                          <div key={size} className="rds-comp-details-pane__grid-cell">
+                            <button
+                              type="button"
+                              className={`rds-comp-details-pane__font-size-btn${selectedCornerRadius === size ? ' rds-comp-details-pane__font-size-btn--selected' : ''}`}
+                                onClick={() => setSelectedCornerRadius(size)}
+                            >
+                              {size}
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                 </div>
               )}
               {activeToolbarTab === 'icon_line_height' && (
@@ -603,18 +682,34 @@ export const ToolbarContent: React.FC<{
                   >
                     Spacing Size
                   </RdsTypography>
-                  <div className="font-size-btn-group mt-2 mb-4">
-                    {[0, 2, 4, 8, 12, 16, 20, 24, 32, 40].map((size) => (
-                      <button
-                        key={size}
-                        type="button"
-                        className={`font-size-btn${selectedSpacingSize === size ? ' selected' : ''}`}
-                        onClick={() => setSelectedSpacingSize(size)}
-                      >
-                        {size}
-                      </button>
-                    ))}
-                  </div>
+                 <div className="rds-comp-details-pane__spacing-size-grid">
+                      <div className="rds-comp-details-pane__row">
+                        {[0, 2, 4, 6, 8].map(size => (
+                          <div key={size} className="rds-comp-details-pane__grid-cell">
+                            <button
+                              type="button"
+                              className={`rds-comp-details-pane__font-size-btn${selectedSpacingSize === size ? ' rds-comp-details-pane__font-size-btn--selected' : ''}`}
+                              onClick={() => setSelectedSpacingSize(size)}
+                            >
+                              {size}
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="rds-comp-details-pane__row">
+                        {[12, 24, 48, 96, 'MAX'].map(size => (
+                          <div key={size} className="rds-comp-details-pane__grid-cell">
+                            <button
+                              type="button"
+                              className={`rds-comp-details-pane__font-size-btn${selectedSpacingSize === size ? ' rds-comp-details-pane__font-size-btn--selected' : ''}`}                             
+                              onClick={() => setSelectedSpacingSize(size)}
+                            >
+                              {size}
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                 </div>
               )}
               {activeToolbarTab === 'icon_block' && (
@@ -626,6 +721,178 @@ export const ToolbarContent: React.FC<{
                   >
                     Component List
                   </RdsTypography>
+                  <div>
+<RdsCompTreeStructure
+  Language="TypeScript"
+  level={TreeLevel.Level3}
+  showActions
+  showChewron
+  showFolder
+  text="Name"
+  treeData={[
+    {
+      children: [
+        {
+          children: [
+            {
+              children: [
+                {
+                  icon: 'file',
+                  id: 4,
+                  name: 'Name'
+                }
+              ],
+              icon: 'file',
+              id: 3,
+              name: 'Name'
+            }
+          ],
+          icon: 'folder',
+          id: 2,
+          name: 'Elements'
+        }
+      ],
+      icon: 'folder',
+      id: 1,
+      name: 'Name'
+    },
+    {
+      children: [
+        {
+          children: [
+            {
+              children: [
+                {
+                  icon: 'file',
+                  id: 8,
+                  name: 'Name'
+                }
+              ],
+              icon: 'file',
+              id: 7,
+              name: 'Name'
+            }
+          ],
+          icon: 'folder',
+          id: 6,
+          name: 'Name'
+        }
+      ],
+      icon: 'folder',
+      id: 5,
+      name: 'Name'
+    },
+    {
+      children: [
+        {
+          children: [
+            {
+              children: [
+                {
+                  icon: 'file',
+                  id: 12,
+                  name: 'Name'
+                }
+              ],
+              icon: 'file',
+              id: 11,
+              name: 'Name'
+            }
+          ],
+          icon: 'folder',
+          id: 10,
+          name: 'Name'
+        }
+      ],
+      icon: 'folder',
+      id: 9,
+      name: 'Name'
+    },
+    {
+      children: [
+        {
+          children: [
+            {
+              children: [
+                {
+                  icon: 'file',
+                  id: 16,
+                  name: 'Name'
+                }
+              ],
+              icon: 'file',
+              id: 15,
+              name: 'Name'
+            }
+          ],
+          icon: 'folder',
+          id: 14,
+          name: 'Name'
+        }
+      ],
+      icon: 'folder',
+      id: 13,
+      name: 'Name'
+    }
+  ]}
+  type={IconType.Folder}
+/>
+<RdsCompTreeStructure
+  Language="TypeScript"
+  level={TreeLevel.Level2}
+  showActions
+  showChewron
+  showFolder 
+  text="App Shell"
+  
+  treeData={[
+    {
+      children: [
+        {
+          children: [
+            {
+              children: [
+                
+              ],
+              icon: 'file',
+              id: 3,
+              name: 'App Shell'
+            }
+          ],
+          icon: 'folder',
+          id: 2,
+          name: 'App Shell'
+        }
+      ],
+     
+    },
+    {
+      children: [
+        {
+          children: [
+            {
+              children: [
+               
+              ],
+              icon: 'file',
+              id: 7,
+              name: 'App Shell'
+            }
+          ],
+          icon: 'folder',
+          id: 6,
+          name: 'Layout'
+        }
+      ],
+      icon: 'folder',
+      id: 5,
+      name: 'Layout'
+    },
+    ]}
+  type={IconType.Circle}
+/>
+
+                    </div>
                 </div>
               )}
             </div>
@@ -671,29 +938,41 @@ export const ThumbnailViewContent: React.FC<{
               <RdsAccordion
                 size="medium"
                 state="default"
-                title="Accordion Title 1"
+                title="Title"
               >
                 <div>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
-                </div>
+                <img 
+                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+                alt="Night Sky"
+                className="rds-comp-details-pane__thumbnail-img-square"
+              />                
+              </div>
               </RdsAccordion>
               <RdsAccordion
                 size="medium"
                 state="default"
-                title="Accordion Title 2"
+                title="Title"
               >
                 <div>
-                  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                </div>
+               <img 
+                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+                alt="Night Sky"
+                className="rds-comp-details-pane__thumbnail-img-square"
+              />                 
+              </div>
               </RdsAccordion>
               <RdsAccordion
                 size="medium"
                 state="default"
-                title="Accordion Title 3"
+                title="Title"
               >
                 <div>
-                  Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.
-                </div>
+                <img 
+                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+                alt="Night Sky"
+                className="rds-comp-details-pane__thumbnail-img-square"
+              />                
+              </div>
               </RdsAccordion>
             </>
           </>
