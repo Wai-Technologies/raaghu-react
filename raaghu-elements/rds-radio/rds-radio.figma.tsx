@@ -16,7 +16,7 @@ figma.connect(
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=346-3467",
   {
     props: {
-      label: figma.string("✏️Text"),
+      //label: figma.string("✏️Text"),
       layout: figma.enum("📱 Layout", {
         "Icon": "icon",
         "Icon with Label": "icon with label",
@@ -39,7 +39,7 @@ figma.connect(
     example: (props) => <RdsRadio
       options={[
         {
-          label: 'Option 1',
+          text: 'Option 1',
           value: 'option1'
         }
       ]}

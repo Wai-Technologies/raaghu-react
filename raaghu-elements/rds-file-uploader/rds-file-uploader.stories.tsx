@@ -11,6 +11,11 @@ const meta: Meta<typeof RdsFileUploader> = {
   },
   tags: ['autodocs'],
   argTypes: {
+    title: {
+      control: 'text',
+      description: 'Title text for the uploader',
+      defaultValue: 'File Upload',
+    },
     multiple: {
       control: 'boolean',
     },
@@ -61,7 +66,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    title: 'Upload your files',
     multiple: true,
+     showTitle: true,
+    isMandatory: true,
     maxFiles: 5,
     maxSize: 10 * 1024 * 1024,
     accept: ".png,.jpg,.jpeg,.doc,.pdf,.ppt",
@@ -70,25 +78,31 @@ export const Default: Story = {
     disabled: false,
     style:'Drop Area - Top Icon',
     showHint: true,
-     hintText: 'Maximum 5MB',
+    hintText: 'Maximum 5MB',
   },
 };
 
 export const SingleFile: Story = {
   args: {
+    title: 'Upload a single file',
+    showTitle: true,
+    isMandatory: true,
     multiple: false,
     maxFiles: 1,
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
-     style:'Drop Area - Top Icon',
+    style:'Drop Area - Top Icon',
     showHint: true,
-     hintText: 'Maximum 5MB',
+    hintText: 'Maximum 5MB',
   },
 };
 
 export const ImagesOnly: Story = {
   args: {
+    title: 'Upload images only',
+    showTitle: true,
+    isMandatory: true,
     accept: "image/*",
     multiple: true,
     maxFiles: 3,
@@ -96,38 +110,47 @@ export const ImagesOnly: Story = {
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
-     style:'Drop Area - Top Icon',
+    style:'Drop Area - Top Icon',
     showHint: true,
-     hintText: 'Maximum 5MB',
+    hintText: 'Maximum 5MB',
   },
 };
 
 export const NoDragAndDrop: Story = {
   args: {
+    title: 'No drag and drop',
+    showTitle: true,
+    isMandatory: true,
     dragAndDrop: false,
     multiple: true,
     showPreview: true,
     disabled: false,
-     style:'Drop Area - Top Icon',
+    style:'Drop Area - Top Icon',
     showHint: true,
-     hintText: 'Maximum 5MB',
+    hintText: 'Maximum 5MB',
   },
 };
 
 export const NoPreview: Story = {
   args: {
+    title: 'No preview',
+    showTitle: true,
+    isMandatory: true,
     showPreview: false,
     multiple: true,
     dragAndDrop: true,
     disabled: false,
-     style:'Drop Area - Top Icon',
+    style:'Drop Area - Top Icon',
     showHint: true,
-     hintText: 'Maximum 5MB',
+    hintText: 'Maximum 5MB',
   },
 };
 
 export const DocumentsOnly: Story = {
   args: {
+    title: 'Documents only',
+    showTitle: true,
+    isMandatory: true,
     accept: ".pdf,.doc,.docx,.txt",
     multiple: true,
     maxFiles: 10,
@@ -135,50 +158,59 @@ export const DocumentsOnly: Story = {
     showPreview: true,
     dragAndDrop: true,
     disabled: false,
-     style:'Drop Area - Top Icon',
+    style:'Drop Area - Top Icon',
     showHint: true,
-     hintText: 'Maximum 5MB',
+    hintText: 'Maximum 5MB',
   },
 };
 
 export const Disabled: Story = {
   args: {
+    title: 'Disabled uploader',
+    showTitle: true,
+    isMandatory: true,
     disabled: true,
     multiple: true,
     showPreview: true,
     dragAndDrop: true,
-     style:'Drop Area - Top Icon',
+    style:'Drop Area - Top Icon',
     showHint: true,
-     hintText: 'Maximum 5MB',
+    hintText: 'Maximum 5MB',
   },
 };
 
 export const WithValidation: Story = {
 args: {
+  title: 'With validation',
+  showTitle: true,
+  isMandatory: true,
   multiple: true,
   maxFiles: 3,
   maxSize: 1 * 1024 * 1024,
   showPreview: true,
   dragAndDrop: true,
   disabled: false,
-   style:'Drop Area - Top Icon',
-    showHint: true,
-     hintText: 'Maximum 5MB',
+  style:'Drop Area - Top Icon',
+  showHint: true,
+  hintText: 'Maximum 5MB',
 },
 
 };
 
 export const Interactive: Story = {
 args: {
+  title: 'Interactive uploader',
+  showTitle: true,
+  isMandatory: true,
   multiple: true,
   maxFiles: 5,
   accept: "image/*,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
   showPreview: true,
   dragAndDrop: true,
   disabled: false,
-   style:'Drop Area - Top Icon',
-    showHint: true,
-     hintText: 'Maximum 5MB',
+  style:'Drop Area - Top Icon',
+  showHint: true,
+  hintText: 'Maximum 5MB',
 },
 
 
@@ -187,6 +219,7 @@ args: {
 
 export const Standard: Story = {
   args: {
+    title: 'Standard uploader',
     showTitle: true,
     isMandatory: true,
     showHint: true,

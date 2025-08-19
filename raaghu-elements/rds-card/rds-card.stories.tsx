@@ -260,7 +260,7 @@ export const WithAvatar: Story = {
             src="https://images.unsplash.com/photo-1494790108755-2616b612b9ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80"
             alt="Jane Doe"
             size="small"
-            ring={true}
+            activityRing={true}
           />
           <div className="rds-card__avatar-info">
             {isEditMode ? (

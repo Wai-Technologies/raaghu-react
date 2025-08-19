@@ -186,7 +186,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                                 {showSecondaryButton && (
                                     <RdsButton
                                         text="DISMISS"
-                                        inputSize="small"
+                                        size="small"
                                         onClick={(e) => onDismiss?.(e, notification)}
                                         className="rds-comp-notification__secondary-button"
                                     />
@@ -194,7 +194,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                                 {showPrimaryButton && (
                                     <RdsButton
                                         text="ACCEPT"
-                                        inputSize="small"
+                                        size="small"
                                         style="transparent"
                                         color="primary"
                                         onClick={(e) => onAccept?.(e, notification)}

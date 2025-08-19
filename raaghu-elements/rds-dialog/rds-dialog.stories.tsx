@@ -15,11 +15,11 @@ const meta: Meta<typeof RdsDialog> = {
   tags: ['autodocs'],
   argTypes: {
     open: { control: { type: 'boolean' } },
-    maxWidth: { control: { type: 'select' }, options: ['xs', 'sm', 'md', 'lg', 'xl', false] },
+    size: { control: { type: 'select' }, options: ['xs', 'sm', 'md', 'lg', 'xl', false] },
     fullWidth: { control: { type: 'boolean' } },
     fullScreen: { control: { type: 'boolean' } },
     title: { control: 'text' },
-    showCloseButton: { control: 'boolean' },
+    ShowDissmiss: { control: 'boolean' },
     actions: { control: false },
     children: { control: false },
     ShowPrimary:{
@@ -78,7 +78,7 @@ export const FullWidth: Story = {
   args: {
     open: true,
     fullWidth: true,
-    maxWidth: 'sm',
+    size: 'sm',
     title: 'Full Width Dialog',
     
     children: (
@@ -123,7 +123,7 @@ export const Interactive: Story = {
 export const LargeContent: Story = {
   args: {
     open: true,
-    maxWidth: 'md',
+    size: 'md',
     fullWidth: true,
     title: 'Large Content Dialog',
   
@@ -148,11 +148,11 @@ export const LargeContent: Story = {
 export const Standard: Story = {
   args: {
     open: true,
-    maxWidth: "md",
+    size: "md",
     fullWidth: true,
     fullScreen: false,
     title: 'Title',
-    showCloseButton: true,
+    ShowDissmiss: true,
     variant: 'standard',
     ShowPrimary: true,
     ShowSecondary: true,
@@ -173,11 +173,11 @@ export const Standard: Story = {
     controls: {
       include: [
         'open',
-        'maxWidth',
+        'size',
         'fullWidth',
         'fullScreen',
         'title',
-        'showCloseButton',
+        'ShowDissmiss',
         'variant',
         'ShowPrimary',
         'ShowSecondary',
