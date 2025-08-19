@@ -95,5 +95,5 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
     </Fragment>
   );
 };
-
+RdsCompEmptyState.displayName = 'RdsCompEmptyState';
 export default RdsCompEmptyState;

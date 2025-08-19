@@ -62,5 +62,5 @@ const RdsCompLayout= ({
 
     )
 };
-
+RdsCompLayout.displayName = 'RdsCompLayout';
 export default RdsCompLayout;
