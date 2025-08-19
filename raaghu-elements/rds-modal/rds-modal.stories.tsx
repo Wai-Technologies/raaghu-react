@@ -1,4 +1,4 @@
-import { DeleteOutline, Info, Warning } from '@mui/icons-material';
+import { Delete, DeleteOutline, Info, Warning } from '@mui/icons-material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsModal from './rds-modal';
 import { Button, Typography } from '@mui/material';
@@ -63,6 +63,7 @@ export const Default = {
   render: ModalTemplate,
   args: {
     title: 'Default Modal',
+    showDescription: true,
     children: (
       <Typography>
         This is a basic modal with default settings. You can put any content here.
@@ -74,16 +75,18 @@ export const Default = {
 export const WithActions = {
   render: ModalTemplate,
   args: {
-    title: 'Modal with Actions',
+        title: 'Are you sure?',
+    showIcon: true,
+    icon: <Delete color="error" sx={{ height: 40, width: 40 }} />,
     children: (
       <Typography>
-        This modal includes action buttons at the bottom.
+       This record will be deleted permanently.
       </Typography>
     ),
     actions: (
       <>
         <Button>Cancel</Button>
-        <Button variant="contained">Save</Button>
+        <Button variant="contained">Delete</Button>
       </>
     ),
   },
@@ -155,11 +158,12 @@ export const SmallModal = {
 export const WithIcon = {
   render: ModalTemplate,
   args: {
-    title: 'Modal with Icon',
-    icon: <Info color="primary" sx={{ height: 24, width: 24 }} />,
+    title: 'Are you sure?',
+    showIcon: true,
+    icon: <Delete color="error" sx={{ height: 40, width: 40 }} />,
     children: (
       <Typography>
-        This modal displays an icon in the header.
+       This record will be deleted permanently.
       </Typography>
     ),
   },

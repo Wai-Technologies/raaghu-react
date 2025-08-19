@@ -84,24 +84,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
     margin-right: var(--rds-spacing-xs);
     color: var(--rds-color-icon);
+    margin-bottom: 2px;
   }
 
   &__image {
-    width: 70px;
-    height: 70px;
-    margin-right: 8px;
+    width: 300px;
+    height: 150px;
     border-radius: 4px;
-    object-fit: cover;
     display: inline-block;
     @media (max-width: 600px) {
-      width: 34px;
-      height: 34px;
+      width: 190px;
+      height: 150px;
       margin-right: 6px;
     }
+  }
+  &__content
+  {
+    text-align: center;
   }
 }
 
