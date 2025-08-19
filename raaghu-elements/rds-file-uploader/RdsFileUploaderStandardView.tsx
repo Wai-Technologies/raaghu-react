@@ -18,8 +18,8 @@ interface RdsFileUploaderStandardViewProps {
   setSelectedFileName: (name: string | null) => void;
   setFiles: (files: any[]) => void;
   onFilesChange?: (files: any[]) => void;
-  // Add any other props you need from the parent
- children?: React.ReactNode;
+  children?: React.ReactNode;
+  title?: string;
 }
 
 const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = ({
@@ -38,7 +38,8 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
   setSelectedFileName,
   setFiles,
   onFilesChange,
-  children
+  children,
+  title
 }) => {
   const [internalDragOver, setInternalDragOver] = React.useState(false);
   // Use internalDragOver if you want to manage drag state locally, otherwise use isDragOver from props
@@ -48,7 +49,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
       {showTitle && (
         <Box className="rds-file-uploader__title-row">
           <Typography className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 500 }}>
-            Title{isMandatory && <span className="rds-file-uploader__mandatory">*</span>}
+            {title || 'File'}{isMandatory && <span className="rds-file-uploader__mandatory">*</span>}
           </Typography>
         </Box>
       )}

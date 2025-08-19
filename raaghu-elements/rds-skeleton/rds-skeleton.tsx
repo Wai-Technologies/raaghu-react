@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton as MuiSkeleton, SkeletonProps, Box } from '@mui/material';
+import { Skeleton as MuiSkeleton, type SkeletonProps, Box } from '@mui/material';
 
 export interface RdsSkeletonProps extends SkeletonProps {
   type?: 'text' | 'rectangular' | 'rounded' | 'circular';
@@ -20,7 +20,7 @@ export interface RdsSkeletonProps extends SkeletonProps {
   animation?: 'pulse' | 'wave' | false;
 }
 
-const RdsSkeleton: React.FC<RdsSkeletonProps> = ({
+const RdsSkeleton= ({
   type = 'text',
   lines = 1,
   shape,
@@ -30,7 +30,7 @@ const RdsSkeleton: React.FC<RdsSkeletonProps> = ({
   sx,
   className = '',
   ...props
-}) => {
+}:RdsSkeletonProps) => {
   const isText = shape === 'text';
   const bemClass = `rds-skeleton rds-skeleton--${shape}` + (className ? ` ${className}` : '');
 
