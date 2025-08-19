@@ -1,5 +1,96 @@
+// Body row styles
+.rds-grid__row--compact {
+  background: #f7fafd;
+  border-bottom: 1px solid #e0e0e0;
+}
+.rds-grid__row--dragging {
+  background: #e3f2fd;
+}
+.rds-grid__cell--compact {
+  background: #fff;
+  text-align: left;
+  padding: 10px 16px;
+  position: relative;
+}
+.rds-grid__cell--compact-drag {
+  width: 48px;
+  min-width: 48px;
+  padding: 10px 0;
+  border-right: 1px solid #e0e0e0;
+  background: #f7fafd;
+  text-align: center;
+}
+.rds-grid__drag-icon {
+  display: inline-block;
+  color: #1976d2;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  cursor: grab;
+}
+.rds-grid__cell--compact-radio {
+  width: 48px;
+  min-width: 48px;
+  padding: 10px 0;
+  border-right: 1px solid #e0e0e0;
+  background: #f7fafd;
+  text-align: center;
+}
+.rds-grid__radio {
+  color: #42a5f5 !important;
+}
+.rds-grid__cell--compact-border {
+  border-right: 1px solid #e0e0e0;
+}
+// Filter row styles
+.rds-grid__row--filter {
+  background: #fff;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.rds-grid__cell--filter {
+  background: #fff;
+  min-width: 48px;
+  padding: 10px 16px;
+}
+
+.rds-grid__cell--filter-border {
+  border-right: 1px solid #e0e0e0;
+}
+
+.rds-grid__cell--filter-empty {
+  background: #fff;
+  border-right: 1px solid #e0e0e0;
+  min-width: 48px;
+  padding: 10px 16px;
+}
+
+.rds-grid__filter-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.rds-grid__filter-select {
+  min-width: 120px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  background: #f7fafd;
+  color: #222;
+  font-size: 1rem;
+}
+
+.rds-grid__filter-icon {
+  color: #888;
+  margin-left: 8px;
+}
 // BEM convention with rds- prefix
 .rds-grid {
+  &__row--title {
+    background: #f7fafd;
+    border-bottom: 2px solid #e0e0e0;
+  }
   &__subheader-wrapper {
     display: flex;
     justify-content: flex-start;

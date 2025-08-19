@@ -318,13 +318,14 @@ const RdsGrid = (props: RdsGridProps) => {
                   {(provided) => (
                     <TableRow
                       className="rds-grid__row rds-grid__row--title"
-                      style={{ background: '#f7fafd', borderBottom: '2px solid #e0e0e0' }}
                       ref={provided.innerRef}
                       {...provided.droppableProps}
                     >
                       {/* First two columns: empty header cells */}
-                      <TableCell className={clsx('rds-grid__th', 'rds-grid__cell')} style={{ width: 48, minWidth: 48, background: '#f7fafd', borderRight: '1px solid #e0e0e0' }} />
-                      <TableCell className={clsx('rds-grid__th', 'rds-grid__cell')} style={{ width: 48, minWidth: 48, background: '#f7fafd', borderRight: '1px solid #e0e0e0' }} />
+                      <TableCell className={clsx('rds-grid__th', 'rds-grid__cell')}
+                       sx = {{ width: 48, minWidth: 48, }} 
+                       />
+                      <TableCell className={clsx('rds-grid__th', 'rds-grid__cell')} sx={{ width: 48, minWidth: 48}} />
                       {headers.map((header, idx) => {
                         // Use columnWidths if set, else fallback to dataLength or default
                         const colWidth = columnWidths[header.key] ?? (header.dataLength ? header.dataLength * 5 : 150);
@@ -336,7 +337,7 @@ const RdsGrid = (props: RdsGridProps) => {
                                  ref={dragProvided.innerRef}
                                  {...dragProvided.draggableProps}
                                  className={clsx('rds-grid__th', 'rds-grid__cell', { 'rds-grid__th--resizable': isResizable })}
-                                 style={{
+                                 sx={{
                                    ...dragProvided.draggableProps.style,
                                    fontWeight: header.isBold ? 'bold' : 'normal',
                                    fontSize: '1rem',
@@ -390,18 +391,24 @@ const RdsGrid = (props: RdsGridProps) => {
                   )}
                 </Droppable>
                 {/* Filter row (use headers for order) */}
-                <TableRow className="rds-grid__row rds-grid__row--filter" style={{ background: '#fff', borderBottom: '2px solid #e0e0e0' }}>
-                  <TableCell className="rds-grid__cell rds-grid__cell--filter" style={{ background: '#fff', borderRight: '1px solid #e0e0e0', minWidth: 48, padding: '10px 16px' }} />
-                  <TableCell className="rds-grid__cell rds-grid__cell--filter" style={{ background: '#fff', borderRight: '1px solid #e0e0e0', minWidth: 48, padding: '10px 16px' }} />
+                <TableRow className="rds-grid__row rds-grid__row--filter">
+                  <TableCell className="rds-grid__cell rds-grid__cell--filter rds-grid__cell--filter-empty" />
+                  <TableCell className="rds-grid__cell rds-grid__cell--filter rds-grid__cell--filter-empty" />
                   {headers.map((header, idx) => {
                     const colWidth = header.dataLength ? header.dataLength * 5 : 150;
                     return (
-                      <TableCell key={"filter-col-" + header.key + idx} className="rds-grid__cell rds-grid__cell--filter" style={{ borderRight: idx < headers.length - 1 ? '1px solid #e0e0e0' : 'none', background: '#fff', minWidth: colWidth, padding: '10px 16px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'space-between' }}>
+                      <TableCell
+                        key={"filter-col-" + header.key + idx}
+                        className={
+                          `rds-grid__cell rds-grid__cell--filter${idx < headers.length - 1 ? ' rds-grid__cell--filter-border' : ''}`
+                        }
+                        style={{ minWidth: colWidth }}
+                      >
+                        <div className="rds-grid__filter-content">
                           {/* Only show filter if header.filter is true */}
                           {header.filter ? (
                             <select
-                              style={{ minWidth: '120px', padding: '4px 8px', borderRadius: '6px', border: '1px solid #e0e0e0', background: '#f7fafd', color: '#222' }}
+                              className="rds-grid__filter-select"
                               value={filterValues[header.key] || ''}
                               onChange={e => handleFilterChange(header.key, e.target.value)}
                             >
@@ -411,7 +418,7 @@ const RdsGrid = (props: RdsGridProps) => {
                               ))}
                             </select>
                           ) : null}
-                          <MoreVert fontSize="small" style={{ color: '#888', marginLeft: '8px' }} />
+                          <MoreVert fontSize="small" className="rds-grid__filter-icon" />
                         </div>
                       </TableCell>
                     );
@@ -427,33 +434,23 @@ const RdsGrid = (props: RdsGridProps) => {
                           <TableRow
                             ref={dragProvided.innerRef}
                             {...dragProvided.draggableProps}
-                            style={{
-                              ...dragProvided.draggableProps.style,
-                              background: dragSnapshot.isDragging ? '#e3f2fd' : '#f7fafd',
-                              borderBottom: rowIdx < data.length - 1 ? '1px solid #e0e0e0' : 'none',
-                            }}
-                            className="rds-grid__row rds-grid__row--compact"
+                            className={`rds-grid__row rds-grid__row--compact${dragSnapshot.isDragging ? ' rds-grid__row--dragging' : ''}`}
                           >
                             {/* First column: drag handle icon */}
-                            <TableCell className="rds-grid__cell rds-grid__cell--compact" style={{ width: 48, minWidth: 48, padding: '10px 0', borderRight: '1px solid #e0e0e0', background: '#f7fafd', textAlign: 'center' }} {...dragProvided.dragHandleProps}>
-                              <span style={{ display: 'inline-block', color: '#1976d2', fontSize: '1.2rem', letterSpacing: '2px', cursor: 'grab' }}>⋮⋮</span>
+                            <TableCell className="rds-grid__cell rds-grid__cell--compact rds-grid__cell--compact-drag" {...dragProvided.dragHandleProps}>
+                              <span className="rds-grid__drag-icon">⋮⋮</span>
                             </TableCell>
                             {/* Second column: radio button */}
-                            <TableCell className="rds-grid__cell rds-grid__cell--compact" style={{ width: 48, minWidth: 48, padding: '10px 0', borderRight: '1px solid #e0e0e0', background: '#f7fafd', textAlign: 'center' }}>
-                              <Radio checked={false} size="small" style={{ color: '#42a5f5' }} />
+                            <TableCell className="rds-grid__cell rds-grid__cell--compact rds-grid__cell--compact-radio">
+                              <Radio checked={false} size="small" className="rds-grid__radio" />
                             </TableCell>
                             {headers.map((header, colIdx) => (
                                <TableCell
                                  key={`cell-${rowIdx}-${colIdx}`}
-                                 className="rds-grid__cell rds-grid__cell--compact"
+                                 className={`rds-grid__cell rds-grid__cell--compact${colIdx < headers.length - 1 ? ' rds-grid__cell--compact-border' : ''}`}
                                  style={{
                                    minWidth: columnWidths[header.key] ?? (header.dataLength ? header.dataLength * 5 : 150),
-                                   width: columnWidths[header.key] ?? (header.dataLength ? header.dataLength * 5 : 150),
-                                   padding: '10px 16px',
-                                   borderRight: colIdx < headers.length - 1 ? '1px solid #e0e0e0' : 'none',
-                                   background: '#fff',
-                                   textAlign: 'left',
-                                   position: 'relative',
+                                   width: columnWidths[header.key] ?? (header.dataLength ? header.dataLength * 5 : 150)
                                  }}
                                >
                                  {row[header.key]}
