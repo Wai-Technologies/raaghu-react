@@ -37,13 +37,17 @@ const meta: Meta<typeof RdsPagination> = {
       control: 'boolean',
       description: 'Whether pagination is disabled',
     },
-    showFirstButton: {
+    showFirst: {
       control: 'boolean',
       description: 'Show first page button',
     },
-    showLastButton: {
+    showLast: {
       control: 'boolean',
       description: 'Show last page button',
+    },
+    showDropdown: {
+      control: 'boolean',
+      description: 'Show dropdown for page size selection',
     },
   },
 };
@@ -71,8 +75,9 @@ export const Advanced: Story = {
         onChange={(_, value) => setPage(value)}
         onPageSizeChange={setPageSize}
         pageSizeOptions={[10, 25, 50, 100]}
-        showFirstLast={true}
-        showRecordsPerPage={true}
+        showFirst={true}
+        showLast={true}
+        showDropdown={true}
       />
     );
   },
@@ -127,8 +132,8 @@ export const WithFirstLast: Story = {
   args: {
     count: 20,
     page: 10,
-    showFirstButton: true,
-    showLastButton: true,
+    showFirst: true,
+    showLast: true,
   },
 };
 

@@ -9,11 +9,14 @@ export interface RdsPaginationProps extends PaginationProps {
   totalPages?: number;
   currentPage?: number;
   onPageChange?: (page: number) => void;
-  showFirstLast?: boolean;
   pageSizeOptions?: number[];
   pageSize?: number;
   onPageSizeChange?: (size: number) => void;
-  showRecordsPerPage?: boolean;
+  style?: React.CSSProperties;
+  showDropdown?: boolean;
+  showLegend?: boolean;
+  showFirst?: boolean;
+  showLast?: boolean;
 }
 
 
@@ -21,13 +24,16 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
   totalPages,
   currentPage,
   onPageChange,
-  showFirstLast = true,
   count,
   page,
   onChange,
   pageSizeOptions = [10, 50, 100, 500],
   pageSize: pageSizeProp,
-  showRecordsPerPage = false,
+  style,
+  showDropdown = false,
+  showLegend = false,
+  showFirst = true,
+  showLast = true,
   onPageSizeChange,
   ...props
 }) => {
@@ -72,11 +78,11 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
         count={totalPagesCalc}
         page={page || currentPage}
         onChange={handleChange}
-        showFirstButton={showFirstLast}
-        showLastButton={showFirstLast}
+        showFirstButton={showFirst}
+        showLastButton={showLast}
         {...props}
       />
-      { showRecordsPerPage && (
+      {showDropdown && (
       <FormControl size="small" sx={{ minWidth: 100 }}>
         <InputLabel id="rds-pagination-page-size-label">Records per page</InputLabel>
         <Select
