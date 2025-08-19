@@ -9,11 +9,12 @@ export interface RdsDialogProps extends DialogProps {
   title?: string;
   children: React.ReactNode;
   actions?: React.ReactNode;
-  showCloseButton?: boolean;
+  ShowDissmiss?: boolean;
   onClose?: () => void;
   variant?: 'standard' | 'default';
   ShowPrimary?: boolean;
   ShowSecondary?: boolean;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
 }
 
 
@@ -21,21 +22,22 @@ const RdsDialog: React.FC<RdsDialogProps> = ({
   title,
   children,
   actions,
-  showCloseButton = true,
+  ShowDissmiss = true,
   onClose,
   variant = 'default',
   ShowPrimary,
   ShowSecondary,
+  size = 'md',
   ...props
 }) => {
   if (variant === 'standard') {
     return (
-      <MuiDialog onClose={onClose} {...props} PaperProps={{ className: 'rds-dialog rds-dialog__paper' }}>
-        {(title || showCloseButton) && (
+      <MuiDialog onClose={onClose} maxWidth={size} {...props} PaperProps={{ className: 'rds-dialog rds-dialog__paper' }}>
+        {(title || ShowDissmiss) && (
           <DialogTitle className="rds-dialog__title">
             <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '100%' }}>
               <div style={{ flex: 1 }}>{title}</div>
-              {showCloseButton && (
+              {ShowDissmiss && (
                 <IconButton aria-label="close" className="rds-dialog__close-button" onClick={onClose} size="medium">
                   <CloseIcon />
                 </IconButton>
@@ -61,11 +63,11 @@ const RdsDialog: React.FC<RdsDialogProps> = ({
   }
 
   return (
-    <MuiDialog onClose={onClose} {...props}>
-      {(title || showCloseButton) && (
-        <DialogTitle sx={{ position: 'relative', paddingRight: showCloseButton ? '40px' : undefined }}>
+  <MuiDialog onClose={onClose} maxWidth={size} {...props}>
+      {(title || ShowDissmiss) && (
+        <DialogTitle sx={{ position: 'relative', paddingRight: ShowDissmiss ? '40px' : undefined }}>
           {title}
-          {showCloseButton && onClose && (
+          {ShowDissmiss && onClose && (
             <IconButton
               aria-label="close"
               onClick={onClose}
