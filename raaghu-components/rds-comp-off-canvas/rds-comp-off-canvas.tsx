@@ -103,7 +103,7 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
           <div
             className="offcanvas_btn"
             onClick={handleOpen}>
-            <RdsButton text="Button" style="filled" inputSize="medium" onClick={handleOpen}/>
+            <RdsButton text="Button" style="filled" size="medium" onClick={handleOpen}/>
           </div>        
         <Drawer
           anchor={getAnchor()}
@@ -156,14 +156,14 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
                 }}>
                   {showTertiaryButton && (
                     <Box className="me-2" sx={{flex: '1.7'}}>
-                      <RdsButton text="RESTORE TO DEFAULT" style="transparent" inputSize="medium"
+                      <RdsButton text="RESTORE TO DEFAULT" style="transparent" size="medium"
                         sx={{ width: '100%'}}
                       />
                     </Box>
                   )}
                   {showSecondaryButton && (
                     <Box className="me-2" sx={{flex: 1}}>
-                      <RdsButton text="CANCEL" style="outlined" inputSize="medium" sx={{
+                      <RdsButton text="CANCEL" style="outlined" size="medium" sx={{
                           width: '100%',
                         }}
                       />
@@ -171,7 +171,7 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
                   )}
                   {showPrimaryButton && (
                     <Box className="me-2" sx={{ flex: 1}}>
-                      <RdsButton text="SAVE" style="filled" inputSize="medium" onClick={handleClose}
+                      <RdsButton text="SAVE" style="filled" size="medium" onClick={handleClose}
                         sx={{width: '100%'}}
                       />
                     </Box>

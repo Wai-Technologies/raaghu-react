@@ -192,7 +192,8 @@ const RdsCompChat = (props: RdsCompChatProps) => {
             </div>
           )}
           <span className="me-2 mt-2">
-            <RdsButton color="primary" icon="add" layout="icon-only" style="filled" />
+            <RdsButton color="primary" changeLeftIcon='add'
+              showLeftIcon layout="icon-only" style="filled" />
           </span>
           <input id="fileUpload" type="file" accept="image/*" style={{ display: "none" }} onChange={handleImageUpload} />
           <span className="me-2 mt-2" ref={emojiButtonRef}>
