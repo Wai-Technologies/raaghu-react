@@ -62,5 +62,5 @@ const RdsCompLayout: React.FC<RdsCompLayoutProps> = ({
 
     )
 };
-
+RdsCompLayout.displayName = 'RdsCompLayout';
 export default RdsCompLayout;
