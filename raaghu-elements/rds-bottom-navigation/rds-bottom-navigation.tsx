@@ -57,4 +57,5 @@ const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
   );
 };
 
+RdsBottomNavigation.displayName = 'RdsBottomNavigation';
 export default RdsBottomNavigation;

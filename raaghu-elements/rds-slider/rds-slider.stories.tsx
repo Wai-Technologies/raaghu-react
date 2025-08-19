@@ -10,6 +10,22 @@ const meta: Meta<typeof RdsSlider> = {
   },
   tags: ['autodocs'],
   argTypes: {
+    controlType: {
+      control: { type: 'select' },
+      options: ['one way', 'two way'],
+      description: 'Slider control type - one way for single value, two way for range',
+      defaultValue: 'one way',
+    },
+    leftLabel: {
+      control: 'text',
+      description: 'Label to display on the left side of the slider',
+      defaultValue: '0',
+    },
+    rightLabel: {
+      control: 'text',
+      description: 'Label to display on the right side of the slider',
+      defaultValue: '100',
+    },
     value: {
       control: 'number',
       description: 'Current value of the slider',
@@ -57,14 +73,16 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    value: 30,
     min: 0,
     max: 100,
     showLabel: true,
     label: 'Slider',
+    controlType: 'one way',
+    leftLabel: '0',
+    rightLabel: '100',
   },
   argTypes: {
-    level: { table: { disable: true } },
+    value: { table: { disable: true } },
   },
   decorators: [
     (Story) => (
@@ -77,13 +95,18 @@ export const Default: Story = {
 
 export const WithMarks: Story = {
   args: {
-    value: 50,
     min: 0,
     max: 100,
     marks: true,
     step: 10,
     showLabel: true,
     label: 'Slider',
+    controlType: 'one way',
+    leftLabel: 'Min',
+    rightLabel: 'Max',
+  },
+  argTypes: {
+    value: { table: { disable: true } },
   },
   decorators: [
     (Story) => (
@@ -101,6 +124,9 @@ export const Range: Story = {
     max: 100,
     showLabel: true,
     label: 'Slider',
+    controlType: 'two way',
+    leftLabel: 'Low',
+    rightLabel: 'High',
   },
   decorators: [
     (Story) => (
@@ -113,10 +139,17 @@ export const Range: Story = {
 
 export const Disabled: Story = {
   args: {
-    value: 40,
     disabled: true,
     showLabel: true,
     label: 'Slider',
+    controlType: 'one way',
+    min: 0,
+    max: 100,
+    leftLabel: 'Start',
+    rightLabel: 'End',
+  },
+  argTypes: {
+    value: { table: { disable: true } },
   },
   decorators: [
     (Story) => (

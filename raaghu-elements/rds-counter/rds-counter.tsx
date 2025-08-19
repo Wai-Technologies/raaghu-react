@@ -171,5 +171,5 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
     </Box>
   );
 };
-
+RdsCounter.displayName = 'RdsCounter';
 export default RdsCounter;

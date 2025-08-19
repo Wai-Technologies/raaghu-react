@@ -139,5 +139,5 @@ const RdsInput = ({
     </div>
   );
 };
-
+RdsInput.displayName = 'RdsInput';
 export default RdsInput;

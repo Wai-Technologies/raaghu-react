@@ -129,5 +129,5 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
     </div>
   );
 };
-
+RdsCompCodeSnippet.displayName = 'RdsCompCodeSnippet';
 export default RdsCompCodeSnippet;

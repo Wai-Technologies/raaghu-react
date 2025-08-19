@@ -262,5 +262,5 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     </Measure>
   );
 };
-
+RdsCompContribution.displayName = "RdsCompContribution";
 export default RdsCompContribution;

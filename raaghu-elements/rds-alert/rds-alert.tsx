@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert as MuiAlert, AlertProps, AlertColor, Paper } from '@mui/material';
+import { Alert as MuiAlert, type AlertProps, type AlertColor, Paper } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import RdsButton from '../rds-button/rds-button';
 import './rds-alert.scss';
@@ -21,7 +21,7 @@ export interface RdsAlertProps extends AlertProps {
   showButtons?: boolean;
 }
 
-const RdsAlert: React.FC<RdsAlertProps> = ({
+const RdsAlert= ({
   description,
   children,
   type = 'info',
@@ -39,7 +39,7 @@ const RdsAlert: React.FC<RdsAlertProps> = ({
   showPrimary = true,
   showButtons = true,
   ...props
-}) => {
+}:RdsAlertProps) => {
   const mainText = description !== undefined ? String(description) : (typeof children === 'string' ? children : '');
   const sizeClass = `rds-alert--${size}`;
   const styleClass = `rds-alert--${variantStyle}`;
@@ -96,4 +96,5 @@ const RdsAlert: React.FC<RdsAlertProps> = ({
   );
 };
 
+RdsAlert.displayName = 'RdsAlert';
 export default RdsAlert;

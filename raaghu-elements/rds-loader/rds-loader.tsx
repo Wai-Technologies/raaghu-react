@@ -140,5 +140,5 @@ const RdsLoader = (props: RdsLoaderProps) => {
 
   return renderLoader();
 };
-
+RdsLoader.displayName = 'RdsLoader';
 export default RdsLoader;

@@ -44,5 +44,5 @@ const RdsFormControl: React.FC<RdsFormControlProps> = ({
     </MuiFormControl>
   );
 };
-
+RdsFormControl.displayName = 'RdsFormControl';
 export default RdsFormControl;

@@ -3,7 +3,7 @@ import {
   Accordion as MuiAccordion,
   AccordionSummary as MuiAccordionSummary,
   AccordionDetails as MuiAccordionDetails,
-  AccordionProps,
+  type AccordionProps,
   Typography
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -23,7 +23,7 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
   // selected?: boolean; // Removed, use state === 'selected'
 }
 
-const RdsAccordion: React.FC<RdsAccordionProps> = ({
+const RdsAccordion= ({
   ShowLeftIcon = true,
   changeleftIcon,
   title,
@@ -33,7 +33,7 @@ const RdsAccordion: React.FC<RdsAccordionProps> = ({
   size = 'medium',
   state = 'default',
   ...props
-}) => {
+}:RdsAccordionProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const isDisabled = props.disabled;
   const expanded = props.expanded ?? defaultExpanded;
@@ -111,4 +111,5 @@ export const RdsAccordionGroup: React.FC = () => (
   </>
 );
 
+RdsAccordion.displayName = 'RdsAccordion';
 export default RdsAccordion;

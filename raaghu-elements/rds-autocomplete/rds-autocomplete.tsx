@@ -1,5 +1,5 @@
 import React from 'react';
-import { Autocomplete as MuiAutocomplete, TextField, AutocompleteProps } from '@mui/material';
+import { Autocomplete as MuiAutocomplete, TextField, type AutocompleteProps } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
@@ -147,4 +147,5 @@ const RdsAutocomplete = <T extends { label?: string },>({
   );
 };
 
+RdsAutocomplete.displayName = 'RdsAutocomplete';
 export default RdsAutocomplete;

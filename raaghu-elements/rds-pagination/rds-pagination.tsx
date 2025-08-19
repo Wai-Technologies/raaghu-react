@@ -94,5 +94,5 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
     </Box>
   );
 };
-
+RdsPagination.displayName = 'RdsPagination';
 export default RdsPagination;

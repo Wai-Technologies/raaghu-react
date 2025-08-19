@@ -70,4 +70,5 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
   );
 };
 
+RdsCollapse.displayName = 'RdsCollapse';
 export default RdsCollapse;

@@ -127,5 +127,5 @@ const RdsDivider: React.FC<RdsDividerProps> = ({
     </Box>
   );
 };
-
+RdsDivider.displayName = 'RdsDivider';
 export default RdsDivider;
