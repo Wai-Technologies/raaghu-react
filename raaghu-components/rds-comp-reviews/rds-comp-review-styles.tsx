@@ -35,7 +35,7 @@ const Style1 = ({ item }: { item: Item }) => {
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <RdsAvatar
             src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-            name={item.name}
+            title={item.name}
             size="medium"
             displayStyle="name-bottom"
           />
@@ -103,7 +103,7 @@ const Style3 = ({ item }: { item: Item }) => {
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
         <RdsAvatar
           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-          name={item.name}
+          title={item.name}
           size="medium"
           displayStyle="with-name"
         />
@@ -186,15 +186,10 @@ const Style5 = ({ item }: { item: Item }) => {
     <Card sx={{ p: 3, height: '100%' }}>
       {/* User info with avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box
-          component="img"
-          src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-          alt={item.name}
-          sx={{ 
-            width: 50, 
-            height: 50, 
-            borderRadius: '50%' 
-          }}
+        <RdsAvatar
+           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+          title={item.name}
+          size="medium"
         />
         <Box sx={{ ml: 2 }}>
           <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>
@@ -616,7 +611,7 @@ const Style11 = ({ item }: { item: Item }) => {
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
           <RdsAvatar
             src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-            name={item.name}
+            title={item.name}
             size="medium"
           />
         </Box>
