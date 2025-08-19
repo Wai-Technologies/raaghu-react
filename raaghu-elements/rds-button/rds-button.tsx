@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button as MuiButton, type ButtonProps } from '@mui/material';
-import { Add, Delete, Save, Edit, Close, ArrowForward, ArrowBack } from '@mui/icons-material';
+import { Add, Delete, Save, Edit, Close, ArrowForward, ArrowBack, RadioButtonUnchecked } from '@mui/icons-material';
 import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
 import './rds-button.scss';
 export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
@@ -12,8 +12,8 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   style?: 'filled' | 'outlined' | 'transparent';
   showLeftIcon?: boolean;
   showRightIcon?: boolean;
-  changeLeftIcon?: 'add' | 'delete' | 'save' | 'edit' | 'close' | 'arrow-forward' | 'arrow-back';
-  changeRightIcon?: 'add' | 'delete' | 'save' | 'edit' | 'close' | 'arrow-forward' | 'arrow-back';
+  changeLeftIcon?: 'add' | 'delete' | 'save' | 'edit' | 'close' | 'arrow-forward' | 'arrow-back' | 'circle';
+  changeRightIcon?: 'add' | 'delete' | 'save' | 'edit' | 'close' | 'arrow-forward' | 'arrow-back' | 'circle';
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
 }
 
@@ -84,6 +84,8 @@ const RdsButton = ({
         return <ArrowForward />;
       case 'arrow-back':
         return <ArrowBack />;
+      case 'circle':
+        return <RadioButtonUnchecked />;
       default:
         return null;
     }
