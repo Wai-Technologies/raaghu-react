@@ -16,5 +16,5 @@ const RdsTypography: React.FC<RdsTypographyProps> = ({
     </MuiTypography>
   );
 };
-
+RdsTypography.displayName = 'RdsTypography';
 export default RdsTypography;

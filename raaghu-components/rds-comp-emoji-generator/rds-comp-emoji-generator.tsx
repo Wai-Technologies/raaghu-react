@@ -220,7 +220,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
         </Box>
     );
 };
-
+RdsEmojiGenerator.displayName = 'RdsEmojiGenerator';
 export default RdsEmojiGenerator;
 // Re-export enums for backward compatibility with stories and external consumers
 export { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';

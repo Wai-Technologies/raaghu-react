@@ -153,5 +153,5 @@ const RdsCompAiChatBot: React.FC<RdsCompAiChatBotProps> = ({
     </div>
   );
 };
-RdsAutocomplete.displayName = 'RdsAutocomplete';
+RdsCompAiChatBot.displayName = 'RdsCompAiChatBot';
 export default RdsCompAiChatBot;
