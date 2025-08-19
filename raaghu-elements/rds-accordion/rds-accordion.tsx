@@ -3,7 +3,7 @@ import {
   Accordion as MuiAccordion,
   AccordionSummary as MuiAccordionSummary,
   AccordionDetails as MuiAccordionDetails,
-  AccordionProps,
+  type AccordionProps,
   Typography
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -12,7 +12,8 @@ import clsx from 'clsx';
 import './rds-accordion.scss';
 
 export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
-  Icon?: boolean;
+  ShowLeftIcon?: boolean;
+  changeleftIcon?: React.ReactNode;
   title: string;
   children: React.ReactNode;
   icon?: React.ReactNode;
@@ -22,8 +23,9 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
   // selected?: boolean; // Removed, use state === 'selected'
 }
 
-const RdsAccordion: React.FC<RdsAccordionProps> = ({
-  Icon = true,
+const RdsAccordion= ({
+  ShowLeftIcon = true,
+  changeleftIcon,
   title,
   children,
   icon,
@@ -31,7 +33,7 @@ const RdsAccordion: React.FC<RdsAccordionProps> = ({
   size = 'medium',
   state = 'default',
   ...props
-}) => {
+}:RdsAccordionProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const isDisabled = props.disabled;
   const expanded = props.expanded ?? defaultExpanded;
@@ -59,11 +61,11 @@ const RdsAccordion: React.FC<RdsAccordionProps> = ({
           className="rds-accordion__summary"
         >
           <div className="rds-accordion__header">
-            {Icon && (
+            {ShowLeftIcon && (changeleftIcon !== null ? (
               <span className="rds-accordion__icon">
-                {icon || <AddIcon fontSize="small" />}
+                {changeleftIcon !== undefined ? changeleftIcon : (icon || <AddIcon fontSize="small" />)}
               </span>
-            )}
+            ) : null)}
             <Typography component="span" className="rds-accordion__title">
               {title}
             </Typography>
@@ -109,4 +111,5 @@ export const RdsAccordionGroup: React.FC = () => (
   </>
 );
 
+RdsAccordion.displayName = 'RdsAccordion';
 export default RdsAccordion;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Autocomplete as MuiAutocomplete, TextField, AutocompleteProps } from '@mui/material';
+import { Autocomplete as MuiAutocomplete, TextField, type AutocompleteProps } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
@@ -8,13 +8,14 @@ import './rds-autocomplete.scss';
 
 export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, false, false, false>, 'renderInput'> {
   label?: string;
+  showTitle?: boolean;
   placeholder?: string;
   helperText?: string;
   error?: boolean;
   disabled?: boolean; 
   variant?: 'standard' | 'outlined' | 'filled';
   isMandatory?: boolean;
-  showHint?: boolean;
+  showHintText?: boolean;
   selectSize?: 'small' | 'medium' | 'large';
   controlStyle?: 'default' | 'bottom line';
   state?: 'default' | 'expanded' | 'selected' | 'disabled';
@@ -27,12 +28,13 @@ export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, false
 
 const RdsAutocomplete = <T extends { label?: string },>({
   label,
+  showTitle = true,
   placeholder,
   helperText,
   error = false,
   variant = 'outlined',
   isMandatory = false,
-  showHint = false,
+  showHintText = false,
   selectSize = 'medium',
   controlStyle = 'default',
   state = 'default',
@@ -70,7 +72,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
 
   return (
     <div className={`rds-autocomplete ${sizeClass} rds-autocomplete--root`}>
-      {label && (
+      {showTitle && label && (
         <label className={`rds-autocomplete__label rds-autocomplete__label--${selectSize}`}> 
           {label}
           {isMandatory && (
@@ -134,7 +136,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
         <TextField
           {...params}
           placeholder={placeholder}
-          helperText={showHint ? helperText : ''}
+          helperText={showHintText ? helperText : ''}
           error={error}
           variant={controlStyle === 'bottom line' ? 'standard' : 'outlined'}
           className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass}`}
@@ -145,4 +147,5 @@ const RdsAutocomplete = <T extends { label?: string },>({
   );
 };
 
+RdsAutocomplete.displayName = 'RdsAutocomplete';
 export default RdsAutocomplete;

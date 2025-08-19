@@ -1,13 +1,14 @@
 import React from 'react';
-import { Alert as MuiAlert, AlertProps, AlertColor, Paper } from '@mui/material';
+import { Alert as MuiAlert, type AlertProps, type AlertColor, Paper } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import RdsButton from '../rds-button/rds-button';
 import './rds-alert.scss';
 
 export interface RdsAlertProps extends AlertProps {
-  message?: string;
+  description?: string;
   type?: AlertColor;
-  Icon?: boolean;
+  showIcon?: boolean;
+  changeIconName?: React.ReactNode;
   title?: string;
   showTitle?: boolean;
   showDescription?: boolean;
@@ -17,14 +18,16 @@ export interface RdsAlertProps extends AlertProps {
   showLink?: boolean;
   showSecondary?: boolean;
   showPrimary?: boolean;
+  showButtons?: boolean;
 }
 
-const RdsAlert: React.FC<RdsAlertProps> = ({
-  message,
+const RdsAlert= ({
+  description,
   children,
   type = 'info',
   severity,
-  Icon = true,
+  showIcon = true,
+  changeIconName,
   title = 'Heading Title.',
   showTitle = false,
   showDescription = true,
@@ -34,9 +37,10 @@ const RdsAlert: React.FC<RdsAlertProps> = ({
   showLink = true,
   showSecondary = true,
   showPrimary = true,
+  showButtons = true,
   ...props
-}) => {
-  const mainText = message !== undefined ? String(message) : (typeof children === 'string' ? children : '');
+}:RdsAlertProps) => {
+  const mainText = description !== undefined ? String(description) : (typeof children === 'string' ? children : '');
   const sizeClass = `rds-alert--${size}`;
   const styleClass = `rds-alert--${variantStyle}`;
   const severityClass = `rds-alert--${(severity || type)}`;
@@ -45,7 +49,7 @@ const RdsAlert: React.FC<RdsAlertProps> = ({
     <Paper>
     <MuiAlert
       severity={severity || type}
-      icon={Icon ? <InfoOutlinedIcon className="rds-alert__icon" /> : false}
+  icon={showIcon ? (changeIconName !== null ? (changeIconName !== undefined ? changeIconName : <InfoOutlinedIcon className="rds-alert__icon" />) : false) : false}
       className={`rds-alert ${sizeClass} ${styleClass} ${severityClass}${props.className ? ` ${props.className}` : ''}`}
       {...props}
     >
@@ -70,7 +74,7 @@ const RdsAlert: React.FC<RdsAlertProps> = ({
           )}
           {React.isValidElement(children) ? children : null}
         </div>
-        {(showLink || showSecondary || showPrimary) && (
+        {showButtons && (showLink || showSecondary || showPrimary) && (
           <div className="rds-alert__actions">
             {showLink && (
               <RdsButton
@@ -92,4 +96,5 @@ const RdsAlert: React.FC<RdsAlertProps> = ({
   );
 };
 
+RdsAlert.displayName = 'RdsAlert';
 export default RdsAlert;

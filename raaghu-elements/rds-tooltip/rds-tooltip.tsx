@@ -58,5 +58,5 @@ const RdsTooltip= ({
     </MuiTooltip>
   );
 };
-
+RdsTooltip.displayName = 'RdsTooltip';
 export default RdsTooltip;

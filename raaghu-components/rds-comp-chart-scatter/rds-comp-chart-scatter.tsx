@@ -49,5 +49,5 @@ const RdsCompScatterChart = (props: RdsCompScatterChartProps) => {
         </div>
     );
 };
-
+RdsCompScatterChart.displayName = 'RdsCompScatterChart';
 export default RdsCompScatterChart;

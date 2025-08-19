@@ -257,4 +257,5 @@ const RdsCompToast = (props: RdsCompToastProps) => {
         </div>
     );
 };
+RdsCompToast.displayName = "RdsCompToast";
 export default RdsCompToast;

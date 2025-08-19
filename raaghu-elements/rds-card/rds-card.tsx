@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { Card as MuiCard, CardProps, Avatar, Typography, CardContent } from '@mui/material';
+import React, { type ReactNode } from 'react';
+import { Card as MuiCard, type CardProps, Avatar, Typography, CardContent } from '@mui/material';
 import { Person, Home, Settings, Favorite, Star, Email, Phone, LocationOn, Camera, Image, MusicNote, VideoLibrary,
          Description, Folder, CalendarToday, AccessTime, Search, Add, Edit, Delete, Check, Close, ArrowForward, ArrowBack,
          Download, Upload, Share, Notifications,
@@ -27,7 +27,7 @@ export interface RdsCardProps extends Omit<CardProps, 'children' | 'style'> {
   description?: string;
 }
 
-const RdsCard: React.FC<RdsCardProps> = ({
+const RdsCard = ({
   padding,
   children,
   sx,
@@ -45,7 +45,7 @@ const RdsCard: React.FC<RdsCardProps> = ({
   cardSubtext,
   description,
   ...props
-}) => {
+}:RdsCardProps) => {
   const getCardClassName = () => {
     const baseClass = 'rds-card';
     const stateClass = `rds-card--${state}`;
@@ -188,4 +188,5 @@ const RdsCard: React.FC<RdsCardProps> = ({
   );
 };
 
+RdsCard.displayName = 'RdsCard';
 export default RdsCard;

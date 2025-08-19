@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge as MuiBadge, BadgeProps } from '@mui/material';
+import { Badge as MuiBadge, type BadgeProps } from '@mui/material';
 import Notifications from '@mui/icons-material/Notifications';
 import './rds-badge.scss';
 
@@ -17,7 +17,7 @@ export interface RdsBadgeProps extends BadgeProps {
 }
 
 
-const RdsBadge: React.FC<RdsBadgeProps> = ({
+const RdsBadge= ({
   children,
   count,
   showZero = false,
@@ -31,7 +31,7 @@ const RdsBadge: React.FC<RdsBadgeProps> = ({
   state = 'default',
   colorVariant = 'primary',
   ...props
-}) => {
+}:RdsBadgeProps) => {
   const content = count !== undefined ? count : badgeContent;
   
   const bemClass = `rds-badge rds-badge--${size} rds-badge--${shape} rds-badge--${styleType} rds-badge--${colorVariant || 'primary'}${state === 'disabled' ? ' rds-badge--disabled' : ''}`;
@@ -74,4 +74,5 @@ const RdsBadge: React.FC<RdsBadgeProps> = ({
   );
 };
 
+RdsBadge.displayName = 'RdsBadge';
 export default RdsBadge;

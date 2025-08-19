@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs as MuiTabs, Tab as MuiTab, TabsProps } from '@mui/material';
+import { Tabs as MuiTabs, Tab as MuiTab, type TabsProps } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
 import './rds-tabs.scss';
@@ -43,7 +43,7 @@ export interface RdsTabsProps extends Omit<TabsProps, 'orientation'> {
   level?: number; // Control tab level for nested tabs
 }
 
-const RdsTabs: React.FC<RdsTabsProps> = ({
+const RdsTabs = ({
   tabs,
   activeTab,
   onTabChange,
@@ -56,7 +56,7 @@ const RdsTabs: React.FC<RdsTabsProps> = ({
   showLeftIcon = true,
   showRightIcon = true,
   ...props
-}) => {
+}:RdsTabsProps) => {
   const handleChange = (event: React.SyntheticEvent, newValue: any) => {
     if (onTabChange) {
       onTabChange(newValue);
@@ -109,5 +109,5 @@ const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`
     </MuiTabs>
   );
 };
-
+RdsTabs.displayName = 'RdsTabs';
 export default RdsTabs;

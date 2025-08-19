@@ -161,5 +161,5 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
     </DragDropContext>
   );
 };
-
+RdsCompKanbanBoard.displayName = "RdsCompKanbanBoard";
 export default RdsCompKanbanBoard;

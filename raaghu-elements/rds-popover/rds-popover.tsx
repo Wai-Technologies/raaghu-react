@@ -190,5 +190,5 @@ const RdsPopover= ({
     </MuiPopover>
   );
 };
-
+RdsPopover.displayName = 'RdsPopover';
 export default RdsPopover;

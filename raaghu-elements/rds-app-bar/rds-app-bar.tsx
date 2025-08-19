@@ -2,7 +2,7 @@ import React from 'react';
 import {
   AppBar as MuiAppBar,
   Toolbar as MuiToolbar,
-  AppBarProps,
+  type AppBarProps,
   IconButton,
   Box,
   InputBase,
@@ -37,8 +37,9 @@ export interface RdsAppBarProps extends AppBarProps {
   tabValue?: number;
   onTabChange?: (value: number) => void;
   subHeader?: React.ReactNode;
+  showSearch?: boolean;
 }
-const RdsAppBar: React.FC<RdsAppBarProps> = ({
+const RdsAppBar = ({
   title,
   leftActions,
   rightActions,
@@ -60,8 +61,9 @@ const RdsAppBar: React.FC<RdsAppBarProps> = ({
   tabValue,
   onTabChange,
   subHeader,
+  showSearch = true,
   ...props
-}) => {
+}:RdsAppBarProps) => {
   const toolbarHeights = {
     small: 50,
     medium: 64,
@@ -121,10 +123,10 @@ const RdsAppBar: React.FC<RdsAppBarProps> = ({
           )}
           <span className="rds-header__title">{title}</span>
           {/* Move leftActions to immediately left of search bar */}
-          {typeof searchValue === 'string' && typeof onSearchChange === 'function' && leftActions && (
+          {showSearch && typeof searchValue === 'string' && typeof onSearchChange === 'function' && leftActions && (
             <span className="rds-header__left-actions">{leftActions}</span>
           )}
-          {typeof searchValue === 'string' && typeof onSearchChange === 'function' && (
+          {showSearch && typeof searchValue === 'string' && typeof onSearchChange === 'function' && (
             <div className="rds-header__search-wrapper">
               <InputBase
                 className="rds-header__search"
@@ -170,4 +172,5 @@ const RdsAppBar: React.FC<RdsAppBarProps> = ({
     </MuiAppBar>
   );
 };
+RdsAppBar.displayName = 'RdsAppBar';
 export default RdsAppBar;

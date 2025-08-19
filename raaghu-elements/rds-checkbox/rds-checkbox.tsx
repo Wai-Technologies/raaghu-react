@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox as MuiCheckbox, FormControlLabel, CheckboxProps } from '@mui/material';
+import { Checkbox as MuiCheckbox, FormControlLabel, type CheckboxProps } from '@mui/material';
 import './rds-checkbox.scss';
 
 export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style'> {
@@ -13,7 +13,7 @@ export interface RdsCheckboxProps extends Omit<CheckboxProps, 'style'> {
 }
 
 
-const RdsCheckbox: React.FC<RdsCheckboxProps> = ({
+const RdsCheckbox = ({
   labeltext,
   isDisabled = false,
   style = 'square',
@@ -25,7 +25,7 @@ const RdsCheckbox: React.FC<RdsCheckboxProps> = ({
   color,
   onChange,
   ...props
-}) => {
+}:RdsCheckboxProps) => {
   // Determine initial state based on status prop or fallback to legacy props
   const getInitialCheckedState = () => {
     if (status !== undefined) {
@@ -105,4 +105,5 @@ const RdsCheckbox: React.FC<RdsCheckboxProps> = ({
   );
 };
 
+RdsCheckbox.displayName = 'RdsCheckbox';
 export default RdsCheckbox;
