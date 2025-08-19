@@ -24,6 +24,10 @@ const meta: Meta<typeof RdsSkeleton> = {
       control: { type: 'number', min: 1, max: 10 },
       description: 'Number of skeleton frames to render',
     },
+    animated: {
+      control: 'boolean',
+      description: 'Show Animated: Yes/No. Enable this option to add animation to the skeleton, providing a more dynamic loading effect, or turn it off for a static placeholder.',
+    },
     animation: {
       control: 'select',
       options: ['pulse', 'wave', false],
@@ -48,6 +52,7 @@ export const Text: Story = {
     shape: 'text',
     frames: 3,
     width: '100%',
+    animated: true,
   },
 };
 
@@ -57,6 +62,7 @@ export const Rectangular: Story = {
     frames: 3,
     width: 210,
     height: 118,
+    animated: true,
   },
 };
 
@@ -66,6 +72,7 @@ export const Circular: Story = {
     frames: 3,
     width: 40,
     height: 40,
+    animated: true,
   },
 };
 
@@ -75,6 +82,7 @@ export const Rounded: Story = {
     frames: 3,
     width: 210,
     height: 60,
+    animated: true,
   },
 };
 
@@ -85,6 +93,7 @@ export const WaveAnimation: Story = {
     width: 210,
     height: 118,
     animation: 'wave',
+    animated: true,
   },
 };
 
@@ -95,6 +104,11 @@ export const NoAnimation: Story = {
     width: 210,
     height: 118,
     animation: false,
+  },
+  parameters: {
+    controls: {
+      exclude: ['animated'],
+    },
   },
 };
 
