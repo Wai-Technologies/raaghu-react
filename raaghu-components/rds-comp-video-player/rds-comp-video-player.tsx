@@ -2,13 +2,19 @@ import React from "react";
 import ReactPlayer from "react-player";
 import "./rds-comp-video-player.scss";
 
+export enum VideoPlayerType {
+    Default = "Default",
+    YouTube = "YouTube",
+    Vimeo = "Vimeo"
+}
+
 export interface RdsVideoPlayerProps {
     width?: string | number;
     height?: string | number;
     autoplay?: boolean;
     muted?: boolean;
     videoLink: string;
-    type?: "Default" | "YouTube" | "Vimeo";
+    type?: VideoPlayerType;
     controls?: boolean;
     volume?: number;
     className?: string;
@@ -21,7 +27,7 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
     autoplay = false,
     muted = false,
     videoLink,
-    type = "Default",
+    type = VideoPlayerType.Default,
     controls = true,
     volume = 0.8,
     className = "",
@@ -32,7 +38,7 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
         if (!videoLink) return "";
         
         switch (type) {
-            case "YouTube":
+            case VideoPlayerType.YouTube:
                 // If it's already a valid YouTube URL, return as is
                 if (videoLink.includes("youtube.com") || videoLink.includes("youtu.be")) {
                     return videoLink;
@@ -40,7 +46,7 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
                 // If it's just a video ID or invalid URL, use default YouTube video
                 return "https://www.youtube.com/watch?v=LXb3EKWsInQ";
                 
-            case "Vimeo":
+            case VideoPlayerType.Vimeo:
                 // If it's already a valid Vimeo URL, return as is
                 if (videoLink.includes("vimeo.com")) {
                     return videoLink;
@@ -48,7 +54,7 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
                 // If it's just a video ID or invalid URL, use default Vimeo video
                 return "https://vimeo.com/90509568";
                 
-            case "Default":
+            case VideoPlayerType.Default:
             default:
                 // For direct video files (MP4, WebM, etc.) or other URLs
                 return videoLink;

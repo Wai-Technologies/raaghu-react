@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import "./rds-comp-truncate-text.scss";
 import RdsTooltip from "../../raaghu-elements/rds-tooltip/rds-tooltip";
 
+export enum TruncateTextState {
+  Default = "Default",
+  Hover = "Hover",
+}
 export interface RdsCompTruncateTextProps {
   text: string; // Full text
   maxLength: number; // Maximum characters before truncation
-  state: 'Default' | 'Hover'; // Control behavior (default or hover)
+  state: TruncateTextState; // Control behavior (default or hover)
 }
 
 const RdsCompTruncateText: React.FC<RdsCompTruncateTextProps> = ({ text, maxLength, state }) => {
