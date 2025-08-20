@@ -2,6 +2,8 @@ import React from "react";
 import { HuePicker, AlphaPicker } from "react-color";
 import { hslToRgb, rgbToHex, handleSpectrumClick, rgbToHsb } from "./color-utils";
 import { ColorMode } from "./rds-comp-color-picker";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
 
 /**
  * ColorPickerGrid - The grid-based color picker UI
@@ -154,9 +156,8 @@ export const ColorPickerSliders = ({ selectedColorState, handleHueChange, handle
   return (
     <div className="rds-comp-color-picker__sliders-row">
       <div className="rds-comp-color-picker__eyedropper" aria-hidden="true">
-        <svg width="10" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M19.728 4.272a3.75 3.75 0 0 0-5.303 0l-1.06 1.06-.53-.53a.75.75 0 0 0-1.06 0L9.47 6.117a.75.75 0 0 0 0 1.06l.53.53-6.364 6.364a2.25 2.25 0 0 0-.659 1.591V18a.75.75 0 0 0 .75.75h2.338a2.25 2.25 0 0 0 1.591-.659l6.364-6.364.53.53a.75.75 0 0 0 1.06 0l1.414-1.414a.75.75 0 0 0 0-1.06l-.53-.53 1.06-1.06a3.75 3.75 0 0 0 0-5.303z"/>
-        </svg>
+        {/* Replace SVG with MUI icon */}
+        <ColorizeOutlinedIcon fontSize="small" />
       </div>
       <div className="rds-comp-color-picker__sliders">
         {/* Hue Slider */}
@@ -205,9 +206,8 @@ export const ColorPickerInfo = ({
         >
           <div className="rds-comp-color-picker__color-circle" style={{ backgroundColor: selectedColorState.hex }}></div>
           <span className="rds-comp-color-picker__dropdown-label">{selectedColorMode}</span>
-          <svg className="rds-comp-color-picker__dropdown-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1L5 5L9 1" stroke="#333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          {/* Replace SVG with MUI icon */}
+          <KeyboardArrowDownIcon/>
         </div>
         
         {/* Dropdown menu */}
@@ -358,7 +358,7 @@ export const GradientEditor: React.FC<{
         </button>
         <button
           className={`rds-comp-color-picker__gradient-btn ${
-            gradientType === "radial" ? "rds-comp-color-picker__gradient-btn--active" : ""
+            gradientType === "radial" ? "rds-comp_color-picker__gradient-btn--active" : ""
           }`}
           onClick={() => onGradientTypeChange("radial")}
         >
