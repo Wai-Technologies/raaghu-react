@@ -34,6 +34,7 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children'> {
   platform?: 'abp-list' | 'anz-list';
   avatarSrc?: string;
   avatarCollapsedSrc?: string;
+  showLogo?: boolean;
 }
 
 const RdsSidebar = ({
@@ -46,6 +47,7 @@ const RdsSidebar = ({
   typeOf = 'expanded',
   avatarSrc,
   avatarCollapsedSrc,
+  showLogo,
   ...props
 }:RdsSidebarProps) => {
   const [searchValue, setSearchValue] = React.useState("");
@@ -53,7 +55,6 @@ const RdsSidebar = ({
   // Derived state for sidebar appearance
   const isCollapsed = typeOf === 'collapse' || typeOf === 'fixed';
   const showLabels = !isCollapsed;
-  const showLogo = true;
   let showAvatar = !isCollapsed;
   let showSearchBox = !isCollapsed && showSearch;
   let drawerVariant = variant;
@@ -123,9 +124,9 @@ const RdsSidebar = ({
               ) : (
                 <RdsAvatar
                   alt="User Avatar"
-                  designation="Designation"
+                  subText="Designation"
                   displayStyle="with-name"
-                  name="Jane Doe"
+                  title="Jane Doe"
                   showDesignation
                   showName
                   activeDotBottom
@@ -193,9 +194,9 @@ const RdsSidebar = ({
             {typeOf === 'expanded' ? (
               <RdsAvatar
                 alt="User Avatar"
-                designation="Designation"
+                subText="Designation"
                 displayStyle="with-name"
-                name="Jane Doe"
+                title="Jane Doe"
                 showDesignation
                 showName
                 activeDotBottom

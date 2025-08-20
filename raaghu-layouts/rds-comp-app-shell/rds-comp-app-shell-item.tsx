@@ -1,23 +1,19 @@
-import React from 'react';
-import { Box, BoxProps } from '@mui/material';
+import React from "react";
+import "./rds-comp-app-shell.scss";
 
-export interface RdsCompAppShellItemProps extends Omit<BoxProps, 'position'> {
-  shellPosition?: 'topNav' | 'sideNav' | 'content';
-  children?: React.ReactNode;
+export interface RdsCompAppShellItemProps {
+  title: string;
+  children: React.ReactNode;
 }
 
-const RdsCompAppShellItem: React.FC<RdsCompAppShellItemProps> = ({
-  shellPosition = 'content',
-  children,
-  className,
-  ...props
-}) => {
-  const itemClass = `rds-app-shell-item rds-app-shell-item--${shellPosition} ${className || ''}`;
-
+const RdsCompAppShellItem = (props: RdsCompAppShellItemProps) => {
   return (
-    <Box className={itemClass} {...props}>
-      {children}
-    </Box>
+    <>
+      <div className="rds-comp-app-shell-item">
+        <h2 className="rds-comp-app-shell-item__header">{props.title}</h2>
+        <div className="rds-comp-app-shell-item__content">{props.children}</div>
+      </div>
+    </>
   );
 };
 
