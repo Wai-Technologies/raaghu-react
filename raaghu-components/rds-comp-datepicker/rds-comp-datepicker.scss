@@ -1,70 +1,249 @@
-.rds-comp-datepicker {
-  &__padding {
-    padding-top: 0.16rem !important;
-    padding-bottom: 0.16rem !important;
-  }
-  &--disabled {
-    opacity: 0.6;
-    pointer-events: none;
-    cursor: not-allowed;
-    background-color: var(--rds-color-disabled, #EBEBE4) !important;
-  }
-
-  &__dropdown {
-    .btn {
-      text-align: center;
+/* DatePicker Component Styles */
+.rds-datepicker {
+  /* Base component styles */
+  &__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    margin-bottom: 1rem;
+    
+    &--default, &--expanded {
+      margin-bottom: 1rem;
+    }
+    
+    &--selected {
+      margin-top: 0.25rem;
+      margin-bottom: 1rem;
     }
   }
-
+  
+  /* Label styles */
+  &__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  &__mandatory-indicator {
+    color: var(--rds-color-danger, #dc3545);
+  }
+  
+  /* Input container and styles */
+  &__input-container {
+    position: relative;
+    width: 100%;
+  }
+  
   &__input {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--rds-color-text, #212529);
+    background-color: var(--rds-color-background, #fff);
+    background-clip: padding-box;
+    border: 1px solid var(--rds-color-border, #ced4da);
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+   
+    
+    &--with-clear {
+      padding-right: 35px;
+    }
+    
+    &--without-clear {
+      padding-right: 242px;
+    }
+    
     &--disabled {
       background-color: var(--rds-color-input-disabled, #e9ecef) !important;
       opacity: 1 !important;
       pointer-events: none !important;
     }
   }
-
+  
+  /* Button styles for custom dropdown */
+  &__dropdown-button {
+    display: flex;
+    background-color: transparent;
+    border: none;
+    padding: 0.16rem 0.5rem;
+    width: 100%;
+    justify-content: space-between;
+    position: relative;
+  }
+  
+  &__button-content {
+    display: flex;
+  }
+  
+  &__button-actions {
+    display: flex;
+  }
+  
+  &__text {
+    padding-left: 0.5rem;
+    margin-top: 0.25rem;
+  }
+  
+  /* Wrapper styles */
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  
+  &__button-wrapper {
+    display: flex;
+    text-align: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  
+  /* Custom dropdown styles */
+  &__custom-dropdown {
+    border: 1px solid var(--rds-color-border, #ced4da);
+    border-radius: 0.375rem;
+    justify-content: space-between;
+    text-align: start;
+    display: block;
+    margin-top: 0.25rem;
+  }
+  
+  &__dropdown-menu {
+    display: none;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0;
+    font-size: 1rem;
+    color: var(--rds-color-text, #212529);
+    text-align: left;
+    list-style: none;
+    background-color: var(--rds-color-background, #fff);
+    background-clip: padding-box;
+    border: 1px solid var(--rds-color-border, rgba(0, 0, 0, 0.175));
+    border-radius: 0.375rem;
+    z-index: 1000;
+    overflow: visible;
+    
+    &--show {
+      display: block;
+    }
+  }
+  
+  &__dropdown-item {
+    display: block;
+    padding: 0.25rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: var(--rds-color-text, #212529);
+    text-align: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: var(--rds-color-hover, #f8f9fa);
+    }
+    
+    &--active {
+      background-color: rgba(var(--rds-color-primary-rgb, 13, 110, 253), 0.1);
+    }
+    
+    &--header {
+      padding: 0.5rem 0.5rem 0.5rem 1rem;
+      border-bottom: 1px solid var(--rds-color-border, #dee2e6);
+    }
+  }
+  
+  &__dropdown-label {
+    font-size: 0.875rem;
+    display: block;
+  }
+  
+  &__dropdown-value {
+    font-size: 0.875rem;
+    padding: 0 0.25rem;
+  }
+  
+  /* Icon styles */
+  &__icon-container {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border: 1px solid var(--rds-color-border, #ced4da);
+    border-radius: 0 0.375rem 0.375rem 0;
+    margin-left: -1px;
+    padding: 0.375rem 0.75rem;
+    
+    &--clickable {
+      cursor: pointer;
+    }
+  }
+  
   &__calendar-icon {
     width: 20px;
     height: 20px;
   }
-
+  
   &__arrow-icon {
     height: 27px;
     width: 11px;
   }
-
+  
   &__close-icon {
     height: 12px;
     width: 12px;
     cursor: pointer;
   }
-
+  
+  /* Clear button styles */
   &__clear-button {
+    position: absolute;
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
-    color: #dc3545;
+    color: var(--rds-color-danger, #dc3545);
     font-size: 16px;
     font-weight: bold;
-
+    
     &--dropdown {
       right: 35px;
     }
+    
+    &--clickable {
+      cursor: pointer;
+    }
   }
-
-  &__input-padding {
-    &--with-clear {
-      padding-right: 35px;
-    }
-    &--without-clear {
-      padding-right: 12px;
-    }
+  
+  /* Custom input styles */
+  &__custom-input {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* States */
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: not-allowed;
+    background-color: var(--rds-color-disabled, #EBEBE4) !important;
   }
 }
+
 .react-datepicker {
-  left: -50px;
+  left: -50px;  
   
   &__day--outside-month {
     color: var(--rds-color-text-secondary, #6c757d) !important;
@@ -73,12 +252,12 @@
       background-color: transparent !important;
     }
   }
-
+  
   &__today-button {
     border-bottom-right-radius: 0.3rem;
     border-bottom-left-radius: 0.3rem;
   }
-
+  
   &__navigation {
     top: 8px;
   }
@@ -87,7 +266,27 @@
 .react-datepicker-popper {
   position: absolute !important;
   inset: 0px auto auto 50px !important;
-  transform: translate3d(0px, 35.2px, 0px) !important;
-  margin: 9px !important;
+  transform: translate3d(0px, 76.2px, 0px) !important;
+  margin: 18px !important;
+}
+
+/* Responsive styles */
+@media (max-width: 576px) {
+  .rds-datepicker {
+    &__container {
+      flex-direction: row;
+      align-items: center;
+    }
+    
+    &__input {
+      font-size: 1rem;
+      padding: 0.5rem 0.75rem;
+    }
+    
+    &__icon-container {
+      font-size: 1rem;
+      padding: 0.4rem 0.75rem;
+    }
+  }
 }
 
