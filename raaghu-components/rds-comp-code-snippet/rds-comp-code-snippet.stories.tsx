@@ -23,7 +23,7 @@ const meta: Meta<typeof RdsCompCodeSnippet> = {
       options: ['singleLine', 'multiLine'],
       description: 'Snippet type',
     },
-    numberLine: {
+    codeLines: {
       control: { type: 'boolean' },
       description: 'Whether to show line numbers',
     },
@@ -50,6 +50,6 @@ export const Default: Story = {
     language: true,
     theme: "light",
     type: "multiLine",
-    numberLine: false,
+    codeLines: false,
   },
 };
