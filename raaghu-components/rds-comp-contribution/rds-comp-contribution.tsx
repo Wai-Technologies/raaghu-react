@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import React, { useState, useEffect } from 'react';
 import Measure, { BoundingRect } from 'react-measure';
 import './rds-comp-contribution.scss';
+import SvgIcon from '@mui/material/SvgIcon';
 
 export interface RdsCompContributionProps {  
   showMonthLabels?: boolean;
@@ -40,12 +41,14 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   const [dynamicPanelSize, setDynamicPanelSize] = useState(panelSize);
   const [dynamicPanelMargin, setDynamicPanelMargin] = useState(panelMargin);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const showMonth = showMonthLabels;
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
       updateSizeBasedOnWidth(width);
+      setIsMobile(width < 400);
     };
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -112,6 +115,13 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     updateSizeBasedOnWidth(availableWidth);
   };
 
+  const getSvgWidthClass = (width: number) => {
+    if (width <= 360) return 'rds-comp-contribution__container--svgwidth-360';
+    if (width <= 600) return 'rds-comp-contribution__container--svgwidth-600';
+    if (width <= 900) return 'rds-comp-contribution__container--svgwidth-900';
+    return 'rds-comp-contribution__container--svgwidth-1200';
+  };
+
   if (!panelColors || !weekNames) {
     console.warn('Missing required props: panelColors or weekNames');
     return null;
@@ -128,10 +138,6 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
       <text
         key={`week_label_${j}`}
         className="rds-comp-contribution__text rds-comp-contribution__text--week"
-        style={{
-          fontSize: 12,
-          fill: '#666',
-        }}
         x={weekLabelWidth - 10}
         y={monthLabelHeight + j * (dynamicPanelSize + dynamicPanelMargin) + dynamicPanelSize / 2 + 4}
         textAnchor="end"
@@ -190,7 +196,9 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
       if (c.month === 0 && janIndex === -1) janIndex = i;
       if (c.month === 11) decIndex = i;
     }
-    if (janIndex === -1 || decIndex === -1) return null;
+    if (janIndex === -1) janIndex = 0;
+    if (decIndex === -1) decIndex = columns - 1;
+
     let prevMonth = -1;
     for (let i = janIndex; i <= decIndex; i++) {
       const c = contributions[i][0];
@@ -200,42 +208,46 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
         prevMonth = c.month;
       }
     }
-
     if (monthPositions.length && monthPositions[0].month !== 0) {
-      monthPositions.unshift({ month: 0, position: janIndex });
+      monthPositions.unshift({ month: 0, position: 0 });
     }
     if (monthPositions.length && monthPositions[monthPositions.length - 1].month !== 11) {
-      monthPositions.push({ month: 11, position: decIndex });
+      monthPositions.push({ month: 11, position: columns - 1 });
     }
+
+    const getMonthLabel = (month: number) => {
+      if (isMobile) {
+        return (monthNames[month] || '').slice(0, 3);
+      }
+      return monthNames[month] || '';
+    };
 
     return monthPositions.map((monthPos, i) => {
       const { month, position } = monthPos;
-      const nextPosition = i < monthPositions.length - 1 ? monthPositions[i + 1].position : decIndex + 1;
+      const nextPosition = i < monthPositions.length - 1 ? monthPositions[i + 1].position : columns;
       const midPosition = position + Math.floor((nextPosition - position) / 2);
       const textBasePos = getPanelPosition(midPosition, 0);
 
       return (
         <text
           key={`month_${i}_${month}_${position}`}
-          className="rds-comp-contribution__text rds-comp-contribution__text--month"
-          style={{
-            fontSize: 14,
-            alignmentBaseline: 'central',
-            fill: '#333',
-            fontWeight: 500
-          }}
+          className={
+            `rds-comp-contribution__text rds-comp-contribution__text--month` +
+            (isMobile ? ' rds-comp-contribution__text--month-mobile' : '')
+          }
           x={textBasePos.x - dynamicPanelSize / 2}
           y={monthLabelHeight / 2}
           textAnchor="middle"
           {...monthLabelAttributes}
         >
-          {monthNames[month] || ''}
+          {getMonthLabel(month)}
         </text>
       );
     });
   };
   
-    const svgWidth = columns * (dynamicPanelSize + dynamicPanelMargin) + weekLabelWidth + dynamicPanelSize + dynamicPanelMargin;
+  const minSvgWidth = columns * (dynamicPanelSize + dynamicPanelMargin) + weekLabelWidth + dynamicPanelSize + dynamicPanelMargin;
+  const svgWidth = Math.max(minSvgWidth, isMobile ? 360 : 0);
   const svgHeight = 7 * (dynamicPanelSize + dynamicPanelMargin) + monthLabelHeight;
 
   return (
@@ -245,16 +257,16 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
           ref={measureRef}
           className="rds-comp-contribution"
         >
-          <div className="rds-comp-contribution__container">
+          <div className={`rds-comp-contribution__container ${getSvgWidthClass(svgWidth)}`}>
             <div className="rds-comp-contribution__wrapper">
-              <svg
+              <SvgIcon
                 className="rds-comp-contribution__svg"
-                width={svgWidth}
-                height={svgHeight}
+                viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+                sx={{ width: svgWidth, height: svgHeight, minWidth: svgWidth }}
               >
-                {renderContributionPanels()}               
+                {renderContributionPanels()}
                 {renderMonthLabels()}
-              </svg>
+              </SvgIcon>
             </div>
           </div>
         </div>
