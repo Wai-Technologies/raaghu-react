@@ -33,6 +33,16 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        title: {
+            control: { type: 'text' },
+            description: 'Title for all notifications (overrides notification.title)',
+            defaultValue: '',
+        },
+        description: {
+            control: { type: 'text' },
+            description: 'Description for all notifications (overrides notification.description)',
+            defaultValue: '',
+        },
         layout: {
             options: ["vertical", "horizontal"],
             control: { type: "select" },
@@ -53,13 +63,15 @@ type Story = StoryObj<typeof RdsCompNotification>;
 
 export const Default: Story = {
     args: {
+        title: 'Notification Title',
+        description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard.',
         layout: NotificationLayout.Horizontal,
         style: NotificationStyle.Default,
         type: NotificationType.Info,
         showButton: true,
         showPrimaryButton: true,
         showSecondaryButton: true,
-        showDismissIcon: true,
+        showDismiss: true,
         notifications: [
             {
                 status: "success",
@@ -74,6 +86,6 @@ export const Default: Story = {
 
 Default.parameters = {
     controls: {
-        include: ['layout', 'style', 'type', 'notifications', 'showButtons', 'showPrimaryButton', 'showSecondaryButton', 'showDismissIcon']
+        include: ['title', 'description', 'layout', 'style', 'type', 'notifications', 'showButton', 'showPrimaryButton', 'showSecondaryButton', 'showDismiss']
     }
 };
