@@ -20,7 +20,7 @@ export interface RdsCounterProps {
     isMandatory?: boolean;
 }
 
-const RdsCounter: React.FC<RdsCounterProps> = ({
+const RdsCounter= ({
   placeholder,
   onChange,
   min = 0,
@@ -34,7 +34,7 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
   controlsClassName,
     showTitle = true,
     isMandatory = false,
-  }) => {
+  }:RdsCounterProps) => {
   const handleIncrement = () => {
     const newValue = Math.min(placeholder + step, max);
     onChange(newValue);
