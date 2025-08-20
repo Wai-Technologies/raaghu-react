@@ -47,9 +47,10 @@ interface DropdownMenuProps {
   visible: boolean;
   anchorRef: React.RefObject<HTMLButtonElement | null>;
   onClose: () => void;
+  onSelect: (label: string) => void;
 }
 
-const DropdownMenu: React.FC<DropdownMenuProps> = ({ visible, anchorRef, onClose }) => {
+const DropdownMenu: React.FC<DropdownMenuProps> = ({ visible, anchorRef, onClose, onSelect }) => {
   const menuRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -72,15 +73,15 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ visible, anchorRef, onClose
   if (!visible) return null;
   return (
     <div ref={menuRef} className="rds-comments-box__attachment-dropdown-menu">
-      <div className="rds-comments-box__attachment-dropdown-item">
+      <div className="rds-comments-box__attachment-dropdown-item" onClick={() => { onSelect('Computer'); onClose(); }}>
         <ComputerIcon className="rds-comments-box__attachment-dropdown-icon" />
         <span className="rds-comments-box__attachment-dropdown-label">Computer</span>
       </div>
-      <div className="rds-comments-box__attachment-dropdown-item">
+      <div className="rds-comments-box__attachment-dropdown-item" onClick={() => { onSelect('Google Drive'); onClose(); }}>
         <InsertDriveFileIcon className="rds-comments-box__attachment-dropdown-icon" />
         <span className="rds-comments-box__attachment-dropdown-label">Google Drive</span>
       </div>
-      <div className="rds-comments-box__attachment-dropdown-item">
+      <div className="rds-comments-box__attachment-dropdown-item" onClick={() => { onSelect('One Drive'); onClose(); }}>
         <CloudIcon className="rds-comments-box__attachment-dropdown-icon" />
         <span className="rds-comments-box__attachment-dropdown-label">One Drive</span>
       </div>
@@ -289,7 +290,12 @@ const RdsCommentBox: React.FC<RdsCommentBoxProps> = ({ state }) => {
                   >
                     <AttachmentOutlinedIcon fontSize="inherit" className="rds-comments-box__attach-icon" />
                   </IconButton>
-                  <DropdownMenu visible={typingDropdownOpen} anchorRef={attachBtnRef} onClose={() => setTypingDropdownOpen(false)} />
+                  <DropdownMenu
+                    visible={typingDropdownOpen}
+                    anchorRef={attachBtnRef}
+                    onClose={() => setTypingDropdownOpen(false)}
+                    onSelect={(label) => setTypingHeader(label)}
+                  />
                 </span>
                 <IconButton
                   aria-label="mention"
@@ -313,7 +319,7 @@ const RdsCommentBox: React.FC<RdsCommentBoxProps> = ({ state }) => {
                     <div className="rds-comments-box__mention-divider" />
                     <div className="rds-comments-box__mention-user-list-scroll-hide rds-comments-box__mention-user-list">
                       {filteredUsers.map((user) => (
-                        <div key={user} className="rds-comments-box__mention-user-item">
+                        <div key={user} className="rds-comments-box__mention-user-item" onClick={() => { setTypingHeader(user); setMentionDropdownOpen(false); }}>
                           <span className="rds-comments-box__mention-user-avatar">
                             <AccountCircleIcon className="rds-comments-box__mention-user-icon" />
                           </span>
@@ -361,7 +367,7 @@ const RdsCommentBox: React.FC<RdsCommentBoxProps> = ({ state }) => {
                 <Typography className="rds-comments-box__name">Renne Doe</Typography>
                 <Typography className="rds-comments-box__time">1 hour ago</Typography>
               </Box>
-              <Box className="rds-comments-box__tools relative">
+              <Box className="rds-comments-box__hover-tools">
                 <IconButton disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
                   <PushPinOutlinedIcon className="rds-comments-box__pushpin-icon" />
                 </IconButton>

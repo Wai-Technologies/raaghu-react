@@ -14,8 +14,8 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
-        title: { control: 'boolean', description: 'Show card title' },
-        titleIcon: { control: 'boolean', description: 'Show title icon' },
+        showHeader: { control: 'boolean', description: 'Show card title' },
+        showDismiss: { control: 'boolean', description: 'Show title icon' },
         cardTitle: { control: 'text', description: 'Card title text' },
         showBtn1: { control: 'boolean', description: 'Show Button 1' },
         showBtn2: { control: 'boolean', description: 'Show Button 2' },
@@ -43,7 +43,7 @@ const meta: Meta = {
         // inputForm: { control: 'boolean', description: 'Show input form' },
         block: { control: 'boolean', description: 'Block style' },
         images: { control: 'object', description: 'Image array' },
-        footballProps: { control: 'object', description: 'Football scorecard props' },
+        //footballProps: { control: 'object', description: 'Football scorecard props' },
         activityProps: { control: 'object', description: 'Activity update card props' },
     },
 } satisfies Meta<typeof RdsCompAdaptiveCards>;
@@ -55,14 +55,14 @@ type Story = StoryObj<typeof RdsCompAdaptiveCards>;
 export const Default: Story = {
     args: {
         cardTitle: "Title",
-        title: true,
+        showHeader: true,
         showBtn1: true,
         showBtn2: true,
         btn1style: "transparent",
         btn2style: "filled",
         block: false,
         type: "Default",
-        titleIcon: true,
+        showDismiss: true,
         closeIcon: true,
     }
 } satisfies Story;

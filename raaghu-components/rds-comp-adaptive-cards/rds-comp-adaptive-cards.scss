@@ -958,11 +958,11 @@
     position: absolute;
     left: 200px;
     padding: 2px;
-    margin-left: 4px;
+    margin-left: 18px !important;
     align-self: center;
     font-size: 30px;
   }
-
+  
   &__title-stack {
     margin-bottom: 16px;
     display: flex;
@@ -996,7 +996,7 @@
   &__actions {
     display: flex;
     justify-content: flex-end;
-    gap: 16px;
+    gap: 4px;
   }
 
   &__button--cancel {

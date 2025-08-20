@@ -291,6 +291,9 @@
   &__tools {
     margin-left: var(--rds-tools-margin-left, 8rem) !important;
   }
+  &__hover-tools {
+    margin-left: var(--rds-tools-margin-left, 120px) !important;
+  }
 
   &__header {
     display: flex;
@@ -308,7 +311,6 @@
   &__badge-container {
     position: relative;
   }
-
   // =======================
   // Dropdowns
   // =======================
@@ -625,7 +627,7 @@
 // Utility Classes
 // =======================
 .rds-comments-box__tools {
-  margin-left: var(--rds-tools-margin-left, 8rem) !important;
+  margin-left: var(--rds-tools-margin-left, 8rem) 
 }
 .rds-comments-box__header {
   display: flex;

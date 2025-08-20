@@ -3,14 +3,14 @@ export function getDefaultPropsForType(type: string): Partial<RdsCompAdaptiveCar
     case 'ActivityUpdateCard':
       return {
         cardTitle: 'Title',
-        title: true,
+        showHeader: true,
         showBtn1: true,
         showBtn2: true,
         btn1style: 'outline',
         btn2style: 'filled',
         btn1Label: 'Button',
         btn2Label: 'Click Here',
-        titleIcon: false,
+        showDismiss: false,
         closeIcon: false,
         activityProps: {
           avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU',
@@ -26,7 +26,7 @@ export function getDefaultPropsForType(type: string): Partial<RdsCompAdaptiveCar
     case 'CalenderReminder':
       return {
         cardTitle: 'Title',
-        title: true,
+        showHeader: true,
         showBtn1: true,
         showBtn2: true,
         btn1style: 'outline',
@@ -37,7 +37,7 @@ export function getDefaultPropsForType(type: string): Partial<RdsCompAdaptiveCar
         block: false,
         smallText: '20:30 - 09:30',
         label: 'Conf Room 112/3377 (10)',
-        titleIcon: false,
+        showDismiss: false,
         closeIcon: false,
       };
     case 'ImageGallery':
@@ -51,7 +51,7 @@ export function getDefaultPropsForType(type: string): Partial<RdsCompAdaptiveCar
     case 'InputForm':
       return {
         cardTitle: 'Tell us about yourself',
-        title: true,
+        showHeader: true,
         showBtn1: true,
         showBtn2: false,
         btn1style: 'filled',
@@ -59,20 +59,20 @@ export function getDefaultPropsForType(type: string): Partial<RdsCompAdaptiveCar
         block: true,
         smallText: "Don't worry, we'll never share or sell your information.",
         label: 'We just need a few more details to get you booked for the trip of a lifetime!',
-        titleIcon: false,
+        showDismiss: false,
         closeIcon: false,
-  // inputForm removed
+  
       };
     case 'RestaurantOrder':
       return {
         cardTitle: 'Malt & Vine Order Form',
-        title: true,
+        showHeader: true,
         showBtn1: true,
         showBtn2: false,
         btn1style: 'filled',
         btn1Label: 'Place Order',
         block: true,
-        titleIcon: false,
+        showDismiss: false,
         closeIcon: false,
       };
     case 'FootballScorecard':
@@ -94,16 +94,16 @@ export function getDefaultPropsForType(type: string): Partial<RdsCompAdaptiveCar
     default:
       return {
         cardTitle: 'Title',
-        title: true,
+        showHeader: true,
         showBtn1: true,
         showBtn2: true,
         btn1style: 'transparent',
         btn2style: 'filled',
         btn1Label: 'Cancel',
         btn2Label: 'Done',
-        block: false,
+        // block: false,
         type: 'Default',
-        titleIcon: true,
+        showDismiss: true,
         closeIcon: true,
       };
   }
@@ -113,7 +113,7 @@ import {
   Box, Card, CardContent, CardHeader, CardActions, Typography, Avatar, IconButton, Button, TextField, Select, MenuItem, FormControl, FormControlLabel, Radio, RadioGroup, Chip, ImageList, ImageListItem, Stack
 } from "@mui/material";
   import { useState } from 'react';
-  // InputFormCard: visually matches the provided image
+  
   export function InputFormCard({ label, smallText }: { label?: string, smallText?: string }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -171,8 +171,8 @@ export type ImageGalleryCardProps = {
 };
 
 export type RdsCompAdaptiveCardsProps = {
-  title?: boolean;
-  titleIcon: boolean;
+  showHeader?: boolean;
+  showDismiss?: boolean;
   cardTitle?: string;
   showBtn1?: boolean;
   showBtn2?: boolean;
@@ -185,7 +185,7 @@ export type RdsCompAdaptiveCardsProps = {
   type?: string;
   closeIcon: boolean;
   label?: string;
-  // inputForm removed
+  //inputForm removed
   block?: boolean;
   images?: string[];
   footballProps?: Partial<FootballScorecardCardProps>;

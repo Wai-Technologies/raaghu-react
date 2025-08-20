@@ -21,15 +21,15 @@ import {
 // =========================
 
 const defaultRdsCompAdaptiveCardsProps: Partial<RdsCompAdaptiveCardsProps> = {
-  title: false,
-  titleIcon: false,
+  showHeader: false,
+  showDismiss: false,
   cardTitle: '',
   showBtn1: false,
   showBtn2: false,
   btn1style: 'filled',
   btn2style: 'outlined',
   btn1Label: 'Button 1',
-  btn2Label: 'Button 2',
+  btn2Label: 'Click Here',
   smallText: '',
   cardText: '',
   type: 'Default',
@@ -50,8 +50,8 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
     merged = { ...merged, smallText: 'Sorry some of them are repeats' };
   }
   const {
-    title,
-    titleIcon,
+    showHeader,
+    showDismiss,
     cardTitle,
     showBtn1,
     showBtn2,
@@ -100,9 +100,8 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
       />
     );
   }
-
   return (
-      <Card className={`rds-adaptive-cards rds-adaptive-cards--default${type === 'Default' ? ' is-default-selected' : ''}`}> 
+  <Card className={`rds-adaptive-cards rds-adaptive-cards--default${type === 'Default' ? ' is-default-selected' : ''}`}> 
         {type === 'Default' ? (
           <Box className="custom-box">
             <Stack direction="row" alignItems="center" spacing={1} className="custom-box__title-stack">
@@ -126,9 +125,9 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
         <>
           <CardHeader
             className="rds-adaptive-cards__header"
-            title={title && (
+            title={showHeader && (
               <Stack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__header-title-row">
-                {titleIcon && <Box className="rds-adaptive-cards__title-icon" sx={{ ml: 0.5 }} />}
+                {showDismiss && <Box className="rds-adaptive-cards__title-icon" />}
                 <Typography variant="h5" className="rds-adaptive-cards__title">{cardTitle}</Typography>
               </Stack>
             )}
@@ -169,7 +168,6 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                 color="primary"
                 className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--restaurant-order"
                 fullWidth
-                sx={{ height: 34 }}
               >
                 Place Order
               </Button>
@@ -182,7 +180,6 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                       color="primary"
                       className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--input-form-button"
                       fullWidth
-                      sx={{ height: 30, fontSize: '0.8rem', fontWeight: 400 }}
                     >
                       Submit
                     </Button>
@@ -192,7 +189,6 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                       endIcon={<ExpandMoreIcon />}
                       className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--activity"
                       size="small"
-                      sx={{ height: 36, minWidth: 80 }}
                     >
                       {capitalizeFirstWord(btn1Label || 'Button')}
                     </Button>
@@ -214,9 +210,8 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                       color="primary"
                       className="rds-adaptive-cards__action-btn"
                       size="small"
-                      sx={{ height: 36, minWidth: 80 }}
                     >
-                      {capitalizeFirstWord(btn2Label || 'Button')}
+                      {capitalizeFirstWord(btn2Label || 'Click Here')}
                     </Button>
                   )
                 )}
