@@ -21,25 +21,24 @@
   &__spectrum-type1 {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    flex-direction: column;    
   }
   
   &__tabs {
     display: flex;
     margin-bottom: 12px;
-    padding: 2px;
+    padding: 8px;
     background-color: var(--rds-color-surface-variant, #f0f0f0);
     border-radius: var(--rds-border-radius, 6px);
     flex-direction: row;
     gap: 1px;
-    border: 1px solid var(--rds-color-outline, #e0e0e0);
+    border: 1px solid var(--rds-color-outline, #fff);
   }
   
   &__tab {
     cursor: pointer;
     border: none;
-    background-color: transparent;
+    background-color: #fff;
     flex: 1;
     text-align: center;
     border-radius: var(--rds-border-radius, 4px);
@@ -70,7 +69,7 @@
     overflow: hidden;
     
     &--spectrum {
-      height: 180px;
+      height: 160px;
       margin: 0 0 12px 0;
     }
   }
@@ -126,7 +125,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin: 12px 0 12px;
+    margin: 2px 0 12px;
   }
 
   &__eyedropper {
@@ -176,11 +175,11 @@
   
   &__color-info {
     display: flex;
-    margin-top: 12px;
+    // margin-top: 12px;
     align-items: center;
     gap: 10px;
-    padding-top: 12px;
-    border-top: 1px solid var(--rds-color-outline-variant, #eee);
+    // padding-top: 12px;
+    //border-top: 1px solid var(--rds-color-outline-variant, #eee);
   }
   
   &__dropdown-container {
