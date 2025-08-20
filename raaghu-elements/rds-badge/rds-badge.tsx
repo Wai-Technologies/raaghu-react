@@ -74,4 +74,5 @@ const RdsBadge= ({
   );
 };
 
+RdsBadge.displayName = 'RdsBadge';
 export default RdsBadge;

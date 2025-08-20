@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, BoxProps, Paper } from '@mui/material';
+import { Box, type BoxProps, Paper } from '@mui/material';
 import './rds-comp-layout.scss';
 import renderLayoutContent from './renderLayoutContent';
 
@@ -18,7 +18,7 @@ export interface RdsCompLayoutProps extends BoxProps {
 }
 
 
-const RdsCompLayout: React.FC<RdsCompLayoutProps> = ({
+const RdsCompLayout= ({
   children,
   spacing = 2,
   direction = 'column',
@@ -32,7 +32,7 @@ const RdsCompLayout: React.FC<RdsCompLayoutProps> = ({
   className,
    mode,
   ...props
-}) => {
+}:RdsCompLayoutProps) => {
   const layoutClass = `rds-layout ${direction} ${fullHeight ? 'full-height' : ''} ${fullWidth ? 'full-width' : ''} ${className || ''}`;
 
 
@@ -62,5 +62,5 @@ const RdsCompLayout: React.FC<RdsCompLayoutProps> = ({
 
     )
 };
-
+RdsCompLayout.displayName = 'RdsCompLayout';
 export default RdsCompLayout;

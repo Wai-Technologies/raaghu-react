@@ -252,4 +252,5 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
         </>
     );
 };
+RdsDatepicker.displayName = "RdsDatepicker";
 export default RdsDatepicker;

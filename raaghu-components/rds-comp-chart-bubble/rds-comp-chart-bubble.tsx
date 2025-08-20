@@ -41,5 +41,5 @@ const RdsCompBubbleChart = (props: RdsCompBubbleChartProps) => {
     );
     };
 
-
+RdsCompBubbleChart.displayName = 'RdsCompBubbleChart';
 export default RdsCompBubbleChart;

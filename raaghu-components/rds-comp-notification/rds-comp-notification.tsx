@@ -9,25 +9,29 @@ export enum NotificationType { Error = "error", Info = "info", Success = "succes
 export interface NotificationItem { userNotificationId?: string | number; title: string; time?: string; description: string; image?: string; avatar?: string; icon?: React.ReactNode | string; status?: string; urlTitle?: string; }
 export interface RdsCompNotificationProps {
     notifications: any[]; // Array of notifications (matching old interface)
+    title?: string; // Title for all notifications (overrides notification.title)
+    description?: string; // Description for all notifications (overrides notification.description)
     layout?: NotificationLayout; // Layout of the notification
     style?: NotificationStyle; // Style of the notification
     type?: NotificationType; // Type of the notification
     showButton?: boolean; // Show buttons in the notification
     showPrimaryButton?: boolean; // Show primary button in the notification
     showSecondaryButton?: boolean; // Show secondary button in the notification
-    showDismissIcon?: boolean; // Show dismiss button in the notification
+    showDismiss?: boolean; // Show dismiss button in the notification
     onDismiss?: (event: any, notification: any) => void; // Event handler for dismiss button
     onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for accept button
 }
 const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
     notifications,
+    title,
     layout = NotificationLayout.Horizontal,
     style = NotificationStyle.Default,
     type = NotificationType.Info,
     showButton = false,
     showPrimaryButton = false,
     showSecondaryButton = false,
-    showDismissIcon = false,
+    showDismiss = false,
+    description,
     onDismiss,
     onAccept,
 }) => {
@@ -65,7 +69,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                     className={`rds-comp-notification rds-comp-notification--layout-${layout} rds-comp-notification--style-${style} rds-comp-notification--type-${type}`}
                     sx={{ ...getTypeStyles(), padding: 2, marginBottom: 2, borderRadius: 2, position: "relative" }}>
                     {/* Dismiss Icon */}
-                    {showDismissIcon && (
+                    {showDismiss && (
                         <RdsIconButton
                             iconFilled={<Close />}
                             size="small"
@@ -83,7 +87,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                                 <Box
                                     className="rds-comp-notification__title-section" sx={{ flexGrow: 1, paddingLeft: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? "75px" : 0, }}>
                                     <Typography variant="subtitle1" component="strong" className="rds-comp-notification__title" sx={{ fontWeight: "bold" }}>
-                                        {notification.title}
+                                        {title ?? notification.title}
                                     </Typography>
                                     {notification.time && (
                                         <Typography variant="body2" component="span" className="rds-comp-notification__time" sx={{ color: "text.secondary", marginLeft: 1 }}>
@@ -131,7 +135,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                                         className="rds-comp-notification__title"
                                         sx={{ fontWeight: "bold" }}
                                     >
-                                        {notification.title}
+                                        {title ?? notification.title}
                                     </Typography>
                                     {notification.time && (
                                         <Typography
@@ -169,7 +173,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                             className="rds-comp-notification__description"
                             sx={{ color: "text.primary" }}
                         >
-                            {notification.description}
+                            {description ?? notification.description}
                         </Typography>
                     </CardContent>
                     <Box
@@ -186,7 +190,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                                 {showSecondaryButton && (
                                     <RdsButton
                                         text="DISMISS"
-                                        inputSize="small"
+                                        size="small"
                                         onClick={(e) => onDismiss?.(e, notification)}
                                         className="rds-comp-notification__secondary-button"
                                     />
@@ -194,7 +198,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                                 {showPrimaryButton && (
                                     <RdsButton
                                         text="ACCEPT"
-                                        inputSize="small"
+                                        size="small"
                                         style="transparent"
                                         color="primary"
                                         onClick={(e) => onAccept?.(e, notification)}
@@ -209,5 +213,5 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
         </Fragment>
     );
 };
-
+RdsCompNotification.displayName = "RdsCompNotification";
 export default RdsCompNotification;

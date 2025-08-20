@@ -109,5 +109,5 @@ const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`
     </MuiTabs>
   );
 };
-
+RdsTabs.displayName = 'RdsTabs';
 export default RdsTabs;

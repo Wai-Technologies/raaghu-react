@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsButton from './rds-button';
-import { Add, Delete, Save } from '@mui/icons-material';
 
 const meta: Meta<typeof RdsButton> = {
   title: 'Elements/Button',
@@ -57,10 +56,23 @@ const meta: Meta<typeof RdsButton> = {
       options: ["Icon + Text", "Icon Only", "Text Only"],
       description: 'The layout of the button',
     },
-    icon: {
+    showLeftIcon: {
+      control: 'boolean',
+      description: 'Control to show/hide left icon (Add icon)',
+    },
+    showRightIcon: {
+      control: 'boolean',
+      description: 'Control to show/hide right icon (Save icon)',
+    },
+    changeLeftIcon: {
       control: 'select',
-      options: ['add', 'delete', 'save'],
-      description: 'The predefined icon to display on the button',
+      options: ['add', 'delete', 'save', 'edit', 'close', 'arrow-forward', 'arrow-back', 'circle'],
+      description: 'Select which icon to display on the left',
+    },
+    changeRightIcon: {
+      control: 'select',
+      options: ['add', 'delete', 'save', 'edit', 'close', 'arrow-forward', 'arrow-back', 'circle'],
+      description: 'Select which icon to display on the right',
     },
   },
 };
@@ -80,8 +92,10 @@ export const Default: Story = {
     textCase: 'uppercase',
     state: 'default',
     layout: 'text-only',
-    icon: 'add',
-    iconPosition: 'start',
+    showLeftIcon: true,
+    showRightIcon: false,
+    changeLeftIcon: 'add',
+    changeRightIcon: 'save',
   },
 };
 
@@ -104,6 +118,7 @@ export const Loading: Story = {
   args: {
     text: 'Loading Button',
     isLoading: true,
+    style: 'filled',
   },
 };
 
@@ -147,11 +162,11 @@ export const Transparent: Story = {
 
 export const WithEndIcon: Story = {
   args: {
-    text: 'Delete Item',
+    text: 'Save Item',
     style: 'filled',
-    color: 'error',
-    icon: 'delete',
-    iconPosition: 'end',
+    color: 'primary',
+    showRightIcon: true,
+    changeRightIcon: 'save',
   },
 };
 
@@ -159,7 +174,8 @@ export const WithStartIcon: Story = {
   args: {
     text: 'Add Item',
     style: 'filled',
-    startIcon: <Add />,
+    showLeftIcon: true,
+    changeLeftIcon: 'add',
   },
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   AppBar as MuiAppBar,
   Toolbar as MuiToolbar,
-  AppBarProps,
+  type AppBarProps,
   IconButton,
   Box,
   InputBase,
@@ -39,7 +39,7 @@ export interface RdsAppBarProps extends AppBarProps {
   subHeader?: React.ReactNode;
   showSearch?: boolean;
 }
-const RdsAppBar: React.FC<RdsAppBarProps> = ({
+const RdsAppBar = ({
   title,
   leftActions,
   rightActions,
@@ -63,7 +63,7 @@ const RdsAppBar: React.FC<RdsAppBarProps> = ({
   subHeader,
   showSearch = true,
   ...props
-}) => {
+}:RdsAppBarProps) => {
   const toolbarHeights = {
     small: 50,
     medium: 64,
@@ -172,4 +172,5 @@ const RdsAppBar: React.FC<RdsAppBarProps> = ({
     </MuiAppBar>
   );
 };
+RdsAppBar.displayName = 'RdsAppBar';
 export default RdsAppBar;

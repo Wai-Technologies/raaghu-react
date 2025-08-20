@@ -5,7 +5,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import "./rds-counter.scss";
 
 export interface RdsCounterProps {
-  value: number;
+  placeholder: number;
   onChange: (value: number) => void;
   min?: number;
   max?: number;
@@ -13,13 +13,15 @@ export interface RdsCounterProps {
   disabled?: boolean;
   size?: 'small' | 'medium' | 'large';
   showInput?: boolean;
-  label?: string;
+  titleText?: string;
   variant?: 'default' | 'compact';
   controlsClassName?: string;
+    showTitle?: boolean;
+    isMandatory?: boolean;
 }
 
-const RdsCounter: React.FC<RdsCounterProps> = ({
-  value,
+const RdsCounter= ({
+  placeholder,
   onChange,
   min = 0,
   max = Infinity,
@@ -27,17 +29,19 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
   disabled = false,
   size = 'medium',
   showInput = true,
-  label,
+  titleText,
   variant = 'default',
   controlsClassName,
-}) => {
+    showTitle = true,
+    isMandatory = false,
+  }:RdsCounterProps) => {
   const handleIncrement = () => {
-    const newValue = Math.min(value + step, max);
+    const newValue = Math.min(placeholder + step, max);
     onChange(newValue);
   };
 
   const handleDecrement = () => {
-    const newValue = Math.max(value - step, min);
+    const newValue = Math.max(placeholder - step, min);
     onChange(newValue);
   };
 
@@ -78,13 +82,20 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
   if (isCompact) {
     return (
       <Box className={`rds-counter rds-counter--compact rds-counter--${size}${disabled ? ' rds-counter--disabled' : ''}`}> 
-        {label && (
-          <Typography className={`rds-counter__label rds-counter__label--compact rds-counter__label--${size}`}>{label}</Typography>
-        )}
+          {showTitle && titleText && (
+            <Typography className={`rds-counter__label rds-counter__label--compact rds-counter__label--${size}`}>
+              {titleText}
+              <span
+                className="rds-counter__mandatory"
+                style={{ visibility: isMandatory ? 'visible' : 'hidden' }}
+              >*
+              </span>
+            </Typography>
+          )}
         <Box className={`rds-counter__controls rds-counter__controls--compact rds-counter__controls--${size}${controlsClassName ? ' ' + controlsClassName : ''}`}> 
           <IconButton
             onClick={handleDecrement}
-            disabled={disabled || value <= min}
+            disabled={disabled || placeholder <= min}
             size={size === 'small' ? 'small' : 'medium'}
             className={`rds-counter__button rds-counter__button--decrement rds-counter__button--compact rds-counter__button--${size}`}
           >
@@ -92,7 +103,7 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
           </IconButton>
           {showInput ? (
             <InputBase
-              value={value}
+              value={placeholder}
               onChange={handleInputChange}
               disabled={disabled}
               className={`rds-counter__input rds-counter__input--compact rds-counter__input--${size}${disabled ? ' rds-counter__input--disabled' : ''}`}
@@ -101,15 +112,15 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
                 pattern: '[0-9]*',
                 min,
                 max,
-                'aria-label': label ? `${label} value` : 'counter value',
+                'aria-label': titleText ? `${titleText} value` : 'counter value',
               }}
             />
           ) : (
-            <Typography className={`rds-counter__value rds-counter__value--compact rds-counter__value--${size}${disabled ? ' rds-counter__value--disabled' : ''}`}>{value}</Typography>
+            <Typography className={`rds-counter__value rds-counter__value--compact rds-counter__value--${size}${disabled ? ' rds-counter__value--disabled' : ''}`}>{placeholder}</Typography>
           )}
           <IconButton
             onClick={handleIncrement}
-            disabled={disabled || value >= max}
+            disabled={disabled || placeholder >= max}
             size={size === 'small' ? 'small' : 'medium'}
             className={`rds-counter__button rds-counter__button--increment rds-counter__button--compact rds-counter__button--${size}`}
           >
@@ -122,9 +133,16 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
 
   return (
     <Box className={`rds-counter rds-counter--${size}${disabled ? ' rds-counter--disabled' : ''}`}> 
-      {label && (
-        <Typography className={`rds-counter__label rds-counter__label--${size}`}>{label}</Typography>
-      )}
+        {showTitle && titleText && (
+          <Typography className={`rds-counter__label rds-counter__label--${size}`}>
+            {titleText}
+            <span
+              className="rds-counter__mandatory"
+              style={{ visibility: isMandatory ? 'visible' : 'hidden' }}
+            >*
+            </span>
+          </Typography>
+        )}
       <Box 
         className={`rds-counter__controls rds-counter__controls--${size}`}
         sx={
@@ -136,7 +154,7 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
       >
         <IconButton
           onClick={handleDecrement}
-          disabled={disabled || value <= min}
+          disabled={disabled || placeholder <= min}
           size={size === 'small' ? 'small' : 'medium'}
           className={`rds-counter__button rds-counter__button--decrement rds-counter__button--${size}`}
         >
@@ -144,7 +162,7 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
         </IconButton>
         {showInput ? (
           <InputBase
-            value={value}
+            value={placeholder}
             onChange={handleInputChange}
             disabled={disabled}
             className={`rds-counter__input rds-counter__input--${size}${disabled ? ' rds-counter__input--disabled' : ''}`}
@@ -153,15 +171,15 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
               pattern: '[0-9]*',
               min,
               max,
-              'aria-label': label ? `${label} value` : 'counter value',
+              'aria-label': titleText ? `${titleText} value` : 'counter value',
             }}
           />
         ) : (
-          <Typography className={`rds-counter__value rds-counter__value--${size}`}>{value}</Typography>
+          <Typography className={`rds-counter__value rds-counter__value--${size}`}>{placeholder}</Typography>
         )}
         <IconButton
           onClick={handleIncrement}
-          disabled={disabled || value >= max}
+          disabled={disabled || placeholder >= max}
           size={size === 'small' ? 'small' : 'medium'}
           className={`rds-counter__button rds-counter__button--increment rds-counter__button--${size}`}
         >
@@ -171,5 +189,5 @@ const RdsCounter: React.FC<RdsCounterProps> = ({
     </Box>
   );
 };
-
+RdsCounter.displayName = 'RdsCounter';
 export default RdsCounter;

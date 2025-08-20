@@ -10,7 +10,12 @@ const meta: Meta<typeof RdsSkeleton> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: {
+    shape: {
+      control: 'select',
+      options: ['text', 'rectangular', 'rounded', 'circular'],
+      description: 'Shape of the skeleton block',
+    },
+    type: {
       control: 'select',
       options: ['text', 'rectangular', 'rounded', 'circular'],
       description: 'Shape variant of the skeleton',
@@ -18,6 +23,10 @@ const meta: Meta<typeof RdsSkeleton> = {
     frames: {
       control: { type: 'number', min: 1, max: 10 },
       description: 'Number of skeleton frames to render',
+    },
+    animated: {
+      control: 'boolean',
+      description: 'Show Animated: Yes/No. Enable this option to add animation to the skeleton, providing a more dynamic loading effect, or turn it off for a static placeholder.',
     },
     animation: {
       control: 'select',
@@ -40,56 +49,66 @@ type Story = StoryObj<typeof meta>;
 
 export const Text: Story = {
   args: {
-    variant: 'text',
+    shape: 'text',
     frames: 3,
     width: '100%',
+    animated: true,
   },
 };
 
 export const Rectangular: Story = {
   args: {
-    variant: 'rectangular',
+    shape: 'rectangular',
     frames: 3,
     width: 210,
     height: 118,
+    animated: true,
   },
 };
 
 export const Circular: Story = {
   args: {
-    variant: 'circular',
+    shape: 'circular',
     frames: 3,
     width: 40,
     height: 40,
+    animated: true,
   },
 };
 
 export const Rounded: Story = {
   args: {
-    variant: 'rounded',
+    shape: 'rounded',
     frames: 3,
     width: 210,
     height: 60,
+    animated: true,
   },
 };
 
 export const WaveAnimation: Story = {
   args: {
-    variant: 'rectangular',
+    shape: 'rectangular',
     frames: 3,
     width: 210,
     height: 118,
     animation: 'wave',
+    animated: true,
   },
 };
 
 export const NoAnimation: Story = {
   args: {
-    variant: 'rectangular',
+    shape: 'rectangular',
     frames: 3,
     width: 210,
     height: 118,
     animation: false,
+  },
+  parameters: {
+    controls: {
+      exclude: ['animated'],
+    },
   },
 };
 

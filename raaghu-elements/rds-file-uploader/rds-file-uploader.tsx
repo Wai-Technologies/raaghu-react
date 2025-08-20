@@ -20,6 +20,7 @@ export interface RdsFileUploaderProps {
   onFilesChange?: (files: FileWithProgress[]) => void;
   onUpload?: (files: File[]) => Promise<void>;
   accept?: string;
+  title?:string,
   multiple?: boolean;
   maxSize?: number; // in bytes
   maxFiles?: number;
@@ -37,8 +38,9 @@ export interface RdsFileUploaderProps {
   children?: React.ReactNode;
 }
 
-const RdsFileUploader: React.FC<RdsFileUploaderProps> = ({
+const RdsFileUploader= ({
   onFilesChange,
+    title,
   onUpload,
   accept,
   multiple = false,
@@ -53,10 +55,10 @@ const RdsFileUploader: React.FC<RdsFileUploaderProps> = ({
   hintText = '',
   placeholderImage = '',
   state = 'default',
-  mode = 'default',
+  mode = 'standard',
   style,
   children,
-}) => {
+}:RdsFileUploaderProps) => {
   const {
     files,
     isDragOver,
@@ -90,30 +92,30 @@ return (
     {mode === 'standard' ? (
     
       <RdsFileUploaderStandardView
-    showTitle={showTitle}
-    isMandatory={isMandatory}
-    mandatoryError={mandatoryError}
-    showHint={showHint}
-    hintText={hintText}
-    disabled={disabled}
-    dragAndDrop={dragAndDrop}
-    isDragOver={isDragOver}
-    multiple={multiple}
-    showPreview={showPreview}
-    selectedFileName={selectedFileName}
-    handleFileChange={handleFileChange}
-    setSelectedFileName={setSelectedFileName}
-    setFiles={setFiles}
-    onFilesChange={onFilesChange}
-    children={children}
-    // ...add any other props you need
-  />
+        showTitle={showTitle}
+        isMandatory={isMandatory}
+        mandatoryError={mandatoryError}
+        showHint={showHint}
+        hintText={hintText}
+        disabled={disabled}
+        dragAndDrop={dragAndDrop}
+        isDragOver={isDragOver}
+        multiple={multiple}
+        showPreview={showPreview}
+        selectedFileName={selectedFileName}
+        handleFileChange={handleFileChange}
+        setSelectedFileName={setSelectedFileName}
+        setFiles={setFiles}
+        onFilesChange={onFilesChange}
+        children={children}
+        title={title}
+      />
     ) : (
       <Box className={`rds-file-uploader rds-file-uploader--mode-${mode}`}>
         {/* Title and hint */}
         {showTitle && (
           <Typography className="rds-file-uploader rds-file-uploader__form-title" variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
-            File Upload{isMandatory && <span style={{ color: 'red' }}> *</span>}
+            {title || 'File Upload'}{isMandatory && <span style={{ color: 'red' }}> *</span>}
           </Typography>
         )}
 
@@ -197,4 +199,5 @@ return (
   </>
 );
 };
+RdsFileUploader.displayName = 'RdsFileUploader';
 export default RdsFileUploader;

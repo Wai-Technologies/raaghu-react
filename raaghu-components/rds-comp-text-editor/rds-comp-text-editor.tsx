@@ -131,5 +131,5 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
     );
     
 };
- 
+RdsCompTextEditor.displayName = "RdsCompTextEditor";
 export default RdsCompTextEditor;

@@ -95,13 +95,13 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                 <Box className="rds-comp-product-tour__form-input-container">
                     <RdsInput placeholder="Add Team Members" size="medium" layout="text" showIcon={true} variant="outlined" />
                 </Box>
-                <RdsButton text="Add" style="outlined" size="medium" inputSize="medium" layout="text-only" />
+                <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
             </Box>
             <Box className="rds-comp-product-tour__form-textarea-container">
                 <RdsInput placeholder="Enter Project Description" multiline rows={3} variant="outlined" size="medium" />
             </Box>
             <Box className="rds-comp-product-tour__form-button-right">
-                <RdsButton text="Add" style="outlined" size="medium" inputSize="medium" layout="text-only" />
+                <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
             </Box>
         </>
     );
@@ -252,4 +252,5 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
     }
     return null;
 };
+RdsCompProductTour.displayName = "RdsCompProductTour";
 export default RdsCompProductTour;

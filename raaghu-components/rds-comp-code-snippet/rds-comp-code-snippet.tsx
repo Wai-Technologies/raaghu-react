@@ -120,7 +120,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                 </pre>
               </div>
               <div className="rds-comp-code-snippet__show-more">
-                <RdsButton color="primary" icon="add" iconPosition="start" inputSize="small" layout="icon+text" size="small" state="default" style="transparent" text="Show More" />
+                <RdsButton color="primary" changeLeftIcon='add' showLeftIcon layout="icon+text" size="small" state="default" style="transparent" text="Show More" />
               </div>
             </div>
           </>
@@ -129,5 +129,5 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
     </div>
   );
 };
-
+RdsCompCodeSnippet.displayName = 'RdsCompCodeSnippet';
 export default RdsCompCodeSnippet;

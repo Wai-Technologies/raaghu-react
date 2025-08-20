@@ -28,4 +28,5 @@ const RdsContainer: React.FC<RdsContainerProps> = ({
   );
 };
 
+RdsContainer.displayName = 'RdsContainer';
 export default RdsContainer;

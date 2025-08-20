@@ -141,5 +141,5 @@ const RdsHeader = ({
     </MuiAppBar>
   );
 };
-
+RdsHeader.displayName = 'RdsHeader';
 export default RdsHeader;

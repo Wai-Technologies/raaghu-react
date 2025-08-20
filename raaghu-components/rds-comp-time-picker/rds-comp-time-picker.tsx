@@ -211,5 +211,5 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     </div>
   );
 };
-
+RdsCompTimePicker.displayName = "RdsCompTimePicker";
 export default RdsCompTimePicker;

@@ -51,5 +51,5 @@ const RdsCompBarChart = (props: RdsCompBarChartProps) => {
         </div>
     );
 };
-
+RdsCompBarChart.displayName = 'RdsCompBarChart';
 export default RdsCompBarChart;

@@ -413,8 +413,9 @@
 @media (max-width: 480px) {
   .rds-comp-toast {
     min-width: 0;
-    max-width: 95vw;
-    width: 95vw;
+    max-width: 90vw;
+    width: 90vw;
+    margin-left: 15px !important;
     box-sizing: border-box;
     
     &__container {

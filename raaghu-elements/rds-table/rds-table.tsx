@@ -209,5 +209,5 @@ const RdsTable = ({
     </Paper>
   );
 };
-
+RdsTable.displayName = 'RdsTable';
 export default RdsTable;

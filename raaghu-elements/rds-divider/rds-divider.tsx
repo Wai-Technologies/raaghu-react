@@ -1,27 +1,40 @@
 import React from 'react';
 import {
   Divider as MuiDivider,
-  DividerProps,
+  type DividerProps,
   Box,
   Typography,
   useTheme,
 } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import AddIcon from '@mui/icons-material/Add';
+import NotificationImportantIcon from '@mui/icons-material/NotificationImportant';
+
 
 export interface RdsDividerProps extends DividerProps {
-  text?: string;
-  position?: 'left' | 'center' | 'right';
-  orientation?: 'horizontal' | 'vertical';
-   showIcon?: boolean;
+  dividerMessage?: string;
+  textAlign?: 'left' | 'center' | 'right';
+  layout?: 'horizontal' | 'vertical';
+  iconShow?: boolean;
+  iconName?: string;
 }
 
-const RdsDivider: React.FC<RdsDividerProps> = ({
-  text,
-  position = 'center',
-  orientation = 'horizontal',
-   showIcon = true,
+const RdsDivider= ({
+  dividerMessage,
+  textAlign = 'center',
+  layout = 'horizontal',
+  iconShow = true,
+  iconName = 'InfoOutlined',
   ...props
-}) => {
+}:RdsDividerProps) => {
+  // Icon mapping: add more icons as needed
+  const iconMap: Record<string, React.ElementType> = {
+    InfoOutlined: InfoOutlinedIcon,
+    Add: AddIcon,
+    Notification: NotificationImportantIcon,
+  };
+  const normalizedIconName = iconName?.trim();
+  const IconComponent = normalizedIconName && iconMap[normalizedIconName] ? iconMap[normalizedIconName] : InfoOutlinedIcon;
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
 
@@ -30,39 +43,38 @@ const RdsDivider: React.FC<RdsDividerProps> = ({
   const iconBorderColor = isDark ? 'grey.700' : 'grey.300';
   const iconColor = isDark ? 'grey.400' : 'grey.700';
 
-  const content = text && (
+  const content = dividerMessage && (
    <Box
-  display="flex"
-  alignItems="center"
-  gap={1.5}
-  px={2}
->
-  {showIcon && ( // ✅ Conditionally render the icon
-    <Box
-      sx={{
-        width: 28,
-        height: 28,
-        borderRadius: '50%',
-        border: '1px solid',
-        borderColor: iconBorderColor,
-        backgroundColor: 'background.paper',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <InfoOutlinedIcon sx={{ fontSize: 18, color: iconColor }} />
-    </Box>
-  )}
-
-  <Typography variant="body2" sx={{ fontWeight: 500, color: textColor }}>
-    {text}
-  </Typography>
-</Box>
+    display="flex"
+    alignItems="center"
+    gap={1.5}
+    px={2}
+  >
+    {iconShow && (
+      <Box
+        sx={{
+          width: 28,
+          height: 28,
+          borderRadius: '50%',
+          border: '1px solid',
+          borderColor: iconBorderColor,
+          backgroundColor: 'background.paper',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <IconComponent sx={{ fontSize: 18, color: iconColor }} />
+      </Box>
+    )}
+    <Typography variant="body2" sx={{ fontWeight: 500, color: textColor }}>
+      {dividerMessage}
+    </Typography>
+  </Box>
 
   );
 
-  if (orientation === 'vertical') {
+  if (layout === 'vertical') {
     return (
       <Box
         display="flex"
@@ -77,9 +89,9 @@ const RdsDivider: React.FC<RdsDividerProps> = ({
           {...props}
         />
         {/* Only show text/icon if provided in args */}
-        {(!!text || !!showIcon) && (
+        {(!!dividerMessage || !!iconShow) && (
           <Box mt={1.5} display="flex" alignItems="center" flexDirection="column" gap={0.5}>
-            {showIcon && text && (
+            {iconShow && dividerMessage && (
               <Box
                 sx={{
                   width: 28,
@@ -93,12 +105,12 @@ const RdsDivider: React.FC<RdsDividerProps> = ({
                   justifyContent: 'center',
                 }}
               >
-                <InfoOutlinedIcon sx={{ fontSize: 18, color: iconColor }} />
+                <IconComponent sx={{ fontSize: 18, color: iconColor }} />
               </Box>
             )}
-            {text && (
+            {dividerMessage && (
               <Typography variant="body2" sx={{ color: textColor, fontWeight: 500, mt: 0.5 }}>
-                {text}
+                {dividerMessage}
               </Typography>
             )}
           </Box>
@@ -109,23 +121,21 @@ const RdsDivider: React.FC<RdsDividerProps> = ({
 
   return (
     <Box display="flex" alignItems="center" width="100%" my={2}>
-     
-      {position === 'center' && (
+      {textAlign === 'center' && (
         <MuiDivider sx={{ flex: 1, borderColor: dividerLineColor }} {...props} />
       )}
-      {position === 'right' && (
+      {textAlign === 'right' && (
         <MuiDivider sx={{ flex: 1, borderColor: dividerLineColor }} {...props} />
       )}
       {content}
-      
-      {position === 'center' && (
+      {textAlign === 'center' && (
         <MuiDivider sx={{ flex: 1, borderColor: dividerLineColor }} {...props} />
       )}
-      {position === 'left' && (
+      {textAlign === 'left' && (
         <MuiDivider sx={{ flex: 1, borderColor: dividerLineColor }} {...props} />
       )}
     </Box>
   );
 };
-
+RdsDivider.displayName = 'RdsDivider';
 export default RdsDivider;

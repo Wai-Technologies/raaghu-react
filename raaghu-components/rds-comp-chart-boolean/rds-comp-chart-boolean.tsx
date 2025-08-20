@@ -65,5 +65,5 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
         </div>
     );
 };
-
+RdsCompBooleanChart.displayName = 'RdsCompBooleanChart';
 export default RdsCompBooleanChart;

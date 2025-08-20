@@ -59,12 +59,13 @@
     display: flex;
     align-items: center;
     cursor: default;
-    margin-top: var(--rds-spacing-xs, 4px);
+    margin-bottom: var(--rds-spacing-xs, 4px);
   }
   
   // Icons
   &__icon {
     margin-right: var(--rds-spacing-xs, 4px);
+    margin-top: var(--rds-spacing-xs, 4px);
     
     &--folder {
       color: var(--rds-color-warning, #FFB300);
@@ -79,7 +80,7 @@
       display: inline-block;
       width: 12px;
       height: 12px;
-      margin-top: var(--rds-spacing-xs, 7px);
+      margin-bottom: var(--rds-spacing-xs, 3px);
       background-color: var(--rds-color-border, #CDCDCD);
       border-radius: 50%;
     }

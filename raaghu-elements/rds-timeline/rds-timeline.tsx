@@ -63,5 +63,5 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
     </MuiTimeline>
   );
 };
-
+RdsTimeline.displayName = 'RdsTimeline';
 export default RdsTimeline;
