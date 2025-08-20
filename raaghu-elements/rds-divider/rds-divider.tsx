@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Divider as MuiDivider,
-  DividerProps,
+  type DividerProps,
   Box,
   Typography,
   useTheme,
@@ -19,14 +19,14 @@ export interface RdsDividerProps extends DividerProps {
   iconName?: string;
 }
 
-const RdsDivider: React.FC<RdsDividerProps> = ({
+const RdsDivider= ({
   dividerMessage,
   textAlign = 'center',
   layout = 'horizontal',
   iconShow = true,
   iconName = 'InfoOutlined',
   ...props
-}) => {
+}:RdsDividerProps) => {
   // Icon mapping: add more icons as needed
   const iconMap: Record<string, React.ElementType> = {
     InfoOutlined: InfoOutlinedIcon,

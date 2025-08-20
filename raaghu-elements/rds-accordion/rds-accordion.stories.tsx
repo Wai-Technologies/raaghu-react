@@ -65,34 +65,40 @@ export const Default: Story = {
     size: 'medium',
     state: 'default',
     ShowLeftIcon: true,
+    defaultExpanded: false,
+    changeleftIcon: null,
   },
-  render: ({ size, state, ShowLeftIcon }) => (
-    <>
-  <RdsAccordion title="Accordion Title 1" size={size} state={state} ShowLeftIcon={ShowLeftIcon}>
-      <Typography>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-        malesuada lacus ex, sit amet blandit leo lobortis eget.
-      </Typography>
-      </RdsAccordion>
-  <RdsAccordion title="Accordion Title 2" size={size} state={state} ShowLeftIcon={ShowLeftIcon}>
-        <Typography>
-          Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-        </Typography>
-      </RdsAccordion>
-  <RdsAccordion title="Accordion Title 3" size={size} state={state} ShowLeftIcon={ShowLeftIcon}>
-        <Typography>
-          Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.
-        </Typography>
-      </RdsAccordion>
-    </>
-  ),
+  render: ({ size, state, ShowLeftIcon, defaultExpanded, changeleftIcon }) => {
+    const expanded = defaultExpanded;
+    return (
+      <>
+        <RdsAccordion title="Accordion Title 1" size={size} state={state} ShowLeftIcon={ShowLeftIcon} expanded={expanded} changeleftIcon={changeleftIcon}>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </RdsAccordion>
+        <RdsAccordion title="Accordion Title 2" size={size} state={state} ShowLeftIcon={ShowLeftIcon} expanded={expanded} changeleftIcon={changeleftIcon}>
+          <Typography>
+            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+          </Typography>
+        </RdsAccordion>
+        <RdsAccordion title="Accordion Title 3" size={size} state={state} ShowLeftIcon={ShowLeftIcon} expanded={expanded} changeleftIcon={changeleftIcon}>
+          <Typography>
+            Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.
+          </Typography>
+        </RdsAccordion>
+      </>
+    );
+  },
 };
 
 export const Expanded: Story = {
   args: {
     title: 'Expanded Accordion',
     defaultExpanded: true,
-  ShowLeftIcon: true,
+    ShowLeftIcon: true,
+    changeleftIcon: null,
     children: (
       <Typography>
         This accordion is expanded by default. Lorem ipsum dolor sit amet,
@@ -100,38 +106,59 @@ export const Expanded: Story = {
       </Typography>
     ),
   },
+  render: ({ title, defaultExpanded, ShowLeftIcon, changeleftIcon, children }) => (
+    <RdsAccordion title={title} ShowLeftIcon={ShowLeftIcon} expanded={defaultExpanded} changeleftIcon={changeleftIcon}>
+      {children}
+    </RdsAccordion>
+  ),
 };
 
 export const Disabled: Story = {
   args: {
     title: 'Disabled Accordion',
     disabled: true,
-  ShowLeftIcon: true,
+    defaultExpanded: false,
+    ShowLeftIcon: true,
+    changeleftIcon: null,
     children: (
       <Typography>
         This accordion is disabled and cannot be expanded.
       </Typography>
     ),
   },
+  render: ({ title, disabled, defaultExpanded, ShowLeftIcon, changeleftIcon, children }) => (
+    <RdsAccordion title={title} ShowLeftIcon={ShowLeftIcon} disabled={disabled} expanded={defaultExpanded} changeleftIcon={changeleftIcon}>
+      {children}
+    </RdsAccordion>
+  ),
 };
 
 export const CustomIcon: Story = {
   args: {
     title: 'Custom Icon Accordion',
     icon: <ArrowDropDownIcon />,
-  ShowLeftIcon: true,
+    defaultExpanded: false,
+    ShowLeftIcon: true,
+    changeleftIcon: null,
     children: (
       <Typography>
         This accordion uses a custom expand icon.
       </Typography>
     ),
   },
+  render: ({ title, icon, defaultExpanded, ShowLeftIcon, changeleftIcon, children }) => (
+    <RdsAccordion title={title} icon={icon} ShowLeftIcon={ShowLeftIcon} expanded={defaultExpanded} changeleftIcon={changeleftIcon}>
+      {children}
+    </RdsAccordion>
+  ),
 };
 
 export const LongContent: Story = {
   args: {
     title: 'Accordion with Long Content',
-  ShowLeftIcon: true,
+    defaultExpanded: false,
+    ShowLeftIcon: true,
+    changeleftIcon: null,
     children: (
       <div>
         <Typography paragraph>
@@ -150,4 +177,9 @@ export const LongContent: Story = {
       </div>
     ),
   },
+  render: ({ title, defaultExpanded, ShowLeftIcon, changeleftIcon, children }) => (
+    <RdsAccordion title={title} ShowLeftIcon={ShowLeftIcon} expanded={defaultExpanded} changeleftIcon={changeleftIcon}>
+      {children}
+    </RdsAccordion>
+  ),
 };
