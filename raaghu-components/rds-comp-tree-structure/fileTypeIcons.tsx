@@ -26,10 +26,10 @@ import RdsCheckbox from '../../raaghu-elements/rds-checkbox/rds-checkbox';
 
 // Enums
 export enum TreeLevel {
-  Level1 = "level1",
-  Level2 = "level2",
-  Level3 = "level3",
-  Level4 = "level4",
+  Level1 = "Level1",
+  Level2 = "Level2",
+  Level3 = "Level3",
+  Level4 = "Level4",
 }
 
 export enum NodeState {

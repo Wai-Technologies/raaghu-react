@@ -31,6 +31,9 @@ import {
   Highlight
 } from "@mui/icons-material";
 
+// Import enums from main component
+import { ToolbarType } from './rds-comp-toolbar';
+
 /**
  * Toolbar Button Configuration Interface
  */
@@ -95,8 +98,9 @@ export const Divider = () => <div className="rds-comp-toolbar__divider" />;
 /**
  * Get toolbar configuration based on type
  */
-export const getToolbarConfig = (type: string): ToolbarConfig => {
+export const getToolbarConfig = (type: ToolbarType | string): ToolbarConfig => {
   switch (type) {
+    case ToolbarType.InlineEditor:
     case 'inline-editor':
       return {
         sections: [
@@ -125,6 +129,7 @@ export const getToolbarConfig = (type: string): ToolbarConfig => {
         ]
       };
     
+    case ToolbarType.MoreText:
     case 'more-text':
       return {
         sections: [
@@ -164,6 +169,7 @@ export const getToolbarConfig = (type: string): ToolbarConfig => {
         ]
       };
 
+    case ToolbarType.MoreParagraph:
     case 'more-paragraph':
       return {
         sections: [
@@ -205,6 +211,7 @@ export const getToolbarConfig = (type: string): ToolbarConfig => {
         ]
       };
 
+    case ToolbarType.MoreRichContent:
     case 'more-rich-content':
       return {
         sections: [
@@ -240,6 +247,7 @@ export const getToolbarConfig = (type: string): ToolbarConfig => {
         ]
       };
 
+    case ToolbarType.Misc:
     case 'misc':
       return {
         sections: [
@@ -277,6 +285,7 @@ export const getToolbarConfig = (type: string): ToolbarConfig => {
         ]
       };
 
+    case ToolbarType.FullFeatured:
     case 'full-featured':
     default:
       return {

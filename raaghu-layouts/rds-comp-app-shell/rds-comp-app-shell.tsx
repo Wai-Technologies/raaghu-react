@@ -1,48 +1,41 @@
-import React from 'react';
-import { Box, BoxProps } from '@mui/material';
-import './rds-comp-app-shell.css';
+import React, { ReactNode, useState } from "react";
+import "./rds-comp-app-shell.scss";
+import { BrowserRouter, Outlet } from "react-router-dom";
+import RdsAppBar from "../../raaghu-elements/rds-app-bar/rds-app-bar";
+import rdsSidebar from "../../raaghu-elements/rds-sidebar/rds-sidebar";
+import { GetShellLayoutCss } from "./shell-layout";
 
-export interface RdsCompAppShellProps extends BoxProps {
-  topNav?: React.ReactNode;
-  sideNav?: React.ReactNode;
+export interface RdsCompAppShellProps {
+  displayType: AppShellDisplayType;
+  topbar?: ReactNode;
+  sidebar?: ReactNode;
   children?: React.ReactNode;
-  layout?: 'default' | 'triPane' | 'minimal';
-  sideNavCollapsed?: boolean;
-  onSideNavToggle?: () => void;
 }
-
-const RdsCompAppShell: React.FC<RdsCompAppShellProps> = ({
-  topNav,
-  sideNav,
-  children,
-  layout = 'default',
-  sideNavCollapsed = false,
-  onSideNavToggle,
-  className,
-  ...props
-}) => {
-  const shellClass = `rds-app-shell ${layout} ${sideNavCollapsed ? 'collapsed' : ''} ${className || ''}`;
-
+ 
+export enum AppShellDisplayType {
+  Basic = "Basic",
+  Header = "Header",
+  Default = "Default",
+  Relaxing = "Relaxing",
+  TopNav = "Top Nav",
+  SideNav = "Side Nav",
+  DoubleNav = "Double Nav",
+  TriPane = "TriPane"
+}
+ 
+const RdsCompAppShell = (props: RdsCompAppShellProps) => {
   return (
-    <Box className={shellClass} {...props}>
-      {topNav && (
-        <Box className="rds-app-shell__top-nav">
-          {topNav}
-        </Box>
-      )}
-      
-      <Box className="rds-app-shell__body">
-        {sideNav && (
-          <Box className="rds-app-shell__side-nav">
-            {sideNav}
-          </Box>
-        )}
-        
-        <Box className="rds-app-shell__content">
-          {children}
-        </Box>
-      </Box>
-    </Box>
+    <>
+      <div className={GetShellLayoutCss(props.displayType)}>
+        <div className="sidebar-layout">
+          {props.sidebar}
+        </div>
+        <div className="topnav-layout">
+          {props.topbar}
+          {props.children}
+        </div>
+      </div>
+    </>
   );
 };
 RdsCompAppShell.displayName = 'RdsCompAppShell';

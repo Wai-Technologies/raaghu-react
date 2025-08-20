@@ -64,7 +64,24 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
     }
   };
 
-  const maxLevel = parseInt(props.level?.replace('level', '') || '1');
+  const getMaxLevelFromEnum = (level?: TreeLevel): number => {
+    if (!level) return 1;
+    
+    switch (level) {
+      case TreeLevel.Level1:
+        return 1;
+      case TreeLevel.Level2:
+        return 2;
+      case TreeLevel.Level3:
+        return 3;
+      case TreeLevel.Level4:
+        return 4;
+      default:
+        return 1;
+    }
+  };
+
+  const maxLevel = getMaxLevelFromEnum(props.level);
 
   return (
     <div className="rds-comp-tree-structure">
