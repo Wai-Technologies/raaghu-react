@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Dialog as MuiDialog, DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Button } from '@mui/material';
+import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import './rds-dialog.scss';
 
@@ -18,7 +18,7 @@ export interface RdsDialogProps extends DialogProps {
 }
 
 
-const RdsDialog: React.FC<RdsDialogProps> = ({
+const RdsDialog = ({
   title,
   children,
   actions,
@@ -29,7 +29,7 @@ const RdsDialog: React.FC<RdsDialogProps> = ({
   ShowSecondary,
   size = 'md',
   ...props
-}) => {
+}:RdsDialogProps) => {
   if (variant === 'standard') {
     return (
       <MuiDialog onClose={onClose} maxWidth={size} {...props} PaperProps={{ className: 'rds-dialog rds-dialog__paper' }}>

@@ -38,7 +38,7 @@ export interface RdsFileUploaderProps {
   children?: React.ReactNode;
 }
 
-const RdsFileUploader: React.FC<RdsFileUploaderProps> = ({
+const RdsFileUploader= ({
   onFilesChange,
     title,
   onUpload,
@@ -55,10 +55,10 @@ const RdsFileUploader: React.FC<RdsFileUploaderProps> = ({
   hintText = '',
   placeholderImage = '',
   state = 'default',
-  mode = 'default',
+  mode = 'standard',
   style,
   children,
-}) => {
+}:RdsFileUploaderProps) => {
   const {
     files,
     isDragOver,
