@@ -66,12 +66,12 @@ const meta: Meta<typeof RdsButton> = {
     },
     changeLeftIcon: {
       control: 'select',
-      options: ['add', 'delete', 'save', 'edit', 'close', 'arrow-forward', 'arrow-back'],
+      options: ['add', 'delete', 'save', 'edit', 'close', 'arrow-forward', 'arrow-back', 'circle'],
       description: 'Select which icon to display on the left',
     },
     changeRightIcon: {
       control: 'select',
-      options: ['add', 'delete', 'save', 'edit', 'close', 'arrow-forward', 'arrow-back'],
+      options: ['add', 'delete', 'save', 'edit', 'close', 'arrow-forward', 'arrow-back', 'circle'],
       description: 'Select which icon to display on the right',
     },
   },
@@ -92,6 +92,8 @@ export const Default: Story = {
     textCase: 'uppercase',
     state: 'default',
     layout: 'text-only',
+    showLeftIcon: true,
+    showRightIcon: false,
     changeLeftIcon: 'add',
     changeRightIcon: 'save',
   },

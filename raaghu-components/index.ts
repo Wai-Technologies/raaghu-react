@@ -28,7 +28,7 @@ export { default as RdsCompTimePicker } from './rds-comp-time-picker/rds-comp-ti
 export { default as RdsCompToolbar } from './rds-comp-toolbar/rds-comp-toolbar';
 export { default as RdsCompTreeStructure } from './rds-comp-tree-structure/rds-comp-tree-structure';
 export { default as RdsCompDatepicker } from './rds-comp-datepicker/rds-comp-datepicker';
-export { default as RdsCompKanbanBoard, boardInfo, RdsCompKanbanBoardProps } from './rds-comp-kanban-board';
+export { default as RdsCompKanbanBoard} from './rds-comp-kanban-board/rds-comp-kanban-board';
 export { default as RdsCompProductTour } from './rds-comp-product-tour/rds-comp-product-tour';
 export {default as RdsCompEmojiGenerator} from './rds-comp-emoji-generator/rds-comp-emoji-generator';
 export {default as RdsCompEmptyState} from './rds-comp-empty-state/rds-comp-empty-state';

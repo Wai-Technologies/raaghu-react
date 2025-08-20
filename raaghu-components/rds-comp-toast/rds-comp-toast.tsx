@@ -145,8 +145,8 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                 </div>
                                 <div className="rds-comp-toast__filename">{props.filename}</div>
                                 <div className="rds-comp-toast__actions">
-                                    <RdsButton className="rds-comp-toast__action-btn" style="transparent" inputSize="small">Cancel</RdsButton>
-                                    <RdsButton className="rds-comp-toast__action-btn" style="filled" inputSize="small">Go To Downloads</RdsButton>
+                                    <RdsButton className="rds-comp-toast__action-btn" style="transparent" size="small">Cancel</RdsButton>
+                                    <RdsButton className="rds-comp-toast__action-btn" style="filled" size="small">Go To Downloads</RdsButton>
                                 </div>
                             </div>
                         )}
@@ -161,8 +161,8 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                         placeholder={props.placeholder} />
                                 </div>
                                 <div className="rds-comp-toast__actions">
-                                    <RdsButton className="rds-comp-toast__action-btn" style="filled" inputSize="small">Reply</RdsButton>
-                                    <RdsButton className="rds-comp-toast__action-btn" style="transparent" inputSize="small">Mark As Read</RdsButton>
+                                    <RdsButton className="rds-comp-toast__action-btn" style="filled" size="small">Reply</RdsButton>
+                                    <RdsButton className="rds-comp-toast__action-btn" style="transparent" size="small">Mark As Read</RdsButton>
                                 </div>
                             </div>
                         )}
@@ -171,8 +171,8 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         {props.layout === "request" && (
                             <div className="rds-comp-toast__footer rds-comp-toast__footer--request">
                                 <div className="rds-comp-toast__actions">
-                                    <RdsButton className="rds-comp-toast__action-btn" style="transparent" inputSize="small">Reject</RdsButton>
-                                    <RdsButton className="rds-comp-toast__action-btn" style="filled" inputSize="small">Accept</RdsButton>
+                                    <RdsButton className="rds-comp-toast__action-btn" style="transparent" size="small">Reject</RdsButton>
+                                    <RdsButton className="rds-comp-toast__action-btn" style="filled" size="small">Accept</RdsButton>
                                 </div>
                             </div>
                         )}
@@ -219,8 +219,8 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                 </div>
                                 <div className="rds-comp-toast__filename">{props.filename}</div>
                                 <div className="rds-comp-toast__actions">
-                                    <RdsButton style="transparent" inputSize="small">Cancel</RdsButton>
-                                    <RdsButton style="filled" inputSize="small">Go To Downloads</RdsButton>
+                                    <RdsButton style="transparent" size="small">Cancel</RdsButton>
+                                    <RdsButton style="filled" size="small">Go To Downloads</RdsButton>
                                 </div>
                             </div>
                         )}
@@ -236,8 +236,8 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                     />
                                 </div>
                                 <div className="rds-comp-toast__actions">
-                                    <RdsButton style="filled" inputSize="small">Reply</RdsButton>
-                                    <RdsButton style="transparent" inputSize="small">Mark As Read</RdsButton>
+                                    <RdsButton style="filled" size="small">Reply</RdsButton>
+                                    <RdsButton style="transparent" size="small">Mark As Read</RdsButton>
                                 </div>
                             </div>
                         )}
@@ -246,8 +246,8 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                         {props.layout === "request" && (
                             <div className="rds-comp-toast__footer rds-comp-toast__footer--request">
                                 <div className="rds-comp-toast__actions">
-                                    <RdsButton style="transparent" inputSize="small">Reject</RdsButton>
-                                    <RdsButton style="filled" inputSize="small">Accept</RdsButton>
+                                    <RdsButton style="transparent" size="small">Reject</RdsButton>
+                                    <RdsButton style="filled" size="small">Accept</RdsButton>
                                 </div>
                             </div>
                         )}

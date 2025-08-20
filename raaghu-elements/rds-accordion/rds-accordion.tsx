@@ -23,7 +23,7 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
   // selected?: boolean; // Removed, use state === 'selected'
 }
 
-const RdsAccordion= ({
+const RdsAccordion = ({
   ShowLeftIcon = true,
   changeleftIcon,
   title,
@@ -33,39 +33,43 @@ const RdsAccordion= ({
   size = 'medium',
   state = 'default',
   ...props
-}:RdsAccordionProps) => {
+}: RdsAccordionProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const isDisabled = props.disabled;
-  const expanded = props.expanded ?? defaultExpanded;
 
-  const accordionClasses = clsx(
-    'rds-accordion',
-    size && `rds-accordion--${size}`,
-    expanded && 'rds-accordion--expanded',
-    state === 'selected' && 'rds-accordion--selected',
-    state === 'hover' && isHovered && 'rds-accordion--hover',
-    isDisabled && 'rds-accordion--disabled',
-  );
+  // Only pass expanded if controlled, otherwise pass defaultExpanded
+  const accordionProps: any = {
+    ...props,
+    className: clsx(
+      'rds-accordion',
+      size && `rds-accordion--${size}`,
+      (props.expanded ?? defaultExpanded) && 'rds-accordion--expanded',
+      state === 'selected' && 'rds-accordion--selected',
+      state === 'hover' && isHovered && 'rds-accordion--hover',
+      isDisabled && 'rds-accordion--disabled',
+    ),
+    onMouseEnter: () => setIsHovered(true),
+    onMouseLeave: () => setIsHovered(false),
+  };
+  if (typeof props.expanded === 'boolean') {
+    accordionProps.expanded = props.expanded;
+  } else {
+    accordionProps.defaultExpanded = defaultExpanded;
+  }
 
   return (
     <div className="rds-accordion__container">
-      <MuiAccordion
-        defaultExpanded={defaultExpanded}
-        {...props}
-        className={accordionClasses}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
+      <MuiAccordion {...accordionProps}>
         <MuiAccordionSummary
           expandIcon={<ExpandMoreIcon />}
           className="rds-accordion__summary"
         >
           <div className="rds-accordion__header">
-            {ShowLeftIcon && (changeleftIcon !== null ? (
+            {ShowLeftIcon && (
               <span className="rds-accordion__icon">
-                {changeleftIcon !== undefined ? changeleftIcon : (icon || <AddIcon fontSize="small" />)}
+                {changeleftIcon ?? icon ?? <AddIcon fontSize="small" />}
               </span>
-            ) : null)}
+            )}
             <Typography component="span" className="rds-accordion__title">
               {title}
             </Typography>

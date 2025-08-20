@@ -133,8 +133,8 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
       {type === "Audio Edition" && (
         <div className="rds-comp-audio-player__edition-container">
           <div className="rds-comp-audio-player__edition-buttons-top">
-            <RdsButton color="primary" inputSize="medium" text="Cancel" layout="text-only" shape="rectangle" size="medium" state="default" style="transparent" />
-            <RdsButton color="primary" inputSize="medium" text="Save" layout="text-only" shape="rectangle" size="medium" state="default"  style="filled" />
+            <RdsButton color="primary" size="medium" text="Cancel" layout="text-only" shape="rectangle" state="default" style="transparent" />
+            <RdsButton color="primary" size="medium" text="Save" layout="text-only" shape="rectangle" state="default"  style="filled" />
           </div>
           <div className="rds-comp-audio-player__edition-timemarks">
             {[...Array(13)].map((_, i) => (

@@ -10,6 +10,7 @@
   padding: 14px;
   border: none;
   position: relative;
+  overflow: hidden; // Ensure content doesn't overflow
   
   &__header {
     margin: 0;
@@ -22,7 +23,8 @@
     text-align: start;
   }
   &__footer-fixed button {
-    margin-left: var(--rds-spacing-md, 16px);        
+    margin-left: var(--rds-spacing-md, 16px);    
+      
   }
 
   &__header-container {
@@ -142,6 +144,9 @@
   &__content {
     padding-left: var(--rds-spacing-md, 16px);
     padding-right: var(--rds-spacing-md, 16px);
+    padding-bottom: calc(var(--rds-spacing-md, 16px) + 60px); // Add space for absolute footer button
+    position: relative; // Ensure proper positioning context
+    height: 100%; // Take full height of parent
   }
 
   // Global overrides for Material UI inputs within this component
@@ -158,6 +163,7 @@
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    padding: 14px;
     padding-top: var(--rds-spacing-xs, 8px);
     padding-bottom: var(--rds-spacing-xs, 8px);
   }
@@ -308,6 +314,8 @@
     flex-direction: column;
     gap: var(--rds-spacing-sm, 12px);
     margin-top: var(--rds-spacing-md, 16px);
+    margin-bottom: calc(var(--rds-spacing-md, 16px) + 60px); // Add space for absolute footer button
+    position: relative; // Ensure proper positioning context
   }
 
   &__favourite-card {
@@ -332,21 +340,23 @@
     padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-lg, 20px);
     background: var(--rds-color-surface, #fff);
     border-radius: var(--rds-border-radius-md, 8px);
-    box-shadow: var(--rds-box-shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.05));
+    box-shadow: var(--rds-box-shadow-sm, 0 5px 0px rgba(0, 0, 0, 0.05));
     margin-bottom: var(--rds-spacing-md, 16px);
+    box-shadow: 0 2.459px 2.459px 0 rgba(0, 0, 0, 0.10);
     position: relative;
     border: none;
-    
+   
     &::before {
       content: "";
       position: absolute;
       left: 0;
       top: 0;
       bottom: 0;
-      width: 3px;
-      background-color: var(--rds-color-border, #dee2e6);
+      width: 5px;
+      background-color: var(--rds-color-border, #646464);
       border-top-left-radius: var(--rds-border-radius-md, 8px);
       border-bottom-left-radius: var(--rds-border-radius-md, 8px);
+      
     }
   }
 
@@ -415,23 +425,39 @@
   }
   
   &__footer-fixed {
-    position: absolute;
-    left: var(--rds-spacing-md, 16px);
-    right: var(--rds-spacing-md, 45px);
-    bottom: var(--rds-spacing-md, 16px);
+    //position: absolute;
+    // left: var(--rds-spacing-md, -13px);
+    // right: var(--rds-spacing-md, 0px);
+    // bottom: var(--rds-spacing-md, 16px);
     padding: 0;
     background: transparent;
     z-index: 10;
+    //display: flex;
+    margin-right: 18px;
+    margin-left: -16px;
+    justify-content: center;
     
     button {
-      border-radius: var(--rds-border-radius-sm, 4px);
-      height: 40px;
+      border-radius: var(--rds-border-radius-md, 8px);
+      height: 44px;
       font-weight: 500;
       font-size: var(--rds-font-size-sm, 14px);
       background-color: var(--rds-color-primary, #1976d2);
       color: var(--rds-color-on-primary, #fff);
       text-transform: none;
       box-shadow: none;
+      width: 100%;
+      max-width: 360px; // Limit button width for better appearance
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      
+      &:hover {
+        background-color: var(--rds-color-primary-dark, #1565c0);
+      }
     }
   }
   
@@ -534,7 +560,8 @@
     font-style: normal;
     font-weight: 600;
     line-height: 1.2;
-    margin: var(--rds-spacing-xs, 8px);
+    margin: var(--rds-spacing-xs, 1px);
+    margin-top: 20px;
   }
   
   &__real-estate-badges {
@@ -550,14 +577,14 @@
 
   &__real-estate-description {
     margin-top: var(--rds-spacing-sm, 15px);
-    margin-bottom: var(--rds-spacing-xxl, 219px);
+    margin-bottom: var(--rds-spacing-xxl, 235px);
     font-size: var(--rds-font-size-sm, 14px);
     line-height: 1.5;
     color: var(--rds-color-text-secondary, #333);
   }
 
   &__real-estate-footer {
-    margin-top: var(--rds-spacing-xxxl, 246px);
+    margin-top: var(--rds-spacing-xxxl, -35px);
   }
   
   &__real-estate-footer-fixed {
@@ -606,7 +633,7 @@
   &__toolbar-buttons-row {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-md, 16px);
+    gap: var(--rds-spacing-md, 4px);
   }
 
   &__circle-btn-container {
@@ -650,6 +677,15 @@
     display: flex;
     flex-direction: column;
     gap: var(--rds-spacing-xs, 8px);
+  }
+
+  &__spacing-size-grid,
+  &__corner-size-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rds-spacing-xs, 8px);
+    margin-top: 7px;
+
   }
 
   &__row {
@@ -750,7 +786,7 @@
 
   &__download-button {
     width: 100%;
-    height: 36px;
+    height: 40px;
     background-color: var(--rds-color-primary, #007bff);
     color: var(--rds-color-on-primary, #fff);
     border: none;
@@ -771,8 +807,8 @@
     display: flex;
     flex-direction: column;
     gap: var(--rds-spacing-xs, 8px);
-    margin-left: 13px;
-    margin-right: 13px;
+    margin-left: 16px;
+    margin-right: 17px;
   }
 
   &__thumbnail-image-square {
@@ -815,6 +851,49 @@
     transition: transform 0.3s cubic-bezier(.4,0,.2,1);
     transform: translateX(0%);
   }
+
+  &__tab-pane {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  &__thumbnail-img-square {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    // Add any additional styles if needed
+  }
+
+  &__icon-history {
+    color: #969696;
+    // width and height inherit from parent, or set if needed
+  }
+
+  &__icon-delete {
+    height: 15px !important;
+    width: 15px !important;
+    cursor: pointer;
+  }
+
+  &__icon-edit {
+    width: 17px !important;
+    height: 17px !important;
+    color: #7D7D7D !important;
+  }
+
+  &__icon-star {
+    width: 19px !important;
+    height: 13px !important;
+  }
+
+  &__palette-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 8px;
+    padding-right: 124px;
+  }
 }
 
 .theme-light {
@@ -831,13 +910,12 @@
 
 .theme-dark {
   .rds-comp-details-pane {
-    background: var(--rds-color-surface-dark, #000000);
     color: var(--rds-color-on-surface-dark, #fff);
     box-shadow: var(--rds-elevation-dark, 1px 1px 6px 0px rgba(255, 252, 252, 0.16));
     
     &__activity-item {
       &:hover {
-        color: var(--rds-color-text-primary-dark, #000);
+        color: var(--rds-color-text-primary-dark, #eee5e5);
       }
     }
     

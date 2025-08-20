@@ -210,9 +210,9 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
     return (
         <>
             {props.showTitle && props.titleText && (
-                <label className="form-label">
+                <label className="rds-datepicker__label">
                     {props.titleText}
-                    {props.isMandatory && <span className="text-danger"> *</span>}
+                    {props.isMandatory && <span className="rds-datepicker__mandatory-indicator"> *</span>}
                 </label>
             )}
             {showState && renderDatePickerStateView(
