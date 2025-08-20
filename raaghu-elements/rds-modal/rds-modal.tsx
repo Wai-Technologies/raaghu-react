@@ -1,8 +1,8 @@
 import React from 'react';
-import { 
-  Dialog as MuiDialog, 
-  DialogTitle, 
-  DialogContent, 
+import {
+  Dialog as MuiDialog,
+  DialogTitle,
+  DialogContent,
   DialogActions,
   type DialogProps,
   IconButton,
@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 import './rds-modal.scss';
-
+ 
 export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open'> {
   title?: string;
   isOpen: boolean;
@@ -18,9 +18,11 @@ export interface RdsModalProps extends Omit<DialogProps, 'title' | 'open'> {
   actions?: React.ReactNode;
   showCloseButton?: boolean;
   icon?: React.ReactNode;
+  showIcon?: boolean;
   imageSrc?: string;
+  showDescription?: boolean;
 }
-
+ 
 const RdsModal= ({
   title,
   isOpen,
@@ -28,6 +30,8 @@ const RdsModal= ({
   actions,
   showCloseButton = true,
   icon,
+  showIcon = true,
+  showDescription = true,
   imageSrc,
   children,
   ...props
@@ -39,14 +43,16 @@ const RdsModal= ({
       {...props}
     >
       {(title || icon || imageSrc) && (
-        <DialogTitle sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          {icon && (
+        <DialogTitle >
+          <div className='rds-modal__content'>
+          {icon && showIcon && (
             <span className="rds-modal__icon mt-1">{icon}</span>
           )}
           {imageSrc && (
             <img src={imageSrc} alt="Modal" className="rds-modal__image" />
           )}
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          </div>
+          <Typography sx={{ textAlign: 'center', flexGrow: 1 }} variant="h6" component="div">
             {title}
           </Typography>
           {showCloseButton && (
@@ -65,8 +71,8 @@ const RdsModal= ({
           )}
         </DialogTitle>
       )}
-      <DialogContent>
-        {children}
+      <DialogContent sx={{ textAlign: 'center'}}>
+        {showDescription && children}
       </DialogContent>
       {actions && (
         <DialogActions>
