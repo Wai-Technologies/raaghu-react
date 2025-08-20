@@ -1,3 +1,17 @@
+/* RDS AppShell AppBar Fixed Styles */
+.rds-appshell-appbar {
+  width: 100%;
+  z-index: 100;
+  &--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--rds-color-surface, #fff);
+    box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0,0,0,0.08));
+    transition: box-shadow 0.2s ease;
+  }
+}
 .Default {
   margin: 0;
   padding: 0;
@@ -246,24 +260,24 @@ height: 609px;
 }
 
 /* Target Double Nav story specifically */
-.double-nav .sidebar-layout .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper {
+.double-nav .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper, .double-nav .css-dm61o6 .MuiDrawer-paper {
   margin-top: 84px;
   margin-left: 87px;
 }
 
-.double-nav .sidebar-layout .css-sm7tlr-MuiDrawer-docked .MuiDrawer-paper {
+.double-nav .css-sm7tlr-MuiDrawer-docked .MuiDrawer-paper, .double-nav .css-1movy1a .MuiDrawer-paper {
   margin-top: 84px;
   margin-left: 12px;
 }
 
 /* Target Relaxing story specifically */
-.top-nav .rds-story-relaxing-sidebar .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper {
+.top-nav .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper, .top-nav .css-dm61o6 .MuiDrawer-paper {
   margin-top: 67px;
   margin-left: 12px;
 }
 
 /* Target TriPane story specifically */
-.triPane .sidebar-layout .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper {
+.triPane .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper, .triPane .css-dm61o6 .MuiDrawer-paper {
   margin-top: 84px;
   margin-left: 16px;
 }

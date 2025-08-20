@@ -47,7 +47,7 @@ export const DoubleNav: Story = {
   args: {
     displayType: AppShellDisplayType.DoubleNav,
     topbar: (
-      <div>
+      <div className="rds-appshell-appbar rds-appshell-appbar--fixed">
         <RdsAppBar
           color="default"
           logo={
@@ -464,7 +464,7 @@ export const TriPane: Story = {
   args: {
     displayType: AppShellDisplayType.TriPane,
     topbar: (
-      <div>
+      <div className="rds-appshell-appbar rds-appshell-appbar--fixed">
         <RdsAppBar
           color="default"
           logo={
@@ -475,7 +475,7 @@ export const TriPane: Story = {
             />
           }
           onTabChange={() => {}}
-          showLogo={false}
+          showLogo={true}
           tabValue={0}
           tabs={["HOME", "NEWS", "MARKETPLACE", "JOBS"]}
           title=""
