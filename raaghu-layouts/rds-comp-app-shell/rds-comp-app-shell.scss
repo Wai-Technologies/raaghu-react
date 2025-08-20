@@ -1,0 +1,306 @@
+.Default {
+  margin: 0;
+  padding: 0;
+  /* width: 100vw; */
+  height: 100vh;
+  overflow: hidden; /* Optional, to hide any content that exceeds the viewport */
+  display: flex;
+}
+
+.Default #sidebar{
+  height: 100vh !important;
+}
+
+/* Sidebar layout styles */
+.sidebar-layout {
+    flex: 0 0 auto;
+    transition: width 0.3s ease;
+}
+
+.Default .sidebar-layout{
+  width: fit-content;
+  z-index: 1;
+}
+
+/* Top navigation layout styles */
+.topnav-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.Default .topnav-layout{
+  width: 100%;
+  position: relative;
+  z-index: 2; /* Ensure topbar appears in front of sidebar */
+}
+
+/* Ensure appbar in Default layout appears in front of sidebar */
+.Default .topnav-layout > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* TopNav specific styles */
+.TopNav .sidebar-layout {
+    display: none;
+}
+
+.TopNav .topnav-layout {
+    width: 100%;
+}
+
+.double-nav-sidebar img.ps-md-2.main-logo.ps-1 {
+  visibility: hidden;
+}
+.tripane-sidebar img.ps-md-2.main-logo.ps-1 {
+  visibility: hidden;
+}
+
+.rds-appshell-add-layout-center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.rds-appshell-add-layout-flex-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0e0e0;
+  min-height: calc(100vh - 98px);
+  width: 100%;
+}
+
+.rds-appshell-add-layout-text {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.rds-appshell-side-nav-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+  min-height: 400px;
+}
+.rds-appshell-side-nav-left {
+  flex: 0 0 245px;
+  min-width: 245px;
+  max-width: 245px;
+  height: 100%;
+}
+.rds-appshell-side-nav-right {
+  flex: 0 0 80px;
+  min-width: 80px;
+  max-width: 120px;
+  height: 100%;
+}
+
+#sidebar.toggle.hide{
+ box-shadow: 1px 0px 6px 0px rgba(0, 0, 0, 0.16) !important;
+ min-height: calc(100vh - 98px);
+}
+
+nav#sidebar{
+ box-shadow: 1px 0px 6px 0px rgba(0, 0, 0, 0.16) !important;
+ z-index: 1 !important;
+}
+
+nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.pt-xxl-0.pt-xl-0.pt-lg-0.pt-md-0.pt-4.shadow.px-2.side-navigation.hide.toggle-sidebar-menu.show  {
+  min-height: calc(100vh - 98px);
+}
+
+#details-pane-app-shell .detail-pane-container {
+  min-height: calc(100vh - 98px) !important;
+  height: 609px !important;
+} 
+
+#side-nav-icon-list li.pe-xxl-0.pe-xl-0.pe-lg-0.pe-md-0.pe-0[value="4_"]:has(svg path[d*="M9.207,2.002c.643"])  {
+ margin-top: 200px;
+}
+ 
+#detail-pane-one-three-one .detail-pane-container {
+height: 609px;
+ min-height: calc(100vh - 98px) !important;
+}
+
+.rds-story-double-nav-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 68px;
+}
+
+.rds-story-double-nav-content {
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
+}
+
+.rds-story-relaxing-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+.rds-story-relaxing-content {
+  display: flex;
+  flex-direction: row;
+  min-height: 0;
+  padding-top: 50px;
+}
+
+.rds-story-relaxing-sidebar {
+  min-width: 245px;
+  max-width: 245px;
+  height: 100%;
+}
+
+.rds-story-side-nav-right-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.rds-story-side-nav-right-container {
+  flex: 0 0 80px;
+  min-width: 80px;
+  max-width: 120px;
+  height: 100%;
+}
+
+.rds-story-standard-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.rds-story-topnav-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.rds-story-tripane-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 68px;
+}
+
+.rds-story-sub-header-layout {
+  display: flex;
+  align-items: center;
+}
+
+.rds-story-sub-tabs {
+  display: flex;
+  gap: 16px;
+}
+
+.rds-story-sub-tab-button {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.rds-story-sub-tab-button:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.rds-story-sub-tab-button--primary {
+  color: var(--primary-color, #1976d2);
+}
+
+.rds-story-sub-tab-button--inherit {
+  color: inherit;
+}
+
+.rds-story-sub-tab-icon {
+  margin-right: 4px;
+}
+
+/* Target Double Nav story specifically */
+.double-nav .sidebar-layout .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper {
+  margin-top: 84px;
+  margin-left: 87px;
+}
+
+.double-nav .sidebar-layout .css-sm7tlr-MuiDrawer-docked .MuiDrawer-paper {
+  margin-top: 84px;
+  margin-left: 12px;
+}
+
+/* Target Relaxing story specifically */
+.top-nav .rds-story-relaxing-sidebar .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper {
+  margin-top: 67px;
+  margin-left: 12px;
+}
+
+/* Target TriPane story specifically */
+.triPane .sidebar-layout .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper {
+  margin-top: 84px;
+  margin-left: 16px;
+}
+
+/* RDS App Shell Item Component Styles */
+.rds-comp-app-shell-item {
+  // Base component styles
+  display: block;
+  
+  // Element styles
+  &__header {
+    // Header element styles
+    margin: 0;
+    padding: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--rds-color-on-surface, #000);
+    margin-bottom: var(--rds-spacing-md, 16px);
+  }
+  
+  &__content {
+    // Content element styles
+    display: block;
+  }
+  
+  // Size variants
+  &--small {
+    .rds-comp-app-shell-item__header {
+      font-size: 1rem;
+      margin-bottom: var(--rds-spacing-sm, 12px);
+    }
+  }
+  
+  &--large {
+    .rds-comp-app-shell-item__header {
+      font-size: 1.5rem;
+      margin-bottom: var(--rds-spacing-lg, 20px);
+    }
+  }
+}
