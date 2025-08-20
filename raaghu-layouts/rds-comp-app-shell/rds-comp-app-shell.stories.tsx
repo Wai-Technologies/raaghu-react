@@ -38,7 +38,6 @@ const meta: Meta<typeof RdsCompAppShell> = {
   },
   tags: ["autodocs"],
   argTypes: {},
-  decorators: [(Story) => <Story />],
 };
 
 export default meta;
