@@ -50,6 +50,10 @@
       }
     }
     
+    &--month-mobile {
+      font-size: 10px !important;
+    }
+    
     &--week {
       fill: #666;
       font-size: 12px;
@@ -72,4 +76,16 @@
   [data-theme="dark"] &__text--month {
     fill: #fff !important;
   }
+}
+.rds-comp-contribution__container--svgwidth-360 {
+  min-width: 360px;
+}
+.rds-comp-contribution__container--svgwidth-600 {
+  min-width: 600px;
+}
+.rds-comp-contribution__container--svgwidth-900 {
+  min-width: 900px;
+}
+.rds-comp-contribution__container--svgwidth-1200 {
+  min-width: 1200px;
 }

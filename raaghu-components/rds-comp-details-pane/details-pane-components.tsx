@@ -32,11 +32,14 @@ export interface HistoryFavoriteTabsProps {
   olderHistoryItems: { id: number; name: string }[];
   handleDeleteHistoryItem: (id: number) => void;
   handleDeleteOlderHistoryItem: (id: number) => void;
+  favouriteCardTitle?: string;
+  favouriteCardImage?: string;
 }
 
 export interface RealEstateContentProps {
   estateTitle?: string;
   estateDescription?: string;
+  carouselImages?: { src: string; alt: string }[];
 }
 
 export interface SelectionContentProps {
@@ -63,7 +66,9 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
   historyItems = [],
   olderHistoryItems = [],
   handleDeleteHistoryItem,
-  handleDeleteOlderHistoryItem
+  handleDeleteOlderHistoryItem,
+  favouriteCardTitle = 'Create a Login page for signing up with a discount offer. It should have a field for the user\'s email and a "Get Discount" button.',
+  favouriteCardImage = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
 }) => {
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
@@ -161,8 +166,7 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
                     selectedIndexes.includes(idx) ? " rds-comp-details-pane__favourite-card--selected" : ""
                   }`}
                   key={idx}
-                  onClick={() => toggleSelection(idx)}
-                  style={{ cursor: "pointer" }}
+                  onClick={() => toggleSelection(idx)}                 
                 >
                   <div className="rds-comp-details-pane__favourite-card-header">
                     <input
@@ -172,9 +176,7 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
                       readOnly
                     />
                     <span className="rds-comp-details-pane__favourite-title">
-                      Create a Login page for signing up with a discount offer. It
-                      should have a field for the user's email and a "Get Discount"
-                      button.
+                      {favouriteCardTitle}
                     </span>
                     <span className="rds-comp-details-pane__favourite-edit-icon-wrapper">
                       <Edit className="rds-comp-details-pane__icon-edit" />
@@ -182,7 +184,7 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
                   </div>
                   <div className="rds-comp-details-pane__favourite-card-image-wrapper">
                     <img
-                      src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+                      src={favouriteCardImage}
                       alt="Login page"
                       className="rds-comp-details-pane__favourite-card-image"
                     />
@@ -225,18 +227,16 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
  * RealEstateContent - Component for the real estate view
  */
 export const RealEstateContent: React.FC<RealEstateContentProps> = ({
-  estateTitle = "Serene Studio Housing",
-  estateDescription = "This studio room is located in Major city. The famous Amazon and Amazonia beaches are approximately 10 minutes walk from here. The room has a kitchenette with basic utensils for cooking. There is a private attached bathroom. We have a smart tv for your entertainment. We provide complimentary Wi-Fi to our guests who also want to work."
+  estateTitle,
+  estateDescription,
+  carouselImages = []
 }) => {
-  // Image carousel data
-  const carouselImages = [
-    { src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80", alt: "Night Sky" },
-    { src: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80", alt: "Night Sky" },
-    { src: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80", alt: "Night Sky" }
+  // Define badges array with sample data
+  const badges: { content: string; color: "primary" | "secondary" | "success" | "default" | "error" | "info" | "warning"; size: "small" | "medium" | "large"; shape?: "rectangle" | "pill" }[] = [
+    { content: "O Badge", color: "primary", size: "small", shape: "rectangle" },
+    { content: "O Badge", color: "primary", size: "small", shape: "rectangle" },
+    { content: "O Badge", color: "primary", size: "small", shape: "rectangle" }
   ];
-  
-  // Badge data
-  const badges = Array(3).fill({ content: "O Badge", color: "primary", size: "small", shape: "rectangle" });
 
   return (
     <div className="custom-content-wrapper" id="details-pane-container">
@@ -911,14 +911,17 @@ export const ToolbarContent: React.FC<{
   );
 };
 
-/**
- * ThumbnailViewContent - Component for the thumbnail view
- */
 export const ThumbnailViewContent: React.FC<{
   thumbnailButtonName?: string;
 }> = ({
   thumbnailButtonName
 }) => {
+  const accordionItems = [
+    { title: "Title", imgSrc: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" },
+    { title: "Title", imgSrc: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" },
+    { title: "Title", imgSrc: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" }
+  ];
+
   return (
     <div className="rds-comp-details-pane__thumbnail-view-wrapper">
       <div className="rds-comp-details-pane__thumbnail-content p-0">
@@ -933,49 +936,22 @@ export const ThumbnailViewContent: React.FC<{
         </div>
 
         <div className="rds-comp-details-pane__accordion-list px-0">
-          <>
-            <>
-              <RdsAccordion
-                size="medium"
-                state="default"
-                title="Title"
-              >
-                <div>
+          {accordionItems.map((item, idx) => (
+            <RdsAccordion
+              key={idx}
+              size="medium"
+              state="default"
+              title={item.title}
+            >
+              <div>
                 <img 
-                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
-                alt="Night Sky"
-                className="rds-comp-details-pane__thumbnail-img-square"
-              />                
+                  src={item.imgSrc}
+                  alt="Night Sky"
+                  className="rds-comp-details-pane__thumbnail-img-square"
+                />
               </div>
-              </RdsAccordion>
-              <RdsAccordion
-                size="medium"
-                state="default"
-                title="Title"
-              >
-                <div>
-               <img 
-                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
-                alt="Night Sky"
-                className="rds-comp-details-pane__thumbnail-img-square"
-              />                 
-              </div>
-              </RdsAccordion>
-              <RdsAccordion
-                size="medium"
-                state="default"
-                title="Title"
-              >
-                <div>
-                <img 
-                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
-                alt="Night Sky"
-                className="rds-comp-details-pane__thumbnail-img-square"
-              />                
-              </div>
-              </RdsAccordion>
-            </>
-          </>
+            </RdsAccordion>
+          ))}
         </div>
       </div>
     </div>

@@ -910,13 +910,12 @@
 
 .theme-dark {
   .rds-comp-details-pane {
-    background: var(--rds-color-surface-dark, #000000);
     color: var(--rds-color-on-surface-dark, #fff);
     box-shadow: var(--rds-elevation-dark, 1px 1px 6px 0px rgba(255, 252, 252, 0.16));
     
     &__activity-item {
       &:hover {
-        color: var(--rds-color-text-primary-dark, #000);
+        color: var(--rds-color-text-primary-dark, #eee5e5);
       }
     }
     

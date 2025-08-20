@@ -115,6 +115,13 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     updateSizeBasedOnWidth(availableWidth);
   };
 
+  const getSvgWidthClass = (width: number) => {
+    if (width <= 360) return 'rds-comp-contribution__container--svgwidth-360';
+    if (width <= 600) return 'rds-comp-contribution__container--svgwidth-600';
+    if (width <= 900) return 'rds-comp-contribution__container--svgwidth-900';
+    return 'rds-comp-contribution__container--svgwidth-1200';
+  };
+
   if (!panelColors || !weekNames) {
     console.warn('Missing required props: panelColors or weekNames');
     return null;
@@ -224,11 +231,13 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
       return (
         <text
           key={`month_${i}_${month}_${position}`}
-          className="rds-comp-contribution__text rds-comp-contribution__text--month"
+          className={
+            `rds-comp-contribution__text rds-comp-contribution__text--month` +
+            (isMobile ? ' rds-comp-contribution__text--month-mobile' : '')
+          }
           x={textBasePos.x - dynamicPanelSize / 2}
           y={monthLabelHeight / 2}
           textAnchor="middle"
-          style={isMobile ? { fontSize: 10 } : undefined}
           {...monthLabelAttributes}
         >
           {getMonthLabel(month)}
@@ -248,7 +257,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
           ref={measureRef}
           className="rds-comp-contribution"
         >
-          <div className="rds-comp-contribution__container" style={{ overflowX: 'auto', minWidth: svgWidth }}>
+          <div className={`rds-comp-contribution__container ${getSvgWidthClass(svgWidth)}`}>
             <div className="rds-comp-contribution__wrapper">
               <SvgIcon
                 className="rds-comp-contribution__svg"

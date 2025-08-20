@@ -20,6 +20,9 @@ export interface RdsCompDetailsPaneProps {
   estateTitle?: string;
   estateDescription?: string;
   thumbnailButtonName?: string;
+  historyItems?: { id: number; name: string }[];
+  olderHistoryItems?: { id: number; name: string }[];
+  carouselImages?: { src: string; alt: string }[];
 }
 
 const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
@@ -34,18 +37,22 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
   };
   const [activeTab, setActiveTab] = useState(getInitialTab());
   
-  const [historyItems, setHistoryItems] = useState([
+  const defaultHistoryItems = [
     { id: 1, name: "Login Page Creation" },
     { id: 2, name: "Finance Dashboard Design" },
     { id: 3, name: "E-commerce Product Page" },
     { id: 4, name: "Social Media Profile Setup" },
     { id: 5, name: "Onboarding Flow Builder" },
     { id: 6, name: "Analytics Overview Dashboard" },
-  ]);
-  const [olderHistoryItems, setOlderHistoryItems] = useState([
+  ];
+  
+  const defaultOlderHistoryItems = [
     { id: 1, name: "Signup Form Generator" },
     { id: 2, name: "Task Management Board UI" },
-  ]);
+  ];
+  
+  const [historyItems, setHistoryItems] = useState(props.historyItems || defaultHistoryItems);
+  const [olderHistoryItems, setOlderHistoryItems] = useState(props.olderHistoryItems || defaultOlderHistoryItems);
 
   useEffect(() => {
     if (props.style === "Favourites" || props.style === "Favourites - New Folder") {
@@ -87,6 +94,7 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
           <RealEstateContent 
             estateTitle={props.estateTitle}
             estateDescription={props.estateDescription}
+            carouselImages={props.carouselImages}
           />
         ) : props.style === "Selection" ? (
           <SelectionContent 
