@@ -133,54 +133,20 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        className="rds-filter-button__popover"
-        sx= {{
-          marginTop:'10px',
-        }  
-        }
-        PaperProps={{
-          sx: {
-            width: '380px',
-            maxHeight: '450px',
-            borderRadius: '8px',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-            border: '1px solid #e0e0e0',
-            marginTop: '3px', // 3px gap below button
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column',
-          }
-        }}
+        PaperProps=
+        {{className: "rds-filter-button__popover"}}
+
       >
-        <Box className="rds-filter-button__content" sx={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          height: '100%',
-          maxHeight: '450px'
-        }}>
+        <Box className="rds-filter-button__content">
           {/* Header */}
-          <Box sx={{ 
-            p: 2, 
-            borderBottom: '1px solid #f0f0f0',
-            backgroundColor: '#fff',
-            flexShrink: 0
-          }}>
-            <Typography variant="h6" sx={{ 
-              fontWeight: 600, 
-              fontSize: '16px',
-              color: '#333',
-              mb: 0
-            }}>
+          <Box className="rds-filter-button__header">
+            <Typography variant="h6" className="rds-filter-button__header-title">
               Add Filters
             </Typography>
           </Box>
 
           {/* Search Box */}
-          <Box sx={{ 
-            p: 2, 
-            borderBottom: '1px solid #f0f0f0',
-            flexShrink: 0
-          }}>
+          <Box className="rds-filter-button__search">
             <TextField
               fullWidth
               variant="outlined"
