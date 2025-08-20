@@ -4,7 +4,7 @@ import RdsModal from './rds-modal';
 import { Button, Typography } from '@mui/material';
 import { useState } from 'react';
 import RdsButton from '../rds-button/rds-button';
- 
+
 const meta: Meta<typeof RdsModal> = {
   title: 'Elements/Modal',
   component: RdsModal,
@@ -36,17 +36,17 @@ const meta: Meta<typeof RdsModal> = {
     },
   },
 };
- 
+
 export default meta;
 type Story = StoryObj<typeof meta>;
- 
+
 // Template for interactive modal
 const ModalTemplate = (args: any) => {
   const [open, setOpen] = useState(false);
- 
+
   return (
     <>
-      <RdsButton color="primary" textCase="uppercase" layout="text-only"  shape="rectangle"  size="medium"  state="default"  style="filled" onClick={() => setOpen(true)}>
+      <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" onClick={() => setOpen(true)}>
         Open Modal
       </RdsButton>
       <RdsModal
@@ -59,7 +59,7 @@ const ModalTemplate = (args: any) => {
     </>
   );
 };
- 
+
 export const Default = {
   render: ModalTemplate,
   args: {
@@ -72,27 +72,37 @@ export const Default = {
     ),
   },
 };
- 
+
 export const WithActions = {
   render: ModalTemplate,
   args: {
-        title: 'Are you sure?',
+    title: 'Are you sure?',
     showIcon: true,
     icon: <Delete color="error" sx={{ height: 40, width: 40 }} />,
     children: (
       <Typography>
-       This record will be deleted permanently.
+        This record will be deleted permanently.
       </Typography>
     ),
     actions: (
       <>
-        <RdsButton>Cancel</RdsButton>
-        <RdsButton color="primary" textCase="uppercase" layout="text-only"  shape="rectangle"  size="medium"  state="default"  style="filled">Delete</RdsButton>
+        <RdsButton changeLeftIcon="add"
+          changeRightIcon="save"
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          showLeftIcon
+          size="medium"
+          state="default"
+          style="outlined"
+          text="Cancel"
+          textCase="uppercase" />
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Delete" />
       </>
     ),
   },
 };
- 
+
 export const WithoutCloseButton = {
   render: ModalTemplate,
   args: {
@@ -104,11 +114,20 @@ export const WithoutCloseButton = {
       </Typography>
     ),
     actions: (
-      <RdsButton color="primary" textCase="uppercase" layout="text-only"  shape="rectangle"  size="medium"  state="default"  style="filled">Close</RdsButton>
-    ),
+        <RdsButton changeLeftIcon="add"
+          changeRightIcon="save"
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          showLeftIcon
+          size="medium"
+          state="default"
+          style="outlined"
+          text="Cancel"
+          textCase="uppercase" />    ),
   },
 };
- 
+
 export const LargeModal = {
   render: ModalTemplate,
   args: {
@@ -130,13 +149,23 @@ export const LargeModal = {
     ),
     actions: (
       <>
-        <RdsButton>Cancel</RdsButton>
-        <RdsButton color="primary" textCase="uppercase" layout="text-only"  shape="rectangle"  size="medium"  state="default"  style="filled">Submit</RdsButton>
+         <RdsButton changeLeftIcon="add"
+          changeRightIcon="save"
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          showLeftIcon
+          size="medium"
+          state="default"
+          style="outlined"
+          text="Cancel"
+          textCase="uppercase" />
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Delete" />
       </>
     ),
   },
 };
- 
+
 export const SmallModal = {
   render: ModalTemplate,
   args: {
@@ -149,13 +178,23 @@ export const SmallModal = {
     ),
     actions: (
       <>
-        <RdsButton>No</RdsButton>
-        <RdsButton color="primary" textCase="uppercase" layout="text-only"  shape="rectangle"  size="medium"  state="default"  style="filled">Yes</RdsButton>
+         <RdsButton changeLeftIcon="add"
+          changeRightIcon="save"
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          showLeftIcon
+          size="medium"
+          state="default"
+          style="outlined"
+          text="Cancel"
+          textCase="uppercase" />
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Delete" />
       </>
     ),
   },
 };
- 
+
 export const WithIcon = {
   render: ModalTemplate,
   args: {
@@ -164,12 +203,12 @@ export const WithIcon = {
     icon: <Delete color="error" sx={{ height: 40, width: 40 }} />,
     children: (
       <Typography>
-       This record will be deleted permanently.
+        This record will be deleted permanently.
       </Typography>
     ),
   },
 };
- 
+
 export const WithImage = {
   render: ModalTemplate,
   args: {
