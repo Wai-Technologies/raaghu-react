@@ -23,7 +23,7 @@
   .rds-accordion .MuiAccordionSummary-expandIconWrapper { color: #B0B3B8 !important; }
 }
 .rds-accordion__container {
-  border: 1px solid #23272F;
+  border: 1px solid #7D7D7D;
   background: #fff;
   border-radius: 4px;
   overflow: hidden;
@@ -32,7 +32,7 @@
   
   &.rds-accordion--bottomline {
   border: none;
-  border-bottom: 1px solid #23272F;
+  border-bottom: 1px solid #7D7D7D;
     border-radius: 0;
     
     .MuiAccordion-root:not(:last-child) {
