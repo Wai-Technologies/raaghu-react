@@ -1,13 +1,10 @@
 
 import './App.css';
 // If RdsBreadcrumbs is a default export:
-import RdsSidebar from '../../raaghu-elements/rds-sidebar/rds-sidebar';
 import React from 'react';
-import { Home as HomeIcon } from '@mui/icons-material'; // Example: using Material UI Home icon
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SettingsIcon from '@mui/icons-material/Settings';
-import HelpIcon from '@mui/icons-material/Help';
+
+
+
 
 
 function App() {
@@ -31,39 +28,7 @@ function App() {
         </p>
       </div>
       <p className="read-the-docs">
-<RdsSidebar
-    items={[
-        {
-            icon: <HomeIcon />,
-            label: "Home",
-            onClick: () => {},
-        },
-        {
-            active: true,
-            icon: <DashboardIcon />,
-            label: "Dashboard",
-            onClick: () => {},
-        },
-        {
-            icon: <AccountCircleIcon />,
-            label: "Profile",
-            onClick: () => {},
-        },
-        {
-            icon: <SettingsIcon />,
-            label: "Settings",
-            onClick: () => {},
-        },
-        {
-            icon: <HelpIcon />,
-            label: "Help",
-            onClick: () => {},
-        },
-    ]}
-    isOpen={true}
-    layout="list"
-    typeOf="fixed"
-/>
+
       </p>
     </>
   )
