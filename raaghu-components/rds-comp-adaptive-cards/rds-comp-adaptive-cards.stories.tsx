@@ -29,39 +29,39 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
             ],
             description: 'Select the adaptive card type',
         }, 
-        showHeader: { control: 'boolean' },
-        showDismiss: { control: 'boolean' },
-        cardTitle: { control: 'text' },
-        showBtn1: { control: 'boolean' },
-        showBtn2: { control: 'boolean' },
-        btn1style: { control: 'text' },
-        btn2style: { control: 'text' },
-        btn1Label: { control: 'text' },
-        btn2Label: { control: 'text' },
-        smallText: { control: 'text' },
-    cardText: { control: 'text', description: 'Text for ActivityUpdateCard' },
-        closeIcon: { control: 'boolean' },
-        label: { control: 'text' },
-        block: { control: 'boolean' },
-        images: { control: 'object' },
-    leagueName: { control: 'text', description: 'League Name' },
-    leagueAvatar: { control: 'text', description: 'League Avatar URL' },
-    isLive: { control: 'boolean', description: 'Is Live?' },
-    matchDate: { control: 'text', description: 'Match Date' },
-    isFinal: { control: 'boolean', description: 'Is Final?' },
-    homeTeamName: { control: 'text', description: 'Home Team Name' },
-    homeTeamLogo: { control: 'text', description: 'Home Team Logo URL' },
-    homeTeamStatus: { control: 'text', description: 'Home Team Status' },
-    awayTeamName: { control: 'text', description: 'Away Team Name' },
-    awayTeamLogo: { control: 'text', description: 'Away Team Logo URL' },
-    awayTeamStatus: { control: 'text', description: 'Away Team Status' },
-    homeScore: { control: 'number', description: 'Home Team Score' },
-    awayScore: { control: 'number', description: 'Away Team Score' },
-    time: { control: 'text', description: 'Match Time' },
-    activityProps: { control: 'object' },
-    name: { control: 'text', description: 'Name for ActivityUpdateCard' },
-    date: { control: 'text', description: 'Date for ActivityUpdateCard' },
-        },
+        showHeader: { control: 'boolean', description: 'Show header of the card' },
+        showDismiss: { control: 'boolean', description: 'Show circle button' },
+        cardTitle: { control: 'text', description: 'Title of the card' },
+        showBtn1: { control: 'boolean', description: 'Show Button 1' },
+        showBtn2: { control: 'boolean', description: 'Show Button 2' },
+        btn1style: { control: 'text', description: 'Style of Button 1' },
+        btn2style: { control: 'text', description: 'Style of Button 2' },
+        btn1Label: { control: 'text', description: 'Label of Button 1' },
+        btn2Label: { control: 'text', description: 'Label of Button 2' },
+        smallText: { control: 'text', description: 'Small text below the title' },
+        cardText: { control: 'text', description: 'Text for ActivityUpdateCard' },
+        closeIcon: { control: 'boolean', description: 'Show close icon' },
+        label: { control: 'text', description: 'Label for InputFormCard' },
+        block: { control: 'boolean', description: 'Block layout' },
+        images: { control: 'object', description: 'Images for ImageGalleryCard' },
+        leagueName: { control: 'text', description: 'League Name' },
+        leagueAvatar: { control: 'text', description: 'League Avatar URL' },
+        isLive: { control: 'boolean', description: 'Is Live?' },
+        matchDate: { control: 'text', description: 'Match Date' },
+        isFinal: { control: 'boolean', description: 'Is Final?' },
+        homeTeamName: { control: 'text', description: 'Home Team Name' },
+        homeTeamLogo: { control: 'text', description: 'Home Team Logo URL' },
+        homeTeamStatus: { control: 'text', description: 'Home Team Status' },
+        awayTeamName: { control: 'text', description: 'Away Team Name' },
+        awayTeamLogo: { control: 'text', description: 'Away Team Logo URL' },
+        awayTeamStatus: { control: 'text', description: 'Away Team Status' },
+        homeScore: { control: 'number', description: 'Home Team Score' },
+        awayScore: { control: 'number', description: 'Away Team Score' },
+        time: { control: 'text', description: 'Match Time' },
+        activityProps: { control: 'object' },
+        name: { control: 'text', description: 'Name for ActivityUpdateCard' },
+        date: { control: 'text', description: 'Date for ActivityUpdateCard' },
+            },
 };
 
 
@@ -69,7 +69,7 @@ export default meta;
 
 
 export const defaultProps = {
-    activityUpdate: {
+     activityUpdate: {
         cardTitle: 'Title',
         showHeader: true,
         showBtn1: true,
@@ -170,20 +170,18 @@ export const defaultProps = {
     },
 };
 
-
-
-export const ActivityUpdate: StoryObj<typeof RdsCompAdaptiveCards> = {
-    args: {
-        type: 'ActivityUpdateCard',
-        ...defaultProps.activityUpdate,
-    },
-};
-
 export const CalendarReminder: StoryObj<typeof RdsCompAdaptiveCards> = {
     args: {
         type: 'CalenderReminder',
         ...defaultProps.calenderReminder,
     },
+    parameters: {
+        controls: {
+            include: [
+                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'btn1Label', 'btn2Label', 'block', 'smallText', 'label', 'showDismiss', 'closeIcon'
+            ]
+        }
+    }
 };
 
 export const ImageGallery: StoryObj<typeof RdsCompAdaptiveCards> = {
@@ -191,6 +189,13 @@ export const ImageGallery: StoryObj<typeof RdsCompAdaptiveCards> = {
         type: 'ImageGallery',
         ...defaultProps.imageGallery,
     },
+    parameters: {
+        controls: {
+            include: [
+                'cardTitle', 'smallText', 'images'
+            ]
+        }
+    }
 };
 
 export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
@@ -198,6 +203,13 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
         type: 'InputForm',
         ...defaultProps.inputForm,
     },
+    parameters: {
+        controls: {
+            include: [
+                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn1Label', 'block', 'smallText', 'label', 'showDismiss', 'closeIcon'
+            ]
+        }
+    }
 };
 
 export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
@@ -205,6 +217,13 @@ export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
         type: 'RestaurantOrder',
         ...defaultProps.restaurantOrder,
     },
+    parameters: {
+        controls: {
+            include: [
+                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn1Label', 'block', 'showDismiss', 'closeIcon'
+            ]
+        }
+    }
 };
 
 export const FootballScorecard: StoryObj<typeof RdsCompAdaptiveCards> = {
@@ -212,6 +231,13 @@ export const FootballScorecard: StoryObj<typeof RdsCompAdaptiveCards> = {
         type: 'FootballScorecard',
         ...defaultProps.footballScorecard,
     },
+    parameters: {
+        controls: {
+            include: [
+                'closeIcon', 'leagueName', 'leagueAvatar', 'isLive', 'matchDate', 'isFinal', 'homeTeamName', 'homeTeamLogo', 'homeTeamStatus', 'awayTeamName', 'awayTeamLogo', 'awayTeamStatus', 'homeScore', 'awayScore', 'time'
+            ]
+        }
+    }
 };
 
 
