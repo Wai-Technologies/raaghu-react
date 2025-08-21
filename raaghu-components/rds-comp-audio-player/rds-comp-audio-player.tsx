@@ -95,12 +95,14 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
           <Forward10OutlinedIcon />
           <span>{formatTime(sliderValue)}</span>
           <RdsSlider
-            label="Slider"
             min={0}
             max={duration > 0 ? Math.max(duration, SLIDER_MAX) : SLIDER_MAX}
             value={sliderValue}
             onChange={handleSeek}
-            style={{ width: "700px" }}
+            style={{ width: "600px" }}
+            controlType="one way"
+            leftLabel=""
+            rightLabel=""
           />
           <span>{formatTime(duration > 0 ? duration : SLIDER_MAX)}</span>
           {/* Extra control buttons */}
@@ -184,7 +186,7 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
             <div className="rds-comp-audio-player__edition-zoom">
               <RemoveOutlinedIcon />
               <div className="rds-comp-audio-player__zoom-slider-container">
-                <RdsSlider max={100} min={0} value={30} />
+                <RdsSlider max={100} min={0} value={30} leftLabel="" rightLabel="" controlType="one way" />
               </div>
               <AddOutlinedIcon />
             </div>
