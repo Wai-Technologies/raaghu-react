@@ -5,6 +5,7 @@ export {default as RdsCompToast} from './rds-comp-toast/rds-comp-toast';
 export {default as RdsCompScrollbar} from './rds-comp-scrollbar/rds-comp-scrollbar';
 export {default as RdsCompTruncatedText} from './rds-comp-truncate-text/rds-comp-truncate-text';
 export {default as RdsCompOffcanvas} from './rds-comp-off-canvas/rds-comp-off-canvas';
+export {default as RdsCompFilterButton} from './rds-comp-filter-button/rds-comp-filter-button';
 export { default as RdsCompAreaChart } from "./rds-comp-chart-area/rds-comp-chart-area";
 export { default as RdsCompLineChart } from "./rds-comp-chart-line/rds-comp-chart-line";
 export { default as RdsCompPieChart } from "./rds-comp-chart-pie/rds-comp-chart-pie";
@@ -33,3 +34,5 @@ export { default as RdsCompProductTour } from './rds-comp-product-tour/rds-comp-
 export {default as RdsCompEmojiGenerator} from './rds-comp-emoji-generator/rds-comp-emoji-generator';
 export {default as RdsCompEmptyState} from './rds-comp-empty-state/rds-comp-empty-state';
 export {default as RdsCompESignature} from './rds-comp-e-signature/rds-comp-e-signature';
+
+export { default as RdsCompGrid } from './rds-comp-grid/rds-comp-grid';
