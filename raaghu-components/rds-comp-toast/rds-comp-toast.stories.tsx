@@ -7,6 +7,9 @@ const meta: Meta<typeof RdsCompToast> = {
     parameters: {
         layout: "padded",
         docs: {
+            story: {
+                height: '100px'
+            },
             source: {
                 transform: (code: string) => {
                     // Transform state enum - remove spaces and transform
@@ -31,22 +34,57 @@ const meta: Meta<typeof RdsCompToast> = {
     argTypes: {
         state: {
             options: Object.values(ToastState), 
-            control: { type: "select" },
+            control: { 
+                type: "select",
+                labels: {
+                    [ToastState.Basic]: 'Basic',
+                    [ToastState.Info]: 'Info',
+                    [ToastState.Success]: 'Success',
+                    [ToastState.Error]: 'Error'
+                }
+            },
             description: "State variant of the toast notification"
         },
         layout: {
             options: Object.values(ToastLayout), 
-            control: { type: "select" },
+            control: { 
+                type: "select",
+                labels: {
+                    [ToastLayout.Text]: 'Text',
+                    [ToastLayout.Download]: 'Download',
+                    [ToastLayout.Chat]: 'Chat',
+                    [ToastLayout.Request]: 'Request'
+                }
+            },
             description: "Layout type of the toast"
         },
         leadingIcon: {
             options: Object.values(ToastLeadingIcon), 
-            control: { type: "select" },
+            control: { 
+                type: "select",
+                labels: {
+                    [ToastLeadingIcon.Circle]: 'Circle',
+                    [ToastLeadingIcon.Plus]: 'Plus'
+                }
+            },
             description: "Leading icon type"
         },
         position: {
             options: Object.values(ToastPosition),
-            control: { type: "select" },
+            control: { 
+                type: "select",
+                labels: {
+                    [ToastPosition.TopLeft]: 'Top Left',
+                    [ToastPosition.TopCenter]: 'Top Center', 
+                    [ToastPosition.TopRight]: 'Top Right',
+                    [ToastPosition.MiddleLeft]: 'Middle Left',
+                    [ToastPosition.MiddleCenter]: 'Middle Center',
+                    [ToastPosition.MiddleRight]: 'Middle Right',
+                    [ToastPosition.BottomLeft]: 'Bottom Left',
+                    [ToastPosition.BottomCenter]: 'Bottom Center',
+                    [ToastPosition.BottomRight]: 'Bottom Right'
+                }
+            },
             description: "Position of the toast on screen"
         },
         headerText: {
