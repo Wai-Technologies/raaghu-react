@@ -49,6 +49,46 @@ export const lightTheme = createTheme({
     },
     divider: colorTokens.neutral[300],
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          // Additional button-specific overrides
+        },
+        containedPrimary: {
+          backgroundColor: colorTokens.primary[700],
+          '&:hover': {
+            backgroundColor: colorTokens.primary[750],
+          },
+        },
+        containedSecondary: {
+          backgroundColor: colorTokens.secondary[700],
+          '&:hover': {
+            backgroundColor: colorTokens.secondary[750],
+          },
+        },
+        containedSuccess: {
+          backgroundColor: colorTokens.success[700],
+          '&:hover': {
+            backgroundColor: colorTokens.success[750],
+          },
+        },
+        containedWarning: {
+          backgroundColor: colorTokens.warning[700],
+          '&:hover': {
+            backgroundColor: colorTokens.warning[750],
+          },
+        },
+        containedError: {
+          backgroundColor: colorTokens.error[700],
+          '&:hover': {
+            backgroundColor: colorTokens.error[750],
+          },
+        }
+
+      },
+    },
+  },
   // Typography, spacing, breakpoints, etc. can be added here as needed
 });
 

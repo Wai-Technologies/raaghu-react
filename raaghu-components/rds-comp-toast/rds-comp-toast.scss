@@ -5,7 +5,7 @@
   border: 1px solid var(--rds-color-border, #e0e0e0);
   border-radius: var(--rds-border-radius, 8px);
   box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
-  min-width: 320px;
+  min-width: 420px;
   max-width: 420px;
   overflow: hidden;
   
@@ -59,6 +59,10 @@
   
   // Container positioning
   &__container {
+    position: fixed;
+    z-index: 1050;
+    pointer-events: none;
+    
     // Position modifiers
     &--top-left {
       top: 1rem;
@@ -413,15 +417,14 @@
 @media (max-width: 480px) {
   .rds-comp-toast {
     min-width: 0;
-    max-width: 90vw;
-    width: 90vw;
-    margin-left: 15px !important;
+    max-width: 95vw;
+    width: 95vw;
     box-sizing: border-box;
     
     &__container {
       left: 53%;
       right: auto;
-      transform: translateX(-5%);
+      transform: translateX(-50%);
       top: var(--rds-spacing-lg, 1rem);
       margin: 0;
       width: 100vw;
