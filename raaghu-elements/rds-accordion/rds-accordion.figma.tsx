@@ -23,7 +23,9 @@ figma.connect(
       state: figma.enum("💡 State", { Default: "default", Hover: "hover", Selected: "selected" }),
     },
     example: (props) => (
-      <RdsAccordion {...props}>
+      <RdsAccordion {...props}
+       defaultExpanded={false}
+      >
         <span>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
         </span>
@@ -45,7 +47,9 @@ figma.connect(
       state: figma.enum("💡 State", { Default: "default", Hover: "hover", Selected: "selected" }),
     },
     example: (props) => (
-      <RdsAccordion {...props}>
+      <RdsAccordion {...props}
+       defaultExpanded={true}
+       >
         <span>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
         </span>

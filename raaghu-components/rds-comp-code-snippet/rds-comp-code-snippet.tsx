@@ -6,7 +6,7 @@ import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 export interface RdsCompCodeSnippetProps {
   code: string;
   language?: boolean;
-  numberLine?: boolean;
+  codeLines?: boolean;
   theme?: "light" | "dark";
   type?: "singleLine" | "multiLine";
   maxHeight?: string;
@@ -16,7 +16,7 @@ export interface RdsCompCodeSnippetProps {
 const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
   code,
   language = "html",
-  numberLine = false,
+  codeLines = false,
   theme = "light",
   type = "multiLine",
   maxHeight,
@@ -100,7 +100,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
               >
                 <pre>
                   <code className={`language-${language}`}>
-                    {numberLine ? (
+                    {codeLines ? (
                       <div className="rds-comp-code-snippet__code-with-lines">
                         <div className="rds-comp-code-snippet__line-numbers">
                           {getLines().map((_, index) => (
