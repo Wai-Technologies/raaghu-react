@@ -1,8 +1,11 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ContentCut, ContentCopy, ContentPaste, Delete } from '@mui/icons-material';
+import { ContentCut, ContentCopy, ContentPaste, Delete, KeyboardArrowDown, PersonAdd, Settings, Logout } from '@mui/icons-material';
 import RdsMenu from './rds-menu';
 import RdsButton from '../rds-button/rds-button';
+import RdsTooltip from '../rds-tooltip/rds-tooltip';
+import RdsIconButton from '../rds-icon-button/rds-icon-button';
+import RdsAvatar from '../rds-avatar/rds-avatar';
 
 const meta: Meta = {
   title: 'Elements/Menu',
@@ -16,13 +19,13 @@ const meta: Meta = {
       control: { type: 'boolean' },
       description: 'Controls the open state of the menu'
     },
-        color: {
+    color: {
       control: { type: 'select' },
       options: ['primary', 'success', 'danger', 'info', 'warning', 'inherit'],
       description: 'Sets the color of the menu items',
+    },
   },
-  },
-}satisfies Meta<typeof RdsMenu>;
+} satisfies Meta<typeof RdsMenu>;
 
 export default meta;
 type Story = StoryObj<typeof RdsMenu>;
@@ -74,45 +77,61 @@ export const Default: Story = {
     );
   },
 };
-Default.parameters  = { controls: { include: ['open'] } };
+Default.parameters = { controls: { include: ['open'] } };
 
-export const WithIcons: Story = {
+export const WithIcon: Story = {
   args: {
     items: [
-      { id: 1, label: 'Cut', icon: <ContentCut fontSize="small" /> },
-      { id: 2, label: 'Copy', icon: <ContentCopy fontSize="small" /> },
-      { id: 3, label: 'Paste', icon: <ContentPaste fontSize="small" /> },
-      { id: 4, label: 'Delete', icon: <Delete fontSize="small" /> },
+      { id: 1, label: 'Profile', icon: <RdsAvatar>M</RdsAvatar> },
+      { id: 2, label: 'My account', icon: <RdsAvatar>M</RdsAvatar> },
+      { id: 3, divider: true },
+      { id: 4, label: 'Add another account', icon: <PersonAdd fontSize="small" /> },
+      { id: 5, label: 'Settings', icon: <Settings fontSize="small" /> },
+      { id: 6, label: 'Logout', icon: <Logout fontSize="small" /> },
     ],
+    size: 'medium',
   },
   render: (args) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
     };
-
     const handleClose = () => {
       setAnchorEl(null);
     };
 
-    const items = (args.items || []).map(item => ({ ...item, onClick: handleClose }));
+    const items = (args.items || []).map(item => ({
+      ...item,
+      onClick: handleClose,
+    }));
 
     return (
       <>
-        <RdsButton text="With Icons" color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="outlined" textCase="uppercase" onClick={handleClick} />
+        <RdsTooltip title="Account settings">
+          <RdsIconButton
+            onClick={handleClick}
+            color="primary"
+            size="medium"
+          >
+            <RdsAvatar>
+              M
+            </RdsAvatar>
+          </RdsIconButton>
+
+        </RdsTooltip>
         <RdsMenu
-          {...{ ...args, items: undefined }}
           anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
+          open={open}
           onClose={handleClose}
           items={items}
+          size={args.size}
         />
       </>
     );
   },
 };
-
 
 export const Dense: Story = {
   args: {
@@ -224,6 +243,68 @@ export const WithDisabled: Story = {
           items={items}
         />
       </>
+    );
+  },
+};
+
+export const CustomizedMenu: Story = {
+  args: {
+    items: [
+      { id: 1, header: 'Header 1' },
+      { id: 2, label: 'Item 1', color: 'primary', icon: <ContentCut fontSize="small" /> },
+      { id: 3, label: 'Item 2', color: 'success', icon: <ContentCopy fontSize="small" /> },
+      { id: 4, divider: true },
+      { id: 5, label: 'Item 3', color: 'danger', disabled: true, icon: <Delete fontSize="small" /> },
+      { id: 6, label: 'Item 4', color: 'info', icon: <ContentPaste fontSize="small" /> },
+      { id: 7, header: 'Header 2' },
+      { id: 8, label: 'Item 5', color: 'warning', icon: <ContentCopy fontSize="small" /> },
+    ],
+    size: 'medium',
+  },
+  render: (args) => {
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    // Inject onClick into each item
+    const items = (args.items || []).map(item => ({
+      ...item,
+      onClick: handleClose,
+    }));
+
+    return (
+      <div>
+        <RdsButton
+          id="demo-customized-button"
+          aria-controls={open ? 'demo-customized-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+          endIcon={<KeyboardArrowDown />}
+          text="Options"
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          size="medium"
+          state="default"
+          style="outlined"
+          textCase="uppercase"
+        />
+        <RdsMenu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          items={items}
+          size={args.size}
+        />
+      </div>
     );
   },
 };
