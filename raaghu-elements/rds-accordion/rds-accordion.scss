@@ -21,6 +21,7 @@
   .rds-accordion__details .MuiAccordionDetails-root .MuiTypography-root { color: #E1E6EB !important; }
   .rds-accordion__title { color: #E1E6EB !important; }
   .rds-accordion .MuiAccordionSummary-expandIconWrapper { color: #B0B3B8 !important; }
+  .rds-accordion--expanded { .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: #000000 !important; } }
 }
 .rds-accordion__container {
   border: 1px solid #7D7D7D;
@@ -103,6 +104,7 @@
 
     .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner {
       margin-top: -30px !important;
+      background-color: #ffffff !important;
     }
   }
 
