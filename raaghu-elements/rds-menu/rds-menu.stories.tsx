@@ -16,6 +16,11 @@ const meta: Meta<typeof RdsMenu> = {
       control: { type: 'boolean' },
       description: 'Controls the open state of the menu'
     },
+        color: {
+      control: { type: 'select' },
+      options: ['primary', 'success', 'danger', 'info', 'warning', 'inherit'],
+      description: 'Sets the color of the menu items',
+  },
   },
 };
 
@@ -150,6 +155,7 @@ export const Dense: Story = {
 export const WithCustomColor: Story = {
   args: {
     size: 'medium',
+    color: 'primary',
     items: [
       { id: 1, label: 'Primary', icon: <ContentCopy fontSize="small" /> },
       { id: 2, label: 'Success', icon: <ContentPaste fontSize="small" /> },
@@ -167,7 +173,8 @@ export const WithCustomColor: Story = {
       setAnchorEl(null);
     };
 
-    const items = (args.items || []).map(item => ({ ...item, onClick: handleClose }));
+    // Apply the selected color to all items when menu is opened
+    const items = (args.items || []).map(item => ({ ...item, color: args.color, onClick: handleClose }));
 
     return (
       <>
