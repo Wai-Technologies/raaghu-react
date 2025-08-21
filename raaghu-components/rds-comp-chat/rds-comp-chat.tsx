@@ -118,9 +118,9 @@ const RdsCompChat = (props: RdsCompChatProps) => {
                 <div className="d-flex align-items-center">
                   <RdsAvatar
                     alt="User Avatar"
-                    designation="Designation"
+                    subText="Designation"
                     displayStyle="with-name"
-                    name="Jane Doe"
+                    title="Jane Doe"
                     showDesignation
                     showName
                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
@@ -140,9 +140,9 @@ const RdsCompChat = (props: RdsCompChatProps) => {
           <div className="rds-comp-chat__window-header-title d-flex align-items-center">
             <RdsAvatar
               alt="User Avatar"
-              designation="Designation"
+              subText="Designation"
               displayStyle="with-name"
-              name="Jane Doe"
+              title="Jane Doe"
               showDesignation
               showName
               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
