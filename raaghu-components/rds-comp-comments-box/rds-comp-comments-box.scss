@@ -12,7 +12,7 @@
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   color: var(--rds-text-primary, #333);
   border-radius: var(--rds-border-radius-md, 8px);
-
+  
   // =======================
   // Modifiers
   // =======================
@@ -27,6 +27,16 @@
     .rds-comments-box__avatar {
       width: var(--rds-avatar-size-md, 36px);
       height: var(--rds-avatar-size-md, 36px);
+  rds-comments-box__avatar--thread {
+    background-color: var(--rds-primary-main, #4285f4) !important;
+    color: var(--rds-primary-contrast-text, #fff) !important;
+  }
+
+  .rds-comments-box__no-image {
+    color: #888;
+    font-size: 12px;
+    margin-left: 50px;
+  }
       background-color: var(--rds-primary-main, #4285f4);
       color: var(--rds-primary-contrast-text, #fff);
       font-size: var(--rds-font-size-md, 14px);
@@ -98,6 +108,7 @@
 
   .rds-comments-box__avatar {
     background-color: var(--rds-primary-main, #4285f4);
+    font-size: var(--rds-font-size-md, 14px) !important;
   }
 
   // =======================
@@ -188,7 +199,7 @@
       .rds-comments-box__avatar {
         width: var(--rds-avatar-size-md, 36px);
         height: var(--rds-avatar-size-md, 36px);
-        font-size: var(--rds-font-size-md, 14px);
+        font-size: var(--rds-font-size-md, 14px) !important;
         background-color: var(--rds-primary-main, #4285f4);
         color: var(--rds-primary-contrast-text, #fff);
       }
@@ -216,12 +227,12 @@
     .rds-comments-box__text {
       font-size: var(--rds-font-size-lg, 16px);
       font-weight: var(--rds-typography-medium, 500) !important;
-      color: var(--rds-text-primary, #5d5c5c) !important;
+      color: var(--rds-text-primary, #181a20) !important;
       margin-bottom: var(--rds-spacing-md, 12px);
       margin-left: var(--rds-spacing-xxl, 50px) !important;
     }
     .rds-comments-box__preview {
-      max-width: var(--rds-preview-max-width, 230px);
+      max-width: var(--rds-preview-max-width, 230px) !important;
       border-radius: var(--rds-border-radius-md, 8px);
       margin-bottom: var(--rds-spacing-xs, 8px);
       margin-left: var(--rds-spacing-xxl, 50px);
@@ -283,7 +294,7 @@
       height: var(--rds-avatar-size-md, 36px);
       background-color: var(--rds-primary-main, #4285f4);
       color: var(--rds-text-primary, #fff);
-      font-size: var(--rds-font-size-md, 14px);
+      font-size: var(--rds-font-size-md, 14px) !important;
       margin-left: var(--rds-spacing-md, 10px);
     }
   }
@@ -641,6 +652,13 @@
   object-fit: cover;
   background-color: var(--rds-primary-main, #4285f4);
 }
+
+// Increase width for commentHover state
+.rds-comments-box--hover .rds-comments-box__comment-card {
+  min-width: 400px;
+  max-width: 600px;
+  width: 100%;
+}
 .rds-comments-box__info {
   flex: 1;
   display: flex;
@@ -651,7 +669,7 @@
   margin-top: var(--rds-spacing-xl, 16px) !important;
   margin-bottom: var(--rds-spacing-xl, 16px) !important;
   margin-left: var(--rds-spacing-xxxl, 70px) !important;
-  color: var(--rds-text-primary, #a4a3a3) !important;
+  color: var(--rds-text-primary, #181a20) !important;
   font-weight: var(--rds-typography-regular, 400) !important;
 }
 .rds-comments-box__meta {
@@ -941,7 +959,7 @@ body.theme-dark,
       }
     }
     &__preview {
-      max-width: var(--rds-preview-max-width-sm, 150px) !important;
+      max-width: var(--rds-preview-max-width-md, 120px) !important;
       height: auto !important;
       border-radius: var(--rds-border-radius-md, 6px) !important;
       margin-left: var(--rds-spacing-xxl, 48px) !important;
@@ -1010,7 +1028,11 @@ body.theme-dark,
     color: var(--rds-comments-input-text, #222);
   }
 }
-
+.rds-comments-box__thread-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
 // Dark mode override
 [data-theme="dark"] .rds-comments-box.rds-comments-box--selected {
   --rds-comments-selected-bg: #23272f;
@@ -1023,6 +1045,7 @@ body.theme-dark,
 .rds-comments-box__name,
 .rds-comments-box__text {
   color: var(--rds-text-primary, #181a20); // default (light mode)
+  font-weight: 500 !important;
 }
 
 body[data-theme='dark'] .rds-comments-box__name,

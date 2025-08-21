@@ -34,6 +34,12 @@ import './rds-comp-comments-box.scss';
 // Styles moved to SCSS
 
 interface RdsCommentBoxProps {
+  svgEditPath?: string;
+  svgDeletePath?: string;
+  imgSrc?: string;
+  imgProps?: React.ImgHTMLAttributes<HTMLImageElement>;
+  svgEditProps?: React.SVGProps<SVGSVGElement>;
+  svgDeleteProps?: React.SVGProps<SVGSVGElement>;
   state:
     | 'default'
     | 'selected'
@@ -41,6 +47,16 @@ interface RdsCommentBoxProps {
     | 'commentPosted'
     | 'commentHover'
     | 'commentThread';
+  commentHoverName?: string;
+  commentThreadName?: string;
+  threadTitle?: string;
+  text?: string;
+  time?: string;
+  hoverTime?: string;
+  hoverText?: string;
+  meta?: string;
+  hoverMeta?: string;
+  translate?: string;
 }
 
 interface DropdownMenuProps {
@@ -90,7 +106,25 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ visible, anchorRef, onClose
 };
 
 
-const RdsCommentBox: React.FC<RdsCommentBoxProps> = ({ state }) => {
+const RdsCommentBox: React.FC<RdsCommentBoxProps> = ({
+  state,
+  imgSrc,
+  imgProps,
+  svgEditProps,
+  svgDeleteProps,
+  svgEditPath,
+  svgDeletePath,
+  commentHoverName = "Renne Doe",
+  commentThreadName = "Renne Doe",
+  threadTitle = "Comment",
+  text = "This is the sample text...",
+  hoverText = "This is the sample hover text...",
+  time = "1 hour ago",
+  hoverTime = "1 hour ago",
+  meta = "10 Replies · 2 Images · 1 GIF",
+  hoverMeta = "10 Replies · 2 Images · 1 GIF",
+  translate = "Translate",
+}) => {
   const emojiPickerRef = useRef<HTMLDivElement>(null);
   const [typingDropdownOpen, setTypingDropdownOpen] = useState(false);
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
@@ -364,8 +398,8 @@ const RdsCommentBox: React.FC<RdsCommentBoxProps> = ({ state }) => {
             <Box className="rds-comments-box__header relative">
               <Avatar className="rds-comments-box__avatar">RD</Avatar>
               <Box className="rds-comments-box__info">
-                <Typography className="rds-comments-box__name">Renne Doe</Typography>
-                <Typography className="rds-comments-box__time">1 hour ago</Typography>
+                <Typography className="rds-comments-box__name">{commentHoverName}</Typography>
+                <Typography className="rds-comments-box__time">{hoverTime}</Typography>
               </Box>
               <Box className="rds-comments-box__hover-tools">
                 <IconButton disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
@@ -378,11 +412,15 @@ const RdsCommentBox: React.FC<RdsCommentBoxProps> = ({ state }) => {
                   {hoverDropdownOpen && (
                     <div ref={hoverDropdownRef} className="rds-comments-box__comment-dropdown-menu">
                       <div className="rds-comments-box__comment-dropdown-item" onClick={() => { setHoverDropdownOpen(false); /* handle edit */ }}>
-                        <svg className="rds-comments-box__comment-dropdown-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 17.25V21h3.75l11.06-11.06-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z" fill="#888"/></svg>
+                        <svg className="rds-comments-box__comment-dropdown-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" {...svgEditProps}>
+                          {svgEditPath ? <path d={svgEditPath} fill="#888" /> : <path d="M3 17.25V21h3.75l11.06-11.06-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z" fill="#888"/>}
+                        </svg>
                         <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--edit">Edit</span>
                       </div>
                       <div className="rds-comments-box__comment-dropdown-item" onClick={() => { setHoverDropdownOpen(false); /* handle delete */ }}>
-                        <svg className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" fill="#d32f2f"/></svg>
+                        <svg className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete" width="24" height="24" viewBox="0 0 24 24" fill="none" {...svgDeleteProps}>
+                          {svgDeletePath ? <path d={svgDeletePath} fill="#d32f2f" /> : <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" fill="#d32f2f"/>}
+                        </svg>
                         <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--delete">Delete</span>
                       </div>
                     </div>
@@ -390,16 +428,16 @@ const RdsCommentBox: React.FC<RdsCommentBoxProps> = ({ state }) => {
                 </span>
               </Box>
             </Box>
-            <Typography className="rds-comments-box__text">This is the sample text...</Typography>
-            <Typography className="rds-comments-box__meta">10 Replies · 2 Images · 1 GIF</Typography>
+            <Typography className="rds-comments-box__text">{hoverText}</Typography>
+            <Typography className="rds-comments-box__meta">{hoverMeta}</Typography>
           </Box>
         </Box>
       );
     case 'commentThread':
-  return (
+      return (
         <Box className="rds-comments-box rds-comments-box--thread">
           <Box className="rds-comments-box__thread-header">
-            <Typography className="rds-comments-box__thread-title">Comment</Typography>
+            <Typography className="rds-comments-box__thread-title">{threadTitle}</Typography>
             <Box className="rds-comments-box__thread-icons relative">
               <span className="rds-comments-box__dropdown-trigger">
                 <IconButton className="rds-comments-box__more-btn" ref={threadMoreBtnHeaderRef} onClick={() => setThreadDropdownOpenHeader((open) => !open)}>
@@ -408,11 +446,15 @@ const RdsCommentBox: React.FC<RdsCommentBoxProps> = ({ state }) => {
                 {threadDropdownOpenHeader && (
                   <div ref={threadDropdownHeaderRef} className="rds-comments-box__comment-dropdown-menu">
                     <div className="rds-comments-box__comment-dropdown-item" onClick={() => { setThreadDropdownOpenHeader(false); /* handle edit */ }}>
-                      <svg className="rds-comments-box__comment-dropdown-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 17.25V21h3.75l11.06-11.06-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z" fill="#888"/></svg>
+                      <svg className="rds-comments-box__comment-dropdown-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" {...svgEditProps}>
+                        {svgEditPath && <path d={svgEditPath} fill="#888" />}
+                      </svg>
                       <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--edit">Edit</span>
                     </div>
                     <div className="rds-comments-box__comment-dropdown-item" onClick={() => { setThreadDropdownOpenHeader(false); /* handle delete */ }}>
-                      <svg className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" fill="#d32f2f"/></svg>
+                      <svg className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete" width="24" height="24" viewBox="0 0 24 24" fill="none" {...svgDeleteProps}>
+                        {svgDeletePath && <path d={svgDeletePath} fill="#d32f2f" />}
+                      </svg>
                       <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--delete">Delete</span>
                     </div>
                   </div>
@@ -433,10 +475,10 @@ const RdsCommentBox: React.FC<RdsCommentBoxProps> = ({ state }) => {
             </Box>
             <Box className="rds-comments-box__comment-content">
               <Box className="rds-comments-box__comment-header">
-                <Avatar className="rds-comments-box__avatar" style={{ backgroundColor: '#4285f4' }}>RD</Avatar>
+                  <Avatar className="rds-comments-box__avatar rds-comments-box__avatar--thread">RD</Avatar>
                 <Box className="rds-comments-box__comment-info">
-                  <Typography className="rds-comments-box__name">Renne Doe</Typography>
-                  <Typography className="rds-comments-box__time">1 hour ago</Typography>
+                  <Typography className="rds-comments-box__name">{commentThreadName}</Typography>
+                  <Typography className="rds-comments-box__time">{time}</Typography>
                 </Box>
                 <Box className="rds-comments-box__tools relative">
                   <IconButton disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
@@ -449,11 +491,15 @@ const RdsCommentBox: React.FC<RdsCommentBoxProps> = ({ state }) => {
                     {threadDropdownOpenTools && (
                       <div ref={threadDropdownToolsRef} className="rds-comments-box__comment-dropdown-menu">
                         <div className="rds-comments-box__comment-dropdown-item" onClick={() => { setThreadDropdownOpenTools(false); /* handle edit */ }}>
-                          <svg className="rds-comments-box__comment-dropdown-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 17.25V21h3.75l11.06-11.06-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z" fill="#888"/></svg>
+                          <svg className="rds-comments-box__comment-dropdown-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" {...svgEditProps}>
+                            {svgEditPath && <path d={svgEditPath} fill="#888" />}
+                          </svg>
                           <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--edit">Edit</span>
                         </div>
                         <div className="rds-comments-box__comment-dropdown-item" onClick={() => { setThreadDropdownOpenTools(false); /* handle delete */ }}>
-                          <svg className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" fill="#d32f2f"/></svg>
+                          <svg className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete" width="24" height="24" viewBox="0 0 24 24" fill="none" {...svgDeleteProps}>
+                            {svgDeletePath && <path d={svgDeletePath} fill="#d32f2f" />}
+                          </svg>
                           <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--delete">Delete</span>
                         </div>
                       </div>
@@ -461,10 +507,14 @@ const RdsCommentBox: React.FC<RdsCommentBoxProps> = ({ state }) => {
                   </span>
                 </Box>
               </Box>
-              <Typography className="rds-comments-box__text">This is the sample text...</Typography>
-              <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="comment preview" className="rds-comments-box__preview" />
-              <Typography className="rds-comments-box__meta">10 Replies . 2 Images . 1 GIF</Typography>
-              <Link className="rds-comments-box__translate">Translate</Link>
+              <Typography className="rds-comments-box__text">{text}</Typography>
+                {imgSrc ? (
+                  <img src={imgSrc} alt={imgProps?.alt || "comment preview"} className="rds-comments-box__preview" {...imgProps} />
+                ) : (
+                  <div className="rds-comments-box__no-image">No image provided</div>
+                )}
+              <Typography className="rds-comments-box__meta">{meta}</Typography>
+              <Link className="rds-comments-box__translate">{translate}</Link>
             </Box>
           </Box>
           <Box className="rds-comments-box__reply-box">
@@ -485,7 +535,6 @@ const RdsCommentBox: React.FC<RdsCommentBoxProps> = ({ state }) => {
             />
           </Box>
         </Box>
-
       );
 
     case 'default':

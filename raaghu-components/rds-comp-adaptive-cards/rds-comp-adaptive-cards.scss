@@ -694,7 +694,7 @@
   font-weight: var(--rds-font-weight-semibold, 600);
   line-height: normal;
   padding-bottom: var(--rds-spacing-lg, 24px);
-}
+} 
 .rds-adaptive-cards__timer-container {
   display: flex;
   padding: var(--rds-spacing-xs, 4px);
@@ -956,11 +956,13 @@
 
   &__close-icon {
     position: absolute;
-    left: 200px;
+    top: 16px;
+    right: 16px;
     padding: 2px;
-    margin-left: 18px !important;
     align-self: center;
-    font-size: 30px;
+    font-size: 30px !important;
+    left: 10px !important;
+    margin-bottom: 30px !important;
   }
   
   &__title-stack {

@@ -1,143 +1,11 @@
-export function getDefaultPropsForType(type: string): Partial<RdsCompAdaptiveCardsProps> {
-  switch (type) {
-    case 'ActivityUpdateCard':
-      return {
-        cardTitle: 'Title',
-        showHeader: true,
-        showBtn1: true,
-        showBtn2: true,
-        btn1style: 'outline',
-        btn2style: 'filled',
-        btn1Label: 'Button',
-        btn2Label: 'Click Here',
-        showDismiss: false,
-        closeIcon: false,
-        activityProps: {
-          avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU',
-          name: 'Jane Doe',
-          date: 'Created Wed, 30 Apr 2025',
-          cardText: 'Now that we have defined the main rules and features of the format, we need to produce a schema and publish it to GitHub. The schema will be the starting point of our reference documentation.',
-          radioOptions: [
-            { value: 'option1', label: 'Sub - Title 1', desc: 'Description' },
-            { value: 'option2', label: 'Sub - Title 2', desc: 'Description' },
-          ],
-        },
-      };
-    case 'CalenderReminder':
-      return {
-        cardTitle: 'Title',
-        showHeader: true,
-        showBtn1: true,
-        showBtn2: true,
-        btn1style: 'outline',
-        btn2style: 'outline',
-        btn1Label: 'Snooze',
-        btn2Label: 
-          "I'll be Late",
-        block: false,
-        smallText: '20:30 - 09:30',
-        label: 'Conf Room 112/3377 (10)',
-        showDismiss: false,
-        closeIcon: false,
-      };
-    case 'ImageGallery':
-      return {
-        cardTitle: 'Here are some cool photos',
-        smallText: 'Sorry some of them are repeats',
-        images: [
-          '/assets/Image1.png', '/assets/Image2.png', '/assets/Image3.png', '/assets/Image4.png', '/assets/Image5.png', '/assets/Image6.png', '/assets/Image7.png', '/assets/Image8.png', '/assets/Image9.png', '/assets/Image10.png', '/assets/Image11.png', '/assets/Image12.png',
-        ],
-      };
-    case 'InputForm':
-      return {
-        cardTitle: 'Tell us about yourself',
-        showHeader: true,
-        showBtn1: true,
-        showBtn2: false,
-        btn1style: 'filled',
-        btn1Label: 'Submit',
-        block: true,
-        smallText: "Don't worry, we'll never share or sell your information.",
-        label: 'We just need a few more details to get you booked for the trip of a lifetime!',
-        showDismiss: false,
-        closeIcon: false,
-  
-      };
-    case 'RestaurantOrder':
-      return {
-        cardTitle: 'Malt & Vine Order Form',
-        showHeader: true,
-        showBtn1: true,
-        showBtn2: false,
-        btn1style: 'filled',
-        btn1Label: 'Place Order',
-        block: true,
-        showDismiss: false,
-        closeIcon: false,
-      };
-    case 'FootballScorecard':
-      return {
-        closeIcon: true,
-        footballProps: {
-          leagueName: 'La Liga',
-          leagueAvatar: 'assets/scorecard1.png',
-          isLive: true,
-          date: '30th Apr 2025',
-          isFinal: true,
-          homeTeam: { name: 'Real Madrid', logo: 'assets/scorecard1.png', status: 'Home' },
-          awayTeam: { name: 'Barcelona', logo: 'assets/scorecard2.png', status: 'Away' },
-          homeScore: 2,
-          awayScore: 2,
-          time: '90:00',
-        },
-      };
-    default:
-      return {
-        cardTitle: 'Title',
-        showHeader: true,
-        showBtn1: true,
-        showBtn2: true,
-        btn1style: 'transparent',
-        btn2style: 'filled',
-        btn1Label: 'Cancel',
-        btn2Label: 'Done',
-        // block: false,
-        type: 'Default',
-        showDismiss: true,
-        closeIcon: true,
-      };
-  }
-}
-import React from "react";
+// =========================
+// Imports
+// =========================
+import React, { useState } from "react";
+import { defaultProps } from "./rds-comp-adaptive-cards.stories";
 import {
   Box, Card, CardContent, CardHeader, CardActions, Typography, Avatar, IconButton, Button, TextField, Select, MenuItem, FormControl, FormControlLabel, Radio, RadioGroup, Chip, ImageList, ImageListItem, Stack
 } from "@mui/material";
-  import { useState } from 'react';
-  
-  export function InputFormCard({ label, smallText }: { label?: string, smallText?: string }) {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    return (
-      <div >
-        <h2 className="rds-adaptive-cards__input-form-title">Tell us about yourself</h2>
-        <div className="rds-adaptive-cards__input-form-label">{label}</div>
-        <div className="rds-adaptive-cards__input-form-small-text">{smallText}</div>
-        <div className="rds-adaptive-cards__input-form-field">
-          <label className="rds-adaptive-cards__input-form-field-label">Name (Last, First) <span className="rds-adaptive-cards__required">*</span></label>
-          <input className="rds-adaptive-cards__action-btn--input-form" placeholder="Enter Name" required value={name} onChange={e => setName(e.target.value)} />
-        </div>
-        <div className="rds-adaptive-cards__input-form-field">
-          <label className="rds-adaptive-cards__input-form-field-label">Email <span className="rds-adaptive-cards__required">*</span></label>
-          <input className="rds-adaptive-cards__action-btn--input-form" placeholder="Enter Email" required type="email" value={email} onChange={e => setEmail(e.target.value)} />
-        </div>
-        <div className="rds-adaptive-cards__input-form-field">
-          <label className="rds-adaptive-cards__input-form-field-label">Phone Number <span className="rds-adaptive-cards__required">*</span></label>
-          <input className="rds-adaptive-cards__action-btn--input-form" placeholder="Enter Phone Number" required type="tel" value={phone} onChange={e => setPhone(e.target.value)} />
-        </div>
-      </div>
-    );
-  }
 import { Close as CloseIcon, Add as AddIcon, ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 
 // =========================
@@ -188,9 +56,27 @@ export type RdsCompAdaptiveCardsProps = {
   //inputForm removed
   block?: boolean;
   images?: string[];
-  footballProps?: Partial<FootballScorecardCardProps>;
+  // FootballScorecard direct props
+  leagueName?: string;
+  leagueAvatar?: string;
+  isLive?: boolean;
+  matchDate?: string; // renamed to avoid duplicate
+  isFinal?: boolean;
+  homeTeamName?: string;
+  homeTeamLogo?: string;
+  homeTeamStatus?: string;
+  awayTeamName?: string;
+  awayTeamLogo?: string;
+  awayTeamStatus?: string;
+  homeScore?: number;
+  awayScore?: number;
+  time?: string;
+  footballProps?: Partial<FootballScorecardCardProps>; // keep for backward compatibility
   activityProps?: Partial<ActivityUpdateCardProps>;
+  name?: string;
+  date?: string;
 };
+
 // =========================
 // Helpers & Constants
 // =========================
@@ -224,14 +110,81 @@ export const renderSelectValue = (placeholder: string) => (selected: unknown) =>
   ) : (typeof selected === 'string' ? selected : '');
 
 // =========================
-// Subcomponents
+// Default Props Helper
 // =========================
-export function ImageGalleryCard({ cardTitle, smallText, images }: ImageGalleryCardProps) {
+export function getDefaultPropsForType(type: string): Partial<RdsCompAdaptiveCardsProps> {
+  switch (type) {
+    case 'ActivityUpdateCard':
+      return defaultProps.activityUpdate;
+    case 'CalenderReminder':
+      return defaultProps.calenderReminder;
+    case 'ImageGallery':
+      return defaultProps.imageGallery;
+    case 'InputForm':
+      return defaultProps.inputForm;
+    case 'RestaurantOrder':
+      return defaultProps.restaurantOrder;
+    case 'FootballScorecard':
+      return defaultProps.footballScorecard;
+    default:
+      return {
+        cardTitle: 'Title',
+        showHeader: true,
+        showBtn1: true,
+        showBtn2: true,
+        btn1style: 'transparent',
+        btn2style: 'filled',
+        btn1Label: 'Cancel',
+        btn2Label: 'Done',
+        type: 'Default',
+        showDismiss: true,
+        closeIcon: true,
+      };
+  }
+}
+
+// =========================
+// Component Definitions
+// =========================
+export function InputFormCard({ label, smallText }: { label?: string, smallText?: string }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  return (
+    <div >
+      {/* <h2 className="rds-adaptive-cards__input-form-title">Tell us about yourself</h2> */}
+      <div className="rds-adaptive-cards__input-form-label">{label}</div>
+      <div className="rds-adaptive-cards__input-form-small-text">{smallText}</div>
+      <div className="rds-adaptive-cards__input-form-field">
+        <label className="rds-adaptive-cards__input-form-field-label">Name (Last, First) <span className="rds-adaptive-cards__required">*</span></label>
+        <input className="rds-adaptive-cards__action-btn--input-form" placeholder="Enter Name" required value={name} onChange={e => setName(e.target.value)} />
+      </div>
+      <div className="rds-adaptive-cards__input-form-field">
+        <label className="rds-adaptive-cards__input-form-field-label">Email <span className="rds-adaptive-cards__required">*</span></label>
+        <input className="rds-adaptive-cards__action-btn--input-form" placeholder="Enter Email" required type="email" value={email} onChange={e => setEmail(e.target.value)} />
+      </div>
+      <div className="rds-adaptive-cards__input-form-field">
+        <label className="rds-adaptive-cards__input-form-field-label">Phone Number <span className="rds-adaptive-cards__required">*</span></label>
+        <input className="rds-adaptive-cards__action-btn--input-form" placeholder="Enter Phone Number" required type="tel" value={phone} onChange={e => setPhone(e.target.value)} />
+      </div>
+    </div>
+  );
+}
+
+export function ImageGalleryCard({ cardTitle, smallText, images, showHeader = true, closeIcon = false, showDismiss = false }: ImageGalleryCardProps & { showHeader?: boolean; closeIcon?: boolean; showDismiss?: boolean }) {
   return (
     <Card className="rds-adaptive-cards rds-adaptive-cards--image-gallery">
       <CardHeader
         className="rds-adaptive-cards__header"
-    title={<Typography variant="h6" className="rds-adaptive-cards__title" sx={{ fontWeight: 400 }}>{cardTitle}</Typography>}
+        title={showHeader ? (
+          <Stack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__header-title-row">
+            {showDismiss && <Box className="rds-adaptive-cards__title-icon" />}
+            <Typography variant="h6" className="rds-adaptive-cards__title" sx={{ fontWeight: 400 }}>{cardTitle}</Typography>
+          </Stack>
+        ) : null}
+        action={closeIcon ? (
+          <IconButton size="small" className="rds-adaptive-cards__close-btn"><CloseIcon /></IconButton>
+        ) : null}
       />
       <CardContent className="rds-adaptive-cards__content">
         <Typography variant="body2" color="text.secondary" className="rds-adaptive-cards__small-text">{smallText}</Typography>
@@ -265,7 +218,7 @@ export function FootballScorecardCard({
         <Stack className="rds-adaptive-cards__football-header" alignItems="center">
           <Stack direction="row" spacing={1} alignItems="center" justifyContent="center" sx={{ width: '100%', position: 'relative' }}>
             <Avatar src={leagueAvatar} className="rds-adaptive-cards__football-league-avatar" />
-              <Typography variant="subtitle1" className="rds-adaptive-cards__football-league" align="center" sx={{ ml: 0.5, position: 'relative', fontWeight: 400 }}>
+            <Typography variant="subtitle1" className="rds-adaptive-cards__football-league" align="center" sx={{ ml: 0.5, position: 'relative', fontWeight: 400 }}>
               {leagueName}
               {isLive && (
                 <Chip
