@@ -10,6 +10,7 @@ export { default as RdsCompAreaChart } from "./rds-comp-chart-area/rds-comp-char
 export { default as RdsCompLineChart } from "./rds-comp-chart-line/rds-comp-chart-line";
 export { default as RdsCompPieChart } from "./rds-comp-chart-pie/rds-comp-chart-pie";
 export { default as RdsCompDoughnutChart } from "./rds-comp-chart-doughnut/rds-comp-chart-doughnut";
+export { default as RdsCompGaugeChart } from "./rds-comp-chart-gauge/rds-comp-chart-gauge";
 export { default as RdsCompBarChart } from "./rds-comp-chart-bar/rds-comp-chart-bar";
 export { default as RdsCompBooleanChart } from "./rds-comp-chart-boolean/rds-comp-chart-boolean";
 export { default as RdsCompMixedChart } from "./rds-comp-chart-mixed/rds-comp-chart-mixed";
