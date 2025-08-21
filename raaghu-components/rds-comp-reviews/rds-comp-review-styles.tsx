@@ -35,7 +35,7 @@ const Style1 = ({ item }: { item: Item }) => {
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <RdsAvatar
             src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-            name={item.name}
+            title={item.name}
             size="medium"
             displayStyle="name-bottom"
           />
@@ -103,7 +103,7 @@ const Style3 = ({ item }: { item: Item }) => {
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
         <RdsAvatar
           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-          name={item.name}
+          title={item.name}
           size="medium"
           displayStyle="with-name"
         />
@@ -186,18 +186,15 @@ const Style5 = ({ item }: { item: Item }) => {
     <Card sx={{ p: 3, height: '100%' }}>
       {/* User info with avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box
-          component="img"
-          src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-          alt={item.name}
-          sx={{ 
-            width: 50, 
-            height: 50, 
-            borderRadius: '50%' 
-          }}
+        <RdsAvatar
+           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+          title={item.name}
+          size="medium"
+          showDesignation={false}
+          showName={false}
         />
-        <Box sx={{ ml: 2 }}>
-          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>
+        <Box >
+          <Typography variant="h6" fontWeight="bold">
             {item.name}
           </Typography>
           <Typography variant="caption" color="text.secondary">
@@ -289,19 +286,14 @@ const Style7 = ({ item }: { item: Item }) => {
       {/* Image, Name, and Rating in the Same Line */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'nowrap' }}>
-          <Box
-            component="img"
-            src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-            alt={item.name}
-            sx={{ 
-              width: 50, 
-              height: 50, 
-              borderRadius: '50%',
-              px: 1,
-              ps: 0
-            }}
-          />
-          <Box sx={{ ml: 1 }}>
+         <RdsAvatar
+           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+          title={item.name}
+          size="medium"
+          showDesignation={false}
+          showName={false}
+        />
+          <Box >
             <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>
               {item.name}
             </Typography>
@@ -428,17 +420,14 @@ const Style9 = ({ item }: { item: Item }) => {
     <Card sx={{ p: 3, height: '100%' }}>
       {/* Header with user info */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box
-          component="img"
-          src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-          alt={item.name}
-          sx={{ 
-            width: 50, 
-            height: 50, 
-            borderRadius: '50%'
-          }}
+        <RdsAvatar
+           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+          title={item.name}
+          size="medium"
+          showDesignation={false}
+          showName={false}
         />
-        <Box sx={{ ml: 2 }}>
+        <Box>
           <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
           <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'lowercase' }}>
             {item.username}
@@ -616,7 +605,7 @@ const Style11 = ({ item }: { item: Item }) => {
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
           <RdsAvatar
             src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-            name={item.name}
+            title={item.name}
             size="medium"
           />
         </Box>

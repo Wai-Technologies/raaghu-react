@@ -6,7 +6,6 @@ export enum TruncateTextState {
   Default = "Default",
   Hover = "Hover",
 }
-
 export interface RdsCompTruncateTextProps {
   text: string; // Full text
   maxLength: number; // Maximum characters before truncation

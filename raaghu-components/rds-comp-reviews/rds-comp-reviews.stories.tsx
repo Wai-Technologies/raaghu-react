@@ -7,6 +7,19 @@ const meta: Meta = {
     component: RdsCompReviews,
     parameters: {
         layout: 'padded',
+        docs :{
+                source:{
+                transform:(code:string) => {
+                    //transform VariantType enum
+                    code = code.replace(/variantType="([^"]+)"/g, (match, p1) => `variantType={VariantType.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/variantType:\s*"([^"]+)"/g, (match, p1) => `variantType: VariantType.${p1.replace(/\s+/g, '')}`);
+                    //transform RevieweStyle enum
+                    code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={RevieweStyle.${p1.replace(/\s+/g, '')}}`);
+                    code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style: RevieweStyle.${p1.replace(/\s+/g, '')}`);
+                    return code;
+            }
+        }
+        }
     },
     tags: ['autodocs'],
     argTypes: {

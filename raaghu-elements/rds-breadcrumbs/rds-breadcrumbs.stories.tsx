@@ -18,7 +18,16 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
       description: 'Title for the first breadcrumb item',
     },
     level: {
-      control: 'select',
+      control: {
+        type: 'select',
+        labels: {
+          'level1': 'Level 1',
+          'level2': 'Level 2',
+          'level3': 'Level 3',
+          'level4': 'Level 4',
+          'level5': 'Level 5'
+        }
+      },
       options: ['level1', 'level2', 'level3', 'level4', 'level5'],
       description: 'Breadcrumb level to display specific number of items',
     },
@@ -59,6 +68,7 @@ export const Default: Story = {
     layout: 'without background',
     showIcon: true,
     state: 'default',
+    level: 'level3',
   },
 };
 

@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react";
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
+import ResInput from '../../raaghu-elements/rds-input/rds-input';
 import CloseIcon from '@mui/icons-material/Close';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -7,7 +8,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 // Custom input components for DatePicker
 export const CustomButtons = forwardRef(({ value, onClick }: any, ref: any) => (
-    <div className="d-flex text-align-center justify-content-end gap-2 me-2">
+    <div className="rds-datepicker__button-wrapper">
         <RdsButton text="Cancel" size="small" style="outlined" />
         <RdsButton text="Apply" size="small" style="filled" />
     </div>
@@ -15,40 +16,30 @@ export const CustomButtons = forwardRef(({ value, onClick }: any, ref: any) => (
 
 export const ExampleCustomInput = forwardRef(({ value, onClick }: any, ref: any) => (
     <li
-        className="example-custom-input dropdown-item d-flex justify-content-between"
+        className="rds-datepicker__custom-input rds-datepicker__dropdown-item"
         onClick={onClick}
         ref={ref}
     >
         <span>Custom</span>
         <span>
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="12"
-                height="12"
-                fill="white"
-                className="bi bi-caret-right-fill "
-                viewBox="0 0 16 16"
-            >
-                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-            </svg>
+            <CalendarMonthIcon />
         </span>
     </li>
 ));
 
 export const CustomInputWithClear = forwardRef(({ value, onClick, placeholder, isDisabled, showClearDate, clearDate }: any, ref: any) => (
-    <div className="position-relative w-100">
-        <input
-            className={`form-control form-control-md ${isDisabled ? 'rds-comp-datepicker--disabled' : ''} ${showClearDate && value ? 'rds-comp-datepicker__input-padding--with-clear' : 'rds-comp-datepicker__input-padding--without-clear'}`}
+    <div className="rds-datepicker__input-container">
+        <ResInput
+            className={`rds-datepicker__input ${isDisabled ? 'rds-datepicker--disabled' : ''} ${showClearDate && value ? 'rds-datepicker__input--with-clear' : 'rds-datepicker__input--without-clear'}`}
             value={value || ''}
             onClick={onClick}
             placeholder={placeholder}
-            readOnly
             disabled={isDisabled}
             ref={ref}
         />
         {showClearDate && value && (
             <span
-                className={`position-absolute rds-comp-datepicker__clear-button ${isDisabled ? 'rds-comp-datepicker__input--disabled' : 'cursor-pointer'}`}
+                className={`rds-datepicker__clear-button ${isDisabled ? 'rds-datepicker__input--disabled' : 'rds-datepicker__clear-button--clickable'}`}
                 onClick={(e) => {
                     e.stopPropagation();
                     if (!isDisabled) {
@@ -57,10 +48,9 @@ export const CustomInputWithClear = forwardRef(({ value, onClick, placeholder, i
                 }}
                 title="Clear date"
             >
-                {/* Clear/Cross Icon - Always Visible */}
                 <CloseIcon 
                     color="primary"
-                    className="rds-comp-datepicker__close-icon"
+                    className="rds-datepicker__close-icon"
                 />
             </span>
         )}
@@ -145,7 +135,7 @@ export const renderDatePickerStateView = (
     
     if (state === "Default") {
         return (
-            <div className="input-group input-group-datePicker mb-3 rds-comp-datepicker">
+            <div className="rds-datepicker__container rds-datepicker__container--default">
                 <SafeDatePicker
                     selected={startDate || null}
                     onChange={handlerDateChange}
@@ -157,7 +147,7 @@ export const renderDatePickerStateView = (
                             clearDate={props.clearDate}
                         />
                     }
-                    wrapperClassName="datepicker__wrapper"
+                    wrapperClassName="rds-datepicker__wrapper"
                     disabled={props.isDisabled}
                     placeholderText={props.placeholderText || "Select date"}
                     showMonthYearPicker={props.layout === "Month Picker"}
@@ -173,21 +163,21 @@ export const renderDatePickerStateView = (
                     dayClassName={dayClassName}
                     ref={datePickerRef}
                 />
-                <span className={`input-group-text ${props.isDisabled ? 'rds-comp-datepicker--disabled' : 'cursor-pointer'}`} id="basic-addon2" onClick={() => {
+                <span className={`rds-datepicker__icon-container ${props.isDisabled ? 'rds-datepicker--disabled' : 'rds-datepicker__icon-container--clickable'}`} onClick={() => {
                     if (!props.isDisabled && datePickerRef.current) {
                         datePickerRef.current.setFocus();
                         datePickerRef.current.setOpen(true);
                     }
                 }}>
                     <CalendarMonthIcon
-                        className="rds-comp-datepicker__calendar-icon"
+                        className="rds-datepicker__calendar-icon"
                     />
                 </span>
             </div>
         );
     } else if (state === "Expanded") {
         return (
-            <div className="input-group input-group-datePicker mb-3 mt-1 rds-comp-datepicker">
+            <div className="rds-datepicker__container rds-datepicker__container--expanded">
                 <SafeDatePicker
                     selected={startDate || null}
                     onChange={handlerDateTimeChange}
@@ -199,7 +189,7 @@ export const renderDatePickerStateView = (
                             clearDate={props.clearDate}
                         />
                     }
-                    wrapperClassName="datepicker__wrapper"
+                    wrapperClassName="rds-datepicker__wrapper"
                     timeInputLabel="Time:"
                     dateFormat="MM/dd/yyyy h:mm aa"
                     disabled={props.isDisabled}
@@ -217,16 +207,16 @@ export const renderDatePickerStateView = (
                     autoFocus 
                     ref={expandedDatePickerRef}
                 />
-                <span className={`input-group-text ${props.isDisabled ? 'rds-comp-datepicker--disabled' : 'cursor-pointer'}`} id="basic-addon2" onClick={() => !props.isDisabled && expandedDatePickerRef.current && expandedDatePickerRef.current.setFocus()}>
+                <span className={`rds-datepicker__icon-container ${props.isDisabled ? 'rds-datepicker--disabled' : 'rds-datepicker__icon-container--clickable'}`} onClick={() => !props.isDisabled && expandedDatePickerRef.current && expandedDatePickerRef.current.setFocus()}>
                     <CalendarMonthIcon
-                        className="rds-comp-datepicker__calendar-icon"
+                        className="rds-datepicker__calendar-icon"
                     />
                 </span>
             </div>
         );
     } else if (state === "Selected") {
         return (
-            <div className="input-group input-group-datePicker mb-3 mt-1 rds-comp-datepicker">
+            <div className="rds-datepicker__container rds-datepicker__container--selected">
                 <SafeDatePicker
                     selected={startDate || null}
                     onChange={handlerDateTimeChange}
@@ -238,7 +228,7 @@ export const renderDatePickerStateView = (
                             clearDate={props.clearDate}
                         />
                     }
-                    wrapperClassName="datepicker__wrapper"
+                    wrapperClassName="rds-datepicker__wrapper"
                     timeInputLabel="Time:"
                     dateFormat="MM/dd/yyyy"
                     disabled={props.isDisabled}
@@ -255,9 +245,9 @@ export const renderDatePickerStateView = (
                     dayClassName={dayClassName}
                     ref={selectedDatePickerRef}
                 />
-                <span className={`input-group-text ${props.isDisabled ? 'rds-comp-datepicker--disabled' : 'cursor-pointer'}`} id="basic-addon2" onClick={() => !props.isDisabled && selectedDatePickerRef.current && selectedDatePickerRef.current.setFocus()}>
+                <span className={`rds-datepicker__icon-container ${props.isDisabled ? 'rds-datepicker--disabled' : 'rds-datepicker__icon-container--clickable'}`} onClick={() => !props.isDisabled && selectedDatePickerRef.current && selectedDatePickerRef.current.setFocus()}>
                     <CalendarMonthIcon
-                        className="rds-comp-datepicker__calendar-icon"
+                        className="rds-datepicker__calendar-icon"
                     />
                 </span>
             </div>
@@ -292,7 +282,7 @@ export const renderDatePickerTypeView = (
     
     if (type === "Default") {
         return (
-            <div className="input-group input-group-datePicker mb-3 rds-comp-datepicker">
+            <div className="rds-datepicker__container rds-datepicker__container--default-type">
                 <SafeDatePicker
                     selected={startDate || null}
                     onChange={handlerDateChange}
@@ -304,7 +294,7 @@ export const renderDatePickerTypeView = (
                             clearDate={props.clearDate}
                         />
                     }
-                    wrapperClassName="datepicker__wrapper"
+                    wrapperClassName="rds-datepicker__wrapper"
                     disabled={props.isDisabled}
                     placeholderText={props.placeholderText || "Select date"}
                     showMonthYearPicker={props.layout === "Month Picker"}
@@ -320,42 +310,40 @@ export const renderDatePickerTypeView = (
                     dayClassName={dayClassName}
                     ref={datePickerRef}
                 />
-                <span className={`input-group-text ${props.isDisabled ? 'rds-comp-datepicker--disabled' : 'cursor-pointer'}`} id="basic-addon2" onClick={() => {
+                <span className={`rds-datepicker__icon-container ${props.isDisabled ? 'rds-datepicker--disabled' : 'rds-datepicker__icon-container--clickable'}`} onClick={() => {
                     if (!props.isDisabled && datePickerRef.current) {
                         datePickerRef.current.setFocus();
                         datePickerRef.current.setOpen(true);
                     }
                 }}>
                     <CalendarMonthIcon
-                        className="rds-comp-datepicker__calendar-icon"
+                        className="rds-datepicker__calendar-icon"
                     />
                 </span>
             </div>
         );
     } else if (type === "Custom") {
         return (
-            <div className="dropdown border rounded justify-content-between text-start d-block datepicker mt-1 rds-comp-datepicker rds-comp-datepicker__dropdown">
+            <div className="rds-datepicker__custom-dropdown">
                 <button
-                    className={`bg-transparent border-0 d-flex rds-comp-datepicker__padding ps-2 w-100 justify-content-between position-relative ${props.isDisabled ? 'rds-comp-datepicker--disabled' : ''}`}
+                    className={`rds-datepicker__dropdown-button ${props.isDisabled ? 'rds-datepicker--disabled' : ''}`}
                     type="button"
-                    id="abcd"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
+                    id="datepicker-dropdown"
                     aria-expanded={props.isDropdownOpen ? "true" : "false"}
                     onClick={toggleDropdown}
                     disabled={props.isDisabled}>
-                    <span className="d-flex">
+                    <span className="rds-datepicker__button-content">
                         <CalendarMonthIcon
                             color="secondary"
-                            className="rds-comp-datepicker__calendar-icon"
+                            className="rds-datepicker__calendar-icon"
                         />
-                        <span className="ps-2 mt-1 datePicker-text">{dropdownDisplayValue}</span>
+                        <span className="rds-datepicker__text">{dropdownDisplayValue}</span>
                     </span>
 
-                    <span className="d-flex">
+                    <span className="rds-datepicker__button-actions">
                         {props.showClearDate && dropdownDisplayValue && (
                             <span
-                                className={`position-absolute rds-comp-datepicker__clear-button rds-comp-datepicker__clear-button--dropdown ${props.isDisabled ? 'rds-comp-datepicker__input--disabled' : 'cursor-pointer'}`}
+                                className={`rds-datepicker__clear-button rds-datepicker__clear-button--dropdown ${props.isDisabled ? 'rds-datepicker__input--disabled' : 'rds-datepicker__clear-button--clickable'}`}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     if (!props.isDisabled) {
@@ -366,49 +354,46 @@ export const renderDatePickerTypeView = (
                             >
                                 <CloseIcon 
                                     color="primary"
-                                    className="rds-comp-datepicker__close-icon"
+                                    className="rds-datepicker__close-icon"
                                 />
                             </span>
                         )}
                         {isDropdownOpen && dropdownDisplayValue ? 
                             <KeyboardArrowUpIcon 
-                                className="rds-comp-datepicker__arrow-icon"
+                                className="rds-datepicker__arrow-icon"
                             /> : 
                             <KeyboardArrowDownIcon 
-                                className="rds-comp-datepicker__arrow-icon"
+                                className="rds-datepicker__arrow-icon"
                             />
                         }
                     </span>
                 </button>
-                <ul className={`dropdown-menu overflow-visible ${isDropdownOpen ? "show" : ""} z-4`}>
-                    <li className="rds-comp-datepicker__dropdown-item dropdown-item px-2 pb-2 border-bottom">
-                        {" "}
-                        <strong>
-                            <small>Custom Date</small>
-                        </strong>{" "}
-                        <small className="px-1 py-0 ">{dropdownDisplayValue}</small>
+                <ul className={`rds-datepicker__dropdown-menu ${isDropdownOpen ? "rds-datepicker__dropdown-menu--show" : ""}`}>
+                    <li className="rds-datepicker__dropdown-item rds-datepicker__dropdown-item--header">
+                        <strong className="rds-datepicker__dropdown-label">Custom Date</strong>
+                        <span className="rds-datepicker__dropdown-value">{dropdownDisplayValue}</span>
                     </li>
 
                     <li id="today"
-                        className={`rds-comp-datepicker__dropdown-item dropdown-item  ${activeList === "today" ? "bg-opacity-10 bg-primary" : ""}`}
+                        className={`rds-datepicker__dropdown-item ${activeList === "today" ? "rds-datepicker__dropdown-item--active" : ""}`}
                         onClick={todayClickHandler}
                     >
                         Today
                     </li>
                     <li id="yesterday"
-                        className={`rds-comp-datepicker__dropdown-item dropdown-item  ${activeList === "yesterday" ? "bg-opacity-10 bg-primary" : ""}`}
+                        className={`rds-datepicker__dropdown-item ${activeList === "yesterday" ? "rds-datepicker__dropdown-item--active" : ""}`}
                         onClick={yesterdayClickHandler}
                     >
                         Yesterday
                     </li>
                     <li id="lastSeven"
-                        className={`rds-comp-datepicker__dropdown-item dropdown-item  ${activeList === "lastSeven" ? "bg-opacity-10 bg-primary" : ""}`}
+                        className={`rds-datepicker__dropdown-item ${activeList === "lastSeven" ? "rds-datepicker__dropdown-item--active" : ""}`}
                         onClick={lastSevenDaysClickHandler}
                     >
                         Last 7 days
                     </li>
                     <li id="lastFourteen"
-                        className={`rds-comp-datepicker__dropdown-item dropdown-item  ${activeList === "lastFourteen" ? "bg-opacity-10 bg-primary" : ""}`}
+                        className={`rds-datepicker__dropdown-item ${activeList === "lastFourteen" ? "rds-datepicker__dropdown-item--active" : ""}`}
                         onClick={lastFourteenDaysClickHandler}
                     >
                         Last 14 days

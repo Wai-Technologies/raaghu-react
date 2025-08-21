@@ -92,6 +92,8 @@ export const Default: Story = {
     textCase: 'uppercase',
     state: 'default',
     layout: 'text-only',
+    showLeftIcon: true,
+    showRightIcon: false,
     changeLeftIcon: 'add',
     changeRightIcon: 'save',
   },

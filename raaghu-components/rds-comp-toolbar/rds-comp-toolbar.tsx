@@ -3,26 +3,47 @@ import React, { useState } from "react";
 import { getToolbarConfig, ToolbarButton } from "./rds-comp-toolbar-config";
 import "./rds-comp-toolbar.scss";
 
+export enum ToolbarLayout {
+  Primary = 'primary',
+  Secondary = 'secondary'
+}
+
+export enum ToolbarType {
+  InlineEditor = 'inline-editor',
+  FullFeatured = 'full-featured',
+  MoreText = 'more-text',
+  MoreParagraph = 'more-paragraph',
+  MoreRichContent = 'more-rich-content',
+  Misc = 'misc'
+}
+
+export enum ToolbarState {
+  Off = 'off',
+  On = 'on',
+  DisabledOn = 'disabled-on',
+  DisabledOff = 'disabled-off'
+}
+
 export interface RdsCompToolbarProps {
-  layout?: 'primary' | 'secondary';
-  type?: 'inline-editor' | 'full-featured' | 'more-text' | 'more-paragraph' | 'more-rich-content' | 'misc';
-  state?: 'off' | 'on' | 'disabled-on' | 'disabled-off';
+  layout?: ToolbarLayout;
+  type?: ToolbarType;
+  state?: ToolbarState;
   onAction?: (action: string) => void;
   className?: string;
   'data-testid'?: string;
 }
 
 const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
-  layout = 'primary',
-  type = 'full-featured',
-  state = 'on',
+  layout = ToolbarLayout.Primary,
+  type = ToolbarType.FullFeatured,
+  state = ToolbarState.On,
   onAction,
   className = '',
   'data-testid': testId,
   ...props
 }) => {
   const [activeFormats, setActiveFormats] = useState<string[]>([]);
-  const isDisabled = state === 'disabled-on' || state === 'disabled-off';
+  const isDisabled = state === ToolbarState.DisabledOn || state === ToolbarState.DisabledOff;
   const toolbarConfig = getToolbarConfig(type);
 
   const handleFormatClick = (format: string) => {
@@ -45,7 +66,7 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
       aria-label={`${type} toolbar`}
       {...props}
     >
-      {layout === 'primary' ? (
+      {layout === ToolbarLayout.Primary ? (
         <div className="rds-comp-toolbar__row">
           {toolbarConfig.sections.map((section, sectionIndex) => (
             <React.Fragment key={sectionIndex}>

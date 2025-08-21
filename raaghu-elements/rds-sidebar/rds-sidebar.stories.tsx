@@ -103,6 +103,7 @@ export const Default = {
   render: SidebarTemplate,
   args: {
     items: basicItems,
+    showLogo: true,
   },
 };
 
@@ -111,6 +112,7 @@ export const MailApp = {
   args: {
     items: mailItems,
     width: 280,
+    showLogo: true,
   },
 };
 
@@ -119,6 +121,7 @@ export const NarrowSidebar = {
   args: {
     items: basicItems,
     width: 180,
+    showLogo: true,
   },
 };
 
@@ -129,6 +132,7 @@ export const Permanent: Story = {
     variant: 'permanent',
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
+    showLogo: true,
   },
 };
 
@@ -137,6 +141,7 @@ export const WideSidebar = {
   args: {
     items: basicItems,
     width: 320,
+    showLogo: true,
   },
 };
 
@@ -150,6 +155,7 @@ export const WithDisabledItems = {
       { label: 'Settings', icon: <Settings />, onClick: () => alert('Settings clicked') },
       { label: 'Help (Coming Soon)', icon: <Help />, disabled: true },
     ],
+    showLogo: true,
   },
 };
 
@@ -163,5 +169,6 @@ export const WithoutIcons: Story = {
     ],
     isOpen: true,
     variant: 'permanent',
+    showLogo: true,
   },
 };

@@ -1,8 +1,9 @@
-import { DeleteOutline, Info, Warning } from '@mui/icons-material';
+import { Delete, DeleteOutline, Info, Warning } from '@mui/icons-material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsModal from './rds-modal';
 import { Button, Typography } from '@mui/material';
 import { useState } from 'react';
+import RdsButton from '../rds-button/rds-button';
 
 const meta: Meta<typeof RdsModal> = {
   title: 'Elements/Modal',
@@ -45,9 +46,9 @@ const ModalTemplate = (args: any) => {
 
   return (
     <>
-      <Button variant="contained" onClick={() => setOpen(true)}>
+      <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" onClick={() => setOpen(true)}>
         Open Modal
-      </Button>
+      </RdsButton>
       <RdsModal
         {...args}
         isOpen={open}
@@ -63,6 +64,7 @@ export const Default = {
   render: ModalTemplate,
   args: {
     title: 'Default Modal',
+    showDescription: true,
     children: (
       <Typography>
         This is a basic modal with default settings. You can put any content here.
@@ -74,16 +76,28 @@ export const Default = {
 export const WithActions = {
   render: ModalTemplate,
   args: {
-    title: 'Modal with Actions',
+    title: 'Are you sure?',
+    showIcon: true,
+    icon: <Delete color="error" sx={{ height: 40, width: 40 }} />,
     children: (
       <Typography>
-        This modal includes action buttons at the bottom.
+        This record will be deleted permanently.
       </Typography>
     ),
     actions: (
       <>
-        <Button>Cancel</Button>
-        <Button variant="contained">Save</Button>
+        <RdsButton changeLeftIcon="add"
+          changeRightIcon="save"
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          showLeftIcon
+          size="medium"
+          state="default"
+          style="outlined"
+          text="Cancel"
+          textCase="uppercase" />
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Delete" />
       </>
     ),
   },
@@ -100,8 +114,17 @@ export const WithoutCloseButton = {
       </Typography>
     ),
     actions: (
-      <Button variant="contained">Close</Button>
-    ),
+        <RdsButton changeLeftIcon="add"
+          changeRightIcon="save"
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          showLeftIcon
+          size="medium"
+          state="default"
+          style="outlined"
+          text="Cancel"
+          textCase="uppercase" />    ),
   },
 };
 
@@ -126,8 +149,18 @@ export const LargeModal = {
     ),
     actions: (
       <>
-        <Button>Cancel</Button>
-        <Button variant="contained">Submit</Button>
+         <RdsButton changeLeftIcon="add"
+          changeRightIcon="save"
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          showLeftIcon
+          size="medium"
+          state="default"
+          style="outlined"
+          text="Cancel"
+          textCase="uppercase" />
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Delete" />
       </>
     ),
   },
@@ -145,8 +178,18 @@ export const SmallModal = {
     ),
     actions: (
       <>
-        <Button>No</Button>
-        <Button variant="contained" color="primary">Yes</Button>
+         <RdsButton changeLeftIcon="add"
+          changeRightIcon="save"
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          showLeftIcon
+          size="medium"
+          state="default"
+          style="outlined"
+          text="Cancel"
+          textCase="uppercase" />
+        <RdsButton color="primary" textCase="uppercase" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Delete" />
       </>
     ),
   },
@@ -155,11 +198,12 @@ export const SmallModal = {
 export const WithIcon = {
   render: ModalTemplate,
   args: {
-    title: 'Modal with Icon',
-    icon: <Info color="primary" sx={{ height: 24, width: 24 }} />,
+    title: 'Are you sure?',
+    showIcon: true,
+    icon: <Delete color="error" sx={{ height: 40, width: 40 }} />,
     children: (
       <Typography>
-        This modal displays an icon in the header.
+        This record will be deleted permanently.
       </Typography>
     ),
   },
