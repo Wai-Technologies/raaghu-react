@@ -260,11 +260,57 @@
     &--primary {
       flex-wrap: nowrap;
       overflow-x: auto;
+      
+      // Show scrollbar for primary layout on mobile
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+      
+      &::-webkit-scrollbar {
+        height: 6px;
+        display: block;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 3px;
+        
+        &:hover {
+          background: rgba(0, 0, 0, 0.5);
+        }
+      }
     }
     
     &--secondary {
       padding: var(--rds-spacing-xs, 4px);
       gap: var(--rds-spacing-xs, 2px);
+      
+      // Show scrollbar for secondary layout on mobile (same as primary)
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+      
+      &::-webkit-scrollbar {
+        height: 6px;
+        display: block;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 3px;
+        
+        &:hover {
+          background: rgba(0, 0, 0, 0.5);
+        }
+      }
     }
 
     &__row {
@@ -273,6 +319,18 @@
       flex-wrap: nowrap;
       overflow-x: auto;
       min-width: 0;
+      
+      // Make row width responsive for primary layout
+      .rds-comp-toolbar--primary & {
+        width: auto;
+        min-width: fit-content;
+      }
+      
+      // Make row width responsive for secondary layout rows too
+      .rds-comp-toolbar--secondary & {
+        width: auto;
+        min-width: fit-content;
+      }
       
       // Ensure sections don't shrink too much
       &--secondary {
@@ -307,6 +365,7 @@
     &__divider {
       height: 20px;
       margin: 0 var(--rds-spacing-xs, 2px);
+      flex-shrink: 0;
     }
   }
 }
@@ -320,6 +379,7 @@
       min-width: 24px;
       height: 24px;
       padding: var(--rds-spacing-xs, 2px);
+      flex-shrink: 0;
 
       svg {
         font-size: 14px;
@@ -336,6 +396,11 @@
     &__divider {
       height: 18px;
       margin: 0 1px;
+      flex-shrink: 0;
+    }
+    
+    &__section {
+      flex-shrink: 0;
     }
   }
 }

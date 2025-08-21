@@ -60,13 +60,13 @@
 
   // Color Variant Tokens
   $rds-badge-colors: (
-    primary: (#6c2eb7, #e0c7ff),
-    secondary: (#1e88e5, #bbdefb),
-    tertiary: (#6d4c41, #d7ccc8),
-    danger: (#d32f2f, #ffcdd2),
-    warning: (#f57c00, #ffe0b2),
-    light: (#757575, #eeeeee),
-    success: (#2e7d32, #c8e6c9)
+    primary: (#6c2eb7 #e0c7ff),
+    secondary: (#1e88e5 #bbdefb),
+    tertiary: (#6d4c41 #d7ccc8),
+    danger: (#d32f2f #ffcdd2),
+    warning: (#f57c00 #ffe0b2),
+    light: (#757575 #eeeeee),
+    success: (#2e7d32 #c8e6c9)
   );
 
   //  Dynamic variant class override (more specific than fallback)

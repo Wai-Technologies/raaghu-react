@@ -9,12 +9,14 @@ export const colorTokens = {
   primary: {
     50: '#e3f2fd',
     100: '#bbdefb',
-    200: '#90caf9',
+    200: '#3C98FF', // Dark theme normal
+    250: '#66B2FF', // Dark theme hover
     300: '#64b5f6',
     400: '#42a5f5',
     500: '#2196f3', // Primary
     600: '#1e88e5',
-    700: '#1976d2',
+    700: '#3C98FF', // Light theme normal
+    750: '#2E7CE0', // Light theme hover
     800: '#1565c0',
     900: '#0d47a1',
   },
@@ -23,12 +25,14 @@ export const colorTokens = {
   secondary: {
     50: '#fce4ec',
     100: '#f8bbd9',
-    200: '#f48fb1',
+    200: '#2534E9', // Dark theme normal
+    250: '#4666FF', // Dark theme hover
     300: '#f06292',
     400: '#ec407a',
     500: '#e91e63', // Secondary
     600: '#d81b60',
-    700: '#c2185b',
+    700: '#2534E9', // Light theme normal
+    750: '#1827BB', // Light theme hover
     800: '#ad1457',
     900: '#880e4f',
   },
@@ -37,12 +41,14 @@ export const colorTokens = {
   success: {
     50: '#e8f5e8',
     100: '#c8e6c8',
-    200: '#a5d6a7',
+    200: '#1F7630', // Dark theme normal
+    250: '#31B64A', // Dark theme hover
     300: '#81c784',
     400: '#66bb6a',
     500: '#4caf50', // Success
     600: '#43a047',
-    700: '#388e3c',
+    700: '#1F7630', // Light theme normal
+    750: '#1D5E2A', // Light theme hover
     800: '#2e7d32',
     900: '#1b5e20',
   },
@@ -50,12 +56,14 @@ export const colorTokens = {
   warning: {
     50: '#fffde7',
     100: '#fff9c4',
-    200: '#fff59d',
+    200: '#C2510C', // Dark theme normal
+    250: '#F98816', // Dark theme hover
     300: '#fff176',
     400: '#ffee58',
     500: '#ffeb3b', // Warning
     600: '#fdd835',
-    700: '#fbc02d',
+    700: '#C2510C', // Light theme normal
+    750: '#9A4012', // Light theme hover
     800: '#f9a825',
     900: '#f57f17',
   },
@@ -63,12 +71,14 @@ export const colorTokens = {
   error: {
     50: '#ffebee',
     100: '#ffcdd2',
-    200: '#ef9a9a',
+    200: '#BD0D1D', // Dark theme normal
+    250: '#FF544F', // Dark theme hover
     300: '#e57373',
     400: '#ef5350',
     500: '#f44336', // Error
     600: '#e53935',
-    700: '#d32f2f',
+    700: '#BD0D1D', // Light theme normal
+    750: '#930011', // Light theme hover
     800: '#c62828',
     900: '#b71c1c',
   },
@@ -78,12 +88,14 @@ export const colorTokens = {
     0: '#ffffff',
     50: '#fafafa',
     100: '#f5f5f5',
-    200: '#eeeeee',
+    200: '#646464', // Dark theme normal
+    250: '#969696', // Dark theme hover
     300: '#e0e0e0',
     400: '#bdbdbd',
     500: '#9e9e9e',
     600: '#757575',
-    700: '#616161',
+    700: '#646464', // Light theme normal
+    750: '#4C4C4C', // Light theme hover
     800: '#424242',
     900: '#212121',
     1000: '#000000',
