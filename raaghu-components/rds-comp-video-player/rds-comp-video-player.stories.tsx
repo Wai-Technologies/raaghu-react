@@ -1,5 +1,5 @@
 import React from "react";
-import RdsCompVideoPlayer from "./rds-comp-video-player";
+import RdsCompVideoPlayer, { VideoPlayerType } from "./rds-comp-video-player";
 import { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta = {
@@ -7,12 +7,29 @@ const meta: Meta = {
     component: RdsCompVideoPlayer,
     parameters: {
         layout: 'padded',
+        docs: {
+            source: {
+                transform: (code: string) => {
+                    // Transform VideoPlayerType enum
+                    code = code.replace(/type="(Default|YouTube|Vimeo)"/g, 'type={VideoPlayerType.$1}');
+                    code = code.replace(/type:\s*"(Default|YouTube|Vimeo)"/g, 'type: VideoPlayerType.$1');
+                    return code;
+                }
+            }
+        }
     },
     tags: ['autodocs'],
     argTypes: {
         type: {
-            control: 'select',
-            options: ['Default', 'YouTube', 'Vimeo'],
+            control: {
+                type: 'select',
+                labels: {
+                    [VideoPlayerType.Default]: 'Default',
+                    [VideoPlayerType.YouTube]: 'YouTube',
+                    [VideoPlayerType.Vimeo]: 'Vimeo'
+                }
+            },
+            options: Object.values(VideoPlayerType),
             description: "Select the type of video source",
         },
         width: {
@@ -55,7 +72,7 @@ type Story = StoryObj<typeof RdsCompVideoPlayer>;
 
 export const Default: Story = {
     args: {
-        type: "Default",
+        type: VideoPlayerType.Default,
         width: "100%", 
         height: "400px",
         autoplay: false,

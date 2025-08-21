@@ -4,7 +4,7 @@ import RdsCompLayout from './rds-comp-layout';
 import { Paper, Typography, Box } from '@mui/material';
 
 const meta: Meta<typeof RdsCompLayout> = {
-  title: 'Layouts/Layout',
+  title: 'Layouts',
   component: RdsCompLayout,
   parameters: {
     layout: 'padded',

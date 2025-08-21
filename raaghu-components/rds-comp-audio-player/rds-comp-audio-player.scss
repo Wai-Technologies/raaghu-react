@@ -43,7 +43,7 @@
   &__player {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 14px;
     padding: 10px;
     background: #ffffff;
     border-radius: 10px;
@@ -75,7 +75,7 @@
   &__extra-controls {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 15px;
     
     button {
       background: none;
