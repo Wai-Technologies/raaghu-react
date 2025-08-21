@@ -75,7 +75,7 @@ const RdsModal= ({
         {showDescription && children}
       </DialogContent>
       {actions && (
-        <DialogActions>
+        <DialogActions sx={{ justifyContent: 'center' }}>
           {actions}
         </DialogActions>
       )}

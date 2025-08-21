@@ -5,10 +5,12 @@ export {default as RdsCompToast} from './rds-comp-toast/rds-comp-toast';
 export {default as RdsCompScrollbar} from './rds-comp-scrollbar/rds-comp-scrollbar';
 export {default as RdsCompTruncatedText} from './rds-comp-truncate-text/rds-comp-truncate-text';
 export {default as RdsCompOffcanvas} from './rds-comp-off-canvas/rds-comp-off-canvas';
+export {default as RdsCompFilterButton} from './rds-comp-filter-button/rds-comp-filter-button';
 export { default as RdsCompAreaChart } from "./rds-comp-chart-area/rds-comp-chart-area";
 export { default as RdsCompLineChart } from "./rds-comp-chart-line/rds-comp-chart-line";
 export { default as RdsCompPieChart } from "./rds-comp-chart-pie/rds-comp-chart-pie";
 export { default as RdsCompDoughnutChart } from "./rds-comp-chart-doughnut/rds-comp-chart-doughnut";
+export { default as RdsCompGaugeChart } from "./rds-comp-chart-gauge/rds-comp-chart-gauge";
 export { default as RdsCompBarChart } from "./rds-comp-chart-bar/rds-comp-chart-bar";
 export { default as RdsCompBooleanChart } from "./rds-comp-chart-boolean/rds-comp-chart-boolean";
 export { default as RdsCompMixedChart } from "./rds-comp-chart-mixed/rds-comp-chart-mixed";
@@ -28,8 +30,10 @@ export { default as RdsCompTimePicker } from './rds-comp-time-picker/rds-comp-ti
 export { default as RdsCompToolbar } from './rds-comp-toolbar/rds-comp-toolbar';
 export { default as RdsCompTreeStructure } from './rds-comp-tree-structure/rds-comp-tree-structure';
 export { default as RdsCompDatepicker } from './rds-comp-datepicker/rds-comp-datepicker';
-export { default as RdsCompKanbanBoard, boardInfo, RdsCompKanbanBoardProps } from './rds-comp-kanban-board';
+export { default as RdsCompKanbanBoard} from './rds-comp-kanban-board/rds-comp-kanban-board';
 export { default as RdsCompProductTour } from './rds-comp-product-tour/rds-comp-product-tour';
 export {default as RdsCompEmojiGenerator} from './rds-comp-emoji-generator/rds-comp-emoji-generator';
 export {default as RdsCompEmptyState} from './rds-comp-empty-state/rds-comp-empty-state';
 export {default as RdsCompESignature} from './rds-comp-e-signature/rds-comp-e-signature';
+
+export { default as RdsCompGrid } from './rds-comp-grid/rds-comp-grid';

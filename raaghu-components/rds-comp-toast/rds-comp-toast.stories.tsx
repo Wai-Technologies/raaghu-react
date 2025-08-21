@@ -6,27 +6,85 @@ const meta: Meta<typeof RdsCompToast> = {
     component: RdsCompToast,
     parameters: {
         layout: "padded",
+        docs: {
+            story: {
+                height: '100px'
+            },
+            source: {
+                transform: (code: string) => {
+                    // Transform state enum - remove spaces and transform
+                    code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={ToastState.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/state:\s*"([^"]+)"/g, (match, p1) => `state: ToastState.${p1.replace(/\s+/g, "")}`);
+                    // Transform layout enum - remove spaces and transform
+                    code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={ToastLayout.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: ToastLayout.${p1.replace(/\s+/g, "")}`);
+                    // Transform leadingIcon enum - remove spaces and transform
+                    code = code.replace(/leadingIcon="([^"]+)"/g, (match, p1) => `leadingIcon={ToastLeadingIcon.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/leadingIcon:\s*"([^"]+)"/g, (match, p1) => `leadingIcon: ToastLeadingIcon.${p1.replace(/\s+/g, "")}`);
+                    // Transform position enum - remove spaces and transform
+                    code = code.replace(/position="([^"]+)"/g, (match, p1) => `position={ToastPosition.${p1.replace(/\s+/g, "")}}`);
+                    code = code.replace(/position:\s*"([^"]+)"/g, (match, p1) => `position: ToastPosition.${p1.replace(/\s+/g, "")}`);
+                    return code;
+                }
+            }
+        }
     },
+    
     tags: ["autodocs"],
     argTypes: {
         state: {
             options: Object.values(ToastState), 
-            control: { type: "select" },
+            control: { 
+                type: "select",
+                labels: {
+                    [ToastState.Basic]: 'Basic',
+                    [ToastState.Info]: 'Info',
+                    [ToastState.Success]: 'Success',
+                    [ToastState.Error]: 'Error'
+                }
+            },
             description: "State variant of the toast notification"
         },
         layout: {
             options: Object.values(ToastLayout), 
-            control: { type: "select" },
+            control: { 
+                type: "select",
+                labels: {
+                    [ToastLayout.Text]: 'Text',
+                    [ToastLayout.Download]: 'Download',
+                    [ToastLayout.Chat]: 'Chat',
+                    [ToastLayout.Request]: 'Request'
+                }
+            },
             description: "Layout type of the toast"
         },
         leadingIcon: {
             options: Object.values(ToastLeadingIcon), 
-            control: { type: "select" },
+            control: { 
+                type: "select",
+                labels: {
+                    [ToastLeadingIcon.Circle]: 'Circle',
+                    [ToastLeadingIcon.Plus]: 'Plus'
+                }
+            },
             description: "Leading icon type"
         },
         position: {
             options: Object.values(ToastPosition),
-            control: { type: "select" },
+            control: { 
+                type: "select",
+                labels: {
+                    [ToastPosition.TopLeft]: 'Top Left',
+                    [ToastPosition.TopCenter]: 'Top Center', 
+                    [ToastPosition.TopRight]: 'Top Right',
+                    [ToastPosition.MiddleLeft]: 'Middle Left',
+                    [ToastPosition.MiddleCenter]: 'Middle Center',
+                    [ToastPosition.MiddleRight]: 'Middle Right',
+                    [ToastPosition.BottomLeft]: 'Bottom Left',
+                    [ToastPosition.BottomCenter]: 'Bottom Center',
+                    [ToastPosition.BottomRight]: 'Bottom Right'
+                }
+            },
             description: "Position of the toast on screen"
         },
         headerText: {

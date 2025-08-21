@@ -49,6 +49,45 @@ export const darkTheme = createTheme({
     },
     divider: colorTokens.neutral[700],
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          // Additional button-specific overrides
+        },
+        containedPrimary: {
+          backgroundColor: colorTokens.primary[200],
+          '&:hover': {
+            backgroundColor: colorTokens.primary[250],
+          },
+        },
+        containedSecondary: {
+          backgroundColor: colorTokens.secondary[200],
+          '&:hover': {
+            backgroundColor: colorTokens.secondary[250],
+          },
+        },
+        containedSuccess: {
+          backgroundColor: colorTokens.success[200],
+          '&:hover': {
+            backgroundColor: colorTokens.success[250],
+          },
+        },
+        containedWarning: {
+          backgroundColor: colorTokens.warning[200],
+          '&:hover': {
+            backgroundColor: colorTokens.warning[250],
+          },
+        },
+        containedError: {
+          backgroundColor: colorTokens.error[200],
+          '&:hover': {
+            backgroundColor: colorTokens.error[250],
+          },
+        }
+      },
+    },
+  },
   // Typography, spacing, breakpoints, etc. can be added here as needed
 });
 

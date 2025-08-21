@@ -6,12 +6,39 @@ const meta: Meta = {
   component: RdsCompTreeStructure,
   parameters: {
     layout: 'padded',
+      docs: {
+      source: {
+        transform: (code: string) => {
+          // Transform TreeLevel enum
+          code = code.replace(/level="(Level1|Level2|Level3|Level4)"/g, 'level={TreeLevel.$1}');
+          code = code.replace(/level:\s*"(Level1|Level2|Level3|Level4)"/g, 'level: TreeLevel.$1');
+          
+          // Transform NodeState enum
+          code = code.replace(/state="(Default|Hover|Selected)"/g, 'state={NodeState.$1}');
+          code = code.replace(/state:\s*"(Default|Hover|Selected)"/g, 'state: NodeState.$1');
+          
+          // Transform IconType enum
+          code = code.replace(/type="(Circle|Folder)"/g, 'type={IconType.$1}');
+          code = code.replace(/type:\s*"(Circle|Folder)"/g, 'type: IconType.$1');
+          
+          return code;
+        }
+      }
+    }
   },
   tags: ['autodocs'],
   argTypes: {
     level: {
+      control: {
+        type: 'select',
+        labels: {
+          [TreeLevel.Level1]: 'Level 1',
+          [TreeLevel.Level2]: 'Level 2', 
+          [TreeLevel.Level3]: 'Level 3',
+          [TreeLevel.Level4]: 'Level 4'
+        }
+      },
       options: Object.values(TreeLevel),
-      control: { type: "select" },
       description: "Tree depth level. Controls how many nested levels are shown (Level1 to Level4)."
     },
     type: {

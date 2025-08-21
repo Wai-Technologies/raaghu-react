@@ -14,7 +14,7 @@
     cursor: pointer;
 
     &__active {
-      font-weight: 500;
+      font-weight: 400;
     }
 
     &__enable-hover:hover {
@@ -32,7 +32,7 @@
   // Pill Background Variant
   &__pill {
     .rds-breadcrumbs__item {
-      padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px);
+      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
       border-radius: var(--rds-border-radius-pill, 20px);
       margin-right: var(--rds-spacing-xs, 8px);
 
@@ -54,7 +54,7 @@
   // Square Background Variant
   &__square {
     .rds-breadcrumbs__item {
-      padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px);
+      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
       border-radius: var(--rds-border-radius, 4px);
       margin-right: var(--rds-spacing-xs, 8px);
 
@@ -76,7 +76,7 @@
   // Without Background Variant (Default)
   &__plain {
     .rds-breadcrumbs__item {
-      padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px);
+      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
       color: var(--rds-color-text-primary);
 
       &__enable-hover:hover {
