@@ -26,6 +26,23 @@ const RdsMenu = ({
 }: RdsMenuProps) => {
   // Use dense for small size, otherwise default
   const dense = size === 'small';
+  // Helper to map color prop to CSS color value (can be extended or themed)
+function getColor(color: string): string {
+  switch (color) {
+    case 'primary':
+      return '#1976d2';
+    case 'success':
+      return '#2e7d32';
+    case 'danger':
+      return '#d32f2f';
+    case 'info':
+      return '#0288d1';
+    case 'warning':
+      return '#ed6c02';
+    default:
+      return color || '#222'; // fallback to default text color
+  }
+}
   return (
     <MuiMenu
       {...props}
@@ -86,23 +103,6 @@ const RdsMenu = ({
             />
           </MuiMenuItem>
         );
-// Helper to map color prop to CSS color value (can be extended or themed)
-function getColor(color: string): string {
-  switch (color) {
-    case 'primary':
-      return '#1976d2';
-    case 'success':
-      return '#2e7d32';
-    case 'danger':
-      return '#d32f2f';
-    case 'info':
-      return '#0288d1';
-    case 'warning':
-      return '#ed6c02';
-    default:
-      return color || '#222'; // fallback to default text color
-  }
-}
       })}
     </MuiMenu>
   );
