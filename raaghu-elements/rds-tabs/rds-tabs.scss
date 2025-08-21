@@ -93,6 +93,7 @@
   flex-direction: column;
   position: relative;
   font-family: var(--rds-font-family, Poppins);
+  max-width: 150px !important;
   
   // Ensure flap arrows are visible
   &--flap {
@@ -177,8 +178,13 @@
   overflow: visible !important;
 }
 
-.css-1qltlow-MuiTabs-indicator {
+.css-1qltlow-MuiTabs-indicator,
+.css-1695agp-MuiTabs-indicator {
   display: none !important;
+}
+
+.css-8itpbe-MuiTabs-indicator {
+  background-color: unset !important;
 }
 
 .MuiTab-root {

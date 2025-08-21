@@ -50,6 +50,43 @@
 .css-aqlqb4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase:hover {
   background-color: unset !important;
 }
+
+// Remove all hover and ripple effects from switch buttons
+.MuiButtonBase-root.MuiSwitchBase-root.MuiSwitch-switchBase:hover {
+  background-color: transparent !important;
+}
+
+.MuiButtonBase-root.MuiSwitchBase-root.MuiSwitch-switchBase {
+  background-color: transparent !important;
+  
+  &:hover {
+    background-color: transparent !important;
+  }
+  
+  &:focus {
+    background-color: transparent !important;
+  }
+  
+  &:active {
+    background-color: transparent !important;
+  }
+  
+  // Remove ripple effect
+  .MuiTouchRipple-root {
+    display: none !important;
+  }
+}
+
+// Ensure no background for any switch button state
+.rds-switch .MuiButtonBase-root {
+  background-color: transparent !important;
+  
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: transparent !important;
+  }
+}
 // Style 1: Default rounded, gray thumb
 .rds-switch--style1 .MuiSwitch-track {
   background: var(--rds-color-switch-track, #c0c0c3) !important;
@@ -171,11 +208,32 @@
 .rds-switch--style5 .MuiSwitch-input:checked + .MuiSwitch-track,
 .rds-switch--style6 .Mui-checked + .MuiSwitch-track,
 .rds-switch--style6 .MuiSwitch-input:checked + .MuiSwitch-track {
-  background: var(--rds-color-primary, #3C98FF) !important;
+  background: var(--rds-switch-active-bg, #4285f4) !important;
+  opacity: 1 !important;
+}
+
+// Enhanced checked state with proper opacity handling
+.css-i3t01e-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track {
+  background: var(--rds-switch-active-bg, #4285f4) !important;
+  opacity: 1 !important;
+}
+
+// Disabled state handling - preserve disabled functionality
+.css-i3t01e-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-disabled + .MuiSwitch-track {
+  opacity: 0.4 !important;
+  background: var(--rds-switch-inactive-bg, #c0c0c3) !important;
+  // background: #c0c0c3 !important;
+}
+
+.css-i3t01e-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-checked.Mui-disabled + .MuiSwitch-track {
+  opacity: 0.4 !important;
+  background: var(--rds-switch-disabled-bg, #b3d4fc) !important;
+  // background: #b3d4fc !important;
 }
 .Mui-checked + .MuiSwitch-thumb,
 .MuiSwitch-input:checked + .MuiSwitch-thumb {
   background: var(--rds-color-on-primary, #ffffff) !important;
+  margin-left: 3px !important;
 }
 .rds-switch--style6 .Mui-checked + .MuiSwitch-track::before,
 .rds-switch--style6 .MuiSwitch-input:checked + .MuiSwitch-track::before,
