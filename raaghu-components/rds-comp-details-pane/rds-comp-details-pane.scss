@@ -5,7 +5,7 @@
   align-items: center;
   gap: var(--rds-spacing-xl, 24px);
   flex-shrink: 0;
-  background: var(--rds-color-surface, #fff);
+  background: var(--rds-color-surface);
   box-shadow: var(--rds-elevation-2, 0 4px 24px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04));
   padding: 14px;
   border: none;
@@ -41,7 +41,7 @@
 
   &__subtitle {
     font-size: var(--rds-font-size-sm, 14px);
-    color: var(--rds-color-text-secondary, #6c757d);
+    color: var(--rds-color-text-secondary);
     margin: 0;
     font-weight: var(--rds-font-weight-regular, 400);
   }
