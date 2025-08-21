@@ -4,7 +4,7 @@ import { ContentCut, ContentCopy, ContentPaste, Delete } from '@mui/icons-materi
 import RdsMenu from './rds-menu';
 import RdsButton from '../rds-button/rds-button';
 
-const meta: Meta<typeof RdsMenu> = {
+const meta: Meta = {
   title: 'Elements/Menu',
   component: RdsMenu,
   parameters: {
@@ -22,10 +22,10 @@ const meta: Meta<typeof RdsMenu> = {
       description: 'Sets the color of the menu items',
   },
   },
-};
+}satisfies Meta<typeof RdsMenu>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof RdsMenu>;
 
 
 // Note: Set open: false for Docs. Enable open in Canvas/Preview for live demo.
