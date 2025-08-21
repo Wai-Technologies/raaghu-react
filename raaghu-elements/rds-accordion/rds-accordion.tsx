@@ -20,6 +20,7 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
   defaultExpanded?: boolean;
   size?: 'small' | 'medium' | 'large';
   state?: 'default' | 'hover' | 'selected';
+  accordionStyle?: 'border' | 'bottomline' | 'borderhide';
   // selected?: boolean; // Removed, use state === 'selected'
 }
 
@@ -32,6 +33,7 @@ const RdsAccordion = ({
   defaultExpanded = false,
   size = 'medium',
   state = 'default',
+  accordionStyle = 'border',
   ...props
 }: RdsAccordionProps) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -43,6 +45,7 @@ const RdsAccordion = ({
     className: clsx(
       'rds-accordion',
       size && `rds-accordion--${size}`,
+      accordionStyle && `rds-accordion--${accordionStyle}`,
       (props.expanded ?? defaultExpanded) && 'rds-accordion--expanded',
       state === 'selected' && 'rds-accordion--selected',
       state === 'hover' && isHovered && 'rds-accordion--hover',
@@ -58,7 +61,7 @@ const RdsAccordion = ({
   }
 
   return (
-    <div className="rds-accordion__container">
+    <div className={clsx('rds-accordion__container', accordionStyle && `rds-accordion--${accordionStyle}`)}>
       <MuiAccordion {...accordionProps}>
         <MuiAccordionSummary
           expandIcon={<ExpandMoreIcon />}
