@@ -12,6 +12,7 @@ export interface RdsSliderProps extends SliderProps {
   controlType?: 'one way' | 'two way';
   leftLabel?: string;
   rightLabel?: string;
+  className?: string;
 }
 
 const RdsSlider: React.FC<RdsSliderProps> = ({
@@ -26,6 +27,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   controlType = 'one way',
   leftLabel = '0',
   rightLabel = '100',
+  className,
   ...props
 }) => {
   // Determine if this should be a range slider based on controlType
@@ -95,7 +97,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   };
 
   return (
-    <div className="rds-slider">
+    <div className={`rds-slider ${className || ''}`}>
       {(showLabel || showValue) && (
         <div className="rds-slider__label-row">
           {showLabel && <span className="rds-slider__label-text">{label}</span>}
