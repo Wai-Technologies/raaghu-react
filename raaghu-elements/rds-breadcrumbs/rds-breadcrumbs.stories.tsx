@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import RdsBreadcrumbs from './rds-breadcrumbs';
+import RdsBreadcrumbs, { BreadcrumbSeparator } from './rds-breadcrumbs';
 
 const meta: Meta<typeof RdsBreadcrumbs> = {
   title: 'Elements/Breadcrumbs',
@@ -16,6 +16,15 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
     title: {
       control: 'text',
       description: 'Title for the first breadcrumb item',
+    },
+    separatorType: {
+      control: 'select',
+      options: Object.values(BreadcrumbSeparator),
+      description: 'Type of separator to use between breadcrumb items',
+    },
+    autoIcons: {
+      control: 'boolean',
+      description: 'Automatically assign different icons based on breadcrumb position and content',
     },
     level: {
       control: {
@@ -69,6 +78,8 @@ export const Default: Story = {
     showIcon: true,
     state: 'default',
     level: 'level3',
+    separatorType: BreadcrumbSeparator.GreaterThan,
+    autoIcons: false,
   },
 };
 
@@ -94,5 +105,7 @@ export const WithClickHandlers: Story = {
     layout: 'pill background',
     showIcon: true,
     state: 'default',
+    separatorType: BreadcrumbSeparator.Arrow,
+    autoIcons: false,
   },
 };

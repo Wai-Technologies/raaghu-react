@@ -8,9 +8,7 @@ import darkTheme from '../raaghu-react-themes/src/styles/themes/darkTheme';
 import './custom-theme.css';
 // Import RDS Button styles globally
 import '../raaghu-elements/rds-button/rds-button.scss';
-
-// Need to import the React type for JSX
-import { ReactElement } from 'react';
+import '../raaghu-elements/rds-select/rds-select.scss';
 
 const preview: Preview = {
   globalTypes: {

@@ -11,7 +11,7 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   variant?: 'outlined' | 'filled' | 'standard';
   size?: 'small' | 'medium' | 'large';
   layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
-  showTitle?: boolean;
+  titlePosition?: string;
   style?: 'default' | 'pill' | 'bottom outline'; // Now using 'style' instead of 'inputStyle'
   state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
   showIcon?: boolean; // New prop to control icon visibility
@@ -29,7 +29,7 @@ const RdsInput = ({
   variant = 'outlined',
   size = 'small',
   layout = 'text',
-  showTitle = true,
+  titlePosition,
   style = 'default',
   state = 'default',
   showIcon = false,
@@ -107,14 +107,14 @@ const RdsInput = ({
 
   return (
     <div className={`rds-input ${sizeClass} ${pillClass} ${stateClass}`.trim()}>
-      {!showTitle && label && (
+      {titlePosition === 'title-above' && label && (
         <label className="rds-input__label">
           {label}
           {isMandatory === true && (<span className="rds-input__asterisk">*</span>)}
         </label>
       )}
       <MuiTextField
-        label={showTitle ? label : ''}
+        label={titlePosition === 'inline-title' ? label : ''}
         placeholder={placeholder}
         helperText={errorMessage || hintText}
         error={!!errorMessage || error || state === 'error'}
