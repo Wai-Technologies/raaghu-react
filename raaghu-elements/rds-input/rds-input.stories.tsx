@@ -70,6 +70,7 @@ export const Default: Story = {
     disabled: false,
   },
 };
+Default.parameters ={ controls: { include: [ 'placeholder', 'size', 'layout', 'style', 'state', 'label', 'hintText', 'isMandatory', 'showTitle', 'error', 'disabled','showIcon','iconPosition','icon'] } };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
@@ -80,6 +81,7 @@ export const Disabled: Story = {
     state: 'disabled',
   },
 };
+Disabled.parameters = { controls: { include: ['label', 'placeholder', 'size', 'showTitle', 'layout', 'state'] } };
 
 export const Required: Story = {
   args: {
@@ -91,24 +93,28 @@ export const Required: Story = {
     showTitle: true,
   },
 };
-export const WithLabel: Story = {
+Required.parameters = { controls: { include: ['label', 'isMandatory', 'placeholder', 'size', 'layout', 'showTitle'] } };
+
+export const withLabel: Story = {
   args: {
     label: 'Input',
-    value: 'Enter value',
+    placeholder: 'Enter value',
     size: 'small',
     layout: 'text',
-    showTitle: true,
+    showTitle: true
   },
 };
+withLabel.parameters = { controls: { include: ['label', 'placeholder', 'size', 'layout', 'showTitle'] } };
 
-export const WithError: Story = {
+export const withError: Story = {
   args: {
     label: 'Input with Error',
     hintText: 'This field has an error',
-    value: 'Invalid value',
+    placeholder: 'Invalid value',
     size: 'small',
     layout: 'text',
     showTitle: true,
     state: 'error',
   },
 };
+withError.parameters = { controls: { include: ['label', 'hintText', 'placeholder', 'size', 'layout', 'showTitle', 'state'] } };
