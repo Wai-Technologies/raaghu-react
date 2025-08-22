@@ -93,7 +93,6 @@
   flex-direction: column;
   position: relative;
   font-family: var(--rds-font-family, Poppins);
-  max-width: 165px !important;
   
   // Ensure flap arrows are visible
   &--flap {
@@ -160,7 +159,7 @@
   content: '';
   position: absolute;
   bottom: -9px; /* position the arrow just below the tab */
-  left: 68px;
+  left: 75px;
   transform: translateX(-50%);
   width: 0;
   height: 0;
@@ -204,7 +203,7 @@
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
   content: "" !important;
   position: absolute !important;
-  left: 165px !important;
+  left: 150px !important; /* Adjusted for new width */
   top: 50% !important;
   right: -12px !important; /* Position to the right of the tab */
   transform: translateY(-50%) !important;
@@ -275,4 +274,36 @@
 .css-nowihk-MuiButtonBase-root-MuiTab-root,
 .css-r0euln-MuiButtonBase-root-MuiTab-root {
   max-width: 150px !important;
+}
+
+// Vertical tabs specific width control
+.MuiTabs-vertical .MuiTab-root {
+  max-width: 150px !important;
+  min-width: 120px !important;
+  width: 150px !important;
+}
+
+// Additional width control for vertical orientation
+.rds-tabs .MuiTabs-vertical {
+  max-width: 150px !important;
+  width: 150px !important;
+}
+
+// Horizontal tabs specific width control
+.MuiTabs-root:not(.MuiTabs-vertical) .MuiTab-root {
+  max-width: 150px !important;
+  min-width: 120px !important;
+  width: 150px !important;
+}
+
+// General tab width control for all orientations
+.MuiTab-root {
+  max-width: 150px !important;
+  min-width: 120px !important;
+  width: 150px !important;
+}
+
+.css-gb4ru6,
+.css-1ar1kv5 {
+  background-color: unset !important;
 }
