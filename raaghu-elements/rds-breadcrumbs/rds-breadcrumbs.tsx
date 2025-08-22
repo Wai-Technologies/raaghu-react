@@ -4,18 +4,58 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
-
+import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
+import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 // Add more icons as needed
 import './rds-breadcrumbs.scss';
+
+export enum BreadcrumbSeparator {
+  GreaterThan = ">",
+  Slash = "/",
+  Arrow = "→",
+  DoubleArrow = "»",
+  Pipe = "|",
+  Dash = "-",
+  Plus = "+",
+}
 
 // Map string names to icon components
 const iconMap: Record<string, React.ElementType> = {
   home: HomeOutlinedIcon,
   folder: FolderOutlinedIcon,
   category: CategoryOutlinedIcon,
+  business: BusinessOutlinedIcon,
+  inventory: InventoryOutlinedIcon,
   star: StarBorderOutlinedIcon,
   // Add more mappings as needed
+};
+
+// Default icons for each breadcrumb level/position
+const getDefaultIconForPosition = (index: number, label: string): string => {
+  // Smart icon assignment based on position and label content
+  if (index === 0) {
+    return 'home'; // First item is always home
+  }
+  
+  // Check label content for smart icon assignment
+  const labelLower = label.toLowerCase();
+  if (labelLower.includes('product') || labelLower.includes('shop') || labelLower.includes('store')) {
+    return 'inventory';
+  }
+  if (labelLower.includes('category') || labelLower.includes('section')) {
+    return 'category';
+  }
+  if (labelLower.includes('folder') || labelLower.includes('directory')) {
+    return 'folder';
+  }
+  if (labelLower.includes('business') || labelLower.includes('company')) {
+    return 'business';
+  }
+  
+  // Fallback based on position
+  const positionIcons = ['home', 'inventory', 'category', 'folder', 'star'];
+  return positionIcons[index] || 'folder';
 };
 
 export interface RdsBreadcrumbItem {
@@ -32,28 +72,48 @@ export interface RdsBreadcrumbItem {
 
 export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children'> {
   items: RdsBreadcrumbItem[];
-  separator?: React.ReactNode;
+  separator?: React.ReactNode | BreadcrumbSeparator;
+  separatorType?: BreadcrumbSeparator;
   level?: 'level1' | 'level2' | 'level3' | 'level4' | 'level5';
   layout?: 'pill background' | 'without background' | 'square background';
   showIcon?: boolean;
   state?: 'default' | 'hover' | 'selected';
   icon?: string; // Icon name to use from iconMap
   title?: string; // Title for the first breadcrumb
+  autoIcons?: boolean; // Automatically assign icons based on position and content
 }
 
 const RdsBreadcrumbs = ({
   items,
-  separator = <NavigateNextIcon fontSize="small" />,
+  separator,
+  separatorType,
   level,
   layout = 'without background',
   className,
   showIcon = true,
   state,
   icon,
+  autoIcons = true,
   ...props
 }:RdsBreadcrumbsProps) => {
   // Track which breadcrumb is selected by click (for selected state)
   const [selectedIdx, setSelectedIdx] = React.useState<number | null>(null);
+  
+  // Helper function to get the separator element
+  const getSeparator = (): React.ReactNode => {
+    // If separator prop is provided, use it directly
+    if (separator !== undefined) {
+      return separator;
+    }
+    
+    // If separatorType is provided, use the enum value
+    if (separatorType) {
+      return <span className="rds-breadcrumbs__separator">{separatorType}</span>;
+    }
+    
+    // Default to NavigateNext icon
+    return <NavigateNextIcon fontSize="small" />;
+  };
   // Filter items based on level if specified
   const getFilteredItems = () => {
     if (!level) return items;
@@ -113,15 +173,27 @@ const RdsBreadcrumbs = ({
   };
 
   // Helper to get the icon component for a breadcrumb
-  const getIconComponent = (itemIcon?: string, globalIcon?: string): React.ReactNode => {
-    const iconName = itemIcon || globalIcon || 'home';
+  const getIconComponent = (itemIcon?: string, globalIcon?: string, index?: number, label?: string): React.ReactNode => {
+    let iconName: string;
+    
+    // Priority order: item.icon > global icon > auto-generated icon > fallback
+    if (itemIcon) {
+      iconName = itemIcon;
+    } else if (globalIcon) {
+      iconName = globalIcon;
+    } else if (autoIcons && index !== undefined && label !== undefined) {
+      iconName = getDefaultIconForPosition(index, label);
+    } else {
+      iconName = 'home';
+    }
+    
     const IconComp = iconMap[iconName.toLowerCase()] || HomeOutlinedIcon;
     return <IconComp sx={{ fontSize: 20, verticalAlign: 'middle', mr: 0.5 }} />;
   };
 
   return (
     <MuiBreadcrumbs 
-      separator={separator} 
+      separator={getSeparator()} 
       className={breadcrumbsClass}
       {...props}
     >
@@ -147,7 +219,7 @@ const RdsBreadcrumbs = ({
               onClick={() => setSelectedIdx(index)}
               style={{ cursor: 'pointer' }}
             >
-              {showIcon && (item.showIcon !== false) && getIconComponent(item.icon, icon)}
+              {showIcon && (item.showIcon !== false) && getIconComponent(item.icon, icon, index, item.label)}
               {item.label}
             </Typography>
           );
@@ -171,7 +243,7 @@ const RdsBreadcrumbs = ({
             className={`rds-breadcrumbs__item ${itemLayoutClass} ${itemStateClass} ${enableHoverClass}`.trim()}
             sx={{ cursor: item.onClick || item.state === 'selected' || state === 'selected' ? 'pointer' : 'default' }}
           >
-            {showIcon && (item.showIcon !== false) && getIconComponent(item.icon, icon)}
+            {showIcon && (item.showIcon !== false) && getIconComponent(item.icon, icon, index, item.label)}
             {item.label}
           </Link>
         );
