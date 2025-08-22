@@ -93,7 +93,7 @@
   flex-direction: column;
   position: relative;
   font-family: var(--rds-font-family, Poppins);
-  max-width: 150px !important;
+  max-width: 165px !important;
   
   // Ensure flap arrows are visible
   &--flap {
@@ -183,7 +183,7 @@
   display: none !important;
 }
 
-.css-8itpbe-MuiTabs-indicator {
+.rds-tabs .css-8itpbe-MuiTabs-indicator {
   background-color: unset !important;
 }
 
@@ -204,7 +204,7 @@
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
   content: "" !important;
   position: absolute !important;
-  left: 150px !important;
+  left: 165px !important;
   top: 50% !important;
   right: -12px !important; /* Position to the right of the tab */
   transform: translateY(-50%) !important;
