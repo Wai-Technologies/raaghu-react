@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import React from 'react';
+import { Add, Save, Delete, Edit, Close, ArrowForward, ArrowBack, RadioButtonUnchecked } from '@mui/icons-material';
 import RdsButton from './rds-button';
 
 const meta: Meta<typeof RdsButton> = {
@@ -65,14 +67,12 @@ const meta: Meta<typeof RdsButton> = {
       description: 'Control to show/hide right icon (Save icon)',
     },
     changeLeftIcon: {
-      control: 'select',
-      options: ['add', 'delete', 'save', 'edit', 'close', 'arrow-forward', 'arrow-back', 'circle'],
-      description: 'Select which icon to display on the left',
+      control: 'text',
+      description: 'Icon name or React component for the left side. Available icon names: add, delete, save, edit, close, arrow-forward, arrow-back, circle, chevron',
     },
     changeRightIcon: {
-      control: 'select',
-      options: ['add', 'delete', 'save', 'edit', 'close', 'arrow-forward', 'arrow-back', 'circle'],
-      description: 'Select which icon to display on the right',
+     control: 'text', 
+      description: 'Icon name or React component for the right side. Available icon names: add, delete, save, edit, close, arrow-forward, arrow-back, circle, chevron',
     },
   },
 };
