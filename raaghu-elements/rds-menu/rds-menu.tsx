@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader, ListItemIcon, ListItemText, Typography, type MenuProps } from '@mui/material';
 
 export interface RdsMenuItem {
@@ -16,12 +16,14 @@ export interface RdsMenuItem {
 export interface RdsMenuProps extends Omit<MenuProps, 'children'> {
   items: RdsMenuItem[];
   size?: 'small' | 'medium' | 'large';
+  children?: ReactNode;
 }
 
 
 const RdsMenu = ({
   items,
   size = 'medium',
+  children,
   ...props
 }: RdsMenuProps) => {
   // Use dense for small size, otherwise default
@@ -52,7 +54,7 @@ function getColor(color: string): string {
         dense,
       }}
     >
-      {items.map((item) => {
+      {children ? children : items.map((item) => {
         if (item.header) {
           return (
             <ListSubheader key={item.id} component="div" disableSticky>
