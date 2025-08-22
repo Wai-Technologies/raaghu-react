@@ -1,5 +1,5 @@
 import React from "react"
-import  RdsBreadcrumbs  from "./rds-breadcrumbs"
+import  RdsBreadcrumbs, { BreadcrumbSeparator }  from "./rds-breadcrumbs"
 import figma from "@figma/code-connect"
 
 /**
@@ -10,159 +10,32 @@ import figma from "@figma/code-connect"
  * code example you'd like to see in Figma
  */
 
-// Level 1 - Only Home
 figma.connect(
   RdsBreadcrumbs,
   "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=382-3922",
   {
-    variant: { "📊 Level": "Level 1" },
+   // variant: { "📊 Level": "Level 5" },
     props: {
       layout: figma.enum("✨ Style", {
         "Pill Background": "pill background",
         "Square Background": "square background",
         "Without Background": "without background"
       }),
-    },
-    example: (props) => (
-      <RdsBreadcrumbs
-        {...props}
-        level="level1"
-        items={[
-          {
-            href: '/',
-            label: 'Home'
-          }
-        ]}
-      />
-    ),
-  },
-)
-
-// Level 2 - Home + Products
-figma.connect(
-  RdsBreadcrumbs,
-  "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=382-3922",
-  {
-    variant: { "📊 Level": "Level 2" },
-    props: {
-      layout: figma.enum("✨ Style", {
-        "Pill Background": "pill background",
-        "Square Background": "square background",
-        "Without Background": "without background"
+      level: figma.enum("📊 Level", {
+        "Level 1": "level1",
+        "Level 2": "level2",
+        "Level 3": "level3",
+        "Level 4": "level4",
+        "Level 5": "level5",
       }),
     },
     example: (props) => (
       <RdsBreadcrumbs
         {...props}
-        level="level2"
-        items={[
-          {
-            href: '/',
-            label: 'Home'
-          },
-          {
-            href: '/products',
-            label: 'Products'
-          }
-        ]}
-      />
-    ),
-  },
-)
-
-// Level 3 - Home + Products + Category
-figma.connect(
-  RdsBreadcrumbs,
-  "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=382-3922",
-  {
-    variant: { "📊 Level": "Level 3" },
-    props: {
-      layout: figma.enum("✨ Style", {
-        "Pill Background": "pill background",
-        "Square Background": "square background",
-        "Without Background": "without background"
-      }),
-    },
-    example: (props) => (
-      <RdsBreadcrumbs
-        {...props}
-        level="level3"
-        items={[
-          {
-            href: '/',
-            label: 'Home'
-          },
-          {
-            href: '/products',
-            label: 'Products'
-          },
-          {
-            href: '/products/category',
-            label: 'Category'
-          }
-        ]}
-      />
-    ),
-  },
-)
-
-// Level 4 - Home + Products + Category + Subcategory
-figma.connect(
-  RdsBreadcrumbs,
-  "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=382-3922",
-  {
-    variant: { "📊 Level": "Level 4" },
-    props: {
-      layout: figma.enum("✨ Style", {
-        "Pill Background": "pill background",
-        "Square Background": "square background",
-        "Without Background": "without background"
-      }),
-    },
-    example: (props) => (
-      <RdsBreadcrumbs
-        {...props}
-        level="level4"
-        items={[
-          {
-            href: '/',
-            label: 'Home'
-          },
-          {
-            href: '/products',
-            label: 'Products'
-          },
-          {
-            href: '/products/category',
-            label: 'Category'
-          },
-          {
-            href: '/products/category/subcategory',
-            label: 'Subcategory'
-          }
-        ]}
-      />
-    ),
-  },
-)
-
-// Level 5 - All items
-figma.connect(
-  RdsBreadcrumbs,
-  "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=382-3922",
-  {
-    variant: { "📊 Level": "Level 5" },
-    props: {
-      layout: figma.enum("✨ Style", {
-        "Pill Background": "pill background",
-        "Square Background": "square background",
-        "Without Background": "without background"
-      }),
-    },
-    example: (props) => (
-      <RdsBreadcrumbs
-        {...props}
-        level="level5"
+        separator={BreadcrumbSeparator.GreaterThan}
+        showIcon={true}
+        icon="home"
+        state="hover"
         items={[
           {
             href: '/',
