@@ -209,12 +209,13 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
 
     return (
         <>
-            {props.showTitle && props.titleText && (
-                <label className="rds-datepicker__label">
-                    {props.titleText}
-                    {props.isMandatory && <span className="rds-datepicker__mandatory-indicator"> *</span>}
-                </label>
-            )}
+            <label
+                className={`rds-datepicker__label ${!props.showTitle ? 'rds-datepicker__label--hidden' : ''}`}
+                aria-hidden={!props.showTitle}
+            >
+                {props.showTitle && props.titleText ? props.titleText : '\u00A0'}
+                {props.showTitle && props.isMandatory && <span className="rds-datepicker__mandatory-indicator"> *</span>}
+            </label>
             {showState && renderDatePickerStateView(
                 props.state || 'Default',
                 startDate,
