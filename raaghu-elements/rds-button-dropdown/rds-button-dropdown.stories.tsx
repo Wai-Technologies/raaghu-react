@@ -59,9 +59,9 @@ export const Default: Story = {
     showSearch: false,
     state: 'default',
     rightIcon:<ArrowDropDown/>,
-    leftIcon:<Circle />,
-    showUserAvatar: false,
-    showRadio: false,
+    leftIcon:"circle",
+    showUserAvatar: true,
+    showRadio: true,
   },
 };
 Default.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch','state','showUserAvatar','showRadio'] } };
@@ -73,7 +73,7 @@ export const MultiSelect: Story = {
     multiSelect: true,
     showSearch: false,
     rightIcon:<ArrowDropDown/>,
-    leftIcon:<Circle />
+    leftIcon:"circle"
   },
 };
 MultiSelect.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch'] } };
@@ -85,7 +85,7 @@ export const WithSearch: Story = {
     multiSelect: false,
     showSearch: true,
     rightIcon:<ArrowDropDown/>,
-    leftIcon:<Circle />
+    leftIcon:"circle"
   },
 };
 WithSearch.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch'] } };
@@ -97,7 +97,7 @@ export const MultiSelectWithSearch: Story = {
     multiSelect: true,
     showSearch: true,
     rightIcon:<ArrowDropDown/>,
-    leftIcon:<Circle />
+    leftIcon:"circle"
   },
 };
 MultiSelectWithSearch.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch'] } };

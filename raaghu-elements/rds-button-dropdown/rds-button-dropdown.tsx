@@ -95,7 +95,7 @@ const RdsButtonDropdown: React.FC<RdsButtonDropdownProps> = ({
         layout="icon+text"
         shape="rectangle"
         state="hover"
-        style="filled"
+        style="outlined"
         textCase="uppercase"
       />
       <RdsMenu
@@ -127,18 +127,17 @@ const RdsButtonDropdown: React.FC<RdsButtonDropdownProps> = ({
                     checked={selected.includes(opt.id)}
                     onChange={() => handleOptionChange(opt.id)}
                     isDisabled={opt.disabled}
-                    showText={false}
+                    labeltext= {opt.label}
                   />
                 ) : showRadio && (
                   <RdsRadio
-                    options={[{ value: opt.id.toString(), text: '' }]}
+                    options={[{ value: opt.id.toString(), text: opt.label }]}
                     value={selected[0]?.toString()}
                     onChange={() => handleOptionChange(opt.id)}
                     state={opt.disabled ? 'disabled' : 'default'}
-                    layout="icon"
+                    layout="icon with label"
                   />
                 )}
-                <span>{opt.label}</span>
               </div>
             ))}
           </div>
