@@ -46,9 +46,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-
   args: {
-    placeholder: 5,
+    defaultValue: 5,
     titleText: 'Quantity',
     min: 0,
     max: 100,
@@ -60,22 +59,12 @@ export const Default: Story = {
     showTitle: true,
     isMandatory: false,
   },
-   render: (args) => {
-    const [value, setValue] = useState(args.placeholder);
-
-    return (
-      <RdsCounter
-      {...args}
-        placeholder={value}
-        onChange={setValue}
-      />
-    );
-  },
+  render: (args) => <RdsCounter {...args} />,
 };
 
 export const Compact: Story = {
- args: {
-    placeholder: 1,
+  args: {
+    defaultValue: 1,
     titleText: 'Items',
     variant: 'compact',
     min: 1,
@@ -84,37 +73,18 @@ export const Compact: Story = {
     disabled: false,
     showInput: true,
   },
-  render: (args) => {
-    const [value, setValue] = useState(args.placeholder);
-
-    return (
-      <RdsCounter
-        {...args}
-        placeholder={value}
-        onChange={setValue}
-      />
-    );
-  },
+  render: (args) => <RdsCounter {...args} />,
 };
 
 export const WithoutInput: Story = {
   args: {
-    placeholder: 3,
+    defaultValue: 3,
     titleText: 'Score',
     showInput: false,
     min: 0,
     max: 10,
   },
-  render: (args) => {
-    const [value, setValue] = useState(args.placeholder);
-    return (
-      <RdsCounter
-        {...args}
-        placeholder={value}
-        onChange={setValue}
-      />
-    );
-  },
+  render: (args) => <RdsCounter {...args} />,
 };
 
 export const Sizes: Story = {
@@ -131,22 +101,19 @@ export const Sizes: Story = {
       <Box sx={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
         <RdsCounter
           {...args}
-          placeholder={small}
-          onChange={setSmall}
+          defaultValue={1}
           titleText="Small"
           size="small"
         />
         <RdsCounter
           {...args}
-          placeholder={medium}
-          onChange={setMedium}
+          defaultValue={2}
           titleText="Medium"
           size="medium"
         />
         <RdsCounter
           {...args}
-          placeholder={large}
-          onChange={setLarge}
+          defaultValue={3}
           titleText="Large"
           size="large"
         />
@@ -170,22 +137,19 @@ export const CompactSizes: Story = {
       <Box sx={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
         <RdsCounter
           {...args}
-          placeholder={small}
-          onChange={setSmall}
+          defaultValue={1}
           titleText="Small"
           size="small"
         />
         <RdsCounter
           {...args}
-          placeholder={medium}
-          onChange={setMedium}
+          defaultValue={2}
           titleText="Medium"
           size="medium"
         />
         <RdsCounter
           {...args}
-          placeholder={large}
-          onChange={setLarge}
+          defaultValue={3}
           titleText="Large"
           size="large"
         />
@@ -196,42 +160,24 @@ export const CompactSizes: Story = {
 
 export const WithConstraints: Story = {
   args: {
-    placeholder: 5,
+    defaultValue: 5,
     titleText: 'Limited Range (2-8)',
     min: 2,
     max: 8,
     step: 1,
   },
-  render: (args) => {
-    const [value, setValue] = useState(args.placeholder);
-    return (
-      <RdsCounter
-        {...args}
-        placeholder={value}
-        onChange={setValue}
-      />
-    );
-  },
+  render: (args) => <RdsCounter {...args} />,
 };
 
 export const StepExample: Story = {
   args: {
-    placeholder: 10,
+    defaultValue: 10,
     titleText: 'Step by 5',
     min: 0,
     max: 100,
     step: 5,
   },
-  render: (args) => {
-    const [value, setValue] = useState(args.placeholder);
-    return (
-      <RdsCounter
-        {...args}
-        placeholder={value}
-        onChange={setValue}
-      />
-    );
-  },
+  render: (args) => <RdsCounter {...args} />,
 };
 
 export const Disabled: Story = {
@@ -247,14 +193,14 @@ export const Disabled: Story = {
       <Box sx={{ display: 'flex', gap: 6, alignItems: 'flex-start' }}>
         <RdsCounter
           {...args}
-          placeholder={defaultValue}
+          value={defaultValue}
           onChange={() => {}}
           titleText="Disabled Default"
           variant="default"
         />
         <RdsCounter
           {...args}
-          placeholder={compactValue}
+          value={compactValue}
           onChange={() => {}}
           titleText="Disabled Compact"
           variant="compact"
@@ -318,7 +264,7 @@ export const Interactive: Story = {
             </Box>
             <RdsCounter
               {...args}
-              placeholder={item.quantity}
+              value={item.quantity}
               onChange={(quantity) => updateQuantity(item.id, quantity)}
               controlsClassName={getControlsClassName()}
             />
