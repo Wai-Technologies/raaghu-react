@@ -40,6 +40,38 @@ figma.connect(
     maxSize={10485760}
     showPreview
     hintText="Maximum 5MB"
+    mode="default"
+    />,
+  },
+)
+
+
+figma.connect(
+  RdsFileUploader,
+  "https://www.figma.com/design/vziFLZAgMFi8wA5SlikLh5/Raaghu---Design-System?node-id=484-5419",
+  {
+    variant: { "✨ Style": "Basic" },
+    props: {
+      showTitle: figma.boolean("🆕 Show Title"),
+      showHint: figma.boolean("💬 Show Hint"),
+      isMandatory: figma.boolean("❗ Is Mandatory"),
+      title: figma.string("✏️ Title"),
+      // hint: figma.string("✏️ Hint"),
+     // attachmentStyle: figma.instance("🔗 Attachment Style"),
+      state:figma.enum("💡 State",{
+        "Default": "default",
+        "Selected": "selected",
+      }),
+    },
+    example: (props) => <RdsFileUploader 
+    {...props}
+    accept=".png,.jpg,.jpeg,.doc,.pdf,.ppt"
+    dragAndDrop
+    maxFiles={5}
+    multiple
+    maxSize={10485760}
+    showPreview
+    hintText="Maximum 5MB"
     mode="standard"
     />,
   },

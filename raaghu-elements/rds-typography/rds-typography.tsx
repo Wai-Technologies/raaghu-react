@@ -1,15 +1,15 @@
 import React from 'react';
-import { Typography as MuiTypography, TypographyProps } from '@mui/material';
+import { Typography as MuiTypography, type TypographyProps } from '@mui/material';
 
 export interface RdsTypographyProps extends TypographyProps {
   text?: string;
 }
 
-const RdsTypography: React.FC<RdsTypographyProps> = ({
+const RdsTypography = ({
   text,
   children,
   ...props
-}) => {
+}:RdsTypographyProps) => {
   return (
     <MuiTypography {...props}>
       {text || children}

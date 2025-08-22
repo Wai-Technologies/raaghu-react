@@ -19,8 +19,8 @@ figma.connect(
       size:figma.enum("📏 Size", { "Small": "small", "Medium": "medium", "Large": "large" }),
       shape:figma.enum("⚠️ Shape", { "Rectangle": "rectangle","Pill":"pill" }),
       layout:figma.enum("📱 Layout", { 
-        "Text Only": "text", 
-        "Icon Only": "icon",
+        "Text only": "text", 
+        "Icon only": "icon",
         "Left Icon+Text": "icon-text", 
         "Right Icon+Text": "text-icon" }),
      // selectType: figma.enum("🔽 Select Type", { "Primary": "primary", "Outlined": "outlined", "Transparent": "transparent" }),
