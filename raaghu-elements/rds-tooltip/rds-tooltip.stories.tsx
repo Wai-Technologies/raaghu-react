@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta } from '@storybook/react-vite';
 import RdsTooltip from './rds-tooltip';
 import { Button, IconButton } from '@mui/material';
-import { Info, Delete, Help } from '@mui/icons-material';
+import {Delete, Help } from '@mui/icons-material';
 
 const meta: Meta<typeof RdsTooltip> = {
   title: 'Elements/Tooltip',
@@ -41,6 +41,7 @@ export const Default = {
     label: 'This is a tooltip',
     children: <Button variant="contained">Hover me</Button>,
     style: 'top',
+    arrow : false,
   },
 };
 
