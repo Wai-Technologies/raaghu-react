@@ -55,7 +55,25 @@ const meta: Meta<typeof RdsLoader> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const AnimatedProgress: Story = {
+export const AnimatedLinearProgress: Story = {
+  render: () => {
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+      const timer = setInterval(() => {
+        setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
+      }, 800);
+      return () => clearInterval(timer);
+    }, []);
+
+    return (
+      <Box sx={{ width: '300px', display: 'flex', flexDirection: 'column', gap: 3 }}>
+        <RdsLoader variant="linear" value={progress} label="Linear Progress" />
+      </Box>
+    );
+  },
+};
+export const AnimatedCircularProgress: Story = {
   render: () => {
     const [progress, setProgress] = useState(0);
 
@@ -69,7 +87,6 @@ export const AnimatedProgress: Story = {
     return (
       <Box sx={{ width: '300px', display: 'flex', flexDirection: 'column', gap: 3 }}>
         <RdsLoader variant="circular" value={progress} label="Circular Progress" />
-        <RdsLoader variant="linear" value={progress} label="Linear Progress" />
       </Box>
     );
   },

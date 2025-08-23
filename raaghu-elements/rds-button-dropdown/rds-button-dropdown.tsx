@@ -146,5 +146,5 @@ const RdsButtonDropdown: React.FC<RdsButtonDropdownProps> = ({
     </>
   );
 };
-
+RdsButtonDropdown.displayName = 'RdsButtonDropdown';
 export default RdsButtonDropdown;
