@@ -482,5 +482,5 @@ const RdsGrid = (props: RdsGridProps) => {
     </TableContainer>
   );
 };
-
+RdsGrid.displayName = 'RdsGrid';
 export default RdsGrid;
