@@ -24,17 +24,18 @@
   }
 
   &__separator {
-    margin: 0 var(--rds-spacing-xs, 8px);
     display: flex;
     align-items: center;
+    font-size: var(--rds-font-size-sm, 16px);
+    color: var(--rds-color-text-secondary, #666);
+    user-select: none;
   }
 
   // Pill Background Variant
   &__pill {
     .rds-breadcrumbs__item {
-      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
+      padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 4px);
       border-radius: var(--rds-border-radius-pill, 20px);
-      margin-right: var(--rds-spacing-xs, 8px);
 
       &__enable-hover:hover {
         background-color: var(--rds-color-primary-light, #e3f2fd);
@@ -54,9 +55,8 @@
   // Square Background Variant
   &__square {
     .rds-breadcrumbs__item {
-      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
+      padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 4px);
       border-radius: var(--rds-border-radius, 4px);
-      margin-right: var(--rds-spacing-xs, 8px);
 
       &__enable-hover:hover {
         background-color: var(--rds-color-primary-light, #e3f2fd);
@@ -76,7 +76,7 @@
   // Without Background Variant (Default)
   &__plain {
     .rds-breadcrumbs__item {
-      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
+      padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 4px);
       color: var(--rds-color-text-primary);
 
       &__enable-hover:hover {

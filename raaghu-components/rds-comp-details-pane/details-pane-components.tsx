@@ -5,7 +5,6 @@ import {
   Star, 
   Edit, 
   Delete,
-  Group
 } from '@mui/icons-material';
 import { 
   RdsButton,
@@ -19,7 +18,6 @@ import {
 } from "../../raaghu-elements";
 import RdsCompTreeStructure, { IconType, TreeLevel } from '../rds-comp-tree-structure/rds-comp-tree-structure';
 
-// Type definitions for component props
 export interface HistoryFavoriteTabsProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
@@ -86,7 +84,7 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
 
   // Render history item row
   const renderHistoryItem = (item: { id: number; name: string }, handleDelete: (id: number) => void) => (
-    <div key={item.id} className="rds-comp-details-pane__activity-item mb-3">
+    <div key={item.id} className="rds-comp-details-pane__activity-item">
       <div className="rds-comp-details-pane__activity-icon">
         <History className="rds-comp-details-pane__icon-history" />
       </div>
@@ -134,7 +132,7 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
             role="tabpanel"
           >
             {/* Today's history */}
-            <div className="rds-comp-details-pane__section-heading mb-2">
+            <div className="rds-comp-details-pane__section-heading">
               <span className="rds-comp-details-pane__section-heading-text">Today</span>
               <span className="rds-comp-details-pane__section-heading-line"></span>
             </div>
@@ -143,7 +141,7 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
             </div>
             
             {/* Older history */}
-            <div className="rds-comp-details-pane__section-heading mt-3 mb-2">
+            <div className="rds-comp-details-pane__section-heading">
               <span className="rds-comp-details-pane__section-heading-text">Older</span>
               <span className="rds-comp-details-pane__section-heading-line"></span>
             </div>
@@ -240,7 +238,7 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
 
   return (
     <div className="custom-content-wrapper" id="details-pane-container">
-      <div className="rds-comp-details-pane__detail-pane-container p-0">
+      <div className="rds-comp-details-pane__detail-pane-container">
         {/* Image Carousel */}
         <div className="rds-comp-details-pane__real-estate-carousel" id="carousel-indicator">
           <RdsCarousel
@@ -272,11 +270,11 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
           </div>
 
           {/* Badges */}
-          <div className="rds-comp-details-pane__real-estate-badges mt-2">
+          <div className="rds-comp-details-pane__real-estate-badges">
             {badges.map((badge, index) => (
               <span 
                 key={index} 
-                className={`rds-comp-details-pane__badge-item${index < badges.length - 1 ? ' me-2' : ''}`}
+                className={`rds-comp-details-pane__badge-item`}
               >
                 <RdsBadge 
                   badgeContent={badge.content} 
@@ -289,7 +287,7 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
           </div>
 
           {/* Description */}
-          <div className="mt-2 rds-comp-details-pane__real-estate-description" id="estate-description">
+          <div className="rds-comp-details-pane__real-estate-description" id="estate-description">
             <RdsTypography variant="body2" fontWeight="normal">
               {estateDescription}
             </RdsTypography>
@@ -303,10 +301,9 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
           </div>
 
           {/* Guest Selection Controls */}
-          <div className="rds-comp-details-pane__guest-selection-container d-flex align-items-center justify-content-between">
-            <div className="rds-comp-details-pane__guest-counter d-flex h-100">
-              <div className="h-100 d-flex align-items-center">
-
+          <div className="rds-comp-details-pane__guest-selection-container">
+            <div className="rds-comp-details-pane__guest-counter">
+              <div>
 <RdsCounter
   defaultValue={5}
   max={1000}
@@ -359,7 +356,7 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
 
   return (
     <div className="custom-content-wrapper" id="detail-pane-container-2">
-      <div className="detail-pane-container px-4 py-4 rds-comp-details-pane__selection-container" id="detail-pain-lable">
+      <div className="detail-pane-container rds-comp-details-pane__selection-container" id="detail-pain-lable">
         {/* Header */}
         <div className="rds-comp-details-pane__header-container">
           <h2 className="rds-comp-details-pane__title">{headerText}</h2>
@@ -384,7 +381,7 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
         </div>
         
         {/* Agent list */}
-        <div className="d-flex flex-column">
+        <div>
           {agents.map((agent) => (
             <div key={agent.id} className="rds-comp-details-pane__agent-card">
               <div className="rds-comp-details-pane__agent-left">
@@ -434,97 +431,97 @@ export const ToolbarContent: React.FC<{
 
   return (
     <div className="custom-content-wrapper">
-      <div className="rds-comp-details-pane__toolbar-pane-container p-3">
+      <div className="rds-comp-details-pane__toolbar-pane-container">
         <div className="rds-comp-details-pane__toolbar-content">
           <div>
-            <h3 className="mb-3">Toolbar</h3>
+            <h3>Toolbar</h3>
             <div className="rds-comp-details-pane__toolbar-buttons-row">
               <div className="rds-comp-details-pane__circle-btn-container">
                 <RdsButton
-  color="primary"
-  changeLeftIcon='circle'
-  showLeftIcon
-  layout="icon-only"
-  shape="rectangle"
-  size="medium"
-  state="default"
-  style={activeToolbarTab === 'icon_font' ? 'filled' : 'transparent'}
-  text="Default Button"
-  textCase="uppercase"
-  onClick={() => setActiveToolbarTab('icon_font')}
-/>
+                  color="primary"
+                  changeLeftIcon='circle'
+                  showLeftIcon
+                  layout="icon-only"
+                  shape="rectangle"
+                  size="medium"
+                  state="default"
+                  style={activeToolbarTab === 'icon_font' ? 'filled' : 'transparent'}
+                  text="Default Button"
+                  textCase="uppercase"
+                  onClick={() => setActiveToolbarTab('icon_font')}
+                />
               </div>
               <div className="rds-comp-details-pane__circle-btn-container">
-               <RdsButton
-  color="primary"
-  changeLeftIcon='circle'
-  showLeftIcon
-  layout="icon-only"
-  shape="rectangle"
-  size="medium"
-  state="default"
-  style={activeToolbarTab === 'icon_color' ? 'filled' : 'transparent'}
-  text="Default Button"
-  textCase="uppercase"
-  onClick={() => setActiveToolbarTab('icon_color')}
-/>
+                <RdsButton
+                  color="primary"
+                  changeLeftIcon='circle'
+                  showLeftIcon
+                  layout="icon-only"
+                  shape="rectangle"
+                  size="medium"
+                  state="default"
+                  style={activeToolbarTab === 'icon_color' ? 'filled' : 'transparent'}
+                  text="Default Button"
+                  textCase="uppercase"
+                  onClick={() => setActiveToolbarTab('icon_color')}
+                />
               </div>
               <div className="rds-comp-details-pane__circle-btn-container">
-               <RdsButton
-  color="primary"
-  changeLeftIcon='circle'
-  showLeftIcon  
-  layout="icon-only"
-  shape="rectangle"
-  size="medium"
-  state="default"
-  style={activeToolbarTab === 'icon_frame' ? 'filled' : 'transparent'}
-  text="Default Button"
-  textCase="uppercase"
-   onClick={() => setActiveToolbarTab('icon_frame')}
-/>
+                <RdsButton
+                  color="primary"
+                  changeLeftIcon='circle'
+                  showLeftIcon  
+                  layout="icon-only"
+                  shape="rectangle"
+                  size="medium"
+                  state="default"
+                  style={activeToolbarTab === 'icon_frame' ? 'filled' : 'transparent'}
+                  text="Default Button"
+                  textCase="uppercase"
+                  onClick={() => setActiveToolbarTab('icon_frame')}
+                />
               </div>
-               <div className="rds-comp-details-pane__circle-btn-container">
-               <RdsButton
-  color="primary"
-  changeLeftIcon='circle'
-  showLeftIcon
- layout="icon-only"
-  shape="rectangle"
-  size="medium"
-  state="default"
-  style={activeToolbarTab === 'icon_line_height' ? 'filled' : 'transparent'}
-  text="Default Button"
-  textCase="uppercase"
-  onClick={() => setActiveToolbarTab('icon_line_height')}
-/>
+              <div className="rds-comp-details-pane__circle-btn-container">
+                <RdsButton
+                  color="primary"
+                  changeLeftIcon='circle'
+                  showLeftIcon
+                  layout="icon-only"
+                  shape="rectangle"
+                  size="medium"
+                  state="default"
+                  style={activeToolbarTab === 'icon_line_height' ? 'filled' : 'transparent'}
+                  text="Default Button"
+                  textCase="uppercase"
+                  onClick={() => setActiveToolbarTab('icon_line_height')}
+                />
               </div>
-               <div className="rds-comp-details-pane__circle-btn-container">
-               <RdsButton
-  color="primary"
-  changeLeftIcon='circle'
-  showLeftIcon
-  layout="icon-only"
-  shape="rectangle"
-  size="medium"
-  state="default"
-  style={activeToolbarTab === 'icon_block' ? 'filled' : 'transparent'}
-  text="Default Button"
-  textCase="uppercase"
-  onClick={() => setActiveToolbarTab('icon_block')}
-/>
+              <div className="rds-comp-details-pane__circle-btn-container">
+                <RdsButton
+                  color="primary"
+                  changeLeftIcon='circle'
+                  showLeftIcon
+                  layout="icon-only"
+                  shape="rectangle"
+                  size="medium"
+                  state="default"
+                  style={activeToolbarTab === 'icon_block' ? 'filled' : 'transparent'}
+                  text="Default Button"
+                  textCase="uppercase"
+                  onClick={() => setActiveToolbarTab('icon_block')}
+                />
               </div>
             </div>
-            <hr className="rds-comp-details-pane__toolbar-divider mb-4" />
+            <hr className="rds-comp-details-pane__toolbar-divider" />
             {/* Toolbar tab content */}
             <div>
               {activeToolbarTab === 'icon_font' && (
                 <div>
                   <div className="mb-3">
-                    <p className="rds-comp-details-pane__font-name fw-bold mb-2">Font Name : Poppins</p>
-                    <hr className="rds-comp-details-pane__toolbar-divider mt-2 mb-4"/>
+                    <p className="rds-comp-details-pane__font-name fw-bold">Font Name : Poppins</p>
+                    <hr className="rds-comp-details-pane__toolbar-divider"/>
                   </div>
-                  <div className="rds-comp-details-pane__font-size-btn-group mb-4">
+                  <div className="rds-comp-details-pane__font-size-btn-group">
                     <p className="rds-comp-details-pane__font-label">Font Size</p>
                     <div className="rds-comp-details-pane__font-size-grid">
                       <div className="rds-comp-details-pane__row">
@@ -556,7 +553,7 @@ export const ToolbarContent: React.FC<{
                     </div>
                   </div>
                   
-                  <div className="rds-comp-details-pane__font-weight-btn-group mt-4 mb-3">
+                  <div className="rds-comp-details-pane__font-weight-btn-group">
                     <p className="rds-comp-details-pane__font-label">Font Weight</p>
                     <div className="rds-comp-details-pane__font-weight-grid">
                       <div className="rds-comp-details-pane__row">
@@ -572,7 +569,7 @@ export const ToolbarContent: React.FC<{
                           </div>
                         ))}
                       </div>
-                      <div className="rds-comp-details-pane__row mt-2">
+                      <div className="rds-comp-details-pane__row">
                         {['Semi Bold', 'Bold'].map(weight => (
                           <div key={weight} className="rds-comp-details-pane__grid-cell rds-comp-details-pane__weight-cell">
                             <button 
@@ -594,7 +591,6 @@ export const ToolbarContent: React.FC<{
                   <RdsTypography
                     variant="body2"
                     fontWeight="600"
-                    sx={{ mt: 3 }}
                   >
                     Your Color Palette
                   </RdsTypography>
@@ -639,7 +635,6 @@ export const ToolbarContent: React.FC<{
                   <RdsTypography
                     variant="body2"
                     fontWeight="600"
-                    sx={{ mt: 3 }}
                   >
                     Corner Radius Size
                   </RdsTypography>
@@ -678,7 +673,6 @@ export const ToolbarContent: React.FC<{
                   <RdsTypography
                     variant="body2"
                     fontWeight="600"
-                    sx={{ mt: 3 }}
                   >
                     Spacing Size
                   </RdsTypography>
@@ -717,20 +711,19 @@ export const ToolbarContent: React.FC<{
                   <RdsTypography
                     variant="body2"
                     fontWeight="600"
-                    sx={{ mt: 3 }}
                   >
                     Component List
                   </RdsTypography>
                   <div>
-<RdsCompTreeStructure
-  Language="TypeScript"
-  level={TreeLevel.Level3}
-  showActions
-  showChewron
-  showFolder
-  text="Name"
-  treeData={[
-    {
+                    <RdsCompTreeStructure
+                      Language="TypeScript"
+                      level={TreeLevel.Level3}
+                      showActions
+                      showChewron
+                      showFolder
+                      text="Name"
+                      treeData={[
+                        {
       children: [
         {
           children: [
@@ -892,7 +885,7 @@ export const ToolbarContent: React.FC<{
   type={IconType.Circle}
 />
 
-                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -924,24 +917,25 @@ export const ThumbnailViewContent: React.FC<{
 
   return (
     <div className="rds-comp-details-pane__thumbnail-view-wrapper">
-      <div className="rds-comp-details-pane__thumbnail-content p-0">
-        <div className="rds-comp-details-pane__pages-header p-3">
+      <div className="rds-comp-details-pane__thumbnail-content">
+        <div className="rds-comp-details-pane__pages-header">
           Pages
         </div>
 
-        <div className="rds-comp-details-pane__download-button-container px-3 pb-3 pt-0">
+        <div className="rds-comp-details-pane__download-button-container">
           <button className="rds-comp-details-pane__download-button" onClick={() => {}}>
             {thumbnailButtonName || "Download Project"}
           </button>
         </div>
 
-        <div className="rds-comp-details-pane__accordion-list px-0">
+        <div className="rds-comp-details-pane__accordion-list">
           {accordionItems.map((item, idx) => (
             <RdsAccordion
               key={idx}
               size="medium"
               state="default"
               title={item.title}
+              ShowLeftIcon={false}
             >
               <div>
                 <img 

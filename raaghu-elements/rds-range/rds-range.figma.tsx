@@ -32,7 +32,7 @@ figma.connect(
     props: {
       showLabel: figma.boolean("📝 Show label"),
     },
-    example: ({ showLabel }) => <RdsRange showLabel={showLabel} type="two-way" value={[0, 20]} />,
+    example: ({ showLabel }) => <RdsRange showTooltip={false} showLabel={showLabel} type="two-way" value={[0, 20]} />,
   }
 )
 

@@ -4,6 +4,7 @@ import { hslToRgb, rgbToHex, handleSpectrumClick, rgbToHsb } from "./color-utils
 import { ColorMode } from "./rds-comp-color-picker";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
+import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 
 /**
  * ColorPickerGrid - The grid-based color picker UI
@@ -259,7 +260,19 @@ export const ColorSwatchesType1 = ({ handleChange }) => {
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">
         <span>Swatches</span>
-        <button className="rds-comp-color-picker__add-swatch">+</button>
+      <RdsButton
+  changeLeftIcon="add"
+  changeRightIcon="save"
+  color="primary"
+  layout="icon-only"
+  shape="rectangle"
+  showLeftIcon
+  size="small"
+  state="default"
+  style="transparent"
+  text="Default Button"
+  textCase="capitalize"
+/>
       </div>
       <div className="rds-comp-color-picker__swatch-list rds-comp-color-picker__swatch-list--vertical">
         {["#FFC300", "#FF4F00", "#EA00FA", "#1708FF", "#00F5FF"].map(hex => (

@@ -44,6 +44,9 @@
 .rds-switch .css-rehya9-MuiSwitch-root{
   width: 65px !important;
 }
+.css-bnbzk8 {
+  width: 65px !important;
+}
 .css-aqlqb4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase {
   right: 1.2rem !important;
 }
@@ -222,13 +225,11 @@
 .css-i3t01e-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-disabled + .MuiSwitch-track {
   opacity: 0.4 !important;
   background: var(--rds-switch-inactive-bg, #c0c0c3) !important;
-  // background: #c0c0c3 !important;
 }
 
 .css-i3t01e-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-checked.Mui-disabled + .MuiSwitch-track {
   opacity: 0.4 !important;
   background: var(--rds-switch-disabled-bg, #b3d4fc) !important;
-  // background: #b3d4fc !important;
 }
 .Mui-checked + .MuiSwitch-thumb,
 .MuiSwitch-input:checked + .MuiSwitch-thumb {
@@ -253,4 +254,9 @@
 .rds-switch--style5 .MuiFormControlLabel-label,
 .rds-switch--style6 .MuiFormControlLabel-label {
   margin-top: 0.5rem !important;
+}
+
+.css-1khxa25{
+  opacity: 0.4 !important;
+  background: var(--rds-switch-disabled-bg, #b3d4fc) !important;
 }

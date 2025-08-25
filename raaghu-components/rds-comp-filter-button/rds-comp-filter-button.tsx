@@ -331,5 +331,5 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
     </Box>
   );
 };
-
+RdsCompFilterButton.displayName = 'RdsCompFilterButton';
 export default RdsCompFilterButton;

@@ -49,6 +49,11 @@ const meta: Meta<typeof RdsInput> = {
       },
       description: 'Custom icon to display',
     },
+    titlePosition: {
+      control: 'select',
+      options: ['inline-title', 'title-above'],
+      description: 'Position of the title',
+    },
   },
 };
 
@@ -65,23 +70,23 @@ export const Default: Story = {
     label: 'Input Label',
     hintText: 'This is a hint text',
     isMandatory: false,
-    showTitle: true,
+    titlePosition: 'inline-title',
     error: false,
     disabled: false,
   },
 };
-Default.parameters ={ controls: { include: [ 'placeholder', 'size', 'layout', 'style', 'state', 'label', 'hintText', 'isMandatory', 'showTitle', 'error', 'disabled','showIcon','iconPosition','icon'] } };
+Default.parameters ={ controls: { include: [ 'placeholder', 'size', 'layout', 'style', 'state', 'label', 'hintText', 'isMandatory', 'titlePosition', 'error', 'disabled','showIcon','iconPosition','icon'] } };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
     value: 'Cannot edit this',
     size: 'small',
-    showTitle: true,
+    titlePosition: 'inline-title',
     layout: 'text',
     state: 'disabled',
   },
 };
-Disabled.parameters = { controls: { include: ['label', 'placeholder', 'size', 'showTitle', 'layout', 'state'] } };
+Disabled.parameters = { controls: { include: ['label', 'placeholder', 'size', 'titlePosition', 'layout', 'state'] } };
 
 export const Required: Story = {
   args: {
@@ -90,10 +95,10 @@ export const Required: Story = {
     placeholder: 'This field is required',
     size: 'small',
     layout: 'text',
-    showTitle: true,
+    titlePosition: 'inline-title',
   },
 };
-Required.parameters = { controls: { include: ['label', 'isMandatory', 'placeholder', 'size', 'layout', 'showTitle'] } };
+Required.parameters = { controls: { include: ['label', 'isMandatory', 'placeholder', 'size', 'layout', 'titlePosition'] } };
 
 export const withLabel: Story = {
   args: {
@@ -101,10 +106,10 @@ export const withLabel: Story = {
     placeholder: 'Enter value',
     size: 'small',
     layout: 'text',
-    showTitle: true
+    titlePosition: 'inline-title'
   },
 };
-withLabel.parameters = { controls: { include: ['label', 'placeholder', 'size', 'layout', 'showTitle'] } };
+withLabel.parameters = { controls: { include: ['label', 'placeholder', 'size', 'layout', 'titlePosition'] } };
 
 export const withError: Story = {
   args: {
@@ -113,8 +118,8 @@ export const withError: Story = {
     placeholder: 'Invalid value',
     size: 'small',
     layout: 'text',
-    showTitle: true,
+    titlePosition: 'inline-title',
     state: 'error',
   },
 };
-withError.parameters = { controls: { include: ['label', 'hintText', 'placeholder', 'size', 'layout', 'showTitle', 'state'] } };
+withError.parameters = { controls: { include: ['label', 'hintText', 'placeholder', 'size', 'layout', 'titlePosition', 'state'] } };

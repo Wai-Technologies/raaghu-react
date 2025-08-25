@@ -1,5 +1,7 @@
 import React from "react";
 import RdsPopover from "./rds-popover";
+import RdsButton from "../rds-button/rds-button";
+import RdsTypography from "../rds-typography/rds-typography";
 import figma from "@figma/code-connect";
 
 /**
@@ -33,7 +35,7 @@ figma.connect(
     },
     example: (props) => (
       <span>
-        <span onClick={() => {}}>Open Popover</span>
+        <RdsButton onClick={() => {}}>Open Popover</RdsButton>
         <RdsPopover
           {...props}
           isOpen={true}
@@ -41,7 +43,7 @@ figma.connect(
           onClose={() => {}}
           title="Simple Popover"
         >
-          <span>This is a simple popover with some basic content.</span>
+          <RdsTypography>This is a simple popover with some basic content.</RdsTypography>
         </RdsPopover>
       </span>
     ),
