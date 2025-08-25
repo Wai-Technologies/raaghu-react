@@ -116,37 +116,6 @@ export const Default: Story = {
     showDescription: true,
   },
 };
-// export const Multiline: Story = {
-//   args: {
-//     message: 'This is the description of the message bar.',
-//     type: 'info',
-//     Icon: true,
-//     showTitle: true,
-//     title: 'Heading Title.',
-//     size: 'medium',
-//     multiline: true,
-//   },
-// };
-
-export const Success: Story = {
-  args: {
-    description: 'This is the description of the message bar.',
-    type: 'success',
-    showIcon: true,
-    showTitle: true,
-    title: 'Heading Title.',
-  },
-};
-
-export const Warning: Story = {
-  args: {
-    description: 'This is the description of the message bar.',
-    type: 'warning',
-    showIcon: true,
-    showTitle: true,
-    title: 'Heading Title.',
-  },
-};
 
 export const Error: Story = {
   args: {
@@ -155,7 +124,7 @@ export const Error: Story = {
     showIcon: true,
     showTitle: true,
     title: 'Heading Title.',
-  },                                                               
+  },
 };
 
 export const Filled: Story = {
@@ -179,3 +148,24 @@ export const Outlined: Story = {
     title: 'Heading Title.',
   },
 };
+
+export const Success: Story = {
+  args: {
+    description: 'This is the description of the message bar.',
+    type: 'success',
+    showIcon: true,
+    showTitle: true,
+    title: 'Heading Title.',
+  },
+};
+
+export const Warning: Story = {
+  args: {
+    description: 'This is the description of the message bar.',
+    type: 'warning',
+    showIcon: true,
+    showTitle: true,
+    title: 'Heading Title.',
+  },
+};
+
