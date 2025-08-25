@@ -7,7 +7,7 @@ import {
   TreeLevel,
   NodeState,
   IconType,
-  RdsCompTreeStructureProps,
+  type RdsCompTreeStructureProps,
   TreeNode,
   getAllNodeIds
 } from './fileTypeIcons';
