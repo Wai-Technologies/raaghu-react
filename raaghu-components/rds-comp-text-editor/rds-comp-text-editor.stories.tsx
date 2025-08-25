@@ -34,7 +34,7 @@ export const Default: Story = {
         label:"Label",
         isMandatory: true,
         rows:6,
-        resizable:true
+        resizable:false
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory','rows','resizable'] } };
