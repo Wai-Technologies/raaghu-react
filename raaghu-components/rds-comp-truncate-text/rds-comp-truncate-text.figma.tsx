@@ -1,5 +1,5 @@
 import React from "react"
-import  RdsCompTruncateText  from "./rds-comp-truncate-text"
+import  RdsCompTruncateText, { TruncateTextState }  from "./rds-comp-truncate-text"
 import figma from "@figma/code-connect"
 
 /**
@@ -16,8 +16,8 @@ figma.connect(
   {
     props: {
       state: figma.enum("💡 State", {
-        "Default": "Default",
-        "Hover": "Hover",
+        "Default": TruncateTextState.Default,
+        "Hover": TruncateTextState.Hover,
       }),
     },
     example: (props) => <RdsCompTruncateText 
