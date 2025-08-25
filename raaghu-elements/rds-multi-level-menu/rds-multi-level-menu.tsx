@@ -97,6 +97,7 @@ export const RdsMultiLevelMenu: React.FC<RdsMultiLevelMenuProps> = ({
       >
         {opts.map((option, idx) => {
           const hasChildren = !!option.children && option.children.length > 0;
+          const isExpandable = type === 'expandable' && hasChildren;
           let isSelected = selectedIndex[level] === idx;
           let isHovered = false;
           // Forced state logic for Storybook/Docs demo (Figma-like controls)
@@ -110,7 +111,7 @@ export const RdsMultiLevelMenu: React.FC<RdsMultiLevelMenuProps> = ({
             <Box key={option.label + idx} sx={{ position: 'relative' }}>
               <MenuItem
                 onClick={
-                  hasChildren
+                  isExpandable
                     ? (e) => {
                         e.stopPropagation();
                         setSubmenuAnchor(level, e.currentTarget as HTMLElement, idx);
@@ -123,7 +124,7 @@ export const RdsMultiLevelMenu: React.FC<RdsMultiLevelMenuProps> = ({
                   ...menuItemStyle,
                 }}
                 className={`${size === 'large' ? 'large' : ''}`}
-                disableRipple={hasChildren}
+                disableRipple={isExpandable}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>
                   {/* Leading selection check for selectable mode to match Figma */}
@@ -134,7 +135,7 @@ export const RdsMultiLevelMenu: React.FC<RdsMultiLevelMenuProps> = ({
                   {option.shortcut && (
                     <Box className={'rds-mlm-shortcut'}>{option.shortcut}</Box>
                   )}
-                  {hasChildren && (
+                  {isExpandable && (
                     <Box
                       ref={arrowRefCb}
                       sx={{ ml: 1, cursor: 'pointer', display: 'flex', alignItems: 'center', zIndex: 2 }}
@@ -150,7 +151,7 @@ export const RdsMultiLevelMenu: React.FC<RdsMultiLevelMenuProps> = ({
                 </Box>
               </MenuItem>
               {/* Nested submenu, positioned to the right of parent */}
-              {hasChildren && openIndexes[level] === idx && renderMenu(option.children!, level + 1)}
+              {isExpandable && openIndexes[level] === idx && renderMenu(option.children!, level + 1)}
             </Box>
           );
         })}
