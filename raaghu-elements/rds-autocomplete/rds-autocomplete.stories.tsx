@@ -123,14 +123,13 @@ export const Default: Story = {
   },
 };
 
-export const WithHelperText: Story = {
+export const Disabled: Story = {
   args: {
     options,
     label: 'Choose an option',
     isMandatory: true,
     placeholder: 'Start typing...',
-    helperText: 'Select one of the available options',
-    showHintText: true,
+    disabled: true,
     isShowCheckbox: false,
     isShowRadio: false,
     isShowUser: false,
@@ -147,21 +146,6 @@ export const Error: Story = {
     placeholder: 'Start typing...',
     error: true,
     helperText: 'Please select a valid option',
-    isShowCheckbox: false,
-    isShowRadio: false,
-    isShowUser: false,
-    userIcon: <UserIcon />,
-    popupIcon: <PopupIcon />,
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    options,
-    label: 'Choose an option',
-    isMandatory: true,
-    placeholder: 'Start typing...',
-    disabled: true,
     isShowCheckbox: false,
     isShowRadio: false,
     isShowUser: false,
@@ -192,6 +176,22 @@ export const Standard: Story = {
     isMandatory: true,
     placeholder: 'Start typing...',
     variant: 'standard',
+    isShowCheckbox: false,
+    isShowRadio: false,
+    isShowUser: false,
+    userIcon: <UserIcon />,
+    popupIcon: <PopupIcon />,
+  },
+};
+
+export const WithHelperText: Story = {
+  args: {
+    options,
+    label: 'Choose an option',
+    isMandatory: true,
+    placeholder: 'Start typing...',
+    helperText: 'Select one of the available options',
+    showHintText: true,
     isShowCheckbox: false,
     isShowRadio: false,
     isShowUser: false,
