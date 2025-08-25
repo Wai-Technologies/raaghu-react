@@ -305,15 +305,14 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
             <div className="rds-comp-details-pane__guest-counter">
               <div>
 <RdsCounter
-  max={98}
-  min={1}
-  onChange={function OY(){}}
-  placeholder={5}
-  showInput
-  size="small"
-  step={2}  
+  defaultValue={5}
+  max={1000}
+  min={0}
+  size="medium"
+  step={1}
   variant="default"
 />
+
               </div>
             </div>
             <div className="rds-comp-details-pane__counter-button-left">
