@@ -159,7 +159,7 @@
   content: '';
   position: absolute;
   bottom: -9px; /* position the arrow just below the tab */
-  left: 68px;
+  left: 75px;
   transform: translateX(-50%);
   width: 0;
   height: 0;
@@ -177,8 +177,13 @@
   overflow: visible !important;
 }
 
-.css-1qltlow-MuiTabs-indicator {
+.css-1qltlow-MuiTabs-indicator,
+.css-1695agp-MuiTabs-indicator {
   display: none !important;
+}
+
+.rds-tabs .css-8itpbe-MuiTabs-indicator {
+  background-color: unset !important;
 }
 
 .MuiTab-root {
@@ -198,7 +203,7 @@
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
   content: "" !important;
   position: absolute !important;
-  left: 150px !important;
+  left: 150px !important; /* Adjusted for new width */
   top: 50% !important;
   right: -12px !important; /* Position to the right of the tab */
   transform: translateY(-50%) !important;
@@ -269,4 +274,81 @@
 .css-nowihk-MuiButtonBase-root-MuiTab-root,
 .css-r0euln-MuiButtonBase-root-MuiTab-root {
   max-width: 150px !important;
+}
+
+// Vertical tabs specific width control
+.MuiTabs-vertical .MuiTab-root {
+  max-width: 150px !important;
+  min-width: 120px !important;
+  width: 150px !important;
+}
+
+// Additional width control for vertical orientation
+.rds-tabs .MuiTabs-vertical {
+  max-width: 150px !important;
+  width: 150px !important;
+}
+
+// Horizontal tabs specific width control
+.MuiTabs-root:not(.MuiTabs-vertical) .MuiTab-root {
+  max-width: 150px !important;
+  min-width: 120px !important;
+  width: 150px !important;
+}
+
+// General tab width control for all orientations
+.MuiTab-root {
+  max-width: 150px !important;
+  min-width: 120px !important;
+  width: 150px !important;
+}
+
+.css-gb4ru6,
+.css-1ar1kv5 {
+  background-color: unset !important;
+}
+
+/* Mobile: allow wrapping to multiple rows so all tabs are visible on small screens.
+   This shows all tab levels without JS changes while preserving click behavior. */
+@media (max-width: 480px) {
+  /* Allow the tabs container to expand vertically and show multiple lines */
+  .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-root,
+  .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scroller,
+  .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scrollableX {
+    overflow: visible !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Allow the tab list to wrap into multiple rows */
+  .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-flexContainer {
+    display: flex !important;
+    gap: 6px;
+    white-space: normal;
+    flex-wrap: wrap !important;
+    align-items: center;
+  }
+
+  /* Make each tab size adapt to content and shrink to fit rows */
+  .rds-tabs:not(.MuiTabs-vertical) .MuiTab-root {
+    flex: 0 1 auto !important;
+    width: auto !important;
+    min-width: 64px !important;
+    max-width: 200px !important;
+    padding: 4px 8px !important;
+    font-size: 0.85rem !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Allow labels to wrap inside a tab if extremely long, but prefer single-line */
+  .rds-tabs:not(.MuiTabs-vertical) .MuiTab-root .rds-tabs__label {
+    overflow: visible;
+    text-overflow: unset;
+    white-space: normal;
+  }
+
+  /* Preserve accessible focus outlines when tabs wrap */
+  .rds-tabs .MuiTab-root:focus-visible {
+    outline: 2px solid var(--rds-color-primary, #1976d2) !important;
+    outline-offset: 2px !important;
+  }
 }

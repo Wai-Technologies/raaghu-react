@@ -15,4 +15,4 @@ const RdsCommentBox: React.FC<RdsCommentBoxProps> = (props) => {
   return <RdsCommentBoxLogic {...props} />;
 };
 
-export default RdsCommentBox;  
+export default RdsCommentBox;

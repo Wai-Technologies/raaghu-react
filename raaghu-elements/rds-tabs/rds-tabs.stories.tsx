@@ -129,7 +129,7 @@ export const ManyTabs: Story = {
   args: {
     tabs: Array.from({ length: 8 }, (_, i) => ({ id: i, label: `Tab ${i + 1}` })),
     activeTab: 0,
-    layout: "flap",
+    layout: "filled",
     leftIcon: 'Person',
     rightIcon: 'Add',
     title: '',
@@ -172,6 +172,7 @@ export const SecondTabActive: Story = {
     layout: 'filled',
     leftIcon: 'Person',
     rightIcon: 'Add',
+    level: 4,
   },
   render: (args) => {
     const { leftIcon, rightIcon, level, ...rest } = args as any;

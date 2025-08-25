@@ -322,4 +322,5 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
 // =========================
 // Export
 // =========================
+RdsCompAdaptiveCards.displayName = 'RdsCompAdaptiveCards';
 export default RdsCompAdaptiveCards;

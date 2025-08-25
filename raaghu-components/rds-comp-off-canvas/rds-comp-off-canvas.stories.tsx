@@ -46,7 +46,7 @@ type Story = StoryObj<typeof RdsCompOffcanvas>;
 export const Default: Story = {
   args: {
     offId: "canvasExample",
-    canvasTitle: "NEW TENENT",
+    canvasTitle: "NEW TENANT",
     scrolling: false,
     placement: RdsOffcanvasPlacement.End, 
     backDrop: RdsOffcanvasBackDrop.Static,
