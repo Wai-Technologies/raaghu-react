@@ -19,7 +19,6 @@ figma.connect(
       isMandatory: figma.boolean("❗ Is Mandatory"),
       label: figma.string("✏️ Label"),
       hintText: figma.string("✍ Hint Text"),
-      showTitle: figma.boolean("🆕 Show Title"),
       placeholder: figma.string("📝 Placeholder - Text"),
       showIcon: figma.boolean("👀 - Show Icon"),
       layout: figma.enum("📱 Layout", {
@@ -45,6 +44,8 @@ figma.connect(
         "Disabled": "disabled"
       }),
     },
-      example: (props) => <RdsInput icon={<Info />} iconPosition="end" {...props} />,
+      example: (props) => <RdsInput
+      titlePosition="title-above"
+      icon={<Info />} iconPosition="end" {...props} />,
   },
 )
