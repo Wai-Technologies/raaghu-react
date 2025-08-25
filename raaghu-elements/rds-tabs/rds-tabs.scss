@@ -261,7 +261,21 @@
    align-items: center;      
    justify-content: center;  
    gap: 8px;                 
-   line-height: 1.5;       
+   line-height: 1.5;
+   text-transform: none !important; /* Ensure our JS capitalization isn't overridden */       
+}
+
+/* Ensure tab text respects our JavaScript capitalization */
+.rds-tabs .MuiTab-root .rds-tabs__label span {
+  text-transform: none !important;
+}
+
+/* Override any Material-UI or global uppercase transforms */
+.rds-tabs .MuiTab-root,
+.rds-tabs .MuiTab-root *,
+.rds-tabs .MuiButtonBase-root,
+.rds-tabs .MuiButtonBase-root * {
+  text-transform: none !important;
 }
 
 .rds-tabs__icon {
