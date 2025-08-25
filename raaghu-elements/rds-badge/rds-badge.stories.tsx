@@ -60,6 +60,22 @@ export const Default: Story = {
   },
 };
 
+export const Dot: Story = {
+  args: {
+    variant: 'dot',
+    color: 'success',
+    children: <Mail />,
+  },
+};
+
+export const WithAvatar: Story = {
+  args: {
+    badgeContent: 2,
+    color: 'error',
+    children: <Avatar>U</Avatar>,
+  },
+};
+
 export const WithIcon: Story = {
   args: {
     badgeContent: 10,
@@ -72,21 +88,6 @@ export const WithIcon: Story = {
   },
 };
 
-export const WithAvatar: Story = {
-  args: {
-    badgeContent: 2,
-    color: 'error',
-    children: <Avatar>U</Avatar>,
-  },
-};
-
-export const Dot: Story = {
-  args: {
-    variant: 'dot',
-    color: 'success',
-    children: <Mail />,
-  },
-};
 export const WithText: Story = {
   args: {
     badgeContent: 'Badge',
