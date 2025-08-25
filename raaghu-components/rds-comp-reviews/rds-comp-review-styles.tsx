@@ -40,14 +40,17 @@ const Style1 = ({ item }: { item: Item }) => {
             displayStyle="name-bottom"
           />
         </Box>
+        <Box>
+                  <Typography variant="subtitle1" color="text.secondary">{item.username}</Typography>
+        </Box>
         <Box sx={{ my: 3, display: 'flex', justifyContent: 'center' }}>
          <RdsRating
-          level={3}
           styles="default"
           type="star"
           value={rating}
           size="medium"
           onChange={handleRatingChange}
+            precision={0.5}
           readOnly={false}
           />
         </Box>
@@ -104,14 +107,10 @@ const Style3 = ({ item }: { item: Item }) => {
         <RdsAvatar
           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
           title={item.name}
+          subText={formatDate(item.date)}
           size="medium"
           displayStyle="with-name"
         />
-        <Box sx={{ ml: 2 }}>
-          <Typography variant="caption" color="text.secondary">
-            {formatDate(item.date)}
-          </Typography>
-        </Box>
       </Box>
 
       {/* Review content */}
@@ -606,6 +605,8 @@ const Style11 = ({ item }: { item: Item }) => {
           <RdsAvatar
             src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
             title={item.name}
+            alt={item.name}
+            showName={false}
             size="medium"
           />
         </Box>
@@ -626,6 +627,7 @@ const Style11 = ({ item }: { item: Item }) => {
             size="medium"
             onChange={handleRatingChange}
             readOnly={false}
+            precision={0.5}
           />
           <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
         </Box>
@@ -665,6 +667,7 @@ const Style12 = ({ item }: { item: Item }) => {
             size="medium"
             onChange={handleRatingChange}
             readOnly={false}
+            precision={0.5}
           />
           <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
         </Box>
