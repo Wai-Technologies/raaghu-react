@@ -36,13 +36,13 @@ const menuPaperStyle = {
 };
 
 
-export const RdsMultiLevelMenu: React.FC<RdsMultiLevelMenuProps> = ({
+export const RdsMultiLevelMenu = ({
   options,
   type = 'expandable',
   size = 'default',
   state = 'default',
   onSelect,
-}) => {
+}:RdsMultiLevelMenuProps) => {
   // Store anchor elements for each menu level
   const [anchorEls, setAnchorEls] = useState<(null | HTMLElement)[]>([null]);
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
