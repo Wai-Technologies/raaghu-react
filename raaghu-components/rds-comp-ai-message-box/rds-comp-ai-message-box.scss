@@ -1,0 +1,77 @@
+
+
+// RDS AI Message Box Component Styles
+.rds-comp-ai-message-box {
+  width: 100%;
+  display: block;
+  &__container {
+    padding: var(--rds-spacing-md, 16px);
+    display: flex;
+    flex-direction: column;
+  }
+  &__row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  &__message {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  &__image-wrapper {
+    margin-left: 49px;
+    .rds-comp-ai-message-box__image {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+  }
+  &--border {
+    border: 1px solid var(--rds-color-border, #ccc);
+  }
+  &--rounded {
+    border-radius: var(--rds-border-radius, 8px);
+  }
+  &--spaced {
+    margin: var(--rds-spacing-sm, 8px);
+  }
+  &--ms-5 {
+    margin-left: 32px;
+  }
+  &--word-wrap {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  @media (max-width: 768px) {
+    &__row {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    &__image-wrapper {
+      margin-left: 10px;
+      align-items: flex-start;
+      .rds-comp-ai-message-box__image {
+        width: 50px;
+      }
+    }
+  }
+  @media (max-width: 568px) {
+    &__container {
+      padding: var(--rds-spacing-xs, 8px);
+    }
+    &__row {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    &__image-wrapper {
+      margin-left: 10px;
+      align-items: flex-start;
+      .rds-comp-ai-message-box__image {
+        width: 50px;
+      }
+    }
+    &--spaced {
+      margin-top: 1px;
+    }
+  }
+}
