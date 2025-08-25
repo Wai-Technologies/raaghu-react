@@ -87,7 +87,7 @@ export const Dot: Story = {
     children: <Mail />,
   },
 };
-export const Badge: Story = {
+export const WithText: Story = {
   args: {
     badgeContent: 'Badge',
     color: 'secondary',

@@ -77,6 +77,7 @@ const meta: Meta<typeof RdsAlert> = {
       defaultValue: false,
     },
     variantStyle: {
+      name: 'style', 
       control: 'select',
       options: ['style1', 'style2', 'style3'],
       description: 'The style variant of the alert',
