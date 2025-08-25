@@ -57,6 +57,14 @@ const RdsTabs = ({
   showRightIcon = true,
   ...props
 }:RdsTabsProps) => {
+  // Helper function to capitalize only the first letter
+  const capitalizeFirstLetter = (text: string) => {
+    if (typeof text !== 'string' || text.length === 0) return text;
+    const result = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    console.log(`Capitalizing: "${text}" -> "${result}"`); // Debug log
+    return result;
+  };
+
   const handleChange = (event: React.SyntheticEvent, newValue: any) => {
     if (onTabChange) {
       onTabChange(newValue);
@@ -90,7 +98,7 @@ const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`
             {tab.leftIcon && (
               <span className="rds-tabs__icon rds-tabs__icon--left">{tab.leftIcon}</span>
             )}
-            <span>{tab.label}</span>
+            <span>{capitalizeFirstLetter(tab.label)}</span>
             {tab.rightIcon && (
               <span className="rds-tabs__icon rds-tabs__icon--right">{tab.rightIcon}</span>
             )}
@@ -102,7 +110,7 @@ const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`
             value={tab.id}
             label={labelContent}
             disabled={tab.disabled}
-            title={tab.title}
+            title={tab.title ? capitalizeFirstLetter(tab.title) : capitalizeFirstLetter(tab.label)}
           />
         );
       })}
