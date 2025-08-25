@@ -45,12 +45,12 @@ const Style1 = ({ item }: { item: Item }) => {
         </Box>
         <Box sx={{ my: 3, display: 'flex', justifyContent: 'center' }}>
          <RdsRating
-          level={3}
           styles="default"
           type="star"
           value={rating}
           size="medium"
           onChange={handleRatingChange}
+            precision={0.5}
           readOnly={false}
           />
         </Box>
@@ -627,6 +627,7 @@ const Style11 = ({ item }: { item: Item }) => {
             size="medium"
             onChange={handleRatingChange}
             readOnly={false}
+            precision={0.5}
           />
           <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
         </Box>
@@ -666,6 +667,7 @@ const Style12 = ({ item }: { item: Item }) => {
             size="medium"
             onChange={handleRatingChange}
             readOnly={false}
+            precision={0.5}
           />
           <Typography className="rating-value">{item.reviews || "4.75"}</Typography>
         </Box>
