@@ -268,15 +268,16 @@ const defaultColumns = [
     id: 'user', 
     label: 'Text', 
     type: 'text' as const,
-    minWidth: 230,
+    minWidth: 250,
     format: () => (
       <RdsAvatar
         alt="User Avatar"
-        designation="Developer"
+        subText="Developer"
         displayStyle="with-name"
-        name="Wai Technologies"
+        title="Wai Technologies"
         showDesignation
         showName
+        size="small"
       />
     )
   },

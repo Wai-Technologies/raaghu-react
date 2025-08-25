@@ -140,7 +140,10 @@ const RdsTable = ({
                 <MuiTableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  style={{ 
+                    minWidth: column.minWidth,
+                    width: column.minWidth 
+                  }}
                   className="rds-table__header"
                 >
                   {column.type === 'checkbox' ? (
@@ -183,6 +186,10 @@ const RdsTable = ({
                       <MuiTableCell 
                         key={column.id} 
                         align={column.align}
+                        style={{ 
+                          minWidth: column.minWidth,
+                          width: column.minWidth 
+                        }}
                         className={cellClass}
                       >
                         {renderCellContent(column, value, row)}
