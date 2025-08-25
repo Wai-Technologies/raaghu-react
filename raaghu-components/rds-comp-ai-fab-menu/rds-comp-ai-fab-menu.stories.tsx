@@ -1,0 +1,70 @@
+import React from "react";
+import RdsCompAiFabMenu from "./rds-comp-ai-fab-menu";
+import { Meta, StoryObj } from "@storybook/react-vite";
+
+const meta: Meta = {
+    title: 'Components/AI ChatBox/Fab Menu',
+    component: RdsCompAiFabMenu,
+    parameters: {
+        layout: 'padded',
+        docs:{
+            description: {component: `The **Fab Menu** component is a floating action button that expands into a collapsible menu, providing quick access to a list of actions. It supports multiple color variants such as \`primary\`, \`secondary\`, \`success\`, \`info\`, \`warning\`, \`danger\`, \`dark\`, and \`light\`, and offers size options \`small\`, \`medium\`, and \`large\` for flexible UI integration. The button can be displayed in either circular (default) or rectangular shape using the \`isRectangular\` prop. The \`listItems\` prop defines the menu options, each with properties like \`value\`, \`key\`, \`icon\`, and customizable icon dimensions. This component automatically registers its required icons (list, refresh, export, delete, download) with the AI Icon component, enabling rich and intuitive menu entries. This component is ideal for providing contextual shortcuts in applications, enhancing user productivity with an elegant, space-saving interface.`}
+
+        }
+    },
+    tags: ['autodocs'],
+    argTypes: {
+        colorVariant: {
+            options: [
+                "primary",
+                "secondary",
+                "success",
+                "info",
+                "warning",
+                "danger",
+                "dark",
+                "light",
+            ],
+            control: { type: "select" },
+        },
+        size: {
+            options: ["small", "medium", "large"],
+            control: { type: "select" },
+        },
+        alignment: {
+            options: ["left", "right"],
+            control: { type: "select" },
+        },
+        menuIcon: {
+            options: ["list", "users", "person-outline", "refresh", "export", "delete", "download"],
+            control: { type: "select" },
+            description: "Icon for the fab menu button (icons registered by this component)"
+        },
+        backgroundType: {
+            options: ["circular", "rectangular", "none"],
+            control: { type: "select" },
+            description: "Background type for the menu button"
+        },
+    },
+} satisfies Meta<typeof RdsCompAiFabMenu>;
+
+export default meta;
+type Story = StoryObj<typeof RdsCompAiFabMenu>;
+
+export const Default: Story = {
+    args: {
+        colorVariant: "primary",
+        size: "medium",
+        menuIcon: "list",
+        alignment: "left",
+        backgroundType: "circular",
+        listItems: [
+            { value: "New Role", some: "value", key: "new", icon: "users", iconWidth: "24px", iconHeight: "24px" },
+            { value: "Refresh", some: "value", key: "refresh", icon: "refresh", iconWidth: "24px", iconHeight: "24px" },
+            { value: "Export to excel", some: "value", key: "export", icon: "export", iconWidth: "24px", iconHeight: "24px" },
+            { value: "Delete", some: "value", key: "delete", icon: "delete", iconWidth: "24px", iconHeight: "24px" },
+            { value: "Download", some: "value", key: "download", icon: "download", iconWidth: "24px", iconHeight: "24px" },
+        ]
+    }
+} satisfies Story;
+Default.parameters = { controls: { include: ['colorVariant', 'menuIcon', 'size', 'backgroundType', 'alignment', 'listItems'] } };

@@ -120,12 +120,12 @@
     // Secondary color hover state
     &.rds-checkbox--secondary {
       .MuiCheckbox-root:not(.Mui-disabled) {
-        color: var(--rds-secondary-main, #e91e63);
+        color: var(--rds-secondary-main, #1827BB);
       }
       
       &.rds-checkbox--circular {
         .MuiCheckbox-root:not(.Mui-disabled)::before {
-          border-color: var(--rds-secondary-main, #e91e63);
+          border-color: var(--rds-secondary-main, #1827BB);
           box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, rgba(233, 30, 99, 0.1));
         }
       }
@@ -167,7 +167,7 @@
     .MuiCheckbox-root {
       &.Mui-checked,
       &.MuiCheckbox-indeterminate {
-        color: var(--rds-secondary-main, #e91e63);
+        color: var(--rds-secondary-main, #1827BB);
       }
     }
     
@@ -175,12 +175,12 @@
       .MuiCheckbox-root {
         &.Mui-checked::before,
         &.MuiCheckbox-indeterminate::before {
-          background-color: var(--rds-secondary-main, #e91e63);
-          border-color: var(--rds-secondary-main, #e91e63);
+          background-color: var(--rds-secondary-main, #1827BB);
+          border-color: var(--rds-secondary-main, #1827BB);
         }
         
         &:hover:not(.Mui-disabled)::before {
-          border-color: var(--rds-secondary-main, #e91e63);
+          border-color: var(--rds-secondary-main, #1827BB);
           box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, rgba(233, 30, 99, 0.1));
         }
       }
@@ -284,17 +284,17 @@
       .MuiCheckbox-root {
         &.Mui-checked::before,
         &.MuiCheckbox-indeterminate::before {
-          background-color: var(--rds-secondary-main, #e91e63);
-          border-color: var(--rds-secondary-main, #e91e63);
+          background-color: var(--rds-secondary-main, #1827BB);
+          border-color: var(--rds-secondary-main, #1827BB);
         }
         
         &:hover:not(.Mui-disabled)::before {
-          border-color: var(--rds-secondary-main, #e91e63);
+          border-color: var(--rds-secondary-main, #1827BB);
           box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10, rgba(233, 30, 99, 0.1));
         }
         
         &:focus-visible::before {
-          box-shadow: 0 0 0 2px var(--rds-secondary-main, #e91e63);
+          box-shadow: 0 0 0 2px var(--rds-secondary-main, #1827BB);
         }
       }
     }
