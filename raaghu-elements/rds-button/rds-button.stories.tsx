@@ -55,7 +55,7 @@ const meta: Meta<typeof RdsButton> = {
     },
     layout: {
       control: 'select',
-      options: ["Icon + Text", "Icon Only", "Text Only"],
+      options: ["icon+text", "icon-only", "text-only"],
       description: 'The layout of the button',
     },
     showLeftIcon: {

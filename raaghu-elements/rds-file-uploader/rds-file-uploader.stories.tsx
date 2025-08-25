@@ -67,6 +67,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     title: 'Upload your files',
+    mode:'default',
     multiple: true,
      showTitle: true,
     isMandatory: true,
@@ -85,6 +86,7 @@ export const Default: Story = {
 export const SingleFile: Story = {
   args: {
     title: 'Upload a single file',
+     mode:'default',
     showTitle: true,
     isMandatory: true,
     multiple: false,
@@ -102,6 +104,7 @@ export const ImagesOnly: Story = {
   args: {
     title: 'Upload images only',
     showTitle: true,
+     mode:'default',
     isMandatory: true,
     accept: "image/*",
     multiple: true,
@@ -120,6 +123,7 @@ export const NoDragAndDrop: Story = {
   args: {
     title: 'No drag and drop',
     showTitle: true,
+     mode:'default',
     isMandatory: true,
     dragAndDrop: false,
     multiple: true,
@@ -134,6 +138,7 @@ export const NoDragAndDrop: Story = {
 export const NoPreview: Story = {
   args: {
     title: 'No preview',
+     mode:'default',
     showTitle: true,
     isMandatory: true,
     showPreview: false,
@@ -149,6 +154,7 @@ export const NoPreview: Story = {
 export const DocumentsOnly: Story = {
   args: {
     title: 'Documents only',
+     mode:'default',
     showTitle: true,
     isMandatory: true,
     accept: ".pdf,.doc,.docx,.txt",
@@ -168,6 +174,7 @@ export const Disabled: Story = {
   args: {
     title: 'Disabled uploader',
     showTitle: true,
+     mode:'default',
     isMandatory: true,
     disabled: true,
     multiple: true,
@@ -183,6 +190,7 @@ export const WithValidation: Story = {
 args: {
   title: 'With validation',
   showTitle: true,
+   mode:'default',
   isMandatory: true,
   multiple: true,
   maxFiles: 3,
@@ -201,6 +209,7 @@ export const Interactive: Story = {
 args: {
   title: 'Interactive uploader',
   showTitle: true,
+   mode:'default',
   isMandatory: true,
   multiple: true,
   maxFiles: 5,
