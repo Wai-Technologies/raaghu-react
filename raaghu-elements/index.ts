@@ -59,6 +59,7 @@ export { default as RdsCounter } from './rds-counter/rds-counter';
 export { default as RdsBanner } from './rds-banner/rds-banner';
 export { default as RdsFileUploader } from './rds-file-uploader/rds-file-uploader';
 export {default as RdsButtonDropdown} from './rds-button-dropdown/rds-button-dropdown';
+export {default as RdsMultiLevelMenu} from './rds-multi-level-menu/rds-multi-level-menu';
 
 export type { RdsButtonProps } from './rds-button/rds-button';
 export type { RdsTypographyProps } from './rds-typography/rds-typography';
