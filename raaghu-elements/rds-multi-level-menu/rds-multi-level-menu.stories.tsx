@@ -57,5 +57,6 @@ export const Default:Story ={
       options: options,
       type: 'expandable',
       size: 'default',
+      state: 'default',
    }
 }

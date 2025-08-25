@@ -99,10 +99,12 @@ export const RdsMultiLevelMenu: React.FC<RdsMultiLevelMenuProps> = ({
           const hasChildren = !!option.children && option.children.length > 0;
           const isExpandable = type === 'expandable' && hasChildren;
           let isSelected = selectedIndex[level] === idx;
-          let isHovered = false;
           // Forced state logic for Storybook/Docs demo (Figma-like controls)
-          if (state === 'hover' && idx === 0) isHovered = true;
-          if (state === 'selected' && idx === 0) isSelected = true;
+          const isForcedHover = state === 'hover' && idx === 0;
+          const isForcedSelected = state === 'selected' && idx === 0;
+          if (isForcedSelected && type === 'selectable') {
+            isSelected = true;
+          }
           // Callback ref for the arrow icon wrapper
           const arrowRefCb = (node: HTMLDivElement | null) => {
             // No-op, but could be used for focus if needed
@@ -123,7 +125,7 @@ export const RdsMultiLevelMenu: React.FC<RdsMultiLevelMenuProps> = ({
                 sx={{
                   ...menuItemStyle,
                 }}
-                className={`${size === 'large' ? 'large' : ''}`}
+                className={`${size === 'large' ? 'large' : ''} ${isForcedHover ? 'force-hover' : ''} ${isForcedSelected && type !== 'selectable' ? 'force-selected' : ''}`}
                 disableRipple={isExpandable}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>

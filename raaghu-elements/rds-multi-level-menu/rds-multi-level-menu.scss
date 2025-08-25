@@ -20,11 +20,13 @@
     border-radius: 8px;
     transition: background-color 0.15s ease, color 0.15s ease;
     color: #101828;
-    &:hover {
+    &:hover,
+    &.force-hover {
       background-color: #f2f4f7;
     }
     &.Mui-selected,
-    &.Mui-selected:hover {
+    &.Mui-selected:hover,
+    &.force-selected {
       background-color: #eef2ff !important;
       color: #2a3b8f;
     }
