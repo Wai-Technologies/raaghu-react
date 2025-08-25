@@ -1,5 +1,5 @@
 import React from "react"
-import  RdsCompVideoPlayer  from "./rds-comp-video-player"
+import  RdsCompVideoPlayer, { VideoPlayerType }  from "./rds-comp-video-player"
 import figma from "@figma/code-connect"
 
 /**
@@ -16,9 +16,9 @@ figma.connect(
   {
     props: {
       type: figma.enum("⚠️ Type", {
-        Default: "Default",
-        Youtube: "YouTube",
-        Vimeo: "Vimeo",
+        Default: VideoPlayerType.Default,
+        Youtube: VideoPlayerType.YouTube,
+        Vimeo: VideoPlayerType.Vimeo,
       }),
     },
     example: (props) => <RdsCompVideoPlayer {...props} width="480px" height="240px" autoplay={false} muted={false} videoLink="" />,
