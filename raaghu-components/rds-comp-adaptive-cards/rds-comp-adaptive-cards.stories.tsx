@@ -10,11 +10,11 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
         layout: 'padded',
         docs: {
             description: {
-                component: '**Adaptive Cards**',
+                component: '**Adaptive Cards**', 
             },
         },
     },
-    tags: ['autodocs'],
+    tags: ['autodocs'], 
     argTypes: {
         type: {
             control: { type: 'select' },
@@ -42,6 +42,15 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
         cardText: { control: 'text', description: 'Text for ActivityUpdateCard' },
         closeIcon: { control: 'boolean', description: 'Show close icon' },
         label: { control: 'text', description: 'Label for InputFormCard' },
+        nameLabel: { control: 'text', description: 'Label for Name field in InputFormCard' },
+        namePlaceholder: { control: 'text', description: 'Placeholder for Name field in InputFormCard' },
+        emailLabel: { control: 'text', description: 'Label for Email field in InputFormCard' },
+        emailPlaceholder: { control: 'text', description: 'Placeholder for Email field in InputFormCard' },
+        phoneLabel: { control: 'text', description: 'Label for Phone field in InputFormCard' },
+        phonePlaceholder: { control: 'text', description: 'Placeholder for Phone field in InputFormCard' },
+        requiredText: { control: 'text', description: 'Required field indicator in InputFormCard' },
+        calendarReminderPlaceholder: { control: 'text', description: 'Calendar Reminder Placeholder' },
+        calendarReminderLabel: { control: 'text', description: 'Calendar Reminder Label' },
         block: { control: 'boolean', description: 'Block layout' },
         images: { control: 'object', description: 'Images for ImageGalleryCard' },
         leagueName: { control: 'text', description: 'League Name' },
@@ -68,7 +77,7 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
 export default meta;
 
 
-export const defaultProps = {
+export const Default = {
      activityUpdate: {
         cardTitle: 'Title',
         showHeader: true,
@@ -86,7 +95,7 @@ export const defaultProps = {
         date: 'Created Wed, 30 Apr 2025',
         activityProps: {
             avatar:
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU',
+                'assets/your-logo.png',
             radioOptions: [
                 { value: 'option1', label: 'Sub - Title 1', desc: 'Description' },
                 { value: 'option2', label: 'Sub - Title 2', desc: 'Description' },
@@ -100,13 +109,21 @@ export const defaultProps = {
         showBtn2: true,
         btn1style: 'outline',
         btn2style: 'outline',
-        btn1Label: 'Snooze',
-        btn2Label: "I'll be Late",
         block: false,
         smallText: '20:30 - 09:30',
         label: 'Conf Room 112/3377 (10)',
         showDismiss: false,
         closeIcon: false,
+        calendarReminderLabel: 'Snooze for',
+        placeholder: 'Select duration',
+        options: [
+            { value: '5min', label: '5 Minutes' },
+            { value: '15min', label: '15 Minutes' },
+            { value: '30min', label: '30 Minutes' }
+        ],
+        selectPlaceholder: 'Select duration',
+        snoozeLabel: 'Snooze',
+        lateLabel: "I'll be Late"
     },
     imageGallery: {
         cardTitle: 'Here are some cool photos',
@@ -127,30 +144,57 @@ export const defaultProps = {
         ],
     },
     inputForm: {
-        cardTitle: 'Tell us about yourself',
-        showHeader: true,
-        showBtn1: true,
-        showBtn2: false,
-        btn1style: 'filled',
-        btn1Label: 'Submit',
-        block: true,
-        smallText: "Don't worry, we'll never share or sell your information.",
-        label:
-            'We just need a few more details to get you booked for the trip of a lifetime!',
-        showDismiss: false,
-        closeIcon: false,
-    },
-    restaurantOrder: {
-        cardTitle: 'Malt & Vine Order Form',
-        showHeader: true,
-        showBtn1: true,
-        showBtn2: false,
-        btn1style: 'filled',
-        btn1Label: 'Place Order',
-        block: true,
-        showDismiss: false,
-        closeIcon: false,
-    },
+            cardTitle: 'Tell us about yourself',
+            showHeader: true,
+            showBtn1: true,
+            showBtn2: false,
+            btn1style: 'filled',
+            btn1Label: 'Submit',
+            block: true,
+            smallText: "Don't worry, we'll never share or sell your information.",
+            label: 'We just need a few more details to get you booked for the trip of a lifetime!',
+            showDismiss: false,
+            closeIcon: false,
+            nameLabel: 'Name (Last, First)',
+            namePlaceholder: 'Enter Name',
+            emailLabel: 'Email',
+            emailPlaceholder: 'Enter Email',
+            phoneLabel: 'Phone Number',
+            phonePlaceholder: 'Enter Phone Number',
+            requiredText: '*',
+            },
+        restaurantOrder: {
+                cardTitle: 'Malt & Vine Order Form',
+                showHeader: true,
+                showBtn1: true,
+                showBtn2: false,
+                btn1style: 'filled',
+                btn1Label: 'Place Order',
+                block: true,
+                showDismiss: false,
+                closeIcon: false,
+                entreeLabel: 'Which entree would you like?',
+                entreePlaceholder: 'Select an entree',
+                entreeOptions: [
+                    { value: 'option1', label: 'Option 1' },
+                    { value: 'option2', label: 'Option 2' },
+                    { value: 'option3', label: 'Option 3' },
+                ],
+                sideLabel: 'Which side would you like?',
+                sidePlaceholder: 'Select a side',
+                sideOptions: [
+                    { value: 'option1', label: 'Option 1' },
+                    { value: 'option2', label: 'Option 2' },
+                    { value: 'option3', label: 'Option 3' },
+                ],
+                drinkLabel: 'Which drink would you like?',
+                drinkPlaceholder: 'Select a drink',
+                drinkOptions: [
+                    { value: 'option1', label: 'Option 1' },
+                    { value: 'option2', label: 'Option 2' },
+                    { value: 'option3', label: 'Option 3' },
+                ],
+        },
     footballScorecard: {
         closeIcon: true,
         leagueName: 'La Liga',
@@ -170,24 +214,39 @@ export const defaultProps = {
     },
 };
 
-export const CalendarReminder: StoryObj<typeof RdsCompAdaptiveCards> = {
+export const ActivityUpdateCard: StoryObj<typeof RdsCompAdaptiveCards> = {
     args: {
-        type: 'CalenderReminder',
-        ...defaultProps.calenderReminder,
+        type: 'ActivityUpdateCard',
+        ...Default.activityUpdate,
     },
     parameters: {
         controls: {
             include: [
-                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'btn1Label', 'btn2Label', 'block', 'smallText', 'label', 'showDismiss', 'closeIcon'
+                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'btn1Label', 'btn2Label', 'showDismiss', 'closeIcon',
+                'cardText', 'name', 'date', 'activityProps'
             ]
         }
     }
 };
 
+export const CalendarReminder: StoryObj<typeof RdsCompAdaptiveCards> = {
+    args: {
+        type: 'CalenderReminder',
+        ...Default.calenderReminder,
+    },
+    parameters: {
+        controls: {
+            include: [
+                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'block', 'smallText', 'label', 'calendarReminderLabel', 'placeholder', 'options', 'selectPlaceholder', 'snoozeLabel', 'lateLabel', 'showDismiss', 'closeIcon'
+            ]
+        }
+    }
+}; 
+
 export const ImageGallery: StoryObj<typeof RdsCompAdaptiveCards> = {
     args: {
         type: 'ImageGallery',
-        ...defaultProps.imageGallery,
+        ...Default.imageGallery,
     },
     parameters: {
         controls: {
@@ -201,12 +260,13 @@ export const ImageGallery: StoryObj<typeof RdsCompAdaptiveCards> = {
 export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
     args: {
         type: 'InputForm',
-        ...defaultProps.inputForm,
+        ...Default.inputForm,
     },
     parameters: {
         controls: {
             include: [
-                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn1Label', 'block', 'smallText', 'label', 'showDismiss', 'closeIcon'
+                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn1Label', 'block', 'smallText', 'label', 'showDismiss', 'closeIcon',
+                'nameLabel', 'namePlaceholder', 'emailLabel', 'emailPlaceholder', 'phoneLabel', 'phonePlaceholder', 'requiredText'
             ]
         }
     }
@@ -215,12 +275,15 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
 export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
     args: {
         type: 'RestaurantOrder',
-        ...defaultProps.restaurantOrder,
+        ...Default.restaurantOrder,
     },
     parameters: {
         controls: {
             include: [
-                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn1Label', 'block', 'showDismiss', 'closeIcon'
+                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn1Label', 'block', 'showDismiss', 'closeIcon',
+                'entreeLabel', 'entreePlaceholder', 'entreeOptions',
+                'sideLabel', 'sidePlaceholder', 'sideOptions',
+                'drinkLabel', 'drinkPlaceholder', 'drinkOptions'
             ]
         }
     }
@@ -229,12 +292,13 @@ export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
 export const FootballScorecard: StoryObj<typeof RdsCompAdaptiveCards> = {
     args: {
         type: 'FootballScorecard',
-        ...defaultProps.footballScorecard,
+        ...Default.footballScorecard,
+        finalText: 'Final',
     },
     parameters: {
         controls: {
             include: [
-                'closeIcon', 'leagueName', 'leagueAvatar', 'isLive', 'matchDate', 'isFinal', 'homeTeamName', 'homeTeamLogo', 'homeTeamStatus', 'awayTeamName', 'awayTeamLogo', 'awayTeamStatus', 'homeScore', 'awayScore', 'time'
+                'closeIcon', 'leagueName', 'leagueAvatar', 'isLive', 'matchDate', 'isFinal', 'homeTeamName', 'homeTeamLogo', 'homeTeamStatus', 'awayTeamName', 'awayTeamLogo', 'awayTeamStatus', 'homeScore', 'awayScore', 'time', 'finalText'
             ]
         }
     }
