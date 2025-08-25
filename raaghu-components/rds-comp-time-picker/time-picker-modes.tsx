@@ -70,6 +70,10 @@ export const CompactTimePicker: React.FC<CompactTimePickerProps> = ({
           <option value="AM">AM</option>
           <option value="PM">PM</option>
         </select>
+        <span
+          className="time-control down"
+          onClick={() => setTempPeriod(tempPeriod === 'AM' ? 'PM' : 'AM')}
+        >▼</span>
       </div>
     </div>
   );
@@ -79,23 +83,41 @@ interface DefaultTimePickerProps {
   hours: number;
   minutes: number;
   period: string;
+  onIncrementHour: () => void;
+  onDecrementHour: () => void;
+  onIncrementMinute: () => void;
+  onDecrementMinute: () => void;
+  onTogglePeriod: () => void;
 }
 
 export const DefaultTimePicker: React.FC<DefaultTimePickerProps> = ({ 
   hours, 
   minutes, 
-  period 
+  period,
+  onIncrementHour,
+  onDecrementHour,
+  onIncrementMinute,
+  onDecrementMinute,
+  onTogglePeriod,
 }) => {
   return (
     <div className="time-values-display-row">
       <div className="time-value-display">
+        <span className="time-control up" onClick={onIncrementHour}>▲</span>
         {String(hours).padStart(2, '0')}
+        <span className="time-control down" onClick={onDecrementHour}>▼</span>
       </div>
       <div className="time-value-colon">:</div>
       <div className="time-value-display">
+        <span className="time-control up" onClick={onIncrementMinute}>▲</span>
         {String(minutes).padStart(2, '0')}
+        <span className="time-control down" onClick={onDecrementMinute}>▼</span>
       </div>
-      <div className="time-value-period">{period}</div>
+      <div className="time-value-display">
+        <span className="time-control up" onClick={onTogglePeriod}>▲</span>
+        <span className="time-value-period" style={{cursor: 'pointer'}} onClick={onTogglePeriod}>{period}</span>
+        <span className="time-control down" onClick={onTogglePeriod}>▼</span>
+      </div>
     </div>
   );
 };
