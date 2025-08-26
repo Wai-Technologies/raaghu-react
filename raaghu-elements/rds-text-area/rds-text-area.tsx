@@ -38,7 +38,7 @@ export interface RdsTextAreaProps {
   customClasses?: string;
 }
 
-const RdsTextArea: React.FC<RdsTextAreaProps> = (props) => {
+const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
   const [isValid, setIsValid] = useState(true);
   const [currentState, setCurrentState] = useState(props.state || TextareaState.Default);
   // stable id for label/input association when id prop is not provided
