@@ -28,7 +28,7 @@ export interface RdsButtonDropdownProps {
   showRadio?: boolean;
 }
 
-const RdsButtonDropdown: React.FC<RdsButtonDropdownProps> = ({
+const RdsButtonDropdown = ({
   buttonText = 'Button',
   options,
   multiSelect = false,
@@ -39,7 +39,7 @@ const RdsButtonDropdown: React.FC<RdsButtonDropdownProps> = ({
   showUserAvatar = true,
   showRadio = true,
   onChange,
-}) => {
+}:RdsButtonDropdownProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState<(string | number)[]>(
