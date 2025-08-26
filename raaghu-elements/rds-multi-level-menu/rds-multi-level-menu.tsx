@@ -176,4 +176,5 @@ export const RdsMultiLevelMenu = ({
   );
 };
 
+RdsMultiLevelMenu.displayName = 'RdsMultiLevelMenu';
 export default RdsMultiLevelMenu;
