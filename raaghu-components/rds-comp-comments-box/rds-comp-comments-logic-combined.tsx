@@ -67,13 +67,7 @@ export function useCommentsBoxLogic(mentionUsers?: string[]) {
   const [search, setSearch] = useState('');
   const mentionBtnRef = useRef<HTMLButtonElement>(null);
   const mentionDropdownRef = useRef<HTMLDivElement>(null);
-  const users = mentionUsers || [
-    'John Doe',
-    'Harry Cane',
-    'Romella',
-    'Jackson',
-    'Stephen',
-  ];
+  const users = mentionUsers || [];
   const filteredUsers = users.filter((user) =>
     user.toLowerCase().includes(search.toLowerCase()) 
   );
