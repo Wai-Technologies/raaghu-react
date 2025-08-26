@@ -49,6 +49,11 @@ const meta: Meta<typeof RdsInput> = {
       },
       description: 'Custom icon to display',
     },
+    titlePosition: {
+      control: 'select',
+      options: ['inline-title', 'title-above'],
+      description: 'Position of the title',
+    },
   },
 };
 
@@ -65,21 +70,23 @@ export const Default: Story = {
     label: 'Input Label',
     hintText: 'This is a hint text',
     isMandatory: false,
-    showTitle: true,
+    titlePosition: 'inline-title',
     error: false,
     disabled: false,
   },
 };
+Default.parameters ={ controls: { include: [ 'placeholder', 'size', 'layout', 'style', 'state', 'label', 'hintText', 'isMandatory', 'titlePosition', 'error', 'disabled','showIcon','iconPosition','icon'] } };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
     value: 'Cannot edit this',
     size: 'small',
-    showTitle: true,
+    titlePosition: 'inline-title',
     layout: 'text',
     state: 'disabled',
   },
 };
+Disabled.parameters = { controls: { include: ['label', 'placeholder', 'size', 'titlePosition', 'layout', 'state'] } };
 
 export const Required: Story = {
   args: {
@@ -88,27 +95,31 @@ export const Required: Story = {
     placeholder: 'This field is required',
     size: 'small',
     layout: 'text',
-    showTitle: true,
+    titlePosition: 'inline-title',
   },
 };
-export const WithLabel: Story = {
+Required.parameters = { controls: { include: ['label', 'isMandatory', 'placeholder', 'size', 'layout', 'titlePosition'] } };
+
+export const withLabel: Story = {
   args: {
     label: 'Input',
-    value: 'Enter value',
+    placeholder: 'Enter value',
     size: 'small',
     layout: 'text',
-    showTitle: true,
+    titlePosition: 'inline-title'
   },
 };
+withLabel.parameters = { controls: { include: ['label', 'placeholder', 'size', 'layout', 'titlePosition'] } };
 
-export const WithError: Story = {
+export const withError: Story = {
   args: {
     label: 'Input with Error',
     hintText: 'This field has an error',
-    value: 'Invalid value',
+    placeholder: 'Invalid value',
     size: 'small',
     layout: 'text',
-    showTitle: true,
+    titlePosition: 'inline-title',
     state: 'error',
   },
 };
+withError.parameters = { controls: { include: ['label', 'hintText', 'placeholder', 'size', 'layout', 'titlePosition', 'state'] } };

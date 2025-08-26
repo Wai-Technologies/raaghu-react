@@ -10,6 +10,7 @@ export { default as RdsCompAreaChart } from "./rds-comp-chart-area/rds-comp-char
 export { default as RdsCompLineChart } from "./rds-comp-chart-line/rds-comp-chart-line";
 export { default as RdsCompPieChart } from "./rds-comp-chart-pie/rds-comp-chart-pie";
 export { default as RdsCompDoughnutChart } from "./rds-comp-chart-doughnut/rds-comp-chart-doughnut";
+export { default as RdsCompGaugeChart } from "./rds-comp-chart-gauge/rds-comp-chart-gauge";
 export { default as RdsCompBarChart } from "./rds-comp-chart-bar/rds-comp-chart-bar";
 export { default as RdsCompBooleanChart } from "./rds-comp-chart-boolean/rds-comp-chart-boolean";
 export { default as RdsCompMixedChart } from "./rds-comp-chart-mixed/rds-comp-chart-mixed";
@@ -36,3 +37,10 @@ export {default as RdsCompEmptyState} from './rds-comp-empty-state/rds-comp-empt
 export {default as RdsCompESignature} from './rds-comp-e-signature/rds-comp-e-signature';
 
 export { default as RdsCompGrid } from './rds-comp-grid/rds-comp-grid';
+export { default as RdsCompAiAttachement } from './rds-comp-ai-attachement/rds-comp-ai-attachement';
+export { default as RdsCompAiTypingSection } from './rds-comp-ai-typing-section/rds-comp-ai-typing-section';
+export { default as RdsCompAiFabMenu } from './rds-comp-ai-fab-menu/rds-comp-ai-fab-menu';
+export { default as RdsCompAiIcon } from './rds-comp-ai-icon/rds-comp-ai-icon';
+export { default as RdsCompAiGradientTextWithIcon } from './rds-comp-ai-gradient-text-with-icon/rds-comp-ai-gradient-text-with-icon';
+export { default as RdsCompAiMessageBox } from './rds-comp-ai-message-box/rds-comp-ai-message-box';
+export { default as RdsCompAiChatHeader } from './rds-comp-ai-chat-header/rds-comp-ai-chat-header';

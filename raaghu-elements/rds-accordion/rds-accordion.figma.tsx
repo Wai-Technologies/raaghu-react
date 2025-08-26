@@ -1,5 +1,6 @@
 import React from "react"
 import  RdsAccordion  from "./rds-accordion"
+import RdsTypography from "../rds-typography/rds-typography"
 import figma from "@figma/code-connect"
 
 /**
@@ -26,9 +27,9 @@ figma.connect(
       <RdsAccordion {...props}
        defaultExpanded={false}
       >
-        <span>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
-        </span>
+        <RdsTypography color="text.secondary">
+          Replace with your content component
+        </RdsTypography>
       </RdsAccordion>
     ),
   }
@@ -50,9 +51,9 @@ figma.connect(
       <RdsAccordion {...props}
        defaultExpanded={true}
        >
-        <span>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
-        </span>
+        <RdsTypography color="text.secondary">
+          Replace with your content component
+        </RdsTypography>
       </RdsAccordion>
     ),
   }

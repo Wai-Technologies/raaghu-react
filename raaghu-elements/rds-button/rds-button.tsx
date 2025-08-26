@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button as MuiButton, type ButtonProps } from '@mui/material';
-import { Add, Delete, Save, Edit, Close, ArrowForward, ArrowBack, RadioButtonUnchecked } from '@mui/icons-material';
+import { Add, Delete, Save, Edit, Close, ArrowForward, ArrowBack, RadioButtonUnchecked, ChevronRight, ChevronLeft, KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material';
 import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
 import './rds-button.scss';
 export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
@@ -12,8 +12,8 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   style?: 'filled' | 'outlined' | 'transparent';
   showLeftIcon?: boolean;
   showRightIcon?: boolean;
-  changeLeftIcon?: 'add' | 'delete' | 'save' | 'edit' | 'close' | 'arrow-forward' | 'arrow-back' | 'circle';
-  changeRightIcon?: 'add' | 'delete' | 'save' | 'edit' | 'close' | 'arrow-forward' | 'arrow-back' | 'circle';
+  changeLeftIcon?: React.ReactNode;
+  changeRightIcon?: React.ReactNode;
   textCase?: 'uppercase' | 'lowercase' | 'capitalize' | 'unset';
 }
 
@@ -82,6 +82,15 @@ const RdsButton = ({
         return <Close />;
       case 'arrow-forward':
         return <ArrowForward />;
+      case 'chevron':
+      case 'chevron_right':
+        return <ChevronRight />;
+      case 'chevron_left':
+        return <ChevronLeft />;
+      case 'chevron_up':
+        return <KeyboardArrowUp />;
+      case 'chevron_down':
+        return <KeyboardArrowDown />;
       case 'arrow-back':
         return <ArrowBack />;
       case 'circle':
@@ -89,6 +98,13 @@ const RdsButton = ({
       default:
         return null;
     }
+  };
+
+  const resolveIcon = (icon?: React.ReactNode | string): React.ReactNode => {
+    if (typeof icon === 'string') {
+      return getIconComponent(icon);
+    }
+    return icon;
   };
 
   const getStateStyles = () => {
@@ -117,7 +133,7 @@ const RdsButton = ({
     }
     // Handle showLeftIcon control with changeLeftIcon
     if (normalizedLayout === 'icon+text' && showLeftIcon) {
-      return getIconComponent(changeLeftIcon);
+      return resolveIcon(changeLeftIcon);
     }
   // icon prop removed
     return undefined;
@@ -129,7 +145,7 @@ const RdsButton = ({
     }
     // Handle showRightIcon control with changeRightIcon
     if (normalizedLayout === 'icon+text' && showRightIcon) {
-      return getIconComponent(changeRightIcon);
+      return resolveIcon(changeRightIcon);
     }
     return undefined;
   };
@@ -147,10 +163,10 @@ const RdsButton = ({
     if (normalizedLayout === 'icon-only') {
       // For icon-only layout, prioritize showLeftIcon/showRightIcon with controls, then icon prop
       if (showLeftIcon) {
-        return getIconComponent(changeLeftIcon);
+        return resolveIcon(changeLeftIcon);
       }
       if (showRightIcon) {
-        return getIconComponent(changeRightIcon);
+        return resolveIcon(changeRightIcon);
       }
   // icon prop removed
       return null;

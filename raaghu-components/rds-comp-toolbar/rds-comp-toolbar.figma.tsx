@@ -1,5 +1,5 @@
 import React from "react"
-import  RdsCompToolbar  from "./rds-comp-toolbar"
+import  RdsCompToolbar, { ToolbarLayout, ToolbarType }  from "./rds-comp-toolbar"
 import figma from "@figma/code-connect"
 
 /**
@@ -16,8 +16,8 @@ figma.connect(
   {
     props: {
       layout:figma.enum("📱 Layout", {
-        Primary: "primary",
-        Secondary: "secondary",
+        Primary: ToolbarLayout.Primary,
+        Secondary: ToolbarLayout.Secondary,
       }),
       // state: figma.enum("💡 State", {
       //   Off: "off",
@@ -26,12 +26,12 @@ figma.connect(
       //   "Disabled Off": "disabled-off",
       // }),
       type:figma.enum("⚠️ Type", {
-        'Inline Editor': 'inline-editor',
-        'Full Featured': 'full-featured',
-        'More Text': 'more-text',
-        'More Paragraph': 'more-paragraph',
-        'More Rich Content': 'more-rich-content',
-        'Misc': 'misc',
+        'Inline Editor': ToolbarType.InlineEditor,
+        'Full Featured': ToolbarType.FullFeatured,
+        'More Text': ToolbarType.MoreText,
+        'More Paragraph': ToolbarType.MoreParagraph,
+        'More Rich Content': ToolbarType.MoreRichContent,
+        'Misc': ToolbarType.Misc,
       }),
     },
     example: (props) => <RdsCompToolbar {...props} />,

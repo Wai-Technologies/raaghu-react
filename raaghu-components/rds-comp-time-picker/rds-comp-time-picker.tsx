@@ -191,6 +191,11 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
                   hours={hours}
                   minutes={minutes}
                   period={period}
+                  onIncrementHour={() => setHours((prev) => (prev % 12) + 1)}
+                  onDecrementHour={() => setHours((prev) => (prev - 1 <= 0 ? 12 : prev - 1))}
+                  onIncrementMinute={() => setMinutes((prev) => (prev + 1) % 60)}
+                  onDecrementMinute={() => setMinutes((prev) => (prev - 1 < 0 ? 59 : prev - 1))}
+                  onTogglePeriod={() => setPeriod((p) => (p === 'AM' ? 'PM' : 'AM'))}
                 />
             }
           </div>

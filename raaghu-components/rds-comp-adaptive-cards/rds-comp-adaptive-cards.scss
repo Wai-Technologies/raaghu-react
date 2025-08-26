@@ -1,0 +1,1060 @@
+.rds-adaptive-cards--image-gallery {
+  width: 100%;
+  max-width: var(--rds-card-max-width, 1200px);
+  border: 1px solid var(--rds-border-light, #E9E9E9);
+  border-radius: var(--rds-border-radius-xl, 24px);
+  padding: var(--rds-spacing-lg, 16px) 0 0 0;
+  background: var(--rds-background-default, #fff);
+  box-shadow: var(--rds-box-shadow-lg, 0 2px 12px rgba(0,0,0,0.04));
+} 
+
+.rds-adaptive-cards--football-scorecard {
+  width: var(--rds-card-width-football, 360px);
+  border: 1px solid var(--rds-border-light, #E9E9E9);
+  border-radius: var(--rds-border-radius-lg, 12px);
+  padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
+}
+
+.rds-adaptive-cards--default {
+  width: var(--rds-card-width-default, 360px);
+  border: 1px solid var(--rds-border-light, #E9E9E9);
+  border-radius: var(--rds-border-radius-lg, 12px);
+  padding: var(--rds-spacing-xs, 4px) 0 0 0;
+}
+
+.rds-adaptive-cards {
+  // ----- Header -----
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--rds-spacing-sm, 8px);
+    padding-top: var(--rds-spacing-none, 0) !important;
+    padding-bottom: var(--rds-spacing-none, 0) !important;
+    margin-top: var(--rds-spacing-none, 0) !important;
+    margin-bottom: var(--rds-spacing-none, 0) !important;
+    padding: 16px;
+  }
+  // removed stray closing brace
+  &__header-title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--rds-spacing-sm, 8px) !important;
+    margin-top: var(--rds-spacing-none, 0) !important;
+    margin-bottom: var(--rds-spacing-none, 0) !important;
+    padding-top: var(--rds-spacing-none, 0) !important;
+    padding-bottom: var(--rds-spacing-none, 0) !important;
+  }
+  &__title {
+    font-size: var(--rds-font-size-2xl, 20px) !important;
+    font-weight: var(--rds-font-weight-bold, 700) !important;
+    height: var(--rds-font-size-md, 14px);
+    margin: var(--rds-spacing-sm, 8px) 0 0 0 !important;
+    padding: var(--rds-spacing-none, 0) !important;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left !important;
+    padding-top: var(--rds-spacing-none, 0) !important;
+    padding-bottom: var(--rds-spacing-none, 0) !important;
+    line-height: 1.1 !important;
+    font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
+    .dark-theme &,
+    [data-theme="dark"] & {
+      color: var(--rds-text-primary, #fff) !important;
+    }
+  }
+  &__title-icon {
+    width: var(--rds-font-size-xl, 20px);
+    height: var(--rds-font-size-xl, 20px);
+    border-radius: 50%;
+    border: 2px solid var(--rds-border-dark, #9e9e9e);
+    background: transparent;
+    margin-top: var(--rds-spacing-md, 10px) !important;
+    margin-right: var(--rds-spacing-sm, 6px);
+  }
+  // ----- Content -----
+  &__content {
+    padding: var(--rds-spacing-sm, 8px) 0 var(--rds-spacing-sm, 8px) 0;
+    padding: 16px;
+  }
+  &__input-form-card { 
+    padding: 0 16px 0 16px;
+  }
+  &__small-text {
+    font-size: var(--rds-font-size-xs, 10px);
+    color: var(--rds-text-secondary, #646464);
+  }
+  // ----- Image Gallery -----
+  &__image-list {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--rds-spacing-none, 0);
+    background: var(--rds-background-light, #F3F3F3);
+    padding: var(--rds-spacing-none, 0);
+    border-radius: var(--rds-border-radius-md, 8px);
+    box-sizing: border-box;
+  }
+  &__image-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--rds-background-default, #fff);
+    border-radius: var(--rds-border-radius-sm, 4px);
+    box-shadow: none;
+    overflow: hidden;
+    transition: none;
+    border: none;
+    min-width: var(--rds-spacing-none, 0);
+    height: var(--rds-image-list-item-height, 180px);
+    &:hover {
+      box-shadow: var(--rds-box-shadow-hover, 0 4px 16px rgba(0,0,0,0.10));
+      border-color: var(--rds-border-hover, #bdbdbd);
+      .rds-adaptive-cards__image {
+        transform: scale(1.04);
+      }
+    }
+  }
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--rds-border-radius-sm, 4px);
+    transition: transform 0.2s;
+    display: block;
+  }
+  // ----- Default Slot -----
+  &__default-slot {
+    height: var(--rds-font-size-4xl, 132px);
+    border: 2px dashed var(--rds-border-default, #CDCDCD);
+    border-radius: var(--rds-border-radius-sm, 4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rds-text-secondary, #646464);
+  }
+  &__default-slot-text {
+    opacity: 0.6;
+  }
+  // ----- Actions -----
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--rds-spacing-xs, 2px);
+    margin-right: var(--rds-spacing-sm, 8px);
+  }
+  &__actions--input-form {
+    display: block !important;
+    width: 100% !important;
+    padding-left: var(--rds-spacing-md, 16px) !important;
+    padding-right: var(--rds-spacing-md, 16px) !important;
+    box-sizing: border-box;
+  }
+  &__action-btn {
+    font-size: var(--rds-font-size-md, 13px);
+    padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-md, 16px) !important;
+    min-height: var(--rds-component-button-height-small, 32px);
+    text-transform: none !important;
+  }
+  &__action-btn--restaurant-order {
+    font-size: var(--rds-font-size-sm, 12px) !important;
+    min-height: var(--rds-component-button-height-small, 34px) !important;
+    height: var(--rds-component-button-height-small, 34px) !important;
+   font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
+    font-weight: var(--rds-font-weight-normal, 400) !important;
+    text-transform: none !important;
+    display: block;
+    box-sizing: border-box;
+    margin: var(--rds-spacing-none, 0) auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  &__actions--restaurant-order {
+    display: block !important;
+    width: 100% !important;
+    padding-left: var(--rds-spacing-md, 16px) !important;
+    padding-right: var(--rds-spacing-md, 16px) !important;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  &__action-btn--input-form {
+    font-size: var(--rds-font-size-sm, 12px) !important;
+    min-height: var(--rds-component-button-height-small, 32px) !important;
+    height: var(--rds-component-button-height-small, 34px) !important;
+   font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
+    font-weight: var(--rds-font-weight-normal, 400) !important;
+    text-transform: none !important;
+    padding: var(--rds-spacing-xs, 3px) var(--rds-spacing-sm, 12px) !important;
+    width: 100% !important;
+    display: block;
+    box-sizing: border-box;
+  }
+  &__action-btn--activity {
+    text-transform: lowercase;
+    padding-top: var(--rds-spacing-sm, 8px);
+    padding-bottom: var(--rds-spacing-sm, 8px);
+    min-height: var(--rds-component-button-height-small, 32px);
+  }
+  // ----- Calendar Reminder -----
+  &__calendar-reminder-label {
+    font-size: var(--rds-font-size-md, 14px) !important;
+    font-weight: 700 !important;
+    margin-bottom: var(--rds-spacing-sm, 8px) !important;
+  }
+  &__calendar-reminder-small-text {
+    color: var(--rds-text-secondary, #646464);
+  }
+  &__calendar-reminder-input {
+    font-size: var(--rds-font-size-md, 13px) !important;
+    .MuiInputBase-input::placeholder,
+    .MuiOutlinedInput-input::placeholder,
+    input::placeholder {
+      color: var(--rds-text-secondary, #757575) !important;
+      opacity: 1 !important;
+      font-size: var(--rds-font-size-xs, 12px) !important;
+    }
+    &::placeholder {
+      font-size: var(--rds-font-size-xs, 12px) !important;
+    }
+  }
+  // ----- Activity Update -----
+  &__activity-update-avatar {
+    width: var(--rds-spacing-xl, 40px);
+    height: var(--rds-spacing-xl, 40px);
+  }
+  &__activity-update-name {
+    font-weight: var(--rds-font-weight-medium, 600) !important;
+    font-size: var(--rds-font-size-sm, 12px);
+  }
+  &__activity-update-date,
+  &__activity-update-text {
+    color: var(--rds-text-secondary, #646464);
+  }
+  &__activity-update-date {
+    font-size: var(--rds-font-size-xs, 11px);
+  }
+  &__activity-update-text {
+    font-size: var(--rds-font-size-md, 14px) !important;
+  }
+  // ----- Restaurant Order -----
+  &__restaurant-order-form {
+    margin-bottom: var(--rds-spacing-none, 0);
+    gap: var(--rds-spacing-sm, 8px);
+  }
+  &__restaurant-order-label {
+    font-size: var(--rds-font-size-sm, 12px);
+    display: flex;
+    align-items: center;
+  }
+  // ----- Placeholder -----
+  &__placeholder {
+    color: var(--rds-placeholder-color, var(--rds-text-secondary, #9e9e9e));
+    font-size: var(--rds-font-size-md, 14px);
+  }
+  // ----- Football Scorecard -----
+  &__football-header {
+    width: 100%;
+    margin-bottom: var(--rds-spacing-none, 0);
+  }
+    &__football-header-row {
+  width: 100%;
+  position: relative;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  margin-left: 40px;
+    }
+  &__football-league-avatar {
+    width: var(--rds-football-league-avatar-size, 28px) !important;
+    height: var(--rds-football-league-avatar-size, 28px) !important;
+    margin-right: var(--rds-spacing-none, 0) !important;
+    padding-right: var(--rds-spacing-md, 30) !important;
+    display: block;
+    margin-left: 16px !important;
+  }
+  &__football-league {
+      font-weight: var(--rds-font-weight-bold, 600) !important;
+      font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
+      letter-spacing: var(--rds-football-league-letter-spacing, 1px) !important;
+      font-size: 26px !important;
+      color: var(--rds-text-primary, #111);
+      text-shadow: var(--rds-football-league-text-shadow, 0 2px 6px rgba(0,0,0,0.25), 0 0px 1px #fff);
+      margin-left: var(--rds-spacing-xs, 2px) !important;
+      padding-left: var(--rds-spacing-none, 0) !important;
+      display: block;
+      font-weight: 600 !important;
+      /* Remove duplicate font-size: var(--rds-font-size-sm, 12px); */
+      /* color: var(--rds-text-primary-dark, #fff) !important; */
+      /* text-shadow: var(--rds-football-league-text-shadow-dark, 0 2px 6px rgba(0,0,0,0.25), 0 0px 1px #222); */
+    }
+  &__football-date {
+    color: var(--rds-text-secondary, #646464);
+    font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+    font-size: var(--rds-football-date-font-size, 13px) !important;
+    font-weight: var(--rds-font-weight-medium, 500) !important;
+    margin: var(--rds-football-date-margin, 10px 0px);
+    letter-spacing: var(--rds-football-date-letter-spacing, 1px) !important;
+  }
+  &__football-final {
+    color: var(--rds-text-secondary, #646464);
+    font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+    font-size: var(--rds-football-final-font-size, 13px) !important;
+    font-weight: var(--rds-font-weight-medium, 500);
+  }
+  &__football-live {
+  font-size: var(--rds-font-size-xs, 10px) !important;
+  font-weight: var(--rds-font-weight-normal, 400);
+  margin: var(--rds-spacing-none, 0) 0 20px 50px !important;
+  // padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-xs, 2px) !important;
+  border-radius: var(--rds-border-radius-md, 8px) !important;
+  background: var(--rds-background-default, #dcdfee);
+  color: var(--rds-text-secondary, #545454);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+    .dark-theme &,
+    [data-theme="dark"] & {
+      color: var(--rds-text-primary-dark, #fff) !important;
+      fill: var(--rds-text-primary-dark, #fff) !important;
+    }
+    .dark-theme & svg circle,
+    [data-theme="dark"] & svg circle {
+      fill: var(--rds-text-primary-dark, #fff) !important;
+    }
+  }
+  &__football-body {
+    margin-top: var(--rds-spacing-sm, 8px);
+    width: 100%;
+    justify-content: center;
+    gap: var(--rds-spacing-xl, 20px);
+  }
+  &__football-team {
+    align-items: center;
+  }
+  &__football-logo {
+    width: var(--rds-spacing-2xl, 80px);
+    height: var(--rds-spacing-2xl, 80px);
+    border-radius: 50%;
+    background: var(--rds-background-default, #fef7ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  &__football-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: none;
+    object-fit: cover;
+    background: var(--rds-background-default, #f8f7f9);
+    display: block;
+    &--barca {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: none;
+      object-fit: cover;
+      margin-top: var(--rds-football-img-barca-margin-top, 5px);
+      background: var(--rds-background-default, #f8f7f9);
+    }
+  }
+  
+  &__football-team-name {
+    font-weight: var(--rds-font-weight-black, 1000) !important;
+    font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
+    text-align: center;
+    font-size: var(--rds-font-size-md, 14px) !important;
+    letter-spacing: var(--rds-football-team-name-letter-spacing, 0.15px) !important;
+  }
+  &__football-team-status {
+    color: var(--rds-text-secondary, #646464);
+    text-align: center;
+    font-weight: var(--rds-font-weight-bold, 700);
+    font-family: var(--rds-font-family-bold, 'Poppins', sans-serif);
+    font-size: var(--rds-font-size-md, 14px) !important;
+  }
+  &__football-score-section {
+    align-items: center;
+    font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+    margin-bottom: var(--rds-spacing-md, 10px);
+    gap: var(--rds-spacing-lg, 14px);
+  }
+  &__football-score {
+    font-size: var(--rds-font-size-4xl, 38px) !important;
+    font-weight: var(--rds-font-weight-extrabold, 800) !important;
+    font-family: var(--rds-font-family-bold, 'Poppins', sans-serif);
+    text-align: center;
+  }
+  &__football-time {
+    background: var(--rds-background-default, #dcdfee);
+    color: var(--rds-text-secondary, #545454);
+    font-size: var(--rds-font-size-xs, 12px) !important;
+    font-weight: var(--rds-font-weight-bold, 700) !important;
+    letter-spacing: var(--rds-football-time-letter-spacing, 1px);
+    padding: var(--rds-spacing-xs, 5px) var(--rds-spacing-sm, 10px) !important;
+    min-width: var(--rds-spacing-xl, 50px);
+    border-radius: var(--rds-border-radius-sm, 4px) !important;
+    font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
+  }
+}
+
+// ====================
+// Standalone Components
+// ====================
+
+// Input Form Card Styles
+.rds-adaptive-cards__action-btn--input-form {
+  width: 100%;
+  border-radius: var(--rds-border-radius-md, 8px);
+  background: var(--rds-background-light, #fafafa);
+  height: var(--rds-component-button-height-medium, 36px);
+  padding: var(--rds-spacing-md, 8px) var(--rds-spacing-sm, 12px);
+  font-size: var(--rds-font-size-xs, 12px);
+  border: 1px solid var(--rds-border-light, #ccc);
+  box-sizing: border-box;
+  margin-bottom: var(--rds-spacing-none, 0);
+}
+.dark-theme .rds-adaptive-cards__action-btn--input-form,
+[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form {
+  background: var(--rds-background-dark, #525151) !important;
+  color: var(--rds-text-primary-dark, #fff) !important;
+}
+
+.rds-adaptive-cards__input-form-container {
+  width: 100%;
+  max-width: var(--rds-input-form-max-width, 400px);
+  margin: var(--rds-spacing-none, 0) auto;
+  padding: var(--rds-spacing-lg, 16px);
+  background: var(--rds-background-default, #fff);
+  border-radius: var(--rds-border-radius-lg, 12px);
+  box-shadow: var(--rds-box-shadow-md, 0 2px 8px rgba(0,0,0,0.04));
+}
+.rds-adaptive-cards__input-form-title {
+  font-size: var(--rds-font-size-3xl, 24px);
+  font-weight: var(--rds-font-weight-bold, 700) !important;
+  margin-bottom: var(--rds-spacing-sm, 8px);
+}
+.rds-adaptive-cards__input-form-label {
+  font-size: var(--rds-font-size-md, 14px);
+  margin-bottom: var(--rds-spacing-xs, 4px);
+}
+.rds-adaptive-cards__input-form-small-text {
+  color: var(--rds-text-secondary, #888);
+  margin-bottom: var(--rds-spacing-lg, 16px);
+  font-size: var(--rds-font-size-xs, 12px);
+}
+.rds-adaptive-cards__input-form-field-label {
+  font-size: var(--rds-font-size-md, 15px);
+  margin-bottom: var(--rds-spacing-xs, 4px);
+  display: block;
+}
+
+// Chevron Icon
+.rds-adaptive-cards__chevron-icon {
+  display: block;
+  margin-top: var(--rds-spacing-xs, 2px);
+}
+
+// Calendar Reminder Actions
+.rds-adaptive-cards__calendar-reminder-actions {
+  margin-top: var(--rds-spacing-sm, 8px);
+}
+
+// Hide instance slot when default is selected
+.rds-adaptive-cards.is-default-selected .rds-adaptive-cards__default-slot,
+.rds-adaptive-cards.is-default-selected .rds-adaptive-cards__default-slot-text {
+  display: none !important;
+}
+
+// Close Button
+.rds-adaptive-cards__close-btn .MuiSvgIcon-root {
+  font-size: var(--rds-close-btn-font-size, 1.8rem) !important;
+}
+
+// Activity Update Radio
+.rds-adaptive-cards__activity-update-radio  {
+  font-size: var(--rds-font-size-md, 14px) !important;
+  margin-left: var(--rds-spacing-xs, 4px) !important;
+}
+.rds-adaptive-cards__activity-update-radio-desc {
+  font-size: 9px !important;
+  color: var(--rds-text-secondary, #737272);
+  font-weight: var(--rds-font-weight-normal, 400);
+}
+
+.rds-adaptive-cards__activity-update-radio-label{
+  margin-right: 2px !important; // Further reduce gap between radio and label
+  display: flex;
+  align-items: center;
+  gap: 2px !important; // Force minimal gap between radio and label
+}
+
+.rds-adaptive-cards__activity-update-radio-group .MuiRadio-root {
+  width: var(--rds-font-size-lg, 18px) !important;
+  height: var(--rds-font-size-lg, 18px) !important;
+  margin-right: 2px !important;
+  margin-left: 2px !important;
+}
+.rds-adaptive-cards__activity-update-radio-group .MuiSvgIcon-root {
+  font-size: var(--rds-font-size-lg, 18px) !important;
+}
+
+// Required Field
+.rds-adaptive-cards__required {
+  color: var(--rds-error-main, #d32f2f);
+  margin-left: var(--rds-spacing-xs, 2px);
+  font-size: var(--rds-required-font-size, 1em);
+  font-weight: var(--rds-font-weight-bold, bold);
+}
+
+// Restaurant Order Form Select
+.rds-adaptive-cards__restaurant-order-form .MuiSelect-icon {
+  color: var(--rds-text-secondary, #757575) !important;
+}
+.rds-adaptive-cards__restaurant-order-form .rds-adaptive-cards__placeholder {
+  color: var(--rds-text-secondary, #757575) !important;
+  font-size: var(--rds-font-size-sm, 12px);
+}
+.rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
+.rds-adaptive-cards__restaurant-order-form svg {
+  stroke: var(--rds-text-secondary, #757575) !important;
+  color: var(--rds-text-secondary, #757575) !important;
+  font-size: var(--rds-font-size-md, 14px) !important;
+  width: var(--rds-font-size-md, 14px) !important;
+  height: var(--rds-font-size-md, 14px) !important;
+}
+.dark-theme .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon,
+[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon {
+  color: var(--rds-text-secondary, #757575) !important;
+}
+.dark-theme .rds-adaptive-cards__restaurant-order-form .rds-adaptive-cards__placeholder,
+[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form .rds-adaptive-cards__placeholder {
+  color: var(--rds-text-secondary, #757575) !important;
+}
+.dark-theme .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
+[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
+.dark-theme .rds-adaptive-cards__restaurant-order-form svg,
+[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form svg {
+  stroke: var(--rds-text-secondary, #757575) !important;
+  color: var(--rds-text-secondary, #757575) !important;
+}
+
+// Calendar Reminder Card Select Icon Size
+.rds-adaptive-cards__calendar-reminder-select-icon {
+  width: var(--rds-calendar-reminder-select-icon-width, 16px) !important;
+  height: var(--rds-calendar-reminder-select-icon-height, 12px) !important;
+  font-size: var(--rds-font-size-xs, 12px) !important;
+  stroke: var(--rds-text-secondary, #757575) !important;
+  color: var(--rds-text-secondary, #757575) !important;
+  margin-right: var(--rds-spacing-sm, 8px) !important;
+}
+// Calendar Reminder Card Select Placeholder Font Size
+.rds-adaptive-cards__calendar-reminder-placeholder {
+  color: var(--rds-placeholder-color, #9e9e9e);
+  font-size: var(--rds-calendar-reminder-placeholder-font-size, 0.85rem);
+}
+// Ensure input and textarea placeholders inside input form card are larger
+.rds-adaptive-cards__action-btn--input-form input::placeholder,
+.rds-adaptive-cards__action-btn--input-form textarea::placeholder {
+  font-size: var(--rds-font-size-xs, 12px) !important;
+}
+// Make input form card placeholder text larger
+.rds-adaptive-cards__action-btn--input-form::placeholder {
+  font-size: var(--rds-font-size-xs, 12px) !important;
+}
+.rds-adaptive-cards__action-btn--input-form-button{
+  margin-left: 7px !important;
+  font-size: 12px !important;
+}
+
+// ====================
+// Alt Card Structure
+// ====================
+
+.rds-adaptive-cards__container {
+  display: flex;
+  width: var(--rds-alt-card-width, 500px);
+  padding: var(--rds-spacing-md, 16px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--rds-spacing-md, 16px);
+  border-radius: var(--rds-border-radius-xl, 12px);
+  border: 1px solid var(--rds-border-light, #E9E9E9);
+  background: var(--rds-background-default, #fff);
+}
+.rds-adaptive-cards__header-alt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--rds-spacing-sm, 8px);
+  align-self: stretch;
+}
+.rds-adaptive-cards__body {
+  display: flex;
+  height: var(--rds-alt-card-body-height, 132px); 
+  padding: var(--rds-spacing-sm, 8px);
+  justify-content: center;
+  align-items: center;
+  gap: var(--rds-spacing-sm, 8px);
+  align-self: stretch;
+  border-radius: var(--rds-border-radius-sm, 4px);
+  border: 2px dashed var(--rds-border-default, #CDCDCD);
+}
+.rds-adaptive-cards__footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: var(--rds-spacing-sm, 8px);
+  align-self: stretch;
+}
+.rds-adaptive-cards__title-alt {
+  color: var(--rds-text-primary, #212121);
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-2xl, 16px);
+  font-style: normal;
+  font-weight: var(--rds-font-weight-bold, 700) !important;
+  line-height: normal;
+}
+.rds-adaptive-cards__small-text-alt {
+  color: var(--rds-text-secondary, #646464);
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-xs, 10px);
+  font-style: normal;
+  font-weight: var(--rds-font-weight-normal, 400);
+  line-height: var(--rds-spacing-sm, 16px);
+}
+.rds-adaptive-cards__text {
+  align-self: stretch;
+  color: var(--rds-text-secondary, #646464);
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-md, 11px);
+  font-style: normal;
+  font-weight: var(--rds-font-weight-normal, 400);
+  line-height: var(--rds-spacing-md, 20px);
+}
+.rds-adaptive-cards__image-container {
+  display: flex;
+  width: 100%;
+  padding: var(--rds-spacing-xs, 4px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--rds-spacing-xs, 4px);
+  border-radius: var(--rds-border-radius-sm, 4px);
+  border: 1px solid var(--rds-border-light, #E9E9E9);
+  background: var(--rds-background-default, #fff);
+}
+.rds-adaptive-cards__image-body img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--rds-border-radius-xs, 2px);
+  object-fit: cover;
+  padding: var(--rds-spacing-xs, 4px);
+}
+.rds-adaptive-cards__scorecard-container {
+  display: flex;
+  width: var(--rds-scorecard-container-width, 324px);
+  padding: var(--rds-spacing-sm, 8px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--rds-spacing-xs, 4px);
+  border-radius: var(--rds-border-radius-md, 8px);
+  border: 1px solid var(--rds-border-light, #E9E9E9);
+  background: var(--rds-background-default, #fff);
+}
+.rds-adaptive-cards__scorecard-header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--rds-spacing-xs, 4px);
+  align-self: stretch;
+}
+.rds-adaptive-cards__scorecard-header {
+  display: flex;
+  align-items: center;
+  gap: var(--rds-spacing-xs, 4px);
+}
+.rds-adaptive-cards__scorecard-text {
+  color: var(--rds-text-primary, #212121);
+  text-align: center;
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-3xl, 19px);
+  font-style: normal;
+  font-weight: var(--rds-font-weight-semibold, 600);
+  line-height: normal;
+}
+.rds-adaptive-cards__scorecard-subtext {
+  color: var(--rds-text-secondary, #646464);
+  text-align: center;
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-md, 11px);
+  font-style: normal;
+  font-weight: var(--rds-font-weight-medium, 500);
+  line-height: var(--rds-spacing-md, 22px);
+}
+.rds-adaptive-cards__scorecard-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--rds-spacing-md, 16px);
+  padding-top: var(--rds-spacing-lg, 24px);
+}
+.rds-adaptive-cards__team-container {
+  display: flex;
+  width: var(--rds-spacing-2xl, 100px);
+  height: var(--rds-spacing-2xl, 100px);
+  border-radius: 50%;
+  border: 2px solid var(--rds-border-light, #e0e0e0);
+  object-fit: cover;
+  background: var(--rds-background-default, #fff);
+  aspect-ratio: 1/1;
+  color: var(--rds-text-primary, #212121);
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-4xl, 25px);
+  font-style: normal;
+  font-weight: var(--rds-font-weight-semibold, 600);
+  line-height: normal;
+  padding-bottom: var(--rds-spacing-lg, 24px);
+} 
+.rds-adaptive-cards__timer-container {
+  display: flex;
+  padding: var(--rds-spacing-xs, 4px);
+  justify-content: center;
+  align-items: flex-end;
+  gap: var(--rds-spacing-sm, 8px);
+  border-radius: var(--rds-border-radius-sm, 4px);
+  background: var(--rds-background-default, #e1e3ea);
+}
+.rds-adaptive-cards__match-timer {
+  font-size: var(--rds-font-size-md, 11px);
+  color: var(--rds-text-secondary, #353535); 
+  text-align: center;
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-style: normal;
+  font-weight: var(--rds-font-weight-medium, 500);
+  line-height: var(--rds-spacing-md, 22px);
+}
+.rds-adaptive-cards__team-scorecard {
+  display: flex;
+  padding-top: var(--rds-spacing-lg, 24px);
+  flex-direction: column;
+  align-items: center;
+  width: var(--rds-team-scorecard-width, 81px);
+  gap: var(--rds-spacing-lg, 24px);
+  align-self: stretch;
+}
+.rds-adaptive-cards__team-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--rds-spacing-xs, 4px);
+}
+.rds-adaptive-cards__team-name {
+  font-size: var(--rds-font-size-md, 13px) !important;
+  color: var(--rds-text-secondary, #353535);
+  text-align: center;
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-style: normal;
+  font-weight: var(--rds-font-weight-bold, 700);
+  line-height: normal;
+  padding-top: var(--rds-spacing-lg, 24px);
+}
+.rds-adaptive-cards__team-status {
+  font-size: var(--rds-font-size-lg, 13px);
+  color: var(--rds-text-secondary, #646464);
+  text-align: center;
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-style: normal;
+  font-weight: var(--rds-font-weight-normal, 400);
+  line-height: normal;
+}
+.rds-adaptive-cards__badge {
+  display: flex;
+  height: var(--rds-spacing-md, 20px);
+  padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
+  align-items: center;
+  gap: var(--rds-spacing-xs, 4px);
+  position: absolute;
+  left: var(--rds-badge-left, 285px);
+  top: var(--rds-badge-top, 25px);
+  border-radius: var(--rds-border-radius-full, 9999px);
+  background: var(--rds-badge-error-bg, #BD0D1D);
+  overflow: hidden;
+  color: var(--rds-badge-error-text, #fcfcfc);
+  text-align: center;
+  text-overflow: ellipsis;
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-size: var(--rds-font-size-xs, 8px);
+  font-style: normal;
+  font-weight: var(--rds-font-weight-normal, 400);
+  line-height: var(--rds-font-size-xs, 8px);
+}
+.rds-adaptive-cards__footer .dropdown-menu.show {
+  inset: var(--rds-dropdown-menu-inset, 4px auto auto -67px) !important;
+}
+
+// ====================
+// Responsive Styles
+// ====================
+
+@media (min-width: 320px) and (max-width: 375px) {
+  .rds-adaptive-cards,
+  .adaptive-card-container {
+    width: 100% !important;
+    padding: var(--rds-spacing-sm, 8px) !important;
+    text-align: left !important;
+    line-height: 1.2 !important;
+    word-break: break-word;
+    margin-bottom: var(--rds-title-margin-bottom-mobile, 6px) !important;
+  }
+  .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    padding-bottom: 8px !important;
+  }
+  .rds-adaptive-cards__actions--input-form .rds-adaptive-cards__title {
+    font-size: var(--rds-font-size-xl, 18px) !important;
+    padding-top: var(--rds-title-padding-top-mobile, 10px) !important;
+    margin-bottom: var(--rds-title-margin-bottom-mobile, 4px) !important;
+    font-weight: 700 !important;
+  }
+  .rds-adaptive-cards__restaurant-order-label {
+    font-size: var(--rds-font-size-sm, 12px);
+    padding-top: var(--rds-title-padding-top-mobile, 10px) !important;
+    margin-bottom: var(--rds-title-margin-bottom-mobile, 4px) !important;
+    text-align: left !important;
+    line-height: 1.2 !important;
+    word-break: break-word;
+  }
+  .rds-adaptive-cards--default,
+  .rds-adaptive-cards--football-scorecard,
+  .adaptive-scorecard-container {
+    width: 100% !important;
+    min-width: var(--rds-spacing-none, 0) !important;
+    padding: var(--rds-spacing-sm, 8px) !important;
+  }
+  .rds-adaptive-cards__image-list {
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
+  .rds-adaptive-cards__image-list-item {
+    height: var(--rds-image-list-item-height-mobile, 120px) !important;
+  }
+  .rds-adaptive-cards__football-live {
+      position: relative !important;
+      left: 0 !important;
+      right: 10px !important;
+      margin: 0 auto 4px auto !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      max-width: 90% !important;
+      font-size: 9px !important;
+      z-index: 2;
+    }
+
+  .rds-adaptive-cards__football-logo {
+    width: var(--rds-football-logo-size-mobile, 72px);
+  
+  @media (max-width: 340px) {
+    .rds-adaptive-cards__football-live {
+      position: relative !important;
+      left: 0 !important;
+      right: 0 !important;
+      margin: 0 auto 4px auto !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      max-width: 90% !important;
+      font-size: 9px !important;
+      z-index: 2;
+    }
+    .rds-adaptive-cards__football-league {
+      font-size: 15px !important;
+      letter-spacing: 0.3px !important;
+      font-weight: 700 !important;
+    }
+  }
+    height: var(--rds-football-logo-size-mobile, 72px);
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--rds-background-default, #f8f7f9);
+    display: block;
+    margin-bottom: var(--rds-spacing-none, 0);
+  }
+  .rds-adaptive-cards__football-team-name {
+    font-size: var(--rds-font-size-md, 14px) !important;
+    letter-spacing: var(--rds-football-team-name-letter-spacing-mobile, 0.15px);
+  }
+  .rds-adaptive-cards__football-team-status {
+    font-size: var(--rds-font-size-xs, 10px) !important;
+  }
+  .rds-adaptive-cards__football-score {
+    font-size: var(--rds-font-size-xl, 18px) !important;
+  }
+  .rds-adaptive-cards__football-score-section {
+    gap: var(--rds-spacing-sm, 8px) !important;
+    margin-bottom: var(--rds-spacing-md, 10px) !important;
+  }
+  .rds-adaptive-cards__football-body {
+    gap: var(--rds-spacing-sm, 8px) !important;
+  }
+  .rds-adaptive-cards__football-live {
+    font-size: var(--rds-font-size-xs, 10px) !important;
+    font-weight: var(--rds-font-weight-normal, 400) !important;
+    height: var(--rds-font-size-xs, 12px) !important;
+    @media (max-width: 340px) {
+      .rds-adaptive-cards__football-live {
+        position: relative !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 auto 4px auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        max-width: 90% !important;
+        font-size: 9px !important;
+        z-index: 2;
+      }
+  }
+}
+}
+
+@media (min-width: 376px) and (max-width: 480px) {
+  .rds-adaptive-cards,
+  .adaptive-card-container {
+    width: 100% !important;
+    padding: var(--rds-spacing-md, 12px) !important;
+  }
+  .rds-adaptive-cards--default,
+  .rds-adaptive-cards--football-scorecard,
+  .adaptive-scorecard-container {
+    width: 100% !important;
+    min-width: var(--rds-spacing-none, 0) !important;
+    padding: var(--rds-spacing-md, 12px) !important;
+  }
+  .rds-adaptive-cards__image-list {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .rds-adaptive-cards__image-list-item {
+    height: var(--rds-image-list-item-height-tablet, 140px) !important;
+  }
+
+  .rds-adaptive-cards__football-team-name {
+    font-size: var(--rds-font-size-md, 14px) !important;
+    letter-spacing: var(--rds-football-team-name-letter-spacing-tablet, 0.15px);
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .rds-adaptive-cards,
+  .adaptive-card-container {
+    width: 100% !important;
+    padding: var(--rds-spacing-lg, 16px) !important;
+  }
+  .rds-adaptive-cards--default,
+  .rds-adaptive-cards--football-scorecard,
+  .adaptive-scorecard-container {
+    width: 100% !important;
+    min-width: var(--rds-spacing-none, 0) !important;
+    padding: var(--rds-spacing-lg, 16px) !important;
+  }
+  .rds-adaptive-cards__image-list {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .rds-adaptive-cards__image-list-item {
+    height: var(--rds-image-list-item-height-tablet-lg, 160px) !important;
+  }
+}
+
+// ====================
+// Material UI Select Font Sizes
+// ====================
+
+.rds-adaptive-cards__restaurant-order-form .MuiSelect-root,
+.rds-adaptive-cards__restaurant-order-form .MuiSelect-select,
+.rds-adaptive-cards__restaurant-order-form .MuiSelect-nativeInput {
+  font-size: var(--rds-font-size-sm, 12px) !important;
+}
+
+.rds-adaptive-cards__calendar-reminder-input .MuiSelect-root,
+.rds-adaptive-cards__calendar-reminder-input .MuiSelect-select,
+.rds-adaptive-cards__calendar-reminder-input .MuiSelect-nativeInput {
+  font-size: var(--rds-font-size-xs, 10px) !important;
+}
+.rds-adaptive-cards.rds-adaptive-cards--default {
+  min-height: 160px; // Reduce this value as needed
+}
+
+.custom-box__title-stack {
+  gap: 4px !important; // Reduce gap between items
+}
+.custom-box {
+  padding: 0px 16px 16px 16px;
+  min-height: 120px;
+  background: transparent;
+  border-radius: 12px;
+  box-shadow: none;
+  position: relative;
+
+  &__close-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 2px;
+    align-self: center;
+    font-size: 30px !important;
+    left: 10px !important;
+    margin-bottom: 30px !important;
+  }
+  
+  &__title-stack {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__circle {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #C4C4C4;
+    border-radius: 50%;
+  }
+
+  &__title-text {
+  font-size: 1.3rem !important; // smaller font size
+  font-weight: 700 !important; // bolder font weight
+  margin-right: 0; 
+  }
+
+  &__slot {
+    border: 2px dashed #C4C4C4;
+    border-radius: 8px;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+  }
+
+  &__button--cancel {
+    color: #1976d2 !important;
+  }
+
+  &__button--done {
+    background-color: #1976d2 !important;
+    color: #fff !important;
+  }
+}
+
+.sb-show-main {
+  padding-top: 8px !important; // Reduce top gap in Storybook preview
+}

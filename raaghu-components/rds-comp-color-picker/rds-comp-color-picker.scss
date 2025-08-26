@@ -15,7 +15,7 @@
     border-radius: var(--rds-border-radius, 8px);
     background: var(--rds-color-surface, #fff);
     padding: var(--rds-spacing-sm, 12px);
-    width: 246px;
+    width: 300px;
   }
   
   &__spectrum-type1 {
@@ -279,6 +279,11 @@
   
   &__input-wrapper {
     flex: 1;
+    margin-right: 4px;
+    
+    &:last-child {
+      margin-right: 0;
+    }
   }
   
   &__hex-input {
@@ -286,10 +291,22 @@
     height: 32px;
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     border-radius: var(--rds-border-radius, 4px);
-    padding: 0 10px;
+    // padding: 0 10px;
     font-size: 13px;
     color: var(--rds-color-on-surface, #333);
     background-color: var(--rds-color-surface, #ffffff);
+    text-align: center;
+  }
+  
+  &__color-input {
+    width: 100%;
+    height: 32px;
+    border: 1px solid var(--rds-color-outline, #e0e0e0);
+    border-radius: var(--rds-border-radius, 4px);
+    font-size: 13px;
+    color: var(--rds-color-on-surface, #333);
+    background-color: var(--rds-color-surface, #ffffff);
+    text-align: center;
   }
   
   &__percent-wrapper {
@@ -298,6 +315,7 @@
   
   &__percent-input {
     width: 100%;
+    text-align: center;
     height: 32px;
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     border-radius: var(--rds-border-radius, 4px);
@@ -433,7 +451,6 @@
     color: var(--rds-color-on-surface-variant, #666);
   }
   
-  // Spectrum color area styles
   &__spectrum-area {
     width: 100%;
     height: 100%;
@@ -444,8 +461,6 @@
     background-blend-mode: normal;
     cursor: crosshair;
   }
-  
-  // Gradient mode styles
   &__mode-switcher {
     display: flex;
     gap: 10px;

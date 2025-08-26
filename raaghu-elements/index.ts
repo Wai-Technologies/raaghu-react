@@ -1,5 +1,3 @@
-import { RdsStandaloneToggleButton } from './rds-toggle-button/rds-toggle-button';
-
 export { default as RdsButton } from './rds-button/rds-button';
 export { default as RdsTypography } from './rds-typography/rds-typography';
 export { default as RdsTextField } from './rds-text-field/rds-text-field';
@@ -60,6 +58,9 @@ export { default as RdsSearch } from './rds-search/rds-search';
 export { default as RdsCounter } from './rds-counter/rds-counter';
 export { default as RdsBanner } from './rds-banner/rds-banner';
 export { default as RdsFileUploader } from './rds-file-uploader/rds-file-uploader';
+export {default as RdsButtonDropdown} from './rds-button-dropdown/rds-button-dropdown';
+export {default as RdsMultiLevelMenu} from './rds-multi-level-menu/rds-multi-level-menu';
+export {default as RdsTextArea} from './rds-text-area/rds-text-area';
 
 export type { RdsButtonProps } from './rds-button/rds-button';
 export type { RdsTypographyProps } from './rds-typography/rds-typography';

@@ -33,7 +33,7 @@ export interface RdsFileUploaderProps {
   hintText?: string;
   placeholderImage?: string;
   state?: 'default' | 'selected';
-  mode?: 'standard';
+  mode?: 'standard' | 'default';
   style?:'Drop Area - Side Icon' | 'Drop Area - Top Icon' |'Drop Area - With Upload Button';
   children?: React.ReactNode;
 }

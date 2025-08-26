@@ -5,17 +5,19 @@
   align-items: center;
   gap: var(--rds-spacing-xl, 24px);
   flex-shrink: 0;
+  background: var(--rds-color-surface);
   background: var(--rds-color-surface, #fff);
   box-shadow: var(--rds-elevation-2, 0 4px 24px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04));
   padding: 14px;
   border: none;
   position: relative;
-  overflow: hidden; // Ensure content doesn't overflow
+  overflow: hidden;
   
   &__header {
     margin: 0;
     padding: 16px 16px 4px;
-    color: var(--rds-color-on-surface, #000);
+    color: var(--rds-color-on-surface);
+    color: #3b3636;
     font-size: var(--rds-font-size-md, 15px);
     font-style: normal;
     font-weight: var(--rds-font-weight-semi-bold, 600);
@@ -41,7 +43,7 @@
 
   &__subtitle {
     font-size: var(--rds-font-size-sm, 14px);
-    color: var(--rds-color-text-secondary, #6c757d);
+    color: var(--rds-color-text-secondary);
     margin: 0;
     font-weight: var(--rds-font-weight-regular, 400);
   }
@@ -59,7 +61,6 @@
   }
 
   &__search-field {
-    // Material UI specific overrides
     .MuiOutlinedInput-notchedOutline {
       border-color: transparent !important;
     }
@@ -103,7 +104,6 @@
       }
     }
     
-    // Compact variant
     &--compact {
       &.MuiFormControl-root {
         .MuiInputBase-root {
@@ -144,12 +144,12 @@
   &__content {
     padding-left: var(--rds-spacing-md, 16px);
     padding-right: var(--rds-spacing-md, 16px);
-    padding-bottom: calc(var(--rds-spacing-md, 16px) + 60px); // Add space for absolute footer button
-    position: relative; // Ensure proper positioning context
-    height: 100%; // Take full height of parent
+    padding-bottom: calc(var(--rds-spacing-md, 16px) + 60px);
+    color: var(--rds-color-surface, #141313);
+    position: relative;
+    height: 100%;
   }
 
-  // Global overrides for Material UI inputs within this component
   .MuiInputBase-root {
     height: var(--rds-input-height-sm, 38px);
     border-radius: var(--rds-border-radius-sm, 4px);
@@ -168,7 +168,6 @@
     padding-bottom: var(--rds-spacing-xs, 8px);
   }
 
-  // Tab system styles
   &__tab-container {
     width: 100%;
     margin: 0 auto;
@@ -223,7 +222,6 @@
     }
   }
 
-  // Activity item styles
   &__activity-item {
     display: flex;
     align-items: center;
@@ -268,7 +266,6 @@
     margin-right: var(--rds-spacing-xs, 6px);
   }
 
-  // Tab underline styles
   &__tab-underline-wrapper {
     display: none;
   }
@@ -285,7 +282,6 @@
     }
   }
   
-  // Section heading with divider line
   &__section-heading {
     display: flex;
     align-items: center;
@@ -307,19 +303,16 @@
       min-width: 0;
     }
   }
-  
-  // Favorites section styles
   &__favourite-list {
     display: flex;
     flex-direction: column;
     gap: var(--rds-spacing-sm, 12px);
     margin-top: var(--rds-spacing-md, 16px);
-    margin-bottom: calc(var(--rds-spacing-md, 16px) + 60px); // Add space for absolute footer button
-    position: relative; // Ensure proper positioning context
+    margin-bottom: calc(var(--rds-spacing-md, 16px) + 60px);
+    position: relative;
   }
 
   &__favourite-card {
-    background: var(--rds-color-surface, #fff);
     border-radius: var(--rds-border-radius-md, 8px);
     padding: var(--rds-spacing-xs, 10px);
     margin-bottom: 0;
@@ -332,7 +325,6 @@
     }
   }
 
-  // Agent card styles
   &__agent-card {
     display: flex;
     align-items: center;
@@ -407,8 +399,6 @@
     font-size: var(--rds-font-size-xs, 13px);
     font-weight: var(--rds-font-weight-regular, 400);
   }
-
-  // Agent radio styles
   &__agent-radio {
     display: flex;
     align-items: center;
@@ -425,14 +415,9 @@
   }
   
   &__footer-fixed {
-    //position: absolute;
-    // left: var(--rds-spacing-md, -13px);
-    // right: var(--rds-spacing-md, 0px);
-    // bottom: var(--rds-spacing-md, 16px);
     padding: 0;
     background: transparent;
     z-index: 10;
-    //display: flex;
     margin-right: 18px;
     margin-left: -16px;
     justify-content: center;
@@ -447,7 +432,7 @@
       text-transform: none;
       box-shadow: none;
       width: 100%;
-      max-width: 360px; // Limit button width for better appearance
+      max-width: 360px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -461,14 +446,12 @@
     }
   }
   
-  // Scrollable content container
   &__scroll-content {
     flex: 1 1 auto;
     overflow-y: auto;
     color: var(--rds-color-text-primary, #000);
   }
   
-  // Favorite card header styles
   &__favourite-card-header {
     display: flex;
     align-items: center;
@@ -498,7 +481,6 @@
     cursor: pointer;
   }
 
-  // Favorite card image styles
   &__favourite-card-image-wrapper {
     position: relative;
     margin-top: var(--rds-spacing-xs, 8px);
@@ -528,12 +510,10 @@
     transition: background 0.2s ease;
   }
   
-  // Carousel indicator styles
   &__carousel-indicators-default {
     top: 180px !important;
   }
   
-  // Main container layout
   &__detail-pane-container {
     padding-left: var(--rds-spacing-md, 16px);
     padding-right: var(--rds-spacing-md, 16px);
@@ -622,7 +602,6 @@
     position: relative;
     height: 100%;
     min-height: 630px;
-    //padding-bottom: var(--rds-spacing-xxxl, 120px);
   }
 
   &__toolbar-divider {
@@ -760,8 +739,7 @@
 
   &__thumbnail-view-wrapper {
     width: 372px;
-    height: 766px;
-    background-color: var(--rds-color-background-light, #f8f9fa);
+    height: 766px;   
     display: flex;
     flex-direction: column;
   }
@@ -862,12 +840,10 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    // Add any additional styles if needed
   }
 
   &__icon-history {
     color: #969696;
-    // width and height inherit from parent, or set if needed
   }
 
   &__icon-delete {
@@ -910,46 +886,313 @@
 
 .theme-dark {
   .rds-comp-details-pane {
-    color: var(--rds-color-on-surface-dark, #fff);
-    box-shadow: var(--rds-elevation-dark, 1px 1px 6px 0px rgba(255, 252, 252, 0.16));
+    --dark-bg-primary: var(--bg-neutral-darker-default, #202020);
+    // --dark-bg-secondary: var(--bg-neutral-dark-default, #4C4C4C);
+    --dark-bg-tertiary: var(--bg-neutral-medium-default, #B1B1B1);
+    --dark-text-primary: var(--txt-neutral-lighter-default, #FCFCFC);
+    --dark-text-secondary: var(--txt-neutral-medium-default, #B1B1B1);
+    --dark-border: var(--bg-neutral-dark-default, #4C4C4C);
+    --dark-accent: var(--bg-primary-medium-default, #D4BBFF);
+    --dark-accent-bg: var(--bg-primary-lighter-default, #19003E);
+    --dark-error: var(--txt-error-medium-default, #FF8980);
     
-    &__activity-item {
-      &:hover {
-        color: var(--rds-color-text-primary-dark, #eee5e5);
-      }
+    background: var(--dark-bg-primary);
+    color: var(--dark-text-primary);
+    box-shadow: var(--rds-elevation-2, 0 4px 24px rgba(255, 255, 255, 0.08), 0 1.5px 4px rgba(255, 255, 255, 0.04));
+    border: 1px solid var(--dark-border);
+    
+    &__header,
+    &__title,
+    &__agent-name,
+    &__favourite-title,
+    &__real-estate-title,
+    &__activity-text,
+    &__font-name,
+    &__font-label,
+    &__pages-header {
+      color: var(--dark-text-primary);
+    }
+    
+    &__subtitle,
+    &__agent-designation,
+    &__real-estate-description,
+    &__activity-icon {
+      color: var(--dark-text-secondary);
+    }
+    
+    &__content,
+    &__selection-container,
+    &__tab-container,
+    &__favourite-list,
+    &__toolbar-pane-container,
+    &__accordion-list,
+    &__thumbnail-view-wrapper,  
+    &__favourite-card,
+    &__agent-card,
+    &__real-estate-carousel,
+    &__real-estate-footer,
+    &__thumbnail-content,    
+    &__divider,
+    &__tab-buttons,
+    &__section-heading-line,
+    &__toolbar-divider {
+      border-color: var(--dark-border);
+    }
+    
+    &__divider {
+      border-top-color: var(--dark-border);
+    }
+    
+    &__tab-buttons {
+      border-bottom-color: var(--dark-border);
+    }
+    
+    &__section-heading-line {
+      background: var(--dark-border);
+    }
+    
+    &__toolbar-divider {
+      background: var(--dark-border);
+    }
+    
+    &__favourite-card,
+    &__agent-card,
+    &__real-estate-carousel,
+    &__thumbnail-content,
+    &__selection-container {
+      border: 1px solid var(--dark-bg-tertiary);
     }
     
     &__tab-btn {
-      color: var(--rds-color-text-secondary-dark, #7D7D7D);
+      color: var(--dark-text-secondary);
       
       &--active {
-        color: var(--rds-color-primary-dark, #D4BBFF);
-      }
-    }
-    
-    &__section-heading {
-      &-text {
-        color: var(--rds-color-text-primary-dark, #FCFCFC);
+        color: var(--dark-accent);
+        border-bottom-color: var(--dark-accent);
       }
       
-      &-line {
-        background: var(--rds-color-divider-dark, #969696);
+      &:hover {
+        color: var(--dark-text-primary);
       }
     }
     
-    &__activity-text {
-      color: var(--rds-color-text-primary-dark, #FCFCFC);
+    &__activity-item {
+      color: var(--dark-text-primary);
+      
+      &:hover {
+        background-color: var(--dark-bg-secondary);
+      }
+    }
+    
+    &__toolbar-circle-btn,
+    &__font-size-btn,
+    &__font-weight-btn,
+    &__grid-cell,
+    &__weight-cell {
+      background: var(--dark-bg-secondary);
+      border-color: var(--dark-bg-tertiary);
+      color: var(--dark-text-primary);
+      
+      &:hover {
+        background: var(--dark-bg-tertiary);
+      }
+      
+      &.active,
+      &.selected {
+        background: var(--dark-accent);
+        color: var(--dark-accent-bg);
+      }
+    }
+    &__icon-history,
+    &__icon-edit,
+    &__icon-star {
+      color: var(--dark-text-secondary);
+      
+      &:hover {
+        color: var(--dark-text-primary);
+      }
+    }
+    
+    &__icon-delete,
+    &__activity-delete {
+      color: var(--dark-error);
+      
+      &:hover {
+        color: var(--txt-error-light-default, #FFB3AD);
+      }
+    }
+    
+    &__favourite-card {
+      &--selected {
+        background: var(--dark-accent-bg);
+        border-color: var(--dark-accent);
+      }
+      
+      &:hover {
+        background: var(--dark-bg-tertiary);
+        border-color: var(--bg-primary-light-default, #EBDCFF);
+      }
+    }
+    
+    &__favourite-edit-icon-wrapper {
+      color: var(--dark-text-secondary);
+      
+      &:hover {
+        color: var(--dark-text-primary);
+      }
+    }
+    
+    &__favourite-card-image,
+    &__thumbnail-image-square,
+    &__thumbnail-img-square {
+      border-color: var(--dark-border);
+    }
+    
+    &__favourite-card-image-star {
+      background: var(--dark-bg-secondary);
+      color: var(--dark-accent);
+    }
+    
+    &__thumbnail-image-square {
+      background: var(--dark-bg-secondary);
+    }
+    
+    &__agent-card {
+      box-shadow: 0 2.459px 2.459px 0 rgba(255, 255, 255, 0.10);
+      
+      &::before {
+        background: var(--dark-accent);
+      }
+    }
+    
+    &__agent-badge {
+      background-color: var(--bg-primary-dark-default, #7825E9);
+      color: var(--dark-text-primary);
+    }
+    
+    &__search-field {
+      .MuiOutlinedInput-notchedOutline {
+        border-color: var(--dark-border);
+      }
+      
+      .MuiInputBase-input {
+        color: var(--dark-text-primary);
+        background-color: var(--dark-bg-secondary);
+      }
+      
+      .MuiInputAdornment-root {
+        color: var(--dark-text-secondary);
+      }
+      
+      &.MuiFormControl-root {
+        background-color: var(--dark-bg-secondary);
+      }
+      
+      &:hover .MuiOutlinedInput-notchedOutline {
+        border-color: var(--dark-bg-tertiary);
+      }
+      
+      &.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: var(--dark-accent);
+      }
+    }
+    
+    .MuiInputBase-root {
+      background-color: var(--dark-bg-secondary);
+      border-color: var(--dark-bg-tertiary);
+      color: var(--dark-text-primary);
+      
+      &:hover {
+        border-color: var(--bg-neutral-light-default, #CDCDCD);
+      }
+      
+      &.Mui-focused {
+        border-color: var(--dark-accent);
+      }
+    }
+    
+    &__footer-fixed {
+      border-top: 1px solid var(--dark-border);
+      
+      button {
+        background: var(--bg-primary-dark-default, #7825E9);
+        color: var(--dark-text-primary);
+        border-color: var(--bg-primary-dark-default, #7825E9);
+        
+        &:hover {
+          background: var(--dark-accent);
+          color: var(--dark-accent-bg);
+        }
+        
+        &.secondary {
+          background: var(--dark-bg-secondary);
+          border-color: var(--dark-bg-tertiary);
+          
+          &:hover {
+            background: var(--dark-bg-tertiary);
+          }
+        }
+      }
+    }
+    
+    &__download-button {
+      background: var(--bg-primary-dark-default, #7825E9);
+      color: var(--dark-text-primary);
+      border-color: var(--bg-primary-dark-default, #7825E9);
+      
+      &:hover {
+        background: var(--dark-accent);
+        color: var(--dark-accent-bg);
+      }
+    }
+    
+    &__badge-item {
+      background: var(--bg-primary-light-default, #EBDCFF);
+      color: var(--bg-primary-dark-default, #7825E9);
+    }
+    
+    &__accordion-list {
+      .accordion-item {
+        background: var(--dark-bg-secondary);
+        border-color: var(--dark-bg-tertiary);
+        
+        .accordion-header {
+          background: var(--dark-bg-secondary);
+          color: var(--dark-text-primary);
+        }
+        
+        .accordion-body {
+          background: var(--dark-bg-primary);
+          color: var(--dark-text-primary);
+        }
+      }
+    }
+    
+    &__palette-grid {      
+      .palette-item {
+        border: 1px solid var(--dark-bg-tertiary);
+        
+        &:hover {
+          border-color: var(--dark-accent);
+        }
+      }
+    }
+    &__section-heading-text {
+      color: var(--dark-text-primary);
+    }
+    
+    &__pages-header {
+      border-bottom: 1px solid var(--dark-border);
     }
   }
-  // .rds-comp-details-pane
-
-  // }
+  
   #details-pane-container .detail-pane-container,
   #detail-pane-container-2 .detail-pane-container {
-    background-color: var(--rds-color-surface, #fff) !important;
+    background-color: var(--bg-neutral-darker-default, #202020) !important;
+    color: var(--txt-neutral-lighter-default, #202020) !important;
+    border: 1px solid var(--bg-neutral-dark-default, #4C4C4C) !important;
   }
 }
-
 @media (max-width: 480px) {
   .rds-comp-details-pane {
     &__custom-tab-buttons {

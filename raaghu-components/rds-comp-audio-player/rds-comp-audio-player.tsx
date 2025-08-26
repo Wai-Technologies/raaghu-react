@@ -99,7 +99,7 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
             max={duration > 0 ? Math.max(duration, SLIDER_MAX) : SLIDER_MAX}
             value={sliderValue}
             onChange={handleSeek}
-            style={{ width: "600px" }}
+            className="rds-comp-audio-player__slider"
             controlType="one way"
             leftLabel=""
             rightLabel=""

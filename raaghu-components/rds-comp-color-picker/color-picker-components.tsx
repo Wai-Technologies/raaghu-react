@@ -1,13 +1,11 @@
 import React from "react";
 import { HuePicker, AlphaPicker } from "react-color";
-import { hslToRgb, rgbToHex, handleSpectrumClick, rgbToHsb } from "./color-utils";
+import { hslToRgb, rgbToHex, handleSpectrumClick, rgbToHsb, rgbToHsl } from "./color-utils";
 import { ColorMode } from "./rds-comp-color-picker";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
+import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 
-/**
- * ColorPickerGrid - The grid-based color picker UI
- */
 export const ColorPickerGrid = ({
   handleChange,
   selectedColorState,
@@ -17,18 +15,16 @@ export const ColorPickerGrid = ({
   selectedColorMode,
   showColorModeDropdown,
   setShowColorModeDropdown,
-  getColorDisplay
-}) => {
+  getColorDisplay,
+  onSelectColorMode,
+}: any) => {
   return (
     <div>
-      {/* Color Grid - Matches reference image */}
       <div className="rds-comp-color-picker__color-grid-container">
-        {/* Generate grid dynamically using nested loops */}
         {[...Array(10)].map((_, rowIndex) => {
           return (
             <div key={`row-${rowIndex}`} className="rds-comp-color-picker__color-row">
               {[...Array(11)].map((_, colIndex) => {
-                // Top row grayscale; others hue spectrum with increasing lightness
                 let bgColor: string;
                 let clickHex: string;
                 let clickRgb: { r: number; g: number; b: number; a: number };
@@ -39,7 +35,7 @@ export const ColorPickerGrid = ({
                   clickRgb = { r: gray, g: gray, b: gray, a: 1 };
                 } else {
                   const hue = colIndex * (360 / 11);
-                  const lightness = 12 + rowIndex * 8; // close to reference
+                  const lightness = 12 + rowIndex * 8;
                   bgColor = `hsl(${hue}, 100%, ${lightness}%)`;
                   const [r, g, b] = hslToRgb(hue / 360, 1, lightness / 100);
                   clickHex = rgbToHex(r, g, b);
@@ -73,8 +69,7 @@ export const ColorPickerGrid = ({
         selectedColorState={selectedColorState} 
         handleHueChange={handleHueChange}
         handleAlphaChange={handleAlphaChange}
-      />
-      
+      />      
       <ColorPickerInfo
         colorModeDropdownRef={colorModeDropdownRef}
         setShowColorModeDropdown={setShowColorModeDropdown}
@@ -82,14 +77,12 @@ export const ColorPickerGrid = ({
         selectedColorMode={selectedColorMode}
         selectedColorState={selectedColorState}
         getColorDisplay={getColorDisplay}
+        onSelectColorMode={onSelectColorMode}
       />
     </div>
   );
 };
 
-/**
- * ColorPickerSpectrum - The spectrum-based color picker UI
- */
 export const ColorPickerSpectrum = ({
   selectedColorHex,
   selectedColorState,
@@ -102,11 +95,11 @@ export const ColorPickerSpectrum = ({
   setShowColorModeDropdown,
   getColorDisplay,
   showSwatches,
-  styleType
-}) => {
+  styleType,
+  onSelectColorMode,
+}: any) => {
   return (
-    <div className="rds-comp-color-picker__spectrum-type1">
-      {/* Color spectrum area */}
+    <div className="rds-comp-color-picker__spectrum-type1">    
       <div className="rds-comp-color-picker__color-grid-container rds-comp-color-picker__color-grid-container--spectrum">
         <div 
           className="rds-comp-color-picker__spectrum-area"
@@ -135,9 +128,9 @@ export const ColorPickerSpectrum = ({
         selectedColorMode={selectedColorMode}
         selectedColorState={selectedColorState}
         getColorDisplay={getColorDisplay}
+        onSelectColorMode={onSelectColorMode} 
       />
       
-      {/* Swatches section */}
       {showSwatches && (
         styleType === "Type 1" ? (
           <ColorSwatchesType1 handleChange={handleChange} />
@@ -148,35 +141,28 @@ export const ColorPickerSpectrum = ({
     </div>
   );
 };
-
-/**
- * ColorPickerSliders - Eyedropper and color sliders component
- */
 export const ColorPickerSliders = ({ selectedColorState, handleHueChange, handleAlphaChange }) => {
   return (
     <div className="rds-comp-color-picker__sliders-row">
       <div className="rds-comp-color-picker__eyedropper" aria-hidden="true">
-        {/* Replace SVG with MUI icon */}
         <ColorizeOutlinedIcon fontSize="small" />
       </div>
       <div className="rds-comp-color-picker__sliders">
-        {/* Hue Slider */}
         <div className="rds-comp-color-picker__slider-container">
           {/* @ts-ignore - React Color TypeScript issues */}
           <HuePicker
             color={selectedColorState.hex}
             onChange={handleHueChange}
-            width="185px"
+            width="236px"
             className="rds-comp-color-picker__hue-picker"
           />
-        </div>
-        {/* Alpha Slider */}
+        </div>       
         <div className="rds-comp-color-picker__slider-container rds-comp-color-picker__alpha-slider-container">
           {/* @ts-ignore - React Color TypeScript issues */}
           <AlphaPicker
             color={selectedColorState.rgb}
             onChange={handleAlphaChange}
-            width="185px"
+            width="233px"
             className="rds-comp-color-picker__alpha-picker"
           />
         </div>
@@ -185,20 +171,124 @@ export const ColorPickerSliders = ({ selectedColorState, handleHueChange, handle
   );
 };
 
-/**
- * ColorPickerInfo - Color information and mode selector
- */
 export const ColorPickerInfo = ({
   colorModeDropdownRef,
   setShowColorModeDropdown,
   showColorModeDropdown,
   selectedColorMode,
   selectedColorState,
-  getColorDisplay
-}) => {
+  getColorDisplay,
+  onSelectColorMode,
+}: any) => {
+  const rgb = selectedColorState.rgb || { r: 0, g: 0, b: 0, a: 1 };
+  const hsb = rgbToHsb(rgb);
+  const hsl = rgbToHsl(rgb);
+  
+  const renderColorInputs = () => {
+    switch (selectedColorMode) {
+      case ColorMode.RGB:
+        return (
+          <>
+            <div className="rds-comp-color-picker__input-wrapper">
+              <input
+                type="text"
+                value={rgb.r}
+                readOnly
+                className="rds-comp-color-picker__color-input"
+              />
+            </div>
+            <div className="rds-comp-color-picker__input-wrapper">
+              <input
+                type="text"
+                value={rgb.g}
+                readOnly
+                className="rds-comp-color-picker__color-input"
+              />
+            </div>
+            <div className="rds-comp-color-picker__input-wrapper">
+              <input
+                type="text"
+                value={rgb.b}
+                readOnly
+                className="rds-comp-color-picker__color-input"
+              />
+            </div>
+          </>
+        );
+      case ColorMode.HSB:
+        return (
+          <>
+            <div className="rds-comp-color-picker__input-wrapper">
+              <input
+                type="text"
+                value={hsb.h}
+                readOnly
+                className="rds-comp-color-picker__color-input"
+              />
+            </div>
+            <div className="rds-comp-color-picker__input-wrapper">
+              <input
+                type="text"
+                value={hsb.s}
+                readOnly
+                className="rds-comp-color-picker__color-input"
+              />
+            </div>
+            <div className="rds-comp-color-picker__input-wrapper">
+              <input
+                type="text"
+                value={hsb.b}
+                readOnly
+                className="rds-comp-color-picker__color-input"
+              />
+            </div>
+          </>
+        );
+      case ColorMode.HSL:
+        return (
+          <>
+            <div className="rds-comp-color-picker__input-wrapper">
+              <input
+                type="text"
+                value={hsl.h}
+                readOnly
+                className="rds-comp-color-picker__color-input"
+              />
+            </div>
+            <div className="rds-comp-color-picker__input-wrapper">
+              <input
+                type="text"
+                value={hsl.s}
+                readOnly
+                className="rds-comp-color-picker__color-input"
+              />
+            </div>
+            <div className="rds-comp-color-picker__input-wrapper">
+              <input
+                type="text"
+                value={hsl.l}
+                readOnly
+                className="rds-comp-color-picker__color-input"
+              />
+            </div>
+          </>
+        );
+      default:
+        return (
+          <div className="rds-comp-color-picker__input-wrapper">
+            <input
+              type="text"
+              value={getColorDisplay()}
+              readOnly
+              className="rds-comp-color-picker__hex-input"
+            />
+          </div>
+        );
+    }
+  };
+
   return (
     <div className="rds-comp-color-picker__color-info">
-      {/* HEX dropdown button */}
       <div className="rds-comp-color-picker__dropdown-container" ref={colorModeDropdownRef}>
         <div 
           className="rds-comp-color-picker__dropdown-button"
@@ -206,19 +296,28 @@ export const ColorPickerInfo = ({
         >
           <div className="rds-comp-color-picker__color-circle" style={{ backgroundColor: selectedColorState.hex }}></div>
           <span className="rds-comp-color-picker__dropdown-label">{selectedColorMode}</span>
-          {/* Replace SVG with MUI icon */}
+         
           <KeyboardArrowDownIcon/>
         </div>
         
-        {/* Dropdown menu */}
         {showColorModeDropdown && (
           <div className="rds-comp-color-picker__dropdown-menu">
-            {Object.values(ColorMode).map(mode => (
+            {Object.values(ColorMode).map((mode) => (
               <div 
                 key={mode}
                 className={`rds-comp-color-picker__dropdown-item ${selectedColorMode === mode ? 'active' : ''}`}
                 onClick={() => {
+                  if (onSelectColorMode) onSelectColorMode(mode as any);
                   setShowColorModeDropdown(false);
+                }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    if (onSelectColorMode) onSelectColorMode(mode as any);
+                    setShowColorModeDropdown(false);
+                  }
                 }}
               >
                 {mode}
@@ -226,19 +325,8 @@ export const ColorPickerInfo = ({
             ))}
           </div>
         )}
-      </div>
-      
-      {/* Color code input */}
-      <div className="rds-comp-color-picker__input-wrapper">
-        <input
-          type="text"
-          value={getColorDisplay()}
-          readOnly
-          className="rds-comp-color-picker__hex-input"
-        />
-      </div>
-      
-      {/* Percentage input */}
+      </div>      
+      {renderColorInputs()}      
       <div className="rds-comp-color-picker__percent-wrapper">
         <input
           type="text"
@@ -251,15 +339,24 @@ export const ColorPickerInfo = ({
   );
 };
 
-/**
- * ColorSwatchesType1 - Vertical list of color swatches with labels
- */
 export const ColorSwatchesType1 = ({ handleChange }) => {
   return (
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">
         <span>Swatches</span>
-        <button className="rds-comp-color-picker__add-swatch">+</button>
+      <RdsButton
+  changeLeftIcon="add"
+  changeRightIcon="save"
+  color="primary"
+  layout="icon-only"
+  shape="rectangle"
+  showLeftIcon
+  size="small"
+  state="default"
+  style="transparent"
+  text="Default Button"
+  textCase="capitalize"
+/>
       </div>
       <div className="rds-comp-color-picker__swatch-list rds-comp-color-picker__swatch-list--vertical">
         {["#FFC300", "#FF4F00", "#EA00FA", "#1708FF", "#00F5FF"].map(hex => (
@@ -273,9 +370,6 @@ export const ColorSwatchesType1 = ({ handleChange }) => {
   );
 };
 
-/**
- * ColorSwatchesType2 - Grid of color swatches
- */
 export const ColorSwatchesType2 = ({ handleChange }) => {
   return (
     <div className="rds-comp-color-picker__swatches">
@@ -292,9 +386,6 @@ export const ColorSwatchesType2 = ({ handleChange }) => {
   );
 };
 
-/**
- * ColorModeSwatches - Component for toggling between solid and gradient color modes
- */
 export const ColorModeSwatches: React.FC<{
   selectedMode: "solid" | "gradient";
   onSelectMode: (mode: "solid" | "gradient") => void;
@@ -321,9 +412,6 @@ export const ColorModeSwatches: React.FC<{
   );
 };
 
-/**
- * GradientEditor - Component for editing gradient colors, stops, and direction
- */
 export const GradientEditor: React.FC<{
   gradientType: string;
   gradientDirection: number;
