@@ -67,8 +67,15 @@ export const Default: Story = {
         showSecondaryButton: true,
         showTertiaryButton: true,
         showVisualPlaceholder: true,
+        formTitle:" Getting Started Tour",
         header: "Tour Title",
         description: "In a laoreet purus.Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc.Aliquam erat vo.In a laoreet purus.Integer turpis quam, laoreet id orci nec, ultrices lacinia nunc.Aliquam erat vo.In a laoreet purus.",
-        stepsIndicator: "1/3"
+        stepsIndicator: "1/3",
+        tabTitle: ["Designers", "Developers", "Managers"],
+        slides: [
+            { id: 1, imgUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"},
+            { id: 2, imgUrl: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80"},
+            { id: 3, imgUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"},
+        ],
     },
 };
