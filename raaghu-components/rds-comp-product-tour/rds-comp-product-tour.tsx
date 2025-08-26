@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Paper, IconButton } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { RdsCarousel, RdsBadge, RdsInput, RdsButton, RdsFileUploader } from '../../raaghu-elements';
@@ -38,6 +38,25 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
         { id: 2, imgUrl: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80", name: header, subTitle: description },
         { id: 3, imgUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80", name: header, subTitle: description },
     ];
+    // internal index to track current slide/page
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const goNext = () => {
+        if (!slides || slides.length === 0) return;
+        setCurrentIndex((i) => (i + 1) % slides.length);
+    };
+
+    const goPrev = () => {
+        if (!slides || slides.length === 0) return;
+        setCurrentIndex((i) => (i - 1 + slides.length) % slides.length);
+    };
+
+    const currentIndicator = `${slides && slides.length ? currentIndex + 1 : 0}/${slides ? slides.length : 0}`;
+    // rds-carousel expects a state prop of '1' | '2' | '3' | '4' (strings)
+    const carouselState = (() => {
+        const val = Math.min(Math.max(currentIndex + 1, 1), 4);
+        return (String(val) as '1' | '2' | '3' | '4');
+    })();
     const renderCornerDots = () => (
         <>
             {topLeft && <Box className="rds-comp-product-tour__corner-dot rds-comp-product-tour__corner-dot--top-left" />}
@@ -59,8 +78,8 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
     );
     const renderNavigationButtons = (variant = 'default') => (
         <Box className={`rds-comp-product-tour__arrows rds-comp-product-tour__arrows--${variant}`}>
-            {showSecondaryButton && <button className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
-            {showPrimaryButton && <button className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
+            {showSecondaryButton && <button onClick={goPrev} className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--prev">{arrowSvg(false)}</button>}
+            {showPrimaryButton && <button onClick={goNext} className="rds-comp-product-tour__arrow rds-comp-product-tour__arrow--next">{arrowSvg(true)}</button>}
         </Box>
     );
     const renderSkipButton = (className: string) => showTertiaryButton && (
@@ -68,7 +87,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
     );
     const renderNavRow = (stepClass: string, skipClass: string, arrowClass: string) => (
         <Box className="rds-comp-product-tour__navigation-row">
-            <Typography className={stepClass}>{stepsIndicator}</Typography>
+            <Typography className={stepClass}>{currentIndicator}</Typography>
             {renderSkipButton(skipClass)}
             <Box className={arrowClass}>{renderNavigationButtons()}</Box>
         </Box>
@@ -98,7 +117,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                 <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
             </Box>
             <Box className="rds-comp-product-tour__form-textarea-container">
-                <RdsInput placeholder="Enter Project Description" multiline rows={3} variant="outlined" size="medium" />
+                <RdsInput placeholder="Enter Project Description" multiline rows={1} variant="outlined" size="medium" />
             </Box>
             <Box className="rds-comp-product-tour__form-button-right">
                 <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
@@ -107,13 +126,13 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
     );
     const renderCarouselArrows = () => (
         <Box className="rds-comp-product-tour__carousel-arrows">
-            {showSecondaryButton && <button className="rds-comp-product-tour__carousel-arrow-prev">{arrowSvg(false)}</button>}
-            {showPrimaryButton && <button className="rds-comp-product-tour__carousel-arrow-next">{arrowSvg(true)}</button>}
+            {showSecondaryButton && <button onClick={goPrev} className="rds-comp-product-tour__carousel-arrow-prev">{arrowSvg(false)}</button>}
+            {showPrimaryButton && <button onClick={goNext} className="rds-comp-product-tour__carousel-arrow-next">{arrowSvg(true)}</button>}
         </Box>
     );
     const renderCarouselNavigation = () => (
         <Box className="rds-comp-product-tour__carousel-nav-row">
-            <Typography className="rds-comp-product-tour__carousel-stepcount">{stepsIndicator}</Typography>
+            <Typography className="rds-comp-product-tour__carousel-stepcount">{currentIndicator}</Typography>
             <Box className="rds-comp-product-tour__carousel-nav-group">
                 {showTertiaryButton && <button className="rds-comp-product-tour__carousel-skip">Skip</button>}
                 {renderCarouselArrows()}
@@ -122,13 +141,13 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
     );
     const renderGifArrows = () => (
         <Box className="rds-comp-product-tour__animation-nav-buttons">
-            {showSecondaryButton && <button className="rds-comp-product-tour__animation-nav-prev">{arrowSvg(false)}</button>}
-            {showPrimaryButton && <button className="rds-comp-product-tour__animation-nav-next">{arrowSvg(true)}</button>}
+            {showSecondaryButton && <button onClick={goPrev} className="rds-comp-product-tour__animation-nav-prev">{arrowSvg(false)}</button>}
+            {showPrimaryButton && <button onClick={goNext} className="rds-comp-product-tour__animation-nav-next">{arrowSvg(true)}</button>}
         </Box>
     );
     const renderGifNavigation = () => (
         <Box className="rds-comp-product-tour__animation-navigation">
-            <Typography className="rds-comp-product-tour__animation-stepcount">{stepsIndicator}</Typography>
+            <Typography className="rds-comp-product-tour__animation-stepcount">{currentIndicator}</Typography>
             <Box className="rds-comp-product-tour__animation-controls">
                 {showTertiaryButton && <Typography className="rds-comp-product-tour__animation-skip">Skip</Typography>}
                 {renderGifArrows()}
@@ -137,13 +156,13 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
     );
     const renderFormArrows = () => (
         <Box className="rds-comp-product-tour__form-arrows">
-            {showSecondaryButton && <button className="rds-comp-product-tour__form-arrow-prev">{arrowSvg(false)}</button>}
-            {showPrimaryButton && <button className="rds-comp-product-tour__form-arrow-next">{arrowSvg(true)}</button>}
+            {showSecondaryButton && <button onClick={goPrev} className="rds-comp-product-tour__form-arrow-prev">{arrowSvg(false)}</button>}
+            {showPrimaryButton && <button onClick={goNext} className="rds-comp-product-tour__form-arrow-next">{arrowSvg(true)}</button>}
         </Box>
     );
     const renderFormNavigation = () => (
         <Box className="rds-comp-product-tour__form-navigation">
-            <Typography className="rds-comp-product-tour__form-stepcount">{stepsIndicator}</Typography>
+            <Typography className="rds-comp-product-tour__form-stepcount">{currentIndicator}</Typography>
             <Box className="rds-comp-product-tour__form-navigation-actions">
                 {showTertiaryButton && <Typography className="rds-comp-product-tour__form-skip">Skip</Typography>}
                 {renderFormArrows()}
@@ -157,7 +176,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                 {renderCloseButton()}                
                 {showVisualPlaceholder ? (
                     <Box className="rds-comp-product-tour__image-section">
-                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Tour Step" className="rds-comp-product-tour__image" />
+                        <img src={slides[currentIndex] ? slides[currentIndex].imgUrl : ""} alt="Tour Step" className="rds-comp-product-tour__image" />
                     </Box>
                 ) : (
                     <Box className="rds-comp-product-tour__image-section" sx={{ height: "220px", background: "transparent" }} />
@@ -179,16 +198,16 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                     <Typography variant="body2" className="rds-comp-product-tour__carousel-desc">{description}</Typography>
                 </Box>
                 <Box className="rds-comp-product-tour__carousel-wrapper">
-                    <RdsCarousel showDots={false} showArrows={false} type="circle" style="default" height="300px">
+                    <RdsCarousel showDots={false} showArrows={false} type="circle" style="default" height="300px" state={carouselState}>
                         {showVisualPlaceholder ? slides.map((slide, index) => (
                             <img key={index} src={slide.imgUrl} alt={`Slide ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
                         )) : []}
                     </RdsCarousel>
                 </Box>
                 <Box className="rds-comp-product-tour__carousel-dots">
-                    <Box className="rds-comp-product-tour__carousel-dot rds-comp-product-tour__carousel-dot--active" />
-                    <Box className="rds-comp-product-tour__carousel-dot" />
-                    <Box className="rds-comp-product-tour__carousel-dot" />
+                    {slides.map((_, idx) => (
+                        <Box key={idx} className={`rds-comp-product-tour__carousel-dot ${idx === currentIndex ? 'rds-comp-product-tour__carousel-dot--active' : ''}`} />
+                    ))}
                 </Box>
                 <Box className="rds-comp-product-tour__carousel-spacer" />
                 {renderCarouselNavigation()}
@@ -202,7 +221,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                 {renderCloseButton()}            
                 {showVisualPlaceholder ? (
                     <Box className="rds-comp-product-tour__animation-section">
-                        <img src="stories/assets/animation.gif" alt="Tour Animation GIF" className="rds-comp-product-tour__gif" />
+                        <img src=".storybook/public/assets/animation.gif" alt="Tour Animation GIF" className="rds-comp-product-tour__gif" />
                     </Box>
                 ) : (
                     <Box sx={{ height: "220px", width: "100%", background: "transparent" }} />

@@ -1,160 +1,115 @@
-// RDS AI Pundit Chat Component
-import React, { useEffect, useState } from 'react';
-import './rds-comp-ai-chat-bot.scss';
-import RdsButton from '../../raaghu-elements/rds-button/rds-button';
-import RdsAutocomplete from '../../raaghu-elements/rds-autocomplete/rds-autocomplete';
-import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
-import AttachmentOutlinedIcon from '@mui/icons-material/AttachmentOutlined';
+import React, { useState } from "react";
+import RdsCompAiMessageBox from "../rds-comp-ai-message-box/rds-comp-ai-message-box";
+import RdsCompAiTypingSection from "../rds-comp-ai-typing-section/rds-comp-ai-typing-section";
+import { Comment as AttachmentComment } from "../rds-comp-ai-attachement/rds-comp-ai-attachement";
+import RdsCompAiChatHeader from "../rds-comp-ai-chat-header/rds-comp-ai-chat-header";
 
 export interface RdsCompAiChatBotProps {
-  colorVariant?: string;
-  placeholderText?: string;
-  icon_name: string;
-  onSend?: (inputText: string, image?: string) => void;
-  previewImage?: string;
-  type?: string;
-  warningMsg?: boolean;
-  advancedControls?: boolean;
-  isTheme?: boolean;
-  warningText?: string;
-}
-declare global {
-  interface Window {
-    webkitSpeechRecognition: any;
-  }
+    aiLogoUrl: string;
+    userAvatarUrl?: string;
+    placeholderText?: string;
+    messages: Message[];
+    setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+    icon_name: string;
 }
 
-const RdsCompAiChatBot: React.FC<RdsCompAiChatBotProps> = ({
-  colorVariant,
-  placeholderText,
-  icon_name,
-  onSend,
-  previewImage,
-  type,
-  warningMsg,
-  advancedControls,
-  isTheme,
-  warningText
-}) => {
-  const [inputText, setInputText] = useState<string>("");
-  const [prevInputText, setPrevInputText] = useState<string>("");
-  const [showEnhancer, setShowEnhancer] = useState<boolean>(false);
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [showWarning, setShowWarning] = useState<boolean>(true);
-  const [showAdvancedControls, setShowAdvancedControls] = useState<boolean>(true);
-  const [enhancedImage, setEnhancedImage] = useState<string | null>(null);
+export interface Message {
+    id: number;
+    text: string;
+    image?: string;
+    sender: boolean;
+}
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+const RdsCompAiChatBot = (props: RdsCompAiChatBotProps) => {
+    const { aiLogoUrl, userAvatarUrl, placeholderText, messages, setMessages, icon_name } = props;
+    const [inputText, setInputText] = useState<string>("");
+    const [inputImage, setInputImage] = useState<string | null>(null);
+
+    const handleSendMessage = async (messageText: string, image?: string) => {
+        if (messageText || inputText || image) {
+            const newMessage: Message = {
+                id: messages.length + 1,
+                text: messageText || inputText,
+                image: image || inputImage || undefined,
+                sender: false,
+            };
+            setMessages([...messages, newMessage]);
+            setInputText("");
+            setInputImage(null);
+        }
     };
 
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (warningMsg !== undefined) {
-      setShowWarning(warningMsg);
-    }
-  }, [warningMsg]);
-
-  useEffect(() => {
-    if (advancedControls !== undefined) {
-      setShowAdvancedControls(advancedControls);
-    }
-  }, [advancedControls]);
-
-  const handleSent = () => {
-    setPrevInputText(inputText);
-    onSend && onSend(inputText, enhancedImage || previewImage);
-    setInputText("");
-    setEnhancedImage(null);
-    setShowEnhancer(true);
-  };
-
-  const handleFileSelect = (file: File) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setEnhancedImage(reader.result as string);
-      setInputText("");
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setInputImage(reader.result as string);
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
     };
-    reader.readAsDataURL(file);
-  };
 
-  return (
-    <div className="rds-comp-ai-chat-bot">
-      <div className="rds-comp-ai-chat-bot__input-wrapper">
-        <div className={`rds-comp-ai-chat-bot__input-with-image${isMobile ? ' rds-comp-ai-chat-bot__input-with-image--mobile' : ''}`}>
-          <textarea
-            className="rds-comp-ai-chat-bot__input-box rds-comp-ai-chat-bot__input-box--muted-placeholder"
-            placeholder={!enhancedImage ? placeholderText || "Placeholder Text" : ""}
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            title="Enter your prompt here"
-          />
-          {!inputText && (
-            <span className="rds-comp-ai-chat-bot__input-icon">
-              <AutoAwesomeOutlinedIcon />
-            </span>
-          )}
-        </div>
-        <div className={`rds-comp-ai-chat-bot__actions${isMobile ? ' rds-comp-ai-chat-bot__actions--mobile' : ''}`}>
-          <div className="rds-comp-ai-chat-bot__action-icons">
-            <div className="rds-comp-ai-chat-bot__attach" id="Premium">
-              <button>
-                <AttachmentOutlinedIcon />
-              </button>
-            </div>
-            <div className="rds-comp-ai-chat-bot__send">
-              <RdsButton color="primary" changeLeftIcon='add'
-              showLeftIcon style="filled" layout='icon-only' />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="rds-comp-ai-chat-bot__button-sections">
-        <div className="rds-comp-ai-chat-bot__project-actions">
-          <div className="rds-comp-ai-chat-bot__action-button rds-comp-ai-chat-bot__action-button--project">
-            <RdsButton
-              color="primary"
-              changeLeftIcon='add'
-              showLeftIcon
-              text="New Project"
-              style="filled"
-              size='medium'
+    const handleAddComment = (comment: AttachmentComment) => {
+        if (!comment.image) {
+            console.error("Comment image is undefined");
+            return;
+        }
+        if (comment.image.startsWith("http")) {
+            setInputImage(comment.image);
+            return;
+        }
+        const byteString = atob(comment.image.split(',')[1]);
+        const mimeString = comment.image.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ab], { type: mimeString });
+
+        const syntheticEvent = {
+            target: {
+                files: [blob]
+            }
+        } as unknown as React.ChangeEvent<HTMLInputElement>;
+        handleImageChange(syntheticEvent);
+    };
+
+    return (
+        <div className="chat-box">
+            <RdsCompAiChatHeader
+                logoUrl={aiLogoUrl}
+                title="New Chat Started"
             />
-          </div>
-          <div className="rds-comp-ai-chat-bot__action-button rds-comp-ai-chat-bot__action-button--figma">
-            <RdsButton
-              color="primary"
-              changeLeftIcon='add'
-              showLeftIcon
-              text="Import From Figma"
-              style="outlined"
-            />
-          </div>
+            <div className="chat-messages" style={{ flex: 1, overflowY: "auto" }}>
+                {messages.map((message) => (
+                    <div
+                        key={message.id}
+                        className={`chat-message ${message.sender ? "sender" : "receiver"}`}
+                    >
+                        <RdsCompAiMessageBox
+                            avtar={`${message.sender ? aiLogoUrl : userAvatarUrl}`}
+                            isImage={!!message.image}
+                            message={message.text}
+                            src={message.image}
+                        />
+                    </div>
+                ))}
+            </div>
+            <div className="chat-input-wrapper" style={{ position: "fixed", bottom: "-17px", width: "100%", padding: "10px", marginLeft: "-10px" }}>
+                <div className="chat-input">
+                    <RdsCompAiTypingSection
+                        colorVariant="#353535"
+                        onSend={handleSendMessage}
+                        placeholderText={placeholderText || "Ask me anything"}
+                        icon_name={icon_name}
+                        onAddComment={handleAddComment}
+                        previewImage={inputImage || undefined}
+                    />
+                </div>
+            </div>
         </div>
-        <div className="rds-comp-ai-chat-bot__autocomplete">
-          <RdsAutocomplete
-            controlStyle="default"
-            helperText="Select one of the available options"
-            isMandatory
-            label=""
-            options={[
-              {
-                label: "Raaghu",
-                value: 1,
-              },
-            ]}
-            placeholder="Select Frontend"
-          />
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
-RdsCompAiChatBot.displayName = 'RdsCompAiChatBot';
+
 export default RdsCompAiChatBot;

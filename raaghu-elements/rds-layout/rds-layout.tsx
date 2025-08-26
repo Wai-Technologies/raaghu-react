@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, ContainerProps } from '@mui/material';
+import { Box, Container, type ContainerProps } from '@mui/material';
 import RdsHeader from '../rds-header/rds-header';
 
 export interface RdsLayoutProps extends Omit<ContainerProps, 'children'> {
@@ -15,7 +15,7 @@ export interface RdsLayoutProps extends Omit<ContainerProps, 'children'> {
   padding?: number;
 }
 
-const RdsLayout: React.FC<RdsLayoutProps> = ({
+const RdsLayout= ({
   children,
   header,
   showHeader = true,
@@ -23,7 +23,7 @@ const RdsLayout: React.FC<RdsLayoutProps> = ({
   padding = 3,
   maxWidth = 'lg',
   ...props
-}) => {
+}:RdsLayoutProps) => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       {showHeader && header && (

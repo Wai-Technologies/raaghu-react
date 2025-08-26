@@ -33,7 +33,7 @@ const meta: Meta<typeof RdsAvatar> = {
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large'],
+      options: ['smallest', 'small', 'medium', 'large', 'largest'],
       description: 'Size of the avatar',
     },
     src: {
@@ -56,12 +56,15 @@ const meta: Meta<typeof RdsAvatar> = {
       control: 'boolean',
       description: 'Show dot at bottom',
     },
+    maxVisibleAvatars: {
+      control: { type: 'number', min: 1, max: 5, step: 1 },
+      description: 'Maximum number of avatars to show in stacking mode (1-5)',
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-
 export const Default: Story = {
   args: {
     title: 'John Doe',
@@ -71,12 +74,75 @@ export const Default: Story = {
     displayStyle: 'with-name',
   },
 };
-export const WithName: Story = {
+
+export const Fallback: Story = {
+  args: {
+    src: 'broken-image-url',
+    alt: 'Broken image',
+    title: 'Fallback User',
+  },
+};
+
+export const Large: Story = {
+  args: {
+    title: 'Large User',
+    size: 'large',
+  },
+};
+
+export const Medium: Story = {
+  args: {
+    title: 'Medium User',
+    size: 'medium',
+  },
+};
+
+export const NameOnBottom: Story = {
   args: {
     title: 'Jane Doe',
     subText: 'Designation',
-    displayStyle: 'with-name',
+    displayStyle: 'name-bottom',
+    size: 'large',
+  },
+};
+
+export const Stacking: Story = {
+  args: {
+    displayStyle: 'stacking',
     size: 'medium',
+    maxVisibleAvatars: 3,
+    avatars: [
+      { title: 'Jane Doe', subText: 'Designation', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
+      { title: 'John Smith', subText: 'Designation', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
+      { title: 'Ava Lee', subText: 'Designation', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
+      { title: 'Mike Brown', subText: 'Designation', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
+      { title: 'Sarah Wilson', subText: 'Designation', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
+    ],
+  },
+}
+
+export const Small: Story = {
+  args: {
+    title: 'Small User',
+    size: 'small',
+  },
+};
+
+export const WithIcon: Story = {
+  args: {
+    children: <Person />,
+  },
+};
+
+export const WithImage: Story = {
+  args: {
+    src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    alt: 'User Avatar',
+    displayStyle: 'with-name',
+    title: 'Jane Doe',
+    subText: 'Designation',
+    showName: true,
+    showDesignation: true,
   },
 };
 
@@ -93,70 +159,11 @@ export const WithInitials: Story = {
   },
 };
 
-export const NameOnBottom: Story = {
+export const WithName: Story = {
   args: {
     title: 'Jane Doe',
     subText: 'Designation',
-    displayStyle: 'name-bottom',
-    size: 'large',
-  },
-};
-
-export const Stacking: Story = {
-  args: {
-    displayStyle: 'stacking',
-    avatars: [
-      { title: 'Jane Doe', subText: 'Designation', size: 'medium', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
-      { title: 'John Smith', subText: 'Designation', size: 'medium', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
-      { title: 'Ava Lee', subText: 'Designation', size: 'medium', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
-      { title: 'Mike Brown', subText: 'Designation', size: 'medium', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
-    ],
-  },
-}
-
-export const WithImage: Story = {
-  args: {
-    src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    alt: 'User Avatar',
     displayStyle: 'with-name',
-    title: 'Jane Doe', 
-    subText: 'Designation',
-    showName: true,
-    showDesignation: true,
-  },
-};
-
-export const Small: Story = {
-  args: {
-    title: 'Small User',
-    size: 'small',
-  },
-};
-
-export const Medium: Story = {
-  args: {
-    title: 'Medium User',
     size: 'medium',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    title: 'Large User',
-    size: 'large',
-  },
-};
-
-export const WithIcon: Story = {
-  args: {
-    children: <Person />,
-  },
-};
-
-export const Fallback: Story = {
-  args: {
-    src: 'broken-image-url',
-    alt: 'Broken image',
-    title: 'Fallback User',
   },
 };

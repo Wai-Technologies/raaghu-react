@@ -7,14 +7,16 @@ export interface RdsAvatarProps extends AvatarProps {
   colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
   title?: string;
   subText?: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'smallest' | 'small' | 'medium' | 'large' | 'largest';
   displayStyle?: 'with-name' | 'name-bottom' | 'stacking';
   avatars?: Array<{
     src?: string;
     title?: string;
     subText?: string;
-    size?: 'small' | 'medium' | 'large';
+    size?: 'smallest' | 'small' | 'medium' | 'large' | 'largest';
   }>;
+  /** Maximum number of avatars to show in stacking mode before showing +N indicator */
+  maxVisibleAvatars?: number;
   activityRing?: boolean;
   /** Show activity dot on top of avatar */
   activeDotTop?: boolean;
@@ -24,9 +26,11 @@ export interface RdsAvatarProps extends AvatarProps {
   showDesignation?: boolean;
 }
 const sizeStyles = {
-  small: { width: 32, height: 32, fontSize: 16 },
-  medium: { width: 40, height: 40, fontSize: 20 },
-  large: { width: 56, height: 56, fontSize: 28 }
+  smallest: { width: 24, height: 24, fontSize: 9 },
+  small: { width: 32, height: 32, fontSize: 11 },
+  medium: { width: 40, height: 40, fontSize: 14 },
+  large: { width: 48, height: 48, fontSize: 18 },
+  largest: { width: 64, height: 64, fontSize: 21 }
 };
 
 const RdsAvatar = ({
@@ -36,6 +40,7 @@ const RdsAvatar = ({
   size = 'medium',
   displayStyle = 'with-name',
   avatars,
+  maxVisibleAvatars = 3,
   children,
   sx,
   activityRing = false,
@@ -44,20 +49,24 @@ const RdsAvatar = ({
   showName = true,
   showDesignation = true,
   ...props
-}:RdsAvatarProps) => {
+}: RdsAvatarProps) => {
 
   if (displayStyle === 'stacking' && avatars && avatars.length > 0) {
+    const visibleAvatars = avatars.slice(0, maxVisibleAvatars);
+    const remainingCount = Math.max(0, avatars.length - maxVisibleAvatars);
+    const overlapOffset = size === 'smallest' ? -12 : size === 'small' ? -14 : size === 'medium' ? -16 : size === 'largest' ? -26 : size === 'large' ? -20 : -22;
+
     return (
-      <div className="rds-avatar__stacking">
-        {avatars.map((avatar, idx) => (
+      <div className="rds-avatar__stacking avatar-container" style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+        {visibleAvatars.map((avatar, idx) => (
     <MuiAvatar
       key={idx}
       src={avatar.src}
       sx={{
-              ...sizeStyles[avatar.size || size],
-              zIndex: avatars.length - idx,
-              left: idx * 20,
-              position: 'absolute',
+              ...sizeStyles[size],
+              position: 'relative',
+              zIndex: idx + 1, 
+              marginLeft: idx === 0 ? 0 : `${overlapOffset}px`,
               border: '2px solid #fff',
               boxSizing: 'content-box',
               background: '#e0e0e0',
@@ -67,7 +76,18 @@ const RdsAvatar = ({
             {avatar.title ? avatar.title.charAt(0).toUpperCase() : null}
           </MuiAvatar>
         ))}
-        <div className="rds-avatar__stacking-container" style={{ position: 'relative', height: sizeStyles[size].height, width: 20 * (avatars.length - 1) + sizeStyles[size].width }} />
+        {remainingCount > 0 && (
+          <div
+            className={`plus-indicator plus-indecator-${size}`}
+            style={{
+              marginLeft: `${overlapOffset}px`,
+              zIndex: maxVisibleAvatars + 1, 
+              fontSize: size === 'smallest' ? '8px' : size === 'small' ? '11px' : size === 'medium' ? '14px' : size === 'large' ? '16px' : '18px'
+            }}
+          >
+            +{remainingCount}
+          </div>
+        )}
       </div>
     );
   }
@@ -83,7 +103,7 @@ const RdsAvatar = ({
           <MuiAvatar sx={{ ...sizeStyles[size], ...sx }} {...props}>
             {title ? title.split(' ').map(n => n[0]).join('').toUpperCase() : children}
           </MuiAvatar>
-          {activeDotTop && <span className="rds-avatar__dot" aria-label="active status top" />}
+          {activeDotTop && <span className="rds-avatar__dot rds-avatar__dot--top" aria-label="active status top" />}
           {activeDotBottom && <span className="rds-avatar__dot rds-avatar__dot--bottom" aria-label="active status bottom" />}
         </span>
 
@@ -110,7 +130,7 @@ const RdsAvatar = ({
     >
       {title ? title.split(' ').map(n => n[0]).join('').toUpperCase() : children}
     </MuiAvatar>
-            {activeDotTop && <span className="rds-avatar__dot" aria-label="active status top" />}
+            {activeDotTop && <span className="rds-avatar__dot rds-avatar__dot--top" aria-label="active status top" />}
             {activeDotBottom && <span className="rds-avatar__dot rds-avatar__dot--bottom" aria-label="active status bottom" />}
           </span>
         </span>
@@ -133,7 +153,7 @@ const RdsAvatar = ({
           <MuiAvatar sx={{ ...sizeStyles[size], ...sx }} {...props}>
             {title ? title.charAt(0).toUpperCase() : children}
           </MuiAvatar>
-          {activeDotTop && <span className="rds-avatar__dot" aria-label="active status top" />}
+          {activeDotTop && <span className="rds-avatar__dot rds-avatar__dot--top" aria-label="active status top" />}
           {activeDotBottom && <span className="rds-avatar__dot rds-avatar__dot--bottom" aria-label="active status bottom" />}
         </span>
       </span>
