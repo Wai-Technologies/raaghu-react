@@ -1,55 +1,66 @@
 // RDS Table Component Styles
 .rds-table {
+  // Base component styles
   width: 100%;
   position: relative;
   
+  // Container element
   &__container {
-    background-color: var(--rds-background-paper);
-    border-radius: var(--rds-border-radius);
-    overflow: hidden;
-    box-shadow: var(--rds-elevation-1);
+    background-color: var(--rds-color-surface, #ffffff);
+    border-radius: var(--rds-border-radius, 8px);
+    overflow-x: auto;
+    overflow-y: visible;
+    box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.12));
+    max-width: 100%;
   }
   
 
+  // Table element
   &__table {
     width: 100%;
+    min-width: max-content;
     border-collapse: separate;
     border-spacing: 0;
+    table-layout: auto;
   }
   
+  // Head section
   &__head {
-    background-color: var(--rds-background-surface);
-    
-    .rds-table__header-row {
-      background-color: var(--rds-background-surface);
-    }
+    background-color: var(--rds-color-surface-variant, #f5f5f5);
   }
   
+  // Header row
+  &__header-row {
+    background-color: var(--rds-color-surface-variant, #f5f5f5);
+  }
+  
+  // Header cell
   &__header {
-    padding: var(--rds-spacing-md) var(--rds-spacing-lg);
+    padding: var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
     text-align: left;
     font-weight: 600;
-    color: var(--rds-color-text-primary);
-    border-bottom: 1px solid var(--rds-border-default);
-    font-size: var(--rds-font-size-sm);
+    color: var(--rds-color-on-surface, #202020);
+    border-bottom: 1px solid var(--rds-color-outline, #e0e0e0);
+    font-size: var(--rds-font-size-sm, 14px);
     letter-spacing: 0.5px;
+    white-space: nowrap;
     
+    // Header modifiers
     &--sortable {
       cursor: pointer;
       user-select: none;
-      transition: background-color var(--rds-transition-base);
+      transition: background-color var(--rds-transition-duration, 0.15s) ease-in-out;
       
       &:hover {
-        background-color: var(--rds-background-hover);
+        background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04));
       }
     }
     
     &--checkbox {
       width: 48px;
-      padding: var(--rds-spacing-md);
+      padding: var(--rds-spacing-md, 16px);
     }
-  }
-  
+  }  // Header content wrapper
   &__header-content {
     display: flex;
     align-items: center;
@@ -58,56 +69,62 @@
     gap: var(--rds-spacing-xs, 4px);
   }
   
+  // Header label
   &__header-label {
     flex: 0 0 auto;
   }
   
+  // Sort icon
   &__sort-icon {
     opacity: 0.6;
-    transition: opacity var(--rds-transition-base);
-    color: var(--rds-color-text-secondary);
+    transition: opacity var(--rds-transition-duration, 0.15s) ease-in-out;
+    color: var(--rds-color-on-surface-variant, #757575);
     font-size: 16px !important;
     flex: 0 0 auto;
     
     .rds-table__header:hover & {
       opacity: 1;
-      color: var(--rds-color-text-primary);
+      color: var(--rds-color-on-surface, #202020);
     }
   }
   
+  // Sort button
   &__sort-button {
     padding: var(--rds-spacing-xs, 2px) !important;
     margin-left: var(--rds-spacing-xs, 4px);
     border-radius: var(--rds-border-radius-sm, 4px);
-    transition: background-color var(--rds-transition-base);
+    transition: background-color var(--rds-transition-duration, 0.15s) ease-in-out;
     
     &:hover {
-      background-color: var(--rds-background-hover);
+      background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04));
     }
     
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary);
+      outline: 2px solid var(--rds-color-primary, #1976d2);
       outline-offset: 2px;
     }
   }
   
+  // Body section
   &__body {
-    background-color: var(--rds-background-paper);
+    background-color: var(--rds-color-surface, #ffffff);
   }
   
+  // Table row
   &__row {
-    border-bottom: 1px solid var(--rds-border-light);
-    transition: background-color var(--rds-transition-base);
+    border-bottom: 1px solid var(--rds-color-outline-variant, #f0f0f0);
+    transition: background-color var(--rds-transition-duration, 0.15s) ease-in-out;
     
+    // Row states
     &:hover {
-      background-color: var(--rds-background-hover);
+      background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04));
     }
     
     &--selected {
-      background-color: rgba(var(--rds-color-primary-rgb), 0.08);
+      background-color: var(--rds-color-primary-container, rgba(120, 37, 233, 0.08));
       
       &:hover {
-        background-color: rgba(var(--rds-color-primary-rgb), 0.12);
+        background-color: var(--rds-color-primary-container-hover, rgba(120, 37, 233, 0.12));
       }
     }
     
@@ -116,32 +133,35 @@
     }
   }
   
+  // Table cell
   &__cell {
-    padding: var(--rds-spacing-md) var(--rds-spacing-lg);
-    border-bottom: 1px solid var(--rds-border-light);
+    padding: var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
+    border-bottom: 1px solid var(--rds-color-outline-variant, #f0f0f0);
     vertical-align: middle;
-    font-size: var(--rds-font-size-body);
-    color: var(--rds-color-text-primary);
+    font-size: var(--rds-font-size-body, 14px);
+    color: var(--rds-color-on-surface, #202020);
+    white-space: nowrap;
     
+    // Cell modifiers
     &--checkbox {
       width: 48px;
-      padding: var(--rds-spacing-md);
+      padding: var(--rds-spacing-md, 16px);
     }
     
     &--radio {
       width: 48px;
-      padding: var(--rds-spacing-md);
+      padding: var(--rds-spacing-md, 16px);
       text-align: center;
     }
     
     &--avatar {
-      padding: var(--rds-spacing-sm) var(--rds-spacing-lg);
+      padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-lg, 24px);
     }
     
     &--badge {
       text-align: center;
     }
-    s
+    
     &--actions {
       width: 120px;
       text-align: right;
@@ -150,9 +170,7 @@
     &--numeric {
       text-align: right;
     }
-  }
-  
-  // Avatar cell specific styles
+  }  // Avatar cell specific styles
   &__avatar-cell {
     display: flex;
     align-items: center;
@@ -167,80 +185,83 @@
   
   &__avatar-name {
     font-weight: 500;
-    color: var(--rds-color-text-primary);
-    font-size: var(--rds-font-size-body);
+    color: var(--rds-color-on-surface, #202020);
+    font-size: var(--rds-font-size-body, 14px);
   }
   
   &__avatar-subtitle {
-    font-size: var(--rds-font-size-sm);
-    color: var(--rds-color-text-secondary);
+    font-size: var(--rds-font-size-sm, 12px);
+    color: var(--rds-color-on-surface-variant, #757575);
   }
   
   // Badge styles
   &__badge {
-    font-size: var(--rds-font-size-xs);
+    font-size: var(--rds-font-size-xs, 12px);
     font-weight: 500;
     text-transform: capitalize;
     letter-spacing: 0.5px;
-    border-radius: 16px;
-    padding: 4px 12px;
+    border-radius: var(--rds-border-radius-full, 16px);
+    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 12px);
     
+    // Badge variants
     &--badge {
-      background-color: var(--rds-color-info-light);
-      color: var(--rds-color-info);
+      background-color: var(--rds-color-info-container, #e3f2fd);
+      color: var(--rds-color-on-info-container, #1976d2);
     }
     
     &--image {
-      background-color: var(--rds-color-info-light);
-      color: var(--rds-color-info);
+      background-color: var(--rds-color-info-container, #e3f2fd);
+      color: var(--rds-color-on-info-container, #1976d2);
     }
     
     &--active {
-      background-color: var(--rds-color-success-light);
-      color: var(--rds-color-success);
+      background-color: var(--rds-color-success-container, #e8f5e8);
+      color: var(--rds-color-on-success-container, #2e7d32);
     }
     
     &--inactive {
-      background-color: var(--rds-color-error-light);
-      color: var(--rds-color-error);
+      background-color: var(--rds-color-error-container, #ffebee);
+      color: var(--rds-color-on-error-container, #c62828);
     }
   }
   
-  // Actions styles
+  // Actions container
   &__actions {
     display: flex;
     gap: var(--rds-spacing-xs, 4px);
     justify-content: flex-end;
   }
   
+  // Action button
   &__action {
-    padding: var(--rds-spacing-xs);
-    color: var(--rds-color-text-secondary);
-    transition: color var(--rds-transition-base);
+    padding: var(--rds-spacing-xs, 4px);
+    color: var(--rds-color-on-surface-variant, #757575);
+    transition: color var(--rds-transition-duration, 0.15s) ease-in-out;
     
     &:hover {
-      color: var(--rds-color-primary);
+      color: var(--rds-color-primary, #1976d2);
     }
     
+    // Action variants
     &--edit {
-      color: var(--rds-color-info);
-      background-color: var(--rds-color-info-light);
-      border-radius: var(--rds-border-radius-sm);
+      color: var(--rds-color-info, #1976d2);
+      background-color: var(--rds-color-info-container, #e3f2fd);
+      border-radius: var(--rds-border-radius-sm, 4px);
       
       &:hover {
-        background-color: var(--rds-color-info);
-        color: var(--rds-color-on-info);
+        background-color: var(--rds-color-info, #1976d2);
+        color: var(--rds-color-on-info, #ffffff);
       }
     }
     
     &--delete {
-      color: var(--rds-color-error);
+      color: var(--rds-color-error, #d32f2f);
       background-color: transparent;
-      border-radius: var(--rds-border-radius-sm);
+      border-radius: var(--rds-border-radius-sm, 4px);
       
       &:hover {
-        background-color: var(--rds-color-error-light);
-        color: var(--rds-color-error);
+        background-color: var(--rds-color-error-container, #ffebee);
+        color: var(--rds-color-error, #d32f2f);
       }
     }
   }
@@ -251,13 +272,13 @@
   }
   
   &__multiline-text-primary {
-    font-size: var(--rds-font-size-body,14px);
-    color: var(--rds-color-text-primary);
+    font-size: var(--rds-font-size-body, 14px);
+    color: var(--rds-color-on-surface, #202020);
   }
   
   &__multiline-text-secondary {
-    font-size: var(--rds-font-size-sm,12px);
-    color: var(--rds-color-text-secondary);
+    font-size: var(--rds-font-size-sm, 12px);
+    color: var(--rds-color-on-surface-variant, #757575);
   }
   
   // Link text styles
@@ -265,11 +286,11 @@
     color: var(--rds-color-primary, #1976d2);
     cursor: pointer;
     text-decoration: none;
-    transition: color var(--rds-transition-base);
+    transition: color var(--rds-transition-duration, 0.15s) ease-in-out;
     font-size: var(--rds-font-size-body, 14px);
     
     &:hover {
-      color: var(--rds-color-primary-dark, #0056b3);
+      color: var(--rds-color-primary-dark, #0d47a1);
     }
   }
   
@@ -282,8 +303,8 @@
   }
   
   &__progress-text {
-    font-size: var(--rds-font-size-xs);
-    color: var(--rds-color-text-secondary);
+    font-size: var(--rds-font-size-xs, 12px);
+    color: var(--rds-color-on-surface-variant, #757575);
     text-align: center;
     margin-top: 2px;
   }
@@ -297,28 +318,28 @@
   }
   
   &__content-text {
-    font-size: var(--rds-font-size-body);
-    color: var(--rds-color-text-primary);
+    font-size: var(--rds-font-size-body, 14px);
+    color: var(--rds-color-on-surface, #202020);
   }
 
   // Size variants
   &--dense {
     .rds-table__header,
     .rds-table__cell {
-      padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+      padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
     }
     
     .rds-table__cell--checkbox,
     .rds-table__header--checkbox {
-      padding: var(--rds-spacing-xs);
+      padding: var(--rds-spacing-xs, 4px);
     }
   }
   
   // Empty state
   &__empty {
-    padding: var(--rds-spacing-xl);
+    padding: var(--rds-spacing-xl, 32px);
     text-align: center;
-    color: var(--rds-color-text-secondary);
+    color: var(--rds-color-on-surface-variant, #757575);
   }
   
   // Loading state
@@ -326,67 +347,167 @@
     pointer-events: none;
     opacity: 0.7;
   }
+
+  // Material-UI specific overrides (maintain functionality)
+  &.MuiPaper-root {
+    background-color: var(--rds-color-surface, #ffffff);
+    border-radius: var(--rds-border-radius, 8px);
+    overflow: visible;
+    box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.12));
+  }
+  
+  .MuiTableContainer-root {
+    background-color: var(--rds-color-surface, #ffffff) !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    max-width: 100% !important;
+  }
+  
+  .MuiTable-root {
+    background-color: var(--rds-color-surface, #ffffff) !important;
+    width: 100% !important;
+    min-width: max-content !important;
+    table-layout: auto !important;
+  }
+  
+  .MuiTableHead-root {
+    background-color: var(--rds-color-surface-variant, #f5f5f5) !important;
+  }
+  
+  .MuiTableCell-head {
+    background-color: var(--rds-color-surface-variant, #f5f5f5) !important;
+    color: var(--rds-color-on-surface, #202020) !important;
+    font-weight: 600 !important;
+    border-bottom: 1px solid var(--rds-color-outline, #e0e0e0) !important;
+    white-space: nowrap !important;
+  }
+  
+  .MuiTableCell-body {
+    color: var(--rds-color-on-surface, #202020) !important;
+    border-bottom: 1px solid var(--rds-color-outline-variant, #f0f0f0) !important;
+    white-space: nowrap !important;
+  }
+  
+  .MuiTableRow-root:hover {
+    background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04)) !important;
+  }
 }
 
 // Dark theme support
-[data-theme="dark"] {
+[data-theme="dark"],
+.dark-theme {
   .rds-table {
+    // Override design tokens for dark theme
+    --rds-color-surface: #1a1a1a;
+    --rds-color-surface-variant: #2a2a2a;
+    --rds-color-surface-hover: rgba(255, 255, 255, 0.08);
+    --rds-color-on-surface: #ffffff;
+    --rds-color-on-surface-variant: #b0b0b0;
+    --rds-color-outline: #404040;
+    --rds-color-outline-variant: #333333;
+    --rds-color-primary-container: rgba(120, 37, 233, 0.15);
+    --rds-color-primary-container-hover: rgba(120, 37, 233, 0.25);
+    --rds-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.3);
+    
+    // Component-specific dark theme overrides
     &__container {
-      background-color: var(--rds-dark-background-paper);
-      box-shadow: var(--rds-dark-elevation-1);
+      background-color: var(--rds-color-surface);
+      box-shadow: var(--rds-elevation-1);
     }
     
     &__head {
-      background-color: var(--rds-dark-background-surface);
+      background-color: var(--rds-color-surface-variant);
+    }
+    
+    &__header-row {
+      background-color: var(--rds-color-surface-variant);
     }
     
     &__header {
-      color: var(--rds-dark-color-text-primary);
-      border-bottom-color: var(--rds-dark-border-default);
+      background-color: var(--rds-color-surface-variant);
+      color: var(--rds-color-on-surface);
+      border-bottom-color: var(--rds-color-outline);
       
       &--sortable:hover {
-        background-color: var(--rds-dark-background-hover);
+        background-color: var(--rds-color-surface-hover);
       }
     }
     
+    &__body {
+      background-color: var(--rds-color-surface);
+    }
+    
     &__row {
-      border-bottom-color: var(--rds-dark-border-light);
+      border-bottom-color: var(--rds-color-outline-variant);
       
       &:hover {
-        background-color: var(--rds-dark-background-hover);
+        background-color: var(--rds-color-surface-hover);
       }
       
       &--selected {
-        background-color: rgba(var(--rds-dark-color-primary-rgb), 0.08);
+        background-color: var(--rds-color-primary-container);
         
         &:hover {
-          background-color: rgba(var(--rds-dark-color-primary-rgb), 0.12);
+          background-color: var(--rds-color-primary-container-hover);
         }
       }
     }
     
     &__cell {
-      color: var(--rds-dark-color-text-primary);
-      border-bottom-color: var(--rds-dark-border-light);
+      color: var(--rds-color-on-surface);
+      border-bottom-color: var(--rds-color-outline-variant);
     }
     
     &__avatar-name {
-      color: var(--rds-dark-color-text-primary);
+      color: var(--rds-color-on-surface);
     }
     
     &__avatar-subtitle {
-      color: var(--rds-dark-color-text-secondary);
+      color: var(--rds-color-on-surface-variant);
     }
     
     // Avatar component text colors in dark theme
     .rds-avatar {
       &__name {
-        color: var(--rds-dark-color-text-primary) !important;
+        color: var(--rds-color-on-surface) !important;
       }
       
       &__designation {
-        color: var(--rds-dark-color-text-secondary) !important;
+        color: var(--rds-color-on-surface-variant) !important;
       }
+    }
+
+    // Material-UI overrides for dark theme
+    &.MuiPaper-root {
+      background-color: var(--rds-color-surface) !important;
+      box-shadow: var(--rds-elevation-1) !important;
+    }
+    
+    .MuiTableContainer-root {
+      background-color: var(--rds-color-surface) !important;
+    }
+    
+    .MuiTable-root {
+      background-color: var(--rds-color-surface) !important;
+    }
+    
+    .MuiTableHead-root {
+      background-color: var(--rds-color-surface-variant) !important;
+    }
+    
+    .MuiTableCell-head {
+      background-color: var(--rds-color-surface-variant) !important;
+      color: var(--rds-color-on-surface) !important;
+      border-bottom-color: var(--rds-color-outline) !important;
+    }
+    
+    .MuiTableCell-body {
+      color: var(--rds-color-on-surface) !important;
+      border-bottom-color: var(--rds-color-outline-variant) !important;
+    }
+    
+    .MuiTableRow-root:hover {
+      background-color: var(--rds-color-surface-hover) !important;
     }
   }
 }

@@ -1,0 +1,158 @@
+// RDS AI Pundit Chat Component Styles
+.rds-comp-ai-chat-bot {
+  // Base component styles
+  display: block;
+  
+  // Input wrapper element
+  &__input-wrapper {
+    border-radius: var(--rds-border-radius, 5px);
+    border: 1px solid var(--rds-color-border, #C6A2F6);
+    background: var(--rds-color-surface, #FFF);
+    box-shadow: var(--rds-elevation-2, 0px 0px 12px 0px rgba(0, 0, 0, 0.18));
+    padding: var(--rds-spacing-md, 12px);
+    position: relative;
+    transition: all 0.2s ease;
+    
+    &:focus-within {
+      border-color: var(--rds-color-primary, #C6A2F6);
+      box-shadow: var(--rds-elevation-3, 0px 0px 16px 0px rgba(0, 0, 0, 0.25));
+    }
+  }
+  
+  // Input with image container
+  &__input-with-image {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: var(--rds-spacing-sm, 10px);
+    justify-content: flex-end;
+    position: relative;
+    
+    &--mobile {
+      padding-right: var(--rds-spacing-md, 12px);
+    }
+  }
+  
+  // Main input box
+  &__input-box {
+    flex: 1;
+    padding: var(--rds-spacing-md, 15px);
+    font-size: var(--rds-font-size-body, 14px);
+    background-color: var(--rds-color-surface, #fff);
+    color: var(--rds-color-on-surface, #353535);
+    height: 100px;
+    box-sizing: border-box;
+    line-height: 1.5;
+    resize: none;
+    border-radius: var(--rds-border-radius-sm, 3px);
+    font-family: var(--rds-font-family, Poppins);
+    font-weight: var(--rds-font-weight-medium, 500);
+    border: none;
+    outline: none;
+    margin: 0;
+    transition: all 0.2s ease;
+    
+    &::placeholder {
+      font-weight: var(--rds-font-weight-medium, 500);
+      color: var(--rds-color-on-surface, #353535);
+      font-family: var(--rds-font-family, Poppins);
+      font-size: var(--rds-font-size-body, 16px);
+      line-height: var(--rds-line-height-body, 16px);
+    }
+    
+    &:focus {
+      border: none;
+      outline: none;
+    }
+    
+    &--muted-placeholder::placeholder {
+      color: var(--rds-color-text-secondary, #6c757d);
+      opacity: 1;
+    }
+  }
+  
+  // Input icon
+  &__input-icon {
+    color: var(--rds-color-text-secondary, #6c757d);
+    font-size: var(--rds-font-size-icon, 20px);
+    top: var(--rds-spacing-sm, 8px);
+    right: var(--rds-spacing-md, 12px);
+    position: absolute;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease;
+  }
+  
+  // Actions container
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--rds-spacing-sm, 8px);
+    margin-top: var(--rds-spacing-sm, 8px);
+    
+    &--mobile {
+      margin-top: var(--rds-spacing-md, 12px);
+    }
+  }
+  
+  // Action icons container
+  &__action-icons {
+    display: flex;
+    align-items: center;
+    gap: var(--rds-spacing-md, 12px);
+  }
+  
+  // Attach button
+  &__attach {
+    display: flex;
+    align-items: center;
+    
+    button {
+      background: none;
+      border: none;
+      padding: 0;
+      box-shadow: none;
+      cursor: pointer;
+      color: var(--rds-color-text-secondary, #6c757d);
+      transition: color 0.2s ease;
+      
+      &:hover {
+        color: var(--rds-color-primary, #C6A2F6);
+      }
+      
+      &:focus-visible {
+        outline: 2px solid var(--rds-color-primary, #C6A2F6);
+        outline-offset: 2px;
+        border-radius: var(--rds-border-radius-sm, 2px);
+      }
+    }
+  }
+  
+  // Send button container
+  &__send {
+    display: flex;
+    align-items: center;
+  }
+  
+  // Button sections
+  &__button-sections {
+    display: flex;
+    margin-top: var(--rds-spacing-md, 12px);
+    margin-bottom: var(--rds-spacing-sm, 8px);
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--rds-spacing-md, 12px);
+  }
+  
+  // Project actions container
+  &__project-actions {
+    display: flex;
+    gap: var(--rds-spacing-md, 12px);
+  }
+  
+  &__action-button {
+    display: flex;
+  }
+}
+ 

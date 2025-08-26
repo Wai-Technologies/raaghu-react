@@ -52,6 +52,16 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  render: (args) => {
+    const [page, setPage] = useState(args.page ?? 1);
+    return (
+      <RdsPagination
+        {...args}
+        page={page}
+        onChange={(_, value) => setPage(value)}
+      />
+    );
+  },
   args: {
     count: 10,
     page: 5,
@@ -86,6 +96,16 @@ export const Advanced: Story = {
 };
 
 export const Disabled: Story = {
+  render: (args) => {
+    const [page, setPage] = useState(args.page ?? 1);
+    return (
+      <RdsPagination
+        {...args}
+        page={page}
+        onChange={(_, value) => setPage(value)}
+      />
+    );
+  },
   args: {
     count: 10,
     page: 5,
@@ -93,6 +113,16 @@ export const Disabled: Story = {
   },
 };
 export const Large: Story = {
+  render: (args) => {
+    const [page, setPage] = useState(args.page ?? 1);
+    return (
+      <RdsPagination
+        {...args}
+        page={page}
+        onChange={(_, value) => setPage(value)}
+      />
+    );
+  },
   args: {
     count: 12,
     page: 6,
@@ -101,6 +131,16 @@ export const Large: Story = {
 };
 
 export const Outlined: Story = {
+  render: (args) => {
+    const [page, setPage] = useState(args.page ?? 1);
+    return (
+      <RdsPagination
+        {...args}
+        page={page}
+        onChange={(_, value) => setPage(value)}
+      />
+    );
+  },
   args: {
     count: 10,
     page: 3,
@@ -109,6 +149,16 @@ export const Outlined: Story = {
 };
 
 export const Rounded: Story = {
+  render: (args) => {
+    const [page, setPage] = useState(args.page ?? 1);
+    return (
+      <RdsPagination
+        {...args}
+        page={page}
+        onChange={(_, value) => setPage(value)}
+      />
+    );
+  },
   args: {
     count: 15,
     page: 7,
@@ -116,6 +166,16 @@ export const Rounded: Story = {
   },
 };
 export const Small: Story = {
+  render: (args) => {
+    const [page, setPage] = useState(args.page ?? 1);
+    return (
+      <RdsPagination
+        {...args}
+        page={page}
+        onChange={(_, value) => setPage(value)}
+      />
+    );
+  },
   args: {
     count: 8,
     page: 4,
@@ -124,6 +184,16 @@ export const Small: Story = {
 };
 
 export const WithFirstLast: Story = {
+  render: (args) => {
+    const [page, setPage] = useState(args.page ?? 1);
+    return (
+      <RdsPagination
+        {...args}
+        page={page}
+        onChange={(_, value) => setPage(value)}
+      />
+    );
+  },
   args: {
     count: 20,
     page: 10,

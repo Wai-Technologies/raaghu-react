@@ -44,9 +44,10 @@ const meta: Meta<typeof RdsTabs> = {
       description: 'Tab layout style',
       defaultValue: 'filled',
     },
-    title:{
+    title: {
       control: 'text',
-      description: 'Title for the tab, used for accessibility and tooltips',
+      description: 'Override label for the active tab (applies in story render only)',
+      defaultValue: '',
     },
     state: {
       control: 'select',
@@ -108,10 +109,14 @@ export const Default: Story = {
     layout: 'filled',
     leftIcon: 'Person',
     rightIcon: 'Add',
+    level: 4,
   },
   render: (args) => {
-    const { leftIcon, rightIcon, level, ...rest } = args as any;
-    const tabs = (args.tabs || []).slice(0, level || 1);
+    const { leftIcon, rightIcon, level, title, ...rest } = args as any;
+    let tabs = (args.tabs || []).slice(0, level || 1);
+    if (typeof args.activeTab === 'number' && title && title.length > 0 && tabs[args.activeTab]) {
+      tabs = tabs.map((tab: any, idx: number) => (idx === args.activeTab ? { ...tab, label: title, title } : tab));
+    }
     return (
       <>
         <RdsTabs
@@ -129,28 +134,18 @@ export const ManyTabs: Story = {
   args: {
     tabs: Array.from({ length: 8 }, (_, i) => ({ id: i, label: `Tab ${i + 1}` })),
     activeTab: 0,
-    layout: "flap",
+    layout: "filled",
     leftIcon: 'Person',
     rightIcon: 'Add',
-    title: '',
     type: "horizontal",
     state: "default",
-    level: 1
+    level: 5
   },
   render: (args) => {
-    const { leftIcon, rightIcon, title, level, ...rest } = args as any;
+    const { leftIcon, rightIcon, level, title, ...rest } = args as any;
     let tabs = (args.tabs || []).slice(0, level || 1);
     if (typeof args.activeTab === 'number' && title && title.length > 0 && tabs[args.activeTab]) {
-      tabs = tabs.map((tab, idx) => {
-        if (idx === args.activeTab) {
-          return {
-            ...tab,
-            label: title,
-            title: title,
-          };
-        }
-        return tab;
-      });
+      tabs = tabs.map((tab: any, idx: number) => (idx === args.activeTab ? { ...tab, label: title, title } : tab));
     }
     return (
       <>
@@ -172,10 +167,14 @@ export const SecondTabActive: Story = {
     layout: 'filled',
     leftIcon: 'Person',
     rightIcon: 'Add',
+    level: 4,
   },
   render: (args) => {
-    const { leftIcon, rightIcon, level, ...rest } = args as any;
-    const tabs = (args.tabs || []).slice(0, level || 1);
+    const { leftIcon, rightIcon, level, title, ...rest } = args as any;
+    let tabs = (args.tabs || []).slice(0, level || 1);
+    if (typeof args.activeTab === 'number' && title && title.length > 0 && tabs[args.activeTab]) {
+      tabs = tabs.map((tab: any, idx: number) => (idx === args.activeTab ? { ...tab, label: title, title } : tab));
+    }
     return (
       <>
         <RdsTabs
@@ -202,8 +201,11 @@ export const SimpleTabs: Story = {
     rightIcon: 'Add',
   },
   render: (args) => {
-    const { leftIcon, rightIcon, level, ...rest } = args as any;
-    const tabs = (args.tabs || []).slice(0, level || 1);
+    const { leftIcon, rightIcon, level, title, ...rest } = args as any;
+    let tabs = (args.tabs || []).slice(0, level || 1);
+    if (typeof args.activeTab === 'number' && title && title.length > 0 && tabs[args.activeTab]) {
+      tabs = tabs.map((tab: any, idx: number) => (idx === args.activeTab ? { ...tab, label: title, title } : tab));
+    }
     return (
       <>
         <RdsTabs
@@ -225,10 +227,14 @@ export const Vertical: Story = {
     layout: 'filled',
     leftIcon: 'Person',
     rightIcon: 'Add',
+    level: 4,
   },
   render: (args) => {
-    const { leftIcon, rightIcon, level, ...rest } = args as any;
-    const tabs = (args.tabs || []).slice(0, level || 1);
+    const { leftIcon, rightIcon, level, title, ...rest } = args as any;
+    let tabs = (args.tabs || []).slice(0, level || 1);
+    if (typeof args.activeTab === 'number' && title && title.length > 0 && tabs[args.activeTab]) {
+      tabs = tabs.map((tab: any, idx: number) => (idx === args.activeTab ? { ...tab, label: title, title } : tab));
+    }
     return (
       <>
         <RdsTabs

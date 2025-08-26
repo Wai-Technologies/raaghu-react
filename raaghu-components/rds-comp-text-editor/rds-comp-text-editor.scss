@@ -7,6 +7,8 @@
   background-color: var(--rds-color-surface, #fff);
   color: var(--rds-color-on-surface, #212529);
   transition: border-color 0.15s ease, background-color 0.15s ease;
+  resize: none;
+  position: relative; // anchor for the resize grip
   
   // State modifiers
   &--selected {
@@ -26,6 +28,20 @@
     color: var(--rds-color-disabled-text, #6c757d);
     border-color: var(--rds-color-disabled-border, #ced4da);
     opacity: 1;
+    pointer-events: none;
+  }
+
+  // Corner resize grip attached to container to always stick to corner
+  &--resizable::after {
+    content: '';
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    width: 12px;
+    height: 12px;
+    background:
+      linear-gradient(135deg, transparent 50%, #c8c8c8 50%) 0 0/6px 6px no-repeat,
+      linear-gradient(135deg, transparent 50%, #c8c8c8 50%) 6px 6px/6px 6px no-repeat;
     pointer-events: none;
   }
   
@@ -230,6 +246,10 @@
     background-color: var(--rds-color-surface, #fff);
     color: var(--rds-color-on-surface, #212529);
     transition: background-color 0.2s ease, color 0.2s ease;
+    /* Ensure resize grip works when enabled */
+    resize: vertical;
+    overflow: auto;
+    // content no longer draws the grip; container does
     
     // Content styling
     blockquote {

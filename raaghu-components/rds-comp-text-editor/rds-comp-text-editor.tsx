@@ -28,6 +28,8 @@ export interface RdsCompTextEditorProps {
     labelClass?: string;
     State?:string;
     showTitle?: boolean;
+    rows?: number; // Controls editor height similar to <textarea rows>
+    resizable?: boolean; // Enables drag-to-resize (CSS resize)
 }
 
 const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
@@ -43,6 +45,10 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
     });
     const [isTouch, setIsTouch] = useState(false);
     const editorRef = useRef<any>(null);
+    const rows = typeof props.rows === 'number' && props.rows > 0 ? props.rows : 6;
+    const lineHeightPx = 26; // approximate readable line height
+    const editorMinHeight = rows * lineHeightPx;
+    const isResizable = props.resizable !== false; // default true
 
     useEffect(() => {
         if (props.value) {
@@ -83,7 +89,7 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
             </Label>
             <div
                 id={props.id}
-                className={`rds-comp-text-editor ${props.State === "Selected" ? "rds-comp-text-editor--selected" : ""} ${props.State === "Error" ? "rds-comp-text-editor--error" : ""} ${props.State === "Active" ? "rds-comp-text-editor--active" : ""} ${props.State === "Disabled" ? "rds-comp-text-editor--disabled" : ""}`}
+                className={`rds-comp-text-editor ${props.State === "Selected" ? "rds-comp-text-editor--selected" : ""} ${props.State === "Error" ? "rds-comp-text-editor--error" : ""} ${props.State === "Active" ? "rds-comp-text-editor--active" : ""} ${props.State === "Disabled" ? "rds-comp-text-editor--disabled" : ""} ${isResizable ? "rds-comp-text-editor--resizable" : ""}`}
             >
                 <Editor
                     editorState={editorState}
@@ -94,6 +100,7 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
                     toolbarClassName="rds-comp-text-editor__toolbar"
                     wrapperClassName="rds-comp-text-editor__wrapper"
                     editorClassName="rds-comp-text-editor__content"
+                    editorStyle={{ minHeight: editorMinHeight, resize: isResizable ? 'vertical' : 'none', overflow: 'auto' }}
                     toolbar={{
                         options: ['inline', 'blockType', 'list', 'textAlign', 'link', 'image', 'history'],
                         inline: {
