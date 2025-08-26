@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import './rds-comp-adaptive-cards.scss';
 import {
-  Card, CardHeader, CardContent, CardActions,
-  IconButton, Button, Typography, Box, Stack
-} from "@mui/material";
+  RdsBox,
+  RdsTypography,
+  RdsStack
+} from "../../raaghu-elements";
+import RdsCardDetail from "../../raaghu-elements/rds-card-detail/rds-card-detail";
 import {
+  CardHeader, CardContent,Button, CardActions,
+  IconButton
+} from "@mui/material";
+import { 
   Close as CloseIcon,
   ExpandMore as ExpandMoreIcon
 } from "@mui/icons-material";
-import {
+import { 
   FootballScorecardCard,
   ActivityUpdateCard,
-  CalendarReminderForm,
+  CalendarReminderForm, 
   RestaurantOrderForm,
   ImageGalleryCard,
   InputFormCard,
@@ -88,6 +94,8 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
     awayTeamStatus,
     homeScore,
     awayScore,
+  namePlaceholder,
+  sideOptions,
     time,
     footballProps,
     activityProps,
@@ -106,7 +114,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
   // Card visibility state
   const [visible, setVisible] = useState(true);
 
-  // ----- Render by Type -----
+  // ----- Render by Type ----- 
   if (!visible) return null;
   if (type === "ImageGallery") {
     return (
@@ -142,6 +150,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
         homeScore={homeScore ?? footballProps?.homeScore ?? 0}
         awayScore={awayScore ?? footballProps?.awayScore ?? 0}
         time={time ?? footballProps?.time ?? ''}
+  finalText={merged.finalText ?? footballProps?.finalText ?? 'Final'}
       />
     );
   }
@@ -149,47 +158,48 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
   // ----- Main Card Layout -----
   return (
     visible && (
-      <Card className={`rds-adaptive-cards rds-adaptive-cards--default${type === 'Default' ? ' is-default-selected' : ''}`}>
+      <RdsCardDetail className={`rds-adaptive-cards rds-adaptive-cards--default${type === 'Default' ? ' is-default-selected' : ''}`}>
+        
         {/* Default Type Layout */}
         {type === 'Default' ? (
-          <Box className="custom-box">
-            <Stack direction="row" alignItems="center" spacing={1} className="custom-box__title-stack">
-              {showDismiss && <Box className="custom-box__circle" />}
+          <RdsBox className="custom-box">
+            <RdsStack direction="row" alignItems="center" spacing={1} className="custom-box__title-stack">
+              {showDismiss && <RdsBox className="custom-box__circle" />}
               {showHeader && (
-                <Typography variant="h5" className="custom-box__title-text">{cardTitle}</Typography>
+                <RdsTypography variant="h5" className="custom-box__title-text">{cardTitle}</RdsTypography>
               )}
-              <Box sx={{ flex: 1 }} />
+              <RdsBox sx={{ flex: 1 }} />
               {closeIcon && (
                 <IconButton size="small" className="custom-box__close-icon" onClick={() => setVisible(false)}>
                   <CloseIcon />
                 </IconButton>
               )}
-            </Stack>
+            </RdsStack>
             {smallText && (
-              <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>{smallText}</Typography>
+              <RdsTypography variant="body2" color="text.secondary" sx={{ ml: 2 }}>{smallText}</RdsTypography>
             )}
-            <Box className="custom-box__slot">
-              <Typography variant="body1" color="text.secondary">{cardText || 'Instance Slot'}</Typography>
-            </Box>
-            <Stack direction="row" justifyContent="flex-end" spacing={2} className="custom-box__actions">
+            <RdsBox className="custom-box__slot">
+              <RdsTypography variant="body1" color="text.secondary">{cardText || 'Instance Slot'}</RdsTypography>
+            </RdsBox>
+            <RdsStack direction="row" justifyContent="flex-end" spacing={2} className="custom-box__actions">
               {showBtn1 && (
                 <Button variant={btn1style === "filled" ? "contained" : btn1style === "outline" ? "outlined" : "text"} className="custom-box__button--cancel">{btn1Label || 'Cancel'}</Button>
               )}
               {showBtn2 && (
                 <Button variant={btn2style === "filled" ? "contained" : btn2style === "outline" ? "outlined" : "text"} className="custom-box__button--done">{btn2Label || 'Done'}</Button>
               )}
-            </Stack>
-          </Box>
+            </RdsStack>
+          </RdsBox>
         ) : (
           <>
             {/* Card Header */}
             <CardHeader
               className="rds-adaptive-cards__header"
-              title={showHeader && (
-                <Stack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__header-title-row">
-                  {showDismiss && <Box className="rds-adaptive-cards__title-icon" />}
-                  <Typography variant="h5" className="rds-adaptive-cards__title">{cardTitle}</Typography>
-                </Stack>
+              title={showHeader && ( 
+                <RdsStack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__header-title-row">
+                  {showDismiss && <RdsBox className="rds-adaptive-cards__title-icon" />}
+                  <RdsTypography variant="h5" className="rds-adaptive-cards__title" fontWeight={600}>{cardTitle}</RdsTypography>
+                </RdsStack>
               )}
               action={closeIcon && (
                 <IconButton size="small" className="rds-adaptive-cards__close-btn" onClick={() => setVisible(false)}><CloseIcon /></IconButton>
@@ -199,10 +209,20 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
             {/* Card Content by Type */}
             <CardContent className="rds-adaptive-cards__content">
               {type === "CalenderReminder" && (
-                <CalendarReminderForm label={calendarLabel} smallText={calendarSmallText} />
+                <CalendarReminderForm label={calendarLabel} smallText={calendarSmallText} placeholder={props.calendarReminderPlaceholder} calendarReminderLabel={props.calendarReminderLabel} />
               )}
               {type === "InputForm" && (
-                <InputFormCard label={inputFormLabel} smallText={inputFormSmallText} />
+                <InputFormCard
+                  label={inputFormLabel}
+                  smallText={inputFormSmallText}
+                  nameLabel={props.nameLabel}
+                  namePlaceholder={props.namePlaceholder}
+                  emailLabel={props.emailLabel}
+                  emailPlaceholder={props.emailPlaceholder}
+                  phoneLabel={props.phoneLabel}
+                  phonePlaceholder={props.phonePlaceholder}
+                  requiredText={props.requiredText}
+                />
               )}
               {type === "ActivityUpdateCard" && (
                   <ActivityUpdateCard
@@ -218,6 +238,15 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
                   entree={entree} setEntree={setEntree}
                   side={side} setSide={setSide}
                   drink={drink} setDrink={setDrink}
+                  entreeLabel={props.entreeLabel} 
+                  entreePlaceholder={props.entreePlaceholder}
+                  entreeOptions={props.entreeOptions}
+                  sideLabel={props.sideLabel}
+                  sidePlaceholder={props.sidePlaceholder}
+                  sideOptions={props.sideOptions}
+                  drinkLabel={props.drinkLabel}
+                  drinkPlaceholder={props.drinkPlaceholder}
+                  drinkOptions={props.drinkOptions}
                 />
               )}
             </CardContent>
@@ -225,6 +254,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
             {/* Card Actions by Type */}
             <CardActions
               className={`rds-adaptive-cards__actions${type === "RestaurantOrder" ? ' rds-adaptive-cards__actions--restaurant-order' : ''}`}
+              {...(type === "ActivityUpdateCard" ? { style: { justifyContent: "flex-end", display: "flex" } } : {})}
             >
               {type === "RestaurantOrder" ? (
                 showBtn1 ? (
@@ -286,7 +316,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
             </CardActions>
           </>
         )}
-      </Card>
+      </RdsCardDetail>
     )
   );
 };

@@ -55,52 +55,51 @@ const RdsRadio= ({
     }
 
     if (layout === 'icon with bottom label') {
+      const radioId = `rds-radio-${option.value}`;
       return (
         <Box
           key={option.value}
           className={`rds-radio__bottom-label-container ${finalDisabled ? 'rds-radio__bottom-label-container--disabled' : ''}`}
+          sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
         >
-          <MuiRadio 
-            {...radioProps} 
-            value={option.value}
-            disabled={finalDisabled}
-            checked={props.value === option.value}
-            name={props.name}
-            onChange={(event) => {
-              if (!finalDisabled && props.onChange) {
-                props.onChange(event, option.value);
-              }
-            }}
-            className="rds-radio__option"
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              margin: 0,
-              padding: '4px'
-            }}
-          />
-          {option.text && (
-            <Typography
-              component="span"
-              className={`rds-radio__bottom-label ${finalDisabled ? 'rds-radio__bottom-label--disabled' : ''}`}
-              onClick={() => {
+          <label htmlFor={radioId} style={{ cursor: finalDisabled ? 'not-allowed' : 'pointer', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <MuiRadio 
+              {...radioProps} 
+              id={radioId}
+              value={option.value}
+              disabled={finalDisabled}
+              checked={props.value === option.value}
+              name={props.name}
+              onChange={(event) => {
                 if (!finalDisabled && props.onChange) {
-                  const event = {
-                    target: { value: option.value }
-                  } as React.ChangeEvent<HTMLInputElement>;
                   props.onChange(event, option.value);
                 }
               }}
+              className="rds-radio__option"
               sx={{
-                pointerEvents: finalDisabled ? 'none' : 'auto',
-                opacity: finalDisabled ? 0.6 : 1,
-                color: finalDisabled ? 'var(--rds-text-disabled, #9e9e9e)' : 'inherit'
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                margin: 0,
+                padding: '4px'
               }}
-            >
-              {option.text}
-            </Typography>
-          )}
+            />
+            {option.text && (
+              <Typography
+                component="span"
+                className={`rds-radio__bottom-label ${finalDisabled ? 'rds-radio__bottom-label--disabled' : ''}`}
+                sx={{
+                  pointerEvents: finalDisabled ? 'none' : 'auto',
+                  opacity: finalDisabled ? 0.6 : 1,
+                  color: finalDisabled ? 'var(--rds-text-disabled, #9e9e9e)' : 'inherit',
+                  marginTop: '2px',
+                  textAlign: 'center'
+                }}
+              >
+                {option.text}
+              </Typography>
+            )}
+          </label>
         </Box>
       );
     }
@@ -123,7 +122,7 @@ const RdsRadio= ({
     >
       {label && <FormLabel component="legend" className="rds-radio__label">{label}</FormLabel>}
       {layout === 'icon with bottom label' ? (
-        <Box className="rds-radio__group" sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+        <Box className="rds-radio__group" sx={{ display: 'flex', flexDirection: direction, gap: 2 }}>
           {options.map(renderOption)}
         </Box>
       ) : (
