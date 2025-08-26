@@ -53,6 +53,6 @@ export const Default: Story = {
         placeholder: "Enter Description",
         state: TextareaState.Default,
         style: TextareaStyle.Default,
-        isMandatory: false
+        isMandatory: true
     }
 };

@@ -8,7 +8,6 @@
   border: 1px solid var(--rds-color-outline, #e1e5e9);
   border-radius: var(--rds-border-radius, 8px);
   gap: var(--rds-spacing-md, 8px);
-  // font-family: var(--rds-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
   box-sizing: border-box;
   width: fit-content;
   max-width: 100%;
@@ -43,7 +42,7 @@
   }
 
   &--full-featured:not(.rds-comp-toolbar--primary) {
-    background-color: #f2f3f4 !important;
+    background-color: var(--rds-color-surface-variant, #f2f3f4);
   }
 
   &--more-text,
@@ -84,8 +83,9 @@
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-md, 8px);
-    padding: var(--rds-spacing-xs, 2px) 0;
-    width: 755px;
+    padding: var(--rds-spacing-xs, 2px) 4px;
+    width: 762px;
+    height: 40px;
     min-width: 0;
     overflow-x: auto;
     scrollbar-width: none; /* Firefox */
@@ -126,7 +126,7 @@
   }
 
   &__text-icon {
-    font-size: 14px;
+    font-size: var(--rds-font-size-md, 14px);
     font-weight: 500;
     line-height: 1;
     display: inline-flex;
@@ -136,7 +136,7 @@
     min-height: 16px;
     text-align: center;
     color: inherit;
-    font-family: inherit;
+    font-family: var(--rds-font-family-base, inherit);
     
     // Ensure emoji and special characters display properly
     text-rendering: optimizeLegibility;
@@ -145,7 +145,7 @@
   }
 
   &__highlight-icon {
-    font-size: 14px;
+    font-size: var(--rds-font-size-md, 14px);
     font-weight: 600;
     line-height: 1;
     display: inline-flex;
@@ -155,9 +155,9 @@
     min-height: 16px;
     text-align: center;
     color: inherit;
-    font-family: inherit;
-    background: linear-gradient(to bottom, transparent 50%, #ffeb3b 50%);
-    border-radius: 2px;
+    font-family: var(--rds-font-family-base, inherit);
+    background: linear-gradient(to bottom, transparent 50%, var(--rds-color-warning, #ffeb3b) 50%);
+    border-radius: var(--rds-border-radius-xs, 2px);
   }
 
   &__button {
@@ -172,8 +172,8 @@
     border-radius: var(--rds-border-radius-sm, 4px);
     cursor: pointer;
     color: var(--rds-color-on-surface-variant, #5f6368);
-    font-size: var(--rds-font-size-body, 14px);
-    transition: all 0.2s ease;
+    font-size: var(--rds-font-size-md, 14px);
+    transition: all var(--rds-transition-base, 0.2s) ease;
     position: relative;
 
     // Ensure icons and text display properly
@@ -188,21 +188,79 @@
     }
 
     &:focus {
-      outline: 2px solid var(--rds-color-primary, #1a73e8);
-      outline-offset: 2px;
-    }
-
-    &:active {
-      background: var(--rds-color-primary-container, #e8f0fe);
-    }
-
-    // State modifiers
-    &--active {
-      background: var(--rds-color-primary-container, #e8f0fe);
-      color: var(--rds-color-primary, #1a73e8);
+      outline: var(--rds-focus-ring, 2px solid var(--rds-color-primary, #1a73e8));
+      outline-offset: var(--rds-focus-ring-offset, 2px);
     }
 
     &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    // Muted variant for less-prominent actions
+    &--muted {
+      background: transparent;
+      color: var(--rds-color-on-surface-variant, #8a8f94);
+      opacity: 0.9;
+
+      &:hover {
+        background: var(--rds-color-surface-container, #f8f9fa);
+        color: var(--rds-color-on-surface, #202124);
+      }
+    }
+  }
+
+  &__button-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  &__dropdown {
+   position: absolute;
+   top: 100%;
+   left: 0;
+   z-index: var(--rds-dropdown-z, 2147483647);
+   min-width: 160px;
+   max-width: calc(100vw - 24px);
+   max-height: 60vh; /* keep dropdown usable on small viewports */
+   overflow: auto; /* scroll inside dropdown when content is large */
+   background: var(--rds-color-surface, #ffffff);
+   border: 1px solid var(--rds-color-outline, #e1e5e9);
+   border-radius: var(--rds-border-radius-sm, 4px);
+   box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.12));
+   padding: var(--rds-spacing-xs, 4px) 0;
+   margin-top: var(--rds-spacing-xs, 4px);
+   pointer-events: auto;
+   -webkit-overflow-scrolling: touch;
+   background-clip: padding-box;
+   transform-origin: top left;
+   color: var(--rds-color-on-surface, #202124);
+   background-color: var(--rds-color-surface, #ffffff);
+  }
+
+  &__dropdown-item {
+    display: block;
+    width: 100%;
+    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 12px);
+    border: none;
+    background: transparent;
+    color: var(--rds-color-on-surface, #202124);
+    font-size: var(--rds-font-size-md, 14px);
+    text-align: left;
+    cursor: pointer;
+    transition: background-color var(--rds-transition-base, 0.2s) ease;
+
+    &:hover {
+      background: var(--rds-color-surface-container, #f8f9fa);
+    }
+
+    &:focus {
+      outline: none;
+      background: var(--rds-color-surface-container, #f8f9fa);
+    }
+
+    &:disabled {
       opacity: 0.5;
       cursor: not-allowed;
       pointer-events: none;
@@ -215,7 +273,7 @@
     justify-content: center;
 
     svg {
-      font-size: 18px;
+      font-size: var(--rds-font-size-lg, 18px);
     }
   }
 
@@ -225,7 +283,7 @@
     margin-left: var(--rds-spacing-xs, 2px);
 
     svg {
-      font-size: 16px;
+      font-size: var(--rds-font-size-md, 16px);
     }
   }
 
@@ -243,7 +301,7 @@
 
   &__math-icon {
     font-weight: 600;
-    font-size: 16px;
+    font-size: var(--rds-font-size-md, 16px);
   }
 }
 
@@ -263,7 +321,7 @@
       
       // Show scrollbar for primary layout on mobile
       scrollbar-width: thin;
-      scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+      scrollbar-color: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3)) transparent;
       
       &::-webkit-scrollbar {
         height: 6px;
@@ -271,16 +329,16 @@
       }
       
       &::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.1);
-        border-radius: 3px;
+        background: var(--rds-color-surface-variant, rgba(0, 0, 0, 0.1));
+        border-radius: var(--rds-border-radius-xs, 3px);
       }
       
       &::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 3px;
+        background: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3));
+        border-radius: var(--rds-border-radius-xs, 3px);
         
         &:hover {
-          background: rgba(0, 0, 0, 0.5);
+          background: var(--rds-color-on-surface, rgba(0, 0, 0, 0.5));
         }
       }
     }
@@ -315,7 +373,7 @@
 
     &__row {
       gap: var(--rds-spacing-xs, 4px);
-      padding: var(--rds-spacing-xs, 1px) 0;
+      padding: var(--rds-spacing-xs, 1px) 3px;
       flex-wrap: nowrap;
       overflow-x: auto;
       min-width: 0;
