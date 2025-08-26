@@ -33,6 +33,7 @@
     padding-bottom: var(--rds-spacing-none, 0) !important;
     margin-top: var(--rds-spacing-none, 0) !important;
     margin-bottom: var(--rds-spacing-none, 0) !important;
+    padding: 16px;
   }
   // removed stray closing brace
   &__header-title-row {
@@ -76,6 +77,7 @@
   // ----- Content -----
   &__content {
     padding: var(--rds-spacing-sm, 8px) 0 var(--rds-spacing-sm, 8px) 0;
+    padding: 16px;
   }
   &__input-form-card { 
     padding: 0 16px 0 16px;

@@ -1,19 +1,9 @@
 import React, { useState } from "react";
 import './rds-comp-adaptive-cards.scss';
-import {
-  RdsBox,
-  RdsTypography,
-  RdsStack
-} from "../../raaghu-elements";
+import {RdsBox,RdsTypography,RdsStack} from "../../raaghu-elements";
 import RdsCardDetail from "../../raaghu-elements/rds-card-detail/rds-card-detail";
-import {
-  CardHeader, CardContent,Button, CardActions,
-  IconButton
-} from "@mui/material";
-import { 
-  Close as CloseIcon,
-  ExpandMore as ExpandMoreIcon
-} from "@mui/icons-material";
+import { CardHeader, CardContent,Button, CardActions, IconButton} from "@mui/material";
+import {  Close as CloseIcon,ExpandMore as ExpandMoreIcon} from "@mui/icons-material";
 import { 
   FootballScorecardCard,
   ActivityUpdateCard,
@@ -22,46 +12,55 @@ import {
   ImageGalleryCard,
   InputFormCard,
   capitalizeFirstWord,
-  RdsCompAdaptiveCardsProps,
-  getDefaultPropsForType
+  AdaptiveCardProps,
 } from "./rds-comp-adaptive-cards-helpers";
 
- 
-// =========================
-// Default Props
-// =========================
-
-
-const defaultRdsCompAdaptiveCardsProps: Partial<RdsCompAdaptiveCardsProps> = {
-  showHeader: true,
-  showDismiss: true,
-  cardTitle: '',
-  showBtn1: true,
-  showBtn2: true,
-  btn1style: 'filled',
-  btn2style: 'outlined',
-  btn1Label: 'Button 1',
-  btn2Label: 'Click Here',
-  smallText: '',
-  cardText: '',
-  type: 'Default',
-  closeIcon: false,
-  label: '',
-  block: false,
-  images: [],
-  footballProps: {},
-  activityProps: {},
+// Types for backward compatibility props
+type FootballProps = {
+  leagueName?: string;
+  leagueAvatar?: string;
+  isLive?: boolean;
+  date?: string;
+  isFinal?: boolean;
+  homeTeam?: {
+    name?: string;
+    logo?: string;
+    status?: string;
+  };
+  awayTeam?: {
+    name?: string;
+    logo?: string;
+    status?: string;
+  };
+  homeScore?: number;
+  awayScore?: number;
+  time?: string;
+  finalText?: string;
+};
+type ActivityProps = {
+  avatar?: string;
+  name?: string;
+  date?: string;
+  radioOptions?: { value: string; label: string; desc: string }[];
 };
 
-
-// =========================
-// Main Component
-// =========================
-
-const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
-  // ----- Prop Merging -----
+const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
   const type = props.type || 'Default';
-  const variantDefaults = getDefaultPropsForType(type);
+  const variantDefaults = {
+    cardTitle: 'Title',
+    showHeader: false,
+    showBtn1: false,
+    showBtn2: false,
+    btn1style: 'transparent',
+    btn2style: 'filled',
+    btn1Label: 'Cancel',
+    btn2Label: 'Done',
+    type: 'Default',
+    showDismiss: false,
+    closeIcon: false,
+    label: '',
+    smallText: '',
+  };
   let merged = { ...variantDefaults, ...props };
   
   const {
@@ -94,11 +93,9 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
     awayTeamStatus,
     homeScore,
     awayScore,
-  namePlaceholder,
-  sideOptions,
     time,
-    footballProps,
-    activityProps,
+    footballProps = {} as Partial<FootballProps>,
+    activityProps = {} as Partial<ActivityProps>,
   } = merged;
 
   // ----- Derived Props -----
@@ -150,8 +147,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
         homeScore={homeScore ?? footballProps?.homeScore ?? 0}
         awayScore={awayScore ?? footballProps?.awayScore ?? 0}
         time={time ?? footballProps?.time ?? ''}
-  finalText={merged.finalText ?? footballProps?.finalText ?? 'Final'}
-      />
+        finalText={merged.finalText ?? footballProps?.finalText ?? 'Final'} closeIcon={false}      />
     );
   }
 
@@ -209,7 +205,16 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
             {/* Card Content by Type */}
             <CardContent className="rds-adaptive-cards__content">
               {type === "CalenderReminder" && (
-                <CalendarReminderForm label={calendarLabel} smallText={calendarSmallText} placeholder={props.calendarReminderPlaceholder} calendarReminderLabel={props.calendarReminderLabel} />
+                <CalendarReminderForm 
+                  label={calendarLabel}
+                  smallText={calendarSmallText}
+                  placeholder={props.calendarReminderPlaceholder}
+                  calendarReminderLabel={props.calendarReminderLabel}
+                  sideOptions={props.options || props.sideOptions}
+                  selectPlaceholder={props.sidePlaceholder}
+                  snoozeLabel={props.snoozeLabel}
+                  lateLabel={props.lateLabel}
+                />
               )}
               {type === "InputForm" && (
                 <InputFormCard
@@ -321,8 +326,5 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
   );
 };
 
-// =========================
-// Export
-// =========================
 RdsCompAdaptiveCards.displayName = 'RdsCompAdaptiveCards';
 export default RdsCompAdaptiveCards;
