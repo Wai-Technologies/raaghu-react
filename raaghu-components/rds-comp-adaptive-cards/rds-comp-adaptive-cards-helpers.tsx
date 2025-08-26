@@ -118,7 +118,7 @@ export function capitalizeFirstWord(text: string) {
   return first.charAt(0).toUpperCase() + first.slice(1).toLowerCase() + (rest.length ? ' ' + rest.join(' ').toLowerCase() : '');
 }
 
-export const renderSelectValue = (placeholder: string) => (selected: unknown) =>
+export const renderSelectValue = (placeholder?: string) => (selected: unknown) =>
   selected === "" ? (
     <span className="rds-adaptive-cards__placeholder">{placeholder}</span>
   ) : (typeof selected === 'string' ? selected : '');
@@ -128,13 +128,13 @@ export function InputFormCard(props: AdaptiveCardProps) {
   const {
     label = '',
     smallText = '',
-    nameLabel = 'Name (Last, First)',
-    namePlaceholder = 'Enter Name',
-    emailLabel = 'Email',
-    emailPlaceholder = 'Enter Email',
-    phoneLabel = 'Phone Number',
-    phonePlaceholder = 'Enter Phone Number',
-    requiredText = '*',
+    nameLabel,
+    namePlaceholder,
+    emailLabel,
+    emailPlaceholder,
+    phoneLabel,
+    phonePlaceholder,
+    requiredText,
     onChange
   } = props;
   const [name, setName] = useState('');
@@ -202,7 +202,7 @@ export function FootballScorecardCard({
   homeScore,
   awayScore,
   time,
-  finalText = "Final",
+  finalText,
 }: AdaptiveCardProps) {
   return (
     <RdsCard className="rds-adaptive-cards rds-adaptive-cards--football-scorecard" showIcon={false} showIndicator={false}>
@@ -294,9 +294,9 @@ export function CalendarReminderForm({
   smallText,
   placeholder,
   calendarReminderLabel,
-  selectPlaceholder = "Select duration",
-  snoozeLabel = "Snooze",
-  lateLabel = "I'll be Late",
+  selectPlaceholder,
+  snoozeLabel,
+  lateLabel,
   sideOptions = [],
 }: CalendarReminderFormProps) {
   const [selected, setSelected] = React.useState("");
@@ -394,14 +394,14 @@ export function RestaurantOrderForm({
   setSide,
   drink,
   setDrink,
-  entreeLabel = "Which entree would you like?",
-  entreePlaceholder = "Select an entree",
+  entreeLabel,
+  entreePlaceholder,
   entreeOptions = [],
-  sideLabel = "Which side would you like?",
-  sidePlaceholder = "Select a side",
+  sideLabel,
+  sidePlaceholder,
   sideOptions = [],
-  drinkLabel = "Which drink would you like?",
-  drinkPlaceholder = "Select a drink",
+  drinkLabel,
+  drinkPlaceholder,
   drinkOptions = [], 
 }: RestaurantOrderFormProps) {
   return (
