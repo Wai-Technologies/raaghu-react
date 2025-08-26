@@ -28,10 +28,18 @@ const meta: Meta<typeof RdsRadio> = {
       options: ['default', 'hover', 'disabled'],
       description: 'State of the radio buttons',
     },
+      value: {
+        control: 'text',
+        description: 'Selected value (leave empty for unchecked)',
+        table: {
+          defaultValue: { summary: 'undefined' },
+        },
+      },
   },
 };
 
 export default meta;
+import React, { useState } from 'react';
 type Story = StoryObj<typeof meta>;
 
 const basicOptions = [
@@ -41,21 +49,53 @@ const basicOptions = [
 ];
 
 export const Default: Story = {
+  render: (args) => {
+    const [selected, setSelected] = useState(args.value ?? undefined);
+    return (
+      <RdsRadio
+        {...args}
+        value={selected}
+        onChange={(_event, value) => setSelected(value)}
+      />
+    );
+  },
   args: {
     label: 'Choose an option',
     options: [{ text: 'Option 1', value: 'option1' }],
+    value: undefined,
   },
 };
 
 export const Horizontal: Story = {
+  render: (args) => {
+    const [selected, setSelected] = useState(args.value ?? undefined);
+    return (
+      <RdsRadio
+        {...args}
+        value={selected}
+        onChange={(_event, value) => setSelected(value)}
+      />
+    );
+  },
   args: {
     label: 'Horizontal Layout',
     options: basicOptions,
     direction: 'row',
+    value: undefined,
   },
 };
 
 export const WithDisabledOptions: Story = {
+  render: (args) => {
+    const [selected, setSelected] = useState(args.value ?? undefined);
+    return (
+      <RdsRadio
+        {...args}
+        value={selected}
+        onChange={(_event, value) => setSelected(value)}
+      />
+    );
+  },
   args: {
     label: 'Some Disabled Options',
     options: [
@@ -64,20 +104,42 @@ export const WithDisabledOptions: Story = {
       { text: 'Another Available', value: 'option3' },
       { text: 'Also Disabled', value: 'option4', disabled: true },
     ],
+    value: undefined,
   },
 };
 
 export const WithSelectedValue: Story = {
+  render: (args) => {
+    const [selected, setSelected] = useState(args.value ?? undefined);
+    return (
+      <RdsRadio
+        {...args}
+        value={selected}
+        onChange={(_event, value) => setSelected(value)}
+      />
+    );
+  },
   args: {
     label: 'Pre-selected Option',
     options:  [{ text: 'Option 1', value: 'option1' }],
-    value: 'option1',
+    value: undefined,
   },
 };
 
 export const WithoutLabel: Story = {
+  render: (args) => {
+    const [selected, setSelected] = useState(args.value ?? undefined);
+    return (
+      <RdsRadio
+        {...args}
+        value={selected}
+        onChange={(_event, value) => setSelected(value)}
+      />
+    );
+  },
   args: {
     options: basicOptions,
-    value: 'option1',
+    value: undefined,
   },
 };
+

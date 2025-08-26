@@ -1,47 +1,23 @@
-// =========================
-// Imports
-// =========================
+import RdsRadio from "../../raaghu-elements/rds-radio/rds-radio";
 import React, { useState } from "react";
-import { defaultProps } from "./rds-comp-adaptive-cards.stories";
-import {
-  Box, Card, CardContent, CardHeader, CardActions, Typography, Avatar, IconButton, Button, TextField, Select, MenuItem, FormControl, FormControlLabel, Radio, RadioGroup, Chip, ImageList, ImageListItem, Stack
-} from "@mui/material";
-import { Close as CloseIcon, Add as AddIcon, ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
-
-// =========================
-// Type Definitions
-// =========================
-export type FootballScorecardCardProps = {
-  leagueName: string;
-  leagueAvatar: string;
-  isLive: boolean;
-  date: string;
-  isFinal: boolean;
-  homeTeam: { name: string; logo: string; status: string };
-  awayTeam: { name: string; logo: string; status: string };
-  homeScore: number;
-  awayScore: number;
-  time: string;
-};
-
-export type ActivityUpdateCardProps = {
-  avatar: string;
-  name: string;
-  date: string;
-  cardText?: string;
-  radioOptions: { value: string; label: string; desc: string }[];
-};
-
-export type ImageGalleryCardProps = {
-  cardTitle?: string;
-  smallText?: string;
-  images: string[];
-};
-
-export type RdsCompAdaptiveCardsProps = {
-  showHeader?: boolean;
-  showDismiss?: boolean;
-  cardTitle?: string;
+import RdsCard from "../../raaghu-elements/rds-card/rds-card";
+import RdsStack from "../../raaghu-elements/rds-stack/rds-stack";
+import RdsBox from "../../raaghu-elements/rds-box/rds-box";
+import RdsTypography from "../../raaghu-elements/rds-typography/rds-typography";
+import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
+import RdsChip from "../../raaghu-elements/rds-chip/rds-chip";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
+// import './rds-comp-adaptive-cards.scss';
+// All adaptive card props in one interface
+export interface AdaptiveCardProps {
   showBtn1?: boolean;
   showBtn2?: boolean;
   btn1style?: string;
@@ -50,17 +26,27 @@ export type RdsCompAdaptiveCardsProps = {
   btn2Label?: string;
   smallText?: string;
   cardText?: string;
+  cardTitle?: string;
+  showHeader?: boolean;
+  showDismiss?: boolean;
   type?: string;
-  closeIcon: boolean;
+  closeIcon?: boolean;
   label?: string;
-  //inputForm removed
+  // InputForm customizations
+  nameLabel?: string;
+  namePlaceholder?: string;
+  emailLabel?: string;
+  emailPlaceholder?: string;
+  phoneLabel?: string;
+  phonePlaceholder?: string;
+  requiredText?: string;
   block?: boolean;
   images?: string[];
   // FootballScorecard direct props
   leagueName?: string;
   leagueAvatar?: string;
   isLive?: boolean;
-  matchDate?: string; // renamed to avoid duplicate
+  matchDate?: string;
   isFinal?: boolean;
   homeTeamName?: string;
   homeTeamLogo?: string;
@@ -71,28 +57,60 @@ export type RdsCompAdaptiveCardsProps = {
   homeScore?: number;
   awayScore?: number;
   time?: string;
-  footballProps?: Partial<FootballScorecardCardProps>; // keep for backward compatibility
-  activityProps?: Partial<ActivityUpdateCardProps>;
+  finalText?: string;
+  footballProps?: Partial<{
+    leagueName?: string;
+    leagueAvatar?: string;
+    isLive?: boolean;
+    date?: string;
+    isFinal?: boolean;
+    homeTeam?: {
+      name?: string;
+      logo?: string;
+      status?: string;
+    };
+    awayTeam?: {
+      name?: string;
+      logo?: string;
+      status?: string;
+    };
+    homeScore?: number;
+    awayScore?: number;
+    time?: string;
+    finalText?: string;
+  }>;
+  activityProps?: Partial<{
+    avatar?: string;
+    name?: string;
+    date?: string;
+    radioOptions?: { value: string; label: string; desc: string }[];
+  }>;
   name?: string;
   date?: string;
-};
-
-// =========================
-// Helpers & Constants
-// =========================
-export const CustomChevronIcon = (props: any) => (
-  <svg
-    width="18"
-    height="12"
-    viewBox="0 0 18 12"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="rds-adaptive-cards__chevron-icon"
-    {...props}
-  >
-    <polyline points="3,4 9,10 15,4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+  calendarReminderPlaceholder?: string;
+  calendarReminderLabel?: string;
+  // RestaurantOrder customizations
+  entreeLabel?: string;
+  entreePlaceholder?: string;
+  entreeOptions?: { value: string; label: string }[];
+  sideLabel?: string;
+  sidePlaceholder?: string;
+  sideOptions?: { value: string; label: string }[];
+  drinkLabel?: string;
+  drinkPlaceholder?: string;
+  drinkOptions?: { value: string; label: string }[];
+  // CalendarReminder customizations
+  snoozeLabel?: string;
+  lateLabel?: string;
+  options?: { value: string; label: string }[];
+  placeholder?: string;
+  // ActivityUpdate customizations
+  avatar?: string;
+  radioOptions?: { value: string; label: string; desc: string }[];
+  homeTeam?: { name: string; logo: string; status: string };
+  awayTeam?: { name: string; logo: string; status: string };
+  onChange?: (data: { name: string; email: string; phone: string }) => void;
+}
 
 export function capitalizeFirstWord(text: string) {
   if (!text) return '';
@@ -100,103 +118,76 @@ export function capitalizeFirstWord(text: string) {
   return first.charAt(0).toUpperCase() + first.slice(1).toLowerCase() + (rest.length ? ' ' + rest.join(' ').toLowerCase() : '');
 }
 
-export const renderSelectValue = (placeholder: string) => (selected: unknown) =>
+export const renderSelectValue = (placeholder?: string) => (selected: unknown) =>
   selected === "" ? (
-    <span
-      className="rds-adaptive-cards__placeholder"
-    >
-      {placeholder}
-    </span>
+    <span className="rds-adaptive-cards__placeholder">{placeholder}</span>
   ) : (typeof selected === 'string' ? selected : '');
 
-// =========================
-// Default Props Helper
-// =========================
-export function getDefaultPropsForType(type: string): Partial<RdsCompAdaptiveCardsProps> {
-  switch (type) {
-    case 'ActivityUpdateCard':
-      return defaultProps.activityUpdate;
-    case 'CalenderReminder':
-      return defaultProps.calenderReminder;
-    case 'ImageGallery':
-      return defaultProps.imageGallery;
-    case 'InputForm':
-      return defaultProps.inputForm;
-    case 'RestaurantOrder':
-      return defaultProps.restaurantOrder;
-    case 'FootballScorecard':
-      return defaultProps.footballScorecard;
-    default:
-      return {
-        cardTitle: 'Title',
-        showHeader: true,
-        showBtn1: true,
-        showBtn2: true,
-        btn1style: 'transparent',
-        btn2style: 'filled',
-        btn1Label: 'Cancel',
-        btn2Label: 'Done',
-        type: 'Default',
-        showDismiss: true,
-        closeIcon: true,
-      };
-  }
-}
-
-// =========================
-// Component Definitions
-// =========================
-export function InputFormCard({ label, smallText }: { label?: string, smallText?: string }) {
+// InputFormCard component, now using AdaptiveCardProps and proper destructuring
+export function InputFormCard(props: AdaptiveCardProps) {
+  const {
+    label = '',
+    smallText = '',
+    nameLabel,
+    namePlaceholder,
+    emailLabel,
+    emailPlaceholder,
+    phoneLabel,
+    phonePlaceholder,
+    requiredText,
+    onChange
+  } = props;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  React.useEffect(() => {
+    if (onChange) onChange({ name, email, phone });
+  }, [name, email, phone, onChange]);
   return (
-    <div >
-      {/* <h2 className="rds-adaptive-cards__input-form-title">Tell us about yourself</h2> */}
+    <div>
       <div className="rds-adaptive-cards__input-form-label">{label}</div>
       <div className="rds-adaptive-cards__input-form-small-text">{smallText}</div>
       <div className="rds-adaptive-cards__input-form-field">
-        <label className="rds-adaptive-cards__input-form-field-label">Name (Last, First) <span className="rds-adaptive-cards__required">*</span></label>
-        <input className="rds-adaptive-cards__action-btn--input-form" placeholder="Enter Name" required value={name} onChange={e => setName(e.target.value)} />
+        <label className="rds-adaptive-cards__input-form-field-label">{nameLabel} <span className="rds-adaptive-cards__required">{requiredText}</span></label>
+        <input className="rds-adaptive-cards__action-btn--input-form" placeholder={namePlaceholder} required value={name} onChange={e => setName(e.target.value)} />
       </div>
       <div className="rds-adaptive-cards__input-form-field">
-        <label className="rds-adaptive-cards__input-form-field-label">Email <span className="rds-adaptive-cards__required">*</span></label>
-        <input className="rds-adaptive-cards__action-btn--input-form" placeholder="Enter Email" required type="email" value={email} onChange={e => setEmail(e.target.value)} />
+        <label className="rds-adaptive-cards__input-form-field-label">{emailLabel} <span className="rds-adaptive-cards__required">{requiredText}</span></label>
+        <input className="rds-adaptive-cards__action-btn--input-form" placeholder={emailPlaceholder} required type="email" value={email} onChange={e => setEmail(e.target.value)} />
       </div>
       <div className="rds-adaptive-cards__input-form-field">
-        <label className="rds-adaptive-cards__input-form-field-label">Phone Number <span className="rds-adaptive-cards__required">*</span></label>
-        <input className="rds-adaptive-cards__action-btn--input-form" placeholder="Enter Phone Number" required type="tel" value={phone} onChange={e => setPhone(e.target.value)} />
+        <label className="rds-adaptive-cards__input-form-field-label">{phoneLabel} <span className="rds-adaptive-cards__required">{requiredText}</span></label>
+        <input className="rds-adaptive-cards__action-btn--input-form" placeholder={phonePlaceholder} required type="tel" value={phone} onChange={e => setPhone(e.target.value)} />
       </div>
     </div>
   );
 }
 
-export function ImageGalleryCard({ cardTitle, smallText, images, showHeader = true, closeIcon = false, showDismiss = false }: ImageGalleryCardProps & { showHeader?: boolean; closeIcon?: boolean; showDismiss?: boolean }) {
+export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, closeIcon, showDismiss, onImageClick }: AdaptiveCardProps & { cardTitle?: string; showHeader?: boolean; closeIcon?: boolean; showDismiss?: boolean; onImageClick?: (index: number) => void }) {
   return (
-    <Card className="rds-adaptive-cards rds-adaptive-cards--image-gallery">
-      <CardHeader
-        className="rds-adaptive-cards__header"
-        title={showHeader ? (
-          <Stack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__header-title-row">
-            {showDismiss && <Box className="rds-adaptive-cards__title-icon" />}
-            <Typography variant="h6" className="rds-adaptive-cards__title" sx={{ fontWeight: 400 }}>{cardTitle}</Typography>
-          </Stack>
-        ) : null}
-        action={closeIcon ? (
-          <IconButton size="small" className="rds-adaptive-cards__close-btn"><CloseIcon /></IconButton>
-        ) : null}
-      />
-      <CardContent className="rds-adaptive-cards__content">
-        <Typography variant="body2" color="text.secondary" className="rds-adaptive-cards__small-text">{smallText}</Typography>
-        <ImageList cols={4} rowHeight={164} className="rds-adaptive-cards__image-list">
-          {images && images.map((src, index) => (
-            <ImageListItem key={index} className="rds-adaptive-cards__image-list-item">
+    <RdsCard className="rds-adaptive-cards rds-adaptive-cards--image-gallery" showIcon={false} showIndicator={false}>
+      {showHeader && (
+        <div className="rds-adaptive-cards__header">
+          <RdsStack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__header-title-row">
+            {showDismiss && <RdsBox className="rds-adaptive-cards__title-icon" />}
+            <RdsTypography variant="h6" className="rds-adaptive-cards__title">{cardTitle}</RdsTypography>
+            {closeIcon && (
+              <IconButton size="small" className="rds-adaptive-cards__close-btn"><CloseIcon /></IconButton>
+            )}
+          </RdsStack>
+        </div>
+      )}
+      <div className="rds-adaptive-cards__content">
+        <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__small-text">{smallText}</RdsTypography>
+        <ImageList cols={4} className="rds-adaptive-cards__image-list">
+          {(images ?? []).filter(src => !!src).map((src, index) => (
+            <ImageListItem key={index} className="rds-adaptive-cards__image-list-item" onClick={() => onImageClick && onImageClick(index)}>
               <img src={src} alt={`image${index + 1}`} loading="lazy" className="rds-adaptive-cards__image" />
             </ImageListItem>
           ))}
         </ImageList>
-      </CardContent>
-    </Card>
+      </div>
+    </RdsCard>
   );
 }
 
@@ -211,186 +202,264 @@ export function FootballScorecardCard({
   homeScore,
   awayScore,
   time,
-}: FootballScorecardCardProps) {
+  finalText,
+}: AdaptiveCardProps) {
   return (
-    <Card className="rds-adaptive-cards rds-adaptive-cards--football-scorecard">
-      <CardContent className="rds-adaptive-cards__content">
-        <Stack className="rds-adaptive-cards__football-header" alignItems="center">
-          <Stack direction="row" spacing={1} alignItems="center" justifyContent="center" sx={{ width: '100%', position: 'relative' }}>
-            <Avatar src={leagueAvatar} className="rds-adaptive-cards__football-league-avatar" />
-            <Typography variant="subtitle1" className="rds-adaptive-cards__football-league" align="center" sx={{ ml: 0.5, position: 'relative', fontWeight: 400 }}>
+    <RdsCard className="rds-adaptive-cards rds-adaptive-cards--football-scorecard" showIcon={false} showIndicator={false}>
+      {/* Header, subtitle, and description outside card */}
+      <div className="rds-adaptive-cards__content">
+        <RdsStack className="rds-adaptive-cards__football-header" alignItems="center">
+          <RdsStack direction="row" spacing={1} alignItems="center" justifyContent="center" className="rds-adaptive-cards__football-header-row">
+           <RdsAvatar src={leagueAvatar} className="rds-adaptive-cards__football-league-avatar" />
+            <RdsTypography
+              variant="subtitle1"
+              className="rds-adaptive-cards__football-league"
+              align="center"
+            >
               {leagueName}
-              {isLive && (
-                <Chip
+            </RdsTypography>
+            {isLive && (
+                <RdsChip
                   label="Live"
                   color="error"
                   size="small"
                   icon={<svg width="7" height="7" viewBox="0 0 7 7"><circle cx="3.5" cy="3.5" r="2" fill="currentColor" /></svg>}
                   className="rds-adaptive-cards__football-live"
-                  sx={{
-                    position: 'absolute',
-                    right: -90,
-                    top: 2,
-                    minWidth: '36px',
-                    height: '16px',
-                    fontSize: '8px',
-                    padding: '0 4px',
-                    borderRadius: '8px',
-                  }}
                 />
               )}
-            </Typography>
-          </Stack>
-          <Typography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-date" align="center">
+          </RdsStack>
+          <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-date" align="center">
             {date}
-          </Typography>
+          </RdsTypography>
           {isFinal && (
-            <Typography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-final" align="center">
-              Final
-            </Typography>
+            <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-final" align="center">
+              {finalText}
+            </RdsTypography>
           )}
-        </Stack>
+        </RdsStack>
 
-        <Stack direction="row" alignItems="center" justifyContent="center" className="rds-adaptive-cards__football-body">
-          <Stack alignItems="center" className="rds-adaptive-cards__football-team rds-adaptive-cards__football-team--home">
-            <Box className="rds-adaptive-cards__football-logo" sx={{ border: 'none', boxShadow: 'none' }}>
-              <img src={homeTeam.logo} alt={homeTeam.name} className="rds-adaptive-cards__football-img" />
-            </Box>
-            <Typography variant="body1" className="rds-adaptive-cards__football-team-name">{homeTeam.name}</Typography>
-            <Typography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-team-status">{homeTeam.status}</Typography>
-          </Stack>
+        <RdsStack direction="row" alignItems="center" justifyContent="center" className="rds-adaptive-cards__football-body">
+          <RdsStack alignItems="center" className="rds-adaptive-cards__football-team rds-adaptive-cards__football-team--home">
+            {homeTeam?.logo ? (
+              <RdsBox className="rds-adaptive-cards__football-logo">
+                <img src={homeTeam.logo} alt={homeTeam.name} className="rds-adaptive-cards__football-img" />
+              </RdsBox>
+            ) : null}
+            <RdsTypography variant="body1" className="rds-adaptive-cards__football-team-name">{homeTeam?.name}</RdsTypography>
+            <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-team-status">{homeTeam?.status}</RdsTypography>
+          </RdsStack>
 
-          <Stack alignItems="center" className="rds-adaptive-cards__football-score-section">
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Typography variant="h3" className="rds-adaptive-cards__football-score">{homeScore}</Typography>
-              <Typography variant="h3" className="rds-adaptive-cards__football-score">:</Typography>
-              <Typography variant="h3" className="rds-adaptive-cards__football-score">{awayScore}</Typography>
-            </Stack>
-            <Chip label={time} className="rds-adaptive-cards__football-time" />
-          </Stack>
+          <RdsStack alignItems="center" className="rds-adaptive-cards__football-score-section">
+            <RdsStack direction="row" spacing={1} alignItems="center">
+              <RdsTypography variant="h3" className="rds-adaptive-cards__football-score">{homeScore}</RdsTypography>
+              <RdsTypography variant="h3" className="rds-adaptive-cards__football-score">:</RdsTypography>
+              <RdsTypography variant="h3" className="rds-adaptive-cards__football-score">{awayScore}</RdsTypography>
+            </RdsStack>
+            <RdsChip label={time} className="rds-adaptive-cards__football-time" />
+          </RdsStack>
 
-          <Stack alignItems="center" className="rds-adaptive-cards__football-team rds-adaptive-cards__football-team--away">
-            <Box className="rds-adaptive-cards__football-logo" sx={{ border: 'none', boxShadow: 'none' }}>
-              <img src={awayTeam.logo} alt={awayTeam.name} className="rds-adaptive-cards__football-img rds-adaptive-cards__football-img--barca" />
-            </Box>
-            <Typography variant="body1" className="rds-adaptive-cards__football-team-name">{awayTeam.name}</Typography>
-            <Typography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-team-status">{awayTeam.status}</Typography>
-          </Stack>
-        </Stack>
-      </CardContent>
-    </Card>
+          <RdsStack alignItems="center" className="rds-adaptive-cards__football-team rds-adaptive-cards__football-team--away">
+            {awayTeam?.logo ? (
+              <RdsBox className="rds-adaptive-cards__football-logo">
+                <img src={awayTeam.logo} alt={awayTeam.name} className="rds-adaptive-cards__football-img rds-adaptive-cards__football-img--barca" />
+              </RdsBox>
+            ) : null}
+            <RdsTypography variant="body1" className="rds-adaptive-cards__football-team-name">{awayTeam?.name}</RdsTypography>
+            <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-team-status">{awayTeam?.status}</RdsTypography>
+          </RdsStack>
+        </RdsStack>
+      </div>
+    </RdsCard>
   );
 }
 
-export function CalendarReminderForm({ label, smallText }: { label?: string, smallText?: string }) {
+export type CalendarReminderOption = {
+  value: string;
+  label: string;
+};
+
+export type CalendarReminderFormProps = {
+  label?: string;
+  smallText?: string;
+  placeholder?: string;
+  calendarReminderLabel?: string;
+  sideOptions?: CalendarReminderOption[];
+  selectPlaceholder?: string;
+  snoozeLabel?: string;
+  lateLabel?: string;
+};
+
+export function CalendarReminderForm({
+  label,
+  smallText,
+  placeholder,
+  calendarReminderLabel,
+  selectPlaceholder,
+  snoozeLabel,
+  lateLabel,
+  sideOptions = [],
+}: CalendarReminderFormProps) {
+  const [selected, setSelected] = React.useState("");
   return (
-    <Stack spacing={2} className="rds-adaptive-cards__calendar-reminder">
-      <Box className="rds-adaptive-cards__calendar-reminder-labels">
-        <Typography variant="subtitle1" className="rds-adaptive-cards__calendar-reminder-label">{label}</Typography>
-        <Typography variant="body2" color="text.secondary" className="rds-adaptive-cards__calendar-reminder-small-text">{smallText}</Typography>
-      </Box>
+    <RdsStack spacing={2} className="rds-adaptive-cards__calendar-reminder">
+      <RdsBox className="rds-adaptive-cards__calendar-reminder-labels">
+        <RdsTypography variant="subtitle1" className="rds-adaptive-cards__calendar-reminder-label">{label}</RdsTypography>
+        <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__calendar-reminder-small-text">{smallText}</RdsTypography>
+      </RdsBox>
       <div className="rds-adaptive-cards__calendar-reminder-select-form">
-        <Typography variant="subtitle2" className="rds-adaptive-cards__calendar-reminder-label">Snooze for</Typography>
+        <RdsTypography variant="subtitle2" className="rds-adaptive-cards__calendar-reminder-label">{calendarReminderLabel || "Snooze for"}</RdsTypography>
         <FormControl fullWidth size="small">
           <Select
-            defaultValue=""
+            value={selected}
+            onChange={e => setSelected(e.target.value)}
             size="small"
             displayEmpty
-            renderValue={(selected) => selected === '' ? (
-              <span className="rds-adaptive-cards__calendar-reminder-placeholder">Select duration</span>
-            ) : (selected === '5min' ? '5 Minutes' : selected === '15min' ? '15 Minutes' : selected === '30min' ? '30 Minutes' : '')}
-            IconComponent={props => <CustomChevronIcon {...props} className="rds-adaptive-cards__calendar-reminder-select-icon" />}
+            renderValue={selected =>
+              selected === ""
+                ? <span className="rds-adaptive-cards__calendar-reminder-placeholder">{placeholder || selectPlaceholder}</span>
+                : (sideOptions.find(opt => opt.value === selected)?.label || selected)
+            }
+            IconComponent={props => <ExpandMoreIcon {...props} className="rds-adaptive-cards__calendar-reminder-select-icon" />}
           >
-            <MenuItem value="" disabled>Select duration</MenuItem>
-            <MenuItem value="5min">5 Minutes</MenuItem>
-            <MenuItem value="15min">15 Minutes</MenuItem>
-            <MenuItem value="30min">30 Minutes</MenuItem>
+            <MenuItem value="" disabled>{selectPlaceholder}</MenuItem>
+            {sideOptions.map(opt => (
+              <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>
+            ))}
           </Select>
         </FormControl>
-      </div>
-      <Stack direction="row" spacing={1} justifyContent="flex-end" className="rds-adaptive-cards__calendar-reminder-actions">
-        <Button variant="outlined" color="primary" className="rds-adaptive-cards__action-btn" size="small">
-          Snooze
-        </Button>
-        <Button variant="outlined" color="primary" className="rds-adaptive-cards__action-btn" size="small">
-          I'll be Late
-        </Button>
-      </Stack>
-    </Stack>
+      </div> 
+      <RdsStack direction="row" spacing={1} justifyContent="flex-end" className="rds-adaptive-cards__calendar-reminder-actions">
+          <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--snooze">
+            <Button variant="outlined" className="rds-adaptive-cards__action-btn">
+              {snoozeLabel}
+            </Button>
+          </RdsBox>
+          <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--late">
+            <Button variant="outlined" className="rds-adaptive-cards__action-btn">
+              {lateLabel}
+            </Button>
+          </RdsBox>
+      </RdsStack>
+    </RdsStack>
   );
 }
 
-export function ActivityUpdateCard({ avatar, name, date, cardText, radioOptions }: ActivityUpdateCardProps) {
+export function ActivityUpdateCard({ avatar, name, date, cardText, radioOptions }: AdaptiveCardProps) {
+  const [selectedValue, setSelectedValue] = React.useState('');
+  const radioOptionsMapped = radioOptions?.map(opt => ({ value: opt.value, text: `${opt.label} : ${opt.desc}` })) ?? [];
   return (
-    <Stack spacing={2} className="rds-adaptive-cards__activity-update">
-      <Stack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__activity-update-header">
-        <Avatar src={avatar} className="rds-adaptive-cards__activity-update-avatar" />
-        <Stack>
-          <Typography variant="subtitle1" className="rds-adaptive-cards__activity-update-name" sx={{ fontWeight: 400 }}>{name}</Typography>
-          <Typography variant="body2" color="text.secondary" className="rds-adaptive-cards__activity-update-date">{date}</Typography>
-        </Stack>
-      </Stack>
-      <Typography variant="body1" color="text.secondary" className="rds-adaptive-cards__activity-update-text">{cardText}</Typography>
-      <RadioGroup className="rds-adaptive-cards__activity-update-radio-group">
-        {radioOptions && radioOptions.map(opt => (
-          <FormControlLabel key={opt.value} value={opt.value} control={<Radio />} label={<span>{opt.label}: <span className="rds-adaptive-cards__activity-update-radio-desc">{opt.desc}</span></span>} className="rds-adaptive-cards__activity-update-radio" />
-        ))}
-      </RadioGroup>
-    </Stack>
+    <RdsStack spacing={2} className="rds-adaptive-cards__activity-update">
+      <RdsStack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__activity-update-header">
+        <RdsAvatar src={avatar} className="rds-adaptive-cards__activity-update-avatar" />
+        <RdsStack>
+          <RdsTypography variant="subtitle1" className="rds-adaptive-cards__activity-update-name">{name}</RdsTypography>
+          <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__activity-update-date">{date}</RdsTypography>
+        </RdsStack>
+      </RdsStack>
+      <RdsTypography variant="body1" color="text.secondary" className="rds-adaptive-cards__activity-update-text">{cardText}</RdsTypography>
+      <RdsRadio
+        options={radioOptionsMapped}
+        value={selectedValue}
+        onChange={e => setSelectedValue(e.target.value)}
+        direction="column"
+        layout="icon with label"
+        className="rds-adaptive-cards__activity-update-radio-group"
+      />
+    </RdsStack>
   );
 }
 
-export function RestaurantOrderForm({ entree, setEntree, side, setSide, drink, setDrink }: { entree: string, setEntree: (v: string) => void, side: string, setSide: (v: string) => void, drink: string, setDrink: (v: string) => void }) {
+export type RestaurantOrderFormProps = {
+  entree: string;
+  setEntree: (v: string) => void;
+  side: string;
+  setSide: (v: string) => void;
+  drink: string;
+  setDrink: (v: string) => void;
+  entreeLabel?: string;
+  entreePlaceholder?: string;
+  entreeOptions?: { value: string; label: string }[];
+  sideLabel?: string;
+  sidePlaceholder?: string;
+  sideOptions?: { value: string; label: string }[];
+  drinkLabel?: string;
+  drinkPlaceholder?: string;
+  drinkOptions?: { value: string; label: string }[];
+};
+
+export function RestaurantOrderForm({
+  entree,
+  setEntree,
+  side,
+  setSide,
+  drink,
+  setDrink,
+  entreeLabel,
+  entreePlaceholder,
+  entreeOptions = [],
+  sideLabel,
+  sidePlaceholder,
+  sideOptions = [],
+  drinkLabel,
+  drinkPlaceholder,
+  drinkOptions = [], 
+}: RestaurantOrderFormProps) {
   return (
-    <Stack spacing={1} component="form" className="rds-adaptive-cards__restaurant-order">
+  <RdsStack spacing={1} component="form" className="rds-adaptive-cards__restaurant-order">
       <FormControl fullWidth required className="rds-adaptive-cards__restaurant-order-form">
-        <Typography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">Which entree would you like?<span className="rds-adaptive-cards__required">*</span></Typography>
+        <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
+          {entreeLabel}<span className="rds-adaptive-cards__required">*</span>
+        </RdsTypography>
         <Select
           value={entree}
           onChange={e => setEntree(e.target.value as string)}
           displayEmpty
           size="small"
-          renderValue={renderSelectValue("Select an entree")}
-          IconComponent={CustomChevronIcon}
+          renderValue={renderSelectValue(entreePlaceholder)}
+          IconComponent={ExpandMoreIcon}
         >
-          <MenuItem value="" disabled>Select an entree</MenuItem>
-          <MenuItem value="option1">Option 1</MenuItem>
-          <MenuItem value="option2">Option 2</MenuItem>
-          <MenuItem value="option3">Option 3</MenuItem>
+          <MenuItem value="" disabled>{entreePlaceholder}</MenuItem>
+          {entreeOptions.map(opt => (
+            <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>
+          ))}
         </Select>
       </FormControl>
       <FormControl fullWidth required className="rds-adaptive-cards__restaurant-order-form">
-        <Typography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">Which side would you like?<span className="rds-adaptive-cards__required">*</span></Typography>
+        <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
+          {sideLabel}<span className="rds-adaptive-cards__required">*</span>
+        </RdsTypography>
         <Select
           value={side}
           onChange={e => setSide(e.target.value as string)}
           displayEmpty
           size="small"
-          renderValue={renderSelectValue("Select a side")}
-          IconComponent={CustomChevronIcon}
+          renderValue={renderSelectValue(sidePlaceholder)}
+          IconComponent={ExpandMoreIcon}
         >
-          <MenuItem value="" disabled>Select a side</MenuItem>
-          <MenuItem value="option1">Option 1</MenuItem>
-          <MenuItem value="option2">Option 2</MenuItem>
-          <MenuItem value="option3">Option 3</MenuItem>
+          <MenuItem value="" disabled>{sidePlaceholder}</MenuItem>
+          {sideOptions?.map(opt => (
+            <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>
+          ))}
         </Select>
       </FormControl>
       <FormControl fullWidth required className="rds-adaptive-cards__restaurant-order-form">
-        <Typography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">Which drink would you like?<span className="rds-adaptive-cards__required">*</span></Typography>
+        <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
+          {drinkLabel}<span className="rds-adaptive-cards__required">*</span>
+        </RdsTypography>
         <Select
           value={drink}
           onChange={e => setDrink(e.target.value as string)}
           displayEmpty
           size="small"
-          renderValue={renderSelectValue("Select a drink")}
-          IconComponent={CustomChevronIcon}
+          renderValue={renderSelectValue(drinkPlaceholder)}
+          IconComponent={ExpandMoreIcon}
         >
-          <MenuItem value="" disabled>Select a drink</MenuItem>
-          <MenuItem value="option1">Option 1</MenuItem>
-          <MenuItem value="option2">Option 2</MenuItem>
-          <MenuItem value="option3">Option 3</MenuItem>
+          <MenuItem value="" disabled>{drinkPlaceholder}</MenuItem>
+          {drinkOptions.map(opt => (
+            <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>
+          ))}
         </Select>
       </FormControl>
-    </Stack>
+    </RdsStack>
   );
 }
