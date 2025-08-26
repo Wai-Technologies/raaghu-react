@@ -45,9 +45,9 @@ export const ProfileMenu = ({ name, shortName, email, menuItems }: ProfileMenuPr
         className="rds-profile-menu__button"
       >
         <RdsAvatar
-          designation={"Developer"}
+          subText={"Developer"}
           displayStyle="with-name"
-          name={name}
+          title={name}
           showDesignation
           showName
           size="small"

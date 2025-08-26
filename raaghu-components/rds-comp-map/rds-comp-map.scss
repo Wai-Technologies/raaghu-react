@@ -35,14 +35,42 @@
     max-width: 700px;
   }
 
+  &__heatmap-image {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    max-width: 700px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
   // Responsive behavior
   @media (max-width: 768px) {
     &__label {
       font-size: 18px;
     }
     
-    svg {
+    svg, &__heatmap-image {
       max-width: 100%;
+    }
+  }
+
+  // Heat map specific styles
+  &--heatmap {
+    background: linear-gradient(0deg, #FFAF00, #FFAF00),
+      radial-gradient(50.38% 50.38% at 30.5% 6.53%, #2CC1A5 0%, #26BEAE 33%, #E1CF00 67.18%, #FEA200 100%),
+      radial-gradient(61.69% 61.69% at 78.5% 19.32%, #28C0AB 0%, #F94E00 38.26%, #CCDE00 100%),
+      radial-gradient(36.18% 63.42% at 35.64% 37.56%, #F84A00 0%, #1DBBBC 44.15%, rgba(181, 228, 62, 0) 100%),
+      radial-gradient(18.75% 43.04% at 26.5% 80.97%, #FC4703 0%, #25BDB1 50%, rgba(252, 71, 3, 0) 100%);
+
+    .rds-comp-map__label {
+      color: var(--rds-text, #333);
+      font-weight: 600;
+    }
+
+    svg {
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     }
   }
 }
