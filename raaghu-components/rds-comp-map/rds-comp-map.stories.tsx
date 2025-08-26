@@ -14,6 +14,12 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        mapType: {
+            control: { type: 'select' },
+            options: ['default', 'heatmap'],
+            description: 'Select the type of map visualization',
+            defaultValue: 'default'
+        }
     },
 } satisfies Meta<typeof RdsCompMap>;
 
@@ -24,6 +30,7 @@ export const Default: Story = {
     args: {
         title: 'Map ',
         color: '#A478E6',
+        mapType: 'default',
         mapList: [
             { country: "cn", value: 1389618778 }, // china
             { country: "in", value: 1311559204 }, // india
