@@ -1,17 +1,17 @@
 import React from 'react';
 import {
   Box as MuiBox,
-  BoxProps
+  type BoxProps
 } from '@mui/material';
 
 export interface RdsBoxProps extends BoxProps {
   children?: React.ReactNode;
 }
 
-const RdsBox: React.FC<RdsBoxProps> = ({
+const RdsBox = ({
   children,
   ...props
-}) => {
+}:RdsBoxProps) => {
   return (
     <MuiBox {...props}>
       {children}
