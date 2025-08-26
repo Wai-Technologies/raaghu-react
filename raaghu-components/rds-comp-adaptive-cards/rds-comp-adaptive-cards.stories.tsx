@@ -15,7 +15,6 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
     },
     tags: ['autodocs'],
     argTypes: {
-        // ...existing argTypes...
         showHeader: { control: 'boolean', description: 'Show header of the card' },
         showDismiss: { control: 'boolean', description: 'Show circle button' },
         cardTitle: { control: 'text', description: 'Title of the card' },
