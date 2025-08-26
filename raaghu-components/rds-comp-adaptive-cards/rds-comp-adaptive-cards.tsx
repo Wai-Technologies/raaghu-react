@@ -205,7 +205,16 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
             {/* Card Content by Type */}
             <CardContent className="rds-adaptive-cards__content">
               {type === "CalenderReminder" && (
-                <CalendarReminderForm label={calendarLabel} smallText={calendarSmallText} placeholder={props.calendarReminderPlaceholder} calendarReminderLabel={props.calendarReminderLabel} />
+                <CalendarReminderForm 
+                  label={calendarLabel}
+                  smallText={calendarSmallText}
+                  placeholder={props.calendarReminderPlaceholder}
+                  calendarReminderLabel={props.calendarReminderLabel}
+                  sideOptions={props.options || props.sideOptions}
+                  selectPlaceholder={props.sidePlaceholder}
+                  snoozeLabel={props.snoozeLabel}
+                  lateLabel={props.lateLabel}
+                />
               )}
               {type === "InputForm" && (
                 <InputFormCard

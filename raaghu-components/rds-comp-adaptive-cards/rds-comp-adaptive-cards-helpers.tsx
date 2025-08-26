@@ -15,7 +15,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import './rds-comp-adaptive-cards.scss';
+// import './rds-comp-adaptive-cards.scss';
 // All adaptive card props in one interface
 export interface AdaptiveCardProps {
   showBtn1?: boolean;
@@ -165,7 +165,7 @@ export function InputFormCard(props: AdaptiveCardProps) {
 
 export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, closeIcon, showDismiss, onImageClick }: AdaptiveCardProps & { cardTitle?: string; showHeader?: boolean; closeIcon?: boolean; showDismiss?: boolean; onImageClick?: (index: number) => void }) {
   return (
-    <RdsCard className="rds-adaptive-cards rds-adaptive-cards--image-gallery">
+    <RdsCard className="rds-adaptive-cards rds-adaptive-cards--image-gallery" showIcon={false} showIndicator={false}>
       {showHeader && (
         <div className="rds-adaptive-cards__header">
           <RdsStack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__header-title-row">
@@ -180,7 +180,7 @@ export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, clo
       <div className="rds-adaptive-cards__content">
         <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__small-text">{smallText}</RdsTypography>
         <ImageList cols={4} className="rds-adaptive-cards__image-list">
-          {(images ?? []).map((src, index) => (
+          {(images ?? []).filter(src => !!src).map((src, index) => (
             <ImageListItem key={index} className="rds-adaptive-cards__image-list-item" onClick={() => onImageClick && onImageClick(index)}>
               <img src={src} alt={`image${index + 1}`} loading="lazy" className="rds-adaptive-cards__image" />
             </ImageListItem>
@@ -205,7 +205,7 @@ export function FootballScorecardCard({
   finalText = "Final",
 }: AdaptiveCardProps) {
   return (
-    <RdsCard className="rds-adaptive-cards rds-adaptive-cards--football-scorecard">
+    <RdsCard className="rds-adaptive-cards rds-adaptive-cards--football-scorecard" showIcon={false} showIndicator={false}>
       {/* Header, subtitle, and description outside card */}
       <div className="rds-adaptive-cards__content">
         <RdsStack className="rds-adaptive-cards__football-header" alignItems="center">
@@ -240,9 +240,11 @@ export function FootballScorecardCard({
 
         <RdsStack direction="row" alignItems="center" justifyContent="center" className="rds-adaptive-cards__football-body">
           <RdsStack alignItems="center" className="rds-adaptive-cards__football-team rds-adaptive-cards__football-team--home">
-            <RdsBox className="rds-adaptive-cards__football-logo">
-              <img src={homeTeam?.logo} alt={homeTeam?.name} className="rds-adaptive-cards__football-img" />
-            </RdsBox>
+            {homeTeam?.logo ? (
+              <RdsBox className="rds-adaptive-cards__football-logo">
+                <img src={homeTeam.logo} alt={homeTeam.name} className="rds-adaptive-cards__football-img" />
+              </RdsBox>
+            ) : null}
             <RdsTypography variant="body1" className="rds-adaptive-cards__football-team-name">{homeTeam?.name}</RdsTypography>
             <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-team-status">{homeTeam?.status}</RdsTypography>
           </RdsStack>
@@ -257,9 +259,11 @@ export function FootballScorecardCard({
           </RdsStack>
 
           <RdsStack alignItems="center" className="rds-adaptive-cards__football-team rds-adaptive-cards__football-team--away">
-            <RdsBox className="rds-adaptive-cards__football-logo">
-              <img src={awayTeam?.logo} alt={awayTeam?.name} className="rds-adaptive-cards__football-img rds-adaptive-cards__football-img--barca" />
-            </RdsBox>
+            {awayTeam?.logo ? (
+              <RdsBox className="rds-adaptive-cards__football-logo">
+                <img src={awayTeam.logo} alt={awayTeam.name} className="rds-adaptive-cards__football-img rds-adaptive-cards__football-img--barca" />
+              </RdsBox>
+            ) : null}
             <RdsTypography variant="body1" className="rds-adaptive-cards__football-team-name">{awayTeam?.name}</RdsTypography>
             <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-team-status">{awayTeam?.status}</RdsTypography>
           </RdsStack>
@@ -279,7 +283,7 @@ export type CalendarReminderFormProps = {
   smallText?: string;
   placeholder?: string;
   calendarReminderLabel?: string;
-  options?: CalendarReminderOption[];
+  sideOptions?: CalendarReminderOption[];
   selectPlaceholder?: string;
   snoozeLabel?: string;
   lateLabel?: string;
@@ -290,10 +294,10 @@ export function CalendarReminderForm({
   smallText,
   placeholder,
   calendarReminderLabel,
-  options = [],
   selectPlaceholder = "Select duration",
   snoozeLabel = "Snooze",
-  lateLabel = "I'll be Late"
+  lateLabel = "I'll be Late",
+  sideOptions = [],
 }: CalendarReminderFormProps) {
   const [selected, setSelected] = React.useState("");
   return (
@@ -313,12 +317,12 @@ export function CalendarReminderForm({
             renderValue={selected =>
               selected === ""
                 ? <span className="rds-adaptive-cards__calendar-reminder-placeholder">{placeholder || selectPlaceholder}</span>
-                : (options.find(opt => opt.value === selected)?.label || selected)
+                : (sideOptions.find(opt => opt.value === selected)?.label || selected)
             }
             IconComponent={props => <ExpandMoreIcon {...props} className="rds-adaptive-cards__calendar-reminder-select-icon" />}
           >
             <MenuItem value="" disabled>{selectPlaceholder}</MenuItem>
-            {options.map(opt => (
+            {sideOptions.map(opt => (
               <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>
             ))}
           </Select>
