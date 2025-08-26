@@ -2,7 +2,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompAdaptiveCards from './rds-comp-adaptive-cards';
 
-
 const meta: Meta<typeof RdsCompAdaptiveCards> = {
     title: 'Components/Adaptive Cards',
     component: RdsCompAdaptiveCards,
@@ -10,25 +9,13 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
         layout: 'padded',
         docs: {
             description: {
-                component: '**Adaptive Cards**', 
+                component: '**Adaptive Cards**',
             },
         },
     },
-    tags: ['autodocs'], 
+    tags: ['autodocs'],
     argTypes: {
-        type: {
-            control: { type: 'select' },
-            options: [
-                'ActivityUpdateCard',
-                'CalenderReminder',
-                'Default',
-                'ImageGallery',
-                'InputForm',
-                'RestaurantOrder',
-                'FootballScorecard',
-            ],
-            description: 'Select the adaptive card type',
-        }, 
+        // ...existing argTypes...
         showHeader: { control: 'boolean', description: 'Show header of the card' },
         showDismiss: { control: 'boolean', description: 'Show circle button' },
         cardTitle: { control: 'text', description: 'Title of the card' },
@@ -70,15 +57,37 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
         activityProps: { control: 'object' },
         name: { control: 'text', description: 'Name for ActivityUpdateCard' },
         date: { control: 'text', description: 'Date for ActivityUpdateCard' },
-            },
+        // Removed duplicate namePlaceholder for ActivityUpdateCard
+        sideOptions: { control: 'object', description: 'Options for ActivityUpdateCard' },
+        sidePlaceholder: { control: 'text', description: 'Select Placeholder for CalendarReminderCard' },
+    },
 };
-
 
 export default meta;
 
+// Minimal default story
+export const Default: StoryObj<typeof RdsCompAdaptiveCards> = {
+    args: {
+        cardTitle: 'Title',
+        showHeader: true,
+        showBtn1: true,
+        showBtn2: true,
+        btn1Label: 'Cancel',
+        btn2Label: 'Done',
+        showDismiss: true,
+        closeIcon: false,
+    },
+    parameters: {
+        controls: {
+            include: ['cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1Label', 'btn2Label', 'showDismiss', 'closeIcon'],
+        },
+    },
+    render: (args) => <RdsCompAdaptiveCards {...args} />,
+};
 
-export const Default = {
-     activityUpdate: {
+export const ActivityUpdateCard: StoryObj<typeof RdsCompAdaptiveCards> = {
+    args: {
+        type: 'ActivityUpdateCard',
         cardTitle: 'Title',
         showHeader: true,
         showBtn1: true,
@@ -89,20 +98,32 @@ export const Default = {
         btn2Label: 'Click Here',
         showDismiss: false,
         closeIcon: false,
-         cardText:
-                'Now that we have defined the main rules and features of the format, we need to produce a schema and publish it to GitHub. The schema will be the starting point of our reference documentation.',
+        cardText:
+            'Now that we have defined the main rules and features of the format, we need to produce a schema and publish it to GitHub. The schema will be the starting point of our reference documentation.',
         name: 'Jane Doe',
         date: 'Created Wed, 30 Apr 2025',
         activityProps: {
-            avatar:
-                'assets/your-logo.png',
+            avatar: 'assets/your-logo.png',
             radioOptions: [
                 { value: 'option1', label: 'Sub - Title 1', desc: 'Description' },
                 { value: 'option2', label: 'Sub - Title 2', desc: 'Description' },
             ],
         },
     },
-    calenderReminder: {
+    parameters: {
+        controls: {
+            include: [
+                'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'btn1Label', 'btn2Label', 'showDismiss', 'closeIcon',
+                'cardText', 'name', 'date', 'activityProps'
+            ],
+        },
+    },
+    render: (args) => <RdsCompAdaptiveCards {...args} />,
+};
+
+export const CalendarReminder: StoryObj<typeof RdsCompAdaptiveCards> = {
+    args: {
+        type: 'CalenderReminder',
         cardTitle: 'Title',
         showHeader: true,
         showBtn1: true,
@@ -115,17 +136,29 @@ export const Default = {
         showDismiss: false,
         closeIcon: false,
         calendarReminderLabel: 'Snooze for',
-        placeholder: 'Select duration',
-        options: [
+        namePlaceholder: 'Select duration',
+        sideOptions: [
             { value: '5min', label: '5 Minutes' },
             { value: '15min', label: '15 Minutes' },
             { value: '30min', label: '30 Minutes' }
         ],
-        selectPlaceholder: 'Select duration',
+        sidePlaceholder: 'Select duration',
         snoozeLabel: 'Snooze',
         lateLabel: "I'll be Late"
     },
-    imageGallery: {
+    parameters: {
+        controls: {
+            include: [
+                    'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'block', 'smallText', 'label', 'calendarReminderLabel', 'namePlaceholder', 'sideOptions', 'sidePlaceholder', 'snoozeLabel', 'lateLabel', 'showDismiss', 'closeIcon'
+            ],
+        },
+    },
+    render: (args) => <RdsCompAdaptiveCards {...args} />,
+};
+
+export const ImageGallery: StoryObj<typeof RdsCompAdaptiveCards> = {
+    args: {
+        type: 'ImageGallery',
         cardTitle: 'Here are some cool photos',
         smallText: 'Sorry some of them are repeats',
         images: [
@@ -143,59 +176,97 @@ export const Default = {
             '/assets/Image12.png',
         ],
     },
-    inputForm: {
-            cardTitle: 'Tell us about yourself',
-            showHeader: true,
-            showBtn1: true,
-            showBtn2: false,
-            btn1style: 'filled',
-            btn1Label: 'Submit',
-            block: true,
-            smallText: "Don't worry, we'll never share or sell your information.",
-            label: 'We just need a few more details to get you booked for the trip of a lifetime!',
-            showDismiss: false,
-            closeIcon: false,
-            nameLabel: 'Name (Last, First)',
-            namePlaceholder: 'Enter Name',
-            emailLabel: 'Email',
-            emailPlaceholder: 'Enter Email',
-            phoneLabel: 'Phone Number',
-            phonePlaceholder: 'Enter Phone Number',
-            requiredText: '*',
-            },
-        restaurantOrder: {
-                cardTitle: 'Malt & Vine Order Form',
-                showHeader: true,
-                showBtn1: true,
-                showBtn2: false,
-                btn1style: 'filled',
-                btn1Label: 'Place Order',
-                block: true,
-                showDismiss: false,
-                closeIcon: false,
-                entreeLabel: 'Which entree would you like?',
-                entreePlaceholder: 'Select an entree',
-                entreeOptions: [
-                    { value: 'option1', label: 'Option 1' },
-                    { value: 'option2', label: 'Option 2' },
-                    { value: 'option3', label: 'Option 3' },
-                ],
-                sideLabel: 'Which side would you like?',
-                sidePlaceholder: 'Select a side',
-                sideOptions: [
-                    { value: 'option1', label: 'Option 1' },
-                    { value: 'option2', label: 'Option 2' },
-                    { value: 'option3', label: 'Option 3' },
-                ],
-                drinkLabel: 'Which drink would you like?',
-                drinkPlaceholder: 'Select a drink',
-                drinkOptions: [
-                    { value: 'option1', label: 'Option 1' },
-                    { value: 'option2', label: 'Option 2' },
-                    { value: 'option3', label: 'Option 3' },
-                ],
+    parameters: {
+        controls: {
+            include: ['type', 'cardTitle', 'smallText', 'images'],
         },
-    footballScorecard: {
+    },
+    render: (args) => <RdsCompAdaptiveCards {...args} />,
+};
+
+export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
+    args: {
+        type: 'InputForm',
+        cardTitle: 'Tell us about yourself',
+        showHeader: true,
+        showBtn1: true,
+        showBtn2: false,
+        btn1style: 'filled',
+        btn1Label: 'Submit',
+        block: true,
+        smallText: "Don't worry, we'll never share or sell your information.",
+        label: 'We just need a few more details to get you booked for the trip of a lifetime!',
+        showDismiss: false,
+        closeIcon: false,
+        nameLabel: 'Name (Last, First)',
+        namePlaceholder: 'Enter Name',
+        emailLabel: 'Email',
+        emailPlaceholder: 'Enter Email',
+        phoneLabel: 'Phone Number',
+        phonePlaceholder: 'Enter Phone Number',
+        requiredText: '*',
+    },
+    parameters: {
+        controls: {
+            include: [
+                'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn1Label', 'block', 'smallText', 'label', 'showDismiss', 'closeIcon',
+                'nameLabel', 'namePlaceholder', 'emailLabel', 'emailPlaceholder', 'phoneLabel', 'phonePlaceholder', 'requiredText'
+            ],
+        },
+    },
+    render: (args) => <RdsCompAdaptiveCards {...args} />,
+};
+
+export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
+    args: {
+        type: 'RestaurantOrder',
+        cardTitle: 'Malt & Vine Order Form',
+        showHeader: true,
+        showBtn1: true,
+        showBtn2: false,
+        btn1style: 'filled',
+        btn1Label: 'Place Order',
+        block: true,
+        showDismiss: false,
+        closeIcon: false,
+        entreeLabel: 'Which entree would you like?',
+        entreePlaceholder: 'Select an entree',
+        entreeOptions: [
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' },
+            { value: 'option3', label: 'Option 3' },
+        ],
+        sideLabel: 'Which side would you like?',
+        sidePlaceholder: 'Select a side',
+        sideOptions: [
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' },
+            { value: 'option3', label: 'Option 3' },
+        ],
+        drinkLabel: 'Which drink would you like?',
+        drinkPlaceholder: 'Select a drink',
+        drinkOptions: [
+            { value: 'option1', label: 'Option 1' },
+            { value: 'option2', label: 'Option 2' },
+            { value: 'option3', label: 'Option 3' },
+        ],
+    },
+    parameters: {
+        controls: {
+            include: [
+                'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn1Label', 'block', 'showDismiss', 'closeIcon',
+                'entreeLabel', 'entreePlaceholder', 'entreeOptions',
+                'sideLabel', 'sidePlaceholder', 'sideOptions',
+                'drinkLabel', 'drinkPlaceholder', 'drinkOptions'
+            ],
+        },
+    },
+    render: (args) => <RdsCompAdaptiveCards {...args} />,
+};
+
+export const FootballScorecard: StoryObj<typeof RdsCompAdaptiveCards> = {
+    args: {
+        type: 'FootballScorecard',
         closeIcon: true,
         leagueName: 'La Liga',
         leagueAvatar: 'assets/scorecard1.png',
@@ -211,97 +282,16 @@ export const Default = {
         homeScore: 2,
         awayScore: 2,
         time: '90:00',
-    },
-};
-
-export const ActivityUpdateCard: StoryObj<typeof RdsCompAdaptiveCards> = {
-    args: {
-        type: 'ActivityUpdateCard',
-        ...Default.activityUpdate,
-    },
-    parameters: {
-        controls: {
-            include: [
-                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'btn1Label', 'btn2Label', 'showDismiss', 'closeIcon',
-                'cardText', 'name', 'date', 'activityProps'
-            ]
-        }
-    }
-};
-
-export const CalendarReminder: StoryObj<typeof RdsCompAdaptiveCards> = {
-    args: {
-        type: 'CalenderReminder',
-        ...Default.calenderReminder,
-    },
-    parameters: {
-        controls: {
-            include: [
-                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'block', 'smallText', 'label', 'calendarReminderLabel', 'placeholder', 'options', 'selectPlaceholder', 'snoozeLabel', 'lateLabel', 'showDismiss', 'closeIcon'
-            ]
-        }
-    }
-}; 
-
-export const ImageGallery: StoryObj<typeof RdsCompAdaptiveCards> = {
-    args: {
-        type: 'ImageGallery',
-        ...Default.imageGallery,
-    },
-    parameters: {
-        controls: {
-            include: [
-                'cardTitle', 'smallText', 'images'
-            ]
-        }
-    }
-};
-
-export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
-    args: {
-        type: 'InputForm',
-        ...Default.inputForm,
-    },
-    parameters: {
-        controls: {
-            include: [
-                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn1Label', 'block', 'smallText', 'label', 'showDismiss', 'closeIcon',
-                'nameLabel', 'namePlaceholder', 'emailLabel', 'emailPlaceholder', 'phoneLabel', 'phonePlaceholder', 'requiredText'
-            ]
-        }
-    }
-};
-
-export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
-    args: {
-        type: 'RestaurantOrder',
-        ...Default.restaurantOrder,
-    },
-    parameters: {
-        controls: {
-            include: [
-                'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn1Label', 'block', 'showDismiss', 'closeIcon',
-                'entreeLabel', 'entreePlaceholder', 'entreeOptions',
-                'sideLabel', 'sidePlaceholder', 'sideOptions',
-                'drinkLabel', 'drinkPlaceholder', 'drinkOptions'
-            ]
-        }
-    }
-};
-
-export const FootballScorecard: StoryObj<typeof RdsCompAdaptiveCards> = {
-    args: {
-        type: 'FootballScorecard',
-        ...Default.footballScorecard,
         finalText: 'Final',
     },
     parameters: {
         controls: {
             include: [
-                'closeIcon', 'leagueName', 'leagueAvatar', 'isLive', 'matchDate', 'isFinal', 'homeTeamName', 'homeTeamLogo', 'homeTeamStatus', 'awayTeamName', 'awayTeamLogo', 'awayTeamStatus', 'homeScore', 'awayScore', 'time', 'finalText'
-            ]
-        }
-    }
+                'type', 'closeIcon', 'leagueName', 'leagueAvatar', 'isLive', 'matchDate', 'isFinal', 'homeTeamName', 'homeTeamLogo', 'homeTeamStatus', 'awayTeamName', 'awayTeamLogo', 'awayTeamStatus', 'homeScore', 'awayScore', 'time', 'finalText'
+            ],
+        },
+    },
+    render: (args) => <RdsCompAdaptiveCards {...args} />,
 };
 
 

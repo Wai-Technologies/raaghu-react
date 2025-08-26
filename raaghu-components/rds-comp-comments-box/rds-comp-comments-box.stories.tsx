@@ -23,6 +23,8 @@ function getPropsForState(args: any) {
         score: rest.score,
         avatarInitials: rest.avatarInitials,
         yourLogo: rest.yourLogo,
+        editLabel: rest.editLabel,
+        deleteLabel: rest.deleteLabel,
       };
     case 'comment Hover':
       return {
@@ -34,6 +36,8 @@ function getPropsForState(args: any) {
         editIcon: rest.editIcon,
         deleteIcon: rest.deleteIcon,
         avatarInitials: rest.avatarInitials,
+        editLabel: rest.editLabel,
+        deleteLabel: rest.deleteLabel,
       };
     case 'typing':
       return {
@@ -92,18 +96,20 @@ const meta: Meta<typeof RdsCommentBox> = {
     mentionUsers: { control: 'object', description: 'User list for mention dropdown' },
     noImageText: { control: 'text', description: 'Text to show when no image is provided' },
     score: { control: 'text', description: 'Score for commentThread state' },
-    state: {
-      options: [
-        'default',
-        'selected',
-        'typing',
-        'comment Posted',
-        'comment Hover',
-        'comment Thread',
-      ],
-      control: { type: 'select' },
-      description: 'State of the comment box',
-    },
+    editLabel: { control: 'text', description: 'Custom label for Edit action' },
+    deleteLabel: { control: 'text', description: 'Custom label for Delete action' },
+    // state: {
+    //   options: [
+    //     'default',
+    //     'selected',
+    //     'typing',
+    //     'comment Posted',
+    //     'comment Hover',
+    //     'comment Thread',
+    //   ],
+    //   control: { type: 'select' },
+    //   description: 'State of the comment box',
+    // },
     threadTitle: { control: 'text', description: 'Thread title for commentThread state' },
     text: { control: 'text', description: 'Comment text for commentThread, typing, commentPosted states' },
     time: { control: 'text', description: 'Time for commentThread state' },
@@ -114,10 +120,10 @@ const meta: Meta<typeof RdsCommentBox> = {
     translate: { control: 'text', description: 'Translate label for commentThread state' },
     imgSrc: { control: 'text', description: 'Image source for commentThread state' },
     imgProps: { control: 'object', description: 'Props for the image element in commentThread state' },
-    svgEditProps: { control: 'object', description: 'Props for the Edit SVG in commentThread state' },
-    svgDeleteProps: { control: 'object', description: 'Props for the Delete SVG in commentThread state' },
-    svgEditPath: { control: 'text', description: 'SVG path data for Edit icon in commentThread state' },
-    svgDeletePath: { control: 'text', description: 'SVG path data for Delete icon in commentThread state' },
+    // svgEditProps: { control: 'object', description: 'Props for the Edit SVG in commentThread state' },
+    // svgDeleteProps: { control: 'object', description: 'Props for the Delete SVG in commentThread state' },
+    // svgEditPath: { control: 'text', description: 'SVG path data for Edit icon in commentThread state' },
+    // svgDeletePath: { control: 'text', description: 'SVG path data for Delete icon in commentThread state' },
     editIcon: { control: 'object', description: 'Custom React node for Edit icon in dropdown' },
     deleteIcon: { control: 'object', description: 'Custom React node for Delete icon in dropdown' },
     commentHoverName: { control: 'text', description: 'Name to display in commentHover state' },
@@ -166,7 +172,7 @@ export const Typing: StoryObj<typeof RdsCommentBox> = {
   args: {
     state: 'typing',
     typingPlaceholderText: 'Placeholder...',
-    avatarInitials: 'RD',
+    avatarInitials: 'RD', 
   },
   parameters: {
     controls: {
@@ -199,10 +205,12 @@ export const CommentHover: StoryObj<typeof RdsCommentBox> = {
     hoverMeta: '10 Replies . 2 Images . 1 GIF',
     commentHoverName: 'Renne Doe',
     avatarInitials: 'RD',
+    editLabel: 'Edit',
+    deleteLabel: 'Delete',
   },
   parameters: {
     controls: {
-      include: ['state', 'hoverText', 'hoverTime', 'hoverMeta', 'commentHoverName', 'avatarInitials'],
+      include: ['state', 'hoverText', 'hoverTime', 'hoverMeta', 'commentHoverName', 'avatarInitials', 'editLabel', 'deleteLabel'],
     },
   },
   render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
@@ -218,25 +226,22 @@ export const CommentThread: StoryObj<typeof RdsCommentBox> = {
     translate: 'Translate',
     imgSrc: '/assets/ThreadHero.png',
     imgProps: { alt: 'Custom preview', style: { borderRadius: '8px', width: '200px', height: '140px' } },
-    // svgEditProps: { style: { fill: '#4caf50' } },
-    // svgDeleteProps: { style: { fill: '#f44336' } },
-    // svgEditPath: 'M3 17.25V21h3.75l11.06-11.06-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z',
-    // svgDeletePath: 'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z',
     commentThreadName: 'Renne Doe',
     score: '00',
     avatarInitials: 'RD',
     yourLogo: '/assets/your-logo.png',
-    editIcon: null, // JSX removed for Storybook compatibility
-    deleteIcon: null, // JSX removed for Storybook compatibility
+    editIcon: null,
+    deleteIcon: null,
+    editLabel: 'Edit',
+    deleteLabel: 'Delete',
   },
   parameters: {
     controls: {
       include: [
-        'state', 'threadTitle', 'text', 'time', 'meta', 'translate', 'imgSrc', 'imgProps', 'editIcon', 'deleteIcon', 'commentThreadName', 'score', 'avatarInitials', 'yourLogo'
+        'state', 'threadTitle', 'text', 'time', 'meta', 'translate', 'imgSrc', 'imgProps', 'editIcon', 'deleteIcon', 'commentThreadName', 'score', 'avatarInitials', 'yourLogo', 'editLabel', 'deleteLabel'
       ],
     },
   },
-
   render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
 };
 

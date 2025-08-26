@@ -10,11 +10,11 @@ import {
   CardHeader, CardContent,Button, CardActions,
   IconButton
 } from "@mui/material";
-import {
+import { 
   Close as CloseIcon,
   ExpandMore as ExpandMoreIcon
 } from "@mui/icons-material";
-import {
+import { 
   FootballScorecardCard,
   ActivityUpdateCard,
   CalendarReminderForm, 
@@ -94,6 +94,8 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
     awayTeamStatus,
     homeScore,
     awayScore,
+  namePlaceholder,
+  sideOptions,
     time,
     footballProps,
     activityProps,
@@ -193,7 +195,7 @@ const RdsCompAdaptiveCards = (props: RdsCompAdaptiveCardsProps) => {
             {/* Card Header */}
             <CardHeader
               className="rds-adaptive-cards__header"
-              title={showHeader && (
+              title={showHeader && ( 
                 <RdsStack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__header-title-row">
                   {showDismiss && <RdsBox className="rds-adaptive-cards__title-icon" />}
                   <RdsTypography variant="h5" className="rds-adaptive-cards__title" fontWeight={600}>{cardTitle}</RdsTypography>

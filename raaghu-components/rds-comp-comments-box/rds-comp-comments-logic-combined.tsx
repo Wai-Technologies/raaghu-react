@@ -75,7 +75,7 @@ export function useCommentsBoxLogic(mentionUsers?: string[]) {
     'Stephen',
   ];
   const filteredUsers = users.filter((user) =>
-    user.toLowerCase().includes(search.toLowerCase())
+    user.toLowerCase().includes(search.toLowerCase()) 
   );
   useEffect(() => {
     if (!mentionDropdownOpen) return;
@@ -205,6 +205,10 @@ export interface RdsCommentBoxProps {
   editIcon?: React.ReactNode;
   /** Custom React node for Delete icon in dropdown */
   deleteIcon?: React.ReactNode;
+  /** Custom label for Edit action */
+  editLabel?: string;
+  /** Custom label for Delete action */
+  deleteLabel?: string;
   state:
     | 'default'
     | 'selected'
@@ -441,7 +445,7 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
                         ) : (
                           <EditIcon className="rds-comments-box__comment-dropdown-icon" style={{ color: '#888' }} />
                         )}
-                        <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--edit">Edit</span>
+                        <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--edit">{props.editLabel || 'Edit'}</span>
                       </div>
                       <div className="rds-comments-box__comment-dropdown-item" onClick={() => { logic.setHoverDropdownOpen(false); /* handle delete */ }}>
                         {props.deleteIcon ? (
@@ -449,7 +453,7 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
                         ) : (
                           <DeleteIcon className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete" style={{ color: '#d32f2f' }} />
                         )}
-                        <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--delete">Delete</span>
+                        <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--delete">{props.deleteLabel || 'Delete'}</span>
                       </div>
                     </div>
                   )}
@@ -479,7 +483,7 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
                       ) : (
                         <EditIcon className="rds-comments-box__comment-dropdown-icon" style={{ color: '#888' }} />
                       )}
-                      <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--edit">Edit</span>
+                      <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--edit">{props.editLabel || 'Edit'}</span>
                     </div>
                     <div className="rds-comments-box__comment-dropdown-item" onClick={() => { logic.setThreadDropdownOpenHeader(false); /* handle delete */ }}>
                       {props.deleteIcon ? (
@@ -487,7 +491,7 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
                       ) : (
                         <DeleteIcon className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete" style={{ color: '#d32f2f' }} />
                       )}
-                      <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--delete">Delete</span>
+                      <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--delete">{props.deleteLabel || 'Delete'}</span>
                     </div>
                   </div>
                 )}
@@ -530,7 +534,7 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
                           ) : (
                             <EditIcon className="rds-comments-box__comment-dropdown-icon" style={{ color: '#888' }} />
                           )}
-                          <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--edit">Edit</span>
+                          <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--edit">{props.editLabel || 'Edit'}</span>
                         </div>
                         <div className="rds-comments-box__comment-dropdown-item" onClick={() => { logic.setThreadDropdownOpenTools(false); /* handle delete */ }}>
                           {props.deleteIcon ? (
@@ -538,7 +542,7 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
                           ) : (
                             <DeleteIcon className="rds-comments-box__comment-dropdown-icon rds-comments-box__comment-dropdown-icon--delete" style={{ color: '#d32f2f' }} />
                           )}
-                          <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--delete">Delete</span>
+                          <span className="rds-comments-box__comment-dropdown-label rds-comments-box__comment-dropdown-label--delete">{props.deleteLabel || 'Delete'}</span>
                         </div>
                       </div>
                     )}

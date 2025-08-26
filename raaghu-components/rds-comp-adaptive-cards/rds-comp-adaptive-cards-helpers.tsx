@@ -2,10 +2,10 @@
 // Imports
 // =========================
 import React, { useState } from "react";
-import { Default } from "./rds-comp-adaptive-cards.stories";
 import {
   Select, MenuItem, FormControl, FormControlLabel, RadioGroup, ImageList, Button, IconButton, ImageListItem
 } from "@mui/material";
+import { Close as CloseIcon, Add as AddIcon, ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 import RdsCard from "../../raaghu-elements/rds-card-detail/rds-card-detail";
 import {
   RdsBox,
@@ -15,8 +15,157 @@ import {
   RdsStack,
   RdsAvatar
 } from "../../raaghu-elements";
-import { Close as CloseIcon, Add as AddIcon, ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 
+
+// =========================
+// Default Props & Constants
+// =========================
+// Default props for each card type
+const activityUpdateDefaults = {
+  type: 'ActivityUpdateCard',
+  cardTitle: 'Title',
+  showHeader: true,
+  showBtn1: true,
+  showBtn2: true,
+  btn1style: 'outline',
+  btn2style: 'filled',
+  btn1Label: 'Button',
+  btn2Label: 'Click Here',
+  showDismiss: false,
+  closeIcon: false,
+  cardText:
+    'Now that we have defined the main rules and features of the format, we need to produce a schema and publish it to GitHub. The schema will be the starting point of our reference documentation.',
+  name: 'Jane Doe',
+  date: 'Created Wed, 30 Apr 2025',
+  activityProps: {
+    avatar: 'assets/your-logo.png',
+    radioOptions: [
+      { value: 'option1', label: 'Sub - Title 1', desc: 'Description' },
+      { value: 'option2', label: 'Sub - Title 2', desc: 'Description' },
+    ],
+  },
+};
+
+const calenderReminderDefaults = {
+  type: 'CalenderReminder',
+  cardTitle: 'Title',
+  showHeader: true,
+  showBtn1: true,
+  showBtn2: true,
+  btn1style: 'outline',
+  btn2style: 'outline',
+  block: false,
+  smallText: '20:30 - 09:30',
+  label: 'Conf Room 112/3377 (10)',
+  showDismiss: false,
+  closeIcon: false,
+  calendarReminderLabel: 'Snooze for',
+  namePlaceholder: 'Select duration',
+  sideOptions: [
+    { value: '5min', label: '5 Minutes' },
+    { value: '15min', label: '15 Minutes' },
+    { value: '30min', label: '30 Minutes' }
+  ],
+  selectPlaceholder: 'Select duration',
+  snoozeLabel: 'Snooze',
+  lateLabel: "I'll be Late"
+};
+
+const imageGalleryDefaults = {
+  type: 'ImageGallery',
+  cardTitle: 'Here are some cool photos',
+  smallText: 'Sorry some of them are repeats',
+  images: [
+    '/assets/Image1.png',
+    '/assets/Image2.png',
+    '/assets/Image3.png',
+    '/assets/Image4.png',
+    '/assets/Image5.png',
+    '/assets/Image6.png',
+    '/assets/Image7.png',
+    '/assets/Image8.png',
+    '/assets/Image9.png',
+    '/assets/Image10.png',
+    '/assets/Image11.png',
+    '/assets/Image12.png',
+  ],
+};
+
+const inputFormDefaults = {
+  type: 'InputForm',
+  cardTitle: 'Tell us about yourself',
+  showHeader: true,
+  showBtn1: true,
+  showBtn2: false,
+  btn1style: 'filled',
+  btn1Label: 'Submit',
+  block: true,
+  smallText: "Don't worry, we'll never share or sell your information.",
+  label: 'We just need a few more details to get you booked for the trip of a lifetime!',
+  showDismiss: false,
+  closeIcon: false,
+  nameLabel: 'Name (Last, First)',
+  namePlaceholder: 'Enter Name',
+  emailLabel: 'Email',
+  emailPlaceholder: 'Enter Email',
+  phoneLabel: 'Phone Number',
+  phonePlaceholder: 'Enter Phone Number',
+  requiredText: '*',
+};
+
+const restaurantOrderDefaults = {
+  type: 'RestaurantOrder',
+  cardTitle: 'Malt & Vine Order Form',
+  showHeader: true,
+  showBtn1: true,
+  showBtn2: false,
+  btn1style: 'filled',
+  btn1Label: 'Place Order',
+  block: true,
+  showDismiss: false,
+  closeIcon: false,
+  entreeLabel: 'Which entree would you like?',
+  entreePlaceholder: 'Select an entree',
+  entreeOptions: [
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+  ],
+  sideLabel: 'Which side would you like?',
+  sidePlaceholder: 'Select a side',
+  sideOptions: [
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+  ],
+  drinkLabel: 'Which drink would you like?',
+  drinkPlaceholder: 'Select a drink',
+  drinkOptions: [
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+  ],
+};
+
+const footballScorecardDefaults = {
+  type: 'FootballScorecard',
+  closeIcon: true,
+  leagueName: 'La Liga',
+  leagueAvatar: 'assets/scorecard1.png',
+  isLive: true,
+  matchDate: '30th Apr 2025',
+  isFinal: true,
+  homeTeamName: 'Real Madrid',
+  homeTeamLogo: 'assets/scorecard1.png',
+  homeTeamStatus: 'Home',
+  awayTeamName: 'Barcelona',
+  awayTeamLogo: 'assets/scorecard2.png',
+  awayTeamStatus: 'Away',
+  homeScore: 2,
+  awayScore: 2,
+  time: '90:00',
+  finalText: 'Final',
+};
 // =========================
 // Type Definitions
 // =========================
@@ -105,57 +254,53 @@ export type RdsCompAdaptiveCardsProps = {
   drinkLabel?: string;
   drinkPlaceholder?: string;
   drinkOptions?: { value: string; label: string }[];
+    // CalendarReminder customizations
+    snoozeLabel?: string;
+    lateLabel?: string;
 };
 
 // =========================
-// Helpers & Constants
+// Helpers
 // =========================
-export const CustomChevronIcon = (props: any) => (
-  <svg
-    width="18"
-    height="12"
-    viewBox="0 0 18 12"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="rds-adaptive-cards__chevron-icon"
-    {...props}
-  >
-    <polyline points="3,4 9,10 15,4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+// Removed CustomChevronIcon, using Material UI ExpandMoreIcon instead
 
+/**
+ * Capitalizes the first word of a string.
+ */
 export function capitalizeFirstWord(text: string) {
   if (!text) return '';
   const [first, ...rest] = text.split(' ');
   return first.charAt(0).toUpperCase() + first.slice(1).toLowerCase() + (rest.length ? ' ' + rest.join(' ').toLowerCase() : '');
 }
 
+/**
+ * Renders a select value with a placeholder if not selected.
+ */
 export const renderSelectValue = (placeholder: string) => (selected: unknown) =>
   selected === "" ? (
-    <span
-      className="rds-adaptive-cards__placeholder"
-    >
-      {placeholder}
-    </span>
+    <span className="rds-adaptive-cards__placeholder">{placeholder}</span>
   ) : (typeof selected === 'string' ? selected : '');
 
 // =========================
 // Default Props Helper
 // =========================
+/**
+ * Returns default props for a given card type.
+ */
 export function getDefaultPropsForType(type: string): Partial<RdsCompAdaptiveCardsProps> {
   switch (type) {
     case 'ActivityUpdateCard':
-      return Default.activityUpdate;
+      return activityUpdateDefaults;
     case 'CalenderReminder':
-      return Default.calenderReminder;
+      return calenderReminderDefaults;
     case 'ImageGallery':
-      return Default.imageGallery;
+      return imageGalleryDefaults;
     case 'InputForm':
-      return Default.inputForm;
+      return inputFormDefaults;
     case 'RestaurantOrder':
-      return Default.restaurantOrder;
+      return restaurantOrderDefaults;
     case 'FootballScorecard':
-      return Default.footballScorecard;
+      return footballScorecardDefaults;
     default:
       return {
         cardTitle: 'Title',
@@ -176,6 +321,10 @@ export function getDefaultPropsForType(type: string): Partial<RdsCompAdaptiveCar
 // =========================
 // Component Definitions
 // =========================
+
+/**
+ * Input Form Card Component
+ */
 export function InputFormCard({
   label,
   smallText,
@@ -220,6 +369,9 @@ export function InputFormCard({
   );
 }
 
+/**
+ * Image Gallery Card Component
+ */
 export function ImageGalleryCard({ cardTitle, smallText, images, showHeader = true, closeIcon = false, showDismiss = false }: ImageGalleryCardProps & { showHeader?: boolean; closeIcon?: boolean; showDismiss?: boolean }) {
   return (
     <RdsCard className="rds-adaptive-cards rds-adaptive-cards--image-gallery">
@@ -249,6 +401,9 @@ export function ImageGalleryCard({ cardTitle, smallText, images, showHeader = tr
   );
 }
 
+/**
+ * Football Scorecard Card Component
+ */
 export function FootballScorecardCard({
   leagueName,
   leagueAvatar,
@@ -268,12 +423,11 @@ export function FootballScorecardCard({
       <div className="rds-adaptive-cards__content">
         <RdsStack className="rds-adaptive-cards__football-header" alignItems="center">
           <RdsStack direction="row" spacing={1} alignItems="center" justifyContent="center" className="rds-adaptive-cards__football-header-row">
-           <RdsAvatar src={leagueAvatar} className="rds-adaptive-cards__football-league-avatar" sx={{ marginLeft: "40px" }} />
+           <RdsAvatar src={leagueAvatar} className="rds-adaptive-cards__football-league-avatar" />
             <RdsTypography
               variant="subtitle1"
               className="rds-adaptive-cards__football-league"
               align="center"
-              sx={{ fontSize: '26px', fontWeight: 600 }} 
             >
               {leagueName}
             </RdsTypography>
@@ -344,6 +498,9 @@ export type CalendarReminderFormProps = {
   lateLabel?: string;
 };
 
+/**
+ * Calendar Reminder Form Component
+ */
 export function CalendarReminderForm({
   label,
   smallText,
@@ -378,7 +535,7 @@ export function CalendarReminderForm({
                 ? <span className="rds-adaptive-cards__calendar-reminder-placeholder">{placeholder || selectPlaceholder}</span>
                 : (options.find(opt => opt.value === selected)?.label || selected)
             }
-            IconComponent={props => <CustomChevronIcon {...props} className="rds-adaptive-cards__calendar-reminder-select-icon" />}
+            IconComponent={props => <ExpandMoreIcon {...props} className="rds-adaptive-cards__calendar-reminder-select-icon" />}
           >
             <MenuItem value="" disabled>{selectPlaceholder}</MenuItem>
             {options.map(opt => (
@@ -386,7 +543,7 @@ export function CalendarReminderForm({
             ))}
           </Select>
         </FormControl>
-      </div>
+      </div> 
       <RdsStack direction="row" spacing={1} justifyContent="flex-end" className="rds-adaptive-cards__calendar-reminder-actions">
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--snooze">
             <Button variant="outlined" className="rds-adaptive-cards__action-btn">
@@ -403,7 +560,12 @@ export function CalendarReminderForm({
   );
 }
 
+/**
+ * Activity Update Card Component
+ */
 export function ActivityUpdateCard({ avatar, name, date, cardText, radioOptions }: ActivityUpdateCardProps) {
+  const [selectedValue, setSelectedValue] = React.useState('');
+  const radioOptionsMapped = radioOptions?.map(opt => ({ value: opt.value, text: `${opt.label} : ${opt.desc}` })) ?? [];
   return (
     <RdsStack spacing={2} className="rds-adaptive-cards__activity-update">
       <RdsStack direction="row" spacing={2} alignItems="center" className="rds-adaptive-cards__activity-update-header">
@@ -414,17 +576,14 @@ export function ActivityUpdateCard({ avatar, name, date, cardText, radioOptions 
         </RdsStack>
       </RdsStack>
       <RdsTypography variant="body1" color="text.secondary" className="rds-adaptive-cards__activity-update-text">{cardText}</RdsTypography>
-      <RadioGroup className="rds-adaptive-cards__activity-update-radio-group">
-          {radioOptions && radioOptions.map(opt => (
-            <FormControlLabel
-              key={opt.value}
-              value={opt.value}
-              control={<RdsRadio options={[{ value: opt.value, text: '' }]} />}
-              label={<span className="rds-adaptive-cards__activity-update-radio-label">{opt.label} : <span className="rds-adaptive-cards__activity-update-radio-desc">{opt.desc}</span></span>}
-              className="rds-adaptive-cards__activity-update-radio"
-            />
-          ))}
-      </RadioGroup>
+      <RdsRadio
+        options={radioOptionsMapped}
+        value={selectedValue}
+        onChange={e => setSelectedValue(e.target.value)}
+        direction="column"
+        layout="icon with label"
+        className="rds-adaptive-cards__activity-update-radio-group"
+      />
     </RdsStack>
   );
 }
@@ -447,6 +606,9 @@ export type RestaurantOrderFormProps = {
   drinkOptions?: { value: string; label: string }[];
 };
 
+/**
+ * Restaurant Order Form Component
+ */
 export function RestaurantOrderForm({
   entree,
   setEntree,
@@ -488,7 +650,7 @@ export function RestaurantOrderForm({
           displayEmpty
           size="small"
           renderValue={renderSelectValue(entreePlaceholder)}
-          IconComponent={CustomChevronIcon}
+          IconComponent={ExpandMoreIcon}
         >
           <MenuItem value="" disabled>{entreePlaceholder}</MenuItem>
           {entreeOptions.map(opt => (
@@ -506,7 +668,7 @@ export function RestaurantOrderForm({
           displayEmpty
           size="small"
           renderValue={renderSelectValue(sidePlaceholder)}
-          IconComponent={CustomChevronIcon}
+          IconComponent={ExpandMoreIcon}
         >
           <MenuItem value="" disabled>{sidePlaceholder}</MenuItem>
           {sideOptions.map(opt => (
@@ -524,7 +686,7 @@ export function RestaurantOrderForm({
           displayEmpty
           size="small"
           renderValue={renderSelectValue(drinkPlaceholder)}
-          IconComponent={CustomChevronIcon}
+          IconComponent={ExpandMoreIcon}
         >
           <MenuItem value="" disabled>{drinkPlaceholder}</MenuItem>
           {drinkOptions.map(opt => (
