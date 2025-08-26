@@ -17,6 +17,9 @@ interface RdsCompProductTourProps {
     showSecondaryButton?: boolean;
     showTertiaryButton?: boolean;
     showVisualPlaceholder?: boolean;
+    slides?: { id: number; imgUrl: string;}[];
+    formTitle?: string;
+    tabTitle?: any[];
 }
 const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
     state = "Image",
@@ -24,20 +27,19 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
     topRight = false,
     bottomLeft = false,
     bottomRight = false,
-    header = "Tour Title",
-    description = "Tour Description",
+    header,
+    description,
     stepsIndicator = "1/3",
     showDismiss = true,
     showPrimaryButton = true,
     showSecondaryButton = true,
     showTertiaryButton = true,
     showVisualPlaceholder = true,
+    slides = [],
+    formTitle,
+    tabTitle = [],
+
 }) => {
-    const slides = [
-        { id: 1, imgUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80", name: header, subTitle: description },
-        { id: 2, imgUrl: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80", name: header, subTitle: description },
-        { id: 3, imgUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80", name: header, subTitle: description },
-    ];
     // internal index to track current slide/page
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -241,7 +243,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                 {renderCloseButton()}
                 <Box className="rds-comp-product-tour__form-header">
                     <Typography variant="h6" className="rds-comp-product-tour__form-subtitle">
-                        Getting Started Tour
+                       {formTitle}
                     </Typography>
                 </Box>
                 <Box className="rds-comp-product-tour__form-content">
@@ -252,9 +254,9 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                     <Typography variant="body2" className="rds-comp-product-tour__form-description">{description}</Typography>
                     <Box className="rds-comp-product-tour__form-tabs-wrapper">
                         <Box className="rds-comp-product-tour__form-tabs">
-                            <Typography className="rds-comp-product-tour__form-tab">Designers</Typography>
-                            <Typography className="rds-comp-product-tour__form-tab">Developers</Typography>
-                            <Typography className="rds-comp-product-tour__form-tab">Managers</Typography>
+                            {tabTitle.map((title, index) => (
+                                <Typography key={index} className="rds-comp-product-tour__form-tab">{title}</Typography>
+                            ))}
                         </Box>
                         <Box className="rds-comp-product-tour__form-tabs-line"></Box>
                     </Box>
