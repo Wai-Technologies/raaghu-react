@@ -212,7 +212,7 @@
 .rds-switch--style6 .Mui-checked + .MuiSwitch-track,
 .rds-switch--style6 .MuiSwitch-input:checked + .MuiSwitch-track {
   background: var(--rds-switch-active-bg, #4285f4) !important;
-  opacity: 1 !important;
+  // opacity: 1 !important;
 }
 
 // Enhanced checked state with proper opacity handling

@@ -85,9 +85,9 @@ figma.connect(
     format: (value: string) => (
             <RdsAvatar
               alt="User Avatar"
-              designation="Developer"
+              subText="Developer"
               displayStyle="with-name"
-              name="Wai Technologies"
+              title="Wai Technologies"
               showDesignation
               showName
             />

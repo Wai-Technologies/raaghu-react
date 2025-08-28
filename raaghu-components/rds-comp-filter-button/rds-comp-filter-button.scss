@@ -14,9 +14,19 @@
   }
   &__header {
     padding: var(--rds-spacing-md, 16px);
-    border-bottom: 1px solid var(--rds-color-border, #f0f0f0);
+    border-bottom: none;
     background-color: var(--rds-color-surface, #fff);
     flex-shrink: 0;
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 16px;
+      right: 16px;
+      height: 1px;
+      background: var(--rds-color-border, #f0f0f0);
+    }
   }
 
   &__filters {
@@ -67,25 +77,6 @@
     overflow: hidden;
   }
 
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
   .rds-filter-button__popover .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-h4boo0-MuiPaper-root-MuiPopover-paper {
@@ -117,13 +108,32 @@
 
   .rds-filter-button__header {
     padding: 16px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: none;
     background-color: #fff;
     flex-shrink: 0;
+    position: relative;
+  }
+
+  .rds-filter-button__header:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    height: 1px;
+    background: #f0f0f0;
   }
 
   .rds-filter-button__search {
     padding: 16px;
-    border-bottom: 1px solid #f0f0f0;
+  border-bottom: none;
     flex-shrink: 0;
+  }
+  .rds-filter-button__header-title{
+    // font-size: 1rem !important;
+    font-family: var(--font-family-poppins, Poppins) !important;
+    font-size: var(--font-size-sm, 16px) !important;
+    font-style: normal !important;
+    font-weight: var(--font-weight-large, 600) !important;
+    line-height: 22px !important; /* 157.143% */ 
   }
