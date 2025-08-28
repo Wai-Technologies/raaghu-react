@@ -25,9 +25,11 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: (
-      <Paper sx={{ p: 2, textAlign: 'center' }}>
-        <Typography>Grid Content</Typography>
-      </Paper>
+      <div style={{ flex: 1, padding: "15px" }}>
+        <Paper sx={{ p: 2, textAlign: 'center' }}>
+          <Typography>Grid Content</Typography>
+        </Paper>
+      </div>
     ),
   },
 };
