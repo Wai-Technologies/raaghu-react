@@ -4,6 +4,7 @@
   &.MuiCard-root {
     position: relative;
     transition: all 0.3s ease;
+    border: 1px solid var(--rds-form-border, #B1B1B1);
   }
 
   // Use CSS variables for text color that automatically adapt to theme
@@ -319,4 +320,7 @@
       }
     }
   }
+}
+.css-mixntr-MuiButtonBase-root-MuiIconButton-root{
+  z-index: 1 !important;
 }

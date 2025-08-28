@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { RdsButton, RdsIconButton } from "../../raaghu-elements";
@@ -40,12 +40,39 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
     onDismiss,
     onAccept,
 }) => {
+    const [visibleNotifications, setVisibleNotifications] = useState(notifications);
+
+    // Update visible notifications when prop changes
+    useEffect(() => {
+        setVisibleNotifications(notifications);
+    }, [notifications]);
+
+    const handleDismiss = (event: any, notification: any, notificationIndex: number) => {
+        // Remove the notification from visible notifications using index
+        setVisibleNotifications(prev => 
+            prev.filter((n, index) => index !== notificationIndex)
+        );
+        
+        // Call the external onDismiss handler if provided
+        onDismiss?.(event, notification);
+    };
+
+    const handleSecondaryButtonClick = (event: any, notification: any, notificationIndex: number) => {
+        // Remove the notification when secondary button (DISMISS) is clicked
+        setVisibleNotifications(prev => 
+            prev.filter((n, index) => index !== notificationIndex)
+        );
+        
+        // Call the external onDismiss handler if provided
+        onDismiss?.(event, notification);
+    };
+
     const getTypeStyles = () => {
         return {};
     };
     return (
         <Fragment>
-            {notifications.map((notification) => (
+            {visibleNotifications.map((notification, index) => (
                 <Card
                     key={notification.userNotificationId || Math.random()}
                     className={`rds-comp-notification rds-comp-notification--layout-${layout} rds-comp-notification--style-${style} rds-comp-notification--type-${type}`}
@@ -77,7 +104,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                     }}>
                     {/* Dismiss Icon */}
                     {showDismiss && (
-                        <RdsIconButton iconFilled={<Close />} size="small" onClick={(e) => onDismiss?.(e, notification)} sx={{ position: "absolute", top: 8, right: 8, padding: 0.5, }} className="rds-comp-notification__dismiss" />)}
+                        <RdsIconButton iconFilled={<Close />} size="small" onClick={(e) => handleDismiss(e, notification, index)} sx={{ position: "absolute", top: 8, right: 8, padding: 0.5, }} className="rds-comp-notification__dismiss" />)}
                     {/* Header Section */}
                     <Box
                         className="rds-comp-notification__header"
@@ -175,7 +202,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                         {showButton && (
                             <>
                                 {showSecondaryButton && (
-                                    <RdsButton text="DISMISS" size="small" onClick={(e) => onDismiss?.(e, notification)} className="rds-comp-notification__secondary-button"
+                                    <RdsButton text="DISMISS" size="small" onClick={(e) => handleSecondaryButtonClick(e, notification, index)} className="rds-comp-notification__secondary-button"
                                     />
                                 )}
                                 {showPrimaryButton && (
