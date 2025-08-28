@@ -7,10 +7,6 @@ const meta: Meta = {
     component: RdsCompAiFabMenu,
     parameters: {
         layout: 'padded',
-        docs:{
-            description: {component: `The **Fab Menu** component is a floating action button that expands into a collapsible menu, providing quick access to a list of actions. It supports multiple color variants such as \`primary\`, \`secondary\`, \`success\`, \`info\`, \`warning\`, \`danger\`, \`dark\`, and \`light\`, and offers size options \`small\`, \`medium\`, and \`large\` for flexible UI integration. The button can be displayed in either circular (default) or rectangular shape using the \`isRectangular\` prop. The \`listItems\` prop defines the menu options, each with properties like \`value\`, \`key\`, \`icon\`, and customizable icon dimensions. This component automatically registers its required icons (list, refresh, export, delete, download) with the AI Icon component, enabling rich and intuitive menu entries. This component is ideal for providing contextual shortcuts in applications, enhancing user productivity with an elegant, space-saving interface.`}
-
-        }
     },
     tags: ['autodocs'],
     argTypes: {
@@ -53,7 +49,7 @@ type Story = StoryObj<typeof RdsCompAiFabMenu>;
 
 export const Default: Story = {
     args: {
-        colorVariant: "primary",
+        colorVariant: "light",
         size: "medium",
         menuIcon: "list",
         alignment: "left",

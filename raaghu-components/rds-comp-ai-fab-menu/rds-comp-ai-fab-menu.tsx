@@ -100,7 +100,7 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
                     colorVariant={props.colorVariant === 'dark' || props.colorVariant === 'primary' || props.colorVariant === 'danger' ? 'light' : 'dark'}
                 />
             </button>
-            <div className={`rds-fab-menu__dropdown-container rds-fab-menu__dropdown-container--${props.alignment || 'left'}`} ref={menuRef}>
+            <div className={`rds-fab-menu__dropdown-container rds-fab-menu__dropdown-container--${props.alignment || 'left'} ${isMenuOpen ? 'rds-fab-menu__dropdown-container--open' : ''}`} ref={menuRef}>
                 <div 
                     className={`rds-fab-menu__dropdown ${props.isShowBorder ? 'rds-fab-menu__dropdown--bordered' : ''} ${isMenuOpen ? 'rds-fab-menu__dropdown--open' : ''}`}
                     role="menu"
