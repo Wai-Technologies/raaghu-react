@@ -71,7 +71,6 @@
     border-radius: 50%;
     border: 2px solid var(--rds-border-dark, #9e9e9e);
     background: transparent;
-    margin-top: var(--rds-spacing-md, 10px) !important;
     margin-right: var(--rds-spacing-sm, 6px);
   }
   // ----- Content -----
@@ -1041,6 +1040,7 @@
   }
 }
 
+//material specific overrides
 .css-1lt5qva-MuiCardContent-root:last-child
 {
   padding-bottom: 10px !important; // Ensure consistent bottom padding
@@ -1048,4 +1048,8 @@
  .css-1q4nm6f-MuiCardActions-root
  {
   padding: 0px !important; // Ensure consistent bottom padding
+ }
+ .css-1sos3zc-MuiStack-root>:not(style)~:not(style)
+ {
+  margin-left: 0px !important; // Ensure consistent bottom padding
  }
