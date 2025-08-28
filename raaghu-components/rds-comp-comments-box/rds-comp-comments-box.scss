@@ -27,16 +27,6 @@
     .rds-comments-box__avatar {
       width: var(--rds-avatar-size-md, 36px);
       height: var(--rds-avatar-size-md, 36px);
-      rds-comments-box__avatar--thread {
-      background-color: var(--rds-primary-main, #4285f4) !important;
-      color: var(--rds-primary-contrast-text, #fff) !important;
-  }
-
-  .rds-comments-box__no-image {
-    color: #888;
-    font-size: 12px;
-    margin-left: 50px;
-  }
       background-color: var(--rds-primary-main, #4285f4);
       color: var(--rds-primary-contrast-text, #fff);
       font-size: var(--rds-font-size-md, 14px);
@@ -74,6 +64,19 @@
         color: var(--rds-primary-dark, #2161dc);
       }
     }
+  }
+
+  // Ensure thread avatar modifier is styled consistently
+  .rds-comments-box__avatar--thread {
+    background-color: var(--rds-primary-main, #4285f4) !important;
+    color: var(--rds-primary-contrast-text, #fff) !important;
+  }
+
+  // Fallback message style when no image is provided
+  .rds-comments-box__no-image {
+    color: #888;
+    font-size: 12px;
+    margin-left: 50px;
   }
 
   &--thread {
