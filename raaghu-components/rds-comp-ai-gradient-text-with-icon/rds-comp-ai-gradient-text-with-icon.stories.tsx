@@ -24,5 +24,7 @@ export const Default: Story = {
         logoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png",
         logo: <AutoAwesomeIcon className="pundit-icon" />,
         title: "AI Pundit is creating some magic for you",
+        showImage: true,
+        showIcon: true,
     },
 }
