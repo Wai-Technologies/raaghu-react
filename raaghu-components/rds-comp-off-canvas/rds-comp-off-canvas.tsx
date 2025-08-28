@@ -163,7 +163,7 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
                   )}
                   {showSecondaryButton && (
                     <Box className="me-2" sx={{flex: 1}}>
-                      <RdsButton text="CANCEL" style="outlined" size="medium" sx={{
+                      <RdsButton text="CANCEL" style="outlined" size="medium" onClick={handleClose} sx={{
                           width: '100%',
                         }}
                       />

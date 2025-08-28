@@ -27,15 +27,47 @@
 
   // Vertical layout: ensure image style aligns like avatar
   &--layout-vertical.rds-comp-notification--style-image {
-    .rds-comp-notification__header img {
-      width: 200px;
-      height: 50px;
-      object-fit: cover;
-      display: block;
-      margin-top: 8px !important;
-      margin-left: 0 !important;
-      margin-bottom: 0 !important;
+    // Keep full width for card
+    width: 100%;
+    
+    // Create full-width gray bar only for the image
+    .rds-comp-notification__image-container {
+      width: 100%;
+      background: #E1E3EA;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      box-sizing: border-box;
+      margin: 4px 0;
+      padding: 40px 0;
     }
+    
+    .rds-comp-notification__image-container img {
+      width: 250px;
+      height: 115px;
+      object-fit: contain;
+      display: block;
+      margin: 0 !important;
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    // Reduce vertical spacing throughout
+    .rds-comp-notification__header {
+      margin-bottom: 4px; /* reduced from 8px */
+    }
+    
+    .rds-comp-notification__body {
+      margin-top: 4px !important; /* reduced spacing */
+    }
+    
+    .rds-comp-notification__footer {
+      margin-top: 8px !important; /* reduced spacing */
+    }
+    
     // Make sure body has no float adjustments in vertical mode
     .rds-comp-notification__body img {
       float: none !important;
@@ -62,6 +94,13 @@
         width: 100%;
         height: 100%;
       }
+    }
+  }
+
+  // Add spacing under icon when layout is vertical so it doesn't sit flush with following text
+  &--layout-vertical.rds-comp-notification--style-icon {
+    .rds-comp-notification__icon {
+      margin-bottom: 8px !important;
     }
   }
 
@@ -111,6 +150,7 @@
 
   &__title-section {
     flex-grow: 1;
+    padding-left: 4px !important;
   }
 
   &__title {
@@ -135,6 +175,8 @@
   }
 
   &__description {
+  margin-top: 13px !important;
+  margin-left: 0 !important;
     font-size: 0.875rem;
     line-height: 1.5;
     color: inherit;
@@ -151,8 +193,8 @@
   &__dismiss {
     &.MuiIconButton-root {
       position: absolute;
-      top: 8px;
-      right: 8px;
+      top: 0px;
+      right: 0px;
       padding: 4px;
       background-color: transparent;
       
@@ -193,7 +235,7 @@
   // Special handling for horizontal layout with image
   &--layout-horizontal.rds-comp-notification--style-image {
     .rds-comp-notification__title-section {
-      padding-left: 75px;
+      padding-left: 0;
     }
     // Lift the image to align visually with the title (like avatar/icon)
     .rds-comp-notification__body img {
@@ -201,16 +243,29 @@
       float: left;                   // keep text wrapping as designed
       margin-right: 6px;           // consistent gap to text
     }
+    // Reduce vertical spacing slightly to decrease overall card height
+    .rds-comp-notification__header {
+      margin-bottom: 4px; /* was 8px */
+    }
+    .rds-comp-notification__body {
+      margin-top: 4px !important; /* was 8px inline */
+    }
+    .rds-comp-notification__footer {
+      margin-top: 6px !important; /* reduce footer gap */
+    }
   }
 
-
-
-  // Special handling for horizontal layout with avatar/icon/image
-  &--layout-horizontal.rds-comp-notification--style-avatar,
-  &--layout-horizontal.rds-comp-notification--style-icon,
+  // Special handling for horizontal layout with image (no left offset)
   &--layout-horizontal.rds-comp-notification--style-image {
     .rds-comp-notification__body {
       margin-left: 0 !important;
+    }
+  }
+  // For horizontal layout with avatar or icon, shift body right so description sits under title
+  &--layout-horizontal.rds-comp-notification--style-avatar,
+  &--layout-horizontal.rds-comp-notification--style-icon {
+    .rds-comp-notification__body {
+      margin-left: 57px !important; /* matches MUI spacing(5) used in JS (5*8=40px) */
     }
   }
 }
