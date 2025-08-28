@@ -26,6 +26,8 @@ export interface RdsButtonDropdownProps {
   leftIcon?: React.ReactNode;
   showUserAvatar?: boolean;
   showRadio?: boolean;
+  isShowLeftIcon?: boolean;
+  isShowRightIcon?: boolean;
 }
 
 const RdsButtonDropdown = ({
@@ -38,6 +40,8 @@ const RdsButtonDropdown = ({
   leftIcon,
   showUserAvatar = true,
   showRadio = true,
+  isShowLeftIcon = true,
+  isShowRightIcon = true,
   onChange,
 }:RdsButtonDropdownProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -86,10 +90,11 @@ const RdsButtonDropdown = ({
       <RdsButton
         text={buttonText}
         onClick={handleDropdownButtonClick}
-        showRightIcon
-        showLeftIcon
+        showRightIcon={isShowRightIcon}
+        showLeftIcon={isShowLeftIcon}
         changeRightIcon={rightIcon}
         changeLeftIcon={leftIcon}
+        
         size='medium'
         color="primary"
         layout="icon+text"

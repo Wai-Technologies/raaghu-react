@@ -16,7 +16,8 @@
 }
 
 .rds-adaptive-cards--default {
-  width: var(--rds-card-width-default, 360px);
+  width: var(--rds-card-width-default, 450px);
+  height: var(--rds-alt-card-body-height, auto);
   border: 1px solid var(--rds-border-light, #E9E9E9);
   border-radius: var(--rds-border-radius-lg, 12px);
   padding: var(--rds-spacing-xs, 4px) 0 0 0;
@@ -49,7 +50,6 @@
     font-size: var(--rds-font-size-2xl, 20px) !important;
     font-weight: var(--rds-font-weight-bold, 700) !important;
     height: var(--rds-font-size-md, 14px);
-    margin: var(--rds-spacing-sm, 8px) 0 0 0 !important;
     padding: var(--rds-spacing-none, 0) !important;
     z-index: 1;
     display: flex;
@@ -409,13 +409,10 @@
 .rds-adaptive-cards__action-btn--input-form {
   width: 100%;
   border-radius: var(--rds-border-radius-md, 8px);
-  background: var(--rds-background-light, #fafafa);
+  background: var(--rds-background-light, #fcfcfc);
   height: var(--rds-component-button-height-medium, 36px);
   padding: var(--rds-spacing-md, 8px) var(--rds-spacing-sm, 12px);
-  font-size: var(--rds-font-size-xs, 12px);
   border: 1px solid var(--rds-border-light, #ccc);
-  box-sizing: border-box;
-  margin-bottom: var(--rds-spacing-none, 0);
 }
 .dark-theme .rds-adaptive-cards__action-btn--input-form,
 [data-theme="dark"] .rds-adaptive-cards__action-btn--input-form {
@@ -492,12 +489,6 @@
   gap: 2px !important; // Force minimal gap between radio and label
 }
 
-.rds-adaptive-cards__activity-update-radio-group .MuiRadio-root {
-  width: var(--rds-font-size-lg, 18px) !important;
-  height: var(--rds-font-size-lg, 18px) !important;
-  margin-right: 2px !important;
-  margin-left: 2px !important;
-}
 .rds-adaptive-cards__activity-update-radio-group .MuiSvgIcon-root {
   font-size: var(--rds-font-size-lg, 18px) !important;
 }
@@ -988,10 +979,10 @@
 }
 
 .custom-box__title-stack {
-  gap: 4px !important; // Reduce gap between items
+  gap: 2px !important; // Reduce gap between items
 }
 .custom-box {
-  padding: 0px 16px 16px 16px;
+  // padding: 0px 16px 16px 16px;
   min-height: 120px;
   background: transparent;
   border-radius: 12px;
@@ -999,21 +990,16 @@
   position: relative;
 
   &__close-icon {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    padding: 2px;
     align-self: center;
-    font-size: 30px !important;
     left: 10px !important;
-    margin-bottom: 30px !important;
+    font-size: 12px !important;
   }
   
   &__title-stack {
     margin-bottom: 16px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
   }
 
   &__circle {
@@ -1055,6 +1041,11 @@
   }
 }
 
-.sb-show-main {
-  padding-top: 8px !important; // Reduce top gap in Storybook preview
+.css-1lt5qva-MuiCardContent-root:last-child
+{
+  padding-bottom: 10px !important; // Ensure consistent bottom padding
 }
+ .css-1q4nm6f-MuiCardActions-root
+ {
+  padding: 0px !important; // Ensure consistent bottom padding
+ }
