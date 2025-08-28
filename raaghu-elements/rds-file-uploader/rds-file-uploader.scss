@@ -127,7 +127,7 @@
     margin-right: auto;
     // Modifier for with-upload-btn
     .rds-file-uploader__drop-zone--with-upload-btn & {
-      color: var(--rds-color-primary-hover, #1976d2);
+      //color: var(--rds-color-primary-hover, #1976d2);
       margin: 0 16px 0 0;
       display: flex;
       align-items: center;
@@ -204,7 +204,7 @@
     flex: 1;
   }
   &__choose-btn {
-    background: var(--rds-color-primary, #7c3aed) !important;
+    background: var(--rds-color-primary, #2196f3) !important;
     color: var(--rds-primary-contrast-text, #fff) !important;
     border-radius: 6px 0 0 6px !important;
     min-width: 120px;
@@ -315,7 +315,7 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
 .rds-file-uploader__drop-zone {
   padding: 24px 24px !important;
   text-align: center;
-  border: 2px dashed var(--rds-color-primary, #3390e6) !important; // --rds-color-primary
+  //border: 2px dashed var(--rds-color-primary, #3390e6) !important; // --rds-color-primary
   background-color: var(--rds-background-paper, #fff); // --rds-background-paper
   cursor: pointer;
   transition: border-color 0.2s, background-color 0.2s;
@@ -339,7 +339,7 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
 
 .rds-file-uploader__icon {
   font-size: 32px;
-  color: var(--rds-color-primary, #3390e6); // --rds-color-primary
+  //color: var(--rds-color-primary, #3390e6); // --rds-color-primary
   margin-bottom: 8px;
   display: block;
   margin-left: auto;
@@ -440,7 +440,7 @@ color: var(--rds-color-primary, #3390e6); // --rds-color-primary
 // Small mobile: 320px - 414px
 @media (max-width: 834px) and (min-width: 414px) {
   .rds-file-uploader {
-    width: var(--rds-spacing-2xl, 320px) !important;
+    width: var(--rds-spacing-2xl, 326px) !important;
     max-width: 98vw !important;
     margin: 0 auto;
     &__drop-zone {
@@ -756,11 +756,11 @@ color: var(--rds-color-primary, #3390e6); // --rds-color-primary
   }
   
   &__choose-btn {
-    background: var(--rds-color-primary, #7e2eef) !important;
+    background: var(--rds-color-primary, #2196f3) !important;
     color: var(--rds-color-on-primary, #ffffff) !important;
     
     &:hover {
-      background: var(--rds-color-primary-dark, #4f00a6) !important;
+      background: var(--rds-color-primary-dark, #2196f3) !important;
     }
   }
   
