@@ -7,11 +7,24 @@
   gap: 4px;
   max-width: var(--rds-comments-max-width, 450px) !important;
   padding: var(--rds-spacing-lg, 16px) var(--rds-spacing-xxl, 32px) var(--rds-spacing-xxxl, 24px) var(--rds-spacing-xxl, 32px);
-  background: var(--rds-background-paper, #fff);
-  border: 1px solid var(--rds-neutral-300, #e0e0e0);
+  background: transparent; // Default transparent background
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   color: var(--rds-text-primary, #333);
   border-radius: var(--rds-border-radius-md, 8px);
+  
+  // =======================
+  // Background modifiers for specific states
+  // =======================
+  &--hover {
+    background: var(--rds-background-paper, #fff); // White background for comment hover
+  }
+  
+  &--thread {
+    background: var(--rds-background-paper, #fff); // White background for comment thread
+    display: flex;
+    flex-direction: column;
+    gap: var(--rds-spacing-lg, 16px);
+  }
   
   // =======================
   // Modifiers
@@ -20,7 +33,6 @@
     display: flex;
     align-items: center;
     padding: var(--rds-spacing-md, 12px) var(--rds-spacing-lg, 16px);
-    background-color: var(--rds-background-selected, #eaf3ff);
     border-radius: var(--rds-border-radius-lg, 12px);
     gap: var(--rds-spacing-md, 12px);
 
@@ -66,37 +78,23 @@
     }
   }
 
-  // Ensure thread avatar modifier is styled consistently
-  .rds-comments-box__avatar--thread {
-    background-color: var(--rds-primary-main, #4285f4) !important;
-    color: var(--rds-primary-contrast-text, #fff) !important;
-  }
-
-  // Fallback message style when no image is provided
-  .rds-comments-box__no-image {
-    color: #888;
-    font-size: 12px;
-    margin-left: 50px;
-  }
-
-  &--thread {
-    display: flex;
-    flex-direction: column;
-    gap: var(--rds-spacing-lg, 16px);
-  }
-
   &--posted &__dot {
     width: var(--rds-dot-size, 16px);
     height: var(--rds-dot-size, 16px);
     background-color: var(--rds-error-dark, #c62828);
     border-radius: 50%;
     position: absolute;
-    top: -4px;
-    right: 15px;
+    top: 4px !important;
+    right: 10px !important;
+    z-index: 10;
   }
 
   &--typing {
     min-height: var(--rds-typing-min-height, 106px);
+    border-radius: 12px;
+    padding: 18px 20px;
+    align-items: flex-start;
+
     &__avatar {
       width: var(--rds-avatar-size-md, 36px);
       height: var(--rds-avatar-size-md, 36px);
@@ -105,8 +103,58 @@
       align-self: center;
       margin-right: var(--rds-spacing-md, 8px);
       background-color: var(--rds-primary-main, #4285f4);
-      /* margin-bottom moved to parent selector for specificity */
     }
+
+    .rds-comments-box__typing-box {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-left: 8px;
+       background: var(--rds-background-paper, #fff);
+    }
+
+    .rds-comments-box__typing-header {
+      // make the placeholder large and left-aligned like the screenshot
+      padding: 0;
+    }
+
+    .rds-comments-box__typing-placeholder {
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--rds-text-primary, #333);
+      padding: 8px 0;
+    }
+
+    .rds-comments-box__typing-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 6px;
+    }
+
+    .rds-comments-box__toolbar-icons {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .rds-comments-box__send-btn {
+      background: var(--rds-primary-main, #3a8bfd) !important;
+      color: var(--rds-primary-contrast-text, #fff) !important;
+      width: 44px !important;
+      height: 36px !important;
+      min-width: 44px !important;
+      min-height: 36px !important;
+      border-radius: 8px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+
+    .rds-comments-box__send-icon { font-size: 18px !important; }
   }
 
   .rds-comments-box__avatar {
@@ -937,9 +985,7 @@ body.theme-dark,
 // Selected State Styles
 // =======================
 .rds-comments-box.rds-comments-box--selected { 
-  background: var(--rds-comments-selected-bg, #f5f7fa);
   color: var(--rds-comments-selected-text, #222);
-  border: 1px solid var(--rds-comments-selected-border, #e0e3e8);
 
   .rds-comments-box__input {
     background: var(--rds-comments-input-bg, #fff);
@@ -999,8 +1045,8 @@ body[data-theme='dark'] .rds-comments-box__text {
   .rds-comments-box__dot {
     width: 10px !important;
     height: 10px !important;
-    top: 1px !important;
-    right: 16px !important;
+    top: 0px !important;
+    right: 8px !important;
   }
   .rds-comments-box--thread .rds-comments-box__thread-header {
     justify-content: flex-end !important;
@@ -1096,7 +1142,6 @@ body[data-theme='dark'] .rds-comments-box__text {
     min-width: 220px;
     max-width: 95vw;
     font-size: 13px;
-    padding: 8px;
   }
   .rds-comments-box--hover .rds-comments-box__avatar--hover {
     width: 30px !important;
@@ -1141,8 +1186,6 @@ body[data-theme='dark'] .rds-comments-box__text {
   .rds-comments-box__name,
   .rds-comments-box__time {
     font-size: 12px !important;
-    margin-left: 20px !important;
-    margin-bottom: 8px !important;
   }
   .rds-comments-box__tools,
   .rds-comments-box__hover-tools {
@@ -1186,9 +1229,6 @@ body[data-theme='dark'] .rds-comments-box__text {
 }
 
 @media (min-width: 414px) and (max-width: 896px) {
-  .rds-comments-box.rds-comments-box--selected .rds-comments-box__input {
-    margin-bottom: 40px !important;
-  }
   .rds-comments-box__header {
     padding-left: 0 !important;
     margin-left: 0 !important;
@@ -1201,8 +1241,8 @@ body[data-theme='dark'] .rds-comments-box__text {
   .rds-comments-box__dot {
     width: 12px !important;
     height: 12px !important;
-    top: 3px !important;
-    right: 2px !important;
+    top: 5px !important;
+    right: 8px !important;
   }
   .rds-comments-box__pushpin-icon,
   .rds-comments-box__more-icon {
@@ -1238,7 +1278,7 @@ body[data-theme='dark'] .rds-comments-box__text {
         .MuiInputBase-root {
           padding: 4px 8px !important;
           height: 32px !important;
-          min-height: 32px !important;
+          min-height: 40px !important;
           max-height: 32px !important;
           font-size: 14px !important;
         }
@@ -1306,7 +1346,6 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: 16px;
-        margin-right: 80px;
       }
       .rds-comments-box__thread-icons {
         gap: 6px;
@@ -1336,8 +1375,6 @@ body[data-theme='dark'] .rds-comments-box__text {
   .rds-comments-box__name,
   .rds-comments-box__time {
     font-size: 14px !important;
-    margin-left: 40px !important;
-    margin-bottom: 12px !important;
   }
   .rds-comments-box__tools,
   .rds-comments-box__hover-tools {
