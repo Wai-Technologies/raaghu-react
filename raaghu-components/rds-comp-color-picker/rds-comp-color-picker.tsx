@@ -9,11 +9,6 @@ import {
   GradientEditor
 } from "./color-picker-components";
 
-/**
- * Color Picker component for Raaghu Design System
- * Provides color selection functionality in various formats
- */
-
 export enum ColorPickerType {
   Default = "Default",
   Button = "Button",
@@ -138,7 +133,6 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
     setSelectedColorState({ ...selectedColorState, rgb: { ...selectedColorState.rgb, a: newColor.rgb.a } });
   };
 
-  // Get color display value based on selected color mode
   const getColorDisplayValue = () => {
     return getColorDisplay(selectedColorMode, selectedColorState);
   };
@@ -146,7 +140,6 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
   return (
     <Fragment>
       <div className="rds-comp-color-picker" aria-disabled={isDisabled || undefined}>
-        {/* Button Controls */}
         {(type === ColorPickerType.Button || type === ColorPickerType.ButtonExpanded) && (
           <RdsButton
             color="primary"
@@ -156,11 +149,8 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
             onClick={handleButtonClick}
           />
         )}
-
-        {/* Color Picker Container */}
         {(showPicker && (type === ColorPickerType.ButtonExpanded || type === ColorPickerType.Default || type === ColorPickerType.Button)) && (
           <div className="rds-comp-color-picker__container">
-            {/* Tab Selection UI */}
             {showTabs && (
               <div className="rds-comp-color-picker__tabs">
                 <button
@@ -180,7 +170,6 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
               </div>
             )}
 
-            {/* Render appropriate color picker based on selected tab */}
             {selectedTab === "Grid" ? (
               <ColorPickerGrid 
                 handleChange={handleChange}
@@ -192,6 +181,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
                 showColorModeDropdown={showColorModeDropdown}
                 setShowColorModeDropdown={setShowColorModeDropdown}
                 getColorDisplay={() => getColorDisplayValue()}
+                onSelectColorMode={(mode: any) => setSelectedColorMode(mode as ColorMode)}
               />
             ) : (
               <ColorPickerSpectrum
@@ -207,6 +197,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
                 getColorDisplay={() => getColorDisplayValue()}
                 showSwatches={showSwatches}
                 styleType={selectedStyle}
+                onSelectColorMode={(mode: any) => setSelectedColorMode(mode as ColorMode)}
               />
             )}
           </div>
