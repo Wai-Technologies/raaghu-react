@@ -52,9 +52,19 @@ const RdsCompReviews = (props: RdsCompReviewsProps) => {
   return (
     <Box className="rds-comp-reviews">
       {props.variantType === VariantType.Default && (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} wrap="wrap">
           {props.itemList.map((item: Item, index: number) => (
-            <Grid component="div" key={index} size={{ xs: 12, sm: 6, md: 4 }}>
+            <Grid 
+             key={index}
+             size={{
+               xs: 12,
+               sm: 12,
+               md: 4,
+               lg: 6,
+               xl: 6
+             }}
+              style={{ display: 'flex'}}
+            >
               {renderContentByStyle(item)}
             </Grid>
           ))}
