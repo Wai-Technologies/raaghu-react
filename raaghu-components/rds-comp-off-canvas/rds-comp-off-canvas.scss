@@ -1,6 +1,108 @@
 // Off-canvas specific styles
 .offcanvas-header {
-  background-color: primary;
+  background-color: var(--rds-offcanvas-header-bg, transparent);
+}
+
+.offcanvas-title{
+  font-size: var(--font-size-xl, 18px);
+  font-style: normal;
+  font-weight: var(--font-weight-medium, 500);
+}
+
+// Drawer paper sizing and placement helpers
+.offcanvas-drawer .MuiDrawer-paper {
+  box-sizing: border-box;
+  padding: 0;
+  width: var(--rds-offcanvas-width, 650px);
+  height: var(--rds-offcanvas-height, 100%);
+}
+
+.placement-left .MuiDrawer-paper { left: 0; }
+.placement-right .MuiDrawer-paper { right: 0; }
+.placement-top .MuiDrawer-paper {
+  width: 100% !important;
+  height: var(--rds-offcanvas-top-height, 300px) !important;
+}
+.placement-bottom .MuiDrawer-paper {
+  width: 100% !important;
+  height: var(--rds-offcanvas-top-height, 300px) !important;
+}
+
+.offcanvas-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.offcanvas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--rds-offcanvas-border, #e0e0e0);
+}
+
+.offcanvas-header.no-title {
+  padding: 4px 16px;
+  justify-content: flex-end;
+  border-bottom: none;
+}
+
+.offcanvas-title-wrap {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+}
+
+.offcanvas-close-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.offcanvas-close-button {
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+}
+.offcanvas-close-button:hover {
+  background-color: aliceblue;
+  border-radius: 5px;
+}
+
+.offcanvas-body {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.offcanvas-body.scrolling {
+  overflow: auto;
+}
+
+.offcanvas-footer {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.offcanvas-margin {
+  display: flex;
+  gap: 8px;
+}
+
+.offcanvas-btn {
+  flex: 1;
+}
+.offcanvas-btn-restore {
+  flex: 0.4;
+}
+
+.offcanvas-action-btn {
+  width: auto;
 }
 
 @media (max-width: 767px) {
@@ -142,4 +244,11 @@
     width: 12px !important;
     height: 12px !important;
   }
+}
+
+// Allow consumers to override width/height via CSS variables per-instance
+:root {
+  --rds-offcanvas-width: 650px;
+  --rds-offcanvas-height: 100%;
+  --rds-offcanvas-top-height: 300px;
 }
