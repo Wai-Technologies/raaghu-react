@@ -7,7 +7,7 @@ import './rds-dialog.scss';
 
 export interface RdsDialogProps extends DialogProps {
   title?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   actions?: React.ReactNode;
   ShowDissmiss?: boolean;
   onClose?: () => void;
@@ -16,7 +16,6 @@ export interface RdsDialogProps extends DialogProps {
   ShowSecondary?: boolean;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
 }
-
 
 const RdsDialog = ({
   title,
