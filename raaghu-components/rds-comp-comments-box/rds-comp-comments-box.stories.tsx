@@ -79,11 +79,6 @@ const meta: Meta<typeof RdsCommentBox> = {
   component: RdsCommentBox,
   parameters: {
     layout: 'padded',
-    docs: {
-      description: {
-        component: '**Comment Box**',
-      },
-    },
   },
   tags: ['autodocs'],
   argTypes: {

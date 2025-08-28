@@ -50,4 +50,69 @@
   &--cursor {
     cursor: pointer;
   }
+
+  // Color variant modifiers using raaghu design tokens
+  &--primary {
+    color: var(--rds-color-primary, #7e2eef);
+    
+    .rds-comp-ai-icon__svg {
+      color: var(--rds-color-primary, #7e2eef);
+    }
+  }
+
+  &--secondary {
+    color: var(--rds-color-secondary, #2539FF);
+    
+    .rds-comp-ai-icon__svg {
+      color: var(--rds-color-secondary, #2539FF);
+    }
+  }
+
+  &--success {
+    color: var(--rds-color-success, #24993A);
+    
+    .rds-comp-ai-icon__svg {
+      color: var(--rds-color-success, #24993A);
+    }
+  }
+
+  &--danger {
+    color: var(--rds-color-danger, #f44336);
+    
+    .rds-comp-ai-icon__svg {
+      color: var(--rds-color-danger, #f44336);
+    }
+  }
+
+  &--warning {
+    color: var(--rds-color-warning, #EA6C0C);
+    
+    .rds-comp-ai-icon__svg {
+      color: var(--rds-color-warning, #EA6C0C);
+    }
+  }
+
+  &--info {
+    color: var(--rds-color-info, #2196f3);
+    
+    .rds-comp-ai-icon__svg {
+      color: var(--rds-color-info, #2196f3);
+    }
+  }
+
+  &--light {
+    color: var(--rds-color-light, #ffffff);
+    
+    .rds-comp-ai-icon__svg {
+      color: var(--rds-color-light, #ffffff);
+    }
+  }
+
+  &--dark {
+    color: var(--rds-color-dark, #212121);
+    
+    .rds-comp-ai-icon__svg {
+      color: var(--rds-color-dark, #212121);
+    }
+  }
 }
