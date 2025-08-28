@@ -5,13 +5,18 @@ export interface RdsCompAiGradientTextProps {
   logoUrl?: string;
   title?: string;
   logo?: React.ReactNode;
+  showImage?: boolean;
+  showIcon?: boolean;
 }
 
 const RdsCompAiGradientTextWithIcon = (props: RdsCompAiGradientTextProps) => {
   return (
     <div className="rds-gradient-text-with-icon">
-      <img src={props.logoUrl} className="rds-gradient-text-with-icon__logo" />
-      {props.logo}
+      {props.showImage && (
+        <img src={props.logoUrl} className="rds-gradient-text-with-icon__logo" />
+      )}
+
+      {props.showIcon && props.logo}
       <h6 className="rds-gradient-text-with-icon__title">{props.title}</h6>
     </div>
   );
