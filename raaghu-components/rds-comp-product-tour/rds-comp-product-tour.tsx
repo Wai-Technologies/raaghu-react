@@ -223,7 +223,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                 {renderCloseButton()}            
                 {showVisualPlaceholder ? (
                     <Box className="rds-comp-product-tour__animation-section">
-                        <img src=".storybook/public/assets/animation.gif" alt="Tour Animation GIF" className="rds-comp-product-tour__gif" />
+                        <img src="/assets/animation.gif" alt="Tour Animation GIF" className="rds-comp-product-tour__gif" />
                     </Box>
                 ) : (
                     <Box sx={{ height: "220px", width: "100%", background: "transparent" }} />
