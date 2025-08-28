@@ -41,30 +41,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
     onAccept,
 }) => {
     const getTypeStyles = () => {
-        switch (type) {
-            case NotificationType.Error:
-                return {
-                    backgroundColor: "#ffdad6",
-                    borderLeft: "4px solid #f5c6cb",
-                };
-            case NotificationType.Success:
-                return {
-                    backgroundColor: "#ebdcff",
-                    borderLeft: "4px solid #c3e6cb",
-                };
-            case NotificationType.Warning:
-                return {
-                    backgroundColor: "#fed99b",
-                    borderLeft: "4px solid #ffeeba",
-                };
-            case NotificationType.Info:
-            default:
-                return {
-                    backgroundColor: "#FFFFFF",
-                    border: "1px solid #e2e3e5",
-                    borderLeft: "4px solid #bee5eb",
-                };
-        }
+        return {};
     };
     return (
         <Fragment>
@@ -77,7 +54,8 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                     {/* Image Sidebar for Horizontal Layout */}
                     {layout === NotificationLayout.Horizontal && style === NotificationStyle.Image && (
                         <Box
-                            sx={{width: "90px",background: "#E1E3EA",display: "flex",alignItems: "center",justifyContent: "center",flexShrink: 0,
+                            className="rds-comp-notification__image-sidebar"
+                            sx={{width: "90px",display: "flex",alignItems: "center",justifyContent: "center",flexShrink: 0,
                             }}
                         >
                             <Box
@@ -114,7 +92,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                                         {title ?? notification.title}
                                     </Typography>
                                     {notification.time && (
-                                        <Typography variant="body2" component="span" className="rds-comp-notification__time" sx={{ color: "text.secondary", marginLeft: 1 }}>
+                                        <Typography variant="body2" component="span" className="rds-comp-notification__time" sx={{ marginLeft: 1 }}>
                                             {notification.time}
                                         </Typography>
                                     )}
@@ -169,7 +147,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                                             variant="body2"
                                             component="span"
                                             className="rds-comp-notification__time"
-                                            sx={{ color: "text.secondary", marginLeft: 1 }}
+                                            sx={{ marginLeft: 1 }}
                                         >
                                             {notification.time}
                                         </Typography>
@@ -185,7 +163,6 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                         <Typography
                             variant="body2"
                             className="rds-comp-notification__description"
-                            sx={{ color: "text.primary" }}
                         >
                             {description ?? notification.description}
                         </Typography>
