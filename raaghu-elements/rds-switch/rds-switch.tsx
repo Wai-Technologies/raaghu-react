@@ -81,7 +81,10 @@ const RdsSwitch = ({
   // Map Storybook values like 'Style 1' to 'style1'
   const normalizedStyleType = typeof styleProp === 'string' ? styleProp.replace(/\s+/g, '').toLowerCase() : 'style1';
   // BEM class for style variant
-  const styleClass = `rds-switch rds-switch--${normalizedStyleType}`;
+  // Derive color class from props.color (MUI Switch supports 'primary'|'secondary' etc.)
+  const normalizedColor = props.color ? String(props.color).toLowerCase().replace(/[^a-z0-9_-]/g, '-') : 'primary';
+  const colorClass = `rds-switch--color-${normalizedColor}`;
+  const styleClass = `rds-switch rds-switch--${normalizedStyleType} ${colorClass}`;
 
   // Props for MuiSwitch
   const switchProps: SwitchProps = {
