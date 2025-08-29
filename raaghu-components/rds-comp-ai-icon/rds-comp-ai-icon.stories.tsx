@@ -7,12 +7,6 @@ const meta: Meta = {
     component: RdsCompAiIcon,
     parameters: {
         layout: 'padded',
-        docs:{
-            description: {
-  component: `The **Icon** component renders scalable vector icons with customizable properties such as \`name\`, \`width\`, and \`height\`. It supports styling options including \`fill\` and \`stroke\` toggles, various \`colorVariant\` themes, and an optional cursor pointer for interactivity. The component also supports displaying images as icons via an \`imageUrl\` prop. Additionally, it can show tooltips with configurable placement and titles to enhance usability. This makes the Icon component versatile for UI designs requiring interactive icons, buttons, or image placeholders with rich styling and accessibility features.`
-}
-
-        }
     },
     tags: ['autodocs'],
     argTypes: {
