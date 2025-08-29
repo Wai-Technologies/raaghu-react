@@ -7,15 +7,10 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
     component: RdsCompAdaptiveCards,
     parameters: {
         layout: 'padded',
-        docs: {
-            description: {
-                component: '**Adaptive Cards**',
-            },
-        },
+ 
     },
     tags: ['autodocs'],
     argTypes: {
-        // ...existing argTypes...
         showHeader: { control: 'boolean', description: 'Show header of the card' },
         showDismiss: { control: 'boolean', description: 'Show circle button' },
         cardTitle: { control: 'text', description: 'Title of the card' },
@@ -160,6 +155,7 @@ export const ImageGallery: StoryObj<typeof RdsCompAdaptiveCards> = {
     args: {
         type: 'ImageGallery',
         cardTitle: 'Here are some cool photos',
+        showHeader: true,
         smallText: 'Sorry some of them are repeats',
         images: [
             '/assets/Image1.png',

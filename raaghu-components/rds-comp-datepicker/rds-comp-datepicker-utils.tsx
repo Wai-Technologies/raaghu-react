@@ -1,13 +1,10 @@
 import React, { forwardRef } from "react";
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
-import ResInput from '../../raaghu-elements/rds-input/rds-input';
 import CloseIcon from '@mui/icons-material/Close';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SettingsIcon from '@mui/icons-material/Settings';
+import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 
-// Custom input components for DatePicker
 export const CustomButtons = forwardRef(({ value, onClick }: any, ref: any) => (
     <div className="rds-datepicker__button-wrapper">
         <RdsButton text="Cancel" size="small" style="outlined" />
@@ -32,59 +29,62 @@ export const ExampleCustomInput = forwardRef(({ value, onClick, changeIcon }: an
     </li>
 ));
 
-export const CustomInputWithClear = forwardRef(({ value, onClick, placeholder, isDisabled, showClearDate, clearDate, changeIcon }: any, ref: any) => (
-    <div className="rds-datepicker__input-container">
-        <ResInput
-            className={`rds-datepicker__input ${isDisabled ? 'rds-datepicker--disabled' : ''} ${showClearDate && value ? 'rds-datepicker__input--with-clear' : 'rds-datepicker__input--without-clear'}`}
-            value={value || ''}
-            onClick={onClick}
-            placeholder={placeholder}
-            disabled={isDisabled}
-            ref={ref}
-        />
-        {showClearDate && value && (
-            <span
-                className={`rds-datepicker__clear-button ${isDisabled ? 'rds-datepicker__input--disabled' : 'rds-datepicker__clear-button--clickable'}`}
-                onClick={(e) => {
-                    e.stopPropagation();
-                    if (!isDisabled) {
-                        clearDate();
-                    }
-                }}
-                title="Clear date"
+export const CustomInputWithClear = forwardRef(({ value, onClick, placeholder, isDisabled, showClearDate, clearDate, changeIcon, openCustomPicker }: any, ref: any) => {
+    const handleTriggerClick = (e: any) => {
+        e.stopPropagation && e.stopPropagation();
+        if (isDisabled) return;
+        if (typeof openCustomPicker === 'function') {
+            openCustomPicker();
+        } else if (typeof onClick === 'function') {
+            onClick(e);
+        }
+    };
+
+    return (
+        <div className="rds-datepicker__input-container">
+            <RdsInput
+                className={`rds-datepicker__input ${isDisabled ? 'rds-datepicker--disabled' : ''} ${showClearDate && value ? 'rds-datepicker__input--with-clear' : 'rds-datepicker__input--without-clear'}`}
+                value={value || ''}
+                onClick={handleTriggerClick}
+                placeholder={placeholder}
+                disabled={isDisabled}
+                ref={ref}
+            />
+            {showClearDate && value && (
+                <span
+                    className={`rds-datepicker__clear-button ${isDisabled ? 'rds-datepicker__input--disabled' : 'rds-datepicker__clear-button--clickable'}`}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        if (!isDisabled) {
+                            clearDate();
+                        }
+                    }}
+                    title="Clear date"
+                >
+                    <CloseIcon 
+                        color="primary"
+                        className="rds-datepicker__close-icon"
+                    />
+                </span>
+            )} <span
+                className={`rds-datepicker__icon-container ${isDisabled ? 'rds-datepicker--disabled' : 'rds-datepicker__icon-container--clickable'}`}
+                onClick={handleTriggerClick}
+                title="Open calendar"
             >
-                <CloseIcon 
-                    color="primary"
-                    className="rds-datepicker__close-icon"
-                />
+                {changeIcon === "dashboard_settings" ? (
+                    <SettingsIcon
+                        className="rds-datepicker__calendar-icon"
+                    />
+                ) : (
+                    <CalendarMonthIcon
+                        className="rds-datepicker__calendar-icon"
+                    />
+                )}
             </span>
-        )}
+        </div>
+    );
+});
 
-        {/* Icon moved inside the input container so it appears within the input field */}
-        <span
-            className={`rds-datepicker__icon-container ${isDisabled ? 'rds-datepicker--disabled' : 'rds-datepicker__icon-container--clickable'}`}
-            onClick={(e) => {
-                e.stopPropagation();
-                if (!isDisabled && typeof onClick === 'function') {
-                    onClick(e);
-                }
-            }}
-            title="Open calendar"
-        >
-            {changeIcon === "dashboard_settings" ? (
-                <SettingsIcon
-                    className="rds-datepicker__calendar-icon"
-                />
-            ) : (
-                <CalendarMonthIcon
-                    className="rds-datepicker__calendar-icon"
-                />
-            )}
-        </span>
-    </div>
-));
-
-// Render custom header with month & year selects (works per-month for multi-month view)
 export const renderCustomHeader = ({
   date,
   changeYear,
@@ -141,7 +141,6 @@ export const renderCustomHeader = ({
   );
 };
 
-// Utility functions for date operations
 export const getDayClassName = (date: Date, startDate: Date | null) => {
     const today = new Date();
     const referenceDate = startDate ?? today;
@@ -158,7 +157,6 @@ export const getDayClassName = (date: Date, startDate: Date | null) => {
     return "";
 };
 
-// Date range helper functions
 export const getYesterdayDate = (today: Date) => {
     return new Date(
         today.getFullYear(),
@@ -201,7 +199,6 @@ export const getLastFourteenDaysDate = (today: Date) => {
     );
 };
 
-// Render helper functions
 export const renderDatePickerStateView = (
     state: string, 
     startDate: Date | null, 
@@ -387,56 +384,38 @@ export const renderDatePickerTypeView = (
     } else if (type === "Custom") {
         return (
             <div className="rds-datepicker__custom-dropdown">
-                <button
-                    className={`rds-datepicker__dropdown-button ${props.isDisabled ? 'rds-datepicker--disabled' : ''}`}
-                    type="button"
-                    id="datepicker-dropdown"
-                    aria-expanded={props.isDropdownOpen ? "true" : "false"}
-                    onClick={toggleDropdown}
-                    disabled={props.isDisabled}>
-                    <span className="rds-datepicker__button-content">
-                        {props.changeIcon === "dashboard_settings" ? (
-                            <SettingsIcon
-                                color="secondary"
-                                className="rds-datepicker__calendar-icon"
-                            />
-                        ) : (
-                            <CalendarMonthIcon
-                                color="secondary"
-                                className="rds-datepicker__calendar-icon"
-                            />
-                        )}
-                        <span className="rds-datepicker__text">{dropdownDisplayValue}</span>
-                    </span>
-
-                    <span className="rds-datepicker__button-actions">
-                        {props.showClearDate && dropdownDisplayValue && (
-                            <span
-                                className={`rds-datepicker__clear-button rds-datepicker__clear-button--dropdown ${props.isDisabled ? 'rds-datepicker__input--disabled' : 'rds-datepicker__clear-button--clickable'}`}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    if (!props.isDisabled) {
-                                        props.clearDate();
-                                    }
-                                }}
-                                title="Clear date"
-                            >
-                                <CloseIcon 
-                                    color="primary"
-                                    className="rds-datepicker__close-icon"
-                                />
-                            </span>
-                        )}
-                        {isDropdownOpen && dropdownDisplayValue ? 
-                            <KeyboardArrowUpIcon 
-                                className="rds-datepicker__arrow-icon"
-                            /> : 
-                            <KeyboardArrowDownIcon 
-                                className="rds-datepicker__arrow-icon"
-                            /> 
-                        }
-                    </span>
-                </button>
+                <SafeDatePicker
+                    selected={startDate || null}
+                    onChange={handlerDateChange}
+                    customInput={
+                        <CustomInputWithClear 
+                            placeholder={props.placeholderText || "Select date"}
+                            isDisabled={props.isDisabled}
+                            showClearDate={props.showClearDate}
+                            clearDate={props.clearDate}
+                            changeIcon={props.changeIcon}
+                            openCustomPicker={toggleDropdown}
+                        />
+                    }
+                    wrapperClassName="rds-datepicker__wrapper"
+                    disabled={props.isDisabled}
+                    placeholderText={props.placeholderText || "Select date"}
+                    showMonthYearPicker={props.layout === "Month Picker"}
+                    showYearPicker={props.layout === "Year Picker"}
+                    showPreviousMonths
+                    monthsShown={props.layout === "Multi Month" ? 3 : 1}
+                    scrollableMonthYearDropdown={props.datePickerStyleType === "Dropdown"}
+                    todayButton={<CustomButtons />}
+                    peekNextMonth={true}
+                    showMonthDropdown={props.datePickerStyleType === "Dropdown"}
+                    showYearDropdown={props.datePickerStyleType === "Dropdown"}
+                    dropdownMode="select"
+                    dayClassName={dayClassName}
+                    ref={datePickerRef}
+                    renderCustomHeader={props.layout === "Multi Month" ? renderCustomHeader : undefined}
+                    open={false}
+                />
+              
                 <ul className={`rds-datepicker__dropdown-menu ${isDropdownOpen ? "rds-datepicker__dropdown-menu--show" : ""}`}>
                     <li className="rds-datepicker__dropdown-item rds-datepicker__dropdown-item--header">
                         <strong className="rds-datepicker__dropdown-label">Custom Date</strong>
@@ -473,15 +452,12 @@ export const renderDatePickerTypeView = (
                         startDate={startDate}
                         endDate={endDate}
                         selectsRange
-                        // Open to the left of the trigger, allow sensible fallbacks if space is constrained
                         popperPlacement="left-start"
                         popperModifiers={[
                            { name: 'flip', options: { fallbackPlacements: ['right-start','right'] } },
                            { name: 'preventOverflow', options: { boundary: 'viewport' } },
                            { name: 'offset', options: { offset: [0, 8] } }
-                        ]}
-                        // don't return a raw DOM node (document.body) directly — return a React element wrapper
-                        // this prevents React attempting to render an HTMLBodyElement as a child
+                        ]}                       
                         popperContainer={({ children }: any) => <div>{children}</div>}
                         popperClassName="rds-datepicker__popper"
                         customInput={<ExampleCustomInput changeIcon={props.changeIcon} />}
