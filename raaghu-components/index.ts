@@ -44,3 +44,4 @@ export { default as RdsCompAiIcon } from './rds-comp-ai-icon/rds-comp-ai-icon';
 export { default as RdsCompAiGradientTextWithIcon } from './rds-comp-ai-gradient-text-with-icon/rds-comp-ai-gradient-text-with-icon';
 export { default as RdsCompAiMessageBox } from './rds-comp-ai-message-box/rds-comp-ai-message-box';
 export { default as RdsCompAiChatHeader } from './rds-comp-ai-chat-header/rds-comp-ai-chat-header';
+export { default as RdsCompDatePicker } from './rds-comp-date-and-time-picker/rds-comp-date-and-time-picker';
