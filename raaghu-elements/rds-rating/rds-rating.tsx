@@ -22,6 +22,7 @@ const RdsRating = ({
   type = 'star',
   styles = 'default',
   level,
+  colorVariant,
   onChange,
   ...props
 }: RdsRatingProps) => {
@@ -58,7 +59,7 @@ const RdsRating = ({
       value={currentValue}
       precision={precision}
       onChange={onChange}
-      className={`rds-rating__stars rds-rating__stars--${styles}`}
+  className={`rds-rating__stars rds-rating__stars--${styles} ${colorVariant ? `rds-rating__stars--color-${colorVariant}` : ''}`}
       emptyIcon={styles === 'filled' ? <StarIcon className="rds-rating__star-icon rds-rating__star-icon--empty" fontSize="inherit" /> : undefined}
       {...props}
     />
@@ -74,7 +75,7 @@ const RdsRating = ({
           step={precision}
           valueLabelDisplay="off"
           onChange={onChange as any}
-          className="rds-rating__slider"
+          className={`rds-rating__slider ${colorVariant ? `rds-rating__slider--color-${colorVariant}` : ''}`}
         />
         {showValue && currentValue !== undefined && currentValue !== null && (
           <span className="rds-rating__value">
@@ -92,7 +93,7 @@ const RdsRating = ({
   );
 
   return (
-    <div className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} ${styles ? `rds-rating--${styles}` : ''} ${getPositionClass()}`}>
+  <div className={`rds-rating ${type === 'slider' ? 'rds-rating--slider' : 'rds-rating--star'} ${styles ? `rds-rating--${styles}` : ''} ${getPositionClass()} ${colorVariant ? `rds-rating--color-${colorVariant}` : ''}`}>
       {label && <span className="rds-rating__label">{label}</span>}
       {type === 'slider' ? renderSliderRating() : renderStarRating()}
       {showValue && currentValue !== undefined && (
