@@ -101,7 +101,7 @@ export const Default: Story = {
         dataSets: [
             {
                 label: "Sales",
-                data: [600, 462, 405, 362, 350, 350.5, 320.8, 318, 605, 689, 352, 354],
+                data: [450, 350, 750, 590, 280, 620, 100, 750, 250, 650, 380, 330],
                 borderColor: "#4DCFFF",
                 // pointBackgroundColor: "#4DCFFF",
                 backgroundColor: (context: ScriptableContext<"line">) => {
@@ -124,7 +124,7 @@ export const Default: Story = {
             },
             {
                 label: "Revenue",
-                data: [250, 780.2, 780.4, 650, 455, 455.5, 455.8, 456, 610, 455, 250, 254],
+                data: [350, 380, 650, 150, 280, 480, 490, 570, 320, 480, 380, 440],
                 borderColor: "#863BFF",
                 pointBackgroundColor: "#863BFF",
                 backgroundColor: (context: ScriptableContext<"line">) => {

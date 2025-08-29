@@ -36,10 +36,16 @@ const RdsCompBubbleChart = (props: RdsCompBubbleChartProps) => {
 
     return (
         <div>
-            <canvas data-testid={props.id} id={props.id} ref={canvasRef} />
+            <canvas
+                data-testid={props.id}
+                id={props.id}
+                ref={canvasRef}
+                width={300}
+                height={300}
+            />
         </div>
     );
-    };
+};
 
 RdsCompBubbleChart.displayName = 'RdsCompBubbleChart';
 export default RdsCompBubbleChart;

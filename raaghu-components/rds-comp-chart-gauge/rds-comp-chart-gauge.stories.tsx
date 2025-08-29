@@ -41,7 +41,7 @@ export const Default: Story = {
         dataSets: [
             {
                 label: "Gauge Data",
-                data: [16.7, 16.7, 16.7, 16.7, 16.7, 16.7],
+                data: [15, 10, 25, 5, 15, 30],
                 backgroundColor: [
                     "#28a745",
                     "#17a2b8", 

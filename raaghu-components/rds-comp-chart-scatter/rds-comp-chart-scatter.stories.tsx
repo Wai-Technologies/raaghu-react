@@ -81,7 +81,7 @@ export const WithMultiAxis: Story = {
                 label: "Scatter Dataset 1",
                 data: [
                     { x: -10, y: 0 },
-                    { x: 0, y: 10 },
+                    { x: -3, y: 7 },
                     { x: 9, y: 5 },
                     { x: 0.5, y: 5.5 }
                 ],
