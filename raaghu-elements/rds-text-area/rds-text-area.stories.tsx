@@ -1,12 +1,14 @@
-import React, { useState } from "react";
 import RdsTextArea, { TextareaState, TextareaStyle } from "./rds-text-area";
 import { Meta, StoryObj } from "@storybook/react-vite";
 
-const meta: Meta = {
+const meta: Meta<typeof RdsTextArea> = {
     title: 'Elements/Text Area',
     component: RdsTextArea,
     parameters: {
         layout: 'padded',
+        controls: {
+            exclude: ['value', 'id', 'dataTestId', 'onChange', 'onClick', 'onKeyDown', 'onFocus', 'onBlur', 'reset', 'validationPattern', 'validationMsg', 'isMultiUrl', 'customClasses']
+        },
         // Docs addon expects source.transform under parameters.docs.source
         docs: {
             source: {
@@ -36,11 +38,11 @@ const meta: Meta = {
             control: 'boolean',
             description: 'Whether the field is required'
         },
-            showTitle: {
-                control: 'boolean',
-                description: 'Whether to show the label (true = show, false = hide)'
-            }
-    },
+        showTitle: {
+            control: 'boolean',
+            description: 'Whether to show the label (true = show, false = hide)'
+        }
+    } as any, // Use 'as any' to allow disabling non-existent props
 } satisfies Meta<typeof RdsTextArea>;
 
 export default meta;
@@ -53,6 +55,8 @@ export const Default: Story = {
         placeholder: "Enter Description",
         state: TextareaState.Default,
         style: TextareaStyle.Default,
-        isMandatory: true
+        isMandatory: false,
+        showTitle: true,
+        rows: 4
     }
 };
