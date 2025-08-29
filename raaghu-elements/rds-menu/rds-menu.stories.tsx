@@ -15,15 +15,7 @@ const meta: Meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    open: {
-      control: { type: 'boolean' },
-      description: 'Controls the open state of the menu'
-    },
-    color: {
-      control: { type: 'select' },
-      options: ['primary', 'success', 'danger', 'info', 'warning', 'inherit'],
-      description: 'Sets the color of the menu items',
-    },
+    
   },
 } satisfies Meta<typeof RdsMenu>;
 
