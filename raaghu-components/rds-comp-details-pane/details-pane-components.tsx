@@ -3,8 +3,7 @@ import {
   History, 
   StarBorder, 
   Star, 
-  Edit, 
-  Delete,
+  Edit,
 } from '@mui/icons-material';
 import { 
   RdsButton,
@@ -17,6 +16,47 @@ import {
   RdsAccordion
 } from "../../raaghu-elements";
 import RdsCompTreeStructure, { IconType, TreeLevel } from '../rds-comp-tree-structure/rds-comp-tree-structure';
+
+const DeleteIcon: React.FC<{
+  color?: "error" | "default" | string;
+  fontSize?: "small" | "medium" | number;
+  onClick?: () => void;
+  className?: string;
+  ariaLabel?: string;
+}> = ({ color = "default", fontSize = "small", onClick, className, ariaLabel }) => {
+  const size = typeof fontSize === "number" ? fontSize : fontSize === "small" ? 12 : 16;
+  const cssColor = color === "error" ? "#BD0D1D" : undefined;
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onClick && onClick();
+    }
+  };
+
+  return (
+    <svg
+      width={size}
+      height={size * (11 / 12)}
+      viewBox="0 0 12 11"
+      fill="none"
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      aria-label={ariaLabel}
+      className={className}
+      style={{ cursor: "pointer", color: cssColor }}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M1.04932 2.96692H10.8854M3.88703 2.92217V2.54644C3.88703 2.04714 4.10741 1.5683 4.4997 1.21524C4.89198 0.862176 5.42405 0.663818 5.97883 0.663818C6.53361 0.663818 7.06567 0.862176 7.45796 1.21524C7.85025 1.5683 8.07063 2.04714 8.07063 2.54644V2.92268M4.74659 4.41136V8.55234M7.21107 4.41136V8.55234M2.30396 2.97038H9.65424V9.74693C9.65561 9.84462 9.63557 9.94161 9.59528 10.0323C9.55499 10.1231 9.49522 10.2057 9.4194 10.2757C9.34359 10.3456 9.25321 10.4014 9.15342 10.4398C9.05363 10.4783 8.94639 10.4987 8.83784 10.4999H3.12309C2.9039 10.4974 2.69478 10.4167 2.54168 10.2755C2.38859 10.1343 2.30407 9.9442 2.3067 9.74693V2.97038H2.30396Z"
+        stroke="currentColor"
+        strokeWidth={0.614754}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
 
 export interface HistoryFavoriteTabsProps {
   activeTab: string;
@@ -75,27 +115,36 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
     { key: "favourites", label: favouritesTabLabel, icon: <StarBorder /> },
   ];
 
-  // Helper for toggling selection of favorites
   const toggleSelection = (idx: number) => {
     setSelectedIndexes(prev => 
       prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]
     );
   };
-
-  // Render history item row
   const renderHistoryItem = (item: { id: number; name: string }, handleDelete: (id: number) => void) => (
-    <div key={item.id} className="rds-comp-details-pane__activity-item">
-      <div className="rds-comp-details-pane__activity-icon">
-        <History className="rds-comp-details-pane__icon-history" />
+    <div key={item.id} className="rds-comp-details-pane__history-wrapper">
+      <div className="rds-comp-details-pane__activity-item rds-comp-details-pane__history-item">
+        <div className="rds-comp-details-pane__history-icon" aria-hidden>
+          <History fontSize="small" className="rds-comp-details-pane__icon-history" />
+        </div>
+        <div className="rds-comp-details-pane__activity-body">
+          <div
+            className="rds-comp-details-pane__activity-text"
+            title={item.name}
+          >
+            {item.name}
+          </div>
+        </div>
+        <div className="rds-comp-details-pane__activity-delete rds-comp-details-pane__history-delete">
+          <DeleteIcon
+            color="error"
+            fontSize="small"
+            onClick={() => handleDelete(item.id)}
+            className="rds-comp-details-pane__icon-delete"
+            ariaLabel={`Delete ${item.name}`}
+          />
+        </div>
       </div>
-      <span className="rds-comp-details-pane__activity-text">{item.name}</span>
-      <div className="rds-comp-details-pane__activity-delete">
-        <Delete
-          color="error"
-          className="rds-comp-details-pane__icon-delete"
-          onClick={() => handleDelete(item.id)}
-        />
-      </div>
+      <div className="rds-comp-details-pane__history-divider" />
     </div>
   );
 
@@ -342,7 +391,6 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
  * SelectionContent - Component for the selection view
  */
 export const SelectionContent: React.FC<SelectionContentProps> = ({
-  headerText = "Bayshore Transportation System",
   headerSubText = "Agent Information"
 }) => {
   // Sample agent data
@@ -359,7 +407,7 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
       <div className="detail-pane-container rds-comp-details-pane__selection-container" id="detail-pain-lable">
         {/* Header */}
         <div className="rds-comp-details-pane__header-container">
-          <h2 className="rds-comp-details-pane__title">{headerText}</h2>
+          <h3 className="rds-comp-details-pane__title"> Bayshore Transportation System </h3>
           <p className="rds-comp-details-pane__subtitle">{headerSubText}</p>
         </div>
         
@@ -400,11 +448,19 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
               <div className="rds-comp-details-pane__agent-actions">
                 <div className="rds-comp-details-pane__agent-badge">{agent.count}</div>
                 <div className="rds-comp-details-pane__agent-radio">
-                  <input 
-                    type="radio" 
-                    name="agent-select" 
-                    className="rds-comp-details-pane__agent-radio-input" 
-                  />
+              <RdsButton
+               changeLeftIcon="circle"
+               changeRightIcon="save"
+               color="primary"
+               layout="icon-only"
+               shape="pill"
+               showLeftIcon
+               size="small"
+               state="default"
+               style="transparent"
+               text="Default Button"
+               textCase="uppercase"
+               />
                 </div>
               </div>
             </div>
@@ -932,6 +988,7 @@ export const ThumbnailViewContent: React.FC<{
           {accordionItems.map((item, idx) => (
             <RdsAccordion
               key={idx}
+              accordionStyle="borderhide"
               size="medium"
               state="default"
               title={item.title}
@@ -944,7 +1001,7 @@ export const ThumbnailViewContent: React.FC<{
                   className="rds-comp-details-pane__thumbnail-img-square"
                 />
               </div>
-            </RdsAccordion>
+            </RdsAccordion>            
           ))}
         </div>
       </div>
