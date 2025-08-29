@@ -239,6 +239,17 @@
     }
   }
 
+  // Keep the previous (tighter) placement for the horizontal image layout so it
+  // visually aligns with the title block as before.
+  &--layout-horizontal.rds-comp-notification--style-image {
+    .rds-comp-notification__dismiss {
+      &.MuiIconButton-root {
+        top: 8px;
+        right: 12px;
+      }
+    }
+  }
+
   // Button styling
   &__primary-button {
     .rds-button {
@@ -260,6 +271,9 @@
         background-color: var(--rds-button-text-bg-hover, rgba(0, 0, 0, 0.04)) !important;
       }
     }
+  }
+  .rds-comp-notification__secondary-button{
+    color: var(--rds-text-secondary, #646464) !important;
   }
 
   // Special handling for horizontal layout with image
@@ -323,4 +337,7 @@
 }
 .css-mixntr-MuiButtonBase-root-MuiIconButton-root{
   z-index: 1 !important;
+}
+.css-1dy7uxw-MuiPaper-root-MuiCard-root{
+  box-shadow: none !important;
 }

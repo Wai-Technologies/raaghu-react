@@ -197,4 +197,5 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
     );
 };
 
+RdsCompAiAttachement.displayName = "RdsCompAiAttachement"
 export default RdsCompAiAttachement;
