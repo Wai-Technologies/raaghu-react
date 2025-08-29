@@ -5,6 +5,15 @@
   display: block;
   position: relative;
 
+  // Hide the default MUI ::before spacer ONLY for right-position timelines
+  // and only when the item is missing opposite content. This keeps
+  // 'alternate' layout intact.
+  &.MuiTimeline-positionRight {
+    .MuiTimelineItem-root.MuiTimelineItem-missingOppositeContent::before {
+      content: none !important;
+    }
+  }
+
   &__item {
     // Item styles
     display: block;

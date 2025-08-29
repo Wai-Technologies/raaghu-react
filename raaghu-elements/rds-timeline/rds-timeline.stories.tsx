@@ -8,7 +8,7 @@ import {
   TimelineOppositeContent 
 } from '@mui/lab';
 import { Typography } from '@mui/material';
-import { Fastfood, LaptopMac, Hotel, RepeatOne } from '@mui/icons-material';
+import { Fastfood, LaptopMac, Hotel, RepeatOne, FoodBank } from '@mui/icons-material';
 import RdsTimeline from './rds-timeline';
 
 const meta: Meta<typeof RdsTimeline> = {
@@ -22,6 +22,12 @@ const meta: Meta<typeof RdsTimeline> = {
     position: {
       control: { type: 'select' },
       options: ['left', 'right', 'alternate'],
+    },
+    showTime: {
+      control: { type: 'boolean' },
+    },
+    alternating: {
+      control: { type: 'boolean' },
     },
   },
 };
@@ -38,7 +44,7 @@ export const Default: Story = {
             <TimelineDot />
             <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent>Eat</TimelineContent>
+              <TimelineContent>Eat</TimelineContent>
         </TimelineItem>
         <TimelineItem>
           <TimelineSeparator>
@@ -69,7 +75,7 @@ export const WithIcons: Story = {
             </TimelineDot>
             <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent>Eat</TimelineContent>
+          <TimelineContent sx={{ marginTop:"10px" }}>Eat</TimelineContent>
         </TimelineItem>
         <TimelineItem>
           <TimelineSeparator>
@@ -78,7 +84,7 @@ export const WithIcons: Story = {
             </TimelineDot>
             <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent>Code</TimelineContent>
+          <TimelineContent sx={{ marginTop:"10px" }}>Code</TimelineContent>
         </TimelineItem>
         <TimelineItem>
           <TimelineSeparator>
@@ -86,7 +92,7 @@ export const WithIcons: Story = {
               <Hotel />
             </TimelineDot>
           </TimelineSeparator>
-          <TimelineContent>Sleep</TimelineContent>
+          <TimelineContent sx={{ marginTop:"10px" }}>Sleep</TimelineContent>
         </TimelineItem>
       </>
     ),
@@ -205,3 +211,36 @@ export const Right: Story = {
     ),
   },
 };
+
+export const WithItemsProp: Story = {
+  args: {
+    items: [
+      {
+        id: 1,
+        title: 'Eat',
+        description: 'Have a nutritious breakfast',
+        time: '09:00 AM',
+        color: 'primary',
+        icon: <FoodBank />,
+      },
+      {
+        id: 2,
+        title: 'Code',
+        description: 'Work on amazing projects',
+        time: '10:00 AM',
+        color: 'secondary',
+        icon: <LaptopMac />,
+      },
+      {
+        id: 3,
+        title: 'Sleep',
+        description: 'Get some rest',
+        time: '10:00 PM',
+        color: 'success',
+        icon: <Hotel />,
+      },
+    ],
+    showTime: true,
+  },
+};
+

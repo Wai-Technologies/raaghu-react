@@ -105,6 +105,71 @@ const RdsInput = ({
     );
   };
 
+  // Handlers to enforce digits-only when layout is 'phone number'
+  const handlePhoneKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const allowedKeys = [
+      'Backspace',
+      'Delete',
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowUp',
+      'ArrowDown',
+      'Home',
+      'End',
+      'Tab',
+    ];
+    // Allow shortcuts like Ctrl/Cmd + C/V/X/A
+    if (e.ctrlKey || e.metaKey) return;
+
+    const input = e.currentTarget;
+    const selectionStart = input.selectionStart ?? input.value.length;
+    const selectionEnd = input.selectionEnd ?? selectionStart;
+    const hasPlus = input.value.startsWith('+');
+    const isPlusKey = e.key === '+';
+    const isDigit = /^[0-9]$/.test(e.key);
+
+    // Only allow '+' at the very beginning and only once
+    if (isPlusKey) {
+      const atStart = selectionStart === 0;
+      const replacingPlus = hasPlus && selectionStart === 0 && selectionEnd > 0;
+      if (!atStart || (hasPlus && !replacingPlus)) {
+        e.preventDefault();
+      }
+      return;
+    }
+
+    if (!isDigit && !allowedKeys.includes(e.key)) {
+      e.preventDefault();
+      return;
+    }
+
+    // Enforce max digits: 12 if starts with '+', otherwise 10
+    if (isDigit) {
+      const value = input.value;
+      const selectedSegment = value.slice(selectionStart, selectionEnd);
+      const digitsInValue = value.replace(/\D/g, '').length;
+      const digitsInSelection = selectedSegment.replace(/\D/g, '').length;
+      const maxDigits = hasPlus ? 12 : 10;
+      if (digitsInValue - digitsInSelection >= maxDigits) {
+        e.preventDefault();
+      }
+    }
+  };
+
+  const handlePhoneInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    const orig = target.value;
+    const startsWithPlus = orig.startsWith('+');
+    let digits = orig.replace(/\D/g, '');
+    const maxDigits = startsWithPlus ? 12 : 10;
+    if (digits.length > maxDigits) digits = digits.slice(0, maxDigits);
+    const next = (startsWithPlus ? '+' : '') + digits;
+    if (orig !== next) {
+      // Sanitize pasted/typed characters
+      target.value = next;
+    }
+  };
+
   return (
     <div className={`rds-input ${sizeClass} ${pillClass} ${stateClass}`.trim()}>
       {titlePosition === 'title-above' && label && (
@@ -125,7 +190,7 @@ const RdsInput = ({
         type={inputType}
         fullWidth
         focused={state === 'active'}
-        InputProps={{ 
+        InputProps={{
           className: 'rds-input__field',
           classes: {
             root: state === 'active' ? 'Mui-focused' : '',
@@ -133,6 +198,18 @@ const RdsInput = ({
           },
           startAdornment: iconPosition === 'start' && showIcon ? renderIcon() : null,
           endAdornment: iconPosition === 'end' && showIcon ? renderIcon() : null,
+          // Props for the underlying input element
+          inputProps: {
+            ...(layout === 'phone number'
+              ? {
+                  inputMode: 'tel',
+                  pattern: '^(?:\\+\\d{12}|\\d{10})$',
+                  onKeyDown: handlePhoneKeyDown,
+                  onInput: handlePhoneInput,
+                }
+              : {}),
+          },
+          ...(props.InputProps || {}),
         }}
         {...props}
       />

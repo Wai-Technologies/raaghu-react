@@ -9,6 +9,7 @@ import {
   TimelineOppositeContent as MuiTimelineOppositeContent,
   TimelineProps
 } from '@mui/lab';
+import './rds-timeline.scss';
 
 export interface RdsTimelineItem {
   id: string | number;
@@ -20,10 +21,11 @@ export interface RdsTimelineItem {
   variant?: 'filled' | 'outlined';
 }
 
-export interface RdsTimelineProps extends Omit<TimelineProps, 'children'> {
-  items: RdsTimelineItem[];
+export interface RdsTimelineProps extends TimelineProps {
+  items?: RdsTimelineItem[];
   showTime?: boolean;
   alternating?: boolean;
+  children?: React.ReactNode;
 }
 
 const RdsTimeline: React.FC<RdsTimelineProps> = ({
@@ -31,36 +33,67 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
   showTime = false,
   alternating = false,
   position,
+  children,
+  className,
   ...props
 }) => {
   const timelinePosition = position || (alternating ? 'alternate' : 'right');
 
-  return (
-    <MuiTimeline position={timelinePosition} {...props}>
-      {items.map((item, index) => (
-        <MuiTimelineItem key={item.id}>
-          {showTime && item.time && (
-            <MuiTimelineOppositeContent color="text.secondary">
-              {item.time}
-            </MuiTimelineOppositeContent>
-          )}
-          <MuiTimelineSeparator>
-            <MuiTimelineDot color={item.color} variant={item.variant}>
-              {item.icon}
-            </MuiTimelineDot>
-            {index < items.length - 1 && <MuiTimelineConnector />}
-          </MuiTimelineSeparator>
-          <MuiTimelineContent>
-            <strong>{item.title}</strong>
-            {item.description && (
-              <div style={{ marginTop: 4, color: 'rgba(0, 0, 0, 0.6)' }}>
-                {item.description}
-              </div>
+  // If children are provided, use them directly (for flexibility like in stories)
+  if (children) {
+    return (
+      <MuiTimeline
+        position={timelinePosition}
+        className={`rds-timeline ${className ?? ''}`}
+        {...props}
+      >
+        {children}
+      </MuiTimeline>
+    );
+  }
+
+  // If items are provided, render using the items structure
+  if (items && items.length > 0) {
+    return (
+      <MuiTimeline
+        position={timelinePosition}
+        className={`rds-timeline ${className ?? ''}`}
+        {...props}
+      >
+        {items.map((item, index) => (
+          <MuiTimelineItem key={item.id}>
+            {showTime && item.time && (
+              <MuiTimelineOppositeContent color="text.secondary">
+                {item.time}
+              </MuiTimelineOppositeContent>
             )}
-          </MuiTimelineContent>
-        </MuiTimelineItem>
-      ))}
-    </MuiTimeline>
+            <MuiTimelineSeparator>
+              <MuiTimelineDot color={item.color} variant={item.variant}>
+                {item.icon}
+              </MuiTimelineDot>
+              {index < items.length - 1 && <MuiTimelineConnector />}
+            </MuiTimelineSeparator>
+            <MuiTimelineContent>
+              <strong>{item.title}</strong>
+              {item.description && (
+                <div style={{ marginTop: 4, color: 'rgba(0, 0, 0, 0.6)' }}>
+                  {item.description}
+                </div>
+              )}
+            </MuiTimelineContent>
+          </MuiTimelineItem>
+        ))}
+      </MuiTimeline>
+    );
+  }
+
+  // Return empty timeline if neither children nor items are provided
+  return (
+    <MuiTimeline
+      position={timelinePosition}
+      className={`rds-timeline ${className ?? ''}`}
+      {...props}
+    />
   );
 };
 RdsTimeline.displayName = 'RdsTimeline';
