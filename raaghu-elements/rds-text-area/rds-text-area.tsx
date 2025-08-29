@@ -40,6 +40,7 @@ export interface RdsTextAreaProps {
 
 const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
   const [isValid, setIsValid] = useState(true);
+  const [isMandatoryValid, setIsMandatoryValid] = useState(true);
   const [currentState, setCurrentState] = useState(props.state || TextareaState.Default);
   // stable id for label/input association when id prop is not provided
   const idRef = useRef<string>(props.id || `rds-textarea-${Math.random().toString(36).slice(2)}`);
@@ -47,15 +48,33 @@ const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
   const errorId = `${assignedId}-error`;
 
   useEffect(() => {
-    if (props.reset) setIsValid(true);
+    if (props.reset) {
+      setIsValid(true);
+      setIsMandatoryValid(true);
+    }
   }, [props.reset]);
 
   useEffect(() => {
     setCurrentState(props.state || TextareaState.Default);
   }, [props.state]);
 
+  // Check mandatory validation when isMandatory or value changes
+  useEffect(() => {
+    if (props.isMandatory) {
+      const currentValue = props.value || '';
+      setIsMandatoryValid(currentValue.trim().length > 0);
+    } else {
+      setIsMandatoryValid(true);
+    }
+  }, [props.isMandatory, props.value]);
+
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
+
+    // Check mandatory validation
+    if (props.isMandatory) {
+      setIsMandatoryValid(inputValue.trim().length > 0);
+    }
 
     if (props.validationPattern) {
       const urlPattern = props.validationPattern;
@@ -77,6 +96,12 @@ const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+    // Check mandatory validation on blur
+    if (props.isMandatory) {
+      const inputValue = e.target.value;
+      setIsMandatoryValid(inputValue.trim().length > 0);
+    }
+
     if (currentState === TextareaState.Active) {
       setCurrentState(props.value ? TextareaState.Selected : TextareaState.Default);
     }
@@ -110,7 +135,15 @@ const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
   };
 
   const isDisabled = currentState === TextareaState.Disabled;
-  const isError = currentState === TextareaState.Error || !isValid;
+  const isError = currentState === TextareaState.Error || !isValid || (props.isMandatory && !isMandatoryValid);
+
+  // Get the appropriate validation message
+  const getValidationMessage = () => {
+    if (props.isMandatory && !isMandatoryValid) {
+      return `${props.label || 'Label'} is required`;
+    }
+    return props.validationMsg;
+  };
 
   return (
     <div className="rds-textarea-container">
@@ -137,12 +170,12 @@ const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
           onChange={handleChange}
           aria-invalid={isError}
           aria-required={props.isMandatory ? true : undefined}
-          aria-describedby={isError && props.validationMsg ? errorId : undefined}
+          aria-describedby={isError ? errorId : undefined}
         />
       </div>
       
-      {isError && props.validationMsg && (
-        <div id={errorId} className="error-message">{props.validationMsg}</div>
+      {isError && getValidationMessage() && (
+        <div id={errorId} className="error-message">{getValidationMessage()}</div>
       )}
     </div>
   );
