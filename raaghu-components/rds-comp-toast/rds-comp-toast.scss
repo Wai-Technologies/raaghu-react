@@ -126,6 +126,12 @@
     padding: var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) var(--rds-spacing-xs, 0.3rem);
     gap: var(--rds-spacing-md, 0.4rem);
   }
+
+  // Override for chat layout - remove gap and adjust padding
+  &--chat &__header-content {
+    padding: var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) var(--rds-spacing-lg, 1rem) !important;
+    gap: 0 !important;
+  }
   
   &__leading-icon {
     flex-shrink: 0;
@@ -217,6 +223,11 @@
     display: flex;
     align-items: center;
     min-height: 22px;
+  }
+
+  &--chat &__title {
+    color: #353535; 
+    font-weight: 500;
   }
   
   &__header-actions {
@@ -328,7 +339,6 @@
   // Input group
   &__input-group {
     margin-bottom: var(--rds-spacing-md, 0.75rem);
-    padding: 0 0 0 var(--rds-spacing-lg, 1rem);
   }
   
   &__input {
@@ -372,7 +382,34 @@
   &--chat &__actions {
     justify-content: flex-start;
     margin-top: var(--rds-spacing-md, 0.5rem);
-    padding: 0 0 0 var(--rds-spacing-lg, 1rem);
+  }
+
+  // Chat layout specific adjustments to remove leading icon space
+  &--chat {
+    // Hide leading icon container for chat layout to remove spacing
+    & .rds-comp-toast__leading-icon {
+      display: none !important;
+      width: 0 !important;
+      min-width: 0 !important;
+      max-width: 0 !important;
+    }
+
+    // Adjust header content padding to align with input/footer
+    & .rds-comp-toast__header-content {
+      padding-left: var(--rds-spacing-lg, 1rem) !important;
+      gap: 0 !important;
+    }
+
+    // Align body text with header
+    & .rds-comp-toast__body {
+      padding-left: var(--rds-spacing-lg, 1rem) !important;
+    }
+
+    // Ensure title takes full width and starts from left
+    & .rds-comp-toast__title {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
   }
   
   &__btn {
