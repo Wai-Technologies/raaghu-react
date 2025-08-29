@@ -214,49 +214,41 @@
   // Color variants (prefer design tokens, fallback if needed)
   &--primary {
     background-color: var(--rds-color-primary, #7c3aed);
-    color: var(--rds-background-paper, #ffffff);
     .rds-avatar__ring { border-color: var(--rds-color-primary, #7c3aed); }
     .rds-avatar__dot { background: var(--rds-color-primary, #7c3aed); }
   }
   &--secondary {
     background-color: var(--rds-color-secondary, #a21caf);
-    color: var(--rds-background-paper, #ffffff);
     .rds-avatar__ring { border-color: var(--rds-color-secondary, #a21caf); }
     .rds-avatar__dot { background: var(--rds-color-secondary, #a21caf); }
   }
   &--success {
     background-color: var(--rds-color-success, #34c759);
-    color: var(--rds-background-paper, #ffffff);
     .rds-avatar__ring { border-color: var(--rds-color-success, #34c759); }
     .rds-avatar__dot { background: var(--rds-color-success, #34c759); }
   }
   &--danger {
     background-color: var(--rds-color-error, #ef4444);
-    color: var(--rds-background-paper, #ffffff);
     .rds-avatar__ring { border-color: var(--rds-color-error, #ef4444); }
     .rds-avatar__dot { background: var(--rds-color-error, #ef4444); }
   }
   &--warning {
     background-color: var(--rds-color-warning, #f59e42);
-    color: var(--rds-background-paper, #ffffff);
     .rds-avatar__ring { border-color: var(--rds-color-warning, #f59e42); }
     .rds-avatar__dot { background: var(--rds-color-warning, #f59e42); }
   }
   &--info {
     background-color: var(--rds-color-info, #3b82f6);
-    color: var(--rds-background-paper, #ffffff);
     .rds-avatar__ring { border-color: var(--rds-color-info, #3b82f6); }
     .rds-avatar__dot { background: var(--rds-color-info, #3b82f6); }
   }
   &--light {
     background-color: var(--rds-color-light, #e0e0e0);
-    color: var(--rds-text-primary, #222222);
     .rds-avatar__ring { border-color: var(--rds-color-light, #e0e0e0); }
     .rds-avatar__dot { background: var(--rds-color-light, #e0e0e0); }
   }
   &--dark {
     background-color: var(--rds-color-dark, #22223b);
-    color: var(--rds-background-paper, #ffffff);
     .rds-avatar__ring { border-color: var(--rds-color-dark, #22223b); }
     .rds-avatar__dot { background: var(--rds-color-dark, #22223b); }
   }
