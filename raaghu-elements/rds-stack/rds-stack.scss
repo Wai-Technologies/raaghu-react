@@ -29,3 +29,18 @@
     pointer-events: none;
   }
 }
+
+// Additional selectors targeting MUI's Divider root and its pseudo elements.
+// Sometimes Stack clones or MUI adds its own classes; target the MuiDivider
+// root to ensure the color is applied even if our class is missing.
+.rds-stack .MuiDivider-root,
+.rds-stack .rds-stack__divider {
+  background-color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12)) !important;
+  color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12));
+  border-color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12)) !important;
+}
+
+.rds-stack .MuiDivider-root::before,
+.rds-stack .MuiDivider-root::after {
+  background-color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12)) !important;
+}

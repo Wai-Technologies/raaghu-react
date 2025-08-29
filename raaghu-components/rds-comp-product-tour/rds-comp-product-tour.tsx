@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Paper, IconButton } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { RdsCarousel, RdsBadge, RdsInput, RdsButton, RdsFileUploader } from '../../raaghu-elements';
 import './rds-comp-product-tour.scss';
+
 interface RdsCompProductTourProps {
     state: "Image" | "Carousel" | "GIF" | "Form";
     topLeft?: boolean;
@@ -21,6 +22,7 @@ interface RdsCompProductTourProps {
     formTitle?: string;
     tabTitle?: any[];
 }
+
 const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
     state = "Image",
     topLeft = false,
@@ -29,7 +31,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
     bottomRight = false,
     header,
     description,
-    stepsIndicator = "1/3",
+    stepsIndicator,
     showDismiss = true,
     showPrimaryButton = true,
     showSecondaryButton = true,
@@ -43,22 +45,85 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
     // internal index to track current slide/page
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    // helper to parse stepsIndicator like "1/6"
+    const parseSteps = (s?: string) => {
+        if (!s) return undefined;
+        const m = s.match(/^\s*(\d+)\s*\/\s*(\d+)\s*$/);
+        if (!m) return undefined;
+        return { numerator: parseInt(m[1], 10), total: parseInt(m[2], 10) };
+    };
+
+    const parsedSteps = parseSteps(stepsIndicator);
+    const totalSlides = parsedSteps?.total ?? (slides ? slides.length : 0);
+
+    // build an effective slides array that matches the requested totalSlides:
+    // - if slides.length >= totalSlides: take first totalSlides
+    // - if slides.length < totalSlides: repeat slides cyclically until totalSlides
+    const effectiveSlides = (() => {
+        const s = slides || [];
+        if (totalSlides <= 0) return [];
+        if (s.length === 0) {
+            // no source slides, return placeholders
+            return Array.from({ length: totalSlides }, (_, i) => ({ id: i + 1, imgUrl: '' }));
+        }
+        if (s.length >= totalSlides) return s.slice(0, totalSlides);
+        const res: { id: number; imgUrl: string }[] = [];
+        let i = 0;
+        while (res.length < totalSlides) {
+            const src = s[i % s.length];
+            // clone with a unique id to avoid duplicate-key issues
+            res.push({ id: res.length + 1, imgUrl: src.imgUrl });
+            i += 1;
+        }
+        return res;
+    })();
+
+    // computed indicator string based on effectiveSlides and current index — use parsed total if provided
+    const computedIndicator = `${effectiveSlides && effectiveSlides.length ? currentIndex + 1 : 0}/${totalSlides}`;
+
+    // displayIndicator is what we render — it should update when user navigates
+    // but also reflect external changes when Storybook control updates the prop.
+    const [displayIndicator, setDisplayIndicator] = useState<string>(stepsIndicator ?? computedIndicator);
+
+    // when the prop changes (via Storybook controls), reflect it
+    useEffect(() => {
+        if (stepsIndicator !== undefined) {
+            setDisplayIndicator(stepsIndicator);
+            // if prop provides a numerator, adjust currentIndex to match numerator-1 (bounded)
+            const parsed = parseSteps(stepsIndicator);
+            if (parsed) {
+                const newIndex = Math.max(0, Math.min(parsed.numerator - 1, totalSlides - 1));
+                setCurrentIndex(newIndex);
+            }
+        }
+    }, [stepsIndicator, totalSlides]);
+
+    // when navigation changes currentIndex, update indicator to computed value
+    useEffect(() => {
+        setDisplayIndicator(computedIndicator);
+    }, [currentIndex, effectiveSlides.length]);
+
     const goNext = () => {
-        if (!slides || slides.length === 0) return;
-        setCurrentIndex((i) => (i + 1) % slides.length);
+        if (!effectiveSlides || effectiveSlides.length === 0) return;
+        setCurrentIndex((i) => {
+            const next = i + 1;
+            // wrap around using totalSlides
+            return next % totalSlides;
+        });
     };
 
     const goPrev = () => {
-        if (!slides || slides.length === 0) return;
-        setCurrentIndex((i) => (i - 1 + slides.length) % slides.length);
+        if (!effectiveSlides || effectiveSlides.length === 0) return;
+        setCurrentIndex((i) => {
+            const prev = i - 1;
+            return (prev + totalSlides) % totalSlides;
+        });
     };
 
-    const currentIndicator = `${slides && slides.length ? currentIndex + 1 : 0}/${slides ? slides.length : 0}`;
-    // rds-carousel expects a state prop of '1' | '2' | '3' | '4' (strings)
-    const carouselState = (() => {
-        const val = Math.min(Math.max(currentIndex + 1, 1), 4);
-        return (String(val) as '1' | '2' | '3' | '4');
-    })();
+    const currentIndicator = displayIndicator;
+    // carousel state: forward the current (1-based) slide index as a string so
+    // the carousel can reflect the correct position even when totalSlides > 4.
+    const carouselState = String(currentIndex + 1);
     const renderCornerDots = () => (
         <>
             {topLeft && <Box className="rds-comp-product-tour__corner-dot rds-comp-product-tour__corner-dot--top-left" />}
@@ -178,7 +243,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                 {renderCloseButton()}                
                 {showVisualPlaceholder ? (
                     <Box className="rds-comp-product-tour__image-section">
-                        <img src={slides[currentIndex] ? slides[currentIndex].imgUrl : ""} alt="Tour Step" className="rds-comp-product-tour__image" />
+                        <img src={effectiveSlides[currentIndex] ? effectiveSlides[currentIndex].imgUrl : ""} alt="Tour Step" className="rds-comp-product-tour__image" />
                     </Box>
                 ) : (
                     <Box className="rds-comp-product-tour__image-section" sx={{ height: "220px", background: "transparent" }} />
@@ -200,14 +265,14 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                     <Typography variant="body2" className="rds-comp-product-tour__carousel-desc">{description}</Typography>
                 </Box>
                 <Box className="rds-comp-product-tour__carousel-wrapper">
-                    <RdsCarousel showDots={false} showArrows={false} type="circle" style="default" height="300px" state={carouselState}>
-                        {showVisualPlaceholder ? slides.map((slide, index) => (
+                    <RdsCarousel showDots={false} showArrows={false} type="circle" style="default" height="300px" state={carouselState as unknown as '1' | '2' | '3' | '4' | undefined}>
+                        {showVisualPlaceholder ? effectiveSlides.map((slide, index) => (
                             <img key={index} src={slide.imgUrl} alt={`Slide ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
                         )) : []}
                     </RdsCarousel>
                 </Box>
                 <Box className="rds-comp-product-tour__carousel-dots">
-                    {slides.map((_, idx) => (
+                    {effectiveSlides.map((_, idx) => (
                         <Box key={idx} className={`rds-comp-product-tour__carousel-dot ${idx === currentIndex ? 'rds-comp-product-tour__carousel-dot--active' : ''}`} />
                     ))}
                 </Box>
