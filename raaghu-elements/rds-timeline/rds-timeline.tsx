@@ -1,6 +1,6 @@
 import React from 'react';
-import {
-  Timeline as MuiTimeline,
+import MuiTimeline from '@mui/lab/Timeline';
+import { 
   TimelineItem as MuiTimelineItem,
   TimelineSeparator as MuiTimelineSeparator,
   TimelineConnector as MuiTimelineConnector,
@@ -10,7 +10,6 @@ import {
   TimelineProps
 } from '@mui/lab';
 import './rds-timeline.scss';
-
 export interface RdsTimelineItem {
   id: string | number;
   title: string;
@@ -39,27 +38,10 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
 }) => {
   const timelinePosition = position || (alternating ? 'alternate' : 'right');
 
-  // If children are provided, use them directly (for flexibility like in stories)
-  if (children) {
-    return (
-      <MuiTimeline
-        position={timelinePosition}
-        className={`rds-timeline ${className ?? ''}`}
-        {...props}
-      >
-        {children}
-      </MuiTimeline>
-    );
-  }
-
-  // If items are provided, render using the items structure
-  if (items && items.length > 0) {
-    return (
-      <MuiTimeline
-        position={timelinePosition}
-        className={`rds-timeline ${className ?? ''}`}
-        {...props}
-      >
+  // Only pass safe props to MuiTimeline (avoid ...props which may include ref as string)
+  return (
+    <MuiTimeline position={timelinePosition} {...props}>
+      <>
         {items.map((item, index) => (
           <MuiTimelineItem key={item.id}>
             {showTime && item.time && (
@@ -83,17 +65,8 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
             </MuiTimelineContent>
           </MuiTimelineItem>
         ))}
-      </MuiTimeline>
-    );
-  }
-
-  // Return empty timeline if neither children nor items are provided
-  return (
-    <MuiTimeline
-      position={timelinePosition}
-      className={`rds-timeline ${className ?? ''}`}
-      {...props}
-    />
+      </>
+    </MuiTimeline>
   );
 };
 RdsTimeline.displayName = 'RdsTimeline';
