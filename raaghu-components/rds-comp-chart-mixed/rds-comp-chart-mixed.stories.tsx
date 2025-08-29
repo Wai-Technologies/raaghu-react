@@ -31,7 +31,7 @@ export const Default: Story = {
             {
                 type: "bar",
                 label: "Bar Dataset",
-                data: [0, 37, -12, 70, 35, -32, 85, -24],
+                data: [0, 37, -3, 70, -25, 50, -24],
                 backgroundColor: "rgb(248, 188, 198)",
                 borderColor: "rgb(248, 188, 198)",
                 order: 0
@@ -39,14 +39,14 @@ export const Default: Story = {
             {
                 type: "line",
                 label: "Line Dataset",
-                data: [-10, 18, -60, -90, -44, -91, -83, 46],
+                data: [25, 5, 90, 78, 17, 17, -98],
                 borderColor: "blue",
                 backgroundColor: "blue",
                 order: 1
             }
         ],
 
-        labels: ["January", "February", "March", "April", "May", "June"],
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
 
         options: {
             radius: 10,

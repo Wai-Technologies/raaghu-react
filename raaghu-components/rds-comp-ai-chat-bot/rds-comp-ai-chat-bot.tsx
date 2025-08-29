@@ -113,4 +113,5 @@ const RdsCompAiChatBot = (props: RdsCompAiChatBotProps) => {
     );
 };
 
+RdsCompAiChatBot.displayName = "RdsCompAiChatBot"
 export default RdsCompAiChatBot;

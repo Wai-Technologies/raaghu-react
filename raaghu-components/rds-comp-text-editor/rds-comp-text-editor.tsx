@@ -58,7 +58,7 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
                 setEditorState(EditorState.createWithContent(contentState));
             }
         } else if (props.showTitle) {
-            const contentState = ContentState.createFromText('Enter Description');
+            const contentState = ContentState.createFromText('');
             setEditorState(EditorState.createWithContent(contentState));
         } else {
             setEditorState(EditorState.createEmpty());
@@ -83,10 +83,12 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
         return contentState.getPlainText().trim() === '';
     };    return (
         <>
-            <Label className={`rds-comp-text-editor-label ${props.labelClass || ""}`}>
-                {props.label}
-                {props.isMandatory && <span className="text-danger">*</span>}
-            </Label>
+            {props.showTitle && props.label && (
+                <Label className={`rds-comp-text-editor-label ${props.labelClass || ""}`}>
+                    {props.label}
+                    {props.isMandatory && <span className="text-danger">*</span>}
+                </Label>
+            )}
             <div
                 id={props.id}
                 className={`rds-comp-text-editor ${props.State === "Selected" ? "rds-comp-text-editor--selected" : ""} ${props.State === "Error" ? "rds-comp-text-editor--error" : ""} ${props.State === "Active" ? "rds-comp-text-editor--active" : ""} ${props.State === "Disabled" ? "rds-comp-text-editor--disabled" : ""} ${isResizable ? "rds-comp-text-editor--resizable" : ""}`}

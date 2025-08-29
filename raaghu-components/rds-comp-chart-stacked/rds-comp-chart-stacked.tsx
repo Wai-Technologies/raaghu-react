@@ -29,14 +29,30 @@ const RdsCompStackedChart = (props: RdsCompStackedprops) => {
                     labels: props.labels,
                     datasets: props.dataSets
                 },
-                options: {
-                    ...props.options,
-                    maintainAspectRatio: false,
-                },
+                    options: {
+                        ...props.options,
+                        maintainAspectRatio: false,
+                        scales: {
+                            ...(props.options?.scales || {}),
+        // ...existing code...
+                            x: {
+                                ...(props.options?.scales?.x || {}),
+                                offset: true,
+                                    categoryPercentage: 0.1,
+                                    barPercentage: 0.1,
+                                ticks: {
+                                    ...(props.options?.scales?.x?.ticks || {}),
+                                    padding: 20,
+                                    align: 'center',
+                                },
+                            },
+        // ...existing code...
+                        },
+                    },
             });
 
             if (chartRef.current !== null) {
-                chartRef.current.canvas.style.height = "60vh";
+                chartRef.current.canvas.style.height = "86vh";
             }
         }
 

@@ -28,13 +28,13 @@ const RdsCompLineChart = (props: RdsComplineprops) => {
             
             if (lineCanvas !== null) {
                 if (props.id === "linechart1") {
-                    lineCanvas.canvas.style.height = "7.1vh";
+                    lineCanvas.canvas.style.height = "65vh";
                     lineCanvas.canvas.style.width = "100vh";
                 } else if (props.id === "linechart2") {
                     lineCanvas.canvas.style.height = "50px";
                     lineCanvas.canvas.style.width = "50px";
                 } else {
-                    lineCanvas.canvas.style.height = "35.4vh";
+                    lineCanvas.canvas.style.height = "76vh";
                     lineCanvas.canvas.style.width = "100vh";
                 }
             }

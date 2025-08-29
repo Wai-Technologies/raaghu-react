@@ -31,7 +31,7 @@ const RdsCompScatterChart = (props: RdsCompScatterChartProps) => {
             });
 
             if(chartRef.current !== null) {
-                chartRef.current.canvas.style.height = "50vh";
+                chartRef.current.canvas.style.height = "76vh";
                 chartRef.current.canvas.style.width = "100vh";
             }
         }

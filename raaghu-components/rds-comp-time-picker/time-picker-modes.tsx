@@ -73,7 +73,7 @@ export const CompactTimePicker: React.FC<CompactTimePickerProps> = ({
         <span
           className="time-control down"
           onClick={() => setTempPeriod(tempPeriod === 'AM' ? 'PM' : 'AM')}
-        >▼</span>
+        ></span>
       </div>
     </div>
   );

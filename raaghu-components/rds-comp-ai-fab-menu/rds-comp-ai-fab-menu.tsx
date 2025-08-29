@@ -129,4 +129,5 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
     );
 };
 
+RdsCompAiFabMenu.displayName = "RdsCompAiFabMenu"
 export default RdsCompAiFabMenu;

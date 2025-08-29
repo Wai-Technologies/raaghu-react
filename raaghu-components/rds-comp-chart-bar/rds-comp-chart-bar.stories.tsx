@@ -30,7 +30,7 @@ export const BorderRadius: Story = {
         dataSets: [
             {
                 label: "Fully Radius",
-                data: [20, 30, 50, 80, 98, 95, 55],
+                data: [48, 45, 65, 48, 55, 80, 92],
                 backgroundColor: "rgba(75, 192, 192, 1)",
                 borderColor: "rgba(75, 192, 192, 1)",
                 borderWidth: 2,
@@ -39,7 +39,7 @@ export const BorderRadius: Story = {
             },
             {
                 label: "Small Radius",
-                data: [15, 67, 34, 78, 45, 87, 76],
+                data: [48, 55, 65, 90, 45, 65, 65],
                 backgroundColor: "rgba(54, 162, 235, 1)",
                 borderColor: "rgba(54, 162, 245, 1)",
                 borderWidth: 2,
@@ -67,12 +67,13 @@ export const BorderRadius: Story = {
 export const Horizontal: Story = {
     args: {
         id: 1,
+        height: "400px",
         dataSets: [
             {
                 label: "Dataset 1",
                 data: [20, 30, 50, 80, 98, 95, 55],
                 backgroundColor: "rgba(75, 192, 192, 1)",
-                borderColor: "rgba(75, 192, 192, 1)"
+                
             },
             {
                 label: "Dataset 2",
@@ -94,7 +95,9 @@ export const Horizontal: Story = {
             indexAxis: "y",
             elements: {
                 bar: {
-                    borderWidth: 2,
+                    borderWidth: 0,
+                        categoryPercentage: 0.5,
+                        barPercentage: 0.3,
                 }
             },
             layout: {
@@ -134,18 +137,18 @@ export const PerformanceStacked: Story = {
         dataSets: [
             {
                 label: "Productive",
-                data: [20, 30, 10, 15, 98, 45, 15, 20, 0, 20, 50, 98, 85, 35],
+                data: [15, 30, 30, 15, 60, 15, 65, 35, 65, 27, 50, 15, 20, 69],
                 backgroundColor: "rgba(111, 206, 250, 1)",
                 // borderColor: "rgba(75, 192, 192, 1)"
             },
             {
                 label: "Unproductive",
-                data: [15, 47, 34, 78, 45, 17, 46, 15, 0, 34, 38, 45, 57, 26],
+                data: [10, 27, 27, 10, 20, 45, 15, 15, 20, 8, 38, 30, 57, 8],
                 backgroundColor: "rgba(243, 123, 135, 1)",
             },
             {
                 label: "Neutral",
-                data: [31, 52, 43, 91, 14, 23, 36, 31, 0, 43, 21, 74, 23, 46],
+                data: [25, 12, 12, 5, 10, 10, 10, 10, 10, 43, 21, 15, 8, 18],
                 backgroundColor: "rgba(228, 228, 228, 1)",
             }
         ],
@@ -195,18 +198,18 @@ export const Stacked: Story = {
         dataSets: [
             {
                 label: "Dataset 1",
-                data: [20, 30, 50, 80, 98, 95, 55],
+                data: [50, 80, 80, 50, 175, 60, 220],
                 backgroundColor: "rgba(75, 192, 192, 1)",
                 borderColor: "rgba(75, 192, 192, 1)"
             },
             {
                 label: "Dataset 2",
-                data: [15, 67, 34, 78, 45, 87, 76],
+                data: [20, 80, 80, 30, 100, 125, 35],
                 backgroundColor: "rgba(54, 162, 235, 1)",
             },
             {
                 label: "Dataset 3",
-                data: [31, 52, 43, 91, 74, 93, 76],
+                data: [80, 50, 50, 20, 50, 25, 20],
                 backgroundColor: "rgba(255, 159, 64, 1)",
             }
         ],
@@ -239,18 +242,18 @@ export const Vertical: Story = {
         dataSets: [
             {
                 label: "Dataset 1",
-                data: [20, 30, 50, 80, 98, 95, 55],
+                data: [80, 50, 75, 70, 80, 90, 100],
                 backgroundColor: "rgba(75, 192, 192, 1)",
                 borderColor: "rgba(75, 192, 192, 1)"
             },
             {
                 label: "Dataset 2",
-                data: [15, 67, 34, 78, 45, 87, 76],
+                data: [40, 67, 55, 100, 45, 70, 76],
                 backgroundColor: "rgba(54, 162, 235, 1)",
             },
             {
                 label: "Dataset 3",
-                data: [31, 52, 43, 91, 74, 93, 76],
+                data: [100, 92, 30, 70, 68, 50, 100],
                 backgroundColor: "rgba(255, 159, 64, 1)",
             }
         ],

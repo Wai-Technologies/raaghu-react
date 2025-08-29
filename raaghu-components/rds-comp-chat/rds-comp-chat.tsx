@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import "./rds-comp-chat.scss";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
 import { 
@@ -9,8 +9,8 @@ import {
   MoreVertOutlined as MoreIcon 
 } from "@mui/icons-material";
 import RdsInput from "../../raaghu-elements/rds-input/rds-input";
-import RdsCompNavtabs from "../rds-comp-navtabs/rds-comp-navtabs";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
+import Box from "@mui/material/Box";
 import { startCamera, stopCamera, capturePhoto, Comment, updateState, onUserSelect, addComment, handleAddComment as handleAddCommentUtil, handleImageUpload as handleImageUploadUtil } from "./rds-comp-chat-utils";
 
 export interface UserData {
@@ -42,7 +42,7 @@ export interface RdsCompChatProps {
 const RdsCompChat = (props: RdsCompChatProps) => {
   const {
     currentUserCommentBgColor = "#7825E9",
-    currentUserCommentTextColor = "FEF7FF",
+    currentUserCommentTextColor = "#FEF7FF",
     otherUserCommentBgColor = "#D6D6D6",
     OtherUserCommentTextColor = "#202020",
   } = props;
@@ -59,6 +59,7 @@ const RdsCompChat = (props: RdsCompChatProps) => {
   });
 
   const [currentUser, setCurrentUser] = useState(props.userData[0]);
+  const [activeTab, setActiveTab] = useState<"chat" | "media">("chat");
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const emojiButtonRef = useRef<HTMLSpanElement>(null);
@@ -90,10 +91,16 @@ const RdsCompChat = (props: RdsCompChatProps) => {
     handleImageUploadUtil(event, currentUser, (comment: Comment) => addComment(comment, state, updateStateFn, props.handleAddComment));
   };
 
-  const navTabsItems = [
-    { id: "chat", label: "Chat", tablink: "#nav-chat" },
-    { id: "media", label: "Media", tablink: "#nav-media" }
-  ];
+  const mediaItems = useMemo(() => {
+    const items: { type: "image" | "video"; src: string; comment?: Comment }[] = [];
+    props.userData.forEach(user => {
+      user.comments?.forEach(c => {
+        if (c.image) items.push({ type: "image", src: c.image, comment: c });
+        if (c.video) items.push({ type: "video", src: c.video, comment: c });
+      });
+    });
+    return items;
+  }, [props.userData]);
 
   return (
     <div className="rds-comp-chat">
@@ -102,20 +109,20 @@ const RdsCompChat = (props: RdsCompChatProps) => {
           <div className="rds-comp-chat__screen-header">
             <div className="rds-comp-chat__screen-header-title">Chat</div>
             <div className="rds-comp-chat__screen-header-icon">
-              <span style={{ marginRight: "9px" }}><FilterIcon /></span>
+              <span className="rds-comp-chat__screen-header-icon-filter"><FilterIcon /></span>
               <span><ChatIcon /></span>
             </div>
           </div>
           <div className="rds-comp-chat__screen-main">
             {props.userData.map((item, index) => (
-              <div
+              <Box
                 key={index}
-                className={`d-flex align-items-center justify-content-between my-2 mx-1 p-2 rds-comp-chat__user-item ${
-                  state.selectedIndex === index ? "rds-comp-chat__user-item--selected" : ""
-                }`}
+                component="div"
+                className={`rds-comp-chat__user-item ${state.selectedIndex === index ? "rds-comp-chat__user-item--selected" : ""}`}
+                sx={{ position: "relative" }}
                 onClick={() => handleUserSelect(index)}
               >
-                <div className="d-flex align-items-center">
+                <div className="rds-comp-chat__user-item-inner">
                   <RdsAvatar
                     alt="User Avatar"
                     subText="Designation"
@@ -126,18 +133,20 @@ const RdsCompChat = (props: RdsCompChatProps) => {
                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
                   />
                 </div>
-                <div className="text-muted" style={{ fontSize: "12px" }}>
+                <div
+                  className="rds-comp-chat__user-time text-muted rds-comp-chat__user-time--absolute"
+                >
                   {item.time}
                 </div>
-              </div>
+              </Box>
             ))}
           </div>
         </div>
       )}
       
       <div className={`rds-comp-chat__window ${!props.isChatScreenEnabled ? "rds-comp-chat__window--full-width" : ""}`}>
-        <div className="rds-comp-chat__window-header d-md-flex">
-          <div className="rds-comp-chat__window-header-title d-flex align-items-center">
+        <div className="rds-comp-chat__window-header">
+          <div className="rds-comp-chat__window-header-title">
             <RdsAvatar
               alt="User Avatar"
               subText="Designation"
@@ -148,40 +157,74 @@ const RdsCompChat = (props: RdsCompChatProps) => {
               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
             />
           </div>
-          <div className="rds-comp-chat__window-header-options justify-content-between">
-            <span>
-              <RdsCompNavtabs layout="Horizontal" type="tabs" id="chat" activeNavTabId="chat" navtabsItems={navTabsItems} />
-            </span>
-            <span><MoreIcon /></span>
+          <div className="rds-comp-chat__window-header-options">
+            <nav className="nav-tabs" role="tablist" aria-label="Chat Tabs">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activeTab === "chat"}
+                className={`nav-link ${activeTab === "chat" ? "active" : ""}`}
+                onClick={() => setActiveTab("chat")}
+              >
+                Chat
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activeTab === "media"}
+                className={`nav-link ${activeTab === "media" ? "active" : ""}`}
+                onClick={() => setActiveTab("media")}
+              >
+                Media
+              </button>
+            </nav>
+            <span className="rds-comp-chat__window-header-more"><MoreIcon /></span>
           </div>
         </div>
         
         <div className="rds-comp-chat__window-main">
-          {state.commentList.map((comment, index) => {
-            const isCurrentUser = comment.firstName === currentUser.firstName && comment.lastName === currentUser.lastName;
-            return (
-              <div key={index} className={`comment-box rds-comp-chat__message ${ isCurrentUser ? "rds-comp-chat__message--current-user" : "rds-comp-chat__message--other-user" }`}
-              >
-                <div className={`d-flex ${isCurrentUser ? "flex-row-reverse" : ""}`}>
-                  <div
-                    className="rds-comp-chat__comment-content"
-                    style={{
-                      backgroundColor: isCurrentUser ? currentUserCommentBgColor : otherUserCommentBgColor,
-                      color: isCurrentUser ? currentUserCommentTextColor : OtherUserCommentTextColor,
-                    }}
-                  >
-                    <div className="comment-text">
-                      {comment.comment}
-                      {comment.image && <img src={comment.image} alt="uploaded" className="rds-comp-chat__comment-image" />}
-                      {comment.video && <video src={comment.video} controls className="rds-comp-chat__comment-video" />}
+          {activeTab === "chat" ? (
+            <>
+              {state.commentList.map((comment, index) => {
+                const isCurrentUser = comment.firstName === currentUser?.firstName && comment.lastName === currentUser?.lastName;
+                return (
+                  <div key={index} className={`comment-box rds-comp-chat__message ${ isCurrentUser ? "rds-comp-chat__message--current-user" : "rds-comp-chat__message--other-user" }`}>
+                    <div className={`rds-comp-chat__message-row ${isCurrentUser ? "rds-comp-chat__message-row--reverse" : ""}`}>
+                      <Box
+                        component="div"
+                        className="rds-comp-chat__comment-content"
+                        sx={{
+                          backgroundColor: isCurrentUser ? currentUserCommentBgColor : otherUserCommentBgColor,
+                          color: isCurrentUser ? currentUserCommentTextColor : OtherUserCommentTextColor,
+                        }}
+                      >
+                        <div className="comment-text">
+                          {comment.comment}
+                          {comment.image && <img src={comment.image} alt="uploaded" className="rds-comp-chat__comment-image" />}
+                          {comment.video && <video src={comment.video} controls className="rds-comp-chat__comment-video" />}
+                        </div>
+                      </Box>
                     </div>
                   </div>
+                );
+              })}
+              {currentUser?.messageStatus && (
+                <div className="rds-comp-chat__message-status">{currentUser.messageStatus}</div>
+              )}
+            </>
+          ) : (
+            <div className="rds-comp-chat__media-grid" role="region" aria-label="Media gallery">
+              {mediaItems.length === 0 && <div className="text-muted">No media available</div>}
+              {mediaItems.map((m, i) => (
+                <div className="rds-comp-chat__media-item" key={i}>
+                  {m.type === "image" ? (
+                    <img src={m.src} alt={`media-${i}`} className="rds-comp-chat__comment-image" />
+                  ) : (
+                    <video src={m.src} controls className="rds-comp-chat__comment-video" />
+                  )}
                 </div>
-              </div>
-            );
-          })}
-          {currentUser.messageStatus && (
-            <div className="text-muted float-end me-2">{currentUser.messageStatus}</div>
+              ))}
+            </div>
           )}
         </div>
         
@@ -191,22 +234,55 @@ const RdsCompChat = (props: RdsCompChatProps) => {
               {/* <Picker onEmojiClick={onEmojiClick} /> */}
             </div>
           )}
-          <span className="me-2 mt-2">
-            <RdsButton color="primary" changeLeftIcon='add'
-              showLeftIcon layout="icon-only" style="filled" />
-          </span>
-          <input id="fileUpload" type="file" accept="image/*" style={{ display: "none" }} onChange={handleImageUpload} />
-          <span className="me-2 mt-2" ref={emojiButtonRef}>
-            <EmojiIcon onClick={() => updateStateFn({ showEmojiPicker: !state.showEmojiPicker })} />
-          </span>
-          <span className="w-100 d-flex input-box-chat">
-            <span className="w-100 position-relative rds-comp-chat__input-send mt-2">
-              <RdsInput layout="text" placeholder="Type comment..." showTitle={false} size="small" onChange={(e) => updateStateFn({ commentText: e.target.value })} />
-              <span className="position-absolute end-0 top-50 translate-middle-y pe-2 pb-2">
-                <SendIcon onClick={handleAddComment} />
-              </span>
+
+          <div className="rds-comp-chat__footer-left">
+            <RdsButton
+              color="primary"
+              changeLeftIcon="add"
+              showLeftIcon
+              layout="icon-only"
+              style="filled"
+              onClick={() => document.getElementById("fileUpload")?.click()}
+            />
+            <input
+              id="fileUpload"
+              className="rds-comp-chat__file-input"
+              type="file"
+              accept="image/*,video/*"
+              onChange={handleImageUpload}
+            />
+            <span className="rds-comp-chat__emoji-btn" ref={emojiButtonRef} onClick={() => updateStateFn({ showEmojiPicker: !state.showEmojiPicker })}>
+              <EmojiIcon />
             </span>
-          </span>
+          </div>
+          <div className="rds-comp-chat__footer-center">
+            <div className="rds-comp-chat__input-send">
+              <div className="rds-comp-chat__input-wrapper">
+                <RdsInput
+                  className="rds-comp-chat__rds-input"
+                  layout="text"
+                  placeholder="Type comment..."
+                  size="small"
+                  value={state.commentText}
+                  onChange={(e) => updateStateFn({ commentText: e.target.value })}
+                  onKeyDown={(e: React.KeyboardEvent) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      handleAddComment();
+                    }
+                  }}
+                />
+                <button
+                  type="button"
+                  className="rds-comp-chat__send-icon"
+                  onClick={handleAddComment}
+                  aria-label="Send"
+                >
+                  <SendIcon />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -228,7 +304,7 @@ const RdsCompChat = (props: RdsCompChatProps) => {
             Capture Photo
           </button>
           <button onClick={() => { updateStateFn({ showCamera: false }); stopCamera(videoRef); }}>Close</button>
-          <canvas ref={canvasRef} style={{ display: "none" }} />
+          <canvas ref={canvasRef} className="rds-comp-chat__canvas-hidden" />
         </div>
       )}
     </div>
