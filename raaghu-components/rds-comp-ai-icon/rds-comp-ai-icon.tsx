@@ -193,4 +193,5 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
   return null;
 };
 
+RdsCompAiIcon.displayName = "RdsCompAiIcon"
 export default RdsCompAiIcon;
