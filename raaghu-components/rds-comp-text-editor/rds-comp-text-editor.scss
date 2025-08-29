@@ -73,7 +73,7 @@
   .rdw-editor-toolbar,
   .rds-comp-text-editor__toolbar {
     border-color: var(--rds-color-border-light, #ddd);
-    background-color: var(--rds-color-surface-variant, #f8f9fa);
+    background-color: var(--rds-color-surface-variant, rgb(231 231 231));
     border-radius: var(--rds-border-radius, 2px) var(--rds-border-radius, 2px) 0 0;
     padding: var(--rds-spacing-xs, 6px);
     border-bottom: 1px solid var(--rds-color-border, #ccc);
