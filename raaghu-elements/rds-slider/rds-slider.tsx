@@ -50,6 +50,12 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   const [sliderValue, setSliderValue] = React.useState<number | number[]>(getInitialValue());
 
   React.useEffect(() => {
+    // Handle external value changes
+    if (value !== undefined && value !== sliderValue) {
+      setSliderValue(value);
+      return;
+    }
+
     // Handle level-based values
     if (level && typeof level === 'number' && level >= 1 && level <= 5) {
       const percent = (level - 1) * 25;
@@ -79,7 +85,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
       const average = (sliderValue[0] + sliderValue[1]) / 2;
       setSliderValue(average);
     }
-  }, [level, value, min, max, controlType, isRangeSlider]);
+  }, [level, value, min, max, controlType, isRangeSlider, sliderValue]);
 
   const formatValue = (val: number | number[]) => {
     if (Array.isArray(val)) {
