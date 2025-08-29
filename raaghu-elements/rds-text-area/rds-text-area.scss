@@ -4,7 +4,7 @@
 .rds-textarea-container {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 3px;
   margin-bottom: 16px;
 
   .textarea-label {
@@ -110,5 +110,13 @@
         border-bottom: 3px solid var(--rds-error-main, #BD0D1D) !important;
       }
     }
+  }
+
+  // Error message styling
+  .error-message {
+    font-size: var(--rds-font-size-sm, 13px);
+    color: var(--rds-error-main, #BD0D1D);
+    font-family: var(--rds-font-family-base, Poppins);
+    font-weight: 400;
   }
 }
