@@ -7,22 +7,9 @@ const meta: Meta<typeof RdsDivider> = {
   component: RdsDivider,
   parameters: {
     layout: 'padded',
-      docs: {
-      source: { type: 'dynamic' },
-      story: { inline: false },
-      page: null // Use autodocs default page
-    }
   },
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <Box sx={{ p: 2 }}>
-        <Typography>Content above divider</Typography>
-        <Story />
-        <Typography>Content below divider</Typography>
-      </Box>
-    ),
-  ],
+
   argTypes: {
     layout: {
       control: 'select',
