@@ -73,8 +73,8 @@ const RdsCompGaugeChart = (props: RdsCompGaugeprops) => {
             });
 
             if (gaugeCanvas !== null) {
-                gaugeCanvas.canvas.style.width = "35vh";
-                gaugeCanvas.canvas.style.height = "25vh";
+                gaugeCanvas.canvas.style.width = "45vh";
+                gaugeCanvas.canvas.style.height = "45vh";
             }
 
             return () => {

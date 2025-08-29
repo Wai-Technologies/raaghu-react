@@ -39,8 +39,8 @@
 
     // Color variants
     &--primary {
-      background-color: var(--rds-color-primary);
-      color: var(--rds-color-on-primary);
+      background-color: var(--rds-color-primary,#1976d2);
+      color: var(--rds-color-on-primary,#ffffff);
     }
 
     &--secondary {
@@ -226,7 +226,8 @@
 
   // Dropdown container
   &__dropdown-container {
-    position: absolute;
+    display: none;
+    // position: absolute;
     top: 100%;
     z-index: 1000;
     margin-top: var(--rds-spacing-sm, 8px);
@@ -239,6 +240,15 @@
     &--right {
       right: 0;
     }
+  }
+
+  &__dropdown-container--open {
+    display: block;
+  }
+
+  // When button has no background, adjust dropdown position
+  .rds-fab-menu__button--none + .rds-fab-menu__dropdown-container--open {
+    margin-top: var(--rds-spacing-sm, -8px);
   }
 
   // Dropdown menu

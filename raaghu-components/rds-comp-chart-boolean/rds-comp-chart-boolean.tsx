@@ -50,8 +50,8 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
             });
 
             if (boolCanvas !== null) {
-                boolCanvas.canvas.style.height = "14.2vh";
-                boolCanvas.canvas.style.width = "14.2vh";
+                boolCanvas.canvas.style.height = "20vh";
+                boolCanvas.canvas.style.width = "20vh";
             }
             return () => {
                 boolCanvas.destroy();

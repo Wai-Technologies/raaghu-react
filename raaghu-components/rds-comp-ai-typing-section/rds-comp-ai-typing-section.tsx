@@ -148,7 +148,6 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
         <div className={`rds-comp-ai-chat-bot__actions${ isMobile ? " rds-comp-ai-chat-bot__actions--mobile" : "" }`}>
           <div className="rds-comp-ai-chat-bot__action-icons">
             <div className="rds-comp-ai-chat-bot__attach" id="Premium">
-              <button>
                 <RdsCompAiAttachement
                   badgeColor="success"
                   badgeLabel="Premium"
@@ -163,8 +162,8 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
                   onFileSelect={handleFileSelect}
                   showBadge
                   uploadText="Upload From Figma"
+                  menuAlignment="right"
                 />
-              </button>
             </div>
             <div className="rds-comp-ai-chat-bot__send">
               <RdsButton

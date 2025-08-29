@@ -41,7 +41,7 @@ const RdsCompAreaChart = (props: lineprops) => {
 
         chartRef.current = AreaCanvas;
 
-        AreaCanvas.canvas.style.height ="50vh";
+        AreaCanvas.canvas.style.height ="76vh";
         AreaCanvas.canvas.style.width = "100vh";
 
         
