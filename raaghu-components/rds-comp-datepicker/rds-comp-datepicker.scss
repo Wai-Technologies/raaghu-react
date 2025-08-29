@@ -199,6 +199,10 @@
   &__calendar-icon {
     width: 20px;
     height: 20px;
+    color: var(--rds-color-placeholder, #6c757d);
+    fill: currentColor;
+    opacity: 1;
+    display: inline-block;
   }
   
   &__arrow-icon {
