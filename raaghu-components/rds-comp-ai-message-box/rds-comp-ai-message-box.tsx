@@ -34,5 +34,5 @@ const RdsCompAiMessageBox = (props: RdsCompAiMessageBoxProps) => {
     </div>
   );
 };
-
+RdsCompAiMessageBox.displayName = "RdsCompAiMessageBox";
 export default RdsCompAiMessageBox;

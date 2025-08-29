@@ -50,7 +50,7 @@ export const Default: Story = {
         dataSets: [
             {
                 label: "Dataset 1",
-                data: [20, 10, 20, 40, 10],
+                data: [15, 25, 20, 15, 25],
                 backgroundColor: [
                     "#ff6384",
                     "#ff9f40",
@@ -64,7 +64,7 @@ export const Default: Story = {
             }
         ],
 
-       
+    
     }
 } satisfies Story;
 

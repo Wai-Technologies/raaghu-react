@@ -22,4 +22,5 @@ const RdsCompAiGradientTextWithIcon = (props: RdsCompAiGradientTextProps) => {
   );
 };
 
+RdsCompAiGradientTextWithIcon.displayName = "RdsCompAiGradientTextWithIcon"
 export default RdsCompAiGradientTextWithIcon;
