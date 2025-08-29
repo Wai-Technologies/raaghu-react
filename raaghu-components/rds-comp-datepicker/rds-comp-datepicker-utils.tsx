@@ -21,9 +21,9 @@ export const ExampleCustomInput = forwardRef(({ value, onClick, changeIcon }: an
         <span>Custom</span>
         <span>
             {changeIcon === "dashboard_settings" ? (
-                <SettingsIcon />
+                <SettingsIcon className="rds-datepicker__calendar-icon" />
             ) : (
-                <CalendarMonthIcon />
+                <CalendarMonthIcon className="rds-datepicker__calendar-icon" />
             )}
         </span>
     </li>
