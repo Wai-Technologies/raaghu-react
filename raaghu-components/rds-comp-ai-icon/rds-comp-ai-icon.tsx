@@ -140,6 +140,7 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
   const modifierClasses = [
     props.classes,
     props.isCursorPointer ? `${rootClass}--cursor` : undefined,
+    props.colorVariant ? `${rootClass}--${props.colorVariant}` : undefined,
   ]
     .filter(Boolean)
     .join(" ");

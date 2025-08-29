@@ -56,7 +56,7 @@
       font-weight: var(--rds-font-weight-medium, 500);
       color: var(--rds-color-on-surface, #353535);
       font-family: var(--rds-font-family, Poppins);
-      font-size: var(--rds-font-size-body, 16px);
+      font-size: var(--rds-font-size-body, 14px);
       line-height: var(--rds-line-height-body, 16px);
     }
     
@@ -66,7 +66,7 @@
     }
     
     &--muted-placeholder::placeholder {
-      color: var(--rds-color-text-secondary, #6c757d);
+      color: var(--text-txt-neutral-light-default, #969696);
       opacity: 1;
     }
   }
@@ -105,27 +105,14 @@
   
   // Attach button
   &__attach {
-    display: flex;
-    align-items: center;
-    
-    button {
-      background: none;
-      border: none;
-      padding: 0;
-      box-shadow: none;
-      cursor: pointer;
-      color: var(--rds-color-text-secondary, #6c757d);
-      transition: color 0.2s ease;
-      
-      &:hover {
-        color: var(--rds-color-primary, #C6A2F6);
-      }
-      
-      &:focus-visible {
-        outline: 2px solid var(--rds-color-primary, #C6A2F6);
-        outline-offset: 2px;
-        border-radius: var(--rds-border-radius-sm, 2px);
-      }
+    position: relative;
+
+    .rds-fab-menu__dropdown-container {
+      position: absolute;
+      // bottom: 100%;
+      right: 0;
+      top: auto !important; // Override default positioning
+      margin-bottom: var(--rds-spacing-sm, 8px);
     }
   }
   
@@ -155,4 +142,3 @@
     display: flex;
   }
 }
- 

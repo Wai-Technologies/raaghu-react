@@ -90,6 +90,13 @@ export const useFileUploader = ({
     setFiles(updatedFiles);
     onFilesChange?.(updatedFiles);
     setMandatoryError(isMandatory && updatedFiles.length === 0 ? 'File is required.' : null);
+
+    if (updatedFiles.length > 0) {
+      const names = updatedFiles.map(fwp => fwp.file.name).join(', ');
+      setSelectedFileName(names);
+    } else {
+      setSelectedFileName(null);
+    }
   };
 
   const removeFile = (index: number) => {
@@ -97,10 +104,23 @@ export const useFileUploader = ({
     setFiles(updatedFiles);
     onFilesChange?.(updatedFiles);
     setMandatoryError(isMandatory && updatedFiles.length === 0 ? 'File is required.' : null);
+
+    if (updatedFiles.length === 0) {
+      setSelectedFileName(null);
+    } else {
+      const names = updatedFiles.map(fwp => fwp.file.name).join(', ');
+      setSelectedFileName(names);
+    }
   };
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = Array.from(event.target.files || []);
+    const incoming = event.target.files as any;
+    const selectedFiles: File[] = Array.isArray(incoming) ? incoming : Array.from(incoming || []);
+    if (selectedFiles.length === 0) return;
+
+    const fileNames = selectedFiles.map(file => file.name).join(', ');
+    setSelectedFileName(fileNames);
+
     addFiles(selectedFiles);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
@@ -123,16 +143,14 @@ export const useFileUploader = ({
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
-    const fileNames = Array.from(files).map(file => file.name).join(', ');
+    const selectedFiles = Array.from(e.target.files || []);
+    if (!selectedFiles || selectedFiles.length === 0) return;
+    const fileNames = selectedFiles.map(file => file.name).join(', ');
     setSelectedFileName(fileNames);
-    if (onFilesChange) {
-      const fileWithProgressArray: FileWithProgress[] = Array.from(files).map(file => ({
-        file, progress: 0,
-      }));
-      onFilesChange(fileWithProgressArray);
-    }
+
+    addFiles(selectedFiles);
+
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const openFileDialog = () => fileInputRef.current?.click();
@@ -183,7 +201,7 @@ export const RdsDropZoneSideIcon: React.FC<RdsDropZoneSideIconProps> = ({
     >
       <Box className="rds-file-uploader__side-content">
         <Typography className="rds-file-uploader__title rds-file-uploader__title--left" variant="h6" gutterBottom>
-          Drag and Drop files or <span className="rds-file-uploader__browse-link rds-file-uploader__browse-link--left" onClick={openFileDialog}>Browse</span>
+          Drag and Drop files or <span className="rds-file-uploader__browse-link rds-file-uploader__browse-link--left" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }}>Browse</span>
         </Typography>
         <Typography className="rds-file-uploader__info rds-file-uploader__info--left" variant="caption">
           (PNG, JPG, DOC, PDF, PPT)
@@ -263,7 +281,7 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
     >
       <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: 'var(--rds-neutral-main, #7D7D7D)' }} />
       <Typography className="rds-file-uploader__title" variant="h6" gutterBottom>
-        Drag and Drop files or <span className="rds-file-uploader__browse-link" onClick={openFileDialog}>Browse</span>
+        Drag and Drop files or <span className="rds-file-uploader__browse-link" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }}>Browse</span>
       </Typography>
       <Typography className="rds-file-uploader__info" variant="caption" color="text.secondary">
         (PNG, JPG, DOC, PDF, PPT)

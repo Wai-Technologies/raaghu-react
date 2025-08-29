@@ -23,6 +23,7 @@ export interface RdsCompAiAttachementProps {
     onFileSelect?: (file: File) => void;
     onFigmaSubmit?: (value: string) => void;
     handleAddComment?: (comment: Comment) => void;
+    menuAlignment?: "left" | "right";
 }
 
 export interface UserData {
@@ -115,7 +116,7 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
                     backgroundType="none"
                     id="attachment-text"
                     isShowBorder={true}
-                    alignment="right"
+                    alignment={props.menuAlignment || "left"}
                     listItems={[
                         {
                             key: "new",
@@ -133,7 +134,7 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
                                     data-bs-toggle="modal"
                                     data-bs-target="#modal1234"
                                 >
-                                    <span>{props.uploadText}</span>
+                                    <span className="rds-comp-ai-attachement__upload-text">{props.uploadText}</span>
                                     {props.showBadge && (
                                         <RdsBadge
                                             colorVariant="primary"

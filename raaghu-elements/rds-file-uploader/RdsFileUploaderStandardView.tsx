@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Typography, Button, IconButton } from '@mui/material'
-
+import { Box, Typography, Button, IconButton } from '@mui/material';
 
 interface RdsFileUploaderStandardViewProps {
   showTitle: boolean;
@@ -14,9 +13,9 @@ interface RdsFileUploaderStandardViewProps {
   multiple: boolean;
   showPreview: boolean;
   selectedFileName: string | null;
-  handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleFileSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setSelectedFileName: (name: string | null) => void;
-  setFiles: (files: any[]) => void;
+  setFiles: React.Dispatch<React.SetStateAction<any[]>>;
   onFilesChange?: (files: any[]) => void;
   children?: React.ReactNode;
   title?: string;
@@ -34,7 +33,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
   multiple,
   showPreview,
   selectedFileName,
-  handleFileChange,
+  handleFileSelect,
   setSelectedFileName,
   setFiles,
   onFilesChange,
@@ -42,10 +41,9 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
   title
 }) => {
   const [internalDragOver, setInternalDragOver] = React.useState(false);
-  // Use internalDragOver if you want to manage drag state locally, otherwise use isDragOver from props
+
   return (
     <Box className="rds-file-uploader__standard" sx={{ width: '100%' }}>
-      {/* Title row */}
       {showTitle && (
         <Box className="rds-file-uploader__title-row">
           <Typography className="rds-file-uploader__title" variant="body1" sx={{ fontWeight: 500 }}>
@@ -53,7 +51,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
           </Typography>
         </Box>
       )}
-      {/* Input row */}
+
       <Box
         className={`rds-file-uploader__input-row${isDragOver && dragAndDrop ? ' rds-file-uploader__input-row--drag-over' : ''}${disabled ? ' rds-file-uploader__input-row--disabled' : ''}`}
         sx={{
@@ -64,7 +62,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
         }}
         onDragOver={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(true); } : undefined}
         onDragLeave={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); } : undefined}
-        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); const droppedFiles = Array.from(e.dataTransfer.files); handleFileChange({ target: { files: droppedFiles } } as any); } : undefined}
+        onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); const droppedFiles = Array.from(e.dataTransfer.files); handleFileSelect({ target: { files: droppedFiles } } as any); } : undefined}
       >
         <Button
           variant="contained"
@@ -85,7 +83,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
             hidden
             multiple={multiple}
             disabled={disabled}
-            onChange={handleFileChange}
+            onChange={handleFileSelect}
           />
         </Button>
         <Typography
@@ -97,7 +95,6 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
             ? (selectedFileName ? selectedFileName : 'No file chosen')
             : 'No file chosen'}
         </Typography>
-        {/* Delete icon for removing selected file (only if file is selected and showPreview is true) */}
         {showPreview && selectedFileName && (
           <IconButton
             className="rds-file-uploader__file-remove"
@@ -111,13 +108,11 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
             disabled={disabled}
             sx={{ ml: 1 }}
           >
-            {/* Custom SVG Delete Icon */}
-          {children}
-            {/* </svg> */}
+            {children}
           </IconButton>
         )}
       </Box>
-      {/* Hint row: always rendered, styled like title row, right aligned */}
+
       <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mt: 1, minHeight: 20, marginLeft: '10px' }}>
         <Typography
           className="rds-file-uploader__hint"
@@ -127,7 +122,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
           {showHint ? hintText : '\u00A0'}
         </Typography>
       </Box>
-      {/* Mandatory error message for standard mode */}
+
       {isMandatory && mandatoryError && (
         <Typography variant="caption" color="error" sx={{ mt: 1 }}>
           {mandatoryError}

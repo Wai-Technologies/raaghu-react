@@ -13,10 +13,6 @@ function getPropsForState(args: any) {
         translate: rest.translate,
         imgSrc: rest.imgSrc,
         imgProps: rest.imgProps,
-        svgEditProps: rest.svgEditProps,
-        svgDeleteProps: rest.svgDeleteProps,
-        svgEditPath: rest.svgEditPath,
-        svgDeletePath: rest.svgDeletePath,
         editIcon: rest.editIcon,
         deleteIcon: rest.deleteIcon,
         commentThreadName: rest.commentThreadName,
@@ -44,6 +40,9 @@ function getPropsForState(args: any) {
         state,
         typingPlaceholderText: rest.typingPlaceholderText,
         avatarInitials: rest.avatarInitials,
+        mentionUsers: rest.mentionUsers,
+        mentionSearchPlaceholder: rest.mentionSearchPlaceholder,
+        mentionInviteLabel: rest.mentionInviteLabel,
       };
     case 'comment Posted':
       return {
@@ -60,17 +59,12 @@ function getPropsForState(args: any) {
     default:
       return {
         state,
-        placeholderText: rest.placeholderText,
-        attachmentLabels: rest.attachmentLabels,
-        mentionInviteLabel: rest.mentionInviteLabel,
-        mentionSearchPlaceholder: rest.mentionSearchPlaceholder,
-        mentionUsers: rest.mentionUsers,
-        noImageText: rest.noImageText,
         avatarInitials: rest.avatarInitials,
       };
   }
 }
 
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCommentBox from './rds-comp-comments-box';
 
@@ -79,11 +73,6 @@ const meta: Meta<typeof RdsCommentBox> = {
   component: RdsCommentBox,
   parameters: {
     layout: 'padded',
-    docs: {
-      description: {
-        component: '**Comment Box**',
-      },
-    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -122,17 +111,12 @@ export const Default: StoryObj<typeof RdsCommentBox> = {
   args: {
     state: 'default',
     placeholderText: 'Placeholder',
-    attachmentLabels: { computer: 'Computer', googleDrive: 'Google Drive', oneDrive: 'One Drive' },
-    mentionInviteLabel: 'Invite',
-    mentionSearchPlaceholder: 'Search',
-    mentionUsers: ['John Doe', 'Harry Cane', 'Romella', 'Jackson', 'Stephen'],
-    noImageText: 'No image provided',
     avatarInitials: 'RD',
   },
   parameters: {
     controls: {
       include: [
-        'state', 'avatarInitials'
+         'avatarInitials'
       ],
     },
   },
@@ -146,7 +130,7 @@ export const Selected: StoryObj<typeof RdsCommentBox> = {
   },
   parameters: {
     controls: {
-      include: ['state', 'avatarInitials', ],
+      include: [ 'avatarInitials', ],
     },
   },
   render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
@@ -157,10 +141,12 @@ export const Typing: StoryObj<typeof RdsCommentBox> = {
     state: 'typing',
     typingPlaceholderText: 'Placeholder...',
     avatarInitials: 'RD', 
+    mentionUsers: ['John Doe', 'Harry Cane', 'Romella', 'Jackson', 'Stephen'],
+    attachmentLabels: { computer: 'Computer', googleDrive: 'Google Drive', oneDrive: 'One Drive' },
   },
   parameters: {
     controls: {
-      include: ['state', 'typingPlaceholderText', 'avatarInitials'],
+      include: ['typingPlaceholderText', 'avatarInitials'],
     },
   },
   render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
@@ -169,13 +155,11 @@ export const Typing: StoryObj<typeof RdsCommentBox> = {
 export const CommentPosted: StoryObj<typeof RdsCommentBox> = {
   args: {
     state: 'comment Posted',
-    text: 'This is the sample text...',
-    time: '1 hour ago',
     avatarInitials: 'RD',
   },
   parameters: {
     controls: {
-      include: ['state', 'text', 'time', 'avatarInitials'],
+      include: ['text', 'time', 'avatarInitials'],
     },
   },
   render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
@@ -194,7 +178,7 @@ export const CommentHover: StoryObj<typeof RdsCommentBox> = {
   },
   parameters: {
     controls: {
-      include: ['state', 'hoverText', 'hoverTime', 'hoverMeta', 'commentHoverName', 'avatarInitials', 'editLabel', 'deleteLabel'],
+      include: ['hoverText', 'hoverTime', 'hoverMeta', 'commentHoverName', 'avatarInitials', 'editLabel', 'deleteLabel'],
     },
   },
   render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
@@ -222,7 +206,7 @@ export const CommentThread: StoryObj<typeof RdsCommentBox> = {
   parameters: {
     controls: {
       include: [
-        'state', 'threadTitle', 'text', 'time', 'meta', 'translate', 'imgSrc', 'imgProps', 'editIcon', 'deleteIcon', 'commentThreadName', 'score', 'avatarInitials', 'yourLogo', 'editLabel', 'deleteLabel'
+        'threadTitle', 'text', 'time', 'meta', 'translate', 'imgSrc', 'imgProps', 'editIcon', 'deleteIcon', 'commentThreadName', 'score', 'avatarInitials', 'yourLogo', 'editLabel', 'deleteLabel'
       ],
     },
   },

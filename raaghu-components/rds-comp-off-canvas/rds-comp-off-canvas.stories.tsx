@@ -54,11 +54,11 @@ export const Default: Story = {
     showPrimaryButton: true,
     showSecondaryButton: true,
     showTertiaryButton: true,
-    children: (
-      <h5 className="p-3">
-        Hello Offcanvas Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      </h5>
-    ),
+    // children: (
+    //   <h5 className="p-3">
+    //     Hello Offcanvas Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    //   </h5>
+    // ),
   },
 } satisfies Story;
 Default.parameters = { controls: { include: ['showPrimaryButton', 'showSecondaryButton', 'showTertiaryButton'] } };
