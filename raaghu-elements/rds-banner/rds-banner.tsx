@@ -2,7 +2,8 @@ import React from 'react';
 import { Alert as MuiAlert, AlertProps, AlertColor, IconButton } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Close } from '@mui/icons-material';
-import Button from '@mui/material/Button';
+import RdsButton from '../rds-button/rds-button';
+
 import './rds-banner.scss';
 
 export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose'> {
@@ -123,13 +124,13 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
         {(showLink || showSecondary || showPrimary) && (
           <div className="rds-banner__actions">
             {showLink && (
-              <Button variant="text" size="small" className="rds-banner__link-button">Link</Button>
+              <RdsButton size="small" className="rds-banner__link-button" text="Link" />
             )}
             {showSecondary && (
-              <Button variant="text" size="small" className="rds-banner__secondary-button">Cancel</Button>
+              <RdsButton size="small" className="rds-banner__secondary-button" text="Cancel" />
             )}
             {showPrimary && (
-              <Button variant="contained" size="small" className="rds-banner__primary-button">Okay</Button>
+              <RdsButton style='filled' size="small" className="rds-banner__primary-button" text="Okay" />
             )}
           </div>
         )}

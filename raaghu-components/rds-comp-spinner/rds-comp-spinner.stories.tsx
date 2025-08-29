@@ -54,7 +54,7 @@ type Story = StoryObj<typeof RdsCompSpinner>;
 export const Default: Story = {
     args: {
         layout: SpinnerLayout.LabelAndSpinner,
-        size: SpinnerSize.Small,
+        size: SpinnerSize.Default,
         showLabel: true,
         labelText:"Loading...",
         spinnerType: 'border',

@@ -3,6 +3,7 @@ import RdsCompAiMessageBox from "../rds-comp-ai-message-box/rds-comp-ai-message-
 import RdsCompAiTypingSection from "../rds-comp-ai-typing-section/rds-comp-ai-typing-section";
 import { Comment as AttachmentComment } from "../rds-comp-ai-attachement/rds-comp-ai-attachement";
 import RdsCompAiChatHeader from "../rds-comp-ai-chat-header/rds-comp-ai-chat-header";
+import "./rds-comp-ai-chat-bot.scss";
 
 export interface RdsCompAiChatBotProps {
     aiLogoUrl: string;
@@ -76,16 +77,16 @@ const RdsCompAiChatBot = (props: RdsCompAiChatBotProps) => {
     };
 
     return (
-        <div className="chat-box">
-            <RdsCompAiChatHeader
-                logoUrl={aiLogoUrl}
-                title="New Chat Started"
-            />
-            <div className="chat-messages" style={{ flex: 1, overflowY: "auto" }}>
+        <div className="rds-ai-chat-bot">
+            <div className="rds-ai-chat-bot__messages">
+                <RdsCompAiChatHeader
+                    logoUrl={aiLogoUrl}
+                    title="New Chat Started"
+                />
                 {messages.map((message) => (
                     <div
                         key={message.id}
-                        className={`chat-message ${message.sender ? "sender" : "receiver"}`}
+                        className={`rds-ai-chat-bot__message ${message.sender ? "rds-ai-chat-bot__message--sender" : "rds-ai-chat-bot__message--receiver"}`}
                     >
                         <RdsCompAiMessageBox
                             avtar={`${message.sender ? aiLogoUrl : userAvatarUrl}`}
@@ -96,8 +97,8 @@ const RdsCompAiChatBot = (props: RdsCompAiChatBotProps) => {
                     </div>
                 ))}
             </div>
-            <div className="chat-input-wrapper" style={{ position: "fixed", bottom: "-17px", width: "100%", padding: "10px", marginLeft: "-10px" }}>
-                <div className="chat-input">
+            <div className="rds-ai-chat-bot__input-wrapper">
+                <div className="rds-ai-chat-bot__input">
                     <RdsCompAiTypingSection
                         colorVariant="#353535"
                         onSend={handleSendMessage}
@@ -112,4 +113,5 @@ const RdsCompAiChatBot = (props: RdsCompAiChatBotProps) => {
     );
 };
 
+RdsCompAiChatBot.displayName = "RdsCompAiChatBot"
 export default RdsCompAiChatBot;

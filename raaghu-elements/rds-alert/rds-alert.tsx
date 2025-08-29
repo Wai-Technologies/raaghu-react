@@ -81,13 +81,12 @@ const RdsAlert= ({
                 style="transparent"
                 size="small"
                 className="rds-alert__link-button"
-              >
-                Link
-              </RdsButton>
+                text="Link"
+              />
             )}
 
-            {showSecondary && <RdsButton style="transparent" size="small" sx={{ mr: showPrimary ? 2 : 0 }}>Cancel</RdsButton>}
-            {showPrimary && <RdsButton style="filled" size="small">Okay</RdsButton>}
+            {showSecondary && <RdsButton style="transparent" size="small" sx={{ mr: showPrimary ? 2 : 0 }} text="Cancel" />}
+            {showPrimary && <RdsButton style="filled" size="small" text="Okay" />}
           </div>
         )}
       </div>

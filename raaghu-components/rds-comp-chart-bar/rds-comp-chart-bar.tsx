@@ -6,6 +6,7 @@ export interface RdsCompBarChartProps {
     options: any;
     dataSets: any[];
     id: any;
+    height?: string | number;
 }
 
 const RdsCompBarChart = (props: RdsCompBarChartProps) => {
@@ -23,19 +24,24 @@ const RdsCompBarChart = (props: RdsCompBarChartProps) => {
                     labels: props.labels,
                     datasets: props.dataSets
                 },
-                options: props.options,
+                options: { ...props.options, responsive: true, maintainAspectRatio: false },
             });
 
             if (barCanvas !== null) {
-                if (props.id === "barchart1") {
-                    barCanvas.canvas.style.height = "57vh";
-                    barCanvas.canvas.style.width = "100vh";
-                } else if (props.id === "histogram") {
-                    barCanvas.canvas.style.height = "50px";
-                    barCanvas.canvas.style.width = "50px";
+                if (props.height) {
+                    barCanvas.canvas.style.height = typeof props.height === "number" ? `${props.height}px` : String(props.height);
+                    barCanvas.canvas.style.width = "100%";
                 } else {
-                    barCanvas.canvas.style.height = "42.5vh";
-                    barCanvas.canvas.style.width = "100vh";
+                    if (props.id === "barchart1") {
+                        barCanvas.canvas.style.height = "65vh";
+                        barCanvas.canvas.style.width = "100%";
+                    } else if (props.id === "histogram") {
+                        barCanvas.canvas.style.height = "50px";
+                        barCanvas.canvas.style.width = "50px";
+                    } else {
+                        barCanvas.canvas.style.height = "76vh";
+                        barCanvas.canvas.style.width = "100%";
+                    }
                 }
             }
         

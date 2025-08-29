@@ -10,10 +10,6 @@ const meta: Meta = {
   component: RdsCompAiChatBot,
   parameters:{
     docs:{
-      description: {
-  component: `The **AI Chat Bot** component provides an interactive chat interface for users to engage in conversations with an AI assistant. It supports customizable avatars for both the AI and the user via \`aiLogoUrl\` and \`userAvatarUrl\`, and allows dynamic interaction through the \`messages\` array and \`setMessages\` handler for real-time updates. The \`placeholderText\` guides user input, while the \`icon_name\` prop enables visual customization based on the bot's context or role (e.g., 'enhancer'). This component is ideal for integrating conversational AI features into applications, offering a clean and responsive design for seamless user experiences.`
-}
-
     }
   },
   tags: ["autodocs"],

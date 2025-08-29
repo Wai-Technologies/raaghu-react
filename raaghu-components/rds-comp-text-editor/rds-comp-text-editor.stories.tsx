@@ -32,9 +32,10 @@ export const Default: Story = {
         State: "Default",
         showTitle: true,
         label:"Label",
-        isMandatory: true,
+        isMandatory: false,
         rows:6,
-        resizable:false
+        resizable:false,
+        placeholder:"Enter Description"
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory','rows','resizable'] } };
+Default.parameters = { controls: { include: ['State', 'showTitle', 'label', 'isMandatory','rows','resizable','placeholder'] } };

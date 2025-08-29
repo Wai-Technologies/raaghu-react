@@ -30,18 +30,42 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
         labels: props.labels,
         datasets: props.dataSets,
       },
-      options: props.options,
+      options: {
+        ...props.options,
+        plugins: {
+          ...((props.options && props.options.plugins) || {}),
+          legend: {
+            ...(props.options && props.options.plugins && props.options.plugins.legend ? props.options.plugins.legend : {}),
+            position: 'top',
+            align: 'start',
+            labels: {
+              boxWidth: 8,
+              boxHeight: 8,
+              pointStyleWidth: 8,
+              padding: 20,
+              usePointStyle: true,
+              pointStyle: 'circle',
+              font: {
+                size: 12,
+                weight: '500',
+                family: 'inherit',
+              },
+              color: '#333333',
+            },
+          },
+        },
+      },
     });
 
     if (radarCanvas != null) {
-      radarCanvas.canvas.style.height = "250px";
-      radarCanvas.canvas.style.width = "275px";
-      chartInstanceRef.current = radarCanvas; // Store the chart instance
+      radarCanvas.canvas.style.height = "350px";
+      radarCanvas.canvas.style.width = "450px";
+      chartInstanceRef.current = radarCanvas; 
     }
   }, [props]);
 
   return (
-    <div>
+    <div className="rds-comp-chart-radar-container">
       <canvas id={props.id} ref={canvasRef} />
     </div>
   );

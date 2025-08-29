@@ -62,9 +62,11 @@ export const Default: Story = {
     leftIcon:"circle",
     showUserAvatar: true,
     showRadio: true,
+    isShowLeftIcon: true,
+    isShowRightIcon: true,
   },
 };
-Default.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch','state','showUserAvatar','showRadio'] } };
+Default.parameters = { controls: { include: ['buttonText', 'multiSelect', 'showSearch','state','showUserAvatar','showRadio','isShowLeftIcon','isShowRightIcon'] } };
 
 export const MultiSelect: Story = {
   args: {

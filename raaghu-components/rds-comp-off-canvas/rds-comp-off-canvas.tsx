@@ -103,7 +103,7 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
           <div
             className="offcanvas_btn"
             onClick={handleOpen}>
-            <RdsButton text="Button" style="filled" size="medium" onClick={handleOpen}/>
+            <RdsButton text="Open Off Canvas" style="filled" size="medium" onClick={handleOpen}/>
           </div>        
         <Drawer
           anchor={getAnchor()}
@@ -111,69 +111,40 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
           onClose={handleClose}
           disableEscapeKeyDown={!preventEscapeKey}
           {...getBackdropProps()}
-          sx={{
-            '& .MuiDrawer-paper': {width: getWidth(),height: getHeight(),boxSizing: 'border-box',padding: 0,},
-          }}
+          className={`offcanvas-drawer placement-${placement}`}
           id={offId}>
-          <Box className="offcanvas-container" sx={{ height: '100%', display: 'flex', flexDirection: 'column',overflow: scrolling ? 'auto' : 'hidden'
-          }}>
-            <Box className={`offcanvas-header ${
-              isCanvasTitle
-                ? "py-2 my-2 d-flex justify-content-between"
-                : "py-1 border-0 justify-content-end"
-            }`} sx={{display: 'flex',alignItems: 'center',justifyContent: isCanvasTitle ? 'space-between' : 'flex-end',padding: isCanvasTitle ? '8px 16px' : '4px 16px',borderBottom: isCanvasTitle ? '1px solid #e0e0e0' : 'none',
-            }}>
-              {isCanvasTitle && (
-                <Typography
-                  variant="h6"
-                  className="offcanvas-title text-uppercase"
-                  sx={{ textTransform: 'uppercase', fontWeight: 'bold' }}
-                >
-                  {canvasTitle}
-                </Typography>
-              )}
-              <span className="close" id="close-btn">
-                <RdsIconButton onClick={handleClose} tooltip={"Close"}
-                  sx={{ padding: '8px',border: '1px solid transparent',borderRadius: '5px',transition: 'all 0.2s ease-in-out','&:hover': {backgroundColor: 'aliceblue',borderRadius: '5px',
-                    }
-                  }}
-                >
+          <Box className={`offcanvas-container ${scrolling ? 'scrolling' : ''}`}>
+            <Box className={`offcanvas-header ${isCanvasTitle ? '' : 'no-title'}`}>
+              {isCanvasTitle ? (
+                <div className="offcanvas-title-wrap">
+                  <span className="offcanvas-title text-uppercase">{canvasTitle}</span>
+                </div>
+              ) : null}
+              <div className="offcanvas-close-wrap" id="close-btn">
+                <RdsIconButton onClick={handleClose} tooltip={"Close"} className="offcanvas-close-button">
                   <Close />
                 </RdsIconButton>
-              </span>
+              </div>
             </Box>
-            <Box className={`offcanvas-body ${className || ''}`} sx={{flex: 1,padding: '16px',display: 'flex',flexDirection: 'column',overflow: scrolling ? 'auto' : 'hidden'
-            }}>
+            <Box className={`offcanvas-body ${className || ''} ${scrolling ? 'scrolling' : ''}`}>
               <div className="d-flex flex-column h-100">
                 {children}
               </div>
               {(showPrimaryButton || showSecondaryButton || showTertiaryButton) && (
-                <Box className="d-flex justify-content-start mt-auto offcanvas-margin" id="offcanvas-btns" sx={{
-                  display: 'flex',
-                  gap: '8px',
-                  marginTop: 'auto',
-                  paddingTop: '16px',
-                }}>
+                <Box className="d-flex justify-content-start mt-auto offcanvas-margin offcanvas-footer" id="offcanvas-btns">
                   {showTertiaryButton && (
-                    <Box className="me-2" sx={{flex: '1.7'}}>
-                      <RdsButton text="RESTORE TO DEFAULT" style="transparent" size="medium"
-                        sx={{ width: '100%'}}
-                      />
+                    <Box>
+                      <RdsButton text="RESTORE TO DEFAULT" style="transparent" size="medium" className="offcanvas-action-btn" />
                     </Box>
                   )}
                   {showSecondaryButton && (
-                    <Box className="me-2" sx={{flex: 1}}>
-                      <RdsButton text="CANCEL" style="outlined" size="medium" sx={{
-                          width: '100%',
-                        }}
-                      />
+                    <Box>
+                      <RdsButton text="CANCEL" style="outlined" size="medium"  onClick={handleClose}/>
                     </Box>
                   )}
                   {showPrimaryButton && (
-                    <Box className="me-2" sx={{ flex: 1}}>
-                      <RdsButton text="SAVE" style="filled" size="medium" onClick={handleClose}
-                        sx={{width: '100%'}}
-                      />
+                    <Box>
+                      <RdsButton text="SAVE" style="filled" size="medium" onClick={handleClose} className="offcanvas-action-btn" />
                     </Box>
                   )}
                 </Box>

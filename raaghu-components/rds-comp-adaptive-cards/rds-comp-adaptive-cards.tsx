@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './rds-comp-adaptive-cards.scss';
-import {RdsBox,RdsTypography,RdsStack} from "../../raaghu-elements";
+import {RdsBox,RdsTypography,RdsStack, RdsButtonDropdown} from "../../raaghu-elements";
 import RdsCardDetail from "../../raaghu-elements/rds-card-detail/rds-card-detail";
 import { CardHeader, CardContent,Button, CardActions, IconButton} from "@mui/material";
 import {  Close as CloseIcon,ExpandMore as ExpandMoreIcon} from "@mui/icons-material";
@@ -179,10 +179,10 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
             </RdsBox>
             <RdsStack direction="row" justifyContent="flex-end" spacing={2} className="custom-box__actions">
               {showBtn1 && (
-                <Button variant={btn1style === "filled" ? "contained" : btn1style === "outline" ? "outlined" : "text"} className="custom-box__button--cancel">{btn1Label || 'Cancel'}</Button>
+                <Button variant={btn1style === "filled" ? "contained" : btn1style === "outline" ? "outlined" : "text"} className="custom-box__button--cancel">{btn1Label}</Button>
               )}
               {showBtn2 && (
-                <Button variant={btn2style === "filled" ? "contained" : btn2style === "outline" ? "outlined" : "text"} className="custom-box__button--done">{btn2Label || 'Done'}</Button>
+                <Button variant={btn2style === "filled" ? "contained" : btn2style === "outline" ? "outlined" : "text"} className="custom-box__button--done">{btn2Label}</Button>
               )}
             </RdsStack>
           </RdsBox>
@@ -285,14 +285,33 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                         {btn1Label}
                       </Button>
                     ) : type === "ActivityUpdateCard" ? (
-                      <Button
-                        variant="outlined"
-                        endIcon={<ExpandMoreIcon />}
-                        className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--activity"
-                        size="small"
-                      >
-                        {capitalizeFirstWord(btn1Label || 'Button')}
-                      </Button>
+                      // <Button
+                      //   variant="outlined"
+                      //   endIcon={<ExpandMoreIcon />}
+                      //   className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--activity"
+                      //   size="small"
+                      // >
+                      //   {capitalizeFirstWord(btn1Label)}
+                      // </Button>
+                      <RdsButtonDropdown
+                        buttonText={btn1Label}
+                        options={(activityProps?.radioOptions ?? []).map((opt, idx) => ({
+                          id: opt.value ?? idx,
+                          label: opt.label,
+                          avatarSrc: undefined,
+                          checked: undefined,
+                          disabled: undefined
+                        }))}
+                        onChange={(value) => console.log(value)}
+                        state="default"
+                        showRadio={true}
+                        showUserAvatar={true}
+                        multiSelect={false}
+                        isShowLeftIcon={false}
+                        rightIcon={<ExpandMoreIcon />
+                          
+                        }
+                      />
                     ) : (
                       <Button
                         variant={btn1style === "filled" ? "contained" : btn1style === "outline" ? "outlined" : "text"}
@@ -312,7 +331,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                         className="rds-adaptive-cards__action-btn"
                         size="small"
                       >
-                        {capitalizeFirstWord(btn2Label || 'Click Here')}
+                        {capitalizeFirstWord(btn2Label)}
                       </Button>
                     )
                   )}

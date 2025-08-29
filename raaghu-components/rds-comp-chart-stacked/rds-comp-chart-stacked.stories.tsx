@@ -43,6 +43,7 @@ export const Default: Story = {
         options: {
             "radius": 3,
             "pointStyle": "triangle",
+                        "stepSize": 50,
             "plugins": {
                 "title": {
                     "display": true,
@@ -95,6 +96,7 @@ export const Default: Story = {
                         "align": "center",
                         "crossAlign": "near",
                         "showLabelBackdrop": false,
+                                "stepSize": 50,
                         "backdropColor": "rgba(255, 255, 255, 0.75)",
                         "backdropPadding": 2,
                         "color": "#666"
@@ -151,9 +153,10 @@ export const Default: Story = {
                         "align": "center",
                         "crossAlign": "near",
                         "showLabelBackdrop": false,
-                        "backdropColor": "rgba(255, 255, 255, 0.75)",
-                        "backdropPadding": 2,
-                        "color": "#666"
+                            "backdropColor": "rgba(255, 255, 255, 0.75)",
+                            "backdropPadding": 2,
+                            "color": "#666",
+                            "stepSize": 50,
                     },
                     "display": true,
                     "offset": false,
@@ -184,18 +187,18 @@ export const Default: Story = {
             {
                 "label": "My Second dataset",
                 "data": [
-                    131,
-                    132,
-                    133,
-                    134,
-                    135,
-                    136,
-                    137,
-                    138,
-                    139,
                     140,
-                    141,
-                    142
+                    140,
+                    170,
+                    235,
+                    125,
+                    125,
+                    110,
+                    140,
+                    140,
+                    170,
+                    230,
+                    80
                 ],
                 "borderColor": "white",
                 "backgroundColor": "#62D5D9",
@@ -204,18 +207,18 @@ export const Default: Story = {
             {
                 "label": "My Third dataset",
                 "data": [
-                    151,
-                    152,
-                    159,
-                    154,
-                    155,
-                    156,
-                    157,
-                    158,
-                    159,
-                    160,
-                    161,
-                    162
+                    90,
+                    185,
+                    110,
+                    90,
+                    230,
+                    75,
+                    230,
+                    80,
+                    180,
+                    185,
+                    185,
+                    330
                 ],
                 "borderColor": "white",
                 "backgroundColor": "#928AE0",

@@ -14,7 +14,7 @@ import {
 import { Circle, ExpandMore, Margin } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import './rds-comp-filter-button.scss';
-
+import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
 export interface FilterOption {
   id: string;
@@ -36,6 +36,8 @@ export interface RdsCompFilterButtonProps {
   onClear?: () => void;
   disabled?: boolean;
   className?: string;
+  /** optional icon for each filter item - either a URL string or a React node (JSX) */
+  itemIcon?: string | React.ReactNode;
 }
 
 const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
@@ -43,14 +45,15 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
   text = 'Filter',
   showLeftIcon = true,
   showRightIcon = true,
-  leftIcon = <Circle sx={{ fontSize: 16 }} />,
-  rightIcon = <Circle sx={{ fontSize: 16 }} />,
+  leftIcon = <CircleOutlinedIcon  sx={{ fontSize: 16 }} />,
+  rightIcon = <CircleOutlinedIcon  sx={{ fontSize: 16 }} />,
   filters = [],
   onFiltersChange,
   onApply,
   onClear,
   disabled = false,
   className,
+  itemIcon,
   ...props
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -140,7 +143,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
         <Box className="rds-filter-button__content">
           {/* Header */}
           <Box className="rds-filter-button__header">
-            <Typography variant="h6" className="rds-filter-button__header-title">
+            <Typography className="rds-filter-button__header-title">
               Add Filters
             </Typography>
           </Box>
@@ -198,7 +201,8 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                   '&.Mui-expanded': {
                     margin: 0,
                   },
-                  borderBottom: index === localFilters.length - 1 ? 'none' : '1px solid #f0f0f0',
+                  borderBottom: 'none',
+                  borderTop: index === 0 ? 'none' : undefined,
                 }}
               >
                 <AccordionSummary
@@ -207,6 +211,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                     minHeight: '48px',
                     px: 2,
                     py: 1,
+                    position: 'relative',
                     '& .MuiAccordionSummary-content': {
                       alignItems: 'center',
                       margin: 0,
@@ -216,14 +221,28 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                     },
                     '&:hover': {
                       backgroundColor: '#f9f9f9',
+                    },
+                    '&:after': {
+                      content: '""',
+                      position: 'absolute',
+                      bottom: 0,
+                      left: '16px',
+                      right: '16px',
+                      height: '1px',
+                      backgroundColor: '#f0f0f0',
+                      display: index === localFilters.length - 1 ? 'none' : 'block',
                     }
                   }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <Circle sx={{ 
-                      fontSize: 8, 
-                      color: '#999',
-                    }} />
+                    {itemIcon ? (
+                      typeof itemIcon === 'string' ? (
+                        <Box component="img" src={itemIcon} />
+                      ) : (
+                        itemIcon
+                      )
+                    ) : null}
+
                     <Typography sx={{ 
                       fontSize: '14px', 
                       fontWeight: 500,
@@ -283,7 +302,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
           {/* Action Buttons */}
           <Box sx={{ 
             p: 1.5, 
-            borderTop: '1px solid #f0f0f0',
+            // borderTop: '1px solid #f0f0f0',
             display: 'flex',
             flexDirection: 'column',
             gap: 1,

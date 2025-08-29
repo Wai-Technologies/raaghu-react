@@ -27,4 +27,5 @@ const RdsCompAiChatHeader = (props: RdsCompAiChatHeaderProps) => {
   );
 };
 
+RdsCompAiChatHeader.displayName = "RdsCompAiChatHeader"
 export default RdsCompAiChatHeader;
