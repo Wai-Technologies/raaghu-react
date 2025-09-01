@@ -92,7 +92,12 @@ export const RdsMultiLevelMenu = ({
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
         MenuListProps={{ autoFocusItem: open, disablePadding: true }}
-        PaperProps={{ sx: menuPaperStyle, className: 'rds-mlm-paper' }}
+        PaperProps={{
+          sx: level === 0
+            ? { ...menuPaperStyle, mt: { xs: '43px', sm: 0 } }
+            : menuPaperStyle,
+          className: `rds-mlm-paper ${level === 0 ? 'rds-mlm-root' : ''}`
+        }}
         disableAutoFocusItem
       >
         {opts.map((option, idx) => {
@@ -134,13 +139,14 @@ export const RdsMultiLevelMenu = ({
                     {type === 'selectable' && isSelected ? <CheckIcon fontSize="small" /> : null}
                   </Box>
                   <ListItemText primary={option.label} primaryTypographyProps={{ fontWeight: 400 }} />
-                  {option.shortcut && (
+                  {/* Show shortcut text only when not expandable */}
+                  {!isExpandable && option.shortcut && (
                     <Box className={'rds-mlm-shortcut'}>{option.shortcut}</Box>
                   )}
                   {isExpandable && (
                     <Box
                       ref={arrowRefCb}
-                      sx={{ ml: 1, cursor: 'pointer', display: 'flex', alignItems: 'center', zIndex: 2 }}
+                      sx={{ ml: 'auto', cursor: 'pointer', display: 'flex', alignItems: 'center', zIndex: 2 }}
                       onClick={(e) => {
                         e.stopPropagation();
                         // Use the arrow's parent (Box) as anchor

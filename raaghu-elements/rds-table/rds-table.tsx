@@ -60,6 +60,29 @@ const RdsTable = ({
   className = '',
   ...props
 }:RdsTableProps) => {
+  // Internal cell-level states for independent checkbox and radio columns
+  const [cellCheckboxSelected, setCellCheckboxSelected] = React.useState<Set<string | number>>(new Set());
+  const [cellRadioSelected, setCellRadioSelected] = React.useState<string | number | null>(null);
+
+  const toggleCellCheckbox = (rowId: string) => {
+    setCellCheckboxSelected(prev => {
+      const next = new Set(prev);
+      if (next.has(rowId)) next.delete(rowId); else next.add(rowId);
+      return next;
+    });
+  };
+
+  const selectCellRadio = (rowId: string) => {
+    setCellRadioSelected(rowId);
+  };
+
+  // For header checkbox (in checkbox-type column): compute row ids and selection state
+  const checkboxRowIds = React.useMemo<(string | number)[]>(
+    () => rows.map((r: any) => (r.id ?? r.key)).filter((id: unknown) => id !== undefined) as (string | number)[],
+    [rows]
+  );
+  const isAllCellCheckboxSelected = checkboxRowIds.length > 0 && checkboxRowIds.every((id) => cellCheckboxSelected.has(id));
+  const isCellCheckboxIndeterminate = cellCheckboxSelected.size > 0 && !isAllCellCheckboxSelected;
   const handleChangePage = (event: unknown, newPage: number) => {
     if (onPageChange) {
       onPageChange(newPage);
@@ -97,21 +120,28 @@ const RdsTable = ({
 
   const renderCellContent = (column: RdsTableColumn, value: any, row: any) => {
     switch (column.type) {
-      case 'checkbox':
+      case 'checkbox': {
+        const rowId = row.id || row.key;
+        const isChecked = cellCheckboxSelected.has(rowId);
         return (
           <Checkbox
-            checked={selectedRows.includes(row.id || row.key)}
-            onChange={() => handleSelectRow(row.id || row.key)}
+            checked={isChecked}
+            onChange={() => toggleCellCheckbox(rowId)}
             size="small"
           />
         );
-      case 'radio':
+      }
+      case 'radio': {
+        const rowId = row.id || row.key;
+        const isChecked = cellRadioSelected === rowId;
         return (
           <Radio
-            checked={false}
+            checked={isChecked}
+            onChange={() => selectCellRadio(rowId)}
             size="small"
           />
         );
+      }
       default:
         return column.format ? column.format(value) : value;
     }
@@ -147,7 +177,18 @@ const RdsTable = ({
                   className="rds-table__header"
                 >
                   {column.type === 'checkbox' ? (
-                    <Checkbox size="small" />
+                    <Checkbox
+                      indeterminate={isCellCheckboxIndeterminate}
+                      checked={isAllCellCheckboxSelected}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setCellCheckboxSelected(new Set(checkboxRowIds));
+                        } else {
+                          setCellCheckboxSelected(new Set());
+                        }
+                      }}
+                      size="small"
+                    />
                   ) : (
                     <div className="rds-table__header-content">
                       <span className="rds-table__header-label">{column.label}</span>

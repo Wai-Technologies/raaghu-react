@@ -14,6 +14,9 @@ const meta: Meta<typeof RdsTable> = {
   component: RdsTable,
   parameters: {
     layout: 'padded',
+    controls: {
+      exclude: ['rows', 'columns','onRowAction','onPageChange','onPageSizeChange','selectedRows','onRowSelect','className','component'],
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -428,6 +431,16 @@ const advancedColumns = [
 ];
 
 export const Default: Story = {
+  render: (args) => {
+    const [selected, setSelected] = React.useState<string[]>([]);
+    return (
+      <RdsTable
+        {...args}
+        selectedRows={selected}
+        onRowSelect={setSelected}
+      />
+    );
+  },
   args: {
     rows: defaultTableData,
     columns: defaultColumns,
