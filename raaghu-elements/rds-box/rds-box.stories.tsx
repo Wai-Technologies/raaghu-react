@@ -6,14 +6,15 @@ const meta: Meta<typeof RdsBox> = {
   title: 'Elements/Box',
   component: RdsBox,
   parameters: {
-    layout: 'centered',
+  layout: 'centered',
+  // only show the `children` and `sx` controls in the Controls panel; hide all other auto-generated props
+  controls: { include: ['children', 'sx'] },
   },
   tags: ['autodocs'],
   argTypes: {
-    component: {
-      control: { type: 'select' },
-      options: ['div', 'span', 'section', 'article'],
-    },
+  // define the controls we want visible in Controls panel
+  children: { control: { type: 'text' } },
+  sx: { control: { type: 'object' } },
   },
 };
 
