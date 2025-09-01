@@ -562,3 +562,24 @@
 .rds-card__avatar-section--editable .rds-avatar{
  margin-left: var(--rds-spacing-md, 15px) !important;
 }
+
+// Target the story’s exact badge class combos to also force solid backgrounds
+.rds-card .rds-card__badges .rds-badge.rds-badge--primary.rds-badge--secondary > .rds-badge__badge {
+  background-color: var(--rds-badge-bg-secondary-card, #b30fbc) !important;
+  color: var(--rds-badge-text-on-dark, #ffffff) !important;
+}
+.rds-card .rds-card__badges .rds-badge.rds-badge--primary.rds-badge--primary > .rds-badge__badge {
+  background-color: var(--rds-badge-bg-primary-card, #2534e9);
+  color: var(--rds-badge-text-on-dark, #ffffff) !important;
+}
+
+.rds-card .rds-card__tags .rds-badge.rds-badge--primary.rds-badge--primary > .rds-badge__badge {
+  background-color: var(--rds-badge-bg-primary-card, #2534e9);
+  color: var(--rds-badge-text-on-dark, #ffffff) !important;
+}
+
+.rds-card:not(.rds-card--style-outlined):not(.rds-card--style-filled):not([class*="rds-card--elevation"]) {
+  /* Prevent MUI from injecting its variable-based shadow for this element */
+  --Paper-shadow: none !important;
+  box-shadow: var(--rds-card-shadow, 0 8px 24px var(--rds-card-shadow-color, rgba(16, 45, 86, 0.08)));
+}
