@@ -329,7 +329,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-lg, 20px);
+    padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-lg, 3px);
     background: var(--rds-color-surface, #fff);
     border-radius: var(--rds-border-radius-md, 8px);
     box-shadow: var(--rds-box-shadow-sm, 0 5px 0px rgba(0, 0, 0, 0.05));
@@ -382,8 +382,7 @@
 
   &__agent-actions {
     display: flex;
-    align-items: center;
-    gap: var(--rds-spacing-sm, 12px);
+    align-items: center;    
   }
 
   &__agent-badge {
@@ -870,6 +869,58 @@
     margin-top: 8px;
     padding-right: 124px;
   }
+
+  /* Styles moved from inline in renderHistoryItem */
+  &__history-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__history-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 8px;
+    gap: 12px;
+  }
+
+  &__history-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #fff;
+  }
+
+  &__activity-body {
+    flex: 1;
+    min-width: 0; /* enables text truncation inside */
+  }
+
+  /* ensure existing activity-text rules handle truncation */
+  &__history-delete {
+    /* more specific selector overrides default activity-delete spacing */
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+
+  &__history-divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.06);
+    margin: 0 8px;
+  }
+
+  /* icon color/size adjustments for the history icon */
+  &__history-icon svg,
+  &__icon-history {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 18px;
+  }
+
+  // ...existing code...
 }
 
 .theme-light {

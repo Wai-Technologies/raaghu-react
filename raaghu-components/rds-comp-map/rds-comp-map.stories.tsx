@@ -32,16 +32,33 @@ export const Default: Story = {
         color: '#A478E6',
         mapType: 'default',
         mapList: [
-            { country: "cn", value: 1389618778 }, // china
-            { country: "in", value: 1311559204 }, // india
-            { country: "us", value: 331883986 },  // united states
-            { country: "id", value: 264935824 },  // indonesia
-            { country: "pk", value: 210797836 },  // pakistan
-            { country: "br", value: 210301591 },  // brazil
-            { country: "ng", value: 208679114 },  // nigeria
-            { country: "bd", value: 161062905 },  // bangladesh
-            { country: "ru", value: 141944641 },  // russia
-            { country: "mx", value: 127318112 }   // mexico
+            { country: "cn", value: 1389618778 },
+            { country: "in", value: 1311559204 },
+            { country: "us", value: 331883986 },
+            { country: "id", value: 264935824 },
+            { country: "pk", value: 210797836 },
+            { country: "br", value: 210301591 },
+            { country: "ng", value: 208679114 },
+            { country: "bd", value: 161062905 },
+            { country: "ru", value: 141944641 },
+            { country: "mx", value: 127318112 },
+            { country: "jp", value: 126476461 },
+            { country: "de", value: 83783942 },
+            { country: "fr", value: 65273511 },
+            { country: "gb", value: 67886011 },
+            { country: "it", value: 60244639 },
+            { country: "ca", value: 37742154 },
+            { country: "es", value: 46754778 },
+            { country: "au", value: 25499884 },
+            { country: "br", value: 212559417 },
+            { country: "za", value: 59308690 },
+            { country: "eg", value: 102334404 },
+            { country: "af", value: 1366417754 },
+            { country: "sy", value: 17500658 },
+            { country: "iq", value: 40222493 },
+            { country: "ly", value: 6871292 },
+            { country: "sd", value: 43849260 },
+            { country: "ye", value: 29825964 },
         ]
     }
 } satisfies Story;
