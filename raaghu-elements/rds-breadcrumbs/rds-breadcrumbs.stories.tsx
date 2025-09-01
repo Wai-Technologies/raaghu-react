@@ -88,10 +88,14 @@ export const Simple: Story = {
     items: [
       { label: 'Home', href: '/' },
       { label: 'Current', active: true },
+      { label: 'Category', href: '/products/category' },
+      { label: 'Subcategory', href: '/products/category/subcategory' },
+      { label: 'Current Page', active: true },
     ],
     layout: 'without background',
     showIcon: false,
     state: 'default',
+    level: 'level2',
   },
 };
 
@@ -100,6 +104,8 @@ export const WithClickHandlers: Story = {
     items: [
       { label: 'Home', onClick: () => alert('Navigate to Home') },
       { label: 'Products', onClick: () => alert('Navigate to Products') },
+      { label: 'Category', onClick: () => alert('Navigate to Category') },
+      { label: 'Subcategory', onClick: () => alert('Navigate to Subcategory') },
       { label: 'Current Page', active: true },
     ],
     layout: 'pill background',
@@ -107,5 +113,6 @@ export const WithClickHandlers: Story = {
     state: 'default',
     separatorType: BreadcrumbSeparator.Arrow,
     autoIcons: false,
+    level: 'level3',
   },
 };
