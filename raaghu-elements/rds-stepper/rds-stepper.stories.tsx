@@ -6,13 +6,16 @@ const meta: Meta<typeof RdsStepper> = {
   component: RdsStepper,
   parameters: {
     layout: 'centered',
+    controls: {
+      exclude: ['alternativeLabel'],
+    },
   },
   tags: ['autodocs'],
   argTypes: {
-    activeStep: {
+    currentStep: {
       control: { type: 'number' },
     },
-    orientation: {
+    direction: {
       control: { type: 'select' },
       options: ['horizontal', 'vertical'],
     },
@@ -29,50 +32,50 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const steps = [
-  'Select campaign settings',
-  'Create an ad group',
-  'Create an ad',
+  { label: 'Select campaign settings' },
+  { label: 'Create an ad group' },
+  { label: 'Create an ad' },
 ];
 
 export const Default: Story = {
   args: {
-    activeStep: 1,
+  currentStep: 1,
     steps: steps,
   },
 };
 
 export const FirstStep: Story = {
   args: {
-    activeStep: 0,
+  currentStep: 0,
     steps: steps,
   },
 };
 
 export const LastStep: Story = {
   args: {
-    activeStep: 2,
+  currentStep: 2,
     steps: steps,
   },
 };
 
 export const Completed: Story = {
   args: {
-    activeStep: 3,
+  currentStep: 3,
     steps: steps,
   },
 };
 
 export const Vertical: Story = {
   args: {
-    activeStep: 1,
-    orientation: 'vertical',
+  currentStep: 1,
+  direction: 'vertical',
     steps: steps,
   },
 };
 
 export const AlternativeLabel: Story = {
   args: {
-    activeStep: 1,
+  currentStep: 1,
     alternativeLabel: true,
     steps: steps,
   },
@@ -80,7 +83,7 @@ export const AlternativeLabel: Story = {
 
 export const NonLinear: Story = {
   args: {
-    activeStep: 1,
+  currentStep: 1,
     nonLinear: true,
     steps: steps,
   },
@@ -88,20 +91,22 @@ export const NonLinear: Story = {
 
 export const WithOptionalSteps: Story = {
   args: {
-    activeStep: 1,
+    currentStep: 1,
     steps: [
-      'Select campaign settings',
-      'Create an ad group',
-      'Create an ad',
+      { label: 'Select campaign settings' },
+      { label: 'Create an ad group', optional: true },
+      { label: 'Create an ad' },
     ],
-    optional: [1], // Second step is optional
   },
 };
 
 export const WithErrors: Story = {
   args: {
-    activeStep: 1,
-    steps: steps,
-    error: [1], // Second step has error
+    currentStep: 1,
+    steps: [
+      { label: 'Select campaign settings' },
+      { label: 'Create an ad group', error: true },
+      { label: 'Create an ad' },
+    ],
   },
 };
