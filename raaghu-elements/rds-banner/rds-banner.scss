@@ -4,13 +4,13 @@
 .rds-banner {
   display: flex;
   align-items: center;
-  padding: var(--rds-font-size-lg) 2var(--rds-spacing-xs);
+  padding: var(--rds-spacing-sm) var(--rds-spacing-md);
   background-color: var(--rds-background-surface);
   border: 1px solid var(--rds-border-default);
   border-radius: var(--rds-spacing-xs);
-  gap: var(--rds-font-size-sm);
-  
-  &__link-button{
+  gap: var(--rds-spacing-sm);
+
+  &__link-button {
     text-decoration: underline !important;
   }
   &__icon {
@@ -28,7 +28,6 @@
     
     &-message {
       color: var(--rds-text-secondary);
-      font-size: 1var(--rds-spacing-xs);
     }
   }
   
@@ -88,6 +87,14 @@
   }
 
   // Style variants
+  &--style1 {
+    margin-left: var(--rds-spacing-md);
+    margin-right: var(--rds-spacing-md);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--rds-alert-warning-border); 
+  }
+
   &--style3 {
     border-left: 6px solid;
     
@@ -114,6 +121,28 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  // MUI Alert action area normalization (scoped to RDS banner)
+  :global(.MuiAlert-action) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  // Ensure consistent button look inside actions (for WithActions story and similar)
+  :global(.MuiAlert-action .MuiButton-root) {
+    height: 26px;
+    border-radius: var(--rds-spacing-xs);
+    text-transform: none; // keep label casing consistent with design
+  }
+
+  :global(.MuiAlert-action .MuiButton-contained) {
+    box-shadow: none; // avoid unexpected shadow after story navigation
+  }
+
+  :global(.MuiAlert-action .MuiButton-outlined) {
+    box-shadow: none;
   }
 
   // Banner content layout
@@ -163,5 +192,26 @@
     display: flex;
     align-items: center;
     gap: 8px;
+  }
+
+  // Size variants
+  &--small {
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+    .rds-banner__heading { font-size: 0.875rem; }
+    .rds-banner__description { font-size: 0.8125rem; }
+    .rds-banner__primary-button { height: 26px; }
+  }
+
+  &--medium {
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+    .rds-banner__heading { font-size: 1rem; }
+    .rds-banner__description { font-size: 1rem; }
+  }
+
+  &--large {
+    padding: var(--rds-spacing-md) var(--rds-spacing-lg);
+    .rds-banner__heading { font-size: 1.1rem; }
+    .rds-banner__description { font-size: 1.2rem; }
+    .rds-banner__primary-button { height: 32px; }
   }
 }

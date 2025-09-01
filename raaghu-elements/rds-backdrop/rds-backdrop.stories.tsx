@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RdsBackdrop from './rds-backdrop';
 
 const meta: Meta<typeof RdsBackdrop> = {
@@ -49,16 +49,26 @@ export const WithCustomContent: Story = {
 };
 
 export const Interactive: Story = {
-  render: () => {
-    const [open, setOpen] = useState(false);
+  args: {
+    open: false,
+    loading: false,
+  },
+  render: (args) => {
+    const [open, setOpen] = useState<boolean>(!!args.open);
+
+    // Sync local state with Storybook controls so toggling knobs works.
+    useEffect(() => {
+      setOpen(!!args.open);
+    }, [args.open]);
     
     return (
       <>
         <Button variant="contained" onClick={() => setOpen(true)}>
           Show Backdrop
         </Button>
-        <RdsBackdrop 
-          open={open} 
+        <RdsBackdrop
+          open={open}
+          loading={!!args.loading}
           onClick={() => setOpen(false)}
         >
           <div style={{ color: 'white', textAlign: 'center' }}>

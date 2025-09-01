@@ -75,46 +75,19 @@ const RdsDivider= ({
   );
 
   if (layout === 'vertical') {
+    // Render a left / vertical-divider / right layout so the component itself
+    // presents the same visual as the `Vertical` story. This embeds the
+    // surrounding context (Left / Right) into the component when
+    // `layout === 'vertical'` per user's request (Option B).
     return (
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        sx={{ height: '100%', mx: 2 }}
-      >
+      <Box sx={{ display: 'flex', alignItems: 'center', height: 120 }}>
+        <Typography variant="body2" sx={{ mr: 1 }}>Left</Typography>
         <MuiDivider
           orientation="vertical"
-          sx={{ alignSelf: 'stretch', minHeight: 60, borderColor: dividerLineColor }}
+          sx={{ mx: 2, height: '80%', borderColor: dividerLineColor }}
           {...props}
         />
-        {/* Only show text/icon if provided in args */}
-        {(!!dividerMessage || !!iconShow) && (
-          <Box mt={1.5} display="flex" alignItems="center" flexDirection="column" gap={0.5}>
-            {iconShow && dividerMessage && (
-              <Box
-                sx={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: '100%',
-                  border: '1px solid',
-                  borderColor: iconBorderColor,
-                  backgroundColor: 'background.paper',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <IconComponent sx={{ fontSize: 18, color: iconColor }} />
-              </Box>
-            )}
-            {dividerMessage && (
-              <Typography variant="body2" sx={{ color: textColor, fontWeight: 500, mt: 0.5 }}>
-                {dividerMessage}
-              </Typography>
-            )}
-          </Box>
-        )}
+        <Typography variant="body2" sx={{ ml: 1 }}>Right</Typography>
       </Box>
     );
   }

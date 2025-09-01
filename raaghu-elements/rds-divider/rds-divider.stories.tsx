@@ -7,6 +7,9 @@ const meta: Meta<typeof RdsDivider> = {
   component: RdsDivider,
   parameters: {
     layout: 'padded',
+    controls: {
+      exclude: ['component','flexItem'],
+    },
   },
   tags: ['autodocs'],
 
@@ -55,17 +58,8 @@ export const Vertical: Story = {
     iconName: 'InfoOutlined',
   },
   parameters: {
-    controls: { exclude: ['layout'] }, // Hide layout control for this story
+    controls: { exclude: ['layout','component'] }, // Hide layout control for this story
   },
-  decorators: [
-    (Story) => (
-      <Box sx={{ display: 'flex', alignItems: 'center', height: 120 }}>
-        <Typography>Left</Typography>
-        <Story />
-        <Typography>Right</Typography>
-      </Box>
-    ),
-  ],
 };
 
 
