@@ -12,6 +12,9 @@ const meta: Meta = {
   component: RdsDialog,
   parameters: {
     layout: 'centered',
+    controls: {
+      exclude: ['component', 'slots', 'slotProps','children', 'actions', 'onClose'],
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -114,7 +117,7 @@ export const FullWidth: Story = {
 };
 
 export const Interactive: Story = {
-  render: () => {
+  render: (args) => {
     const [open, setOpen] = useState(false);
     return (
       <>
@@ -133,9 +136,9 @@ export const Interactive: Story = {
           onClick={() => setOpen(true)}
         />
         <RdsDialog
+          {...args}
           open={open}
           onClose={() => setOpen(false)}
-          title="Interactive Dialog"
         >
           <Typography variant="body1" gutterBottom>
             This dialog can be opened and closed.
@@ -146,6 +149,10 @@ export const Interactive: Story = {
         </RdsDialog>
       </>
     );
+  },
+  args: {
+    title: 'Interactive Dialog',
+    ShowDissmiss: true,
   },
 };
 

@@ -81,7 +81,7 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
       severity={type}
       variant={muiVariant}
       icon={Icon ? <InfoOutlinedIcon /> : false}
-      className={`rds-banner ${sizeClass} ${styleClass} ${severityClass} ${widthClass}${props.className ? ` ${props.className}` : ''}`}
+  className={`rds-banner ${sizeClass} ${styleClass} ${severityClass} ${widthClass}${props.className ? ` ${props.className}` : ''}`}
       action={
         <div className="rds-banner__action-container">
           {actions}
@@ -98,14 +98,14 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
           )}
         </div>
       }
-      {...props}
+  {...props}
     >
       <div className="rds-banner__content-wrapper">
         <div className="rds-banner__text-content">
           {multiline ? (
             <div>
               {showTitle && (
-                <div className="rds-banner__heading rds-banner__heading--multiline">{title}</div>
+                <strong className="rds-banner__heading rds-banner__heading--multiline">{title}</strong>
               )}
               {showDescription && (
                 <div className="rds-banner__description">{mainText}</div>
