@@ -345,6 +345,7 @@
   width: 100px !important;
   gap: 4px !important;
   height: 32px !important;
+  margin-left: 18px !important;
 }
 
 .rds-counter__controls--medium_interactive {
@@ -362,19 +363,19 @@
 // Responsive styles for mobile and tablet
 @media (max-width: 600px) {
   .rds-counter {
-    width: 100% !important;
+    // width: 100% !important;
     
     &__controls {
       width: 100% !important;
-      min-width: auto !important;
-      max-width: none !important;
-      height: 36px !important;
+      // min-width: auto !important;
+      // max-width: none !important;
+      // height: 36px !important;
     }
     
     &__button {
-      width: 28px !important;
-      height: 28px !important;
-      min-width: 28px !important;
+      // width: 28px !important;
+      // height: 28px !important;
+      // min-width: 28px !important;
     }
     
     &__input {
@@ -403,6 +404,21 @@
         min-width: 160px;
       }
     }
+  }
+}
+
+// Responsive styles for Sizes and CompactSizes stories
+.rds-counter__responsive {
+  display: flex;
+  gap: var(--rds-spacing-md, 30px) !important;
+  align-items: flex-start;
+
+  @media (max-width: 600px) {
+    flex-direction: column; // Column layout for small screens
+  }
+
+  @media (min-width: 601px) {
+    flex-direction: row; // Row layout for large screens
   }
 }
 
@@ -624,5 +640,51 @@
       background-color: var(--rds-background-paper, #2a2a2a) !important;
       border-color: var(--rds-border-dark, #666666) !important;
     }
+  }
+}
+
+// Interactive story styles
+.rds-counter__interactive {
+  &__header {
+    font-weight: bold;
+    margin-bottom: var(--rds-spacing-md, 16px);
+    font-size: 1.2rem;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--rds-spacing-sm, 8px) 0;
+    border-bottom: 1px solid var(--rds-neutral-light, #e0e0e0);
+  }
+
+  &__item-details {
+    flex: 1;
+
+    &-name {
+      font-weight: 500;
+    }
+
+    &-price {
+      font-size: 0.875rem;
+      color: var(--rds-text-secondary, #757575);
+    }
+  }
+
+  &__item-total {
+    text-align: right;
+    font-weight: 500;
+    width: 100px;
+  }
+
+  &__footer {
+    margin-top: var(--rds-spacing-lg, 24px);
+    padding-top: var(--rds-spacing-md, 16px);
+    // border-top: 2px solid var(--rds-primary-main, #3f51b5);
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    font-weight: bold;
   }
 }
