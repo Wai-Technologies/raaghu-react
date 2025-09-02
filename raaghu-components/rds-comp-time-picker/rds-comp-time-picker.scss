@@ -4,9 +4,11 @@
   
   .time-input-container {
     position: relative;
-    display: flex;
+    display: inline-flex; /* shrink to content width so icon sits at input edge */
     align-items: center;
     cursor: pointer;
+    width: fit-content; /* ensure container doesn't stretch full width */
+    max-width: 100%;
     
     &.disabled {
       cursor: not-allowed;
@@ -15,9 +17,9 @@
     
     .time-input {
       // width: 100%;
-      height: 34px;
+  height: 34px;
       padding: 6px 12px;
-      padding-right: 36px;
+  padding-right: 34px; /* leave room for icon */
       border: 1px solid var(--rds-border-subtle, #E0E0E0);
       border-radius: 4px;
       text-align: left;
@@ -58,12 +60,14 @@
     
     .time-icon {
       position: absolute;
-      right: 12px;
+      right: 10px;
       top: 50%;
       transform: translateY(-50%);
-      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      height: 34px; /* match input height for perfect centering */
+      pointer-events: none; /* allow clicks to pass to input */
       color: var(--rds-text-secondary, #757575);
-      pointer-events: none;
     }
   }
 
@@ -98,6 +102,12 @@
       align-items: center;
       margin-bottom: 10px;
       width: 100%;
+    }
+    .time-divider {
+      width: 100%;
+      height: 1px;
+      background-color: var(--rds-border-subtle, #E0E0E0);
+      margin: 8px 0 12px;
     }
     
     .time-display {
@@ -199,7 +209,7 @@
           background-color: white;
           font-size: 14px;
           appearance: auto;
-          color: #333333;
+          color: #686161;
           
           &:focus {
             outline: none;
