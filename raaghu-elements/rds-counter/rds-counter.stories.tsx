@@ -98,7 +98,7 @@ export const Sizes: Story = {
     const [large, setLarge] = useState(3);
 
     return (
-      <Box sx={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+      <Box className="rds-counter__responsive">
         <RdsCounter
           {...args}
           defaultValue={1}
@@ -134,7 +134,7 @@ export const CompactSizes: Story = {
     const [large, setLarge] = useState(3);
 
     return (
-      <Box sx={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+      <Box className="rds-counter__responsive">
         <RdsCounter
           {...args}
           defaultValue={1}
@@ -232,7 +232,6 @@ export const Interactive: Story = {
 
     const total = cart.reduce((sum, item) => sum + (item.quantity * item.price), 0);
 
-    // Dynamically set controlsClassName for compact variant and size
     const getControlsClassName = () => {
       if (args.variant === 'compact') {
         if (args.size === 'large') return 'rds-counter__controls--large_interactive';
@@ -243,22 +242,15 @@ export const Interactive: Story = {
     };
 
     return (
-      <Box sx={{ width: 400 }}>
-        <Box sx={{ fontWeight: 'bold', mb: 2, fontSize: '1.2rem' }}>
+      <Box className="rds-counter__interactive">
+        <Box className="rds-counter__interactive__header">
           Shopping Cart
         </Box>
         {cart.map(item => (
-          <Box key={item.id} sx={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            py: 1,
-            borderBottom: 1,
-            borderColor: 'grey.200'
-          }}>
-            <Box sx={{ flex: 1 }}>
-              <Box sx={{ fontWeight: 'medium' }}>{item.name}</Box>
-              <Box sx={{ fontSize: '0.875rem', color: 'text.secondary' }}>
+          <Box key={item.id} className="rds-counter__interactive__item">
+            <Box className="rds-counter__interactive__item-details">
+              <Box className="rds-counter__interactive__item-details-name">{item.name}</Box>
+              <Box className="rds-counter__interactive__item-details-price">
                 ${item.price.toFixed(2)} each
               </Box>
             </Box>
@@ -268,21 +260,12 @@ export const Interactive: Story = {
               onChange={(quantity) => updateQuantity(item.id, quantity)}
               controlsClassName={getControlsClassName()}
             />
-            <Box sx={{ width: 100, textAlign: 'right', fontWeight: 'medium' }}>
+            <Box className="rds-counter__interactive__item-total">
               ${(item.quantity * item.price).toFixed(2)}
             </Box>
           </Box>
         ))}
-        <Box sx={{ 
-          mt: 2, 
-          pt: 2, 
-          borderTop: 2, 
-          borderColor: 'primary.main',
-          display: 'flex',
-          justifyContent: 'space-between',
-          fontSize: '1.1rem',
-          fontWeight: 'bold'
-        }}>
+        <Box className="rds-counter__interactive__footer">
           <span>Total:</span>
           <span>${total.toFixed(2)}</span>
         </Box>
