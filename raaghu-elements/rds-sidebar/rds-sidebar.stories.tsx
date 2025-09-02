@@ -100,9 +100,12 @@ const SidebarTemplate = (args: any) => {
 };
 
 export const Default = {
-  render: SidebarTemplate,
   args: {
     items: basicItems,
+    isOpen: true,
+    variant: 'permanent',
+    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
     showLogo: true,
   },
 };
@@ -113,6 +116,8 @@ export const MailApp = {
     items: mailItems,
     width: 280,
     showLogo: true,
+    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
   },
 };
 
@@ -122,6 +127,8 @@ export const NarrowSidebar = {
     items: basicItems,
     width: 180,
     showLogo: true,
+    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
   },
 };
 
@@ -142,6 +149,8 @@ export const WideSidebar = {
     items: basicItems,
     width: 320,
     showLogo: true,
+    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
   },
 };
 
@@ -156,6 +165,8 @@ export const WithDisabledItems = {
       { label: 'Help (Coming Soon)', icon: <Help />, disabled: true },
     ],
     showLogo: true,
+    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
   },
 };
 
@@ -170,5 +181,7 @@ export const WithoutIcons: Story = {
     isOpen: true,
     variant: 'permanent',
     showLogo: true,
+    avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
   },
 };

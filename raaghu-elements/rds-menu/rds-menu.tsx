@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader, ListItemIcon, ListItemText, Typography, type MenuProps } from '@mui/material';
+import './rds-menu.scss'
 
 export interface RdsMenuItem {
   id: string | number;
@@ -22,12 +23,19 @@ export interface RdsMenuProps extends Omit<MenuProps, 'children'> {
 
 const RdsMenu = ({
   items,
-  size = 'medium',
+  size,
   children,
   ...props
 }: RdsMenuProps) => {
   // Use dense for small size, otherwise default
   const dense = size === 'small';
+  // BEM modifier for size (should be on root, not MenuList)
+  const menuClassName = [
+    'rds-menu',
+    size ? `rds-menu--${size}` : '',
+    props.className || ''
+  ].filter(Boolean).join(' ');
+  const menuListClassName = 'rds-menu__list';
   // Helper to map color prop to CSS color value (can be extended or themed)
 function getColor(color: string): string {
   switch (color) {
@@ -46,67 +54,69 @@ function getColor(color: string): string {
   }
 }
   return (
-    <MuiMenu
-      {...props}
-      MenuListProps={{
-        ...props.MenuListProps,
-        role: 'menu',
-        dense,
-      }}
-    >
-      {children ? children : items.map((item) => {
-        if (item.header) {
+      <MuiMenu
+        {...props}
+        MenuListProps={{
+          ...props.MenuListProps,
+          role: 'menu',
+          dense,
+          className: menuListClassName,
+        }}
+        className={menuClassName}
+      >
+        {children ? children : items.map((item) => {
+          if (item.header) {
+            return (
+              <ListSubheader key={item.id} component="div" disableSticky className="rds-menu__header">
+                {item.header}
+              </ListSubheader>
+            );
+          }
+          if (item.divider) {
+            return <Divider key={item.id} className="rds-menu__divider" />;
+          }
           return (
-            <ListSubheader key={item.id} component="div" disableSticky>
-              {item.header}
-            </ListSubheader>
-          );
-        }
-        if (item.divider) {
-          return <Divider key={item.id} />;
-        }
-        return (
-          <MuiMenuItem
-            key={item.id}
-            onClick={item.onClick}
-            disabled={item.disabled}
-            role="menuitem"
-            component="li"
-            dense={dense}
-            style={item.color ? { color: getColor(item.color) } : undefined}
-            className={item.color ? `rds-menu__item--${item.color}` : undefined}
-          >
-            {item.icon && (
-              <ListItemIcon>
-                {React.isValidElement(item.icon) && (typeof item.icon.type === 'function' || typeof item.icon.type === 'object')
-                  ? React.cloneElement(
-                      item.icon as React.ReactElement<any>,
-                      {
-                        ...(item.icon.props || {}),
-                        style: {
-                          ...(item.icon.props?.style || {}),
-                          color: getColor(item.color || '')
+            <MuiMenuItem
+              key={item.id}
+              onClick={item.onClick}
+              disabled={item.disabled}
+              role="menuitem"
+              component="li"
+              dense={dense}
+              style={item.color ? { color: getColor(item.color) } : undefined}
+              className={['rds-menu__item', item.color ? `rds-menu__item--${item.color}` : '', item.disabled ? 'rds-menu__item--disabled' : ''].filter(Boolean).join(' ')}
+            >
+              {item.icon && (
+                <ListItemIcon className="rds-menu__item__icon">
+                  {React.isValidElement(item.icon) && (typeof item.icon.type === 'function' || typeof item.icon.type === 'object')
+                    ? React.cloneElement(
+                        item.icon as React.ReactElement<any>,
+                        {
+                          ...(item.icon.props || {}),
+                          style: {
+                            ...(item.icon.props?.style || {}),
+                            color: getColor(item.color || '')
+                          }
                         }
-                      }
-                    )
-                  : item.icon}
-              </ListItemIcon>
-            )}
-            <ListItemText
-              primary={item.label}
-              secondary={item.shortcut ? (
-                <Typography variant="body2" color="text.secondary" component="span">
-                  {item.shortcut}
-                </Typography>
-              ) : undefined}
-              secondaryTypographyProps={{
-                sx: { textAlign: 'right', display: 'block' }
-              }}
-            />
-          </MuiMenuItem>
-        );
-      })}
-    </MuiMenu>
+                      )
+                    : item.icon}
+                </ListItemIcon>
+              )}
+              <ListItemText
+                primary={<span className="rds-menu__item__text">{item.label}</span>}
+                secondary={item.shortcut ? (
+                  <Typography variant="body2" color="text.secondary" component="span" className="rds-menu__item__shortcut">
+                    {item.shortcut}
+                  </Typography>
+                ) : undefined}
+                secondaryTypographyProps={{
+                  sx: { textAlign: 'right', display: 'block' }
+                }}
+              />
+            </MuiMenuItem>
+          );
+        })}
+      </MuiMenu>
   );
 };
 
