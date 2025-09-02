@@ -13,6 +13,8 @@ const meta: Meta<typeof RdsCard> = {
   component: RdsCard,
   parameters: {
     layout: 'padded',
+    // hide auto-generated `component` control from Controls panel
+  controls: { exclude: ['component'] },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -162,8 +164,8 @@ export const WithActions: Story = {
           </Typography>
         </CardContent>
         <CardActions>
-          <RdsButton text="Learn More" size="small" style="transparent" />
-          <RdsButton text="Share" size="small" style="transparent" />
+          <RdsButton text="Learn More" size="small" textCase='capitalize' style="transparent" />
+          <RdsButton text="Share" size="small" textCase='capitalize' style="transparent" />
         </CardActions>
       </>
     ),
@@ -307,6 +309,7 @@ export const WithAvatar: Story = {
                     <RdsButton 
                       text="Save"
                       style="filled"
+                      textCase='capitalize'
                       color="primary"
                       size="small"
                       onClick={handleSave}
@@ -314,6 +317,7 @@ export const WithAvatar: Story = {
                     <RdsButton 
                       text="Cancel"
                       style="outlined"
+                      textCase='capitalize'
                       color="primary"
                       size="small"
                       onClick={handleCancel}
@@ -382,12 +386,14 @@ export const WithButton: Story = {
         <RdsButton
           text="Cancel"
           style="transparent"
+          textCase='capitalize'
           color="primary"
           size="small"
         />
         <RdsButton
           text="Okay"
           style="filled"
+          textCase='capitalize'
           color="primary"
           size="small"
         />
@@ -442,12 +448,14 @@ export const WithImage: Story = {
           <RdsButton
             text="Cancel"
             style="transparent"
+            textCase='capitalize'
             color="primary"
             size="small"
           />
           <RdsButton
             text="Okay"
             style="filled"
+            textCase='capitalize'
             color="primary"
             size="small"
           />

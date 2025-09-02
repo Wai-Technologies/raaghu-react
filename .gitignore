@@ -122,6 +122,11 @@ yarn-error.log
 # Storybook
 /storybook-static
 storybook-static/*
+
+# Chromatic
+.chromatic/
+chromatic.log
+*.chromatic.log
 /documentation
 documentation/*
 documentation.json

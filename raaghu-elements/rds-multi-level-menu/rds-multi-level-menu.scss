@@ -8,6 +8,12 @@
     padding: 0;
     min-width: 220px;
   }
+  // On small screens, push the root menu down to avoid overlapping the trigger
+  @media (max-width: 600px) {
+    .rds-mlm-paper.rds-mlm-root {
+      margin-top: 43px;
+    }
+  }
 
   // Menu items
   .MuiMenuItem-root {

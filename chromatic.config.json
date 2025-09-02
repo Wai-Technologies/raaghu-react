@@ -1,5 +1,8 @@
 {
+  "projectToken": "chpt_e0908206295b243",
+  "storybookBuildDir": "storybook-static",
   "onlyChanged": true,
-  "projectId": "Project:66a8f18d990fbbe63359f25e",
+  "exitZeroOnChanges": true,
+  "autoAcceptChanges": false,
   "zip": true
 }
