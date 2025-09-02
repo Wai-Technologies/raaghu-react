@@ -2,7 +2,6 @@ import React from 'react';
 import { Skeleton as MuiSkeleton, type SkeletonProps, Box } from '@mui/material';
 
 export interface RdsSkeletonProps extends SkeletonProps {
-  type?: 'text' | 'rectangular' | 'rounded' | 'circular';
   lines?: number;
   /**
    * Number of skeleton blocks to show in a row/column
@@ -21,9 +20,8 @@ export interface RdsSkeletonProps extends SkeletonProps {
 }
 
 const RdsSkeleton= ({
-  type = 'text',
   lines = 1,
-  shape,
+  shape = 'text',
   frames = 1,
   animated = true,
   animation,
