@@ -95,9 +95,7 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
     props.boardData ? [...props.boardData.map(() => false)] : []
   );
   const [isSubCardDropdownOpen, setIsSubCardDropdownOpen] = useState<{ [key: number]: boolean }>({});
-  const [subCardInputsVisible, setSubCardInputsVisible] = useState<number | null>(
-    props.boardData ? props.boardData.length : 0
-  );
+  const [subCardInputsVisible, setSubCardInputsVisible] = useState<number | null>(null);
 
   // Menu anchor elements
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -231,7 +229,16 @@ export const createEventHandlers = (state: any, props: RdsCompKanbanBoardProps) 
       key: "",
     };
 
-    setBoards((prevCards: any) => [...prevCards, newBoard]);
+    setBoards((prevCards: any) => {
+      const updatedCards = [...prevCards];
+      // Insert new board before the last board (keep primary board at end)
+      if (updatedCards.length > 0) {
+        updatedCards.splice(-1, 0, newBoard);
+      } else {
+        updatedCards.push(newBoard);
+      }
+      return updatedCards;
+    });
     setIsBoardDropdownOpen((prevState: any) => [...prevState, false]);
     setIsEditingBoardName((prevState: any) => [...prevState, false]);
     setShowAddBoardBtn(false);
