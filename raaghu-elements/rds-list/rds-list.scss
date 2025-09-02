@@ -212,6 +212,47 @@
   }
 }
 
+/* Responsive alignment modifier for demo/story usage
+   Small screens: align items to flex-start and allow text wrapping
+   Large screens: center items and keep single-line truncation */
+.rds-list--align-responsive {
+  /* Mobile-first: assume center from base styles, override for small viewports */
+  @media (max-width: 599.98px) {
+    .rds-list__item {
+      align-items: flex-start;
+    }
+
+    .rds-list__item .MuiListItemButton-root {
+      align-items: flex-start;
+    }
+
+    .rds-list__content-primary,
+    .rds-list__content-secondary {
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+    }
+  }
+
+  /* Ensure large screens remain centered with truncation */
+  @media (min-width: 1200px) {
+    .rds-list__item {
+      align-items: center;
+    }
+
+    .rds-list__item .MuiListItemButton-root {
+      align-items: center;
+    }
+
+    .rds-list__content-primary,
+    .rds-list__content-secondary {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
 // Demo container for Storybook examples
 .rds-list-demo__container {
   background-color: var(--rds-background-paper);
@@ -233,6 +274,23 @@
   grid-template-columns: 1fr 1fr;
   gap: var(--rds-spacing-xl, 32px);
   max-width: 800px;
+}
+
+/* Modifier: column responsiveness
+   - Small (<=599.98px): 1 column
+   - Medium (600px–1199.98px): 2 columns
+   - Large (>=1200px): 1 column */
+.rds-list-demo__grid--col-responsive {
+  /* Small screens: 1 column */
+  @media (max-width: 599.98px) {
+    grid-template-columns: 1fr;
+  }
+
+  /* Large screens: 1 column */
+  @media (min-width: 1600px) {
+    grid-template-columns: 1fr;
+  }
+  /* Medium screens inherit base 2-column grid from .rds-list-demo__grid */
 }
 
 // Demo titles
