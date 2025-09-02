@@ -197,6 +197,7 @@
     border-radius: 10px;
     min-width: 40px;
     height: 24px;
+    line-height: 20px;
   }
   &--small .MuiBadge-badge {
     font-size: 0.625rem !important;
@@ -204,6 +205,128 @@
     height: 16px !important;
     border-radius: 8px !important;
     padding: 0 4px !important;
+    /* Ensure text is visually centered inside the 16px badge */
+    line-height: 1 !important; /* avoid font metrics pushing glyph up */
+    display: grid !important;
+    place-items: center !important;
+
+  }
+  /* Dot variant centering and shape for small size */
+  &--small .MuiBadge-dot {
+    width: 10px !important;
+    height: 10px !important;
+    min-width: 8px !important;
+    border-radius: 50% !important;
+  }
+
+  /* Reduce dot size for medium when used in the Default/Dot story (plain SvgIcon child only) */
+  &.rds-badge--medium .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-dot,
+  &.rds-badge--medium:has(> .MuiSvgIcon-root) .MuiBadge-dot {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 8px !important;
+    border-radius: 50% !important;
+  }
+
+  /* Reduce dot size for large when used in the Default/Dot story (plain SvgIcon child only) */
+  &.rds-badge--large .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-dot,
+  &.rds-badge--large:has(> .MuiSvgIcon-root) .MuiBadge-dot {
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 8px !important;
+    border-radius: 50% !important;
+  }
+
+  /* High-specificity fallback: ensure small overlay badges from MUI are always centered
+     This covers Storybook DOM variations where MUI may apply inline transforms/positioning */
+  &.rds-badge--small .MuiBadge-badge,
+  &.rds-badge--small .MuiBadge-root .MuiBadge-badge,
+  &--small .MuiBadge-badge {
+    display: grid !important;
+    place-items: center !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    height: 14px !important;
+    min-width: 14px !important;
+    vertical-align: middle !important;
+  }
+
+  /* Neutralize any transform/margin applied to inner text nodes so glyphs sit visually centered */
+  &.rds-badge--small .MuiBadge-badge > *,
+  &--small .MuiBadge-badge > * {
+    transform: none !important;
+    margin: 0 !important;
+  }
+
+  /* Avatar-specific optical nudge: move the small badge slightly down when wrapping an Avatar
+     Uses :has() to detect presence of Avatar inside the MUI Badge root (modern Chromium-based Storybook). */
+  &.rds-badge--small .MuiBadge-root:has(.MuiAvatar-root) .MuiBadge-badge,
+  &.rds-badge--small:has(.MuiAvatar-root) .MuiBadge-badge {
+    /* move slightly right and down so the small badge visually sits over the avatar */
+    transform: translate(3px, -3px) !important;
+  }
+
+  /* Default story only: small numeric badge when wrapping a plain SvgIcon (direct child)
+     This avoids affecting Dot or With Icon stories. */
+  &.rds-badge--small .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot),
+  &.rds-badge--small:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot) {
+    transform: translate(8px, -6px) !important;
+  }
+
+  /* Ensure IconButton cases are NOT affected by the Default-story SvgIcon rule above */
+  &.rds-badge--small .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge,
+  &.rds-badge--small:has(.MuiIconButton-root) .MuiBadge-badge {
+    transform: none !important;
+  }
+
+  /* Medium size alignment adjustments for the same stories */
+  /* Avatar-specific nudge for medium size */
+  &.rds-badge--medium .MuiBadge-root:has(.MuiAvatar-root) .MuiBadge-badge,
+  &.rds-badge--medium:has(.MuiAvatar-root) .MuiBadge-badge {
+    transform: translate(6px, -9px) !important;
+  }
+
+  /* Default story: medium numeric badge when wrapping a plain SvgIcon (direct child) */
+  &.rds-badge--medium .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot),
+  &.rds-badge--medium:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot) {
+  transform: translate(12px, -10px) !important;
+  }
+
+  /* Ensure medium IconButton cases are NOT affected by the Default-story SvgIcon rule above */
+  &.rds-badge--medium .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge,
+  &.rds-badge--medium:has(.MuiIconButton-root) .MuiBadge-badge {
+    transform: none !important;
+  }
+
+  /* With Icon story: medium numeric badge when wrapping an IconButton (override reset above) */
+  &.rds-badge--medium .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge:not(.MuiBadge-dot),
+  &.rds-badge--medium:has(.MuiIconButton-root) .MuiBadge-badge:not(.MuiBadge-dot) {
+    transform: translate(5px, -2px) !important;
+  }
+
+  /* Large size alignment adjustments for the same stories */
+  /* Avatar-specific nudge for large size */
+  &.rds-badge--large .MuiBadge-root:has(.MuiAvatar-root) .MuiBadge-badge,
+  &.rds-badge--large:has(.MuiAvatar-root) .MuiBadge-badge {
+    transform: translate(10px, -12px) !important;
+  }
+
+  /* Default story: large numeric badge when wrapping a plain SvgIcon (direct child) */
+  &.rds-badge--large .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot),
+  &.rds-badge--large:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot) {
+  transform: translate(15px, -15px) !important;
+  }
+
+  /* Ensure large IconButton cases are NOT affected by the Default-story SvgIcon rule above */
+  &.rds-badge--large .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge,
+  &.rds-badge--large:has(.MuiIconButton-root) .MuiBadge-badge {
+    transform: none !important;
+  }
+
+  /* With Icon story: large numeric badge when wrapping an IconButton (override reset above) */
+  &.rds-badge--large .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge:not(.MuiBadge-dot),
+  &.rds-badge--large:has(.MuiIconButton-root) .MuiBadge-badge:not(.MuiBadge-dot) {
+    transform: translate(12px, -6px) !important;
   }
   
   &--medium .rds-badge__badge {
