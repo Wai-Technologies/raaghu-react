@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './rds-comp-time-picker.scss';
 import { RdsIconButton } from '../../raaghu-elements/index';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { CompactTimePicker, DefaultTimePicker } from './time-picker-modes';
 import { 
   getButtonClasses, 
@@ -144,6 +145,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
       <div 
         className={`time-input-container ${props.disabled ? 'disabled' : ''}`} 
         onClick={!props.disabled ? togglePicker : undefined}
+        style={{ position: 'relative' }}
       >
         <input
           type="text"
@@ -153,12 +155,11 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
           disabled={props.disabled}
           placeholder="12:00 AM"
         />
-        <span className="time-icon">
-          <RdsIconButton
-            name="clock"
-            color={getIconColor(props.colorVariant)}
-            disabled={props.disabled}
-          />
+        <span 
+          className="time-icon"
+          style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: 'var(--rds-text-secondary, #757575)' }}
+        >
+          <AccessTimeIcon fontSize="small" />
         </span>
       </div>
 
@@ -176,6 +177,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
               NOW
             </div>
           </div>
+          <div className="time-divider" role="separator" aria-hidden="true" />
           
           <div className="time-values-container">
             {props.style === 'compact' 
@@ -199,6 +201,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
                 />
             }
           </div>
+          <div className="time-divider" role="separator" aria-hidden="true" />
           
           <div className={`buttons ${props.style === "compact" ? "buttons-compact" : "buttons"}`}>
             <button type="button" className={getButtonClasses(props.colorVariant).cancel} onClick={handleCancel}>Cancel</button>
