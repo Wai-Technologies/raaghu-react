@@ -85,7 +85,7 @@ export const Default: Story = {
         allowAddingNewCard: true,
         //boardName: "Board123",
         boardData: sampleItems,
-        allowAddingDynamicData : true,
+        //allowAddingDynamicData : true,
         allowAddingNewSubCard: true,
 
         allCategoriesList: [
