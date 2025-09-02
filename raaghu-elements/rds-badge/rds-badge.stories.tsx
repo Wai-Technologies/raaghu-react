@@ -59,6 +59,9 @@ export const Default: Story = {
     children: <Mail />,
   },
 };
+Default.parameters = {
+  controls: { exclude: ['shape', 'layout'] },
+};
 
 export const Dot: Story = {
   args: {
@@ -67,6 +70,9 @@ export const Dot: Story = {
     children: <Mail />,
   },
 };
+Dot.parameters = {
+  controls: { exclude: ['shape', 'layout'] },
+};
 
 export const WithAvatar: Story = {
   args: {
@@ -74,6 +80,9 @@ export const WithAvatar: Story = {
     color: 'error',
     children: <Avatar>U</Avatar>,
   },
+};
+WithAvatar.parameters = {
+  controls: { exclude: ['shape', 'layout', 'badgeContent'] },
 };
 
 export const WithIcon: Story = {
@@ -86,6 +95,9 @@ export const WithIcon: Story = {
       </IconButton>
     ),
   },
+};
+WithIcon.parameters = {
+  controls: { exclude: ['shape', 'layout'] },
 };
 
 export const WithText: Story = {
