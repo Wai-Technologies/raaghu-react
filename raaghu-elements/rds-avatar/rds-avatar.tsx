@@ -24,6 +24,8 @@ export interface RdsAvatarProps extends AvatarProps {
   activeDotBottom?: boolean;
   showName?: boolean;
   showDesignation?: boolean;
+  /** Whether to show the +N remaining count indicator in stacking mode */
+  showRemainingCount?: boolean;
 }
 const sizeStyles = {
   smallest: { width: 24, height: 24, fontSize: 9 },
@@ -48,6 +50,7 @@ const RdsAvatar = ({
   activeDotBottom = false,
   showName = true,
   showDesignation = true,
+  showRemainingCount = true,
   ...props
 }: RdsAvatarProps) => {
 
@@ -76,7 +79,7 @@ const RdsAvatar = ({
             {avatar.title ? avatar.title.charAt(0).toUpperCase() : null}
           </MuiAvatar>
         ))}
-        {remainingCount > 0 && (
+        {remainingCount > 0 && showRemainingCount && (
           <div
             className={`plus-indicator plus-indecator-${size}`}
             style={{

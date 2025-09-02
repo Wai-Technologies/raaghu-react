@@ -47,7 +47,7 @@ type Story = StoryObj<typeof meta>;
 export const AlignItems: Story = {
   args: {
     withDividers: true,
-    alignItems: "flex-start",
+  className: 'rds-list--align-responsive',
     items: [
       {
         id: 1,
@@ -198,29 +198,29 @@ const interactiveCombinedItems = [
 
 export const Interactive: Story = {
   render: () => (
-    <div className="rds-list-demo__grid">
+  <div className="rds-list-demo__grid rds-list-demo__grid--col-responsive">
       {/* Text only */}
       <div>
         <div className="rds-list-demo__title">Text only</div>
-        <RdsList withDividers items={interactiveTextItems} />
+    <RdsList className="rds-list--align-responsive" withDividers items={interactiveTextItems} />
       </div>
-      
+     
       {/* Icon with text */}
       <div>
         <div className="rds-list-demo__title">Icon with text</div>
-        <RdsList withDividers items={interactiveIconItems} />
+    <RdsList className="rds-list--align-responsive" withDividers items={interactiveIconItems} />
       </div>
-      
+     
       {/* Avatar with text */}
       <div>
         <div className="rds-list-demo__title">Avatar with text</div>
-        <RdsList withDividers items={interactiveAvatarItems} />
+    <RdsList className="rds-list--align-responsive" withDividers items={interactiveAvatarItems} />
       </div>
-      
+     
       {/* Avatar with text and icon (secondary action) */}
       <div>
         <div className="rds-list-demo__title">Avatar with text and icon</div>
-        <RdsList withDividers items={interactiveCombinedItems} />
+    <RdsList className="rds-list--align-responsive" withDividers items={interactiveCombinedItems} />
       </div>
     </div>
   )
@@ -365,7 +365,8 @@ export const WithIcons: Story = {
 };
 export const WithSecondaryText: Story = {
   args: {
-    withDividers: true,
+  withDividers: true,
+  className: 'rds-list--align-responsive',
     items: [
       { id: 1, primary: 'Home', secondary: 'Navigate to home page', icon: <Home /> },
       { id: 2, primary: 'Profile', secondary: 'View and edit your profile', icon: <Person /> },
@@ -435,13 +436,14 @@ export const WithCheckbox: Story = {
     );
     
     return (
-      <div className="rds-list-demo__container">
+      <div className="rds-list-demo__container rds-list--align-responsive">
         <div className="rds-list-demo__title">Different Checkbox States</div>
         <RdsList
           withDividers
           withCheckboxes
           checkedItems={checked}
           onCheckboxChange={handleCheckboxChange}
+          className="rds-list--align-responsive"
           items={itemsWithCustomCheckbox}
         />
       </div>

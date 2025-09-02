@@ -4,18 +4,26 @@
   position: relative;
   width: 100%;
 
+  // Responsive: reduce width on mobile devices
+  @media (max-width: 600px) {
+    max-width: 370px;
+  }
+  @media (max-width: 400px) {
+    max-width: 275px;
+  }
+
   // Header section with label and value
   &__header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: var(--rds-spacing-sm, 8px);
+    margin-bottom: var(--rds-spacing-sm);
   }
 
   // Footer section with min/max labels
   &__footer {
     display: flex;
     justify-content: space-between;
-    margin-top: var(--rds-spacing-xs, 4px);
+    margin-top: var(--rds-spacing-xs);
   }
 
   // State modifiers
