@@ -39,6 +39,39 @@ const preview: Preview = {
         order: ['Introduction', 'Elements', 'Components', 'Layouts'],
       },
     },
+    // Enhanced parameters for Chromatic testing
+    viewport: {
+      viewports: {
+        mobile: {
+          name: 'Mobile',
+          styles: {
+            width: '375px',
+            height: '667px',
+          },
+        },
+        tablet: {
+          name: 'Tablet',
+          styles: {
+            width: '768px',
+            height: '1024px',
+          },
+        },
+        desktop: {
+          name: 'Desktop',
+          styles: {
+            width: '1920px',
+            height: '1080px',
+          },
+        },
+      },
+    },
+    chromatic: {
+      // Chromatic-specific parameters
+      viewports: [375, 768, 1920],
+      delay: 1000, // Wait for animations/transitions
+      diffThreshold: 0.2, // Visual diff threshold
+      pauseAnimationAtEnd: true,
+    },
   },
   decorators: [
     (Story, context) => {

@@ -5,8 +5,8 @@ const meta: Meta = {
   title: 'Components/Truncated Text',
   component: RdsCompTruncatedText,
   parameters: {
-  layout: 'padded',
-  docs: {
+    layout: 'padded',
+    docs: {
       source: {
         transform: (code: string) => {
           // Transform state enum

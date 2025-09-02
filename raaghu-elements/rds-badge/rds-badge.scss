@@ -104,8 +104,8 @@
   @each $key, $value in $rds-badge-colors {
     // Primary style for custom pill
     &.rds-badge--primary.rds-badge--#{$key} > .rds-badge__badge {
-      color: nth($value, 1);
-      background-color: nth($value, 2);
+      // color: nth($value, 1);
+      // background-color: nth($value, 2);
       border: none;
     }
     
@@ -117,9 +117,9 @@
 
     // Outline style for custom pill
     &.rds-badge--outline.rds-badge--#{$key} > .rds-badge__badge {
-      color: nth($value, 1);
+      // color: nth($value, 1);
       background-color: transparent;
-      border: 2px solid nth($value, 1);
+      // border: 2px solid nth($value, 1);
       box-shadow: none;
     }
     
@@ -132,7 +132,7 @@
 
     // Transparent style for custom pill
     &.rds-badge--transparent.rds-badge--#{$key} > .rds-badge__badge {
-      color: nth($value, 1);
+      // color: nth($value, 1);
       background-color: transparent;
       border: none;
       box-shadow: none;

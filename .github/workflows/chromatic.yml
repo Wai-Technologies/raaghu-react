@@ -1,17 +1,24 @@
-name: Chromatic Deployment
+name: Chromatic Visual Testing
 
 on:
+  push:
+    branches: [main, development, production]
+  pull_request:
+    branches: [main, development, production]
   workflow_dispatch:
 
 permissions:
-  contents: none
+  contents: read
+  pull-requests: write
+  actions: read
 
 jobs:
   chromatic-deployment:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    permissions:
-      contents: read
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
 
     steps:
       - name: Checkout code
@@ -19,21 +26,44 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Node.js
+      - name: Set up Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
-
-      - name: Install chromatic dependencies
-        run: npm install -g chromatic
-
-      - name: Install chromatic dependencies
-        run: npm install --save-dev chromatic
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm run install-all
+        run: npm ci
 
-      - name: Run Chromatic
-        env:
-          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }} # Use GitHub secrets to store your Chromatic token
-        run: npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --exit-once-uploaded
+      - name: Install Chromatic
+        run: npm install --save-dev chromatic
+
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: ./
+          storybookBuildDir: storybook-static
+          exitZeroOnChanges: true
+          autoAcceptChanges: false
+          interactive: false
+          preserveMissingSpecs: true
+          annotateBuild: true
+          exitOnceUploaded: true
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: ./
+          storybookBuildDir: storybook-static
+          exitZeroOnChanges: true
+          autoAcceptChanges: false
+          interactive: false
+          preserveMissingSpecs: true
+          annotateBuild: true
+          exitOnceUploaded: true
