@@ -137,11 +137,28 @@
     }
   }
 
+  @media (max-width: 834px) and (min-width: 414px) {
+    &__block {
+      width: 75px !important;
+      height: 35px !important;
+      font-size: 14px !important;
+    }
+  }
+
+  @media (max-width: 414px) and (min-width: 320px) {
+    &__block {
+      width: 58px !important;
+      height: 35px !important;
+      font-size: 13px !important;
+    }
+  }
+
   // Stepper specific styles - numbered or circular step indicators
   &__stepper {
     display: flex;
     align-items: center;
     gap: 0;
+    // max-width: 100%;
     // Container for stepper elements with no gap (connectors provide spacing)
 
     // Individual step circles in stepper progress
@@ -183,6 +200,29 @@
         background-color: var(--rds-color-white, #ffffff);
         color: var(--rds-color-gray-500, #9e9e9e);
         // Muted appearance for steps not yet reached
+      }
+    }
+
+    // Responsive: Reduce step size for small and large mobile views and override inline styles
+    @media (max-width: 834px) and (min-width: 414px) {
+      &-step {
+        width: 30px !important;
+        height: 30px !important;
+      }
+
+      &--stepper {
+        width: 100% !important;
+      }
+    }
+
+    @media (max-width: 414px) and (min-width: 320px) {
+      &-step {
+        width: 30px !important;
+        height: 30px !important;
+      }
+
+      &-connector {
+        width: 35px !important;
       }
     }
 
