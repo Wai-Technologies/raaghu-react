@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsTabs from './rds-tabs';
-import { Typography, Box } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
 import HomeIcon from '@mui/icons-material/Home';
@@ -10,6 +9,9 @@ const meta: Meta<typeof RdsTabs> = {
   component: RdsTabs,
   parameters: {
     layout: 'padded',
+    controls: {
+      include: ['tabs', 'activeTab', 'type', 'layout', 'title', 'state', 'leftIcon', 'rightIcon', 'showLeftIcon', 'showRightIcon', 'level'],
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -89,10 +91,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const sampleTabs = [
-  { id: 0, label: 'Overview', icon: undefined, disabled: false },
-  { id: 1, label: 'Details', icon: undefined, disabled: false },
-  { id: 2, label: 'Settings', icon: undefined, disabled: false },
-  { id: 3, label: 'Help', icon: undefined, disabled: false },
+  { id: 0, label: 'Tab 1', icon: undefined, disabled: false },
+  { id: 1, label: 'Tab 2', icon: undefined, disabled: false },
+  { id: 2, label: 'Tab 3', icon: undefined, disabled: false },
+  { id: 3, label: 'Tab 4', icon: undefined, disabled: false },
+  { id: 4, label: 'Tab 5', icon: undefined, disabled: false },
+  { id: 5, label: 'Tab 6', icon: undefined, disabled: false },
+  { id: 6, label: 'Tab 7', icon: undefined, disabled: false },
+  { id: 7, label: 'Tab 8', icon: undefined, disabled: false },
 ];
 
 
@@ -194,6 +200,11 @@ export const SimpleTabs: Story = {
       { id: 0, label: 'Tab 1' },
       { id: 1, label: 'Tab 2' },
       { id: 2, label: 'Tab 3' },
+      { id: 3, label: 'Tab 4' },
+      { id: 4, label: 'Tab 5' },
+      { id: 5, label: 'Tab 6' },
+      { id: 6, label: 'Tab 7' },
+      { id: 7, label: 'Tab 8' },
     ],
     activeTab: 0,
     layout: 'filled',
