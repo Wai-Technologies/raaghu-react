@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { IconButton as MuiIconButton, type IconButtonProps } from '@mui/material';
 import './rds-icon-button.scss';
@@ -55,10 +54,12 @@ const RdsIconButton = ({
     buttonContent = getSizedIcon(children as React.ReactNode);
   }
 
-  // Only add outlined class if outlined, otherwise no custom class
-  const className = variant === 'outlined'
-    ? ['rds-icon-button--outlined', props.className].filter(Boolean).join(' ')
-    : props.className || undefined;
+  // Compose a stable base class for targeting and include outlined + user classes
+  const className = [
+    'rds-icon-button',
+    variant === 'outlined' ? 'rds-icon-button--outlined' : null,
+    props.className || null,
+  ].filter(Boolean).join(' ');
 
   return (
     <MuiIconButton

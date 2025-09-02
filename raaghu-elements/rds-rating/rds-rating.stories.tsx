@@ -37,6 +37,10 @@ const meta: Meta<typeof RdsRating> = {
         'Right': 5,
       },
     },
+    colorVariant: {
+      control: { type: 'select' },
+      options: ['primary','success','danger','warning','light','info','secondary','dark'],
+    },
     readOnly: {
       control: { type: 'boolean' },
     },
@@ -85,6 +89,15 @@ export const Default: Story = {
     onChange: { table: { disable: true } },
     icon: { table: { disable: true } },
     emptyIcon: { table: { disable: true } },
+  },
+};
+
+export const WithColor: Story = {
+  args: {
+    value: 4,
+    type: 'star',
+    colorVariant: 'primary',
+    styles: 'filled',
   },
 };
 

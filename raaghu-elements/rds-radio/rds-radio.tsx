@@ -10,6 +10,7 @@ import {
   Box,
   Typography
 } from '@mui/material';
+import './rds-radio.scss';
 
 export interface RdsRadioOption {
   value: string;

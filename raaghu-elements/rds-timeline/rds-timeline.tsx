@@ -1,6 +1,6 @@
 import React from 'react';
-import {
-  Timeline as MuiTimeline,
+import MuiTimeline from '@mui/lab/Timeline';
+import { 
   TimelineItem as MuiTimelineItem,
   TimelineSeparator as MuiTimelineSeparator,
   TimelineConnector as MuiTimelineConnector,
@@ -9,7 +9,6 @@ import {
   TimelineOppositeContent as MuiTimelineOppositeContent,
   TimelineProps
 } from '@mui/lab';
-
 export interface RdsTimelineItem {
   id: string | number;
   title: string;
@@ -35,31 +34,34 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
 }) => {
   const timelinePosition = position || (alternating ? 'alternate' : 'right');
 
+  // Only pass safe props to MuiTimeline (avoid ...props which may include ref as string)
   return (
     <MuiTimeline position={timelinePosition} {...props}>
-      {items.map((item, index) => (
-        <MuiTimelineItem key={item.id}>
-          {showTime && item.time && (
-            <MuiTimelineOppositeContent color="text.secondary">
-              {item.time}
-            </MuiTimelineOppositeContent>
-          )}
-          <MuiTimelineSeparator>
-            <MuiTimelineDot color={item.color} variant={item.variant}>
-              {item.icon}
-            </MuiTimelineDot>
-            {index < items.length - 1 && <MuiTimelineConnector />}
-          </MuiTimelineSeparator>
-          <MuiTimelineContent>
-            <strong>{item.title}</strong>
-            {item.description && (
-              <div style={{ marginTop: 4, color: 'rgba(0, 0, 0, 0.6)' }}>
-                {item.description}
-              </div>
+      <>
+        {items.map((item, index) => (
+          <MuiTimelineItem key={item.id}>
+            {showTime && item.time && (
+              <MuiTimelineOppositeContent color="text.secondary">
+                {item.time}
+              </MuiTimelineOppositeContent>
             )}
-          </MuiTimelineContent>
-        </MuiTimelineItem>
-      ))}
+            <MuiTimelineSeparator>
+              <MuiTimelineDot color={item.color} variant={item.variant}>
+                {item.icon}
+              </MuiTimelineDot>
+              {index < items.length - 1 && <MuiTimelineConnector />}
+            </MuiTimelineSeparator>
+            <MuiTimelineContent>
+              <strong>{item.title}</strong>
+              {item.description && (
+                <div style={{ marginTop: 4, color: 'rgba(0, 0, 0, 0.6)' }}>
+                  {item.description}
+                </div>
+              )}
+            </MuiTimelineContent>
+          </MuiTimelineItem>
+        ))}
+      </>
     </MuiTimeline>
   );
 };

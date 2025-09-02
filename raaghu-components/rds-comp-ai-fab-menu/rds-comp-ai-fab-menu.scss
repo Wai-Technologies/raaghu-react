@@ -227,18 +227,22 @@
   // Dropdown container
   &__dropdown-container {
     display: none;
-    // position: absolute;
+    position: absolute;
     top: 100%;
+    right: 0;
     z-index: 1000;
     margin-top: var(--rds-spacing-sm, 8px);
-
-    // Alignment variants
+    min-width: 220px;
+    max-width: 300px;
+    /* Ensure dropdown opens outside parent container */
+    transform: translateY(10px);
     &--left {
       left: 0;
+      right: auto;
     }
-
     &--right {
       right: 0;
+      left: auto;
     }
   }
 
