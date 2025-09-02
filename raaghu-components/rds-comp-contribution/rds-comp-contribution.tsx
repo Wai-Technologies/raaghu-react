@@ -60,16 +60,22 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
 
   const updateSizeBasedOnWidth = (width: number) => {
     setContainerWidth(width);
-    
+
     if (width < 300) {
+      setDynamicPanelSize(4);
+      setDynamicPanelMargin(1);
+    } else if (width < 400) {
       setDynamicPanelSize(5);
       setDynamicPanelMargin(1);
-    } else if (width < 500) {
+    } else if (width < 600) {
       setDynamicPanelSize(7);
       setDynamicPanelMargin(2);
-    } else if (width < 800) {
+    } else if (width < 900) {
       setDynamicPanelSize(9);
-      setDynamicPanelMargin(2);
+      setDynamicPanelMargin(3);
+    } else if (width < 1200) {
+      setDynamicPanelSize(11);
+      setDynamicPanelMargin(4);
     } else {
       setDynamicPanelSize(panelSize);
       setDynamicPanelMargin(panelMargin);
@@ -119,7 +125,8 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     if (width <= 360) return 'rds-comp-contribution__container--svgwidth-360';
     if (width <= 600) return 'rds-comp-contribution__container--svgwidth-600';
     if (width <= 900) return 'rds-comp-contribution__container--svgwidth-900';
-    return 'rds-comp-contribution__container--svgwidth-1200';
+    if (width <= 1200) return 'rds-comp-contribution__container--svgwidth-1200';
+    return 'rds-comp-contribution__container--svgwidth-large';
   };
 
   if (!panelColors || !weekNames) {
@@ -246,7 +253,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     });
   };
   
-  const minSvgWidth = columns * (dynamicPanelSize + dynamicPanelMargin) + weekLabelWidth + dynamicPanelSize + dynamicPanelMargin;
+  const minSvgWidth = Math.max(columns * (dynamicPanelSize + dynamicPanelMargin) + weekLabelWidth + dynamicPanelSize + dynamicPanelMargin, 320);
   const svgWidth = Math.max(minSvgWidth, isMobile ? 360 : 0);
   const svgHeight = 7 * (dynamicPanelSize + dynamicPanelMargin) + monthLabelHeight;
 
