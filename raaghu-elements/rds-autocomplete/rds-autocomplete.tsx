@@ -138,7 +138,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
           placeholder={placeholder}
           helperText={showHintText ? helperText : ''}
           error={error}
-          variant={controlStyle === 'bottom line' ? 'standard' : 'outlined'}
+          variant={variant}
           className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass}`}
         />
       )}
