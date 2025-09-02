@@ -33,27 +33,46 @@ const RdsRange= ({
   rightLabel = 100,
   ...props
 }:RdsRangeProps) => {
-  // Extract min and max from props with defaults
-  const min = props.min ?? 0;
-  const max = props.max ?? 100;
+  const min = leftLabel ?? props.min ?? 0;
+  const max = rightLabel ?? props.max ?? 100;
 
-  // Calculate value based on level for one-way type
   const calculateLevelValue = (level: string): number => {
     const levelNum = parseInt(level);
     if (levelNum < 1 || levelNum > 5) return min;
-    
-    // Calculate value based on level (1-5 scale)
-    // Level 1 = min, Level 5 = max, levels 2-4 are evenly distributed
     const range = max - min;
-    const step = range / 4; // 4 steps between 5 levels
+    const step = range / 4;
     return min + (step * (levelNum - 1));
   };
 
-  // Use level-based value for one-way type when no explicit value is provided
-  // or when value is undefined/null
-  const effectiveValue = type === 'one-way' && (value === undefined || value === null) 
-    ? calculateLevelValue(level) 
-    : value;
+  // Internal state for slider value (for interactive behavior)
+  const [internalValue, setInternalValue] = React.useState<number | number[]>(
+    value !== undefined && value !== null
+      ? value
+      : type === 'one-way'
+        ? calculateLevelValue(level)
+        : range
+          ? [min, max]
+          : min
+  );
+
+  // Sync internal value with external value prop
+  React.useEffect(() => {
+    if (value !== undefined && value !== null) {
+      setInternalValue(value);
+    }
+  }, [value]);
+
+  // Reset internal value when type or level changes
+  React.useEffect(() => {
+    if (type === 'one-way') {
+      setInternalValue(calculateLevelValue(level));
+    } else if (type === 'two-way') {
+      setInternalValue([min, max]);
+    }
+  }, [type, level, min, max]);
+
+  // Use internal value for slider
+  const effectiveValue = internalValue;
 
   // Use original marks prop instead of generating level marks
   const marks = props.marks;
@@ -100,6 +119,7 @@ const RdsRange= ({
   };
 
   const handleChange = (event: Event, newValue: number | number[]) => {
+    setInternalValue(newValue);
     onChange?.(newValue);
   };
 
@@ -165,7 +185,7 @@ const RdsRange= ({
         marks={marks}
         min={min}
         max={max}
-        step={type === 'one-way' ? null : props.step}
+        step={props.step}
         {...props}
       />
       {showLabel && (
