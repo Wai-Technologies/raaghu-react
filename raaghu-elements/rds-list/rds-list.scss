@@ -374,26 +374,3 @@
     background-color: var(--rds-overlay-hover, rgba(255, 255, 255, 0.08));
   }
 }
-
-// Horizontal scroll demo helpers (used in stories)
-.rds-list-demo__center {
-  display: grid;
-  place-items: center;
-  width: 100%;
-}
-
-.rds-list-demo__hscroll {
-  width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-bottom: var(--rds-spacing-sm, 8px); // space between content and horizontal scrollbar
-}
-
-.rds-list-demo__hscroll-inner {
-  display: inline-block;
-  min-width: 300px;
-
-  &--sm {
-    min-width: 500px;
-  }
-}
