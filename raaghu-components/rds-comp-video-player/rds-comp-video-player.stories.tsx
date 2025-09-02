@@ -7,6 +7,9 @@ const meta: Meta = {
     component: RdsCompVideoPlayer,
     parameters: {
         layout: 'padded',
+        controls: {
+            exclude: ['width', 'height'],
+        },
         docs: {
             source: {
                 transform: (code: string) => {
@@ -33,12 +36,12 @@ const meta: Meta = {
             description: "Select the type of video source",
         },
         width: {
-            control: 'text',
-            description: 'Width of the video player (CSS value)',
+            table: { disable: true },
+            control: false,
         },
         height: {
-            control: 'text',
-            description: 'Height of the video player (CSS value)',
+            table: { disable: true },
+            control: false,
         },
         autoplay: {
             control: 'boolean',
