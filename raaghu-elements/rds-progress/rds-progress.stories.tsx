@@ -54,6 +54,7 @@ export const Circular: Story = {
     stepperType: 'circle',
   },
 };
+Circular.parameters = { controls: { include: ['style', 'variant', 'steps', 'showLabel', 'color', 'stepperType'] } };
 
 export const ColorVariants: Story = {
   args: {
@@ -62,12 +63,14 @@ export const ColorVariants: Story = {
     color: 'secondary',
   },
 };
+ColorVariants.parameters = { controls: { include: ['variant', 'value', 'color'] } };
 
 export const Indeterminate: Story = {
   args: {
     variant: 'indeterminate',
   },
 };
+Indeterminate.parameters = { controls: { include: ['variant'] } };
 
 export const Linear: Story = {
   args: {
@@ -82,3 +85,4 @@ export const Linear: Story = {
     ),
   ],
 };
+Linear.parameters = { controls: { include: ['variant', 'value'] } };
