@@ -263,7 +263,6 @@ export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
 export const FootballScorecard: StoryObj<typeof RdsCompAdaptiveCards> = {
     args: {
         type: 'FootballScorecard',
-        closeIcon: true,
         leagueName: 'La Liga',
         leagueAvatar: 'assets/scorecard1.png',
         isLive: true,
@@ -283,7 +282,7 @@ export const FootballScorecard: StoryObj<typeof RdsCompAdaptiveCards> = {
     parameters: {
         controls: {
             include: [
-                'type', 'closeIcon', 'leagueName', 'leagueAvatar', 'isLive', 'matchDate', 'isFinal', 'homeTeamName', 'homeTeamLogo', 'homeTeamStatus', 'awayTeamName', 'awayTeamLogo', 'awayTeamStatus', 'homeScore', 'awayScore', 'time', 'finalText'
+                'type', 'leagueName', 'leagueAvatar', 'isLive', 'matchDate', 'isFinal', 'homeTeamName', 'homeTeamLogo', 'homeTeamStatus', 'awayTeamName', 'awayTeamLogo', 'awayTeamStatus', 'homeScore', 'awayScore', 'time', 'finalText'
             ],
         },
     },
