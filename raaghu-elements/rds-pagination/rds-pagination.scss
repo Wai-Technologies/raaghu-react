@@ -40,6 +40,64 @@
       align-items: center;
     }
   }
+  // Responsive styles for mobile screens
+  @media (max-width: 834px) and (min-width: 414px) {
+    .MuiPagination-ul {
+      flex-wrap: nowrap;
+      gap: 3px;
+    }
+    .MuiPaginationItem-root {
+      margin: 0 2px;
+      padding: 2px 6px;
+      font-size: 0.85rem;
+      min-width: 28px;
+      height: 28px;
+    }
+    .MuiPaginationItem-root.MuiPaginationItem-rounded {
+      padding: 6px;
+      border-radius: 4px;
+    }
+    // Reduce dropdown width
+    .MuiFormControl-root {
+      min-width: 70px !important;
+    }
+    .MuiInputLabel-root {
+      font-size: 0.85rem;
+    }
+    .MuiSelect-select {
+      font-size: 0.85rem;
+      padding: 6px 8px;
+    }
+  }
+
+  @media (max-width: 414px) and (min-width: 320px) {
+    .MuiPagination-ul {
+      flex-wrap: nowrap;
+      gap: 0px;
+    }
+    .MuiPaginationItem-root {
+      margin: 0 2px;
+      padding: 2px 0px;
+      font-size: 0.85rem;
+      min-width: 25px;
+      height: 25px;
+    }
+    .MuiPaginationItem-root.MuiPaginationItem-rounded {
+      padding: 6px;
+      border-radius: 4px;
+    }
+    // Reduce dropdown width
+    .MuiFormControl-root {
+      min-width: 70px !important;
+    }
+    .MuiInputLabel-root {
+      font-size: 0.85rem;
+    }
+    .MuiSelect-select {
+      font-size: 0.85rem;
+      padding: 6px 8px;
+    }
+  }
 
   // Selected (current) page
   .MuiPaginationItem-root.Mui-selected {
