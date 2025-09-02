@@ -33,7 +33,7 @@ const Style1 = ({ item }: { item: Item }) => {
   return (
     <Card sx={{ height: '100%' }}>
       <CardContent sx={{ textAlign: 'center' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'center', '& .rds-avatar__name': { fontWeight: 'bold' } }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', '& .rds-avatar__name': { fontWeight: 'bold', fontSize: '1.25rem' } }}>
           <RdsAvatar
             src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
             title={item.name}
@@ -102,7 +102,7 @@ const Style3 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <Card sx={{ p: 3, height: '100%' }}>
+    <Card sx={{ p: 3, height: '100%', '& .rds-avatar__name': { fontWeight: 'bold', fontSize: '1.25rem'  } }}>
       {/* User info with avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
         <RdsAvatar
@@ -420,7 +420,7 @@ const Style8 = ({ item }: { item: Item }) => {
         
         {/* Name at the bottom */}
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Typography  sx={{ mb: 0, textAlign: 'right', mt: 1 }}>{item.name}</Typography>
+          <Typography variant="body2" sx={{ mb: 0, textAlign: 'right', mt: 1}}>{item.name}</Typography>
         </Box>
       </Box>
     </Card>
