@@ -86,8 +86,8 @@ export const Default: Story = {
     render: (args) => (
         <RdsCompDatePicker
             {...args}
-            minDate={dayjs('2025-08-05')}
-            maxDate={dayjs('2025-08-29')}
+            // minDate={dayjs('2025-08-05')}
+            // maxDate={dayjs('2025-08-29')}
         />
     ),
 } satisfies Story;
