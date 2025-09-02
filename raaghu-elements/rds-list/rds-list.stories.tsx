@@ -45,6 +45,16 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 // Align Items (Avatar at top)
 export const AlignItems: Story = {
+  parameters: { layout: 'padded' },
+  render: (args) => (
+    <div className="rds-list-demo__center">
+      <div className="rds-list-demo__hscroll">
+        <div className="rds-list-demo__hscroll-inner rds-list-demo__hscroll-inner--sm">
+          <RdsList {...args} />
+        </div>
+      </div>
+    </div>
+  ),
   args: {
     withDividers: true,
     alignItems: "flex-start",
@@ -137,17 +147,7 @@ export const Dense: Story = {
     ],
   },
 };
-// Folder List
-export const Folder: Story = {
-  args: {
-    withDividers: true,
-    items: [
-      { id: 1, primary: 'Photos', secondary: 'Jan 9, 2014', icon: <Home /> },
-      { id: 2, primary: 'Work', secondary: 'Jan 7, 2014', icon: <Settings /> },
-      { id: 3, primary: 'Vacation', secondary: 'July 20, 2014', icon: <Info /> },
-    ],
-  },
-};
+
 export const Gutterless: Story = {
   args: {
     withDividers: true,
@@ -197,30 +197,34 @@ const interactiveCombinedItems = [
 ];
 
 export const Interactive: Story = {
+  parameters: { layout: 'padded' },
   render: () => (
-    <div className="rds-list-demo__grid">
-      {/* Text only */}
-      <div>
-        <div className="rds-list-demo__title">Text only</div>
-        <RdsList withDividers items={interactiveTextItems} />
-      </div>
-      
-      {/* Icon with text */}
-      <div>
-        <div className="rds-list-demo__title">Icon with text</div>
-        <RdsList withDividers items={interactiveIconItems} />
-      </div>
-      
-      {/* Avatar with text */}
-      <div>
-        <div className="rds-list-demo__title">Avatar with text</div>
-        <RdsList withDividers items={interactiveAvatarItems} />
-      </div>
-      
-      {/* Avatar with text and icon (secondary action) */}
-      <div>
-        <div className="rds-list-demo__title">Avatar with text and icon</div>
-        <RdsList withDividers items={interactiveCombinedItems} />
+    <div className="rds-list-demo__center">
+      <div className="rds-list-demo__hscroll">
+        <div className="rds-list-demo__hscroll-inner">
+          <div className="rds-list-demo__grid">
+            {/* Text only */}
+            <div>
+              <div className="rds-list-demo__title">Text only</div>
+              <RdsList withDividers items={interactiveTextItems} />
+            </div>
+            {/* Icon with text */}
+            <div>
+              <div className="rds-list-demo__title">Icon with text</div>
+              <RdsList withDividers items={interactiveIconItems} />
+            </div>
+            {/* Avatar with text */}
+            <div>
+              <div className="rds-list-demo__title">Avatar with text</div>
+              <RdsList withDividers items={interactiveAvatarItems} />
+            </div>
+            {/* Avatar with text and icon (secondary action) */}
+            <div>
+              <div className="rds-list-demo__title">Avatar with text and icon</div>
+              <RdsList withDividers items={interactiveCombinedItems} />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -364,6 +368,16 @@ export const WithIcons: Story = {
   },
 };
 export const WithSecondaryText: Story = {
+  parameters: { layout: 'padded' },
+  render: (args) => (
+    <div className="rds-list-demo__center">
+      <div className="rds-list-demo__hscroll">
+        <div className="rds-list-demo__hscroll-inner rds-list-demo__hscroll-inner--sm">
+          <RdsList {...args} />
+        </div>
+      </div>
+    </div>
+  ),
   args: {
     withDividers: true,
     items: [
@@ -410,6 +424,7 @@ const checkboxItems = [
 ];
 
 export const WithCheckbox: Story = {
+  parameters: { layout: 'padded' },
   render: () => {
     const [checked, setChecked] = React.useState<(string | number)[]>([1]);
     
@@ -435,15 +450,21 @@ export const WithCheckbox: Story = {
     );
     
     return (
-      <div className="rds-list-demo__container">
+      <div>
         <div className="rds-list-demo__title">Different Checkbox States</div>
-        <RdsList
-          withDividers
-          withCheckboxes
-          checkedItems={checked}
-          onCheckboxChange={handleCheckboxChange}
-          items={itemsWithCustomCheckbox}
-        />
+        <div className="rds-list-demo__center">
+          <div className="rds-list-demo__hscroll">
+            <div className="rds-list-demo__hscroll-inner rds-list-demo__hscroll-inner--sm">
+              <RdsList
+                withDividers
+                withCheckboxes
+                checkedItems={checked}
+                onCheckboxChange={handleCheckboxChange}
+                items={itemsWithCustomCheckbox}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
