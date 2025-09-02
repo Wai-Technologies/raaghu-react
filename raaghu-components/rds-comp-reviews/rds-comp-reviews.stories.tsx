@@ -44,7 +44,7 @@ args: {
                 username: "Software Developer",
                 date: new Date(),
                 feedIcon: "person",
-                imageUrl: "https://th.bing.com/th/id/OIP.3IsXMskZyheEWqtE3Dr7JwHaGe?pid=ImgDet&rs=1",
+                imageUrl: "",
                 description: "Awesome website and funnel for your business",
                 hashtags: "#newbag #fancybag #designerbag",
                 reviews: "4.75",

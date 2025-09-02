@@ -112,4 +112,11 @@
             border-color: currentColor;
         }
     }
+    .rating-value {
+        font-weight: bold;
+        color: var(--rds-text-primary, #374151);
+    }
+}
+.css-gmzbdb {
+    margin: 0 !important;
 }

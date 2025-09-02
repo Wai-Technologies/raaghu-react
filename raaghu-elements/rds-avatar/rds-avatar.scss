@@ -188,9 +188,9 @@
 
   &__designation {
     font-size: var(--rds-font-size-sm, 0.95rem);
-    color: var(--rds-text-secondary,);
+    color: var(--rds-text-secondary, #948e8e);
     font-weight: 400;
-    line-height: 1.1;
+    margin-top: 3px;
   }
 
   // Stacking variant
@@ -356,9 +356,9 @@
   }
   &__designation {
     font-size: var(--rds-font-size-sm, 0.95rem);
-    color: var(--rds-text-secondary);
+    color: var(--rds-text-secondary, #948e8e);
     font-weight: 400;
-    line-height: 1.1;
+    margin-top: 3px;
   }
 
   // Stacking avatars

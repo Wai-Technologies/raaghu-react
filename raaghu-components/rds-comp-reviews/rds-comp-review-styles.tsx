@@ -73,7 +73,7 @@ const Style2 = ({ item }: { item: Item }) => {
   return (
     <Card sx={{ height: '100%' }}>
       <CardContent sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column' }}>
-        <Typography variant="h5">{item.name}</Typography>
+        <Typography variant="h6">{item.name}</Typography>
         <Typography variant="subtitle1" color="text.secondary">{item.username}</Typography>
         <Box sx={{ my: 3, display: 'flex', justifyContent: 'center' }}>
           <RdsRating
@@ -145,7 +145,7 @@ const Style4 = ({ item }: { item: Item }) => {
       {/* User info without avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box>
-          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>
+          <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>
             {item.name}
           </Typography>
           <Typography variant="caption" color="text.secondary">
@@ -234,7 +234,7 @@ const Style6 = ({ item }: { item: Item }) => {
       {/* User info without avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box>
-          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>
+          <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>
             {item.name}
           </Typography>
           <Typography variant="caption" color="text.secondary">
@@ -293,7 +293,7 @@ const Style7 = ({ item }: { item: Item }) => {
           showName={false}
         />
           <Box >
-            <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>
+            <Typography variant="h6" fontWeight="bold">
               {item.name}
             </Typography>
             <Typography variant="caption" color="text.secondary">
@@ -388,7 +388,7 @@ const Style8 = ({ item }: { item: Item }) => {
         
         {/* Name at the bottom */}
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Typography variant="h6" sx={{ mb: 0, textAlign: 'right' }}>{item.name}</Typography>
+          <Typography  sx={{ mb: 0, textAlign: 'right', mt: 1 }}>{item.name}</Typography>
         </Box>
       </Box>
     </Card>
@@ -427,7 +427,7 @@ const Style9 = ({ item }: { item: Item }) => {
           showName={false}
         />
         <Box>
-          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
+          <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
           <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'lowercase' }}>
             {item.username}
           </Typography>
@@ -520,7 +520,7 @@ const Style10 = ({ item }: { item: Item }) => {
       {/* User info without avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box>
-          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
+          <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
           <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'lowercase' }}>
             {item.username}
           </Typography>
@@ -610,7 +610,7 @@ const Style11 = ({ item }: { item: Item }) => {
             size="medium"
           />
         </Box>
-        <Typography variant="h5" sx={{ textAlign: 'center' }}>{item.name}</Typography>
+        <Typography variant="h6" sx={{ textAlign: 'center' }}>{item.name}</Typography>
         <Typography variant="subtitle1" color="text.secondary" sx={{ textAlign: 'center' }}>
           {item.username}
         </Typography>
@@ -650,7 +650,7 @@ const Style12 = ({ item }: { item: Item }) => {
   return (
     <Card sx={{ height: '100%' }}>
       <CardContent>
-        <Typography variant="h5" sx={{ textAlign: 'center' }}>{item.name}</Typography>
+        <Typography variant="h6" sx={{ textAlign: 'center' }}>{item.name}</Typography>
         <Typography variant="subtitle1" color="text.secondary" sx={{ textAlign: 'center' }}>
           {item.username}
         </Typography>
