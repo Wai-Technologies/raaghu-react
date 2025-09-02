@@ -177,6 +177,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
               NOW
             </div>
           </div>
+          <div className="time-divider" role="separator" aria-hidden="true" />
           
           <div className="time-values-container">
             {props.style === 'compact' 
@@ -200,6 +201,7 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
                 />
             }
           </div>
+          <div className="time-divider" role="separator" aria-hidden="true" />
           
           <div className={`buttons ${props.style === "compact" ? "buttons-compact" : "buttons"}`}>
             <button type="button" className={getButtonClasses(props.colorVariant).cancel} onClick={handleCancel}>Cancel</button>

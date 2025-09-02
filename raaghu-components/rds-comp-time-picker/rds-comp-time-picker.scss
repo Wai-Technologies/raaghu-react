@@ -103,6 +103,12 @@
       margin-bottom: 10px;
       width: 100%;
     }
+    .time-divider {
+      width: 100%;
+      height: 1px;
+      background-color: var(--rds-border-subtle, #E0E0E0);
+      margin: 8px 0 12px;
+    }
     
     .time-display {
       width: auto;
@@ -203,7 +209,7 @@
           background-color: white;
           font-size: 14px;
           appearance: auto;
-          color: #333333;
+          color: #686161;
           
           &:focus {
             outline: none;
