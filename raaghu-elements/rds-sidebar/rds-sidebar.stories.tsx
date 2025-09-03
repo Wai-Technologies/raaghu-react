@@ -1,6 +1,6 @@
+import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSidebar from './rds-sidebar';
-import { useState } from 'react';
 import { Button, Box } from '@mui/material';
 import { 
   Home, 
@@ -19,6 +19,11 @@ const meta: Meta<typeof RdsSidebar> = {
   component: RdsSidebar,
   parameters: {
     layout: 'padded',
+    docs: {
+      story: {
+        height: '450px'
+      }
+    }
   },
   tags: ['autodocs'],
   argTypes: {
@@ -77,9 +82,10 @@ const mailItems = [
 // Interactive template
 const SidebarTemplate = (args: any) => {
   const [open, setOpen] = useState(args.isOpen || false);
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex' }} ref={containerRef}>
       <Button 
         variant="contained" 
         onClick={() => setOpen(!open)}
@@ -91,6 +97,7 @@ const SidebarTemplate = (args: any) => {
         {...args}
         isOpen={open}
         onClose={() => setOpen(false)}
+        container={containerRef.current}
       />
       <Box sx={{ flexGrow: 1, p: 3 }}>
         <p>Main content area. The sidebar will slide over this content.</p>
