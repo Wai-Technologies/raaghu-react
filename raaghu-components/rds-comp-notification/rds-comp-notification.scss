@@ -223,7 +223,7 @@
     &.MuiIconButton-root {
       position: absolute;
       top: 0px;
-      right: 0px;
+      right: -2px;
       padding: 4px;
       background-color: transparent;
       
@@ -234,7 +234,8 @@
       svg {
         width: 20px;
         height: 20px;
-        color: var(--rds-text-primary, inherit) !important;
+        color: var(--rds-text-primary,#7d7d7d) !important;
+        pointer-events: none;
       }
     }
   }
@@ -331,6 +332,23 @@
         .rds-comp-notification__title-section {
           padding-left: 0 !important;
         }
+      }
+    }
+
+    &--layout-horizontal.rds-comp-notification--style-image {
+      .rds-comp-notification__dismiss {
+        &.MuiIconButton-root {
+          top: 16px !important;
+          right: 0px !important;
+        }
+      }
+    }
+
+
+    &--layout-horizontal.rds-comp-notification--style-avatar,
+    &--layout-horizontal.rds-comp-notification--style-icon {
+      .rds-comp-notification__body {
+        margin-left: 5px !important;
       }
     }
   }
