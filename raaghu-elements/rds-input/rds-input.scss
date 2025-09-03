@@ -180,6 +180,10 @@
     .MuiInputBase-input {
       padding: 16.5px 1px !important;
     }
+    // Center inline (non-shrunk) label vertically for large inputs
+    .MuiInputLabel-root:not(.MuiInputLabel-shrink) {
+      transform: translate(14px, 22px) scale(1) !important;
+    }
   }
 
   &--pill {
@@ -314,6 +318,14 @@
       color: var(--rds-text-disabled, #9e9e9e);
     }
   }
+  // Ensure MUI's required asterisk is red to match design
+  .MuiFormLabel-root.Mui-required .MuiFormLabel-asterisk {
+    color: var(--rds-error-main, #d32f2f) !important;
+  }
+  // Fix for inline-title floating label background to prevent border line showing through
+  .MuiInputLabel-root {
+  background-color: var(--rds-background-paper, #fff);
+  }
 }
 
 // Accessibility styles
@@ -349,4 +361,5 @@
   .MuiInput-root {
     background-color: var(--rds-background-paper, #424242);
   }
+  .MuiInputLabel-root { background-color: var(--rds-background-paper, #424242); }
 }
