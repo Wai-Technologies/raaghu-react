@@ -408,8 +408,8 @@ const RdsGrid = (props: RdsGridProps) => {
                           {/* Only show filter if header.filter is true */}
                           {header.filter ? (
                             <select
-                              className="rds-grid__filter-select"
-                              value={filterValues[header.key] || ''}
+                              className={`rds-grid__filter-select ${!filterValues[header.key] ? 'rds-grid__filter-select--placeholder' : ''}`}
+                              aria-label={`Filter ${header.displayName}`}
                               onChange={e => handleFilterChange(header.key, e.target.value)}
                             >
                               <option value="">Filter...</option>
