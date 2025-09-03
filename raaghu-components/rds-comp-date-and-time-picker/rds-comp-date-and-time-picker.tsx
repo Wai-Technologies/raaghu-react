@@ -158,6 +158,12 @@ function RangeCalendar({
   multiMonth?: boolean;
 }) {
   const [draft, setDraft] = React.useState<[Dayjs | null, Dayjs | null]>(value);
+  
+  // Add state for current month being viewed
+  const [currentMonth, setCurrentMonth] = React.useState(
+    draft[0] || dayjs()
+  );
+  
   React.useEffect(() => setDraft(value), [value[0]?.valueOf(), value[1]?.valueOf()]);
 
   const handleSelect = (day: Dayjs) => {
@@ -172,6 +178,11 @@ function RangeCalendar({
       setDraft([start, day.endOf('day')]);
       onChange([start, day.endOf('day')]);
     }
+  };
+
+  // Handle month navigation
+  const handleMonthChange = (newMonth: Dayjs) => {
+    setCurrentMonth(newMonth);
   };
 
   const renderDaySlot = (dayProps: any) => {
@@ -202,19 +213,23 @@ function RangeCalendar({
   const calendars = (
     <Box display="flex" gap={2}>
       <DateCalendar
-        value={draft[0]}
-        onChange={(newDay) => newDay && handleSelect(newDay)}
+        value={currentMonth}
+        onChange={(newMonth) => newMonth && handleMonthChange(newMonth)}
+        onMonthChange={(newMonth) => setCurrentMonth(newMonth)}
         minDate={minDate}
         maxDate={maxDate}
         slots={{ day: renderDaySlot }}
+        views={['day']}
       />
       {multiMonth && (
         <DateCalendar
-          value={draft[1] || (draft[0] ? draft[0].add(1, 'month') : dayjs().add(1, 'month'))}
-          onChange={(newDay) => newDay && handleSelect(newDay)}
+          value={currentMonth.add(1, 'month')}
+          onChange={(newMonth) => newMonth && handleMonthChange(newMonth.subtract(1, 'month'))}
+          onMonthChange={(newMonth) => setCurrentMonth(newMonth.subtract(1, 'month'))}
           minDate={minDate}
           maxDate={maxDate}
           slots={{ day: renderDaySlot }}
+          views={['day']}
         />
       )}
     </Box>
