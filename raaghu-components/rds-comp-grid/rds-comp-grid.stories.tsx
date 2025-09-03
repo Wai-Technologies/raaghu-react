@@ -7,9 +7,6 @@ const meta: Meta = {
 	component: RdsGrid,
 	parameters: {
 		layout: "padded",
-		 controls: {
-     		exclude: ['fontWeight','enablecheckboxselection','enableRadioButtonselection','illustration','noDataTitle','classes','swapRows','options','isSwap','actions','isClickable','recordsPerPageSelectListOption','onActionSelection','onRowSelect','onRowClick','onPaginationHandler','totalRecords','actionColumnStyle','showAddNewColumn','collapsed','actionPosition'],
-    	},
 		docs: {
 			description: {
 				component:
