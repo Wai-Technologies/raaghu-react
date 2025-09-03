@@ -89,3 +89,69 @@
 .rds-comp-contribution__container--svgwidth-1200 {
   min-width: 1200px;
 }
+
+@media (max-width: 1200px) {
+  .rds-comp-contribution__text--month {
+    font-size: 12px;
+  }
+  .rds-comp-contribution__text--week {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 900px) {
+  .rds-comp-contribution__text--month {
+    font-size: 10px;
+  }
+  .rds-comp-contribution__text--week {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .rds-comp-contribution__text--month {
+    font-size: 8px;
+  }
+  .rds-comp-contribution__text--week {
+    font-size: 6px;
+  }
+}
+
+@media (max-width: 360px) {
+  .rds-comp-contribution__text--month {
+    font-size: 6px;
+  }
+  .rds-comp-contribution__text--week {
+    font-size: 5px;
+  }
+}
+
+@media (max-width: 400px) {
+  .rds-comp-contribution__text--month {
+    font-size: 6px;
+  }
+  .rds-comp-contribution__text--week {
+    font-size: 5px;
+  }
+  .rds-comp-contribution__container {
+    padding: 10px 0;
+  }
+  .rds-comp-contribution__wrapper {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 320px) {
+  .rds-comp-contribution__text--month {
+    font-size: 5px;
+  }
+  .rds-comp-contribution__text--week {
+    font-size: 4px;
+  }
+  .rds-comp-contribution__container {
+    padding: 5px 0;
+  }
+  .rds-comp-contribution__wrapper {
+    justify-content: flex-start;
+  }
+}
