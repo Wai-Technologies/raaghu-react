@@ -15,6 +15,8 @@ export interface RdsCarouselProps {
   style?: 'default' | 'with title' | 'full width image';
   titles?: string[]; // Optional titles for 'with title' style
   subtitles?: string[]; // Optional subtitles for 'with title' style
+  title?: string; // single title fallback for all slides (useful for Storybook controls)
+  subtitle?: string; // single subtitle fallback for all slides
 }
 
 const RdsCarousel = ({
@@ -29,12 +31,11 @@ const RdsCarousel = ({
   style = 'default',
   titles = [],
   subtitles = [],
+  title,
+  subtitle,
 }:RdsCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const theme = useTheme();
-
-  // Use state prop as initial value, but allow currentIndex to override it
-  const activeIndex = currentIndex;
 
   React.useEffect(() => {
     // If state prop is provided, update internal state to match (only initially)
@@ -72,9 +73,8 @@ const RdsCarousel = ({
   const getCarouselClasses = () => {
     const baseClass = 'rds-carousel';
     const styleClass = `${baseClass}--${style.replace(' ', '-')}`;
-    const autoPlayClass = autoPlay ? `${baseClass}--auto-play` : '';
     
-    return [baseClass, styleClass, autoPlayClass].filter(Boolean).join(' ');
+    return `${baseClass} ${styleClass}`;
   };
 
   return (
@@ -82,7 +82,7 @@ const RdsCarousel = ({
       className={getCarouselClasses()}
       sx={{ 
         position: 'relative', 
-        height: style === 'full width image' ? height : height, 
+        height: height, 
         overflow: 'hidden',
         width: style === 'full width image' ? '100vw' : '100%',
         marginLeft: style === 'full width image' ? 'calc(-50vw + 50%)' : 0,
@@ -92,40 +92,74 @@ const RdsCarousel = ({
       <Box
         sx={{
           display: 'flex',
-          transform: `translateX(-${activeIndex * 100}%)`,
+          transform: `translateX(-${currentIndex * 100}%)`,
           transition: 'transform 0.3s ease-in-out',
           height: '100%',
         }}
       >
-        {children.map((child, index) => (
-          <Box
-            key={index}
-            className="rds-carousel__slide"
-            sx={{
-              minWidth: '100%',
-              height: '100%',
-              position: 'relative',
-            }}
-          >
-            {child}
-            
-            {/* Title overlay for 'with title' style */}
-            {style === 'with title' && (
-              <Box className="rds-carousel__title">
-                {(titles[index] || `Card Title ${index + 1}`) && (
-                  <Typography className="rds-carousel__title-text" variant="h6" component="h3">
-                    {titles[index] || `Card Title ${index + 1}`}
-                  </Typography>
-                )}
-                {(subtitles[index] || `In a laoreet purus, Integer turpis, laoreet id ${index + 1}`) && (
-                  <Typography className="rds-carousel__title-subtitle" variant="body2">
-                    {subtitles[index] || `In a laoreet purus, Integer turpis, laoreet id ${index + 1}`}
-                  </Typography>
+        {children.map((child, index) => {
+          // compute display text: prefer per-slide arrays, fallback to single-string props, then defaults
+          const displayTitle = (titles && titles[index]) ?? title ?? `Card Title`;
+          const displaySubtitle = (subtitles && subtitles[index]) ?? subtitle ?? `In a laoreet purus. Integer turpis quam, laoreet id`;
+
+          return (
+            <Box
+              key={index}
+              className="rds-carousel__slide"
+              sx={{
+                minWidth: '100%',
+                height: '100%',
+                position: 'relative',
+                display: 'flex',
+                flexDirection: style === 'with title' ? 'column' : 'row',
+              }}
+            >
+              {/* Title above image for 'with title' style */}
+              {style === 'with title' && (
+                <Box className="rds-carousel__title-content rds-carousel__title-content--top">
+                  {displayTitle && (
+                    <Typography className="rds-carousel__title-text" variant="h5" component="h3">
+                      {displayTitle}
+                    </Typography>
+                  )}
+                  {displaySubtitle && (
+                    <Typography className="rds-carousel__title-subtitle" variant="body2">
+                      {displaySubtitle}
+                    </Typography>
+                  )}
+                </Box>
+              )}
+
+              <Box 
+                className="rds-carousel__slide-content"
+                sx={{
+                  height: style === 'with title' ? 'calc(100% - 100px)' : '100%',
+                  width: '100%',
+                  position: 'relative',
+                  order: style === 'with title' ? 2 : 1, // Ensure proper ordering
+                }}
+              >
+                {child}
+                
+                {/* Title overlay at bottom for 'full width image' style */}
+                {style === 'full width image' && (
+                  <Box className="rds-carousel__title-overlay">
+                    {displayTitle && (
+                      <Typography className="rds-carousel__title-text" variant="h5" component="h3">
+                        {displayTitle}
+                      </Typography>
+                    )}
+                    {displaySubtitle && (
+                      <Typography className="rds-carousel__title-subtitle" variant="body2">
+                        {displaySubtitle}
+                      </Typography>
+                    )}
+                  </Box>
                 )}
               </Box>
-            )}
-          </Box>
-        ))}
+            </Box>
+          );
+        })}
       </Box>
 
       {/* Navigation Arrows */}
@@ -189,17 +223,30 @@ const RdsCarousel = ({
               key={index}
               onClick={() => goToSlide(index)}
               className={`rds-carousel__indicator rds-carousel__indicator--${type} ${
-                activeIndex === index ? 'rds-carousel__indicator__active' : ''
+                currentIndex === index ? 'rds-carousel__indicator__active' : ''
               }`}
               sx={{
                 width: type === 'circle' ? 12 : 24,
                 height: type === 'circle' ? 12 : 4,
                 borderRadius: type === 'circle' ? '50%' : 2,
-                backgroundColor: activeIndex === index ? theme.palette.primary.main : 'rgba(255, 255, 255, 0.5)',
+                backgroundColor: currentIndex === index 
+                  ? theme.palette.primary.main 
+                  : style === 'full width image' 
+                    ? 'rgba(255, 255, 255, 0.8)' 
+                    : '#BDBDBD', // Gray for regular styles, white for full width image
+                border: style === 'full width image' 
+                  ? (currentIndex === index 
+                      ? '1px solid var(--rds-color-primary, #1976d2)' 
+                      : '1px solid rgba(0, 0, 0, 0.2)') 
+                  : 'none',
                 cursor: 'pointer',
                 transition: 'background-color 0.2s',
                 '&:hover': {
-                  backgroundColor: activeIndex === index ? theme.palette.primary.main : 'rgba(255, 255, 255, 0.8)',
+                  backgroundColor: currentIndex === index 
+                    ? theme.palette.primary.main 
+                    : style === 'full width image' 
+                      ? 'rgba(255, 255, 255, 0.9)' 
+                      : '#9E9E9E', // Different hover colors based on style
                 },
               }}
             />
