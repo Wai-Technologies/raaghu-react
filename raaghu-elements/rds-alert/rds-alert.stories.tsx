@@ -10,6 +10,9 @@ const meta: Meta<typeof RdsAlert> = {
   component: RdsAlert,
   parameters: {
     layout: 'padded',
+    controls: {
+            exclude: ['component', 'slots', 'slotProps', 'variant',]
+        },
   },
   tags: ['autodocs'],
   argTypes: {
