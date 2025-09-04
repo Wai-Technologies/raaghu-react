@@ -215,7 +215,12 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
             <IconButton className="rds-e-signature__action-button" disabled={disabled} aria-label="save" onClick={handleSave}>
               <Save fontSize="small" />
             </IconButton>
-            <IconButton className="rds-e-signature__action-button rds-e-signature__action-button--delete" disabled={disabled} aria-label="delete">
+            <IconButton
+              className="rds-e-signature__action-button rds-e-signature__action-button--delete"
+              disabled={disabled}
+              aria-label="delete"
+              onClick={clearCanvas}
+            >
               <Delete fontSize="small" />
             </IconButton>
           </Box>

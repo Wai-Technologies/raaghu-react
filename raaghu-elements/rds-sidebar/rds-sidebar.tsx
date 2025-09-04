@@ -35,6 +35,7 @@ export interface RdsSidebarProps extends Omit<DrawerProps, 'children'> {
   avatarSrc?: string;
   avatarCollapsedSrc?: string;
   showLogo?: boolean;
+  container?: Element | (() => Element | null) | null;
 }
 
 const RdsSidebar = ({
@@ -48,6 +49,7 @@ const RdsSidebar = ({
   avatarSrc,
   avatarCollapsedSrc,
   showLogo,
+  container,
   ...props
 }:RdsSidebarProps) => {
   const [searchValue, setSearchValue] = React.useState("");
@@ -110,6 +112,7 @@ const RdsSidebar = ({
       variant={drawerVariant}
       sx={drawerSx}
       className={sidebarClasses}
+      container={container}
       {...props}
     >
       <div className={contentClasses}>

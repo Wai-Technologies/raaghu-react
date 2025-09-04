@@ -5,7 +5,7 @@ import "./rds-comp-ai-attachement.scss";
 import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 import RdsCompAiFabMenu from "../rds-comp-ai-fab-menu/rds-comp-ai-fab-menu";
 import AttachmentIcon from '@mui/icons-material/Attachment';
-import RdsCompAiIcon, { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
+import { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
 
 export interface RdsCompAiAttachementProps {
     menuIcon?: string;
@@ -46,6 +46,9 @@ export interface Comment {
     image?: string;
 }
 
+// Register the icon at module load so it's available on the very first render
+registerMaterialIcons({ 'attachment_icon': AttachmentIcon });
+
 const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
     const [showModal, setShowModal] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -53,11 +56,7 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
     const [commentList, setCommentList] = useState<Comment[]>(firstUser?.comments || []);
     const [currentUser, setCurrentUser] = useState<any>(props.userData ? props.userData[0] : null);
 
-    useEffect(() => {
-            registerMaterialIcons({
-                'attachment_icon': AttachmentIcon,
-            });
-        }, []);
+    // Icon is registered at module scope to avoid first-render race conditions
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
