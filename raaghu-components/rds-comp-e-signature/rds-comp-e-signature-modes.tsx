@@ -90,7 +90,7 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
               Choose File
             </button>
             <span className={`rds-e-signature__file-text ${!selectedFile ? 'rds-e-signature__file-text--placeholder' : ''}`}>
-              {selectedFile ? selectedFile.name : 'No File Chosen'}
+              {selectedFile ? selectedFile.name : 'No File Choosen'}
             </span>
             {selectedFile && (
               <button
