@@ -559,4 +559,8 @@
   // Optional: search field specific
   --rds-header__search-field-bg: var(--rds-background-surface, #23272b);
   --rds-header__search-field-color: var(--rds-text-primary, #e3e3e3);
+
+  .rds-appbar-logo-label{
+    color: var(--rds-color-on-info, #ffffff);
+  }
 }
