@@ -8,6 +8,15 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
     },
+    // Decorator to limit the special right-alignment margin to this page only.
+    // Also ensures the component starts at the left edge when alignment='left'.
+    decorators: [
+        (Story) => (
+            <div className="rds-fab-menu-offset">
+                <Story />
+            </div>
+        )
+    ],
     tags: ['autodocs'],
     argTypes: {
         colorVariant: {

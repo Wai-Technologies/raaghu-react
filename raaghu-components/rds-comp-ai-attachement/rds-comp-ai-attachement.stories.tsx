@@ -10,7 +10,7 @@ const meta: Meta = {
         layout: 'padded',
         docs:{
             story: {
-                height: '125px'
+                height: '130px'
             },
         }
     },

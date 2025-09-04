@@ -1,14 +1,14 @@
 import React, { useState, useEffect, ReactElement } from "react";
 import './rds-comp-ai-icon.scss';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-
+import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 interface IconCache {
   [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 
 // Default Material-UI icons mapping (can be extended)
 const defaultMaterialIcons: { [key: string]: React.ComponentType<any> } = {
-  'users': PersonOutlineIcon,
+  'users': GroupOutlinedIcon,
   'person-outline': PersonOutlineIcon,
 };
 
@@ -20,6 +20,7 @@ let materialIconsRegistry: { [key: string]: React.ComponentType<any> } = {
 // Function to register additional Material-UI icons
 export const registerMaterialIcon = (name: string, iconComponent: React.ComponentType<any>) => {
   materialIconsRegistry[name.toLowerCase()] = iconComponent;
+  try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { /* ignore */ }
 };
 
 // Function to register multiple icons at once
@@ -27,6 +28,7 @@ export const registerMaterialIcons = (icons: { [key: string]: React.ComponentTyp
   Object.entries(icons).forEach(([name, component]) => {
     materialIconsRegistry[name.toLowerCase()] = component;
   });
+  try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { /* ignore */ }
 };
 
 // Wrapper function to convert MUI icons to SVG components
@@ -98,32 +100,37 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
   const name: string = !props.name ? "" : props.name.toLowerCase();
   const [IconComponent, setIconComponent] = useState<React.ComponentType<React.SVGProps<SVGSVGElement>> | null>(props.SvgIcon || null);
 
-  // Load Material-UI icons by name
+  // Load Material-UI icons by name. Also listen for registry updates so child components
+  // re-resolve icons when a parent registers icons in an effect (fixes race condition).
   useEffect(() => {
-    try {
-      // Priority 1: Use provided SvgIcon component
-      if (props.SvgIcon) {
-        setIconComponent(props.SvgIcon);
-        return;
-      }
-
-      // Priority 2: Use Material-UI icon by name
-      if (name && materialIconsRegistry[name]) {
-        const MuiIcon = materialIconsRegistry[name];
-        if (MuiIcon) {
-          const wrappedIcon = createMuiIconWrapper(MuiIcon);
-          setIconComponent(wrappedIcon);
+    const resolveIcon = () => {
+      try {
+        if (props.SvgIcon) {
+          setIconComponent(props.SvgIcon);
           return;
         }
+        if (name && materialIconsRegistry[name]) {
+          const MuiIcon = materialIconsRegistry[name];
+          if (MuiIcon) {
+            const wrappedIcon = createMuiIconWrapper(MuiIcon);
+            setIconComponent(wrappedIcon);
+            return;
+          }
+        }
+        setIconComponent(null);
+      } catch (error) {
+        console.warn('Error loading icon:', error);
+        setIconComponent(null);
       }
+    };
 
-      // If no icon found, set to null
-      setIconComponent(null);
-    } catch (error) {
-      console.warn('Error loading icon:', error);
-      setIconComponent(null);
-    }
-  }, [name, props.SvgIcon, props.colorVariant, props.fill, props.stroke, props.strokeWidth, props.opacity, props.strokeColor]);
+    resolveIcon();
+    const onIconsUpdated = () => resolveIcon();
+    window.addEventListener('rds-icons-updated', onIconsUpdated);
+    return () => {
+      window.removeEventListener('rds-icons-updated', onIconsUpdated);
+    };
+  }, [name, props.SvgIcon]);
 
   const style = {
     height: props.height ? props.height : "22px",
