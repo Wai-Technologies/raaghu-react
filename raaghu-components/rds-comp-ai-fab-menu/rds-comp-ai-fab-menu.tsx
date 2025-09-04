@@ -28,15 +28,17 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     
-    useEffect(() => {
-        registerMaterialIcons({
-            'list': ListIcon,
-            'refresh': RefreshIcon,
-            'export': GetAppIcon,
-            'delete': DeleteIcon,
-            'download': DownloadIcon,
-        });
-    }, []);
+// Register material icons at module load to ensure icons are available
+// on first render and avoid a race where the icon registry is populated
+// only after the component mounted (which caused icons to appear only
+// after a refresh in some cases).
+registerMaterialIcons({
+    'list': ListIcon,
+    'refresh': RefreshIcon,
+    'export': GetAppIcon,
+    'delete': DeleteIcon,
+    'download': DownloadIcon,
+});
     
     // Generate RDS classes following BEM naming convention
     // Determine background type with backward compatibility

@@ -31,7 +31,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
     opacity: 0.85;
 
     &:hover {
@@ -59,59 +59,120 @@
 
   &__indicator {
     cursor: pointer;
-    transition: background-color 0.2s ease;
-    background-color: rgba(255, 255, 255, 0.5);
+    transition: all 0.2s ease;
+    background-color: var(--rds-color-gray-400, #BDBDBD);
+    border: 1px solid transparent;
 
-    &__circle {
+    &--circle {
       width: 12px;
       height: 12px;
       border-radius: 50%;
     }
-    &__line {
+    
+    &--line {
       width: 24px;
       height: 4px;
       border-radius: 2px;
     }
+    
     &__active {
-      background-color: var(--rds-color-primary, #1976d2);
+      background-color: var(--rds-color-primary, #1976d2) !important;
+      border-color: var(--rds-color-primary, #1976d2) !important;
     }
+    
     &:hover:not(.rds-carousel__indicator__active) {
-      background-color: rgba(255, 255, 255, 0.8);
+      background-color: var(--rds-color-gray-500, #9E9E9E);
     }
   }
 
-  // Title overlay
-  &__title {
+  // Title content for 'with title' style
+  &__title-content {
+    padding: var(--rds-spacing-md, 16px);
+    background-color: var(--rds-color-surface, #ffffff);
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--rds-spacing-xs, 4px);
+    
+    &--top {
+      border-radius: var(--rds-border-radius, 8px) var(--rds-border-radius, 8px) 0 0;
+    }
+  }
+  
+  // Title overlay for 'full width image' style
+  &__title-overlay {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), transparent);
-    color: var(--rds-color-on-primary, #fff);
-    padding: var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
+    background-color: var(--rds-color-surface, #ffffff);
+    color: var(--rds-color-text-primary, #212121);
+    padding: var(--rds-spacing-md, 16px);
     z-index: 1;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--rds-spacing-xs, 4px);
+  }
 
-    &-text {
-      font-size: var(--rds-font-size-h6, 1.25rem);
-      font-weight: var(--rds-font-weight-medium, 500);
-      margin: 0;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-    }
-    &-subtitle {
-      font-size: var(--rds-font-size-body2, 0.875rem);
-      opacity: 0.9;
-      margin: var(--rds-spacing-xs, 4px) 0 0;
+  // Title text styling
+  &__title-text {
+    font-size: var(--rds-font-size-h5, 1.5rem);
+    font-weight: var(--rds-font-weight-medium, 500);
+    color: var(--rds-color-text-primary, #212121);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  &__title-subtitle {
+    font-size: var(--rds-font-size-body2, 0.875rem);
+    color: var(--rds-color-text-secondary, #757575);
+    margin: 0;
+    line-height: 1.4;
+    opacity: 0.8;
+  }
+
+  // Slide content wrapper
+  &__slide-content {
+    overflow: hidden;
+    border-radius: var(--rds-border-radius, 8px);
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
   }
 
   // Style variants
-  &--default,
-  &__with-title {
-    border-radius: var(--rds-border-radius, 4px);
+  &--default {
+    border-radius: var(--rds-border-radius, 8px);
     box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
   }
 
-  &__full-width-image {
+  &--with-title {
+    border-radius: var(--rds-border-radius, 8px);
+    box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
+    background-color: var(--rds-color-surface, #ffffff);
+    
+    .rds-carousel__slide {
+      background-color: var(--rds-color-surface, #ffffff);
+    }
+    
+    .rds-carousel__indicators {
+      bottom: var(--rds-spacing-md, 16px);
+    }
+    
+    .rds-carousel__slide-content {
+      border-radius: 0 0 var(--rds-border-radius, 8px) var(--rds-border-radius, 8px);
+    }
+  }
+
+  &--full-width-image {
     border-radius: 0;
     box-shadow: none;
     width: 100vw;
@@ -120,25 +181,28 @@
     .rds-carousel__slide {
       border-radius: 0;
     }
-    .rds-carousel__slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    
+    .rds-carousel__slide-content {
+      border-radius: 0;
     }
-  }
-
-  // Auto-play state
-  &__auto-play {
-    .rds-carousel__indicators::after {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      border-radius: inherit;
-      opacity: 0.3;
-      animation: rds-carousel-pulse 2s infinite;
+    
+    .rds-carousel__indicators {
+      bottom: 90px;
+      
+      .rds-carousel__indicator {
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        
+        &__active {
+          background-color: var(--rds-color-primary, #1976d2) !important;
+          border: 1px solid var(--rds-color-primary, #1976d2);
+        }
+        
+        &:hover:not(.rds-carousel__indicator__active) {
+          background-color: rgba(255, 255, 255, 0.9);
+          border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+      }
     }
   }
 
@@ -148,46 +212,216 @@
       opacity: 1;
     }
   }
+  
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, #1976d2);
     outline-offset: 2px;
   }
-  &:disabled,
-  &__disabled {
-    opacity: 0.6;
-    pointer-events: none;
-  }
 }
 
-// Animations
-@keyframes rds-carousel-pulse {
-  0%, 100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-// Responsive design
+// Responsive design - Tablet and mobile
 @media (max-width: 768px) {
   .rds-carousel {
     &__navigation {
       width: 36px;
       height: 36px;
     }
-    &__title {
-      padding: var(--rds-spacing-md, 16px) var(--rds-spacing-sm, 8px) var(--rds-spacing-sm, 8px);
-      &-text {
-        font-size: var(--rds-font-size-body1, 1rem);
-      }
-      &-subtitle {
-        font-size: var(--rds-font-size-body2, 0.875rem);
+    
+    &__title-content {
+      padding: var(--rds-spacing-sm, 12px);
+      min-height: 80px;
+    }
+    
+    &__title-overlay {
+      padding: var(--rds-spacing-sm, 12px);
+      min-height: 70px;
+    }
+    
+    &__title-text {
+      font-size: var(--rds-font-size-h6, 1.25rem);
+    }
+    
+    &__title-subtitle {
+      font-size: var(--rds-font-size-caption, 0.75rem);
+    }
+    
+    &--with-title {
+      .rds-carousel__indicators {
+        bottom: var(--rds-spacing-sm, 7px);
       }
     }
-    &__full-width-image {
+    
+    &--full-width-image {
       .rds-carousel__indicators {
-        bottom: var(--rds-spacing-sm, 8px);
+        bottom: 80px;
+      }
+    }
+  }
+}
+
+@media (max-width: 568px) {
+  .rds-carousel--with-title .rds-carousel__slide-content {
+    height: calc(100% - 90px) !important; 
+  }
+}
+
+  .rds-carousel--with-title .rds-carousel__slide-content {
+    height: calc(100% - 80px) !important;
+  }
+
+// Small mobile devices
+@media (max-width: 568px) {
+  .rds-carousel {
+    &__navigation {
+      width: 44px;
+      height: 44px;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+      
+      &:hover, &:active {
+        background-color: rgba(0, 0, 0, 0.85);
+        transform: translateY(-50%) scale(1.05);
+      }
+    }
+    
+    &__indicators {
+      border-radius: 20px;
+      gap: 8px;
+    }
+    
+    &__indicator {
+      transition: all 0.3s ease;
+      
+      &--circle {
+        width: 8px;
+        height: 8px;
+        
+        &.rds-carousel__indicator__active {
+          width: 10px;
+          height: 10px;
+          transform: scale(1.2);
+        }
+      }
+      
+      &--line {
+        width: 16px;
+        height: 3px;
+        
+        &.rds-carousel__indicator__active {
+          width: 24px;
+          height: 4px;
+        }
+      }
+    }
+    
+    &__title-content {
+      padding: 12px 16px;
+      min-height: 70px;
+    }
+    
+    &__title-overlay {
+      padding: 12px 16px;
+      min-height: 70px;
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    
+    &__title-text {
+      font-size: 1.1rem !important;
+      font-weight: 600 !important;
+      line-height: 1.3 !important;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    &__title-subtitle {
+      font-size: 0.85rem !important;
+      line-height: 1.4 !important;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    &--default,
+    &--with-title {
+      margin: 0 8px;
+      border-radius: 12px;
+    }
+    
+    &--full-width-image {
+      .rds-carousel__indicators {
+        bottom: 85px;
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+    }
+  }
+}
+
+// Extra-small screens: increase title area subtraction so the image doesn't push title off-screen
+@media (max-width: 320px) {
+  .rds-carousel--with-title .rds-carousel__slide-content {
+    height: calc(100% - 110px) !important;
+  }
+}
+
+// Extra small screens (max 320px)
+@media (max-width: 320px) {
+   .css-gu8gi0 {
+    width: 86%;
+    max-width: 86%;
+    box-sizing: border-box;
+  }
+  .rds-carousel {
+    &__navigation {
+      width: 40px;
+      height: 40px;
+      
+      &--prev {
+        left: 4px;
+      }
+      &--next {
+        right: 4px;
+      }
+    }
+    
+    &__title-overlay,
+    &__title-content {
+      padding: 8px 12px;
+      min-height: 60px;
+    }
+    
+    &__title-text {
+      font-size: 1rem !important;
+    }
+    
+    &__title-subtitle {
+      font-size: 0.8rem !important;
+    }
+    
+    &--default,
+    &--with-title {
+      margin: 0 4px;
+      
+      .rds-carousel__slide-content {
+        height: 390px;
+      }
+    }
+    
+    &--full-width-image {
+      .rds-carousel__slide-content {
+        height: 220px;
+      }
+      
+      .rds-carousel__indicators {
+        bottom: 75px;
       }
     }
   }

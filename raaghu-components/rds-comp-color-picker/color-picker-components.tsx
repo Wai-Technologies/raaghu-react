@@ -153,7 +153,7 @@ export const ColorPickerSliders = ({ selectedColorState, handleHueChange, handle
           <HuePicker
             color={selectedColorState.hex}
             onChange={handleHueChange}
-            width="236px"
+            width="230px"
             className="rds-comp-color-picker__hue-picker"
           />
         </div>       
@@ -162,7 +162,7 @@ export const ColorPickerSliders = ({ selectedColorState, handleHueChange, handle
           <AlphaPicker
             color={selectedColorState.rgb}
             onChange={handleAlphaChange}
-            width="233px"
+            width="226px"
             className="rds-comp-color-picker__alpha-picker"
           />
         </div>

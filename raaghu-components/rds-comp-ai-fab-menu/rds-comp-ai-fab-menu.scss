@@ -232,8 +232,6 @@
   // Dropdown container
   &__dropdown-container {
     display: none;
-  /* Needed so top/left/right coordinates take effect for alignment */
-    position: absolute;
     top: 100%;
     right: 0;
     z-index: 1000;
