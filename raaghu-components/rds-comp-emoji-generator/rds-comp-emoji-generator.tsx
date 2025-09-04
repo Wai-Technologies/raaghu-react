@@ -35,6 +35,7 @@ export interface RdsEmojiGeneratorProps {
     sx?: any;
 }
 
+
 const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
     Type = EmojiGeneratorType.Default,
     "Show Skin Tone": showSkinTone = true,
@@ -48,6 +49,11 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
 }) => {
     // State
     const [selectedCategory, setSelectedCategory] = useState(Category);
+     // Keep internal category in sync with prop changes (e.g. Storybook controls)
+    React.useEffect(() => {
+        setSelectedCategory(Category);
+    }, [Category]);
+    
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedSkinTone, setSelectedSkinTone] = useState(0); // 0 = default/yellow
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
@@ -138,35 +144,58 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                                     onClick={handleSkinToneClick}
                                     style={{ backgroundColor: skinToneOptions[selectedSkinTone].color }}
                                 />
+
+                                {/* Inline expanded skin-tone panel (safe, no refs) */}
+                                {State === SkinToneState.Expanded && (
+                                    <Box className="rds-emoji-generator__skin-tone-inline">
+                                        {skinToneOptions.map(o => (
+                                            <IconButton
+                                                key={o.value}
+                                                onClick={() => handleSkinToneSelect(o.value)}
+                                                className="rds-emoji-generator__skin-tone-option"
+                                                style={{
+                                                    backgroundColor: o.color,
+                                                    border: selectedSkinTone === o.value ? '2px solid #3b82f6' : '1px solid #e5e7eb',
+                                                    boxShadow: selectedSkinTone === o.value ? '0 0 0 1px rgba(59,130,246,0.3)' : 'none'
+                                                }}
+                                                title={o.label}
+                                                size="small"
+                                            />
+                                        ))}
+                                    </Box>
+                                )}
                             </Box>
                         )}
                     </Box>
-                    <Popover
-                        open={skinTonePopoverOpen}
-                        anchorEl={skinToneAnchorEl}
-                        onClose={handleSkinToneClose}
-                        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                        PaperProps={{ className: 'rds-emoji-generator__skin-tone-popover' }}
-                        disableAutoFocus
-                        disableEnforceFocus
-                    >
-                        <Box className="rds-emoji-generator__skin-tone-dropdown">
-                            {skinToneOptions.map(o => (
-                                <IconButton
-                                    key={o.value}
-                                    onClick={() => handleSkinToneSelect(o.value)}
-                                    className="rds-emoji-generator__skin-tone-option"
-                                    style={{
-                                        backgroundColor: o.color,
-                                        border: selectedSkinTone === o.value ? '2px solid #3b82f6' : '1px solid #e5e7eb',
-                                        boxShadow: selectedSkinTone === o.value ? '0 0 0 1px rgba(59,130,246,0.3)' : 'none'
-                                    }}
-                                    title={o.label}
-                                />
-                            ))}
-                        </Box>
-                    </Popover>
+                    {/* Use the Popover only for non-expanded state to preserve original behavior */}
+                    {State !== SkinToneState.Expanded && (
+                        <Popover
+                            open={skinTonePopoverOpen}
+                            anchorEl={skinToneAnchorEl}
+                            onClose={handleSkinToneClose}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                            transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                            PaperProps={{ className: 'rds-emoji-generator__skin-tone-popover' }}
+                            disableAutoFocus
+                            disableEnforceFocus
+                        >
+                            <Box className="rds-emoji-generator__skin-tone-dropdown">
+                                {skinToneOptions.map(o => (
+                                    <IconButton
+                                        key={o.value}
+                                        onClick={() => handleSkinToneSelect(o.value)}
+                                        className="rds-emoji-generator__skin-tone-option"
+                                        style={{
+                                            backgroundColor: o.color,
+                                            border: selectedSkinTone === o.value ? '2px solid #3b82f6' : '1px solid #e5e7eb',
+                                            boxShadow: selectedSkinTone === o.value ? '0 0 0 1px rgba(59,130,246,0.3)' : 'none'
+                                        }}
+                                        title={o.label}
+                                    />
+                                ))}
+                            </Box>
+                        </Popover>
+                    )}
                 </Box>
             )}
 
