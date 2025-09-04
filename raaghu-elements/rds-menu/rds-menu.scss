@@ -151,3 +151,22 @@
   }
 
 }
+
+[data-theme="dark"] {
+  /* target the actual BEM class name (was missing the leading dot) */
+  .rds-menu__list {
+     background-color: #545454 !important;
+  }
+  /* ensure icons are white in dark mode and remain white when the parent is hovered */
+  .rds-menu__item .MuiSvgIcon-root,
+  .rds-menu__item .MuiSvgIcon-root * {
+    color: var(--rds-color-surface, #ffffff) !important;
+  }
+
+  /* On hover the parent may change color; explicitly override that for icons */
+  .rds-menu__item:hover .MuiSvgIcon-root,
+  .rds-menu__item:focus-visible .MuiSvgIcon-root {
+    color: var(--txt-neutral-darker-default, #000000) !important;
+    fill: var(--txt-neutral-darker-default, #000000) !important;
+  }
+}
