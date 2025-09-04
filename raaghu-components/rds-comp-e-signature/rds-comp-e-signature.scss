@@ -377,6 +377,13 @@
     max-width: 500px;
   }
 
+  /* Ensure the file-row border is not visually clipped by child backgrounds */
+  &__file-row {
+    overflow: visible;
+    background-clip: padding-box;
+    box-sizing: border-box;
+  }
+
   &__file-row:focus-within {
     border-color: var(--rds-color-primary-700, #1976d2);
     box-shadow: 0 0 0 2px rgba(25, 118, 210, .15);
@@ -448,7 +455,9 @@
     text-overflow: ellipsis;
     height: 36px;
     background: var(--rds-color-neutral-0, #fff);
-    margin-left: -1px;
+    /* Remove negative overlap and keep right rounded corner visible */
+    margin-left: 0;
+    border-radius: 0 6px 6px 0;
   }
 
   &__file-text--placeholder {
@@ -541,6 +550,8 @@
     width: 100%;
     padding: 0 0 4px;
     border-radius: 8px;
+    /* ensure default (medium/desktop) is not centered */
+    display: block;
   }
 
   /* Panel now only holds grid; link sits outside */
@@ -550,9 +561,11 @@
     border-radius: var(--rds-radius-lg, 8px);
     padding: 16px 20px 16px;
     margin-top: 6px;
+    /* Default (medium) behavior: inline-block keeps original spec */
     display: inline-block;
     width: auto;
     max-width: 100%;
+    box-sizing: border-box;
   }
 
   &__choose-panel--error {
@@ -562,9 +575,12 @@
 
   &__mini-grid {
     display: grid;
+    /* Default (medium) layout: 3 columns like original */
     grid-template-columns: repeat(3, auto);
     column-gap: 40px;
     row-gap: 18px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   &__mini-group {
@@ -572,6 +588,7 @@
     flex-direction: column;
     gap: 4px;
     align-items: flex-start;
+    /* default width auto to preserve original layout on normal/desktop */
   }
 
   &__mini-label {
@@ -592,6 +609,7 @@
     cursor: pointer;
     transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
     font-family: var(--rds-font-family-secondary, 'Segoe UI', sans-serif);
+    /* default auto width */
   }
 
   &__mini-card:hover:not(:disabled) {
@@ -795,32 +813,56 @@
 }
 
 // Responsive Design
-@media (max-width: 768px) {
-  .rds-e-signature {
-    &__styles-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    &__canvas {
-      height: 200px;
-    }
-
-    &__file-input-container {
-      flex-direction: column;
-      gap: var(--rds-esignature-spacing-xs);
-    }
-  }
-}
-
 @media (max-width: 480px) {
-  .rds-e-signature {
-    &__styles-grid {
-      grid-template-columns: 1fr;
-    }
+  .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-    &__canvas-container,
-    &__upload-area {
-      padding: var(--rds-esignature-spacing-md);
-    }
+  .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-grid {
+    grid-template-columns: 1fr;
+    column-gap: 10px;
+    row-gap: 10px;
+  }
+
+  .rds-e-signature.rds-e-signature--choose .rds-e-signature__styles-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rds-e-signature.rds-e-signature--choose .rds-e-signature__canvas-container,
+  .rds-e-signature.rds-e-signature--choose .rds-e-signature__upload-area {
+    padding: var(--rds-esignature-spacing-md);
+  }
+
+  /* Center panel and link on small screens */
+  .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rds-e-signature.rds-e-signature--choose .rds-e-signature__create-custom {
+    display: flex;
+    justify-content: center;
   }
 }
+
+@media (min-width: 1200px) {
+
+  /* Center panel and link on large screens only in Choose mode */
+  .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
+    margin-right: auto;
+  }
+
+  .rds-e-signature.rds-e-signature--choose .rds-e-signature__create-custom {
+    display: flex;
+  }
+}
+
+/* no special large-screen styles; desktop keeps default look */

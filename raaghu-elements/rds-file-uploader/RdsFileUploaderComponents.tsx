@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Paper, Typography, Button, IconButton } from '@mui/material';
 import { CloudUpload, Close } from '@mui/icons-material';
-import { FileWithProgress } from './rds-file-uploader';
+import RdsFileUploader, { FileWithProgress } from './rds-file-uploader';
 
 // ============= INTERFACES =============
 interface RdsDropZoneSideIconProps {
@@ -288,6 +288,11 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
       </Typography>
     </Paper>
   );
+};
+
+export const renderFileUploader = (args: any) => {
+  const [files, setFiles] = React.useState<FileWithProgress[]>([]);  
+  return <RdsFileUploader {...args} onFilesChange={setFiles} />;
 };
 
 export const RdsFileList: React.FC<RdsFileListProps> = ({
