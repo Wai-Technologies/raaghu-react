@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert as MuiAlert, type AlertProps, type AlertColor, Paper } from '@mui/material';
+import { Alert as MuiAlert, type AlertProps, type AlertColor } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import RdsButton from '../rds-button/rds-button';
 import './rds-alert.scss';
@@ -38,18 +38,37 @@ const RdsAlert= ({
   showSecondary = true,
   showPrimary = true,
   showButtons = true,
+  variant = 'standard',
   ...props
 }:RdsAlertProps) => {
   const mainText = description !== undefined ? String(description) : (typeof children === 'string' ? children : '');
   const sizeClass = `rds-alert--${size}`;
   const styleClass = `rds-alert--${variantStyle}`;
   const severityClass = `rds-alert--${(severity || type)}`;
+  let iconNode: React.ReactNode | false = false;
+  if (showIcon) {
+    if (changeIconName === null) {
+      iconNode = false;
+    } else if (changeIconName !== undefined) {
+      if (React.isValidElement(changeIconName)) {
+        const existingClass = (changeIconName.props as any)?.className || '';
+        iconNode = React.cloneElement(changeIconName, {
+          className: `${existingClass ? existingClass + ' ' : ''}rds-alert__icon`,
+        });
+      } else {
+        iconNode = changeIconName;
+      }
+    } else {
+      iconNode = <InfoOutlinedIcon className="rds-alert__icon" />;
+    }
+  }
 
   return (
-    <Paper>
+    // removed Paper wrapper so MuiAlert's variant styling (filled/outlined/standard) is visible
     <MuiAlert
+      variant={variant}
       severity={severity || type}
-  icon={showIcon ? (changeIconName !== null ? (changeIconName !== undefined ? changeIconName : <InfoOutlinedIcon className="rds-alert__icon" />) : false) : false}
+      icon={iconNode}
       className={`rds-alert ${sizeClass} ${styleClass} ${severityClass}${props.className ? ` ${props.className}` : ''}`}
       {...props}
     >
@@ -69,7 +88,9 @@ const RdsAlert= ({
               {showTitle && (
                 <strong className="rds-alert__heading">{title}</strong>
               )}
-              {showDescription && mainText}
+              {showDescription && mainText && (
+                <span className="rds-alert__description-inline">{` ${mainText}`}</span>
+              )}
             </span>
           )}
           {React.isValidElement(children) ? children : null}
@@ -82,16 +103,17 @@ const RdsAlert= ({
                 size="small"
                 className="rds-alert__link-button"
                 text="Link"
+                color="primary"
+                textCase="capitalize"
               />
             )}
 
-            {showSecondary && <RdsButton style="transparent" size="small" sx={{ mr: showPrimary ? 2 : 0 }} text="Cancel" />}
-            {showPrimary && <RdsButton style="filled" size="small" text="Okay" />}
+            {showSecondary && <RdsButton style="transparent" size="small" sx={{ mr: showPrimary ? 2 : 0 }} text="Cancel" textCase="capitalize" />}
+            {showPrimary && <RdsButton style="filled" size="small" text="Okay" color="primary" textCase="capitalize" />}
           </div>
         )}
       </div>
-      </MuiAlert>
-    </Paper>
+    </MuiAlert>
   );
 };
 
