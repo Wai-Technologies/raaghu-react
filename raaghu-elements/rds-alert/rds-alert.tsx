@@ -109,7 +109,7 @@ const RdsAlert= ({
             )}
 
             {showSecondary && <RdsButton style="transparent" size="small" sx={{ mr: showPrimary ? 2 : 0 }} text="Cancel" textCase="capitalize" />}
-            {showPrimary && <RdsButton style="filled" size="small" text="Okay" color="primary" textCase="capitalize" />}
+            {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color="primary" textCase="capitalize" />}
           </div>
         )}
       </div>
