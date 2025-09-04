@@ -14,7 +14,7 @@ const meta: Meta<typeof RdsCard> = {
   parameters: {
     layout: 'padded',
     // hide auto-generated `component` control from Controls panel
-  controls: { exclude: ['component'] },
+  controls: { exclude: ['component', 'elevation'] },
   },
   tags: ['autodocs'],
   argTypes: {

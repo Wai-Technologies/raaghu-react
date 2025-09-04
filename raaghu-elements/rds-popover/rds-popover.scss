@@ -59,7 +59,7 @@
       top: -8px;
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;
-      border-bottom: 8px solid var(--rds-color-surface, #ffffff);
+      border-bottom: 8px solid var(--rds-color-surface, #0003);
       filter: drop-shadow(0px -1px 0px rgba(0, 0, 0, 0.12));
 
       // Position variants for top arrows
@@ -81,7 +81,7 @@
       bottom: -8px;
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;
-      border-top: 8px solid var(--rds-color-surface, #ffffff);
+      border-top: 8px solid var(--rds-color-surface, #0003);
       filter: drop-shadow(0px 1px 0px rgba(0, 0, 0, 0.12));
 
       // Position variants for bottom arrows
@@ -103,7 +103,7 @@
       left: -8px;
       border-top: 8px solid transparent;
       border-bottom: 8px solid transparent;
-      border-right: 8px solid var(--rds-color-surface, #ffffff);
+      border-right: 8px solid var(--rds-color-surface, #0003);
       filter: drop-shadow(-1px 0px 0px rgba(0, 0, 0, 0.12));
 
       // Position variants for left arrows
@@ -127,7 +127,7 @@
       right: -8px;
       border-top: 8px solid transparent;
       border-bottom: 8px solid transparent;
-      border-left: 8px solid var(--rds-color-surface, #ffffff);
+      border-left: 8px solid var(--rds-color-surface, #0003);
       filter: drop-shadow(1px 0px 0px rgba(0, 0, 0, 0.12));
 
       // Position variants for right arrows
