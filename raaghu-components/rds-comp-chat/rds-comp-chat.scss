@@ -1,3 +1,62 @@
+// Mobile header avatar and nav tab size adjustments
+@media (max-width: 767px) {
+  .rds-comp-chat__window-header-title--mobile {
+    .rds-avatar {
+      width: 32px !important;
+      height: 32px !important;
+      font-size: 14px !important;
+    }
+  }
+  .nav-tabs--mobile {
+    .nav-link {
+      font-size: 13px !important;
+      padding: 4px 8px !important;
+      min-width: 48px;
+    }
+  }
+  .nav-link--mobile {
+    font-size: 13px !important;
+    padding: 4px 8px !important;
+    min-width: 48px;
+  }
+  .rds-comp-chat__back-btn {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 8px;
+    color: var(--rds-color-primary, #7825E9);
+    background: none;
+    border: none;
+    font-size: 20px;
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .rds-comp-chat__window-header-title--mobile {
+    .rds-avatar {
+      width: 28px !important;
+      height: 28px !important;
+      font-size: 12px !important;
+    }
+  }
+  .nav-tabs--mobile {
+    .nav-link {
+      font-size: 12px !important;
+      padding: 2px 6px !important;
+      min-width: 40px;
+    }
+  }
+  .nav-link--mobile {
+    font-size: 12px !important;
+    padding: 2px 6px !important;
+    min-width: 40px;
+  }
+  .rds-comp-chat__back-btn {
+    font-size: 18px;
+    margin-right: 0px;
+  }
+}
 // RDS Chat Component Styles
 // This component follows BEM naming convention with rds-comp-chat prefix
 // Structure: .rds-comp-chat { __element { --modifier } }
@@ -78,7 +137,21 @@
         flex: 1;
         min-width: 0; // Allow shrinking if needed
         margin-right: var(--rds-spacing-sm, 12px);
+
+      @media (max-width: 480px) {
+        .rds-avatar{
+          &--with-name{
+            gap: 0px !important;
+          }
+              &__name{
+                font-size: var(--rds-font-size-md, 0.85rem) !important;
+              }
+              &__designation{
+                font-size: var(--rds-font-size-md, 0.70rem) !important;
+              }
+        }
       }
+    }
 
       &-options {
         display: flex;
@@ -97,7 +170,6 @@
         .nav-tabs {
           display: flex !important;
           flex-direction: row !important;
-          gap: 8px;
           align-items: center;
           margin: 0;
           padding: 0;
@@ -119,6 +191,9 @@
           background: transparent;
           color: var(--rds-color-on-surface, black) !important;
           font-weight: 500;
+          @media (max-width: 480px) {
+            padding: 10px 6px !important;
+          }
         }
         .nav-link::before {
           display: none !important;
@@ -333,7 +408,7 @@
    // background: var(--rds-surface, #fff);
     //border: 1px solid var(--rds-color-border-light, #d0d0d0);
     border-radius: 8px;
-    padding: 6px 11px;
+    padding: 6px 6px;
     box-sizing: border-box;
     gap: 8px;
     min-height: 40px;
@@ -378,12 +453,12 @@
 
   /* ensure text does not underlap the icon on smaller screens */
   @media (max-width: 767px) {
-    &__input-wrapper { padding-right: 46px; }
+    &__input-wrapper { padding-right: 0px; }
     &__send-icon { right: 8px; width: 30px; height: 30px; }
   }
 
   @media (max-width: 480px) {
-    &__input-wrapper { padding-right: 44px; }
+    &__input-wrapper { padding-right: 0px; }
     &__send-icon { right: 6px; width: 28px; height: 28px; }
   }
 
@@ -421,6 +496,10 @@
       font-size: 20px;
       color: var(--rds-color-on-surface, #202020);
     }
+
+    .rds-button--state-default {
+      min-width: 55px !important;
+    }
   }
 
   // Small screens - keep input full width and icon positioned correctly
@@ -428,7 +507,7 @@
     &__input-send input,
     &__input-send textarea,
     &__input-send .rds-input {
-      padding-right: 44px;
+      padding-right: 0px;
     }
 
     &__send-icon {
@@ -442,7 +521,7 @@
     &__input-send input,
     &__input-send textarea,
     &__input-send .rds-input {
-      padding-right: 40px;
+      padding-right: 0px;
     }
 
     &__send-icon {
@@ -512,7 +591,7 @@
   &__media-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
+    // gap: 12px;
     align-items: start;
     padding: var(--rds-spacing-sm, 8px) 0;
   }
@@ -627,7 +706,8 @@
     }
 
     &__window-main {
-      height: calc(100vh - 140px); // Adjust based on header and footer heights
+      flex: 1 !important;
+      min-height: calc(100vh - 140px); // Adjust based on header and footer heights
     }
 
     &__message {
@@ -668,7 +748,7 @@
 @media (max-width: 480px) {
   .rds-comp-chat {
     &__window-header {
-      padding: 0 var(--rds-spacing-xs, 8px);
+      padding: 0 var(--rds-spacing-xs, 4px);
       
       &-options {
         gap: var(--rds-spacing-xs, 4px);
@@ -759,6 +839,7 @@
 
   .rds-comp-chat {
     &__window-main {
+      flex: 1 !important;
       height: calc(100vh - 120px);
     }
 
