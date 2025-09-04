@@ -57,6 +57,7 @@ const meta: Meta = {
         "Cplus",
         "Config",
         "Database",
+        "Default",
         "Docker",
         "ESLint",
         "Git",
@@ -105,7 +106,7 @@ export const Default: Story = {
     showActions: true,
     showCollapsed: false,
     type: IconType.Folder,  // Use enum instead of string
-    Language: "CSS",
+    Language: "TypeScript",
     treeData: [
       {
         id: 1,
