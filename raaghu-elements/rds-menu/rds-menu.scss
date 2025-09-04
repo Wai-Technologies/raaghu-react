@@ -155,18 +155,36 @@
 [data-theme="dark"] {
   /* target the actual BEM class name (was missing the leading dot) */
   .rds-menu__list {
-     background-color: #545454 !important;
+     background-color: var(--rds-color-background, #545454);
+  }
+  /* ensure base item / header colors change (not only on hover) */
+  .rds-menu__item {
+    color: var(--rds-color-surface, #ffffff);
+  }
+  .rds-menu__item.rds-menu__item--disabled {
+    color: var(--rds-text-disabled, #999999);
+  }
+  .rds-menu__header {
+    color: var(--rds-color-surface, #d6d6d6);
+    background-color: var(--rds-color-background, #5a5a5a);
   }
   /* ensure icons are white in dark mode and remain white when the parent is hovered */
   .rds-menu__item .MuiSvgIcon-root,
   .rds-menu__item .MuiSvgIcon-root * {
-    color: var(--rds-color-surface, #ffffff) !important;
+    color: var(--rds-color-surface, #ffffff);
   }
 
   /* On hover the parent may change color; explicitly override that for icons */
   .rds-menu__item:hover .MuiSvgIcon-root,
   .rds-menu__item:focus-visible .MuiSvgIcon-root {
-    color: var(--txt-neutral-darker-default, #000000) !important;
-    fill: var(--txt-neutral-darker-default, #000000) !important;
+  color: var(--rds-color-surface, #ffffff) ;
   }
+  
+  
+    /* change menu item background on hover in dark theme and keep text readable */
+    .rds-menu__item:hover:not(:disabled),
+    .rds-menu__item:focus-visible:not(:disabled) {
+      background: #666;
+      color: #ffffff;
+    }
 }
