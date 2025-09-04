@@ -1,0 +1,23 @@
+// RDS Pie Chart Component Styles
+.rds-comp-chart-pie {
+	display: block;
+	width: 100%;
+	.chart-container {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	canvas {
+		width: 100% !important;
+		height: 335px !important;
+		max-width: 100%;
+		// Responsive for mobile views
+		@media (max-width: 600px) {
+			height: 335px !important;
+		}
+		@media (max-width: 400px) {
+			height: 335px !important;
+		}
+	}
+}
