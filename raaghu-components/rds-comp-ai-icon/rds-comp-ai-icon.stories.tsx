@@ -15,7 +15,7 @@ const meta: Meta = {
             control: { type: "select" },
         },
         name: {
-            options: ["users", "person-outline"],
+            options: ["person-outline","users"],
             control: { type: "select" },
             description: "Material-UI icon name (can be extended using registerMaterialIcon)",
         }
@@ -27,7 +27,7 @@ type Story = StoryObj<typeof RdsCompAiIcon>;
 
 export const Default: Story = {
     args: {
-        name: "users",
+        name: "person-outline",
         width: "24px",
         height: "24px",
         fill: false,
@@ -36,4 +36,4 @@ export const Default: Story = {
         isCursorPointer: true,
     }
 } satisfies Story;
-Default.parameters = { controls: { include: ['name', 'width', 'height', 'fill', 'stroke', 'colorVariant', 'isCursorPointer'] } };
+Default.parameters = { controls: { include: ['name', 'width', 'height','colorVariant', 'isCursorPointer'] } };
