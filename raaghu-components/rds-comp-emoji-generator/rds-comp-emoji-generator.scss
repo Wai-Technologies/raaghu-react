@@ -102,6 +102,30 @@
     }
   }
 
+  // Inline expanded skin-tone vertical strip (used when State is Expanded)
+  &__skin-tone-inline {
+    position: absolute;
+    right: -6px; // aligned to the right edge of the popover
+    top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px;
+    background-color: var(--rds-background-paper, #ffffff);
+    border-radius: 8px;
+    box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.15));
+    z-index: 1200;
+    min-width: 36px;
+    align-items: center;
+
+    .MuiIconButton-root {
+      width: 29px !important;
+      height: 29px !important;
+      min-width: 29px !important;
+      padding: 4px !important;
+    }
+  }
+
   // Skin tone popover panel
   &__skin-tone-popover {
     padding: var(--rds-spacing-xs, 4px);
@@ -400,6 +424,7 @@
 // Responsive design
 @media (max-width: 480px) {
   .rds-emoji-generator {
+  width: 294px;
     &__grid-container {
       grid-template-columns: repeat(auto-fit, minmax(var(--rds-size-lg, 35px), 1fr));
     }
