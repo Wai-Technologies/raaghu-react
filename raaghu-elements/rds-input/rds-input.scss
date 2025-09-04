@@ -322,9 +322,9 @@
   .MuiFormLabel-root.Mui-required .MuiFormLabel-asterisk {
     color: var(--rds-error-main, #d32f2f) !important;
   }
-  // Fix for inline-title floating label background to prevent border line showing through
-  .MuiInputLabel-root {
-  background-color: var(--rds-background-paper, #fff);
+  // Override MUI legend font-size from em to rem to fix border overlap
+  .MuiOutlinedInput-notchedOutline legend {
+    font-size: 0.75rem !important;
   }
 }
 
