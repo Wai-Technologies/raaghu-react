@@ -161,7 +161,7 @@ const RdsPopover= ({
             className={getArrowClasses(arrowDirection, position)}
           />
         )}
-        {(title || showCloseButton) && (
+        {(!!title || !!showCloseButton) && (
           <Box 
             className="rds-popover__header"
             sx={{ mb: title ? 1 : 0,}}

@@ -43,7 +43,7 @@ const RdsModal= ({
       {...props}
     >
       {(title || icon || imageSrc) && (
-        <DialogTitle >
+        <DialogTitle className={showCloseButton ? 'rds-modal__title--with-close' : 'rds-modal__title'}>
           <div className='rds-modal__content'>
           {icon && showIcon && (
             <span className="rds-modal__icon mt-1">{icon}</span>
