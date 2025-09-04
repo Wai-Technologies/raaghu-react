@@ -170,8 +170,10 @@
   }
 
   &__slider {
-    width: 570px;
-    margin: 0 var(--rds-spacing-sm, 8px);
+  flex: 1;
+  min-width: 100px;
+  max-width: 100%;
+  margin: 0 var(--rds-spacing-sm, 8px);
   }
 
   // Legacy support for old class names
@@ -697,10 +699,92 @@
     &__main-controls {
       width: 100%;
       margin: 0;
+      flex-direction: column;
+      gap: var(--rds-spacing-md, 12px);
+      align-items: stretch;
+    }
+
+    // First row: Current time, slider, total time
+    &__current-time {
+      order: 1;
+      align-self: flex-start;
+      padding-top: var(--rds-spacing-xs, 3px);
     }
 
     &__slider {
+      order: 2;
       width: 100%;
+      flex: 1;
+      min-width: 80px;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    &__total-time {
+      order: 3;
+      align-self: flex-end;
+      padding-bottom: var(--rds-spacing-xs, 3px);
+    }
+
+    // Create a time row container for the first 3 elements
+    &__current-time,
+    &__slider,
+    &__total-time {
+      display: flex;
+      align-items: center;
+    }
+
+    // Group time elements in same row
+    &__main-controls {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      grid-template-rows: auto auto auto;
+      gap: var(--rds-spacing-sm, 8px);
+      align-items: center;
+    }
+
+    &__current-time {
+      grid-column: 1;
+      grid-row: 1;
+      justify-self: start;
+    }
+
+    &__slider {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: stretch;
+    }
+
+    &__total-time {
+      grid-column: 3;
+      grid-row: 1;
+      justify-self: end;
+    }
+
+    // Second row: Control buttons
+    &__control-btn:first-of-type {
+      grid-column: 1;
+      grid-row: 2;
+      justify-self: center;
+    }
+
+    &__play-btn {
+      grid-column: 2;
+      grid-row: 2;
+      justify-self: center;
+    }
+
+    &__control-btn:last-of-type {
+      grid-column: 3;
+      grid-row: 2;
+      justify-self: center;
+    }
+
+    // Third row: Extra controls span full width
+    &__extra-controls {
+      width: 100%;
+      justify-content: center;
+      margin-right: 0;
     }
 
     &__edition-container {
@@ -708,18 +792,108 @@
       max-width: 100%;
     }
 
+    &__edition-timemarks {
+      font-size: var(--rds-font-size-caption, 12px);
+    }
+
+    &__edition-timemark {
+      min-width: 25px;
+      font-size: var(--rds-font-size-caption, 12px);
+    }
+
     &__edition-controls {
       flex-direction: column;
       gap: var(--rds-spacing-lg, 16px);
       align-items: stretch;
+      padding: var(--rds-spacing-md, 12px);
+    }
+
+    &__edition-time-info {
+      align-items: center;
+      text-align: center;
     }
 
     &__edition-buttons {
       justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--rds-spacing-sm, 8px);
+    }
+
+    &__edition-btn {
+      padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 12px);
+      font-size: var(--rds-font-size-body-small, 14px);
+      min-width: fit-content;
+      
+      .rds-comp-audio-player__btn-icon {
+        width: 14px;
+        height: 14px;
+      }
     }
 
     &__edition-zoom {
       justify-content: center;
+      gap: var(--rds-spacing-sm, 8px);
+      
+      button {
+        padding: var(--rds-spacing-xs, 6px);
+        
+        .rds-comp-audio-player__btn-icon {
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+  }
+
+  // Extra small mobile devices (phones in portrait)
+  @media (max-width: 480px) {
+    &__edition-timemarks {
+      font-size: var(--rds-font-size-caption, 10px);
+    }
+
+    &__edition-timemark {
+      min-width: 20px;
+      font-size: var(--rds-font-size-caption, 10px);
+    }
+
+    &__edition-controls {
+      padding: var(--rds-spacing-sm, 8px);
+      margin-top: var(--rds-spacing-md, 12px);
+    }
+
+    &__edition-time {
+      font-size: var(--rds-font-size-body-large, 16px);
+    }
+
+    &__edition-duration {
+      font-size: var(--rds-font-size-body-small, 12px);
+    }
+
+    &__edition-buttons {
+      gap: var(--rds-spacing-xs, 4px);
+    }
+
+    &__edition-btn {
+      padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 8px);
+      font-size: var(--rds-font-size-caption, 14px);
+      
+      .rds-comp-audio-player__btn-icon {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    &__edition-zoom {
+      gap: var(--rds-spacing-xs, 4px);
+      
+      button {
+        padding: var(--rds-spacing-xs, 4px);
+        
+        .rds-comp-audio-player__btn-icon {
+          width: 12px;
+          height: 12px;
+        }
+      }
     }
   }
 
