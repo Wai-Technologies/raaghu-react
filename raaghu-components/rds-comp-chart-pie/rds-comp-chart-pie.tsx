@@ -37,8 +37,10 @@ const RdsCompPieChart = (props: RdsCompPieProps) => {
   }, [props]);
 
   return (
-    <div className="chart-container">
-      <canvas id={props.id} ref={canvasRef} />
+    <div className="rds-comp-chart-pie">
+      <div className="chart-container">
+        <canvas id={props.id} ref={canvasRef} />
+      </div>
     </div>
   );
 };
