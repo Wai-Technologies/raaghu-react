@@ -105,7 +105,12 @@ const RdsGrid = (props: RdsGridProps) => {
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [filterValues, setFilterValues] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(props.state === State.Collpsed);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(() => {
+    // Prefer explicit boolean `collapsed` prop when provided by story args
+    if (typeof props.collapsed === 'boolean') return props.collapsed;
+    // Fallback to older `state` prop value
+    return props.state === State.Collpsed;
+  });
     const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
     // Default resizableColumns to false if not provided
     const resizableColumns = props.resizableColumns ?? false;
@@ -129,6 +134,16 @@ const RdsGrid = (props: RdsGridProps) => {
     const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
   }, [props.tableData]);
+
+  // Sync collapsed state when parent/story controls change props
+  useEffect(() => {
+    if (typeof props.collapsed === 'boolean') {
+      setIsCollapsed(props.collapsed);
+      return;
+    }
+    // If collapsed prop isn't provided, respect `state` prop
+    setIsCollapsed(props.state === State.Collpsed);
+  }, [props.collapsed, props.state]);
 
   // Sorting
   const handleSort = (key: string) => {
@@ -298,8 +313,8 @@ const RdsGrid = (props: RdsGridProps) => {
               <span className="rds-grid__subheader-title">{props.noDataheaderTitle || 'Title'}</span>
               <MoreVert className="rds-grid__subheader-dots" />
             </div>
-            <IconButton onClick={toggleCollapse} size="small" className="rds-grid__subheader-toggle">
-              <ArrowDropDown style={{ transform: isCollapsed ? 'none' : 'rotate(180deg)' }} />
+            <IconButton onClick={toggleCollapse} size="small" className="rds-grid__subheader-toggle" aria-label={isCollapsed ? 'expand' : 'collapse'}>
+              {isCollapsed ? <ArrowDropDown /> : <ArrowDropUp />}
             </IconButton>
           </div>
         </div>
@@ -408,8 +423,8 @@ const RdsGrid = (props: RdsGridProps) => {
                           {/* Only show filter if header.filter is true */}
                           {header.filter ? (
                             <select
-                              className="rds-grid__filter-select"
-                              value={filterValues[header.key] || ''}
+                              className={`rds-grid__filter-select ${!filterValues[header.key] ? 'rds-grid__filter-select--placeholder' : ''}`}
+                              aria-label={`Filter ${header.displayName}`}
                               onChange={e => handleFilterChange(header.key, e.target.value)}
                             >
                               <option value="">Filter...</option>
