@@ -81,6 +81,7 @@ const RdsProgress = ({
 
   const renderStepper = () => {
     const currentStep = Math.ceil(((finalValue || 0) / 100) * totalSteps);
+  const isDark = typeof document !== 'undefined' && (document.documentElement.getAttribute('data-theme') === 'dark' || document.body.classList.contains('theme-dark'));
     return (
       <div className={`rds-progress rds-progress--stepper rds-progress--${color}`}>
         <Box sx={{ display: 'flex', alignItems: 'center', ...sx }} className="rds-progress__stepper">
@@ -89,25 +90,24 @@ const RdsProgress = ({
             const isCompleted = index < currentStep;
             const isCurrent = index === currentStep - 1;
             const stepClass = isCompleted ? 'completed' : isCurrent ? 'current' : 'upcoming';
-            
+            const typeClass = stepperType === 'circle' ? 'rds-progress__stepper-step--circle' : 'rds-progress__stepper-step--number';
             return (
               <React.Fragment key={index}>
                 <Box
-                  className={`rds-progress__stepper-step rds-progress__stepper-step--${stepClass}`}
-                  sx={{
-                    width: 40, height: 40, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s ease-in-out',
-                    border: `2px solid ${colorValue}`,
-                    backgroundColor: stepperType === 'circle' && (isCompleted || isCurrent) ? colorValue : (stepperType === 'number' && isCompleted ? colorValue : 'white'),
-                  }}
+                  className={`rds-progress__stepper-step ${typeClass} rds-progress__stepper-step--${stepClass}`}
+                  sx={{ width: 40, height: 40 }}
                 >
                   {stepperType === 'number' ? (
-                    <Typography variant="body2" sx={{ color: isCompleted ? 'white' : isCurrent ? colorValue : 'var(--rds-color-gray-500, #9e9e9e)', fontWeight: 600, fontSize: '14px' }}>{stepNumber}</Typography>
+                    <Typography variant="body2" className="rds-progress__stepper-number" sx={{ fontWeight: 600, fontSize: '14px' }}>{stepNumber}</Typography>
                   ) : (
-                    <Box sx={{ width: 20, height: 20, borderRadius: '50%', border: `2px solid ${(isCompleted || isCurrent) ? 'white' : 'var(--rds-color-gray-600, #5c6870)'}`, backgroundColor: 'transparent' }} />
+                    <span className="rds-progress__stepper-inner-dot" />
                   )}
                 </Box>
                 {index < totalSteps - 1 && (
-                  <Box className={`rds-progress__stepper-connector ${isCompleted ? 'rds-progress__stepper-connector--completed' : ''}`} sx={{ width: 60, height: 2, backgroundColor: colorValue, transition: 'background-color 0.2s ease-in-out' }} />
+                  <Box
+                    className={`rds-progress__stepper-connector ${isCompleted ? 'rds-progress__stepper-connector--completed' : ''}`}
+                    sx={{ width: 60, height: 2 }}
+                  />
                 )}
               </React.Fragment>
             );
