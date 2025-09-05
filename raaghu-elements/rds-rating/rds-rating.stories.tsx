@@ -80,10 +80,6 @@ export const Default: Story = {
       control: { type: 'select' },
       options: ['default', 'filled', 'outlined'],
     },
-    colorVariant: {
-      control: { type: 'select' },
-      options: ['primary','success','danger','warning','light','info','secondary','dark'],
-    },
     // Hide other controls for Default story to focus on main functionality
     value: { table: { disable: true } },
     showValue: { table: { disable: true } },
