@@ -1,5 +1,6 @@
 import React from 'react';
 import { Fab as MuiFab, FabProps } from '@mui/material';
+import './rds-fab.scss';
 
 export interface RdsFabProps extends FabProps {
   icon?: React.ReactNode;

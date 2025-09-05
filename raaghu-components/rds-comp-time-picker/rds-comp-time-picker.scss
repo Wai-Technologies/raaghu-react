@@ -430,9 +430,6 @@
           }
         }
         
-        &.set-time {
-          background: #6366f1;
-        }
       }
     }
   }
@@ -441,6 +438,16 @@
     background: #333;
     color: #fff;
     border: 1px solid #555;
+  }
+
+  .time-picker-container .time-picker .time-controls-row .time-select-container .time-select, .time-picker-container .time-picker-compact .time-controls-row .time-select-container .time-select
+  {
+    background-color: #333;
+    color: #F5F5F5;
+  }
+.time-picker-container .time-input-container .time-input  {
+    background-color: #333;
+    color: #F5F5F5;
   }
 }
 
