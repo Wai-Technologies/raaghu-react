@@ -147,9 +147,42 @@
       background-color: #424242;
       border-color: var(--rds-color-border-dark, #495057);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      
+      .rdw-link-modal
+      {
+        background-color: #212529;
+        color: var(--rds-color-on-surface-dark, #e9ecef);
+        border-color: var(--rds-color-border-dark, #495057);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      }
+      .rdw-link-modal-btn
+      {
+        background: #282828;
+        color: white;
+      }
+      .rdw-image-modal-upload-option
+      {
+         background-color: #202020;
+        color: var(--rds-color-on-surface-dark, #e9ecef);
+        border-color: var(--rds-color-border-dark, #495057);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      }
+      .rdw-image-modal-alt-input
+      {
+        background-color: #202020;
+        color: var(--rds-color-on-surface-dark, #e9ecef);
+      }
+      .rdw-image-modal-size-input
+      {
+          background-color: #202020;
+          color: var(--rds-color-on-surface-dark, #e9ecef);
+      }
+      .rdw-image-modal-url-input
+      {
+background-color: #202020;
+          color: var(--rds-color-on-surface-dark, #e9ecef);
+      }
       .rdw-option-wrapper {
-        background-color: #424242;
+        background-color: #7c7979;
         color: var(--rds-color-on-surface-dark, #fff);
         border-color: var(--rds-color-border-dark, #495057);
         font-weight: 500;
@@ -195,9 +228,10 @@
             background: var(--rds-color-primary, #0d6efd);
             border: none;
             font-weight: 500;
+            color: white;
             
             &:hover {
-              background: var(--rds-color-primary-light, #6ea8fe);
+              background: var(--rds-color-primary-light, #0d6efd);
             }
           }
         }
