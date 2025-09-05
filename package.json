@@ -33,6 +33,8 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@figma/code-connect": "^1.3.4",
+    "@fluentui-contrib/react-data-grid-react-window": "^1.3.2",
+    "@fluentui/react-components": "^9.69.0",
     "@griffel/react": "^1.5.30",
     "@griffel/webpack-loader": "^2.2.20",
     "@hello-pangea/dnd": "^18.0.1",
