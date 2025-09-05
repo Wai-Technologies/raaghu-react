@@ -241,6 +241,22 @@
 }
 
 [data-theme="dark"] {
+
+  .rds-alert.MuiAlert-root.rds-alert--info{
+    background-color: var(--rds-background-paper, #424242) !important;
+    color: var(--rds-color-on-primary,#ffffff) !important;
+  }
+  .rds-alert--info .rds-alert__icon, .rds-alert .rds-alert--info .rds-alert__icon 
+  {
+    color: var(--rds-color-on-primary,#ffffff) !important;
+  }
+
+  /* Only change the color of the primary "Okay" button inside rds-alert in dark theme */
+  .rds-alert .rds-alert__primary-button .MuiButton-root,
+  .rds-alert .rds-alert__primary-button {
+    color: var(--rds-color-on-primary,#ffffff) !important; /* desired color for Okay button in dark theme */
+  }
+
   --rds-alert-success-text: #000000;
   --rds-alert-warning-text: #000000;
   --rds-alert-error-text: #000000;

@@ -3,6 +3,11 @@
   position: relative;
   display: inline-block;
 
+  .rds-fab-menu-offset &.rds-fab-menu--right,
+  .rds-fab-menu-offset &[data-alignment="right"] {
+    margin-left: 235px;
+  }
+
   // Button element
   &__button {
     display: inline-flex;
@@ -227,6 +232,7 @@
   // Dropdown container
   &__dropdown-container {
     display: none;
+    position: absolute;
     top: 100%;
     right: 0;
     z-index: 1000;
@@ -243,6 +249,11 @@
       right: 0;
       left: auto;
     }
+  }
+
+  // Storybook/docs specific vertical offset (only when wrapped in .rds-fab-menu-offset)
+  .rds-fab-menu-offset &__dropdown-container {
+    top: 13%;
   }
 
   &__dropdown-container--open {
@@ -404,5 +415,25 @@
     &__item {
       transition: none;
     }
+  }
+}
+
+// Wrapper utility specifically for Storybook/demo pages to control layout
+.rds-fab-menu-offset {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start; // keep button at left by default
+  position: relative;
+  height: auto;
+  --rds-fab-menu-open-height: 290px;
+
+  // Apply height only while menu open (modern browsers with :has)
+  &:has(.rds-fab-menu--open) {
+    height: var(--rds-fab-menu-open-height);
+  }
+
+  // Fallback: if JS toggles this class manually
+  &.rds-fab-menu-offset--open {
+    height: var(--rds-fab-menu-open-height);
   }
 }

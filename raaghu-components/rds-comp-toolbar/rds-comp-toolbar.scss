@@ -84,7 +84,7 @@
     align-items: center;
     gap: var(--rds-spacing-md, 8px);
     padding: var(--rds-spacing-xs, 2px) 4px;
-    width: 762px;
+    width: 778px;
     height: 40px;
     min-width: 0;
     overflow-x: auto;
@@ -223,7 +223,7 @@
    z-index: var(--rds-dropdown-z, 2147483647);
    min-width: 160px;
    max-width: calc(100vw - 24px);
-   max-height: 60vh; /* keep dropdown usable on small viewports */
+   max-height: 61vh; /* keep dropdown usable on small viewports */
    overflow: auto; /* scroll inside dropdown when content is large */
    background: var(--rds-color-surface, #ffffff);
    border: 1px solid var(--rds-color-outline, #e1e5e9);

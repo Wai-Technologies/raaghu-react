@@ -2,13 +2,15 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import million from 'million/compiler'
 import millionConfig from './million.config'
+import griffel from '@griffel/vite-plugin'
 import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     million.vite(millionConfig),
-    react()
+    react(),
+    griffel()
   ],
   build: {
     lib: {
