@@ -24,6 +24,7 @@ export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, false
   isShowUser?: boolean;
   userIcon?: React.ReactNode;
   popupIcon?: React.ReactNode;
+  openOnFocus?: boolean;
 }
 
 const RdsAutocomplete = <T extends { label?: string },>({
@@ -43,6 +44,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   isShowUser = false,
   userIcon,
   popupIcon,
+  openOnFocus = false,
   ...props
 }: RdsAutocompleteProps<T>) => {
   const [selected, setSelected] = React.useState<T | null>(
@@ -73,7 +75,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
   return (
     <div className={`rds-autocomplete ${sizeClass} rds-autocomplete--root`}>
       {showTitle && label && (
-        <label className={`rds-autocomplete__label rds-autocomplete__label--${selectSize}`}> 
+        <label className={`rds-autocomplete__label rds-autocomplete__label--${selectSize}`}>
           {label}
           {isMandatory && (
             <Typography
@@ -88,7 +90,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
       )}
     <MuiAutocomplete
       {...props}
-      sx={{ width: 230 }}
+      sx={{ width: '100%' }}
       open={open}
       onOpen={() => state !== 'expanded' && setOpen(true)}
       onClose={() => state !== 'expanded' && setOpen(false)}
@@ -140,6 +142,8 @@ const RdsAutocomplete = <T extends { label?: string },>({
           error={error}
           variant={variant}
           className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass}`}
+          onClick={() => state !== 'expanded' && setOpen(true)}
+          onFocus={() => openOnFocus && state !== 'expanded' && setOpen(true)}
         />
       )}
     />
