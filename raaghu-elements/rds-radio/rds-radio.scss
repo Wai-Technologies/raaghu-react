@@ -182,3 +182,10 @@ color :#646464 !important;
 }
 
 }
+[data-theme="dark"] {
+.MuiFormControlLabel-label {
+      font-size: var(--rds-font-size-body, 1rem);
+      line-height: var(--rds-line-height-body, 1.5);
+      color: var(--rds-color-light, #ffffff) !important;
+    }
+}
