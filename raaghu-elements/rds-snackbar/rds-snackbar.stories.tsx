@@ -39,9 +39,6 @@ const SnackbarTemplate = (args: any) => {
 
   return (
     <>
-      {/* <Button variant="contained" onClick={() => setOpen(true)}>
-        Show Snackbar
-      </Button> */}
       <RdsButton
           color="primary"
           layout="text-only"
