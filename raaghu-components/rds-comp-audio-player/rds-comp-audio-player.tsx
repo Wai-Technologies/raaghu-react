@@ -40,13 +40,31 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
   const [volumeLevel, setVolumeLevel] = useState(50);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
+  const [isMobileView, setIsMobileView] = useState(false);
   const SLIDER_MAX = 120;
 
-  // Combined useEffect for audio events, icon registration, and click outside handlers
+  useEffect(() => {
+    const checkMobileView = () => {
+      setIsMobileView(window.innerWidth <= 768);
+    };
+    checkMobileView();
+    window.addEventListener('resize', checkMobileView);
+    return () => {
+      window.removeEventListener('resize', checkMobileView);
+    };
+  }, []);
+
+  const getTimeMarkConfig = () => {
+    if (isMobileView) {
+      return { interval: "00:30", count: 5 };
+    } else {
+      return { interval: "00:10", count: 13 };
+    }
+  };
+
   useEffect(() => {
     const audio = audioRef.current;
     registerMaterialIcons({ 'share_icon': IosShareIcon, 'pending_icon': PendingOutlinedIcon });
-
     const handleLoadedMetadata = () => { setDuration(audio?.duration || 0); setSliderValue(0); setCurrentTime(0); };
     const handleTimeUpdate = () => { if (audio) { setCurrentTime(audio.currentTime); setSliderValue(audio.currentTime); } };
     
@@ -61,7 +79,6 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
         }
       }
     };
-
     const handleDocumentMouseUp = () => { setIsDraggingLeft(false); setIsDraggingRight(false); };
     
     const handleClickOutside = (event: MouseEvent) => {
@@ -76,7 +93,6 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
       }
     };
 
-    // Add event listeners
     audio?.addEventListener("loadedmetadata", handleLoadedMetadata);
     audio?.addEventListener("timeupdate", handleTimeUpdate);
     if (isDraggingLeft || isDraggingRight) {
@@ -94,7 +110,6 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
     };
   }, [isDraggingLeft, isDraggingRight, leftTrimPosition, rightTrimPosition, showTranscriptSlider, showSettingsModal]);
 
-  // Utility functions
   const handleSeek = (_: Event, value: number | number[]) => {
     const time = Array.isArray(value) ? value[0] : value;
     setSliderValue(time); setCurrentTime(time);
@@ -164,7 +179,6 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
     }
   };
 
-  // Event handlers
   const toggleTranscriptSlider = () => setShowTranscriptSlider(!showTranscriptSlider);
   const handleVolumeChange = (_: Event, value: number | number[]) => {
     const volume = Array.isArray(value) ? value[0] : value;
@@ -178,7 +192,6 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
     if (audioRef.current) audioRef.current.playbackRate = speed;
   };
 
-  // Menu items data
   const exportMenuItems = [
     { icon: 'users', iconHeight: '24px', iconWidth: '24px', key: 'new', some: 'value', value: 'Share Link' },
     { icon: 'refresh', iconHeight: '24px', iconWidth: '24px', key: 'refresh', some: 'value', value: 'Export Audio' },
@@ -210,9 +223,9 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
             <button className="rds-comp-audio-player__control-btn" onClick={skipBackward}><RestoreOutlinedIcon /></button>
             <button className="rds-comp-audio-player__play-btn" onClick={togglePlayPause}><CircleOutlinedIcon /></button>
             <button className="rds-comp-audio-player__control-btn" onClick={skipForward}><Forward10OutlinedIcon /></button>
-            <span>{formatTime(sliderValue)}</span>
+            <span className="rds-comp-audio-player__current-time">{formatTime(sliderValue)}</span>
             <RdsSlider min={0} max={duration > 0 ? Math.max(duration, SLIDER_MAX) : SLIDER_MAX} value={sliderValue} onChange={handleSeek} className="rds-comp-audio-player__slider" controlType="one way" leftLabel="" rightLabel="" />
-            <span>{formatTime(duration > 0 ? duration : SLIDER_MAX)}</span>
+            <span className="rds-comp-audio-player__total-time">{formatTime(duration > 0 ? duration : SLIDER_MAX)}</span>
           </div>
           <div className="rds-comp-audio-player__extra-controls">
             {showSettings && <button className="rds-comp-audio-player__settings-button" onClick={toggleSettingsModal}><SettingsIcon /></button>}
@@ -233,7 +246,7 @@ const RdsCompAudioPlayer: React.FC<AudioPlayerProps> = ({ src, type="Audio Playe
             <RdsButton color="primary" size="medium" text="Save" layout="text-only" shape="rectangle" state="default"  style="filled" />
           </div>
           <div className="rds-comp-audio-player__edition-timemarks">
-            {[...Array(13)].map((_, i) => <span key={i} className="rds-comp-audio-player__edition-timemark">00:10</span>)}
+            {[...Array(getTimeMarkConfig().count)].map((_, i) => (<span key={i} className="rds-comp-audio-player__edition-timemark">{getTimeMarkConfig().interval}</span>))}
           </div>
           <div 
             className={`rds-comp-audio-player__edition-waveform ${isDraggingLeft || isDraggingRight ? 'rds-comp-audio-player__edition-waveform--dragging' : ''}`}
