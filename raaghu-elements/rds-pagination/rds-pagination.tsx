@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Pagination as MuiPagination, PaginationProps, Select, MenuItem, Box, FormControl, InputLabel, SelectChangeEvent } from '@mui/material';
 import './rds-pagination.scss';
 
-
 export interface RdsPaginationProps extends PaginationProps {
   totalPages?: number;
   currentPage?: number;
@@ -15,7 +14,6 @@ export interface RdsPaginationProps extends PaginationProps {
   onPageSizeChange?: (size: number) => void;
   showRecordsPerPage?: boolean;
 }
-
 
 const RdsPagination: React.FC<RdsPaginationProps> = ({
   totalPages,
@@ -53,7 +51,6 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
     }
   };
 
-
   // If count is number of pages, use it directly. If it's number of records, calculate pages.
   let totalPagesCalc = 1;
   if (typeof count === 'number' && count > 1 && (!totalPages || totalPages < 2)) {
@@ -77,7 +74,7 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
         {...props}
       />
       { showRecordsPerPage && (
-      <FormControl size="small" sx={{ minWidth: 100 }}>
+      <FormControl size="small" sx={{ minWidth: 65 }}>
         <InputLabel id="rds-pagination-page-size-label">Records per page</InputLabel>
         <Select
           labelId="rds-pagination-page-size-label"
