@@ -62,6 +62,11 @@
     color: #2a3b8f;
   }
 }
+body.theme-dark .rds-multi-level-menu .MuiButton-root,
+[data-theme="dark"] .rds-multi-level-menu .MuiButton-root {
+  color: #fff !important;
+}
+
 .css-79elbk{
   border-bottom: 1px solid #eaecf0;
  

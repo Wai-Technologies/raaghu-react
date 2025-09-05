@@ -249,6 +249,10 @@ export const WithOverlay: Story = {
             setShowOverlay(true);
             setTimeout(() => setShowOverlay(false), 3000);
           }}
+          sx={{
+            // Use theme mode to set text color to white in dark mode
+            color: (theme) => theme.palette.mode === 'dark' ? '#fff' : undefined
+          }}
         >
           Show Overlay Loader (3s)
         </Button>
