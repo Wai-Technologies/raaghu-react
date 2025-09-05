@@ -67,7 +67,18 @@ export const AnimatedLinearProgress: Story = {
     }, []);
 
     return (
-      <Box sx={{ width: '300px', display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Box
+        sx={{
+          width: { xs: '100%', sm: '300px' },
+          maxWidth: 300,
+          minWidth: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 3,
+          boxSizing: 'border-box',
+          overflowX: { xs: 'auto', sm: 'visible' },
+        }}
+      >
         <RdsLoader variant="linear" value={progress} label="Linear Progress" />
       </Box>
     );
@@ -94,7 +105,15 @@ export const AnimatedCircularProgress: Story = {
 
 export const Colors: Story = {
   render: () => (
-    <Box sx={{ display: 'flex', gap: 3, alignItems: 'center' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        gap: 3,
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        boxSizing: 'border-box',
+      }}
+    >
       <RdsLoader variant="circular" color="primary" />
       <RdsLoader variant="circular" color="secondary" />
       <RdsLoader variant="circular" color="error" />
