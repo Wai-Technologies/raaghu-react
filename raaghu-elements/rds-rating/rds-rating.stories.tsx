@@ -80,7 +80,11 @@ export const Default: Story = {
       control: { type: 'select' },
       options: ['default', 'filled', 'outlined'],
     },
-    // Hide other controls for Default story
+    colorVariant: {
+      control: { type: 'select' },
+      options: ['primary','success','danger','warning','light','info','secondary','dark'],
+    },
+    // Hide other controls for Default story to focus on main functionality
     value: { table: { disable: true } },
     showValue: { table: { disable: true } },
     label: { table: { disable: true } },
@@ -93,6 +97,13 @@ export const Default: Story = {
     onChange: { table: { disable: true } },
     icon: { table: { disable: true } },
     emptyIcon: { table: { disable: true } },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Default rating component with click-to-toggle functionality and level control. You can either: 1) Click any star to select it, click the same star again to unselect (set to 0), or 2) Use the level control to set specific values.',
+      },
+    },
   },
 };
 
