@@ -137,3 +137,96 @@
     font-weight: var(--font-weight-large, 600) !important;
     line-height: 22px !important; /* 157.143% */ 
   }
+
+  // Dark mode: action buttons background
+.rds-theme--dark .rds-filter-button__content > .MuiBox-root:last-child,
+body.theme-dark .rds-filter-button__content > .MuiBox-root:last-child,
+body[data-theme="dark"] .rds-filter-button__content > .MuiBox-root:last-child,
+.theme-dark .rds-filter-button__content > .MuiBox-root:last-child {
+  background: #2a2a2a !important;
+}
+// Dark mode: better hover for filter name
+.rds-theme--dark .MuiAccordionSummary-root:hover,
+body.theme-dark .MuiAccordionSummary-root:hover,
+body[data-theme="dark"] .MuiAccordionSummary-root:hover,
+.theme-dark .MuiAccordionSummary-root:hover {
+  background: #353535 !important;
+  color: #fff !important;
+}
+// Dark mode styles for filter dropdown
+.rds-theme--dark .rds-filter-button__popover,
+body.theme-dark .rds-filter-button__popover,
+body[data-theme="dark"] .rds-filter-button__popover,
+.theme-dark .rds-filter-button__popover {
+  background: #2a2a2a !important;
+  color: #fff !important;
+  border-color: #444 !important;
+}
+
+.rds-theme--dark .rds-filter-button__content,
+body.theme-dark .rds-filter-button__content,
+body[data-theme="dark"] .rds-filter-button__content,
+.theme-dark .rds-filter-button__content {
+  background: #2a2a2a !important;
+  color: #fff !important;
+}
+
+.rds-theme--dark .rds-filter-button__header,
+body.theme-dark .rds-filter-button__header,
+body[data-theme="dark"] .rds-filter-button__header,
+.theme-dark .rds-filter-button__header {
+  background: #2a2a2a !important;
+  color: #fff !important;
+}
+
+.rds-theme--dark .rds-filter-button__header-title,
+body.theme-dark .rds-filter-button__header-title,
+body[data-theme="dark"] .rds-filter-button__header-title,
+.theme-dark .rds-filter-button__header-title {
+  color: #fff !important;
+}
+
+.rds-theme--dark .MuiTypography-root,
+body.theme-dark .MuiTypography-root,
+body[data-theme="dark"] .MuiTypography-root,
+.theme-dark .MuiTypography-root {
+  color: #fff !important;
+}
+
+.rds-theme--dark .MuiAccordionSummary-root,
+body.theme-dark .MuiAccordionSummary-root,
+body[data-theme="dark"] .MuiAccordionSummary-root,
+.theme-dark .MuiAccordionSummary-root {
+  color: #fff !important;
+}
+
+.rds-theme--dark .MuiAccordionDetails-root,
+body.theme-dark .MuiAccordionDetails-root,
+body[data-theme="dark"] .MuiAccordionDetails-root,
+.theme-dark .MuiAccordionDetails-root {
+  color: #fff !important;
+}
+
+.rds-theme--dark .MuiTextField-root,
+body.theme-dark .MuiTextField-root,
+body[data-theme="dark"] .MuiTextField-root,
+.theme-dark .MuiTextField-root {
+  background: #232323 !important;
+  color: #fff !important;
+}
+
+.rds-theme--dark .MuiOutlinedInput-root,
+body.theme-dark .MuiOutlinedInput-root,
+body[data-theme="dark"] .MuiOutlinedInput-root,
+.theme-dark .MuiOutlinedInput-root {
+  background: #232323 !important;
+  color: #fff !important;
+  border-color: #444 !important;
+}
+
+.rds-theme--dark .MuiCheckbox-root,
+body.theme-dark .MuiCheckbox-root,
+body[data-theme="dark"] .MuiCheckbox-root,
+.theme-dark .MuiCheckbox-root {
+  color: #fff !important;
+}
