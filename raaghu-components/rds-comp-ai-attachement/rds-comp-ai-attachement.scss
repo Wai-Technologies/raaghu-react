@@ -35,3 +35,20 @@
         outline-offset: 2px;
     }
 }
+
+// Make the attachment icon white in dark mode
+[data-theme="dark"] .rds-comp-ai-icon,
+.dark-theme .rds-comp-ai-icon {
+    color: #fff !important;
+}
+
+// Make the dropdown background and text white in dark mode for the attachment dropdown
+[data-theme="dark"] .rds-comp-ai-attachement__dropdown .rds-fab-menu__dropdown,
+.dark-theme .rds-comp-ai-attachement__dropdown .rds-fab-menu__dropdown {
+    background: #2a2a2a !important;
+    color: #fff !important;
+}
+[data-theme="dark"] .rds-comp-ai-attachement__dropdown .rds-fab-menu__item,
+.dark-theme .rds-comp-ai-attachement__dropdown .rds-fab-menu__item {
+    color: #fff !important;
+}

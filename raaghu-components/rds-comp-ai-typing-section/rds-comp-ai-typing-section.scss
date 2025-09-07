@@ -17,6 +17,11 @@
       border-color: var(--rds-color-primary, #C6A2F6);
       box-shadow: var(--rds-elevation-3, 0px 0px 16px 0px rgba(0, 0, 0, 0.25));
     }
+    // Dark mode background
+    body.theme-dark &,
+    [data-theme="dark"] & {
+      background: #2a2a2a;
+    }
   }
   
   // Input with image container
@@ -58,6 +63,11 @@
       font-family: var(--rds-font-family, Poppins);
       font-size: var(--rds-font-size-body, 14px);
       line-height: var(--rds-line-height-body, 16px);
+      // Dark mode placeholder color
+      body.theme-dark &,
+      [data-theme="dark"] & {
+        color: #fff;
+      }
     }
     
     &:focus {
@@ -68,6 +78,16 @@
     &--muted-placeholder::placeholder {
       color: var(--text-txt-neutral-light-default, #969696);
       opacity: 1;
+      // Dark mode placeholder color
+      body.theme-dark &,
+      [data-theme="dark"] & {
+        color: #fff;
+      }
+    }
+    // Dark mode background
+    body.theme-dark &,
+    [data-theme="dark"] & {
+      background-color: #2a2a2a;
     }
   }
   
