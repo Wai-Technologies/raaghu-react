@@ -143,7 +143,7 @@
 
 // Small mobile responsiveness (prevents horizontal scrollbar at <= 400px width)
 @media (max-width: 400px) {
-  .rds-toggle-button { width: 100%; max-width:100%; }
+  .rds-toggle-button { width: 100%; max-width:100%; overflow-x:hidden; }
 
   .rds-toggle-button__group,
   .rds-toggle-button--spaced .rds-toggle-button__custom-group {
@@ -165,7 +165,27 @@
   .rds-toggle-button__icon { margin-right: 4px !important; }
 
   // Spaced variant: remove horizontal margins that create overflow
-  .rds-toggle-button--spaced .rds-toggle-button__button-wrapper { margin-left: 0 !important; }
+  .rds-toggle-button--spaced .rds-toggle-button__button-wrapper { 
+    margin-left: 0 !important; 
+  }
+
+  // Spaced + horizontal: prevent each wrapper from forcing 100% width (causes scroll)
+  .rds-toggle-button--spaced:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper { 
+    width:auto; 
+    flex:1 1 50%; // two per row pattern for readability
+    min-width:50%;
+    max-width:50%;
+  }
+  .rds-toggle-button--spaced:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper .rds-toggle-button__button { 
+    flex:1 1 auto; 
+    width:100%;
+    max-width:100%;
+    min-width:0; 
+    padding:6px 8px; // restore a bit of horizontal spacing to prevent overlap
+    box-sizing:border-box;
+  }
+  // Ensure flex chain doesn't create min-content overflow
+  .rds-toggle-button--spaced .rds-toggle-button__custom-group { min-width:0; flex-wrap:wrap; }
 
   // Fallback: if still overflowing for edge locales, allow wrap cleanly
   @supports (flex-wrap: wrap) {
