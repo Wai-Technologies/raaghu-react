@@ -107,6 +107,7 @@
     margin-top: 8px;
     margin-bottom: 0;
     width: 100%;
+    border-bottom: 1px solid #e0e0e0;
   }
   &__subheader {
     max-width: 320px;
@@ -155,7 +156,6 @@
     justify-content: space-between;
     background: #f5f8ff;
     padding: 8px 20px;
-    border-bottom: 1px solid #e0e0e0;
     font-size: 1.05rem;
     color: #29292a;
     .rds-grid__subheader-left {
@@ -305,5 +305,104 @@
     .MuiIconButton-root {
       color: #29292a;
     }
+  }
+}
+
+
+[data-theme="dark"] {
+  .rds-grid  {
+    color: #e6e6e6;
+
+    // Header and controls
+    &__header {
+      background-color: #4c4c4c !important;
+      color: #ffffff !important;
+      .rds-grid__header-btn {
+        color: #ffffff !important;
+        .MuiButton-startIcon { color: #ffffff !important; }
+      }
+    }
+
+    &__header-search-input {
+      background-color: #565656 !important;
+      .MuiInputBase-input { color: #e6e6e6 !important; }
+    }
+
+    &__subheader {
+      background-color: #4c4c4c !important;
+      color: #e6e6e6 !important;
+    }
+
+    // Table header cells
+    &__table {
+      th {
+        background: #4c4c4c !important;
+        color: #ffffff !important;
+        border-bottom-color: #5a5a5a !important;
+      }
+
+      td {
+        background: #4c4c4c !important;
+        color: #e6e6e6 !important;
+        border-bottom-color: #565656 !important;
+      }
+
+      tr:hover {
+        background: #505050 !important;
+      }
+    }
+
+    // Compact rows and cells
+    &__row--compact {
+      background: #4c4c4c !important;
+      border-bottom: 1px solid #565656 !important;
+    }
+
+    &__cell--compact,
+    &__cell--filter,
+    &__cell--filter-empty {
+      background: transparent !important;
+      color: #e6e6e6 !important;
+      border-right: 1px solid #565656 !important;
+    }
+
+    // Filter area adjustments
+   &__filter-select,
+    &__filter-input {
+      background: #565656 !important;
+      color: #ffffff !important; /* ensure selected value is white */
+      border-color: #6b6b6b !important;
+    }
+
+    // Style native select options for dark theme
+    &__filter-select option {
+      color: #ffffff !important;
+      background: #4c4c4c !important;
+    }
+    &__filter-select option[value=""] {
+      color: #bdbdbd !important;
+      background: #4c4c4c !important;
+    }
+    /* Firefox sometimes needs an explicit color on focus for select */
+    &__filter-select:-moz-focusring { color: transparent; text-shadow: 0 0 0 #ffffff; }
+
+    // Action column icons
+    #rds-grid__action-column {
+      .MuiIconButton-root { color: #e6e6e6 !important; }
+    }
+    &__subheader-title {
+      color: #ffffff !important;
+    }
+    &__subheader-toggle {
+      &:hover {
+        background: #6b6b6b;
+      }
+    }
+    &__drag-icon {
+      color: #ffffff !important;
+    }
+  }
+  .MuiSvgIcon-root{
+    color: #ffffff !important;
   }
 }
