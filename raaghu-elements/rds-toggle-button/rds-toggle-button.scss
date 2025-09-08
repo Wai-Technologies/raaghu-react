@@ -126,3 +126,52 @@
     justify-content: center;
   }
 }
+
+// Ensure the internal MUI group respects flex and can wrap when needed
+.rds-toggle-button__group {
+  display: flex;
+  flex-wrap: nowrap; // default (desktop)
+  max-width: 100%;
+}
+
+// Allow custom spaced group to also wrap when required
+.rds-toggle-button--spaced .rds-toggle-button__custom-group {
+  display: flex;
+  flex-wrap: nowrap; // default
+  max-width: 100%;
+}
+
+// Small mobile responsiveness (prevents horizontal scrollbar at <= 400px width)
+@media (max-width: 400px) {
+  .rds-toggle-button { width: 100%; max-width:100%; }
+
+  .rds-toggle-button__group,
+  .rds-toggle-button--spaced .rds-toggle-button__custom-group {
+    flex-wrap: nowrap;
+    overflow: hidden; // hide any stray pixel overflow
+    width: 100%;
+    max-width:100%;
+  }
+
+  // Make every button flex equally so the longest label doesn't force overflow
+  .rds-toggle-button__group .MuiToggleButton-root,
+  .rds-toggle-button__button {
+    min-width: 0; // allow shrink below intrinsic width
+    padding: 6px 9px;
+    font-size: 0.75rem;
+    box-sizing: border-box;
+  }
+
+  .rds-toggle-button__icon { margin-right: 4px !important; }
+
+  // Spaced variant: remove horizontal margins that create overflow
+  .rds-toggle-button--spaced .rds-toggle-button__button-wrapper { margin-left: 0 !important; }
+
+  // Fallback: if still overflowing for edge locales, allow wrap cleanly
+  @supports (flex-wrap: wrap) {
+    .rds-toggle-button.is-wrap .rds-toggle-button__group,
+    .rds-toggle-button.is-wrap.rds-toggle-button--spaced .rds-toggle-button__custom-group {
+      flex-wrap: wrap;
+    }
+  }
+}
