@@ -174,4 +174,14 @@
       flex-wrap: wrap;
     }
   }
+
+  // Automatic wrapping variant (added when option count > 3)
+  .rds-toggle-button--wrap-mobile .rds-toggle-button__group,
+  .rds-toggle-button--wrap-mobile.rds-toggle-button--spaced .rds-toggle-button__custom-group {
+    flex-wrap: wrap;
+  }
+  .rds-toggle-button--wrap-mobile .MuiToggleButton-root,
+  .rds-toggle-button--wrap-mobile .rds-toggle-button__button {
+    flex: 1 1 50%; // two per row
+  }
 }

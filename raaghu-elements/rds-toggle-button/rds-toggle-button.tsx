@@ -221,7 +221,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
 
   return (
     <div
-      className={`rds-toggle-button rds-toggle-button--${orientation} ${sizeClass} ${useCustomSpacing ? 'rds-toggle-button--spaced' : ''}`}
+  className={`rds-toggle-button rds-toggle-button--${orientation} ${sizeClass} ${useCustomSpacing ? 'rds-toggle-button--spaced' : ''} ${options.length > 3 ? 'rds-toggle-button--wrap-mobile' : ''}`}
       role="group"
       aria-label={otherProps['aria-label'] || 'Toggle button group'}
     >
