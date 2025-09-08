@@ -83,8 +83,11 @@ registerMaterialIcons({
         };
     };
 
+    const rootClass = `rds-fab-menu ${props.alignment === 'right' ? 'rds-fab-menu--right' : ''} ${isMenuOpen ? 'rds-fab-menu--open' : ''}`.trim();
+    const dataAlignment = props.alignment || 'left';
+
     return (
-        <div className="rds-fab-menu">
+    <div className={rootClass} data-alignment={dataAlignment} data-open={isMenuOpen}>
             <button
                 ref={buttonRef}
                 className={customClasses}

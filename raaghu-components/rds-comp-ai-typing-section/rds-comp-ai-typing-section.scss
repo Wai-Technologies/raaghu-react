@@ -115,6 +115,17 @@
       margin-bottom: var(--rds-spacing-sm, 8px);
     }
   }
+
+  /* Small mobile specific adjustment: shift fab menu dropdown left only in typing section
+     Using explicit left positioning instead of negative margin for reliability. */
+  @media (max-width: 375px) {
+    &__attach {
+      .rds-fab-menu__dropdown-container--open {
+        right: auto; /* cancel right alignment */
+        left: -142px; /* shift left */
+      }
+    }
+  }
   
   // Send button container
   &__send {
@@ -130,15 +141,139 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--rds-spacing-md, 12px);
+  /* Default (regular screens): keep a single row and avoid wrapping */
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: visible; /* ensure no horizontal scrollbar by default */
   }
   
   // Project actions container
   &__project-actions {
     display: flex;
     gap: var(--rds-spacing-md, 12px);
+  /* Default: keep project action buttons in a single row */
+  flex-wrap: nowrap;
   }
   
   &__action-button {
     display: flex;
+    /* Default: keep each action button at natural width */
+    flex: 0 0 auto;
+    min-width: 0;
+
+    /* Prevent inner button text/icon from wrapping and truncate if needed */
+    & > * {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  /* Small screens: enable responsive wrapping and avoid any horizontal scrollbar */
+  @media (max-width: 375px) {
+    &__button-sections {
+      flex-wrap: wrap;
+    }
+
+    &__project-actions {
+      gap: var(--rds-spacing-sm, 8px);
+      /* Stack project action buttons vertically on very small screens */
+      flex-wrap: nowrap;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+    }
+
+    &__action-button {
+      /* Make each project/action button full width (column layout) on small screens */
+      flex: 1 1 100%;
+      min-width: 0;
+      width: 100%;
+      &.rds-comp-ai-chat-bot__action-button--figma {
+        margin-top: var(--rds-spacing-sm, 8px);
+      }
+    }
+
+    &__autocomplete {
+      /* Place the autocomplete under the action buttons on small screens */
+      flex-basis: 100%;
+      order: 3;
+      margin-top: var(--rds-spacing-sm, 8px);
+    }
+  }
+
+  /* Large screens: adjust spacing and allow buttons to have a minimum comfortable width */
+  @media (min-width: 1200px) {
+    &__button-sections {
+      gap: calc(var(--rds-spacing-md, 12px) * 1.5);
+      flex-wrap: nowrap;
+    }
+
+    &__project-actions {
+      gap: calc(var(--rds-spacing-md, 12px) * 1.5);
+    }
+
+    &__action-button {
+      flex: 0 1 auto;
+      min-width: 140px;
+    }
+  }
+
+  /* Explicitly ensure large/normal screens use row layout (reset small-screen column rules) */
+  @media (min-width: 376px) {
+    &__project-actions {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      width: auto;
+      align-items: center;
+      gap: var(--rds-spacing-md, 10px);
+    }
+
+    &__action-button {
+      flex: 0 0 auto;
+      width: auto;
+      min-width: 0;
+      margin-top: 0;
+    }
+
+    &__autocomplete {
+      order: initial;
+      flex-basis: auto;
+      margin-top: 0;
+    }
+  }
+
+  /* Medium-small screens (376px–767px): keep both buttons on a single row,
+     each taking about half the width, and move autocomplete below */
+  @media (min-width: 376px) and (max-width: 767px) {
+    &__button-sections {
+      flex-wrap: wrap;
+    }
+
+    &__project-actions {
+      width: 100%;
+      flex-wrap: nowrap;
+    }
+
+    &__action-button {
+      flex: 1 1 calc((100% - var(--rds-spacing-md, 12px)) / 2);
+      min-width: 0;
+    }
+
+    &__autocomplete {
+      flex-basis: 100%;
+      order: 3;
+      margin-top: var(--rds-spacing-sm, 8px);
+    }
+  }
+
+  /* Large mobile only (~414px wide) — align the "Import From Figma" button */
+  @media (min-width: 400px) and (max-width: 430px) {
+    &__action-button--figma {
+      .MuiButton-root,
+      .css-1r3axgn-MuiButtonBase-root-MuiButton-root { /* fallback to the runtime class seen in devtools */
+        margin: -6px !important;
+      }
+    }
   }
 }
