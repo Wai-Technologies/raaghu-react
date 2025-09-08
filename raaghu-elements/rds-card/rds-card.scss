@@ -1,8 +1,6 @@
 // RDS Card Component Styles
 // Ensure card text color is always correct, even before theme hydration
 .rds-card {
-  background-color: var(--rds-card-bg, #ffffff);
-  color: var(--rds-text-primary, #212121);
   border-radius: var(--rds-border-radius-md, 8px);
   box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08));
   overflow: hidden;
@@ -62,6 +60,39 @@
     border: none;
     box-shadow: none;
   }
+
+  // Dark theme: make the filled variant readable in dark mode
+  .rds-theme--dark &--style-filled,
+  body.theme-dark &--style-filled,
+  body[data-theme="dark"] &--style-filled,
+  .theme-dark &--style-filled {
+    background-color: var(--rds-color-surface-dark, #424242) !important;
+    color: var(--rds-color-on-surface-dark, #ffffff) !important;
+
+    // Ensure major text elements are visible
+    .rds-card__title,
+    .rds-card__subtext,
+    .rds-card__description,
+    .rds-card__additional-content,
+    .rds-card__avatar-section {
+      color: var(--rds-color-on-surface-dark, #ffffff) !important;
+    }
+
+    // Avatar icons and action icons
+    .rds-card .rds-avatar .MuiSvgIcon-root,
+    .rds-card__avatar-section .MuiSvgIcon-root,
+    .rds-card__edit-icon .MuiSvgIcon-root,
+    .rds-card__action-icon .MuiSvgIcon-root {
+      color: var(--rds-color-on-surface-dark, #ffffff) !important;
+      fill: var(--rds-color-on-surface-dark, #ffffff) !important;
+    }
+
+    // Buttons inside card: keep their own styles but ensure text is readable
+    .rds-button,
+    .MuiButton-root {
+      color: inherit !important;
+    }
+  }
   
   // Title visibility control
   &--hide-title {
@@ -108,6 +139,16 @@
     box-shadow: var(--rds-elevation-2, 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08));
     background-color: var(--rds-color-gray-200, #E1E3EA) !important;
   }
+
+  // Dark-theme overrides for hover
+  .rds-theme--dark &--hover,
+  body.theme-dark &--hover,
+  body[data-theme="dark"] &--hover,
+  .theme-dark &--hover {
+    background-color: var(--rds-color-surface-variant-dark, #303030) !important;
+    box-shadow: var(--rds-elevation-2-dark, 0 4px 8px rgba(0, 0, 0, 0.6)) !important;
+    color: var(--rds-color-on-surface-dark, #ffffff) !important;
+  }
   
   // Selected state
   &--selected {
@@ -117,6 +158,19 @@
     // Change subtext color to primary when card is selected
     .rds-card__subtext {
       color: var(--rds-color-primary, #3C98FF) !important;
+    }
+  }
+
+  // Dark-theme overrides for selected
+  .rds-theme--dark &--selected,
+  body.theme-dark &--selected,
+  body[data-theme="dark"] &--selected,
+  .theme-dark &--selected {
+    background-color: var(--rds-color-surface-selected-dark, #3b3b3b) !important;
+    box-shadow: var(--rds-elevation-focus-dark, 0 0 0 1px rgba(255,255,255,0.04)) !important;
+
+    .rds-card__subtext {
+      color: var(--rds-color-primary-dark, #66B2FF) !important;
     }
   }
   
@@ -133,6 +187,25 @@
     .rds-button,
     button {
       color: var(--rds-color-disabled-text, #9e9e9e) !important;
+      pointer-events: none !important;
+      cursor: not-allowed !important;
+    }
+  }
+
+  // Dark-theme overrides for disabled
+  .rds-theme--dark &--disabled,
+  body.theme-dark &--disabled,
+  body[data-theme="dark"] &--disabled,
+  .theme-dark &--disabled {
+    opacity: 0.7;
+    background-color: var(--rds-color-disabled-surface-dark, #272727) !important;
+    color: var(--rds-color-disabled-text-dark, #9e9e9e) !important;
+    pointer-events: none !important;
+
+    .MuiButton-root,
+    .rds-button,
+    button {
+      color: var(--rds-color-disabled-text-dark, #9e9e9e) !important;
       pointer-events: none !important;
       cursor: not-allowed !important;
     }
@@ -582,4 +655,10 @@
   /* Prevent MUI from injecting its variable-based shadow for this element */
   --Paper-shadow: none !important;
   box-shadow: var(--rds-card-shadow, 0 8px 24px var(--rds-card-shadow-color, rgba(16, 45, 86, 0.08)));
+}
+
+[data-theme="dark"] {
+.css-155c0ib-MuiAvatar-root {
+   color: var(--rds-text-primary, #ffffff);
+}
 }
