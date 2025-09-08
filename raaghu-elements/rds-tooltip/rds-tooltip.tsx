@@ -54,7 +54,9 @@ const RdsTooltip= ({
       sx={customStyle}
       {...props}
     >
-      {children}
+      <span className="rds-tooltip__child-wrapper">
+        {children}
+      </span>
     </MuiTooltip>
   );
 };
