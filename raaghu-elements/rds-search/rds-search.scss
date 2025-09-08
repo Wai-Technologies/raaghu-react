@@ -44,6 +44,11 @@
     &--right {
       margin-left: 8px;
     }
+
+    .dark &,
+    [data-theme="dark"] & {
+      color: #fff;
+    }
   }
   
   // Size variants

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Box } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
 import RdsSearch from './rds-search';
 
@@ -73,7 +73,7 @@ export const Default: Story = {
     const [searchValue, setSearchValue] = useState('');
 
     return (
-      <Box sx={{ width: 300 }}>
+      <Box sx={{ width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400 }}>
         <RdsSearch
           value={searchValue}
           onChange={setSearchValue}
@@ -94,6 +94,7 @@ export const AutoSearch: Story = {
   render: () => {
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
+    const isSmallScreen = useMediaQuery('(max-width:414px)');
 
     const handleSearch = (value: string) => {
       // Simulate search results
@@ -104,19 +105,19 @@ export const AutoSearch: Story = {
     };
 
     return (
-      <Box sx={{ width: 400 }}>
+      <Box sx={{ width: { xs: '100%', sm: 380, md: 450 }, maxWidth: 450 }}>
         <RdsSearch
           value={searchValue}
           onChange={setSearchValue}
           onSearch={handleSearch}
-          placeholder="Auto search (300ms delay)"
+          placeholder={isSmallScreen ? 'Search...' : 'Auto search (300ms delay)'}
           autoSearch
           searchDelay={300}
           fullWidth
         />
         <Box sx={{ mt: 2 }}>
           {searchResults.length > 0 && (
-            <Box sx={{ p: 1, backgroundColor: 'grey.100', borderRadius: 1 }}>
+            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
               {searchResults.map((result, index) => (
                 <Box key={index} sx={{ py: 0.5 }}>
                   {result}
@@ -154,7 +155,7 @@ export const Sizes: Story = {
     const [medium, setMedium] = useState('');
 
     return (
-      <Box sx={{ width: 300, display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Box sx={{ width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 3 }}>
         <RdsSearch
           value={small}
           onChange={setSmall}
@@ -179,7 +180,7 @@ export const Variants: Story = {
     const [standard, setStandard] = useState('');
 
     return (
-      <Box sx={{ width: 300, display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Box sx={{ width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 3 }}>
         <RdsSearch
           value={outlined}
           onChange={setOutlined}
@@ -208,7 +209,7 @@ export const WithoutIcons: Story = {
     const [searchValue, setSearchValue] = useState('');
 
     return (
-      <Box sx={{ width: 300 }}>
+      <Box sx={{ width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400 }}>
         <RdsSearch
           value={searchValue}
           onChange={setSearchValue}
