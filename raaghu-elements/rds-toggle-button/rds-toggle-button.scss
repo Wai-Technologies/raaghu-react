@@ -134,6 +134,32 @@
   max-width: 100%;
 }
 
+// Size modifiers
+.rds-toggle-button--small .rds-toggle-button__button { 
+  font-size: var(--rds-font-size-sm, 0.75rem); 
+  padding: var(--rds-spacing-xs,4px) var(--rds-spacing-sm,8px); 
+  min-height: 32px;
+}
+.rds-toggle-button--medium .rds-toggle-button__button { 
+  font-size: var(--rds-font-size-md, 0.875rem); 
+  padding: var(--rds-spacing-sm,8px) var(--rds-spacing-md,12px); 
+  min-height: 36px;
+}
+.rds-toggle-button--large .rds-toggle-button__button { 
+  font-size: var(--rds-font-size-lg, 1rem); 
+  padding: var(--rds-spacing-md,12px) var(--rds-spacing-lg,16px); 
+  min-height: 44px;
+}
+
+// Adjust sizes slightly on very narrow phones to prevent truncation
+@media (max-width:400px){
+  .rds-toggle-button--large .rds-toggle-button__button { 
+    padding: var(--rds-spacing-sm,8px) var(--rds-spacing-md,12px); 
+    font-size: var(--rds-font-size-md,0.875rem);
+    min-height: 40px;
+  }
+}
+
 // Allow custom spaced group to also wrap when required
 .rds-toggle-button--spaced .rds-toggle-button__custom-group {
   display: flex;
@@ -155,11 +181,23 @@
 
   // Make every button flex equally so the longest label doesn't force overflow
   .rds-toggle-button__group .MuiToggleButton-root,
-  .rds-toggle-button__button {
-    min-width: 0; // allow shrink below intrinsic width
-    padding: 6px 9px;
-    font-size: 0.75rem;
-    box-sizing: border-box;
+  .rds-toggle-button__button { 
+    min-width:0; 
+    box-sizing:border-box; // keep structural adjustments only
+  }
+
+  // Size-specific scaling on very small viewports so control remains distinguishable
+  .rds-toggle-button--small .rds-toggle-button__button { 
+    font-size: var(--rds-font-size-xs,0.7rem); 
+    padding: 4px 6px; 
+  }
+  .rds-toggle-button--medium .rds-toggle-button__button { 
+    font-size: var(--rds-font-size-sm,0.8rem); 
+    padding: 6px 8px; 
+  }
+  .rds-toggle-button--large .rds-toggle-button__button { 
+    font-size: var(--rds-font-size-md,0.9rem); 
+    padding: 8px 12px; 
   }
 
   .rds-toggle-button__icon { margin-right: 4px !important; }
@@ -186,6 +224,22 @@
   }
   // Ensure flex chain doesn't create min-content overflow
   .rds-toggle-button--spaced .rds-toggle-button__custom-group { min-width:0; flex-wrap:wrap; }
+
+  // 2 + 1 layout for large size groups with exactly 3 options
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical):not(.rds-toggle-button--spaced) .rds-toggle-button__group,
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical).rds-toggle-button--spaced .rds-toggle-button__custom-group {
+    flex-wrap: wrap;
+  }
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root,
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .rds-toggle-button__button {
+    flex:1 1 50%;
+    max-width:50%;
+  }
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .MuiToggleButton-root:nth-child(3),
+  .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper:nth-child(3) .rds-toggle-button__button {
+    flex:1 1 100%;
+    max-width:100%;
+  }
 
   // Fallback: if still overflowing for edge locales, allow wrap cleanly
   @supports (flex-wrap: wrap) {

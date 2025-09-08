@@ -30,7 +30,8 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   onChange,
   value: controlledValue,
   defaultValue,
-  inputSize = 'small',
+  inputSize = 'small', // legacy prop name
+  size: sizeProp, // MUI size prop / Storybook control
   ...props
 }) => {
   const [internalValue, setInternalValue] = useState<string | string[]>(() => {
@@ -63,19 +64,19 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   }, [enforceSelected, options, multiple, internalValue, isControlled]);
 
   // Map inputSize to BEM modifier class
+  // Allow both `size` (storybook / MUI) and legacy `inputSize`. `size` wins.
+  const effectiveSize = (sizeProp as 'small' | 'medium' | 'large' | undefined) || inputSize;
+
   const sizeClass =
-    inputSize === 'large'
+    effectiveSize === 'large'
       ? 'rds-toggle-button--large'
-      : inputSize === 'medium'
+      : effectiveSize === 'medium'
       ? 'rds-toggle-button--medium'
       : 'rds-toggle-button--small';
 
   // Large size style override using design tokens
-  const largeButtonStyle = inputSize === 'large' ? {
-    fontSize: 'var(--rds-font-size-lg)',
-    padding: 'var(--rds-spacing-lg, 12px) var(--rds-spacing-2xl)',
-    minHeight: 'var(--rds-toggle-button-min-height-lg)'
-  } : {};
+  // (Legacy) Inline style for large retained for backward compat; CSS now handles size classes.
+  const largeButtonStyle = effectiveSize === 'large' ? {} : {};
 
 
   // Handle change with enforcement that at least one option must be selected
@@ -148,7 +149,8 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
           value={option.value}
           disabled={option.disabled}
           className={`rds-toggle-button__button ${sizeClass}`}
-          style={inputSize === 'large' ? largeButtonStyle : {}}
+          size={effectiveSize}
+          style={largeButtonStyle}
           aria-pressed={multiple ? 
             Array.isArray(value) && value.includes(option.value) : 
             value === option.value
@@ -196,7 +198,8 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
             value={option.value}
             disabled={option.disabled}
             className={getButtonClassName(index) + ' ' + sizeClass}
-            style={inputSize === 'large' ? largeButtonStyle : {}}
+            size={effectiveSize}
+            style={largeButtonStyle}
             onClick={(e) => handleCustomButtonClick(e, option.value)}
             selected={isSelected}
             aria-pressed={isSelected}
@@ -219,9 +222,11 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   // Determine if we need to use custom spacing rendering
   const useCustomSpacing = spacing > 0;
 
+  const countClass = effectiveSize === 'large' && options.length === 3 ? 'rds-toggle-button--large-three' : '';
+
   return (
     <div
-  className={`rds-toggle-button rds-toggle-button--${orientation} ${sizeClass} ${useCustomSpacing ? 'rds-toggle-button--spaced' : ''} ${options.length > 3 ? 'rds-toggle-button--wrap-mobile' : ''}`}
+  className={`rds-toggle-button rds-toggle-button--${orientation} ${sizeClass} ${countClass} ${useCustomSpacing ? 'rds-toggle-button--spaced' : ''} ${options.length > 3 ? 'rds-toggle-button--wrap-mobile' : ''}`}
       role="group"
       aria-label={otherProps['aria-label'] || 'Toggle button group'}
     >
@@ -235,6 +240,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
           orientation={orientation}
           onChange={handleChange}
           value={value}
+          size={effectiveSize}
           color={color}
           {...otherProps}
           className="rds-toggle-button__group"

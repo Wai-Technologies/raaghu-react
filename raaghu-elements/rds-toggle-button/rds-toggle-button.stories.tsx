@@ -30,7 +30,7 @@ const meta: Meta<typeof RdsToggleButton> = {
     size: {
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
-      description: 'Sets the size of the toggle buttons.',
+      description: 'Sets the size of the toggle buttons (overrides inputSize).',
     },
     color: {
       control: { type: 'select' },
