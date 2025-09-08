@@ -36,7 +36,7 @@
     fill: currentColor;
     stroke: none;
     // Use color tokens for fill if needed
-    color: var(--rds-color-on-surface, #222);
+    color: var(--rds-color-on-surface);
     transition: color 0.2s ease;
   }
 
