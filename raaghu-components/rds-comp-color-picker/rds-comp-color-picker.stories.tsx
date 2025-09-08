@@ -49,7 +49,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsColorPicker>;
 
-export const Advanced_ColorPicker: Story = {
+export const Default: Story = {
     args: {
         value: "#9751F2",
         label: "Color-Picker",
@@ -62,4 +62,4 @@ export const Advanced_ColorPicker: Story = {
         isDisabled: false,
     },
 } satisfies Story;
-Advanced_ColorPicker.parameters = { controls: { include: ['type','showSwatches', 'pickerType', 'showTabs', 'style'] } };
+Default.parameters = { controls: { include: ['type','showSwatches', 'pickerType', 'showTabs', 'style'] } };
