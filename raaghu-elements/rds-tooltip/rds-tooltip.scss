@@ -21,6 +21,17 @@
     transition: background 0.2s, color 0.2s, border 0.2s;
   }
 
+  // Wrapper used to allow Tooltip to attach refs/handlers when child doesn't forward ref
+  .rds-tooltip__child-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    cursor: inherit; // inherit cursor from child
+    // keep wrapper transparent to pointer-events except child
+    pointer-events: auto;
+  }
+
   // Arrow styling
   .MuiTooltip-arrow {
     color: var(--rds-tooltip-bg);
@@ -93,3 +104,16 @@
     pointer-events: none;
   }
 }
+[data-theme="dark"]{
+  .css-d56zgx-MuiButtonBase-root-MuiButton-root,
+  .MuiButtonBase-root,
+  .MuiButton-root,
+  .MuiButton-contained,
+  .MuiButton-containedPrimary,
+  .MuiButton-sizeMedium,
+  .MuiButton-containedSizeMedium,
+  .MuiButton-colorPrimary {
+    color: #ffffff !important;
+  }
+}
+

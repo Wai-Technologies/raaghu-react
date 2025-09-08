@@ -7,9 +7,9 @@
 /* Dark theme: make tag label white without affecting other Chip parts */
 [data-theme="dark"]{
     .MuiChip-label {
-      color: #fff !important;
+      color: var(--rds-button-primary-text, #ffffff) !important;
     }
    .MuiChip-deleteIcon{
-      color: #fff !important;
+      color: var(--rds-button-primary-text, #ffffff) !important;
    }
 }
