@@ -175,13 +175,42 @@
     }
   }
 
-  // Automatic wrapping variant (added when option count > 3)
-  .rds-toggle-button--wrap-mobile .rds-toggle-button__group,
-  .rds-toggle-button--wrap-mobile.rds-toggle-button--spaced .rds-toggle-button__custom-group {
-    flex-wrap: wrap;
+}
+
+
+  // Automatic wrapping variant (added when option count > 3) - MOBILE ONLY (<=600px)
+  // We intentionally restrict wrapping to small screens; tablet & desktop remain single row.
+  @media (max-width: 600px) {
+    .rds-toggle-button--wrap-mobile .rds-toggle-button__group,
+    .rds-toggle-button--wrap-mobile.rds-toggle-button--spaced .rds-toggle-button__custom-group {
+      flex-wrap: wrap;
+    }
+    .rds-toggle-button--wrap-mobile .MuiToggleButton-root,
+    .rds-toggle-button--wrap-mobile .rds-toggle-button__button {
+      flex: 1 1 50%; // two per row
+    }
   }
-  .rds-toggle-button--wrap-mobile .MuiToggleButton-root,
-  .rds-toggle-button--wrap-mobile .rds-toggle-button__button {
-    flex: 1 1 50%; // two per row
+
+// Large mobile / small handset landscape (covers widths like 414px iPhone and up to small tablets)
+@media (min-width:401px) and (max-width: 600px) {
+  .rds-toggle-button { width:100%; max-width:100%; }
+
+  .rds-toggle-button__group,
+  .rds-toggle-button--spaced .rds-toggle-button__custom-group { 
+    flex-wrap: nowrap; 
+    width:100%;
+    max-width:100%;
   }
+
+  .rds-toggle-button__group .MuiToggleButton-root,
+  .rds-toggle-button__button { 
+    flex:1 1 0; 
+    min-width:0; 
+    padding:6px 10px; 
+    font-size:0.8rem; 
+    box-sizing:border-box; 
+  }
+
+  // Spaced variant margin neutralization to avoid overflow
+  .rds-toggle-button--spaced .rds-toggle-button__button-wrapper { margin-left:0 !important; }
 }
