@@ -368,7 +368,7 @@ const RdsGrid = (props: RdsGridProps) => {
                                  }}
                                >
                                  <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                                   <span {...dragProvided.dragHandleProps} style={{ cursor: 'grab', color: '#1976d2', marginRight: 4 }}>≡</span>
+                                   <span className="rds-grid__drag-icon" {...dragProvided.dragHandleProps} style={{ cursor: 'grab', color: '#1976d2', marginRight: 4 }}>≡</span>
                                    {header.displayName}
                                    {header.required && <span style={{ color: '#e53935', marginLeft: 4 }}>*</span>}
                                    {header.sortable && (
