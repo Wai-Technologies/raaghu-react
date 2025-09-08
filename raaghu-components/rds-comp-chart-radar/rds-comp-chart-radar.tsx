@@ -10,6 +10,18 @@ export interface RdsCompRadarProps {
 }
 
 const RdsCompRadarChart = (props: RdsCompRadarProps) => {
+  // Helper to detect dark mode from body or html attribute/class
+  const isDarkMode = () => {
+    if (typeof window !== 'undefined') {
+      return (
+        document.body.classList.contains('theme-dark') ||
+        document.body.classList.contains('dark-theme') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.getAttribute('data-theme') === 'dark'
+      );
+    }
+    return false;
+  };
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
 
@@ -24,6 +36,29 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
       chartInstanceRef.current.destroy();
     }
 
+    // Deep clone options to avoid mutating props.options
+    const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+
+    // If dark mode, set legend, title, and scale point label color to white
+    if (isDarkMode()) {
+      if (!chartOptions.plugins) chartOptions.plugins = {};
+      if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
+      if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
+      chartOptions.plugins.legend.labels.color = "#fff";
+      if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
+      chartOptions.plugins.title.color = "#fff";
+      if (chartOptions.plugins.tooltip) {
+        chartOptions.plugins.tooltip.titleColor = "#fff";
+        chartOptions.plugins.tooltip.bodyColor = "#fff";
+        chartOptions.plugins.tooltip.labelColor = () => ({ borderColor: '#fff', backgroundColor: '#fff' });
+      }
+      // Set scale point labels to white
+      if (!chartOptions.scales) chartOptions.scales = {};
+      if (!chartOptions.scales.r) chartOptions.scales.r = {};
+      if (!chartOptions.scales.r.pointLabels) chartOptions.scales.r.pointLabels = {};
+      chartOptions.scales.r.pointLabels.color = "#fff";
+    }
+
     const radarCanvas = new Chart(ctx, {
       type: "radar",
       data: {
@@ -31,11 +66,11 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
         datasets: props.dataSets,
       },
       options: {
-        ...props.options,
+        ...chartOptions,
         plugins: {
-          ...((props.options && props.options.plugins) || {}),
+          ...((chartOptions && chartOptions.plugins) || {}),
           legend: {
-            ...(props.options && props.options.plugins && props.options.plugins.legend ? props.options.plugins.legend : {}),
+            ...(chartOptions && chartOptions.plugins && chartOptions.plugins.legend ? chartOptions.plugins.legend : {}),
             position: 'top',
             align: 'start',
             labels: {
@@ -50,7 +85,7 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
                 weight: '500',
                 family: 'inherit',
               },
-              color: '#333333',
+              color: (isDarkMode() ? '#fff' : '#333333'),
             },
           },
         },
