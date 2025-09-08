@@ -7,8 +7,8 @@ const meta: Meta<typeof RdsBox> = {
   component: RdsBox,
   parameters: {
   layout: 'centered',
-  // only show the `children` and `sx` controls in the Controls panel; hide all other auto-generated props
-  controls: { include: ['children', 'sx'] },
+  // only show the `children` controls in the Controls panel; hide all other auto-generated props
+  controls: { include: ['children'] },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -31,14 +31,14 @@ export const Default: Story = {
 export const WithPadding: Story = {
   args: {
     children: 'Box with padding',
-    sx: { p: 4, backgroundColor: 'primary.light', color: 'white' },
+    sx: { p: 4, backgroundColor: '#2196f3', color: 'white' },
   },
 };
 
 export const WithMargin: Story = {
   args: {
     children: 'Box with margin',
-    sx: { m: 2, p: 2, backgroundColor: 'secondary.light', color: 'white' },
+    sx: { m: 2, p: 2, backgroundColor: '#e91e63', color: 'white' },
   },
 };
 
@@ -83,6 +83,6 @@ export const CustomComponent: Story = {
   args: {
     component: 'section',
     children: 'This Box renders as a section element',
-    sx: { p: 2, backgroundColor: 'info.light', color: 'white' },
+    sx: { p: 2, backgroundColor: '#03a9f4', color: 'white' },
   },
 };
