@@ -123,12 +123,6 @@
   transition: all 0.2s ease-in-out;
   border-radius: 5px;
 }
-#close-btn .rds-icon-button:hover,
-#close-btn .MuiIconButton-root:hover {
-  background: aliceblue;
-  border-radius: 5px;
-  transition: all 0.2s ease-in-out;
-}
 
 @media (min-width: 320px) and (max-width: 414px) {
   .offcanvas-drawer .MuiDrawer-paper {
