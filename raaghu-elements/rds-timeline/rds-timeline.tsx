@@ -54,7 +54,7 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
             <MuiTimelineContent>
               <strong>{item.title}</strong>
               {item.description && (
-                <div style={{ marginTop: 4, color: 'rgba(0, 0, 0, 0.6)' }}>
+                <div style={{ marginTop: 4 }}>
                   {item.description}
                 </div>
               )}

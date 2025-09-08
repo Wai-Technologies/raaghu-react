@@ -24,7 +24,7 @@
     fill: currentColor;
     stroke: none;
     // Use color tokens for fill if needed
-    color: var(--rds-color-on-surface, #222);
+    color: var(--rds-color-on-surface);
     transition: color 0.2s ease;
   }
 
@@ -109,7 +109,7 @@
   }
 
   &--dark {
-    color: var(--rds-color-dark, #212121);
+    color: var(--rds-color-dark);
     
     .rds-comp-ai-icon__svg {
       color: var(--rds-color-dark, #212121);

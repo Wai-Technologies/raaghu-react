@@ -41,3 +41,29 @@
     pointer-events: none;
   }
 }
+
+// Dark theme support for timeline
+[data-theme="dark"],
+.dark-theme {
+  .MuiTimeline-root {
+    .MuiTimelineOppositeContent-root {
+      color: var(--rds-text-secondary);
+    }
+    
+    // Timeline description text styling for dark theme
+    .MuiTimelineContent-root {
+      div {
+        color: var(--rds-text-secondary) !important;
+      }
+    }
+  }
+}
+
+// Light theme (default) description color
+.MuiTimeline-root {
+  .MuiTimelineContent-root {
+    div {
+      color: var(--rds-text-secondary);
+    }
+  }
+}

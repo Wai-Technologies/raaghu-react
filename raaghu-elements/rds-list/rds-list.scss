@@ -298,7 +298,6 @@
   font-size: var(--rds-font-size-body, 16px);
   font-weight: 500;
   margin: var(--rds-spacing-sm, 8px) 0;
-  color: var(--rds-text-primary, #333);
 }
 
 // Demo description
@@ -373,4 +372,11 @@
   .rds-list__item--clickable:hover {
     background-color: var(--rds-overlay-hover, rgba(255, 255, 255, 0.08));
   }
+}
+[data-theme="dark"] {
+.rds-list{
+  .css-155c0ib-MuiAvatar-root {
+    color: var(--rds-color-on-primary,#ffffff);
+  }
+}
 }
