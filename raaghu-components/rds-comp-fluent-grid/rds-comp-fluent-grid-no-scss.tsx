@@ -944,7 +944,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                   </Box>
 
                   {/* Logical Operator */}
-                  <FormControl size="small" sx={{ minWidth: 120 }}>
+                  {/* <FormControl size="small" sx={{ minWidth: 120 }}>
                     <Select
                       value={logicalOperator}
                       onChange={(e) => setLogicalOperator(e.target.value)}
@@ -952,10 +952,10 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                       <MenuItem value="and">And</MenuItem>
                       <MenuItem value="or">Or</MenuItem>
                     </Select>
-                  </FormControl>
+                  </FormControl> */}
 
                   {/* Second Condition */}
-                  <Box>
+                  {/* <Box>
                     <FormControl size="small" sx={{ minWidth: 120, mb: 1 }}>
                       <Select
                         value={filterConditions[1].operator}
@@ -976,7 +976,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                       size="small"
                       fullWidth
                     />
-                  </Box>
+                  </Box> */}
 
                   {/* Action Buttons */}
                   <Stack direction="row" spacing={1} sx={{ mt: 2 }}>

@@ -76,6 +76,11 @@ export interface FilterState {
   };
 }
 
+export interface SortState {
+  column: string | null;
+  direction: 'asc' | 'desc';
+}
+
 export interface RdsFluentGridProps {
   // Data
   tableHeaders: FluentGridColumn[];
@@ -705,5 +710,5 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
   );
 };
 
-RdsFluentGrid.displayName = 'RdsFluentGrid';
+// RdsFluentGrid.displayName = 'RdsFluentGrid';
 export default RdsFluentGrid;

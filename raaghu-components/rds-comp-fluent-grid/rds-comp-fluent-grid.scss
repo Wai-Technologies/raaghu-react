@@ -385,6 +385,37 @@
   }
 }
 
+// Responsive design
+@media (max-width: 768px) {
+  .rds-fluent-grid__header {
+    flex-direction: column;
+    gap: var(--spacingVerticalS);
+
+    .rds-fluent-grid__header-search {
+      width: 100%;
+    }
+
+    .rds-fluent-grid__header-controls {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .rds-fluent-grid__subheader {
+    flex-direction: column;
+    gap: var(--spacingVerticalS);
+    text-align: center;
+  }
+
+  .rds-fluent-grid__table {
+    .fui-DataGridHeaderCell,
+    .fui-DataGridCell {
+      padding: var(--spacingVerticalXS);
+      font-size: var(--fontSizeBase100);
+    }
+  }
+}
+
 // Additional classes for the new component structure
 .rds-fluent-grid-header {
   display: flex;
@@ -565,6 +596,19 @@
   border: 1px solid #e1e1e1;
   border-radius: 4px;
   background-color: #fafafa;
+
+  &-active {
+    background-color: #0078d4 !important;
+    color: white;
+
+    .rds-fluent-grid-filter-label {
+      color: white;
+    }
+  }
+
+  &:hover {
+    background-color: #f3f2f1;
+  }
 }
 
 .rds-fluent-grid-filter-label {
@@ -596,20 +640,6 @@
 }
 
 // Enhanced filter popup styles
-.rds-fluent-grid-filter-item {
-  &-active {
-    background-color: #0078d4 !important;
-    color: white;
-
-    .rds-fluent-grid-filter-label {
-      color: white;
-    }
-  }
-
-  &:hover {
-    background-color: #f3f2f1;
-  }
-}
 
 .rds-fluent-grid-filter-operator-container {
   position: relative;
@@ -666,93 +696,62 @@
   }
 }
 
-  // Responsive design
-  @media (max-width: 768px) {
-    &__header {
-      flex-direction: column;
-      gap: var(--spacingVerticalS);
+// Dark theme support
+.rds-fluent-grid--dark {
+  background-color: var(--colorNeutralBackground1);
+  border-color: var(--colorNeutralStroke1);
 
-      &-search {
-        width: 100%;
-      }
-
-      &-controls {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-
-    &__subheader {
-      flex-direction: column;
-      gap: var(--spacingVerticalS);
-      text-align: center;
-    }
-
-    &__table {
-      .fui-DataGridHeaderCell,
-      .fui-DataGridCell {
-        padding: var(--spacingVerticalXS);
-        font-size: var(--fontSizeBase100);
-      }
-    }
+  .rds-fluent-grid__header {
+    background-color: var(--colorNeutralBackground2);
+    border-bottom-color: var(--colorNeutralStroke2);
   }
 
-  // Dark theme support
-  &--dark {
-    background-color: var(--colorNeutralBackground1);
-    border-color: var(--colorNeutralStroke1);
+  .rds-fluent-grid__subheader {
+    background-color: var(--colorNeutralBackground2);
+    border-bottom-color: var(--colorNeutralStroke2);
+  }
 
-    .rds-fluent-grid__header {
+  .rds-fluent-grid__table {
+    .fui-DataGridHeader {
       background-color: var(--colorNeutralBackground2);
-      border-bottom-color: var(--colorNeutralStroke2);
     }
 
-    .rds-fluent-grid__subheader {
-      background-color: var(--colorNeutralBackground2);
-      border-bottom-color: var(--colorNeutralStroke2);
-    }
-
-    .rds-fluent-grid__table {
-      .fui-DataGridHeader {
+    .fui-DataGridRow {
+      &:nth-child(even) {
         background-color: var(--colorNeutralBackground2);
       }
 
-      .fui-DataGridRow {
-        &:nth-child(even) {
-          background-color: var(--colorNeutralBackground2);
-        }
+      &:hover {
+        background-color: var(--colorNeutralBackground1Hover);
+      }
 
-        &:hover {
-          background-color: var(--colorNeutralBackground1Hover);
-        }
-
-        &--selected {
-          background-color: var(--colorBrandBackground2);
-        }
+      &--selected {
+        background-color: var(--colorBrandBackground2);
       }
     }
   }
+}
 
-  // Compact mode
-  &--compact {
-    .fui-DataGridHeaderCell,
-    .fui-DataGridCell {
-      padding: var(--spacingVerticalXS);
-      font-size: var(--fontSizeBase100);
-    }
+// Compact mode
+.rds-fluent-grid--compact {
+  .fui-DataGridHeaderCell,
+  .fui-DataGridCell {
+    padding: var(--spacingVerticalXS);
+    font-size: var(--fontSizeBase100);
   }
+}
 
-  // Loading state
-  &--loading {
-    opacity: 0.6;
-    pointer-events: none;
-  }
+// Loading state
+.rds-fluent-grid--loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
 
-  // Error state
-  &--error {
-    border-color: var(--colorPaletteRedBorder1);
-    background-color: var(--colorPaletteRedBackground1);
-  }
+// Error state
+.rds-fluent-grid--error {
+  border-color: var(--colorPaletteRedBorder1);
+  background-color: var(--colorPaletteRedBackground1);
+}
 
 
 // Column accordion panel styles

@@ -14,7 +14,7 @@ const theme = createTheme({
 });
 
 const meta: Meta<typeof RdsFluentGrid> = {
-  title: 'Components/RdsFluentGrid',
+  title: 'Components/Fluent Grid',
   component: RdsFluentGrid,
   parameters: {
     layout: 'padded',
