@@ -39,6 +39,7 @@
       max-height: 98vh;
       border-radius: var(--rds-spacing-xs);
       margin: 0 4px;
+    overflow: hidden !important;
     }
   }
  
@@ -74,6 +75,9 @@
   &__content {
     padding: 2var(--rds-spacing-xs);
     overflow-y: auto;
+      @media (max-width: 600px) {
+        overflow: hidden !important;
+      }
   }
  
   &__actions {

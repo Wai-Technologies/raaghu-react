@@ -226,7 +226,7 @@
   }
 
   &--chat &__title {
-    color: #353535; 
+    color: var(--rds-color-on-surface-dark, #353535);
     font-weight: 500;
   }
   
@@ -552,5 +552,22 @@
     &::placeholder {
       color: var(--rds-color-on-surface-variant-dark, #cccccc);
     }
+  }
+
+  .rds-comp-toast__icon--circle {
+    --rds-toast-circle-color: var(--rds-color-on-surface-dark, #ffffff);
+  }
+  .rds-comp-toast__icon--plus {
+    --rds-toast-plus-color: var(--rds-color-on-surface-dark, #ffffff);
+  }
+
+  /* Ensure all button text is readable/white in dark theme without changing behaviors */
+  &__close-btn {
+    color: var(--rds-color-on-surface-dark, #ffffff);
+  }
+
+  .css-1goqzru-MuiButtonBase-root-MuiButton-root,
+  .css-kicv99-MuiButtonBase-root-MuiButton-root {
+    color: var(--rds-color-on-surface-dark, #ffffff);
   }
 }

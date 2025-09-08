@@ -143,9 +143,9 @@ export const Interactive: Story = {
           <Typography variant="body1" gutterBottom>
             This dialog can be opened and closed.
           </Typography>
-          <Button variant="contained" onClick={() => setOpen(false)}>
+          <RdsButton style="filled" onClick={() => setOpen(false)}>
             Close
-          </Button>
+          </RdsButton>
         </RdsDialog>
       </>
     );
@@ -239,7 +239,7 @@ export const WithActions: Story = {
     actions: (
       <>
         <Button variant="outlined">Cancel</Button>
-        <Button variant="contained" color="primary">Confirm</Button>
+        <RdsButton style="filled" color="primary">Confirm</RdsButton>
       </>
     ),
   },
