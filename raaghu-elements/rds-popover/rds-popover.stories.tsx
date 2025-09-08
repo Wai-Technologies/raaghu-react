@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button, Typography, Box, List, ListItem, ListItemText } from '@mui/material';
 import React, { useState } from 'react';
 import RdsPopover from './rds-popover';
+import './rds-popover.scss';
 
 const meta: Meta<typeof RdsPopover> = {
   title: 'Elements/Popover',
@@ -159,7 +160,7 @@ export const WideContent: Story = {
           <Typography paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
           </Typography>
-          <Box sx={{ mt: 2, p: 2, backgroundColor: 'grey.100', borderRadius: 1 }}>
+          <Box className="rds-popover-highlight-box">
             <Typography variant="body2">
               This is a highlighted section within the popover content.
             </Typography>

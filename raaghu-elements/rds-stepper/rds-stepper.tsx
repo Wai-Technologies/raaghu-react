@@ -1,4 +1,5 @@
 import React from 'react';
+import './rds-stepper.scss';
 import {
   Stepper as MuiStepper,
   Step as MuiStep,
@@ -30,15 +31,18 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
   showContent = false,
   activeStep,
   orientation,
+  className,
   ...props
 }) => {
   const stepperActiveStep = activeStep !== undefined ? activeStep : currentStep;
   const stepperOrientation = orientation || (direction === 'vertical' ? 'vertical' : 'horizontal');
+  const rootClassName = ['rds-stepper', className].filter(Boolean).join(' ');
 
   return (
     <MuiStepper
       activeStep={stepperActiveStep}
       orientation={stepperOrientation}
+      className={rootClassName}
       {...props}
     >
       {steps.map((step, index) => (

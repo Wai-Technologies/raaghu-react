@@ -5,19 +5,60 @@
   display: block;
   position: relative;
 
-  // Interactive states
-  &:hover {
-    // Hover styles
-  }
-
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset);
+    outline: var(--rds-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset, 2px);
   }
 
   &:disabled,
   &--disabled {
-    opacity: 0.6;
+    opacity: var(--rds-opacity-disabled, 0.6);
     pointer-events: none;
+  }
+
+  // Flex container variant for button layouts
+  &--flex-container {
+    display: flex;
+    gap: var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md, 16px);    
+    border: var(--rds-border-width-thin, 1px) solid var(--rds-color-outline, #79747e);
+    justify-content: space-around;
+  }
+
+  // Default variant - basic styling with dashed border
+  &--default {
+    padding: var(--rds-spacing-md, 16px); 
+    border: var(--rds-border-width-thin, 1px) dashed var(--rds-color-outline, #79747e);
+  }
+
+  // With padding variant - prominent background styling
+  &--with-padding {
+    padding: var(--rds-spacing-xl, 32px); 
+    background-color: var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-on-primary, #ffffff);
+  }
+
+  // With margin variant - margin and background styling
+  &--with-margin {
+    margin: var(--rds-spacing-md, 16px); 
+    padding: var(--rds-spacing-md, 16px); 
+    background-color: var(--rds-color-secondary, #e91e63);
+    color: var(--rds-color-on-secondary, #ffffff);
+  }
+
+  // Grid container variant for grid layouts
+  &--grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--rds-spacing-md, 16px); 
+    padding: var(--rds-spacing-md, 16px); 
+    border: var(--rds-border-width-thin, 1px) solid var(--rds-color-outline, #79747e);
+  }
+
+  // Custom component variant - blue background
+  &--custom-component {
+    padding: var(--rds-spacing-md, 16px); 
+    background-color: var(--rds-color-tertiary, #03a9f4);
+    color: var(--rds-color-on-tertiary, #ffffff);
   }
 }

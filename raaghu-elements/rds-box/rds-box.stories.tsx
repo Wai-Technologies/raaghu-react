@@ -1,20 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsBox from './rds-box';
-import { Button, Typography } from '@mui/material';
+import {Typography } from '@mui/material';
+import RdsButton from '../rds-button/rds-button';
 
 const meta: Meta<typeof RdsBox> = {
   title: 'Elements/Box',
   component: RdsBox,
   parameters: {
   layout: 'centered',
-  // only show the `children` and `sx` controls in the Controls panel; hide all other auto-generated props
-  controls: { include: ['children', 'sx'] },
+  // only show the `children` controls in the Controls panel; hide all other auto-generated props
+  controls: { include: ['children'] },
   },
   tags: ['autodocs'],
   argTypes: {
   // define the controls we want visible in Controls panel
   children: { control: { type: 'text' } },
-  sx: { control: { type: 'object' } },
+  // Hide className from controls and code display
+  className: { table: { disable: true }, control: false },
   },
 };
 
@@ -24,39 +26,128 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: 'This is a Box component',
-    sx: { p: 2, border: '1px dashed grey' },
   },
+  render: (args) => <RdsBox {...args} className="rds-box--default" />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<RdsBox>
+        This is a Box component
+        </RdsBox>`
+      }
+    }
+  }
 };
 
 export const WithPadding: Story = {
   args: {
     children: 'Box with padding',
-    sx: { p: 4, backgroundColor: 'primary.light', color: 'white' },
   },
+  render: (args) => <RdsBox {...args} className="rds-box--with-padding" />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<RdsBox>
+        Box with padding
+        </RdsBox>`
+      }
+    }
+  }
 };
 
 export const WithMargin: Story = {
   args: {
     children: 'Box with margin',
-    sx: { m: 2, p: 2, backgroundColor: 'secondary.light', color: 'white' },
   },
+  render: (args) => <RdsBox {...args} className="rds-box--with-margin" />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<RdsBox>
+        Box with margin
+        </RdsBox>`
+      }
+    }
+  }
 };
 
 export const FlexContainer: Story = {
   args: {
     children: [
-      <Button key="1" variant="contained">Button 1</Button>,
-      <Button key="2" variant="outlined">Button 2</Button>,
-      <Button key="3" variant="text">Button 3</Button>,
+  <RdsButton
+  key="1"
+  color="primary"
+  layout="text-only"
+  shape="rectangle"
+  size="medium"
+  state="default"
+  style="filled"
+  text="Button 1"
+  textCase="capitalize"
+/>,
+ <RdsButton
+  key="2"
+  color="primary"
+  layout="text-only"
+  shape="rectangle"
+  size="medium"
+  state="default"
+  style="outlined"
+  text="Button 2"
+  textCase="capitalize"
+/>,
+ <RdsButton
+  key="3"
+  color="primary"
+  layout="text-only"
+  shape="rectangle"
+  size="medium"
+  state="default"
+  style="transparent"
+  text="Button 3"
+  textCase="capitalize"
+/>
     ],
-    sx: { 
-      display: 'flex', 
-      gap: 2, 
-      p: 2, 
-      border: '1px solid grey',
-      justifyContent: 'space-around',
-    },
   },
+  render: (args) => <RdsBox {...args} className="rds-box--flex-container" />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<RdsBox>
+  <RdsButton
+    color="primary"
+    layout="text-only"
+    shape="rectangle"
+    size="medium"
+    state="default"
+    style="filled"
+    text="Button 1"
+    textCase="capitalize"
+  />
+  <RdsButton
+    color="primary"
+    layout="text-only"
+    shape="rectangle"
+    size="medium"
+    state="default"
+    style="outlined"
+    text="Button 2"
+    textCase="capitalize"
+  />
+  <RdsButton
+    color="primary"
+    layout="text-only"
+    shape="rectangle"
+    size="medium"
+    state="default"
+    style="transparent"
+    text="Button 3"
+    textCase="capitalize"
+  />
+</RdsBox>`
+      }
+    }
+  }
 };
 
 export const GridContainer: Story = {
@@ -69,20 +160,35 @@ export const GridContainer: Story = {
         <Typography>Item 4</Typography>
       </>
     ),
-    sx: { 
-      display: 'grid', 
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      gap: 2, 
-      p: 2, 
-      border: '1px solid grey',
-    },
   },
+  render: (args) => <RdsBox {...args} className="rds-box--grid-container" />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<RdsBox>
+        <Typography>Item 1</Typography>
+        <Typography>Item 2</Typography>
+        <Typography>Item 3</Typography>
+        <Typography>Item 4</Typography>
+        </RdsBox>`
+      }
+    }
+  }
 };
 
 export const CustomComponent: Story = {
   args: {
     component: 'section',
     children: 'This Box renders as a section element',
-    sx: { p: 2, backgroundColor: 'info.light', color: 'white' },
   },
+  render: (args) => <RdsBox {...args} className="rds-box--custom-component" />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<RdsBox component="section">
+        This Box renders as a section element
+        </RdsBox>`
+      }
+    }
+  }
 };
