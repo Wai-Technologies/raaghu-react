@@ -209,7 +209,7 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
         <RdsBox className="rds-comments-box rds-comments-box--hover relative">
           <RdsBox className="rds-comments-box__comment-card">
             <RdsBox className="rds-comments-box__header relative">
-              <RdsAvatar className="rds-comments-box__avatar--hover">{avatarInitials || 'RD'}</RdsAvatar>
+              <RdsAvatar className="rds-comments-box__avatar">{avatarInitials || 'RD'}</RdsAvatar>
               <RdsBox className="rds-comments-box__info">
                 <RdsTypography className="rds-comments-box__name">{props.commentHoverName}</RdsTypography>
                 <RdsTypography className="rds-comments-box__time">{props.hoverTime}</RdsTypography>
