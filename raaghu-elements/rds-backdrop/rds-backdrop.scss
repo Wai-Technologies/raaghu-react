@@ -4,15 +4,7 @@
 .rds-backdrop {
   display: block;
   position: relative;
-
-  &--invisible {
-    // Invisible state styles
-  }
-
-  // Interactive states
-  &:hover {
-    // Hover styles
-  }
+  background-color: var(--rds-background-overlay, rgba(0, 0, 0, 0.5));
 
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
@@ -23,5 +15,21 @@
   &--disabled {
     opacity: 0.6;
     pointer-events: none;
+  }
+
+  // Dark theme support for better backdrop visibility
+  .dark-theme &,
+  [data-theme="dark"] & {
+    background-color: rgba(128, 128, 128, 0.4);
+  }
+
+  // Loading spinner visibility in dark theme
+  .MuiCircularProgress-root {
+    color: var(--rds-text-primary, #000);
+    
+    .dark-theme &,
+    [data-theme="dark"] & {
+      color: var(--rds-text-primary, #fff);
+    }
   }
 }
