@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chip as MuiChip, ChipProps } from '@mui/material';
-
+import './rds-tag.scss';
 export interface RdsTagProps extends Omit<ChipProps, 'label'> {
   label: string;
   removable?: boolean;
