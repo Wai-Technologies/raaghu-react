@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsBox from './rds-box';
 import { Button, Typography } from '@mui/material';
+import RdsButton from '../rds-button/rds-button';
 
 const meta: Meta<typeof RdsBox> = {
   title: 'Elements/Box',
@@ -45,9 +46,36 @@ export const WithMargin: Story = {
 export const FlexContainer: Story = {
   args: {
     children: [
-      <Button key="1" variant="contained">Button 1</Button>,
-      <Button key="2" variant="outlined">Button 2</Button>,
-      <Button key="3" variant="text">Button 3</Button>,
+  <RdsButton
+  color="primary"
+  layout="text-only"
+  shape="rectangle"
+  size="medium"
+  state="default"
+  style="filled"
+  text="Button 1"
+  textCase="capitalize"
+/>,
+ <RdsButton
+  color="primary"
+  layout="text-only"
+  shape="rectangle"
+  size="medium"
+  state="default"
+  style="outlined"
+  text="Button 2"
+  textCase="capitalize"
+/>,
+ <RdsButton
+  color="primary"
+  layout="text-only"
+  shape="rectangle"
+  size="medium"
+  state="default"
+  style="transparent"
+  text="Button 3"
+  textCase="capitalize"
+/>
     ],
     sx: { 
       display: 'flex', 
