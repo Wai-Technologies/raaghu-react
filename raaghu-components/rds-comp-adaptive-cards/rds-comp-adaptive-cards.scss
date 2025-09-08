@@ -47,23 +47,23 @@
     padding-bottom: var(--rds-spacing-none, 0) !important;
   }
   &__title {
-    font-size: var(--rds-font-size-2xl, 20px) !important;
-    font-weight: var(--rds-font-weight-bold, 700) !important;
-    height: var(--rds-font-size-md, 14px);
-    padding: var(--rds-spacing-none, 0) !important;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: left !important;
-    padding-top: var(--rds-spacing-none, 0) !important;
-    padding-bottom: var(--rds-spacing-none, 0) !important;
-    line-height: 1.1 !important;
-    font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
-    .dark-theme &,
-    [data-theme="dark"] & {
-      color: var(--rds-text-primary, #fff) !important;
-    }
+      font-size: var(--rds-font-size-2xl, 20px) !important;
+      font-weight: var(--rds-font-weight-bold, 700) !important;
+      /* Remove fixed height to allow text to show fully */
+      padding: var(--rds-spacing-none, 0) !important;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: left !important;
+      padding-top: 4px !important;
+      padding-bottom: var(--rds-spacing-none, 0) !important;
+      line-height: 1.1 !important;
+      font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
+      .dark-theme &,
+      [data-theme="dark"] & {
+        color: var(--rds-text-primary, #fff) !important;
+      }
   }
   &__title-icon {
     width: var(--rds-font-size-xl, 20px);
@@ -339,11 +339,25 @@
     width: var(--rds-spacing-2xl, 80px);
     height: var(--rds-spacing-2xl, 80px);
     border-radius: 50%;
-  background: var(--rds-background-default, #4a4a4a);
+      background: var(--rds-background-default, #4a4a4a);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+      /* Dark mode override for home team logo */
+      &.rds-adaptive-cards__football-logo--home {
+        .dark-theme &,
+        [data-theme="dark"] & {
+          background: #4a4a4a !important;
+        }
+      }
+      /* Dark mode override for away team logo */
+      &.rds-adaptive-cards__football-logo--away {
+        .dark-theme &,
+        [data-theme="dark"] & {
+          background: #4a4a4a !important;
+        }
+      }
   }
   &__football-img {
     width: 100%;
@@ -835,7 +849,14 @@
   .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title {
     font-size: 18px !important;
     font-weight: 700 !important;
+    padding-top: 4px !important;
     padding-bottom: 8px !important;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-word;
+    box-sizing: border-box;
   }
   .rds-adaptive-cards__actions--input-form .rds-adaptive-cards__title {
     font-size: var(--rds-font-size-xl, 18px) !important;
@@ -866,6 +887,14 @@
   }
   .rds-adaptive-cards__football-live {
       position: relative !important;
+
+      /* Dark mode override for home team logo on mobile */
+      &.rds-adaptive-cards__football-logo--home {
+        .dark-theme &,
+        [data-theme="dark"] & {
+          background: #2a2a2a !important;
+        }
+      }
       left: 0 !important;
       right: 10px !important;
       margin: 0 auto 4px auto !important;
@@ -879,6 +908,14 @@
 
   .rds-adaptive-cards__football-logo {
     width: var(--rds-football-logo-size-mobile, 72px);
+
+      /* Dark mode override for away team logo on mobile */
+      &.rds-adaptive-cards__football-logo--away {
+        .dark-theme &,
+        [data-theme="dark"] & {
+          background: #4a4a4a !important;
+        }
+      }
   
   @media (max-width: 340px) {
     .rds-adaptive-cards__football-live {
@@ -958,6 +995,12 @@
     padding: var(--rds-spacing-md, 12px) !important;
   }
   .rds-adaptive-cards__image-list {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-word;
+  box-sizing: border-box;
     grid-template-columns: repeat(2, 1fr) !important;
   }
   .rds-adaptive-cards__image-list-item {
@@ -1055,6 +1098,22 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 24px;
+    width: 100%;
+    height: 120px;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+  }
+
+  &__slot .MuiTypography-root {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   &__actions {
