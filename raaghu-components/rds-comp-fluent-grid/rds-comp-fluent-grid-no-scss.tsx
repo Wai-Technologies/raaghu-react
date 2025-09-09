@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import {
   Box,
   TextField,
@@ -23,7 +23,6 @@ import {
   Pagination,
   Stack,
   Card,
-  CardContent,
   Tooltip,
   Popover,
   List,
@@ -46,6 +45,9 @@ import {
   ArrowDownward as ArrowDownIcon,
   SwapVert as ArrowUpDownIcon,
 } from '@mui/icons-material';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 // Types and Enums
 export enum ActionPosition {
@@ -95,8 +97,26 @@ export interface FluentGridAction {
 export interface FilterState {
   [columnKey: string]: {
     value: string;
-    operator: 'contains' | 'equals' | 'startsWith' | 'endsWith' | 'greaterThan' | 'lessThan';
+    operator: 'contains' | 'notContains' | 'equals' | 'startsWith' | 'endsWith' | 'greaterThan' | 'lessThan' | 'greaterThanOrEqual' | 'lessThanOrEqual' | 'between';
   };
+}
+
+export interface FilterCondition {
+  columnKey: string;
+  columnName: string;
+  dataType: string;
+  operator: string;
+  value: string;
+  id: string;
+}
+
+export interface FilterApiRequest {
+  filters: FilterCondition[];
+  logicalOperator?: 'AND' | 'OR';
+  page?: number;
+  pageSize?: number;
+  sortBy?: string;
+  sortDirection?: 'ASC' | 'DESC';
 }
 
 export interface SortState {
@@ -140,6 +160,7 @@ export interface RdsFluentGridProps {
   onPaginationHandler?: (currentPage: number, recordsPerPage: number) => void;
   onSortChange?: (sortState: SortState) => void;
   onFilterChange?: (filterState: FilterState) => void;
+  onFilterApiRequest?: (filterRequest: FilterApiRequest) => void;
   
   // Styling
   classes?: string;
@@ -180,6 +201,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   onPaginationHandler,
   onSortChange,
   onFilterChange,
+  onFilterApiRequest,
   classes,
   fontWeight,
   illustration = false,
@@ -208,7 +230,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
     { id: 1, column: '', operator: 'contains', value: '' },
     { id: 2, column: '', operator: 'contains', value: '' }
   ]);
-  const [logicalOperator, setLogicalOperator] = useState('and');
+  const [columnFilterStates, setColumnFilterStates] = useState<{[columnKey: string]: {operator: string, value: string}}>({});
   const filterButtonRef = useRef<HTMLButtonElement>(null);
 
   // Filter and sort data
@@ -228,24 +250,64 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
     Object.entries(filterState).forEach(([columnKey, filter]) => {
       if (filter.value) {
         filtered = filtered.filter((row) => {
-          const cellValue = row[columnKey]?.toString().toLowerCase() || '';
-          const filterValue = filter.value.toLowerCase();
+          const cellValue = row[columnKey];
+          const filterValue = filter.value;
+          
+          // Get column data type for proper comparison
+          const column = tableHeaders.find(h => h.key === columnKey);
+          const dataType = column?.dataType?.toLowerCase() || 'string';
           
           switch (filter.operator) {
             case 'contains':
-              return cellValue.includes(filterValue);
+              return cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase());
+            case 'notContains':
+              return !cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase());
             case 'equals':
-              return cellValue === filterValue;
+              if (dataType === 'number' || dataType === 'numeric' || dataType === 'int' || dataType === 'float' || dataType === 'decimal') {
+                return parseFloat(cellValue) === parseFloat(filterValue);
+              } else if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
+                return new Date(cellValue).toDateString() === new Date(filterValue).toDateString();
+              } else {
+                return cellValue?.toString().toLowerCase() === filterValue.toLowerCase();
+              }
             case 'startsWith':
-              return cellValue.startsWith(filterValue);
+              return cellValue?.toString().toLowerCase().startsWith(filterValue.toLowerCase());
             case 'endsWith':
-              return cellValue.endsWith(filterValue);
+              return cellValue?.toString().toLowerCase().endsWith(filterValue.toLowerCase());
             case 'greaterThan':
-              return parseFloat(cellValue) > parseFloat(filterValue);
+              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
+                return new Date(cellValue) > new Date(filterValue);
+              } else {
+                return parseFloat(cellValue) > parseFloat(filterValue);
+              }
             case 'lessThan':
-              return parseFloat(cellValue) < parseFloat(filterValue);
+              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
+                return new Date(cellValue) < new Date(filterValue);
+              } else {
+                return parseFloat(cellValue) < parseFloat(filterValue);
+              }
+            case 'greaterThanOrEqual':
+              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
+                return new Date(cellValue) >= new Date(filterValue);
+              } else {
+                return parseFloat(cellValue) >= parseFloat(filterValue);
+              }
+            case 'lessThanOrEqual':
+              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
+                return new Date(cellValue) <= new Date(filterValue);
+              } else {
+                return parseFloat(cellValue) <= parseFloat(filterValue);
+              }
+            case 'between':
+              // For between, we'll need to handle this separately as it requires two values
+              // For now, treat it as greaterThan
+              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
+                return new Date(cellValue) >= new Date(filterValue);
+              } else {
+                return parseFloat(cellValue) >= parseFloat(filterValue);
+              }
             default:
-              return cellValue.includes(filterValue);
+              return cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase());
           }
         });
       }
@@ -312,18 +374,115 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
     return visible;
   };
 
+  // Get operators based on data type
+  const getOperatorsForDataType = (dataType: string) => {
+    switch (dataType?.toLowerCase()) {
+      case 'number':
+      case 'numeric':
+      case 'int':
+      case 'float':
+      case 'decimal':
+        return [
+          { value: 'equals', label: 'Equals' },
+          { value: 'greaterThan', label: 'Greater Than' },
+          { value: 'lessThan', label: 'Less Than' },
+          { value: 'greaterThanOrEqual', label: 'Greater Than or Equal' },
+          { value: 'lessThanOrEqual', label: 'Less Than or Equal' },
+          { value: 'between', label: 'Between' }
+        ];
+      case 'date':
+      case 'datetime':
+      case 'timestamp':
+        return [
+          { value: 'equals', label: 'Equals' },
+          { value: 'greaterThan', label: 'After' },
+          { value: 'lessThan', label: 'Before' },
+          { value: 'greaterThanOrEqual', label: 'On or After' },
+          { value: 'lessThanOrEqual', label: 'On or Before' },
+          { value: 'between', label: 'Between' }
+        ];
+      case 'boolean':
+        return [
+          { value: 'equals', label: 'Equals' }
+        ];
+      default: // string, text, varchar, etc.
+        return [
+          { value: 'contains', label: 'Contains' },
+          { value: 'equals', label: 'Equals' },
+          { value: 'startsWith', label: 'Starts With' },
+          { value: 'endsWith', label: 'Ends With' },
+          { value: 'notContains', label: 'Does Not Contain' }
+        ];
+    }
+  };
+
+  // Get input type based on data type
+  const getInputTypeForDataType = (dataType: string) => {
+    switch (dataType?.toLowerCase()) {
+      case 'number':
+      case 'numeric':
+      case 'int':
+      case 'float':
+      case 'decimal':
+        return 'number';
+      case 'date':
+      case 'datetime':
+      case 'timestamp':
+        return 'date';
+      case 'email':
+        return 'email';
+      case 'url':
+        return 'url';
+      default:
+        return 'text';
+    }
+  };
+
   const handleFilterIconClick = (event: React.MouseEvent<HTMLElement>, columnKey: string) => {
     event.preventDefault();
     event.stopPropagation();
     setSelectedColumnForFilter(columnKey);
     setFilterAnchorEl(event.currentTarget);
     setIsFilterPopupOpen(true);
+    
+    // Load column-specific filter state
+    const columnFilterState = columnFilterStates[columnKey] || { operator: 'contains', value: '' };
+    
+    // Set the column in filter conditions with column-specific values
+    setFilterConditions(prev => 
+      prev.map(condition => 
+        condition.id === 1 ? { 
+          ...condition, 
+          column: columnKey,
+          value: columnFilterState.value,
+          operator: columnFilterState.operator
+        } : condition
+      )
+    );
   };
 
   const handleFilterPopupClose = () => {
     setFilterAnchorEl(null);
     setIsFilterPopupOpen(false);
+    setSelectedColumnForFilter(null);
   };
+
+  // Handle click outside to close popup
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isFilterPopupOpen && filterAnchorEl) {
+        const target = event.target as Element;
+        if (!target.closest('.MuiPopover-root') && !target.closest('[data-filter-button]')) {
+          handleFilterPopupClose();
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isFilterPopupOpen, filterAnchorEl]);
 
   const handleColumnPanelToggle = () => {
     setIsColumnPanelExpanded(!isColumnPanelExpanded);
@@ -339,22 +498,67 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
         condition.id === id ? { ...condition, [field]: value } : condition
       )
     );
+    
+    // No real-time filtering - only update when FILTER button is clicked
   };
 
   const handleApplyFilter = () => {
-    const newFilterState: FilterState = {};
+    const columnToFilter = selectedColumnForFilter || filterConditions[0].column;
     
-    filterConditions.forEach(condition => {
-      if (condition.column && condition.value) {
-        newFilterState[condition.column] = {
-          value: condition.value,
-          operator: condition.operator as any
-        };
-      }
-    });
+    if (columnToFilter && filterConditions[0].value) {
+      const filterValue = filterConditions[0].value instanceof Date ? 
+        filterConditions[0].value.toISOString().split('T')[0] : 
+        filterConditions[0].value;
+      
+      // Update the main filter state (preserving existing filters)
+      const newFilterState = { ...filterState };
+      newFilterState[columnToFilter] = {
+        value: filterValue,
+        operator: filterConditions[0].operator as any
+      };
+      
+      // Update column-specific filter state
+      const newColumnFilterStates = { ...columnFilterStates };
+      newColumnFilterStates[columnToFilter] = {
+        operator: filterConditions[0].operator,
+        value: filterValue
+      };
+      
+      // Generate API request JSON from ALL active filters
+      const activeFilters = Object.entries(newFilterState)
+        .filter(([_, filter]) => filter.value && filter.value.trim() !== '')
+        .map(([columnKey, filter]) => {
+          const column = tableHeaders.find(h => h.key === columnKey);
+          return {
+            columnKey,
+            columnName: column?.name || columnKey,
+            dataType: column?.dataType || 'string',
+            operator: filter.operator,
+            value: filter.value,
+            id: `${columnKey}_${Date.now()}`
+          } as FilterCondition;
+        });
+      
+      const filterApiRequest: FilterApiRequest = {
+        filters: activeFilters,
+        logicalOperator: 'AND',
+        page: currentPage,
+        pageSize: recordsPerPage,
+        sortBy: sortColumn || undefined,
+        sortDirection: sortColumn ? (sortDirection === 'asc' ? 'ASC' : 'DESC') : undefined
+      };
+      
+      console.log('Applying filter for column:', columnToFilter);
+      console.log('All active filters:', newFilterState);
+      console.log('API Request JSON:', JSON.stringify(filterApiRequest, null, 2));
+      
+      setFilterState(newFilterState);
+      setColumnFilterStates(newColumnFilterStates);
+      onFilterChange?.(newFilterState);
+      onFilterApiRequest?.(filterApiRequest);
+    }
     
-    setFilterState(newFilterState);
-    onFilterChange?.(newFilterState);
+    handleFilterPopupClose();
   };
 
   const handleClearAdvancedFilter = () => {
@@ -362,8 +566,50 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
       { id: 1, column: '', operator: 'contains', value: '' },
       { id: 2, column: '', operator: 'contains', value: '' }
     ]);
-    setFilterState({});
-    onFilterChange?.({});
+    
+    // Clear only the current column's filter, preserve others
+    if (selectedColumnForFilter) {
+      const newFilterState = { ...filterState };
+      delete newFilterState[selectedColumnForFilter];
+      
+      const newColumnFilterStates = { ...columnFilterStates };
+      delete newColumnFilterStates[selectedColumnForFilter];
+      
+      // Generate API request JSON from remaining active filters
+      const activeFilters = Object.entries(newFilterState)
+        .filter(([_, filter]) => filter.value && filter.value.trim() !== '')
+        .map(([columnKey, filter]) => {
+          const column = tableHeaders.find(h => h.key === columnKey);
+          return {
+            columnKey,
+            columnName: column?.name || columnKey,
+            dataType: column?.dataType || 'string',
+            operator: filter.operator,
+            value: filter.value,
+            id: `${columnKey}_${Date.now()}`
+          } as FilterCondition;
+        });
+      
+      const filterApiRequest: FilterApiRequest = {
+        filters: activeFilters,
+        logicalOperator: 'AND',
+        page: currentPage,
+        pageSize: recordsPerPage,
+        sortBy: sortColumn || undefined,
+        sortDirection: sortColumn ? (sortDirection === 'asc' ? 'ASC' : 'DESC') : undefined
+      };
+      
+      console.log('Clearing filter for column:', selectedColumnForFilter);
+      console.log('Remaining active filters:', newFilterState);
+      console.log('API Request JSON:', JSON.stringify(filterApiRequest, null, 2));
+      
+      setFilterState(newFilterState);
+      setColumnFilterStates(newColumnFilterStates);
+      onFilterChange?.(newFilterState);
+      onFilterApiRequest?.(filterApiRequest);
+    }
+    
+    handleFilterPopupClose();
   };
 
   const toggleCollapse = () => {
@@ -643,6 +889,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                               size="small" 
                               onClick={(e) => handleFilterIconClick(e, header.key)}
                               ref={filterButtonRef}
+                              data-filter-button
                               sx={{ 
                                 '&:hover': { 
                                   backgroundColor: 'action.hover' 
@@ -778,34 +1025,37 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
         disablePortal={false}
         PaperProps={{
           sx: {
-            width: 400,
-            maxHeight: 500,
+            width: 200,
+            maxHeight: 250,
             overflow: 'auto',
             zIndex: 1300,
           }
         }}
       >
-        <Box p={2}>
-          <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
-            <Typography variant="h6" fontWeight="bold">
-              Grid Controls
+        <Box p={1}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
+            <Typography variant="body2" fontWeight="bold" sx={{ fontSize: '12px' }}>
+              {selectedColumnForFilter ? 
+                `Filter: ${tableHeaders.find(h => h.key === selectedColumnForFilter)?.name || selectedColumnForFilter}` : 
+                'Controls'
+              }
             </Typography>
-            <IconButton size="small" onClick={handleFilterPopupClose}>
-              <ClearIcon fontSize="small" />
+            <IconButton size="small" onClick={handleFilterPopupClose} sx={{ width: '20px', height: '20px' }}>
+              <ClearIcon sx={{ fontSize: '14px' }} />
             </IconButton>
           </Stack>
           
-          <Divider sx={{ mb: 2 }} />
+          <Divider sx={{ mb: 1 }} />
           
           {/* Column Visibility Section - Accordion Panel */}
-          <Box mb={2}>
+          <Box mb={1}>
             <Box 
               sx={{ 
                 display: 'flex', 
                 alignItems: 'center', 
                 cursor: 'pointer',
-                p: 1,
-                borderRadius: 1,
+                p: 0.5,
+                borderRadius: 0.5,
                 border: '1px solid',
                 borderColor: 'divider',
                 width: '100%',
@@ -813,10 +1063,10 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
               }}
               onClick={handleColumnPanelToggle}
             >
-              <Typography variant="body2" fontWeight="medium" sx={{ flexGrow: 1 }}>
-                Show/Hide Columns
+              <Typography variant="caption" fontWeight="medium" sx={{ flexGrow: 1, fontSize: '10px' }}>
+                Columns
               </Typography>
-              {isColumnPanelExpanded ? <ArrowUpIcon fontSize="small" /> : <ArrowDownIcon fontSize="small" />}
+              {isColumnPanelExpanded ? <ArrowUpIcon sx={{ fontSize: '12px' }} /> : <ArrowDownIcon sx={{ fontSize: '12px' }} />}
             </Box>
             
             {isColumnPanelExpanded && (
@@ -829,7 +1079,9 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                   borderTop: 'none',
                   borderRadius: '0 0 4px 4px',
                   backgroundColor: 'grey.50',
-                  width: '100%'
+                  width: '100%',
+                  maxHeight: '80px',
+                  overflowY: 'auto'
                 }}
               >
                 <List dense sx={{ py: 0 }}>
@@ -839,7 +1091,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                       sx={{ 
                         py: 0,
                         px: 0.25,
-                        minHeight: 18,
+                        minHeight: 16,
                         cursor: 'pointer',
                         '&:hover': { backgroundColor: 'action.hover' }
                       }}
@@ -848,7 +1100,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                         handleColumnVisibilityChange(header.key, !isCurrentlyVisible);
                       }}
                     >
-                      <ListItemIcon sx={{ minWidth: 20 }}>
+                      <ListItemIcon sx={{ minWidth: 16 }}>
                         <Checkbox
                           checked={visibleColumns.includes(header.key)}
                           onChange={(e) => {
@@ -857,16 +1109,16 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                           }}
                           size="small"
                           sx={{ 
-                            padding: '3px',
+                            padding: '1px',
                             '& .MuiSvgIcon-root': {
-                              fontSize: 16
+                              fontSize: 12
                             }
                           }}
                         />
                       </ListItemIcon>
                       <ListItemText 
                         primary={header.name}
-                        primaryTypographyProps={{ variant: 'body2' }}
+                        primaryTypographyProps={{ variant: 'caption', sx: { fontSize: '9px' } }}
                         sx={{ ml: 0 }}
                       />
                     </ListItem>
@@ -885,26 +1137,26 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                 display: 'flex', 
                 alignItems: 'center', 
                 cursor: 'pointer',
-                p: 1,
-                borderRadius: 1,
+                p: 0.5,
+                borderRadius: 0.5,
                 border: '1px solid',
                 borderColor: 'divider',
                 width: '100%',
-                mb: 1,
+                mb: 0.5,
                 '&:hover': { backgroundColor: 'action.hover' }
               }}
               onClick={handleFilterToggle}
             >
-              <Typography variant="body2" fontWeight="medium" sx={{ flexGrow: 1 }}>
+              <Typography variant="caption" fontWeight="medium" sx={{ flexGrow: 1, fontSize: '10px' }}>
                 Filter
               </Typography>
-              {isFilterExpanded ? <ArrowUpIcon fontSize="small" /> : <ArrowDownIcon fontSize="small" />}
+              {isFilterExpanded ? <ArrowUpIcon sx={{ fontSize: '12px' }} /> : <ArrowDownIcon sx={{ fontSize: '12px' }} />}
             </Box>
             
             {isFilterExpanded && (
               <Box 
                 sx={{ 
-                  p: 1,
+                  p: 0.5,
                   border: '1px solid',
                   borderColor: 'divider',
                   borderRadius: '0 0 4px 4px',
@@ -912,36 +1164,95 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                   width: '100%'
                 }}
               >
-                <Stack spacing={2}>
-                  {/* First Condition */}
-                  <Box>
-                    <FormControl size="small" sx={{ minWidth: 120, mb: 1 }}>
-                      <Select
-                        value={filterConditions[0].operator}
-                        onChange={(e) => handleFilterConditionChange(1, 'operator', e.target.value)}
-                        sx={{ 
-                          '& .MuiOutlinedInput-notchedOutline': {
-                            borderWidth: 2,
-                            borderColor: '#000'
-                          }
-                        }}
-                      >
-                        <MenuItem value="contains">Contains</MenuItem>
-                        <MenuItem value="equals">Equals</MenuItem>
-                        <MenuItem value="startsWith">Starts With</MenuItem>
-                        <MenuItem value="endsWith">Ends With</MenuItem>
-                        <MenuItem value="greaterThan">Greater Than</MenuItem>
-                        <MenuItem value="lessThan">Less Than</MenuItem>
-                      </Select>
-                    </FormControl>
-                    <TextField
-                      placeholder="Enter value..."
-                      value={filterConditions[0].value}
-                      onChange={(e) => handleFilterConditionChange(1, 'value', e.target.value)}
-                      size="small"
-                      fullWidth
-                    />
-                  </Box>
+                <Stack spacing={1}>
+                  {/* Dynamic Filter Controls based on Column Data Type */}
+                  {(() => {
+                    const selectedColumn = tableHeaders.find(h => h.key === selectedColumnForFilter);
+                    const dataType = selectedColumn?.dataType || 'string';
+                    const operators = getOperatorsForDataType(dataType);
+                    const inputType = getInputTypeForDataType(dataType);
+                    
+                    return (
+                      <Box>
+                        <FormControl size="small" sx={{ minWidth: 80, mb: 0.5 }}>
+                          <Select
+                            value={filterConditions[0].operator}
+                            onChange={(e) => handleFilterConditionChange(1, 'operator', e.target.value)}
+                            sx={{ 
+                              fontSize: '10px',
+                              height: '24px',
+                              '& .MuiOutlinedInput-notchedOutline': {
+                                borderWidth: 1,
+                                borderColor: '#000'
+                              }
+                            }}
+                          >
+                            {operators.map((op) => (
+                              <MenuItem key={op.value} value={op.value} sx={{ fontSize: '10px' }}>
+                                {op.label}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                        
+                        {/* Dynamic Input based on Data Type */}
+                        {inputType === 'date' ? (
+                          <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <DatePicker
+                              value={filterConditions[0].value ? new Date(filterConditions[0].value) : null}
+                              onChange={(date) => handleFilterConditionChange(1, 'value', date)}
+                              slotProps={{
+                                textField: {
+                                  size: 'small',
+                                  fullWidth: true,
+                                  placeholder: 'Select date...',
+                                  sx: {
+                                    '& .MuiInputBase-input': {
+                                      fontSize: '10px',
+                                      height: '24px',
+                                      padding: '4px 8px'
+                                    }
+                                  }
+                                }
+                              }}
+                            />
+                          </LocalizationProvider>
+                        ) : inputType === 'number' ? (
+                          <TextField
+                            placeholder="Enter number..."
+                            type="number"
+                            value={filterConditions[0].value}
+                            onChange={(e) => handleFilterConditionChange(1, 'value', e.target.value)}
+                            size="small"
+                            fullWidth
+                            sx={{
+                              '& .MuiInputBase-input': {
+                                fontSize: '10px',
+                                height: '24px',
+                                padding: '4px 8px'
+                              }
+                            }}
+                          />
+                        ) : (
+                          <TextField
+                            placeholder={`Enter ${dataType}...`}
+                            type={inputType}
+                            value={filterConditions[0].value}
+                            onChange={(e) => handleFilterConditionChange(1, 'value', e.target.value)}
+                            size="small"
+                            fullWidth
+                            sx={{
+                              '& .MuiInputBase-input': {
+                                fontSize: '10px',
+                                height: '24px',
+                                padding: '4px 8px'
+                              }
+                            }}
+                          />
+                        )}
+                      </Box>
+                    );
+                  })()}
 
                   {/* Logical Operator */}
                   {/* <FormControl size="small" sx={{ minWidth: 120 }}>
@@ -979,13 +1290,18 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                   </Box> */}
 
                   {/* Action Buttons */}
-                  <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
+                  <Stack direction="row" spacing={0.5} sx={{ mt: 1 }}>
                     <Button
                       variant="contained"
                       color="primary"
                       size="small"
                       onClick={handleApplyFilter}
-                      sx={{ flexGrow: 1 }}
+                      sx={{ 
+                        flexGrow: 1,
+                        fontSize: '9px',
+                        height: '20px',
+                        minWidth: '0'
+                      }}
                     >
                       Filter
                     </Button>
@@ -993,11 +1309,40 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                       variant="outlined"
                       size="small"
                       onClick={handleClearAdvancedFilter}
-                      sx={{ flexGrow: 1 }}
+                      sx={{ 
+                        flexGrow: 1,
+                        fontSize: '9px',
+                        height: '20px',
+                        minWidth: '0'
+                      }}
                     >
                       Clear
                     </Button>
                   </Stack>
+                  
+                  {/* Clear All Filters Button */}
+                  {Object.keys(filterState).length > 0 && (
+                    <Button
+                      variant="text"
+                      size="small"
+                      onClick={() => {
+                        setFilterState({});
+                        setColumnFilterStates({});
+                        onFilterChange?.({});
+                        onFilterApiRequest?.({ filters: [], logicalOperator: 'AND' });
+                        console.log('Cleared all filters');
+                      }}
+                      sx={{ 
+                        width: '100%',
+                        fontSize: '8px',
+                        height: '18px',
+                        mt: 0.5,
+                        color: 'error.main'
+                      }}
+                    >
+                      Clear All Filters
+                    </Button>
+                  )}
                 </Stack>
               </Box>
             )}

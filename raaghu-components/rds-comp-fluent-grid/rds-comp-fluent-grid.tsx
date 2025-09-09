@@ -7,13 +7,10 @@ import {
   Text,
   Spinner,
   Input,
-  Checkbox,
-  Divider,
 } from '@fluentui/react-components';
 import {
   ArrowUpRegular,
   ArrowDownRegular,
-  ArrowSortRegular,
   FilterRegular,
   MoreHorizontalRegular,
   AddRegular,
@@ -72,8 +69,26 @@ export interface FluentGridAction {
 export interface FilterState {
   [columnKey: string]: {
     value: string;
-    operator: 'contains' | 'equals' | 'startsWith' | 'endsWith' | 'greaterThan' | 'lessThan';
+    operator: 'contains' | 'equals' | 'startsWith' | 'endsWith' | 'greaterThan' | 'lessThan' | 'greaterThanOrEqual' | 'lessThanOrEqual' | 'between';
   };
+}
+
+export interface FilterCondition {
+  columnKey: string;
+  columnName: string;
+  dataType: string;
+  operator: string;
+  value: string;
+  id: string;
+}
+
+export interface FilterApiRequest {
+  filters: FilterCondition[];
+  logicalOperator?: 'AND' | 'OR';
+  page?: number;
+  pageSize?: number;
+  sortBy?: string;
+  sortDirection?: 'ASC' | 'DESC';
 }
 
 export interface SortState {
@@ -119,6 +134,7 @@ export interface RdsFluentGridProps {
   onPaginationHandler?: (currentPage: number, recordsPerPage: number) => void;
   onSortChange?: (sortState: any) => void;
   onFilterChange?: (filterState: FilterState) => void;
+  onFilterApiRequest?: (filterRequest: FilterApiRequest) => void;
   onColumnVisibilityChange?: (visibleColumns: string[]) => void;
   
   // Styling
@@ -165,6 +181,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     onPaginationHandler,
     onSortChange,
     onFilterChange,
+  onFilterApiRequest,
     onColumnVisibilityChange,
     classes,
     fontWeight,
@@ -187,6 +204,9 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
   const [isFilterPopupOpen, setIsFilterPopupOpen] = useState(false);
   const [selectedColumnForFilter, setSelectedColumnForFilter] = useState<string | null>(null);
   const [isColumnPanelExpanded, setIsColumnPanelExpanded] = useState(false);
+  const [tempFilterValue, setTempFilterValue] = useState<string>('');
+  const [tempFilterOperator, setTempFilterOperator] = useState<string>('contains');
+  const [columnFilterStates, setColumnFilterStates] = useState<{[columnKey: string]: {operator: string, value: string}}>({});
   const filterButtonRef = useRef<HTMLButtonElement>(null);
 
   // Reset pagination when data, sort, or filter changes
@@ -219,7 +239,8 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     if (Object.keys(filterState).length > 0) {
       filtered = filtered.filter(row => {
         return Object.entries(filterState).every(([columnKey, filter]) => {
-          if (!filter.value) return true;
+          // If no value, don't filter this column (show all)
+          if (!filter.value || filter.value.trim() === '') return true;
           
           const cellValue = row[columnKey]?.toString().toLowerCase() || '';
           const filterValue = filter.value.toLowerCase();
@@ -306,14 +327,41 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
 
   const handleFilterChange = (columnKey: string, value: string, operator: string) => {
     const newFilterState = { ...filterState };
-    if (value) {
+    if (value && value.trim() !== '') {
       newFilterState[columnKey] = { value, operator: operator as any };
     } else {
       delete newFilterState[columnKey];
     }
+    console.log('Filter state updated:', newFilterState);
     setFilterState(newFilterState);
     onFilterChange?.(newFilterState);
+    
+    // Force re-render by updating a dummy state
+    setCurrentPage(1);
   };
+
+  // Update temp filter value without applying filter
+  const handleTempFilterChange = (value: string) => {
+    setTempFilterValue(value);
+    // No real-time filtering - only update when FILTER button is clicked
+  };
+
+  // Handle click outside to close popup
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isFilterPopupOpen) {
+        const target = event.target as Element;
+        if (!target.closest('.rds-fluent-grid-filter-container')) {
+          handleFilterPopupClose();
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isFilterPopupOpen]);
 
   const handleColumnVisibilityChange = (columnKey: string, isVisible: boolean) => {
     const newVisibleColumns = isVisible
@@ -333,6 +381,120 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     setIsColumnPanelExpanded(!isColumnPanelExpanded);
   };
 
+  const handleApplyFilter = () => {
+    if (selectedColumnForFilter) {
+      console.log('Applying filter:', { column: selectedColumnForFilter, value: tempFilterValue, operator: tempFilterOperator });
+      
+      // Update column-specific filter state
+      const newColumnFilterStates = { ...columnFilterStates };
+      newColumnFilterStates[selectedColumnForFilter] = {
+        operator: tempFilterOperator,
+        value: tempFilterValue
+      };
+      setColumnFilterStates(newColumnFilterStates);
+      
+      // Apply the filter (this will update the main filterState)
+      handleFilterChange(selectedColumnForFilter, tempFilterValue, tempFilterOperator);
+      
+      // Generate API request JSON from ALL active filters (including the one just applied)
+      const updatedFilterState = { ...filterState, [selectedColumnForFilter]: { value: tempFilterValue, operator: tempFilterOperator as any } };
+      const activeFilters = Object.entries(updatedFilterState)
+        .filter(([_, filter]) => filter.value && filter.value.trim() !== '')
+        .map(([columnKey, filter]) => {
+          const column = tableHeaders.find(h => h.key === columnKey);
+          return {
+            columnKey,
+            columnName: column?.name || columnKey,
+            dataType: column?.dataType || 'string',
+            operator: filter.operator,
+            value: filter.value,
+            id: `${columnKey}_${Date.now()}`
+          } as FilterCondition;
+        });
+      
+      const filterApiRequest: FilterApiRequest = {
+        filters: activeFilters,
+        logicalOperator: 'AND',
+        page: currentPage,
+        pageSize: recordsPerPage,
+        sortBy: sortColumn || undefined,
+        sortDirection: sortColumn ? (sortDirection === 'asc' ? 'ASC' : 'DESC') : undefined
+      };
+      
+      console.log('All active filters:', updatedFilterState);
+      console.log('API Request JSON:', JSON.stringify(filterApiRequest, null, 2));
+      onFilterApiRequest?.(filterApiRequest);
+    }
+    setIsFilterPopupOpen(false);
+  };
+
+  const handleClearFilter = () => {
+    if (selectedColumnForFilter) {
+      // Clear only the current column's filter, preserve others
+      const newFilterState = { ...filterState };
+      delete newFilterState[selectedColumnForFilter];
+      
+      const newColumnFilterStates = { ...columnFilterStates };
+      delete newColumnFilterStates[selectedColumnForFilter];
+      
+      // Generate API request JSON from remaining active filters
+      const activeFilters = Object.entries(newFilterState)
+        .filter(([_, filter]) => filter.value && filter.value.trim() !== '')
+        .map(([columnKey, filter]) => {
+          const column = tableHeaders.find(h => h.key === columnKey);
+          return {
+            columnKey,
+            columnName: column?.name || columnKey,
+            dataType: column?.dataType || 'string',
+            operator: filter.operator,
+            value: filter.value,
+            id: `${columnKey}_${Date.now()}`
+          } as FilterCondition;
+        });
+      
+      const filterApiRequest: FilterApiRequest = {
+        filters: activeFilters,
+        logicalOperator: 'AND',
+        page: currentPage,
+        pageSize: recordsPerPage,
+        sortBy: sortColumn || undefined,
+        sortDirection: sortColumn ? (sortDirection === 'asc' ? 'ASC' : 'DESC') : undefined
+      };
+      
+      console.log('Clearing filter for column:', selectedColumnForFilter);
+      console.log('Remaining active filters:', newFilterState);
+      console.log('API Request JSON:', JSON.stringify(filterApiRequest, null, 2));
+      
+      setFilterState(newFilterState);
+      setColumnFilterStates(newColumnFilterStates);
+      onFilterChange?.(newFilterState);
+      onFilterApiRequest?.(filterApiRequest);
+    }
+    setTempFilterValue('');
+    setTempFilterOperator('contains');
+    setIsFilterPopupOpen(false);
+  };
+
+  const handleFilterIconClick = (columnKey: string) => {
+    console.log('Filter icon clicked for column:', columnKey);
+    setSelectedColumnForFilter(columnKey);
+    
+    // Load column-specific filter state
+    const columnFilterState = columnFilterStates[columnKey] || { operator: 'contains', value: '' };
+    setTempFilterValue(columnFilterState.value);
+    setTempFilterOperator(columnFilterState.operator);
+    setIsFilterPopupOpen(true);
+    console.log('Filter popup should be open: true');
+  };
+
+  const handleFilterPopupClose = () => {
+    console.log('Closing filter popup and clearing temp values');
+    setIsFilterPopupOpen(false);
+    setTempFilterValue('');
+    setTempFilterOperator('contains');
+    setSelectedColumnForFilter(null);
+  };
+
   const getVisibleHeaders = () => {
     const visible = tableHeaders.filter(header => visibleColumns.includes(header.key));
     console.log('Visible headers:', { visibleColumns, visible: visible.map(h => h.key) });
@@ -344,6 +506,10 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
 
   // Debug logging
   console.log('Filter popup state:', { isFilterPopupOpen });
+  console.log('Filter state:', filterState);
+  console.log('Filtered data length:', filteredData.length, 'Original data length:', tableData.length);
+  console.log('Sample data:', tableData.slice(0, 2));
+  console.log('Sample filtered data:', filteredData.slice(0, 2));
 
   const currentTheme = theme === 'dark' ? webDarkTheme : webLightTheme;
 
@@ -476,126 +642,177 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                 e.preventDefault();
                                 e.stopPropagation();
                                 console.log('Filter icon clicked for column:', header.key);
-                                setSelectedColumnForFilter(header.key);
-                                setIsFilterPopupOpen(!isFilterPopupOpen);
+                                handleFilterIconClick(header.key);
+                              }}
+                              style={{ 
+                                color: filterState[header.key]?.value ? '#0078d4' : '#666',
+                                backgroundColor: filterState[header.key]?.value ? '#e6f3ff' : 'transparent'
                               }}
                             />
                             {isFilterPopupOpen && (
                               <div className="rds-fluent-grid-filter-popup">
                                 <div className="rds-fluent-grid-filter-popup-header">
-                                  <Text weight="semibold">Grid Controls</Text>
+                                  <Text weight="semibold" size={100}>Controls</Text>
                                   <Button
                                     appearance="subtle"
                                     size="small"
                                     icon={<DismissRegular />}
-                                    onClick={() => setIsFilterPopupOpen(false)}
+                                    onClick={handleFilterPopupClose}
+                                    style={{ minWidth: '16px', height: '16px', padding: '0' }}
                                   />
                                 </div>
                                 
-                                {/* Column Visibility - Accordion Panel */}
-                                <div className="rds-fluent-grid-filter-section">
-                                  <div 
-                                    className="rds-fluent-grid-column-header"
+                                {/* Column Visibility Toggle */}
+                                <div style={{ marginBottom: '2px' }}>
+                                  <Button
+                                    appearance="subtle"
+                                    size="small"
                                     onClick={handleColumnPanelToggle}
-                                    onKeyDown={(e) => {
-                                      if (e.key === 'Enter' || e.key === ' ') {
-                                        e.preventDefault();
-                                        handleColumnPanelToggle();
-                                      }
+                                    style={{ 
+                                      fontSize: '8px', 
+                                      padding: '1px 2px',
+                                      height: '16px',
+                                      width: '100%'
                                     }}
-                                    role="button"
-                                    tabIndex={0}
                                   >
-                                    <Text weight="medium">Show/Hide Columns</Text>
-                                    {isColumnPanelExpanded ? <ArrowUpRegular /> : <ArrowDownRegular />}
-                                  </div>
-                                  
-                                  {/* Collapsible Column List */}
+                                    {isColumnPanelExpanded ? 'Hide' : 'Show'} Columns
+                                  </Button>
                                   {isColumnPanelExpanded && (
-                                    <div className="rds-fluent-grid-column-panel">
+                                    <div style={{ 
+                                      marginTop: '2px', 
+                                      maxHeight: '60px', 
+                                      overflowY: 'auto',
+                                      border: '1px solid #e1e1e1',
+                                      borderRadius: '2px',
+                                      padding: '2px'
+                                    }}>
                                       {tableHeaders.map((col) => (
                                         <div 
                                           key={col.key} 
-                                          className="rds-fluent-grid-column-panel-item"
-                                          onClick={() => {
-                                            const isCurrentlyVisible = visibleColumns.includes(col.key);
-                                            handleColumnVisibilityChange(col.key, !isCurrentlyVisible);
+                                          style={{ 
+                                            display: 'flex', 
+                                            alignItems: 'center', 
+                                            gap: '2px',
+                                            padding: '1px',
+                                            fontSize: '8px'
                                           }}
-                                          style={{ cursor: 'pointer' }}
                                         >
-                                          <Checkbox
+                                          <input
+                                            type="checkbox"
                                             checked={visibleColumns.includes(col.key)}
-                                            onChange={(_, data) => {
-                                              handleColumnVisibilityChange(col.key, Boolean(data.checked));
-                                            }}
+                                            onChange={(e) => handleColumnVisibilityChange(col.key, e.target.checked)}
+                                            style={{ width: '10px', height: '10px' }}
                                           />
-                                          <Text>{col.name}</Text>
+                                          <span style={{ fontSize: '8px' }}>{col.name}</span>
                                         </div>
                                       ))}
                                     </div>
                                   )}
                                 </div>
                                 
-                                <Divider />
-                                
-                                {/* Filters - Only for Selected Column */}
+                                {/* Simple Filter Controls */}
                                 {selectedColumnForFilter && (
                                   <div className="rds-fluent-grid-filter-section">
-                                    <Text weight="medium">Filter: {tableHeaders.find(h => h.key === selectedColumnForFilter)?.name}</Text>
                                     {(() => {
                                       const col = tableHeaders.find(h => h.key === selectedColumnForFilter);
                                       if (!col || !col.isFilter) return null;
                                       
-                                      const hasFilter = filterState[col.key]?.value;
                                       return (
-                                        <div 
-                                          className={`rds-fluent-grid-filter-item ${hasFilter ? 'rds-fluent-grid-filter-item-active' : ''}`}
-                                        >
-                                          <Text className="rds-fluent-grid-filter-label">{col.name}</Text>
-                                          <div className="rds-fluent-grid-filter-controls">
-                                            <Input
-                                              placeholder="Filter..."
-                                              value={filterState[col.key]?.value || ''}
-                                              onChange={(_, data) => 
-                                                handleFilterChange(col.key, data.value, 'contains')
-                                              }
-                                            />
-                                            <div className="rds-fluent-grid-filter-operator-container">
-                                              <ArrowSortRegular className="rds-fluent-grid-filter-operator-icon" />
+                                        <div className="rds-fluent-grid-filter-item">
                                               <select
-                                                value={filterState[col.key]?.operator || 'contains'}
-                                                onChange={(e) => 
-                                                  handleFilterChange(
-                                                    col.key, 
-                                                    filterState[col.key]?.value || '', 
-                                                    e.target.value
-                                                  )
-                                                }
-                                                className="rds-fluent-grid-filter-operator"
+                                            value={tempFilterOperator}
+                                            onChange={(e) => {
+                                              setTempFilterOperator(e.target.value);
+                                              // No real-time filtering - only update when FILTER button is clicked
+                                            }}
+                                            style={{ 
+                                              marginBottom: '2px', 
+                                              width: '100%', 
+                                              fontSize: '9px', 
+                                              padding: '1px',
+                                              height: '18px'
+                                            }}
                                               >
                                                 <option value="contains">Contains</option>
                                                 <option value="equals">Equals</option>
                                                 <option value="startsWith">Starts with</option>
                                                 <option value="endsWith">Ends with</option>
-                                                <option value="greaterThan">Greater than</option>
-                                                <option value="lessThan">Less than</option>
                                               </select>
-                                            </div>
+                                          <Input
+                                            placeholder="Value..."
+                                            value={tempFilterValue}
+                                            onChange={(_, data) => handleTempFilterChange(data.value)}
+                                            size="small"
+                                            style={{ 
+                                              marginBottom: '2px', 
+                                              fontSize: '9px',
+                                              height: '18px'
+                                            }}
+                                          />
+                                          <div style={{ display: 'flex', gap: '2px' }}>
+                                            <Button
+                                              appearance="primary"
+                                              size="small"
+                                              onClick={() => {
+                                                handleApplyFilter();
+                                                handleFilterPopupClose();
+                                              }}
+                                              style={{ 
+                                                flex: 1, 
+                                                fontSize: '8px', 
+                                                padding: '1px 2px',
+                                                height: '16px',
+                                                minWidth: '0'
+                                              }}
+                                            >
+                                              FILTER
+                                            </Button>
+                                            <Button
+                                              appearance="secondary"
+                                              size="small"
+                                              onClick={() => {
+                                                handleClearFilter();
+                                                handleFilterPopupClose();
+                                              }}
+                                              style={{ 
+                                                flex: 1, 
+                                                fontSize: '8px', 
+                                                padding: '1px 2px',
+                                                height: '16px',
+                                                minWidth: '0'
+                                              }}
+                                            >
+                                              CLEAR
+                                            </Button>
                                           </div>
+                                          
+                                          {/* Clear All Filters Button */}
+                                          {Object.keys(filterState).length > 0 && (
+                                            <Button
+                                              appearance="subtle"
+                                              size="small"
+                                              onClick={() => {
+                                                setFilterState({});
+                                                setColumnFilterStates({});
+                                                onFilterChange?.({});
+                                                onFilterApiRequest?.({ filters: [], logicalOperator: 'AND' });
+                                                handleFilterPopupClose();
+                                                console.log('Cleared all filters');
+                                              }}
+                                              style={{ 
+                                                width: '100%',
+                                                fontSize: '7px',
+                                                height: '14px',
+                                                marginTop: '2px',
+                                                color: '#d32f2f'
+                                              }}
+                                            >
+                                              CLEAR ALL
+                                            </Button>
+                                          )}
                                         </div>
                                       );
                                     })()}
-                                    
-                                    {Object.keys(filterState).length > 0 && (
-                                      <Button
-                                        appearance="subtle"
-                                        size="small"
-                                        onClick={clearAllFilters}
-                                        className="rds-fluent-grid-clear-all"
-                                      >
-                                        Clear All Filters
-                                      </Button>
-                                    )}
                                   </div>
                                 )}
                               </div>

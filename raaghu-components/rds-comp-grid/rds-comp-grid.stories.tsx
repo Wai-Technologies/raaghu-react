@@ -7,9 +7,9 @@ const meta: Meta = {
 	component: RdsGrid,
 	parameters: {
 		layout: "padded",
-		 controls: {
-     		exclude: ['fontWeight','enablecheckboxselection','enableRadioButtonselection','illustration','noDataTitle','classes','swapRows','options','isSwap','actions','isClickable','recordsPerPageSelectListOption','onActionSelection','onRowSelect','onRowClick','onPaginationHandler','totalRecords','actionColumnStyle','showAddNewColumn','actionPosition'],
-    	},
+		controls: {
+			exclude: ['fontWeight','enablecheckboxselection','enableRadioButtonselection','illustration','noDataTitle','classes','swapRows','options','isSwap','actions','isClickable','recordsPerPageSelectListOption','onActionSelection','onRowSelect','onRowClick','onPaginationHandler','totalRecords','actionColumnStyle','showAddNewColumn','actionPosition'],
+		},
 		docs: {
 			description: {
 				component:
@@ -46,7 +46,7 @@ export const Standard: Story = {
 				 filter: true,
 				 key: 'author',
 				 required: true,
-          resizable: true,
+				 resizable: true,
 				 sortable: true
 			 },
 			 {
@@ -56,7 +56,7 @@ export const Standard: Story = {
 				 filter: true,
 				 key: 'year',
 				 required: true,
-          resizable: true,
+				 resizable: true,
 				 sortable: true
 			 },
 			 {
@@ -66,7 +66,7 @@ export const Standard: Story = {
 				 filter: true,
 				 key: 'publisher',
 				 required: true,
-          resizable: true,
+				 resizable: true,
 				 sortable: true
 			 },
 			 {
@@ -76,7 +76,7 @@ export const Standard: Story = {
 				 filter: true,
 				 key: 'status',
 				 required: true,
-          resizable: true,
+				 resizable: true,
 				 sortable: true
 			 },
 			 {
@@ -86,7 +86,7 @@ export const Standard: Story = {
 				 filter: true,
 				 key: 'value',
 				 required: true,
-          resizable: true,
+				 resizable: true,
 				 sortable: true
 			 }
 		 ],

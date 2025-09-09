@@ -49,6 +49,7 @@
     "@types/react-datepicker": "^7.0.0",
     "@types/react-measure": "^2.0.12",
     "chart.js": "^4.5.0",
+    "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
