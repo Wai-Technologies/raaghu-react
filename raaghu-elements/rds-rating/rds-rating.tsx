@@ -28,15 +28,32 @@ const RdsRating = ({
 }: RdsRatingProps) => {
   const maxRating = max || maxStars;
   
+  // For slider type, only allow 0, 2.5, 5
+  const allowedSliderValues = [0, 2.5, 5];
+
+  // Helper to snap to nearest allowed value
+  function snapToAllowed(val: number | null | undefined): number {
+    if (val === null || val === undefined) return 0;
+    return allowedSliderValues.reduce((prev, curr) => Math.abs(curr - val!) < Math.abs(prev - val!) ? curr : prev);
+  }
+
   // Internal state to manage the current rating value
   const [internalValue, setInternalValue] = useState<number | null>(() => {
-    // Initialize with level, value, or null
-    if (level !== undefined) {
-      const levelVal = getLevelValue(level);
-      return levelVal !== undefined ? levelVal : null;
+    if (type === 'slider') {
+      if (level !== undefined) {
+        const levelVal = getLevelValue(level);
+        return snapToAllowed(levelVal);
+      }
+      if (value !== undefined) return snapToAllowed(value);
+      return 0;
+    } else {
+      if (level !== undefined) {
+        const levelVal = getLevelValue(level);
+        return levelVal !== undefined ? levelVal : null;
+      }
+      if (value !== undefined) return value;
+      return null;
     }
-    if (value !== undefined) return value;
-    return null;
   });
   
   // Convert string level values to numbers
@@ -47,22 +64,39 @@ const RdsRating = ({
     return level;
   }
   
+
   // Determine the current value based on priority: internal state > level > value prop
-  const currentValue = internalValue !== null ? internalValue : 
-                      (level !== undefined ? getLevelValue(level) : value);
-  
-  // Set precision based on level increments or props
-  const precision = level !== undefined ? 0.5 : (props.precision || 1);
+  let currentValue: number | null = internalValue;
+  if (type === 'slider') {
+    currentValue = snapToAllowed(currentValue);
+  } else {
+    if (currentValue === null && level !== undefined) {
+      const lvl = getLevelValue(level);
+      currentValue = lvl !== undefined ? lvl : null;
+    }
+    if (currentValue === null && value !== undefined) currentValue = value;
+  }
+
+  const precision = type === 'slider' ? undefined : (level !== undefined ? 0.5 : (props.precision || 1));
 
   // Update internal state when external value or level changes
   useEffect(() => {
-    if (level !== undefined) {
-      const levelVal = getLevelValue(level);
-      setInternalValue(levelVal !== undefined ? levelVal : null);
-    } else if (value !== undefined && internalValue === null) {
-      setInternalValue(value);
+    if (type === 'slider') {
+      if (level !== undefined) {
+        const levelVal = getLevelValue(level);
+        setInternalValue(snapToAllowed(levelVal));
+      } else if (value !== undefined) {
+        setInternalValue(snapToAllowed(value));
+      }
+    } else {
+      if (level !== undefined) {
+        const levelVal = getLevelValue(level);
+        setInternalValue(levelVal !== undefined ? levelVal : null);
+      } else if (value !== undefined && internalValue === null) {
+        setInternalValue(value);
+      }
     }
-  }, [value, level]);
+  }, [value, level, type]);
 
   // Custom onChange handler for star rating with toggle functionality
   const handleStarChange = (event: React.SyntheticEvent, newValue: number | null) => {
@@ -82,11 +116,10 @@ const RdsRating = ({
     }
   };
 
-  // Custom onChange handler for slider
+  // Custom onChange handler for slider (snap to nearest allowed value)
   const handleSliderChange = (event: Event | React.SyntheticEvent, newValue: number | number[]) => {
-    const value = Array.isArray(newValue) ? newValue[0] : newValue;
-    
-    // Always update internal state
+    let value = Array.isArray(newValue) ? newValue[0] : newValue;
+    value = snapToAllowed(value);
     setInternalValue(value);
     
     if (onChange) {
@@ -109,7 +142,7 @@ const RdsRating = ({
     <MuiRating
       max={maxRating}
       value={currentValue}
-      precision={precision}
+      precision={precision === undefined ? undefined : precision}
       onChange={handleStarChange}
       className={`rds-rating__stars rds-rating__stars--${styles} ${colorVariant ? `rds-rating__stars--color-${colorVariant}` : ''}`}
       emptyIcon={styles === 'filled' ? <StarIcon className="rds-rating__star-icon rds-rating__star-icon--empty" fontSize="inherit" /> : undefined}
