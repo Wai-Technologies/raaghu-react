@@ -26,7 +26,7 @@ export const Default: Story = {
     args: {
         id: "chart pie",
         radius: 100,
-        labels: ["red", "Orange", "Yellow", "Green", "Blue"],
+        labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
         options: {
             circumference: 360,
             maintainAspectRatio: false,
