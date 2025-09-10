@@ -712,3 +712,254 @@
 .rds-kanban-board__sub-card-footer-left.f-12.fw-500 {
   color: #000000 !important;
 }
+
+body[data-bs-theme="dark"],
+html[data-theme="dark"],
+.dark,
+.theme-dark {
+  --dark-surface: #1e1e1e;
+  --dark-surface-variant: #2a2a2a;
+  --dark-on-surface: #ffffff;
+  --dark-on-surface-variant: #e0e0e0;
+  --dark-primary: #3c98ff;
+  --dark-primary-container: #2d1b69;
+  --dark-outline: #444444;
+  --dark-outline-variant: #555555;
+  --dark-text-secondary: #cccccc;
+  --dark-hover-alpha: rgba(60, 152, 255, 0.08);
+  --dark-selected-alpha: rgba(60, 152, 255, 0.12);
+  --dark-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  
+  .rds-kanban-board-container {
+    background-color: transparent;
+  }
+  
+  .kanban-board {
+    &__card,
+    &__card--add-board-320,
+    &__card--add-board-280,
+    &__card-content,
+    .card,
+    .card-body {
+      background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+      border-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
+    }
+    
+    &__card-header,
+    .card-header {
+      background-color: var(--rds-color-primary-container, var(--dark-primary-container)) !important;
+      color: var(--rds-color-on-primary-container, var(--dark-on-surface)) !important;
+      border-bottom-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
+    }
+    
+    .sub-card .card,
+    .sub-card .card-body,
+    .rds-kanban-board__sub-card-card {
+      background-color: var(--rds-color-surface-variant, var(--dark-surface-variant)) !important;
+      color: var(--rds-color-on-surface-variant, var(--dark-on-surface-variant)) !important;
+      border-color: var(--rds-color-outline-variant, var(--dark-outline-variant)) !important;
+    }
+    
+    .MuiCard-root,
+    .MuiCardContent-root,
+    .MuiPaper-root {
+      background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+    }
+    
+    .MuiTypography-root {
+      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+    }
+  }
+  
+  .add-board {
+    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+    border-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
+  }
+  
+  .rds-kanban-board__input-field,
+  .rds-kanban-board__autocomplete,
+  .MuiOutlinedInput-root {
+    .MuiOutlinedInput-root,
+    &.MuiOutlinedInput-root {
+      background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+      
+      fieldset,
+      .MuiOutlinedInput-notchedOutline {
+        border-color: var(--rds-color-outline, #666666) !important;
+      }
+      
+      &:hover fieldset,
+      &:hover .MuiOutlinedInput-notchedOutline {
+        border-color: var(--rds-color-primary, var(--dark-primary)) !important;
+      }
+      
+      &.Mui-focused fieldset,
+      &.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: var(--rds-color-primary, var(--dark-primary)) !important;
+      }
+    }
+    
+    .MuiInputLabel-root {
+      color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
+      
+      &.Mui-focused {
+        color: var(--rds-color-primary, var(--dark-primary)) !important;
+      }
+    }
+  }
+  
+  .rds-kanban-board__add-button,
+  .add-item-btn .btn {
+    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+    color: var(--rds-color-primary, var(--dark-primary)) !important;
+    border-color: var(--rds-color-primary, var(--dark-primary)) !important;
+    
+    &:hover {
+      background-color: var(--rds-color-primary-hover, var(--dark-hover-alpha)) !important;
+    }
+  }
+  
+  .MuiMenu-root .MuiPaper-root,
+  .MuiPopover-root .MuiPaper-root,
+  .rds-kanban-board__menu-paper,
+  .rds-kanban-board__select-menu .MuiPaper-root,
+  .rds-kanban-board__autocomplete-paper {
+    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+    border: 1px solid var(--rds-color-outline-variant, var(--dark-outline)) !important;
+    box-shadow: var(--dark-box-shadow) !important;
+  }
+  
+  .MuiMenu-list,
+  .MuiAutocomplete-listbox {
+    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+    padding: 4px 0 !important;
+    max-height: 200px !important;
+  }
+  
+  .MuiMenuItem-root,
+  .rds-kanban-board__menu-item,
+  .MuiAutocomplete-option {
+    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+    background-color: transparent !important;
+    padding: 8px 16px !important;
+    
+    &:hover,
+    &.Mui-focusVisible,
+    &.Mui-focused {
+      background-color: var(--rds-color-primary-hover, var(--dark-hover-alpha)) !important;
+      color: var(--rds-color-primary, var(--dark-primary)) !important;
+    }
+    
+    &.Mui-selected,
+    &[aria-selected="true"] {
+      background-color: var(--rds-color-primary-container, var(--dark-selected-alpha)) !important;
+      color: var(--rds-color-primary, var(--dark-primary)) !important;
+      
+      &:hover {
+        background-color: rgba(60, 152, 255, 0.16) !important;
+      }
+    }
+  }
+  
+  .MuiAutocomplete-noOptions {
+    color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
+  }
+  
+  .MuiSelect-root {
+    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+    
+    .MuiSelect-icon {
+      color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
+    }
+  }
+  
+  .MuiChip-root {
+    background-color: var(--rds-color-primary-container, var(--dark-selected-alpha)) !important;
+    color: var(--rds-color-primary, var(--dark-primary)) !important;
+    
+    .MuiChip-deleteIcon {
+      color: var(--rds-color-primary, var(--dark-primary)) !important;
+      
+      &:hover {
+        color: var(--rds-color-on-primary-container, var(--dark-on-surface)) !important;
+      }
+    }
+  }
+  .rds-kanban-board__sub-card-header-left .MuiTypography-root {
+    color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
+  }
+  
+  .rds-kanban-board__sub-card-text.f-14.fw-400 {
+    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+  }
+  
+  .rds-kanban-board__sub-card-footer-left.f-12.fw-500 {
+    color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
+  }
+}
+.MuiMenu-list,
+.MuiAutocomplete-listbox,
+.MuiSelect-root .MuiMenu-list,
+.rds-kanban-board__select-menu .MuiMenu-list,
+.rds-kanban-board__autocomplete-paper .MuiAutocomplete-listbox,
+.MuiList-root,
+.MuiMenuList-root,
+.MuiSelect-select,
+.MuiPaper-root,
+[role="listbox"],
+[role="menu"],
+.kanban-board *,
+.rds-kanban-board-container * {
+  &::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+  
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-thumb,
+  &::-webkit-scrollbar-corner {
+    display: none !important;
+    background: transparent !important;
+  }
+  
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  overflow: -moz-scrollbars-none !important;
+}
+
+.MuiPopover-root,
+.MuiMenu-root,
+.MuiPopover-paper,
+.MuiMenu-paper,
+.MuiPaper-elevation8,
+.MuiPaper-elevation16,
+div[role="presentation"],
+ul[role="listbox"],
+div[role="menu"],
+.MuiModal-root {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  
+  &::-webkit-scrollbar,
+  & *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+  
+  .MuiPaper-root,
+  .MuiMenu-list,
+  .MuiAutocomplete-listbox,
+  * {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+}

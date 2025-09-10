@@ -1,3 +1,5 @@
+@use "sass:list";
+
 // RDS Badge Component Styles
 .rds-badge {
   position: relative;
@@ -104,35 +106,35 @@
   @each $key, $value in $rds-badge-colors {
     // Primary style for custom pill
     &.rds-badge--primary.rds-badge--#{$key} > .rds-badge__badge {
-      // color: nth($value, 1);
-      // background-color: nth($value, 2);
+      color: list.nth($value, 1);
+      background-color: list.nth($value, 2);
       border: none;
     }
     
     // Primary style for MUI Badge overlay
     &.rds-badge--primary.rds-badge--#{$key} .MuiBadge-badge {
-      background-color: nth($value, 1) !important;
+      background-color: list.nth($value, 1) !important;
       color: #ffffff !important;
     }
 
     // Outline style for custom pill
     &.rds-badge--outline.rds-badge--#{$key} > .rds-badge__badge {
-      // color: nth($value, 1);
+      color: list.nth($value, 1);
       background-color: transparent;
-      // border: 2px solid nth($value, 1);
+      border: 2px solid list.nth($value, 1);
       box-shadow: none;
     }
     
     // Outline style for MUI Badge overlay
     &.rds-badge--outline.rds-badge--#{$key} .MuiBadge-badge {
       background-color: transparent !important;
-      color: nth($value, 1) !important;
-      border: 2px solid nth($value, 1) !important;
+      color: list.nth($value, 1) !important;
+      border: 2px solid list.nth($value, 1) !important;
     }
 
     // Transparent style for custom pill
     &.rds-badge--transparent.rds-badge--#{$key} > .rds-badge__badge {
-      // color: nth($value, 1);
+      color: list.nth($value, 1);
       background-color: transparent;
       border: none;
       box-shadow: none;
@@ -141,27 +143,10 @@
     // Transparent style for MUI Badge overlay
     &.rds-badge--transparent.rds-badge--#{$key} .MuiBadge-badge {
       background-color: transparent !important;
-      color: nth($value, 1) !important;
+      color: list.nth($value, 1) !important;
       border: none !important;
       box-shadow: none !important;
     }
-  }
-  &--primary > .rds-badge__badge {
-    background: #e0c7ff;
-    color: #6c2eb7;
-    border: none;
-  }
-  &--outline > .rds-badge__badge {
-    background: transparent;
-    color: #6c2eb7;
-    border: 2px solid #6c2eb7;
-    box-shadow: none;
-  }
-  &--transparent > .rds-badge__badge {
-    background: transparent !important;
-    color: #6c2eb7;
-    border: none !important;
-    box-shadow: none !important;
   }
   &--rectangle > .rds-badge__badge {
     border-radius: 4px !important;

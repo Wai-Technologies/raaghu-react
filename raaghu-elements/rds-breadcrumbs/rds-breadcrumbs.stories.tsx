@@ -96,6 +96,7 @@ export const Simple: Story = {
     showIcon: false,
     state: 'default',
     level: 'level2',
+    separatorType: BreadcrumbSeparator.GreaterThan,
   },
 };
 

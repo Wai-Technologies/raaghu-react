@@ -4,6 +4,7 @@
 .rds-banner {
   display: flex;
   align-items: center;
+  position: relative;
   padding: var(--rds-spacing-sm) var(--rds-spacing-md);
   background-color: var(--rds-background-surface);
   border: 1px solid var(--rds-border-default);
@@ -74,6 +75,67 @@
     color: var(--rds-alert-error-text);
   }
 
+  // Dark theme support for better visibility
+  .dark-theme &,
+  [data-theme="dark"] & {
+    &:not(:global(.MuiAlert-outlined)) {
+      border: none;
+    }
+    
+    // Info variant for dark theme
+    &.rds-banner--info {
+      background-color: rgba(33, 150, 243, 0.1);
+      border-color: #2196f3;
+      color: #90caf9;
+    }
+    
+    // Success variant for dark theme
+    &.rds-banner--success {
+      background-color: rgba(76, 175, 80, 0.1);
+      border-color: #4caf50;
+      color: #c8e6c9;
+    }
+    
+    // Warning variant for dark theme
+    &.rds-banner--warning {
+      background-color: rgba(255, 193, 7, 0.1);
+      border-color: #ffc107;
+      color: #fff3c4;
+    }
+    
+    // Error variant for dark theme
+    &.rds-banner--error {
+      background-color: rgba(244, 67, 54, 0.1);
+      border-color: #f44336;
+      color: #ffcdd2;
+    }
+    
+    // Universal button text fixes for dark theme
+    .rds-banner__link-button,
+    .rds-banner__secondary-button {
+      color: var(--rds-text-primary, #ffffff) !important;
+    }
+    
+    .rds-banner__primary-button {
+      background-color: var(--rds-primary-main, #2196f3) !important;
+      color: #ffffff !important;
+    }
+
+    // Position the close button absolutely in dark theme so it sits closer to actions
+    .rds-banner__close-button {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 0; /* override any previous left margin */
+    }
+    
+    // Move action buttons left to make room for the absolutely positioned close icon
+    .rds-banner__actions {
+      margin-right: 40px; /* space for close icon */
+    }
+  }
+
   // Full width banner
   &--full-width {
     width: 100%;
@@ -93,6 +155,12 @@
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: var(--rds-alert-warning-border); 
+    
+    // Dark theme support for style1 border
+    .dark-theme &,
+    [data-theme="dark"] & {
+      border-bottom-color: var(--rds-border-default, #495057);
+    }
   }
 
   &--style3 {
@@ -112,6 +180,26 @@
     
     &.rds-banner--error {
       border-left-color: var(--rds-alert-error-border);
+    }
+    
+    // Dark theme support for style3 left border
+    .dark-theme &,
+    [data-theme="dark"] & {
+      &.rds-banner--info {
+        border-left-color: #2196f3;
+      }
+      
+      &.rds-banner--success {
+        border-left-color: #4caf50;
+      }
+      
+      &.rds-banner--warning {
+        border-left-color: #ffc107;
+      }
+      
+      &.rds-banner--error {
+        border-left-color: #f44336;
+      }
     }
   }
 
@@ -145,6 +233,32 @@
     box-shadow: none;
   }
 
+  // Dark theme overrides for MUI Alert components
+  .dark-theme &,
+  [data-theme="dark"] & {
+    :global(.MuiAlert-icon) {
+      color: inherit;
+    }
+    
+    :global(.MuiAlert-action .MuiIconButton-root) {
+      color: var(--rds-text-primary, #ffffff);
+    }
+    
+    // Fix filled variant visibility in dark theme
+    &:global(.MuiAlert-filled) {
+      background-color: var(--rds-background-surface, #424242) !important;
+      color: var(--rds-text-primary, #ffffff) !important;
+      border: 1px solid var(--rds-border-default, #666) !important;
+    }
+    
+    // Fix outlined variant visibility in dark theme  
+    &:global(.MuiAlert-outlined) {
+      background-color: transparent !important;
+      color: var(--rds-text-primary, #ffffff) !important;
+      border: 1px solid var(--rds-border-default, #666) !important;
+    }
+  }
+
   // Banner content layout
   &__content-wrapper {
     display: flex;
@@ -164,12 +278,18 @@
 
   // Close button styling
   &__close-button {
-    margin-top: -4px;
+    position: absolute;
+    right: 5px;
+    transform: translateY(-10%);
   }
 
   // Button specific styling
   &__link-button {
-    margin-right: -9px;
+    text-decoration: underline !important;
+    position: absolute;
+    right: -16px;
+    top: 3px;
+    transform: translateY(-10%);
   }
 
   &__secondary-button {
@@ -214,4 +334,13 @@
     .rds-banner__description { font-size: 1.2rem; }
     .rds-banner__primary-button { height: 32px; }
   }
+}
+// Story-scoped override: only affect banners that opt-in via `className` (WithActions story)
+:global(.rds-banner--with-actions .MuiAlert-action),
+:global(.rds-banner--with-actions [class*="MuiAlert-action"]) {
+  padding: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  align-items: center !important;
+  display: flex !important;
 }
