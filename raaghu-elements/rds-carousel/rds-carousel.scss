@@ -219,6 +219,28 @@
   }
 }
 
+/* Storybook preview scrollbar suppression on small screens */
+@media (max-width: 320px) {
+  /* Try to target the iframe root and common storybook wrappers where the scrollbar appears */
+  html, body, .sb-show-main, .sb-previewBlock, .sb-previewBlock_body, .sb-wrapper {
+    overflow: hidden !important;
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+    // width: 107% !important;
+  }
+
+  html::-webkit-scrollbar, body::-webkit-scrollbar, #storybook-root::-webkit-scrollbar, .sb-show-main::-webkit-scrollbar, .sb-previewBlock_body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .css-rw2a2n {
+    height: 109% !important;
+  }
+}
 // Responsive design - Tablet and mobile
 @media (max-width: 768px) {
   .rds-carousel {
@@ -375,8 +397,8 @@
 // Extra small screens (max 320px)
 @media (max-width: 320px) {
    .css-gu8gi0 {
-    width: 86%;
-    max-width: 86%;
+    width: 88%;
+    max-width: 88%;
     box-sizing: border-box;
   }
   .rds-carousel {
@@ -410,6 +432,7 @@
     &--with-title {
       margin: 0 4px;
       
+      height: 390px !important;
       .rds-carousel__slide-content {
         height: 390px;
       }
