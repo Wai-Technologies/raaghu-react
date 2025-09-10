@@ -188,7 +188,6 @@
       }
     }
   }
-  background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   font-family: inherit;
@@ -311,7 +310,7 @@
 
 [data-theme="dark"] {
   .rds-grid  {
-    color: #e6e6e6;
+    color: #4c4c4c !important;
 
     // Header and controls
     &__header {
