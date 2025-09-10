@@ -11,6 +11,17 @@ export interface RdsCompPieProps {
 }
 
 const RdsCompPieChart = (props: RdsCompPieProps) => {
+   const isDarkMode = () => {
+    if (typeof window !== 'undefined') {
+      return (
+        document.body.classList.contains('theme-dark') ||
+        document.body.classList.contains('dark-theme') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.getAttribute('data-theme') === 'dark'
+      );
+    }
+    return false;
+  };
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -21,6 +32,27 @@ const RdsCompPieChart = (props: RdsCompPieProps) => {
 
     // Destroy the existing chart if it exists
     Chart.getChart(canvasElm)?.destroy();
+     const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+
+    // If dark mode, set legend and title color to white
+    if (isDarkMode()) {
+      // Ensure plugins object exists
+      if (!chartOptions.plugins) chartOptions.plugins = {};
+      // Ensure legend object exists
+      if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
+      if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
+      chartOptions.plugins.legend.labels.color = "#fff";
+      // Ensure title object exists
+      if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
+      chartOptions.plugins.title.color = "#fff";
+      // Set tooltip label/title color to white if using custom tooltip
+      if (chartOptions.plugins.tooltip) {
+        chartOptions.plugins.tooltip.titleColor = "#fff";
+        chartOptions.plugins.tooltip.bodyColor = "#fff";
+        chartOptions.plugins.tooltip.labelColor = () => ({ borderColor: '#fff', backgroundColor: '#fff' });
+      }
+    }
+
 
     const pieCanvas = new Chart(ctx, {
       type: "pie",
@@ -29,7 +61,7 @@ const RdsCompPieChart = (props: RdsCompPieProps) => {
         datasets: props.dataSets,
       },
       options: {
-        ...props.options,
+        ...chartOptions,
         radius: props.radius, 
       },
     });

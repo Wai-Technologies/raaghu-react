@@ -15,7 +15,23 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const CanvasId = props.id;
 
-    const svg = ChartIcons[props.centerIconName || ""];
+    const isDarkMode = () => {
+        if (typeof window !== 'undefined') {
+            return (
+                document.body.classList.contains('theme-dark') ||
+                document.body.classList.contains('dark-theme') ||
+                document.documentElement.getAttribute('data-theme') === 'dark' ||
+                document.body.getAttribute('data-theme') === 'dark'
+            );
+        }
+        return false;
+    };
+
+    let svg = ChartIcons[props.centerIconName || ""];
+    // If dark mode, replace stroke color with white
+    if (isDarkMode() && svg) {
+        svg = svg.replace(/stroke:(#666|#666666|#6c757d|#000|#222|#333|#444|#555|#888|#999|#aaa|#bbb|#ccc|#ddd|#eee|#f8f9fa|#212529|#343a40|#495057|#adb5bd|#ced4da|#dee2e6|#e9ecef|#f1f3f5|#f8f9fa|#fff|#ffffff)/gi, 'stroke:#fff');
+    }
     const encodedSVG = btoa(unescape(encodeURIComponent(svg)));
     const dataURL = `data:image/svg+xml;base64,${encodedSVG}`;
 

@@ -241,7 +241,7 @@ export function FootballScorecardCard({
         <RdsStack direction="row" alignItems="center" justifyContent="center" className="rds-adaptive-cards__football-body">
           <RdsStack alignItems="center" className="rds-adaptive-cards__football-team rds-adaptive-cards__football-team--home">
             {homeTeam?.logo ? (
-              <RdsBox className="rds-adaptive-cards__football-logo">
+              <RdsBox className="rds-adaptive-cards__football-logo rds-adaptive-cards__football-logo--home">
                 <img src={homeTeam.logo} alt={homeTeam.name} className="rds-adaptive-cards__football-img" />
               </RdsBox>
             ) : null}
@@ -259,11 +259,11 @@ export function FootballScorecardCard({
           </RdsStack>
 
           <RdsStack alignItems="center" className="rds-adaptive-cards__football-team rds-adaptive-cards__football-team--away">
-            {awayTeam?.logo ? (
-              <RdsBox className="rds-adaptive-cards__football-logo">
-                <img src={awayTeam.logo} alt={awayTeam.name} className="rds-adaptive-cards__football-img rds-adaptive-cards__football-img--barca" />
-              </RdsBox>
-            ) : null}
+             {awayTeam?.logo ? (
+                <RdsBox className="rds-adaptive-cards__football-logo rds-adaptive-cards__football-logo--away">
+                  <img src={awayTeam.logo} alt={awayTeam.name} className="rds-adaptive-cards__football-img rds-adaptive-cards__football-img--barca" />
+                </RdsBox>
+              ) : null}
             <RdsTypography variant="body1" className="rds-adaptive-cards__football-team-name">{awayTeam?.name}</RdsTypography>
             <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-team-status">{awayTeam?.status}</RdsTypography>
           </RdsStack>

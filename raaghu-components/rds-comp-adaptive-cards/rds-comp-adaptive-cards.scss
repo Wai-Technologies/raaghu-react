@@ -47,23 +47,23 @@
     padding-bottom: var(--rds-spacing-none, 0) !important;
   }
   &__title {
-    font-size: var(--rds-font-size-2xl, 20px) !important;
-    font-weight: var(--rds-font-weight-bold, 700) !important;
-    height: var(--rds-font-size-md, 14px);
-    padding: var(--rds-spacing-none, 0) !important;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: left !important;
-    padding-top: var(--rds-spacing-none, 0) !important;
-    padding-bottom: var(--rds-spacing-none, 0) !important;
-    line-height: 1.1 !important;
-    font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
-    .dark-theme &,
-    [data-theme="dark"] & {
-      color: var(--rds-text-primary, #fff) !important;
-    }
+        font-size: var(--rds-font-size-2xl, 20px) !important;
+      font-weight: var(--rds-font-weight-bold, 700) !important;
+      /* Remove fixed height to allow text to show fully */
+      padding: var(--rds-spacing-none, 0) !important;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: left !important;
+      padding-top: 4px !important;
+      padding-bottom: var(--rds-spacing-none, 0) !important;
+      line-height: 1.1 !important;
+      font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
+      .dark-theme &,
+      [data-theme="dark"] & {
+        color: var(--rds-text-primary, #fff) !important;
+      }
   }
   &__title-icon {
     width: var(--rds-font-size-xl, 20px);
@@ -160,14 +160,14 @@
     font-size: var(--rds-font-size-sm, 12px) !important;
     min-height: var(--rds-component-button-height-small, 34px) !important;
     height: var(--rds-component-button-height-small, 34px) !important;
-   font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
+  font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
     font-weight: var(--rds-font-weight-normal, 400) !important;
     text-transform: none !important;
     display: block;
     box-sizing: border-box;
     margin: var(--rds-spacing-none, 0) auto !important;
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: 95% !important;
   }
   &__actions--restaurant-order {
     display: block !important;
@@ -228,7 +228,7 @@
   }
   &__activity-update-date,
   &__activity-update-text {
-    color: var(--rds-text-secondary, #646464);
+     color: var(--rds-text-primary, #ffff) !important;
   }
   &__activity-update-date {
     font-size: var(--rds-font-size-xs, 11px);
@@ -286,6 +286,10 @@
       /* Remove duplicate font-size: var(--rds-font-size-sm, 12px); */
       /* color: var(--rds-text-primary-dark, #fff) !important; */
       /* text-shadow: var(--rds-football-league-text-shadow-dark, 0 2px 6px rgba(0,0,0,0.25), 0 0px 1px #222); */
+       .dark-theme &,
+      [data-theme="dark"] & {
+        color: #fff !important;
+      }
     }
   &__football-date {
     color: var(--rds-text-secondary, #646464);
@@ -335,11 +339,24 @@
     width: var(--rds-spacing-2xl, 80px);
     height: var(--rds-spacing-2xl, 80px);
     border-radius: 50%;
-    background: var(--rds-background-default, #fef7ff);
+    background: var(--rds-background-default, #4a4a4a);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+     &.rds-adaptive-cards__football-logo--home {
+        .dark-theme &,
+        [data-theme="dark"] & {
+          background: #4a4a4a !important;
+        }
+      }
+      /* Dark mode override for away team logo */
+      &.rds-adaptive-cards__football-logo--away {
+        .dark-theme &,
+        [data-theme="dark"] & {
+          background: #4a4a4a !important;
+        }
+      }
   }
   &__football-img {
     width: 100%;
@@ -348,6 +365,11 @@
     border: none;
     object-fit: cover;
     background: var(--rds-background-default, #f8f7f9);
+     .dark-theme &,
+    [data-theme="dark"] & {
+      background: #4a4a4a !important;
+      border: 1px solid #4a4a4a !important;
+    }
     display: block;
     &--barca {
       width: 100%;
@@ -410,12 +432,30 @@
   background: var(--rds-background-light, #fcfcfc);
   height: var(--rds-component-button-height-medium, 36px);
   padding: var(--rds-spacing-md, 8px) var(--rds-spacing-sm, 12px);
-  border: 1px solid var(--rds-border-light, #ccc);
+  border: 1.5px solid var(--rds-border-light, #C4C4C4); /* Match restaurant order form border */
+  box-sizing: border-box;
+  // Remove black border on focus/active in dark mode
+  &:focus,
+  &:active {
+    outline: none;
+    border-color: var(--rds-border-light, #C4C4C4) !important;
+    box-shadow: none !important;
+  }
 }
 .dark-theme .rds-adaptive-cards__action-btn--input-form,
 [data-theme="dark"] .rds-adaptive-cards__action-btn--input-form {
   background: var(--rds-background-dark, #525151) !important;
   color: var(--rds-text-primary-dark, #fff) !important;
+  border-color: var(--rds-border-light, #C4C4C4) !important;
+  box-shadow: none !important;
+}
+.dark-theme .rds-adaptive-cards__action-btn--input-form:focus,
+[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form:focus,
+.dark-theme .rds-adaptive-cards__action-btn--input-form:active,
+[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form:active {
+  outline: none;
+  border-color: var(--rds-border-light, #C4C4C4) !important;
+  box-shadow: none !important;
 }
 
 .rds-adaptive-cards__input-form-container {
@@ -440,6 +480,10 @@
   color: var(--rds-text-secondary, #888);
   margin-bottom: var(--rds-spacing-lg, 16px);
   font-size: var(--rds-font-size-xs, 12px);
+}
+.dark-theme .rds-adaptive-cards__input-form-small-text,
+[data-theme="dark"] .rds-adaptive-cards__input-form-small-text {
+  color: #fff !important;
 }
 .rds-adaptive-cards__input-form-field-label {
   font-size: var(--rds-font-size-md, 15px);
@@ -555,8 +599,10 @@
   font-size: var(--rds-font-size-xs, 12px) !important;
 }
 .rds-adaptive-cards__action-btn--input-form-button{
-  margin-left: 7px !important;
+  margin-left: 0px !important;
+  margin-right: 5px !important;
   font-size: 12px !important;
+  width: 96% !important;
 }
 
 // ====================
@@ -801,7 +847,14 @@
   .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title {
     font-size: 18px !important;
     font-weight: 700 !important;
+    padding-top: 4px !important;
     padding-bottom: 8px !important;
+      max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-word;
+    box-sizing: border-box;
   }
   .rds-adaptive-cards__actions--input-form .rds-adaptive-cards__title {
     font-size: var(--rds-font-size-xl, 18px) !important;
@@ -832,6 +885,14 @@
   }
   .rds-adaptive-cards__football-live {
       position: relative !important;
+      
+      /* Dark mode override for home team logo on mobile */
+      &.rds-adaptive-cards__football-logo--home {
+        .dark-theme &,
+        [data-theme="dark"] & {
+          background: #2a2a2a !important;
+        }
+      }
       left: 0 !important;
       right: 10px !important;
       margin: 0 auto 4px auto !important;
@@ -845,6 +906,12 @@
 
   .rds-adaptive-cards__football-logo {
     width: var(--rds-football-logo-size-mobile, 72px);
+     &.rds-adaptive-cards__football-logo--away {
+        .dark-theme &,
+        [data-theme="dark"] & {
+          background: #4a4a4a !important;
+        }
+      }
   
   @media (max-width: 340px) {
     .rds-adaptive-cards__football-live {
@@ -924,6 +991,12 @@
     padding: var(--rds-spacing-md, 12px) !important;
   }
   .rds-adaptive-cards__image-list {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-word;
+    box-sizing: border-box;
     grid-template-columns: repeat(2, 1fr) !important;
   }
   .rds-adaptive-cards__image-list-item {
@@ -1021,6 +1094,22 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 24px;
+     width: 100%;
+    height: 120px;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+  }
+
+  &__slot .MuiTypography-root {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   &__actions {
