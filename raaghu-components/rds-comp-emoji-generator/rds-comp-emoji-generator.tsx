@@ -47,6 +47,8 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
     sx = {},
     ...props
 }) => {
+    // Root ref so nested Popover can attach to same stacking context (toolbar dropdown)
+    const rootRef = React.useRef<HTMLDivElement | null>(null);
     // State
     const [selectedCategory, setSelectedCategory] = useState(Category);
      // Keep internal category in sync with prop changes (e.g. Storybook controls)
@@ -119,7 +121,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
     const displayEmojis = maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis;
 
     return (
-        <Box className="rds-emoji-generator" {...props}>
+    <Box ref={rootRef} className="rds-emoji-generator" {...props}>
             {Type === EmojiGeneratorType.Default && (
                 <Box className="rds-emoji-generator__search">
                     <Box className="rds-emoji-generator__search-container">
@@ -178,6 +180,8 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                             PaperProps={{ className: 'rds-emoji-generator__skin-tone-popover' }}
                             disableAutoFocus
                             disableEnforceFocus
+                            // Render inside the same dropdown (if present) to avoid z-index issues
+                            container={() => rootRef.current?.closest('.rds-comp-toolbar__dropdown') || rootRef.current || document.body}
                         >
                             <Box className="rds-emoji-generator__skin-tone-dropdown">
                                 {skinToneOptions.map(o => (
