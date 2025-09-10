@@ -32,3 +32,14 @@
     pointer-events: none;
   }
 }
+
+@media (max-width: 568px) and (min-width: 320px) {
+  .css-3k03ww, .css-1fm6jzk {
+    width: 288px !important;
+  }
+}
+@media (min-width: 414px) and (max-width: 896px) {
+  .css-3k03ww, .css-1fm6jzk {
+    width: 382px !important;
+  }
+}
