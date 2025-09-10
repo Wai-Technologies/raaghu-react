@@ -1,5 +1,6 @@
 import React from 'react';
 import { Collapse as MuiCollapse, CollapseProps, Box, Typography, IconButton } from '@mui/material';
+import './rds-collapse.scss';
 import { ExpandMore } from '@mui/icons-material';
 
 export interface RdsCollapseProps extends Omit<CollapseProps, 'children' | 'onToggle'> {
