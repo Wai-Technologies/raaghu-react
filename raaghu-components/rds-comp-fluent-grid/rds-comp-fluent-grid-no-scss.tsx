@@ -44,6 +44,9 @@ import {
   ArrowUpward as ArrowUpIcon,
   ArrowDownward as ArrowDownIcon,
   SwapVert as ArrowUpDownIcon,
+  Edit as EditIcon,
+  Delete as DeleteIcon,
+  Visibility as ViewIcon,
 } from '@mui/icons-material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -85,6 +88,8 @@ export interface FluentGridColumn {
   colWidth?: string;
   minWidth?: number;
   maxWidth?: number;
+  allowHtml?: boolean; // Allow HTML content in cells
+  renderCell?: (value: any, row: any) => React.ReactNode; // Custom cell renderer
 }
 
 export interface FluentGridAction {
@@ -92,6 +97,10 @@ export interface FluentGridAction {
   id: string;
   offId?: string;
   modalId?: string;
+  variant?: 'contained' | 'outlined' | 'text';
+  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
+  size?: 'small' | 'medium' | 'large';
+  disabled?: boolean;
 }
 
 export interface FilterState {
@@ -169,12 +178,101 @@ export interface RdsFluentGridProps {
   noDataTitle?: string;
   noDataHeaderTitle?: string;
   
-  // Theme
-  theme?: 'light' | 'dark';
   
   // Loading
   isLoading?: boolean;
 }
+
+// Action Menu Component
+const ActionMenu: React.FC<{
+  row: any;
+  actions: FluentGridAction[];
+  onActionSelection?: (rowData: any, actionId: any) => void;
+}> = ({ row, actions, onActionSelection }) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleActionClick = (actionId: string) => {
+    onActionSelection?.(row, actionId);
+    handleClose();
+  };
+
+  const getActionIcon = (actionId: string) => {
+    switch (actionId.toLowerCase()) {
+      case 'edit':
+        return <EditIcon fontSize="small" />;
+      case 'delete':
+        return <DeleteIcon fontSize="small" />;
+      case 'view':
+        return <ViewIcon fontSize="small" />;
+      default:
+        return <MoreIcon fontSize="small" />;
+    }
+  };
+
+  return (
+    <>
+      <IconButton
+        size="small"
+        onClick={handleClick}
+        sx={{
+          '&:hover': {
+            backgroundColor: 'action.hover',
+          },
+        }}
+      >
+        <MoreIcon />
+      </IconButton>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        PaperProps={{
+          sx: {
+            minWidth: 120,
+            '& .MuiMenuItem-root': {
+              fontSize: '14px',
+            },
+          },
+        }}
+      >
+        {actions.map((action) => (
+          <MenuItem
+            key={action.id}
+            onClick={() => handleActionClick(action.id)}
+            sx={{
+              '&:hover': {
+                backgroundColor: 'action.hover',
+              },
+            }}
+          >
+            <ListItemIcon sx={{ minWidth: 32 }}>
+              {getActionIcon(action.id)}
+            </ListItemIcon>
+            <ListItemText primary={action.displayName} />
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
+  );
+};
 
 const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   tableHeaders,
@@ -207,7 +305,6 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   illustration = false,
   noDataTitle = 'No data available',
   noDataHeaderTitle = 'Data Grid',
-  theme = 'light',
   isLoading = false,
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
@@ -231,7 +328,13 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
     { id: 2, column: '', operator: 'contains', value: '' }
   ]);
   const [columnFilterStates, setColumnFilterStates] = useState<{[columnKey: string]: {operator: string, value: string}}>({});
+  const [columnWidths, setColumnWidths] = useState<{[columnKey: string]: number}>({});
+  const [isResizing, setIsResizing] = useState(false);
+  const [resizingColumn, setResizingColumn] = useState<string | null>(null);
+  const [resizeStartX, setResizeStartX] = useState(0);
+  const [resizeStartWidth, setResizeStartWidth] = useState(0);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
+  const tableRef = useRef<HTMLTableElement>(null);
 
   // Filter and sort data
   const processedData = useMemo(() => {
@@ -467,6 +570,23 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
     setSelectedColumnForFilter(null);
   };
 
+  const handleResizeStart = (e: React.MouseEvent, columnKey: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const header = tableHeaders.find(h => h.key === columnKey);
+    if (header?.isResizable !== false) {
+      setIsResizing(true);
+      setResizingColumn(columnKey);
+      setResizeStartX(e.clientX);
+      setResizeStartWidth(columnWidths[columnKey] || header?.minWidth || 150);
+      
+      // Prevent text selection during resize
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'col-resize';
+    }
+  };
+
   // Handle click outside to close popup
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -483,6 +603,63 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isFilterPopupOpen, filterAnchorEl]);
+
+  // Initialize column widths
+  useEffect(() => {
+    const initialWidths: {[columnKey: string]: number} = {};
+    tableHeaders.forEach(header => {
+      if (header.colWidth) {
+        initialWidths[header.key] = parseInt(header.colWidth.replace('px', ''));
+      } else {
+        initialWidths[header.key] = header.minWidth || 100;
+      }
+    });
+    setColumnWidths(initialWidths);
+  }, [tableHeaders]);
+
+  // Handle column resizing
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isResizing && resizingColumn) {
+        const deltaX = e.clientX - resizeStartX;
+        const header = tableHeaders.find(h => h.key === resizingColumn);
+        const minWidth = header?.minWidth || 30; // Use user-defined minWidth or default to 30
+        const maxWidth = header?.maxWidth || 500;
+        
+        const requestedWidth = resizeStartWidth + deltaX;
+        const newWidth = Math.max(
+          minWidth,
+          Math.min(maxWidth, requestedWidth)
+        );
+        
+        setColumnWidths(prev => ({
+          ...prev,
+          [resizingColumn]: newWidth
+        }));
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+      setResizingColumn(null);
+      setResizeStartX(0);
+      setResizeStartWidth(0);
+      
+      // Restore cursor and user selection
+      document.body.style.userSelect = '';
+      document.body.style.cursor = '';
+    };
+
+    if (isResizing) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isResizing, resizingColumn, resizeStartX, resizeStartWidth, tableHeaders]);
 
   const handleColumnPanelToggle = () => {
     setIsColumnPanelExpanded(!isColumnPanelExpanded);
@@ -506,8 +683,8 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
     const columnToFilter = selectedColumnForFilter || filterConditions[0].column;
     
     if (columnToFilter && filterConditions[0].value) {
-      const filterValue = filterConditions[0].value instanceof Date ? 
-        filterConditions[0].value.toISOString().split('T')[0] : 
+      const filterValue = (filterConditions[0].value as any) instanceof Date ? 
+        (filterConditions[0].value as unknown as Date).toISOString().split('T')[0] : 
         filterConditions[0].value;
       
       // Update the main filter state (preserving existing filters)
@@ -822,11 +999,17 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
 
       {!isCollapsed && (
         <TableContainer component={Paper} elevation={0}>
-          <Table stickyHeader>
+          <Table stickyHeader ref={tableRef}>
             <TableHead>
               <TableRow>
                 {enableCheckboxSelection && (
-                  <TableCell padding="checkbox">
+                  <TableCell 
+                    padding="checkbox" 
+                    sx={{ 
+                      width: '50px',
+                      borderRight: '1px solid #d1d1d1',
+                    }}
+                  >
                     <Checkbox
                       checked={selectedRows.size === processedData.length && processedData.length > 0}
                       indeterminate={selectedRows.size > 0 && selectedRows.size < processedData.length}
@@ -842,7 +1025,13 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                 )}
                 
                 {enableRadioButtonSelection && (
-                  <TableCell padding="checkbox">
+                  <TableCell 
+                    padding="checkbox" 
+                    sx={{ 
+                      width: '50px',
+                      borderRight: '1px solid #d1d1d1',
+                    }}
+                  >
                     <Typography variant="caption" color="text.secondary">
                       {enableCheckboxSelection ? 'Select All' : 'Select'}
                     </Typography>
@@ -854,9 +1043,15 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                     key={header.key}
                     sx={{
                       cursor: isSort && header.isSort ? 'pointer' : 'default',
-                      minWidth: header.minWidth || 100,
-                      maxWidth: header.maxWidth || 300,
+                      width: columnWidths[header.key] || header.minWidth || 150,
+                      maxWidth: header.maxWidth || 500,
                       fontWeight: header.isBold ? 'bold' : 'normal',
+                      position: 'relative',
+                      userSelect: 'none',
+                      borderRight: '1px solid #d1d1d1',
+                      '&:last-child': {
+                        borderRight: 'none',
+                      },
                     }}
                     onClick={() => isSort && header.isSort && handleSort(header.key)}
                   >
@@ -904,11 +1099,53 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                         </Tooltip>
                       )}
                     </Stack>
+                    
+                    {/* Resize handle */}
+                    {header.isResizable !== false && (
+                      <Box
+                        role="separator"
+                        aria-label={`Resize ${header.name} column`}
+                        tabIndex={0}
+                        onMouseDown={(e) => handleResizeStart(e, header.key)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            // For keyboard users, we could implement arrow key resizing
+                            // For now, just focus the handle
+                          }
+                        }}
+                        sx={{
+                          position: 'absolute',
+                          right: 0,
+                          top: 0,
+                          bottom: 0,
+                          width: '4px',
+                          cursor: 'col-resize',
+                          backgroundColor: isResizing && resizingColumn === header.key ? 'primary.main' : 'transparent',
+                          zIndex: 10,
+                          transition: 'background-color 0.2s ease',
+                          '&:hover': {
+                            backgroundColor: 'primary.main',
+                            opacity: 0.7,
+                          },
+                          '&:focus': {
+                            outline: '2px solid',
+                            outlineColor: 'primary.main',
+                            outlineOffset: '1px',
+                          },
+                        }}
+                      />
+                    )}
                   </TableCell>
                 ))}
                 
                 {actions.length > 0 && (
-                  <TableCell>
+                  <TableCell 
+                    sx={{ 
+                      width: '100px',
+                      borderRight: 'none',
+                    }}
+                  >
                     <Typography variant="subtitle2" fontWeight="medium">
                       Actions
                     </Typography>
@@ -931,7 +1168,10 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                     sx={{ cursor: 'pointer' }}
                   >
                     {enableCheckboxSelection && (
-                      <TableCell padding="checkbox">
+                      <TableCell 
+                        padding="checkbox"
+                        sx={{ borderRight: '1px solid #d1d1d1' }}
+                      >
                         <Checkbox
                           checked={isSelected}
                           onChange={() => handleRowSelect(rowId, row)}
@@ -940,7 +1180,10 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                     )}
                     
                     {enableRadioButtonSelection && (
-                      <TableCell padding="checkbox">
+                      <TableCell 
+                        padding="checkbox"
+                        sx={{ borderRight: '1px solid #d1d1d1' }}
+                      >
                         <Radio
                           checked={isSelected}
                           onChange={() => handleRowSelect(rowId, row)}
@@ -949,54 +1192,186 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                       </TableCell>
                     )}
                     
-                    {getVisibleHeaders().map((header) => (
+                    {getVisibleHeaders().map((header) => {
+                      const cellValue = row[header.key];
+                      const cellWidth = columnWidths[header.key] || header.minWidth || 150;
+                      const minWidth = header.minWidth || 50;
+                      
+                      // Check if we should render HTML content
+                      const shouldRenderHtml = header.allowHtml && typeof cellValue === 'string' && cellValue.includes('<');
+                      const cellText = shouldRenderHtml ? '' : (cellValue?.toString() || '');
+                      
+                      // Only show tooltip if text might be truncated and not HTML
+                      const shouldShowTooltip = !shouldRenderHtml && cellText.length > 0 && cellWidth < minWidth + 50;
+                      
+                      // Use custom renderer if provided
+                      if (header.renderCell) {
+                        return (
                       <TableCell
                         key={header.key}
                         sx={{
-                          minWidth: header.minWidth || 100,
-                          maxWidth: header.maxWidth || 300,
-                        }}
-                      >
-                        <Typography variant="body2">
-                          {row[header.key]}
+                              width: cellWidth,
+                              maxWidth: header.maxWidth || 500,
+                              borderRight: '1px solid #d1d1d1',
+                              '&:last-child': {
+                                borderRight: 'none',
+                              },
+                            }}
+                          >
+                            {header.renderCell(cellValue, row)}
+                          </TableCell>
+                        );
+                      }
+                      
+                      return (
+                        <TableCell
+                          key={header.key}
+                          sx={{
+                            width: cellWidth,
+                            maxWidth: header.maxWidth || 500,
+                            borderRight: '1px solid #d1d1d1',
+                            '&:last-child': {
+                              borderRight: 'none',
+                            },
+                          }}
+                        >
+                          {shouldRenderHtml ? (
+                            <Box 
+                              sx={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                width: '100%',
+                                '& *': {
+                                  maxWidth: '100%',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  whiteSpace: 'nowrap',
+                                },
+                                // Status pill styles
+                                '& .status-pill': {
+                                  display: 'inline-block',
+                                  padding: '2px 8px',
+                                  borderRadius: '12px',
+                                  fontSize: '12px',
+                                  fontWeight: 500,
+                                  textAlign: 'center',
+                                  minWidth: '60px',
+                                  '&.status-qualified': {
+                                    backgroundColor: '#d4edda',
+                                    color: '#155724',
+                                  },
+                                  '&.status-negotiation': {
+                                    backgroundColor: '#fff3cd',
+                                    color: '#856404',
+                                  },
+                                  '&.status-unqualified': {
+                                    backgroundColor: '#f8d7da',
+                                    color: '#721c24',
+                                  },
+                                  '&.status-proposal': {
+                                    backgroundColor: '#e9ecef',
+                                    color: '#495057',
+                                  },
+                                  '&.status-new': {
+                                    backgroundColor: '#cce5ff',
+                                    color: '#0066cc',
+                                  },
+                                  '&.status-renewal': {
+                                    backgroundColor: '#0078d4',
+                                    color: '#ffffff',
+                                  },
+                                },
+                                // Progress bar styles
+                                '& .progress-bar': {
+                                  width: '100%',
+                                  height: '8px',
+                                  backgroundColor: '#e9ecef',
+                                  borderRadius: '4px',
+                                  overflow: 'hidden',
+                                  '& .progress-fill': {
+                                    height: '100%',
+                                    backgroundColor: '#000000',
+                                    transition: 'width 0.3s ease',
+                                  },
+                                },
+                                // Verification icon styles
+                                '& .verification-icon': {
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  width: '20px',
+                                  height: '20px',
+                                  borderRadius: '50%',
+                                  '&.verified': {
+                                    backgroundColor: '#28a745',
+                                    color: 'white',
+                                  },
+                                  '&.not-verified': {
+                                    backgroundColor: '#dc3545',
+                                    color: 'white',
+                                  },
+                                },
+                                // Image styles
+                                '& img': {
+                                  maxWidth: '24px',
+                                  maxHeight: '24px',
+                                  borderRadius: '50%',
+                                  verticalAlign: 'middle',
+                                  marginRight: '8px',
+                                },
+                              }}
+                              dangerouslySetInnerHTML={{ __html: cellValue }}
+                            />
+                          ) : shouldShowTooltip ? (
+                            <Tooltip title={cellText} arrow>
+                              <Typography 
+                                variant="body2" 
+                                sx={{
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  whiteSpace: 'nowrap',
+                                  width: '100%',
+                                }}
+                              >
+                                {cellText}
                         </Typography>
+                            </Tooltip>
+                          ) : (
+                            <Typography 
+                              variant="body2" 
+                              sx={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                width: '100%',
+                              }}
+                            >
+                              {cellText}
+                            </Typography>
+                          )}
                       </TableCell>
-                    ))}
+                      );
+                    })}
                     
                     {actions.length > 0 && (
-                      <TableCell>
+                      <TableCell sx={{ borderRight: 'none' }}>
                         <Stack direction="row" spacing={0.5}>
                           {actionColumnStyle === ActionColumnStyle.ShowButtonsDirectly ? (
                             actions.map((action) => (
                               <Button
                                 key={action.id}
-                                size="small"
-                                variant="outlined"
+                                size={action.size || "small"}
+                                variant={action.variant || "outlined"}
+                                color={action.color || "primary"}
+                                disabled={action.disabled || false}
                                 onClick={() => onActionSelection?.(row, action.id)}
                               >
                                 {action.displayName}
                               </Button>
                             ))
                           ) : (
-                            <Menu
-                              open={false}
-                              anchorEl={null}
-                              onClose={() => {}}
-                            >
-                              <IconButton size="small">
-                                <MoreIcon />
-                              </IconButton>
-                              <MenuList>
-                                {actions.map((action) => (
-                                  <MenuItem
-                                    key={action.id}
-                                    onClick={() => onActionSelection?.(row, action.id)}
-                                  >
-                                    {action.displayName}
-                                  </MenuItem>
-                                ))}
-                              </MenuList>
-                            </Menu>
+                            <ActionMenu row={row} actions={actions} onActionSelection={onActionSelection} />
                           )}
                         </Stack>
                       </TableCell>
@@ -1330,6 +1705,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                         setColumnFilterStates({});
                         onFilterChange?.({});
                         onFilterApiRequest?.({ filters: [], logicalOperator: 'AND' });
+                        handleFilterPopupClose();
                         console.log('Cleared all filters');
                       }}
                       sx={{ 

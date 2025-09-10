@@ -1,12 +1,14 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import {
-  FluentProvider,
-  webLightTheme,
-  webDarkTheme,
   Button,
   Text,
   Spinner,
   Input,
+  Menu,
+  MenuTrigger,
+  MenuPopover,
+  MenuList,
+  MenuItem,
 } from '@fluentui/react-components';
 import {
   ArrowUpRegular,
@@ -17,6 +19,9 @@ import {
   PersonRegular,
   EyeRegular,
   DismissRegular,
+  EditRegular,
+  DeleteRegular,
+  ViewRegular,
 } from '@fluentui/react-icons';
 import RdsPagination from '../../raaghu-elements/rds-pagination/rds-pagination';
 import './rds-comp-fluent-grid.scss';
@@ -57,6 +62,8 @@ export interface FluentGridColumn {
   colWidth?: string;
   minWidth?: number;
   maxWidth?: number;
+  allowHtml?: boolean; // Allow HTML content in cells
+  renderCell?: (value: any, row: any) => React.ReactNode; // Custom cell renderer
 }
 
 export interface FluentGridAction {
@@ -64,6 +71,11 @@ export interface FluentGridAction {
   id: string;
   offId?: string;
   modalId?: string;
+  variant?: 'primary' | 'secondary' | 'outline' | 'subtle' | 'transparent';
+  appearance?: 'primary' | 'secondary' | 'outline' | 'subtle' | 'transparent';
+  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
+  size?: 'small' | 'medium' | 'large';
+  disabled?: boolean;
 }
 
 export interface FilterState {
@@ -144,8 +156,6 @@ export interface RdsFluentGridProps {
   noDataTitle?: string;
   noDataHeaderTitle?: string;
   
-  // Theme
-  theme?: 'light' | 'dark';
   
   // Loading
   isLoading?: boolean;
@@ -177,18 +187,17 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     showRecordsPerPage = true,
     onActionSelection,
     onRowSelect,
-    onRowClick,
+    onRowClick: _onRowClick,
     onPaginationHandler,
     onSortChange,
     onFilterChange,
   onFilterApiRequest,
     onColumnVisibilityChange,
     classes,
-    fontWeight,
+    fontWeight: _fontWeight,
     illustration = false,
     noDataTitle = 'No data available',
     noDataHeaderTitle = 'Data Grid',
-    theme = 'light',
     isLoading = false,
   } = props;
   const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
@@ -207,8 +216,13 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
   const [tempFilterValue, setTempFilterValue] = useState<string>('');
   const [tempFilterOperator, setTempFilterOperator] = useState<string>('contains');
   const [columnFilterStates, setColumnFilterStates] = useState<{[columnKey: string]: {operator: string, value: string}}>({});
+  const [columnWidths, setColumnWidths] = useState<{[columnKey: string]: number}>({});
+  const [isResizing, setIsResizing] = useState(false);
+  const [resizingColumn, setResizingColumn] = useState<string | null>(null);
+  const [resizeStartX, setResizeStartX] = useState(0);
+  const [resizeStartWidth, setResizeStartWidth] = useState(0);
   const filterButtonRef = useRef<HTMLButtonElement>(null);
-
+  const tableRef = useRef<HTMLTableElement>(null);
   // Reset pagination when data, sort, or filter changes
   useEffect(() => {
     setCurrentPage(1);
@@ -230,6 +244,65 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isFilterPopupOpen]);
+
+  // Initialize column widths
+  useEffect(() => {
+    const initialWidths: {[columnKey: string]: number} = {};
+    tableHeaders.forEach(header => {
+      if (header.colWidth) {
+        initialWidths[header.key] = parseInt(header.colWidth.replace('px', ''));
+      } else {
+        initialWidths[header.key] = header.minWidth || 100;
+      }
+    });
+    setColumnWidths(initialWidths);
+  }, [tableHeaders]);
+
+  // Handle column resizing
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isResizing && resizingColumn) {
+        const deltaX = e.clientX - resizeStartX;
+        const header = tableHeaders.find(h => h.key === resizingColumn);
+        const minWidth = header?.minWidth || 30; // Use user-defined minWidth or default to 30
+        const maxWidth = header?.maxWidth || 500;
+        
+        const requestedWidth = resizeStartWidth + deltaX;
+        const newWidth = Math.max(
+          minWidth,
+          Math.min(maxWidth, requestedWidth)
+        );
+        
+        console.log('Resizing column:', resizingColumn, 'New width:', newWidth, 'Delta:', deltaX, 'MinWidth:', minWidth, 'MaxWidth:', maxWidth, 'StartWidth:', resizeStartWidth);
+        
+        setColumnWidths(prev => ({
+          ...prev,
+          [resizingColumn]: newWidth
+        }));
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+      setResizingColumn(null);
+      setResizeStartX(0);
+      setResizeStartWidth(0);
+      
+      // Restore cursor and user selection
+      document.body.style.userSelect = '';
+      document.body.style.cursor = '';
+    };
+
+    if (isResizing) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isResizing, resizingColumn, resizeStartX, resizeStartWidth, tableHeaders]);
 
   // Filter and sort data
   const filteredData = useMemo(() => {
@@ -372,10 +445,6 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     console.log('Column visibility changed:', { columnKey, isVisible, newVisibleColumns });
   };
 
-  const clearAllFilters = () => {
-    setFilterState({});
-    onFilterChange?.({});
-  };
 
   const handleColumnPanelToggle = () => {
     setIsColumnPanelExpanded(!isColumnPanelExpanded);
@@ -409,16 +478,24 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
             operator: filter.operator,
             value: filter.value,
             id: `${columnKey}_${Date.now()}`
-          } as FilterCondition;
-        });
+        } as FilterCondition;
+      });
       
+      let sortDirectionValue: 'ASC' | 'DESC' | undefined = undefined;
+      if (sortColumn) {
+        if (sortDirection === 'asc') {
+          sortDirectionValue = 'ASC';
+        } else {
+          sortDirectionValue = 'DESC';
+        }
+      }
       const filterApiRequest: FilterApiRequest = {
         filters: activeFilters,
         logicalOperator: 'AND',
         page: currentPage,
         pageSize: recordsPerPage,
         sortBy: sortColumn || undefined,
-        sortDirection: sortColumn ? (sortDirection === 'asc' ? 'ASC' : 'DESC') : undefined
+        sortDirection: sortDirectionValue
       };
       
       console.log('All active filters:', updatedFilterState);
@@ -452,13 +529,21 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
           } as FilterCondition;
         });
       
+      let sortDirectionValue2: 'ASC' | 'DESC' | undefined = undefined;
+      if (sortColumn) {
+        if (sortDirection === 'asc') {
+          sortDirectionValue2 = 'ASC';
+        } else {
+          sortDirectionValue2 = 'DESC';
+        }
+      }
       const filterApiRequest: FilterApiRequest = {
         filters: activeFilters,
         logicalOperator: 'AND',
         page: currentPage,
         pageSize: recordsPerPage,
         sortBy: sortColumn || undefined,
-        sortDirection: sortColumn ? (sortDirection === 'asc' ? 'ASC' : 'DESC') : undefined
+        sortDirection: sortDirectionValue2
       };
       
       console.log('Clearing filter for column:', selectedColumnForFilter);
@@ -495,6 +580,28 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     setSelectedColumnForFilter(null);
   };
 
+  const handleResizeStart = (e: React.MouseEvent, columnKey: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    console.log('Resize start triggered for column:', columnKey);
+    
+    const header = tableHeaders.find(h => h.key === columnKey);
+    if (header?.isResizable !== false) {
+      console.log('Starting resize for column:', columnKey, 'Current width:', columnWidths[columnKey]);
+      setIsResizing(true);
+      setResizingColumn(columnKey);
+      setResizeStartX(e.clientX);
+      setResizeStartWidth(columnWidths[columnKey] || header?.minWidth || 150);
+      
+      // Prevent text selection during resize
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'col-resize';
+    } else {
+      console.log('Column is not resizable:', columnKey);
+    }
+  };
+
   const getVisibleHeaders = () => {
     const visible = tableHeaders.filter(header => visibleColumns.includes(header.key));
     console.log('Visible headers:', { visibleColumns, visible: visible.map(h => h.key) });
@@ -511,50 +618,43 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
   console.log('Sample data:', tableData.slice(0, 2));
   console.log('Sample filtered data:', filteredData.slice(0, 2));
 
-  const currentTheme = theme === 'dark' ? webDarkTheme : webLightTheme;
-
   if (isLoading) {
     return (
-      <FluentProvider theme={currentTheme}>
-        <div className={`rds-fluent-grid-container ${classes || ''}`}>
-          <div className="rds-fluent-grid-loader">
-            <Spinner size="large" />
-          </div>
+      <div className={`rds-fluent-grid-container ${classes || ''}`}>
+        <div className="rds-fluent-grid-loader">
+          <Spinner size="large" />
         </div>
-      </FluentProvider>
+      </div>
     );
   }
 
   if (tableData.length === 0) {
     return (
-      <FluentProvider theme={currentTheme}>
-        <div className={`rds-fluent-grid-container ${classes || ''}`}>
-          {showHeader && (
-            <div className="rds-fluent-grid-header">
-              <div className="rds-fluent-grid-header-controls">
-                <Button icon={<AddRegular />}>Add New</Button>
-                <Button icon={<PersonRegular />}>Person</Button>
-                <Button icon={<FilterRegular />}>Filters</Button>
-                <Button icon={<ArrowUpRegular />}>Sort</Button>
-                <Button icon={<EyeRegular />}>Hide</Button>
-                <Button icon={<MoreHorizontalRegular />}>More</Button>
-              </div>
+      <div className={`rds-fluent-grid-container ${classes || ''}`}>
+        {showHeader && (
+          <div className="rds-fluent-grid-header">
+            <div className="rds-fluent-grid-header-controls">
+              <Button icon={<AddRegular />}>Add New</Button>
+              <Button icon={<PersonRegular />}>Person</Button>
+              <Button icon={<FilterRegular />}>Filters</Button>
+              <Button icon={<ArrowUpRegular />}>Sort</Button>
+              <Button icon={<EyeRegular />}>Hide</Button>
+              <Button icon={<MoreHorizontalRegular />}>More</Button>
             </div>
-          )}
-          <div className="rds-fluent-grid-empty-state">
-            <Text className="rds-fluent-grid-empty-state-title">{noDataTitle}</Text>
-            <Text className="rds-fluent-grid-empty-state-description">
-              No data available to display
-            </Text>
           </div>
+        )}
+        <div className="rds-fluent-grid-empty-state">
+          <Text className="rds-fluent-grid-empty-state-title">{noDataTitle}</Text>
+          <Text className="rds-fluent-grid-empty-state-description">
+            No data available to display
+          </Text>
         </div>
-      </FluentProvider>
+      </div>
     );
   }
 
   return (
-    <FluentProvider theme={currentTheme}>
-      <div className={`rds-fluent-grid-container ${classes || ''}`}>
+    <div className={`rds-fluent-grid-container ${classes || ''}`}>
         {showHeader && (
           <div className="rds-fluent-grid-header">
             <div className="rds-fluent-grid-header-controls">
@@ -598,12 +698,12 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
 
         {!isCollapsed && (
           <>
-            <table className="rds-fluent-grid-table">
+            <table className="rds-fluent-grid-table" ref={tableRef}>
               <thead>
                 <tr>
                   {/* Selection column */}
                   {(enableCheckboxSelection || enableRadioButtonSelection) && (
-                    <th className="rds-fluent-grid-header-cell">
+                    <th className="rds-fluent-grid-header-cell" style={{ width: '50px' }}>
                       {enableCheckboxSelection ? 'Select All' : 'Select'}
                     </th>
                   )}
@@ -612,11 +712,12 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                   {getVisibleHeaders().map((header) => (
                     <th
                       key={header.key}
-                      className="rds-fluent-grid-header-cell"
+                      className={`rds-fluent-grid-header-cell ${header.isResizable !== false ? 'rds-fluent-grid-header-cell--resizable' : ''}`}
                       style={{
-                        minWidth: header.minWidth || 100,
-                        maxWidth: header.maxWidth || 300,
+                        width: columnWidths[header.key] || header.minWidth || 150,
+                        maxWidth: header.maxWidth || 500,
                         cursor: isSort && header.isSort ? 'pointer' : 'default',
+                        position: 'relative',
                       }}
                       onClick={() => isSort && header.isSort && handleSort(header.key)}
                     >
@@ -643,10 +744,6 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                 e.stopPropagation();
                                 console.log('Filter icon clicked for column:', header.key);
                                 handleFilterIconClick(header.key);
-                              }}
-                              style={{ 
-                                color: filterState[header.key]?.value ? '#0078d4' : '#666',
-                                backgroundColor: filterState[header.key]?.value ? '#e6f3ff' : 'transparent'
                               }}
                             />
                             {isFilterPopupOpen && (
@@ -820,12 +917,40 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                           </div>
                         )}
                       </div>
+                      
+                      {/* Resize handle */}
+                      {header.isResizable !== false && (
+                        <div
+                          className="rds-fluent-grid-resize-handle"
+                          role="separator"
+                          aria-label={`Resize ${header.name} column`}
+                          tabIndex={0}
+                          onMouseDown={(e) => handleResizeStart(e, header.key)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              // For keyboard users, we could implement arrow key resizing
+                              // For now, just focus the handle
+                            }
+                          }}
+                          style={{
+                            position: 'absolute',
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            width: '4px',
+                            cursor: 'col-resize',
+                            backgroundColor: isResizing && resizingColumn === header.key ? '#0078d4' : 'transparent',
+                            zIndex: 10,
+                          }}
+                        />
+                      )}
                     </th>
                   ))}
                   
                   {/* Actions column */}
                   {actions.length > 0 && (
-                    <th className="rds-fluent-grid-header-cell">Actions</th>
+                    <th className="rds-fluent-grid-header-cell" style={{ width: '100px' }}>Actions</th>
                   )}
                 </tr>
               </thead>
@@ -855,18 +980,55 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                       )}
                       
                       {/* Data cells */}
-                      {getVisibleHeaders().map((header) => (
-                        <td
-                          key={header.key}
-                          className="rds-fluent-grid-cell"
-                          style={{
-                            minWidth: header.minWidth || 100,
-                            maxWidth: header.maxWidth || 300,
-                          }}
-                        >
-                          <Text>{row[header.key]}</Text>
-                        </td>
-                      ))}
+                      {getVisibleHeaders().map((header) => {
+                        const cellValue = row[header.key];
+                        const cellWidth = columnWidths[header.key] || header.minWidth || 150;
+                        const minWidth = header.minWidth || 50;
+                        
+                        // Check if we should render HTML content
+                        const shouldRenderHtml = header.allowHtml && typeof cellValue === 'string' && cellValue.includes('<');
+                        const cellText = shouldRenderHtml ? '' : (cellValue?.toString() || '');
+                        
+                        // Only show tooltip if text might be truncated and not HTML
+                        const shouldShowTooltip = !shouldRenderHtml && cellText.length > 0 && cellWidth < minWidth + 50;
+                        
+                        // Use custom renderer if provided
+                        if (header.renderCell) {
+                          return (
+                            <td
+                              key={header.key}
+                              className="rds-fluent-grid-cell"
+                              style={{
+                                width: cellWidth,
+                                maxWidth: header.maxWidth || 500,
+                              }}
+                            >
+                              {header.renderCell(cellValue, row)}
+                            </td>
+                          );
+                        }
+                        
+                        return (
+                          <td
+                            key={header.key}
+                            className={`rds-fluent-grid-cell ${!shouldRenderHtml ? 'rds-fluent-grid-cell--truncated' : ''}`}
+                            style={{
+                              width: cellWidth,
+                              maxWidth: header.maxWidth || 500,
+                            }}
+                            title={shouldShowTooltip ? cellText : undefined}
+                          >
+                            {shouldRenderHtml ? (
+                              <div 
+                                className="rds-fluent-grid-cell-html"
+                                dangerouslySetInnerHTML={{ __html: cellValue }}
+                              />
+                            ) : (
+                              <Text className="rds-fluent-grid-cell-text">{cellText}</Text>
+                            )}
+                          </td>
+                        );
+                      })}
                       
                       {/* Actions cell */}
                       {actions.length > 0 && (
@@ -876,8 +1038,10 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                               actions.map((action) => (
                                 <Button
                                   key={action.id}
-                                  size="small"
-                                  appearance="subtle"
+                                  size={action.size || "small"}
+                                  appearance={action.appearance || "subtle"}
+                                  color={action.color || "primary"}
+                                  disabled={action.disabled || false}
                                   onClick={() => onActionSelection?.(row, action.id)}
                                   className="rds-fluent-grid-action-button"
                                 >
@@ -885,16 +1049,44 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                 </Button>
                               ))
                             ) : (
-                              <Button
-                                size="small"
-                                appearance="subtle"
-                                icon={<MoreHorizontalRegular />}
-                                className="rds-fluent-grid-action-button"
-                                onClick={() => {
-                                  const action = actions[0];
-                                  onActionSelection?.(row, action.id);
-                                }}
-                              />
+                              <Menu>
+                                <MenuTrigger disableButtonEnhancement>
+                                  <Button
+                                    size="small"
+                                    appearance="subtle"
+                                    icon={<MoreHorizontalRegular />}
+                                    className="rds-fluent-grid-action-button"
+                                  />
+                                </MenuTrigger>
+                                <MenuPopover>
+                                  <MenuList>
+                                    {actions.map((action) => {
+                                      const getActionIcon = (actionId: string) => {
+                                        switch (actionId.toLowerCase()) {
+                                          case 'edit':
+                                            return <EditRegular />;
+                                          case 'delete':
+                                            return <DeleteRegular />;
+                                          case 'view':
+                                            return <ViewRegular />;
+                                          default:
+                                            return <MoreHorizontalRegular />;
+                                        }
+                                      };
+                                      
+                                      return (
+                                        <MenuItem
+                                          key={action.id}
+                                          icon={getActionIcon(action.id)}
+                                          onClick={() => onActionSelection?.(row, action.id)}
+                                        >
+                                          {action.displayName}
+                                        </MenuItem>
+                                      );
+                                    })}
+                                  </MenuList>
+                                </MenuPopover>
+                              </Menu>
                             )}
                           </div>
                         </td>
@@ -923,9 +1115,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
         )}
 
       </div>
-    </FluentProvider>
   );
 };
 
-// RdsFluentGrid.displayName = 'RdsFluentGrid';
 export default RdsFluentGrid;
