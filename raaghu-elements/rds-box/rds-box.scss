@@ -23,6 +23,13 @@
     padding: var(--rds-spacing-md, 16px);    
     border: var(--rds-border-width-thin, 1px) solid var(--rds-color-outline, #79747e);
     justify-content: space-around;
+    
+    // Extra small screens - stack buttons vertically
+    @media (max-width: 320px) {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--rds-spacing-xs, 8px);
+    }
   }
 
   // Default variant - basic styling with dashed border
