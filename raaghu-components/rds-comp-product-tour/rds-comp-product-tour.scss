@@ -536,8 +536,8 @@
     bottom: 0;
     left: 0;
     height: 1px;
-    background-color: #e0e0e0;
-    width: 290px;
+    background-color: #e9e9e9;
+    width: 306px;
   }
 
   &__form-tab {
@@ -545,13 +545,13 @@
     padding: 5px 10px;
     cursor: pointer;
     color: #666 !important;
-    max-width: 100px;
-    min-width: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-width: none;
+    min-width: auto;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
     text-align: center;
-    flex: 1 1 0;
+    flex: 0 0 auto; /* size to content */
     transition: all 0.3s ease;
     border-radius: 3px;
     position: relative;
@@ -900,25 +900,102 @@
   }
 }
 
+// ===== MOBILE SCROLL FIX (keep corner dots & alignment) =====
+@media (max-width: 420px) {
+  /* Keep outer container overflow visible so absolutely positioned corner dots
+     and shadows are not clipped. Make the inner content panels scrollable instead. */
+  .rds-comp-product-tour__container {
+    max-height: calc(100vh - 24px);
+    overflow: visible; /* preserve dots and visual overflow */
+  }
+
+  /* Make info / form / carousel content scrollable within the container */
+  .rds-comp-product-tour__info-nav-section,
+  .rds-comp-product-tour__form-content,
+  .rds-comp-product-tour__carousel-wrapper {
+    max-height: calc(100vh - 120px); /* leave room for header / close */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* hide native scrollbars for these internal scroll areas */
+  .rds-comp-product-tour__info-nav-section::-webkit-scrollbar,
+  .rds-comp-product-tour__form-content::-webkit-scrollbar,
+  .rds-comp-product-tour__carousel-wrapper::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
+  }
+  .rds-comp-product-tour__info-nav-section,
+  .rds-comp-product-tour__form-content,
+  .rds-comp-product-tour__carousel-wrapper {
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+    padding-bottom: 18px; /* ensure last controls are reachable */
+  }
+
+  /* Truncate form tab labels on small screens to keep them on a single line */
+  .rds-comp-product-tour__form-tab {
+    max-width: 88px; /* enough for short word then ellipsis */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 0 0 auto;
+    display: inline-block;
+  }
+}
+
 // ===== THEME SUPPORT =====
 .theme-dark {
   .rds-comp-product-tour__container {
     background: #1f2937;
-    box-shadow: 0 4px 32px 0 rgba(162, 89, 255, 0.18);
   }
-
+  // All titles
   .rds-comp-product-tour__title,
+  .rds-comp-product-tour__form-subtitle,
   .rds-comp-product-tour__form-title,
-  .rds-comp-product-tour__form-subtitle {
+  .rds-comp-product-tour__carousel-title {
     color: #ffffff !important;
   }
-
+  // Subtitles / descriptions
   .rds-comp-product-tour__desc,
-  .rds-comp-product-tour__form-description {
+  .rds-comp-product-tour__form-description,
+  .rds-comp-product-tour__carousel-desc {
     color: #b7bcd8 !important;
   }
 
-  .rds-comp-product-tour__stepcount {
+  // Step counts (all states)
+  .rds-comp-product-tour__stepcount,
+  .rds-comp-product-tour__carousel-stepcount,
+  .rds-comp-product-tour__animation-stepcount,
+  .rds-comp-product-tour__form-stepcount {
     color: #ffffff !important;
+  }
+
+  // Close button icon
+  .rds-comp-product-tour__close-btn svg {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+  }
+
+  // Image section background
+  .rds-comp-product-tour__image-section {
+    background: #374151 !important;
+  }
+
+  // Info nav section background
+  .rds-comp-product-tour__info-nav-section {
+    background: #1f2937 !important;
+  }
+
+  .rds-comp-product-tour__form-input-container {
+    .rds-select,
+    .rds-autocomplete__textfield,
+    .rds-select .MuiInputBase-root,
+    .rds-autocomplete__textfield .MuiInputBase-root {
+      background-color: #424242 !important; /* filled surface */
+      color: #ffffff !important;
+      border-radius: 6px;
+    }
   }
 }
