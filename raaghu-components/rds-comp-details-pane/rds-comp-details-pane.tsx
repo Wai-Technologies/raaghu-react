@@ -5,7 +5,8 @@ import {
   RealEstateContent,
   SelectionContent,
   ToolbarContent,
-  ThumbnailViewContent
+  ThumbnailViewContent,
+  FigmaUIKitButton
 } from "./details-pane-components";
 
 
@@ -115,3 +116,4 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
 };
 RdsCompDetailsPane.displayName = "RdsCompDetailsPane";
 export default RdsCompDetailsPane;
+export { FigmaUIKitButton };
