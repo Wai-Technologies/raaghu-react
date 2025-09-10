@@ -153,7 +153,14 @@ const RdsCard = ({
       );
     }
 
-    // If no title/cardSubtext/description provided, render children as-is (backward compatibility)
+    if (layout === 'horizontal' && children) {
+      return (
+        <div className="rds-card__content">
+          {children}
+        </div>
+      );
+    }
+    
     return children;
   };
 

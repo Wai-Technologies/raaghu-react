@@ -15,12 +15,60 @@
     
     .rds-card__icon-container {
       padding: var(--rds-spacing-md, 16px);
-      padding-right: var(--rds-spacing-sm, 4px); // Slightly more space between icon and content
+      padding-right: var(--rds-spacing-sm, 8px);
     }
     
     .rds-card__content-wrapper {
       flex: 1;
       min-width: 0; // Prevent content overflow
+      
+      // Ensure content has proper padding in horizontal layout
+      .rds-card__content {
+        padding: var(--rds-spacing-md, 20px);
+        padding-left: 0; // Remove left padding since icon provides spacing
+      }
+    }
+    
+    .MuiCardContent-root {
+      padding-top: 0 !important;
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .MuiCardActions-root {
+      padding-top: 0 !important;
+    }
+    
+    // Typography elements inside CardContent should also have reduced top spacing
+    .MuiCardContent-root .MuiTypography-gutterBottom {
+      margin-top: 0 !important;
+    }
+    
+    // Only apply flex layout to direct children when no icon is present
+    &.rds-card--hide-icon {
+      > .MuiCardContent-root {
+        flex: 1;
+        min-width: 0;
+      }
+      
+      // For simple Typography content directly in card (like WithCustomPadding)
+      > .MuiTypography-root:only-child {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        padding: var(--rds-spacing-md, 16px);
+      }
+    }
+    
+    // When icon is present, content should flow next to icon
+    &:not(.rds-card--hide-icon) {
+      > :not(.rds-card__indicator):not(.rds-card__icon-container):not(.rds-card__content-wrapper) {
+        flex: 1;
+        min-width: 0;
+        padding: var(--rds-spacing-md, 16px);
+        padding-left: 0; // Icon container provides left spacing
+      }
     }
   }
   
@@ -31,6 +79,18 @@
     .rds-card__icon-container--vertical {
       padding: var(--rds-spacing-md, 16px);
       padding-bottom: var(--rds-spacing-xs, 4px); // Reduced spacing below icon for tighter layout
+    }
+    
+    .MuiCardContent-root {
+      padding-top: 0 !important;
+    }
+    
+    .MuiCardActions-root {
+      padding-top: 0 !important;
+    }
+    
+    .MuiCardContent-root .MuiTypography-gutterBottom {
+      margin-top: 0 !important;
     }
   }
   
@@ -282,6 +342,29 @@
   &--layout-vertical {
     .rds-card__content {
       padding-top: var(--rds-spacing-xs, 4px); // Reduced top padding for tighter icon-to-content spacing
+    }
+  }
+  
+  // Handle cards with custom inline padding (like WithCustomPadding story)
+  &[style*="padding"] {
+    // For cards with inline padding, ensure content visibility
+    .rds-card__content,
+    .rds-card__content-wrapper {
+      // Ensure content is visible with proper min-height
+      min-height: 20px;
+      display: block;
+    }
+    
+    // For horizontal layout with custom padding - only when icon is hidden
+    &.rds-card--layout-horizontal.rds-card--hide-icon {
+      // Ensure the content area spans properly for simple Typography content
+      > .MuiTypography-root:only-child {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        padding: 0; // Let the card's inline padding handle spacing
+      }
     }
   }
   
