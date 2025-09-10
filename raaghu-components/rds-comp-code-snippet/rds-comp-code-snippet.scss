@@ -434,4 +434,7 @@
 .rds-comp-code-snippet--light .rds-comp-code-snippet__toolbar::after {
     background-color: var(--rds-color-border-dark, #374151);
 }
+.rds-comp-code-snippet--light pre{
+    background-color: transparent !important;
+}
 }
