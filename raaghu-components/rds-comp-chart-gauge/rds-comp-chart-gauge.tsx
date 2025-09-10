@@ -13,6 +13,17 @@ export interface RdsCompGaugeprops {
 }
 
 const RdsCompGaugeChart = (props: RdsCompGaugeprops) => {
+    const isDarkMode = () => {
+        if (typeof window !== 'undefined') {
+            return (
+                document.body.classList.contains('theme-dark') ||
+                document.body.classList.contains('dark-theme') ||
+                document.documentElement.getAttribute('data-theme') === 'dark' ||
+                document.body.getAttribute('data-theme') === 'dark'
+            );
+        }
+        return false;
+    };
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const CanvasId = props.id;
 
@@ -31,17 +42,26 @@ const RdsCompGaugeChart = (props: RdsCompGaugeprops) => {
                     ctx.save();
                     ctx.font = "700 20px Poppins";
                     ctx.textAlign = "center";
-                    ctx.fillStyle = "#333";
+                    ctx.fillStyle = isDarkMode() ? "#fff" : "#333";
                     ctx.fillText(title, width / 2, top + (height / 1.5));
                     ctx.restore();
 
                     ctx.font = "500 14px Poppins";
                     ctx.textAlign = "center";
-                    ctx.fillStyle = "#666";
+                    ctx.fillStyle = isDarkMode() ? "#fff" : "#666";
                     ctx.fillText(subTitle, width / 2, top + (height / 1.2));
                     ctx.restore();
                 }
             };
+
+             const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+            // If dark mode, set legend label color to white
+            if (isDarkMode()) {
+                if (!chartOptions.plugins) chartOptions.plugins = {};
+                if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
+                if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
+                chartOptions.plugins.legend.labels.color = "#fff";
+            }
 
             const gaugeCanvas = new Chart(ctx, {
                 type: "doughnut",
@@ -51,20 +71,20 @@ const RdsCompGaugeChart = (props: RdsCompGaugeprops) => {
                     datasets: props.dataSets
                 },
                 options: {
-                    ...props.options,
+                    ...chartOptions,
                     rotation: -90, // Start from top
                     circumference: 180, // Half circle for gauge
                     maintainAspectRatio: false,
                     responsive: true,
                     plugins: {
-                        ...props.options?.plugins,
+                        ...chartOptions?.plugins,
                         legend: {
-                            display: props.options?.plugins?.legend?.display !== false,
+                             display: chartOptions?.plugins?.legend?.display !== false,
                             position: "top",
                             labels: {
                                 usePointStyle: true,
                                 pointStyle: 'circle',
-                                ...props.options?.plugins?.legend?.labels
+                                ...chartOptions?.plugins?.legend?.labels
                             },
                             ...props.options?.plugins?.legend
                         }

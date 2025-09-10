@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import './rds-comp-adaptive-cards.scss';
 import {RdsBox,RdsTypography,RdsStack, RdsButtonDropdown} from "../../raaghu-elements";
 import RdsCardDetail from "../../raaghu-elements/rds-card-detail/rds-card-detail";
-import { CardHeader, CardContent,Button, CardActions, IconButton} from "@mui/material";
+import { CardHeader, CardContent, CardActions, IconButton} from "@mui/material";
+import { RdsButton } from "../../raaghu-elements";
 import {  Close as CloseIcon,ExpandMore as ExpandMoreIcon} from "@mui/icons-material";
 import { 
   FootballScorecardCard,
@@ -63,6 +64,10 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
   };
   let merged = { ...variantDefaults, ...props };
   
+  const allowedButtonStyles = ['filled', 'outlined', 'transparent'] as const;
+  const getRdsButtonStyle = (style: any) =>
+    allowedButtonStyles.includes(style) ? style : 'filled';
+
   const {
     showHeader,
     showDismiss,
@@ -178,11 +183,19 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
               <RdsTypography variant="body1" color="text.secondary">{cardText || 'Instance Slot'}</RdsTypography>
             </RdsBox>
             <RdsStack direction="row" justifyContent="flex-end" spacing={2} className="custom-box__actions">
-              {showBtn1 && (
-                <Button variant={btn1style === "filled" ? "contained" : btn1style === "outline" ? "outlined" : "text"} className="custom-box__button--cancel">{btn1Label}</Button>
+               {showBtn1 && (
+                <RdsButton 
+                  style={getRdsButtonStyle(btn1style)} 
+                  className={`custom-box__button--cancel${getRdsButtonStyle(btn1style)==='filled' ? ' rds-button__primary' : ''}`} 
+                  text={btn1Label} 
+                />
               )}
               {showBtn2 && (
-                <Button variant={btn2style === "filled" ? "contained" : btn2style === "outline" ? "outlined" : "text"} className="custom-box__button--done">{btn2Label}</Button>
+                <RdsButton 
+                  style={getRdsButtonStyle(btn2style)} 
+                  className={`custom-box__button--done${getRdsButtonStyle(btn2style)==='filled' ? ' rds-button__primary' : ''}`} 
+                  text={btn2Label} 
+                />
               )}
             </RdsStack>
           </RdsBox>
@@ -263,36 +276,24 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
             >
               {type === "RestaurantOrder" ? (
                 showBtn1 ? (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--restaurant-order"
+                   <RdsButton
+                    style="filled"
+                    className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--restaurant-order rds-button__primary"
                     fullWidth
-                  >
-                    {btn1Label}
-                  </Button>
+                   text={btn1Label}
+                  />
                 ) : null
               ) : type === "CalenderReminder" ? null : (
                 <>
                   {showBtn1 && (
                     type === "InputForm" ? (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--input-form-button"
+                       <RdsButton
+                        style="filled"
+                        className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--input-form-button rds-button__primary"
                         fullWidth
-                      >
-                        {btn1Label}
-                      </Button>
+                        text={btn1Label}
+                      />
                     ) : type === "ActivityUpdateCard" ? (
-                      // <Button
-                      //   variant="outlined"
-                      //   endIcon={<ExpandMoreIcon />}
-                      //   className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--activity"
-                      //   size="small"
-                      // >
-                      //   {capitalizeFirstWord(btn1Label)}
-                      // </Button>
                       <RdsButtonDropdown
                         buttonText={btn1Label}
                         options={(activityProps?.radioOptions ?? []).map((opt, idx) => ({
@@ -308,31 +309,26 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                         showUserAvatar={true}
                         multiSelect={false}
                         isShowLeftIcon={false}
-                        rightIcon={<ExpandMoreIcon />
-                          
-                        }
+                        rightIcon={<ExpandMoreIcon />}
                       />
                     ) : (
-                      <Button
-                        variant={btn1style === "filled" ? "contained" : btn1style === "outline" ? "outlined" : "text"}
-                        color="primary"
-                        className={`rds-adaptive-cards__action-btn${type === "RestaurantOrder" ? " rds-adaptive-cards__action-btn--restaurant-order" : ""}`}
+                      <RdsButton
+                        style={getRdsButtonStyle(btn1style)}
+                        className={`rds-adaptive-cards__action-btn${type === "RestaurantOrder" ? " rds-adaptive-cards__action-btn--restaurant-order" : ""}${getRdsButtonStyle(btn1style)==='filled' ? ' rds-button__primary' : ''}`}
                         size={type === "RestaurantOrder" ? "small" : undefined}
-                      >
-                        {btn1Label}
-                      </Button>
+                          text={btn1Label}
+                      />
+                     
                     )
                   )}
                   {showBtn2 && (
                     type !== "InputForm" && (
-                      <Button
-                        variant={btn2style === "filled" ? "contained" : btn2style === "outline" ? "outlined" : "text"}
-                        color="primary"
-                        className="rds-adaptive-cards__action-btn"
+                      <RdsButton
+                        style={getRdsButtonStyle(btn2style)}
+                        className={`rds-adaptive-cards__action-btn${getRdsButtonStyle(btn2style)==='filled' ? ' rds-button__primary' : ''}`}
                         size="small"
-                      >
-                        {capitalizeFirstWord(btn2Label)}
-                      </Button>
+                       text={capitalizeFirstWord(btn2Label)}
+                      />
                     )
                   )}
                 </>

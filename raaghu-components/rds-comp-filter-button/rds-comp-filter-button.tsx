@@ -127,7 +127,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
         startIcon={showLeftIcon ? leftIcon : undefined}
         endIcon={showRightIcon ? rightIcon : undefined}
         onClick={handleButtonClick}
-        className={`rds-filter-button__trigger ${isOpen ? 'rds-filter-button__trigger--open' : ''}`}
+        className={`rds-button__primary rds-filter-button__trigger ${isOpen ? 'rds-filter-button__trigger--open' : ''}`}
       />
 
       <Popover
@@ -330,17 +330,17 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
               variant="outlined"
               fullWidth
               onClick={handleClearAll}
-              sx={{
+              sx={(theme) => ({
                 borderColor: '#e0e0e0',
-                color: '#666',
+                 color: theme.palette.mode === 'dark' ? '#fff' : '#666',
                 textTransform: 'none',
                 fontWeight: 500,
                 py: 1,
                 '&:hover': {
-                  backgroundColor: '#f9f9f9',
+                   backgroundColor: theme.palette.mode === 'dark' ? '#353535' : '#f9f9f9',
                   borderColor: '#d0d0d0',
                 }
-              }}
+              })}
             >
               Clear All
             </Button>

@@ -11,6 +11,17 @@ export interface RdsCompDoughnutprops {
 }
 
 const RdsCompDoughnutChart = (props: RdsCompDoughnutprops) => {
+    const isDarkMode = () => {
+        if (typeof window !== 'undefined') {
+            return (
+                document.body.classList.contains('theme-dark') ||
+                document.body.classList.contains('dark-theme') ||
+                document.documentElement.getAttribute('data-theme') === 'dark' ||
+                document.body.getAttribute('data-theme') === 'dark'
+            );
+        }
+        return false;
+    };
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const CanvasId = props.id;
 
@@ -31,20 +42,28 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutprops) => {
                     ctx.textAlign = "center";
                     const centerY = top + height / 2;
                     ctx.fillText(title, width / 2, centerY - 10);
+                    ctx.fillStyle = isDarkMode() ? "#fff" : "#222";
                     ctx.restore();
 
                     ctx.font = "500 16px Poppins";
                     ctx.textAlign = "center";
+                     ctx.fillStyle = isDarkMode() ? "#fff" : "#666";
                     ctx.fillText(subTitle, width / 2, centerY + 16);
                     ctx.restore();
-                    ctx.textColor = "#fff";
-                    ctx.fontColor = "#fff";
-                    ctx.fillStyle = "#666";
                     ctx.lineJoin = 'round';
                     // ctx.subtitles.set("fontColor", "#F084C2");
                 }
             };
 
+            const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+
+            // If dark mode, set legend label color to white
+            if (isDarkMode()) {
+                if (!chartOptions.plugins) chartOptions.plugins = {};
+                if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
+                if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
+                chartOptions.plugins.legend.labels.color = "#fff";
+            }
             const doughnutCanvas = new Chart(ctx, {
                 type: "doughnut",
                 plugins: [centerText],
@@ -52,7 +71,7 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutprops) => {
                     labels: props.labels,
                     datasets: props.dataSets
                 },
-                options: props.options,
+                 options: chartOptions,
             });
 
             if (doughnutCanvas !== null) {

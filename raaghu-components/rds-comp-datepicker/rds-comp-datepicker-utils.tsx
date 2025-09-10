@@ -39,9 +39,10 @@ export const CustomInputWithClear = forwardRef(({ value, onClick, placeholder, i
             onClick(e);
         }
     };
+    const isEmpty = !value || value === '';
 
     return (
-        <div className="rds-datepicker__input-container">
+        <div className="rds-datepicker__input-container" data-empty={isEmpty}>
             <RdsInput
                 className={`rds-datepicker__input ${isDisabled ? 'rds-datepicker--disabled' : ''} ${showClearDate && value ? 'rds-datepicker__input--with-clear' : 'rds-datepicker__input--without-clear'}`}
                 value={value || ''}
@@ -61,8 +62,7 @@ export const CustomInputWithClear = forwardRef(({ value, onClick, placeholder, i
                     }}
                     title="Clear date"
                 >
-                    <CloseIcon 
-                        color="primary"
+                    <CloseIcon
                         className="rds-datepicker__close-icon"
                     />
                 </span>

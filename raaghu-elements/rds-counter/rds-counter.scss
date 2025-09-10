@@ -360,22 +360,10 @@
   height: 44px !important;
 }
 
-// Responsive styles for mobile and tablet
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .rds-counter {
-    // width: 100% !important;
-    
     &__controls {
-      width: 100% !important;
-      // min-width: auto !important;
-      // max-width: none !important;
-      // height: 36px !important;
-    }
-    
-    &__button {
-      // width: 28px !important;
-      // height: 28px !important;
-      // min-width: 28px !important;
+      width: 87% !important;
     }
     
     &__input {
@@ -388,17 +376,30 @@
     }
   }
 }
+@media (min-width: 481px) and (max-width: 768px) {
+  .rds-counter {
+    &__controls {
+      width: fit-content;
+      min-width: auto;
+    }
+    
+    &__input {
+      min-width: 50px !important;
+      max-width: 70px !important;
+    }
+    
+    &__value {
+      min-width: 50px !important;
+    }
+  }
+}
 
 @media (max-width: 900px) {
   .rds-counter {
     &__controls {
       &--default {
         min-width: 140px;
-      }
-      
-      &--medium {
-        min-width: 120px;
-      }
+      }        
       
       &--large {
         min-width: 160px;
