@@ -258,7 +258,8 @@ export const ToolbarButton = ({
             top: dropdownPos.top,
             left: dropdownPos.left,
             minWidth: dropdownPos.minWidth,
-            zIndex: 2147483647
+            // Use a high but not max z-index so internal MUI Popovers (skin tone) can overlay it
+            zIndex: 1250
           }}
           role="menu"
           // copy detected theme into a data attr for debugging/selectors

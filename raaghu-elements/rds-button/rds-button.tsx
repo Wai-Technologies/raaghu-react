@@ -10,6 +10,7 @@ export interface RdsButtonProps extends Omit<ButtonProps, 'variant' | 'style'> {
   state?: 'default' | 'hover' | 'disabled' | 'selected';
   layout?: 'icon+text' | 'icon-only' | 'text-only';
   style?: 'filled' | 'outlined' | 'transparent';
+  color?: ButtonProps['color'];
   showLeftIcon?: boolean;
   showRightIcon?: boolean;
   changeLeftIcon?: React.ReactNode;
@@ -25,6 +26,7 @@ const RdsButton = ({
   shape = 'rectangle',
   sx,
   style,
+  color = 'primary',
   layout = 'icon+text',
   showLeftIcon = false,
   showRightIcon = false,
@@ -182,11 +184,21 @@ const RdsButton = ({
 
   // inputSize logic removed
 
+  // Map style prop to legacy BEM variant class names used in SCSS so variant styles apply
+  const styleVariantClass = style === 'filled'
+    ? 'rds-button__primary'
+    : style === 'outlined'
+      ? 'rds-button__secondary'
+      : style === 'transparent'
+        ? 'rds-button__text'
+        : '';
+
   return (
     <MuiButton
       disabled={isButtonDisabled}
       variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
-      className={`rds-button ${getStateClassName()}`.trim()}
+      color={color as any}
+      className={`rds-button ${styleVariantClass} ${getStateClassName()}`.replace(/\s+/g, ' ').trim()}
       sx={{
         ...getShapeStyles(),
         ...getTextCaseStyles(),
