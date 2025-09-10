@@ -58,6 +58,7 @@ export const Default = {
     />,
     style: 'top',
     arrow : false,
+    wrapper: true,
   },
 };
 
@@ -78,6 +79,7 @@ export const OnIconButton = {
       textCase="uppercase"
     />,
     style: 'top',
+    wrapper: true,
   },
 };
 
@@ -97,6 +99,7 @@ export const WithArrow = {
       textCase="unset"
     />,
     style: 'top',
+    wrapper: true,
   },
 };
 
@@ -115,6 +118,7 @@ export const Different_Placements = {
       text="Top"
       textCase="unset"
     />,
+    wrapper: true
   },
 };
 
@@ -135,5 +139,6 @@ export const LongText = {
       textCase="uppercase"
     />,
     style: 'top',
+    wrapper: true
   },
 };
