@@ -91,7 +91,7 @@
   &:hover .MuiTooltip-tooltip {
     background: var(--rds-primary-light, #333);
     color: var(--rds-tooltip-color, #fff);
-    border-color: var(--rds-primary-main, #1976d2);
+    border-color: var(--rds-primary-main, #333);
   }
 
   &:focus-visible .MuiTooltip-tooltip {
