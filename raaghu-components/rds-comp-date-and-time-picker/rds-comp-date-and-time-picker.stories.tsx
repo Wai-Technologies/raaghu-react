@@ -86,8 +86,7 @@ export const Default: Story = {
     render: (args) => (
         <RdsCompDatePicker
             {...args}
-            minDate={dayjs('2025-08-05')}
-            maxDate={dayjs('2025-08-29')}
+            minDate={dayjs('1900-01-01')}
         />
     ),
 } satisfies Story;
@@ -113,8 +112,7 @@ export const DateTimePicker: Story = {
     render: (args) => (
         <RdsCompDatePicker
             {...args}
-            minDate={dayjs('2025-08-05')}
-            maxDate={dayjs('2025-08-29')}
+            minDate={dayjs('1900-01-01')}
         />
     ),
 } satisfies Story;
@@ -129,8 +127,7 @@ export const DateRangePicker: Story = {
     render: (args) => (
         <RdsCompDatePicker
             {...args}
-            minDate={dayjs('2025-08-05')}
-            maxDate={dayjs('2025-08-29')}
+            minDate={dayjs('1900-01-01')}
         />
     ),
 } satisfies Story;
@@ -154,8 +151,7 @@ export const DateTimeRangePicker: Story = {
     render: (args) => (
         <RdsCompDatePicker
             {...args}
-            minDate={dayjs('2025-08-05')}
-            maxDate={dayjs('2025-08-29')}
+            minDate={dayjs('1900-01-01')}
         />
     ),
 } satisfies Story;
