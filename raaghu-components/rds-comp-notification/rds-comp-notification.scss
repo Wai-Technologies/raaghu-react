@@ -371,7 +371,9 @@
     .rds-comp-notification__image-container { background-color: transparent !important; }
   }
 }
-.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-image {
+.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-image,
+.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-default
+{
   &, &.rds-comp-notification--layout-horizontal {
     background-color: var(--rds-background-paper, #424242) !important;
     color: var(--rds-text-primary, #ffffff) !important;
