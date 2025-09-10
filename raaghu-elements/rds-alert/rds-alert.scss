@@ -44,6 +44,19 @@
 }
 // RDS Alert Component Styles
 .rds-alert {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--rds-spacing-md);
+  width: 100%;
+  font-family: var(--rds-font-family-base);
+  font-size: var(--rds-font-size-sm);
+  line-height: var(--rds-line-height-base);
+  border-radius: var(--rds-border-radius-sm);
+  border: 1px solid transparent;
+  background: var(--rds-alert-info-bg);
+
   &--success {
     color: var(--rds-alert-success-text) !important;
   }
@@ -73,18 +86,6 @@
   &__description {
     color: inherit !important;
   }
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: var(--rds-spacing-md);
-  width: 100%;
-  font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-sm);
-  line-height: var(--rds-line-height-base);
-  border-radius: var(--rds-border-radius-sm);
-  border: 1px solid transparent;
-  background: var(--rds-alert-info-bg);
 
     &__heading--multiline {
     font-weight: bold;
