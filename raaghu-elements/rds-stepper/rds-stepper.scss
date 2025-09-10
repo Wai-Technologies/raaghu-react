@@ -4,6 +4,16 @@
   position: relative;
 }
 
+// Small screen adjustment to match design preview (applies negative left margin)
+@media (max-width: 420px) {
+  .rds-stepper {
+    margin-left: -10px;
+  }
+  .MuiStep-root {
+    padding-right: 0px !important;
+  }
+}
+
 /* Dark theme: make step numbers/check glyph white */
 [data-theme="dark"] {
   .rds-stepper {
