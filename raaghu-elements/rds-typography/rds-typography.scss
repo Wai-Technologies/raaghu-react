@@ -76,6 +76,17 @@
     letter-spacing: 0.08333em;
     text-transform: uppercase;
   }
+
+  @media (max-width: 320px) {
+    &--h1 {
+      font-size: 2.8rem;
+      line-height: 1.2;
+    }
+    &--h2 {
+      font-size: 2.3rem;
+      line-height: 1.2;
+    }
+  }
   
   // Color variants
   &--primary {
