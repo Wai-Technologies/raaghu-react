@@ -5,7 +5,6 @@
   display: flex;
   flex-direction: column;
   background-color: var(--rds-background-paper, #ffffff);
-  border: 1px solid var(--rds-border-default, #e5e7eb);
   border-radius: var(--rds-border-radius-lg, 12px);
   overflow: hidden;
   width: 360px; // Component specific width
@@ -46,7 +45,7 @@
       .MuiInputBase-root {
         background-color: var(--rds-background-paper, #ffffff);
         border-radius: var(--rds-border-radius-sm, 4px);
-        border: 1px solid var(--rds-border-default, #e5e7eb);
+        border: 1px solid #dde1e8;
         transition: all 0.2s ease;
         font-size: 14px;
         color: var(--rds-text-primary, #111827);
@@ -57,7 +56,6 @@
         }
         
         &.Mui-focused {
-          border-color: var(--rds-color-primary, #3b82f6);
           box-shadow: 0 0 0 2px var(--rds-color-primary-20, rgba(59, 130, 246, 0.2));
           background-color: var(--rds-background-paper, #ffffff);
         }
@@ -131,7 +129,7 @@
     padding: var(--rds-spacing-xs, 4px);
     border-radius: var(--rds-border-radius-md, 8px) !important;
     box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.15)) !important;
-    border: 1px solid var(--rds-border-light, #e5e7eb);
+    // border: 1px solid var(--rds-border-light, #e5e7eb);
     margin-top: 2px;
     min-width: auto;
     width: 45px;
@@ -201,7 +199,6 @@
     height: 32px !important;
     padding: 0 !important;
     border-radius: var(--rds-border-radius-xl, 16px) !important; // circular chip stays (design intent)
-    border: 1px solid var(--rds-border-light, #e5e7eb) !important;
     background-color: transparent; // outlined default
     color: var(--rds-text-secondary, #6b7280); // default icon color
     .MuiChip-icon {
@@ -218,7 +215,6 @@
       transform: translateY(-1px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       background-color: var(--rds-background-neutral-50, #f3f4f6);
-      border-color: var(--rds-color-primary, #3b82f6);
     }
     
     &--selected {
@@ -275,7 +271,6 @@
       
       // Custom scrollbar styling
       scrollbar-width: thin;
-      scrollbar-color: var(--rds-border-default, #cbd5e1) var(--rds-background-neutral-50, #f8fafc);
       
       &::-webkit-scrollbar {
         width: var(--rds-spacing-xs, 6px);
@@ -441,11 +436,143 @@
   }
 }
 
-// Light theme override (if needed) - Remove if using proper design tokens
-.rds-emoji-generator--light {
-  background-color: var(--rds-background-paper, #ffffff);
-  border-color: var(--rds-border-default, #e5e7eb);
-  color: var(--rds-text-primary, #111827);
+// Dark theme support
+.dark-theme .rds-emoji-generator,
+[data-theme="dark"] .rds-emoji-generator {
+  background-color: var(--rds-background-surface, #424242);
+  border-color: var(--rds-border-default, #555555);
+  color: var(--rds-text-primary, #ffffff);
+
+  // Search section in dark mode
+  &__search {
+    background-color: var(--rds-background-surface, #424242);
+    .MuiTextField-root {
+      .MuiInputBase-root {
+        background-color: var(--rds-background-surface, #424242);
+        color: var(--rds-text-primary, #ffffff);
+        
+        &.Mui-focused {
+          background-color: var(--rds-background-surface, #424242);
+        }
+      }
+      
+      .MuiInputBase-input {
+        color: var(--rds-text-primary, #ffffff);
+        
+        &::placeholder {
+          color: var(--rds-text-secondary, #cccccc);
+        }
+      }
+      
+      .MuiSvgIcon-root {
+        color: var(--rds-text-secondary, #cccccc);
+      }
+    }
+  }
+
+  // Skin tone button in dark mode
+  &__skin-tone-button {
+    border-color: var(--rds-border-default, #555555);
+  }
+
+  // Skin tone popover in dark mode
+  &__skin-tone-popover {
+    background-color: var(--rds-background-surface, #424242) !important;
+    border-color: var(--rds-border-default, #555555) !important;
+  }
+
+  // Inline skin tone panel in dark mode
+  &__skin-tone-inline {
+    background-color: var(--rds-background-surface, #424242);
+    border: 1px solid var(--rds-border-default, #555555);
+  }
+
+  // Categories section in dark mode
+  &__categories {
+    background-color: var(--rds-background-surface, #424242);
+  }
+
+  // Category chips in dark mode
+  &__category-chip {
+    color: var(--rds-text-secondary, #cccccc);
+    
+    &:hover {
+      background-color: var(--rds-background-neutral-50, #4a4a4a);
+    }
+    
+    // Override Material-UI styles for dark theme
+    &.MuiChip-filled {
+      background-color: var(--rds-color-primary, #3b82f6) !important;
+      color: var(--rds-button-primary-text, #ffffff) !important;
+      
+      .MuiChip-icon {
+        color: var(--rds-button-primary-text, #ffffff) !important;
+      }
+    }
+    
+    &.MuiChip-outlined {
+      background-color: transparent !important;
+      color: var(--rds-text-secondary, #cccccc) !important;
+      
+      .MuiChip-icon {
+        color: var(--rds-text-secondary, #cccccc) !important;
+      }
+    }
+  }
+
+  // Grid section in dark mode
+  &__grid {
+    background-color: var(--rds-background-surface, #424242);
+  }
+
+  // Category title in dark mode
+  &__category-title-text {
+    color: var(--rds-text-primary, #ffffff);
+  }
+
+  // Grid container scrollbar in dark mode
+  &__grid-container {
+    
+    &::-webkit-scrollbar {
+      background-color: var(--rds-background-surface, #424242);
+    }
+    
+    &::-webkit-scrollbar-track {
+      background-color: var(--rds-background-surface, #424242);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--rds-border-default, #555555);
+      
+      &:hover {
+        background-color: var(--rds-border-hover, #666666);
+      }
+      
+      &:active {
+        background-color: var(--rds-border-strong, #777777);
+      }
+    }
+    
+    &::-webkit-scrollbar-corner {
+      background-color: var(--rds-background-surface, #424242);
+    }
+  }
+
+  // Footer in dark mode
+  &__footer {
+    background-color: var(--rds-background-surface, #424242);
+    
+    &-text {
+      color: var(--rds-text-secondary, #cccccc);
+    }
+  }
+
+  // Plus icon in dark mode
+  &__plus {
+    .MuiSvgIcon-root {
+      color: var(--rds-text-secondary, #cccccc);
+    }
+  }
 }
 
 // High contrast mode
