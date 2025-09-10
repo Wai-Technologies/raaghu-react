@@ -12,15 +12,6 @@ const meta: Meta<typeof RdsPopover> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    width: {
-      control: 'text',
-    },
-    maxWidth: {
-      control: 'text',
-    },
-    showCloseButton: {
-      control: 'boolean',
-    },
     position: {
       control: 'select',
       options: ['top-left', 'top-center', 'top-right', 'right-top', 'right-center', 'right-bottom', 'bottom-right', 'bottom-center', 'bottom-left', 'left-bottom', 'left-center', 'left-top', 'no-arrow'],
