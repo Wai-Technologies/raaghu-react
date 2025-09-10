@@ -462,3 +462,51 @@
     }
   }
 }
+
+/* Dark theme overrides: make toolbar and dropdowns black with white text/icons */
+.rds-theme--dark .rds-comp-toolbar,
+body.theme-dark .rds-comp-toolbar,
+body[data-theme="dark"] .rds-comp-toolbar,
+.theme-dark .rds-comp-toolbar {
+  background: var(--rds-color-surface-dark, #353535) !important;
+  color: var(--rds-color-on-surface-dark, #fff) !important;
+}
+
+.rds-theme--dark .rds-comp-toolbar .rds-comp-toolbar__row,
+body.theme-dark .rds-comp-toolbar .rds-comp-toolbar__row,
+body[data-theme="dark"] .rds-comp-toolbar .rds-comp-toolbar__row,
+.theme-dark .rds-comp-toolbar .rds-comp-toolbar__row {
+  background: transparent !important;
+}
+
+.rds-theme--dark .rds-comp-toolbar .rds-comp-toolbar__button,
+body.theme-dark .rds-comp-toolbar .rds-comp-toolbar__button,
+body[data-theme="dark"] .rds-comp-toolbar .rds-comp-toolbar__button,
+.theme-dark .rds-comp-toolbar .rds-comp-toolbar__button {
+  color: var(--rds-color-on-surface-dark, #fff) !important;
+}
+
+.rds-theme--dark .rds-comp-toolbar .rds-comp-toolbar__button:hover,
+body.theme-dark .rds-comp-toolbar .rds-comp-toolbar__button:hover,
+body[data-theme="dark"] .rds-comp-toolbar .rds-comp-toolbar__button:hover,
+.theme-dark .rds-comp-toolbar .rds-comp-toolbar__button:hover {
+  background: rgba(255,255,255,0.04) !important;
+  color: var(--rds-color-on-surface-dark, #fff) !important;
+}
+
+// Also target dropdowns rendered in a portal (not nested under .rds-comp-toolbar)
+.rds-theme--dark .rds-comp-toolbar__dropdown,
+body.theme-dark .rds-comp-toolbar__dropdown,
+body[data-theme="dark"] .rds-comp-toolbar__dropdown,
+.theme-dark .rds-comp-toolbar__dropdown {
+  background: var(--rds-color-surface-dark, #353535) !important;
+  color: var(--rds-color-on-surface-dark, #fff) !important;
+}
+
+/* Ensure items inside portal dropdowns are white and readable */
+ .rds-theme--dark .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item,
+ body.theme-dark .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item,
+ body[data-theme="dark"] .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item,
+ .theme-dark .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item {
+   color: var(--rds-color-on-surface-dark, #fff) !important;
+ }
