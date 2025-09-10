@@ -6,85 +6,16 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
-import { TimeRangePicker } from '@mui/x-date-pickers-pro/TimeRangePicker';
-import { DateTimeRangePicker } from '@mui/x-date-pickers-pro/DateTimeRangePicker';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { PickersDay } from '@mui/x-date-pickers/PickersDay';
+import { TimeClock } from '@mui/x-date-pickers/TimeClock';
+import Popover from '@mui/material/Popover';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 import './rds-comp-date-and-time-picker.scss';
-
-// License configuration
-try {
-  const { LicenseInfo } = require('@mui/x-license-pro');
-  LicenseInfo.setLicenseKey('x0jTPl0USVkVZV0SsMjM1kDNyADM5cjM2ETPZJVSQhVRsIDN0YTM6IVREJ1T0b9586ef25c9853decfa7709eee27a1e');
-} catch (e) {
-  // Ignore if license module is not available
-}
-
-// Utility function to aggressively remove watermarks
-const removeWatermarks = () => {
-  const watermarkSelectors = [
-    // Be more specific to avoid affecting input elements
-    '.MuiDataGrid-watermark',
-    'div[class*="MuiDataGrid-watermark"]',
-    'span[class*="MuiDataGrid-watermark"]',
-    '.MuiTypography-root[title*="MUI X"]:not(.MuiInputLabel-root)',
-    '.MuiTypography-root[title*="evaluation"]:not(.MuiInputLabel-root)',
-    'div[title*="MUI X"]:not([class*="MuiTextField"]):not([class*="MuiInput"])',
-    'span[title*="MUI X"]:not([class*="MuiTextField"]):not([class*="MuiInput"])',
-    '*[title*="Material-UI X"]:not([class*="MuiTextField"]):not([class*="MuiInput"])',
-    // Target specific watermark patterns but exclude input elements
-    '[class*="watermark"]:not([class*="MuiTextField"]):not([class*="MuiInput"]):not([class*="MuiFormControl"])',
-    '[data-testid*="watermark"]:not([class*="MuiTextField"]):not([class*="MuiInput"])',
-    '[class*="evaluation"]:not([class*="MuiTextField"]):not([class*="MuiInput"])',
-    '[data-testid*="evaluation"]:not([class*="MuiTextField"]):not([class*="MuiInput"])'
-  ];
-
-  watermarkSelectors.forEach(selector => {
-    try {
-      const elements = document.querySelectorAll(selector);
-      elements.forEach(element => {
-        const htmlElement = element as HTMLElement;
-        
-        // Double check this isn't an input-related element
-        if (!htmlElement.closest('.MuiTextField-root') && 
-            !htmlElement.closest('.MuiFormControl-root') &&
-            !htmlElement.closest('.MuiInputBase-root') &&
-            !htmlElement.classList.contains('MuiInputLabel-root') &&
-            !htmlElement.classList.contains('MuiInputBase-input')) {
-          
-          htmlElement.style.setProperty('display', 'none', 'important');
-          htmlElement.style.setProperty('visibility', 'hidden', 'important');
-          htmlElement.style.setProperty('opacity', '0', 'important');
-          
-          // Only remove if it's clearly a watermark element
-          if (htmlElement.textContent?.includes('MUI X') || 
-              htmlElement.textContent?.includes('evaluation')) {
-            htmlElement.remove();
-          }
-        }
-      });
-    } catch (e) {
-      // Ignore errors for invalid selectors
-    }
-  });
-
-  // Be more careful with text content removal
-  const potentialWatermarks = document.querySelectorAll('div, span, p');
-  potentialWatermarks.forEach(element => {
-    const htmlElement = element as HTMLElement;
-    const text = htmlElement.textContent?.trim().toLowerCase();
-    
-    // Only target elements that are clearly watermarks and not input-related
-    if ((text?.includes('mui x') || text?.includes('evaluation')) &&
-        !htmlElement.closest('.MuiTextField-root') &&
-        !htmlElement.closest('.MuiFormControl-root') &&
-        !htmlElement.closest('.MuiInputBase-root') &&
-        !htmlElement.classList.contains('MuiInputLabel-root') &&
-        !htmlElement.classList.contains('MuiInputBase-input') &&
-        htmlElement.children.length === 0) { // Only text nodes, not containers
-      htmlElement.style.setProperty('display', 'none', 'important');
-    }
-  });
-};
 
 export interface RdsCompDatePickerProps {
   variant?: 'date' | 'time' | 'datetime' | 'daterange' | 'timerange' | 'datetimerange';
@@ -181,7 +112,7 @@ const CustomDateRangeLayout = React.forwardRef<
         </ul>
       </div>
       
-      {/* Calendar Panel */}
+      {/* Calendar/Content Panel */}
       <div className="rds-date-picker__calendar-panel">
         {children}
       </div>
@@ -189,7 +120,188 @@ const CustomDateRangeLayout = React.forwardRef<
   );
 });
 
-// Removed StyledContainer - using CSS classes instead
+// Utility helpers
+const formatRangeText = (
+  variant: 'daterange' | 'timerange' | 'datetimerange',
+  value: [Dayjs | null, Dayjs | null],
+  showSeconds: boolean
+) => {
+  const [start, end] = value;
+  if (!start && !end) return '';
+  const timeFmt = showSeconds ? 'HH:mm:ss a' : 'HH:mm a';
+  switch (variant) {
+    case 'daterange':
+      return `${start ? start.format('MM/DD/YYYY') : ''} - ${end ? end.format('MM/DD/YYYY') : ''}`;
+    case 'timerange':
+      return `${start ? start.format(timeFmt) : ''} - ${end ? end.format(timeFmt) : ''}`;
+    case 'datetimerange':
+    default:
+      return `${start ? start.format(`MM/DD/YYYY ${timeFmt}`) : ''} - ${end ? end.format(`MM/DD/YYYY ${timeFmt}`) : ''}`;
+  }
+};
+
+const isSameDay = (a: Dayjs | null, b: Dayjs | null) => !!a && !!b && a.isSame(b, 'day');
+const isBetween = (day: Dayjs, start: Dayjs | null, end: Dayjs | null) =>
+  !!start && !!end && day.isAfter(start, 'day') && day.isBefore(end, 'day');
+
+function RangeCalendar({
+  value,
+  onChange,
+  minDate,
+  maxDate,
+  multiMonth,
+}: {
+  value: [Dayjs | null, Dayjs | null];
+  onChange: (v: [Dayjs | null, Dayjs | null]) => void;
+  minDate?: Dayjs;
+  maxDate?: Dayjs;
+  multiMonth?: boolean;
+}) {
+  const [draft, setDraft] = React.useState<[Dayjs | null, Dayjs | null]>(value);
+  
+  // Add state for current month being viewed
+  const [currentMonth, setCurrentMonth] = React.useState(
+    draft[0] || dayjs()
+  );
+  
+  React.useEffect(() => setDraft(value), [value[0]?.valueOf(), value[1]?.valueOf()]);
+
+  const handleSelect = (day: Dayjs) => {
+    const [start, end] = draft;
+    if (!start || (start && end)) {
+      setDraft([day.startOf('day'), null]);
+      onChange([day.startOf('day'), null]);
+    } else if (day.isBefore(start, 'day')) {
+      setDraft([day.startOf('day'), start.endOf('day')]);
+      onChange([day.startOf('day'), start.endOf('day')]);
+    } else {
+      setDraft([start, day.endOf('day')]);
+      onChange([start, day.endOf('day')]);
+    }
+  };
+
+  // Handle month navigation
+  const handleMonthChange = (newMonth: Dayjs) => {
+    setCurrentMonth(newMonth);
+  };
+
+  const renderDaySlot = (dayProps: any) => {
+    const day = dayProps.day as Dayjs;
+    const [start, end] = draft;
+    const inRange = isBetween(day, start, end);
+    const isStart = isSameDay(day, start);
+    const isEnd = isSameDay(day, end);
+    return (
+      <PickersDay
+        {...dayProps}
+        onClick={() => handleSelect(day)}
+        sx={{
+          borderRadius: '4px !important',
+          ...(inRange && {
+            backgroundColor: 'var(--rds-color-primary-hover, #E3F2FD) !important',
+            color: 'var(--rds-color-primary, #1976d2) !important',
+          }),
+          ...(isStart || isEnd ? {
+            backgroundColor: 'var(--rds-color-primary, #2196F3) !important',
+            color: 'var(--rds-color-on-primary, #fff) !important',
+          } : {}),
+        }}
+      />
+    );
+  };
+
+  const calendars = (
+    <Box display="flex" gap={2}>
+      <DateCalendar
+        value={currentMonth}
+        onChange={(newMonth) => newMonth && handleMonthChange(newMonth)}
+        onMonthChange={(newMonth) => setCurrentMonth(newMonth)}
+        minDate={minDate}
+        maxDate={maxDate}
+        slots={{ day: renderDaySlot }}
+        views={['day']}
+      />
+      {multiMonth && (
+        <DateCalendar
+          value={currentMonth.add(1, 'month')}
+          onChange={(newMonth) => newMonth && handleMonthChange(newMonth.subtract(1, 'month'))}
+          onMonthChange={(newMonth) => setCurrentMonth(newMonth.subtract(1, 'month'))}
+          minDate={minDate}
+          maxDate={maxDate}
+          slots={{ day: renderDaySlot }}
+          views={['day']}
+        />
+      )}
+    </Box>
+  );
+
+  return calendars;
+}
+
+function RangeTime({
+  value,
+  onChange,
+  showSeconds,
+  minTime,
+  maxTime,
+}: {
+  value: [Dayjs | null, Dayjs | null];
+  onChange: (v: [Dayjs | null, Dayjs | null]) => void;
+  showSeconds: boolean;
+  minTime?: Dayjs;
+  maxTime?: Dayjs;
+}) {
+  const [start, end] = value;
+  return (
+    <Stack direction="row" spacing={2}>
+      <TimeClock
+        value={start}
+        onChange={(v) => onChange([v, end])}
+        ampm
+        minutesStep={1}
+        views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
+        minTime={minTime}
+        maxTime={maxTime}
+      />
+      <TimeClock
+        value={end}
+        onChange={(v) => onChange([start, v])}
+        ampm
+        minutesStep={1}
+        views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
+        minTime={minTime}
+        maxTime={maxTime}
+      />
+    </Stack>
+  );
+}
+
+function RangeDateTime({
+  value,
+  onChange,
+  showSeconds,
+  minDate,
+  maxDate,
+  minTime,
+  maxTime,
+  multiMonth,
+}: {
+  value: [Dayjs | null, Dayjs | null];
+  onChange: (v: [Dayjs | null, Dayjs | null]) => void;
+  showSeconds: boolean;
+  minDate?: Dayjs;
+  maxDate?: Dayjs;
+  minTime?: Dayjs;
+  maxTime?: Dayjs;
+  multiMonth?: boolean;
+}) {
+  return (
+    <Stack direction="column" spacing={2}>
+      <RangeCalendar value={value} onChange={onChange} minDate={minDate} maxDate={maxDate} multiMonth={multiMonth} />
+      <RangeTime value={value} onChange={onChange} showSeconds={showSeconds} minTime={minTime} maxTime={maxTime} />
+    </Stack>
+  );
+}
 
 export default function RdsCompDatePicker({
   variant = 'date',
@@ -211,12 +323,12 @@ export default function RdsCompDatePicker({
   size = 'medium',
   slotProps,
   newVariant = 'default',
-  showSeconds = true, // Default to true to show seconds by default
-  isRequired = false, // Default to false
+  showSeconds = true,
+  isRequired = false,
 }: RdsCompDatePickerProps) {
   // Determine if we need range values
   const isRangeVariant = variant.includes('range') || layout === 'Multi Month';
-  
+
   // State management
   const [dateValue, setDateValue] = React.useState<Dayjs | null>(
     Array.isArray(value) ? value[0] : (value as Dayjs | null) || null
@@ -227,6 +339,7 @@ export default function RdsCompDatePicker({
 
   const [open, setOpen] = React.useState(false);
   const [selectedPreset, setSelectedPreset] = React.useState<string>('custom');
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
   // Handle preset selection
   const handlePresetSelect = (preset: DateRangePreset) => {
@@ -237,58 +350,6 @@ export default function RdsCompDatePicker({
       onChange?.(newRange);
     }
   };
-
-  // Effect to remove watermarks only for range pickers (which show watermarks)
-  React.useEffect(() => {
-    // Only run watermark removal for range picker variants
-    if (!variant.includes('range') && layout !== 'Multi Month') {
-      return;
-    }
-
-    // Remove watermarks immediately
-    removeWatermarks();
-
-    // Set up a mutation observer to remove watermarks when they're added dynamically
-    const observer = new MutationObserver((mutations) => {
-      let shouldRemove = false;
-      mutations.forEach(mutation => {
-        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-          // Check if any added nodes contain watermark-related content
-          mutation.addedNodes.forEach(node => {
-            if (node.nodeType === Node.ELEMENT_NODE) {
-              const element = node as Element;
-              if (element.textContent?.includes('MUI X') || 
-                  element.textContent?.includes('evaluation')) {
-                shouldRemove = true;
-              }
-            }
-          });
-        }
-      });
-      
-      if (shouldRemove) {
-        setTimeout(removeWatermarks, 0);
-      }
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-
-    // Remove watermarks when the picker opens (less frequent)
-    let interval: NodeJS.Timeout;
-    if (open) {
-      interval = setInterval(removeWatermarks, 1000);
-    }
-
-    return () => {
-      observer.disconnect();
-      if (interval) {
-        clearInterval(interval);
-      }
-    };
-  }, [open, variant, layout]);
 
   // Event handlers
   const handleDateChange = (newValue: Dayjs | null) => {
@@ -323,18 +384,16 @@ export default function RdsCompDatePicker({
       textField: {
         error,
         helperText,
-        label: formattedLabel, // Use formatted label with required indicator
-        placeholder: placeholder, // Keep placeholder for when no label is provided
+        label: formattedLabel,
+        placeholder: placeholder,
         fullWidth: true,
         size,
-        required: isRequired, // Keep for form validation and accessibility
+        required: isRequired,
         className: `rds-date-picker__input ${disabled ? 'rds-date-picker__input--disabled' : ''} ${readOnly ? 'rds-date-picker__input--readonly' : ''} ${isRequired ? 'rds-date-picker__input--required' : ''}`,
         InputLabelProps: {
-          // Disable MUI's built-in required asterisk since we use custom one
           ...(isRequired && { 
             disableAnimation: false,
             shrink: undefined,
-            // Override any asterisk styling
             sx: {
               '&::after': {
                 content: '""',
@@ -354,7 +413,7 @@ export default function RdsCompDatePicker({
       },
       ...slotProps,
     },
-  };
+  } as const;
 
   // Props specific to single value pickers
   const singlePickerProps = {
@@ -364,82 +423,93 @@ export default function RdsCompDatePicker({
     minTime,
     maxTime,
     format,
-  };
+  } as const;
 
-  // Props specific to range pickers with watermark hiding
-  const rangePickerProps = {
-    disabled,
-    readOnly,
-    size,
-    value: rangeValue,
-    onChange: handleRangeChange,
-    slotProps: {
-      textField: {
-        error,
-        helperText,
-        label: label, // Use label as floating label
-        placeholder: placeholder, // Keep placeholder for when no label is provided
-        fullWidth: true,
-        size,
-        InputProps: {
-          style: { cursor: disabled ? 'default' : 'pointer' },
-        },
-        style: { 
-          cursor: disabled ? 'default' : 'pointer',
-          width: '100%', // Ensure full width
-        },
-        ...slotProps?.textField,
-      },
-      day: {
-        sx: {
-          borderRadius: '4px !important',
-          '&:hover': {
-            borderRadius: '4px !important',
-          },
-          '&.Mui-selected': {
-            borderRadius: '4px !important',
-            '&:hover': {
-              borderRadius: '4px !important',
-            },
-          },
-          '&.MuiPickersDay-today': {
-            borderRadius: '4px !important',
-          },
-          '&.MuiDateRangePickerDay-rangeIntervalDayHighlight': {
-            borderRadius: '4px !important',
-          },
-          '&.MuiDateRangePickerDay-rangeIntervalDayHighlightStart': {
-            borderRadius: '4px !important',
-          },
-          '&.MuiDateRangePickerDay-rangeIntervalDayHighlightEnd': {
-            borderRadius: '4px !important',
-          },
-        },
-      },
-      layout: {
-        sx: {
-          // Hide any watermark elements in the layout
-          '& [class*="watermark"]': {
-            display: 'none !important',
-          },
-          '& [data-testid*="watermark"]': {
-            display: 'none !important',
-          },
-        },
-      },
-      popper: {
-        sx: {
-          // Hide watermarks in the popper
-          '& [class*="watermark"]': {
-            display: 'none !important',
-          },
-          '& [data-testid*="watermark"]': {
-            display: 'none !important',
-          },
-        },
-      },
-      ...slotProps,
-    },
+  // Custom combined field for range variants
+  const renderRangeField = () => {
+    const inputValue = formatRangeText(variant as any, rangeValue, showSeconds);
+    const isMultiMonth = layout === 'Multi Month';
+
+    return (
+      <>
+        <TextField
+          onClick={(e) => { if (!disabled) setAnchorEl(e.currentTarget as HTMLElement); }}
+          value={inputValue}
+          placeholder={placeholder}
+          label={label}
+          size={size}
+          fullWidth
+          disabled={disabled}
+          InputProps={{ readOnly: true, style: { cursor: disabled ? 'default' : 'pointer' } }}
+          error={error}
+          helperText={helperText}
+          className={`rds-date-picker__input ${disabled ? 'rds-date-picker__input--disabled' : ''} ${readOnly ? 'rds-date-picker__input--readonly' : ''} ${isRequired ? 'rds-date-picker__input--required' : ''}`}
+        />
+        <Popover
+          open={Boolean(anchorEl)}
+          anchorEl={anchorEl}
+          onClose={() => setAnchorEl(null)}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+          className="MuiPickersPopper-root"
+        >
+          <Paper elevation={3} sx={{ p: 2 }}>
+            {newVariant === 'custom' && variant === 'daterange' ? (
+              <CustomDateRangeLayout
+                selectedPreset={selectedPreset}
+                onPresetSelect={handlePresetSelect}
+                rangeValue={rangeValue}
+              >
+                <RangeCalendar
+                  value={rangeValue}
+                  onChange={handleRangeChange}
+                  minDate={minDate}
+                  maxDate={maxDate}
+                  multiMonth={isMultiMonth}
+                />
+              </CustomDateRangeLayout>
+            ) : (
+              <>
+                {variant === 'daterange' && (
+                  <RangeCalendar
+                    value={rangeValue}
+                    onChange={handleRangeChange}
+                    minDate={minDate}
+                    maxDate={maxDate}
+                    multiMonth={isMultiMonth}
+                  />
+                )}
+                {variant === 'timerange' && (
+                  <RangeTime
+                    value={rangeValue}
+                    onChange={handleRangeChange}
+                    showSeconds={showSeconds}
+                    minTime={minTime}
+                    maxTime={maxTime}
+                  />
+                )}
+                {variant === 'datetimerange' && (
+                  <RangeDateTime
+                    value={rangeValue}
+                    onChange={handleRangeChange}
+                    showSeconds={showSeconds}
+                    minDate={minDate}
+                    maxDate={maxDate}
+                    minTime={minTime}
+                    maxTime={maxTime}
+                    multiMonth={isMultiMonth}
+                  />
+                )}
+              </>
+            )}
+            <Box display="flex" justifyContent="flex-end" gap={1} mt={2}>
+              <Button size="small" onClick={() => { setRangeValue([null, null]); onChange?.([null, null]); }}>Clear</Button>
+              <Button size="small" variant="contained" onClick={() => setAnchorEl(null)}>Apply</Button>
+            </Box>
+          </Paper>
+        </Popover>
+      </>
+    );
   };
 
   // Get the appropriate picker component
@@ -467,83 +537,9 @@ export default function RdsCompDatePicker({
         );
 
       case 'daterange':
-        // If newVariant is custom, use custom layout with presets
-        if (newVariant === 'custom') {
-          return (
-            <DateRangePicker
-              {...rangePickerProps}
-              slotProps={{
-                ...rangePickerProps.slotProps,
-                layout: {
-                  sx: {
-                    // Hide default layout and use custom one
-                    '& .MuiPickersLayout-root': {
-                      display: 'none',
-                    },
-                  },
-                },
-                popper: {
-                  ...rangePickerProps.slotProps?.popper,
-                  sx: {
-                    ...rangePickerProps.slotProps?.popper?.sx,
-                    '& .MuiPaper-root': {
-                      overflow: 'visible',
-                    },
-                  },
-                },
-              }}
-              slots={{
-                layout: (layoutProps: any) => (
-                  <CustomDateRangeLayout
-                    selectedPreset={selectedPreset}
-                    onPresetSelect={handlePresetSelect}
-                    rangeValue={rangeValue}
-                    {...layoutProps}
-                  />
-                ),
-              }}
-            />
-          );
-        }
-        return (
-          <DateRangePicker
-            {...rangePickerProps}
-          />
-        );
-
       case 'timerange':
-        return (
-          <TimeRangePicker
-            {...rangePickerProps}
-            minTime={minTime}
-            maxTime={maxTime}
-            format={format || (showSeconds ? 'HH:mm:ss a' : 'HH:mm a')}
-            views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
-            ampm={true}
-            timeSteps={{ hours: 1, minutes: 1, seconds: showSeconds ? 1 : undefined }}
-          />
-        );
-
       case 'datetimerange':
-        return (
-          <DateTimeRangePicker
-            {...rangePickerProps}
-            minTime={minTime}
-            maxTime={maxTime}
-            format={format || (showSeconds ? 'MM/DD/YYYY HH:mm:ss a' : 'MM/DD/YYYY HH:mm a')}
-            ampm={true}
-            timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
-            slotProps={{
-              ...rangePickerProps.slotProps,
-              textField: {
-                ...rangePickerProps.slotProps?.textField,
-                inputProps: {
-                  placeholder: showSeconds ? 'MM/DD/YYYY HH:mm:ss a' : 'MM/DD/YYYY HH:mm a',
-                },
-              },
-            }}
-          />
-        );
+        return renderRangeField();
 
       case 'date':
       default:
@@ -573,12 +569,8 @@ export default function RdsCompDatePicker({
         );
       
       case 'Multi Month':
-        return (
-          <DateRangePicker
-            {...rangePickerProps}
-            calendars={2}
-          />
-        );
+        // Use range field with two calendars to mimic multi-month range selection
+        return renderRangeField();
       
       case 'Default':
       default:
@@ -596,7 +588,6 @@ export default function RdsCompDatePicker({
     readOnly && 'rds-date-picker--readonly',
     error && 'rds-date-picker--error',
     isRequired && 'rds-date-picker--required',
-    // Add specific variant classes for better styling
     variant === 'datetimerange' && 'rds-date-picker--datetimerange',
     variant === 'timerange' && 'rds-date-picker--timerange',
     variant === 'daterange' && 'rds-date-picker--daterange',
