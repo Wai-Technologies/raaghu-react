@@ -234,3 +234,20 @@
 .MuiButton-containedSuccess, .MuiButton-containedPrimary, .MuiButton-containedSecondary {
   color: #fff !important;
 }
+
+@media (max-width: 568px) and (min-width: 320px) {
+  .rds-popover__container {
+    max-width: 285px !important;
+  }
+}
+@media (min-width: 414px) and (max-width: 896px) {
+  .rds-popover__container {
+    max-width: 380px !important;
+  }
+}
+
+@media (min-width: 834px) and (max-width: 1280px) {
+    .rds-popover__container {
+        max-width: 330px !important;
+    }
+}
