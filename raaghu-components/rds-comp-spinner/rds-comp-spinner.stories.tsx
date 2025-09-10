@@ -63,4 +63,4 @@ export const Default: Story = {
         colorVariant: 'primary',
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['spinnerType','size','colorVariant', 'width', 'height', 'showLabel', 'layout',"labelText"] } };
+Default.parameters = { controls: { include: ['spinnerType','size','colorVariant', 'showLabel', 'layout',"labelText"] } };

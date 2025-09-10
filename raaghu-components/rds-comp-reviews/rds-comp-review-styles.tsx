@@ -3,7 +3,8 @@ import { RdsAvatar, RdsRating } from "../../raaghu-elements";
 import { Item, RevieweStyle } from "./rds-comp-reviews";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Box, Card, CardContent, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { fontWeight } from "@mui/system";
 
 /**
  * Helper function to format dates in a standard way
@@ -32,7 +33,7 @@ const Style1 = ({ item }: { item: Item }) => {
   return (
     <Card sx={{ height: '100%' }}>
       <CardContent sx={{ textAlign: 'center' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', '& .rds-avatar__name': { fontWeight: 'bold', fontSize: '1.25rem' } }}>
           <RdsAvatar
             src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
             title={item.name}
@@ -73,7 +74,7 @@ const Style2 = ({ item }: { item: Item }) => {
   return (
     <Card sx={{ height: '100%' }}>
       <CardContent sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column' }}>
-        <Typography variant="h5">{item.name}</Typography>
+        <Typography variant="h6" fontWeight="bold">{item.name}</Typography>
         <Typography variant="subtitle1" color="text.secondary">{item.username}</Typography>
         <Box sx={{ my: 3, display: 'flex', justifyContent: 'center' }}>
           <RdsRating
@@ -101,7 +102,7 @@ const Style3 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <Card sx={{ p: 3, height: '100%' }}>
+    <Card sx={{ p: 3, height: '100%', '& .rds-avatar__name': { fontWeight: 'bold', fontSize: '1.25rem'  } }}>
       {/* User info with avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
         <RdsAvatar
@@ -145,7 +146,7 @@ const Style4 = ({ item }: { item: Item }) => {
       {/* User info without avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box>
-          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>
+          <Typography variant="h6" fontWeight="bold">
             {item.name}
           </Typography>
           <Typography variant="caption" color="text.secondary">
@@ -234,7 +235,7 @@ const Style6 = ({ item }: { item: Item }) => {
       {/* User info without avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box>
-          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>
+          <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>
             {item.name}
           </Typography>
           <Typography variant="caption" color="text.secondary">
@@ -265,6 +266,8 @@ const Style7 = ({ item }: { item: Item }) => {
   const [likes, setLikes] = useState(item.likes || 35);
   const [dislikes, setDislikes] = useState(item.dislikes || 10);
   const [rating, setRating] = useState(item.rating || 4.5);
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.down('sm'));
   
   const handleLike = () => {
     setLikes(prev => prev + 1);
@@ -282,18 +285,38 @@ const Style7 = ({ item }: { item: Item }) => {
   
   return (
     <Card sx={{ p: 3, height: '100%' }} className="rating-text">
-      {/* Image, Name, and Rating in the Same Line */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'nowrap' }}>
-         <RdsAvatar
-           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
-          title={item.name}
-          size="medium"
-          showDesignation={false}
-          showName={false}
-        />
-          <Box >
-            <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>
+      {/* Header: avatar, name/date, and rating */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: { xs: 'flex-start', sm: 'center' },
+          gap: 1.5,
+          flexDirection: { xs: 'column', sm: 'row' }
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            flexWrap: { xs: 'wrap', sm: 'nowrap' },
+            width: '100%'
+          }}
+        >
+          <RdsAvatar
+            src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
+            title={item.name}
+            size={isXs ? 'small' : 'medium'}
+            showDesignation={false}
+            showName={false}
+          />
+          <Box sx={{ minWidth: 0 }}>
+            <Typography
+              variant="h6"
+              fontWeight="bold"
+              sx={{ fontSize: { xs: '1rem', sm: '1.25rem' }, lineHeight: 1.2 }}
+            >
               {item.name}
             </Typography>
             <Typography variant="caption" color="text.secondary">
@@ -301,12 +324,21 @@ const Style7 = ({ item }: { item: Item }) => {
             </Typography>
           </Box>
         </Box>
-        {/* Rating at the End of the Line */}
-        <Box className="rating-wrapper">
+        {/* Rating - moves below on xs */}
+        <Box
+          className="rating-wrapper"
+          sx={{
+            alignSelf: { xs: 'stretch', sm: 'auto' },
+            width: { xs: '100%', sm: 'auto' },
+            mt: { xs: 1, sm: 0 },
+            display: 'flex',
+            justifyContent: { xs: 'flex-start', sm: 'flex-end' }
+          }}
+        >
           <RdsRating
             value={rating}
             precision={0.5}
-            size="medium"
+            size={isXs ? 'small' : 'medium'}
             onChange={handleRatingChange}
             readOnly={false}
           />
@@ -388,7 +420,7 @@ const Style8 = ({ item }: { item: Item }) => {
         
         {/* Name at the bottom */}
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Typography variant="h6" sx={{ mb: 0, textAlign: 'right' }}>{item.name}</Typography>
+          <Typography variant="body2" sx={{ mb: 0, textAlign: 'right', mt: 1}}>{item.name}</Typography>
         </Box>
       </Box>
     </Card>
@@ -427,7 +459,7 @@ const Style9 = ({ item }: { item: Item }) => {
           showName={false}
         />
         <Box>
-          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
+          <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
           <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'lowercase' }}>
             {item.username}
           </Typography>
@@ -520,7 +552,7 @@ const Style10 = ({ item }: { item: Item }) => {
       {/* User info without avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box>
-          <Typography variant="h5" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
+          <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
           <Typography variant="body2" color="text.secondary" sx={{ textTransform: 'lowercase' }}>
             {item.username}
           </Typography>
@@ -610,7 +642,7 @@ const Style11 = ({ item }: { item: Item }) => {
             size="medium"
           />
         </Box>
-        <Typography variant="h5" sx={{ textAlign: 'center' }}>{item.name}</Typography>
+        <Typography variant="h6" fontWeight="bold" sx={{ textAlign: 'center' }}>{item.name}</Typography>
         <Typography variant="subtitle1" color="text.secondary" sx={{ textAlign: 'center' }}>
           {item.username}
         </Typography>
@@ -650,7 +682,7 @@ const Style12 = ({ item }: { item: Item }) => {
   return (
     <Card sx={{ height: '100%' }}>
       <CardContent>
-        <Typography variant="h5" sx={{ textAlign: 'center' }}>{item.name}</Typography>
+        <Typography variant="h6" fontWeight="bold"  sx={{ textAlign: 'center' }}>{item.name}</Typography>
         <Typography variant="subtitle1" color="text.secondary" sx={{ textAlign: 'center' }}>
           {item.username}
         </Typography>

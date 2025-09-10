@@ -28,15 +28,17 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     
-    useEffect(() => {
-        registerMaterialIcons({
-            'list': ListIcon,
-            'refresh': RefreshIcon,
-            'export': GetAppIcon,
-            'delete': DeleteIcon,
-            'download': DownloadIcon,
-        });
-    }, []);
+// Register material icons at module load to ensure icons are available
+// on first render and avoid a race where the icon registry is populated
+// only after the component mounted (which caused icons to appear only
+// after a refresh in some cases).
+registerMaterialIcons({
+    'list': ListIcon,
+    'refresh': RefreshIcon,
+    'export': GetAppIcon,
+    'delete': DeleteIcon,
+    'download': DownloadIcon,
+});
     
     // Generate RDS classes following BEM naming convention
     // Determine background type with backward compatibility
@@ -81,8 +83,11 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
         };
     };
 
+    const rootClass = `rds-fab-menu ${props.alignment === 'right' ? 'rds-fab-menu--right' : ''} ${isMenuOpen ? 'rds-fab-menu--open' : ''}`.trim();
+    const dataAlignment = props.alignment || 'left';
+
     return (
-        <div className="rds-fab-menu">
+    <div className={rootClass} data-alignment={dataAlignment} data-open={isMenuOpen}>
             <button
                 ref={buttonRef}
                 className={customClasses}

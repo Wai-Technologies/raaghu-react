@@ -40,6 +40,112 @@
       align-items: center;
     }
   }
+  // Responsive styles for mobile screens
+  @media (max-width: 834px) and (min-width: 414px) {
+    .MuiPaginationItem-sizeSmall {
+      margin: 0 1px !important;
+      padding: 1px 2px !important;
+      font-size: 0.7rem !important;
+      min-width: 22px !important;
+      height: 22px !important;
+    }
+
+    .MuiPaginationItem-sizeMedium {
+      margin: 0 1px !important;
+      padding: 2px 3px !important;
+      font-size: 0.8rem !important;
+      min-width: 24px !important;
+      height: 24px !important;
+    }
+
+    .MuiPaginationItem-sizeLarge {
+      margin: 0 1px !important;
+      padding: 3px 4px !important;
+      font-size: 0.9rem !important;
+      min-width: 26px !important;
+      height: 26px !important;
+    }
+
+    .MuiPagination-ul {
+      flex-wrap: nowrap;
+      gap: 3px;
+    }
+    .MuiPaginationItem-root {
+      margin: 0 2px;
+      padding: 2px 6px;
+      font-size: 0.85rem;
+      min-width: 28px;
+      height: 28px;
+    }
+    .MuiPaginationItem-root.MuiPaginationItem-rounded {
+      padding: 6px;
+      border-radius: 4px;
+    }
+    // Reduce dropdown width
+    .MuiFormControl-root {
+      min-width: 70px !important;
+    }
+    .MuiInputLabel-root {
+      font-size: 0.85rem;
+    }
+    .MuiSelect-select {
+      font-size: 0.85rem;
+      padding: 6px 8px;
+    }
+  }
+
+  @media (max-width: 414px) and (min-width: 320px) {
+    .MuiPaginationItem-sizeSmall {
+      margin: 0 1px !important;
+      padding: 1px 2px !important;
+      font-size: 0.75rem !important;
+      min-width: 18px !important;
+      height: 18px !important;
+    }
+
+    .MuiPaginationItem-sizeMedium {
+      margin: 0 1px !important;
+      padding: 2px 3px !important;
+      font-size: 0.775rem !important;
+      min-width: 19px !important;
+      height: 19px !important;
+    }
+
+    .MuiPaginationItem-sizeLarge {
+      margin: 0 1px !important;
+      padding: 3px 4px !important;
+      font-size: 0.8rem !important;
+      min-width: 20px !important;
+      height: 20px !important;
+    }
+
+    .MuiPagination-ul {
+      flex-wrap: nowrap;
+      gap: 0px;
+    }
+    .MuiPaginationItem-root {
+      margin: 0 2px;
+      padding: 2px 0px;
+      font-size: 0.85rem;
+      min-width: 25px;
+      height: 25px;
+    }
+    .MuiPaginationItem-root.MuiPaginationItem-rounded {
+      padding: 6px;
+      border-radius: 4px;
+    }
+    // Reduce dropdown width
+    .MuiFormControl-root {
+      min-width: 70px !important;
+    }
+    .MuiInputLabel-root {
+      font-size: 0.85rem;
+    }
+    .MuiSelect-select {
+      font-size: 0.85rem;
+      padding: 6px 8px;
+    }
+  }
 
   // Selected (current) page
   .MuiPaginationItem-root.Mui-selected {
@@ -98,4 +204,12 @@
     outline: 2px solid var(--rds-color-primary, #2196f3);
     outline-offset: 2px;
   }
+}
+
+.css-1p5hatt-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
+.css-1p5hatt-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
+.css-1p5hatt-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+    padding-right: 28px !important;
+    font-size: 14px !important;
+    padding: 7.5px 8px !important;
 }

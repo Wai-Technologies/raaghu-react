@@ -6,6 +6,9 @@ const meta: Meta<typeof RdsTypography> = {
   component: RdsTypography,
   parameters: {
     layout: 'padded',
+     controls: {
+      include: ['text', 'variant', 'color', 'align', 'gutterBottom', 'noWrap'],
+    },
   },
   tags: ['autodocs'],
   argTypes: {

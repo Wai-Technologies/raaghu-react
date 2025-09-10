@@ -188,9 +188,9 @@
 
   &__designation {
     font-size: var(--rds-font-size-sm, 0.95rem);
-    color: var(--rds-text-secondary,);
+    color: var(--rds-text-secondary, #948e8e);
     font-weight: 400;
-    line-height: 1.1;
+    margin-top: 3px;
   }
 
   // Stacking variant
@@ -248,8 +248,10 @@
   }
   &--dark {
     background-color: var(--rds-color-dark, #22223b);
+    color: white;
     .rds-avatar__ring { border-color: var(--rds-color-dark, #22223b); }
     .rds-avatar__dot { background: var(--rds-color-dark, #22223b); }
+    .MuiAvatar-root { color: white !important; }
   }
 
 
@@ -356,9 +358,9 @@
   }
   &__designation {
     font-size: var(--rds-font-size-sm, 0.95rem);
-    color: var(--rds-text-secondary);
+    color: var(--rds-text-secondary, #948e8e);
     font-weight: 400;
-    line-height: 1.1;
+    margin-top: 3px;
   }
 
   // Stacking avatars
@@ -423,4 +425,10 @@
   width: 64px;
   height: 64px;
   font-size: 18px;
+}
+
+html.theme-dark .rds-avatar .MuiAvatar-root,
+[data-theme="dark"] .rds-avatar .MuiAvatar-root,
+.rds-avatar--dark .MuiAvatar-root {
+  color: white !important;
 }

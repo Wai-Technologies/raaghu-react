@@ -14,7 +14,8 @@ import {
   RdsCounter,
   RdsSearch,
   RdsAvatar,
-  RdsAccordion
+  RdsAccordion,
+  RdsRadio
 } from "../../raaghu-elements";
 import RdsCompTreeStructure, { IconType, TreeLevel } from '../rds-comp-tree-structure/rds-comp-tree-structure';
 
@@ -407,20 +408,22 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
               </div>
               <div className="rds-comp-details-pane__agent-actions">
                 <div className="rds-comp-details-pane__agent-badge">{agent.count}</div>
-                <div className="rds-comp-details-pane__agent-radio">
-              <RdsButton
-               changeLeftIcon="circle"
-               changeRightIcon="save"
-               color="primary"
-               layout="icon-only"
-               shape="pill"
-               showLeftIcon
-               size="small"
-               state="default"
-               style="transparent"
-               text="Default Button"
-               textCase="uppercase"
-               />
+                <div className="rds-comp-details-pane__agent-radio">             
+               <RdsRadio
+                  direction="row"
+                  label=""
+                  layout="icon"
+                  onChange={function RY(){}}
+                  options={[
+                  {
+                  text: 'Option 1',
+                  value: 'option1'
+                  } 
+                  ]}
+                  radioProps={{}}
+                  state="default"
+                  value=""
+                 />
                 </div>
               </div>
             </div>
@@ -451,7 +454,7 @@ export const ToolbarContent: React.FC<{
         <div className="rds-comp-details-pane__toolbar-content">
           <div>
             <h3>Toolbar</h3>
-            <div className="rds-comp-details-pane__toolbar-buttons-row">
+            <div className="rds-comp-details-pane__toolbar-buttons-row rds-comp-details-pane__toolbar-buttons-row--scrollable">
               <div className="rds-comp-details-pane__circle-btn-container">
                 <RdsButton
                   color="primary"

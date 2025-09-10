@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button, Typography, Box, List, ListItem, ListItemText } from '@mui/material';
 import React, { useState } from 'react';
 import RdsPopover from './rds-popover';
+import './rds-popover.scss';
 
 const meta: Meta<typeof RdsPopover> = {
   title: 'Elements/Popover',
@@ -68,12 +69,18 @@ export const Default: Story = {
     );
   },
 };
+Default.parameters = { controls: { include: ['position', 'showCloseButton'] } };
 
 export const CustomPosition: Story = {
   argTypes: {
     position: { table: { disable: true } },
+    showCloseButton: { control: 'boolean' },
   },
-  render: () => {
+  args: {
+    showCloseButton: false,
+    position: 'no-arrow',
+  },
+  render: (args) => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -90,6 +97,7 @@ export const CustomPosition: Story = {
           Open Above Button
         </Button>
         <RdsPopover
+          {...args}
           isOpen={Boolean(anchorEl)}
           onClose={handleClose}
           anchorEl={anchorEl}
@@ -102,8 +110,6 @@ export const CustomPosition: Story = {
             vertical: 'bottom',
             horizontal: 'center',
           }}
-          position="no-arrow"
-          showCloseButton
         >
           <Typography>
             This popover opens above the button instead of below.
@@ -113,12 +119,19 @@ export const CustomPosition: Story = {
     );
   },
 };
+CustomPosition.parameters = { controls: { include: ['showCloseButton'] } };
 
 export const WideContent: Story = {
   argTypes: {
     position: { table: { disable: true } },
+    showCloseButton: { control: 'boolean' },
   },
-  render: () => {
+  args: {
+    showCloseButton: false,
+    position: 'no-arrow',
+    width: 500,
+  },
+  render: (args) => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -135,13 +148,11 @@ export const WideContent: Story = {
           Open Wide Popover
         </Button>
         <RdsPopover
+          {...args}
           isOpen={Boolean(anchorEl)}
           onClose={handleClose}
           anchorEl={anchorEl}
           title="Wide Content Popover"
-          width={500}
-          showCloseButton
-          position="no-arrow"
         >
           <Typography paragraph>
             This popover has a fixed width of 500px and contains more content to demonstrate how it handles larger amounts of text.
@@ -149,7 +160,7 @@ export const WideContent: Story = {
           <Typography paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
           </Typography>
-          <Box sx={{ mt: 2, p: 2, backgroundColor: 'grey.100', borderRadius: 1 }}>
+          <Box className="rds-popover-highlight-box">
             <Typography variant="body2">
               This is a highlighted section within the popover content.
             </Typography>
@@ -159,12 +170,18 @@ export const WideContent: Story = {
     );
   },
 };
+WideContent.parameters = { controls: { include: ['showCloseButton'] } };
 
 export const WithCloseButton: Story = {
   argTypes: {
     position: { table: { disable: true } },
+    showCloseButton: { control: 'boolean' },
   },
-  render: () => {
+  args: {
+    showCloseButton: true,
+    position: 'no-arrow',
+  },
+  render: (args) => {
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -181,12 +198,11 @@ export const WithCloseButton: Story = {
           Open with Close Button
         </Button>
         <RdsPopover
+          {...args}
           isOpen={Boolean(anchorEl)}
           onClose={handleClose}
           anchorEl={anchorEl}
           title="Popover with Close"
-          showCloseButton
-          position="no-arrow"
         >
           <Typography paragraph>
             This popover has a close button in the header.
@@ -199,6 +215,7 @@ export const WithCloseButton: Story = {
     );
   },
 };
+WithCloseButton.parameters = { controls: { include: ['showCloseButton'] } };
 
 export const WithList: Story = {
   argTypes: {
@@ -252,3 +269,4 @@ export const WithList: Story = {
     );
   },
 };
+WithList.parameters = { controls: { include: [] } };

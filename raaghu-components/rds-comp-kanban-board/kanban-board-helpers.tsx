@@ -95,9 +95,7 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
     props.boardData ? [...props.boardData.map(() => false)] : []
   );
   const [isSubCardDropdownOpen, setIsSubCardDropdownOpen] = useState<{ [key: number]: boolean }>({});
-  const [subCardInputsVisible, setSubCardInputsVisible] = useState<number | null>(
-    props.boardData ? props.boardData.length : 0
-  );
+  const [subCardInputsVisible, setSubCardInputsVisible] = useState<number | null>(null);
 
   // Menu anchor elements
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -231,7 +229,16 @@ export const createEventHandlers = (state: any, props: RdsCompKanbanBoardProps) 
       key: "",
     };
 
-    setBoards((prevCards: any) => [...prevCards, newBoard]);
+    setBoards((prevCards: any) => {
+      const updatedCards = [...prevCards];
+      // Insert new board before the last board (keep primary board at end)
+      if (updatedCards.length > 0) {
+        updatedCards.splice(-1, 0, newBoard);
+      } else {
+        updatedCards.push(newBoard);
+      }
+      return updatedCards;
+    });
     setIsBoardDropdownOpen((prevState: any) => [...prevState, false]);
     setIsEditingBoardName((prevState: any) => [...prevState, false]);
     setShowAddBoardBtn(false);
@@ -422,69 +429,53 @@ export const createDragEndHandler = (boards: boardInfo[], setBoards: any) => {
     }
 
     if (type === "subCard") {
-      const startCard = boards.find((card) => card.subCardIndex === Number(source.droppableId));
-      const finishCard = boards.find((card) => card.subCardIndex === Number(destination.droppableId));
+      const sourceCardIndex = Number(source.droppableId);
+      const destinationCardIndex = Number(destination.droppableId);
 
-      if (!startCard || !finishCard) {
+    // Validate indices
+    if (sourceCardIndex < 0 || sourceCardIndex >= boards.length ||
+        destinationCardIndex < 0 || destinationCardIndex >= boards.length) {
         return;
       }
 
-      const startCardIndex = boards.indexOf(startCard);
-      const finishCardIndex = boards.indexOf(finishCard);
+      const sourceCard = boards[sourceCardIndex];
+      const destinationCard = boards[destinationCardIndex];
 
-      if (startCardIndex === finishCardIndex) {
+      if (!sourceCard || !destinationCard) {
+        return;
+      }
+
+      if (sourceCardIndex === destinationCardIndex) {
         // Reorder within the same card
-        const newSubCards = Array.from(startCard.subCards);
-        const movedSubCard = newSubCards.find((subCard) => subCard.SubcardId === Number(draggableId));
-        let sourceIndex = -1;
-        if (movedSubCard) {
-          sourceIndex = newSubCards.indexOf(movedSubCard);
-        }
-        const secondSubCard = newSubCards.find((subCard) => subCard.SubcardId === Number(destination.index));
-        let secondsourceIndex = -1;
-        if (secondSubCard) {
-          secondsourceIndex = newSubCards.indexOf(secondSubCard);
-        }
-
-        if (movedSubCard && sourceIndex !== -1) {
-          const temp = newSubCards[sourceIndex];
-          newSubCards[sourceIndex] = newSubCards[secondsourceIndex];
-          newSubCards[secondsourceIndex] = temp;
-
-          const newCards = Array.from(boards);
-          newCards[startCardIndex] = {
-            ...newCards[startCardIndex],
+        const newSubCards = Array.from(sourceCard.subCards);
+        const [movedSubCard] = newSubCards.splice(source.index, 1);
+        newSubCards.splice(destination.index, 0, movedSubCard);
+        const newBoards = Array.from(boards);
+          newBoards[sourceCardIndex] = {
+            ...newBoards[sourceCardIndex],
             subCards: newSubCards,
           };
 
-          setBoards(newCards);
-        }
+          setBoards(newBoards);
       } else {
         // Move to a different card
-        const startSubCards = Array.from(startCard.subCards);
-        const movedSubCard = startSubCards.find((subCard) => subCard.SubcardId === Number(draggableId));
-        let sourceIndex = -1;
-        if (movedSubCard) {
-          sourceIndex = startSubCards.indexOf(movedSubCard);
-        }
+        const sourceSubCards = Array.from(sourceCard.subCards);
+        const destinationSubCards = Array.from(destinationCard.subCards);
 
-        if (movedSubCard && sourceIndex !== -1) {
-          startSubCards.splice(sourceIndex, 1);
-          const finishSubCards = Array.from(finishCard.subCards);
-          finishSubCards.splice(destination.index, 0, movedSubCard);
+        const [movedSubCard] = sourceSubCards.splice(source.index, 1);
+        destinationSubCards.splice(destination.index, 0, movedSubCard);
 
-          const newCards = Array.from(boards);
-          newCards[startCardIndex] = {
-            ...newCards[startCardIndex],
-            subCards: startSubCards,
+          const newBoards = Array.from(boards);
+          newBoards[sourceCardIndex] = {
+            ...newBoards[sourceCardIndex],
+            subCards: sourceSubCards,
           };
-          newCards[finishCardIndex] = {
-            ...newCards[finishCardIndex],
-            subCards: finishSubCards,
+          newBoards[destinationCardIndex] = {
+            ...newBoards[destinationCardIndex],
+            subCards: destinationSubCards,
           };
 
-          setBoards(newCards);
-        }
+          setBoards(newBoards);
       }
     }
   };

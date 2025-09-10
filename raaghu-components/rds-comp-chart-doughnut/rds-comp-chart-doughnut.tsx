@@ -29,12 +29,13 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutprops) => {
                     ctx.save();
                     ctx.font = "700 20px Poppins";
                     ctx.textAlign = "center";
-                    ctx.fillText(title, width / 2, top + (height / 2.2));
+                    const centerY = top + height / 2;
+                    ctx.fillText(title, width / 2, centerY - 10);
                     ctx.restore();
 
                     ctx.font = "500 16px Poppins";
                     ctx.textAlign = "center";
-                    ctx.fillText(subTitle, width / 2, (height / 0.75) / 2.0 + top);
+                    ctx.fillText(subTitle, width / 2, centerY + 16);
                     ctx.restore();
                     ctx.textColor = "#fff";
                     ctx.fontColor = "#fff";

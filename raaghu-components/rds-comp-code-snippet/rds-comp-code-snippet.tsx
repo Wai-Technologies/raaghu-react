@@ -2,10 +2,29 @@ import React, { useState } from "react";
 import "./rds-comp-code-snippet.scss";
 import OpenInFullOutlinedIcon from "@mui/icons-material/OpenInFullOutlined";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
+// Syntax highlighting
+import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlight';
+import { atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+// Derive a dark variant from the light style so token colors stay consistent
+const darkStyle = {
+  // copy all token styles from atomOneLight
+  ...atomOneLight as any,
+  hljs: {
+    // keep the same token colors, but use a dark background and lighter default text
+    ...((atomOneLight as any).hljs || {}),
+    background: '#0b1220',
+    color: '#e6eef6',
+  },
+};
+
+// The library's bundled type can be incompatible with the TSX/React Component type
+// in some TypeScript/React versions. Create a typed alias to satisfy JSX usage.
+const Highlighter = SyntaxHighlighter as unknown as React.ComponentType<any>;
 
 export interface RdsCompCodeSnippetProps {
   code: string;
-  language?: boolean;
+  // language can be a string like 'html' or a boolean to indicate showing default label
+  language?: string | boolean;
   codeLines?: boolean;
   theme?: "light" | "dark";
   type?: "singleLine" | "multiLine";
@@ -38,13 +57,28 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
     return code.split("\n");
   };
 
+  // Normalize language handling
+  const showLanguage = !!language;
+  const languageLabel = typeof language === 'string' ? language : 'html';
+  const highlighterStyle = theme === 'dark' ? (darkStyle as any) : (atomOneLight as any);
+
   return (
     <div className={`rds-comp-code-snippet rds-comp-code-snippet--${theme} rds-comp-code-snippet--${type} ${className}`}>
       <div className="rds-comp-code-snippet__container">
         {type === "singleLine" ? (
           <div className="rds-comp-code-snippet__toolbar rds-comp-code-snippet__toolbar--single-line">
-            <span className="rds-comp-code-snippet__single-line-code">
-              {code.length > 100 ? code.slice(0, 100) + "..." : code}
+              <span className="rds-comp-code-snippet__single-line-code">
+              <Highlighter
+                language={languageLabel as string}
+                style={highlighterStyle}
+                showLineNumbers={false}
+                wrapLongLines={false}
+                // render as inline elements to avoid disturbing the toolbar layout
+                PreTag="span"
+                className="rds-comp-code-snippet__inline-highlighter"
+              >
+                {code.length > 100 ? code.slice(0, 100) + '...' : code}
+              </Highlighter>
             </span>
             <div className="rds-comp-code-snippet__actions">
               {language && <span className="rds-comp-code-snippet__language-label">Html</span>}
@@ -95,29 +129,19 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                 <OpenInFullOutlinedIcon className="rds-comp-code-snippet__expand-icon" />
               </div>
               <div 
-                className="rds-comp-code-snippet__content" 
-                style={maxHeight ? { maxHeight, overflow: "auto" } : {}}
+                className={`rds-comp-code-snippet__content ${maxHeight ? 'rds-comp-code-snippet__content--with-max' : ''}`} 
+                style={maxHeight ? { ['--rds-code-max-height' as any]: maxHeight } : {}}
               >
-                <pre>
-                  <code className={`language-${language}`}>
-                    {codeLines ? (
-                      <div className="rds-comp-code-snippet__code-with-lines">
-                        <div className="rds-comp-code-snippet__line-numbers">
-                          {getLines().map((_, index) => (
-                            <span key={index} className="rds-comp-code-snippet__line-number">{index + 1}</span>
-                          ))}
-                        </div>
-                        <div className="rds-comp-code-snippet__code-lines">
-                          {getLines().map((line, index) => (
-                            <span key={index} className="rds-comp-code-snippet__code-line">{line}</span>
-                          ))}
-                        </div>
-                      </div>
-                    ) : (
-                      code
-                    )}
-                  </code>
-                </pre>
+                <div className="rds-comp-code-snippet__syntax">
+                    <Highlighter
+                      language={languageLabel as string}
+                      style={highlighterStyle}
+                      showLineNumbers={codeLines}
+                      className="rds-comp-code-snippet__highlighter"
+                    >
+                      {code}
+                    </Highlighter>
+                  </div>
               </div>
               <div className="rds-comp-code-snippet__show-more">
                 <RdsButton color="primary" changeLeftIcon='add' showLeftIcon layout="icon+text" size="small" state="default" style="transparent" text="Show More" />

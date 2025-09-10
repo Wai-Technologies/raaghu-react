@@ -123,18 +123,24 @@
   transition: all 0.2s ease-in-out;
   border-radius: 5px;
 }
-#close-btn .rds-icon-button:hover,
-#close-btn .MuiIconButton-root:hover {
-  background: aliceblue;
-  border-radius: 5px;
-  transition: all 0.2s ease-in-out;
-}
 
 @media (min-width: 320px) and (max-width: 414px) {
+  .offcanvas-drawer .MuiDrawer-paper {
+    width: 320px !important;
+  }
   .offcanvas-margin {
     display: flex;
     flex-wrap: nowrap;
     gap: 4px;
+    align-items: center;
+  }
+
+  .offcanvas-margin .me-2:first-child {
+    align-self: center;
+  }
+
+  .offcanvas-margin .me-2:nth-child(2) {
+    margin-right: 12px !important;
   }
 
   .offcanvas-margin .me-2 {
@@ -163,26 +169,23 @@
     line-height: 1.2;
   }
 
-  .offcanvas-margin .me-2:first-child {
-    flex: 1.7;
-  }
-  
-  .offcanvas-margin .me-2:first-child .rds-button {
-    min-width: auto !important;
-    max-width: none !important;
-  }
-  
-  .offcanvas-margin .me-2:first-child .rds-button span {
-    font-size: 10px !important;
-    line-height: 1.1;
-    white-space: nowrap;
-  }
-
   #offcanvas-btns {
     padding: 0 5px;
     display: flex;
     flex-wrap: nowrap;
-    gap: 3px;
+    gap: 4px;
+    align-items: center;
+  }
+
+  #offcanvas-btns .me-2:first-child {
+    align-self: center;
+  }
+  #offcanvas-btns .me-2:nth-child(2) {
+    margin-right: 12px !important;
+  }
+  
+  #offcanvas-btns > *:nth-child(2) {
+    margin-right: 12px !important;
   }
 
   #offcanvas-btns .me-2 {
@@ -210,39 +213,55 @@
     white-space: nowrap;
     line-height: 1.2;
   }
-
-  #offcanvas-btns .me-2:first-child {
-    flex: 1.7;
-  }
-  
-  #offcanvas-btns .me-2:first-child .rds-button {
-    min-width: auto !important;
-    max-width: none !important;
-  }
-  
-  #offcanvas-btns .me-2:first-child .rds-button span {
-    font-size: 10px !important;
-    line-height: 1.1;
-    white-space: nowrap;
-  }
-
-  #close-btn {
-    padding: 2px;
-  }
-  
   #close-btn .rds-icon-button,
   #close-btn .MuiIconButton-root {
-    padding: 4px 6px !important;
-    min-width: 32px !important;
-    min-height: 32px !important;
-    width: 32px !important;
-    height: 32px !important;
+    padding: 6px 8px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
   }
   
   #close-btn .rds-icon-button svg,
   #close-btn .MuiIconButton-root svg {
-    width: 12px !important;
-    height: 12px !important;
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+// Large mobile devices
+@media (min-width: 414px) and (max-width: 896px) {
+  .offcanvas-drawer .MuiDrawer-paper { width: 400px !important; }
+  #offcanvas-btns, .offcanvas-margin {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-end;
+    padding-left: 16px !important;
+    padding-right: 0 !important;
+  }
+
+  /* gap between second and third button */
+  #offcanvas-btns > *:nth-child(2) { margin-right: 12px !important; }
+
+  /* ensure button sizing/ellipsis */
+  #offcanvas-btns .rds-button {
+    font-size: 12px !important;
+    padding: 6px 8px !important;
+    width: 100% !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* close icon sizing */
+  #close-btn .rds-icon-button, #close-btn .MuiIconButton-root {
+    padding: 6px 8px !important;
+    width: 40px !important; height: 40px !important;
+    min-width: 40px !important; min-height: 40px !important;
+  }
+  #close-btn .rds-icon-button svg, #close-btn .MuiIconButton-root svg {
+    width: 18px !important; height: 18px !important;
   }
 }
 
