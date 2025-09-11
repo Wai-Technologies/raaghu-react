@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import './rds-button-dropdown.scss';
 import RdsButton from '../rds-button/rds-button';
 import RdsMenu from '../rds-menu/rds-menu';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
@@ -28,6 +29,7 @@ export interface RdsButtonDropdownProps {
   showRadio?: boolean;
   isShowLeftIcon?: boolean;
   isShowRightIcon?: boolean;
+  buttonStyle?: 'filled' | 'outlined' | 'transparent';
 }
 
 const RdsButtonDropdown = ({
@@ -42,6 +44,7 @@ const RdsButtonDropdown = ({
   showRadio = true,
   isShowLeftIcon = true,
   isShowRightIcon = true,
+  buttonStyle,
   onChange,
 }:RdsButtonDropdownProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -94,13 +97,12 @@ const RdsButtonDropdown = ({
         showLeftIcon={isShowLeftIcon}
         changeRightIcon={rightIcon}
         changeLeftIcon={leftIcon}
-        
         size='medium'
         color="primary"
         layout="icon+text"
         shape="rectangle"
         state="hover"
-        style="outlined"
+        style={buttonStyle || 'outlined'}
         textCase="uppercase"
       />
       <RdsMenu
@@ -125,7 +127,7 @@ const RdsButtonDropdown = ({
           )}
           <div style={{ maxHeight: 240, overflowY: 'auto' }}>
             {filteredOptions.map(opt => (
-              <div key={opt.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 0' }}>
+              <div key={opt.id} className="rds-button-dropdown__option">
                 {showUserAvatar && <RdsAvatar size="small" src={opt.avatarSrc} />}
                 {multiSelect ? (
                   <RdsCheckbox
@@ -134,7 +136,7 @@ const RdsButtonDropdown = ({
                     isDisabled={opt.disabled}
                     labeltext= {opt.label}
                   />
-                ) : showRadio && (
+                ) : showRadio ? (
                   <RdsRadio
                     options={[{ value: opt.id.toString(), text: opt.label }]}
                     value={selected[0]?.toString()}
@@ -142,6 +144,16 @@ const RdsButtonDropdown = ({
                     state={opt.disabled ? 'disabled' : 'default'}
                     layout="icon with label"
                   />
+                ) : (
+                  <div
+                    role="menuitem"
+                    tabIndex={0}
+                    onClick={() => handleOptionChange(opt.id)}
+                    onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleOptionChange(opt.id); } }}
+                    className="rds-button-dropdown__item-label"
+                  >
+                    {opt.label}
+                  </div>
                 )}
               </div>
             ))}
