@@ -1,28 +1,25 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import {
   Button,
-  Text,
-  Spinner,
-  Input,
+  Typography,
+  CircularProgress,
+  TextField,
   Menu,
-  MenuTrigger,
-  MenuPopover,
-  MenuList,
   MenuItem,
-} from '@fluentui/react-components';
+} from '@mui/material';
 import {
-  ArrowUpRegular,
-  ArrowDownRegular,
-  FilterRegular,
-  MoreHorizontalRegular,
-  AddRegular,
-  PersonRegular,
-  EyeRegular,
-  DismissRegular,
-  EditRegular,
-  DeleteRegular,
-  ViewRegular,
-} from '@fluentui/react-icons';
+  ArrowUpward as ArrowUpIcon,
+  ArrowDownward as ArrowDownIcon,
+  FilterList as FilterIcon,
+  MoreVert as MoreIcon,
+  Add as AddIcon,
+  Person as PersonIcon,
+  Visibility as VisibilityIcon,
+  Clear as ClearIcon,
+  Edit as EditIcon,
+  Delete as DeleteIcon,
+  Visibility as ViewIcon,
+} from '@mui/icons-material';
 import RdsPagination from '../../raaghu-elements/rds-pagination/rds-pagination';
 import './rds-comp-fluent-grid.scss';
 
@@ -71,8 +68,7 @@ export interface FluentGridAction {
   id: string;
   offId?: string;
   modalId?: string;
-  variant?: 'primary' | 'secondary' | 'outline' | 'subtle' | 'transparent';
-  appearance?: 'primary' | 'secondary' | 'outline' | 'subtle' | 'transparent';
+  variant?: 'contained' | 'outlined' | 'text';
   color?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
@@ -160,6 +156,78 @@ export interface RdsFluentGridProps {
   // Loading
   isLoading?: boolean;
 }
+
+// Action Menu Component
+const ActionMenu: React.FC<{
+  row: any;
+  actions: FluentGridAction[];
+  onActionSelection?: (rowData: any, actionId: any) => void;
+}> = ({ row, actions, onActionSelection }) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleActionClick = (actionId: string) => {
+    onActionSelection?.(row, actionId);
+    handleClose();
+  };
+
+  const getActionIcon = (actionId: string) => {
+    switch (actionId.toLowerCase()) {
+      case 'edit':
+        return <EditIcon fontSize="small" />;
+      case 'delete':
+        return <DeleteIcon fontSize="small" />;
+      case 'view':
+        return <ViewIcon fontSize="small" />;
+      default:
+        return <MoreIcon fontSize="small" />;
+    }
+  };
+
+  return (
+    <>
+      <Button
+        size="small"
+        variant="text"
+        startIcon={<MoreIcon />}
+        className="rds-fluent-grid-action-button"
+        onClick={handleClick}
+      />
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        {actions.map((action) => (
+          <MenuItem
+            key={action.id}
+            onClick={() => handleActionClick(action.id)}
+          >
+            {getActionIcon(action.id)}
+            {action.displayName}
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
+  );
+};
 
 // Styles will be handled by CSS classes in the SCSS file
 
@@ -622,7 +690,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     return (
       <div className={`rds-fluent-grid-container ${classes || ''}`}>
         <div className="rds-fluent-grid-loader">
-          <Spinner size="large" />
+          <CircularProgress size={40} />
         </div>
       </div>
     );
@@ -634,20 +702,20 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
         {showHeader && (
           <div className="rds-fluent-grid-header">
             <div className="rds-fluent-grid-header-controls">
-              <Button icon={<AddRegular />}>Add New</Button>
-              <Button icon={<PersonRegular />}>Person</Button>
-              <Button icon={<FilterRegular />}>Filters</Button>
-              <Button icon={<ArrowUpRegular />}>Sort</Button>
-              <Button icon={<EyeRegular />}>Hide</Button>
-              <Button icon={<MoreHorizontalRegular />}>More</Button>
+              <Button startIcon={<AddIcon />}>Add New</Button>
+              <Button startIcon={<PersonIcon />}>Person</Button>
+              <Button startIcon={<FilterIcon />}>Filters</Button>
+              <Button startIcon={<ArrowUpIcon />}>Sort</Button>
+              <Button startIcon={<VisibilityIcon />}>Hide</Button>
+              <Button startIcon={<MoreIcon />}>More</Button>
             </div>
           </div>
         )}
         <div className="rds-fluent-grid-empty-state">
-          <Text className="rds-fluent-grid-empty-state-title">{noDataTitle}</Text>
-          <Text className="rds-fluent-grid-empty-state-description">
+          <Typography variant="h6" className="rds-fluent-grid-empty-state-title">{noDataTitle}</Typography>
+          <Typography variant="body2" className="rds-fluent-grid-empty-state-description">
             No data available to display
-          </Text>
+          </Typography>
         </div>
       </div>
     );
@@ -658,15 +726,15 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
         {showHeader && (
           <div className="rds-fluent-grid-header">
             <div className="rds-fluent-grid-header-controls">
-              <Button icon={<AddRegular />}>Add New</Button>
-              <Button icon={<PersonRegular />}>Person</Button>
-              <Button icon={<FilterRegular />}>Filters</Button>
-              <Button icon={<ArrowUpRegular />}>Sort</Button>
-              <Button icon={<EyeRegular />}>Hide</Button>
-              <Button icon={<MoreHorizontalRegular />}>More</Button>
+              <Button startIcon={<AddIcon />}>Add New</Button>
+              <Button startIcon={<PersonIcon />}>Person</Button>
+              <Button startIcon={<FilterIcon />}>Filters</Button>
+              <Button startIcon={<ArrowUpIcon />}>Sort</Button>
+              <Button startIcon={<VisibilityIcon />}>Hide</Button>
+              <Button startIcon={<MoreIcon />}>More</Button>
               {/* Test button for popup */}
               <Button
-                appearance="primary"
+                variant="contained"
                 size="small"
                 onClick={(e) => {
                   console.log('Test button clicked!', e.currentTarget);
@@ -682,14 +750,14 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
         {showSubHeader && (
           <div className="rds-fluent-grid-sub-header">
             <div className="rds-fluent-grid-sub-header-left">
-              <Text className="rds-fluent-grid-sub-header-title">
+              <Typography variant="subtitle1" className="rds-fluent-grid-sub-header-title">
                 {noDataHeaderTitle}
-              </Text>
-              <MoreHorizontalRegular className="rds-fluent-grid-sub-header-dots" />
+              </Typography>
+              <MoreIcon className="rds-fluent-grid-sub-header-dots" />
             </div>
             <Button
-              appearance="subtle"
-              icon={isCollapsed ? <ArrowDownRegular /> : <ArrowUpRegular />}
+              variant="text"
+              startIcon={isCollapsed ? <ArrowDownIcon /> : <ArrowUpIcon />}
               onClick={toggleCollapse}
               className="rds-fluent-grid-sub-header-toggle"
             />
@@ -722,22 +790,22 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                       onClick={() => isSort && header.isSort && handleSort(header.key)}
                     >
                       <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Text weight={header.isBold ? 'semibold' : 'regular'}>
+                        <Typography variant="body2" fontWeight={header.isBold ? 'bold' : 'normal'}>
                           {header.name}
-                        </Text>
+                        </Typography>
                         {header.required && (
-                          <Text style={{ color: '#d13438' }}>*</Text>
+                          <Typography variant="body2" style={{ color: '#d13438' }}>*</Typography>
                         )}
                         {isSort && header.isSort && (
-                          <ArrowUpRegular className="rds-fluent-grid-sort-icon" />
+                          <ArrowUpIcon className="rds-fluent-grid-sort-icon" />
                         )}
                         {isFilter && header.isFilter && (
                           <div className="rds-fluent-grid-filter-container">
                             <Button
                               ref={filterButtonRef}
-                              appearance="subtle"
+                              variant="text"
                               size="small"
-                              icon={<FilterRegular />}
+                              startIcon={<FilterIcon />}
                               className={`rds-fluent-grid-filter-icon ${filterState[header.key]?.value ? 'rds-fluent-grid-filter-icon-active' : ''}`}
                               onClick={(e) => {
                                 e.preventDefault();
@@ -749,11 +817,11 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                             {isFilterPopupOpen && (
                               <div className="rds-fluent-grid-filter-popup">
                                 <div className="rds-fluent-grid-filter-popup-header">
-                                  <Text weight="semibold" size={100}>Controls</Text>
+                                  <Typography variant="body2" fontWeight="bold">Controls</Typography>
                                   <Button
-                                    appearance="subtle"
+                                    variant="text"
                                     size="small"
-                                    icon={<DismissRegular />}
+                                    startIcon={<ClearIcon />}
                                     onClick={handleFilterPopupClose}
                                     style={{ minWidth: '16px', height: '16px', padding: '0' }}
                                   />
@@ -762,7 +830,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                 {/* Column Visibility Toggle */}
                                 <div style={{ marginBottom: '2px' }}>
                                   <Button
-                                    appearance="subtle"
+                                    variant="text"
                                     size="small"
                                     onClick={handleColumnPanelToggle}
                                     style={{ 
@@ -835,20 +903,25 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                                 <option value="startsWith">Starts with</option>
                                                 <option value="endsWith">Ends with</option>
                                               </select>
-                                          <Input
+                                          <TextField
                                             placeholder="Value..."
                                             value={tempFilterValue}
-                                            onChange={(_, data) => handleTempFilterChange(data.value)}
+                                            onChange={(e) => handleTempFilterChange(e.target.value)}
                                             size="small"
-                                            style={{ 
+                                            sx={{ 
                                               marginBottom: '2px', 
                                               fontSize: '9px',
-                                              height: '18px'
+                                              height: '18px',
+                                              '& .MuiInputBase-input': {
+                                                fontSize: '9px',
+                                                height: '18px',
+                                                padding: '4px 8px'
+                                              }
                                             }}
                                           />
                                           <div style={{ display: 'flex', gap: '2px' }}>
                                             <Button
-                                              appearance="primary"
+                                              variant="contained"
                                               size="small"
                                               onClick={() => {
                                                 handleApplyFilter();
@@ -865,7 +938,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                               FILTER
                                             </Button>
                                             <Button
-                                              appearance="secondary"
+                                              variant="outlined"
                                               size="small"
                                               onClick={() => {
                                                 handleClearFilter();
@@ -886,7 +959,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                           {/* Clear All Filters Button */}
                                           {Object.keys(filterState).length > 0 && (
                                             <Button
-                                              appearance="subtle"
+                                              variant="text"
                                               size="small"
                                               onClick={() => {
                                                 setFilterState({});
@@ -1024,7 +1097,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                 dangerouslySetInnerHTML={{ __html: cellValue }}
                               />
                             ) : (
-                              <Text className="rds-fluent-grid-cell-text">{cellText}</Text>
+                              <Typography variant="body2" className="rds-fluent-grid-cell-text">{cellText}</Typography>
                             )}
                           </td>
                         );
@@ -1039,7 +1112,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                 <Button
                                   key={action.id}
                                   size={action.size || "small"}
-                                  appearance={action.appearance || "subtle"}
+                                  variant={action.variant || "outlined"}
                                   color={action.color || "primary"}
                                   disabled={action.disabled || false}
                                   onClick={() => onActionSelection?.(row, action.id)}
@@ -1049,44 +1122,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                 </Button>
                               ))
                             ) : (
-                              <Menu>
-                                <MenuTrigger disableButtonEnhancement>
-                                  <Button
-                                    size="small"
-                                    appearance="subtle"
-                                    icon={<MoreHorizontalRegular />}
-                                    className="rds-fluent-grid-action-button"
-                                  />
-                                </MenuTrigger>
-                                <MenuPopover>
-                                  <MenuList>
-                                    {actions.map((action) => {
-                                      const getActionIcon = (actionId: string) => {
-                                        switch (actionId.toLowerCase()) {
-                                          case 'edit':
-                                            return <EditRegular />;
-                                          case 'delete':
-                                            return <DeleteRegular />;
-                                          case 'view':
-                                            return <ViewRegular />;
-                                          default:
-                                            return <MoreHorizontalRegular />;
-                                        }
-                                      };
-                                      
-                                      return (
-                                        <MenuItem
-                                          key={action.id}
-                                          icon={getActionIcon(action.id)}
-                                          onClick={() => onActionSelection?.(row, action.id)}
-                                        >
-                                          {action.displayName}
-                                        </MenuItem>
-                                      );
-                                    })}
-                                  </MenuList>
-                                </MenuPopover>
-                              </Menu>
+                              <ActionMenu row={row} actions={actions} onActionSelection={onActionSelection} />
                             )}
                           </div>
                         </td>
