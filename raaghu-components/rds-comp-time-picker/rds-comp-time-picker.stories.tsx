@@ -21,9 +21,7 @@ const meta: Meta = {
         "success",
         "error",
         "warning",
-        "info",
-        "light",
-        "dark",
+        "info"
       ],
       control: { type: "select" },
       defaultValue: "primary",
