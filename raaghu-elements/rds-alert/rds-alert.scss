@@ -341,3 +341,9 @@
     margin-top: 2px;
   }
 }
+
+[data-theme="dark"] {
+  .rds-alert__link-button {
+    color: var(--rds-color-on-primary, #1976d2) !important;
+  }
+}
