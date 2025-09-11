@@ -147,11 +147,15 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                       <Box className="rds-kanban-board__sub-card-footer">
                                         <Typography variant="caption" className="f-12 fw-500 rds-kanban-board__sub-card-footer-left">{subCard.ticketDate}</Typography>
                                         <Box className="rds-kanban-board__sub-card-footer-right">
-                                          <RdsAvatar displayStyle="stacking" avatars={[
-                                            { src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face', title: 'User 1' },
-                                            { src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face', title: 'User 2' }
-                                          ]} maxVisibleAvatars={2} size="smallest" showRemainingCount={false}
-                                          />
+                                          {props.avatarData && (
+                                            <RdsAvatar 
+                                              displayStyle="stacking" 
+                                              size="smallest"
+                                              maxVisibleAvatars={2}
+                                              showRemainingCount={false}
+                                              avatars={props.avatarData}
+                                            />
+                                          )}
                                         </Box>
                                       </Box>
                                     </CardContent>
