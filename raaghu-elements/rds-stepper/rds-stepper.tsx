@@ -32,6 +32,7 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
   activeStep,
   orientation,
   className,
+  alternativeLabel,
   ...props
 }) => {
   const stepperActiveStep = activeStep !== undefined ? activeStep : currentStep;
@@ -42,8 +43,10 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
     <MuiStepper
       activeStep={stepperActiveStep}
       orientation={stepperOrientation}
-      className={rootClassName}
-      {...props}
+  className={rootClassName}
+  // Only pass `alternativeLabel` to MUI Stepper when orientation is horizontal.
+  {...(stepperOrientation === 'horizontal' ? { alternativeLabel } : {})}
+  {...props}
     >
       {steps.map((step, index) => (
         <MuiStep
