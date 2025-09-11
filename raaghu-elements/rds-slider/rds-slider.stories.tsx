@@ -86,7 +86,7 @@ export const Default: Story = {
   },
   decorators: [
     (Story) => (
-      <Box sx={{ width: 300, margin: 2 }}>
+      <Box className="rds-slider__story-wrapper">
         <Story />
       </Box>
     ),
@@ -110,7 +110,7 @@ export const WithMarks: Story = {
   },
   decorators: [
     (Story) => (
-      <Box sx={{ width: 300, margin: 2 }}>
+      <Box className="rds-slider__story-wrapper">
         <Story />
       </Box>
     ),
@@ -130,7 +130,7 @@ export const Range: Story = {
   },
   decorators: [
     (Story) => (
-      <Box sx={{ width: 300, margin: 2 }}>
+      <Box className="rds-slider__story-wrapper">
         <Story />
       </Box>
     ),
@@ -153,7 +153,7 @@ export const Disabled: Story = {
   },
   decorators: [
     (Story) => (
-      <Box sx={{ width: 300, margin: 2 }}>
+      <Box className="rds-slider__story-wrapper">
         <Story />
       </Box>
     ),
