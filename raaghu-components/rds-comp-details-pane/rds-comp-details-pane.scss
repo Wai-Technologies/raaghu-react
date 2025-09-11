@@ -137,7 +137,7 @@
   &__content {
     padding-left: var(--rds-spacing-md, 11px);
     padding-right: var(--rds-spacing-md, 11px);
-    padding-bottom: calc(var(--rds-spacing-md, 16px) + 60px);
+    padding-bottom: calc(var(--rds-spacing-md, -16px) + 17px);
     color: var(--rds-color-surface, #141313);
     position: relative;
     height: 100%;
@@ -156,7 +156,7 @@
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 14px;
+    //padding: 14px;
     padding-top: var(--rds-spacing-xs, 8px);
     padding-bottom: var(--rds-spacing-xs, 8px);
   }
@@ -168,7 +168,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 var(--rds-spacing-md, 16px);
+    //padding: 0 var(--rds-spacing-md, 16px);
   }
 
   &__tab-buttons {
@@ -396,8 +396,8 @@
     padding: 0;
     background: transparent;
     z-index: 10;
-    margin-right: 18px;
-    margin-left: -16px;
+    margin-right: 4px;
+    margin-left: -28px;
     justify-content: center;
     
     button {
@@ -568,9 +568,11 @@
   }
 
   &__counter-button-left {
-    margin-left: calc(var(--rds-spacing-xxs, 2px) * 1);
+    margin-left: calc(var(--rds-spacing-xxs, 5px) * 1);
   }
-
+.rds-counter__controls--medium {
+    height: 38px;
+}
   &__toolbar-pane-container {
     padding-left: var(--rds-spacing-lg, -2px);
     padding-right: var(--rds-spacing-lg, 0px);
@@ -590,6 +592,11 @@
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-md, 4px);
+    max-width: 240px;
+    margin: 0 auto;
+    justify-content: center;
+    padding-left: var(--rds-spacing-md, 12px);
+    padding-right: var(--rds-spacing-md, 12px);
   }
 
   &__toolbar-buttons-row--scrollable {
@@ -598,7 +605,12 @@
     align-items: center;
     gap: var(--rds-spacing-xs, 0px);
     padding-bottom: 0;
-    .rds-comp-details-pane__toolbar-circle-btn { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; }
+    max-width: 240px;
+    margin: 0 auto;
+    -webkit-overflow-scrolling: touch;
+    padding-left: var(--rds-spacing-md, 12px);
+    padding-right: var(--rds-spacing-md, 12px);
+  .rds-comp-details-pane__toolbar-circle-btn { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; }
   }
 
   &__circle-btn-container {
@@ -760,7 +772,7 @@
   }
 
   &__thumbnail-view-wrapper {
-    width: 291px;
+    width: 329px;
     height: 596px;   
     display: flex;
     flex-direction: column;
@@ -770,6 +782,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    margin-left: -17px;
+    margin-right: 19px;
   }
 
   &__pages-header {
@@ -1239,6 +1253,9 @@
   }
 }
   
+.css-97gwpj-MuiButtonBase-root-MuiButton-root{
+  padding: 0px 6px !important;
+}
 @media (max-width: 600px) {
   .rds-comp-details-pane {
     width: 100%;

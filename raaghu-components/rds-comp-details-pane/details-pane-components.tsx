@@ -213,8 +213,7 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
           <div
             className="rds-comp-details-pane__tab-pane"
             id="favourites"
-            role="tabpanel"
-          >
+            role="tabpanel"          >
             <div className="rds-comp-details-pane__favourite-list">
               {[0, 1].map((idx) => (
                 <div
@@ -254,27 +253,28 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
                 </div>
               ))}
             </div>
-
-            <div className="rds-comp-details-pane__footer-fixed">
-              {style === "Favourites - New Folder" ? (
-                <RdsButton
-                  color="primary"
-                  size="medium"
-                  fullWidth
-                  text={`${addtofolder} (${selectedIndexes.length})`}
-                />
-              ) : style === "Favourites" ? (
-                <RdsButton
-                  color="primary"
-                  size="medium"
-                  fullWidth
-                  text={addtoscreen}
-                />
-              ) : null}
-            </div>
+          </div>          
+        )}
+        {activeTab === "favourites" && (
+          <div className="rds-comp-details-pane__footer-fixed">
+            {style === "Favourites - New Folder" ? (
+              <RdsButton
+                color="primary"
+                size="medium"
+                fullWidth
+                text={`${addtofolder} (${selectedIndexes.length})`}
+              />
+            ) : (
+              <RdsButton
+                color="primary"
+                size="medium"
+                fullWidth
+                text={addtoscreen}
+              />
+            )}
           </div>
         )}
-      </div>
+      </div>      
     </div>
   );
 };
@@ -410,6 +410,7 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
   ];
 
   const [searchValue, setSearchValue] = useState<string>("");
+  const [selectedAgent, setSelectedAgent] = useState<string | null>(null);
 
   return (
     <div className="custom-content-wrapper" id="detail-pane-container-2">
@@ -440,7 +441,14 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
         {/* Agent list */}
         <div>
           {agents.map((agent) => (
-            <div key={agent.id} className="rds-comp-details-pane__agent-card">
+            <div
+              key={agent.id}
+              className={`rds-comp-details-pane__agent-card${selectedAgent === String(agent.id) ? ' rds-comp-details-pane__agent-card--selected' : ''}`}
+                onClick={() => setSelectedAgent(String(agent.id))}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedAgent(String(agent.id)); } }}
+            >
               <div className="rds-comp-details-pane__agent-left">
                 <div className="rds-comp-details-pane__agent-avatar">
                   <RdsAvatar
@@ -452,26 +460,30 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
                     subText={agent.designation}
                     title={agent.name}
                   />
-                </div>                
+                </div>
               </div>
               <div className="rds-comp-details-pane__agent-actions">
                 <div className="rds-comp-details-pane__agent-badge">{agent.count}</div>
-                <div className="rds-comp-details-pane__agent-radio">             
-               <RdsRadio
-                  direction="row"
-                  label=""
-                  layout="icon"
-                  onChange={function RY(){}}
-                  options={[
-                  {
-                  text: 'Option 1',
-                  value: 'option1'
-                  } 
-                  ]}
-                  radioProps={{}}
-                  state="default"
-                  value=""
-                 />
+                <div className="rds-comp-details-pane__agent-radio">
+                  <RdsRadio
+                    direction="row"
+                    label=""
+                    layout="icon"
+                    onChange={(val: any) => {
+                      // RdsRadio might pass either the selected value or an event
+                      const parsed = typeof val === 'object' && val?.target ? String(val.target.value) : String(val);
+                      setSelectedAgent(parsed);
+                    }}
+                    options={[
+                      {
+                        text: '',
+                        value: String(agent.id),
+                      },
+                    ]}
+                    radioProps={{ name: 'agent-selection' }}
+                    state="default"
+                    value={selectedAgent}
+                  />
                 </div>
               </div>
             </div>
