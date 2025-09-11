@@ -333,21 +333,7 @@ LogoTabsActions.parameters = { controls: { include: ['showLogo', 'title', 'color
 
 export const LogoSearchTabsActions: Story = {
   args: {
-    logo: (
-      <div className="rds-header__logo-search">
-        <img
-          src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"
-          alt="Logo"
-          className="rds-header__logo-img"
-        />
-        <TextField
-          placeholder="Search…"
-          variant="outlined"
-          size="small"
-          className="rds-header__search-field"
-        />
-      </div>
-    ),
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" className="rds-story-logo" />,
     showLogo: true,
     title: '',
     searchValue: '',
@@ -374,8 +360,8 @@ export const LogoSearchTabsActions: Story = {
         color={args.color}
         tabValue={tabValue}
         onTabChange={setTabValue}
-        searchValue={undefined}
-        onSearchChange={undefined}
+        searchValue={searchValue}
+        onSearchChange={setSearchValue}
       />
     );
   },
@@ -656,20 +642,9 @@ WithSubHeader.parameters = { controls: { include: ['title', 'showLogo', 'size', 
 export const WithNotificationBadge: Story = {
   args: {
     showLogo: true,
-    logo: (
-      <div className="rds-story-logo-search-container">
-        {/* Raaghu Logo */}
-        <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" className="rds-story-logo" />
-        {/* Search Bar to the right of logo */}
-        <TextField
-          placeholder="Search…"
-          variant="outlined"
-          size="small"
-          className="rds-story-search-field"
-        />
-      </div>
-    ),
-    // searchValue and searchPlaceholder removed to avoid duplicate search bar
+    logo: <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png" alt="Logo" className="rds-story-logo" />,
+    searchValue: '',
+    searchPlaceholder: 'Search…',
     color: 'default',
     // Right side tabs
     rightActions: (
@@ -690,8 +665,14 @@ export const WithNotificationBadge: Story = {
     ),
   },
   render: (args) => {
+    const [searchValue, setSearchValue] = React.useState(args.searchValue ?? '');
+    
     return (
-      <RdsAppBar {...args} />
+      <RdsAppBar
+        {...args}
+        searchValue={searchValue}
+        onSearchChange={setSearchValue}
+      />
     );
   },
 };
