@@ -188,6 +188,15 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                       <Paper {...props} className="rds-kanban-board__autocomplete-paper"
                                       />
                                     )}
+                                    // Ensure the popper doesn't clip long labels and appears above other elements
+                                    slotProps={{
+                                      popper: {
+                                        modifiers: [
+                                          { name: 'preventOverflow', options: { altBoundary: true, rootBoundary: 'viewport' } },
+                                          { name: 'offset', options: { offset: [0, 10] } }
+                                        ],
+                                      }
+                                    }}
                                   />
                                   <Box className="add-item-btn btn-margin add-board rds-kanban-board__button-container">
                                     <Button variant="outlined" size="medium" startIcon={PlusIcon} onClick={() => onAddSubCardClick(index)} className="rds-kanban-board__add-button">Add Item</Button>
