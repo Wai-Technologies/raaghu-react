@@ -429,7 +429,7 @@
     border-color: var(--rds-color-border-dark, #4b5563);
 }
 .rds-button {
-    color: var(--btn-primary-solid-default, #3c98ff) !important;
+    color: var(--btn-primary-solid-default) !important;
 }
 .rds-comp-code-snippet--light .rds-comp-code-snippet__toolbar::after {
     background-color: var(--rds-color-border-dark, #374151);

@@ -104,7 +104,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                     }}>
                     {/* Dismiss Icon */}
                     {showDismiss && (
-                        <RdsIconButton iconFilled={<Close />} size="small" onClick={(e) => handleDismiss(e, notification, index)} sx={{ position: "absolute", top: 8, right: 8, padding: 0.5, }} className="rds-comp-notification__dismiss" />)}
+                        <RdsIconButton iconFilled={<Close />} size="small" onClick={(e) => handleDismiss(e, notification, index)} className="rds-comp-notification__dismiss" />)}
                     {/* Header Section */}
                     <Box
                         className="rds-comp-notification__header"

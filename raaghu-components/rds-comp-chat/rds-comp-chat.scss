@@ -864,6 +864,14 @@
   }
 }
 
+.rds-comp-chat__screen-main .rds-comp-chat__user-item:hover, .rds-comp-chat__screen-main .chat-screen-main .user-item:hover, .chat-screen-main .rds-comp-chat__screen-main .user-item:hover {
+.rds-avatar {
+  &__name, &__designation {
+    color: var(--rds-color-on-primary, #000) !important;
+  }
+}
+}
+
 // Legacy class support (for backward compatibility during transition)
 .chat-container {
   @extend .rds-comp-chat;

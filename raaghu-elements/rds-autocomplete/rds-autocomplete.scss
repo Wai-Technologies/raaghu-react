@@ -162,4 +162,10 @@
   .MuiAutocomplete-hasPopupIcon.css-n3hv1h-MuiAutocomplete-root .MuiFilledInput-root, .MuiAutocomplete-hasClearIcon.css-n3hv1h-MuiAutocomplete-root .MuiFilledInput-root {
     padding-bottom: 20px;
   }
+
+  .css-1jcag7i-MuiAutocomplete-root, .css-1koemet {
+    .MuiFilledInput-root {
+      padding-top: 0px !important;
+    }
+  }
 }
