@@ -39,4 +39,31 @@
     opacity: 0.6;
     pointer-events: none;
   }
+
+  // Responsive design for smaller screens
+  @media (max-width: 568px) {
+    // Target the Material-UI BottomNavigation with higher specificity
+    .MuiBottomNavigation-root {
+      .MuiBottomNavigationAction-root {
+        min-width: 72px !important;
+        max-width: none !important;
+        padding: 6px 8px !important;
+        flex: 1 !important;
+        
+        .MuiBottomNavigationAction-label {
+          font-size: 0.8rem !important;
+          margin-top: 2px !important;
+          line-height: 1.2 !important;
+          white-space: nowrap !important;
+          overflow: hidden !important;
+          text-overflow: ellipsis !important;
+          max-width: 100% !important;
+        }
+        
+        .MuiSvgIcon-root {
+          font-size: 1.6rem !important;
+        }
+      }
+    }
+  }
 }
