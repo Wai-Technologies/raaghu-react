@@ -25,3 +25,15 @@ html.dark .MuiFab-root,
     fill: currentColor !important;
   }
 }
+
+/* Default story dark-mode override (compressed) */
+body.dark,
+html.dark,
+.dark,
+[data-theme='dark'],
+  .rds-fab-default-dark-override.MuiFab-root {
+    &, span, svg, .MuiSvgIcon-root {
+      color: #000 !important;
+      fill: #000 !important;
+    }
+}

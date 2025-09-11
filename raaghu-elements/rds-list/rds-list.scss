@@ -373,10 +373,30 @@
     background-color: var(--rds-overlay-hover, rgba(255, 255, 255, 0.08));
   }
 }
-[data-theme="dark"] {
-.rds-list{
-  .css-155c0ib-MuiAvatar-root {
-    color: var(--rds-color-on-primary,#ffffff);
-  }
+/* Dark theme avatar color override (use stable MUI class, not hashed emotion class) */
+[data-theme="dark"] .rds-list .MuiAvatar-root,
+body.dark .rds-list .MuiAvatar-root,
+html.dark .rds-list .MuiAvatar-root,
+.dark .rds-list .MuiAvatar-root,
+.rds-theme--dark .rds-list .MuiAvatar-root {
+  color: var(--rds-color-on-primary, #ffffff) !important;
 }
+
+/* Ensure all list text/icons are visible in dark theme even when MUI injects styles later
+   (high specificity + !important). This prevents missing styles after navigation/refresh. */
+[data-theme='dark'] .rds-list,
+body.dark .rds-list,
+html.dark .rds-list,
+.dark .rds-list,
+.rds-theme--dark .rds-list {
+  .rds-list__content-primary,
+  .rds-list__content-secondary,
+  .rds-list__icon,
+  .rds-list__secondary-action,
+  .MuiListItemText-root,
+  .MuiListItemText-root *,
+  .MuiSvgIcon-root {
+    color: var(--rds-color-on-surface, #ffffff) !important;
+    fill: currentColor !important;
+  }
 }
