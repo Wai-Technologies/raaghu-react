@@ -41,8 +41,9 @@
   }
 }
 
-@media (max-width: 420px) {
-  .MuiBox-root.css-1jqo51x{
-    margin-left: 4px;
-  }
+/* Story wrapper sizing moved from stories inline sx -> keeps consistent layout */
+.rds-slider__story-wrapper {
+  width: 300px;
+  margin: 16px 16px 16px 0px;
+  box-sizing: border-box;
 }
