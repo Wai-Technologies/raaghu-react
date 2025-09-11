@@ -19,11 +19,13 @@
     }
 
     &--carousel {
-      width: 520px;
-      height: auto;
-      margin: 20px auto;
-      padding: 30px 30px 20px 30px;
-      overflow: visible;
+  /* make carousel responsive and centered: allow it to shrink on small viewports */
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  margin: 20px auto;
+  padding: 30px 30px 20px 30px;
+  overflow: visible;
     }
 
     &--animation {
@@ -534,8 +536,8 @@
     bottom: 0;
     left: 0;
     height: 1px;
-    background-color: #e0e0e0;
-    width: 290px;
+    background-color: #e9e9e9;
+    width: 306px;
   }
 
   &__form-tab {
@@ -543,13 +545,13 @@
     padding: 5px 10px;
     cursor: pointer;
     color: #666 !important;
-    max-width: 100px;
-    min-width: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-width: none;
+    min-width: auto;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
     text-align: center;
-    flex: 1 1 0;
+    flex: 0 0 auto; /* size to content */
     transition: all 0.3s ease;
     border-radius: 3px;
     position: relative;
@@ -571,6 +573,18 @@
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+
+    // Make Add buttons in input rows match purple theme
+    .rds-button {
+      border-color: #7c3aed !important;
+      color: #7c3aed !important;
+      background-color: transparent !important;
+
+      &:hover {
+        background-color: #7c3aed !important;
+        color: #fff !important;
+      }
+    }
   }
 
   &__form-input-container {
@@ -579,6 +593,42 @@
     max-width: 100%;
     box-sizing: border-box;
     overflow: hidden;
+
+    // Ensure RdsSelect matches the other inputs in this form
+    .rds-select {
+      .MuiOutlinedInput-root {
+        .MuiOutlinedInput-notchedOutline {
+          border-color: #e5e7eb !important;
+          border-width: 1px !important;
+        }
+      }
+    }
+
+    // Reduce placeholder size for RdsAutocomplete within this form so it visually
+    // matches other inputs without changing control height.
+    .rds-autocomplete__textfield {
+      /* standard */
+      & input::placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+        opacity: 1; /* ensure consistent appearance */
+      }
+      /* WebKit */
+      & input::-webkit-input-placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+      }
+      /* Firefox 19+ */
+      & input::-moz-placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+      }
+      /* IE 10+ */
+      & input:-ms-input-placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+      }
+    }
   }
 
   &__form-button-right {
@@ -586,6 +636,18 @@
     justify-content: flex-end;
     margin-bottom: 12px;
     margin-top: 0;
+
+    // Make Add buttons match the purple theme
+    .rds-button {
+      border-color: #7c3aed !important;
+      color: #7c3aed !important;
+      background-color: transparent !important;
+
+      &:hover {
+        background-color: #7c3aed !important;
+        color: #fff !important;
+      }
+    }
   }
 
   &__form-textarea-container {
@@ -605,6 +667,22 @@
     max-width: 100%;
     overflow: hidden;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    
+    // Create a constrained wrapper for the file uploader
+    &-wrapper {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+      
+      > * {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+    }
     
     .rds-file-uploader {
       width: 100% !important;
@@ -635,6 +713,25 @@
 
     .rds-file-uploader__button {
       max-width: fit-content !important;
+      background-color: #7c3aed !important; // Purple background to match theme
+      border-color: #7c3aed !important; // Purple border
+      color: #fff !important;
+
+    }
+
+    // Target the standard "Choose File" button class used in RdsFileUploaderStandardView
+    .rds-file-uploader__choose-btn {
+      background-color: #7c3aed !important;
+      border-color: #7c3aed !important;
+      color: #fff !important;
+    }
+
+    // Target buttons rendered inside drop-zones (they sometimes get inline background via sx)
+    .rds-file-uploader__drop-zone .MuiButton-root,
+    .rds-file-uploader__drop-zone button {
+      background-color: #7c3aed !important;
+      border-color: #7c3aed !important;
+      color: #fff !important;
     }
 
     .rds-file-uploader__text {
@@ -740,25 +837,165 @@
   }
 }
 
+@media (max-width: 420px) {
+  .rds-comp-product-tour__container--image {
+    .rds-comp-product-tour__close-btn {
+      top: 0px; 
+      right: 0px; 
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .rds-comp-product-tour__container--carousel {
+    padding: 16px 12px 10px 12px; /* reduce heavy padding on mobile */
+    margin: 12px auto; /* tighter margin */
+    max-width: 380px;
+
+    .rds-comp-product-tour__carousel-header {
+      margin-bottom: 10px;
+    }
+
+    .rds-comp-product-tour__carousel-title {
+      font-size: 16px !important;
+      margin-bottom: 9px !important;
+    }
+
+    .rds-comp-product-tour__carousel-desc {
+      font-size: 14px !important;
+      line-height: 1.3 !important;
+      margin-bottom: 10px !important;
+    }
+
+    .rds-comp-product-tour__carousel-wrapper {
+      height: 280px; /* slightly shorter so content fits without heavy collapse */
+      border-radius: 6px;
+    }
+
+    .rds-carousel {
+      height: 100% !important;
+    }
+
+    .rds-comp-product-tour__carousel-dots {
+      margin-top: 8px;
+      gap: 6px;
+    }
+
+    .rds-comp-product-tour__carousel-dot {
+      width: 6px;
+      height: 6px;
+    }
+
+    .rds-comp-product-tour__carousel-nav-row,
+    .rds-comp-product-tour__carousel-spacer {
+      padding: 0 4px;
+      height: auto;
+    }
+
+    .rds-comp-product-tour__close-btn {
+      top: 6px;
+      right: 8px;
+      svg { width: 24px; height: 24px; }
+    }
+  }
+}
+
+// ===== MOBILE SCROLL FIX (keep corner dots & alignment) =====
+@media (max-width: 420px) {
+  /* Keep outer container overflow visible so absolutely positioned corner dots
+     and shadows are not clipped. Make the inner content panels scrollable instead. */
+  .rds-comp-product-tour__container {
+    max-height: calc(100vh - 24px);
+    overflow: visible; /* preserve dots and visual overflow */
+  }
+
+  /* Make info / form / carousel content scrollable within the container */
+  .rds-comp-product-tour__info-nav-section,
+  .rds-comp-product-tour__form-content,
+  .rds-comp-product-tour__carousel-wrapper {
+    max-height: calc(100vh - 120px); /* leave room for header / close */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* hide native scrollbars for these internal scroll areas */
+  .rds-comp-product-tour__info-nav-section::-webkit-scrollbar,
+  .rds-comp-product-tour__form-content::-webkit-scrollbar,
+  .rds-comp-product-tour__carousel-wrapper::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
+  }
+  .rds-comp-product-tour__info-nav-section,
+  .rds-comp-product-tour__form-content,
+  .rds-comp-product-tour__carousel-wrapper {
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+    padding-bottom: 18px; /* ensure last controls are reachable */
+  }
+
+  /* Truncate form tab labels on small screens to keep them on a single line */
+  .rds-comp-product-tour__form-tab {
+    max-width: 88px; /* enough for short word then ellipsis */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 0 0 auto;
+    display: inline-block;
+  }
+}
+
 // ===== THEME SUPPORT =====
 .theme-dark {
   .rds-comp-product-tour__container {
     background: #1f2937;
-    box-shadow: 0 4px 32px 0 rgba(162, 89, 255, 0.18);
   }
-
+  // All titles
   .rds-comp-product-tour__title,
+  .rds-comp-product-tour__form-subtitle,
   .rds-comp-product-tour__form-title,
-  .rds-comp-product-tour__form-subtitle {
+  .rds-comp-product-tour__carousel-title {
     color: #ffffff !important;
   }
-
+  // Subtitles / descriptions
   .rds-comp-product-tour__desc,
-  .rds-comp-product-tour__form-description {
+  .rds-comp-product-tour__form-description,
+  .rds-comp-product-tour__carousel-desc {
     color: #b7bcd8 !important;
   }
 
-  .rds-comp-product-tour__stepcount {
+  // Step counts (all states)
+  .rds-comp-product-tour__stepcount,
+  .rds-comp-product-tour__carousel-stepcount,
+  .rds-comp-product-tour__animation-stepcount,
+  .rds-comp-product-tour__form-stepcount {
     color: #ffffff !important;
+  }
+
+  // Close button icon
+  .rds-comp-product-tour__close-btn svg {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+  }
+
+  // Image section background
+  .rds-comp-product-tour__image-section {
+    background: #374151 !important;
+  }
+
+  // Info nav section background
+  .rds-comp-product-tour__info-nav-section {
+    background: #1f2937 !important;
+  }
+
+  .rds-comp-product-tour__form-input-container {
+    .rds-select,
+    .rds-autocomplete__textfield,
+    .rds-select .MuiInputBase-root,
+    .rds-autocomplete__textfield .MuiInputBase-root {
+      background-color: #424242 !important; /* filled surface */
+      color: #ffffff !important;
+      border-radius: 6px;
+    }
   }
 }

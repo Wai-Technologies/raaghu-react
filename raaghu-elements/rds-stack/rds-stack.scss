@@ -30,17 +30,49 @@
   }
 }
 
-// Additional selectors targeting MUI's Divider root and its pseudo elements.
-// Sometimes Stack clones or MUI adds its own classes; target the MuiDivider
-// root to ensure the color is applied even if our class is missing.
 .rds-stack .MuiDivider-root,
 .rds-stack .rds-stack__divider {
-  background-color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12)) !important;
+  background-color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12));
   color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12));
-  border-color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12)) !important;
+  border-color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12));
 }
 
-.rds-stack .MuiDivider-root::before,
-.rds-stack .MuiDivider-root::after {
-  background-color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12)) !important;
+.rds-stack__demo-item {
+  padding: 0.25rem 0.5rem; /* p:1 equivalent */
+  border-radius: 4px;
+  font-weight: 500;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+}
+
+.rds-stack__demo-item--primary {
+  background-color: var(--rds-color-primary-light, #1976d2);
+}
+
+.rds-stack__demo-item--secondary {
+  background-color: var(--rds-color-secondary-light, #9c27b0);
+}
+
+.rds-stack__demo-item--success {
+  background-color: var(--rds-color-success-light, #2e7d32);
+}
+
+/* Dark theme overrides (assuming a .dark-theme wrapper is applied) */
+.dark-theme .rds-stack__demo-item--primary {
+  background-color: var(--rds-color-primary-dark, #1976d2);
+}
+.dark-theme .rds-stack__demo-item--secondary {
+  background-color: var(--rds-color-secondary-dark, #9c27b0);
+}
+.dark-theme .rds-stack__demo-item--success {
+  background-color: var(--rds-color-success-dark, #2e7d32);
+}
+.dark-theme .rds-stack .MuiDivider-root,
+.rds-stack .rds-stack__divider {
+  background-color: var(--rds-stack-divider-color, rgba(219, 219, 219, 0.59));
+  color: var(--rds-stack-divider-color, rgba(224, 218, 218, 0.479));
+  border-color: var(--rds-stack-divider-color, rgba(145, 144, 144, 0.621));
 }

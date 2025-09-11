@@ -9,6 +9,7 @@ export interface RdsIconButtonProps extends IconButtonProps {
   tooltip?: string;
   // Deprecated: for backward compatibility
   icon?: React.ReactNode;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 
@@ -23,6 +24,7 @@ const RdsIconButton = ({
   icon, // deprecated
   children,
   size,
+  onClick,
   ...props
 }:RdsIconButtonComponentProps) => {
 
@@ -66,6 +68,7 @@ const RdsIconButton = ({
       title={tooltip}
       size={size}
       className={className}
+      onClick={onClick}
       {...props}
     >
       {buttonContent}

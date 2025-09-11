@@ -74,3 +74,41 @@
     }
   }
 }
+
+// Dark theme styles
+[data-bs-theme="dark"],
+[data-theme="dark"],
+.dark-theme,
+.dark {
+  .rds-comp-map {
+    background: var(--rds-background-surface, #000000) !important;
+
+    &__label {
+      color: var(--rds-text-primary, #ffffff) !important;
+    }
+
+    &__center {
+      background: var(--rds-background-surface, #000000) !important;
+    }
+
+    svg {
+      background: var(--rds-background-surface, #000000) !important;
+      filter: brightness(1.2) contrast(1.1) !important;
+
+      path {
+        stroke: var(--rds-text-secondary, #666666) !important;
+        stroke-opacity: 0.6 !important;
+      }
+      rect[fill="#ffffff"],
+      rect[fill="white"],
+      rect[fill="#fff"],
+      rect:first-child {
+        fill: var(--rds-background-surface, #000000) !important;
+      }
+    }
+
+    &--heatmap {
+      background: var(--rds-background-surface, #000000) !important;
+    }
+  }
+}

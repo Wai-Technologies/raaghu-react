@@ -1,5 +1,31 @@
 // RDS Stepper Component Styles
 .rds-stepper {
-  display: block;
+  // display: block;
   position: relative;
+}
+
+// Small screen adjustment to match design preview (applies negative left margin)
+@media (max-width: 420px) {
+  .rds-stepper {
+    margin-left: -10px;
+  }
+  .MuiStep-root {
+    padding-right: 0px !important;
+  }
+}
+
+/* Dark theme: make step numbers/check glyph white */
+[data-theme="dark"] {
+  .rds-stepper {
+    /* Don't change the circle background; only change the number/check glyph */
+    .MuiStepLabel-iconContainer .MuiStepIcon-root .MuiStepIcon-text {
+      color: #fff !important;
+      fill: #fff !important;
+    }
+    /* Target the check mark path when step is completed */
+    .MuiStepLabel-iconContainer .MuiStepIcon-root svg path {
+      fill: #fff !important;
+      stroke: #fff !important;
+    }
+  }
 }

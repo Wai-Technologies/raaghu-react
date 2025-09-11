@@ -21,6 +21,41 @@ export interface RdsPopoverProps extends Omit<PopoverProps, 'open' | 'children'>
   position?: 'top-left' | 'top-center' | 'top-right' | 'right-top' | 'right-center' | 'right-bottom' | 'bottom-right' | 'bottom-center' | 'bottom-left' | 'left-bottom' | 'left-center' | 'left-top' | 'no-arrow';
 }
 
+const MOBILE_BREAKPOINT = 600;
+
+function useMobilePopoverPosition(position: string): string {
+  const [mobilePosition, setMobilePosition] = React.useState(position);
+
+  React.useEffect(() => {
+    function handleResize() {
+      const width = window.innerWidth;
+      const topGroup = [
+        'top-left', 'top-center', 'top-right',
+        'left-top', 'left-center', 'right-top'
+      ];
+      const bottomGroup = [
+        'left-bottom', 'right-center', 'right-bottom',
+        'bottom-right', 'bottom-center', 'bottom-left'
+      ];
+      if (width <= MOBILE_BREAKPOINT) {
+        if (topGroup.includes(position)) {
+          setMobilePosition('top-center');
+        } else if (bottomGroup.includes(position)) {
+          setMobilePosition('bottom-center');
+        } else {
+          setMobilePosition(position);
+        }
+      } else {
+        setMobilePosition(position);
+      }
+    }
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [position]);
+  return mobilePosition;
+}
+
 const RdsPopover= ({
   isOpen,
   onClose,
@@ -96,6 +131,8 @@ const RdsPopover= ({
       transformOrigin: { vertical: 'top', horizontal: 'left' }
     }
   };
+  
+  const effectivePosition = useMobilePopoverPosition(position);
 
   // Arrow direction mapping based on position
   const getArrowDirection = (pos: string): string => {
@@ -115,10 +152,10 @@ const RdsPopover= ({
     return `${baseClass} ${directionClass} ${positionClass}`;
   };
 
-  const currentPosition = positionMap[position] || positionMap['bottom-left'];
-  const arrowDirection = getArrowDirection(position);
-  const shouldShowArrow = position !== 'no-arrow';
-  
+  const currentPosition = positionMap[effectivePosition] || positionMap['bottom-left'];
+  const arrowDirection = getArrowDirection(effectivePosition);
+  const shouldShowArrow = effectivePosition !== 'no-arrow';
+
   // Calculate offset based on arrow direction (only if arrow is shown)
   const getPopoverOffset = () => {
     if (!shouldShowArrow) return { vertical: 0, horizontal: 0 };
@@ -158,7 +195,7 @@ const RdsPopover= ({
         {/* Arrow element - only render if shouldShowArrow is true */}
         {shouldShowArrow && (
           <Box
-            className={getArrowClasses(arrowDirection, position)}
+            className={getArrowClasses(arrowDirection, effectivePosition)}
           />
         )}
         {(!!title || !!showCloseButton) && (

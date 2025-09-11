@@ -50,7 +50,21 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (toolbarRef.current && !toolbarRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+
+      // If the click is inside a portal dropdown, ignore it so portal interactions
+      // (like picking an emoji) don't immediately close the dropdown.
+      try {
+        const el = event.target as Element | null;
+        if (el && typeof el.closest === 'function') {
+          const closestDropdown = el.closest('.rds-comp-toolbar__dropdown');
+          if (closestDropdown) return; // click was inside dropdown portal
+        }
+      } catch (e) {
+        // ignore and continue to default behavior
+      }
+
+      if (toolbarRef.current && !toolbarRef.current.contains(target)) {
         setOpenDropdown(null);
       }
     };
@@ -81,8 +95,22 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
   };
 
   const handleDropdownSelect = (parentAction: string, option: string) => {
-    setOpenDropdown(null);
-    setActiveFormats(prev => [...prev.filter(f => f !== parentAction), option]);
+    // For emoji dropdowns we want to keep the portal open so the user can
+    // select multiple emojis without the dropdown closing. Only close for
+    // other dropdown types.
+    const isEmojiAction = parentAction === 'emoji' || parentAction === 'insertEmoji';
+
+    if (!isEmojiAction) {
+      setOpenDropdown(null);
+    }
+
+    // Update active formats conservatively; emoji selections are forwarded
+    // to the consumer but we don't treat emoji as a toggle format in the
+    // activeFormats array.
+    if (!isEmojiAction) {
+      setActiveFormats(prev => [...prev.filter(f => f !== parentAction), option]);
+    }
+
     onAction?.(option);
   };
 

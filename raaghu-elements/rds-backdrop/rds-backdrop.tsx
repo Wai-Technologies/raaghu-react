@@ -15,6 +15,7 @@ const RdsBackdrop: React.FC<RdsBackdropProps> = ({
   loadingComponent,
   children,
   open,
+  className = '',
   ...props
 }) => {
   // If `open` is explicitly provided, it takes precedence.
@@ -27,15 +28,27 @@ const RdsBackdrop: React.FC<RdsBackdropProps> = ({
     ? (loadingComponent ?? <CircularProgress color="inherit" />)
     : children;
 
-  // Ensure the spinner is visible by default: apply white color while loading.
-  // Respect any user-provided sx by merging.
+  // Combine our backdrop class with any provided className
+  const backdropClassName = `rds-backdrop ${className}`.trim();
+
+  // Remove the hardcoded color for loading spinner to let CSS handle theme-aware colors
   const { sx, ...restProps } = props as { sx?: any } & typeof props;
-  const mergedSx = loading
-    ? (Array.isArray(sx) ? [{ color: '#130808' }, ...sx] : { color: '#130808', ...sx })
-    : sx;
+
+  // Ensure our custom styles take precedence over Material-UI defaults
+  const backdropSx = {
+    // Apply our custom backdrop styles
+    '&.rds-backdrop': {
+      backgroundColor: 'var(--rds-background-overlay, rgba(0, 0, 0, 0.5))',
+    },
+    // Dark theme override
+    '.dark-theme &.rds-backdrop, [data-theme="dark"] &.rds-backdrop': {
+      backgroundColor: 'rgba(128, 128, 128, 0.4)',
+    },
+    ...sx
+  };
 
   return (
-    <MuiBackdrop open={isOpen} sx={mergedSx} {...restProps}>
+    <MuiBackdrop open={isOpen} className={backdropClassName} sx={backdropSx} {...restProps}>
       {content}
     </MuiBackdrop>
   );
@@ -43,3 +56,4 @@ const RdsBackdrop: React.FC<RdsBackdropProps> = ({
 
 RdsBackdrop.displayName = 'RdsBackdrop';
 export default RdsBackdrop;
+                             

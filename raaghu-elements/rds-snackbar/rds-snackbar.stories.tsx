@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSnackbar from './rds-snackbar';
-import { Button } from '@mui/material';
 import { useState } from 'react';
+import RdsButton from '../rds-button/rds-button';
 
 const meta: Meta<typeof RdsSnackbar> = {
   title: 'Elements/Snackbar',
@@ -39,9 +39,17 @@ const SnackbarTemplate = (args: any) => {
 
   return (
     <>
-      <Button variant="contained" onClick={() => setOpen(true)}>
-        Show Snackbar
-      </Button>
+      <RdsButton
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          size="medium"
+          state="default"
+          style="filled"
+          text="Show Snackbar"
+          textCase="unset"
+          onClick={() => setOpen(true)}
+        />
       <RdsSnackbar
         {...args}
         open={open}

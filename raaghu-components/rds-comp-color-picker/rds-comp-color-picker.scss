@@ -45,7 +45,7 @@
     padding: 6px 10px;
     font-size: 14px;
     transition: all 0.2s ease;
-    color: var(--rds-color-on-surface-variant, #5c5c5c);
+    color: var(--rds-color-on-surface-variant, #171717);
     
     &:focus-visible {
       outline: 2px solid var(--rds-color-primary, #1976d2);
@@ -621,6 +621,58 @@
     width: 100%;
     height: 100%;
     cursor: pointer;
+  }
+}
+
+// Dark theme overrides for RDS Color Picker
+.dark-theme .rds-comp-color-picker,
+[data-theme="dark"] .rds-comp-color-picker {
+  --rds-color-surface: #111214;
+  --rds-color-surface-variant: #191a1b;
+  --rds-color-outline: rgba(255,255,255,0.06);
+  --rds-color-outline-variant: rgba(255,255,255,0.04);
+  --rds-color-on-surface: #E6E7E8;
+  --rds-color-on-surface-variant: #bfc2c4;
+  --rds-color-primary: #7c3aed;
+  --rds-color-primary-container: rgba(124,58,237,0.12);
+  --rds-color-error: #ef5350;
+  color: var(--rds-color-on-surface);
+
+  &__container {
+    position: relative; /* required for pseudo elements */
+    background: #000; /* pure black as in reference */
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: 8px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.6);
+    }
+  }
+ 
+  &__dropdown-menu {
+    background: #000;
+    border: 1px solid rgba(255,255,255,0.22);
+    color: var(--rds-color-on-surface);
+  }
+
+  /* swatch tiles: subtle light outline so they stand out on black */
+  &__swatch-tile,
+  &__swatch {
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* focus/selected ring for accessibility on dark */
+  &__swatch-tile:focus-visible,
+  &__color-cell--selected {
+    outline: 2px solid rgba(255,255,255,0.12);
+    outline-offset: 2px;
   }
 }
 

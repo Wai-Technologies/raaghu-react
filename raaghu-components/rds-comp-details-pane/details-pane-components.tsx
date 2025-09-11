@@ -14,9 +14,11 @@ import {
   RdsCounter,
   RdsSearch,
   RdsAvatar,
-  RdsAccordion
+  RdsAccordion,
+  RdsRadio
 } from "../../raaghu-elements";
 import RdsCompTreeStructure, { IconType, TreeLevel } from '../rds-comp-tree-structure/rds-comp-tree-structure';
+import FigmaIcon from './rds-comp-details-pane.stories';
 
 export interface HistoryFavoriteTabsProps {
   activeTab: string;
@@ -52,6 +54,53 @@ export interface ToolbarContentProps {
 export interface ThumbnailViewContentProps {
   thumbnailButtonName?: string;
 }
+
+export interface FigmaUIKitButtonProps {
+  text?: string;
+  onClick?: () => void;
+  className?: string;
+}
+
+export interface StorybookButtonProps {
+  text?: string;
+  onClick?: () => void;
+  className?: string;
+}
+
+export const FigmaUIKitButton: React.FC<FigmaUIKitButtonProps> = ({ 
+  text = "Download the Figma UI Kit",
+  onClick,
+  className = ""
+}) => {
+  return (
+    <button 
+      className={`rds-comp-details-pane__figma-ui-kit-button ${className}`}
+      onClick={onClick}
+      type="button"
+    >
+      <span className="rds-comp-details-pane__figma-icon-wrapper" aria-hidden>
+      </span>
+      <span className="rds-comp-details-pane__figma-button-text">{text}</span>
+    </button>
+  );
+};
+
+export const StorybookButton: React.FC<StorybookButtonProps> = ({ 
+  text = "Go to Storybook",
+  onClick,
+  className = ""
+}) => {
+  return (
+    <button 
+      className={`rds-comp-details-pane__storybook-ui-kit-button ${className}`}
+      onClick={onClick}
+      type="button"
+    >
+    
+      <span className="rds-comp-details-pane__storybook-button-text">{text}</span>
+    </button>
+  );
+};
 
 export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
   activeTab,
@@ -407,20 +456,22 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
               </div>
               <div className="rds-comp-details-pane__agent-actions">
                 <div className="rds-comp-details-pane__agent-badge">{agent.count}</div>
-                <div className="rds-comp-details-pane__agent-radio">
-              <RdsButton
-               changeLeftIcon="circle"
-               changeRightIcon="save"
-               color="primary"
-               layout="icon-only"
-               shape="pill"
-               showLeftIcon
-               size="small"
-               state="default"
-               style="transparent"
-               text="Default Button"
-               textCase="uppercase"
-               />
+                <div className="rds-comp-details-pane__agent-radio">             
+               <RdsRadio
+                  direction="row"
+                  label=""
+                  layout="icon"
+                  onChange={function RY(){}}
+                  options={[
+                  {
+                  text: 'Option 1',
+                  value: 'option1'
+                  } 
+                  ]}
+                  radioProps={{}}
+                  state="default"
+                  value=""
+                 />
                 </div>
               </div>
             </div>
@@ -451,7 +502,7 @@ export const ToolbarContent: React.FC<{
         <div className="rds-comp-details-pane__toolbar-content">
           <div>
             <h3>Toolbar</h3>
-            <div className="rds-comp-details-pane__toolbar-buttons-row">
+            <div className="rds-comp-details-pane__toolbar-buttons-row rds-comp-details-pane__toolbar-buttons-row--scrollable">
               <div className="rds-comp-details-pane__circle-btn-container">
                 <RdsButton
                   color="primary"
@@ -908,12 +959,22 @@ export const ToolbarContent: React.FC<{
           </div>
         </div>
         <div className="rds-comp-details-pane__detail-pane-footer">
-          <button className="rds-comp-details-pane__figma-button">                 
-            Download the Figma UI Kit
-          </button>
-          <button className="rds-comp-details-pane__storybook-button">
-            Go to Storybook
-          </button>
+          <FigmaUIKitButton 
+            text="Download the Figma UI Kit"
+            onClick={() => {
+              // Add your click handler logic here
+              console.log('Download Figma UI Kit clicked');
+            }}
+            className="rds-comp-details-pane__figma-button"
+          />
+          <StorybookButton 
+            text="Go to Storybook"
+            onClick={() => {
+              // Add your click handler logic here
+              console.log('Go to Storybook clicked');
+            }}
+            className="rds-comp-details-pane__storybook-button"
+          />
         </div>
       </div>
     </div>

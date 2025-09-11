@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from 'react-dom';
+import RdsEmojiGenerator from '../rds-comp-emoji-generator/rds-comp-emoji-generator';
 import {
   FormatBold,
   FormatItalic,
@@ -249,7 +250,7 @@ export const ToolbarButton = ({
         )}
       </button>
 
-      {hasDropdown && isDropdownOpen && dropdownOptions.length > 0 && dropdownPos && ReactDOM.createPortal(
+      {hasDropdown && isDropdownOpen && dropdownPos && ReactDOM.createPortal(
         <div
           className={`rds-comp-toolbar__dropdown ${portalThemeClass || ''}`.trim()}
           style={{
@@ -257,13 +258,15 @@ export const ToolbarButton = ({
             top: dropdownPos.top,
             left: dropdownPos.left,
             minWidth: dropdownPos.minWidth,
-            zIndex: 2147483647
+            // Use a high but not max z-index so internal MUI Popovers (skin tone) can overlay it
+            zIndex: 1250
           }}
           role="menu"
           // copy detected theme into a data attr for debugging/selectors
           data-portal-theme={portalThemeClass || undefined}
         >
-          {dropdownOptions.map((option, index) => (
+          {/* If this button has regular dropdown options, render them */}
+          {dropdownOptions.length > 0 && dropdownOptions.map((option, index) => (
             <button
               key={index}
               className="rds-comp-toolbar__dropdown-item"
@@ -273,6 +276,22 @@ export const ToolbarButton = ({
               {option.label}
             </button>
           ))}
+
+          {/* Special-case: render emoji generator when the action is emoji or insertEmoji */}
+          {(action === 'emoji' || action === 'insertEmoji') && (
+            <div className="rds-comp-toolbar__emoji-portal">
+              <RdsEmojiGenerator
+                Type={undefined}
+                onEmojiSelect={(e: any) => {
+                  // Forward emoji selection to toolbar handler
+                  // Convert emoji to string where possible
+                  const val = typeof e === 'string' ? e : String(e);
+                  onDropdownSelect?.(action, val);
+                }}
+                maxEmojis={80}
+              />
+            </div>
+          )}
         </div>,
         document.body
       )}
@@ -301,7 +320,7 @@ export const getToolbarConfig = (type: ToolbarType | string): ToolbarConfig => {
             { icon: <FormatUnderlined />, action: 'underline', ariaLabel: 'Underline' },
             { icon: <FormatStrikethrough />, action: 'strikethrough', ariaLabel: 'Strikethrough' },
             { icon: <span className="rds-comp-toolbar__text-icon">A</span>, action: 'textFormat', hasDropdown: true, ariaLabel: 'Text Format' },
-            { icon: <InsertEmoticon />, action: 'emoji', ariaLabel: 'Insert Emoji' },
+            { icon: <InsertEmoticon />, action: 'emoji', hasDropdown: true, ariaLabel: 'Insert Emoji' },
             { icon: <span className="rds-comp-toolbar__text-icon">¶</span>, action: 'paragraph', hasDropdown: true, ariaLabel: 'Paragraph' },
             { icon: <FormatColorText />, action: 'textColor', hasDropdown: true, ariaLabel: 'Text Color' },
             { icon: <FormatListBulleted />, action: 'bulletList', hasDropdown: true, ariaLabel: 'Bullet List' },
@@ -330,7 +349,7 @@ export const getToolbarConfig = (type: ToolbarType | string): ToolbarConfig => {
             { icon: <FormatUnderlined />, action: 'underline', ariaLabel: 'Underline' },
             { icon: <FormatStrikethrough />, action: 'strikethrough', ariaLabel: 'Strikethrough' },
             { icon: <span className="rds-comp-toolbar__text-icon">A</span>, action: 'textFormat', hasDropdown: true, ariaLabel: 'Text Format' },
-            { icon: <InsertEmoticon />, action: 'emoji', ariaLabel: 'Insert Emoji' },
+            { icon: <InsertEmoticon />, action: 'emoji', hasDropdown: true, ariaLabel: 'Insert Emoji' },
             { icon: <span className="rds-comp-toolbar__text-icon">¶</span>, action: 'paragraph', hasDropdown: true, ariaLabel: 'Paragraph' },
             { icon: <FormatColorText />, action: 'textColor', hasDropdown: true, ariaLabel: 'Text Color' },
             { icon: <FormatListBulleted />, action: 'bulletList', hasDropdown: true, ariaLabel: 'Bullet List' },
@@ -370,7 +389,7 @@ export const getToolbarConfig = (type: ToolbarType | string): ToolbarConfig => {
             { icon: <FormatUnderlined />, action: 'underline', ariaLabel: 'Underline' },
             { icon: <FormatStrikethrough />, action: 'strikethrough', ariaLabel: 'Strikethrough' },
             { icon: <span className="rds-comp-toolbar__text-icon">A</span>, action: 'textFormat', hasDropdown: true, ariaLabel: 'Text Format' },
-            { icon: <InsertEmoticon />, action: 'emoji', ariaLabel: 'Insert Emoji' },
+            { icon: <InsertEmoticon />, action: 'emoji', hasDropdown: true, ariaLabel: 'Insert Emoji' },
             { icon: <span className="rds-comp-toolbar__text-icon">¶</span>, action: 'paragraph', hasDropdown: true, ariaLabel: 'Paragraph' },
             { icon: <FormatColorText />, action: 'textColor', hasDropdown: true, ariaLabel: 'Text Color' },
             { icon: <FormatListBulleted />, action: 'bulletList', hasDropdown: true, ariaLabel: 'Bullet List' },
@@ -412,7 +431,7 @@ export const getToolbarConfig = (type: ToolbarType | string): ToolbarConfig => {
             { icon: <FormatUnderlined />, action: 'underline', ariaLabel: 'Underline' },
             { icon: <FormatStrikethrough />, action: 'strikethrough', ariaLabel: 'Strikethrough' },
             { icon: <span className="rds-comp-toolbar__text-icon">A</span>, action: 'textFormat', hasDropdown: true, ariaLabel: 'Text Format' },
-            { icon: <InsertEmoticon />, action: 'emoji', ariaLabel: 'Insert Emoji' },
+            { icon: <InsertEmoticon />, action: 'emoji', hasDropdown: true, ariaLabel: 'Insert Emoji' },
             { icon: <span className="rds-comp-toolbar__text-icon">¶</span>, action: 'paragraph', hasDropdown: true, ariaLabel: 'Paragraph' },
             { icon: <FormatColorText />, action: 'textColor', hasDropdown: true, ariaLabel: 'Text Color' },
             { icon: <FormatListBulleted />, action: 'bulletList', hasDropdown: true, ariaLabel: 'Bullet List' },
@@ -430,7 +449,7 @@ export const getToolbarConfig = (type: ToolbarType | string): ToolbarConfig => {
           ],
           [
             { icon: <TableChart />, action: 'insertTable', ariaLabel: 'Insert Table' },
-            { icon: <InsertEmoticon />, action: 'insertEmoji', ariaLabel: 'Insert Emoji' },
+            { icon: <InsertEmoticon />, action: 'insertEmoji', hasDropdown: true, ariaLabel: 'Insert Emoji' },
             { icon: <span className="rds-comp-toolbar__text-icon">Ω</span>, action: 'omega', ariaLabel: 'Omega' },
             { icon: <span className="rds-comp-toolbar__text-icon">📄</span>, action: 'insertDocument', ariaLabel: 'Insert Document' },
             { icon: <HorizontalRule />, action: 'horizontalRule', ariaLabel: 'Horizontal Rule' },
@@ -448,7 +467,7 @@ export const getToolbarConfig = (type: ToolbarType | string): ToolbarConfig => {
             { icon: <FormatUnderlined />, action: 'underline', ariaLabel: 'Underline' },
             { icon: <FormatStrikethrough />, action: 'strikethrough', ariaLabel: 'Strikethrough' },
             { icon: <span className="rds-comp-toolbar__text-icon">A</span>, action: 'textFormat', hasDropdown: true, ariaLabel: 'Text Format' },
-            { icon: <InsertEmoticon />, action: 'emoji', ariaLabel: 'Insert Emoji' },
+            { icon: <InsertEmoticon />, action: 'emoji', hasDropdown: true, ariaLabel: 'Insert Emoji' },
             { icon: <span className="rds-comp-toolbar__text-icon">¶</span>, action: 'paragraph', hasDropdown: true, ariaLabel: 'Paragraph' },
             { icon: <FormatColorText />, action: 'textColor', hasDropdown: true, ariaLabel: 'Text Color' },
             { icon: <FormatListBulleted />, action: 'bulletList', hasDropdown: true, ariaLabel: 'Bullet List' },
@@ -487,7 +506,7 @@ export const getToolbarConfig = (type: ToolbarType | string): ToolbarConfig => {
             { icon: <FormatUnderlined />, action: 'underline', ariaLabel: 'Underline' },
             { icon: <FormatStrikethrough />, action: 'strikethrough', ariaLabel: 'Strikethrough' },
             { icon: <span className="rds-comp-toolbar__text-icon">A</span>, action: 'textFormat', hasDropdown: true, ariaLabel: 'Text Format' },
-            { icon: <InsertEmoticon />, action: 'emoji', ariaLabel: 'Insert Emoji' },
+            { icon: <InsertEmoticon />, action: 'emoji', hasDropdown: true, ariaLabel: 'Insert Emoji' },
             { icon: <span className="rds-comp-toolbar__text-icon">¶</span>, action: 'paragraph', hasDropdown: true, ariaLabel: 'Paragraph' },
             { icon: <FormatColorText />, action: 'textColor', hasDropdown: true, ariaLabel: 'Text Color' },
             { icon: <FormatListBulleted />, action: 'bulletList', hasDropdown: true, ariaLabel: 'Bullet List' },

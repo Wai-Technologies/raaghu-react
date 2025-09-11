@@ -2,6 +2,7 @@
 import React from 'react';
 import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import RdsButton from '../rds-button/rds-button';
 import './rds-dialog.scss';
 
 
@@ -50,11 +51,11 @@ const RdsDialog = ({
             <Button onClick={onClose} className="rds-dialog__button rds-dialog__button__dismiss" variant="text">Cancel</Button>
           )}
           {ShowPrimary && (
-            <Button
+            <RdsButton
               onClick={() => { }}
               className="rds-dialog__button rds-dialog__button__primary"
-              variant="contained"
-            >Okay</Button>
+              style="filled"
+            >Okay</RdsButton>
           )}
         </DialogActions>
       </MuiDialog>

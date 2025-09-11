@@ -1,3 +1,14 @@
+@media (prefers-color-scheme: dark) {
+  .rds-fab-menu .rds-comp-ai-icon,
+  .rds-fab-menu .rds-comp-ai-icon__svg {
+    color: #fff !important;
+  }
+}
+
+.theme-dark .rds-fab-menu .rds-comp-ai-icon,
+.theme-dark .rds-fab-menu .rds-comp-ai-icon__svg {
+  color: #fff !important;
+}
 // RDS AI Icon Component Styles
 
 .rds-comp-ai-icon {
@@ -24,7 +35,7 @@
     fill: currentColor;
     stroke: none;
     // Use color tokens for fill if needed
-    color: var(--rds-color-on-surface, #222);
+    color: var(--rds-color-on-surface);
     transition: color 0.2s ease;
   }
 
@@ -109,10 +120,20 @@
   }
 
   &--dark {
-    color: var(--rds-color-dark, #212121);
+      .rds-comp-ai-icon__svg {
+        color: var(--rds-color-dark, #212121);
+      }
+
+      // Make icon white in dark mode
+      @media (prefers-color-scheme: dark) {
+        &, .rds-comp-ai-icon__svg {
+          color: #fff !important;
+        }
+      }
+      .theme-dark &,
+      .theme-dark & .rds-comp-ai-icon__svg {
+        color: #fff !important;
+      }
     
-    .rds-comp-ai-icon__svg {
-      color: var(--rds-color-dark, #212121);
-    }
   }
 }
