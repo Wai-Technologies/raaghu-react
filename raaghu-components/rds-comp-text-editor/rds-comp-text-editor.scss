@@ -389,3 +389,14 @@ background-color: #202020;
     }
   }
 }
+
+.rdw-link-modal-input,.rdw-image-modal-size-input,.rdw-image-modal-alt-input{
+  border: 1px solid #cdc8c8 !important;
+}
+
+[data-theme="dark"] {
+  .rdw-link-modal-input,.rdw-image-modal-size-input,.rdw-image-modal-alt-input{
+    background-color: var(--rds-color-surface-dark, #1e1e1e) !important;
+    color:var(--rds-color-error-light, #ffffff) !important;
+  }
+}
