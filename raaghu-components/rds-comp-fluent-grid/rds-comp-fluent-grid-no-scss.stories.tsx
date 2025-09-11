@@ -1,29 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import RdsFluentGridNoScss, { FluentGridColumn, FluentGridAction, ActionPosition, ActionColumnStyle } from './rds-comp-fluent-grid-no-scss';
 import { Box, Chip, Typography } from '@mui/material';
 
-const theme = createTheme({
-  palette: {
-    mode: 'light',
-  },
-});
-
 const meta: Meta<typeof RdsFluentGridNoScss> = {
   title: 'Components/RdsFluentGridNoScss',
   component: RdsFluentGridNoScss,
-  decorators: [
-    (Story) => (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div style={{ height: '400px', width: '100%' }}>
-          <Story />
-        </div>
-      </ThemeProvider>
-    ),
-  ],
 };
 
 export default meta;
@@ -285,23 +268,6 @@ export const WithPagination: Story = {
   },
 };
 
-// Dark Theme Grid
-export const DarkTheme: Story = {
-  args: {
-    tableHeaders: sampleColumns,
-    tableData: sampleData,
-    isSort: true,
-    isFilter: true,
-    isResizable: true,
-    showHeader: true,
-    showSubHeader: true,
-  },
-  parameters: {
-    backgrounds: {
-      default: 'dark',
-    },
-  },
-};
 
 // Column Resizing Demo
 export const ColumnResizing: Story = {
@@ -862,7 +828,7 @@ export const ScreenshotMatch: Story = {
         date: '09/13/2015',
         balance: '$70,663.00',
         status: '<span class="status-pill status-unqualified">unqualified</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 70%; background-color: #000000;"></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 70%; "></div></div>',
         verified: '<div class="verification-icon verified">✓</div>',
       },
       {
@@ -873,7 +839,7 @@ export const ScreenshotMatch: Story = {
         date: '02/09/2019',
         balance: '$82,429.00',
         status: '<span class="status-pill status-proposal">proposal</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 20%; background-color: #000000;"></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 20%; "></div></div>',
         verified: '<div class="verification-icon verified">✓</div>',
       },
       {
@@ -884,7 +850,7 @@ export const ScreenshotMatch: Story = {
         date: '05/13/2017',
         balance: '$28,334.00',
         status: '<span class="status-pill status-qualified">qualified</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 50%; background-color: #000000;"></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 50%; "></div></div>',
         verified: '<div class="verification-icon not-verified">✗</div>',
       },
       {
@@ -895,7 +861,7 @@ export const ScreenshotMatch: Story = {
         date: '09/15/2020',
         balance: '$88,521.00',
         status: '<span class="status-pill status-new">new</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 40%; background-color: #000000;"></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 40%; "></div></div>',
         verified: '<div class="verification-icon not-verified">✗</div>',
       },
       {
@@ -906,7 +872,7 @@ export const ScreenshotMatch: Story = {
         date: '05/20/2016',
         balance: '$93,905.00',
         status: '<span class="status-pill status-proposal">proposal</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 60%; background-color: #000000;"></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 60%; "></div></div>',
         verified: '<div class="verification-icon verified">✓</div>',
       },
       {
@@ -917,7 +883,7 @@ export const ScreenshotMatch: Story = {
         date: '02/16/2018',
         balance: '$50,041.00',
         status: '<span class="status-pill status-qualified">qualified</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 80%; background-color: #000000;"></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 80%; "></div></div>',
         verified: '<div class="verification-icon not-verified">✗</div>',
       },
       {
@@ -928,7 +894,7 @@ export const ScreenshotMatch: Story = {
         date: '02/19/2018',
         balance: '$58,706.00',
         status: '<span class="status-pill status-renewal">renewal</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 30%; background-color: #000000;"></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 30%; "></div></div>',
         verified: '<div class="verification-icon verified">✓</div>',
       },
       {
@@ -939,7 +905,7 @@ export const ScreenshotMatch: Story = {
         date: '08/13/2019',
         balance: '$26,640.00',
         status: '<span class="status-pill status-renewal">renewal</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 50%; background-color: #000000;"></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 50%; "></div></div>',
         verified: '<div class="verification-icon verified">✓</div>',
       },
       {
@@ -950,7 +916,7 @@ export const ScreenshotMatch: Story = {
         date: '11/21/2018',
         balance: '$65,369.00',
         status: '<span class="status-pill status-unqualified">unqualified</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 70%; background-color: #000000;"></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 70%; "></div></div>',
         verified: '<div class="verification-icon verified">✓</div>',
       },
     ],

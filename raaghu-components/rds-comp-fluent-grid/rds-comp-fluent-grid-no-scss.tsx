@@ -31,6 +31,7 @@ import {
   ListItemIcon,
   Divider,
   Grid,
+  useTheme,
 } from '@mui/material';
 import {
   Search as SearchIcon,
@@ -307,6 +308,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   noDataHeaderTitle = 'Data Grid',
   isLoading = false,
 }) => {
+  const theme = useTheme();
   const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
@@ -886,9 +888,14 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   }
 
   return (
-    <Card>
+    <Card sx={{
+      bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
+      color: theme.palette.mode === 'dark' ? '#ffffff' : undefined
+    }}>
       {showHeader && (
-        <Box p={2} borderBottom="1px solid" borderColor="divider">
+        <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
+          bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined
+        }}>
           <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
             <TextField
               placeholder="Search..."
@@ -933,7 +940,9 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
       )}
 
       {showFilters && (
-        <Box p={2} borderBottom="1px solid" borderColor="divider" bgcolor="grey.50">
+        <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
+          bgcolor: theme.palette.mode === 'dark' ? '#333333' : 'grey.50'
+        }}>
           <Grid container spacing={2} alignItems="center">
             {tableHeaders.filter(header => header.isFilter).map((header) => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={header.key}>
@@ -980,7 +989,9 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
       )}
 
       {showSubHeader && (
-        <Box p={1.5} borderBottom="1px solid" borderColor="divider" bgcolor="grey.100">
+        <Box p={1.5} borderBottom="1px solid" borderColor="divider" sx={{ 
+          bgcolor: theme => theme.palette.mode === 'dark' ? '#424242' : 'grey.100'
+        }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Stack direction="row" spacing={1} alignItems="center">
               <Typography variant="subtitle2" fontWeight="medium">
@@ -998,16 +1009,28 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
       )}
 
       {!isCollapsed && (
-        <TableContainer component={Paper} elevation={0}>
+        <TableContainer 
+          component={Paper} 
+          elevation={0}
+          sx={{
+            bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
+          }}
+        >
           <Table stickyHeader ref={tableRef}>
-            <TableHead>
-              <TableRow>
+            <TableHead sx={{ 
+              bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined,
+              '& th': { bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined }
+            }}>
+              <TableRow sx={{ 
+                bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined 
+              }}>
                 {enableCheckboxSelection && (
                   <TableCell 
                     padding="checkbox" 
                     sx={{ 
                       width: '50px',
                       borderRight: '1px solid #d1d1d1',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
                     }}
                   >
                     <Checkbox
@@ -1030,6 +1053,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                     sx={{ 
                       width: '50px',
                       borderRight: '1px solid #d1d1d1',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
                     }}
                   >
                     <Typography variant="caption" color="text.secondary">
@@ -1049,6 +1073,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                       position: 'relative',
                       userSelect: 'none',
                       borderRight: '1px solid #d1d1d1',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
                       '&:last-child': {
                         borderRight: 'none',
                       },
@@ -1144,6 +1169,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                     sx={{ 
                       width: '100px',
                       borderRight: 'none',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
                     }}
                   >
                     <Typography variant="subtitle2" fontWeight="medium">
@@ -1291,7 +1317,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                   overflow: 'hidden',
                                   '& .progress-fill': {
                                     height: '100%',
-                                    backgroundColor: '#000000',
+                                    backgroundColor: '#0078d4',
                                     transition: 'width 0.3s ease',
                                   },
                                 },
