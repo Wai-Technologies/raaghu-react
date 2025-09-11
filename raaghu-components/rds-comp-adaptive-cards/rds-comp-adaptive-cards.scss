@@ -147,8 +147,8 @@
   &__actions--input-form {
     display: block !important;
     width: 100% !important;
-    padding-left: var(--rds-spacing-md, 16px) !important;
-    padding-right: var(--rds-spacing-md, 16px) !important;
+    // padding-left: var(--rds-spacing-md, 16px) !important;
+    // padding-right: var(--rds-spacing-md, 16px) !important;
     box-sizing: border-box;
   }
   &__action-btn {
@@ -166,14 +166,14 @@
     display: block;
     box-sizing: border-box;
     margin: var(--rds-spacing-none, 0) auto !important;
-    width: 100% !important;
-    max-width: 95% !important;
+    width: 93% !important;
+    max-width: 93% !important;
   }
   &__actions--restaurant-order {
     display: block !important;
     width: 100% !important;
-    padding-left: var(--rds-spacing-md, 16px) !important;
-    padding-right: var(--rds-spacing-md, 16px) !important;
+    // padding-left: var(--rds-spacing-md, 16px) !important;
+    // padding-right: var(--rds-spacing-md, 16px) !important;
     box-sizing: border-box;
     text-align: center;
   }
@@ -228,7 +228,7 @@
   }
   &__activity-update-date,
   &__activity-update-text {
-     color: var(--rds-text-primary, #ffff) !important;
+     color: var(--rds-text-primary) !important;
   }
   &__activity-update-date {
     font-size: var(--rds-font-size-xs, 11px);
@@ -345,6 +345,7 @@
     justify-content: center;
     overflow: hidden;
      &.rds-adaptive-cards__football-logo--home {
+      background-color: #fff !important;
         .dark-theme &,
         [data-theme="dark"] & {
           background: #4a4a4a !important;
@@ -352,6 +353,7 @@
       }
       /* Dark mode override for away team logo */
       &.rds-adaptive-cards__football-logo--away {
+        background: #fff !important;
         .dark-theme &,
         [data-theme="dark"] & {
           background: #4a4a4a !important;
@@ -431,7 +433,7 @@
   border-radius: var(--rds-border-radius-md, 8px);
   background: var(--rds-background-light, #fcfcfc);
   height: var(--rds-component-button-height-medium, 36px);
-  padding: var(--rds-spacing-md, 8px) var(--rds-spacing-sm, 12px);
+  padding: 1px var(--rds-spacing-sm, 12px);
   border: 1.5px solid var(--rds-border-light, #C4C4C4); /* Match restaurant order form border */
   box-sizing: border-box;
   // Remove black border on focus/active in dark mode
