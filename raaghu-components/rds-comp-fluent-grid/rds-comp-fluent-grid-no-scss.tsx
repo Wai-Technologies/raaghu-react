@@ -890,7 +890,10 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   return (
     <Card sx={{
       bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
-      color: theme.palette.mode === 'dark' ? '#ffffff' : undefined
+      color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+      '& .MuiTableCell-root': {
+        color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit'
+      }
     }}>
       {showHeader && (
         <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
@@ -1256,6 +1259,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                             width: cellWidth,
                             maxWidth: header.maxWidth || 500,
                             borderRight: '1px solid #d1d1d1',
+                            color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit',
                             '&:last-child': {
                               borderRight: 'none',
                             },
@@ -1268,11 +1272,13 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',
                                 width: '100%',
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit',
                                 '& *': {
                                   maxWidth: '100%',
                                   overflow: 'hidden',
                                   textOverflow: 'ellipsis',
                                   whiteSpace: 'nowrap',
+                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
                                 },
                                 // Status pill styles
                                 '& .status-pill': {
@@ -1284,27 +1290,27 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                   textAlign: 'center',
                                   minWidth: '60px',
                                   '&.status-qualified': {
-                                    backgroundColor: '#d4edda',
-                                    color: '#155724',
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#155724' : '#d4edda',
+                                    color: theme.palette.mode === 'dark' ? '#d4edda' : '#155724',
                                   },
                                   '&.status-negotiation': {
-                                    backgroundColor: '#fff3cd',
-                                    color: '#856404',
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#856404' : '#fff3cd',
+                                    color: theme.palette.mode === 'dark' ? '#fff3cd' : '#856404',
                                   },
                                   '&.status-unqualified': {
-                                    backgroundColor: '#f8d7da',
-                                    color: '#721c24',
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#721c24' : '#f8d7da',
+                                    color: theme.palette.mode === 'dark' ? '#f8d7da' : '#721c24',
                                   },
                                   '&.status-proposal': {
-                                    backgroundColor: '#e9ecef',
-                                    color: '#495057',
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#495057' : '#e9ecef',
+                                    color: theme.palette.mode === 'dark' ? '#e9ecef' : '#495057',
                                   },
                                   '&.status-new': {
-                                    backgroundColor: '#cce5ff',
-                                    color: '#0066cc',
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#0066cc' : '#cce5ff',
+                                    color: theme.palette.mode === 'dark' ? '#cce5ff' : '#0066cc',
                                   },
                                   '&.status-renewal': {
-                                    backgroundColor: '#0078d4',
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#0078d4' : '#0078d4',
                                     color: '#ffffff',
                                   },
                                 },
@@ -1345,6 +1351,34 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                   borderRadius: '50%',
                                   verticalAlign: 'middle',
                                   marginRight: '8px',
+                                },
+                                // Employee profile styles for dark theme
+                                '& .employee-name': {
+                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
+                                  fontWeight: 'bold',
+                                },
+                                '& .employee-title': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.8) !important' : 'inherit',
+                                },
+                                '& .tag': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.9) !important' : 'inherit',
+                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.23) !important' : 'inherit',
+                                },
+                                '& .badge, & span[class*="badge"], & .chip, & span[class*="chip"]': {
+                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
+                                },
+                                '& .last-active': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.7) !important' : 'inherit',
+                                },
+                                '& .online, & .away': {
+                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.23) !important' : 'inherit',
+                                },
+                                '& .leadership, & .management, & .strategy, & .planning, & .coordination, & .reporting': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  borderColor: theme.palette.mode === 'dark' ? 'transparent !important' : 'inherit',
+                                },
+                                '& .senior, & .lead, & .pending, & .active': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
                                 },
                               }}
                               dangerouslySetInnerHTML={{ __html: cellValue }}

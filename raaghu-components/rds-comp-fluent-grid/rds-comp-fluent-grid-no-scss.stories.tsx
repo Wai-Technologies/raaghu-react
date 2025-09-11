@@ -828,7 +828,7 @@ export const ScreenshotMatch: Story = {
         date: '09/13/2015',
         balance: '$70,663.00',
         status: '<span class="status-pill status-unqualified">unqualified</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 70%; "></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 70%; ;"></div></div>',
         verified: '<div class="verification-icon verified">✓</div>',
       },
       {
@@ -839,7 +839,7 @@ export const ScreenshotMatch: Story = {
         date: '02/09/2019',
         balance: '$82,429.00',
         status: '<span class="status-pill status-proposal">proposal</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 20%; "></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 20%; ;"></div></div>',
         verified: '<div class="verification-icon verified">✓</div>',
       },
       {
@@ -850,7 +850,7 @@ export const ScreenshotMatch: Story = {
         date: '05/13/2017',
         balance: '$28,334.00',
         status: '<span class="status-pill status-qualified">qualified</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 50%; "></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 50%; ;"></div></div>',
         verified: '<div class="verification-icon not-verified">✗</div>',
       },
       {
@@ -861,7 +861,7 @@ export const ScreenshotMatch: Story = {
         date: '09/15/2020',
         balance: '$88,521.00',
         status: '<span class="status-pill status-new">new</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 40%; "></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 40%; ;"></div></div>',
         verified: '<div class="verification-icon not-verified">✗</div>',
       },
       {
@@ -872,7 +872,7 @@ export const ScreenshotMatch: Story = {
         date: '05/20/2016',
         balance: '$93,905.00',
         status: '<span class="status-pill status-proposal">proposal</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 60%; "></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 60%; ;"></div></div>',
         verified: '<div class="verification-icon verified">✓</div>',
       },
       {
@@ -883,7 +883,7 @@ export const ScreenshotMatch: Story = {
         date: '02/16/2018',
         balance: '$50,041.00',
         status: '<span class="status-pill status-qualified">qualified</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 80%; "></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 80%; ;"></div></div>',
         verified: '<div class="verification-icon not-verified">✗</div>',
       },
       {
@@ -894,7 +894,7 @@ export const ScreenshotMatch: Story = {
         date: '02/19/2018',
         balance: '$58,706.00',
         status: '<span class="status-pill status-renewal">renewal</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 30%; "></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 30%; ;"></div></div>',
         verified: '<div class="verification-icon verified">✓</div>',
       },
       {
@@ -905,7 +905,7 @@ export const ScreenshotMatch: Story = {
         date: '08/13/2019',
         balance: '$26,640.00',
         status: '<span class="status-pill status-renewal">renewal</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 50%; "></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 50%; ;"></div></div>',
         verified: '<div class="verification-icon verified">✓</div>',
       },
       {
@@ -916,7 +916,7 @@ export const ScreenshotMatch: Story = {
         date: '11/21/2018',
         balance: '$65,369.00',
         status: '<span class="status-pill status-unqualified">unqualified</span>',
-        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 70%; "></div></div>',
+        activity: '<div class="progress-bar"><div class="progress-fill" style="width: 70%; ;"></div></div>',
         verified: '<div class="verification-icon verified">✓</div>',
       },
     ],
