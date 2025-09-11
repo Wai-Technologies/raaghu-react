@@ -4,7 +4,7 @@ import { Card, CardContent, Typography, IconButton, Chip, Avatar, Menu, MenuItem
 import { MoreVert as MoreVertIcon, Close as CloseIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
-import {  boardInfo, RdsCompKanbanBoardProps, useKanbanBoardState, createEventHandlers, createDragEndHandler, colorClass, } from './kanban-board-helpers.tsx';
+import { boardInfo, RdsCompKanbanBoardProps, useKanbanBoardState, createEventHandlers, createDragEndHandler, colorClass, } from './kanban-board-helpers.tsx';
 const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
   const state = useKanbanBoardState(props);
   const { boardName, boards, showBoard, isEditingBoardName, showAddBoardBtn, addButton, subCardInputsVisible, anchorEl, subCardAnchorEl, selectedCard, selectedSubCard, selectedCardIndex, addQuestionData } = state;
@@ -148,9 +148,9 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                         <Typography variant="caption" className="f-12 fw-500 rds-kanban-board__sub-card-footer-left">{subCard.ticketDate}</Typography>
                                         <Box className="rds-kanban-board__sub-card-footer-right">
                                           <RdsAvatar displayStyle="stacking" avatars={[
-                                              { src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face', title: 'User 1' },
-                                              { src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face', title: 'User 2' }
-                                            ]} maxVisibleAvatars={2} size="smallest" showRemainingCount={false}
+                                            { src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face', title: 'User 1' },
+                                            { src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face', title: 'User 2' }
+                                          ]} maxVisibleAvatars={2} size="smallest" showRemainingCount={false}
                                           />
                                         </Box>
                                       </Box>
@@ -168,7 +168,8 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                   >
                                     <InputLabel>Category</InputLabel>
                                     <Select label="Category" onChange={(e) => handleAddQuestionDataChanges(e.target.value, "supportCategoryId")}
-                                      MenuProps={{ PaperProps: { className: "rds-kanban-board__select-menu"  }
+                                      MenuProps={{
+                                        PaperProps: { className: "rds-kanban-board__select-menu" }
                                       }}
                                     >
                                       {props?.allCategoriesList?.map((category: any, idx: number) => (
@@ -180,10 +181,21 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                   />
                                   <TextField fullWidth size="small" label="Description" placeholder="Enter Description" multiline rows={2} value={addQuestionData?.description || ""} onChange={(e) => handleAddQuestionDataChanges(e.target.value, "description")} className="rds-kanban-board__input-field"
                                   />
-                                  <Autocomplete multiple size="small" options={props.allTagsList || []} getOptionLabel={(option: any) => option.label} onChange={(_event, value) => onSelectedCreators(value)} className="rds-kanban-board__autocomplete" renderInput={(params) => (
-                                      <TextField {...params} label="Tags" placeholder="Select Tags"
-                                      />
-                                    )}
+                                  <Autocomplete
+                                    multiple
+                                    size="small"
+                                    options={props.allTagsList || []}
+                                    getOptionLabel={(option: any) => option.label}
+                                    value={addQuestionData?.supportTagIds || []}
+                                    onChange={(_event, value) => onSelectedCreators(value)}
+                                    className="rds-kanban-board__autocomplete"
+                                    renderInput={(params) => {
+                                      const currentTags = addQuestionData?.supportTagIds || [];
+                                      const placeholderText = Array.isArray(currentTags) && currentTags.length > 0 ? "" : "Select Tags";
+                                      return (
+                                        <TextField {...params} label="Tags" placeholder={placeholderText} />
+                                      );
+                                    }}
                                     PaperComponent={(props) => (
                                       <Paper {...props} className="rds-kanban-board__autocomplete-paper"
                                       />
@@ -215,8 +227,9 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
           </Box>
         ))}
       </Box>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} className="dropdown-menu" disablePortal={true} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }} PaperProps={{   className: "rds-kanban-board__menu-paper"
-        }}
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} className="dropdown-menu" disablePortal={true} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }} PaperProps={{
+        className: "rds-kanban-board__menu-paper"
+      }}
       >
         <MenuItem onClick={() => handleCardOptionClick("delete", selectedCardIndex, selectedCard?.cardId, selectedCard?.key)} className="rds-kanban-board__menu-item">
           <DeleteIcon className="rds-kanban-board__menu-icon" />Delete Board
@@ -225,9 +238,10 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
           <MenuItem key={optIndex} onClick={() => handleCardOptionClick(option.value, selectedCardIndex, selectedCard?.cardId, selectedCard?.key)} className="rds-kanban-board__menu-item">{option.key}</MenuItem>
         ))}
       </Menu>
-      <Menu anchorEl={subCardAnchorEl} open={Boolean(subCardAnchorEl)} onClose={handleClose} className="dropdown-menu" disablePortal={true} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }} PaperProps={{ className: "rds-kanban-board__menu-paper"
-        }} >
-        {selectedSubCard?.actions?.map((option: any, optIndex: number) => ( <MenuItem key={optIndex} onClick={() => handleOptionClick(option.value, selectedCardIndex, selectedSubCard?.SubcardId)} className="rds-kanban-board__menu-item">{option.key}</MenuItem>
+      <Menu anchorEl={subCardAnchorEl} open={Boolean(subCardAnchorEl)} onClose={handleClose} className="dropdown-menu" disablePortal={true} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }} PaperProps={{
+        className: "rds-kanban-board__menu-paper"
+      }} >
+        {selectedSubCard?.actions?.map((option: any, optIndex: number) => (<MenuItem key={optIndex} onClick={() => handleOptionClick(option.value, selectedCardIndex, selectedSubCard?.SubcardId)} className="rds-kanban-board__menu-item">{option.key}</MenuItem>
         ))}
       </Menu>
     </DragDropContext>
