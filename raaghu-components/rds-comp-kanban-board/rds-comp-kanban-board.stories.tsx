@@ -25,6 +25,13 @@ const meta: Meta = {
     },
 } satisfies Meta<typeof RdsCompKanbanBoard>;
 
+// Avatar data for kanban board sub-cards
+const kanbanAvatarData = [
+    { title: 'Jane Doe', subText: 'Developer', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
+    { title: 'John Smith', subText: 'Designer', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
+
+];
+
 const moreOptions : any[] = [
     {
         key: "Assign",
@@ -92,6 +99,7 @@ export const Default: Story = {
         boardData: sampleItems,
         //allowAddingDynamicData : true,
         allowAddingNewSubCard: true,
+        avatarData: kanbanAvatarData,
 
         allCategoriesList: [
             { label: "Category 1", val: "category1" },
