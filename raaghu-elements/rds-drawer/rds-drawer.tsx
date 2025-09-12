@@ -9,7 +9,7 @@ export interface RdsDrawerProps extends DrawerProps {
 
 const RdsDrawer: React.FC<RdsDrawerProps> = ({
   children,
-  width = 250,
+  width = 251,
   position = 'left',
   anchor,
   sx,

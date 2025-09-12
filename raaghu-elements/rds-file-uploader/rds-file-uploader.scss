@@ -113,7 +113,7 @@
   // Elements
   &__icon {
     font-size: 32px;
-    color: var(--rds-color-primary, #3390e6);
+    color: var(--rds-file-uploader-icon-color, var(--rds-color-primary, #3390e6));
     margin-bottom: 8px;
     display: block;
     margin-left: auto;
@@ -540,6 +540,27 @@ color: var(--rds-color-primary, #3390e6); // --rds-color-primary
       font-size: var(--rds-font-size-md, 14px);
       padding-right: var(--rds-spacing-xs, 10px);
     }
+    // Improve layout for "Drop Area - With Upload Button" on mid screens
+    &__drop-zone--with-upload-btn {
+      flex-wrap: wrap;
+      row-gap: var(--rds-spacing-xs, 8px);
+      column-gap: var(--rds-spacing-sm, 12px);
+      justify-content: center;
+      text-align: center;
+    }
+    &__icon-box {
+      justify-content: center;
+      margin-right: 0;
+      width: 100%;
+    }
+    &__title-box {
+      text-align: center;
+      width: 100%;
+    }
+    &__upload-btn {
+      margin-left: 0 !important;
+      min-width: var(--rds-spacing-2xl, 120px) !important;
+    }
   }
 }
 
@@ -606,6 +627,30 @@ color: var(--rds-color-primary, #3390e6); // --rds-color-primary
       font-size: var(--rds-font-size-sm, 13px);
       padding-right: var(--rds-spacing-xs, 4px);
     }
+    // Stack elements vertically for "Drop Area - With Upload Button" on small screens
+    &__drop-zone--with-upload-btn {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      justify-content: center !important;
+      text-align: center !important;
+      row-gap: var(--rds-spacing-xs, 8px) !important;
+      padding: var(--rds-spacing-md, 16px) var(--rds-spacing-xs, 10px) !important;
+    }
+    &__icon-box {
+      justify-content: center;
+      margin-right: 0;
+      width: 100%;
+    }
+    &__title-box {
+      text-align: center;
+      width: 100%;
+    }
+    &__upload-btn {
+      width: 100% !important;
+      min-width: 0 !important;
+      margin-left: 0 !important;
+    }
   }
 }
 
@@ -623,7 +668,7 @@ color: var(--rds-color-primary, #3390e6); // --rds-color-primary
 .rds-file-uploader__title-or {
   color: var(--rds-text-primary, #353535) !important;
   font-weight: 400;
-  margin: 0 8px 0 15px;
+  margin: 0 8px;
   display: inline;
 }
 
@@ -644,6 +689,7 @@ color: var(--rds-color-primary, #3390e6); // --rds-color-primary
 
 .dark-theme .rds-file-uploader,
 [data-theme="dark"] .rds-file-uploader {
+  --rds-file-uploader-icon-color: #ffffff;
   
   // Drop zone styles for dark theme
   &__drop-zone {
@@ -728,16 +774,16 @@ color: var(--rds-color-primary, #3390e6); // --rds-color-primary
   
   // Icon styles
   &__icon {
-    color: var(--rds-color-primary, #2196f3) !important;
+    color: var(--rds-file-uploader-icon-color, #ffffff) !important;
   }
   
   // Button styles
   &__upload-btn {
-    background: var(--rds-color-primary, #7e2eef) !important;
+    background: var(--rds-color-primary, #1976d2) !important;
     color: var(--rds-text-secondary, #cccccc) !important;
     
     &:hover {
-      background: var(--rds-color-primary-dark, #4f00a6) !important;
+      background: var(--rds-color-primary-dark, #1173d5) !important;
     }
     
     &:focus {

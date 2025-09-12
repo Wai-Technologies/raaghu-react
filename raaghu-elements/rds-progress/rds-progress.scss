@@ -201,6 +201,13 @@
         color: var(--rds-color-gray-500, #9e9e9e);
         // Muted appearance for steps not yet reached
       }
+      &--number.rds-progress__stepper-step--completed .rds-progress__stepper-number,
+      &--number.rds-progress__stepper-step--current .rds-progress__stepper-number {
+        color: var(--rds-color-white, #ffffff);
+      }
+      &--number.rds-progress__stepper-step--upcoming .rds-progress__stepper-number {
+        color: var(--rds-color-gray-500, #9e9e9e);
+      }
     }
 
     // Responsive: Reduce step size for small and large mobile views and override inline styles
@@ -288,6 +295,77 @@
     .rds-progress__stepper-connector {
       height: 3px;
       // Thicker connector lines
+    }
+  }
+
+  // Additional stepper type modifiers & dark theme overrides (migrated from inline styles)
+  &__stepper {
+    // Type-specific base adjustments
+    &-step {
+  // Circle / number type markers identified via extra modifier class names applied from TSX
+
+      // Circle type: current step should be filled (override default current style)
+  &--circle.rds-progress__stepper-step--current {
+        background-color: var(--progress-color);
+        color: var(--rds-color-white, #ffffff);
+        border-color: var(--progress-color);
+      }
+
+      // Number type: current step filled (override default current style)
+  &--number.rds-progress__stepper-step--current {
+        background-color: var(--progress-color);
+        color: var(--rds-color-white, #ffffff);
+        border-color: var(--progress-color);
+      }
+
+      // Inner dot for circle type
+      .rds-progress__stepper-inner-dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid var(--rds-color-gray-600, #5c6870);
+        background: transparent;
+        transition: all var(--rds-transition-duration, 0.2s) ease-in-out;
+      }
+
+  &--circle.rds-progress__stepper-step--completed .rds-progress__stepper-inner-dot,
+  &--circle.rds-progress__stepper-step--current .rds-progress__stepper-inner-dot {
+        border-color: var(--rds-color-white, #ffffff);
+        background: transparent;
+      }
+    }
+  }
+
+  // Dark theme overrides
+  :root[data-theme='dark'] &,
+  .theme-dark & {
+    &__stepper {
+      &-step {
+        // Upcoming circle (outer) in dark: black bg, white border/text
+  &--circle.rds-progress__stepper-step--upcoming {
+          background-color: var(--rds-color-surface-dark, #000000);
+          border-color: var(--rds-color-white, #ffffff);
+          color: var(--rds-color-white, #ffffff);
+        }
+        // Upcoming number in dark: black bg, white border/text
+  &--number.rds-progress__stepper-step--upcoming {
+          background-color: var(--rds-color-surface-dark, #000000);
+          border-color: var(--rds-color-white, #ffffff);
+          color: var(--rds-color-white, #ffffff);
+        }
+        // Inner dot upcoming dark
+  &--circle.rds-progress__stepper-step--upcoming .rds-progress__stepper-inner-dot {
+          background-color: var(--rds-color-surface-dark, #000000);
+          border-color: var(--rds-color-white, #ffffff);
+        }
+      }
+      // Connector default in dark (not completed) -> white line
+      &-connector {
+        background-color: var(--rds-color-white, #ffffff);
+      }
+      &-connector--completed {
+        background-color: var(--progress-color);
+      }
     }
   }
 }

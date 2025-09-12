@@ -1,4 +1,768 @@
 // RDS Fluent Grid Component Styles
+
+// Default CSS Variables (Light Theme)
+:root {
+  --rds-grid-bg: #ffffff;
+  --rds-grid-bg-alt: #f5f5f5;
+  --rds-grid-text: #333333;
+  --rds-grid-text-subtle: #666666;
+  --rds-grid-border: #e1e1e1;
+  --rds-grid-border-soft: #e1e1e1;
+  --rds-grid-border-alt: #d1d1d1;
+}
+
+// Dark Theme CSS Variables
+.rds-theme--dark,
+body.theme-dark,
+[data-theme="dark"],
+html[data-theme="dark"],
+.theme-dark,
+html[class*="dark"],
+html[data-story-dark-mode] {
+  --rds-grid-bg: #333333;
+  --rds-grid-bg-alt: #424242;
+  --rds-grid-header-bg: #424242;  /* Specific variable for headers */
+  --rds-grid-text: #ffffff;
+  --rds-grid-text-subtle: #cccccc;
+  --rds-grid-border: #3f3d3d;
+  --rds-grid-border-soft: #5a5a5a;
+  --rds-grid-border-alt: #666666;
+}
+
+// Block Root ---------------------------------------------------------------
+.rds-fluent-grid-container {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--rds-grid-border);
+  border-radius: 4px;
+  background-color: var(--rds-grid-bg);
+  overflow: hidden;
+  color: var(--rds-grid-text);
+}
+
+.rds-fluent-grid {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--rds-grid-border);
+  border-radius: 4px;
+  background-color: var(--rds-grid-bg);
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--rds-grid-bg-alt);
+    border-bottom: 1px solid var(--rds-grid-border-soft);
+  }
+  &__header { padding: 16px; }
+  &__subheader { padding: 8px 16px; }
+  &__subheader-left { display:flex; align-items:center; gap:8px; }
+  &__subheader-title { font-weight:600; font-size:18px; color: var(--rds-grid-text); }
+  &__subheader-dots { color: var(--rds-grid-text-subtle); cursor:pointer; }
+  &__subheader-toggle { cursor:pointer; }
+
+  // Filters Bar ------------------------------------------------------------
+  &__filters { padding:16px; background: var(--rds-grid-bg-alt); border-bottom:1px solid var(--rds-grid-border-soft); }
+  &__filters-content { display:flex; flex-wrap:wrap; gap: var(--spacingHorizontalM, 16px); align-items:center; }
+  &__filter-item { display:flex; align-items:center; gap: var(--spacingHorizontalS,8px); min-width:200px; }
+  &__filter-label { font-weight: var(--fontWeightSemibold,600); font-size: var(--fontSizeBase200,14px); color: var(--rds-grid-text); }
+  &__filter-input,
+  &__filter-select,
+  &__search-input {
+    padding: var(--spacingVerticalXS,4px) var(--spacingHorizontalS,8px);
+    border:1px solid var(--rds-grid-border-alt);
+    border-radius: var(--borderRadiusSmall,4px);
+    font-size: var(--fontSizeBase200,14px);
+    background: var(--rds-grid-bg);
+    min-width:150px;
+    &:focus { outline:none; border-color: var(--colorBrandBackground, #0078d4); box-shadow:0 0 0 1px var(--colorBrandBackground, #0078d4); }
+  }
+  &__search-input { min-width:200px; }
+
+  // Buttons / Actions ------------------------------------------------------
+  &__btn,
+  &__action-btn {
+    padding: var(--spacingVerticalXS,4px) var(--spacingHorizontalS,8px);
+    border:1px solid var(--rds-grid-border-alt);
+    border-radius: var(--borderRadiusSmall,4px);
+    background: var(--rds-grid-bg-alt);
+    color: var(--rds-grid-text);
+    font-size: var(--fontSizeBase200,14px);
+    cursor:pointer; transition: background-color .2s, border-color .2s;
+    &:hover:not(:disabled){ background: var(--colorNeutralBackground1Hover, #eef2f5); }
+    &:disabled { opacity:.5; cursor:not-allowed; }
+  }
+  &__action-btn { font-size: var(--fontSizeBase100,12px); margin-right: var(--spacingHorizontalXXS,4px); }
+  &__action-menu { position:relative; display:inline-block; }
+  &__action-dropdown { position:absolute; top:100%; right:0; background:var(--rds-grid-bg); border:1px solid var(--rds-grid-border); border-radius:4px; box-shadow: var(--shadow8,0 2px 8px rgba(0,0,0,.15)); z-index:10; min-width:120px; display:none; }
+  &__action-menu:hover &__action-dropdown { display:block; }
+  &__action-item { padding: var(--spacingVerticalXS,4px) var(--spacingHorizontalS,8px); background:none; border:none; text-align:left; width:100%; font-size: var(--fontSizeBase200,14px); color: var(--rds-grid-text); cursor:pointer; &:hover{ background: var(--rds-grid-row-hover); } }
+
+  // Table ------------------------------------------------------------------
+  &__table { width:100%; height:100%; overflow:auto; }
+  &__header-cell { font-weight:600; background: var(--rds-grid-header-bg, var(--rds-grid-bg-alt)); border-bottom:2px solid var(--rds-grid-border); border-right:1px solid var(--rds-grid-border-alt); padding:12px; text-align:left; position:relative; user-select:none; }
+  &__header-cell:last-child { border-right:none; }
+  &__row { background: var(--rds-grid-bg); transition: background .15s; }
+  &__row:nth-child(even){ background: var(--rds-grid-bg-alt); }
+  &__row:hover { background: var(--rds-grid-row-hover); }
+  &__row-selected { background: var(--rds-grid-row-hover); }
+  &__cell { padding:12px; border-right:1px solid var(--rds-grid-border-alt); border-bottom:1px solid var(--rds-grid-border); position:relative; }
+  &__cell:last-child { border-right:none; }
+  &__cell--truncated { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  &__cell-text, &__cell-html { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:100%; }
+
+  // Pagination & States ----------------------------------------------------
+  &__pagination, &-pagination { display:flex; justify-content:center; align-items:center; padding:16px; border-top:1px solid var(--rds-grid-border); background:var(--rds-grid-bg); }
+  &__loader, &-loader { display:flex; justify-content:center; align-items:center; padding:48px; }
+  &__empty-state, &-empty-state { display:flex; flex-direction:column; justify-content:center; align-items:center; padding:48px; text-align:center; background:var(--rds-grid-bg); }
+  &__empty-state-title { font-weight:600; margin-bottom:4px; }
+  &__empty-state-description { color: var(--rds-grid-text-subtle); }
+  &__sort-icon, &-sort-icon { margin-left:4px; color: var(--rds-grid-text-subtle); }
+  &__filter-icon, &-filter-icon { margin-left:4px; color: var(--rds-grid-text-subtle); cursor:pointer; }
+  &__filter-icon-active { color: var(--colorBrandBackground, #0078d4); }
+  &__action-button, &-action-button { min-width:auto; }
+  &__resize-handle, &-resize-handle { position:absolute; right:0; top:0; bottom:0; width:4px; cursor:col-resize; background:transparent; transition: background-color .2s; z-index:10; &:hover{ background: var(--rds-grid-row-hover); } }
+
+  // Modifiers --------------------------------------------------------------
+  &--compact { .rds-fluent-grid__header-cell, .rds-fluent-grid__cell { padding: var(--spacingVerticalXS,4px) var(--spacingHorizontalS,8px); font-size: var(--fontSizeBase100,12px);} }
+  &--loading { opacity:.6; pointer-events:none; }
+  &--error { border-color: var(--colorPaletteRedBorder1, #d13438); background: var(--colorPaletteRedBackground1, #fde7e9); }
+}
+
+// Filter Popup -------------------------------------------------------------
+.rds-fluent-grid__filter-popup { position:absolute; top:100%; right:0; width:140px; max-height:160px; overflow:auto; padding:6px; background:var(--rds-grid-bg); border:1px solid var(--rds-grid-border); border-radius:4px; box-shadow: var(--shadow4,0 2px 4px rgba(0,0,0,.1)); z-index:20; }
+.rds-fluent-grid__filter-popup-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+.rds-fluent-grid__filter-section { margin-bottom:4px; }
+.rds-fluent-grid__filter-item-active { background: var(--rds-grid-row-hover); }
+
+// Column Visibility Panel --------------------------------------------------
+.rds-fluent-grid__column-panel { margin-top:0; padding:4px; border:1px solid var(--rds-grid-border); border-top:none; border-radius:0 0 4px 4px; background:var(--rds-grid-bg-alt); width:100%; }
+.rds-fluent-grid__column-panel-item { display:flex; align-items:center; gap:4px; padding:2px 4px; border-radius:2px; transition: background-color .2s; &:hover{ background: var(--rds-grid-row-hover); } }
+
+// Accessibility Helpers ----------------------------------------------------
+.rds-fluent-grid__resize-handle:focus { outline:2px solid var(--colorBrandBackground, #0078d4); outline-offset:-2px; }
+
+// Dark theme support - these are additional overrides beyond the CSS variables
+// to handle specific styling needs for the fluent grid in dark mode
+.rds-fluent-grid--dark,
+.rds-theme--dark .rds-fluent-grid-container,
+.rds-theme--dark .rds-fluent-grid,
+body.theme-dark .rds-fluent-grid-container,
+body.theme-dark .rds-fluent-grid,
+[data-theme="dark"] .rds-fluent-grid-container,
+[data-theme="dark"] .rds-fluent-grid,
+.theme-dark .rds-fluent-grid-container,
+.theme-dark .rds-fluent-grid,
+/* Storybook-specific dark theme selectors */
+html[data-theme="dark"] .rds-fluent-grid-container,
+html[data-theme="dark"] .rds-fluent-grid,
+html[data-story-dark-mode] .rds-fluent-grid-container,
+html[data-story-dark-mode] .rds-fluent-grid {
+  color: var(--rds-grid-text);
+  border-color: var(--rds-grid-border);
+
+  // Inner grid panel 
+  .rds-fluent-grid { 
+    background-color: var(--rds-grid-bg) !important;
+    border-color: var(--rds-grid-border);
+  }
+  
+  // Table header specific styles for dark theme
+  .fui-DataGridHeader,
+  thead,
+  tr:first-child,
+  .rds-fluent-grid-header-row,
+  th,
+  .rds-fluent-grid-header-cell,
+  th.MuiTableCell-head,
+  [role="columnheader"],
+  .rds-fluent-grid__header-cell {
+    background-color: #424242 !important;
+  }
+  // .rds-fluent-grid-sub-header
+  // {
+  //   background-color: #424242 !important;
+  //   color: white;
+  // }
+  // .rds-fluent-grid__header,
+  // .rds-fluent-grid__subheader,
+  // .rds-fluent-grid-header,
+  // .rds-fluent-grid-sub-header {
+  //   background-color: #424242 !important;
+  //   color: var(--rds-grid-text) !important;
+  //   border-bottom-color: var(--rds-grid-border-soft) !important;
+  // }
+
+  /* Header toolbar row with search, filters, buttons */
+  .rds-fluent-grid-toolbar,
+  .rds-fluent-grid__toolbar,
+  .rds-fluent-grid-controls,
+  [role="toolbar"],
+  .MuiToolbar-root,
+  .MuiBox-root,
+  .MuiContainer-root,
+  .MuiPaper-root,
+  .rds-comp-fluent-grid-toolbar,
+  .rds-comp-fluent-grid-header-toolbar,
+  .rds-comp-fluent-grid-search-toolbar,
+  .rds-comp-fluent-grid-action-toolbar,
+  div[class*="toolbar"],
+  div[class*="header-controls"],
+  div[class*="grid-controls"] {
+    background-color: var(--rds-grid-bg-alt) !important;
+    color: var(--rds-grid-text) !important;
+    border-bottom-color: var(--rds-grid-border-soft) !important;
+  }
+  
+  /* Search input in the header */
+  input.rds-fluent-grid__search-input,
+  input[placeholder="Search..."],
+  .rds-fluent-grid input[type="text"],
+  .rds-fluent-grid input[type="search"],
+  input.MuiInputBase-input,
+  input.MuiOutlinedInput-input,
+  input[type="search"],
+  input[type="text"],
+  input[placeholder*="Search"],
+  .MuiInput-root input,
+  .MuiInputBase-root input,
+  .MuiOutlinedInput-root input,
+  [role="search"],
+  [type="search"],
+  div[class*="search"] input,
+  .search-input {
+    background-color: var(--rds-grid-bg) !important;
+    color: var(--rds-grid-text) !important;
+    border-color: var(--rds-grid-border-soft) !important;
+    
+    &::placeholder {
+      color: var(--rds-grid-text-subtle) !important;
+      opacity: 0.7;
+    }
+  }
+
+  /* Header buttons (ADD NEW, PERSON, FILTERS, etc.) */
+  .rds-fluent-grid button,
+  .rds-fluent-grid-toolbar button,
+  .rds-fluent-grid-controls button,
+  button.MuiButtonBase-root,
+  button.MuiButton-root,
+  button.MuiIconButton-root,
+  [role="button"],
+  button[type="button"],
+  button[class*="button"],
+  div[role="toolbar"] button,
+  .rds-comp-fluent-grid button,
+  div[class*="toolbar"] button,
+  div[class*="header"] button,
+  div[class*="controls"] button {
+    background-color: var(--rds-grid-bg) !important;
+    color: var(--rds-grid-text) !important;
+    border-color: var(--rds-grid-border-soft) !important;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08) !important;
+    }
+    
+    /* Fix button icons and text */
+    svg, span, .MuiButton-label, .MuiButton-startIcon, .MuiButton-endIcon {
+      fill: var(--rds-grid-text) !important;
+      color: var(--rds-grid-text) !important;
+    }
+  }
+  
+  /* Specific fixes for header buttons with MUI specific classes */
+  .rds-theme--dark button[class*="MuiButton"],
+  [data-theme="dark"] button[class*="MuiButton"],
+  html[data-theme="dark"] button[class*="MuiButton"],
+  .theme-dark button[class*="MuiButton"] {
+    background-color: #424242 !important;
+    color: #ffffff !important;
+    
+    &:hover {
+      background-color: #505050 !important;
+    }
+    
+    /* Make sure button text is visible */
+    & > span {
+      color: #ffffff !important;
+    }
+    
+    /* Handle button icons */
+    & .MuiSvgIcon-root {
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+
+  .rds-fluent-grid__header-text,
+  .rds-fluent-grid__subheader-title,
+  .rds-fluent-grid__filter-label,
+  .rds-fluent-grid__cell-text,
+  .rds-fluent-grid-cell-text,
+  .rds-fluent-grid-header-title,
+  .rds-fluent-grid-title {
+    color: var(--rds-grid-text) !important;
+  }
+
+  .rds-fluent-grid__btn,
+  .rds-fluent-grid__action-btn,
+  .rds-fluent-grid__filter-input,
+  .rds-fluent-grid__filter-select,
+  .rds-fluent-grid__search-input {
+    background-color: var(--rds-grid-bg-alt);
+    color: var(--rds-grid-text);
+    border-color: var(--rds-grid-border-soft);
+
+    &:hover:not(:disabled) {
+      background-color: rgba(255, 255, 255, 0.08); /* Slight highlight effect */
+      border-color: var(--rds-grid-border-alt);
+    }
+  }
+
+  .rds-fluent-grid__action-dropdown,
+  .rds-fluent-grid-filter-popup,
+  .rds-fluent-grid__filter-popup {
+    background-color: var(--rds-grid-bg-alt);
+    border-color: var(--rds-grid-border-soft);
+    color: var(--rds-grid-text);
+  }
+
+  .rds-fluent-grid__table,
+  .rds-fluent-grid table,
+  .rds-fluent-grid-table {
+    background-color: var(--rds-grid-bg-alt) !important;
+    color: var(--rds-grid-text) !important;
+    
+    /* Table header row */
+    .fui-DataGridHeader,
+    thead,
+    tr:first-child,
+    .rds-fluent-grid-header-row {
+      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt)) !important;
+      color: var(--rds-grid-text) !important;
+    }
+    
+    /* Table header cells */
+    .fui-DataGridHeaderCell,
+    th,
+    .rds-fluent-grid-header-cell,
+    th.MuiTableCell-head,
+    [role="columnheader"] {
+      background-color: var(--rds-grid-header-bg, var(--rds-grid-bg-alt)) !important;
+      color: var(--rds-grid-text) !important;
+      border-bottom-color: var(--rds-grid-border-soft) !important;
+      border-right-color: var(--rds-grid-border-soft) !important;
+      font-weight: 600;
+    }
+    /* Table rows */
+    .fui-DataGridRow,
+    tbody tr,
+    .rds-fluent-grid-row {
+      background-color: var(--rds-grid-bg-alt);
+      
+      /* Zebra striping */
+      &:nth-child(even) { 
+        background-color: var(--rds-grid-bg); 
+      }
+      
+      /* Hover effect */
+      &:hover { 
+        background-color: rgba(255, 255, 255, 0.08); 
+      }
+      
+      /* Selected row */
+      &--selected,
+      &.selected,
+      &.Mui-selected { 
+        background-color: rgba(255, 255, 255, 0.16) !important; 
+      }
+    }
+    
+    /* Table cells */
+    .fui-DataGridCell,
+    td,
+    .rds-fluent-grid-cell,
+    .MuiTableCell-body {
+      background-color: transparent;
+      color: var(--rds-grid-text);
+      border-right-color: var(--rds-grid-border-soft);
+      border-bottom-color: var(--rds-grid-border-soft);
+    }
+  }
+
+  .rds-fluent-grid-pagination {
+    background-color: #424242;
+    border-top-color: #5a5a5a;
+    color: #ffffff;
+  }
+
+  .rds-fluent-grid-empty-state {
+    background-color: #424242;
+    color: #ffffff;
+  }
+
+  .rds-fluent-grid-filter-operator,
+  .rds-fluent-grid-filter-input,
+  .rds-fluent-grid-filter-select {
+    background-color: #424242;
+    color: #ffffff;
+    border-color: #5a5a5a;
+  }
+
+  .rds-fluent-grid-column-item:hover { background-color: #4a4a4a; }
+  .rds-fluent-grid-column-list { background-color: #424242; border-color:#5a5a5a; }
+  .rds-fluent-grid-resize-handle:hover { background-color:#6a6a6a; }
+  
+  // New structure (non-BEM) class names support
+  // .rds-fluent-grid-header,
+  // .rds-fluent-grid-sub-header {
+  //   background-color:#424242 !important;
+  //   color:#ffffff;
+  //   border-bottom:1px solid #5a5a5a;
+  // }
+  // .rds-fluent-grid-header-controls button,
+  // .rds-fluent-grid-sub-header-toggle {
+  //   color:#ffffff;
+  // }
+  .rds-fluent-grid-table { background-color:#424242; }
+  .rds-fluent-grid-header-cell {
+    background-color:#424242;
+    color:#ffffff;
+    border-bottom:2px solid #5a5a5a;
+    border-right:1px solid #5a5a5a;
+  }
+  .rds-fluent-grid-row {
+    background-color:#424242;
+    &:nth-child(even){ background-color:#3a3a3a; }
+    &:hover{ background-color:#505050; }
+  }
+  .rds-fluent-grid-row-selected { background-color:#505050; }
+  .rds-fluent-grid-cell {
+    background-color:transparent;
+    color:#ffffff;
+    border-right:1px solid #5a5a5a;
+    border-bottom:1px solid #5a5a5a;
+  }
+  .rds-fluent-grid-cell-text,
+  .rds-fluent-grid-cell-html { color:#ffffff; }
+  .rds-fluent-grid-pagination { background-color:#424242; border-top:1px solid #5a5a5a; }
+  .rds-fluent-grid-empty-state { background-color:#424242; color:#ffffff; }
+  .rds-fluent-grid-resize-handle { background-color:transparent; }
+  .rds-fluent-grid-resize-handle:hover { background-color:#606060; }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .rds-fluent-grid__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .rds-fluent-grid__subheader {
+    flex-direction: column;
+    padding: 8px;
+  }
+
+  .rds-fluent-grid__table {
+    font-size: 14px;
+  }
+}
+
+// Dark mode support for Material UI components
+html [data-theme="dark"],
+html .rds-theme--dark,
+html body.theme-dark,
+html .theme-dark,
+html[data-theme="dark"],
+html[data-story-dark-mode],
+html.theme-dark {
+  /* Specifically target grid toolbar buttons in header */
+  .rds-fluent-grid button.MuiButtonBase-root,
+  .rds-fluent-grid-toolbar button,
+  [data-testid="toolbar-button"],
+  [role="toolbar"] button {
+    background-color: var(--rds-grid-bg) !important;
+    color: var(--rds-grid-text) !important;
+    border-color: var(--rds-grid-border) !important;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08) !important;
+    }
+    
+    .MuiSvgIcon-root,
+    svg {
+      fill: currentColor;
+      color: var(--rds-grid-text) !important;
+    }
+  }
+  
+  /* Fix any search field in header */
+  .rds-fluent-grid [role="search"],
+  .rds-fluent-grid [type="search"],
+  .rds-fluent-grid input[placeholder*="Search"] {
+    background-color: var(--rds-grid-bg) !important;
+    color: var(--rds-grid-text) !important;
+    
+    &::placeholder {
+      color: var(--rds-grid-text-subtle) !important;
+      opacity: 0.7;
+    }
+  }
+  
+  /* Fix sort and filter icons in column headers */
+  .rds-fluent-grid th svg,
+  .rds-fluent-grid [role="columnheader"] svg,
+  .rds-fluent-grid-header-cell svg,
+  .rds-fluent-grid__sort-icon,
+  .rds-fluent-grid-sort-icon,
+  .rds-fluent-grid__filter-icon,
+  .rds-fluent-grid-filter-icon {
+    color: var(--rds-grid-text) !important;
+    fill: var(--rds-grid-text) !important;
+    opacity: 0.7;
+  }
+
+  /* Target all MUI OutlinedInput components */
+  .MuiOutlinedInput-root {
+    background-color: var(--rds-grid-bg-alt) !important;
+    color: var(--rds-grid-text) !important;
+    border-color: var(--rds-grid-border) !important;
+    
+    /* Fix field border color */
+    .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-grid-border) !important;
+    }
+    
+    &:hover .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-grid-border-alt) !important;
+    }
+    
+    &.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: var(--colorBrandBackground, #0078d4) !important;
+      border-width: 2px;
+    }
+    
+    /* Make placeholder text visible in dark mode */
+    &::placeholder, 
+    .MuiInputBase-input::placeholder {
+      color: var(--rds-grid-text-subtle) !important;
+      opacity: 0.7;
+    }
+  }
+  
+  /* Target MUI Card components */
+  .MuiPaper-root.MuiCard-root {
+    background-color: var(--rds-grid-bg-alt) !important;
+    color: var(--rds-grid-text) !important;
+  }
+  
+  /* Target MUI TableContainer components */
+  .MuiPaper-root.MuiTableContainer-root {
+    background-color: var(--rds-grid-bg-alt) !important;
+    color: var(--rds-grid-text) !important;
+  }
+  
+  /* Target MUI Table components */
+  .MuiTable-root {
+    color: var(--rds-grid-text) !important;
+    
+    .MuiTableCell-root {
+      color: var(--rds-grid-text) !important;
+      border-color: var(--rds-grid-border) !important;
+    }
+    
+    .MuiTableHead-root {
+      .MuiTableCell-root {
+        background-color: var(--rds-grid-bg-alt) !important;
+        font-weight: 600;
+      }
+    }
+    
+    .MuiTableRow-root {
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.08) !important;
+      }
+    }
+  }
+  
+  /* Fix Input Base components which are parent to many form controls */
+  .MuiInputBase-root {
+    background-color: var(--rds-grid-bg-alt) !important;
+    color: var(--rds-grid-text) !important;
+    border-color: var(--rds-grid-border) !important;
+    
+    /* Make input text readable */
+    input, textarea, select {
+      color: var(--rds-grid-text) !important;
+    }
+  }
+  
+  /* Fix for specific MUI classes in case the above selector doesn't catch everything */
+  .MuiInputBase-root.MuiOutlinedInput-root,
+  .css-4bojcr-MuiInputBase-root-MuiOutlinedInput-root,
+  [class*="-MuiInputBase-root-MuiOutlinedInput-root"] {
+    background-color: var(--rds-grid-bg-alt) !important;
+    color: var(--rds-grid-text) !important;
+    border-color: var(--rds-grid-border) !important;
+  }
+  
+  /* Fix MUI Select components */
+  .MuiSelect-root {
+    background-color: var(--rds-grid-bg-alt) !important;
+    color: var(--rds-grid-text) !important;
+    
+    .MuiSelect-icon {
+      color: var(--rds-grid-text) !important;
+    }
+  }
+  
+  /* Fix MUI Menu components (dropdowns) */
+  .MuiMenu-paper {
+    background-color: var(--rds-grid-bg-alt) !important;
+    color: var(--rds-grid-text) !important;
+    
+    .MuiMenuItem-root {
+      color: var(--rds-grid-text) !important;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.08) !important;
+      }
+      
+      &.Mui-selected {
+        background-color: rgba(255, 255, 255, 0.16) !important;
+        
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.24) !important;
+        }
+      }
+    }
+  }
+  
+  /* Fix MUI Button components */
+  .MuiButton-root {
+    &.MuiButton-contained {
+      background-color: var(--rds-grid-border-alt) !important;
+      color: var(--rds-grid-text) !important;
+      
+      &:hover {
+        background-color: var(--rds-grid-border) !important;
+      }
+    }
+    
+    &.MuiButton-outlined {
+      border-color: var(--rds-grid-border) !important;
+      color: var(--rds-grid-text) !important;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.08) !important;
+      }
+    }
+    
+    &.MuiButton-text {
+      color: var(--rds-grid-text) !important;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.08) !important;
+      }
+    }
+  }
+
+  .rds-fluent-grid-row {
+  &:hover {
+    background-color: #424242 !important;
+  }
+
+  &:nth-child(even) {
+    background-color: #424242 !important;
+  }
+
+  &-selected {
+    background-color: #424242 !important;
+  }
+}
+  
+  /* Fix MUI Checkbox and Radio components */
+  .MuiCheckbox-root, .MuiRadio-root {
+    color: var(--rds-grid-text-subtle) !important;
+    
+    &.Mui-checked {
+      color: var(--colorBrandBackground, #0078d4) !important;
+    }
+  }
+  
+  /* Fix MUI Input Label */
+  .MuiInputLabel-root {
+    color: var(--rds-grid-text-subtle) !important;
+    
+    &.Mui-focused {
+      color: var(--colorBrandBackground, #0078d4) !important;
+    }
+  }
+  
+  /* Fix MUI Chip components often used in filters */
+  .MuiChip-root {
+    background-color: var(--rds-grid-border) !important;
+    color: var(--rds-grid-text) !important;
+    
+    &.MuiChip-filled {
+      background-color: var(--rds-grid-border-alt) !important;
+    }
+    
+    &.MuiChip-outlined {
+      border-color: var(--rds-grid-border) !important;
+    }
+    
+    .MuiChip-deleteIcon {
+      color: var(--rds-grid-text-subtle) !important;
+      
+      &:hover {
+        color: var(--rds-grid-text) !important;
+      }
+    }
+  }
+  
+  /* Fix MUI Typography */
+  .MuiTypography-root {
+    color: var(--rds-grid-text) !important;
+  }
+  
+  /* Fix MUI TextField helper text */
+  .MuiFormHelperText-root {
+    color: var(--rds-grid-text-subtle) !important;
+  }
+  
+  /* Fix MUI Icons */
+  .MuiSvgIcon-root {
+    color: inherit;
+  }
+  
+  /* Explicitly target the icons in the grid's toolbar/header */
+  .rds-fluent-grid svg,
+  .rds-fluent-grid-header svg,
+  .rds-fluent-grid-toolbar svg,
+  .rds-fluent-grid [role="toolbar"] svg,
+  .rds-fluent-grid button svg {
+    color: var(--rds-grid-text) !important;
+    fill: var(--rds-grid-text) !important;
+  }
+  
+  /* Fix MUI Dialog components */
+  .MuiDialog-paper {
+    background-color: var(--rds-grid-bg-alt) !important;
+    color: var(--rds-grid-text) !important;
+  }
+  
+  /* Fix MUI Popover components (often used in filters) */
+  .MuiPopover-paper {
+    background-color: var(--rds-grid-bg-alt) !important;
+    color: var(--rds-grid-text) !important;
+    border: 1px solid var(--rds-grid-border) !important;
+  }
+}
+// RDS Fluent Grid Component Styles
 .rds-fluent-grid-container {
   width: 100%;
   height: 100%;
@@ -434,34 +1198,34 @@
   }
 }
 
-.rds-fluent-grid-sub-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 16px;
-  border-bottom: 1px solid #e1e1e1;
-  background-color: #f8f9fa;
+// .rds-fluent-grid-sub-header {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 8px 16px;
+//   border-bottom: 1px solid #e1e1e1;
+//   // background-color: #f8f9fa;
 
-  &-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+//   &-left {
+//     display: flex;
+//     align-items: center;
+//     gap: 8px;
+//   }
 
-  &-title {
-    font-weight: 600;
-    font-size: 14px;
-  }
+//   &-title {
+//     font-weight: 600;
+//     font-size: 14px;
+//   }
 
-  &-dots {
-    color: #666;
-    cursor: pointer;
-  }
+//   &-dots {
+//     color: #666;
+//     cursor: pointer;
+//   }
 
-  &-toggle {
-    cursor: pointer;
-  }
-}
+//   &-toggle {
+//     cursor: pointer;
+//   }
+// }
 
 .rds-fluent-grid-table {
   width: 100%;
@@ -607,7 +1371,7 @@
     
     .progress-fill {
       height: 100%;
-      background-color: #000000;
+      background-color: #0066cc !important;
       transition: width 0.3s ease;
     }
   }
@@ -885,41 +1649,202 @@
   }
 }
 
-// Dark theme support
-.rds-fluent-grid--dark {
-  background-color: var(--colorNeutralBackground1);
-  border-color: var(--colorNeutralStroke1);
+// // Dark theme support
+// .rds-fluent-grid--dark {
+//   background-color: var(--colorNeutralBackground1);
+//   border-color: var(--colorNeutralStroke1);
 
-  .rds-fluent-grid__header {
-    background-color: var(--colorNeutralBackground2);
-    border-bottom-color: var(--colorNeutralStroke2);
+//   .rds-fluent-grid__header {
+//     background-color: var(--colorNeutralBackground2);
+//     border-bottom-color: var(--colorNeutralStroke2);
+//   }
+
+//   .rds-fluent-grid__subheader {
+//     background-color: var(--colorNeutralBackground2);
+//     border-bottom-color: var(--colorNeutralStroke2);
+//   }
+
+//   .rds-fluent-grid__table {
+//     .fui-DataGridHeader {
+//       background-color: var(--colorNeutralBackground2);
+//     }
+
+//     .fui-DataGridRow {
+//       &:nth-child(even) {
+
+/* Global Dark Mode Catch-all for Header Toolbar */
+/* Force dark theme on specific buttons from screenshot */
+body[data-theme="dark"] .MuiButtonBase-root,
+html[data-theme="dark"] .MuiButtonBase-root,
+.rds-theme--dark .MuiButtonBase-root,
+[data-theme="dark"] .MuiButtonBase-root,
+[data-story-dark-mode] .MuiButtonBase-root {
+  background-color: #424242 !important;
+  color: #ffffff !important;
+  border-color: #666666 !important;
+  
+  /* Text inside buttons */
+  span {
+    color: #ffffff !important;
   }
-
-  .rds-fluent-grid__subheader {
-    background-color: var(--colorNeutralBackground2);
-    border-bottom-color: var(--colorNeutralStroke2);
+  
+  /* Icons inside buttons */
+  svg {
+    fill: #ffffff !important;
+    color: #ffffff !important;
   }
+}
 
-  .rds-fluent-grid__table {
-    .fui-DataGridHeader {
-      background-color: var(--colorNeutralBackground2);
+html[data-theme="dark"],
+html.dark-theme,
+html[data-story-dark-mode],
+.theme-dark,
+[data-theme="dark"],
+.rds-theme--dark {
+  /* Make sure all table headers have the correct background in dark mode */
+  .rds-fluent-grid thead th,
+  .rds-fluent-grid tr:first-child th,
+  .rds-fluent-grid [role="columnheader"],
+  .rds-fluent-grid .rds-fluent-grid-header-cell,
+  .rds-fluent-grid .rds-fluent-grid__header-cell,
+  .rds-fluent-grid-container thead th,
+  .rds-fluent-grid-container .fui-DataGridHeaderCell,
+  .rds-fluent-grid-container th.MuiTableCell-head {
+    background-color: #424242 !important;
+  }
+  
+  /* Direct targeting of elements in the screenshot */
+  button.MuiButtonBase-root[aria-label="add new"],
+  button.MuiButtonBase-root[aria-label="person"],
+  button.MuiButtonBase-root[aria-label="filters"],
+  button.MuiButtonBase-root[aria-label="sort"],
+  button.MuiButtonBase-root[aria-label="hide"],
+  button[title*="ADD NEW"],
+  button[title*="PERSON"],
+  button[title*="FILTERS"],
+  button[title*="SORT"],
+  button[title*="HIDE"] {
+    background-color: #424242 !important;
+    color: #ffffff !important;
+    border: 1px solid #666666 !important;
+    
+    /* Target button text */
+    .MuiButton-label,
+    span {
+      color: #ffffff !important;
     }
-
-    .fui-DataGridRow {
-      &:nth-child(even) {
-        background-color: #f8f9fa;
-      }
-
-      &:hover {
-        background-color: var(--colorNeutralBackground1Hover);
-      }
-
-      &--selected {
-        background-color: #e6f3ff;
+    
+    /* Target button icons */
+    .MuiSvgIcon-root,
+    svg {
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+  
+  /* Target the search input specifically */
+  input[placeholder="Search..."] {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    border: 1px solid #666666 !important;
+    
+    &::placeholder {
+      color: #aaaaaa !important;
+    }
+  }
+  
+  /* Target any toolbar or header component in the grid */
+  .MuiPaper-root,
+  .MuiToolbar-root,
+  .MuiBox-root,
+  .MuiAppBar-root,
+  div[role="toolbar"],
+  div[class*="toolbar"],
+  div[class*="header"],
+  div[class*="controls"],
+  header,
+  [class*="header"] {
+    background-color: #424242 !important;
+    color: #ffffff !important;
+    border-color: #555555 !important;
+  }
+  
+  /* Target all buttons in toolbars */
+  div[role="toolbar"] button,
+  div[class*="toolbar"] button,
+  div[class*="header"] button,
+  .MuiToolbar-root button,
+  .MuiButtonBase-root {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    
+    &:hover {
+      background-color: #505050 !important;
+    }
+    
+    /* Make sure all icons and text are visible */
+    svg, span {
+      color: #ffffff !important;
+      fill: #ffffff !important;
+    }
+  }
+  
+  /* Target search inputs specifically */
+  input[type="search"],
+  input[placeholder*="Search"],
+  div[role="search"] input {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    border-color: #555555 !important;
+    
+    &::placeholder {
+      color: #aaaaaa !important;
+      opacity: 0.8;
+    }
+  }
+  
+  /* Explicitly target the toolbar in your screenshot */
+  .MuiPaper-root > div:first-child,
+  .MuiContainer-root > div:first-child,
+  [data-testid="grid-toolbar"],
+  [role="toolbar"],
+  div[class*="toolbar"],
+  .rds-fluent-grid__header,
+  .rds-fluent-grid-header,
+  .rds-comp-fluent-grid-header {
+    background-color: #424242 !important;
+    border-bottom: 1px solid #555555 !important;
+    
+    /* All elements inside this toolbar */
+    * {
+      color: #ffffff !important;
+    }
+    
+    /* All buttons inside this toolbar */
+    button {
+      background-color: #333333 !important;
+      border: 1px solid #555555 !important;
+      
+      /* Button contents */
+      span, svg {
+        color: #ffffff !important;
       }
     }
   }
 }
+//         background-color: #f8f9fa;
+//       }
+
+//       &:hover {
+//         background-color: var(--colorNeutralBackground1Hover);
+//       }
+
+//       &--selected {
+//         background-color: #e6f3ff;
+//       }
+//     }
+//   }
+// }
 
 // Compact mode
 .rds-fluent-grid--compact {

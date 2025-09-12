@@ -44,6 +44,19 @@
 }
 // RDS Alert Component Styles
 .rds-alert {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--rds-spacing-md);
+  width: 100%;
+  font-family: var(--rds-font-family-base);
+  font-size: var(--rds-font-size-sm);
+  line-height: var(--rds-line-height-base);
+  border-radius: var(--rds-border-radius-sm);
+  border: 1px solid transparent;
+  background: var(--rds-alert-info-bg);
+
   &--success {
     color: var(--rds-alert-success-text) !important;
   }
@@ -73,18 +86,6 @@
   &__description {
     color: inherit !important;
   }
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: var(--rds-spacing-md);
-  width: 100%;
-  font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-sm);
-  line-height: var(--rds-line-height-base);
-  border-radius: var(--rds-border-radius-sm);
-  border: 1px solid transparent;
-  background: var(--rds-alert-info-bg);
 
     &__heading--multiline {
     font-weight: bold;
@@ -241,6 +242,22 @@
 }
 
 [data-theme="dark"] {
+
+  .rds-alert.MuiAlert-root.rds-alert--info{
+    background-color: var(--rds-background-paper, #424242) !important;
+    color: var(--rds-color-on-primary,#ffffff) !important;
+  }
+  .rds-alert--info .rds-alert__icon, .rds-alert .rds-alert--info .rds-alert__icon 
+  {
+    color: var(--rds-color-on-primary,#ffffff) !important;
+  }
+
+  /* Only change the color of the primary "Okay" button inside rds-alert in dark theme */
+  .rds-alert .rds-alert__primary-button .MuiButton-root,
+  .rds-alert .rds-alert__primary-button {
+    color: var(--rds-color-on-primary,#ffffff) !important; /* desired color for Okay button in dark theme */
+  }
+
   --rds-alert-success-text: #000000;
   --rds-alert-warning-text: #000000;
   --rds-alert-error-text: #000000;

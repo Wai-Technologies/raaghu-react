@@ -485,7 +485,6 @@
 
   &__file-delete:hover {
     color: var(--rds-color-red-delete-hover, #e30000);
-    background: var(--rds-color-error-bg-hover, #fff3f3);
   }
 
   &__file-delete:focus-visible {
@@ -810,6 +809,70 @@
   }
 
   // Error modifier removed (no validation styling)
+}
+body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-group {
+  background: #2a2a2a !important;
+}
+body.theme-dark .rds-e-signature__file-limit {
+  color: #fff !important;
+}
+body.theme-dark .rds-e-signature__upload-label {
+  color: #fff !important;
+}
+body.theme-dark .rds-e-signature__upload-panel {
+  background: #2a2a2a !important;
+}
+body.theme-dark .rds-e-signature__file-text {
+  color: #fff !important;
+  background: #4a4a4a !important;
+}
+body.theme-dark .rds-e-signature__file-row {
+  background: #4a4a4a !important;
+}
+body.theme-dark .rds-e-signature__canvas-title {
+  color: #fff !important;
+}
+body.theme-dark .rds-e-signature__canvas-container {
+  background: #2a2a2a !important;
+}
+body.theme-dark .rds-e-signature__canvas-icon {
+  color: #fff !important;
+}
+/* Dark mode: make rds-e-signature__title text white */
+body.theme-dark .rds-e-signature__title {
+  color: #fff !important;
+}
+body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-grid {
+  background: #2a2a2a !important;
+}
+body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
+  background: #2a2a2a !important;
+  color: #fff !important;
+  border-color: #444 !important;
+}
+body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card,
+body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card.rds-e-signature__mini-card {
+  background: #232323 !important;
+  color: #fff !important;
+  border-color: #444 !important;
+}
+body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-label {
+  color: #fff !important;
+  background: #2a2a2a !important;
+}
+body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-full-wrapper {
+  background: #2a2a2a !important;
+}
+body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-initials-wrapper {
+  background: #2a2a2a !important;
+}
+body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card--selected {
+  border-color: #1976d2 !important;
+  box-shadow: 0 0 0 1px #1976d2 !important;
+}
+body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card:hover:not(:disabled) {
+  background: #333 !important;
+  border-color: #3C98FF !important;
 }
 
 // Responsive Design

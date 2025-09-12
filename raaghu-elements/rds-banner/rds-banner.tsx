@@ -67,13 +67,13 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
   const widthClass = fullWidth ? 'rds-banner--full-width' : 'rds-banner--auto-width';
 
   // Map variantStyle to MUI Alert variant
-  let muiVariant: AlertProps['variant'] = 'standard';
-  
-  // style1: keep original (do not set filled variant)
+  let muiVariant: AlertProps['variant'] = props.variant ?? 'standard';
+  if (!props.variant) {
   if (variantStyle === 'style2') {
     muiVariant = 'outlined';
   } else if (variantStyle === 'style3') {
     muiVariant = 'standard';
+  }
   }
 
   return (

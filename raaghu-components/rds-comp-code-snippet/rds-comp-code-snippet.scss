@@ -57,6 +57,30 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    // Ensure any rendered pre/code from syntax highlighter stays inline and doesn't break layout
+    pre,
+    code,
+    span {
+      display: inline !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      vertical-align: middle;
+    }
+  }
+
+  // Inline highlighter class used by SyntaxHighlighter for single-line inline rendering
+  &__inline-highlighter {
+    display: inline !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    vertical-align: middle !important;
+    font-family: inherit !important;
+    line-height: inherit !important;
   }
 
   // Actions container for single line
@@ -136,6 +160,30 @@
         line-height: 1.5;
       }
     }
+
+    // Target the SyntaxHighlighter wrapper via a class set on the component
+    &__highlighter {
+      background: transparent !important;
+      padding: 16px !important;
+      margin: 0 !important;
+      font-family: inherit !important;
+      line-height: inherit !important;
+
+      // Ensure pre/code produced by the library inherit our styling
+      pre, code {
+        background: transparent !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-family: inherit !important;
+        line-height: inherit !important;
+      }
+    }
+  }
+
+  // Modifier when a max height is provided via CSS variable
+  &__content--with-max {
+    max-height: var(--rds-code-max-height, 400px);
+    overflow: auto;
   }
 
   // Code with line numbers wrapper
@@ -365,4 +413,28 @@
       color: var(--rds-syntax-selector-dark, #86efac);
     }
   }
+}
+[data-theme="dark"] {
+  .rds-comp-code-snippet--light {
+    background-color: var(--rds-color-surface-dark, #1f2937);
+    color: var(--rds-color-on-surface-dark, #f9fafb);
+    border-color: var(--rds-color-border-dark, #374151);
+}
+.rds-comp-code-snippet--light code {
+    color: var(--rds-color-on-surface-dark, #f9fafb);
+}
+.rds-comp-code-snippet--light .rds-comp-code-snippet__copy-button {
+    background-color: var(--rds-color-surface-variant-dark, #374151);
+    color: var(--rds-color-on-surface-variant-dark, #d1d5db);
+    border-color: var(--rds-color-border-dark, #4b5563);
+}
+.rds-button {
+    color: var(--btn-primary-solid-default) !important;
+}
+.rds-comp-code-snippet--light .rds-comp-code-snippet__toolbar::after {
+    background-color: var(--rds-color-border-dark, #374151);
+}
+.rds-comp-code-snippet--light pre{
+    background-color: transparent !important;
+}
 }

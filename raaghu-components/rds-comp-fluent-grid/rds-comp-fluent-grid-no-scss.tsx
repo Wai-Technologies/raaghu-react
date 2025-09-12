@@ -31,6 +31,7 @@ import {
   ListItemIcon,
   Divider,
   Grid,
+  useTheme,
 } from '@mui/material';
 import {
   Search as SearchIcon,
@@ -307,6 +308,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   noDataHeaderTitle = 'Data Grid',
   isLoading = false,
 }) => {
+  const theme = useTheme();
   const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
@@ -886,9 +888,17 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   }
 
   return (
-    <Card>
+    <Card sx={{
+      bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
+      color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+      '& .MuiTableCell-root': {
+        color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit'
+      }
+    }}>
       {showHeader && (
-        <Box p={2} borderBottom="1px solid" borderColor="divider">
+        <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
+          bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined
+        }}>
           <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
             <TextField
               placeholder="Search..."
@@ -933,7 +943,9 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
       )}
 
       {showFilters && (
-        <Box p={2} borderBottom="1px solid" borderColor="divider" bgcolor="grey.50">
+        <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
+          bgcolor: theme.palette.mode === 'dark' ? '#333333' : 'grey.50'
+        }}>
           <Grid container spacing={2} alignItems="center">
             {tableHeaders.filter(header => header.isFilter).map((header) => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={header.key}>
@@ -980,7 +992,9 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
       )}
 
       {showSubHeader && (
-        <Box p={1.5} borderBottom="1px solid" borderColor="divider" bgcolor="grey.100">
+        <Box p={1.5} borderBottom="1px solid" borderColor="divider" sx={{ 
+          bgcolor: theme => theme.palette.mode === 'dark' ? '#424242' : 'grey.100'
+        }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Stack direction="row" spacing={1} alignItems="center">
               <Typography variant="subtitle2" fontWeight="medium">
@@ -998,16 +1012,28 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
       )}
 
       {!isCollapsed && (
-        <TableContainer component={Paper} elevation={0}>
+        <TableContainer 
+          component={Paper} 
+          elevation={0}
+          sx={{
+            bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
+          }}
+        >
           <Table stickyHeader ref={tableRef}>
-            <TableHead>
-              <TableRow>
+            <TableHead sx={{ 
+              bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined,
+              '& th': { bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined }
+            }}>
+              <TableRow sx={{ 
+                bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined 
+              }}>
                 {enableCheckboxSelection && (
                   <TableCell 
                     padding="checkbox" 
                     sx={{ 
                       width: '50px',
                       borderRight: '1px solid #d1d1d1',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
                     }}
                   >
                     <Checkbox
@@ -1030,6 +1056,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                     sx={{ 
                       width: '50px',
                       borderRight: '1px solid #d1d1d1',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
                     }}
                   >
                     <Typography variant="caption" color="text.secondary">
@@ -1049,6 +1076,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                       position: 'relative',
                       userSelect: 'none',
                       borderRight: '1px solid #d1d1d1',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
                       '&:last-child': {
                         borderRight: 'none',
                       },
@@ -1144,6 +1172,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                     sx={{ 
                       width: '100px',
                       borderRight: 'none',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
                     }}
                   >
                     <Typography variant="subtitle2" fontWeight="medium">
@@ -1230,6 +1259,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                             width: cellWidth,
                             maxWidth: header.maxWidth || 500,
                             borderRight: '1px solid #d1d1d1',
+                            color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit',
                             '&:last-child': {
                               borderRight: 'none',
                             },
@@ -1242,11 +1272,13 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',
                                 width: '100%',
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit',
                                 '& *': {
                                   maxWidth: '100%',
                                   overflow: 'hidden',
                                   textOverflow: 'ellipsis',
                                   whiteSpace: 'nowrap',
+                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
                                 },
                                 // Status pill styles
                                 '& .status-pill': {
@@ -1258,27 +1290,27 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                   textAlign: 'center',
                                   minWidth: '60px',
                                   '&.status-qualified': {
-                                    backgroundColor: '#d4edda',
-                                    color: '#155724',
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#155724' : '#d4edda',
+                                    color: theme.palette.mode === 'dark' ? '#d4edda' : '#155724',
                                   },
                                   '&.status-negotiation': {
-                                    backgroundColor: '#fff3cd',
-                                    color: '#856404',
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#856404' : '#fff3cd',
+                                    color: theme.palette.mode === 'dark' ? '#fff3cd' : '#856404',
                                   },
                                   '&.status-unqualified': {
-                                    backgroundColor: '#f8d7da',
-                                    color: '#721c24',
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#721c24' : '#f8d7da',
+                                    color: theme.palette.mode === 'dark' ? '#f8d7da' : '#721c24',
                                   },
                                   '&.status-proposal': {
-                                    backgroundColor: '#e9ecef',
-                                    color: '#495057',
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#495057' : '#e9ecef',
+                                    color: theme.palette.mode === 'dark' ? '#e9ecef' : '#495057',
                                   },
                                   '&.status-new': {
-                                    backgroundColor: '#cce5ff',
-                                    color: '#0066cc',
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#0066cc' : '#cce5ff',
+                                    color: theme.palette.mode === 'dark' ? '#cce5ff' : '#0066cc',
                                   },
                                   '&.status-renewal': {
-                                    backgroundColor: '#0078d4',
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#0078d4' : '#0078d4',
                                     color: '#ffffff',
                                   },
                                 },
@@ -1291,7 +1323,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                   overflow: 'hidden',
                                   '& .progress-fill': {
                                     height: '100%',
-                                    backgroundColor: '#000000',
+                                    backgroundColor: '#0078d4',
                                     transition: 'width 0.3s ease',
                                   },
                                 },
@@ -1319,6 +1351,80 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                   borderRadius: '50%',
                                   verticalAlign: 'middle',
                                   marginRight: '8px',
+                                },
+                                // Employee profile styles for dark theme
+                                '& .employee-name': {
+                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
+                                  fontWeight: 'bold',
+                                },
+                                '& .employee-title': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.8) !important' : 'inherit',
+                                },
+                                '& .tag': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.9) !important' : 'inherit',
+                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.23) !important' : 'inherit',
+                                },
+                                '& .badge, & span[class*="badge"], & .chip, & span[class*="chip"]': {
+                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
+                                },
+                                '& .last-active': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.7) !important' : 'inherit',
+                                },
+                                '& .online, & .away': {
+                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.23) !important' : 'inherit',
+                                },
+                                '& .leadership, & .management, & .strategy, & .planning, & .coordination, & .reporting': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  borderColor: theme.palette.mode === 'dark' ? 'transparent !important' : 'inherit',
+                                },
+                                '& .senior, & .lead, & .pending, & .active': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                // Override inline styles for colored tags in dark theme - comprehensive list of all backgrounds
+                                '& span[style*="background:"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background-color:"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                // Target specific background colors used in tags
+                                '& span[style*="background: #e3f2fd"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #e8eaf6"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #fce4ec"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #e8f5e8"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #fff3e0"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #f3e5f5"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #e1f5fe"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #e0f2f1"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #f1f8e9"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                // Target common border radiuses used in tags
+                                '& span[style*="border-radius: 4px"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="border-radius: 8px"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                // Fix for small descriptive text
+                                '& small[style*="color: #666"]': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7) !important' : 'inherit',
                                 },
                               }}
                               dangerouslySetInnerHTML={{ __html: cellValue }}
@@ -1404,6 +1510,17 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
             maxHeight: 250,
             overflow: 'auto',
             zIndex: 1300,
+            backgroundColor: theme.palette.mode === 'dark' ? '#424242' : undefined,
+            color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+            '& .MuiTypography-root': {
+              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+            },
+            '& .MuiIconButton-root': {
+              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+            },
+            '& .MuiDivider-root': {
+              borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : undefined,
+            },
           }
         }}
       >
@@ -1432,16 +1549,27 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                 p: 0.5,
                 borderRadius: 0.5,
                 border: '1px solid',
-                borderColor: 'divider',
+                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
                 width: '100%',
-                '&:hover': { backgroundColor: 'action.hover' }
+                '&:hover': { backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'action.hover' }
               }}
               onClick={handleColumnPanelToggle}
             >
-              <Typography variant="caption" fontWeight="medium" sx={{ flexGrow: 1, fontSize: '10px' }}>
+              <Typography 
+                variant="caption" 
+                fontWeight="medium" 
+                sx={{ 
+                  flexGrow: 1, 
+                  fontSize: '10px',
+                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined
+                }}
+              >
                 Columns
               </Typography>
-              {isColumnPanelExpanded ? <ArrowUpIcon sx={{ fontSize: '12px' }} /> : <ArrowDownIcon sx={{ fontSize: '12px' }} />}
+              {isColumnPanelExpanded ? 
+                <ArrowUpIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} /> : 
+                <ArrowDownIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} />
+              }
             </Box>
             
             {isColumnPanelExpanded && (
@@ -1450,10 +1578,10 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                   mt: 0,
                   p: 0.25,
                   border: '1px solid',
-                  borderColor: 'divider',
+                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
                   borderTop: 'none',
                   borderRadius: '0 0 4px 4px',
-                  backgroundColor: 'grey.50',
+                  backgroundColor: theme.palette.mode === 'dark' ? '#4a4a4a' : 'grey.50',
                   width: '100%',
                   maxHeight: '80px',
                   overflowY: 'auto'
@@ -1485,15 +1613,23 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                           size="small"
                           sx={{ 
                             padding: '1px',
+                            color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
                             '& .MuiSvgIcon-root': {
-                              fontSize: 12
+                              fontSize: 12,
+                              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
                             }
                           }}
                         />
                       </ListItemIcon>
                       <ListItemText 
                         primary={header.name}
-                        primaryTypographyProps={{ variant: 'caption', sx: { fontSize: '9px' } }}
+                        primaryTypographyProps={{ 
+                          variant: 'caption', 
+                          sx: { 
+                            fontSize: '9px',
+                            color: theme.palette.mode === 'dark' ? '#ffffff' : undefined 
+                          }
+                        }}
                         sx={{ ml: 0 }}
                       />
                     </ListItem>
@@ -1515,17 +1651,28 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                 p: 0.5,
                 borderRadius: 0.5,
                 border: '1px solid',
-                borderColor: 'divider',
+                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
                 width: '100%',
                 mb: 0.5,
-                '&:hover': { backgroundColor: 'action.hover' }
+                '&:hover': { backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'action.hover' }
               }}
               onClick={handleFilterToggle}
             >
-              <Typography variant="caption" fontWeight="medium" sx={{ flexGrow: 1, fontSize: '10px' }}>
+              <Typography 
+                variant="caption" 
+                fontWeight="medium" 
+                sx={{ 
+                  flexGrow: 1, 
+                  fontSize: '10px',
+                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined
+                }}
+              >
                 Filter
               </Typography>
-              {isFilterExpanded ? <ArrowUpIcon sx={{ fontSize: '12px' }} /> : <ArrowDownIcon sx={{ fontSize: '12px' }} />}
+              {isFilterExpanded ? 
+                <ArrowUpIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} /> : 
+                <ArrowDownIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} />
+              }
             </Box>
             
             {isFilterExpanded && (
@@ -1533,9 +1680,9 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                 sx={{ 
                   p: 0.5,
                   border: '1px solid',
-                  borderColor: 'divider',
+                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'divider',
                   borderRadius: '0 0 4px 4px',
-                  backgroundColor: 'grey.50',
+                  backgroundColor: theme.palette.mode === 'dark' ? '#4a4a4a' : 'grey.50',
                   width: '100%'
                 }}
               >
@@ -1556,14 +1703,35 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                             sx={{ 
                               fontSize: '10px',
                               height: '24px',
+                              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                              backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : undefined,
                               '& .MuiOutlinedInput-notchedOutline': {
                                 borderWidth: 1,
-                                borderColor: '#000'
-                              }
+                                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#000'
+                              },
+                              '& .MuiSvgIcon-root': {
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                              },
+                              '& .MuiSelect-icon': {
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                              },
                             }}
                           >
                             {operators.map((op) => (
-                              <MenuItem key={op.value} value={op.value} sx={{ fontSize: '10px' }}>
+                              <MenuItem 
+                                key={op.value} 
+                                value={op.value} 
+                                sx={{ 
+                                  fontSize: '10px',
+                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                  '&.Mui-selected': {
+                                    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.16)' : undefined,
+                                  },
+                                  '&:hover': {
+                                    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : undefined,
+                                  }
+                                }}
+                              >
                                 {op.label}
                               </MenuItem>
                             ))}
@@ -1582,10 +1750,18 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                   fullWidth: true,
                                   placeholder: 'Select date...',
                                   sx: {
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : undefined,
                                     '& .MuiInputBase-input': {
                                       fontSize: '10px',
                                       height: '24px',
-                                      padding: '4px 8px'
+                                      padding: '4px 8px',
+                                      color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                    },
+                                    '& .MuiOutlinedInput-notchedOutline': {
+                                      borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : undefined,
+                                    },
+                                    '& .MuiSvgIcon-root': {
+                                      color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
                                     }
                                   }
                                 }
@@ -1601,10 +1777,21 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                             size="small"
                             fullWidth
                             sx={{
+                              backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : undefined,
                               '& .MuiInputBase-input': {
                                 fontSize: '10px',
                                 height: '24px',
-                                padding: '4px 8px'
+                                padding: '4px 8px',
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                              },
+                              '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : undefined,
+                              },
+                              '& .MuiInputLabel-root': {
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                              },
+                              '&::placeholder': {
+                                color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
                               }
                             }}
                           />
@@ -1617,10 +1804,21 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                             size="small"
                             fullWidth
                             sx={{
+                              backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : undefined,
                               '& .MuiInputBase-input': {
                                 fontSize: '10px',
                                 height: '24px',
-                                padding: '4px 8px'
+                                padding: '4px 8px',
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                              },
+                              '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : undefined,
+                              },
+                              '& .MuiInputLabel-root': {
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                              },
+                              '&::placeholder': {
+                                color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
                               }
                             }}
                           />
@@ -1675,7 +1873,9 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                         flexGrow: 1,
                         fontSize: '9px',
                         height: '20px',
-                        minWidth: '0'
+                        minWidth: '0',
+                        backgroundColor: theme.palette.mode === 'dark' ? '#1976d2' : undefined,
+                        color: '#ffffff'
                       }}
                     >
                       Filter
@@ -1688,7 +1888,9 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                         flexGrow: 1,
                         fontSize: '9px',
                         height: '20px',
-                        minWidth: '0'
+                        minWidth: '0',
+                        borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
+                        color: theme.palette.mode === 'dark' ? '#ffffff' : undefined
                       }}
                     >
                       Clear
@@ -1713,7 +1915,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                         fontSize: '8px',
                         height: '18px',
                         mt: 0.5,
-                        color: 'error.main'
+                        color: theme.palette.mode === 'dark' ? '#ffffff' : 'error.main'
                       }}
                     >
                       Clear All Filters

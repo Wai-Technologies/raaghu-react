@@ -194,7 +194,7 @@ export const Disabled: Story = {
     const [defaultValue] = useState(5);
     const [compactValue] = useState(3);
     return (
-      <Box sx={{ display: 'flex', gap: 6, alignItems: 'flex-start' }}>
+      <Box className="rds-counter__responsive">
         <RdsCounter
           {...args}
           value={defaultValue}

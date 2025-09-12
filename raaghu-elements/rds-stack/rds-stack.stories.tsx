@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Box, Typography } from '@mui/material';
+import {Typography } from '@mui/material';
+import './rds-stack.scss';
 import RdsStack from './rds-stack';
+import RdsBox from '../rds-box/rds-box';
+
 
 const meta: Meta<typeof RdsStack> = {
   title: 'Elements/Stack',
@@ -27,9 +30,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const stackItems = [
-  <Box key="1" sx={{ p: 1, bgcolor: 'primary.light', color: 'white' }}>Item 1</Box>,
-  <Box key="2" sx={{ p: 1, bgcolor: 'secondary.light', color: 'white' }}>Item 2</Box>,
-  <Box key="3" sx={{ p: 1, bgcolor: 'success.light', color: 'white' }}>Item 3</Box>,
+  <RdsBox key="1" className="rds-stack__demo-item rds-stack__demo-item--primary">Item 1</RdsBox>,
+  <RdsBox key="2" className="rds-stack__demo-item rds-stack__demo-item--secondary">Item 2</RdsBox>,
+  <RdsBox key="3" className="rds-stack__demo-item rds-stack__demo-item--success">Item 3</RdsBox>,
 ];
 
 export const Default: Story = {

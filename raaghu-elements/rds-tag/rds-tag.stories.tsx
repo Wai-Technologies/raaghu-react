@@ -81,7 +81,7 @@ export const Multiple: Story = {
       <RdsTag label="React" color="primary" />
       <RdsTag label="TypeScript" color="secondary" />
       <RdsTag label="Material-UI" color="success" />
-      <RdsTag label="Storybook" color="warning" removable />
+      <RdsTag label="Removable Tag"  onRemove={() => alert('Tag removed!')} removable/>
       <RdsTag label="Vite" color="info" variant="outlined" />
       <RdsTag label="ESLint" color="error" size="small" />
     </Box>

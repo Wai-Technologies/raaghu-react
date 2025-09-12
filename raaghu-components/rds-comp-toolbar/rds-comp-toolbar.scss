@@ -84,7 +84,7 @@
     align-items: center;
     gap: var(--rds-spacing-md, 8px);
     padding: var(--rds-spacing-xs, 2px) 4px;
-    width: 762px;
+    width: 778px;
     height: 40px;
     min-width: 0;
     overflow-x: auto;
@@ -223,7 +223,7 @@
    z-index: var(--rds-dropdown-z, 2147483647);
    min-width: 160px;
    max-width: calc(100vw - 24px);
-   max-height: 60vh; /* keep dropdown usable on small viewports */
+   max-height: 61vh; /* keep dropdown usable on small viewports */
    overflow: auto; /* scroll inside dropdown when content is large */
    background: var(--rds-color-surface, #ffffff);
    border: 1px solid var(--rds-color-outline, #e1e5e9);
@@ -302,6 +302,25 @@
   &__math-icon {
     font-weight: 600;
     font-size: var(--rds-font-size-md, 16px);
+  }
+}
+
+/* Dropdown positioning responsive tweaks
+   Order: broader (<=480px) first, then narrower (<=320px) overrides */
+@media (max-width:480px) {
+  .rds-comp-toolbar__dropdown {
+    left: 45px !important;
+    max-height: 48vh !important;
+    height: 48vh !important;
+  }
+}
+
+@media (max-width:320px) {
+  .rds-comp-toolbar__dropdown {
+    left: 12.8px !important;
+    /* Allow taller dropdown on very small screens */
+    max-height: 76vh !important;
+    height: 76vh !important;
   }
 }
 
@@ -462,3 +481,51 @@
     }
   }
 }
+
+/* Dark theme overrides: make toolbar and dropdowns black with white text/icons */
+.rds-theme--dark .rds-comp-toolbar,
+body.theme-dark .rds-comp-toolbar,
+body[data-theme="dark"] .rds-comp-toolbar,
+.theme-dark .rds-comp-toolbar {
+  background: var(--rds-color-surface-dark, #353535) !important;
+  color: var(--rds-color-on-surface-dark, #fff) !important;
+}
+
+.rds-theme--dark .rds-comp-toolbar .rds-comp-toolbar__row,
+body.theme-dark .rds-comp-toolbar .rds-comp-toolbar__row,
+body[data-theme="dark"] .rds-comp-toolbar .rds-comp-toolbar__row,
+.theme-dark .rds-comp-toolbar .rds-comp-toolbar__row {
+  background: transparent !important;
+}
+
+.rds-theme--dark .rds-comp-toolbar .rds-comp-toolbar__button,
+body.theme-dark .rds-comp-toolbar .rds-comp-toolbar__button,
+body[data-theme="dark"] .rds-comp-toolbar .rds-comp-toolbar__button,
+.theme-dark .rds-comp-toolbar .rds-comp-toolbar__button {
+  color: var(--rds-color-on-surface-dark, #fff) !important;
+}
+
+.rds-theme--dark .rds-comp-toolbar .rds-comp-toolbar__button:hover,
+body.theme-dark .rds-comp-toolbar .rds-comp-toolbar__button:hover,
+body[data-theme="dark"] .rds-comp-toolbar .rds-comp-toolbar__button:hover,
+.theme-dark .rds-comp-toolbar .rds-comp-toolbar__button:hover {
+  background: rgba(255,255,255,0.04) !important;
+  color: var(--rds-color-on-surface-dark, #fff) !important;
+}
+
+// Also target dropdowns rendered in a portal (not nested under .rds-comp-toolbar)
+.rds-theme--dark .rds-comp-toolbar__dropdown,
+body.theme-dark .rds-comp-toolbar__dropdown,
+body[data-theme="dark"] .rds-comp-toolbar__dropdown,
+.theme-dark .rds-comp-toolbar__dropdown {
+  background: var(--rds-color-surface-dark, #353535) !important;
+  color: var(--rds-color-on-surface-dark, #fff) !important;
+}
+
+/* Ensure items inside portal dropdowns are white and readable */
+ .rds-theme--dark .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item,
+ body.theme-dark .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item,
+ body[data-theme="dark"] .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item,
+ .theme-dark .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item {
+   color: var(--rds-color-on-surface-dark, #fff) !important;
+ }

@@ -21,6 +21,7 @@ export interface RdsTooltipProps extends  Omit<TooltipProps,'style'> {
   className?: string;
   tooltipStyle?: React.CSSProperties;
   arrow?: boolean;
+  wrapper?: boolean;
 }
 
 const RdsTooltip= ({
@@ -31,6 +32,7 @@ const RdsTooltip= ({
   className,
   tooltipStyle,
   arrow = false,
+  wrapper,
   ...props
 }:RdsTooltipProps) => {
   // Compose BEM class for position
@@ -54,7 +56,13 @@ const RdsTooltip= ({
       sx={customStyle}
       {...props}
     >
-      {children}
+      {wrapper ? (
+        <span className="rds-tooltip__child-wrapper">
+          {children}
+        </span>
+      ) : (
+        children
+      )}
     </MuiTooltip>
   );
 };

@@ -222,8 +222,8 @@
   &__dismiss {
     &.MuiIconButton-root {
       position: absolute;
-      top: 0px;
-      right: -2px;
+      top: 10px;
+      right: 0px;
       padding: 4px;
       background-color: transparent;
       
@@ -358,4 +358,32 @@
 }
 .css-1dy7uxw-MuiPaper-root-MuiCard-root{
   box-shadow: none !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .rds-comp-notification--type-info.rds-comp-notification--style-image {
+    &, &.rds-comp-notification--layout-horizontal {
+      background-color: var(--rds-background-paper, #424242) !important;
+      color: var(--rds-text-primary, #ffffff) !important;
+      border: none !important;
+    }
+    .MuiPaper-root, .MuiCard-root { background-color: var(--rds-background-paper, #424242) !important; }
+    .rds-comp-notification__image-container { background-color: transparent !important; }
+  }
+}
+.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-image,
+.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-default
+{
+  &, &.rds-comp-notification--layout-horizontal {
+    background-color: var(--rds-background-paper, #424242) !important;
+    color: var(--rds-text-primary, #ffffff) !important;
+    border: none !important;
+  }
+  .MuiPaper-root, .MuiCard-root { background-color: var(--rds-background-paper, #424242) !important; }
+  .rds-comp-notification__image-container { background-color: transparent !important; }
+}
+.css-60eszb
+{
+  position: unset !important;
+  padding: 0px !important;
 }

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { useState } from 'react';
 import RdsDrawer from './rds-drawer';
+import RdsButton from '../rds-button/rds-button';
 
 const meta: Meta<typeof RdsDrawer> = {
   title: 'Elements/Drawer',
@@ -113,25 +114,33 @@ export const Interactive: Story = {
     
     return (
       <>
-        <Button variant="contained" onClick={() => setOpen(true)}>
-          Open Drawer
-        </Button>
-        <RdsDrawer 
-          open={open} 
-          onClose={() => setOpen(false)}
-          anchor="left"
-        >
-          <div style={{ width: 250, padding: '16px' }}>
+        <RdsButton
+          color="primary"
+          layout="text-only"
+          shape="rectangle"
+          size="medium"
+          state="default"
+          style="filled"
+          text="Open Drawer"
+          textCase="unset"
+          onClick={() => setOpen(true)}
+        />
+        <RdsDrawer open={open} onClose={() => setOpen(false)} anchor="left">
+          <div style={{ width: 250, padding: "16px" }}>
             <Typography variant="h6" gutterBottom>
               Interactive Drawer
             </Typography>
-            <Button 
-              variant="contained" 
+            <RdsButton
+              color="primary"
+              layout="text-only"
+              shape="rectangle"
+              size="medium"
+              state="default"
+              style="filled"
+              text="Close Drawer"
+              textCase="unset"
               onClick={() => setOpen(false)}
-              sx={{ mt: 2 }}
-            >
-              Close Drawer
-            </Button>
+            />
           </div>
         </RdsDrawer>
       </>

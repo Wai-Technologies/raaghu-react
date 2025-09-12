@@ -364,7 +364,7 @@
 @media (prefers-color-scheme: dark) {
   .rds-fab-menu {
     &__dropdown {
-      background-color: var(--rds-color-surface-dark, #1e1e1e);
+       background-color: #2a2a2a !important;
       color: var(--rds-color-on-surface-dark, #ffffff);
     }
 
@@ -372,11 +372,11 @@
       color: var(--rds-color-on-surface-dark, #ffffff);
 
       &:hover {
-        background-color: var(--rds-color-surface-variant-dark, #2d2d2d);
+        background-color: #353535 !important;
       }
 
       &:focus {
-        background-color: var(--rds-color-surface-variant-dark, #2d2d2d);
+        background-color: #353535 !important;
       }
 
       &:active {
@@ -384,6 +384,17 @@
       }
     }
   }
+}
+.theme-dark .rds-fab-menu__dropdown {
+  background-color: #2a2a2a !important;
+  color: var(--rds-color-on-surface-dark, #ffffff);
+}
+.theme-dark .rds-fab-menu__item {
+  color: var(--rds-color-on-surface-dark, #ffffff);
+}
+.theme-dark .rds-fab-menu__item:hover,
+.theme-dark .rds-fab-menu__item:focus {
+  background-color: #353535 !important;
 }
 
 // High contrast mode support

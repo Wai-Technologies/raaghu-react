@@ -182,6 +182,7 @@ export const WithActions: Story = {
   args: {
     description: 'New features are available!',
     type: 'success',
+  className: 'rds-banner--with-actions',
     actions: (
       <Box sx={{ display: 'flex', gap: 1 }}>
         <Button size="small" variant="outlined" color="inherit">
@@ -268,17 +269,27 @@ export const AllTypes: Story = {
         style={(args as any)?.style}
       />
       <RdsBanner
-        description="This is a filled banner."
-        type="success"
-        variant="filled"
-        variantStyle={(args as any)?.variantStyle ?? 'style1'}
-        style={(args as any)?.style}
+        Icon
+        description="This is the description of the banner."
+        showDescription
+        showTitle
+        size="medium"
+        style={{
+          borderBottomColor: 'transparent'
+        }}
+        title="Heading Title."
+        type="success"        
+        variantStyle="style1"
       />
       <RdsBanner
-        description="This is an outlined banner."
-        variant="outlined"
-        variantStyle={(args as any)?.variantStyle ?? 'style1'}
-        style={(args as any)?.style}
+        Icon
+        description="This is the description of the banner."
+        showDescription                              
+        showTitle
+        size="medium"
+        title="Heading Title."
+        type="warning"
+        variantStyle="style1"
       />
     </Box>
   ),
