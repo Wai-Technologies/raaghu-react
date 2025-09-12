@@ -2,6 +2,9 @@
 .rds-select {
   display: block;
   position: relative;
+  .MuiFormLabel-asterisk {
+    color: var(--rds-alert-error-border,#ff0000) !important;
+  }
   
   // Form control wrapper
   &__form-control {
