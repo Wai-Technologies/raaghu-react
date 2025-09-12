@@ -118,6 +118,11 @@ export const Default: Story = {
     ),
   },
 };
+Default.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
+};
 
 export const Elevated: Story = {
   args: {
@@ -134,6 +139,11 @@ export const Elevated: Story = {
     ),
   },
 };
+Elevated.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
+};
 
 export const Outlined: Story = {
   args: {
@@ -149,6 +159,11 @@ export const Outlined: Story = {
       </CardContent>
     ),
   },
+};
+Outlined.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+  } 
 };
 
 export const WithActions: Story = {
@@ -170,6 +185,11 @@ export const WithActions: Story = {
       </>
     ),
   },
+};
+WithActions.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
 };
 export const WithAvatar: Story = {
   args: {
@@ -332,6 +352,11 @@ export const WithAvatar: Story = {
     );
   },
 };
+WithAvatar.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+  } 
+};
 
 export const WithBadges: Story = {
   args: {
@@ -365,6 +390,11 @@ export const WithBadges: Story = {
       </div>
     ),
   },
+};
+WithBadges.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
 };
 
 export const WithButton: Story = {
@@ -401,6 +431,10 @@ export const WithButton: Story = {
     ),
   },
 };
+WithButton.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']   } 
+};
 
 export const WithCustomPadding: Story = {
   args: {
@@ -411,6 +445,11 @@ export const WithCustomPadding: Story = {
       </Typography>
     ),
   },
+};
+WithCustomPadding.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+  } 
 };
 
 export const WithImage: Story = {
@@ -464,6 +503,11 @@ export const WithImage: Story = {
     ),
   },
 };
+WithImage.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
+};
 
 export const WithLinkButton: Story = {
   args: {
@@ -488,6 +532,11 @@ export const WithLinkButton: Story = {
       />
     ),
   },
+};
+WithLinkButton.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
 };
 
 export const WithTags: Story = {
@@ -523,4 +572,9 @@ export const WithTags: Story = {
       </>
     ),
   },
+};
+WithTags.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
 };
