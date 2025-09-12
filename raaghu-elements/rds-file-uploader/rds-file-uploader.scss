@@ -487,7 +487,7 @@ color: var(--rds-color-primary, #3390e6); // --rds-color-primary
     }
     &__hint {
       font-size: var(--rds-font-size-sm, 13px);
-      padding-right: var(--rds-spacing-xs, 4px);
+      // padding-right: var(--rds-spacing-xs, 4px);
     }
   }
 }
@@ -625,7 +625,7 @@ color: var(--rds-color-primary, #3390e6); // --rds-color-primary
     }
     &__hint {
       font-size: var(--rds-font-size-sm, 13px);
-      padding-right: var(--rds-spacing-xs, 4px);
+      // padding-right: var(--rds-spacing-xs, 4px);
     }
     // Stack elements vertically for "Drop Area - With Upload Button" on small screens
     &__drop-zone--with-upload-btn {
