@@ -37,6 +37,18 @@ const meta: Meta<typeof RdsFluentGrid> = {
       description: 'Enable radio button selection for rows',
       defaultValue: false,
     },
+    enableInlineEdit: {
+      control: 'boolean',
+      description: 'Enable inline editing functionality globally',
+      defaultValue: true,
+    },
+    inlineEditMode: {
+      control: 'select',
+      options: ['cell', 'row'],
+      description: 'Inline edit mode: cell-by-cell editing (default) or row-based editing',
+      defaultValue: 'cell',
+      type: { name: 'string', required: false },
+    },
     showHeader: {
       control: 'boolean',
       description: 'Show the header with search and controls',
@@ -86,6 +98,7 @@ const sampleColumns: FluentGridColumn[] = [
     isSort: true,
     isFilter: true,
     isResizable: true,
+    isEditable: false,
     minWidth: 80,
     maxWidth: 120,
     colWidth: '100px',
@@ -97,6 +110,8 @@ const sampleColumns: FluentGridColumn[] = [
     isSort: true,
     isFilter: true,
     isResizable: true,
+    isEditable: true,
+    required: true,
     minWidth: 150,
     maxWidth: 300,
     isBold: true,
@@ -105,10 +120,12 @@ const sampleColumns: FluentGridColumn[] = [
   {
     key: 'email',
     name: 'Email',
-    dataType: 'string',
+    dataType: 'email',
     isSort: true,
     isFilter: true,
     isResizable: true,
+    isEditable: true,
+    required: true,
     minWidth: 80, // Very small minWidth to allow significant reduction
     maxWidth: 400,
     colWidth: '200px',
@@ -120,6 +137,7 @@ const sampleColumns: FluentGridColumn[] = [
     isSort: true,
     isFilter: true,
     isResizable: true,
+    isEditable: true,
     minWidth: 120,
     maxWidth: 200,
     colWidth: '150px',
@@ -131,6 +149,7 @@ const sampleColumns: FluentGridColumn[] = [
     isSort: true,
     isFilter: true,
     isResizable: true,
+    isEditable: false, // Status is typically not editable
     minWidth: 100,
     maxWidth: 150,
     colWidth: '120px',
@@ -142,6 +161,7 @@ const sampleColumns: FluentGridColumn[] = [
     isSort: true,
     isFilter: true,
     isResizable: true,
+    isEditable: true,
     minWidth: 150,
     maxWidth: 200,
     colWidth: '180px',
@@ -287,8 +307,23 @@ export const Default: Story = {
     isSort: true,
     isFilter: true,
     isResizable: true,
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
     showHeader: true,
     showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Data updated:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Edit completed:', { rowId, columnKey, newValue, isValid });
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Basic grid with inline editing enabled. Click on any editable cell to start editing. Changes are automatically saved when you click outside or press Enter, and immediately reflected in the grid.',
+      },
+    },
   },
 };
 
@@ -301,8 +336,23 @@ export const WithCheckboxSelection: Story = {
     isFilter: true,
     isResizable: true,
     enableCheckboxSelection: true,
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
     showHeader: true,
     showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Data updated with selection:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Edit completed with selection:', { rowId, columnKey, newValue, isValid });
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Grid with checkbox selection and inline editing. You can select rows and edit cells simultaneously. All changes are automatically saved and reflected in the grid.',
+      },
+    },
   },
 };
 
@@ -317,8 +367,23 @@ export const WithActions: Story = {
     actions: sampleActions,
     actionPosition: ActionPosition.Right,
     actionColumnStyle: ActionColumnStyle.ShowDots,
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
     showHeader: true,
     showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Data updated with actions:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Edit completed with actions:', { rowId, columnKey, newValue, isValid });
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Grid with action buttons and inline editing. Edit cells and use action buttons simultaneously. All data changes are automatically saved and immediately visible.',
+      },
+    },
   },
 };
 
@@ -333,8 +398,23 @@ export const WithButtonActions: Story = {
     actions: sampleActions,
     actionPosition: ActionPosition.Right,
     actionColumnStyle: ActionColumnStyle.ShowButtonsDirectly,
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
     showHeader: true,
     showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Button actions - Cell edited:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Button actions - Edit completed:', { rowId, columnKey, newValue, isValid });
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Grid with button actions and inline editing. Edit cells and use action buttons simultaneously. All data changes are automatically saved and immediately visible.',
+      },
+    },
   },
 };
 
@@ -386,13 +466,21 @@ export const WithCustomButtonStyles: Story = {
     ],
     actionPosition: ActionPosition.Right,
     actionColumnStyle: ActionColumnStyle.ShowButtonsDirectly,
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
     showHeader: true,
     showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Custom buttons - Cell edited:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Custom buttons - Edit completed:', { rowId, columnKey, newValue, isValid });
+    },
   },
   parameters: {
     docs: {
       description: {
-        story: 'This grid demonstrates custom button styles for actions. Each button can have different appearances (primary, secondary, outline, subtle), colors (primary, secondary, success, warning, error, info), sizes (small, medium, large), and can be disabled. All styling is configured through the actions JSON array.',
+        story: 'This grid demonstrates custom button styles for actions with inline editing. Each button can have different appearances and colors. Edit cells and use action buttons simultaneously. All data changes are automatically saved and immediately visible.',
       },
     },
   },
@@ -408,8 +496,23 @@ export const WithPagination: Story = {
     isResizable: true,
     pagination: true,
     recordsPerPage: 5,
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
     showHeader: true,
     showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Data updated with pagination:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Edit completed with pagination:', { rowId, columnKey, newValue, isValid });
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Grid with pagination and inline editing. Edit cells across different pages. All changes are automatically saved and persist when navigating between pages.',
+      },
+    },
   },
 };
 
@@ -484,8 +587,23 @@ export const LargeDataset: Story = {
     isResizable: true,
     pagination: true,
     recordsPerPage: 10,
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
     showHeader: true,
     showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Large dataset - Cell edited:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Large dataset - Edit completed:', { rowId, columnKey, newValue, isValid });
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Large dataset grid with pagination and inline editing. Edit cells across different pages. All changes are automatically saved and persist when navigating between pages.',
+      },
+    },
   },
 };
 
@@ -497,13 +615,21 @@ export const ColumnResizing: Story = {
     isSort: true,
     isFilter: true,
     isResizable: true,
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
     showHeader: true,
     showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Column resizing - Cell edited:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Column resizing - Edit completed:', { rowId, columnKey, newValue, isValid });
+    },
   },
   parameters: {
     docs: {
       description: {
-        story: 'This grid demonstrates column resizing functionality. Hover over column borders to see the resize cursor, then drag to resize columns. Each column has defined min and max widths.',
+        story: 'This grid demonstrates column resizing functionality with inline editing. Hover over column borders to resize columns and click cells to edit them. All changes are automatically saved and immediately visible.',
       },
     },
   },
@@ -887,6 +1013,547 @@ export const AdvancedHtmlContentDemo: Story = {
     docs: {
       description: {
         story: 'This grid exactly matches the provided screenshot with the same data, styling, and visual elements. It includes profile pictures, status pills, progress bars, and verification icons rendered from HTML content in JSON data.',
+      },
+    },
+  },
+};
+
+// Inline Editing Demo
+export const InlineEditing: Story = {
+  args: {
+    tableHeaders: [
+      {
+        key: 'id',
+        name: 'ID',
+        dataType: 'number',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: false,
+        minWidth: 80,
+        maxWidth: 120,
+        colWidth: '100px',
+      },
+      {
+        key: 'name',
+        name: 'Name',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 150,
+        maxWidth: 300,
+        isBold: true,
+        colWidth: '200px',
+      },
+      {
+        key: 'email',
+        name: 'Email',
+        dataType: 'email',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 200,
+        maxWidth: 300,
+        colWidth: '250px',
+      },
+      {
+        key: 'age',
+        name: 'Age',
+        dataType: 'number',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 80,
+        maxWidth: 120,
+        colWidth: '100px',
+        validateCell: (value: any) => {
+          const age = Number(value);
+          if (age < 18) return 'Age must be at least 18';
+          if (age > 100) return 'Age must be less than 100';
+          return null;
+        },
+      },
+      {
+        key: 'salary',
+        name: 'Salary',
+        dataType: 'number',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 120,
+        maxWidth: 200,
+        colWidth: '150px',
+      },
+      {
+        key: 'department',
+        name: 'Department',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 120,
+        maxWidth: 200,
+        colWidth: '150px',
+      },
+      {
+        key: 'status',
+        name: 'Status',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: false, // This column is not editable
+        minWidth: 100,
+        maxWidth: 150,
+        colWidth: '120px',
+      },
+    ],
+    tableData: [
+      {
+        id: 1,
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        age: 28,
+        salary: 75000,
+        department: 'Engineering',
+        status: 'Active',
+      },
+      {
+        id: 2,
+        name: 'Jane Smith',
+        email: 'jane.smith@example.com',
+        age: 32,
+        salary: 82000,
+        department: 'Marketing',
+        status: 'Active',
+      },
+      {
+        id: 3,
+        name: 'Bob Johnson',
+        email: 'bob.johnson@example.com',
+        age: 45,
+        salary: 95000,
+        department: 'Sales',
+        status: 'Inactive',
+      },
+      {
+        id: 4,
+        name: 'Alice Brown',
+        email: 'alice.brown@example.com',
+        age: 29,
+        salary: 68000,
+        department: 'HR',
+        status: 'Active',
+      },
+      {
+        id: 5,
+        name: 'Charlie Wilson',
+        email: 'charlie.wilson@example.com',
+        age: 35,
+        salary: 88000,
+        department: 'Engineering',
+        status: 'Active',
+      },
+    ],
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
+    isSort: true,
+    isFilter: true,
+    isResizable: true,
+    showHeader: true,
+    showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Cell edited:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Cell edit completed:', { rowId, columnKey, newValue, isValid });
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This grid demonstrates inline editing functionality with auto-save. Click on any editable cell to start editing. Changes are automatically saved when you click outside or press Enter. All data changes are immediately reflected in the grid with validation for required fields, data types, and custom validation rules.',
+      },
+    },
+  },
+};
+
+// Inline Editing with Different Data Types
+export const InlineEditingDataTypes: Story = {
+  args: {
+    tableHeaders: [
+      {
+        key: 'text',
+        name: 'Text Field',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 150,
+        colWidth: '200px',
+      },
+      {
+        key: 'number',
+        name: 'Number Field',
+        dataType: 'number',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 120,
+        colWidth: '150px',
+      },
+      {
+        key: 'email',
+        name: 'Email Field',
+        dataType: 'email',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 200,
+        colWidth: '250px',
+      },
+      {
+        key: 'url',
+        name: 'URL Field',
+        dataType: 'url',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 200,
+        colWidth: '250px',
+      },
+      {
+        key: 'date',
+        name: 'Date Field',
+        dataType: 'date',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 120,
+        colWidth: '150px',
+      },
+      {
+        key: 'datetime',
+        name: 'DateTime Field',
+        dataType: 'datetime',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 180,
+        colWidth: '200px',
+      },
+    ],
+    tableData: [
+      {
+        id: 1,
+        text: 'Sample text',
+        number: 42,
+        email: 'test@example.com',
+        url: 'https://example.com',
+        date: '2024-01-15',
+        datetime: '2024-01-15T10:30:00',
+      },
+      {
+        id: 2,
+        text: 'Another text',
+        number: 123.45,
+        email: 'user@domain.com',
+        url: 'https://google.com',
+        date: '2024-02-20',
+        datetime: '2024-02-20T14:15:30',
+      },
+      {
+        id: 3,
+        text: 'Third entry',
+        number: 999,
+        email: 'admin@company.org',
+        url: 'https://github.com',
+        date: '2024-03-10',
+        datetime: '2024-03-10T09:45:15',
+      },
+    ],
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
+    isSort: true,
+    isFilter: true,
+    isResizable: true,
+    showHeader: true,
+    showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Data type edit:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Data type edit completed:', { rowId, columnKey, newValue, isValid });
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This grid demonstrates inline editing with different data types and auto-save. Each column uses the appropriate input type based on its dataType property. All changes are automatically saved and immediately reflected in the grid.',
+      },
+    },
+  },
+};
+
+// Row-based Inline Editing Demo
+export const RowBasedInlineEditing: Story = {
+  args: {
+    tableHeaders: [
+      {
+        key: 'id',
+        name: 'ID',
+        dataType: 'number',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: false,
+        minWidth: 80,
+        maxWidth: 120,
+        colWidth: '100px',
+      },
+      {
+        key: 'name',
+        name: 'Name',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 150,
+        maxWidth: 300,
+        isBold: true,
+        colWidth: '200px',
+      },
+      {
+        key: 'email',
+        name: 'Email',
+        dataType: 'email',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 200,
+        maxWidth: 300,
+        colWidth: '250px',
+      },
+      {
+        key: 'department',
+        name: 'Department',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 120,
+        maxWidth: 200,
+        colWidth: '150px',
+      },
+    ],
+    tableData: [
+      {
+        id: 1,
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        department: 'Engineering',
+      },
+      {
+        id: 2,
+        name: 'Jane Smith',
+        email: 'jane.smith@example.com',
+        department: 'Marketing',
+      },
+      {
+        id: 3,
+        name: 'Bob Johnson',
+        email: 'bob.johnson@example.com',
+        department: 'Sales',
+      },
+    ],
+    enableInlineEdit: true,
+    inlineEditMode: 'row',
+    isSort: true,
+    isFilter: true,
+    isResizable: true,
+    showHeader: true,
+    showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Row edit - Cell edited:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Row edit - Cell edit completed:', { rowId, columnKey, newValue, isValid });
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This grid demonstrates row-based inline editing mode. Click "Edit Row" to edit multiple cells at once, then click "Save" to save all changes. All data changes are automatically saved and immediately reflected in the grid.',
+      },
+    },
+  },
+};
+
+// State Management Demo
+export const WithStateManagement: Story = {
+  args: {
+    tableHeaders: sampleColumns,
+    tableData: sampleData,
+    isSort: true,
+    isFilter: true,
+    isResizable: true,
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
+    showHeader: true,
+    showSubHeader: true,
+    onDataChange: (newData) => {
+      console.log('Data changed:', newData);
+    },
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('State management - Cell edited:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('State management - Edit completed:', { rowId, columnKey, newValue, isValid });
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This grid demonstrates auto-save functionality. Changes are automatically saved when you finish editing (on blur/close) and are immediately visible in the grid. Data is maintained in state and persists across interactions.',
+      },
+    },
+  },
+};
+
+// Auto-Save Demo
+export const AutoSaveDemo: Story = {
+  args: {
+    tableHeaders: [
+      {
+        key: 'id',
+        name: 'ID',
+        dataType: 'number',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: false,
+        minWidth: 80,
+        maxWidth: 120,
+        colWidth: '100px',
+      },
+      {
+        key: 'name',
+        name: 'Name',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 150,
+        maxWidth: 300,
+        isBold: true,
+        colWidth: '200px',
+      },
+      {
+        key: 'email',
+        name: 'Email',
+        dataType: 'email',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 200,
+        maxWidth: 300,
+        colWidth: '250px',
+      },
+      {
+        key: 'age',
+        name: 'Age',
+        dataType: 'number',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 80,
+        maxWidth: 120,
+        colWidth: '100px',
+        validateCell: (value: any) => {
+          const age = Number(value);
+          if (age < 18) return 'Age must be at least 18';
+          if (age > 100) return 'Age must be less than 100';
+          return null;
+        },
+      },
+      {
+        key: 'lastLogin',
+        name: 'Last Login',
+        dataType: 'date',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 150,
+        maxWidth: 200,
+        colWidth: '180px',
+      },
+    ],
+    tableData: [
+      {
+        id: 1,
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        age: 28,
+        lastLogin: '2024-01-15',
+      },
+      {
+        id: 2,
+        name: 'Jane Smith',
+        email: 'jane.smith@example.com',
+        age: 32,
+        lastLogin: '2024-01-14',
+      },
+      {
+        id: 3,
+        name: 'Bob Johnson',
+        email: 'bob.johnson@example.com',
+        age: 45,
+        lastLogin: '2024-01-10',
+      },
+    ],
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
+    isSort: true,
+    isFilter: true,
+    isResizable: true,
+    showHeader: true,
+    showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Cell auto-saved:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Cell edit completed:', { rowId, columnKey, newValue, isValid });
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This grid demonstrates auto-save functionality. Click on any editable cell to start editing. When you click outside or press Enter, the data is automatically saved and immediately visible in the grid. Try editing different data types (text, email, number, date) to see the auto-save in action.',
       },
     },
   },

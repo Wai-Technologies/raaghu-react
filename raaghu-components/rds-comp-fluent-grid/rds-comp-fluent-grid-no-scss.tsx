@@ -15,7 +15,6 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  MenuList,
   Select,
   FormControl,
   Checkbox,
@@ -86,11 +85,13 @@ export interface FluentGridColumn {
   fontWeight?: string;
   disabled?: boolean;
   isEndUserEditing?: boolean;
+  isEditable?: boolean; // Enable inline editing for this column
   colWidth?: string;
   minWidth?: number;
   maxWidth?: number;
   allowHtml?: boolean; // Allow HTML content in cells
   renderCell?: (value: any, row: any) => React.ReactNode; // Custom cell renderer
+  validateCell?: (value: any, row: any) => string | null; // Custom validation function
 }
 
 export interface FluentGridAction {
@@ -139,12 +140,18 @@ export interface RdsFluentGridProps {
   tableHeaders: FluentGridColumn[];
   tableData: any[];
   
+  // State Management
+  controlledData?: any[]; // Controlled data state
+  onDataChange?: (newData: any[]) => void; // Callback when data changes
+  
   // Features
   isSort?: boolean;
   isFilter?: boolean;
   isResizable?: boolean;
   enableCheckboxSelection?: boolean;
   enableRadioButtonSelection?: boolean;
+  enableInlineEdit?: boolean; // Enable inline editing globally
+  inlineEditMode?: 'cell' | 'row'; // Inline edit mode: cell-by-cell (default) or row-based editing
   
   // UI Controls
   showHeader?: boolean;
@@ -171,6 +178,8 @@ export interface RdsFluentGridProps {
   onSortChange?: (sortState: SortState) => void;
   onFilterChange?: (filterState: FilterState) => void;
   onFilterApiRequest?: (filterRequest: FilterApiRequest) => void;
+  onCellEdit?: (rowId: string, columnKey: string, newValue: any, oldValue: any) => void;
+  onCellEditComplete?: (rowId: string, columnKey: string, newValue: any, isValid: boolean) => void;
   
   // Styling
   classes?: string;
@@ -183,6 +192,142 @@ export interface RdsFluentGridProps {
   // Loading
   isLoading?: boolean;
 }
+
+// Editable Cell Component
+const EditableCell: React.FC<{
+  value: any;
+  column: FluentGridColumn;
+  row: any;
+  isEditing: boolean;
+  onStartEdit: () => void;
+  onSave: (newValue: any) => void;
+  onCancel: () => void;
+  onValueChange: (newValue: any) => void;
+  tempValue: any;
+  validationError?: string;
+}> = ({ 
+  value, 
+  column, 
+  row, 
+  isEditing, 
+  onStartEdit, 
+  onSave, 
+  onCancel, 
+  onValueChange, 
+  tempValue, 
+  validationError 
+}) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus();
+      // Only select text for text-based inputs
+      if (inputRef.current.type === 'text' || inputRef.current.type === 'email' || inputRef.current.type === 'url') {
+        try {
+          inputRef.current.select();
+        } catch (e) {
+          // Fallback: set cursor to end if select fails
+          inputRef.current.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length);
+        }
+      }
+    }
+  }, [isEditing]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      onSave(tempValue);
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      onCancel();
+    }
+  };
+
+  const handleBlur = () => {
+    // Auto-save on blur
+    onSave(tempValue);
+  };
+
+  const getInputType = () => {
+    switch (column.dataType?.toLowerCase()) {
+      case 'number':
+      case 'numeric':
+      case 'int':
+      case 'float':
+      case 'decimal':
+        return 'number';
+      case 'email':
+        return 'email';
+      case 'url':
+        return 'url';
+      case 'date':
+        return 'date';
+      case 'datetime':
+        return 'datetime-local';
+      case 'time':
+        return 'time';
+      default:
+        return 'text';
+    }
+  };
+
+  const formatValueForDisplay = (val: any) => {
+    if (val === null || val === undefined) return '';
+    return val.toString();
+  };
+
+  if (isEditing) {
+    return (
+      <TextField
+        ref={inputRef}
+        value={tempValue}
+        onChange={(e) => onValueChange(e.target.value)}
+        onKeyDown={handleKeyDown}
+        onBlur={handleBlur}
+        type={getInputType()}
+        size="small"
+        fullWidth
+        error={!!validationError}
+        helperText={validationError}
+        sx={{
+          '& .MuiInputBase-input': {
+            padding: '4px 8px',
+            fontSize: '14px',
+          },
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderWidth: '1px',
+          },
+        }}
+      />
+    );
+  }
+
+  return (
+    <Box
+      onClick={onStartEdit}
+      sx={{
+        cursor: 'pointer',
+        padding: '4px 8px',
+        minHeight: '32px',
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+        border: '1px solid transparent',
+        borderRadius: '4px',
+        '&:hover': {
+          backgroundColor: 'action.hover',
+          border: '1px solid',
+          borderColor: 'divider',
+        },
+      }}
+    >
+      <Typography variant="body2" sx={{ width: '100%' }}>
+        {formatValueForDisplay(value)}
+      </Typography>
+    </Box>
+  );
+};
 
 // Action Menu Component
 const ActionMenu: React.FC<{
@@ -278,11 +423,15 @@ const ActionMenu: React.FC<{
 const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   tableHeaders,
   tableData,
+  controlledData,
+  onDataChange,
   isSort = true,
   isFilter = true,
   isResizable = true,
   enableCheckboxSelection = false,
   enableRadioButtonSelection = false,
+  enableInlineEdit = false,
+  inlineEditMode = 'cell',
   showHeader = true,
   showSubHeader = true,
   showAddNewColumn = false,
@@ -301,6 +450,8 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   onSortChange,
   onFilterChange,
   onFilterApiRequest,
+  onCellEdit,
+  onCellEditComplete,
   classes,
   fontWeight,
   illustration = false,
@@ -335,12 +486,34 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   const [resizingColumn, setResizingColumn] = useState<string | null>(null);
   const [resizeStartX, setResizeStartX] = useState(0);
   const [resizeStartWidth, setResizeStartWidth] = useState(0);
+  
+  // Inline editing state
+  const [editingCell, setEditingCell] = useState<{rowId: string, columnKey: string} | null>(null);
+  const [editingRow, setEditingRow] = useState<string | null>(null);
+  const [tempCellValue, setTempCellValue] = useState<any>('');
+  const [tempRowValues, setTempRowValues] = useState<{[columnKey: string]: any}>({});
+  const [cellValidationError, setCellValidationError] = useState<string>('');
+  const [rowValidationErrors, setRowValidationErrors] = useState<{[columnKey: string]: string}>({});
+  
+  // Internal data state management
+  const [internalData, setInternalData] = useState<any[]>(tableData);
+  
+  // Use controlled data if provided, otherwise use internal data
+  const currentData = controlledData || internalData;
+  
+  // Update internal data when tableData prop changes
+  useEffect(() => {
+    if (!controlledData) {
+      setInternalData(tableData);
+    }
+  }, [tableData, controlledData]);
+  
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
 
   // Filter and sort data
   const processedData = useMemo(() => {
-    let filtered = [...tableData];
+    let filtered = [...currentData];
 
     // Apply search filter
     if (searchValue) {
@@ -437,7 +610,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
     }
 
     return filtered;
-  }, [tableData, searchValue, filterState, sortColumn, sortDirection, pagination, currentPage, recordsPerPage, visibleColumns]);
+  }, [currentData, searchValue, filterState, sortColumn, sortDirection, pagination, currentPage, recordsPerPage, visibleColumns]);
 
   const handleSort = (columnKey: string) => {
     if (sortColumn === columnKey) {
@@ -813,6 +986,350 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
     onRowSelect?.(rowData);
   };
 
+  // Inline editing handlers
+  const handleCellEditStart = (rowId: string, columnKey: string, currentValue: any) => {
+    if (!enableInlineEdit) return;
+    
+    const column = tableHeaders.find(h => h.key === columnKey);
+    if (!column?.isEditable) return;
+    
+    setEditingCell({ rowId, columnKey });
+    setTempCellValue(currentValue);
+    setCellValidationError('');
+  };
+
+  const handleCellEditSave = (rowId: string, columnKey: string, newValue: any) => {
+    const column = tableHeaders.find(h => h.key === columnKey);
+    if (!column) return;
+
+    // Validate the value
+    let validationError = '';
+    
+    // Required field validation
+    if (column.required && (!newValue || newValue.toString().trim() === '')) {
+      validationError = 'This field is required';
+    }
+    
+    // Data type validation
+    if (!validationError && newValue && column.dataType) {
+      switch (column.dataType.toLowerCase()) {
+        case 'number':
+        case 'numeric':
+        case 'int':
+        case 'float':
+        case 'decimal':
+          if (isNaN(Number(newValue))) {
+            validationError = 'Please enter a valid number';
+          }
+          break;
+        case 'email': {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(newValue)) {
+            validationError = 'Please enter a valid email address';
+          }
+          break;
+        }
+        case 'url':
+          try {
+            new URL(newValue);
+          } catch {
+            validationError = 'Please enter a valid URL';
+          }
+          break;
+      }
+    }
+    
+    // Custom validation
+    if (!validationError && column.validateCell) {
+      const customError = column.validateCell(newValue, { id: rowId });
+      if (customError) {
+        validationError = customError;
+      }
+    }
+    
+    if (validationError) {
+      setCellValidationError(validationError);
+      return;
+    }
+
+    // Convert value based on data type
+    let processedValue = newValue;
+    if (column.dataType) {
+      switch (column.dataType.toLowerCase()) {
+        case 'number':
+        case 'numeric':
+        case 'int':
+        case 'float':
+        case 'decimal':
+          processedValue = Number(newValue);
+          break;
+        case 'boolean':
+          processedValue = Boolean(newValue);
+          break;
+        default:
+          processedValue = newValue.toString();
+      }
+    }
+
+    // Find the original value for comparison
+    const rowIndex = currentData.findIndex(row => (row.id || currentData.indexOf(row).toString()) === rowId);
+    const originalValue = rowIndex >= 0 ? currentData[rowIndex][columnKey] : null;
+
+    // Update data state immediately
+    const updateData = (newData: any[]) => {
+      if (controlledData && onDataChange) {
+        // Controlled mode - notify parent
+        onDataChange(newData);
+      } else {
+        // Uncontrolled mode - update internal state
+        setInternalData(newData);
+      }
+    };
+
+    // Find the row and update it
+    const updatedData = currentData.map((row, index) => {
+      let rowIdToCheck = row.id || index.toString();
+      
+      // Handle different rowId formats
+      if (rowId.startsWith('row-')) {
+        const rowIndex = parseInt(rowId.replace('row-', ''));
+        if (index === rowIndex) {
+          return { ...row, [columnKey]: processedValue };
+        }
+      } else if (rowIdToCheck === rowId) {
+        return { ...row, [columnKey]: processedValue };
+      }
+      return row;
+    });
+
+    // Update data immediately so changes are visible
+    updateData(updatedData);
+
+    // Call the edit callback
+    onCellEdit?.(rowId, columnKey, processedValue, originalValue);
+    onCellEditComplete?.(rowId, columnKey, processedValue, true);
+
+    // Clear editing state
+    setEditingCell(null);
+    setTempCellValue('');
+    setCellValidationError('');
+  };
+
+  const handleCellEditCancel = () => {
+    setEditingCell(null);
+    setTempCellValue('');
+    setCellValidationError('');
+  };
+
+  const handleCellValueChange = (newValue: any) => {
+    setTempCellValue(newValue);
+    setCellValidationError(''); // Clear validation error when user types
+  };
+
+  // Row-based editing handlers
+  const handleRowEditStart = (rowId: string, rowData: any) => {
+    if (!enableInlineEdit || inlineEditMode !== 'row') return;
+    
+    setEditingRow(rowId);
+    const editableColumns = tableHeaders.filter(h => h.isEditable);
+    const initialValues: {[columnKey: string]: any} = {};
+    editableColumns.forEach(col => {
+      initialValues[col.key] = rowData[col.key];
+    });
+    setTempRowValues(initialValues);
+    setRowValidationErrors({});
+  };
+
+  const handleRowEditSave = (rowId: string) => {
+    console.log('Row edit save called for rowId:', rowId, 'editingRow:', editingRow, 'tempRowValues:', tempRowValues);
+    
+    if (!editingRow || editingRow !== rowId) {
+      console.log('Row edit save cancelled - not editing this row');
+      return;
+    }
+
+    const editableColumns = tableHeaders.filter(h => h.isEditable);
+    console.log('Editable columns:', editableColumns.map(c => c.key));
+    const validationErrors: {[columnKey: string]: string} = {};
+    let hasErrors = false;
+
+    // Validate all editable columns
+    editableColumns.forEach(column => {
+      const value = tempRowValues[column.key];
+      let error = '';
+
+      // Required field validation
+      if (column.required && (!value || value.toString().trim() === '')) {
+        error = 'This field is required';
+      }
+
+      // Data type validation
+      if (!error && value && column.dataType) {
+        switch (column.dataType.toLowerCase()) {
+          case 'number':
+          case 'numeric':
+          case 'int':
+          case 'float':
+          case 'decimal':
+            if (isNaN(Number(value))) {
+              error = 'Please enter a valid number';
+            }
+            break;
+          case 'email': {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+              error = 'Please enter a valid email address';
+            }
+            break;
+          }
+          case 'url':
+            try {
+              new URL(value);
+            } catch {
+              error = 'Please enter a valid URL';
+            }
+            break;
+        }
+      }
+
+      // Custom validation
+      if (!error && column.validateCell) {
+        const customError = column.validateCell(value, { id: rowId });
+        if (customError) {
+          error = customError;
+        }
+      }
+
+      if (error) {
+        validationErrors[column.key] = error;
+        hasErrors = true;
+      }
+    });
+
+    if (hasErrors) {
+      console.log('Validation errors found:', validationErrors);
+      setRowValidationErrors(validationErrors);
+      return;
+    }
+    
+    console.log('No validation errors, proceeding with save');
+
+    // Update data state
+    const updateData = (newData: any[]) => {
+      if (controlledData && onDataChange) {
+        // Controlled mode - notify parent
+        onDataChange(newData);
+      } else {
+        // Uncontrolled mode - update internal state
+        setInternalData(newData);
+      }
+    };
+
+    // Process and save all values
+    let updatedData = [...currentData];
+    
+    // Find the row index once
+    let rowIndex = -1;
+    
+    // Handle different rowId formats
+    if (rowId.startsWith('row-')) {
+      // Extract index from "row-0", "row-1", etc.
+      const index = parseInt(rowId.replace('row-', ''));
+      rowIndex = index;
+      console.log('Extracted index from rowId:', index);
+    } else {
+      // Try to find by row.id or index
+      rowIndex = currentData.findIndex(row => (row.id || currentData.indexOf(row).toString()) === rowId);
+    }
+    
+    console.log('Row index found:', rowIndex, 'for rowId:', rowId);
+    
+    if (rowIndex === -1 || rowIndex >= currentData.length) {
+      console.error('Row not found in currentData. rowId:', rowId, 'currentData.length:', currentData.length);
+      return;
+    }
+    
+    // Process all columns and update the row in one go
+    const updatedRow = { ...currentData[rowIndex] };
+    console.log('Original row:', currentData[rowIndex]);
+    console.log('Updated row before processing:', updatedRow);
+    
+    editableColumns.forEach(column => {
+      const value = tempRowValues[column.key];
+      let processedValue = value;
+      
+      console.log(`Processing column ${column.key}:`, { value, originalValue: currentData[rowIndex][column.key] });
+
+      // Convert value based on data type
+      if (column.dataType) {
+        switch (column.dataType.toLowerCase()) {
+          case 'number':
+          case 'numeric':
+          case 'int':
+          case 'float':
+          case 'decimal':
+            processedValue = Number(value);
+            break;
+          case 'boolean':
+            processedValue = Boolean(value);
+            break;
+          default:
+            processedValue = value.toString();
+        }
+      }
+
+      // Find the original value for comparison
+      const originalValue = rowIndex >= 0 ? currentData[rowIndex][column.key] : null;
+
+      // Update the row
+      updatedRow[column.key] = processedValue;
+      console.log(`Updated ${column.key} to:`, processedValue);
+
+      // Call the edit callbacks
+      onCellEdit?.(rowId, column.key, processedValue, originalValue);
+      onCellEditComplete?.(rowId, column.key, processedValue, true);
+    });
+
+    // Update the data array with the modified row
+    updatedData[rowIndex] = updatedRow;
+
+    // Update data state immediately so changes are visible
+    console.log('Updating data with:', updatedData);
+    updateData(updatedData);
+
+    // Clear editing state
+    console.log('Clearing editing state');
+    setEditingRow(null);
+    setTempRowValues({});
+    setRowValidationErrors({});
+  };
+
+  const handleRowEditCancel = () => {
+    setEditingRow(null);
+    setTempRowValues({});
+    setRowValidationErrors({});
+  };
+
+  const handleRowValueChange = (columnKey: string, newValue: any) => {
+    console.log('Row value change:', { columnKey, newValue });
+    setTempRowValues(prev => {
+      const newValues = {
+        ...prev,
+        [columnKey]: newValue
+      };
+      console.log('Updated tempRowValues:', newValues);
+      return newValues;
+    });
+    // Clear validation error for this column when user types
+    if (rowValidationErrors[columnKey]) {
+      setRowValidationErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[columnKey];
+        return newErrors;
+      });
+    }
+  };
+
   const totalPages = Math.ceil(tableData.length / recordsPerPage);
   const activeFiltersCount = Object.keys(filterState).length + (searchValue ? 1 : 0);
 
@@ -1180,6 +1697,20 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                     </Typography>
                   </TableCell>
                 )}
+                
+                {enableInlineEdit && inlineEditMode === 'row' && (
+                  <TableCell 
+                    sx={{ 
+                      width: '150px',
+                      borderRight: 'none',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                    }}
+                  >
+                    <Typography variant="subtitle2" fontWeight="medium">
+                      Edit
+                    </Typography>
+                  </TableCell>
+                )}
               </TableRow>
             </TableHead>
             
@@ -1187,6 +1718,8 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
               {processedData.map((row, index) => {
                 const rowId = `row-${index}`;
                 const isSelected = selectedRows.has(rowId);
+                const isRowEditing = editingRow === rowId;
+                console.log('Row editing state:', { rowId, editingRow, isRowEditing });
                 
                 return (
                   <TableRow
@@ -1225,6 +1758,8 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                       const cellValue = row[header.key];
                       const cellWidth = columnWidths[header.key] || header.minWidth || 150;
                       const minWidth = header.minWidth || 50;
+                      const rowId = `row-${index}`;
+                      const isEditing = editingCell?.rowId === rowId && editingCell?.columnKey === header.key;
                       
                       // Check if we should render HTML content
                       const shouldRenderHtml = header.allowHtml && typeof cellValue === 'string' && cellValue.includes('<');
@@ -1251,6 +1786,12 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                           </TableCell>
                         );
                       }
+                      
+                      // Check if this cell should be editable
+                      const isEditable = enableInlineEdit && header.isEditable && !shouldRenderHtml;
+                      const isRowEditing = editingRow === rowId;
+                console.log('Row editing state:', { rowId, editingRow, isRowEditing });
+                      const isCellEditing = isEditing && inlineEditMode === 'cell';
                       
                       return (
                         <TableCell
@@ -1429,6 +1970,32 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                               }}
                               dangerouslySetInnerHTML={{ __html: cellValue }}
                             />
+                          ) : isEditable && inlineEditMode === 'cell' ? (
+                            <EditableCell
+                              value={cellValue}
+                              column={header}
+                              row={row}
+                              isEditing={isCellEditing}
+                              onStartEdit={() => handleCellEditStart(rowId, header.key, cellValue)}
+                              onSave={(newValue) => handleCellEditSave(rowId, header.key, newValue)}
+                              onCancel={handleCellEditCancel}
+                              onValueChange={handleCellValueChange}
+                              tempValue={tempCellValue}
+                              validationError={cellValidationError}
+                            />
+                          ) : isEditable && inlineEditMode === 'row' && isRowEditing ? (
+                            <EditableCell
+                              value={tempRowValues[header.key] || cellValue}
+                              column={header}
+                              row={row}
+                              isEditing={true}
+                              onStartEdit={() => {}} // No-op for row mode
+                              onSave={() => {}} // No-op for row mode - only save on row save button
+                              onCancel={() => {}} // No-op for row mode
+                              onValueChange={(newValue) => handleRowValueChange(header.key, newValue)}
+                              tempValue={tempRowValues[header.key] || cellValue}
+                              validationError={rowValidationErrors[header.key] || ''}
+                            />
                           ) : shouldShowTooltip ? (
                             <Tooltip title={cellText} arrow>
                               <Typography 
@@ -1478,6 +2045,49 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                             ))
                           ) : (
                             <ActionMenu row={row} actions={actions} onActionSelection={onActionSelection} />
+                          )}
+                        </Stack>
+                      </TableCell>
+                    )}
+
+                    {/* Row editing controls */}
+                    {enableInlineEdit && inlineEditMode === 'row' && (
+                      <TableCell sx={{ borderRight: 'none' }}>
+                        <Stack direction="row" spacing={0.5}>
+                          {isRowEditing ? (
+                            <>
+                              <Button
+                                size="small"
+                                variant="contained"
+                                color="primary"
+                                onClick={() => {
+                                  console.log('Save button clicked for rowId:', rowId);
+                                  handleRowEditSave(rowId);
+                                }}
+                                startIcon={<EditIcon />}
+                              >
+                                Save
+                              </Button>
+                              <Button
+                                size="small"
+                                variant="outlined"
+                                color="secondary"
+                                onClick={handleRowEditCancel}
+                                startIcon={<ClearIcon />}
+                              >
+                                Cancel
+                              </Button>
+                            </>
+                          ) : (
+                            <Button
+                              size="small"
+                              variant="outlined"
+                              color="primary"
+                              onClick={() => handleRowEditStart(rowId, row)}
+                              startIcon={<EditIcon />}
+                            >
+                              Edit Row
+                            </Button>
                           )}
                         </Stack>
                       </TableCell>
@@ -1546,7 +2156,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                 display: 'flex', 
                 alignItems: 'center', 
                 cursor: 'pointer',
-                p: 0.5,
+                p: 1,
                 borderRadius: 0.5,
                 border: '1px solid',
                 borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
@@ -1560,7 +2170,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                 fontWeight="medium" 
                 sx={{ 
                   flexGrow: 1, 
-                  fontSize: '10px',
+                  fontSize: '12px',
                   color: theme.palette.mode === 'dark' ? '#ffffff' : undefined
                 }}
               >
@@ -1592,9 +2202,9 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                     <ListItem 
                       key={header.key} 
                       sx={{ 
-                        py: 0,
-                        px: 0.25,
-                        minHeight: 16,
+                        py: 0.5,
+                        px: 1,
+                        minHeight: 24,
                         cursor: 'pointer',
                         '&:hover': { backgroundColor: 'action.hover' }
                       }}
@@ -1603,7 +2213,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                         handleColumnVisibilityChange(header.key, !isCurrentlyVisible);
                       }}
                     >
-                      <ListItemIcon sx={{ minWidth: 16 }}>
+                      <ListItemIcon sx={{ minWidth: 20 }}>
                         <Checkbox
                           checked={visibleColumns.includes(header.key)}
                           onChange={(e) => {
@@ -1612,10 +2222,10 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                           }}
                           size="small"
                           sx={{ 
-                            padding: '1px',
+                            padding: '2px',
                             color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
                             '& .MuiSvgIcon-root': {
-                              fontSize: 12,
+                              fontSize: 14,
                               color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
                             }
                           }}
@@ -1626,7 +2236,8 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                         primaryTypographyProps={{ 
                           variant: 'caption', 
                           sx: { 
-                            fontSize: '9px',
+                            fontSize: '12px',
+                            fontWeight: '400',
                             color: theme.palette.mode === 'dark' ? '#ffffff' : undefined 
                           }
                         }}
@@ -1648,7 +2259,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                 display: 'flex', 
                 alignItems: 'center', 
                 cursor: 'pointer',
-                p: 0.5,
+                p: 1,
                 borderRadius: 0.5,
                 border: '1px solid',
                 borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
@@ -1663,7 +2274,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                 fontWeight="medium" 
                 sx={{ 
                   flexGrow: 1, 
-                  fontSize: '10px',
+                  fontSize: '12px',
                   color: theme.palette.mode === 'dark' ? '#ffffff' : undefined
                 }}
               >
@@ -1696,18 +2307,30 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                     
                     return (
                       <Box>
-                        <FormControl size="small" sx={{ minWidth: 80, mb: 0.5 }}>
+                        <FormControl size="small" sx={{ minWidth: 120, mb: 1 }}>
+                          <Typography 
+                            variant="caption" 
+                            sx={{ 
+                              fontSize: '12px', 
+                              fontWeight: '500', 
+                              color: theme.palette.mode === 'dark' ? '#ffffff' : '#333',
+                              mb: 0.5,
+                              display: 'block'
+                            }}
+                          >
+                            Filter
+                          </Typography>
                           <Select
                             value={filterConditions[0].operator}
                             onChange={(e) => handleFilterConditionChange(1, 'operator', e.target.value)}
                             sx={{ 
-                              fontSize: '10px',
-                              height: '24px',
+                              fontSize: '12px',
+                              height: '32px',
                               color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
-                              backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : undefined,
+                              backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : '#fff',
                               '& .MuiOutlinedInput-notchedOutline': {
                                 borderWidth: 1,
-                                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#000'
+                                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#d0d0d0'
                               },
                               '& .MuiSvgIcon-root': {
                                 color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
@@ -1722,7 +2345,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                 key={op.value} 
                                 value={op.value} 
                                 sx={{ 
-                                  fontSize: '10px',
+                                  fontSize: '12px',
                                   color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
                                   '&.Mui-selected': {
                                     backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.16)' : undefined,
@@ -1769,59 +2392,93 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                             />
                           </LocalizationProvider>
                         ) : inputType === 'number' ? (
-                          <TextField
-                            placeholder="Enter number..."
-                            type="number"
-                            value={filterConditions[0].value}
-                            onChange={(e) => handleFilterConditionChange(1, 'value', e.target.value)}
-                            size="small"
-                            fullWidth
-                            sx={{
-                              backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : undefined,
-                              '& .MuiInputBase-input': {
-                                fontSize: '10px',
-                                height: '24px',
-                                padding: '4px 8px',
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
-                              },
-                              '& .MuiOutlinedInput-notchedOutline': {
-                                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : undefined,
-                              },
-                              '& .MuiInputLabel-root': {
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
-                              },
-                              '&::placeholder': {
-                                color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
-                              }
-                            }}
-                          />
+                          <Box>
+                            <Typography 
+                              variant="caption" 
+                              sx={{ 
+                                fontSize: '12px', 
+                                fontWeight: '500', 
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : '#333',
+                                mb: 0.5,
+                                display: 'block'
+                              }}
+                            >
+                              Value
+                            </Typography>
+                            <TextField
+                              placeholder="Enter number..."
+                              type="number"
+                              value={filterConditions[0].value}
+                              onChange={(e) => handleFilterConditionChange(1, 'value', e.target.value)}
+                              size="small"
+                              fullWidth
+                              sx={{
+                                backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : '#fff',
+                                '& .MuiInputBase-input': {
+                                  fontSize: '12px',
+                                  height: '20px',
+                                  padding: '6px 8px',
+                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                },
+                                '& .MuiOutlinedInput-root': {
+                                  height: '32px'
+                                },
+                                '& .MuiOutlinedInput-notchedOutline': {
+                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#d0d0d0',
+                                },
+                                '& .MuiInputLabel-root': {
+                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                },
+                                '&::placeholder': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
+                                }
+                              }}
+                            />
+                          </Box>
                         ) : (
-                          <TextField
-                            placeholder={`Enter ${dataType}...`}
-                            type={inputType}
-                            value={filterConditions[0].value}
-                            onChange={(e) => handleFilterConditionChange(1, 'value', e.target.value)}
-                            size="small"
-                            fullWidth
-                            sx={{
-                              backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : undefined,
-                              '& .MuiInputBase-input': {
-                                fontSize: '10px',
-                                height: '24px',
-                                padding: '4px 8px',
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
-                              },
-                              '& .MuiOutlinedInput-notchedOutline': {
-                                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : undefined,
-                              },
-                              '& .MuiInputLabel-root': {
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
-                              },
-                              '&::placeholder': {
-                                color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
-                              }
-                            }}
-                          />
+                          <Box>
+                            <Typography 
+                              variant="caption" 
+                              sx={{ 
+                                fontSize: '12px', 
+                                fontWeight: '500', 
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : '#333',
+                                mb: 0.5,
+                                display: 'block'
+                              }}
+                            >
+                              Value
+                            </Typography>
+                            <TextField
+                              placeholder={`Enter ${dataType}...`}
+                              type={inputType}
+                              value={filterConditions[0].value}
+                              onChange={(e) => handleFilterConditionChange(1, 'value', e.target.value)}
+                              size="small"
+                              fullWidth
+                              sx={{
+                                backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : '#fff',
+                                '& .MuiInputBase-input': {
+                                  fontSize: '12px',
+                                  height: '20px',
+                                  padding: '6px 8px',
+                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                },
+                                '& .MuiOutlinedInput-root': {
+                                  height: '32px'
+                                },
+                                '& .MuiOutlinedInput-notchedOutline': {
+                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#d0d0d0',
+                                },
+                                '& .MuiInputLabel-root': {
+                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                },
+                                '&::placeholder': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
+                                }
+                              }}
+                            />
+                          </Box>
                         )}
                       </Box>
                     );

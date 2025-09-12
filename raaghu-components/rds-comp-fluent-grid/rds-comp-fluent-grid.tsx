@@ -56,11 +56,13 @@ export interface FluentGridColumn {
   fontWeight?: string;
   disabled?: boolean;
   isEndUserEditing?: boolean;
+  isEditable?: boolean; // Enable inline editing for this column
   colWidth?: string;
   minWidth?: number;
   maxWidth?: number;
   allowHtml?: boolean; // Allow HTML content in cells
   renderCell?: (value: any, row: any) => React.ReactNode; // Custom cell renderer
+  validateCell?: (value: any, row: any) => string | null; // Custom validation function
 }
 
 export interface FluentGridAction {
@@ -109,12 +111,18 @@ export interface RdsFluentGridProps {
   tableHeaders: FluentGridColumn[];
   tableData: any[];
   
+  // State Management
+  controlledData?: any[]; // Controlled data state
+  onDataChange?: (newData: any[]) => void; // Callback when data changes
+  
   // Features
   isSort?: boolean;
   isFilter?: boolean;
   isResizable?: boolean;
   enableCheckboxSelection?: boolean;
   enableRadioButtonSelection?: boolean;
+  enableInlineEdit?: boolean; // Enable inline editing globally
+  inlineEditMode?: 'cell' | 'row'; // Inline edit mode: cell-by-cell (default) or row-based editing
   
   // UI Controls
   showHeader?: boolean;
@@ -144,6 +152,8 @@ export interface RdsFluentGridProps {
   onFilterChange?: (filterState: FilterState) => void;
   onFilterApiRequest?: (filterRequest: FilterApiRequest) => void;
   onColumnVisibilityChange?: (visibleColumns: string[]) => void;
+  onCellEdit?: (rowId: string, columnKey: string, newValue: any, oldValue: any) => void;
+  onCellEditComplete?: (rowId: string, columnKey: string, newValue: any, isValid: boolean) => void;
   
   // Styling
   classes?: string;
@@ -156,6 +166,153 @@ export interface RdsFluentGridProps {
   // Loading
   isLoading?: boolean;
 }
+
+// Editable Cell Component
+const EditableCell: React.FC<{
+  value: any;
+  column: FluentGridColumn;
+  row: any;
+  isEditing: boolean;
+  onStartEdit: () => void;
+  onSave: (newValue: any) => void;
+  onCancel: () => void;
+  onValueChange: (newValue: any) => void;
+  tempValue: any;
+  validationError?: string;
+}> = ({ 
+  value, 
+  column, 
+  row, 
+  isEditing, 
+  onStartEdit, 
+  onSave, 
+  onCancel, 
+  onValueChange, 
+  tempValue, 
+  validationError 
+}) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus();
+      // Only select text for text-based inputs
+      if (inputRef.current.type === 'text' || inputRef.current.type === 'email' || inputRef.current.type === 'url') {
+        try {
+          inputRef.current.select();
+        } catch (e) {
+          // Fallback: set cursor to end if select fails
+          inputRef.current.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length);
+        }
+      }
+    }
+  }, [isEditing]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      onSave(tempValue);
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      onCancel();
+    }
+  };
+
+  const handleBlur = () => {
+    // Auto-save on blur
+    onSave(tempValue);
+  };
+
+  const getInputType = () => {
+    switch (column.dataType?.toLowerCase()) {
+      case 'number':
+      case 'numeric':
+      case 'int':
+      case 'float':
+      case 'decimal':
+        return 'number';
+      case 'email':
+        return 'email';
+      case 'url':
+        return 'url';
+      case 'date':
+        return 'date';
+      case 'datetime':
+        return 'datetime-local';
+      case 'time':
+        return 'time';
+      default:
+        return 'text';
+    }
+  };
+
+  const formatValueForDisplay = (val: any) => {
+    if (val === null || val === undefined) return '';
+    return val.toString();
+  };
+
+  if (isEditing) {
+    return (
+      <TextField
+        ref={inputRef}
+        value={tempValue}
+        onChange={(e) => onValueChange(e.target.value)}
+        onKeyDown={handleKeyDown}
+        onBlur={handleBlur}
+        type={getInputType()}
+        size="small"
+        fullWidth
+        error={!!validationError}
+        helperText={validationError}
+        sx={{
+          '& .MuiInputBase-input': {
+            padding: '4px 8px',
+            fontSize: '14px',
+          },
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderWidth: '1px',
+          },
+        }}
+      />
+    );
+  }
+
+  return (
+    <div
+      onClick={onStartEdit}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onStartEdit();
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      style={{
+        cursor: 'pointer',
+        padding: '4px 8px',
+        minHeight: '32px',
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+        border: '1px solid transparent',
+        borderRadius: '4px',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = '#f5f5f5';
+        e.currentTarget.style.border = '1px solid #e0e0e0';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = 'transparent';
+        e.currentTarget.style.border = '1px solid transparent';
+      }}
+    >
+      <Typography variant="body2" sx={{ width: '100%' }}>
+        {formatValueForDisplay(value)}
+      </Typography>
+    </div>
+  );
+};
 
 // Action Menu Component
 const ActionMenu: React.FC<{
@@ -235,11 +392,15 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
   const {
     tableHeaders,
     tableData,
+    controlledData,
+    onDataChange,
     isSort = true,
     isFilter = true,
     isResizable = true,
     enableCheckboxSelection = false,
     enableRadioButtonSelection = false,
+    enableInlineEdit = false,
+    inlineEditMode = 'cell',
     showHeader = true,
     showSubHeader = true,
     showAddNewColumn = false,
@@ -261,6 +422,8 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     onFilterChange,
   onFilterApiRequest,
     onColumnVisibilityChange,
+    onCellEdit,
+    onCellEditComplete,
     classes,
     fontWeight: _fontWeight,
     illustration = false,
@@ -278,6 +441,19 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
   const [visibleColumns, setVisibleColumns] = useState<string[]>(
     tableHeaders.map(header => header.key)
   );
+  
+  // Internal data state management
+  const [internalData, setInternalData] = useState<any[]>(tableData);
+  
+  // Use controlled data if provided, otherwise use internal data
+  const currentData = controlledData || internalData;
+  
+  // Update internal data when tableData prop changes
+  useEffect(() => {
+    if (!controlledData) {
+      setInternalData(tableData);
+    }
+  }, [tableData, controlledData]);
   const [isFilterPopupOpen, setIsFilterPopupOpen] = useState(false);
   const [selectedColumnForFilter, setSelectedColumnForFilter] = useState<string | null>(null);
   const [isColumnPanelExpanded, setIsColumnPanelExpanded] = useState(false);
@@ -289,6 +465,15 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
   const [resizingColumn, setResizingColumn] = useState<string | null>(null);
   const [resizeStartX, setResizeStartX] = useState(0);
   const [resizeStartWidth, setResizeStartWidth] = useState(0);
+  
+  // Inline editing state
+  const [editingCell, setEditingCell] = useState<{rowId: string, columnKey: string} | null>(null);
+  const [editingRow, setEditingRow] = useState<string | null>(null);
+  const [tempCellValue, setTempCellValue] = useState<any>('');
+  const [tempRowValues, setTempRowValues] = useState<{[columnKey: string]: any}>({});
+  const [cellValidationError, setCellValidationError] = useState<string>('');
+  const [rowValidationErrors, setRowValidationErrors] = useState<{[columnKey: string]: string}>({});
+  
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
   // Reset pagination when data, sort, or filter changes
@@ -374,7 +559,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
 
   // Filter and sort data
   const filteredData = useMemo(() => {
-    let filtered = [...tableData];
+    let filtered = [...currentData];
 
     // Apply filtering
     if (Object.keys(filterState).length > 0) {
@@ -670,6 +855,332 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     }
   };
 
+  // Inline editing handlers
+  const handleCellEditStart = (rowId: string, columnKey: string, currentValue: any) => {
+    if (!enableInlineEdit) return;
+    
+    const column = tableHeaders.find(h => h.key === columnKey);
+    if (!column?.isEditable) return;
+    
+    setEditingCell({ rowId, columnKey });
+    setTempCellValue(currentValue);
+    setCellValidationError('');
+  };
+
+  const handleCellEditSave = (rowId: string, columnKey: string, newValue: any) => {
+    const column = tableHeaders.find(h => h.key === columnKey);
+    if (!column) return;
+
+    // Validate the value
+    let validationError = '';
+    
+    // Required field validation
+    if (column.required && (!newValue || newValue.toString().trim() === '')) {
+      validationError = 'This field is required';
+    }
+    
+    // Data type validation
+    if (!validationError && newValue && column.dataType) {
+      switch (column.dataType.toLowerCase()) {
+        case 'number':
+        case 'numeric':
+        case 'int':
+        case 'float':
+        case 'decimal':
+          if (isNaN(Number(newValue))) {
+            validationError = 'Please enter a valid number';
+          }
+          break;
+        case 'email': {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(newValue)) {
+            validationError = 'Please enter a valid email address';
+          }
+          break;
+        }
+        case 'url':
+          try {
+            new URL(newValue);
+          } catch {
+            validationError = 'Please enter a valid URL';
+          }
+          break;
+      }
+    }
+    
+    // Custom validation
+    if (!validationError && column.validateCell) {
+      const customError = column.validateCell(newValue, { id: rowId });
+      if (customError) {
+        validationError = customError;
+      }
+    }
+    
+    if (validationError) {
+      setCellValidationError(validationError);
+      return;
+    }
+
+    // Convert value based on data type
+    let processedValue = newValue;
+    if (column.dataType) {
+      switch (column.dataType.toLowerCase()) {
+        case 'number':
+        case 'numeric':
+        case 'int':
+        case 'float':
+        case 'decimal':
+          processedValue = Number(newValue);
+          break;
+        case 'boolean':
+          processedValue = Boolean(newValue);
+          break;
+        default:
+          processedValue = newValue.toString();
+      }
+    }
+
+    // Find the original value for comparison
+    const rowIndex = currentData.findIndex(row => (row.id || currentData.indexOf(row).toString()) === rowId);
+    const originalValue = rowIndex >= 0 ? currentData[rowIndex][columnKey] : null;
+
+    // Update data state immediately
+    const updateData = (newData: any[]) => {
+      if (controlledData && onDataChange) {
+        // Controlled mode - notify parent
+        onDataChange(newData);
+      } else {
+        // Uncontrolled mode - update internal state
+        setInternalData(newData);
+      }
+    };
+
+    // Find the row and update it
+    const updatedData = currentData.map(row => {
+      const rowIdToCheck = row.id || currentData.indexOf(row).toString();
+      if (rowIdToCheck === rowId) {
+        return { ...row, [columnKey]: processedValue };
+      }
+      return row;
+    });
+
+    // Update data immediately so changes are visible
+    updateData(updatedData);
+
+    // Call the edit callback
+    onCellEdit?.(rowId, columnKey, processedValue, originalValue);
+    onCellEditComplete?.(rowId, columnKey, processedValue, true);
+
+    // Clear editing state
+    setEditingCell(null);
+    setTempCellValue('');
+    setCellValidationError('');
+  };
+
+  const handleCellEditCancel = () => {
+    setEditingCell(null);
+    setTempCellValue('');
+    setCellValidationError('');
+  };
+
+  const handleCellValueChange = (newValue: any) => {
+    setTempCellValue(newValue);
+    setCellValidationError(''); // Clear validation error when user types
+  };
+
+  // Row-based editing handlers
+  const handleRowEditStart = (rowId: string, rowData: any) => {
+    if (!enableInlineEdit || inlineEditMode !== 'row') return;
+    
+    setEditingRow(rowId);
+    const editableColumns = tableHeaders.filter(h => h.isEditable);
+    const initialValues: {[columnKey: string]: any} = {};
+    editableColumns.forEach(col => {
+      initialValues[col.key] = rowData[col.key];
+    });
+    setTempRowValues(initialValues);
+    setRowValidationErrors({});
+  };
+
+  const handleRowEditSave = (rowId: string) => {
+    console.log('Row edit save called for rowId:', rowId, 'editingRow:', editingRow, 'tempRowValues:', tempRowValues);
+    
+    if (!editingRow || editingRow !== rowId) {
+      console.log('Row edit save cancelled - not editing this row');
+      return;
+    }
+
+    const editableColumns = tableHeaders.filter(h => h.isEditable);
+    console.log('Editable columns:', editableColumns.map(c => c.key));
+    
+    const validationErrors: {[columnKey: string]: string} = {};
+    let hasErrors = false;
+
+    // Validate all editable columns
+    editableColumns.forEach(column => {
+      const value = tempRowValues[column.key];
+      let error = '';
+
+      // Required field validation
+      if (column.required && (!value || value.toString().trim() === '')) {
+        error = 'This field is required';
+      }
+
+      // Data type validation
+      if (!error && value && column.dataType) {
+        switch (column.dataType.toLowerCase()) {
+          case 'number':
+          case 'numeric':
+          case 'int':
+          case 'float':
+          case 'decimal':
+            if (isNaN(Number(value))) {
+              error = 'Please enter a valid number';
+            }
+            break;
+          case 'email': {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+              error = 'Please enter a valid email address';
+            }
+            break;
+          }
+          case 'url':
+            try {
+              new URL(value);
+            } catch {
+              error = 'Please enter a valid URL';
+            }
+            break;
+        }
+      }
+
+      // Custom validation
+      if (!error && column.validateCell) {
+        const customError = column.validateCell(value, { id: rowId });
+        if (customError) {
+          error = customError;
+        }
+      }
+
+      if (error) {
+        validationErrors[column.key] = error;
+        hasErrors = true;
+      }
+    }
+
+    if (hasErrors) {
+      console.log('Validation errors found:', validationErrors);
+      setRowValidationErrors(validationErrors);
+      return;
+    }
+    
+    console.log('No validation errors, proceeding with save');
+
+    // Update data state
+    const updateData = (newData: any[]) => {
+      if (controlledData && onDataChange) {
+        // Controlled mode - notify parent
+        onDataChange(newData);
+      } else {
+        // Uncontrolled mode - update internal state
+        setInternalData(newData);
+      }
+    };
+
+    // Process and save all values
+    let updatedData = [...currentData];
+    
+    // Find the row index once
+    const rowIndex = currentData.findIndex(row => (row.id || currentData.indexOf(row).toString()) === rowId);
+    console.log('Row index found:', rowIndex, 'for rowId:', rowId);
+    
+    if (rowIndex === -1) {
+      console.error('Row not found in currentData');
+      return;
+    }
+    
+    // Process all columns and update the row in one go
+    const updatedRow = { ...currentData[rowIndex] };
+    console.log('Original row:', currentData[rowIndex]);
+    console.log('Updated row before processing:', updatedRow);
+    
+    editableColumns.forEach(column => {
+      const value = tempRowValues[column.key];
+      let processedValue = value;
+      
+      console.log(`Processing column ${column.key}:`, { value, originalValue: currentData[rowIndex][column.key] });
+
+      // Convert value based on data type
+      if (column.dataType) {
+        switch (column.dataType.toLowerCase()) {
+          case 'number':
+          case 'numeric':
+          case 'int':
+          case 'float':
+          case 'decimal':
+            processedValue = Number(value);
+            break;
+          case 'boolean':
+            processedValue = Boolean(value);
+            break;
+          default:
+            processedValue = value.toString();
+        }
+      }
+
+      // Find the original value for comparison
+      const originalValue = rowIndex >= 0 ? currentData[rowIndex][column.key] : null;
+
+      // Update the row
+      updatedRow[column.key] = processedValue;
+      console.log(`Updated ${column.key} to:`, processedValue);
+
+      // Call the edit callbacks
+      onCellEdit?.(rowId, column.key, processedValue, originalValue);
+      onCellEditComplete?.(rowId, column.key, processedValue, true);
+    });
+
+    // Update the data array with the modified row
+    updatedData[rowIndex] = updatedRow;
+
+    // Update the data state immediately so changes are visible
+    console.log('Updating data with:', updatedData);
+    updateData(updatedData);
+
+    // Clear editing state
+    console.log('Clearing editing state');
+    setEditingRow(null);
+    setTempRowValues({});
+    setRowValidationErrors({});
+  };
+
+  const handleRowEditCancel = () => {
+    setEditingRow(null);
+    setTempRowValues({});
+    setRowValidationErrors({});
+  };
+
+  const handleRowValueChange = (columnKey: string, newValue: any) => {
+    console.log('Row value change:', { columnKey, newValue });
+    setTempRowValues(prev => {
+      const newValues = {
+        ...prev,
+        [columnKey]: newValue
+      };
+      console.log('Updated tempRowValues:', newValues);
+      return newValues;
+    });
+    // Clear validation error for this column when user types
+    if (rowValidationErrors[columnKey]) {
+      setRowValidationErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[columnKey];
+        return newErrors;
+      });
+    }
+  };
+
   const getVisibleHeaders = () => {
     const visible = tableHeaders.filter(header => visibleColumns.includes(header.key));
     console.log('Visible headers:', { visibleColumns, visible: visible.map(h => h.key) });
@@ -817,27 +1328,33 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                             {isFilterPopupOpen && (
                               <div className="rds-fluent-grid-filter-popup">
                                 <div className="rds-fluent-grid-filter-popup-header">
-                                  <Typography variant="body2" fontWeight="bold">Controls</Typography>
+                                  <Typography variant="body2" fontWeight="bold" style={{ fontSize: '12px' }}>
+                                    {selectedColumnForFilter ? 
+                                      `Filter: ${tableHeaders.find(h => h.key === selectedColumnForFilter)?.name || selectedColumnForFilter}` : 
+                                      'Controls'
+                                    }
+                                  </Typography>
                                   <Button
                                     variant="text"
                                     size="small"
                                     startIcon={<ClearIcon />}
                                     onClick={handleFilterPopupClose}
-                                    style={{ minWidth: '16px', height: '16px', padding: '0' }}
+                                    style={{ minWidth: '20px', height: '20px', padding: '0' }}
                                   />
                                 </div>
                                 
                                 {/* Column Visibility Toggle */}
-                                <div style={{ marginBottom: '2px' }}>
+                                <div style={{ marginBottom: '8px' }}>
                                   <Button
                                     variant="text"
                                     size="small"
                                     onClick={handleColumnPanelToggle}
                                     style={{ 
-                                      fontSize: '8px', 
-                                      padding: '1px 2px',
-                                      height: '16px',
-                                      width: '100%'
+                                      fontSize: '12px', 
+                                      padding: '4px 8px',
+                                      height: '28px',
+                                      width: '100%',
+                                      fontWeight: '500'
                                     }}
                                   >
                                     {isColumnPanelExpanded ? 'Hide' : 'Show'} Columns
@@ -857,18 +1374,18 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                           style={{ 
                                             display: 'flex', 
                                             alignItems: 'center', 
-                                            gap: '2px',
-                                            padding: '1px',
-                                            fontSize: '8px'
+                                            gap: '8px',
+                                            padding: '4px 6px',
+                                            fontSize: '12px'
                                           }}
                                         >
                                           <input
                                             type="checkbox"
                                             checked={visibleColumns.includes(col.key)}
                                             onChange={(e) => handleColumnVisibilityChange(col.key, e.target.checked)}
-                                            style={{ width: '10px', height: '10px' }}
+                                            style={{ width: '14px', height: '14px' }}
                                           />
-                                          <span style={{ fontSize: '8px' }}>{col.name}</span>
+                                          <span style={{ fontSize: '12px', fontWeight: '400' }}>{col.name}</span>
                                         </div>
                                       ))}
                                     </div>
@@ -884,42 +1401,70 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                       
                                       return (
                                         <div className="rds-fluent-grid-filter-item">
-                                              <select
-                                            value={tempFilterOperator}
-                                            onChange={(e) => {
-                                              setTempFilterOperator(e.target.value);
-                                              // No real-time filtering - only update when FILTER button is clicked
-                                            }}
-                                            style={{ 
-                                              marginBottom: '2px', 
-                                              width: '100%', 
-                                              fontSize: '9px', 
-                                              padding: '1px',
-                                              height: '18px'
-                                            }}
-                                              >
-                                                <option value="contains">Contains</option>
-                                                <option value="equals">Equals</option>
-                                                <option value="startsWith">Starts with</option>
-                                                <option value="endsWith">Ends with</option>
-                                              </select>
-                                          <TextField
-                                            placeholder="Value..."
-                                            value={tempFilterValue}
-                                            onChange={(e) => handleTempFilterChange(e.target.value)}
-                                            size="small"
-                                            sx={{ 
-                                              marginBottom: '2px', 
-                                              fontSize: '9px',
-                                              height: '18px',
-                                              '& .MuiInputBase-input': {
-                                                fontSize: '9px',
-                                                height: '18px',
-                                                padding: '4px 8px'
-                                              }
-                                            }}
-                                          />
-                                          <div style={{ display: 'flex', gap: '2px' }}>
+                                          {/* Filter Type Dropdown */}
+                                          <div style={{ marginBottom: '8px' }}>
+                                            <label style={{ 
+                                              fontSize: '12px', 
+                                              fontWeight: '500', 
+                                              color: '#333', 
+                                              display: 'block', 
+                                              marginBottom: '4px' 
+                                            }}>
+                                              Filter
+                                            </label>
+                                            <select
+                                              value={tempFilterOperator}
+                                              onChange={(e) => {
+                                                setTempFilterOperator(e.target.value);
+                                                // No real-time filtering - only update when FILTER button is clicked
+                                              }}
+                                              style={{ 
+                                                width: '100%', 
+                                                fontSize: '12px', 
+                                                padding: '6px 8px',
+                                                height: '32px',
+                                                border: '1px solid #d0d0d0',
+                                                borderRadius: '4px',
+                                                backgroundColor: '#fff',
+                                                outline: 'none'
+                                              }}
+                                            >
+                                              <option value="contains">Contains</option>
+                                              <option value="equals">Equals</option>
+                                              <option value="startsWith">Starts with</option>
+                                              <option value="endsWith">Ends with</option>
+                                            </select>
+                                          </div>
+                                          {/* Input Field */}
+                                          <div style={{ marginBottom: '8px' }}>
+                                            <label style={{ 
+                                              fontSize: '12px', 
+                                              fontWeight: '500', 
+                                              color: '#333', 
+                                              display: 'block', 
+                                              marginBottom: '4px' 
+                                            }}>
+                                              Value
+                                            </label>
+                                            <TextField
+                                              placeholder="Enter string..."
+                                              value={tempFilterValue}
+                                              onChange={(e) => handleTempFilterChange(e.target.value)}
+                                              size="small"
+                                              sx={{ 
+                                                width: '100%',
+                                                '& .MuiInputBase-input': {
+                                                  fontSize: '12px',
+                                                  padding: '6px 8px',
+                                                  height: '20px'
+                                                },
+                                                '& .MuiOutlinedInput-root': {
+                                                  height: '32px'
+                                                }
+                                              }}
+                                            />
+                                          </div>
+                                          <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
                                             <Button
                                               variant="contained"
                                               size="small"
@@ -929,10 +1474,11 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                               }}
                                               style={{ 
                                                 flex: 1, 
-                                                fontSize: '8px', 
-                                                padding: '1px 2px',
-                                                height: '16px',
-                                                minWidth: '0'
+                                                fontSize: '12px', 
+                                                padding: '6px 12px',
+                                                height: '32px',
+                                                minWidth: '0',
+                                                fontWeight: '500'
                                               }}
                                             >
                                               FILTER
@@ -946,10 +1492,11 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                               }}
                                               style={{ 
                                                 flex: 1, 
-                                                fontSize: '8px', 
-                                                padding: '1px 2px',
-                                                height: '16px',
-                                                minWidth: '0'
+                                                fontSize: '12px', 
+                                                padding: '6px 12px',
+                                                height: '32px',
+                                                minWidth: '0',
+                                                fontWeight: '500'
                                               }}
                                             >
                                               CLEAR
@@ -971,10 +1518,11 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                                               }}
                                               style={{ 
                                                 width: '100%',
-                                                fontSize: '7px',
-                                                height: '14px',
-                                                marginTop: '2px',
-                                                color: '#d32f2f'
+                                                fontSize: '12px',
+                                                height: '28px',
+                                                marginTop: '8px',
+                                                color: '#d32f2f',
+                                                fontWeight: '500'
                                               }}
                                             >
                                               CLEAR ALL
@@ -1025,6 +1573,11 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                   {actions.length > 0 && (
                     <th className="rds-fluent-grid-header-cell" style={{ width: '100px' }}>Actions</th>
                   )}
+                  
+                  {/* Row editing column */}
+                  {enableInlineEdit && inlineEditMode === 'row' && (
+                    <th className="rds-fluent-grid-header-cell" style={{ width: '150px' }}>Edit</th>
+                  )}
                 </tr>
               </thead>
               
@@ -1057,6 +1610,8 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                         const cellValue = row[header.key];
                         const cellWidth = columnWidths[header.key] || header.minWidth || 150;
                         const minWidth = header.minWidth || 50;
+                        const rowId = row.id || index.toString();
+                        const isEditing = editingCell?.rowId === rowId && editingCell?.columnKey === header.key;
                         
                         // Check if we should render HTML content
                         const shouldRenderHtml = header.allowHtml && typeof cellValue === 'string' && cellValue.includes('<');
@@ -1081,6 +1636,12 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                           );
                         }
                         
+                        // Check if this cell should be editable
+                        const isEditable = enableInlineEdit && header.isEditable && !shouldRenderHtml;
+                        const isRowEditing = editingRow === rowId;
+                        console.log('Row editing state:', { rowId, editingRow, isRowEditing });
+                        const isCellEditing = isEditing && inlineEditMode === 'cell';
+                        
                         return (
                           <td
                             key={header.key}
@@ -1095,6 +1656,32 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                               <div 
                                 className="rds-fluent-grid-cell-html"
                                 dangerouslySetInnerHTML={{ __html: cellValue }}
+                              />
+                            ) : isEditable && inlineEditMode === 'cell' ? (
+                              <EditableCell
+                                value={cellValue}
+                                column={header}
+                                row={row}
+                                isEditing={isCellEditing}
+                                onStartEdit={() => handleCellEditStart(rowId, header.key, cellValue)}
+                                onSave={(newValue) => handleCellEditSave(rowId, header.key, newValue)}
+                                onCancel={handleCellEditCancel}
+                                onValueChange={handleCellValueChange}
+                                tempValue={tempCellValue}
+                                validationError={cellValidationError}
+                              />
+                            ) : isEditable && inlineEditMode === 'row' && isRowEditing ? (
+                              <EditableCell
+                                value={tempRowValues[header.key] || cellValue}
+                                column={header}
+                                row={row}
+                                isEditing={true}
+                                onStartEdit={() => {}} // No-op for row mode
+                                onSave={() => {}} // No-op for row mode - only save on row save button
+                                onCancel={() => {}} // No-op for row mode
+                                onValueChange={(newValue) => handleRowValueChange(header.key, newValue)}
+                                tempValue={tempRowValues[header.key] || cellValue}
+                                validationError={rowValidationErrors[header.key] || ''}
                               />
                             ) : (
                               <Typography variant="body2" className="rds-fluent-grid-cell-text">{cellText}</Typography>
@@ -1123,6 +1710,49 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                               ))
                             ) : (
                               <ActionMenu row={row} actions={actions} onActionSelection={onActionSelection} />
+                            )}
+                          </div>
+                        </td>
+                      )}
+
+                      {/* Row editing controls */}
+                      {enableInlineEdit && inlineEditMode === 'row' && (
+                        <td className="rds-fluent-grid-cell">
+                          <div style={{ display: 'flex', gap: '4px' }}>
+                            {isRowEditing ? (
+                              <>
+                                <Button
+                                  size="small"
+                                  variant="contained"
+                                  color="primary"
+                                  onClick={() => {
+                                    console.log('Save button clicked for rowId:', rowId);
+                                    handleRowEditSave(rowId);
+                                  }}
+                                  startIcon={<EditIcon />}
+                                >
+                                  Save
+                                </Button>
+                                <Button
+                                  size="small"
+                                  variant="outlined"
+                                  color="secondary"
+                                  onClick={handleRowEditCancel}
+                                  startIcon={<ClearIcon />}
+                                >
+                                  Cancel
+                                </Button>
+                              </>
+                            ) : (
+                              <Button
+                                size="small"
+                                variant="outlined"
+                                color="primary"
+                                onClick={() => handleRowEditStart(rowId, row)}
+                                startIcon={<EditIcon />}
+                              >
+                                Edit Row
+                              </Button>
                             )}
                           </div>
                         </td>
