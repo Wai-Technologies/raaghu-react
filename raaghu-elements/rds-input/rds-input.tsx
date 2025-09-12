@@ -42,6 +42,8 @@ const RdsInput = ({
 }: RdsInputProps) => {
   // State for password visibility
   const [showPassword, setShowPassword] = React.useState(false);
+  // Internal focus tracking to auto-apply active class when state is default
+  const [isFocused, setIsFocused] = React.useState(false);
   
   // Toggle password visibility
   const handleTogglePasswordVisibility = () => {
@@ -56,6 +58,9 @@ const RdsInput = ({
   // Pill style class
   const pillClass = style === 'pill' ? 'rds-input--pill' : style === 'bottom outline' ? 'rds-input--bottom-outline' : '';
   
+  // Active visuals when prop state='active' OR default + focused
+  const active = (state === 'active') || (state === 'default' && isFocused);
+
   // State class
   let stateClass = '';
   if (state === 'error' || error) {
@@ -66,6 +71,8 @@ const RdsInput = ({
     stateClass = 'rds-input--active';
   } else if (state === 'selected') {
     stateClass = 'rds-input--selected';
+  } else if (active) {
+    stateClass = 'rds-input--active';
   }
 
   // Map layout to MUI type
@@ -189,12 +196,14 @@ const RdsInput = ({
         size={size === 'large' ? 'medium' : size}
         type={inputType}
         fullWidth
-        focused={state === 'active'}
+        focused={active}
+          onFocus={(e) => { setIsFocused(true); props.onFocus?.(e); }}
+          onBlur={(e) => { setIsFocused(false); props.onBlur?.(e); }}
         InputProps={{ 
           className: 'rds-input__field',
           classes: {
-            root: state === 'active' ? 'Mui-focused' : '',
-            focused: state === 'active' ? 'Mui-focused' : '',
+            root: active ? 'Mui-focused' : '',
+            focused: active ? 'Mui-focused' : '',
           },
           startAdornment: iconPosition === 'start' && showIcon ? renderIcon() : null,
           endAdornment: iconPosition === 'end' && showIcon ? renderIcon() : null,
