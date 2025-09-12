@@ -151,6 +151,7 @@ export const CustomIcon: Story = {
     defaultExpanded: false,
     accordionStyle: 'bottomline',
     ShowLeftIcon: true,
+    state: 'default',
     changeleftIcon: null,
     children: (
       <RdsTypography color="text.secondary">
@@ -158,7 +159,7 @@ export const CustomIcon: Story = {
       </RdsTypography>
     ),
   },
-  render: ({ title, icon, size, defaultExpanded, accordionStyle, ShowLeftIcon, changeleftIcon, children, disabled }) => {
+  render: ({ title, icon, size, defaultExpanded, accordionStyle, ShowLeftIcon, changeleftIcon, children, disabled, state }) => {
     const [expanded, setExpanded] = useState(defaultExpanded);
 
     React.useEffect(() => {
@@ -173,6 +174,7 @@ export const CustomIcon: Story = {
         disabled={disabled}
         accordionStyle={accordionStyle}
         ShowLeftIcon={ShowLeftIcon}
+        state={state}
         expanded={expanded}
         onChange={(_, isExpanded) => setExpanded(isExpanded)}
         changeleftIcon={changeleftIcon}
@@ -190,6 +192,7 @@ export const Disabled: Story = {
     defaultExpanded: false,
     accordionStyle: 'border',
     ShowLeftIcon: true,
+    state: 'default',
     changeleftIcon: null,
     children: (
       <RdsTypography color="text.secondary">
@@ -197,7 +200,7 @@ export const Disabled: Story = {
       </RdsTypography>
     ),
   },
-  render: ({ title, disabled, size, defaultExpanded, accordionStyle, ShowLeftIcon, changeleftIcon, children }) => {
+  render: ({ title, disabled, size, defaultExpanded, accordionStyle, ShowLeftIcon, changeleftIcon, children, state }) => {
     const [expanded, setExpanded] = useState(defaultExpanded);
 
     React.useEffect(() => {
@@ -211,6 +214,7 @@ export const Disabled: Story = {
         accordionStyle={accordionStyle}
         ShowLeftIcon={ShowLeftIcon}
         disabled={disabled}
+        state={state}
         expanded={expanded}
         onChange={(_, isExpanded) => setExpanded(isExpanded)}
         changeleftIcon={changeleftIcon}
@@ -227,6 +231,7 @@ export const Expanded: Story = {
     defaultExpanded: true,
     accordionStyle: 'border',
     ShowLeftIcon: true,
+    state: 'default',
     changeleftIcon: null,
     children: (
       <RdsTypography color="text.secondary">
@@ -234,7 +239,7 @@ export const Expanded: Story = {
       </RdsTypography>
     ),
   },
-  render: ({ title, size, defaultExpanded, accordionStyle, ShowLeftIcon, changeleftIcon, children, disabled }) => {
+  render: ({ title, size, defaultExpanded, accordionStyle, ShowLeftIcon, changeleftIcon, children, disabled, state }) => {
     const [expanded, setExpanded] = useState(defaultExpanded);
 
     React.useEffect(() => {
@@ -248,6 +253,7 @@ export const Expanded: Story = {
         accordionStyle={accordionStyle}
         ShowLeftIcon={ShowLeftIcon}
         disabled={disabled}
+        state={state}
         expanded={expanded}
         onChange={(_, isExpanded) => setExpanded(isExpanded)}
         changeleftIcon={changeleftIcon}
@@ -264,6 +270,7 @@ export const LongContent: Story = {
     defaultExpanded: false,
     accordionStyle: 'border',
     ShowLeftIcon: true,
+    state: 'default',
     changeleftIcon: null,
     children: (
       <RdsTypography color="text.secondary">
@@ -271,7 +278,7 @@ export const LongContent: Story = {
       </RdsTypography>
     ),
   },
-  render: ({ title, size, defaultExpanded, accordionStyle, ShowLeftIcon, changeleftIcon, children, disabled }) => {
+  render: ({ title, size, defaultExpanded, accordionStyle, ShowLeftIcon, changeleftIcon, children, disabled, state }) => {
     const [expanded, setExpanded] = useState(defaultExpanded);
 
     React.useEffect(() => {
@@ -285,6 +292,7 @@ export const LongContent: Story = {
         accordionStyle={accordionStyle}
         ShowLeftIcon={ShowLeftIcon}
         disabled={disabled}
+        state={state}
         expanded={expanded}
         onChange={(_, isExpanded) => setExpanded(isExpanded)}
         changeleftIcon={changeleftIcon}
