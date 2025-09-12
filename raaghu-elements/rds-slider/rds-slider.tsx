@@ -50,9 +50,22 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   const [sliderValue, setSliderValue] = React.useState<number | number[]>(getInitialValue());
 
   React.useEffect(() => {
-    // Handle external value changes
-    if (value !== undefined && value !== sliderValue) {
-      setSliderValue(value);
+    // Safe equality check for external `value` (handles arrays)
+    const externalValueChanged = (() => {
+      if (value === undefined) return false;
+      if (Array.isArray(value) && Array.isArray(sliderValue)) {
+        if (value.length !== sliderValue.length) return true;
+        for (let i = 0; i < value.length; i++) {
+          if (value[i] !== (sliderValue as number[])[i]) return true;
+        }
+        return false;
+      }
+      return value !== sliderValue;
+    })();
+
+    // Apply external value updates first
+    if (externalValueChanged) {
+      setSliderValue(value as number | number[]);
       return;
     }
 
@@ -85,7 +98,8 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
       const average = (sliderValue[0] + sliderValue[1]) / 2;
       setSliderValue(average);
     }
-  }, [level, value, min, max, controlType, isRangeSlider, sliderValue]);
+    // Note: intentionally omitting `sliderValue` from deps to avoid reacting to internal state changes
+  }, [level, value, min, max, controlType, isRangeSlider]);
 
   const formatValue = (val: number | number[]) => {
     if (Array.isArray(val)) {
