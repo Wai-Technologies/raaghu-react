@@ -930,15 +930,27 @@
 
 .theme-dark {
   .rds-comp-details-pane {
-    --dark-bg-primary: var(--bg-neutral-darker-default, #202020);
-   // --dark-bg-tertiary: var(--bg-neutral-medium-default, #B1B1B1);
-    --dark-text-primary: var(--txt-neutral-lighter-default, #FCFCFC);
-    --dark-text-secondary: var(--txt-neutral-medium-default, #B1B1B1);
-    --dark-border: var(--bg-neutral-dark-default, #4C4C4C);
-    --dark-accent: var(--bg-primary-medium-default, #D4BBFF);
-    --dark-accent-bg: var(--bg-primary-lighter-default, #19003E);
-    --dark-error: var(--txt-error-medium-default, #FF8980);
+    --dark-bg-primary: #1a1a1a;
+    --dark-bg-secondary: #2d2d2d;
+    --dark-bg-tertiary: #404040;
+    --dark-text-primary: #ffffff;
+    --dark-text-secondary: #b3b3b3;
+    --dark-border: #404040;
+    --dark-accent: #6366f1;
+    --dark-accent-bg: #1e1b4b;
+    --dark-error: #ef4444;
     
+    background: var(--dark-bg-primary) !important;
+    color: var(--dark-text-primary) !important;
+    box-shadow: var(--rds-elevation-2, 0 4px 24px rgba(0, 0, 0, 0.3), 0 1.5px 4px rgba(0, 0, 0, 0.2)) !important;
+    border: 1px solid var(--dark-border) !important;
+    
+    // Global text color enforcement
+    &, & * {
+      color: var(--dark-text-primary) !important;
+    }
+ 
+
     background: var(--dark-bg-primary);
     color: var(--dark-text-primary);
     box-shadow: var(--rds-elevation-2, 0 4px 24px rgba(255, 255, 255, 0.08), 0 1.5px 4px rgba(255, 255, 255, 0.04));
@@ -953,14 +965,14 @@
     &__font-name,
     &__font-label,
     &__pages-header {
-      color: var(--dark-text-primary);
+      color: var(--dark-text-primary) !important;
     }
     
     &__subtitle,
     &__agent-designation,
     &__real-estate-description,
     &__activity-icon {
-      color: var(--dark-text-secondary);
+      color: var(--dark-text-secondary) !important;
     }
     
     &__content,
@@ -974,282 +986,521 @@
     &__agent-card,
     &__real-estate-carousel,
     &__real-estate-footer,
-    &__thumbnail-content,    
+    &__thumbnail-content {
+      color: var(--dark-text-primary) !important;
+    }
+    
     &__divider,
     &__tab-buttons,
     &__section-heading-line,
     &__toolbar-divider {
-      border-color: var(--dark-border);
+      border-color: var(--dark-border) !important;
     }
     
     &__divider {
-      border-top-color: var(--dark-border);
+      border-top-color: var(--dark-border) !important;
     }
     
     &__tab-buttons {
-      border-bottom-color: var(--dark-border);
+      border-bottom-color: var(--dark-border) !important;
+      background: var(--dark-bg-primary) !important;
     }
     
     &__section-heading-line {
-      background: var(--dark-border);
+      background: var(--dark-border) !important;
     }
     
     &__toolbar-divider {
-      background: var(--dark-border);
+      background: var(--dark-border) !important;
     }
     
     &__favourite-card,
-    &__agent-card,
-    &__real-estate-carousel,
-    &__thumbnail-content,
-    &__selection-container {
-      border: 1px solid var(--dark-bg-tertiary);
+    &__agent-card {
+      background: var(--dark-bg-secondary) !important;
+      border: 1px solid var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
     }
     
     &__tab-btn {
-      color: var(--dark-text-secondary);
+      color: var(--dark-text-secondary) !important;
+      background: transparent !important;
       
       &--active {
-        color: var(--dark-accent);
-        border-bottom-color: var(--dark-accent);
+        color: var(--dark-accent) !important;
+        border-bottom-color: var(--dark-accent) !important;
       }
       
       &:hover {
-        color: var(--dark-text-primary);
+        color: var(--dark-text-primary) !important;
       }
     }
     
     &__activity-item {
-      color: var(--dark-text-primary);
+      color: var(--dark-text-primary) !important;
       
       &:hover {
-        background-color: var(--dark-bg-secondary);
+        background-color: var(--dark-bg-secondary) !important;
       }
     }
     
     &__toolbar-circle-btn,
     &__font-size-btn,
-    &__font-weight-btn,
-    &__grid-cell,
-    &__weight-cell {
-      background: var(--dark-bg-secondary);
-      border-color: var(--dark-bg-tertiary);
-      color: var(--dark-text-primary);
+    &__font-weight-btn {
+      background: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
       
       &:hover {
-        background: var(--dark-bg-tertiary);
+        background: var(--dark-bg-tertiary) !important;
       }
       
-      &.active,
-      &.selected {
-        background: var(--dark-accent);
-        color: var(--dark-accent-bg);
+      &--active,
+      &--selected {
+        background: var(--dark-accent) !important;
+        color: white !important;
       }
     }
+    
     &__icon-history,
     &__icon-edit,
     &__icon-star {
-      color: var(--dark-text-secondary);
+      color: var(--dark-text-secondary) !important;
       
       &:hover {
-        color: var(--dark-text-primary);
+        color: var(--dark-text-primary) !important;
       }
     }
     
     &__icon-delete,
     &__activity-delete {
-      color: var(--dark-error);
+      color: var(--dark-error) !important;
       
       &:hover {
-        color: var(--txt-error-light-default, #FFB3AD);
+        color: #ff6b6b !important;
       }
     }
     
     &__favourite-card {
       &--selected {
-        background: var(--dark-accent-bg);
-        border-color: var(--dark-accent);
+        background: var(--dark-bg-tertiary) !important;
+        border-color: var(--dark-accent) !important;
       }
       
       &:hover {
-        background: var(--dark-bg-tertiary);
-        border-color: var(--bg-primary-light-default, #EBDCFF);
+        background: var(--dark-bg-secondary) !important;
+        border-color: var(--dark-border) !important;
       }
     }
     
     &__favourite-edit-icon-wrapper {
-      color: var(--dark-text-secondary);
+      color: var(--dark-text-secondary) !important;
       
       &:hover {
-        color: var(--dark-text-primary);
+        color: var(--dark-text-primary) !important;
       }
     }
     
     &__favourite-card-image,
     &__thumbnail-image-square,
     &__thumbnail-img-square {
-      border-color: var(--dark-border);
+      border-color: var(--dark-border) !important;
     }
        
+    &__favourite-card-image-star {
+      background: var(--dark-bg-secondary) !important;
+      color: var(--dark-text-primary) !important;
+      box-shadow: var(--rds-elevation-1, 0 1px 4px rgba(0, 0, 0, 0.3)) !important;
+      
+      svg, i {
+        color: var(--dark-text-primary) !important;
+      }
+    }
+    
     &__thumbnail-image-square {
-      background: var(--dark-bg-secondary);
+      background: var(--dark-bg-secondary) !important;
+      
+      svg, i {
+        color: var(--dark-text-primary) !important;
+      }
     }
     
     &__agent-card {
-      box-shadow: 0 2.459px 2.459px 0 rgba(255, 255, 255, 0.10);
+      box-shadow: 0 2.459px 2.459px 0 rgba(0, 0, 0, 0.3) !important;
       
       &::before {
-        background: var(--dark-accent);
+        background: var(--dark-accent) !important;
       }
     }
     
     &__agent-badge {
-      background-color: var(--bg-primary-dark-default, #7825E9);
-      color: var(--dark-text-primary);
+      background-color: var(--dark-accent) !important;
+      color: white !important;
     }
     
     &__search-field {
       .MuiOutlinedInput-notchedOutline {
-        border-color: var(--dark-border);
+        border-color: var(--dark-border) !important;
       }
       
       .MuiInputBase-input {
-        color: var(--dark-text-primary);
-        background-color: var(--dark-bg-secondary);
+        color: var(--dark-text-primary) !important;
+        background-color: var(--dark-bg-secondary) !important;
       }
       
       .MuiInputAdornment-root {
-        color: var(--dark-text-secondary);
+        color: var(--dark-text-secondary) !important;
       }
       
       &.MuiFormControl-root {
-        background-color: var(--dark-bg-secondary);
+        background-color: var(--dark-bg-secondary) !important;
       }
       
       &:hover .MuiOutlinedInput-notchedOutline {
-        border-color: var(--dark-bg-tertiary);
+        border-color: var(--dark-bg-tertiary) !important;
       }
       
       &.Mui-focused .MuiOutlinedInput-notchedOutline {
-        border-color: var(--dark-accent);
+        border-color: var(--dark-accent) !important;
       }
     }
     
     .MuiInputBase-root {
-      background-color: var(--dark-bg-secondary);
-      border-color: var(--dark-bg-tertiary);
-      color: var(--dark-text-primary);
+      background-color: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
       
       &:hover {
-        border-color: var(--bg-neutral-light-default, #CDCDCD);
+        border-color: var(--dark-bg-tertiary) !important;
       }
       
       &.Mui-focused {
-        border-color: var(--dark-accent);
+        border-color: var(--dark-accent) !important;
       }
     }
     
     &__footer-fixed {
-      border-top: 1px solid var(--dark-border);
+      background: var(--dark-bg-primary) !important;
+      border-top: 1px solid var(--dark-border) !important;
       
       button {
-        background: var(--bg-primary-dark-default, #7825E9);
-        color: var(--dark-text-primary);
-        border-color: var(--bg-primary-dark-default, #7825E9);
+        background: var(--dark-accent) !important;
+        color: white !important;
+        border-color: var(--dark-accent) !important;
         
         &:hover {
-          background: var(--dark-accent);
-          color: var(--dark-accent-bg);
+          background: #5855eb !important;
+          border-color: #5855eb !important;
         }
         
         &.secondary {
-          background: var(--dark-bg-secondary);
-          border-color: var(--dark-bg-tertiary);
+          background: var(--dark-bg-secondary) !important;
+          border-color: var(--dark-border) !important;
+          color: var(--dark-text-primary) !important;
           
           &:hover {
-            background: var(--dark-bg-tertiary);
+            background: var(--dark-bg-tertiary) !important;
           }
         }
       }
     }
     
     &__download-button {
-      background: var(--bg-primary-dark-default, #7825E9);
-      color: var(--dark-text-primary);
-      border-color: var(--bg-primary-dark-default, #7825E9);
+      background: var(--dark-accent) !important;
+      color: white !important;
+      border-color: var(--dark-accent) !important;
       
       &:hover {
-        background: var(--dark-accent);
-        color: var(--dark-accent-bg);
+        background: #5855eb !important;
+        border-color: #5855eb !important;
       }
     }
     
-    &__figma-button {
-      background-color: var(--dark-bg-primary);
-      border: 1px solid var(--dark-border);
-      color: var(--dark-text-primary);
+    &__figma-button,
+    &__figma-ui-kit-button {
+      background-color: var(--dark-bg-secondary) !important;
+      border: 1px solid var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
       
       &:hover {
-        background-color: var(--dark-bg-tertiary);
-        border-color: var(--dark-bg-tertiary);
+        background-color: var(--dark-bg-tertiary) !important;
+        border-color: var(--dark-bg-tertiary) !important;
       }
     }
     
     &__storybook-button {
-      background-color: var(--dark-bg-primary);
-      border: 1px solid var(--dark-border);
-      color: var(--dark-text-primary);
+      background-color: var(--dark-bg-secondary) !important;
+      border: 1px solid var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
       
       &:hover {
-        background-color: var(--dark-bg-tertiary);
-        border-color: var(--dark-bg-tertiary);
+        background-color: var(--dark-bg-tertiary) !important;
+        border-color: var(--dark-bg-tertiary) !important;
       }
     }
     
     &__badge-item {
-      background: var(--bg-primary-light-default, #EBDCFF);
-      color: var(--bg-primary-dark-default, #7825E9);
+      background: var(--dark-bg-tertiary) !important;
+      color: var(--dark-text-primary) !important;
+      border: 1px solid var(--dark-border) !important;
     }
     
     &__accordion-list {
       .accordion-item {
-        background: var(--dark-bg-secondary);
-        border-color: var(--dark-bg-tertiary);
+        background: var(--dark-bg-secondary) !important;
+        border-color: var(--dark-border) !important;
         
         .accordion-header {
-          background: var(--dark-bg-secondary);
-          color: var(--dark-text-primary);
+          background: var(--dark-bg-secondary) !important;
+          color: var(--dark-text-primary) !important;
         }
         
         .accordion-body {
-          background: var(--dark-bg-primary);
-          color: var(--dark-text-primary);
+          background: var(--dark-bg-primary) !important;
+          color: var(--dark-text-primary) !important;
         }
       }
     }
     
     &__palette-grid {      
       .palette-item {
-        border: 1px solid var(--dark-bg-tertiary);
+        border: 1px solid var(--dark-border) !important;
         
         &:hover {
-          border-color: var(--dark-accent);
+          border-color: var(--dark-accent) !important;
         }
       }
     }
+    
     &__section-heading-text {
-      color: var(--dark-text-primary);
+      color: var(--dark-text-primary) !important;
     }
     
     &__pages-header {
-      border-bottom: 1px solid var(--dark-border);
+      color: var(--dark-text-primary) !important;
+      border-bottom: 1px solid var(--dark-border) !important;
+    }
+    
+    &__history-icon {
+      background: var(--dark-bg-secondary) !important;
+      border: 1px solid var(--dark-border) !important;
+      
+      svg {
+        color: var(--dark-text-secondary) !important;
+      }
+    }
+    
+    &__custom-tab-underline {
+      background: var(--dark-accent) !important;
+    }
+    
+    &__real-estate-footer-fixed {
+      background: var(--dark-bg-primary) !important;
+      border-top: 1px solid var(--dark-border) !important;
+    }
+    
+    // Additional elements that need dark theme styling
+    &__guest-separator {
+      color: var(--dark-text-secondary) !important;
+    }
+    
+    &__action-button {
+      background: var(--dark-bg-secondary) !important;
+      border: 1px solid var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
+      
+      &:hover {
+        background: var(--dark-bg-tertiary) !important;
+      }
+    }
+    
+    // Tab pane content
+    &__tab-pane {
+      background: var(--dark-bg-primary) !important;
+      color: var(--dark-text-primary) !important;
+    }
+    
+    // Search container
+    &__search-container {
+      background: var(--dark-bg-primary) !important;
+    }
+    
+    // Counter controls
+    .rds-counter__controls {
+      background: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
+    }
+    
+    // Checkbox styling
+    &__favourite-checkbox {
+      accent-color: var(--dark-accent) !important;
+    }
+    
+    // Ensure all text elements are visible
+    * {
+      color: inherit !important;
+    }
+    
+    // Form elements and inputs
+    input, textarea, select {
+      background: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
+      
+      &::placeholder {
+        color: var(--dark-text-secondary) !important;
+      }
+    }
+    
+    // Any remaining text elements
+    p, span, div, label, h1, h2, h3, h4, h5, h6 {
+      color: var(--dark-text-primary) !important;
+    }
+    
+    // Material UI specific overrides
+    .MuiTypography-root {
+      color: var(--dark-text-primary) !important;
+    }
+    
+    .MuiButton-root {
+     // background: var(--rds-color-primary, #1976d2) !important;
+      color: var(--dark-text-primary) !important;
+      border-color: var(--dark-border) !important;
+      
+      &:hover {
+        background: var(--dark-bg-tertiary) !important;
+      }
+    }
+    
+    // Card content
+    .card, .card-body, .card-header {
+      background: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
+    }
+    
+    // Bootstrap components
+    .btn {
+      background: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
+      
+      &:hover {
+        background: var(--dark-bg-tertiary) !important;
+      }
+      
+      &.btn-primary {
+        background: var(--dark-accent) !important;
+        border-color: var(--dark-accent) !important;
+        color: white !important;
+      }
+    }
+    
+    // Image overlays and captions
+    .image-overlay, .image-caption {
+      background: rgba(26, 26, 26, 0.8) !important;
+      color: var(--dark-text-primary) !important;
+    }
+    
+    // Carousel specific styling
+    .carousel, .carousel-inner, .carousel-item {
+      background: var(--dark-bg-primary) !important;
+    }
+    
+    .carousel-caption {
+      background: rgba(26, 26, 26, 0.8) !important;
+      color: var(--dark-text-primary) !important;
+    }
+    
+    // List items and navigation
+    li, ul, ol {
+      color: var(--dark-text-primary) !important;
+    }
+    
+    // Links
+    a {
+      color: var(--dark-accent) !important;
+      
+      &:hover {
+        color: #8b86f7 !important;
+      }
+    }
+    
+    // Dropdown and menu items
+    .dropdown-menu, .menu-item {
+      background: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
+    }
+    
+    // Modal and popup content
+    .modal-content, .popup-content {
+      background: var(--dark-bg-primary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
+    }
+    
+    // Table elements
+    table, th, td {
+      background: var(--dark-bg-secondary) !important;
+      border-color: var(--dark-border) !important;
+      color: var(--dark-text-primary) !important;
+    }
+    
+    // Progress bars and indicators
+    .progress, .progress-bar {
+      background: var(--dark-bg-secondary) !important;
+    }
+    
+    .progress-bar {
+      background: var(--dark-accent) !important;
+    }
+    
+    // Icon and SVG styling
+    svg, i, .icon {
+      color: var(--dark-text-primary) !important;
+      fill: var(--dark-text-primary) !important;
+    }
+    
+    // Star icons specifically
+    .fa-star, .star-icon, [class*="star"] {
+      color: #ffd700 !important;
+      fill: #ffd700 !important;
+    }
+    
+    // Edit icons
+    .fa-edit, .edit-icon, [class*="edit"] {
+      color: var(--dark-text-secondary) !important;
+      
+      &:hover {
+        color: var(--dark-text-primary) !important;
+      }
+    }
+    
+    // Delete icons
+    .fa-trash, .delete-icon, [class*="delete"] {
+      color: var(--dark-error) !important;
+    }
+    
+    // Ensure button text is visible
+    button {
+      color: var(--dark-text-primary) !important;
+      
+      &.btn-primary {
+        color: white !important;
+      }
     }
   }
   
   #details-pane-container .detail-pane-container,
   #detail-pane-container-2 .detail-pane-container {
-    background-color: var(--bg-neutral-darker-default, #202020) !important;
-    border: 1px solid var(--bg-neutral-dark-default, #4C4C4C) !important;
+    background-color: var(--dark-bg-primary) !important;
+    border: 1px solid var(--dark-border) !important;
+    color: var(--dark-text-primary) !important;
+    
+    * {
+      color: var(--dark-text-primary) !important;
+    }
   }
 }
   
@@ -1289,6 +1540,28 @@
     &__pages-header { padding: var(--rds-spacing-sm, 12px) !important; }
     &__download-button-container { padding: 0 var(--rds-spacing-md, 12px) var(--rds-spacing-md, 12px) !important; }
     &__thumbnail-img-square { width: 100% !important; height: auto !important; object-fit: cover; }
+  }
+  
+  // Dark theme mobile adjustments
+  .theme-dark .rds-comp-details-pane {
+    scrollbar-color: #666 #2d2d2d !important;
+    
+    &::-webkit-scrollbar-track {
+      background: #2d2d2d !important;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #666 !important;
+      border: 2px solid #2d2d2d !important;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+      background: #888 !important;
+    }
+    
+    &::-webkit-scrollbar-thumb:active {
+      background: #aaa !important;
+    }
   }
 }
 
