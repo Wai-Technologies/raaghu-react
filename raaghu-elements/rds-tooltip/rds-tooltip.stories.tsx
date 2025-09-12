@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsTooltip from './rds-tooltip';
 import { Button, IconButton } from '@mui/material';
 import {Delete, Help } from '@mui/icons-material';
@@ -41,8 +41,9 @@ const meta: Meta<typeof RdsTooltip> = {
 };
 
 export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Default = {
+export const Default: Story = {
   args: {
     label: 'This is a tooltip',
     children:<RdsButton
@@ -61,8 +62,13 @@ export const Default = {
     wrapper: true,
   },
 };
+Default.parameters = { 
+  controls: { 
+    include: ['label', 'style', 'arrow', 'wrapper'] 
+  } 
+};
 
-export const OnIconButton = {
+export const OnIconButton: Story = {
   args: {
     label: 'Delete item',
     children:<RdsButton
@@ -82,8 +88,13 @@ export const OnIconButton = {
     wrapper: true,
   },
 };
+OnIconButton.parameters = { 
+  controls: { 
+    include: ['label', 'style', 'arrow', 'wrapper'] 
+  } 
+};
 
-export const WithArrow = {
+export const WithArrow: Story = {
   args: {
     label: 'Tooltip with arrow',
     arrow: true,
@@ -102,8 +113,13 @@ export const WithArrow = {
     wrapper: true,
   },
 };
+WithArrow.parameters = { 
+  controls: { 
+    include: ['label', 'style', 'arrow', 'wrapper'] 
+  } 
+};
 
-export const Different_Placements = {
+export const Different_Placements: Story = {
   args: {
     label: 'Top placement',
     style: 'top',
@@ -121,8 +137,13 @@ export const Different_Placements = {
     wrapper: true
   },
 };
+Different_Placements.parameters = { 
+  controls: { 
+    include: ['label', 'style', 'arrow', 'wrapper'] 
+  } 
+};
 
-export const LongText = {
+export const LongText: Story = {
   args: {
     label: 'This is a very long tooltip text that might wrap to multiple lines depending on the screen size',
     children:<RdsButton
@@ -141,4 +162,9 @@ export const LongText = {
     style: 'top',
     wrapper: true
   },
+};
+LongText.parameters = { 
+  controls: { 
+    include: ['label', 'style', 'arrow', 'wrapper'] 
+  } 
 };
