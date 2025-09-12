@@ -45,7 +45,7 @@
     padding: 6px 10px;
     font-size: 14px;
     transition: all 0.2s ease;
-    color: var(--rds-color-on-surface-variant, #171717);
+    //color: var(--rds-color-on-surface-variant, #171717);
     
     &:focus-visible {
       outline: 2px solid var(--rds-color-primary, #1976d2);
@@ -643,8 +643,10 @@
     background: #000; /* pure black as in reference */
     border: 1px solid rgba(255,255,255,0.22);
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-    overflow: hidden;
+   box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+   /* allow dropdowns to escape the container when they are positioned absolutely
+     Use visible overflow so the dropdown isn't clipped in dark theme */
+   overflow: visible;
 
     &::before {
       content: "";
@@ -657,9 +659,23 @@
   }
  
   &__dropdown-menu {
-    background: #000;
+  //  background: #000;
     border: 1px solid rgba(255,255,255,0.22);
     color: var(--rds-color-on-surface);
+    /* Ensure the dropdown floats above other UI and is fully visible */
+    z-index: 9999;
+    /* use a slight elevation so shadows render over adjacent elements */
+   // box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  }
+
+  /* If the button is near the edge, allow the menu to render outside parent by
+     positioning it fixed instead of absolute when needed. Consumers can toggle
+     a modifier class `--fixed` on the menu when computing placement in JS. */
+  &__dropdown-menu--fixed {
+    position: fixed;
+    top: auto;
+    left: auto;
+    transform: none !important;
   }
 
   /* swatch tiles: subtle light outline so they stand out on black */
@@ -675,6 +691,12 @@
     outline-offset: 2px;
   }
 }
-
-
+ [data-theme="dark"] {
+  .rds-comp-color-picker { 
+    span , .MuiSvgIcon-root{
+    color: #f6f4f4 !important;
+    fill: #efe8e8 !important;
+  }
+  }
+}
 
