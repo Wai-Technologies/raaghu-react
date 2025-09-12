@@ -219,7 +219,13 @@ function RangeCalendar({
         minDate={minDate}
         maxDate={maxDate}
         slots={{ day: renderDaySlot }}
-        views={['day']}
+        views={['year', 'month', 'day']}
+        displayWeekNumber
+        slotProps={{
+          calendarHeader: {
+            format: 'MMMM YYYY',
+          },
+        }}
       />
       {multiMonth && (
         <DateCalendar
@@ -229,7 +235,13 @@ function RangeCalendar({
           minDate={minDate}
           maxDate={maxDate}
           slots={{ day: renderDaySlot }}
-          views={['day']}
+          views={['year', 'month', 'day']}
+          displayWeekNumber
+          slotProps={{
+            calendarHeader: {
+              format: 'MMMM YYYY',
+            },
+          }}
         />
       )}
     </Box>
@@ -252,26 +264,73 @@ function RangeTime({
   maxTime?: Dayjs;
 }) {
   const [start, end] = value;
+  
+  // Handle start time change with validation
+  const handleStartTimeChange = (newStart: Dayjs | null) => {
+    onChange([newStart, end]);
+  };
+  
+  // Handle end time change with validation
+  const handleEndTimeChange = (newEnd: Dayjs | null) => {
+    onChange([start, newEnd]);
+  };
+  
+  // Calculate dynamic minTime for end time picker based on start time
+  // Allow selecting the same time or any time after start time
+  const endMinTime = React.useMemo(() => {
+    if (start) {
+      return start; // Allow same time or later
+    }
+    return minTime;
+  }, [start, minTime]);
+  
+  // Calculate dynamic maxTime for start time picker based on end time
+  // Allow selecting the same time or any time before end time
+  const startMaxTime = React.useMemo(() => {
+    if (end) {
+      return end; // Allow same time or earlier
+    }
+    return maxTime;
+  }, [end, maxTime]);
+  
   return (
     <Stack direction="row" spacing={2}>
-      <TimeClock
-        value={start}
-        onChange={(v) => onChange([v, end])}
-        ampm
-        minutesStep={1}
-        views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
-        minTime={minTime}
-        maxTime={maxTime}
-      />
-      <TimeClock
-        value={end}
-        onChange={(v) => onChange([start, v])}
-        ampm
-        minutesStep={1}
-        views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
-        minTime={minTime}
-        maxTime={maxTime}
-      />
+      <Box flex={1}>
+        <TimePicker
+          label="Start Time"
+          value={start}
+          onChange={handleStartTimeChange}
+          ampm={true}
+          views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
+          timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
+          minTime={minTime}
+          maxTime={startMaxTime} // Use end time as maximum for start time (allows same time)
+          slotProps={{
+            textField: {
+              size: 'medium',
+              fullWidth: true,
+            },
+          }}
+        />
+      </Box>
+      <Box flex={1}>
+        <TimePicker
+          label="End Time"
+          value={end}
+          onChange={handleEndTimeChange}
+          ampm={true}
+          views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
+          timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
+          minTime={endMinTime} // Use start time as minimum for end time (allows same time)
+          maxTime={maxTime}
+          slotProps={{
+            textField: {
+              size: 'medium',
+              fullWidth: true,
+            },
+          }}
+        />
+      </Box>
     </Stack>
   );
 }
@@ -522,6 +581,7 @@ export default function RdsCompDatePicker({
             format={format || (showSeconds ? 'HH:mm:ss a' : 'HH:mm a')}
             views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
             ampm={true}
+            timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
           />
         );
 
@@ -532,12 +592,32 @@ export default function RdsCompDatePicker({
             format={format || (showSeconds ? 'MM/DD/YYYY HH:mm:ss a' : 'MM/DD/YYYY HH:mm a')}
             ampm={true}
             views={showSeconds ? ['year', 'month', 'day', 'hours', 'minutes', 'seconds'] : ['year', 'month', 'day', 'hours', 'minutes']}
-            timeSteps={{ hours: 1, minutes: 1, seconds: showSeconds ? 1 : undefined }}
+            timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
+            displayWeekNumber
+            slotProps={{
+              ...singlePickerProps.slotProps,
+              calendarHeader: {
+                format: 'MMMM YYYY',
+              },
+              day: {
+                ...singlePickerProps.slotProps?.day,
+              },
+            }}
+          />
+        );
+
+      case 'timerange':
+        return (
+          <RangeTime
+            value={rangeValue}
+            onChange={handleRangeChange}
+            showSeconds={showSeconds}
+            minTime={minTime}
+            maxTime={maxTime}
           />
         );
 
       case 'daterange':
-      case 'timerange':
       case 'datetimerange':
         return renderRangeField();
 
@@ -577,6 +657,15 @@ export default function RdsCompDatePicker({
         return (
           <DatePicker
             {...singlePickerProps}
+            views={['year', 'month', 'day']}
+            openTo="day"
+            displayWeekNumber
+            slotProps={{
+              ...singlePickerProps.slotProps,
+              calendarHeader: {
+                format: 'MMMM YYYY',
+              },
+            }}
           />
         );
     }
