@@ -745,3 +745,9 @@
    color: var(--rds-text-primary, #ffffff);
 }
 }
+
+[data-theme="dark"] {
+.rds-card__indicator-icon {
+    background-color: var(--rds-color-gray-700, #969696) !important;
+}
+}
