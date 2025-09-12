@@ -141,17 +141,17 @@ export const TimeRangePicker: Story = {
     }
 } satisfies Story;
 
-export const DateTimeRangePicker: Story = {
-    args: {
-        variant: 'datetimerange',
-        placeholder: 'Start date & time - End date & time',
-        size: 'small',
-        showSeconds: true,
-    },
-    render: (args) => (
-        <RdsCompDatePicker
-            {...args}
-            minDate={dayjs('1900-01-01')}
-        />
-    ),
-} satisfies Story;
+// export const DateTimeRangePicker: Story = {
+//     args: {
+//         variant: 'datetimerange',
+//         placeholder: 'Start date & time - End date & time',
+//         size: 'small',
+//         showSeconds: true,
+//     },
+//     render: (args) => (
+//         <RdsCompDatePicker
+//             {...args}
+//             minDate={dayjs('1900-01-01')}
+//         />
+//     ),
+// } satisfies Story;
