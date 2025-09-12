@@ -31,6 +31,11 @@ export interface RdsCompKanbanBoardProps {
   allowAddingNewCard?: boolean;
   allowAddingNewSubCard?: boolean;
   allowAddingDynamicData?: boolean;
+  avatarData?: Array<{
+    title: string;
+    subText?: string;
+    src?: string;
+  }>;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   onSubCardOption?: (option: any, subCardIndex: number, subCardId: any) => void;
   onCardOption?: (option: any, cardIndex: number, cardId: any, cardKey: string) => void;

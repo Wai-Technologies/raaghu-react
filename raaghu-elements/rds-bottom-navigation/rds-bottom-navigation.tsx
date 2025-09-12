@@ -4,6 +4,7 @@ import {
   BottomNavigationAction as MuiBottomNavigationAction,
   BottomNavigationProps
 } from '@mui/material';
+import './rds-bottom-navigation.scss';
 
 export interface RdsBottomNavigationItem {
   label: string;
@@ -38,22 +39,24 @@ const RdsBottomNavigation: React.FC<RdsBottomNavigationProps> = ({
   };
 
   return (
-    <MuiBottomNavigation
-      value={value || activeValue}
-      onChange={handleChange}
-      {...props}
-    >
-      {items.map((item) => (
-        <MuiBottomNavigationAction
-          key={item.value}
-          label={showLabels ? item.label : undefined}  
-          value={item.value}
-          icon={item.icon}
-          disabled={item.disabled}
-          showLabel={showLabels}
-        />
-      ))}
-    </MuiBottomNavigation>
+    <div className="rds-bottom-navigation">
+      <MuiBottomNavigation
+        value={value || activeValue}
+        onChange={handleChange}
+        {...props}
+      >
+        {items.map((item) => (
+          <MuiBottomNavigationAction
+            key={item.value}
+            label={showLabels ? item.label : undefined}  
+            value={item.value}
+            icon={item.icon}
+            disabled={item.disabled}
+            showLabel={showLabels}
+          />
+        ))}
+      </MuiBottomNavigation>
+    </div>
   );
 };
 
