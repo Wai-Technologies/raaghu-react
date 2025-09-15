@@ -624,10 +624,25 @@
       background-color: #fff;
       color: #2196F3;
       font-weight: 600;
+      
       &:not(.Mui-selected) {
         background-color: #fff;
         color: #2196F3;
         border-radius: 4px;
+      }
+      
+      // When today's date is selected, ensure white text color
+      &.Mui-selected {
+        background-color: #2196F3 !important;
+        color: #fff !important;
+        border: 2px solid #2196F3 !important;
+        font-weight: 600 !important;
+        
+        &:hover {
+          background-color: #1976d2 !important;
+          color: #fff !important;
+          border: 2px solid #1976d2 !important;
+        }
       }
     }
   }
@@ -914,7 +929,22 @@
       color: var(--rds-color-primary, #2196F3) !important;
       
       &:not(.Mui-selected) {
-        background-color: transparent !important;
+        // background-color: transparent !important;
+        color: var(--rds-color-primary, #2196F3) !important;
+      }
+      
+      // When today's date is selected, ensure white text color
+      &.Mui-selected {
+        background-color: var(--rds-color-primary, #2196F3) !important;
+        color: var(--rds-color-on-primary, #fff) !important;
+        border: 2px solid var(--rds-color-primary, #2196F3) !important;
+        font-weight: 600 !important;
+        
+        &:hover {
+          background-color: var(--rds-color-primary-dark, #1976d2) !important;
+          color: var(--rds-color-on-primary, #fff) !important;
+          border: 2px solid var(--rds-color-primary-dark, #1976d2) !important;
+        }
       }
     }
     
@@ -933,75 +963,92 @@
   }
 }
 
-// Global styles to hide Material-UI X Pro watermarks
-/* Hide all possible watermark variations with maximum specificity but preserve input functionality */
-// [class*="watermark"]:not(.MuiTextField-root):not(.MuiInputBase-root):not(.MuiFormControl-root):not(.MuiInputLabel-root),
-// [data-testid*="watermark"]:not(.MuiTextField-root):not(.MuiInputBase-root):not(.MuiFormControl-root),
-// [class*="evaluation"]:not(.MuiTextField-root):not(.MuiInputBase-root):not(.MuiFormControl-root),
-// [data-testid*="evaluation"]:not(.MuiTextField-root):not(.MuiInputBase-root):not(.MuiFormControl-root),
-// .MuiDataGrid-watermark,
-// div[class*="MuiDataGrid-watermark"],
-// span[class*="MuiDataGrid-watermark"],
-// .MuiTypography-root[title*="MUI X"]:not(.MuiInputLabel-root),
-// .MuiTypography-root[title*="evaluation"]:not(.MuiInputLabel-root),
-// div[title*="MUI X"]:not([class*="MuiTextField"]):not([class*="MuiInput"]),
-// span[title*="MUI X"]:not([class*="MuiTextField"]):not([class*="MuiInput"]),
-// *[title*="Material-UI X"]:not([class*="MuiTextField"]):not([class*="MuiInput"]),
-// *[title*="evaluation"]:not([class*="MuiTextField"]):not([class*="MuiInput"]) {
-//   display: none !important;
-//   visibility: hidden !important;
-//   opacity: 0 !important;
-//   height: 0 !important;
-//   width: 0 !important;
-//   overflow: hidden !important;
-//   position: absolute !important;
-//   left: -9999px !important;
-//   top: -9999px !important;
-//   z-index: -1 !important;
-// }
+.css-1ym3hin-MuiList-root-MuiMultiSectionDigitalClockSection-root::after,
+.css-xhmb5i-MuiList-root-MuiMultiSectionDigitalClockSection-root::after {
+    display: inline !important;
+}
 
-/* Hide watermarks in all MUI picker components but preserve input functionality */
-// .MuiPickersLayout-root,
-// .MuiDateCalendar-root,
-// .MuiPickersPopper-root,
-// .MuiDateRangePickerCalendar-root,
-// .MuiPickersCalendarHeader-root {
-//   /* Remove any background watermarks */
-//   &::before,
-//   &::after {
-//     content: none !important;
-//     display: none !important;
-//   }
-  
-//   /* Hide watermark text elements with higher specificity but preserve labels */
-//   .MuiTypography-root {
-//     &[class*="watermark"]:not(.MuiInputLabel-root),
-//     &[data-testid*="watermark"]:not(.MuiInputLabel-root),
-//     &[title*="MUI X"]:not(.MuiInputLabel-root),
-//     &[title*="evaluation"]:not(.MuiInputLabel-root) {
-//       display: none !important;
-//       visibility: hidden !important;
-//     }
-//   }
-  
-//   /* Hide evaluation notice but preserve input elements */
-//   div[class*="evaluation"]:not([class*="MuiTextField"]):not([class*="MuiInput"]),
-//   div[data-testid*="evaluation"]:not([class*="MuiTextField"]):not([class*="MuiInput"]),
-//   span[class*="evaluation"]:not([class*="MuiTextField"]):not([class*="MuiInput"]),
-//   p[class*="evaluation"]:not([class*="MuiTextField"]):not([class*="MuiInput"]) {
-//     display: none !important;
-//     visibility: hidden !important;
-//   }
-// }
+// Time picker dropdown font size reduction
+.MuiMultiSectionDigitalClock-root {
+  .MuiMultiSectionDigitalClockSection-root {
+    .MuiMenuItem-root {
+      font-size: 0.8rem !important; // Reduced font size
+      min-height: 32px !important; // Reduced height
+      padding: 4px 8px !important; // Reduced padding
+    }
+  }
+}
 
-// /* Specific targeting for common watermark patterns but preserve input functionality */
-// body {
-//   [class*="watermark"]:not(.MuiTextField-root):not(.MuiInputBase-root):not(.MuiFormControl-root),
-//   [data-testid*="watermark"]:not(.MuiTextField-root):not(.MuiInputBase-root):not(.MuiFormControl-root),
-//   [title*="MUI X"]:not(.MuiTextField-root):not(.MuiInputBase-root):not(.MuiFormControl-root),
-//   [title*="evaluation"]:not(.MuiTextField-root):not(.MuiInputBase-root):not(.MuiFormControl-root) {
-//     display: none !important;
-//     visibility: hidden !important;
-//     opacity: 0 !important;
-//   }
-// }
+// Specific styles for time range picker component
+.rds-date-picker--timerange {
+  .MuiStack-root {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    
+    .MuiBox-root {
+      flex: 1;
+      min-width: 0;
+      
+      .MuiFormControl-root {
+        width: 100%;
+        min-width: 160px;
+        max-width: none;
+      }
+    }
+  }
+  
+  // Ensure proper spacing and layout for time range inputs
+  .MuiFormControl-root {
+    margin-bottom: 0;
+  }
+  
+  // Reduce font size in digital clock dropdowns
+  .MuiPickersPopper-root {
+    .MuiMultiSectionDigitalClock-root {
+      .MuiMultiSectionDigitalClockSection-root {
+        width: auto;
+        min-width: 60px;
+        
+        .MuiMenuItem-root {
+          font-size: 0.75rem !important;
+          min-height: 28px !important;
+          padding: 2px 6px !important;
+          line-height: 1.2;
+        }
+        
+        .MuiList-root {
+          padding: 4px 0;
+        }
+      }
+    }
+  }
+}
+
+// Global styles for all time pickers
+.MuiPickersPopper-root {
+  .MuiMultiSectionDigitalClock-root {
+    .MuiMultiSectionDigitalClockSection-root {
+      .MuiMenuItem-root {
+        font-size: 0.8rem !important;
+        min-height: 30px !important;
+        padding: 3px 7px !important;
+        
+        &:hover {
+          background-color: var(--rds-color-primary-hover, #E3F2FD);
+          color: var(--rds-color-primary, #1976d2);
+        }
+        
+        &.Mui-selected {
+          background-color: var(--rds-color-primary, #1976d2);
+          color: var(--rds-color-on-primary, white);
+          font-weight: 600;
+        }
+      }
+      
+      .MuiList-root {
+        padding: 2px 0;
+      }
+    }
+  }
+}

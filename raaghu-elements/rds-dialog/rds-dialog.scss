@@ -138,12 +138,14 @@
   // Dialog buttons for dark theme
   &__button {
     background-color: transparent !important;
-    color: var(--rds-color-primary, #7e2eef) !important;
+    /* Keep dialog buttons neutral in dark theme; let specific variants control color */
+    color: var(--rds-text-secondary, #cccccc) !important;
     border: none !important;
-    
+
     &:hover {
-      background-color: var(--rds-color-primary, #7e2eef) !important;
-      color: var(--rds-primary-contrast-text, #ffffff) !important;
+      /* use neutral hover background rather than forcing primary purple */
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+      color: var(--rds-text-primary, #ffffff) !important;
     }
     
     &:focus {
@@ -153,23 +155,24 @@
     
     // Primary button variant
     &__primary {
-      background-color: var(--rds-color-primary, #1976d2) !important;
+      /* Use the button component's primary variables so hover follows global button theme */
+      background-color: var(--rds-button-primary-bg, #1976d2) !important;
       color: var(--rds-primary-contrast-text, #ffffff) !important;
       border: none !important;
-      
+
       &:hover {
-        background-color: var(--rds-color-primary-dark, #4f00a6) !important;
+        background-color: var(--rds-button-primary-bg-hover, #1565c0) !important;
       }
     }
     
     // Secondary button variant
     &__secondary {
       background-color: transparent !important;
-      color: var(--rds-color-primary, #7e2eef) !important;
+      color: var(--rds-button-secondary-text, #1976d2) !important;
       border: none !important;
-      
+
       &:hover {
-        background-color: var(--rds-color-primary, #7e2eef) !important;
+        background-color: var(--rds-button-secondary-bg-hover, rgba(25,118,210,0.04)) !important;
         color: var(--rds-primary-contrast-text, #ffffff) !important;
       }
     }

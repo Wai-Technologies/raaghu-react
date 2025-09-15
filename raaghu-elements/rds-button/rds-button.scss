@@ -214,6 +214,10 @@
   &__rectangle {
     border-radius: var(--rds-border-radius-sm) !important;
   }
+
+  .text-light {
+   color: var(--rds-button-text-color, #1976d2) !important;
+ }
 }
 
 @keyframes rds-button-spin {
@@ -229,7 +233,7 @@
 body.theme-dark .rds-button,
 body[data-theme="dark"] .rds-button,
 .theme-dark .rds-button {
-  color: var(--rds-button-primary-text, #ffffff);
+  // color: var(--rds-button-primary-text, #ffffff);
 }
 
 .rds-theme--dark .rds-button__primary,
@@ -247,7 +251,7 @@ body[data-theme="dark"] .rds-button__secondary,
 body.theme-dark .rds-button__text,
 body[data-theme="dark"] .rds-button__text,
 .theme-dark .rds-button__text {
-  color: var(--rds-button-primary-text, #ffffff); 
+  // color: var(--rds-button-primary-text, #ffffff); 
 }
 
 // Ensure transparent (text) style keeps primary color in dark theme when primary selected
@@ -255,7 +259,7 @@ body[data-theme="dark"] .rds-button__text,
 body.theme-dark .rds-button__text.MuiButton-textPrimary,
 body[data-theme="dark"] .rds-button__text.MuiButton-textPrimary,
 .theme-dark .rds-button__text.MuiButton-textPrimary {
-  color: var(--rds-button-text-color, #1976d2) !important;
+  // color: var(--rds-button-text-color, #1976d2) !important;
 }
 
 // Dark theme: show primary (brand) color for transparent (text) style when primary color is selected
@@ -263,5 +267,5 @@ body[data-theme="dark"] .rds-button__text.MuiButton-textPrimary,
 body.theme-dark .rds-button.MuiButton-textPrimary,
 body[data-theme="dark"] .rds-button.MuiButton-textPrimary,
 .theme-dark .rds-button.MuiButton-textPrimary {
-  color: var(--rds-button-text-color, #1976d2 !important); // primary brand color
+  // color: var(--rds-button-text-color, #1976d2 !important); // primary brand color
 }

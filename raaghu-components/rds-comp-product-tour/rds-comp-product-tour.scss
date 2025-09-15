@@ -397,19 +397,11 @@
     color: #111827 !important;
     margin-bottom: 16px !important;
     text-align: left;
-
-    .theme-dark & {
-      color: #ffffff !important;
-    }
   }
 
   &__animation-desc {
     color: #6b7280 !important;
     font-size: 16px !important;
-
-    .theme-dark & {
-      color: #b7bcd8 !important;
-    }
   }
 
   &__animation-navigation {
@@ -544,7 +536,6 @@
     margin-right: -5px;
     padding: 5px 10px;
     cursor: pointer;
-    color: #666 !important;
     max-width: none;
     min-width: auto;
     white-space: normal;
@@ -954,13 +945,15 @@
   .rds-comp-product-tour__title,
   .rds-comp-product-tour__form-subtitle,
   .rds-comp-product-tour__form-title,
-  .rds-comp-product-tour__carousel-title {
+  .rds-comp-product-tour__carousel-title,
+  .rds-comp-product-tour__animation-title {
     color: #ffffff !important;
   }
   // Subtitles / descriptions
   .rds-comp-product-tour__desc,
   .rds-comp-product-tour__form-description,
-  .rds-comp-product-tour__carousel-desc {
+  .rds-comp-product-tour__carousel-desc,
+  .rds-comp-product-tour__animation-desc {
     color: #b7bcd8 !important;
   }
 
@@ -989,13 +982,66 @@
   }
 
   .rds-comp-product-tour__form-input-container {
+    /* Force consistent filled surface for selects, autocompletes, inputs, textareas */
     .rds-select,
     .rds-autocomplete__textfield,
+    .rds-input,
+    textarea,
     .rds-select .MuiInputBase-root,
-    .rds-autocomplete__textfield .MuiInputBase-root {
+    .rds-autocomplete__textfield .MuiInputBase-root,
+    .rds-input .MuiInputBase-root,
+    textarea.MuiInputBase-root {
       background-color: #424242 !important; /* filled surface */
       color: #ffffff !important;
-      border-radius: 6px;
+      border-radius: 6px !important;
+    }
+
+    /* Target MUI Outlined variant internals to ensure outlines and container match */
+    .rds-autocomplete__textfield.MuiFormControl-root,
+    .rds-autocomplete__textfield .MuiOutlinedInput-root,
+    .rds-autocomplete__textfield .MuiInputBase-root,
+    .rds-input .MuiOutlinedInput-root,
+    .rds-select .MuiOutlinedInput-root,
+    textarea.MuiOutlinedInput-root {
+      background-color: #424242 !important;
+      color: #ffffff !important;
+      border-radius: 6px !important;
+    }
+
+    /* Input placeholder and text color */
+    .rds-autocomplete__textfield input::placeholder,
+    .rds-autocomplete__textfield input::-webkit-input-placeholder,
+    .rds-autocomplete__textfield input::-moz-placeholder,
+    .rds-autocomplete__textfield input:-ms-input-placeholder,
+    .rds-input input::placeholder,
+    textarea::placeholder {
+      color: #9e9e9e !important;
+      opacity: 1 !important;
+    }
+  }
+
+  /* Ensure textareas in the form get the same filled surface as inputs */
+  .rds-comp-product-tour__form-textarea-container {
+    /* Support both RdsTextArea and RdsInput used as multiline (rds-input) */
+    .rds-textarea,
+    .rds-input,
+    textarea,
+    .rds-textarea .MuiInputBase-root,
+    .rds-input .MuiInputBase-root,
+    textarea.MuiInputBase-root,
+    .rds-textarea .MuiOutlinedInput-root,
+    .rds-input .MuiOutlinedInput-root,
+    textarea.MuiOutlinedInput-root {
+      background-color: #424242 !important;
+      color: #ffffff !important;
+      border-radius: 6px !important;
+    }
+
+    .rds-input textarea::placeholder,
+    textarea::placeholder,
+    .rds-textarea textarea::placeholder {
+      color: #9e9e9e !important;
+      opacity: 1 !important;
     }
   }
 }
