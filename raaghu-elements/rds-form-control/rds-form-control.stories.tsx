@@ -38,14 +38,15 @@ type Story = StoryObj<typeof meta>;
 
 export const WithTextField: Story = {
   args: {
-    children: (
-      <>
-        <FormLabel>Email Address</FormLabel>
-        <TextField placeholder="Enter your email" />
-        <FormHelperText>We'll never share your email.</FormHelperText>
-      </>
-    ),
+    error: false,
   },
+  render: (args) => (
+    <RdsFormControl {...args}>
+      <FormLabel>Email Address</FormLabel>
+      <TextField error={args.error} placeholder="Enter your email" />
+      <FormHelperText>We'll never share your email.</FormHelperText>
+    </RdsFormControl>
+  ),
 };
 
 export const WithSelect: Story = {
@@ -68,64 +69,68 @@ export const WithSelect: Story = {
 export const Error: Story = {
   args: {
     error: true,
-    children: (
-      <>
-        <FormLabel>Email Address</FormLabel>
-        <TextField error placeholder="Enter your email" />
-        <FormHelperText>This field is required.</FormHelperText>
-      </>
-    ),
   },
+  render: (args) => (
+    <RdsFormControl {...args}>
+      <FormLabel>Email Address</FormLabel>
+      <TextField error={args.error} placeholder="Enter your email" />
+      <FormHelperText>This field is required.</FormHelperText>
+    </RdsFormControl>
+  ),
 };
 
 export const Required: Story = {
   args: {
     required: true,
-    children: (
-      <>
-        <FormLabel>Email Address</FormLabel>
-        <TextField placeholder="Enter your email" />
-        <FormHelperText>This field is required.</FormHelperText>
-      </>
-    ),
+    error: false,
   },
+  render: (args) => (
+    <RdsFormControl {...args}>
+      <FormLabel>Email Address</FormLabel>
+      <TextField error={args.error} placeholder="Enter your email" />
+      <FormHelperText>This field is required.</FormHelperText>
+    </RdsFormControl>
+  ),
 };
 
 export const Disabled: Story = {
   args: {
     disabled: true,
-    children: (
-      <>
-        <FormLabel>Email Address</FormLabel>
-        <TextField disabled placeholder="Enter your email" />
-        <FormHelperText>This field is disabled.</FormHelperText>
-      </>
-    ),
+    error: false,
   },
+  render: (args) => (
+    <RdsFormControl {...args}>
+      <FormLabel>Email Address</FormLabel>
+      <TextField disabled={args.disabled} error={args.error} placeholder="Enter your email" />
+      <FormHelperText>This field is disabled.</FormHelperText>
+    </RdsFormControl>
+  ),
 };
 
 export const FullWidth: Story = {
   args: {
     fullWidth: true,
-    children: (
-      <>
-        <FormLabel>Full Width Field</FormLabel>
-        <TextField fullWidth placeholder="This field takes full width" />
-        <FormHelperText>This form control spans the full width.</FormHelperText>
-      </>
-    ),
+    error: false,
   },
+  render: (args) => (
+    <RdsFormControl {...args}>
+      <FormLabel>Full Width Field</FormLabel>
+      <TextField fullWidth={args.fullWidth} error={args.error} placeholder="This field takes full width" />
+      <FormHelperText>This form control spans the full width.</FormHelperText>
+    </RdsFormControl>
+  ),
 };
 
 export const Small: Story = {
   args: {
     size: 'small',
-    children: (
-      <>
-        <FormLabel>Small Size</FormLabel>
-        <TextField size="small" placeholder="Small sized field" />
-        <FormHelperText>This is a small sized form control.</FormHelperText>
-      </>
-    ),
+    error: false,
   },
+  render: (args) => (
+    <RdsFormControl {...args}>
+      <FormLabel>Small Size</FormLabel>
+      <TextField size={args.size} error={args.error} placeholder="Small sized field" />
+      <FormHelperText>This is a small sized form control.</FormHelperText>
+    </RdsFormControl>
+  ),
 };

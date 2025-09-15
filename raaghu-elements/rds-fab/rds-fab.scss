@@ -25,11 +25,3 @@ html.dark .MuiFab-root,
     fill: currentColor !important;
   }
 }
-
-[data-theme='dark'],
-  .rds-fab-default-dark-override.MuiFab-root {
-    &, svg, .MuiSvgIcon-root {
-      color: #000 !important;
-      fill: #000 !important;
-    }
-}

@@ -3,3 +3,20 @@
   display: block;
   position: relative;
 }
+
+.rds-form-control__asterisk {
+  color: #d32f2f; // MUI error/red 700
+  margin-left: 0.25rem;
+  font-weight: 600;
+}
+
+// Target MUI's generated asterisk inside FormLabel and make it red with high specificity
+.rds-form-control .MuiFormLabel-asterisk {
+  color: #d32f2f !important;
+}
+
+// Also handle the case where MUI applies disabled/secondary color rules
+.rds-form-control .MuiFormLabel-root.Mui-focused .MuiFormLabel-asterisk,
+.rds-form-control .MuiFormLabel-root.Mui-error .MuiFormLabel-asterisk {
+  color: #d32f2f !important;
+}
