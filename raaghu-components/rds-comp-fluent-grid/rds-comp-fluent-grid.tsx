@@ -6,6 +6,7 @@ import {
   TextField,
   Menu,
   MenuItem,
+  useTheme,
 } from '@mui/material';
 import {
   ArrowUpward as ArrowUpIcon,
@@ -19,7 +20,10 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon,
   Visibility as ViewIcon,
+  DragIndicator as DragIndicatorIcon,
 } from '@mui/icons-material';
+// @ts-ignore - Suppress TypeScript errors for react-beautiful-dnd import
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import RdsPagination from '../../raaghu-elements/rds-pagination/rds-pagination';
 import './rds-comp-fluent-grid.scss';
 
@@ -123,6 +127,7 @@ export interface RdsFluentGridProps {
   enableRadioButtonSelection?: boolean;
   enableInlineEdit?: boolean; // Enable inline editing globally
   inlineEditMode?: 'cell' | 'row'; // Inline edit mode: cell-by-cell (default) or row-based editing
+  enableRowSwapping?: boolean; // Enable row drag and drop functionality
   
   // UI Controls
   showHeader?: boolean;
@@ -154,6 +159,7 @@ export interface RdsFluentGridProps {
   onColumnVisibilityChange?: (visibleColumns: string[]) => void;
   onCellEdit?: (rowId: string, columnKey: string, newValue: any, oldValue: any) => void;
   onCellEditComplete?: (rowId: string, columnKey: string, newValue: any, isValid: boolean) => void;
+  onRowSwap?: (fromIndex: number, toIndex: number, newData: any[]) => void; // New callback for row swapping
   
   // Styling
   classes?: string;
@@ -401,6 +407,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     enableRadioButtonSelection = false,
     enableInlineEdit = false,
     inlineEditMode = 'cell',
+    enableRowSwapping = false,
     showHeader = true,
     showSubHeader = true,
     showAddNewColumn = false,
@@ -424,6 +431,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     onColumnVisibilityChange,
     onCellEdit,
     onCellEditComplete,
+    onRowSwap,
     classes,
     fontWeight: _fontWeight,
     illustration = false,
@@ -431,6 +439,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     noDataHeaderTitle = 'Data Grid',
     isLoading = false,
   } = props;
+  const theme = useTheme();
   const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
@@ -444,6 +453,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
   
   // Internal data state management
   const [internalData, setInternalData] = useState<any[]>(tableData);
+  const [localTableData, setLocalTableData] = useState<any[]>(tableData);
   
   // Use controlled data if provided, otherwise use internal data
   const currentData = controlledData || internalData;
@@ -453,6 +463,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     if (!controlledData) {
       setInternalData(tableData);
     }
+    setLocalTableData([...tableData]);
   }, [tableData, controlledData]);
   const [isFilterPopupOpen, setIsFilterPopupOpen] = useState(false);
   const [selectedColumnForFilter, setSelectedColumnForFilter] = useState<string | null>(null);
@@ -476,6 +487,25 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
   
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
+
+  // Helper function to reorder array for drag and drop
+  const reorder = (list: any[], startIndex: number, endIndex: number) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
+
+  // Drag end handler for rows
+  const onDragEnd = (result: any) => {
+    if (!result.destination) return;
+    
+    if (result.type === 'ROW') {
+      const newData = reorder(localTableData, result.source.index, result.destination.index);
+      setLocalTableData(newData);
+      onRowSwap?.(result.source.index, result.destination.index, newData);
+    }
+  };
   // Reset pagination when data, sort, or filter changes
   useEffect(() => {
     setCurrentPage(1);
@@ -559,7 +589,8 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
 
   // Filter and sort data
   const filteredData = useMemo(() => {
-    let filtered = [...currentData];
+    // Use localTableData for row swapping, or current data for normal operation
+    let filtered = [...(enableRowSwapping ? localTableData : currentData)];
 
     // Apply filtering
     if (Object.keys(filterState).length > 0) {
@@ -603,7 +634,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     }
 
     return filtered;
-  }, [tableData, sortColumn, sortDirection, filterState]);
+  }, [enableRowSwapping ? localTableData : currentData, sortColumn, sortDirection, filterState, enableRowSwapping, localTableData, currentData]);
 
   // Paginate data
   const paginatedData = useMemo(() => {
@@ -1067,7 +1098,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
         validationErrors[column.key] = error;
         hasErrors = true;
       }
-    }
+    });
 
     if (hasErrors) {
       console.log('Validation errors found:', validationErrors);
@@ -1277,9 +1308,17 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
 
         {!isCollapsed && (
           <>
-            <table className="rds-fluent-grid-table" ref={tableRef}>
+            <DragDropContext onDragEnd={onDragEnd}>
+              <table className="rds-fluent-grid-table" ref={tableRef}>
               <thead>
                 <tr>
+                  {/* Row Swapping column */}
+                  {enableRowSwapping && (
+                    <th className="rds-fluent-grid-header-cell" style={{ width: '60px' }}>
+                      Reorder
+                    </th>
+                  )}
+
                   {/* Selection column */}
                   {(enableCheckboxSelection || enableRadioButtonSelection) && (
                     <th className="rds-fluent-grid-header-cell" style={{ width: '50px' }}>
@@ -1581,29 +1620,63 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                 </tr>
               </thead>
               
-              <tbody>
+              <Droppable droppableId="droppable-body" type="ROW">
+                {(provided: any) => (
+                  <tbody ref={provided.innerRef} {...provided.droppableProps}>
                 {paginatedData.map((row, index) => {
                   const rowId = row.id || index.toString();
                   const isSelected = selectedRows.has(rowId);
+                  const isRowEditing = editingRow === rowId;
                   
                   return (
-                    <tr
-                      key={rowId}
-                      className={`rds-fluent-grid-row ${isSelected ? 'rds-fluent-grid-row-selected' : ''}`}
-                      style={{
-                        backgroundColor: isSelected ? '#e6f3ff' : undefined,
-                      }}
+                    <Draggable 
+                      key={rowId} 
+                      draggableId={String(rowId)} 
+                      index={index}
+                      isDragDisabled={!enableRowSwapping}
                     >
-                      {/* Selection cell */}
-                      {(enableCheckboxSelection || enableRadioButtonSelection) && (
-                        <td className="rds-fluent-grid-cell">
-                          <input
-                            type={enableCheckboxSelection ? 'checkbox' : 'radio'}
-                            checked={isSelected}
-                            onChange={() => handleRowSelect(rowId, row)}
-                          />
-                        </td>
-                      )}
+                      {(dragProvided: any, dragSnapshot: any) => (
+                        <tr
+                          ref={dragProvided.innerRef}
+                          {...dragProvided.draggableProps}
+                          key={rowId}
+                          className={`rds-fluent-grid-row ${isSelected ? 'rds-fluent-grid-row-selected' : ''}`}
+                          style={{
+                            ...dragProvided.draggableProps.style,
+                            backgroundColor: isSelected ? '#e6f3ff' : undefined,
+                          }}
+                        >
+                          {/* Row Swapping controls */}
+                          {enableRowSwapping && (
+                            <td className="rds-fluent-grid-cell rds-fluent-grid-swap-cell">
+                              <div 
+                                className="rds-fluent-grid-drag-handle"
+                                {...dragProvided.dragHandleProps}
+                                style={{ cursor: 'grab' }}
+                              >
+                                <DragIndicatorIcon 
+                                  fontSize="small" 
+                                  sx={{ 
+                                    color: theme.palette.text.secondary,
+                                    '&:hover': {
+                                      color: theme.palette.text.primary,
+                                    }
+                                  }} 
+                                />
+                              </div>
+                            </td>
+                          )}
+
+                          {/* Selection cell */}
+                          {(enableCheckboxSelection || enableRadioButtonSelection) && (
+                            <td className="rds-fluent-grid-cell">
+                              <input
+                                type={enableCheckboxSelection ? 'checkbox' : 'radio'}
+                                checked={isSelected}
+                                onChange={() => handleRowSelect(rowId, row)}
+                              />
+                            </td>
+                          )}
                       
                       {/* Data cells */}
                       {getVisibleHeaders().map((header) => {
@@ -1638,7 +1711,6 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                         
                         // Check if this cell should be editable
                         const isEditable = enableInlineEdit && header.isEditable && !shouldRenderHtml;
-                        const isRowEditing = editingRow === rowId;
                         console.log('Row editing state:', { rowId, editingRow, isRowEditing });
                         const isCellEditing = isEditing && inlineEditMode === 'cell';
                         
@@ -1758,10 +1830,16 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
                         </td>
                       )}
                     </tr>
+                        )}
+                      </Draggable>
                   );
                 })}
-              </tbody>
+                {provided.placeholder}
+                  </tbody>
+                )}
+              </Droppable>
             </table>
+            </DragDropContext>
             
             {pagination && totalPages > 1 && (
               <div className="rds-fluent-grid-pagination">

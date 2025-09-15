@@ -47,10 +47,13 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon,
   Visibility as ViewIcon,
+  DragIndicator as DragIndicatorIcon,
 } from '@mui/icons-material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+// @ts-ignore - Suppress TypeScript errors for react-beautiful-dnd import
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 // Types and Enums
 export enum ActionPosition {
@@ -139,6 +142,7 @@ export interface RdsFluentGridProps {
   // Data
   tableHeaders: FluentGridColumn[];
   tableData: any[];
+  rowKeyField?: string; // Field to use as unique key for rows (for drag/drop)
   
   // State Management
   controlledData?: any[]; // Controlled data state
@@ -152,6 +156,7 @@ export interface RdsFluentGridProps {
   enableRadioButtonSelection?: boolean;
   enableInlineEdit?: boolean; // Enable inline editing globally
   inlineEditMode?: 'cell' | 'row'; // Inline edit mode: cell-by-cell (default) or row-based editing
+  enableRowSwapping?: boolean; // Enable row drag and drop functionality
   
   // UI Controls
   showHeader?: boolean;
@@ -180,6 +185,7 @@ export interface RdsFluentGridProps {
   onFilterApiRequest?: (filterRequest: FilterApiRequest) => void;
   onCellEdit?: (rowId: string, columnKey: string, newValue: any, oldValue: any) => void;
   onCellEditComplete?: (rowId: string, columnKey: string, newValue: any, isValid: boolean) => void;
+  onRowSwap?: (fromIndex: number, toIndex: number, newData: any[]) => void; // New callback for row swapping
   
   // Styling
   classes?: string;
@@ -423,6 +429,7 @@ const ActionMenu: React.FC<{
 const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   tableHeaders,
   tableData,
+  rowKeyField,
   controlledData,
   onDataChange,
   isSort = true,
@@ -432,6 +439,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   enableRadioButtonSelection = false,
   enableInlineEdit = false,
   inlineEditMode = 'cell',
+  enableRowSwapping = false,
   showHeader = true,
   showSubHeader = true,
   showAddNewColumn = false,
@@ -452,6 +460,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   onFilterApiRequest,
   onCellEdit,
   onCellEditComplete,
+  onRowSwap,
   classes,
   fontWeight,
   illustration = false,
@@ -497,6 +506,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   
   // Internal data state management
   const [internalData, setInternalData] = useState<any[]>(tableData);
+  const [localTableData, setLocalTableData] = useState<any[]>(tableData);
   
   // Use controlled data if provided, otherwise use internal data
   const currentData = controlledData || internalData;
@@ -506,14 +516,50 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
     if (!controlledData) {
       setInternalData(tableData);
     }
+    setLocalTableData([...tableData]);
   }, [tableData, controlledData]);
   
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
 
+  // Helper function to reorder array for drag and drop
+  const reorder = (list: any[], startIndex: number, endIndex: number) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
+
+  // Drag end handler for rows
+  const onDragEnd = (result: any) => {
+    console.log('Drag end triggered:', result);
+    if (!result.destination) {
+      console.log('No destination, drag cancelled');
+      return;
+    }
+    
+    let sourceIndex = result.source.index;
+    let destinationIndex = result.destination.index;
+    
+    // If pagination is enabled, adjust indices to work with full dataset
+    if (pagination) {
+      const startIndex = (currentPage - 1) * recordsPerPage;
+      sourceIndex = startIndex + result.source.index;
+      destinationIndex = startIndex + result.destination.index;
+    }
+    
+    console.log('Reordering from', sourceIndex, 'to', destinationIndex);
+    console.log('Local table data before reorder:', localTableData);
+    const newData = reorder(localTableData, sourceIndex, destinationIndex);
+    console.log('New data after reorder:', newData);
+    setLocalTableData(newData);
+    onRowSwap?.(sourceIndex, destinationIndex, newData);
+  };
+
   // Filter and sort data
   const processedData = useMemo(() => {
-    let filtered = [...currentData];
+    // Use localTableData for row swapping, or current data for normal operation
+    let filtered = [...(enableRowSwapping ? localTableData : currentData)];
 
     // Apply search filter
     if (searchValue) {
@@ -591,8 +637,8 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
       }
     });
 
-    // Apply sorting
-    if (sortColumn) {
+    // Apply sorting (only if row swapping is disabled)
+    if (sortColumn && !enableRowSwapping) {
       filtered = filtered.sort((a, b) => {
         const aVal = a[sortColumn];
         const bVal = b[sortColumn];
@@ -610,7 +656,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
     }
 
     return filtered;
-  }, [currentData, searchValue, filterState, sortColumn, sortDirection, pagination, currentPage, recordsPerPage, visibleColumns]);
+  }, [enableRowSwapping ? localTableData : currentData, searchValue, filterState, sortColumn, sortDirection, pagination, currentPage, recordsPerPage, visibleColumns, enableRowSwapping, localTableData, currentData]);
 
   const handleSort = (columnKey: string) => {
     if (sortColumn === columnKey) {
@@ -1536,7 +1582,11 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
             bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
           }}
         >
-          <Table stickyHeader ref={tableRef}>
+          <DragDropContext 
+            onDragEnd={enableRowSwapping ? onDragEnd : () => {}}
+            onDragStart={(start: any) => console.log('Drag started:', start)}
+          >
+            <Table stickyHeader ref={tableRef}>
             <TableHead sx={{ 
               bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined,
               '& th': { bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined }
@@ -1544,6 +1594,20 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
               <TableRow sx={{ 
                 bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined 
               }}>
+                {enableRowSwapping && (
+                  <TableCell 
+                    sx={{ 
+                      width: '40px',
+                      padding: '8px',
+                      borderRight: '1px solid #d1d1d1',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                    }}
+                  >
+                    <Typography variant="caption" color="text.secondary">
+                      {/* Drag handle column header */}
+                    </Typography>
+                  </TableCell>
+                )}
                 {enableCheckboxSelection && (
                   <TableCell 
                     padding="checkbox" 
@@ -1586,7 +1650,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                   <TableCell
                     key={header.key}
                     sx={{
-                      cursor: isSort && header.isSort ? 'pointer' : 'default',
+                      cursor: isSort && header.isSort && !enableRowSwapping ? 'pointer' : 'default',
                       width: columnWidths[header.key] || header.minWidth || 150,
                       maxWidth: header.maxWidth || 500,
                       fontWeight: header.isBold ? 'bold' : 'normal',
@@ -1598,7 +1662,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                         borderRight: 'none',
                       },
                     }}
-                    onClick={() => isSort && header.isSort && handleSort(header.key)}
+                    onClick={() => isSort && header.isSort && !enableRowSwapping && handleSort(header.key)}
                   >
                     <Stack direction="row" spacing={0.5} alignItems="center">
                       <Typography variant="subtitle2" fontWeight={header.isBold ? 'bold' : 'medium'}>
@@ -1607,7 +1671,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                       {header.required && (
                         <Typography color="error" variant="caption">*</Typography>
                       )}
-                      {isSort && header.isSort && (
+                      {isSort && header.isSort && !enableRowSwapping && (
                         <Tooltip title="Sort">
                           <IconButton size="small">
                             {(() => {
@@ -1714,7 +1778,12 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
               </TableRow>
             </TableHead>
             
-            <TableBody>
+            <Droppable droppableId="table-body" isDropDisabled={!enableRowSwapping}>
+              {(provided: any) => (
+                <TableBody
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
               {processedData.map((row, index) => {
                 const rowId = `row-${index}`;
                 const isSelected = selectedRows.has(rowId);
@@ -1722,14 +1791,58 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                 console.log('Row editing state:', { rowId, editingRow, isRowEditing });
                 
                 return (
-                  <TableRow
-                    key={rowId}
-                    selected={isSelected}
-                    hover
-                    onClick={() => onRowClick?.(rowId)}
-                    sx={{ cursor: 'pointer' }}
+                  <Draggable
+                    key={rowKeyField ? `${row[rowKeyField]}` : rowId}
+                    draggableId={rowKeyField ? `${row[rowKeyField]}` : rowId}
+                    index={index}
+                    isDragDisabled={!enableRowSwapping}
                   >
-                    {enableCheckboxSelection && (
+                    {(provided: any, snapshot: any) => (
+                      <TableRow
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        selected={isSelected}
+                        hover
+                        onClick={() => onRowClick?.(rowId)}
+                        sx={{ 
+                          cursor: 'pointer',
+                          userSelect: 'none', // Prevent text selection during drag
+                          ...(snapshot.isDragging && {
+                            boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                            transform: provided.draggableProps.style?.transform,
+                          }),
+                        }}
+                      >
+                        {enableRowSwapping && (
+                          <TableCell 
+                            sx={{ 
+                              width: '40px', 
+                              padding: '8px',
+                              borderRight: '1px solid #d1d1d1'
+                            }}
+                          >
+                            <div 
+                              {...provided.dragHandleProps} 
+                              style={{ cursor: 'grab', display: 'flex', alignItems: 'center' }}
+                              onMouseDown={() => console.log('Drag handle mouse down')}
+                              onMouseUp={() => console.log('Drag handle mouse up')}
+                            >
+                              <DragIndicatorIcon 
+                                sx={{ 
+                                  cursor: 'grab',
+                                  color: theme.palette.text.secondary,
+                                  '&:hover': {
+                                    color: theme.palette.text.primary,
+                                  },
+                                  '&:active': {
+                                    cursor: 'grabbing',
+                                  }
+                                }} 
+                              />
+                            </div>
+                          </TableCell>
+                        )}
+                        {enableCheckboxSelection && (
                       <TableCell 
                         padding="checkbox"
                         sx={{ borderRight: '1px solid #d1d1d1' }}
@@ -2092,11 +2205,17 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                         </Stack>
                       </TableCell>
                     )}
-                  </TableRow>
+                      </TableRow>
+                    )}
+                  </Draggable>
                 );
               })}
-            </TableBody>
-          </Table>
+                  {provided.placeholder}
+                </TableBody>
+              )}
+            </Droppable>
+            </Table>
+          </DragDropContext>
         </TableContainer>
       )}
 
