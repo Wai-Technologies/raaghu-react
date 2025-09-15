@@ -73,6 +73,15 @@ export const Default: Story = {
     showDesignation: true,
     displayStyle: 'with-name',
   },
+  parameters: {
+    controls: {
+      exclude: [
+        'maxVisibleAvatars',
+        'alt',
+        'src'
+      ]
+    },
+  },
 };
 
 export const Fallback: Story = {
@@ -81,6 +90,17 @@ export const Fallback: Story = {
     alt: 'Broken image',
     title: 'Fallback User',
   },
+  parameters: {
+    controls: {
+      exclude: [
+        'maxVisibleAvatars',
+        'alt',
+        'src',
+        'showDesignation',
+        'subText'
+      ]
+    },
+  },
 };
 
 export const Large: Story = {
@@ -88,12 +108,34 @@ export const Large: Story = {
     title: 'Large User',
     size: 'large',
   },
+  parameters: {
+    controls: {
+      exclude: [
+        'maxVisibleAvatars',
+        'alt',
+        'src',
+        'showDesignation',
+        'subText'
+      ]
+    },
+  },
 };
 
 export const Medium: Story = {
   args: {
     title: 'Medium User',
     size: 'medium',
+  },
+  parameters: {
+    controls: {
+      exclude: [
+        'maxVisibleAvatars',
+        'alt',
+        'src',
+        'showDesignation',
+        'subText'
+      ]
+    },
   },
 };
 
@@ -103,6 +145,15 @@ export const NameOnBottom: Story = {
     subText: 'Designation',
     displayStyle: 'name-bottom',
     size: 'large',
+  },
+  parameters: {
+    controls: {
+      exclude: [
+        'maxVisibleAvatars',
+        'alt',
+        'src'
+      ]
+    },
   },
 };
 
@@ -119,6 +170,24 @@ export const Stacking: Story = {
       { title: 'Sarah Wilson', subText: 'Designation', src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face' },
     ],
   },
+  parameters: {
+    controls: {
+      exclude: [
+        'src',
+        'alt',
+        'activityRing',
+        'activeDotTop',
+        'activeDotBottom',
+        'subText',
+        'title',
+        'showDesignation',
+        'showName',
+        'colorVariant',
+        'displayStyle',
+        'avatars'
+      ]
+    },
+  },
 }
 
 export const Small: Story = {
@@ -126,11 +195,35 @@ export const Small: Story = {
     title: 'Small User',
     size: 'small',
   },
+  parameters: {
+    controls: {
+      exclude: [
+        'maxVisibleAvatars',
+        'alt',
+        'src',
+        'subText',
+      ]
+    },
+  },
 };
 
 export const WithIcon: Story = {
   args: {
     children: <Person />,
+  },
+  parameters: {
+    controls: {
+      exclude: [
+        'maxVisibleAvatars',
+        'alt',
+        'src',
+        'size',
+        'title',
+        'showDesignation',
+        'showName',
+        'subText'
+      ]
+    },
   },
 };
 
@@ -143,6 +236,16 @@ export const WithImage: Story = {
     subText: 'Designation',
     showName: true,
     showDesignation: true,
+  },
+  parameters: {
+    controls: {
+      exclude: [
+        'maxVisibleAvatars',
+        'alt',
+        'src',
+        'subText'
+      ]
+    },
   },
 };
 
@@ -157,6 +260,16 @@ export const WithInitials: Story = {
     activeDotTop: true,
     colorVariant: 'primary',
   },
+  parameters: {
+    controls: {
+      exclude: [
+        'maxVisibleAvatars',
+        'alt',
+        'src',
+        'subText'
+      ]
+    },
+  },
 };
 
 export const WithName: Story = {
@@ -165,5 +278,15 @@ export const WithName: Story = {
     subText: 'Designation',
     displayStyle: 'with-name',
     size: 'medium',
+  },
+  parameters: {
+    controls: {
+      exclude: [
+        'maxVisibleAvatars',
+        'alt',
+        'src',
+        'subText'
+      ]
+    },
   },
 };

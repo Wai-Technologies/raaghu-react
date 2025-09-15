@@ -13,7 +13,7 @@ const meta: Meta = {
   parameters: {
     layout: 'centered',
     controls: {
-      exclude: ['component', 'slots', 'slotProps','children', 'actions', 'onClose'],
+      exclude: ['component', 'slots', 'slotProps', 'children', 'actions', 'onClose'],
     },
   },
   tags: ['autodocs'],
@@ -225,6 +225,12 @@ export const WithActions: Story = {
           {...args}
           open={open}
           onClose={() => setOpen(false)}
+          actions={(
+            <>
+              <Button variant="outlined" onClick={() => setOpen(false)}>Cancel</Button>
+              <RdsButton style="filled" color="primary" onClick={() => setOpen(false)}>Confirm</RdsButton>
+            </>
+          )}
         />
       </>
     );
@@ -235,12 +241,6 @@ export const WithActions: Story = {
       <Typography variant="body1" gutterBottom>
         Are you sure you want to proceed with this action?
       </Typography>
-    ),
-    actions: (
-      <>
-        <Button variant="outlined">Cancel</Button>
-        <RdsButton style="filled" color="primary">Confirm</RdsButton>
-      </>
     ),
   },
 };
@@ -285,8 +285,8 @@ export const WithIcon: Story = {
 
   },
 
-    render: (args) => {
-       const { showTitle = true, ...rest } = args;
+  render: (args) => {
+    const { showTitle = true, ...rest } = args;
     const [open, setOpen] = useState(false);
     return (
       <>
@@ -304,7 +304,7 @@ export const WithIcon: Story = {
           textCase="uppercase"
           onClick={() => setOpen(true)}
         />
-        <RdsDialog children={undefined}  open={open} {...rest} onClose={() => setOpen(false)} />
+        <RdsDialog children={undefined} open={open} {...rest} onClose={() => setOpen(false)} />
       </>
     );
   },

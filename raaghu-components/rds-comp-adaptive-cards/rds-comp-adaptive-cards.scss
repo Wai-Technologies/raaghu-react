@@ -36,6 +36,9 @@
     margin-bottom: var(--rds-spacing-none, 0) !important;
     padding: 16px;
   }
+  &__input-form-field { 
+    margin-bottom: var(--rds-spacing-sm, 10px);
+  }
   // removed stray closing brace
   &__header-title-row {
     display: flex;

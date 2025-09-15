@@ -21,7 +21,17 @@
   .rds-accordion__details .MuiAccordionDetails-root .MuiTypography-root { color: #E1E6EB !important; }
   .rds-accordion__title { color: #E1E6EB !important; }
   .rds-accordion .MuiAccordionSummary-expandIconWrapper { color: #B0B3B8 !important; }
-  .rds-accordion--expanded { .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: #000000 !important; } }
+  .rds-accordion--expanded { 
+    .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: #000000 !important; }
+    &.rds-accordion--hover .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: #f3e8ff !important; }
+    &.rds-accordion--selected .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: #f3e8ff !important; }
+  }
+  // Dark theme selected header styling
+  .rds-accordion.rds-accordion--selected {
+    .rds-accordion__summary { background-color: #f3e8ff !important; }
+    .rds-accordion__title { color: #a259ff !important; font-weight: 600 !important; }
+    .rds-accordion__icon, .MuiAccordionSummary-expandIconWrapper { color: #a259ff !important; }
+  }
 }
 .rds-accordion__container {
   border: 1px solid #7D7D7D;
@@ -225,6 +235,20 @@
   &--expanded {
     .MuiAccordionSummary-expandIconWrapper {
       transform: rotate(180deg) !important;
+    }
+
+    // When also hovered (via actual hover or forced hover class) change inner collapse background
+    &.rds-accordion--hover {
+      .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner {
+        background-color: #f3e8ff  !important;
+      }
+    }
+
+    // When selected, apply the same dark background color user requested earlier (#483b3b)
+    &.rds-accordion--selected {
+      .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner {
+        background-color: #f3e8ff !important;
+      }
     }
   }
 
