@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import RdsFluentGridNoScss, { FluentGridColumn, FluentGridAction, ActionPosition, State, ActionColumnStyle } from './rds-comp-fluent-grid-no-scss';
+// import RdsFluentGridNoScss, { FluentGridColumn, FluentGridAction, ActionPosition, State, ActionColumnStyle } from './rds-comp-fluent-grid-no-scss';
+import RdsFluentGrid, { FluentGridColumn, FluentGridAction, ActionPosition, State, ActionColumnStyle } from './rds-comp-fluent-grid';
 
-const RdsFluentGrid = RdsFluentGridNoScss;
+// const RdsFluentGrid = RdsFluentGridNoScss;
 
 const meta: Meta<typeof RdsFluentGrid> = {
   title: 'Components/Fluent Grid',

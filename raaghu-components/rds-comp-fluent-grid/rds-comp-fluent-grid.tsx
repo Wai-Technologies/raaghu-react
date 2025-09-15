@@ -1,27 +1,56 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import {
+  Box,
+  TextField,
   Button,
   Typography,
-  CircularProgress,
-  TextField,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Chip,
+  IconButton,
   Menu,
   MenuItem,
+  Select,
+  FormControl,
+  Checkbox,
+  Radio,
+  Pagination,
+  Stack,
+  Card,
+  Tooltip,
+  Popover,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  Divider,
+  Grid,
+  useTheme,
 } from '@mui/material';
 import {
-  ArrowUpward as ArrowUpIcon,
-  ArrowDownward as ArrowDownIcon,
+  Search as SearchIcon,
   FilterList as FilterIcon,
+  Sort as SortIcon,
   MoreVert as MoreIcon,
   Add as AddIcon,
   Person as PersonIcon,
   Visibility as VisibilityIcon,
   Clear as ClearIcon,
+  ArrowUpward as ArrowUpIcon,
+  ArrowDownward as ArrowDownIcon,
+  SwapVert as ArrowUpDownIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
   Visibility as ViewIcon,
 } from '@mui/icons-material';
-import RdsPagination from '../../raaghu-elements/rds-pagination/rds-pagination';
-import './rds-comp-fluent-grid.scss';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 // Types and Enums
 export enum ActionPosition {
@@ -79,7 +108,7 @@ export interface FluentGridAction {
 export interface FilterState {
   [columnKey: string]: {
     value: string;
-    operator: 'contains' | 'equals' | 'startsWith' | 'endsWith' | 'greaterThan' | 'lessThan' | 'greaterThanOrEqual' | 'lessThanOrEqual' | 'between';
+    operator: 'contains' | 'notContains' | 'equals' | 'startsWith' | 'endsWith' | 'greaterThan' | 'lessThan' | 'greaterThanOrEqual' | 'lessThanOrEqual' | 'between';
   };
 }
 
@@ -140,18 +169,15 @@ export interface RdsFluentGridProps {
   recordsPerPage?: number;
   recordsPerPageSelectListOption?: boolean;
   totalRecords?: number;
-  pageSizeOptions?: number[];
-  showRecordsPerPage?: boolean;
   
   // Callbacks
   onActionSelection?: (rowData: any, actionId: any) => void;
   onRowSelect?: (data: any) => void;
   onRowClick?: (rowId: any) => void;
   onPaginationHandler?: (currentPage: number, recordsPerPage: number) => void;
-  onSortChange?: (sortState: any) => void;
+  onSortChange?: (sortState: SortState) => void;
   onFilterChange?: (filterState: FilterState) => void;
   onFilterApiRequest?: (filterRequest: FilterApiRequest) => void;
-  onColumnVisibilityChange?: (visibleColumns: string[]) => void;
   onCellEdit?: (rowId: string, columnKey: string, newValue: any, oldValue: any) => void;
   onCellEditComplete?: (rowId: string, columnKey: string, newValue: any, isValid: boolean) => void;
   
@@ -278,17 +304,9 @@ const EditableCell: React.FC<{
   }
 
   return (
-    <div
+    <Box
       onClick={onStartEdit}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onStartEdit();
-        }
-      }}
-      role="button"
-      tabIndex={0}
-      style={{
+      sx={{
         cursor: 'pointer',
         padding: '4px 8px',
         minHeight: '32px',
@@ -297,20 +315,17 @@ const EditableCell: React.FC<{
         width: '100%',
         border: '1px solid transparent',
         borderRadius: '4px',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.backgroundColor = '#f5f5f5';
-        e.currentTarget.style.border = '1px solid #e0e0e0';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.backgroundColor = 'transparent';
-        e.currentTarget.style.border = '1px solid transparent';
+        '&:hover': {
+          backgroundColor: 'action.hover',
+          border: '1px solid',
+          borderColor: 'divider',
+        },
       }}
     >
       <Typography variant="body2" sx={{ width: '100%' }}>
         {formatValueForDisplay(value)}
       </Typography>
-    </div>
+    </Box>
   );
 };
 
@@ -352,13 +367,17 @@ const ActionMenu: React.FC<{
 
   return (
     <>
-      <Button
+      <IconButton
         size="small"
-        variant="text"
-        startIcon={<MoreIcon />}
-        className="rds-fluent-grid-action-button"
         onClick={handleClick}
-      />
+        sx={{
+          '&:hover': {
+            backgroundColor: 'action.hover',
+          },
+        }}
+      >
+        <MoreIcon />
+      </IconButton>
       <Menu
         anchorEl={anchorEl}
         open={open}
@@ -371,14 +390,29 @@ const ActionMenu: React.FC<{
           vertical: 'top',
           horizontal: 'right',
         }}
+        PaperProps={{
+          sx: {
+            minWidth: 120,
+            '& .MuiMenuItem-root': {
+              fontSize: '14px',
+            },
+          },
+        }}
       >
         {actions.map((action) => (
           <MenuItem
             key={action.id}
             onClick={() => handleActionClick(action.id)}
+            sx={{
+              '&:hover': {
+                backgroundColor: 'action.hover',
+              },
+            }}
           >
-            {getActionIcon(action.id)}
-            {action.displayName}
+            <ListItemIcon sx={{ minWidth: 32 }}>
+              {getActionIcon(action.id)}
+            </ListItemIcon>
+            <ListItemText primary={action.displayName} />
           </MenuItem>
         ))}
       </Menu>
@@ -386,79 +420,68 @@ const ActionMenu: React.FC<{
   );
 };
 
-// Styles will be handled by CSS classes in the SCSS file
-
-const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
-  const {
-    tableHeaders,
-    tableData,
-    controlledData,
-    onDataChange,
-    isSort = true,
-    isFilter = true,
-    isResizable = true,
-    enableCheckboxSelection = false,
-    enableRadioButtonSelection = false,
-    enableInlineEdit = false,
-    inlineEditMode = 'cell',
-    showHeader = true,
-    showSubHeader = true,
-    showAddNewColumn = false,
-    state = State.Default,
-    actions = [],
-    actionPosition = ActionPosition.Right,
-    actionColumnStyle = ActionColumnStyle.ShowDots,
-    pagination = false,
-    recordsPerPage = 10,
-    recordsPerPageSelectListOption = false,
-    totalRecords,
-    pageSizeOptions = [10, 25, 50, 100],
-    showRecordsPerPage = true,
-    onActionSelection,
-    onRowSelect,
-    onRowClick: _onRowClick,
-    onPaginationHandler,
-    onSortChange,
-    onFilterChange,
+const RdsFluentGrid: React.FC<RdsFluentGridProps> = ({
+  tableHeaders,
+  tableData,
+  controlledData,
+  onDataChange,
+  isSort = true,
+  isFilter = true,
+  isResizable = true,
+  enableCheckboxSelection = false,
+  enableRadioButtonSelection = false,
+  enableInlineEdit = false,
+  inlineEditMode = 'cell',
+  showHeader = true,
+  showSubHeader = true,
+  showAddNewColumn = false,
+  state = State.Default,
+  actions = [],
+  actionPosition = ActionPosition.Right,
+  actionColumnStyle = ActionColumnStyle.ShowDots,
+  pagination = false,
+  recordsPerPage = 10,
+  recordsPerPageSelectListOption = false,
+  totalRecords,
+  onActionSelection,
+  onRowSelect,
+  onRowClick,
+  onPaginationHandler,
+  onSortChange,
+  onFilterChange,
   onFilterApiRequest,
-    onColumnVisibilityChange,
-    onCellEdit,
-    onCellEditComplete,
-    classes,
-    fontWeight: _fontWeight,
-    illustration = false,
-    noDataTitle = 'No data available',
-    noDataHeaderTitle = 'Data Grid',
-    isLoading = false,
-  } = props;
+  onCellEdit,
+  onCellEditComplete,
+  classes,
+  fontWeight,
+  illustration = false,
+  noDataTitle = 'No data available',
+  noDataHeaderTitle = 'Data Grid',
+  isLoading = false,
+}) => {
+  const theme = useTheme();
   const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentPageSize, setCurrentPageSize] = useState(recordsPerPage);
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const [searchValue, setSearchValue] = useState('');
   const [filterState, setFilterState] = useState<FilterState>({});
+  const [showFilters, setShowFilters] = useState(false);
   const [visibleColumns, setVisibleColumns] = useState<string[]>(
     tableHeaders.map(header => header.key)
   );
-  
-  // Internal data state management
-  const [internalData, setInternalData] = useState<any[]>(tableData);
-  
-  // Use controlled data if provided, otherwise use internal data
-  const currentData = controlledData || internalData;
-  
-  // Update internal data when tableData prop changes
-  useEffect(() => {
-    if (!controlledData) {
-      setInternalData(tableData);
-    }
-  }, [tableData, controlledData]);
   const [isFilterPopupOpen, setIsFilterPopupOpen] = useState(false);
+  const [filterAnchorEl, setFilterAnchorEl] = useState<HTMLElement | null>(null);
   const [selectedColumnForFilter, setSelectedColumnForFilter] = useState<string | null>(null);
   const [isColumnPanelExpanded, setIsColumnPanelExpanded] = useState(false);
   const [tempFilterValue, setTempFilterValue] = useState<string>('');
   const [tempFilterOperator, setTempFilterOperator] = useState<string>('contains');
+  const [isFilterExpanded, setIsFilterExpanded] = useState(false);
+  const [filterConditions, setFilterConditions] = useState([
+    { id: 1, column: '', operator: 'contains', value: '' },
+    { id: 2, column: '', operator: 'contains', value: '' }
+  ]);
   const [columnFilterStates, setColumnFilterStates] = useState<{[columnKey: string]: {operator: string, value: string}}>({});
   const [columnWidths, setColumnWidths] = useState<{[columnKey: string]: number}>({});
   const [isResizing, setIsResizing] = useState(false);
@@ -474,29 +497,314 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
   const [cellValidationError, setCellValidationError] = useState<string>('');
   const [rowValidationErrors, setRowValidationErrors] = useState<{[columnKey: string]: string}>({});
   
+  // Internal data state management
+  const [internalData, setInternalData] = useState<any[]>(tableData);
+  
+  // Use controlled data if provided, otherwise use internal data
+  const currentData = controlledData || internalData;
+  
+  // Update internal data when tableData prop changes
+  useEffect(() => {
+    if (!controlledData) {
+      setInternalData(tableData);
+    }
+  }, [tableData, controlledData]);
+  
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
-  // Reset pagination when data, sort, or filter changes
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [tableData, sortColumn, sortDirection]);
 
-  // Close filter popup when clicking outside
+  // Filter and sort data
+  const processedData = useMemo(() => {
+    let filtered = [...currentData];
+
+    // Apply search filter
+    if (searchValue) {
+      filtered = filtered.filter((row) =>
+        Object.values(row).some((val) =>
+          val?.toString().toLowerCase().includes(searchValue.toLowerCase())
+        )
+      );
+    }
+
+    // Apply column filters
+    Object.entries(filterState).forEach(([columnKey, filter]) => {
+      if (filter.value) {
+        filtered = filtered.filter((row) => {
+          const cellValue = row[columnKey];
+          const filterValue = filter.value;
+          
+          // Get column data type for proper comparison
+          const column = tableHeaders.find(h => h.key === columnKey);
+          const dataType = column?.dataType?.toLowerCase() || 'string';
+          
+          switch (filter.operator) {
+            case 'contains':
+              return cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase());
+            case 'notContains':
+              return !cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase());
+            case 'equals':
+              if (dataType === 'number' || dataType === 'numeric' || dataType === 'int' || dataType === 'float' || dataType === 'decimal') {
+                return parseFloat(cellValue) === parseFloat(filterValue);
+              } else if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
+                return new Date(cellValue).toDateString() === new Date(filterValue).toDateString();
+              } else {
+                return cellValue?.toString().toLowerCase() === filterValue.toLowerCase();
+              }
+            case 'startsWith':
+              return cellValue?.toString().toLowerCase().startsWith(filterValue.toLowerCase());
+            case 'endsWith':
+              return cellValue?.toString().toLowerCase().endsWith(filterValue.toLowerCase());
+            case 'greaterThan':
+              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
+                return new Date(cellValue) > new Date(filterValue);
+              } else {
+                return parseFloat(cellValue) > parseFloat(filterValue);
+              }
+            case 'lessThan':
+              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
+                return new Date(cellValue) < new Date(filterValue);
+              } else {
+                return parseFloat(cellValue) < parseFloat(filterValue);
+              }
+            case 'greaterThanOrEqual':
+              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
+                return new Date(cellValue) >= new Date(filterValue);
+              } else {
+                return parseFloat(cellValue) >= parseFloat(filterValue);
+              }
+            case 'lessThanOrEqual':
+              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
+                return new Date(cellValue) <= new Date(filterValue);
+              } else {
+                return parseFloat(cellValue) <= parseFloat(filterValue);
+              }
+            case 'between':
+              // For between, we'll need to handle this separately as it requires two values
+              // For now, treat it as greaterThan
+              if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
+                return new Date(cellValue) >= new Date(filterValue);
+              } else {
+                return parseFloat(cellValue) >= parseFloat(filterValue);
+              }
+            default:
+              return cellValue?.toString().toLowerCase().includes(filterValue.toLowerCase());
+          }
+        });
+      }
+    });
+
+    // Apply sorting
+    if (sortColumn) {
+      filtered = filtered.sort((a, b) => {
+        const aVal = a[sortColumn];
+        const bVal = b[sortColumn];
+        if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
+        if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+
+    // Apply pagination
+    if (pagination) {
+      const startIndex = (currentPage - 1) * recordsPerPage;
+      const endIndex = startIndex + recordsPerPage;
+      filtered = filtered.slice(startIndex, endIndex);
+    }
+
+    return filtered;
+  }, [currentData, searchValue, filterState, sortColumn, sortDirection, pagination, currentPage, recordsPerPage, visibleColumns]);
+
+  const handleSort = (columnKey: string) => {
+    if (sortColumn === columnKey) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortColumn(columnKey);
+      setSortDirection('asc');
+    }
+    const newSortState: SortState = { column: columnKey, direction: sortDirection };
+    onSortChange?.(newSortState);
+  };
+
+  const handleFilterChange = (columnKey: string, value: string, operator: 'contains' | 'equals' | 'startsWith' | 'endsWith' | 'greaterThan' | 'lessThan' = 'contains') => {
+    const newFilterState = { ...filterState };
+    if (value) {
+      newFilterState[columnKey] = { value, operator };
+    } else {
+      delete newFilterState[columnKey];
+    }
+    setFilterState(newFilterState);
+    onFilterChange?.(newFilterState);
+  };
+
+  const clearAllFilters = () => {
+    setFilterState({});
+    setSearchValue('');
+    onFilterChange?.({});
+  };
+
+  const handleColumnVisibilityChange = (columnKey: string, isVisible: boolean) => {
+    const newVisibleColumns = isVisible
+      ? [...visibleColumns, columnKey]
+      : visibleColumns.filter(key => key !== columnKey);
+    setVisibleColumns(newVisibleColumns);
+    
+    // If the column being deselected is the one with an open filter popup, close it
+    if (!isVisible && selectedColumnForFilter === columnKey && isFilterPopupOpen) {
+      setIsFilterPopupOpen(false);
+      setSelectedColumnForFilter(null);
+      setFilterAnchorEl(null);
+    }
+  };
+
+  const getVisibleHeaders = () => {
+    const visible = tableHeaders.filter(header => visibleColumns.includes(header.key));
+    return visible;
+  };
+
+  // Get operators based on data type
+  const getOperatorsForDataType = (dataType: string) => {
+    switch (dataType?.toLowerCase()) {
+      case 'number':
+      case 'numeric':
+      case 'int':
+      case 'float':
+      case 'decimal':
+        return [
+          { value: 'equals', label: 'Equals' },
+          { value: 'greaterThan', label: 'Greater Than' },
+          { value: 'lessThan', label: 'Less Than' },
+          { value: 'greaterThanOrEqual', label: 'Greater Than or Equal' },
+          { value: 'lessThanOrEqual', label: 'Less Than or Equal' },
+          { value: 'between', label: 'Between' }
+        ];
+      case 'date':
+      case 'datetime':
+      case 'timestamp':
+        return [
+          { value: 'equals', label: 'Equals' },
+          { value: 'greaterThan', label: 'After' },
+          { value: 'lessThan', label: 'Before' },
+          { value: 'greaterThanOrEqual', label: 'On or After' },
+          { value: 'lessThanOrEqual', label: 'On or Before' },
+          { value: 'between', label: 'Between' }
+        ];
+      case 'boolean':
+        return [
+          { value: 'equals', label: 'Equals' }
+        ];
+      default: // string, text, varchar, etc.
+        return [
+          { value: 'contains', label: 'Contains' },
+          { value: 'equals', label: 'Equals' },
+          { value: 'startsWith', label: 'Starts With' },
+          { value: 'endsWith', label: 'Ends With' },
+          { value: 'notContains', label: 'Does Not Contain' }
+        ];
+    }
+  };
+
+  // Get input type based on data type
+  const getInputTypeForDataType = (dataType: string) => {
+    switch (dataType?.toLowerCase()) {
+      case 'number':
+      case 'numeric':
+      case 'int':
+      case 'float':
+      case 'decimal':
+        return 'number';
+      case 'date':
+      case 'datetime':
+      case 'timestamp':
+        return 'date';
+      case 'email':
+        return 'email';
+      case 'url':
+        return 'url';
+      default:
+        return 'text';
+    }
+  };
+
+  const handleFilterIconClick = (event: React.MouseEvent<HTMLElement>, columnKey: string) => {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    // If clicking on the same column, toggle the popup
+    if (selectedColumnForFilter === columnKey && isFilterPopupOpen) {
+      setIsFilterPopupOpen(false);
+      setSelectedColumnForFilter(null);
+      setFilterAnchorEl(null);
+      return;
+    }
+    
+    // If clicking on a different column, close current and open new
+    if (selectedColumnForFilter !== columnKey) {
+      setIsFilterPopupOpen(false);
+      setSelectedColumnForFilter(columnKey);
+      setFilterAnchorEl(event.currentTarget);
+      
+      // Load column-specific filter state
+      const columnFilterState = columnFilterStates[columnKey] || { operator: 'contains', value: '' };
+      setTempFilterValue(columnFilterState.value);
+      setTempFilterOperator(columnFilterState.operator);
+      
+      // Open new popup after a brief delay to ensure smooth transition
+      setTimeout(() => {
+        setIsFilterPopupOpen(true);
+      }, 50);
+    } else {
+      // Same column, just open
+      setSelectedColumnForFilter(columnKey);
+      setFilterAnchorEl(event.currentTarget);
+      const columnFilterState = columnFilterStates[columnKey] || { operator: 'contains', value: '' };
+      setTempFilterValue(columnFilterState.value);
+      setTempFilterOperator(columnFilterState.operator);
+      setIsFilterPopupOpen(true);
+    }
+  };
+
+  const handleFilterPopupClose = () => {
+    setFilterAnchorEl(null);
+    setIsFilterPopupOpen(false);
+    // Don't clear selectedColumnForFilter immediately to prevent label flicker
+    setTimeout(() => {
+      setSelectedColumnForFilter(null);
+    }, 100);
+  };
+
+  const handleResizeStart = (e: React.MouseEvent, columnKey: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const header = tableHeaders.find(h => h.key === columnKey);
+    if (header?.isResizable !== false) {
+      setIsResizing(true);
+      setResizingColumn(columnKey);
+      setResizeStartX(e.clientX);
+      setResizeStartWidth(columnWidths[columnKey] || header?.minWidth || 150);
+      
+      // Prevent text selection during resize
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'col-resize';
+    }
+  };
+
+  // Handle click outside to close popup
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (filterButtonRef.current && !filterButtonRef.current.contains(event.target as Node)) {
-        setIsFilterPopupOpen(false);
+      if (isFilterPopupOpen && filterAnchorEl) {
+        const target = event.target as Element;
+        if (!target.closest('.MuiPopover-root') && !target.closest('[data-filter-button]')) {
+          handleFilterPopupClose();
+        }
       }
     };
 
-    if (isFilterPopupOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isFilterPopupOpen]);
+  }, [isFilterPopupOpen, filterAnchorEl]);
 
   // Initialize column widths
   useEffect(() => {
@@ -525,8 +833,6 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
           minWidth,
           Math.min(maxWidth, requestedWidth)
         );
-        
-        console.log('Resizing column:', resizingColumn, 'New width:', newWidth, 'Delta:', deltaX, 'MinWidth:', minWidth, 'MaxWidth:', maxWidth, 'StartWidth:', resizeStartWidth);
         
         setColumnWidths(prev => ({
           ...prev,
@@ -557,170 +863,56 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     };
   }, [isResizing, resizingColumn, resizeStartX, resizeStartWidth, tableHeaders]);
 
-  // Filter and sort data
-  const filteredData = useMemo(() => {
-    let filtered = [...currentData];
-
-    // Apply filtering
-    if (Object.keys(filterState).length > 0) {
-      filtered = filtered.filter(row => {
-        return Object.entries(filterState).every(([columnKey, filter]) => {
-          // If no value, don't filter this column (show all)
-          if (!filter.value || filter.value.trim() === '') return true;
-          
-          const cellValue = row[columnKey]?.toString().toLowerCase() || '';
-          const filterValue = filter.value.toLowerCase();
-          
-          switch (filter.operator) {
-            case 'contains':
-              return cellValue.includes(filterValue);
-            case 'equals':
-              return cellValue === filterValue;
-            case 'startsWith':
-              return cellValue.startsWith(filterValue);
-            case 'endsWith':
-              return cellValue.endsWith(filterValue);
-            case 'greaterThan':
-              return parseFloat(cellValue) > parseFloat(filterValue);
-            case 'lessThan':
-              return parseFloat(cellValue) < parseFloat(filterValue);
-            default:
-              return cellValue.includes(filterValue);
-          }
-        });
-      });
-    }
-
-    // Apply sorting
-    if (sortColumn) {
-      filtered = filtered.sort((a, b) => {
-        const aVal = a[sortColumn];
-        const bVal = b[sortColumn];
-        if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
-        if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
-        return 0;
-      });
-    }
-
-    return filtered;
-  }, [tableData, sortColumn, sortDirection, filterState]);
-
-  // Paginate data
-  const paginatedData = useMemo(() => {
-    if (!pagination) return filteredData;
-    const startIndex = (currentPage - 1) * currentPageSize;
-    const endIndex = startIndex + currentPageSize;
-    return filteredData.slice(startIndex, endIndex);
-  }, [filteredData, pagination, currentPage, currentPageSize]);
-
-  const handleSort = (columnKey: string) => {
-    if (sortColumn === columnKey) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortColumn(columnKey);
-      setSortDirection('asc');
-    }
-    onSortChange?.({ column: columnKey, direction: sortDirection });
-  };
-
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    onPaginationHandler?.(page, currentPageSize);
-  };
-
-  const handlePageSizeChange = (pageSize: number) => {
-    setCurrentPageSize(pageSize);
-    setCurrentPage(1); // Reset to first page when page size changes
-    onPaginationHandler?.(1, pageSize);
-  };
-
-  const handleRowSelect = (rowId: string, rowData: any) => {
-    if (selectedRows.has(rowId)) {
-      setSelectedRows(prev => {
-        const newSet = new Set(prev);
-        newSet.delete(rowId);
-        return newSet;
-      });
-    } else {
-      setSelectedRows(prev => new Set([...prev, rowId]));
-    }
-    onRowSelect?.(rowData);
-  };
-
-  const handleFilterChange = (columnKey: string, value: string, operator: string) => {
-    const newFilterState = { ...filterState };
-    if (value && value.trim() !== '') {
-      newFilterState[columnKey] = { value, operator: operator as any };
-    } else {
-      delete newFilterState[columnKey];
-    }
-    console.log('Filter state updated:', newFilterState);
-    setFilterState(newFilterState);
-    onFilterChange?.(newFilterState);
-    
-    // Force re-render by updating a dummy state
-    setCurrentPage(1);
-  };
-
-  // Update temp filter value without applying filter
-  const handleTempFilterChange = (value: string) => {
-    setTempFilterValue(value);
-    // No real-time filtering - only update when FILTER button is clicked
-  };
-
-  // Handle click outside to close popup
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (isFilterPopupOpen) {
-        const target = event.target as Element;
-        if (!target.closest('.rds-fluent-grid-filter-container')) {
-          handleFilterPopupClose();
-        }
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isFilterPopupOpen]);
-
-  const handleColumnVisibilityChange = (columnKey: string, isVisible: boolean) => {
-    const newVisibleColumns = isVisible
-      ? [...visibleColumns, columnKey]
-      : visibleColumns.filter(key => key !== columnKey);
-    setVisibleColumns(newVisibleColumns);
-    onColumnVisibilityChange?.(newVisibleColumns);
-    console.log('Column visibility changed:', { columnKey, isVisible, newVisibleColumns });
-  };
-
-
   const handleColumnPanelToggle = () => {
+    // If expanding columns, collapse filter
+    if (!isColumnPanelExpanded) {
+      setIsFilterExpanded(false);
+    }
     setIsColumnPanelExpanded(!isColumnPanelExpanded);
   };
 
+  const handleFilterToggle = () => {
+    // If expanding filter, collapse columns
+    if (!isFilterExpanded) {
+      setIsColumnPanelExpanded(false);
+    }
+    setIsFilterExpanded(!isFilterExpanded);
+  };
+
+  const handleFilterConditionChange = (id: number, field: string, value: any) => {
+    setFilterConditions(prev => 
+      prev.map(condition => 
+        condition.id === id ? { ...condition, [field]: value } : condition
+      )
+    );
+    
+    // No real-time filtering - only update when FILTER button is clicked
+  };
+
   const handleApplyFilter = () => {
-    if (selectedColumnForFilter) {
-      console.log('Applying filter:', { column: selectedColumnForFilter, value: tempFilterValue, operator: tempFilterOperator });
+    const columnToFilter = selectedColumnForFilter || filterConditions[0].column;
+    
+    if (columnToFilter && filterConditions[0].value) {
+      const filterValue = (filterConditions[0].value as any) instanceof Date ? 
+        (filterConditions[0].value as unknown as Date).toISOString().split('T')[0] : 
+        filterConditions[0].value;
+      
+      // Update the main filter state (preserving existing filters)
+      const newFilterState = { ...filterState };
+      newFilterState[columnToFilter] = {
+        value: filterValue,
+        operator: filterConditions[0].operator as any
+      };
       
       // Update column-specific filter state
       const newColumnFilterStates = { ...columnFilterStates };
-      newColumnFilterStates[selectedColumnForFilter] = {
-        operator: tempFilterOperator,
-        value: tempFilterValue
+      newColumnFilterStates[columnToFilter] = {
+        operator: filterConditions[0].operator,
+        value: filterValue
       };
-      setColumnFilterStates(newColumnFilterStates);
       
-      // Apply the filter (this will update the main filterState)
-      handleFilterChange(selectedColumnForFilter, tempFilterValue, tempFilterOperator);
-      
-      // Generate API request JSON from ALL active filters (including the one just applied)
-      const updatedFilterState = { ...filterState, [selectedColumnForFilter]: { value: tempFilterValue, operator: tempFilterOperator as any } };
-      const activeFilters = Object.entries(updatedFilterState)
+      // Generate API request JSON from ALL active filters
+      const activeFilters = Object.entries(newFilterState)
         .filter(([_, filter]) => filter.value && filter.value.trim() !== '')
         .map(([columnKey, filter]) => {
           const column = tableHeaders.find(h => h.key === columnKey);
@@ -731,36 +923,39 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
             operator: filter.operator,
             value: filter.value,
             id: `${columnKey}_${Date.now()}`
-        } as FilterCondition;
-      });
+          } as FilterCondition;
+        });
       
-      let sortDirectionValue: 'ASC' | 'DESC' | undefined = undefined;
-      if (sortColumn) {
-        if (sortDirection === 'asc') {
-          sortDirectionValue = 'ASC';
-        } else {
-          sortDirectionValue = 'DESC';
-        }
-      }
       const filterApiRequest: FilterApiRequest = {
         filters: activeFilters,
         logicalOperator: 'AND',
         page: currentPage,
         pageSize: recordsPerPage,
         sortBy: sortColumn || undefined,
-        sortDirection: sortDirectionValue
+        sortDirection: sortColumn ? (sortDirection === 'asc' ? 'ASC' : 'DESC') : undefined
       };
       
-      console.log('All active filters:', updatedFilterState);
+      console.log('Applying filter for column:', columnToFilter);
+      console.log('All active filters:', newFilterState);
       console.log('API Request JSON:', JSON.stringify(filterApiRequest, null, 2));
+      
+      setFilterState(newFilterState);
+      setColumnFilterStates(newColumnFilterStates);
+      onFilterChange?.(newFilterState);
       onFilterApiRequest?.(filterApiRequest);
     }
-    setIsFilterPopupOpen(false);
+    
+    handleFilterPopupClose();
   };
 
-  const handleClearFilter = () => {
+  const handleClearAdvancedFilter = () => {
+    setFilterConditions([
+      { id: 1, column: '', operator: 'contains', value: '' },
+      { id: 2, column: '', operator: 'contains', value: '' }
+    ]);
+    
+    // Clear only the current column's filter, preserve others
     if (selectedColumnForFilter) {
-      // Clear only the current column's filter, preserve others
       const newFilterState = { ...filterState };
       delete newFilterState[selectedColumnForFilter];
       
@@ -782,21 +977,13 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
           } as FilterCondition;
         });
       
-      let sortDirectionValue2: 'ASC' | 'DESC' | undefined = undefined;
-      if (sortColumn) {
-        if (sortDirection === 'asc') {
-          sortDirectionValue2 = 'ASC';
-        } else {
-          sortDirectionValue2 = 'DESC';
-        }
-      }
       const filterApiRequest: FilterApiRequest = {
         filters: activeFilters,
         logicalOperator: 'AND',
         page: currentPage,
         pageSize: recordsPerPage,
         sortBy: sortColumn || undefined,
-        sortDirection: sortDirectionValue2
+        sortDirection: sortColumn ? (sortDirection === 'asc' ? 'ASC' : 'DESC') : undefined
       };
       
       console.log('Clearing filter for column:', selectedColumnForFilter);
@@ -808,51 +995,30 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
       onFilterChange?.(newFilterState);
       onFilterApiRequest?.(filterApiRequest);
     }
-    setTempFilterValue('');
-    setTempFilterOperator('contains');
-    setIsFilterPopupOpen(false);
+    
+    handleFilterPopupClose();
   };
 
-  const handleFilterIconClick = (columnKey: string) => {
-    console.log('Filter icon clicked for column:', columnKey);
-    setSelectedColumnForFilter(columnKey);
-    
-    // Load column-specific filter state
-    const columnFilterState = columnFilterStates[columnKey] || { operator: 'contains', value: '' };
-    setTempFilterValue(columnFilterState.value);
-    setTempFilterOperator(columnFilterState.operator);
-    setIsFilterPopupOpen(true);
-    console.log('Filter popup should be open: true');
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
   };
 
-  const handleFilterPopupClose = () => {
-    console.log('Closing filter popup and clearing temp values');
-    setIsFilterPopupOpen(false);
-    setTempFilterValue('');
-    setTempFilterOperator('contains');
-    setSelectedColumnForFilter(null);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    onPaginationHandler?.(page, recordsPerPage);
   };
 
-  const handleResizeStart = (e: React.MouseEvent, columnKey: string) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    console.log('Resize start triggered for column:', columnKey);
-    
-    const header = tableHeaders.find(h => h.key === columnKey);
-    if (header?.isResizable !== false) {
-      console.log('Starting resize for column:', columnKey, 'Current width:', columnWidths[columnKey]);
-      setIsResizing(true);
-      setResizingColumn(columnKey);
-      setResizeStartX(e.clientX);
-      setResizeStartWidth(columnWidths[columnKey] || header?.minWidth || 150);
-      
-      // Prevent text selection during resize
-      document.body.style.userSelect = 'none';
-      document.body.style.cursor = 'col-resize';
+  const handleRowSelect = (rowId: string, rowData: any) => {
+    if (selectedRows.has(rowId)) {
+      setSelectedRows(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(rowId);
+        return newSet;
+      });
     } else {
-      console.log('Column is not resizable:', columnKey);
+      setSelectedRows(prev => new Set([...prev, rowId]));
     }
+    onRowSelect?.(rowData);
   };
 
   // Inline editing handlers
@@ -956,9 +1122,16 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     };
 
     // Find the row and update it
-    const updatedData = currentData.map(row => {
-      const rowIdToCheck = row.id || currentData.indexOf(row).toString();
-      if (rowIdToCheck === rowId) {
+    const updatedData = currentData.map((row, index) => {
+      let rowIdToCheck = row.id || index.toString();
+      
+      // Handle different rowId formats
+      if (rowId.startsWith('row-')) {
+        const rowIndex = parseInt(rowId.replace('row-', ''));
+        if (index === rowIndex) {
+          return { ...row, [columnKey]: processedValue };
+        }
+      } else if (rowIdToCheck === rowId) {
         return { ...row, [columnKey]: processedValue };
       }
       return row;
@@ -1012,7 +1185,6 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
 
     const editableColumns = tableHeaders.filter(h => h.isEditable);
     console.log('Editable columns:', editableColumns.map(c => c.key));
-    
     const validationErrors: {[columnKey: string]: string} = {};
     let hasErrors = false;
 
@@ -1067,7 +1239,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
         validationErrors[column.key] = error;
         hasErrors = true;
       }
-    }
+    });
 
     if (hasErrors) {
       console.log('Validation errors found:', validationErrors);
@@ -1092,11 +1264,23 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     let updatedData = [...currentData];
     
     // Find the row index once
-    const rowIndex = currentData.findIndex(row => (row.id || currentData.indexOf(row).toString()) === rowId);
+    let rowIndex = -1;
+    
+    // Handle different rowId formats
+    if (rowId.startsWith('row-')) {
+      // Extract index from "row-0", "row-1", etc.
+      const index = parseInt(rowId.replace('row-', ''));
+      rowIndex = index;
+      console.log('Extracted index from rowId:', index);
+    } else {
+      // Try to find by row.id or index
+      rowIndex = currentData.findIndex(row => (row.id || currentData.indexOf(row).toString()) === rowId);
+    }
+    
     console.log('Row index found:', rowIndex, 'for rowId:', rowId);
     
-    if (rowIndex === -1) {
-      console.error('Row not found in currentData');
+    if (rowIndex === -1 || rowIndex >= currentData.length) {
+      console.error('Row not found in currentData. rowId:', rowId, 'currentData.length:', currentData.length);
       return;
     }
     
@@ -1144,7 +1328,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     // Update the data array with the modified row
     updatedData[rowIndex] = updatedRow;
 
-    // Update the data state immediately so changes are visible
+    // Update data state immediately so changes are visible
     console.log('Updating data with:', updatedData);
     updateData(updatedData);
 
@@ -1181,607 +1365,1329 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = (props) => {
     }
   };
 
-  const getVisibleHeaders = () => {
-    const visible = tableHeaders.filter(header => visibleColumns.includes(header.key));
-    console.log('Visible headers:', { visibleColumns, visible: visible.map(h => h.key) });
-    return visible;
-  };
-
-  const totalPages = Math.ceil(filteredData.length / currentPageSize);
-  const totalRecordsCount = totalRecords || filteredData.length;
-
-  // Debug logging
-  console.log('Filter popup state:', { isFilterPopupOpen });
-  console.log('Filter state:', filterState);
-  console.log('Filtered data length:', filteredData.length, 'Original data length:', tableData.length);
-  console.log('Sample data:', tableData.slice(0, 2));
-  console.log('Sample filtered data:', filteredData.slice(0, 2));
+  const totalPages = Math.ceil(tableData.length / recordsPerPage);
+  const activeFiltersCount = Object.keys(filterState).length + (searchValue ? 1 : 0);
 
   if (isLoading) {
     return (
-      <div className={`rds-fluent-grid-container ${classes || ''}`}>
-        <div className="rds-fluent-grid-loader">
-          <CircularProgress size={40} />
-        </div>
-      </div>
+      <Card sx={{ p: 2 }}>
+        <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+          <Typography variant="h6" color="text.secondary">
+            Loading...
+          </Typography>
+        </Box>
+      </Card>
     );
   }
 
   if (tableData.length === 0) {
     return (
-      <div className={`rds-fluent-grid-container ${classes || ''}`}>
+      <Card sx={{ p: 2 }}>
         {showHeader && (
-          <div className="rds-fluent-grid-header">
-            <div className="rds-fluent-grid-header-controls">
-              <Button startIcon={<AddIcon />}>Add New</Button>
-              <Button startIcon={<PersonIcon />}>Person</Button>
-              <Button startIcon={<FilterIcon />}>Filters</Button>
-              <Button startIcon={<ArrowUpIcon />}>Sort</Button>
-              <Button startIcon={<VisibilityIcon />}>Hide</Button>
-              <Button startIcon={<MoreIcon />}>More</Button>
-            </div>
-          </div>
+          <Box p={2} borderBottom="1px solid" borderColor="divider">
+            <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
+              <TextField
+                placeholder="Search..."
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                size="small"
+                InputProps={{
+                  startAdornment: <SearchIcon color="action" />,
+                }}
+                sx={{ minWidth: 200 }}
+              />
+              <Stack direction="row" spacing={1}>
+                <Button startIcon={<AddIcon />} variant="outlined" size="small">
+                  Add New
+                </Button>
+                <Button startIcon={<PersonIcon />} variant="outlined" size="small">
+                  Person
+                </Button>
+                <Button
+                  startIcon={<FilterIcon />}
+                  variant={activeFiltersCount > 0 ? "contained" : "outlined"}
+                  size="small"
+                  onClick={() => setShowFilters(!showFilters)}
+                >
+                  Filters
+                  {activeFiltersCount > 0 && (
+                    <Chip label={activeFiltersCount} size="small" color="primary" sx={{ ml: 1 }} />
+                  )}
+                </Button>
+                <Button startIcon={<SortIcon />} variant="outlined" size="small">
+                  Sort
+                </Button>
+                <Button startIcon={<VisibilityIcon />} variant="outlined" size="small">
+                  Hide
+                </Button>
+                <IconButton size="small">
+                  <MoreIcon />
+                </IconButton>
+              </Stack>
+            </Stack>
+          </Box>
         )}
-        <div className="rds-fluent-grid-empty-state">
-          <Typography variant="h6" className="rds-fluent-grid-empty-state-title">{noDataTitle}</Typography>
-          <Typography variant="body2" className="rds-fluent-grid-empty-state-description">
+        <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="200px">
+          <Typography variant="h6" color="text.secondary" gutterBottom>
+            {noDataTitle}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
             No data available to display
           </Typography>
-        </div>
-      </div>
+        </Box>
+      </Card>
     );
   }
 
   return (
-    <div className={`rds-fluent-grid-container ${classes || ''}`}>
-        {showHeader && (
-          <div className="rds-fluent-grid-header">
-            <div className="rds-fluent-grid-header-controls">
-              <Button startIcon={<AddIcon />}>Add New</Button>
-              <Button startIcon={<PersonIcon />}>Person</Button>
-              <Button startIcon={<FilterIcon />}>Filters</Button>
-              <Button startIcon={<ArrowUpIcon />}>Sort</Button>
-              <Button startIcon={<VisibilityIcon />}>Hide</Button>
-              <Button startIcon={<MoreIcon />}>More</Button>
-              {/* Test button for popup */}
+    <Card sx={{
+      bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
+      color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+      '& .MuiTableCell-root': {
+        color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit'
+      }
+    }}>
+      {showHeader && (
+        <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
+          bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined
+        }}>
+          <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
+            <TextField
+              placeholder="Search..."
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              size="small"
+              InputProps={{
+                startAdornment: <SearchIcon color="action" />,
+              }}
+              sx={{ minWidth: 200 }}
+            />
+            <Stack direction="row" spacing={1}>
+              <Button startIcon={<AddIcon />} variant="outlined" size="small">
+                Add New
+              </Button>
+              <Button startIcon={<PersonIcon />} variant="outlined" size="small">
+                Person
+              </Button>
               <Button
-                variant="contained"
+                startIcon={<FilterIcon />}
+                variant={activeFiltersCount > 0 ? "contained" : "outlined"}
                 size="small"
-                onClick={(e) => {
-                  console.log('Test button clicked!', e.currentTarget);
-                  setIsFilterPopupOpen(!isFilterPopupOpen);
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                Filters
+                {activeFiltersCount > 0 && (
+                  <Chip label={activeFiltersCount} size="small" color="primary" sx={{ ml: 1 }} />
+                )}
+              </Button>
+              <Button startIcon={<SortIcon />} variant="outlined" size="small">
+                Sort
+              </Button>
+              <Button startIcon={<VisibilityIcon />} variant="outlined" size="small">
+                Hide
+              </Button>
+              <IconButton size="small">
+                <MoreIcon />
+              </IconButton>
+            </Stack>
+          </Stack>
+        </Box>
+      )}
+
+      {showFilters && (
+        <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
+          bgcolor: theme.palette.mode === 'dark' ? '#333333' : 'grey.50'
+        }}>
+          <Grid container spacing={2} alignItems="center">
+            {tableHeaders.filter(header => header.isFilter).map((header) => (
+              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={header.key}>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Typography variant="body2" fontWeight="medium" minWidth="80px">
+                    {header.name}:
+                  </Typography>
+                  <TextField
+                    placeholder={`Filter ${header.name}...`}
+                    value={filterState[header.key]?.value || ''}
+                    onChange={(e) => handleFilterChange(header.key, e.target.value, 'contains')}
+                    size="small"
+                    sx={{ flexGrow: 1 }}
+                  />
+                  <FormControl size="small" sx={{ minWidth: 120 }}>
+                    <Select
+                      value={filterState[header.key]?.operator || 'contains'}
+                      onChange={(e) => handleFilterChange(header.key, filterState[header.key]?.value || '', e.target.value as any)}
+                    >
+                      <MenuItem value="contains">Contains</MenuItem>
+                      <MenuItem value="equals">Equals</MenuItem>
+                      <MenuItem value="startsWith">Starts With</MenuItem>
+                      <MenuItem value="endsWith">Ends With</MenuItem>
+                      <MenuItem value="greaterThan">Greater Than</MenuItem>
+                      <MenuItem value="lessThan">Less Than</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Stack>
+              </Grid>
+            ))}
+            <Grid>
+              <Button
+                startIcon={<ClearIcon />}
+                onClick={clearAllFilters}
+                variant="outlined"
+                size="small"
+                color="secondary"
+                sx={{
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  height: '32px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                  borderRadius: '4px',
+                  boxShadow: 'none',
+                  '&:hover': {
+                    boxShadow: 'none',
+                  },
+                  '&:active': {
+                    boxShadow: 'none',
+                  }
                 }}
               >
-                Test Popup
+                Clear All
               </Button>
-            </div>
-          </div>
-        )}
+            </Grid>
+          </Grid>
+        </Box>
+      )}
 
-        {showSubHeader && (
-          <div className="rds-fluent-grid-sub-header">
-            <div className="rds-fluent-grid-sub-header-left">
-              <Typography variant="subtitle1" className="rds-fluent-grid-sub-header-title">
+      {showSubHeader && (
+        <Box p={1.5} borderBottom="1px solid" borderColor="divider" sx={{ 
+          bgcolor: theme => theme.palette.mode === 'dark' ? '#424242' : 'grey.100'
+        }}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Typography variant="subtitle2" fontWeight="medium">
                 {noDataHeaderTitle}
               </Typography>
-              <MoreIcon className="rds-fluent-grid-sub-header-dots" />
-            </div>
-            <Button
-              variant="text"
-              startIcon={isCollapsed ? <ArrowDownIcon /> : <ArrowUpIcon />}
-              onClick={toggleCollapse}
-              className="rds-fluent-grid-sub-header-toggle"
-            />
-          </div>
-        )}
+              <IconButton size="small">
+                <MoreIcon />
+              </IconButton>
+            </Stack>
+            <IconButton size="small" onClick={toggleCollapse}>
+              {isCollapsed ? <ArrowDownIcon /> : <ArrowUpIcon />}
+            </IconButton>
+          </Stack>
+        </Box>
+      )}
 
-        {!isCollapsed && (
-          <>
-            <table className="rds-fluent-grid-table" ref={tableRef}>
-              <thead>
-                <tr>
-                  {/* Selection column */}
-                  {(enableCheckboxSelection || enableRadioButtonSelection) && (
-                    <th className="rds-fluent-grid-header-cell" style={{ width: '50px' }}>
-                      {enableCheckboxSelection ? 'Select All' : 'Select'}
-                    </th>
-                  )}
-                  
-                  {/* Data columns */}
-                  {getVisibleHeaders().map((header) => (
-                    <th
-                      key={header.key}
-                      className={`rds-fluent-grid-header-cell ${header.isResizable !== false ? 'rds-fluent-grid-header-cell--resizable' : ''}`}
-                      style={{
-                        width: columnWidths[header.key] || header.minWidth || 150,
-                        maxWidth: header.maxWidth || 500,
-                        cursor: isSort && header.isSort ? 'pointer' : 'default',
-                        position: 'relative',
+      {!isCollapsed && (
+        <TableContainer 
+          component={Paper} 
+          elevation={0}
+          sx={{
+            bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
+          }}
+        >
+          <Table stickyHeader ref={tableRef}>
+            <TableHead sx={{ 
+              bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined,
+              '& th': { bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined }
+            }}>
+              <TableRow sx={{ 
+                bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined 
+              }}>
+                {enableCheckboxSelection && (
+                  <TableCell 
+                    padding="checkbox" 
+                    sx={{ 
+                      width: '50px',
+                      borderRight: '1px solid #d1d1d1',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                    }}
+                  >
+                    <Checkbox
+                      checked={selectedRows.size === processedData.length && processedData.length > 0}
+                      indeterminate={selectedRows.size > 0 && selectedRows.size < processedData.length}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedRows(new Set(processedData.map((_, index) => `row-${index}`)));
+                        } else {
+                          setSelectedRows(new Set());
+                        }
                       }}
-                      onClick={() => isSort && header.isSort && handleSort(header.key)}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Typography variant="body2" fontWeight={header.isBold ? 'bold' : 'normal'}>
+                    />
+                  </TableCell>
+                )}
+                
+                {enableRadioButtonSelection && (
+                  <TableCell 
+                    padding="checkbox" 
+                    sx={{ 
+                      width: '50px',
+                      borderRight: '1px solid #d1d1d1',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                    }}
+                  >
+                    <Typography variant="caption" color="text.secondary">
+                      {enableCheckboxSelection ? 'Select All' : 'Select'}
+                    </Typography>
+                  </TableCell>
+                )}
+                
+                {getVisibleHeaders().map((header) => (
+                  <TableCell
+                    key={header.key}
+                    sx={{
+                      cursor: isSort && header.isSort ? 'pointer' : 'default',
+                      width: columnWidths[header.key] || header.minWidth || 150,
+                      maxWidth: header.maxWidth || 500,
+                      fontWeight: header.isBold ? 'bold' : 'normal',
+                      position: 'relative',
+                      userSelect: 'none',
+                      borderRight: '1px solid #d1d1d1',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                      '&:last-child': {
+                        borderRight: 'none',
+                      },
+                    }}
+                    onClick={() => isSort && header.isSort && handleSort(header.key)}
+                  >
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                      <Stack direction="row" spacing={0.5} alignItems="center">
+                        <Typography variant="subtitle2" fontWeight={header.isBold ? 'bold' : 'medium'}>
                           {header.name}
                         </Typography>
                         {header.required && (
-                          <Typography variant="body2" style={{ color: '#d13438' }}>*</Typography>
+                          <Typography color="error" variant="caption">*</Typography>
                         )}
                         {isSort && header.isSort && (
-                          <ArrowUpIcon className="rds-fluent-grid-sort-icon" />
+                          <Tooltip title="Sort">
+                            <IconButton size="small">
+                              {(() => {
+                                if (sortColumn === header.key) {
+                                  if (sortDirection === 'asc') {
+                                    return <ArrowUpIcon fontSize="small" />;
+                                  }
+                                  return <ArrowDownIcon fontSize="small" />;
+                                }
+                                return <ArrowUpDownIcon fontSize="small" />;
+                              })()}
+                            </IconButton>
+                          </Tooltip>
                         )}
-                        {isFilter && header.isFilter && (
-                          <div className="rds-fluent-grid-filter-container">
-                            <Button
+                      </Stack>
+                      
+                      {isFilter && header.isFilter && (
+                        <Tooltip title="Click to open filters and column visibility">
+                          <span>
+                            <IconButton 
+                              size="small" 
+                              onClick={(e) => handleFilterIconClick(e, header.key)}
                               ref={filterButtonRef}
-                              variant="text"
-                              size="small"
-                              startIcon={<FilterIcon />}
-                              className={`rds-fluent-grid-filter-icon ${filterState[header.key]?.value ? 'rds-fluent-grid-filter-icon-active' : ''}`}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                console.log('Filter icon clicked for column:', header.key);
-                                handleFilterIconClick(header.key);
-                              }}
-                            />
-                            {isFilterPopupOpen && (
-                              <div className="rds-fluent-grid-filter-popup">
-                                <div className="rds-fluent-grid-filter-popup-header">
-                                  <Typography variant="body2" fontWeight="bold" style={{ fontSize: '12px' }}>
-                                    {selectedColumnForFilter ? 
-                                      `Filter: ${tableHeaders.find(h => h.key === selectedColumnForFilter)?.name || selectedColumnForFilter}` : 
-                                      'Controls'
-                                    }
-                                  </Typography>
-                                  <Button
-                                    variant="text"
-                                    size="small"
-                                    startIcon={<ClearIcon />}
-                                    onClick={handleFilterPopupClose}
-                                    style={{ minWidth: '20px', height: '20px', padding: '0' }}
-                                  />
-                                </div>
-                                
-                                {/* Column Visibility Toggle */}
-                                <div style={{ marginBottom: '8px' }}>
-                                  <Button
-                                    variant="text"
-                                    size="small"
-                                    onClick={handleColumnPanelToggle}
-                                    style={{ 
-                                      fontSize: '12px', 
-                                      padding: '4px 8px',
-                                      height: '28px',
-                                      width: '100%',
-                                      fontWeight: '500'
-                                    }}
-                                  >
-                                    {isColumnPanelExpanded ? 'Hide' : 'Show'} Columns
-                                  </Button>
-                                  {isColumnPanelExpanded && (
-                                    <div style={{ 
-                                      marginTop: '2px', 
-                                      maxHeight: '60px', 
-                                      overflowY: 'auto',
-                                      border: '1px solid #e1e1e1',
-                                      borderRadius: '2px',
-                                      padding: '2px'
-                                    }}>
-                                      {tableHeaders.map((col) => (
-                                        <div 
-                                          key={col.key} 
-                                          style={{ 
-                                            display: 'flex', 
-                                            alignItems: 'center', 
-                                            gap: '8px',
-                                            padding: '4px 6px',
-                                            fontSize: '12px'
-                                          }}
-                                        >
-                                          <input
-                                            type="checkbox"
-                                            checked={visibleColumns.includes(col.key)}
-                                            onChange={(e) => handleColumnVisibilityChange(col.key, e.target.checked)}
-                                            style={{ width: '14px', height: '14px' }}
-                                          />
-                                          <span style={{ fontSize: '12px', fontWeight: '400' }}>{col.name}</span>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  )}
-                                </div>
-                                
-                                {/* Simple Filter Controls */}
-                                {selectedColumnForFilter && (
-                                  <div className="rds-fluent-grid-filter-section">
-                                    {(() => {
-                                      const col = tableHeaders.find(h => h.key === selectedColumnForFilter);
-                                      if (!col || !col.isFilter) return null;
-                                      
-                                      return (
-                                        <div className="rds-fluent-grid-filter-item">
-                                          {/* Filter Type Dropdown */}
-                                          <div style={{ marginBottom: '8px' }}>
-                                            <label style={{ 
-                                              fontSize: '12px', 
-                                              fontWeight: '500', 
-                                              color: '#333', 
-                                              display: 'block', 
-                                              marginBottom: '4px' 
-                                            }}>
-                                              Filter
-                                            </label>
-                                            <select
-                                              value={tempFilterOperator}
-                                              onChange={(e) => {
-                                                setTempFilterOperator(e.target.value);
-                                                // No real-time filtering - only update when FILTER button is clicked
-                                              }}
-                                              style={{ 
-                                                width: '100%', 
-                                                fontSize: '12px', 
-                                                padding: '6px 8px',
-                                                height: '32px',
-                                                border: '1px solid #d0d0d0',
-                                                borderRadius: '4px',
-                                                backgroundColor: '#fff',
-                                                outline: 'none'
-                                              }}
-                                            >
-                                              <option value="contains">Contains</option>
-                                              <option value="equals">Equals</option>
-                                              <option value="startsWith">Starts with</option>
-                                              <option value="endsWith">Ends with</option>
-                                            </select>
-                                          </div>
-                                          {/* Input Field */}
-                                          <div style={{ marginBottom: '8px' }}>
-                                            <label style={{ 
-                                              fontSize: '12px', 
-                                              fontWeight: '500', 
-                                              color: '#333', 
-                                              display: 'block', 
-                                              marginBottom: '4px' 
-                                            }}>
-                                              Value
-                                            </label>
-                                            <TextField
-                                              placeholder="Enter string..."
-                                              value={tempFilterValue}
-                                              onChange={(e) => handleTempFilterChange(e.target.value)}
-                                              size="small"
-                                              sx={{ 
-                                                width: '100%',
-                                                '& .MuiInputBase-input': {
-                                                  fontSize: '12px',
-                                                  padding: '6px 8px',
-                                                  height: '20px'
-                                                },
-                                                '& .MuiOutlinedInput-root': {
-                                                  height: '32px'
-                                                }
-                                              }}
-                                            />
-                                          </div>
-                                          <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
-                                            <Button
-                                              variant="contained"
-                                              size="small"
-                                              onClick={() => {
-                                                handleApplyFilter();
-                                                handleFilterPopupClose();
-                                              }}
-                                              style={{ 
-                                                flex: 1, 
-                                                fontSize: '12px', 
-                                                padding: '6px 12px',
-                                                height: '32px',
-                                                minWidth: '0',
-                                                fontWeight: '500'
-                                              }}
-                                            >
-                                              FILTER
-                                            </Button>
-                                            <Button
-                                              variant="outlined"
-                                              size="small"
-                                              onClick={() => {
-                                                handleClearFilter();
-                                                handleFilterPopupClose();
-                                              }}
-                                              style={{ 
-                                                flex: 1, 
-                                                fontSize: '12px', 
-                                                padding: '6px 12px',
-                                                height: '32px',
-                                                minWidth: '0',
-                                                fontWeight: '500'
-                                              }}
-                                            >
-                                              CLEAR
-                                            </Button>
-                                          </div>
-                                          
-                                          {/* Clear All Filters Button */}
-                                          {Object.keys(filterState).length > 0 && (
-                                            <Button
-                                              variant="text"
-                                              size="small"
-                                              onClick={() => {
-                                                setFilterState({});
-                                                setColumnFilterStates({});
-                                                onFilterChange?.({});
-                                                onFilterApiRequest?.({ filters: [], logicalOperator: 'AND' });
-                                                handleFilterPopupClose();
-                                                console.log('Cleared all filters');
-                                              }}
-                                              style={{ 
-                                                width: '100%',
-                                                fontSize: '12px',
-                                                height: '28px',
-                                                marginTop: '8px',
-                                                color: '#d32f2f',
-                                                fontWeight: '500'
-                                              }}
-                                            >
-                                              CLEAR ALL
-                                            </Button>
-                                          )}
-                                        </div>
-                                      );
-                                    })()}
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                      
-                      {/* Resize handle */}
-                      {header.isResizable !== false && (
-                        <div
-                          className="rds-fluent-grid-resize-handle"
-                          role="separator"
-                          aria-label={`Resize ${header.name} column`}
-                          tabIndex={0}
-                          onMouseDown={(e) => handleResizeStart(e, header.key)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault();
-                              // For keyboard users, we could implement arrow key resizing
-                              // For now, just focus the handle
-                            }
-                          }}
-                          style={{
-                            position: 'absolute',
-                            right: 0,
-                            top: 0,
-                            bottom: 0,
-                            width: '4px',
-                            cursor: 'col-resize',
-                            backgroundColor: isResizing && resizingColumn === header.key ? '#0078d4' : 'transparent',
-                            zIndex: 10,
-                          }}
-                        />
-                      )}
-                    </th>
-                  ))}
-                  
-                  {/* Actions column */}
-                  {actions.length > 0 && (
-                    <th className="rds-fluent-grid-header-cell" style={{ width: '100px' }}>Actions</th>
-                  )}
-                  
-                  {/* Row editing column */}
-                  {enableInlineEdit && inlineEditMode === 'row' && (
-                    <th className="rds-fluent-grid-header-cell" style={{ width: '150px' }}>Edit</th>
-                  )}
-                </tr>
-              </thead>
-              
-              <tbody>
-                {paginatedData.map((row, index) => {
-                  const rowId = row.id || index.toString();
-                  const isSelected = selectedRows.has(rowId);
-                  
-                  return (
-                    <tr
-                      key={rowId}
-                      className={`rds-fluent-grid-row ${isSelected ? 'rds-fluent-grid-row-selected' : ''}`}
-                      style={{
-                        backgroundColor: isSelected ? '#e6f3ff' : undefined,
-                      }}
-                    >
-                      {/* Selection cell */}
-                      {(enableCheckboxSelection || enableRadioButtonSelection) && (
-                        <td className="rds-fluent-grid-cell">
-                          <input
-                            type={enableCheckboxSelection ? 'checkbox' : 'radio'}
-                            checked={isSelected}
-                            onChange={() => handleRowSelect(rowId, row)}
-                          />
-                        </td>
-                      )}
-                      
-                      {/* Data cells */}
-                      {getVisibleHeaders().map((header) => {
-                        const cellValue = row[header.key];
-                        const cellWidth = columnWidths[header.key] || header.minWidth || 150;
-                        const minWidth = header.minWidth || 50;
-                        const rowId = row.id || index.toString();
-                        const isEditing = editingCell?.rowId === rowId && editingCell?.columnKey === header.key;
-                        
-                        // Check if we should render HTML content
-                        const shouldRenderHtml = header.allowHtml && typeof cellValue === 'string' && cellValue.includes('<');
-                        const cellText = shouldRenderHtml ? '' : (cellValue?.toString() || '');
-                        
-                        // Only show tooltip if text might be truncated and not HTML
-                        const shouldShowTooltip = !shouldRenderHtml && cellText.length > 0 && cellWidth < minWidth + 50;
-                        
-                        // Use custom renderer if provided
-                        if (header.renderCell) {
-                          return (
-                            <td
-                              key={header.key}
-                              className="rds-fluent-grid-cell"
-                              style={{
-                                width: cellWidth,
-                                maxWidth: header.maxWidth || 500,
+                              data-filter-button
+                              sx={{ 
+                                '&:hover': { 
+                                  backgroundColor: 'action.hover' 
+                                },
+                                backgroundColor: filterState[header.key]?.value ? 'primary.light' : 'transparent',
+                                color: filterState[header.key]?.value ? 'primary.main' : 'action.active'
                               }}
                             >
-                              {header.renderCell(cellValue, row)}
-                            </td>
-                          );
-                        }
-                        
-                        // Check if this cell should be editable
-                        const isEditable = enableInlineEdit && header.isEditable && !shouldRenderHtml;
-                        const isRowEditing = editingRow === rowId;
-                        console.log('Row editing state:', { rowId, editingRow, isRowEditing });
-                        const isCellEditing = isEditing && inlineEditMode === 'cell';
-                        
+                              <FilterIcon fontSize="small" color="action" />
+                            </IconButton>
+                          </span>
+                        </Tooltip>
+                      )}
+                    </Box>
+                    
+                    {/* Resize handle */}
+                    {header.isResizable !== false && (
+                      <Box
+                        role="separator"
+                        aria-label={`Resize ${header.name} column`}
+                        tabIndex={0}
+                        onMouseDown={(e) => handleResizeStart(e, header.key)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            // For keyboard users, we could implement arrow key resizing
+                            // For now, just focus the handle
+                          }
+                        }}
+                        sx={{
+                          position: 'absolute',
+                          right: 0,
+                          top: 0,
+                          bottom: 0,
+                          width: '4px',
+                          cursor: 'col-resize',
+                          backgroundColor: isResizing && resizingColumn === header.key ? 'primary.main' : 'transparent',
+                          zIndex: 10,
+                          transition: 'background-color 0.2s ease',
+                          '&:hover': {
+                            backgroundColor: 'primary.main',
+                            opacity: 0.7,
+                          },
+                          '&:focus': {
+                            outline: '2px solid',
+                            outlineColor: 'primary.main',
+                            outlineOffset: '1px',
+                          },
+                        }}
+                      />
+                    )}
+                  </TableCell>
+                ))}
+                
+                {actions.length > 0 && (
+                  <TableCell 
+                    sx={{ 
+                      width: '100px',
+                      borderRight: 'none',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                    }}
+                  >
+                    <Typography variant="subtitle2" fontWeight="medium">
+                      Actions
+                    </Typography>
+                  </TableCell>
+                )}
+                
+                {enableInlineEdit && inlineEditMode === 'row' && (
+                  <TableCell 
+                    sx={{ 
+                      width: '150px',
+                      borderRight: 'none',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                    }}
+                  >
+                    <Typography variant="subtitle2" fontWeight="medium">
+                      Edit
+                    </Typography>
+                  </TableCell>
+                )}
+              </TableRow>
+            </TableHead>
+            
+            <TableBody>
+              {processedData.map((row, index) => {
+                const rowId = `row-${index}`;
+                const isSelected = selectedRows.has(rowId);
+                const isRowEditing = editingRow === rowId;
+                console.log('Row editing state:', { rowId, editingRow, isRowEditing });
+                
+                return (
+                  <TableRow
+                    key={rowId}
+                    selected={isSelected}
+                    hover
+                    onClick={() => onRowClick?.(rowId)}
+                    sx={{ cursor: 'pointer' }}
+                  >
+                    {enableCheckboxSelection && (
+                      <TableCell 
+                        padding="checkbox"
+                        sx={{ borderRight: '1px solid #d1d1d1' }}
+                      >
+                        <Checkbox
+                          checked={isSelected}
+                          onChange={() => handleRowSelect(rowId, row)}
+                        />
+                      </TableCell>
+                    )}
+                    
+                    {enableRadioButtonSelection && (
+                      <TableCell 
+                        padding="checkbox"
+                        sx={{ borderRight: '1px solid #d1d1d1' }}
+                      >
+                        <Radio
+                          checked={isSelected}
+                          onChange={() => handleRowSelect(rowId, row)}
+                          name="rowSelection"
+                        />
+                      </TableCell>
+                    )}
+                    
+                    {getVisibleHeaders().map((header) => {
+                      const cellValue = row[header.key];
+                      const cellWidth = columnWidths[header.key] || header.minWidth || 150;
+                      const minWidth = header.minWidth || 50;
+                      const rowId = `row-${index}`;
+                      const isEditing = editingCell?.rowId === rowId && editingCell?.columnKey === header.key;
+                      
+                      // Check if we should render HTML content
+                      const shouldRenderHtml = header.allowHtml && typeof cellValue === 'string' && cellValue.includes('<');
+                      const cellText = shouldRenderHtml ? '' : (cellValue?.toString() || '');
+                      
+                      // Only show tooltip if text might be truncated and not HTML
+                      const shouldShowTooltip = !shouldRenderHtml && cellText.length > 0 && cellWidth < minWidth + 50;
+                      
+                      // Use custom renderer if provided
+                      if (header.renderCell) {
                         return (
-                          <td
-                            key={header.key}
-                            className={`rds-fluent-grid-cell ${!shouldRenderHtml ? 'rds-fluent-grid-cell--truncated' : ''}`}
-                            style={{
+                      <TableCell
+                        key={header.key}
+                        sx={{
                               width: cellWidth,
                               maxWidth: header.maxWidth || 500,
+                              borderRight: '1px solid #d1d1d1',
+                              '&:last-child': {
+                                borderRight: 'none',
+                              },
                             }}
-                            title={shouldShowTooltip ? cellText : undefined}
                           >
-                            {shouldRenderHtml ? (
-                              <div 
-                                className="rds-fluent-grid-cell-html"
-                                dangerouslySetInnerHTML={{ __html: cellValue }}
-                              />
-                            ) : isEditable && inlineEditMode === 'cell' ? (
-                              <EditableCell
-                                value={cellValue}
-                                column={header}
-                                row={row}
-                                isEditing={isCellEditing}
-                                onStartEdit={() => handleCellEditStart(rowId, header.key, cellValue)}
-                                onSave={(newValue) => handleCellEditSave(rowId, header.key, newValue)}
-                                onCancel={handleCellEditCancel}
-                                onValueChange={handleCellValueChange}
-                                tempValue={tempCellValue}
-                                validationError={cellValidationError}
-                              />
-                            ) : isEditable && inlineEditMode === 'row' && isRowEditing ? (
-                              <EditableCell
-                                value={tempRowValues[header.key] || cellValue}
-                                column={header}
-                                row={row}
-                                isEditing={true}
-                                onStartEdit={() => {}} // No-op for row mode
-                                onSave={() => {}} // No-op for row mode - only save on row save button
-                                onCancel={() => {}} // No-op for row mode
-                                onValueChange={(newValue) => handleRowValueChange(header.key, newValue)}
-                                tempValue={tempRowValues[header.key] || cellValue}
-                                validationError={rowValidationErrors[header.key] || ''}
-                              />
-                            ) : (
-                              <Typography variant="body2" className="rds-fluent-grid-cell-text">{cellText}</Typography>
-                            )}
-                          </td>
+                            {header.renderCell(cellValue, row)}
+                          </TableCell>
                         );
-                      })}
+                      }
                       
-                      {/* Actions cell */}
-                      {actions.length > 0 && (
-                        <td className="rds-fluent-grid-cell">
-                          <div style={{ display: 'flex', gap: '4px' }}>
-                            {actionColumnStyle === ActionColumnStyle.ShowButtonsDirectly ? (
-                              actions.map((action) => (
-                                <Button
-                                  key={action.id}
-                                  size={action.size || "small"}
-                                  variant={action.variant || "outlined"}
-                                  color={action.color || "primary"}
-                                  disabled={action.disabled || false}
-                                  onClick={() => onActionSelection?.(row, action.id)}
-                                  className="rds-fluent-grid-action-button"
-                                >
-                                  {action.displayName}
-                                </Button>
-                              ))
-                            ) : (
-                              <ActionMenu row={row} actions={actions} onActionSelection={onActionSelection} />
-                            )}
-                          </div>
-                        </td>
-                      )}
+                      // Check if this cell should be editable
+                      const isEditable = enableInlineEdit && header.isEditable && !shouldRenderHtml;
+                      const isRowEditing = editingRow === rowId;
+                console.log('Row editing state:', { rowId, editingRow, isRowEditing });
+                      const isCellEditing = isEditing && inlineEditMode === 'cell';
+                      
+                      return (
+                        <TableCell
+                          key={header.key}
+                          sx={{
+                            width: cellWidth,
+                            maxWidth: header.maxWidth || 500,
+                            borderRight: '1px solid #d1d1d1',
+                            color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit',
+                            '&:last-child': {
+                              borderRight: 'none',
+                            },
+                          }}
+                        >
+                          {shouldRenderHtml ? (
+                            <Box 
+                              sx={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                width: '100%',
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit',
+                                '& *': {
+                                  maxWidth: '100%',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  whiteSpace: 'nowrap',
+                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
+                                },
+                                // Status pill styles
+                                '& .status-pill': {
+                                  display: 'inline-block',
+                                  padding: '2px 8px',
+                                  borderRadius: '12px',
+                                  fontSize: '12px',
+                                  fontWeight: 500,
+                                  textAlign: 'center',
+                                  minWidth: '60px',
+                                  '&.status-qualified': {
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#155724' : '#d4edda',
+                                    color: theme.palette.mode === 'dark' ? '#d4edda' : '#155724',
+                                  },
+                                  '&.status-negotiation': {
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#856404' : '#fff3cd',
+                                    color: theme.palette.mode === 'dark' ? '#fff3cd' : '#856404',
+                                  },
+                                  '&.status-unqualified': {
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#721c24' : '#f8d7da',
+                                    color: theme.palette.mode === 'dark' ? '#f8d7da' : '#721c24',
+                                  },
+                                  '&.status-proposal': {
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#495057' : '#e9ecef',
+                                    color: theme.palette.mode === 'dark' ? '#e9ecef' : '#495057',
+                                  },
+                                  '&.status-new': {
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#0066cc' : '#cce5ff',
+                                    color: theme.palette.mode === 'dark' ? '#cce5ff' : '#0066cc',
+                                  },
+                                  '&.status-renewal': {
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#0078d4' : '#0078d4',
+                                    color: '#ffffff',
+                                  },
+                                },
+                                // Progress bar styles
+                                '& .progress-bar': {
+                                  width: '100%',
+                                  height: '8px',
+                                  backgroundColor: '#e9ecef',
+                                  borderRadius: '4px',
+                                  overflow: 'hidden',
+                                  '& .progress-fill': {
+                                    height: '100%',
+                                    backgroundColor: '#0078d4',
+                                    transition: 'width 0.3s ease',
+                                  },
+                                },
+                                // Verification icon styles
+                                '& .verification-icon': {
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  width: '20px',
+                                  height: '20px',
+                                  borderRadius: '50%',
+                                  '&.verified': {
+                                    backgroundColor: '#28a745',
+                                    color: 'white',
+                                  },
+                                  '&.not-verified': {
+                                    backgroundColor: '#dc3545',
+                                    color: 'white',
+                                  },
+                                },
+                                // Image styles
+                                '& img': {
+                                  maxWidth: '24px',
+                                  maxHeight: '24px',
+                                  borderRadius: '50%',
+                                  verticalAlign: 'middle',
+                                  marginRight: '8px',
+                                },
+                                // Employee profile styles for dark theme
+                                '& .employee-name': {
+                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
+                                  fontWeight: 'bold',
+                                },
+                                '& .employee-title': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.8) !important' : 'inherit',
+                                },
+                                '& .tag': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.9) !important' : 'inherit',
+                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.23) !important' : 'inherit',
+                                },
+                                '& .badge, & span[class*="badge"], & .chip, & span[class*="chip"]': {
+                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
+                                },
+                                '& .last-active': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.7) !important' : 'inherit',
+                                },
+                                '& .online, & .away': {
+                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.23) !important' : 'inherit',
+                                },
+                                '& .leadership, & .management, & .strategy, & .planning, & .coordination, & .reporting': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  borderColor: theme.palette.mode === 'dark' ? 'transparent !important' : 'inherit',
+                                },
+                                '& .senior, & .lead, & .pending, & .active': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                // Override inline styles for colored tags in dark theme - comprehensive list of all backgrounds
+                                '& span[style*="background:"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background-color:"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                // Target specific background colors used in tags
+                                '& span[style*="background: #e3f2fd"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #e8eaf6"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #fce4ec"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #e8f5e8"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #fff3e0"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #f3e5f5"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #e1f5fe"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #e0f2f1"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="background: #f1f8e9"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                // Target common border radiuses used in tags
+                                '& span[style*="border-radius: 4px"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                '& span[style*="border-radius: 8px"]': {
+                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                },
+                                // Fix for small descriptive text
+                                '& small[style*="color: #666"]': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7) !important' : 'inherit',
+                                },
+                              }}
+                              dangerouslySetInnerHTML={{ __html: cellValue }}
+                            />
+                          ) : isEditable && inlineEditMode === 'cell' ? (
+                            <EditableCell
+                              value={cellValue}
+                              column={header}
+                              row={row}
+                              isEditing={isCellEditing}
+                              onStartEdit={() => handleCellEditStart(rowId, header.key, cellValue)}
+                              onSave={(newValue) => handleCellEditSave(rowId, header.key, newValue)}
+                              onCancel={handleCellEditCancel}
+                              onValueChange={handleCellValueChange}
+                              tempValue={tempCellValue}
+                              validationError={cellValidationError}
+                            />
+                          ) : isEditable && inlineEditMode === 'row' && isRowEditing ? (
+                            <EditableCell
+                              value={tempRowValues[header.key] || cellValue}
+                              column={header}
+                              row={row}
+                              isEditing={true}
+                              onStartEdit={() => {}} // No-op for row mode
+                              onSave={() => {}} // No-op for row mode - only save on row save button
+                              onCancel={() => {}} // No-op for row mode
+                              onValueChange={(newValue) => handleRowValueChange(header.key, newValue)}
+                              tempValue={tempRowValues[header.key] || cellValue}
+                              validationError={rowValidationErrors[header.key] || ''}
+                            />
+                          ) : shouldShowTooltip ? (
+                            <Tooltip title={cellText} arrow>
+                              <Typography 
+                                variant="body2" 
+                                sx={{
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  whiteSpace: 'nowrap',
+                                  width: '100%',
+                                }}
+                              >
+                                {cellText}
+                        </Typography>
+                            </Tooltip>
+                          ) : (
+                            <Typography 
+                              variant="body2" 
+                              sx={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                width: '100%',
+                              }}
+                            >
+                              {cellText}
+                            </Typography>
+                          )}
+                      </TableCell>
+                      );
+                    })}
+                    
+                    {actions.length > 0 && (
+                      <TableCell sx={{ borderRight: 'none' }}>
+                        <Stack direction="row" spacing={0.5}>
+                          {actionColumnStyle === ActionColumnStyle.ShowButtonsDirectly ? (
+                            actions.map((action) => (
+                              <Button
+                                key={action.id}
+                                size={action.size || "small"}
+                                variant={action.variant || "outlined"}
+                                color={action.color || "primary"}
+                                disabled={action.disabled || false}
+                                onClick={() => onActionSelection?.(row, action.id)}
+                              >
+                                {action.displayName}
+                              </Button>
+                            ))
+                          ) : (
+                            <ActionMenu row={row} actions={actions} onActionSelection={onActionSelection} />
+                          )}
+                        </Stack>
+                      </TableCell>
+                    )}
 
-                      {/* Row editing controls */}
-                      {enableInlineEdit && inlineEditMode === 'row' && (
-                        <td className="rds-fluent-grid-cell">
-                          <div style={{ display: 'flex', gap: '4px' }}>
-                            {isRowEditing ? (
-                              <>
-                                <Button
-                                  size="small"
-                                  variant="contained"
-                                  color="primary"
-                                  onClick={() => {
-                                    console.log('Save button clicked for rowId:', rowId);
-                                    handleRowEditSave(rowId);
-                                  }}
-                                  startIcon={<EditIcon />}
-                                >
-                                  Save
-                                </Button>
-                                <Button
-                                  size="small"
-                                  variant="outlined"
-                                  color="secondary"
-                                  onClick={handleRowEditCancel}
-                                  startIcon={<ClearIcon />}
-                                >
-                                  Cancel
-                                </Button>
-                              </>
-                            ) : (
+                    {/* Row editing controls */}
+                    {enableInlineEdit && inlineEditMode === 'row' && (
+                      <TableCell sx={{ borderRight: 'none' }}>
+                        <Stack direction="row" spacing={0.5}>
+                          {isRowEditing ? (
+                            <>
+                              <Button
+                                size="small"
+                                variant="contained"
+                                color="primary"
+                                onClick={() => {
+                                  console.log('Save button clicked for rowId:', rowId);
+                                  handleRowEditSave(rowId);
+                                }}
+                                startIcon={<EditIcon />}
+                              >
+                                Save
+                              </Button>
                               <Button
                                 size="small"
                                 variant="outlined"
-                                color="primary"
-                                onClick={() => handleRowEditStart(rowId, row)}
-                                startIcon={<EditIcon />}
+                                color="secondary"
+                                onClick={handleRowEditCancel}
+                                startIcon={<ClearIcon />}
                               >
-                                Edit Row
+                                Cancel
                               </Button>
-                            )}
-                          </div>
-                        </td>
-                      )}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-            
-            {pagination && totalPages > 1 && (
-              <div className="rds-fluent-grid-pagination">
-                <RdsPagination
-                  count={totalRecordsCount}
-                  page={currentPage}
-                  onPageChange={handlePageChange}
-                  pageSize={currentPageSize}
-                  onPageSizeChange={handlePageSizeChange}
-                  pageSizeOptions={pageSizeOptions}
-                  showRecordsPerPage={showRecordsPerPage}
-                  showFirstLast={true}
-                />
-              </div>
-            )}
-          </>
-        )}
+                            </>
+                          ) : (
+                            <Button
+                              size="small"
+                              variant="outlined"
+                              color="primary"
+                              onClick={() => handleRowEditStart(rowId, row)}
+                              startIcon={<EditIcon />}
+                            >
+                              Edit Row
+                            </Button>
+                          )}
+                        </Stack>
+                      </TableCell>
+                    )}
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
 
-      </div>
+      {/* Filter and Column Visibility Popup */}
+      <Popover
+        open={isFilterPopupOpen}
+        anchorEl={filterAnchorEl}
+        onClose={handleFilterPopupClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        disablePortal={false}
+        PaperProps={{
+          sx: {
+            width: 200,
+            maxHeight: 250,
+            overflow: 'auto',
+            zIndex: 1300,
+            backgroundColor: theme.palette.mode === 'dark' ? '#424242' : undefined,
+            color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+            '& .MuiTypography-root': {
+              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+            },
+            '& .MuiIconButton-root': {
+              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+            },
+            '& .MuiDivider-root': {
+              borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : undefined,
+            },
+          }
+        }}
+      >
+        <Box p={1}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
+            <Typography variant="body2" fontWeight="bold" sx={{ fontSize: '12px' }}>
+              {selectedColumnForFilter ? 
+                `Filter: ${tableHeaders.find(h => h.key === selectedColumnForFilter)?.name || selectedColumnForFilter}` : 
+                'Controls'
+              }
+            </Typography>
+            <IconButton size="small" onClick={handleFilterPopupClose} sx={{ width: '20px', height: '20px' }}>
+              <ClearIcon sx={{ fontSize: '14px' }} />
+            </IconButton>
+          </Stack>
+          
+          <Divider sx={{ mb: 1 }} />
+          
+          {/* Column Visibility Section - Accordion Panel */}
+          <Box mb={1}>
+            <Box 
+              sx={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                cursor: 'pointer',
+                p: 1,
+                borderRadius: 0.5,
+                border: '1px solid',
+                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
+                width: '100%',
+                '&:hover': { backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'action.hover' }
+              }}
+              onClick={handleColumnPanelToggle}
+            >
+              <Typography 
+                variant="caption" 
+                fontWeight="medium" 
+                sx={{ 
+                  flexGrow: 1, 
+                  fontSize: '12px',
+                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined
+                }}
+              >
+                Columns
+              </Typography>
+              {isColumnPanelExpanded ? 
+                <ArrowUpIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} /> : 
+                <ArrowDownIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} />
+              }
+            </Box>
+            
+            {isColumnPanelExpanded && (
+              <Box 
+                sx={{ 
+                  mt: 0,
+                  p: 0.25,
+                  border: '1px solid',
+                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
+                  borderTop: 'none',
+                  borderRadius: '0 0 4px 4px',
+                  backgroundColor: theme.palette.mode === 'dark' ? '#4a4a4a' : 'grey.50',
+                  width: '100%',
+                  maxHeight: '80px',
+                  overflowY: 'auto'
+                }}
+              >
+                <List dense sx={{ py: 0 }}>
+                  {tableHeaders.map((header) => (
+                    <ListItem 
+                      key={header.key} 
+                      sx={{ 
+                        py: 0.5,
+                        px: 1,
+                        minHeight: 24,
+                        cursor: 'pointer',
+                        '&:hover': { backgroundColor: 'action.hover' }
+                      }}
+                      onClick={() => {
+                        const isCurrentlyVisible = visibleColumns.includes(header.key);
+                        handleColumnVisibilityChange(header.key, !isCurrentlyVisible);
+                      }}
+                    >
+                      <ListItemIcon sx={{ minWidth: 20 }}>
+                        <Checkbox
+                          checked={visibleColumns.includes(header.key)}
+                          onChange={(e) => {
+                            e.stopPropagation();
+                            handleColumnVisibilityChange(header.key, e.target.checked);
+                          }}
+                          size="small"
+                          sx={{ 
+                            padding: '2px',
+                            color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                            '& .MuiSvgIcon-root': {
+                              fontSize: 14,
+                              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                            }
+                          }}
+                        />
+                      </ListItemIcon>
+                      <ListItemText 
+                        primary={header.name}
+                        primaryTypographyProps={{ 
+                          variant: 'caption', 
+                          sx: { 
+                            fontSize: '12px',
+                            fontWeight: '400',
+                            color: theme.palette.mode === 'dark' ? '#ffffff' : undefined 
+                          }
+                        }}
+                        sx={{ ml: 0 }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+            )}
+          </Box>
+          
+          <Divider sx={{ mb: 1 }} />
+          
+          {/* Advanced Filter Section */}
+          <Box>
+            <Box 
+              sx={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                cursor: 'pointer',
+                p: 1,
+                borderRadius: 0.5,
+                border: '1px solid',
+                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
+                width: '100%',
+                mb: 0.5,
+                '&:hover': { backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'action.hover' }
+              }}
+              onClick={handleFilterToggle}
+            >
+              <Typography 
+                variant="caption" 
+                fontWeight="medium" 
+                sx={{ 
+                  flexGrow: 1, 
+                  fontSize: '12px',
+                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined
+                }}
+              >
+                Filter
+              </Typography>
+              {isFilterExpanded ? 
+                <ArrowUpIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} /> : 
+                <ArrowDownIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} />
+              }
+            </Box>
+            
+            {isFilterExpanded && (
+              <Box 
+                sx={{ 
+                  p: 0.5,
+                  border: '1px solid',
+                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'divider',
+                  borderRadius: '0 0 4px 4px',
+                  backgroundColor: theme.palette.mode === 'dark' ? '#4a4a4a' : 'grey.50',
+                  width: '100%'
+                }}
+              >
+                <Stack spacing={1}>
+                  {/* Dynamic Filter Controls based on Column Data Type */}
+                  {(() => {
+                    const selectedColumn = tableHeaders.find(h => h.key === selectedColumnForFilter);
+                    const dataType = selectedColumn?.dataType || 'string';
+                    const operators = getOperatorsForDataType(dataType);
+                    const inputType = getInputTypeForDataType(dataType);
+                    
+                    return (
+                      <Box>
+                        <FormControl size="small" sx={{ minWidth: 120, mb: 1 }}>
+                          <Typography 
+                            variant="caption" 
+                            sx={{ 
+                              fontSize: '12px', 
+                              fontWeight: '500', 
+                              color: theme.palette.mode === 'dark' ? '#ffffff' : '#333',
+                              mb: 0.5,
+                              display: 'block'
+                            }}
+                          >
+                            Filter
+                          </Typography>
+                          <Select
+                            value={filterConditions[0].operator}
+                            onChange={(e) => handleFilterConditionChange(1, 'operator', e.target.value)}
+                            sx={{ 
+                              fontSize: '12px',
+                              height: '32px',
+                              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                              backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : '#fff',
+                              '& .MuiOutlinedInput-notchedOutline': {
+                                borderWidth: 1,
+                                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#d0d0d0'
+                              },
+                              '& .MuiSvgIcon-root': {
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                              },
+                              '& .MuiSelect-icon': {
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                              },
+                            }}
+                          >
+                            {operators.map((op) => (
+                              <MenuItem 
+                                key={op.value} 
+                                value={op.value} 
+                                sx={{ 
+                                  fontSize: '12px',
+                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                  '&.Mui-selected': {
+                                    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.16)' : undefined,
+                                  },
+                                  '&:hover': {
+                                    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : undefined,
+                                  }
+                                }}
+                              >
+                                {op.label}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                        
+                        {/* Dynamic Input based on Data Type */}
+                        {inputType === 'date' ? (
+                          <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <DatePicker
+                              value={filterConditions[0].value ? new Date(filterConditions[0].value) : null}
+                              onChange={(date) => handleFilterConditionChange(1, 'value', date)}
+                              slotProps={{
+                                textField: {
+                                  size: 'small',
+                                  fullWidth: true,
+                                  placeholder: 'Select date...',
+                                  sx: {
+                                    backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : undefined,
+                                    '& .MuiInputBase-input': {
+                                      fontSize: '10px',
+                                      height: '24px',
+                                      padding: '4px 8px',
+                                      color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                    },
+                                    '& .MuiOutlinedInput-notchedOutline': {
+                                      borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : undefined,
+                                    },
+                                    '& .MuiSvgIcon-root': {
+                                      color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                    }
+                                  }
+                                }
+                              }}
+                            />
+                          </LocalizationProvider>
+                        ) : inputType === 'number' ? (
+                          <Box>
+                            <Typography 
+                              variant="caption" 
+                              sx={{ 
+                                fontSize: '12px', 
+                                fontWeight: '500', 
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : '#333',
+                                mb: 0.5,
+                                display: 'block'
+                              }}
+                            >
+                              Value
+                            </Typography>
+                            <TextField
+                              placeholder="Enter number..."
+                              type="number"
+                              value={filterConditions[0].value}
+                              onChange={(e) => handleFilterConditionChange(1, 'value', e.target.value)}
+                              size="small"
+                              fullWidth
+                              sx={{
+                                backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : '#fff',
+                                '& .MuiInputBase-input': {
+                                  fontSize: '12px',
+                                  height: '20px',
+                                  padding: '6px 8px',
+                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                },
+                                '& .MuiOutlinedInput-root': {
+                                  height: '32px'
+                                },
+                                '& .MuiOutlinedInput-notchedOutline': {
+                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#d0d0d0',
+                                },
+                                '& .MuiInputLabel-root': {
+                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                },
+                                '&::placeholder': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
+                                }
+                              }}
+                            />
+                          </Box>
+                        ) : (
+                          <Box>
+                            <Typography 
+                              variant="caption" 
+                              sx={{ 
+                                fontSize: '12px', 
+                                fontWeight: '500', 
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : '#333',
+                                mb: 0.5,
+                                display: 'block'
+                              }}
+                            >
+                              Value
+                            </Typography>
+                            <TextField
+                              placeholder={`Enter ${dataType}...`}
+                              type={inputType}
+                              value={filterConditions[0].value}
+                              onChange={(e) => handleFilterConditionChange(1, 'value', e.target.value)}
+                              size="small"
+                              fullWidth
+                              sx={{
+                                backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : '#fff',
+                                '& .MuiInputBase-input': {
+                                  fontSize: '12px',
+                                  height: '20px',
+                                  padding: '6px 8px',
+                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                },
+                                '& .MuiOutlinedInput-root': {
+                                  height: '32px'
+                                },
+                                '& .MuiOutlinedInput-notchedOutline': {
+                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#d0d0d0',
+                                },
+                                '& .MuiInputLabel-root': {
+                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                },
+                                '&::placeholder': {
+                                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
+                                }
+                              }}
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                    );
+                  })()}
+
+                  {/* Logical Operator */}
+                  {/* <FormControl size="small" sx={{ minWidth: 120 }}>
+                    <Select
+                      value={logicalOperator}
+                      onChange={(e) => setLogicalOperator(e.target.value)}
+                    >
+                      <MenuItem value="and">And</MenuItem>
+                      <MenuItem value="or">Or</MenuItem>
+                    </Select>
+                  </FormControl> */}
+
+                  {/* Second Condition */}
+                  {/* <Box>
+                    <FormControl size="small" sx={{ minWidth: 120, mb: 1 }}>
+                      <Select
+                        value={filterConditions[1].operator}
+                        onChange={(e) => handleFilterConditionChange(2, 'operator', e.target.value)}
+                      >
+                        <MenuItem value="contains">Contains</MenuItem>
+                        <MenuItem value="equals">Equals</MenuItem>
+                        <MenuItem value="startsWith">Starts With</MenuItem>
+                        <MenuItem value="endsWith">Ends With</MenuItem>
+                        <MenuItem value="greaterThan">Greater Than</MenuItem>
+                        <MenuItem value="lessThan">Less Than</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <TextField
+                      placeholder="Enter value..."
+                      value={filterConditions[1].value}
+                      onChange={(e) => handleFilterConditionChange(2, 'value', e.target.value)}
+                      size="small"
+                      fullWidth
+                    />
+                  </Box> */}
+
+                  {/* Action Buttons */}
+                  <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      onClick={handleApplyFilter}
+                      sx={{ 
+                        flexGrow: 1,
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        height: '28px',
+                        minWidth: '60px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px',
+                        backgroundColor: theme.palette.mode === 'dark' ? '#1976d2' : '#1976d2',
+                        color: '#ffffff',
+                        '&:hover': {
+                          backgroundColor: theme.palette.mode === 'dark' ? '#1565c0' : '#1565c0',
+                        },
+                        borderRadius: '4px',
+                        boxShadow: 'none',
+                        '&:active': {
+                          boxShadow: 'none',
+                        }
+                      }}
+                    >
+                      Filter
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      onClick={handleClearAdvancedFilter}
+                      sx={{ 
+                        flexGrow: 1,
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        height: '28px',
+                        minWidth: '60px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px',
+                        borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#d0d0d0',
+                        color: theme.palette.mode === 'dark' ? '#ffffff' : '#666666',
+                        '&:hover': {
+                          borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : '#999999',
+                          backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)',
+                        },
+                        borderRadius: '4px',
+                        boxShadow: 'none',
+                        '&:active': {
+                          boxShadow: 'none',
+                        }
+                      }}
+                    >
+                      Clear
+                    </Button>
+                  </Stack>
+                  
+                  {/* Clear All Filters Button */}
+                  {Object.keys(filterState).length > 0 && (
+                    <Button
+                      variant="text"
+                      size="small"
+                      onClick={() => {
+                        setFilterState({});
+                        setColumnFilterStates({});
+                        onFilterChange?.({});
+                        onFilterApiRequest?.({ filters: [], logicalOperator: 'AND' });
+                        handleFilterPopupClose();
+                        console.log('Cleared all filters');
+                      }}
+                      sx={{ 
+                        width: '100%',
+                        fontSize: '10px',
+                        fontWeight: 500,
+                        height: '24px',
+                        mt: 1,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.3px',
+                        color: theme.palette.mode === 'dark' ? '#ff6b6b' : '#d32f2f',
+                        '&:hover': {
+                          backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 107, 107, 0.08)' : 'rgba(211, 47, 47, 0.04)',
+                          color: theme.palette.mode === 'dark' ? '#ff5252' : '#b71c1c',
+                        },
+                        borderRadius: '4px',
+                        textDecoration: 'none',
+                        '&:active': {
+                          backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 107, 107, 0.12)' : 'rgba(211, 47, 47, 0.08)',
+                        }
+                      }}
+                    >
+                      Clear All Filters
+                    </Button>
+                  )}
+                </Stack>
+              </Box>
+            )}
+          </Box>
+        </Box>
+      </Popover>
+          
+      {pagination && totalPages > 1 && (
+        <Box p={2} display="flex" justifyContent="center" alignItems="center">
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={(event, page) => handlePageChange(page)}
+            color="primary"
+            showFirstButton
+            showLastButton
+          />
+        </Box>
+      )}
+    </Card>
   );
 };
 
+RdsFluentGrid.displayName = 'RdsFluentGrid';
 export default RdsFluentGrid;
