@@ -9,24 +9,28 @@
 
   // Layout variants
   &--layout-horizontal {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+    display: block; // we'll manage rows explicitly
     
-    .rds-card__icon-container {
-      padding: var(--rds-spacing-md, 16px);
-      padding-right: var(--rds-spacing-sm, 8px);
+    // .rds-card__icon-container {
+    //   padding: var(--rds-spacing-md, 16px);
+    //   padding-right: var(--rds-spacing-sm, 8px);
+    // }
+    
+    .rds-card__header-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--rds-spacing-sm, 8px);
+      padding: var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) 0 var(--rds-spacing-md, 16px);
     }
-    
-    .rds-card__content-wrapper {
+
+    .rds-card__header-text {
       flex: 1;
-      min-width: 0; // Prevent content overflow
-      
-      // Ensure content has proper padding in horizontal layout
-      .rds-card__content {
-        padding: var(--rds-spacing-md, 20px);
-        padding-left: 0; // Remove left padding since icon provides spacing
-      }
+      min-width: 0;
+    }
+
+    .rds-card__below-content {
+      padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
     }
     
     .MuiCardContent-root {
@@ -61,15 +65,7 @@
       }
     }
     
-    // When icon is present, content should flow next to icon
-    &:not(.rds-card--hide-icon) {
-      > :not(.rds-card__indicator):not(.rds-card__icon-container):not(.rds-card__content-wrapper) {
-        flex: 1;
-        min-width: 0;
-        padding: var(--rds-spacing-md, 16px);
-        padding-left: 0; // Icon container provides left spacing
-      }
-    }
+    // old flow rules not needed with new rows
   }
   
   &--layout-vertical {
@@ -77,8 +73,9 @@
     flex-direction: column;
     
     .rds-card__icon-container--vertical {
-      padding: var(--rds-spacing-md, 16px);
+      padding: var(--rds-spacing-md, 6px);
       padding-bottom: var(--rds-spacing-xs, 4px); // Reduced spacing below icon for tighter layout
+      //padding-left: 17px;
     }
     
     .MuiCardContent-root {
@@ -99,6 +96,7 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    padding-left: 14px;
   }
   
   // Icon controls
@@ -286,9 +284,9 @@
     height: auto;
   }
   
-  &__content {
-    padding: var(--rds-spacing-md, 16px);
-  }
+  // &__content {
+  //   padding: var(--rds-spacing-md, 16px);
+  // }
   
   &__actions {
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
@@ -332,7 +330,7 @@
   
   // Card content structure
   &__content {
-    padding: var(--rds-spacing-md, 16px);
+   // padding: var(--rds-spacing-md, 16px);
     display: flex;
     flex-direction: column;
     // Remove generic gap, use specific margins for each element instead
