@@ -208,7 +208,6 @@
     transition: border-color 0.2s;
     &:focus-within {
       border-color: var(--rds-color-primary, #1976d2);
-      outline: 2px solid var(--rds-color-primary, #1976d2);
       outline-offset: 2px;
     }
     input {
