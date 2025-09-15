@@ -19,6 +19,9 @@ export interface RdsCounterProps {
   controlsClassName?: string;
   showTitle?: boolean;
   isMandatory?: boolean;
+  selected?: boolean;
+  // optional convenience prop for Storybook/demo only: 'default' | 'selected' | 'disabled'
+  state?: 'default' | 'selected' | 'disabled';
 }
 
 const RdsCounter = ({
@@ -36,6 +39,8 @@ const RdsCounter = ({
   controlsClassName,
   showTitle = true,
   isMandatory = false,
+  selected = false,
+  state = 'default',
 }: RdsCounterProps) => {
   const isControlled = typeof value === 'number' && typeof onChange === 'function';
   const [internalValue, setInternalValue] = React.useState(defaultValue ?? min);
@@ -69,9 +74,15 @@ const RdsCounter = ({
 
   const isCompact = variant === 'compact';
 
+  // if state prop is provided, map to selected/disabled for demo usage
+  const demoSelected = state === 'selected' || selected;
+  const demoDisabled = state === 'disabled' || disabled;
+  const effectiveSelected = demoSelected;
+  const effectiveDisabled = demoDisabled;
+
   if (isCompact) {
     return (
-      <Box className={`rds-counter rds-counter--compact rds-counter--${size}${disabled ? ' rds-counter--disabled' : ''}`}> 
+      <Box className={`rds-counter rds-counter--compact rds-counter--${size}${demoSelected ? ' rds-counter--selected' : ''}${demoDisabled ? ' rds-counter--disabled' : ''}`}> 
         {showTitle && titleText && (
           <Typography className={`rds-counter__label rds-counter__label--compact rds-counter__label--${size}`}>
             {titleText}
@@ -86,9 +97,9 @@ const RdsCounter = ({
         <Box className={`rds-counter__controls rds-counter__controls--compact rds-counter__controls--${size}${controlsClassName ? ' ' + controlsClassName : ''}`}> 
           <IconButton
             onClick={handleDecrement}
-            disabled={disabled || currentValue <= min}
+            disabled={effectiveDisabled || currentValue <= min}
             size={size === 'small' ? 'small' : 'medium'}
-            className={`rds-counter__button rds-counter__button--decrement rds-counter__button--compact rds-counter__button--${size}${disabled || currentValue <= min ? ' rds-counter__button--disabled' : ''}`}
+            className={`rds-counter__button rds-counter__button--decrement rds-counter__button--compact rds-counter__button--${size}${effectiveDisabled || currentValue <= min ? ' rds-counter__button--disabled' : ''}`}
           >
             <RemoveIcon className={`rds-counter__icon rds-counter__icon--compact rds-counter__icon--${size}`} />
           </IconButton>
@@ -96,8 +107,8 @@ const RdsCounter = ({
             <InputBase
               value={currentValue}
               onChange={handleInputChange}
-              disabled={disabled}
-              className={`rds-counter__input rds-counter__input--compact rds-counter__input--${size}${disabled ? ' rds-counter__input--disabled' : ''}`}inputProps={{
+              disabled={effectiveDisabled}
+              className={`rds-counter__input rds-counter__input--compact rds-counter__input--${size}${effectiveDisabled ? ' rds-counter__input--disabled' : ''}`}inputProps={{
                 inputMode: 'numeric',
                 pattern: '[0-9]*',
                 min,
@@ -107,14 +118,14 @@ const RdsCounter = ({
               }}
             />
           ) : (
-            <Typography className={`rds-counter__value rds-counter__value--compact rds-counter__value--${size}${disabled ? ' rds-counter__value--disabled' : ''}`}>  {currentValue}
+            <Typography className={`rds-counter__value rds-counter__value--compact rds-counter__value--${size}${effectiveDisabled ? ' rds-counter__value--disabled' : ''}`}>  {currentValue}
             </Typography>
           )}
           <IconButton
             onClick={handleIncrement}
-            disabled={disabled  || currentValue >= max}
+            disabled={effectiveDisabled  || currentValue >= max}
             size={size === 'small' ? 'small' : 'medium'}
-            className={`rds-counter__button rds-counter__button--increment rds-counter__button--compact rds-counter__button--${size}${disabled || currentValue >= max ? ' rds-counter__button--disabled' : ''}`}
+            className={`rds-counter__button rds-counter__button--increment rds-counter__button--compact rds-counter__button--${size}${effectiveDisabled || currentValue >= max ? ' rds-counter__button--disabled' : ''}`}
           >
             <AddIcon className={`rds-counter__icon rds-counter__icon--compact rds-counter__icon--${size}`} />
           </IconButton>
@@ -124,7 +135,7 @@ const RdsCounter = ({
   }
 
   return (
-     <Box className={`rds-counter rds-counter--${variant} rds-counter--${size}${disabled ? ' rds-counter--disabled' : ''}`}> 
+  <Box className={`rds-counter rds-counter--${variant} rds-counter--${size}${demoSelected ? ' rds-counter--selected' : ''}${demoDisabled ? ' rds-counter--disabled' : ''}`}> 
         <Typography className={`rds-counter__label rds-counter__label--${size}`}>
           {titleText}
           <span
@@ -139,9 +150,9 @@ const RdsCounter = ({
       >
         <IconButton
           onClick={handleDecrement}
-          disabled={disabled  || currentValue <= min}
+          disabled={effectiveDisabled  || currentValue <= min}
           size={size === 'small' ? 'small' : 'medium'}
-          className={`rds-counter__button rds-counter__button--decrement rds-counter__button--${variant} rds-counter__button--${size}${disabled || currentValue <= min ? ' rds-counter__button--disabled' : ''}`}
+          className={`rds-counter__button rds-counter__button--decrement rds-counter__button--${variant} rds-counter__button--${size}${effectiveDisabled || currentValue <= min ? ' rds-counter__button--disabled' : ''}`}
         >
           <RemoveIcon className={`rds-counter__icon rds-counter__icon--${variant} rds-counter__icon--${size}`} />
         </IconButton>
@@ -149,8 +160,8 @@ const RdsCounter = ({
           <InputBase
             value={currentValue}
             onChange={handleInputChange}
-            disabled={disabled}
-            className={`rds-counter__input rds-counter__input--${variant} rds-counter__input--${size}${disabled ? ' rds-counter__input--disabled' : ''}`}
+            disabled={effectiveDisabled}
+            className={`rds-counter__input rds-counter__input--${variant} rds-counter__input--${size}${effectiveDisabled ? ' rds-counter__input--disabled' : ''}`}
             inputProps={{
               inputMode: 'numeric',
               pattern: '[0-9]*',
@@ -161,15 +172,15 @@ const RdsCounter = ({
             }}
           />
         ) : (
-          <Typography className={`rds-counter__value rds-counter__value--${variant} rds-counter__value--${size}${disabled ? ' rds-counter__value--disabled' : ''}`}>
+          <Typography className={`rds-counter__value rds-counter__value--${variant} rds-counter__value--${size}${effectiveDisabled ? ' rds-counter__value--disabled' : ''}`}>
             {currentValue}
           </Typography>
         )}
         <IconButton
           onClick={handleIncrement}
-          disabled={disabled  || currentValue >= max}
+          disabled={effectiveDisabled  || currentValue >= max}
           size={size === 'small' ? 'small' : 'medium'}
-          className={`rds-counter__button rds-counter__button--increment rds-counter__button--${variant} rds-counter__button--${size}${disabled || currentValue >= max ? ' rds-counter__button--disabled' : ''}`}
+          className={`rds-counter__button rds-counter__button--increment rds-counter__button--${variant} rds-counter__button--${size}${effectiveDisabled || currentValue >= max ? ' rds-counter__button--disabled' : ''}`}
         >
           <AddIcon className={`rds-counter__icon rds-counter__icon--${variant} rds-counter__icon--${size}`} />
         </IconButton>

@@ -49,6 +49,17 @@
     opacity: 0.6;
   }
 
+  // Selected visual state (non-disabled)
+  &--selected:not(.rds-counter--disabled) {
+    .rds-counter__controls {
+      // border-color: var(--rds-color-primary, #3C98FF);
+      // box-shadow: 0 0 0 2px color-mix(in srgb, var(--rds-color-primary, #3C98FF) 40%, transparent);
+    }
+    .rds-counter__label {
+     // color: var(--rds-color-primary, #3C98FF);
+    }
+  }
+}
 
 .rds-counter__label {
   font-weight: 500;
@@ -181,7 +192,7 @@
   }
 
   &--disabled {
-    background-color: var(--rds-action-disabled-background, #f5f5f5) !important;
+    // background-color: var(--rds-action-disabled-background, #f5f5f5) !important;
     color: var(--rds-action-disabled, #bdbdbd) !important;
     border-color: var(--rds-action-disabled, #bdbdbd) !important;
     cursor: not-allowed !important;
@@ -229,6 +240,7 @@
     }
 
     &[type=number] {
+      appearance: textfield;
       -moz-appearance: textfield;
     }
   }
@@ -281,7 +293,7 @@
   font-weight: 500;
   font-size: var(--rds-font-size-lg, 18px);
   // Sync with label default token for visual consistency
-  color: var(--rds-text-primary, #212121);
+  color: var(--text-txt-neutral-light-default, var(--rds-text-primary, #212121));
   line-height: 1.2;
   flex: 1;
   min-width: 40px;
@@ -434,7 +446,7 @@
   // Counter label styles for dark theme
   &__label {
     // Default dark theme neutral light token; selected state below will override
-    color: var(--rds-text-primary, #ffffff) !important;
+    color: var(--text-txt-neutral-light-default, var(--rds-text-primary, #ffffff)) !important;
     
     &--compact,
     &--small,
@@ -473,6 +485,14 @@
     
     &:focus {
 
+  // Default STATE (not selected, not disabled) in dark theme
+  &:not(.rds-counter--selected):not(.rds-counter--disabled) {
+    .rds-counter__value,
+    .rds-counter__input,
+    .rds-counter__input input {
+      color: var(--text-txt-neutral-light-default, var(--rds-text-primary, #ffffff)) !important;
+    }
+  }
       outline: none !important;
       outline-offset: 0 !important;
       box-shadow: none !important;
@@ -546,7 +566,7 @@
   
   // Counter value display for dark theme
   &__value {
-    color: var(--rds-text-primary, #ffffff) !important;
+    color: var(--text-txt-neutral-light-default, var(--rds-text-primary, #ffffff)) !important;
     background-color: transparent !important;
     
     &--disabled {
@@ -617,6 +637,7 @@
   &__input {
     &:focus-within {
       background-color: var(--rds-background-paper, #1a1a1a) !important;
+      
       input:focus {
         background-color: transparent !important;
         outline: none !important;
@@ -692,4 +713,12 @@
     font-weight: bold;
   }
 }
+
+// Default STATE (not selected, not disabled) unified neutral-light color
+.rds-counter:not(.rds-counter--selected):not(.rds-counter--disabled) {
+  .rds-counter__value,
+  .rds-counter__input,
+  .rds-counter__input input {
+    color: var(--text-txt-neutral-light-default, #969696);
+  }
 }
