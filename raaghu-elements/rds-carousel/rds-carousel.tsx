@@ -86,6 +86,9 @@ const RdsCarousel = ({
         overflow: 'hidden',
         width: style === 'full width image' ? '100vw' : '100%',
         marginLeft: style === 'full width image' ? 'calc(-50vw + 50%)' : 0,
+        backgroundColor: style === 'full width image'
+          ? 'var(--rds-background-paper, transparent)'
+          : 'transparent',
       }}
     >
       {/* Slides */}
@@ -112,6 +115,9 @@ const RdsCarousel = ({
                 position: 'relative',
                 display: 'flex',
                 flexDirection: style === 'with title' ? 'column' : 'row',
+                backgroundColor: style === 'full width image'
+                  ? 'var(--rds-background-paper, transparent)'
+                  : 'transparent',
               }}
             >
               {/* Title above image for 'with title' style */}
