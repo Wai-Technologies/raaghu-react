@@ -49,7 +49,7 @@ const RdsInput = ({
   const getPlaceholderByLayout = (layout: string) => {
     const placeholderMap: { [key: string]: string } = {
       'text': 'Placeholder Text',
-      'password': '••••••••',
+      'password': '**********',
       'phone number': 'Enter Phone Number',
       'number': 'Enter Number',
       'card number': 'XXXX XXXX XXXX XXXX'
