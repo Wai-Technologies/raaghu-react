@@ -1,4 +1,5 @@
 import React from 'react';
+import './rds-form-control.scss';
 import {
   FormControl as MuiFormControl,
   FormControlLabel as MuiFormControlLabel,
@@ -37,8 +38,13 @@ const RdsFormControl: React.FC<RdsFormControlProps> = ({
   );
 
   return (
-    <MuiFormControl required={isRequiredProp} error={error} size={inputSize} {...props}>
-      {label && <MuiFormLabel>{label}</MuiFormLabel>}
+    <MuiFormControl required={isRequiredProp} error={error} size={inputSize} {...props} className={`rds-form-control ${props.className ?? ''}`}>
+      {label && (
+        // Use MUI's built-in asterisk when `required` is true; style via SCSS
+        <MuiFormLabel required={isRequiredProp} className="rds-form-control__label">
+          {label}
+        </MuiFormLabel>
+      )}
       {content}
       {helperText && <MuiFormHelperText>{helperText}</MuiFormHelperText>}
     </MuiFormControl>
