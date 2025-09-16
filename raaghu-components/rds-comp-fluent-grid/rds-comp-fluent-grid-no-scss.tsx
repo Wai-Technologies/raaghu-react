@@ -157,6 +157,7 @@ export interface RdsFluentGridProps {
   enableInlineEdit?: boolean; // Enable inline editing globally
   inlineEditMode?: 'cell' | 'row'; // Inline edit mode: cell-by-cell (default) or row-based editing
   enableRowSwapping?: boolean; // Enable row drag and drop functionality
+  enableColumnSwapping?: boolean; // Enable column drag and drop functionality
   
   // UI Controls
   showHeader?: boolean;
@@ -186,6 +187,7 @@ export interface RdsFluentGridProps {
   onCellEdit?: (rowId: string, columnKey: string, newValue: any, oldValue: any) => void;
   onCellEditComplete?: (rowId: string, columnKey: string, newValue: any, isValid: boolean) => void;
   onRowSwap?: (fromIndex: number, toIndex: number, newData: any[]) => void; // New callback for row swapping
+  onColumnSwap?: (fromIndex: number, toIndex: number, newHeaders: FluentGridColumn[]) => void; // Callback for column swapping
   
   // Styling
   classes?: string;
@@ -440,6 +442,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   enableInlineEdit = false,
   inlineEditMode = 'cell',
   enableRowSwapping = false,
+  enableColumnSwapping = false,
   showHeader = true,
   showSubHeader = true,
   showAddNewColumn = false,
@@ -461,6 +464,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   onCellEdit,
   onCellEditComplete,
   onRowSwap,
+  onColumnSwap,
   classes,
   fontWeight,
   illustration = false,
@@ -496,6 +500,31 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   const [resizeStartX, setResizeStartX] = useState(0);
   const [resizeStartWidth, setResizeStartWidth] = useState(0);
   
+  // Column order state for drag-and-drop swapping
+  const [columnOrder, setColumnOrder] = useState<FluentGridColumn[]>(tableHeaders);
+  const [draggingColumnId, setDraggingColumnId] = useState<string | null>(null);
+  
+  // Track which column is being dragged and where it's being dragged over
+  const [draggedColumn, setDraggedColumn] = useState<string | null>(null);
+  const [draggedColumnIndex, setDraggedColumnIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+  const [isDraggingColumn, setIsDraggingColumn] = useState<boolean>(false);
+  
+  // Custom drag state for Kendo-style behavior
+  const [customDragState, setCustomDragState] = useState<{
+    isDragging: boolean;
+    draggedColumnKey: string | null;
+    dragStartIndex: number | null;
+    currentHoverIndex: number | null;
+    dragPreviewVisible: boolean;
+  }>({
+    isDragging: false,
+    draggedColumnKey: null,
+    dragStartIndex: null,
+    currentHoverIndex: null,
+    dragPreviewVisible: false,
+  });
+  
   // Inline editing state
   const [editingCell, setEditingCell] = useState<{rowId: string, columnKey: string} | null>(null);
   const [editingRow, setEditingRow] = useState<string | null>(null);
@@ -519,6 +548,11 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
     setLocalTableData([...tableData]);
   }, [tableData, controlledData]);
   
+  // Keep columnOrder synced when tableHeaders prop changes
+  useEffect(() => {
+    setColumnOrder(tableHeaders);
+  }, [tableHeaders]);
+  
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
 
@@ -530,33 +564,188 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
     return result;
   };
 
-  // Drag end handler for rows
+  // Drag end handler for rows and columns
   const onDragEnd = (result: any) => {
     console.log('Drag end triggered:', result);
+    
+    // Clear dragging state
+    setDraggingColumnId(null);
+    setDraggedColumn(null);
+    setDraggedColumnIndex(null);
+    setDragOverIndex(null);
+    setIsDraggingColumn(false);
+    
+    // Clean up global styles
+    document.body.style.userSelect = '';
+    document.body.style.webkitUserSelect = '';
+    
     if (!result.destination) {
       console.log('No destination, drag cancelled');
       return;
     }
     
-    let sourceIndex = result.source.index;
-    let destinationIndex = result.destination.index;
-    
-    // If pagination is enabled, adjust indices to work with full dataset
-    if (pagination) {
-      const startIndex = (currentPage - 1) * recordsPerPage;
-      sourceIndex = startIndex + result.source.index;
-      destinationIndex = startIndex + result.destination.index;
+    // Handle column reordering
+    if (result.type === 'COLUMN') {
+      console.log('Column reordering from', result.source.index, 'to', result.destination.index);
+      const newOrder = reorder(columnOrder, result.source.index, result.destination.index);
+      setColumnOrder(newOrder);
+      onColumnSwap?.(result.source.index, result.destination.index, newOrder);
+      return;
     }
     
-    console.log('Reordering from', sourceIndex, 'to', destinationIndex);
-    console.log('Local table data before reorder:', localTableData);
-    const newData = reorder(localTableData, sourceIndex, destinationIndex);
-    console.log('New data after reorder:', newData);
-    setLocalTableData(newData);
-    onRowSwap?.(sourceIndex, destinationIndex, newData);
+    // Handle row reordering
+    if (result.type === 'ROW') {
+      let sourceIndex = result.source.index;
+      let destinationIndex = result.destination.index;
+      
+      // If pagination is enabled, adjust indices to work with full dataset
+      if (pagination) {
+        const startIndex = (currentPage - 1) * recordsPerPage;
+        sourceIndex = startIndex + result.source.index;
+        destinationIndex = startIndex + result.destination.index;
+      }
+      
+      console.log('Reordering from', sourceIndex, 'to', destinationIndex);
+      console.log('Local table data before reorder:', localTableData);
+      const newData = reorder(localTableData, sourceIndex, destinationIndex);
+      console.log('New data after reorder:', newData);
+      setLocalTableData(newData);
+      onRowSwap?.(sourceIndex, destinationIndex, newData);
+    }
   };
 
-  // Filter and sort data
+  // Drag start handler to provide better visual feedback
+  const onDragStart = (start: any) => {
+    console.log('Drag started:', start);
+    
+    // Track which column is being dragged
+    if (start.type === 'COLUMN') {
+      setDraggingColumnId(start.draggableId);
+      setDraggedColumn(start.draggableId);
+      setDraggedColumnIndex(start.source.index);
+      setIsDraggingColumn(true);
+      console.log('Starting column drag for:', start.draggableId);
+    } else if (start.type === 'ROW') {
+      console.log('Starting row drag for:', start.draggableId);
+    }
+    
+    // Add global styles to prevent text selection during drag
+    document.body.style.userSelect = 'none';
+    document.body.style.webkitUserSelect = 'none';
+  };
+
+  // Add drag update handler for better feedback during drag
+  const onDragUpdate = (update: any) => {
+    // Track where we're dragging over for visual feedback
+    if (update.type === 'COLUMN' && update.destination) {
+      setDragOverIndex(update.destination.index);
+    } else {
+      setDragOverIndex(null);
+    }
+    console.log('Drag update:', update);
+  };
+
+  // Global style effect for react-beautiful-dnd
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      /* Ensure react-beautiful-dnd drag preview is visible */
+      .react-beautiful-dnd-drag-handle {
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      
+      .react-beautiful-dnd-draggable {
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      
+      /* Improve drag preview appearance */
+      [data-rbd-drag-handle-draggable-id] {
+        cursor: grab !important;
+      }
+      
+      [data-rbd-drag-handle-draggable-id]:active {
+        cursor: grabbing !important;
+      }
+      
+      /* Hide the default placeholder during column drag */
+      .react-beautiful-dnd-droppable[data-rbd-droppable-id="columns"] .react-beautiful-dnd-placeholder {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
+  // Custom Kendo-style drag handlers
+  const handleCustomDragStart = (columnKey: string, columnIndex: number) => {
+    if (!enableColumnSwapping) return;
+    
+    setCustomDragState({
+      isDragging: true,
+      draggedColumnKey: columnKey,
+      dragStartIndex: columnIndex,
+      currentHoverIndex: null,
+      dragPreviewVisible: true,
+    });
+    
+    // Prevent text selection during drag
+    document.body.style.userSelect = 'none';
+    document.body.style.webkitUserSelect = 'none';
+    
+    console.log('Custom drag started for column:', columnKey, 'at index:', columnIndex);
+  };
+
+  const handleCustomDragOver = (targetIndex: number) => {
+    if (!customDragState.isDragging) return;
+    
+    setCustomDragState(prev => ({
+      ...prev,
+      currentHoverIndex: targetIndex,
+    }));
+  };
+
+  const handleCustomDragEnd = (targetIndex?: number) => {
+    if (!customDragState.isDragging) return;
+    
+    const { draggedColumnKey, dragStartIndex } = customDragState;
+    
+    // Clean up global styles
+    document.body.style.userSelect = '';
+    document.body.style.webkitUserSelect = '';
+    
+    // If we have a valid target and it's different from start, reorder columns
+    if (targetIndex !== undefined && targetIndex !== dragStartIndex && draggedColumnKey && dragStartIndex !== null) {
+      console.log('Reordering column from', dragStartIndex, 'to', targetIndex);
+      const newOrder = reorder(columnOrder, dragStartIndex, targetIndex);
+      setColumnOrder(newOrder);
+      onColumnSwap?.(dragStartIndex, targetIndex, newOrder);
+    }
+    
+    // Reset drag state
+    setCustomDragState({
+      isDragging: false,
+      draggedColumnKey: null,
+      dragStartIndex: null,
+      currentHoverIndex: null,
+      dragPreviewVisible: false,
+    });
+    
+    console.log('Custom drag ended');
+  };
+
+  const handleCustomDragLeave = () => {
+    if (!customDragState.isDragging) return;
+    
+    setCustomDragState(prev => ({
+      ...prev,
+      currentHoverIndex: null,
+    }));
+  };
   const processedData = useMemo(() => {
     // Use localTableData for row swapping, or current data for normal operation
     let filtered = [...(enableRowSwapping ? localTableData : currentData)];
@@ -694,7 +883,8 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
   };
 
   const getVisibleHeaders = () => {
-    const visible = tableHeaders.filter(header => visibleColumns.includes(header.key));
+    // Return headers in the current column order but only those that are visible
+    const visible = columnOrder.filter(header => visibleColumns.includes(header.key));
     return visible;
   };
 
@@ -1456,7 +1646,28 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
       color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
       '& .MuiTableCell-root': {
         color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit'
-      }
+      },
+      // Ensure react-beautiful-dnd elements are visible
+      '& .react-beautiful-dnd-drag-handle': {
+        visibility: 'visible !important',
+        opacity: '1 !important',
+      },
+      '& .react-beautiful-dnd-draggable': {
+        visibility: 'visible !important',
+        opacity: '1 !important',
+      },
+      '& .react-beautiful-dnd-droppable': {
+        minHeight: 'auto !important',
+      },
+      // Force placeholder visibility
+      '& .react-beautiful-dnd-placeholder': {
+        display: 'table-cell !important',
+        visibility: 'visible !important',
+        opacity: '0.5 !important',
+        backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+        border: '2px dashed',
+        borderColor: theme.palette.primary.main,
+      },
     }}>
       {showHeader && (
         <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
@@ -1583,202 +1794,343 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
           }}
         >
           <DragDropContext 
-            onDragEnd={enableRowSwapping ? onDragEnd : () => {}}
-            onDragStart={(start: any) => console.log('Drag started:', start)}
+            onDragEnd={(enableRowSwapping || enableColumnSwapping) ? onDragEnd : () => {}}
+            onDragStart={(enableRowSwapping || enableColumnSwapping) ? onDragStart : () => {}}
+            onDragUpdate={(enableRowSwapping || enableColumnSwapping) ? onDragUpdate : () => {}}
           >
             <Table stickyHeader ref={tableRef}>
             <TableHead sx={{ 
               bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined,
               '& th': { bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined }
             }}>
-              <TableRow sx={{ 
-                bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined 
-              }}>
-                {enableRowSwapping && (
-                  <TableCell 
-                    sx={{ 
-                      width: '40px',
-                      padding: '8px',
-                      borderRight: '1px solid #d1d1d1',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
-                    }}
-                  >
-                    <Typography variant="caption" color="text.secondary">
-                      {/* Drag handle column header */}
-                    </Typography>
-                  </TableCell>
-                )}
-                {enableCheckboxSelection && (
-                  <TableCell 
-                    padding="checkbox" 
-                    sx={{ 
-                      width: '50px',
-                      borderRight: '1px solid #d1d1d1',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
-                    }}
-                  >
-                    <Checkbox
-                      checked={selectedRows.size === processedData.length && processedData.length > 0}
-                      indeterminate={selectedRows.size > 0 && selectedRows.size < processedData.length}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          setSelectedRows(new Set(processedData.map((_, index) => `row-${index}`)));
-                        } else {
-                          setSelectedRows(new Set());
-                        }
-                      }}
-                    />
-                  </TableCell>
-                )}
-                
-                {enableRadioButtonSelection && (
-                  <TableCell 
-                    padding="checkbox" 
-                    sx={{ 
-                      width: '50px',
-                      borderRight: '1px solid #d1d1d1',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
-                    }}
-                  >
-                    <Typography variant="caption" color="text.secondary">
-                      {enableCheckboxSelection ? 'Select All' : 'Select'}
-                    </Typography>
-                  </TableCell>
-                )}
-                
-                {getVisibleHeaders().map((header) => (
-                  <TableCell
-                    key={header.key}
-                    sx={{
-                      cursor: isSort && header.isSort && !enableRowSwapping ? 'pointer' : 'default',
-                      width: columnWidths[header.key] || header.minWidth || 150,
-                      maxWidth: header.maxWidth || 500,
-                      fontWeight: header.isBold ? 'bold' : 'normal',
-                      position: 'relative',
-                      userSelect: 'none',
-                      borderRight: '1px solid #d1d1d1',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
-                      '&:last-child': {
-                        borderRight: 'none',
-                      },
-                    }}
-                    onClick={() => isSort && header.isSort && !enableRowSwapping && handleSort(header.key)}
-                  >
-                    <Stack direction="row" spacing={0.5} alignItems="center">
-                      <Typography variant="subtitle2" fontWeight={header.isBold ? 'bold' : 'medium'}>
-                        {header.name}
-                      </Typography>
-                      {header.required && (
-                        <Typography color="error" variant="caption">*</Typography>
-                      )}
-                      {isSort && header.isSort && !enableRowSwapping && (
-                        <Tooltip title="Sort">
-                          <IconButton size="small">
-                            {(() => {
-                              if (sortColumn === header.key) {
-                                if (sortDirection === 'asc') {
-                                  return <ArrowUpIcon fontSize="small" />;
-                                }
-                                return <ArrowDownIcon fontSize="small" />;
-                              }
-                              return <ArrowUpDownIcon fontSize="small" />;
-                            })()}
-                          </IconButton>
-                        </Tooltip>
-                      )}
-                      {isFilter && header.isFilter && (
-                        <Tooltip title="Click to open filters and column visibility">
-                          <span>
-                            <IconButton 
-                              size="small" 
-                              onClick={(e) => handleFilterIconClick(e, header.key)}
-                              ref={filterButtonRef}
-                              data-filter-button
-                              sx={{ 
-                                '&:hover': { 
-                                  backgroundColor: 'action.hover' 
-                                },
-                                backgroundColor: filterState[header.key]?.value ? 'primary.light' : 'transparent',
-                                color: filterState[header.key]?.value ? 'primary.main' : 'action.active'
-                              }}
-                            >
-                              <FilterIcon fontSize="small" color="action" />
-                            </IconButton>
-                          </span>
-                        </Tooltip>
-                      )}
-                    </Stack>
-                    
-                    {/* Resize handle */}
-                    {header.isResizable !== false && (
-                      <Box
-                        role="separator"
-                        aria-label={`Resize ${header.name} column`}
-                        tabIndex={0}
-                        onMouseDown={(e) => handleResizeStart(e, header.key)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            // For keyboard users, we could implement arrow key resizing
-                            // For now, just focus the handle
-                          }
+              <TableRow 
+                sx={{ 
+                  bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined,
+                  position: 'relative',
+                }}
+              >
+                    {enableRowSwapping && (
+                      <TableCell 
+                        sx={{ 
+                          width: '40px',
+                          padding: '8px',
+                          borderRight: '1px solid #d1d1d1',
+                          bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
                         }}
-                        sx={{
-                          position: 'absolute',
-                          right: 0,
-                          top: 0,
-                          bottom: 0,
-                          width: '4px',
-                          cursor: 'col-resize',
-                          backgroundColor: isResizing && resizingColumn === header.key ? 'primary.main' : 'transparent',
-                          zIndex: 10,
-                          transition: 'background-color 0.2s ease',
-                          '&:hover': {
-                            backgroundColor: 'primary.main',
-                            opacity: 0.7,
-                          },
-                          '&:focus': {
-                            outline: '2px solid',
-                            outlineColor: 'primary.main',
-                            outlineOffset: '1px',
-                          },
-                        }}
-                      />
+                      >
+                        <Typography variant="caption" color="text.secondary">
+                          {/* Drag handle column header */}
+                        </Typography>
+                      </TableCell>
                     )}
-                  </TableCell>
-                ))}
-                
-                {actions.length > 0 && (
-                  <TableCell 
-                    sx={{ 
-                      width: '100px',
-                      borderRight: 'none',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
-                    }}
-                  >
-                    <Typography variant="subtitle2" fontWeight="medium">
-                      Actions
-                    </Typography>
-                  </TableCell>
-                )}
-                
-                {enableInlineEdit && inlineEditMode === 'row' && (
-                  <TableCell 
-                    sx={{ 
-                      width: '150px',
-                      borderRight: 'none',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
-                    }}
-                  >
-                    <Typography variant="subtitle2" fontWeight="medium">
-                      Edit
-                    </Typography>
-                  </TableCell>
-                )}
-              </TableRow>
-            </TableHead>
-            
-            <Droppable droppableId="table-body" isDropDisabled={!enableRowSwapping}>
+                    {enableCheckboxSelection && (
+                      <TableCell 
+                        padding="checkbox" 
+                        sx={{ 
+                          width: '50px',
+                          borderRight: '1px solid #d1d1d1',
+                          bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                        }}
+                      >
+                        <Checkbox
+                          checked={selectedRows.size === processedData.length && processedData.length > 0}
+                          indeterminate={selectedRows.size > 0 && selectedRows.size < processedData.length}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setSelectedRows(new Set(processedData.map((_, index) => `row-${index}`)));
+                            } else {
+                              setSelectedRows(new Set());
+                            }
+                          }}
+                        />
+                      </TableCell>
+                    )}
+
+                    {enableRadioButtonSelection && (
+                      <TableCell 
+                        padding="checkbox" 
+                        sx={{ 
+                          width: '50px',
+                          borderRight: '1px solid #d1d1d1',
+                          bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                        }}
+                      >
+                        <Typography variant="caption" color="text.secondary">
+                          {enableCheckboxSelection ? 'Select All' : 'Select'}
+                        </Typography>
+                      </TableCell>
+                    )}
+                    
+                    {getVisibleHeaders().map((header, index) => {
+                      // Determine visual states for custom drag
+                      const isDragging = customDragState.isDragging && customDragState.draggedColumnKey === header.key;
+                      const isBeingDragged = customDragState.draggedColumnKey === header.key;
+                      const isDropTarget = customDragState.currentHoverIndex === index && customDragState.isDragging && !isBeingDragged;
+                      const isDropBefore = customDragState.currentHoverIndex === index && customDragState.isDragging && 
+                                          customDragState.dragStartIndex !== null && customDragState.dragStartIndex > index;
+                      const isDropAfter = customDragState.currentHoverIndex === index && customDragState.isDragging && 
+                                         customDragState.dragStartIndex !== null && customDragState.dragStartIndex < index;
+                      
+                      return (
+                        <React.Fragment key={header.key}>
+                          {/* Drop indicator before column */}
+                          {isDropBefore && (
+                            <Box
+                              sx={{
+                                position: 'absolute',
+                                left: '-2px',
+                                top: 0,
+                                bottom: 0,
+                                width: '4px',
+                                backgroundColor: theme.palette.primary.main,
+                                zIndex: 999,
+                                boxShadow: `0 0 8px ${theme.palette.primary.main}`,
+                              }}
+                            />
+                          )}
+                          
+                          <TableCell
+                            draggable={enableColumnSwapping}
+                            onDragStart={(e) => {
+                              if (enableColumnSwapping) {
+                                handleCustomDragStart(header.key, index);
+                                e.dataTransfer.effectAllowed = 'move';
+                                e.dataTransfer.setData('text/plain', header.key);
+                              }
+                            }}
+                            onDragOver={(e) => {
+                              if (enableColumnSwapping && customDragState.isDragging) {
+                                e.preventDefault();
+                                e.dataTransfer.dropEffect = 'move';
+                                handleCustomDragOver(index);
+                              }
+                            }}
+                            onDragEnd={(e) => {
+                              if (enableColumnSwapping && customDragState.isDragging) {
+                                handleCustomDragEnd(customDragState.currentHoverIndex ?? undefined);
+                              }
+                            }}
+                            onDragLeave={(e) => {
+                              if (enableColumnSwapping && customDragState.isDragging) {
+                                // Only call handleCustomDragLeave if leaving the table cell entirely
+                                const rect = e.currentTarget.getBoundingClientRect();
+                                const { clientX, clientY } = e;
+                                if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) {
+                                  handleCustomDragLeave();
+                                }
+                              }
+                            }}
+                            onDrop={(e) => {
+                              if (enableColumnSwapping && customDragState.isDragging) {
+                                e.preventDefault();
+                                handleCustomDragEnd(index);
+                              }
+                            }}
+                            sx={{
+                              cursor: enableColumnSwapping ? 'grab' : (isSort && header.isSort ? 'pointer' : 'default'),
+                              width: columnWidths[header.key] || header.minWidth || 150,
+                              maxWidth: header.maxWidth || 500,
+                              fontWeight: header.isBold ? 'bold' : 'normal',
+                              position: 'relative',
+                              userSelect: 'none',
+                              borderRight: '1px solid #d1d1d1',
+                              bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                              transition: isDragging ? 'none' : 'all 0.2s ease',
+                              '&:last-child': {
+                                borderRight: 'none',
+                              },
+                              '&:hover': {
+                                ...(enableColumnSwapping && !isDragging && {
+                                  backgroundColor: theme.palette.mode === 'dark' ? '#525252 !important' : 'rgba(0, 0, 0, 0.04)',
+                                  cursor: 'grab',
+                                }),
+                              },
+                              '&:active': {
+                                ...(enableColumnSwapping && {
+                                  cursor: 'grabbing',
+                                }),
+                              },
+                              // Kendo-style: Keep original column visible but slightly dimmed when being dragged
+                              ...(isBeingDragged && !customDragState.dragPreviewVisible && {
+                                backgroundColor: theme.palette.mode === 'dark' ? '#3a3a3a !important' : 'rgba(25, 118, 210, 0.05) !important',
+                                opacity: 0.7,
+                                borderLeft: `2px solid ${theme.palette.primary.main}`,
+                                borderRight: `2px solid ${theme.palette.primary.main}`,
+                                position: 'relative',
+                                '&::after': {
+                                  content: '""',
+                                  position: 'absolute',
+                                  top: 0,
+                                  left: 0,
+                                  right: 0,
+                                  bottom: 0,
+                                  backgroundColor: 'rgba(25, 118, 210, 0.08)',
+                                  pointerEvents: 'none',
+                                },
+                              }),
+                              // Enhanced visual feedback for drop zones
+                              ...(isDropTarget && {
+                                backgroundColor: theme.palette.mode === 'dark' ? '#4a4a4a !important' : 'rgba(25, 118, 210, 0.1) !important',
+                                borderTop: `3px solid ${theme.palette.primary.main}`,
+                                borderBottom: `3px solid ${theme.palette.primary.main}`,
+                              }),
+                            }}
+                            onClick={(e: React.MouseEvent) => {
+                              e.stopPropagation();
+                              // Only allow sorting if not currently dragging columns
+                              if (!customDragState.isDragging && isSort && header.isSort) {
+                                handleSort(header.key);
+                              }
+                            }}
+                          >
+                            <Stack direction="row" spacing={0.5} alignItems="center">{enableColumnSwapping && (
+                                <DragIndicatorIcon 
+                                  fontSize="small" 
+                                  sx={{ 
+                                    color: theme.palette.text.secondary,
+                                    mr: 0.5,
+                                    cursor: 'grab',
+                                    '&:hover': {
+                                      color: theme.palette.text.primary,
+                                    },
+                                    '&:active': {
+                                      cursor: 'grabbing',
+                                    }
+                                  }} 
+                                />
+                              )}
+                              
+                              <Typography variant="subtitle2" fontWeight={header.isBold ? 'bold' : 'medium'}>
+                                {header.name}
+                              </Typography>
+                              {header.required && (
+                                <Typography color="error" variant="caption">*</Typography>
+                              )}
+                              {isSort && header.isSort && (
+                                <Tooltip title="Sort">
+                                  <IconButton size="small">
+                                    {(() => {
+                                      if (sortColumn === header.key) {
+                                        if (sortDirection === 'asc') {
+                                          return <ArrowUpIcon fontSize="small" />;
+                                        }
+                                        return <ArrowDownIcon fontSize="small" />;
+                                      }
+                                      return <ArrowUpDownIcon fontSize="small" />;
+                                    })()}
+                                  </IconButton>
+                                </Tooltip>
+                              )}
+                              {isFilter && header.isFilter && (
+                                <Tooltip title="Click to open filters and column visibility">
+                                  <span>
+                                    <IconButton 
+                                      size="small" 
+                                      onClick={(e) => handleFilterIconClick(e, header.key)}
+                                      ref={filterButtonRef}
+                                      data-filter-button
+                                      sx={{ 
+                                        '&:hover': { 
+                                          backgroundColor: 'action.hover' 
+                                        },
+                                        backgroundColor: filterState[header.key]?.value ? 'primary.light' : 'transparent',
+                                        color: filterState[header.key]?.value ? 'primary.main' : 'action.active'
+                                      }}
+                                    >
+                                      <FilterIcon fontSize="small" color="action" />
+                                    </IconButton>
+                                  </span>
+                                </Tooltip>
+                              )}
+                            </Stack>
+                            
+                            {/* Resize handle */}
+                            {header.isResizable !== false && (
+                              <Box
+                                role="separator"
+                                aria-label={`Resize ${header.name} column`}
+                                tabIndex={0}
+                                onMouseDown={(e) => handleResizeStart(e, header.key)}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    // For keyboard users, we could implement arrow key resizing
+                                    // For now, just focus the handle
+                                  }
+                                }}
+                                sx={{
+                                  position: 'absolute',
+                                  right: 0,
+                                  top: 0,
+                                  bottom: 0,
+                                  width: '4px',
+                                  cursor: 'col-resize',
+                                  backgroundColor: isResizing && resizingColumn === header.key ? 'primary.main' : 'transparent',
+                                  zIndex: 10,
+                                  transition: 'background-color 0.2s ease',
+                                  '&:hover': {
+                                    backgroundColor: 'primary.main',
+                                    opacity: 0.7,
+                                  },
+                                  '&:focus': {
+                                    outline: '2px solid',
+                                    outlineColor: 'primary.main',
+                                    outlineOffset: '1px',
+                                  },
+                                }}
+                              />
+                            )}
+                              
+                              {/* Drop indicator after column */}
+                              {isDropAfter && (
+                                <Box
+                                  sx={{
+                                    position: 'absolute',
+                                    right: '-2px',
+                                    top: 0,
+                                    bottom: 0,
+                                    width: '4px',
+                                    backgroundColor: theme.palette.primary.main,
+                                    zIndex: 999,
+                                    boxShadow: `0 0 8px ${theme.palette.primary.main}`,
+                                  }}
+                                />
+                              )}
+                          </TableCell>
+                        </React.Fragment>
+                      );
+                    })}
+                    
+                    {actions.length > 0 && (
+                      <TableCell 
+                        sx={{ 
+                          width: '100px',
+                          borderRight: 'none',
+                          bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                        }}
+                      >
+                        <Typography variant="subtitle2" fontWeight="medium">
+                          Actions
+                        </Typography>
+                      </TableCell>
+                    )}
+                    
+                    {enableInlineEdit && inlineEditMode === 'row' && (
+                      <TableCell 
+                        sx={{ 
+                          width: '150px',
+                          borderRight: 'none',
+                          bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                        }}
+                      >
+                        <Typography variant="subtitle2" fontWeight="medium">
+                          Edit
+                        </Typography>
+                      </TableCell>
+                    )}
+                  </TableRow>
+            </TableHead>            
+            <Droppable droppableId="table-body" type="ROW" isDropDisabled={!enableRowSwapping}>
               {(provided: any) => (
                 <TableBody
                   {...provided.droppableProps}
