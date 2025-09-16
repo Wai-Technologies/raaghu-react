@@ -219,6 +219,60 @@
   }
 }
 
+/* Dark theme overrides */
+.dark-theme,
+[data-theme="dark"] {
+  /* Override CSS custom properties for dark theme */
+  --rds-color-surface: #4a4a4a;
+  --rds-background-paper: #4a4a4a;
+  --rds-color-text-primary: #ffffff;
+  --rds-color-text-secondary: #cfcfcf;
+
+  .rds-carousel {
+    &--with-title,
+    &--full-width-image {
+      .rds-carousel__title-content {
+        background-color: var(--rds-background-paper, #4a4a4a) !important;
+        box-shadow: none !important;
+      }
+
+      .rds-carousel__title-overlay {
+        background-color: rgba(18, 18, 18, 0.9) !important;
+        color: var(--rds-text-primary, #ffffff) !important;
+        box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.6) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.04) !important;
+      }
+
+      .rds-carousel__title-text {
+        color: var(--rds-text-primary, #ffffff) !important;
+      }
+
+      .rds-carousel__title-subtitle {
+        color: var(--rds-text-secondary, #cfcfcf) !important;
+        opacity: 0.9 !important;
+      }
+    }
+
+    &--full-width-image {
+      background-color: var(--rds-background-paper, #4a4a4a) !important;
+
+      .rds-carousel__indicators .rds-carousel__indicator {
+        background-color: rgba(255, 255, 255, 0.8) !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+
+        &__active {
+          background-color: var(--rds-color-primary, #1976d2) !important;
+          border: 1px solid var(--rds-color-primary, #1976d2) !important;
+        }
+      }
+
+      .rds-carousel__slide {
+        background-color: var(--rds-background-paper, #4a4a4a) !important;
+      }
+    }
+  }
+}
+
 /* Storybook preview scrollbar suppression on small screens */
 @media (max-width: 320px) {
   /* Try to target the iframe root and common storybook wrappers where the scrollbar appears */
@@ -430,7 +484,7 @@
     
     &--default,
     &--with-title {
-      margin: 0 4px;
+      margin: 0px -30px 0 0 !important;
       
       height: 390px !important;
       .rds-carousel__slide-content {
