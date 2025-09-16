@@ -79,7 +79,9 @@ const RdsAccordion = ({
           </div>
       </MuiAccordionSummary>
       <MuiAccordionDetails className="rds-accordion__details">
-        {children}
+        <div className="rds-accordion__details-panel">
+          {children}
+        </div>
       </MuiAccordionDetails>
     </MuiAccordion>
     </div>
