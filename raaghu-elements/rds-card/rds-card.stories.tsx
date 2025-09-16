@@ -154,16 +154,6 @@ export const Outlined: Story = {
     title: 'Outlined Card',
     showDescription: true,
     description: 'This is an outlined card variant.',
-    //children: (
-      // <CardContent>
-      //   <Typography gutterBottom variant="h5" component="div">
-      //     Outlined Card
-      //   </Typography>
-      //   <Typography variant="body2" color="text.secondary">
-      //     This is an outlined card variant.
-      //   </Typography>
-      // </CardContent>
-    //),
   },
 };
 Outlined.parameters = { 
@@ -180,14 +170,6 @@ export const WithActions: Story = {
     description: 'This card includes action buttons at the bottom.',
     children: (
       <>
-        {/* <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Card with Actions
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            This card includes action buttons at the bottom.
-          </Typography>
-        </CardContent> */}
         <CardActions style={{ marginLeft: '-12px' }}>
           <RdsButton text="Learn More" size="small" textCase='capitalize' style="transparent" />
           <RdsButton text="Share" size="small" textCase='capitalize' style="transparent" />
@@ -452,11 +434,6 @@ export const WithCustomPadding: Story = {
     showDescription: true,
     description: 'This card has custom padding applied.',
     padding: '24px',
-    // children: (
-    //   <Typography>
-    //     This card has custom padding applied.
-    //   </Typography>
-    // ),
   },
 };
 WithCustomPadding.parameters = { 
