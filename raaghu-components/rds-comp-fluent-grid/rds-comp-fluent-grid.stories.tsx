@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
+import { Button, Box, Stack, Typography, Divider } from '@mui/material';
 // import RdsFluentGridNoScss, { FluentGridColumn, FluentGridAction, ActionPosition, State, ActionColumnStyle } from './rds-comp-fluent-grid-no-scss';
-import RdsFluentGrid, { FluentGridColumn, FluentGridAction, ActionPosition, State, ActionColumnStyle } from './rds-comp-fluent-grid';
+import RdsFluentGrid, { FluentGridColumn, FluentGridAction, ActionPosition, State, ActionColumnStyle, FluentGridRef } from './rds-comp-fluent-grid';
 
 // const RdsFluentGrid = RdsFluentGridNoScss;
 
@@ -1555,6 +1556,246 @@ export const AutoSaveDemo: Story = {
     docs: {
       description: {
         story: 'This grid demonstrates auto-save functionality. Click on any editable cell to start editing. When you click outside or press Enter, the data is automatically saved and immediately visible in the grid. Try editing different data types (text, email, number, date) to see the auto-save in action.',
+      },
+    },
+  },
+};
+
+// Grid Ref Example Story
+export const GridRefExample: Story = {
+  render: () => {
+    const gridRef = useRef<FluentGridRef>(null);
+    const [gridInfo, setGridInfo] = useState<string>('');
+
+    const sampleData = [
+      { id: 1, name: 'John Doe', email: 'john@example.com', age: 30, department: 'Engineering', salary: 75000, status: 'Active' },
+      { id: 2, name: 'Jane Smith', email: 'jane@example.com', age: 28, department: 'Marketing', salary: 65000, status: 'Active' },
+      { id: 3, name: 'Bob Johnson', email: 'bob@example.com', age: 35, department: 'Sales', salary: 70000, status: 'Inactive' },
+      { id: 4, name: 'Alice Brown', email: 'alice@example.com', age: 32, department: 'Engineering', salary: 80000, status: 'Active' },
+      { id: 5, name: 'Charlie Wilson', email: 'charlie@example.com', age: 29, department: 'HR', salary: 60000, status: 'Active' },
+    ];
+
+    const sampleHeaders: FluentGridColumn[] = [
+      { key: 'id', name: 'ID', dataType: 'number', isSort: true, isFilter: true, isEditable: false },
+      { key: 'name', name: 'Name', dataType: 'string', isSort: true, isFilter: true, isEditable: true, required: true },
+      { key: 'email', name: 'Email', dataType: 'email', isSort: true, isFilter: true, isEditable: true, required: true },
+      { key: 'age', name: 'Age', dataType: 'number', isSort: true, isFilter: true, isEditable: true },
+      { key: 'department', name: 'Department', dataType: 'string', isSort: true, isFilter: true, isEditable: true },
+      { key: 'salary', name: 'Salary', dataType: 'number', isSort: true, isFilter: true, isEditable: true },
+      { key: 'status', name: 'Status', dataType: 'string', isSort: true, isFilter: true, isEditable: true },
+    ];
+
+    const updateGridInfo = () => {
+      if (gridRef.current) {
+        const info = `
+          Rows: ${gridRef.current.getRowCount()}
+          Filtered Rows: ${gridRef.current.getFilteredRowCount()}
+          Selected Rows: ${gridRef.current.getSelectedRowCount()}
+          Current Page: ${gridRef.current.getCurrentPage()}
+          Total Pages: ${gridRef.current.getTotalPages()}
+          Visible Columns: ${gridRef.current.getVisibleColumns().length}
+          Is Collapsed: ${gridRef.current.isCollapsed()}
+          Is Editing: ${gridRef.current.isEditing()}
+        `;
+        setGridInfo(info);
+      }
+    };
+
+    const handleAddRow = () => {
+      if (gridRef.current) {
+        const newRow = {
+          id: Date.now(),
+          name: 'New Employee',
+          email: 'new@example.com',
+          age: 25,
+          department: 'New Department',
+          salary: 50000,
+          status: 'Active'
+        };
+        gridRef.current.addRow(newRow);
+        updateGridInfo();
+      }
+    };
+
+    const handleFilterByName = () => {
+      if (gridRef.current) {
+        gridRef.current.applyFilter('name', 'John', 'contains');
+        updateGridInfo();
+      }
+    };
+
+    const handleSortBySalary = () => {
+      if (gridRef.current) {
+        gridRef.current.setSort('salary', 'desc');
+        updateGridInfo();
+      }
+    };
+
+    const handleClearFilters = () => {
+      if (gridRef.current) {
+        gridRef.current.clearFilters();
+        updateGridInfo();
+      }
+    };
+
+    const handleSelectAll = () => {
+      if (gridRef.current) {
+        gridRef.current.selectAll();
+        updateGridInfo();
+      }
+    };
+
+    const handleClearSelection = () => {
+      if (gridRef.current) {
+        gridRef.current.clearSelection();
+        updateGridInfo();
+      }
+    };
+
+    const handleExportData = () => {
+      if (gridRef.current) {
+        const csvData = gridRef.current.exportData('csv');
+        console.log('CSV Export:', csvData);
+        alert('CSV data exported to console!');
+      }
+    };
+
+    const handleToggleCollapse = () => {
+      if (gridRef.current) {
+        gridRef.current.toggleCollapse();
+        updateGridInfo();
+      }
+    };
+
+    const handleHideColumns = () => {
+      if (gridRef.current) {
+        gridRef.current.setColumnVisibility('salary', false);
+        gridRef.current.setColumnVisibility('age', false);
+        updateGridInfo();
+      }
+    };
+
+    const handleShowAllColumns = () => {
+      if (gridRef.current) {
+        gridRef.current.showAllColumns();
+        updateGridInfo();
+      }
+    };
+
+    return (
+      <Box>
+        <CssBaseline />
+        <Box mb={2}>
+          <Typography variant="h6" gutterBottom>
+            Grid Ref Example - Programmatic Control
+          </Typography>
+          <Typography variant="body2" color="text.secondary" paragraph>
+            This example demonstrates how to use the grid ref to programmatically control the grid,
+            similar to major grid libraries like Kendo, DevExtreme, and PrimeNG.
+          </Typography>
+          
+          <Stack direction="row" spacing={1} flexWrap="wrap" gap={1} mb={2}>
+            <Button variant="outlined" size="small" onClick={handleAddRow}>
+              Add Row
+            </Button>
+            <Button variant="outlined" size="small" onClick={handleFilterByName}>
+              Filter by Name (John)
+            </Button>
+            <Button variant="outlined" size="small" onClick={handleSortBySalary}>
+              Sort by Salary (Desc)
+            </Button>
+            <Button variant="outlined" size="small" onClick={handleClearFilters}>
+              Clear Filters
+            </Button>
+            <Button variant="outlined" size="small" onClick={handleSelectAll}>
+              Select All
+            </Button>
+            <Button variant="outlined" size="small" onClick={handleClearSelection}>
+              Clear Selection
+            </Button>
+            <Button variant="outlined" size="small" onClick={handleExportData}>
+              Export CSV
+            </Button>
+            <Button variant="outlined" size="small" onClick={handleToggleCollapse}>
+              Toggle Collapse
+            </Button>
+            <Button variant="outlined" size="small" onClick={handleHideColumns}>
+              Hide Salary & Age
+            </Button>
+            <Button variant="outlined" size="small" onClick={handleShowAllColumns}>
+              Show All Columns
+            </Button>
+            <Button variant="outlined" size="small" onClick={updateGridInfo}>
+              Refresh Info
+            </Button>
+          </Stack>
+
+          <Box p={2} bgcolor="grey.100" borderRadius={1}>
+            <Typography variant="subtitle2" gutterBottom>
+              Grid Information:
+            </Typography>
+            <Typography variant="body2" component="pre" sx={{ fontFamily: 'monospace', fontSize: '12px' }}>
+              {gridInfo || 'Click "Refresh Info" to see grid state'}
+            </Typography>
+          </Box>
+        </Box>
+
+        <Divider sx={{ mb: 2 }} />
+
+        <RdsFluentGrid
+          ref={gridRef}
+          tableHeaders={sampleHeaders}
+          tableData={sampleData}
+          enableCheckboxSelection={true}
+          enableInlineEdit={true}
+          inlineEditMode="cell"
+          isSort={true}
+          isFilter={true}
+          isResizable={true}
+          showHeader={true}
+          showSubHeader={true}
+          pagination={true}
+          recordsPerPage={10}
+          onRowSelect={(data) => {
+            console.log('Row selected:', data);
+            updateGridInfo();
+          }}
+          onDataChange={(newData) => {
+            console.log('Data changed:', newData);
+            updateGridInfo();
+          }}
+        />
+      </Box>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+This example demonstrates the comprehensive grid ref API that provides programmatic control over the grid, similar to major grid libraries like Kendo, DevExtreme, and PrimeNG.
+
+**Key Features Demonstrated:**
+- **Data Management**: Add, update, delete rows programmatically
+- **Filtering**: Apply and clear filters programmatically
+- **Sorting**: Set sort order programmatically
+- **Selection**: Select all, clear selection, get selected rows
+- **Column Management**: Show/hide columns, get column info
+- **Grid State**: Toggle collapse, get grid information
+- **Export**: Export data in different formats
+- **Real-time Updates**: Grid info updates automatically
+
+**Available Methods:**
+- \`getData()\`, \`setData()\`, \`addRow()\`, \`updateRow()\`, \`deleteRow()\`
+- \`getFilters()\`, \`setFilters()\`, \`clearFilters()\`, \`applyFilter()\`
+- \`getSortState()\`, \`setSort()\`, \`clearSort()\`
+- \`getSelectedRows()\`, \`selectAll()\`, \`clearSelection()\`
+- \`getVisibleColumns()\`, \`setColumnVisibility()\`, \`showAllColumns()\`
+- \`isCollapsed()\`, \`toggleCollapse()\`, \`expand()\`, \`collapse()\`
+- \`exportData()\`, \`refresh()\`, \`scrollToRow()\`
+- \`getRowCount()\`, \`getColumnCount()\`, \`getFilteredRowCount()\`
+
+This makes the grid highly programmable and suitable for complex applications where you need to control the grid state from external components or business logic.
+        `,
       },
     },
   },

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 import {
   Box,
   TextField,
@@ -133,6 +133,78 @@ export interface FilterApiRequest {
 export interface SortState {
   column: string | null;
   direction: 'asc' | 'desc';
+}
+
+// Grid Ref Interface - provides programmatic access to grid methods and properties
+export interface FluentGridRef {
+  // Data Management
+  getData: () => any[];
+  setData: (data: any[]) => void;
+  addRow: (row: any) => void;
+  updateRow: (rowId: string, rowData: any) => void;
+  deleteRow: (rowId: string) => void;
+  getRow: (rowId: string) => any | null;
+  getSelectedRows: () => any[];
+  clearSelection: () => void;
+  selectAll: () => void;
+  
+  // Filtering
+  getFilters: () => FilterState;
+  setFilters: (filters: FilterState) => void;
+  clearFilters: () => void;
+  applyFilter: (columnKey: string, value: string, operator?: string) => void;
+  removeFilter: (columnKey: string) => void;
+  
+  // Sorting
+  getSortState: () => SortState;
+  setSort: (column: string, direction: 'asc' | 'desc') => void;
+  clearSort: () => void;
+  
+  // Search
+  getSearchValue: () => string;
+  setSearchValue: (value: string) => void;
+  clearSearch: () => void;
+  
+  // Pagination
+  getCurrentPage: () => number;
+  setCurrentPage: (page: number) => void;
+  getPageSize: () => number;
+  setPageSize: (size: number) => void;
+  getTotalPages: () => number;
+  
+  // Column Management
+  getVisibleColumns: () => string[];
+  setColumnVisibility: (columnKey: string, visible: boolean) => void;
+  showAllColumns: () => void;
+  hideAllColumns: () => void;
+  getColumnWidth: (columnKey: string) => number;
+  setColumnWidth: (columnKey: string, width: number) => void;
+  resetColumnWidths: () => void;
+  
+  // Grid State
+  isCollapsed: () => boolean;
+  toggleCollapse: () => void;
+  expand: () => void;
+  collapse: () => void;
+  
+  // Editing
+  startEdit: (rowId: string, columnKey?: string) => void;
+  stopEdit: () => void;
+  isEditing: () => boolean;
+  getEditingRow: () => string | null;
+  
+  // Export/Utility
+  exportData: (format?: 'json' | 'csv') => string;
+  refresh: () => void;
+  scrollToRow: (rowId: string) => void;
+  scrollToTop: () => void;
+  scrollToBottom: () => void;
+  
+  // Grid Info
+  getRowCount: () => number;
+  getColumnCount: () => number;
+  getFilteredRowCount: () => number;
+  getSelectedRowCount: () => number;
 }
 
 export interface RdsFluentGridProps {
@@ -420,7 +492,7 @@ const ActionMenu: React.FC<{
   );
 };
 
-const RdsFluentGrid: React.FC<RdsFluentGridProps> = ({
+const RdsFluentGrid = forwardRef<FluentGridRef, RdsFluentGridProps>(({
   tableHeaders,
   tableData,
   controlledData,
@@ -458,7 +530,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = ({
   noDataTitle = 'No data available',
   noDataHeaderTitle = 'Data Grid',
   isLoading = false,
-}) => {
+}, ref) => {
   const theme = useTheme();
   const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
@@ -1364,6 +1436,266 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = ({
       });
     }
   };
+
+  // Helper function to get row by ID
+  const getRowById = (rowId: string) => {
+    return currentData.find((row, index) => {
+      const currentRowId = row.id || `row-${index}`;
+      return currentRowId === rowId || `row-${index}` === rowId;
+    }) || null;
+  };
+
+  // Imperative handle for grid ref
+  useImperativeHandle(ref, () => ({
+    // Data Management
+    getData: () => currentData,
+    setData: (data: any[]) => {
+      if (controlledData && onDataChange) {
+        onDataChange(data);
+      } else {
+        setInternalData(data);
+      }
+    },
+    addRow: (row: any) => {
+      const newData = [...currentData, row];
+      if (controlledData && onDataChange) {
+        onDataChange(newData);
+      } else {
+        setInternalData(newData);
+      }
+    },
+    updateRow: (rowId: string, rowData: any) => {
+      const updatedData = currentData.map((row, index) => {
+        const currentRowId = row.id || `row-${index}`;
+        if (currentRowId === rowId || `row-${index}` === rowId) {
+          return { ...row, ...rowData };
+        }
+        return row;
+      });
+      if (controlledData && onDataChange) {
+        onDataChange(updatedData);
+      } else {
+        setInternalData(updatedData);
+      }
+    },
+    deleteRow: (rowId: string) => {
+      const updatedData = currentData.filter((row, index) => {
+        const currentRowId = row.id || `row-${index}`;
+        return currentRowId !== rowId && `row-${index}` !== rowId;
+      });
+      if (controlledData && onDataChange) {
+        onDataChange(updatedData);
+      } else {
+        setInternalData(updatedData);
+      }
+    },
+    getRow: getRowById,
+    getSelectedRows: () => {
+      return Array.from(selectedRows).map(rowId => {
+        const index = parseInt(rowId.replace('row-', ''));
+        return currentData[index];
+      }).filter(Boolean);
+    },
+    clearSelection: () => setSelectedRows(new Set()),
+    selectAll: () => {
+      const allRowIds = processedData.map((_, index) => `row-${index}`);
+      setSelectedRows(new Set(allRowIds));
+    },
+
+    // Filtering
+    getFilters: () => filterState,
+    setFilters: (filters: FilterState) => {
+      setFilterState(filters);
+      onFilterChange?.(filters);
+    },
+    clearFilters: () => {
+      setFilterState({});
+      setSearchValue('');
+      onFilterChange?.({});
+    },
+    applyFilter: (columnKey: string, value: string, operator: string = 'contains') => {
+      const newFilterState = { ...filterState };
+      if (value) {
+        newFilterState[columnKey] = { value, operator: operator as any };
+      } else {
+        delete newFilterState[columnKey];
+      }
+      setFilterState(newFilterState);
+      onFilterChange?.(newFilterState);
+    },
+    removeFilter: (columnKey: string) => {
+      const newFilterState = { ...filterState };
+      delete newFilterState[columnKey];
+      setFilterState(newFilterState);
+      onFilterChange?.(newFilterState);
+    },
+
+    // Sorting
+    getSortState: () => ({ column: sortColumn, direction: sortDirection }),
+    setSort: (column: string, direction: 'asc' | 'desc') => {
+      setSortColumn(column);
+      setSortDirection(direction);
+      const sortState: SortState = { column, direction };
+      onSortChange?.(sortState);
+    },
+    clearSort: () => {
+      setSortColumn(null);
+      setSortDirection('asc');
+      onSortChange?.({ column: null, direction: 'asc' });
+    },
+
+    // Search
+    getSearchValue: () => searchValue,
+    setSearchValue: (value: string) => setSearchValue(value),
+    clearSearch: () => setSearchValue(''),
+
+    // Pagination
+    getCurrentPage: () => currentPage,
+    setCurrentPage: (page: number) => {
+      setCurrentPage(page);
+      onPaginationHandler?.(page, recordsPerPage);
+    },
+    getPageSize: () => recordsPerPage,
+    setPageSize: (size: number) => {
+      // Note: This would require updating the recordsPerPage prop
+      // For now, we'll just update the current page to 1
+      setCurrentPage(1);
+      onPaginationHandler?.(1, size);
+    },
+    getTotalPages: () => Math.ceil(currentData.length / recordsPerPage),
+
+    // Column Management
+    getVisibleColumns: () => visibleColumns,
+    setColumnVisibility: (columnKey: string, visible: boolean) => {
+      handleColumnVisibilityChange(columnKey, visible);
+    },
+    showAllColumns: () => {
+      const allColumns = tableHeaders.map(header => header.key);
+      setVisibleColumns(allColumns);
+    },
+    hideAllColumns: () => setVisibleColumns([]),
+    getColumnWidth: (columnKey: string) => columnWidths[columnKey] || 150,
+    setColumnWidth: (columnKey: string, width: number) => {
+      setColumnWidths(prev => ({ ...prev, [columnKey]: width }));
+    },
+    resetColumnWidths: () => {
+      const initialWidths: {[columnKey: string]: number} = {};
+      tableHeaders.forEach(header => {
+        initialWidths[header.key] = header.minWidth || 150;
+      });
+      setColumnWidths(initialWidths);
+    },
+
+    // Grid State
+    isCollapsed: () => isCollapsed,
+    toggleCollapse: () => setIsCollapsed(!isCollapsed),
+    expand: () => setIsCollapsed(false),
+    collapse: () => setIsCollapsed(true),
+
+    // Editing
+    startEdit: (rowId: string, columnKey?: string) => {
+      if (enableInlineEdit) {
+        if (inlineEditMode === 'row') {
+          handleRowEditStart(rowId, getRowById(rowId) || {});
+        } else if (columnKey) {
+          const row = getRowById(rowId);
+          if (row) {
+            handleCellEditStart(rowId, columnKey, row[columnKey]);
+          }
+        }
+      }
+    },
+    stopEdit: () => {
+      if (editingCell) {
+        handleCellEditCancel();
+      }
+      if (editingRow) {
+        handleRowEditCancel();
+      }
+    },
+    isEditing: () => !!(editingCell || editingRow),
+    getEditingRow: () => editingRow,
+
+    // Export/Utility
+    exportData: (format: 'json' | 'csv' = 'json') => {
+      if (format === 'csv') {
+        const headers = getVisibleHeaders().map(h => h.name).join(',');
+        const rows = processedData.map(row => 
+          getVisibleHeaders().map(h => `"${row[h.key] || ''}"`).join(',')
+        );
+        return [headers, ...rows].join('\n');
+      }
+      return JSON.stringify(processedData, null, 2);
+    },
+    refresh: () => {
+      // Force re-render by updating a dummy state
+      setInternalData([...currentData]);
+    },
+    scrollToRow: (rowId: string) => {
+      // This would require DOM manipulation
+      // For now, we'll just scroll to top
+      if (tableRef.current) {
+        tableRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+    scrollToTop: () => {
+      if (tableRef.current) {
+        tableRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+    scrollToBottom: () => {
+      if (tableRef.current) {
+        tableRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }
+    },
+
+    // Grid Info
+    getRowCount: () => currentData.length,
+    getColumnCount: () => tableHeaders.length,
+    getFilteredRowCount: () => processedData.length,
+    getSelectedRowCount: () => selectedRows.size,
+  }), [
+    currentData,
+    controlledData,
+    onDataChange,
+    setInternalData,
+    selectedRows,
+    setSelectedRows,
+    processedData,
+    filterState,
+    setFilterState,
+    onFilterChange,
+    searchValue,
+    setSearchValue,
+    sortColumn,
+    sortDirection,
+    setSortColumn,
+    setSortDirection,
+    onSortChange,
+    currentPage,
+    setCurrentPage,
+    recordsPerPage,
+    onPaginationHandler,
+    visibleColumns,
+    setVisibleColumns,
+    handleColumnVisibilityChange,
+    tableHeaders,
+    columnWidths,
+    setColumnWidths,
+    isCollapsed,
+    setIsCollapsed,
+    enableInlineEdit,
+    inlineEditMode,
+    editingCell,
+    editingRow,
+    handleRowEditStart,
+    handleCellEditStart,
+    handleCellEditCancel,
+    handleRowEditCancel,
+    getVisibleHeaders,
+    tableRef,
+    getRowById
+  ]);
 
   const totalPages = Math.ceil(tableData.length / recordsPerPage);
   const activeFiltersCount = Object.keys(filterState).length + (searchValue ? 1 : 0);
@@ -2687,7 +3019,7 @@ const RdsFluentGrid: React.FC<RdsFluentGridProps> = ({
       )}
     </Card>
   );
-};
+});
 
 RdsFluentGrid.displayName = 'RdsFluentGrid';
 export default RdsFluentGrid;
