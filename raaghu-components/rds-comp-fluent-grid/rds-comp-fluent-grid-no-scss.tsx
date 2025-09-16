@@ -1873,8 +1873,8 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                       
                       return (
                         <React.Fragment key={header.key}>
-                          {/* Drop indicator before column */}
-                          {isDropBefore && (
+                          {/* Drop indicator removed - no visual feedback */}
+                          {false && isDropBefore && (
                             <Box
                               sx={{
                                 position: 'absolute',
@@ -1884,7 +1884,6 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                 width: '4px',
                                 backgroundColor: theme.palette.primary.main,
                                 zIndex: 999,
-                                boxShadow: `0 0 8px ${theme.palette.primary.main}`,
                               }}
                             />
                           )}
@@ -1940,7 +1939,7 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                 borderRight: 'none',
                               },
                               '&:hover': {
-                                ...(enableColumnSwapping && !isDragging && {
+                                ...(enableColumnSwapping && !isDragging && !customDragState.isDragging && {
                                   backgroundColor: theme.palette.mode === 'dark' ? '#525252 !important' : 'rgba(0, 0, 0, 0.04)',
                                   cursor: 'grab',
                                 }),
@@ -1950,29 +1949,14 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                   cursor: 'grabbing',
                                 }),
                               },
-                              // Kendo-style: Keep original column visible but slightly dimmed when being dragged
+                              // No visual feedback for dragged column
                               ...(isBeingDragged && !customDragState.dragPreviewVisible && {
-                                backgroundColor: theme.palette.mode === 'dark' ? '#3a3a3a !important' : 'rgba(25, 118, 210, 0.05) !important',
-                                opacity: 0.7,
-                                borderLeft: `2px solid ${theme.palette.primary.main}`,
-                                borderRight: `2px solid ${theme.palette.primary.main}`,
+                                opacity: 1,
                                 position: 'relative',
-                                '&::after': {
-                                  content: '""',
-                                  position: 'absolute',
-                                  top: 0,
-                                  left: 0,
-                                  right: 0,
-                                  bottom: 0,
-                                  backgroundColor: 'rgba(25, 118, 210, 0.08)',
-                                  pointerEvents: 'none',
-                                },
                               }),
-                              // Enhanced visual feedback for drop zones
+                              // No visual feedback for drop zones
                               ...(isDropTarget && {
-                                backgroundColor: theme.palette.mode === 'dark' ? '#4a4a4a !important' : 'rgba(25, 118, 210, 0.1) !important',
-                                borderTop: `3px solid ${theme.palette.primary.main}`,
-                                borderBottom: `3px solid ${theme.palette.primary.main}`,
+                                // No styling - completely clean
                               }),
                             }}
                             onClick={(e: React.MouseEvent) => {
@@ -1983,22 +1967,9 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                               }
                             }}
                           >
-                            <Stack direction="row" spacing={0.5} alignItems="center">{enableColumnSwapping && (
-                                <DragIndicatorIcon 
-                                  fontSize="small" 
-                                  sx={{ 
-                                    color: theme.palette.text.secondary,
-                                    mr: 0.5,
-                                    cursor: 'grab',
-                                    '&:hover': {
-                                      color: theme.palette.text.primary,
-                                    },
-                                    '&:active': {
-                                      cursor: 'grabbing',
-                                    }
-                                  }} 
-                                />
-                              )}
+                            <Stack direction="row" spacing={0.5} alignItems="center">
+                              {/* Drag indicator icon removed for column swapping to avoid visual clutter.
+                                  Drag functionality remains (TableCell is still draggable). */}
                               
                               <Typography variant="subtitle2" fontWeight={header.isBold ? 'bold' : 'medium'}>
                                 {header.name}
@@ -2081,8 +2052,8 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                               />
                             )}
                               
-                              {/* Drop indicator after column */}
-                              {isDropAfter && (
+                              {/* Drop indicator after column removed - no visual feedback */}
+                              {false && isDropAfter && (
                                 <Box
                                   sx={{
                                     position: 'absolute',
@@ -2092,7 +2063,6 @@ const RdsFluentGridNoScss: React.FC<RdsFluentGridProps> = ({
                                     width: '4px',
                                     backgroundColor: theme.palette.primary.main,
                                     zIndex: 999,
-                                    boxShadow: `0 0 8px ${theme.palette.primary.main}`,
                                   }}
                                 />
                               )}
