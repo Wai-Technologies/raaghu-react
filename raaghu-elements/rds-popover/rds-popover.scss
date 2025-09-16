@@ -116,12 +116,12 @@
       // Position variants for left arrows
       &.rds-popover__arrow--right-top {
         top: 20%;
-        transform: translateY(-20%);
+        transform: translateY(-140%);
       }
 
       &.rds-popover__arrow--right-bottom {
         top: 80%;
-        transform: translateY(-80%);
+        transform: translateY(60%);
       }
 
       &.rds-popover__arrow--right-center {
@@ -140,12 +140,12 @@
       // Position variants for right arrows
       &.rds-popover__arrow--left-top {
         top: 20%;
-        transform: translateY(-20%);
+        transform: translateY(-120%);
       }
 
       &.rds-popover__arrow--left-bottom {
         top: 80%;
-        transform: translateY(-80%);
+        transform: translateY(40%);
       }
 
       &.rds-popover__arrow--left-center {
@@ -251,3 +251,4 @@
         max-width: 330px !important;
     }
 }
+
