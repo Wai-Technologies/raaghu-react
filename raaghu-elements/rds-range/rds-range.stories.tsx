@@ -199,10 +199,7 @@ export const Interactive: Story = {
     showValue: true,
     showLabel: false,
     showTooltip: false,
-  },
-  argTypes: {
-    color: { control: false },
-    value: { control: false },
+    
   },
   render: (args) => {
     const [singleValue, setSingleValue] = useState(30);
@@ -255,7 +252,7 @@ export const Interactive: Story = {
           showTooltip={args.showTooltip}
           step={args.step}
           disabled={args.disabled}
-          color="primary"
+          color={args.color}
           size={args.size}
           formatValue={args.formatValue}
           label="Primary"
@@ -279,7 +276,7 @@ export const Interactive: Story = {
           showLabel={args.showLabel}
           showTooltip={args.showTooltip}
           disabled={args.disabled}
-          color="secondary"
+          color={args.color}
           size={args.size}
           formatValue={args.formatValue ?? ((value: number) => `$${value}`)}
           label="Secondary"
