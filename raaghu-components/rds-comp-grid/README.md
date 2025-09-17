@@ -1,4 +1,4 @@
-# RdsCompFluentGrid
+# RdsCompRdsCompGrid
 
 A powerful data grid component built with Microsoft Fluent UI, featuring advanced sorting, filtering, resizing, and selection capabilities.
 
@@ -25,9 +25,9 @@ npm install @fluentui/react-components @fluentui-contrib/react-data-grid-react-w
 ## Basic Usage
 
 ```tsx
-import { RdsCompFluentGrid, FluentGridColumn } from '@waiin/raaghu-react';
+import { RdsCompRdsCompGrid, RdsCompGridColumn } from '@waiin/raaghu-react';
 
-const columns: FluentGridColumn[] = [
+const columns: RdsCompGridColumn[] = [
   {
     key: 'id',
     name: 'ID',
@@ -52,7 +52,7 @@ const data = [
   { id: 2, name: 'Jane Smith' },
 ];
 
-<RdsCompFluentGrid
+<RdsCompRdsCompGrid
   tableHeaders={columns}
   tableData={data}
   isSort={true}
@@ -67,7 +67,7 @@ const data = [
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `tableHeaders` | `FluentGridColumn[]` | - | Column definitions |
+| `tableHeaders` | `RdsCompGridColumn[]` | - | Column definitions |
 | `tableData` | `any[]` | - | Data to display |
 | `isSort` | `boolean` | `true` | Enable sorting |
 | `isFilter` | `boolean` | `true` | Enable filtering |
@@ -93,7 +93,7 @@ const data = [
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `actions` | `FluentGridAction[]` | `[]` | Row actions |
+| `actions` | `RdsCompGridAction[]` | `[]` | Row actions |
 | `actionPosition` | `ActionPosition` | `ActionPosition.Right` | Action position |
 | `actionColumnStyle` | `ActionColumnStyle` | `ActionColumnStyle.ShowDots` | Action style |
 
@@ -118,7 +118,7 @@ const data = [
 ## Column Definition
 
 ```tsx
-interface FluentGridColumn {
+interface RdsCompGridColumn {
   key: string;                    // Unique column key
   name: string;                   // Display name
   dataType?: string;              // Data type (string, number, date)
@@ -136,7 +136,7 @@ interface FluentGridColumn {
 ## Action Definition
 
 ```tsx
-interface FluentGridAction {
+interface RdsCompGridAction {
   id: string;                     // Unique action ID
   displayName: string;            // Display name
   offId?: string;                 // Optional off ID
@@ -149,7 +149,7 @@ interface FluentGridAction {
 ### Basic Grid with Sorting and Filtering
 
 ```tsx
-<RdsCompFluentGrid
+<RdsCompRdsCompGrid
   tableHeaders={columns}
   tableData={data}
   isSort={true}
@@ -161,7 +161,7 @@ interface FluentGridAction {
 ### Grid with Checkbox Selection
 
 ```tsx
-<RdsCompFluentGrid
+<RdsCompRdsCompGrid
   tableHeaders={columns}
   tableData={data}
   enableCheckboxSelection={true}
@@ -177,7 +177,7 @@ const actions = [
   { id: 'delete', displayName: 'Delete' },
 ];
 
-<RdsCompFluentGrid
+<RdsCompRdsCompGrid
   tableHeaders={columns}
   tableData={data}
   actions={actions}
@@ -191,7 +191,7 @@ const actions = [
 ### Grid with Pagination
 
 ```tsx
-<RdsCompFluentGrid
+<RdsCompRdsCompGrid
   tableHeaders={columns}
   tableData={data}
   pagination={true}
@@ -206,7 +206,7 @@ const actions = [
 ### Dark Theme Grid
 
 ```tsx
-<RdsCompFluentGrid
+<RdsCompRdsCompGrid
   tableHeaders={columns}
   tableData={data}
   theme="dark"
@@ -253,8 +253,8 @@ The component is fully accessible with:
 If you're migrating from the existing `RdsCompGrid`, the main differences are:
 
 1. **Props**: Use `isSort`, `isFilter`, `isResizable` instead of individual column properties
-2. **Column Definition**: Use `FluentGridColumn` interface
-3. **Actions**: Use `FluentGridAction` interface
+2. **Column Definition**: Use `RdsCompGridColumn` interface
+3. **Actions**: Use `RdsCompGridAction` interface
 4. **Theming**: Use `theme` prop instead of CSS classes
 
 ## Troubleshooting

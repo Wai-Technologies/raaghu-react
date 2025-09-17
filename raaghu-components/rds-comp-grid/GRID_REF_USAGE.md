@@ -1,15 +1,15 @@
-# RdsFluentGrid Ref Usage
+# RdsCompGrid Ref Usage
 
-The RdsFluentGrid component now supports a comprehensive ref API that provides programmatic control over the grid, similar to major grid libraries like Kendo, DevExtreme, and PrimeNG.
+The RdsCompGrid component now supports a comprehensive ref API that provides programmatic control over the grid, similar to major grid libraries like Kendo, DevExtreme, and PrimeNG.
 
 ## Basic Usage
 
 ```tsx
 import React, { useRef, useEffect } from 'react';
-import RdsFluentGrid, { FluentGridRef, FluentGridColumn } from './rds-comp-fluent-grid';
+import RdsCompGrid, { RdsCompGridRef, RdsCompGridColumn } from './rds-comp-grid';
 
 const MyComponent = () => {
-  const gridRef = useRef<FluentGridRef>(null);
+  const gridRef = useRef<RdsCompGridRef>(null);
 
   useEffect(() => {
     // Access grid methods after component mounts
@@ -40,7 +40,7 @@ const MyComponent = () => {
       <button onClick={handleAddRow}>Add Row</button>
       <button onClick={handleFilter}>Filter</button>
       
-      <RdsFluentGrid
+      <RdsCompGrid
         ref={gridRef}
         tableHeaders={headers}
         tableData={data}
@@ -126,7 +126,7 @@ const MyComponent = () => {
 
 ```tsx
 const AdvancedGridExample = () => {
-  const gridRef = useRef<FluentGridRef>(null);
+  const gridRef = useRef<RdsCompGridRef>(null);
 
   const handleComplexOperation = () => {
     if (gridRef.current) {
@@ -153,7 +153,7 @@ const AdvancedGridExample = () => {
   };
 
   return (
-    <RdsFluentGrid
+    <RdsCompGrid
       ref={gridRef}
       tableHeaders={headers}
       tableData={data}
@@ -169,14 +169,14 @@ const AdvancedGridExample = () => {
 
 ## TypeScript Support
 
-The ref is fully typed with the `FluentGridRef` interface, providing excellent IntelliSense support and type safety.
+The ref is fully typed with the `RdsCompGridRef` interface, providing excellent IntelliSense support and type safety.
 
 ```tsx
-const gridRef = useRef<FluentGridRef>(null);
+const gridRef = useRef<RdsCompGridRef>(null);
 
 // TypeScript will provide autocomplete and type checking
 gridRef.current?.addRow({ id: 1, name: 'Test' });
 gridRef.current?.applyFilter('name', 'Test', 'contains');
 ```
 
-This comprehensive ref API makes the RdsFluentGrid highly programmable and suitable for complex applications where you need to control the grid state from external components or business logic.
+This comprehensive ref API makes the RdsCompGrid highly programmable and suitable for complex applications where you need to control the grid state from external components or business logic.
