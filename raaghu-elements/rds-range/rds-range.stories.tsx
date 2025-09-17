@@ -52,6 +52,7 @@ const meta: Meta<typeof RdsRange> = {
       control: 'select',
       options: ['1', '2', '3', '4', '5'],
     },
+    value: { control: false },
   },
 };
 
@@ -104,26 +105,78 @@ export const Default: Story = {
 };
 
 export const Colors: Story = {
-  render: () => (
-    <Box sx={{ width: 300, display: 'flex', flexDirection: 'column', gap: 3 }}>
-      <RdsRange
-        value={40}
-        leftLabel={0}
-        rightLabel={100}
-        color="primary"
-        label="Primary Color"
-        showValue
-      />
-      <RdsRange
-        value={60}
-        leftLabel={0}
-        rightLabel={100}
-        color="secondary"
-        label="Secondary Color"
-        showValue
-      />
-    </Box>
-  ),
+  args: {
+    type: 'one-way',
+    level: '3',
+    leftLabel: 0,
+    rightLabel: 100,
+    showValue: true,
+    showLabel: false,
+    showTooltip: false,
+  },
+  argTypes: {
+    color: { control: false },
+    value: { control: false },
+  },
+  render: (args) => {
+    const [primarySingleValue, setPrimarySingleValue] = useState(40);
+    const [secondarySingleValue, setSecondarySingleValue] = useState(60);
+    const [primaryRangeValue, setPrimaryRangeValue] = useState<[number, number]>([20, 80]);
+    const [secondaryRangeValue, setSecondaryRangeValue] = useState<[number, number]>([30, 70]);
+
+    const isOneWay = args.type === 'one-way';
+
+    return (
+      <Box sx={{ width: 300, display: 'flex', flexDirection: 'column', gap: 3 }}>
+        <RdsRange
+          value={isOneWay && args.level ? undefined : (isOneWay ? primarySingleValue : primaryRangeValue)}
+          onChange={(value) => {
+            if (isOneWay) {
+              setPrimarySingleValue(value as number);
+            } else {
+              setPrimaryRangeValue(value as [number, number]);
+            }
+          }}
+          type={args.type}
+          level={args.level}
+          leftLabel={args.leftLabel}
+          rightLabel={args.rightLabel}
+          showValue={args.showValue}
+          showLabel={args.showLabel}
+          showTooltip={args.showTooltip}
+          step={args.step}
+          disabled={args.disabled}
+          color="primary"
+          size={args.size}
+          formatValue={args.formatValue}
+          label="Primary Color"
+        />
+        <RdsRange
+          value={isOneWay && args.level ? undefined : (isOneWay ? secondarySingleValue : secondaryRangeValue)}
+          onChange={(value) => {
+            if (isOneWay) {
+              setSecondarySingleValue(value as number);
+            } else {
+              setSecondaryRangeValue(value as [number, number]);
+            }
+          }}
+          type={args.type}
+          level={args.level}
+          leftLabel={args.leftLabel}
+          rightLabel={args.rightLabel}
+          showValue={args.showValue}
+          showLabel={args.showLabel}
+          showTooltip={args.showTooltip}
+          step={args.step}
+          disabled={args.disabled}
+          color="secondary"
+          size={args.size}
+          formatValue={args.formatValue}
+          label="Secondary Color"
+        />
+      </Box>
+    );
+  },
 };
 
 export const Disabled: Story = {
