@@ -39,6 +39,11 @@ const meta: Meta<typeof RdsRadio> = {
           defaultValue: { summary: 'undefined' },
         },
       },
+      selected: {
+        control: 'boolean',
+        description: 'Force selection (true selects first option, false clears). When undefined component behaves normally.',
+        table: { defaultValue: { summary: 'undefined' } }
+      },
   },
 };
 
@@ -52,14 +57,28 @@ const basicOptions = [
   { text: 'Option 3', value: 'option3' },
 ];
 
+// Helper pattern: when args.selected is defined we force selection/clearing; otherwise allow interactive local state.
+function computeForcedValue(args: any) {
+  if (typeof args.selected === 'undefined') return undefined; // signal no forcing
+  if (args.selected === true) {
+    const first = (args.options || []).find((o: any) => !o.disabled);
+    return first ? first.value : undefined;
+  }
+  return undefined; // selected === false -> clear
+}
+
 export const Default: Story = {
   render: (args) => {
-    const [selected, setSelected] = useState(args.value ?? undefined);
+    const [internal, setInternal] = useState<string | undefined>(args.value ?? undefined);
+    const forced = computeForcedValue(args);
+    const valueToUse = forced !== undefined || args.selected === false ? forced : internal;
     return (
       <RdsRadio
         {...args}
-        value={selected}
-        onChange={(_event, value) => setSelected(value)}
+        value={valueToUse}
+        onChange={(_e, val) => {
+          if (typeof args.selected === 'undefined') setInternal(val);
+        }}
       />
     );
   },
@@ -67,8 +86,11 @@ export const Default: Story = {
     label: 'Choose an option',
     options: [{ text: 'Option 1', value: 'option1' }],
     value: undefined,
+    selected: true,
   },
 };
+Default.parameters = { controls: { include: ['label','options','value','selected', 'direction','layout','state'] } };
+
 
 export const Horizontal: Story = {
   render: (args) => {
@@ -88,6 +110,7 @@ export const Horizontal: Story = {
     value: undefined,
   },
 };
+Horizontal.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
 
 export const WithDisabledOptions: Story = {
   render: (args) => {
@@ -111,6 +134,8 @@ export const WithDisabledOptions: Story = {
     value: undefined,
   },
 };
+WithDisabledOptions.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
+
 
 export const WithSelectedValue: Story = {
   render: (args) => {
@@ -129,6 +154,8 @@ export const WithSelectedValue: Story = {
     value: undefined,
   },
 };
+WithSelectedValue.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
+
 
 export const WithoutLabel: Story = {
   render: (args) => {
@@ -146,4 +173,5 @@ export const WithoutLabel: Story = {
     value: undefined,
   },
 };
+WithoutLabel.parameters = { controls: { include: ['label','options','value', 'direction','layout','state'] } };
 
