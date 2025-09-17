@@ -60,6 +60,9 @@ export const Default: Story = {
     children: drawerContent,
   },
 };
+Default.parameters = {
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant'] },
+};
 
 export const Right: Story = {
   args: {
@@ -68,6 +71,9 @@ export const Right: Story = {
     anchor: 'right',
     children: drawerContent,
   },
+};
+Right.parameters = {
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant'] },
 };
 
 export const Top: Story = {
@@ -85,6 +91,9 @@ export const Top: Story = {
     ),
   },
 };
+Top.parameters = {
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant'] },
+};
 
 export const Bottom: Story = {
   args: {
@@ -101,6 +110,9 @@ export const Bottom: Story = {
     ),
   },
 };
+Bottom.parameters = {
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant'] },
+};
 
 export const Persistent: Story = {
   args: {
@@ -111,6 +123,9 @@ export const Persistent: Story = {
     anchor: 'left',
     children: drawerContent,
   },
+};
+Persistent.parameters = {
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'triggerTextWhenOpen'] },
 };
 
 export const Interactive: Story = {
@@ -128,4 +143,7 @@ export const Interactive: Story = {
       </div>
     ),
   },
+};
+Interactive.parameters = {
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'showCloseButton'] },
 };
