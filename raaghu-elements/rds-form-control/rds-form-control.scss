@@ -2,6 +2,10 @@
 .rds-form-control {
   display: block;
   position: relative;
+  
+  &.MuiFormControl-fullWidth {
+    width: 119%;
+  }
 }
 
 .rds-form-control__asterisk {
@@ -19,4 +23,7 @@
 .rds-form-control .MuiFormLabel-root.Mui-focused .MuiFormLabel-asterisk,
 .rds-form-control .MuiFormLabel-root.Mui-error .MuiFormLabel-asterisk {
   color: #d32f2f !important;
+}
+.css-1t6h741-MuiFormHelperText-root{
+  margin-left:0 !important;
 }
