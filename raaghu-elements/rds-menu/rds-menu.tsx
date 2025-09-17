@@ -103,7 +103,7 @@ function getColor(color: string): string {
                 </ListItemIcon>
               )}
               <ListItemText
-                primary={<span className="rds-menu__item__text">{item.label}</span>}
+                  primary={<span className="rds-menu__item__text" style={item.color ? { color: getColor(item.color) } : undefined}>{item.label}</span>}
                 secondary={item.shortcut ? (
                   <Typography variant="body2" color="text.secondary" component="span" className="rds-menu__item__shortcut">
                     {item.shortcut}

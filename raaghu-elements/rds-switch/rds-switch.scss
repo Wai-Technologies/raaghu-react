@@ -225,17 +225,101 @@
   opacity: 1 !important;
 }
 
-/* Secondary color support */
+/* Color variant support */
+.rds-switch--color-primary .Mui-checked + .MuiSwitch-track,
+.rds-switch--color-primary .MuiSwitch-input:checked + .MuiSwitch-track {
+  background: #cbeaff !important; /* Lighter primary color for better contrast (increased) */
+  opacity: 1 !important;
+}
+
+.rds-switch--color-primary .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--color-primary .MuiSwitch-input:checked + .MuiSwitch-thumb {
+  background: #0b63e6 !important; /* Darker primary thumb for stronger contrast */
+}
+
+/* Primary color off state - use white for color variant */
+.rds-switch--color-primary .MuiSwitch-thumb {
+  background: #ffffff !important;
+}
+
+/* Secondary color - Raaghu track + MUI thumb colors */
 .rds-switch--color-secondary .Mui-checked + .MuiSwitch-track,
 .rds-switch--color-secondary .MuiSwitch-input:checked + .MuiSwitch-track {
-  background: var(--rds-secondary-main, #1827BB) !important;
+  background: #6b7ddd !important; /* Lighter secondary color for better contrast */
   opacity: 1 !important;
 }
 
 .rds-switch--color-secondary .Mui-checked + .MuiSwitch-thumb,
-.rds-switch--color-secondary .MuiSwitch-input:checked + .MuiSwitch-thumb,
+.rds-switch--color-secondary .MuiSwitch-input:checked + .MuiSwitch-thumb {
+  background: #111f99 !important; /* Darker secondary color for visibility */
+}
+
 .rds-switch--color-secondary .MuiSwitch-thumb {
-  background: var(--rds-color-on-secondary, #ffffff) !important;
+  background: var(--rds-color-switch-thumb, #ffffff) !important;
+}
+
+/* Error color - Raaghu track + MUI thumb colors */
+.rds-switch--color-error .Mui-checked + .MuiSwitch-track,
+.rds-switch--color-error .MuiSwitch-input:checked + .MuiSwitch-track {
+  background: #e57a7a !important; /* Lighter error color for better contrast */
+  opacity: 1 !important;
+}
+
+.rds-switch--color-error .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--color-error .MuiSwitch-input:checked + .MuiSwitch-thumb {
+  background: #9a0a18 !important; /* Darker error color for visibility */
+}
+
+.rds-switch--color-error .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #ffffff) !important;
+}
+
+/* Warning color - Raaghu track + MUI thumb colors */
+.rds-switch--color-warning .Mui-checked + .MuiSwitch-track,
+.rds-switch--color-warning .MuiSwitch-input:checked + .MuiSwitch-track {
+  background: #e8a570 !important; /* Lighter warning color for better contrast */
+  opacity: 1 !important;
+}
+
+.rds-switch--color-warning .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--color-warning .MuiSwitch-input:checked + .MuiSwitch-thumb {
+  background: #a3420a !important; /* Darker warning color for visibility */
+}
+
+.rds-switch--color-warning .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #ffffff) !important;
+}
+
+/* Info color - Raaghu track + MUI thumb colors */
+.rds-switch--color-info .Mui-checked + .MuiSwitch-track,
+.rds-switch--color-info .MuiSwitch-input:checked + .MuiSwitch-track {
+  background: #81d4fa !important; /* Lighter info color for better contrast */
+  opacity: 1 !important;
+}
+
+.rds-switch--color-info .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--color-info .MuiSwitch-input:checked + .MuiSwitch-thumb {
+  background: #1976d2 !important; /* Darker info color for visibility */
+}
+
+.rds-switch--color-info .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #ffffff) !important;
+}
+
+/* Success color - Raaghu track + MUI thumb colors */
+.rds-switch--color-success .Mui-checked + .MuiSwitch-track,
+.rds-switch--color-success .MuiSwitch-input:checked + .MuiSwitch-track {
+  background: #7bc87f !important; /* Lighter success color for better contrast */
+  opacity: 1 !important;
+}
+
+.rds-switch--color-success .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--color-success .MuiSwitch-input:checked + .MuiSwitch-thumb {
+  background: #176326 !important; /* Darker success color for visibility */
+}
+
+.rds-switch--color-success .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #ffffff) !important;
 }
 
 // Disabled state handling - preserve disabled functionality
@@ -254,7 +338,13 @@
   margin-left: 3px !important;
 }
 
-/* Disabled + Checked override for secondary-colored switches */
+/* Disabled + Checked override for all colored switches */
+.rds-switch--color-primary .Mui-checked.Mui-disabled + .MuiSwitch-track,
+.rds-switch--color-primary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
+  background: var(--rds-switch-disabled-bg, #b3d4fc) !important;
+  opacity: 0.4 !important;
+}
+
 .rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-secondary .Mui-disabled + .MuiSwitch-track {
@@ -262,24 +352,41 @@
   opacity: 0.4 !important;
 }
 
-.rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
-.rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-thumb,
-.rds-switch--color-secondary .MuiSwitch-thumb.Mui-disabled {
-  background: var(--rds-color-on-secondary, #ffffff) !important;
+.rds-switch--color-warning .Mui-checked.Mui-disabled + .MuiSwitch-track,
+.rds-switch--color-warning .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
+  background: var(--rds-switch-disabled-warning-bg, rgba(255,152,0,0.24)) !important;
+  opacity: 0.4 !important;
+}
+
+.rds-switch--color-default .Mui-checked.Mui-disabled + .MuiSwitch-track,
+.rds-switch--color-default .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
+  background: var(--rds-switch-disabled-default-bg, rgba(158,158,158,0.24)) !important;
+  opacity: 0.4 !important;
+}
+
+/* Disabled thumb handling for all colors */
+.rds-switch--color-primary .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
+.rds-switch--color-primary .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  background: var(--rds-color-on-primary, #ffffff) !important;
   opacity: 0.6 !important;
 }
 
-/* Ensure selectors that match MUI structure (thumb inside switchBase) also apply */
-.rds-switch--color-secondary .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb,
+.rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
+.rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-thumb,
 .rds-switch--color-secondary .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
   background: var(--rds-color-on-secondary, #ffffff) !important;
   opacity: 0.6 !important;
 }
 
-/* Disabled + Off (unchecked) - ensure thumb uses configured token */
-.rds-switch--color-secondary .MuiSwitch-switchBase.Mui-disabled .MuiSwitch-thumb,
-.rds-switch--color-secondary .MuiSwitch-thumb.Mui-disabled:not(.Mui-checked) {
-  background: var(--rds-color-switch-thumb, #646464) !important;
+.rds-switch--color-warning .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
+.rds-switch--color-warning .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  background: var(--rds-color-on-warning, #000000) !important;
+  opacity: 0.6 !important;
+}
+
+.rds-switch--color-default .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
+.rds-switch--color-default .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  background: var(--rds-color-on-default, #ffffff) !important;
   opacity: 0.6 !important;
 }
 .rds-switch--style6 .Mui-checked + .MuiSwitch-track::before,

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSnackbar from './rds-snackbar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import RdsButton from '../rds-button/rds-button';
 
 const meta: Meta<typeof RdsSnackbar> = {
@@ -35,21 +35,28 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const SnackbarTemplate = (args: any) => {
-  const [open, setOpen] = useState(false);
+  // Use local state so we can control open both from the "Show Snackbar" button
+  // and from Storybook's controls (args.open). When args.open changes, sync it.
+  const [open, setOpen] = useState<boolean>(!!args.open);
+
+  useEffect(() => {
+    // When the control `open` in Storybook is toggled, reflect it in local state.
+    setOpen(!!args.open);
+  }, [args.open]);
 
   return (
     <>
       <RdsButton
-          color="primary"
-          layout="text-only"
-          shape="rectangle"
-          size="medium"
-          state="default"
-          style="filled"
-          text="Show Snackbar"
-          textCase="unset"
-          onClick={() => setOpen(true)}
-        />
+        color="primary"
+        layout="text-only"
+        shape="rectangle"
+        size="medium"
+        state="default"
+        style="filled"
+        text="Show Snackbar"
+        textCase="unset"
+        onClick={() => setOpen(true)}
+      />
       <RdsSnackbar
         {...args}
         open={open}
