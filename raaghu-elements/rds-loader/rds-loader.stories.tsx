@@ -3,6 +3,18 @@ import { Box, Button } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import RdsLoader from './rds-loader';
 
+// Reusable argTypes for hiding all controls
+const hideAllControls = {
+  variant: { table: { disable: true } },
+  size: { table: { disable: true } },
+  color: { table: { disable: true } },
+  value: { table: { disable: true } },
+  label: { table: { disable: true } },
+  overlay: { table: { disable: true } },
+  thickness: { table: { disable: true } },
+  type: { table: { disable: true } },
+};
+
 const meta: Meta<typeof RdsLoader> = {
   title: 'Elements/Loader',
   component: RdsLoader,
@@ -55,6 +67,13 @@ const meta: Meta<typeof RdsLoader> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const Default: Story = {
+  args: {
+    type: 'spinner-ring',
+  },
+};
+Default.parameters = { controls: { include: ['type'] } };
+
 export const AnimatedLinearProgress: Story = {
   render: () => {
     const [progress, setProgress] = useState(0);
@@ -83,7 +102,9 @@ export const AnimatedLinearProgress: Story = {
       </Box>
     );
   },
+  argTypes: hideAllControls,
 };
+
 export const AnimatedCircularProgress: Story = {
   render: () => {
     const [progress, setProgress] = useState(0);
@@ -101,6 +122,7 @@ export const AnimatedCircularProgress: Story = {
       </Box>
     );
   },
+  argTypes: hideAllControls,
 };
 
 export const Colors: Story = {
@@ -122,6 +144,7 @@ export const Colors: Story = {
       <RdsLoader variant="circular" color="success" />
     </Box>
   ),
+  argTypes: hideAllControls,
 };
 
 export const CircularDefault: Story = {
@@ -131,6 +154,7 @@ export const CircularDefault: Story = {
     color: 'primary',
   },
 };
+CircularDefault.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'thickness', 'color', 'size'] } };
 
 export const CircularWithLabel: Story = {
   args: {
@@ -140,6 +164,7 @@ export const CircularWithLabel: Story = {
     label: 'Loading...',
   },
 };
+CircularWithLabel.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'thickness', 'color', 'size'] } };
 
 export const CircularDeterminate: Story = {
   args: {
@@ -150,6 +175,7 @@ export const CircularDeterminate: Story = {
     label: 'Progress',
   },
 };
+CircularDeterminate.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'thickness', 'color', 'size'] } };
 
 export const LinearWithLabel: Story = {
   args: {
@@ -158,6 +184,7 @@ export const LinearWithLabel: Story = {
     label: 'Loading content...',
   },
 };
+LinearWithLabel.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'thickness', 'color', 'size'] } };
 
 export const LinearDeterminate: Story = {
   args: {
@@ -167,6 +194,7 @@ export const LinearDeterminate: Story = {
     label: 'Upload progress',
   },
 };
+LinearDeterminate.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'thickness', 'color', 'size'] } };
 
 export const LineWobbleWithLabel: Story = {
   args: {
@@ -174,6 +202,7 @@ export const LineWobbleWithLabel: Story = {
     label: 'Loading...'
   },
 };
+LineWobbleWithLabel.parameters = { controls: { include: ['type', 'label'] } };
 
 export const LoaderHashWithLabel: Story = {
   args: {
@@ -181,6 +210,7 @@ export const LoaderHashWithLabel: Story = {
     label: 'Hashing...'
   },
 };
+LoaderHashWithLabel.parameters = { controls: { include: ['type', 'label'] } };
 
 export const LoaderJumpWithLabel: Story = {
   args: {
@@ -188,6 +218,7 @@ export const LoaderJumpWithLabel: Story = {
     label: 'Jumping...'
   },
 };
+LoaderJumpWithLabel.parameters = { controls: { include: ['type', 'label'] } };
 
 export const LoaderMovingWithLabel: Story = {
   args: {
@@ -195,6 +226,7 @@ export const LoaderMovingWithLabel: Story = {
     label: 'Moving...'
   },
 };
+LoaderMovingWithLabel.parameters = { controls: { include: ['type', 'label'] } };
 
 export const LoaderRoundWithLabel: Story = {
   args: {
@@ -202,6 +234,7 @@ export const LoaderRoundWithLabel: Story = {
     label: 'Loading round...'
   },
 };
+LoaderRoundWithLabel.parameters = { controls: { include: ['type', 'label'] } };
 
 export const LoadWithLabel: Story = {
   args: {
@@ -209,6 +242,7 @@ export const LoadWithLabel: Story = {
     label: 'Spinning...'
   },
 };
+LoadWithLabel.parameters = { controls: { include: ['type', 'label'] } };
 
 export const LoadingWithLabel: Story = {
   args: {
@@ -217,6 +251,7 @@ export const LoadingWithLabel: Story = {
     label: 'Loading spinner...'
   },
 };
+LoadingWithLabel.parameters = { controls: { include: ['type', 'label'] } };
 
 export const RotateWithLabel: Story = {
   args: {
@@ -224,6 +259,7 @@ export const RotateWithLabel: Story = {
     label: 'Rotating...'
   },
 };
+RotateWithLabel.parameters = { controls: { include: ['type', 'label'] } };
 
 export const RollingRockWithLabel: Story = {
   args: {
@@ -231,6 +267,7 @@ export const RollingRockWithLabel: Story = {
     label: 'Rolling...'
   },
 };
+RollingRockWithLabel.parameters = { controls: { include: ['type', 'label'] } };
 
 export const Sizes: Story = {
   render: () => (
@@ -240,6 +277,7 @@ export const Sizes: Story = {
       <RdsLoader variant="circular" size="large" color="success" />
     </Box>
   ),
+  argTypes: hideAllControls,
 };
 
 export const SandWithLabel: Story = {
@@ -248,6 +286,7 @@ export const SandWithLabel: Story = {
     label: 'Sifting sand...'
   },
 };
+SandWithLabel.parameters = { controls: { include: ['type', 'label'] } };
 
 export const TriangleWithLabel: Story = {
   args: {
@@ -255,6 +294,7 @@ export const TriangleWithLabel: Story = {
     label: 'Loading triangle...'
   },
 };
+TriangleWithLabel.parameters = { controls: { include: ['type', 'label'] } };
 
 export const WithOverlay: Story = {
   render: () => {
@@ -287,4 +327,5 @@ export const WithOverlay: Story = {
       </Box>
     );
   },
+  argTypes: hideAllControls,
 };
