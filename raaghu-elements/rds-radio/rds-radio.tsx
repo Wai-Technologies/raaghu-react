@@ -25,6 +25,7 @@ export interface RdsRadioProps extends Omit<RadioGroupProps, 'children'> {
   radioProps?: RadioProps;
   layout?: 'icon' | 'icon with label' | 'icon with bottom label';
   state?: 'default' | 'hover' | 'disabled';
+  selected?: boolean;
 }
 
 const RdsRadio= ({
@@ -35,11 +36,21 @@ const RdsRadio= ({
   layout = 'icon with label',
   state = 'default',
   row,
+  selected,
   ...props
 }:RdsRadioProps) => {
   const isDisabled = (optDisabled: boolean) => optDisabled || state === 'disabled';
   const isHoverable = state === 'hover' || state === 'default';
   const radioRow = row ?? direction === 'row';
+
+  const effectiveValue: string | undefined = React.useMemo(() => {
+    if (typeof selected === 'undefined') return props.value as any;
+    if (selected === false) return undefined;
+    // selected true
+    if (props.value) return props.value as any;
+    const first = options.find(o => !o.disabled);
+    return first ? first.value : undefined;
+  }, [selected, props.value, options]);
 
   const renderOption = (option: RdsRadioOption) => {
     const optionDisabled = option.disabled ?? false;
@@ -69,11 +80,13 @@ const RdsRadio= ({
               id={radioId}
               value={option.value}
               disabled={finalDisabled}
-              checked={props.value === option.value}
+              checked={effectiveValue === option.value}
               name={props.name}
               onChange={(event) => {
-                if (!finalDisabled && props.onChange) {
-                  props.onChange(event, option.value);
+                if (!finalDisabled) {
+                  if (typeof selected === 'undefined' && props.onChange) {
+                    props.onChange(event, option.value);
+                  }
                 }
               }}
               className="rds-radio__option"
@@ -130,6 +143,13 @@ const RdsRadio= ({
         <RadioGroup
           row={radioRow}
           className="rds-radio__group"
+          value={effectiveValue}
+          // If selected is controlled we block onChange bubbling outward so stories/consumers see forced state
+          onChange={(e, val) => {
+            if (typeof selected === 'undefined' && props.onChange) {
+              props.onChange(e as any, val);
+            }
+          }}
           {...props}
         >
           {options.map(renderOption)}
