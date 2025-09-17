@@ -19,11 +19,12 @@ const meta: Meta = {
   tags: ['autodocs'],
   argTypes: {
     open: { control: { type: 'boolean' } },
-    size: { control: { type: 'select' }, options: ['xs', 'sm', 'md', 'lg', 'xl', false] },
+  size: { control: { type: 'select' }, options: ['small', 'large'] },
     fullWidth: { control: { type: 'boolean' } },
     fullScreen: { control: { type: 'boolean' } },
     title: { control: 'text' },
     ShowDissmiss: { control: 'boolean' },
+    showTitle: { control: 'boolean' },
     actions: { control: false },
     children: { control: false },
     ShowPrimary: {
@@ -68,7 +69,7 @@ export const Default: Story = {
   args: {
     title: 'Dialog Title',
     children: (
-      <div style={{ padding: '20px' }}>
+      <div>
         <RdsTypography variant="body1">
           This is the dialog content. You can put any content here.
         </RdsTypography>
@@ -106,7 +107,7 @@ export const FullWidth: Story = {
   },
   args: {
     fullWidth: true,
-    size: 'sm',
+  size: 'small',
     title: 'Full Width Dialog',
     children: (
       <Typography variant="body1">
@@ -153,6 +154,8 @@ export const Interactive: Story = {
   args: {
     title: 'Interactive Dialog',
     ShowDissmiss: true,
+    size: 'small',
+    fullWidth: true,
   },
 };
 
@@ -184,7 +187,7 @@ export const LargeContent: Story = {
     );
   },
   args: {
-    size: 'md',
+  size: 'large',
     fullWidth: true,
     title: 'Large Content Dialog',
     children: (
@@ -246,7 +249,7 @@ export const WithActions: Story = {
 };
 export const WithIcon: Story = {
   args: {
-    size: "md",
+  size: 'large',
     fullWidth: true,
     fullScreen: false,
     title: 'Title',
@@ -304,7 +307,7 @@ export const WithIcon: Story = {
           textCase="uppercase"
           onClick={() => setOpen(true)}
         />
-        <RdsDialog children={undefined} open={open} {...rest} onClose={() => setOpen(false)} />
+        <RdsDialog children={undefined} open={open} showTitle={showTitle} {...rest} onClose={() => setOpen(false)} />
       </>
     );
   },

@@ -15,7 +15,12 @@ export interface RdsDialogProps extends DialogProps {
   variant?: 'standard' | 'default';
   ShowPrimary?: boolean;
   ShowSecondary?: boolean;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
+  showTitle?: boolean;
+  /**
+   * Size of the dialog in design system terms.
+   * 'small' maps to MUI maxWidth="sm" and 'large' maps to maxWidth="lg".
+   */
+  size?: 'small' | 'large';
 }
 
 const RdsDialog = ({
@@ -27,16 +32,19 @@ const RdsDialog = ({
   variant = 'default',
   ShowPrimary,
   ShowSecondary,
-  size = 'md',
+  showTitle = true,
+  size = 'large',
   ...props
 }:RdsDialogProps) => {
+  // Map DS size to MUI's maxWidth prop values
+  const muiSize = size === 'small' ? 'xs' : 'sm';
   if (variant === 'standard') {
     return (
-      <MuiDialog onClose={onClose} maxWidth={size} {...props} PaperProps={{ className: 'rds-dialog rds-dialog__paper' }}>
-        {(title || ShowDissmiss) && (
+      <MuiDialog onClose={onClose} maxWidth={muiSize} {...props} PaperProps={{ className: 'rds-dialog rds-dialog__paper' }}>
+        {((title && showTitle) || ShowDissmiss) && (
           <DialogTitle className="rds-dialog__title">
             <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '100%' }}>
-              <div style={{ flex: 1 }}>{title}</div>
+              <div style={{ flex: 1 }}>{showTitle ? title : null}</div>
               {ShowDissmiss && (
                 <IconButton aria-label="close" className="rds-dialog__close-button" onClick={onClose} size="medium">
                   <CloseIcon />
@@ -67,10 +75,10 @@ const RdsDialog = ({
   }
 
   return (
-  <MuiDialog onClose={onClose} maxWidth={size} {...props}>
-      {(title || ShowDissmiss) && (
+  <MuiDialog onClose={onClose} maxWidth={muiSize} {...props}>
+      {((title && showTitle) || ShowDissmiss) && (
         <DialogTitle sx={{ position: 'relative', paddingRight: ShowDissmiss ? '40px' : undefined }}>
-          {title}
+          {showTitle ? title : null}
           {ShowDissmiss && onClose && (
             <IconButton
               aria-label="close"
