@@ -25,7 +25,7 @@ const darkStyle = {
 const Highlighter = SyntaxHighlighter as unknown as React.ComponentType<any>;
 
 export interface RdsCompCodeSnippetProps {
-  code: string;
+  code?: string;
   // language can be a string like 'html' or a boolean to indicate showing default label
   language?: string | boolean;
   codeLines?: boolean;
@@ -33,6 +33,7 @@ export interface RdsCompCodeSnippetProps {
   type?: "singleLine" | "multiLine";
   maxHeight?: string;
   className?: string;
+  sampleCodeSnippets?: Record<string, string>;
 }
 
 const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
@@ -43,10 +44,11 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
   type = "multiLine",
   maxHeight,
   className = "",
+  sampleCodeSnippets,
 }) => {
   const [copied, setCopied] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<string>(
-    typeof language === 'string' ? language : ''
+    typeof language === 'string' ? language : 'html'
   );
 
   const languageOptions = [
@@ -56,6 +58,12 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
     { id: 'typescript', label: 'TypeScript' },
     { id: 'json', label: 'JSON' },
   ];
+  const getCurrentCode = (): string => {
+    if (code) return code;
+    if (!sampleCodeSnippets) return '';
+    return sampleCodeSnippets[selectedLanguage as keyof typeof sampleCodeSnippets] || sampleCodeSnippets.html || '';
+  };
+  const currentCode = getCurrentCode();
 
   const handleLanguageChange = (val: string[] | string) => {
     const next = Array.isArray(val) ? val[0] : val;
@@ -64,7 +72,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(code);
+      await navigator.clipboard.writeText(currentCode);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -73,7 +81,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
   };
 
   const getLines = () => {
-    return code.split("\n");
+    return currentCode.split("\n");
   };
 
   // Normalize language handling
@@ -96,7 +104,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                 PreTag="span"
                 className="rds-comp-code-snippet__inline-highlighter"
               >
-                {code.length > 100 ? code.slice(0, 100) + '...' : code}
+                {currentCode.length > 100 ? currentCode.slice(0, 100) + '...' : currentCode}
               </Highlighter>
             </span>
             <div className="rds-comp-code-snippet__actions">             
@@ -171,7 +179,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                       showLineNumbers={codeLines}
                       className="rds-comp-code-snippet__highlighter"
                     >
-                      {code}
+                      {currentCode}
                     </Highlighter>
                   </div>
               </div>
