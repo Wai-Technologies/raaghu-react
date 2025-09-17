@@ -17,10 +17,9 @@ export interface RdsDialogProps extends DialogProps {
   ShowSecondary?: boolean;
   showTitle?: boolean;
   /**
-   * Size of the dialog in design system terms.
-   * 'small' maps to MUI maxWidth="sm" and 'large' maps to maxWidth="lg".
+   * Size passed directly to MUI Dialog maxWidth prop. Supported values align with MUI plus false to disable constraint.
    */
-  size?: 'small' | 'large';
+  size?: 'extra-small' | 'small' | 'medium' | 'large' | 'extra-large' | false;
 }
 
 const RdsDialog = ({
@@ -33,14 +32,25 @@ const RdsDialog = ({
   ShowPrimary,
   ShowSecondary,
   showTitle = true,
-  size = 'large',
+  size = 'medium',
   ...props
 }:RdsDialogProps) => {
   // Map DS size to MUI's maxWidth prop values
-  const muiSize = size === 'small' ? 'xs' : 'sm';
   if (variant === 'standard') {
     return (
-      <MuiDialog onClose={onClose} maxWidth={muiSize} {...props} PaperProps={{ className: 'rds-dialog rds-dialog__paper' }}>
+      <MuiDialog
+        onClose={onClose}
+        maxWidth={
+          size === 'extra-small' ? 'xs' :
+          size === 'small' ? 'sm' :
+          size === 'medium' ? 'md' :
+          size === 'large' ? 'lg' :
+          size === 'extra-large' ? 'xl' :
+          size
+        }
+        {...props}
+        PaperProps={{ className: 'rds-dialog rds-dialog__paper' }}
+      >
         {((title && showTitle) || ShowDissmiss) && (
           <DialogTitle className="rds-dialog__title">
             <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '100%' }}>
@@ -75,7 +85,18 @@ const RdsDialog = ({
   }
 
   return (
-  <MuiDialog onClose={onClose} maxWidth={muiSize} {...props}>
+  <MuiDialog
+    onClose={onClose}
+    maxWidth={
+      size === 'extra-small' ? 'xs' :
+      size === 'small' ? 'sm' :
+      size === 'medium' ? 'md' :
+      size === 'large' ? 'lg' :
+      size === 'extra-large' ? 'xl' :
+      size
+    }
+    {...props}
+  >
       {((title && showTitle) || ShowDissmiss) && (
         <DialogTitle sx={{ position: 'relative', paddingRight: ShowDissmiss ? '40px' : undefined }}>
           {showTitle ? title : null}

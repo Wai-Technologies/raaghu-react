@@ -19,7 +19,7 @@ const meta: Meta = {
   tags: ['autodocs'],
   argTypes: {
     open: { control: { type: 'boolean' } },
-  size: { control: { type: 'select' }, options: ['small', 'large'] },
+  size: { control: { type: 'select' }, options: ['extra-small', 'small', 'medium', 'large', 'extra-large', false] },
     fullWidth: { control: { type: 'boolean' } },
     fullScreen: { control: { type: 'boolean' } },
     title: { control: 'text' },
@@ -67,6 +67,8 @@ export const Default: Story = {
     );
   },
   args: {
+    size: 'medium',
+    fullWidth: true,
     title: 'Dialog Title',
     children: (
       <div>
@@ -187,7 +189,7 @@ export const LargeContent: Story = {
     );
   },
   args: {
-  size: 'large',
+    size: 'medium',
     fullWidth: true,
     title: 'Large Content Dialog',
     children: (
@@ -239,6 +241,8 @@ export const WithActions: Story = {
     );
   },
   args: {
+    size: 'medium',
+    fullWidth: true,
     title: 'Confirm Action',
     children: (
       <Typography variant="body1" gutterBottom>
@@ -249,7 +253,7 @@ export const WithActions: Story = {
 };
 export const WithIcon: Story = {
   args: {
-  size: 'large',
+    size: 'medium',
     fullWidth: true,
     fullScreen: false,
     title: 'Title',
