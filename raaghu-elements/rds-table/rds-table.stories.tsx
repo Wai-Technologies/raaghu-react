@@ -450,35 +450,78 @@ export const Default: Story = {
 };
 
 export const SmallSize: Story = {
+  render: (args) => {
+    const [selected, setSelected] = React.useState<string[]>([]);
+    return (
+      <RdsTable
+        {...args}
+        selectedRows={selected}
+        onRowSelect={setSelected}
+      />
+    );
+  },
   args: {
     rows: sampleData,
     columns: columns,
     size: 'small',
+    selectable: false,
   },
 };
 
 export const StickyHeader: Story = {
+  render: (args) => {
+    const [selected, setSelected] = React.useState<string[]>([]);
+    return (
+      <RdsTable
+        {...args}
+        selectedRows={selected}
+        onRowSelect={setSelected}
+      />
+    );
+  },
   args: {
     rows: sampleData,
     columns: columns,
     stickyHeader: true,
+    selectable: false,
   },
 };
 
 export const LargeDataset: Story = {
+  render: (args) => {
+    const [selected, setSelected] = React.useState<string[]>([]);
+    return (
+      <RdsTable
+        {...args}
+        selectedRows={selected}
+        onRowSelect={setSelected}
+      />
+    );
+  },
   args: {
     rows: Array.from({ length: 20 }, (_, index) => ({
-      id: index + 1,
+      id: (index + 1).toString(),
       name: `User ${index + 1}`,
       email: `user${index + 1}@example.com`,
       role: index % 3 === 0 ? 'Admin' : index % 2 === 0 ? 'Moderator' : 'User',
     })),
     columns: columns,
     stickyHeader: true,
+    selectable: false,
   },
 };
 
 export const WithActions: Story = {
+  render: (args) => {
+    const [selected, setSelected] = React.useState<string[]>([]);
+    return (
+      <RdsTable
+        {...args}
+        selectedRows={selected}
+        onRowSelect={setSelected}
+      />
+    );
+  },
   args: {
     rows: sampleData,
     columns: [
@@ -490,12 +533,24 @@ export const WithActions: Story = {
         format: () => 'Edit | Delete'
       },
     ],
+    selectable: false,
   },
 };
 
 export const Empty: Story = {
+  render: (args) => {
+    const [selected, setSelected] = React.useState<string[]>([]);
+    return (
+      <RdsTable
+        {...args}
+        selectedRows={selected}
+        onRowSelect={setSelected}
+      />
+    );
+  },
   args: {
     rows: [],
     columns: columns,
+    selectable: false,
   },
 };

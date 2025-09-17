@@ -152,6 +152,10 @@
   &--default {
     border-radius: var(--rds-border-radius, 8px);
     box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
+    .rds-carousel__indicators {
+      /* Avoid negative bottom because parent has overflow:hidden which hides indicators */
+      bottom: var(--rds-carousel-indicators-offset, 8px); /* Adjust via CSS var if needed */
+    }
   }
 
   &--with-title {
@@ -488,7 +492,7 @@
       
       height: 390px !important;
       .rds-carousel__slide-content {
-        height: 390px;
+        height: 355px !important;
       }
     }
     
@@ -503,3 +507,32 @@
     }
   }
 }
+
+
+//Large & Tablet Mobile
+@media (min-width:414px) and (max-width: 896px) {
+  .rds-carousel__slide-content {
+        height: 359px !important;
+  }
+  .rds-carousel--default .rds-carousel__indicators{
+    bottom: var(--rds-carousel-indicators-offset, 12px) !important;
+  }
+  /* AutoPlay story specific adjustments */
+  .rds-carousel--auto-play .rds-carousel__slide-content {
+    height: 265px !important;
+  }
+}
+
+// desktop
+@media (min-width:1024px) and (max-width: 1280px) {
+  .rds-carousel__slide-content {
+        height: 359px !important;
+  }
+  .rds-carousel--default .rds-carousel__indicators {
+    bottom: var(--rds-carousel-indicators-offset, 13px) !important;
+  }
+  .rds-carousel--auto-play .rds-carousel__slide-content {
+    height: 265px !important;
+  }
+}
+
