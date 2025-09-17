@@ -127,6 +127,7 @@ export const AutoPlay: Story = {
     showDots: true,
     height: '300px',
     style: 'default',
+    className: 'rds-carousel--auto-play',
   title: 'Auto Slide Title',
   subtitle: 'Auto-play subtitle text',
   },
