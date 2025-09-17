@@ -176,7 +176,22 @@ const RdsInput = ({
       target.value = next;
     }
   };
-
+  const getPlaceholder = (layoutType: RdsInputProps['layout'] | undefined) => {
+    switch (layoutType) {
+      case 'password':
+        return '••••••••';
+      case 'phone number':
+        return 'Enter Phone Number';
+      case 'number':
+        return 'Enter Number';
+      case 'card number':
+        return 'XXXX XXXX XXXX XXXX';
+      case 'text':
+      default:
+        return 'Placeholder Text';
+    }
+  };
+  const computedPlaceholder = placeholder ?? getPlaceholder(layout);
   return (
     <div className={`rds-input ${sizeClass} ${pillClass} ${stateClass}`.trim()}>
       {titlePosition === 'title-above' && label && (
@@ -187,7 +202,7 @@ const RdsInput = ({
       )}
       <MuiTextField
         label={titlePosition === 'inline-title' ? label : ''}
-        placeholder={placeholder}
+        placeholder={computedPlaceholder}
         helperText={errorMessage || hintText}
         error={!!errorMessage || error || state === 'error'}
         disabled={disabled || state === 'disabled'}
