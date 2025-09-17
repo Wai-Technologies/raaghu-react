@@ -1,0 +1,161 @@
+// RDS Tree Structure Component Styles
+.rds-comp-tree-structure {
+  // Base tree structure styles
+  
+  // Tree node container
+  &__node-container {
+    position: relative;
+  }
+  
+  // Tree node
+  &__node {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--rds-spacing-xs, 5px);
+    padding: var(--rds-spacing-xs, 8px);
+    cursor: pointer;
+    border-radius: var(--rds-border-radius-sm, 4px);
+    transition: background-color var(--rds-transition-duration-short, 0.2s) ease;
+    
+    // Node state modifiers
+    &--hover {
+      &:hover {
+        background-color: var(--rds-color-primary-hover-light, #EBDCFF);
+      }
+    }
+    
+    &--selected {
+      background-color: var(--rds-color-primary-selected-light, #E1D5F7);
+    }
+  }
+  
+  // Node content
+  &__node-content {
+    display: flex;
+    align-items: center;
+    padding: var(--rds-spacing-xs, 6px);
+    max-height: 22px;
+    flex: 1;
+  }
+  
+  // Node children container
+  &__node-children {
+    margin-left: var(--rds-spacing-lg, 20px);
+  }
+  
+  // Chevron icon
+  &__chevron {
+    margin-top: var(--rds-spacing-sm, 2px);
+    cursor: pointer;
+    transition: transform var(--rds-transition-duration-short, 0.2s) ease;
+    
+    &--expanded {
+      transform: rotate(90deg);
+    }
+  }
+  
+  // Checkbox container to prevent event bubbling
+  &__checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: default;
+    margin-bottom: var(--rds-spacing-xs, 4px);
+  }
+  
+  // Icons
+  &__icon {
+    margin-right: var(--rds-spacing-xs, 4px);
+    margin-top: var(--rds-spacing-sm, 2px);
+    
+    &--folder {
+      color: var(--rds-color-warning, #FFB300);
+      margin-top: var(--rds-spacing-sm, 2px);
+    }
+    
+    &--file {
+      color: var(--rds-color-info, #0066cc);
+    }
+    
+    &--circle {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-bottom: var(--rds-spacing-xs, 2px);
+      background-color: var(--rds-color-border, #CDCDCD);
+      border-radius: 50%;
+    }
+  }
+  
+  // Node text
+  &__text {
+    margin-left: var(--rds-spacing-xs, 2px);
+    color: var(--rds-color-on-surface, #212121);
+  }
+  
+  // Action buttons
+  &__actions {
+    display: flex;
+    margin-left: var(--rds-spacing-md, 15px);
+  }
+  
+  &__action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--rds-color-primary, #7e2eef);
+    border-radius: var(--rds-border-radius-xs, 3px);
+    padding: var(--rds-spacing-xs, 8px);
+    transition: all var(--rds-transition-duration-short, 0.3s) ease;
+    cursor: pointer;
+    background: transparent;
+    color: var(--rds-color-primary, #7e2eef);
+    
+    svg {
+      width: 16px;
+      height: 16px;
+      color: inherit;
+    }
+    
+    &:hover {
+      background-color: var(--rds-color-primary, #7e2eef);
+      color: var(--rds-color-on-primary, #EBDCFF);
+    }
+  }
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+  .rds-comp-tree-structure {
+    &__node {
+      margin-left: -18px !important;
+    }
+    &__actions {
+      display: flex !important;
+      flex-direction: row;
+      align-items: center;
+      margin-left: var(--rds-spacing-xs, 6px);
+    }
+    &__action-btn {
+      width: 25px;
+      height: 25px;
+      padding: var(--rds-spacing-xxs, 2px);
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
+
+// Dark theme support
+.theme-dark .rds-comp-tree-structure {
+  &__text {
+    color: var(--rds-color-on-surface-dark, #fffdfd);
+  }
+  
+  &__node {
+    &:hover {
+      background-color: var(--rds-color-primary-hover-dark, rgba(126, 46, 239, 0.2));
+    }
+  }
+}

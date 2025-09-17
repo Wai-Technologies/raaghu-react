@@ -1,0 +1,209 @@
+// RDS Radio Component Styles
+// Radio button form control
+
+.rds-radio {
+  // Base styles
+  display: block;
+  position: relative;
+
+  // Elements
+  &__group {
+    gap: var(--rds-spacing-sm, 8px);
+    display: flex;
+  }
+
+  &__label {
+    font-weight: var(--rds-font-weight-medium, 500);
+    margin-bottom: var(--rds-spacing-sm, 8px);
+    display: block;
+  }
+
+  &__option {
+    color: var(--rds-text-primary, var(--rds-color-text-primary, #2196f3));
+    display: flex;
+    align-items: center;
+    
+    .MuiFormControlLabel-label {
+      font-size: var(--rds-font-size-body, 1rem);
+      line-height: var(--rds-line-height-body, 1.5);
+      color: #646464 !important;
+    }  
+    
+    // Option modifiers
+    &--icon {
+      .MuiFormControlLabel-label {
+        display: none;
+      }
+    }
+    
+    &--with-label {
+      display: flex;
+      align-items: center;
+    }
+    
+    &--hoverable {
+      &:hover {
+        .MuiRadio-root {
+          background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+        }
+      }
+    }
+    
+    // Disabled state
+    &.Mui-disabled {
+      color: var(--rds-text-disabled, var(--rds-color-text-disabled));
+      
+      .MuiFormControlLabel-label {
+        color: var(--rds-text-disabled, var(--rds-color-text-disabled));
+      }
+    }
+  }
+
+  &__bottom-label {
+    margin-top: var(--rds-spacing-xs, 4px);
+    text-align: center;
+    font-size: var(--rds-font-size-body, 1rem);
+    line-height: var(--rds-line-height-body, 1.5);
+    color: var(--rds-text-primary, var(--rds-color-text-primary));
+    user-select: none;
+    cursor: pointer;
+    
+    &--disabled {
+      color: var(--rds-text-disabled, var(--rds-color-text-disabled)) !important;
+      cursor: not-allowed;
+    }
+  }
+
+  &__bottom-label-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    min-height: auto;
+
+    .MuiRadio-root {
+      margin: 0 !important;
+      padding: var(--rds-spacing-xs, 4px) !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:hover {
+      .MuiRadio-root {
+        background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+      }
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    &--hoverable {
+      &:hover {
+        .MuiRadio-root {
+          background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+        }
+      }
+    }
+  }
+
+  // Layout variant modifiers
+  &--icon {
+    .MuiFormControlLabel-label {
+      display: none;
+    }
+  }
+
+  &--icon-with-label {
+    .MuiFormControlLabel-root {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &--icon-with-bottom-label {
+    .rds-radio__group {
+      display: flex;
+      flex-direction: row;
+      gap: var(--rds-spacing-md, 16px);
+      align-items: flex-start;
+    }
+
+    .rds-radio__bottom-label {
+      margin-top: var(--rds-spacing-xs, 4px);
+      text-align: center;
+      font-size: var(--rds-font-size-sm, 0.875rem);
+      color: var(--rds-text-primary, var(--rds-color-text-primary));
+      user-select: none;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      line-height: 1.2;
+    }
+  }
+
+  // State variant modifiers
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+
+    .MuiRadio-root {
+      color: var(--rds-text-disabled, var(--rds-color-text-disabled));
+    }
+
+    .MuiFormControlLabel-label {
+      color: var(--rds-text-disabled, var(--rds-color-text-disabled));
+    }
+  }
+
+  &--hover {
+    .MuiRadio-root:hover {
+      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+    }
+  }
+
+  // Interactive states
+  &:focus-visible {
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset, 2px);
+  }
+
+  &:disabled,
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  /* Use stable MUI class selectors (avoid generated classname tokens that change between mounts)
+     Scoped under .rds-radio so they apply consistently after navigation/refresh */
+
+  .MuiFormLabel-root {
+    color: #646464 !important;
+  }
+
+  /* Radio checked color */
+  .MuiButtonBase-root.MuiRadio-root.Mui-checked,
+  .MuiRadio-root.Mui-checked {
+    color: #3C98FF !important;
+  }
+
+  /* Disabled label color */
+  .MuiFormControlLabel-root .MuiFormControlLabel-label.Mui-disabled {
+    color: #757575 !important;
+  }
+
+}
+
+/* Dark theme: scope to .rds-radio to ensure styles persist and don't accidentally depend on global order */
+[data-theme="dark"] .rds-radio {
+  .MuiFormControlLabel-label {
+    font-size: var(--rds-font-size-body, 1rem);
+    line-height: var(--rds-line-height-body, 1.5);
+    color: var(--rds-color-light, #ffffff) !important;
+  }
+   .MuiFormLabel-root {
+    color: var(--rds-color-light, #ffffff) !important;
+  }
+}

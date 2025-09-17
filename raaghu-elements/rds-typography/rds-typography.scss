@@ -1,0 +1,107 @@
+// RDS Typography Component Styles
+// Typography component for consistent text styling
+
+.rds-typography {
+  margin: 0;
+  font-family: var(--rds-font-family, var(--rds-font-family-base));
+  
+  // Variant styles
+  &--h1 {
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1.167;
+    letter-spacing: -0.01562em;
+  }
+  
+  &--h2 {
+    font-size: 2.125rem;
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.00833em;
+  }
+  
+  &--h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.167;
+    letter-spacing: 0;
+  }
+  
+  &--h4 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.235;
+    letter-spacing: 0.00735em;
+  }
+  
+  &--h5 {
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.334;
+    letter-spacing: 0;
+  }
+  
+  &--h6 {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+  }
+  
+  &--body1 {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+  }
+  
+  &--body2 {
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+  }
+  
+  &--caption {
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.66;
+    letter-spacing: 0.03333em;
+  }
+  
+  &--overline {
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 2.66;
+    letter-spacing: 0.08333em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 320px) {
+    &--h1 {
+      font-size: 2.8rem;
+      line-height: 1.2;
+    }
+    &--h2 {
+      font-size: 2.3rem;
+      line-height: 1.2;
+    }
+  }
+  
+  // Color variants
+  &--primary {
+    color: var(--rds-color-primary, var(--rds-primary-main));
+  }
+  
+  &--secondary {
+    color: var(--rds-color-text-secondary, var(--rds-text-secondary));
+  }
+  
+  &--disabled {
+    color: var(--rds-color-text-disabled, var(--rds-text-disabled));
+  }
+  
+  &--error {
+    color: var(--rds-color-error, var(--rds-alert-error-border));
+  }
+}

@@ -1,0 +1,254 @@
+// RDS Popover Component Styles
+.rds-popover {
+  // Base styles
+  display: block;
+  position: relative;
+  overflow: visible;
+
+  &-highlight-box {
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #A0A0A0;
+  }
+
+  // Paper styles (Material-UI Popover paper override)
+  &__paper {
+    overflow: visible !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    box-shadow: none !important;
+  }
+
+  // Elements
+  &__container {
+    padding: var(--rds-spacing-md, 16px);
+    max-width: 400px;
+    min-width: 200px;
+    position: relative;
+    overflow: visible;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--rds-spacing-sm, 8px);
+  }
+
+  &__title {
+    font-weight: var(--rds-font-weight-medium, 500);
+    color: var(--rds-text-primary, var(--rds-color-text-primary));
+  }
+
+  &__close-button {
+    color: var(--rds-text-secondary, var(--rds-color-text-secondary));
+    
+    &:hover {
+      color: var(--rds-text-primary, var(--rds-color-text-primary));
+      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+    }
+  }
+
+  &__content {
+    color: var(--rds-text-primary, var(--rds-color-text-primary));
+  }
+
+  // Arrow styles base
+  &__arrow {
+    position: absolute;
+    z-index: 1500;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+
+    // Arrow direction variants with positioning and styling
+    &--top {
+      top: -8px;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid var(--rds-color-surface, #fff);
+      filter: drop-shadow(0px -1px 0px rgba(0, 0, 0, 0.12));
+
+      // Position variants for top arrows
+      &.rds-popover__arrow--bottom-left {
+        left: 30px;
+      }
+
+      &.rds-popover__arrow--bottom-right {
+        left: calc(100% - 42px);
+      }
+
+      &.rds-popover__arrow--bottom-center {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    &--bottom {
+      bottom: -8px;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid var(--rds-color-surface, #fff);
+      filter: drop-shadow(0px 1px 0px rgba(0, 0, 0, 0.12));
+
+      // Position variants for bottom arrows
+      &.rds-popover__arrow--top-left {
+        left: 30px;
+      }
+
+      &.rds-popover__arrow--top-right {
+        left: calc(100% - 42px);
+      }
+
+      &.rds-popover__arrow--top-center {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    &--left {
+      left: -8px;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 8px solid var(--rds-color-surface, #fff);
+      filter: drop-shadow(-1px 0px 0px rgba(0, 0, 0, 0.12));
+
+      // Position variants for left arrows
+      &.rds-popover__arrow--right-top {
+        top: 20%;
+        transform: translateY(-140%);
+      }
+
+      &.rds-popover__arrow--right-bottom {
+        top: 80%;
+        transform: translateY(60%);
+      }
+
+      &.rds-popover__arrow--right-center {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    &--right {
+      right: -8px;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 8px solid var(--rds-color-surface, #fff);
+      filter: drop-shadow(1px 0px 0px rgba(0, 0, 0, 0.12));
+
+      // Position variants for right arrows
+      &.rds-popover__arrow--left-top {
+        top: 20%;
+        transform: translateY(-120%);
+      }
+
+      &.rds-popover__arrow--left-bottom {
+        top: 80%;
+        transform: translateY(40%);
+      }
+
+      &.rds-popover__arrow--left-center {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  // Position control styles
+  &__position-controls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rds-spacing-md, 16px);
+    margin-bottom: var(--rds-spacing-lg, 24px);
+  }
+
+  &__position-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--rds-spacing-xs, 4px);
+    max-width: 120px;
+    margin: 0 auto;
+  }
+
+  &__position-option {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--rds-color-border, #e0e0e0);
+    border-radius: var(--rds-border-radius-sm, 4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: var(--rds-color-surface, #ffffff);
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+      border-color: var(--rds-color-primary, var(--rds-primary-main));
+    }
+
+    &--selected {
+      background-color: var(--rds-color-primary, var(--rds-primary-main));
+      border-color: var(--rds-color-primary, var(--rds-primary-main));
+      color: var(--rds-color-on-primary, #ffffff);
+    }
+
+    &--disabled {
+      background-color: var(--rds-color-surface-disabled);
+      border-color: var(--rds-color-border-disabled, #e0e0e0);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  &__position-label {
+    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-weight: var(--rds-font-weight-medium, 500);
+    color: var(--rds-text-primary, var(--rds-color-text-primary));
+    margin-bottom: var(--rds-spacing-xs, 4px);
+  }
+
+  // Modifiers
+  &--wide {
+    .rds-popover__container {
+      min-width: 300px;
+      max-width: 600px;
+    }
+  }
+
+  &--narrow {
+    .rds-popover__container {
+      min-width: 150px;
+      max-width: 250px;
+    }
+  }
+
+  // States
+  &:focus-visible {
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset, 2px);
+  }
+}
+
+.MuiButton-containedSuccess, .MuiButton-containedPrimary, .MuiButton-containedSecondary {
+  color: #fff !important;
+}
+
+@media (max-width: 568px) and (min-width: 320px) {
+  .rds-popover__container {
+    max-width: 285px !important;
+  }
+}
+@media (min-width: 414px) and (max-width: 896px) {
+  .rds-popover__container {
+    max-width: 380px !important;
+  }
+}
+
+@media (min-width: 834px) and (max-width: 1280px) {
+    .rds-popover__container {
+        max-width: 330px !important;
+    }
+}
+

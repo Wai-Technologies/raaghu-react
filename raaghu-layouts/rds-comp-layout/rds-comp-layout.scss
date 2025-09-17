@@ -1,0 +1,255 @@
+/* Inner wrapper for RdsCompLayout */
+
+.rds-comp-layout-wrapper_basic {
+  min-height: 83vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  transition: box-shadow 0.3s;
+}
+
+.rds-comp-layout-inner-wrapper_basic {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--rds-spacing-sm, 8px);
+}
+
+
+
+.rds-comp-layout__card_basic {
+  position: relative;
+  padding: 20px; 
+  border: 1px solid #d3dcea;
+  background: var(--rds-background-default);
+  min-height: 200px;
+  height: 83vh;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  transition: box-shadow 0.3s, border 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--rds-box-shadow-card, 0 0 6px 5px rgba(77, 82, 89, 0.07)) !important
+}
+
+
+
+.rds-comp-layout-wrapper {
+  /* min-height: 100vh; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.rds-comp-layout-inner-wrapper {
+  min-height: 100px;
+  width: 100%;
+  /* max-width: 1200px; */
+  /* margin-left: auto;
+   */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.rds-comp-layout__paper {
+  border: 1px solid #d3dcea;
+  border-radius: 5px !important;
+  background: var(--rds-background-default);
+  box-shadow: var(--rds-box-shadow-card, 0 0 6px 5px rgba(77, 82, 89, 0.07))!important;
+  
+  // MinHeight variants
+  &--height-xs {
+    min-height: 80px;
+    
+    @media (min-width: 600px) {
+      min-height: 100px;
+    }
+    
+    @media (min-width: 900px) {
+      min-height: 100px;
+    }
+  }
+  
+  &--height-sm {
+    min-height: 80px;
+    
+    @media (min-width: 600px) {
+      min-height: 120px;
+    }
+    
+    @media (min-width: 900px) {
+      min-height: 120px;
+    }
+  }
+  
+  &--height-md {
+    min-height: 120px;
+    
+    @media (min-width: 600px) {
+      min-height: 180px;
+    }
+    
+    @media (min-width: 900px) {
+      min-height: 180px;
+    }
+  }
+  
+  &--height-lg {
+    min-height: 180px;
+    
+    @media (min-width: 600px) {
+      min-height: 240px;
+    }
+    
+    @media (min-width: 900px) {
+      min-height: 240px;
+    }
+  }
+  
+  &--height-xl {
+    min-height: 240px;
+    
+    @media (min-width: 600px) {
+      min-height: 360px;
+    }
+    
+    @media (min-width: 900px) {
+      min-height: 360px;
+    }
+  }
+  
+  &--height-xxl {
+    min-height: 240px;
+    
+    @media (min-width: 600px) {
+      min-height: 360px;
+    }
+    
+    @media (min-width: 900px) {
+      min-height: 400px;
+    }
+  }
+  
+  &--height-full {
+    min-height: 240px;
+    
+    @media (min-width: 600px) {
+      min-height: 360px;
+    }
+    
+    @media (min-width: 900px) {
+      min-height: 500px;
+    }
+  }
+  
+  &--height-tall {
+    min-height: 400px;
+    
+    @media (min-width: 600px) {
+      min-height: 600px;
+    }
+    
+    @media (min-width: 900px) {
+      min-height: 600px;
+    }
+  }
+  
+  &--height-spotlight {
+    min-height: 120px;
+    
+    @media (min-width: 600px) {
+      min-height: 180px;
+    }
+    
+    @media (min-width: 900px) {
+      min-height: 400px;
+    }
+  }
+  
+  &--height-stacks {
+    min-height: 180px;
+    
+    @media (min-width: 600px) {
+      min-height: 240px;
+    }
+    
+    @media (min-width: 900px) {
+      min-height: 300px;
+    }
+  }
+  
+  &--height-relaxed-left {
+    min-height: 180px;
+    
+    @media (min-width: 600px) {
+      min-height: 600px;
+    }
+    
+    @media (min-width: 900px) {
+      min-height: 600px;
+    }
+  }
+  
+  &--height-relaxed-big {
+    min-height: 180px;
+    
+    @media (min-width: 600px) {
+      min-height: 360px;
+    }
+    
+    @media (min-width: 900px) {
+      min-height: 360px;
+    }
+  }
+}
+
+@media (min-width: 600px) {
+  .rds-comp-layout-inner-wrapper {
+    padding: 16px;
+  }
+}
+.rds-layout {
+  display: flex;
+}
+
+.rds-layout.row {
+  flex-direction: row;
+}
+
+.rds-layout.column {
+  flex-direction: column;
+}
+
+.rds-layout.full-height {
+  height: 100%;
+}
+
+.rds-layout.full-width {
+  width: 100%;
+}
+
+.rds-layout-item {
+  display: block;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .rds-layout.row {
+    flex-direction: column;
+  }
+  
+  .rds-layout-item {
+    flex: none !important;
+    width: 100% !important;
+  }
+}

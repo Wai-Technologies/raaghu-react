@@ -1,0 +1,1047 @@
+.rds-comp-product-tour {
+  // ===== CONTAINER ELEMENT =====
+  &__container {
+    background: #fff;
+    box-shadow: 0 4px 32px 0 rgba(162, 89, 255, 0.18);
+    border-radius: 16px;
+    margin: 32px auto;
+    width: 100%;
+    max-width: 550px;
+    position: relative;
+    overflow: visible;
+    padding: 0;
+    border: none;
+
+    // Container state modifiers
+    &--image {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &--carousel {
+  /* make carousel responsive and centered: allow it to shrink on small viewports */
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  margin: 20px auto;
+  padding: 30px 30px 20px 30px;
+  overflow: visible;
+    }
+
+    &--animation {
+      padding: 30px 35px;
+      border: 1px solid #f3f4f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    &--form {
+      padding: 16px 20px;
+      max-width: 700px;
+      margin-top: 15px;
+      height: auto;
+      min-height: unset;
+      width: 100%;
+      box-sizing: border-box;
+      overflow: visible;
+    }
+  }
+
+  // ===== CORNER DOTS ELEMENT =====
+  &__corner-dot {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    background: #872efc;
+    border-radius: 50%;
+    box-shadow: 0 0 0 8px rgba(162, 89, 255, 0.15);
+    z-index: 50;
+
+    // Position modifiers
+    &--top-left {
+      left: -8px;
+      top: -8px;
+    }
+
+    &--top-right {
+      right: -8px;
+      top: -8px;
+    }
+
+    &--bottom-left {
+      left: -8px;
+      bottom: -8px;
+    }
+
+    &--bottom-right {
+      right: -8px;
+      bottom: -8px;
+    }
+  }
+
+  // ===== CLOSE BUTTON ELEMENT =====
+  &__close-btn {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: none;
+    border: none;
+    padding: 0;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      display: block;
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  // ===== IMAGE STATE ELEMENTS =====
+  &__image-section {
+    width: 100%;
+    height: 260px;
+    margin: 0;
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+    background: #f6f6f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+    display: block;
+  }
+
+  &__info-nav-section {
+    width: 100%;
+    min-height: 137.74px;
+    background: #fff;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 18px 32px 18px 32px;
+  }
+
+  &__info {
+    padding: 0 0 8px 0;
+  }
+
+  &__title {
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    color: #111827 !important;
+    margin-bottom: 14px !important;
+    text-align: left;
+  }
+
+  &__desc {
+    color: #757575 !important;
+    font-size: 16px !important;
+  }
+
+  // ===== NAVIGATION ELEMENTS =====
+  &__navigation-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 0 18px 0;
+    gap: 8px;
+  }
+
+  &__stepcount {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    color: #222 !important;
+  }
+
+  &__skip {
+    color: #7c3aed !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin-left: auto !important;
+    margin-right: 40px !important;
+  }
+
+  &__arrows {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__arrow {
+    border: 0.5px solid #7c3aed;
+    background: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+
+    &--prev {
+      color: #7c3aed;
+      box-shadow: none;
+    }
+
+    &--next {
+      background: #7c3aed;
+      color: #fff;
+      border: none;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      display: block;
+      margin: auto;
+      stroke-width: 1.5;
+    }
+  }
+
+  // ===== CAROUSEL STATE ELEMENTS =====
+  &__carousel-header {
+    margin-bottom: 16px;
+    text-align: left;
+  }
+
+  &__carousel-title {
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    color: #111827 !important;
+    margin-bottom: 12px !important;
+    text-align: left;
+  }
+
+  &__carousel-desc {
+    color: #757575 !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0 !important;
+  }
+
+  &__carousel-wrapper {
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 0;
+
+    .rds-carousel {
+      width: 100% !important;
+      height: 100% !important;
+      border-radius: 8px !important;
+    }
+
+    .rds-carousel__slide {
+      border-radius: 8px !important;
+    }
+
+    .rds-carousel__slide img {
+      border-radius: 8px !important;
+    }
+  }
+
+  &__carousel-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+
+  &__carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(124, 58, 237, 0.3);
+    transition: background-color 0.2s ease;
+
+    &--active {
+      background-color: #7c3aed;
+    }
+  }
+
+  &__carousel-spacer {
+    height: 16px;
+  }
+
+  &__carousel-nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0;
+    padding: 0 6px;
+  }
+
+  &__carousel-stepcount {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    color: #222 !important;
+  }
+
+  &__carousel-nav-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__carousel-skip {
+    // background: none;
+    // border: none;
+    // font-size: 14px;
+    // margin: 0;
+    // text-decoration: none !important;
+    // color: #7c3aed !important;
+    // font-weight: 500 !important;
+    // cursor: pointer;
+    color: #7c3aed !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin-left: auto !important;
+    font-family: Poppins;
+  }
+
+  &__carousel-arrows {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__carousel-arrow-prev,
+  &__carousel-arrow-next {
+    border: 0.5px solid #7c3aed;
+    background: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      display: block;
+      margin: auto;
+      stroke-width: 1.5;
+    }
+  }
+
+  &__carousel-arrow-prev {
+    color: #7c3aed;
+    box-shadow: none;
+  }
+
+  &__carousel-arrow-next {
+    background: #7c3aed;
+    color: #fff;
+    border: none;
+  }
+
+  // ===== ANIMATION/GIF STATE ELEMENTS =====
+  &__animation-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+    width: 100%;
+
+    img, 
+    .rds-comp-product-tour__gif {
+      max-width: 280px;
+      max-height: 280px;
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto 24px auto;
+    }
+  }
+
+  &__animation-info {
+    text-align: left;
+    padding: 0;
+    margin-bottom: 32px;
+    width: 100%;
+  }
+
+  &__animation-title {
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    color: #111827 !important;
+    margin-bottom: 16px !important;
+    text-align: left;
+  }
+
+  &__animation-desc {
+    color: #6b7280 !important;
+    font-size: 16px !important;
+  }
+
+  &__animation-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  &__animation-stepcount {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    color: #222 !important;
+  }
+
+  &__animation-controls {
+    display: flex;
+    align-items: center;
+    gap: 46px;
+  }
+
+  &__animation-skip {
+    color: #7c3aed !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    cursor: pointer;
+  }
+
+  &__animation-nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__animation-nav-prev,
+  &__animation-nav-next {
+    border: 0.5px solid #7c3aed;
+    background: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      display: block;
+      margin: auto;
+      stroke-width: 1.5;
+    }
+  }
+
+  &__animation-nav-prev {
+    color: #7c3aed;
+    box-shadow: none;
+  }
+
+  &__animation-nav-next {
+    background: #7c3aed;
+    color: #fff;
+    border: none;
+  }
+
+  // ===== FORM STATE ELEMENTS =====
+  &__form-header {
+    margin-bottom: 12px;
+  }
+
+  &__form-subtitle {
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    color: #111827 !important;
+    margin: 0 !important;
+  }
+
+  &__form-content {
+    margin-top: 10px;
+    margin-bottom: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  &__form-title-badge-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  &__form-title {
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    color: #111827 !important;
+    margin-bottom: 0 !important;
+    text-align: left;
+  }
+
+  &__form-description {
+    color: #666 !important;
+    margin-bottom: 12px !important;
+  }
+
+  &__form-tabs-wrapper {
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  &__form-tabs {
+    display: flex;
+    margin-bottom: 12px;
+    margin-left: -5px;
+  }
+
+  &__form-tabs-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background-color: #e9e9e9;
+    width: 306px;
+  }
+
+  &__form-tab {
+    margin-right: -5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    max-width: none;
+    min-width: auto;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    text-align: center;
+    flex: 0 0 auto; /* size to content */
+    transition: all 0.3s ease;
+    border-radius: 3px;
+    position: relative;
+
+    &:hover {
+      background-color: #ebdcff;
+      color: #444 !important;
+      transform: translateY(-1px);
+    }
+  }
+
+  &__form-input-row {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    // Make Add buttons in input rows match purple theme
+    .rds-button {
+      border-color: #7c3aed !important;
+      color: #7c3aed !important;
+      background-color: transparent !important;
+
+      &:hover {
+        background-color: #7c3aed !important;
+        color: #fff !important;
+      }
+    }
+  }
+
+  &__form-input-container {
+    flex: 1;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    // Ensure RdsSelect matches the other inputs in this form
+    .rds-select {
+      .MuiOutlinedInput-root {
+        .MuiOutlinedInput-notchedOutline {
+          border-color: #e5e7eb !important;
+          border-width: 1px !important;
+        }
+      }
+    }
+
+    // Reduce placeholder size for RdsAutocomplete within this form so it visually
+    // matches other inputs without changing control height.
+    .rds-autocomplete__textfield {
+      /* standard */
+      & input::placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+        opacity: 1; /* ensure consistent appearance */
+      }
+      /* WebKit */
+      & input::-webkit-input-placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+      }
+      /* Firefox 19+ */
+      & input::-moz-placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+      }
+      /* IE 10+ */
+      & input:-ms-input-placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+      }
+    }
+  }
+
+  &__form-button-right {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+    margin-top: 0;
+
+    // Make Add buttons match the purple theme
+    .rds-button {
+      border-color: #7c3aed !important;
+      color: #7c3aed !important;
+      background-color: transparent !important;
+
+      &:hover {
+        background-color: #7c3aed !important;
+        color: #fff !important;
+      }
+    }
+  }
+
+  &__form-textarea-container {
+    margin-bottom: 12px;
+    position: relative;
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  &__file-upload-container {
+    margin-top: -20px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    
+    // Create a constrained wrapper for the file uploader
+    &-wrapper {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+      
+      > * {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+    }
+    
+    .rds-file-uploader {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    .rds-file-uploader__container {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    .rds-file-uploader__drop-zone {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      padding: 16px !important;
+      border: 2px dashed #e0e0e0 !important;
+      border-radius: 8px !important;
+    }
+
+    .rds-file-uploader__content {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .rds-file-uploader__button {
+      max-width: fit-content !important;
+      background-color: #7c3aed !important; // Purple background to match theme
+      border-color: #7c3aed !important; // Purple border
+      color: #fff !important;
+
+    }
+
+    // Target the standard "Choose File" button class used in RdsFileUploaderStandardView
+    .rds-file-uploader__choose-btn {
+      background-color: #7c3aed !important;
+      border-color: #7c3aed !important;
+      color: #fff !important;
+    }
+
+    // Target buttons rendered inside drop-zones (they sometimes get inline background via sx)
+    .rds-file-uploader__drop-zone .MuiButton-root,
+    .rds-file-uploader__drop-zone button {
+      background-color: #7c3aed !important;
+      border-color: #7c3aed !important;
+      color: #fff !important;
+    }
+
+    .rds-file-uploader__text {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      text-align: left !important;
+    }
+  }
+
+  &__form-navigation {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__form-stepcount {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    color: #222 !important;
+  }
+
+  &__form-navigation-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__form-skip {
+    font-size: 15px !important;
+    margin-right: 16px;
+    color: #7c3aed !important;
+    font-weight: 500 !important;
+    cursor: pointer;
+  }
+
+  &__form-arrows {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__form-arrow-prev,
+  &__form-arrow-next {
+    border: 0.5px solid #7c3aed;
+    background: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      display: block;
+      margin: auto;
+      stroke-width: 1.5;
+    }
+  }
+
+  &__form-arrow-prev {
+    color: #7c3aed;
+    box-shadow: none;
+  }
+
+  &__form-arrow-next {
+    background: #7c3aed;
+    color: #fff;
+    border: none;
+  }
+}
+
+// ===== SPECIFIC OVERRIDES FOR CAROUSEL =====
+.rds-comp-product-tour__container--carousel {
+  .rds-comp-product-tour__close-btn {
+    top: 6px;
+    right: 12px;
+    z-index: 15;
+  }
+
+  .rds-carousel__slide img {
+    border-radius: 8px !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .rds-carousel__slide {
+    border-radius: 8px !important;
+    overflow: hidden !important;
+  }
+
+  .rds-carousel {
+    border-radius: 8px !important;
+    overflow: hidden !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .rds-comp-product-tour__container--image {
+    .rds-comp-product-tour__close-btn {
+      top: 0px; 
+      right: 0px; 
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .rds-comp-product-tour__container--carousel {
+    padding: 16px 12px 10px 12px; /* reduce heavy padding on mobile */
+    margin: 12px auto; /* tighter margin */
+    max-width: 380px;
+
+    .rds-comp-product-tour__carousel-header {
+      margin-bottom: 10px;
+    }
+
+    .rds-comp-product-tour__carousel-title {
+      font-size: 16px !important;
+      margin-bottom: 9px !important;
+    }
+
+    .rds-comp-product-tour__carousel-desc {
+      font-size: 14px !important;
+      line-height: 1.3 !important;
+      margin-bottom: 10px !important;
+    }
+
+    .rds-comp-product-tour__carousel-wrapper {
+      height: 280px; /* slightly shorter so content fits without heavy collapse */
+      border-radius: 6px;
+    }
+
+    .rds-carousel {
+      height: 100% !important;
+    }
+
+    .rds-comp-product-tour__carousel-dots {
+      margin-top: 8px;
+      gap: 6px;
+    }
+
+    .rds-comp-product-tour__carousel-dot {
+      width: 6px;
+      height: 6px;
+    }
+
+    .rds-comp-product-tour__carousel-nav-row,
+    .rds-comp-product-tour__carousel-spacer {
+      padding: 0 4px;
+      height: auto;
+    }
+
+    .rds-comp-product-tour__close-btn {
+      top: 6px;
+      right: 8px;
+      svg { width: 24px; height: 24px; }
+    }
+  }
+}
+
+// ===== MOBILE SCROLL FIX (keep corner dots & alignment) =====
+@media (max-width: 420px) {
+  /* Keep outer container overflow visible so absolutely positioned corner dots
+     and shadows are not clipped. Make the inner content panels scrollable instead. */
+  .rds-comp-product-tour__container {
+    max-height: calc(100vh - 24px);
+    overflow: visible; /* preserve dots and visual overflow */
+  }
+
+  /* Make info / form / carousel content scrollable within the container */
+  .rds-comp-product-tour__info-nav-section,
+  .rds-comp-product-tour__form-content,
+  .rds-comp-product-tour__carousel-wrapper {
+    max-height: calc(100vh - 120px); /* leave room for header / close */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* hide native scrollbars for these internal scroll areas */
+  .rds-comp-product-tour__info-nav-section::-webkit-scrollbar,
+  .rds-comp-product-tour__form-content::-webkit-scrollbar,
+  .rds-comp-product-tour__carousel-wrapper::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
+  }
+  .rds-comp-product-tour__info-nav-section,
+  .rds-comp-product-tour__form-content,
+  .rds-comp-product-tour__carousel-wrapper {
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+    padding-bottom: 18px; /* ensure last controls are reachable */
+  }
+
+  /* Truncate form tab labels on small screens to keep them on a single line */
+  .rds-comp-product-tour__form-tab {
+    max-width: 88px; /* enough for short word then ellipsis */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 0 0 auto;
+    display: inline-block;
+  }
+}
+
+// ===== THEME SUPPORT =====
+.theme-dark {
+  .rds-comp-product-tour__container {
+    background: #1f2937;
+  }
+  // All titles
+  .rds-comp-product-tour__title,
+  .rds-comp-product-tour__form-subtitle,
+  .rds-comp-product-tour__form-title,
+  .rds-comp-product-tour__carousel-title,
+  .rds-comp-product-tour__animation-title {
+    color: #ffffff !important;
+  }
+  // Subtitles / descriptions
+  .rds-comp-product-tour__desc,
+  .rds-comp-product-tour__form-description,
+  .rds-comp-product-tour__carousel-desc,
+  .rds-comp-product-tour__animation-desc {
+    color: #b7bcd8 !important;
+  }
+
+  // Step counts (all states)
+  .rds-comp-product-tour__stepcount,
+  .rds-comp-product-tour__carousel-stepcount,
+  .rds-comp-product-tour__animation-stepcount,
+  .rds-comp-product-tour__form-stepcount {
+    color: #ffffff !important;
+  }
+
+  // Close button icon
+  .rds-comp-product-tour__close-btn svg {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+  }
+
+  // Image section background
+  .rds-comp-product-tour__image-section {
+    background: #374151 !important;
+  }
+
+  // Info nav section background
+  .rds-comp-product-tour__info-nav-section {
+    background: #1f2937 !important;
+  }
+
+  .rds-comp-product-tour__form-input-container {
+    /* Force consistent filled surface for selects, autocompletes, inputs, textareas */
+    .rds-select,
+    .rds-autocomplete__textfield,
+    .rds-input,
+    textarea,
+    .rds-select .MuiInputBase-root,
+    .rds-autocomplete__textfield .MuiInputBase-root,
+    .rds-input .MuiInputBase-root,
+    textarea.MuiInputBase-root {
+      background-color: #424242 !important; /* filled surface */
+      color: #ffffff !important;
+      border-radius: 6px !important;
+    }
+
+    /* Target MUI Outlined variant internals to ensure outlines and container match */
+    .rds-autocomplete__textfield.MuiFormControl-root,
+    .rds-autocomplete__textfield .MuiOutlinedInput-root,
+    .rds-autocomplete__textfield .MuiInputBase-root,
+    .rds-input .MuiOutlinedInput-root,
+    .rds-select .MuiOutlinedInput-root,
+    textarea.MuiOutlinedInput-root {
+      background-color: #424242 !important;
+      color: #ffffff !important;
+      border-radius: 6px !important;
+    }
+
+    /* Input placeholder and text color */
+    .rds-autocomplete__textfield input::placeholder,
+    .rds-autocomplete__textfield input::-webkit-input-placeholder,
+    .rds-autocomplete__textfield input::-moz-placeholder,
+    .rds-autocomplete__textfield input:-ms-input-placeholder,
+    .rds-input input::placeholder,
+    textarea::placeholder {
+      color: #9e9e9e !important;
+      opacity: 1 !important;
+    }
+  }
+
+  /* Ensure textareas in the form get the same filled surface as inputs */
+  .rds-comp-product-tour__form-textarea-container {
+    /* Support both RdsTextArea and RdsInput used as multiline (rds-input) */
+    .rds-textarea,
+    .rds-input,
+    textarea,
+    .rds-textarea .MuiInputBase-root,
+    .rds-input .MuiInputBase-root,
+    textarea.MuiInputBase-root,
+    .rds-textarea .MuiOutlinedInput-root,
+    .rds-input .MuiOutlinedInput-root,
+    textarea.MuiOutlinedInput-root {
+      background-color: #424242 !important;
+      color: #ffffff !important;
+      border-radius: 6px !important;
+    }
+
+    .rds-input textarea::placeholder,
+    textarea::placeholder,
+    .rds-textarea textarea::placeholder {
+      color: #9e9e9e !important;
+      opacity: 1 !important;
+    }
+  }
+}
