@@ -95,6 +95,14 @@
     border-bottom-color: var(--rds-alert-warning-border); 
   }
 
+  &--style1-outline {
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: var(--rds-alert-warning-border) !important;
+    border-radius: var(--rds-spacing-xs) !important;
+    box-sizing: border-box !important;
+  }
+
   &--style3 {
     border-left: 6px solid;
     
@@ -160,13 +168,15 @@
     display: flex;
     gap: 8px;
     margin-left: 16px;
+    align-items: center;
   }
 
   // Close button styling
   &__close-button {
-    margin-top: -4px;
+    margin-top: 0;
+    align-self: center;
   }
-
+  
   // Button specific styling
   &__link-button {
     margin-right: -9px;
@@ -204,7 +214,10 @@
 
   &--medium {
     padding: var(--rds-spacing-sm) var(--rds-spacing-md);
-    .rds-banner__heading { font-size: 1rem; }
+    .rds-banner__heading { 
+      font-size: 1rem;
+      margin-right: 5px;
+     }
     .rds-banner__description { font-size: 1rem; }
   }
 
