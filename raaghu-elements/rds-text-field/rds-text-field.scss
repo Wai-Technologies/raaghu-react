@@ -54,4 +54,9 @@
     opacity: 0.6;
     pointer-events: none;
   }
+
+  // Required asterisk color for mandatory fields
+  .MuiFormLabel-asterisk {
+    color: var(--rds-color-error, #d32f2f);
+  }
 }
