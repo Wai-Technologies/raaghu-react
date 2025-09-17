@@ -12,6 +12,11 @@
     overflow-y: visible;
     box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.12));
     max-width: 100%;
+    
+    // When sticky header is enabled
+    &--sticky {
+      overflow-y: auto;
+    }
   }
   
 

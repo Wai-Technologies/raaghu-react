@@ -6,6 +6,7 @@ import './rds-carousel.scss';
 export interface RdsCarouselProps {
   children: React.ReactNode[];
   autoPlay?: boolean;
+  className?: string;
   autoPlayInterval?: number;
   showArrows?: boolean;
   showDots?: boolean;
@@ -21,6 +22,7 @@ export interface RdsCarouselProps {
 
 const RdsCarousel = ({
   children,
+  className,
   autoPlay = false,
   autoPlayInterval = 3000,
   showArrows = true,
@@ -73,8 +75,7 @@ const RdsCarousel = ({
   const getCarouselClasses = () => {
     const baseClass = 'rds-carousel';
     const styleClass = `${baseClass}--${style.replace(' ', '-')}`;
-    
-    return `${baseClass} ${styleClass}`;
+    return [baseClass, styleClass, className].filter(Boolean).join(' ');
   };
 
   return (
