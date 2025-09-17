@@ -1,0 +1,15 @@
+// RDS Tag Component Styles
+.rds-tag {
+  display: block;
+  position: relative;
+}
+
+/* Dark theme: make tag label white without affecting other Chip parts */
+[data-theme="dark"]{
+    .MuiChip-label {
+      color: var(--rds-button-primary-text, #ffffff) !important;
+    }
+   .MuiChip-deleteIcon{
+      color: var(--rds-button-primary-text, #ffffff) !important;
+   }
+}

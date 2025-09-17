@@ -1,0 +1,51 @@
+// CSS Variables Export for dark theme
+// This file exposes our SCSS variables as CSS custom properties
+// so they can be used in our MUI theme adapter
+
+.dark-theme, [data-theme="dark"] {
+  // Background colors
+  --bg-primary-darker-default: #{$bg-primary-darker-default};
+  --bg-primary-dark-default: #{$bg-primary-dark-default};
+  --bg-primary-medium-default: #{$bg-primary-medium-default};
+  --bg-primary-light-default: #{$bg-primary-light-default};
+  --bg-primary-lighter-default: #{$bg-primary-lighter-default};
+  
+  --bg-secondary-darker-default: #{$bg-secondary-darker-default};
+  --bg-secondary-dark-default: #{$bg-secondary-dark-default};
+  --bg-secondary-medium-default: #{$bg-secondary-medium-default};
+  --bg-secondary-light-default: #{$bg-secondary-light-default};
+  --bg-secondary-lighter-default: #{$bg-secondary-lighter-default};
+  
+  --bg-neutral-darker-default: #{$bg-neutral-darker-default};
+  --bg-neutral-dark-default: #{$bg-neutral-dark-default};
+  --bg-neutral-medium-default: #{$bg-neutral-medium-default};
+  --bg-neutral-light-default: #{$bg-neutral-light-default};
+  --bg-neutral-lighter-default: #{$bg-neutral-lighter-default};
+  
+  // Button colors
+  --btn-primary-solid-default: #{$btn-primary-solid-default};
+  --btn-primary-text-invert: #{$btn-primary-text-invert};
+  
+  --btn-secondary-solid-default: #{$btn-secondary-solid-default};
+  --btn-secondary-text-invert: #{$btn-secondary-text-invert};
+  
+  --btn-error-solid-default: #{$btn-error-solid-default};
+  --btn-error-text-invert: #{$btn-error-text-invert};
+  
+  --btn-warning-solid-default: #{$btn-warning-solid-default};
+  --btn-warning-text-invert: #{$btn-warning-text-invert};
+  
+  --btn-success-solid-default: #{$btn-success-solid-default};
+  --btn-success-text-invert: #{$btn-success-text-invert};
+  
+  // Text colors
+  --txt-neutral-darker-default: #{$txt-neutral-darker-default};
+  --txt-neutral-medium-default: #{$txt-neutral-medium-default};
+  --txt-neutral-lighter-default: #{$txt-neutral-lighter-default};
+  
+  // Body and component colors
+  --body-bg: #{$body-bg};
+  
+  // Component-specific theme overrides
+  --rds-background-paper: #{$neutral-800} !important;
+}

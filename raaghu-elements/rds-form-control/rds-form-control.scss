@@ -1,0 +1,29 @@
+// RDS Form control Component Styles
+.rds-form-control {
+  display: block;
+  position: relative;
+  
+  &.MuiFormControl-fullWidth {
+    width: 119%;
+  }
+}
+
+.rds-form-control__asterisk {
+  color: #d32f2f; // MUI error/red 700
+  margin-left: 0.25rem;
+  font-weight: 600;
+}
+
+// Target MUI's generated asterisk inside FormLabel and make it red with high specificity
+.rds-form-control .MuiFormLabel-asterisk {
+  color: #d32f2f !important;
+}
+
+// Also handle the case where MUI applies disabled/secondary color rules
+.rds-form-control .MuiFormLabel-root.Mui-focused .MuiFormLabel-asterisk,
+.rds-form-control .MuiFormLabel-root.Mui-error .MuiFormLabel-asterisk {
+  color: #d32f2f !important;
+}
+.css-1t6h741-MuiFormHelperText-root{
+  margin-left:0 !important;
+}

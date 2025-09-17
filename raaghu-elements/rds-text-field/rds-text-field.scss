@@ -1,0 +1,55 @@
+// RDS Text-field Component Styles
+// Text input field
+
+.rds-text-field {
+  display: block;
+  position: relative;
+
+  &__field {
+    // Field styles
+    display: block;
+  }
+
+  &__label {
+    // Label styles
+    display: block;
+  }
+
+  &__helper-text {
+    // Helper-text styles
+    display: block;
+  }
+
+  &__error-text {
+    // Error-text styles
+    display: block;
+  }
+
+  &--focused {
+    // Focused state styles
+  }
+
+  &--error {
+    // Error state styles
+  }
+
+  &--disabled {
+    // Disabled state styles
+  }
+
+  // Interactive states
+  &:hover {
+    // Hover styles
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset);
+  }
+
+  &:disabled,
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}

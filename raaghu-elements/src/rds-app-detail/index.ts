@@ -1,1 +1,0 @@
-export {default} from "./rds-app-detail";

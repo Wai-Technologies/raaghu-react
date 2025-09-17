@@ -1,0 +1,269 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { Box, useMediaQuery } from '@mui/material';
+import React, { useState } from 'react';
+import RdsSearch from './rds-search';
+
+const meta: Meta<typeof RdsSearch> = {
+  title: 'Elements/Search',
+  component: RdsSearch,
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    label: {
+      control: 'text',
+      description: 'Label above the search input',
+    },
+    placeholder: {
+      control: 'text',
+      description: 'Placeholder for the search input',
+    },
+    labelPosition: {
+      control: 'select',
+      options: ['top', 'left', 'right', 'bottom'],
+      description: 'Position of the label relative to the input',
+    },
+    iconPosition: {
+      control: 'select',
+      options: ['left', 'right'],
+      description: 'Position of the search icon relative to the input',
+    },
+    variant: {
+      control: 'select',
+      options: ['outlined', 'filled', 'standard'],
+    },
+    size: {
+      control: 'select',
+      options: ['small', 'medium'],
+    },
+    fullWidth: {
+      control: 'boolean',
+    },
+    disabled: {
+      control: 'boolean',
+    },
+    showClearButton: {
+      control: 'boolean',
+    },
+    showSearchIcon: {
+      control: 'boolean',
+    },
+    autoSearch: {
+      control: 'boolean',
+    },
+    searchDelay: {
+      control: 'number',
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    placeholder: 'Search...',
+    label: 'Search',
+    labelPosition: 'top',
+    iconPosition: 'left',
+    fullWidth: false,
+  },
+  render: (args) => {
+    const [searchValue, setSearchValue] = useState('');
+
+    // Ensure Storybook controls don't overwrite local value/onChange bindings
+    return (
+      <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400 })()}>
+    {/* Omit value/onChange from args to avoid duplicate prop warnings */}
+    {(() => {
+      const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+      return (
+        <RdsSearch
+          value={searchValue}
+          onChange={setSearchValue}
+          onSearch={(value) => alert(`Searching for: ${value}`)}
+            {...forwardArgs}
+            />
+          );
+        })()}
+      </Box>
+    );
+  },
+};
+
+export const AutoSearch: Story = {
+  render: (args) => {
+    const [searchValue, setSearchValue] = useState('');
+    const [searchResults, setSearchResults] = useState<string[]>([]);
+    const isSmallScreen = useMediaQuery('(max-width:414px)');
+
+    const handleSearch = (value: string) => {
+      // Simulate search results
+      const mockResults = value 
+        ? [`Result 1 for "${value}"`, `Result 2 for "${value}"`, `Result 3 for "${value}"`]
+        : [];
+      setSearchResults(mockResults);
+    };
+
+    return (
+      <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: { xs: '100%', sm: 380, md: 450 }, maxWidth: 450 })()}>
+    {(() => {
+      const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+      return (
+        <RdsSearch
+          value={searchValue}
+          onChange={setSearchValue}
+          onSearch={handleSearch}
+          placeholder={isSmallScreen ? 'Search...' : 'Auto search (300ms delay)'}
+          autoSearch
+          searchDelay={300}
+          fullWidth
+          {...forwardArgs}
+        />
+      );
+    })()}
+        <Box sx={{ mt: 2 }}>
+          {searchResults.length > 0 && (
+            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+              {searchResults.map((result, index) => (
+                <Box key={index} sx={{ py: 0.5 }}>
+                  {result}
+                </Box>
+              ))}
+            </Box>
+          )}
+        </Box>
+      </Box>
+    );
+  },
+};
+
+export const FullWidth: Story = {
+  parameters: {
+    controls: { exclude: ['fullWidth'] },
+  },
+  render: (args) => {
+    const [searchValue, setSearchValue] = useState('');
+
+    return (
+      <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: '100%', maxWidth: 600 })()}>
+    {(() => {
+      const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+      return (
+        <RdsSearch
+          value={searchValue}
+          onChange={setSearchValue}
+          onSearch={(value) => console.log('Searching:', value)}
+          placeholder="Full width search"
+          fullWidth
+          {...forwardArgs}
+        />
+      );
+    })()}
+      </Box>
+    );
+  },
+};
+
+export const Sizes: Story = {
+  render: (args) => {
+    const [small, setSmall] = useState('');
+    const [medium, setMedium] = useState('');
+
+    return (
+      <Box sx={(() => args.fullWidth ? { width: '100%', display: 'flex', flexDirection: 'column', gap: 3 } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 3 })()}>
+  {(() => {
+    const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+    return (
+      <>
+        <RdsSearch
+          value={small}
+          onChange={setSmall}
+          placeholder="Small size"
+          size="small"
+          {...forwardArgs}
+        />
+        <RdsSearch
+          value={medium}
+          onChange={setMedium}
+          placeholder="Medium size (default)"
+          size="medium"
+          {...forwardArgs}
+        />
+      </>
+    );
+  })()}
+      </Box>
+    );
+  },
+};
+
+export const Variants: Story = {
+  render: (args) => {
+    const [outlined, setOutlined] = useState('');
+    const [filled, setFilled] = useState('');
+    const [standard, setStandard] = useState('');
+
+    return (
+      <Box sx={(() => args.fullWidth ? { width: '100%', display: 'flex', flexDirection: 'column', gap: 3 } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 3 })()}>
+  {(() => {
+    const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+    return (
+      <>
+        <RdsSearch
+          value={outlined}
+          onChange={setOutlined}
+          placeholder="Outlined (default)"
+          variant="outlined"
+          {...forwardArgs}
+        />
+        <RdsSearch
+          value={filled}
+          onChange={setFilled}
+          placeholder="Filled variant"
+          variant="filled"
+          {...forwardArgs}
+        />
+        <RdsSearch
+          value={standard}
+          onChange={setStandard}
+          placeholder="Standard variant"
+          variant="standard"
+          {...forwardArgs}
+        />
+      </>
+    );
+  })()}
+      </Box>
+    );
+  },
+};
+
+export const WithoutIcons: Story = {
+  render: (args) => {
+    const [searchValue, setSearchValue] = useState('');
+
+    return (
+      <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400 })()}>
+    {(() => {
+      const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+      return (
+        <RdsSearch
+          value={searchValue}
+          onChange={setSearchValue}
+          onSearch={(value) => alert(`Searching for: ${value}`)}
+          placeholder="Simple search"
+          showSearchIcon={false}
+          showClearButton={false}
+          {...forwardArgs}
+        />
+      );
+    })()}
+      </Box>
+    );
+  },
+  parameters: {
+    controls: { exclude: ['iconPosition', 'showSearchIcon'] },
+  },
+};

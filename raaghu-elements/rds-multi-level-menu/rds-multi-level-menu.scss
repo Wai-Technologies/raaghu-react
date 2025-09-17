@@ -1,0 +1,75 @@
+
+.rds-multi-level-menu {
+  // Paper container styling (Figma-like)
+  .rds-mlm-paper {
+    box-shadow: 0px 8px 24px rgba(16, 24, 40, 0.12), 0px 2px 8px rgba(16, 24, 40, 0.06);
+    border-radius: 12px;
+    border: 1px solid rgba(16, 24, 40, 0.08);
+    padding: 0;
+    min-width: 220px;
+  }
+  // On small screens, push the root menu down to avoid overlapping the trigger
+  @media (max-width: 600px) {
+    .rds-mlm-paper.rds-mlm-root {
+      margin-top: 43px;
+    }
+  }
+
+  // Menu items
+  .MuiMenuItem-root {
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 20px;
+    min-width: 220px;
+    padding: 10px 16px;
+    margin: 0;
+    border-radius: 8px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    color: #101828;
+    &:hover,
+    &.force-hover {
+      background-color: #f2f4f7;
+    }
+    &.Mui-selected,
+    &.Mui-selected:hover,
+    &.force-selected {
+      background-color: #eef2ff !important;
+      color: #2a3b8f;
+    }
+  }
+
+  .MuiMenuItem-root.large {
+    font-size: 16px;
+    line-height: 24px;
+    min-height: 48px;
+    padding: 12px 18px;
+  }
+
+  .rds-mlm-shortcut {
+    color: #667085;
+    font-size: 13px;
+    margin-left: 8px;
+    min-width: 72px;
+    text-align: right;
+  }
+
+  .rds-mlm-leading {
+    width: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    color: #2a3b8f;
+  }
+}
+
+.css-79elbk{
+  border-bottom: 1px solid #eaecf0;
+ 
+&:last-of-type {
+  border-bottom: 0;
+  .css-79elbk{
+    border-bottom: 0;
+  }
+}
+}

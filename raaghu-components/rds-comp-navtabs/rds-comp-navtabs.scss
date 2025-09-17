@@ -1,0 +1,224 @@
+// RDS Navtabs Component Styles
+.rds-comp-navtabs {
+  // Base styles
+  display: block;
+  
+  // Navigation wrapper
+  &__nav {
+    &.nav-tabs {
+      // Base nav-tabs styles
+      .nav-link {
+        cursor: pointer;
+        transition: all 0.2s ease;
+        
+        // Interactive states
+        &:hover {
+          background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04));
+        }
+        
+        &:focus-visible {
+          outline: 2px solid var(--rds-color-primary, #7e2eef);
+          outline-offset: 2px;
+        }
+        
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+    }
+    
+    // Icon alignment modifier
+    &--icon-align {
+      .nav-link {
+        text-align: center;
+      }
+    }
+    
+    // Layout modifiers
+    &--horizontal {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      
+      .nav-item {
+        display: inline-block;
+      }
+    }
+    
+    &--vertical {
+      flex-direction: column;
+      width: 100%;
+      
+      &.col-12 {
+        display: block;
+      }
+    }
+    
+    // Style variants - Horizontal
+    &--top-select,
+    &--bottom-select,
+    &--top-select-alt,
+    &--bottom-select-alt,
+    &--background-filled,
+    &--pills {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      
+      .nav-item {
+        display: inline-block;
+      }
+    }
+    
+    // Style variants - Vertical
+    &--vertical-alt-right-line,
+    &--vertical-alt-left-line,
+    &--vertical-left-line,
+    &--vertical-right-line,
+    &--vertical-left-filled,
+    &--vertical-pointer,
+    &--vertical-flap {
+      flex-direction: column;
+    }
+    
+    &--vertical-pointer {
+      width: unset;
+      
+      .nav-link {
+        &.selected {
+          background-color: var(--rds-color-primary, #8000ff);
+          color: var(--rds-color-on-primary, white);
+        }
+      }
+    }
+  }
+  
+  // Nav item
+  &__nav-item {
+    &--disabled {
+      .rds-comp-navtabs__nav-link {
+        opacity: 0.6;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+    }
+  }
+  
+  // Nav link
+  &__nav-link {
+    transition: all 0.2s ease;
+    
+    // States
+    &--active {
+      background-color: var(--rds-color-primary, #7e2eef);
+      color: var(--rds-color-on-primary, white);
+    }
+    
+    &--selected {
+      background-color: var(--rds-color-primary, #7e2eef);
+      color: var(--rds-color-on-primary, white);
+    }
+    
+    &--inactive {
+      background-color: transparent;
+      color: var(--rds-color-on-surface, inherit);
+    }
+  }
+  
+  // Label
+  &__label {
+    font-weight: 500;
+    padding: 0 var(--rds-spacing-sm, 0.75rem);
+  }
+  
+  // Badge wrapper
+  &__badge {
+    margin-left: var(--rds-spacing-xs, 0.25rem);
+  }
+  
+  // Special cases for legacy support
+  &#features {
+    .nav-link {
+      &.active {
+        background-color: var(--rds-color-primary, #7e2eef);
+        color: var(--rds-color-on-primary, white);
+      }
+      
+      text-align: start;
+    }
+  }
+}
+
+// Legacy class support for backward compatibility
+.nav-tabs {
+  .nav-link {
+    cursor: pointer;
+  }
+  
+  &.navtabs-icon-align {
+    .nav-link {
+      text-align: center;
+    }
+  }
+  
+  &.vertical-pointer {
+    width: unset;
+    
+    .nav-link.selected {
+      background-color: var(--rds-color-primary, #8000ff);
+      color: var(--rds-color-on-primary, white);
+    }
+  }
+  
+  // Horizontal style variants
+  &.top-select,
+  &.bottom-select,
+  &.top-select-alt,
+  &.bottom-select-alt,
+  &.background-filled,
+  &.nav-pills {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+    .nav-item {
+      display: inline-block;
+    }
+  }
+}
+
+// Standalone legacy classes
+.top-select,
+.bottom-select,
+.top-select-alt,
+.bottom-select-alt,
+.background-filled,
+.nav-pills {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  
+  .nav-item {
+    display: inline-block;
+  }
+}
+
+#features.nav-tabs .nav-link {
+  text-align: start;
+}
+
+// Responsive design
+@media screen and (max-width: 1023px) {
+  .bs-md-0 {
+    border-left: 0px solid transparent;
+  }
+  
+  .rds-comp-navtabs {
+    &__nav {
+      &--horizontal {
+        flex-wrap: wrap;
+      }
+    }
+  }
+}

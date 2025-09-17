@@ -1,0 +1,7 @@
+{
+  "codeConnect": {
+    "include": ["**/rds-*/**/*.figma.tsx"],
+    "exclude": ["node_modules/**", "dist/**", ".next/**"],
+    "parser": "react"
+  }
+}
