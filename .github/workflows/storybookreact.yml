@@ -34,7 +34,7 @@ jobs:
       - name: install and build storybook
         if: ${{ github.event.inputs.environment != 'New' }}
         run: |
-          npm run install-all
+          npm install
           npm run build-storybook
           # mkdir storybook-static/assets
           # cp .storybook/assets/* storybook-static/assets
