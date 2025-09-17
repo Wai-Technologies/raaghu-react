@@ -74,10 +74,16 @@ export const Extended: Story = {
     color: 'primary',
   },
   render: (args) => {
-    if (args.variant === 'extended') {
-      return <RdsFab {...args}><Edit /> Edit</RdsFab>;
-    }
-    return <RdsFab {...args}><Edit /></RdsFab>;
+      if (args.variant === 'extended') {
+        return (
+          <RdsFab
+            {...args}
+            icon={<div style={{ marginTop: '5px', }}><Edit /></div>}
+            label="Edit"
+          />
+        );
+      }
+      return <RdsFab {...args} icon={<Edit />} />;
   },
 };
 

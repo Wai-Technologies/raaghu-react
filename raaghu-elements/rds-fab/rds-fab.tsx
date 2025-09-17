@@ -29,6 +29,20 @@ const RdsFab: React.FC<RdsFabProps> = ({
     return positions[position] || {};
   };
 
+  const isExtended = props.variant === 'extended';
+  // Only render icon+label if both are provided and variant is extended
+  let fabContent;
+  if (isExtended && icon && label) {
+    fabContent = <><span>{icon}</span><span>{label}</span></>;
+  } else if (children) {
+    fabContent = children;
+  } else if (icon) {
+    fabContent = icon;
+  } else if (label) {
+    fabContent = label;
+  } else {
+    fabContent = null;
+  }
   return (
     <MuiFab
       sx={{
@@ -37,7 +51,7 @@ const RdsFab: React.FC<RdsFabProps> = ({
       }}
       {...props}
     >
-      {icon || children || label}
+      {fabContent}
     </MuiFab>
   );
 };
