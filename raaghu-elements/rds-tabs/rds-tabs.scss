@@ -366,3 +366,22 @@
     outline-offset: 2px !important;
   }
 }
+.rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
+    content: "" !important;
+    position: absolute !important;
+    left: calc(100% + 0px) !important;
+    top: 48% !important;
+    transform: translateY(-48%) !important;
+    width: 211px !important;
+    height: 18px !important;
+    border-top: 27px solid transparent !important;
+    border-bottom: 22px solid transparent !important;
+    border-left: 34px solid var(--rds-color-accent, #3C98FF) !important;
+    z-index: 1 !important;
+}
+.rds-tabs--flap .Mui-selected {
+  border-radius: 6px 6px 0 0 !important;
+}
+.rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected {
+  border-radius: 0 0 0 0 !important;
+}
