@@ -118,58 +118,70 @@ export const Default: Story = {
     ),
   },
 };
+Default.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
+};
 
 export const Elevated: Story = {
   args: {
+    title: 'Elevated Card',
+    showDescription: true,
+    description: 'This card has increased elevation (shadow).',
     elevation: 8,
     children: (
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        {/* <Typography gutterBottom variant="h5" component="div">
           Elevated Card
         </Typography>
         <Typography variant="body2" color="text.secondary">
           This card has increased elevation (shadow).
-        </Typography>
+        </Typography> */}
       </CardContent>
     ),
   },
+};
+Elevated.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
 };
 
 export const Outlined: Story = {
   args: {
     variant: 'outlined',
-    children: (
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Outlined Card
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          This is an outlined card variant.
-        </Typography>
-      </CardContent>
-    ),
+    title: 'Outlined Card',
+    showDescription: true,
+    description: 'This is an outlined card variant.',
   },
+};
+Outlined.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+  } 
 };
 
 export const WithActions: Story = {
   args: {
+    state: 'default',
+    title: 'Card with Actions',
+    showDescription: true,
+    description: 'This card includes action buttons at the bottom.',
     children: (
       <>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Card with Actions
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            This card includes action buttons at the bottom.
-          </Typography>
-        </CardContent>
-        <CardActions>
+        <CardActions style={{ marginLeft: '-12px' }}>
           <RdsButton text="Learn More" size="small" textCase='capitalize' style="transparent" />
           <RdsButton text="Share" size="small" textCase='capitalize' style="transparent" />
         </CardActions>
       </>
     ),
   },
+};
+WithActions.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
 };
 export const WithAvatar: Story = {
   args: {
@@ -332,6 +344,11 @@ export const WithAvatar: Story = {
     );
   },
 };
+WithAvatar.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+  } 
+};
 
 export const WithBadges: Story = {
   args: {
@@ -365,6 +382,11 @@ export const WithBadges: Story = {
       </div>
     ),
   },
+};
+WithBadges.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
 };
 
 export const WithButton: Story = {
@@ -401,16 +423,23 @@ export const WithButton: Story = {
     ),
   },
 };
+WithButton.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']   } 
+};
 
 export const WithCustomPadding: Story = {
   args: {
+    title: 'Card with Custom Padding',
+    showDescription: true,
+    description: 'This card has custom padding applied.',
     padding: '24px',
-    children: (
-      <Typography>
-        This card has custom padding applied.
-      </Typography>
-    ),
   },
+};
+WithCustomPadding.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding']  
+  } 
 };
 
 export const WithImage: Story = {
@@ -464,6 +493,11 @@ export const WithImage: Story = {
     ),
   },
 };
+WithImage.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
+};
 
 export const WithLinkButton: Story = {
   args: {
@@ -488,6 +522,11 @@ export const WithLinkButton: Story = {
       />
     ),
   },
+};
+WithLinkButton.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
 };
 
 export const WithTags: Story = {
@@ -523,4 +562,9 @@ export const WithTags: Story = {
       </>
     ),
   },
+};
+WithTags.parameters = { 
+  controls: { 
+    include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
+  } 
 };

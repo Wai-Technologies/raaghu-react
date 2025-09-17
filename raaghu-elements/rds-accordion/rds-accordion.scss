@@ -12,16 +12,33 @@
 }
 
 @include _rds-dark {
-  .rds-accordion__container { background: #181A1B !important; border-color: #44474A !important; }
+  .rds-accordion__container {  border-color: #44474A !important; }
   .rds-accordion { background-color: #181A1B !important; }
   .rds-accordion__summary { background-color: #181A1B !important; }
   .rds-accordion__summary:hover { background-color: #1F2123 !important; }
-  .rds-accordion__details { background: #181A1B !important; border-color: #44474A !important; }
+  /* In dark mode, when in default state and hovered, title/icon should be white for readability */
+  .rds-accordion__summary:hover .rds-accordion__title,
+  .rds-accordion__summary:hover .rds-accordion__icon,
+  .rds-accordion__summary:hover .MuiAccordionSummary-expandIconWrapper {
+    color: #ffffff !important;
+  }
+  .rds-accordion__details {  border-color: #44474A !important; }
   .rds-accordion__details .MuiAccordionDetails-root,
   .rds-accordion__details .MuiAccordionDetails-root .MuiTypography-root { color: #E1E6EB !important; }
   .rds-accordion__title { color: #E1E6EB !important; }
   .rds-accordion .MuiAccordionSummary-expandIconWrapper { color: #B0B3B8 !important; }
-  .rds-accordion--expanded { .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: #000000 !important; } }
+  .rds-accordion--expanded { 
+    .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: #000000 !important; }
+    &.rds-accordion--hover .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: #b7d9ff!important; }
+    &.rds-accordion--selected .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: #b7d9ff!important; }
+  }
+  // Dark theme selected header styling
+  .rds-accordion.rds-accordion--selected {
+    .rds-accordion__summary { background-color: #93c6ff!important; }
+    /* keep header background but make selected text/icons black */
+    .rds-accordion__title { color: #000 !important; font-weight: 600 !important; }
+    .rds-accordion__icon, .MuiAccordionSummary-expandIconWrapper { color: #000 !important; }
+  }
 }
 .rds-accordion__container {
   border: 1px solid #7D7D7D;
@@ -56,6 +73,31 @@
     // .rds-accordion__details {
     //   border-top: none !important;
     // }
+  }
+  
+  /* When container is used with accordionStyle='border' we show a divider under the header */
+  &.rds-accordion--border {
+    /* draw an inset divider that aligns with the inner details panel */
+    .rds-accordion__summary {
+      position: relative;
+      border-bottom: none !important;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0px; /* match details panel horizontal margin */
+        right: 0px;
+        bottom: 0;
+        height: 0.5px;
+        background: #7d7d7d;
+        display: none; /* hide by default (collapsed) */
+      }
+    }
+  }
+  
+  /* Show the inset divider only when the accordion is expanded */
+  .rds-accordion.rds-accordion--expanded .rds-accordion__summary::after {
+    display: block !important;
   }
   
   .MuiAccordion-root {
@@ -103,8 +145,8 @@
   &.rds-accordion--expanded {
 
     .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner {
-      margin-top: -30px !important;
-      background-color: #ffffff !important;
+      margin-top: 0 !important;
+      background-color: transparent !important;
     }
   }
 
@@ -117,6 +159,8 @@
     
     &:hover {
       background-color: #f8f9fa !important;
+      .rds-accordion__title { color: #353535 !important; }
+      .rds-accordion__icon, .MuiAccordionSummary-expandIconWrapper { color: #353535 !important; }
     }
     
     .MuiAccordionSummary-content {
@@ -164,39 +208,37 @@
   }
   
  &__details {
-    border: 1.5px solid #e0e0e0 !important;
-    background: #fff !important;
-    margin: 32px 11px !important;
-    display: flex;
-    align-items: center;
-    min-height: 80px;
-    padding: 20px 32px 40px 32px !important;
+    /* Outer collapse wrapper; inner panel contains visible boxed content */
+    .rds-accordion__details-panel {
+      border: 1.5px solid #7d7d7d;
+      background: #fff;
+      border-radius: 6px;
+      margin: 12px 12px 20px 12px;
+      min-height: 80px;
+      padding: 16px 20px 24px 20px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      color: #212529;
+    }
+
     .MuiAccordionDetails-root {
       padding: 0 !important;
-    color: #212529 !important;
-        .MuiTypography-root {
-          color: #212529 !important;
-        }
+      .MuiTypography-root { color: #212529 !important; }
     }
   }
 
   // Hover state
   &--hover:not(.rds-accordion--selected):not(.rds-accordion--disabled) {
     .rds-accordion__summary {
-      background-color: #f3e8ff !important;
+      background-color: #93c6ff!important;
     }
     
     .rds-accordion__title {
-      color: #a259ff !important;
+      color: #353535 !important;
     }
     
-    .rds-accordion__icon {
-      color: #a259ff !important;
-    }
-    
-    .MuiAccordionSummary-expandIconWrapper {
-      color: #a259ff !important;
-    }
+    .rds-accordion__icon, .MuiAccordionSummary-expandIconWrapper { color: #353535 !important; }
   }
 
   // Selected state
@@ -204,20 +246,16 @@
     border: 2px solid #a259ff !important;
 
     .rds-accordion__summary {
-      background-color: #f3e8ff !important;
+      background-color: #93c6ff!important;
     }
 
     .rds-accordion__title {
-      color: #a259ff !important;
+      color: #353535 !important;
       font-weight: 600 !important;
     }
 
-    .rds-accordion__icon {
-      color: #a259ff !important;
-    }
-    
-    .MuiAccordionSummary-expandIconWrapper {
-      color: #a259ff !important;
+    .rds-accordion__icon, .MuiAccordionSummary-expandIconWrapper {
+      color: #353535 !important;
     }
   }
 
@@ -225,6 +263,20 @@
   &--expanded {
     .MuiAccordionSummary-expandIconWrapper {
       transform: rotate(180deg) !important;
+    }
+
+    // When also hovered (via actual hover or forced hover class) change inner collapse background
+    &.rds-accordion--hover {
+      .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner {
+        background-color: #b7d9ff !important;
+      }
+    }
+
+    // When selected, apply the same dark background color user requested earlier (#483b3b)
+    &.rds-accordion--selected {
+      .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner {
+        background-color: #b7d9ff!important;
+      }
     }
   }
 

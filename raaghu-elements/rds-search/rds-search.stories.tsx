@@ -72,26 +72,28 @@ export const Default: Story = {
   render: (args) => {
     const [searchValue, setSearchValue] = useState('');
 
+    // Ensure Storybook controls don't overwrite local value/onChange bindings
     return (
-      <Box sx={{ width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400 }}>
+      <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400 })()}>
+    {/* Omit value/onChange from args to avoid duplicate prop warnings */}
+    {(() => {
+      const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+      return (
         <RdsSearch
           value={searchValue}
           onChange={setSearchValue}
           onSearch={(value) => alert(`Searching for: ${value}`)}
-          placeholder={args.placeholder}
-          label={args.label}
-          size={args.size}
-          labelPosition={args.labelPosition}
-          iconPosition={args.iconPosition}
-          fullWidth={args.fullWidth}
-        />
+            {...forwardArgs}
+            />
+          );
+        })()}
       </Box>
     );
   },
 };
 
 export const AutoSearch: Story = {
-  render: () => {
+  render: (args) => {
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
     const isSmallScreen = useMediaQuery('(max-width:414px)');
@@ -105,7 +107,10 @@ export const AutoSearch: Story = {
     };
 
     return (
-      <Box sx={{ width: { xs: '100%', sm: 380, md: 450 }, maxWidth: 450 }}>
+      <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: { xs: '100%', sm: 380, md: 450 }, maxWidth: 450 })()}>
+    {(() => {
+      const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+      return (
         <RdsSearch
           value={searchValue}
           onChange={setSearchValue}
@@ -114,7 +119,10 @@ export const AutoSearch: Story = {
           autoSearch
           searchDelay={300}
           fullWidth
+          {...forwardArgs}
         />
+      );
+    })()}
         <Box sx={{ mt: 2 }}>
           {searchResults.length > 0 && (
             <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
@@ -132,84 +140,115 @@ export const AutoSearch: Story = {
 };
 
 export const FullWidth: Story = {
-  render: () => {
+  parameters: {
+    controls: { exclude: ['fullWidth'] },
+  },
+  render: (args) => {
     const [searchValue, setSearchValue] = useState('');
 
     return (
-      <Box sx={{ width: '100%', maxWidth: 600 }}>
+      <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: '100%', maxWidth: 600 })()}>
+    {(() => {
+      const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+      return (
         <RdsSearch
           value={searchValue}
           onChange={setSearchValue}
           onSearch={(value) => console.log('Searching:', value)}
           placeholder="Full width search"
           fullWidth
+          {...forwardArgs}
         />
+      );
+    })()}
       </Box>
     );
   },
 };
 
 export const Sizes: Story = {
-  render: () => {
+  render: (args) => {
     const [small, setSmall] = useState('');
     const [medium, setMedium] = useState('');
 
     return (
-      <Box sx={{ width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Box sx={(() => args.fullWidth ? { width: '100%', display: 'flex', flexDirection: 'column', gap: 3 } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 3 })()}>
+  {(() => {
+    const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+    return (
+      <>
         <RdsSearch
           value={small}
           onChange={setSmall}
           placeholder="Small size"
           size="small"
+          {...forwardArgs}
         />
         <RdsSearch
           value={medium}
           onChange={setMedium}
           placeholder="Medium size (default)"
           size="medium"
+          {...forwardArgs}
         />
+      </>
+    );
+  })()}
       </Box>
     );
   },
 };
 
 export const Variants: Story = {
-  render: () => {
+  render: (args) => {
     const [outlined, setOutlined] = useState('');
     const [filled, setFilled] = useState('');
     const [standard, setStandard] = useState('');
 
     return (
-      <Box sx={{ width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Box sx={(() => args.fullWidth ? { width: '100%', display: 'flex', flexDirection: 'column', gap: 3 } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 3 })()}>
+  {(() => {
+    const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+    return (
+      <>
         <RdsSearch
           value={outlined}
           onChange={setOutlined}
           placeholder="Outlined (default)"
           variant="outlined"
+          {...forwardArgs}
         />
         <RdsSearch
           value={filled}
           onChange={setFilled}
           placeholder="Filled variant"
           variant="filled"
+          {...forwardArgs}
         />
         <RdsSearch
           value={standard}
           onChange={setStandard}
           placeholder="Standard variant"
           variant="standard"
+          {...forwardArgs}
         />
+      </>
+    );
+  })()}
       </Box>
     );
   },
 };
 
 export const WithoutIcons: Story = {
-  render: () => {
+  render: (args) => {
     const [searchValue, setSearchValue] = useState('');
 
     return (
-      <Box sx={{ width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400 }}>
+      <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400 })()}>
+    {(() => {
+      const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+      return (
         <RdsSearch
           value={searchValue}
           onChange={setSearchValue}
@@ -217,8 +256,14 @@ export const WithoutIcons: Story = {
           placeholder="Simple search"
           showSearchIcon={false}
           showClearButton={false}
+          {...forwardArgs}
         />
+      );
+    })()}
       </Box>
     );
+  },
+  parameters: {
+    controls: { exclude: ['iconPosition', 'showSearchIcon'] },
   },
 };

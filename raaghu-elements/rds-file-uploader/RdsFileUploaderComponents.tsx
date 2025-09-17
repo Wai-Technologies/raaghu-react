@@ -208,7 +208,7 @@ export const RdsDropZoneSideIcon: React.FC<RdsDropZoneSideIconProps> = ({
         </Typography>
       </Box>
       <Box sx={{ ml: 2, display: 'flex', alignItems: 'center' }}>
-        <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: 'var(--rds-file-uploader-icon-color, var(--rds-neutral-main, #7D7D7D))' }} />
+        <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: 'var(--rds-file-uploader-icon-color, var(--rds-neutral-main, #4a4a4a))' }} />
       </Box>
     </Paper>
   );
@@ -237,7 +237,7 @@ export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
       sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', minHeight: 60, px: 3, py: 2, border: '1.5px dashed #2196F3', background: '#fff', cursor: disabled ? 'not-allowed' : 'pointer' }}
     >
       <Box className="rds-file-uploader__icon-box">
-        <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: 'var(--rds-file-uploader-icon-color, #7D7D7D)' }} />
+        <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: 'var(--rds-file-uploader-icon-color, #4a4a4a)' }} />
       </Box>
       <Box className="rds-file-uploader__title-box">
         <Typography className="rds-file-uploader__title rds-file-uploader__title--inline" variant="h6" gutterBottom>
@@ -280,7 +280,7 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
       onClick={!disabled ? openFileDialog : undefined}
       sx={mode === 'standard' ? { boxShadow: 3 } : {}}
     >
-      <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: 'var(--rds-file-uploader-icon-color, var(--rds-neutral-main, #7D7D7D))' }} />
+      <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: 'var(--rds-file-uploader-icon-color, var(--rds-neutral-main, #4a4a4a))' }} />
       <Typography className="rds-file-uploader__title" variant="h6" gutterBottom>
         Drag and Drop files or <span className="rds-file-uploader__browse-link" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }}>Browse</span>
       </Typography>

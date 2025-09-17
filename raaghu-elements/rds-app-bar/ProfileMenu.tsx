@@ -1,6 +1,11 @@
 import React from 'react';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import { IconButton, Avatar, Menu as MuiMenu, Box, MenuItem } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
+import Brightness5Icon from '@mui/icons-material/Brightness5';
+import SettingsIcon from '@mui/icons-material/Settings';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import LogoutIcon from '@mui/icons-material/Logout';
 import './rds-app-bar.scss';
 
 export interface ProfileMenuItem {
@@ -28,11 +33,11 @@ export const ProfileMenu = ({ name, shortName, email, menuItems }: ProfileMenuPr
   };
   // Default menu items if none provided
   const defaultMenuItems: ProfileMenuItem[] = [
-    { label: 'My Profile' },
-    { label: 'Theme' },
-    { label: 'Setting' },
-    { label: 'Help' },
-    { label: 'Logout', sx: { borderRadius: '0 0 8px 8px' } },
+    { label: 'My Profile', icon: <PersonIcon fontSize="small" /> },
+    { label: 'Theme', icon: <Brightness5Icon fontSize="small" /> },
+    { label: 'Setting', icon: <SettingsIcon fontSize="small" /> },
+    { label: 'Help', icon: <HelpOutlineIcon fontSize="small" /> },
+    { label: 'Logout', icon: <LogoutIcon fontSize="small" />, sx: { borderRadius: '0 0 8px 8px' } },
   ];
   const items = menuItems && menuItems.length > 0 ? menuItems : defaultMenuItems;
 

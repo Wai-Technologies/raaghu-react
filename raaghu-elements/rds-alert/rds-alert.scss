@@ -63,7 +63,6 @@
   
   &__actions {
     display: flex;
-    margin-top: 8px;
     justify-content: flex-end;
     align-items: center;
     gap: 8px;
@@ -99,6 +98,40 @@
     gap: var(--rds-spacing-md);
     flex-wrap: nowrap;
   }
+
+  // Adjust wrapper alignment for multiline alerts
+  &.rds-alert--multiline &__wrapper {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--rds-spacing-sm);
+  }
+
+  // Multiline alert specific layout
+  &.rds-alert--multiline {
+    .rds-alert__actions {
+      width: 100%;
+      margin-left: 0;
+    }
+    
+    .rds-alert__bottom-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-top: var(--rds-spacing-sm, 8px);
+    }
+    
+    .rds-alert__left-actions {
+      display: flex;
+      align-items: center;
+    }
+    
+    .rds-alert__right-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--rds-spacing-xs, 8px);
+    }
+  }
   &__actions {
     .MuiButton-root {
       &.rds-alert__link-button {
@@ -115,6 +148,17 @@
     font-size: var(--rds-font-size-lg);
 
     color: var(--rds-alert-icon-color, inherit) !important;
+  }
+
+  // Icon positioning for multiline alerts (desktop) - more specific selectors
+  &.rds-alert--multiline &__icon {
+    align-self: flex-start !important;
+    margin-top: 2px !important;
+  }
+
+  // Additional targeting for MUI Alert icon structure in multiline
+  &.rds-alert--multiline .MuiAlert-icon {
+    align-self: flex-start !important;
   }
   .rds-alert--success &__icon,
   .rds-alert--success .rds-alert__icon {
@@ -191,7 +235,24 @@
 
   &--style2 {
     box-shadow: none;
-  border: 1.5px solid var(--rds-alert-info-border);
+    border: 1.5px solid var(--rds-alert-info-border);
+    
+    // Severity-specific border colors
+    &.rds-alert--success {
+      border:  1.5px solid var(--rds-alert-success-border, #2196f3) !important;
+    }
+
+    &.rds-alert--error {
+      border:  1.5px solid var(--rds-alert-error-border, #f44336) !important;
+    }
+
+    &.rds-alert--warning {
+      border:  1.5px solid var(--rds-alert-warning-border, #ff9800) !important;
+    }
+
+    &.rds-alert--info {
+      border:  1.5px solid var(--rds-alert-info-border, #B1B1B1) !important;
+    }
   }
 // Style variants
 &--style3 {
@@ -340,4 +401,23 @@
     align-self: flex-start;
     margin-top: 2px;
   }
+}
+
+[data-theme="dark"] .rds-alert {
+  .rds-alert__link-button,
+  .rds-alert__link-button .MuiButton-root,
+  .rds-alert__actions .rds-alert__link-button,
+  .rds-alert__link-button.MuiButton-root {
+    color: var(--rds-color-on-primary, #1976d2) !important;
+  }
+}
+
+.rds-alert__link-button {
+  background: transparent !important;
+  text-decoration: underline !important;
+  color: var(--rds-alert-link-color, var(--rds-color-primary, #2196f3)) !important;
+  box-shadow: none !important;
+  border: none !important;
+  font-size: 0.8125rem !important;
+  padding: 0 4px;
 }

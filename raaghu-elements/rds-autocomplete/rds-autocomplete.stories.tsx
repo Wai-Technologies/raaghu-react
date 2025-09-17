@@ -126,6 +126,11 @@ export const Default: Story = {
     popupIcon: <PopupIcon />,
   },
 };
+Default.parameters = { 
+  controls: { 
+    include: ['options', 'label', 'isMandatory', 'placeholder', 'showHintText', 'selectSize', 'helperText', 'controlStyle', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'error', 'disabled', 'showTitle', 'state'] 
+  } 
+};
 
 export const Disabled: Story = {
   args: {
@@ -140,6 +145,11 @@ export const Disabled: Story = {
     userIcon: <UserIcon />,
     popupIcon: <PopupIcon />,
   },
+};
+Disabled.parameters = { 
+  controls: { 
+    include: ['options', 'label', 'isMandatory', 'placeholder', 'disabled', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'selectSize'] 
+  } 
 };
 
 export const Error: Story = {
@@ -157,6 +167,11 @@ export const Error: Story = {
     popupIcon: <PopupIcon />,
   },
 };
+Error.parameters = { 
+  controls: { 
+    include: ['options', 'label', 'isMandatory', 'placeholder', 'error', 'helperText', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'variant', 'selectSize', 'showHintText'] 
+  } 
+};
 
 export const Filled: Story = {
   args: {
@@ -171,6 +186,11 @@ export const Filled: Story = {
     userIcon: <UserIcon />,
     popupIcon: <PopupIcon />,
   },
+};
+Filled.parameters = { 
+  controls: { 
+    include: ['options', 'label', 'isMandatory', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
+  } 
 };
 
 export const Standard: Story = {
@@ -187,6 +207,11 @@ export const Standard: Story = {
     popupIcon: <PopupIcon />,
   },
 };
+Standard.parameters = { 
+  controls: { 
+    include: ['options', 'label', 'isMandatory', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
+  } 
+};
 
 export const WithHelperText: Story = {
   args: {
@@ -202,4 +227,9 @@ export const WithHelperText: Story = {
     userIcon: <UserIcon />,
     popupIcon: <PopupIcon />,
   },
+};
+WithHelperText.parameters = { 
+  controls: { 
+    include: ['options', 'label', 'isMandatory', 'placeholder', 'variant', 'isShowCheckbox', 'isShowRadio', 'isShowUser', 'selectSize'] 
+  } 
 };

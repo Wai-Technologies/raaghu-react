@@ -48,14 +48,18 @@ const RdsDialog = ({
         <DialogContent className="rds-dialog__content" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', textAlign: 'center' }}>{children}</DialogContent>
         <DialogActions className="rds-dialog__actions">
           {ShowSecondary && (
-            <Button onClick={onClose} className="rds-dialog__button rds-dialog__button__dismiss" variant="text">Cancel</Button>
+            <RdsButton
+              onClick={onClose}
+              className="rds-dialog__button rds-dialog__button__dismiss"
+              style="filled"
+            >Cancel</RdsButton>
           )}
           {ShowPrimary && (
             <RdsButton
-              onClick={() => { }}
-              className="rds-dialog__button rds-dialog__button__primary"
-              style="filled"
-            >Okay</RdsButton>
+              onClick={onClose}
+              className="rds-dialog__button rds-dialog__button__primary-link"
+              text="Okay"
+            />
           )}
         </DialogActions>
       </MuiDialog>

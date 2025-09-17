@@ -63,4 +63,11 @@
   &--large {
     gap: 6px;
   }
+
+  &--fullWidth {
+    width: 100%;
+    .rds-search__input {
+      width: 100%;
+    }
+  }
 }

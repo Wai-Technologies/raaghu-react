@@ -373,10 +373,28 @@
     background-color: var(--rds-overlay-hover, rgba(255, 255, 255, 0.08));
   }
 }
-[data-theme="dark"] {
-.rds-list{
-  .css-155c0ib-MuiAvatar-root {
-    color: var(--rds-color-on-primary,#ffffff);
+/* Dark theme list overrides
+   Combines avatar color override and visibility rules for list text/icons.
+   Uses stable MUI classes and high specificity to prevent MUI-injected styles from
+   overriding our theme after navigation/refresh. */
+[data-theme="dark"] .rds-list,
+body.dark .rds-list,
+html.dark .rds-list,
+.dark .rds-list,
+.rds-theme--dark .rds-list {
+  /* Avatar color (use stable MUI Selector) */
+  .MuiAvatar-root {
+    color: var(--rds-color-on-primary, #ffffff) !important;
   }
-}
+
+  .rds-list__content-primary,
+  .rds-list__content-secondary,
+  .rds-list__icon,
+  .rds-list__secondary-action,
+  .MuiListItemText-root,
+  .MuiListItemText-root *,
+  .MuiSvgIcon-root {
+    color: currentColor !important;
+    fill: currentColor !important;
+  }
 }

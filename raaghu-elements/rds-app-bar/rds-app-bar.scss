@@ -215,7 +215,7 @@
   height: 44px !important;
   margin-right: var(--rds-spacing-md, 1rem);
   background: var(--rds-color-avatar-bg, var(--rds-color-surface-alt, #e0d7fa)) !important;
-  color: var(--rds-color-avatar-fg, var(--rds-color-primary, #7c4dff)) !important;
+  color: var(--rds-color-avatar-fg, var(--rds-color-primary)) !important;
   font-weight: var(--rds-font-weight-semibold, 600);
   font-size: var(--rds-font-size-lg, 1.2rem);
 }
@@ -314,7 +314,7 @@
     min-height: var(--rds-header-toolbar-height, 56px);
     padding-left: var(--rds-spacing-xl, 32px);
     padding-right: var(--rds-spacing-xl, 32px);
-    gap: var(--rds-spacing-lg, 24px);
+    gap: var(--rds-spacing-lg, 20px);
     background: transparent;
     position: relative;
   }
@@ -358,7 +358,6 @@
     transition: border-color 0.2s;
     &:focus-within {
       border-color: var(--rds-color-primary, #1976d2);
-      outline: 2px solid var(--rds-color-primary, #1976d2);
       outline-offset: 2px;
     }
     input {
@@ -448,7 +447,7 @@
           background-color: var(--rds-color-primary-dark, #1565c0);
         }
 
-        .MuiSvgIcon-root {
+        .MuiSvgIcon-root, .MuiButton-startIcon {
           color: white;
         }
       }
@@ -563,4 +562,12 @@
   .rds-appbar-logo-label{
     color: var(--rds-color-on-info, #ffffff);
   }
+}
+.css-16b6n56-MuiButtonBase-root-MuiButton-root, .css-1gjwngd {
+    min-width: 95px !important;
+    padding: 6px 10px !important;
+}
+
+.css-sdirt4-MuiButtonBase-root-MuiTab-root, .css-wor01b {
+    min-width: 60px !important;
 }
