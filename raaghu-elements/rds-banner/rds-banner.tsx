@@ -24,6 +24,7 @@ export interface RdsBannerProps extends Omit<AlertProps, 'severity' | 'onClose'>
   persistent?: boolean;
   fullWidth?: boolean;
   actions?: React.ReactNode;
+  showOutline?: boolean;
 }
 
 const RdsBanner: React.FC<RdsBannerProps> = ({
@@ -45,6 +46,7 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
   persistent = false,
   fullWidth = true,
   actions,
+  showOutline = false,
   ...props
 }) => {
   const [isVisible, setIsVisible] = React.useState(true);
@@ -65,6 +67,11 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
   const styleClass = `rds-banner--${variantStyle}`;
   const severityClass = `rds-banner--${type}`;
   const widthClass = fullWidth ? 'rds-banner--full-width' : 'rds-banner--auto-width';
+  let outlineClass = '';
+  if (showOutline) {
+    if (variantStyle === 'style1') outlineClass = 'rds-banner--style1-outline';
+    if (variantStyle === 'style2') outlineClass = 'rds-banner--style2-outline';
+  }
 
   // Map variantStyle to MUI Alert variant
   let muiVariant: AlertProps['variant'] = props.variant ?? 'standard';
@@ -81,7 +88,7 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
       severity={type}
       variant={muiVariant}
       icon={Icon ? <InfoOutlinedIcon /> : false}
-  className={`rds-banner ${sizeClass} ${styleClass} ${severityClass} ${widthClass}${props.className ? ` ${props.className}` : ''}`}
+  className={`rds-banner ${sizeClass} ${styleClass} ${severityClass} ${widthClass}${outlineClass ? ` ${outlineClass}` : ''}${props.className ? ` ${props.className}` : ''}`}
       action={
         <div className="rds-banner__action-container">
           {actions}
@@ -98,7 +105,7 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
           )}
         </div>
       }
-  {...props}
+      {...props}
     >
       <div className="rds-banner__content-wrapper">
         <div className="rds-banner__text-content">

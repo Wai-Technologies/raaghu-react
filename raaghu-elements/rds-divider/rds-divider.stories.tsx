@@ -37,6 +37,19 @@ const meta: Meta<typeof RdsDivider> = {
       description: 'Enter the icon name to display (e.g., InfoOutlined, Add)',
       defaultValue: 'InfoOutlined',
     },
+    size: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+      description: 'Size of the divider',
+      defaultValue: 'medium',
+    },
+    styleVariant: {
+      name: 'Layout',
+      control: 'select',
+      options: ['subtle', 'strong', 'primary'],
+      description: 'Style appearance of the divider (displayed as Layout in controls)',
+      defaultValue: 'subtle',
+    },
   },
 };
 
@@ -49,6 +62,8 @@ export const Default: Story = {
     textAlign: 'center',
     iconShow: true,
     iconName: 'InfoOutlined',
+    size: 'medium',
+    styleVariant: 'subtle',
   },
 };
 export const Vertical: Story = {
@@ -58,7 +73,7 @@ export const Vertical: Story = {
     iconName: 'InfoOutlined',
   },
   parameters: {
-    controls: { exclude: ['layout','component'] }, // Hide layout control for this story
+    controls: { exclude: ['layout', 'component', 'iconName', 'iconShow','dividerMessage', 'textAlign'] },
   },
 };
 
@@ -69,6 +84,8 @@ export const WithText: Story = {
     textAlign: 'center',
     iconShow: true,
     iconName: 'InfoOutlined',
+    size: 'medium',
+    styleVariant: 'subtle',
   },
 };
 
@@ -78,5 +95,7 @@ export const Flexed: Story = {
     flexItem: true,
     iconShow: true,
     iconName: 'InfoOutlined',
+    size: 'medium',
+    styleVariant: 'subtle',
   },
 };

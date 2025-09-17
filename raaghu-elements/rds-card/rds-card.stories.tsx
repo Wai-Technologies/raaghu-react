@@ -126,15 +126,18 @@ Default.parameters = {
 
 export const Elevated: Story = {
   args: {
+    title: 'Elevated Card',
+    showDescription: true,
+    description: 'This card has increased elevation (shadow).',
     elevation: 8,
     children: (
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        {/* <Typography gutterBottom variant="h5" component="div">
           Elevated Card
         </Typography>
         <Typography variant="body2" color="text.secondary">
           This card has increased elevation (shadow).
-        </Typography>
+        </Typography> */}
       </CardContent>
     ),
   },
@@ -148,16 +151,9 @@ Elevated.parameters = {
 export const Outlined: Story = {
   args: {
     variant: 'outlined',
-    children: (
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Outlined Card
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          This is an outlined card variant.
-        </Typography>
-      </CardContent>
-    ),
+    title: 'Outlined Card',
+    showDescription: true,
+    description: 'This is an outlined card variant.',
   },
 };
 Outlined.parameters = { 
@@ -168,17 +164,13 @@ Outlined.parameters = {
 
 export const WithActions: Story = {
   args: {
+    state: 'default',
+    title: 'Card with Actions',
+    showDescription: true,
+    description: 'This card includes action buttons at the bottom.',
     children: (
       <>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Card with Actions
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            This card includes action buttons at the bottom.
-          </Typography>
-        </CardContent>
-        <CardActions>
+        <CardActions style={{ marginLeft: '-12px' }}>
           <RdsButton text="Learn More" size="small" textCase='capitalize' style="transparent" />
           <RdsButton text="Share" size="small" textCase='capitalize' style="transparent" />
         </CardActions>
@@ -438,12 +430,10 @@ WithButton.parameters = {
 
 export const WithCustomPadding: Story = {
   args: {
+    title: 'Card with Custom Padding',
+    showDescription: true,
+    description: 'This card has custom padding applied.',
     padding: '24px',
-    children: (
-      <Typography>
-        This card has custom padding applied.
-      </Typography>
-    ),
   },
 };
 WithCustomPadding.parameters = { 
