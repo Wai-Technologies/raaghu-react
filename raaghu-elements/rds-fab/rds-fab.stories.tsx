@@ -72,12 +72,12 @@ export const Extended: Story = {
   args: {
     variant: 'extended',
     color: 'primary',
-    children: (
-      <>
-        <Edit sx={{ mr: 1 }} />
-        Edit
-      </>
-    ),
+  },
+  render: (args) => {
+    if (args.variant === 'extended') {
+      return <RdsFab {...args}><Edit /> Edit</RdsFab>;
+    }
+    return <RdsFab {...args}><Edit /></RdsFab>;
   },
 };
 
