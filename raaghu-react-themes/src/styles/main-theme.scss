@@ -1,0 +1,10 @@
+// Main theme file that imports both light and dark themes
+// and their CSS variables
+
+// Import base themes
+@import "./themes/light.scss";
+@import "./css-vars/light-vars.scss";
+
+// Import dark theme and apply it conditionally
+@import "./themes/dark.scss";
+@import "./css-vars/dark-vars.scss";

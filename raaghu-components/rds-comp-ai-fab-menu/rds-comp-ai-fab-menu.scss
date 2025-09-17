@@ -1,0 +1,450 @@
+// RDS Fab Menu Component Styles
+.rds-fab-menu {
+  position: relative;
+  display: inline-block;
+
+  .rds-fab-menu-offset &.rds-fab-menu--right,
+  .rds-fab-menu-offset &[data-alignment="right"] {
+    margin-left: 235px;
+  }
+
+  // Button element
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: var(--rds-color-primary);
+    color: var(--rds-color-on-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0;
+    box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
+    // Default to circular - will be overridden by background type modifiers
+    border-radius: 50%;
+
+    // Size variants
+    &--small {
+      min-width: 40px;
+      min-height: 40px;
+    }
+
+    &--medium {
+      min-width: 48px;
+      min-height: 48px;
+    }
+
+    &--large {
+      min-width: 56px;
+      min-height: 56px;
+    }
+
+    // Color variants
+    &--primary {
+      background-color: var(--rds-color-primary,#1976d2);
+      color: var(--rds-color-on-primary,#ffffff);
+    }
+
+    &--secondary {
+      background-color: var(--rds-color-secondary);
+      color: var(--rds-color-on-secondary);
+    }
+
+    &--success {
+      background-color: var(--rds-color-success, #28a745);
+      color: var(--rds-color-on-success, #ffffff);
+    }
+
+    &--info {
+      background-color: var(--rds-color-info, #17a2b8);
+      color: var(--rds-color-on-info, #ffffff);
+    }
+
+    &--warning {
+      background-color: var(--rds-color-warning, #ffc107);
+      color: var(--rds-color-on-warning, #000000);
+    }
+
+    &--danger {
+      background-color: var(--rds-color-danger, #dc3545);
+      color: var(--rds-color-on-danger, #ffffff);
+    }
+
+    &--dark {
+      background-color: var(--rds-color-dark, #343a40);
+      color: var(--rds-color-on-dark, #ffffff);
+    }
+
+    &--light {
+      background-color: var(--rds-color-light, #f8f9fa);
+      color: var(--rds-color-on-light, #000000);
+      border: 1px solid var(--rds-color-border, #dee2e6);
+    }
+
+    // Background type variants
+    &--circular {
+      border-radius: 50%;
+    }
+
+    &--rectangular {
+      border-radius: var(--rds-border-radius, 8px);
+    }
+
+    &--none {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      border: none;
+      
+      // Override color variants for no background
+      &.rds-fab-menu__button--primary {
+        background-color: transparent !important;
+        color: var(--rds-color-primary);
+      }
+
+      &.rds-fab-menu__button--secondary {
+        background-color: transparent !important;
+        color: var(--rds-color-secondary);
+      }
+
+      &.rds-fab-menu__button--success {
+        background-color: transparent !important;
+        color: var(--rds-color-success, #28a745);
+      }
+
+      &.rds-fab-menu__button--info {
+        background-color: transparent !important;
+        color: var(--rds-color-info, #17a2b8);
+      }
+
+      &.rds-fab-menu__button--warning {
+        background-color: transparent !important;
+        color: var(--rds-color-warning, #ffc107);
+      }
+
+      &.rds-fab-menu__button--danger {
+        background-color: transparent !important;
+        color: var(--rds-color-danger, #dc3545);
+      }
+
+      &.rds-fab-menu__button--dark {
+        background-color: transparent !important;
+        color: var(--rds-color-dark, #343a40);
+      }
+
+      &.rds-fab-menu__button--light {
+        background-color: transparent !important;
+        color: var(--rds-color-light-content, #6c757d);
+        border: none;
+      }
+
+      // Interactive states for no background - completely override base styles
+      &:hover {
+        background-color: transparent !important;
+        transform: translateY(-1px);
+        box-shadow: none !important;
+        opacity: 0.8;
+        border-radius: 0 !important; // Completely remove any border radius
+      }
+
+      &:focus {
+        background-color: transparent !important;
+        outline: 2px solid var(--rds-color-primary);
+        outline-offset: 2px;
+        opacity: 0.9;
+        box-shadow: none !important;
+        border-radius: 0 !important; // Completely remove any border radius
+      }
+
+      &:active {
+        background-color: transparent !important;
+        transform: translateY(0);
+        box-shadow: none !important;
+        opacity: 0.7;
+        border-radius: 0 !important; // Completely remove any border radius
+      }
+
+      // Ensure all color variant combinations have no background
+      &.rds-fab-menu__button--secondary:hover,
+      &.rds-fab-menu__button--success:hover,
+      &.rds-fab-menu__button--info:hover,
+      &.rds-fab-menu__button--warning:hover,
+      &.rds-fab-menu__button--danger:hover,
+      &.rds-fab-menu__button--dark:hover,
+      &.rds-fab-menu__button--light:hover {
+        background-color: transparent !important;
+        opacity: 0.8;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+
+      &.rds-fab-menu__button--secondary:focus,
+      &.rds-fab-menu__button--success:focus,
+      &.rds-fab-menu__button--info:focus,
+      &.rds-fab-menu__button--warning:focus,
+      &.rds-fab-menu__button--danger:focus,
+      &.rds-fab-menu__button--dark:focus,
+      &.rds-fab-menu__button--light:focus {
+        background-color: transparent !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+
+      &.rds-fab-menu__button--secondary:active,
+      &.rds-fab-menu__button--success:active,
+      &.rds-fab-menu__button--info:active,
+      &.rds-fab-menu__button--warning:active,
+      &.rds-fab-menu__button--danger:active,
+      &.rds-fab-menu__button--dark:active,
+      &.rds-fab-menu__button--light:active {
+        background-color: transparent !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+    }
+
+    // Interactive states
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--rds-elevation-3, 0 4px 8px rgba(0, 0, 0, 0.15));
+    }
+
+    &:focus {
+      outline: 2px solid var(--rds-color-primary);
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: var(--rds-elevation-1, 0 1px 2px rgba(0, 0, 0, 0.1));
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: var(--rds-elevation-1, 0 1px 2px rgba(0, 0, 0, 0.1));
+    }
+  }
+
+  // Dropdown container
+  &__dropdown-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    margin-top: var(--rds-spacing-sm, 8px);
+    min-width: 220px;
+    max-width: 300px;
+    /* Ensure dropdown opens outside parent container */
+    transform: translateY(10px);
+    &--left {
+      left: 0;
+      right: auto;
+    }
+    &--right {
+      right: 0;
+      left: auto;
+    }
+  }
+
+  // Storybook/docs specific vertical offset (only when wrapped in .rds-fab-menu-offset)
+  .rds-fab-menu-offset &__dropdown-container {
+    top: 13%;
+  }
+
+  &__dropdown-container--open {
+    display: block;
+  }
+
+  // When button has no background, adjust dropdown position
+  .rds-fab-menu__button--none + .rds-fab-menu__dropdown-container--open {
+    margin-top: var(--rds-spacing-sm, -8px);
+  }
+
+  // Dropdown menu
+  &__dropdown {
+    background-color: var(--rds-color-surface, #ffffff);
+    border-radius: var(--rds-border-radius, 8px);
+    box-shadow: var(--rds-elevation-3, 0 4px 12px rgba(0, 0, 0, 0.15));
+    min-width: 280px;
+    max-width: 300px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(0.95);
+    transition: all 0.2s ease;
+    overflow: hidden;
+
+    // Open state
+    &--open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    // Bordered variant
+    &--bordered {
+      border: 1px solid var(--rds-color-border, #dee2e6);
+    }
+  }
+
+  // Menu item
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: var(--rds-spacing-md, 12px) var(--rds-spacing-lg, 16px);
+    color: var(--rds-color-on-surface, #000000);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+
+    // Compact variant
+    &--compact {
+      padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-lg, 16px);
+    }
+
+    // Interactive states
+    &:hover {
+      background-color: var(--rds-color-surface-variant, #f5f5f5);
+    }
+
+    &:focus {
+      background-color: var(--rds-color-surface-variant, #f5f5f5);
+      outline: none;
+    }
+
+    &:active {
+      background-color: var(--rds-color-primary-container, #e3f2fd);
+    }
+
+    // First and last item border radius
+    &:first-child {
+      border-top-left-radius: var(--rds-border-radius, 8px);
+      border-top-right-radius: var(--rds-border-radius, 8px);
+    }
+
+    &:last-child {
+      border-bottom-left-radius: var(--rds-border-radius, 8px);
+      border-bottom-right-radius: var(--rds-border-radius, 8px);
+    }
+  }
+
+  // Item text
+  &__item-text {
+    margin-left: var(--rds-spacing-md, 12px);
+    font-size: var(--rds-font-size-body, 14px);
+    font-weight: var(--rds-font-weight-medium, 500);
+    line-height: 1.4;
+  }
+}
+
+// Animation for fab menu opening/closing
+@keyframes rds-fab-menu-bounce-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.8);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Dark theme support
+@media (prefers-color-scheme: dark) {
+  .rds-fab-menu {
+    &__dropdown {
+       background-color: #2a2a2a !important;
+      color: var(--rds-color-on-surface-dark, #ffffff);
+    }
+
+    &__item {
+      color: var(--rds-color-on-surface-dark, #ffffff);
+
+      &:hover {
+        background-color: #353535 !important;
+      }
+
+      &:focus {
+        background-color: #353535 !important;
+      }
+
+      &:active {
+        background-color: var(--rds-color-primary-container-dark, #1565c0);
+      }
+    }
+  }
+}
+.theme-dark .rds-fab-menu__dropdown {
+  background-color: #2a2a2a !important;
+  color: var(--rds-color-on-surface-dark, #ffffff);
+}
+.theme-dark .rds-fab-menu__item {
+  color: var(--rds-color-on-surface-dark, #ffffff);
+}
+.theme-dark .rds-fab-menu__item:hover,
+.theme-dark .rds-fab-menu__item:focus {
+  background-color: #353535 !important;
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .rds-fab-menu {
+    &__button {
+      border: 2px solid currentColor;
+    }
+
+    &__dropdown {
+      border: 2px solid var(--rds-color-border, #000000);
+    }
+
+    &__item {
+      border-bottom: 1px solid var(--rds-color-border, #000000);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .rds-fab-menu {
+    &__button,
+    &__dropdown,
+    &__item {
+      transition: none;
+    }
+  }
+}
+
+// Wrapper utility specifically for Storybook/demo pages to control layout
+.rds-fab-menu-offset {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start; // keep button at left by default
+  position: relative;
+  height: auto;
+  --rds-fab-menu-open-height: 290px;
+
+  // Apply height only while menu open (modern browsers with :has)
+  &:has(.rds-fab-menu--open) {
+    height: var(--rds-fab-menu-open-height);
+  }
+
+  // Fallback: if JS toggles this class manually
+  &.rds-fab-menu-offset--open {
+    height: var(--rds-fab-menu-open-height);
+  }
+}

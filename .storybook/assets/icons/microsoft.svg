@@ -1,8 +1,0 @@
-<!-- Microsoft Logo -->
-<svg id="Microsoft_logo" width="28" height="28" viewBox="0 0 28 28">
-  <path id="Path_172669" data-name="Path 172669" d="M0,0H28V28H0Z" fill="#f3f3f3"/>
-  <path id="Path_172670" data-name="Path 172670" d="M1,1H13.174V13.174H1Z" transform="translate(0.217 0.217)" fill="#f35325"/>
-  <path id="Path_172671" data-name="Path 172671" d="M12,1H24.174V13.174H12Z" transform="translate(2.609 0.217)" fill="#81bc06"/>
-  <path id="Path_172672" data-name="Path 172672" d="M1,12H13.174V24.174H1Z" transform="translate(0.217 2.609)" fill="#05a6f0"/>
-  <path id="Path_172673" data-name="Path 172673" d="M12,12H24.174V24.174H12Z" transform="translate(2.609 2.609)" fill="#ffba08"/>
-</svg>

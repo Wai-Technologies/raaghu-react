@@ -1,0 +1,368 @@
+.rds-tabs--line-left .MuiTab-root {
+  border-left: 2px solid transparent;
+  &.Mui-selected {
+    border-left: 2px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-primary, #1976d2);
+      border-radius: unset !important;
+  }
+}
+.rds-tabs--line-bottom .MuiTab-root {
+  border-bottom: 2px solid transparent;
+  &.Mui-selected {
+    border-bottom: 2px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-primary, #1976d2);
+      border-radius: unset !important;
+  }
+}
+.rds-tabs--line-bottom-solid .MuiTab-root {
+  border-bottom: 3px solid transparent;
+  &.Mui-selected {
+    border-bottom: 3px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-accent, #3C98FF) !important; // Use accent token
+    border-radius: unset !important;
+    background: var(--rds-color-accent-bg, #3D98FF4D) !important; // Use accent bg token
+  }
+}
+.rds-tabs--line-left-solid .MuiTab-root {
+  border-left: 3px solid transparent;
+  &.Mui-selected {
+    border-left: 3px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-accent, #3C98FF) !important;
+    border-radius: unset !important;
+    background: var(--rds-color-accent-bg, #3D98FF4D) !important;
+  }
+}
+
+.rds-tabs--line-right .MuiTab-root {
+  border-right: 2px solid transparent;
+  &.Mui-selected {
+    border-right: 2px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-primary, #1976d2);
+    border-radius: unset !important;
+  }
+}
+
+.rds-tabs--line-right-solid .MuiTab-root {
+  border-right: 3px solid transparent;
+  &.Mui-selected {
+    border-right: 3px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-accent, #3C98FF) !important;
+    border-radius: unset !important;
+    background: var(--rds-color-accent-bg, #3D98FF4D) !important;
+  }
+}
+
+.rds-tabs--line-top .MuiTab-root {
+  border-top: 2px solid transparent;
+  &.Mui-selected {
+    border-top: 2px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-primary, #1976d2);
+      border-radius: unset !important;
+  }
+}
+
+.rds-tabs--line-top-solid .MuiTab-root {
+  border-top: 3px solid transparent;
+  &.Mui-selected {
+    border-top: 3px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-accent, #3C98FF) !important;
+    border-radius: unset !important;
+    background: var(--rds-color-accent-bg, #3D98FF4D) !important;
+  }
+}
+
+.rds-tabs--pill .MuiTab-root {
+  border-radius: 15rem !important;
+  // background: var(--rds-color-surface-alt, #f5f5f5);
+  margin: 0 4px;
+  &.Mui-selected {
+    border-radius: 15rem !important;
+    background: var(--rds-color-primary, #3C98FF) !important;
+    color: var(--rds-color-on-primary, #fff) !important;
+  }
+}
+.rds-tabs--pill .MuiTab-root:hover {
+  &.Mui-selected {
+     border-radius: 15rem !important;
+  }
+}
+
+
+.rds-tabs {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  font-family: var(--rds-font-family, Poppins);
+  
+  // Ensure flap arrows are visible
+  &--flap {
+    overflow: visible !important;
+    
+    .MuiTabs-root {
+      overflow: visible !important;
+    }
+    
+    .MuiTabs-scroller {
+      overflow: visible !important;
+    }
+    
+    .MuiTabPanel-root {
+      overflow: visible !important;
+    }
+  }
+
+  // Tab label content (BEM: __label)
+  &__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+}
+
+.rds-state--default .Mui-selected {
+  color: var(--rds-color-default, #646464) !important;
+  border-radius:  6px 6px 0 0 !important;
+}
+.rds-tabs--filled .Mui-selected {
+  background: var(--rds-color-accent, #3C98FF) !important;
+  color: var(--rds-color-on-accent, #ffffff) !important;
+  border-radius:  6px 6px 0 0 !important;
+  border: unset !important;
+}
+
+.rds-state--hover .Mui-selected:hover {
+  background: var(--rds-color-hover-bg, #EBDCFF) !important;
+  color: var(--rds-color-default, #646464) !important;
+}
+
+.rds-state--selected .Mui-selected {
+  background: var(--rds-color-accent, #3C98FF) !important;
+  color: var(--rds-color-on-accent, #ffffff) !important;
+  border-radius:  6px 6px 0 0 !important;
+}
+
+.rds-state--filled .Mui-selected {
+  background: var(--rds-color-accent, #3C98FF) !important;
+  color: var(--rds-color-on-accent, #ffffff) !important;
+  border-radius:  6px 6px 0 0 !important;
+}
+.rds-tabs--flap .Mui-selected {
+  background: var(--rds-color-accent, #3C98FF) !important;
+  color: var(--rds-color-on-accent, #ffffff) !important;
+  border-radius: 6px 6px 0 0 !important;
+  border: unset !important;
+  position: relative !important; /* required for positioning the arrow */
+  z-index: 2 !important;
+}
+
+.rds-tabs--flap .Mui-selected::after {
+  content: '';
+  position: absolute;
+  bottom: -9px; /* position the arrow just below the tab */
+  left: 75px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid var(--rds-color-accent, #3C98FF); /* same as tab background */
+  z-index: 1;
+}
+
+.rds-tabs--flap.rds-state--hover .Mui-selected:hover::after {
+  border-top-color: var(--rds-color-hover-bg, #EBDCFF) !important; /* Change to your desired hover color */
+}
+
+.css-jhczcq-MuiTabs-root{
+  overflow: visible !important;
+}
+
+.css-1qltlow-MuiTabs-indicator,
+.css-1695agp-MuiTabs-indicator {
+  display: none !important;
+}
+
+.rds-tabs .css-8itpbe-MuiTabs-indicator {
+  background-color: unset !important;
+}
+
+.MuiTab-root {
+  position: relative !important;
+  overflow: visible !important;
+}
+
+.css-1usuzwp-MuiButtonBase-root-MuiTab-root{
+  overflow: visible !important;
+  max-width: 150px !important;
+}
+
+.MuiTabs-scroller{
+  overflow: visible !important;
+}
+/* Arrow (flap) on the right side of the selected vertical tab */
+.rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 150px !important; /* Adjusted for new width */
+  top: 50% !important;
+  right: -12px !important; /* Position to the right of the tab */
+  transform: translateY(-50%) !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-top: 8px solid transparent !important;
+  border-bottom: 8px solid transparent !important;
+  border-left: 12px solid var(--rds-color-accent, #3C98FF) !important;
+  z-index: 1 !important;
+}
+
+.rds-tabs--flap.rds-state--hover .MuiTabs-vertical .MuiTab-root.Mui-selected:hover::after {
+  border-left-color: var(--rds-color-hover-bg, #EBDCFF) !important; /* Change to your desired hover color */
+}
+.rds-state--disabled .Mui-selected{
+  background: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  color: var(--rds-color-disabled, #AFCDFD) !important;
+  border-radius:  6px 6px 0 0 !important;
+}
+
+.rds-tabs--flap.rds-state--disabled .Mui-selected::after {
+  border-top-color: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.rds-tabs--flap.rds-state--disabled .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
+  border-left-color: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.rds-tabs--pill.rds-state--disabled .MuiTab-root.Mui-selected {
+  background: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  color: var(--rds-color-disabled, #AFCDFD) !important;
+  border-radius: 15rem !important;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.rds-tabs--line-bottom-solid.rds-state--disabled .MuiTab-root.Mui-selected,
+.rds-tabs--line-left-solid.rds-state--disabled .MuiTab-root.Mui-selected,
+.rds-tabs--line-right-solid.rds-state--disabled .MuiTab-root.Mui-selected,
+.rds-tabs--line-top-solid.rds-state--disabled .MuiTab-root.Mui-selected {
+  background: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  color: var(--rds-color-disabled, #AFCDFD) !important;
+  border-radius: unset !important;
+  border-color: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.rds-tabs__label {
+   display: inline-flex;
+   align-items: center;      
+   justify-content: center;  
+   gap: 8px;                 
+   line-height: 1.5;
+   text-transform: none !important; /* Ensure our JS capitalization isn't overridden */       
+}
+
+/* Ensure tab text respects our JavaScript capitalization */
+.rds-tabs .MuiTab-root .rds-tabs__label span {
+  text-transform: none !important;
+}
+
+/* Override any Material-UI or global uppercase transforms */
+.rds-tabs .MuiTab-root,
+.rds-tabs .MuiTab-root *,
+.rds-tabs .MuiButtonBase-root,
+.rds-tabs .MuiButtonBase-root * {
+  text-transform: none !important;
+}
+
+.rds-tabs__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   font-size: 1.2em;        
+}
+
+.css-nowihk-MuiButtonBase-root-MuiTab-root,
+.css-r0euln-MuiButtonBase-root-MuiTab-root {
+  max-width: 150px !important;
+}
+
+// Vertical tabs specific width control
+.MuiTabs-vertical .MuiTab-root {
+  max-width: 150px !important;
+  min-width: 120px !important;
+  width: 150px !important;
+}
+
+// Additional width control for vertical orientation
+.rds-tabs .MuiTabs-vertical {
+  max-width: 150px !important;
+  width: 150px !important;
+}
+
+// Horizontal tabs specific width control
+.MuiTabs-root:not(.MuiTabs-vertical) .MuiTab-root {
+  max-width: 150px !important;
+  min-width: 120px !important;
+  width: 150px !important;
+}
+
+// General tab width control for all orientations
+.MuiTab-root {
+  max-width: 150px !important;
+  min-width: 120px !important;
+  width: 150px !important;
+}
+
+.css-gb4ru6,
+.css-1ar1kv5 {
+  background-color: unset !important;
+}
+
+/* Mobile: allow wrapping to multiple rows so all tabs are visible on small screens.
+   This shows all tab levels without JS changes while preserving click behavior. */
+@media (max-width: 480px) {
+  /* Allow the tabs container to expand vertically and show multiple lines */
+  .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-root,
+  .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scroller,
+  .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scrollableX {
+    overflow: visible !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Allow the tab list to wrap into multiple rows */
+  .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-flexContainer {
+    display: flex !important;
+    gap: 6px;
+    white-space: normal;
+    flex-wrap: wrap !important;
+    align-items: center;
+  }
+
+  /* Make each tab size adapt to content and shrink to fit rows */
+  .rds-tabs:not(.MuiTabs-vertical) .MuiTab-root {
+    flex: 0 1 auto !important;
+    width: auto !important;
+    min-width: 140px !important;
+    max-width: 200px !important;
+    padding: 4px 8px !important;
+    font-size: 0.85rem !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Allow labels to wrap inside a tab if extremely long, but prefer single-line */
+  .rds-tabs:not(.MuiTabs-vertical) .MuiTab-root .rds-tabs__label {
+    overflow: visible;
+    text-overflow: unset;
+    white-space: normal;
+  }
+
+  /* Preserve accessible focus outlines when tabs wrap */
+  .rds-tabs .MuiTab-root:focus-visible {
+    outline: 2px solid var(--rds-color-primary, #1976d2) !important;
+    outline-offset: 2px !important;
+  }
+}

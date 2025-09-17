@@ -1,0 +1,114 @@
+// RDS Component Map Styles
+// Following BEM methodology with RDS prefixes
+
+.rds-comp-map {
+  background: var(--rds-bg, #fff) !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 10px !important;
+  margin: 0 !important;
+  min-height: 100vh;
+  position: relative;
+
+  &__label {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--rds-text, #222);
+    margin-bottom: 12px;
+    margin-left: 0;
+    letter-spacing: 0.2px;
+    text-align: left;
+  }
+
+  &__center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  svg {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    max-width: 700px;
+  }
+
+  &__heatmap-image {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    max-width: 700px;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  // Responsive behavior
+  @media (max-width: 768px) {
+    &__label {
+      font-size: 18px;
+    }
+    
+    svg, &__heatmap-image {
+      max-width: 100%;
+    }
+  }
+
+  // Heat map specific styles
+  &--heatmap {
+    background: linear-gradient(0deg, #FFAF00, #FFAF00),
+      radial-gradient(50.38% 50.38% at 30.5% 6.53%, #2CC1A5 0%, #26BEAE 33%, #E1CF00 67.18%, #FEA200 100%),
+      radial-gradient(61.69% 61.69% at 78.5% 19.32%, #28C0AB 0%, #F94E00 38.26%, #CCDE00 100%),
+      radial-gradient(36.18% 63.42% at 35.64% 37.56%, #F84A00 0%, #1DBBBC 44.15%, rgba(181, 228, 62, 0) 100%),
+      radial-gradient(18.75% 43.04% at 26.5% 80.97%, #FC4703 0%, #25BDB1 50%, rgba(252, 71, 3, 0) 100%);
+
+    .rds-comp-map__label {
+      color: var(--rds-text, #333);
+      font-weight: 600;
+    }
+
+    svg {
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+  }
+}
+
+// Dark theme styles
+[data-bs-theme="dark"],
+[data-theme="dark"],
+.dark-theme,
+.dark {
+  .rds-comp-map {
+    background: var(--rds-background-surface, #000000) !important;
+
+    &__label {
+      color: var(--rds-text-primary, #ffffff) !important;
+    }
+
+    &__center {
+      background: var(--rds-background-surface, #000000) !important;
+    }
+
+    svg {
+      background: var(--rds-background-surface, #000000) !important;
+      filter: brightness(1.2) contrast(1.1) !important;
+
+      path {
+        stroke: var(--rds-text-secondary, #666666) !important;
+        stroke-opacity: 0.6 !important;
+      }
+      rect[fill="#ffffff"],
+      rect[fill="white"],
+      rect[fill="#fff"],
+      rect:first-child {
+        fill: var(--rds-background-surface, #000000) !important;
+      }
+    }
+
+    &--heatmap {
+      background: var(--rds-background-surface, #000000) !important;
+    }
+  }
+}

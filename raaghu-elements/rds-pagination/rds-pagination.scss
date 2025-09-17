@@ -1,0 +1,215 @@
+// RDS Pagination Component Styles
+// Pagination navigation
+
+
+.rds-pagination {
+  display: block;
+  position: relative;
+
+  // Target MUI root for custom styling
+  .MuiPagination-ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+
+  // Pagination item (button)
+  .MuiPaginationItem-root {
+    font-family: var(--rds-font-family, Poppins);
+    color: var(--rds-color-primary-contrast, #1976d2);
+    background: transparent;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: none;
+    border: none;
+    margin: 0 4px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    // Default shape is circular, but allow override by variant/shape
+    &.MuiPaginationItem-circular {
+      border-radius: 50%;
+    }
+    &.MuiPaginationItem-rounded {
+      border-radius: 5px;
+      padding:10px;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  // Responsive styles for mobile screens
+  @media (max-width: 834px) and (min-width: 414px) {
+    .MuiPaginationItem-sizeSmall {
+      margin: 0 1px !important;
+      padding: 1px 2px !important;
+      font-size: 0.7rem !important;
+      min-width: 22px !important;
+      height: 22px !important;
+    }
+
+    .MuiPaginationItem-sizeMedium {
+      margin: 0 1px !important;
+      padding: 2px 3px !important;
+      font-size: 0.8rem !important;
+      min-width: 24px !important;
+      height: 24px !important;
+    }
+
+    .MuiPaginationItem-sizeLarge {
+      margin: 0 1px !important;
+      padding: 3px 4px !important;
+      font-size: 0.9rem !important;
+      min-width: 26px !important;
+      height: 26px !important;
+    }
+
+    .MuiPagination-ul {
+      flex-wrap: nowrap;
+      gap: 3px;
+    }
+    .MuiPaginationItem-root {
+      margin: 0 2px;
+      padding: 2px 6px;
+      font-size: 0.85rem;
+      min-width: 28px;
+      height: 28px;
+    }
+    .MuiPaginationItem-root.MuiPaginationItem-rounded {
+      padding: 6px;
+      border-radius: 4px;
+    }
+    // Reduce dropdown width
+    .MuiFormControl-root {
+      min-width: 70px !important;
+    }
+    .MuiInputLabel-root {
+      font-size: 0.85rem;
+    }
+    .MuiSelect-select {
+      font-size: 0.85rem;
+      padding: 6px 8px;
+    }
+  }
+
+  @media (max-width: 414px) and (min-width: 320px) {
+    .MuiPaginationItem-sizeSmall {
+      margin: 0 1px !important;
+      padding: 1px 2px !important;
+      font-size: 0.75rem !important;
+      min-width: 18px !important;
+      height: 18px !important;
+    }
+
+    .MuiPaginationItem-sizeMedium {
+      margin: 0 1px !important;
+      padding: 2px 3px !important;
+      font-size: 0.775rem !important;
+      min-width: 19px !important;
+      height: 19px !important;
+    }
+
+    .MuiPaginationItem-sizeLarge {
+      margin: 0 1px !important;
+      padding: 3px 4px !important;
+      font-size: 0.8rem !important;
+      min-width: 20px !important;
+      height: 20px !important;
+    }
+
+    .MuiPagination-ul {
+      flex-wrap: nowrap;
+      gap: 0px;
+    }
+    .MuiPaginationItem-root {
+      margin: 0 2px;
+      padding: 2px 0px;
+      font-size: 0.85rem;
+      min-width: 25px;
+      height: 25px;
+    }
+    .MuiPaginationItem-root.MuiPaginationItem-rounded {
+      padding: 6px;
+      border-radius: 4px;
+    }
+    // Reduce dropdown width
+    .MuiFormControl-root {
+      min-width: 70px !important;
+    }
+    .MuiInputLabel-root {
+      font-size: 0.85rem;
+    }
+    .MuiSelect-select {
+      font-size: 0.85rem;
+      padding: 6px 8px;
+    }
+  }
+
+  // Selected (current) page
+  .MuiPaginationItem-root.Mui-selected {
+    font-weight: 700;
+    z-index: 1;
+  }
+  // Filled (default) selected
+  .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
+    background: var(--rds-color-primary, #2196f3);
+    color: #fff;
+    box-shadow: 0 2px 8px 0 rgba(33, 150, 243, 0.15);
+    border: 4px solid var(--rds-color-primary, #2196f3);
+  }
+  // Outlined selected
+  .MuiPaginationItem-root.Mui-selected.MuiPaginationItem-outlined {
+    background: transparent;
+    color: var(--rds-color-primary, #2196f3);
+    border: 2px solid var(--rds-color-primary, #2196f3);
+    box-shadow: none;
+  }
+  // Rounded selected (filled)
+  .MuiPaginationItem-root.Mui-selected.MuiPaginationItem-rounded:not(.MuiPaginationItem-outlined) {
+    background: var(--rds-color-primary, #2196f3);
+    color: #fff;
+    border-radius: 5px;
+    border: 4px solid var(--rds-color-primary, #2196f3);
+    box-shadow: 0 2px 8px 0 rgba(33, 150, 243, 0.15);
+  }
+  // Rounded selected (outlined)
+  .MuiPaginationItem-root.Mui-selected.MuiPaginationItem-rounded.MuiPaginationItem-outlined {
+    background: transparent;
+    color: var(--rds-color-primary, #2196f3);
+    border-radius: 5px;
+    border: 2px solid var(--rds-color-primary, #2196f3);
+    box-shadow: none;
+  }
+
+  // Disabled state
+  .MuiPaginationItem-root.Mui-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    background: #e0e0e0;
+    color: #bdbdbd;
+    border: none;
+  }
+
+  // Ellipsis
+  .MuiPaginationItem-ellipsis {
+    color: var(--rds-color-primary, #2196f3);
+    opacity: 0.5;
+    padding: 0 8px;
+  }
+
+  // Focus ring
+  .MuiPaginationItem-root:focus-visible {
+    outline: 2px solid var(--rds-color-primary, #2196f3);
+    outline-offset: 2px;
+  }
+}
+
+.css-1p5hatt-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
+.css-1p5hatt-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
+.css-1p5hatt-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+    padding-right: 28px !important;
+    font-size: 14px !important;
+    padding: 7.5px 8px !important;
+}

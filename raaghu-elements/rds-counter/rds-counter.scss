@@ -1,0 +1,724 @@
+// Mandatory indicator for label (BEM convention)
+.rds-counter__mandatory {
+  display: inline-block;
+  width: 1em;
+  color: var(--rds-color-error, #d32f2f); 
+  margin-left: 4px;
+  font-size: 1em;
+  font-weight: bold;
+  vertical-align: middle;
+  text-align: center;
+}
+
+
+.rds-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: fit-content;
+  gap: var(--rds-spacing-md, 10px);
+
+  &--compact {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--rds-spacing-sm, 6px);
+    width: auto;
+  }
+
+  &--default {
+    gap: var(--rds-spacing-md, 10px);
+  }
+
+  &--small {
+    font-size: var(--rds-font-size-sm, 14px);
+    gap: var(--rds-spacing-sm, 6px);
+  }
+  
+  &--medium {
+    font-size: var(--rds-font-size-md, 16px);
+    gap: var(--rds-spacing-md, 10px);
+  }
+  
+  &--large {
+    font-size: var(--rds-font-size-lg, 18px);
+    gap: var(--rds-spacing-lg, 14px);
+  }
+
+  &--disabled {
+    opacity: 0.6;
+  }
+
+  // Selected visual state (non-disabled)
+  &--selected:not(.rds-counter--disabled) {
+    .rds-counter__controls {
+      // border-color: var(--rds-color-primary, #3C98FF);
+      // box-shadow: 0 0 0 2px color-mix(in srgb, var(--rds-color-primary, #3C98FF) 40%, transparent);
+    }
+    .rds-counter__label {
+     // color: var(--rds-color-primary, #3C98FF);
+    }
+  }
+}
+
+.rds-counter__label {
+  font-weight: 500;
+  font-size: var(--rds-label-font-size, 16px);
+  color: var(--rds-text-primary, #212121);
+  margin-bottom: var(--rds-spacing-sm, 8px);
+  line-height: 1.3;
+  letter-spacing: 0;
+
+  &--compact {
+    font-size: var(--rds-font-size-sm, 14px);
+    margin-right: var(--rds-spacing-sm, 8px);
+    margin-bottom: 0;
+  }
+
+  &--small {
+    font-size: var(--rds-font-size-sm, 14px);
+    margin-bottom: var(--rds-spacing-xs, 6px);
+  }
+
+  &--medium {
+    font-size: var(--rds-font-size-md, 16px);
+    margin-bottom: var(--rds-spacing-sm, 8px);
+  }
+
+  &--large {
+    font-size: var(--rds-font-size-lg, 18px);
+    margin-bottom: var(--rds-spacing-md, 10px);
+  }
+}
+
+.rds-counter__controls {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--rds-neutral-main, #7D7D7D);
+  border-radius: var(--rds-border-radius, 4px);
+  padding: var(--rds-spacing-xs, 4px);
+  gap: var(--rds-spacing-sm, 6px);
+  width: fit-content;
+  height: 40px;
+  justify-content: space-between;
+
+  &--compact {
+    gap: var(--rds-spacing-xs, 4px);
+    height: 36px;
+    width: fit-content;
+    min-width: 100px;
+  }
+
+  &--default {
+    height: 40px;
+    width: fit-content;
+    min-width: 160px;
+    gap: var(--rds-spacing-sm, 8px);
+  }
+
+  &--small {
+    gap: var(--rds-spacing-xs, 4px);
+    height: 32px;
+    min-width: 100px;
+  }
+
+  &--medium {
+    gap: var(--rds-spacing-sm, 8px);
+    height: 40px;
+    min-width: 140px;
+  }
+
+  &--large {
+    gap: var(--rds-spacing-md, 10px);
+    height: 48px;
+    min-width: 180px;
+  }
+
+  .rds-counter--disabled & {
+    background-color: var(--rds-action-disabled-background, #f5f5f5);
+    border-color: var(--rds-action-disabled, #bdbdbd);
+  }
+}
+
+.rds-counter__button {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  border-radius: var(--rds-border-radius, 4px) !important;
+  background-color: var(--rds-color-primary, #3C98FF) !important;
+  color: var(--rds-primary-contrast-text, #fff) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  border: 1px solid var(--rds-color-primary, #3C98FF) !important;
+
+  &:hover:not(.rds-counter__button--disabled) {
+    background-color: var(--rds-color-primary-hover, #1976d2) !important;
+    border-color: var(--rds-color-primary-hover, #1976d2) !important;
+  }
+
+  &--compact {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+  }
+
+  &--default {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+  }
+
+  &--small {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    font-size: var(--rds-font-size-sm, 14px);
+  }
+
+  &--medium {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    font-size: var(--rds-font-size-md, 16px);
+  }
+
+  &--large {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    font-size: var(--rds-font-size-lg, 18px);
+  }
+
+  &--disabled {
+    // background-color: var(--rds-action-disabled-background, #f5f5f5) !important;
+    color: var(--rds-action-disabled, #bdbdbd) !important;
+    border-color: var(--rds-action-disabled, #bdbdbd) !important;
+    cursor: not-allowed !important;
+    opacity: 0.5 !important;
+
+    &:hover {
+      background-color: var(--rds-action-disabled-background, #f5f5f5) !important;
+      border-color: var(--rds-action-disabled, #bdbdbd) !important;
+    }
+  }
+}
+
+.rds-counter__input {
+  text-align: center;
+  font-weight: 500;
+  font-size: var(--rds-font-size-md, 16px);
+  padding: var(--rds-spacing-xs, 4px) !important;
+  background: none !important;
+  border: none !important;
+  color: inherit;
+  flex: 1;
+  min-width: 40px;
+  max-width: 80px;
+
+  input {
+    text-align: center !important;
+    font-weight: 500;
+    font-size: inherit;
+    padding: 4px !important;
+    background: none;
+    border: none;
+    color: inherit;
+    width: 100%;
+    
+    &:focus {
+      outline: none;
+      background-color: transparent;
+    }
+
+    // Remove number input arrows
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type=number] {
+      appearance: textfield;
+      -moz-appearance: textfield;
+    }
+  }
+
+  &--compact {
+    font-size: var(--rds-font-size-md, 16px);
+    min-width: 30px;
+    max-width: 50px;
+  }
+
+  &--default {
+    font-size: var(--rds-font-size-md, 16px);
+    min-width: 50px;
+    max-width: 80px;
+  }
+
+  &--small {
+    font-size: var(--rds-font-size-sm, 14px);
+    min-width: 30px;
+    max-width: 60px;
+  }
+
+  &--medium {
+    font-size: var(--rds-font-size-md, 16px);
+    min-width: 40px;
+    max-width: 70px;
+  }
+
+  &--large {
+    font-size: var(--rds-font-size-lg, 18px);
+    min-width: 50px;
+    max-width: 90px;
+  }
+
+  &--disabled {
+    color: var(--rds-action-disabled, #bdbdbd) !important;
+    background: var(--rds-action-disabled-background, #f5f5f5) !important;
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    input {
+      color: var(--rds-action-disabled, #bdbdbd) !important;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.rds-counter__value {
+  text-align: center;
+  font-weight: 500;
+  font-size: var(--rds-font-size-lg, 18px);
+  // Sync with label default token for visual consistency
+  color: var(--text-txt-neutral-light-default, var(--rds-text-primary, #212121));
+  line-height: 1.2;
+  flex: 1;
+  min-width: 40px;
+
+  &--compact {
+    font-size: var(--rds-font-size-md, 16px);
+    min-width: 30px;
+  }
+
+  &--default {
+    font-size: var(--rds-font-size-lg, 18px);
+    min-width: 50px;
+  }
+
+  &--small {
+    font-size: var(--rds-font-size-sm, 14px);
+    min-width: 30px;
+  }
+
+  &--medium {
+    font-size: var(--rds-font-size-md, 16px);
+    min-width: 40px;
+  }
+
+  &--large {
+    font-size: var(--rds-font-size-lg, 18px);
+    min-width: 50px;
+  }
+
+  &--disabled {
+    color: var(--rds-action-disabled, #bdbdbd) !important;
+    opacity: 0.5;
+  }
+}
+
+.rds-counter__icon {
+  font-size: 18px;
+
+  &--compact {
+    font-size: 16px !important;
+  }
+
+  &--default {
+    font-size: 18px !important;
+  }
+
+  &--small {
+    font-size: 16px !important;
+  }
+
+  &--medium {
+    font-size: 18px !important;
+  }
+
+  &--large {
+    font-size: 20px !important;
+  }
+}
+
+// Interactive Shopping Cart Counter Controls (compact variant)
+.rds-counter__controls--small_interactive {
+  width: 100px !important;
+  gap: 4px !important;
+  height: 32px !important;
+  margin-left: 18px !important;
+}
+
+.rds-counter__controls--medium_interactive {
+  width: 120px !important;
+  gap: 6px !important;
+  height: 36px !important;
+}
+
+.rds-counter__controls--large_interactive {
+  width: 140px !important;
+  gap: 8px !important;
+  height: 44px !important;
+}
+
+@media (max-width: 480px) {
+  .rds-counter {
+    &__controls {
+      width: 87% !important;
+    }
+    
+    &__input {
+      min-width: 40px !important;
+      max-width: 60px !important;
+    }
+    
+    &__value {
+      min-width: 40px !important;
+    }
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .rds-counter {
+    &__controls {
+      width: fit-content;
+      min-width: auto;
+    }
+    
+    &__input {
+      min-width: 50px !important;
+      max-width: 70px !important;
+    }
+    
+    &__value {
+      min-width: 50px !important;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .rds-counter {
+    &__controls {
+      &--default {
+        min-width: 140px;
+      }        
+      
+      &--large {
+        min-width: 160px;
+      }
+    }
+  }
+}
+
+// Responsive styles for Sizes and CompactSizes stories
+.rds-counter__responsive {
+  display: flex;
+  gap: var(--rds-spacing-md, 30px) !important;
+  align-items: flex-start;
+
+  @media (max-width: 600px) {
+    flex-direction: column; // Column layout for small screens
+  }
+
+  @media (min-width: 601px) {
+    flex-direction: row; // Row layout for large screens
+  }
+}
+
+// =============================================================================
+// DARK THEME STYLES
+// =============================================================================
+
+.dark-theme .rds-counter,
+[data-theme="dark"] .rds-counter {
+  
+  // Counter label styles for dark theme
+  &__label {
+    // Default dark theme neutral light token; selected state below will override
+    color: var(--text-txt-neutral-light-default, var(--rds-text-primary, #ffffff)) !important;
+    
+    &--compact,
+    &--small,
+    &--medium,
+    &--large {
+      color: var(--rds-text-primary, #ffffff) !important;
+    }
+  }
+  
+  // Counter controls container
+  &__controls {
+    background-color: var(--rds-background-paper, #1a1a1a) !important;
+    border: 1px solid var(--rds-border-default, #666666) !important;
+    border-radius: var(--rds-border-radius, 4px) !important;
+    
+    &--compact,
+    &--default,
+    &--small,
+    &--medium,
+    &--large {
+      background-color: var(--rds-background-paper, #1a1a1a) !important;
+      border-color: var(--rds-border-default, #666666) !important;
+    }
+  }
+  
+  // Counter buttons for dark theme
+  &__button {
+    background-color: var(--rds-color-primary, #7e2eef) !important;
+    color: var(--rds-primary-contrast-text, #ffffff) !important;
+    border: 1px solid var(--rds-color-primary, #7e2eef) !important;
+    
+    &:hover:not(&--disabled) {
+      background-color: var(--rds-color-primary-dark, #4f00a6) !important;
+      border-color: var(--rds-color-primary-dark, #4f00a6) !important;
+    }
+    
+    &:focus {
+
+  // Default STATE (not selected, not disabled) in dark theme
+  &:not(.rds-counter--selected):not(.rds-counter--disabled) {
+    .rds-counter__value,
+    .rds-counter__input,
+    .rds-counter__input input {
+      color: var(--text-txt-neutral-light-default, var(--rds-text-primary, #ffffff)) !important;
+    }
+  }
+      outline: none !important;
+      outline-offset: 0 !important;
+      box-shadow: none !important;
+    }
+    
+    &--disabled {
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+      color: var(--rds-text-disabled, #999999) !important;
+      border-color: var(--rds-border-dark, #666666) !important;
+      cursor: not-allowed !important;
+      opacity: 0.5 !important;
+    }
+    
+    // Size and type variants
+    &--compact,
+    &--default,
+    &--small,
+    &--medium,
+    &--large,
+    &--increment,
+    &--decrement {
+      background-color: var(--rds-color-primary, #7e2eef) !important;
+      border-color: var(--rds-color-primary, #7e2eef) !important;
+      color: var(--rds-primary-contrast-text, #ffffff) !important;
+    }
+  }
+  
+  // Counter input for dark theme
+  &__input {
+    background-color: transparent !important;
+    color: var(--rds-text-primary, #ffffff) !important;
+    border: none !important;
+    
+    input {
+      background-color: transparent !important;
+      color: var(--rds-text-primary, #ffffff) !important;
+      border: none !important;
+      
+      &::placeholder {
+        color: var(--rds-text-hint, #999999) !important;
+      }
+      
+      &:focus {
+        outline: none !important;
+        background-color: transparent !important;
+      }
+    }
+    
+    &--disabled {
+      color: var(--rds-text-disabled, #999999) !important;
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+      cursor: not-allowed;
+      opacity: 0.5;
+      
+      input {
+        color: var(--rds-text-disabled, #999999) !important;
+        background-color: transparent !important;
+      }
+    }
+    
+    // Size variants
+    &--compact,
+    &--default,
+    &--small,
+    &--medium,
+    &--large {
+      background-color: transparent !important;
+      color: var(--rds-text-primary, #ffffff) !important;
+    }
+  }
+  
+  // Counter value display for dark theme
+  &__value {
+    color: var(--text-txt-neutral-light-default, var(--rds-text-primary, #ffffff)) !important;
+    background-color: transparent !important;
+    
+    &--disabled {
+      color: var(--rds-text-disabled, #999999) !important;
+      opacity: 0.5;
+    }
+    
+    // Size variants
+    &--compact,
+    &--default,
+    &--small,
+    &--medium,
+    &--large {
+      color: var(--rds-text-primary, #ffffff) !important;
+    }
+  }
+  
+  // Counter icon for dark theme
+  &__icon {
+    color: inherit !important;
+    
+    // Size variants maintain the same color as parent button
+    &--compact,
+    &--default,
+    &--small,
+    &--medium,
+    &--large {
+      color: inherit !important;
+    }
+  }
+  
+  // Disabled state for entire counter in dark theme
+  &--disabled {
+    opacity: 0.6;
+    
+    .rds-counter__label {
+      color: var(--rds-text-disabled, #999999) !important;
+    }
+    
+    .rds-counter__controls {
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+      border-color: var(--rds-border-dark, #666666) !important;
+    }
+    
+    .rds-counter__input,
+    .rds-counter__value {
+      color: var(--rds-text-disabled, #999999) !important;
+    }
+  }
+
+
+  // Button interaction states
+  &__button {
+    &:active:not(&--disabled) {
+      background-color: var(--rds-color-primary-dark, #4f00a6) !important;
+      transform: translateY(1px);
+      transition: all 0.1s ease;
+    }
+    
+    &:focus-visible:not(&--disabled) {
+      outline: none !important;
+      outline-offset: 0 !important;
+      box-shadow: none !important;
+    }
+  }
+  
+  // Input focus states
+  &__input {
+    &:focus-within {
+      background-color: var(--rds-background-paper, #1a1a1a) !important;
+      
+      input:focus {
+        background-color: transparent !important;
+        outline: none !important;
+      }
+    }
+  }
+
+  // Better text contrast for readability
+  &__label,
+  &__value,
+  &__input {
+    text-shadow: none;
+    font-weight: 500;
+  }
+  
+  // Enhanced disabled state visibility
+  &--disabled {
+    .rds-counter__button {
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+      border-color: var(--rds-border-dark, #666666) !important;
+      color: var(--rds-text-disabled, #999999) !important;
+    }
+    
+    .rds-counter__controls {
+      background-color: var(--rds-background-paper, #2a2a2a) !important;
+      border-color: var(--rds-border-dark, #666666) !important;
+    }
+  }
+}
+
+// Interactive story styles
+.rds-counter__interactive {
+  &__header {
+    font-weight: bold;
+    margin-bottom: var(--rds-spacing-md, 16px);
+    font-size: 1.2rem;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--rds-spacing-sm, 8px) 0;
+    border-bottom: 1px solid var(--rds-neutral-light, #e0e0e0);
+  }
+
+  &__item-details {
+    flex: 1;
+
+    &-name {
+      font-weight: 500;
+    }
+
+    &-price {
+      font-size: 0.875rem;
+      color: var(--rds-text-secondary, #757575);
+    }
+  }
+
+  &__item-total {
+    text-align: right;
+    font-weight: 500;
+    width: 100px;
+  }
+
+  &__footer {
+    margin-top: var(--rds-spacing-lg, 24px);
+    padding-top: var(--rds-spacing-md, 16px);
+    // border-top: 2px solid var(--rds-primary-main, #3f51b5);
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+}
+
+// Default STATE (not selected, not disabled) unified neutral-light color
+.rds-counter:not(.rds-counter--selected):not(.rds-counter--disabled) {
+  .rds-counter__value,
+  .rds-counter__input,
+  .rds-counter__input input {
+    color: var(--text-txt-neutral-light-default, #969696);
+  }
+}
