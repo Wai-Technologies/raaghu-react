@@ -1,9 +1,8 @@
-
-
 import React, { useState } from 'react';
-import { Pagination as MuiPagination, PaginationProps, Select, MenuItem, Box, FormControl, InputLabel, SelectChangeEvent } from '@mui/material';
+import { Pagination as MuiPagination, PaginationProps, Select, MenuItem, Box, FormControl, InputLabel, SelectChangeEvent, TextField, Typography, Button } from '@mui/material';
+import { KeyboardArrowLeft, KeyboardArrowRight, FirstPage, LastPage } from '@mui/icons-material';
+import { getStyleConfig, calculatePaginationConfig, calculateTotalPages, generateLegendText } from './rds-pagination.helpers';
 import './rds-pagination.scss';
-
 export interface RdsPaginationProps extends PaginationProps {
   totalPages?: number;
   currentPage?: number;
@@ -13,6 +12,13 @@ export interface RdsPaginationProps extends PaginationProps {
   pageSize?: number;
   onPageSizeChange?: (size: number) => void;
   showRecordsPerPage?: boolean;
+  showDropdown?: boolean;
+  showLegend?: boolean;
+  legendText?: string;
+  showFirst?: boolean;
+  showLast?: boolean;
+  showManualInput?: boolean;
+  paginationStyle?: 'Style 1' | 'Style 2' | 'Style 3' | 'Style 4' | 'Style 5' | 'Style 6' | 'Style 7' | 'Style 8' | 'Style 9' | 'Style 10' | 'Style 11';
 }
 
 const RdsPagination: React.FC<RdsPaginationProps> = ({
@@ -26,12 +32,23 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
   pageSizeOptions = [10, 50, 100, 500],
   pageSize: pageSizeProp,
   showRecordsPerPage = false,
+  showDropdown = false,
+  showLegend = false,
+  legendText = "{current} of {total} items",
+  showFirst = false,
+  showLast = false,
+  showManualInput = false,
+  paginationStyle = 'Style 1',
   onPageSizeChange,
   ...props
 }) => {
-  // Local state fallback for page size if not controlled
   const [localPageSize, setLocalPageSize] = useState(pageSizeProp || pageSizeOptions[0]);
+  const [manualPageInput, setManualPageInput] = useState('');
   const pageSize = pageSizeProp !== undefined ? pageSizeProp : localPageSize;
+  
+  const styleConfig = getStyleConfig(paginationStyle);
+  const { finalSiblingCount, finalBoundaryCount } = calculatePaginationConfig(paginationStyle, styleConfig);
+  const { totalPagesCalc, totalRecords } = calculateTotalPages(count, totalPages, pageSize);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     if (onPageChange) {
@@ -50,43 +67,95 @@ const RdsPagination: React.FC<RdsPaginationProps> = ({
       setLocalPageSize(newSize);
     }
   };
+  const handleManualPageInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setManualPageInput(event.target.value);
+  };
+  const handleManualPageSubmit = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      const pageNumber = parseInt(manualPageInput);
+      if (pageNumber >= 1 && pageNumber <= totalPagesCalc) {
+        if (onPageChange) {
+          onPageChange(pageNumber);
+        }
+        if (onChange) {
+          onChange(event as any, pageNumber);
+        }
+        setManualPageInput('');
+      }
+    }
+  };
+  const currentPageNumber = page || currentPage || 1;
+  const legendTextGenerated = generateLegendText(legendText, currentPageNumber, pageSize, totalRecords, totalPagesCalc);
 
-  // If count is number of pages, use it directly. If it's number of records, calculate pages.
-  let totalPagesCalc = 1;
-  if (typeof count === 'number' && count > 1 && (!totalPages || totalPages < 2)) {
-    // count is likely number of pages
-    totalPagesCalc = count;
-  } else {
-    // count is likely number of records
-    const totalRecords = count || totalPages || 1;
-    totalPagesCalc = Math.ceil(totalRecords / pageSize);
-  }
-
+  const showFirstBtn = (styleConfig.showFirstControl !== false) && (showFirst || showFirstLast);
+  const showLastBtn = (styleConfig.showLastControl !== false) && (showLast || showFirstLast);
+  const shouldShowDropdown = showDropdown || showRecordsPerPage || 
+    (styleConfig.showDropdownControl && showDropdown !== false && showRecordsPerPage !== false);
+  const shouldShowLegend = showLegend || 
+    (styleConfig.showLegendControl && showLegend !== false) ||
+    (paginationStyle === 'Style 6');
+  const shouldShowManualInput = showManualInput || 
+    (styleConfig.showManualInputControl && showManualInput !== false);
   return (
-    <Box display="flex" alignItems="center" justifyContent="center" sx={{ my: 2 }}>
-      <MuiPagination
-        className="rds-pagination"
-        count={totalPagesCalc}
-        page={page || currentPage}
-        onChange={handleChange}
-        showFirstButton={showFirstLast}
-        showLastButton={showFirstLast}
-        {...props}
+    <Box className={`rds-pagination-wrapper ${styleConfig.styleClass || ''}`}>
+      {styleConfig.showPagination && (
+      <MuiPagination  className="rds-pagination"  count={totalPagesCalc}  page={page || currentPage}  onChange={handleChange}  showFirstButton={showFirstBtn}  showLastButton={showLastBtn}    variant={styleConfig.variant}    shape={styleConfig.shape}    size={styleConfig.size}    siblingCount={finalSiblingCount}    boundaryCount={finalBoundaryCount}  {...props}
       />
-      { showRecordsPerPage && (
-      <FormControl size="small" sx={{ minWidth: 65 }}>
+      )}
+      {styleConfig.showPrevNext && (
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Button variant="contained" size="small" disabled={currentPageNumber <= 1} onClick={() => handleChange({} as any, currentPageNumber - 1)}
+          >
+            {paginationStyle === 'Style 10' || paginationStyle === 'Style 11' ? (
+              <KeyboardArrowLeft />
+            ) : (
+              'Prev'
+            )}
+          </Button>
+          <Button variant="contained" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as any, currentPageNumber + 1)}
+          >
+            {paginationStyle === 'Style 10' ? (
+              <KeyboardArrowRight />
+            ) : (
+              'Next'
+            )}
+          </Button>
+        </Box>
+      )}
+      {styleConfig.showNextOnly && (
+        <Button variant="contained" size="small" disabled={currentPageNumber >= totalPagesCalc} onClick={() => handleChange({} as any, currentPageNumber + 1)}
+        >
+          Next
+        </Button>
+      )}
+      {shouldShowDropdown && (
+      <FormControl size="small" className={`pagination-dropdown ${styleConfig.styleClass || ''}`}>
         <InputLabel id="rds-pagination-page-size-label">Records per page</InputLabel>
-        <Select
-          labelId="rds-pagination-page-size-label"
-          value={pageSize}
-          label="Records per page"
-          onChange={handlePageSizeChange}
+        <Select labelId="rds-pagination-page-size-label" value={pageSize} label="Records per page" onChange={handlePageSizeChange}
         >
           {pageSizeOptions.map(opt => (
             <MenuItem key={opt} value={opt}>{opt}</MenuItem>
           ))}
         </Select>
       </FormControl>
+      )}
+      {shouldShowLegend && (
+        <Box className={`pagination-legend ${styleConfig.styleClass || ''}`}>
+          {legendTextGenerated}
+        </Box>
+      )}
+      {shouldShowManualInput && (
+        <Box className={`pagination-manual-input ${styleConfig.styleClass || ''}`}>
+          <Typography variant="body2">
+            Go to
+          </Typography>
+          <TextField  size="small"  value={manualPageInput}  onChange={handleManualPageInput}  onKeyPress={handleManualPageSubmit}  placeholder="1"  inputProps={{    min: 1,    max: totalPagesCalc,    type: 'number'
+            }}
+          />
+          <Typography variant="body2">
+            Page
+          </Typography>
+        </Box>
       )}
     </Box>
   );
