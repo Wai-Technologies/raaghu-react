@@ -32,6 +32,12 @@ const meta: Meta<typeof RdsSwitch> = {
       description: 'Switch style variant',
       defaultValue: 'Style 1',
     },
+    color: {
+      control: 'select',
+      options: ["primary", "secondary", "error", "warning", "info", "success"],
+      description: 'Switch color variant',
+      defaultValue: 'primary',
+    },
   },
 };
 
@@ -60,6 +66,7 @@ export const Colors: Story = {
     label: 'Secondary Color',
     color: 'secondary',
     defaultChecked: true,
+    showLabel: true,
   },
 };
 

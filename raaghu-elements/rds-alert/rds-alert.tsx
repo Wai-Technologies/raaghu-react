@@ -45,6 +45,7 @@ const RdsAlert= ({
   const sizeClass = `rds-alert--${size}`;
   const styleClass = `rds-alert--${variantStyle}`;
   const severityClass = `rds-alert--${(severity || type)}`;
+  const multilineClass = multiline ? 'rds-alert--multiline' : '';
   let iconNode: React.ReactNode | false = false;
   if (showIcon) {
     if (changeIconName === null) {
@@ -69,7 +70,7 @@ const RdsAlert= ({
       variant={variant}
       severity={severity || type}
       icon={iconNode}
-      className={`rds-alert ${sizeClass} ${styleClass} ${severityClass}${props.className ? ` ${props.className}` : ''}`}
+      className={`rds-alert ${sizeClass} ${styleClass} ${severityClass} ${multilineClass}${props.className ? ` ${props.className}` : ''}`}
       {...props}
     >
       <div className="rds-alert__wrapper">
@@ -97,19 +98,31 @@ const RdsAlert= ({
         </div>
         {showButtons && (showLink || showSecondary || showPrimary) && (
           <div className="rds-alert__actions">
-            {showLink && (
-              <RdsButton
-                style="transparent"
-                size="small"
-                className="rds-alert__link-button"
-                text="Link"
-                color="primary"
-                textCase="capitalize"
-              />
+            {multiline ? (
+              // For multiline: restructure layout with bottom row
+              <>
+                <div className="rds-alert__bottom-row">
+                  <div className="rds-alert__left-actions">
+                    {showLink && (
+                      <a href="#" className="rds-alert__link-button">Link</a>
+                    )}
+                  </div>
+                  <div className="rds-alert__right-actions">
+                    {showSecondary && <RdsButton style="transparent" size="small" text="Cancel" textCase="capitalize" color={(severity || type) === 'error' ? 'error' : 'primary'} />}
+                    {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color={(severity || type) === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
+                  </div>
+                </div>
+              </>
+            ) : (
+              // For single line: original layout
+              <>
+                {showLink && (
+                      <a href="#" className="rds-alert__link-button">Link</a>
+                )}
+                {showSecondary && <RdsButton style="transparent" size="small" sx={{ mr: showPrimary ? 2 : 0 }} text="Cancel" textCase="capitalize" color={(severity || type) === 'error' ? 'error' : 'primary'} />}
+                {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color={(severity || type) === 'error' ? 'error' : 'primary'} textCase="capitalize" />}
+              </>
             )}
-
-            {showSecondary && <RdsButton style="transparent" size="small" sx={{ mr: showPrimary ? 2 : 0 }} text="Cancel" textCase="capitalize" />}
-            {showPrimary && <RdsButton className="rds-alert__primary-button" style="filled" size="small" text="Okay" color="primary" textCase="capitalize" />}
           </div>
         )}
       </div>
