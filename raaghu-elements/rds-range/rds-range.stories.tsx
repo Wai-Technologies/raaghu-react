@@ -191,41 +191,98 @@ export const Disabled: Story = {
 };
 
 export const Interactive: Story = {
-  render: () => {
+  args: {
+    type: 'one-way',
+    level: '3',
+    leftLabel: 0,
+    rightLabel: 100,
+    showValue: true,
+    showLabel: false,
+    showTooltip: false,
+  },
+  argTypes: {
+    color: { control: false },
+    value: { control: false },
+  },
+  render: (args) => {
     const [singleValue, setSingleValue] = useState(30);
-    const [rangeValue, setRangeValue] = useState([20, 80]);
-    const [priceRange, setPriceRange] = useState([100, 500]);
+    const [rangeValue, setRangeValue] = useState<[number, number]>([20, 80]);
+    const [priceRange, setPriceRange] = useState<[number, number]>([100, 500]);
+
+    const isOneWay = args.type === 'one-way';
 
     return (
       <Box sx={{ width: 400, display: 'flex', flexDirection: 'column', gap: 4 }}>
         <RdsRange
-          value={singleValue}
-          onChange={(value) => setSingleValue(value as number)}
-          leftLabel={0}
-          rightLabel={100}
-          label="Single Value Slider"
-          showValue
+          value={isOneWay && args.level ? undefined : (isOneWay ? singleValue : rangeValue)}
+          onChange={(value) => {
+            if (isOneWay) {
+              setSingleValue(value as number);
+            } else {
+              setRangeValue(value as [number, number]);
+            }
+          }}
+          type={args.type}
+          level={args.level}
+          leftLabel={args.leftLabel}
+          rightLabel={args.rightLabel}
+          showValue={args.showValue}
+          showLabel={args.showLabel}
+          showTooltip={args.showTooltip}
+          step={args.step}
+          disabled={args.disabled}
+          color={args.color}
+          size={args.size}
+          formatValue={args.formatValue}
+          label="Single Value / Range"
         />
-        
+
         <RdsRange
-          value={rangeValue}
-          onChange={(value) => setRangeValue(value as number[])}
-          leftLabel={0}
-          rightLabel={100}
-          label="Range Slider"
-          showValue
+          value={isOneWay && args.level ? undefined : (isOneWay ? singleValue : rangeValue)}
+          onChange={(value) => {
+            if (isOneWay) {
+              setSingleValue(value as number);
+            } else {
+              setRangeValue(value as [number, number]);
+            }
+          }}
+          type={args.type}
+          level={args.level}
+          leftLabel={args.leftLabel}
+          rightLabel={args.rightLabel}
+          showValue={args.showValue}
+          showLabel={args.showLabel}
+          showTooltip={args.showTooltip}
+          step={args.step}
+          disabled={args.disabled}
+          color="primary"
+          size={args.size}
+          formatValue={args.formatValue}
+          label="Primary"
         />
-        
+
         <RdsRange
-          value={priceRange}
-          onChange={(value) => setPriceRange(value as number[])}
-          leftLabel={0}
-          rightLabel={1000}
-          step={50}
-          label="Price Range"
-          showValue
-          formatValue={(value) => `$${value}`}
+          value={isOneWay && args.level ? undefined : (isOneWay ? singleValue : priceRange)}
+          onChange={(value) => {
+            if (isOneWay) {
+              setSingleValue(value as number);
+            } else {
+              setPriceRange(value as [number, number]);
+            }
+          }}
+          type={args.type}
+          level={args.level}
+          leftLabel={args.leftLabel}
+          rightLabel={args.rightLabel ?? 1000}
+          step={args.step ?? 50}
+          showValue={args.showValue}
+          showLabel={args.showLabel}
+          showTooltip={args.showTooltip}
+          disabled={args.disabled}
           color="secondary"
+          size={args.size}
+          formatValue={args.formatValue ?? ((value: number) => `$${value}`)}
+          label="Secondary"
         />
       </Box>
     );
