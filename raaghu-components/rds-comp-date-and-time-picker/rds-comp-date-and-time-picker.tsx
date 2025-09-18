@@ -12,6 +12,9 @@ import { TimeClock } from '@mui/x-date-pickers/TimeClock';
 import Popover from '@mui/material/Popover';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import EventIcon from '@mui/icons-material/Event';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -256,12 +259,14 @@ function RangeTime({
   showSeconds,
   minTime,
   maxTime,
+  size = 'medium',
 }: {
   value: [Dayjs | null, Dayjs | null];
   onChange: (v: [Dayjs | null, Dayjs | null]) => void;
   showSeconds: boolean;
   minTime?: Dayjs;
   maxTime?: Dayjs;
+  size?: 'small' | 'medium';
 }) {
   const [start, end] = value;
   
@@ -307,7 +312,7 @@ function RangeTime({
           maxTime={startMaxTime} // Use end time as maximum for start time (allows same time)
           slotProps={{
             textField: {
-              size: 'medium',
+              size: size,
               fullWidth: true,
             },
           }}
@@ -325,7 +330,7 @@ function RangeTime({
           maxTime={maxTime}
           slotProps={{
             textField: {
-              size: 'medium',
+              size: size,
               fullWidth: true,
             },
           }}
@@ -344,6 +349,7 @@ function RangeDateTime({
   minTime,
   maxTime,
   multiMonth,
+  size = 'medium',
 }: {
   value: [Dayjs | null, Dayjs | null];
   onChange: (v: [Dayjs | null, Dayjs | null]) => void;
@@ -353,11 +359,12 @@ function RangeDateTime({
   minTime?: Dayjs;
   maxTime?: Dayjs;
   multiMonth?: boolean;
+  size?: 'small' | 'medium';
 }) {
   return (
     <Stack direction="column" spacing={2}>
       <RangeCalendar value={value} onChange={onChange} minDate={minDate} maxDate={maxDate} multiMonth={multiMonth} />
-      <RangeTime value={value} onChange={onChange} showSeconds={showSeconds} minTime={minTime} maxTime={maxTime} />
+      <RangeTime value={value} onChange={onChange} showSeconds={showSeconds} minTime={minTime} maxTime={maxTime} size={size} />
     </Stack>
   );
 }
@@ -499,7 +506,21 @@ export default function RdsCompDatePicker({
           size={size}
           fullWidth
           disabled={disabled}
-          InputProps={{ readOnly: true, style: { cursor: disabled ? 'default' : 'pointer' } }}
+          InputProps={{ readOnly: true, style: { cursor: disabled ? 'default' : 'pointer' },
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  edge="end"
+                  size={size === 'small' ? 'small' : 'medium'}
+                  onClick={(e) => { e.stopPropagation(); if (!disabled) setAnchorEl(e.currentTarget as HTMLElement); }}
+                  disabled={disabled || readOnly}
+                  aria-label="open calendar"
+                >
+                  <EventIcon fontSize="small" />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
           error={error}
           helperText={helperText}
           className={`rds-date-picker__input ${disabled ? 'rds-date-picker__input--disabled' : ''} ${readOnly ? 'rds-date-picker__input--readonly' : ''} ${isRequired ? 'rds-date-picker__input--required' : ''}`}
@@ -545,6 +566,7 @@ export default function RdsCompDatePicker({
                     showSeconds={showSeconds}
                     minTime={minTime}
                     maxTime={maxTime}
+                    size={size}
                   />
                 )}
                 {variant === 'datetimerange' && (
@@ -557,6 +579,7 @@ export default function RdsCompDatePicker({
                     minTime={minTime}
                     maxTime={maxTime}
                     multiMonth={isMultiMonth}
+                    size={size}
                   />
                 )}
               </>
@@ -614,6 +637,7 @@ export default function RdsCompDatePicker({
             showSeconds={showSeconds}
             minTime={minTime}
             maxTime={maxTime}
+            size={size}
           />
         );
 
