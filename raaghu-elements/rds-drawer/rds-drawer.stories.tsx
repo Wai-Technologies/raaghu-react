@@ -1,20 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Button, List, ListItem, ListItemText, Typography } from '@mui/material';
-import { useState } from 'react';
+import {List, ListItem, ListItemText, Typography } from '@mui/material';
 import RdsDrawer from './rds-drawer';
-import RdsButton from '../rds-button/rds-button';
+import RdsTypography from '../rds-typography/rds-typography';
 
 const meta: Meta<typeof RdsDrawer> = {
   title: 'Elements/Drawer',
   component: RdsDrawer,
   parameters: {
-    layout: 'fullscreen',
+    layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
-    open: {
-      control: { type: 'boolean' },
-    },
     anchor: {
       control: { type: 'select' },
       options: ['left', 'right', 'top', 'bottom'],
@@ -22,6 +18,11 @@ const meta: Meta<typeof RdsDrawer> = {
     variant: {
       control: { type: 'select' },
       options: ['permanent', 'persistent', 'temporary'],
+    },
+    container: {
+      table: {
+        disable: true,
+      },
     },
   },
 };
@@ -31,9 +32,9 @@ type Story = StoryObj<typeof meta>;
 
 const drawerContent = (
   <div style={{ width: 250, padding: '16px' }}>
-    <Typography variant="h6" gutterBottom>
+    <RdsTypography variant="h6" gutterBottom>
       Drawer Content
-    </Typography>
+    </RdsTypography>
     <List>
       <ListItem>
         <ListItemText primary="Item 1" />
@@ -53,97 +54,96 @@ const drawerContent = (
 
 export const Default: Story = {
   args: {
-    open: true,
+    showTrigger: true,
+    triggerText: 'Open Drawer',
+    anchor: 'left',
     children: drawerContent,
   },
+};
+Default.parameters = {
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant'] },
 };
 
 export const Right: Story = {
   args: {
-    open: true,
+    showTrigger: true,
+    triggerText: 'Open Drawer',
     anchor: 'right',
     children: drawerContent,
   },
 };
+Right.parameters = {
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant'] },
+};
 
 export const Top: Story = {
   args: {
-    open: true,
+    showTrigger: true,
+    triggerText: 'Open Drawer',
     anchor: 'top',
     children: (
       <div style={{ height: 200, padding: '16px' }}>
         <Typography variant="h6" gutterBottom>
           Top Drawer
         </Typography>
-        <Typography variant="body1">
-          This drawer slides from the top of the screen.
-        </Typography>
+        <Typography variant="body1">This drawer slides from the top of the screen.</Typography>
       </div>
     ),
   },
 };
+Top.parameters = {
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant'] },
+};
 
 export const Bottom: Story = {
   args: {
-    open: true,
+    showTrigger: true,
+    triggerText: 'Open Drawer',
     anchor: 'bottom',
     children: (
       <div style={{ height: 200, padding: '16px' }}>
         <Typography variant="h6" gutterBottom>
           Bottom Drawer
         </Typography>
-        <Typography variant="body1">
-          This drawer slides from the bottom of the screen.
+        <Typography variant="body1">This drawer slides from the bottom of the screen.</Typography>
+      </div>
+    ),
+  },
+};
+Bottom.parameters = {
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant'] },
+};
+
+export const Persistent: Story = {
+  args: {
+    showTrigger: true,
+    triggerText: 'Open Persistent Drawer',
+    triggerTextWhenOpen: 'Close Persistent Drawer',
+    variant: 'persistent',
+    anchor: 'left',
+    children: drawerContent,
+  },
+};
+Persistent.parameters = {
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'triggerTextWhenOpen'] },
+};
+
+export const Interactive: Story = {
+  args: {
+    showTrigger: true,
+    triggerText: 'Open Drawer',
+    anchor: 'left',
+    showCloseButton: true,
+    closeButtonText: 'Close Drawer',
+    children: (
+      <div style={{ width: 250, padding: '16px' }}>
+        <Typography variant="h6" gutterBottom>
+          Interactive Drawer
         </Typography>
       </div>
     ),
   },
 };
-
-export const Persistent: Story = {
-  args: {
-    open: true,
-    variant: 'persistent',
-    children: drawerContent,
-  },
-};
-
-export const Interactive: Story = {
-  render: () => {
-    const [open, setOpen] = useState(false);
-    
-    return (
-      <>
-        <RdsButton
-          color="primary"
-          layout="text-only"
-          shape="rectangle"
-          size="medium"
-          state="default"
-          style="filled"
-          text="Open Drawer"
-          textCase="unset"
-          onClick={() => setOpen(true)}
-        />
-        <RdsDrawer open={open} onClose={() => setOpen(false)} anchor="left">
-          <div style={{ width: 250, padding: "16px" }}>
-            <Typography variant="h6" gutterBottom>
-              Interactive Drawer
-            </Typography>
-            <RdsButton
-              color="primary"
-              layout="text-only"
-              shape="rectangle"
-              size="medium"
-              state="default"
-              style="filled"
-              text="Close Drawer"
-              textCase="unset"
-              onClick={() => setOpen(false)}
-            />
-          </div>
-        </RdsDrawer>
-      </>
-    );
-  },
+Interactive.parameters = {
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'showCloseButton'] },
 };

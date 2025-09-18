@@ -1,3 +1,56 @@
+/* Styles for RdsButtonDropdown fallback plain-text option */
+.rds-button-dropdown {
+  &__menu {
+    padding: 8px;
+    min-width: 200px;
+  }
+
+  &__search {
+    margin-bottom: 8px;
+  }
+
+  &__list {
+    max-height: 240px;
+    overflow-y: auto;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+  }
+
+  /* Fallback plain-text option when neither checkbox nor radio used */
+  &__option {
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    width: 100%;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
+    outline: none;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+
+    &--selected {
+      background-color: #e3f2fd;
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
+}
+
+/* Small utility for avatar spacing inside list items when present */
+.rds-button-dropdown__avatar {
+  flex: 0 0 auto;
+}
 .rds-button-dropdown__item-label {
 	cursor: pointer;
 	padding: 6px 8px;
@@ -12,4 +65,3 @@
 	gap: 8px;
 	padding: 6px 4px;
 }
-

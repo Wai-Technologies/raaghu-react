@@ -15,7 +15,11 @@ export interface RdsDialogProps extends DialogProps {
   variant?: 'standard' | 'default';
   ShowPrimary?: boolean;
   ShowSecondary?: boolean;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
+  showTitle?: boolean;
+  /**
+   * Size passed directly to MUI Dialog maxWidth prop. Supported values align with MUI plus false to disable constraint.
+   */
+  size?: 'extra-small' | 'small' | 'medium' | 'large' | 'extra-large' | false;
 }
 
 const RdsDialog = ({
@@ -27,16 +31,30 @@ const RdsDialog = ({
   variant = 'default',
   ShowPrimary,
   ShowSecondary,
-  size = 'md',
+  showTitle = true,
+  size = 'medium',
   ...props
 }:RdsDialogProps) => {
+  // Map DS size to MUI's maxWidth prop values
   if (variant === 'standard') {
     return (
-      <MuiDialog onClose={onClose} maxWidth={size} {...props} PaperProps={{ className: 'rds-dialog rds-dialog__paper' }}>
-        {(title || ShowDissmiss) && (
+      <MuiDialog
+        onClose={onClose}
+        maxWidth={
+          size === 'extra-small' ? 'xs' :
+          size === 'small' ? 'sm' :
+          size === 'medium' ? 'md' :
+          size === 'large' ? 'lg' :
+          size === 'extra-large' ? 'xl' :
+          size
+        }
+        {...props}
+        PaperProps={{ className: 'rds-dialog rds-dialog__paper' }}
+      >
+        {((title && showTitle) || ShowDissmiss) && (
           <DialogTitle className="rds-dialog__title">
             <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '100%' }}>
-              <div style={{ flex: 1 }}>{title}</div>
+              <div style={{ flex: 1 }}>{showTitle ? title : null}</div>
               {ShowDissmiss && (
                 <IconButton aria-label="close" className="rds-dialog__close-button" onClick={onClose} size="medium">
                   <CloseIcon />
@@ -48,14 +66,18 @@ const RdsDialog = ({
         <DialogContent className="rds-dialog__content" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', textAlign: 'center' }}>{children}</DialogContent>
         <DialogActions className="rds-dialog__actions">
           {ShowSecondary && (
-            <Button onClick={onClose} className="rds-dialog__button rds-dialog__button__dismiss" variant="text">Cancel</Button>
+            <RdsButton
+              onClick={onClose}
+              className="rds-dialog__button rds-dialog__button__dismiss"
+              style="filled"
+            >Cancel</RdsButton>
           )}
           {ShowPrimary && (
             <RdsButton
-              onClick={() => { }}
-              className="rds-dialog__button rds-dialog__button__primary"
-              style="filled"
-            >Okay</RdsButton>
+              onClick={onClose}
+              className="rds-dialog__button rds-dialog__button__primary-link"
+              text="Okay"
+            />
           )}
         </DialogActions>
       </MuiDialog>
@@ -63,10 +85,21 @@ const RdsDialog = ({
   }
 
   return (
-  <MuiDialog onClose={onClose} maxWidth={size} {...props}>
-      {(title || ShowDissmiss) && (
+  <MuiDialog
+    onClose={onClose}
+    maxWidth={
+      size === 'extra-small' ? 'xs' :
+      size === 'small' ? 'sm' :
+      size === 'medium' ? 'md' :
+      size === 'large' ? 'lg' :
+      size === 'extra-large' ? 'xl' :
+      size
+    }
+    {...props}
+  >
+      {((title && showTitle) || ShowDissmiss) && (
         <DialogTitle sx={{ position: 'relative', paddingRight: ShowDissmiss ? '40px' : undefined }}>
-          {title}
+          {showTitle ? title : null}
           {ShowDissmiss && onClose && (
             <IconButton
               aria-label="close"

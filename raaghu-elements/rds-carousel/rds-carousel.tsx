@@ -6,6 +6,7 @@ import './rds-carousel.scss';
 export interface RdsCarouselProps {
   children: React.ReactNode[];
   autoPlay?: boolean;
+  className?: string;
   autoPlayInterval?: number;
   showArrows?: boolean;
   showDots?: boolean;
@@ -21,6 +22,7 @@ export interface RdsCarouselProps {
 
 const RdsCarousel = ({
   children,
+  className,
   autoPlay = false,
   autoPlayInterval = 3000,
   showArrows = true,
@@ -73,8 +75,7 @@ const RdsCarousel = ({
   const getCarouselClasses = () => {
     const baseClass = 'rds-carousel';
     const styleClass = `${baseClass}--${style.replace(' ', '-')}`;
-    
-    return `${baseClass} ${styleClass}`;
+    return [baseClass, styleClass, className].filter(Boolean).join(' ');
   };
 
   return (
@@ -86,6 +87,9 @@ const RdsCarousel = ({
         overflow: 'hidden',
         width: style === 'full width image' ? '100vw' : '100%',
         marginLeft: style === 'full width image' ? 'calc(-50vw + 50%)' : 0,
+        backgroundColor: style === 'full width image'
+          ? 'var(--rds-background-paper, transparent)'
+          : 'transparent',
       }}
     >
       {/* Slides */}
@@ -112,6 +116,9 @@ const RdsCarousel = ({
                 position: 'relative',
                 display: 'flex',
                 flexDirection: style === 'with title' ? 'column' : 'row',
+                backgroundColor: style === 'full width image'
+                  ? 'var(--rds-background-paper, transparent)'
+                  : 'transparent',
               }}
             >
               {/* Title above image for 'with title' style */}

@@ -224,7 +224,7 @@
         height: var(--checkbox-size);
         border: var(--checkbox-border-width) solid var(--rds-border-default, #d0d7de);
         border-radius: var(--rds-border-radius-full, 50%);
-        background-color: var(--rds-background-surface, #ffffff);
+        background-color: transparent; 
         transform: translate(-50%, -50%);
         transition: var(--checkbox-transition);
         z-index: 1;
@@ -344,5 +344,24 @@
         }
       }
     }
+
+[data-theme='dark'] & {
+  .MuiCheckbox-root {
+    &::before {
+      background-color: transparent;
+    }
+
+    &.Mui-checked::before,
+    &.MuiCheckbox-indeterminate::before {
+      background-color: var(--rds-primary-main, #2196f3);
+    }
+  }
+
+  &.rds-checkbox__secondary .MuiCheckbox-root.Mui-checked::before,
+  &.rds-checkbox__secondary .MuiCheckbox-root.MuiCheckbox-indeterminate::before {
+    background-color: var(--rds-secondary-main, #1827BB);
+  }
+}
+
   }
 }

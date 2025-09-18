@@ -112,56 +112,49 @@ const RdsCard = ({
     );
   };
 
-  const renderCardContent = () => {
-    // If title, cardSubtext, or description are provided, render them with proper BEM classes
-    if (title || cardSubtext || description) {
-      return (
-        <div className="rds-card__content">
-          {title && showTitle && (
-            <Typography
-              variant="h5"
-              component="h2"
-              className="rds-card__title"
-            >
-              {title}
-            </Typography>
-          )}
-          {cardSubtext && showSubtext && (
-            <Typography 
-              variant="body2"
-              component="p"
-              className="rds-card__subtext"
-            >
-              {cardSubtext}
-            </Typography>
-          )}
-          {description && showDescription && (
-            <Typography 
-              variant="body2"
-              component="p"
-              className="rds-card__description"
-            >
-              {description}
-            </Typography>
-          )}
-          {children && (
-            <div className="rds-card__additional-content">
-              {children}
-            </div>
-          )}
-        </div>
-      );
-    }
+  const renderHeaderText = () => (
+    <div className="rds-card__content">
+      {title && showTitle && (
+        <Typography
+          variant="h5"
+          component="h2"
+          className="rds-card__title"
+        >
+          {title}
+        </Typography>
+      )}
+      {cardSubtext && showSubtext && (
+        <Typography 
+          variant="body2"
+          component="p"
+          className="rds-card__subtext"
+        >
+          {cardSubtext}
+        </Typography>
+      )}
+    </div>
+  );
 
-    if (layout === 'horizontal' && children) {
-      return (
-        <div className="rds-card__content">
-          {children}
-        </div>
-      );
-    }
-    
-    return children;
+  const renderDescriptionAndChildren = () => {
+    if (!description && !children) return null;
+    return (
+      <div className="rds-card__below-content">
+        {description && showDescription && (
+          <Typography 
+            variant="body2"
+            component="p"
+            className="rds-card__description"
+          >
+            {description}
+          </Typography>
+        )}
+        {children && (
+          <div className="rds-card__additional-content">
+            {children}
+          </div>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -178,19 +171,31 @@ const RdsCard = ({
           <div className="rds-card__indicator-icon"></div>
         </div>
       )}
-      {layout === 'horizontal' && showIcon && (
-        <div className="rds-card__icon-container">
-          {renderIcon()}
+      {layout === 'horizontal' ? (
+        <>
+          <div className="rds-card__header-row">
+            {showIcon && (
+              <div className="rds-card__icon-container">
+                {renderIcon()}
+              </div>
+            )}
+            <div className="rds-card__header-text">
+              {renderHeaderText()}
+            </div>
+          </div>
+          {renderDescriptionAndChildren()}
+        </>
+      ) : (
+        <div className="rds-card__content-wrapper">
+          {showIcon && (
+            <div className="rds-card__icon-container rds-card__icon-container--vertical">
+              {renderIcon()}
+            </div>
+          )}
+          {renderHeaderText()}
+          {renderDescriptionAndChildren()}
         </div>
       )}
-      <div className="rds-card__content-wrapper">
-        {layout === 'vertical' && showIcon && (
-          <div className="rds-card__icon-container rds-card__icon-container--vertical">
-            {renderIcon()}
-          </div>
-        )}
-        {renderCardContent()}
-      </div>
     </MuiCard>
   );
 };

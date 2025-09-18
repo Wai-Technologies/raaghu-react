@@ -7,6 +7,7 @@ import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import RdsRadio from '../rds-radio/rds-radio';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
+import './rds-button-dropdown.scss';
 
 export interface RdsButtonDropdownOption {
   id: string | number;
@@ -145,12 +146,12 @@ const RdsButtonDropdown = ({
                     layout="icon with label"
                   />
                 ) : (
+                  // Fallback: Plain text option when neither checkbox nor radio is enabled
                   <div
-                    role="menuitem"
-                    tabIndex={0}
-                    onClick={() => handleOptionChange(opt.id)}
-                    onKeyDown={(e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleOptionChange(opt.id); } }}
-                    className="rds-button-dropdown__item-label"
+                    role="option"
+                    aria-selected={selected.includes(opt.id)}
+                    className={`rds-button-dropdown__option ${selected.includes(opt.id) ? 'rds-button-dropdown__option--selected' : ''} ${opt.disabled ? 'rds-button-dropdown__option--disabled' : ''}`}
+                    onClick={() => !opt.disabled && handleOptionChange(opt.id)}
                   >
                     {opt.label}
                   </div>
