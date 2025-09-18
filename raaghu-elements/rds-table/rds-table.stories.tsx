@@ -209,19 +209,22 @@ const defaultColumns = [
     label: 'Text', 
     minWidth: 60,
     type: 'text' as const,
+    sortable: true,
     align: 'center' as const
   },
   { 
     id: 'text1', 
     label: 'Text', 
     minWidth: 80,
-    type: 'text' as const
+    type: 'text' as const,
+    sortable: true
   },
   { 
     id: 'badge1', 
     label: 'Text', 
     minWidth: 60,
     type: 'text' as const,
+    sortable: true,
     format: (value: string) => (
         <RdsBadge 
           badgeContent="Badge" 
@@ -250,13 +253,15 @@ const defaultColumns = [
     id: 'text2', 
     label: 'Text', 
     minWidth: 80,
-    type: 'text' as const
+    type: 'text' as const,
+    sortable: true
   },
   { 
     id: 'textColumn', 
     label: 'Text', 
     minWidth: 80,
     type: 'text' as const,
+    sortable: true,
     format: (value: string) => {
       const lines = value.split('\n');
       return (
@@ -272,6 +277,7 @@ const defaultColumns = [
     label: 'Text', 
     type: 'text' as const,
     minWidth: 250,
+    sortable: true,
     format: () => (
       <RdsAvatar
         alt="User Avatar"
@@ -288,13 +294,15 @@ const defaultColumns = [
     id: 'sampleText', 
     label: 'Text', 
     minWidth: 165,
-    type: 'text' as const
+    type: 'text' as const,
+    sortable: true
   },
   { 
     id: 'linkText', 
     label: 'Text', 
     minWidth: 80,
     type: 'text' as const,
+    sortable: true,
     format: (value: string) => (
       <span className="rds-table__link-text">
         {value}
@@ -306,6 +314,7 @@ const defaultColumns = [
     label: 'Text', 
     minWidth: 120,
     type: 'text' as const,
+    sortable: true,
     format: () => (
       <div className="rds-table__progress-container">
         <RdsProgress
@@ -324,6 +333,7 @@ const defaultColumns = [
     label: 'Text', 
     minWidth: 180,
     type: 'text' as const,
+    sortable: true,
     format: (value: string) => (
       <div className="rds-table__content-row">
         <span className="rds-table__content-text">Text</span>
@@ -350,6 +360,7 @@ const defaultColumns = [
     minWidth: 80,
     type: 'text' as const,
     align: 'center' as const,
+    sortable: true,
     format: () => (
       <RdsIconButton color="error">
         <DeleteIcon />
@@ -361,6 +372,7 @@ const defaultColumns = [
     label: 'Text', 
     minWidth: 180,
     type: 'text' as const,
+    sortable: true,
     format: (value: string) => (
       <div className="rds-table__content-row">
         <RdsBadge 
@@ -384,10 +396,10 @@ const defaultColumns = [
 ];
 
 const columns = [
-  { id: 'id', label: 'ID', minWidth: 70 },
-  { id: 'name', label: 'Name', minWidth: 150 },
-  { id: 'email', label: 'Email', minWidth: 200 },
-  { id: 'role', label: 'Role', minWidth: 120 },
+  { id: 'id', label: 'ID', minWidth: 70, sortable: true },
+  { id: 'name', label: 'Name', minWidth: 150, sortable: true },
+  { id: 'email', label: 'Email', minWidth: 200, sortable: true },
+  { id: 'role', label: 'Role', minWidth: 120, sortable: true },
 ];
 
 const advancedColumns = [
@@ -438,6 +450,8 @@ export const Default: Story = {
         {...args}
         selectedRows={selected}
         onRowSelect={setSelected}
+        defaultSortBy="id"
+        defaultSortDirection="asc"
       />
     );
   },
@@ -457,6 +471,8 @@ export const SmallSize: Story = {
         {...args}
         selectedRows={selected}
         onRowSelect={setSelected}
+        defaultSortBy="id"
+        defaultSortDirection="asc"
       />
     );
   },
@@ -476,6 +492,8 @@ export const StickyHeader: Story = {
         {...args}
         selectedRows={selected}
         onRowSelect={setSelected}
+        defaultSortBy="id"
+        defaultSortDirection="asc"
       />
     );
   },
@@ -495,6 +513,8 @@ export const LargeDataset: Story = {
         {...args}
         selectedRows={selected}
         onRowSelect={setSelected}
+        defaultSortBy="id"
+        defaultSortDirection="asc"
       />
     );
   },
@@ -519,6 +539,8 @@ export const WithActions: Story = {
         {...args}
         selectedRows={selected}
         onRowSelect={setSelected}
+        defaultSortBy="id"
+        defaultSortDirection="asc"
       />
     );
   },
@@ -530,7 +552,8 @@ export const WithActions: Story = {
         id: 'actions', 
         label: 'Actions', 
         minWidth: 150,
-        format: () => 'Edit | Delete'
+        format: () => 'Edit | Delete',
+        sortable: false
       },
     ],
     selectable: false,
@@ -545,6 +568,8 @@ export const Empty: Story = {
         {...args}
         selectedRows={selected}
         onRowSelect={setSelected}
+        defaultSortBy="id"
+        defaultSortDirection="asc"
       />
     );
   },
