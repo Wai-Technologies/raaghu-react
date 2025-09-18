@@ -51,6 +51,18 @@ const meta: Meta<typeof RdsCompGrid> = {
       defaultValue: 'cell',
       type: { name: 'string', required: false },
     },
+    enableRowSwapping: {
+      control: 'boolean',
+      description: 'Enable row drag and drop functionality for reordering',
+      defaultValue: false,
+      type: { name: 'boolean', required: false },
+    },
+    enableColumnSwapping: {
+      control: 'boolean',
+      description: 'Enable column drag and drop functionality for reordering',
+      defaultValue: false,
+      type: { name: 'boolean', required: false },
+    },
     showHeader: {
       control: 'boolean',
       description: 'Show the header with search and controls',
@@ -311,6 +323,8 @@ export const Default: Story = {
     isResizable: true,
     enableInlineEdit: true,
     inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -340,6 +354,8 @@ export const WithCheckboxSelection: Story = {
     enableCheckboxSelection: true,
     enableInlineEdit: true,
     inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -371,6 +387,8 @@ export const WithActions: Story = {
     actionColumnStyle: ActionColumnStyle.ShowDots,
     enableInlineEdit: true,
     inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -402,6 +420,8 @@ export const WithButtonActions: Story = {
     actionColumnStyle: ActionColumnStyle.ShowButtonsDirectly,
     enableInlineEdit: true,
     inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -471,6 +491,8 @@ export const WithCustomButtonStyles: Story = {
     enableInlineEdit: true,
     inlineEditMode: 'cell',
     showHeader: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
       console.log('Custom buttons - Cell edited:', { rowId, columnKey, newValue, oldValue });
@@ -501,6 +523,8 @@ export const WithPagination: Story = {
     enableInlineEdit: true,
     inlineEditMode: 'cell',
     showHeader: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
       console.log('Data updated with pagination:', { rowId, columnKey, newValue, oldValue });
@@ -526,6 +550,8 @@ export const WithoutHeader: Story = {
     isSort: true,
     isFilter: true,
     isResizable: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: false,
     showSubHeader: false,
   },
@@ -540,6 +566,8 @@ export const WithoutSorting: Story = {
     isFilter: true,
     isResizable: true,
     showHeader: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showSubHeader: true,
   },
 };
@@ -553,6 +581,8 @@ export const WithoutFiltering: Story = {
     isFilter: false,
     isResizable: true,
     showHeader: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showSubHeader: true,
   },
 };
@@ -566,6 +596,8 @@ export const EmptyState: Story = {
     isFilter: true,
     isResizable: true,
     showHeader: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showSubHeader: true,
     noDataTitle: 'No users found',
     noDataHeaderTitle: 'User Management',
@@ -591,6 +623,8 @@ export const LargeDataset: Story = {
     recordsPerPage: 10,
     enableInlineEdit: true,
     inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -619,6 +653,8 @@ export const ColumnResizing: Story = {
     isResizable: true,
     enableInlineEdit: true,
     inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -802,6 +838,8 @@ export const ComplexHtmlDemo: Story = {
     isSort: true,
     isFilter: true,
     isResizable: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: false,
   },
@@ -1170,6 +1208,8 @@ export const InlineEditing: Story = {
     isSort: true,
     isFilter: true,
     isResizable: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -1293,6 +1333,8 @@ export const InlineEditingDataTypes: Story = {
     isSort: true,
     isFilter: true,
     isResizable: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -1392,6 +1434,8 @@ export const RowBasedInlineEditing: Story = {
     isSort: true,
     isFilter: true,
     isResizable: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
