@@ -79,8 +79,8 @@
 [data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.Mui-selected,
 [data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover,
 [data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.force-selected {
-  background-color: var(--rds-primary-dark, #7825E9) !important;
-  color: var(--rds-primary-light, #D4BBFF);
+  background-color: var(--rds-primary-dark, #1E5FC7) !important;
+  color: var(--rds-primary-light, #3C98FF);
 }
 
 // Ensure shortcut text turns primary when selected/expanded
@@ -106,7 +106,7 @@
 [data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-shortcut,
 [data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover .rds-mlm-shortcut,
 [data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open:active .rds-mlm-shortcut {
-  color: var(--rds-primary-light, #D4BBFF) !important;
+  color: var(--rds-primary-light, #3C98FF) !important;
 }
 
 // Expanded parent in expandable mode
@@ -125,7 +125,7 @@
 [data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover,
 [data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open:active {
   background-color: var(--rds-primary-dark, #1E5FE7) !important;
-  color: var(--rds-primary-light, #D4BBFF) !important;
+  color: var(--rds-primary-light, #3C98FF) !important;
 }
 
 
@@ -178,12 +178,11 @@
   align-items: center;
   justify-content: center;
   margin-right: 8px;
-  color: var(--rds-primary-dark, #2a3b8f);
 }
 
 .dark-theme .rds-mlm-paper .rds-mlm-leading,
 [data-theme="dark"] .rds-mlm-paper .rds-mlm-leading {
-  color: var(--rds-primary-light, #D4BBFF);
+  color: var(--rds-primary-light, #3C98FF);
 }
 
 
