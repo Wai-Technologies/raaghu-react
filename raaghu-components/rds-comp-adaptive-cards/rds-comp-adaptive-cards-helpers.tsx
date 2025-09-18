@@ -205,7 +205,7 @@ export function FootballScorecardCard({
   finalText,
 }: AdaptiveCardProps) {
   return (
-    <RdsCard className="rds-adaptive-cards rds-adaptive-cards--football-scorecard" showIcon={false} showIndicator={false}>
+    <RdsCard className={`rds-adaptive-cards rds-adaptive-cards--football-scorecard${isLive ? ' is-live' : ''}`} showIcon={false} showIndicator={false}>
       {/* Header, subtitle, and description outside card */}
       <div className="rds-adaptive-cards__content">
         <RdsStack className="rds-adaptive-cards__football-header" alignItems="center">
