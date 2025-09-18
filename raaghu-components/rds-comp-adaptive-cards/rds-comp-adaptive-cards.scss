@@ -169,8 +169,8 @@
     display: block;
     box-sizing: border-box;
     margin: var(--rds-spacing-none, 0) auto !important;
-    width: 93% !important;
-    max-width: 93% !important;
+    width: 100% !important;
+    max-width: 97% !important;
   }
   &__actions--restaurant-order {
     display: block !important;
@@ -605,9 +605,9 @@
 }
 .rds-adaptive-cards__action-btn--input-form-button{
   margin-left: 0px !important;
-  margin-right: 5px !important;
+  margin-right: 0px !important;
   font-size: 12px !important;
-  width: 96% !important;
+  width: 98% !important;
 }
 
 // ====================

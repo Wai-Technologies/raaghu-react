@@ -227,6 +227,10 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                   selectPlaceholder={props.sidePlaceholder}
                   snoozeLabel={props.snoozeLabel}
                   lateLabel={props.lateLabel}
+                  showBtn1={showBtn1}
+                  showBtn2={showBtn2}
+                  btn1Label={btn1Label}
+                  btn2Label={btn2Label}
                 />
               )}
               {type === "InputForm" && (
