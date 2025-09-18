@@ -62,7 +62,7 @@
 [data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.force-hover,
 [data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root:active,
 [data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.Mui-focusVisible {
-  background-color: var(--rds-background-surface-hover, #E1E3EA);
+  background-color: var(--rds-background-surface-hover, #23272b);
 }
 
 
@@ -70,7 +70,7 @@
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover,
 .rds-mlm-paper .MuiMenuItem-root.force-selected {
   background-color: var(--rds-primary-light, #EBDCFF) !important;
-  color: var(--rds-primary-main, #2544dc);
+  color: var(--rds-primary-main, #3C98FF) !important;
 }
 
 .dark-theme .rds-mlm-paper .MuiMenuItem-root.Mui-selected,
@@ -91,7 +91,7 @@
 .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-shortcut,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover .rds-mlm-shortcut,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open:active .rds-mlm-shortcut {
-  color: var(--rds-primary-main, #2544dc) !important;
+  color: var(--rds-primary-main, #3C98FF) !important;
 }
 
 .dark-theme .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-shortcut,
@@ -115,7 +115,7 @@
 .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open:active {
   background-color: var(--rds-primary-light, #EBDCFF) !important;
-  color: var(--rds-primary-main, #2544dc) !important;
+  color: var(--rds-primary-main, #3C98FF) !important;
 }
 
 .dark-theme .rds-mlm-paper .MuiMenuItem-root.expanded-open,
@@ -140,10 +140,15 @@
 .rds-mlm-paper .rds-mlm-arrow {
   color: var(--rds-text-secondary, #667085);
 }
+
+.dark-theme .rds-mlm-paper .rds-mlm-arrow,
+[data-theme="dark"] .rds-mlm-paper .rds-mlm-arrow {
+  color: #fff;
+}
 // .rds-mlm-paper .MuiMenuItem-root:hover .rds-mlm-arrow,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-arrow,
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-arrow {
-  color: var(--rds-primary-main, #2544dc);
+  color: var(--rds-primary-main, #3C98FF) !important;
 }
 
 // Larger menu shows more items with scroll
@@ -154,7 +159,7 @@
 
 
 .rds-mlm-paper .rds-mlm-shortcut {
-  color: var(--rds-text-secondary, #313131);
+  color: var(--rds-text-secondary, #272727);
   font-size: 16px !important;
   margin-left: 8px;
   min-width: 72px;
