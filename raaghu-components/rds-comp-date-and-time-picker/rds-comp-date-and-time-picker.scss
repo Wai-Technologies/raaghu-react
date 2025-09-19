@@ -69,9 +69,22 @@
     }
   }
 
+  // For daterange variant, show the calendar icon on the left side of the input
+  &--daterange {
+    .MuiOutlinedInput-root {
+      .MuiInputAdornment-positionEnd {
+        position: absolute;
+        right: 8px; /* distance from input left edge */
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
   // Size variants
   &--small {
-    .MuiInputBase-root {
+    .MuiInputBase-root,
+    .MuiTextField-root .MuiInputBase-root {
       min-height: 40px;
       
       .MuiInputBase-input {
@@ -79,10 +92,36 @@
         font-size: var(--rds-font-size-body2, 0.875rem);
       }
     }
+
+    // Specific adjustments for TextField component used in daterange variant
+    .MuiTextField-root {
+      .MuiInputBase-root {
+        min-height: 40px;
+      }
+      
+      .MuiInputLabel-root {
+        font-size: var(--rds-font-size-body2, 0.875rem);
+        
+        &.MuiInputLabel-shrink {
+          font-size: var(--rds-font-size-caption, 0.75rem);
+        }
+      }
+      
+      .MuiInputAdornment-root {
+        .MuiIconButton-root {
+          padding: var(--rds-spacing-xs, 6px);
+          
+          .MuiSvgIcon-root {
+            font-size: 1.25rem;
+          }
+        }
+      }
+    }
   }
 
   &--medium {
-    .MuiInputBase-root {
+    .MuiInputBase-root,
+    .MuiTextField-root .MuiInputBase-root {
       min-height: 56px;
       
       .MuiInputBase-input {
@@ -435,7 +474,7 @@
       margin-left: var(--rds-spacing-xs, 8px); // Space between text and icon
       
       .MuiSvgIcon-root {
-        font-size: 1.25rem;
+        font-size: 1.50rem;
       }
     }
     
@@ -489,7 +528,7 @@
     
     // Ensure input has proper padding for icon
     &.MuiInputBase-adornedEnd {
-      padding-right: 0;
+
       
       .MuiInputBase-input {
         padding-right: var(--rds-spacing-xs, 8px); // Space before icon

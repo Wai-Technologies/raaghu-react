@@ -18,11 +18,13 @@
   &__helper-text {
     // Helper-text styles
     display: block;
+    margin-left: 0px;
   }
 
   &__error-text {
     // Error-text styles
     display: block;
+    margin-left: 0px;
   }
 
   &--focused {
@@ -51,5 +53,10 @@
   &--disabled {
     opacity: 0.6;
     pointer-events: none;
+  }
+
+  // Required asterisk color for mandatory fields
+  .MuiFormLabel-asterisk {
+    color: var(--rds-color-error, #d32f2f);
   }
 }

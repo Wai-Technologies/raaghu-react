@@ -45,6 +45,31 @@ const meta: Meta<typeof RdsButtonDropdown> = {
         options: ['default', 'selected'],
         description: 'State of the dropdown',
       },
+    size: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+      description: 'Size of the button',
+    },
+    styleType: {
+      control: 'select',
+      options: ['primary', 'secondary', 'outline', 'transparent'],
+      description: 'Style of the button',
+    },
+    layout: {
+      control: 'select',
+      options: ['icon+text', 'text-only', 'icon-only'],
+      description: 'Layout of the button (icon + text, text only, or icon only)',
+    },
+    shape: {
+      control: 'select',
+      options: ['rectangle', 'pill'],
+      description: 'Shape of the button',
+    },
+    buttonState: {
+      control: 'select',
+      options: ['default', 'hover', 'disabled', 'selected'],
+      description: 'Visual state of the inner button (does not change dropdown open logic)',
+    },
   },
 };
 export default meta;
@@ -58,6 +83,11 @@ export const Default: Story = {
     multiSelect: false,
     showSearch: false,
     state: 'default',
+    size: 'medium',
+    layout: 'icon+text',
+    styleType: 'primary',
+    shape: 'rectangle',
+    buttonState: 'default',
     rightIcon:<ArrowDropDown/>,
     leftIcon:"circle",
     showUserAvatar: true,
@@ -66,7 +96,7 @@ export const Default: Story = {
     isShowRightIcon: true,
   },
 };
-Default.parameters = { controls: { include: ['buttonText', 'multiSelect', 'showSearch','state','showUserAvatar','showRadio','isShowLeftIcon','isShowRightIcon'] } };
+Default.parameters = { controls: { include: ['buttonText', 'multiSelect', 'showSearch','state','showUserAvatar','showRadio','isShowLeftIcon','isShowRightIcon','size','layout','styleType','shape','buttonState'] } };
 
 export const MultiSelect: Story = {
   args: {
@@ -78,7 +108,7 @@ export const MultiSelect: Story = {
     leftIcon:"circle"
   },
 };
-MultiSelect.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch'] } };
+MultiSelect.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch','size','layout','styleType','shape','buttonState'] } };
 
 export const WithSearch: Story = {
   args: {
@@ -90,7 +120,7 @@ export const WithSearch: Story = {
     leftIcon:"circle"
   },
 };
-WithSearch.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch'] } };
+WithSearch.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch','size','layout','styleType','shape','buttonState'] } };
 
 export const MultiSelectWithSearch: Story = {
   args: {
@@ -102,4 +132,4 @@ export const MultiSelectWithSearch: Story = {
     leftIcon:"circle"
   },
 };
-MultiSelectWithSearch.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch'] } };
+MultiSelectWithSearch.parameters = { controls: { include: ['buttonText', 'options', 'multiSelect', 'showSearch','size','layout','styleType','shape','buttonState'] } };

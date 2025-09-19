@@ -102,6 +102,15 @@
   height: 40px;
   justify-content: space-between;
 
+  // layout modifiers
+  &--layout-side-to-side { /* default layout: buttons left/right of value */
+    flex-direction: row;
+  }
+
+  &--layout-right-side {
+    flex-direction: row; /* value first then both buttons inline */
+  }
+  
   &--compact {
     gap: var(--rds-spacing-xs, 4px);
     height: 36px;
@@ -132,6 +141,35 @@
     gap: var(--rds-spacing-md, 10px);
     height: 48px;
     min-width: 180px;
+  }
+
+  // ensure bottom layout can expand vertically AFTER size rules that set fixed heights
+  &--layout-bottom {
+    height: auto !important; // override fixed size heights
+    gap: var(--rds-spacing-xs, 4px);
+    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-xs, 4px) var(--rds-spacing-xs, 4px);
+    flex-direction: column;
+    align-items: stretch;
+
+    .rds-counter__value-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 2px 4px; // slight vertical spacing
+    }
+
+    .rds-counter__button-group {
+      display: flex;
+      width: 100%;
+      gap: var(--rds-spacing-xs, 4px);
+    }
+
+    .rds-counter__button-group .rds-counter__button {
+      flex: 1;
+      width: 100% !important;
+      min-width: 0 !important;
+      border-radius: var(--rds-border-radius, 4px) !important;
+    }
   }
 
   .rds-counter--disabled & {
