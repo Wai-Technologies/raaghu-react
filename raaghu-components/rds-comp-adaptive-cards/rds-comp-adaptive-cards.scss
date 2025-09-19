@@ -265,7 +265,10 @@
   display: flex; 
   align-items: center;
   justify-content: center;
-  margin-left: 40px;
+  margin-left: -33px; 
+  .is-live & {
+    margin-left: 59px;
+  }
     }
   &__football-league-avatar {
     width: var(--rds-football-league-avatar-size, 28px) !important;
