@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import CheckIcon from '@mui/icons-material/Check';
 import RdsButton from '../rds-button/rds-button';
 import { Box } from '@mui/material';
@@ -49,14 +49,20 @@ export const RdsMultiLevelMenu = ({
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number[]>([]);
 
+    // Reset open dropdowns when size changes to force reposition
+    React.useEffect(() => {
+      setAnchorEls([null]);
+      setOpenIndexes([]);
+    }, [size]);
+
   // Set anchor for a submenu: provide parent level and option index
   const setSubmenuAnchor = (parentLevel: number, anchor: HTMLElement | null, idx: number) => {
-    const newAnchors = [...anchorEls];
     // Store submenu anchor at the next level index
-    newAnchors[parentLevel + 1] = anchor;
-    setAnchorEls(newAnchors.slice(0, parentLevel + 2));
-    // Track which index is open at the parent level
-    setOpenIndexes([...openIndexes.slice(0, parentLevel + 1), idx]);
+    const newAnchors = [...anchorEls.slice(0, parentLevel + 1), anchor];
+    setAnchorEls(newAnchors);
+    // Ensure only the current path is active, clear deeper levels
+    const newOpenIndexes = [...openIndexes.slice(0, parentLevel), idx];
+    setOpenIndexes(newOpenIndexes);
   };
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, level: number, index: number) => {
@@ -97,7 +103,7 @@ export const RdsMultiLevelMenu = ({
           sx: level === 0
             ? { ...menuPaperStyle, mt: { xs: '43px', sm: 0 } }
             : menuPaperStyle,
-          className: `rds-mlm-paper ${level === 0 ? 'rds-mlm-root' : ''} type-${type}`
+          className: `rds-mlm-paper ${level === 0 ? 'rds-mlm-root' : ''} type-${type} size-${size}`
         }}
         disableAutoFocusItem
       >
@@ -148,13 +154,14 @@ export const RdsMultiLevelMenu = ({
                     <Box
                       ref={arrowRefCb}
                       sx={{ ml: 'auto', cursor: 'pointer', display: 'flex', alignItems: 'center', zIndex: 2 }}
+                      className={'rds-mlm-arrow'}
                       onClick={(e) => {
                         e.stopPropagation();
                         // Use the arrow's parent (Box) as anchor
                         setSubmenuAnchor(level, e.currentTarget as HTMLElement, idx);
                       }}
                     >
-                      <ArrowRightIcon fontSize="small" />
+                      <ChevronRightIcon fontSize="small" />
                     </Box>
                   )}
                 </Box>

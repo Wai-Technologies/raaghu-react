@@ -57,6 +57,26 @@ const options: MenuOption[] = [
 
 
 export const Default:Story ={
+   render: (args) => {
+     const base: MenuOption[] = args.options ?? [];
+     if (args.size === 'large') {
+       const templateWithChildren = base.find(o => Array.isArray(o.children) && o.children.length > 0);
+       const firstExtra: MenuOption = templateWithChildren
+         ? { label: 'Option', shortcut: 'Shortcut', children: [
+    {
+      label: 'Option',
+      shortcut: 'Shortcut',
+    },
+    { label: 'Option', shortcut: 'Shortcut' },
+    { label: 'Option', shortcut: 'Shortcut' },
+  ], }
+         : { label: 'Option', shortcut: 'Shortcut' };
+       const secondExtra: MenuOption = { label: 'Option', shortcut: 'Shortcut' };
+       const computedOptions: MenuOption[] = [...base, firstExtra, secondExtra];
+       return <RdsMultiLevelMenu {...args} options={computedOptions} />;
+     }
+     return <RdsMultiLevelMenu {...args} options={base} />;
+   },
    args: {
       options: options,
       type: 'expandable',
