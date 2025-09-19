@@ -381,6 +381,22 @@
     font-weight: var(--rds-font-weight-semibold, 600);
     color: var(--rds-color-text-primary, #000000);
   }
+
+  &__field-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  &__helper {
+    margin-top: 6px;
+    padding-left: 14px;
+    padding-right: 14px;
+    font-size: var(--rds-font-size-caption, 0.75rem);
+    line-height: 1.25;
+    color: var(--rds-color-text-secondary, rgba(0,0,0,0.6));
+    white-space: normal;
+    word-break: break-word;
+  }
   
   // Ensure the custom layout takes full space
   .MuiPickersLayout-root {
