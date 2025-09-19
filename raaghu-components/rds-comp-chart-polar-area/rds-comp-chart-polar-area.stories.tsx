@@ -76,5 +76,10 @@ export const Default: Story = {
                 }
             }
         },
-    }
+    },
+    parameters: {
+        controls: {
+            exclude: ['chartStyle'],
+        },
+    },
 };
