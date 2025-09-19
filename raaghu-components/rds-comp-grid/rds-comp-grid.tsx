@@ -54,8 +54,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, horizontalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
+import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';// Types and Enums
 export enum ActionPosition {
   Right = "right",
@@ -439,14 +438,23 @@ const EditableCell: React.FC<{
           '& .MuiInputBase-input': {
             padding: '4px 8px',
             fontSize: '14px',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
           },
           '& .MuiOutlinedInput-notchedOutline': {
             borderWidth: '1px',
+          },
+          '& .MuiOutlinedInput-root': {
+            height: '32px',
           },
         }}
       />
     );
   }
+
+  const displayValue = formatValueForDisplay(value);
+  const shouldShowTooltip = displayValue.length > 10;
 
   return (
     <Box
@@ -460,6 +468,9 @@ const EditableCell: React.FC<{
         width: '100%',
         border: '1px solid transparent',
         borderRadius: '4px',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
         '&:hover': {
           backgroundColor: 'action.hover',
           border: '1px solid',
@@ -467,9 +478,33 @@ const EditableCell: React.FC<{
         },
       }}
     >
-      <Typography variant="body2" sx={{ width: '100%' }}>
-        {formatValueForDisplay(value)}
-      </Typography>
+      {shouldShowTooltip ? (
+        <Tooltip title={displayValue} arrow>
+          <Typography 
+            variant="body2" 
+            sx={{ 
+              width: '100%',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {displayValue}
+          </Typography>
+        </Tooltip>
+      ) : (
+        <Typography 
+          variant="body2" 
+          sx={{ 
+            width: '100%',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {displayValue}
+        </Typography>
+      )}
     </Box>
   );
 };
@@ -624,8 +659,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const [filterAnchorEl, setFilterAnchorEl] = useState<HTMLElement | null>(null);
   const [selectedColumnForFilter, setSelectedColumnForFilter] = useState<string | null>(null);
   const [isColumnPanelExpanded, setIsColumnPanelExpanded] = useState(false);
-  const [tempFilterValue, setTempFilterValue] = useState<string>('');
-  const [tempFilterOperator, setTempFilterOperator] = useState<string>('contains');
   const [isFilterExpanded, setIsFilterExpanded] = useState(false);
   const [filterConditions, setFilterConditions] = useState([
     { id: 1, column: '', operator: 'contains', value: '' },
@@ -649,13 +682,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   // Drag and drop state
   const [columnOrder, setColumnOrder] = useState<RdsCompGridColumn[]>(tableHeaders);
   const [localTableData, setLocalTableData] = useState<any[]>(tableData);
-  const [draggingColumnId, setDraggingColumnId] = useState<string | null>(null);
-  
-  // Track which column is being dragged and where it's being dragged over
-  const [draggedColumn, setDraggedColumn] = useState<string | null>(null);
-  const [draggedColumnIndex, setDraggedColumnIndex] = useState<number | null>(null);
-  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
-  const [isDraggingColumn, setIsDraggingColumn] = useState<boolean>(false);
   
   // Custom drag state for better column swapping behavior
   const [customDragState, setCustomDragState] = useState<{
@@ -743,11 +769,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     console.log('Drag end triggered:', result);
     
     // Clear dragging state
-    setDraggingColumnId(null);
-    setDraggedColumn(null);
-    setDraggedColumnIndex(null);
-    setDragOverIndex(null);
-    setIsDraggingColumn(false);
     
     // Clean up global styles
     document.body.style.userSelect = '';
@@ -794,10 +815,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     
     // Track which column is being dragged
     if (start.type === 'COLUMN') {
-      setDraggingColumnId(start.draggableId);
-      setDraggedColumn(start.draggableId);
-      setDraggedColumnIndex(start.source.index);
-      setIsDraggingColumn(true);
       console.log('Starting column drag for:', start.draggableId);
     } else if (start.type === 'ROW') {
       console.log('Starting row drag for:', start.draggableId);
@@ -811,11 +828,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   // Add drag update handler for better feedback during drag
   const onDragUpdate = (update: any) => {
     // Track where we're dragging over for visual feedback
-    if (update.type === 'COLUMN' && update.destination) {
-      setDragOverIndex(update.destination.index);
-    } else {
-      setDragOverIndex(null);
-    }
     console.log('Drag update:', update);
   };
 
@@ -1144,9 +1156,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       setFilterAnchorEl(event.currentTarget);
       
       // Load column-specific filter state
-      const columnFilterState = columnFilterStates[columnKey] || { operator: 'contains', value: '' };
-      setTempFilterValue(columnFilterState.value);
-      setTempFilterOperator(columnFilterState.operator);
       
       // Open new popup after a brief delay to ensure smooth transition
       setTimeout(() => {
@@ -1156,9 +1165,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       // Same column, just open
       setSelectedColumnForFilter(columnKey);
       setFilterAnchorEl(event.currentTarget);
-      const columnFilterState = columnFilterStates[columnKey] || { operator: 'contains', value: '' };
-      setTempFilterValue(columnFilterState.value);
-      setTempFilterOperator(columnFilterState.operator);
       setIsFilterPopupOpen(true);
     }
   };
@@ -1178,10 +1184,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     
     const header = tableHeaders.find(h => h.key === columnKey);
     if (header?.isResizable !== false) {
+      const currentWidth = columnWidths[columnKey] || header?.minWidth || 150;
+      
       setIsResizing(true);
       setResizingColumn(columnKey);
       setResizeStartX(e.clientX);
-      setResizeStartWidth(columnWidths[columnKey] || header?.minWidth || 150);
+      setResizeStartWidth(currentWidth);
       
       // Prevent text selection during resize
       document.body.style.userSelect = 'none';
@@ -1225,8 +1233,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       if (isResizing && resizingColumn) {
         const deltaX = e.clientX - resizeStartX;
         const header = tableHeaders.find(h => h.key === resizingColumn);
-        const minWidth = header?.minWidth || 30; // Use user-defined minWidth or default to 30
-        const maxWidth = header?.maxWidth || 500;
+        const minWidth = header?.minWidth || 50; // Use user-defined minWidth or default to 50
+        const maxWidth = header?.maxWidth || 800; // Increased max width for better flexibility
         
         const requestedWidth = resizeStartWidth + deltaX;
         const newWidth = Math.max(
@@ -2272,7 +2280,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             onDragStart={(enableRowSwapping || enableColumnSwapping) ? onDragStart : () => {}}
             onDragUpdate={(enableRowSwapping || enableColumnSwapping) ? onDragUpdate : () => {}}
           >
-            <Table stickyHeader ref={tableRef}>
+            <Table stickyHeader ref={tableRef} sx={{ tableLayout: 'fixed' }}>
             <TableHead sx={{ 
               bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined,
               '& th': { bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined }
@@ -2399,10 +2407,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         sx={{
                           cursor: enableColumnSwapping ? 'grab' : (isSort && header.isSort ? 'pointer' : 'default'),
                           width: columnWidths[header.key] || header.minWidth || 150,
-                          maxWidth: header.maxWidth || 500,
+                          minWidth: header.minWidth || 50,
+                          maxWidth: header.maxWidth || 800,
                           fontWeight: header.isBold ? 'bold' : 'normal',
                           position: 'relative',
                           userSelect: 'none',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
                           borderRight: '1px solid #d1d1d1',
                           bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
                           transition: isDragging ? 'none' : 'all 0.2s ease',
@@ -2442,9 +2454,20 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           {/* Drag indicator icon removed for column swapping to avoid visual clutter.
                               Drag functionality remains (TableCell is still draggable). */}
                           
-                          <Typography variant="subtitle2" fontWeight={header.isBold ? 'bold' : 'medium'}>
-                            {header.name}
-                          </Typography>
+                          <Tooltip title={header.name} arrow>
+                            <Typography 
+                              variant="subtitle2" 
+                              fontWeight={header.isBold ? 'bold' : 'medium'}
+                              sx={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                width: '100%',
+                              }}
+                            >
+                              {header.name}
+                            </Typography>
+                          </Tooltip>
                           {header.required && (
                             <Typography color="error" variant="caption">*</Typography>
                           )}
@@ -2505,14 +2528,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               right: 0,
                               top: 0,
                               bottom: 0,
-                              width: '4px',
+                              width: '6px',
                               cursor: 'col-resize',
                               backgroundColor: isResizing && resizingColumn === header.key ? 'primary.main' : 'transparent',
                               zIndex: 10,
-                              transition: 'background-color 0.2s ease',
+                              transition: 'all 0.2s ease',
                               '&:hover': {
                                 backgroundColor: 'primary.main',
-                                opacity: 0.7,
+                                opacity: 0.8,
+                                width: '3px',
                               },
                               '&:focus': {
                                 outline: '2px solid',
@@ -2667,7 +2691,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     {(enableColumnSwapping ? columnOrder.filter(header => visibleColumns.includes(header.key)) : getVisibleHeaders()).map((header) => {
                       const cellValue = row[header.key];
                       const cellWidth = columnWidths[header.key] || header.minWidth || 150;
-                      const minWidth = header.minWidth || 50;
                       const rowId = `row-${index}`;
                       const isEditing = editingCell?.rowId === rowId && editingCell?.columnKey === header.key;
                       
@@ -2676,7 +2699,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       const cellText = shouldRenderHtml ? '' : (cellValue?.toString() || '');
                       
                       // Only show tooltip if text might be truncated and not HTML
-                      const shouldShowTooltip = !shouldRenderHtml && cellText.length > 0 && cellWidth < minWidth + 50;
+                      // Show tooltip for any text that might be truncated (more than 10 characters)
+                      const shouldShowTooltip = !shouldRenderHtml && cellText.length > 10;
                       
                       // Use custom renderer if provided
                       if (header.renderCell) {
@@ -2684,13 +2708,17 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       <TableCell
                         key={header.key}
                         sx={{
-                              width: cellWidth,
-                              maxWidth: header.maxWidth || 500,
-                              borderRight: '1px solid #d1d1d1',
-                              '&:last-child': {
-                                borderRight: 'none',
-                              },
-                            }}
+                            width: cellWidth,
+                            minWidth: header.minWidth || 50,
+                            maxWidth: header.maxWidth || 800,
+                            borderRight: '1px solid #d1d1d1',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            '&:last-child': {
+                              borderRight: 'none',
+                            },
+                          }}
                           >
                             {header.renderCell(cellValue, row)}
                           </TableCell>
@@ -2708,9 +2736,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           key={header.key}
                           sx={{
                             width: cellWidth,
-                            maxWidth: header.maxWidth || 500,
+                            minWidth: header.minWidth || 50,
+                            maxWidth: header.maxWidth || 800,
                             borderRight: '1px solid #d1d1d1',
                             color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
                             '&:last-child': {
                               borderRight: 'none',
                             },
@@ -3035,6 +3067,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             width: 200,
             maxHeight: 250,
             overflow: 'auto',
+            overflowY: 'auto',
             zIndex: 1300,
             backgroundColor: theme.palette.mode === 'dark' ? '#424242' : undefined,
             color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
@@ -3046,6 +3079,19 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             },
             '& .MuiDivider-root': {
               borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : undefined,
+            },
+            '&::-webkit-scrollbar': {
+              width: '6px',
+            },
+            '&::-webkit-scrollbar-track': {
+              backgroundColor: theme.palette.mode === 'dark' ? '#2a2a2a' : '#f1f1f1',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: theme.palette.mode === 'dark' ? '#555' : '#c1c1c1',
+              borderRadius: '3px',
+            },
+            '&::-webkit-scrollbar-thumb:hover': {
+              backgroundColor: theme.palette.mode === 'dark' ? '#777' : '#a8a8a8',
             },
           }
         }}

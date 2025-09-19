@@ -2,10 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React, { useRef, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Button, Box, Stack, Typography, Divider } from '@mui/material';
-// import RdsCompGridNoScss, { RdsCompGridColumn, RdsCompGridAction, ActionPosition, State, ActionColumnStyle } from './rds-comp-grid-no-scss';
 import RdsCompGrid, { RdsCompGridColumn, RdsCompGridAction, ActionPosition, State, ActionColumnStyle, RdsCompGridRef } from './rds-comp-grid';
-
-// const RdsCompGrid = RdsCompGridNoScss;
 
 const meta: Meta<typeof RdsCompGrid> = {
   title: 'Components/Grid',
@@ -287,6 +284,50 @@ const sampleData = [
     status: 'Inactive',
     lastLogin: '2024-01-21',
   }
+];
+
+// Test data with longer text for truncation testing
+const longTextData = [
+  {
+    id: 1,
+    name: 'Christopher Alexander Johnson-Wilson',
+    email: 'christopher.alexander.johnson-wilson@verylongdomainname.com',
+    role: 'Senior Software Development Engineer',
+    status: 'Active',
+    lastLogin: '2024-01-15',
+  },
+  {
+    id: 2,
+    name: 'Dr. Elizabeth Margaret Thompson-Smith',
+    email: 'elizabeth.margaret.thompson-smith@extremelylongcompanyname.com',
+    role: 'Principal Product Manager',
+    status: 'Active',
+    lastLogin: '2024-01-14',
+  },
+  {
+    id: 3,
+    name: 'Michael Anthony Rodriguez-Garcia',
+    email: 'michael.anthony.rodriguez-garcia@superlongdomainname.com',
+    role: 'Lead Technical Architect',
+    status: 'Inactive',
+    lastLogin: '2024-01-10',
+  },
+  {
+    id: 4,
+    name: 'Sarah Jennifer Williams-Brown',
+    email: 'sarah.jennifer.williams-brown@verylongdomainname.com',
+    role: 'Senior User Experience Designer',
+    status: 'Active',
+    lastLogin: '2024-01-16',
+  },
+  {
+    id: 5,
+    name: 'Robert James Anderson-Miller',
+    email: 'robert.james.anderson-miller@extremelylongcompanyname.com',
+    role: 'Chief Technology Officer',
+    status: 'Active',
+    lastLogin: '2024-01-13',
+  },
 ];
 
 const sampleActions: RdsCompGridAction[] = [
@@ -646,8 +687,84 @@ export const LargeDataset: Story = {
 // Column Resizing Demo
 export const ColumnResizing: Story = {
   args: {
-    tableHeaders: sampleColumns,
-    tableData: sampleData,
+    tableHeaders: [
+      {
+        key: 'id',
+        name: 'ID',
+        dataType: 'number',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: false,
+        minWidth: 60,
+        maxWidth: 100,
+        colWidth: '80px',
+      },
+      {
+        key: 'name',
+        name: 'Name',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 100,
+        maxWidth: 400,
+        isBold: true,
+        colWidth: '200px',
+      },
+      {
+        key: 'email',
+        name: 'Email',
+        dataType: 'email',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 80,
+        maxWidth: 500,
+        colWidth: '250px',
+      },
+      {
+        key: 'role',
+        name: 'Role',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 80,
+        maxWidth: 300,
+        colWidth: '120px',
+      },
+      {
+        key: 'status',
+        name: 'Status',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: false,
+        minWidth: 80,
+        maxWidth: 200,
+        colWidth: '100px',
+      },
+      {
+        key: 'lastLogin',
+        name: 'Last Login',
+        dataType: 'date',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 120,
+        maxWidth: 250,
+        colWidth: '150px',
+      },
+    ],
+    tableData: longTextData,
     isSort: true,
     isFilter: true,
     isResizable: true,
@@ -667,7 +784,101 @@ export const ColumnResizing: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'This grid demonstrates column resizing functionality with inline editing. Hover over column borders to resize columns and click cells to edit them. All changes are automatically saved and immediately visible.',
+        story: 'This grid demonstrates improved column resizing functionality with text truncation. Hover over the right edge of column headers to see the resize cursor, then drag to resize columns. When text is too long for the column width, it will be truncated with ellipsis (...) and show a tooltip on hover. Each column has different min/max width constraints. The table uses fixed layout for better column width control.',
+      },
+    },
+  },
+};
+
+// Inline Edit with Text Truncation Demo
+export const InlineEditWithTruncation: Story = {
+  args: {
+    tableHeaders: [
+      {
+        key: 'id',
+        name: 'ID',
+        dataType: 'number',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: false,
+        minWidth: 60,
+        maxWidth: 100,
+        colWidth: '80px',
+      },
+      {
+        key: 'name',
+        name: 'Full Name',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 100,
+        maxWidth: 300,
+        isBold: true,
+        colWidth: '150px',
+      },
+      {
+        key: 'email',
+        name: 'Email Address',
+        dataType: 'email',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 120,
+        maxWidth: 400,
+        colWidth: '200px',
+      },
+      {
+        key: 'role',
+        name: 'Job Title',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 100,
+        maxWidth: 250,
+        colWidth: '120px',
+      },
+      {
+        key: 'status',
+        name: 'Status',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 80,
+        maxWidth: 150,
+        colWidth: '100px',
+      },
+    ],
+    tableData: longTextData,
+    isSort: true,
+    isFilter: true,
+    isResizable: true,
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
+    showHeader: true,
+    showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Inline edit with truncation - Cell edited:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Inline edit with truncation - Edit completed:', { rowId, columnKey, newValue, isValid });
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This grid demonstrates inline editing with text truncation. Click on any editable cell to start editing. When text is too long for the column width, it will be truncated with ellipsis (...) and show a tooltip on hover. The styling is consistent between edit and non-edit modes.',
       },
     },
   },
