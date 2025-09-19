@@ -1507,42 +1507,42 @@ export const GridRefExample: Story = {
           status: 'Active'
         };
         gridRef.current.addRow(newRow);
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleFilterByName = () => {
       if (gridRef.current) {
         gridRef.current.applyFilter('name', 'John', 'contains');
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleSortBySalary = () => {
       if (gridRef.current) {
         gridRef.current.setSort('salary', 'desc');
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleClearFilters = () => {
       if (gridRef.current) {
         gridRef.current.clearFilters();
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleSelectAll = () => {
       if (gridRef.current) {
         gridRef.current.selectAll();
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleClearSelection = () => {
       if (gridRef.current) {
         gridRef.current.clearSelection();
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
@@ -1557,22 +1557,21 @@ export const GridRefExample: Story = {
     const handleToggleCollapse = () => {
       if (gridRef.current) {
         gridRef.current.toggleCollapse();
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleHideColumns = () => {
       if (gridRef.current) {
-        gridRef.current.setColumnVisibility('salary', false);
-        gridRef.current.setColumnVisibility('age', false);
-        updateGridInfo();
+        gridRef.current.setColumnVisibility(['salary', 'age'], false);
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleShowAllColumns = () => {
       if (gridRef.current) {
         gridRef.current.showAllColumns();
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
@@ -1683,10 +1682,15 @@ This example demonstrates the comprehensive grid ref API that provides programma
 - \`getFilters()\`, \`setFilters()\`, \`clearFilters()\`, \`applyFilter()\`
 - \`getSortState()\`, \`setSort()\`, \`clearSort()\`
 - \`getSelectedRows()\`, \`selectAll()\`, \`clearSelection()\`
-- \`getVisibleColumns()\`, \`setColumnVisibility()\`, \`showAllColumns()\`
+- \`getVisibleColumns()\`, \`setColumnVisibility(columnKeys, visible)\`, \`showAllColumns()\`
 - \`isCollapsed()\`, \`toggleCollapse()\`, \`expand()\`, \`collapse()\`
 - \`exportData()\`, \`refresh()\`, \`scrollToRow()\`
 - \`getRowCount()\`, \`getColumnCount()\`, \`getFilteredRowCount()\`
+
+**Column Visibility Examples:**
+- \`setColumnVisibility('salary', false)\` - Hide single column
+- \`setColumnVisibility(['salary', 'age'], false)\` - Hide multiple columns
+- \`setColumnVisibility(['name', 'email'], true)\` - Show multiple columns
 
 This makes the grid highly programmable and suitable for complex applications where you need to control the grid state from external components or business logic.
         `,

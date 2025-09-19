@@ -178,7 +178,7 @@ export interface RdsCompGridRef {
   
   // Column Management
   getVisibleColumns: () => string[];
-  setColumnVisibility: (columnKey: string, visible: boolean) => void;
+  setColumnVisibility: (columnKeys: string | string[], visible: boolean) => void;
   showAllColumns: () => void;
   hideAllColumns: () => void;
   getColumnWidth: (columnKey: string) => number;
@@ -1029,6 +1029,32 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }
   };
 
+  const handleBulkColumnVisibilityChange = (columnKeys: string | string[], isVisible: boolean) => {
+    const keysArray = Array.isArray(columnKeys) ? columnKeys : [columnKeys];
+    
+    if (isVisible) {
+      // Add columns to visible list
+      const newVisibleColumns = [...visibleColumns];
+      keysArray.forEach(key => {
+        if (!newVisibleColumns.includes(key)) {
+          newVisibleColumns.push(key);
+        }
+      });
+      setVisibleColumns(newVisibleColumns);
+    } else {
+      // Remove columns from visible list
+      const newVisibleColumns = visibleColumns.filter(key => !keysArray.includes(key));
+      setVisibleColumns(newVisibleColumns);
+      
+      // If any of the columns being deselected has an open filter popup, close it
+      if (selectedColumnForFilter && isFilterPopupOpen && keysArray.includes(selectedColumnForFilter)) {
+        setIsFilterPopupOpen(false);
+        setSelectedColumnForFilter(null);
+        setFilterAnchorEl(null);
+      }
+    }
+  };
+
   const getVisibleHeaders = () => {
     // Return headers in the current column order but only those that are visible
     const visible = columnOrder.filter(header => visibleColumns.includes(header.key));
@@ -1868,8 +1894,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
     // Column Management
     getVisibleColumns: () => visibleColumns,
-    setColumnVisibility: (columnKey: string, visible: boolean) => {
-      handleColumnVisibilityChange(columnKey, visible);
+    setColumnVisibility: (columnKeys: string | string[], visible: boolean) => {
+      handleBulkColumnVisibilityChange(columnKeys, visible);
     },
     showAllColumns: () => {
       const allColumns = tableHeaders.map(header => header.key);
@@ -2157,7 +2183,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             {tableHeaders.filter(header => header.isFilter).map((header) => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={header.key}>
                 <Stack direction="row" spacing={1} alignItems="center">
-                  <Typography variant="body2" fontWeight="medium" minWidth="80px">
+                  <Typography variant="body2" fontWeight="medium" minWidth="87px">
                     {header.name}:
                   </Typography>
                   <TextField
