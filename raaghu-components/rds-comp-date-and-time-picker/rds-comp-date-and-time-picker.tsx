@@ -41,7 +41,7 @@ export interface RdsCompDatePickerProps {
   slotProps?: Record<string, any>;
   state?: 'default' | 'expanded' | 'selected';
   changeIcon?: 'dashboard-settings' | 'date-picker';
-  newVariant?: 'default' | 'custom';
+  style?: 'default' | 'custom';
   type?: 'dropdown' | 'selector';
   showSeconds?: boolean; // New prop to control seconds display
   isRequired?: boolean; // New prop to show required indicator
@@ -388,7 +388,7 @@ export default function RdsCompDatePicker({
   className,
   size = 'medium',
   slotProps,
-  newVariant = 'default',
+  style = 'default',
   showSeconds = true,
   isRequired = false,
 }: RdsCompDatePickerProps) {
@@ -534,7 +534,7 @@ export default function RdsCompDatePicker({
           className="MuiPickersPopper-root"
         >
           <Paper elevation={3} sx={{ p: 2 }}>
-            {newVariant === 'custom' && variant === 'daterange' ? (
+            {style === 'custom' && variant === 'daterange' ? (
               <CustomDateRangeLayout
                 selectedPreset={selectedPreset}
                 onPresetSelect={handlePresetSelect}
@@ -751,7 +751,7 @@ export function DatePickerDemo() {
     { label: 'Time Picker (with seconds)', variant: 'time', valueKey: 'time', showSeconds: true },
     { label: 'Date Time Picker (without seconds)', variant: 'datetime', valueKey: 'datetime', showSeconds: false },
     { label: 'Date Range Picker', variant: 'daterange', valueKey: 'daterange' },
-    { label: 'Custom Date Range Picker', variant: 'daterange', valueKey: 'daterange', newVariant: 'custom' },
+    { label: 'Custom Date Range Picker', variant: 'daterange', valueKey: 'daterange', style: 'custom' },
     { label: 'Time Range Picker (with seconds)', variant: 'timerange', valueKey: 'timerange', showSeconds: true },
     { label: 'Date Time Range Picker (with seconds)', variant: 'datetimerange', valueKey: 'datetimerange', showSeconds: true },
   ];
@@ -775,14 +775,14 @@ export function DatePickerDemo() {
           Date Picker Components
         </h6>
         
-        {demos.map(({ label, variant, layout, valueKey, newVariant, showSeconds, isRequired }) => (
-          <DemoItem key={`${valueKey}-${newVariant || 'default'}-${showSeconds || 'default'}-${isRequired || 'false'}`} label={label}>
+        {demos.map(({ label, variant, layout, valueKey, style, showSeconds, isRequired }) => (
+          <DemoItem key={`${valueKey}-${style || 'default'}-${showSeconds || 'default'}-${isRequired || 'false'}`} label={label}>
             <RdsCompDatePicker
               variant={variant as any}
               layout={layout as any}
               value={values[valueKey as keyof typeof values]}
               onChange={handleChange(valueKey)}
-              newVariant={newVariant as any}
+              style={style as any}
               showSeconds={showSeconds}
               isRequired={isRequired}
               label={isRequired ? 'Required Field' : 'Optional Field'}
