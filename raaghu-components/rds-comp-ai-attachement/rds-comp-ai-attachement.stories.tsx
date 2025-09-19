@@ -35,7 +35,7 @@ export const Default: Story = {
         inputPlaceholder: "Enter URL",
         showBadge: true,
         badgeLabel: "Premium",
-        badgeColor: "success",
+        badgeColor: "primary",
         uploadText: "Upload From Figma",
         importText: "Import From This Device",
         modalText: "Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file.",

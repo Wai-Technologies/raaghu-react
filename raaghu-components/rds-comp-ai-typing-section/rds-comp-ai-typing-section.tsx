@@ -148,8 +148,8 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
         <div className={`rds-comp-ai-chat-bot__actions${ isMobile ? " rds-comp-ai-chat-bot__actions--mobile" : "" }`}>
           <div className="rds-comp-ai-chat-bot__action-icons">
             <div className="rds-comp-ai-chat-bot__attach" id="Premium">
-                <RdsCompAiAttachement
-                  badgeColor="success"
+                  <RdsCompAiAttachement
+                    badgeColor="primary"
                   badgeLabel="Premium"
                   handleAddComment={handleAddComment}
                   hintText="Hint Text"
