@@ -226,20 +226,37 @@
     width: 100%;
     box-sizing: border-box;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
     min-height: 20px;
-    margin-top: 4px;
+    margin-top: 4px !important;
+    gap: 8px;
   }
   &__hint {
     font-size: 1rem;
     color: var(--rds-text-secondary, #5c5c5c);
     margin-left: auto;
-    padding-right: 12px;
     align-self: flex-end;
     text-align: right;
     width: auto;
   }
+  &__hint-wrapper {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    min-width: 0;
+  }
+  &__error-inline {
+    font-size: 0.75rem; // caption size
+    color: var(--rds-color-error, #d32f2f);
+    font-weight: 400;
+    text-align: left;
+    flex-shrink: 0;
+    visibility: hidden;
+    padding-right: 4px;
+    line-height: 1.2;
+    &.is-visible { visibility: visible; }
+  }
+  &__hint.is-hidden { color: transparent; }
   &__browse-btn {
     display: none;
   }

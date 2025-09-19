@@ -263,6 +263,35 @@
     .rds-toggle-button--wrap-mobile .rds-toggle-button__button {
       flex: 1 1 50%; // two per row
     }
+    // Fix border-radius for first and last buttons in each row (2-row layout)
+    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(1),
+    .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(1) .rds-toggle-button__button {
+      border-top-left-radius: var(--rds-border-radius-sm, 4px);
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(2),
+    .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(2) .rds-toggle-button__button {
+      border-top-right-radius: var(--rds-border-radius-sm, 4px);
+      border-bottom-right-radius: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(3),
+    .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(3) .rds-toggle-button__button {
+      border-bottom-left-radius: var(--rds-border-radius-sm, 4px);
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(4),
+    .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(4) .rds-toggle-button__button {
+      border-bottom-right-radius: var(--rds-border-radius-sm, 4px);
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
   }
 
 // Large mobile / small handset landscape (covers widths like 414px iPhone and up to small tablets)
@@ -278,7 +307,7 @@
 
   .rds-toggle-button__group .MuiToggleButton-root,
   .rds-toggle-button__button { 
-    flex:1 1 0; 
+    flex:1 1 1; 
     min-width:0; 
     padding:6px 10px; 
     font-size:0.8rem; 
@@ -287,4 +316,13 @@
 
   // Spaced variant margin neutralization to avoid overflow
   .rds-toggle-button--spaced .rds-toggle-button__button-wrapper { margin-left:0 !important; }
+}
+
+.css-1qb8o-MuiToggleButtonGroup-root .MuiToggleButtonGroup-lastButton.Mui-disabled, .css-1qb8o-MuiToggleButtonGroup-root .MuiToggleButtonGroup-middleButton.Mui-disabled {
+    border: 1px solid #646464;
+}
+
+.css-1qb8o-MuiToggleButtonGroup-root .MuiToggleButtonGroup-lastButton, .css-1qb8o-MuiToggleButtonGroup-root .MuiToggleButtonGroup-middleButton {
+    margin-left: 0px !important;
+    border: 1px solid #646464 !important;
 }

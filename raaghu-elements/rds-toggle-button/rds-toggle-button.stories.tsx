@@ -97,6 +97,9 @@ export const Default: Story = {
     },
   }
 };
+Default.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
+};
 
 export const Disabled: Story = {
   args: {
@@ -112,6 +115,9 @@ export const Disabled: Story = {
     },
   }
 };
+Disabled.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
+};
 
 export const ExclusiveSelection: Story = {
   args: {
@@ -125,6 +131,9 @@ export const ExclusiveSelection: Story = {
       },
     },
   }
+};
+ExclusiveSelection.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
 };
 
 export const EnforceValueSet: Story = {
@@ -142,6 +151,9 @@ export const EnforceValueSet: Story = {
     },
   }
 };
+EnforceValueSet.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
+};
 
 export const Large: Story = {
   args: {
@@ -156,6 +168,9 @@ export const Large: Story = {
       },
     },
   }
+};
+Large.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
 };
 
 export const MultipleSelection: Story = {
@@ -174,6 +189,9 @@ export const MultipleSelection: Story = {
     },
   }
 };
+MultipleSelection.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
+};
 
 export const Primary: Story = {
   args: {
@@ -188,6 +206,9 @@ export const Primary: Story = {
       },
     },
   }
+};
+Primary.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
 };
 
 export const Small: Story = {
@@ -204,6 +225,9 @@ export const Small: Story = {
     },
   }
 };
+Small.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
+};
 
 export const Secondary: Story = {
   args: {
@@ -218,6 +242,9 @@ export const Secondary: Story = {
       },
     },
   }
+};
+Secondary.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
 };
 
 export const StandaloneToggleButton: Story = {
@@ -243,6 +270,9 @@ export const StandaloneToggleButton: Story = {
       </RdsStandaloneToggleButton>
   )
 };
+StandaloneToggleButton.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing'] },
+};
 
 export const UncontrolledWithDisplay: Story = {
   args: {
@@ -258,6 +288,9 @@ export const UncontrolledWithDisplay: Story = {
       },
     },
   }
+};
+UncontrolledWithDisplay.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
 };
 
 export const VerticalButtons: Story = {
@@ -275,6 +308,9 @@ export const VerticalButtons: Story = {
     },
   }
 };
+VerticalButtons.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
+};
 
 export const WithSpacing: Story = {
   args: {
@@ -289,6 +325,9 @@ export const WithSpacing: Story = {
       },
     },
   }
+};
+WithSpacing.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
 };
 
 export const WithoutIcons: Story = {
@@ -307,4 +346,7 @@ export const WithoutIcons: Story = {
       },
     },
   }
+};
+WithoutIcons.parameters = {
+  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing', 'disabled'] },
 };

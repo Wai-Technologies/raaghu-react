@@ -161,16 +161,22 @@ const RdsFileUploader = ({
             />
           )}
 
-          <Box className="rds-file-uploader__hint-row" sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', mt: 1.5, minHeight: 20, ml: 0 }}>
+          <Box className="rds-file-uploader__hint-row">
             <Typography
-              className="rds-file-uploader__hint"
               variant="caption"
-              sx={{ color: showHint ? '#353535' : 'transparent', fontWeight: 400, textAlign: 'left', minWidth: 0 }}
+              className={`rds-file-uploader__error-inline ${isMandatory && mandatoryError ? 'is-visible' : ''}`}
             >
-              {showHint ? (hintText || 'Maximum 5MB') : '\u00A0'}
+              {mandatoryError || 'placeholder'}
             </Typography>
+            <div className="rds-file-uploader__hint-wrapper">
+              <Typography
+                className={`rds-file-uploader__hint ${showHint ? '' : 'is-hidden'}`}
+                variant="caption"
+              >
+                {showHint ? (hintText || 'Maximum 5MB') : '\u00A0'}
+              </Typography>
+            </div>
           </Box>
-        
           {showPreview && files.length > 0 && (
             <RdsFileList
               files={files}
@@ -178,12 +184,6 @@ const RdsFileUploader = ({
               removeFile={removeFile}
               formatFileSize={formatFileSize}
             />
-          )}
-
-          {isMandatory && mandatoryError && (
-            <Typography variant="caption" color="error" sx={{ mt: 1 }}>
-              {mandatoryError}
-            </Typography>
           )}
         </Box>
       )}
