@@ -12,7 +12,7 @@ const meta: Meta = {
     argTypes: {
         variant: {
             control: { type: 'select' },
-            options: ['date', 'time', 'datetime', 'daterange', 'timerange', 'datetimerange'],
+            options: ['date', 'time', 'datetime', 'daterange', 'timerange'],
             description: 'The type of date picker to display'
         },
         layout: {
