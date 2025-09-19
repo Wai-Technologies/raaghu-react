@@ -58,8 +58,8 @@ export const Rectangular: Story = {
   args: {
     shape: 'rectangular',
     frames: 3,
-    width: 210,
-    height: 118,
+    width: "210px",
+    height: "118px",
     animated: true,
   },
 };
@@ -68,8 +68,8 @@ export const Circular: Story = {
   args: {
     shape: 'circular',
     frames: 3,
-    width: 40,
-    height: 40,
+    width: "40px",
+    height: "40px",
     animated: true,
   },
 };
@@ -78,8 +78,8 @@ export const Rounded: Story = {
   args: {
     shape: 'rounded',
     frames: 3,
-    width: 210,
-    height: 60,
+    width: "210px",
+    height: "60px",
     animated: true,
   },
 };
@@ -88,8 +88,8 @@ export const WaveAnimation: Story = {
   args: {
     shape: 'rectangular',
     frames: 3,
-    width: 210,
-    height: 118,
+    width: "210px",
+    height: "118px",
     animation: 'wave',
     animated: true,
   },
@@ -99,8 +99,8 @@ export const NoAnimation: Story = {
   args: {
     shape: 'rectangular',
     frames: 3,
-    width: 210,
-    height: 118,
+    width: "210px",
+    height: "118px",
     animation: false,
   },
   parameters: {

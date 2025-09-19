@@ -231,8 +231,23 @@
   }
 }
 
+
 .MuiButton-containedSuccess, .MuiButton-containedPrimary, .MuiButton-containedSecondary {
   color: #fff !important;
+}
+
+// Custom popover styles for WithList story on small screens
+@media (max-width: 320px) {
+  .with-list-popover .rds-popover__container {
+    max-width: 220px !important;
+    min-width: 120px !important;
+    padding: 6px !important;
+    font-size: 0.95rem;
+  }
+  .with-list-popover .MuiListItem-root {
+    padding-top: 2px !important;
+    padding-bottom: 4px !important;
+  }
 }
 
 @media (max-width: 568px) and (min-width: 320px) {
