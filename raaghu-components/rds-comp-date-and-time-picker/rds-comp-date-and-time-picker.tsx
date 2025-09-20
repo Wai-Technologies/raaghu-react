@@ -21,7 +21,7 @@ import Stack from '@mui/material/Stack';
 import './rds-comp-date-and-time-picker.scss';
 
 export interface RdsCompDatePickerProps {
-  variant?: 'date' | 'time' | 'datetime' | 'daterange' | 'timerange' | 'datetimerange';
+  variant?: 'date' | 'time' | 'datetime' | 'daterange' | 'timerange';
   layout?: 'Default' | 'Year Picker' | 'Month Picker' | 'Multi Month';
   label?: string;
   value?: Dayjs | null | [Dayjs | null, Dayjs | null];
@@ -41,7 +41,7 @@ export interface RdsCompDatePickerProps {
   slotProps?: Record<string, any>;
   state?: 'default' | 'expanded' | 'selected';
   changeIcon?: 'dashboard-settings' | 'date-picker';
-  newVariant?: 'default' | 'custom';
+  style?: 'default' | 'custom';
   type?: 'dropdown' | 'selector';
   showSeconds?: boolean; // New prop to control seconds display
   isRequired?: boolean; // New prop to show required indicator
@@ -388,7 +388,7 @@ export default function RdsCompDatePicker({
   className,
   size = 'medium',
   slotProps,
-  newVariant = 'default',
+  style = 'default',
   showSeconds = true,
   isRequired = false,
 }: RdsCompDatePickerProps) {
@@ -449,7 +449,6 @@ export default function RdsCompDatePicker({
     slotProps: {
       textField: {
         error,
-        helperText,
         label: formattedLabel,
         placeholder: placeholder,
         fullWidth: true,
@@ -502,7 +501,7 @@ export default function RdsCompDatePicker({
           onClick={(e) => { if (!disabled) setAnchorEl(e.currentTarget as HTMLElement); }}
           value={inputValue}
           placeholder={placeholder}
-          label={label}
+          label={formattedLabel}
           size={size}
           fullWidth
           disabled={disabled}
@@ -522,7 +521,6 @@ export default function RdsCompDatePicker({
             ),
           }}
           error={error}
-          helperText={helperText}
           className={`rds-date-picker__input ${disabled ? 'rds-date-picker__input--disabled' : ''} ${readOnly ? 'rds-date-picker__input--readonly' : ''} ${isRequired ? 'rds-date-picker__input--required' : ''}`}
         />
         <Popover
@@ -534,7 +532,7 @@ export default function RdsCompDatePicker({
           className="MuiPickersPopper-root"
         >
           <Paper elevation={3} sx={{ p: 2 }}>
-            {newVariant === 'custom' && variant === 'daterange' ? (
+            {style === 'custom' && variant === 'daterange' ? (
               <CustomDateRangeLayout
                 selectedPreset={selectedPreset}
                 onPresetSelect={handlePresetSelect}
@@ -569,7 +567,7 @@ export default function RdsCompDatePicker({
                     size={size}
                   />
                 )}
-                {variant === 'datetimerange' && (
+                {/* {variant === 'datetimerange' && (
                   <RangeDateTime
                     value={rangeValue}
                     onChange={handleRangeChange}
@@ -581,7 +579,7 @@ export default function RdsCompDatePicker({
                     multiMonth={isMultiMonth}
                     size={size}
                   />
-                )}
+                )} */}
               </>
             )}
             <Box display="flex" justifyContent="flex-end" gap={1} mt={2}>
@@ -642,8 +640,8 @@ export default function RdsCompDatePicker({
         );
 
       case 'daterange':
-      case 'datetimerange':
-        return renderRangeField();
+      // case 'datetimerange':
+      //   return renderRangeField();
 
       case 'date':
       default:
@@ -701,7 +699,7 @@ export default function RdsCompDatePicker({
     readOnly && 'rds-date-picker--readonly',
     error && 'rds-date-picker--error',
     isRequired && 'rds-date-picker--required',
-    variant === 'datetimerange' && 'rds-date-picker--datetimerange',
+    // variant === 'datetimerange' && 'rds-date-picker--datetimerange',
     variant === 'timerange' && 'rds-date-picker--timerange',
     variant === 'daterange' && 'rds-date-picker--daterange',
     variant === 'datetime' && 'rds-date-picker--datetime',
@@ -718,7 +716,10 @@ export default function RdsCompDatePicker({
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className={containerClasses}>
-        {getPickerComponent()}
+        <div className="rds-date-picker__field-wrapper">
+          {getPickerComponent()}
+          {helperText ? <div className="rds-date-picker__helper">{helperText}</div> : null}
+        </div>
       </div>
     </LocalizationProvider>
   );
@@ -751,7 +752,7 @@ export function DatePickerDemo() {
     { label: 'Time Picker (with seconds)', variant: 'time', valueKey: 'time', showSeconds: true },
     { label: 'Date Time Picker (without seconds)', variant: 'datetime', valueKey: 'datetime', showSeconds: false },
     { label: 'Date Range Picker', variant: 'daterange', valueKey: 'daterange' },
-    { label: 'Custom Date Range Picker', variant: 'daterange', valueKey: 'daterange', newVariant: 'custom' },
+    { label: 'Custom Date Range Picker', variant: 'daterange', valueKey: 'daterange', style: 'custom' },
     { label: 'Time Range Picker (with seconds)', variant: 'timerange', valueKey: 'timerange', showSeconds: true },
     { label: 'Date Time Range Picker (with seconds)', variant: 'datetimerange', valueKey: 'datetimerange', showSeconds: true },
   ];
@@ -775,14 +776,14 @@ export function DatePickerDemo() {
           Date Picker Components
         </h6>
         
-        {demos.map(({ label, variant, layout, valueKey, newVariant, showSeconds, isRequired }) => (
-          <DemoItem key={`${valueKey}-${newVariant || 'default'}-${showSeconds || 'default'}-${isRequired || 'false'}`} label={label}>
+        {demos.map(({ label, variant, layout, valueKey, style, showSeconds, isRequired }) => (
+          <DemoItem key={`${valueKey}-${style || 'default'}-${showSeconds || 'default'}-${isRequired || 'false'}`} label={label}>
             <RdsCompDatePicker
               variant={variant as any}
               layout={layout as any}
               value={values[valueKey as keyof typeof values]}
               onChange={handleChange(valueKey)}
-              newVariant={newVariant as any}
+              style={style as any}
               showSeconds={showSeconds}
               isRequired={isRequired}
               label={isRequired ? 'Required Field' : 'Optional Field'}

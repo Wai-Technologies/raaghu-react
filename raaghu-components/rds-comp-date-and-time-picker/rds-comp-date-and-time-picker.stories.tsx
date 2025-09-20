@@ -7,12 +7,13 @@ const meta: Meta = {
     component: RdsCompDatePicker,
     parameters: {
         layout: 'padded',
+        controls: {exclude: ['type']},
     },
     tags: ['autodocs'],
     argTypes: {
         variant: {
             control: { type: 'select' },
-            options: ['date', 'time', 'datetime', 'daterange', 'timerange', 'datetimerange'],
+            options: ['date', 'time', 'datetime', 'daterange', 'timerange'],
             description: 'The type of date picker to display'
         },
         layout: {
@@ -54,7 +55,7 @@ const meta: Meta = {
             options: ['dropdown', 'selector'],
             description: 'Type of the date picker'
         },
-        newVariant: {
+        style: {
             control: { type: 'select' },
             options: ['default', 'custom'],
             description: 'Variant of the date picker'
@@ -80,7 +81,7 @@ export const Default: Story = {
         label: 'Select Date',
         placeholder: 'Choose a date...',
         size: 'small',
-        newVariant: 'default',
+        style: 'default',
         isRequired: true,
     },
     render: (args) => (
@@ -121,7 +122,7 @@ export const DateRangePicker: Story = {
     args: {
         variant: 'daterange',
         placeholder: 'Start date - End date',
-        newVariant: 'default',
+        style: 'default',
         size: 'small',
     },
     render: (args) => (
