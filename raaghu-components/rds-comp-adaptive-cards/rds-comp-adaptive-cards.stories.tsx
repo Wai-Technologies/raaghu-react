@@ -1,4 +1,4 @@
-
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompAdaptiveCards from './rds-comp-adaptive-cards';
 
@@ -211,7 +211,34 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
             ],
         },
     },
-    render: (args) => <RdsCompAdaptiveCards {...args} />,
+    render: (args) => {
+        const [form, setForm] = React.useState({
+            name: '',
+            email: '',
+            phone: ''
+        });
+        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            setForm({ ...form, [e.target.name]: e.target.value });
+        };
+        const handleSubmit = () => {
+            setForm({ name: '', email: '', phone: '' });
+        };
+        return (
+            <>
+                <RdsCompAdaptiveCards
+                    {...args}
+                    nameValue={form.name}
+                    emailValue={form.email}
+                    phoneValue={form.phone}
+                    onNameChange={handleChange}
+                    onEmailChange={handleChange}
+                    onPhoneChange={handleChange}
+                    onBtn1Click={handleSubmit}
+                />
+                <button style={{display:'none'}} id="inputFormClearBtn" onClick={handleSubmit} />
+            </>
+        );
+    },
 };
 
 export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
@@ -258,7 +285,34 @@ export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
             ],
         },
     },
-    render: (args) => <RdsCompAdaptiveCards {...args} />,
+    render: (args) => {
+        const [order, setOrder] = React.useState({
+            entree: '',
+            side: '',
+            drink: ''
+        });
+        const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+            setOrder({ ...order, [e.target.name]: e.target.value });
+        };
+        const handlePlaceOrder = () => {
+            setOrder({ entree: '', side: '', drink: '' });
+        };
+        return (
+            <>
+                <RdsCompAdaptiveCards
+                    {...args}
+                    entreeValue={order.entree}
+                    sideValue={order.side}
+                    drinkValue={order.drink}
+                    onEntreeChange={handleChange}
+                    onSideChange={handleChange}
+                    onDrinkChange={handleChange}
+                    onBtn1Click={handlePlaceOrder}
+                />
+                <button style={{display:'none'}} id="restaurantOrderClearBtn" onClick={handlePlaceOrder} />
+            </>
+        );
+    },
 };
 
 export const FootballScorecard: StoryObj<typeof RdsCompAdaptiveCards> = {
