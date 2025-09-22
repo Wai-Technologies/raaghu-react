@@ -45,6 +45,36 @@ const RdsInput = ({
   // Internal focus tracking to auto-apply active class when state is default
   const [isFocused, setIsFocused] = React.useState(false);
   
+  // Dynamic placeholder based on layout
+  const getPlaceholderByLayout = (layout: string) => {
+    const placeholderMap: { [key: string]: string } = {
+      'text': 'Placeholder Text',
+      'password': '**********',
+      'phone number': 'Enter Phone Number',
+      'number': 'Enter Number',
+      'card number': 'XXXX XXXX XXXX XXXX'
+    };
+    return placeholderMap[layout] || 'Placeholder Text';
+  };
+
+  // Dynamic label based on layout
+  const getLabelByLayout = (layout: string) => {
+    const labelMap: { [key: string]: string } = {
+      'text': 'Label',
+      'password': 'Password',
+      'phone number': 'Phone Number',
+      'number': 'Number',
+      'card number': 'Card Number'
+    };
+    return labelMap[layout] || 'Input';
+  };
+  
+  // Use provided placeholder or generate based on layout
+  const finalPlaceholder = placeholder || getPlaceholderByLayout(layout);
+  
+  // Use provided label or generate based on layout
+  const finalLabel = label || getLabelByLayout(layout);
+  
   // Toggle password visibility
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -179,15 +209,15 @@ const RdsInput = ({
 
   return (
     <div className={`rds-input ${sizeClass} ${pillClass} ${stateClass}`.trim()}>
-      {titlePosition === 'title-above' && label && (
+      {titlePosition === 'title-above' && finalLabel && (
         <label className="rds-input__label">
-          {label}
+          {finalLabel}
           {isMandatory === true && (<span className="rds-input__asterisk">*</span>)}
         </label>
       )}
       <MuiTextField
-        label={titlePosition === 'inline-title' ? label : ''}
-        placeholder={placeholder}
+        label={titlePosition === 'inline-title' ? finalLabel : ''}
+        placeholder={finalPlaceholder}
         helperText={errorMessage || hintText}
         error={!!errorMessage || error || state === 'error'}
         disabled={disabled || state === 'disabled'}

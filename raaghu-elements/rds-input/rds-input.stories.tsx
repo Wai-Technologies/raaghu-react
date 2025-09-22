@@ -62,12 +62,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    placeholder: 'Enter value',
+    placeholder: '', // Leave empty to show dynamic placeholder
+    label: '', // Leave empty to show dynamic label
     size: 'small',
     layout: 'text',
     style: 'default',
     state: 'default',
-    label: 'Input Label',
     hintText: 'This is a hint text',
     isMandatory: false,
     titlePosition: 'inline-title',
