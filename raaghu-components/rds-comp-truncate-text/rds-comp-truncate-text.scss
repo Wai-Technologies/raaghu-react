@@ -1,0 +1,17 @@
+// RDS Truncate Text Component Styles
+.rds-comp-truncate-text {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  font-size: var(--rds-font-size-md, 1rem);
+  font-weight: var(--rds-font-weight-regular, 400);
+  color: var(--rds-color-on-surface);
+
+  &:focus-within {
+    outline: 2px solid var(--rds-color-primary, #1976d2);
+    outline-offset: 2px;
+    border-radius: var(--rds-border-radius-xs, 2px);
+  }
+}

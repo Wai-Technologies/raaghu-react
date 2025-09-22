@@ -1,0 +1,85 @@
+import React, { useEffect, useRef } from "react";
+import Chart from "chart.js/auto";
+import { ChartIcons } from "./chart-icons";
+
+export interface RdsCompBooleanChartProps {
+    labels: any[];
+    options: any;
+    dataSets: any[];
+    chartStyle?: string;
+    id: string;
+    centerIconName?: string;
+}
+
+const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const CanvasId = props.id;
+
+    const isDarkMode = () => {
+        if (typeof window !== 'undefined') {
+            return (
+                document.body.classList.contains('theme-dark') ||
+                document.body.classList.contains('dark-theme') ||
+                document.documentElement.getAttribute('data-theme') === 'dark' ||
+                document.body.getAttribute('data-theme') === 'dark'
+            );
+        }
+        return false;
+    };
+
+    let svg = ChartIcons[props.centerIconName || ""];
+    // If dark mode, replace stroke color with white
+    if (isDarkMode() && svg) {
+        svg = svg.replace(/stroke:(#666|#666666|#6c757d|#000|#222|#333|#444|#555|#888|#999|#aaa|#bbb|#ccc|#ddd|#eee|#f8f9fa|#212529|#343a40|#495057|#adb5bd|#ced4da|#dee2e6|#e9ecef|#f1f3f5|#f8f9fa|#fff|#ffffff)/gi, 'stroke:#fff');
+    }
+    const encodedSVG = btoa(unescape(encodeURIComponent(svg)));
+    const dataURL = `data:image/svg+xml;base64,${encodedSVG}`;
+
+    useEffect(() => {
+        const canvasElm = canvasRef.current;
+        const ctx = canvasElm?.getContext("2d");
+
+        if (ctx) {
+            const centerIcon = {
+                id: "counter4",
+                afterDraw(chart: any) {
+                    const ctx = chart.ctx;
+                    ctx.save();
+                    const myIconImage = new Image();
+                    myIconImage.src = dataURL;
+                    const iconSize = 30;
+                    const x = chart.width / 2 - iconSize / 2;
+                    const y = chart.height / 2 - iconSize / 2;
+                    ctx.drawImage(myIconImage, x, y, iconSize, iconSize);
+                    ctx.restore();
+                },
+            };
+
+            const boolCanvas = new Chart(ctx, {
+                type: "doughnut",
+                plugins: [centerIcon],
+                data: {
+                    labels: props.labels,
+                    datasets: props.dataSets,
+                },
+                options: props.options,
+            });
+
+            if (boolCanvas !== null) {
+                boolCanvas.canvas.style.height = "20vh";
+                boolCanvas.canvas.style.width = "20vh";
+            }
+            return () => {
+                boolCanvas.destroy();
+            };
+        }
+    }, [props]);
+
+    return (
+        <div>
+            <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} />
+        </div>
+    );
+};
+RdsCompBooleanChart.displayName = 'RdsCompBooleanChart';
+export default RdsCompBooleanChart;

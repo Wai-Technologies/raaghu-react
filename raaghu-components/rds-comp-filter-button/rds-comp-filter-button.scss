@@ -1,0 +1,232 @@
+.rds-comp-filter-button {
+  position: relative;
+  display: inline-block;
+
+
+
+
+  &__trigger {
+    transition: all 0.2s ease-in-out;
+    &--open {
+      box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.15));
+      margin-bottom: var(--rds-spacing-sm, 10px);
+    }
+  }
+  &__header {
+    padding: var(--rds-spacing-md, 16px);
+    border-bottom: none;
+    background-color: var(--rds-color-surface, #fff);
+    flex-shrink: 0;
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 16px;
+      right: 16px;
+      height: 1px;
+      background: var(--rds-color-border, #f0f0f0);
+    }
+  }
+
+  &__filters {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+ 
+
+  .rds-filter-button__popover{
+    width: 380px !important;
+
+  }     background: var(--rds-color-scrollbar-track, #f1f1f1);
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var(--rds-color-scrollbar-thumb, #c1c1c1);
+      border-radius: 3px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--rds-color-scrollbar-thumb-hover, #a8a8a8);
+    }
+  }
+
+  &__paper {
+    width: 380px;
+    max-height: 450px;
+    border-radius: var(--rds-border-radius, 8px);
+    box-shadow: var(--rds-elevation-3, 0 4px 20px rgba(0,0,0,0.1));
+    border: 1px solid var(--rds-color-border, #e0e0e0);
+    margin-top: 3px !important;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 450px;
+    background: var(--rds-color-surface, #fff);
+    border-radius: var(--rds-border-radius, 8px);
+    overflow: hidden;
+  }
+
+}
+
+  .rds-filter-button__popover .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-h4boo0-MuiPaper-root-MuiPopover-paper {
+    position: absolute !important;
+    top: 30px !important;
+    left: 25px !important;
+  }
+ 
+
+  .rds-filter-button__popover {
+    width: 380px !important;
+    max-height: 450px !important;
+    border-radius: var(--rds-border-radius, 8px) !important;
+    box-shadow: var(--rds-elevation-3, 0 4px 20px rgba(0,0,0,0.1)) !important;
+    border: 1px solid var(--rds-color-border, #e0e0e0) !important;
+    margin-top: 3px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+
+  .rds-filter-button__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 450px;
+  }
+
+  .rds-filter-button__header {
+    padding: 16px;
+    border-bottom: none;
+    background-color: #fff;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .rds-filter-button__header:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 16px;
+    height: 1px;
+    background: #f0f0f0;
+  }
+
+  .rds-filter-button__search {
+    padding: 16px;
+  border-bottom: none;
+    flex-shrink: 0;
+  }
+  .rds-filter-button__header-title{
+    // font-size: 1rem !important;
+    font-family: var(--font-family-poppins, Poppins) !important;
+    font-size: var(--font-size-sm, 16px) !important;
+    font-style: normal !important;
+    font-weight: var(--font-weight-large, 600) !important;
+    line-height: 22px !important; /* 157.143% */ 
+   }
+
+  // Dark mode: action buttons background
+.rds-theme--dark .rds-filter-button__content > .MuiBox-root:last-child,
+body.theme-dark .rds-filter-button__content > .MuiBox-root:last-child,
+body[data-theme="dark"] .rds-filter-button__content > .MuiBox-root:last-child,
+.theme-dark .rds-filter-button__content > .MuiBox-root:last-child {
+  background: #2a2a2a !important;
+}
+// Dark mode: better hover for filter name
+.rds-theme--dark .MuiAccordionSummary-root:hover,
+body.theme-dark .MuiAccordionSummary-root:hover,
+body[data-theme="dark"] .MuiAccordionSummary-root:hover,
+.theme-dark .MuiAccordionSummary-root:hover {
+  background: #353535 !important;
+  color: #fff !important;
+}
+// Dark mode styles for filter dropdown
+.rds-theme--dark .rds-filter-button__popover,
+body.theme-dark .rds-filter-button__popover,
+body[data-theme="dark"] .rds-filter-button__popover,
+.theme-dark .rds-filter-button__popover {
+  background: #2a2a2a !important;
+  color: #fff !important;
+  border-color: #444 !important;
+}
+
+.rds-theme--dark .rds-filter-button__content,
+body.theme-dark .rds-filter-button__content,
+body[data-theme="dark"] .rds-filter-button__content,
+.theme-dark .rds-filter-button__content {
+  background: #2a2a2a !important;
+  color: #fff !important;
+}
+
+.rds-theme--dark .rds-filter-button__header,
+body.theme-dark .rds-filter-button__header,
+body[data-theme="dark"] .rds-filter-button__header,
+.theme-dark .rds-filter-button__header {
+  background: #2a2a2a !important;
+  color: #fff !important;
+}
+
+.rds-theme--dark .rds-filter-button__header-title,
+body.theme-dark .rds-filter-button__header-title,
+body[data-theme="dark"] .rds-filter-button__header-title,
+.theme-dark .rds-filter-button__header-title {
+  color: #fff !important;
+}
+
+.rds-theme--dark .MuiTypography-root,
+body.theme-dark .MuiTypography-root,
+body[data-theme="dark"] .MuiTypography-root,
+.theme-dark .MuiTypography-root {
+  color: #fff !important;
+}
+
+.rds-theme--dark .MuiAccordionSummary-root,
+body.theme-dark .MuiAccordionSummary-root,
+body[data-theme="dark"] .MuiAccordionSummary-root,
+.theme-dark .MuiAccordionSummary-root {
+  color: #fff !important;
+}
+
+.rds-theme--dark .MuiAccordionDetails-root,
+body.theme-dark .MuiAccordionDetails-root,
+body[data-theme="dark"] .MuiAccordionDetails-root,
+.theme-dark .MuiAccordionDetails-root {
+  color: #fff !important;
+}
+
+.rds-theme--dark .MuiTextField-root,
+body.theme-dark .MuiTextField-root,
+body[data-theme="dark"] .MuiTextField-root,
+.theme-dark .MuiTextField-root {
+  background: #232323 !important;
+  color: #fff !important;
+}
+
+.rds-theme--dark .MuiOutlinedInput-root,
+body.theme-dark .MuiOutlinedInput-root,
+body[data-theme="dark"] .MuiOutlinedInput-root,
+.theme-dark .MuiOutlinedInput-root {
+  background: #232323 !important;
+  color: #fff !important;
+  border-color: #444 !important;
+}
+
+.rds-theme--dark .MuiCheckbox-root,
+body.theme-dark .MuiCheckbox-root,
+body[data-theme="dark"] .MuiCheckbox-root,
+.theme-dark .MuiCheckbox-root {
+  color: #fff !important;
+}

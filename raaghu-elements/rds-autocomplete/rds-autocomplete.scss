@@ -1,0 +1,171 @@
+// RDS Autocomplete Component Styles
+// Autocomplete input with dropdown suggestions
+
+.rds-autocomplete {
+  display: block;
+  position: relative;
+
+  &--root {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--rds-spacing-xs, 4px);
+    width: 100%;
+  }
+
+  &__field {
+    display: block;
+  }
+
+  &__dropdown {
+    display: block;
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
+    gap: var(--rds-spacing-sm, 8px);
+    min-height: var(--rds-field-min-height, 40px);
+    cursor: pointer;
+
+    &:hover {
+      background: var(--rds-color-hover-bg, #f5f5f5);
+    }
+
+    .MuiAvatar-root {
+      width: 24px;
+      height: 24px;
+    }
+
+    .MuiCheckbox-root,
+    .MuiRadio-root {
+      padding: 0 var(--rds-spacing-xs, 4px);
+    }
+
+    span {
+      margin-left: var(--rds-spacing-xs, 4px);
+      font-size: var(--rds-font-size-body, 1rem);
+    }
+  }
+
+  &__loading {
+    display: block;
+  }
+
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+
+    .MuiInputBase-root {
+      background-color: var(--rds-color-disabled-bg, #f9f9f9);
+      color: var(--rds-color-disabled-text, #999);
+    }
+  }
+
+  &--error {
+    .MuiInputBase-root {
+      border-color: var(--rds-color-error, #d32f2f) !important;
+    }
+  }
+
+  &--focused {
+    .MuiInputBase-root {
+      border-color: var(--rds-color-primary, #005fcc);
+      box-shadow: 0 0 0 1px var(--rds-color-primary, #005fcc);
+    }
+  }
+
+  &--small {
+    .MuiInputBase-root {
+      height: 32px !important;
+      min-height: 32px !important;
+      font-size: var(--rds-font-size-small, 14px) !important;
+    }
+
+    .MuiInputBase-input {
+      height: 16px !important;
+      min-height: 16px !important;
+      font-size: var(--rds-font-size-small, 14px) !important;
+      box-sizing: border-box;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  &--medium {
+    .MuiInputBase-root {
+      height: 40px !important;
+      min-height: 40px !important;
+      font-size: var(--rds-font-size-body, 16px) !important;
+    }
+
+    .MuiInputBase-input {
+      height: 24px !important;
+      min-height: 24px !important;
+      font-size: var(--rds-font-size-body, 16px) !important;
+      box-sizing: border-box;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  &--large {
+    .MuiInputBase-root {
+      height: 52px !important;
+      min-height: 52px !important;
+      font-size: var(--rds-font-size-large, 18px) !important;
+    }
+
+    .MuiInputBase-input {
+      height: 36px !important;
+      min-height: 36px !important;
+      font-size: var(--rds-font-size-large, 18px) !important;
+      box-sizing: border-box;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  &__label {
+    &--small {
+      font-size: var(--rds-font-size-caption, 0.9rem) !important;
+      margin-bottom: 2px !important;
+    }
+
+    &--medium {
+      font-size: var(--rds-font-size-body, 1rem) !important;
+      margin-bottom: 4px !important;
+    }
+
+    &--large {
+      font-size: var(--rds-font-size-subheading, 1.1rem) !important;
+      margin-bottom: 6px !important;
+    }
+  }
+
+  // Interactive states
+  &:hover {
+    // Hover styles if needed
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rds-color-primary, #005fcc);
+    outline-offset: var(--rds-focus-ring-offset, 2px);
+  }
+
+  &:disabled,
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .MuiAutocomplete-hasPopupIcon.css-n3hv1h-MuiAutocomplete-root .MuiFilledInput-root, .MuiAutocomplete-hasClearIcon.css-n3hv1h-MuiAutocomplete-root .MuiFilledInput-root {
+    padding-bottom: 20px;
+  }
+
+  .css-1jcag7i-MuiAutocomplete-root, .css-1koemet {
+    .MuiFilledInput-root {
+      padding-top: 0px !important;
+    }
+  }
+}

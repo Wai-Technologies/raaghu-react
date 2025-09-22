@@ -1,0 +1,54 @@
+// RDS Snackbar Component Styles
+// Snackbar notification
+
+.rds-snackbar {
+  display: block;
+  position: relative;
+
+  &__message {
+    // Message styles
+    display: block;
+  }
+
+  &__action {
+    // Action styles
+    display: block;
+  }
+
+  &__close {
+    // Close styles
+    display: block;
+  }
+
+  &--success {
+    // Success state styles
+  }
+
+  &--error {
+    // Error state styles
+  }
+
+  &--warning {
+    // Warning state styles
+  }
+
+  &--info {
+    // Info state styles
+  }
+
+  // Interactive states
+  &:hover {
+    // Hover styles
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset);
+  }
+
+  &:disabled,
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}

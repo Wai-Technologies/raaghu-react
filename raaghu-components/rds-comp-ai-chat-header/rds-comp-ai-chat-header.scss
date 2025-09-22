@@ -1,0 +1,42 @@
+// RDS AI Chat Header Component Styles
+.rds-comp-ai-chat-header {
+  display: flex;
+  align-items: center;
+  padding: var(--rds-spacing-xs, 0.5rem);
+  width: 100%;
+  // Theme support
+  color: var(--rds-color-on-surface, inherit);
+  
+  &__logo {
+    flex-shrink: 0;
+    &--small {
+      height: 1.5rem;
+    }
+    &--medium {
+      height: 2.5rem;
+    }
+    &--large {
+      height: 3.5rem;
+    }
+  }
+
+  &__text {
+    margin-left: var(--rds-spacing-md, 1rem);
+    margin-top: 18px;
+    font-size: 1.25rem;
+    white-space: nowrap;
+    &--small {
+      font-size: 14px;
+    }
+    &--medium {
+      font-size: 18px;
+    }
+    &--large {
+      font-size: 24px;
+    }
+  }
+}
+
+.theme-dark .rds-comp-ai-chat-header {
+  color: var(--rds-color-on-surface-dark, #dee2e6) !important;
+}

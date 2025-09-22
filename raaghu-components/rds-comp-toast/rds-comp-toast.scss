@@ -1,0 +1,573 @@
+// RDS Toast Component Styles
+.rds-comp-toast {
+  // Base toast styles
+  background: var(--rds-color-surface, #ffffff);
+  border: 1px solid var(--rds-color-border, #e0e0e0);
+  border-radius: var(--rds-border-radius, 8px);
+  box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
+  min-width: 420px;
+  max-width: 420px;
+  overflow: hidden;
+  
+  // State visibility modifiers
+  &--visible {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  &--hidden {
+    display: none;
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  
+  // State color modifiers
+  &--info {
+    border-left: 4px solid var(--rds-color-info, #7D7D7D);
+  }
+  
+  &--success {
+    border-left: 4px solid var(--rds-color-success, #3C98FF);
+  }
+  
+  &--error {
+    border-left: 4px solid var(--rds-color-error, #BD0D1D);
+  }
+  
+  // Layout modifiers
+  &--text {
+    // Text layout specific styles - none needed for now
+    position: relative;
+  }
+  
+  &--download {
+    // Download layout specific styles
+    min-height: 120px;
+  }
+  
+  &--chat {
+    // Chat layout specific styles
+    min-height: 150px;
+  }
+  
+  &--request {
+    // Request layout specific styles
+    min-height: 100px;
+  }
+  
+  // Container positioning
+  &__container {
+    position: fixed;
+    z-index: 1050;
+    pointer-events: none;
+    
+    // Position modifiers
+    &--top-left {
+      top: 1rem;
+      left: 1rem;
+    }
+    
+    &--top-center {
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    &--top-right {
+      top: 1rem;
+      right: 1rem;
+    }
+    
+    &--middle-left {
+      top: 50%;
+      left: 1rem;
+      transform: translateY(-50%);
+    }
+    
+    &--middle-center {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    &--middle-right {
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+    }
+    
+    &--bottom-left {
+      bottom: 1rem;
+      left: 1rem;
+    }
+    
+    &--bottom-center {
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    &--bottom-right {
+      bottom: 1rem;
+      right: 1rem;
+    }
+  }
+  
+  // Header section
+  &__header {
+    pointer-events: all;
+  }
+  
+  &__header-content {
+    display: flex;
+    align-items: flex-start;
+    padding: var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) var(--rds-spacing-xs, 0.3rem);
+    gap: var(--rds-spacing-md, 0.4rem);
+  }
+
+  // Override for chat layout - remove gap and adjust padding
+  &--chat &__header-content {
+    padding: var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) var(--rds-spacing-lg, 1rem) !important;
+    gap: 0 !important;
+  }
+  
+  &__leading-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-top: var(--rds-spacing-xxs, 2px);
+    width: 24px;
+    min-width: 24px;
+    max-width: 24px;
+    justify-content: center;
+  }
+  
+  &__icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+    
+    &--circle {
+      border: 2px solid var(--rds-toast-circle-color, #888);
+      box-sizing: border-box;
+    }
+
+    // State-based border color for the circle icon
+    // Default (basic)
+    .rds-comp-toast--basic & {
+      --rds-toast-circle-color: #888;
+    }
+    // Info
+    .rds-comp-toast--info & {
+      --rds-toast-circle-color: var(--rds-color-info, #7D7D7D);
+    }
+    // Success
+    .rds-comp-toast--success & {
+      --rds-toast-circle-color: var(--rds-color-success, #3C98FF);
+    }
+    // Error
+    .rds-comp-toast--error & {
+      --rds-toast-circle-color: var(--rds-color-error, #BD0D1D);
+    }
+    
+    &--plus {
+      background: transparent;
+      position: relative;
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        background: var(--rds-toast-plus-color, #888);
+        border-radius: 1px;
+      }
+      &::before {
+        width: 2px;
+        height: 12px;
+        top: 4px;
+        left: 9px;
+      }
+      &::after {
+        width: 12px;
+        height: 2px;
+        top: 9px;
+        left: 4px;
+      }
+    }
+
+    // State-based color for the plus icon
+    .rds-comp-toast--basic & {
+      --rds-toast-plus-color: #888;
+    }
+    .rds-comp-toast--info & {
+      --rds-toast-plus-color: var(--rds-color-info, #7D7D7D);
+    }
+    .rds-comp-toast--success & {
+      --rds-toast-plus-color: var(--rds-color-success, #3C98FF);
+    }
+    .rds-comp-toast--error & {
+      --rds-toast-plus-color: var(--rds-color-error, #BD0D1D);
+    }
+  }
+  
+  &__title {
+    flex: 1;
+    font-size: var(--rds-font-size-base, 1rem);
+    font-weight: var(--rds-font-weight-semibold, 600);
+    color: var(--rds-color-on-surface, #212121);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    min-height: 22px;
+  }
+
+  &--chat &__title {
+    color: var(--rds-color-on-surface-dark, #353535);
+    font-weight: 500;
+  }
+  
+  &__header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--rds-spacing-md, 0.5rem);
+    height: 22px;
+  }
+  
+  &__chat-time {
+    font-size: var(--rds-font-size-sm, 0.875rem);
+    color: var(--rds-color-on-surface-variant, #666666);
+  }
+  
+  &__close-btn {
+    background: none;
+    border: none;
+    font-size: var(--rds-font-size-lg, 1.5rem);
+    color: var(--rds-color-on-surface-variant, #666666);
+    cursor: pointer;
+    padding: var(--rds-spacing-xs, 0.25rem);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    height: 22px;
+    box-shadow: none;
+    outline: none;
+    
+    &:hover {
+      color: var(--rds-color-on-surface, #212121);
+    }
+    
+    &:focus-visible {
+      outline: 2px solid var(--rds-color-primary, #1976d2);
+      outline-offset: 2px;
+    }
+  }
+  
+  // Body section
+  &__body {
+    padding: 0 var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) 2.2rem;
+    color: var(--rds-color-on-surface-variant, #666666);
+    font-size: var(--rds-font-size-sm, 0.875rem);
+    line-height: 1.5;
+  }
+  
+  &__content {
+    pointer-events: all;
+  }
+  
+  &__body-simple {
+    display: flex;
+    align-items: center;
+    padding: var(--rds-spacing-lg, 1rem);
+    gap: var(--rds-spacing-md, 0.75rem);
+  }
+  
+  &__text {
+    flex: 1;
+    color: var(--rds-color-on-surface-variant, #666666);
+    font-size: var(--rds-font-size-sm, 0.875rem);
+  }
+  
+  // Footer section
+  &__footer {
+    padding: 0 var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem);
+    
+    &--request {
+      padding-top: var(--rds-spacing-md, 0.75rem);
+    }
+  }
+  
+  // Progress bar
+  &__progress {
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 1.3rem;
+    gap: var(--rds-spacing-md, 0.75rem);
+    margin-bottom: var(--rds-spacing-xs, 0.2rem);
+    border-radius: var(--rds-border-radius-sm, 4px);
+    height: 12px;
+    position: relative;
+    overflow: visible;
+    min-width: 260px;
+    width: 100%;
+  }
+  
+  &__progress-bar {
+    background: var(--rds-color-primary, #1976d2);
+    height: 100%;
+    border-radius: inherit;
+    transition: width var(--rds-transition-duration-standard, 0.3s) ease;
+  }
+  
+  &__progress-label {
+    font-size: var(--rds-font-size-sm, 0.875rem);
+    color: var(--rds-color-on-surface-variant, #666666);
+    min-width: 2.5rem;
+    text-align: right;
+  }
+  
+  &__filename {
+    font-size: var(--rds-font-size-sm, 0.875rem);
+    color: var(--rds-color-on-surface-variant, #666666);
+    margin-bottom: var(--rds-spacing-md, 0.75rem);
+    padding: 0 0 0 1.3rem;
+  }
+  
+  // Input group
+  &__input-group {
+    margin-bottom: var(--rds-spacing-md, 0.75rem);
+  }
+  
+  &__input {
+    width: 100%;
+    padding: var(--rds-spacing-md, 0.5rem) var(--rds-spacing-md, 0.75rem);
+    border: 1px solid var(--rds-color-border, #e0e0e0);
+    border-radius: var(--rds-border-radius-sm, 4px);
+    font-size: var(--rds-font-size-base, 0.875rem);
+    color: var(--rds-color-on-surface, #212121);
+    background: var(--rds-color-surface, #ffffff);
+    transition: border-color var(--rds-transition-duration-short, 0.2s) ease,
+                box-shadow var(--rds-transition-duration-short, 0.2s) ease;
+    
+    &:focus {
+      outline: none;
+      border-color: var(--rds-color-primary, #1976d2);
+      box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+    }
+    
+    &::placeholder {
+      color: var(--rds-color-on-surface-variant, #666666);
+    }
+  }
+  
+  // Actions
+  &__actions {
+    display: flex;
+    gap: var(--rds-spacing-xs, 8px);
+    justify-content: flex-end;
+
+    .rds-comp-toast__action-btn {
+      font-size: var(--rds-font-size-xs, 0.8125rem);
+      padding: var(--rds-spacing-xxs, 2px) var(--rds-spacing-sm, 10px);
+      min-width: 0;
+      height: 1.875rem;
+      line-height: 1.2;
+    }
+  }
+
+  // Left-align actions for chat layout only
+  &--chat &__actions {
+    justify-content: flex-start;
+    margin-top: var(--rds-spacing-md, 0.5rem);
+  }
+
+  // Chat layout specific adjustments to remove leading icon space
+  &--chat {
+    // Hide leading icon container for chat layout to remove spacing
+    & .rds-comp-toast__leading-icon {
+      display: none !important;
+      width: 0 !important;
+      min-width: 0 !important;
+      max-width: 0 !important;
+    }
+
+    // Adjust header content padding to align with input/footer
+    & .rds-comp-toast__header-content {
+      padding-left: var(--rds-spacing-lg, 1rem) !important;
+      gap: 0 !important;
+    }
+
+    // Align body text with header
+    & .rds-comp-toast__body {
+      padding-left: var(--rds-spacing-lg, 1rem) !important;
+    }
+
+    // Ensure title takes full width and starts from left
+    & .rds-comp-toast__title {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+  }
+  
+  &__btn {
+    padding: var(--rds-spacing-md, 0.5rem) var(--rds-spacing-lg, 1rem);
+    border-radius: var(--rds-border-radius-sm, 4px);
+    font-size: var(--rds-font-size-sm, 0.875rem);
+    font-weight: var(--rds-font-weight-medium, 500);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all var(--rds-transition-duration-short, 0.2s) ease;
+    
+    &--primary {
+      background: var(--rds-color-primary, #1976d2);
+      color: var(--rds-color-on-primary, #ffffff);
+      
+      &:hover {
+        background: var(--rds-color-primary-hover, #1565c0);
+      }
+      
+      &:active {
+        background: var(--rds-color-primary-pressed, #0d47a1);
+      }
+    }
+    
+    &--secondary {
+      background: transparent;
+      color: var(--rds-color-primary, #1976d2);
+      border-color: transparent;
+      
+      &:hover {
+        background: var(--rds-color-primary-hover-light, rgba(25, 118, 210, 0.04));
+      }
+      
+      &:active {
+        background: var(--rds-color-primary-pressed-light, rgba(25, 118, 210, 0.12));
+      }
+    }
+  }
+}
+
+// Responsive styles for mobile devices
+@media (max-width: 480px) {
+  .rds-comp-toast {
+    min-width: 0;
+    max-width: 95vw;
+    box-sizing: border-box;
+
+    // Default container behavior on mobile: allow per-position rules to win.
+    &__container {
+      width: auto;
+      min-width: 0;
+      max-width: 95vw;
+      box-sizing: border-box;
+      margin: 0;
+      pointer-events: none;
+    }
+
+    // Centered positions should be full-width (with centered transform)
+    &__container--top-center,
+    &__container--middle-center,
+    &__container--bottom-center {
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      width: 95vw;
+      max-width: 95vw;
+      max-width: 95vw;
+      box-sizing: border-box;
+    }
+
+    // Left positions keep a small inset from the left edge
+    &__container--top-left,
+    &__container--middle-left,
+    &__container--bottom-left {
+      left: 1rem;
+      right: auto;
+      transform: none;
+    }
+
+    // Right positions keep a small inset from the right edge
+    &__container--top-right,
+    &__container--middle-right,
+    &__container--bottom-right {
+      right: 1rem;
+      left: auto;
+      transform: none;
+    }
+
+    // Ensure left/right positioned toasts don't overflow the viewport and have consistent inset
+    &__container--top-left .rds-comp-toast,
+    &__container--middle-left .rds-comp-toast,
+    &__container--bottom-left .rds-comp-toast,
+    &__container--top-right .rds-comp-toast,
+    &__container--middle-right .rds-comp-toast,
+    &__container--bottom-right .rds-comp-toast {
+      max-width: calc(100vw - 2rem); /* viewport minus left+right insets */
+      width: auto;
+      box-sizing: border-box;
+    }
+
+    // For mobile, allow top/bottom offsets to work per-class
+    &__container--top-left,
+    &__container--top-center,
+    &__container--top-right {
+      top: 1rem;
+      bottom: auto;
+    }
+
+    &__container--bottom-left,
+    &__container--bottom-center,
+    &__container--bottom-right {
+      bottom: 1rem;
+      top: auto;
+    }
+  }
+}
+
+// Dark theme support
+.theme-dark .rds-comp-toast {
+  background: var(--rds-color-surface-dark, #121212);
+  color: var(--rds-color-on-surface-dark, #ffffff);
+  
+  &__title {
+    color: var(--rds-color-on-surface-dark, #ffffff);
+  }
+  
+  &__body,
+  &__text,
+  &__chat-time,
+  &__progress-label,
+  &__filename {
+    color: var(--rds-color-on-surface-variant-dark, #cccccc);
+  }
+  
+  &__input {
+    background: var(--rds-color-surface-variant-dark, #1e1e1e);
+    border-color: var(--rds-color-border-dark, #333333);
+    color: var(--rds-color-on-surface-dark, #ffffff);
+    
+    &::placeholder {
+      color: var(--rds-color-on-surface-variant-dark, #cccccc);
+    }
+  }
+
+  .rds-comp-toast__icon--circle {
+    --rds-toast-circle-color: var(--rds-color-on-surface-dark, #ffffff);
+  }
+  .rds-comp-toast__icon--plus {
+    --rds-toast-plus-color: var(--rds-color-on-surface-dark, #ffffff);
+  }
+
+  /* Ensure all button text is readable/white in dark theme without changing behaviors */
+  &__close-btn {
+    color: var(--rds-color-on-surface-dark, #ffffff);
+  }
+
+  .css-1goqzru-MuiButtonBase-root-MuiButton-root,
+  .css-kicv99-MuiButtonBase-root-MuiButton-root {
+    color: var(--rds-color-on-surface-dark, #ffffff);
+  }
+}

@@ -1,0 +1,551 @@
+// RDS Pagination Component Styles
+// Pagination navigation
+
+
+.rds-pagination {
+  display: block;
+  position: relative;
+
+  // Target MUI root for custom styling
+  .MuiPagination-ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+
+  // Pagination item (button)
+  .MuiPaginationItem-root {
+    font-family: var(--rds-font-family, Poppins);
+    color: var(--rds-color-primary-contrast, #1976d2);
+    background: transparent;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: none;
+    border: none;
+    margin: 0 4px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    // Default shape is circular, but allow override by variant/shape
+    &.MuiPaginationItem-circular {
+      border-radius: 50%;
+    }
+    &.MuiPaginationItem-rounded {
+      border-radius: 5px;
+      padding:10px;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  // Responsive styles for mobile screens
+  @media (max-width: 834px) and (min-width: 414px) {
+    .MuiPaginationItem-sizeSmall {
+      margin: 0 1px !important;
+      padding: 1px 2px !important;
+      font-size: 0.7rem !important;
+      min-width: 22px !important;
+      height: 22px !important;
+    }
+
+    .MuiPaginationItem-sizeMedium {
+      margin: 0 1px !important;
+      padding: 2px 3px !important;
+      font-size: 0.8rem !important;
+      min-width: 24px !important;
+      height: 24px !important;
+    }
+
+    .MuiPaginationItem-sizeLarge {
+      margin: 0 1px !important;
+      padding: 3px 4px !important;
+      font-size: 0.9rem !important;
+      min-width: 26px !important;
+      height: 26px !important;
+    }
+
+    .MuiPagination-ul {
+      flex-wrap: nowrap;
+      gap: 3px;
+    }
+    .MuiPaginationItem-root {
+      margin: 0 2px;
+      padding: 2px 6px;
+      font-size: 0.85rem;
+      min-width: 28px;
+      height: 28px;
+    }
+    .MuiPaginationItem-root.MuiPaginationItem-rounded {
+      padding: 6px;
+      border-radius: 4px;
+    }
+    // Reduce dropdown width
+    .MuiFormControl-root {
+      min-width: 70px !important;
+    }
+    .MuiInputLabel-root {
+      font-size: 0.85rem;
+    }
+    .MuiSelect-select {
+      font-size: 0.85rem;
+      padding: 6px 8px;
+    }
+  }
+
+  @media (max-width: 414px) and (min-width: 320px) {
+    .MuiPaginationItem-sizeSmall {
+      margin: 0 1px !important;
+      padding: 1px 2px !important;
+      font-size: 0.75rem !important;
+      min-width: 18px !important;
+      height: 18px !important;
+    }
+
+    .MuiPaginationItem-sizeMedium {
+      margin: 0 1px !important;
+      padding: 2px 3px !important;
+      font-size: 0.775rem !important;
+      min-width: 19px !important;
+      height: 19px !important;
+    }
+
+    .MuiPaginationItem-sizeLarge {
+      margin: 0 1px !important;
+      padding: 3px 4px !important;
+      font-size: 0.8rem !important;
+      min-width: 20px !important;
+      height: 20px !important;
+    }
+
+    .MuiPagination-ul {
+      flex-wrap: nowrap;
+      gap: 0px;
+    }
+    .MuiPaginationItem-root {
+      margin: 0 2px;
+      padding: 2px 0px;
+      font-size: 0.85rem;
+      min-width: 25px;
+      height: 25px;
+    }
+    .MuiPaginationItem-root.MuiPaginationItem-rounded {
+      padding: 6px;
+      border-radius: 4px;
+    }
+    // Reduce dropdown width
+    .MuiFormControl-root {
+      min-width: 70px !important;
+    }
+    .MuiInputLabel-root {
+      font-size: 0.85rem;
+    }
+    .MuiSelect-select {
+      font-size: 0.85rem;
+      padding: 6px 8px;
+    }
+  }
+
+  // Selected (current) page
+  .MuiPaginationItem-root.Mui-selected {
+    font-weight: 700;
+    z-index: 1;
+    border-radius: 0 !important;
+  }
+  // Filled (default) selected
+  .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
+    background: transparent !important;
+    color: var(--rds-color-primary, #2196f3) !important;
+    box-shadow: none;
+    border: none !important;
+    border-bottom: 1px solid var(--rds-color-primary, #2196f3) !important;
+    border-radius: 0 !important;
+    outline: none;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--rds-color-primary, #2196f3);
+      border-radius: 0;
+    }
+  }
+  // Outlined selected
+  .MuiPaginationItem-root.Mui-selected.MuiPaginationItem-outlined {
+    background: transparent;
+    color: var(--rds-color-primary, #2196f3);
+    border: 2px solid var(--rds-color-primary, #2196f3);
+    box-shadow: none;
+  }
+  // Rounded selected (filled)
+  .MuiPaginationItem-root.Mui-selected.MuiPaginationItem-rounded:not(.MuiPaginationItem-outlined) {
+    background: transparent !important;
+    color: var(--rds-color-primary, #2196f3) !important;
+    border-radius: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid var(--rds-color-primary, #2196f3) !important;
+    box-shadow: none;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--rds-color-primary, #2196f3);
+      border-radius: 0;
+    }
+  }
+  // Rounded selected (outlined)
+  .MuiPaginationItem-root.Mui-selected.MuiPaginationItem-rounded.MuiPaginationItem-outlined {
+    background: transparent;
+    color: var(--rds-color-primary, #2196f3);
+    border-radius: 5px;
+    border: 2px solid var(--rds-color-primary, #2196f3);
+    box-shadow: none;
+  }
+
+  // Disabled state
+  .MuiPaginationItem-root.Mui-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    background: #e0e0e0;
+    color: #bdbdbd;
+    border: none;
+  }
+
+  // Ellipsis
+  .MuiPaginationItem-ellipsis {
+    color: var(--rds-color-primary, #2196f3);
+    opacity: 0.5;
+    padding: 0 8px;
+  }
+
+  // Focus ring
+  .MuiPaginationItem-root:focus-visible {
+    outline: 2px solid var(--rds-color-primary, #2196f3);
+    outline-offset: 2px;
+  }
+}
+
+// Pagination wrapper styles
+.rds-pagination-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0;
+
+  // Style 2: Blue pagination buttons
+  &.style-2 {
+    .MuiPaginationItem-root.Mui-selected {
+      border-radius: 4px !important;
+    }
+    .MuiPaginationItem-root {
+      color: #007bff;
+      &:hover {
+        background-color: #e6f3ff;
+      }
+    }
+  }
+
+  // Style 3: Outlined pagination with white background
+  &.style-3 {
+    background-color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    // Use thin bottom border for selected items (consistent with other styles)
+    .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
+      background-color: transparent !important;
+      color: #007bff !important;
+      border: none !important;
+      border-bottom: 1px solid #007bff !important;
+      border-radius: 0 !important;
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #007bff;
+      }
+    }
+    .MuiPaginationItem-root {
+      color: #007bff;
+      &:hover {
+        background-color: #f8f9fa;
+      }
+    }
+  }
+
+  // Style 4 & 5: Button styles for Prev/Next buttons
+  &.style-4,
+  &.style-5 {
+    .MuiButton-root {
+      
+      color: white !important;
+      border-radius: 4px;
+      &:hover {
+        background-color: #0056b3 !important;
+      }
+      &.Mui-disabled {
+        background-color: #e0e0e0 !important;
+        color: #999 !important;
+      }
+    }
+  }
+
+  // Style 4,5,11: add spacing between Next button and dropdown only
+  &.style-4 {
+    .pagination-dropdown {
+      margin-left: 12px !important;
+    }
+  }
+    &.style-11 {
+    .pagination-dropdown {
+      margin-left: 12px !important;
+    }
+  }
+
+      &.style-5 {
+    .pagination-dropdown {
+      margin-left: 12px !important;
+    }
+  }
+
+  // Style 6: Legend only styling
+  &.style-6 {
+    .pagination-legend {
+      font-size: 0.875rem;
+      color: rgba(0, 0, 0, 0.87);
+    }
+  }
+
+  // Style 7: White background pagination with dots, dropdown, legend and manual input
+  &.style-7 {
+    background-color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+    .MuiPaginationItem-root {
+      color: #007bff;
+      &:hover {
+        background-color: #f8f9fa;
+      }
+    }
+    
+    .MuiPaginationItem-root.Mui-selected {
+      
+      
+      border-radius: 4px !important;
+    }
+  }
+
+  // Style 8: White background with legend text only
+  &.style-8 {
+    background-color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+    .pagination-legend {
+      font-size: 0.875rem;
+      color: rgba(0, 0, 0, 0.87);
+      margin-left: 0 !important;
+    }
+  }
+
+  // Style 9: Spaced pagination layout (1 1 1 format)
+  &.style-9 {
+    background-color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+    .MuiPagination-ul {
+      gap: 16px;
+    }
+    
+    .MuiPaginationItem-root {
+      color: #007bff;
+      margin: 0 8px;
+      border: 1px solid transparent;
+      &:hover {
+        background-color: #f8f9fa;
+      }
+    }
+    
+    // Use thin bottom border for selected items instead of full outline
+    .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
+      background-color: transparent !important;
+      color: #007bff !important;
+      border: none !important;
+      border-bottom: 1px solid #007bff !important;
+      border-radius: 0 !important;
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #007bff;
+      }
+    }
+    // Additional helper class for Style 9 wrapper when using custom Prev/Next
+    .rds-style9 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      .rds-style9-prev, .rds-style9-next {
+        color: #007bff;
+        min-width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: 1px solid transparent;
+      }
+      .rds-pagination-style9 {
+        .MuiPagination-ul {
+          gap: 8px;
+        }
+      }
+    }
+  }
+
+  // Style 10: Only prev and next arrows
+  &.style-10 {
+    .MuiButton-root {
+     
+      color: white !important;
+      border-radius: 50% !important;
+      width: 32px !important;
+      height: 32px !important;
+      min-width: 32px !important;
+      padding: 0 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 22px !important; /* make the arrow glyph larger */
+      line-height: 1 !important;
+      &:hover {
+        background-color: #0056b3 !important;
+      }
+      &.Mui-disabled {
+        background-color: #e0e0e0 !important;
+        color: #999 !important;
+      }
+    }
+  }
+
+  // Style 11: Prev arrow (circular) and next button (rectangular)
+  &.style-11 {
+    .MuiButton-root {
+      &:first-of-type {
+        // Prev button - circular arrow
+        background-color: #007bff !important;
+        color: white !important;
+        border-radius: 50% !important;
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        padding: 0 !important;
+        font-size: 22px !important; 
+      }
+      
+      &:last-of-type {
+        // Next button - rectangular
+        background-color: #007bff !important;
+        color: white !important;
+        border-radius: 4px !important;
+        padding: 6px 16px !important;
+        min-width: auto !important;
+      }
+      
+      &:hover {
+        background-color: #0056b3 !important;
+      }
+      
+      &.Mui-disabled {
+        background-color: #e0e0e0 !important;
+        color: #999 !important;
+      }
+    }
+  }
+}
+
+// Dropdown styling
+.pagination-dropdown {
+  min-width: 65px !important;
+
+  // Style 3 specific dropdown styling
+  &.style-3 {
+    .MuiOutlinedInput-root {
+      border-radius: 4px;
+      background: white;
+        .MuiOutlinedInput-notchedOutline {
+          border-color: #ddd;
+          border-bottom: 2px solid #007bff;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+          border-radius: 0 !important;
+        }
+      &:hover .MuiOutlinedInput-notchedOutline {
+        border-color: #007bff;
+      }
+      &.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: #007bff;
+      }
+    }
+  }
+}
+
+// Legend text styling
+.pagination-legend {
+  margin-left: 16px !important;
+  font-size: 0.875rem !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+// Manual input styling
+.pagination-manual-input {
+  margin-left: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+
+  .MuiTextField-root {
+    width: 48px;
+    .MuiInputBase-input {
+      text-align: center !important;
+      padding: 4px 8px !important;
+      font-size: 0.875rem !important;
+    }
+  }
+
+  .MuiTypography-root {
+    font-size: 0.875rem !important;
+  }
+}
+
+.css-1p5hatt-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
+.css-1p5hatt-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
+.css-1p5hatt-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+    padding-right: 28px !important;
+    font-size: 14px !important;
+    padding: 7.5px 8px !important;
+}

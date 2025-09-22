@@ -1,0 +1,370 @@
+@use "sass:list";
+
+// RDS Badge Component Styles
+.rds-badge {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  justify-content: center;
+  
+  /* Style MUI Badge overlay numbers to be filled like MUI default */
+  & .MuiBadge-badge {
+    background-color: #1976d2 !important;
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    font-size: 0.75rem !important;
+    min-width: 20px !important;
+    height: 20px !important;
+    border-radius: 10px !important;
+    padding: 0 6px !important;
+    font-family: 'Poppins', Arial, sans-serif !important;
+  }
+  
+  /* Center badge pill when no children */
+  & > .rds-badge__badge {
+    margin-left: 0;
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    top: 0;
+    transform: none;
+    margin: 0 auto;
+    background: #e0c7ff;
+    color: #6c2eb7;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 0.875rem; /* font/size/sm */
+    line-height: 20px;
+    letter-spacing: 0;
+    text-align: center;
+    vertical-align: middle;
+    box-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);
+    padding: 4px 18px;
+    min-width: 60px;
+    height: 32px;
+    border-radius: 16px;
+  }
+  // 🔁 1. Move fallback styles ABOVE loops (no output change, but ensures proper override)
+  &--primary > .rds-badge__badge {
+    background: #e0c7ff;
+    color: #6c2eb7;
+    border: none;
+  }
+  &--primary .MuiBadge-badge {
+    background-color: #6c2eb7 !important;
+    color: #ffffff !important;
+  }
+  
+  &--outline > .rds-badge__badge {
+    background: transparent;
+    color: #6c2eb7;
+    border: 2px solid #6c2eb7;
+    box-shadow: none;
+  }
+  &--outline .MuiBadge-badge {
+    background-color: transparent !important;
+    color: #6c2eb7 !important;
+    border: 2px solid #6c2eb7 !important;
+  }
+  
+  &--transparent > .rds-badge__badge {
+    background: transparent !important;
+    color: #6c2eb7;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  &--transparent .MuiBadge-badge {
+    background-color: transparent !important;
+    color: #6c2eb7 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  &--rectangle > .rds-badge__badge {
+    border-radius: 4px !important;
+  }
+  &--pill > .rds-badge__badge {
+    border-radius: 16px !important;
+  }
+
+  // Color Variant Tokens
+  $rds-badge-colors: (
+    primary: (#6c2eb7 #e0c7ff),
+    secondary: (#1e88e5 #bbdefb),
+    tertiary: (#6d4c41 #d7ccc8),
+    danger: (#d32f2f #ffcdd2),
+    warning: (#f57c00 #ffe0b2),
+    light: (#757575 #eeeeee),
+    success: (#2e7d32 #c8e6c9)
+  );
+
+  //  Dynamic variant class override (more specific than fallback)
+  @each $key, $value in $rds-badge-colors {
+    // Primary style for custom pill
+    &.rds-badge--primary.rds-badge--#{$key} > .rds-badge__badge {
+      color: list.nth($value, 1);
+      background-color: list.nth($value, 2);
+      border: none;
+    }
+    
+    // Primary style for MUI Badge overlay
+    &.rds-badge--primary.rds-badge--#{$key} .MuiBadge-badge {
+      background-color: list.nth($value, 1) !important;
+      color: #ffffff !important;
+    }
+
+    // Outline style for custom pill
+    &.rds-badge--outline.rds-badge--#{$key} > .rds-badge__badge {
+      color: list.nth($value, 1);
+      background-color: transparent;
+      border: 2px solid list.nth($value, 1);
+      box-shadow: none;
+    }
+    
+    // Outline style for MUI Badge overlay
+    &.rds-badge--outline.rds-badge--#{$key} .MuiBadge-badge {
+      background-color: transparent !important;
+      color: list.nth($value, 1) !important;
+      border: 2px solid list.nth($value, 1) !important;
+    }
+
+    // Transparent style for custom pill
+    &.rds-badge--transparent.rds-badge--#{$key} > .rds-badge__badge {
+      color: list.nth($value, 1);
+      background-color: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    
+    // Transparent style for MUI Badge overlay
+    &.rds-badge--transparent.rds-badge--#{$key} .MuiBadge-badge {
+      background-color: transparent !important;
+      color: list.nth($value, 1) !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+  }
+  &--rectangle > .rds-badge__badge {
+    border-radius: 4px !important;
+  }
+  &--pill > .rds-badge__badge {
+    border-radius: 16px !important;
+  }
+  // Disabled state
+  &--disabled > .rds-badge__badge {
+    background: #f3f3f3 !important;
+    color: #bdbdbd !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+    pointer-events: none;
+    transition: none;
+  }
+  &--disabled .MuiBadge-badge {
+    background-color: #f3f3f3 !important;
+    color: #bdbdbd !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+    pointer-events: none;
+    transition: none;
+  }
+  // Size variants
+  &--small .rds-badge__badge {
+    font-size: 0.75rem;
+    padding: 2px 12px;
+    border-radius: 10px;
+    min-width: 40px;
+    height: 24px;
+    line-height: 20px;
+  }
+  &--small .MuiBadge-badge {
+    font-size: 0.625rem !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    border-radius: 8px !important;
+    padding: 0 4px !important;
+    /* Ensure text is visually centered inside the 16px badge */
+    line-height: 1 !important; /* avoid font metrics pushing glyph up */
+    display: grid !important;
+    place-items: center !important;
+
+  }
+  /* Dot variant centering and shape for small size */
+  &--small .MuiBadge-dot {
+    width: 10px !important;
+    height: 10px !important;
+    min-width: 8px !important;
+    border-radius: 50% !important;
+  }
+
+  /* Reduce dot size for medium when used in the Default/Dot story (plain SvgIcon child only) */
+  &.rds-badge--medium .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-dot,
+  &.rds-badge--medium:has(> .MuiSvgIcon-root) .MuiBadge-dot {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 8px !important;
+    border-radius: 50% !important;
+  }
+
+  /* Reduce dot size for large when used in the Default/Dot story (plain SvgIcon child only) */
+  &.rds-badge--large .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-dot,
+  &.rds-badge--large:has(> .MuiSvgIcon-root) .MuiBadge-dot {
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 8px !important;
+    border-radius: 50% !important;
+  }
+
+  /* High-specificity fallback: ensure small overlay badges from MUI are always centered
+     This covers Storybook DOM variations where MUI may apply inline transforms/positioning */
+  &.rds-badge--small .MuiBadge-badge,
+  &.rds-badge--small .MuiBadge-root .MuiBadge-badge,
+  &--small .MuiBadge-badge {
+    display: grid !important;
+    place-items: center !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    height: 14px !important;
+    min-width: 14px !important;
+    vertical-align: middle !important;
+  }
+
+  /* Neutralize any transform/margin applied to inner text nodes so glyphs sit visually centered */
+  &.rds-badge--small .MuiBadge-badge > *,
+  &--small .MuiBadge-badge > * {
+    transform: none !important;
+    margin: 0 !important;
+  }
+
+  /* Avatar-specific optical nudge: move the small badge slightly down when wrapping an Avatar
+     Uses :has() to detect presence of Avatar inside the MUI Badge root (modern Chromium-based Storybook). */
+  &.rds-badge--small .MuiBadge-root:has(.MuiAvatar-root) .MuiBadge-badge,
+  &.rds-badge--small:has(.MuiAvatar-root) .MuiBadge-badge {
+    /* move slightly right and down so the small badge visually sits over the avatar */
+    transform: translate(3px, -3px) !important;
+  }
+
+  /* Default story only: small numeric badge when wrapping a plain SvgIcon (direct child)
+     This avoids affecting Dot or With Icon stories. */
+  &.rds-badge--small .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot),
+  &.rds-badge--small:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot) {
+    transform: translate(8px, -6px) !important;
+  }
+
+  /* Ensure IconButton cases are NOT affected by the Default-story SvgIcon rule above */
+  &.rds-badge--small .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge,
+  &.rds-badge--small:has(.MuiIconButton-root) .MuiBadge-badge {
+    transform: none !important;
+  }
+
+  /* Medium size alignment adjustments for the same stories */
+  /* Avatar-specific nudge for medium size */
+  &.rds-badge--medium .MuiBadge-root:has(.MuiAvatar-root) .MuiBadge-badge,
+  &.rds-badge--medium:has(.MuiAvatar-root) .MuiBadge-badge {
+    transform: translate(6px, -9px) !important;
+  }
+
+  /* Default story: medium numeric badge when wrapping a plain SvgIcon (direct child) */
+  &.rds-badge--medium .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot),
+  &.rds-badge--medium:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot) {
+  transform: translate(12px, -10px) !important;
+  }
+
+  /* Ensure medium IconButton cases are NOT affected by the Default-story SvgIcon rule above */
+  &.rds-badge--medium .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge,
+  &.rds-badge--medium:has(.MuiIconButton-root) .MuiBadge-badge {
+    transform: none !important;
+  }
+
+  /* With Icon story: medium numeric badge when wrapping an IconButton (override reset above) */
+  &.rds-badge--medium .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge:not(.MuiBadge-dot),
+  &.rds-badge--medium:has(.MuiIconButton-root) .MuiBadge-badge:not(.MuiBadge-dot) {
+    transform: translate(5px, -2px) !important;
+  }
+
+  /* Large size alignment adjustments for the same stories */
+  /* Avatar-specific nudge for large size */
+  &.rds-badge--large .MuiBadge-root:has(.MuiAvatar-root) .MuiBadge-badge,
+  &.rds-badge--large:has(.MuiAvatar-root) .MuiBadge-badge {
+    transform: translate(10px, -12px) !important;
+  }
+
+  /* Default story: large numeric badge when wrapping a plain SvgIcon (direct child) */
+  &.rds-badge--large .MuiBadge-root:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot),
+  &.rds-badge--large:has(> .MuiSvgIcon-root) .MuiBadge-badge:not(.MuiBadge-dot) {
+  transform: translate(15px, -15px) !important;
+  }
+
+  /* Ensure large IconButton cases are NOT affected by the Default-story SvgIcon rule above */
+  &.rds-badge--large .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge,
+  &.rds-badge--large:has(.MuiIconButton-root) .MuiBadge-badge {
+    transform: none !important;
+  }
+
+  /* With Icon story: large numeric badge when wrapping an IconButton (override reset above) */
+  &.rds-badge--large .MuiBadge-root:has(.MuiIconButton-root) .MuiBadge-badge:not(.MuiBadge-dot),
+  &.rds-badge--large:has(.MuiIconButton-root) .MuiBadge-badge:not(.MuiBadge-dot) {
+    transform: translate(12px, -6px) !important;
+  }
+  
+  &--medium .rds-badge__badge {
+    font-size: 1rem;
+    padding: 4px 18px;
+    border-radius: 12px;
+    min-width: 60px;
+    height: 32px;
+  }
+  &--medium .MuiBadge-badge {
+    font-size: 0.75rem !important;
+    min-width: 20px !important;
+    height: 20px !important;
+    border-radius: 10px !important;
+    padding: 0 6px !important;
+  }
+  
+  &--large .rds-badge__badge {
+    font-size: 1.25rem;
+    padding: 6px 24px;
+    border-radius: 16px;
+    min-width: 80px;
+    height: 40px;
+  }
+  &--large .MuiBadge-badge {
+    font-size: 0.875rem !important;
+    min-width: 24px !important;
+    height: 24px !important;
+    border-radius: 12px !important;
+    padding: 0 8px !important;
+  }
+  
+  &__badge {
+    position: static;
+    background: #e0c7ff;
+    color: #6c2eb7;
+    border-radius: 16px;
+    font-weight: 600;
+    box-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);
+    padding: 4px 18px;
+    font-size: 1rem;
+    min-width: 60px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    &--dot {
+      width: var(--rds-spacing-sm);
+      height: var(--rds-spacing-sm);
+      min-width: var(--rds-spacing-sm);
+      padding: 0;
+      border-radius: var(--rds-border-radius-full);
+    }
+  }
+}

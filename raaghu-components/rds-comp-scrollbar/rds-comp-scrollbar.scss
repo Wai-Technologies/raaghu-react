@@ -1,0 +1,156 @@
+.rds-scrollbar {
+  position: relative;
+  overflow: hidden;
+  width: 18px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--rds-color-gray-300, #e2e8f0);
+  background-color: var(--rds-color-white, #fff);
+  border-radius: var(--rds-border-radius-md, 15px);
+  padding: 0;
+
+  &--mac {
+    .rds-scrollbar__controls {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      top: 0;
+      left: 0;
+      padding: 1px;
+      z-index: 1;
+      box-sizing: border-box;
+      button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 10px;
+        padding: 0;
+        height: auto;
+        width: 100%;
+        min-height: 16px;
+        max-height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+
+        &:hover {
+          background-color: var(--rds-color-gray-200, #e2e8f0);
+        }
+      }
+    }
+  }
+
+  .rds-scrollbar__content {
+    overflow-y: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
+    .rds-scrollbar__inner-content {
+        height: 800px;
+        width: 1px;
+        margin: 0 auto;
+    }
+}
+
+/* Mac Scrollbar */
+.rds-scrollbar--mac .rds-scrollbar__content {
+  height: calc(100% - 40px);
+  overflow-y: scroll;
+  background-color: transparent;
+  margin: 0 auto;
+}
+
+.rds-scrollbar--mac .rds-scrollbar__content::-webkit-scrollbar {
+  width: 4px;
+  margin: 0 3px;
+}
+
+.rds-scrollbar--mac .rds-scrollbar__content::-webkit-scrollbar-thumb {
+  background-color: var(--rds-color-gray-500, #94a3b8);
+  border-radius: var(--rds-border-radius-full, 9999px);
+  width: 4px;
+  min-height: 40px;
+  margin: 0 auto;
+}
+
+/* Simple Scrollbar (Default Browser) */
+.rds-scrollbar--simple .rds-scrollbar__content {
+  height: 100%;
+  overflow-y: scroll;
+  margin: 0 auto;
+}
+
+.rds-scrollbar--simple .rds-scrollbar__content::-webkit-scrollbar {
+  width: 4px;
+  margin: 0 3px;
+}
+
+.rds-scrollbar--simple .rds-scrollbar__content::-webkit-scrollbar-thumb {
+  background-color: var(--rds-color-gray-400, #9ca3af);
+  border-radius: var(--rds-border-radius-sm, 2px);
+  width: 4px;
+  min-height: 40px;
+  margin: 0 auto;
+}
+
+.rds-scrollbar--simple .rds-scrollbar__content::-webkit-scrollbar-track {
+  background-color: var(--rds-color-gray-100, #f1f5f9);
+  border-radius: var(--rds-border-radius-sm, 2px);
+}
+
+/* Override all MUI SVG Icons within scrollbar component */
+.rds-scrollbar {
+  /* Target both the class pattern and the generic MUI class */
+  .MuiSvgIcon-root,
+  [class*="-MuiSvgIcon-root"] {
+    font-size: inherit;
+    width: 15px;
+    height: 15px;
+  }
+  
+  /* Specific styling for scrollbar icons */
+  &__icon {
+    width: 70%;
+    height: auto;
+    max-width: 12px;
+    max-height: 12px;
+    font-size: inherit !important; /* Important to override MUI's default */
+    color: var(--rds-color-gray-500, #94a3b8);
+  }
+}
+
+.rds-scrollbar__button {
+  background-color: transparent;
+  margin: 0;
+  width: 100%;
+  min-height: 16px;
+  max-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  
+  &:hover {
+    background-color: var(--rds-color-gray-200, #e2e8f0);
+  }
+  
+  &:focus {
+    outline: none;
+  }
+  
+  .rds-scrollbar__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rds-color-gray-500, #94a3b8);
+  }
+}

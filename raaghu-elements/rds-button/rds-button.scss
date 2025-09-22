@@ -1,0 +1,271 @@
+// RDS Button Component Styles
+:root {
+  // Button color variables - primary
+  --rds-button-primary-bg: #1976d2;
+  --rds-button-primary-bg-hover: #1565c0;
+  --rds-button-primary-bg-active: #0d47a1;
+  --rds-button-primary-bg-disabled: #e0e0e0;
+  --rds-button-primary-text: #ffffff;
+  --rds-button-primary-text-disabled: #9e9e9e;
+  
+  // Button color variables - secondary
+  --rds-button-secondary-bg: transparent;
+  --rds-button-secondary-bg-hover: rgba(25, 118, 210, 0.04);
+  --rds-button-secondary-bg-active: rgba(25, 118, 210, 0.12);
+  --rds-button-secondary-bg-disabled: transparent;
+  --rds-button-secondary-border: #1976d2;
+  --rds-button-secondary-border-hover: #1565c0;
+  --rds-button-secondary-border-active: #0d47a1;
+  --rds-button-secondary-border-disabled: #e0e0e0;
+  --rds-button-secondary-text: #1976d2;
+  --rds-button-secondary-text-active: #0d47a1;
+  --rds-button-secondary-text-disabled: #9e9e9e;
+  
+  // Button color variables - text
+  --rds-button-text-color: #1976d2;
+  --rds-button-text-color-active: #0d47a1;
+  --rds-button-text-color-disabled: #9e9e9e;
+  --rds-button-text-bg-hover: rgba(25, 118, 210, 0.04);
+  --rds-button-text-bg-active: rgba(25, 118, 210, 0.12);
+}
+
+.rds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rds-spacing-sm);
+  padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+  border-radius: var(--rds-border-radius-sm);
+  font-family: var(--rds-font-family-base);
+  font-size: var(--rds-font-size-sm);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02857em;
+  cursor: pointer;
+  transition: all var(--rds-transition-base);
+  outline: none;
+  border: none;
+  min-height: 36px;
+  max-width: 220px;
+  width: auto;
+  white-space: nowrap;
+  
+  &:focus-visible {
+    outline: var(--rds-focus-ring);
+    outline-offset: var(--rds-focus-ring-offset);
+  }
+  
+  &__icon {
+    font-size: 1var(--rds-spacing-sm);
+    
+    &--start {
+      order: -1;
+    }
+    
+    &--end {
+      order: 1;
+    }
+  }
+  
+  &__loading {
+    animation: rds-button-spin 1s linear infinite;
+  }
+  
+  // Size variants
+  &__small {
+    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
+    font-size: var(--rds-font-size-xs);
+    min-height: 2var(--rds-spacing-sm);
+  }
+  
+  &__medium {
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+    font-size: var(--rds-font-size-sm);
+    min-height: 36px;
+  }
+  
+  &__large {
+    padding: var(--rds-spacing-md) var(--rds-spacing-lg);
+    font-size: var(--rds-font-size-md);
+    min-height: 4var(--rds-spacing-xs);
+  }
+  
+  // Color variants
+  &__primary {
+    background-color: var(--rds-button-primary-bg);
+    color: var(--rds-button-primary-text);
+    
+    &:hover {
+      background-color: var(--rds-button-primary-bg-hover);
+    }
+    
+    &:active {
+      background-color: var(--rds-button-primary-bg-active);
+    }
+  }
+
+  &__secondary {
+    background-color: var(--rds-button-secondary-bg);
+    color: var(--rds-button-secondary-text);
+    border: 1px solid var(--rds-button-secondary-border);
+    
+    &:hover {
+      background-color: var(--rds-button-secondary-bg-hover);
+      border-color: var(--rds-button-secondary-border-hover);
+    }
+    
+    &:active {
+      background-color: var(--rds-button-secondary-bg-active);
+    }
+  }
+
+  &__text {
+    background-color: transparent;
+    color: var(--rds-button-text-color);
+    
+    &:hover {
+      background-color: var(--rds-button-text-bg-hover);
+    }
+    
+    &:active {
+      background-color: var(--rds-button-text-bg-active);
+    }
+  }
+  
+  // States
+  &:disabled,
+  &__disabled {
+    background-color: var(--rds-button-primary-bg-disabled) !important;
+    color: var(--rds-button-primary-text-disabled) !important;
+    cursor: not-allowed;
+    border-color: var(--rds-border-light) !important;
+  }
+
+  &__loading {
+    pointer-events: none;
+  }
+
+  // State variants
+  &__state-hover {
+    &:hover {
+      background-color: var(--rds-button-primary-bg-hover) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  &__state-selected {
+    background-color: var(--rds-button-primary-bg-active) !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    &:hover {
+      background-color: var(--rds-button-primary-bg-active) !important;
+    }
+
+    // Handle different button styles for selected state
+    &.MuiButton-outlined {
+      background-color: var(--rds-button-secondary-bg-active) !important;
+      border-color: var(--rds-button-secondary-border-active) !important;
+      color: var(--rds-button-secondary-text-active) !important;
+    }
+
+    &.MuiButton-text {
+      background-color: var(--rds-button-text-bg-active) !important;
+      color: var(--rds-button-text-color-active) !important;
+    }
+  }
+
+  &__state-disabled {
+    background-color: var(--rds-button-primary-bg-disabled) !important;
+    color: var(--rds-button-primary-text-disabled) !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+    border-color: var(--rds-border-light) !important;
+    
+    &:hover {
+      background-color: var(--rds-button-primary-bg-disabled) !important;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    // Handle different button styles for disabled state
+    &.MuiButton-outlined {
+      background-color: var(--rds-button-secondary-bg-disabled) !important;
+      border-color: var(--rds-button-secondary-border-disabled) !important;
+      color: var(--rds-button-secondary-text-disabled) !important;
+    }
+
+    &.MuiButton-text {
+      background-color: transparent !important;
+      color: var(--rds-button-text-color-disabled) !important;
+    }
+  }
+
+  &__state-default {
+    // Default state - inherits base button styles
+    transition: all var(--rds-transition-base);
+  }
+  
+  // Shape variants
+  &__pill {
+    border-radius: 50px !important;
+  }
+
+  &__rectangle {
+    border-radius: var(--rds-border-radius-sm) !important;
+  }
+
+  .text-light {
+   color: var(--rds-button-text-color, #1976d2) !important;
+ }
+}
+
+@keyframes rds-button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rds-theme--dark .rds-button,
+body.theme-dark .rds-button,
+body[data-theme="dark"] .rds-button,
+.theme-dark .rds-button {
+  // color: var(--rds-button-primary-text, #ffffff);
+}
+
+.rds-theme--dark .rds-button__primary,
+body.theme-dark .rds-button__primary,
+body[data-theme="dark"] .rds-button__primary,
+.theme-dark .rds-button__primary {
+  color: var(--rds-button-primary-text, #ffffff);
+}
+
+.rds-theme--dark .rds-button__secondary,
+body.theme-dark .rds-button__secondary,
+body[data-theme="dark"] .rds-button__secondary,
+.theme-dark .rds-button__secondary,
+.rds-theme--dark .rds-button__text,
+body.theme-dark .rds-button__text,
+body[data-theme="dark"] .rds-button__text,
+.theme-dark .rds-button__text {
+  // color: var(--rds-button-primary-text, #ffffff); 
+}
+
+// Ensure transparent (text) style keeps primary color in dark theme when primary selected
+.rds-theme--dark .rds-button__text.MuiButton-textPrimary,
+body.theme-dark .rds-button__text.MuiButton-textPrimary,
+body[data-theme="dark"] .rds-button__text.MuiButton-textPrimary,
+.theme-dark .rds-button__text.MuiButton-textPrimary {
+  // color: var(--rds-button-text-color, #1976d2) !important;
+}
+
+// Dark theme: show primary (brand) color for transparent (text) style when primary color is selected
+.rds-theme--dark .rds-button.MuiButton-textPrimary,
+body.theme-dark .rds-button.MuiButton-textPrimary,
+body[data-theme="dark"] .rds-button.MuiButton-textPrimary,
+.theme-dark .rds-button.MuiButton-textPrimary {
+  // color: var(--rds-button-text-color, #1976d2 !important); // primary brand color
+}
