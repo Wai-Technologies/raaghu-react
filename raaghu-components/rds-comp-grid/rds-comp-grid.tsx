@@ -2958,34 +2958,36 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         
                         {/* Dynamic Input based on Data Type */}
                         {inputType === 'date' ? (
-                          <LocalizationProvider dateAdapter={AdapterDateFns}>
-                            <DatePicker
-                              value={filterConditions[0].value ? new Date(filterConditions[0].value) : null}
-                              onChange={(date) => handleFilterConditionChange(1, 'value', date)}
-                              slotProps={{
-                                textField: {
-                                  size: 'small',
-                                  fullWidth: true,
-                                  placeholder: 'Select date...',
-                                  sx: {
-                                    backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : undefined,
-                                    '& .MuiInputBase-input': {
-                                      fontSize: '10px',
-                                      height: '24px',
-                                      padding: '4px 8px',
-                                      color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
-                                    },
-                                    '& .MuiOutlinedInput-notchedOutline': {
-                                      borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : undefined,
-                                    },
-                                    '& .MuiSvgIcon-root': {
-                                      color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                          <Box onMouseDown={e => e.stopPropagation()}>
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                              <DatePicker
+                                value={filterConditions[0].value ? new Date(filterConditions[0].value) : null}
+                                onChange={(date) => handleFilterConditionChange(1, 'value', date)}
+                                slotProps={{
+                                  textField: {
+                                    size: 'small',
+                                    fullWidth: true,
+                                    placeholder: 'Select date...',
+                                    sx: {
+                                      backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : undefined,
+                                      '& .MuiInputBase-input': {
+                                        fontSize: '10px',
+                                        height: '24px',
+                                        padding: '4px 8px',
+                                        color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                      },
+                                      '& .MuiOutlinedInput-notchedOutline': {
+                                        borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : undefined,
+                                      },
+                                      '& .MuiSvgIcon-root': {
+                                        color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                      }
                                     }
                                   }
-                                }
-                              }}
-                            />
-                          </LocalizationProvider>
+                                }}
+                              />
+                            </LocalizationProvider>
+                          </Box>
                         ) : inputType === 'number' ? (
                           <Box>
                             <Typography 
