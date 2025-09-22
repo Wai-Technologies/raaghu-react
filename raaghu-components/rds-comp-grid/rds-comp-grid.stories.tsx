@@ -2,10 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React, { useRef, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Button, Box, Stack, Typography, Divider } from '@mui/material';
-// import RdsCompGridNoScss, { RdsCompGridColumn, RdsCompGridAction, ActionPosition, State, ActionColumnStyle } from './rds-comp-grid-no-scss';
 import RdsCompGrid, { RdsCompGridColumn, RdsCompGridAction, ActionPosition, State, ActionColumnStyle, RdsCompGridRef } from './rds-comp-grid';
-
-// const RdsCompGrid = RdsCompGridNoScss;
 
 const meta: Meta<typeof RdsCompGrid> = {
   title: 'Components/Grid',
@@ -50,6 +47,18 @@ const meta: Meta<typeof RdsCompGrid> = {
       description: 'Inline edit mode: cell-by-cell editing (default) or row-based editing',
       defaultValue: 'cell',
       type: { name: 'string', required: false },
+    },
+    enableRowSwapping: {
+      control: 'boolean',
+      description: 'Enable row drag and drop functionality for reordering',
+      defaultValue: false,
+      type: { name: 'boolean', required: false },
+    },
+    enableColumnSwapping: {
+      control: 'boolean',
+      description: 'Enable column drag and drop functionality for reordering',
+      defaultValue: false,
+      type: { name: 'boolean', required: false },
     },
     showHeader: {
       control: 'boolean',
@@ -277,6 +286,50 @@ const sampleData = [
   }
 ];
 
+// Test data with longer text for truncation testing
+const longTextData = [
+  {
+    id: 1,
+    name: 'Christopher Alexander Johnson-Wilson',
+    email: 'christopher.alexander.johnson-wilson@verylongdomainname.com',
+    role: 'Senior Software Development Engineer',
+    status: 'Active',
+    lastLogin: '2024-01-15',
+  },
+  {
+    id: 2,
+    name: 'Dr. Elizabeth Margaret Thompson-Smith',
+    email: 'elizabeth.margaret.thompson-smith@extremelylongcompanyname.com',
+    role: 'Principal Product Manager',
+    status: 'Active',
+    lastLogin: '2024-01-14',
+  },
+  {
+    id: 3,
+    name: 'Michael Anthony Rodriguez-Garcia',
+    email: 'michael.anthony.rodriguez-garcia@superlongdomainname.com',
+    role: 'Lead Technical Architect',
+    status: 'Inactive',
+    lastLogin: '2024-01-10',
+  },
+  {
+    id: 4,
+    name: 'Sarah Jennifer Williams-Brown',
+    email: 'sarah.jennifer.williams-brown@verylongdomainname.com',
+    role: 'Senior User Experience Designer',
+    status: 'Active',
+    lastLogin: '2024-01-16',
+  },
+  {
+    id: 5,
+    name: 'Robert James Anderson-Miller',
+    email: 'robert.james.anderson-miller@extremelylongcompanyname.com',
+    role: 'Chief Technology Officer',
+    status: 'Active',
+    lastLogin: '2024-01-13',
+  },
+];
+
 const sampleActions: RdsCompGridAction[] = [
   {
     id: 'edit',
@@ -311,6 +364,8 @@ export const Default: Story = {
     isResizable: true,
     enableInlineEdit: true,
     inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -340,6 +395,8 @@ export const WithCheckboxSelection: Story = {
     enableCheckboxSelection: true,
     enableInlineEdit: true,
     inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -371,6 +428,8 @@ export const WithActions: Story = {
     actionColumnStyle: ActionColumnStyle.ShowDots,
     enableInlineEdit: true,
     inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -402,6 +461,8 @@ export const WithButtonActions: Story = {
     actionColumnStyle: ActionColumnStyle.ShowButtonsDirectly,
     enableInlineEdit: true,
     inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -471,6 +532,8 @@ export const WithCustomButtonStyles: Story = {
     enableInlineEdit: true,
     inlineEditMode: 'cell',
     showHeader: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
       console.log('Custom buttons - Cell edited:', { rowId, columnKey, newValue, oldValue });
@@ -501,6 +564,8 @@ export const WithPagination: Story = {
     enableInlineEdit: true,
     inlineEditMode: 'cell',
     showHeader: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
       console.log('Data updated with pagination:', { rowId, columnKey, newValue, oldValue });
@@ -526,6 +591,8 @@ export const WithoutHeader: Story = {
     isSort: true,
     isFilter: true,
     isResizable: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: false,
     showSubHeader: false,
   },
@@ -540,6 +607,8 @@ export const WithoutSorting: Story = {
     isFilter: true,
     isResizable: true,
     showHeader: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showSubHeader: true,
   },
 };
@@ -553,6 +622,8 @@ export const WithoutFiltering: Story = {
     isFilter: false,
     isResizable: true,
     showHeader: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showSubHeader: true,
   },
 };
@@ -566,6 +637,8 @@ export const EmptyState: Story = {
     isFilter: true,
     isResizable: true,
     showHeader: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showSubHeader: true,
     noDataTitle: 'No users found',
     noDataHeaderTitle: 'User Management',
@@ -591,6 +664,8 @@ export const LargeDataset: Story = {
     recordsPerPage: 10,
     enableInlineEdit: true,
     inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -612,13 +687,91 @@ export const LargeDataset: Story = {
 // Column Resizing Demo
 export const ColumnResizing: Story = {
   args: {
-    tableHeaders: sampleColumns,
-    tableData: sampleData,
+    tableHeaders: [
+      {
+        key: 'id',
+        name: 'ID',
+        dataType: 'number',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: false,
+        minWidth: 60,
+        maxWidth: 100,
+        colWidth: '80px',
+      },
+      {
+        key: 'name',
+        name: 'Name',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 100,
+        maxWidth: 400,
+        isBold: true,
+        colWidth: '200px',
+      },
+      {
+        key: 'email',
+        name: 'Email',
+        dataType: 'email',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 80,
+        maxWidth: 500,
+        colWidth: '250px',
+      },
+      {
+        key: 'role',
+        name: 'Role',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 80,
+        maxWidth: 300,
+        colWidth: '120px',
+      },
+      {
+        key: 'status',
+        name: 'Status',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: false,
+        minWidth: 80,
+        maxWidth: 200,
+        colWidth: '100px',
+      },
+      {
+        key: 'lastLogin',
+        name: 'Last Login',
+        dataType: 'date',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 120,
+        maxWidth: 250,
+        colWidth: '150px',
+      },
+    ],
+    tableData: longTextData,
     isSort: true,
     isFilter: true,
     isResizable: true,
     enableInlineEdit: true,
     inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -631,7 +784,101 @@ export const ColumnResizing: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'This grid demonstrates column resizing functionality with inline editing. Hover over column borders to resize columns and click cells to edit them. All changes are automatically saved and immediately visible.',
+        story: 'This grid demonstrates improved column resizing functionality with text truncation. Hover over the right edge of column headers to see the resize cursor, then drag to resize columns. When text is too long for the column width, it will be truncated with ellipsis (...) and show a tooltip on hover. Each column has different min/max width constraints. The table uses fixed layout for better column width control.',
+      },
+    },
+  },
+};
+
+// Inline Edit with Text Truncation Demo
+export const InlineEditWithTruncation: Story = {
+  args: {
+    tableHeaders: [
+      {
+        key: 'id',
+        name: 'ID',
+        dataType: 'number',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: false,
+        minWidth: 60,
+        maxWidth: 100,
+        colWidth: '80px',
+      },
+      {
+        key: 'name',
+        name: 'Full Name',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 100,
+        maxWidth: 300,
+        isBold: true,
+        colWidth: '150px',
+      },
+      {
+        key: 'email',
+        name: 'Email Address',
+        dataType: 'email',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        required: true,
+        minWidth: 120,
+        maxWidth: 400,
+        colWidth: '200px',
+      },
+      {
+        key: 'role',
+        name: 'Job Title',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 100,
+        maxWidth: 250,
+        colWidth: '120px',
+      },
+      {
+        key: 'status',
+        name: 'Status',
+        dataType: 'string',
+        isSort: true,
+        isFilter: true,
+        isResizable: true,
+        isEditable: true,
+        minWidth: 80,
+        maxWidth: 150,
+        colWidth: '100px',
+      },
+    ],
+    tableData: longTextData,
+    isSort: true,
+    isFilter: true,
+    isResizable: true,
+    enableInlineEdit: true,
+    inlineEditMode: 'cell',
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
+    showHeader: true,
+    showSubHeader: true,
+    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
+      console.log('Inline edit with truncation - Cell edited:', { rowId, columnKey, newValue, oldValue });
+    },
+    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
+      console.log('Inline edit with truncation - Edit completed:', { rowId, columnKey, newValue, isValid });
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This grid demonstrates inline editing with text truncation. Click on any editable cell to start editing. When text is too long for the column width, it will be truncated with ellipsis (...) and show a tooltip on hover. The styling is consistent between edit and non-edit modes.',
       },
     },
   },
@@ -802,6 +1049,8 @@ export const ComplexHtmlDemo: Story = {
     isSort: true,
     isFilter: true,
     isResizable: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: false,
   },
@@ -1170,6 +1419,8 @@ export const InlineEditing: Story = {
     isSort: true,
     isFilter: true,
     isResizable: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -1293,6 +1544,8 @@ export const InlineEditingDataTypes: Story = {
     isSort: true,
     isFilter: true,
     isResizable: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -1392,6 +1645,8 @@ export const RowBasedInlineEditing: Story = {
     isSort: true,
     isFilter: true,
     isResizable: true,
+    enableRowSwapping: false,
+    enableColumnSwapping: false,
     showHeader: true,
     showSubHeader: true,
     onCellEdit: (rowId, columnKey, newValue, oldValue) => {
@@ -1410,156 +1665,6 @@ export const RowBasedInlineEditing: Story = {
   },
 };
 
-// State Management Demo
-export const WithStateManagement: Story = {
-  args: {
-    tableHeaders: sampleColumns,
-    tableData: sampleData,
-    isSort: true,
-    isFilter: true,
-    isResizable: true,
-    enableInlineEdit: true,
-    inlineEditMode: 'cell',
-    showHeader: true,
-    showSubHeader: true,
-    onDataChange: (newData) => {
-      console.log('Data changed:', newData);
-    },
-    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-      console.log('State management - Cell edited:', { rowId, columnKey, newValue, oldValue });
-    },
-    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-      console.log('State management - Edit completed:', { rowId, columnKey, newValue, isValid });
-    },
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'This grid demonstrates auto-save functionality. Changes are automatically saved when you finish editing (on blur/close) and are immediately visible in the grid. Data is maintained in state and persists across interactions.',
-      },
-    },
-  },
-};
-
-// Auto-Save Demo
-export const AutoSaveDemo: Story = {
-  args: {
-    tableHeaders: [
-      {
-        key: 'id',
-        name: 'ID',
-        dataType: 'number',
-        isSort: true,
-        isFilter: true,
-        isResizable: true,
-        isEditable: false,
-        minWidth: 80,
-        maxWidth: 120,
-        colWidth: '100px',
-      },
-      {
-        key: 'name',
-        name: 'Name',
-        dataType: 'string',
-        isSort: true,
-        isFilter: true,
-        isResizable: true,
-        isEditable: true,
-        required: true,
-        minWidth: 150,
-        maxWidth: 300,
-        isBold: true,
-        colWidth: '200px',
-      },
-      {
-        key: 'email',
-        name: 'Email',
-        dataType: 'email',
-        isSort: true,
-        isFilter: true,
-        isResizable: true,
-        isEditable: true,
-        required: true,
-        minWidth: 200,
-        maxWidth: 300,
-        colWidth: '250px',
-      },
-      {
-        key: 'age',
-        name: 'Age',
-        dataType: 'number',
-        isSort: true,
-        isFilter: true,
-        isResizable: true,
-        isEditable: true,
-        minWidth: 80,
-        maxWidth: 120,
-        colWidth: '100px',
-        validateCell: (value: any) => {
-          const age = Number(value);
-          if (age < 18) return 'Age must be at least 18';
-          if (age > 100) return 'Age must be less than 100';
-          return null;
-        },
-      },
-      {
-        key: 'lastLogin',
-        name: 'Last Login',
-        dataType: 'date',
-        isSort: true,
-        isFilter: true,
-        isResizable: true,
-        isEditable: true,
-        minWidth: 150,
-        maxWidth: 200,
-        colWidth: '180px',
-      },
-    ],
-    tableData: [
-      {
-        id: 1,
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        age: 28,
-        lastLogin: '2024-01-15',
-      },
-      {
-        id: 2,
-        name: 'Jane Smith',
-        email: 'jane.smith@example.com',
-        age: 32,
-        lastLogin: '2024-01-14',
-      },
-      {
-        id: 3,
-        name: 'Bob Johnson',
-        email: 'bob.johnson@example.com',
-        age: 45,
-        lastLogin: '2024-01-10',
-      },
-    ],
-    enableInlineEdit: true,
-    inlineEditMode: 'cell',
-    isSort: true,
-    isFilter: true,
-    isResizable: true,
-    showHeader: true,
-    showSubHeader: true,
-    onCellEdit: (rowId, columnKey, newValue, oldValue) => {
-      console.log('Cell auto-saved:', { rowId, columnKey, newValue, oldValue });
-    },
-    onCellEditComplete: (rowId, columnKey, newValue, isValid) => {
-      console.log('Cell edit completed:', { rowId, columnKey, newValue, isValid });
-    },
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'This grid demonstrates auto-save functionality. Click on any editable cell to start editing. When you click outside or press Enter, the data is automatically saved and immediately visible in the grid. Try editing different data types (text, email, number, date) to see the auto-save in action.',
-      },
-    },
-  },
-};
 
 // Grid Ref Example Story
 export const GridRefExample: Story = {
@@ -1613,42 +1718,42 @@ export const GridRefExample: Story = {
           status: 'Active'
         };
         gridRef.current.addRow(newRow);
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleFilterByName = () => {
       if (gridRef.current) {
         gridRef.current.applyFilter('name', 'John', 'contains');
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleSortBySalary = () => {
       if (gridRef.current) {
         gridRef.current.setSort('salary', 'desc');
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleClearFilters = () => {
       if (gridRef.current) {
         gridRef.current.clearFilters();
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleSelectAll = () => {
       if (gridRef.current) {
         gridRef.current.selectAll();
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleClearSelection = () => {
       if (gridRef.current) {
         gridRef.current.clearSelection();
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
@@ -1663,22 +1768,21 @@ export const GridRefExample: Story = {
     const handleToggleCollapse = () => {
       if (gridRef.current) {
         gridRef.current.toggleCollapse();
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleHideColumns = () => {
       if (gridRef.current) {
-        gridRef.current.setColumnVisibility('salary', false);
-        gridRef.current.setColumnVisibility('age', false);
-        updateGridInfo();
+        gridRef.current.setColumnVisibility(['salary', 'age'], false);
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
     const handleShowAllColumns = () => {
       if (gridRef.current) {
         gridRef.current.showAllColumns();
-        updateGridInfo();
+        setTimeout(() => { updateGridInfo(); }, 500);
       }
     };
 
@@ -1789,10 +1893,15 @@ This example demonstrates the comprehensive grid ref API that provides programma
 - \`getFilters()\`, \`setFilters()\`, \`clearFilters()\`, \`applyFilter()\`
 - \`getSortState()\`, \`setSort()\`, \`clearSort()\`
 - \`getSelectedRows()\`, \`selectAll()\`, \`clearSelection()\`
-- \`getVisibleColumns()\`, \`setColumnVisibility()\`, \`showAllColumns()\`
+- \`getVisibleColumns()\`, \`setColumnVisibility(columnKeys, visible)\`, \`showAllColumns()\`
 - \`isCollapsed()\`, \`toggleCollapse()\`, \`expand()\`, \`collapse()\`
 - \`exportData()\`, \`refresh()\`, \`scrollToRow()\`
 - \`getRowCount()\`, \`getColumnCount()\`, \`getFilteredRowCount()\`
+
+**Column Visibility Examples:**
+- \`setColumnVisibility('salary', false)\` - Hide single column
+- \`setColumnVisibility(['salary', 'age'], false)\` - Hide multiple columns
+- \`setColumnVisibility(['name', 'email'], true)\` - Show multiple columns
 
 This makes the grid highly programmable and suitable for complex applications where you need to control the grid state from external components or business logic.
         `,
