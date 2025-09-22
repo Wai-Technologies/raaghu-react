@@ -59,7 +59,14 @@ const RdsTable = ({
   onRowAction,
   className = '',
   ...props
-}:RdsTableProps) => {
+}: RdsTableProps) => {
+  // Internal state for row selection when not controlled externally
+  const [internalSelectedRows, setInternalSelectedRows] = React.useState<string[]>([]);
+
+  // Use controlled or internal selection state
+  const currentSelectedRows = onRowSelect ? selectedRows : internalSelectedRows;
+  const handleRowSelection = onRowSelect || setInternalSelectedRows;
+
   // Internal cell-level states for independent checkbox and radio columns
   const [cellCheckboxSelected, setCellCheckboxSelected] = React.useState<Set<string | number>>(new Set());
   const [cellRadioSelected, setCellRadioSelected] = React.useState<string | number | null>(null);
@@ -99,23 +106,19 @@ const RdsTable = ({
   };
 
   const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (onRowSelect) {
-      if (event.target.checked) {
-        const allRowIds = rows.map((row) => row.id || row.key);
-        onRowSelect(allRowIds);
-      } else {
-        onRowSelect([]);
-      }
+    if (event.target.checked) {
+      const allRowIds = rows.map((row) => row.id || row.key);
+      handleRowSelection(allRowIds);
+    } else {
+      handleRowSelection([]);
     }
   };
 
   const handleSelectRow = (rowId: string) => {
-    if (onRowSelect) {
-      const newSelected = selectedRows.includes(rowId)
-        ? selectedRows.filter(id => id !== rowId)
-        : [...selectedRows, rowId];
-      onRowSelect(newSelected);
-    }
+    const newSelected = currentSelectedRows.includes(rowId)
+      ? currentSelectedRows.filter(id => id !== rowId)
+      : [...currentSelectedRows, rowId];
+    handleRowSelection(newSelected);
   };
 
   const renderCellContent = (column: RdsTableColumn, value: any, row: any) => {
@@ -147,12 +150,15 @@ const RdsTable = ({
     }
   };
 
-  const isAllSelected = selectable && selectedRows.length === rows.length && rows.length > 0;
-  const isIndeterminate = selectable && selectedRows.length > 0 && selectedRows.length < rows.length;
+  const isAllSelected = selectable && currentSelectedRows.length === rows.length && rows.length > 0;
+  const isIndeterminate = selectable && currentSelectedRows.length > 0 && currentSelectedRows.length < rows.length;
 
   return (
     <Paper className={`rds-table ${className}`}>
-      <MuiTableContainer className="rds-table__container">
+      <MuiTableContainer
+        className={`rds-table__container ${stickyHeader ? 'rds-table__container--sticky' : ''}`}
+        style={{ maxHeight: stickyHeader ? 440 : undefined }}
+      >
         <MuiTable stickyHeader={stickyHeader} className="rds-table__table" {...props}>
           <MuiTableHead className="rds-table__head">
             <MuiTableRow className="rds-table__header-row">
@@ -203,7 +209,7 @@ const RdsTable = ({
           </MuiTableHead>
           <MuiTableBody className="rds-table__body">
             {rows.map((row, index) => {
-              const isSelected = selectedRows.includes(row.id || row.key);
+              const isSelected = currentSelectedRows.includes(row.id || row.key);
               return (
                 <MuiTableRow 
                   hover 

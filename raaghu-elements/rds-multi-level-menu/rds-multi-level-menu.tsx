@@ -6,7 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import CheckIcon from '@mui/icons-material/Check';
-import { Button, Box } from '@mui/material';
+import RdsButton from '../rds-button/rds-button';
+import { Box } from '@mui/material';
 import './rds-multi-level-menu.scss';
 
 export type MenuOption = {
@@ -96,7 +97,7 @@ export const RdsMultiLevelMenu = ({
           sx: level === 0
             ? { ...menuPaperStyle, mt: { xs: '43px', sm: 0 } }
             : menuPaperStyle,
-          className: `rds-mlm-paper ${level === 0 ? 'rds-mlm-root' : ''}`
+          className: `rds-mlm-paper ${level === 0 ? 'rds-mlm-root' : ''} type-${type}`
         }}
         disableAutoFocusItem
       >
@@ -130,7 +131,7 @@ export const RdsMultiLevelMenu = ({
                 sx={{
                   ...menuItemStyle,
                 }}
-                className={`${size === 'large' ? 'large' : ''} ${isForcedHover ? 'force-hover' : ''} ${isForcedSelected && type !== 'selectable' ? 'force-selected' : ''}`}
+                className={`${size === 'large' ? 'large' : ''} ${isForcedHover ? 'force-hover' : ''} ${isForcedSelected && type !== 'selectable' ? 'force-selected' : ''} ${isExpandable && openIndexes[level] === idx ? 'expanded-open' : ''}`}
                 disableRipple={isExpandable}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>
@@ -169,14 +170,14 @@ export const RdsMultiLevelMenu = ({
 
   // Top-level button to open menu
   return (
-    <div className="rds-multi-level-menu">
-      <Button
-        variant="contained"
+    <div className={`rds-multi-level-menu type-${type}`}>
+      <RdsButton
+        style="filled"
         onClick={(e) => handleMenuOpen(e, 0, -1)}
         size={size === 'large' ? 'large' : 'medium'}
       >
         Multi Level Menu
-      </Button>
+      </RdsButton>
       {renderMenu(options, 0)}
     </div>
   );

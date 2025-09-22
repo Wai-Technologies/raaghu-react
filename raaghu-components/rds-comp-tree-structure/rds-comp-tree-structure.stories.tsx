@@ -6,7 +6,7 @@ const meta: Meta = {
   component: RdsCompTreeStructure,
   parameters: {
     layout: 'padded',
-      docs: {
+    docs: {
       source: {
         transform: (code: string) => {
           // Transform TreeLevel enum

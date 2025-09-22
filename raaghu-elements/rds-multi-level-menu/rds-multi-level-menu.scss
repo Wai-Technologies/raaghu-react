@@ -1,75 +1,182 @@
 
-.rds-multi-level-menu {
-  // Paper container styling (Figma-like)
-  .rds-mlm-paper {
-    box-shadow: 0px 8px 24px rgba(16, 24, 40, 0.12), 0px 2px 8px rgba(16, 24, 40, 0.06);
-    border-radius: 12px;
-    border: 1px solid rgba(16, 24, 40, 0.08);
-    padding: 0;
-    min-width: 220px;
-  }
-  // On small screens, push the root menu down to avoid overlapping the trigger
-  @media (max-width: 600px) {
-    .rds-mlm-paper.rds-mlm-root {
-      margin-top: 43px;
-    }
-  }
+// Paper container styling (Figma-like)
 
-  // Menu items
-  .MuiMenuItem-root {
-    font-family: inherit;
-    font-size: 14px;
-    line-height: 20px;
-    min-width: 220px;
-    padding: 10px 16px;
-    margin: 0;
-    border-radius: 8px;
-    transition: background-color 0.15s ease, color 0.15s ease;
-    color: #101828;
-    &:hover,
-    &.force-hover {
-      background-color: #f2f4f7;
-    }
-    &.Mui-selected,
-    &.Mui-selected:hover,
-    &.force-selected {
-      background-color: #eef2ff !important;
-      color: #2a3b8f;
-    }
-  }
+.rds-mlm-paper {
+  box-shadow: 0px 8px 24px rgba(16, 24, 40, 0.12), 0px 2px 8px rgba(16, 24, 40, 0.06);
+  border-radius: 12px;
+  border: 1px solid var(--rds-background-paper, rgba(16, 24, 40, 0.08));
+  padding: 0;
+  min-width: 220px;
+  background: var(--rds-background-paper, #fff);
+}
 
-  .MuiMenuItem-root.large {
-    font-size: 16px;
-    line-height: 24px;
-    min-height: 48px;
-    padding: 12px 18px;
-  }
+// Dark theme overrides
+.dark-theme .rds-mlm-paper,
+[data-theme="dark"] .rds-mlm-paper {
+  box-shadow: 0px 8px 24px rgba(0,0,0,0.7), 0px 2px 8px rgba(0,0,0,0.5);
+  border: 1px solid var(--rds-background-paper, #353535);
+  background: var(--rds-background-paper, #353535);
+}
 
-  .rds-mlm-shortcut {
-    color: #667085;
-    font-size: 13px;
-    margin-left: 8px;
-    min-width: 72px;
-    text-align: right;
-  }
-
-  .rds-mlm-leading {
-    width: 16px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 8px;
-    color: #2a3b8f;
+// On small screens, push the root menu down to avoid overlapping the trigger
+@media (max-width: 600px) {
+  .rds-mlm-paper.rds-mlm-root {
+    margin-top: 43px;
   }
 }
+
+// Menu items inside portal-rendered paper
+
+.rds-mlm-paper .MuiMenuItem-root {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  min-width: 220px;
+  padding: 10px 16px;
+  margin: 0;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  color: var(--rds-text-primary, #101828);
+  background: transparent;
+}
+
+.dark-theme .rds-mlm-paper .MuiMenuItem-root,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root {
+  color: var(--rds-text-primary, #e0e0e0);
+}
+
+
+.rds-mlm-paper .MuiMenuItem-root:hover,
+.rds-mlm-paper .MuiMenuItem-root.force-hover,
+.rds-mlm-paper .MuiMenuItem-root:active,
+.rds-mlm-paper .MuiMenuItem-root.Mui-focusVisible {
+  background-color: var(--rds-background-surface, #f2f4f7);
+}
+
+.dark-theme .rds-mlm-paper .MuiMenuItem-root:hover,
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.force-hover,
+.dark-theme .rds-mlm-paper .MuiMenuItem-root:active,
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.Mui-focusVisible,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root:hover,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.force-hover,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root:active,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.Mui-focusVisible {
+  background-color: var(--rds-background-surface, #3a3a3a);
+}
+
+
+.rds-mlm-paper .MuiMenuItem-root.Mui-selected,
+.rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover,
+.rds-mlm-paper .MuiMenuItem-root.force-selected {
+  background-color: var(--rds-primary-light, #f3e8ff) !important;
+  color: var(--rds-primary-main, #2544dc);
+}
+
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.Mui-selected,
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover,
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.force-selected,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.Mui-selected,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.force-selected {
+  background-color: var(--rds-primary-dark, #7825E9) !important;
+  color: var(--rds-primary-light, #D4BBFF);
+}
+
+// Ensure shortcut text turns primary when selected/expanded
+
+.rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-shortcut,
+.rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover .rds-mlm-shortcut,
+.rds-mlm-paper .MuiMenuItem-root.force-selected .rds-mlm-shortcut,
+.rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-shortcut,
+.rds-mlm-paper .MuiMenuItem-root.expanded-open:hover .rds-mlm-shortcut,
+.rds-mlm-paper .MuiMenuItem-root.expanded-open:active .rds-mlm-shortcut {
+  color: var(--rds-primary-main, #2544dc) !important;
+}
+
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-shortcut,
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover .rds-mlm-shortcut,
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.force-selected .rds-mlm-shortcut,
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-shortcut,
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover .rds-mlm-shortcut,
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.expanded-open:active .rds-mlm-shortcut,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-shortcut,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover .rds-mlm-shortcut,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.force-selected .rds-mlm-shortcut,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-shortcut,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover .rds-mlm-shortcut,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open:active .rds-mlm-shortcut {
+  color: var(--rds-primary-light, #D4BBFF) !important;
+}
+
+// Expanded parent in expandable mode
+
+.rds-mlm-paper .MuiMenuItem-root.expanded-open,
+.rds-mlm-paper .MuiMenuItem-root.expanded-open:hover,
+.rds-mlm-paper .MuiMenuItem-root.expanded-open:active {
+  background-color: var(--rds-primary-light, #f3e8ff) !important;
+  color: var(--rds-primary-main, #2544dc) !important;
+}
+
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.expanded-open,
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover,
+.dark-theme .rds-mlm-paper .MuiMenuItem-root.expanded-open:active,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover,
+[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open:active {
+  background-color: var(--rds-primary-dark, #7825E9) !important;
+  color: var(--rds-primary-light, #D4BBFF) !important;
+}
+
+
+.rds-mlm-paper .MuiMenuItem-root.large {
+  font-size: 16px;
+  line-height: 24px;
+  min-height: 48px;
+  padding: 12px 18px;
+}
+
+
+.rds-mlm-paper .rds-mlm-shortcut {
+  color: var(--rds-text-secondary, #667085);
+  font-size: 15px;
+  margin-left: 8px;
+  min-width: 72px;
+  text-align: right;
+}
+
+.dark-theme .rds-mlm-paper .rds-mlm-shortcut,
+[data-theme="dark"] .rds-mlm-paper .rds-mlm-shortcut {
+  color: var(--rds-text-secondary, #b1b1b1);
+}
+
+
+.rds-mlm-paper .rds-mlm-leading {
+  width: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  color: var(--rds-primary-dark, #2a3b8f);
+}
+
+.dark-theme .rds-mlm-paper .rds-mlm-leading,
+[data-theme="dark"] .rds-mlm-paper .rds-mlm-leading {
+  color: var(--rds-primary-light, #D4BBFF);
+}
+
 
 .css-79elbk{
-  border-bottom: 1px solid #eaecf0;
- 
-&:last-of-type {
-  border-bottom: 0;
-  .css-79elbk{
+  border-bottom: 1px solid var(--rds-background-surface, #eaecf0);
+  
+  &:last-of-type {
     border-bottom: 0;
+    .css-79elbk{
+      border-bottom: 0;
+    }
   }
 }
+
+
+.dark-theme .css-79elbk,
+[data-theme="dark"] .css-79elbk {
+  border-bottom: 1px solid var(--rds-divider-light, #c5d2df);
 }
