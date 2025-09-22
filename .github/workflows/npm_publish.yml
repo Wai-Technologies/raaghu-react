@@ -22,11 +22,8 @@ jobs:
       - name: Install and build storybook
         run: |
          npm install --legacy-peer-deps
-
-          npm run build-storybook
-          
-      - name: NPM Install
-        run: npm ci
+         npm ci
+         npm run build-storybook
         
       - name: NPM Publish
         run: npm publish --access=public
