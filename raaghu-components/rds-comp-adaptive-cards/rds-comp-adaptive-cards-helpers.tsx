@@ -16,7 +16,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 // import './rds-comp-adaptive-cards.scss';
-// All adaptive card props in one interface
+
 export interface AdaptiveCardProps {
   onBtn1Click?: () => void;
   // Controlled input values and handlers for InputForm
