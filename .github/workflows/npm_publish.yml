@@ -21,7 +21,8 @@ jobs:
           
       - name: Install and build storybook
         run: |
-          npm install
+         npm install --legacy-peer-deps
+
           npm run build-storybook
           
       - name: NPM Install
