@@ -69,9 +69,22 @@
     }
   }
 
+  // For daterange variant, show the calendar icon on the left side of the input
+  &--daterange {
+    .MuiOutlinedInput-root {
+      .MuiInputAdornment-positionEnd {
+        position: absolute;
+        right: 8px; /* distance from input left edge */
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
   // Size variants
   &--small {
-    .MuiInputBase-root {
+    .MuiInputBase-root,
+    .MuiTextField-root .MuiInputBase-root {
       min-height: 40px;
       
       .MuiInputBase-input {
@@ -79,10 +92,36 @@
         font-size: var(--rds-font-size-body2, 0.875rem);
       }
     }
+
+    // Specific adjustments for TextField component used in daterange variant
+    .MuiTextField-root {
+      .MuiInputBase-root {
+        min-height: 40px;
+      }
+      
+      .MuiInputLabel-root {
+        font-size: var(--rds-font-size-body2, 0.875rem);
+        
+        &.MuiInputLabel-shrink {
+          font-size: var(--rds-font-size-caption, 0.75rem);
+        }
+      }
+      
+      .MuiInputAdornment-root {
+        .MuiIconButton-root {
+          padding: var(--rds-spacing-xs, 6px);
+          
+          .MuiSvgIcon-root {
+            font-size: 1.25rem;
+          }
+        }
+      }
+    }
   }
 
   &--medium {
-    .MuiInputBase-root {
+    .MuiInputBase-root,
+    .MuiTextField-root .MuiInputBase-root {
       min-height: 56px;
       
       .MuiInputBase-input {
@@ -342,6 +381,22 @@
     font-weight: var(--rds-font-weight-semibold, 600);
     color: var(--rds-color-text-primary, #000000);
   }
+
+  &__field-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  &__helper {
+    margin-top: 6px;
+    padding-left: 14px;
+    padding-right: 14px;
+    font-size: var(--rds-font-size-caption, 0.75rem);
+    line-height: 1.25;
+    color: var(--rds-color-text-secondary, rgba(0,0,0,0.6));
+    white-space: normal;
+    word-break: break-word;
+  }
   
   // Ensure the custom layout takes full space
   .MuiPickersLayout-root {
@@ -435,7 +490,7 @@
       margin-left: var(--rds-spacing-xs, 8px); // Space between text and icon
       
       .MuiSvgIcon-root {
-        font-size: 1.25rem;
+        font-size: 1.50rem;
       }
     }
     
@@ -489,7 +544,7 @@
     
     // Ensure input has proper padding for icon
     &.MuiInputBase-adornedEnd {
-      padding-right: 0;
+
       
       .MuiInputBase-input {
         padding-right: var(--rds-spacing-xs, 8px); // Space before icon
@@ -1051,4 +1106,27 @@
       }
     }
   }
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-esd1yt-MuiPaper-root-MuiPopover-paper {
+  left: 16px !important;
+  margin-top: 3px !important;
+}
+
+.rds-date-picker--timerange .MuiStack-root .MuiBox-root .MuiFormControl-root {
+    width: 100%;
+    min-width: 154px;
+    max-width: none;
+    margin-left: -14px;
+}
+
+@media (max-width: 430px) {
+    .css-11yms7-MuiDateCalendar-root {
+      width: 288px !important;
+     }
+
+    /* Ensure the digital clock sections stack/occupy the first grid column on small screens */
+    .css-g3wdz1-MuiMultiSectionDigitalClock-root {
+      grid-column: 1 !important;
+    }
 }

@@ -70,7 +70,14 @@ export const Default: Story = {
                 },
             },
         },
-    }
+    },
+    parameters: {
+        controls: {
+            exclude: [
+                    'chartStyle', 
+            ],
+        },
+     },
 };
 
 export const WithMultiAxis: Story = {
@@ -134,5 +141,12 @@ export const WithMultiAxis: Story = {
                 }
             }
         }
-    }
+    },
+    parameters: {
+        controls: {
+            exclude: [
+                    'chartStyle', 
+            ],
+        },
+     },
 };

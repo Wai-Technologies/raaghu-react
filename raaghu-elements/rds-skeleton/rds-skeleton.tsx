@@ -3,23 +3,15 @@ import { Skeleton as MuiSkeleton, type SkeletonProps, Box } from '@mui/material'
 
 export interface RdsSkeletonProps extends SkeletonProps {
   lines?: number;
-  /**
-   * Number of skeleton blocks to show in a row/column
-   */
   frames?: number;
   shape?: 'text' | 'rectangular' | 'rounded' | 'circular';
-  /**
-   * Enable animation for the skeleton. When true, shows animated loading effect.
-   * When false, shows static placeholder.
-   */
   animated?: boolean;
-  /**
-   * Animation type: 'pulse', 'wave', or false. Overrides animated if provided.
-   */
   animation?: 'pulse' | 'wave' | false;
+  height?: number | string;
+  width?: number | string;
 }
 
-const RdsSkeleton= ({
+const RdsSkeleton = ({
   lines = 1,
   shape = 'text',
   frames = 1,
@@ -27,8 +19,10 @@ const RdsSkeleton= ({
   animation,
   sx,
   className = '',
+  height,
+  width,
   ...props
-}:RdsSkeletonProps) => {
+}: RdsSkeletonProps) => {
   const isText = shape === 'text';
   const bemClass = `rds-skeleton rds-skeleton--${shape}` + (className ? ` ${className}` : '');
 
@@ -52,7 +46,7 @@ const RdsSkeleton= ({
             variant={shape}
             animation={animationValue}
             {...props}
-            sx={{ ...sx }}
+            sx={{ ...sx, height, width }}
             className={bemClass}
           />
         ))}
@@ -65,7 +59,7 @@ const RdsSkeleton= ({
       variant={shape}
       animation={animationValue}
       {...props}
-      sx={sx}
+      sx={{ ...sx, height, width }}
       className={bemClass}
     />
   );

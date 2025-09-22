@@ -326,6 +326,9 @@
   .MuiOutlinedInput-notchedOutline legend {
     font-size: 0.75rem !important;
   }
+  .MuiFormHelperText-root {
+    margin-left: 0 !important;
+  }
 }
 
 // Accessibility styles
@@ -367,4 +370,7 @@
       color: #f6f4f4!important;
       fill: #efe8e8!important;
   }
+}
+.css-1t6h741-MuiFormHelperText-root{
+  margin-left: 0px !important;
 }

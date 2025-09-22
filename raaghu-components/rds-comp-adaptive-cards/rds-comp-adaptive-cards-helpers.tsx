@@ -205,7 +205,7 @@ export function FootballScorecardCard({
   finalText,
 }: AdaptiveCardProps) {
   return (
-    <RdsCard className="rds-adaptive-cards rds-adaptive-cards--football-scorecard" showIcon={false} showIndicator={false}>
+    <RdsCard className={`rds-adaptive-cards rds-adaptive-cards--football-scorecard${isLive ? ' is-live' : ''}`} showIcon={false} showIndicator={false}>
       {/* Header, subtitle, and description outside card */}
       <div className="rds-adaptive-cards__content">
         <RdsStack className="rds-adaptive-cards__football-header" alignItems="center">
@@ -287,6 +287,10 @@ export type CalendarReminderFormProps = {
   selectPlaceholder?: string;
   snoozeLabel?: string;
   lateLabel?: string;
+  showBtn1?: boolean;
+  showBtn2?: boolean;
+  btn1Label?: string;
+  btn2Label?: string;
 };
 
 export function CalendarReminderForm({
@@ -298,6 +302,10 @@ export function CalendarReminderForm({
   snoozeLabel,
   lateLabel,
   sideOptions = [],
+  showBtn1,
+  showBtn2,
+  btn1Label,
+  btn2Label,
 }: CalendarReminderFormProps) {
   const [selected, setSelected] = React.useState("");
   return (
@@ -329,16 +337,20 @@ export function CalendarReminderForm({
         </FormControl>
       </div> 
       <RdsStack direction="row" spacing={1} justifyContent="flex-end" className="rds-adaptive-cards__calendar-reminder-actions">
-          <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--snooze">
+        {showBtn1 && (
+          <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn1">
             <Button variant="outlined" className="rds-adaptive-cards__action-btn">
-              {snoozeLabel}
+              {btn1Label || snoozeLabel}
             </Button>
           </RdsBox>
-          <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--late">
+        )}
+        {showBtn2 && (
+          <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn2">
             <Button variant="outlined" className="rds-adaptive-cards__action-btn">
-              {lateLabel}
+              {btn2Label || lateLabel}
             </Button>
           </RdsBox>
+        )}
       </RdsStack>
     </RdsStack>
   );
