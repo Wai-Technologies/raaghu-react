@@ -1112,3 +1112,21 @@
   left: 16px !important;
   margin-top: 3px !important;
 }
+
+.rds-date-picker--timerange .MuiStack-root .MuiBox-root .MuiFormControl-root {
+    width: 100%;
+    min-width: 154px;
+    max-width: none;
+    margin-left: -14px;
+}
+
+@media (max-width: 430px) {
+    .css-11yms7-MuiDateCalendar-root {
+      width: 288px !important;
+     }
+
+    /* Ensure the digital clock sections stack/occupy the first grid column on small screens */
+    .css-g3wdz1-MuiMultiSectionDigitalClock-root {
+      grid-column: 1 !important;
+    }
+}
