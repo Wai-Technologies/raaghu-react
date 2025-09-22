@@ -3102,6 +3102,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             '&::-webkit-scrollbar': {
               width: '6px',
             },
+                // scrollbar-width: none !important;
+              scrollbarWidth: 'thin !important',
             '&::-webkit-scrollbar-track': {
               backgroundColor: theme.palette.mode === 'dark' ? '#2a2a2a' : '#f1f1f1',
             },
@@ -3152,7 +3154,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 sx={{ 
                   flexGrow: 1, 
                   fontSize: '12px',
-                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined
+                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
                 }}
               >
                 Columns
@@ -3175,7 +3177,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   backgroundColor: theme.palette.mode === 'dark' ? '#4a4a4a' : 'grey.50',
                   width: '100%',
                   maxHeight: '80px',
-                  overflowY: 'auto'
+                  overflowY: 'auto',
+                  scrollbarWidth: 'thin !important',
                 }}
               >
                 <List dense sx={{ py: 0 }}>
