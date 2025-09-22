@@ -1,1 +1,0 @@
-export { default } from "./rds-comp-bank-card-detail-list";

@@ -1,0 +1,39 @@
+// RDS Fab Component Styles
+.rds-fab {
+  display: block;
+  position: relative;
+}
+/* Common ancestor-based dark hooks */
+body.dark .MuiFab-root,
+html.dark .MuiFab-root,
+.dark .MuiFab-root,
+[data-theme='dark'] .MuiFab-root,
+.rds-theme--dark .MuiFab-root,
+
+/* component modifier */
+.rds-fab--dark,
+.rds-fab--dark .MuiFab-root {
+  /* set color on the root so text nodes inherit it */
+  color: var(--rds-color-on-surface, #ffffff) !important;
+
+  /* ensure label and icons are explicitly white */
+  .MuiFab-label,
+  span,
+  svg,
+  .MuiSvgIcon-root {
+    color: var(--rds-color-on-surface, #ffffff) !important;
+    fill: currentColor !important;
+  }
+
+  &.Mui-disabled,
+  .MuiFab-root.Mui-disabled {
+    .MuiFab-label,
+    span,
+    svg,
+    .MuiSvgIcon-root {
+      color: var(--rds-color-disabled, #888888) !important;
+      fill: var(--rds-color-disabled, #888888) !important;
+      opacity: 0.5 !important;
+    }
+  }
+}

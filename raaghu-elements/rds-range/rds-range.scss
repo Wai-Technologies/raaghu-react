@@ -1,0 +1,45 @@
+// RDS Range Component Styles
+.rds-range {
+  display: block;
+  position: relative;
+  width: 100%;
+
+  // Responsive: reduce width on mobile devices
+  @media (max-width: 600px) {
+    max-width: 370px;
+  }
+  @media (max-width: 400px) {
+    max-width: 275px;
+  }
+
+  // Header section with label and value
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--rds-spacing-sm);
+  }
+
+  // Footer section with min/max labels
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--rds-spacing-xs);
+  }
+
+  // State modifiers
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 568px) and (min-width: 320px) {
+  .css-3k03ww, .css-1fm6jzk {
+    width: 288px !important;
+  }
+}
+@media (min-width: 414px) and (max-width: 896px) {
+  .css-3k03ww, .css-1fm6jzk {
+    width: 382px !important;
+  }
+}

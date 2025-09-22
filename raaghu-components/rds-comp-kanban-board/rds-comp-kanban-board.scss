@@ -1,0 +1,965 @@
+// Dropdown positioning for button groups
+.btn-group.dropstart {
+  position: relative;
+}
+
+.dropdown-menu.dropdown-adjusted.dropdown-right {
+  position: absolute;
+  left: 0 !important;
+  top: 100% !important;
+}
+
+// Main container styles
+.rds-kanban-board-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px;
+  align-items: flex-start;
+}
+
+// Main kanban board styles
+.kanban-board {
+  font-family: poppins !important;
+  width: 300px !important;
+  min-width: 300px !important;
+  max-width: 300px !important;
+  margin-right: 20px !important;
+
+  // Card styles for main kanban boards
+  &__card {
+  /* Let the card height fit its content to avoid large bottom gaps */
+  min-height: 600px !important;
+    min-width: 320px !important;
+    background-color: var(--rds-background-paper, #ffffff);
+    color: var(--txt-neutral-darker-default, #000000);
+    
+    &--empty-board {
+      border: 1px dashed var(--bg-primary-medium-default, #D4BBFF) !important;
+    }
+    
+    &--add-board-320 {
+      min-width: 320px !important;
+    }
+    
+    &--add-board-280 {
+      min-width: 280px !important;
+    }
+  }
+
+  // Card content styles
+  &__card-content {
+    padding: 5px !important;
+  }
+
+  // Card header styles
+  &__card-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 16px !important;
+    background-color: var(--bg-primary-light-default, #ebdcff) !important;
+    color: var(--txt-neutral-darker-default, #000000) !important;
+    min-height: 35px !important;
+    padding: 8px !important;
+    margin-left: -8px !important;
+    margin-right: -8px !important;
+    margin-top: -8px !important;
+  }
+
+  // Card header content area
+  &__header-content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  // Card title area
+  &__title-area {
+  display: flex;
+  align-items: center;
+  padding-left: 10px !important;
+  }
+
+  // Card title spacing
+  &__title-count {
+    margin-left: 8px !important;
+  }
+
+  // Header button styles
+  &__header-button {
+    margin-right: 8px !important;
+    color: var(--txt-neutral-darker-default, #000000) !important;
+    
+    &:hover {
+      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+    }
+  }
+
+  .card {
+    padding: 5px !important;
+  /* Avoid enforcing tall columns; content defines height */
+  min-height: 600px !important;
+    border: 1px solid var(--bg-primary-medium-default, #D4BBFF);
+    background-color: var(--rds-background-paper, #ffffff);
+  }
+
+  .card-header {
+    background-color: var(--bg-primary-light-default, #ebdcff) !important;
+    color: var(--txt-neutral-darker-default, #000000);
+    min-height: 35px !important;
+    height: 35px !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    border-bottom: 1px solid var(--bg-primary-medium-default, #D4BBFF) !important;
+    padding-left: 18px !important;
+    padding-right: 8px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px;
+  }
+
+  .card-body {
+    padding: 0px 12px !important;
+    color: var(--txt-neutral-darker-default, #000000);
+  }
+
+  .pt-3 {
+    padding-top: 8px !important;
+  }
+
+  .btn-sm svg {
+    stroke-width: inherit !important;
+    /* fill: none !important; */
+    display: flex;
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .btn-group {
+    margin-top: -4px !important;
+  }
+
+  ul {
+    min-width: 125px !important;
+    padding: 6px 0px;
+    border-color: var(--bg-primary-medium-default, #ebdcff) !important;
+    background-color: var(--rds-background-paper, #ffffff);
+    color: var(--txt-neutral-darker-default, #000000);
+  }
+
+  .sub-card {
+    .card-header {
+      background-color: transparent !important;
+      color: var(--txt-neutral-darker-default, #000000);
+      min-height: 35px !important;
+      height: 35px !important;
+      display: flex !important;
+      align-items: center !important;
+      flex-direction: row !important;
+      border-bottom: 1px solid var(--bg-primary-medium-default, #D4BBFF) !important;
+      padding-left: 18px !important;
+      padding-right: 8px !important;
+      font-size: 15px !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.5px;
+    }
+
+    .card {
+      padding: 0px !important;
+      background: var(--rds-background-paper, var(--Background-bg-primary-lighter-default));
+      color: var(--txt-neutral-darker-default, #000000);
+      border-radius: 0px !important;
+  /* Allow sub-cards to size naturally */
+  min-height: 133.6px !important;
+    }
+
+    .card-body {
+      padding: 0px 15px !important;
+      color: var(--txt-neutral-darker-default, #000000);
+    }
+
+    .card-body-font {
+      font-size: small !important;
+      color: var(--txt-neutral-darker-default, #000000);
+    }
+  }
+}
+
+// Add board section styling - exact match to original
+.add-board {
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--rds-background-paper, #fff);
+  color: var(--txt-neutral-darker-default, #000000);
+  border-radius: 0.5rem !important;
+  
+  // Two main variants for add board
+  &--with-input {
+    padding: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+  }
+  
+  &--center-button {
+    padding: 0px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+
+// Sub-card container styles
+.rds-kanban-board {
+  &__sub-cards-container {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+}
+
+// Sub-card styles
+.rds-kanban-board__sub-card {
+  margin-top: 8px !important;
+  
+  // Sub-card content
+  &-card {
+    background-color: var(--rds-background-paper, #FEF7FF) !important;
+    color: var(--txt-neutral-darker-default, #000000) !important;
+    border: 1px solid var(--bg-neutral-light-default, #e0e0e0) !important;
+    border-radius: 0px !important;
+  /* Content-driven height to avoid empty space */
+  min-height: 133.6px !important;
+  }
+  
+  &-content {
+    padding: 15px !important;
+    
+    &:last-child {
+      padding-bottom: 15px !important;
+    }
+  }
+  
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  
+  &-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  &-header-right {
+    display: flex;
+    align-items: center;
+    margin-right: -16px;
+  }
+  
+  &-body {
+    margin-bottom: 16px;
+  }
+  
+  &-text {
+    line-height: 1.4;
+    color: var(--txt-neutral-darker-default, #000000);
+  }
+  
+  &-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  &-footer-left {
+    color: var(--txt-neutral-darker-default, #000000);
+  }
+  
+  &-footer-right {
+    display: flex;
+    align-items: center;
+  }
+}
+
+// Menu and dropdown styles
+.rds-kanban-board {
+  &__menu-paper {
+    background-color: var(--rds-background-paper, #ffffff) !important;
+    color: var(--txt-neutral-darker-default, #000000) !important;
+    border: 1px solid var(--bg-neutral-light-default, #e0e0e0) !important;
+  }
+  
+  &__menu-item {
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+    color: var(--txt-neutral-darker-default, #000000) !important;
+    
+    &:hover {
+      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+    }
+  }
+  
+  &__menu-icon {
+    margin-right: 8px !important;
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+
+// Select dropdown menu styling
+.rds-kanban-board__select-menu {
+  .MuiPaper-root {
+    background-color: var(--rds-background-paper, #ffffff);
+    color: var(--txt-neutral-darker-default, #000000);
+  }
+  
+  .MuiMenuItem-root {
+    color: var(--txt-neutral-darker-default, #000000);
+    
+    &:hover {
+      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04));
+    }
+  }
+}
+
+// Sub-card dropdown icon button
+.rds-kanban-board__subcard-dropdown-button {
+  color: var(--txt-neutral-darker-default, #000000) !important;
+  
+  &:hover {
+    background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+  }
+}
+
+// Form input styles
+.rds-kanban-board__input-field {
+  margin-bottom: 16px !important;
+  
+  .MuiOutlinedInput-root {
+    background-color: var(--rds-background-paper, #ffffff);
+    color: var(--txt-neutral-darker-default, #000000);
+    
+    fieldset {
+      border-color: var(--bg-neutral-light-default, #e0e0e0);
+    }
+    
+    &:hover fieldset {
+  border-color: var(--btn-primary-solid-default, #3c98ff);
+    }
+    
+    &.Mui-focused fieldset {
+  border-color: var(--btn-primary-solid-default, #3c98ff);
+    }
+  }
+  
+  .MuiInputLabel-root {
+    color: var(--txt-neutral-medium-default, #7D7D7D);
+  }
+  
+  .MuiOutlinedInput-input::placeholder {
+    color: var(--txt-neutral-medium-default, #7D7D7D);
+    opacity: 1;
+  }
+  
+  .MuiSelect-icon {
+    color: var(--txt-neutral-darker-default, #000000);
+  }
+}
+
+.rds-kanban-board__autocomplete {
+  margin-bottom: 16px !important;
+  
+  .MuiOutlinedInput-root {
+    background-color: var(--rds-background-paper, #ffffff);
+    color: var(--txt-neutral-darker-default, #000000);
+    
+    fieldset {
+      border-color: var(--bg-neutral-light-default, #e0e0e0);
+    }
+    
+    &:hover fieldset {
+  border-color: var(--btn-primary-solid-default, #3c98ff);
+    }
+    
+    &.Mui-focused fieldset {
+      border-color: var(--btn-primary-solid-default, #904cec);
+    }
+  }
+  
+  .MuiInputLabel-root {
+    color: var(--txt-neutral-medium-default, #7D7D7D);
+  }
+  
+  .MuiOutlinedInput-input::placeholder {
+    color: var(--txt-neutral-medium-default, #7D7D7D);
+    opacity: 1;
+  }
+  
+  .MuiChip-root {
+    background-color: var(--bg-primary-light-default, #ebdcff);
+    color: var(--txt-neutral-darker-default, #000000);
+  }
+}
+
+.rds-kanban-board__autocomplete-paper {
+  background-color: var(--rds-background-paper, #ffffff);
+  color: var(--txt-neutral-darker-default, #000000);
+  
+  .MuiAutocomplete-option {
+    color: var(--txt-neutral-darker-default, #000000);
+    
+    &:hover {
+      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04));
+    }
+  }
+}
+
+// Button action container styles
+.rds-kanban-board__button-container {
+  display: flex;
+  align-items: center;
+  width: 100% !important;
+  gap: 8px !important;
+  
+  &--full-width {
+    width: 100% !important;
+  }
+}
+
+.rds-kanban-board__add-button {
+  flex-grow: 1;
+  border: 1px solid var(--btn-primary-solid-default, #3c98ff) !important;
+  color: var(--btn-primary-solid-default, #3c98ff) !important;
+  background-color: var(--rds-background-paper, #ffffff) !important;
+  text-transform: none !important;
+}
+
+.rds-kanban-board__close-button {
+  color: var(--txt-neutral-darker-default, #000000) !important;
+  
+  &:hover {
+    background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+  }
+}
+
+.rds-kanban-board__add-item-form {
+  margin-top: 16px !important;
+}
+
+.rds-kanban-board__add-item-simple {
+  margin-top: 16px !important;
+}
+
+// Priority button styling
+.priority-btn {
+  .custom-badge {
+  border-color: var(--btn-primary-solid-default, #3c98ff) !important;
+    background-color: transparent !important;
+  color: var(--btn-primary-solid-default, #3c98ff) !important;
+  border: 1px solid var(--btn-primary-solid-default, #3c98ff) !important;
+  }
+
+  .small {
+    font-size: 0.65rem !important;
+  }
+}
+
+// Font size utilities
+.f-12 {
+  font-size: 12px !important;
+}
+
+.f-14 {
+  font-size: 14px !important;
+}
+
+.f-16 {
+  font-size: 16px !important;
+}
+
+// Font weight utilities
+.fw-400 {
+  font-weight: 400 !important;
+}
+
+.fw-500 {
+  font-weight: 500 !important;
+}
+
+// Text truncation
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 265px;
+  display: inline-block;
+  vertical-align: bottom;
+  cursor: pointer;
+}
+
+.truncate-text:hover {
+  max-width: 130px;
+}
+
+// Add item button styling - exact match to original
+.add-item-btn {
+  margin: 6px 0px !important;
+
+  .btn {
+    width: 100% !important;
+  border: 1px solid var(--btn-primary-solid-default, #3c98ff) !important;
+  color: var(--btn-primary-solid-default, #3c98ff) !important;
+    text-transform: none;
+    background-color: var(--rds-background-paper, #ffffff);
+  }
+  
+  svg {
+    stroke-width: inherit !important;
+    fill: none !important;
+    display: flex;
+    width: 16px !important;
+    height: 16px !important;
+  stroke: var(--btn-primary-solid-default, #3c98ff) !important;
+  }
+}
+
+// Button margin utility
+.btn-margin {
+  margin: 20px 0px 6px 0px !important;
+}
+
+.add-board-btn {
+  padding: 0px 6px !important;
+}
+
+.margin-top-5 {
+  margin-top: -5px !important;
+}
+
+// Override Material-UI card border radius
+.kanban-board .card {
+  border-radius: 0px;
+}
+
+// Drag and drop specific styling
+.sub-cards-container {
+  /* Minimal container height and tighter bottom padding */
+  min-height: 50px;
+  padding: 0px 8px 8px 8px;
+}
+
+.sub-card {
+  transition: background-color 0.2s ease;
+  cursor: grab;
+
+  &.dragging {
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+// Responsive adjustments for small screens
+@media (max-width: 768px) {
+  .rds-kanban-board-container {
+    padding: 0px 16px 5px !important; /* top, sides, bottom */
+    gap: 8px !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .kanban-board {
+    width: calc(100vw - 40px) !important;
+    min-width: calc(100vw - 40px) !important;
+    max-width: calc(100vw - 40px) !important;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+
+    &__card {
+      min-width: 100% !important;
+      
+      &--add-board-320,
+      &--add-board-280 {
+        min-width: 100% !important;
+      }
+    }
+  }
+
+  .add-board {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+}
+
+// Dark theme specific styling for dropdown menus
+.dropdown-menu {
+  .MuiPaper-root {
+    background-color: var(--rds-background-paper, #ffffff) !important;
+    color: var(--txt-neutral-darker-default, #000000) !important;
+    border: 1px solid var(--bg-neutral-light-default, #e0e0e0) !important;
+  }
+  
+  .MuiMenuItem-root {
+    color: var(--txt-neutral-darker-default, #000000) !important;
+    
+    &:hover {
+      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+    }
+  }
+}
+
+// Dark theme styling for form elements
+.kanban-board {
+  .MuiTextField-root {
+    .MuiOutlinedInput-root {
+      background-color: var(--rds-background-paper, #ffffff);
+      color: var(--txt-neutral-darker-default, #000000);
+      
+      fieldset {
+        border-color: var(--bg-neutral-light-default, #e0e0e0);
+      }
+      
+      &:hover fieldset {
+  border-color: var(--btn-primary-solid-default, #3c98ff);
+      }
+      
+      &.Mui-focused fieldset {
+  border-color: var(--btn-primary-solid-default, #3c98ff);
+      }
+    }
+    
+    .MuiInputLabel-root {
+      color: var(--txt-neutral-medium-default, #7D7D7D);
+    }
+    
+    .MuiOutlinedInput-input::placeholder {
+      color: var(--txt-neutral-medium-default, #7D7D7D);
+      opacity: 1;
+    }
+  }
+  
+  .MuiFormControl-root {
+    .MuiOutlinedInput-root {
+      background-color: var(--rds-background-paper, #ffffff);
+      color: var(--txt-neutral-darker-default, #000000);
+      
+      fieldset {
+        border-color: var(--bg-neutral-light-default, #e0e0e0);
+      }
+      
+      &:hover fieldset {
+  border-color: var(--btn-primary-solid-default, #3c98ff);
+      }
+      
+      &.Mui-focused fieldset {
+  border-color: var(--btn-primary-solid-default, #3c98ff);
+      }
+    }
+    
+    .MuiInputLabel-root {
+      color: var(--txt-neutral-medium-default, #7D7D7D);
+    }
+    
+    .MuiSelect-icon {
+      color: var(--txt-neutral-darker-default, #000000);
+    }
+  }
+  
+  .MuiIconButton-root {
+    color: var(--txt-neutral-darker-default, #000000);
+    
+    &:hover {
+      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04));
+    }
+  }
+  
+  // Typography elements
+  .MuiTypography-root {
+    color: var(--txt-neutral-darker-default, #000000);
+  }
+  
+  // Sub-card specific styling
+  .sub-card {
+    .MuiCard-root {
+      background-color: var(--line-primary-light-default, #fef7ff) !important;
+      color: var(--txt-neutral-darker-default, #000000) !important;
+    }
+    
+    .MuiTypography-root {
+      color: var(--txt-neutral-darker-default, #000000) !important;
+    }
+  }
+}
+
+// Sub-card text color overrides
+.rds-kanban-board__sub-card-header-left .MuiTypography-root {
+  color: #646464 !important;
+}
+
+.rds-kanban-board__sub-card-text.f-14.fw-400 {
+  color: #353535 !important;
+}
+
+.rds-kanban-board__sub-card-footer-left.f-12.fw-500 {
+  color: #000000 !important;
+}
+
+body[data-bs-theme="dark"],
+html[data-theme="dark"],
+.dark,
+.theme-dark {
+  --dark-surface: #1e1e1e;
+  --dark-surface-variant: #2a2a2a;
+  --dark-on-surface: #ffffff;
+  --dark-on-surface-variant: #e0e0e0;
+  --dark-primary: #3c98ff;
+  --dark-primary-container: #2d1b69;
+  --dark-outline: #444444;
+  --dark-outline-variant: #555555;
+  --dark-text-secondary: #cccccc;
+  --dark-hover-alpha: rgba(60, 152, 255, 0.08);
+  --dark-selected-alpha: rgba(60, 152, 255, 0.12);
+  --dark-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  
+  .rds-kanban-board-container {
+    background-color: transparent;
+  }
+  
+  .kanban-board {
+    &__card,
+    &__card--add-board-320,
+    &__card--add-board-280,
+    &__card-content,
+    .card,
+    .card-body {
+      background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+      border-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
+    }
+    
+    &__card-header,
+    .card-header {
+      background-color: var(--rds-color-primary-container, var(--dark-primary-container)) !important;
+      color: var(--rds-color-on-primary-container, var(--dark-on-surface)) !important;
+      border-bottom-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
+    }
+    
+    .sub-card .card,
+    .sub-card .card-body,
+    .rds-kanban-board__sub-card-card {
+      background-color: var(--rds-color-surface-variant, var(--dark-surface-variant)) !important;
+      color: var(--rds-color-on-surface-variant, var(--dark-on-surface-variant)) !important;
+      border-color: var(--rds-color-outline-variant, var(--dark-outline-variant)) !important;
+    }
+    
+    .MuiCard-root,
+    .MuiCardContent-root,
+    .MuiPaper-root {
+      background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+    }
+    
+    .MuiTypography-root {
+      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+    }
+  }
+  
+  .add-board {
+    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+    border-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
+  }
+  
+  .rds-kanban-board__input-field,
+  .rds-kanban-board__autocomplete,
+  .MuiOutlinedInput-root {
+    .MuiOutlinedInput-root,
+    &.MuiOutlinedInput-root {
+      background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+      
+      fieldset,
+      .MuiOutlinedInput-notchedOutline {
+        border-color: var(--rds-color-outline, #666666) !important;
+      }
+      
+      &:hover fieldset,
+      &:hover .MuiOutlinedInput-notchedOutline {
+        border-color: var(--rds-color-primary, var(--dark-primary)) !important;
+      }
+      
+      &.Mui-focused fieldset,
+      &.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: var(--rds-color-primary, var(--dark-primary)) !important;
+      }
+    }
+    
+    .MuiInputLabel-root {
+      color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
+      
+      &.Mui-focused {
+        color: var(--rds-color-primary, var(--dark-primary)) !important;
+      }
+    }
+  }
+  
+  .rds-kanban-board__add-button,
+  .add-item-btn .btn {
+    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+    color: var(--rds-color-primary, var(--dark-primary)) !important;
+    border-color: var(--rds-color-primary, var(--dark-primary)) !important;
+    
+    &:hover {
+      background-color: var(--rds-color-primary-hover, var(--dark-hover-alpha)) !important;
+    }
+  }
+  
+  .MuiMenu-root .MuiPaper-root,
+  .MuiPopover-root .MuiPaper-root,
+  .rds-kanban-board__menu-paper,
+  .rds-kanban-board__select-menu .MuiPaper-root,
+  .rds-kanban-board__autocomplete-paper {
+    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+    border: 1px solid var(--rds-color-outline-variant, var(--dark-outline)) !important;
+    box-shadow: var(--dark-box-shadow) !important;
+  }
+  
+  .MuiMenu-list,
+  .MuiAutocomplete-listbox {
+    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
+    padding: 4px 0 !important;
+    max-height: 200px !important;
+  }
+  
+  .MuiMenuItem-root,
+  .rds-kanban-board__menu-item,
+  .MuiAutocomplete-option {
+    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+    background-color: transparent !important;
+    padding: 8px 16px !important;
+    
+    &:hover,
+    &.Mui-focusVisible,
+    &.Mui-focused {
+      background-color: var(--rds-color-primary-hover, var(--dark-hover-alpha)) !important;
+      color: var(--rds-color-primary, var(--dark-primary)) !important;
+    }
+    
+    &.Mui-selected,
+    &[aria-selected="true"] {
+      background-color: var(--rds-color-primary-container, var(--dark-selected-alpha)) !important;
+      color: var(--rds-color-primary, var(--dark-primary)) !important;
+      
+      &:hover {
+        background-color: rgba(60, 152, 255, 0.16) !important;
+      }
+    }
+  }
+  
+  .MuiAutocomplete-noOptions {
+    color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
+  }
+  
+  .MuiSelect-root {
+    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+    
+    .MuiSelect-icon {
+      color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
+    }
+  }
+  
+  .MuiChip-root {
+    background-color: var(--rds-color-primary-container, var(--dark-selected-alpha)) !important;
+    color: var(--rds-color-primary, var(--dark-primary)) !important;
+    
+    .MuiChip-deleteIcon {
+      color: var(--rds-color-primary, var(--dark-primary)) !important;
+      
+      &:hover {
+        color: var(--rds-color-on-primary-container, var(--dark-on-surface)) !important;
+      }
+    }
+  }
+  .rds-kanban-board__sub-card-header-left .MuiTypography-root {
+    color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
+  }
+  
+  .rds-kanban-board__sub-card-text.f-14.fw-400 {
+    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+  }
+  
+  .rds-kanban-board__sub-card-footer-left.f-12.fw-500 {
+    color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
+  }
+}
+.MuiMenu-list,
+.MuiAutocomplete-listbox,
+.MuiSelect-root .MuiMenu-list,
+.rds-kanban-board__select-menu .MuiMenu-list,
+.rds-kanban-board__autocomplete-paper .MuiAutocomplete-listbox,
+.MuiList-root,
+.MuiMenuList-root,
+.MuiSelect-select,
+.MuiPaper-root,
+[role="listbox"],
+[role="menu"],
+.kanban-board *,
+.rds-kanban-board-container * {
+  &::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+  
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-thumb,
+  &::-webkit-scrollbar-corner {
+    display: none !important;
+    background: transparent !important;
+  }
+  
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  overflow: -moz-scrollbars-none !important;
+}
+
+.MuiPopover-root,
+.MuiMenu-root,
+.MuiPopover-paper,
+.MuiMenu-paper,
+.MuiPaper-elevation8,
+.MuiPaper-elevation16,
+div[role="presentation"],
+ul[role="listbox"],
+div[role="menu"],
+.MuiModal-root {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  
+  &::-webkit-scrollbar,
+  & *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+  
+  .MuiPaper-root,
+  .MuiMenu-list,
+  .MuiAutocomplete-listbox,
+  * {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+}

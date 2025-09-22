@@ -1,0 +1,415 @@
+// RDS Switch Component Styles
+// Toggle switch form control
+
+.rds-switch {
+  &__track {
+    // Track styles
+    display: block;
+  }
+
+  &__thumb {
+    // Thumb styles
+    display: block;
+  }
+
+  &__label {
+    // Label styles
+    display: block;
+  }
+
+  &--checked {
+    // Checked state styles
+  }
+
+  &--disabled {
+    // Disabled state styles
+  }
+
+  // Interactive states
+  &:hover {
+    // Hover styles
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline-offset: var(--rds-focus-ring-offset);
+  }
+
+  &:disabled,
+  &__disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+.css-rehya9-MuiSwitch-root,
+.css-bnbzk8 {
+  width: 65px !important;
+}
+.css-aqlqb4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase {
+  right: 1.2rem !important;
+}
+.css-aqlqb4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase:hover {
+  background-color: unset !important;
+}
+
+// Remove all hover and ripple effects from switch buttons
+.MuiButtonBase-root.MuiSwitchBase-root.MuiSwitch-switchBase:hover {
+  background-color: transparent !important;
+}
+
+.MuiButtonBase-root.MuiSwitchBase-root.MuiSwitch-switchBase {
+  background-color: transparent !important;
+  
+  &:hover {
+    background-color: transparent !important;
+  }
+  
+  &:focus {
+    background-color: transparent !important;
+  }
+  
+  &:active {
+    background-color: transparent !important;
+  }
+  
+  // Remove ripple effect
+  .MuiTouchRipple-root {
+    display: none !important;
+  }
+}
+
+// Ensure no background for any switch button state
+.rds-switch .MuiButtonBase-root {
+  background-color: transparent !important;
+  
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: transparent !important;
+  }
+}
+// Style 1: Default rounded, gray thumb
+.rds-switch--style1 .MuiSwitch-track {
+  background: var(--rds-color-switch-track, #c0c0c3) !important;
+  height: 1.5rem !important;
+  border-radius: 25px !important;
+  width: 5.5rem !important;
+}
+.rds-switch--style1 .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #646464) !important;
+  margin-top: 0.3rem !important;
+  margin-left: 4px !important;
+}
+
+// Style 2: White track, dark thumb
+.rds-switch--style2 .MuiSwitch-track {
+  background: var(--rds-color-switch-track, #c0c0c3) !important;
+  border-radius: 16px !important;
+}
+.rds-switch--style2 .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #646464) !important;
+  margin-left: 4px !important;
+}
+
+// Style 3: Square track and thumb
+.rds-switch--style3 .MuiSwitch-track {
+  background: var(--rds-color-switch-track, #c0c0c3) !important;
+  height: 1.4rem !important;
+  border-radius: 4px !important;
+}
+.rds-switch--style3 .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #646464) !important;
+  border-radius: 4px !important;
+  margin-top: 0.25rem !important;
+  margin-left: 4px !important;
+}
+
+// Style 4: Minimal, thin track
+.rds-switch--style4 .MuiSwitch-track {
+  background: var(--rds-color-switch-track, #c0c0c3) !important;
+  height: 8px !important;
+  margin-top: 2px !important;
+}
+.rds-switch--style4 .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #646464) !important;
+  margin-left: 4px !important;
+}
+
+// Style 5: Red underline, "Off" label inside
+.rds-switch--style5 .MuiSwitch-track {
+  background: var(--rds-color-switch-track, #c0c0c3) !important;
+  height: 1.4rem !important;
+  border-radius: 10px !important;
+  position: relative !important;
+}
+.rds-switch--style5 .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #646464) !important;
+  margin-top: 0.25rem !important;
+  margin-left: 4px !important;
+}
+// Label for 'On' state
+.rds-switch--style5 .MuiSwitch-track::before {
+  content: 'On' !important;
+  position: absolute !important;
+  left: 2px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: var(--rds-color-switch-label, #757575) !important;
+  font-size: 12px !important;
+}
+// Label for 'Off' state
+.rds-switch--style5 .MuiSwitch-track::after {
+  content: 'Off' !important;
+  position: absolute !important;
+  right: 2px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: var(--rds-color-switch-label) !important;
+  font-size: 12px !important;
+}
+
+// Style 6: Red underline, "Off" label inside
+.rds-switch--style6 .MuiSwitch-track {
+  background: var(--rds-color-switch-track, #c0c0c3) !important;
+  height: 1.4rem !important;
+  border-radius: 3px !important;
+  position: relative !important;
+}
+.rds-switch--style6 .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #646464) !important;
+  border-radius: 4px !important;
+  margin-top: 0.25rem !important;
+  margin-left: 4px !important;
+}
+// Label for 'On' state
+.rds-switch--style6 .MuiSwitch-track::before {
+  content: 'On' !important;
+  position: absolute !important;
+  left: 2px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: var(--rds-color-switch-label, #757575) !important;
+  font-size: 12px !important;
+}
+// Label for 'Off' state
+.rds-switch--style6 .MuiSwitch-track::after {
+  content: 'Off' !important;
+  position: absolute !important;
+  right: 2px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: var(--rds-color-switch-label) !important;
+  font-size: 12px !important;
+}
+
+// Checked state background color for all styles
+.rds-switch--style1 .Mui-checked + .MuiSwitch-track,
+.rds-switch--style1 .MuiSwitch-input:checked + .MuiSwitch-track,
+.rds-switch--style2 .Mui-checked + .MuiSwitch-track,
+.rds-switch--style2 .MuiSwitch-input:checked + .MuiSwitch-track,
+.rds-switch--style3 .Mui-checked + .MuiSwitch-track,
+.rds-switch--style3 .MuiSwitch-input:checked + .MuiSwitch-track,
+.rds-switch--style4 .Mui-checked + .MuiSwitch-track,
+.rds-switch--style4 .MuiSwitch-input:checked + .MuiSwitch-track,
+.rds-switch--style5 .Mui-checked + .MuiSwitch-track,
+.rds-switch--style5 .MuiSwitch-input:checked + .MuiSwitch-track,
+.rds-switch--style6 .Mui-checked + .MuiSwitch-track,
+.rds-switch--style6 .MuiSwitch-input:checked + .MuiSwitch-track {
+  background: var(--rds-switch-active-bg, #4285f4) !important;
+  // opacity: 1 !important;
+}
+
+// Enhanced checked state with proper opacity handling
+.css-i3t01e-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-checked:not(.Mui-disabled) + .MuiSwitch-track {
+  background: var(--rds-switch-active-bg, #4285f4) !important;
+  opacity: 1 !important;
+}
+
+/* Color variant support */
+.rds-switch--color-primary .Mui-checked + .MuiSwitch-track,
+.rds-switch--color-primary .MuiSwitch-input:checked + .MuiSwitch-track {
+  background: #cbeaff !important; /* Lighter primary color for better contrast (increased) */
+  opacity: 1 !important;
+}
+
+.rds-switch--color-primary .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--color-primary .MuiSwitch-input:checked + .MuiSwitch-thumb {
+  background: #0b63e6 !important; /* Darker primary thumb for stronger contrast */
+}
+
+/* Primary color off state - use white for color variant */
+.rds-switch--color-primary .MuiSwitch-thumb {
+  background: #ffffff !important;
+}
+
+/* Secondary color - Raaghu track + MUI thumb colors */
+.rds-switch--color-secondary .Mui-checked + .MuiSwitch-track,
+.rds-switch--color-secondary .MuiSwitch-input:checked + .MuiSwitch-track {
+  background: #6b7ddd !important; /* Lighter secondary color for better contrast */
+  opacity: 1 !important;
+}
+
+.rds-switch--color-secondary .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--color-secondary .MuiSwitch-input:checked + .MuiSwitch-thumb {
+  background: #111f99 !important; /* Darker secondary color for visibility */
+}
+
+.rds-switch--color-secondary .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #ffffff) !important;
+}
+
+/* Error color - Raaghu track + MUI thumb colors */
+.rds-switch--color-error .Mui-checked + .MuiSwitch-track,
+.rds-switch--color-error .MuiSwitch-input:checked + .MuiSwitch-track {
+  background: #e57a7a !important; /* Lighter error color for better contrast */
+  opacity: 1 !important;
+}
+
+.rds-switch--color-error .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--color-error .MuiSwitch-input:checked + .MuiSwitch-thumb {
+  background: #9a0a18 !important; /* Darker error color for visibility */
+}
+
+.rds-switch--color-error .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #ffffff) !important;
+}
+
+/* Warning color - Raaghu track + MUI thumb colors */
+.rds-switch--color-warning .Mui-checked + .MuiSwitch-track,
+.rds-switch--color-warning .MuiSwitch-input:checked + .MuiSwitch-track {
+  background: #e8a570 !important; /* Lighter warning color for better contrast */
+  opacity: 1 !important;
+}
+
+.rds-switch--color-warning .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--color-warning .MuiSwitch-input:checked + .MuiSwitch-thumb {
+  background: #a3420a !important; /* Darker warning color for visibility */
+}
+
+.rds-switch--color-warning .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #ffffff) !important;
+}
+
+/* Info color - Raaghu track + MUI thumb colors */
+.rds-switch--color-info .Mui-checked + .MuiSwitch-track,
+.rds-switch--color-info .MuiSwitch-input:checked + .MuiSwitch-track {
+  background: #81d4fa !important; /* Lighter info color for better contrast */
+  opacity: 1 !important;
+}
+
+.rds-switch--color-info .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--color-info .MuiSwitch-input:checked + .MuiSwitch-thumb {
+  background: #1976d2 !important; /* Darker info color for visibility */
+}
+
+.rds-switch--color-info .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #ffffff) !important;
+}
+
+/* Success color - Raaghu track + MUI thumb colors */
+.rds-switch--color-success .Mui-checked + .MuiSwitch-track,
+.rds-switch--color-success .MuiSwitch-input:checked + .MuiSwitch-track {
+  background: #7bc87f !important; /* Lighter success color for better contrast */
+  opacity: 1 !important;
+}
+
+.rds-switch--color-success .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--color-success .MuiSwitch-input:checked + .MuiSwitch-thumb {
+  background: #176326 !important; /* Darker success color for visibility */
+}
+
+.rds-switch--color-success .MuiSwitch-thumb {
+  background: var(--rds-color-switch-thumb, #ffffff) !important;
+}
+
+// Disabled state handling - preserve disabled functionality
+.css-i3t01e-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-disabled + .MuiSwitch-track {
+  opacity: 0.4 !important;
+  background: var(--rds-switch-inactive-bg, #c0c0c3) !important;
+}
+
+.css-i3t01e-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase.Mui-checked.Mui-disabled + .MuiSwitch-track {
+  opacity: 0.4 !important;
+  background: var(--rds-switch-disabled-bg, #b3d4fc) !important;
+}
+.Mui-checked + .MuiSwitch-thumb,
+.MuiSwitch-input:checked + .MuiSwitch-thumb {
+  background: var(--rds-color-on-primary, #ffffff) !important;
+  margin-left: 3px !important;
+}
+
+/* Disabled + Checked override for all colored switches */
+.rds-switch--color-primary .Mui-checked.Mui-disabled + .MuiSwitch-track,
+.rds-switch--color-primary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
+  background: var(--rds-switch-disabled-bg, #b3d4fc) !important;
+  opacity: 0.4 !important;
+}
+
+.rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-track,
+.rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track,
+.rds-switch--color-secondary .Mui-disabled + .MuiSwitch-track {
+  background: var(--rds-switch-disabled-secondary-bg, rgba(24,39,187,0.24)) !important;
+  opacity: 0.4 !important;
+}
+
+.rds-switch--color-warning .Mui-checked.Mui-disabled + .MuiSwitch-track,
+.rds-switch--color-warning .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
+  background: var(--rds-switch-disabled-warning-bg, rgba(255,152,0,0.24)) !important;
+  opacity: 0.4 !important;
+}
+
+.rds-switch--color-default .Mui-checked.Mui-disabled + .MuiSwitch-track,
+.rds-switch--color-default .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
+  background: var(--rds-switch-disabled-default-bg, rgba(158,158,158,0.24)) !important;
+  opacity: 0.4 !important;
+}
+
+/* Disabled thumb handling for all colors */
+.rds-switch--color-primary .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
+.rds-switch--color-primary .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  background: var(--rds-color-on-primary, #ffffff) !important;
+  opacity: 0.6 !important;
+}
+
+.rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
+.rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-thumb,
+.rds-switch--color-secondary .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  background: var(--rds-color-on-secondary, #ffffff) !important;
+  opacity: 0.6 !important;
+}
+
+.rds-switch--color-warning .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
+.rds-switch--color-warning .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  background: var(--rds-color-on-warning, #000000) !important;
+  opacity: 0.6 !important;
+}
+
+.rds-switch--color-default .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
+.rds-switch--color-default .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  background: var(--rds-color-on-default, #ffffff) !important;
+  opacity: 0.6 !important;
+}
+.rds-switch--style6 .Mui-checked + .MuiSwitch-track::before,
+.rds-switch--style6 .MuiSwitch-input:checked + .MuiSwitch-track::before,
+.rds-switch--style5 .Mui-checked + .MuiSwitch-track::before,
+.rds-switch--style5 .MuiSwitch-input:checked + .MuiSwitch-track::before {
+  color: var(--rds-color-on-primary, #ffffff) !important;
+}
+.rds-switch--style6 .Mui-checked + .MuiSwitch-track::after,
+.rds-switch--style6 .MuiSwitch-input:checked + .MuiSwitch-track::after,
+.rds-switch--style5 .Mui-checked + .MuiSwitch-track::after,
+.rds-switch--style5 .MuiSwitch-input:checked + .MuiSwitch-track::after {
+  color: var(--rds-color-on-primary, #ffffff) !important;
+}
+// Consistent label margin for all switch styles
+.rds-switch--style1 .MuiFormControlLabel-label,
+.rds-switch--style3 .MuiFormControlLabel-label,
+.rds-switch--style5 .MuiFormControlLabel-label,
+.rds-switch--style6 .MuiFormControlLabel-label {
+  margin-top: 0.5rem !important;
+}
+
+.MuiSwitch-track .css-1khxa25{
+  opacity: 0.4 !important;
+  background: var(--rds-switch-disabled-bg, #b3d4fc) !important;
+}

@@ -1,0 +1,193 @@
+// Utility override for MUI close button position in collapse/fixed only
+.rds-sidebar--collapse .css-1ysp02-MuiButtonBase-root-MuiIconButton-root,
+.rds-sidebar--fixed .css-1ysp02-MuiButtonBase-root-MuiIconButton-root {
+  right: 23px !important;
+}
+// RDS Sidebar Component Styles
+.rds-sidebar {
+  // Base sidebar styles
+  display: flex;
+  flex-shrink: 0;
+  
+  // Content container
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  // Header section (logo/avatar area)
+  &__header {
+    display: flex;
+    margin-bottom: 12px;
+    
+    &--collapse {
+      padding: 16px 0 0 0;
+      justify-content: flex-start;
+    }
+    
+    &--expanded {
+      padding: 12px 16px 0 16px;
+      justify-content: flex-start;
+    }
+    
+    &--fixed {
+      padding: 16px 0 0 0;
+      justify-content: flex-start;
+    }
+  }
+  
+  // Logo styles - more specific targeting
+  &__logo {
+    height: auto;
+    
+    &--collapse {
+      max-width: 50px !important;
+    }
+    
+    &--expanded {
+      max-width: 70% !important;
+    }
+    
+    &--fixed {
+      max-width: 50px !important;
+    }
+  }
+  
+  // Search section
+  &__search-section {
+    width: 100%;
+    padding: 0;
+  }
+  
+  &__search-divider {
+    border: none;
+    border-top: 1px solid var(--rds-color-border, #e0e0e0);
+    margin: 0 0 12px 0;
+  }
+  
+  &__search-container {
+    padding: 2px 16px;
+    right: 24px;
+  }
+  
+  // Navigation list
+  &__nav-list {
+    flex: 1;
+    padding: 0;
+  }
+  
+  &__nav-item {
+    &--collapse {
+      justify-content: center;
+    }
+    
+    &--expanded {
+      justify-content: flex-start;
+    }
+    
+    &--fixed {
+      justify-content: center;
+    }
+  }
+  
+  &__nav-button {
+    min-height: 48px;
+    
+    &--collapse {
+      justify-content: center;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    
+    &--expanded {
+      justify-content: flex-start;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    
+    &--fixed {
+      justify-content: center;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  
+  &__nav-icon {
+    min-width: 48px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    
+    &--with-label {
+      margin-right: 16px;
+    }
+    
+    &--no-label {
+      margin-right: 0;
+    }
+  }
+  
+  // Footer section
+  &__footer {
+    width: 100%;
+    padding: 0;
+  }
+  
+  &__footer-divider {
+    border: none;
+    border-top: 1px solid var(--rds-color-border, #e0e0e0);
+    margin: 0;
+  }
+  
+  &__avatar-container {
+    padding: 4px 16px;
+    display: flex;
+    
+    &--collapse {
+      justify-content: center;
+    }
+    
+    &--expanded {
+      justify-content: flex-start;
+    }
+    
+    &--fixed {
+      justify-content: center;
+    }
+  }
+  
+  // Layout and type combinations - more specific styles
+  &--collapse {
+    .rds-sidebar__content {
+      align-items: center;
+    }
+  }
+  
+  &--fixed {
+    .rds-sidebar__content {
+      align-items: center;
+    }
+  }
+  
+  &--expanded {
+    .rds-sidebar__content {
+      align-items: stretch;
+    }
+  }
+  
+  // (removed &__mui-override, handled globally above)
+  
+  // Ensure MUI drawer paper doesn't override our styles
+  .MuiDrawer-paper {
+    img {
+      &.rds-sidebar__logo--collapse {
+        max-width: 50px !important;
+      }
+      
+      &.rds-sidebar__logo--expanded {
+        max-width: 70% !important;
+      }
+    }
+  }
+}

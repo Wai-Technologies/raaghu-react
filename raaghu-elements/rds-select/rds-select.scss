@@ -1,0 +1,150 @@
+// RDS Select Component Styles
+.rds-select {
+  display: block;
+  position: relative;
+  .MuiFormLabel-asterisk {
+    color: var(--rds-alert-error-border,#ff0000) !important;
+  }
+  
+  // Form control wrapper
+  &__form-control {
+    width: 100%;
+  }
+
+  // Label styles (for labelposition=false)
+  &__label {
+    margin-bottom: var(--rds-spacing-xs);
+    font-weight: 500;
+    color: var(--rds-text-secondary);
+    font-size: var(--rds-font-size-sm);
+  }
+
+  // Required asterisk
+  &__asterisk {
+    color: var(--rds-alert-error-border);
+    margin-left: 2px;
+    font-size: inherit;
+    font-weight: 700;
+  }
+
+  // MUI InputLabel (for labelposition=true)
+  &__input-label {
+    color: var(--rds-text-secondary);
+    &.Mui-focused {
+      color: var(--rds-primary-main);
+    }
+    &.Mui-error {
+      color: var(--rds-alert-error-border);
+    }
+  }
+
+  // Main select field
+  &__field {
+    background-color: var(--rds-background-paper);
+    border-radius: var(--rds-spacing-xs);
+    .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-border-default);
+    }
+    &:hover .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-text-secondary);
+    }
+    &.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-primary-main);
+      border-width: 2px;
+    }
+    &.Mui-error .MuiOutlinedInput-notchedOutline {
+      border-color: var(--rds-alert-error-border);
+    }
+    .MuiSelect-select {
+      color: var(--rds-text-primary);
+      font-size: var(--rds-font-size-md);
+      &:focus {
+        background-color: transparent;
+      }
+    }
+    .MuiSelect-icon {
+      color: var(--rds-text-secondary);
+      transition: transform var(--rds-transition-base);
+    }
+    &.Mui-focused .MuiSelect-icon {
+      color: var(--rds-primary-main);
+    }
+  }
+
+  // Placeholder text styling
+  &__placeholder {
+    color: var(--rds-text-disabled);
+  }
+
+  // Menu options
+  &__option {
+    color: var(--rds-text-primary);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+    &:hover {
+      background-color: var(--rds-background-surface);
+    }
+    &.Mui-selected {
+      background-color: var(--rds-primary-light);
+      color: var(--rds-primary-main);
+      &:hover {
+        background-color: var(--rds-primary-light);
+      }
+    }
+    &.Mui-disabled {
+      color: var(--rds-text-disabled);
+    }
+  }
+
+  // Helper text and error message
+  &__helper-text {
+    color: var(--rds-text-secondary);
+    font-size: var(--rds-font-size-sm);
+    margin-top: var(--rds-spacing-xs);
+    margin-left: 0px !important;
+    &.Mui-error {
+      color: var(--rds-alert-error-border);
+    }
+  }
+
+  // State modifiers
+  &--error {
+    .rds-select__label {
+      color: var(--rds-alert-error-border);
+    }
+  }
+
+  // Size variants
+  &.rds-select--small {
+    .rds-select__field .MuiSelect-select {
+      font-size: var(--rds-font-size-sm);
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
+    }
+  }
+
+  &.rds-select--medium {
+    .rds-select__field .MuiSelect-select {
+      font-size: var(--rds-font-size-md);
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md) !important;
+    }
+  }
+
+  // Disabled state
+  &.rds-select--disabled {
+    .rds-select__label {
+      color: var(--rds-text-disabled);
+    }
+  }
+}
+
+// Accessibility: Screen reader only utility
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
