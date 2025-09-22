@@ -14,7 +14,7 @@
   }
 
   &__asterisk {
-    color: var(--rds-alert-error-border);
+    color: var(--rds-error-main, #d32f2f);
     margin-left: 2px;
     font-size: inherit;
     font-weight: 700;
