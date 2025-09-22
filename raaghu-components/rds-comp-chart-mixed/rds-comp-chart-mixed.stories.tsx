@@ -67,5 +67,10 @@ export const Default: Story = {
             responsive: true,
             maintainAspectRatio: false,
         },
-    }
+    },
+    parameters: {
+        controls: {
+            exclude: ['chartStyle'],
+        },
+    },
 };

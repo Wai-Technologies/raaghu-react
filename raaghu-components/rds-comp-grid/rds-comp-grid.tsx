@@ -2036,6 +2036,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const totalPages = Math.ceil(tableData.length / recordsPerPage);
   const activeFiltersCount = Object.keys(filterState).length + (searchValue ? 1 : 0);
 
+  // Minimal sync: when body scrolls horizontally, scroll header toolbar too
+  const headerScrollRef = React.useRef<HTMLDivElement | null>(null);
+  const handleBodyScroll: React.UIEventHandler<HTMLDivElement> = (e) => {
+    if (headerScrollRef.current) {
+      headerScrollRef.current.scrollLeft = (e.currentTarget as HTMLDivElement).scrollLeft;
+    }
+  };
+
   if (isLoading) {
     return (
       <Card sx={{ p: 2 }}>
@@ -2137,10 +2145,19 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       },
     }}>
       {showHeader && (
-        <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
-          bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined
-        }}>
-          <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
+        <Box
+          ref={headerScrollRef}
+          sx={{
+            overflowX: 'auto',
+            scrollbarWidth: 'none', // Firefox
+            msOverflowStyle: 'none', // IE/Edge Legacy
+            '&::-webkit-scrollbar': { height: 0 }, // WebKit
+          }}
+        >
+          <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
+            bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined
+          }}>
+            <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
             <TextField
               placeholder="Search..."
               value={searchValue}
@@ -2179,7 +2196,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 <MoreIcon />
               </IconButton>
             </Stack>
-          </Stack>
+            </Stack>
+          </Box>
         </Box>
       )}
 
@@ -2269,7 +2287,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
       {!isCollapsed && (
         <TableContainer 
-          component={Paper} 
+          component={Paper}
+          onScroll={handleBodyScroll}
           elevation={0}
           sx={{
             bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
