@@ -47,15 +47,15 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon,
   Visibility as ViewIcon,
+  DragIndicator as DragIndicatorIcon,
 } from '@mui/icons-material';
+// @ts-ignore - Suppress TypeScript errors for react-beautiful-dnd import
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, horizontalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-
-// Types and Enums
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';// Types and Enums
 export enum ActionPosition {
   Right = "right",
   Left = "left",
@@ -177,7 +177,7 @@ export interface RdsCompGridRef {
   
   // Column Management
   getVisibleColumns: () => string[];
-  setColumnVisibility: (columnKey: string, visible: boolean) => void;
+  setColumnVisibility: (columnKeys: string | string[], visible: boolean) => void;
   showAllColumns: () => void;
   hideAllColumns: () => void;
   getColumnWidth: (columnKey: string) => number;
@@ -203,16 +203,6 @@ export interface RdsCompGridRef {
   scrollToTop: () => void;
   scrollToBottom: () => void;
   
-  // Row Reordering
-  moveRow: (fromIndex: number, toIndex: number) => void;
-  reorderRows: (newOrder: number[]) => void;
-  getRowOrder: () => number[];
-  
-  // Column Reordering
-  moveColumn: (fromIndex: number, toIndex: number) => void;
-  reorderColumns: (newOrder: string[]) => void;
-  getColumnOrder: () => string[];
-  
   // Grid Info
   getRowCount: () => number;
   getColumnCount: () => number;
@@ -237,8 +227,8 @@ export interface RdsCompGridProps {
   enableRadioButtonSelection?: boolean;
   enableInlineEdit?: boolean; // Enable inline editing globally
   inlineEditMode?: 'cell' | 'row'; // Inline edit mode: cell-by-cell (default) or row-based editing
-  enableRowReorder?: boolean; // Enable row reordering via drag and drop
-  enableColumnReorder?: boolean; // Enable column reordering via drag and drop
+  enableRowSwapping?: boolean; // Enable row drag and drop functionality
+  enableColumnSwapping?: boolean; // Enable column drag and drop functionality
   
   // UI Controls
   showHeader?: boolean;
@@ -267,8 +257,8 @@ export interface RdsCompGridProps {
   onFilterApiRequest?: (filterRequest: FilterApiRequest) => void;
   onCellEdit?: (rowId: string, columnKey: string, newValue: any, oldValue: any) => void;
   onCellEditComplete?: (rowId: string, columnKey: string, newValue: any, isValid: boolean) => void;
-  onRowReorder?: (newData: any[], fromIndex: number, toIndex: number) => void;
-  onColumnReorder?: (newColumnOrder: string[], fromIndex: number, toIndex: number) => void;
+  onRowSwap?: (fromIndex: number, toIndex: number, newData: any[]) => void; // New callback for row swapping
+  onColumnSwap?: (fromIndex: number, toIndex: number, newHeaders: RdsCompGridColumn[]) => void; // Callback for column swapping
   
   // Styling
   classes?: string;
@@ -281,7 +271,6 @@ export interface RdsCompGridProps {
   // Loading
   isLoading?: boolean;
 }
-
 // Sortable Row Component
 const SortableRow: React.FC<{
   id: string;
@@ -449,14 +438,23 @@ const EditableCell: React.FC<{
           '& .MuiInputBase-input': {
             padding: '4px 8px',
             fontSize: '14px',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
           },
           '& .MuiOutlinedInput-notchedOutline': {
             borderWidth: '1px',
+          },
+          '& .MuiOutlinedInput-root': {
+            height: '32px',
           },
         }}
       />
     );
   }
+
+  const displayValue = formatValueForDisplay(value);
+  const shouldShowTooltip = displayValue.length > 10;
 
   return (
     <Box
@@ -470,6 +468,9 @@ const EditableCell: React.FC<{
         width: '100%',
         border: '1px solid transparent',
         borderRadius: '4px',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
         '&:hover': {
           backgroundColor: 'action.hover',
           border: '1px solid',
@@ -477,9 +478,33 @@ const EditableCell: React.FC<{
         },
       }}
     >
-      <Typography variant="body2" sx={{ width: '100%' }}>
-        {formatValueForDisplay(value)}
-      </Typography>
+      {shouldShowTooltip ? (
+        <Tooltip title={displayValue} arrow>
+          <Typography 
+            variant="body2" 
+            sx={{ 
+              width: '100%',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {displayValue}
+          </Typography>
+        </Tooltip>
+      ) : (
+        <Typography 
+          variant="body2" 
+          sx={{ 
+            width: '100%',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {displayValue}
+        </Typography>
+      )}
     </Box>
   );
 };
@@ -587,8 +612,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   enableRadioButtonSelection = false,
   enableInlineEdit = false,
   inlineEditMode = 'cell',
-  enableRowReorder = false,
-  enableColumnReorder = false,
+  enableRowSwapping = false,
+  enableColumnSwapping = false,
   showHeader = true,
   showSubHeader = true,
   showAddNewColumn = false,
@@ -609,8 +634,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   onFilterApiRequest,
   onCellEdit,
   onCellEditComplete,
-  onRowReorder,
-  onColumnReorder,
+  onRowSwap,
+  onColumnSwap,
   classes,
   fontWeight,
   illustration = false,
@@ -634,8 +659,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const [filterAnchorEl, setFilterAnchorEl] = useState<HTMLElement | null>(null);
   const [selectedColumnForFilter, setSelectedColumnForFilter] = useState<string | null>(null);
   const [isColumnPanelExpanded, setIsColumnPanelExpanded] = useState(false);
-  const [tempFilterValue, setTempFilterValue] = useState<string>('');
-  const [tempFilterOperator, setTempFilterOperator] = useState<string>('contains');
   const [isFilterExpanded, setIsFilterExpanded] = useState(false);
   const [filterConditions, setFilterConditions] = useState([
     { id: 1, column: '', operator: 'contains', value: '' },
@@ -648,18 +671,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const [resizeStartX, setResizeStartX] = useState(0);
   const [resizeStartWidth, setResizeStartWidth] = useState(0);
   
-  // Reorder state
-  const [rowOrder, setRowOrder] = useState<number[]>([]);
-  const [columnOrder, setColumnOrder] = useState<string[]>([]);
-  
-  // Drag and drop sensors
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
-  
   // Inline editing state
   const [editingCell, setEditingCell] = useState<{rowId: string, columnKey: string} | null>(null);
   const [editingRow, setEditingRow] = useState<string | null>(null);
@@ -667,6 +678,25 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const [tempRowValues, setTempRowValues] = useState<{[columnKey: string]: any}>({});
   const [cellValidationError, setCellValidationError] = useState<string>('');
   const [rowValidationErrors, setRowValidationErrors] = useState<{[columnKey: string]: string}>({});
+  
+  // Drag and drop state
+  const [columnOrder, setColumnOrder] = useState<RdsCompGridColumn[]>(tableHeaders);
+  const [localTableData, setLocalTableData] = useState<any[]>(tableData);
+  
+  // Custom drag state for better column swapping behavior
+  const [customDragState, setCustomDragState] = useState<{
+    isDragging: boolean;
+    draggedColumnKey: string | null;
+    dragStartIndex: number | null;
+    currentHoverIndex: number | null;
+    dragPreviewVisible: boolean;
+  }>({
+    isDragging: false,
+    draggedColumnKey: null,
+    dragStartIndex: null,
+    currentHoverIndex: null,
+    dragPreviewVisible: false,
+  });
   
   // Internal data state management
   const [internalData, setInternalData] = useState<any[]>(tableData);
@@ -679,24 +709,198 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     if (!controlledData) {
       setInternalData(tableData);
     }
+    setLocalTableData([...tableData]);
   }, [tableData, controlledData]);
   
-  // Initialize row and column order
+  // Keep columnOrder synced when tableHeaders prop changes
   useEffect(() => {
-    if (rowOrder.length === 0) {
-      setRowOrder(currentData.map((_, index) => index));
-    }
-    if (columnOrder.length === 0) {
-      setColumnOrder(tableHeaders.map(header => header.key));
-    }
-  }, [currentData, tableHeaders, rowOrder.length, columnOrder.length]);
+    setColumnOrder(tableHeaders);
+  }, [tableHeaders]);
   
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
 
+  // Global style effect for react-beautiful-dnd
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      /* Ensure react-beautiful-dnd drag preview is visible */
+      .react-beautiful-dnd-drag-handle {
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      
+      .react-beautiful-dnd-draggable {
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+      
+      /* Improve drag preview appearance */
+      [data-rbd-drag-handle-draggable-id] {
+        cursor: grab !important;
+      }
+      
+      [data-rbd-drag-handle-draggable-id]:active {
+        cursor: grabbing !important;
+      }
+      
+      /* Hide the default placeholder during column drag */
+      .react-beautiful-dnd-droppable[data-rbd-droppable-id="columns"] .react-beautiful-dnd-placeholder {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
+  // Helper function to reorder array for drag and drop
+  const reorder = (list: any[], startIndex: number, endIndex: number) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+  };
+
+  // Drag end handler for rows and columns
+  const onDragEnd = (result: any) => {
+    console.log('Drag end triggered:', result);
+    
+    // Clear dragging state
+    
+    // Clean up global styles
+    document.body.style.userSelect = '';
+    document.body.style.webkitUserSelect = '';
+    
+    if (!result.destination) {
+      console.log('No destination, drag cancelled');
+      return;
+    }
+    
+    // Handle column reordering
+    if (result.type === 'COLUMN') {
+      console.log('Column reordering from', result.source.index, 'to', result.destination.index);
+      const newOrder = reorder(columnOrder, result.source.index, result.destination.index);
+      setColumnOrder(newOrder);
+      onColumnSwap?.(result.source.index, result.destination.index, newOrder);
+      return;
+    }
+    
+    // Handle row reordering
+    if (result.type === 'ROW') {
+      let sourceIndex = result.source.index;
+      let destinationIndex = result.destination.index;
+      
+      // If pagination is enabled, adjust indices to work with full dataset
+      if (pagination) {
+        const startIndex = (currentPage - 1) * recordsPerPage;
+        sourceIndex = startIndex + result.source.index;
+        destinationIndex = startIndex + result.destination.index;
+      }
+      
+      console.log('Reordering from', sourceIndex, 'to', destinationIndex);
+      console.log('Local table data before reorder:', localTableData);
+      const newData = reorder(localTableData, sourceIndex, destinationIndex);
+      console.log('New data after reorder:', newData);
+      setLocalTableData(newData);
+      onRowSwap?.(sourceIndex, destinationIndex, newData);
+    }
+  };
+
+  // Drag start handler to provide better visual feedback
+  const onDragStart = (start: any) => {
+    console.log('Drag started:', start);
+    
+    // Track which column is being dragged
+    if (start.type === 'COLUMN') {
+      console.log('Starting column drag for:', start.draggableId);
+    } else if (start.type === 'ROW') {
+      console.log('Starting row drag for:', start.draggableId);
+    }
+    
+    // Add global styles to prevent text selection during drag
+    document.body.style.userSelect = 'none';
+    document.body.style.webkitUserSelect = 'none';
+  };
+
+  // Add drag update handler for better feedback during drag
+  const onDragUpdate = (update: any) => {
+    // Track where we're dragging over for visual feedback
+    console.log('Drag update:', update);
+  };
+
+  // Custom drag handlers for better column swapping behavior
+  const handleCustomDragStart = (columnKey: string, columnIndex: number) => {
+    if (!enableColumnSwapping) return;
+    
+    setCustomDragState({
+      isDragging: true,
+      draggedColumnKey: columnKey,
+      dragStartIndex: columnIndex,
+      currentHoverIndex: null,
+      dragPreviewVisible: true,
+    });
+    
+    // Prevent text selection during drag
+    document.body.style.userSelect = 'none';
+    document.body.style.webkitUserSelect = 'none';
+    
+    console.log('Custom drag started for column:', columnKey, 'at index:', columnIndex);
+  };
+
+  const handleCustomDragOver = (targetIndex: number) => {
+    if (!customDragState.isDragging) return;
+    
+    setCustomDragState(prev => ({
+      ...prev,
+      currentHoverIndex: targetIndex,
+    }));
+  };
+
+  const handleCustomDragEnd = (targetIndex?: number) => {
+    if (!customDragState.isDragging) return;
+    
+    const { draggedColumnKey, dragStartIndex } = customDragState;
+    
+    // Clean up global styles
+    document.body.style.userSelect = '';
+    document.body.style.webkitUserSelect = '';
+    
+    // If we have a valid target and it's different from start, reorder columns
+    if (targetIndex !== undefined && targetIndex !== dragStartIndex && draggedColumnKey && dragStartIndex !== null) {
+      console.log('Reordering column from', dragStartIndex, 'to', targetIndex);
+      const newOrder = reorder(columnOrder, dragStartIndex, targetIndex);
+      setColumnOrder(newOrder);
+      onColumnSwap?.(dragStartIndex, targetIndex, newOrder);
+    }
+    
+    // Reset drag state
+    setCustomDragState({
+      isDragging: false,
+      draggedColumnKey: null,
+      dragStartIndex: null,
+      currentHoverIndex: null,
+      dragPreviewVisible: false,
+    });
+    
+    console.log('Custom drag ended');
+  };
+
+  const handleCustomDragLeave = () => {
+    if (!customDragState.isDragging) return;
+    
+    setCustomDragState(prev => ({
+      ...prev,
+      currentHoverIndex: null,
+    }));
+  };
+
   // Filter and sort data
   const processedData = useMemo(() => {
-    let filtered = [...currentData];
+    // Use localTableData for row swapping, or current data for normal operation
+    let filtered = [...(enableRowSwapping ? localTableData : currentData)];
 
     // Apply search filter
     if (searchValue) {
@@ -785,12 +989,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       });
     }
 
-    // Apply row reordering if enabled
-    if (enableRowReorder && rowOrder.length > 0) {
-      const reorderedData = rowOrder.map(index => filtered[index]).filter(Boolean);
-      filtered = reorderedData;
-    }
-
     // Apply pagination
     if (pagination) {
       const startIndex = (currentPage - 1) * recordsPerPage;
@@ -799,7 +997,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }
 
     return filtered;
-  }, [currentData, searchValue, filterState, sortColumn, sortDirection, pagination, currentPage, recordsPerPage, visibleColumns, enableRowReorder, rowOrder]);
+  }, [enableRowSwapping ? localTableData : currentData, searchValue, filterState, sortColumn, sortDirection, pagination, currentPage, recordsPerPage, visibleColumns, enableRowSwapping, localTableData, currentData]);
 
   const handleSort = (columnKey: string) => {
     if (sortColumn === columnKey) {
@@ -843,8 +1041,35 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }
   };
 
+  const handleBulkColumnVisibilityChange = (columnKeys: string | string[], isVisible: boolean) => {
+    const keysArray = Array.isArray(columnKeys) ? columnKeys : [columnKeys];
+    
+    if (isVisible) {
+      // Add columns to visible list
+      const newVisibleColumns = [...visibleColumns];
+      keysArray.forEach(key => {
+        if (!newVisibleColumns.includes(key)) {
+          newVisibleColumns.push(key);
+        }
+      });
+      setVisibleColumns(newVisibleColumns);
+    } else {
+      // Remove columns from visible list
+      const newVisibleColumns = visibleColumns.filter(key => !keysArray.includes(key));
+      setVisibleColumns(newVisibleColumns);
+      
+      // If any of the columns being deselected has an open filter popup, close it
+      if (selectedColumnForFilter && isFilterPopupOpen && keysArray.includes(selectedColumnForFilter)) {
+        setIsFilterPopupOpen(false);
+        setSelectedColumnForFilter(null);
+        setFilterAnchorEl(null);
+      }
+    }
+  };
+
   const getVisibleHeaders = () => {
-    const visible = tableHeaders.filter(header => visibleColumns.includes(header.key));
+    // Return headers in the current column order but only those that are visible
+    const visible = columnOrder.filter(header => visibleColumns.includes(header.key));
     return visible;
   };
 
@@ -912,39 +1137,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }
   };
 
-  // Drag and drop handlers
-  const handleDragEnd = (event: any) => {
-    const { active, over } = event;
-
-    if (active.id !== over.id) {
-      const activeId = active.id;
-      const overId = over.id;
-
-      // Check if it's a row drag (starts with 'row-')
-      if (activeId.startsWith('row-') && overId.startsWith('row-')) {
-        const oldIndex = parseInt(activeId.replace('row-', ''));
-        const newIndex = parseInt(overId.replace('row-', ''));
-        
-        const newRowOrder = arrayMove(rowOrder, oldIndex, newIndex);
-        setRowOrder(newRowOrder);
-        
-        // Call the callback if provided
-        onRowReorder?.(newRowOrder.map(index => currentData[index]).filter(Boolean), oldIndex, newIndex);
-      }
-      // Check if it's a column drag (starts with 'column-')
-      else if (activeId.startsWith('column-') && overId.startsWith('column-')) {
-        const oldIndex = parseInt(activeId.replace('column-', ''));
-        const newIndex = parseInt(overId.replace('column-', ''));
-        
-        const newColumnOrder = arrayMove(columnOrder, oldIndex, newIndex);
-        setColumnOrder(newColumnOrder);
-        
-        // Call the callback if provided
-        onColumnReorder?.(newColumnOrder, oldIndex, newIndex);
-      }
-    }
-  };
-
   const handleFilterIconClick = (event: React.MouseEvent<HTMLElement>, columnKey: string) => {
     event.preventDefault();
     event.stopPropagation();
@@ -964,9 +1156,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       setFilterAnchorEl(event.currentTarget);
       
       // Load column-specific filter state
-      const columnFilterState = columnFilterStates[columnKey] || { operator: 'contains', value: '' };
-      setTempFilterValue(columnFilterState.value);
-      setTempFilterOperator(columnFilterState.operator);
       
       // Open new popup after a brief delay to ensure smooth transition
       setTimeout(() => {
@@ -976,9 +1165,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       // Same column, just open
       setSelectedColumnForFilter(columnKey);
       setFilterAnchorEl(event.currentTarget);
-      const columnFilterState = columnFilterStates[columnKey] || { operator: 'contains', value: '' };
-      setTempFilterValue(columnFilterState.value);
-      setTempFilterOperator(columnFilterState.operator);
       setIsFilterPopupOpen(true);
     }
   };
@@ -998,10 +1184,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     
     const header = tableHeaders.find(h => h.key === columnKey);
     if (header?.isResizable !== false) {
+      const currentWidth = columnWidths[columnKey] || header?.minWidth || 150;
+      
       setIsResizing(true);
       setResizingColumn(columnKey);
       setResizeStartX(e.clientX);
-      setResizeStartWidth(columnWidths[columnKey] || header?.minWidth || 150);
+      setResizeStartWidth(currentWidth);
       
       // Prevent text selection during resize
       document.body.style.userSelect = 'none';
@@ -1045,8 +1233,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       if (isResizing && resizingColumn) {
         const deltaX = e.clientX - resizeStartX;
         const header = tableHeaders.find(h => h.key === resizingColumn);
-        const minWidth = header?.minWidth || 30; // Use user-defined minWidth or default to 30
-        const maxWidth = header?.maxWidth || 500;
+        const minWidth = header?.minWidth || 50; // Use user-defined minWidth or default to 50
+        const maxWidth = header?.maxWidth || 800; // Increased max width for better flexibility
         
         const requestedWidth = resizeStartWidth + deltaX;
         const newWidth = Math.max(
@@ -1714,8 +1902,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
     // Column Management
     getVisibleColumns: () => visibleColumns,
-    setColumnVisibility: (columnKey: string, visible: boolean) => {
-      handleColumnVisibilityChange(columnKey, visible);
+    setColumnVisibility: (columnKeys: string | string[], visible: boolean) => {
+      handleBulkColumnVisibilityChange(columnKeys, visible);
     },
     showAllColumns: () => {
       const allColumns = tableHeaders.map(header => header.key);
@@ -1797,30 +1985,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       }
     },
 
-    // Row Reordering
-    moveRow: (fromIndex: number, toIndex: number) => {
-      const newRowOrder = arrayMove(rowOrder, fromIndex, toIndex);
-      setRowOrder(newRowOrder);
-      onRowReorder?.(newRowOrder.map(index => currentData[index]).filter(Boolean), fromIndex, toIndex);
-    },
-    reorderRows: (newOrder: number[]) => {
-      setRowOrder(newOrder);
-      onRowReorder?.(newOrder.map(index => currentData[index]).filter(Boolean), 0, newOrder.length - 1);
-    },
-    getRowOrder: () => rowOrder,
-    
-    // Column Reordering
-    moveColumn: (fromIndex: number, toIndex: number) => {
-      const newColumnOrder = arrayMove(columnOrder, fromIndex, toIndex);
-      setColumnOrder(newColumnOrder);
-      onColumnReorder?.(newColumnOrder, fromIndex, toIndex);
-    },
-    reorderColumns: (newOrder: string[]) => {
-      setColumnOrder(newOrder);
-      onColumnReorder?.(newOrder, 0, newOrder.length - 1);
-    },
-    getColumnOrder: () => columnOrder,
-
     // Grid Info
     getRowCount: () => currentData.length,
     getColumnCount: () => tableHeaders.length,
@@ -1866,13 +2030,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     handleRowEditCancel,
     getVisibleHeaders,
     tableRef,
-    getRowById,
-    rowOrder,
-    setRowOrder,
-    columnOrder,
-    setColumnOrder,
-    onRowReorder,
-    onColumnReorder
+    getRowById
   ]);
 
   const totalPages = Math.ceil(tableData.length / recordsPerPage);
@@ -1963,7 +2121,28 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
       '& .MuiTableCell-root': {
         color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit'
-      }
+      },
+      // Ensure react-beautiful-dnd elements are visible
+      '& .react-beautiful-dnd-drag-handle': {
+        visibility: 'visible !important',
+        opacity: '1 !important',
+      },
+      '& .react-beautiful-dnd-draggable': {
+        visibility: 'visible !important',
+        opacity: '1 !important',
+      },
+      '& .react-beautiful-dnd-droppable': {
+        minHeight: 'auto !important',
+      },
+      // Force placeholder visibility
+      '& .react-beautiful-dnd-placeholder': {
+        display: 'table-cell !important',
+        visibility: 'visible !important',
+        opacity: '0.5 !important',
+        backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+        border: '2px dashed',
+        borderColor: theme.palette.primary.main,
+      },
     }}>
       {showHeader && (
         <Box
@@ -2030,7 +2209,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             {tableHeaders.filter(header => header.isFilter).map((header) => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={header.key}>
                 <Stack direction="row" spacing={1} alignItems="center">
-                  <Typography variant="body2" fontWeight="medium" minWidth="80px">
+                  <Typography variant="body2" fontWeight="medium" minWidth="87px">
                     {header.name}:
                   </Typography>
                   <TextField
@@ -2115,20 +2294,32 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
           }}
         >
-          {React.createElement(DndContext as any, {
-            sensors,
-            collisionDetection: closestCenter,
-            onDragEnd: handleDragEnd
-          },
-            <Table stickyHeader ref={tableRef}>
+          <DragDropContext 
+            onDragEnd={(enableRowSwapping || enableColumnSwapping) ? onDragEnd : () => {}}
+            onDragStart={(enableRowSwapping || enableColumnSwapping) ? onDragStart : () => {}}
+            onDragUpdate={(enableRowSwapping || enableColumnSwapping) ? onDragUpdate : () => {}}
+          >
+            <Table stickyHeader ref={tableRef} sx={{ tableLayout: 'fixed' }}>
             <TableHead sx={{ 
               bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined,
               '& th': { bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined }
             }}>
-              <SortableContext items={columnOrder.map((_, index) => `column-${index}`)} strategy={horizontalListSortingStrategy}>
-                <TableRow sx={{ 
-                  bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined 
-                }}>
+              <TableRow sx={{ 
+                bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined 
+              }}>
+                {/* Row Swapping column */}
+                {enableRowSwapping && (
+                  <TableCell 
+                    sx={{ 
+                      width: '60px',
+                      padding: '8px',
+                      borderRight: '1px solid #d1d1d1',
+                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                    }}
+                  >
+                  </TableCell>
+                )}
+
                 {enableCheckboxSelection && (
                   <TableCell 
                     padding="checkbox" 
@@ -2167,115 +2358,232 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   </TableCell>
                 )}
                 
-                {getVisibleHeaders().map((header, index) => (
-                  <SortableHeaderCell
-                    key={header.key}
-                    id={`column-${index}`}
-                    isEnabled={enableColumnReorder}
-                  >
-                    <Box
-                      sx={{
-                        cursor: isSort && header.isSort ? 'pointer' : 'default',
-                        width: columnWidths[header.key] || header.minWidth || 150,
-                        maxWidth: header.maxWidth || 500,
-                      fontWeight: header.isBold ? 'bold' : 'normal',
-                      position: 'relative',
-                      userSelect: 'none',
-                      borderRight: '1px solid #d1d1d1',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
-                      '&:last-child': {
-                        borderRight: 'none',
-                      },
-                    }}
-                    onClick={() => isSort && header.isSort && handleSort(header.key)}
-                  >
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                      <Stack direction="row" spacing={0.5} alignItems="center">
-                        <Typography variant="subtitle2" fontWeight={header.isBold ? 'bold' : 'medium'}>
-                          {header.name}
-                        </Typography>
-                        {header.required && (
-                          <Typography color="error" variant="caption">*</Typography>
-                        )}
-                        {isSort && header.isSort && (
-                          <Tooltip title="Sort">
-                            <IconButton size="small">
-                              {(() => {
-                                if (sortColumn === header.key) {
-                                  if (sortDirection === 'asc') {
-                                    return <ArrowUpIcon fontSize="small" />;
-                                  }
-                                  return <ArrowDownIcon fontSize="small" />;
-                                }
-                                return <ArrowUpDownIcon fontSize="small" />;
-                              })()}
-                            </IconButton>
-                          </Tooltip>
-                        )}
-                      </Stack>
-                      
-                      {isFilter && header.isFilter && (
-                        <Tooltip title="Click to open filters and column visibility">
-                          <span>
-                            <IconButton 
-                              size="small" 
-                              onClick={(e) => handleFilterIconClick(e, header.key)}
-                              ref={filterButtonRef}
-                              data-filter-button
-                              sx={{ 
-                                '&:hover': { 
-                                  backgroundColor: 'action.hover' 
-                                },
-                                backgroundColor: filterState[header.key]?.value ? 'primary.light' : 'transparent',
-                                color: filterState[header.key]?.value ? 'primary.main' : 'action.active'
-                              }}
-                            >
-                              <FilterIcon fontSize="small" color="action" />
-                            </IconButton>
-                          </span>
-                        </Tooltip>
+                {/* Column headers with drag and drop support */}
+                {getVisibleHeaders().map((header, index) => {
+                  // Determine visual states for custom drag
+                  const isDragging = customDragState.isDragging && customDragState.draggedColumnKey === header.key;
+                  const isBeingDragged = customDragState.draggedColumnKey === header.key;
+                  const isDropTarget = customDragState.currentHoverIndex === index && customDragState.isDragging && !isBeingDragged;
+                  const isDropBefore = customDragState.currentHoverIndex === index && customDragState.isDragging && 
+                                      customDragState.dragStartIndex !== null && customDragState.dragStartIndex > index;
+                  const isDropAfter = customDragState.currentHoverIndex === index && customDragState.isDragging && 
+                                     customDragState.dragStartIndex !== null && customDragState.dragStartIndex < index;
+                  
+                  return (
+                    <React.Fragment key={header.key}>
+                      {/* Drop indicator removed - no visual feedback */}
+                      {false && isDropBefore && (
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            left: '-2px',
+                            top: 0,
+                            bottom: 0,
+                            width: '4px',
+                            backgroundColor: theme.palette.primary.main,
+                            zIndex: 999,
+                          }}
+                        />
                       )}
-                    </Box>
-                    
-                    {/* Resize handle */}
-                    {header.isResizable !== false && (
-                      <Box
-                        role="separator"
-                        aria-label={`Resize ${header.name} column`}
-                        tabIndex={0}
-                        onMouseDown={(e) => handleResizeStart(e, header.key)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
+                      
+                      <TableCell
+                        draggable={enableColumnSwapping}
+                        onDragStart={(e) => {
+                          if (enableColumnSwapping) {
+                            handleCustomDragStart(header.key, index);
+                            e.dataTransfer.effectAllowed = 'move';
+                            e.dataTransfer.setData('text/plain', header.key);
+                          }
+                        }}
+                        onDragOver={(e) => {
+                          if (enableColumnSwapping && customDragState.isDragging) {
                             e.preventDefault();
-                            // For keyboard users, we could implement arrow key resizing
-                            // For now, just focus the handle
+                            e.dataTransfer.dropEffect = 'move';
+                            handleCustomDragOver(index);
+                          }
+                        }}
+                        onDragEnd={(e) => {
+                          if (enableColumnSwapping && customDragState.isDragging) {
+                            handleCustomDragEnd(customDragState.currentHoverIndex ?? undefined);
+                          }
+                        }}
+                        onDragLeave={(e) => {
+                          if (enableColumnSwapping && customDragState.isDragging) {
+                            // Only call handleCustomDragLeave if leaving the table cell entirely
+                            const rect = e.currentTarget.getBoundingClientRect();
+                            const { clientX, clientY } = e;
+                            if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) {
+                              handleCustomDragLeave();
+                            }
+                          }
+                        }}
+                        onDrop={(e) => {
+                          if (enableColumnSwapping && customDragState.isDragging) {
+                            e.preventDefault();
+                            handleCustomDragEnd(index);
                           }
                         }}
                         sx={{
-                          position: 'absolute',
-                          right: 0,
-                          top: 0,
-                          bottom: 0,
-                          width: '4px',
-                          cursor: 'col-resize',
-                          backgroundColor: isResizing && resizingColumn === header.key ? 'primary.main' : 'transparent',
-                          zIndex: 10,
-                          transition: 'background-color 0.2s ease',
+                          cursor: enableColumnSwapping ? 'grab' : (isSort && header.isSort ? 'pointer' : 'default'),
+                          width: columnWidths[header.key] || header.minWidth || 150,
+                          minWidth: header.minWidth || 50,
+                          maxWidth: header.maxWidth || 800,
+                          fontWeight: header.isBold ? 'bold' : 'normal',
+                          position: 'relative',
+                          userSelect: 'none',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          borderRight: '1px solid #d1d1d1',
+                          bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                          transition: isDragging ? 'none' : 'all 0.2s ease',
+                          '&:last-child': {
+                            borderRight: 'none',
+                          },
                           '&:hover': {
-                            backgroundColor: 'primary.main',
-                            opacity: 0.7,
+                            ...(enableColumnSwapping && !isDragging && !customDragState.isDragging && {
+                              backgroundColor: theme.palette.mode === 'dark' ? '#525252 !important' : 'rgba(0, 0, 0, 0.04)',
+                              cursor: 'grab',
+                            }),
                           },
-                          '&:focus': {
-                            outline: '2px solid',
-                            outlineColor: 'primary.main',
-                            outlineOffset: '1px',
+                          '&:active': {
+                            ...(enableColumnSwapping && {
+                              cursor: 'grabbing',
+                            }),
                           },
+                          // No visual feedback for dragged column
+                          ...(isBeingDragged && !customDragState.dragPreviewVisible && {
+                            opacity: 1,
+                            position: 'relative',
+                          }),
+                          // No visual feedback for drop zones
+                          ...(isDropTarget && {
+                            // No styling - completely clean
+                          }),
                         }}
-                      />
-                    )}
-                    </Box>
-                  </SortableHeaderCell>
-                ))}
+                        onClick={(e: React.MouseEvent) => {
+                          e.stopPropagation();
+                          // Only allow sorting if not currently dragging columns
+                          if (!customDragState.isDragging && isSort && header.isSort) {
+                            handleSort(header.key);
+                          }
+                        }}
+                      >
+                        <Stack direction="row" spacing={0.5} alignItems="center">
+                          {/* Drag indicator icon removed for column swapping to avoid visual clutter.
+                              Drag functionality remains (TableCell is still draggable). */}
+                          
+                          <Tooltip title={header.name} arrow>
+                            <Typography 
+                              variant="subtitle2" 
+                              fontWeight={header.isBold ? 'bold' : 'medium'}
+                              sx={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                                width: '100%',
+                              }}
+                            >
+                              {header.name}
+                            </Typography>
+                          </Tooltip>
+                          {header.required && (
+                            <Typography color="error" variant="caption">*</Typography>
+                          )}
+                          {isSort && header.isSort && (
+                            <Tooltip title="Sort">
+                              <IconButton size="small">
+                                {(() => {
+                                  if (sortColumn === header.key) {
+                                    if (sortDirection === 'asc') {
+                                      return <ArrowUpIcon fontSize="small" />;
+                                    }
+                                    return <ArrowDownIcon fontSize="small" />;
+                                  }
+                                  return <ArrowUpDownIcon fontSize="small" />;
+                                })()}
+                              </IconButton>
+                            </Tooltip>
+                          )}
+                          {isFilter && header.isFilter && (
+                            <Tooltip title="Click to open filters and column visibility">
+                              <span>
+                                <IconButton 
+                                  size="small" 
+                                  onClick={(e) => handleFilterIconClick(e, header.key)}
+                                  ref={filterButtonRef}
+                                  data-filter-button
+                                  sx={{ 
+                                    '&:hover': { 
+                                      backgroundColor: 'action.hover' 
+                                    },
+                                    backgroundColor: filterState[header.key]?.value ? 'primary.light' : 'transparent',
+                                    color: filterState[header.key]?.value ? 'primary.main' : 'action.active'
+                                  }}
+                                >
+                                  <FilterIcon fontSize="small" color="action" />
+                                </IconButton>
+                              </span>
+                            </Tooltip>
+                          )}
+                        </Stack>
+                        
+                        {/* Resize handle */}
+                        {header.isResizable !== false && (
+                          <Box
+                            role="separator"
+                            aria-label={`Resize ${header.name} column`}
+                            tabIndex={0}
+                            onMouseDown={(e) => handleResizeStart(e, header.key)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                // For keyboard users, we could implement arrow key resizing
+                                // For now, just focus the handle
+                              }
+                            }}
+                            sx={{
+                              position: 'absolute',
+                              right: 0,
+                              top: 0,
+                              bottom: 0,
+                              width: '6px',
+                              cursor: 'col-resize',
+                              backgroundColor: isResizing && resizingColumn === header.key ? 'primary.main' : 'transparent',
+                              zIndex: 10,
+                              transition: 'all 0.2s ease',
+                              '&:hover': {
+                                backgroundColor: 'primary.main',
+                                opacity: 0.8,
+                                width: '3px',
+                              },
+                              '&:focus': {
+                                outline: '2px solid',
+                                outlineColor: 'primary.main',
+                                outlineOffset: '1px',
+                              },
+                            }}
+                          />
+                        )}
+                          
+                          {/* Drop indicator after column removed - no visual feedback */}
+                          {false && isDropAfter && (
+                            <Box
+                              sx={{
+                                position: 'absolute',
+                                right: '-2px',
+                                top: 0,
+                                bottom: 0,
+                                width: '4px',
+                                backgroundColor: theme.palette.primary.main,
+                                zIndex: 999,
+                              }}
+                            />
+                          )}
+                      </TableCell>
+                    </React.Fragment>
+                  );
+                })}
                 
                 {actions.length > 0 && (
                   <TableCell 
@@ -2305,24 +2613,76 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   </TableCell>
                 )}
               </TableRow>
-              </SortableContext>
             </TableHead>
             
-            <TableBody>
-              <SortableContext items={processedData.map((_, index) => `row-${index}`)} strategy={verticalListSortingStrategy}>
-                {processedData.map((row, index) => {
-                  const rowId = `row-${index}`;
-                  const isSelected = selectedRows.has(rowId);
-                  const isRowEditing = editingRow === rowId;
-                  console.log('Row editing state:', { rowId, editingRow, isRowEditing });
-                  
-                  return (
-                    <SortableRow
-                      key={rowId}
-                      id={rowId}
-                      isEnabled={enableRowReorder}
-                    >
-                    {enableCheckboxSelection && (
+            <Droppable droppableId="droppable-body" type="ROW">
+              {(provided: any) => (
+                <TableBody
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+              {processedData.map((row, index) => {
+                const rowId = `row-${index}`;
+                const isSelected = selectedRows.has(rowId);
+                const isRowEditing = editingRow === rowId;
+                console.log('Row editing state:', { rowId, editingRow, isRowEditing });
+                
+                return (
+                  <Draggable 
+                    key={rowId} 
+                    draggableId={String(rowId)} 
+                    index={index}
+                    isDragDisabled={!enableRowSwapping}
+                  >
+                    {(dragProvided: any, dragSnapshot: any) => (
+                      <TableRow
+                        ref={dragProvided.innerRef}
+                        {...dragProvided.draggableProps}
+                        key={rowId}
+                        selected={isSelected}
+                        hover
+                        onClick={() => onRowClick?.(rowId)}
+                        sx={{ 
+                          cursor: 'pointer',
+                          ...(dragSnapshot.isDragging && {
+                            backgroundColor: isSelected ? '#e6f3ff' : undefined,
+                          }),
+                        }}
+                      >
+                        {/* Row Swapping controls */}
+                        {enableRowSwapping && (
+                          <TableCell sx={{ 
+                            width: '60px', 
+                            padding: '8px',
+                            borderRight: '1px solid #d1d1d1',
+                            textAlign: 'center',
+                            verticalAlign: 'middle'
+                          }}>
+                            <div 
+                              {...dragProvided.dragHandleProps}
+                              style={{ 
+                                cursor: 'grab',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: '100%',
+                                height: '100%'
+                              }}
+                            >
+                              <DragIndicatorIcon 
+                                fontSize="small" 
+                                sx={{ 
+                                  color: theme.palette.text.secondary,
+                                  '&:hover': {
+                                    color: theme.palette.text.primary,
+                                  }
+                                }} 
+                              />
+                            </div>
+                          </TableCell>
+                        )}
+
+                        {enableCheckboxSelection && (
                       <TableCell 
                         padding="checkbox"
                         sx={{ borderRight: '1px solid #d1d1d1' }}
@@ -2347,10 +2707,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       </TableCell>
                     )}
                     
-                    {getVisibleHeaders().map((header) => {
+                    {(enableColumnSwapping ? columnOrder.filter(header => visibleColumns.includes(header.key)) : getVisibleHeaders()).map((header) => {
                       const cellValue = row[header.key];
                       const cellWidth = columnWidths[header.key] || header.minWidth || 150;
-                      const minWidth = header.minWidth || 50;
                       const rowId = `row-${index}`;
                       const isEditing = editingCell?.rowId === rowId && editingCell?.columnKey === header.key;
                       
@@ -2359,7 +2718,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       const cellText = shouldRenderHtml ? '' : (cellValue?.toString() || '');
                       
                       // Only show tooltip if text might be truncated and not HTML
-                      const shouldShowTooltip = !shouldRenderHtml && cellText.length > 0 && cellWidth < minWidth + 50;
+                      // Show tooltip for any text that might be truncated (more than 10 characters)
+                      const shouldShowTooltip = !shouldRenderHtml && cellText.length > 10;
                       
                       // Use custom renderer if provided
                       if (header.renderCell) {
@@ -2367,13 +2727,17 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       <TableCell
                         key={header.key}
                         sx={{
-                              width: cellWidth,
-                              maxWidth: header.maxWidth || 500,
-                              borderRight: '1px solid #d1d1d1',
-                              '&:last-child': {
-                                borderRight: 'none',
-                              },
-                            }}
+                            width: cellWidth,
+                            minWidth: header.minWidth || 50,
+                            maxWidth: header.maxWidth || 800,
+                            borderRight: '1px solid #d1d1d1',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            '&:last-child': {
+                              borderRight: 'none',
+                            },
+                          }}
                           >
                             {header.renderCell(cellValue, row)}
                           </TableCell>
@@ -2391,9 +2755,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           key={header.key}
                           sx={{
                             width: cellWidth,
-                            maxWidth: header.maxWidth || 500,
+                            minWidth: header.minWidth || 50,
+                            maxWidth: header.maxWidth || 800,
                             borderRight: '1px solid #d1d1d1',
                             color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
                             '&:last-child': {
                               borderRight: 'none',
                             },
@@ -2685,13 +3053,17 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         </Stack>
                       </TableCell>
                     )}
-                    </SortableRow>
-                  );
-                })}
-              </SortableContext>
-            </TableBody>
+                      </TableRow>
+                        )}
+                      </Draggable>
+                );
+              })}
+                  {provided.placeholder}
+                </TableBody>
+              )}
+            </Droppable>
           </Table>
-          )}
+          </DragDropContext>
         </TableContainer>
       )}
 
@@ -2714,6 +3086,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             width: 200,
             maxHeight: 250,
             overflow: 'auto',
+            overflowY: 'auto',
             zIndex: 1300,
             backgroundColor: theme.palette.mode === 'dark' ? '#424242' : undefined,
             color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
@@ -2725,6 +3098,19 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             },
             '& .MuiDivider-root': {
               borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : undefined,
+            },
+            '&::-webkit-scrollbar': {
+              width: '6px',
+            },
+            '&::-webkit-scrollbar-track': {
+              backgroundColor: theme.palette.mode === 'dark' ? '#2a2a2a' : '#f1f1f1',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: theme.palette.mode === 'dark' ? '#555' : '#c1c1c1',
+              borderRadius: '3px',
+            },
+            '&::-webkit-scrollbar-thumb:hover': {
+              backgroundColor: theme.palette.mode === 'dark' ? '#777' : '#a8a8a8',
             },
           }
         }}
