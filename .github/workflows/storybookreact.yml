@@ -26,15 +26,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node.js version
-        uses: actions/setup-node@v4
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: "22.x"
+          bun-version: latest
 
       - name: install and build storybook
         if: ${{ github.event.inputs.environment != 'New' }}
         run: |
-          npm install
+          bun install
           npm run build-storybook
           # mkdir storybook-static/assets
           # cp .storybook/assets/* storybook-static/assets
@@ -43,7 +43,7 @@ jobs:
       - name: install and build storybook for new environment
         if: ${{ github.event.inputs.environment == 'New' }}
         run: |
-          npm install --legacy-peer-deps
+          bun install
           npm run build-storybook
           # mkdir storybook-static/assets
           # cp .storybook/assets/* storybook-static/assets

@@ -1,0 +1,10 @@
+[install]
+# Use npm registry for compatibility
+registry = "https://registry.npmjs.org/"
+
+# Cache configuration
+cache = true
+
+# Install configuration
+exact = false
+production = false

@@ -68,6 +68,10 @@ web_modules/
 # Yarn Integrity file
 .yarn-integrity
 
+# Bun
+bun.lockb
+.bun
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
