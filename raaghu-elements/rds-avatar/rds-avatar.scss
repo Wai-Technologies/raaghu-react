@@ -315,12 +315,10 @@
   // Color variants
   &--primary {
     background-color: var(--rds-primary-main);
-    color: var(--rds-background-paper);
   }
   
   &--secondary {
     background-color: #dc004e;
-    color: var(--rds-background-paper);
   }
   // Horizontal layout (avatar + info)
   &--with-name {

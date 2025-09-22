@@ -244,6 +244,15 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                   phoneLabel={props.phoneLabel}
                   phonePlaceholder={props.phonePlaceholder}
                   requiredText={props.requiredText}
+                  nameValue={props.nameValue}
+                  emailValue={props.emailValue}
+                  phoneValue={props.phoneValue}
+                  onNameChange={props.onNameChange}
+                  onEmailChange={props.onEmailChange}
+                  onPhoneChange={props.onPhoneChange}
+                  nameError={props.nameError}
+                  emailError={props.emailError}
+                  phoneError={props.phoneError}
                 />
               )}
               {type === "ActivityUpdateCard" && (
@@ -260,7 +269,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                   entree={entree} setEntree={setEntree}
                   side={side} setSide={setSide}
                   drink={drink} setDrink={setDrink}
-                  entreeLabel={props.entreeLabel} 
+                  entreeLabel={props.entreeLabel}
                   entreePlaceholder={props.entreePlaceholder}
                   entreeOptions={props.entreeOptions}
                   sideLabel={props.sideLabel}
@@ -269,6 +278,12 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                   drinkLabel={props.drinkLabel}
                   drinkPlaceholder={props.drinkPlaceholder}
                   drinkOptions={props.drinkOptions}
+                  entreeValue={props.entreeValue}
+                  sideValue={props.sideValue}
+                  drinkValue={props.drinkValue}
+                  onEntreeChange={props.onEntreeChange}
+                  onSideChange={props.onSideChange}
+                  onDrinkChange={props.onDrinkChange}
                 />
               )}
             </CardContent>
@@ -284,7 +299,8 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                     style="filled"
                     className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--restaurant-order rds-button__primary"
                     fullWidth
-                   text={btn1Label}
+                    text={btn1Label}
+                    onClick={props.onBtn1Click}
                   />
                 ) : null
               ) : type === "CalenderReminder" ? null : (
@@ -296,10 +312,12 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                         className="rds-adaptive-cards__action-btn rds-adaptive-cards__action-btn--input-form-button rds-button__primary"
                         fullWidth
                         text={btn1Label}
+                        onClick={props.onBtn1Click}
                       />
                     ) : type === "ActivityUpdateCard" ? (
                       <RdsButtonDropdown
                         buttonText={btn1Label}
+                        styleType="outline"
                         options={(activityProps?.radioOptions ?? []).map((opt, idx) => ({
                           id: opt.value ?? idx,
                           label: opt.label,
