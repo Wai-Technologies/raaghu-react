@@ -1,6 +1,5 @@
 {
   "name": "@waiin/raaghu-react",
-  "private": true,
   "version": "1.2.0",
   "description": "Raaghu Design System implementation with Material UI components",
   "type": "module",
