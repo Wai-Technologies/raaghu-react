@@ -360,41 +360,33 @@
   }
 }
 
-// Dark theme support
-@media (prefers-color-scheme: dark) {
-  .rds-fab-menu {
-    &__dropdown {
-       background-color: #2a2a2a !important;
-      color: var(--rds-color-on-surface-dark, #ffffff);
-    }
-
-    &__item {
-      color: var(--rds-color-on-surface-dark, #ffffff);
-
-      &:hover {
-        background-color: #353535 !important;
-      }
-
-      &:focus {
-        background-color: #353535 !important;
-      }
-
-      &:active {
-        background-color: var(--rds-color-primary-container-dark, #1565c0);
-      }
-    }
-  }
-}
+// Dark theme support (explicit theme selectors only)
+[data-theme="dark"] .rds-fab-menu__dropdown,
+.dark-theme .rds-fab-menu__dropdown,
 .theme-dark .rds-fab-menu__dropdown {
   background-color: #2a2a2a !important;
   color: var(--rds-color-on-surface-dark, #ffffff);
 }
+
+[data-theme="dark"] .rds-fab-menu__item,
+.dark-theme .rds-fab-menu__item,
 .theme-dark .rds-fab-menu__item {
   color: var(--rds-color-on-surface-dark, #ffffff);
 }
+
+[data-theme="dark"] .rds-fab-menu__item:hover,
+[data-theme="dark"] .rds-fab-menu__item:focus,
+.dark-theme .rds-fab-menu__item:hover,
+.dark-theme .rds-fab-menu__item:focus,
 .theme-dark .rds-fab-menu__item:hover,
 .theme-dark .rds-fab-menu__item:focus {
   background-color: #353535 !important;
+}
+
+[data-theme="dark"] .rds-fab-menu__item:active,
+.dark-theme .rds-fab-menu__item:active,
+.theme-dark .rds-fab-menu__item:active {
+  background-color: var(--rds-color-primary-container-dark, #1565c0);
 }
 
 // High contrast mode support

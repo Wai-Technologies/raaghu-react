@@ -24,4 +24,16 @@ html.dark .MuiFab-root,
     color: var(--rds-color-on-surface, #ffffff) !important;
     fill: currentColor !important;
   }
+
+  &.Mui-disabled,
+  .MuiFab-root.Mui-disabled {
+    .MuiFab-label,
+    span,
+    svg,
+    .MuiSvgIcon-root {
+      color: var(--rds-color-disabled, #888888) !important;
+      fill: var(--rds-color-disabled, #888888) !important;
+      opacity: 0.5 !important;
+    }
+  }
 }

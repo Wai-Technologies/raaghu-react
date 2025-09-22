@@ -24,8 +24,8 @@ type Story = StoryObj<typeof RdsCompDoughnutChart>;
 export const Default: Story = {
     args: {
         id: "myChart",
-        titleText: "35 k",
-        subTitleText: "deioj",
+        titleText: "Title",
+        subTitleText: "Subtext",
         labels: ["Red", "Orange", "Yellow", "Green", "Blue"],
         options: {
             maintainAspectRatio: false,

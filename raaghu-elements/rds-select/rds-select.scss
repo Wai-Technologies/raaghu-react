@@ -100,6 +100,7 @@
     color: var(--rds-text-secondary);
     font-size: var(--rds-font-size-sm);
     margin-top: var(--rds-spacing-xs);
+    margin-left: 0px !important;
     &.Mui-error {
       color: var(--rds-alert-error-border);
     }

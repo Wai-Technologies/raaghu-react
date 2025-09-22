@@ -243,6 +243,7 @@ export const WithList: Story = {
           title="Menu Options"
           width={250}
           position="no-arrow"
+          className="with-list-popover"
         >
           <List dense>
             {menuItems.map((item, index) => (
