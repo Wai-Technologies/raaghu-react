@@ -1,10 +1,36 @@
 {
   "name": "@waiin/raaghu-react",
-  "private": true,
-  "version": "1.2.0",
-  "description": "Raaghu Design System implementation with Material UI components",
-  "type": "module",
-  "homepage": "https://new-react.raaghu.ai",
+  "version": "1.2.1",
+  "description": "@waiin/raaghu-react is an React based micro front-end design system from Raaghu Design System. @waiin/raaghu-react employs React, Typescript, Vite, Millions, Bootstrap and Storybook features to develop highly customizable UI components and pages, that provides application shells, layouts, elements, components, map and charts.",
+  "keywords": [
+    "react",
+    "typescript",
+    "vite",
+    "millionjs",
+    "bootstrap",
+    "storybook",
+    "raaghu",
+    "rds-generator",
+    "@waiin/raaghu-react",
+    "raaghu-elements-themes",
+    "raaghu-components-themes",
+    "raaghu-layout-themes",
+    "raaghu-appshell-themes",
+    "wai-technologies",
+    "utility",
+    "common"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wai-Technologies/raaghu-react"
+  },
+  "author": {
+    "name": "Wai Technologies",
+    "email": "support@waiin.com",
+    "url": "https://waiin.com"
+  },
+  "homepage": "https://waiin.com/raaghu-open-source-design-system",
+  "license": "Apache License 2.0",
   "scripts": {
     "dev": "bun run vite",
     "build": "bun run tsc -b && bun run vite build",
