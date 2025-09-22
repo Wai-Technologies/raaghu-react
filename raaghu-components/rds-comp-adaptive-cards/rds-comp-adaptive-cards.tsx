@@ -250,6 +250,9 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                   onNameChange={props.onNameChange}
                   onEmailChange={props.onEmailChange}
                   onPhoneChange={props.onPhoneChange}
+                  nameError={props.nameError}
+                  emailError={props.emailError}
+                  phoneError={props.phoneError}
                 />
               )}
               {type === "ActivityUpdateCard" && (

@@ -26,6 +26,10 @@ export interface AdaptiveCardProps {
   onNameChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onEmailChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onPhoneChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  // Error handling for InputForm
+  nameError?: string;
+  emailError?: string;
+  phoneError?: string;
   // Controlled select values and handlers for RestaurantOrder
   entreeValue?: string;
   sideValue?: string;
@@ -156,7 +160,10 @@ export function InputFormCard(props: AdaptiveCardProps) {
     phoneValue,
     onNameChange,
     onEmailChange,
-    onPhoneChange
+    onPhoneChange,
+    nameError,
+    emailError,
+    phoneError
   } = props;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -170,15 +177,41 @@ export function InputFormCard(props: AdaptiveCardProps) {
       <div className="rds-adaptive-cards__input-form-small-text">{smallText}</div>
       <div className="rds-adaptive-cards__input-form-field">
         <label className="rds-adaptive-cards__input-form-field-label">{nameLabel} <span className="rds-adaptive-cards__required">{requiredText}</span></label>
-        <input className="rds-adaptive-cards__action-btn--input-form" placeholder={namePlaceholder} required value={nameValue !== undefined ? nameValue : name} onChange={onNameChange ? onNameChange : (e => setName(e.target.value))} name="name" />
+        <input 
+          className={`rds-adaptive-cards__action-btn--input-form${nameError ? ' rds-adaptive-cards__input-error' : ''}`} 
+          placeholder={namePlaceholder} 
+          required 
+          value={nameValue !== undefined ? nameValue : name} 
+          onChange={onNameChange ? onNameChange : (e => setName(e.target.value))} 
+          name="name" 
+        />
+        {nameError && <div className="rds-adaptive-cards__error-message">{nameError}</div>}
       </div>
       <div className="rds-adaptive-cards__input-form-field">
         <label className="rds-adaptive-cards__input-form-field-label">{emailLabel} <span className="rds-adaptive-cards__required">{requiredText}</span></label>
-        <input className="rds-adaptive-cards__action-btn--input-form" placeholder={emailPlaceholder} required type="email" value={emailValue !== undefined ? emailValue : email} onChange={onEmailChange ? onEmailChange : (e => setEmail(e.target.value))} name="email" />
+        <input 
+          className={`rds-adaptive-cards__action-btn--input-form${emailError ? ' rds-adaptive-cards__input-error' : ''}`} 
+          placeholder={emailPlaceholder} 
+          required 
+          type="email" 
+          value={emailValue !== undefined ? emailValue : email} 
+          onChange={onEmailChange ? onEmailChange : (e => setEmail(e.target.value))} 
+          name="email" 
+        />
+        {emailError && <div className="rds-adaptive-cards__error-message">{emailError}</div>}
       </div>
       <div className="rds-adaptive-cards__input-form-field">
         <label className="rds-adaptive-cards__input-form-field-label">{phoneLabel} <span className="rds-adaptive-cards__required">{requiredText}</span></label>
-        <input className="rds-adaptive-cards__action-btn--input-form" placeholder={phonePlaceholder} required type="tel" value={phoneValue !== undefined ? phoneValue : phone} onChange={onPhoneChange ? onPhoneChange : (e => setPhone(e.target.value))} name="phone" />
+        <input 
+          className={`rds-adaptive-cards__action-btn--input-form${phoneError ? ' rds-adaptive-cards__input-error' : ''}`} 
+          placeholder={phonePlaceholder} 
+          required 
+          type="tel" 
+          value={phoneValue !== undefined ? phoneValue : phone} 
+          onChange={onPhoneChange ? onPhoneChange : (e => setPhone(e.target.value))} 
+          name="phone" 
+        />
+        {phoneError && <div className="rds-adaptive-cards__error-message">{phoneError}</div>}
       </div>
     </div>
   );
