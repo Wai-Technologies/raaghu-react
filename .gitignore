@@ -70,6 +70,7 @@ web_modules/
 
 # Bun
 bun.lockb
+bun.lock
 .bun
 
 # parcel-bundler cache (https://parceljs.org/)

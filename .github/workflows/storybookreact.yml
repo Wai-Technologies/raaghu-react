@@ -35,7 +35,7 @@ jobs:
         if: ${{ github.event.inputs.environment != 'New' }}
         run: |
           bun install
-          npm run build-storybook
+          bun run build-storybook
           # mkdir storybook-static/assets
           # cp .storybook/assets/* storybook-static/assets
           cp web.config storybook-static
@@ -44,7 +44,7 @@ jobs:
         if: ${{ github.event.inputs.environment == 'New' }}
         run: |
           bun install
-          npm run build-storybook
+          bun run build-storybook
           # mkdir storybook-static/assets
           # cp .storybook/assets/* storybook-static/assets
           cp web.config storybook-static
