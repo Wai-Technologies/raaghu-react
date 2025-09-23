@@ -8,3 +8,6 @@ cache = true
 # Install configuration
 exact = false
 production = false
+
+# Ensure platform-specific dependencies are installed
+optional = true

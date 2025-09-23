@@ -52,7 +52,8 @@
     "pages:lint": "powershell -c \"$pagesDir = Get-ChildItem -Directory -Name '*-pages' | Select-Object -First 1; if ($pagesDir) { Set-Location $pagesDir; bun run lint } else { Write-Host 'No *-pages directory found' }\"",
     "pages:preview": "powershell -c \"$pagesDir = Get-ChildItem -Directory -Name '*-pages' | Select-Object -First 1; if ($pagesDir) { Set-Location $pagesDir; bun run preview } else { Write-Host 'No *-pages directory found' }\"",
     "install:bun": "bun install",
-    "clean": "bun run rimraf node_modules dist storybook-static",
+    "clean": "bun run rimraf node_modules dist storybook-static bun.lock",
+    "clean:install": "bun run clean && bun install",
     "type-check": "bun run tsc --noEmit"
   },
   "dependencies": {
@@ -139,5 +140,8 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
     "vite": "^7.0.4"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.9.5"
   }
 }
