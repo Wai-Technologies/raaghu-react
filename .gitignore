@@ -89,7 +89,6 @@ out
 /bazel-out
 .nuxt
 dist
-package-lock.json
 yarn.lock
 npm
 
