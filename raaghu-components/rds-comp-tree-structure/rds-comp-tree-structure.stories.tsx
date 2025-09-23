@@ -92,130 +92,130 @@ const meta: Meta = {
 } satisfies Meta<RdsCompTreeStructureProps>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompTreeStructure>;
+// type Story = StoryObj<typeof RdsCompTreeStructure>;
 
-export const Default: Story = {
-  args: {
-    level: TreeLevel.Level4,  // Use enum instead of string
-    state: NodeState.Default, // Use enum instead of string
-    showChewron: true,
-    showCheckbox: true,
-    showFolder: true,
-    showFile: true,
-    text: "Name", 
-    showActions: true,
-    showCollapsed: false,
-    type: IconType.Folder,  // Use enum instead of string
-    Language: "TypeScript",
-    treeData: [
-      {
-        id: 1,
-        name: "Name",
-        icon: "folder",
-        children: [
-          {
-            id: 2,
-            name: "Name",
-            icon: "folder",
-            children: [
-              {
-                id: 3,
-                name: "Name",
-                icon: "file",
-                children: [
-                  {
-                    id: 4,
-                    name: "Name",
-                    icon: "file",
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: 5,
-        name: "Name",
-        icon: "folder",
-        children: [
-          {
-            id: 6,
-            name: "Name",
-            icon: "folder",
-            children: [
-              {
-                id: 7,
-                name: "Name",
-                icon: "file",
-                children: [
-                  {
-                    id: 8,
-                    name: "Name",
-                    icon: "file",
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: 9,
-        name: "Name",
-        icon: "folder",
-        children: [
-          {
-            id: 10,
-            name: "Name",
-            icon: "folder",
-            children: [
-              {
-                id: 11,
-                name: "Name",
-                icon: "file",
-                children: [
-                  {
-                    id: 12,
-                    name: "Name",
-                    icon: "file",
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: 13,
-        name: "Name",
-        icon: "folder",
-        children: [
-          {
-            id: 14,
-            name: "Name",
-            icon: "folder",
-            children: [
-              {
-                id: 15,
-                name: "Name",
-                icon: "file",
-                children: [
-                  {
-                    id: 16,
-                    name: "Name",
-                    icon: "file",
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-} satisfies Story;
+// export const Default: Story = {
+//   args: {
+//     level: TreeLevel.Level4,  // Use enum instead of string
+//     state: NodeState.Default, // Use enum instead of string
+//     showChewron: true,
+//     showCheckbox: true,
+//     showFolder: true,
+//     showFile: true,
+//     text: "Name", 
+//     showActions: true,
+//     showCollapsed: false,
+//     type: IconType.Folder,  // Use enum instead of string
+//     Language: "TypeScript",
+//     treeData: [
+//       {
+//         id: 1,
+//         name: "Name",
+//         icon: "folder",
+//         children: [
+//           {
+//             id: 2,
+//             name: "Name",
+//             icon: "folder",
+//             children: [
+//               {
+//                 id: 3,
+//                 name: "Name",
+//                 icon: "file",
+//                 children: [
+//                   {
+//                     id: 4,
+//                     name: "Name",
+//                     icon: "file",
+//                   },
+//                 ],
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//       {
+//         id: 5,
+//         name: "Name",
+//         icon: "folder",
+//         children: [
+//           {
+//             id: 6,
+//             name: "Name",
+//             icon: "folder",
+//             children: [
+//               {
+//                 id: 7,
+//                 name: "Name",
+//                 icon: "file",
+//                 children: [
+//                   {
+//                     id: 8,
+//                     name: "Name",
+//                     icon: "file",
+//                   },
+//                 ],
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//       {
+//         id: 9,
+//         name: "Name",
+//         icon: "folder",
+//         children: [
+//           {
+//             id: 10,
+//             name: "Name",
+//             icon: "folder",
+//             children: [
+//               {
+//                 id: 11,
+//                 name: "Name",
+//                 icon: "file",
+//                 children: [
+//                   {
+//                     id: 12,
+//                     name: "Name",
+//                     icon: "file",
+//                   },
+//                 ],
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//       {
+//         id: 13,
+//         name: "Name",
+//         icon: "folder",
+//         children: [
+//           {
+//             id: 14,
+//             name: "Name",
+//             icon: "folder",
+//             children: [
+//               {
+//                 id: 15,
+//                 name: "Name",
+//                 icon: "file",
+//                 children: [
+//                   {
+//                     id: 16,
+//                     name: "Name",
+//                     icon: "file",
+//                   },
+//                 ],
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// } satisfies Story;
 
-Default.parameters = {
-  controls: { include: ['level', 'state', 'showChewron', 'showCheckbox', 'showFolder', 'showFile',  'text', 'showActions', 'showCollapsed', 'Language', 'type', 'treeData'] },
-};
+// Default.parameters = {
+//   controls: { include: ['level', 'state', 'showChewron', 'showCheckbox', 'showFolder', 'showFile',  'text', 'showActions', 'showCollapsed', 'Language', 'type', 'treeData'] },
+// };
