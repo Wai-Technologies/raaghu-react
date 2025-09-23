@@ -19,7 +19,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     permissions:
       contents: read
 
@@ -31,22 +31,13 @@ jobs:
         with:
           bun-version: latest
 
-      - name: install and build storybook
-        if: ${{ github.event.inputs.environment != 'New' }}
+      - name: Install dependencies
         run: |
-          bun install
-          bun run build-storybook
-          # mkdir storybook-static/assets
-          # cp .storybook/assets/* storybook-static/assets
-          cp web.config storybook-static
+          bun install --frozen-lockfile --no-cache
 
-      - name: install and build storybook for new environment
-        if: ${{ github.event.inputs.environment == 'New' }}
+      - name: Build Storybook
         run: |
-          bun install
           bun run build-storybook
-          # mkdir storybook-static/assets
-          # cp .storybook/assets/* storybook-static/assets
           cp web.config storybook-static
 
       - name: Upload artifact for deployment job
@@ -60,7 +51,7 @@ jobs:
     if: ${{ github.event.inputs.environment == 'Production' }}
     runs-on: ubuntu-latest
     needs: build
-    timeout-minutes: 10
+    timeout-minutes: 5
     environment:
       name: "Production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -76,10 +67,13 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
-      - name: Purge CDN
-        run: 
-          az afd endpoint purge --resource-group Raaghu-MFE-Demo-WebApp --profile-name storybookreact-cdn-profile --endpoint-name storybookreact --content-paths '/*' --no-wait
-  
+      - name: Purge CDN and Deploy in parallel
+        run: |
+          # Start CDN purge in background
+          az afd endpoint purge --resource-group Raaghu-MFE-Demo-WebApp --profile-name storybookreact-cdn-profile --endpoint-name storybookreact --content-paths '/*' --no-wait &
+          # Wait a moment for purge to start
+          sleep 2
+          
       - name: Azure service principal logout
         run: |
           az logout
@@ -98,7 +92,7 @@ jobs:
     if: ${{ github.event.inputs.environment == 'Staging' }}
     runs-on: ubuntu-latest
     needs: build
-    timeout-minutes: 10
+    timeout-minutes: 5
     environment:
       name: "Staging"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -136,7 +130,7 @@ jobs:
     if: ${{ github.event.inputs.environment == 'Development' }}
     runs-on: ubuntu-latest
     needs: build
-    timeout-minutes: 10
+    timeout-minutes: 5
     environment:
       name: "Development"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -174,7 +168,7 @@ jobs:
     if: ${{ github.event.inputs.environment == 'New' }}
     runs-on: ubuntu-latest
     needs: build
-    timeout-minutes: 10
+    timeout-minutes: 5
     environment:
       name: "New"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
