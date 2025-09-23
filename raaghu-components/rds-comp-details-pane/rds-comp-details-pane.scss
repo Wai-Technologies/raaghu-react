@@ -559,6 +559,10 @@
     margin-top: var(--rds-spacing-lg, 8px);
   }
 
+  &__guest-counter {
+    margin-top: 35px;
+  }
+
   &__guest-separator {
     color: var(--rds-color-text-secondary, #666);
     font-weight: 400;
