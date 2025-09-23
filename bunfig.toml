@@ -11,13 +11,3 @@ production = false
 
 # Ensure platform-specific dependencies are installed
 optional = true
-
-# Performance optimizations
-concurrency = 10
-network = "offline-first"
-
-[install.scopes]
-# Optimize for faster installs
-"@storybook" = { cache = "always" }
-"@mui" = { cache = "always" }
-"@emotion" = { cache = "always" }
