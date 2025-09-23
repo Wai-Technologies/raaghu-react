@@ -394,14 +394,14 @@ export function CalendarReminderForm({
         {showBtn1 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn1">
             <Button variant="outlined" className="rds-adaptive-cards__action-btn">
-              {btn1Label || snoozeLabel}
+              {snoozeLabel || btn1Label}
             </Button>
           </RdsBox>
         )}
         {showBtn2 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn2">
             <Button variant="outlined" className="rds-adaptive-cards__action-btn">
-              {btn2Label || lateLabel}
+              {lateLabel || btn2Label}
             </Button>
           </RdsBox>
         )}

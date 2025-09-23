@@ -400,3 +400,22 @@ background-color: #202020;
     color:var(--rds-color-error-light, #ffffff) !important;
   }
 }
+
+@media (max-width: 430px) {
+  .rds-comp-text-editor {
+  .rdw-link-modal{
+    left: -180px;
+  }
+  .rdw-image-modal {
+      left: -93px;
+  }
+}
+}
+
+@media (min-width: 414px) and (max-width: 896px) {
+  .rds-comp-text-editor {
+  .rdw-link-modal {
+        left: 4px;
+    }
+  }
+}
