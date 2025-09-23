@@ -1,6 +1,37 @@
-
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompAdaptiveCards from './rds-comp-adaptive-cards';
+
+// Create an action logger that will show in the Actions panel
+const createActionLogger = (actionName: string) => {
+    return (...args: any[]) => {
+        console.log(`${actionName}:`, ...args);
+        
+        // Try to emit to Storybook Actions addon if available
+        try {
+            const addons = (window as any)?.__STORYBOOK_ADDONS_CHANNEL__;
+            if (addons) {
+                addons.emit('storybook/actions/action-event', {
+                    id: `action-${Date.now()}`,
+                    count: 1,
+                    data: {
+                        name: actionName,
+                        args: args
+                    },
+                    options: {
+                        allowFunction: false,
+                        allowSymbol: false,
+                        maxDepth: 10,
+                        allowUndefined: true
+                    }
+                });
+            }
+        } catch (e) {
+            // Fallback to just console logging
+            console.log(`Action logged: ${actionName}`, args);
+        }
+    };
+};
 
 const meta: Meta<typeof RdsCompAdaptiveCards> = {
     title: 'Components/Adaptive Cards',
@@ -55,6 +86,7 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
         // Removed duplicate namePlaceholder for ActivityUpdateCard
         sideOptions: { control: 'object', description: 'Options for ActivityUpdateCard' },
         sidePlaceholder: { control: 'text', description: 'Select Placeholder for CalendarReminderCard' },
+        onBtn1Click: { action: 'button clicked' },
     },
 };
 
@@ -211,7 +243,124 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
             ],
         },
     },
-    render: (args) => <RdsCompAdaptiveCards {...args} />,
+    render: (args) => {
+        const [form, setForm] = React.useState({
+            name: '',
+            email: '',
+            phone: ''
+        });
+
+        const [errors, setErrors] = React.useState({
+            name: '',
+            email: '',
+            phone: ''
+        });
+
+        const [showErrors, setShowErrors] = React.useState(false);
+
+        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            const { name, value } = e.target;
+            setForm({ ...form, [name]: value });
+            
+            // Clear error when user starts typing
+            if (errors[name as keyof typeof errors]) {
+                setErrors({ ...errors, [name]: '' });
+            }
+        };
+
+        const validateForm = () => {
+            const newErrors = {
+                name: '',
+                email: '',
+                phone: ''
+            };
+
+            let hasErrors = false;
+
+            // Validate name
+            if (!form.name.trim()) {
+                newErrors.name = 'Name is required';
+                hasErrors = true;
+            }
+
+            // Validate email
+            if (!form.email.trim()) {
+                newErrors.email = 'Email is required';
+                hasErrors = true;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+                newErrors.email = 'Please enter a valid email address';
+                hasErrors = true;
+            }
+
+            // Validate phone
+            if (!form.phone.trim()) {
+                newErrors.phone = 'Phone number is required';
+                hasErrors = true;
+            } else if (!/^[\d\s\-\+\(\)]{10,}$/.test(form.phone.replace(/\s/g, ''))) {
+                newErrors.phone = 'Please enter a valid phone number';
+                hasErrors = true;
+            }
+
+            setErrors(newErrors);
+            return !hasErrors;
+        };
+
+        const logFormSubmission = createActionLogger('Form Submitted');
+        const logFormError = createActionLogger('Form Validation Error');
+
+        const handleSubmit = () => {
+            setShowErrors(true);
+            
+            if (validateForm()) {
+                // Log successful form submission to the Actions panel
+                logFormSubmission({
+                    formData: form,
+                    timestamp: new Date().toISOString(),
+                    message: 'Input form submitted successfully',
+                    validationStatus: 'passed'
+                });
+                
+                // Clear the form after successful submission
+                setForm({ name: '', email: '', phone: '' });
+                setErrors({ name: '', email: '', phone: '' });
+                setShowErrors(false);
+            } else {
+                // Log validation errors to the Actions panel
+                const emptyFields = [];
+                if (!form.name.trim()) emptyFields.push('Name');
+                if (!form.email.trim()) emptyFields.push('Email');
+                if (!form.phone.trim()) emptyFields.push('Phone');
+
+                logFormError({
+                    formData: form,
+                    errors: errors,
+                    emptyFields: emptyFields,
+                    timestamp: new Date().toISOString(),
+                    message: `Form submission failed: ${emptyFields.join(', ')} field(s) are empty or invalid`,
+                    validationStatus: 'failed'
+                });
+            }
+        };
+
+        return (
+            <>
+                <RdsCompAdaptiveCards
+                    {...args}
+                    nameValue={form.name}
+                    emailValue={form.email}
+                    phoneValue={form.phone}
+                    onNameChange={handleChange}
+                    onEmailChange={handleChange}
+                    onPhoneChange={handleChange}
+                    onBtn1Click={handleSubmit}
+                    nameError={showErrors ? errors.name : ''}
+                    emailError={showErrors ? errors.email : ''}
+                    phoneError={showErrors ? errors.phone : ''}
+                />
+                <button style={{display:'none'}} id="inputFormClearBtn" onClick={handleSubmit} />
+            </>
+        );
+    },
 };
 
 export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
@@ -258,7 +407,34 @@ export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
             ],
         },
     },
-    render: (args) => <RdsCompAdaptiveCards {...args} />,
+    render: (args) => {
+        const [order, setOrder] = React.useState({
+            entree: '',
+            side: '',
+            drink: ''
+        });
+        const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+            setOrder({ ...order, [e.target.name]: e.target.value });
+        };
+        const handlePlaceOrder = () => {
+            setOrder({ entree: '', side: '', drink: '' });
+        };
+        return (
+            <>
+                <RdsCompAdaptiveCards
+                    {...args}
+                    entreeValue={order.entree}
+                    sideValue={order.side}
+                    drinkValue={order.drink}
+                    onEntreeChange={handleChange}
+                    onSideChange={handleChange}
+                    onDrinkChange={handleChange}
+                    onBtn1Click={handlePlaceOrder}
+                />
+                <button style={{display:'none'}} id="restaurantOrderClearBtn" onClick={handlePlaceOrder} />
+            </>
+        );
+    },
 };
 
 export const FootballScorecard: StoryObj<typeof RdsCompAdaptiveCards> = {
