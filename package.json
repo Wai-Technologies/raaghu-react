@@ -31,6 +31,23 @@
   },
   "homepage": "https://waiin.com/raaghu-open-source-design-system",
   "license": "Apache License 2.0",
+  "files": [
+    "raaghu-components/",
+    "raaghu-elements/",
+    "raaghu-layouts/",
+    "raaghu-pages/",
+    "raaghu-react-themes/",
+    "utils/",
+    "index.ts",
+    "README.md",
+    "LICENSE",
+    "!**/*.stories.*",
+    "!**/*.story.*",
+    "!**/.storybook/",
+    "!**/*.test.*",
+    "!**/*.spec.*",
+    "!**/stories/"
+  ],
   "scripts": {
     "dev": "bun run vite",
     "build": "bun run tsc -b && bun run vite build",
@@ -104,6 +121,7 @@
   "devDependencies": {
     "@eslint/js": "^9.30.1",
     "@griffel/vite-plugin": "^0.1.13",
+    "@storybook/addon-actions": "^9.0.8",
     "@storybook/addon-docs": "^9.1.7",
     "@storybook/addon-links": "^9.1.7",
     "@storybook/react-vite": "^9.1.7",
