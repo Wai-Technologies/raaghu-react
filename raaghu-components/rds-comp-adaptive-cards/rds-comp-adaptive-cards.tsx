@@ -229,8 +229,8 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                   lateLabel={props.lateLabel}
                   showBtn1={showBtn1}
                   showBtn2={showBtn2}
-                  btn1Label={btn1Label}
-                  btn2Label={btn2Label}
+                  btn1Label={props.snoozeLabel ? undefined : btn1Label}
+                  btn2Label={props.lateLabel ? undefined : btn2Label}
                 />
               )}
               {type === "InputForm" && (
@@ -321,6 +321,8 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                         options={(activityProps?.radioOptions ?? []).map((opt, idx) => ({
                           id: opt.value ?? idx,
                           label: opt.label,
+                          size: "small",
+                          styleType: "outline",
                           avatarSrc: undefined,
                           checked: undefined,
                           disabled: undefined
@@ -348,7 +350,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                       <RdsButton
                         style={getRdsButtonStyle(btn2style)}
                         className={`rds-adaptive-cards__action-btn${getRdsButtonStyle(btn2style)==='filled' ? ' rds-button__primary' : ''}`}
-                        size="small"
+                        size="medium"
                        text={capitalizeFirstWord(btn2Label)}
                       />
                     )
