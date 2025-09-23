@@ -21,7 +21,7 @@ import Stack from '@mui/material/Stack';
 import './rds-comp-date-and-time-picker.scss';
 
 export interface RdsCompDatePickerProps {
-  variant?: 'date' | 'time' | 'datetime' | 'daterange' | 'timerange';
+  variant?: 'date' | 'time' | 'datetime' | 'daterange' | 'timerange' | 'datetimerange';
   layout?: 'Default' | 'Year Picker' | 'Month Picker' | 'Multi Month';
   label?: string;
   value?: Dayjs | null | [Dayjs | null, Dayjs | null];
@@ -131,7 +131,7 @@ const formatRangeText = (
 ) => {
   const [start, end] = value;
   if (!start && !end) return '';
-  const timeFmt = showSeconds ? 'HH:mm:ss a' : 'HH:mm a';
+  const timeFmt = showSeconds ? 'hh:mm:ss a' : 'hh:mm a';
   switch (variant) {
     case 'daterange':
       return `${start ? start.format('MM/DD/YYYY') : ''} - ${end ? end.format('MM/DD/YYYY') : ''}`;
@@ -403,7 +403,6 @@ export default function RdsCompDatePicker({
     Array.isArray(value) ? value : [null, null]
   );
 
-  const [open, setOpen] = React.useState(false);
   const [selectedPreset, setSelectedPreset] = React.useState<string>('custom');
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
@@ -567,7 +566,7 @@ export default function RdsCompDatePicker({
                     size={size}
                   />
                 )}
-                {/* {variant === 'datetimerange' && (
+                {variant === 'datetimerange' && (
                   <RangeDateTime
                     value={rangeValue}
                     onChange={handleRangeChange}
@@ -579,7 +578,7 @@ export default function RdsCompDatePicker({
                     multiMonth={isMultiMonth}
                     size={size}
                   />
-                )} */}
+                )}
               </>
             )}
             <Box display="flex" justifyContent="flex-end" gap={1} mt={2}>
@@ -640,8 +639,10 @@ export default function RdsCompDatePicker({
         );
 
       case 'daterange':
-      // case 'datetimerange':
-      //   return renderRangeField();
+        return renderRangeField();
+
+      case 'datetimerange':
+        return renderRangeField();
 
       case 'date':
       default:
@@ -699,7 +700,7 @@ export default function RdsCompDatePicker({
     readOnly && 'rds-date-picker--readonly',
     error && 'rds-date-picker--error',
     isRequired && 'rds-date-picker--required',
-    // variant === 'datetimerange' && 'rds-date-picker--datetimerange',
+    variant === 'datetimerange' && 'rds-date-picker--datetimerange',
     variant === 'timerange' && 'rds-date-picker--timerange',
     variant === 'daterange' && 'rds-date-picker--daterange',
     variant === 'datetime' && 'rds-date-picker--datetime',
