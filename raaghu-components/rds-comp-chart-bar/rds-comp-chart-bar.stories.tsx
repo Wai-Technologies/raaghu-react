@@ -62,7 +62,15 @@ export const BorderRadius: Story = {
                 }
             }
         }
-    }
+    },
+     parameters: {
+        controls: {
+            exclude: [
+                    'height', 
+            ],
+        },
+     },
+
 } satisfies Story;
 export const Horizontal: Story = {
     args: {
@@ -189,7 +197,14 @@ export const PerformanceStacked: Story = {
                 }
             }
         }
-    }
+    },
+    parameters: {
+        controls: {
+            exclude: [
+                    'height', 
+            ],
+        },
+     },
 } satisfies Story;
 
 export const Stacked: Story = {
@@ -233,7 +248,14 @@ export const Stacked: Story = {
                 }
             }
         }
-    }
+    },
+    parameters: {
+        controls: {
+            exclude: [
+                    'height', 
+            ],
+        },
+     },
 } satisfies Story;
 
 export const Vertical: Story = {
@@ -272,5 +294,12 @@ export const Vertical: Story = {
                 }
             }
         }
-    }
+    },
+    parameters: {
+        controls: {
+            exclude: [
+                    'height', 
+            ],
+        },
+     },
 } satisfies Story;
