@@ -62,7 +62,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    placeholder: 'Enter value',
+   // placeholder: 'Placeholder Text',
     size: 'small',
     layout: 'text',
     style: 'default',
@@ -75,7 +75,7 @@ export const Default: Story = {
     disabled: false,
   },
 };
-Default.parameters ={ controls: { include: [ 'placeholder', 'size', 'layout', 'style', 'state', 'label', 'hintText', 'isMandatory', 'titlePosition', 'error', 'disabled','showIcon','iconPosition','icon'] } };
+Default.parameters ={ controls: { include: [ 'size', 'layout', 'style', 'state', 'label', 'hintText', 'isMandatory', 'titlePosition', 'error', 'disabled','showIcon','iconPosition','icon'] } };
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',

@@ -24,6 +24,11 @@ export interface RdsButtonDropdownProps {
   showSearch?: boolean;
   onChange?: (selected: string[] | string) => void;
   state?: 'default' | 'selected'; // allow custom state handling
+  buttonState?: 'default' | 'hover' | 'disabled' | 'selected';
+  size?: 'small' | 'medium' | 'large';
+  layout?: 'icon+text' | 'text-only' | 'icon-only';
+  styleType?: 'primary' | 'secondary' | 'outline' | 'transparent';
+  shape?: 'rectangle' | 'pill';
   rightIcon?: React.ReactNode;
   leftIcon?: React.ReactNode;
   showUserAvatar?: boolean;
@@ -45,7 +50,11 @@ const RdsButtonDropdown = ({
   showRadio = true,
   isShowLeftIcon = true,
   isShowRightIcon = true,
-  buttonStyle,
+  size = 'medium',
+  layout = 'icon+text',
+  styleType = 'primary',
+  shape = 'rectangle',
+  buttonState = 'default',
   onChange,
 }:RdsButtonDropdownProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -98,12 +107,15 @@ const RdsButtonDropdown = ({
         showLeftIcon={isShowLeftIcon}
         changeRightIcon={rightIcon}
         changeLeftIcon={leftIcon}
-        size='medium'
+        size={size}
+        layout={layout}
+        shape={shape}
         color="primary"
-        layout="icon+text"
-        shape="rectangle"
-        state="hover"
-        style={buttonStyle || 'outlined'}
+        state={buttonState}
+        style={
+          styleType === 'transparent' ? 'transparent' :
+          styleType === 'primary' ? 'filled' : 'outlined'
+        }
         textCase="uppercase"
       />
       <RdsMenu
