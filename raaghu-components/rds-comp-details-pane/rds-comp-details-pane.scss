@@ -581,6 +581,61 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    overflow: hidden;
+    
+    // Ensure tree structure actions stay within bounds
+    .rds-comp-tree-structure {
+      &__node-container {
+        overflow: visible;
+        position: relative;
+      }
+      
+      &__node {
+        position: relative;
+        overflow: visible;
+      }
+      
+      &__node-content {
+        overflow: visible;
+        position: relative;
+      }
+      
+      &__actions {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 0;
+        background: var(--rds-color-surface, #fff);
+        box-shadow: var(--rds-elevation-1, 0 1px 4px rgba(0,0,0,0.1));
+        border-radius: var(--rds-border-radius-sm, 4px);
+        padding: var(--rds-spacing-xs, 4px);
+        z-index: 10;
+        
+        // If actions would go outside container, position them below
+        @media (max-width: 380px) {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          transform: none;
+          margin-top: var(--rds-spacing-xs, 4px);
+        }
+      }
+      
+      &__action-btn {
+        margin-right: var(--rds-spacing-xxs, 2px);
+        padding: var(--rds-spacing-xxs, 4px);
+        
+        &:last-child {
+          margin-right: 0;
+        }
+        
+        svg {
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
     height: 100%;
     min-height: 472px;
   }
@@ -642,13 +697,13 @@
     flex-direction: column;
   }
 
-  &__font-name,
-  &__font-label {
-    font-size: var(--rds-font-size-sm, 14px);
-    font-weight: 500;
-    color: var(--rds-color-text-primary, #000);
-    margin-bottom: var(--rds-spacing-xs, 5px);
-  }
+  // &__font-name,
+  // &__font-label {
+  //   font-size: var(--rds-font-size-sm, 14px);
+  //   font-weight: 500;
+  //   color: var(--rds-color-text-primary, #000);
+  //   margin-bottom: var(--rds-spacing-xs, 5px);
+  // }
 
   &__font-size-grid,
   &__font-weight-grid {
@@ -698,6 +753,17 @@
       font-weight: 600;
       border-color: var(--rds-color-primary, #0D6EFD);
     }
+    position: absolute;
+    bottom: var(--rds-spacing-md, 16px);
+    left: var(--rds-spacing-md, -2px);
+    right: var(--rds-spacing-md, 0px);
+    display: flex;
+    flex-direction: column;
+    gap: var(--rds-spacing-sm, 12px);
+    background: var(--rds-color-surface, #fff);
+    padding: var(--rds-spacing-md, 16px);
+    border-top: 1px solid var(--rds-color-border, #e5e7eb);
+    z-index: 20;
   }
 
   &__detail-pane-footer {
@@ -1051,8 +1117,28 @@
       padding: var(--rds-spacing-xs, 6px);
       
       button {
+         padding-bottom: 100px; // Reduced padding for mobile
         height: 36px;
         font-size: var(--rds-font-size-xs, 12px);
+         // Adjust tree structure actions for mobile
+      .rds-comp-tree-structure {
+        &__actions {
+          position: static;
+          transform: none;
+          margin-top: var(--rds-spacing-xs, 4px);
+          margin-left: var(--rds-spacing-sm, 8px);
+          background: var(--rds-color-surface, #fff);
+        }
+      }
+    }
+    
+    &__detail-pane-footer {
+      bottom: var(--rds-spacing-xs, 8px);
+      left: var(--rds-spacing-xs, 8px);
+      right: var(--rds-spacing-xs, 8px);
+      padding: var(--rds-spacing-sm, 8px);
+      gap: var(--rds-spacing-xs, 6px);
+
         border-radius: var(--rds-border-radius-sm, 4px);
         padding: 0 var(--rds-spacing-sm, 12px);
       }
@@ -1304,6 +1390,33 @@
     &__tab-container,
     &__favourite-list,
     &__toolbar-pane-container,
+    // Dark theme for toolbar tree structure
+    &__toolbar-pane-container {
+      .rds-comp-tree-structure {
+        &__actions {
+          background: var(--dark-bg-secondary) !important;
+          box-shadow: var(--rds-elevation-1, 0 1px 4px rgba(0,0,0,0.3)) !important;
+        }
+        
+        &__action-btn {
+          border-color: var(--dark-border) !important;
+          color: var(--dark-text-primary) !important;
+          background: transparent !important;
+          
+          &:hover {
+            background-color: var(--dark-accent) !important;
+            color: white !important;
+          }
+        }
+      }
+    }
+    
+    // Dark theme for footer buttons
+    &__detail-pane-footer {
+      background: var(--dark-bg-primary) !important;
+      border-top-color: var(--dark-border) !important;
+    }
+    
     &__accordion-list,
     &__thumbnail-view-wrapper,  
     &__favourite-card,
