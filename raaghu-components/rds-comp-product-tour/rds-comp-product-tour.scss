@@ -199,7 +199,6 @@
 
     &--prev {
       color: #7c3aed;
-      background-color: #1f2937;
       box-shadow: none;
     }
 
@@ -1057,5 +1056,13 @@
       color: #9e9e9e !important;
       opacity: 1 !important;
     }
+  }
+
+  // Arrow buttons in dark mode
+  .rds-comp-product-tour__arrow--prev,
+  .rds-comp-product-tour__carousel-arrow-prev,
+  .rds-comp-product-tour__animation-nav-prev,
+  .rds-comp-product-tour__form-arrow-prev {
+    background-color: #1f2937 !important;
   }
 }
