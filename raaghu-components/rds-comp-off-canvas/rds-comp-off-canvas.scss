@@ -89,6 +89,45 @@
   padding-top: 16px;
 }
 
+.tertiary-button-container,
+.secondary-button-container,
+.primary-button-container {
+  flex: 0 0 auto;
+  min-width: fit-content;
+}
+
+.tertiary-button-container {
+  margin-right: auto;
+}
+
+.secondary-button-container {
+  margin-left: auto;
+}
+
+.primary-button-container {
+  margin-left: 8px;
+}
+
+// Ensure consistent button heights across light and dark themes
+#offcanvas-btns .rds-button,
+#offcanvas-btns .MuiButton-root {
+  min-height: 36px;
+  padding: 6px 16px;
+}
+
+// Dark theme consistency
+.rds-theme--dark #offcanvas-btns .rds-button,
+body.theme-dark #offcanvas-btns .rds-button,
+body[data-theme="dark"] #offcanvas-btns .rds-button,
+.theme-dark #offcanvas-btns .rds-button,
+.rds-theme--dark #offcanvas-btns .MuiButton-root,
+body.theme-dark #offcanvas-btns .MuiButton-root,
+body[data-theme="dark"] #offcanvas-btns .MuiButton-root,
+.theme-dark #offcanvas-btns .MuiButton-root {
+  min-height: 36px !important;
+  padding: 6px 16px !important;
+}
+
 .offcanvas-margin {
   display: flex;
   gap: 15px;
@@ -177,21 +216,24 @@
     align-items: center;
   }
 
-  #offcanvas-btns .me-2:first-child {
-    align-self: center;
-  }
-  #offcanvas-btns .me-2:nth-child(2) {
-    margin-right: 12px !important;
-  }
-  
-  #offcanvas-btns > *:nth-child(2) {
-    margin-right: 12px !important;
-  }
-
-  #offcanvas-btns .me-2 {
-    margin-right: 2px !important;
+  #offcanvas-btns .tertiary-button-container,
+  #offcanvas-btns .secondary-button-container,
+  #offcanvas-btns .primary-button-container {
     flex: 1;
     min-width: 0;
+  }
+
+  #offcanvas-btns .tertiary-button-container {
+    margin-right: auto;
+  }
+
+  #offcanvas-btns .secondary-button-container {
+    margin-left: auto;
+    margin-right: 4px;
+  }
+
+  #offcanvas-btns .primary-button-container {
+    margin-left: 4px;
   }
   
   #offcanvas-btns .rds-button {
@@ -241,8 +283,18 @@
     padding-right: 0 !important;
   }
 
-  /* gap between second and third button */
-  #offcanvas-btns > *:nth-child(2) { margin-right: 12px !important; }
+  #offcanvas-btns .tertiary-button-container {
+    margin-right: auto;
+  }
+
+  #offcanvas-btns .secondary-button-container {
+    margin-left: auto;
+    margin-right: 8px;
+  }
+
+  #offcanvas-btns .primary-button-container {
+    margin-left: 4px;
+  }
 
   /* ensure button sizing/ellipsis */
   #offcanvas-btns .rds-button {
