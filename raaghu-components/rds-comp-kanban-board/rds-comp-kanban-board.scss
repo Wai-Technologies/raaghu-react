@@ -748,7 +748,7 @@ html[data-theme="dark"],
     
     &__card-header,
     .card-header {
-      background-color: var(--rds-color-primary-container, var(--dark-primary-container)) !important;
+      background-color: #1E5FC7 !important;
       color: var(--rds-color-on-primary-container, var(--dark-on-surface)) !important;
       border-bottom-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
     }
