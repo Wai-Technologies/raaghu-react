@@ -62,7 +62,7 @@
 // Structure: .rds-comp-chat { __element { --modifier } }
 
 .rds-comp-chat {
-  border: 1px solid var(--rds-color-border, #646464);
+  border: 1px solid #646464;
   border-radius: var(--rds-border-radius, 5px);
   display: flex;
   flex-direction: column;
@@ -227,7 +227,7 @@
       align-items: center;
       padding: var(--rds-spacing-sm, 12px);
       flex-shrink: 0;
-      background: var(--rds-color-surface);      
+      background: var(--rds-color-dark);      
       position: relative;
     }
 
@@ -461,6 +461,10 @@
     box-sizing: border-box;
     gap: 8px;
     min-height: 40px;
+  }
+
+  &__field {
+    border: 1px solid var(--rds-border-default, #555555) !important;
   }
 
   /* make RdsInput and any native input inside stretch to fill wrapper and remove its own borders */
