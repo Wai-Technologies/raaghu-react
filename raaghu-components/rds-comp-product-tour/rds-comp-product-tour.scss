@@ -56,7 +56,7 @@
     height: 17px;
     background: #872efc;
     border-radius: 50%;
-    box-shadow: 0 0 0 8px rgba(162, 89, 255, 0.15);
+    box-shadow: 0 0 0 8px rgba(254, 254, 254, 0.25);
     z-index: 50;
 
     // Position modifiers
@@ -199,6 +199,7 @@
 
     &--prev {
       color: #7c3aed;
+      background-color: #1f2937;
       box-shadow: none;
     }
 
@@ -954,7 +955,7 @@
   .rds-comp-product-tour__form-description,
   .rds-comp-product-tour__carousel-desc,
   .rds-comp-product-tour__animation-desc {
-    color: #b7bcd8 !important;
+    color: #fff !important;
   }
 
   // Step counts (all states)
@@ -971,6 +972,14 @@
     fill: #ffffff !important;
   }
 
+  // Skip buttons (all states)
+  .rds-comp-product-tour__skip,
+  .rds-comp-product-tour__carousel-skip,
+  .rds-comp-product-tour__animation-skip,
+  .rds-comp-product-tour__form-skip {
+    color: #ffffff !important;
+  }
+
   // Image section background
   .rds-comp-product-tour__image-section {
     background: #374151 !important;
@@ -979,6 +988,11 @@
   // Info nav section background
   .rds-comp-product-tour__info-nav-section {
     background: #1f2937 !important;
+  }
+
+  // Corner dots in dark mode - white outer shadow
+  .rds-comp-product-tour__corner-dot {
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.3) !important;
   }
 
   .rds-comp-product-tour__form-input-container {
