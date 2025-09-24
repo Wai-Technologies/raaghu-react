@@ -31,6 +31,23 @@
   },
   "homepage": "https://waiin.com/raaghu-open-source-design-system",
   "license": "Apache License 2.0",
+  "files": [
+    "raaghu-components/",
+    "raaghu-elements/",
+    "raaghu-layouts/",
+    "raaghu-pages/",
+    "raaghu-react-themes/",
+    "utils/",
+    "index.ts",
+    "README.md",
+    "LICENSE",
+    "!**/*.stories.*",
+    "!**/*.story.*",
+    "!**/.storybook/",
+    "!**/*.test.*",
+    "!**/*.spec.*",
+    "!**/stories/"
+  ],
   "scripts": {
     "dev": "bun run vite",
     "build": "bun run tsc -b && bun run vite build",
