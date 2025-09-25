@@ -1,0 +1,234 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RDS Component Specification",
+  "description": "Schema for defining Raaghu Design System component specifications",
+  "type": "object",
+  "required": ["name", "version", "description", "props", "behaviors", "accessibility", "testing"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^Rds[A-Z][a-zA-Z]*$",
+      "description": "Component name following RDS naming conventions"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Component specification version"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Brief description of component purpose and usage"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["form", "display", "navigation", "feedback", "layout", "data", "media"],
+      "description": "Component category for organization"
+    },
+    "props": {
+      "type": "object",
+      "description": "Component props specification",
+      "patternProperties": {
+        "^[a-z][a-zA-Z]*$": {
+          "type": "object",
+          "required": ["type", "description"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["string", "number", "boolean", "object", "array", "function", "ReactNode", "enum"]
+            },
+            "description": {
+              "type": "string",
+              "minLength": 5
+            },
+            "required": {
+              "type": "boolean",
+              "default": false
+            },
+            "default": {
+              "description": "Default value for the prop"
+            },
+            "enum": {
+              "type": "array",
+              "description": "Allowed values for enum type props"
+            },
+            "validation": {
+              "type": "object",
+              "properties": {
+                "min": {"type": "number"},
+                "max": {"type": "number"},
+                "pattern": {"type": "string"},
+                "custom": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "behaviors": {
+      "type": "array",
+      "description": "Component behavior specifications",
+      "items": {
+        "type": "object",
+        "required": ["name", "description", "trigger", "expected"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Behavior name"
+          },
+          "description": {
+            "type": "string",
+            "description": "What the behavior does"
+          },
+          "trigger": {
+            "type": "object",
+            "description": "What triggers this behavior",
+            "properties": {
+              "event": {"type": "string"},
+              "condition": {"type": "string"},
+              "props": {"type": "object"}
+            }
+          },
+          "expected": {
+            "type": "object",
+            "description": "Expected outcome",
+            "properties": {
+              "state": {"type": "object"},
+              "callback": {"type": "string"},
+              "ui": {"type": "string"},
+              "accessibility": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "required": ["wcagLevel", "keyboardNavigation", "screenReader"],
+      "properties": {
+        "wcagLevel": {
+          "type": "string",
+          "enum": ["A", "AA", "AAA"],
+          "description": "WCAG compliance level"
+        },
+        "keyboardNavigation": {
+          "type": "object",
+          "properties": {
+            "tabOrder": {"type": "boolean"},
+            "enterActivation": {"type": "boolean"},
+            "escapeHandling": {"type": "boolean"},
+            "arrowKeys": {"type": "boolean"}
+          }
+        },
+        "screenReader": {
+          "type": "object",
+          "properties": {
+            "ariaLabel": {"type": "string"},
+            "ariaDescribedBy": {"type": "string"},
+            "role": {"type": "string"},
+            "liveRegion": {"type": "boolean"}
+          }
+        },
+        "colorContrast": {
+          "type": "object",
+          "properties": {
+            "minRatio": {"type": "number", "minimum": 4.5},
+            "testedStates": {"type": "array", "items": {"type": "string"}}
+          }
+        }
+      }
+    },
+    "testing": {
+      "type": "object",
+      "required": ["unit", "integration", "accessibility"],
+      "properties": {
+        "unit": {
+          "type": "array",
+          "description": "Unit test specifications",
+          "items": {
+            "type": "object",
+            "required": ["name", "description", "test"],
+            "properties": {
+              "name": {"type": "string"},
+              "description": {"type": "string"},
+              "test": {
+                "type": "object",
+                "properties": {
+                  "render": {"type": "object"},
+                  "assertions": {"type": "array"}
+                }
+              }
+            }
+          }
+        },
+        "integration": {
+          "type": "array",
+          "description": "Integration test specifications",
+          "items": {
+            "type": "object",
+            "required": ["name", "description", "scenario"],
+            "properties": {
+              "name": {"type": "string"},
+              "description": {"type": "string"},
+              "scenario": {
+                "type": "object",
+                "properties": {
+                  "setup": {"type": "object"},
+                  "actions": {"type": "array"},
+                  "expected": {"type": "object"}
+                }
+              }
+            }
+          }
+        },
+        "accessibility": {
+          "type": "array",
+          "description": "Accessibility test specifications",
+          "items": {
+            "type": "object",
+            "required": ["name", "description", "test"],
+            "properties": {
+              "name": {"type": "string"},
+              "description": {"type": "string"},
+              "test": {
+                "type": "object",
+                "properties": {
+                  "axeRules": {"type": "array"},
+                  "keyboardTests": {"type": "array"},
+                  "screenReaderTests": {"type": "array"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "properties": {
+        "maxRenderTime": {"type": "number", "description": "Maximum render time in ms"},
+        "maxBundleSize": {"type": "number", "description": "Maximum bundle size in bytes"},
+        "memoryLeaks": {"type": "boolean", "description": "Should test for memory leaks"},
+        "reRenderOptimization": {"type": "boolean", "description": "Should use React.memo"}
+      }
+    },
+    "styling": {
+      "type": "object",
+      "properties": {
+        "themeSupport": {"type": "boolean", "default": true},
+        "responsive": {"type": "boolean", "default": false},
+        "variants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "description": {"type": "string"},
+              "cssClasses": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        }
+      }
+    }
+  }
+}

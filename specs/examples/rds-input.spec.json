@@ -1,0 +1,559 @@
+{
+  "name": "RdsInput",
+  "version": "1.0.0",
+  "description": "A flexible input component with validation, formatting, and accessibility features",
+  "category": "form",
+  "props": {
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply to the input",
+      "required": false,
+      "default": ""
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the input",
+      "required": false
+    },
+    "dataTestId": {
+      "type": "string",
+      "description": "Test identifier for automated testing",
+      "required": false
+    },
+    "value": {
+      "type": "string",
+      "description": "Current value of the input",
+      "required": false,
+      "default": ""
+    },
+    "placeholder": {
+      "type": "string",
+      "description": "Placeholder text for the input",
+      "required": false
+    },
+    "label": {
+      "type": "string",
+      "description": "Label text for the input",
+      "required": false
+    },
+    "disabled": {
+      "type": "boolean",
+      "description": "Whether the input is disabled",
+      "required": false,
+      "default": false
+    },
+    "readOnly": {
+      "type": "boolean",
+      "description": "Whether the input is read-only",
+      "required": false,
+      "default": false
+    },
+    "required": {
+      "type": "boolean",
+      "description": "Whether the input is required",
+      "required": false,
+      "default": false
+    },
+    "error": {
+      "type": "string",
+      "description": "Error message to display",
+      "required": false
+    },
+    "helperText": {
+      "type": "string",
+      "description": "Helper text to display below the input",
+      "required": false
+    },
+    "type": {
+      "type": "enum",
+      "description": "HTML input type",
+      "required": false,
+      "enum": ["text", "email", "password", "number", "tel", "url", "search"],
+      "default": "text"
+    },
+    "size": {
+      "type": "enum",
+      "description": "Size of the input",
+      "required": false,
+      "enum": ["small", "medium", "large"],
+      "default": "medium"
+    },
+    "variant": {
+      "type": "enum",
+      "description": "Visual variant of the input",
+      "required": false,
+      "enum": ["outlined", "filled", "standard"],
+      "default": "outlined"
+    },
+    "onChange": {
+      "type": "function",
+      "description": "Callback function when input value changes",
+      "required": false
+    },
+    "onFocus": {
+      "type": "function",
+      "description": "Callback function when input receives focus",
+      "required": false
+    },
+    "onBlur": {
+      "type": "function",
+      "description": "Callback function when input loses focus",
+      "required": false
+    },
+    "maxLength": {
+      "type": "number",
+      "description": "Maximum number of characters allowed",
+      "required": false
+    },
+    "minLength": {
+      "type": "number",
+      "description": "Minimum number of characters required",
+      "required": false
+    },
+    "pattern": {
+      "type": "string",
+      "description": "Regular expression pattern for validation",
+      "required": false
+    },
+    "ariaLabel": {
+      "type": "string",
+      "description": "Accessible label for screen readers",
+      "required": false
+    },
+    "ariaDescribedBy": {
+      "type": "string",
+      "description": "ID of element that describes the input",
+      "required": false
+    }
+  },
+  "behaviors": [
+    {
+      "name": "value change",
+      "description": "Input updates value and triggers onChange callback",
+      "trigger": {
+        "event": "input",
+        "condition": "not disabled and not readOnly"
+      },
+      "expected": {
+        "callback": "onChange",
+        "ui": "value updates in real-time"
+      }
+    },
+    {
+      "name": "focus",
+      "description": "Input receives focus and shows focus indicator",
+      "trigger": {
+        "event": "focus",
+        "condition": "not disabled"
+      },
+      "expected": {
+        "callback": "onFocus",
+        "ui": "focus indicator visible",
+        "accessibility": "focus announced to screen readers"
+      }
+    },
+    {
+      "name": "blur",
+      "description": "Input loses focus and triggers validation",
+      "trigger": {
+        "event": "blur",
+        "condition": "not disabled"
+      },
+      "expected": {
+        "callback": "onBlur",
+        "ui": "validation state updated"
+      }
+    },
+    {
+      "name": "validation",
+      "description": "Input validates value based on constraints",
+      "trigger": {
+        "condition": "value changes or blur event"
+      },
+      "expected": {
+        "ui": "validation state displayed",
+        "accessibility": "validation results announced"
+      }
+    },
+    {
+      "name": "character limit",
+      "description": "Input enforces character limits",
+      "trigger": {
+        "condition": "maxLength or minLength constraints set"
+      },
+      "expected": {
+        "ui": "character count displayed",
+        "state": { "blocked": true }
+      }
+    },
+    {
+      "name": "pattern validation",
+      "description": "Input validates against pattern",
+      "trigger": {
+        "condition": "pattern prop provided and value changes"
+      },
+      "expected": {
+        "ui": "pattern validation feedback",
+        "state": { "invalid": true }
+      }
+    }
+  ],
+  "accessibility": {
+    "wcagLevel": "AA",
+    "keyboardNavigation": {
+      "tabOrder": true,
+      "enterActivation": false,
+      "escapeHandling": false,
+      "arrowKeys": true
+    },
+    "screenReader": {
+      "ariaLabel": "Input purpose and current state",
+      "role": "textbox",
+      "liveRegion": true
+    },
+    "colorContrast": {
+      "minRatio": 4.5,
+      "testedStates": ["default", "focus", "error", "disabled", "readOnly"]
+    }
+  },
+  "testing": {
+    "unit": [
+      {
+        "name": "renders with default props",
+        "description": "Input renders correctly with default prop values",
+        "test": {
+          "render": {
+            "props": {}
+          },
+          "assertions": [
+            "component is in document",
+            "has correct input element",
+            "has correct default attributes"
+          ]
+        }
+      },
+      {
+        "name": "renders with value",
+        "description": "Input renders correctly with value prop",
+        "test": {
+          "render": {
+            "props": {
+              "value": "test value"
+            }
+          },
+          "assertions": [
+            "component is in document",
+            "value is displayed",
+            "input has correct value"
+          ]
+        }
+      },
+      {
+        "name": "renders with label",
+        "description": "Input renders correctly with label",
+        "test": {
+          "render": {
+            "props": {
+              "label": "Test Label"
+            }
+          },
+          "assertions": [
+            "label is displayed",
+            "label is associated with input",
+            "has correct accessibility attributes"
+          ]
+        }
+      },
+      {
+        "name": "handles value changes",
+        "description": "Input properly handles value changes",
+        "test": {
+          "render": {
+            "props": {
+              "onChange": "mockFunction"
+            }
+          },
+          "assertions": [
+            "value change triggers onChange callback",
+            "callback receives correct value",
+            "input updates with new value"
+          ]
+        }
+      },
+      {
+        "name": "handles focus events",
+        "description": "Input properly handles focus events",
+        "test": {
+          "render": {
+            "props": {
+              "onFocus": "mockFunction"
+            }
+          },
+          "assertions": [
+            "focus triggers onFocus callback",
+            "focus indicator is visible",
+            "has correct focus attributes"
+          ]
+        }
+      },
+      {
+        "name": "handles blur events",
+        "description": "Input properly handles blur events",
+        "test": {
+          "render": {
+            "props": {
+              "onBlur": "mockFunction"
+            }
+          },
+          "assertions": [
+            "blur triggers onBlur callback",
+            "validation state is updated",
+            "focus indicator is removed"
+          ]
+        }
+      },
+      {
+        "name": "displays error state",
+        "description": "Input displays error state correctly",
+        "test": {
+          "render": {
+            "props": {
+              "error": "Test error message"
+            }
+          },
+          "assertions": [
+            "error message is displayed",
+            "error styling is applied",
+            "has error accessibility attributes"
+          ]
+        }
+      },
+      {
+        "name": "displays helper text",
+        "description": "Input displays helper text correctly",
+        "test": {
+          "render": {
+            "props": {
+              "helperText": "Test helper text"
+            }
+          },
+          "assertions": [
+            "helper text is displayed",
+            "helper text is associated with input",
+            "has correct accessibility attributes"
+          ]
+        }
+      },
+      {
+        "name": "enforces character limits",
+        "description": "Input enforces character limits correctly",
+        "test": {
+          "render": {
+            "props": {
+              "maxLength": 10,
+              "value": "test"
+            }
+          },
+          "assertions": [
+            "maxLength attribute is set",
+            "character count is displayed",
+            "input blocks when limit reached"
+          ]
+        }
+      },
+      {
+        "name": "validates pattern",
+        "description": "Input validates against pattern correctly",
+        "test": {
+          "render": {
+            "props": {
+              "pattern": "[0-9]+",
+              "value": "123"
+            }
+          },
+          "assertions": [
+            "pattern attribute is set",
+            "valid value passes validation",
+            "invalid value fails validation"
+          ]
+        }
+      },
+      {
+        "name": "handles disabled state",
+        "description": "Input handles disabled state correctly",
+        "test": {
+          "render": {
+            "props": {
+              "disabled": true,
+              "value": "disabled value"
+            }
+          },
+          "assertions": [
+            "input is disabled",
+            "disabled styling is applied",
+            "interactions are blocked"
+          ]
+        }
+      },
+      {
+        "name": "handles readOnly state",
+        "description": "Input handles readOnly state correctly",
+        "test": {
+          "render": {
+            "props": {
+              "readOnly": true,
+              "value": "readonly value"
+            }
+          },
+          "assertions": [
+            "input is readOnly",
+            "readOnly styling is applied",
+            "value cannot be changed"
+          ]
+        }
+      }
+    ],
+    "integration": [
+      {
+        "name": "form integration",
+        "description": "Input integrates properly with form elements",
+        "scenario": {
+          "setup": {
+            "props": {
+              "label": "Test Input",
+              "required": true,
+              "value": ""
+            }
+          },
+          "actions": [
+            "focus input",
+            "enter value",
+            "blur input",
+            "submit form"
+          ],
+          "expected": {
+            "focus": "input receives focus",
+            "value": "value is entered",
+            "validation": "validation runs on blur",
+            "submit": "form submission works"
+          }
+        }
+      },
+      {
+        "name": "validation flow",
+        "description": "Input validation flow works correctly",
+        "scenario": {
+          "setup": {
+            "props": {
+              "required": true,
+              "pattern": "[a-zA-Z]+",
+              "value": ""
+            }
+          },
+          "actions": [
+            "enter invalid value",
+            "blur input",
+            "enter valid value",
+            "blur input"
+          ],
+          "expected": {
+            "invalid": "error state displayed",
+            "valid": "error state cleared",
+            "feedback": "validation feedback provided"
+          }
+        }
+      }
+    ],
+    "accessibility": [
+      {
+        "name": "wcag compliance",
+        "description": "Input meets WCAG AA standards",
+        "test": {
+          "axeRules": [
+            "color-contrast",
+            "keyboard-navigation",
+            "focus-order",
+            "label"
+          ],
+          "keyboardTests": [
+            "tab navigation",
+            "arrow key navigation",
+            "focus indicators",
+            "keyboard input"
+          ],
+          "screenReaderTests": [
+            "aria labels",
+            "role attributes",
+            "state announcements",
+            "validation announcements"
+          ]
+        }
+      },
+      {
+        "name": "error state accessibility",
+        "description": "Error state is properly announced to screen readers",
+        "test": {
+          "axeRules": [
+            "error-message",
+            "aria-describedby",
+            "aria-invalid"
+          ],
+          "keyboardTests": [
+            "error focus management",
+            "recovery actions"
+          ],
+          "screenReaderTests": [
+            "error announcement",
+            "error description",
+            "validation feedback"
+          ]
+        }
+      },
+      {
+        "name": "helper text accessibility",
+        "description": "Helper text is properly associated with input",
+        "test": {
+          "axeRules": [
+            "aria-describedby",
+            "help-text"
+          ],
+          "keyboardTests": [
+            "helper text access",
+            "context information"
+          ],
+          "screenReaderTests": [
+            "helper text announcement",
+            "context description"
+          ]
+        }
+      }
+    ]
+  },
+  "performance": {
+    "maxRenderTime": 16,
+    "maxBundleSize": 8000,
+    "memoryLeaks": false,
+    "reRenderOptimization": true
+  },
+  "styling": {
+    "themeSupport": true,
+    "responsive": false,
+    "variants": [
+      {
+        "name": "outlined",
+        "description": "Outlined input with border",
+        "cssClasses": ["rds-input--outlined"]
+      },
+      {
+        "name": "filled",
+        "description": "Filled input with background",
+        "cssClasses": ["rds-input--filled"]
+      },
+      {
+        "name": "standard",
+        "description": "Standard input with underline",
+        "cssClasses": ["rds-input--standard"]
+      }
+    ]
+  }
+}

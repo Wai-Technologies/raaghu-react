@@ -1,0 +1,238 @@
+{
+  "name": "RdsTemplateElement",
+  "version": "1.0.0",
+  "description": "Template specification for Raaghu Design System elements - atomic UI components",
+  "category": "form",
+  "props": {
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply to the component",
+      "required": false,
+      "default": ""
+    },
+    "id": {
+      "type": "string", 
+      "description": "Unique identifier for the component",
+      "required": false
+    },
+    "dataTestId": {
+      "type": "string",
+      "description": "Test identifier for automated testing",
+      "required": false
+    },
+    "disabled": {
+      "type": "boolean",
+      "description": "Whether the component is disabled",
+      "required": false,
+      "default": false
+    },
+    "variant": {
+      "type": "enum",
+      "description": "Visual variant of the component",
+      "required": false,
+      "enum": ["primary", "secondary", "tertiary"],
+      "default": "primary"
+    },
+    "size": {
+      "type": "enum",
+      "description": "Size of the component",
+      "required": false,
+      "enum": ["small", "medium", "large"],
+      "default": "medium"
+    }
+  },
+  "behaviors": [
+    {
+      "name": "click",
+      "description": "Component responds to click events",
+      "trigger": {
+        "event": "click",
+        "condition": "not disabled"
+      },
+      "expected": {
+        "callback": "onClick",
+        "ui": "visual feedback"
+      }
+    },
+    {
+      "name": "focus",
+      "description": "Component can receive focus",
+      "trigger": {
+        "event": "focus",
+        "condition": "not disabled"
+      },
+      "expected": {
+        "ui": "focus indicator visible",
+        "accessibility": "focus announced to screen readers"
+      }
+    },
+    {
+      "name": "hover",
+      "description": "Component responds to hover state",
+      "trigger": {
+        "event": "mouseenter",
+        "condition": "not disabled"
+      },
+      "expected": {
+        "ui": "hover state styling applied"
+      }
+    }
+  ],
+  "accessibility": {
+    "wcagLevel": "AA",
+    "keyboardNavigation": {
+      "tabOrder": true,
+      "enterActivation": true,
+      "escapeHandling": false,
+      "arrowKeys": false
+    },
+    "screenReader": {
+      "ariaLabel": "Component purpose and state",
+      "role": "button",
+      "liveRegion": false
+    },
+    "colorContrast": {
+      "minRatio": 4.5,
+      "testedStates": ["default", "hover", "focus", "disabled"]
+    }
+  },
+  "testing": {
+    "unit": [
+      {
+        "name": "renders with default props",
+        "description": "Component renders correctly with default prop values",
+        "test": {
+          "render": {
+            "props": {}
+          },
+          "assertions": [
+            "component is in document",
+            "has correct default classes",
+            "has correct default attributes"
+          ]
+        }
+      },
+      {
+        "name": "renders with custom props",
+        "description": "Component renders correctly with custom prop values",
+        "test": {
+          "render": {
+            "props": {
+              "variant": "secondary",
+              "size": "large",
+              "disabled": true
+            }
+          },
+          "assertions": [
+            "component is in document",
+            "has correct variant classes",
+            "has correct size classes",
+            "has disabled attribute"
+          ]
+        }
+      },
+      {
+        "name": "handles click events",
+        "description": "Component properly handles click events when not disabled",
+        "test": {
+          "render": {
+            "props": {
+              "onClick": "mockFunction"
+            }
+          },
+          "assertions": [
+            "click triggers onClick callback",
+            "click count is tracked correctly"
+          ]
+        }
+      },
+      {
+        "name": "prevents click when disabled",
+        "description": "Component does not respond to clicks when disabled",
+        "test": {
+          "render": {
+            "props": {
+              "disabled": true,
+              "onClick": "mockFunction"
+            }
+          },
+          "assertions": [
+            "click does not trigger onClick callback",
+            "component appears disabled"
+          ]
+        }
+      }
+    ],
+    "integration": [
+      {
+        "name": "keyboard navigation",
+        "description": "Component supports proper keyboard navigation",
+        "scenario": {
+          "setup": {
+            "props": {}
+          },
+          "actions": [
+            "tab to component",
+            "press enter",
+            "press escape"
+          ],
+          "expected": {
+            "focus": "component receives focus",
+            "activation": "enter activates component",
+            "escape": "escape handled appropriately"
+          }
+        }
+      }
+    ],
+    "accessibility": [
+      {
+        "name": "wcag compliance",
+        "description": "Component meets WCAG AA standards",
+        "test": {
+          "axeRules": [
+            "color-contrast",
+            "keyboard-navigation",
+            "focus-order"
+          ],
+          "keyboardTests": [
+            "tab navigation",
+            "enter activation",
+            "focus indicators"
+          ],
+          "screenReaderTests": [
+            "aria labels",
+            "role attributes",
+            "state announcements"
+          ]
+        }
+      }
+    ]
+  },
+  "performance": {
+    "maxRenderTime": 16,
+    "maxBundleSize": 5000,
+    "memoryLeaks": false,
+    "reRenderOptimization": true
+  },
+  "styling": {
+    "themeSupport": true,
+    "responsive": false,
+    "variants": [
+      {
+        "name": "primary",
+        "description": "Primary variant styling",
+        "cssClasses": ["rds-template-element--primary"]
+      },
+      {
+        "name": "secondary", 
+        "description": "Secondary variant styling",
+        "cssClasses": ["rds-template-element--secondary"]
+      },
+      {
+        "name": "tertiary",
+        "description": "Tertiary variant styling", 
+        "cssClasses": ["rds-template-element--tertiary"]
+      }
+    ]
+  }
+}

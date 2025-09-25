@@ -182,3 +182,7 @@ output*.log
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+package-lock.json
+bun.lock
+bun.lockb

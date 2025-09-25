@@ -1,0 +1,448 @@
+{
+  "name": "RdsButton",
+  "version": "1.0.0",
+  "description": "A versatile button component with multiple variants, sizes, and states for user interactions",
+  "category": "form",
+  "props": {
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply to the button",
+      "required": false,
+      "default": ""
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the button",
+      "required": false
+    },
+    "dataTestId": {
+      "type": "string",
+      "description": "Test identifier for automated testing",
+      "required": false
+    },
+    "text": {
+      "type": "string",
+      "description": "Button text content",
+      "required": false
+    },
+    "children": {
+      "type": "ReactNode",
+      "description": "Button content (alternative to text prop)",
+      "required": false
+    },
+    "disabled": {
+      "type": "boolean",
+      "description": "Whether the button is disabled",
+      "required": false,
+      "default": false
+    },
+    "isLoading": {
+      "type": "boolean",
+      "description": "Whether the button is in loading state",
+      "required": false,
+      "default": false
+    },
+    "style": {
+      "type": "enum",
+      "description": "Visual style variant of the button",
+      "required": false,
+      "enum": ["filled", "outlined", "text"],
+      "default": "filled"
+    },
+    "size": {
+      "type": "enum",
+      "description": "Size of the button",
+      "required": false,
+      "enum": ["small", "medium", "large"],
+      "default": "medium"
+    },
+    "color": {
+      "type": "enum",
+      "description": "Color theme of the button",
+      "required": false,
+      "enum": ["primary", "secondary", "success", "warning", "error"],
+      "default": "primary"
+    },
+    "onClick": {
+      "type": "function",
+      "description": "Callback function when button is clicked",
+      "required": false
+    },
+    "ariaLabel": {
+      "type": "string",
+      "description": "Accessible label for screen readers",
+      "required": false
+    },
+    "type": {
+      "type": "enum",
+      "description": "HTML button type",
+      "required": false,
+      "enum": ["button", "submit", "reset"],
+      "default": "button"
+    }
+  },
+  "behaviors": [
+    {
+      "name": "click",
+      "description": "Button responds to click events when not disabled or loading",
+      "trigger": {
+        "event": "click",
+        "condition": "not disabled and not isLoading"
+      },
+      "expected": {
+        "callback": "onClick",
+        "ui": "visual feedback"
+      }
+    },
+    {
+      "name": "focus",
+      "description": "Button can receive focus and shows focus indicator",
+      "trigger": {
+        "event": "focus",
+        "condition": "not disabled"
+      },
+      "expected": {
+        "ui": "focus indicator visible",
+        "accessibility": "focus announced to screen readers"
+      }
+    },
+    {
+      "name": "hover",
+      "description": "Button responds to hover state with visual feedback",
+      "trigger": {
+        "event": "mouseenter",
+        "condition": "not disabled"
+      },
+      "expected": {
+        "ui": "hover state styling applied"
+      }
+    },
+    {
+      "name": "loading state",
+      "description": "Button shows loading indicator and disables interactions",
+      "trigger": {
+        "condition": "isLoading prop is true"
+      },
+      "expected": {
+        "ui": "loading spinner visible",
+        "state": { "disabled": true },
+        "accessibility": "loading state announced"
+      }
+    },
+    {
+      "name": "disabled state",
+      "description": "Button is disabled and shows disabled styling",
+      "trigger": {
+        "condition": "disabled prop is true"
+      },
+      "expected": {
+        "ui": "disabled styling applied",
+        "state": { "disabled": true },
+        "accessibility": "disabled state announced"
+      }
+    }
+  ],
+  "accessibility": {
+    "wcagLevel": "AA",
+    "keyboardNavigation": {
+      "tabOrder": true,
+      "enterActivation": true,
+      "escapeHandling": false,
+      "arrowKeys": false
+    },
+    "screenReader": {
+      "ariaLabel": "Button purpose and current state",
+      "role": "button",
+      "liveRegion": false
+    },
+    "colorContrast": {
+      "minRatio": 4.5,
+      "testedStates": ["default", "hover", "focus", "disabled", "loading"]
+    }
+  },
+  "testing": {
+    "unit": [
+      {
+        "name": "renders with text",
+        "description": "Button renders correctly with text prop",
+        "test": {
+          "render": {
+            "props": {
+              "text": "Test Button"
+            }
+          },
+          "assertions": [
+            "component is in document",
+            "text content is displayed",
+            "has correct button role"
+          ]
+        }
+      },
+      {
+        "name": "renders with children",
+        "description": "Button renders correctly with children prop",
+        "test": {
+          "render": {
+            "props": {
+              "children": "Child Content"
+            }
+          },
+          "assertions": [
+            "component is in document",
+            "children content is displayed",
+            "has correct button role"
+          ]
+        }
+      },
+      {
+        "name": "handles click events",
+        "description": "Button properly handles click events when not disabled",
+        "test": {
+          "render": {
+            "props": {
+              "text": "Click Me",
+              "onClick": "mockFunction"
+            }
+          },
+          "assertions": [
+            "click triggers onClick callback",
+            "click count is tracked correctly"
+          ]
+        }
+      },
+      {
+        "name": "prevents click when disabled",
+        "description": "Button does not respond to clicks when disabled",
+        "test": {
+          "render": {
+            "props": {
+              "text": "Disabled Button",
+              "disabled": true,
+              "onClick": "mockFunction"
+            }
+          },
+          "assertions": [
+            "click does not trigger onClick callback",
+            "component appears disabled"
+          ]
+        }
+      },
+      {
+        "name": "prevents click when loading",
+        "description": "Button does not respond to clicks when loading",
+        "test": {
+          "render": {
+            "props": {
+              "text": "Loading Button",
+              "isLoading": true,
+              "onClick": "mockFunction"
+            }
+          },
+          "assertions": [
+            "click does not trigger onClick callback",
+            "loading state is visible"
+          ]
+        }
+      },
+      {
+        "name": "applies correct variant styles",
+        "description": "Button applies correct styling based on style prop",
+        "test": {
+          "render": {
+            "props": {
+              "text": "Primary Button",
+              "style": "filled"
+            }
+          },
+          "assertions": [
+            "has correct variant classes",
+            "applies filled styling"
+          ]
+        }
+      },
+      {
+        "name": "applies correct size",
+        "description": "Button applies correct sizing based on size prop",
+        "test": {
+          "render": {
+            "props": {
+              "text": "Large Button",
+              "size": "large"
+            }
+          },
+          "assertions": [
+            "has correct size classes",
+            "applies large sizing"
+          ]
+        }
+      },
+      {
+        "name": "applies correct color",
+        "description": "Button applies correct color theme based on color prop",
+        "test": {
+          "render": {
+            "props": {
+              "text": "Success Button",
+              "color": "success"
+            }
+          },
+          "assertions": [
+            "has correct color classes",
+            "applies success color theme"
+          ]
+        }
+      },
+      {
+        "name": "has proper accessibility attributes",
+        "description": "Button has correct accessibility attributes",
+        "test": {
+          "render": {
+            "props": {
+              "text": "Accessible Button",
+              "ariaLabel": "Custom aria label"
+            }
+          },
+          "assertions": [
+            "has aria-label attribute",
+            "has button role",
+            "has correct type attribute"
+          ]
+        }
+      }
+    ],
+    "integration": [
+      {
+        "name": "keyboard navigation",
+        "description": "Button supports proper keyboard navigation",
+        "scenario": {
+          "setup": {
+            "props": {
+              "text": "Keyboard Button"
+            }
+          },
+          "actions": [
+            "tab to button",
+            "press enter",
+            "press space"
+          ],
+          "expected": {
+            "focus": "button receives focus",
+            "activation": "enter and space activate button",
+            "indicator": "focus indicator is visible"
+          }
+        }
+      },
+      {
+        "name": "loading state transition",
+        "description": "Button properly transitions to and from loading state",
+        "scenario": {
+          "setup": {
+            "props": {
+              "text": "Loading Button",
+              "isLoading": false
+            }
+          },
+          "actions": [
+            "set isLoading to true",
+            "verify loading state",
+            "set isLoading to false"
+          ],
+          "expected": {
+            "loading": "loading spinner appears",
+            "disabled": "button becomes disabled",
+            "restore": "button returns to normal state"
+          }
+        }
+      }
+    ],
+    "accessibility": [
+      {
+        "name": "wcag compliance",
+        "description": "Button meets WCAG AA standards",
+        "test": {
+          "axeRules": [
+            "color-contrast",
+            "keyboard-navigation",
+            "focus-order",
+            "button-name"
+          ],
+          "keyboardTests": [
+            "tab navigation",
+            "enter activation",
+            "space activation",
+            "focus indicators"
+          ],
+          "screenReaderTests": [
+            "aria labels",
+            "role attributes",
+            "state announcements",
+            "loading announcements"
+          ]
+        }
+      },
+      {
+        "name": "loading state accessibility",
+        "description": "Loading state is properly announced to screen readers",
+        "test": {
+          "axeRules": [
+            "aria-busy",
+            "loading-indicator"
+          ],
+          "keyboardTests": [
+            "disabled state during loading",
+            "focus management"
+          ],
+          "screenReaderTests": [
+            "loading announcement",
+            "state changes"
+          ]
+        }
+      },
+      {
+        "name": "disabled state accessibility",
+        "description": "Disabled state is properly announced to screen readers",
+        "test": {
+          "axeRules": [
+            "disabled-state",
+            "aria-disabled"
+          ],
+          "keyboardTests": [
+            "disabled interaction prevention",
+            "focus behavior"
+          ],
+          "screenReaderTests": [
+            "disabled announcement",
+            "state description"
+          ]
+        }
+      }
+    ]
+  },
+  "performance": {
+    "maxRenderTime": 16,
+    "maxBundleSize": 5000,
+    "memoryLeaks": false,
+    "reRenderOptimization": true
+  },
+  "styling": {
+    "themeSupport": true,
+    "responsive": false,
+    "variants": [
+      {
+        "name": "filled",
+        "description": "Filled button with solid background",
+        "cssClasses": ["rds-button--filled"]
+      },
+      {
+        "name": "outlined",
+        "description": "Outlined button with border and transparent background",
+        "cssClasses": ["rds-button--outlined"]
+      },
+      {
+        "name": "text",
+        "description": "Text button with no background or border",
+        "cssClasses": ["rds-button--text"]
+      }
+    ]
+  }
+}

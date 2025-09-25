@@ -1,0 +1,282 @@
+name: Specification Validation
+
+on:
+  push:
+    branches: [ main, development ]
+    paths:
+      - 'specs/**'
+      - 'raaghu-elements/**'
+      - 'raaghu-components/**'
+      - 'raaghu-layouts/**'
+  pull_request:
+    branches: [ main, development ]
+    paths:
+      - 'specs/**'
+      - 'raaghu-elements/**'
+      - 'raaghu-components/**'
+      - 'raaghu-layouts/**'
+
+jobs:
+  validate-specifications:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Install additional dependencies for spec validation
+      run: npm install ajv ajv-formats ts-node --save-dev
+      
+    - name: Validate all specifications
+      run: npm run spec:validate:all
+      
+    - name: Generate validation report
+      run: npm run spec:report
+      
+    - name: Upload validation report
+      uses: actions/upload-artifact@v4
+      with:
+        name: specification-validation-report
+        path: specs/validation-report.md
+        
+    - name: Comment PR with validation results
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const reportPath = 'specs/validation-report.md';
+          
+          if (fs.existsSync(reportPath)) {
+            const report = fs.readFileSync(reportPath, 'utf8');
+            
+            // Extract summary from report
+            const summaryMatch = report.match(/## Summary\n([\s\S]*?)\n\n/);
+            const summary = summaryMatch ? summaryMatch[1] : 'No summary available';
+            
+            // Check if there are any invalid specifications
+            const hasInvalidSpecs = report.includes('## Invalid Specifications');
+            
+            const comment = `## 📋 Specification Validation Results
+            
+${summary}
+
+${hasInvalidSpecs ? '❌ **Some specifications are invalid. Please check the full report.**' : '✅ **All specifications are valid.**'}
+
+<details>
+<summary>📄 Full Validation Report</summary>
+
+\`\`\`markdown
+${report}
+\`\`\`
+
+</details>
+
+*This report was generated automatically by the specification validation workflow.*`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+          }
+
+  run-specification-tests:
+    runs-on: ubuntu-latest
+    needs: validate-specifications
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Install additional dependencies for spec testing
+      run: npm install ajv ajv-formats ts-node --save-dev
+      
+    - name: Run specification tests
+      run: npm run test:spec:all
+      
+    - name: Run regular tests
+      run: npm run test:coverage
+      
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: |
+          coverage/
+          test-results/
+          
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        file: ./coverage/lcov.info
+        flags: specification-tests
+        name: specification-test-coverage
+
+  generate-component-tests:
+    runs-on: ubuntu-latest
+    needs: validate-specifications
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Install additional dependencies
+      run: npm install ajv ajv-formats ts-node --save-dev
+      
+    - name: Check for new specifications
+      id: check-specs
+      run: |
+        # Check if there are any new or modified specification files
+        if git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | grep -q '\.spec\.json$'; then
+          echo "has_new_specs=true" >> $GITHUB_OUTPUT
+        else
+          echo "has_new_specs=false" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Generate tests for new specifications
+      if: steps.check-specs.outputs.has_new_specs == 'true'
+      run: |
+        # Get list of new or modified specification files
+        SPEC_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | grep '\.spec\.json$')
+        
+        for spec_file in $SPEC_FILES; do
+          echo "Generating tests for $spec_file"
+          npm run spec:generate:test "$spec_file" "./generated-tests"
+        done
+        
+    - name: Create PR with generated tests
+      if: steps.check-specs.outputs.has_new_specs == 'true'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const path = require('path');
+          
+          // Check if there are generated test files
+          const generatedTestsDir = './generated-tests';
+          if (fs.existsSync(generatedTestsDir)) {
+            const testFiles = fs.readdirSync(generatedTestsDir, { recursive: true })
+              .filter(file => file.endsWith('.test.tsx'))
+              .map(file => path.join(generatedTestsDir, file));
+            
+            if (testFiles.length > 0) {
+              const comment = `## 🧪 Generated Test Files
+              
+The following test files were generated from your specifications:
+
+${testFiles.map(file => `- \`${file}\``).join('\n')}
+
+These tests are ready to be integrated into your component implementation. You can:
+
+1. **Review the generated tests** to ensure they match your requirements
+2. **Move the tests** to the appropriate component directories
+3. **Update the tests** as needed for your specific implementation
+4. **Run the tests** to verify your component works correctly
+
+*These tests were generated automatically from your component specifications.*`;
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+          }
+
+  accessibility-validation:
+    runs-on: ubuntu-latest
+    needs: validate-specifications
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run accessibility tests
+      run: npm run test:accessibility
+      
+    - name: Run axe-core tests
+      run: |
+        # Run axe-core tests on all components
+        find raaghu-elements raaghu-components raaghu-layouts -name "*.test.tsx" -exec grep -l "axe\|accessibility" {} \; | xargs npm test
+        
+    - name: Upload accessibility test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: accessibility-test-results
+        path: accessibility-results/
+
+  performance-validation:
+    runs-on: ubuntu-latest
+    needs: validate-specifications
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build project
+      run: npm run build
+      
+    - name: Analyze bundle size
+      run: |
+        # Check bundle size against specification requirements
+        npm run spec:validate:all | grep -E "(maxBundleSize|maxRenderTime)" || true
+        
+    - name: Run performance tests
+      run: |
+        # Run performance tests for components with performance specifications
+        find specs/examples -name "*.spec.json" -exec grep -l "performance" {} \; | xargs -I {} npm run test:spec {}
+        
+    - name: Upload performance results
+      uses: actions/upload-artifact@v4
+      with:
+        name: performance-test-results
+        path: performance-results/

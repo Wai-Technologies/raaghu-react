@@ -1,0 +1,321 @@
+{
+  "name": "RdsCompTemplateLayout",
+  "version": "1.0.0",
+  "description": "Template specification for Raaghu Design System layouts - complex layout components",
+  "category": "layout",
+  "props": {
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply to the layout",
+      "required": false,
+      "default": ""
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the layout",
+      "required": false
+    },
+    "dataTestId": {
+      "type": "string",
+      "description": "Test identifier for automated testing",
+      "required": false
+    },
+    "children": {
+      "type": "ReactNode",
+      "description": "Child components to be rendered within the layout",
+      "required": true
+    },
+    "header": {
+      "type": "ReactNode",
+      "description": "Header component for the layout",
+      "required": false
+    },
+    "sidebar": {
+      "type": "ReactNode",
+      "description": "Sidebar component for the layout",
+      "required": false
+    },
+    "footer": {
+      "type": "ReactNode",
+      "description": "Footer component for the layout",
+      "required": false
+    },
+    "responsive": {
+      "type": "boolean",
+      "description": "Whether the layout should be responsive",
+      "required": false,
+      "default": true
+    },
+    "collapsible": {
+      "type": "boolean",
+      "description": "Whether the sidebar can be collapsed",
+      "required": false,
+      "default": false
+    },
+    "onLayoutChange": {
+      "type": "function",
+      "description": "Callback function when layout changes",
+      "required": false
+    }
+  },
+  "behaviors": [
+    {
+      "name": "responsive behavior",
+      "description": "Layout adapts to different screen sizes",
+      "trigger": {
+        "condition": "responsive prop is true and viewport changes"
+      },
+      "expected": {
+        "ui": "layout adjusts to screen size",
+        "callback": "onLayoutChange called if provided"
+      }
+    },
+    {
+      "name": "sidebar collapse",
+      "description": "Sidebar can be collapsed and expanded",
+      "trigger": {
+        "condition": "collapsible prop is true and collapse action triggered"
+      },
+      "expected": {
+        "ui": "sidebar collapses/expands",
+        "state": "content area adjusts",
+        "callback": "onLayoutChange called if provided"
+      }
+    },
+    {
+      "name": "content overflow",
+      "description": "Layout handles content overflow appropriately",
+      "trigger": {
+        "condition": "content exceeds available space"
+      },
+      "expected": {
+        "ui": "scrollbars appear where needed",
+        "accessibility": "scrollable areas are announced"
+      }
+    },
+    {
+      "name": "focus management",
+      "description": "Layout manages focus when structure changes",
+      "trigger": {
+        "condition": "layout structure changes"
+      },
+      "expected": {
+        "accessibility": "focus is managed appropriately",
+        "ui": "focus indicators are visible"
+      }
+    }
+  ],
+  "accessibility": {
+    "wcagLevel": "AA",
+    "keyboardNavigation": {
+      "tabOrder": true,
+      "enterActivation": true,
+      "escapeHandling": true,
+      "arrowKeys": true
+    },
+    "screenReader": {
+      "ariaLabel": "Layout structure and navigation",
+      "role": "main",
+      "liveRegion": false
+    },
+    "colorContrast": {
+      "minRatio": 4.5,
+      "testedStates": ["default", "collapsed", "expanded", "mobile"]
+    }
+  },
+  "testing": {
+    "unit": [
+      {
+        "name": "renders with children",
+        "description": "Layout renders correctly with child components",
+        "test": {
+          "render": {
+            "props": {
+              "children": "<div>Test Content</div>"
+            }
+          },
+          "assertions": [
+            "layout is in document",
+            "children are rendered",
+            "has correct layout structure"
+          ]
+        }
+      },
+      {
+        "name": "renders with header and footer",
+        "description": "Layout renders correctly with header and footer",
+        "test": {
+          "render": {
+            "props": {
+              "header": "<header>Header</header>",
+              "footer": "<footer>Footer</footer>",
+              "children": "<main>Content</main>"
+            }
+          },
+          "assertions": [
+            "header is rendered",
+            "footer is rendered",
+            "content is in main area",
+            "has correct semantic structure"
+          ]
+        }
+      },
+      {
+        "name": "handles sidebar collapse",
+        "description": "Layout handles sidebar collapse when collapsible",
+        "test": {
+          "render": {
+            "props": {
+              "sidebar": "<aside>Sidebar</aside>",
+              "collapsible": true,
+              "children": "<main>Content</main>"
+            }
+          },
+          "assertions": [
+            "sidebar is rendered",
+            "collapse functionality is available",
+            "layout adjusts when collapsed"
+          ]
+        }
+      },
+      {
+        "name": "responsive behavior",
+        "description": "Layout adapts to different screen sizes",
+        "test": {
+          "render": {
+            "props": {
+              "responsive": true,
+              "children": "<main>Content</main>"
+            }
+          },
+          "assertions": [
+            "responsive classes are applied",
+            "layout adapts to viewport",
+            "mobile-friendly structure"
+          ]
+        }
+      }
+    ],
+    "integration": [
+      {
+        "name": "layout structure",
+        "description": "Layout maintains proper structure across different configurations",
+        "scenario": {
+          "setup": {
+            "props": {
+              "header": "<header>Header</header>",
+              "sidebar": "<aside>Sidebar</aside>",
+              "children": "<main>Content</main>",
+              "footer": "<footer>Footer</footer>"
+            }
+          },
+          "actions": [
+            "verify header placement",
+            "verify sidebar placement",
+            "verify content area",
+            "verify footer placement"
+          ],
+          "expected": {
+            "structure": "proper semantic HTML structure",
+            "positioning": "correct CSS positioning",
+            "spacing": "appropriate spacing between sections"
+          }
+        }
+      },
+      {
+        "name": "responsive breakpoints",
+        "description": "Layout responds correctly to different breakpoints",
+        "scenario": {
+          "setup": {
+            "props": {
+              "responsive": true,
+              "sidebar": "<aside>Sidebar</aside>",
+              "children": "<main>Content</main>"
+            }
+          },
+          "actions": [
+            "test desktop viewport",
+            "test tablet viewport",
+            "test mobile viewport"
+          ],
+          "expected": {
+            "desktop": "sidebar visible, proper spacing",
+            "tablet": "sidebar may collapse or stack",
+            "mobile": "mobile-optimized layout"
+          }
+        }
+      }
+    ],
+    "accessibility": [
+      {
+        "name": "semantic structure",
+        "description": "Layout uses proper semantic HTML structure",
+        "test": {
+          "axeRules": [
+            "landmark-roles",
+            "heading-order",
+            "semantic-structure"
+          ],
+          "keyboardTests": [
+            "tab navigation through layout",
+            "skip links functionality",
+            "focus management"
+          ],
+          "screenReaderTests": [
+            "landmark navigation",
+            "structure announcements",
+            "content relationships"
+          ]
+        }
+      },
+      {
+        "name": "responsive accessibility",
+        "description": "Layout maintains accessibility across different screen sizes",
+        "test": {
+          "axeRules": [
+            "responsive-design",
+            "touch-targets",
+            "viewport-meta"
+          ],
+          "keyboardTests": [
+            "mobile keyboard navigation",
+            "touch interactions",
+            "gesture support"
+          ],
+          "screenReaderTests": [
+            "mobile screen reader support",
+            "orientation changes",
+            "zoom compatibility"
+          ]
+        }
+      }
+    ]
+  },
+  "performance": {
+    "maxRenderTime": 100,
+    "maxBundleSize": 25000,
+    "memoryLeaks": true,
+    "reRenderOptimization": true
+  },
+  "styling": {
+    "themeSupport": true,
+    "responsive": true,
+    "variants": [
+      {
+        "name": "default",
+        "description": "Default layout styling",
+        "cssClasses": ["rds-comp-template-layout"]
+      },
+      {
+        "name": "minimal",
+        "description": "Minimal layout with reduced visual elements",
+        "cssClasses": ["rds-comp-template-layout--minimal"]
+      },
+      {
+        "name": "fullscreen",
+        "description": "Fullscreen layout that takes entire viewport",
+        "cssClasses": ["rds-comp-template-layout--fullscreen"]
+      }
+    ]
+  }
+}

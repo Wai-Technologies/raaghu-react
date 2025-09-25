@@ -1,0 +1,296 @@
+{
+  "name": "RdsCompTemplateComponent",
+  "version": "1.0.0",
+  "description": "Template specification for Raaghu Design System components - complex UI components",
+  "category": "data",
+  "props": {
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes to apply to the component",
+      "required": false,
+      "default": ""
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the component",
+      "required": false
+    },
+    "dataTestId": {
+      "type": "string",
+      "description": "Test identifier for automated testing",
+      "required": false
+    },
+    "data": {
+      "type": "array",
+      "description": "Data to be displayed or processed by the component",
+      "required": true,
+      "validation": {
+        "min": 0
+      }
+    },
+    "loading": {
+      "type": "boolean",
+      "description": "Whether the component is in a loading state",
+      "required": false,
+      "default": false
+    },
+    "error": {
+      "type": "string",
+      "description": "Error message to display",
+      "required": false
+    },
+    "onDataChange": {
+      "type": "function",
+      "description": "Callback function when data changes",
+      "required": false
+    },
+    "config": {
+      "type": "object",
+      "description": "Configuration object for component behavior",
+      "required": false,
+      "default": {}
+    }
+  },
+  "behaviors": [
+    {
+      "name": "data loading",
+      "description": "Component displays loading state when data is being fetched",
+      "trigger": {
+        "condition": "loading prop is true"
+      },
+      "expected": {
+        "ui": "loading indicator visible",
+        "state": "interactions disabled"
+      }
+    },
+    {
+      "name": "error handling",
+      "description": "Component displays error state when error occurs",
+      "trigger": {
+        "condition": "error prop is provided"
+      },
+      "expected": {
+        "ui": "error message displayed",
+        "state": "error styling applied"
+      }
+    },
+    {
+      "name": "data update",
+      "description": "Component updates when data prop changes",
+      "trigger": {
+        "condition": "data prop changes"
+      },
+      "expected": {
+        "ui": "component re-renders with new data",
+        "callback": "onDataChange called if provided"
+      }
+    },
+    {
+      "name": "configuration update",
+      "description": "Component updates when configuration changes",
+      "trigger": {
+        "condition": "config prop changes"
+      },
+      "expected": {
+        "ui": "component behavior updates according to new config"
+      }
+    }
+  ],
+  "accessibility": {
+    "wcagLevel": "AA",
+    "keyboardNavigation": {
+      "tabOrder": true,
+      "enterActivation": true,
+      "escapeHandling": true,
+      "arrowKeys": true
+    },
+    "screenReader": {
+      "ariaLabel": "Component purpose and current state",
+      "role": "region",
+      "liveRegion": true
+    },
+    "colorContrast": {
+      "minRatio": 4.5,
+      "testedStates": ["default", "loading", "error", "interactive"]
+    }
+  },
+  "testing": {
+    "unit": [
+      {
+        "name": "renders with data",
+        "description": "Component renders correctly with provided data",
+        "test": {
+          "render": {
+            "props": {
+              "data": ["item1", "item2", "item3"]
+            }
+          },
+          "assertions": [
+            "component is in document",
+            "data is displayed correctly",
+            "has correct data attributes"
+          ]
+        }
+      },
+      {
+        "name": "displays loading state",
+        "description": "Component shows loading indicator when loading",
+        "test": {
+          "render": {
+            "props": {
+              "data": [],
+              "loading": true
+            }
+          },
+          "assertions": [
+            "loading indicator is visible",
+            "interactions are disabled",
+            "has loading aria attributes"
+          ]
+        }
+      },
+      {
+        "name": "displays error state",
+        "description": "Component shows error message when error occurs",
+        "test": {
+          "render": {
+            "props": {
+              "data": [],
+              "error": "Something went wrong"
+            }
+          },
+          "assertions": [
+            "error message is displayed",
+            "error styling is applied",
+            "has error aria attributes"
+          ]
+        }
+      },
+      {
+        "name": "handles data changes",
+        "description": "Component updates when data prop changes",
+        "test": {
+          "render": {
+            "props": {
+              "data": ["item1"],
+              "onDataChange": "mockFunction"
+            }
+          },
+          "assertions": [
+            "initial data is displayed",
+            "data change triggers callback",
+            "component re-renders with new data"
+          ]
+        }
+      }
+    ],
+    "integration": [
+      {
+        "name": "data flow",
+        "description": "Component properly handles data flow from parent",
+        "scenario": {
+          "setup": {
+            "props": {
+              "data": []
+            }
+          },
+          "actions": [
+            "update data prop",
+            "trigger loading state",
+            "simulate error"
+          ],
+          "expected": {
+            "dataUpdate": "component updates with new data",
+            "loading": "loading state displayed",
+            "error": "error state displayed"
+          }
+        }
+      },
+      {
+        "name": "configuration changes",
+        "description": "Component responds to configuration changes",
+        "scenario": {
+          "setup": {
+            "props": {
+              "data": ["item1", "item2"],
+              "config": {"sort": "asc"}
+            }
+          },
+          "actions": [
+            "change config prop",
+            "verify behavior change"
+          ],
+          "expected": {
+            "configUpdate": "component behavior updates",
+            "ui": "visual changes reflect new config"
+          }
+        }
+      }
+    ],
+    "accessibility": [
+      {
+        "name": "loading state accessibility",
+        "description": "Loading state is properly announced to screen readers",
+        "test": {
+          "axeRules": [
+            "aria-live-region",
+            "loading-indicator"
+          ],
+          "keyboardTests": [
+            "tab navigation during loading",
+            "focus management"
+          ],
+          "screenReaderTests": [
+            "loading announcement",
+            "state changes"
+          ]
+        }
+      },
+      {
+        "name": "error state accessibility",
+        "description": "Error state is properly announced to screen readers",
+        "test": {
+          "axeRules": [
+            "error-message",
+            "aria-describedby"
+          ],
+          "keyboardTests": [
+            "error focus management",
+            "recovery actions"
+          ],
+          "screenReaderTests": [
+            "error announcement",
+            "error description"
+          ]
+        }
+      }
+    ]
+  },
+  "performance": {
+    "maxRenderTime": 50,
+    "maxBundleSize": 15000,
+    "memoryLeaks": true,
+    "reRenderOptimization": true
+  },
+  "styling": {
+    "themeSupport": true,
+    "responsive": true,
+    "variants": [
+      {
+        "name": "default",
+        "description": "Default component styling",
+        "cssClasses": ["rds-comp-template-component"]
+      },
+      {
+        "name": "compact",
+        "description": "Compact variant with reduced spacing",
+        "cssClasses": ["rds-comp-template-component--compact"]
+      },
+      {
+        "name": "expanded",
+        "description": "Expanded variant with increased spacing",
+        "cssClasses": ["rds-comp-template-component--expanded"]
+      }
+    ]
+  }
+}
