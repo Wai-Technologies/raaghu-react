@@ -930,3 +930,14 @@
     background: var(--rds-color-surface, black);
   }
 }
+
+@media (max-width: 430px) {
+  .rds-comp-audio-player__settings-modal {
+      top: 95%;
+      right: -17px;
+  }
+
+.rds-fab-menu__dropdown-container {
+    margin-right: -150px;
+  }  
+}

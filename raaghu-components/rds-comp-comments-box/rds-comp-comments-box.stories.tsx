@@ -163,7 +163,7 @@ export const CommentPosted: StoryObj<typeof RdsCommentBox> = {
   },
   parameters: {
     controls: {
-      include: ['text', 'time', 'avatarInitials'],
+      include: ['avatarInitials'],
     },
   },
   render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
