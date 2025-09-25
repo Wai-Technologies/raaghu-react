@@ -1053,6 +1053,7 @@ export const ThumbnailViewContent: React.FC<{
           </button>
         </div>
 
+      <div className="rds-comp-details-pane__accordion-list-container">
         <div className="rds-comp-details-pane__accordion-list">
           {accordionItems.map((item, idx) => (
             <RdsAccordion
@@ -1072,6 +1073,7 @@ export const ThumbnailViewContent: React.FC<{
               </div>
             </RdsAccordion>            
           ))}
+          </div>
         </div>
       </div>
     </div>
