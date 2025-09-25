@@ -748,11 +748,18 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
   }
+  &__figma-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
 
   &__figma-icon {
     width: 20px;
     height: 20px;
     flex-shrink: 0;
+    object-fit: contain;
   }
 
   &__figma-button-text {
@@ -767,6 +774,51 @@
     border: 1px solid var(--rds-color-border, #e0e0e0);
     color: var(--rds-color-accent, #FF4785);
   }
+   &__storybook-ui-kit-button {
+    @extend .rds-comp-details-pane__action-button;
+    background-color: var(--rds-color-surface, #fff);
+    border: 1px solid var(--rds-color-border, #e0e0e0);
+    color: var(--rds-color-accent, #FF4785);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--rds-spacing-xs, 8px);
+    padding: 0 var(--rds-spacing-md, 16px);
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: var(--rds-color-accent-light, #FFF4F6);
+      border-color: var(--rds-color-accent, #FF4785);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 71, 133, 0.15);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 6px rgba(255, 71, 133, 0.1);
+    }
+  }
+
+  &__storybook-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &__storybook-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  &__storybook-button-text {
+    font-weight: 500;
+    font-size: var(--rds-font-size-sm, 14px);
+    white-space: nowrap;
+  }
+
 
   &__thumbnail-view-wrapper {
     width: 329px;

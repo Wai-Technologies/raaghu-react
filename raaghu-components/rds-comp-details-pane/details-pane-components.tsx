@@ -49,6 +49,8 @@ export interface SelectionContentProps {
 
 export interface ToolbarContentProps {
   initialTab?: string;
+  figmaIconSrc?: string;
+  storybookIconSrc?: string;
 }
 
 export interface ThumbnailViewContentProps {
@@ -59,17 +61,26 @@ export interface FigmaUIKitButtonProps {
   text?: string;
   onClick?: () => void;
   className?: string;
+  storybookIconSrc?: string;
+  figmaIconSrc?: string;
+  iconAlt?: string;
 }
 
 export interface StorybookButtonProps {
   text?: string;
   onClick?: () => void;
   className?: string;
+  figmaIconSrc?: string;
+  storybookIconSrc?: string;
+  iconAlt?: string;
 }
 
 export const FigmaUIKitButton: React.FC<FigmaUIKitButtonProps> = ({ 
   text = "Download the Figma UI Kit",
   onClick,
+  figmaIconSrc,
+  storybookIconSrc,
+  iconAlt = "Figma",
   className = ""
 }) => {
   return (
@@ -78,8 +89,15 @@ export const FigmaUIKitButton: React.FC<FigmaUIKitButtonProps> = ({
       onClick={onClick}
       type="button"
     >
-      <span className="rds-comp-details-pane__figma-icon-wrapper" aria-hidden>
-      </span>
+       {figmaIconSrc && (
+        <span className="rds-comp-details-pane__figma-icon-wrapper" aria-hidden>
+          <img 
+            src={figmaIconSrc} 
+            alt={iconAlt} 
+            className="rds-comp-details-pane__figma-icon"
+          />
+        </span>
+      )}
       <span className="rds-comp-details-pane__figma-button-text">{text}</span>
     </button>
   );
@@ -88,7 +106,10 @@ export const FigmaUIKitButton: React.FC<FigmaUIKitButtonProps> = ({
 export const StorybookButton: React.FC<StorybookButtonProps> = ({ 
   text = "Go to Storybook",
   onClick,
-  className = ""
+  className = "",
+  figmaIconSrc,
+  storybookIconSrc,
+  iconAlt = "Storybook"
 }) => {
   return (
     <button 
@@ -96,6 +117,15 @@ export const StorybookButton: React.FC<StorybookButtonProps> = ({
       onClick={onClick}
       type="button"
     >
+      {storybookIconSrc && (
+        <span className="rds-comp-details-pane__storybook-icon-wrapper" aria-hidden>
+          <img 
+            src={storybookIconSrc} 
+            alt={iconAlt} 
+            className="rds-comp-details-pane__storybook-icon"
+          />
+        </span>
+      )}
     
       <span className="rds-comp-details-pane__storybook-button-text">{text}</span>
     </button>
@@ -497,10 +527,10 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
 /**
  * ToolbarContent - Component for the toolbar view
  */
-export const ToolbarContent: React.FC<{
-  initialTab?: string;
-}> = ({
-  initialTab = 'icon_font'
+export const ToolbarContent: React.FC<ToolbarContentProps> = ({
+  initialTab = 'icon_font',
+  figmaIconSrc,
+  storybookIconSrc
 }) => {
   const [activeToolbarTab, setActiveToolbarTab] = useState<string>(initialTab);
   const [selectedFontSize, setSelectedFontSize] = useState<number>(16);
@@ -509,6 +539,7 @@ export const ToolbarContent: React.FC<{
   const [selectedSpacingSize, setSelectedSpacingSize] = useState<number | string>(0);
 
   return (
+      <>
     <div className="custom-content-wrapper">
       <div className="rds-comp-details-pane__toolbar-pane-container">
         <div className="rds-comp-details-pane__toolbar-content">
@@ -967,6 +998,8 @@ export const ToolbarContent: React.FC<{
                   </div>
                 </div>
               )}
+               </div>
+              </div>
             </div>
           </div>
         </div>
@@ -978,6 +1011,8 @@ export const ToolbarContent: React.FC<{
               console.log('Download Figma UI Kit clicked');
             }}
             className="rds-comp-details-pane__figma-button"
+            figmaIconSrc={figmaIconSrc}
+            iconAlt="Figma"
           />
           <StorybookButton 
             text="Go to Storybook"
@@ -986,10 +1021,11 @@ export const ToolbarContent: React.FC<{
               console.log('Go to Storybook clicked');
             }}
             className="rds-comp-details-pane__storybook-button"
+             storybookIconSrc={storybookIconSrc}
+            iconAlt="Storybook"
           />
         </div>
-      </div>
-    </div>
+      </>
   );
 };
 
