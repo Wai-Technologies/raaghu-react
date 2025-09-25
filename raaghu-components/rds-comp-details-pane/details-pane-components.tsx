@@ -70,7 +70,7 @@ export interface StorybookButtonProps {
 export const FigmaUIKitButton: React.FC<FigmaUIKitButtonProps> = ({ 
   text = "Download the Figma UI Kit",
   onClick,
-  className = "",
+  className = ""
 }) => {
   return (
     <button 
@@ -987,7 +987,7 @@ export const ToolbarContent: React.FC<{
             className="rds-comp-details-pane__storybook-button"
           />
         </div>
-        </div>
+      </div>
     </div>
   );
 };
