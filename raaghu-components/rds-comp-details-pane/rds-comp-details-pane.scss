@@ -7,7 +7,7 @@
   flex-shrink: 0;
   background: var(--rds-color-surface, #fff);
   box-shadow: var(--rds-elevation-2, 0 4px 24px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04));
-  padding: 14px;
+  padding: 14px 7px;
   border: none;
   position: relative;
 
@@ -543,9 +543,9 @@
   
   &__real-estate-footer-fixed {
     position: absolute;
-    left: var(--rds-spacing-sm, 14px);
-    right: var(--rds-spacing-sm, 14px); 
-    bottom: var(--rds-spacing-xs, 10px); 
+    left: 0;
+    right: 0; 
+    bottom: 0; 
     background: var(--rds-color-surface, #fff);
     z-index: 10;
     padding: var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
@@ -578,13 +578,20 @@
   &__toolbar-pane-container {
     padding-left: var(--rds-spacing-lg, -2px);
     padding-right: var(--rds-spacing-lg, 0px);
+    padding-bottom: 25px; // Add padding to make room for footer buttons
     display: flex;
     flex-direction: column;
     position: relative;
-    overflow: hidden;
+    overflow-y: auto; // Enable vertical scrolling
+    overflow-x: hidden; // Hide horizontal overflow
+    max-height: calc(647px - 140px); // Limit height to prevent overflow
     
     // Ensure tree structure actions stay within bounds
     .rds-comp-tree-structure {
+      max-height: none;
+      overflow: visible;
+      margin-bottom: var(--rds-spacing-xl, 0px); // Add space before footer
+      
       &__node-container {
         overflow: visible;
         position: relative;
@@ -593,11 +600,14 @@
       &__node {
         position: relative;
         overflow: visible;
+        margin-bottom: var(--rds-spacing-xs, 4px);
       }
       
       &__node-content {
         overflow: visible;
         position: relative;
+        word-wrap: break-word;
+        max-width: 100%;
       }
       
       &__actions {
@@ -638,6 +648,33 @@
     }
     height: 100%;
     min-height: 472px;
+  }
+
+  &__toolbar-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(100% - 120px);
+    padding-right: var(--rds-spacing-xs, 4px);
+    
+    // Custom scrollbar styling
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: var(--rds-color-background-light, #f5f5f5);
+      border-radius: 3px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: var(--rds-color-border, #e0e0e0);
+      border-radius: 3px;
+      
+      &:hover {
+        background: var(--rds-color-text-tertiary, #adb5bd);
+      }
+    }
   }
 
   &__toolbar-divider {
@@ -753,27 +790,31 @@
       font-weight: 600;
       border-color: var(--rds-color-primary, #0D6EFD);
     }
-    position: absolute;
-    bottom: var(--rds-spacing-md, 16px);
-    left: var(--rds-spacing-md, -2px);
-    right: var(--rds-spacing-md, 0px);
-    display: flex;
-    flex-direction: column;
-    gap: var(--rds-spacing-sm, 12px);
-    background: var(--rds-color-surface, #fff);
-    padding: var(--rds-spacing-md, 16px);
-    border-top: 1px solid var(--rds-color-border, #e5e7eb);
-    z-index: 20;
+    // position: absolute;
+    // bottom: var(--rds-spacing-md, 16px);
+    // left: var(--rds-spacing-md, -2px);
+    // right: var(--rds-spacing-md, 0px);
+    // display: flex;
+    // flex-direction: column;
+    // gap: var(--rds-spacing-sm, 12px);
+    // background: var(--rds-color-surface, #fff);
+    // padding: var(--rds-spacing-md, 16px);
+    // border-top: 1px solid var(--rds-color-border, #e5e7eb);
+    // z-index: 20;
   }
 
   &__detail-pane-footer {
   position: absolute;
-  bottom: -131px;
-  left: var(--rds-spacing-md, -2px);
-  right: var(--rds-spacing-md, 0px);
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   gap: var(--rds-spacing-sm, 12px);
+  background: var(--rds-color-surface, #fff);
+  padding: var(--rds-spacing-md, 16px);
+  border-top: 1px solid var(--rds-color-border, #e5e7eb);
+  z-index: 20;
   }
 
   &__action-button {
@@ -819,10 +860,18 @@
     }
   }
 
+  &__figma-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
   &__figma-icon {
     width: 20px;
     height: 20px;
     flex-shrink: 0;
+    object-fit: contain;
   }
 
   &__figma-button-text {
@@ -836,6 +885,51 @@
     background-color: var(--rds-color-surface, #fff);
     border: 1px solid var(--rds-color-border, #e0e0e0);
     color: var(--rds-color-accent, #FF4785);
+  }
+
+  &__storybook-ui-kit-button {
+    @extend .rds-comp-details-pane__action-button;
+    background-color: var(--rds-color-surface, #fff);
+    border: 1px solid var(--rds-color-border, #e0e0e0);
+    color: var(--rds-color-accent, #FF4785);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--rds-spacing-xs, 8px);
+    padding: 0 var(--rds-spacing-md, 16px);
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: var(--rds-color-accent-light, #FFF4F6);
+      border-color: var(--rds-color-accent, #FF4785);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 71, 133, 0.15);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 6px rgba(255, 71, 133, 0.1);
+    }
+  }
+
+  &__storybook-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &__storybook-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  &__storybook-button-text {
+    font-weight: 500;
+    font-size: var(--rds-font-size-sm, 14px);
+    white-space: nowrap;
   }
 
   &__thumbnail-view-wrapper {
@@ -1133,11 +1227,13 @@
     }
     
     &__detail-pane-footer {
-      bottom: var(--rds-spacing-xs, 8px);
-      left: var(--rds-spacing-xs, 8px);
-      right: var(--rds-spacing-xs, 8px);
+      bottom: 0;
+      left: 0;
+      right: 0;
       padding: var(--rds-spacing-sm, 8px);
       gap: var(--rds-spacing-xs, 6px);
+      background: var(--rds-color-surface, #fff);
+      border-top: 1px solid var(--rds-color-border, #e5e7eb);
 
         border-radius: var(--rds-border-radius-sm, 4px);
         padding: 0 var(--rds-spacing-sm, 12px);
@@ -1147,7 +1243,15 @@
     &__toolbar-pane-container {
       padding-left: var(--rds-spacing-xs, 4px);
       padding-right: var(--rds-spacing-xs, 4px);
+      padding-bottom: 100px; // Add padding for footer buttons
       min-height: 400px;
+      max-height: calc(543px - 120px); // Mobile height limit
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    
+    &__toolbar-content {
+      max-height: calc(100% - 100px);
     }
     
     &__toolbar-buttons-row {
@@ -1227,9 +1331,9 @@
     }
     
     &__real-estate-footer-fixed {
-      left: var(--rds-spacing-xs, 8px);
-      right: var(--rds-spacing-xs, 8px);
-      bottom: var(--rds-spacing-xs, 6px);
+      left: 0;
+      right: 0;
+      bottom: 0;
       padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 12px);
     }
     
@@ -1406,6 +1510,44 @@
           &:hover {
             background-color: var(--dark-accent) !important;
             color: white !important;
+          }
+        }
+        
+        // Keep folder icons in original light theme colors
+        &__icon,
+        &__folder-icon,
+        .folder-icon,
+        .tree-icon {
+          color: #FFD700 !important; // Gold color for folders
+          fill: #FFD700 !important;
+          
+          &.folder-open {
+            color: #FFA500 !important; // Orange for open folders
+            fill: #FFA500 !important;
+          }
+        }
+        
+        // File icons keep their original colors too
+        &__file-icon,
+        .file-icon {
+          color: #4A90E2 !important; // Blue for files
+          fill: #4A90E2 !important;
+        }
+        
+        // Override any SVG or icon elements
+        svg[data-testid*="folder"],
+        svg[data-testid*="Folder"],
+        .MuiSvgIcon-root {
+          &[data-testid*="folder"],
+          &[data-testid*="Folder"] {
+            color: #FFD700 !important;
+            fill: #FFD700 !important;
+          }
+          
+          &[data-testid*="file"],
+          &[data-testid*="File"] {
+            color: #4A90E2 !important;
+            fill: #4A90E2 !important;
           }
         }
       }
@@ -1664,7 +1806,8 @@
       }
     }
     
-    &__storybook-button {
+    &__storybook-button,
+    &__storybook-ui-kit-button {
       background-color: var(--dark-bg-secondary) !important;
       border: 1px solid var(--dark-border) !important;
       color: var(--dark-text-primary) !important;
