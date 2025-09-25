@@ -104,7 +104,21 @@
     pointer-events: none;
   }
 }
-[data-theme="dark"]{
+// Dark theme support
+[data-theme="dark"],
+body.theme-dark {
+  .rds-tooltip {
+    --rds-tooltip-bg: var(--rds-neutral-light, #ffffff); 
+    --rds-tooltip-color: var(--rds-text-primary, #000000);
+    --rds-tooltip-border: var(--rds-border-default, #ffffff);
+    
+    &:hover .MuiTooltip-tooltip {
+      background: var(--rds-tooltip-bg);
+      color: var(--rds-tooltip-color);
+      border-color: var(--rds-tooltip-border);
+    }
+  }
+  
   .css-d56zgx-MuiButtonBase-root-MuiButton-root,
   .MuiButtonBase-root,
   .MuiButton-root,
