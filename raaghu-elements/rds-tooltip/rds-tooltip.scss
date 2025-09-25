@@ -109,7 +109,7 @@
 body.theme-dark {
   .rds-tooltip {
     --rds-tooltip-bg: var(--rds-neutral-light, #ffffff); 
-    --rds-tooltip-color: var(--rds-text-secondary, #000000);
+    --rds-tooltip-color: var(--rds-text-dark, #000000);
     --rds-tooltip-border: var(--rds-border-default, #ffffff);
     
     &:hover .MuiTooltip-tooltip {
