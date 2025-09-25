@@ -103,7 +103,7 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
             headerSubText={props.headerSubText}
           />
         ) : props.style === "Toolbar" ? (
-          <ToolbarContent/>
+          <ToolbarContent />
         ) : props.style === "Thumbnail View" ? (
           <ThumbnailViewContent 
             thumbnailButtonName={props.thumbnailButtonName}

@@ -78,7 +78,7 @@ export const FigmaUIKitButton: React.FC<FigmaUIKitButtonProps> = ({
       onClick={onClick}
       type="button"
     > 
-    <span className="rds-comp-details-pane__figma-icon-wrapper" aria-hidden>
+      <span className="rds-comp-details-pane__figma-icon-wrapper" aria-hidden>
       </span>
       <span className="rds-comp-details-pane__figma-button-text">{text}</span>
     </button>
@@ -96,6 +96,7 @@ export const StorybookButton: React.FC<StorybookButtonProps> = ({
       onClick={onClick}
       type="button"
     >
+
       <span className="rds-comp-details-pane__storybook-button-text">{text}</span>
     </button>
   );
