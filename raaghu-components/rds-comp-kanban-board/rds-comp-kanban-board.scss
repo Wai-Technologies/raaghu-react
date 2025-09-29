@@ -748,7 +748,7 @@ html[data-theme="dark"],
     
     &__card-header,
     .card-header {
-      background-color: var(--rds-color-primary-container, var(--dark-primary-container)) !important;
+      background-color: #1E5FC7 !important;
       color: var(--rds-color-on-primary-container, var(--dark-on-surface)) !important;
       border-bottom-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
     }
@@ -756,7 +756,7 @@ html[data-theme="dark"],
     .sub-card .card,
     .sub-card .card-body,
     .rds-kanban-board__sub-card-card {
-      background-color: var(--rds-color-surface-variant, var(--dark-surface-variant)) !important;
+      background-color: var(--rds-color-surface-variant, #AFCDFD) !important;
       color: var(--rds-color-on-surface-variant, var(--dark-on-surface-variant)) !important;
       border-color: var(--rds-color-outline-variant, var(--dark-outline-variant)) !important;
     }
@@ -764,8 +764,7 @@ html[data-theme="dark"],
     .MuiCard-root,
     .MuiCardContent-root,
     .MuiPaper-root {
-      background-color: var(--rds-color-surface, var(--dark-surface)) !important;
-      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+      color: var(--rds-color-on-surface, #1e1e1e) !important;
     }
     
     .MuiTypography-root {
@@ -891,15 +890,15 @@ html[data-theme="dark"],
     }
   }
   .rds-kanban-board__sub-card-header-left .MuiTypography-root {
-    color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
+    color: var(--rds-color-on-surface-variant, #7D7D7D) !important;
   }
   
   .rds-kanban-board__sub-card-text.f-14.fw-400 {
-    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
+    color: var(--rds-color-on-surface, #7D7D7D) !important;
   }
   
   .rds-kanban-board__sub-card-footer-left.f-12.fw-500 {
-    color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
+    color: var(--rds-color-on-surface-variant, #7D7D7D) !important;
   }
 }
 .MuiMenu-list,
