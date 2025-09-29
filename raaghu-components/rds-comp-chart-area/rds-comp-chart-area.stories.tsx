@@ -147,5 +147,12 @@ export const Default: Story = {
             }
         ],
         isGradient: true,
-    }
+    },
+     parameters: {
+        controls: {
+            exclude: [
+                    'isGradient', 
+            ],
+        },
+     },    
 };

@@ -1,0 +1,53 @@
+# Storybook files
+*.stories.*
+*.story.*
+**/*.stories.*
+**/*.story.*
+.storybook/
+**/.storybook/
+storybook-static/
+
+# Figma files
+*.figma.*
+*.figma.ts
+**/*.figma.*
+**/*.figma.ts
+figma.config.*
+
+# Test files
+*.test.*
+*.spec.*
+**/*.test.*
+**/*.spec.*
+**/__tests__/
+**/__mocks__/
+
+# Development files
+src/**/*.test.*
+src/**/*.spec.*
+jest.config.*
+eslint.config.*
+vite.config.*
+tsconfig.*.json
+million.config.*
+chromatic.config.*
+figma.config.*
+
+# Build artifacts and caches
+node_modules/
+coverage/
+.nyc_output/
+dist/
+build/
+bun.lock
+bunfig.toml
+
+# Documentation
+docs/
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+SECURITY.md
+
+# Development configs
+web.config
+index.html

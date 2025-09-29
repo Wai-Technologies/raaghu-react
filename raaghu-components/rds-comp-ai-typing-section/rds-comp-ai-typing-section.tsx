@@ -17,6 +17,7 @@ export interface RdsCompAiTypingSectionProps {
   previewImage?: string;
   type?: string;
   warningMsg?: boolean;
+  autoCompleteMaxWidth?: string; 
 }
 declare global {
   interface Window {
@@ -32,7 +33,8 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
   previewImage,
   type,
   warningMsg,
-  onAddComment
+  onAddComment,
+  autoCompleteMaxWidth
 }) => {
   const [inputText, setInputText] = useState<string>("");
   const [prevInputText, setPrevInputText] = useState<string>("");
@@ -148,8 +150,8 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
         <div className={`rds-comp-ai-chat-bot__actions${ isMobile ? " rds-comp-ai-chat-bot__actions--mobile" : "" }`}>
           <div className="rds-comp-ai-chat-bot__action-icons">
             <div className="rds-comp-ai-chat-bot__attach" id="Premium">
-                <RdsCompAiAttachement
-                  badgeColor="success"
+                  <RdsCompAiAttachement
+                    badgeColor="primary"
                   badgeLabel="Premium"
                   handleAddComment={handleAddComment}
                   hintText="Hint Text"
@@ -200,7 +202,10 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
             />
           </div>
         </div>
-        <div className="rds-comp-ai-chat-bot__autocomplete">
+        <div
+          className="rds-comp-ai-chat-bot__autocomplete"
+          style={autoCompleteMaxWidth ? { ['--ai-typing-autocomplete-max-width' as any]: autoCompleteMaxWidth } : undefined}
+        >
           <RdsAutocomplete
             controlStyle="default"
             helperText="Select one of the available options"

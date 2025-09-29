@@ -7,12 +7,13 @@ const meta: Meta = {
     component: RdsCompDatePicker,
     parameters: {
         layout: 'padded',
+        controls: {exclude: ['type']},
     },
     tags: ['autodocs'],
     argTypes: {
         variant: {
             control: { type: 'select' },
-            options: ['date', 'time', 'datetime', 'daterange', 'timerange', 'datetimerange'],
+            options: ['date', 'time', 'datetime', 'daterange', 'timerange'],
             description: 'The type of date picker to display'
         },
         layout: {
@@ -54,7 +55,7 @@ const meta: Meta = {
             options: ['dropdown', 'selector'],
             description: 'Type of the date picker'
         },
-        newVariant: {
+        style: {
             control: { type: 'select' },
             options: ['default', 'custom'],
             description: 'Variant of the date picker'
@@ -71,75 +72,75 @@ const meta: Meta = {
 } satisfies Meta<typeof RdsCompDatePicker>;
 
 export default meta;
-type Story = StoryObj<typeof RdsCompDatePicker>;
+// type Story = StoryObj<typeof RdsCompDatePicker>;
 
-export const Default: Story = {
-    args: {
-        variant: 'date',
-        layout: 'Default',
-        label: 'Select Date',
-        placeholder: 'Choose a date...',
-        size: 'small',
-        newVariant: 'default',
-        isRequired: true,
-    },
-    render: (args) => (
-        <RdsCompDatePicker
-            {...args}
-            minDate={dayjs('1900-01-01')}
-        />
-    ),
-} satisfies Story;
+// export const Default: Story = {
+//     args: {
+//         variant: 'date',
+//         layout: 'Default',
+//         label: 'Select Date',
+//         placeholder: 'Choose a date...',
+//         size: 'small',
+//         style: 'default',
+//         isRequired: true,
+//     },
+//     render: (args) => (
+//         <RdsCompDatePicker
+//             {...args}
+//             minDate={dayjs('1900-01-01')}
+//         />
+//     ),
+// } satisfies Story;
 
-export const TimePicker: Story = {
-    args: {
-        variant: 'time',
-        label: 'Select Time',
-        placeholder: 'HH:MM AM/PM',
-        size: 'small',
-        showSeconds: true,
-    }
-} satisfies Story;
+// export const TimePicker: Story = {
+//     args: {
+//         variant: 'time',
+//         label: 'Select Time',
+//         placeholder: 'HH:MM AM/PM',
+//         size: 'small',
+//         showSeconds: true,
+//     }
+// } satisfies Story;
 
-export const DateTimePicker: Story = {
-    args: {
-        variant: 'datetime',
-        label: 'Select Date & Time',
-        placeholder: 'MM/DD/YYYY HH:MM:SS AM/PM',
-        size: 'small',
-        showSeconds: true,
-    },
-    render: (args) => (
-        <RdsCompDatePicker
-            {...args}
-            minDate={dayjs('1900-01-01')}
-        />
-    ),
-} satisfies Story;
+// export const DateTimePicker: Story = {
+//     args: {
+//         variant: 'datetime',
+//         label: 'Select Date & Time',
+//         placeholder: 'MM/DD/YYYY HH:MM:SS AM/PM',
+//         size: 'small',
+//         showSeconds: true,
+//     },
+//     render: (args) => (
+//         <RdsCompDatePicker
+//             {...args}
+//             minDate={dayjs('1900-01-01')}
+//         />
+//     ),
+// } satisfies Story;
 
-export const DateRangePicker: Story = {
-    args: {
-        variant: 'daterange',
-        placeholder: 'Start date - End date',
-        newVariant: 'default',
-        size: 'small',
-    },
-    render: (args) => (
-        <RdsCompDatePicker
-            {...args}
-            minDate={dayjs('1900-01-01')}
-        />
-    ),
-} satisfies Story;
+// export const DateRangePicker: Story = {
+//     args: {
+//         variant: 'daterange',
+//         placeholder: 'Start date - End date',
+//         style: 'default',
+//         size: 'small',
+//     },
+//     render: (args) => (
+//         <RdsCompDatePicker
+//             {...args}
+//             minDate={dayjs('1900-01-01')}
+//         />
+//     ),
+// } satisfies Story;
 
-export const TimeRangePicker: Story = {
-    args: {
-        variant: 'timerange',
-        placeholder: 'Start time - End time',
-        size: 'small',
-        showSeconds: true,
-    }
-} satisfies Story;
+// export const TimeRangePicker: Story = {
+//     args: {
+//         variant: 'timerange',
+//         placeholder: 'Start time - End time',
+//         size: 'small',
+//         showSeconds: true,
+//     }
+// } satisfies Story;
 
 // export const DateTimeRangePicker: Story = {
 //     args: {
