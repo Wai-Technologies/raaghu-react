@@ -436,10 +436,10 @@
 
   // Style 3: Outlined pagination with white background
   &.style-3 {
-    background-color: white;
-    padding: 8px 10px;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    // background-color: white;
+    // padding: 8px 10px;
+    // border-radius: 4px;
+    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     // Use thin bottom border for selected items (consistent with other styles)
     .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
       background-color: transparent !important;
@@ -520,10 +520,10 @@
 
   // Style 7: White background pagination with dots, dropdown, legend and manual input
   &.style-7 {
-    background-color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    // background-color: white;
+    // padding: 8px 16px;
+    // border-radius: 4px;
+    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
      [data-theme="dark"] & {
       background-color: #4a4a4a;
      }
@@ -541,10 +541,10 @@
 
   // Style 8: White background with legend text only
   &.style-8 {
-    background-color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    // background-color: white;
+    // padding: 8px 16px;
+    // border-radius: 4px;
+    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     [data-theme="dark"] & {
       background-color: #4a4a4a;
      }
@@ -558,10 +558,10 @@
 
   // Style 9: Spaced pagination layout (1 1 1 format)
   &.style-9 {
-    background-color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    // background-color: white;
+    // padding: 8px 12px;
+    // border-radius: 4px;
+    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     
     .MuiPagination-ul {
       gap: 16px;
@@ -832,4 +832,60 @@
       padding: 4px 20px 4px 4px !important;
       padding-right: 20px !important;
     }
+}
+
+// Add flex-direction: row for styles 2, 6, 7, 8, 10, and 11 at 320px screen size only
+@media (max-width: 320px) {
+  .rds-pagination-wrapper.style-2,
+  .rds-pagination-wrapper.style-6,
+  .rds-pagination-wrapper.style-7,
+  .rds-pagination-wrapper.style-8,
+  .rds-pagination-wrapper.style-10,
+  .rds-pagination-wrapper.style-11 {
+    flex-direction: row !important;
+  }
+
+  // Add flex-direction: row for styles 3, 4, 5, 9 at 320px
+  .rds-pagination-wrapper.style-3,
+  .rds-pagination-wrapper.style-4,
+  .rds-pagination-wrapper.style-9 {
+    display: flex;
+    flex-direction: row !important;
+    align-items: center !important;
+    flex-wrap: nowrap;
+    
+    .pagination-dropdown {
+      margin-right: 8px !important;
+      margin-bottom: 0 !important;
+      display: flex;
+      align-items: center;
+    }
+    .pagination-manual-input {
+      margin-left: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      width: auto;
+      flex-basis: auto;
+      margin-top: 0 !important;
+      justify-content: flex-start !important;
+    }
+    .rds-pagination {
+      margin-right: 8px !important;
+      margin-bottom: 0 !important;
+    }
+    @media (max-width: 414px) {
+      .pagination-manual-input {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        gap: 4px !important;
+      }
+    }
+  }
+
+  // For style 4 only, set flex-direction: column at 320px screen size
+  .rds-pagination-wrapper.style-4 {
+    flex-direction: column !important;
+  }
 }
