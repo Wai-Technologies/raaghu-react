@@ -24,6 +24,8 @@ export interface RdsCompDetailsPaneProps {
   historyItems?: { id: number; name: string }[];
   olderHistoryItems?: { id: number; name: string }[];
   carouselImages?: { src: string; alt: string }[];
+   figmaIconSrc?: string;
+  storybookIconSrc?: string;
 }
 
 const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
@@ -103,7 +105,10 @@ const RdsCompDetailsPane = (props: RdsCompDetailsPaneProps) => {
             headerSubText={props.headerSubText}
           />
         ) : props.style === "Toolbar" ? (
-          <ToolbarContent />
+          <ToolbarContent 
+          figmaIconSrc={props.figmaIconSrc}
+            storybookIconSrc={props.storybookIconSrc}
+          />
         ) : props.style === "Thumbnail View" ? (
           <ThumbnailViewContent 
             thumbnailButtonName={props.thumbnailButtonName}
