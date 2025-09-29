@@ -16,8 +16,27 @@ import CloseIcon from "@mui/icons-material/Close";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 // import './rds-comp-adaptive-cards.scss';
-// All adaptive card props in one interface
+
 export interface AdaptiveCardProps {
+  onBtn1Click?: () => void;
+  // Controlled input values and handlers for InputForm
+  nameValue?: string;
+  emailValue?: string;
+  phoneValue?: string;
+  onNameChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onEmailChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onPhoneChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  // Error handling for InputForm
+  nameError?: string;
+  emailError?: string;
+  phoneError?: string;
+  // Controlled select values and handlers for RestaurantOrder
+  entreeValue?: string;
+  sideValue?: string;
+  drinkValue?: string;
+  onEntreeChange?: (e: any) => void;
+  onSideChange?: (e: any) => void;
+  onDrinkChange?: (e: any) => void;
   showBtn1?: boolean;
   showBtn2?: boolean;
   btn1style?: string;
@@ -135,7 +154,16 @@ export function InputFormCard(props: AdaptiveCardProps) {
     phoneLabel,
     phonePlaceholder,
     requiredText,
-    onChange
+    onChange,
+    nameValue,
+    emailValue,
+    phoneValue,
+    onNameChange,
+    onEmailChange,
+    onPhoneChange,
+    nameError,
+    emailError,
+    phoneError
   } = props;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -149,15 +177,41 @@ export function InputFormCard(props: AdaptiveCardProps) {
       <div className="rds-adaptive-cards__input-form-small-text">{smallText}</div>
       <div className="rds-adaptive-cards__input-form-field">
         <label className="rds-adaptive-cards__input-form-field-label">{nameLabel} <span className="rds-adaptive-cards__required">{requiredText}</span></label>
-        <input className="rds-adaptive-cards__action-btn--input-form" placeholder={namePlaceholder} required value={name} onChange={e => setName(e.target.value)} />
+        <input 
+          className={`rds-adaptive-cards__action-btn--input-form${nameError ? ' rds-adaptive-cards__input-error' : ''}`} 
+          placeholder={namePlaceholder} 
+          required 
+          value={nameValue !== undefined ? nameValue : name} 
+          onChange={onNameChange ? onNameChange : (e => setName(e.target.value))} 
+          name="name" 
+        />
+        {nameError && <div className="rds-adaptive-cards__error-message">{nameError}</div>}
       </div>
       <div className="rds-adaptive-cards__input-form-field">
         <label className="rds-adaptive-cards__input-form-field-label">{emailLabel} <span className="rds-adaptive-cards__required">{requiredText}</span></label>
-        <input className="rds-adaptive-cards__action-btn--input-form" placeholder={emailPlaceholder} required type="email" value={email} onChange={e => setEmail(e.target.value)} />
+        <input 
+          className={`rds-adaptive-cards__action-btn--input-form${emailError ? ' rds-adaptive-cards__input-error' : ''}`} 
+          placeholder={emailPlaceholder} 
+          required 
+          type="email" 
+          value={emailValue !== undefined ? emailValue : email} 
+          onChange={onEmailChange ? onEmailChange : (e => setEmail(e.target.value))} 
+          name="email" 
+        />
+        {emailError && <div className="rds-adaptive-cards__error-message">{emailError}</div>}
       </div>
       <div className="rds-adaptive-cards__input-form-field">
         <label className="rds-adaptive-cards__input-form-field-label">{phoneLabel} <span className="rds-adaptive-cards__required">{requiredText}</span></label>
-        <input className="rds-adaptive-cards__action-btn--input-form" placeholder={phonePlaceholder} required type="tel" value={phone} onChange={e => setPhone(e.target.value)} />
+        <input 
+          className={`rds-adaptive-cards__action-btn--input-form${phoneError ? ' rds-adaptive-cards__input-error' : ''}`} 
+          placeholder={phonePlaceholder} 
+          required 
+          type="tel" 
+          value={phoneValue !== undefined ? phoneValue : phone} 
+          onChange={onPhoneChange ? onPhoneChange : (e => setPhone(e.target.value))} 
+          name="phone" 
+        />
+        {phoneError && <div className="rds-adaptive-cards__error-message">{phoneError}</div>}
       </div>
     </div>
   );
@@ -340,14 +394,14 @@ export function CalendarReminderForm({
         {showBtn1 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn1">
             <Button variant="outlined" className="rds-adaptive-cards__action-btn">
-              {btn1Label || snoozeLabel}
+              {snoozeLabel || btn1Label}
             </Button>
           </RdsBox>
         )}
         {showBtn2 && (
           <RdsBox className="rds-adaptive-cards__calendar-reminder-action-box rds-adaptive-cards__calendar-reminder-action-box--btn2">
             <Button variant="outlined" className="rds-adaptive-cards__action-btn">
-              {btn2Label || lateLabel}
+              {lateLabel || btn2Label}
             </Button>
           </RdsBox>
         )}
@@ -388,6 +442,12 @@ export type RestaurantOrderFormProps = {
   setSide: (v: string) => void;
   drink: string;
   setDrink: (v: string) => void;
+  entreeValue?: string;
+  sideValue?: string;
+  drinkValue?: string;
+  onEntreeChange?: (e: any) => void;
+  onSideChange?: (e: any) => void;
+  onDrinkChange?: (e: any) => void;
   entreeLabel?: string;
   entreePlaceholder?: string;
   entreeOptions?: { value: string; label: string }[];
@@ -406,6 +466,12 @@ export function RestaurantOrderForm({
   setSide,
   drink,
   setDrink,
+  entreeValue,
+  sideValue,
+  drinkValue,
+  onEntreeChange,
+  onSideChange,
+  onDrinkChange,
   entreeLabel,
   entreePlaceholder,
   entreeOptions = [],
@@ -417,18 +483,19 @@ export function RestaurantOrderForm({
   drinkOptions = [], 
 }: RestaurantOrderFormProps) {
   return (
-  <RdsStack spacing={1} component="form" className="rds-adaptive-cards__restaurant-order">
+    <RdsStack spacing={1} component="form" className="rds-adaptive-cards__restaurant-order">
       <FormControl fullWidth required className="rds-adaptive-cards__restaurant-order-form">
         <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
           {entreeLabel}<span className="rds-adaptive-cards__required">*</span>
         </RdsTypography>
         <Select
-          value={entree}
-          onChange={e => setEntree(e.target.value as string)}
+          value={entreeValue !== undefined ? entreeValue : entree}
+          onChange={onEntreeChange ? onEntreeChange : (e => setEntree(e.target.value as string))}
           displayEmpty
           size="small"
           renderValue={renderSelectValue(entreePlaceholder)}
           IconComponent={ExpandMoreIcon}
+          name="entree"
         >
           <MenuItem value="" disabled>{entreePlaceholder}</MenuItem>
           {entreeOptions.map(opt => (
@@ -441,15 +508,16 @@ export function RestaurantOrderForm({
           {sideLabel}<span className="rds-adaptive-cards__required">*</span>
         </RdsTypography>
         <Select
-          value={side}
-          onChange={e => setSide(e.target.value as string)}
+          value={sideValue !== undefined ? sideValue : side}
+          onChange={onSideChange ? onSideChange : (e => setSide(e.target.value as string))}
           displayEmpty
           size="small"
           renderValue={renderSelectValue(sidePlaceholder)}
           IconComponent={ExpandMoreIcon}
+          name="side"
         >
           <MenuItem value="" disabled>{sidePlaceholder}</MenuItem>
-          {sideOptions?.map(opt => (
+          {sideOptions.map(opt => (
             <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>
           ))}
         </Select>
@@ -459,12 +527,13 @@ export function RestaurantOrderForm({
           {drinkLabel}<span className="rds-adaptive-cards__required">*</span>
         </RdsTypography>
         <Select
-          value={drink}
-          onChange={e => setDrink(e.target.value as string)}
+          value={drinkValue !== undefined ? drinkValue : drink}
+          onChange={onDrinkChange ? onDrinkChange : (e => setDrink(e.target.value as string))}
           displayEmpty
           size="small"
           renderValue={renderSelectValue(drinkPlaceholder)}
           IconComponent={ExpandMoreIcon}
+          name="drink"
         >
           <MenuItem value="" disabled>{drinkPlaceholder}</MenuItem>
           {drinkOptions.map(opt => (
