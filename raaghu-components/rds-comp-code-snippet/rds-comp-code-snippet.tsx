@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import "./rds-comp-code-snippet.scss";
 import OpenInFullOutlinedIcon from "@mui/icons-material/OpenInFullOutlined";
+import CodeOffIcon from '@mui/icons-material/CodeOff';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 // Syntax highlighting
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlight';
 import { atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import RdsButtonDropdown from "../../raaghu-elements/rds-button-dropdown/rds-button-dropdown";
 // Derive a dark variant from the light style so token colors stay consistent
 const darkStyle = {
   // copy all token styles from atomOneLight
@@ -22,7 +25,7 @@ const darkStyle = {
 const Highlighter = SyntaxHighlighter as unknown as React.ComponentType<any>;
 
 export interface RdsCompCodeSnippetProps {
-  code: string;
+  code?: string;
   // language can be a string like 'html' or a boolean to indicate showing default label
   language?: string | boolean;
   codeLines?: boolean;
@@ -30,6 +33,7 @@ export interface RdsCompCodeSnippetProps {
   type?: "singleLine" | "multiLine";
   maxHeight?: string;
   className?: string;
+  sampleCodeSnippets?: Record<string, string>;
 }
 
 const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
@@ -40,12 +44,35 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
   type = "multiLine",
   maxHeight,
   className = "",
+  sampleCodeSnippets,
 }) => {
   const [copied, setCopied] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(
+    typeof language === 'string' ? language : 'html'
+  );
+
+  const languageOptions = [
+    { id: 'html', label: 'Html' },
+    { id: 'css', label: 'CSS' },
+    { id: 'javascript', label: 'JavaScript' },
+    { id: 'typescript', label: 'TypeScript' },
+    { id: 'json', label: 'JSON' },
+  ];
+  const getCurrentCode = (): string => {
+    if (code) return code;
+    if (!sampleCodeSnippets) return '';
+    return sampleCodeSnippets[selectedLanguage as keyof typeof sampleCodeSnippets] || sampleCodeSnippets.html || '';
+  };
+  const currentCode = getCurrentCode();
+
+  const handleLanguageChange = (val: string[] | string) => {
+    const next = Array.isArray(val) ? val[0] : val;
+    if (next) setSelectedLanguage(next as string);
+  };
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(code);
+      await navigator.clipboard.writeText(currentCode);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -54,7 +81,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
   };
 
   const getLines = () => {
-    return code.split("\n");
+    return currentCode.split("\n");
   };
 
   // Normalize language handling
@@ -77,11 +104,10 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                 PreTag="span"
                 className="rds-comp-code-snippet__inline-highlighter"
               >
-                {code.length > 100 ? code.slice(0, 100) + '...' : code}
+                {currentCode.length > 100 ? currentCode.slice(0, 100) + '...' : currentCode}
               </Highlighter>
             </span>
-            <div className="rds-comp-code-snippet__actions">
-              {language && <span className="rds-comp-code-snippet__language-label">Html</span>}
+            <div className="rds-comp-code-snippet__actions">             
               <button 
                 className={`rds-comp-code-snippet__copy-button ${copied ? "rds-comp-code-snippet__copy-button--copied" : ""}`} 
                 onClick={handleCopy} 
@@ -107,7 +133,21 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
           <>
             <div className="rds-comp-code-snippet__wrapper">
               <div className="rds-comp-code-snippet__toolbar">
-                {language && <span className="rds-comp-code-snippet__language-label">Html</span>}
+                {showLanguage && (
+                  <div className="rds-comp-code-snippet__language-dropdown">
+                    <RdsButtonDropdown
+                      buttonStyle={'filled'}
+                      buttonText={selectedLanguage || (languageLabel as string)}
+                      options={languageOptions as any}
+                      showSearch={false}
+                      leftIcon={<CodeOffIcon style={{ fontSize: 16 }} />}
+                      rightIcon={<KeyboardArrowDownIcon style={{ fontSize: 18 }} />}
+                      onChange={handleLanguageChange}
+                      showUserAvatar={false}
+                      showRadio={false}
+                    />
+                  </div>
+                )}
                 <button 
                   className={`rds-comp-code-snippet__copy-button ${copied ? "rds-comp-code-snippet__copy-button--copied" : ""}`} 
                   onClick={handleCopy} 
@@ -139,7 +179,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                       showLineNumbers={codeLines}
                       className="rds-comp-code-snippet__highlighter"
                     >
-                      {code}
+                      {currentCode}
                     </Highlighter>
                   </div>
               </div>

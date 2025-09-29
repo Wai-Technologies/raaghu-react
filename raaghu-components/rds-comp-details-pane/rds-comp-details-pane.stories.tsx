@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompDetailsPane from "./rds-comp-details-pane";
 
+
+const figmaIconSrc = "assets/figma.png"
+
+const storybookIconSrc = "assets/storybook.png"
+
 // Define demo data that will be used across different stories
 const demoHistoryItems = [
   { id: 1, name: "Login Page Creation" },
@@ -34,6 +39,12 @@ const meta: Meta = {
             options: ["Favourites", "Favourites - New Folder", "Prompt History", "Real Estate","Selection","Toolbar","Thumbnail View"],
             control: { type: "select" },
         },
+          figmaIconSrc: {
+            control: { type: "text" },
+        },
+        storybookIconSrc: {
+            control: { type: "text" },
+        },
     },
 } satisfies Meta<typeof RdsCompDetailsPane>;
 
@@ -54,7 +65,9 @@ export const Default: Story = {
             { src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80", alt: "Night Sky" },
            // { src: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80", alt: "Night Sky" },
             { src: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80", alt: "Night Sky" }
-        ]
+        ],
+         figmaIconSrc: figmaIconSrc,
+        storybookIconSrc: storybookIconSrc,
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['headerText','historyTabLabel','favouritesTabLabel','addtoscreen','addtofolder','style'] } };
