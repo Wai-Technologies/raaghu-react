@@ -4,6 +4,7 @@ import RdsAvatar from "../../raaghu-elements/rds-avatar/rds-avatar";
 import { SendOutlined as SendIcon, SentimentSatisfiedAltOutlined as EmojiIcon, ChatBubbleOutlineOutlined as ChatIcon, FilterListOutlined as FilterIcon, MoreVertOutlined as MoreIcon, ArrowBackIosNew as ArrowBackIcon } from "@mui/icons-material";
 import RdsInput from "../../raaghu-elements/rds-input/rds-input";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
+import RdsCompEmojiGenerator from "../rds-comp-emoji-generator/rds-comp-emoji-generator";
 import Box from "@mui/material/Box";
 
 export interface Comment {
@@ -101,6 +102,13 @@ const RdsCompChat = (props: RdsCompChatProps) => {
       addComment({ firstName: state.currentUser.firstName, lastName: state.currentUser.lastName, comment: state.commentText });
       updateState({ commentText: "" });
     }
+  };
+
+  const handleEmojiSelect = (emoji: string) => {
+    updateState({ 
+      commentText: state.commentText + emoji,
+      showEmojiPicker: false 
+    });
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -216,7 +224,14 @@ const RdsCompChat = (props: RdsCompChatProps) => {
           </div>
 
           <div className="rds-comp-chat__window-footer">
-            {state.showEmojiPicker && <div className="rds-comp-chat__emoji-popup" ref={emojiPickerRef}></div>}
+            {state.showEmojiPicker && (
+              <div className="rds-comp-chat__emoji-popup" ref={emojiPickerRef}>
+                <RdsCompEmojiGenerator 
+                  onEmojiSelect={handleEmojiSelect}
+                  maxEmojis={40}
+                />
+              </div>
+            )}
             <div className="rds-comp-chat__footer-left">
               <RdsButton color="primary" changeLeftIcon="add" showLeftIcon layout="icon-only" style="filled" onClick={() => document.getElementById("fileUpload")?.click()} />
               <input id="fileUpload" className="rds-comp-chat__file-input" type="file" accept="image/*,video/*" onChange={handleImageUpload} />
