@@ -62,7 +62,7 @@
 // Structure: .rds-comp-chat { __element { --modifier } }
 
 .rds-comp-chat {
-  border: 1px solid var(--rds-color-border, #646464);
+  border: 1px solid #646464;
   border-radius: var(--rds-border-radius, 5px);
   display: flex;
   flex-direction: column;
@@ -72,6 +72,13 @@
   max-height: 80vh;
   overflow: hidden;
   box-sizing: border-box;
+  position: relative; // Create positioning context for emoji popup
+
+  // Mobile variant
+  &--mobile {
+    position: relative; // Ensure positioning context for mobile
+    overflow: visible; // Allow emoji popup to be visible
+  }
 
   // Chat Screen (User List)
   &__screen {
@@ -227,7 +234,7 @@
       align-items: center;
       padding: var(--rds-spacing-sm, 12px);
       flex-shrink: 0;
-      background: var(--rds-color-surface);      
+      background: var(--rds-color-dark);      
       position: relative;
     }
 
@@ -365,7 +372,148 @@
   &__emoji-popup {
     position: absolute;
     z-index: var(--rds-z-index-tooltip, 1000);
-    visibility: hidden;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 8px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    width: 360px; // Match emoji generator's natural width
+    max-height: 400px;
+    
+    .rds-emoji-generator {
+      // Override default size for chat context
+      width: 100%;
+      height: 400px;
+      max-height: 400px;
+      overflow-x: hidden; // Prevent horizontal scrolling in chat context
+      
+      // Ensure grid container only scrolls vertically
+      .rds-emoji-generator__grid-container {
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+    }
+    
+    // Responsive positioning
+    @media (max-width: 768px) and (min-width: 415px) {
+      position: absolute;
+      top: auto;
+      bottom: 60px;
+      left: 12px;
+      right: 12px;
+      width: auto;
+      max-width: calc(100% - 24px);
+      margin: 0;
+      
+      .rds-emoji-generator {
+        width: 100%;
+        height: 350px;
+        max-height: 350px;
+        overflow-x: hidden; // Prevent horizontal scrolling in chat context
+        
+        // Ensure grid container only scrolls vertically
+        .rds-emoji-generator__grid-container {
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+      }
+    }
+    
+    // Large mobile devices (414px and below) but above 320px
+    @media (max-width: 414px) and (min-width: 321px) {
+      position: absolute !important;
+      top: auto !important;
+      bottom: 55px !important;
+      left: 8px !important;
+      right: 8px !important;
+      width: auto !important; // Let left/right positioning control width
+      max-width: calc(100% - 16px) !important; // Stay well within chat container borders
+      margin: 0 !important;
+      transform: none !important;
+      
+      .rds-emoji-generator {
+        width: 100%;
+        height: 320px; // Reduced height to fit better
+        max-height: 320px;
+        overflow-x: hidden;
+        border-radius: 8px; // Smaller border radius
+        
+        .rds-emoji-generator__grid-container {
+          overflow-x: hidden;
+          overflow-y: auto;
+          grid-template-columns: repeat(6, 1fr); // Reduce to 6 columns for better fit
+          gap: 6px; // Smaller gap
+          padding-right: 4px; // Minimal padding for scrollbar
+        }
+        
+        .rds-emoji-generator__grid {
+          padding: 8px; // Reduced padding
+        }
+        
+        .rds-emoji-generator__emoji {
+          font-size: 18px; // Smaller emoji size
+          width: 30px; // Smaller emoji container
+          height: 30px;
+        }
+        
+        .rds-emoji-generator__search {
+          padding: 6px 10px; // Reduced search padding
+        }
+        
+        .rds-emoji-generator__categories {
+          padding: 6px 10px; // Reduced category padding
+        }
+      }
+    }
+    
+    // Small mobile devices (320px and below)
+    @media (max-width: 320px) {
+      position: absolute !important;
+      top: auto !important;
+      bottom: 55px !important;
+      left: 8px !important;
+      right: 8px !important;
+      width: auto !important; // Let left/right positioning control width
+      max-width: calc(100% - 16px) !important; // Stay well within chat container borders
+      margin: 0 !important;
+      transform: none !important;
+      
+      .rds-emoji-generator {
+        width: 100%;
+        height: 300px; // Reduced height for small screens
+        max-height: 300px;
+        overflow-x: hidden;
+        border-radius: 8px; // Smaller border radius for small screens
+        
+        .rds-emoji-generator__grid-container {
+          overflow-x: hidden;
+          overflow-y: auto;
+          grid-template-columns: repeat(6, 1fr); // Reduce to 6 columns for small screens
+          gap: 4px; // Even smaller gap
+          padding-right: 4px; // Minimal padding for scrollbar
+        }
+        
+        .rds-emoji-generator__grid {
+          padding: 6px; // Minimal padding
+        }
+        
+        .rds-emoji-generator__emoji {
+          font-size: 16px; // Smaller emoji size
+          width: 28px; // Smaller emoji container
+          height: 28px;
+        }
+        
+        .rds-emoji-generator__search {
+          padding: 6px 8px; // Reduced search padding
+        }
+        
+        .rds-emoji-generator__categories {
+          padding: 4px 8px; // Reduced category padding
+        }
+      }
+    }
   }
 
   // Input
@@ -413,6 +561,10 @@
     box-sizing: border-box;
     gap: 8px;
     min-height: 40px;
+  }
+
+  &__field {
+    border: 1px solid var(--rds-border-default, #555555) !important;
   }
 
   /* make RdsInput and any native input inside stretch to fill wrapper and remove its own borders */
@@ -862,15 +1014,27 @@
     background-color: var(--rds-color-primary,rgb(62 63 64)) !important;
     color: var(--rds-color-on-primary, rgb(238, 244, 249)) !important;
   }
-}
 
-.rds-comp-chat__screen-main .rds-comp-chat__user-item:hover, .rds-comp-chat__screen-main .chat-screen-main .user-item:hover, .chat-screen-main .rds-comp-chat__screen-main .user-item:hover {
-.rds-avatar {
-  &__name, &__designation {
-    color: var(--rds-color-on-primary, #000) !important;
+  .rds-comp-chat__screen-main .rds-comp-chat__user-item {
+    &:hover {
+      background-color: #1E5FC7 !important;
+      color: white !important;
+    }
+
+    &--selected {
+      background-color: #1E5FC7 !important;
+      color: white !important;
+    }
   }
 }
-}
+
+//.rds-comp-chat__screen-main .rds-comp-chat__user-item:hover, .rds-comp-chat__screen-main .chat-screen-main .user-item:hover, .chat-screen-main .rds-comp-chat__screen-main .user-item:hover {
+// .rds-avatar {
+//   &__name, &__designation {
+//     color: var(--rds-color-on-primary, #000) !important;
+//   }
+// }
+//}
 
 // Legacy class support (for backward compatibility during transition)
 .chat-container {
