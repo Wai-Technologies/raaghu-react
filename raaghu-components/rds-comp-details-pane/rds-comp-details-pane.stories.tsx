@@ -71,5 +71,3 @@ export const Default: Story = {
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['headerText','historyTabLabel','favouritesTabLabel','addtoscreen','addtofolder','style'] } };
-
-
