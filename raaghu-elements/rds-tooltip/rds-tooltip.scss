@@ -112,6 +112,11 @@ body.theme-dark {
     --rds-tooltip-color: var(--rds-text-dark, #000000);
     --rds-tooltip-border: var(--rds-border-default, #ffffff);
     
+    // Arrow color override for dark theme
+    .MuiTooltip-arrow {
+      color: var(--rds-tooltip-bg);
+    }
+    
     &:hover .MuiTooltip-tooltip {
       background: var(--rds-tooltip-bg);
       color: var(--rds-tooltip-color);
