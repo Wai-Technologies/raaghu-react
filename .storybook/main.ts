@@ -8,7 +8,7 @@ const config: StorybookConfig = {
     "../raaghu-components/**/**/*.stories.@(js|jsx|ts|tsx)",
     "../raaghu-layouts/**/**/*.stories.@(js|jsx|ts|tsx)",
   ],
-  addons: ['@storybook/addon-links', '@storybook/addon-docs', '@storybook/addon-actions'],
+  addons: ['@storybook/addon-links', '@storybook/addon-docs'],
   framework: {
     name: '@storybook/react-vite',
     options: {},

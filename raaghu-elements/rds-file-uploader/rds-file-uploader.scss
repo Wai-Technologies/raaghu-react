@@ -586,7 +586,7 @@ color: var(--rds-color-primary, #3390e6); // --rds-color-primary
 @media (max-width: 414px) and (min-width: 320px) {
   .rds-file-uploader {
     min-width: 0 !important;
-    max-width: 98vw !important;
+    max-width: 90vw !important;
     margin: 0 auto;
     &__drop-zone {
       min-width: 0 !important;

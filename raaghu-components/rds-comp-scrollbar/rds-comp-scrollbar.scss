@@ -154,3 +154,46 @@
     color: var(--rds-color-gray-500, #94a3b8);
   }
 }
+
+/* Dark mode styles */
+.rds-theme--dark,
+body.theme-dark,
+body[data-theme="dark"],
+[data-theme="dark"],
+.theme-dark {
+  .rds-scrollbar {
+    background-color: var(--rds-color-surface-dark, #1e1e1e);
+    border-color: var(--rds-color-gray-600, #555555);
+    
+    &--mac {
+      .rds-scrollbar__controls {
+        button {
+          &:hover {
+            background-color: var(--rds-color-gray-700, #404040);
+          }
+        }
+      }
+    }
+    
+    &__button {
+      &:hover {
+        background-color: var(--rds-color-gray-700, #404040);
+      }
+      
+      .rds-scrollbar__icon {
+        color: var(--rds-color-on-surface-dark, #ffffff) !important;
+      }
+    }
+    
+    /* Dark mode scrollbar icon styling */
+    &__icon {
+      color: var(--rds-color-on-surface-dark, #ffffff) !important;
+    }
+    
+    /* Ensure MUI icons are visible in dark mode */
+    .MuiSvgIcon-root,
+    [class*="-MuiSvgIcon-root"] {
+      color: var(--rds-color-on-surface-dark, #ffffff) !important;
+    }
+  }
+}
