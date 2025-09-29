@@ -110,6 +110,8 @@
     cursor: pointer;
     transition: all 0.2s ease;
     border: 1px solid;
+    min-width: 110px;
+    justify-content: center;
 
     // Focus state for accessibility
     &:focus,
@@ -128,7 +130,10 @@
 
   // Copy text element
   &__copy-text {
-    white-space: nowrap;
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
   }
 
   // Expand icon element
