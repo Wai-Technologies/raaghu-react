@@ -55,7 +55,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
   const [selectedColorHex, setSelectedColorHex] = useState<string>(value || "#9751F2");
   const [showPicker, setShowPicker] = useState(type !== ColorPickerType.Button);
   const [selectedTab, setSelectedTab] = useState(
-    showSwatches ? "Spectrum" : pickerType || "Grid"
+    pickerType || "Grid"
   );
   const [selectedColorMode, setSelectedColorMode] = useState<ColorMode>(colorMode || ColorMode.HEX);
   const [showColorModeDropdown, setShowColorModeDropdown] = useState(false);
@@ -90,8 +90,8 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
   }, [value]);
 
   useEffect(() => {
-    setSelectedTab(showSwatches ? "Spectrum" : pickerType || "Grid");
-  }, [pickerType, showSwatches]);
+    setSelectedTab(pickerType || "Grid");
+  }, [pickerType]);
 
   // Keep internal selectedStyle in sync with prop changes (Storybook controls)
   useEffect(() => {
