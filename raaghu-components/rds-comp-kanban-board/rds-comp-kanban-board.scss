@@ -929,7 +929,7 @@ html[data-theme="dark"],
     background: transparent !important;
   }
   
-  scrollbar-width: none !important;
+  scrollbar-width: none;
   -ms-overflow-style: none !important;
   overflow: -moz-scrollbars-none !important;
 }
@@ -944,7 +944,7 @@ div[role="presentation"],
 ul[role="listbox"],
 div[role="menu"],
 .MuiModal-root {
-  scrollbar-width: none !important;
+  scrollbar-width: none;
   -ms-overflow-style: none !important;
   
   &::-webkit-scrollbar,
@@ -959,7 +959,7 @@ div[role="menu"],
   .MuiMenu-list,
   .MuiAutocomplete-listbox,
   * {
-    scrollbar-width: none !important;
+    scrollbar-width: none;
     -ms-overflow-style: none !important;
   }
 }

@@ -1152,3 +1152,22 @@
  .css-1x4jos1 > :not(style) ~ :not(style) {
     margin-left: 0px !important;
 }
+
+// Input form error styling
+.rds-adaptive-cards__input-error {
+  border-color: #d32f2f !important;
+  border-width: 2px !important;
+  &:focus {
+    outline-color: #d32f2f !important;
+    box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2) !important;
+  }
+}
+
+.rds-adaptive-cards__error-message {
+  color: #d32f2f;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  font-weight: 400;
+  line-height: 1.4;
+}
