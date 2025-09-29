@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import './rds-button-dropdown.scss';
 import RdsButton from '../rds-button/rds-button';
 import RdsMenu from '../rds-menu/rds-menu';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
@@ -34,6 +35,7 @@ export interface RdsButtonDropdownProps {
   showRadio?: boolean;
   isShowLeftIcon?: boolean;
   isShowRightIcon?: boolean;
+  buttonStyle?: 'filled' | 'outlined' | 'transparent';
 }
 
 const RdsButtonDropdown = ({
@@ -138,7 +140,7 @@ const RdsButtonDropdown = ({
           )}
           <div style={{ maxHeight: 240, overflowY: 'auto' }}>
             {filteredOptions.map(opt => (
-              <div key={opt.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 0' }}>
+              <div key={opt.id} className="rds-button-dropdown__option">
                 {showUserAvatar && <RdsAvatar size="small" src={opt.avatarSrc} />}
                 {multiSelect ? (
                   <RdsCheckbox
