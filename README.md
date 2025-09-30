@@ -415,11 +415,8 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 
 - [Setup Your Development Environment](https://github.com/Wai-Technologies/raaghu-react/wiki#setup-your-development-environment): Start using Raaghu Design System by referring to our docs on Wiki.
 - [Getting Started](https://github.com/Wai-Technologies/raaghu-react/wiki/Getting-Started/#running-the-solution): Create a common Library, Component, Screens etc.
-- [Create new solution](): Guide to create new React Solution.
 - [Storybook](https://react.raaghu.ai/): Build bulletproof UI components faster.
 - [Demo](https://demo.raaghu.ai/): Explore our demo to see our customizable platform.
-- [Figma UI Kit](https://raaghu.ai/figma-ui-kit): Preview & download Figma designs.
-- [Toolkit](https://raaghu.ai/vs-code-extension): Boost productivity by 3x with a suite of tools.
 - [CLI](https://raaghu.ai/cli): Streamline and automate your development workflow with a robust CLI.
 
 <h2 style="border-bottom:0;color:#964BFF;"> 
