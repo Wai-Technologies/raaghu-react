@@ -23,6 +23,10 @@ export interface RdsDrawerProps extends DrawerProps {
   closeButtonText?: string;
   /** Additional props forwarded to the close RdsButton. */
   closeButtonProps?: Partial<React.ComponentProps<typeof RdsButton>>;
+  /** When true, wraps the trigger button in a centered container (useful for stories). */
+  centerTrigger?: boolean;
+  /** CSS class name for the trigger wrapper container. */
+  triggerWrapperClassName?: string;
 }
 
 const RdsDrawer: React.FC<RdsDrawerProps> = ({
@@ -39,6 +43,8 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
   showCloseButton = false,
   closeButtonText = 'Close Drawer',
   closeButtonProps,
+  centerTrigger = false,
+  triggerWrapperClassName,
   ...props
 }) => {
   const drawerAnchor = anchor || position;
@@ -117,20 +123,36 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
   );
 
   if (showTrigger) {
+    const triggerButton = (
+      <RdsButton
+        text={getButtonText()}
+        onClick={triggerTextWhenOpen ? handleToggle : handleToggle}
+        color="primary"
+        layout="text-only"
+        shape="rectangle"
+        size="medium"
+        state="default"
+        style="filled"
+        textCase="unset"
+        {...triggerButtonProps}
+      />
+    );
+
+    if (centerTrigger) {
+      const wrapperClass = triggerWrapperClassName || 'rds-drawer-trigger-wrapper';
+      return (
+        <>
+          <div className={wrapperClass}>
+            {triggerButton}
+          </div>
+          {drawerElement}
+        </>
+      );
+    }
+
     return (
       <>
-        <RdsButton
-          text={getButtonText()}
-          onClick={triggerTextWhenOpen ? handleToggle : handleToggle}
-          color="primary"
-          layout="text-only"
-          shape="rectangle"
-          size="medium"
-          state="default"
-          style="filled"
-          textCase="unset"
-          {...triggerButtonProps}
-        />
+        {triggerButton}
         {drawerElement}
       </>
     );
