@@ -168,4 +168,9 @@
       padding-top: 0px !important;
     }
   }
+
+  // Helper text alignment with field border
+  .MuiFormHelperText-root {
+    margin-left: 0 !important;
+  }
 }
