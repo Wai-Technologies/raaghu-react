@@ -540,7 +540,12 @@ export const TriPane: Story = {
           <span className="rds-appshell-add-layout-text">Add Layout</span>
         </div>
         <div id="detail-pane-one-three-one">
-          <RdsCompDetailsPane style="Toolbar" headerText={""} />
+          <RdsCompDetailsPane 
+            style="Toolbar" 
+            headerText={""} 
+            figmaIconSrc="assets/figma.png"
+            storybookIconSrc="assets/storybook.png"
+          />
         </div>
       </div>
     ),
