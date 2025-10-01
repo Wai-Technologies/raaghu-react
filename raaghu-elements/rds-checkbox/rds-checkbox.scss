@@ -346,20 +346,55 @@
     }
 
 [data-theme='dark'] & {
-  .MuiCheckbox-root {
-    &::before {
-      background-color: transparent;
+  // Dark mode styles for circular checkboxes
+  &.rds-checkbox__circular {
+    .MuiCheckbox-root {
+      &::before {
+        background-color: transparent;
+      }
+
+      &.Mui-checked::before,
+      &.MuiCheckbox-indeterminate::before {
+        background-color: var(--rds-primary-main, #2196f3);
+      }
     }
 
-    &.Mui-checked::before,
-    &.MuiCheckbox-indeterminate::before {
-      background-color: var(--rds-primary-main, #2196f3);
+    &.rds-checkbox__secondary .MuiCheckbox-root.Mui-checked::before,
+    &.rds-checkbox__secondary .MuiCheckbox-root.MuiCheckbox-indeterminate::before {
+      background-color: var(--rds-secondary-main, #1827BB);
     }
   }
 
-  &.rds-checkbox__secondary .MuiCheckbox-root.Mui-checked::before,
-  &.rds-checkbox__secondary .MuiCheckbox-root.MuiCheckbox-indeterminate::before {
-    background-color: var(--rds-secondary-main, #1827BB);
+  // Dark mode styles for square checkboxes
+  &.rds-checkbox__square {
+    .MuiCheckbox-root {
+      &.Mui-checked,
+      &.MuiCheckbox-indeterminate {
+        color: var(--rds-primary-main, #2196f3);
+      }
+    }
+
+    &.rds-checkbox__secondary .MuiCheckbox-root {
+      &.Mui-checked,
+      &.MuiCheckbox-indeterminate {
+        color: var(--rds-secondary-main, #1827BB);
+      }
+    }
+  }
+
+  // Default styles (applies to both square and circular if not specifically overridden)
+  .MuiCheckbox-root {
+    &.Mui-checked,
+    &.MuiCheckbox-indeterminate {
+      color: var(--rds-primary-main, #2196f3);
+    }
+  }
+
+  &.rds-checkbox__secondary .MuiCheckbox-root {
+    &.Mui-checked,
+    &.MuiCheckbox-indeterminate {
+      color: var(--rds-secondary-main, #1827BB);
+    }
   }
 }
 
