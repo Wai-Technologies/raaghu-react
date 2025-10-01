@@ -535,7 +535,6 @@ export const TriPane: Story = {
             showLogo={false}
           />
         </div>
-        {/* Add Layout message in the center, full height */}
         <div className="rds-appshell-add-layout-flex-center">
           <span className="rds-appshell-add-layout-text">Add Layout</span>
         </div>
