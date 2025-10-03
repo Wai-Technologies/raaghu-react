@@ -554,12 +554,6 @@
     }
   }
 
-  .rds-comp-toast__icon--circle {
-    --rds-toast-circle-color: var(--rds-color-on-surface-dark, #ffffff);
-  }
-  .rds-comp-toast__icon--plus {
-    --rds-toast-plus-color: var(--rds-color-on-surface-dark, #ffffff);
-  }
 
   /* Ensure all button text is readable/white in dark theme without changing behaviors */
   &__close-btn {
