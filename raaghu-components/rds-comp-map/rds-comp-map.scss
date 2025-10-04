@@ -62,7 +62,6 @@
     overflow: visible;
   }
 
-  // Override any internal styles from react-svg-worldmap
   div[style*="height"] {
     height: auto !important;
   }
