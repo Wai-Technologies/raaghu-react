@@ -38,7 +38,7 @@
     }
 
     &--form {
-      padding: 16px 20px;
+      padding: 16px 10px;
       max-width: 700px;
       margin-top: 15px;
       height: auto;
@@ -713,6 +713,11 @@
     // Target the standard "Choose File" button class used in RdsFileUploaderStandardView
     .rds-file-uploader__choose-btn {
       background-color: #7c3aed !important;
+      border-color: #7c3aed !important;
+      color: #fff !important;
+    }
+    .rds-file-uploader__choose-btn:hover {
+      background-color: #7c3aed !important; // Darker purple on hover
       border-color: #7c3aed !important;
       color: #fff !important;
     }
