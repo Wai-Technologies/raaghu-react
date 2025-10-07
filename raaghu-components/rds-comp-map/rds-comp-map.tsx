@@ -85,13 +85,54 @@ const RdsCompMap = (props: RdsCompMapProps) => {
 
     const stylingFunction = mapType === 'heatmap' ? heatMapStylingFunction : defaultStylingFunction;
 
+    // Determine map size based on screen width
+    const getMapSize = (): "sm" | "md" | "lg" | "xl" | "xxl" | "responsive" | undefined => {
+        if (typeof window !== 'undefined') {
+            const width = window.innerWidth;
+            if (width <= 320) return 'responsive';
+            if (width <= 414) return 'responsive';
+            if (width <= 768) return 'md';
+            return 'lg';
+        }
+        return 'responsive';
+    };
+
+    const [mapSize, setMapSize] = React.useState<"sm" | "md" | "lg" | "xl" | "xxl" | "responsive" | undefined>(getMapSize());
+
+    React.useEffect(() => {
+        const handleResize = () => {
+            setMapSize(getMapSize());
+        };
+
+        if (typeof window !== 'undefined') {
+            window.addEventListener('resize', handleResize);
+            return () => window.removeEventListener('resize', handleResize);
+        }
+    }, []);
+
     return (
         <div className={`rds-comp-map ${mapType === 'heatmap' ? 'rds-comp-map--heatmap' : ''}`}>
             {props.title && (
                 <div className="rds-comp-map__label">{props.title}</div>
             )}
             <div className="rds-comp-map__center">
-                <WorldMap styleFunction={stylingFunction} color={props.color} title="" value-suffix="people" size="md" data={props.mapList} />
+                <div style={{ 
+                    width: '100%', 
+                    height: 'auto', 
+                    overflow: 'visible',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'flex-start'
+                }}>
+                    <WorldMap 
+                        styleFunction={stylingFunction} 
+                        color={props.color} 
+                        title="" 
+                        value-suffix="people" 
+                        size={mapSize} 
+                        data={props.mapList} 
+                    />
+                </div>
             </div>
         </div>
     );
