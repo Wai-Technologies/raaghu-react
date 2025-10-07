@@ -367,6 +367,7 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
                 <RdsBadge 
                   badgeContent={badge.content} 
                   color={badge.color} 
+                  colorVariant="secondary"
                   size={badge.size}
                   shape={badge.shape}
                 />
