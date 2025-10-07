@@ -1467,7 +1467,11 @@
     }
   }
 }
-
+@media screen and (min-width: 414px) {
+  .rds-comp-details-pane {
+    margin-left: 25px;
+  }
+} 
 .theme-light {
   .rds-comp-details-pane {
     &__tab-btn {
