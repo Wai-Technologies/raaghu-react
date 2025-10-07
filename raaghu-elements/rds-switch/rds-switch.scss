@@ -135,6 +135,14 @@
   margin-left: 4px !important;
 }
 
+// Checked state margin for styles 2 and 4
+.rds-switch--style2 .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--style2 .MuiSwitch-input:checked + .MuiSwitch-thumb,
+.rds-switch--style4 .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--style4 .MuiSwitch-input:checked + .MuiSwitch-thumb {
+  margin-left: 4px !important;
+}
+
 // Style 5: Red underline, "Off" label inside
 .rds-switch--style5 .MuiSwitch-track {
   background: var(--rds-color-switch-track, #c0c0c3) !important;

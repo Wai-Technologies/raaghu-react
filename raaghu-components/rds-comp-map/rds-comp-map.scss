@@ -7,8 +7,10 @@
   box-shadow: none !important;
   padding: 10px !important;
   margin: 0 !important;
-  min-height: 100vh;
+  min-height: auto;
+  height: auto;
   position: relative;
+  overflow: hidden;
 
   &__label {
     font-size: 20px;
@@ -23,8 +25,19 @@
   &__center {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
+    position: relative;
+    min-height: auto;
+    height: auto;
+    
+    // Handle react-svg-worldmap container
+    & > div {
+      width: 100%;
+      max-width: 100%;
+      overflow: visible;
+      height: auto;
+    }
   }
 
   svg {
@@ -33,6 +46,32 @@
     width: 100%;
     height: auto;
     max-width: 700px;
+    min-width: 280px;
+    
+    // Ensure the SVG scales properly
+    & > * {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  // Specific styling for react-svg-worldmap wrapper
+  & > div:first-child {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  div[style*="height"] {
+    height: auto !important;
+  }
+
+  // Ensure proper sizing for small screens
+  @media (max-width: 480px) {
+    svg {
+      max-width: calc(100vw - 20px) !important;
+      width: calc(100vw - 20px) !important;
+    }
   }
 
   &__heatmap-image {
@@ -53,6 +92,102 @@
     
     svg, &__heatmap-image {
       max-width: 100%;
+    }
+  }
+
+  // Small screens (320px and below)
+  @media (max-width: 320px) {
+    padding: 5px !important;
+    max-width: 100vw;
+    box-sizing: border-box;
+    height: auto;
+    min-height: auto;
+    
+    &__label {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    
+    &__center {
+      width: 100%;
+      max-width: 100%;
+      overflow: visible;
+      padding: 0;
+      margin: 0;
+      min-height: auto;
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    
+    svg, &__heatmap-image {
+      width: 310px !important;
+      max-width: 310px !important;
+      min-width: 280px !important;
+      height: auto !important;
+      transform: scale(1);
+      transform-origin: center top;
+      box-sizing: border-box;
+      margin: 0 auto;
+      display: block;
+    }
+
+    // Ensure the parent div of WorldMap component scales properly
+    & > div {
+      width: 310px !important;
+      max-width: 310px !important;
+      height: auto !important;
+      margin: 0 auto !important;
+      overflow: visible !important;
+    }
+  }
+
+  // Medium small screens (321px to 414px)
+  @media (min-width: 321px) and (max-width: 414px) {
+    padding: 8px !important;
+    max-width: 100vw;
+    box-sizing: border-box;
+    height: auto;
+    min-height: auto;
+    
+    &__label {
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
+    
+    &__center {
+      width: 100%;
+      max-width: 100%;
+      overflow: visible;
+      padding: 0;
+      margin: 0;
+      min-height: auto;
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    
+    svg, &__heatmap-image {
+      width: 400px !important;
+      max-width: 400px !important;
+      min-width: 380px !important;
+      height: auto !important;
+      transform: scale(1);
+      transform-origin: center top;
+      box-sizing: border-box;
+      margin: 0 auto;
+      display: block;
+    }
+
+    // Ensure the parent div of WorldMap component scales properly
+    & > div {
+      width: 400px !important;
+      max-width: 400px !important;
+      height: auto !important;
+      margin: 0 auto !important;
+      overflow: visible !important;
     }
   }
 

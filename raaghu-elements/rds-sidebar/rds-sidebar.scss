@@ -1,6 +1,6 @@
 // Utility override for MUI close button position in collapse/fixed only
-.rds-sidebar--collapse .css-1ysp02-MuiButtonBase-root-MuiIconButton-root,
-.rds-sidebar--fixed .css-1ysp02-MuiButtonBase-root-MuiIconButton-root {
+.rds-sidebar--collapse .MuiDrawer-paper .MuiIconButton-root,
+.rds-sidebar--fixed .MuiDrawer-paper .MuiIconButton-root {
   right: 23px !important;
 }
 // RDS Sidebar Component Styles
