@@ -1,13 +1,17 @@
 // RDS Accordion Component Styles - MUI Compatible
-// Dark-mode: consolidated (OS preference + Storybook/theme toggles)
+// Dark-mode: prioritize explicit theme over OS preference
 @mixin _rds-dark {
-  @media (prefers-color-scheme: dark) {
-    @content;
-  }
-
+  // Only apply dark styles when explicitly set via Storybook theme
   body[data-theme="dark"], html[data-theme="dark"],
   .theme-dark, .sb-show-main[data-theme="dark"] {
     @content;
+  }
+}
+
+// Apply OS dark mode only when no explicit theme is set
+@media (prefers-color-scheme: dark) {
+  body:not([data-theme]), html:not([data-theme]) {
+    @include _rds-dark;
   }
 }
 
