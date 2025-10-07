@@ -750,3 +750,15 @@
     color: var(--text-txt-neutral-light-default, #969696);
   }
 }
+
+@media (max-width: 320px) {
+  .rds-counter .css-rizt0-MuiTypography-root {
+   margin-top: 26px;
+  }
+}
+
+@media (max-width: 420px) {
+  .rds-counter .css-rizt0-MuiTypography-root {
+    margin-top: 20px !important;
+  }
+}
