@@ -214,6 +214,20 @@
     }
   }
 
+  // Full width navigation for specific screen sizes (around 321px and 415px)
+  @media (min-width: 320px) and (max-width: 322px), (min-width: 414px) and (max-width: 416px) {
+    .MuiPagination-ul {
+      width: 100% !important;
+      justify-content: space-between !important;
+    }
+    
+    .MuiPaginationItem-root {
+      flex: 1 !important;
+      margin: 0 1px !important;
+      min-width: auto !important;
+    }
+  }
+
   // Selected (current) page
   .MuiPaginationItem-root.Mui-selected {
     font-weight: 700;
@@ -308,83 +322,137 @@
   margin: 16px 0;
 
   // Responsive wrapper styles for small screens
-  @media (max-width: 586px) {
-    flex-direction: column;
-    gap: 8px;
-    margin: 8px 0;
+  // @media (max-width: 586px) {
+  //   flex-direction: row;
+  //   gap: 8px;
+  //   margin: 8px 0;
     
-    // Style 1: Full pagination with all features - stack vertically
-    &.style-1 {
-      .rds-pagination {
-        margin-bottom: 8px;
-      }
-      .pagination-dropdown,
-      .pagination-legend,
-      .pagination-manual-input {
-        margin-left: 0 !important;
-        margin-top: 4px;
-      }
-    }
+  //   // Style 1: Full pagination with all features - stack vertically
+  //   &.style-1 {
+  //     .rds-pagination {
+  //       margin-bottom: 8px;
+  //     }
+  //     .pagination-dropdown,
+  //     .pagination-legend,
+  //     .pagination-manual-input {
+  //       margin-left: 0 !important;
+  //       margin-top: 4px;
+  //     }
+  //   }
 
-    // Style 3: White background pagination - adjust padding
-    &.style-3 {
-      padding: 6px 8px;
-      .rds-pagination {
-        margin-bottom: 8px;
-      }
-      .pagination-dropdown,
-      .pagination-legend,
-      .pagination-manual-input {
-        margin-left: 0 !important;
-        margin-top: 4px;
-      }
-    }
+  //   // Style 3: White background pagination - adjust padding
+  //   &.style-3 {
+  //     padding: 6px 8px;
+  //     .rds-pagination {
+  //       margin-bottom: 8px;
+  //     }
+  //     .pagination-dropdown,
+  //     .pagination-legend,
+  //     .pagination-manual-input {
+  //       margin-left: 0 !important;
+  //       margin-top: 4px;
+  //     }
+  //   }
 
-    // Style 4: Pagination with Next button and dropdown - stack vertically
-    &.style-4 {
-      .rds-pagination {
-        margin-bottom: 8px;
-      }
-      .MuiButton-root {
-        margin-top: 4px;
-      }
-      .pagination-dropdown {
-        margin-left: 0 !important;
-        margin-top: 4px;
-      }
-    }
+  //   // Style 4: Pagination with Next button and dropdown - stack vertically
+  //   &.style-4 {
+  //     .rds-pagination {
+  //       margin-bottom: 8px;
+  //     }
+  //     .MuiButton-root {
+  //       margin-top: 4px;
+  //     }
+  //     .pagination-dropdown {
+  //       margin-left: 0 !important;
+  //       margin-top: 4px;
+  //     }
+  //   }
 
-    // Style 5: Pagination with Next button - reduce spacing
-    &.style-5 {
-      .rds-pagination {
-        margin-bottom: 8px;
-      }
-      .MuiButton-root {
-        margin-top: 4px;
-        padding: 4px 8px;
-        font-size: 0.75rem;
-      }
-    }
+  //   // Style 5: Pagination with Next button - reduce spacing
+  //   &.style-5 {
+  //     .rds-pagination {
+  //       margin-bottom: 8px;
+  //     }
+  //     .MuiButton-root {
+  //       margin-top: 4px;
+  //       padding: 4px 8px;
+  //       font-size: 0.75rem;
+  //     }
+  //   }
 
-    // Style 9: Spaced pagination - reduce gaps significantly
+  //   // Style 9: Spaced pagination - reduce gaps significantly
+  //   &.style-9 {
+  //     padding: 6px 8px;
+  //     .MuiPagination-ul {
+  //       gap: 4px !important;
+  //     }
+  //     .MuiPaginationItem-root {
+  //       margin: 0 2px !important;
+  //     }
+  //     .rds-style9 {
+  //       gap: 8px !important;
+  //       .rds-style9-prev, .rds-style9-next {
+  //         min-width: 24px;
+  //         height: 24px;
+  //         font-size: 0.75rem;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // Full width navigation for styles 1, 2, 3, 4, 5, 7, and 9 on specific screen sizes
+  @media (min-width: 320px) and (max-width: 322px), (min-width: 414px) and (max-width: 416px) {
+    &.style-1,
+    &.style-2,
+    &.style-3,
+    &.style-4,
+    &.style-5,
+    &.style-7,
     &.style-9 {
-      padding: 6px 8px;
-      .MuiPagination-ul {
-        gap: 4px !important;
+      width: 100% !important;
+      
+      .rds-pagination {
+        width: 100% !important;
+        
+        .MuiPagination-ul {
+          width: 100% !important;
+          justify-content: space-between !important;
+          gap: 0 !important;
+        }
+        
+        .MuiPaginationItem-root {
+          flex: 1 !important;
+          margin: 0 1px !important;
+          min-width: auto !important;
+          max-width: none !important;
+        }
       }
-      .MuiPaginationItem-root {
-        margin: 0 2px !important;
-      }
-      .rds-style9 {
-        gap: 8px !important;
-        .rds-style9-prev, .rds-style9-next {
-          min-width: 24px;
-          height: 24px;
-          font-size: 0.75rem;
+      
+      // Ensure prev/next buttons also take appropriate space for styles 4 and 5
+      &.style-4,
+      &.style-5 {
+        .MuiButton-root {
+          flex: 1 !important;
+          margin: 0 2px !important;
         }
       }
     }
   }
+
+  // Add flex-direction: column for styles 1, 2, 3, 4, 5, 7, and 9 at 415px screen size
+  @media (min-width: 414px) and (max-width: 416px) {
+    &.style-1,
+    &.style-2,
+    &.style-3,
+    &.style-4,
+    &.style-5,
+    &.style-7,
+    &.style-9 {
+      flex-direction: column !important;
+    }
+  }
+
+
 
   // Additional styles for very small screens (320-414px)
   @media (max-width: 414px) {
@@ -850,7 +918,7 @@
   .rds-pagination-wrapper.style-4,
   .rds-pagination-wrapper.style-9 {
     display: flex;
-    flex-direction: row !important;
+    flex-direction: column !important;
     align-items: center !important;
     flex-wrap: nowrap;
     
@@ -876,8 +944,9 @@
     }
     @media (max-width: 414px) {
       .pagination-manual-input {
-        flex-direction: column !important;
-        align-items: flex-start !important;
+       // flex-direction: column !important;
+       // align-items: flex-start !important;
+       justify-content: center !important;
         width: 100% !important;
         gap: 4px !important;
       }
