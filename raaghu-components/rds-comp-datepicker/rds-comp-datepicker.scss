@@ -585,7 +585,7 @@ font-weight: bold;
 }
 
 .react-datepicker__day--today {
-  color: #0d6efd !important;
+  color: #fff !important;
   font-weight: 600;
   box-shadow: inset 0 0 0 1px rgba(13,110,253,0.06);
   border-radius: 6px;
@@ -945,7 +945,7 @@ font-weight: bold;
     &__icon-container { right: 8px; width: 28px; height: 28px; }
     &__clear-button { right: 64px; }
     &__dropdown-menu--show { margin-right: 0 !important; width: 100% !important; }
-    &__custom-dropdown { width: 100% !important; }
+    &__custom-dropdown { width: 85% !important; }
     &__dropdown-menu--show .react-datepicker { margin-left: 0 !important; width: 100% !important; }
   }
   

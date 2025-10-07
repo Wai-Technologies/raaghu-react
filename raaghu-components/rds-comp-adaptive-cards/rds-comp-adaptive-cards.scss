@@ -198,6 +198,14 @@
     padding-bottom: var(--rds-spacing-sm, 8px);
     min-height: var(--rds-component-button-height-small, 32px);
   }
+  // Activity Update Card Actions Layout
+  &__actions--activity-update {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    padding: 0 !important;
+    margin-top: var(--rds-spacing-sm, 8px) !important;
+  }
   // ----- Calendar Reminder -----
   &__calendar-reminder-label {
     font-size: var(--rds-font-size-md, 14px) !important;

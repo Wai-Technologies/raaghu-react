@@ -97,3 +97,32 @@
 .rds-drawer-close-button {
   margin-left: 20px;
 }
+
+// Story-specific styles for centering trigger button
+.rds-drawer-trigger-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 200px;
+}
+
+// Responsive centering for persistent drawer trigger
+.rds-drawer-persistent-trigger {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 200px;
+  padding: var(--rds-spacing-lg);
+  
+  @media (max-width: 768px) {
+    min-height: 150px;
+    padding: var(--rds-spacing-md);
+  }
+  
+  @media (max-width: 480px) {
+    min-height: 120px;
+    padding: var(--rds-spacing-sm);
+  }
+}

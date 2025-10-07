@@ -512,14 +512,7 @@
   
   // Counter buttons for dark theme
   &__button {
-    background-color: var(--rds-color-primary, #7e2eef) !important;
     color: var(--rds-primary-contrast-text, #ffffff) !important;
-    border: 1px solid var(--rds-color-primary, #7e2eef) !important;
-    
-    &:hover:not(&--disabled) {
-      background-color: var(--rds-color-primary-dark, #4f00a6) !important;
-      border-color: var(--rds-color-primary-dark, #4f00a6) !important;
-    }
     
     &:focus {
 
@@ -552,8 +545,6 @@
     &--large,
     &--increment,
     &--decrement {
-      background-color: var(--rds-color-primary, #7e2eef) !important;
-      border-color: var(--rds-color-primary, #7e2eef) !important;
       color: var(--rds-primary-contrast-text, #ffffff) !important;
     }
   }
@@ -659,7 +650,6 @@
   // Button interaction states
   &__button {
     &:active:not(&--disabled) {
-      background-color: var(--rds-color-primary-dark, #4f00a6) !important;
       transform: translateY(1px);
       transition: all 0.1s ease;
     }
@@ -758,5 +748,17 @@
   .rds-counter__input,
   .rds-counter__input input {
     color: var(--text-txt-neutral-light-default, #969696);
+  }
+}
+
+@media (max-width: 320px) {
+  .rds-counter .css-rizt0-MuiTypography-root {
+   margin-top: 26px;
+  }
+}
+
+@media (max-width: 420px) {
+  .rds-counter .css-rizt0-MuiTypography-root {
+    margin-top: 20px !important;
   }
 }

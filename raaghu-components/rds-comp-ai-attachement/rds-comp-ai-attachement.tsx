@@ -51,6 +51,7 @@ registerMaterialIcons({ 'attachment_icon': AttachmentIcon });
 
 const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
     const [showModal, setShowModal] = useState(false);
+    const [figmaUrl, setFigmaUrl] = useState("");
     const fileInputRef = useRef<HTMLInputElement>(null);
     const firstUser = props.userData && props.userData.length > 0 ? props.userData[0] : null;
     const [commentList, setCommentList] = useState<Comment[]>(firstUser?.comments || []);
@@ -98,6 +99,11 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
                 fabMenu.classList.remove("show");
             }
         }
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        setFigmaUrl(""); 
     };
 
     return (
@@ -173,7 +179,7 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
             {showModal && (
                     <RdsModal
                         isOpen={showModal}
-                        onClose={() => setShowModal(false)}
+                        onClose={closeModal}
                         title={props.modalTitle}
                         actions={null}
                         showCloseButton={true}
@@ -187,8 +193,11 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
                             name="Enter Figma URL"
                             state="default"
                             style="default"
-                            value=""
-                            onChange={(e) => props.onFigmaSubmit?.(e.target.value)}
+                            value={figmaUrl}
+                            onChange={(e) => {
+                                setFigmaUrl(e.target.value);
+                                props.onFigmaSubmit?.(e.target.value);
+                            }}
                         />
                     </RdsModal>
             )}
