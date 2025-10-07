@@ -57,11 +57,12 @@ export const Default: Story = {
     showTrigger: true,
     triggerText: 'Open Drawer',
     anchor: 'left',
+    centerTrigger: true,
     children: drawerContent,
   },
 };
 Default.parameters = {
-  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant'] },
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'centerTrigger'] },
 };
 
 export const Right: Story = {
@@ -69,11 +70,12 @@ export const Right: Story = {
     showTrigger: true,
     triggerText: 'Open Drawer',
     anchor: 'right',
+    centerTrigger: true,
     children: drawerContent,
   },
 };
 Right.parameters = {
-  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant'] },
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'centerTrigger'] },
 };
 
 export const Top: Story = {
@@ -81,6 +83,7 @@ export const Top: Story = {
     showTrigger: true,
     triggerText: 'Open Drawer',
     anchor: 'top',
+    centerTrigger: true,
     children: (
       <div style={{ height: 200, padding: '16px' }}>
         <Typography variant="h6" gutterBottom>
@@ -92,7 +95,7 @@ export const Top: Story = {
   },
 };
 Top.parameters = {
-  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant'] },
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'centerTrigger'] },
 };
 
 export const Bottom: Story = {
@@ -100,6 +103,7 @@ export const Bottom: Story = {
     showTrigger: true,
     triggerText: 'Open Drawer',
     anchor: 'bottom',
+    centerTrigger: true,
     children: (
       <div style={{ height: 200, padding: '16px' }}>
         <Typography variant="h6" gutterBottom>
@@ -111,7 +115,7 @@ export const Bottom: Story = {
   },
 };
 Bottom.parameters = {
-  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant'] },
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'centerTrigger'] },
 };
 
 export const Persistent: Story = {
@@ -121,11 +125,13 @@ export const Persistent: Story = {
     triggerTextWhenOpen: 'Close Persistent Drawer',
     variant: 'persistent',
     anchor: 'left',
+    centerTrigger: true,
+    triggerWrapperClassName: 'rds-drawer-persistent-trigger',
     children: drawerContent,
   },
 };
 Persistent.parameters = {
-  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'triggerTextWhenOpen'] },
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'triggerTextWhenOpen', 'centerTrigger'] },
 };
 
 export const Interactive: Story = {
@@ -133,6 +139,7 @@ export const Interactive: Story = {
     showTrigger: true,
     triggerText: 'Open Drawer',
     anchor: 'left',
+    centerTrigger: true,
     showCloseButton: true,
     closeButtonText: 'Close Drawer',
     children: (
@@ -145,5 +152,5 @@ export const Interactive: Story = {
   },
 };
 Interactive.parameters = {
-  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'showCloseButton'] },
+  controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'showCloseButton', 'centerTrigger'] },
 };
