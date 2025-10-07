@@ -1,6 +1,6 @@
 .rds-comp-details-pane {
   width: 338.098px;
-  height: 647px;
+  height: 662px;
   flex-direction: column;
   align-items: center;
   gap: var(--rds-spacing-xl, 24px);
@@ -538,7 +538,7 @@
   }
 
   &__real-estate-footer {
-    margin-top: var(--rds-spacing-xxxl, -12px);
+    margin-top: var(--rds-spacing-xxxl, 80px);
   }
   
   &__real-estate-footer-fixed {
@@ -560,7 +560,7 @@
   }
 
   &__guest-counter {
-    margin-top: 35px;
+    margin-top: 10px;
   }
 
   &__guest-separator {
@@ -570,7 +570,7 @@
 
   &__counter-button-left {
     margin-left: calc(var(--rds-spacing-xxs, 5px) * 1);
-    margin-top: 34px;
+    margin-top: 10px;
   }
 .rds-counter__controls--medium {
     height: 38px;
@@ -1246,7 +1246,6 @@
       padding: var(--rds-spacing-xs, 6px);
       
       button {
-         padding-bottom: 100px; // Reduced padding for mobile
         height: 36px;
         font-size: var(--rds-font-size-xs, 12px);
          // Adjust tree structure actions for mobile
@@ -1468,7 +1467,11 @@
     }
   }
 }
-
+@media screen and (min-width: 414px) {
+  .rds-comp-details-pane {
+    margin-left: 25px;
+  }
+} 
 .theme-light {
   .rds-comp-details-pane {
     &__tab-btn {
@@ -1502,7 +1505,7 @@
     border: 1px solid var(--dark-border) !important;
     
     &, & * {
-      color: var(--dark-text-primary) !important;
+      color: var(--dark-text-primary) ;
     }
  
 
@@ -1670,14 +1673,10 @@
       background: var(--dark-bg-secondary) !important;
       border-color: var(--dark-border) !important;
       color: var(--dark-text-primary) !important;
-      
-      &:hover {
-        background: var(--dark-bg-tertiary) !important;
-      }
-      
+    
       &--active,
       &--selected {
-        background: var(--dark-accent) !important;
+        background: #3c98ff !important;
         color: white !important;
       }
     }
@@ -1754,7 +1753,6 @@
     }
     
     &__agent-badge {
-      background-color: var(--dark-accent) !important;
       color: white !important;
     }
     
@@ -1800,18 +1798,9 @@
     }
     
     &__footer-fixed {
-      background: var(--dark-bg-primary) !important;
-      border-top: 1px solid var(--dark-border) !important;
-      
       button {
-        background: var(--dark-accent) !important;
         color: white !important;
-        border-color: var(--dark-accent) !important;
         
-        &:hover {
-          background: #5855eb !important;
-          border-color: #5855eb !important;
-        }
         
         &.secondary {
           background: var(--dark-bg-secondary) !important;
@@ -1826,13 +1815,12 @@
     }
     
     &__download-button {
-      background: var(--dark-accent) !important;
       color: white !important;
       border-color: var(--dark-accent) !important;
       
       &:hover {
-        background: #5855eb !important;
-        border-color: #5855eb !important;
+        background: #007bff !important;
+        border-color: #007bff !important;
       }
     }
     
@@ -1969,7 +1957,7 @@
     }
     
     * {
-      color: inherit !important;
+      color: inherit;
     }
     
     input, textarea, select {
@@ -1983,7 +1971,7 @@
     }
     
     p, span, div, label, h1, h2, h3, h4, h5, h6 {
-      color: var(--dark-text-primary) !important;
+      color: var(--dark-text-primary);
     }
     
     .MuiTypography-root {
@@ -1994,9 +1982,6 @@
       color: var(--dark-text-primary) !important;
       border-color: var(--dark-border) !important;
       
-      &:hover {
-        background: var(--dark-bg-tertiary) !important;
-      }
     }
     
     .card, .card-body, .card-header {

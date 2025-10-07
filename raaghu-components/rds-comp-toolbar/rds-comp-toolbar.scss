@@ -529,3 +529,9 @@ body[data-theme="dark"] .rds-comp-toolbar__dropdown,
  .theme-dark .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item {
    color: var(--rds-color-on-surface-dark, #fff) !important;
  }
+.rds-theme--dark .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item:hover,
+ body.theme-dark .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item:hover,
+ body[data-theme="dark"] .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item:hover,
+ .theme-dark .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item:hover {
+   background: var(--rds-color-hover-dark, #4a4a4a) !important;
+ }

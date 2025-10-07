@@ -640,7 +640,7 @@
 
 // Editable input fields
 .rds-card__editable-field {
-  padding: var(--rds-spacing-md, 16px);
+  padding: var(--rds-spacing-xs, 8px);
   
   // Styling for RdsInput components
   .rds-input {
@@ -711,6 +711,7 @@
 
 .rds-card__avatar-section--editable .rds-avatar{
  margin-left: var(--rds-spacing-md, 15px) !important;
+  margin-top: var(--rds-spacing-xs, 8px) !important;
 }
 
 // Target the story’s exact badge class combos to also force solid backgrounds
