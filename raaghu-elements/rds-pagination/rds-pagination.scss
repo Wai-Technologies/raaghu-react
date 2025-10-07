@@ -29,6 +29,8 @@
     justify-content: center;
     cursor: pointer;
     outline: none;
+    min-width: 32px;
+    height: 32px;
     [data-theme="dark"] & {
       color: var(--rds-color-primary, #fff);
     }
@@ -45,12 +47,25 @@
     // Default shape is circular, but allow override by variant/shape
     &.MuiPaginationItem-circular {
       border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      
+      // Maintain circular shape on hover
+      &:hover {
+        border-radius: 50%;
+      }
     }
     &.MuiPaginationItem-rounded {
       border-radius: 5px;
       padding:10px;
       justify-content: center;
       align-items: center;
+      
+      // Maintain rounded shape on hover
+      &:hover {
+        border-radius: 5px;
+      }
     }
   }
   // Responsive styles for medium mobile screens
@@ -433,7 +448,7 @@
       &.style-5 {
         .MuiButton-root {
           flex: 1 !important;
-          margin: 0 2px !important;
+          margin: 3px 2px !important;
         }
       }
     }
