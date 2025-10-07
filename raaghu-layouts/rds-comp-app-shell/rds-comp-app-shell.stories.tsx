@@ -535,12 +535,16 @@ export const TriPane: Story = {
             showLogo={false}
           />
         </div>
-        {/* Add Layout message in the center, full height */}
         <div className="rds-appshell-add-layout-flex-center">
           <span className="rds-appshell-add-layout-text">Add Layout</span>
         </div>
         <div id="detail-pane-one-three-one">
-          <RdsCompDetailsPane style="Toolbar" headerText={""} />
+          <RdsCompDetailsPane 
+            style="Toolbar" 
+            headerText={""} 
+            figmaIconSrc="assets/figma.png"
+            storybookIconSrc="assets/storybook.png"
+          />
         </div>
       </div>
     ),
