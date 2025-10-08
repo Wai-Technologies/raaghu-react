@@ -31,16 +31,17 @@
     transition: background-color 0.2s ease;
     outline: none;
 
-    &:hover {
+    &:hover:not(&--selected) {
       background-color: #f5f5f5;
     }
 
-    [data-theme="dark"] &:hover {
+    [data-theme="dark"] &:hover:not(&--selected) {
       background-color: #4a4a4a;
     }
 
     &--selected {
-      background-color: #e3f2fd;
+      background-color: #3C98FF;
+      color: #ffffff;
     }
 
     &--disabled {
