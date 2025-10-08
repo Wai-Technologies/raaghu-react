@@ -236,6 +236,13 @@
     }
   }
 
+  /* Autocomplete container default sizing */
+  &__autocomplete {
+    /* Allow it to grow and take remaining horizontal space while capping at a max width */
+    flex: 1 1 auto;
+    max-width: var(--ai-typing-autocomplete-max-width, 60px);
+    min-width: 190px;
+  }
   /* Explicitly ensure large/normal screens use row layout (reset small-screen column rules) */
   @media (min-width: 376px) {
     &__project-actions {

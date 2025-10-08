@@ -353,6 +353,46 @@
     }
   }
 }
+
+// Additional override for system dark theme + storybook light theme scenario
+// This specifically targets the case when OS prefers dark but Storybook UI is light
+body:not(.theme-dark):not([data-theme="dark"]) {
+  @media (prefers-color-scheme: dark) {
+    .rds-comp-notification--type-info.rds-comp-notification--style-image {
+      &, &.rds-comp-notification--layout-horizontal {
+        background-color: var(--rds-background-paper, #ffffff) !important;
+        color: #000000 !important;
+        border: none !important;
+      }
+      
+      // Force black text when system is dark but app theme is light
+      .MuiTypography-root,
+      .rds-comp-notification__title,
+      .rds-comp-notification__time,
+      .rds-comp-notification__description {
+        color: #000000 !important;
+      }
+      
+      // Black dismiss button icon
+      .rds-comp-notification__dismiss svg {
+        color: #000000 !important;
+      }
+      
+      // Black secondary button text
+      .rds-comp-notification__secondary-button {
+        color: #000000 !important;
+      }
+      
+      .MuiPaper-root, .MuiCard-root { 
+        background-color: var(--rds-background-paper, #ffffff) !important; 
+      }
+      .rds-comp-notification__image-container { 
+        background-color: transparent !important; 
+      }
+    }
+  }
+}
+
 .css-mixntr-MuiButtonBase-root-MuiIconButton-root{
   z-index: 1 !important;
 }
@@ -360,27 +400,137 @@
   box-shadow: none !important;
 }
 
+// System theme dark + notification type info + style image = black text
 @media (prefers-color-scheme: dark) {
   .rds-comp-notification--type-info.rds-comp-notification--style-image {
     &, &.rds-comp-notification--layout-horizontal {
-      background-color: var(--rds-background-paper, #424242) !important;
-      color: var(--rds-text-primary, #ffffff) !important;
+      background-color: var(--rds-background-paper, #ffffff) !important;
+      color: #000000 !important;
       border: none !important;
     }
-    .MuiPaper-root, .MuiCard-root { background-color: var(--rds-background-paper, #424242) !important; }
-    .rds-comp-notification__image-container { background-color: transparent !important; }
+    
+    // Override all text elements to be black when system theme is dark
+    .MuiTypography-root,
+    .rds-comp-notification__title,
+    .rds-comp-notification__time,
+    .rds-comp-notification__description {
+      color: #000000 !important;
+    }
+    
+    // Ensure dismiss button icon is black
+    .rds-comp-notification__dismiss svg {
+      color: #000000 !important;
+    }
+    
+    // Make secondary button text black
+    .rds-comp-notification__secondary-button {
+      color: #000000 !important;
+    }
+    
+    .MuiPaper-root, .MuiCard-root { 
+      background-color: var(--rds-background-paper, #ffffff) !important; 
+    }
+    .rds-comp-notification__image-container { 
+      background-color: transparent !important; 
+    }
+  }
+  
+  // Special case: when system is dark but storybook theme is light
+  // This handles the specific scenario mentioned in the request
+  :root:not([data-theme="dark"]) .rds-comp-notification--type-info.rds-comp-notification--style-image {
+    &, &.rds-comp-notification--layout-horizontal {
+      background-color: var(--rds-background-paper, #ffffff) !important;
+      color: #000000 !important;
+      border: none !important;
+    }
+    
+    // Force all text to black when system theme is dark but app theme is light
+    .MuiTypography-root,
+    .rds-comp-notification__title,
+    .rds-comp-notification__time,
+    .rds-comp-notification__description {
+      color: #000000 !important;
+    }
+    
+    // Ensure dismiss button icon is black
+    .rds-comp-notification__dismiss svg {
+      color: #000000 !important;
+    }
+    
+    // Make secondary button text black
+    .rds-comp-notification__secondary-button {
+      color: #000000 !important;
+    }
   }
 }
+
+// Theme-dark class handling
 .theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-image,
-.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-default
-{
+.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-default {
   &, &.rds-comp-notification--layout-horizontal {
     background-color: var(--rds-background-paper, #424242) !important;
     color: var(--rds-text-primary, #ffffff) !important;
     border: none !important;
   }
-  .MuiPaper-root, .MuiCard-root { background-color: var(--rds-background-paper, #424242) !important; }
-  .rds-comp-notification__image-container { background-color: transparent !important; }
+  
+  // Override all text elements to be white
+  .MuiTypography-root,
+  .rds-comp-notification__title,
+  .rds-comp-notification__time,
+  .rds-comp-notification__description {
+    color: #ffffff !important;
+  }
+  
+  // Ensure dismiss button icon is white
+  .rds-comp-notification__dismiss svg {
+    color: #ffffff !important;
+  }
+  
+  // Make secondary button text white
+  .rds-comp-notification__secondary-button {
+    color: #ffffff !important;
+  }
+  
+  .MuiPaper-root, .MuiCard-root { 
+    background-color: var(--rds-background-paper, #424242) !important; 
+  }
+  .rds-comp-notification__image-container { 
+    background-color: transparent !important; 
+  }
+}
+
+// Data-theme dark attribute handling
+[data-theme="dark"] .rds-comp-notification--type-info.rds-comp-notification--style-image {
+  &, &.rds-comp-notification--layout-horizontal {
+    background-color: var(--rds-background-paper, #424242) !important;
+    color: var(--rds-text-primary, #ffffff) !important;
+    border: none !important;
+  }
+  
+  // Override all text elements to be white
+  .MuiTypography-root,
+  .rds-comp-notification__title,
+  .rds-comp-notification__time,
+  .rds-comp-notification__description {
+    color: #ffffff !important;
+  }
+  
+  // Ensure dismiss button icon is white
+  .rds-comp-notification__dismiss svg {
+    color: #ffffff !important;
+  }
+  
+  // Make secondary button text white
+  .rds-comp-notification__secondary-button {
+    color: #ffffff !important;
+  }
+  
+  .MuiPaper-root, .MuiCard-root { 
+    background-color: var(--rds-background-paper, #424242) !important; 
+  }
+  .rds-comp-notification__image-container { 
+    background-color: transparent !important; 
+  }
 }
 .css-60eszb
 {

@@ -21,9 +21,9 @@ const RdsCompAiMessageBox = (props: RdsCompAiMessageBoxProps) => {
     "https://via.placeholder.com/480x320.png?text=Image+placeholder";
 
   return (
-    <div className="message-box-container">
-      <div>
-        <div>
+    <div className="rds-comp-ai-message-box">
+      <div className="rds-comp-ai-message-box__container">
+        <div className="rds-comp-ai-message-box__row">
           <RdsAvatar
             alt="User Avatar"
             displayStyle="with-name"
@@ -35,11 +35,11 @@ const RdsCompAiMessageBox = (props: RdsCompAiMessageBoxProps) => {
           />
         </div>
         {props.isImage && (
-          <div className="imageDiv">
+          <div className="rds-comp-ai-message-box__image-wrapper">
             <img
               src={imageSrc}
               alt="message image"
-              className="responsive-image"
+              className="rds-comp-ai-message-box__image"
             />
           </div>
         )}

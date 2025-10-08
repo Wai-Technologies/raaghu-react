@@ -18,3 +18,27 @@ addons.setConfig({
     showRoots: false,
   },
 });
+
+// Custom search placeholder replacement
+const updateSearchPlaceholder = () => {
+  const searchInput = document.querySelector('input[placeholder="Find components"]') as HTMLInputElement;
+  if (searchInput) {
+    searchInput.placeholder = 'Type to search...';
+  }
+};
+
+// Run on DOM content loaded and also observe for dynamic changes
+document.addEventListener('DOMContentLoaded', updateSearchPlaceholder);
+
+// Use MutationObserver to handle dynamic content loading
+const observer = new MutationObserver(() => {
+  updateSearchPlaceholder();
+});
+
+// Start observing when the document is ready
+setTimeout(() => {
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+}, 100);

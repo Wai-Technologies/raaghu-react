@@ -313,7 +313,7 @@ export const WithAvatar: Story = {
             {isEditingEnabled && (
               <>
                 {!isEditMode ? (
-                  <div className="rds-card__edit-icon" onClick={handleEditClick}>
+                  <div className="rds-card__edit-icon" onClick={handleEditClick} style={{ marginTop: '10px', marginRight: '10px' }}>
                     <Edit />
                   </div>
                 ) : (
