@@ -24,9 +24,9 @@
 .rds-form-control .MuiFormLabel-root.Mui-error .MuiFormLabel-asterisk {
   color: #d32f2f !important;
 }
-.css-1t6h741-MuiFormHelperText-root{
-  margin-left:0 !important;
-}
-.css-196gpye-MuiFormHelperText-root{
-  margin-left:0 !important;
+
+// Fix helper text alignment - override MUI's default margin
+.rds-form-control .MuiFormHelperText-root,
+.rds-form-control .css-1t6h741-MuiFormHelperText-root {
+  margin-left: 0 !important;
 }
