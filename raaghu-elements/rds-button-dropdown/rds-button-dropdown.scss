@@ -35,6 +35,10 @@
       background-color: #f5f5f5;
     }
 
+    [data-theme="dark"] &:hover {
+      background-color: #4a4a4a;
+    }
+
     &--selected {
       background-color: #e3f2fd;
     }
@@ -50,4 +54,18 @@
 /* Small utility for avatar spacing inside list items when present */
 .rds-button-dropdown__avatar {
   flex: 0 0 auto;
+}
+.rds-button-dropdown__item-label {
+	cursor: pointer;
+	padding: 6px 8px;
+	width: 100%;
+	box-sizing: border-box;
+	display: block;
+}
+
+.rds-button-dropdown__option {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 4px;
 }

@@ -389,6 +389,12 @@
   background-color: var(--rds-color-primary-container-dark, #1565c0);
 }
 
+[data-theme="dark"] .rds-fab-menu__button--light,
+.dark-theme .rds-fab-menu__button--light,
+.theme-dark .rds-fab-menu__button--light {
+  background-color: #a7aaae !important;
+}
+
 // High contrast mode support
 @media (prefers-contrast: high) {
   .rds-fab-menu {
