@@ -115,6 +115,9 @@
         border-radius: var(--rds-border-radius, 4px);
         background-color: var(--rds-color-surface, #fff);
         color: var(--rds-color-on-surface, #212529);
+        border: 1px solid var(--rds-color-border, #ccc);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
         
         .rdw-image-modal-header-option {
           color: var(--rds-color-on-surface, #212529);
@@ -223,8 +226,9 @@ background-color: #202020;
         .rdw-image-modal {
           background-color: #424242;
           color: var(--rds-color-on-surface-dark, #e9ecef);
-          border-color: var(--rds-color-border-dark, #495057);
+          border: 1px solid var(--rds-color-border-dark, #495057);
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+          z-index: 1000;
           
           .rdw-image-modal-header-option {
             color: var(--rds-color-on-surface-dark, #fff);
@@ -403,19 +407,43 @@ background-color: #202020;
 
 @media (max-width: 430px) {
   .rds-comp-text-editor {
-  .rdw-link-modal{
-    left: -180px;
-  }
-  .rdw-image-modal {
+    .rdw-link-modal{
+      left: -180px;
+    }
+    .rdw-image-modal {
       left: -93px;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--rds-color-border, #ccc);
+      
+      // Ensure the modal doesn't get cut off on very small screens
+      @media (max-width: 320px) {
+        position: fixed !important;
+        left: 50% !important;
+        top: 70% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 260px;
+        max-width: calc(100vw - 30px);
+        max-height: calc(100vh - 40px);
+        z-index: 9999;
+      }
+    }
   }
-}
 }
 
-@media (min-width: 414px) and (max-width: 896px) {
+@media (min-width: 415px) and (max-width: 896px) {
   .rds-comp-text-editor {
-  .rdw-link-modal {
-        left: 4px;
+    .rdw-link-modal {
+      left: 4px;
+    }
+    .rdw-image-modal {
+      right: 0;
+      left: auto;
+      max-width: 320px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--rds-color-border, #ccc);
+      z-index: 1000;
     }
   }
 }
