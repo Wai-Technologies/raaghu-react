@@ -40,10 +40,12 @@ html.dark .MuiFab-root,
 .dark .MuiFab-root,
 [data-theme='dark'] .MuiFab-root,
 .rds-theme--dark .MuiFab-root,
-
 /* component modifier */
 .rds-fab--dark,
 .rds-fab--dark .MuiFab-root {
+  /* set background color for dark mode - lighter gray */
+  background-color: var(--rds-color-surface-variant-dark, #6b6b6b) !important;
+  
   /* set color on the root so text nodes inherit it */
   color: var(--rds-color-on-surface, #ffffff) !important;
 
@@ -58,6 +60,8 @@ html.dark .MuiFab-root,
 
   &.Mui-disabled,
   .MuiFab-root.Mui-disabled {
+    background-color: var(--rds-color-disabled-container-dark, #4a4a4a) !important;
+    
     .MuiFab-label,
     span,
     svg,
@@ -70,6 +74,6 @@ html.dark .MuiFab-root,
   
   &:hover,
   .MuiFab-root:hover {
-    background-color: #9e9c9c !important;
+    background-color: var(--rds-color-surface-variant-dark-hover, #7a7a7a) !important;
   }
 }
