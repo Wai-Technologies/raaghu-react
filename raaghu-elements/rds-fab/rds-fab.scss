@@ -143,24 +143,26 @@ html.dark .MuiFab-root,
 .dark .MuiFab-root,
 [data-theme='dark'] .MuiFab-root,
 .rds-theme--dark .MuiFab-root,
-/* component modifier */
+
 .rds-fab--dark,
 .rds-fab--dark .MuiFab-root {
-  /* set background color for dark mode - lighter gray */
-  background-color: var(--rds-color-surface-variant-dark, #6b6b6b) !important;
-  
-  /* set color on the root so text nodes inherit it */
-  color: var(--rds-color-on-surface, #ffffff) !important;
+  &.MuiFab-default {
+     background-color: var(--rds-color-surface-variant-dark, #6b6b6b) !important;
+     color: var(--rds-color-on-surface, #ffffff) !important;
+    
+    .MuiFab-label,
+    span,
+    svg,
+    .MuiSvgIcon-root {
+      color: var(--btn-primary-text-invert, #ffffff) !important;
+      fill: currentColor !important;
+    }
 
-  /* ensure label and icons are explicitly white */
-  .MuiFab-label,
-  span,
-  svg,
-  .MuiSvgIcon-root {
-    color: var(--rds-color-on-surface, #ffffff) !important;
-    fill: currentColor !important;
+    &:hover {
+      background-color: var(--btn-primary-solid-hover, #b9b7b7);
+    }
   }
-
+ 
   &.Mui-disabled,
   .MuiFab-root.Mui-disabled {
     background-color: var(--rds-color-disabled-container-dark, #4a4a4a) !important;
@@ -175,12 +177,6 @@ html.dark .MuiFab-root,
     }
   }
   
-  &:hover,
-  .MuiFab-root:hover {
-    background-color: var(--rds-color-surface-variant-dark-hover, #7a7a7a) !important;
-  }
-
-  // Color variants for dark theme
   &.MuiFab-primary {
     background-color: var(--btn-primary-solid-default, #3C98FF) !important;
     color: var(--btn-primary-text-invert, #ffffff) !important;
@@ -216,7 +212,7 @@ html.dark .MuiFab-root,
   }
 
   &.MuiFab-error {
-    background-color: var(--btn-error-solid-default, #FF8980) !important;
+    background-color: var(--btn-error-solid-default, #BD0D1D) !important;
     color: var(--btn-error-text-invert, #ffffff) !important;
     
     .MuiFab-label,
@@ -228,46 +224,46 @@ html.dark .MuiFab-root,
     }
 
     &:hover {
-      background-color: var(--btn-error-solid-hover, #FFB3AD) !important;
+      background-color: var(--btn-error-solid-hover, #BD0D1D) !important;
     }
   }
 
   &.MuiFab-warning {
-    background-color: var(--btn-warning-solid-default, #FDC674) !important;
-    color: var(--btn-warning-text-invert, #000000) !important;
+    background-color: var(--btn-warning-solid-default, #C2510C) !important;
+    color: var(--btn-warning-text-invert, #ffffff) !important;
     
     .MuiFab-label,
     span,
     svg,
     .MuiSvgIcon-root {
-      color: var(--btn-warning-text-invert, #000000) !important;
+      color: var(--btn-warning-text-invert, #ffffff) !important;
       fill: currentColor !important;
     }
 
     &:hover {
-      background-color: var(--btn-warning-solid-hover, #FED99B) !important;
+      background-color: var(--btn-warning-solid-hover, #f48947) !important;
     }
   }
 
   &.MuiFab-success {
-    background-color: var(--btn-success-solid-default, #90E5A0) !important;
+    background-color: var(--btn-success-solid-default, #1F7630) !important;
     color: var(--btn-success-text-invert, #000000) !important;
     
     .MuiFab-label,
     span,
     svg,
     .MuiSvgIcon-root {
-      color: var(--btn-success-text-invert, #000000) !important;
+      color: var(--btn-success-text-invert, #ffffff) !important;
       fill: currentColor !important;
     }
 
     &:hover {
-      background-color: var(--btn-success-solid-hover, #B8F2C4) !important;
+      background-color: var(--btn-success-solid-hover, #58dc72) !important;
     }
   }
 
   &.MuiFab-info {
-    background-color: var(--btn-info-solid-default, #81c3f4) !important;
+    background-color: var(--btn-info-solid-default, #0288d1) !important;
     color: var(--btn-info-text-invert, #000000) !important;
     
     .MuiFab-label,
@@ -279,7 +275,7 @@ html.dark .MuiFab-root,
     }
 
     &:hover {
-      background-color: var(--btn-info-solid-hover, #9dd0f7) !important;
+      background-color: var(--btn-info-solid-hover, #73bdf6) !important;
     }
   }
 }
