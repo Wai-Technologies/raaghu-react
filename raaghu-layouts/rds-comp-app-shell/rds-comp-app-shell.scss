@@ -12,28 +12,52 @@
     transition: box-shadow 0.2s ease;
   }
 }
+
 .Default {
   margin: 0;
   padding: 0;
-  /* width: 100vw; */
+  width: 100%;
   height: 100vh;
-  overflow: hidden; /* Optional, to hide any content that exceeds the viewport */
+  min-height: 400px;
+  overflow: hidden;
   display: flex;
+  
+  /* Mobile responsiveness */
+  @media (max-width: 767px) {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
 }
 
 .Default #sidebar{
   height: 100vh !important;
+  
+  @media (max-width: 767px) {
+    height: auto !important;
+    min-height: 200px;
+  }
 }
 
 /* Sidebar layout styles */
 .sidebar-layout {
     flex: 0 0 auto;
     transition: width 0.3s ease;
+    
+    @media (max-width: 767px) {
+      flex: 0 0 auto;
+      width: 100% !important;
+    }
 }
 
 .Default .sidebar-layout{
   width: fit-content;
   z-index: 1;
+  
+  @media (max-width: 767px) {
+    width: 100% !important;
+    order: 2;
+  }
 }
 
 /* Top navigation layout styles */
@@ -42,12 +66,22 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    
+    @media (max-width: 767px) {
+      flex: 1;
+      min-height: calc(100vh - 200px);
+    }
 }
 
 .Default .topnav-layout{
   width: 100%;
   position: relative;
   z-index: 2; /* Ensure topbar appears in front of sidebar */
+  
+  @media (max-width: 767px) {
+    order: 1;
+    width: 100%;
+  }
 }
 
 /* Ensure appbar in Default layout appears in front of sidebar */
@@ -57,12 +91,20 @@
 }
 
 /* TopNav specific styles */
-.TopNav .sidebar-layout {
+.top-nav .sidebar-layout {
     display: none;
+    
+    @media (max-width: 767px) {
+      display: block;
+    }
 }
 
-.TopNav .topnav-layout {
+.top-nav .topnav-layout {
     width: 100%;
+    
+    @media (max-width: 767px) {
+      width: 100%;
+    }
 }
 
 .double-nav-sidebar img.ps-md-2.main-logo.ps-1 {
@@ -86,6 +128,17 @@
   font-weight: bold;
   z-index: 0;
   pointer-events: none;
+  
+  @media (max-width: 767px) {
+    position: relative;
+    min-height: 300px;
+    height: auto;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    min-height: 200px;
+  }
 }
 
 .rds-appshell-add-layout-flex-center {
@@ -96,11 +149,29 @@
   background: #e0e0e0;
   min-height: calc(100vh - 98px);
   width: 100%;
+  
+  @media (max-width: 767px) {
+    min-height: 300px;
+    height: auto;
+    flex: 0 0 auto;
+  }
+  
+  @media (max-width: 480px) {
+    min-height: 200px;
+  }
 }
 
 .rds-appshell-add-layout-text {
   font-size: 2rem;
   font-weight: bold;
+  
+  @media (max-width: 767px) {
+    font-size: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.25rem;
+  }
 }
 
 .rds-appshell-side-nav-layout {
@@ -109,18 +180,47 @@
   align-items: stretch;
   width: 100%;
   min-height: 400px;
+  
+  @media (max-width: 767px) {
+    flex-direction: column;
+    min-height: 300px;
+  }
 }
+
 .rds-appshell-side-nav-left {
   flex: 0 0 245px;
   min-width: 245px;
   max-width: 245px;
   height: 100%;
+  
+  @media (max-width: 1024px) {
+    flex: 0 0 200px;
+    min-width: 200px;
+    max-width: 200px;
+  }
+  
+  @media (max-width: 767px) {
+    flex: 0 0 auto;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    order: 1;
+  }
 }
+
 .rds-appshell-side-nav-right {
   flex: 0 0 80px;
   min-width: 80px;
   max-width: 120px;
   height: 100%;
+  
+  @media (max-width: 767px) {
+    flex: 0 0 auto;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    order: 3;
+  }
 }
 
 #sidebar.toggle.hide{
@@ -140,15 +240,41 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 #details-pane-app-shell .detail-pane-container {
   min-height: calc(100vh - 98px) !important;
   height: 609px !important;
+  
+  @media (max-width: 1024px) {
+    height: 500px !important;
+  }
+  
+  @media (max-width: 767px) {
+    height: 300px !important;
+    min-height: 300px !important;
+  }
 } 
 
 #side-nav-icon-list li.pe-xxl-0.pe-xl-0.pe-lg-0.pe-md-0.pe-0[value="4_"]:has(svg path[d*="M9.207,2.002c.643"])  {
- margin-top: 200px;
+  margin-top: 200px;
+  
+  @media (max-width: 1024px) {
+    margin-top: 150px;
+  }
+  
+  @media (max-width: 767px) {
+    margin-top: 50px;
+  }
 }
  
 #detail-pane-one-three-one .detail-pane-container {
-height: 609px;
- min-height: calc(100vh - 98px) !important;
+  height: 609px;
+  min-height: calc(100vh - 98px) !important;
+  
+  @media (max-width: 1024px) {
+    height: 500px;
+  }
+  
+  @media (max-width: 767px) {
+    height: 300px;
+    min-height: 300px !important;
+  }
 }
 
 .rds-story-double-nav-layout {
@@ -158,12 +284,28 @@ height: 609px;
   align-items: flex-start;
   width: 100%;
   margin-top: 68px;
+  
+  @media (max-width: 1024px) {
+    margin-top: 60px;
+  }
+  
+  @media (max-width: 767px) {
+    flex-direction: column;
+    margin-top: 50px;
+    gap: 16px;
+  }
 }
 
 .rds-story-double-nav-content {
   display: flex;
   flex-direction: row;
   gap: 7px;
+  
+  @media (max-width: 767px) {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
 }
 
 .rds-story-relaxing-layout {
@@ -171,6 +313,12 @@ height: 609px;
   flex-direction: column;
   height: 100vh;
   width: 100%;
+  min-height: 400px;
+  
+  @media (max-width: 767px) {
+    height: auto;
+    min-height: 100vh;
+  }
 }
 
 .rds-story-relaxing-content {
@@ -178,12 +326,30 @@ height: 609px;
   flex-direction: row;
   min-height: 0;
   padding-top: 50px;
+  flex: 1;
+  
+  @media (max-width: 767px) {
+    flex-direction: column;
+    padding-top: 20px;
+    gap: 16px;
+  }
 }
 
 .rds-story-relaxing-sidebar {
   min-width: 245px;
   max-width: 245px;
   height: 100%;
+  
+  @media (max-width: 1024px) {
+    min-width: 200px;
+    max-width: 200px;
+  }
+  
+  @media (max-width: 767px) {
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 .rds-story-side-nav-right-content {
@@ -192,6 +358,12 @@ height: 609px;
   flex-direction: column;
   justify-content: flex-end;
   height: 100%;
+  
+  @media (max-width: 767px) {
+    justify-content: center;
+    height: auto;
+    min-height: 100px;
+  }
 }
 
 .rds-story-side-nav-right-container {
@@ -199,18 +371,38 @@ height: 609px;
   min-width: 80px;
   max-width: 120px;
   height: 100%;
+  
+  @media (max-width: 767px) {
+    flex: 0 0 auto;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    order: 3;
+  }
 }
 
 .rds-story-standard-content {
   position: relative;
   width: 100%;
   height: 100%;
+  min-height: 400px;
+  
+  @media (max-width: 767px) {
+    height: auto;
+    min-height: 300px;
+  }
 }
 
 .rds-story-topnav-content {
   position: relative;
   width: 100%;
   height: 100%;
+  min-height: 400px;
+  
+  @media (max-width: 767px) {
+    height: auto;
+    min-height: 300px;
+  }
 }
 
 .rds-story-tripane-layout {
@@ -220,6 +412,16 @@ height: 609px;
   align-items: flex-start;
   width: 100%;
   margin-top: 68px;
+  
+  @media (max-width: 1024px) {
+    margin-top: 60px;
+  }
+  
+  @media (max-width: 767px) {
+    flex-direction: column;
+    margin-top: 50px;
+    gap: 16px;
+  }
 }
 
 .rds-story-sub-header-layout {
@@ -263,23 +465,154 @@ height: 609px;
 .double-nav .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper, .double-nav .css-dm61o6 .MuiDrawer-paper {
   margin-top: 84px;
   margin-left: 87px;
+  
+  @media (max-width: 1024px) {
+    margin-top: 70px;
+    margin-left: 60px;
+  }
+  
+  @media (max-width: 767px) {
+    margin-top: 0;
+    margin-left: 0;
+    position: relative;
+  }
 }
 
 .double-nav .css-sm7tlr-MuiDrawer-docked .MuiDrawer-paper, .double-nav .css-1movy1a .MuiDrawer-paper {
   margin-top: 84px;
   margin-left: 12px;
+  
+  @media (max-width: 1024px) {
+    margin-top: 70px;
+  }
+  
+  @media (max-width: 767px) {
+    margin-top: 0;
+    margin-left: 0;
+    position: relative;
+  }
 }
 
 /* Target Relaxing story specifically */
 .top-nav .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper, .top-nav .css-dm61o6 .MuiDrawer-paper {
   margin-top: 67px;
   margin-left: 12px;
+  
+  @media (max-width: 1024px) {
+    margin-top: 60px;
+  }
+  
+  @media (max-width: 767px) {
+    margin-top: 0;
+    margin-left: 0;
+    position: relative;
+  }
 }
 
 /* Target TriPane story specifically */
 .triPane .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper, .triPane .css-dm61o6 .MuiDrawer-paper {
   margin-top: 84px;
   margin-left: 16px;
+  
+  @media (max-width: 1024px) {
+    margin-top: 70px;
+  }
+  
+  @media (max-width: 767px) {
+    margin-top: 0;
+    margin-left: 0;
+    position: relative;
+  }
+}
+
+/* Mobile Layout Class */
+.mobile-layout {
+  &.Default {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .sidebar-layout {
+    width: 100% !important;
+    order: 2;
+  }
+  
+  .topnav-layout {
+    order: 1;
+    width: 100%;
+  }
+}
+
+/* Mobile and Tablet Responsive Overrides */
+@media (max-width: 1024px) {
+  .side-nav .rds-appshell-side-nav-layout {
+    gap: 12px;
+  }
+  
+  .double-nav-sidebar, .tripane-sidebar {
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Mobile: Stack elements vertically */
+  .side-nav .rds-appshell-side-nav-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  /* Mobile: Hide certain layout elements that don't work well on mobile */
+  .double-nav-sidebar .rds-story-double-nav-content > *:last-child {
+    display: none;
+  }
+  
+  /* Mobile: Adjust sidebar widths */
+  .rds-story-relaxing-sidebar,
+  .rds-appshell-side-nav-left,
+  .rds-appshell-side-nav-right {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* Mobile: Ensure proper spacing */
+  .rds-story-double-nav-layout,
+  .rds-story-tripane-layout {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Small mobile adjustments */
+  .rds-appshell-add-layout-text {
+    font-size: 1rem;
+    padding: 0 16px;
+    text-align: center;
+  }
+  
+  .rds-story-double-nav-layout,
+  .rds-story-tripane-layout {
+    padding: 0 12px;
+  }
+}
+
+/* Ensure responsive behavior for Storybook iframe */
+.sb-show-main {
+  overflow-x: hidden;
+}
+
+/* Container responsiveness */
+.rds-comp-app-shell-container {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  
+  @media (max-width: 767px) {
+    padding: 0;
+    margin: 0;
+  }
 }
 
 /* RDS App Shell Item Component Styles */

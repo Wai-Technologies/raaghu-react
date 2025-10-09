@@ -42,6 +42,125 @@ const preview: Preview = {
     // Enhanced parameters for Chromatic testing
     viewport: {
       viewports: {
+        iPhoneSE: {
+          name: 'iPhone SE',
+          styles: {
+            width: '375px',
+            height: '667px',
+          },
+        },
+        iPhoneXR: {
+          name: 'iPhone XR',
+          styles: {
+            width: '414px',
+            height: '896px',
+          },
+        },
+        iPhone12Pro: {
+          name: 'iPhone 12 Pro',
+          styles: {
+            width: '390px',
+            height: '844px',
+          },
+        },
+        iPhone14ProMax: {
+          name: 'iPhone 14 Pro Max',
+          styles: {
+            width: '430px',
+            height: '932px',
+          },
+        },
+        pixel7: {
+          name: 'Pixel 7',
+          styles: {
+            width: '412px',
+            height: '915px',
+          },
+        },
+        galaxyS8Plus: {
+          name: 'Samsung Galaxy S8+',
+          styles: {
+            width: '360px',
+            height: '740px',
+          },
+        },
+        galaxyS20Ultra: {
+          name: 'Samsung Galaxy S20 Ultra',
+          styles: {
+            width: '412px',
+            height: '915px',
+          },
+        },
+        iPadMini: {
+          name: 'iPad Mini',
+          styles: {
+            width: '768px',
+            height: '1024px',
+          },
+        },
+        iPadAir: {
+          name: 'iPad Air',
+          styles: {
+            width: '820px',
+            height: '1180px',
+          },
+        },
+        iPadPro: {
+          name: 'iPad Pro',
+          styles: {
+            width: '1024px',
+            height: '1366px',
+          },
+        },
+        surfacePro7: {
+          name: 'Surface Pro 7',
+          styles: {
+            width: '912px',
+            height: '1368px',
+          },
+        },
+        surfaceDuo: {
+          name: 'Surface Duo',
+          styles: {
+            width: '540px',
+            height: '720px',
+          },
+        },
+        galaxyZFold5: {
+          name: 'Galaxy Z Fold 5',
+          styles: {
+            width: '344px',
+            height: '882px',
+          },
+        },
+        zenBookFold: {
+          name: 'Asus Zenbook Fold',
+          styles: {
+            width: '853px',
+            height: '1280px',
+          },
+        },
+        galaxyA51: {
+          name: 'Samsung Galaxy A51/71',
+          styles: {
+            width: '412px',
+            height: '914px',
+          },
+        },
+        nestHub: {
+          name: 'Nest Hub',
+          styles: {
+            width: '1024px',
+            height: '600px',
+          },
+        },
+        nestHubMax: {
+          name: 'Nest Hub Max',
+          styles: {
+            width: '1280px',
+            height: '800px',
+          },
+        },
         mobile: {
           name: 'Mobile',
           styles: {
@@ -66,8 +185,8 @@ const preview: Preview = {
       },
     },
     chromatic: {
-      // Chromatic-specific parameters
-      viewports: [375, 768, 1920],
+      // Chromatic-specific parameters - test on key device sizes from the screenshot
+      viewports: [375, 390, 412, 430, 768, 820, 1024, 1280, 1920],
       delay: 1000, // Wait for animations/transitions
       diffThreshold: 0.2, // Visual diff threshold
       pauseAnimationAtEnd: true,
