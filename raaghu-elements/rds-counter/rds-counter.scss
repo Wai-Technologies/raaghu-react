@@ -751,14 +751,35 @@
   }
 }
 
-@media (max-width: 320px) {
-  .rds-counter .css-rizt0-MuiTypography-root {
-   margin-top: 26px;
+// Responsive fixes for compact variant text centering at specific breakpoints
+@media (max-width: 480px) {
+  .rds-counter--compact {
+    align-items: center;
+    
+    .rds-counter__label {
+      align-self: center;
+      margin-top: 0;
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .rds-counter__controls {
+      width: fit-content !important;
+      min-width: 100px !important;
+    }
   }
 }
 
-@media (max-width: 420px) {
-  .rds-counter .css-rizt0-MuiTypography-root {
-    margin-top: 20px !important;
+// Specific fixes for 320px and 414px breakpoints
+@media (max-width: 320px) {
+  .rds-counter--compact .rds-counter__label {
+    margin-right: 8px;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 420px) {
+  .rds-counter--compact .rds-counter__label {
+    margin-right: 8px;
   }
 }

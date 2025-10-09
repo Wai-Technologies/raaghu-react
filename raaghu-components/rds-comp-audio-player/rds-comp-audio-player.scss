@@ -109,6 +109,11 @@
         outline-offset: 2px;
       }
     }
+
+    // Ensure fab menus are positioned consistently
+    .rds-fab-menu {
+      position: relative;
+    }
   }
 
   // Control buttons
@@ -938,6 +943,6 @@
   }
 
 .rds-fab-menu__dropdown-container {
-    margin-right: -150px;
-  }  
+    margin-right: -80px;
+  }
 }
