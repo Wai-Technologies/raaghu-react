@@ -675,7 +675,7 @@
 
     // Dark mode styling for style-3
     [data-theme="dark"] & {
-      background-color: #4a4a4a;
+     // background-color: #4a4a4a;
     
      .MuiPaginationItem-root {
       color: #007bff;
@@ -732,13 +732,6 @@
 
   // Style 7: White background pagination with dots, dropdown, legend and manual input
   &.style-7 {
-    // background-color: white;
-    // padding: 8px 16px;
-    // border-radius: 4px;
-    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-     [data-theme="dark"] & {
-      background-color: #4a4a4a;
-     }
     
     .MuiPaginationItem-root {
       color: #007bff;
@@ -753,13 +746,6 @@
 
   // Style 8: White background with legend text only
   &.style-8 {
-    // background-color: white;
-    // padding: 8px 16px;
-    // border-radius: 4px;
-    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    [data-theme="dark"] & {
-      background-color: #4a4a4a;
-     }
     
     .pagination-legend {
       font-size: 0.875rem;
@@ -769,18 +755,10 @@
   }
 
   // Style 9: Spaced pagination layout (1 1 1 format)
-  &.style-9 {
-    // background-color: white;
-    // padding: 8px 12px;
-    // border-radius: 4px;
-    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    
+  &.style-9 {  
     .MuiPagination-ul {
       gap: 16px;
     }
-    [data-theme="dark"] & {
-      background-color: #4a4a4a;
-     }
     
     .MuiPaginationItem-root {
       color: #007bff;
