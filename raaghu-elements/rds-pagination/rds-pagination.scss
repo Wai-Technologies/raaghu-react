@@ -413,6 +413,11 @@
         text-align: center !important;
       }
     }
+    &.style-3,
+    &.style-5,
+    &.style-9 {
+        flex-direction: column !important;
+     }
   }
 
   // Responsive wrapper styles for small screens
@@ -497,11 +502,11 @@
   // Full width navigation for styles 1, 2, 3, 4, 5, 7, and 9 on specific screen sizes
   @media (min-width: 320px) and (max-width: 322px), (min-width: 414px) and (max-width: 416px) {
     &.style-1,
-    &.style-2,
-    &.style-3,
+   // &.style-2,
+   // &.style-3,
     &.style-4,
     &.style-5,
-    &.style-7,
+   // &.style-7,
     &.style-9 {
       width: 100% !important;
       max-width: 320px !important;
@@ -530,9 +535,10 @@
       &.style-5 {
         .MuiButton-root {
           flex: 1 !important;
-          margin: 3px 2px !important;
+          margin-top: 7px!important;
         }
       }
+
     }
   }
 
@@ -720,6 +726,7 @@
     .pagination-legend {
       font-size: 0.875rem;
       color: rgba(0, 0, 0, 0.87);
+      margin-right: 7px;
     }
   }
 
@@ -839,6 +846,7 @@
       justify-content: center !important;
       font-size: 22px !important; /* make the arrow glyph larger */
       line-height: 1 !important;
+      margin-right: 5px !important;
       &:hover {
         background-color: #0056b3 !important;
       }
@@ -871,6 +879,7 @@
         border-radius: 4px !important;
         padding: 6px 16px !important;
         min-width: auto !important;
+        margin-right: 5px !important;
       }
       
       &:hover {
@@ -884,6 +893,7 @@
     }
   }
 }
+
 
 // Dropdown styling
 .pagination-dropdown {
@@ -902,7 +912,7 @@
       padding: 4px 6px;
     }
   }
-
+  
   @media (max-width: 414px) {
     min-width: 50px !important;
     
@@ -999,6 +1009,11 @@
     .MuiTypography-root {
       font-size: 0.75rem !important;
     }
+    &.style-5,
+     &.style-3,
+     &.style-9 {
+      margin-top: 5px !important;
+    }
   }
 
   @media (max-width: 414px) {
@@ -1014,6 +1029,22 @@
 
     .MuiTypography-root {
       font-size: 0.7rem !important;
+    }
+  }
+
+  // Specific styling for 320px screen size - make input bigger
+  @media (max-width: 320px) {
+    .MuiTextField-root {
+      width: 45px !important;
+      .MuiInputBase-input {
+        padding: 4px 6px !important;
+        font-size: 0.75rem !important;
+        min-height: 20px !important;
+      }
+    }
+
+    .MuiTypography-root {
+      font-size: 0.75rem !important;
     }
   }
 }
@@ -1077,9 +1108,23 @@
       gap: 8px !important;
       width: auto;
       flex-basis: auto;
-      margin-top: 10px !important;
+     // margin-top: 10px !important;
       justify-content: flex-start !important;
       max-width: 300px !important;  // Leave some margin for container
+      
+      .MuiTextField-root {
+        width: 45px !important;
+        
+        .MuiInputBase-input {
+          font-size: 0.75rem !important;
+          padding: 4px 6px !important;
+          min-height: 20px !important;
+        }
+      }
+
+      .MuiTypography-root {
+        font-size: 0.75rem !important;
+      }
     }
     .rds-pagination {
       margin-right: 8px !important;
@@ -1107,7 +1152,7 @@
        justify-content: center !important;
         width: 100% !important;
         gap: 4px !important;
-        margin-top: 10px !important;
+       // margin-top: 10px !important;
       }
     }
   }
@@ -1166,16 +1211,17 @@
       gap: 4px !important;
       
       .MuiTextField-root {
-        width: 30px !important;
+        width: 45px !important;
         
         .MuiInputBase-input {
-          font-size: 0.6rem !important;
-          padding: 1px 2px !important;
+          font-size: 0.75rem !important;
+          padding: 4px 6px !important;
+          min-height: 20px !important;
         }
       }
       
       .MuiTypography-root {
-        font-size: 0.6rem !important;
+        font-size: 0.75rem !important;
       }
     }
   }
@@ -1241,16 +1287,17 @@
       gap: 4px !important;
       
       .MuiTextField-root {
-        width: 30px !important;
+        width: 45px !important;
         
         .MuiInputBase-input {
-          font-size: 0.6rem !important;
-          padding: 1px 2px !important;
+          font-size: 0.75rem !important;
+          padding: 4px 6px !important;
+          min-height: 20px !important;
         }
       }
       
       .MuiTypography-root {
-        font-size: 0.6rem !important;
+        font-size: 0.75rem !important;
       }
     }
   }
@@ -1261,7 +1308,7 @@
   .rds-pagination-wrapper.style-1,
   .rds-pagination-wrapper.style-2,
   .rds-pagination-wrapper.style-3,
-  .rds-pagination-wrapper.style-4,
+  //.rds-pagination-wrapper.style-4,
   .rds-pagination-wrapper.style-5,
   .rds-pagination-wrapper.style-7,
   .rds-pagination-wrapper.style-8,
@@ -1339,17 +1386,18 @@
       gap: 4px !important;
       
       .MuiTextField-root {
-        width: 35px !important;
+        width: 45px !important;
         
         .MuiInputBase-input {
-          font-size: 0.65rem !important;
-          padding: 2px 4px !important;
+          font-size: 0.75rem !important;
+          padding: 4px 6px !important;
           text-align: center !important;
+          min-height: 20px !important;
         }
       }
       
       .MuiTypography-root {
-        font-size: 0.65rem !important;
+        font-size: 0.75rem !important;
       }
     }
     
