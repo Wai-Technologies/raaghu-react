@@ -179,15 +179,26 @@
   &--full-width-image {
     border-radius: 0;
     box-shadow: none;
+    position: relative;
     width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    max-width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 0;
+    margin-right: 0;
+    // Prevent horizontal overflow
+    overflow-x: hidden;
 
     .rds-carousel__slide {
       border-radius: 0;
+      width: 100%;
+      max-width: 100%;
     }
     
     .rds-carousel__slide-content {
       border-radius: 0;
+      width: 100%;
+      max-width: 100%;
     }
     
     .rds-carousel__indicators {
@@ -458,6 +469,7 @@
     max-width: 88%;
     box-sizing: border-box;
   }
+  
   .rds-carousel {
     &__navigation {
       width: 40px;
@@ -496,8 +508,17 @@
     }
     
     &--full-width-image {
+      // Ensure the transform approach works on small screens
+      width: 100vw !important;
+      max-width: 100vw !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      
       .rds-carousel__slide-content {
         height: 220px;
+        width: 100% !important;
       }
       
       .rds-carousel__indicators {
@@ -519,6 +540,45 @@
   /* AutoPlay story specific adjustments */
   .rds-carousel--auto-play .rds-carousel__slide-content {
     height: 265px !important;
+  }
+  
+  /* Full width image specific adjustments for tablet/mobile */
+  .rds-carousel--full-width-image {
+    // Ensure it doesn't overflow on 414px screens
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    overflow-x: hidden !important;
+    // Ensure it stays within viewport bounds
+    box-sizing: border-box !important;
+    
+    .rds-carousel__slide,
+    .rds-carousel__slide-content {
+      height: 300px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    .rds-carousel__indicators {
+      bottom: 90px !important;
+    }
+  }
+}
+
+// Specific fix for 414px screen size to prevent overflow
+@media (width: 414px), (max-width: 414px) {
+  .rds-carousel--full-width-image {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    overflow-x: hidden !important;
   }
 }
 
