@@ -259,12 +259,12 @@ export function FootballScorecardCard({
   finalText,
 }: AdaptiveCardProps) {
   return (
-    <RdsCard className={`rds-adaptive-cards rds-adaptive-cards--football-scorecard${isLive ? ' is-live' : ''}`} showIcon={false} showIndicator={false}>
+    <RdsCard className={`rds-adaptive-cards rds-adaptive-cards--football-scorecard${isLive ? ' is-live' : ''} football-scorecard-stable`} showIcon={false} showIndicator={false}>
       {/* Header, subtitle, and description outside card */}
       <div className="rds-adaptive-cards__content">
         <RdsStack className="rds-adaptive-cards__football-header" alignItems="center">
           <RdsStack direction="row" spacing={1} alignItems="center" justifyContent="center" className="rds-adaptive-cards__football-header-row">
-           <RdsAvatar src={leagueAvatar} className="rds-adaptive-cards__football-league-avatar" />
+            <RdsAvatar src={leagueAvatar} className="rds-adaptive-cards__football-league-avatar" />
             <RdsTypography
               variant="subtitle1"
               className="rds-adaptive-cards__football-league"
@@ -273,14 +273,14 @@ export function FootballScorecardCard({
               {leagueName}
             </RdsTypography>
             {isLive && (
-                <RdsChip
-                  label="Live"
-                  color="error"
-                  size="small"
-                  icon={<svg width="7" height="7" viewBox="0 0 7 7"><circle cx="3.5" cy="3.5" r="2" fill="currentColor" /></svg>}
-                  className="rds-adaptive-cards__football-live"
-                />
-              )}
+              <RdsChip
+                label="Live"
+                color="error"
+                size="small"
+                icon={<svg width="7" height="7" viewBox="0 0 7 7"><circle cx="3.5" cy="3.5" r="2" fill="currentColor" /></svg>}
+                className="rds-adaptive-cards__football-live"
+              />
+            )}
           </RdsStack>
           <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-date" align="center">
             {date}
@@ -304,9 +304,9 @@ export function FootballScorecardCard({
           </RdsStack>
 
           <RdsStack alignItems="center" className="rds-adaptive-cards__football-score-section">
-            <RdsStack direction="row" spacing={1} alignItems="center">
+            <RdsStack direction="row" spacing={1} alignItems="center" className="rds-adaptive-cards__football-score-row">
               <RdsTypography variant="h3" className="rds-adaptive-cards__football-score">{homeScore}</RdsTypography>
-              <RdsTypography variant="h3" className="rds-adaptive-cards__football-score">:</RdsTypography>
+              <RdsTypography variant="h3" className="rds-adaptive-cards__football-score rds-adaptive-cards__football-score-colon">:</RdsTypography>
               <RdsTypography variant="h3" className="rds-adaptive-cards__football-score">{awayScore}</RdsTypography>
             </RdsStack>
             <RdsChip label={time} className="rds-adaptive-cards__football-time" />
