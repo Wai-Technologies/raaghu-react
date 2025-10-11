@@ -85,11 +85,8 @@ const RdsCarousel = ({
         position: 'relative', 
         height: height, 
         overflow: 'hidden',
-        width: style === 'full width image' ? '100vw' : '100%',
-        maxWidth: style === 'full width image' ? '100vw' : '100%',
-        left: style === 'full width image' ? '50%' : 'auto',
-        transform: style === 'full width image' ? 'translateX(-50%)' : 'none',
-        marginLeft: 0,
+        width: '100%',
+        maxWidth: '100%',
         backgroundColor: style === 'full width image'
           ? 'var(--rds-background-paper, transparent)'
           : 'transparent',
@@ -181,7 +178,7 @@ const RdsCarousel = ({
             sx={{
               position: 'absolute',
               left: 8,
-              top: '50%',
+              top: style === 'with title' ? 'calc(50% + 50px)' : '50%', // Adjust for title area
               transform: 'translateY(-50%)',
               backgroundColor: 'rgba(0, 0, 0, 0.5)',
               color: 'white',
@@ -199,7 +196,7 @@ const RdsCarousel = ({
             sx={{
               position: 'absolute',
               right: 8,
-              top: '50%',
+              top: style === 'with title' ? 'calc(50% + 50px)' : '50%', // Adjust for title area
               transform: 'translateY(-50%)',
               backgroundColor: 'rgba(0, 0, 0, 0.5)',
               color: 'white',
