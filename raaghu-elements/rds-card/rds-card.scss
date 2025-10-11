@@ -418,7 +418,7 @@
       display: flex;
       justify-content: flex-end;
       gap: var(--rds-spacing-xs, 8px);
-      margin-top: var(--rds-spacing-md, 16px);
+      margin: var(--rds-spacing-md, 16px);
       
       .rds-button {
         margin-top: 0; // Override individual button margin
