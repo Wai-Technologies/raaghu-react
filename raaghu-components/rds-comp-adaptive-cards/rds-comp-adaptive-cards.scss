@@ -396,6 +396,10 @@
     margin: var(--rds-spacing-xs, 2px) 0 !important;
     letter-spacing: var(--rds-football-date-letter-spacing, 0.5px) !important;
     text-align: center !important;
+    .dark-theme &,
+    [data-theme="dark"] & {
+      color: #fff !important;
+    }
   }
   &__football-final {
     color: var(--rds-text-secondary, #646464) !important;
@@ -404,6 +408,10 @@
     font-weight: var(--rds-font-weight-medium, 500) !important;
     text-align: center !important;
     margin: 0 !important;
+    .dark-theme &,
+    [data-theme="dark"] & {
+      color: #fff !important;
+    }
   }
   &__football-live {
     font-size: var(--rds-font-size-xs, 10px) !important;
@@ -571,6 +579,11 @@
     align-items: center !important;
     justify-content: center !important;
     margin-top: 20px !important; // No margin since it's positioned below score
+    .dark-theme &,
+    [data-theme="dark"] & {
+      background: #6f6f6f !important;
+      color: #fff !important;
+    }
   }
 }
 
@@ -1354,6 +1367,11 @@
   color: var(--rds-text-secondary-dark, #ccc) !important;
   font-weight: var(--rds-font-weight-normal, 400) !important;
   font-size: var(--rds-font-size-sm, 12px) !important;
+}
+
+.dark-theme .rds-adaptive-cards__activity-update-text,
+[data-theme="dark"] .rds-adaptive-cards__activity-update-text {
+  color: #fff !important;
 }
 
 // Input form error styling
