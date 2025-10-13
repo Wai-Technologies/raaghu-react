@@ -115,7 +115,7 @@
       justify-content: center;
       align-items: center;
       padding: 0 12px;
-      background: var(--rds-color-primary, #3C98FF);
+      //background: var(--rds-color-primary, #3C98FF);
       color: var(--rds-primary-contrast-text, #fff);
       border-radius: 8px; /* match Figma corner radius */
       border: none;
@@ -260,15 +260,8 @@
   
   // Dialog buttons for dark theme - maintain same appearance as light theme
   &__button {
-    // Base button should inherit from light theme styling
-   // background: var(--rds-background-paper, #fff) !important;
-    color: var(--rds-color-primary, #3c98ff) !important;
-    //border: 1px solid var(--rds-color-primary, #3c98ff) !important;
+    color: var(--rds-color-primary, #ffffff) !important;
     border-radius: var(--rds-border-radius, 6px) !important;
-
-    &:hover {
-      background: var(--rds-color-primary-hover-bg, #4a4a4a) !important;
-    }
     
     &:focus {
       outline: 2px solid var(--rds-color-primary, #3c98ff) !important;
@@ -282,7 +275,7 @@
       border: none !important;
 
       &:hover {
-        background: var(--rds-color-primary-hover, #1976d2) !important;
+        background: var(--rds-color-primary-hover, #056cd3) !important;
       }
     }
     
@@ -299,13 +292,13 @@
     
     // Dismiss/text button variant - use same colors as light theme
     &__dismiss {
-      background: #3C98FF !important;
-      color: var(--rds-color-primary, #fff) !important;
+      //background: #3C98FF !important;
+      color: var(--rds-color-primary, #1976d2) !important;
       border: none !important;
-      
-      &:hover {
-        background: var(--rds-color-primary-hover-bg, #2e7ce0) !important;
-      }
+
+     &:hover {
+      background: var(--rds-color-primary-hover-bg, #4a4a4a) !important;
+    }
     }
   }
   
