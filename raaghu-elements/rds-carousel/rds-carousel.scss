@@ -145,6 +145,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      max-width: 100%;
     }
   }
 
@@ -174,20 +175,41 @@
     .rds-carousel__slide-content {
       border-radius: 0 0 var(--rds-border-radius, 8px) var(--rds-border-radius, 8px);
     }
+    
+    // Position arrows in the center of the image area (below title)
+    .rds-carousel__navigation {
+      top: calc(50% + 50px); // Adjust for title area height
+    }
   }
 
   &--full-width-image {
     border-radius: 0;
     box-shadow: none;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    // Prevent horizontal overflow
+    overflow-x: hidden;
 
     .rds-carousel__slide {
       border-radius: 0;
+      width: 100%;
+      max-width: 100%;
     }
     
     .rds-carousel__slide-content {
       border-radius: 0;
+      width: 100%;
+      max-width: 100%;
+      
+      img {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
     }
     
     .rds-carousel__indicators {
@@ -328,6 +350,11 @@
       .rds-carousel__indicators {
         bottom: var(--rds-spacing-sm, 7px);
       }
+      
+      // Adjust arrow position for smaller title area
+      .rds-carousel__navigation {
+        top: calc(50% + 40px); // Smaller offset for mobile
+      }
     }
     
     &--full-width-image {
@@ -435,6 +462,12 @@
       border-radius: 12px;
     }
     
+    &--with-title {
+      .rds-carousel__navigation {
+        top: calc(50% + 35px); // Adjust for smaller screens with title
+      }
+    }
+    
     &--full-width-image {
       .rds-carousel__indicators {
         bottom: 85px;
@@ -458,6 +491,7 @@
     max-width: 88%;
     box-sizing: border-box;
   }
+  
   .rds-carousel {
     &__navigation {
       width: 40px;
@@ -495,9 +529,21 @@
       }
     }
     
+    &--with-title {
+      .rds-carousel__navigation {
+        top: calc(50% + 30px); // Adjust for very small screens with title
+      }
+    }
+    
     &--full-width-image {
+      // Ensure proper sizing on small screens without overflow
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      
       .rds-carousel__slide-content {
         height: 220px;
+        width: 100% !important;
       }
       
       .rds-carousel__indicators {
@@ -519,6 +565,60 @@
   /* AutoPlay story specific adjustments */
   .rds-carousel--auto-play .rds-carousel__slide-content {
     height: 265px !important;
+  }
+  
+  /* With title specific adjustments for tablet/mobile arrow positioning */
+  .rds-carousel--with-title .rds-carousel__navigation {
+    top: calc(50% + 45px) !important; // Center arrows in image area
+  }
+  
+  /* Full width image specific adjustments for tablet/mobile */
+  .rds-carousel--full-width-image {
+    // Ensure it fits properly without overflow
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    overflow-x: hidden !important;
+    // Ensure it stays within viewport bounds
+    box-sizing: border-box !important;
+    
+    .rds-carousel__slide,
+    .rds-carousel__slide-content {
+      height: 300px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    .rds-carousel__indicators {
+      bottom: 90px !important;
+    }
+  }
+}
+
+// Specific fix for 414px screen size to prevent overflow
+@media (width: 414px), (max-width: 414px) {
+  .rds-carousel--full-width-image {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+    
+    .rds-carousel__slide,
+    .rds-carousel__slide-content {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    // Ensure images fit properly within the container
+    img {
+      width: 100% !important;
+      max-width: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+    }
   }
 }
 
