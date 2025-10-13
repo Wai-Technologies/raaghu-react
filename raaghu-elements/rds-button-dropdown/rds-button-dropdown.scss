@@ -70,3 +70,48 @@
 	gap: 8px;
 	padding: 6px 4px;
 }
+
+/* Secondary style for button dropdown */
+.rds-button-dropdown--secondary {
+  background-color: #2534E9 !important;
+  color: white !important;
+  border: none !important;
+  
+  &:hover {
+    background-color: #1d2bb8 !important;
+    color: white !important;
+  }
+  
+  &:active {
+    background-color: #162291 !important;
+    color: white !important;
+  }
+  
+  &:focus {
+    background-color: #2534E9 !important;
+    color: white !important;
+  }
+  
+  // Ensure icon colors are also white
+  .MuiSvgIcon-root {
+    color: white !important;
+  }
+  
+  // Override any MUI button styles that might interfere
+  &.MuiButton-root {
+    background-color: #2534E9 !important;
+    color: white !important;
+    border: none !important;
+    
+    &:hover {
+      background-color: #1d2bb8 !important;
+      color: white !important;
+    }
+    
+    &:active {
+      background-color: #162291 !important;
+      color: white !important;
+    }
+  }
+}
+
