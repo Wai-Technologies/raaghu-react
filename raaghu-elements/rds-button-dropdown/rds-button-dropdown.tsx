@@ -114,8 +114,10 @@ const RdsButtonDropdown = ({
         state={buttonState}
         style={
           styleType === 'transparent' ? 'transparent' :
-          styleType === 'primary' ? 'filled' : 'outlined'
+          styleType === 'primary' ? 'filled' :
+          styleType === 'secondary' ? 'filled' : 'outlined'
         }
+        className={styleType === 'secondary' ? 'rds-button-dropdown--secondary' : ''}
         textCase="uppercase"
       />
       <RdsMenu
