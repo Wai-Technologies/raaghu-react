@@ -138,10 +138,10 @@ const RdsAutocomplete = <T extends { label?: string },>({
         <TextField
           {...params}
           placeholder={placeholder}
-          helperText={showHintText ? helperText : ''}
+          helperText={helperText || '\u00A0'}
           error={error}
           variant={variant}
-          className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass}`}
+          className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass} ${!showHintText ? 'rds-autocomplete__textfield--hidden-helper' : ''}`}
           onClick={() => state !== 'expanded' && setOpen(true)}
           onFocus={() => openOnFocus && state !== 'expanded' && setOpen(true)}
         />
