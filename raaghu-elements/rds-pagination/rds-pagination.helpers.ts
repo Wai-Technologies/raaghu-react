@@ -33,9 +33,9 @@ export const getStyleConfig = (style: string): StyleConfig => {
         shape: 'circular' as const,
         size: 'medium' as const,
         styleClass: 'style-1',
-        // Show more contiguous page numbers for Style 1
-        siblingCount: 1,
-        boundaryCount: 2
+        // Reduce page numbers for mobile screens to fit within 320px
+        siblingCount: 0,
+        boundaryCount: 1
       };
     case 'Style 2':
       return {
@@ -81,8 +81,9 @@ export const getStyleConfig = (style: string): StyleConfig => {
         shape: 'circular' as const,
         size: 'medium' as const,
         styleClass: 'style-4',
+        // Reduce page numbers for mobile screens to fit within 320px
         siblingCount: 0,
-        boundaryCount: 2
+        boundaryCount: 1
       };
     case 'Style 5':
       return {
@@ -203,6 +204,9 @@ export const calculatePaginationConfig = (
   paginationStyle: string,
   styleConfig: StyleConfig
 ) => {
+  // Check if we're on a very small screen (320px or less)
+  const isVerySmallScreen = typeof window !== 'undefined' && window.innerWidth <= 320;
+  
   // Ensure ellipsis position for specific styles (Style 2 and Style 7)
   // Force siblingCount and boundaryCount so dots appear after page 2
   const paginationSiblingCount = typeof styleConfig.siblingCount === 'number'
@@ -213,8 +217,14 @@ export const calculatePaginationConfig = (
     : (paginationStyle === 'Style 2' || paginationStyle === 'Style 7' ? 2 : undefined);
 
   // Final values to pass to MUI Pagination — make absolutely explicit for Style 2 and 7
-  const finalSiblingCount = (paginationStyle === 'Style 2' || paginationStyle === 'Style 7') ? 0 : (typeof paginationSiblingCount === 'number' ? paginationSiblingCount : 0);
-  const finalBoundaryCount = (paginationStyle === 'Style 2' || paginationStyle === 'Style 7') ? 1 : (typeof paginationBoundaryCount === 'number' ? paginationBoundaryCount : 1);
+  let finalSiblingCount = (paginationStyle === 'Style 2' || paginationStyle === 'Style 7') ? 0 : (typeof paginationSiblingCount === 'number' ? paginationSiblingCount : 0);
+  let finalBoundaryCount = (paginationStyle === 'Style 2' || paginationStyle === 'Style 7') ? 1 : (typeof paginationBoundaryCount === 'number' ? paginationBoundaryCount : 1);
+
+  // For Style 1 and Style 4 on very small screens, minimize pagination items to fit in 320px
+  if (isVerySmallScreen && (paginationStyle === 'Style 1' || paginationStyle === 'Style 4')) {
+    finalSiblingCount = 0;
+    finalBoundaryCount = 1;
+  }
 
   return { finalSiblingCount, finalBoundaryCount };
 };

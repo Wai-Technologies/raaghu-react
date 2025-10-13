@@ -273,18 +273,14 @@
   display: flex; 
   align-items: center;
   justify-content: center;
-  margin-left: -33px; 
-  .is-live & {
-    margin-left: 59px;
-  }
+  margin-left: 45px; 
     }
   &__football-league-avatar {
     width: var(--rds-football-league-avatar-size, 28px) !important;
     height: var(--rds-football-league-avatar-size, 28px) !important;
-    margin-right: var(--rds-spacing-none, 0) !important;
-    padding-right: var(--rds-spacing-md, 30) !important;
+    margin-right: var(--rds-spacing-sm, 0px) !important;
+    margin-left: var(--rds-spacing-sm, 10px) !important;
     display: block;
-    margin-left: 16px !important;
   }
   &__football-league {
       font-weight: var(--rds-font-weight-bold, 600) !important;
@@ -293,7 +289,7 @@
       font-size: 26px !important;
       color: var(--rds-text-primary, #111);
       text-shadow: var(--rds-football-league-text-shadow, 0 2px 6px rgba(0,0,0,0.25), 0 0px 1px #fff);
-      margin-left: var(--rds-spacing-xs, 2px) !important;
+      margin-left: var(--rds-spacing-sm, 8px) !important;
       padding-left: var(--rds-spacing-none, 0) !important;
       display: block;
       font-weight: 600 !important;
@@ -322,14 +318,14 @@
   &__football-live {
   font-size: var(--rds-font-size-xs, 10px) !important;
   font-weight: var(--rds-font-weight-normal, 400);
-  margin: var(--rds-spacing-none, 0) 0 20px 50px !important;
-  // padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-xs, 2px) !important;
+  margin: var(--rds-spacing-none, 0) var(--rds-spacing-none, 0) 20px var(--rds-spacing-lg, 42px) !important;
   border-radius: var(--rds-border-radius-md, 8px) !important;
   background: var(--rds-background-default, #dcdfee);
   color: var(--rds-text-secondary, #545454);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-width: 50px; // Reserve space for consistent positioning
     .dark-theme &,
     [data-theme="dark"] & {
       color: var(--rds-text-primary-dark, #fff) !important;
@@ -899,23 +895,19 @@
   .rds-adaptive-cards__image-list-item {
     height: var(--rds-image-list-item-height-mobile, 120px) !important;
   }
+  .rds-adaptive-cards__football-header-row {
+    margin-left: 0;
+  }
   .rds-adaptive-cards__football-live {
       position: relative !important;
-      
-      /* Dark mode override for home team logo on mobile */
-      &.rds-adaptive-cards__football-logo--home {
-        .dark-theme &,
-        [data-theme="dark"] & {
-          background: #2a2a2a !important;
-        }
-      }
       left: 0 !important;
-      right: 10px !important;
-      margin: 0 auto 4px auto !important;
+      right: 0 !important;
+      margin: 0 0 20px var(--rds-spacing-md, 12px) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      max-width: 90% !important;
+      max-width: 50px !important;
+      min-width: 50px !important;
       font-size: 9px !important;
       z-index: 2;
     }
@@ -934,11 +926,11 @@
       position: relative !important;
       left: 0 !important;
       right: 0 !important;
-      margin: 0 auto 4px auto !important;
+      margin: 0 0 4px var(--rds-spacing-sm, 12px) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      max-width: 90% !important;
+      max-width: 48px !important;
       font-size: 9px !important;
       z-index: 2;
     }
@@ -975,22 +967,18 @@
   .rds-adaptive-cards__football-live {
     font-size: var(--rds-font-size-xs, 10px) !important;
     font-weight: var(--rds-font-weight-normal, 400) !important;
-    height: var(--rds-font-size-xs, 12px) !important;
-    @media (max-width: 340px) {
-      .rds-adaptive-cards__football-live {
-        position: relative !important;
-        left: 0 !important;
-        right: 0 !important;
-        margin: 0 auto 4px auto !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        max-width: 90% !important;
-        font-size: 9px !important;
-        z-index: 2;
-      }
+    height: var(--rds-font-size-xs, 20px) !important;
+    position: relative !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 0 20px var(--rds-spacing-md, 14px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    max-width: 50px !important;
+    min-width: 50px !important;
+    z-index: 2;
   }
-}
 }
 
 @media (min-width: 376px) and (max-width: 480px) {

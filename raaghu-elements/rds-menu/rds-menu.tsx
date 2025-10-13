@@ -50,7 +50,7 @@ function getColor(color: string): string {
     case 'warning':
       return '#ed6c02';
     default:
-      return color || '#222'; // fallback to default text color
+      return color || ''; // Return empty string to let CSS handle default colors
   }
 }
   return (
@@ -83,19 +83,30 @@ function getColor(color: string): string {
               role="menuitem"
               component="li"
               dense={dense}
-              style={item.color ? { color: getColor(item.color) } : undefined}
+              style={{
+                ...(item.color ? { 
+                  color: getColor(item.color),
+                  '--rds-menu-icon-color': getColor(item.color)
+                } as React.CSSProperties : {})
+              }}
               className={['rds-menu__item', item.color ? `rds-menu__item--${item.color}` : '', item.disabled ? 'rds-menu__item--disabled' : ''].filter(Boolean).join(' ')}
             >
               {item.icon && (
-                <ListItemIcon className="rds-menu__item__icon">
+                <ListItemIcon 
+                  className={`rds-menu__item__icon ${item.color ? `rds-menu__item__icon--${item.color}` : ''}`}
+                  style={item.color ? { 
+                    color: getColor(item.color)
+                  } : {}}
+                >
                   {React.isValidElement(item.icon) && (typeof item.icon.type === 'function' || typeof item.icon.type === 'object')
                     ? React.cloneElement(
                         item.icon as React.ReactElement<any>,
                         {
                           ...(item.icon.props || {}),
                           style: {
-                            ...(item.icon.props?.style || {}),
-                            color: getColor(item.color || '')
+                            ...((item.icon as React.ReactElement<any>).props?.style || {}),
+                            color: item.color ? getColor(item.color) : undefined,
+                            fill: item.color ? getColor(item.color) : undefined
                           }
                         }
                       )
