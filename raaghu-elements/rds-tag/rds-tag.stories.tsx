@@ -35,6 +35,9 @@ export const Default: Story = {
   args: {
     label: 'Default Tag',
   },
+   parameters: {
+    controls: { exclude: ['removable'] },
+  }
 };
 
 export const Primary: Story = {
@@ -42,6 +45,9 @@ export const Primary: Story = {
     label: 'Primary Tag',
     color: 'primary',
   },
+   parameters: {
+    controls: { exclude: ['removable'] },
+  }
 };
 
 export const Secondary: Story = {
@@ -49,6 +55,9 @@ export const Secondary: Story = {
     label: 'Secondary Tag',
     color: 'secondary',
   },
+   parameters: {
+    controls: { exclude: ['removable'] },
+  }
 };
 
 export const Removable: Story = {
@@ -65,6 +74,9 @@ export const Outlined: Story = {
     variant: 'outlined',
     color: 'primary',
   },
+   parameters: {
+    controls: { exclude: ['removable'] },
+  }
 };
 
 export const Small: Story = {
@@ -73,6 +85,9 @@ export const Small: Story = {
     size: 'small',
     color: 'success',
   },
+   parameters: {
+    controls: { exclude: ['removable'] },
+  }
 };
 
 export const Multiple: Story = {
