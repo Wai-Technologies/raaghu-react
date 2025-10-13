@@ -237,7 +237,7 @@
       flex-shrink: 0;
       background: var(--rds-color-dark);      
       position: relative;
-      gap: var(--rds-spacing-sm, 12px);
+      //gap: var(--rds-spacing-sm, 12px);
     }
 
     &--full-width {
@@ -711,7 +711,7 @@
   &__footer-left {
     display: flex;
     align-items: center;
-    gap: 10px;
+    //gap: 10px;
     flex: 0 0 auto;
 
     .btn-icon,
@@ -750,7 +750,8 @@
     }
 
     .rds-button--state-default {
-      min-width: 40px !important;
+      min-width: 50px !important;
+      margin-bottom: 3px;
     }
   }
 
@@ -1012,11 +1013,12 @@
 
     &__window-footer {
       padding: var(--rds-spacing-xs, 8px);
-      gap: var(--rds-spacing-xs, 8px);
+      //gap: var(--rds-spacing-xs, 8px);
+      margin-top: 29px;
     }
     
     &__footer-left {
-      gap: var(--rds-spacing-xs, 8px);
+      //gap: var(--rds-spacing-xs, 8px);
       
       .rds-comp-chat__emoji-btn {
         width: 36px;
@@ -1127,6 +1129,10 @@
   .rds-comp-chat__message--other-user .rds-comp-chat__comment-content {
     background-color: var(--rds-color-primary,rgb(62 63 64)) !important;
     color: var(--rds-color-on-primary, rgb(238, 244, 249)) !important;
+  }
+
+  .rds-comp-chat__input-wrapper {
+    background: #000 !important;
   }
 
   .rds-comp-chat__screen-main .rds-comp-chat__user-item {
