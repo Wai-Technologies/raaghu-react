@@ -68,6 +68,21 @@ const RdsCompChat = (props: RdsCompChatProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Force layout recalculation after component mount to fix initial alignment issues
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // Trigger a small layout recalculation
+      const chatFooter = document.querySelector('.rds-comp-chat__window-footer');
+      if (chatFooter) {
+        chatFooter.style.transform = 'translateZ(0)';
+        requestAnimationFrame(() => {
+          chatFooter.style.transform = '';
+        });
+      }
+    }, 10);
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target as Node)) {
