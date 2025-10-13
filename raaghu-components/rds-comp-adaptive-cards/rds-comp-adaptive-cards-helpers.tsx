@@ -272,15 +272,14 @@ export function FootballScorecardCard({
             >
               {leagueName}
             </RdsTypography>
-            {isLive && (
-                <RdsChip
-                  label="Live"
-                  color="error"
-                  size="small"
-                  icon={<svg width="7" height="7" viewBox="0 0 7 7"><circle cx="3.5" cy="3.5" r="2" fill="currentColor" /></svg>}
-                  className="rds-adaptive-cards__football-live"
-                />
-              )}
+            <RdsChip
+              label="Live"
+              color="error"
+              size="small"
+              icon={<svg width="7" height="7" viewBox="0 0 7 7"><circle cx="3.5" cy="3.5" r="2" fill="currentColor" /></svg>}
+              className="rds-adaptive-cards__football-live"
+              style={{ visibility: isLive ? 'visible' : 'hidden' }}
+            />
           </RdsStack>
           <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__football-date" align="center">
             {date}
