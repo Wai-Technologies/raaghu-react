@@ -57,7 +57,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    // Ensure any rendered pre/code from syntax highlighter stays inline and doesn't break layout
+    
     pre,
     code,
     span {
