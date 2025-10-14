@@ -50,7 +50,7 @@ export interface RdsDatepickerProps {
     placeholderText?: string;
     DatePickerLabel?: string;
     type?: string;
-    changeIcon?: "dashboard_settings" | string; // Icon to display: "dashboard_settings" for settings icon, other values for calendar
+    changeIcon?: "dashboard_settings" | string; 
     showClearDate?: boolean;
     isDefaultDate?: boolean;
 }
