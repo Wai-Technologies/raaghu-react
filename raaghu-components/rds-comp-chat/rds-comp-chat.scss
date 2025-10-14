@@ -689,6 +689,10 @@
         height: 16px;
       }
     }
+    .rds-button--state-default {
+      min-width: 40px !important;
+      margin-bottom: 6px;
+    }
   }
 
   // Footer center + input wrapper adjustments
@@ -748,7 +752,6 @@
 
     .rds-button--state-default {
       min-width: 50px !important;
-      margin-bottom: 3px;
     }
   }
 
@@ -1021,6 +1024,7 @@
         width: 36px;
         height: 36px;
         font-size: 18px;
+        margin-bottom: 6px;
       }
       
       .btn-icon {
@@ -1120,6 +1124,10 @@
       }
     }
   }
+  .rds-button--state-default {
+      min-width: 40px !important;
+      margin-bottom: 3px;
+    }
 }
 
 [data-theme="dark"] {
