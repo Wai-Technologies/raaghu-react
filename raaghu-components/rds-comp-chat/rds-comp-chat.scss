@@ -526,10 +526,7 @@
     display: block;
     min-height: 44px; // ensure enough vertical space for icon centering
 
-    // Target common input structures inside RdsInput
-    // - native input element
-    // - textarea
-    // - input inside a wrapper with .rds-input class
+
     input,
     textarea,
     .rds-input,
