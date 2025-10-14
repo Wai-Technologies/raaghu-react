@@ -101,4 +101,7 @@ export const Multiple: Story = {
       <RdsTag label="ESLint" color="error" size="small" />
     </Box>
   ),
+  argTypes: {
+    removable: { control: { disable: true } },
+  },
 };
