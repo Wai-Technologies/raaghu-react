@@ -189,11 +189,13 @@ const RdsTable = ({
         const rowId = row.id || row.key;
         const isChecked = cellCheckboxSelected.has(rowId);
         return (
+          <div className="rds-table__checkbox">
           <Checkbox
             checked={isChecked}
             onChange={() => toggleCellCheckbox(rowId)}
             size="small"
           />
+          </div>
         );
       }
       case 'radio': {
@@ -225,7 +227,7 @@ const RdsTable = ({
           <MuiTableHead className="rds-table__head">
             <MuiTableRow className="rds-table__header-row">
               {selectable && (
-                <MuiTableCell padding="checkbox" className="rds-table__header rds-table__header--checkbox">
+                <MuiTableCell padding="checkbox" className="rds-table__header rds-table__header--checkbox rds-table__checkbox">
                   <Checkbox
                     indeterminate={isIndeterminate}
                     checked={isAllSelected}
@@ -248,6 +250,7 @@ const RdsTable = ({
                     aria-sort={active ? (sortDirection === 'asc' ? 'ascending' : 'descending') : undefined}
                   >
                     {column.type === 'checkbox' ? (
+                      <div className="rds-table__checkbox">
                       <Checkbox
                         indeterminate={isCellCheckboxIndeterminate}
                         checked={isAllCellCheckboxSelected}
@@ -260,6 +263,7 @@ const RdsTable = ({
                         }}
                         size="small"
                       />
+                      </div>
                     ) : (
                       <div className="rds-table__header-content" onClick={() => handleSort(column)} style={{ cursor: column.sortable ? 'pointer' : undefined }}>
                         <span className="rds-table__header-label">{column.label}</span>
@@ -291,7 +295,7 @@ const RdsTable = ({
                   className={`rds-table__row ${isSelected ? 'rds-table__row--selected' : ''}`}
                 >
                   {selectable && (
-                    <MuiTableCell padding="checkbox" className="rds-table__cell rds-table__cell--checkbox">
+                    <MuiTableCell padding="checkbox" className="rds-table__cell rds-table__cell--checkbox rds-table__checkbox">
                       <Checkbox
                         checked={isSelected}
                         onChange={() => handleSelectRow(row.id || row.key)}
