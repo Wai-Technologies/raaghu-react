@@ -620,15 +620,18 @@
         box-shadow: var(--rds-elevation-1, 0 1px 4px rgba(0,0,0,0.1));
         border-radius: var(--rds-border-radius-sm, 4px);
         padding: var(--rds-spacing-xs, 4px);
-        z-index: 10;
-        
-        // If actions would go outside container, position them below
+        z-index: 30;
+        white-space: nowrap;
+        min-width: 40px;
+        display: flex;
+        //gap: var(--rds-spacing-xxs, 4px);
+        align-items: center;
+
+        // Keep actions absolutely positioned even on narrow screens to avoid layout shifts.
         @media (max-width: 380px) {
-          position: absolute;
-          top: 100%;
-          right: 0;
-          transform: none;
-          margin-top: var(--rds-spacing-xs, 4px);
+          right: 4px;
+          top: 50%;
+          transform: translateY(-50%);
         }
       }
       
@@ -1249,15 +1252,15 @@
         height: 36px;
         font-size: var(--rds-font-size-xs, 12px);
          // Adjust tree structure actions for mobile
-      .rds-comp-tree-structure {
-        &__actions {
-          position: static;
-          transform: none;
-          margin-top: var(--rds-spacing-xs, 4px);
-          margin-left: var(--rds-spacing-sm, 8px);
-          background: var(--rds-color-surface, #fff);
+        // keep actions absolute; only tweak spacing when footer is present
+        .rds-comp-tree-structure & {
+          .rds-comp-tree-structure__actions {
+            right: 4px;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-left: 0;
+          }
         }
-      }
     }
     
     &__detail-pane-footer {
@@ -1277,7 +1280,7 @@
     &__toolbar-pane-container {
       padding-left: var(--rds-spacing-xs, 4px);
       padding-right: var(--rds-spacing-xs, 4px);
-      padding-bottom: 100px; // Add padding for footer buttons
+     // padding-bottom: 100px; // Add padding for footer buttons
       min-height: 400px;
       max-height: calc(543px - 120px); // Mobile height limit
       overflow-y: auto;
