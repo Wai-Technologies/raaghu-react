@@ -7,8 +7,31 @@
     }
 
     &__dropdown {
+        .rds-fab-menu__dropdown {
+            min-width: 273px !important;
+            max-width: none !important;
+        }
+
         .dropdown-menu {
-            width: 340px !important;
+            min-width: 273px !important;
+            width: auto !important;
+        }
+
+        .rds-comp-ai-fab-menu {
+            .dropdown-menu {
+                min-width: 273px !important;
+                width: auto !important;
+            }
+            
+            .rds-fab-menu__dropdown {
+                min-width: 273px !important;
+                max-width: none !important;
+            }
+        }
+
+        .fab-dropdown {
+            min-width: 273px !important;
+            width: auto !important;
         }
 
         #fab-list {
@@ -18,6 +41,8 @@
                 left: -18px !important;
                 right: auto !important;
                 transform: translate3d(30px, 97.5px, 0px) !important;
+                min-width: 273px !important;
+                width: auto !important;
             }
         }
     }

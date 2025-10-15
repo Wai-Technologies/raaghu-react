@@ -558,11 +558,13 @@
     max-width: 100%;
     box-sizing: border-box;
 
-    // Make Add buttons in input rows match purple theme
     .rds-button {
       border-color: #7c3aed !important;
       color: #7c3aed !important;
       background-color: transparent !important;
+      min-width: 90px !important;
+      width: 90px !important;
+      height: 36px !important;
 
       &:hover {
         background-color: #7c3aed !important;
@@ -613,6 +615,65 @@
         color: #9e9e9e;
       }
     }
+    
+    .rds-input,
+    textarea,
+    .MuiInputBase-root {
+      & input::placeholder,
+      & textarea::placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+        opacity: 1;
+      }
+
+      /* WebKit */
+      & input::-webkit-input-placeholder,
+      & textarea::-webkit-input-placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+      }
+
+      /* Firefox 19+ */
+      & input::-moz-placeholder,
+      & textarea::-moz-placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+      }
+
+      /* IE 10+ */
+      & input:-ms-input-placeholder,
+      & textarea:-ms-input-placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+      }
+    }
+  }
+
+  /* Group wrapper for input + action so both rows behave identically */
+  &__form-input-row--group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Action button container: keep button to the right and aligned to input height */
+  .rds-comp-product-tour__form-action-btn {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Ensure action buttons have a consistent size to keep input widths identical */
+  .rds-comp-product-tour__form-action-btn .rds-button,
+  .rds-comp-product-tour__form-action-btn .MuiButton-root {
+    min-width: 90px !important; /* consistent width for buttons - made slightly wider for "CREATE" */
+    width: 90px !important; /* fixed width for consistency */
+    height: 36px !important;
+    padding: 6px 12px !important;
+    box-sizing: border-box !important;
   }
 
   &__form-button-right {
@@ -631,6 +692,16 @@
         background-color: #7c3aed !important;
         color: #fff !important;
       }
+    }
+
+    // Ensure consistent button size for right-aligned buttons too
+    .rds-comp-product-tour__form-action-btn .rds-button,
+    .rds-comp-product-tour__form-action-btn .MuiButton-root {
+      min-width: 90px !important;
+      width: 90px !important;
+      height: 36px !important;
+      padding: 6px 12px !important;
+      box-sizing: border-box !important;
     }
   }
 

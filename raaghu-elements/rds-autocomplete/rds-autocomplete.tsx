@@ -138,7 +138,10 @@ const RdsAutocomplete = <T extends { label?: string },>({
         <TextField
           {...params}
           placeholder={placeholder}
-          helperText={helperText || '\u00A0'}
+          // Only pass helperText when hint text should be shown. When hidden, avoid passing
+          // the prop so MUI does not render the helper <p> element (which previously
+          // received a non-breaking space when helperText was falsy).
+          helperText={showHintText ? (helperText ?? '\u00A0') : undefined}
           error={error}
           variant={variant}
           className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass} ${!showHintText ? 'rds-autocomplete__textfield--hidden-helper' : ''}`}
