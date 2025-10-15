@@ -562,6 +562,9 @@
       border-color: #7c3aed !important;
       color: #7c3aed !important;
       background-color: transparent !important;
+      min-width: 90px !important;
+      width: 90px !important;
+      height: 36px !important;
 
       &:hover {
         background-color: #7c3aed !important;
@@ -666,10 +669,11 @@
   /* Ensure action buttons have a consistent size to keep input widths identical */
   .rds-comp-product-tour__form-action-btn .rds-button,
   .rds-comp-product-tour__form-action-btn .MuiButton-root {
-    min-width: 84px; /* consistent width for buttons */
-    height: 36px;
-    padding: 6px 12px;
-    box-sizing: border-box;
+    min-width: 90px !important; /* consistent width for buttons - made slightly wider for "CREATE" */
+    width: 90px !important; /* fixed width for consistency */
+    height: 36px !important;
+    padding: 6px 12px !important;
+    box-sizing: border-box !important;
   }
 
   &__form-button-right {
@@ -688,6 +692,16 @@
         background-color: #7c3aed !important;
         color: #fff !important;
       }
+    }
+
+    // Ensure consistent button size for right-aligned buttons too
+    .rds-comp-product-tour__form-action-btn .rds-button,
+    .rds-comp-product-tour__form-action-btn .MuiButton-root {
+      min-width: 90px !important;
+      width: 90px !important;
+      height: 36px !important;
+      padding: 6px 12px !important;
+      box-sizing: border-box !important;
     }
   }
 

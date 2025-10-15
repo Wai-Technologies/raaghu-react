@@ -127,7 +127,9 @@ export const renderFormInputs = () => (
                     icon={<Info sx={{ color: '#9E9E9E', fontSize: '23px' }} />}
                 />
             </Box>
-            <RdsButton text="Create" style="outlined" size="medium" layout="text-only" />
+            <Box className="rds-comp-product-tour__form-action-btn">
+                <RdsButton text="CREATE" style="outlined" size="medium" layout="text-only" />
+            </Box>
         </Box>
         </Box>
         <Box className="rds-comp-product-tour__form-input-row">
@@ -158,7 +160,7 @@ export const renderFormInputs = () => (
                 />
                 </Box>
                 <Box className="rds-comp-product-tour__form-action-btn">
-                    <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
+                    <RdsButton text="ADD" style="outlined" size="medium" layout="text-only" />
                 </Box>
             </Box>
         </Box>
@@ -166,7 +168,9 @@ export const renderFormInputs = () => (
             <RdsInput placeholder="Enter Project Description" multiline rows={1} variant="outlined" size="medium" />
         </Box>
         <Box className="rds-comp-product-tour__form-button-right">
-            <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
+            <Box className="rds-comp-product-tour__form-action-btn">
+                <RdsButton text="ADD" style="outlined" size="medium" layout="text-only" />
+            </Box>
         </Box>
     </>
 );
