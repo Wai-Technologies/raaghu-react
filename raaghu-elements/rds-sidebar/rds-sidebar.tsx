@@ -1,13 +1,15 @@
 import React from 'react';
-import { 
-  Drawer as MuiDrawer, 
-  List, 
-  ListItem, 
-  ListItemButton, 
-  ListItemIcon, 
+import {
+  Drawer as MuiDrawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
   ListItemText,
-  type DrawerProps
+  Collapse,
+  type DrawerProps,
 } from '@mui/material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
 import './rds-sidebar.scss';
@@ -21,6 +23,8 @@ export interface RdsSidebarItem {
   layout?: 'raaghu' | 'list' | 'toolbar';
   typeOf?: 'collapse' | 'expanded' | 'fixed';
   platform?: 'abp-list' | 'anz-list';
+  /** Optional nested submenu items */
+  children?: RdsSidebarItem[];
 }
 
 export interface RdsSidebarProps extends Omit<DrawerProps, 'children'> {
@@ -53,6 +57,12 @@ const RdsSidebar = ({
   ...props
 }:RdsSidebarProps) => {
   const [searchValue, setSearchValue] = React.useState("");
+  // Track which top-level items with children are expanded
+  const [openMap, setOpenMap] = React.useState<Record<number, boolean>>({});
+
+  const toggleOpen = (idx: number) => {
+    setOpenMap(prev => ({ ...prev, [idx]: !prev[idx] }));
+  };
 
   // Derived state for sidebar appearance
   const isCollapsed = typeOf === 'collapse' || typeOf === 'fixed';
@@ -167,26 +177,66 @@ const RdsSidebar = ({
         )}
         <List className="rds-sidebar__nav-list">
           {items.map((item, index) => (
-            <ListItem key={index} disablePadding className={navItemClasses}>
-              <ListItemButton
-                onClick={item.onClick}
-                disabled={item.disabled}
-                selected={item.active}
-                className={navButtonClasses}
-                sx={{
-                  minHeight: 48,
-                  justifyContent: isCollapsed ? 'center' : 'flex-start',
-                  px: isCollapsed ? 0 : 2,
-                }}
-              >
-                {item.icon && (
-                  <ListItemIcon className={`rds-sidebar__nav-icon ${showLabels ? 'rds-sidebar__nav-icon--with-label' : 'rds-sidebar__nav-icon--no-label'}`}>
-                    {item.icon}
-                  </ListItemIcon>
-                )}
-                {showLabels && <ListItemText primary={item.label} />}
-              </ListItemButton>
-            </ListItem>
+            <div key={index}>
+              <ListItem disablePadding className={navItemClasses}>
+                <ListItemButton
+                  onClick={() => {
+                    if (item.children && item.children.length) {
+                      toggleOpen(index);
+                    } else {
+                      item.onClick && item.onClick();
+                    }
+                  }}
+                  disabled={item.disabled}
+                  selected={item.active}
+                  className={navButtonClasses}
+                  aria-expanded={!!openMap[index]}
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: isCollapsed ? 'center' : 'flex-start',
+                    px: isCollapsed ? 0 : 2,
+                  }}
+                >
+                  {item.icon && (
+                    <ListItemIcon className={`rds-sidebar__nav-icon ${showLabels ? 'rds-sidebar__nav-icon--with-label' : 'rds-sidebar__nav-icon--no-label'}`}>
+                      {item.icon}
+                    </ListItemIcon>
+                  )}
+                  {showLabels && <ListItemText primary={item.label} />}
+                  {item.children && item.children.length > 0 && (
+                    (!!openMap[index]) ? <ExpandLess /> : <ExpandMore />
+                  )}
+                </ListItemButton>
+              </ListItem>
+              {item.children && item.children.length > 0 && (
+                <Collapse in={!!openMap[index]} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {item.children.map((child, cIdx) => (
+                      <ListItem key={cIdx} disablePadding className={navItemClasses}>
+                        <ListItemButton
+                          onClick={child.onClick}
+                          disabled={child.disabled}
+                          selected={child.active}
+                          className={navButtonClasses}
+                          sx={{
+                            minHeight: 40,
+                            justifyContent: isCollapsed ? 'center' : 'flex-start',
+                            px: isCollapsed ? 0 : 4,
+                          }}
+                        >
+                          {child.icon && (
+                            <ListItemIcon className={`rds-sidebar__nav-icon ${showLabels ? 'rds-sidebar__nav-icon--with-label' : 'rds-sidebar__nav-icon--no-label'}`}>
+                              {child.icon}
+                            </ListItemIcon>
+                          )}
+                          {showLabels && <ListItemText primary={child.label} />}
+                        </ListItemButton>
+                      </ListItem>
+                    ))}
+                  </List>
+                </Collapse>
+              )}
+            </div>
           ))}
         </List>
         <div className="rds-sidebar__footer">

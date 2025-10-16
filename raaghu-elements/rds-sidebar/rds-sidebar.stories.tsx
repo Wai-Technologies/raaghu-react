@@ -70,9 +70,26 @@ type Story = StoryObj<typeof meta>;
 
 const basicItems = [
   { label: 'Home', icon: <Home />, onClick: () => alert('Home clicked') },
-  { label: 'Dashboard', icon: <Dashboard />, onClick: () => alert('Dashboard clicked'), active: true },
+  {
+    label: 'Dashboard',
+    icon: <Dashboard />,
+    active: true,
+    children: [
+      { label: 'Overview', icon: <Star />, onClick: () => alert('Overview clicked') },
+      { label: 'Stats', icon: <Inbox />, onClick: () => alert('Stats clicked') },
+      { label: 'Reports', icon: <Send />, onClick: () => alert('Reports clicked') },
+    ],
+  },
   { label: 'Profile', icon: <Person />, onClick: () => alert('Profile clicked') },
   { label: 'Settings', icon: <Settings />, onClick: () => alert('Settings clicked') },
+  { label: 'Requests', icon: <Drafts />,
+    active: true,
+    children: [
+      { label: 'New Requests', icon: <Star />, onClick: () => alert('New Requests clicked') },
+      { label: 'Pending', icon: <Drafts />, onClick: () => alert('Pending clicked') },
+      { label: 'Approved', icon: <Send />, onClick: () => alert('Approved clicked') },
+    ], 
+  },
   { label: 'Help', icon: <Help />, onClick: () => alert('Help clicked') },
 ];
 
