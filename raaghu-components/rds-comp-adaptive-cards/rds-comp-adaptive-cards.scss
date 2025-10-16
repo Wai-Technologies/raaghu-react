@@ -390,14 +390,48 @@
     &__football-header-row {
     width: 100%;
     position: relative;
-    display: flex !important; 
-    align-items: center !important;
-    justify-content: center !important;
-    gap: var(--rds-spacing-sm, 58px) !important; // Increase gap to match second screenshot
+      display: flex !important; 
+      align-items: center !important;
+      justify-content: space-between !important; // make space for title on left and live chip on right
+    //gap: var(--rds-spacing-sm, 58px) !important; // Increase gap to match second screenshot
     margin: 0 !important;
     padding: var(--rds-spacing-xs, 4px) 0 !important;
     flex-wrap: nowrap !important; // Prevent wrapping
   }
+
+  /* CSS-only grouping: if markup wasn't wrapped in a left-group, force avatar + title to stay together on left */
+  .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league-avatar,
+  .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: var(--rds-spacing-xs, 6px) !important;
+  }
+
+  /* Ensure ordering: avatar then title on left, live chip on right */
+  .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league-avatar {
+    order: 0 !important;
+    margin-right: var(--rds-spacing-xs, 8px) !important;
+    flex-shrink: 0 !important;
+  }
+  .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league {
+    order: 1 !important;
+    white-space: nowrap !important;
+    min-width: 0 !important; /* allow truncation */
+  }
+  .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-live,
+  .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-live--aligned {
+    order: 2 !important;
+    margin-left: auto !important; /* push live chip to the far right */
+  }
+
+    /* Left-side group: avatar + title should stay together */
+    &__football-header-left {
+      display: flex !important;
+      align-items: center !important;
+      flex: 1 1 auto !important; /* allow this group to take remaining space but keep items together */
+      min-width: 0 !important; /* allow truncation within this group when necessary */
+      margin-left: 67px !important;
+    }
   &__football-league-avatar {
     width: var(--rds-football-league-avatar-size, 24px) !important;
     height: var(--rds-football-league-avatar-size, 24px) !important;
@@ -421,6 +455,11 @@
         color: #fff !important;
       }
     }
+    
+    // Ensure the league/title and the live chip have breathing room
+    .rds-adaptive-cards__football-live + & {
+      margin-left: var(--rds-spacing-md, 12px) !important;
+    }
   &__football-date {
     color: var(--rds-text-secondary, #646464) !important;
     font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
@@ -433,6 +472,8 @@
     [data-theme="dark"] & {
       color: #fff !important;
     }
+    /* Ensure the league/title doesn't push the avatar away: allow truncation */
+    min-width: 0 !important;
   }
   &__football-final {
     color: var(--rds-text-secondary, #646464) !important;
@@ -457,7 +498,7 @@
     justify-content: center !important;
     flex-shrink: 0 !important; // Prevent shrinking
     margin: 0 !important; // Remove problematic margins
-    padding: 2px 6px !important; // Add proper padding
+    padding: 12px 6px !important; // Add proper padding
     height: 20px !important; // Fixed height
     min-width: 32px !important; // Minimum width
     .dark-theme &,
@@ -470,6 +511,18 @@
     [data-theme="dark"] & svg circle {
       fill: white !important;
     }
+  }
+
+  /* Right-align live chip variant for desktop/tablet where header uses space-between */
+  .rds-adaptive-cards__football-live--aligned {
+    position: relative !important;
+    margin-left: auto !important; /* push to the far right inside a flex row */
+    margin-right: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
   &__football-body {
     display: flex !important; // Essential: Enable flexbox layout for horizontal alignment
@@ -1075,7 +1128,7 @@
     font-weight: 700 !important;
     padding-top: 4px !important;
     padding-bottom: 8px !important;
-      max-width: 100%;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1173,7 +1226,7 @@
     font-size: var(--rds-font-size-xs, 10px) !important;
   }
   .rds-adaptive-cards__football-score {
-    font-size: var(--rds-font-size-xl, 18px) !important;
+    font-size: var(--rds-font-size-xl, 38px) !important;
   }
   .rds-adaptive-cards__football-score-section {
     gap: var(--rds-spacing-sm, 8px) !important;
@@ -1203,6 +1256,11 @@
       }
   }
 }
+}
+@media (max-width: 320px) {
+  .rds-adaptive-cards__football-header-left {
+      margin-left: 27px !important;
+    }
 }
 
 @media (min-width: 376px) and (max-width: 480px) {
@@ -1451,4 +1509,45 @@
   margin-bottom: 8px;
   font-weight: 400;
   line-height: 1.4;
+}
+
+/* Extra small screens: ensure football scorecard and team names never overflow on narrow devices (320px) */
+@media (max-width: 340px) {
+  .rds-adaptive-cards--football-scorecard,
+  .rds-adaptive-cards__scorecard-container {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: var(--rds-spacing-sm, 8px) !important;
+    box-sizing: border-box !important;
+  }
+
+  .rds-adaptive-cards__football-body {
+    gap: 6px !important;
+    justify-content: space-between !important;
+  }
+
+  /* Allow teams and score section to shrink more on very small screens */
+  .rds-adaptive-cards__football-team {
+    min-width: 56px !important; /* permit smaller team columns */
+    max-width: 80px !important;
+  }
+
+  .rds-adaptive-cards__football-score-section {
+    min-width: 56px !important;
+    max-width: 80px !important;
+  }
+
+  /* Force team name truncation and ensure it can't overflow the viewport */
+  .rds-adaptive-cards__football-team-name {
+    max-width: 80px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    font-size: 13px !important;
+  }
+
+  /* Reduce the left margin used in header grouping so header doesn't push content off-screen */
+  .rds-adaptive-cards__football-header-left {
+    margin-left: 24px !important;
+  }
 }

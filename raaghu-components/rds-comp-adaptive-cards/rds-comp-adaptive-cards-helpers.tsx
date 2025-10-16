@@ -15,7 +15,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-// import './rds-comp-adaptive-cards.scss';
+import './rds-comp-adaptive-cards.scss';
 
 export interface AdaptiveCardProps {
   onBtn1Click?: () => void;
@@ -263,22 +263,24 @@ export function FootballScorecardCard({
       {/* Header, subtitle, and description outside card */}
       <div className="rds-adaptive-cards__content">
         <RdsStack className="rds-adaptive-cards__football-header" alignItems="center">
-          <RdsStack direction="row" spacing={1} alignItems="center" justifyContent="center" className="rds-adaptive-cards__football-header-row">
-            <RdsAvatar src={leagueAvatar} className="rds-adaptive-cards__football-league-avatar" />
-            <RdsTypography
-              variant="subtitle1"
-              className="rds-adaptive-cards__football-league"
-              align="center"
-            >
-              {leagueName}
-            </RdsTypography>
+          <RdsStack direction="row" spacing={1} alignItems="center" justifyContent="space-between" className="rds-adaptive-cards__football-header-row">
+            <div className="rds-adaptive-cards__football-header-left">
+              <RdsAvatar src={leagueAvatar} className="rds-adaptive-cards__football-league-avatar" />
+              <RdsTypography
+                variant="subtitle1"
+                className="rds-adaptive-cards__football-league"
+                align="center"
+              >
+                {leagueName}
+              </RdsTypography>
+            </div>
             {isLive && (
               <RdsChip
                 label="Live"
                 color="error"
                 size="small"
                 icon={<svg width="7" height="7" viewBox="0 0 7 7"><circle cx="3.5" cy="3.5" r="2" fill="currentColor" /></svg>}
-                className="rds-adaptive-cards__football-live"
+                className="rds-adaptive-cards__football-live rds-adaptive-cards__football-live--aligned"
               />
             )}
           </RdsStack>
