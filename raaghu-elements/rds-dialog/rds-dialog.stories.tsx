@@ -23,6 +23,7 @@ const meta: Meta = {
     fullWidth: { control: { type: 'boolean' } },
     fullScreen: { control: { type: 'boolean' } },
     title: { control: 'text' },
+    variant: { control: { type: 'select' }, options: ['standard', 'default'] },
     ShowDissmiss: { control: 'boolean' },
     showTitle: { control: 'boolean' },
     actions: { control: false },

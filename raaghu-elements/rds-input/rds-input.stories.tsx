@@ -34,7 +34,7 @@ const meta: Meta<typeof RdsInput> = {
       description: 'Show icon in the input field',
     },
     iconPosition: {
-      control: 'radio',
+      control: 'select',
       options: ['start', 'end'],
       description: 'Position of the icon',
     },
