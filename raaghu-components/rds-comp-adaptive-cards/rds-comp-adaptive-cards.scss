@@ -7,6 +7,36 @@
   background: var(--rds-background-default, #fff);
   box-shadow: var(--rds-box-shadow-lg, 0 2px 12px rgba(0,0,0,0.04));
 } 
+/* Dark-mode & first-paint stability for image gallery */
+.rds-adaptive-cards--image-gallery,
+.rds-adaptive-cards--image-gallery .rds-adaptive-cards__image-list,
+.rds-adaptive-cards--image-gallery .rds-adaptive-cards__content {
+  transition: none !important; /* Avoid transition-based color shifts on mount */
+}
+.dark-theme .rds-adaptive-cards--image-gallery,
+[data-theme="dark"] .rds-adaptive-cards--image-gallery {
+  background: var(--rds-background-dark, #3f3f3f) !important;
+  border-color: rgba(255,255,255,0.06) !important;
+  box-shadow: none !important;
+  color: var(--rds-text-primary-dark, #fff) !important;
+}
+.dark-theme .rds-adaptive-cards--image-gallery .rds-adaptive-cards__image-list,
+[data-theme="dark"] .rds-adaptive-cards--image-gallery .rds-adaptive-cards__image-list {
+  background: transparent !important; /* let the parent card show through in dark mode */
+}
+
+/* Ensure small/subtext color is visible in dark theme */
+.dark-theme .rds-adaptive-cards__small-text,
+[data-theme="dark"] .rds-adaptive-cards__small-text {
+  color: var(--rds-text-secondary-dark, #cfcfcf) !important;
+  opacity: 0.9 !important;
+}
+
+/* Ensure title color for gallery in dark-mode */
+.dark-theme .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title,
+[data-theme="dark"] .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title {
+  color: var(--rds-text-primary-dark, #fff) !important;
+}
 
 .rds-adaptive-cards--football-scorecard {
   width: var(--rds-card-width-football, 350px); // Reduced width for more compact design
@@ -171,6 +201,9 @@
     justify-content: flex-end;
     gap: var(--rds-spacing-xs, 2px);
     margin-right: var(--rds-spacing-sm, 8px);
+    align-items: center !important; /* Keep buttons vertically centered */
+    flex-wrap: nowrap !important; /* Prevent buttons from wrapping on first paint */
+    transition: none !important; /* Avoid transition-based layout shifts */
   }
   &__actions--input-form {
     display: block !important;
@@ -666,6 +699,32 @@
 // Calendar Reminder Actions
 .rds-adaptive-cards__calendar-reminder-actions {
   margin-top: var(--rds-spacing-sm, 8px);
+  /* Ensure actions render in a stable horizontal row on first paint */
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: var(--rds-spacing-sm, 8px) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  flex-wrap: nowrap !important; /* Prevent buttons from stacking due to late JS layout */
+}
+
+/* Ensure buttons inside calendar reminder render as inline-flex to avoid block stacking */
+.rds-adaptive-cards__calendar-reminder-actions .rds-adaptive-cards__action-btn,
+.rds-adaptive-cards__calendar-reminder-actions button,
+.rds-adaptive-cards__calendar-reminder-actions .MuiButton-root {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+}
+
+/* Defensive: when this actions area is placed inside input-form variations, keep full width behavior stable */
+.rds-adaptive-cards__calendar-reminder-actions.rds-adaptive-cards__actions--input-form {
+  justify-content: space-between !important;
+  padding-left: var(--rds-spacing-sm, 8px) !important;
+  padding-right: var(--rds-spacing-sm, 8px) !important;
 }
 
 // Hide instance slot when default is selected
@@ -807,7 +866,8 @@
 .rds-adaptive-cards__footer {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-start;
+  align-items: center; /* Center buttons vertically to avoid misalignment */
+  flex-wrap: nowrap; /* Keep buttons on a single row */
   gap: var(--rds-spacing-sm, 8px);
   align-self: stretch;
 }
