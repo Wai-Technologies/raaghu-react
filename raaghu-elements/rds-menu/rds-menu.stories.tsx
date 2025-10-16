@@ -177,6 +177,13 @@ export const WithCustomColor: Story = {
       { id: 3, label: 'Danger', icon: <Delete fontSize="small" /> },
     ],
   },
+  argTypes: {
+    color: {
+      control: { type: 'select' },
+      options: ['primary', 'success', 'danger', 'info', 'warning'],
+      description: 'Color theme for all menu items',
+    },
+  },
   render: (args) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 

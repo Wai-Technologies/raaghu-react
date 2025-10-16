@@ -1162,23 +1162,19 @@
   .rds-adaptive-cards__image-list-item {
     height: var(--rds-image-list-item-height-mobile, 120px) !important;
   }
+  .rds-adaptive-cards__football-header-row {
+    margin-left: 0;
+  }
   .rds-adaptive-cards__football-live {
       position: relative !important;
-      
-      /* Dark mode override for home team logo on mobile */
-      &.rds-adaptive-cards__football-logo--home {
-        .dark-theme &,
-        [data-theme="dark"] & {
-          background: #2a2a2a !important;
-        }
-      }
       left: 0 !important;
-      right: 10px !important;
-      margin: 0 auto 4px auto !important;
+      right: 0 !important;
+      margin: 0 0 20px var(--rds-spacing-md, 12px) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      max-width: 90% !important;
+      max-width: 50px !important;
+      min-width: 50px !important;
       font-size: 9px !important;
       z-index: 2;
     }
@@ -1197,11 +1193,11 @@
       position: relative !important;
       left: 0 !important;
       right: 0 !important;
-      margin: 0 auto 4px auto !important;
+      margin: 0 0 4px var(--rds-spacing-sm, 12px) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      max-width: 90% !important;
+      max-width: 48px !important;
       font-size: 9px !important;
       z-index: 2;
     }
@@ -1240,22 +1236,18 @@
   .rds-adaptive-cards__football-live {
     font-size: var(--rds-font-size-xs, 10px) !important;
     font-weight: var(--rds-font-weight-normal, 400) !important;
-    height: var(--rds-font-size-xs, 12px) !important;
-    @media (max-width: 340px) {
-      .rds-adaptive-cards__football-live {
-        position: relative !important;
-        left: 0 !important;
-        right: 0 !important;
-        margin: 0 auto 4px auto !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        max-width: 90% !important;
-        font-size: 9px !important;
-        z-index: 2;
-      }
+    height: var(--rds-font-size-xs, 20px) !important;
+    position: relative !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 0 20px var(--rds-spacing-md, 14px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    max-width: 50px !important;
+    min-width: 50px !important;
+    z-index: 2;
   }
-}
 }
 @media (max-width: 320px) {
   .rds-adaptive-cards__football-header-left {

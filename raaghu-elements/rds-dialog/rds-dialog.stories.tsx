@@ -146,9 +146,11 @@ export const Interactive: Story = {
           <Typography variant="body1" gutterBottom>
             This dialog can be opened and closed.
           </Typography>
-          <RdsButton style="filled" onClick={() => setOpen(false)}>
-            Close
-          </RdsButton>
+          {args.variant !== 'standard' && (
+            <RdsButton style="filled" onClick={() => setOpen(false)}>
+              Close
+            </RdsButton>
+          )}
         </RdsDialog>
       </>
     );
@@ -158,6 +160,7 @@ export const Interactive: Story = {
     ShowDissmiss: true,
     size: 'small',
     fullWidth: true,
+    variant: 'default',
   },
 };
 

@@ -2,7 +2,8 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsList from './rds-list';
-import { Avatar, Checkbox, Switch, ListSubheader, Paper } from '@mui/material';
+import { Avatar, Switch, ListSubheader, Paper } from '@mui/material';
+import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import {Home, Person, Settings, Info, Send, Drafts, Inbox, Star, LabelImportant,Storage, Dataset, ManageAccounts, LocalFireDepartment, Cloud 
 } from '@mui/icons-material';
 import CommentIcon from '@mui/icons-material/Comment';
@@ -426,11 +427,10 @@ export const WithCheckbox: Story = {
     const itemsWithCustomCheckbox = checkboxItems.map(item => 
       item.id === 3 ? {
         ...item,
-        icon: <Checkbox 
-          edge="start" 
-          indeterminate
+        icon: <RdsCheckbox 
+          status="indeterminate"
           checked={checked.includes(3)}
-          tabIndex={-1} 
+          style="square"
         />
       } : item
     );

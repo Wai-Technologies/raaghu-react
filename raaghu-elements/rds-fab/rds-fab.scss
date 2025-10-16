@@ -32,6 +32,109 @@
         opacity: 0.5 !important;
       }
     }
+
+    // Color variants for light theme
+    &.MuiFab-primary {
+      background-color: var(--btn-primary-solid-default, #7825E9) !important;
+      color: var(--btn-primary-text-invert, #ffffff) !important;
+      
+      .MuiFab-label,
+      span,
+      svg,
+      .MuiSvgIcon-root {
+        color: var(--btn-primary-text-invert, #ffffff) !important;
+        fill: currentColor !important;
+      }
+
+      &:hover {
+        background-color: var(--btn-primary-solid-hover, #4F00A6) !important;
+      }
+    }
+
+    &.MuiFab-secondary {
+      background-color: var(--btn-secondary-solid-default, #2534E9) !important;
+      color: var(--btn-secondary-text-invert, #ffffff) !important;
+      
+      .MuiFab-label,
+      span,
+      svg,
+      .MuiSvgIcon-root {
+        color: var(--btn-secondary-text-invert, #ffffff) !important;
+        fill: currentColor !important;
+      }
+
+      &:hover {
+        background-color: var(--btn-secondary-solid-hover, #1827BB) !important;
+      }
+    }
+
+    &.MuiFab-error {
+      background-color: var(--btn-error-solid-default, #BD0D1D) !important;
+      color: var(--btn-error-text-invert, #ffffff) !important;
+      
+      .MuiFab-label,
+      span,
+      svg,
+      .MuiSvgIcon-root {
+        color: var(--btn-error-text-invert, #ffffff) !important;
+        fill: currentColor !important;
+      }
+
+      &:hover {
+        background-color: var(--btn-error-solid-hover, #930011) !important;
+      }
+    }
+
+    &.MuiFab-warning {
+      background-color: var(--btn-warning-solid-default, #C2510C) !important;
+      color: var(--btn-warning-text-invert, #ffffff) !important;
+      
+      .MuiFab-label,
+      span,
+      svg,
+      .MuiSvgIcon-root {
+        color: var(--btn-warning-text-invert, #ffffff) !important;
+        fill: currentColor !important;
+      }
+
+      &:hover {
+        background-color: var(--btn-warning-solid-hover, #7C3712) !important;
+      }
+    }
+
+    &.MuiFab-success {
+      background-color: var(--btn-success-solid-default, #1F7630) !important;
+      color: var(--btn-success-text-invert, #ffffff) !important;
+      
+      .MuiFab-label,
+      span,
+      svg,
+      .MuiSvgIcon-root {
+        color: var(--btn-success-text-invert, #ffffff) !important;
+        fill: currentColor !important;
+      }
+
+      &:hover {
+        background-color: var(--btn-success-solid-hover, #1A4D25) !important;
+      }
+    }
+
+    &.MuiFab-info {
+      background-color: var(--btn-info-solid-default, #0288d1) !important;
+      color: var(--btn-info-text-invert, #ffffff) !important;
+      
+      .MuiFab-label,
+      span,
+      svg,
+      .MuiSvgIcon-root {
+        color: var(--btn-info-text-invert, #ffffff) !important;
+        fill: currentColor !important;
+      }
+
+      &:hover {
+        background-color: var(--btn-info-solid-hover, #01579b) !important;
+      }
+    }
   }
 }
 /* Common ancestor-based dark hooks */
@@ -41,23 +144,29 @@ html.dark .MuiFab-root,
 [data-theme='dark'] .MuiFab-root,
 .rds-theme--dark .MuiFab-root,
 
-/* component modifier */
 .rds-fab--dark,
 .rds-fab--dark .MuiFab-root {
-  /* set color on the root so text nodes inherit it */
-  color: var(--rds-color-on-surface, #ffffff) !important;
+  &.MuiFab-default {
+     background-color: var(--rds-color-surface-variant-dark, #6b6b6b) !important;
+     color: var(--rds-color-on-surface, #ffffff) !important;
+    
+    .MuiFab-label,
+    span,
+    svg,
+    .MuiSvgIcon-root {
+      color: var(--btn-primary-text-invert, #ffffff) !important;
+      fill: currentColor !important;
+    }
 
-  /* ensure label and icons are explicitly white */
-  .MuiFab-label,
-  span,
-  svg,
-  .MuiSvgIcon-root {
-    color: var(--rds-color-on-surface, #ffffff) !important;
-    fill: currentColor !important;
+    &:hover {
+      background-color: var(--btn-primary-solid-hover, #b9b7b7);
+    }
   }
-
+ 
   &.Mui-disabled,
   .MuiFab-root.Mui-disabled {
+    background-color: var(--rds-color-disabled-container-dark, #4a4a4a) !important;
+    
     .MuiFab-label,
     span,
     svg,
@@ -68,8 +177,105 @@ html.dark .MuiFab-root,
     }
   }
   
-  &:hover,
-  .MuiFab-root:hover {
-    background-color: #9e9c9c !important;
+  &.MuiFab-primary {
+    background-color: var(--btn-primary-solid-default, #3C98FF) !important;
+    color: var(--btn-primary-text-invert, #ffffff) !important;
+    
+    .MuiFab-label,
+    span,
+    svg,
+    .MuiSvgIcon-root {
+      color: var(--btn-primary-text-invert, #ffffff) !important;
+      fill: currentColor !important;
+    }
+
+    &:hover {
+      background-color: var(--btn-primary-solid-hover, #66B2FF) !important;
+    }
+  }
+
+  &.MuiFab-secondary {
+    background-color: var(--btn-secondary-solid-default, #2534E9) !important;
+    color: var(--btn-secondary-text-invert, #ffffff) !important;
+    
+    .MuiFab-label,
+    span,
+    svg,
+    .MuiSvgIcon-root {
+      color: var(--btn-secondary-text-invert, #ffffff) !important;
+      fill: currentColor !important;
+    }
+
+    &:hover {
+      background-color: var(--btn-secondary-solid-hover, #4666FF) !important;
+    }
+  }
+
+  &.MuiFab-error {
+    background-color: var(--btn-error-solid-default, #BD0D1D) !important;
+    color: var(--btn-error-text-invert, #ffffff) !important;
+    
+    .MuiFab-label,
+    span,
+    svg,
+    .MuiSvgIcon-root {
+      color: var(--btn-error-text-invert, #ffffff) !important;
+      fill: currentColor !important;
+    }
+
+    &:hover {
+      background-color: var(--btn-error-solid-hover, #BD0D1D) !important;
+    }
+  }
+
+  &.MuiFab-warning {
+    background-color: var(--btn-warning-solid-default, #C2510C) !important;
+    color: var(--btn-warning-text-invert, #ffffff) !important;
+    
+    .MuiFab-label,
+    span,
+    svg,
+    .MuiSvgIcon-root {
+      color: var(--btn-warning-text-invert, #ffffff) !important;
+      fill: currentColor !important;
+    }
+
+    &:hover {
+      background-color: var(--btn-warning-solid-hover, #f48947) !important;
+    }
+  }
+
+  &.MuiFab-success {
+    background-color: var(--btn-success-solid-default, #1F7630) !important;
+    color: var(--btn-success-text-invert, #000000) !important;
+    
+    .MuiFab-label,
+    span,
+    svg,
+    .MuiSvgIcon-root {
+      color: var(--btn-success-text-invert, #ffffff) !important;
+      fill: currentColor !important;
+    }
+
+    &:hover {
+      background-color: var(--btn-success-solid-hover, #58dc72) !important;
+    }
+  }
+
+  &.MuiFab-info {
+    background-color: var(--btn-info-solid-default, #0288d1) !important;
+    color: var(--btn-info-text-invert, #000000) !important;
+    
+    .MuiFab-label,
+    span,
+    svg,
+    .MuiSvgIcon-root {
+      color: var(--btn-info-text-invert, #ffffff) !important;
+      fill: currentColor !important;
+    }
+
+    &:hover {
+      background-color: var(--btn-info-solid-hover, #73bdf6) !important;
+    }
   }
 }
