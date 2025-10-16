@@ -419,19 +419,6 @@
         }
       }
     }
-    
-    .buttons {
-      button {
-        &.cancel {
-          color: #a5b4fc;
-          
-          &:hover {
-            background-color: rgba(165, 180, 252, 0.1);
-          }
-        }
-        
-      }
-    }
   }
   
   .time-input {

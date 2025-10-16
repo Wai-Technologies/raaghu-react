@@ -232,10 +232,12 @@
     &-footer {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       padding: var(--rds-spacing-sm, 12px);
       flex-shrink: 0;
       background: var(--rds-color-dark);      
       position: relative;
+      //gap: var(--rds-spacing-sm, 12px);
     }
 
     &--full-width {
@@ -524,10 +526,7 @@
     display: block;
     min-height: 44px; // ensure enough vertical space for icon centering
 
-    // Target common input structures inside RdsInput
-    // - native input element
-    // - textarea
-    // - input inside a wrapper with .rds-input class
+
     input,
     textarea,
     .rds-input,
@@ -554,13 +553,13 @@
     display: flex;
     align-items: center;
     width: 100%;
-   // background: var(--rds-surface, #fff);
-    //border: 1px solid var(--rds-color-border-light, #d0d0d0);
     border-radius: 8px;
-    padding: 6px 6px;
+    padding: 6px 8px;
     box-sizing: border-box;
     gap: 8px;
-    min-height: 40px;
+    min-height: 44px;
+    background: var(--rds-color-surface, #fff);
+    border: 1px solid var(--rds-color-border-light, #d0d0d0);
   }
 
   &__field {
@@ -574,45 +573,126 @@
   &__input-wrapper .rds-input {
     flex: 1 1 auto;
     width: 100%;
-    background: transparent;
+    background: transparent !important;
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
-    padding: 8px 0; /* vertical spacing inside wrapper */
+    padding: 0 !important;
     font-size: 14px;
-    line-height: 1.2;
+    line-height: 1.4;
     color: var(--rds-color-on-surface);
+    min-height: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+
+  /* Ensure MUI TextField wrapper also follows these rules */
+  &__input-wrapper .MuiTextField-root {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    
+    .MuiOutlinedInput-root {
+      background: transparent !important;
+      border: none !important;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      min-height: 32px;
+      
+      .MuiOutlinedInput-notchedOutline {
+        border: none !important;
+      }
+      
+      .MuiOutlinedInput-input {
+        padding: 0 !important;
+        display: flex;
+        align-items: center;
+        height: 32px !important;
+        line-height: 1.4 !important;
+        box-sizing: border-box;
+        vertical-align: middle;
+        
+        &::placeholder {
+          color: var(--rds-text-disabled, #9e9e9e);
+          opacity: 1;
+          line-height: 1.4;
+          vertical-align: middle;
+          position: relative;
+          top: 0;
+        }
+      }
+    }
+    
+    .MuiInputBase-root {
+      display: flex;
+      align-items: center;
+      height: 32px;
+      min-height: 32px;
+      
+      input {
+        height: 32px !important;
+        padding: 0 !important;
+        display: flex;
+        align-items: center;
+        vertical-align: middle;
+        box-sizing: border-box;
+      }
+    }
   }
 
   /* send icon inside the input wrapper (right) */
   &__send-icon {
-    position: absolute;
-    right: 10px;
-    top: 66%;
-    transform: translateY(-50%);
-    z-index: 5;
-    display: inline-flex;
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
-    padding: 6px;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
     border-radius: 6px;
     border: none;
     background: transparent;
     cursor: pointer;
     color: var(--rds-color-primary, #6B6B6B);
+    
+    svg {
+      width: 20px;
+      height: 20px;
+    }
   }
 
-  /* ensure text does not underlap the icon on smaller screens */
+  /* responsive sizing for send icon */
   @media (max-width: 767px) {
-    &__input-wrapper { padding-right: 0px; }
-    &__send-icon { right: 8px; width: 30px; height: 30px; }
+    &__send-icon { 
+      width: 28px; 
+      height: 28px;
+      
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
   }
 
   @media (max-width: 480px) {
-    &__input-wrapper { padding-right: 0px; }
-    &__send-icon { right: 6px; width: 28px; height: 28px; }
+    &__send-icon { 
+      width: 26px; 
+      height: 26px;
+      
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+    .rds-button--state-default {
+      min-width: 40px !important;
+      margin-bottom: 6px;
+    }
   }
 
   // Footer center + input wrapper adjustments
@@ -621,52 +701,71 @@
     display: flex;
     align-items: center;
     min-width: 0;
+    
+    /* Ensure proper initial layout calculation */
+    .rds-comp-chat__input-send {
+      contain: layout style;
+    }
   }
 
   // Left buttons
   &__footer-left {
     display: flex;
     align-items: center;
-    margin-top: 20px;
-    gap: 10px;
+    //gap: 10px;
     flex: 0 0 auto;
 
-    .btn-icon {
+    .btn-icon,
+    .rds-button {
       min-width: 40px !important;
       height: 40px;
       width: 40px;
       border-radius: 8px;
-      display: inline-flex;
+      display: flex !important;
       align-items: center;
       justify-content: center;
+      padding: 0 !important;
+      
+      svg {
+        width: 20px;
+        height: 20px;
+      }
     }
 
     .rds-comp-chat__emoji-btn {
       cursor: pointer;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
       font-size: 20px;
       color: var(--rds-color-on-surface);
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      padding: 0;
+      
+      svg {
+        width: 20px;
+        height: 20px;
+      }
     }
 
     .rds-button--state-default {
-      min-width: 55px !important;
+      min-width: 50px !important;
     }
   }
 
-  // Small screens - keep input full width and icon positioned correctly
+  // Small screens - responsive input sizing
   @media (max-width: 767px) {
     &__input-send input,
     &__input-send textarea,
     &__input-send .rds-input {
-      padding-right: 0px;
+      font-size: 14px;
     }
-
-    &__send-icon {
-      right: 6px;
-      height: 28px;
-      width: 28px;
+    
+    &__input-wrapper {
+      min-height: 36px;
+      padding: 2px 4px;
     }
   }
 
@@ -674,13 +773,12 @@
     &__input-send input,
     &__input-send textarea,
     &__input-send .rds-input {
-      padding-right: 0px;
+      font-size: 13px;
     }
-
-    &__send-icon {
-      right: 6px;
-      height: 28px;
-      width: 28px;
+    
+    &__input-wrapper {
+      min-height: 34px;
+      padding: 2px 4px;
     }
   }
 
@@ -915,6 +1013,25 @@
 
     &__window-footer {
       padding: var(--rds-spacing-xs, 8px);
+      //gap: var(--rds-spacing-xs, 8px);
+      margin-top: 29px;
+    }
+    
+    &__footer-left {
+      //gap: var(--rds-spacing-xs, 8px);
+      
+      .rds-comp-chat__emoji-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+        margin-bottom: 6px;
+      }
+      
+      .btn-icon {
+        min-width: 36px !important;
+        height: 36px;
+        width: 36px;
+      }
     }
 
     &__message {
@@ -1007,12 +1124,20 @@
       }
     }
   }
+  .rds-button--state-default {
+      min-width: 40px !important;
+      margin-bottom: 3px;
+    }
 }
 
 [data-theme="dark"] {
   .rds-comp-chat__message--other-user .rds-comp-chat__comment-content {
     background-color: var(--rds-color-primary,rgb(62 63 64)) !important;
     color: var(--rds-color-on-primary, rgb(238, 244, 249)) !important;
+  }
+
+  .rds-comp-chat__input-wrapper {
+    background: #000 !important;
   }
 
   .rds-comp-chat__screen-main .rds-comp-chat__user-item {

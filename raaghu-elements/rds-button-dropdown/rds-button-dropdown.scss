@@ -31,16 +31,17 @@
     transition: background-color 0.2s ease;
     outline: none;
 
-    &:hover {
+    &:hover:not(&--selected) {
       background-color: #f5f5f5;
     }
 
-    [data-theme="dark"] &:hover {
+    [data-theme="dark"] &:hover:not(&--selected) {
       background-color: #4a4a4a;
     }
 
     &--selected {
-      background-color: #e3f2fd;
+      background-color: #3C98FF;
+      color: #ffffff;
     }
 
     &--disabled {
@@ -69,3 +70,48 @@
 	gap: 8px;
 	padding: 6px 4px;
 }
+
+/* Secondary style for button dropdown */
+.rds-button-dropdown--secondary {
+  background-color: #2534E9 !important;
+  color: white !important;
+  border: none !important;
+  
+  &:hover {
+    background-color: #1d2bb8 !important;
+    color: white !important;
+  }
+  
+  &:active {
+    background-color: #162291 !important;
+    color: white !important;
+  }
+  
+  &:focus {
+    background-color: #2534E9 !important;
+    color: white !important;
+  }
+  
+  // Ensure icon colors are also white
+  .MuiSvgIcon-root {
+    color: white !important;
+  }
+  
+  // Override any MUI button styles that might interfere
+  &.MuiButton-root {
+    background-color: #2534E9 !important;
+    color: white !important;
+    border: none !important;
+    
+    &:hover {
+      background-color: #1d2bb8 !important;
+      color: white !important;
+    }
+    
+    &:active {
+      background-color: #162291 !important;
+      color: white !important;
+    }
+  }
+}
+
