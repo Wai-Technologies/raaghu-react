@@ -790,7 +790,8 @@ const DynamicTemplate = (args: any) => {
           <div className="rds-appbar-tabs-container" style={{ display: 'flex', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               {/* Place theme trigger after search area visually by putting it here */}
-              <ThemeMenuIcon showDropdown={false} onClick={(e) => { console.log('Theme icon clicked', e); }} />
+              {/* Remove external onClick handler so the internal Menu can open on click */}
+              <ThemeMenuIcon showDropdown={false} />
               {/* hide search for this dashboard variant */}
               { /* search intentionally omitted */ }
               <div className="rds-appbar-separator" />
