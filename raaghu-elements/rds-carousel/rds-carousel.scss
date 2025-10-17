@@ -94,10 +94,6 @@
     flex-direction: column;
     justify-content: flex-start;
     gap: var(--rds-spacing-xs, 4px);
-    
-    &--top {
-      border-radius: var(--rds-border-radius, 8px) var(--rds-border-radius, 8px) 0 0;
-    }
   }
   
   // Title overlay for 'full width image' style
@@ -110,7 +106,6 @@
     color: var(--rds-color-text-primary, #212121);
     padding: var(--rds-spacing-md, 16px);
     z-index: 1;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
     min-height: 80px;
     display: flex;
     flex-direction: column;
@@ -138,7 +133,7 @@
   // Slide content wrapper
   &__slide-content {
     overflow: hidden;
-    border-radius: var(--rds-border-radius, 8px);
+    border-radius: 4px;
     
     img {
       width: 100%;
@@ -151,8 +146,7 @@
 
   // Style variants
   &--default {
-    border-radius: var(--rds-border-radius, 8px);
-    box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
+    border-radius: 4px;
     .rds-carousel__indicators {
       /* Avoid negative bottom because parent has overflow:hidden which hides indicators */
       bottom: var(--rds-carousel-indicators-offset, 8px); /* Adjust via CSS var if needed */
@@ -160,8 +154,7 @@
   }
 
   &--with-title {
-    border-radius: var(--rds-border-radius, 8px);
-    box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
+    border-radius: 4px;
     background-color: var(--rds-color-surface, #ffffff);
     
     .rds-carousel__slide {
@@ -173,7 +166,7 @@
     }
     
     .rds-carousel__slide-content {
-      border-radius: 0 0 var(--rds-border-radius, 8px) var(--rds-border-radius, 8px);
+      border-radius: 0 0 4px 4px;
     }
     
     // Position arrows in the center of the image area (below title)
@@ -259,14 +252,11 @@
     &--full-width-image {
       .rds-carousel__title-content {
         background-color: var(--rds-background-paper, #4a4a4a) !important;
-        box-shadow: none !important;
       }
 
       .rds-carousel__title-overlay {
         background-color: rgba(18, 18, 18, 0.9) !important;
         color: var(--rds-text-primary, #ffffff) !important;
-        box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.6) !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.04) !important;
       }
 
       .rds-carousel__title-text {
@@ -430,7 +420,6 @@
       padding: 12px 16px;
       min-height: 70px;
       backdrop-filter: blur(8px);
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
     }
     
     &__title-text {
@@ -454,12 +443,6 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-    
-    &--default,
-    &--with-title {
-      margin: 0 8px;
-      border-radius: 12px;
     }
     
     &--with-title {
@@ -521,8 +504,6 @@
     
     &--default,
     &--with-title {
-      margin: 0px -30px 0 0 !important;
-      
       height: 390px !important;
       .rds-carousel__slide-content {
         height: 355px !important;
@@ -539,7 +520,6 @@
       // Ensure proper sizing on small screens without overflow
       width: 100% !important;
       max-width: 100% !important;
-      margin: 0 !important;
       
       .rds-carousel__slide-content {
         height: 220px;
@@ -577,7 +557,6 @@
     // Ensure it fits properly without overflow
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 !important;
     overflow-x: hidden !important;
     // Ensure it stays within viewport bounds
     box-sizing: border-box !important;
@@ -601,7 +580,6 @@
   .rds-carousel--full-width-image {
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 !important;
     overflow-x: hidden !important;
     box-sizing: border-box !important;
     

@@ -87,6 +87,7 @@ const RdsCarousel = ({
         overflow: 'hidden',
         width: '100%',
         maxWidth: '100%',
+        borderRadius: '6px',
         backgroundColor: style === 'full width image'
           ? 'var(--rds-background-paper, transparent)'
           : 'transparent',
