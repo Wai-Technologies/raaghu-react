@@ -183,7 +183,7 @@
   }
 
   &--full-width-image {
-    border-radius: 0;
+    border-radius: 4px;
     box-shadow: none;
     position: relative;
     width: 100%;
@@ -193,13 +193,13 @@
     overflow-x: hidden;
 
     .rds-carousel__slide {
-      border-radius: 0;
+      border-radius: 4px;
       width: 100%;
       max-width: 100%;
     }
     
     .rds-carousel__slide-content {
-      border-radius: 0;
+      border-radius: 4px;
       width: 100%;
       max-width: 100%;
       
