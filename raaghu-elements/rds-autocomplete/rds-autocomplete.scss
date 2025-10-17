@@ -90,6 +90,17 @@
       padding-top: 0;
       padding-bottom: 0;
     }
+    // Ensure multi-value chips are vertically centered
+    .MuiAutocomplete-inputRoot[class*="MuiAutocomplete-inputRoot"] {
+      align-items: center;
+    }
+    .MuiAutocomplete-tag {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      display: inline-flex;
+      align-items: center;
+      height: 20px;
+    }
   }
 
   &--medium {
@@ -107,6 +118,16 @@
       padding-top: 0;
       padding-bottom: 0;
     }
+    .MuiAutocomplete-inputRoot[class*="MuiAutocomplete-inputRoot"] {
+      align-items: center;
+    }
+    .MuiAutocomplete-tag {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+    }
   }
 
   &--large {
@@ -123,6 +144,16 @@
       box-sizing: border-box;
       padding-top: 0;
       padding-bottom: 0;
+    }
+    .MuiAutocomplete-inputRoot[class*="MuiAutocomplete-inputRoot"] {
+      align-items: center;
+    }
+    .MuiAutocomplete-tag {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      display: inline-flex;
+      align-items: center;
+      height: 28px;
     }
   }
 
