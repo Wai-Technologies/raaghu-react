@@ -61,10 +61,19 @@
 }
 
 .rds-appbar-separator {
-  height: 60px;
+  /* vertically center the separator and leave a small gap above/below */
+  align-self: center;
+  display: block;
+  flex-shrink: 0; /* prevent collapsing in tight flex layouts */
+  /* visible height with a safe minimum so thin toolbars still show it */
+  height: calc(100% - 16px); /* leaves ~8px gap top & bottom inside the toolbar */
+  min-height: 24px;
+  max-height: 60px;
   width: 1px;
-  background: var(--rds-appbar-separator-bg, #D0D0D0);
-  margin: 0 4px;
+  /* stronger fallback color and ensure it's painted */
+  background-color: var(--rds-appbar-separator-bg, #D0D0D0);
+  background-clip: padding-box;
+  margin: 0 8px; /* horizontal spacing */
 }
 
 .rds-appbar-tabs {
@@ -254,6 +263,12 @@
   color: var(--rds-color-primary, #7c4dff);
   font-weight: var(--rds-font-weight-medium, 500);
 }
+
+/* Ensure email text becomes visible (white) when header uses primary/secondary color variants */
+.rds-header--primary .rds-profile-menu__email,
+.rds-header--secondary .rds-profile-menu__email {
+  color: inherit !important;
+}
 .rds-profile-menu__item {
   font-size: 15px !important;
 }
@@ -402,6 +417,67 @@
       min-width: 40px;
       font-size: var(--rds-font-size-sm, 14px);
     }
+  }
+
+  // Thin scrollbar for language menu dropdown
+  .rds-language-menu-paper {
+    // allow the paper to use the height passed from inline styles (calc(100vh - offset))
+    overflow: visible;
+    display: block;
+  }
+  .rds-language-menu-list {
+    /* WebKit browsers */
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0,0,0,0.32);
+      border-radius: 8px;
+    }
+
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.32) transparent;
+  }
+
+  /* Reduce text size and vertical padding for language menu items so the
+     dropdown can fit without showing a scrollbar on typical viewports. */
+  .rds-language-menu-paper .MuiMenuItem-root,
+  .rds-language-menu-list .MuiMenuItem-root {
+    font-size: 13px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    min-height: 0 !important;
+    line-height: 1.2 !important;
+    white-space: nowrap;
+  }
+
+  /* Slightly tighten the MenuList spacing */
+  .rds-language-menu-list {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+  }
+
+  /* Fixed-size language menu: width and height are constrained so the
+     dropdown always opens at a predictable size and scrolls internally. */
+  .rds-language-menu-paper {
+    width: 220px !important;
+    max-width: 260px !important;
+    max-height: 360px !important;
+    overflow: hidden !important; /* paper hides overflow; list scrolls */
+    box-sizing: border-box;
+  }
+
+  .rds-language-menu-list {
+    max-height: 360px !important;
+    overflow-y: auto !important;
+    box-sizing: border-box;
   }
 
   &__search {
@@ -649,7 +725,7 @@
   --rds-appbar-bg: #181c20;
   --rds-appbar-color: #fff;
   --rds-appbar-shadow: rgba(0,0,0,0.5);
-  --rds-appbar-separator-bg: #333a42;
+  --rds-appbar-separator-bg: #FFFFFF;
   --rds-appbar-secondary-bg: #7c2946;
   --rds-appbar-badge-bg: #232e3a;
   --rds-appbar-badge-color: #90caf9;
