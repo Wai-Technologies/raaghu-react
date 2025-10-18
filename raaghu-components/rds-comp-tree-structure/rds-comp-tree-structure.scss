@@ -70,6 +70,12 @@
     &--folder {
       color: var(--rds-color-warning, #FFB300);
       margin-top: var(--rds-spacing-sm, 2px);
+      
+      svg,
+      svg * {
+        fill: currentColor !important;
+        color: inherit !important;
+      }
     }
     
     &--file {

@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ProfileMenu } from './ProfileMenu';
 import RdsAppBar from './rds-app-bar';
-import { Button, IconButton, Avatar, Badge } from '@mui/material';
-import { Menu, Home, Search, Notifications, AccountCircle } from '@mui/icons-material';
+import { Button, IconButton, Avatar, Badge, Box, Divider, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
+import { Menu as MenuIcon, Home, Search, Notifications, AccountCircle, Brightness5, Brightness2, Brightness4, Logout, Security, Close } from '@mui/icons-material';
+import { Menu, MenuItem } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import React from 'react';
+import { useTheme } from '@mui/material/styles';
 import './rds-app-bar.scss';
 import { TextField } from '@mui/material';
 
@@ -81,6 +83,281 @@ const LogoSearchTabsLeftActions = () => (
     <BellIcon />
   </div>
 );
+
+// Dashboard menu shown next to logo: shows 'Dashboard' text and a sun icon button to open theme choices
+const DashboardMenu = () => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleOpen = (e: React.MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
+  const handleClose = () => setAnchorEl(null);
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div style={{ fontWeight: 500 }}>Dashboard</div>
+      <IconButton size="small" color="inherit" onClick={handleOpen} aria-label="theme">
+        {/* small sun-like icon similar to provided attachment */}
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.2"/>
+          <path d="M12 1v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M12 21v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M4.2 4.2l1.4 1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M18.4 18.4l1.4 1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M1 12h2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M21 12h2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M4.2 19.8l1.4-1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M18.4 5.6l1.4-1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+        </svg>
+      </IconButton>
+
+      <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose} anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}>
+        <MenuItem onClick={() => {}}>
+          <Brightness5 fontSize="small" style={{ marginRight: 8 }} />
+          Light
+        </MenuItem>
+        <MenuItem onClick={() => {}}>
+          <Brightness2 fontSize="small" style={{ marginRight: 8 }} />
+          Dark
+        </MenuItem>
+        <MenuItem onClick={() => {}}>
+          <Brightness4 fontSize="small" style={{ marginRight: 8 }} />
+          Semi Dark
+        </MenuItem>
+      </Menu>
+    </div>
+  );
+};
+
+// Theme icon + menu (icon-only variant so we can place it on the right)
+const ThemeMenuIcon = ({ showDropdown = true, onClick }: { showDropdown?: boolean; onClick?: (e: React.MouseEvent<HTMLElement>) => void }) => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleOpen = (e: React.MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
+  const handleClose = () => setAnchorEl(null);
+  return (
+    <>
+      <IconButton
+        size="small"
+        color="inherit"
+        onClick={(e) => {
+          // If an external onClick handler is provided, call it and don't open the menu
+          if (onClick) {
+            onClick(e);
+            return;
+          }
+          handleOpen(e);
+        }}
+        aria-label="theme"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.2"/>
+          <path d="M12 1v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M12 21v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M4.2 4.2l1.4 1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M18.4 18.4l1.4 1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M1 12h2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M21 12h2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M4.2 19.8l1.4-1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          <path d="M18.4 5.6l1.4-1.4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+        </svg>
+        {showDropdown ? (
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 6 }} xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        ) : null}
+      </IconButton>
+      <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose} anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}>
+        <MenuItem onClick={() => {}}>
+          <Brightness5 fontSize="small" style={{ marginRight: 8 }} />
+          Light
+        </MenuItem>
+        <MenuItem onClick={() => {}}>
+          <Brightness2 fontSize="small" style={{ marginRight: 8 }} />
+          Dark
+        </MenuItem>
+        <MenuItem onClick={() => {}}>
+          <Brightness4 fontSize="small" style={{ marginRight: 8 }} />
+          Semi Dark
+        </MenuItem>
+      </Menu>
+    </>
+  );
+};
+
+// Language selector menu (matches screenshot list)
+const LanguageMenu = () => {
+  const languages = [
+    'العربية',
+    'English (UK)',
+    'English',
+    'Čeština',
+    'Magyar',
+    'Français',
+    'Finnish',
+    'Italiano',
+    'Português',
+    'Hindi',
+    'Русский',
+    '繁體中文',
+    'Türkçe',
+    '简体中文',
+    'Slovak',
+    'Deutsch',
+    'Español',
+    'test',
+  ];
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [selected, setSelected] = React.useState('English (UK)');
+  const open = Boolean(anchorEl);
+  // Make the menu take almost the full viewport height (leave some offset for appbar/padding).
+  // Use a CSS calc so it responds to viewport changes: subtract 120px as a safe offset.
+  const menuHeightCss = 'calc(100vh - 120px)';
+  const shortCode = React.useMemo(() => {
+    // derive a short code (e.g., English -> EN, '繁體中文' -> 繁體)
+    if (!selected) return 'EN';
+    if (selected.includes('English')) return 'EN';
+    if (selected.includes('Türkçe')) return 'TR';
+    if (selected.includes('Français')) return 'FR';
+    if (selected.includes('Español')) return 'ES';
+    if (selected === 'العربية') return 'AR';
+    // fallback to first two letters uppercase
+    return selected.slice(0, 2).toUpperCase();
+  }, [selected]);
+  return (
+    <>
+      <Button color="inherit" onClick={e => setAnchorEl(e.currentTarget)} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        <span style={{ fontWeight: 600 }}>{shortCode}</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </Button>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={() => setAnchorEl(null)}
+        onClick={() => setAnchorEl(null)}
+        PaperProps={{
+          className: 'rds-language-menu-paper',
+        }}
+        MenuListProps={{ className: 'rds-language-menu-list' }}
+      >
+        {languages.map(l => (
+          <MenuItem key={l} onClick={() => setSelected(l)} style={{ width: '100%' }}>
+            {l}
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
+  );
+};
+
+// Small chat / notification style bubble icon used between theme and language
+const ChatBubbleIconSmall = () => (
+  <IconButton size="small" color="inherit" aria-label="chat">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="8.5" cy="11.5" r="0.8" fill="currentColor" />
+      <circle cx="12" cy="11.5" r="0.8" fill="currentColor" />
+      <circle cx="15.5" cy="11.5" r="0.8" fill="currentColor" />
+    </svg>
+  </IconButton>
+);
+
+// Admin profile panel: large dropdown with avatar, name, email, actions and logout
+const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', onLogout }: { name?: string; email?: string; onLogout?: () => void }) => {
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const avatarTextColor = theme?.palette?.mode === 'dark' ? theme.palette.common.white : undefined;
+  return (
+    <>
+      <Button color="inherit" onClick={() => setOpen(true)} style={{ display: 'flex', alignItems: 'center', gap: 8, textTransform: 'none' }}>
+        <Avatar sx={{ width: 32, height: 32, color: avatarTextColor }}>AU</Avatar>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: 1 }}>
+          <Typography sx={{ fontSize: 13, fontWeight: 600 }}>Hi, {name.toLowerCase()}</Typography>
+          <Typography sx={{ fontSize: 11, color: 'inherit' }}>{email}</Typography>
+        </Box>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 6 }} xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </Button>
+
+      <Drawer anchor="right" open={open} onClose={() => setOpen(false)} PaperProps={{ sx: { width: 320 } }}>
+        <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 1 }}>
+            <IconButton onClick={() => setOpen(false)} aria-label="close">
+              <Close />
+            </IconButton>
+          </Box>
+
+          <Box sx={{ p: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+            <Avatar sx={{ width: 80, height: 80, color: avatarTextColor }}>AU</Avatar>
+            <Typography sx={{ fontWeight: 700, textTransform: 'lowercase' }}>{name}</Typography>
+            <Typography sx={{ fontSize: 12, color: 'inherit' }}>{email}</Typography>
+          </Box>
+
+          <Divider />
+
+          <Box sx={{ flex: 1, overflow: 'auto' }}>
+            <List>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => {}}>
+                  <ListItemIcon>
+                    <AccountCircle />
+                  </ListItemIcon>
+                  <ListItemText primary="Linked Accounts" secondary="Manage linked accounts" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => {}}>
+                  <ListItemIcon>
+                    <Home />
+                  </ListItemIcon>
+                  <ListItemText primary="Authority Delegation" secondary="Manage authority accounts" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => {}}>
+                  <ListItemIcon>
+                    <Security />
+                  </ListItemIcon>
+                  <ListItemText primary="My Account" secondary="Manage your account settings" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => {}}>
+                  <ListItemIcon>
+                    <Notifications />
+                  </ListItemIcon>
+                  <ListItemText primary="Security Logs" secondary="See recent login attempts" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => {}}>
+                  <ListItemIcon>
+                    <AccountCircle />
+                  </ListItemIcon>
+                  <ListItemText primary="Personal Data" secondary="Change your account settings" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </Box>
+
+          <Box sx={{ p: 3 }}>
+            <Button
+              variant="outlined"
+              fullWidth
+              onClick={() => {
+                setOpen(false);
+                if (onLogout) onLogout();
+              }}
+              startIcon={<Logout />}
+            >
+              LOGOUT
+            </Button>
+          </Box>
+        </Box>
+      </Drawer>
+    </>
+  );
+};
 const meta: Meta<typeof RdsAppBar> = {
   title: 'Elements/AppBar',
   component: RdsAppBar,
@@ -147,6 +424,7 @@ const meta: Meta<typeof RdsAppBar> = {
         'withActions',
         'WithLoginButton',
         'WithMenuButton',
+        'DashboardWithLang',
       ],
     }
   } as any),
@@ -220,8 +498,10 @@ const DynamicTemplate = (args: any) => {
   const normalized = variantStyle.toLowerCase();
 
   // Common default baseline
+  const normalizedShowLogo = typeof args.showLogo === 'boolean' ? args.showLogo : true;
   let config: any = {
     ...args,
+    showLogo: normalizedShowLogo,
     tabValue,
     onTabChange: (v: number) => setTabValue(v),
     searchValue,
@@ -235,7 +515,7 @@ const DynamicTemplate = (args: any) => {
         title: 'App Title',
         leftActions: (
           <IconButton edge="start" color="inherit">
-            <Menu />
+            <MenuIcon />
           </IconButton>
         ),
         rightActions: <Button color="inherit">Login</Button>,
@@ -256,13 +536,13 @@ const DynamicTemplate = (args: any) => {
       };
       break;
     case 'headerdefault':
-      config = { ...config, title: 'My Application', showLogo: true, logo: logoImg };
+  config = { ...config, title: 'My Application', showLogo: config.showLogo, logo: logoImg };
       break;
     case 'logosearchactions':
       config = {
         ...config,
         logo: logoImg,
-        showLogo: true,
+        showLogo: config.showLogo,
         title: '',
         searchPlaceholder: 'Search…',
         actions: (
@@ -277,7 +557,7 @@ const DynamicTemplate = (args: any) => {
       config = {
         ...config,
         logo: logoImg,
-        showLogo: true,
+        showLogo: config.showLogo,
         title: ' ',
         leftActions: <LogoSearchTabsLeftActions />,
         rightActions: <ProfileMenu name="John Doe" shortName="JD" email="john.doe@example.com" />,
@@ -287,7 +567,7 @@ const DynamicTemplate = (args: any) => {
       config = {
         ...config,
         logo: logoImg,
-        showLogo: true,
+        showLogo: config.showLogo,
         title: '',
         actions: (
           <div className="rds-story-nav-actions">
@@ -305,7 +585,7 @@ const DynamicTemplate = (args: any) => {
       config = {
         ...config,
         logo: logoImg,
-        showLogo: true,
+        showLogo: config.showLogo,
         title: '',
         actions: (
           <div className="rds-story-nav-actions">
@@ -322,23 +602,23 @@ const DynamicTemplate = (args: any) => {
       config = {
         ...config,
         logo: logoImg,
-        showLogo: true,
+        showLogo: config.showLogo,
         title: '',
         subHeader: buildSubHeader(),
       };
       break;
     case 'minimal':
-      config = { ...config, logo: logoImg, showLogo: true, title: '' };
+      config = { ...config, logo: logoImg, showLogo: config.showLogo, title: '' };
       break;
     case 'transparent':
-      config = { ...config, logo: logoImg, showLogo: true, color: 'transparent', __wrapTransparent: true };
+      config = { ...config, logo: logoImg, showLogo: config.showLogo, color: 'transparent', __wrapTransparent: true };
       break;
     case 'withlogo':
       config = {
         ...config,
         title: '',
         logo: logoImg,
-        showLogo: true,
+        showLogo: config.showLogo,
         actions: (
           <IconButton color="inherit">
             <Notifications />
@@ -351,7 +631,7 @@ const DynamicTemplate = (args: any) => {
         ...config,
         title: '',
         logo: logoImg,
-        showLogo: true,
+        showLogo: config.showLogo,
         searchPlaceholder: 'Search…',
         actions: (
           <IconButton color="inherit">
@@ -365,7 +645,7 @@ const DynamicTemplate = (args: any) => {
         ...config,
         title: '',
         logo: logoImg,
-        showLogo: true,
+        showLogo: config.showLogo,
         tabs: ['HOME', 'NEWS', 'MARKETPLACE', 'JOBS'],
       };
       break;
@@ -373,7 +653,7 @@ const DynamicTemplate = (args: any) => {
       config = {
         ...config,
         logo: logoImg,
-        showLogo: true,
+        showLogo: config.showLogo,
         subHeader: buildSubHeader(),
         actions: (
           <>
@@ -386,7 +666,7 @@ const DynamicTemplate = (args: any) => {
     case 'withnotificationbadge':
       config = {
         ...config,
-        showLogo: true,
+        showLogo: config.showLogo,
         logo: logoImg,
         rightActions: (
           <div className="rds-appbar-tabs-container">
@@ -408,7 +688,7 @@ const DynamicTemplate = (args: any) => {
       config = {
         ...config,
         logo: logoImg,
-        showLogo: true,
+        showLogo: config.showLogo,
         title: '',
         tabs: ['Dashboard', 'Projects', 'Calendar'],
       };
@@ -417,7 +697,7 @@ const DynamicTemplate = (args: any) => {
       config = {
         ...config,
         title: 'User Dashboard',
-        showLogo: true,
+        showLogo: config.showLogo,
         showMenuButton: true,
         rightActions: <ProfileMenu name="John Doe" shortName="JD" email="john.doe@example.com" />,
       };
@@ -425,13 +705,13 @@ const DynamicTemplate = (args: any) => {
     case 'withactions':
       config = {
         ...config,
-        showLogo: true,
+        showLogo: config.showLogo,
         showMenuButton: true,
         tabs: ['Community', 'Jobs', 'Resources'],
         logo: logoImg,
         leftActions: (
           <IconButton edge="start" color="inherit">
-            <Menu />
+            <MenuIcon />
           </IconButton>
         ),
         rightActions: (
@@ -450,7 +730,7 @@ const DynamicTemplate = (args: any) => {
       config = {
         ...config,
         title: 'Public Site',
-        showLogo: true,
+        showLogo: config.showLogo,
         actions: <Button color="inherit">Login</Button>,
       };
       break;
@@ -480,8 +760,8 @@ const DynamicTemplate = (args: any) => {
             <span className="rds-appbar-logo-label">e-Signature</span>
           </span>
         ),
-        showLogo: true,
-        tabs: ['Home', 'Agreement'],
+  showLogo: config.showLogo,
+  tabs: ['Home', 'Agreement'],
         rightActions: (
           <div className="rds-appbar-actions-group">
             <span className="rds-appbar-badge">28 Days Left</span>
@@ -499,6 +779,32 @@ const DynamicTemplate = (args: any) => {
         ),
       };
       break;
+    case 'dashboardwithlang':
+  config = {
+    ...config,
+    logo: logoImg,
+    showLogo: config.showLogo,
+  title: <span style={{ fontWeight: 500, fontSize: 16 }}>Dashboard</span>,
+        // Right actions: theme button, small icon, language, profile (no search, no dropdown chevron)
+        rightActions: (
+          <div className="rds-appbar-tabs-container" style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              {/* Place theme trigger after search area visually by putting it here */}
+              {/* Remove external onClick handler so the internal Menu can open on click */}
+              <ThemeMenuIcon showDropdown={false} />
+              {/* hide search for this dashboard variant */}
+              { /* search intentionally omitted */ }
+              <div className="rds-appbar-separator" />
+              <ChatBubbleIconSmall />
+              <div className="rds-appbar-separator" />
+              <LanguageMenu />
+              <div className="rds-appbar-separator" />
+              <AdminProfileMenu name="Admin User" email="admin@example.com" onLogout={() => { console.log('Logout clicked'); }} />
+            </div>
+          </div>
+        ),
+      };
+      break;
     default:
       // Fallback to default config
       config = {
@@ -506,7 +812,7 @@ const DynamicTemplate = (args: any) => {
         title: 'App Title',
         leftActions: (
           <IconButton edge="start" color="inherit">
-            <Menu />
+            <MenuIcon />
           </IconButton>
         ),
         rightActions: <Button color="inherit">Login</Button>,
@@ -622,3 +928,6 @@ WithLoginButton.parameters = { controls: { include: ['title', 'size', 'color', '
 
 export const WithMenuButton: Story = { args: { variantStyle: 'WithMenuButton', color: 'default' } as any, render: DynamicTemplate };
 WithMenuButton.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
+
+export const DashboardWithLang: Story = { args: { variantStyle: 'dashboardWithLang', color: 'default', showSearch: false } as any, render: DynamicTemplate };
+DashboardWithLang.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
