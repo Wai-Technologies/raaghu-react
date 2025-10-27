@@ -24,6 +24,15 @@ const meta: Meta<typeof RdsTable> = {
       control: { type: 'select' },
       options: ['small', 'medium'],
     },
+    sortDirection: { control: 
+      { type: 'select' }, 
+      options: ['asc', 'desc'] 
+    },
+     defaultSortDirection: { 
+      control: 
+      { type: 'select' }, 
+      options: ['asc', 'desc'] 
+    },
     stickyHeader: {
       control: { type: 'boolean' },
     },
