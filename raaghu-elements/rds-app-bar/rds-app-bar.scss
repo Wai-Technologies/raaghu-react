@@ -6,6 +6,19 @@
 // Logo styles for stories
 .rds-story-logo {
   height: 32px;
+  
+  // Responsive logo sizing
+  @media (max-width: 834px) {
+    height: 28px;
+  }
+  
+  @media (max-width: 420px) {
+    height: 24px;
+  }
+  
+  @media (max-width: 320px) {
+    height: 20px;
+  }
 }
 
 // Container for logo and search combination
@@ -14,6 +27,15 @@
   align-items: center;
   gap: 12px;
   flex: 1;
+  
+  // Responsive gap adjustments
+  @media (max-width: 420px) {
+    gap: 8px;
+  }
+  
+  @media (max-width: 320px) {
+    gap: 6px;
+  }
 }
 
 .rds-story-logo-search-container .rds-story-logo {
@@ -25,15 +47,25 @@
   min-width: 180px;
   
   // Responsive behavior for mobile screens
+  @media (max-width: 834px) {
+    min-width: 160px;
+    max-width: 220px;
+  }
+  
   @media (max-width: 480px) {
     min-width: 140px;
     flex: 1;
     max-width: 200px;
   }
   
-  @media (max-width: 320px) {
+  @media (max-width: 420px) {
     min-width: 120px;
-    max-width: 160px;
+    max-width: 180px;
+  }
+  
+  @media (max-width: 320px) {
+    min-width: 100px;
+    max-width: 140px;
   }
 }
 
@@ -47,17 +79,62 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  
+  // Responsive gap adjustments
+  @media (max-width: 834px) {
+    gap: 12px;
+  }
+  
+  @media (max-width: 420px) {
+    gap: 8px;
+  }
+  
+  @media (max-width: 320px) {
+    gap: 6px;
+  }
 }
 
 // Individual action item with cursor
 .rds-story-nav-action {
   cursor: pointer;
+  
+  // Scale down icons on smaller screens
+  @media (max-width: 420px) {
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
 }
 
 .rds-appbar-tabs-container {
   display: flex;
   align-items: center;
   gap: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  
+  // Responsive container adjustments
+  @media (max-width: 834px) {
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+  
+  @media (max-width: 420px) {
+    gap: 0;
+  }
+  
+  @media (max-width: 320px) {
+    gap: 0;
+    flex-shrink: 2;
+  }
 }
 
 .rds-appbar-separator {
@@ -74,12 +151,25 @@
   background-color: var(--rds-appbar-separator-bg, #D0D0D0);
   background-clip: padding-box;
   margin: 0 8px; /* horizontal spacing */
+  
+  // Responsive separator adjustments
+  @media (max-width: 420px) {
+    margin: 0 6px;
+    min-height: 20px;
+  }
+  
+  @media (max-width: 320px) {
+    margin: 0 4px;
+    min-height: 18px;
+  }
 }
 
 .rds-appbar-tabs {
   display: flex;
   gap: 0;
   align-items: center;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .rds-appbar-tab-btn {
@@ -87,6 +177,24 @@
   font-size: 16px;
   text-transform: none;
   padding: 6px 16px;
+  white-space: nowrap;
+  min-width: auto;
+  
+  // Responsive tab button adjustments
+  @media (max-width: 834px) {
+    font-size: 15px;
+    padding: 6px 14px;
+  }
+  
+  @media (max-width: 420px) {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+  
+  @media (max-width: 320px) {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
 }
 // Logo and search bar container for LogoSearchTabsActions story
 .rds-header__logo-search {
@@ -123,6 +231,25 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-shrink: 0;
+  
+  // Responsive gap adjustments
+  @media (max-width: 834px) {
+    gap: 12px;
+  }
+  
+  @media (max-width: 420px) {
+    gap: 8px;
+  }
+  
+  @media (max-width: 320px) {
+    gap: 6px;
+    
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
 }
 
 // Right actions for avatar
@@ -130,6 +257,16 @@
   display: flex;
   align-items: center;
   margin-right: -15px;
+  flex-shrink: 0;
+  
+  // Responsive margin adjustments
+  @media (max-width: 420px) {
+    margin-right: -10px;
+  }
+  
+  @media (max-width: 320px) {
+    margin-right: -5px;
+  }
 }
 // =======================
 //  RDS App Bar Component Styles
@@ -144,22 +281,64 @@
   box-shadow: 0 2px var(--rds-spacing-xs) var(--rds-appbar-shadow, rgba(0, 0, 0, 0.2));
   position: relative;
   z-index: var(--rds-z-index-sticky);
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  box-sizing: border-box;
 
   &__title {
     flex: 1;
     font-size: var(--rds-font-size-2xl);
     font-weight: 500;
     margin: 0 var(--rds-font-size-lg);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+    // Responsive title adjustments
+    @media (max-width: 834px) {
+      font-size: var(--rds-font-size-xl);
+      margin: 0 var(--rds-font-size-md);
+    }
+    
+    @media (max-width: 420px) {
+      font-size: var(--rds-font-size-lg);
+      margin: 0 var(--rds-font-size-sm);
+    }
+    
+    @media (max-width: 320px) {
+      font-size: var(--rds-font-size-md);
+      margin: 0 var(--rds-font-size-xs);
+    }
   }
 
   &__menu-button {
     margin-right: var(--rds-spacing-sm);
+    flex-shrink: 0;
+    
+    @media (max-width: 420px) {
+      margin-right: var(--rds-spacing-xs);
+    }
+    
+    @media (max-width: 320px) {
+      margin-right: var(--rds-spacing-xs);
+    }
   }
 
   &__actions {
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-sm);
+    flex-shrink: 0;
+    
+    @media (max-width: 420px) {
+      gap: var(--rds-spacing-xs);
+    }
+    
+    @media (max-width: 320px) {
+      gap: var(--rds-spacing-xs);
+    }
   }
 
   // Color variants
@@ -207,7 +386,31 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
+  min-width: 0;
+  
+  // Responsive profile button adjustments
+  @media (max-width: 834px) {
+    padding-left: 0.4rem;
+    padding-right: 0.8rem;
+    gap: 6px;
+  }
+  
+  @media (max-width: 420px) {
+    padding-left: 0.3rem;
+    padding-right: 0.6rem;
+    gap: 4px;
+    margin-left: 2px;
+  }
+  
+  @media (max-width: 320px) {
+    padding-left: 0.2rem;
+    padding-right: 0.4rem;
+    gap: 2px;
+    margin-left: 1px;
+  }
 }
+
 .rds-profile-menu__avatar {
   width: 32px !important;
   height: 32px !important;
@@ -215,6 +418,26 @@
   color: var(--rds-color-avatar-fg, var(--rds-color-primary, #7c4dff)) !important;
   font-weight: var(--rds-font-weight-semibold, 600);
   font-size: var(--rds-font-size-body, 1rem);
+  flex-shrink: 0;
+  
+  // Responsive avatar adjustments
+  @media (max-width: 834px) {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 0.9rem;
+  }
+  
+  @media (max-width: 420px) {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 320px) {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 0.7rem;
+  }
 }
 .rds-profile-menu__chevron {
   margin-left: 4px;
@@ -257,11 +480,36 @@
   font-size: var(--rds-font-size-lg, 16px);
   color: var(--rds-color-profile-name, #3d2461);
   line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  // Responsive name adjustments
+  @media (max-width: 420px) {
+    font-size: var(--rds-font-size-md, 14px);
+  }
+  
+  @media (max-width: 320px) {
+    font-size: var(--rds-font-size-sm, 13px);
+  }
 }
+
 .rds-profile-menu__email {
   font-size: var(--rds-font-size-xs, 13px);
   color: var(--rds-color-primary, #7c4dff);
   font-weight: var(--rds-font-weight-medium, 500);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  // Responsive email adjustments
+  @media (max-width: 420px) {
+    font-size: var(--rds-font-size-xs, 11px);
+  }
+  
+  @media (max-width: 320px) {
+    font-size: var(--rds-font-size-xs, 10px);
+  }
 }
 
 /* Ensure email text becomes visible (white) when header uses primary/secondary color variants */
@@ -356,17 +604,32 @@
     gap: var(--rds-spacing-lg, 20px);
     background: transparent;
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
     
-    // Responsive behavior for mobile screens
+    // Responsive behavior for different screen sizes
+    @media (max-width: 834px) {
+      padding-left: var(--rds-spacing-lg, 24px);
+      padding-right: var(--rds-spacing-lg, 24px);
+      gap: var(--rds-spacing-md, 16px);
+    }
+    
     @media (max-width: 480px) {
       padding-left: var(--rds-spacing-md, 16px);
       padding-right: var(--rds-spacing-md, 16px);
       gap: var(--rds-spacing-sm, 12px);
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: 420px) {
       padding-left: var(--rds-spacing-sm, 12px);
       padding-right: var(--rds-spacing-sm, 12px);
+      gap: var(--rds-spacing-xs, 10px);
+    }
+    
+    @media (max-width: 320px) {
+      padding-left: var(--rds-spacing-xs, 8px);
+      padding-right: var(--rds-spacing-xs, 8px);
       gap: var(--rds-spacing-xs, 8px);
     }
   }
@@ -379,12 +642,25 @@
     font-size: var(--rds-font-size-lg, 20px);
     font-weight: var(--rds-font-weight-bold, 700);
     letter-spacing: var(--rds-letter-spacing, 0.1px);
+    flex-shrink: 0;
     
-    // Responsive behavior for mobile screens
+    // Responsive behavior for different screen sizes
+    @media (max-width: 834px) {
+      min-width: var(--rds-header-logo-min-width, 100px);
+      font-size: var(--rds-font-size-md, 19px);
+      height: var(--rds-header-logo-height, 30px);
+    }
+    
     @media (max-width: 480px) {
       min-width: var(--rds-header-logo-min-width, 80px);
       font-size: var(--rds-font-size-md, 18px);
       height: var(--rds-header-logo-height, 28px);
+    }
+    
+    @media (max-width: 420px) {
+      min-width: var(--rds-header-logo-min-width, 70px);
+      font-size: var(--rds-font-size-md, 17px);
+      height: var(--rds-header-logo-height, 26px);
     }
     
     @media (max-width: 320px) {
@@ -406,11 +682,22 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex-shrink: 1;
     
-    // Responsive behavior for mobile screens
+    // Responsive behavior for different screen sizes
+    @media (max-width: 834px) {
+      min-width: 70px;
+      font-size: var(--rds-font-size-base, 17px);
+    }
+    
     @media (max-width: 480px) {
       min-width: 60px;
       font-size: var(--rds-font-size-base, 16px);
+    }
+    
+    @media (max-width: 420px) {
+      min-width: 50px;
+      font-size: var(--rds-font-size-sm, 15px);
     }
     
     @media (max-width: 320px) {
@@ -472,12 +759,39 @@
     max-height: 360px !important;
     overflow: hidden !important; /* paper hides overflow; list scrolls */
     box-sizing: border-box;
+    
+    // Responsive language menu adjustments
+    @media (max-width: 834px) {
+      width: 200px !important;
+      max-width: 240px !important;
+    }
+    
+    @media (max-width: 420px) {
+      width: 180px !important;
+      max-width: 200px !important;
+      max-height: 300px !important;
+    }
+    
+    @media (max-width: 320px) {
+      width: 160px !important;
+      max-width: 180px !important;
+      max-height: 280px !important;
+    }
   }
 
   .rds-language-menu-list {
     max-height: 360px !important;
     overflow-y: auto !important;
     box-sizing: border-box;
+    
+    // Responsive list adjustments
+    @media (max-width: 420px) {
+      max-height: 300px !important;
+    }
+    
+    @media (max-width: 320px) {
+      max-height: 280px !important;
+    }
   }
 
   &__search {
@@ -494,18 +808,34 @@
     align-items: center;
     transition: border-color 0.2s;
     width: 100%;
+    flex-shrink: 1;
     
-    // Responsive behavior for mobile screens
+    // Responsive behavior for different screen sizes
+    @media (max-width: 834px) {
+      min-width: 180px;
+      font-size: var(--rds-font-size-sm, 14px);
+      height: 34px;
+    }
+    
     @media (max-width: 480px) {
       min-width: 140px;
       padding: 0 var(--rds-spacing-xs, 8px);
       font-size: var(--rds-font-size-sm, 14px);
+      height: 32px;
+    }
+    
+    @media (max-width: 420px) {
+      min-width: 120px;
+      padding: 0 var(--rds-spacing-xs, 8px);
+      font-size: var(--rds-font-size-sm, 13px);
+      height: 30px;
     }
     
     @media (max-width: 320px) {
-      min-width: 120px;
-      padding: 0 var(--rds-spacing-xs, 8px);
-      font-size: var(--rds-font-size-sm, 14px);
+      min-width: 100px;
+      padding: 0 var(--rds-spacing-xs, 6px);
+      font-size: var(--rds-font-size-xs, 12px);
+      height: 28px;
     }
     
     &:focus-within {
@@ -522,8 +852,19 @@
       padding: 0;
       height: 34px;
       
-      @media (max-width: 480px) {
+      @media (max-width: 834px) {
         font-size: var(--rds-font-size-sm, 14px);
+        height: 32px;
+      }
+      
+      @media (max-width: 420px) {
+        font-size: var(--rds-font-size-sm, 13px);
+        height: 28px;
+      }
+      
+      @media (max-width: 320px) {
+        font-size: var(--rds-font-size-xs, 12px);
+        height: 26px;
       }
     }
   }
@@ -532,10 +873,19 @@
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-md, 16px);
+    flex-shrink: 0;
     
-    // Responsive behavior for mobile screens
+    // Responsive behavior for different screen sizes
+    @media (max-width: 834px) {
+      gap: var(--rds-spacing-sm, 14px);
+    }
+    
     @media (max-width: 480px) {
       gap: var(--rds-spacing-sm, 12px);
+    }
+    
+    @media (max-width: 420px) {
+      gap: var(--rds-spacing-xs, 10px);
     }
     
     @media (max-width: 320px) {
@@ -624,6 +974,53 @@
     }
   }
 
+  /* Make the sub-header stack vertically on small screens to avoid overflow
+     Applies to stories: With SubHeader and With SubHeader Actions (and generally
+     any layout using `.rds-header__sub-header`) */
+  @media (max-width: 420px) {
+    &__sub-header {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 8px 12px;
+      gap: 8px;
+      min-height: initial;
+    }
+
+    &__sub-header-layout {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    &__sub-tabs {
+      justify-content: flex-start;
+      width: 100%;
+      overflow: visible;
+      flex-wrap: wrap;
+    }
+
+    &__sub-tabs .MuiButton-root {
+      /* Allow buttons to occupy full width when stacked */
+      width: auto;
+      white-space: normal;
+      padding: 6px 10px;
+      min-width: 0;
+    }
+  }
+
+  @media (max-width: 320px) {
+    &__sub-header {
+      padding: 6px 8px;
+      gap: 6px;
+    }
+
+    &__sub-tabs .MuiButton-root {
+      padding: 6px 8px;
+      font-size: 13px;
+      width: 100%;
+    }
+  }
+
   &--sticky {
     position: sticky;
     top: 0;
@@ -637,18 +1034,31 @@
     display: flex;
     align-items: center;
     width: 220px;
+    flex-shrink: 1;
+    min-width: 0;
     
-    // Responsive behavior for mobile screens
+    // Responsive behavior for different screen sizes
+    @media (max-width: 834px) {
+      width: 180px;
+      min-width: 160px;
+      max-width: 200px;
+    }
+    
     @media (max-width: 480px) {
       width: 100%;
       min-width: 140px;
       flex: 1;
-      max-width: 200px;
+      max-width: 180px;
+    }
+    
+    @media (max-width: 420px) {
+      min-width: 120px;
+      max-width: 160px;
     }
     
     @media (max-width: 320px) {
-      min-width: 120px;
-      max-width: 160px;
+      min-width: 100px;
+      max-width: 140px;
     }
   }
 
@@ -670,6 +1080,8 @@
     display: flex;
     align-items: center;
     min-height: auto;
+    flex-shrink: 1;
+    min-width: 0;
     
     .MuiTab-root {
       min-height: auto !important;
@@ -678,6 +1090,24 @@
       font-weight: 500 !important;
       text-transform: none !important;
       color: var(--rds-color-on-surface, #222) !important;
+      white-space: nowrap;
+      min-width: auto !important;
+      
+      // Responsive tab adjustments
+      @media (max-width: 834px) {
+        padding: 8px 14px !important;
+        font-size: 13px !important;
+      }
+      
+      @media (max-width: 420px) {
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+      }
+      
+      @media (max-width: 320px) {
+        padding: 6px 8px !important;
+        font-size: 11px !important;
+      }
       
       &.Mui-selected {
         color: var(--rds-color-primary, #1976d2) !important;
@@ -691,6 +1121,11 @@
     
     .MuiTabs-flexContainer {
       align-items: center;
+      gap: 0;
+      
+      @media (max-width: 320px) {
+        gap: 0;
+      }
     }
   }
 }
@@ -699,18 +1134,68 @@
 .rds-appbar-logo-group {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
+  
+  // Responsive logo group adjustments
+  @media (max-width: 420px) {
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
 }
+
 .rds-appbar-logo-label {
   margin-left: 8px;
   font-weight: 500;
   font-size: 18px;
   color: #353535;
+  white-space: nowrap;
+  
+  // Responsive logo label adjustments
+  @media (max-width: 834px) {
+    font-size: 17px;
+    margin-left: 6px;
+  }
+  
+  @media (max-width: 420px) {
+    font-size: 16px;
+    margin-left: 6px;
+  }
+  
+  @media (max-width: 320px) {
+    font-size: 14px;
+    margin-left: 4px;
+  }
 }
+
 .rds-appbar-actions-group {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-shrink: 0;
+  
+  // Responsive actions group adjustments
+  @media (max-width: 834px) {
+    gap: 12px;
+  }
+  
+  @media (max-width: 420px) {
+    gap: 8px;
+  }
+  
+  @media (max-width: 320px) {
+    gap: 6px;
+  }
 }
+
 .rds-appbar-badge {
   background: var(--rds-appbar-badge-bg, #EAF3FF);
   color: var(--rds-appbar-badge-color, #3C98FF);
@@ -719,6 +1204,21 @@
   font-weight: 500;
   font-size: 12px;
   margin-right: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  
+  // Responsive badge adjustments
+  @media (max-width: 420px) {
+    font-size: 11px;
+    padding: 3px 8px;
+    margin-right: 6px;
+  }
+  
+  @media (max-width: 320px) {
+    font-size: 10px;
+    padding: 2px 6px;
+    margin-right: 4px;
+  }
 }
 // DARK MODE OVERRIDES
 [data-theme="dark"], .dark {
@@ -741,11 +1241,312 @@
     color: var(--rds-color-on-info, #ffffff);
   }
 }
-.css-16b6n56-MuiButtonBase-root-MuiButton-root, .css-1gjwngd {
+// =======================
+//  Responsive MUI Component Overrides
+// =======================
+
+.css-16b6n56-MuiButtonBase-root-MuiButton-root, 
+.css-1gjwngd {
     min-width: 95px !important;
     padding: 6px 10px !important;
+    
+    // Responsive button adjustments
+    @media (max-width: 834px) {
+      min-width: 85px !important;
+      padding: 6px 8px !important;
+      font-size: 14px !important;
+    }
+    
+    @media (max-width: 420px) {
+      min-width: 75px !important;
+      padding: 5px 6px !important;
+      font-size: 13px !important;
+    }
+    
+    @media (max-width: 320px) {
+      min-width: 60px !important;
+      padding: 4px 6px !important;
+      font-size: 12px !important;
+    }
 }
 
-.css-sdirt4-MuiButtonBase-root-MuiTab-root, .css-wor01b {
+.css-sdirt4-MuiButtonBase-root-MuiTab-root, 
+.css-wor01b {
     min-width: 60px !important;
+    
+    // Responsive tab adjustments
+    @media (max-width: 834px) {
+      min-width: 55px !important;
+    }
+    
+    @media (max-width: 420px) {
+      min-width: 50px !important;
+    }
+    
+    @media (max-width: 320px) {
+      min-width: 45px !important;
+    }
+}
+
+// =======================
+//  General Responsive Improvements
+// =======================
+
+// IconButton responsive sizing
+.MuiIconButton-root {
+  @media (max-width: 420px) {
+    padding: 6px !important;
+    
+    svg {
+      font-size: 20px !important;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    padding: 4px !important;
+    
+    svg {
+      font-size: 18px !important;
+    }
+  }
+}
+
+// Button responsive sizing
+.MuiButton-root {
+  @media (max-width: 420px) {
+    padding: 6px 12px !important;
+    font-size: 13px !important;
+  }
+  
+  @media (max-width: 320px) {
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+  }
+}
+
+// Avatar responsive sizing
+.MuiAvatar-root {
+  @media (max-width: 420px) {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 14px !important;
+  }
+  
+  @media (max-width: 320px) {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 12px !important;
+  }
+}
+
+// Typography responsive sizing for profile menu
+.MuiTypography-root {
+  @media (max-width: 420px) {
+    &.MuiTypography-body1 {
+      font-size: 13px !important;
+    }
+    
+    &.MuiTypography-body2 {
+      font-size: 11px !important;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    &.MuiTypography-body1 {
+      font-size: 12px !important;
+    }
+    
+    &.MuiTypography-body2 {
+      font-size: 10px !important;
+    }
+  }
+}
+
+// Prevent horizontal overflow on all screen sizes
+.rds-header {
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+// Ensure proper flex behavior for all components
+.rds-header__toolbar > * {
+  flex-shrink: 0;
+  
+  &.rds-header__title,
+  &.rds-header__search-wrapper {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+}
+
+// Special small screen optimizations
+@media (max-width: 320px) {
+  // Hide less important elements on very small screens if needed
+  .rds-appbar-separator {
+    display: none;
+  }
+  
+  // Make sure essential elements can shrink appropriately
+  .rds-header__toolbar {
+    .rds-header__title {
+      flex-shrink: 2;
+      min-width: 30px;
+    }
+    
+    .rds-header__search-wrapper {
+      flex-shrink: 1;
+      min-width: 80px;
+    }
+    
+    .rds-header__actions,
+    .rds-header__right-actions {
+      flex-shrink: 0;
+      min-width: auto;
+    }
+  }
+  
+  // Compact profile menu text on very small screens
+  .rds-profile-menu__button {
+    .MuiBox-root {
+      display: none; // Hide profile text details on very small screens
+    }
+  }
+}
+
+/* Overflow button: hidden by default, visible on small screens (<=420px)
+   This button opens a Drawer containing overflowContent passed from the story/component */
+.rds-appbar-overflow-button {
+  /* Force hide by default on all larger viewports. Some MUI rules may
+     override a plain `display:none` so use `!important` to be safe. */
+  display: none !important;
+  margin-left: 6px;
+}
+
+/* Show only on small screens (420px and below) */
+@media (max-width: 420px) {
+  .rds-appbar-overflow-button {
+    display: inline-flex !important;
+  }
+}
+
+// Medium-small screen optimizations (420px)
+@media (max-width: 420px) {
+  .rds-header__toolbar {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  
+  // Ensure proper spacing and visibility
+  .rds-appbar-tabs-container {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+// Tablet-small screen optimizations (834px)
+@media (max-width: 834px) {
+  .rds-header__toolbar {
+    gap: var(--rds-spacing-md, 12px);
+  }
+  
+  // Optimize button and component spacing
+  .rds-appbar-actions-group {
+    .MuiButton-root {
+      min-width: 80px;
+    }
+  }
+}
+
+// Additional aggressive mobile optimizations for very small viewports
+// These are targeted at story variants that contain many actions/tabs
+// (Header Default, LogoSearchTabs, LogoTabsActions, LogoSearchTabsActions and the SubHeader variant)
+@media (max-width: 420px) {
+  /* Hide dense secondary action groups to preserve space for logo/title/search */
+  .rds-story-nav-actions,
+  .rds-logo-search-tabs__left-actions,
+  .rds-appbar-actions-group,
+  .rds-appbar-badge {
+    display: none !important;
+  }
+
+  /* For the WithNotificationBadge story we want inline tabs moved into
+     the overflow drawer on small screens so they don't push the layout
+     after the search field. Hide the inline tabs for that variant. */
+  .rds-header--variant-withnotificationbadge .rds-appbar-tabs-container {
+    display: none !important;
+  }
+
+  /* For LogoTabsActions variant: on small screens we want the icon actions
+    to be hidden (they live in the overflow Drawer) but the ProfileMenu
+    (avatar) should remain visible in the app bar. Override the generic
+    rule that hides `.rds-story-nav-actions` and hide only the icon spans. */
+  .rds-header--variant-logotabsactions .rds-story-nav-actions { display: flex !important; }
+  .rds-header--variant-logotabsactions .rds-story-nav-action { display: none !important; }
+  .rds-header--variant-logotabsactions .rds-profile-menu__button { display: inline-flex !important; }
+
+  /* Reduce search to a compact variant and prevent overflow */
+  .rds-header__search-wrapper,
+  .rds-header__search {
+    max-width: 120px !important;
+    min-width: 80px !important;
+    flex: 0 1 120px !important;
+  }
+
+  /* Remove separators on small screens */
+  .rds-appbar-separator { display: none !important; }
+
+  /* Condense the sub-header tabs to icon-only pills when possible */
+  .rds-header__sub-tabs {
+    .MuiButton-root {
+      padding: 6px !important;
+      min-width: 36px !important;
+      width: auto !important;
+      overflow: visible !important;
+    }
+    .MuiButton-root .MuiButton-startIcon { margin-right: 0 !important; }
+    /* hide textual label to keep layout compact */
+    .MuiButton-root .MuiButton-label, .MuiButton-root > span:not(.MuiButton-startIcon) { display: none !important; }
+  }
+
+  /* Make inline tabs smaller and allow them to truncate rather than force overflow */
+  .rds-header__tabs-inline .MuiTab-root {
+    padding: 6px 8px !important;
+    font-size: 11px !important;
+    min-width: 32px !important;
+  }
+
+  /* Right side actions (profile) should shrink and hide text */
+  .rds-profile-menu__button { padding-left: 6px !important; padding-right: 6px !important; }
+  /* Hide profile text only for specific header variants so other stories keep the full profile */
+  .rds-header--variant-logosearchtabs .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-profile-menu__email {
+    /* hide textual details but keep the avatar visible for LogoSearchTabs */
+    display: none !important;
+  }
+
+  /* The ProfileMenu uses `RdsAvatar` which renders the name/designation
+     under `.rds-avatar__info` — hide that block for the specified variants
+     so only the avatar circle is shown in the toolbar on small screens.
+     Also hide the chevron to keep the compact appearance. */
+  .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-avatar__info,
+  .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-profile-menu__chevron {
+    /* hide avatar textual info and chevron for LogoSearchTabs only */
+    display: none !important;
+  }
+  /* Title should shrink and truncate; keep some space for logo + search */
+  .rds-header__title { max-width: 60% !important; overflow: hidden; text-overflow: ellipsis; }
+
+  /* Ensure toolbar doesn't wrap or create horizontal scrolling */
+  .rds-header__toolbar { padding-left: 8px !important; padding-right: 8px !important; gap: 6px !important; }
+  .rds-app-bar, .rds-header { overflow-x: hidden !important; }
+}
+
+@media (max-width: 320px) {
+  /* Apply even more compact rules for the smallest devices */
+  .rds-header__search-wrapper, .rds-header__search { max-width: 100px !important; min-width: 64px !important; }
+  .rds-header__title { max-width: 55% !important; font-size: 13px !important; }
+  .rds-header__sub-tabs .MuiButton-root { min-width: 32px !important; padding: 4px !important; }
+  .rds-header__tabs-inline .MuiTab-root { font-size: 10px !important; padding: 4px 6px !important; }
 }

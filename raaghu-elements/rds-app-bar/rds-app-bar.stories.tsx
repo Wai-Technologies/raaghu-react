@@ -561,6 +561,17 @@ const DynamicTemplate = (args: any) => {
         title: ' ',
         leftActions: <LogoSearchTabsLeftActions />,
         rightActions: <ProfileMenu name="John Doe" shortName="JD" email="john.doe@example.com" />,
+        // Only show the left action icons in the overflow drawer for this
+        // variant (so users get the icon menu shown in the screenshot).
+        // Do not include the full ProfileMenu here to avoid showing the
+        // avatar + name/designation inside the drawer.
+        overflowContent: (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 8 }}>
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'flex-start' }}>
+              <LogoSearchTabsLeftActions />
+            </div>
+          </div>
+        ),
       };
       break;
     case 'logotabsactions':
@@ -577,6 +588,21 @@ const DynamicTemplate = (args: any) => {
             <span className="rds-story-nav-action"><HeartIcon /></span>
             <span className="rds-story-nav-action"><BellIcon /></span>
             <ProfileMenu name="John Doe" shortName="JD" email="john.doe@example.com" />
+          </div>
+        ),
+        // Put the same actions into overflow for small screens
+        overflowContent: (
+          // Only include the left action icons in the overflow Drawer —
+          // keep the ProfileMenu in the app bar so the avatar + name
+          // are available inline and clicking it shows the profile.
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 8 }}>
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+              <HomeIcon />
+              <CompassIcon />
+              <VideoIcon />
+              <HeartIcon />
+              <BellIcon />
+            </div>
           </div>
         ),
       };
@@ -679,6 +705,20 @@ const DynamicTemplate = (args: any) => {
               <Button variant="text" color="inherit" className="rds-appbar-tab-btn">Marketplace</Button>
               <div className="rds-appbar-separator" />
               <Button variant="text" color="inherit" className="rds-appbar-tab-btn">Jobs</Button>
+            </div>
+          </div>
+        ),
+        // Provide the same items to the overflow drawer so they remain accessible
+        // on very small screens (320 / 420). The component will show the overflow
+        // button automatically when `overflowContent` is present and the CSS
+        // makes that button visible at <=420px.
+        overflowContent: (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <Button variant="text" color="inherit">Home</Button>
+              <Button variant="text" color="inherit">News</Button>
+              <Button variant="text" color="inherit">Marketplace</Button>
+              <Button variant="text" color="inherit">Jobs</Button>
             </div>
           </div>
         ),
@@ -819,8 +859,8 @@ const DynamicTemplate = (args: any) => {
       };
   }
 
-  // Remove internal helper flag before spreading
-  const { __wrapTransparent, variantStyle: _omitVs, ...finalConfig } = config;
+  // Remove internal helper flag before spreading (keep variantStyle so AppBar can add a variant class)
+  const { __wrapTransparent, ...finalConfig } = config;
   if (config.__wrapTransparent) {
     return (
       <div className="rds-story-min-height-container">

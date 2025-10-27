@@ -6,6 +6,7 @@ import {
   IconButton,
   Box,
   InputBase,
+  Drawer,
   Tabs,
   Tab,
 } from '@mui/material';
@@ -13,6 +14,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Person from '@mui/icons-material/Person';
+import Close from '@mui/icons-material/Close';
 import { ProfileMenu } from './ProfileMenu';
 import "./rds-app-bar.scss";
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
@@ -38,6 +40,8 @@ export interface RdsAppBarProps extends AppBarProps {
   onTabChange?: (value: number) => void;
   subHeader?: React.ReactNode;
   showSearch?: boolean;
+  variantStyle?: string;
+  overflowContent?: React.ReactNode;
 }
 const RdsAppBar = ({
   title,
@@ -62,6 +66,8 @@ const RdsAppBar = ({
   onTabChange,
   subHeader,
   showSearch = true,
+  variantStyle,
+  overflowContent,
   ...props
 }:RdsAppBarProps) => {
   const toolbarHeights = {
@@ -69,6 +75,7 @@ const RdsAppBar = ({
     medium: 64,
     large: 80,
   };
+  const [overflowOpen, setOverflowOpen] = React.useState(false);
   const colorClass =
     props.color === 'primary'
       ? ' rds-header--primary'
@@ -77,12 +84,14 @@ const RdsAppBar = ({
         : props.color === 'transparent'
           ? ' rds-header--transparent'
           : '';
+  // normalize variant style to a safe class name (lowercase, remove spaces)
+  const variantClass = variantStyle ? ` rds-header--variant-${String(variantStyle).toLowerCase().replace(/[^a-z0-9]+/g, '')}` : '';
   return (
     <MuiAppBar
       {...props}
       className={[
         `rds-app-bar--size-${size}`,
-        `rds-header${colorClass}${props.className ? ' ' + props.className : ''}`,
+        `rds-header${colorClass}${variantClass}${props.className ? ' ' + props.className : ''}`,
       ].filter(Boolean).join(' ')}
       color={props.color === 'transparent' ? 'transparent' : 'default'}
       elevation={0}
@@ -165,6 +174,35 @@ const RdsAppBar = ({
             actions && <span className="rds-header__actions">{actions}</span>
           )}
           {children}
+          {/* Overflow button for small screens - opens a drawer with overflowContent */}
+          {overflowContent ? (
+            <>
+              <IconButton
+                className="rds-appbar-overflow-button"
+                color="inherit"
+                aria-label="more"
+                onClick={() => setOverflowOpen(true)}
+                size="small"
+              >
+                {/* three dots icon */}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="5" cy="12" r="1.6" fill="currentColor" />
+                  <circle cx="12" cy="12" r="1.6" fill="currentColor" />
+                  <circle cx="19" cy="12" r="1.6" fill="currentColor" />
+                </svg>
+              </IconButton>
+              <Drawer anchor="right" open={Boolean((overflowOpen))} onClose={() => setOverflowOpen(false)} PaperProps={{ sx: { width: 320 } }}>
+                <Box sx={{ p: 2, height: '100%', boxSizing: 'border-box' }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <IconButton onClick={() => setOverflowOpen(false)} aria-label="close">
+                      <Close />
+                    </IconButton>
+                  </Box>
+                  <Box sx={{ mt: 1 }}>{overflowContent}</Box>
+                </Box>
+              </Drawer>
+            </>
+          ) : null}
         </Box>
       </MuiToolbar>
 
