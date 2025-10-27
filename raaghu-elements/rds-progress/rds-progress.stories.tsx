@@ -17,6 +17,10 @@ const meta: Meta<typeof RdsProgress> = {
       options: ['circular', 'line', 'stepper', 'dash', 'block'],
       description: 'The visual style of the progress indicator',
     },
+    variant: { control: 
+      { type: 'select' },
+      options: ['determinate', 'indeterminate', 'buffer', 'query'] 
+    },
     color: {
       control: {
         type: 'select',
