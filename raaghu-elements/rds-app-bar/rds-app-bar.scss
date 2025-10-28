@@ -1485,6 +1485,185 @@
   .rds-header--variant-logotabsactions .rds-story-nav-action { display: none !important; }
   .rds-header--variant-logotabsactions .rds-profile-menu__button { display: inline-flex !important; }
 
+  /* For the WithTabs variant, hide the inline tabs on small screens and
+     expose them via the overflow Drawer (vertical list). Ensure the
+     overflow button is visible for this variant. */
+  .rds-header--variant-withtabs .rds-header__tabs-inline { display: none !important; }
+  .rds-header--variant-withtabs .rds-appbar-overflow-button { display: inline-flex !important; order: 3 !important; margin-left: 8px !important; }
+  .rds-header--variant-withtabs .rds-profile-menu__button { order: 99 !important; margin-left: auto !important; }
+
+  /* For the WithActions story we want the inline tabs to be hidden on small screens
+    and reachable via the overflow drawer. This prevents those tabs from causing
+    horizontal scrolling and places them into the existing three-dots Drawer. */
+  .rds-header--variant-withactions .rds-header__tabs-inline { display: none !important; }
+  .rds-header--variant-withactions .rds-appbar-overflow-button { display: inline-flex !important; order: 3 !important; margin-left: 8px !important; }
+  .rds-header--variant-withactions .rds-profile-menu__button { order: 99 !important; margin-left: auto !important; }
+  /* Hide the right-side action buttons for the withActions variant on small screens
+    so they are reachable only from the overflow drawer (prevent horizontal overflow). */
+  .rds-header--variant-withactions .rds-appbar-actions-group,
+  .rds-header--variant-withactions .rds-appbar-actions-group .MuiButton-root,
+  .rds-header--variant-withactions .rds-header__right-actions { display: none !important; }
+
+  /* withMenuButton: on small screens show logo + search + settings + avatar (avatar text hidden)
+    and move other inline actions into the overflow drawer. */
+  .rds-header--variant-withmenubutton .rds-appbar-actions-group,
+  .rds-header--variant-withmenubutton .rds-header__right-actions {
+    /* keep the actions container present so we can selectively show the
+       settings button and profile while hiding the rest */
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Hide textual profile details (keep avatar visible) */
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root { display: none !important; }
+
+  /* Ensure the overflow button appears after the search (order 3) */
+  .rds-header--variant-withmenubutton .rds-appbar-overflow-button { display: inline-flex !important; order: 3 !important; margin-left: 8px !important; }
+
+  /* Logo then search */
+  .rds-header--variant-withmenubutton .rds-header__logo { order: 1 !important; }
+  .rds-header--variant-withmenubutton .rds-header__search-wrapper { order: 2 !important; flex: 1 1 auto !important; min-width: 0 !important; }
+
+  /* Within the actions group, hide everything except settings and profile */
+  .rds-header--variant-withmenubutton .rds-appbar-actions-group > *:not(.rds-withmenubutton-settings):not(.rds-profile-menu__button) { display: none !important; }
+
+  /* Settings button should be visible and come immediately after overflow */
+  .rds-header--variant-withmenubutton .rds-withmenubutton-settings { display: inline-flex !important; order: 4 !important; margin-left: 6px !important; }
+
+  /* Avatar follows the settings icon; hide name/designation and chevron */
+  .rds-header--variant-withmenubutton .rds-profile-menu__button { display: inline-flex !important; order: 5 !important; margin-left: 6px !important; align-items: center !important; }
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-withmenubutton .rds-avatar__info { display: none !important; }
+
+  .rds-header--variant-withmenubutton .rds-header__tabs-inline { display: none !important; }
+
+  /* Pin avatar to the far right for the WithMenuButton variant and ensure
+     explicit avatar sizes for 420px and 320px so the avatar looks correct
+     and doesn't cause layout shifts. Keep avatar as circle-only (text hidden). */
+  .rds-header--variant-withmenubutton .rds-profile-menu__button {
+    order: 99 !important; /* push to far right */
+    margin-left: auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  /* Avatar sizing specifically for this variant */
+  .rds-header--variant-withmenubutton .rds-profile-menu__avatar,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiAvatar-root {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  @media (max-width: 320px) {
+    .rds-header--variant-withmenubutton .rds-profile-menu__avatar,
+    .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiAvatar-root {
+      width: 24px !important;
+      height: 24px !important;
+    }
+  }
+
+  /* Force avatar to the absolute right of the toolbar on small screens so
+     it visually sits after the three-dot overflow. This avoids layout
+     reordering issues where the avatar appears earlier in the flex flow. */
+  .rds-header--variant-withmenubutton .rds-header__toolbar {
+    position: relative; /* should already be relative but ensure scope */
+    padding-right: 56px !important; /* room for avatar */
+  }
+
+  /* Pin logo fully to the left for the WithMenuButton variant so it's
+     flush against the left edge on small screens. Use absolute positioning
+     to avoid flex reflow and ensure deterministic placement. */
+  .rds-header--variant-withmenubutton .rds-appbar-logo-group,
+  .rds-header--variant-withmenubutton .rds-header__logo {
+    position: absolute !important;
+    left: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 4 !important;
+  }
+
+  /* Give toolbar left padding so the centered/flow content doesn't overlap the logo */
+  .rds-header--variant-withmenubutton .rds-header__toolbar {
+    padding-left: 56px !important;
+  }
+
+  @media (max-width: 320px) {
+    .rds-header--variant-withmenubutton .rds-appbar-logo-group,
+    .rds-header--variant-withmenubutton .rds-header__logo {
+      left: 8px !important;
+    }
+    .rds-header--variant-withmenubutton .rds-header__toolbar {
+      padding-left: 48px !important;
+    }
+  }
+
+  .rds-header--variant-withmenubutton .rds-profile-menu__button {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    order: 99 !important;
+    margin-left: 0 !important;
+  }
+
+  /* Give settings icon room so it doesn't collide with the absolutely
+     positioned avatar. Keep settings visible and to the left of avatar. */
+  .rds-header--variant-withmenubutton .rds-withmenubutton-settings {
+    /* Force this button to be positioned near the right edge (left of avatar).
+       Use absolute positioning so it sits visually to the left of the avatar
+       regardless of flex ordering. Higher specificity and !important used to
+       override runtime styles. */
+    display: inline-flex !important;
+    position: absolute !important;
+    right: 52px !important; /* space to sit left of avatar (avatar ~28px + gap) */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 3 !important;
+    order: 4 !important;
+    margin: 0 !important;
+  }
+
+  /* Position overflow (three-dots) absolutely so it remains visible
+     and sits to the left of the settings icon on small screens. */
+  .rds-header--variant-withmenubutton .rds-appbar-overflow-button {
+    display: inline-flex !important;
+    position: absolute !important;
+    right: 92px !important; /* space for settings + avatar */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 2 !important;
+    margin: 0 !important;
+  }
+
+  /* Reserve more right-side padding in the toolbar so overflow + settings + avatar
+     never overlap content. Tighter values for <=320 handled below. */
+  .rds-header--variant-withmenubutton .rds-header__toolbar {
+    padding-right: 120px !important;
+  }
+
+  @media (max-width: 320px) {
+    .rds-header--variant-withmenubutton .rds-profile-menu__button { right: 8px !important; }
+    .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: 48px !important; }
+    .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 100px !important; }
+    .rds-header--variant-withmenubutton .rds-appbar-overflow-button { right: 88px !important; }
+
+    /* Hide logo text at the smallest breakpoint so the logo doesn't intrude into the search */
+    .rds-header--variant-withmenubutton .rds-appbar-logo-label { display: none !important; }
+    /* Slightly shift the search left so it visually aligns better with the
+       logo and doesn't create a gap at 320px; keep it compact to avoid overlap */
+    .rds-header--variant-withmenubutton .rds-header__search-wrapper {
+      position: relative !important;
+      transform: translateX(-16px) !important;
+      max-width: 80px !important;
+      min-width: 60px !important;
+    }
+  }
+
   /* Reduce search to a compact variant and prevent overflow */
   .rds-header__search-wrapper,
   .rds-header__search {
@@ -1521,19 +1700,93 @@
   /* Hide profile text only for specific header variants so other stories keep the full profile */
   .rds-header--variant-logosearchtabs .rds-profile-menu__button .MuiBox-root,
   .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-profile-menu__name-lg,
-  .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-profile-menu__email {
-    /* hide textual details but keep the avatar visible for LogoSearchTabs */
+  .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-logotabsactions .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-logotabsactions .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-logotabsactions .rds-profile-menu__button .rds-profile-menu__email {
+    /* hide textual details but keep the avatar visible for these variants */
     display: none !important;
   }
 
   /* The ProfileMenu uses `RdsAvatar` which renders the name/designation
-     under `.rds-avatar__info` — hide that block for the specified variants
-     so only the avatar circle is shown in the toolbar on small screens.
-     Also hide the chevron to keep the compact appearance. */
-  .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-avatar__info,
-  .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-profile-menu__chevron {
-    /* hide avatar textual info and chevron for LogoSearchTabs only */
+    under `.rds-avatar__info` — hide that block for the specified variants
+    so only the avatar circle is shown in the toolbar on small screens.
+    Also hide the chevron to keep the compact appearance. */
+  .rds-header--variant-logosearchtabs .rds-avatar__info,
+  .rds-header--variant-logotabsactions .rds-avatar__info,
+  .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-logotabsactions .rds-profile-menu__button .rds-profile-menu__chevron {
+   /* hide avatar textual info and chevron for both variants so only the
+     avatar circle is visible in the header at small sizes */
+   display: none !important;
+  }
+  /* Also hide avatar textual info and chevron for the WithUserProfile variant
+     so the profile appears as avatar-only on small screens (320/420px). */
+  .rds-header--variant-withuserprofile .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withuserprofile .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withuserprofile .rds-profile-menu__button .rds-profile-menu__email {
     display: none !important;
+  }
+  .rds-header--variant-withuserprofile .rds-avatar__info,
+  .rds-header--variant-withuserprofile .rds-profile-menu__button .rds-profile-menu__chevron {
+    display: none !important;
+  }
+
+  /* Ensure the overflow button (three-dots) is visible and positioned
+     immediately before the search wrapper for the LogoSearchTabs and
+     LogoSearchTabsActions variants. Also pin the profile/avatar to the
+     far right so it does not compete for space. */
+  /* Place the search field before the overflow button so the three-dot
+     appears after the search wrapper (to its right). Search gets a lower
+     order and the overflow button sits immediately after it. */
+  .rds-header--variant-logosearchtabs .rds-header__search-wrapper,
+  .rds-header--variant-logosearchtabsactions .rds-header__search-wrapper {
+    order: 2 !important;
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  .rds-header--variant-logosearchtabs .rds-appbar-overflow-button,
+  .rds-header--variant-logosearchtabsactions .rds-appbar-overflow-button {
+    display: inline-flex !important;
+    order: 3 !important;
+    margin-left: 8px !important;
+    margin-right: 8px !important;
+  }
+
+  .rds-header--variant-logosearchtabs .rds-profile-menu__button,
+  .rds-header--variant-logosearchtabsactions .rds-profile-menu__button,
+  .rds-header--variant-logosearchtabs .rds-profile-menu,
+  .rds-header--variant-logosearchtabsactions .rds-profile-menu {
+    order: 99 !important;
+    margin-left: auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+  /* DashboardWithLang: hide textual profile details and chevron on small screens
+     Keep the avatar visible (avatar-only presentation) at <=420px and <=320px */
+  .rds-header--variant-dashboardwithlang .rds-admin-profile__button {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  @media (max-width: 420px) {
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root { display: inline-flex !important; }
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiBox-root,
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiTypography-root,
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button .rds-admin-profile__chevron {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root { width: 24px !important; height: 24px !important; }
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiBox-root,
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiTypography-root,
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button .rds-admin-profile__chevron {
+      display: none !important;
+    }
   }
   /* Title should shrink and truncate; keep some space for logo + search */
   .rds-header__title { max-width: 60% !important; overflow: hidden; text-overflow: ellipsis; }
