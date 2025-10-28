@@ -256,6 +256,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                 />
               )}
               {type === "ActivityUpdateCard" && (
+                <div className="rds-adaptive-cards__activity-update-wrapper">
                   <ActivityUpdateCard
                     avatar={activityProps?.avatar ?? ''}
                     name={props.name ?? activityProps?.name ?? ''}
@@ -263,6 +264,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                     cardText={props.cardText}
                     radioOptions={activityProps?.radioOptions ?? []}
                   />
+                </div>
               )}
               {type === "RestaurantOrder" && (
                 <RestaurantOrderForm
