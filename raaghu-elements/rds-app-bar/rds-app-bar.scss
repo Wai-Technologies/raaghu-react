@@ -1671,7 +1671,14 @@
     min-width: 80px !important;
     flex: 0 1 120px !important;
   }
-
+  
+  /* Make the placeholder text inside the search input smaller at 320px
+     for these two variants so it fits and appears less dominant. */
+  .rds-header--variant-logosearchtabs .rds-header__search input::placeholder,
+  .rds-header--variant-logotabsactions .rds-header__search input::placeholder {
+    font-size: 11px !important;
+    opacity: 0.9 !important;
+  }
   /* Remove separators on small screens */
   .rds-appbar-separator { display: none !important; }
 
@@ -1802,4 +1809,13 @@
   .rds-header__title { max-width: 55% !important; font-size: 13px !important; }
   .rds-header__sub-tabs .MuiButton-root { min-width: 32px !important; padding: 4px !important; }
   .rds-header__tabs-inline .MuiTab-root { font-size: 10px !important; padding: 4px 6px !important; }
+
+  /* Make the placeholder text inside any header/story search input smaller
+     at the smallest breakpoint so it fits and appears less dominant. */
+  .rds-header__search input::placeholder,
+  .rds-header__search-wrapper input::placeholder,
+  .rds-story-search-field input::placeholder {
+    font-size: 11px !important;
+    opacity: 0.9 !important;
+  }
 }
