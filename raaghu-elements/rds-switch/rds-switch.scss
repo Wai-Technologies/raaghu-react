@@ -386,6 +386,20 @@
   opacity: 0.6 !important;
 }
 
+[data-theme="dark"] .rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-track,
+[data-theme="dark"] .rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track,
+[data-theme="dark"] .rds-switch--color-secondary .Mui-disabled + .MuiSwitch-track {
+  background: rgba(107,125,221,0.28) !important; /* lighter blue */
+  opacity: 0.7 !important;
+}
+
+[data-theme="dark"] .rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
+[data-theme="dark"] .rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-thumb,
+[data-theme="dark"] .rds-switch--color-secondary .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  background: var(--rds-color-on-secondary, #ffffff) !important;
+  opacity: 0.9 !important;
+}
+
 .rds-switch--color-warning .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
 .rds-switch--color-warning .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
   background: var(--rds-color-on-warning, #000000) !important;
