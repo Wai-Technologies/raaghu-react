@@ -18,31 +18,25 @@
   &__helper-text {
     // Helper-text styles
     display: block;
-    margin-left: 0px;
+    /* follow other RDS components: force left alignment and use 14px font */
+    margin-left: 0 !important;
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 1.2;
   }
 
   &__error-text {
     // Error-text styles
     display: block;
-    margin-left: 0px;
+    margin-left: 0 !important;
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 1.2;
   }
 
-  &--focused {
-    // Focused state styles
-  }
-
-  &--error {
-    // Error state styles
-  }
-
-  &--disabled {
-    // Disabled state styles
-  }
-
-  // Interactive states
-  &:hover {
-    // Hover styles
-  }
+  /* state modifier blocks removed (no local styles) to avoid empty rulesets */
 
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
