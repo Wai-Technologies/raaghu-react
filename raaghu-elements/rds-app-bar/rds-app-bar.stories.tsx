@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ProfileMenu } from './ProfileMenu';
 import RdsAppBar from './rds-app-bar';
 import { Button, IconButton, Avatar, Badge, Box, Divider, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
-import { Menu as MenuIcon, Home, Search, Notifications, AccountCircle, Brightness5, Brightness2, Brightness4, Logout, Security, Close } from '@mui/icons-material';
+import { Dehaze as MenuIcon, Home, Search, Notifications, AccountCircle, Brightness5, Brightness2, Brightness4, Logout, Security, Close } from '@mui/icons-material';
 import { Menu, MenuItem } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import React from 'react';
@@ -223,7 +223,7 @@ const LanguageMenu = () => {
   }, [selected]);
   return (
     <>
-      <Button color="inherit" onClick={e => setAnchorEl(e.currentTarget)} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+      <Button className="rds-language-button" color="inherit" onClick={e => setAnchorEl(e.currentTarget)} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
         <span style={{ fontWeight: 600 }}>{shortCode}</span>
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>

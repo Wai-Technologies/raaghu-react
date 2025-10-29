@@ -795,7 +795,7 @@
   }
 
   &__search {
-    min-width: 220px;
+    min-width: 148px;
     color: var(--rds-color-on-surface, #222);
     background: var(--rds-color-surface-alt, #f5f5f7);
     padding: 0 var(--rds-spacing-sm, 12px);
@@ -1423,11 +1423,18 @@
   margin-left: 6px;
 }
 
+/* By default show the three-dots icon and hide the hamburger inside the button */
+.rds-appbar-overflow-button .rds-overflow-icon { display: inline-flex; }
+.rds-appbar-overflow-button .rds-overflow-icon--hamburger { display: none; }
+
 /* Show only on small screens (420px and below) */
 @media (max-width: 420px) {
   .rds-appbar-overflow-button {
     display: inline-flex !important;
   }
+  /* On small screens show the hamburger and hide the three-dots */
+  .rds-appbar-overflow-button .rds-overflow-icon--hamburger { display: inline-flex; }
+  .rds-appbar-overflow-button .rds-overflow-icon--dots { display: none; }
 }
 
 // Medium-small screen optimizations (420px)
@@ -1455,6 +1462,37 @@
     .MuiButton-root {
       min-width: 80px;
     }
+  }
+}
+
+/* Tablet breakpoint - hide avatar textual details for WithMenuButton story
+   when viewport is approximately tablet width (<=840px) so avatar appears
+   as icon-only (matching design screenshot) */
+@media (max-width: 834px) {
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-avatar__info,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__chevron {
+    display: none !important;
+  }
+
+  /* Ensure avatar circle remains visible and doesn't cause layout shift */
+  .rds-header--variant-withmenubutton .rds-profile-menu__avatar,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiAvatar-root {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  /* Add a small gap between the search wrapper and right-side actions (eg. "View Plans")
+     at tablet widths so buttons won't overlap the search field. */
+  .rds-header--variant-withmenubutton .rds-header__search-wrapper {
+   margin-right: 12px !important;
+   /* Prevent the search wrapper from flexing into the absolutely positioned
+     right-side buttons (overflow/settings/avatar). Reserve approximate
+     space and make it non-growing at this breakpoint. */
+   flex: 0 1 auto !important;
+   max-width: calc(100% - 160px) !important;
   }
 }
 
@@ -1707,6 +1745,7 @@
       min-width: 36px !important;
       width: auto !important;
       overflow: visible !important;
+      gap: 4px
     }
     .MuiButton-root .MuiButton-startIcon { margin-right: 0 !important; }
     /* hide textual label to keep layout compact */
@@ -1744,6 +1783,17 @@
    /* hide avatar textual info and chevron for both variants so only the
      avatar circle is visible in the header at small sizes */
    display: none !important;
+  }
+
+  /* Ensure that when overflowContent is rendered inside the Drawer the
+     left action icons are visible — some variants hide the action group
+     in the header on small screens, but we still want them inside the
+     overflow Drawer. Target only the overflow content container to
+     avoid re-showing them inline. */
+  .rds-appbar-overflow-content .rds-logo-search-tabs__left-actions {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: center !important;
   }
   /* Also hide avatar textual info and chevron for the WithUserProfile variant
      so the profile appears as avatar-only on small screens (320/420px). */
@@ -1968,6 +2018,14 @@
       overflow: hidden !important;
       text-overflow: ellipsis !important;
     }
+
+    /* Shift language button slightly left on 420px to prevent overlap and
+       visually align language code closer to the center when space is tight. */
+    .rds-header--variant-dashboardwithlang .rds-language-button {
+      /* Use a small negative translate to nudge left without affecting layout flow */
+      transform: translateX(-6px) !important;
+      margin-left: 0 !important;
+    }
   }
 
   @media (max-width: 320px) {
@@ -2022,6 +2080,13 @@
       /* a touch more left offset on the smallest screens */
       margin-left: 8px !important;
     }
+
+    /* At 320px make the language button nudge a bit further left so it doesn't
+       appear cramped against the avatar. Keep the shift modest. */
+    .rds-header--variant-dashboardwithlang .rds-language-button {
+      transform: translateX(-10px) !important;
+      margin-left: 0 !important;
+    }
   }
   /* Title should shrink and truncate; keep some space for logo + search */
   .rds-header__title { max-width: 60% !important; overflow: hidden; text-overflow: ellipsis; }
@@ -2035,7 +2100,7 @@
   /* Apply even more compact rules for the smallest devices */
   .rds-header__search-wrapper, .rds-header__search { max-width: 100px !important; min-width: 64px !important; }
   .rds-header__title { max-width: 55% !important; font-size: 13px !important; }
-  .rds-header__sub-tabs .MuiButton-root { min-width: 32px !important; padding: 4px !important; }
+  .rds-header__sub-tabs .MuiButton-root { min-width: 32px !important; padding: 4px !important; gap: 4px !important; }
   .rds-header__tabs-inline .MuiTab-root { font-size: 10px !important; padding: 4px 6px !important; }
 
   /* Make the placeholder text inside any header/story search input smaller
@@ -2045,5 +2110,17 @@
   .rds-story-search-field input::placeholder {
     font-size: 11px !important;
     opacity: 0.9 !important;
+  }
+}
+
+/* Final override: ensure WithMenuButton search wrapper reserves space on tablet
+   This is placed at the end to take precedence over earlier declarations. */
+@media (max-width: 840px) {
+  .rds-header--variant-withmenubutton .rds-header__search-wrapper {
+    margin-right: 14px !important;
+    flex: 0 1 auto !important;
+    max-width: calc(100% - 180px) !important; /* leave space for overflow + settings + avatar */
+    position: relative !important; /* keep it in flow while reserving space */
+    transform: none !important;
   }
 }

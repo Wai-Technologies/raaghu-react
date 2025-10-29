@@ -11,7 +11,7 @@ import {
   Tab,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Menu as MenuIcon } from '@mui/icons-material';
+import { Dehaze as DehazeIcon } from '@mui/icons-material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Person from '@mui/icons-material/Person';
 import Close from '@mui/icons-material/Close';
@@ -107,7 +107,7 @@ const RdsAppBar = ({
         <Box className="rds-header__toolbar" sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
           {showMenuButton && (
             <IconButton edge="start" color="inherit" aria-label="menu" onClick={onMenuClick} sx={{ mr: 2 }}>
-              <MenuIcon />
+              <DehazeIcon />
             </IconButton>
           )}
           {/*  Show logo only if showLogo is true */}
@@ -180,16 +180,13 @@ const RdsAppBar = ({
               <IconButton
                 className="rds-appbar-overflow-button"
                 color="inherit"
-                aria-label="more"
+                aria-label="open overflow menu"
                 onClick={() => setOverflowOpen(true)}
                 size="small"
               >
-                {/* three dots icon */}
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="5" cy="12" r="1.6" fill="currentColor" />
-                  <circle cx="12" cy="12" r="1.6" fill="currentColor" />
-                  <circle cx="19" cy="12" r="1.6" fill="currentColor" />
-                </svg>
+                <span className="rds-overflow-icon rds-overflow-icon--hamburger" aria-hidden>
+                  <DehazeIcon />
+                </span>
               </IconButton>
               <Drawer anchor="right" open={Boolean((overflowOpen))} onClose={() => setOverflowOpen(false)} PaperProps={{ sx: { width: 320 } }}>
                 <Box sx={{ p: 2, height: '100%', boxSizing: 'border-box' }}>
@@ -198,7 +195,7 @@ const RdsAppBar = ({
                       <Close />
                     </IconButton>
                   </Box>
-                  <Box sx={{ mt: 1 }}>{overflowContent}</Box>
+                  <Box className="rds-appbar-overflow-content" sx={{ mt: 1 }}>{overflowContent}</Box>
                 </Box>
               </Drawer>
             </>
