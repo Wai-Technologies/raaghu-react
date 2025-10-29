@@ -1806,17 +1806,17 @@
       color: var(--dark-text-primary) !important;
       box-shadow: var(--rds-elevation-1, 0 1px 4px rgba(0, 0, 0, 0.3)) !important;
       
-      svg, i {
-        color: var(--dark-text-primary) !important;
-      }
+      // svg, i {
+      //   color: var(--dark-text-primary) !important;
+      // }
     }
     
     &__thumbnail-image-square {
       background: var(--dark-bg-secondary) !important;
       
-      svg, i {
-        color: var(--dark-text-primary) !important;
-      }
+      // svg, i {
+      //   color: var(--dark-text-primary) !important;
+      // }
     }
     
     &__agent-card {

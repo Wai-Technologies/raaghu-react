@@ -164,4 +164,12 @@
       background-color: var(--rds-color-primary-hover-dark, rgba(126, 46, 239, 0.2));
     }
   }
+
+  &__icon--folder,
+  &__icon--folder .MuiSvgIcon-root,
+  &__icon--folder svg,
+  &__icon--folder svg * {
+    color: var(--rds-color-warning, #FFB300) !important;
+    fill: var(--rds-color-warning, #FFB300) !important;
+  }
 }
