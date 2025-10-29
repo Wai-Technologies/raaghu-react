@@ -1123,7 +1123,7 @@
     max-width: 100vw;
     padding: 8px;        
     gap: var(--rds-spacing-sm, 12px);
-    overflow: hidden; // Remove overflow from main container
+    overflow: hidden; 
     &__header {
       
       margin-left: 8px !important;
