@@ -7,12 +7,67 @@
   background: var(--rds-background-default, #fff);
   box-shadow: var(--rds-box-shadow-lg, 0 2px 12px rgba(0,0,0,0.04));
 } 
+/* Dark-mode & first-paint stability for image gallery */
+.rds-adaptive-cards--image-gallery,
+.rds-adaptive-cards--image-gallery .rds-adaptive-cards__image-list,
+.rds-adaptive-cards--image-gallery .rds-adaptive-cards__content {
+  transition: none !important; /* Avoid transition-based color shifts on mount */
+}
+.dark-theme .rds-adaptive-cards--image-gallery,
+[data-theme="dark"] .rds-adaptive-cards--image-gallery {
+  background: var(--rds-background-dark, #3f3f3f) !important;
+  border-color: rgba(255,255,255,0.06) !important;
+  box-shadow: none !important;
+  color: var(--rds-text-primary-dark, #fff) !important;
+}
+.dark-theme .rds-adaptive-cards--image-gallery .rds-adaptive-cards__image-list,
+[data-theme="dark"] .rds-adaptive-cards--image-gallery .rds-adaptive-cards__image-list {
+  background: transparent !important; /* let the parent card show through in dark mode */
+}
+
+/* Ensure small/subtext color is visible in dark theme */
+.dark-theme .rds-adaptive-cards__small-text,
+[data-theme="dark"] .rds-adaptive-cards__small-text {
+  color: var(--rds-text-secondary-dark, #cfcfcf) !important;
+  opacity: 0.9 !important;
+}
+
+/* Ensure title color for gallery in dark-mode */
+.dark-theme .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title,
+[data-theme="dark"] .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title {
+  color: var(--rds-text-primary-dark, #fff) !important;
+}
 
 .rds-adaptive-cards--football-scorecard {
-  width: var(--rds-card-width-football, 360px);
+  width: var(--rds-card-width-football, 350px); // Reduced width for more compact design
+  min-width: var(--rds-card-width-football, 350px); // Ensure consistent width
   border: 1px solid var(--rds-border-light, #E9E9E9);
   border-radius: var(--rds-border-radius-lg, 12px);
-  padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
+  padding: var(--rds-spacing-sm, 8px);
+  box-sizing: border-box; // Include padding in width calculations
+  overflow: hidden; // Prevent content overflow during layout
+}
+
+// Stable layout class to prevent layout shifts
+.football-scorecard-stable {
+  min-height: 200px !important; // Ensure consistent height during render
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+// Ensure score row displays horizontally
+.rds-adaptive-cards__football-score-section > .MuiStack-root {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.rds-adaptive-cards__football-score-section .css-9jay18 {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
 }
 
 .rds-adaptive-cards--default {
@@ -146,6 +201,9 @@
     justify-content: flex-end;
     gap: var(--rds-spacing-xs, 2px);
     margin-right: var(--rds-spacing-sm, 8px);
+    align-items: center !important; /* Keep buttons vertically centered */
+    flex-wrap: nowrap !important; /* Prevent buttons from wrapping on first paint */
+    transition: none !important; /* Avoid transition-based layout shifts */
   }
   &__actions--input-form {
     display: block !important;
@@ -206,6 +264,18 @@
     padding: 0 !important;
     margin-top: var(--rds-spacing-sm, 8px) !important;
   }
+  // Activity Update overall container stability
+  &__activity-update {
+    display: flex !important;
+    flex-direction: column !important;
+    // gap: var(--rds-spacing-sm, 8px) !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    min-height: 120px !important; // Ensure stable minimum height
+  }
   // ----- Calendar Reminder -----
   &__calendar-reminder-label {
     font-size: var(--rds-font-size-md, 14px) !important;
@@ -229,23 +299,68 @@
     }
   }
   // ----- Activity Update -----
+  &__activity-update-header {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important; // Align to top for better stability
+    // gap: var(--rds-spacing-sm, 8px) !important;
+    width: 100% !important;
+    min-height: 48px !important; // Ensure consistent height
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    flex-wrap: nowrap !important; // Prevent wrapping
+    position: relative !important; // Establish positioning context
+  }
   &__activity-update-avatar {
-    width: var(--rds-spacing-xl, 40px);
-    height: var(--rds-spacing-xl, 40px);
+    width: var(--rds-spacing-xl, 40px) !important;
+    height: var(--rds-spacing-xl, 40px) !important;
+    min-width: var(--rds-spacing-xl, 40px) !important; // Prevent shrinking
+    flex-shrink: 0 !important; // Prevent avatar from shrinking
+    border-radius: 50% !important;
+    display: block !important;
+    margin: 0 !important;
+  }
+  &__activity-update-header > .MuiStack-root {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    flex: 1 !important; // Take remaining space
+    min-width: 0 !important; // Allow text to truncate if needed
+    // gap: 2px !important; // Small consistent gap between name and date
+    padding: 0 !important;
+    margin: 0 !important;
   }
   &__activity-update-name {
-    font-weight: var(--rds-font-weight-medium, 600) !important;
-    font-size: var(--rds-font-size-sm, 12px);
+    font-weight: var(--rds-font-weight-bold, 700) !important; // Make title bolder to match second screenshot
+    font-size: var(--rds-font-size-lg, 16px) !important; // Increase font size to match second screenshot
+    line-height: 1.2 !important; // Consistent line height
+    margin-top: 5px !important;
+    padding: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    color: var(--rds-text-primary, #000) !important; // Ensure strong contrast
   }
   &__activity-update-date,
   &__activity-update-text {
-     color: var(--rds-text-primary) !important;
+     color: var(--rds-text-secondary, #666) !important; // Use secondary color for date as shown in second screenshot
   }
   &__activity-update-date {
-    font-size: var(--rds-font-size-xs, 11px);
+    font-size: var(--rds-font-size-sm, 12px) !important; // Slightly larger than before to match second screenshot
+    font-weight: var(--rds-font-weight-normal, 400) !important; // Normal weight for date
+    line-height: 1.2 !important; // Consistent line height
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
   &__activity-update-text {
     font-size: var(--rds-font-size-md, 14px) !important;
+    margin-top: var(--rds-spacing-sm, 4px) !important;
+    line-height: 1.4 !important;
   }
   // ----- Restaurant Order -----
   &__restaurant-order-form {
@@ -264,86 +379,171 @@
   }
   // ----- Football Scorecard -----
   &__football-header {
-    width: 100%;
-    margin-bottom: var(--rds-spacing-none, 0);
+    width: 100% !important;
+    // margin-bottom: var(--rds-spacing-sm, 8px) !important;
+    padding: var(--rds-spacing-xs, 4px) 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: var(--rds-spacing-xs, 4px) !important;
   }
     &__football-header-row {
-  width: 100%;
-  position: relative;
-  display: flex; 
-  align-items: center;
-  justify-content: center;
-  margin-left: 45px; 
+    width: 100%;
+    position: relative;
+      display: flex !important; 
+      align-items: center !important;
+      justify-content: space-between !important; // make space for title on left and live chip on right
+    //gap: var(--rds-spacing-sm, 58px) !important; // Increase gap to match second screenshot
+    margin: 0 !important;
+    padding: var(--rds-spacing-xs, 4px) 0 !important;
+    flex-wrap: nowrap !important; // Prevent wrapping
+  }
+
+  /* CSS-only grouping: if markup wasn't wrapped in a left-group, force avatar + title to stay together on left */
+  .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league-avatar,
+  .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: var(--rds-spacing-xs, 6px) !important;
+  }
+
+  /* Ensure ordering: avatar then title on left, live chip on right */
+  .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league-avatar {
+    order: 0 !important;
+    margin-right: var(--rds-spacing-xs, 8px) !important;
+    flex-shrink: 0 !important;
+  }
+  .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league {
+    order: 1 !important;
+    white-space: nowrap !important;
+    min-width: 0 !important; /* allow truncation */
+  }
+  .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-live,
+  .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-live--aligned {
+    order: 2 !important;
+    margin-left: auto !important; /* push live chip to the far right */
+  }
+
+    /* Left-side group: avatar + title should stay together */
+    &__football-header-left {
+      display: flex !important;
+      align-items: center !important;
+      flex: 1 1 auto !important; /* allow this group to take remaining space but keep items together */
+      min-width: 0 !important; /* allow truncation within this group when necessary */
+      margin-left: 67px !important;
     }
   &__football-league-avatar {
-    width: var(--rds-football-league-avatar-size, 28px) !important;
-    height: var(--rds-football-league-avatar-size, 28px) !important;
-    margin-right: var(--rds-spacing-sm, 0px) !important;
-    margin-left: var(--rds-spacing-sm, 10px) !important;
-    display: block;
+    width: var(--rds-football-league-avatar-size, 24px) !important;
+    height: var(--rds-football-league-avatar-size, 24px) !important;
+    flex-shrink: 0 !important; // Prevent shrinking
+    display: block !important;
+    border-radius: 50% !important; // Ensure circular shape
   }
   &__football-league {
-      font-weight: var(--rds-font-weight-bold, 600) !important;
+      font-weight: var(--rds-font-weight-black, 900) !important; // Increase font weight to match second screenshot
       font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
-      letter-spacing: var(--rds-football-league-letter-spacing, 1px) !important;
-      font-size: 26px !important;
-      color: var(--rds-text-primary, #111);
-      text-shadow: var(--rds-football-league-text-shadow, 0 2px 6px rgba(0,0,0,0.25), 0 0px 1px #fff);
-      margin-left: var(--rds-spacing-sm, 8px) !important;
-      padding-left: var(--rds-spacing-none, 0) !important;
-      display: block;
-      font-weight: 600 !important;
-      /* Remove duplicate font-size: var(--rds-font-size-sm, 12px); */
-      /* color: var(--rds-text-primary-dark, #fff) !important; */
-      /* text-shadow: var(--rds-football-league-text-shadow-dark, 0 2px 6px rgba(0,0,0,0.25), 0 0px 1px #222); */
-       .dark-theme &,
+      letter-spacing: var(--rds-football-league-letter-spacing, 0.5px) !important;
+      font-size: 24px !important; // Increase size to match second screenshot
+      color: var(--rds-text-primary, #111) !important;
+      text-shadow: none !important; // Remove text shadow for cleaner look
+      display: inline-block !important; // Ensure proper inline flow
+      white-space: nowrap !important; // Prevent text wrapping
+      margin: 0 !important; // Remove margins
+      line-height: 1.2 !important; // Better line height
+      .dark-theme &,
       [data-theme="dark"] & {
         color: #fff !important;
       }
     }
+    
+    // Ensure the league/title and the live chip have breathing room
+    .rds-adaptive-cards__football-live + & {
+      margin-left: var(--rds-spacing-md, 12px) !important;
+    }
   &__football-date {
-    color: var(--rds-text-secondary, #646464);
-    font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
-    font-size: var(--rds-football-date-font-size, 13px) !important;
+    color: var(--rds-text-secondary, #646464) !important;
+    font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
+    font-size: var(--rds-football-date-font-size, 12px) !important;
     font-weight: var(--rds-font-weight-medium, 500) !important;
-    margin: var(--rds-football-date-margin, 10px 0px);
-    letter-spacing: var(--rds-football-date-letter-spacing, 1px) !important;
-  }
-  &__football-final {
-    color: var(--rds-text-secondary, #646464);
-    font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
-    font-size: var(--rds-football-final-font-size, 13px) !important;
-    font-weight: var(--rds-font-weight-medium, 500);
-  }
-  &__football-live {
-  font-size: var(--rds-font-size-xs, 10px) !important;
-  font-weight: var(--rds-font-weight-normal, 400);
-  margin: var(--rds-spacing-none, 0) var(--rds-spacing-none, 0) 20px var(--rds-spacing-lg, 42px) !important;
-  border-radius: var(--rds-border-radius-md, 8px) !important;
-  background: var(--rds-background-default, #dcdfee);
-  color: var(--rds-text-secondary, #545454);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 50px; // Reserve space for consistent positioning
+    margin: var(--rds-spacing-xs, 2px) 0 !important;
+    letter-spacing: var(--rds-football-date-letter-spacing, 0.5px) !important;
+    text-align: center !important;
     .dark-theme &,
     [data-theme="dark"] & {
-      color: var(--rds-text-primary-dark, #fff) !important;
-      fill: var(--rds-text-primary-dark, #fff) !important;
+      color: #fff !important;
+    }
+    /* Ensure the league/title doesn't push the avatar away: allow truncation */
+    min-width: 0 !important;
+  }
+  &__football-final {
+    color: var(--rds-text-secondary, #646464) !important;
+    font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
+    font-size: var(--rds-football-final-font-size, 12px) !important;
+    font-weight: var(--rds-font-weight-medium, 500) !important;
+    text-align: center !important;
+    margin: 0 !important;
+    .dark-theme &,
+    [data-theme="dark"] & {
+      color: #fff !important;
+    }
+  }
+  &__football-live {
+    font-size: var(--rds-font-size-xs, 10px) !important;
+    font-weight: var(--rds-font-weight-normal, 400) !important;
+    border-radius: var(--rds-border-radius-md, 8px) !important;
+    background: #f44336 !important; // Red background for live indicator
+    color: white !important; // White text for contrast
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important; // Prevent shrinking
+    margin: 0 !important; // Remove problematic margins
+    padding: 12px 6px !important; // Add proper padding
+    height: 20px !important; // Fixed height
+    min-width: 32px !important; // Minimum width
+    .dark-theme &,
+    [data-theme="dark"] & {
+      background: #f44336 !important; // Keep red in dark theme
+      color: white !important;
+      fill: white !important;
     }
     .dark-theme & svg circle,
     [data-theme="dark"] & svg circle {
-      fill: var(--rds-text-primary-dark, #fff) !important;
+      fill: white !important;
     }
   }
+
+  /* Right-align live chip variant for desktop/tablet where header uses space-between */
+  .rds-adaptive-cards__football-live--aligned {
+    position: relative !important;
+    margin-left: auto !important; /* push to the far right inside a flex row */
+    margin-right: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
   &__football-body {
-    margin-top: var(--rds-spacing-sm, 8px);
+    display: flex !important; // Essential: Enable flexbox layout for horizontal alignment
+    flex-direction: row !important; // Ensure horizontal layout
+    // margin-top: var(--rds-spacing-sm, 8px);
     width: 100%;
-    justify-content: center;
-    gap: var(--rds-spacing-xl, 20px);
+    justify-content: space-around; // Better distribution of space
+    align-items: flex-start; // Align to top for better visual balance
+    gap: var(--rds-spacing-xs, 8px); // Reduce gap for tighter layout
+    min-height: 120px; // Ensure consistent height
+    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px); // Add top padding
   }
   &__football-team {
+    display: flex !important; // Enable flexbox for team container
+    flex-direction: column !important; // Stack team elements vertically
     align-items: center;
+    flex: 1; // Allow teams to take equal space
+    min-width: 90px; // Minimum width for team names
+    max-width: 120px; // Increase max width to accommodate team names
+    text-align: center;
+    gap: var(--rds-spacing-xs, 4px);
   }
   &__football-logo {
     width: var(--rds-spacing-2xl, 80px);
@@ -400,36 +600,76 @@
     text-align: center;
     font-size: var(--rds-font-size-md, 14px) !important;
     letter-spacing: var(--rds-football-team-name-letter-spacing, 0.15px) !important;
+    white-space: nowrap !important; // Prevent team name from wrapping to multiple lines
+    overflow: hidden; // Hide overflow if team name is too long
+    text-overflow: ellipsis; // Show ... if text is cut off
+    max-width: 120px; // Match team container width
+    width: 100%; // Take full width of parent container
   }
   &__football-team-status {
     color: var(--rds-text-secondary, #646464);
     text-align: center;
     font-weight: var(--rds-font-weight-bold, 700);
     font-family: var(--rds-font-family-bold, 'Poppins', sans-serif);
-    font-size: var(--rds-font-size-md, 14px) !important;
+    font-size: var(--rds-font-size-sm, 12px) !important; // Smaller font for status
+    white-space: nowrap !important; // Prevent wrapping
+    max-width: 120px; // Match container width
+    width: 100%; // Take full width
   }
   &__football-score-section {
-    align-items: center;
+    display: flex !important; // Enable flexbox for score section
+    flex-direction: column !important; // Column layout: score on top, time below
+    align-items: center !important;
     font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
-    margin-bottom: var(--rds-spacing-md, 10px);
-    gap: var(--rds-spacing-lg, 14px);
+    gap: var(--rds-spacing-xs, 4px) !important; // Small gap between score and time
+    flex-shrink: 0 !important; // Prevent shrinking
+    min-width: 100px; // Adequate width for vertical layout
+    max-width: 120px; // Reasonable max width
+    text-align: center !important;
+  }
+
+  // Style the score row containing just the score numbers and colon
+  &__football-score-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: var(--rds-spacing-xs, 4px) !important;
+    flex-wrap: nowrap !important;
   }
   &__football-score {
     font-size: var(--rds-font-size-4xl, 38px) !important;
     font-weight: var(--rds-font-weight-extrabold, 800) !important;
     font-family: var(--rds-font-family-bold, 'Poppins', sans-serif);
-    text-align: center;
+    text-align: center !important;
+    line-height: 1 !important; // Ensure tight line height for better alignment
+    display: inline-block !important; // Ensure inline display
+    
+    // Style the colon specifically
+    &-colon {
+      margin: 0 2px !important; // Small margin around colon
+    }
   }
   &__football-time {
-    background: var(--rds-background-default, #dcdfee);
-    color: var(--rds-text-secondary, #545454);
+    background: var(--rds-background-default, #dcdfee) !important;
+    color: var(--rds-text-secondary, #545454) !important;
     font-size: var(--rds-font-size-xs, 12px) !important;
     font-weight: var(--rds-font-weight-bold, 700) !important;
-    letter-spacing: var(--rds-football-time-letter-spacing, 1px);
-    padding: var(--rds-spacing-xs, 5px) var(--rds-spacing-sm, 10px) !important;
-    min-width: var(--rds-spacing-xl, 50px);
+    letter-spacing: var(--rds-football-time-letter-spacing, 0.5px) !important;
+    padding: var(--rds-spacing-sm, 15px) var(--rds-spacing-sm, 8px) !important;
+    min-width: var(--rds-spacing-xl, 50px) !important;
     border-radius: var(--rds-border-radius-sm, 4px) !important;
     font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
+    height: 20px !important; // Appropriate height for time chip
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-top: 20px !important; // No margin since it's positioned below score
+    .dark-theme &,
+    [data-theme="dark"] & {
+      background: #6f6f6f !important;
+      color: #fff !important;
+    }
   }
 }
 
@@ -512,6 +752,32 @@
 // Calendar Reminder Actions
 .rds-adaptive-cards__calendar-reminder-actions {
   margin-top: var(--rds-spacing-sm, 8px);
+  /* Ensure actions render in a stable horizontal row on first paint */
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: var(--rds-spacing-sm, 8px) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  flex-wrap: nowrap !important; /* Prevent buttons from stacking due to late JS layout */
+}
+
+/* Ensure buttons inside calendar reminder render as inline-flex to avoid block stacking */
+.rds-adaptive-cards__calendar-reminder-actions .rds-adaptive-cards__action-btn,
+.rds-adaptive-cards__calendar-reminder-actions button,
+.rds-adaptive-cards__calendar-reminder-actions .MuiButton-root {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+}
+
+/* Defensive: when this actions area is placed inside input-form variations, keep full width behavior stable */
+.rds-adaptive-cards__calendar-reminder-actions.rds-adaptive-cards__actions--input-form {
+  justify-content: space-between !important;
+  padding-left: var(--rds-spacing-sm, 8px) !important;
+  padding-right: var(--rds-spacing-sm, 8px) !important;
 }
 
 // Hide instance slot when default is selected
@@ -653,7 +919,8 @@
 .rds-adaptive-cards__footer {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-start;
+  align-items: center; /* Center buttons vertically to avoid misalignment */
+  flex-wrap: nowrap; /* Keep buttons on a single row */
   gap: var(--rds-spacing-sm, 8px);
   align-self: stretch;
 }
@@ -861,7 +1128,7 @@
     font-weight: 700 !important;
     padding-top: 4px !important;
     padding-bottom: 8px !important;
-      max-width: 100%;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -955,13 +1222,15 @@
     font-size: var(--rds-font-size-xs, 10px) !important;
   }
   .rds-adaptive-cards__football-score {
-    font-size: var(--rds-font-size-xl, 18px) !important;
+    font-size: var(--rds-font-size-xl, 38px) !important;
   }
   .rds-adaptive-cards__football-score-section {
     gap: var(--rds-spacing-sm, 8px) !important;
     margin-bottom: var(--rds-spacing-md, 10px) !important;
   }
   .rds-adaptive-cards__football-body {
+    display: flex !important; // Ensure flex is maintained in mobile
+    flex-direction: row !important; // Keep horizontal layout
     gap: var(--rds-spacing-sm, 8px) !important;
   }
   .rds-adaptive-cards__football-live {
@@ -979,6 +1248,11 @@
     min-width: 50px !important;
     z-index: 2;
   }
+}
+@media (max-width: 320px) {
+  .rds-adaptive-cards__football-header-left {
+      margin-left: 27px !important;
+    }
 }
 
 @media (min-width: 376px) and (max-width: 480px) {
@@ -1149,6 +1423,67 @@
     margin-left: 0px !important;
 }
 
+// Activity Update specific Material-UI overrides to prevent layout shifts
+.rds-adaptive-cards__activity-update-header.MuiStack-root > :not(style) ~ :not(style) {
+  margin-left: 8px !important; // Consistent spacing between avatar and content
+}
+
+.rds-adaptive-cards__activity-update-header .MuiStack-root > :not(style) ~ :not(style) {
+  margin-top: 2px !important; // Small consistent spacing between name and date
+  margin-left: 0 !important; // No left margin for vertical stack
+}
+
+// Prevent layout shifts from Material-UI spacing changes
+.rds-adaptive-cards__activity-update .MuiStack-root {
+  transition: none !important; // Disable transitions that could cause layout shifts
+}
+
+// Force consistent positioning for the activity update components
+.rds-adaptive-cards__content .rds-adaptive-cards__activity-update {
+  position: static !important; // Ensure stable positioning context
+}
+
+// Activity Update wrapper to prevent layout instability
+.rds-adaptive-cards__activity-update-wrapper {
+  width: 100% !important;
+  display: block !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+// Ensure consistent font styling in both light and dark themes
+.rds-adaptive-cards__activity-update-name {
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
+  font-size: var(--rds-font-size-lg, 18px) !important;
+}
+
+.rds-adaptive-cards__activity-update-date {
+  font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
+  font-size: var(--rds-font-size-lg, 14px) !important;
+}
+
+// Dark theme overrides to maintain consistent styling
+.dark-theme .rds-adaptive-cards__activity-update-name,
+[data-theme="dark"] .rds-adaptive-cards__activity-update-name {
+  color: var(--rds-text-primary-dark, #fff) !important;
+  font-weight: var(--rds-font-weight-bold, 700) !important;
+  font-size: var(--rds-font-size-lg, 18px) !important;
+}
+
+.dark-theme .rds-adaptive-cards__activity-update-date,
+[data-theme="dark"] .rds-adaptive-cards__activity-update-date {
+  color: var(--rds-text-secondary-dark, #ccc) !important;
+  font-weight: var(--rds-font-weight-normal, 400) !important;
+  font-size: var(--rds-font-size-sm, 12px) !important;
+}
+
+.dark-theme .rds-adaptive-cards__activity-update-text,
+[data-theme="dark"] .rds-adaptive-cards__activity-update-text {
+  color: #fff !important;
+}
+
 // Input form error styling
 .rds-adaptive-cards__input-error {
   border-color: #d32f2f !important;
@@ -1166,4 +1501,45 @@
   margin-bottom: 8px;
   font-weight: 400;
   line-height: 1.4;
+}
+
+/* Extra small screens: ensure football scorecard and team names never overflow on narrow devices (320px) */
+@media (max-width: 340px) {
+  .rds-adaptive-cards--football-scorecard,
+  .rds-adaptive-cards__scorecard-container {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: var(--rds-spacing-sm, 8px) !important;
+    box-sizing: border-box !important;
+  }
+
+  .rds-adaptive-cards__football-body {
+    gap: 6px !important;
+    justify-content: space-between !important;
+  }
+
+  /* Allow teams and score section to shrink more on very small screens */
+  .rds-adaptive-cards__football-team {
+    min-width: 56px !important; /* permit smaller team columns */
+    max-width: 80px !important;
+  }
+
+  .rds-adaptive-cards__football-score-section {
+    min-width: 56px !important;
+    max-width: 80px !important;
+  }
+
+  /* Force team name truncation and ensure it can't overflow the viewport */
+  .rds-adaptive-cards__football-team-name {
+    max-width: 80px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    font-size: 13px !important;
+  }
+
+  /* Reduce the left margin used in header grouping so header doesn't push content off-screen */
+  .rds-adaptive-cards__football-header-left {
+    margin-left: 24px !important;
+  }
 }
