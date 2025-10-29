@@ -141,7 +141,7 @@ export const NoControls: Story = {
     ],
     showArrows: false,
     showDots: false,
-    height: '250px',
+    height: '400px',
   title: 'No Controls Title',
   subtitle: 'No controls subtitle',
   },
