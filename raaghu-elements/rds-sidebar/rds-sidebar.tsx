@@ -9,7 +9,19 @@ import {
   Collapse,
   type DrawerProps,
 } from '@mui/material';
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { 
+  ExpandLess, 
+  ExpandMore,
+  Dashboard,
+  Business,
+  AdminPanelSettings,
+  Widgets,
+  Receipt,
+  ConfirmationNumber,
+  Chat,
+  Campaign,
+  Assignment
+} from '@mui/icons-material';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
 import './rds-sidebar.scss';
@@ -50,6 +62,7 @@ const RdsSidebar = ({
   variant = 'temporary',
   showSearch = true,
   typeOf = 'expanded',
+  platform,
   avatarSrc,
   avatarCollapsedSrc,
   showLogo,
@@ -59,6 +72,29 @@ const RdsSidebar = ({
   const [searchValue, setSearchValue] = React.useState("");
   // Track which top-level items with children are expanded
   const [openMap, setOpenMap] = React.useState<Record<number, boolean>>({});
+
+  // Platform-specific menu items
+  const anzMenuItems: RdsSidebarItem[] = [
+    { label: 'Dashboard', icon: <Dashboard />, onClick: () => console.log('Dashboard clicked') },
+    { label: 'Saas', icon: <Business />, onClick: () => console.log('Saas clicked') },
+    { label: 'Administration', icon: <AdminPanelSettings />, onClick: () => console.log('Administration clicked') },
+    { label: 'Demo UI Components', icon: <Widgets />, onClick: () => console.log('Demo UI Components clicked') },
+  ];
+
+  const abpMenuItems: RdsSidebarItem[] = [
+    { label: 'Dashboard', icon: <Dashboard />, onClick: () => console.log('Dashboard clicked') },
+    { label: 'Saas', icon: <Business />, onClick: () => console.log('Saas clicked') },
+    { label: 'Invoices', icon: <Receipt />, onClick: () => console.log('Invoices clicked') },
+    { label: 'Ticket Allocation', icon: <ConfirmationNumber />, onClick: () => console.log('Ticket Allocation clicked') },
+    { label: 'Communication', icon: <Chat />, onClick: () => console.log('Communication clicked') },
+    { label: 'Advertisements', icon: <Campaign />, onClick: () => console.log('Advertisements clicked') },
+    { label: 'Requests', icon: <Assignment />, onClick: () => console.log('Requests clicked') },
+  ];
+
+  // Determine which items to use based on platform
+  const menuItems = platform === 'abp-list' ? abpMenuItems : 
+                   platform === 'anz-list' ? anzMenuItems : 
+                   items;
 
   const toggleOpen = (idx: number) => {
     setOpenMap(prev => ({ ...prev, [idx]: !prev[idx] }));
@@ -113,7 +149,6 @@ const RdsSidebar = ({
       })
     }
   };
-  // ...existing code...
 
   return (
     <MuiDrawer
@@ -176,7 +211,7 @@ const RdsSidebar = ({
           </>
         )}
         <List className="rds-sidebar__nav-list">
-          {items.map((item, index) => (
+          {menuItems.map((item, index) => (
             <div key={index}>
               <ListItem disablePadding className={navItemClasses}>
                 <ListItemButton
@@ -203,7 +238,7 @@ const RdsSidebar = ({
                     </ListItemIcon>
                   )}
                   {showLabels && <ListItemText primary={item.label} />}
-                  {item.children && item.children.length > 0 && !isCollapsed &&(
+                  {item.children && item.children.length > 0 && (
                     (!!openMap[index]) ? <ExpandLess /> : <ExpandMore />
                   )}
                 </ListItemButton>
