@@ -535,9 +535,6 @@ const DynamicTemplate = (args: any) => {
         rightActions: undefined,
       };
       break;
-    case 'headerdefault':
-  config = { ...config, title: 'My Application', showLogo: config.showLogo, logo: logoImg };
-      break;
     case 'logosearchactions':
       config = {
         ...config,
@@ -756,6 +753,15 @@ const DynamicTemplate = (args: any) => {
         showLogo: config.showLogo,
         title: '',
         tabs: ['Dashboard', 'Projects', 'Calendar'],
+        // provide overflowContent so the app bar can show the three-dot overflow
+        // button on very small screens (<=320px) and reveal the tabs in a drawer
+        overflowContent: (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: 12 }}>
+            <Button variant="text">Dashboard</Button>
+            <Button variant="text">Projects</Button>
+            <Button variant="text">Calendar</Button>
+          </div>
+        ),
       };
       break;
     case 'withuserprofile':
@@ -889,7 +895,7 @@ const DynamicTemplate = (args: any) => {
     ...config,
     logo: logoImg,
     showLogo: config.showLogo,
-  title: <span style={{ fontWeight: 500, fontSize: 16 }}>Dashboard</span>,
+  title: <span className="rds-dashboard-title" style={{ fontWeight: 500, fontSize: 16 }}>Dashboard</span>,
         // Right actions: theme button, small icon, language, profile (no search, no dropdown chevron)
         rightActions: (
           <div className="rds-appbar-tabs-container" style={{ display: 'flex', alignItems: 'center' }}>

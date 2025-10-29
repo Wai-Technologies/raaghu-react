@@ -1504,6 +1504,13 @@
   .rds-header--variant-withactions .rds-appbar-actions-group .MuiButton-root,
   .rds-header--variant-withactions .rds-header__right-actions { display: none !important; }
 
+  /* For the WithLogoAndTabs variant: hide inline tabs on small screens and
+     expose them via the overflow Drawer (three-dot). Keep avatar pinned to
+     the right so it doesn't compete for space. */
+  .rds-header--variant-withlogoandtabs .rds-header__tabs-inline { display: none !important; }
+  .rds-header--variant-withlogoandtabs .rds-appbar-overflow-button { display: inline-flex !important; order: 3 !important; margin-left: 8px !important; }
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button { order: 99 !important; margin-left: auto !important; }
+
   /* withMenuButton: on small screens show logo + search + settings + avatar (avatar text hidden)
     and move other inline actions into the overflow drawer. */
   .rds-header--variant-withmenubutton .rds-appbar-actions-group,
@@ -1654,13 +1661,24 @@
 
     /* Hide logo text at the smallest breakpoint so the logo doesn't intrude into the search */
     .rds-header--variant-withmenubutton .rds-appbar-logo-label { display: none !important; }
-    /* Slightly shift the search left so it visually aligns better with the
-       logo and doesn't create a gap at 320px; keep it compact to avoid overlap */
+    /* Slightly shift the search right so it visually aligns better with the
+       menu button and doesn't create a gap at 320px; keep it compact to avoid overlap */
     .rds-header--variant-withmenubutton .rds-header__search-wrapper {
       position: relative !important;
-      transform: translateX(-16px) !important;
+      transform: translateX(12px) !important;
       max-width: 80px !important;
       min-width: 60px !important;
+    }
+  }
+
+  /* Slight left shift for 420px screens so the search aligns better with menu button/story */
+  @media (max-width: 420px) {
+    .rds-header--variant-withmenubutton .rds-header__search-wrapper {
+      position: relative !important;
+      transform: translateX(8px) !important;
+      /* keep width constraints looser than 320px to avoid overlap */
+      max-width: 140px !important;
+      min-width: 100px !important;
     }
   }
 
@@ -1770,6 +1788,88 @@
     display: inline-flex !important;
     align-items: center !important;
   }
+
+  /* Fix: ensure avatar appears after the search field on small screens
+     (LogoSearchTabs story) — some browsers/DOM orders can render the
+     profile before the search. Use explicit ordering and pin the avatar
+     to the right so it visually comes after the search at 420px and 320px. */
+  @media (max-width: 420px) {
+    .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
+      order: 2 !important;
+      flex: 0 1 auto !important;
+      min-width: 0 !important;
+      position: relative !important;
+      transform: none !important;
+    }
+
+    .rds-header--variant-logosearchtabs .rds-appbar-overflow-button {
+      order: 3 !important;
+      /* Pin overflow (three-dots) to the far right so it remains visible */
+      position: absolute !important;
+      right: 12px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      z-index: 4 !important;
+    }
+
+    .rds-header--variant-logosearchtabs .rds-profile-menu__button {
+      order: 4 !important; /* comes after search and overflow */
+      margin-left: 6px !important;
+      margin-right: 0 !important;
+      position: absolute !important;
+      /* give extra right margin so avatar doesn't overlap the overflow */
+      right: 48px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      z-index: 5 !important;
+    }
+
+    /* Reserve room on the right so the search can't flow under avatar/overflow
+       but reduce the reserved width so the search and avatar have a smaller gap */
+    .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
+      /* reserve approx 120px for overflow + settings + avatar */
+      max-width: calc(100% - 120px) !important;
+      margin-right: 4px !important;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
+      order: 2 !important;
+      flex: 0 1 auto !important;
+      min-width: 0 !important;
+      max-width: 80px !important;
+    }
+
+    .rds-header--variant-logosearchtabs .rds-appbar-overflow-button {
+      order: 3 !important;
+      /* Pin overflow to the far right at the smallest breakpoint too */
+      position: absolute !important;
+      right: 8px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      z-index: 4 !important;
+    }
+
+    .rds-header--variant-logosearchtabs .rds-profile-menu__button {
+      order: 4 !important;
+      position: absolute !important;
+      /* give extra right margin at smallest sizes */
+      right: 40px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: auto !important;
+      z-index: 5 !important;
+    }
+
+    /* shift search slightly left to make room for overflow + avatar */
+    .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
+      transform: translateX(-4px) !important;
+      /* keep some reserved space but reduce it so gap is smaller */
+      max-width: calc(100% - 100px) !important;
+      margin-right: 4px !important;
+    }
+  }
   /* DashboardWithLang: hide textual profile details and chevron on small screens
      Keep the avatar visible (avatar-only presentation) at <=420px and <=320px */
   .rds-header--variant-dashboardwithlang .rds-admin-profile__button {
@@ -1793,6 +1893,134 @@
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiTypography-root,
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button .rds-admin-profile__chevron {
       display: none !important;
+    }
+  }
+
+  /* Additional compacting rules specifically for DashboardWithLang at small widths
+     - Pin the admin profile to the far right to match other variants
+     - Reduce toolbar padding/gaps so logo/title/search have more room
+     - Compact language button (hide chevron) and remove separators to avoid crowding
+  */
+  @media (max-width: 420px) {
+    /* Give the Dashboard title a small left offset so it isn't flush to the edge */
+    .rds-dashboard-title {
+      margin-left: 6px !important;
+      /* Slightly reduce size on 420px devices so it fits better */
+      font-size: 14px !important;
+      line-height: 1.1 !important;
+      font-weight: 500 !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-header__toolbar {
+      padding-left: 8px !important;
+      padding-right: 56px !important; /* reserve room for avatar */
+      gap: 8px !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-appbar-separator { display: none !important; }
+
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button {
+      position: absolute !important;
+      right: 12px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      margin-left: 0 !important;
+      padding-left: 6px !important;
+      padding-right: 6px !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root {
+      width: 28px !important;
+      height: 28px !important;
+    }
+
+    /* Compact language button: show only the short code, hide chevron */
+    .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container button,
+    .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root {
+      padding: 4px 6px !important;
+      min-width: 36px !important;
+    }
+    /* Prefer hiding the explicit chevrons and non-essential svgs (theme/chat icons will be explicitly hidden below) */
+    .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root > svg { display: none !important; }
+
+    /* Keep theme/chat icon buttons visible but compact on small screens so they remain usable */
+    .rds-header--variant-dashboardwithlang button[aria-label="chat"],
+    .rds-header--variant-dashboardwithlang button[aria-label="theme"] {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 4px !important;
+      margin: 0 2px !important;
+      min-width: auto !important;
+    }
+
+    .rds-header--variant-dashboardwithlang button[aria-label="chat"] svg,
+    .rds-header--variant-dashboardwithlang button[aria-label="theme"] svg {
+      font-size: 18px !important;
+      width: 18px !important;
+      height: 18px !important;
+    }
+
+    /* Make title take less horizontal space so right-side controls fit */
+    .rds-header--variant-dashboardwithlang .rds-header__title {
+      max-width: 48% !important;
+      flex-shrink: 2 !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .rds-header--variant-dashboardwithlang .rds-header__toolbar {
+      padding-left: 8px !important;
+      padding-right: 44px !important;
+      gap: 6px !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root {
+      width: 24px !important;
+      height: 24px !important;
+    }
+
+    /* Hide language chevron and textual bits to avoid line-wrapping */
+    .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root > svg { display: none !important; }
+    .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root > span { font-size: 11px !important; }
+
+    /* Keep theme/chat icon buttons visible but compact on the smallest screens as well */
+    .rds-header--variant-dashboardwithlang button[aria-label="chat"],
+    .rds-header--variant-dashboardwithlang button[aria-label="theme"] {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 3px !important;
+      margin: 0 2px !important;
+      min-width: auto !important;
+    }
+
+    .rds-header--variant-dashboardwithlang button[aria-label="chat"] svg,
+    .rds-header--variant-dashboardwithlang button[aria-label="theme"] svg {
+      font-size: 16px !important;
+      width: 16px !important;
+      height: 16px !important;
+    }
+
+    /* Further reduce title width on the smallest devices */
+    .rds-header--variant-dashboardwithlang .rds-header__title {
+      max-width: 42% !important;
+      font-size: 13px !important;
+    }
+  }
+
+  /* Make the Dashboard title slightly smaller specifically at 320px
+     to avoid wrapping/overflow in the DashboardWithLang story. */
+  @media (max-width: 320px) {
+    .rds-dashboard-title {
+      font-size: 12px !important;
+      line-height: 1 !important;
+      /* slightly lower weight to improve fitting */
+      font-weight: 500 !important;
+      /* a touch more left offset on the smallest screens */
+      margin-left: 8px !important;
     }
   }
   /* Title should shrink and truncate; keep some space for logo + search */
