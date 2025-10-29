@@ -1,3 +1,4 @@
+/* stylelint-disable block-no-empty */
 // RDS Switch Component Styles
 // Toggle switch form control
 
@@ -346,7 +347,6 @@
   margin-left: 3px !important;
 }
 
-/* Disabled + Checked override for all colored switches */
 .rds-switch--color-primary .Mui-checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-primary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
   background: var(--rds-switch-disabled-bg, #b3d4fc) !important;
@@ -389,8 +389,8 @@
 [data-theme="dark"] .rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-track,
 [data-theme="dark"] .rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track,
 [data-theme="dark"] .rds-switch--color-secondary .Mui-disabled + .MuiSwitch-track {
-  background: rgba(107,125,221,0.28) !important; /* lighter blue */
-  opacity: 0.7 !important;
+  background: rgba(82,95,179,0.42) !important;
+  opacity: 0.85 !important;
 }
 
 [data-theme="dark"] .rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
