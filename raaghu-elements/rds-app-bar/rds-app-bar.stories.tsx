@@ -548,6 +548,7 @@ const DynamicTemplate = (args: any) => {
             <IconButton color="inherit"><AccountCircle /></IconButton>
           </>
         ),
+        // No overflow content - this story should not have bottom navigation
       };
       break;
     case 'logosearchtabs':
@@ -563,10 +564,12 @@ const DynamicTemplate = (args: any) => {
         // Do not include the full ProfileMenu here to avoid showing the
         // avatar + name/designation inside the drawer.
         overflowContent: (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 8 }}>
-            <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'flex-start' }}>
-              <LogoSearchTabsLeftActions />
-            </div>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <HomeIcon />
+            <CompassIcon />
+            <VideoIcon />
+            <HeartIcon />
+            <BellIcon />
           </div>
         ),
       };
@@ -592,14 +595,12 @@ const DynamicTemplate = (args: any) => {
           // Only include the left action icons in the overflow Drawer —
           // keep the ProfileMenu in the app bar so the avatar + name
           // are available inline and clicking it shows the profile.
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 8 }}>
-            <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-              <HomeIcon />
-              <CompassIcon />
-              <VideoIcon />
-              <HeartIcon />
-              <BellIcon />
-            </div>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <HomeIcon />
+            <CompassIcon />
+            <VideoIcon />
+            <HeartIcon />
+            <BellIcon />
           </div>
         ),
       };
@@ -623,14 +624,12 @@ const DynamicTemplate = (args: any) => {
         // accessible on small screens (320 / 420). This enables the
         // three-dot overflow button to appear and reveal the icons.
         overflowContent: (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 8 }}>
-            <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-              <HomeIcon />
-              <CompassIcon />
-              <VideoIcon />
-              <HeartIcon />
-              <BellIcon />
-            </div>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <CameraIcon />
+            <CompassIcon />
+            <VideoIcon />
+            <HeartIcon />
+            <BellIcon />
           </div>
         ),
       };
@@ -688,11 +687,11 @@ const DynamicTemplate = (args: any) => {
         // accessible via the three-dot button. Drawer will show them
         // stacked in a column.
         overflowContent: (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: 12 }}>
-            <Button variant="text">HOME</Button>
-            <Button variant="text">NEWS</Button>
-            <Button variant="text">MARKETPLACE</Button>
-            <Button variant="text">JOBS</Button>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <Button variant="text" size="small">HOME</Button>
+            <Button variant="text" size="small">NEWS</Button>
+            <Button variant="text" size="small">MARKETPLACE</Button>
+            <Button variant="text" size="small">JOBS</Button>
           </div>
         ),
       };
@@ -735,13 +734,11 @@ const DynamicTemplate = (args: any) => {
         // button automatically when `overflowContent` is present and the CSS
         // makes that button visible at <=420px.
         overflowContent: (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <Button variant="text" color="inherit">Home</Button>
-              <Button variant="text" color="inherit">News</Button>
-              <Button variant="text" color="inherit">Marketplace</Button>
-              <Button variant="text" color="inherit">Jobs</Button>
-            </div>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <Button variant="text" color="inherit" size="small">Home</Button>
+            <Button variant="text" color="inherit" size="small">News</Button>
+            <Button variant="text" color="inherit" size="small">Marketplace</Button>
+            <Button variant="text" color="inherit" size="small">Jobs</Button>
           </div>
         ),
       };
@@ -756,10 +753,10 @@ const DynamicTemplate = (args: any) => {
         // provide overflowContent so the app bar can show the three-dot overflow
         // button on very small screens (<=320px) and reveal the tabs in a drawer
         overflowContent: (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: 12 }}>
-            <Button variant="text">Dashboard</Button>
-            <Button variant="text">Projects</Button>
-            <Button variant="text">Calendar</Button>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <Button variant="text" size="small">Dashboard</Button>
+            <Button variant="text" size="small">Projects</Button>
+            <Button variant="text" size="small">Calendar</Button>
           </div>
         ),
       };
@@ -798,18 +795,12 @@ const DynamicTemplate = (args: any) => {
         // Provide overflowContent so the tabs and right-side actions are
         // accessible via the three-dot overflow button on small screens (320 / 420px).
         overflowContent: (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 12 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <Button variant="text">Community</Button>
-              <Button variant="text">Jobs</Button>
-              <Button variant="text">Resources</Button>
-            </div>
-            <div style={{ height: 1, background: 'transparent' }} />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <Button variant="contained" color="primary">Find Jobs</Button>
-              <Button variant="text">Login</Button>
-              <Button variant="text">Employers</Button>
-            </div>
+          <div style={{ display: 'flex', gap: 6, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <Button variant="text" size="small">Community</Button>
+            <Button variant="text" size="small">Jobs</Button>
+            <Button variant="text" size="small">Resources</Button>
+            <Button variant="contained" color="primary" size="small">Find Jobs</Button>
+            <Button variant="text" size="small">Login</Button>
           </div>
         ),
       };
@@ -865,29 +856,7 @@ const DynamicTemplate = (args: any) => {
             <ProfileMenu name="Jane Doe" shortName="JD" email="jane.doe@example.com" />
           </div>
         ),
-        // Mobile overflow: keep logo + search + settings + avatar visible; move the
-        // rest of the actions and tabs into the overflow drawer for small screens.
-        // Include the `tabs` (Home, Agreement) here so they are accessible at 320/420px.
-        overflowContent: (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 12 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <span style={{ fontWeight: 700 }}>Navigation</span>
-              <Button variant="text">Home</Button>
-              <Button variant="text">Agreement</Button>
-            </div>
-            <div style={{ height: 1, background: 'transparent' }} />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <span style={{ fontWeight: 700 }}>Account</span>
-              <Button variant="contained" color="primary">View Plans</Button>
-              <Button variant="text">28 Days Left</Button>
-            </div>
-            <div style={{ height: 1, background: 'transparent' }} />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <Button variant="text">Settings</Button>
-              <Button variant="text">Help</Button>
-            </div>
-          </div>
-        ),
+        // No overflow content - this story should not have bottom navigation
       };
       break;
     case 'dashboardwithlang':

@@ -76,6 +76,20 @@ const RdsAppBar = ({
     large: 80,
   };
   const [overflowOpen, setOverflowOpen] = React.useState(false);
+  
+  // Check if screen is small (320px or 420px) to disable overflow drawer
+  const [isSmallScreen, setIsSmallScreen] = React.useState(false);
+  
+  React.useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth <= 420);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
   const colorClass =
     props.color === 'primary'
       ? ' rds-header--primary'
@@ -175,7 +189,8 @@ const RdsAppBar = ({
           )}
           {children}
           {/* Overflow button for small screens - opens a drawer with overflowContent */}
-          {overflowContent ? (
+          {/* Disable overflow drawer for screens 320px and 420px */}
+          {overflowContent && !isSmallScreen ? (
             <>
               <IconButton
                 className="rds-appbar-overflow-button"
@@ -200,6 +215,29 @@ const RdsAppBar = ({
               </Drawer>
             </>
           ) : null}
+          
+          {/* Bottom navigation for small screens (320px and 420px) - only for specific variants */}
+          {isSmallScreen && overflowContent && (
+            <Box 
+              className="rds-bottom-navigation"
+              sx={{
+                position: 'fixed',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                background: 'var(--rds-appbar-bg, var(--rds-primary-main))',
+                padding: '8px 16px',
+                display: 'flex',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+                zIndex: 1000,
+                borderTop: '1px solid var(--rds-color-border, #e0e0e0)',
+                boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)'
+              }}
+            >
+              {overflowContent}
+            </Box>
+          )}
         </Box>
       </MuiToolbar>
 

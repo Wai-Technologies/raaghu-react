@@ -1356,13 +1356,14 @@
 .rds-appbar-overflow-button .rds-overflow-icon { display: inline-flex; }
 .rds-appbar-overflow-button .rds-overflow-icon--hamburger { display: none; }
 
+/* Remove overflow button and dehaze icon for 320px and 420px screen sizes */
 @media (max-width: 420px) {
   .rds-appbar-overflow-button {
-    display: inline-flex !important;
+    display: none !important;
   }
 
-  .rds-appbar-overflow-button .rds-overflow-icon--hamburger { display: inline-flex; }
-  .rds-appbar-overflow-button .rds-overflow-icon--dots { display: none; }
+  .rds-appbar-overflow-button .rds-overflow-icon--hamburger { display: none !important; }
+  .rds-appbar-overflow-button .rds-overflow-icon--dots { display: none !important; }
 }
 
 @media (max-width: 420px) {
@@ -1412,6 +1413,7 @@
 }
 
 @media (max-width: 420px) {
+  /* Keep original behavior for most elements */
   .rds-story-nav-actions,
   .rds-logo-search-tabs__left-actions,
   .rds-appbar-actions-group,
@@ -1423,20 +1425,63 @@
     display: none !important;
   }
 
-  .rds-header--variant-logotabsactions .rds-story-nav-actions { display: flex !important; }
+  /* SPECIFIC VARIANTS - Show bottom navigation for these only */
+  
+  /* Logo Search Tabs - show left actions at bottom */
+  .rds-header--variant-logosearchtabs .rds-logo-search-tabs__left-actions {
+    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+  }
+  
+  /* Logo Tabs Actions - show nav actions at bottom */
+  .rds-header--variant-logotabsactions .rds-story-nav-actions {
+    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+  }
+  
+  /* Logo Search Tabs Actions - show actions at bottom */
+  .rds-header--variant-logosearchtabsactions .rds-story-nav-actions {
+    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+  }
+  
+  /* With Tabs - show tabs at bottom */
+  .rds-header--variant-withtabs .rds-header__tabs-inline {
+    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+  }
+  
+  /* With Logo and Tabs - show tabs at bottom */
+  .rds-header--variant-withlogoandtabs .rds-header__tabs-inline {
+    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+  }
+  
+  /* With Notification Badge - show tabs at bottom */
+  .rds-header--variant-withnotificationbadge .rds-appbar-tabs-container {
+    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+  }
+  
+  /* With Actions - show actions at bottom */
+  .rds-header--variant-withactions .rds-appbar-actions-group,
+  .rds-header--variant-withactions .rds-header__right-actions {
+    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+  }
+
+  /* Logo Tabs Actions - show bottom navigation */
+  .rds-header--variant-logotabsactions .rds-story-nav-actions { display: none !important; }
   .rds-header--variant-logotabsactions .rds-story-nav-action { display: none !important; }
   .rds-header--variant-logotabsactions .rds-profile-menu__button { display: inline-flex !important; }
+  .rds-header--variant-logotabsactions .rds-appbar-overflow-button { display: none !important; }
+  /* With Tabs - show bottom navigation */
   .rds-header--variant-withtabs .rds-header__tabs-inline { display: none !important; }
-  .rds-header--variant-withtabs .rds-appbar-overflow-button { display: inline-flex !important; order: 3 !important; margin-left: 8px !important; }
+  .rds-header--variant-withtabs .rds-appbar-overflow-button { display: none !important; }
   .rds-header--variant-withtabs .rds-profile-menu__button { order: 99 !important; margin-left: auto !important; }
+  /* With Actions - show bottom navigation */
   .rds-header--variant-withactions .rds-header__tabs-inline { display: none !important; }
-  .rds-header--variant-withactions .rds-appbar-overflow-button { display: inline-flex !important; order: 3 !important; margin-left: 8px !important; }
+  .rds-header--variant-withactions .rds-appbar-overflow-button { display: none !important; }
   .rds-header--variant-withactions .rds-profile-menu__button { order: 99 !important; margin-left: auto !important; }
   .rds-header--variant-withactions .rds-appbar-actions-group,
   .rds-header--variant-withactions .rds-appbar-actions-group .MuiButton-root,
   .rds-header--variant-withactions .rds-header__right-actions { display: none !important; }
+  /* With Logo and Tabs - show bottom navigation */
   .rds-header--variant-withlogoandtabs .rds-header__tabs-inline { display: none !important; }
-  .rds-header--variant-withlogoandtabs .rds-appbar-overflow-button { display: inline-flex !important; order: 3 !important; margin-left: 8px !important; }
+  .rds-header--variant-withlogoandtabs .rds-appbar-overflow-button { display: none !important; }
   .rds-header--variant-withlogoandtabs .rds-profile-menu__button { order: 99 !important; margin-left: auto !important; }
   .rds-header--variant-withmenubutton .rds-appbar-actions-group,
   .rds-header--variant-withmenubutton .rds-header__right-actions {
@@ -1685,7 +1730,7 @@
       margin-left: 6px !important;
       margin-right: 0 !important;
       position: absolute !important;
-      right: 48px !important;
+      right: 0px !important;
       top: 50% !important;
       transform: translateY(-50%) !important;
       z-index: 5 !important;
@@ -1718,7 +1763,7 @@
     .rds-header--variant-logosearchtabs .rds-profile-menu__button {
       order: 4 !important;
       position: absolute !important;
-      right: 40px !important;
+      right: 0px !important;
       top: 50% !important;
       transform: translateY(-50%) !important;
       width: auto !important;
@@ -1875,7 +1920,7 @@
     }
   }
   .rds-header__title { max-width: 60% !important; overflow: hidden; text-overflow: ellipsis; }
-  .rds-header__toolbar { padding-left: 8px !important; padding-right: 8px !important; gap: 6px !important; }
+  .rds-header__toolbar { padding-left: 8px !important; padding-right: 8px !important; gap: 16px !important; }
   .rds-app-bar, .rds-header { overflow-x: hidden !important; }
 }
 
@@ -1890,6 +1935,41 @@
   .rds-story-search-field input::placeholder {
     font-size: 11px !important;
     opacity: 0.9 !important;
+  }
+
+  /* Keep elements hidden on 320px screens - bottom navigation handled by component */
+  .rds-story-nav-actions,
+  .rds-logo-search-tabs__left-actions,
+  .rds-appbar-actions-group,
+  .rds-header__tabs-inline,
+  .rds-appbar-tabs-container {
+    display: none !important;
+  }
+
+  /* Ensure overflow buttons are hidden on 320px screens */
+  .rds-appbar-overflow-button {
+    display: none !important;
+  }
+
+  /* Add padding to body to prevent content from being hidden behind bottom nav */
+  body {
+    padding-bottom: 60px !important;
+  }
+
+  /* Style bottom navigation icons and buttons for better visibility */
+  .rds-bottom-navigation {
+    .MuiButton-root {
+      font-size: 10px !important;
+      padding: 4px 6px !important;
+      min-width: auto !important;
+      color: inherit !important;
+    }
+    
+    svg {
+      width: 18px !important;
+      height: 18px !important;
+      color: inherit !important;
+    }
   }
 }
 
