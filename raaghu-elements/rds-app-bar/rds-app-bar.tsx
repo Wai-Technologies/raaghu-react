@@ -126,7 +126,9 @@ const RdsAppBar = ({
           )}
           {/*  Show logo only if showLogo is true */}
           {showLogo && logo && <span className="rds-header__logo">{logo}</span>}
-          {/*  Inline tabs after logo */}
+          {/*  Optional center content (e.g. buttons placed after the logo) */}
+          {centerContent && <span className="rds-header__center-content">{centerContent}</span>}
+          {/*  Inline tabs after logo / center content */}
           {Array.isArray(tabs) && typeof tabValue === 'number' && typeof onTabChange === 'function' && (
             <Tabs
               className="rds-header__tabs-inline"

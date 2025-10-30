@@ -782,10 +782,16 @@ const DynamicTemplate = (args: any) => {
             <MenuIcon />
           </IconButton>
         ),
-        rightActions: (
-          <>
+        // Place primary call-to-action buttons right after the logo
+        centerContent: (
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Find Jobs" textCase="uppercase" />
             <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="transparent" text="Login" textCase="uppercase" />
+          </div>
+        ),
+        // Keep Employers in overflow only
+        rightActions: (
+          <>
             <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="transparent" text="Employers" textCase="uppercase" />
           </>
         ),
@@ -799,8 +805,8 @@ const DynamicTemplate = (args: any) => {
             <Button variant="text" size="small">Community</Button>
             <Button variant="text" size="small">Jobs</Button>
             <Button variant="text" size="small">Resources</Button>
-            <Button variant="contained" color="primary" size="small">Find Jobs</Button>
-            <Button variant="text" size="small">Login</Button>
+            {/* Include Employers in overflow so it appears in the bottom navigation on very small screens */}
+            <Button variant="text" size="small">Employers</Button>
           </div>
         ),
       };
