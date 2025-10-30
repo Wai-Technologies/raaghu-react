@@ -148,13 +148,16 @@ const SidebarTemplate = (args: any) => {
 
   return (
     <Box sx={{ display: 'flex' }} ref={containerRef}>
-      <Button 
-        variant="contained" 
-        onClick={() => setOpen(!open)}
-        sx={{ mb: 2 }}
-      >
-        {open ? 'Close' : 'Open'} Sidebar
-      </Button>
+      {/* Toggle button can be hidden per-story via `hideToggleButton` arg */}
+      {!args.hideToggleButton && (
+        <Button 
+          variant="contained" 
+          onClick={() => setOpen(!open)}
+          sx={{ mb: 2 }}
+        >
+          {open ? 'Close' : 'Open'} Sidebar
+        </Button>
+      )}
       <RdsSidebar
         {...args}
         isOpen={open}
@@ -162,7 +165,8 @@ const SidebarTemplate = (args: any) => {
         container={containerRef.current}
       />
       <Box sx={{ flexGrow: 1, p: 3 }}>
-        <p>Main content area. The sidebar will slide over this content.</p>
+        {/* The `hideMainParagraph` story arg allows the Default story to hide this paragraph */}
+        {!args.hideMainParagraph && <p>Main content area. The sidebar will slide over this content.</p>}
       </Box>
     </Box>
   );
@@ -178,6 +182,8 @@ export const Default = {
     avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
     showLogo: true,
     showSearch: true,
+    hideMainParagraph: true,
+    hideToggleButton: true,
   },
 };
 

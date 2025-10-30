@@ -244,7 +244,7 @@ const RdsSidebar = ({
                     </ListItemIcon>
                   )}
                   {showLabels && <ListItemText primary={item.label} />}
-                  {item.children && item.children.length > 0 && (
+                  {item.children && item.children.length > 0 &&  !isCollapsed &&(
                     (!!openMap[index]) ? <ExpandLess /> : <ExpandMore />
                   )}
                 </ListItemButton>
