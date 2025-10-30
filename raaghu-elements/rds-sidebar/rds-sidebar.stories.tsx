@@ -80,6 +80,10 @@ When a platform is specified, the component automatically displays the appropria
       options: ['abp-list', 'anz-list'],
       description: 'Platform type for the sidebar',
     },
+    showSearch: {
+      control: 'boolean',
+      description: 'Toggle whether the search box is shown in the sidebar',
+    },
   },
 };
 
@@ -165,6 +169,7 @@ const SidebarTemplate = (args: any) => {
 };
 
 export const Default = {
+  render: SidebarTemplate,
   args: {
     items: basicItems,
     isOpen: true,
@@ -172,6 +177,7 @@ export const Default = {
     avatarSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
     avatarCollapsedSrc: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
     showLogo: true,
+    showSearch: true,
   },
 };
 
