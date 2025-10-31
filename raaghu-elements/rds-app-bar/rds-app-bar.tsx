@@ -9,6 +9,7 @@ import {
   Drawer,
   Tabs,
   Tab,
+  Button,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Dehaze as DehazeIcon } from '@mui/icons-material';
@@ -79,6 +80,10 @@ const RdsAppBar = ({
   
   // Check if screen is small (320px or 420px) to disable overflow drawer
   const [isSmallScreen, setIsSmallScreen] = React.useState(false);
+  // Local active index for bottom navigation when the component isn't
+  // controlled via `tabs` + `onTabChange` (used by some stories like
+  // 'WithNotificationBadge' which provide Buttons instead of `tabs`).
+  const [localBottomActive, setLocalBottomActive] = React.useState(0);
   
   React.useEffect(() => {
     const checkScreenSize = () => {
@@ -219,26 +224,91 @@ const RdsAppBar = ({
           ) : null}
           
           {/* Bottom navigation for small screens (320px and 420px) - only for specific variants */}
-          {isSmallScreen && overflowContent && (
-            <Box 
-              className="rds-bottom-navigation"
-              sx={{
-                position: 'fixed',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                background: 'var(--rds-appbar-bg, var(--rds-primary-main))',
-                padding: '8px 16px',
-                display: 'flex',
-                justifyContent: 'space-around',
-                alignItems: 'center',
-                zIndex: 1000,
-                borderTop: '1px solid var(--rds-color-border, #e0e0e0)',
-                boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)'
-              }}
-            >
-              {overflowContent}
-            </Box>
+          {isSmallScreen && (
+            // If tabs are provided and controlled by parent, render an interactive
+            // bottom tab bar which will call onTabChange when a tab is clicked.
+            // Fallback to rendering the provided overflowContent (static) when
+            // no `tabs`/`onTabChange` is present.
+            (Array.isArray(tabs) && typeof tabValue === 'number' && typeof onTabChange === 'function') ? (
+              <Box
+                className="rds-bottom-navigation"
+                role="tablist"
+                sx={{
+                  position: 'fixed',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  background: 'var(--rds-appbar-bg, var(--rds-primary-main))',
+                  padding: '8px 12px',
+                  display: 'flex',
+                  justifyContent: 'space-around',
+                  alignItems: 'center',
+                  zIndex: 1000,
+                  borderTop: '1px solid var(--rds-color-border, #e0e0e0)',
+                  boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
+                }}
+              >
+                {tabs.map((t, i) => {
+                  const label = typeof t === 'string' ? t : (t as any).label || String(i);
+                  const isActive = tabValue === i;
+                  return (
+                    <Button
+                      key={label + i}
+                      role="tab"
+                      aria-selected={isActive}
+                      onClick={() => onTabChange(i)}
+                      className={`rds-bottom-nav-tab ${isActive ? 'rds-bottom-nav-tab--active' : ''}`}
+                      variant="text"
+                      size="small"
+                    >
+                      {label}
+                    </Button>
+                  );
+                })}
+              </Box>
+            ) : (
+              overflowContent ? (
+                // Try to clone children of overflowContent and make them
+                // interactive by adding onClick that updates localBottomActive.
+                <Box
+                  className="rds-bottom-navigation"
+                  sx={{
+                    position: 'fixed',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    background: 'var(--rds-appbar-bg, var(--rds-primary-main))',
+                    padding: '8px 16px',
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                    zIndex: 1000,
+                    borderTop: '1px solid var(--rds-color-border, #e0e0e0)',
+                    boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)'
+                  }}
+                >
+                  {React.isValidElement(overflowContent) && (overflowContent as any).props?.children
+                    ? React.Children.toArray((overflowContent as any).props.children).map((child, i) => {
+                        if (React.isValidElement(child)) {
+                          const childProps: any = (child as any).props || {};
+                          const existingOnClick = childProps.onClick;
+                          const className = (childProps.className ? childProps.className + ' ' : '') + 'rds-bottom-nav-tab';
+                          return React.cloneElement(child as React.ReactElement, ({
+                            key: i,
+                            onClick: (e: any) => {
+                              if (typeof existingOnClick === 'function') existingOnClick(e);
+                              setLocalBottomActive(i);
+                            },
+                            className: (localBottomActive === i ? className + ' rds-bottom-nav-tab--active' : className),
+                          } as any));
+                        }
+                        return <span key={i}>{child}</span>;
+                      })
+                    : // Fallback: render overflowContent as-is when it isn't a container with children
+                      overflowContent}
+                </Box>
+              ) : null
+            )
           )}
         </Box>
       </MuiToolbar>

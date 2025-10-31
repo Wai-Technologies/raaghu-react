@@ -862,7 +862,24 @@ const DynamicTemplate = (args: any) => {
             <ProfileMenu name="Jane Doe" shortName="JD" email="jane.doe@example.com" />
           </div>
         ),
-        // No overflow content - this story should not have bottom navigation
+        overflowContent: (
+          <div style={{ display: 'flex', flexDirection: 'row', gap: 12, padding: 12, width: '100%', boxSizing: 'border-box', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', gap: 40, alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+              <Button variant="text" size="small">HOME</Button>
+              <Button variant="text" size="small">AGREEMENT</Button>
+            </div>
+
+            {/* Right: badge placeholder (keeps spacing) */}
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <span className="rds-appbar-badge">28 Days Left</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <Button variant="contained" color="primary" sx={{ minWidth: 90, fontWeight: 500, fontSize: 13, boxShadow: 'none', textTransform: 'none' }}>
+                View Plans
+              </Button>
+            </div>
+          </div>
+        ),
       };
       break;
     case 'dashboardwithlang':

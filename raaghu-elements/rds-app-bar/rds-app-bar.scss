@@ -963,6 +963,7 @@
     align-items: center;
     gap: 4px;
     flex: 1;
+    /* Center tabs by default on larger screens */
     justify-content: center;
 
     .MuiButton-root {
@@ -1046,8 +1047,10 @@
     &__sub-tabs {
       display: flex;
       flex-wrap: wrap !important;
-      justify-content: center !important;
+      /* left-align wrapped lines so the second row starts from the left */
+      justify-content: flex-start !important;
       gap: 8px !important;
+       margin-left: 45px;
       width: 100%;
     }
 
@@ -1069,7 +1072,9 @@
     &__sub-tabs {
       display: flex;
       flex-wrap: wrap !important;
-      justify-content: center !important;
+      /* left-align wrapped lines on very small screens */
+      justify-content: flex-start !important;
+      margin-left: 15px;
       gap: 6px !important;
       width: 100%;
     }
@@ -1813,6 +1818,70 @@
     align-items: center !important;
   }
 
+  /* Ensure logotabsactions shows avatar after search on small screens */
+  @media (max-width: 420px) {
+    .rds-header--variant-logotabsactions .rds-header__toolbar {
+      position: relative !important;
+      padding-right: 56px !important; /* reserve room for avatar */
+      overflow: visible !important;
+    }
+
+    .rds-header--variant-logotabsactions .rds-header__search-wrapper {
+      order: 2 !important;
+      flex: 0 1 auto !important;
+      min-width: 0 !important;
+      position: relative !important;
+      transform: none !important;
+      max-width: calc(100% - 120px) !important;
+      margin-right: 4px !important;
+    }
+
+    /* allow the actions container to be present (but keep individual nav icons hidden)
+       so the profile button can be absolutely positioned and visible */
+    .rds-header--variant-logotabsactions .rds-story-nav-actions { display: contents !important; }
+    .rds-header--variant-logotabsactions .rds-story-nav-action { display: none !important; }
+
+    .rds-header--variant-logotabsactions .rds-profile-menu__button {
+      display: inline-flex !important;
+      order: 4 !important;
+      position: absolute !important;
+      right: 0 !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      z-index: 5 !important;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .rds-header--variant-logotabsactions .rds-header__toolbar {
+      position: relative !important;
+      padding-right: 44px !important;
+      overflow: visible !important;
+    }
+
+    .rds-header--variant-logotabsactions .rds-header__search-wrapper {
+      order: 2 !important;
+      flex: 0 1 auto !important;
+      min-width: 0 !important;
+      max-width: 80px !important;
+      margin-right: 4px !important;
+    }
+
+    /* keep the actions container rendered (using contents) so the profile
+       button is visible even though other nav icons remain hidden */
+    .rds-header--variant-logotabsactions .rds-story-nav-actions { display: contents !important; }
+    .rds-header--variant-logotabsactions .rds-story-nav-action { display: none !important; }
+
+    .rds-header--variant-logotabsactions .rds-profile-menu__button {
+      order: 4 !important;
+      position: absolute !important;
+      right: 0px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      z-index: 5 !important;
+    }
+  }
+
   @media (max-width: 420px) {
     .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
       order: 2 !important;
@@ -2077,6 +2146,56 @@
       color: inherit !important;
     }
   }
+}
+
+/* ------------------------------------------------------------------
+   Bottom navigation styling used on small screens (320px / 420px)
+   Provide clear active state color and ensure the navigation sits
+   above page content. Active tab text color should be #1976D2.
+   ------------------------------------------------------------------ */
+.rds-bottom-navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+  justify-content: space-around;
+  align-items: center;
+  background: var(--rds-appbar-bg, var(--rds-primary-main));
+  z-index: 1000;
+  border-top: 1px solid var(--rds-color-border, #e0e0e0);
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+  box-sizing: border-box;
+
+  .rds-bottom-nav-tab {
+    color: var(--rds-color-on-appbar, var(--rds-appbar-color, #fff));
+    text-transform: none;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 6px 8px;
+    min-width: 48px;
+    white-space: nowrap;
+  }
+
+  .rds-bottom-nav-tab--active {
+    color: #1976D2 !important; /* explicit active color requested */
+  }
+
+  @media (max-width: 420px) {
+    .rds-bottom-nav-tab { font-size: 12px; padding: 6px 6px; }
+  }
+
+  @media (max-width: 320px) {
+    .rds-bottom-nav-tab { font-size: 11px; padding: 4px 6px; }
+  }
+}
+
+/* Add bottom padding to the body so page content isn't hidden
+   under the fixed bottom navigation on very small screens. */
+@media (max-width: 420px) {
+  body { padding-bottom: 64px !important; }
 }
 
 /* ------------------------------------------------------------------
