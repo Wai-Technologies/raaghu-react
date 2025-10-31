@@ -2198,16 +2198,20 @@
   body { padding-bottom: 64px !important; }
 }
 
-/* ------------------------------------------------------------------
-   Fix: DashboardWithLang (320px)
-   The global rules above hide `.rds-appbar-tabs-container` at 320px which
-   unintentionally hides the theme, chat and language icons for the
-   DashboardWithLang story. Add a narrowly-scoped override so that the
-   dashboard variant keeps those icon buttons visible on very small screens.
-   This is intentionally specific and uses !important to override the
-   previously-applied rules without changing global behavior for other
-   variants that rely on bottom navigation.
-   ------------------------------------------------------------------ */
+@media (max-width: 420px) { 
+  .rds-header:not([data-theme="dark"]) {
+    .rds-header__tabs-inline .MuiTab-root:not(.Mui-selected),
+    .rds-appbar-tabs-container .MuiButton-root:not(.Mui-selected),
+    .rds-appbar-tabs-container button:not(.Mui-selected) {
+      color: var(--rds-color-on-surface, #000) !important;
+    }
+
+    .rds-bottom-navigation .rds-bottom-nav-tab:not(.rds-bottom-nav-tab--active) {
+      color: var(--rds-color-on-surface, #000) !important;
+    }
+  }
+}
+
 @media (max-width: 320px) {
   .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container {
     display: flex !important;
@@ -2229,7 +2233,6 @@
     margin: 0 2px !important;
   }
 
-  /* Ensure the explicit aria-label buttons and language button are visible */
   .rds-header--variant-dashboardwithlang button[aria-label="chat"],
   .rds-header--variant-dashboardwithlang button[aria-label="theme"],
   .rds-header--variant-dashboardwithlang .rds-language-button {
@@ -2241,7 +2244,6 @@
     min-width: auto !important;
   }
 
-  /* Hide separators (save horizontal space) inside the dashboard variant */
   .rds-header--variant-dashboardwithlang .rds-appbar-separator {
     display: none !important;
   }
