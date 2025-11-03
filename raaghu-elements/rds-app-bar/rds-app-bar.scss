@@ -37,8 +37,6 @@
 // Search field in stories
 .rds-story-search-field {
   min-width: 180px;
-  
-  // Responsive behavior for mobile screens
   @media (max-width: 834px) {
     min-width: 160px;
     max-width: 220px;
@@ -200,28 +198,25 @@
   display: block;
 }
 
-/* Center content (where Find Jobs / Login buttons are placed) */
 .rds-header__center-content {
   display: inline-flex;
   align-items: center;
-  gap: 8px; /* default gap between buttons */
+  gap: 8px; 
 
   @media (max-width: 420px) {
-    gap: 12px; /* add extra space between logo and Find Jobs text on small screens */
-    /* add a little breathing room between logo and the primary CTAs on narrow screens */
+    gap: 12px; 
     margin-left: 95px;
   }
 
   @media (max-width: 320px) {
-    gap: 10px; /* slightly more at very small screens */
+    gap: 10px; 
     margin-left: 30px;
   }
 
-  /* Target RdsButton inside center content and slightly reduce size on narrow screens */
   .rds-button {
     @media (max-width: 420px) {
-      font-size: 12px; /* slightly smaller label */
-      padding: 6px 10px; /* reduce horizontal padding */
+      font-size: 12px; 
+      padding: 6px 10px;
       min-height: 32px;
     }
 
@@ -233,20 +228,12 @@
   }
 }
 
-/* For desktop / large screens (>=834px) in the `withActions` variant
-   place the center CTAs (Find Jobs / Login) after the inline tabs so
-   they appear to the right of the Resources tab as requested. */
 @media (min-width: 834px) {
   .rds-header--variant-withactions {
-    /* ensure logo, tabs, CTAs and right actions (Employers) are ordered as:
-       logo (1) -> tabs (2) -> center CTAs (Find Jobs / Login) (3) -> right actions (Employers) (4)
-       This keeps the DOM unchanged but visually reorders the pieces for the withActions story on wide screens. */
     .rds-header__logo { order: 1; }
     .rds-header__tabs-inline { order: 2; margin-left: 8px; }
     .rds-header__center-content { order: 3; display: inline-flex; align-items: center;  }
     .rds-header__right-actions { order: 4; display: flex; align-items: center; margin-left: 8px; }
-
-    /* keep profile/actions to the far right */
     .rds-header__actions { order: 5; margin-left: auto; }
   }
 }
@@ -307,10 +294,8 @@
   @media (max-width: 320px) {
     margin-right: -5px;
   }
-}
-// =======================
-//  RDS App Bar Component Styles
-// =======================
+} 
+
 .rds-app-bar {
   display: flex;
   align-items: center;
@@ -542,7 +527,6 @@
   }
 }
 
-/* Ensure email text becomes visible (white) when header uses primary/secondary color variants */
 .rds-header--primary .rds-profile-menu__email,
 .rds-header--secondary .rds-profile-menu__email {
   color: inherit !important;
@@ -1037,42 +1021,30 @@
     }
   }
 
-  /* ------------------------------------------------------------------
-     Sub-header alignment improvements for small screens (420px / 320px)
-     Ensure the sub-tabs wrap into two centered rows so the first three
-     tabs appear centered on the top row and the remaining tabs center
-     on the bottom row (visual layout like the provided screenshot).
-     ------------------------------------------------------------------ */
   @media (max-width: 420px) {
     &__sub-tabs {
       display: flex;
       flex-wrap: wrap !important;
-      /* left-align wrapped lines so the second row starts from the left */
       justify-content: flex-start !important;
       gap: 8px !important;
        margin-left: 45px;
       width: 100%;
     }
 
-    /* Make each button auto-size but with a max to allow 3 on first row */
     &__sub-tabs .MuiButton-root {
       flex: 0 1 auto !important;
-      min-width: 28% !important;   /* allows roughly 3 across with gaps */
-      max-width: 46% !important;   /* allows 2 on the second row centered */
+      min-width: 28% !important;  
+      max-width: 46% !important;   
       white-space: nowrap !important;
       padding: 6px 10px !important;
       font-size: 13px !important;
     }
-
-    /* If there are exactly 5 tabs, this will naturally form 3 + 2 rows;
-       for other counts it still centers and wraps gracefully. */
   }
 
   @media (max-width: 320px) {
     &__sub-tabs {
       display: flex;
       flex-wrap: wrap !important;
-      /* left-align wrapped lines on very small screens */
       justify-content: flex-start !important;
       margin-left: 15px;
       gap: 6px !important;
@@ -1087,7 +1059,6 @@
       font-size: 12px !important;
     }
 
-    /* reduce the label area so icons and labels remain balanced */
     &__sub-tabs .MuiButton-root .MuiSvgIcon-root { font-size: 16px !important; margin-right: 6px !important; }
   }
 
@@ -1353,6 +1324,7 @@
     
     svg {
       font-size: 20px !important;
+      margin-left: 12px;
     }
   }
   
@@ -1361,6 +1333,7 @@
     
     svg {
       font-size: 18px !important;
+      margin-left: 11px;
     }
   }
 }
@@ -1524,7 +1497,6 @@
 }
 
 @media (max-width: 420px) {
-  /* Keep original behavior for most elements */
   .rds-story-nav-actions,
   .rds-logo-search-tabs__left-actions,
   .rds-appbar-actions-group,
@@ -1535,43 +1507,32 @@
   .rds-header--variant-withnotificationbadge .rds-appbar-tabs-container {
     display: none !important;
   }
-
-  /* SPECIFIC VARIANTS - Show bottom navigation for these only */
-  
-  /* Logo Search Tabs - show left actions at bottom */
   .rds-header--variant-logosearchtabs .rds-logo-search-tabs__left-actions {
-    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+    display: none !important; 
   }
-  
-  /* Logo Tabs Actions - show nav actions at bottom */
   .rds-header--variant-logotabsactions .rds-story-nav-actions {
-    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+    display: none !important;
   }
   
-  /* Logo Search Tabs Actions - show actions at bottom */
   .rds-header--variant-logosearchtabsactions .rds-story-nav-actions {
-    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+    display: none !important;
   }
   
-  /* With Tabs - show tabs at bottom */
   .rds-header--variant-withtabs .rds-header__tabs-inline {
-    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+    display: none !important;
   }
   
-  /* With Logo and Tabs - show tabs at bottom */
   .rds-header--variant-withlogoandtabs .rds-header__tabs-inline {
-    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+    display: none !important;
   }
   
-  /* With Notification Badge - show tabs at bottom */
   .rds-header--variant-withnotificationbadge .rds-appbar-tabs-container {
-    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+    display: none !important; 
   }
-  
-  /* With Actions - show actions at bottom */
+
   .rds-header--variant-withactions .rds-appbar-actions-group,
   .rds-header--variant-withactions .rds-header__right-actions {
-    display: none !important; /* Hide from normal position, will show via bottom navigation component */
+    display: none !important;
   }
 
   /* Logo Tabs Actions - show bottom navigation */
@@ -1602,12 +1563,31 @@
 
   .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root { display: none !important; }
 
-  .rds-header--variant-withmenubutton .rds-appbar-overflow-button { display: inline-flex !important; order: 3 !important; margin-left: 8px !important; }
+  .rds-header--variant-withmenubutton .rds-appbar-overflow-button { display: none !important; }
 
   .rds-header--variant-withmenubutton .rds-header__logo { order: 1 !important; }
   .rds-header--variant-withmenubutton .rds-header__search-wrapper { order: 2 !important; flex: 1 1 auto !important; min-width: 0 !important; }
 
   .rds-header--variant-withmenubutton .rds-appbar-actions-group > *:not(.rds-withmenubutton-settings):not(.rds-profile-menu__button) { display: none !important; }
+  
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-appbar-badge,
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-contained {
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-bottom-navigation {
+    display: flex !important;
+    flex-direction: row !important;
+    min-height: 56px !important;
+  }
+  
+  .rds-header--variant-withmenubutton .rds-bottom-navigation-single-row {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+  }
 
   .rds-header--variant-withmenubutton .rds-withmenubutton-settings { display: inline-flex !important; order: 4 !important; margin-left: 6px !important; }
 
@@ -1619,6 +1599,9 @@
   .rds-header--variant-withmenubutton .rds-avatar__info { display: none !important; }
 
   .rds-header--variant-withmenubutton .rds-header__tabs-inline { display: none !important; }
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-bottom-nav-tab {
+    display: inline-flex !important;
+  }
   .rds-header--variant-withmenubutton .rds-profile-menu__button {
     order: 99 !important; 
     margin-left: auto !important;
@@ -1682,7 +1665,7 @@
   .rds-header--variant-withmenubutton .rds-withmenubutton-settings {
     display: inline-flex !important;
     position: absolute !important;
-    right: 52px !important; 
+    right: 72px !important; 
     top: 50% !important;
     transform: translateY(-50%) !important;
     z-index: 3 !important;
@@ -1705,8 +1688,8 @@
   }
 
   @media (max-width: 320px) {
-    .rds-header--variant-withmenubutton .rds-profile-menu__button { right: 8px !important; }
-    .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: 48px !important; }
+  .rds-header--variant-withmenubutton .rds-profile-menu__button { right: 12px !important; }
+  .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: 72px !important; }
     .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 100px !important; }
     .rds-header--variant-withmenubutton .rds-appbar-overflow-button { right: 88px !important; }
     .rds-header--variant-withmenubutton .rds-appbar-logo-label { display: none !important; }
@@ -1836,8 +1819,6 @@
       margin-right: 4px !important;
     }
 
-    /* allow the actions container to be present (but keep individual nav icons hidden)
-       so the profile button can be absolutely positioned and visible */
     .rds-header--variant-logotabsactions .rds-story-nav-actions { display: contents !important; }
     .rds-header--variant-logotabsactions .rds-story-nav-action { display: none !important; }
 
@@ -1867,8 +1848,6 @@
       margin-right: 4px !important;
     }
 
-    /* keep the actions container rendered (using contents) so the profile
-       button is visible even though other nav icons remain hidden */
     .rds-header--variant-logotabsactions .rds-story-nav-actions { display: contents !important; }
     .rds-header--variant-logotabsactions .rds-story-nav-action { display: none !important; }
 
@@ -1912,7 +1891,6 @@
     }
 
     .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
-      /* reserve approx 120px for overflow + settings + avatar */
       max-width: calc(100% - 120px) !important;
       margin-right: 4px !important;
     }
@@ -2097,6 +2075,85 @@
   .rds-header__title { max-width: 60% !important; overflow: hidden; text-overflow: ellipsis; }
   .rds-header__toolbar { padding-left: 8px !important; padding-right: 8px !important; gap: 16px !important; }
   .rds-app-bar, .rds-header { overflow-x: hidden !important; }
+  .rds-appbar-title__user { display: none !important; }
+}
+
+@media (max-width: 840px) {
+  .rds-header--variant-withmenubutton .rds-header__tabs-inline,
+  .rds-header--variant-withmenubutton .rds-story-nav-actions,
+  .rds-header--variant-withmenubutton .rds-logo-search-tabs__left-actions,
+  .rds-header--variant-withmenubutton .rds-appbar-badge,
+  .rds-header--variant-withmenubutton .rds-appbar-actions-group .MuiButton-contained {
+    display: none !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-appbar-actions-group,
+  .rds-header--variant-withmenubutton .rds-header__right-actions {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-appbar-actions-group > *:not(.rds-withmenubutton-settings):not(.rds-profile-menu__button) {
+    display: none !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-appbar-badge,
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-contained {
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  body { padding-bottom: 56px !important; }
+
+  .rds-header--variant-withmenubutton .rds-bottom-navigation { min-height: 48px !important; padding: 6px 10px !important; }
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-bottom-nav-tab { font-size: 12px !important; padding: 4px 6px !important; }
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-appbar-badge { font-size: 11px !important; padding: 2px 4px !important; }
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-root { font-size: 11px !important; padding: 3px 6px !important; }
+
+  .rds-header--variant-withmenubutton .rds-withmenubutton-settings {
+    display: inline-flex !important;
+    align-items: center !important;
+    position: absolute !important;
+    right: 72px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 4 !important;
+    margin-left: 0 !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-profile-menu__button {
+    display: inline-flex !important;
+    align-items: center !important;
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 5 !important;
+    margin-left: 0 !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  /* Hide avatar text/details so avatar is compact and doesn't overlap search */
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withmenubutton .rds-avatar__info,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__chevron {
+    display: none !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-header__search-wrapper {
+    margin-right: 8px !important;
+    flex: 0 1 auto !important;
+    max-width: calc(100% - 180px) !important;
+    position: relative !important;
+    transform: translateX(-6px) !important; 
+  }
+
+  .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 96px !important; }
 }
 
 @media (max-width: 320px) {
@@ -2112,7 +2169,6 @@
     opacity: 0.9 !important;
   }
 
-  /* Keep elements hidden on 320px screens - bottom navigation handled by component */
   .rds-story-nav-actions,
   .rds-logo-search-tabs__left-actions,
   .rds-appbar-actions-group,
@@ -2121,17 +2177,14 @@
     display: none !important;
   }
 
-  /* Ensure overflow buttons are hidden on 320px screens */
   .rds-appbar-overflow-button {
     display: none !important;
   }
 
-  /* Add padding to body to prevent content from being hidden behind bottom nav */
   body {
     padding-bottom: 60px !important;
   }
 
-  /* Style bottom navigation icons and buttons for better visibility */
   .rds-bottom-navigation {
     .MuiButton-root {
       font-size: 10px !important;
@@ -2148,11 +2201,6 @@
   }
 }
 
-/* ------------------------------------------------------------------
-   Bottom navigation styling used on small screens (320px / 420px)
-   Provide clear active state color and ensure the navigation sits
-   above page content. Active tab text color should be #1976D2.
-   ------------------------------------------------------------------ */
 .rds-bottom-navigation {
   position: fixed;
   bottom: 0;
@@ -2161,13 +2209,38 @@
   display: flex;
   gap: 8px;
   padding: 8px 12px;
-  justify-content: space-around;
   align-items: center;
   background: var(--rds-appbar-bg, var(--rds-primary-main));
   z-index: 1000;
   border-top: 1px solid var(--rds-color-border, #e0e0e0);
   box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
   box-sizing: border-box;
+  min-height: 56px;
+
+  .rds-bottom-navigation-single-row {
+    display: flex;
+    gap: 8px;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+
+  .rds-bottom-navigation-row {
+    display: flex;
+    gap: 8px;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+
+  .rds-bottom-navigation-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+  }
 
   .rds-bottom-nav-tab {
     color: var(--rds-color-on-appbar, var(--rds-appbar-color, #fff));
@@ -2180,22 +2253,89 @@
   }
 
   .rds-bottom-nav-tab--active {
-    color: #1976D2 !important; /* explicit active color requested */
+    color: #1976D2 !important; 
+  }
+
+  .rds-appbar-badge {
+    background: var(--rds-appbar-badge-bg, #EAF3FF);
+    color: var(--rds-appbar-badge-color, #3C98FF);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-weight: 500;
+    font-size: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .MuiButton-root {
+    font-size: 12px;
+    padding: 4px 8px;
+    min-width: auto;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   @media (max-width: 420px) {
-    .rds-bottom-nav-tab { font-size: 12px; padding: 6px 6px; }
+    padding: 6px 10px;
+    min-height: 48px;
+    gap: 4px;
+    
+    .rds-bottom-navigation-single-row {
+      gap: 4px;
+    }
+    
+    .rds-bottom-nav-tab { 
+      font-size: 12px; 
+      padding: 4px 6px; 
+      min-width: auto;
+    }
+    
+    .rds-appbar-badge {
+      font-size: 11px;
+      padding: 2px 4px;
+    }
+    
+    .MuiButton-root {
+      font-size: 11px;
+      padding: 3px 6px;
+      min-width: auto;
+    }
   }
 
   @media (max-width: 320px) {
-    .rds-bottom-nav-tab { font-size: 11px; padding: 4px 6px; }
+    padding: 4px 6px;
+    min-height: 44px;
+    gap: 2px;
+    
+    .rds-bottom-navigation-single-row {
+      gap: 2px;
+    }
+    
+    .rds-bottom-nav-tab { 
+      font-size: 10px; 
+      padding: 3px 4px; 
+      min-width: auto;
+    }
+    
+    .rds-appbar-badge {
+      font-size: 9px;
+      padding: 2px 3px;
+    }
+    
+    .MuiButton-root {
+      font-size: 9px;
+      padding: 2px 4px;
+      min-width: auto;
+    }
   }
 }
 
-/* Add bottom padding to the body so page content isn't hidden
-   under the fixed bottom navigation on very small screens. */
 @media (max-width: 420px) {
-  body { padding-bottom: 64px !important; }
+  body { padding-bottom: 56px !important; }
+}
+
+@media (max-width: 320px) {
+  body { padding-bottom: 52px !important; }
 }
 
 @media (max-width: 420px) { 
@@ -2207,6 +2347,19 @@
     }
 
     .rds-bottom-navigation .rds-bottom-nav-tab:not(.rds-bottom-nav-tab--active) {
+      color: var(--rds-color-on-surface, #000) !important;
+    }
+  }
+}
+
+@media (max-width: 840px) {
+  .rds-header:not([data-theme="dark"]) {
+    .rds-bottom-navigation .rds-bottom-nav-tab:not(.rds-bottom-nav-tab--active) {
+      color: var(--rds-color-on-surface, #000) !important;
+    }
+    .rds-header__tabs-inline .MuiTab-root:not(.Mui-selected),
+    .rds-appbar-tabs-container .MuiButton-root:not(.Mui-selected),
+    .rds-appbar-tabs-container button:not(.Mui-selected) {
       color: var(--rds-color-on-surface, #000) !important;
     }
   }
@@ -2251,10 +2404,16 @@
 
 @media (max-width: 840px) {
   .rds-header--variant-withmenubutton .rds-header__search-wrapper {
-    margin-right: 14px !important;
+    margin-right: 12px !important;
     flex: 0 1 auto !important;
-    max-width: calc(100% - 180px) !important; 
+    max-width: calc(100% - 140px) !important; 
     position: relative !important; 
     transform: none !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-contained {
+    color: #fff !important;
   }
 }
