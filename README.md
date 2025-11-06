@@ -103,6 +103,11 @@
 </div>
 </br></br>
 
+<p align="center">Built for Web Apps and Power Apps</p>
+<p align="center">
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/microsoft-power-apps-logo.avif" width="165" style="max-width:90%; margin: 0 20px;" alt="Microsoft Power Apps"/>
+</p>
+
 ## <a name='why'></a> Why Choose Raaghu Design System?
 
 <!-- <p>
