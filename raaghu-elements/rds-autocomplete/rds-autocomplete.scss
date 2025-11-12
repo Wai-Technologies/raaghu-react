@@ -213,4 +213,14 @@
       user-select: none !important; // Prevent text selection of hidden content
     }
   }
+
+  // Bottom line control style - removes borders except bottom
+  &__textfield--bottom-line {
+    .MuiOutlinedInput-notchedOutline {
+      border-left: none !important;
+      border-right: none !important;
+      border-top: none !important;
+      border-radius: 0 !important;
+    }
+  }
 }
