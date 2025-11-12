@@ -426,6 +426,16 @@ const meta: Meta<typeof RdsAppBar> = {
         'WithMenuButton',
         'DashboardWithLang',
       ],
+    },
+    userName: {
+      control: 'text',
+      description: 'User name displayed in the profile menu',
+      defaultValue: 'John Doe',
+    },
+    userEmail: {
+      control: 'text',
+      description: 'User email displayed in the profile menu',
+      defaultValue: 'john.doe@example.com',
     }
   } as any),
 };
@@ -560,7 +570,7 @@ const DynamicTemplate = (args: any) => {
         showLogo: config.showLogo,
         title: ' ',
         leftActions: <LogoSearchTabsLeftActions />,
-        rightActions: <ProfileMenu name="John Doe" shortName="JD" email="john.doe@example.com" />,
+        rightActions: <ProfileMenu name={args.userName || 'John Doe'} email={args.userEmail || 'john.doe@example.com'} />,
       };
       break;
     case 'logotabsactions':
@@ -576,7 +586,7 @@ const DynamicTemplate = (args: any) => {
             <span className="rds-story-nav-action"><VideoIcon /></span>
             <span className="rds-story-nav-action"><HeartIcon /></span>
             <span className="rds-story-nav-action"><BellIcon /></span>
-            <ProfileMenu name="John Doe" shortName="JD" email="john.doe@example.com" />
+            <ProfileMenu name={args.userName || 'John Doe'} email={args.userEmail || 'john.doe@example.com'} />
           </div>
         ),
       };
@@ -699,7 +709,7 @@ const DynamicTemplate = (args: any) => {
         title: 'User Dashboard',
         showLogo: config.showLogo,
         showMenuButton: true,
-        rightActions: <ProfileMenu name="John Doe" shortName="JD" email="john.doe@example.com" />,
+        rightActions: <ProfileMenu name={args.userName || 'John Doe'} email={args.userEmail || 'john.doe@example.com'} />,
       };
       break;
     case 'withactions':
@@ -774,7 +784,7 @@ const DynamicTemplate = (args: any) => {
                 <path d="M7.45034 13.0068C7.45034 14.1044 7.77583 15.1773 8.38566 16.09C8.99549 17.0026 9.86229 17.7139 10.8764 18.1339C11.8905 18.5539 13.0064 18.6638 14.083 18.4497C15.1595 18.2356 16.1484 17.707 16.9246 16.9309C17.7008 16.1548 18.2294 15.1659 18.4435 14.0894C18.6577 13.0129 18.5478 11.8971 18.1277 10.8831C17.7076 9.86903 16.9963 9.00226 16.0836 8.39246C15.1709 7.78267 14.0979 7.45724 13.0002 7.45724C11.5283 7.45724 10.1167 8.0419 9.07588 9.08264C8.03507 10.1234 7.45034 11.535 7.45034 13.0068Z" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </IconButton>
-            <ProfileMenu name="Jane Doe" shortName="JD" email="jane.doe@example.com" />
+            <ProfileMenu name={args.userName || 'Jane Doe'} email={args.userEmail || 'jane.doe@example.com'} />
           </div>
         ),
       };
@@ -799,7 +809,7 @@ const DynamicTemplate = (args: any) => {
               <div className="rds-appbar-separator" />
               <LanguageMenu />
               <div className="rds-appbar-separator" />
-              <AdminProfileMenu name="Admin User" email="admin@example.com" onLogout={() => { console.log('Logout clicked'); }} />
+              <AdminProfileMenu name={args.userName || 'Admin User'} email={args.userEmail || 'admin@example.com'} onLogout={() => { console.log('Logout clicked'); }} />
             </div>
           </div>
         ),
@@ -836,10 +846,12 @@ export const Default: Story = {
   args: ({
     size: 'medium',
     variantStyle: 'default',
+    userName: 'John Doe',
+    userEmail: 'john.doe@example.com',
   } as unknown) as any,
   render: DynamicTemplate,
 };
-Default.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton', 'userName', 'userShortName', 'userEmail'] } };
+Default.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton'] } };
 
 // Individual stories for direct access
 export const WithSearch: Story = {
@@ -847,87 +859,89 @@ export const WithSearch: Story = {
     size: 'medium',
     variantStyle: 'withSearch',
     color: 'default',
+    userName: 'John Doe',
+    userEmail: 'john.doe@example.com',
   } as any,
   render: DynamicTemplate,
 };
-WithSearch.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton', 'title', 'userName', 'userShortName', 'userEmail'] } };
+WithSearch.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton', 'title'] } };
 
 /*  Merged Header Stories */
 export const HeaderDefault: Story = {
   args: { variantStyle: 'headerDefault', color: 'default' } as any,
   render: DynamicTemplate,
 };
-HeaderDefault.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton', 'title', 'showLogo', 'userName', 'userShortName', 'userEmail'] } };
+HeaderDefault.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton', 'title', 'showLogo'] } };
 
 export const LogoSearchActions: Story = {
   args: { variantStyle: 'logoSearchActions', color: 'default' } as any,
   render: DynamicTemplate,
 };
-LogoSearchActions.parameters = { controls: { include: ['showLogo', 'title', 'searchPlaceholder', 'color', 'size', 'showMenuButton', 'showSearch', 'style', 'userName', 'userShortName', 'userEmail'] } };
+LogoSearchActions.parameters = { controls: { include: ['showLogo', 'title', 'searchPlaceholder', 'color', 'size', 'showMenuButton', 'showSearch', 'style'] } };
 
 export const LogoSearchTabs: Story = {
   args: { variantStyle: 'LogoSearchTabs', color: 'default' } as any,
   render: DynamicTemplate,
 };
-LogoSearchTabs.parameters = { controls: { include: ['showLogo', 'title', 'searchPlaceholder', 'color', 'size', 'showMenuButton', 'showSearch', 'style'] } };
+LogoSearchTabs.parameters = { controls: { include: ['showLogo', 'title', 'searchPlaceholder', 'color', 'size', 'showMenuButton', 'showSearch', 'style', 'userName', 'userEmail'] } };
 
 export const LogoTabsActions: Story = {
   args: { variantStyle: 'LogoTabsActions', color: 'default' } as any,
   render: DynamicTemplate,
 };
-LogoTabsActions.parameters = { controls: { include: ['showLogo', 'title', 'color', 'size', 'showMenuButton', 'style', 'userName', 'userShortName', 'userEmail'] } };
+LogoTabsActions.parameters = { controls: { include: ['showLogo', 'title', 'color', 'size', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
 
 export const LogoSearchTabsActions: Story = {
   args: { variantStyle: 'LogoSearchTabsActions', color: 'default' } as any,
   render: DynamicTemplate,
 };
-LogoSearchTabsActions.parameters = { controls: { include: ['showLogo', 'title', 'color', 'size', 'showMenuButton', 'style', 'userName', 'userShortName', 'userEmail'] } };
+LogoSearchTabsActions.parameters = { controls: { include: ['showLogo', 'title', 'color', 'size', 'showMenuButton', 'style'] } };
 
 export const LogoSearchTabsActionsSubHeader: Story = {
   args: { variantStyle: 'LogoSearchTabsActionsSubHeader', color: 'default' } as any,
   render: DynamicTemplate,
 };
-LogoSearchTabsActionsSubHeader.parameters = { controls: { include: ['showLogo', 'title', 'searchPlaceholder', 'color', 'size', 'showMenuButton', 'showSearch', 'style', 'userName', 'userShortName', 'userEmail'] } };
+LogoSearchTabsActionsSubHeader.parameters = { controls: { include: ['showLogo', 'title', 'searchPlaceholder', 'color', 'size', 'showMenuButton', 'showSearch', 'style'] } };
 
 export const Minimal: Story = { args: { variantStyle: 'Minimal', color: 'default' } as any, render: DynamicTemplate };
-Minimal.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'userName', 'userShortName', 'userEmail', 'style'] } };
+Minimal.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
 
 export const Transparent: Story = {
   args: { variantStyle: 'Transparent', color: 'transparent' } as any,
   parameters: { backgrounds: { default: 'transparent' } },
   render: DynamicTemplate,
 };
-Transparent.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'userName', 'userShortName', 'userEmail', 'style'] } };
+Transparent.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
 
 export const WithLogo: Story = { args: { variantStyle: 'withLogo', color: 'default' } as any, render: DynamicTemplate };
-WithLogo.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'userName', 'userShortName', 'userEmail', 'style'] } };
+WithLogo.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
 
 export const HeaderWithSearch: Story = { args: { variantStyle: 'HeaderWithSearch', color: 'default' } as any, render: DynamicTemplate };
-HeaderWithSearch.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'searchPlaceholder', 'showSearch', 'showMenuButton', 'userName', 'userShortName', 'userEmail', 'style'] } };
+HeaderWithSearch.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'searchPlaceholder', 'showSearch', 'showMenuButton', 'style'] } };
 
 export const WithTabs: Story = { args: { variantStyle: 'withTabs', color: 'default' } as any, render: DynamicTemplate };
-WithTabs.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'userName', 'userShortName', 'userEmail', 'style'] } };
+WithTabs.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
 
 export const WithSubHeader: Story = { args: { variantStyle: 'withSubHeader', color: 'default' } as any, render: DynamicTemplate };
-WithSubHeader.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'userName', 'userShortName', 'userEmail', 'style'] } };
+WithSubHeader.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
 
 export const WithNotificationBadge: Story = { args: { variantStyle: 'WithNotificationBadge', color: 'default' } as any, render: DynamicTemplate };
-WithNotificationBadge.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'userName', 'userShortName', 'userEmail', 'style'] } };
+WithNotificationBadge.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
 
 export const WithLogoAndTabs: Story = { args: { variantStyle: 'WithLogoAndTabs', color: 'default' } as any, render: DynamicTemplate };
-WithLogoAndTabs.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'userName', 'userShortName', 'userEmail', 'style'] } };
+WithLogoAndTabs.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
 
 export const WithUserProfile: Story = { args: { variantStyle: 'WithUserProfile', color: 'default' } as any, render: DynamicTemplate };
-WithUserProfile.parameters = { controls: { include: ['title', 'size', 'color', 'showMenuButton', 'style'] } };
+WithUserProfile.parameters = { controls: { include: ['title', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
 
 export const WithActions: Story = { args: { variantStyle: 'withActions', color: 'default' } as any, render: DynamicTemplate };
-WithActions.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'userName', 'userShortName', 'userEmail', 'showMenuButton', 'style'] } };
+WithActions.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
 
 export const WithLoginButton: Story = { args: { variantStyle: 'WithLoginButton', color: 'default' } as any, render: DynamicTemplate };
-WithLoginButton.parameters = { controls: { include: ['title', 'size', 'color', 'userName', 'userShortName', 'userEmail', 'showMenuButton', 'style'] } };
+WithLoginButton.parameters = { controls: { include: ['title', 'size', 'color', 'showMenuButton', 'style'] } };
 
 export const WithMenuButton: Story = { args: { variantStyle: 'WithMenuButton', color: 'default' } as any, render: DynamicTemplate };
-WithMenuButton.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
+WithMenuButton.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
 
 export const DashboardWithLang: Story = { args: { variantStyle: 'dashboardWithLang', color: 'default', showSearch: false } as any, render: DynamicTemplate };
-DashboardWithLang.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
+DashboardWithLang.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
