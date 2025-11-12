@@ -87,6 +87,14 @@
   font-size: 16px;
   text-transform: none;
   padding: 6px 16px;
+  border-radius: 0px !important;
+  transition: background-color 0.2s ease-in-out;
+  
+  &-active {
+    background-color: var(--rds-background-paper, #ffffff) !important;
+    color: var(--rds-text-primary,  #1976d2) !important;
+    border-bottom: 3px solid var(--rds-color-primary, #1976d2) !important;
+  }
 }
 // Logo and search bar container for LogoSearchTabsActions story
 .rds-header__logo-search {
