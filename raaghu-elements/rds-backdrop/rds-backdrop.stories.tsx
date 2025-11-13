@@ -71,7 +71,7 @@ export const Interactive: Story = {
           loading={!!args.loading}
           onClick={() => setOpen(false)}
         >
-          <div style={{ color: 'white', textAlign: 'center' }}>
+          <div style={{ color: 'white', textAlign: 'center',marginTop: '75px' }}>
             <h2>Click to close</h2>
           </div>
         </RdsBackdrop>
