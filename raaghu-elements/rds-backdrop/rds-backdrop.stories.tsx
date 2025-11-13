@@ -7,7 +7,13 @@ const meta: Meta<typeof RdsBackdrop> = {
   title: 'Elements/Backdrop',
   component: RdsBackdrop,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: 400,
+      }
+    }
   },
   tags: ['autodocs'],
   argTypes: {
@@ -62,7 +68,7 @@ export const Interactive: Story = {
     }, [args.open]);
     
     return (
-      <>
+      <div style={{ position: 'relative', minHeight: '300px', width: '100%' }}>
         <Button variant="contained" onClick={() => setOpen(true)}>
           Show Backdrop
         </Button>
@@ -75,7 +81,14 @@ export const Interactive: Story = {
             <h2>Click to close</h2>
           </div>
         </RdsBackdrop>
-      </>
+      </div>
     );
   },
+  parameters: {
+    docs: {
+      story: {
+        inline: true,
+      }
+    }
+  }
 };
