@@ -85,11 +85,17 @@ export const Default: Story = {
   render: (args) => {
     const [page, setPage] = useState(args.page ?? 1);
     const [pageSize, setPageSize] = useState(10);
-    const totalRecords = 50;
+    // const totalRecords = 50; // Commented: Use args.count instead
+    
+    // Sync page state when args.page changes from controls
+    React.useEffect(() => {
+      setPage(args.page ?? 1);
+    }, [args.page]);
+    
     return (
       <RdsPagination
         {...args}
-        count={totalRecords}
+        count={args.count ?? 50}
         page={page}
         pageSize={pageSize}
         onChange={(_, value) => setPage(value)}
@@ -127,13 +133,19 @@ export const Default: Story = {
 };
 export const Advanced: Story = {
   render: (args) => {
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(args.page ?? 1);
     const [pageSize, setPageSize] = useState(10);
-    const totalRecords = 123;
+    // const totalRecords = 123; // Commented: Use args.count instead
+    
+    // Sync page state when args.page changes from controls
+    React.useEffect(() => {
+      setPage(args.page ?? 1);
+    }, [args.page]);
+    
     return (
       <RdsPagination
         {...args}
-        count={totalRecords}
+        count={args.count ?? 123}
         page={page}
         pageSize={pageSize}
         onChange={(_, value) => setPage(value)}
@@ -172,6 +184,12 @@ export const Advanced: Story = {
 export const Disabled: Story = {
   render: (args) => {
     const [page, setPage] = useState(args.page ?? 1);
+    
+    // Sync page state when args.page changes from controls
+    React.useEffect(() => {
+      setPage(args.page ?? 1);
+    }, [args.page]);
+    
     return (
       <RdsPagination
         {...args}
@@ -189,6 +207,12 @@ export const Disabled: Story = {
 export const Large: Story = {
   render: (args) => {
     const [page, setPage] = useState(args.page ?? 1);
+    
+    // Sync page state when args.page changes from controls
+    React.useEffect(() => {
+      setPage(args.page ?? 1);
+    }, [args.page]);
+    
     return (
       <RdsPagination
         {...args}
@@ -207,6 +231,12 @@ export const Large: Story = {
 export const Outlined: Story = {
   render: (args) => {
     const [page, setPage] = useState(args.page ?? 1);
+    
+    // Sync page state when args.page changes from controls
+    React.useEffect(() => {
+      setPage(args.page ?? 1);
+    }, [args.page]);
+    
     return (
       <RdsPagination
         {...args}
@@ -225,6 +255,12 @@ export const Outlined: Story = {
 export const Rounded: Story = {
   render: (args) => {
     const [page, setPage] = useState(args.page ?? 1);
+    
+    // Sync page state when args.page changes from controls
+    React.useEffect(() => {
+      setPage(args.page ?? 1);
+    }, [args.page]);
+    
     return (
       <RdsPagination
         {...args}
@@ -242,6 +278,12 @@ export const Rounded: Story = {
 export const Small: Story = {
   render: (args) => {
     const [page, setPage] = useState(args.page ?? 1);
+    
+    // Sync page state when args.page changes from controls
+    React.useEffect(() => {
+      setPage(args.page ?? 1);
+    }, [args.page]);
+    
     return (
       <RdsPagination
         {...args}
@@ -260,6 +302,12 @@ export const Small: Story = {
 export const WithFirstLast: Story = {
   render: (args) => {
     const [page, setPage] = useState(args.page ?? 1);
+    
+    // Sync page state when args.page changes from controls
+    React.useEffect(() => {
+      setPage(args.page ?? 1);
+    }, [args.page]);
+    
     return (
       <RdsPagination
         {...args}
