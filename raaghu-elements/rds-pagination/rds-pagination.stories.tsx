@@ -85,11 +85,11 @@ export const Default: Story = {
   render: (args) => {
     const [page, setPage] = useState(args.page ?? 1);
     const [pageSize, setPageSize] = useState(10);
-    const totalRecords = 50;
+    // const totalRecords = 50; // Commented out: Use args.count from controls instead
     return (
       <RdsPagination
         {...args}
-        count={totalRecords}
+        count={args.count ?? 50}
         page={page}
         pageSize={pageSize}
         onChange={(_, value) => setPage(value)}
@@ -129,11 +129,11 @@ export const Advanced: Story = {
   render: (args) => {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-    const totalRecords = 123;
+    // const totalRecords = 123; // Commented out: Use args.count from controls instead
     return (
       <RdsPagination
         {...args}
-        count={totalRecords}
+        count={args.count ?? 123}
         page={page}
         pageSize={pageSize}
         onChange={(_, value) => setPage(value)}
