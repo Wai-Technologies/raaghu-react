@@ -7,16 +7,25 @@ const meta: Meta<typeof RdsBox> = {
   title: 'Elements/Box',
   component: RdsBox,
   parameters: {
-  layout: 'centered',
-  // only show the `children` controls in the Controls panel; hide all other auto-generated props
-  controls: { include: ['children'] },
+    layout: 'centered',
+    // only show the `children` controls in the Controls panel; hide all other auto-generated props
+    controls: { include: ['children'] },
+    // Ensure stories refresh properly
+    docs: {
+      story: {
+        inline: true
+      }
+    }
   },
   tags: ['autodocs'],
   argTypes: {
-  // define the controls we want visible in Controls panel
-  children: { control: { type: 'text' } },
-  // Hide className from controls and code display
-  className: { table: { disable: true }, control: false },
+    // define the controls we want visible in Controls panel
+    children: { 
+      control: { type: 'text' },
+      description: 'Content to display inside the box'
+    },
+    // Hide className from controls and code display
+    className: { table: { disable: true }, control: false },
   },
 };
 
