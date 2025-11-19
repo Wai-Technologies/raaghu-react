@@ -44,7 +44,7 @@ const RdsCompToolbar: React.FC<RdsCompToolbarProps> = ({
   const [activeFormats, setActiveFormats] = useState<string[]>([]);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
-  const isDisabled = state === ToolbarState.DisabledOn || state === ToolbarState.DisabledOff;
+  const isDisabled = state === ToolbarState.DisabledOn;
   const toolbarConfig = getToolbarConfig(type);
 
   // Close dropdown when clicking outside
