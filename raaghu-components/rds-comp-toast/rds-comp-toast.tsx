@@ -145,7 +145,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                         type="button"
                                         className="rds-comp-toast__close-btn"
                                         aria-label="Close"
-                                        onClick={() => setshowState("hide")}>
+                                        onClick={() => {}}>
                                         <span className="rds-comp-toast__close-icon" aria-hidden="true">&times;</span>
                                     </button>
                                 )}
