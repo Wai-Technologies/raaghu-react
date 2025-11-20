@@ -438,6 +438,7 @@ const DynamicTemplate = (args: any) => {
   const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
   const [searchValue, setSearchValue] = React.useState(args.searchValue ?? '');
   const [selectedSubTab, setSelectedSubTab] = React.useState(0);
+  const [activeMenuTab, setActiveMenuTab] = React.useState(0);
 
   const buildSubHeader = () => (
     <div className="rds-header__sub-header-layout">
@@ -672,13 +673,13 @@ const DynamicTemplate = (args: any) => {
           <div className="rds-appbar-tabs-container">
             <div className="rds-appbar-separator" />
             <div className="rds-appbar-tabs">
-              <Button variant="text" color="inherit" className="rds-appbar-tab-btn">Home</Button>
+              <Button variant="text" color="inherit" className={`rds-appbar-tab-btn${activeMenuTab === 0 ? ' rds-appbar-tab-btn-active' : ''}`} onClick={() => setActiveMenuTab(0)}>Home</Button>
               <div className="rds-appbar-separator" />
-              <Button variant="text" color="inherit" className="rds-appbar-tab-btn">News</Button>
+              <Button variant="text" color="inherit" className={`rds-appbar-tab-btn${activeMenuTab === 1 ? ' rds-appbar-tab-btn-active' : ''}`} onClick={() => setActiveMenuTab(1)}>News</Button>
               <div className="rds-appbar-separator" />
-              <Button variant="text" color="inherit" className="rds-appbar-tab-btn">Marketplace</Button>
+              <Button variant="text" color="inherit" className={`rds-appbar-tab-btn${activeMenuTab === 2 ? ' rds-appbar-tab-btn-active' : ''}`} onClick={() => setActiveMenuTab(2)}>Marketplace</Button>
               <div className="rds-appbar-separator" />
-              <Button variant="text" color="inherit" className="rds-appbar-tab-btn">Jobs</Button>
+              <Button variant="text" color="inherit" className={`rds-appbar-tab-btn${activeMenuTab === 3 ? ' rds-appbar-tab-btn-active' : ''}`} onClick={() => setActiveMenuTab(3)}>Jobs</Button>
             </div>
           </div>
         ),
