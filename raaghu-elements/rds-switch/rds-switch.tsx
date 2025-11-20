@@ -62,11 +62,15 @@ const RdsSwitch = ({
 
   // Sync internal state with normalizedState changes
   React.useEffect(() => {
-    if (!isControlled && normalizedState) {
-      if (normalizedState === 'on' || normalizedState === 'disabled on') setInternalChecked(true);
-      if (normalizedState === 'off' || normalizedState === 'disabled off') setInternalChecked(false);
+    if (!isControlled) {
+      if (normalizedState) {
+        if (normalizedState === 'on' || normalizedState === 'disabled on') setInternalChecked(true);
+        if (normalizedState === 'off' || normalizedState === 'disabled off') setInternalChecked(false);
+      } else {
+        setInternalChecked(Boolean(props.defaultChecked));
+      }
     }
-  }, [normalizedState, isControlled]);
+  }, [normalizedState, props.defaultChecked, isControlled]);
 
   // Change handler for switch
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
