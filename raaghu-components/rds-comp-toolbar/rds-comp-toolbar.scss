@@ -61,9 +61,7 @@
     opacity: 1;
   }
 
-  &--disabled-on,
-  &--disabled-off {
-    opacity: 0.6;
+  &--disabled-on {
     pointer-events: none;
     background: var(--rds-color-surface-variant, #f5f5f5);
   }
@@ -75,7 +73,7 @@
   }
 
   &--disabled-off {
-    opacity: 0.5;
+    opacity: 1;
   }
 
   // Element styles
