@@ -28,7 +28,7 @@ type Story = StoryObj<typeof RdsCompMap>;
 
 export const Default: Story = {
     args: {
-        title: 'Map ',
+        title: 'Map',
         color: '#A478E6',
         mapType: 'default',
         mapList: [
