@@ -699,17 +699,20 @@
 .rds-appbar-logo-group {
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
 .rds-appbar-logo-label {
   margin-left: 8px;
   font-weight: 500;
   font-size: 18px;
   color: #353535;
+  white-space: nowrap;
 }
 .rds-appbar-actions-group {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-wrap: nowrap;
 }
 .rds-appbar-badge {
   background: var(--rds-appbar-badge-bg, #EAF3FF);
@@ -719,6 +722,7 @@
   font-weight: 500;
   font-size: 12px;
   margin-right: 8px;
+  white-space: nowrap;
 }
 // DARK MODE OVERRIDES
 [data-theme="dark"], .dark {
