@@ -151,7 +151,7 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                                 )}
                             </div>
                         </div>
-
+                        
                         {props.showSubText && (
                             <div className="rds-comp-toast__body">
                                 {props.subText}
