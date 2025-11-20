@@ -94,6 +94,7 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
                 className={`rds-comp-text-editor ${props.State === "Selected" ? "rds-comp-text-editor--selected" : ""} ${props.State === "Error" ? "rds-comp-text-editor--error" : ""} ${props.State === "Active" ? "rds-comp-text-editor--active" : ""} ${props.State === "Disabled" ? "rds-comp-text-editor--disabled" : ""} ${isResizable ? "rds-comp-text-editor--resizable" : ""}`}
             >
                 <Editor
+                    key={props.placeholder}
                     editorState={editorState}
                     onEditorStateChange={handleEditorChange}
                     readOnly={props.readOnly || props.State === "Disabled"}
