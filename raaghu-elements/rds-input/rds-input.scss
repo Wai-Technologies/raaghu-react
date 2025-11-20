@@ -352,6 +352,13 @@
     white-space: nowrap;
     border: 0;
   }
+  .MuiInputBase-input::placeholder,
+  input::placeholder,
+  textarea::placeholder,
+  .MuiAutocomplete-inputRoot input::placeholder {
+    color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
+    opacity: 1 !important;
+  }
 }
 
 // Dark theme specific styles (outside the main component scope)
@@ -370,6 +377,16 @@
       color: #f6f4f4!important;
       fill: #efe8e8!important;
   }
+  
+  
+    .MuiInputBase-input::placeholder,
+    input::placeholder,
+    textarea::placeholder,
+    .MuiAutocomplete-inputRoot input::placeholder {
+      color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
+      opacity: 1 !important;
+    }
+  
 }
 .css-1t6h741-MuiFormHelperText-root{
   margin-left: 0px !important;
