@@ -22,6 +22,18 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        noDataTitle: {
+            table: { disable: true },
+        },
+        noDataHeaderTitle: {
+            table: { disable: true },
+        },
+        onClick: {
+            table: { disable: true },
+        },
+        addQuestionData: {
+            table: { disable: true },
+        },
     },
 } satisfies Meta<typeof RdsCompKanbanBoard>;
 
