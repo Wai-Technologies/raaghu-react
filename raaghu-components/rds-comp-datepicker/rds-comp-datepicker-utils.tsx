@@ -244,7 +244,6 @@ export const renderDatePickerStateView = (
                     dropdownMode="select"
                     dayClassName={dayClassName}
                     ref={datePickerRef}
-                    renderCustomHeader={props.layout === "Multi Month" ? renderCustomHeader : undefined}
                 />
             </div>
         );
@@ -280,7 +279,6 @@ export const renderDatePickerStateView = (
                     dayClassName={dayClassName}
                     autoFocus 
                     ref={expandedDatePickerRef}
-                    renderCustomHeader={props.layout === "Multi Month" ? renderCustomHeader : undefined}
                 />
             </div>
         );
@@ -315,7 +313,6 @@ export const renderDatePickerStateView = (
                     todayButton={<CustomButtons />}
                     dayClassName={dayClassName}
                     ref={selectedDatePickerRef}
-                    renderCustomHeader={props.layout === "Multi Month" ? renderCustomHeader : undefined}
                 />
             </div>
         );
@@ -377,7 +374,6 @@ export const renderDatePickerTypeView = (
                     dropdownMode="select"
                     dayClassName={dayClassName}
                     ref={datePickerRef}
-                    renderCustomHeader={props.layout === "Multi Month" ? renderCustomHeader : undefined}
                 />
             </div>
         );
@@ -412,7 +408,6 @@ export const renderDatePickerTypeView = (
                     dropdownMode="select"
                     dayClassName={dayClassName}
                     ref={datePickerRef}
-                    renderCustomHeader={props.layout === "Multi Month" ? renderCustomHeader : undefined}
                     open={false}
                 />
               
@@ -474,7 +469,6 @@ export const renderDatePickerTypeView = (
                         monthsShown={props.layout === "Multi Month" ? 3 : 1}
                         dayClassName={dayClassName}
                         autoFocus
-                        renderCustomHeader={props.layout === "Multi Month" ? renderCustomHeader : undefined}
                     />
                 </ul>
             </div>
