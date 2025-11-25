@@ -73,6 +73,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    title: 'Accordion Title',
     size: 'medium',
     state: 'default',
     accordionStyle: 'bottomline',
@@ -97,6 +98,7 @@ export const Default: Story = {
       <>
         <RdsAccordion 
           title={title} 
+          title={title} 
           size={size} 
           state={state} 
           accordionStyle={accordionStyle} 
@@ -112,6 +114,7 @@ export const Default: Story = {
         </RdsAccordion>
         <RdsAccordion 
           title={title} 
+          title={title} 
           size={size} 
           state={state} 
           accordionStyle={accordionStyle} 
@@ -126,6 +129,7 @@ export const Default: Story = {
           </RdsTypography>
         </RdsAccordion>
         <RdsAccordion 
+          title={title} 
           title={title} 
           size={size} 
           state={state} 
