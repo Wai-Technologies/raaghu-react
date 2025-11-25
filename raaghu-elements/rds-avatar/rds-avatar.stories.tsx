@@ -201,7 +201,8 @@ export const Small: Story = {
         'maxVisibleAvatars',
         'alt',
         'src',
-        'subText',
+        'showDesignation',
+        'subText'
       ]
     },
   },

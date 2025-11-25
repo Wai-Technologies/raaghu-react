@@ -58,7 +58,7 @@ export const Interactive: Story = {
     return (
       <RdsBottomNavigation
         {...args}
-        activeValue={activeValue}
+        activeValue={args.activeValue}
         onItemChange={(value) => setActiveValue(value)}
       />
     );
