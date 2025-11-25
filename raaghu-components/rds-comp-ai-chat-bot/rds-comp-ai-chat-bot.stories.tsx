@@ -14,6 +14,9 @@ const meta: Meta = {
   },
   tags: ["autodocs"],
   argTypes: {
+    icon_name: {
+      table: { disable: true },
+    },
   },
 } satisfies Meta<typeof RdsCompAiChatBot>;
 

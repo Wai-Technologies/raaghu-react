@@ -27,15 +27,16 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const speedDialActions = [
-  { icon: <Share />, name: 'Share' },
-  { icon: <Print />, name: 'Print' },
-  { icon: <Favorite />, name: 'Save' },
+  { icon: <Share />, name: 'Share', onClick: () => console.log('Share clicked') },
+  { icon: <Print />, name: 'Print', onClick: () => console.log('Print clicked') },
+  { icon: <Favorite />, name: 'Save', onClick: () => console.log('Save clicked') },
 ];
 
 export const Default: Story = {
   args: {
     ariaLabel: 'SpeedDial basic example',
     icon: <Speed />,
+    open: false,
     actions: speedDialActions,
   },
 };
@@ -54,6 +55,7 @@ export const DirectionDown: Story = {
     ariaLabel: 'SpeedDial down example',
     icon: <Speed />,
     direction: 'down',
+    open: false,
     actions: speedDialActions,
   },
 };
@@ -63,6 +65,7 @@ export const DirectionLeft: Story = {
     ariaLabel: 'SpeedDial left example',
     icon: <Speed />,
     direction: 'left',
+    open: false,
     actions: speedDialActions,
   },
 };
@@ -72,6 +75,7 @@ export const DirectionRight: Story = {
     ariaLabel: 'SpeedDial right example',
     icon: <Speed />,
     direction: 'right',
+    open: false,
     actions: speedDialActions,
   },
 };
@@ -81,6 +85,7 @@ export const Hidden: Story = {
     ariaLabel: 'SpeedDial hidden example',
     icon: <Speed />,
     hidden: true,
+    open: false,
     actions: speedDialActions,
   },
 };
@@ -89,10 +94,11 @@ export const WithTooltips: Story = {
   args: {
     ariaLabel: 'SpeedDial with tooltips',
     icon: <Speed />,
+    open: false,
     actions: [
-      { icon: <Share />, name: 'Share', tooltipTitle: 'Share this item' },
-      { icon: <Print />, name: 'Print', tooltipTitle: 'Print this item' },
-      { icon: <Favorite />, name: 'Save', tooltipTitle: 'Save to favorites' },
+      { icon: <Share />, name: 'Share', tooltipTitle: 'Share this item', onClick: () => console.log('Share clicked') },
+      { icon: <Print />, name: 'Print', tooltipTitle: 'Print this item', onClick: () => console.log('Print clicked') },
+      { icon: <Favorite />, name: 'Save', tooltipTitle: 'Save to favorites', onClick: () => console.log('Save clicked') },
     ],
   },
 };
