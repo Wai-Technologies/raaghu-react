@@ -157,16 +157,6 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               size="small"
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: '4px',
-                  backgroundColor: '#fff',
-                },
-                '& .MuiOutlinedInput-input': {
-                  padding: '8px 12px',
-                  fontSize: '14px',
-                }
-              }}
             />
           </Box>
 
