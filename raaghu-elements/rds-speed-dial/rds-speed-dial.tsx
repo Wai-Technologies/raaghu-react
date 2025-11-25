@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SpeedDial as MuiSpeedDial,
   SpeedDialAction as MuiSpeedDialAction,
   SpeedDialIcon as MuiSpeedDialIcon,
   SpeedDialProps
 } from '@mui/material';
+import type { OpenReason, CloseReason } from '@mui/material/SpeedDial';
 
 export interface RdsSpeedDialAction {
   icon: React.ReactNode;
   name: string;
-  onClick: () => void;
+  onClick?: () => void;
+  tooltipTitle?: string;
 }
 
 export interface RdsSpeedDialProps extends Omit<SpeedDialProps, 'children'> {
@@ -25,20 +27,50 @@ const RdsSpeedDial: React.FC<RdsSpeedDialProps> = ({
   openIcon,
   tooltipTitle,
   ariaLabel,
+  open,
+  onClose,
+  onOpen,
   ...props
 }) => {
+  const [internalOpen, setInternalOpen] = useState(false);
+  
+  // If open is explicitly true, force it to stay open
+  // If open is false or undefined, use internal state for interactions
+  const isForceOpen = open === true;
+  const useInternalState = open !== true; // Use internal state when open is false or undefined
+  const finalOpenState = isForceOpen ? true : internalOpen;
+  
+  const handleOpen = (event: React.SyntheticEvent<{}, Event>, reason: OpenReason) => {
+    // Only update internal state if not force opened
+    if (useInternalState) {
+      setInternalOpen(true);
+    }
+    onOpen?.(event, reason);
+  };
+  
+  const handleClose = (event: React.SyntheticEvent<{}, Event>, reason: CloseReason) => {
+    // Only update internal state if not force opened
+    if (useInternalState) {
+      setInternalOpen(false);
+    }
+    onClose?.(event, reason);
+  };
+
   return (
     <MuiSpeedDial
       ariaLabel={ariaLabel || tooltipTitle || "Speed dial"}
       icon={icon ? <MuiSpeedDialIcon icon={icon} openIcon={openIcon} /> : <MuiSpeedDialIcon />}
+      open={finalOpenState}
+      onOpen={handleOpen}
+      onClose={handleClose}
       {...props}
     >
       {actions.map((action) => (
         <MuiSpeedDialAction
           key={action.name}
           icon={action.icon}
-          tooltipTitle={action.name}
-          onClick={action.onClick}
+          tooltipTitle={action.tooltipTitle || action.name}
+          onClick={action.onClick || (() => console.log(`${action.name} clicked`))}
         />
       ))}
     </MuiSpeedDial>
