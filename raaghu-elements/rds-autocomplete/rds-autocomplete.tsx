@@ -117,7 +117,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
           const showDefault = !isShowCheckbox && !isShowRadio && !isShowUser;
           const singleMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length === 1;
           // Reduce gap specifically for user icon to minimize space
-          const labelGap = singleMode && isShowUser ? 9 : (singleMode ? 28 : 8);
+          const labelGap = singleMode && isShowUser ? 9 : (singleMode && isShowCheckbox ? 8 : (singleMode ? 28 : 8));
           // If all three are false, show only the label
           if (showDefault) {
             return (

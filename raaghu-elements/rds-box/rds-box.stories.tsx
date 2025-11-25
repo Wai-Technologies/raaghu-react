@@ -118,6 +118,9 @@ export const FlexContainer: Story = {
 />
     ],
   },
+    argTypes: {
+    children: { control: false },
+  },
   render: (args) => <RdsBox {...args} className="rds-box--flex-container" />,
   parameters: {
     docs: {
@@ -169,6 +172,9 @@ export const GridContainer: Story = {
         <Typography>Item 4</Typography>
       </>
     ),
+  },
+    argTypes: {
+    children: { control: false },
   },
   render: (args) => <RdsBox {...args} className="rds-box--grid-container" />,
   parameters: {

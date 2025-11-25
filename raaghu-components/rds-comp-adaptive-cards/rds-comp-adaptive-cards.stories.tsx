@@ -177,7 +177,7 @@ export const CalendarReminder: StoryObj<typeof RdsCompAdaptiveCards> = {
     parameters: {
         controls: {
             include: [
-                    'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'block', 'smallText', 'label', 'calendarReminderLabel', 'namePlaceholder', 'sideOptions', 'sidePlaceholder', 'snoozeLabel', 'lateLabel', 'showDismiss', 'closeIcon'
+                    'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn2style', 'smallText', 'label', 'calendarReminderLabel', 'sideOptions', 'sidePlaceholder', 'snoozeLabel', 'lateLabel', 'showDismiss', 'closeIcon'
             ],
         },
     },
@@ -238,7 +238,7 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
     parameters: {
         controls: {
             include: [
-                'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn1Label', 'block', 'smallText', 'label', 'showDismiss', 'closeIcon',
+                'type', 'cardTitle', 'showHeader', 'showBtn1', 'btn1style', 'btn1Label', 'smallText', 'label', 'showDismiss', 'closeIcon',
                 'nameLabel', 'namePlaceholder', 'emailLabel', 'emailPlaceholder', 'phoneLabel', 'phonePlaceholder', 'requiredText'
             ],
         },
@@ -400,7 +400,7 @@ export const RestaurantOrder: StoryObj<typeof RdsCompAdaptiveCards> = {
     parameters: {
         controls: {
             include: [
-                'type', 'cardTitle', 'showHeader', 'showBtn1', 'showBtn2', 'btn1style', 'btn1Label', 'block', 'showDismiss', 'closeIcon',
+                'type', 'cardTitle', 'showHeader', 'showBtn1', 'btn1style', 'btn1Label', 'showDismiss', 'closeIcon',
                 'entreeLabel', 'entreePlaceholder', 'entreeOptions',
                 'sideLabel', 'sidePlaceholder', 'sideOptions',
                 'drinkLabel', 'drinkPlaceholder', 'drinkOptions'
