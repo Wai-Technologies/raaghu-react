@@ -81,7 +81,27 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
                         file: { attributes: { preload: 'auto' } }
                     },
                     className: "rds-comp-video-player__player",
-                    style: { width, height }
+                    style: { width, height },
+                    key: type === VideoPlayerType.Vimeo ? `vimeo-${formattedUrl}-controls-${controls}` : 
+                         type === VideoPlayerType.YouTube ? `youtube-${formattedUrl}-controls-${controls}` : undefined,
+                    config: type === VideoPlayerType.Vimeo ? {
+                        vimeo: {
+                            playerOptions: {
+                                controls: controls,
+                                title: false,
+                                byline: false,
+                                portrait: false
+                            }
+                        }
+                    } : type === VideoPlayerType.YouTube ? {
+                        youtube: {
+                            playerVars: {
+                                controls: controls ? 1 : 0,
+                                modestbranding: 1,
+                                rel: 0
+                            }
+                        }
+                    } : undefined
                 })}
             </div>
             {disabled && (
