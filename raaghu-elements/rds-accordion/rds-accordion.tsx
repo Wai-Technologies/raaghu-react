@@ -68,7 +68,7 @@ const RdsAccordion = ({
           className="rds-accordion__summary"
         >
           <div className="rds-accordion__header">
-            {ShowLeftIcon && (
+            {ShowLeftIcon && changeleftIcon !== null && (
               <span className="rds-accordion__icon">
                 {changeleftIcon ?? icon ?? <AddIcon fontSize="small" />}
               </span>

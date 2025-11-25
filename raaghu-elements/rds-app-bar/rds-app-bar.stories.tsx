@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ProfileMenu } from './ProfileMenu';
 import RdsAppBar from './rds-app-bar';
 import { Button, IconButton, Avatar, Badge, Box, Divider, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
-import { Menu as MenuIcon, Home, Search, Notifications, AccountCircle, Brightness5, Brightness2, Brightness4, Logout, Security, Close } from '@mui/icons-material';
+import { Dehaze as MenuIcon, Home, Search, Notifications, AccountCircle, Brightness5, Brightness2, Brightness4, Logout, Security, Close } from '@mui/icons-material';
 import { Menu, MenuItem } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
 import React from 'react';
@@ -223,7 +223,7 @@ const LanguageMenu = () => {
   }, [selected]);
   return (
     <>
-      <Button color="inherit" onClick={e => setAnchorEl(e.currentTarget)} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+      <Button className="rds-language-button" color="inherit" onClick={e => setAnchorEl(e.currentTarget)} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
         <span style={{ fontWeight: 600 }}>{shortCode}</span>
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
@@ -268,13 +268,13 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
   const avatarTextColor = theme?.palette?.mode === 'dark' ? theme.palette.common.white : undefined;
   return (
     <>
-      <Button color="inherit" onClick={() => setOpen(true)} style={{ display: 'flex', alignItems: 'center', gap: 8, textTransform: 'none' }}>
+      <Button className="rds-admin-profile__button" color="inherit" onClick={() => setOpen(true)} style={{ display: 'flex', alignItems: 'center', gap: 8, textTransform: 'none' }}>
         <Avatar sx={{ width: 32, height: 32, color: avatarTextColor }}>AU</Avatar>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: 1 }}>
           <Typography sx={{ fontSize: 13, fontWeight: 600 }}>Hi, {name.toLowerCase()}</Typography>
           <Typography sx={{ fontSize: 11, color: 'inherit' }}>{email}</Typography>
         </Box>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 6 }} xmlns="http://www.w3.org/2000/svg">
+        <svg className="rds-admin-profile__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 6 }} xmlns="http://www.w3.org/2000/svg">
           <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </Button>
@@ -438,6 +438,7 @@ const DynamicTemplate = (args: any) => {
   const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
   const [searchValue, setSearchValue] = React.useState(args.searchValue ?? '');
   const [selectedSubTab, setSelectedSubTab] = React.useState(0);
+  const [activeMenuTab, setActiveMenuTab] = React.useState(0);
 
   const buildSubHeader = () => (
     <div className="rds-header__sub-header-layout">
@@ -535,9 +536,6 @@ const DynamicTemplate = (args: any) => {
         rightActions: undefined,
       };
       break;
-    case 'headerdefault':
-  config = { ...config, title: 'My Application', showLogo: config.showLogo, logo: logoImg };
-      break;
     case 'logosearchactions':
       config = {
         ...config,
@@ -551,6 +549,7 @@ const DynamicTemplate = (args: any) => {
             <IconButton color="inherit"><AccountCircle /></IconButton>
           </>
         ),
+        // No overflow content - this story should not have bottom navigation
       };
       break;
     case 'logosearchtabs':
@@ -561,6 +560,19 @@ const DynamicTemplate = (args: any) => {
         title: ' ',
         leftActions: <LogoSearchTabsLeftActions />,
         rightActions: <ProfileMenu name="John Doe" shortName="JD" email="john.doe@example.com" />,
+        // Only show the left action icons in the overflow drawer for this
+        // variant (so users get the icon menu shown in the screenshot).
+        // Do not include the full ProfileMenu here to avoid showing the
+        // avatar + name/designation inside the drawer.
+        overflowContent: (
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <HomeIcon />
+            <CompassIcon />
+            <VideoIcon />
+            <HeartIcon />
+            <BellIcon />
+          </div>
+        ),
       };
       break;
     case 'logotabsactions':
@@ -579,6 +591,19 @@ const DynamicTemplate = (args: any) => {
             <ProfileMenu name="John Doe" shortName="JD" email="john.doe@example.com" />
           </div>
         ),
+        // Put the same actions into overflow for small screens
+        overflowContent: (
+          // Only include the left action icons in the overflow Drawer —
+          // keep the ProfileMenu in the app bar so the avatar + name
+          // are available inline and clicking it shows the profile.
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <HomeIcon />
+            <CompassIcon />
+            <VideoIcon />
+            <HeartIcon />
+            <BellIcon />
+          </div>
+        ),
       };
       break;
     case 'logosearchtabsactions':
@@ -594,6 +619,18 @@ const DynamicTemplate = (args: any) => {
             <span className="rds-story-nav-action"><VideoIcon /></span>
             <span className="rds-story-nav-action"><HeartIcon /></span>
             <span className="rds-story-nav-action"><BellIcon /></span>
+          </div>
+        ),
+        // Provide the same icons to the overflow drawer so they remain
+        // accessible on small screens (320 / 420). This enables the
+        // three-dot overflow button to appear and reveal the icons.
+        overflowContent: (
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <CameraIcon />
+            <CompassIcon />
+            <VideoIcon />
+            <HeartIcon />
+            <BellIcon />
           </div>
         ),
       };
@@ -647,6 +684,17 @@ const DynamicTemplate = (args: any) => {
         logo: logoImg,
         showLogo: config.showLogo,
         tabs: ['HOME', 'NEWS', 'MARKETPLACE', 'JOBS'],
+        // Provide overflowContent so on small screens the tabs are
+        // accessible via the three-dot button. Drawer will show them
+        // stacked in a column.
+        overflowContent: (
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <Button variant="text" size="small">HOME</Button>
+            <Button variant="text" size="small">NEWS</Button>
+            <Button variant="text" size="small">MARKETPLACE</Button>
+            <Button variant="text" size="small">JOBS</Button>
+          </div>
+        ),
       };
       break;
     case 'withsubheader':
@@ -672,14 +720,26 @@ const DynamicTemplate = (args: any) => {
           <div className="rds-appbar-tabs-container">
             <div className="rds-appbar-separator" />
             <div className="rds-appbar-tabs">
-              <Button variant="text" color="inherit" className="rds-appbar-tab-btn">Home</Button>
+              <Button variant="text" color="inherit" className={`rds-appbar-tab-btn${activeMenuTab === 0 ? ' rds-appbar-tab-btn-active' : ''}`} onClick={() => setActiveMenuTab(0)}>Home</Button>
               <div className="rds-appbar-separator" />
-              <Button variant="text" color="inherit" className="rds-appbar-tab-btn">News</Button>
+              <Button variant="text" color="inherit" className={`rds-appbar-tab-btn${activeMenuTab === 1 ? ' rds-appbar-tab-btn-active' : ''}`} onClick={() => setActiveMenuTab(1)}>News</Button>
               <div className="rds-appbar-separator" />
-              <Button variant="text" color="inherit" className="rds-appbar-tab-btn">Marketplace</Button>
+              <Button variant="text" color="inherit" className={`rds-appbar-tab-btn${activeMenuTab === 2 ? ' rds-appbar-tab-btn-active' : ''}`} onClick={() => setActiveMenuTab(2)}>Marketplace</Button>
               <div className="rds-appbar-separator" />
-              <Button variant="text" color="inherit" className="rds-appbar-tab-btn">Jobs</Button>
+              <Button variant="text" color="inherit" className={`rds-appbar-tab-btn${activeMenuTab === 3 ? ' rds-appbar-tab-btn-active' : ''}`} onClick={() => setActiveMenuTab(3)}>Jobs</Button>
             </div>
+          </div>
+        ),
+        // Provide the same items to the overflow drawer so they remain accessible
+        // on very small screens (320 / 420). The component will show the overflow
+        // button automatically when `overflowContent` is present and the CSS
+        // makes that button visible at <=420px.
+        overflowContent: (
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <Button variant="text" color="inherit" size="small">Home</Button>
+            <Button variant="text" color="inherit" size="small">News</Button>
+            <Button variant="text" color="inherit" size="small">Marketplace</Button>
+            <Button variant="text" color="inherit" size="small">Jobs</Button>
           </div>
         ),
       };
@@ -691,12 +751,25 @@ const DynamicTemplate = (args: any) => {
         showLogo: config.showLogo,
         title: '',
         tabs: ['Dashboard', 'Projects', 'Calendar'],
+        // provide overflowContent so the app bar can show the three-dot overflow
+        // button on very small screens (<=320px) and reveal the tabs in a drawer
+        overflowContent: (
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <Button variant="text" size="small">Dashboard</Button>
+            <Button variant="text" size="small">Projects</Button>
+            <Button variant="text" size="small">Calendar</Button>
+          </div>
+        ),
       };
       break;
     case 'withuserprofile':
       config = {
         ...config,
-        title: 'User Dashboard',
+        title: (
+          <span className="rds-appbar-title">
+            <span className="rds-appbar-title__user">User </span>Dashboard
+          </span>
+        ),
         showLogo: config.showLogo,
         showMenuButton: true,
         rightActions: <ProfileMenu name="John Doe" shortName="JD" email="john.doe@example.com" />,
@@ -714,16 +787,33 @@ const DynamicTemplate = (args: any) => {
             <MenuIcon />
           </IconButton>
         ),
-        rightActions: (
-          <>
+        // Place primary call-to-action buttons right after the logo
+        centerContent: (
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Find Jobs" textCase="uppercase" />
             <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="transparent" text="Login" textCase="uppercase" />
+          </div>
+        ),
+        // Keep Employers in overflow only
+        rightActions: (
+          <>
             <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="transparent" text="Employers" textCase="uppercase" />
           </>
         ),
         showSearch: false,
         searchValue: undefined,
         onSearchChange: undefined,
+        // Provide overflowContent so the tabs and right-side actions are
+        // accessible via the three-dot overflow button on small screens (320 / 420px).
+        overflowContent: (
+          <div style={{ display: 'flex', gap: 6, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <Button variant="text" size="small">Community</Button>
+            <Button variant="text" size="small">Jobs</Button>
+            <Button variant="text" size="small">Resources</Button>
+            {/* Include Employers in overflow so it appears in the bottom navigation on very small screens */}
+            <Button variant="text" size="small">Employers</Button>
+          </div>
+        ),
       };
       break;
     case 'withloginbutton':
@@ -765,16 +855,34 @@ const DynamicTemplate = (args: any) => {
         rightActions: (
           <div className="rds-appbar-actions-group">
             <span className="rds-appbar-badge">28 Days Left</span>
-            <Button variant="contained" color="primary" sx={{ minWidth: 100, fontWeight: 500, fontSize: 14, boxShadow: 'none', textTransform: 'none' }}>
+            <RdsButton style='filled' color="primary" sx={{ minWidth: 100, fontWeight: 500, fontSize: 14, boxShadow: 'none', textTransform: 'none' }}>
               View Plans
-            </Button>
-            <IconButton color="default" sx={{ ml: 1 }}>
+            </RdsButton>
+            <IconButton color="default" sx={{ ml: 1 }} className="rds-withmenubutton-settings">
               <svg width="22" height="22" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M11.4487 2.80164C11.8193 3.21276 12.338 3.46002 12.8908 3.48904C13.4436 3.51806 13.9854 3.32651 14.397 2.95646C14.4514 2.90767 14.503 2.85604 14.5518 2.80164L15.561 1.69417C15.8499 1.37229 16.2315 1.14792 16.6533 1.05203C17.0751 0.956144 17.5162 0.993401 17.9158 1.15874C18.3155 1.32407 18.6541 1.60936 18.8848 1.97517C19.1155 2.34098 19.2271 2.76934 19.2042 3.20122L19.1238 4.69026C19.1097 4.96417 19.1498 5.23818 19.2417 5.49659C19.3336 5.755 19.4756 5.99272 19.6595 6.19622C19.8434 6.39971 20.0656 6.56503 20.3134 6.68258C20.5612 6.80013 20.8298 6.86766 21.1037 6.88134C21.1729 6.885 21.2422 6.885 21.3113 6.88134L22.8029 6.81052C23.2338 6.78879 23.6608 6.90084 24.0254 7.13137C24.39 7.3619 24.6744 7.69964 24.8394 8.09816C25.0045 8.49668 25.0423 8.93649 24.9475 9.35731C24.8527 9.77813 24.6301 10.1593 24.3101 10.4486L23.1977 11.4517C22.7863 11.8235 22.5395 12.3435 22.5114 12.8972C22.4832 13.4509 22.6761 13.9931 23.0477 14.4047C23.095 14.4573 23.145 14.5074 23.1977 14.5547L24.3101 15.5578C24.6305 15.847 24.8536 16.2283 24.9487 16.6494C25.0437 17.0704 25.0061 17.5105 24.8409 17.9093C24.6758 18.3081 24.3912 18.646 24.0263 18.8766C23.6614 19.1072 23.234 19.2191 22.8029 19.1971L21.3089 19.1215C20.7557 19.0934 20.214 19.286 19.8027 19.657C19.3915 20.028 19.1442 20.547 19.1154 21.1002C19.1117 21.1717 19.1117 21.2434 19.1154 21.315L19.191 22.8088C19.2102 23.2375 19.097 23.6617 18.8666 24.0237C18.6363 24.3858 18.3 24.6682 17.9036 24.8324C17.5072 24.9967 17.0698 25.0348 16.6508 24.9418C16.2319 24.8487 15.8518 24.6289 15.5622 24.3123L14.5578 23.2012C14.1864 22.7897 13.6667 22.5427 13.1132 22.5143C12.5596 22.486 12.0174 22.6787 11.6059 23.05C11.5531 23.098 11.5027 23.1484 11.4547 23.2012L10.4467 24.3123C10.1576 24.6319 9.77663 24.8544 9.35611 24.949C8.9356 25.0437 8.4961 25.0059 8.09787 24.841C7.69964 24.6761 7.36218 24.392 7.13175 24.0278C6.90132 23.6635 6.7892 23.2369 6.81077 22.8064L6.88756 21.3125C6.91498 20.7593 6.72153 20.2179 6.34979 19.8072C5.97805 19.3966 5.45843 19.1503 4.90518 19.1227C4.83523 19.1191 4.76516 19.1191 4.6952 19.1227L3.20123 19.1983C2.77028 19.2214 2.34272 19.1105 1.97734 18.8809C1.61196 18.6512 1.32665 18.3141 1.16066 17.9157C0.994683 17.5173 0.956185 17.0774 1.0504 16.6563C1.14461 16.2351 1.36692 15.8535 1.68683 15.5638L2.798 14.5607C3.20935 14.1889 3.45622 13.669 3.48435 13.1153C3.51247 12.5615 3.31955 12.0193 2.948 11.6077C2.90075 11.555 2.85068 11.505 2.798 11.4577L1.68683 10.4486C1.36753 10.1593 1.14549 9.77843 1.05113 9.35804C0.956775 8.93766 0.99471 8.49834 1.15975 8.10036C1.32479 7.70237 1.60888 7.36515 1.97305 7.13488C2.33723 6.90462 2.76368 6.79258 3.19402 6.81411L4.68678 6.89093C5.23987 6.92036 5.782 6.72893 6.19401 6.3588C6.60602 5.98867 6.85422 5.4701 6.88397 4.91707C6.88397 4.84188 6.88397 4.76625 6.88397 4.69026L6.81194 3.19521C6.79165 2.76541 6.90452 2.33978 7.13512 1.97649C7.36572 1.6132 7.70281 1.32992 8.1004 1.16533C8.49799 1.00074 8.9367 0.962871 9.35663 1.05686C9.77655 1.15086 10.1572 1.37213 10.4467 1.6905L11.4499 2.80164H11.4487Z" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" />
                 <path d="M7.45034 13.0068C7.45034 14.1044 7.77583 15.1773 8.38566 16.09C8.99549 17.0026 9.86229 17.7139 10.8764 18.1339C11.8905 18.5539 13.0064 18.6638 14.083 18.4497C15.1595 18.2356 16.1484 17.707 16.9246 16.9309C17.7008 16.1548 18.2294 15.1659 18.4435 14.0894C18.6577 13.0129 18.5478 11.8971 18.1277 10.8831C17.7076 9.86903 16.9963 9.00226 16.0836 8.39246C15.1709 7.78267 14.0979 7.45724 13.0002 7.45724C11.5283 7.45724 10.1167 8.0419 9.07588 9.08264C8.03507 10.1234 7.45034 11.535 7.45034 13.0068Z" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </IconButton>
             <ProfileMenu name="Jane Doe" shortName="JD" email="jane.doe@example.com" />
+          </div>
+        ),
+        overflowContent: (
+          <div style={{ display: 'flex', flexDirection: 'row', gap: 12, padding: 12, width: '100%', boxSizing: 'border-box', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', gap: 40, alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+              <Button variant="text" size="small">HOME</Button>
+              <Button variant="text" size="small">AGREEMENT</Button>
+            </div>
+
+            {/* Right: badge placeholder (keeps spacing) */}
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <span className="rds-appbar-badge">28 Days Left</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <Button variant="contained" color="primary" sx={{ minWidth: 90, fontWeight: 500, fontSize: 13, boxShadow: 'none', textTransform: 'none' }}>
+                View Plans
+              </Button>
+            </div>
           </div>
         ),
       };
@@ -784,7 +892,7 @@ const DynamicTemplate = (args: any) => {
     ...config,
     logo: logoImg,
     showLogo: config.showLogo,
-  title: <span style={{ fontWeight: 500, fontSize: 16 }}>Dashboard</span>,
+  title: <span className="rds-dashboard-title" style={{ fontWeight: 500, fontSize: 16 }}>Dashboard</span>,
         // Right actions: theme button, small icon, language, profile (no search, no dropdown chevron)
         rightActions: (
           <div className="rds-appbar-tabs-container" style={{ display: 'flex', alignItems: 'center' }}>
@@ -819,8 +927,8 @@ const DynamicTemplate = (args: any) => {
       };
   }
 
-  // Remove internal helper flag before spreading
-  const { __wrapTransparent, variantStyle: _omitVs, ...finalConfig } = config;
+  // Remove internal helper flag before spreading (keep variantStyle so AppBar can add a variant class)
+  const { __wrapTransparent, ...finalConfig } = config;
   if (config.__wrapTransparent) {
     return (
       <div className="rds-story-min-height-container">
