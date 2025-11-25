@@ -71,22 +71,52 @@ export const Default: Story = {
   },
   render: (args) => {
     const [searchValue, setSearchValue] = useState('');
+    const [searchResults, setSearchResults] = useState<string[]>([]);
+
+    const handleSearch = (value: string) => {
+      if (args.autoSearch) {
+        // For auto search, show results below the input
+        const mockResults = value 
+          ? [`Result for "${value}"`]
+          : [];
+        setSearchResults(mockResults);
+      } else {
+        // For manual search, show alert
+        alert(`Searching for: ${value}`);
+      }
+    };
+
+    const handleClear = () => {
+      setSearchResults([]);
+    };
 
     // Ensure Storybook controls don't overwrite local value/onChange bindings
     return (
       <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400 })()}>
-    {/* Omit value/onChange from args to avoid duplicate prop warnings */}
-    {(() => {
-      const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
-      return (
-        <RdsSearch
-          value={searchValue}
-          onChange={setSearchValue}
-          onSearch={(value) => alert(`Searching for: ${value}`)}
-            {...forwardArgs}
+        {/* Omit value/onChange from args to avoid duplicate prop warnings */}
+        {(() => {
+          const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+          return (
+            <RdsSearch
+              value={searchValue}
+              onChange={setSearchValue}
+              onSearch={handleSearch}
+              onClear={handleClear}
+              {...forwardArgs}
             />
           );
         })()}
+        {args.autoSearch && searchResults.length > 0 && (
+          <Box sx={{ mt: 2 }}>
+            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+              {searchResults.map((result, index) => (
+                <Box key={index} sx={{ py: 0.5 }}>
+                  {result}
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        )}
       </Box>
     );
   },
@@ -101,7 +131,7 @@ export const AutoSearch: Story = {
     const handleSearch = (value: string) => {
       // Simulate search results
       const mockResults = value 
-        ? [`Result 1 for "${value}"`, `Result 2 for "${value}"`, `Result 3 for "${value}"`]
+        ? [`Result for "${value}"`]
         : [];
       setSearchResults(mockResults);
     };
