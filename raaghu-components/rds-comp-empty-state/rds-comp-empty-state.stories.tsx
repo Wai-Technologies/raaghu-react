@@ -41,7 +41,12 @@ const meta: Meta<typeof RdsCompEmptyState> = {
       control: { type: "text" },
       description: "Text to display on the action button",
     },
-    
+    className: {
+      table: { disable: true },
+    },
+    testId: {
+      table: { disable: true },
+    },
   },
 };
 

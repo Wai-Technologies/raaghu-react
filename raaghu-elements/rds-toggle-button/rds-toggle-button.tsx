@@ -32,6 +32,8 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   defaultValue,
   inputSize = 'small', // legacy prop name
   size: sizeProp, // MUI size prop / Storybook control
+  disabled,
+  color,
   ...props
 }) => {
   const [internalValue, setInternalValue] = useState<string | string[]>(() => {
@@ -104,6 +106,11 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   // Handle custom button click when using spacing
   const handleCustomButtonClick = useMemo(() => {
     return (event: React.MouseEvent<HTMLElement>, optionValue: string) => {
+      // Don't handle clicks if disabled
+      if (disabled) {
+        return;
+      }
+      
       if (multiple) {
         // For multiple selection, toggle the value
         const newValue = Array.isArray(value) ? [...value] : [];
@@ -124,10 +131,10 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
         handleChange(event, newValue);
       }
     };
-  }, [multiple, value, enforceSelected, handleChange]);
+  }, [multiple, value, enforceSelected, handleChange, disabled]);
 
-  // Extract color from props to ensure it's passed to MUI components
-  const { color, ...otherProps } = props;
+  // Extract remaining props
+  const { ...otherProps } = props;
 
   // Create a custom class name for proper border styling with spacing
   const getButtonClassName = useMemo(() => {
@@ -147,7 +154,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
         <MuiToggleButton
           key={option.value}
           value={option.value}
-          disabled={option.disabled}
+          disabled={disabled || option.disabled}
           className={`rds-toggle-button__button ${sizeClass}`}
           size={effectiveSize}
           style={largeButtonStyle}
@@ -196,7 +203,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
         >
           <MuiToggleButton
             value={option.value}
-            disabled={option.disabled}
+            disabled={disabled || option.disabled}
             className={getButtonClassName(index) + ' ' + sizeClass}
             size={effectiveSize}
             style={largeButtonStyle}
