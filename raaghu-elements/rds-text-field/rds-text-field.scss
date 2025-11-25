@@ -87,4 +87,21 @@
       filter: invert(100%) !important;
     }
   }
+  .MuiInputBase-input::placeholder,
+  input::placeholder,
+  textarea::placeholder,
+  .MuiAutocomplete-inputRoot input::placeholder {
+    color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
+    opacity: 1 !important;
+  }
+
+  .dark-theme &, [data-theme="dark"] & {
+    .MuiInputBase-input::placeholder,
+    input::placeholder,
+    textarea::placeholder,
+    .MuiAutocomplete-inputRoot input::placeholder {
+      color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
+      opacity: 1 !important;
+    }
+  }
 }

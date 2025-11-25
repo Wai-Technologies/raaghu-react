@@ -48,7 +48,7 @@ const meta: Meta<typeof RdsCompLayout> = {
     },
     displayType: {
       control: 'select',
-      options: ['Basic', 'Board','Boxify','Cardify','Collage','Gridify', 'Highlight', 'Matrix','Mosaic','Nexus','Pinboard','Sections','Splitz', 'Spotlight', 'Stacks','Dashboard','Relaxed'],
+      options: ['Basic', 'Board','Boxify','Cardify','Collage','Gridify', 'Highlight', 'Matrix','Mosaic','Nexus','Pinboard','Sections','Snapshots','Splitz', 'Spotlight', 'Stacks','Dashboard','Relaxed'],
       description: 'Type of layout display style',
     },
     hasShadow: {

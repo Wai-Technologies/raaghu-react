@@ -85,11 +85,9 @@ export const Default: Story = {
   render: (args) => {
     const [page, setPage] = useState(args.page ?? 1);
     const [pageSize, setPageSize] = useState(10);
-    const totalRecords = 50;
     return (
       <RdsPagination
         {...args}
-        count={totalRecords}
         page={page}
         pageSize={pageSize}
         onChange={(_, value) => setPage(value)}

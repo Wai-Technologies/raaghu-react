@@ -64,7 +64,7 @@ When a platform is specified, the component automatically displays the appropria
     },
     anchor: {
       control: 'select',
-      options: ['left', 'right', 'top', 'bottom'],
+      options: ['left', 'right'],
       description: 'Side from which the drawer will appear',
     },
     layout: {
