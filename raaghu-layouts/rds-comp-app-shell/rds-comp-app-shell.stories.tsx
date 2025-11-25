@@ -167,7 +167,7 @@ export const Relaxing: Story = {
     controls: { exclude: ['sidebar'] },
   },
   args: {
-    displayType: AppShellDisplayType.TopNav,
+    displayType: AppShellDisplayType.Relaxing,
     topbar: (
       <div>
         <RdsAppBar
@@ -420,7 +420,7 @@ export const TopNav: Story = {
     controls: { exclude: ['sidebar'] },
   },
   args: {
-    displayType: AppShellDisplayType.Default,
+    displayType: AppShellDisplayType.TopNav,
 
     topbar: (
       <RdsAppBar
