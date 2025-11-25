@@ -7,7 +7,13 @@ const meta: Meta<typeof RdsBackdrop> = {
   title: 'Elements/Backdrop',
   component: RdsBackdrop,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
+    docs: {
+      story: {
+        inline: false,
+        iframeHeight: 400,
+      }
+    }
   },
   tags: ['autodocs'],
   argTypes: {
@@ -78,4 +84,11 @@ export const Interactive: Story = {
       </>
     );
   },
+  parameters: {
+    docs: {
+      story: {
+        inline: true,
+      }
+    }
+  }
 };
