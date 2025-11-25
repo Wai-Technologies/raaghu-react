@@ -3,7 +3,7 @@ import "./rds-comp-ai-fab-menu.scss";
 import RdsCompAiIcon, { registerMaterialIcons } from "../../raaghu-components/rds-comp-ai-icon/rds-comp-ai-icon";
 import ListIcon from '@mui/icons-material/List';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import GetAppIcon from '@mui/icons-material/GetApp';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DownloadIcon from '@mui/icons-material/Download';
 
@@ -35,7 +35,7 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
 registerMaterialIcons({
     'list': ListIcon,
     'refresh': RefreshIcon,
-    'export': GetAppIcon,
+    'export': FileUploadIcon,
     'delete': DeleteIcon,
     'download': DownloadIcon,
 });
