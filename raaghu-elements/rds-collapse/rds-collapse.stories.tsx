@@ -8,12 +8,10 @@ const meta: Meta<typeof RdsCollapse> = {
   component: RdsCollapse,
   parameters: {
     layout: 'centered',
+    controls: { exclude: ['timeout'] },
   },
   tags: ['autodocs'],
   argTypes: {
-    timeout: {
-      control: 'number',
-    },
     expanded: {
       control: 'boolean',
     },
