@@ -9,6 +9,9 @@ const meta: Meta<typeof RdsCompAiTypingSection> = {
 	},
 	tags: ['autodocs'],
 	argTypes: {
+		icon_name: {
+			table: { disable: true },
+		},
 	},
 };
 
