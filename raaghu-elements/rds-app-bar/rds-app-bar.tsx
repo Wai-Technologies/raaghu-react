@@ -185,7 +185,7 @@ const RdsAppBar = ({
             <span className="rds-header__actions">
               <ProfileMenu
                 name={userName}
-                shortName={userShortName}
+                //shortName={userShortName}
                 email={userEmail}
                 menuItems={[
                   { label: 'My Profile', icon: <Person />},
