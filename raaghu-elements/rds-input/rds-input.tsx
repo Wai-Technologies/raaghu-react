@@ -44,6 +44,7 @@ const RdsInput = ({
   const [showPassword, setShowPassword] = React.useState(false);
   // Internal focus tracking to auto-apply active class when state is default
   const [isFocused, setIsFocused] = React.useState(false);
+    const [internalValue, setInternalValue] = React.useState(props.value ?? '');
   
   // Toggle password visibility
   const handleTogglePasswordVisibility = () => {
@@ -212,8 +213,13 @@ const RdsInput = ({
         type={inputType}
         fullWidth
         focused={active}
-          onFocus={(e) => { setIsFocused(true); props.onFocus?.(e); }}
-          onBlur={(e) => { setIsFocused(false); props.onBlur?.(e); }}
+        value={layout === 'phone number' ? '' : internalValue}
+        onChange={(e) => {
+          setInternalValue(e.target.value);
+          props.onChange?.(e);
+        }}
+        onFocus={(e) => { setIsFocused(true); props.onFocus?.(e); }}
+        onBlur={(e) => { setIsFocused(false); props.onBlur?.(e); }}
         InputProps={{ 
           className: 'rds-input__field',
           classes: {
@@ -234,7 +240,7 @@ const RdsInput = ({
               : {}),
           },
           ...(props.InputProps || {}),
-		  
+          
         }}
         {...props}
       />
