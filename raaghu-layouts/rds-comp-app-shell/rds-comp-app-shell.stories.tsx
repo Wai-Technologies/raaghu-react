@@ -167,7 +167,7 @@ export const Relaxing: Story = {
     controls: { exclude: ['sidebar'] },
   },
   args: {
-    displayType: AppShellDisplayType.TopNav,
+    displayType: AppShellDisplayType.Relaxing,
     topbar: (
       <div>
         <RdsAppBar
@@ -420,11 +420,11 @@ export const TopNav: Story = {
     controls: { exclude: ['sidebar'] },
   },
   args: {
-    displayType: AppShellDisplayType.Default,
+    displayType: AppShellDisplayType.TopNav,
 
     topbar: (
       <RdsAppBar
-  actions={<><BellIcon /><ProfileMenu email="john.doe@example.com" name="John Doe" shortName="JD"/></>}
+  actions={<><BellIcon /><ProfileMenu email="john.doe@example.com" name="John Doe"/></>}
   color="default"
   logo={<img alt="Logo" className="rds-story-logo" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png"/>}
   onSearchChange={() => {}}

@@ -189,5 +189,50 @@
         max-width: 70% !important;
       }
     }
+    
+    .MuiPopover-root,
+    .MuiMenu-root,
+    .MuiPaper-root.rds-sidebar__menu-paper,
+    .MuiPaper-root {
+      background: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+  }
+
+  // Override MUI selected/active backgrounds within the sidebar
+  // This prevents MUI's default rgba(60,152,255,0.08) from showing on dropdowns, lists, menus, etc.
+  // Scoped to .rds-sidebar to avoid affecting other components.
+  .Mui-selected,
+  .MuiListItem-root.Mui-selected,
+  .MuiMenuItem-root.Mui-selected,
+  .MuiButtonBase-root.Mui-selected {
+    background-color: transparent !important;
+    /* Remove ripple/overlay color if present */
+    color: inherit !important;
+  }
+
+  /* Also clear hover/focus/active states that may reapply the background */
+  .Mui-selected:hover,
+  .MuiListItem-root.Mui-selected:hover,
+  .MuiMenuItem-root.Mui-selected:hover,
+  .MuiButtonBase-root.Mui-selected:hover,
+  .Mui-selected:focus,
+  .MuiListItem-root.Mui-selected:focus,
+  .MuiMenuItem-root.Mui-selected:focus,
+  .MuiButtonBase-root.Mui-selected:focus,
+  .Mui-selected:active,
+  .MuiListItem-root.Mui-selected:active,
+  .MuiMenuItem-root.Mui-selected:active,
+  .MuiButtonBase-root.Mui-selected:active {
+    background-color: transparent !important;
+  }
+
+  /* If the selected style is applied to descendant elements like .MuiTouchRipple-root, hide it */
+  .Mui-selected .MuiTouchRipple-root,
+  .MuiListItem-root.Mui-selected .MuiTouchRipple-root,
+  .MuiMenuItem-root.Mui-selected .MuiTouchRipple-root,
+  .MuiButtonBase-root.Mui-selected .MuiTouchRipple-root {
+    display: none !important;
   }
 }

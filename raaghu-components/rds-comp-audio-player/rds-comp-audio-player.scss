@@ -748,6 +748,24 @@
       align-items: center;
     }
 
+    &__control-btn:first-of-type {
+      grid-column: 1;
+      grid-row: 2;
+      justify-self: center;
+    }
+
+    &__play-btn {
+      grid-column: 2;
+      grid-row: 2;
+      justify-self: center;
+    }
+
+    &__control-btn:nth-of-type(2) {
+      grid-column: 3;
+      grid-row: 2;
+      justify-self: center;
+    }
+
     &__current-time {
       grid-column: 1;
       grid-row: 1;
@@ -764,25 +782,6 @@
       grid-column: 3;
       grid-row: 1;
       justify-self: end;
-    }
-
-    // Second row: Control buttons
-    &__control-btn:first-of-type {
-      grid-column: 1;
-      grid-row: 2;
-      justify-self: center;
-    }
-
-    &__play-btn {
-      grid-column: 2;
-      grid-row: 2;
-      justify-self: center;
-    }
-
-    &__control-btn:last-of-type {
-      grid-column: 3;
-      grid-row: 2;
-      justify-self: center;
     }
 
     // Third row: Extra controls span full width

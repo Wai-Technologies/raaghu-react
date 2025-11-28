@@ -90,6 +90,17 @@
       padding-top: 0;
       padding-bottom: 0;
     }
+    // Ensure multi-value chips are vertically centered
+    .MuiAutocomplete-inputRoot[class*="MuiAutocomplete-inputRoot"] {
+      align-items: center;
+    }
+    .MuiAutocomplete-tag {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      display: inline-flex;
+      align-items: center;
+      height: 20px;
+    }
   }
 
   &--medium {
@@ -107,6 +118,16 @@
       padding-top: 0;
       padding-bottom: 0;
     }
+    .MuiAutocomplete-inputRoot[class*="MuiAutocomplete-inputRoot"] {
+      align-items: center;
+    }
+    .MuiAutocomplete-tag {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+    }
   }
 
   &--large {
@@ -123,6 +144,16 @@
       box-sizing: border-box;
       padding-top: 0;
       padding-bottom: 0;
+    }
+    .MuiAutocomplete-inputRoot[class*="MuiAutocomplete-inputRoot"] {
+      align-items: center;
+    }
+    .MuiAutocomplete-tag {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      display: inline-flex;
+      align-items: center;
+      height: 28px;
     }
   }
 
@@ -180,6 +211,33 @@
       color: transparent !important;
       visibility: visible !important; // Keep visible for layout spacing
       user-select: none !important; // Prevent text selection of hidden content
+    }
+  }
+  .MuiInputBase-input::placeholder,
+  input::placeholder,
+  textarea::placeholder,
+  .MuiAutocomplete-inputRoot input::placeholder {
+    color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
+    opacity: 1 !important;
+  }
+
+  .dark-theme &, [data-theme="dark"] & {
+    .MuiInputBase-input::placeholder,
+    input::placeholder,
+    textarea::placeholder,
+    .MuiAutocomplete-inputRoot input::placeholder {
+      color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
+      opacity: 1 !important;
+    }
+  }
+
+  // Bottom line control style - removes borders except bottom
+  &__textfield--bottom-line {
+    .MuiOutlinedInput-notchedOutline {
+      border-left: none !important;
+      border-right: none !important;
+      border-top: none !important;
+      border-radius: 0 !important;
     }
   }
 }

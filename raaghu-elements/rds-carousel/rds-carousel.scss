@@ -85,7 +85,7 @@
     }
   }
 
-  // Title content for 'with title' style
+  // Title content for 'with title' style and 'full width image' bottom content
   &__title-content {
     padding: var(--rds-spacing-md, 16px);
     background-color: var(--rds-color-surface, #ffffff);
@@ -94,13 +94,16 @@
     flex-direction: column;
     justify-content: flex-start;
     gap: var(--rds-spacing-xs, 4px);
-    
-    &--top {
-      border-radius: var(--rds-border-radius, 8px) var(--rds-border-radius, 8px) 0 0;
+
+    // Bottom content for full width image style
+    &--bottom {
+      order: 2; // Ensure it comes after the image
+      min-height: 80px;
+      border-radius: 0 0 4px 4px;
     }
   }
   
-  // Title overlay for 'full width image' style
+  // Title overlay for 'full width image' style (keeping for backward compatibility but not used in new layout)
   &__title-overlay {
     position: absolute;
     bottom: 0;
@@ -110,7 +113,6 @@
     color: var(--rds-color-text-primary, #212121);
     padding: var(--rds-spacing-md, 16px);
     z-index: 1;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
     min-height: 80px;
     display: flex;
     flex-direction: column;
@@ -138,7 +140,7 @@
   // Slide content wrapper
   &__slide-content {
     overflow: hidden;
-    border-radius: var(--rds-border-radius, 8px);
+    border-radius: 4px;
     
     img {
       width: 100%;
@@ -151,8 +153,7 @@
 
   // Style variants
   &--default {
-    border-radius: var(--rds-border-radius, 8px);
-    box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
+    border-radius: 4px;
     .rds-carousel__indicators {
       /* Avoid negative bottom because parent has overflow:hidden which hides indicators */
       bottom: var(--rds-carousel-indicators-offset, 8px); /* Adjust via CSS var if needed */
@@ -160,8 +161,7 @@
   }
 
   &--with-title {
-    border-radius: var(--rds-border-radius, 8px);
-    box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
+    border-radius: 4px;
     background-color: var(--rds-color-surface, #ffffff);
     
     .rds-carousel__slide {
@@ -173,7 +173,7 @@
     }
     
     .rds-carousel__slide-content {
-      border-radius: 0 0 var(--rds-border-radius, 8px) var(--rds-border-radius, 8px);
+      border-radius: 0 0 4px 4px;
     }
     
     // Position arrows in the center of the image area (below title)
@@ -183,7 +183,7 @@
   }
 
   &--full-width-image {
-    border-radius: 0;
+    border-radius: 4px;
     box-shadow: none;
     position: relative;
     width: 100%;
@@ -193,13 +193,14 @@
     overflow-x: hidden;
 
     .rds-carousel__slide {
-      border-radius: 0;
+      border-radius: 4px;
       width: 100%;
       max-width: 100%;
+      background-color: var(--rds-color-surface, #ffffff);
     }
     
     .rds-carousel__slide-content {
-      border-radius: 0;
+      border-radius: 4px 4px 0 0; // Top rounded corners only since title content is below
       width: 100%;
       max-width: 100%;
       
@@ -209,15 +210,24 @@
         height: 100%;
         object-fit: cover;
         display: block;
+        border-radius: 4px 4px 0 0; // Match container border radius
       }
+    }
+
+    // Title content positioned outside and after the image
+    .rds-carousel__title-content--bottom {
+      background-color: var(--rds-color-surface, #ffffff);
+      color: var(--rds-color-text-primary, #212121);
+      border-radius: 0 0 4px 4px; // Bottom rounded corners only
+      border-top: 1px solid var(--rds-color-divider, #e0e0e0);
     }
     
     .rds-carousel__indicators {
-      bottom: 90px;
+      bottom: var(--rds-spacing-md, 16px); // Position above the title content area
       
       .rds-carousel__indicator {
-        background-color: rgba(255, 255, 255, 0.8);
-        border: 1px solid rgba(0, 0, 0, 0.2);
+        background-color: var(--rds-color-gray-400, #BDBDBD);
+        border: 1px solid var(--rds-color-gray-300, #e0e0e0);
         
         &__active {
           background-color: var(--rds-color-primary, #1976d2) !important;
@@ -225,10 +235,15 @@
         }
         
         &:hover:not(.rds-carousel__indicator__active) {
-          background-color: rgba(255, 255, 255, 0.9);
-          border: 1px solid rgba(0, 0, 0, 0.3);
+          background-color: var(--rds-color-gray-500, #9E9E9E);
+          border: 1px solid var(--rds-color-gray-400, #BDBDBD);
         }
       }
+    }
+
+    // Adjust navigation arrows to be centered on the image area only
+    .rds-carousel__navigation {
+      top: calc(50% - 50px); // Adjust for title area height below
     }
   }
 
@@ -259,14 +274,16 @@
     &--full-width-image {
       .rds-carousel__title-content {
         background-color: var(--rds-background-paper, #4a4a4a) !important;
-        box-shadow: none !important;
+      }
+
+      .rds-carousel__title-content--bottom {
+        background-color: var(--rds-background-paper, #4a4a4a) !important;
+        border-top: 1px solid var(--rds-color-divider, #555) !important;
       }
 
       .rds-carousel__title-overlay {
         background-color: rgba(18, 18, 18, 0.9) !important;
         color: var(--rds-text-primary, #ffffff) !important;
-        box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.6) !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.04) !important;
       }
 
       .rds-carousel__title-text {
@@ -359,7 +376,11 @@
     
     &--full-width-image {
       .rds-carousel__indicators {
-        bottom: 80px;
+        bottom: var(--rds-spacing-sm, 12px); // Positioned in title content area
+      }
+
+      .rds-carousel__navigation {
+        top: calc(50% - 40px); // Adjust for smaller title area on mobile
       }
     }
   }
@@ -430,7 +451,6 @@
       padding: 12px 16px;
       min-height: 70px;
       backdrop-filter: blur(8px);
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
     }
     
     &__title-text {
@@ -456,12 +476,6 @@
       text-overflow: ellipsis;
     }
     
-    &--default,
-    &--with-title {
-      margin: 0 8px;
-      border-radius: 12px;
-    }
-    
     &--with-title {
       .rds-carousel__navigation {
         top: calc(50% + 35px); // Adjust for smaller screens with title
@@ -470,8 +484,11 @@
     
     &--full-width-image {
       .rds-carousel__indicators {
-        bottom: 85px;
-        background-color: rgba(0, 0, 0, 0.7);
+        bottom: var(--rds-spacing-sm, 12px); // Positioned in title content area
+      }
+
+      .rds-carousel__navigation {
+        top: calc(50% - 35px); // Adjust for very small screens
       }
     }
   }
@@ -521,8 +538,6 @@
     
     &--default,
     &--with-title {
-      margin: 0px -30px 0 0 !important;
-      
       height: 390px !important;
       .rds-carousel__slide-content {
         height: 355px !important;
@@ -539,15 +554,23 @@
       // Ensure proper sizing on small screens without overflow
       width: 100% !important;
       max-width: 100% !important;
-      margin: 0 !important;
       
       .rds-carousel__slide-content {
-        height: 220px;
+        height: calc(100% - 80px); // Adjust for title content area
         width: 100% !important;
       }
       
       .rds-carousel__indicators {
-        bottom: 75px;
+        bottom: 8px; // In title content area
+      }
+
+      .rds-carousel__navigation {
+        top: calc(50% - 40px); // Center on image area
+      }
+
+      .rds-carousel__title-content--bottom {
+        min-height: 60px;
+        padding: 8px 12px;
       }
     }
   }
@@ -557,7 +580,7 @@
 //Large & Tablet Mobile
 @media (min-width:414px) and (max-width: 896px) {
   .rds-carousel__slide-content {
-        height: 359px !important;
+        height: 360px !important;
   }
   .rds-carousel--default .rds-carousel__indicators{
     bottom: var(--rds-carousel-indicators-offset, 12px) !important;
@@ -577,21 +600,33 @@
     // Ensure it fits properly without overflow
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 !important;
     overflow-x: hidden !important;
     // Ensure it stays within viewport bounds
     box-sizing: border-box !important;
     
-    .rds-carousel__slide,
+    .rds-carousel__slide {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
     .rds-carousel__slide-content {
-      height: 300px !important;
+      height: calc(100% - 90px) !important; // Account for title content area
       width: 100% !important;
       max-width: 100% !important;
       box-sizing: border-box !important;
     }
     
     .rds-carousel__indicators {
-      bottom: 90px !important;
+      bottom: var(--rds-spacing-sm, 12px) !important; // In title content area
+    }
+
+    .rds-carousel__navigation {
+      top: calc(50% - 45px) !important; // Center on image area
+    }
+
+    .rds-carousel__title-content--bottom {
+      min-height: 70px;
     }
   }
 }
@@ -601,7 +636,6 @@
   .rds-carousel--full-width-image {
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 !important;
     overflow-x: hidden !important;
     box-sizing: border-box !important;
     

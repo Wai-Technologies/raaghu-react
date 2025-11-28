@@ -18,31 +18,25 @@
   &__helper-text {
     // Helper-text styles
     display: block;
-    margin-left: 0px;
+    /* follow other RDS components: force left alignment and use 14px font */
+    margin-left: 0 !important;
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 1.2;
   }
 
   &__error-text {
     // Error-text styles
     display: block;
-    margin-left: 0px;
+    margin-left: 0 !important;
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 1.2;
   }
 
-  &--focused {
-    // Focused state styles
-  }
-
-  &--error {
-    // Error state styles
-  }
-
-  &--disabled {
-    // Disabled state styles
-  }
-
-  // Interactive states
-  &:hover {
-    // Hover styles
-  }
+  /* state modifier blocks removed (no local styles) to avoid empty rulesets */
 
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
@@ -91,6 +85,23 @@
     input[type="password"]::-ms-reveal {
       color: #ffffff !important;
       filter: invert(100%) !important;
+    }
+  }
+  .MuiInputBase-input::placeholder,
+  input::placeholder,
+  textarea::placeholder,
+  .MuiAutocomplete-inputRoot input::placeholder {
+    color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
+    opacity: 1 !important;
+  }
+
+  .dark-theme &, [data-theme="dark"] & {
+    .MuiInputBase-input::placeholder,
+    input::placeholder,
+    textarea::placeholder,
+    .MuiAutocomplete-inputRoot input::placeholder {
+      color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
+      opacity: 1 !important;
     }
   }
 }

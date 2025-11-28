@@ -115,6 +115,7 @@ export const Default: Story = {
 };
 
 export const AutoPlay: Story = {
+  argTypes: { state: { options: ['1', '2', '3'] } },
   args: {
     children: [
       <SampleSlide key={1} image="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" text="Auto Slide 1" />,
@@ -134,6 +135,7 @@ export const AutoPlay: Story = {
 };
 
 export const NoControls: Story = {
+  argTypes: { state: { options: ['1', '2'] } },
   args: {
     children: [
       <SampleSlide key={1} image="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80" text="No Controls 1" />,
@@ -141,7 +143,7 @@ export const NoControls: Story = {
     ],
     showArrows: false,
     showDots: false,
-    height: '250px',
+    height: '400px',
   title: 'No Controls Title',
   subtitle: 'No controls subtitle',
   },

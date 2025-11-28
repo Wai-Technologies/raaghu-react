@@ -1123,8 +1123,7 @@
     max-width: 100vw;
     padding: 8px;        
     gap: var(--rds-spacing-sm, 12px);
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden; 
     &__header {
       
       margin-left: 8px !important;
@@ -1186,15 +1185,52 @@
       padding-left: var(--rds-spacing-xs, 6px);
       padding-right: var(--rds-spacing-xs, 6px);
       padding-bottom: var(--rds-spacing-sm, 8px);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
     
     &__selection-container {
       padding-top: var(--rds-spacing-xxs, 4px);
       padding-bottom: var(--rds-spacing-xxs, 4px);
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     
     &__tab-container {
       padding: 0 var(--rds-spacing-xs, 8px);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    &__tab-pane {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: calc(100% - 60px); // Account for tab buttons height
+      
+      // Custom scrollbar for mobile
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: var(--rds-color-border, #e0e0e0);
+        border-radius: 2px;
+        
+        &:hover {
+          background: var(--rds-color-text-tertiary, #adb5bd);
+        }
+      }
     }
     
     &__tab-btn {
@@ -1226,6 +1262,27 @@
       gap: var(--rds-spacing-xs, 6px);
       margin-top: var(--rds-spacing-sm, 8px);
       margin-bottom: var(--rds-spacing-lg, 16px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      max-height: calc(100vh - 200px);
+      
+      // Custom scrollbar for mobile
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: var(--rds-color-border, #e0e0e0);
+        border-radius: 2px;
+        
+        &:hover {
+          background: var(--rds-color-text-tertiary, #adb5bd);
+        }
+      }
     }
     
     &__favourite-card {
@@ -1469,6 +1526,21 @@
       height: var(--rds-input-height-sm, 32px);
     }
   }
+
+  /* Hide outer page/viewport scrollbar on very small screens so only the
+     component's inner scrollbar is visible (keeps inner overflow auto).
+     This targets narrow viewports where the details pane acts like an overlay. */
+  html, body {
+    overflow: hidden !important;
+    -ms-overflow-style: none !important; /* IE and Edge */
+    scrollbar-width: none !important; /* Firefox */
+  }
+  html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
 }
 @media screen and (min-width: 414px) {
   .rds-comp-details-pane {
@@ -1734,17 +1806,17 @@
       color: var(--dark-text-primary) !important;
       box-shadow: var(--rds-elevation-1, 0 1px 4px rgba(0, 0, 0, 0.3)) !important;
       
-      svg, i {
-        color: var(--dark-text-primary) !important;
-      }
+      // svg, i {
+      //   color: var(--dark-text-primary) !important;
+      // }
     }
     
     &__thumbnail-image-square {
       background: var(--dark-bg-secondary) !important;
       
-      svg, i {
-        color: var(--dark-text-primary) !important;
-      }
+      // svg, i {
+      //   color: var(--dark-text-primary) !important;
+      // }
     }
     
     &__agent-card {
