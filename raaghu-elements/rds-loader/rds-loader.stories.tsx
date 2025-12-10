@@ -184,7 +184,7 @@ export const LinearWithLabel: Story = {
     label: 'Loading content...',
   },
 };
-LinearWithLabel.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'thickness', 'color', 'size'] } };
+LinearWithLabel.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'color', 'size'] } };
 
 export const LinearDeterminate: Story = {
   args: {
@@ -194,7 +194,7 @@ export const LinearDeterminate: Story = {
     label: 'Upload progress',
   },
 };
-LinearDeterminate.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'thickness', 'color', 'size'] } };
+LinearDeterminate.parameters = { controls: { include: ['variant', 'type', 'value', 'label', 'overlay', 'color', 'size'] } };
 
 export const LineWobbleWithLabel: Story = {
   args: {
