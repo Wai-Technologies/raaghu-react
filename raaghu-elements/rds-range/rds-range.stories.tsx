@@ -15,6 +15,9 @@ const meta: Meta<typeof RdsRange> = {
   },
   tags: ['autodocs'],
   argTypes: {
+    label: {
+      control: 'text',
+    },
     leftLabel: {
       control: 'number',
     },
@@ -86,6 +89,7 @@ export const Default: Story = {
               setRangeValue(value as number[]);
             }
           }}
+          label={args.label}
           type={args.type}
           level={args.level}
           leftLabel={args.leftLabel}
