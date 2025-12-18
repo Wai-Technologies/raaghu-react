@@ -282,6 +282,18 @@
     font-size: 16px;
     font-weight: 500;
     line-height: 1;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.4);
+  }
+
+  &__color-button--selected {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .rds-e-signature__checkmark {
+      color: var(--rds-color-neutral-0, #ffffff);
+      font-weight: 700;
+    }
   }
 
   &__actions {
