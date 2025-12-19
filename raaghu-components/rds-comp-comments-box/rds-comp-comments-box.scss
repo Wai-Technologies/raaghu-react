@@ -990,6 +990,11 @@ body.theme-dark,
 }
 
 
+  @media (max-width: 320px) {
+    .MuiIconButton-root svg {
+        margin-left: 3px;
+    }
+  }
 // =======================
 // Selected State Styles
 // =======================
@@ -1435,4 +1440,9 @@ body[data-theme='dark'] .rds-comments-box__text {
         min-width: 370px;
         margin-right: 0px !important;
     }
-}
+  }
+  @media (max-width: 420px) {
+    .MuiIconButton-root svg {
+        margin-left: 5px;
+    }
+  }
