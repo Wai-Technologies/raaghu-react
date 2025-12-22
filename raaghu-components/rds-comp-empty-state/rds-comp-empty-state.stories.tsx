@@ -33,6 +33,10 @@ const meta: Meta<typeof RdsCompEmptyState> = {
       control: { type: "number" },
       description: "Icon width (px if number). Default 150",
     },
+    isContinueAnimate: {
+      control: { type: "boolean" },
+      description: "Enable Lottie animation for the empty state icon. When true, displays animated Lottie instead of static PNG image",
+    },
     // iconPath: {
     //   control: { type: "text" },
     //   description: "Optional custom image path (defaults to built-in empty-state.png)",
@@ -55,12 +59,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Standard: Story = {
   args: {
-  mode: 'Light NRA',
     label: "No Data Available",
-  subLabel: "No data available at this moment. Would you like to add new data?",
-  iconHeight: 150,
-  iconWidth: 150,
+    subLabel: "No data available at this moment. Would you like to add new data?",
+    iconHeight: 150,
+    iconWidth: 150,
     buttonText: "Add New Data",
-    
+    isContinueAnimate: false,
+  
   },
 };
