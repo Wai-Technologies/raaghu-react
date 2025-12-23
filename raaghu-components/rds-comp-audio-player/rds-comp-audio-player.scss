@@ -89,6 +89,14 @@
     position: relative;
     z-index: 2;
     
+    // Ensure direct SVG icon children are properly aligned
+    > svg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+    }
+    
     button {
       background: none;
       border: none;
@@ -98,6 +106,9 @@
       border-radius: var(--rds-border-radius-sm, 4px);
       transition: all 0.2s ease;
       color: var(--rds-color-on-surface-variant);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       
       &:hover {
         background: var(--rds-color-surface-variant);
@@ -113,6 +124,8 @@
     // Ensure fab menus are positioned consistently
     .rds-fab-menu {
       position: relative;
+      display: flex;
+      align-items: center;
     }
   }
 
@@ -932,6 +945,34 @@
 [data-theme="dark"] {
   .rds-comp-audio-player__settings-modal, .rds-comp-audio-player__volume-slider-container {
     background: var(--rds-color-surface, black);
+  }
+
+  .rds-comp-audio-player__edition-btn--active {
+    background: rgba(25, 118, 210, 0.2);
+    color: #90caf9;
+    
+    &:hover {
+      background: rgba(25, 118, 210, 0.3);
+      color: #bbdefb;
+    }
+    
+    .rds-comp-audio-player__btn-icon {
+      color: #90caf9;
+    }
+  }
+
+  .rds-comp-audio-player__edition-zoom {
+    button {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      
+      &:hover:not(:disabled) {
+        background: rgba(15, 119, 223, 0.2);
+        border-color: #90caf9;
+        color: #90caf9;
+      }
+    }
   }
 }
 
