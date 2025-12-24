@@ -90,13 +90,14 @@ export const RdsMultiLevelMenu = ({
   const renderMenu = (opts: MenuOption[], level = 0) => {
     const anchorEl = anchorEls[level];
     const open = Boolean(anchorEl);
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 568;
     // For demo: force state on the first menu item only
     return (
       <Menu
         anchorEl={anchorEl}
         open={open}
         onClose={() => handleMenuClose(level)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        anchorOrigin={level > 0 && isMobile ? { vertical: 'bottom', horizontal: 'left' } : { vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
         MenuListProps={{ autoFocusItem: open, disablePadding: true }}
         PaperProps={{

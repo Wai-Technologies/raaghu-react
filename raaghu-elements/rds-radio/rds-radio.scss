@@ -207,3 +207,13 @@
     color: var(--rds-color-light, #ffffff) !important;
   }
 }
+
+.MuiRadio-root.Mui-checked,
+  .MuiButtonBase-root.MuiRadio-root.Mui-checked {
+    color: #3C98ff !important;
+
+    svg {
+      color: #3C98ff !important;
+      fill: #3C98ff !important;
+    }
+  }

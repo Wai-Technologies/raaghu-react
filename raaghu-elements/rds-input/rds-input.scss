@@ -371,7 +371,12 @@
   .MuiInput-root {
     background-color: var(--rds-background-paper, #424242);
   }
-  .MuiInputLabel-root { background-color: var(--rds-background-paper, #424242); }
+  .MuiInputLabel-root {
+    background-color: transparent;
+  }
+  .MuiInputLabel-root.MuiInputLabel-shrink {
+    background-color: var(--dark-bg-primary, #000) !important;
+  }
 
    .MuiSvgIcon-root{
       color: #f6f4f4!important;
