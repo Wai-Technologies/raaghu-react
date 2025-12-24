@@ -171,6 +171,7 @@ height: 609px;
   flex-direction: column;
   height: 100vh;
   width: 100%;
+  position: relative;
 }
 
 .rds-story-relaxing-content {
@@ -178,12 +179,16 @@ height: 609px;
   flex-direction: row;
   min-height: 0;
   padding-top: 50px;
+  position: relative;
+  z-index: 1;
 }
 
 .rds-story-relaxing-sidebar {
   min-width: 245px;
   max-width: 245px;
   height: 100%;
+  position: relative;
+  z-index: 10;
 }
 
 .rds-story-side-nav-right-content {
@@ -318,3 +323,8 @@ height: 609px;
     }
   }
 }
+
+/* Dark Theme Support */
+.theme-dark .rds-appshell-add-layout-center,
+.theme-dark .rds-appshell-add-layout-flex-center,
+.theme-dark .rds-appshell-add-layout-text { background: var(--dark-bg-secondary, #2d2d2d); color: var(--dark-text-primary, #ffffff); }
