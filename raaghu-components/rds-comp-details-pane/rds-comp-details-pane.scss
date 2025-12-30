@@ -7,7 +7,7 @@
   flex-shrink: 0;
   background: var(--rds-color-surface, #fff);
   box-shadow: var(--rds-elevation-2, 0 4px 24px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04));
-  padding: 14px 7px;
+  padding: 7px 7px;
   border: none;
   position: relative;
 
@@ -134,7 +134,7 @@
 
   &__content {
     padding-left: var(--rds-spacing-md, 11px);
-    padding-right: var(--rds-spacing-md, 11px);
+    padding-right: var(--rds-spacing-md, 0px);
     padding-bottom: calc(var(--rds-spacing-md, -16px) + 17px);
     color: var(--rds-color-surface, #141313);
     position: relative;
@@ -156,7 +156,7 @@
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    padding-top: var(--rds-spacing-xs, 8px);
+    padding-top: var(--rds-spacing-xs, 0px);
     padding-bottom: var(--rds-spacing-xs, 8px);
   }
 
