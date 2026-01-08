@@ -223,17 +223,19 @@ const RdsInput = ({
           startAdornment: iconPosition === 'start' && showIcon ? renderIcon() : null,
           endAdornment: iconPosition === 'end' && showIcon ? renderIcon() : null,
               // Props for the underlying input element
+              // Props for the underlying input element
           inputProps: {
             ...(layout === 'phone number'
               ? {
                   inputMode: 'tel',
-                  pattern: '^(?:\\+\\d{12}|\\d{10})$',
+                  pattern: '^(?:\+\d{12}|\d{10})$',
                   onKeyDown: handlePhoneKeyDown,
                   onInput: handlePhoneInput,
                 }
               : {}),
           },
           ...(props.InputProps || {}),
+          
 		  
         }}
         {...props}
