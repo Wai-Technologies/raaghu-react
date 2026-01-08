@@ -723,6 +723,8 @@
       min-width: 80px;
       max-width: 100%;
       margin: 0;
+      display: block !important;
+      visibility: visible !important;
     }
 
     &__total-time {
@@ -776,6 +778,7 @@
       grid-column: 2;
       grid-row: 1;
       justify-self: stretch;
+      display: block !important;
     }
 
     &__total-time {
