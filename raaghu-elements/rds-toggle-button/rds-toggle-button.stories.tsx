@@ -264,6 +264,7 @@ export const StandaloneToggleButton: Story = {
 </RdsStandaloneToggleButton>`
       }
     },
+    controls: { include: ['size', 'color', 'disabled'] },
   },
   render: (args) => (
       <RdsStandaloneToggleButton
@@ -276,9 +277,6 @@ export const StandaloneToggleButton: Story = {
         <Check />
       </RdsStandaloneToggleButton>
   )
-};
-StandaloneToggleButton.parameters = {
-  controls: { include: ['size', 'color', 'disabled'] },
 };
 
 export const UncontrolledWithDisplay: Story = {
