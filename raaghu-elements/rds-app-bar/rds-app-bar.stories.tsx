@@ -569,7 +569,7 @@ const DynamicTemplate = (args: any) => {
         showLogo: config.showLogo,
         title: ' ',
         leftActions: <LogoSearchTabsLeftActions />,
-        rightActions: <ProfileMenu name="John Doe" shortName="JD" email="john.doe@example.com" />,
+        rightActions: <ProfileMenu name="John Doe" email="john.doe@example.com" />,
         // Only show the left action icons in the overflow drawer for this
         // variant (so users get the icon menu shown in the screenshot).
         // Do not include the full ProfileMenu here to avoid showing the
@@ -583,7 +583,6 @@ const DynamicTemplate = (args: any) => {
             <BellIcon />
           </div>
         ),
-        rightActions: <ProfileMenu name={args.userName || 'John Doe'} email={args.userEmail || 'john.doe@example.com'} />,
       };
       break;
     case 'logotabsactions':
@@ -952,15 +951,16 @@ const DynamicTemplate = (args: any) => {
 };
 
 export const Default: Story = {
-  args: ({
+  args: {
     size: 'medium',
     variantStyle: 'default',
     userName: 'John Doe',
+    userShortName: 'JD',
     userEmail: 'john.doe@example.com',
-  } as unknown) as any,
+  },
   render: DynamicTemplate,
 };
-Default.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton'] } };
+Default.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton', 'userName', 'userEmail'] } };
 
 // Individual stories for direct access
 export const WithSearch: Story = {

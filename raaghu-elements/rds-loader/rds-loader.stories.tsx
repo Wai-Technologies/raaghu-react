@@ -103,6 +103,13 @@ export const AnimatedLinearProgress: Story = {
     );
   },
   argTypes: hideAllControls,
+  parameters: {
+    docs: {
+      source: {
+        code: `<RdsLoader variant="linear" value={progress} label="Linear Progress" />`,
+      },
+    },
+  },
 };
 
 export const AnimatedCircularProgress: Story = {
@@ -123,6 +130,13 @@ export const AnimatedCircularProgress: Story = {
     );
   },
   argTypes: hideAllControls,
+  parameters: {
+    docs: {
+      source: {
+        code: `<RdsLoader variant="circular" value={progress} label="Circular Progress" />`,
+      },
+    },
+  },
 };
 
 export const Colors: Story = {
@@ -145,6 +159,18 @@ export const Colors: Story = {
     </Box>
   ),
   argTypes: hideAllControls,
+  parameters: {
+    docs: {
+      source: {
+        code: `<RdsLoader variant="circular" color="primary" />
+              <RdsLoader variant="circular" color="secondary" />
+              <RdsLoader variant="circular" color="error" />
+              <RdsLoader variant="circular" color="warning" />
+              <RdsLoader variant="circular" color="info" />
+              <RdsLoader variant="circular" color="success" />`,
+      },
+    },
+  },
 };
 
 export const CircularDefault: Story = {
@@ -278,6 +304,15 @@ export const Sizes: Story = {
     </Box>
   ),
   argTypes: hideAllControls,
+  parameters: {
+    docs: {
+      source: {
+        code: `<RdsLoader variant="circular" size="small" color="primary" />
+              <RdsLoader variant="circular" size="medium" color="secondary" />
+              <RdsLoader variant="circular" size="large" color="success" />`,
+      },
+    },
+  },
 };
 
 export const SandWithLabel: Story = {
@@ -328,4 +363,17 @@ export const WithOverlay: Story = {
     );
   },
   argTypes: hideAllControls,
+  parameters: {
+    docs: {
+      source: {
+        code: `<RdsLoader
+                variant="circular"
+                size="large"
+                color="primary"
+                label="Processing..."
+                overlay
+              />`,
+      },
+    },
+  },
 };
