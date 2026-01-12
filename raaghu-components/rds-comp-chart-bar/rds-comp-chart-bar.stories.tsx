@@ -16,6 +16,10 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        height: {
+            control: 'text',
+            description: 'Height of the chart (e.g., "400px", "50vh", or number for pixels)',
+        },
     },
 } satisfies Meta<typeof RdsCompBarChart>;
 
