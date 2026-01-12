@@ -1902,69 +1902,73 @@
   @media (max-width: 420px) {
     .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
       order: 2 !important;
-      flex: 0 1 auto !important;
+      flex: 1 !important;
       min-width: 0 !important;
+      max-width: calc(100% - 140px) !important;
       position: relative !important;
       transform: none !important;
+      margin-right: 0 !important;
     }
 
     .rds-header--variant-logosearchtabs .rds-appbar-overflow-button {
       order: 3 !important;
       position: absolute !important;
-      right: 12px !important;
+      right: 52px !important;
       top: 50% !important;
       transform: translateY(-50%) !important;
       z-index: 4 !important;
+      margin: 0 !important;
     }
 
     .rds-header--variant-logosearchtabs .rds-profile-menu__button {
-      order: 4 !important; /* comes after search and overflow */
-      margin-left: 6px !important;
+      order: 4 !important;
+      margin-left: 0 !important;
       margin-right: 0 !important;
       position: absolute !important;
-      right: 0px !important;
+      right: 12px !important;
       top: 50% !important;
       transform: translateY(-50%) !important;
       z-index: 5 !important;
     }
 
-    .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
-      max-width: calc(100% - 120px) !important;
-      margin-right: 4px !important;
+    .rds-header--variant-logosearchtabs .rds-header__toolbar {
+      padding-right: 80px !important;
     }
   }
 
   @media (max-width: 320px) {
     .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
       order: 2 !important;
-      flex: 0 1 auto !important;
+      flex: 1 !important;
       min-width: 0 !important;
-      max-width: 80px !important;
+      max-width: calc(100% - 120px) !important;
+      margin-right: 0 !important;
+      transform: none !important;
     }
 
     .rds-header--variant-logosearchtabs .rds-appbar-overflow-button {
       order: 3 !important;
       position: absolute !important;
-      right: 8px !important;
+      right: 44px !important;
       top: 50% !important;
       transform: translateY(-50%) !important;
       z-index: 4 !important;
+      margin: 0 !important;
     }
 
     .rds-header--variant-logosearchtabs .rds-profile-menu__button {
       order: 4 !important;
       position: absolute !important;
-      right: 0px !important;
+      right: 8px !important;
       top: 50% !important;
       transform: translateY(-50%) !important;
       width: auto !important;
       z-index: 5 !important;
+      margin: 0 !important;
     }
 
-    .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
-      transform: translateX(-4px) !important;
-      max-width: calc(100% - 100px) !important;
-      margin-right: 4px !important;
+    .rds-header--variant-logosearchtabs .rds-header__toolbar {
+      padding-right: 68px !important;
     }
   }
   
