@@ -14,6 +14,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
   }
   
   // Header section (logo/avatar area)
@@ -75,6 +76,8 @@
   &__nav-list {
     flex: 1;
     padding: 0;
+    overflow-x: auto;
+    max-height: 100%;
   }
   
   &__nav-item {
@@ -93,6 +96,14 @@
   
   &__nav-button {
     min-height: 48px;
+    
+    .MuiListItemText-root {
+      flex-shrink: 0;
+      
+      .MuiListItemText-primary {
+        white-space: nowrap;
+      }
+    }
     
     &--collapse {
       justify-content: center;
@@ -114,13 +125,13 @@
   }
   
   &__nav-icon {
-    min-width: 48px;
+    min-width: 30px;
     justify-content: center;
     display: flex;
     align-items: center;
     
     &--with-label {
-      margin-right: 16px;
+      margin-right: 4px;
     }
     
     &--no-label {
@@ -132,6 +143,7 @@
   &__footer {
     width: 100%;
     padding: 0;
+    overflow-x: hidden;
   }
   
   &__footer-divider {
@@ -143,6 +155,7 @@
   &__avatar-container {
     padding: 4px 16px;
     display: flex;
+    overflow-x: hidden;
     
     &--collapse {
       justify-content: center;
