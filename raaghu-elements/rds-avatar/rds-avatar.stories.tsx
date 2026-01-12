@@ -194,6 +194,8 @@ export const Small: Story = {
   args: {
     title: 'Small User',
     size: 'small',
+    showDesignation: false,
+    subText: 'Designation',
   },
   parameters: {
     controls: {
@@ -201,8 +203,7 @@ export const Small: Story = {
         'maxVisibleAvatars',
         'alt',
         'src',
-        'showDesignation',
-        'subText'
+        // Keep controls visible for designation toggling
       ]
     },
   },
