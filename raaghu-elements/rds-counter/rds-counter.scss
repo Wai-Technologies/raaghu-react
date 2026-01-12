@@ -787,3 +787,14 @@
     margin-right: 8px;
   }
 }
+
+@media (max-width: 768px) {
+  .rds-counter .MuiIconButton-root {
+    padding: 0 !important;
+  }
+
+  .rds-counter__icon svg,
+  .rds-counter__icon .MuiSvgIcon-root {
+    display: block !important;
+  }
+}
