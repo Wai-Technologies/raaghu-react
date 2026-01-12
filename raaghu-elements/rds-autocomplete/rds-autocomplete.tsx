@@ -1,5 +1,5 @@
 import React from 'react';
-import { Autocomplete as MuiAutocomplete, TextField, type AutocompleteProps } from '@mui/material';
+import { Autocomplete as MuiAutocomplete, TextField, Chip, type AutocompleteProps } from '@mui/material';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
@@ -98,6 +98,34 @@ const RdsAutocomplete = <T extends { label?: string },>({
     <MuiAutocomplete
       {...props}
       multiple={allowMultiple}
+      limitTags={allowMultiple ? 4 : undefined}
+      renderTags={allowMultiple ? (value, getTagProps) => {
+        const visibleTags = value.slice(0, 4);
+        const remainingCount = value.length - 4;
+        
+        return (
+          <>
+            {visibleTags.map((option, index) => (
+              <Chip
+                key={index}
+                variant="filled"
+                label={(option as any)?.label || option}
+                size="small"
+                {...getTagProps({ index })}
+                className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize}`}
+              />
+            ))}
+            {remainingCount > 0 && (
+              <Chip
+                variant="filled"
+                label={`+${remainingCount} more`}
+                size="small"
+                className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize} rds-autocomplete__chip--overflow`}
+              />
+            )}
+          </>
+        );
+      } : undefined}
       sx={{ width: '100%' }}
       ListboxProps={{
         sx: {
@@ -158,28 +186,30 @@ const RdsAutocomplete = <T extends { label?: string },>({
         }}
 
         popupIcon={popupIcon}
-        renderInput={(params) => (
-        <TextField
-          {...params}
-          placeholder={placeholder}
-          // Only pass helperText when hint text should be shown. When hidden, avoid passing
-          // the prop so MUI does not render the helper <p> element (which previously
-          // received a non-breaking space when helperText was falsy).
-          helperText={showHintText ? (helperText ?? '\u00A0') : undefined}
-          error={error}
-          variant={variant}
-          className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass} ${!showHintText ? 'rds-autocomplete__textfield--hidden-helper' : ''}`}
-          onFocus={(e) => {
-            if (openOnFocus && state !== 'expanded') {
-              setOpen(true);
-            }
-            // Call the original onFocus if it exists
-            if (params.inputProps?.onFocus) {
-              params.inputProps.onFocus(e as React.FocusEvent<HTMLInputElement>);
-            }
-          }}
-        />
-      )}
+        renderInput={(params) => {
+          const shouldShowPlaceholder = allowMultiple 
+            ? (Array.isArray(selected) ? selected.length === 0 : !selected)
+            : true;
+          
+          return (
+            <TextField
+              {...params}
+              placeholder={shouldShowPlaceholder ? placeholder : ''}
+              helperText={showHintText ? (helperText ?? '\u00A0') : undefined}
+              error={error}
+              variant={variant}
+              className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass} ${!showHintText ? 'rds-autocomplete__textfield--hidden-helper' : ''}`}
+              onFocus={(e) => {
+                if (openOnFocus && state !== 'expanded') {
+                  setOpen(true);
+                }
+                if (params.inputProps?.onFocus) {
+                  params.inputProps.onFocus(e as React.FocusEvent<HTMLInputElement>);
+                }
+              }}
+            />
+          );
+        }}
     />
     </div>
   );

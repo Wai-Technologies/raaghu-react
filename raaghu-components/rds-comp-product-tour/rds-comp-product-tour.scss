@@ -564,7 +564,8 @@
       background-color: transparent !important;
       min-width: 90px !important;
       width: 90px !important;
-      height: 36px !important;
+      height: 38px !important;
+      text-transform: none !important; 
 
       &:hover {
         background-color: #7c3aed !important;
@@ -674,6 +675,7 @@
     height: 36px !important;
     padding: 6px 12px !important;
     box-sizing: border-box !important;
+    text-transform: none !important; 
   }
 
   &__form-button-right {
@@ -687,6 +689,7 @@
       border-color: #7c3aed !important;
       color: #7c3aed !important;
       background-color: transparent !important;
+      text-transform: none !important;
 
       &:hover {
         background-color: #7c3aed !important;
@@ -702,6 +705,7 @@
       height: 36px !important;
       padding: 6px 12px !important;
       box-sizing: border-box !important;
+      text-transform: none !important; 
     }
   }
 
@@ -771,6 +775,7 @@
       background-color: #7c3aed !important; // Purple background to match theme
       border-color: #7c3aed !important; // Purple border
       color: #fff !important;
+      text-transform: none !important;
 
     }
 
@@ -779,6 +784,7 @@
       background-color: #7c3aed !important;
       border-color: #7c3aed !important;
       color: #fff !important;
+      text-transform: none !important;
     }
     .rds-file-uploader__choose-btn:hover {
       background-color: #7c3aed !important; // Darker purple on hover
@@ -792,6 +798,7 @@
       background-color: #7c3aed !important;
       border-color: #7c3aed !important;
       color: #fff !important;
+      text-transform: none !important;
     }
 
     .rds-file-uploader__text {
