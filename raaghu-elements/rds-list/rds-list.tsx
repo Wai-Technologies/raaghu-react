@@ -37,6 +37,7 @@ const RdsList: React.FC<RdsListProps> = ({
   onCheckboxChange,
   checkedItems = [],
   className,
+  dense,
   ...props
 }) => {
   const [openMap, setOpenMap] = useState<Record<string | number, boolean>>({});
@@ -47,7 +48,8 @@ const RdsList: React.FC<RdsListProps> = ({
 
   // Root class based on variant and other props
   const variantClass = variant === 'firebase' ? 'rds-list--firebase' : '';
-  const rootClass = ['rds-list', variantClass, className].filter(Boolean).join(' ');
+  const denseClass = dense ? 'rds-list--dense' : '';
+  const rootClass = ['rds-list', variantClass, denseClass, className].filter(Boolean).join(' ');
 
   const getItemClass = (item: RdsListItem) => {
     let cls = 'rds-list__item';

@@ -26,6 +26,12 @@
       border-bottom: none;
     }
     
+    // Modifier: No gutters (removes horizontal padding)
+    &--no-gutters {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    
     // Item states and modifiers
     &--expandable {
       padding-right: var(--rds-spacing-xl, 32px);
@@ -150,6 +156,11 @@
     .rds-list__item {
       min-height: 40px;
       padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-md, 16px);
+      
+      // When both dense and no-gutters are applied, only adjust vertical padding
+      &--no-gutters {
+        padding: var(--rds-spacing-xs, 4px) 0;
+      }
     }
     
     .rds-list__content-primary {
