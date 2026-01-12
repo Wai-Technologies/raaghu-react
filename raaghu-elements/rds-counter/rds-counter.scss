@@ -254,6 +254,7 @@
   flex: 1;
   min-width: 40px;
   max-width: 80px;
+  box-sizing: border-box;
 
   input {
     text-align: center !important;
@@ -264,10 +265,12 @@
     border: none;
     color: inherit;
     width: 100%;
+    box-sizing: border-box;
     
     &:focus {
       outline: none;
       background-color: transparent;
+      box-shadow: none;
     }
 
     // Remove number input arrows
@@ -299,6 +302,7 @@
     font-size: var(--rds-font-size-sm, 14px);
     min-width: 30px;
     max-width: 60px;
+    padding: 2px !important;
   }
 
   &--medium {
