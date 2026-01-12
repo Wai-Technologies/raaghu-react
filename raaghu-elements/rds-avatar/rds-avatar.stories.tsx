@@ -60,6 +60,11 @@ const meta: Meta<typeof RdsAvatar> = {
       control: { type: 'number', min: 1, max: 5, step: 1 },
       description: 'Maximum number of avatars to show in stacking mode (1-5)',
     },
+    displayStyle: {
+      control: 'select',
+      options: ['with-name', 'name-bottom', 'stacking'],
+      description: 'Layout style for displaying the avatar (with-name: horizontal layout, name-bottom: vertical layout, stacking: multiple avatars)',
+    },
   },
 };
 
