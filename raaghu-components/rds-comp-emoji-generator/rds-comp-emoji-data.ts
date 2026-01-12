@@ -40,11 +40,7 @@ const allEmojis: Emoji[] = (data as unknown as Emoji[])
     if (e.emoji.length > 7) {
       return false;
     }
-    // Filter out regional indicator symbols (flag components) that appear as blank squares
-    const codePoint = e.emoji.codePointAt(0);
-    if (codePoint && codePoint >= 0x1F1E6 && codePoint <= 0x1F1FF) {
-      return false;
-    }
+    // Note: regional indicator symbols (flags) are allowed now so flags show in the UI
     return true;
   });
 

@@ -50,6 +50,10 @@ const meta: Meta<typeof RdsTextField> = {
       control: 'number',
       description: 'Number of rows for multiline fields',
     },
+    defaultValue: {
+      control: 'text',
+      description: 'Default value for the text field',
+    },
   },
 };
 

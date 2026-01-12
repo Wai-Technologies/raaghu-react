@@ -64,12 +64,12 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     // Responsive sizing for specific screen sizes
     if (width <= 320) {
       // Small mobile (320px)
-      setDynamicPanelSize(3.5);
-      setDynamicPanelMargin(0.8);
+      setDynamicPanelSize(8);
+      setDynamicPanelMargin(1.2);
     } else if (width <= 414) {
       // Large mobile (414px) 
-      setDynamicPanelSize(4.5);
-      setDynamicPanelMargin(1);
+      setDynamicPanelSize(9);
+      setDynamicPanelMargin(1.2);
     } else if (width <= 834) {
       // Tablet (834px)
       setDynamicPanelSize(8);

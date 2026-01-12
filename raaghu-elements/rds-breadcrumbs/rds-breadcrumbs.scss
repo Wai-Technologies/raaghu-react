@@ -1,6 +1,13 @@
 // RDS Breadcrumbs Component Styles
 // Breadcrumb navigation
 
+[data-theme="dark"],
+.dark-theme {
+  .css-1jncskg-MuiSvgIcon-root {
+    fill: var(--rds-color-primary, #1976d2) !important;
+  }
+}
+
 .rds-breadcrumbs {
   display: flex;
   align-items: center;
