@@ -1034,18 +1034,22 @@
       display: flex;
       flex-wrap: wrap !important;
       justify-content: flex-start !important;
-      gap: 8px !important;
-       margin-left: 45px;
+      gap: 6px !important;
+      margin-left: 0px;
       width: 100%;
     }
 
     &__sub-tabs .MuiButton-root {
-      flex: 0 1 auto !important;
-      min-width: 28% !important;  
-      max-width: 46% !important;   
+      flex: 0 0 auto !important;
       white-space: nowrap !important;
       padding: 6px 10px !important;
       font-size: 13px !important;
+      min-width: auto !important;
+    }
+
+    &__sub-tabs .MuiButton-root .MuiSvgIcon-root {
+      font-size: 16px !important;
+      margin-right: 4px !important;
     }
   }
 
@@ -1054,20 +1058,20 @@
       display: flex;
       flex-wrap: wrap !important;
       justify-content: flex-start !important;
-      margin-left: 15px;
+      margin-left: 0px;
       gap: 6px !important;
       width: 100%;
     }
 
     &__sub-tabs .MuiButton-root {
-      flex: 0 1 auto !important;
-      min-width: 30% !important;
-      max-width: 48% !important;
-      padding: 5px 8px !important;
+      flex: 0 0 auto !important;
+      padding: 6px 8px !important;
       font-size: 12px !important;
+      white-space: nowrap !important;
+      min-width: auto !important;
     }
 
-    &__sub-tabs .MuiButton-root .MuiSvgIcon-root { font-size: 16px !important; margin-right: 6px !important; }
+    &__sub-tabs .MuiButton-root .MuiSvgIcon-root { font-size: 16px !important; margin-right: 4px !important; }
   }
 
   &--sticky {
@@ -1591,6 +1595,16 @@
     display: flex !important;
     flex-direction: row !important;
     min-height: 56px !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    background: var(--rds-color-surface-alt, #f5f5f7) !important;
+    border-top: 1px solid var(--rds-color-border, #e0e0e0) !important;
+    padding: 8px 12px !important;
+    margin: 0 !important;
+    z-index: 10 !important;
   }
   
   .rds-header--variant-withmenubutton .rds-bottom-navigation-single-row {
@@ -1598,6 +1612,19 @@
     width: 100% !important;
     justify-content: space-around !important;
     align-items: center !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-header__toolbar {
+    position: relative !important;
+    overflow: visible !important;
+  }
+
+  .rds-header--variant-withmenubutton.rds-header {
+    overflow: visible !important;
+  }
+
+  .rds-header--variant-withmenubutton .MuiAppBar-root {
+    overflow: visible !important;
   }
 
   .rds-header--variant-withmenubutton .rds-withmenubutton-settings { display: inline-flex !important; order: 4 !important; margin-left: 6px !important; }
@@ -2214,7 +2241,8 @@
 
 .rds-bottom-navigation {
   position: fixed;
-  bottom: 0;
+  // bottom: 0;
+  top: 63px;
   left: 0;
   right: 0;
   display: flex;
