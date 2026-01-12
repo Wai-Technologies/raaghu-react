@@ -27,8 +27,8 @@
       font-size: var(--rds-font-size-body, 1rem);
       line-height: var(--rds-line-height-body, 1.5);
       color: #646464 !important;
-    }  
-    
+    }
+  
     // Option modifiers
     &--icon {
       .MuiFormControlLabel-label {
@@ -205,5 +205,15 @@
   }
    .MuiFormLabel-root {
     color: var(--rds-color-light, #ffffff) !important;
+  }
+  // Ensure radio button icon has same color in dark mode
+  .MuiRadio-root.Mui-checked,
+  .MuiButtonBase-root.MuiRadio-root.Mui-checked {
+    color: #3C98ff !important;
+    
+    svg {
+      color: #3C98ff !important;
+      fill: #3C98ff !important;
+    }
   }
 }
