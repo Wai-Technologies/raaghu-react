@@ -188,7 +188,7 @@ const RdsBreadcrumbs = ({
     }
     
     const IconComp = iconMap[iconName.toLowerCase()] || HomeOutlinedIcon;
-    return <IconComp sx={{ fontSize: 20, verticalAlign: 'middle', mr: 0.5 }} />;
+    return <IconComp sx={{ fontSize: 20, verticalAlign: 'middle', mr: 0.5 }} color="inherit" />;
   };
 
   return (
