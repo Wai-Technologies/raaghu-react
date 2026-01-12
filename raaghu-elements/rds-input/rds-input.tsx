@@ -38,18 +38,37 @@ const RdsInput = ({
   icon,
   error,
   disabled,
+  value,
+  onChange,
+  onFocus,
+  onBlur,
   ...props
 }: RdsInputProps) => {
   // State for password visibility
   const [showPassword, setShowPassword] = React.useState(false);
   // Internal focus tracking to auto-apply active class when state is default
   const [isFocused, setIsFocused] = React.useState(false);
-    const [internalValue, setInternalValue] = React.useState(props.value ?? '');
+  const [internalValue, setInternalValue] = React.useState('');
+  const isControlled = value !== undefined;
+  React.useEffect(() => {
+    if (!isControlled) {
+      setInternalValue('');
+    }
+  }, [layout, isControlled]);
   
   // Toggle password visibility
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const handleInternalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isControlled) {
+      setInternalValue(event.target.value);
+    }
+    onChange?.(event);
+  };
+
+  const currentValue = isControlled ? value : internalValue;
   // Custom styles for input size
   // Determine size class
   const sizeClass = size === 'small' ? 'rds-input--small' : 
@@ -84,7 +103,7 @@ const RdsInput = ({
       break;
     case 'number':
     case 'card number':
-      inputType = 'number';
+      inputType = 'tel';
       break;
     case 'phone number':
       inputType = 'tel';
@@ -113,8 +132,7 @@ const RdsInput = ({
     );
   };
 
-  // Handlers to enforce digits-only when layout is 'phone number'
-  const handlePhoneKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleNumericKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const allowedKeys = [
       'Backspace',
       'Delete',
@@ -136,13 +154,15 @@ const RdsInput = ({
     const isPlusKey = e.key === '+';
     const isDigit = /^[0-9]$/.test(e.key);
 
-    // Only allow '+' at the very beginning and only once
-    if (isPlusKey) {
+    if (isPlusKey && layout === 'phone number') {
       const atStart = selectionStart === 0;
       const replacingPlus = hasPlus && selectionStart === 0 && selectionEnd > 0;
       if (!atStart || (hasPlus && !replacingPlus)) {
         e.preventDefault();
       }
+      return;
+    } else if (isPlusKey && layout !== 'phone number') {
+      e.preventDefault();
       return;
     }
 
@@ -151,8 +171,7 @@ const RdsInput = ({
       return;
     }
 
-    // Enforce max digits: 12 if starts with '+', otherwise 10
-    if (isDigit) {
+    if (isDigit && layout === 'phone number') {
       const value = input.value;
       const selectedSegment = value.slice(selectionStart, selectionEnd);
       const digitsInValue = value.replace(/\D/g, '').length;
@@ -175,6 +194,16 @@ const RdsInput = ({
     if (orig !== next) {
       // Sanitize pasted/typed characters
       target.value = next;
+      if (!isControlled) {
+        setInternalValue(next);
+      }
+      if (onChange) {
+        const event = {
+          ...e,
+          target: { ...target, value: next }
+        } as React.ChangeEvent<HTMLInputElement>;
+        onChange(event);
+      }
     }
   };
   const getPlaceholder = (layoutType: RdsInputProps['layout'] | undefined) => {
@@ -213,13 +242,10 @@ const RdsInput = ({
         type={inputType}
         fullWidth
         focused={active}
-        value={layout === 'phone number' ? '' : internalValue}
-        onChange={(e) => {
-          setInternalValue(e.target.value);
-          props.onChange?.(e);
-        }}
-        onFocus={(e) => { setIsFocused(true); props.onFocus?.(e); }}
-        onBlur={(e) => { setIsFocused(false); props.onBlur?.(e); }}
+        value={currentValue}
+        onChange={handleInternalChange}
+        onFocus={(e) => { setIsFocused(true); onFocus?.(e); }}
+        onBlur={(e) => { setIsFocused(false); onBlur?.(e); }}
         InputProps={{ 
           className: 'rds-input__field',
           classes: {
@@ -231,12 +257,12 @@ const RdsInput = ({
               // Props for the underlying input element
               // Props for the underlying input element
           inputProps: {
-            ...(layout === 'phone number'
+            ...(layout === 'phone number' || layout === 'number' || layout === 'card number'
               ? {
-                  inputMode: 'tel',
-                  pattern: '^(?:\+\d{12}|\d{10})$',
-                  onKeyDown: handlePhoneKeyDown,
-                  onInput: handlePhoneInput,
+                  inputMode: layout === 'phone number' ? 'tel' : 'numeric',
+                  ...(layout === 'phone number' ? { pattern: '^(?:\+\d{12}|\d{10})$' } : {}),
+                  onKeyDown: handleNumericKeyDown,
+                  ...(layout === 'phone number' ? { onInput: handlePhoneInput } : {}),
                 }
               : {}),
           },
