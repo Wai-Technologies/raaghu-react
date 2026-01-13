@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import RdsCompEmptyState from "./rds-comp-empty-state";
-import emptyStatePng from "./empty-state.png";
-import emptyStateDarkPng from "./empty-state-dark.png";
 
 
 const meta: Meta<typeof RdsCompEmptyState> = {
