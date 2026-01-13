@@ -128,7 +128,7 @@ export const renderFormInputs = () => (
                 />
             </Box>
             <Box className="rds-comp-product-tour__form-action-btn">
-                <RdsButton text="CREATE" style="outlined" size="medium" layout="text-only" />
+                <RdsButton text="Create" style="outlined" size="medium" layout="text-only" />
             </Box>
         </Box>
         </Box>
@@ -162,7 +162,7 @@ export const renderFormInputs = () => (
                 />
                 </Box>
                 <Box className="rds-comp-product-tour__form-action-btn">
-                    <RdsButton text="ADD" style="outlined" size="medium" layout="text-only" />
+                    <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
                 </Box>
             </Box>
         </Box>
@@ -171,7 +171,7 @@ export const renderFormInputs = () => (
         </Box>
         <Box className="rds-comp-product-tour__form-button-right">
             <Box className="rds-comp-product-tour__form-action-btn">
-                <RdsButton text="ADD" style="outlined" size="medium" layout="text-only" />
+                <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
             </Box>
         </Box>
     </>
