@@ -273,6 +273,12 @@ export const Variants: Story = {
 export const WithoutIcons: Story = {
   render: (args) => {
     const [searchValue, setSearchValue] = useState('');
+    const [searchResults, setSearchResults] = useState<string[]>([]);
+
+    const handleSearch = (value: string) => {
+      const mockResults = value ? [`Result for "${value}"`] : [];
+      setSearchResults(mockResults);
+    };
 
     return (
       <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400 })()}>
@@ -282,7 +288,7 @@ export const WithoutIcons: Story = {
         <RdsSearch
           value={searchValue}
           onChange={setSearchValue}
-          onSearch={(value) => alert(`Searching for: ${value}`)}
+          onSearch={handleSearch}
           placeholder="Simple search"
           showSearchIcon={false}
           showClearButton={false}
@@ -290,6 +296,17 @@ export const WithoutIcons: Story = {
         />
       );
     })()}
+        {searchResults.length > 0 && (
+          <Box sx={{ mt: 2 }}>
+            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+              {searchResults.map((result, index) => (
+                <Box key={index} sx={{ py: 0.5 }}>
+                  {result}
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        )}
       </Box>
     );
   },

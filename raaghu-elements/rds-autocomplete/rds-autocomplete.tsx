@@ -99,6 +99,13 @@ const RdsAutocomplete = <T extends { label?: string },>({
       {...props}
       multiple={allowMultiple}
       sx={{ width: '100%' }}
+      ListboxProps={{
+        sx: {
+          '& .MuiAutocomplete-option': {
+            minWidth: 'fit-content',
+          }
+        }
+      }}
       open={open}
       onOpen={() => {
         if (state !== 'expanded') {
@@ -116,8 +123,9 @@ const RdsAutocomplete = <T extends { label?: string },>({
         renderOption={(optionProps, option, { selected: checked }) => {
           const showDefault = !isShowCheckbox && !isShowRadio && !isShowUser;
           const singleMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length === 1;
-          // Reduce gap specifically for user icon to minimize space
-          const labelGap = singleMode && isShowUser ? 9 : (singleMode && isShowCheckbox ? 8 : (singleMode ? 28 : 8));
+          const multiMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length > 1;
+          // Reduce gap to minimize space between icon and text
+          const labelGap = multiMode ? 2 : (singleMode && isShowUser ? 6 : (singleMode ? 4 : 8));
           // If all three are false, show only the label
           if (showDefault) {
             return (
@@ -130,20 +138,20 @@ const RdsAutocomplete = <T extends { label?: string },>({
           }
           // Otherwise, show icons as per logic
           return (
-            <li {...optionProps} style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: `${labelGap}px`, ml: 1, mr: 1 }}>
+            <li {...optionProps} style={{ display: 'flex', alignItems: 'center', padding: 0, width: '100%' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: `${labelGap}px`, ml: 0.5, mr: 0.5, width: '100%', overflow: 'hidden' }}>
                 {(isShowCheckbox) && (
-                  <RdsCheckbox status={checked ? 'checked' : 'unchecked'} tabIndex={-1} disableRipple sx={{ p: '4px' }} />
+                  <RdsCheckbox status={checked ? 'checked' : 'unchecked'} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
                 )}
                 {(isShowUser) && (
-                  <Box sx={{ display: 'flex', alignItems: 'center', p: '5px' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', p: '2px', flexShrink: 0 }}>
                     {userIcon}
                   </Box>
                 )}
                 {(isShowRadio) && (
-                  <Radio checked={checked} tabIndex={-1} disableRipple sx={{ p: '4px' }} />
+                  <Radio checked={checked} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
                 )}
-                <span>{(option as any).label || option}</span>
+                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{(option as any).label || option}</span>
               </Box>
             </li>
           );

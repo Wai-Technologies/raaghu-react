@@ -24,6 +24,7 @@
       padding: 1px;
       z-index: 1;
       box-sizing: border-box;
+      pointer-events: none; /* Allow scroll interaction through controls container */
       button {
         background: transparent;
         border: none;
@@ -38,6 +39,7 @@
         align-items: center;
         justify-content: center;
         box-sizing: border-box;
+        pointer-events: auto; /* Re-enable pointer events for buttons only */
 
         &:hover {
           background-color: var(--rds-color-gray-200, #e2e8f0);
@@ -52,6 +54,8 @@
     display: flex;
     justify-content: center;
     margin: 0 auto;
+    position: relative;
+    z-index: 0;
   }
     .rds-scrollbar__inner-content {
         height: 800px;
@@ -108,21 +112,12 @@
 
 /* Override all MUI SVG Icons within scrollbar component */
 .rds-scrollbar {
-  /* Target both the class pattern and the generic MUI class */
+  /* Style MUI SVG icons within buttons */
   .MuiSvgIcon-root,
-  [class*="-MuiSvgIcon-root"] {
-    font-size: inherit;
-    width: 15px;
-    height: 15px;
-  }
-  
-  /* Specific styling for scrollbar icons */
-  &__icon {
-    width: 70%;
-    height: auto;
-    max-width: 12px;
-    max-height: 12px;
-    font-size: inherit !important; /* Important to override MUI's default */
+  [class*="-MuiSvgIcon-root"],
+  svg {
+    width: 10px;
+    height: 10px;
     color: var(--rds-color-gray-500, #94a3b8);
   }
 }
@@ -147,10 +142,9 @@
     outline: none;
   }
   
-  .rds-scrollbar__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  svg {
+    width: 10px;
+    height: 10px;
     color: var(--rds-color-gray-500, #94a3b8);
   }
 }

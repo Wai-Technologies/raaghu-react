@@ -261,11 +261,9 @@
       }
 
       .rds-comp-chat__comment-content {
-        background-color: var(--rds-color-surface-variant, #7825E9);
         border-radius: 8px 8px 0px 8px;
         padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px);
         font-size: var(--rds-font-size-body, 14px);
-        color: var(--rds-color-on-surface-variant, #f7f7f7);
         max-width: 280px;
         word-wrap: break-word;
         text-align: left;
@@ -284,8 +282,6 @@
       }
 
       .rds-comp-chat__comment-content {
-        background-color: var(--rds-color-primary,rgb(225, 227, 234));
-        color: var(--rds-color-on-primary, rgb(32, 32, 32));
         border-radius: 8px 8px 8px 0px;
         padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px);
         font-size: var(--rds-font-size-body, 14px);
@@ -1132,8 +1128,7 @@
 
 [data-theme="dark"] {
   .rds-comp-chat__message--other-user .rds-comp-chat__comment-content {
-    background-color: var(--rds-color-primary,rgb(62 63 64)) !important;
-    color: var(--rds-color-on-primary, rgb(238, 244, 249)) !important;
+    // Colors are now controlled via inline sx prop
   }
 
   .rds-comp-chat__input-wrapper {

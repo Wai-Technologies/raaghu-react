@@ -120,6 +120,16 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
         : getEmojisByCategory(selectedCategory, selectedSkinTone);
     const displayEmojis = maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis;
 
+    // Helper: detect flag (regional indicator) sequences
+    const isFlagEmoji = (emoji: string) => {
+        return /[\u{1F1E6}-\u{1F1FF}]{2}/u.test(emoji);
+    };
+
+    const twemojiUrl = (emoji: string) => {
+        const codepoints = Array.from(emoji).map(c => c.codePointAt(0)!.toString(16)).join('-');
+        return `https://twemoji.maxcdn.com/v/latest/72x72/${codepoints}.png`;
+    };
+
     return (
     <Box ref={rootRef} className="rds-emoji-generator" {...props}>
             {Type === EmojiGeneratorType.Default && (
@@ -236,7 +246,16 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                             className="rds-emoji-generator__emoji"
                             onClick={() => handleEmojiClick(e)}
                         >
-                            {e}
+                            {isFlagEmoji(e) ? (
+                                <img
+                                    src={twemojiUrl(e)}
+                                    alt={e}
+                                    className="rds-emoji-generator__emoji-image"
+                                    draggable={false}
+                                />
+                            ) : (
+                                e
+                            )}
                         </Box>
                     ))}
                 </Box>

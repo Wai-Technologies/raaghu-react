@@ -5,6 +5,17 @@ body.dark .rds-comp-empty-state__title,
 body.dark .rds-comp-empty-state__subtitle {
   color: #fff !important;
 }
+
+[data-theme="dark"] .rds-comp-empty-state,
+body.dark .rds-comp-empty-state {
+  background-color: #1a1a1a;
+}
+
+[data-theme="dark"] .rds-comp-empty-state__subtitle,
+body.dark .rds-comp-empty-state__subtitle {
+  color: #b0b0b0 !important;
+}
+
 .rds-comp-empty-state {
   // Base styles
   display: flex;
@@ -41,6 +52,17 @@ body.dark .rds-comp-empty-state__subtitle {
     svg {
       max-width: 100%;
       height: auto;
+    }
+
+    // Animation support for Lottie
+    &--animated {
+      position: relative;
+      
+      // Ensure smooth animation rendering
+      & > div {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 

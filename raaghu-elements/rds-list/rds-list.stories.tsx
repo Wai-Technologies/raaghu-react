@@ -110,7 +110,7 @@ const firebaseBuildItems = [
 ];
 
 export const CustomizedList: Story = {
-  render: () => (
+  render: (args) => (
     <Paper className="rds-list-demo__custom-container">
       <div className="rds-list-demo__header">
         <LocalFireDepartment className="rds-list-demo__header-icon" />
@@ -118,11 +118,11 @@ export const CustomizedList: Story = {
       </div>
       
       {/* Overview section */}
-      <RdsList variant="firebase" items={firebaseOverviewItems} />
+      <RdsList variant="firebase" items={firebaseOverviewItems} dense={args.dense} disablePadding={args.disablePadding} />
       
       {/* Build section */}
       <div className="rds-list-demo__section-header">Build</div>
-      <RdsList variant="firebase" items={firebaseBuildItems} />
+      <RdsList variant="firebase" items={firebaseBuildItems} dense={args.dense} disablePadding={args.disablePadding} />
     </Paper>
   )
 };
@@ -198,30 +198,30 @@ const interactiveCombinedItems = [
 ];
 
 export const Interactive: Story = {
-  render: () => (
+  render: (args) => (
   <div className="rds-list-demo__grid rds-list-demo__grid--col-responsive">
       {/* Text only */}
       <div>
         <div className="rds-list-demo__title">Text only</div>
-    <RdsList className="rds-list--align-responsive" withDividers items={interactiveTextItems} />
+    <RdsList className="rds-list--align-responsive" withDividers items={interactiveTextItems} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
      
       {/* Icon with text */}
       <div>
         <div className="rds-list-demo__title">Icon with text</div>
-    <RdsList className="rds-list--align-responsive" withDividers items={interactiveIconItems} />
+    <RdsList className="rds-list--align-responsive" withDividers items={interactiveIconItems} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
      
       {/* Avatar with text */}
       <div>
         <div className="rds-list-demo__title">Avatar with text</div>
-    <RdsList className="rds-list--align-responsive" withDividers items={interactiveAvatarItems} />
+    <RdsList className="rds-list--align-responsive" withDividers items={interactiveAvatarItems} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
      
       {/* Avatar with text and icon (secondary action) */}
       <div>
         <div className="rds-list-demo__title">Avatar with text and icon</div>
-    <RdsList className="rds-list--align-responsive" withDividers items={interactiveCombinedItems} />
+    <RdsList className="rds-list--align-responsive" withDividers items={interactiveCombinedItems} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
     </div>
   )
@@ -252,7 +252,7 @@ const multiSelectionItems = [
 ];
 
 export const MultipleSelection: Story = {
-  render: () => {
+  render: (args) => {
     const [selectedItems, setSelectedItems] = React.useState<number[]>([2]);
     
     const handleCheckboxChange = (id: string | number, isChecked: boolean) => {
@@ -273,6 +273,8 @@ export const MultipleSelection: Story = {
           checkedItems={selectedItems}
           onCheckboxChange={handleCheckboxChange}
           items={multiSelectionItems}
+          dense={args.dense}
+          disablePadding={args.disablePadding}
         />
       </div>
     );
@@ -339,7 +341,7 @@ const subheaderSections = [
 ];
 
 export const StickySubheader: Story = {
-  render: () => (
+  render: (args) => (
     <div className="rds-list-demo__container rds-list-demo__container--sticky">
       {subheaderSections.map((section, index) => (
         <RdsList
@@ -348,6 +350,8 @@ export const StickySubheader: Story = {
           className="rds-list--with-subheader"
           subheader={<ListSubheader className="rds-list__subheader">{section.title}</ListSubheader>}
           items={section.items}
+          dense={args.dense}
+          disablePadding={args.disablePadding}
         />
       ))}
     </div>
@@ -412,7 +416,7 @@ const checkboxItems = [
 ];
 
 export const WithCheckbox: Story = {
-  render: () => {
+  render: (args) => {
     const [checked, setChecked] = React.useState<(string | number)[]>([1]);
     
     const handleCheckboxChange = (id: string | number, isChecked: boolean) => {
@@ -445,6 +449,8 @@ export const WithCheckbox: Story = {
           onCheckboxChange={handleCheckboxChange}
           className="rds-list--align-responsive"
           items={itemsWithCustomCheckbox}
+          dense={args.dense}
+          disablePadding={args.disablePadding}
         />
       </div>
     );

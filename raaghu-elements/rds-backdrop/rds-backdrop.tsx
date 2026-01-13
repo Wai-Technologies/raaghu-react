@@ -50,6 +50,7 @@ const RdsBackdrop: React.FC<RdsBackdropProps> = ({
       justifyContent: 'center',
       zIndex: 1300,
       backgroundColor: 'var(--rds-background-overlay, rgba(0, 0, 0, 0.5))',
+      color: '#ffffff',
     },
     // Dark theme override
     '.dark-theme &.rds-backdrop, [data-theme="dark"] &.rds-backdrop': {
