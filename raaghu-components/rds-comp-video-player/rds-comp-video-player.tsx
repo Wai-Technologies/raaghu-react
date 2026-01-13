@@ -67,7 +67,8 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
         <div className={`rds-comp-video-player${disabled ? " rds-comp-video-player--disabled" : ""} ${className}`}>
             <div className="rds-comp-video-player__wrapper">
                 {React.createElement(ReactPlayer as any, {
-                    key: `${formattedUrl}-${controls}`,
+                    key: type === VideoPlayerType.Vimeo ? `vimeo-${formattedUrl}-controls-${controls}` : 
+                         type === VideoPlayerType.YouTube ? `youtube-${formattedUrl}-controls-${controls}` : `${formattedUrl}-${controls}`,
                     url: formattedUrl,
                     width: "100%",
                     height: "100%",
@@ -75,15 +76,6 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
                     muted: muted,
                     controls: controls,
                     volume: volume,
-                    config: {
-                        youtube: { playerVars: { controls: controls ? 1 : 0 } },
-                        vimeo: { playerOptions: { controls } },
-                        file: { attributes: { preload: 'auto' } }
-                    },
-                    className: "rds-comp-video-player__player",
-                    style: { width, height },
-                    key: type === VideoPlayerType.Vimeo ? `vimeo-${formattedUrl}-controls-${controls}` : 
-                         type === VideoPlayerType.YouTube ? `youtube-${formattedUrl}-controls-${controls}` : undefined,
                     config: type === VideoPlayerType.Vimeo ? {
                         vimeo: {
                             playerOptions: {
@@ -101,7 +93,11 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
                                 rel: 0
                             }
                         }
-                    } : undefined
+                    } : {
+                        file: { attributes: { preload: 'auto' } }
+                    },
+                    className: "rds-comp-video-player__player",
+                    style: { width, height }
                 })}
             </div>
             {disabled && (

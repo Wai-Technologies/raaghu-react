@@ -80,7 +80,6 @@ export const Default: Story = {
     ShowLeftIcon: true,
     defaultExpanded: false,
     changeleftIcon: null,
-    title: 'Accordion Title',
   },
   render: ({ size, state, accordionStyle, ShowLeftIcon, defaultExpanded, changeleftIcon, title, disabled }) => {
     const [expanded1, setExpanded1] = useState(defaultExpanded);
@@ -98,7 +97,6 @@ export const Default: Story = {
       <>
         <RdsAccordion 
           title={title} 
-          title={title} 
           size={size} 
           state={state} 
           accordionStyle={accordionStyle} 
@@ -114,7 +112,6 @@ export const Default: Story = {
         </RdsAccordion>
         <RdsAccordion 
           title={title} 
-          title={title} 
           size={size} 
           state={state} 
           accordionStyle={accordionStyle} 
@@ -129,7 +126,6 @@ export const Default: Story = {
           </RdsTypography>
         </RdsAccordion>
         <RdsAccordion 
-          title={title} 
           title={title} 
           size={size} 
           state={state} 
