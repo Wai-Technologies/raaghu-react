@@ -1527,14 +1527,13 @@
     }
   }
 
-  /* Hide outer page/viewport scrollbar on very small screens so only the
+/* Hide outer page/viewport scrollbar on very small screens so only the
      component's inner scrollbar is visible (keeps inner overflow auto).
      This targets narrow viewports where the details pane acts like an overlay. */
   html, body {
-    overflow: hidden !important;
     -ms-overflow-style: none !important; /* IE and Edge */
     scrollbar-width: none !important; /* Firefox */
-  }
+  }  
   html::-webkit-scrollbar, body::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
