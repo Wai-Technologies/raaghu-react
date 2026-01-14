@@ -3,6 +3,7 @@
   &__menu {
     padding: 8px;
     min-width: 200px;
+    margin-top: 8px;
   }
 
   &__search {
@@ -69,6 +70,14 @@
 	align-items: center;
 	gap: 0px;
 	padding: 6px 4px;
+
+	.rds-avatar {
+		margin-right: -4px !important;
+	}
+	
+	.rds-checkbox {
+		margin-left: -2px !important;
+	}
 }
 
 /* Secondary style for button dropdown */

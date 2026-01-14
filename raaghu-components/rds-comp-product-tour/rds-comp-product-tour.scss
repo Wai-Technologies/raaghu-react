@@ -32,11 +32,9 @@
       padding: 30px 35px;
       border: 1px solid #f3f4f6;
       display: flex;
+      align-items: center;
       flex-direction: column;
       box-sizing: border-box;
-      max-height: 90vh;
-      overflow-y: auto;
-      overflow-x: hidden;
     }
 
     &--form {
