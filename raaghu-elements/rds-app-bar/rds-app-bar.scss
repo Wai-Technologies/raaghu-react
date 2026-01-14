@@ -212,26 +212,28 @@
   gap: 8px; 
 
   @media (max-width: 420px) {
-    gap: 12px; 
-    margin-left: 95px;
+    gap: 4px;
+    margin-left: 0;
   }
 
   @media (max-width: 320px) {
-    gap: 10px; 
-    margin-left: 30px;
+    gap: 2px;
+    margin-left: 0;
   }
 
   .rds-button {
     @media (max-width: 420px) {
-      font-size: 12px; 
-      padding: 6px 10px;
-      min-height: 32px;
+      font-size: 10px !important;
+      padding: 4px 8px !important;
+      min-height: 28px !important;
+      min-width: auto !important;
     }
 
     @media (max-width: 320px) {
-      font-size: 11px;
-      padding: 5px 8px;
-      min-height: 28px;
+      font-size: 9px !important;
+      padding: 3px 6px !important;
+      min-height: 24px !important;
+      min-width: auto !important;
     }
   }
 }
@@ -243,6 +245,60 @@
     .rds-header__center-content { order: 3; display: inline-flex; align-items: center;  }
     .rds-header__right-actions { order: 4; display: flex; align-items: center; margin-left: -18px; }
     .rds-header__actions { order: 5; margin-left: auto; }
+  }
+}
+
+@media (max-width: 420px) {
+  .rds-header--variant-withactions {
+    .rds-header__logo {
+      flex-shrink: 0;
+      max-width: 80px;
+    }
+    
+    .rds-header__center-content {
+      flex-shrink: 1;
+      gap: 4px !important;
+      margin-left: 4px !important;
+      
+      .MuiButton-root,
+      .rds-button {
+        font-size: 10px !important;
+        padding: 4px 8px !important;
+        min-width: auto !important;
+        white-space: nowrap;
+      }
+    }
+    
+    .rds-header__left-actions {
+      .MuiIconButton-root {
+        padding: 6px !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .rds-header--variant-withactions {
+    .rds-header__logo {
+      max-width: 60px;
+    }
+    
+    .rds-header__center-content {
+      gap: 2px !important;
+      margin-left: 2px !important;
+      
+      .MuiButton-root,
+      .rds-button {
+        font-size: 9px !important;
+        padding: 3px 6px !important;
+      }
+    }
+    
+    .rds-header__left-actions {
+      .MuiIconButton-root {
+        padding: 4px !important;
+      }
+    }
   }
 }
 
@@ -1634,7 +1690,12 @@
   .rds-header--variant-withmenubutton .rds-appbar-overflow-button { display: none !important; }
 
   .rds-header--variant-withmenubutton .rds-header__logo { order: 1 !important; }
-  .rds-header--variant-withmenubutton .rds-header__search-wrapper { order: 2 !important; flex: 1 1 auto !important; min-width: 0 !important; }
+  .rds-header--variant-withmenubutton .rds-header__search-wrapper { 
+    order: 2 !important; 
+    flex: 1 1 auto !important; 
+    min-width: 0 !important; 
+    max-width: calc(100% - 130px) !important;
+  }
 
   .rds-header--variant-withmenubutton .rds-appbar-actions-group > *:not(.rds-withmenubutton-settings):not(.rds-profile-menu__button) { display: none !important; }
   
@@ -1756,18 +1817,19 @@
   .rds-header--variant-withmenubutton .rds-withmenubutton-settings {
     display: inline-flex !important;
     position: absolute !important;
-    right: 72px !important; 
+    right: 60px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
     z-index: 3 !important;
     order: 4 !important;
     margin: 0 !important;
+    padding: 6px !important;
   }
 
   .rds-header--variant-withmenubutton .rds-appbar-overflow-button {
     display: inline-flex !important;
     position: absolute !important;
-    right: 92px !important; 
+    right: 80px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
     z-index: 2 !important;
@@ -1775,19 +1837,18 @@
   }
 
   .rds-header--variant-withmenubutton .rds-header__toolbar {
-    padding-right: 120px !important;
+    padding-right: 110px !important;
   }
 
   @media (max-width: 320px) {
-  .rds-header--variant-withmenubutton .rds-profile-menu__button { right: 12px !important; }
-  .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: 72px !important; }
-    .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 100px !important; }
-    .rds-header--variant-withmenubutton .rds-appbar-overflow-button { right: 88px !important; }
+  .rds-header--variant-withmenubutton .rds-profile-menu__button { right: 8px !important; }
+  .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: 52px !important; padding: 4px !important; }
+    .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 90px !important; }
+    .rds-header--variant-withmenubutton .rds-appbar-overflow-button { right: 70px !important; }
     .rds-header--variant-withmenubutton .rds-appbar-logo-label { display: none !important; }
     .rds-header--variant-withmenubutton .rds-header__search-wrapper {
       position: relative !important;
-      transform: translateX(12px) !important;
-      max-width: 80px !important;
+      max-width: calc(100% - 100px) !important;
       min-width: 60px !important;
     }
   }
@@ -1797,7 +1858,7 @@
       position: relative !important;
       transform: translateX(8px) !important;
       max-width: 140px !important;
-      min-width: 100px !important;
+      min-width: 90px !important;
     }
   }
 
