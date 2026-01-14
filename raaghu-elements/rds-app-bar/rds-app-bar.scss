@@ -212,28 +212,26 @@
   gap: 8px; 
 
   @media (max-width: 420px) {
-    gap: 4px;
-    margin-left: 0;
+    gap: 12px; 
+    margin-left: 95px;
   }
 
   @media (max-width: 320px) {
-    gap: 2px;
-    margin-left: 0;
+    gap: 10px; 
+    margin-left: 30px;
   }
 
   .rds-button {
     @media (max-width: 420px) {
-      font-size: 10px !important;
-      padding: 4px 8px !important;
-      min-height: 28px !important;
-      min-width: auto !important;
+      font-size: 12px; 
+      padding: 6px 10px;
+      min-height: 32px;
     }
 
     @media (max-width: 320px) {
-      font-size: 9px !important;
-      padding: 3px 6px !important;
-      min-height: 24px !important;
-      min-width: auto !important;
+      font-size: 11px;
+      padding: 5px 8px;
+      min-height: 28px;
     }
   }
 }
@@ -1690,12 +1688,7 @@
   .rds-header--variant-withmenubutton .rds-appbar-overflow-button { display: none !important; }
 
   .rds-header--variant-withmenubutton .rds-header__logo { order: 1 !important; }
-  .rds-header--variant-withmenubutton .rds-header__search-wrapper { 
-    order: 2 !important; 
-    flex: 1 1 auto !important; 
-    min-width: 0 !important; 
-    max-width: calc(100% - 130px) !important;
-  }
+  .rds-header--variant-withmenubutton .rds-header__search-wrapper { order: 2 !important; flex: 1 1 auto !important; min-width: 0 !important; }
 
   .rds-header--variant-withmenubutton .rds-appbar-actions-group > *:not(.rds-withmenubutton-settings):not(.rds-profile-menu__button) { display: none !important; }
   
