@@ -5,6 +5,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import CheckIcon from '@mui/icons-material/Check';
 import RdsButton from '../rds-button/rds-button';
 import { Box } from '@mui/material';
@@ -162,7 +163,11 @@ export const RdsMultiLevelMenu = ({
                         setSubmenuAnchor(level, e.currentTarget as HTMLElement, idx);
                       }}
                     >
-                      <ChevronRightIcon fontSize="small" />
+                      {isMobile ? (
+                        <KeyboardArrowDownIcon fontSize="small" />
+                      ) : (
+                        <ChevronRightIcon fontSize="small" />
+                      )}
                     </Box>
                   )}
                 </Box>
