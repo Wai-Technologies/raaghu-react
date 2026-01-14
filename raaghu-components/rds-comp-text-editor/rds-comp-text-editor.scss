@@ -115,6 +115,9 @@
         border-radius: var(--rds-border-radius, 4px);
         background-color: var(--rds-color-surface, #fff);
         color: var(--rds-color-on-surface, #212529);
+        border: 1px solid var(--rds-color-border, #ccc);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
         
         .rdw-image-modal-header-option {
           color: var(--rds-color-on-surface, #212529);
@@ -146,7 +149,8 @@
     .dark-theme &, [data-theme="dark"] & {
       background-color: #424242;
       border-color: var(--rds-color-border-dark, #495057);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      /* remove inner top highlight to avoid perceived border */
+      box-shadow: none;
       .rdw-link-modal
       {
         background-color: #212529;
@@ -188,43 +192,61 @@ background-color: #202020;
           color: var(--rds-color-on-surface-dark, #e9ecef);
       }
       .rdw-option-wrapper {
-        background-color: #ffffff;
-        color: var(--rds-color-on-surface-dark, #fff);
-        border-color: var(--rds-color-border-dark, #495057);
+        background-color: transparent; /* remove white tiles in dark mode */
+        color: var(--rds-color-on-surface-dark, #f0f0f0); /* brighter icons per Figma */
+        border-color: transparent;
+        border-width: 0; /* avoid any visible edges */
         font-weight: 500;
-        text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
-        
-        svg, img {
-          /* Removed filter to improve performance */
+        text-shadow: none;
+        outline: none; /* remove focus ring */
+
+        /* Make icons appear white/light without tiles */
+        svg {
           opacity: 0.95;
+          fill: currentColor !important;
+          stroke: currentColor !important;
         }
-        
+        img { /* png glyphs from library */
+          opacity: 0.95;
+          filter: invert(0.92) brightness(1.05) contrast(1.05);
+        }
+
         &:hover {
-          /* Simplified box-shadow for better performance */
-          box-shadow: 0 0 3px rgba(255, 255, 255, 0.15);
-          background-color: var(--rds-color-surface-variant-dark, #d2d7dd);
-          border-color: var(--rds-color-primary-dark, #0d6efd);
+          box-shadow: none;
+          background-color: rgba(255, 255, 255, 0.06);
+          border-color: transparent;
+          color: #ffffff;
         }
-        
+
         &.rdw-option-active {
-          background-color: var(--rds-color-primary-dark, #0d6efd);
+          background-color: rgba(255, 255, 255, 0.12);
           color: #fff;
-          border-color: var(--rds-color-primary-light, #6ea8fe);
-          /* Removed box-shadow for better performance */
+          border-color: transparent;
+          border-width: 0;
+          box-shadow: none;
         }
+
+        &:focus,
+        &:active {
+          outline: none;
+          box-shadow: none;
+          border-color: transparent;
+          border-width: 0;
+        }
+
         &.rdw-option-disabled{
-          opacity: 0.8;
-          background-color: #ffffff !important;
+          opacity: 0.5;
+          background-color: transparent !important;
         }
-        
       }
       
       .rdw-image-wrapper {
         .rdw-image-modal {
           background-color: #424242;
           color: var(--rds-color-on-surface-dark, #e9ecef);
-          border-color: var(--rds-color-border-dark, #495057);
+          border: 1px solid var(--rds-color-border-dark, #495057);
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+          z-index: 1000;
           
           .rdw-image-modal-header-option {
             color: var(--rds-color-on-surface-dark, #fff);
@@ -250,29 +272,28 @@ background-color: #202020;
       
       // Dropdown components
       .rdw-dropdown-wrapper {
-        background-color: #ffffff;
+        background-color: #2a2a2a;
         border-color: var(--rds-color-border-dark, #495057);
-        
+
         .rdw-dropdown-selectedtext {
-          color: var(--rds-color-on-surface-dark, #000000);
+          color: var(--rds-color-on-surface-dark, #e9ecef);
           font-weight: 500;
         }
-        
+
         .rdw-dropdown-optionwrapper {
           background-color: #424242;
           border-color: var(--rds-color-primary-dark, #0d6efd);
-          /* Simplified box-shadow for better performance */
           box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
-          
+
           .rdw-dropdownoption-default {
             color: var(--rds-color-on-surface-dark, #e9ecef);
-            
+
             &:hover {
               background-color: var(--rds-color-primary-dark, #0d6efd);
               color: #fff;
             }
           }
-          
+
           .rdw-dropdownoption-active {
             background-color: var(--rds-color-primary-dark, #0d6efd);
           }
@@ -403,19 +424,43 @@ background-color: #202020;
 
 @media (max-width: 430px) {
   .rds-comp-text-editor {
-  .rdw-link-modal{
-    left: -180px;
-  }
-  .rdw-image-modal {
+    .rdw-link-modal{
+      left: -180px;
+    }
+    .rdw-image-modal {
       left: -93px;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--rds-color-border, #ccc);
+      
+      // Ensure the modal doesn't get cut off on very small screens
+      @media (max-width: 320px) {
+        position: fixed !important;
+        left: 50% !important;
+        top: 70% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 260px;
+        max-width: calc(100vw - 30px);
+        max-height: calc(100vh - 40px);
+        z-index: 9999;
+      }
+    }
   }
-}
 }
 
-@media (min-width: 414px) and (max-width: 896px) {
+@media (min-width: 415px) and (max-width: 896px) {
   .rds-comp-text-editor {
-  .rdw-link-modal {
-        left: 4px;
+    .rdw-link-modal {
+      left: 4px;
+    }
+    .rdw-image-modal {
+      right: 0;
+      left: auto;
+      max-width: 320px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--rds-color-border, #ccc);
+      z-index: 1000;
     }
   }
 }

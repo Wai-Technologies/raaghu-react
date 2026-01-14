@@ -7,7 +7,12 @@ const meta: Meta<typeof RdsBackdrop> = {
   title: 'Elements/Backdrop',
   component: RdsBackdrop,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
+    docs: {
+      story: {
+        inline: true,
+      }
+    }
   },
   tags: ['autodocs'],
   argTypes: {
@@ -16,6 +21,9 @@ const meta: Meta<typeof RdsBackdrop> = {
     },
     loading: {
       control: { type: 'boolean' },
+    },
+    children: {
+      control: { type: 'text' },
     },
   },
 };
@@ -28,12 +36,32 @@ export const Default: Story = {
     open: true,
     children: 'Backdrop content',
   },
+  render: (args) => (
+    <div style={{ position: 'relative', minHeight: 300 }}>
+      <RdsBackdrop
+        {...args}
+        sx={{
+          '&.rds-backdrop': { position: 'absolute' }
+        }}
+      />
+    </div>
+  ),
 };
 
 export const Loading: Story = {
   args: {
     loading: true,
   },
+  render: (args) => (
+    <div style={{ position: 'relative', minHeight: 300 }}>
+      <RdsBackdrop
+        {...args}
+        sx={{
+          '&.rds-backdrop': { position: 'absolute' }
+        }}
+      />
+    </div>
+  ),
 };
 
 export const WithCustomContent: Story = {
@@ -46,6 +74,16 @@ export const WithCustomContent: Story = {
       </div>
     ),
   },
+  render: (args) => (
+    <div style={{ position: 'relative', minHeight: 300 }}>
+      <RdsBackdrop
+        {...args}
+        sx={{
+          '&.rds-backdrop': { position: 'absolute' }
+        }}
+      />
+    </div>
+  ),
 };
 
 export const Interactive: Story = {
@@ -78,4 +116,11 @@ export const Interactive: Story = {
       </>
     );
   },
+  parameters: {
+    docs: {
+      story: {
+        inline: true,
+      }
+    }
+  }
 };

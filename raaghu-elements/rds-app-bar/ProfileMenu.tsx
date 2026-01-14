@@ -17,14 +17,18 @@ export interface ProfileMenuItem {
 
 export interface ProfileMenuProps {
   name: string;
-  shortName: string;
+  // shortName?: string; // Commented out - automatically generated from name
   email: string;
   menuItems?: ProfileMenuItem[];
 }
 
-export const ProfileMenu = ({ name, shortName, email, menuItems }: ProfileMenuProps) => {
+export const ProfileMenu = ({ name, email, menuItems }: ProfileMenuProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  
+  // Auto-generate shortName from name (replaces manual userShortName control)
+  const displayShortName = name.split(' ').map(n => n.charAt(0)).join('').toUpperCase();
+  
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -71,7 +75,7 @@ export const ProfileMenu = ({ name, shortName, email, menuItems }: ProfileMenuPr
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <Box className="rds-profile-menu__header">
-          <Avatar className="rds-profile-menu__avatar-lg">{shortName}</Avatar>
+          <Avatar className="rds-profile-menu__avatar-lg">{displayShortName}</Avatar>
           <Box>
             <Box className="rds-profile-menu__name-lg">{name}</Box>
             <Box className="rds-profile-menu__email">{email}</Box>

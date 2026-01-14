@@ -77,7 +77,7 @@ const RdsRating = ({
     if (currentValue === null && value !== undefined) currentValue = value;
   }
 
-  const precision = type === 'slider' ? undefined : (level !== undefined ? 0.5 : (props.precision || 1));
+  const precision = type === 'slider' ? undefined : (props.precision !== undefined ? props.precision : 0.5);
 
   // Update internal state when external value or level changes
   useEffect(() => {
@@ -92,7 +92,7 @@ const RdsRating = ({
       if (level !== undefined) {
         const levelVal = getLevelValue(level);
         setInternalValue(levelVal !== undefined ? levelVal : null);
-      } else if (value !== undefined && internalValue === null) {
+      } else if (value !== undefined) {
         setInternalValue(value);
       }
     }

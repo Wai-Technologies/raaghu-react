@@ -333,6 +333,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     padding-top: 20px;
     gap: 16px;
   }
+  position: relative;
+  z-index: 1;
 }
 
 .rds-story-relaxing-sidebar {
@@ -403,6 +405,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     height: auto;
     min-height: 300px;
   }
+  min-height: calc(100vh - 150px);
 }
 
 .rds-story-tripane-layout {
@@ -651,3 +654,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
 }
+
+/* Dark Theme Support */
+.theme-dark .rds-appshell-add-layout-center,
+.theme-dark .rds-appshell-add-layout-flex-center,
+.theme-dark .rds-appshell-add-layout-text { background: var(--dark-bg-secondary, #2d2d2d); color: var(--dark-text-primary, #ffffff); }

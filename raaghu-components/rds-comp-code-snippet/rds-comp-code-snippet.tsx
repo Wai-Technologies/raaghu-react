@@ -183,6 +183,8 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                     </Highlighter>
                   </div>
               </div>
+            </div>
+            <div className="rds-comp-code-snippet__footer">
               <div className="rds-comp-code-snippet__show-more">
                 <RdsButton color="primary" changeLeftIcon='add' showLeftIcon layout="icon+text" size="small" state="default" style="transparent" text="Show More" />
               </div>

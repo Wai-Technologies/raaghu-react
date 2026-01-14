@@ -90,6 +90,17 @@
       padding-top: 0;
       padding-bottom: 0;
     }
+    // Ensure multi-value chips are vertically centered
+    .MuiAutocomplete-inputRoot[class*="MuiAutocomplete-inputRoot"] {
+      align-items: center;
+    }
+    .MuiAutocomplete-tag {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      display: inline-flex;
+      align-items: center;
+      height: 20px;
+    }
   }
 
   &--medium {
@@ -107,6 +118,16 @@
       padding-top: 0;
       padding-bottom: 0;
     }
+    .MuiAutocomplete-inputRoot[class*="MuiAutocomplete-inputRoot"] {
+      align-items: center;
+    }
+    .MuiAutocomplete-tag {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+    }
   }
 
   &--large {
@@ -123,6 +144,16 @@
       box-sizing: border-box;
       padding-top: 0;
       padding-bottom: 0;
+    }
+    .MuiAutocomplete-inputRoot[class*="MuiAutocomplete-inputRoot"] {
+      align-items: center;
+    }
+    .MuiAutocomplete-tag {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      display: inline-flex;
+      align-items: center;
+      height: 28px;
     }
   }
 
@@ -143,10 +174,7 @@
     }
   }
 
-  // Interactive states
-  &:hover {
-    // Hover styles if needed
-  }
+  // Interactive states - hover styles can be added here if needed
 
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, #005fcc);
@@ -171,5 +199,95 @@
 
   .MuiFormHelperText-root {
     margin-left: 0 !important;
+    min-height: 20px !important; // Ensure consistent height
+    margin-top: 3px !important;
+    margin-bottom: 0 !important;
+    line-height: 1.2 !important;
+  }
+
+  // When helper text should be hidden but maintain layout space
+  &__textfield--hidden-helper {
+    .MuiFormHelperText-root {
+      color: transparent !important;
+      visibility: visible !important; // Keep visible for layout spacing
+      user-select: none !important; // Prevent text selection of hidden content
+    }
+  }
+  .MuiInputBase-input::placeholder,
+  input::placeholder,
+  textarea::placeholder,
+  .MuiAutocomplete-inputRoot input::placeholder {
+    color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
+    opacity: 1 !important;
+  }
+
+  .dark-theme &, [data-theme="dark"] & {
+    .MuiInputBase-input::placeholder,
+    input::placeholder,
+    textarea::placeholder,
+    .MuiAutocomplete-inputRoot input::placeholder {
+      color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
+      opacity: 1 !important;
+    }
+  }
+
+  // Bottom line control style - removes borders except bottom
+  &__textfield--bottom-line {
+    .MuiOutlinedInput-notchedOutline {
+      border-left: none !important;
+      border-right: none !important;
+      border-top: none !important;
+      border-radius: 0 !important;
+    }
+  }
+
+  .MuiAutocomplete-inputRoot {
+    &[aria-expanded="true"],
+    &[aria-expanded="false"] {
+      min-height: inherit !important;
+      flex-wrap: nowrap !important;
+      
+      // Enable horizontal scrolling if needed for chips
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      
+      .MuiAutocomplete-tag {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+  
+      .MuiAutocomplete-input {
+        min-width: 80px !important;
+        flex-grow: 1;
+      }
+    }
+  }
+
+  &__chip {
+    margin: 2px !important;
+    max-width: 120px !important;
+    font-size: 0.75rem !important;
+    
+    &--small {
+      height: 20px !important;
+    }
+    
+    &--medium {
+      height: 24px !important;
+    }
+    
+    &--large {
+      height: 28px !important;
+    }
+    
+    &--overflow {
+      background-color: rgba(45, 44, 44, 0.04) !important;
+      pointer-events: none !important;
+    }
+  }
+
+  .dark-theme &__chip--overflow,
+  [data-theme="dark"] &__chip--overflow {
+    background-color: rgba(255, 255, 255, 0.04) !important;
   }
 }

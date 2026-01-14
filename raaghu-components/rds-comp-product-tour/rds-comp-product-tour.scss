@@ -33,8 +33,10 @@
       border: 1px solid #f3f4f6;
       display: flex;
       flex-direction: column;
-      align-items: center;
       box-sizing: border-box;
+      max-height: 90vh;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     &--form {
@@ -363,8 +365,9 @@
   &__animation-section {
     display: flex;
     justify-content: center;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     width: 100%;
+    flex-shrink: 0;
 
     img, 
     .rds-comp-product-tour__gif {
@@ -380,8 +383,10 @@
   &__animation-info {
     text-align: left;
     padding: 0;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
   }
 
   &__animation-title {
@@ -403,6 +408,8 @@
     justify-content: space-between;
     width: 100%;
     flex-wrap: wrap;
+    flex-shrink: 0;
+    margin-top: auto;
   }
 
   &__animation-stepcount {
@@ -558,11 +565,14 @@
     max-width: 100%;
     box-sizing: border-box;
 
-    // Make Add buttons in input rows match purple theme
     .rds-button {
       border-color: #7c3aed !important;
       color: #7c3aed !important;
       background-color: transparent !important;
+      min-width: 90px !important;
+      width: 90px !important;
+      height: 38px !important;
+      text-transform: none !important; 
 
       &:hover {
         background-color: #7c3aed !important;
@@ -613,6 +623,66 @@
         color: #9e9e9e;
       }
     }
+    
+    .rds-input,
+    textarea,
+    .MuiInputBase-root {
+      & input::placeholder,
+      & textarea::placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+        opacity: 1;
+      }
+
+      /* WebKit */
+      & input::-webkit-input-placeholder,
+      & textarea::-webkit-input-placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+      }
+
+      /* Firefox 19+ */
+      & input::-moz-placeholder,
+      & textarea::-moz-placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+      }
+
+      /* IE 10+ */
+      & input:-ms-input-placeholder,
+      & textarea:-ms-input-placeholder {
+        font-size: 14px;
+        color: #9e9e9e;
+      }
+    }
+  }
+
+  /* Group wrapper for input + action so both rows behave identically */
+  &__form-input-row--group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Action button container: keep button to the right and aligned to input height */
+  .rds-comp-product-tour__form-action-btn {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Ensure action buttons have a consistent size to keep input widths identical */
+  .rds-comp-product-tour__form-action-btn .rds-button,
+  .rds-comp-product-tour__form-action-btn .MuiButton-root {
+    min-width: 90px !important; /* consistent width for buttons - made slightly wider for "CREATE" */
+    width: 90px !important; /* fixed width for consistency */
+    height: 36px !important;
+    padding: 6px 12px !important;
+    box-sizing: border-box !important;
+    text-transform: none !important; 
   }
 
   &__form-button-right {
@@ -626,11 +696,23 @@
       border-color: #7c3aed !important;
       color: #7c3aed !important;
       background-color: transparent !important;
+      text-transform: none !important;
 
       &:hover {
         background-color: #7c3aed !important;
         color: #fff !important;
       }
+    }
+
+    // Ensure consistent button size for right-aligned buttons too
+    .rds-comp-product-tour__form-action-btn .rds-button,
+    .rds-comp-product-tour__form-action-btn .MuiButton-root {
+      min-width: 90px !important;
+      width: 90px !important;
+      height: 36px !important;
+      padding: 6px 12px !important;
+      box-sizing: border-box !important;
+      text-transform: none !important; 
     }
   }
 
@@ -700,6 +782,7 @@
       background-color: #7c3aed !important; // Purple background to match theme
       border-color: #7c3aed !important; // Purple border
       color: #fff !important;
+      text-transform: none !important;
 
     }
 
@@ -708,6 +791,7 @@
       background-color: #7c3aed !important;
       border-color: #7c3aed !important;
       color: #fff !important;
+      text-transform: none !important;
     }
     .rds-file-uploader__choose-btn:hover {
       background-color: #7c3aed !important; // Darker purple on hover
@@ -721,6 +805,7 @@
       background-color: #7c3aed !important;
       border-color: #7c3aed !important;
       color: #fff !important;
+      text-transform: none !important;
     }
 
     .rds-file-uploader__text {

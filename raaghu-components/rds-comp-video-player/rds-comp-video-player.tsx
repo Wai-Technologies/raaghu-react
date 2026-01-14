@@ -67,6 +67,8 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
         <div className={`rds-comp-video-player${disabled ? " rds-comp-video-player--disabled" : ""} ${className}`}>
             <div className="rds-comp-video-player__wrapper">
                 {React.createElement(ReactPlayer as any, {
+                    key: type === VideoPlayerType.Vimeo ? `vimeo-${formattedUrl}-controls-${controls}` : 
+                         type === VideoPlayerType.YouTube ? `youtube-${formattedUrl}-controls-${controls}` : `${formattedUrl}-${controls}`,
                     url: formattedUrl,
                     width: "100%",
                     height: "100%",
@@ -74,6 +76,26 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
                     muted: muted,
                     controls: controls,
                     volume: volume,
+                    config: type === VideoPlayerType.Vimeo ? {
+                        vimeo: {
+                            playerOptions: {
+                                controls: controls,
+                                title: false,
+                                byline: false,
+                                portrait: false
+                            }
+                        }
+                    } : type === VideoPlayerType.YouTube ? {
+                        youtube: {
+                            playerVars: {
+                                controls: controls ? 1 : 0,
+                                modestbranding: 1,
+                                rel: 0
+                            }
+                        }
+                    } : {
+                        file: { attributes: { preload: 'auto' } }
+                    },
                     className: "rds-comp-video-player__player",
                     style: { width, height }
                 })}

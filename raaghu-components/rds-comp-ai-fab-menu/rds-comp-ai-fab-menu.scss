@@ -237,7 +237,7 @@
     right: 0;
     z-index: 1000;
     margin-top: var(--rds-spacing-sm, 8px);
-    min-width: 220px;
+    min-width: 200px;
     max-width: 300px;
     /* Ensure dropdown opens outside parent container */
     transform: translateY(10px);
@@ -270,7 +270,7 @@
     background-color: var(--rds-color-surface, #ffffff);
     border-radius: var(--rds-border-radius, 8px);
     box-shadow: var(--rds-elevation-3, 0 4px 12px rgba(0, 0, 0, 0.15));
-    min-width: 280px;
+    min-width: 220px;
     max-width: 300px;
     opacity: 0;
     visibility: hidden;

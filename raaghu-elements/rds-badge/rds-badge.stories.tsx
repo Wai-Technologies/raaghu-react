@@ -74,7 +74,7 @@ Default.parameters = {
 export const Dot: Story = {
   args: {
     variant: 'dot',
-    color: 'success',
+    // color: 'success',
     children: <Mail />,
   },
 };
@@ -85,7 +85,7 @@ Dot.parameters = {
 export const WithAvatar: Story = {
   args: {
     badgeContent: 2,
-    color: 'error',
+    // color: 'error',
     children: <Avatar>U</Avatar>,
   },
 };
@@ -96,7 +96,7 @@ WithAvatar.parameters = {
 export const WithIcon: Story = {
   args: {
     badgeContent: 10,
-    color: 'primary',
+    // color: 'primary',
     children: (
       <IconButton>
         <Notifications />
@@ -114,4 +114,26 @@ export const WithText: Story = {
     color: 'secondary',
     size: 'medium',
   },
+};
+
+export const ShowZeroTrue: Story = {
+  args: {
+    badgeContent: 0,
+    showZero: true,
+    children: <Mail />,
+  },
+};
+ShowZeroTrue.parameters = {
+  controls: { exclude: ['shape', 'layout'] },
+};
+
+export const ShowZeroFalse: Story = {
+  args: {
+    badgeContent: 0,
+    showZero: false,
+    children: <Mail />,
+  },
+};
+ShowZeroFalse.parameters = {
+  controls: { exclude: ['shape', 'layout'] },
 };

@@ -10,6 +10,9 @@ const meta: Meta = {
   },
   tags: ['autodocs'],
   argTypes: {
+    avtar: {
+      table: { disable: true },
+    },
   },
 } satisfies Meta<typeof RdsCompAiMessageBox>;
 

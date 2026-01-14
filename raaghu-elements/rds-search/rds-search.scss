@@ -15,11 +15,13 @@
   &--row {
     flex-direction: row;
     align-items: center;
+    gap: 8px;
   }
   
   &--row-reverse {
     flex-direction: row-reverse;
     align-items: center;
+    gap: 8px;
   }
   
   // Elements
@@ -42,7 +44,9 @@
     }
     
     &--right {
-      margin-left: 8px;
+      margin-left: 12px;
+      white-space: nowrap;
+      align-self: center;
     }
 
     .dark &,
@@ -68,6 +72,87 @@
     width: 100%;
     .rds-search__input {
       width: 100%;
+    }
+  }
+   .MuiInputBase-input::placeholder,
+  input::placeholder,
+  textarea::placeholder,
+  .MuiAutocomplete-inputRoot input::placeholder {
+    color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
+    opacity: 1 !important;
+  }
+
+  .dark-theme &, [data-theme="dark"] & {
+    .MuiInputBase-input::placeholder,
+    input::placeholder,
+    textarea::placeholder,
+    .MuiAutocomplete-inputRoot input::placeholder {
+      color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
+      opacity: 1 !important;
+    }
+  }
+
+  
+  // Ensure proper layout for different label positions
+  &--row {
+    .rds-search__input {
+      flex: 1;
+      min-width: 200px;
+    }
+  }
+  
+  &--row-reverse {
+    .rds-search__input {
+      flex: 1;
+      min-width: 200px;
+    }
+  }
+
+  // Variant-specific styles to ensure consistent icon alignment
+  &__input {
+    // Standard variant icon alignment fix
+    &.MuiTextField-root {
+      .MuiInput-root {
+        
+        align-items: center;
+        
+        .MuiInputAdornment-root {
+          margin-top: 0;
+          height: auto;
+          max-height: none;
+          
+          
+          &.MuiInputAdornment-positionStart {
+            margin-right: 8px;
+          }
+          
+          &.MuiInputAdornment-positionEnd {
+            margin-left: 8px;
+          }
+          
+          
+          .MuiIconButton-root {
+            padding: 6px;
+            margin: 0;
+          
+          }
+        }
+        
+        
+        .MuiInput-input {
+          padding: 6px 0 7px;
+          
+          &:first-child {
+            padding-left: 0;
+          }
+        }
+        
+        
+        &.MuiInput-formControl {
+          margin-top: 16px;
+        }
+      }
+      
     }
   }
 }

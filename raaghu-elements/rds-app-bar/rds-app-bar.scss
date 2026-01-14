@@ -1,19 +1,33 @@
-
-// =======================
-//  RDS App Bar Stories Utility Classes  
-// =======================
-
-// Logo styles for stories
 .rds-story-logo {
   height: 32px;
+ 
+  @media (max-width: 834px) {
+    height: 28px;
+  }
+  
+  @media (max-width: 420px) {
+    height: 24px;
+  }
+  
+  @media (max-width: 320px) {
+    height: 20px;
+  }
 }
 
-// Container for logo and search combination
 .rds-story-logo-search-container {
   display: flex;
   align-items: center;
   gap: 12px;
   flex: 1;
+  
+  // Responsive gap adjustments
+  @media (max-width: 420px) {
+    gap: 8px;
+  }
+  
+  @media (max-width: 320px) {
+    gap: 6px;
+  }
 }
 
 .rds-story-logo-search-container .rds-story-logo {
@@ -23,6 +37,31 @@
 // Search field in stories
 .rds-story-search-field {
   min-width: 180px;
+  @media (max-width: 834px) {
+    min-width: 160px;
+    max-width: 220px;
+  }
+ 
+  @media (max-width: 480px) {
+    min-width: 140px;
+    flex: 1;
+    max-width: 200px;
+  }
+  
+  @media (max-width: 420px) {
+    min-width: 120px;
+    max-width: 180px;
+  }
+  
+  @media (max-width: 320px) {
+    min-width: 100px;
+    max-width: 140px;
+  }
+}
+ @media (min-width: 840px) {
+    .rds-header--variant-withactions .rds-header__tabs-inline {
+      margin-right: 370px;
+    }
 }
 
 // Container with minimal height
@@ -35,30 +74,91 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  
+  // Responsive gap adjustments
+  @media (max-width: 834px) {
+    gap: 12px;
+  }
+  
+  @media (max-width: 420px) {
+    gap: 8px;
+  }
+  
+  @media (max-width: 320px) {
+    gap: 6px;
+  }
 }
 
 // Individual action item with cursor
 .rds-story-nav-action {
   cursor: pointer;
+ 
+  @media (max-width: 420px) {
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
 }
 
 .rds-appbar-tabs-container {
   display: flex;
   align-items: center;
   gap: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  
+  @media (max-width: 834px) {
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+  
+  @media (max-width: 420px) {
+    gap: 0;
+  }
+  
+  @media (max-width: 320px) {
+    gap: 0;
+    flex-shrink: 2;
+  }
 }
 
 .rds-appbar-separator {
-  height: 60px;
+  align-self: center;
+  display: block;
+  flex-shrink: 0; 
+  height: calc(100% - 16px); 
+  min-height: 24px;
+  max-height: 60px;
   width: 1px;
-  background: var(--rds-appbar-separator-bg, #D0D0D0);
-  margin: 0 4px;
+  background-color: var(--rds-appbar-separator-bg, #D0D0D0);
+  background-clip: padding-box;
+  margin: 0 8px;
+  
+  @media (max-width: 420px) {
+    margin: 0 6px;
+    min-height: 20px;
+  }
+  
+  @media (max-width: 320px) {
+    margin: 0 4px;
+    min-height: 18px;
+  }
 }
 
 .rds-appbar-tabs {
   display: flex;
   gap: 0;
   align-items: center;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .rds-appbar-tab-btn {
@@ -66,8 +166,34 @@
   font-size: 16px;
   text-transform: none;
   padding: 6px 16px;
+  border-radius: 0px !important;
+  transition: background-color 0.2s ease-in-out;
+  
+  &-active {
+    background-color: var(--rds-background-paper, #ffffff) !important;
+    color: var(--rds-text-primary,  #1976d2) !important;
+    border-bottom: 3px solid var(--rds-color-primary, #1976d2) !important;
+  }
+  white-space: nowrap;
+  min-width: auto;
+  
+  // Responsive tab button adjustments
+  @media (max-width: 834px) {
+    font-size: 15px;
+    padding: 6px 14px;
+  }
+  
+  @media (max-width: 420px) {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+  
+  @media (max-width: 320px) {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
 }
-// Logo and search bar container for LogoSearchTabsActions story
+
 .rds-header__logo-search {
   display: flex;
   align-items: center;
@@ -80,27 +206,104 @@
   display: block;
 }
 
+.rds-header__center-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; 
+
+  @media (max-width: 420px) {
+    gap: 12px; 
+    margin-left: 95px;
+  }
+
+  @media (max-width: 320px) {
+    gap: 10px; 
+    margin-left: 30px;
+  }
+
+  .rds-button {
+    @media (max-width: 420px) {
+      font-size: 12px; 
+      padding: 6px 10px;
+      min-height: 32px;
+    }
+
+    @media (max-width: 320px) {
+      font-size: 11px;
+      padding: 5px 8px;
+      min-height: 28px;
+    }
+  }
+}
+
+@media (min-width: 834px) {
+  .rds-header--variant-withactions {
+    .rds-header__logo { order: 1; }
+    .rds-header__tabs-inline { order: 2; margin-left: 8px; }
+    .rds-header__center-content { order: 3; display: inline-flex; align-items: center;  }
+    .rds-header__right-actions { order: 4; display: flex; align-items: center; margin-left: 8px; }
+    .rds-header__actions { order: 5; margin-left: auto; }
+  }
+}
+
 .rds-header__search-field {
   min-width: 180px;
   margin: 0;
   padding: 0;
+  
+  @media (max-width: 480px) {
+    min-width: 140px;
+    flex: 1;
+    max-width: 200px;
+  }
+  
+  @media (max-width: 320px) {
+    min-width: 120px;
+    max-width: 160px;
+  }
 }
-// LogoSearchTabs left actions
+
 .rds-logo-search-tabs__left-actions {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-shrink: 0;
+  
+  // Responsive gap adjustments
+  @media (max-width: 834px) {
+    gap: 12px;
+  }
+  
+  @media (max-width: 420px) {
+    gap: 8px;
+  }
+  
+  @media (max-width: 320px) {
+    gap: 6px;
+    
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
 }
-
 // Right actions for avatar
 .rds-header__right-actions {
   display: flex;
   align-items: center;
   margin-right: -15px;
-}
-// =======================
-//  RDS App Bar Component Styles
-// =======================
+  flex-shrink: 0;
+  
+  // Responsive margin adjustments
+  @media (max-width: 420px) {
+    margin-right: -10px;
+  }
+  
+  @media (max-width: 320px) {
+    margin-right: -5px;
+  }
+} 
+
 .rds-app-bar {
   display: flex;
   align-items: center;
@@ -111,22 +314,64 @@
   box-shadow: 0 2px var(--rds-spacing-xs) var(--rds-appbar-shadow, rgba(0, 0, 0, 0.2));
   position: relative;
   z-index: var(--rds-z-index-sticky);
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  box-sizing: border-box;
 
   &__title {
     flex: 1;
     font-size: var(--rds-font-size-2xl);
     font-weight: 500;
     margin: 0 var(--rds-font-size-lg);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+    // Responsive title adjustments
+    @media (max-width: 834px) {
+      font-size: var(--rds-font-size-xl);
+      margin: 0 var(--rds-font-size-md);
+    }
+    
+    @media (max-width: 420px) {
+      font-size: var(--rds-font-size-lg);
+      margin: 0 var(--rds-font-size-sm);
+    }
+    
+    @media (max-width: 320px) {
+      font-size: var(--rds-font-size-md);
+      margin: 0 var(--rds-font-size-xs);
+    }
   }
 
   &__menu-button {
     margin-right: var(--rds-spacing-sm);
+    flex-shrink: 0;
+    
+    @media (max-width: 420px) {
+      margin-right: var(--rds-spacing-xs);
+    }
+    
+    @media (max-width: 320px) {
+      margin-right: var(--rds-spacing-xs);
+    }
   }
 
   &__actions {
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-sm);
+    flex-shrink: 0;
+    
+    @media (max-width: 420px) {
+      gap: var(--rds-spacing-xs);
+    }
+    
+    @media (max-width: 320px) {
+      gap: var(--rds-spacing-xs);
+    }
   }
 
   // Color variants
@@ -174,7 +419,30 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
+  min-width: 0;
+  
+  @media (max-width: 834px) {
+    padding-left: 0.4rem;
+    padding-right: 0.8rem;
+    gap: 6px;
+  }
+  
+  @media (max-width: 420px) {
+    padding-left: 0.3rem;
+    padding-right: 0.6rem;
+    gap: 4px;
+    margin-left: 2px;
+  }
+  
+  @media (max-width: 320px) {
+    padding-left: 0.2rem;
+    padding-right: 0.4rem;
+    gap: 2px;
+    margin-left: 1px;
+  }
 }
+
 .rds-profile-menu__avatar {
   width: 32px !important;
   height: 32px !important;
@@ -182,19 +450,30 @@
   color: var(--rds-color-avatar-fg, var(--rds-color-primary, #7c4dff)) !important;
   font-weight: var(--rds-font-weight-semibold, 600);
   font-size: var(--rds-font-size-body, 1rem);
+  flex-shrink: 0;
+  
+  // Responsive avatar adjustments
+  @media (max-width: 834px) {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 0.9rem;
+  }
+  
+  @media (max-width: 420px) {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 320px) {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 0.7rem;
+  }
 }
 .rds-profile-menu__chevron {
   margin-left: 4px;
 }
-// .rds-profile-menu__name {
-//   margin-left: var(--rds-spacing-xs, 8px);
-//   font-weight: var(--rds-font-weight-semibold, 600);
-//   font-size: var(--rds-font-size-body, 15px);
-//   color: var(--rds-color-profile-name, #3d2461);
-//   font-family: var(--rds-font-family, inherit);
-//   letter-spacing: var(--rds-letter-spacing, 0.1px);
-//   text-transform: none;
-// }
 .rds-profile-menu__dropdown {
   margin-top: var(--rds-spacing-lg, 1.5rem);
   min-width: 260px;
@@ -224,11 +503,41 @@
   font-size: var(--rds-font-size-lg, 16px);
   color: var(--rds-color-profile-name, #3d2461);
   line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  // Responsive name adjustments
+  @media (max-width: 420px) {
+    font-size: var(--rds-font-size-md, 14px);
+  }
+  
+  @media (max-width: 320px) {
+    font-size: var(--rds-font-size-sm, 13px);
+  }
 }
+
 .rds-profile-menu__email {
   font-size: var(--rds-font-size-xs, 13px);
   color: var(--rds-color-primary, #7c4dff);
   font-weight: var(--rds-font-weight-medium, 500);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  // Responsive email adjustments
+  @media (max-width: 420px) {
+    font-size: var(--rds-font-size-xs, 11px);
+  }
+  
+  @media (max-width: 320px) {
+    font-size: var(--rds-font-size-xs, 10px);
+  }
+}
+
+.rds-header--primary .rds-profile-menu__email,
+.rds-header--secondary .rds-profile-menu__email {
+  color: inherit !important;
 }
 .rds-profile-menu__item {
   font-size: 15px !important;
@@ -317,6 +626,34 @@
     gap: var(--rds-spacing-lg, 20px);
     background: transparent;
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    
+    // Responsive behavior for different screen sizes
+    @media (max-width: 834px) {
+      padding-left: var(--rds-spacing-lg, 24px);
+      padding-right: var(--rds-spacing-lg, 24px);
+      gap: var(--rds-spacing-md, 16px);
+    }
+    
+    @media (max-width: 480px) {
+      padding-left: var(--rds-spacing-md, 16px);
+      padding-right: var(--rds-spacing-md, 16px);
+      gap: var(--rds-spacing-sm, 12px);
+    }
+    
+    @media (max-width: 420px) {
+      padding-left: var(--rds-spacing-sm, 12px);
+      padding-right: var(--rds-spacing-sm, 12px);
+      gap: var(--rds-spacing-xs, 10px);
+    }
+    
+    @media (max-width: 320px) {
+      padding-left: var(--rds-spacing-xs, 8px);
+      padding-right: var(--rds-spacing-xs, 8px);
+      gap: var(--rds-spacing-xs, 8px);
+    }
   }
 
   &__logo {
@@ -327,6 +664,32 @@
     font-size: var(--rds-font-size-lg, 20px);
     font-weight: var(--rds-font-weight-bold, 700);
     letter-spacing: var(--rds-letter-spacing, 0.1px);
+    flex-shrink: 0;
+    
+    // Responsive behavior for different screen sizes
+    @media (max-width: 834px) {
+      min-width: var(--rds-header-logo-min-width, 100px);
+      font-size: var(--rds-font-size-md, 19px);
+      height: var(--rds-header-logo-height, 30px);
+    }
+    
+    @media (max-width: 480px) {
+      min-width: var(--rds-header-logo-min-width, 80px);
+      font-size: var(--rds-font-size-md, 18px);
+      height: var(--rds-header-logo-height, 28px);
+    }
+    
+    @media (max-width: 420px) {
+      min-width: var(--rds-header-logo-min-width, 70px);
+      font-size: var(--rds-font-size-md, 17px);
+      height: var(--rds-header-logo-height, 26px);
+    }
+    
+    @media (max-width: 320px) {
+      min-width: var(--rds-header-logo-min-width, 60px);
+      font-size: var(--rds-font-size-md, 16px);
+      height: var(--rds-header-logo-height, 24px);
+    }
   }
 
   &__title {
@@ -341,10 +704,111 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex-shrink: 1;
+    
+    // Responsive behavior for different screen sizes
+    @media (max-width: 834px) {
+      min-width: 70px;
+      font-size: var(--rds-font-size-base, 17px);
+    }
+    
+    @media (max-width: 480px) {
+      min-width: 60px;
+      font-size: var(--rds-font-size-base, 16px);
+    }
+    
+    @media (max-width: 420px) {
+      min-width: 50px;
+      font-size: var(--rds-font-size-sm, 15px);
+    }
+    
+    @media (max-width: 320px) {
+      min-width: 40px;
+      font-size: var(--rds-font-size-sm, 14px);
+    }
+  }
+
+  .rds-language-menu-paper {
+    overflow: visible;
+    display: block;
+  }
+  .rds-language-menu-list {
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0,0,0,0.32);
+      border-radius: 8px;
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.32) transparent;
+  }
+
+  .rds-language-menu-paper .MuiMenuItem-root,
+  .rds-language-menu-list .MuiMenuItem-root {
+    font-size: 13px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    min-height: 0 !important;
+    line-height: 1.2 !important;
+    white-space: nowrap;
+  }
+
+  /* Slightly tighten the MenuList spacing */
+  .rds-language-menu-list {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+  }
+
+  .rds-language-menu-paper {
+    width: 220px !important;
+    max-width: 260px !important;
+    max-height: 360px !important;
+    overflow: hidden !important; 
+    box-sizing: border-box;
+    
+    @media (max-width: 834px) {
+      width: 200px !important;
+      max-width: 240px !important;
+    }
+    
+    @media (max-width: 420px) {
+      width: 180px !important;
+      max-width: 200px !important;
+      max-height: 300px !important;
+    }
+    
+    @media (max-width: 320px) {
+      width: 160px !important;
+      max-width: 180px !important;
+      max-height: 280px !important;
+    }
+  }
+
+  .rds-language-menu-list {
+    max-height: 360px !important;
+    overflow-y: auto !important;
+    box-sizing: border-box;
+    
+    // Responsive list adjustments
+    @media (max-width: 420px) {
+      max-height: 300px !important;
+    }
+    
+    @media (max-width: 320px) {
+      max-height: 280px !important;
+    }
   }
 
   &__search {
-    min-width: 220px;
+    min-width: 148px;
     color: var(--rds-color-on-surface, #222);
     background: var(--rds-color-surface-alt, #f5f5f7);
     padding: 0 var(--rds-spacing-sm, 12px);
@@ -356,6 +820,36 @@
     display: flex;
     align-items: center;
     transition: border-color 0.2s;
+    width: 100%;
+    flex-shrink: 1;
+ 
+    @media (max-width: 834px) {
+      min-width: 180px;
+      font-size: var(--rds-font-size-sm, 14px);
+      height: 34px;
+    }
+    
+    @media (max-width: 480px) {
+      min-width: 140px;
+      padding: 0 var(--rds-spacing-xs, 8px);
+      font-size: var(--rds-font-size-sm, 14px);
+      height: 32px;
+    }
+    
+    @media (max-width: 420px) {
+      min-width: 120px;
+      padding: 0 var(--rds-spacing-xs, 8px);
+      font-size: var(--rds-font-size-sm, 13px);
+      height: 30px;
+    }
+    
+    @media (max-width: 320px) {
+      min-width: 100px;
+      padding: 0 var(--rds-spacing-xs, 6px);
+      font-size: var(--rds-font-size-xs, 12px);
+      height: 28px;
+    }
+    
     &:focus-within {
       border-color: var(--rds-color-primary, #1976d2);
       outline-offset: 2px;
@@ -369,6 +863,21 @@
       color: var(--rds-color-on-surface, #222);
       padding: 0;
       height: 34px;
+      
+      @media (max-width: 834px) {
+        font-size: var(--rds-font-size-sm, 14px);
+        height: 32px;
+      }
+      
+      @media (max-width: 420px) {
+        font-size: var(--rds-font-size-sm, 13px);
+        height: 28px;
+      }
+      
+      @media (max-width: 320px) {
+        font-size: var(--rds-font-size-xs, 12px);
+        height: 26px;
+      }
     }
   }
 
@@ -376,6 +885,23 @@
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-md, 16px);
+    flex-shrink: 0;
+
+    @media (max-width: 834px) {
+      gap: var(--rds-spacing-sm, 14px);
+    }
+    
+    @media (max-width: 480px) {
+      gap: var(--rds-spacing-sm, 12px);
+    }
+    
+    @media (max-width: 420px) {
+      gap: var(--rds-spacing-xs, 10px);
+    }
+    
+    @media (max-width: 320px) {
+      gap: var(--rds-spacing-xs, 8px);
+    }
   }
 
   &__tabs {
@@ -429,6 +955,7 @@
     align-items: center;
     gap: 4px;
     flex: 1;
+    /* Center tabs by default on larger screens */
     justify-content: center;
 
     .MuiButton-root {
@@ -459,6 +986,94 @@
     }
   }
 
+  @media (max-width: 420px) {
+    &__sub-header {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 8px 12px;
+      gap: 8px;
+      min-height: initial;
+    }
+
+    &__sub-header-layout {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    &__sub-tabs {
+      justify-content: flex-start;
+      width: 100%;
+      overflow: visible;
+      flex-wrap: wrap;
+    }
+
+    &__sub-tabs .MuiButton-root {
+      width: auto;
+      white-space: normal;
+      padding: 6px 10px;
+      min-width: 0;
+    }
+  }
+
+  @media (max-width: 320px) {
+    &__sub-header {
+      padding: 6px 8px;
+      gap: 6px;
+    }
+
+    &__sub-tabs .MuiButton-root {
+      padding: 6px 8px;
+      font-size: 13px;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 420px) {
+    &__sub-tabs {
+      display: flex;
+      flex-wrap: wrap !important;
+      justify-content: flex-start !important;
+      gap: 6px !important;
+      margin-left: 0px;
+      width: 100%;
+    }
+
+    &__sub-tabs .MuiButton-root {
+      flex: 0 0 auto !important;
+      white-space: nowrap !important;
+      padding: 6px 10px !important;
+      font-size: 13px !important;
+      min-width: auto !important;
+    }
+
+    &__sub-tabs .MuiButton-root .MuiSvgIcon-root {
+      font-size: 16px !important;
+      margin-right: 4px !important;
+    }
+  }
+
+  @media (max-width: 320px) {
+    &__sub-tabs {
+      display: flex;
+      flex-wrap: wrap !important;
+      justify-content: flex-start !important;
+      margin-left: 0px;
+      gap: 6px !important;
+      width: 100%;
+    }
+
+    &__sub-tabs .MuiButton-root {
+      flex: 0 0 auto !important;
+      padding: 6px 8px !important;
+      font-size: 12px !important;
+      white-space: nowrap !important;
+      min-width: auto !important;
+    }
+
+    &__sub-tabs .MuiButton-root .MuiSvgIcon-root { font-size: 16px !important; margin-right: 4px !important; }
+  }
+
   &--sticky {
     position: sticky;
     top: 0;
@@ -472,6 +1087,31 @@
     display: flex;
     align-items: center;
     width: 220px;
+    flex-shrink: 1;
+    min-width: 0;
+ 
+    @media (max-width: 834px) {
+      width: 180px;
+      min-width: 160px;
+      max-width: 200px;
+    }
+    
+    @media (max-width: 480px) {
+      width: 100%;
+      min-width: 140px;
+      flex: 1;
+      max-width: 180px;
+    }
+    
+    @media (max-width: 420px) {
+      min-width: 120px;
+      max-width: 160px;
+    }
+    
+    @media (max-width: 320px) {
+      min-width: 100px;
+      max-width: 140px;
+    }
   }
 
   &__search-clear {
@@ -492,6 +1132,8 @@
     display: flex;
     align-items: center;
     min-height: auto;
+    flex-shrink: 1;
+    min-width: 0;
     
     .MuiTab-root {
       min-height: auto !important;
@@ -500,6 +1142,23 @@
       font-weight: 500 !important;
       text-transform: none !important;
       color: var(--rds-color-on-surface, #222) !important;
+      white-space: nowrap;
+      min-width: auto !important;
+ 
+      @media (max-width: 834px) {
+        padding: 8px 14px !important;
+        font-size: 13px !important;
+      }
+      
+      @media (max-width: 420px) {
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+      }
+      
+      @media (max-width: 320px) {
+        padding: 6px 8px !important;
+        font-size: 11px !important;
+      }
       
       &.Mui-selected {
         color: var(--rds-color-primary, #1976d2) !important;
@@ -513,26 +1172,80 @@
     
     .MuiTabs-flexContainer {
       align-items: center;
+      gap: 0;
+      
+      @media (max-width: 320px) {
+        gap: 0;
+      }
     }
   }
 }
 
-/* AppBar custom styles for WithMenuButton story */
 .rds-appbar-logo-group {
   display: flex;
   align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+  
+  @media (max-width: 420px) {
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
 }
+
 .rds-appbar-logo-label {
   margin-left: 8px;
   font-weight: 500;
   font-size: 18px;
   color: #353535;
+  white-space: nowrap;
+  white-space: nowrap;
+
+  @media (max-width: 834px) {
+    font-size: 17px;
+    margin-left: 6px;
+  }
+  
+  @media (max-width: 420px) {
+    font-size: 16px;
+    margin-left: 6px;
+  }
+  
+  @media (max-width: 320px) {
+    font-size: 14px;
+    margin-left: 4px;
+  }
 }
+
 .rds-appbar-actions-group {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  
+  @media (max-width: 834px) {
+    gap: 12px;
+  }
+  
+  @media (max-width: 420px) {
+    gap: 8px;
+  }
+  
+  @media (max-width: 320px) {
+    gap: 6px;
+  }
 }
+
 .rds-appbar-badge {
   background: var(--rds-appbar-badge-bg, #EAF3FF);
   color: var(--rds-appbar-badge-color, #3C98FF);
@@ -541,13 +1254,28 @@
   font-weight: 500;
   font-size: 12px;
   margin-right: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  
+  // Responsive badge adjustments
+  @media (max-width: 420px) {
+    font-size: 11px;
+    padding: 3px 8px;
+    margin-right: 6px;
+  }
+  
+  @media (max-width: 320px) {
+    font-size: 10px;
+    padding: 2px 6px;
+    margin-right: 4px;
+  }
 }
 // DARK MODE OVERRIDES
 [data-theme="dark"], .dark {
   --rds-appbar-bg: #181c20;
   --rds-appbar-color: #fff;
   --rds-appbar-shadow: rgba(0,0,0,0.5);
-  --rds-appbar-separator-bg: #333a42;
+  --rds-appbar-separator-bg: #FFFFFF;
   --rds-appbar-secondary-bg: #7c2946;
   --rds-appbar-badge-bg: #232e3a;
   --rds-appbar-badge-color: #90caf9;
@@ -555,7 +1283,6 @@
   --rds-color-surface-alt: var(--rds-background-surface, #23272b);
   --rds-color-on-surface: var(--rds-text-primary, #e3e3e3);
   --rds-color-border: var(--rds-border-default, #444b54);
-  // Optional: search field specific
   --rds-header__search-field-bg: var(--rds-background-surface, #23272b);
   --rds-header__search-field-color: var(--rds-text-primary, #e3e3e3);
 
@@ -563,11 +1290,1173 @@
     color: var(--rds-color-on-info, #ffffff);
   }
 }
-.css-16b6n56-MuiButtonBase-root-MuiButton-root, .css-1gjwngd {
+
+.css-16b6n56-MuiButtonBase-root-MuiButton-root, 
+.css-1gjwngd {
     min-width: 95px !important;
     padding: 6px 10px !important;
+    
+    @media (max-width: 834px) {
+      min-width: 85px !important;
+      padding: 6px 8px !important;
+      font-size: 14px !important;
+    }
+    
+    @media (max-width: 420px) {
+      min-width: 75px !important;
+      padding: 5px 6px !important;
+      font-size: 13px !important;
+    }
+    
+    @media (max-width: 320px) {
+      min-width: 60px !important;
+      padding: 4px 6px !important;
+      font-size: 12px !important;
+    }
 }
 
-.css-sdirt4-MuiButtonBase-root-MuiTab-root, .css-wor01b {
+.css-sdirt4-MuiButtonBase-root-MuiTab-root, 
+.css-wor01b {
     min-width: 60px !important;
+    
+    // Responsive tab adjustments
+    @media (max-width: 834px) {
+      min-width: 55px !important;
+    }
+    
+    @media (max-width: 420px) {
+      min-width: 50px !important;
+    }
+    
+    @media (max-width: 320px) {
+      min-width: 45px !important;
+    }
+}
+
+.MuiIconButton-root {
+  @media (max-width: 420px) {
+    padding: 6px !important;
+    
+    svg {
+      font-size: 20px !important;
+      margin-left: 12px;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    padding: 4px !important;
+    
+    svg {
+      font-size: 18px !important;
+      margin-left: 11px;
+    }
+  }
+}
+
+.MuiButton-root {
+  @media (max-width: 420px) {
+    padding: 6px 12px !important;
+    font-size: 13px !important;
+  }
+  
+  @media (max-width: 320px) {
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+  }
+}
+
+.MuiAvatar-root {
+  @media (max-width: 420px) {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 14px !important;
+  }
+  
+  @media (max-width: 320px) {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 12px !important;
+  }
+}
+
+.MuiTypography-root {
+  @media (max-width: 420px) {
+    &.MuiTypography-body1 {
+      font-size: 13px !important;
+    }
+    
+    &.MuiTypography-body2 {
+      font-size: 11px !important;
+    }
+  }
+  
+  @media (max-width: 320px) {
+    &.MuiTypography-body1 {
+      font-size: 12px !important;
+    }
+    
+    &.MuiTypography-body2 {
+      font-size: 10px !important;
+    }
+  }
+}
+
+.rds-header {
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.rds-header__toolbar > * {
+  flex-shrink: 0;
+  
+  &.rds-header__title,
+  &.rds-header__search-wrapper {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .rds-appbar-separator {
+    display: none;
+  }
+  
+  .rds-header__toolbar {
+    .rds-header__title {
+      flex-shrink: 2;
+      min-width: 30px;
+    }
+    
+    .rds-header__search-wrapper {
+      flex-shrink: 1;
+      min-width: 80px;
+    }
+    
+    .rds-header__actions,
+    .rds-header__right-actions {
+      flex-shrink: 0;
+      min-width: auto;
+    }
+  }
+ 
+  .rds-profile-menu__button {
+    .MuiBox-root {
+      display: none; // Hide profile text details on very small screens
+    }
+  }
+}
+
+.rds-appbar-overflow-button {
+  display: none !important;
+  margin-left: 6px;
+}
+
+.rds-appbar-overflow-button .rds-overflow-icon { display: inline-flex; }
+.rds-appbar-overflow-button .rds-overflow-icon--hamburger { display: none; }
+
+/* Remove overflow button and dehaze icon for 320px and 420px screen sizes */
+@media (max-width: 420px) {
+  .rds-appbar-overflow-button {
+    display: none !important;
+  }
+
+  .rds-appbar-overflow-button .rds-overflow-icon--hamburger { display: none !important; }
+  .rds-appbar-overflow-button .rds-overflow-icon--dots { display: none !important; }
+}
+
+@media (max-width: 420px) {
+  .rds-header__toolbar {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  
+  .rds-appbar-tabs-container {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 834px) {
+  .rds-header__toolbar {
+    gap: var(--rds-spacing-md, 12px);
+  }
+
+  .rds-appbar-actions-group {
+    .MuiButton-root {
+      min-width: 80px;
+    }
+  }
+}
+
+@media (max-width: 834px) {
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-avatar__info,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__chevron {
+    display: none !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-profile-menu__avatar,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiAvatar-root {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-header__search-wrapper {
+   margin-right: 12px !important;
+   flex: 0 1 auto !important;
+   max-width: calc(100% - 160px) !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .rds-story-nav-actions,
+  .rds-logo-search-tabs__left-actions,
+  .rds-appbar-actions-group,
+  .rds-appbar-badge {
+    display: none !important;
+  }
+
+  .rds-header--variant-withnotificationbadge .rds-appbar-tabs-container {
+    display: none !important;
+  }
+  .rds-header--variant-logosearchtabs .rds-logo-search-tabs__left-actions {
+    display: none !important; 
+  }
+  .rds-header--variant-logotabsactions .rds-story-nav-actions {
+    display: none !important;
+  }
+  
+  .rds-header--variant-logosearchtabsactions .rds-story-nav-actions {
+    display: none !important;
+  }
+  
+  .rds-header--variant-withtabs .rds-header__tabs-inline {
+    display: none !important;
+  }
+  
+  .rds-header--variant-withlogoandtabs .rds-header__tabs-inline {
+    display: none !important;
+  }
+  
+  .rds-header--variant-withnotificationbadge .rds-appbar-tabs-container {
+    display: none !important; 
+  }
+
+  .rds-header--variant-withactions .rds-appbar-actions-group,
+  .rds-header--variant-withactions .rds-header__right-actions {
+    display: none !important;
+  }
+
+  /* Logo Tabs Actions - show bottom navigation */
+  .rds-header--variant-logotabsactions .rds-story-nav-actions { display: none !important; }
+  .rds-header--variant-logotabsactions .rds-story-nav-action { display: none !important; }
+  .rds-header--variant-logotabsactions .rds-profile-menu__button { display: inline-flex !important; }
+  .rds-header--variant-logotabsactions .rds-appbar-overflow-button { display: none !important; }
+  /* With Tabs - show bottom navigation */
+  .rds-header--variant-withtabs .rds-header__tabs-inline { display: none !important; }
+  .rds-header--variant-withtabs .rds-appbar-overflow-button { display: none !important; }
+  .rds-header--variant-withtabs .rds-profile-menu__button { order: 99 !important; margin-left: auto !important; }
+  /* With Actions - show bottom navigation */
+  .rds-header--variant-withactions .rds-header__tabs-inline { display: none !important; }
+  .rds-header--variant-withactions .rds-appbar-overflow-button { display: none !important; }
+  .rds-header--variant-withactions .rds-profile-menu__button { order: 99 !important; margin-left: auto !important; }
+  .rds-header--variant-withactions .rds-appbar-actions-group,
+  .rds-header--variant-withactions .rds-appbar-actions-group .MuiButton-root,
+  .rds-header--variant-withactions .rds-header__right-actions { display: none !important; }
+  /* With Logo and Tabs - show bottom navigation */
+  .rds-header--variant-withlogoandtabs .rds-header__tabs-inline { display: none !important; }
+  .rds-header--variant-withlogoandtabs .rds-appbar-overflow-button { display: none !important; }
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button { order: 99 !important; margin-left: auto !important; }
+  .rds-header--variant-withmenubutton .rds-appbar-actions-group,
+  .rds-header--variant-withmenubutton .rds-header__right-actions {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root { display: none !important; }
+
+  .rds-header--variant-withmenubutton .rds-appbar-overflow-button { display: none !important; }
+
+  .rds-header--variant-withmenubutton .rds-header__logo { order: 1 !important; }
+  .rds-header--variant-withmenubutton .rds-header__search-wrapper { order: 2 !important; flex: 1 1 auto !important; min-width: 0 !important; }
+
+  .rds-header--variant-withmenubutton .rds-appbar-actions-group > *:not(.rds-withmenubutton-settings):not(.rds-profile-menu__button) { display: none !important; }
+  
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-appbar-badge,
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-contained {
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-bottom-navigation {
+    display: flex !important;
+    flex-direction: row !important;
+    min-height: 56px !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    background: var(--rds-color-surface-alt, #f5f5f7) !important;
+    border-top: 1px solid var(--rds-color-border, #e0e0e0) !important;
+    padding: 8px 12px !important;
+    margin: 0 !important;
+    z-index: 10 !important;
+  }
+  
+  .rds-header--variant-withmenubutton .rds-bottom-navigation-single-row {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-header__toolbar {
+    position: relative !important;
+    overflow: visible !important;
+  }
+
+  .rds-header--variant-withmenubutton.rds-header {
+    overflow: visible !important;
+  }
+
+  .rds-header--variant-withmenubutton .MuiAppBar-root {
+    overflow: visible !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-withmenubutton-settings { display: inline-flex !important; order: 4 !important; margin-left: 6px !important; }
+
+  .rds-header--variant-withmenubutton .rds-profile-menu__button { display: inline-flex !important; order: 5 !important; margin-left: 6px !important; align-items: center !important; }
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-withmenubutton .rds-avatar__info { display: none !important; }
+
+  .rds-header--variant-withmenubutton .rds-header__tabs-inline { display: none !important; }
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-bottom-nav-tab {
+    display: inline-flex !important;
+  }
+  .rds-header--variant-withmenubutton .rds-profile-menu__button {
+    order: 99 !important; 
+    margin-left: auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-profile-menu__avatar,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiAvatar-root {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  @media (max-width: 320px) {
+    .rds-header--variant-withmenubutton .rds-profile-menu__avatar,
+    .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiAvatar-root {
+      width: 24px !important;
+      height: 24px !important;
+    }
+  }
+
+  .rds-header--variant-withmenubutton .rds-header__toolbar {
+    position: relative; 
+    padding-right: 56px !important; 
+  }
+
+  .rds-header--variant-withmenubutton .rds-appbar-logo-group,
+  .rds-header--variant-withmenubutton .rds-header__logo {
+    position: absolute !important;
+    left: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 4 !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-header__toolbar {
+    padding-left: 56px !important;
+  }
+
+  @media (max-width: 320px) {
+    .rds-header--variant-withmenubutton .rds-appbar-logo-group,
+    .rds-header--variant-withmenubutton .rds-header__logo {
+      left: 8px !important;
+    }
+    .rds-header--variant-withmenubutton .rds-header__toolbar {
+      padding-left: 48px !important;
+    }
+  }
+
+  .rds-header--variant-withmenubutton .rds-profile-menu__button {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    order: 99 !important;
+    margin-left: 0 !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-withmenubutton-settings {
+    display: inline-flex !important;
+    position: absolute !important;
+    right: 72px !important; 
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 3 !important;
+    order: 4 !important;
+    margin: 0 !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-appbar-overflow-button {
+    display: inline-flex !important;
+    position: absolute !important;
+    right: 92px !important; 
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 2 !important;
+    margin: 0 !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-header__toolbar {
+    padding-right: 120px !important;
+  }
+
+  @media (max-width: 320px) {
+  .rds-header--variant-withmenubutton .rds-profile-menu__button { right: 12px !important; }
+  .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: 72px !important; }
+    .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 100px !important; }
+    .rds-header--variant-withmenubutton .rds-appbar-overflow-button { right: 88px !important; }
+    .rds-header--variant-withmenubutton .rds-appbar-logo-label { display: none !important; }
+    .rds-header--variant-withmenubutton .rds-header__search-wrapper {
+      position: relative !important;
+      transform: translateX(12px) !important;
+      max-width: 80px !important;
+      min-width: 60px !important;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .rds-header--variant-withmenubutton .rds-header__search-wrapper {
+      position: relative !important;
+      transform: translateX(8px) !important;
+      max-width: 140px !important;
+      min-width: 100px !important;
+    }
+  }
+
+  .rds-header__search-wrapper,
+  .rds-header__search {
+    max-width: 120px !important;
+    min-width: 80px !important;
+    flex: 0 1 120px !important;
+  }
+  
+  .rds-header--variant-logosearchtabs .rds-header__search input::placeholder,
+  .rds-header--variant-logotabsactions .rds-header__search input::placeholder {
+    font-size: 11px !important;
+    opacity: 0.9 !important;
+  }
+  /* Remove separators on small screens */
+  .rds-appbar-separator { display: none !important; }
+
+  .rds-header__sub-tabs {
+    .MuiButton-root {
+      padding: 6px !important;
+      min-width: 36px !important;
+      width: auto !important;
+      overflow: visible !important;
+      gap: 4px
+    }
+    .MuiButton-root .MuiButton-startIcon { margin-right: 0 !important; }
+    .MuiButton-root .MuiButton-label, .MuiButton-root > span:not(.MuiButton-startIcon) { display: none !important; }
+  }
+
+  .rds-header__tabs-inline .MuiTab-root {
+    padding: 6px 8px !important;
+    font-size: 11px !important;
+    min-width: 32px !important;
+  }
+
+  .rds-profile-menu__button { padding-left: 6px !important; padding-right: 6px !important; }
+  .rds-header--variant-logosearchtabs .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-logotabsactions .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-logotabsactions .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-logotabsactions .rds-profile-menu__button .rds-profile-menu__email {
+    display: none !important;
+  }
+
+  .rds-header--variant-logosearchtabs .rds-avatar__info,
+  .rds-header--variant-logotabsactions .rds-avatar__info,
+  .rds-header--variant-logosearchtabs .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-logotabsactions .rds-profile-menu__button .rds-profile-menu__chevron {
+   display: none !important;
+  }
+
+  .rds-appbar-overflow-content .rds-logo-search-tabs__left-actions {
+    display: flex !important;
+    gap: 12px !important;
+    align-items: center !important;
+  }
+ 
+  .rds-header--variant-withuserprofile .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withuserprofile .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withuserprofile .rds-profile-menu__button .rds-profile-menu__email {
+    display: none !important;
+  }
+  .rds-header--variant-withuserprofile .rds-avatar__info,
+  .rds-header--variant-withuserprofile .rds-profile-menu__button .rds-profile-menu__chevron {
+    display: none !important;
+  }
+
+  .rds-header--variant-logosearchtabs .rds-header__search-wrapper,
+  .rds-header--variant-logosearchtabsactions .rds-header__search-wrapper {
+    order: 2 !important;
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  .rds-header--variant-logosearchtabs .rds-appbar-overflow-button,
+  .rds-header--variant-logosearchtabsactions .rds-appbar-overflow-button {
+    display: inline-flex !important;
+    order: 3 !important;
+    margin-left: 8px !important;
+    margin-right: 8px !important;
+  }
+
+  .rds-header--variant-logosearchtabs .rds-profile-menu__button,
+  .rds-header--variant-logosearchtabsactions .rds-profile-menu__button,
+  .rds-header--variant-logosearchtabs .rds-profile-menu,
+  .rds-header--variant-logosearchtabsactions .rds-profile-menu {
+    order: 99 !important;
+    margin-left: auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  /* Ensure logotabsactions shows avatar after search on small screens */
+  @media (max-width: 420px) {
+    .rds-header--variant-logotabsactions .rds-header__toolbar {
+      position: relative !important;
+      padding-right: 56px !important; /* reserve room for avatar */
+      overflow: visible !important;
+    }
+
+    .rds-header--variant-logotabsactions .rds-header__search-wrapper {
+      order: 2 !important;
+      flex: 0 1 auto !important;
+      min-width: 0 !important;
+      position: relative !important;
+      transform: none !important;
+      max-width: calc(100% - 120px) !important;
+      margin-right: 4px !important;
+    }
+
+    .rds-header--variant-logotabsactions .rds-story-nav-actions { display: contents !important; }
+    .rds-header--variant-logotabsactions .rds-story-nav-action { display: none !important; }
+
+    .rds-header--variant-logotabsactions .rds-profile-menu__button {
+      display: inline-flex !important;
+      order: 4 !important;
+      position: absolute !important;
+      right: 0 !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      z-index: 5 !important;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .rds-header--variant-logotabsactions .rds-header__toolbar {
+      position: relative !important;
+      padding-right: 44px !important;
+      overflow: visible !important;
+    }
+
+    .rds-header--variant-logotabsactions .rds-header__search-wrapper {
+      order: 2 !important;
+      flex: 0 1 auto !important;
+      min-width: 0 !important;
+      max-width: 80px !important;
+      margin-right: 4px !important;
+    }
+
+    .rds-header--variant-logotabsactions .rds-story-nav-actions { display: contents !important; }
+    .rds-header--variant-logotabsactions .rds-story-nav-action { display: none !important; }
+
+    .rds-header--variant-logotabsactions .rds-profile-menu__button {
+      order: 4 !important;
+      position: absolute !important;
+      right: 0px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      z-index: 5 !important;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
+      order: 2 !important;
+      flex: 1 !important;
+      min-width: 0 !important;
+      max-width: calc(100% - 140px) !important;
+      position: relative !important;
+      transform: none !important;
+      margin-right: 0 !important;
+    }
+
+    .rds-header--variant-logosearchtabs .rds-appbar-overflow-button {
+      order: 3 !important;
+      position: absolute !important;
+      right: 52px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      z-index: 4 !important;
+      margin: 0 !important;
+    }
+
+    .rds-header--variant-logosearchtabs .rds-profile-menu__button {
+      order: 4 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      position: absolute !important;
+      right: 12px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      z-index: 5 !important;
+    }
+
+    .rds-header--variant-logosearchtabs .rds-header__toolbar {
+      padding-right: 80px !important;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
+      order: 2 !important;
+      flex: 1 !important;
+      min-width: 0 !important;
+      max-width: calc(100% - 120px) !important;
+      margin-right: 0 !important;
+      transform: none !important;
+    }
+
+    .rds-header--variant-logosearchtabs .rds-appbar-overflow-button {
+      order: 3 !important;
+      position: absolute !important;
+      right: 44px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      z-index: 4 !important;
+      margin: 0 !important;
+    }
+
+    .rds-header--variant-logosearchtabs .rds-profile-menu__button {
+      order: 4 !important;
+      position: absolute !important;
+      right: 8px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: auto !important;
+      z-index: 5 !important;
+      margin: 0 !important;
+    }
+
+    .rds-header--variant-logosearchtabs .rds-header__toolbar {
+      padding-right: 68px !important;
+    }
+  }
+  
+  .rds-header--variant-dashboardwithlang .rds-admin-profile__button {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  @media (max-width: 420px) {
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root { display: inline-flex !important; }
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiBox-root,
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiTypography-root,
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button .rds-admin-profile__chevron {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root { width: 24px !important; height: 24px !important; }
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiBox-root,
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiTypography-root,
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button .rds-admin-profile__chevron {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .rds-dashboard-title {
+      margin-left: 6px !important;
+      font-size: 14px !important;
+      line-height: 1.1 !important;
+      font-weight: 500 !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-header__toolbar {
+      padding-left: 8px !important;
+      padding-right: 56px !important; /* reserve room for avatar */
+      gap: 8px !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-appbar-separator { display: none !important; }
+
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button {
+      position: absolute !important;
+      right: 12px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      margin-left: 0 !important;
+      padding-left: 6px !important;
+      padding-right: 6px !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root {
+      width: 28px !important;
+      height: 28px !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container button,
+    .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root {
+      padding: 4px 6px !important;
+      min-width: 36px !important;
+    }
+    .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root > svg { display: none !important; }
+    .rds-header--variant-dashboardwithlang button[aria-label="chat"],
+    .rds-header--variant-dashboardwithlang button[aria-label="theme"] {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 4px !important;
+      margin: 0 2px !important;
+      min-width: auto !important;
+    }
+
+    .rds-header--variant-dashboardwithlang button[aria-label="chat"] svg,
+    .rds-header--variant-dashboardwithlang button[aria-label="theme"] svg {
+      font-size: 18px !important;
+      width: 18px !important;
+      height: 18px !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-header__title {
+      max-width: 48% !important;
+      flex-shrink: 2 !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-language-button {
+      transform: translateX(-6px) !important;
+      margin-left: 0 !important;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .rds-header--variant-dashboardwithlang .rds-header__toolbar {
+      padding-left: 8px !important;
+      padding-right: 44px !important;
+      gap: 6px !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root {
+      width: 24px !important;
+      height: 24px !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root > svg { display: none !important; }
+    .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root > span { font-size: 11px !important; }
+
+    .rds-header--variant-dashboardwithlang button[aria-label="chat"],
+    .rds-header--variant-dashboardwithlang button[aria-label="theme"] {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 3px !important;
+      margin: 0 2px !important;
+      min-width: auto !important;
+    }
+
+    .rds-header--variant-dashboardwithlang button[aria-label="chat"] svg,
+    .rds-header--variant-dashboardwithlang button[aria-label="theme"] svg {
+      font-size: 16px !important;
+      width: 16px !important;
+      height: 16px !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-header__title {
+      max-width: 42% !important;
+      font-size: 13px !important;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .rds-dashboard-title {
+      font-size: 12px !important;
+      line-height: 1 !important;
+      font-weight: 500 !important;
+      margin-left: 8px !important;
+    }
+
+    .rds-header--variant-dashboardwithlang .rds-language-button {
+      transform: translateX(-10px) !important;
+      margin-left: 0 !important;
+    }
+  }
+  .rds-header__title { max-width: 60% !important; overflow: hidden; text-overflow: ellipsis; }
+  .rds-header__toolbar { padding-left: 8px !important; padding-right: 8px !important; gap: 16px !important; }
+  .rds-app-bar, .rds-header { overflow-x: hidden !important; }
+  .rds-appbar-title__user { display: none !important; }
+}
+
+@media (max-width: 840px) {
+  .rds-header--variant-withmenubutton .rds-header__tabs-inline,
+  .rds-header--variant-withmenubutton .rds-story-nav-actions,
+  .rds-header--variant-withmenubutton .rds-logo-search-tabs__left-actions,
+  .rds-header--variant-withmenubutton .rds-appbar-badge,
+  .rds-header--variant-withmenubutton .rds-appbar-actions-group .MuiButton-contained {
+    display: none !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-appbar-actions-group,
+  .rds-header--variant-withmenubutton .rds-header__right-actions {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-appbar-actions-group > *:not(.rds-withmenubutton-settings):not(.rds-profile-menu__button) {
+    display: none !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-appbar-badge,
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-contained {
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  body { padding-bottom: 56px !important; }
+
+  .rds-header--variant-withmenubutton .rds-bottom-navigation { min-height: 48px !important; padding: 6px 10px !important; }
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-bottom-nav-tab { font-size: 12px !important; padding: 4px 6px !important; }
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-appbar-badge { font-size: 11px !important; padding: 2px 4px !important; }
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-root { font-size: 11px !important; padding: 3px 6px !important; }
+
+  .rds-header--variant-withmenubutton .rds-withmenubutton-settings {
+    display: inline-flex !important;
+    align-items: center !important;
+    position: absolute !important;
+    right: 72px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 4 !important;
+    margin-left: 0 !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-profile-menu__button {
+    display: inline-flex !important;
+    align-items: center !important;
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 5 !important;
+    margin-left: 0 !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  /* Hide avatar text/details so avatar is compact and doesn't overlap search */
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withmenubutton .rds-avatar__info,
+  .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__chevron {
+    display: none !important;
+  }
+
+  .rds-header--variant-withmenubutton .rds-header__search-wrapper {
+    margin-right: 8px !important;
+    flex: 0 1 auto !important;
+    max-width: calc(100% - 180px) !important;
+    position: relative !important;
+    transform: translateX(-6px) !important; 
+  }
+
+  .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 96px !important; }
+}
+
+@media (max-width: 320px) {
+  .rds-header__search-wrapper, .rds-header__search { max-width: 100px !important; min-width: 64px !important; }
+  .rds-header__title { max-width: 55% !important; font-size: 13px !important; }
+  .rds-header__sub-tabs .MuiButton-root { min-width: 32px !important; padding: 4px !important; gap: 4px !important; }
+  .rds-header__tabs-inline .MuiTab-root { font-size: 10px !important; padding: 4px 6px !important; }
+
+  .rds-header__search input::placeholder,
+  .rds-header__search-wrapper input::placeholder,
+  .rds-story-search-field input::placeholder {
+    font-size: 11px !important;
+    opacity: 0.9 !important;
+  }
+
+  .rds-story-nav-actions,
+  .rds-logo-search-tabs__left-actions,
+  .rds-appbar-actions-group,
+  .rds-header__tabs-inline,
+  .rds-appbar-tabs-container {
+    display: none !important;
+  }
+
+  .rds-appbar-overflow-button {
+    display: none !important;
+  }
+
+  body {
+    padding-bottom: 60px !important;
+  }
+
+  .rds-bottom-navigation {
+    .MuiButton-root {
+      font-size: 10px !important;
+      padding: 4px 6px !important;
+      min-width: auto !important;
+      color: inherit !important;
+    }
+    
+    svg {
+      width: 18px !important;
+      height: 18px !important;
+      color: inherit !important;
+    }
+  }
+}
+
+.rds-bottom-navigation {
+  position: fixed;
+  // bottom: 0;
+  top: 63px;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+  align-items: center;
+  background: var(--rds-appbar-bg, var(--rds-primary-main));
+  z-index: 1000;
+  border-top: 1px solid var(--rds-color-border, #e0e0e0);
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+  box-sizing: border-box;
+  min-height: 56px;
+
+  .rds-bottom-navigation-single-row {
+    display: flex;
+    gap: 8px;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+
+  .rds-bottom-navigation-row {
+    display: flex;
+    gap: 8px;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+
+  .rds-bottom-navigation-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .rds-bottom-nav-tab {
+    color: var(--rds-color-on-appbar, var(--rds-appbar-color, #fff));
+    text-transform: none;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 6px 8px;
+    min-width: 48px;
+    white-space: nowrap;
+  }
+
+  .rds-bottom-nav-tab--active {
+    color: #1976D2 !important; 
+  }
+
+  .rds-appbar-badge {
+    background: var(--rds-appbar-badge-bg, #EAF3FF);
+    color: var(--rds-appbar-badge-color, #3C98FF);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-weight: 500;
+    font-size: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .MuiButton-root {
+    font-size: 12px;
+    padding: 4px 8px;
+    min-width: auto;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 420px) {
+    padding: 6px 10px;
+    min-height: 48px;
+    gap: 4px;
+    
+    .rds-bottom-navigation-single-row {
+      gap: 4px;
+    }
+    
+    .rds-bottom-nav-tab { 
+      font-size: 12px; 
+      padding: 4px 6px; 
+      min-width: auto;
+    }
+    
+    .rds-appbar-badge {
+      font-size: 11px;
+      padding: 2px 4px;
+    }
+    
+    .MuiButton-root {
+      font-size: 11px;
+      padding: 3px 6px;
+      min-width: auto;
+    }
+  }
+
+  @media (max-width: 320px) {
+    padding: 4px 6px;
+    min-height: 44px;
+    gap: 2px;
+    
+    .rds-bottom-navigation-single-row {
+      gap: 2px;
+    }
+    
+    .rds-bottom-nav-tab { 
+      font-size: 10px; 
+      padding: 3px 4px; 
+      min-width: auto;
+    }
+    
+    .rds-appbar-badge {
+      font-size: 9px;
+      padding: 2px 3px;
+    }
+    
+    .MuiButton-root {
+      font-size: 9px;
+      padding: 2px 4px;
+      min-width: auto;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  body { padding-bottom: 56px !important; }
+}
+
+@media (max-width: 320px) {
+  body { padding-bottom: 52px !important; }
+}
+
+@media (max-width: 420px) { 
+  .rds-header:not([data-theme="dark"]) {
+    .rds-header__tabs-inline .MuiTab-root:not(.Mui-selected),
+    .rds-appbar-tabs-container .MuiButton-root:not(.Mui-selected),
+    .rds-appbar-tabs-container button:not(.Mui-selected) {
+      color: var(--rds-color-on-surface, #000) !important;
+    }
+
+    .rds-bottom-navigation .rds-bottom-nav-tab:not(.rds-bottom-nav-tab--active) {
+      color: var(--rds-color-on-surface, #000) !important;
+    }
+  }
+}
+
+@media (max-width: 840px) {
+  .rds-header:not([data-theme="dark"]) {
+    .rds-bottom-navigation .rds-bottom-nav-tab:not(.rds-bottom-nav-tab--active) {
+      color: var(--rds-color-on-surface, #000) !important;
+    }
+    .rds-header__tabs-inline .MuiTab-root:not(.Mui-selected),
+    .rds-appbar-tabs-container .MuiButton-root:not(.Mui-selected),
+    .rds-appbar-tabs-container button:not(.Mui-selected) {
+      color: var(--rds-color-on-surface, #000) !important;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container > div,
+  .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container button,
+  .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .rds-story-nav-action,
+  .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .rds-profile-menu__button,
+  .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .rds-admin-profile__button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: auto !important;
+    padding: 3px !important;
+    margin: 0 2px !important;
+  }
+
+  .rds-header--variant-dashboardwithlang button[aria-label="chat"],
+  .rds-header--variant-dashboardwithlang button[aria-label="theme"],
+  .rds-header--variant-dashboardwithlang .rds-language-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 3px !important;
+    margin: 0 2px !important;
+    min-width: auto !important;
+  }
+
+  .rds-header--variant-dashboardwithlang .rds-appbar-separator {
+    display: none !important;
+  }
+}
+
+@media (max-width: 840px) {
+  .rds-header--variant-withmenubutton .rds-header__search-wrapper {
+    margin-right: 12px !important;
+    flex: 0 1 auto !important;
+    max-width: calc(100% - 140px) !important; 
+    position: relative !important; 
+    transform: none !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-contained {
+    color: #fff !important;
+  }
 }

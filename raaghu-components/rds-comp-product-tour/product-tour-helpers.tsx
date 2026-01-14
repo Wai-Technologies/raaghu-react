@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
-import { Close, Info, ExpandMore } from '@mui/icons-material';
+import { Close, InfoOutlined, ExpandMore } from '@mui/icons-material';
 import { RdsCarousel, RdsBadge, RdsInput, RdsAutocomplete, RdsButton, RdsFileUploader } from '../../raaghu-elements';
 
 // Types and Interfaces
@@ -116,18 +116,24 @@ export const renderInfoSection = (header?: string, description?: string) => (
 export const renderFormInputs = () => (
     <>
         <Box className="rds-comp-product-tour__form-input-row">
+             <Box className="rds-comp-product-tour__form-input-row--group">
             <Box className="rds-comp-product-tour__form-input-container">
                 <RdsInput
                     placeholder="Enter Project Name"
-                    size="medium"
+                    size="small"
                     layout="text"
                     showIcon={true}
                     variant="outlined"
-                    icon={<Info sx={{ color: '#9E9E9E', fontSize: '23px' }} />}
+                    icon={<InfoOutlined sx={{ color: '#9E9E9E', fontSize: '23px' }} />}
                 />
             </Box>
+            <Box className="rds-comp-product-tour__form-action-btn">
+                <RdsButton text="Create" style="outlined" size="medium" layout="text-only" />
+            </Box>
+        </Box>
         </Box>
         <Box className="rds-comp-product-tour__form-input-row">
+            <Box className="rds-comp-product-tour__form-input-row--group">
             <Box className="rds-comp-product-tour__form-input-container">
                 <RdsAutocomplete
                     controlStyle="default"
@@ -147,18 +153,26 @@ export const renderFormInputs = () => (
                     placeholder="Add Team Members"
                     popupIcon={<ExpandMore sx={{ color: '#9E9E9E', fontSize: '23px' }} />}
                     selectSize="medium"
+                    // Product tour form: allow selecting multiple team members
+                    allowMultiple={true}
                     showHintText={false}
                     userIcon={true}
                     openOnFocus={true}
+                    fullWidth
                 />
+                </Box>
+                <Box className="rds-comp-product-tour__form-action-btn">
+                    <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
+                </Box>
             </Box>
-            <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
         </Box>
         <Box className="rds-comp-product-tour__form-textarea-container">
             <RdsInput placeholder="Enter Project Description" multiline rows={1} variant="outlined" size="medium" />
         </Box>
         <Box className="rds-comp-product-tour__form-button-right">
-            <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
+            <Box className="rds-comp-product-tour__form-action-btn">
+                <RdsButton text="Add" style="outlined" size="medium" layout="text-only" />
+            </Box>
         </Box>
     </>
 );

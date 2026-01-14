@@ -37,7 +37,7 @@ const meta: Meta = {
                 "grow",
                 "border"
             ],
-            control: { type: "radio" },
+            control: { type: "select" },
             description: "Type of spinner",
         },
         colorVariant: {

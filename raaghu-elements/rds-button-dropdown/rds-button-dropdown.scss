@@ -31,16 +31,17 @@
     transition: background-color 0.2s ease;
     outline: none;
 
-    &:hover {
+    &:hover:not(&--selected) {
       background-color: #f5f5f5;
     }
 
-    [data-theme="dark"] &:hover {
+    [data-theme="dark"] &:hover:not(&--selected) {
       background-color: #4a4a4a;
     }
 
     &--selected {
-      background-color: #e3f2fd;
+      background-color: #3C98FF;
+      color: #ffffff;
     }
 
     &--disabled {
@@ -66,6 +67,94 @@
 .rds-button-dropdown__option {
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: 0px;
 	padding: 6px 4px;
 }
+
+/* Secondary style for button dropdown */
+.rds-button-dropdown--secondary {
+  background-color: #2534E9 !important;
+  color: white !important;
+  border: none !important;
+  
+  &:hover {
+    background-color: #1d2bb8 !important;
+    color: white !important;
+  }
+  
+  &:active {
+    background-color: #162291 !important;
+    color: white !important;
+  }
+  
+  &:focus {
+    background-color: #2534E9 !important;
+    color: white !important;
+  }
+  
+  // Ensure icon colors are also white
+  .MuiSvgIcon-root {
+    color: white !important;
+  }
+  
+  // Override any MUI button styles that might interfere
+  &.MuiButton-root {
+    background-color: #2534E9 !important;
+    color: white !important;
+    border: none !important;
+    
+    &:hover {
+      background-color: #1d2bb8 !important;
+      color: white !important;
+    }
+    
+    &:active {
+      background-color: #162291 !important;
+      color: white !important;
+    }
+  }
+}
+
+.dark-theme .rds-button-dropdown__option,
+[data-theme="dark"] .rds-button-dropdown__option,
+.sb-show-main[data-theme="dark"] .rds-button-dropdown__option,
+body[data-theme="dark"] .rds-button-dropdown__option,
+.dark-theme .rds-button-dropdown__item-label,
+[data-theme="dark"] .rds-button-dropdown__item-label,
+.sb-show-main[data-theme="dark"] .rds-button-dropdown__item-label,
+body[data-theme="dark"] .rds-button-dropdown__item-label {
+  color: #ffffff;
+}
+
+.dark-theme .rds-button-dropdown__option .MuiSvgIcon-root,
+[data-theme="dark"] .rds-button-dropdown__option .MuiSvgIcon-root,
+body[data-theme="dark"] .rds-button-dropdown__option .MuiSvgIcon-root,
+.dark-theme .MuiButton-root.rds-button-dropdown__button,
+[data-theme="dark"] .MuiButton-root.rds-button-dropdown__button,
+body[data-theme="dark"] .MuiButton-root.rds-button-dropdown__button,
+.dark-theme .MuiSvgIcon-root,
+[data-theme="dark"] .MuiSvgIcon-root,
+body[data-theme="dark"] .MuiSvgIcon-root,
+.dark-theme .MuiButton-root,
+[data-theme="dark"] .MuiButton-root,
+body[data-theme="dark"] .MuiButton-root {
+  color: #ffffff !important;
+}
+
+.dark-theme .rds-button,
+[data-theme="dark"] .rds-button,
+body[data-theme="dark"] .rds-button,
+.sb-show-main[data-theme="dark"] .rds-button {
+  color: #ffffff !important;
+}
+
+.dark-theme .rds-button .MuiSvgIcon-root,
+[data-theme="dark"] .rds-button .MuiSvgIcon-root,
+body[data-theme="dark"] .rds-button .MuiSvgIcon-root,
+.dark-theme .rds-button .MuiListItemIcon-root svg,
+[data-theme="dark"] .rds-button .MuiListItemIcon-root svg,
+body[data-theme="dark"] .rds-button .MuiListItemIcon-root svg {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+

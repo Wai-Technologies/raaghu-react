@@ -57,7 +57,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    // Ensure any rendered pre/code from syntax highlighter stays inline and doesn't break layout
+    
     pre,
     code,
     span {
@@ -103,7 +103,7 @@
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-xs, 6px);
-    padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 12px);
+    padding: 10px 12px;
     border-radius: var(--rds-border-radius-sm, 6px);
     font-size: var(--rds-font-size-xs, 12px);
     font-weight: 500;
@@ -224,11 +224,20 @@
     line-height: 1.5;
   }
 
+  // Footer container
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: var(--rds-spacing-md, 12px) var(--rds-spacing-md, 16px);
+    min-height: 48px;
+  }
+
   // Show more button container
   &__show-more {
-    position: absolute;
-    right: var(--rds-spacing-md, 16px);
-    bottom: var(--rds-spacing-md, 16px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   // Light theme modifier
@@ -281,6 +290,10 @@
       &::after {
         background-color: var(--rds-color-border-dark, #374151);
       }
+    }
+
+    .rds-comp-code-snippet__footer {
+      background-color: var(--rds-color-surface-variant-dark, #111827) !important;
     }
 
     .rds-comp-code-snippet__language-label {

@@ -87,6 +87,8 @@ const RdsTable = ({
   // Internal cell-level states for independent checkbox and radio columns
   const [cellCheckboxSelected, setCellCheckboxSelected] = React.useState<Set<string | number>>(new Set());
   const [cellRadioSelected, setCellRadioSelected] = React.useState<string | number | null>(null);
+  const [internalPage, setInternalPage] = React.useState(0);
+  const [internalPageSize, setInternalPageSize] = React.useState(10);
 
   // Sorting (uncontrolled fallback support)
   const [internalSortBy, setInternalSortBy] = React.useState<string | undefined>(defaultSortBy);
@@ -153,18 +155,16 @@ const RdsTable = ({
   const isAllCellCheckboxSelected = checkboxRowIds.length > 0 && checkboxRowIds.every((id) => cellCheckboxSelected.has(id));
   const isCellCheckboxIndeterminate = cellCheckboxSelected.size > 0 && !isAllCellCheckboxSelected;
   const handleChangePage = (event: unknown, newPage: number) => {
-    if (onPageChange) {
-      onPageChange(newPage);
-    }
+    setInternalPage(newPage);
+    if (onPageChange) onPageChange(newPage);
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (onPageSizeChange) {
-      onPageSizeChange(parseInt(event.target.value, 10));
-    }
-    if (onPageChange) {
-      onPageChange(0);
-    }
+    const newSize = parseInt(event.target.value, 10);
+    setInternalPageSize(newSize);
+    setInternalPage(0);
+    if (onPageSizeChange) onPageSizeChange(newSize);
+    if (onPageChange) onPageChange(0);
   };
 
   const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -189,11 +189,13 @@ const RdsTable = ({
         const rowId = row.id || row.key;
         const isChecked = cellCheckboxSelected.has(rowId);
         return (
+          <div className="rds-table__checkbox">
           <Checkbox
             checked={isChecked}
             onChange={() => toggleCellCheckbox(rowId)}
             size="small"
           />
+          </div>
         );
       }
       case 'radio': {
@@ -225,7 +227,7 @@ const RdsTable = ({
           <MuiTableHead className="rds-table__head">
             <MuiTableRow className="rds-table__header-row">
               {selectable && (
-                <MuiTableCell padding="checkbox" className="rds-table__header rds-table__header--checkbox">
+                <MuiTableCell padding="checkbox" className="rds-table__header rds-table__header--checkbox rds-table__checkbox">
                   <Checkbox
                     indeterminate={isIndeterminate}
                     checked={isAllSelected}
@@ -248,6 +250,7 @@ const RdsTable = ({
                     aria-sort={active ? (sortDirection === 'asc' ? 'ascending' : 'descending') : undefined}
                   >
                     {column.type === 'checkbox' ? (
+                      <div className="rds-table__checkbox">
                       <Checkbox
                         indeterminate={isCellCheckboxIndeterminate}
                         checked={isAllCellCheckboxSelected}
@@ -260,6 +263,7 @@ const RdsTable = ({
                         }}
                         size="small"
                       />
+                      </div>
                     ) : (
                       <div className="rds-table__header-content" onClick={() => handleSort(column)} style={{ cursor: column.sortable ? 'pointer' : undefined }}>
                         <span className="rds-table__header-label">{column.label}</span>
@@ -281,7 +285,7 @@ const RdsTable = ({
             </MuiTableRow>
           </MuiTableHead>
           <MuiTableBody className="rds-table__body">
-            {sortedRows.map((row, index) => {
+            {(pagination ? sortedRows.slice(internalPage * internalPageSize, (internalPage + 1) * internalPageSize) : sortedRows).map((row, index) => {
               const isSelected = currentSelectedRows.includes(row.id || row.key);
               return (
                 <MuiTableRow 
@@ -291,7 +295,7 @@ const RdsTable = ({
                   className={`rds-table__row ${isSelected ? 'rds-table__row--selected' : ''}`}
                 >
                   {selectable && (
-                    <MuiTableCell padding="checkbox" className="rds-table__cell rds-table__cell--checkbox">
+                    <MuiTableCell padding="checkbox" className="rds-table__cell rds-table__cell--checkbox rds-table__checkbox">
                       <Checkbox
                         checked={isSelected}
                         onChange={() => handleSelectRow(row.id || row.key)}
@@ -327,8 +331,8 @@ const RdsTable = ({
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={totalRows || rows.length}
-          rowsPerPage={pageSize}
-          page={page}
+          rowsPerPage={internalPageSize}
+          page={internalPage}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />

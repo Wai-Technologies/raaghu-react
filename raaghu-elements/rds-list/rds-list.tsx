@@ -1,8 +1,9 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React, { useState } from 'react';
-import { List as MuiList,ListItem as MuiListItem,ListItemButton as MuiListItemButton,ListItemText as MuiListItemText,ListItemIcon as MuiListItemIcon,ListItemAvatar as MuiListItemAvatar,ListProps, Divider,Checkbox } from '@mui/material';
+import { List as MuiList,ListItem as MuiListItem,ListItemButton as MuiListItemButton,ListItemText as MuiListItemText,ListItemIcon as MuiListItemIcon,ListItemAvatar as MuiListItemAvatar,ListProps, Divider } from '@mui/material';
 import './rds-list.scss';
 import {Paper } from '@mui/material';
+import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 export interface RdsListItem {
   id: string | number;
   primary: string;
@@ -36,6 +37,7 @@ const RdsList: React.FC<RdsListProps> = ({
   onCheckboxChange,
   checkedItems = [],
   className,
+  dense,
   ...props
 }) => {
   const [openMap, setOpenMap] = useState<Record<string | number, boolean>>({});
@@ -46,7 +48,8 @@ const RdsList: React.FC<RdsListProps> = ({
 
   // Root class based on variant and other props
   const variantClass = variant === 'firebase' ? 'rds-list--firebase' : '';
-  const rootClass = ['rds-list', variantClass, className].filter(Boolean).join(' ');
+  const denseClass = dense ? 'rds-list--dense' : '';
+  const rootClass = ['rds-list', variantClass, denseClass, className].filter(Boolean).join(' ');
 
   const getItemClass = (item: RdsListItem) => {
     let cls = 'rds-list__item';
@@ -135,13 +138,11 @@ const RdsList: React.FC<RdsListProps> = ({
       // Create checkbox if withCheckboxes is true and no custom icon is provided
       const checkbox = withCheckboxes && !item.icon ? (
         <MuiListItemIcon className="rds-list__icon">
-          <Checkbox
-            edge="start"
+          <RdsCheckbox
             checked={effectiveCheckedItems.includes(item.id)}
-            tabIndex={-1}
-            disableRipple
-            disabled={item.disabled}
-            onChange={handleCheckboxChange(item.id)}
+            isDisabled={item.disabled}
+            onChange={(event, checked) => handleCheckboxChange(item.id)()}
+            style="square"
           />
         </MuiListItemIcon>
       ) : null;

@@ -70,6 +70,12 @@
     &--folder {
       color: var(--rds-color-warning, #FFB300);
       margin-top: var(--rds-spacing-sm, 2px);
+      
+      svg,
+      svg * {
+        fill: currentColor !important;
+        color: inherit !important;
+      }
     }
     
     &--file {
@@ -157,5 +163,13 @@
     &:hover {
       background-color: var(--rds-color-primary-hover-dark, rgba(126, 46, 239, 0.2));
     }
+  }
+
+  &__icon--folder,
+  &__icon--folder .MuiSvgIcon-root,
+  &__icon--folder svg,
+  &__icon--folder svg * {
+    color: var(--rds-color-warning, #FFB300) !important;
+    fill: var(--rds-color-warning, #FFB300) !important;
   }
 }

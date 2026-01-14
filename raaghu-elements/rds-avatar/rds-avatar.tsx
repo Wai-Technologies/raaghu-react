@@ -111,7 +111,7 @@ const RdsAvatar = ({
         </span>
 
         <div className="rds-avatar__info">
-          {showName && title && <div className="rds-avatar__name">{title}</div>}
+          {showName && title && <div className="rds-avatar__name" id='avatarname'>{title}</div>}
           {showDesignation && subText && <div className="rds-avatar__designation">{subText}</div>}
         </div>
       </div>

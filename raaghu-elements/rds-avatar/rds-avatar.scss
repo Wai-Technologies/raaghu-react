@@ -212,46 +212,44 @@
 
   // Color variants (prefer design tokens, fallback if needed)
   &--primary {
-    background-color: var(--rds-color-primary, #7c3aed);
     .rds-avatar__ring { border-color: var(--rds-color-primary, #7c3aed); }
     .rds-avatar__dot { background: var(--rds-color-primary, #7c3aed); }
+    .MuiAvatar-root { background-color: var(--rds-color-primary, #7c3aed) !important; }
   }
   &--secondary {
-    background-color: var(--rds-color-secondary, #a21caf);
     .rds-avatar__ring { border-color: var(--rds-color-secondary, #a21caf); }
     .rds-avatar__dot { background: var(--rds-color-secondary, #a21caf); }
+    .MuiAvatar-root { background-color: var(--rds-color-secondary, #a21caf) !important; }
   }
   &--success {
-    background-color: var(--rds-color-success, #34c759);
     .rds-avatar__ring { border-color: var(--rds-color-success, #34c759); }
     .rds-avatar__dot { background: var(--rds-color-success, #34c759); }
+    .MuiAvatar-root { background-color: var(--rds-color-success, #34c759) !important; }
   }
   &--danger {
-    background-color: var(--rds-color-error, #ef4444);
     .rds-avatar__ring { border-color: var(--rds-color-error, #ef4444); }
     .rds-avatar__dot { background: var(--rds-color-error, #ef4444); }
+    .MuiAvatar-root { background-color: var(--rds-color-error, #ef4444) !important; }
   }
   &--warning {
-    background-color: var(--rds-color-warning, #f59e42);
     .rds-avatar__ring { border-color: var(--rds-color-warning, #f59e42); }
     .rds-avatar__dot { background: var(--rds-color-warning, #f59e42); }
+    .MuiAvatar-root { background-color: var(--rds-color-warning, #f59e42) !important; }
   }
   &--info {
-    background-color: var(--rds-color-info, #3b82f6);
     .rds-avatar__ring { border-color: var(--rds-color-info, #3b82f6); }
     .rds-avatar__dot { background: var(--rds-color-info, #3b82f6); }
+    .MuiAvatar-root { background-color: var(--rds-color-info, #3b82f6) !important; }
   }
   &--light {
-    background-color: var(--rds-color-light, #e0e0e0);
     .rds-avatar__ring { border-color: var(--rds-color-light, #e0e0e0); }
     .rds-avatar__dot { background: var(--rds-color-light, #e0e0e0); }
+    .MuiAvatar-root { background-color: var(--rds-color-light, #e0e0e0) !important; color: #333 !important; }
   }
   &--dark {
-    background-color: var(--rds-color-dark, #22223b);
-    color: white;
     .rds-avatar__ring { border-color: var(--rds-color-dark, #22223b); }
     .rds-avatar__dot { background: var(--rds-color-dark, #22223b); }
-    .MuiAvatar-root { color: white !important; }
+    .MuiAvatar-root { background-color: var(--rds-color-dark, #22223b) !important; color: white !important; }
   }
 
 
@@ -429,4 +427,8 @@ html.theme-dark .rds-avatar .MuiAvatar-root,
 [data-theme="dark"] .rds-avatar .MuiAvatar-root,
 .rds-avatar--dark .MuiAvatar-root {
   color: white !important;
+}
+ 
+.theme-light #avatarname {
+  color: #22223b !important;
 }

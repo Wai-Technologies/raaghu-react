@@ -67,8 +67,18 @@
   transition: all 0.2s ease-in-out;
 }
 .offcanvas-close-button:hover {
-  background-color: aliceblue;
+  background-color: rgba(0, 0, 0, 0.10);
   border-radius: 5px;
+}
+
+/* Dark theme hover visibility for close button */
+.rds-theme--dark .offcanvas-close-button:hover,
+body.theme-dark .offcanvas-close-button:hover,
+body[data-theme="dark"] .offcanvas-close-button:hover,
+[data-theme="dark"] .offcanvas-close-button:hover,
+.theme-dark .offcanvas-close-button:hover,
+.dark-theme .offcanvas-close-button:hover {
+  background-color: rgba(255, 255, 255, 0.22);
 }
 
 .offcanvas-body {
@@ -125,7 +135,7 @@ body.theme-dark #offcanvas-btns .MuiButton-root,
 body[data-theme="dark"] #offcanvas-btns .MuiButton-root,
 .theme-dark #offcanvas-btns .MuiButton-root {
   min-height: 36px !important;
-  padding: 6px 16px !important;
+  padding: 6px 9px !important;
 }
 
 .offcanvas-margin {
@@ -161,6 +171,18 @@ body[data-theme="dark"] #offcanvas-btns .MuiButton-root,
   border: 1px solid transparent;
   transition: all 0.2s ease-in-out;
   border-radius: 5px;
+}
+
+.offcanvas-container .offcanvas-header .close:hover {
+  background-color: rgba(0, 0, 0, 0.10);
+}
+.rds-theme--dark .offcanvas-container .offcanvas-header .close:hover,
+body.theme-dark .offcanvas-container .offcanvas-header .close:hover,
+body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
+[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
+.theme-dark .offcanvas-container .offcanvas-header .close:hover,
+.dark-theme .offcanvas-container .offcanvas-header .close:hover {
+  background-color: rgba(255, 255, 255, 0.22);
 }
 
 @media (min-width: 320px) and (max-width: 414px) {

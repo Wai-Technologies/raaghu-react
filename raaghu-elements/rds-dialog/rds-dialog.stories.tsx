@@ -23,6 +23,7 @@ const meta: Meta = {
     fullWidth: { control: { type: 'boolean' } },
     fullScreen: { control: { type: 'boolean' } },
     title: { control: 'text' },
+    variant: { control: { type: 'select' }, options: ['standard', 'default'] },
     ShowDissmiss: { control: 'boolean' },
     showTitle: { control: 'boolean' },
     actions: { control: false },
@@ -146,9 +147,11 @@ export const Interactive: Story = {
           <Typography variant="body1" gutterBottom>
             This dialog can be opened and closed.
           </Typography>
-          <RdsButton style="filled" onClick={() => setOpen(false)}>
-            Close
-          </RdsButton>
+          {args.variant !== 'standard' && (
+            <RdsButton style="filled" onClick={() => setOpen(false)}>
+              Close
+            </RdsButton>
+          )}
         </RdsDialog>
       </>
     );
@@ -158,6 +161,7 @@ export const Interactive: Story = {
     ShowDissmiss: true,
     size: 'small',
     fullWidth: true,
+    variant: 'default',
   },
 };
 
@@ -268,7 +272,7 @@ export const WithIcon: Story = {
             <path d="M17.6154 45.3077H1V39.7692C0.999091 36.8594 1.76237 34.0004 3.21346 31.4782C4.66456 28.956 6.75258 26.8591 9.26861 25.3973C11.7846 23.9356 14.6404 23.1602 17.5502 23.1488C20.46 23.1374 23.3218 23.8903 25.8492 25.3323M49 33.3446L33.3446 49M33.3446 33.3446L49 49M25.9231 9.30769C25.9231 13.8959 22.2036 17.6154 17.6154 17.6154C13.0272 17.6154 9.30769 13.8959 9.30769 9.30769C9.30769 4.71948 13.0272 1 17.6154 1C22.2036 1 25.9231 4.71948 25.9231 9.30769Z" stroke="#BD0D1D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Box>
-        <Typography sx={{ color: '#757575', fontSize: 16, fontWeight: 400, textAlign: 'center', lineHeight: 1.4 }}>
+        <Typography sx={{ fontSize: 16, fontWeight: 400, textAlign: 'center', lineHeight: 1.4 }}>
           Deleting this data will remove your account and you will no longer login to the application! Are you sure you want to proceed?
         </Typography>
       </Box>

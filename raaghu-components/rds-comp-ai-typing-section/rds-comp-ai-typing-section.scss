@@ -190,10 +190,13 @@
   @media (max-width: 375px) {
     &__button-sections {
       flex-wrap: wrap;
+      gap: 0;
+      margin-top: var(--rds-spacing-xs, 6px);
+      margin-bottom: var(--rds-spacing-xs, 4px);
     }
 
     &__project-actions {
-      gap: var(--rds-spacing-sm, 8px);
+      gap: var(--rds-spacing-xs, 6px);
       /* Stack project action buttons vertically on very small screens */
       flex-wrap: nowrap;
       flex-direction: column;
@@ -207,7 +210,7 @@
       min-width: 0;
       width: 100%;
       &.rds-comp-ai-chat-bot__action-button--figma {
-        margin-top: var(--rds-spacing-sm, 8px);
+        margin-top: 0;
       }
     }
 
@@ -215,7 +218,7 @@
       /* Place the autocomplete under the action buttons on small screens */
       flex-basis: 100%;
       order: 3;
-      margin-top: var(--rds-spacing-sm, 8px);
+      margin-top: var(--rds-spacing-xs, 6px);
     }
   }
 
@@ -272,22 +275,26 @@
   @media (min-width: 376px) and (max-width: 767px) {
     &__button-sections {
       flex-wrap: wrap;
+      gap: var(--rds-spacing-xs, 6px);
+      margin-top: var(--rds-spacing-sm, 8px);
+      margin-bottom: var(--rds-spacing-xs, 4px);
     }
 
     &__project-actions {
       width: 100%;
       flex-wrap: nowrap;
+      gap: var(--rds-spacing-xs, 6px);
     }
 
     &__action-button {
-      flex: 1 1 calc((100% - var(--rds-spacing-md, 12px)) / 2);
+      flex: 1 1 calc((100% - var(--rds-spacing-xs, 6px)) / 2);
       min-width: 0;
     }
 
     &__autocomplete {
       flex-basis: 100%;
       order: 3;
-      margin-top: var(--rds-spacing-sm, 8px);
+      margin-top: var(--rds-spacing-xs, 6px);
     }
   }
 

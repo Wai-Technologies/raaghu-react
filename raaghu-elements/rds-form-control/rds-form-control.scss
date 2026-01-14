@@ -6,6 +6,23 @@
   &.MuiFormControl-fullWidth {
     width: 119%;
   }
+  .MuiInputBase-input::placeholder,
+  input::placeholder,
+  textarea::placeholder,
+  .MuiAutocomplete-inputRoot input::placeholder {
+    color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
+    opacity: 1 !important;
+  }
+
+  .dark-theme &, [data-theme="dark"] & {
+    .MuiInputBase-input::placeholder,
+    input::placeholder,
+    textarea::placeholder,
+    .MuiAutocomplete-inputRoot input::placeholder {
+      color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
+      opacity: 1 !important;
+    }
+  }
 }
 
 .rds-form-control__asterisk {
@@ -24,9 +41,9 @@
 .rds-form-control .MuiFormLabel-root.Mui-error .MuiFormLabel-asterisk {
   color: #d32f2f !important;
 }
-.css-1t6h741-MuiFormHelperText-root{
-  margin-left:0 !important;
-}
-.css-196gpye-MuiFormHelperText-root{
-  margin-left:0 !important;
+
+// Fix helper text alignment - override MUI's default margin
+.rds-form-control .MuiFormHelperText-root,
+.rds-form-control .css-1t6h741-MuiFormHelperText-root {
+  margin-left: 0 !important;
 }
