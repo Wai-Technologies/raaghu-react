@@ -125,7 +125,10 @@ const RdsButtonDropdown = ({
         anchorEl={anchorEl}
         onClose={handleClose}
         items={[]}
-        PaperProps={{ style: { minWidth: 200 } }}
+        PaperProps={{ 
+          style: { minWidth: 200 },
+          className: 'rds-button-dropdown__menu'
+        }}
       >
         <div style={{ padding: 8, minWidth: 200 }}>
           {showSearch && (
