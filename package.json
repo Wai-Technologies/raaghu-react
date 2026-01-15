@@ -114,9 +114,9 @@
     "react-svg-worldmap": "^2.0.0-alpha.16",
     "react-syntax-highlighter": "^15.5.0",
     "rimraf": "^6.0.1",
-    "slate": "^0.118.0",
+    "slate": "^0.123.0",
     "slate-history": "^0.113.1",
-    "slate-react": "^0.117.4",
+    "slate-react": "^0.120.0",
     "wavesurfer.js": "^7.10.1"
   },
   "devDependencies": {
