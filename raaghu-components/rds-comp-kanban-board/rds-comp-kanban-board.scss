@@ -915,8 +915,7 @@ html[data-theme="dark"],
   }
   
   .rds-kanban-board__sub-card-text.f-14.fw-400 {
-    /* minimal change: slightly darker text for readability in dark theme */
-    color: var(--rds-kanban-subcard-text-dark, #353535) !important;
+    color: var(--rds-kanban-subcard-text-dark, #7D7D7D) !important;
   }
   
   .rds-kanban-board__sub-card-footer-left.f-12.fw-500 {

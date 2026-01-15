@@ -100,19 +100,7 @@
 
   // Copy button element
   &__copy-button {
-    display: flex;
-    align-items: center;
-    gap: var(--rds-spacing-xs, 6px);
-    padding: 10px 12px;
-    border-radius: var(--rds-border-radius-sm, 6px);
-    font-size: var(--rds-font-size-xs, 12px);
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: 1px solid;
-    min-width: 110px;
-    justify-content: center;
-
+   min-width: 120px;
     // Focus state for accessibility
     &:focus,
     &:focus-visible {
@@ -126,14 +114,6 @@
       color: var(--rds-color-on-success, #ffffff) !important;
       border-color: var(--rds-color-success, #10b981) !important;
     }
-  }
-
-  // Copy text element
-  &__copy-text {
-  white-space: nowrap;
-  display: inline-block;
-  text-align: center;
-  width: 100%;
   }
 
   // Expand icon element

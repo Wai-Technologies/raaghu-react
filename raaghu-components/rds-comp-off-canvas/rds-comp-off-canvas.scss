@@ -290,6 +290,7 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
   #close-btn .MuiIconButton-root svg {
     width: 16px !important;
     height: 16px !important;
+    margin-left: 0 !important;
   }
 }
 // Large mobile devices
@@ -335,7 +336,8 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
     min-width: 40px !important; min-height: 40px !important;
   }
   #close-btn .rds-icon-button svg, #close-btn .MuiIconButton-root svg {
-    width: 18px !important; height: 18px !important;
+    width: 18px !important; height: 18px !important; 
+    margin-left: 0 !important;
   }
 }
 

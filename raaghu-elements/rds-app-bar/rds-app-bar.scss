@@ -241,8 +241,62 @@
     .rds-header__logo { order: 1; }
     .rds-header__tabs-inline { order: 2; margin-left: 8px; }
     .rds-header__center-content { order: 3; display: inline-flex; align-items: center;  }
-    .rds-header__right-actions { order: 4; display: flex; align-items: center; margin-left: 8px; }
+    .rds-header__right-actions { order: 4; display: flex; align-items: center; margin-left: -18px; }
     .rds-header__actions { order: 5; margin-left: auto; }
+  }
+}
+
+@media (max-width: 420px) {
+  .rds-header--variant-withactions {
+    .rds-header__logo {
+      flex-shrink: 0;
+      max-width: 80px;
+    }
+    
+    .rds-header__center-content {
+      flex-shrink: 1;
+      gap: 4px !important;
+      margin-left: 4px !important;
+      
+      .MuiButton-root,
+      .rds-button {
+        font-size: 10px !important;
+        padding: 4px 8px !important;
+        min-width: auto !important;
+        white-space: nowrap;
+      }
+    }
+    
+    .rds-header__left-actions {
+      .MuiIconButton-root {
+        padding: 6px !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .rds-header--variant-withactions {
+    .rds-header__logo {
+      max-width: 60px;
+    }
+    
+    .rds-header__center-content {
+      gap: 2px !important;
+      margin-left: 2px !important;
+      
+      .MuiButton-root,
+      .rds-button {
+        font-size: 9px !important;
+        padding: 3px 6px !important;
+      }
+    }
+    
+    .rds-header__left-actions {
+      .MuiIconButton-root {
+        padding: 4px !important;
+      }
+    }
   }
 }
 
@@ -291,16 +345,16 @@
 .rds-header__right-actions {
   display: flex;
   align-items: center;
-  margin-right: -15px;
+  margin-right: 16px;
   flex-shrink: 0;
   
   // Responsive margin adjustments
   @media (max-width: 420px) {
-    margin-right: -10px;
+    margin-right: 12px;
   }
   
   @media (max-width: 320px) {
-    margin-right: -5px;
+    margin-right: 8px;
   }
 } 
 
@@ -1417,32 +1471,85 @@
   }
 }
 
+@media (max-width: 420px) {
+  .rds-header__toolbar {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    gap: 4px !important;
+  }
+  
+  .rds-header__title {
+    font-size: 14px !important;
+    margin: 0 4px !important;
+    flex-shrink: 2;
+  }
+  
+  .rds-header__search-wrapper {
+    flex-shrink: 1;
+    min-width: 100px;
+    max-width: 150px;
+  }
+  
+  .rds-header__actions {
+    gap: 4px !important;
+    
+    .MuiButton-root {
+      font-size: 11px !important;
+      padding: 4px 8px !important;
+      min-width: auto !important;
+    }
+  }
+  
+  .rds-header__left-actions {
+    margin-right: 4px !important;
+  }
+}
+
 @media (max-width: 320px) {
   .rds-appbar-separator {
     display: none;
   }
   
   .rds-header__toolbar {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    gap: 2px !important;
+    
     .rds-header__title {
       flex-shrink: 2;
       min-width: 30px;
+      font-size: 12px !important;
+      margin: 0 2px !important;
     }
     
     .rds-header__search-wrapper {
       flex-shrink: 1;
       min-width: 80px;
+      max-width: 120px;
     }
     
     .rds-header__actions,
     .rds-header__right-actions {
       flex-shrink: 0;
       min-width: auto;
+      gap: 2px !important;
+    }
+    
+    .rds-header__actions .MuiButton-root {
+      font-size: 10px !important;
+      padding: 3px 6px !important;
     }
   }
  
   .rds-profile-menu__button {
     .MuiBox-root {
       display: none; // Hide profile text details on very small screens
+    }
+  }
+  
+  .rds-header__left-actions {
+    .MuiIconButton-root {
+      padding: 6px !important;
     }
   }
 }
@@ -1595,8 +1702,8 @@
     display: flex !important;
     flex-direction: row !important;
     min-height: 56px !important;
-    position: absolute !important;
-    top: 100% !important;
+    position: fixed !important;
+    bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
@@ -1604,7 +1711,7 @@
     border-top: 1px solid var(--rds-color-border, #e0e0e0) !important;
     padding: 8px 12px !important;
     margin: 0 !important;
-    z-index: 10 !important;
+    z-index: 1000 !important;
   }
   
   .rds-header--variant-withmenubutton .rds-bottom-navigation-single-row {
@@ -1703,18 +1810,19 @@
   .rds-header--variant-withmenubutton .rds-withmenubutton-settings {
     display: inline-flex !important;
     position: absolute !important;
-    right: 72px !important; 
+    right: 60px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
     z-index: 3 !important;
     order: 4 !important;
     margin: 0 !important;
+    padding: 6px !important;
   }
 
   .rds-header--variant-withmenubutton .rds-appbar-overflow-button {
     display: inline-flex !important;
     position: absolute !important;
-    right: 92px !important; 
+    right: 80px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
     z-index: 2 !important;
@@ -1722,19 +1830,18 @@
   }
 
   .rds-header--variant-withmenubutton .rds-header__toolbar {
-    padding-right: 120px !important;
+    padding-right: 110px !important;
   }
 
   @media (max-width: 320px) {
-  .rds-header--variant-withmenubutton .rds-profile-menu__button { right: 12px !important; }
-  .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: 72px !important; }
-    .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 100px !important; }
-    .rds-header--variant-withmenubutton .rds-appbar-overflow-button { right: 88px !important; }
+  .rds-header--variant-withmenubutton .rds-profile-menu__button { right: 8px !important; }
+  .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: 52px !important; padding: 4px !important; }
+    .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 90px !important; }
+    .rds-header--variant-withmenubutton .rds-appbar-overflow-button { right: 70px !important; }
     .rds-header--variant-withmenubutton .rds-appbar-logo-label { display: none !important; }
     .rds-header--variant-withmenubutton .rds-header__search-wrapper {
       position: relative !important;
-      transform: translateX(12px) !important;
-      max-width: 80px !important;
+      max-width: calc(100% - 100px) !important;
       min-width: 60px !important;
     }
   }
@@ -1744,7 +1851,7 @@
       position: relative !important;
       transform: translateX(8px) !important;
       max-width: 140px !important;
-      min-width: 100px !important;
+      min-width: 90px !important;
     }
   }
 
@@ -2245,8 +2352,7 @@
 
 .rds-bottom-navigation {
   position: fixed;
-  // bottom: 0;
-  top: 63px;
+  bottom: 0;
   left: 0;
   right: 0;
   display: flex;
