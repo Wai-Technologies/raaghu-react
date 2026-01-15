@@ -28,6 +28,7 @@ import {
 } from '@mui/icons-material';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
+import RdsTooltip from '../rds-tooltip/rds-tooltip';
 import './rds-sidebar.scss';
 
 export interface RdsSidebarItem {
@@ -106,13 +107,16 @@ const RdsSidebar = ({
 
   // Derived state for sidebar appearance
   const isCollapsed = typeOf === 'collapse' || typeOf === 'fixed';
-  const showLabels = !isCollapsed;
-  let showAvatar = !isCollapsed;
-  let showSearchBox = !isCollapsed && showSearch;
+  // Check if width is too narrow to properly display text (responsive behavior)
+  const isNarrowCollapsed = width < 200;
+  const shouldShowIconsOnly = isCollapsed || isNarrowCollapsed;
+  const showLabels = !shouldShowIconsOnly;
+  let showAvatar = true; // Always show avatar initially
+  let showSearchBox = !shouldShowIconsOnly && showSearch;
   let drawerVariant = variant;
 
   // Special case for list layout
-  if (props.layout === 'list' && isCollapsed) {
+  if (props.layout === 'list' && shouldShowIconsOnly) {
     showAvatar = true;
     showSearchBox = showSearch;
   }
@@ -121,29 +125,29 @@ const RdsSidebar = ({
     // Avatar should be hidden in these layouts, but respect the `showSearch` prop so
     // consumers can toggle the search box via controls or props.
     showAvatar = false;
-    showSearchBox = showSearch && !isCollapsed;
+    showSearchBox = showSearch && !shouldShowIconsOnly;
   }
 
   // CSS classes
-  const sidebarClasses = `rds-sidebar rds-sidebar--${typeOf}`;
+  const sidebarClasses = `rds-sidebar rds-sidebar--${typeOf} ${isNarrowCollapsed ? 'rds-sidebar--narrow-collapsed' : ''}`;
   const headerClasses = `rds-sidebar__header rds-sidebar__header--${typeOf}`;
   const contentClasses = 'rds-sidebar__content';
   const navItemClasses = `rds-sidebar__nav-item rds-sidebar__nav-item--${typeOf}`;
   const navButtonClasses = `rds-sidebar__nav-button rds-sidebar__nav-button--${typeOf}`;
   const avatarContainerClasses = `rds-sidebar__avatar-container rds-sidebar__avatar-container--${typeOf}`;
-  const getLogoClass = () => isCollapsed ? 'rds-sidebar__logo rds-sidebar__logo--collapse' : 'rds-sidebar__logo rds-sidebar__logo--expanded';
+  const getLogoClass = () => shouldShowIconsOnly ? 'rds-sidebar__logo rds-sidebar__logo--collapse' : 'rds-sidebar__logo rds-sidebar__logo--expanded';
 
   // Drawer styles
   const drawerSx: any = {
-    width: isCollapsed ? 64 : width,
+    width: shouldShowIconsOnly ? 64 : width,
     flexShrink: 0,
     ['& .MuiDrawer-paper']: {
-      width: isCollapsed ? 64 : width,
+      width: shouldShowIconsOnly ? 64 : width,
       boxSizing: 'border-box',
       display: 'flex',
       flexDirection: 'column',
-      height: isCollapsed && typeOf === 'fixed' ? '100vh' : '100%',
-      ...(isCollapsed && {
+      height: shouldShowIconsOnly && typeOf === 'fixed' ? '100vh' : '100%',
+      ...(shouldShowIconsOnly && {
         alignItems: 'center',
         overflowX: 'hidden',
         ...(typeOf === 'fixed' && {
@@ -170,7 +174,7 @@ const RdsSidebar = ({
         {showLogo && (
           <div className={headerClasses}>
             {props.layout === 'toolbar' ? (
-              isCollapsed ? (
+              shouldShowIconsOnly ? (
                 <RdsAvatar
                   activeDotBottom
                   src={avatarSrc}
@@ -189,7 +193,7 @@ const RdsSidebar = ({
               )
             ) : (
               <img
-                src={isCollapsed ? '/raaghu.png' : avatarCollapsedSrc}
+                src={shouldShowIconsOnly ? '/raaghu.png' : avatarCollapsedSrc}
                 alt="Raaghu Design System Logo"
                 className={getLogoClass()}
               />
@@ -208,84 +212,118 @@ const RdsSidebar = ({
                 labelPosition="top"
                 onChange={value => setSearchValue(value)}
                 onSearch={() => {}}
-                placeholder={isCollapsed ? '' : 'Search...'}
+                placeholder={shouldShowIconsOnly ? '' : 'Search...'}
                 size="small"
                 value={searchValue}
-                sx={{ width: isCollapsed ? 38 : 205 }}
+                sx={{ width: shouldShowIconsOnly ? 38 : Math.min(width - 32, 205) }}
               />
             </div>
           </>
         )}
         <List className="rds-sidebar__nav-list">
-          {menuItems.map((item, index) => (
-            <div key={index}>
-              <ListItem disablePadding className={navItemClasses}>
-                <ListItemButton
-                  onClick={() => {
-                    if (item.children && item.children.length) {
-                      toggleOpen(index);
-                    } else {
-                      item.onClick && item.onClick();
-                    }
-                  }}
-                  disabled={item.disabled}
-                  selected={item.active}
-                  className={navButtonClasses}
-                  aria-expanded={!!openMap[index]}
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: isCollapsed ? 'center' : 'flex-start',
-                    px: isCollapsed ? 0 : 2,
-                  }}
-                >
-                  {item.icon && (
-                    <ListItemIcon className={`rds-sidebar__nav-icon ${showLabels ? 'rds-sidebar__nav-icon--with-label' : 'rds-sidebar__nav-icon--no-label'}`}>
-                      {item.icon}
-                    </ListItemIcon>
+          {menuItems.map((item, index) => {
+            const listItemButton = (
+              <ListItemButton
+                onClick={() => {
+                  if (item.children && item.children.length) {
+                    toggleOpen(index);
+                  } else {
+                    item.onClick && item.onClick();
+                  }
+                }}
+                disabled={item.disabled}
+                selected={item.active}
+                className={navButtonClasses}
+                aria-expanded={!!openMap[index]}
+                sx={{
+                  minHeight: 48,
+                  justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
+                  px: shouldShowIconsOnly ? 0 : 2,
+                }}
+              >
+                {item.icon && (
+                  <ListItemIcon className={`rds-sidebar__nav-icon ${showLabels ? 'rds-sidebar__nav-icon--with-label' : 'rds-sidebar__nav-icon--no-label'}`}>
+                    {item.icon}
+                  </ListItemIcon>
+                )}
+                {showLabels && <ListItemText primary={item.label} />}
+                {item.children && item.children.length > 0 && !shouldShowIconsOnly && (
+                  (!!openMap[index]) ? <ExpandLess /> : <ExpandMore />
+                )}
+              </ListItemButton>
+            );
+
+            return (
+              <div key={index}>
+                <ListItem disablePadding className={navItemClasses}>
+                  {shouldShowIconsOnly && item.icon ? (
+                    <RdsTooltip 
+                      title={item.label} 
+                      style="right"
+                      arrow
+                      wrapper
+                    >
+                      {listItemButton}
+                    </RdsTooltip>
+                  ) : (
+                    listItemButton
                   )}
-                  {showLabels && <ListItemText primary={item.label} />}
-                  {item.children && item.children.length > 0 &&  !isCollapsed &&(
-                    (!!openMap[index]) ? <ExpandLess /> : <ExpandMore />
-                  )}
-                </ListItemButton>
-              </ListItem>
-              {item.children && item.children.length > 0 && (
-                <Collapse in={!!openMap[index]} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    {item.children.map((child, cIdx) => (
-                      <ListItem key={cIdx} disablePadding className={navItemClasses}>
-                        <ListItemButton
-                          onClick={child.onClick}
-                          disabled={child.disabled}
-                          selected={child.active}
-                          className={navButtonClasses}
-                          sx={{
-                            minHeight: 40,
-                            justifyContent: isCollapsed ? 'center' : 'flex-start',
-                            px: isCollapsed ? 0 : 4,
-                          }}
-                        >
-                          {child.icon && (
-                            <ListItemIcon className={`rds-sidebar__nav-icon ${showLabels ? 'rds-sidebar__nav-icon--with-label' : 'rds-sidebar__nav-icon--no-label'}`}>
-                              {child.icon}
-                            </ListItemIcon>
-                          )}
-                          {showLabels && <ListItemText primary={child.label} />}
-                        </ListItemButton>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Collapse>
-              )}
-            </div>
-          ))}
+                </ListItem>
+                {item.children && item.children.length > 0 && (
+                  <Collapse in={!!openMap[index]} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {item.children.map((child, cIdx) => {
+                        const childListItemButton = (
+                          <ListItemButton
+                            onClick={child.onClick}
+                            disabled={child.disabled}
+                            selected={child.active}
+                            className={navButtonClasses}
+                            sx={{
+                              minHeight: 40,
+                              justifyContent: shouldShowIconsOnly ? 'center' : 'flex-start',
+                              px: shouldShowIconsOnly ? 0 : 4,
+                            }}
+                          >
+                            {child.icon && (
+                              <ListItemIcon className={`rds-sidebar__nav-icon ${showLabels ? 'rds-sidebar__nav-icon--with-label' : 'rds-sidebar__nav-icon--no-label'}`}>
+                                {child.icon}
+                              </ListItemIcon>
+                            )}
+                            {showLabels && <ListItemText primary={child.label} />}
+                          </ListItemButton>
+                        );
+
+                        return (
+                          <ListItem key={cIdx} disablePadding className={navItemClasses}>
+                            {shouldShowIconsOnly && child.icon ? (
+                              <RdsTooltip 
+                                title={`${item.label} - ${child.label}`}
+                                style="right"
+                                arrow
+                                wrapper
+                              >
+                                {childListItemButton}
+                              </RdsTooltip>
+                            ) : (
+                              childListItemButton
+                            )}
+                          </ListItem>
+                        );
+                      })}
+                    </List>
+                  </Collapse>
+                )}
+              </div>
+            );
+          })}
         </List>
         <div className="rds-sidebar__footer">
           <hr className="rds-sidebar__footer-divider" />
         </div>
         {showAvatar && (
           <div className={avatarContainerClasses}>
-            {typeOf === 'expanded' ? (
+            {!shouldShowIconsOnly ? (
               <RdsAvatar
                 alt="User Avatar"
                 subText="Designation"
