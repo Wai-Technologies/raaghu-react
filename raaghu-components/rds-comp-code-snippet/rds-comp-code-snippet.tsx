@@ -108,12 +108,16 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
               </Highlighter>
             </span>
             <div className="rds-comp-code-snippet__actions">             
-              <button 
-                className={`rds-comp-code-snippet__copy-button ${copied ? "rds-comp-code-snippet__copy-button--copied" : ""}`} 
-                onClick={handleCopy} 
+              <RdsButton
+                className={`rds-comp-code-snippet__copy-button ${copied ? "rds-comp-code-snippet__copy-button--copied" : ""}`}
+                onClick={handleCopy}
                 aria-label="Copy code"
-              >
-                {copied ? (
+                size="small"
+                style="outlined"
+                text={copied ? "Copied!" : "Copy Code"}
+                showLeftIcon={true}
+                textCase="unset"
+                changeLeftIcon={copied ? (
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor" />
                   </svg>
@@ -122,10 +126,7 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                     <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z" fill="currentColor" />
                   </svg>
                 )}
-                <span className="rds-comp-code-snippet__copy-text">
-                  {copied ? "Copied!" : "Copy Code"}
-                </span>
-              </button>
+              />
               <OpenInFullOutlinedIcon className="rds-comp-code-snippet__expand-icon" />
             </div>
           </div>
@@ -136,7 +137,6 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                 {showLanguage && (
                   <div className="rds-comp-code-snippet__language-dropdown">
                     <RdsButtonDropdown
-                      buttonStyle={'filled'}
                       buttonText={selectedLanguage || (languageLabel as string)}
                       options={languageOptions as any}
                       showSearch={false}
@@ -145,27 +145,29 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                       onChange={handleLanguageChange}
                       showUserAvatar={false}
                       showRadio={false}
+                      size="small"
                     />
                   </div>
                 )}
-                <button 
-                  className={`rds-comp-code-snippet__copy-button ${copied ? "rds-comp-code-snippet__copy-button--copied" : ""}`} 
-                  onClick={handleCopy} 
+                <RdsButton
+                  className={`rds-comp-code-snippet__copy-button ${copied ? "rds-comp-code-snippet__copy-button--copied" : ""}`}
+                  onClick={handleCopy}
                   aria-label="Copy code"
-                >
-                  {copied ? (
+                  size="small"
+                  style="outlined"
+                  text={copied ? "Copied!" : "Copy Code"}
+                  showLeftIcon={true}
+                  textCase="unset"
+                  changeLeftIcon={copied ? (
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor" />
                     </svg>
                   ) : (
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z" fill="currentColor"/>
+                      <path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z" fill="currentColor" />
                     </svg>
                   )}
-                  <span className="rds-comp-code-snippet__copy-text">
-                    {copied ? "Copied!" : "Copy Code"}
-                  </span>
-                </button>
+                />
                 <OpenInFullOutlinedIcon className="rds-comp-code-snippet__expand-icon" />
               </div>
               <div 
