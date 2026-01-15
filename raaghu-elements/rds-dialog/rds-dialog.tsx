@@ -54,12 +54,13 @@ const RdsDialog = ({
         {((title && showTitle) || ShowDissmiss) && (
           <DialogTitle className="rds-dialog__title">
             <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '100%' }}>
+            <div style={{ flex: 1 }}>{showTitle ? title : null}</div>
               {ShowDissmiss && (
-                <IconButton aria-label="close" className="rds-dialog__close-button" onClick={onClose} size="medium" sx={{ flexShrink: 0, marginRight: '8px' }}>
+                <IconButton aria-label="close" className="rds-dialog__close-button" onClick={onClose} size="medium" >
                   <CloseIcon />
                 </IconButton>
               )}
-              <div style={{ flex: 1, paddingLeft: ShowDissmiss ? '8px' : '0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{showTitle ? title : null}</div>
+              {/* <div style={{ flex: 1, paddingLeft: ShowDissmiss ? '8px' : '0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{showTitle ? title : null}</div> */}
             </div>
           </DialogTitle>
         )}
