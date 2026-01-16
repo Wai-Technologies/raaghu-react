@@ -1389,20 +1389,21 @@
 
 .MuiIconButton-root {
   @media (max-width: 420px) {
-    padding: 6px !important;
+    padding: 8px !important;
+    margin-left: 6px !important;
     
     svg {
       font-size: 20px !important;
-      margin-left: 12px;
+      margin-left: 3px;
     }
   }
   
   @media (max-width: 320px) {
-    padding: 4px !important;
-    
+    padding: 6px !important;
+    margin-right: 5px !important;
     svg {
       font-size: 18px !important;
-      margin-left: 11px;
+      margin-left: 0px !important;
     }
   }
 }
@@ -2222,7 +2223,7 @@
     }
   }
   .rds-header__title { max-width: 60% !important; overflow: hidden; text-overflow: ellipsis; }
-  .rds-header__toolbar { padding-left: 8px !important; padding-right: 8px !important; gap: 16px !important; }
+  .rds-header__toolbar { padding-left: 8px !important; padding-right: 8px !important; gap: 2px !important; }
   .rds-app-bar, .rds-header { overflow-x: hidden !important; }
   .rds-appbar-title__user { display: none !important; }
 }
