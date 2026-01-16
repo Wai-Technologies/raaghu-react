@@ -524,11 +524,7 @@ const DynamicTemplate = (args: any) => {
       config = {
         ...config,
         title: 'App Title',
-        leftActions: (
-          <IconButton edge="start" color="inherit">
-            <MenuIcon />
-          </IconButton>
-        ),
+  
         rightActions: <Button color="inherit">Login</Button>,
       };
       break;
@@ -781,7 +777,7 @@ const DynamicTemplate = (args: any) => {
           </span>
         ),
         showLogo: config.showLogo,
-        showMenuButton: true,
+        
         rightActions: <ProfileMenu name={args.userName || 'John Doe'} email={args.userEmail || 'john.doe@example.com'} />,
       };
       break;
@@ -789,7 +785,7 @@ const DynamicTemplate = (args: any) => {
       config = {
         ...config,
         showLogo: config.showLogo,
-        showMenuButton: true,
+       
         tabs: ['Community', 'Jobs', 'Resources'],
         logo: logoImg,
         leftActions: (
@@ -799,17 +795,14 @@ const DynamicTemplate = (args: any) => {
         ),
         // Place primary call-to-action buttons right after the logo
         centerContent: (
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 7, alignItems: 'center' }}>
             <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Find Jobs" textCase="uppercase" />
             <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="transparent" text="Login" textCase="uppercase" />
+            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="transparent" text="Employers" textCase="uppercase" />
           </div>
         ),
         // Keep Employers in overflow only
-        rightActions: (
-          <>
-            <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="transparent" text="Employers" textCase="uppercase" />
-          </>
-        ),
+        
         showSearch: false,
         searchValue: undefined,
         onSearchChange: undefined,
@@ -821,7 +814,6 @@ const DynamicTemplate = (args: any) => {
             <Button variant="text" size="small">Jobs</Button>
             <Button variant="text" size="small">Resources</Button>
             {/* Include Employers in overflow so it appears in the bottom navigation on very small screens */}
-            <Button variant="text" size="small">Employers</Button>
           </div>
         ),
       };
@@ -837,6 +829,7 @@ const DynamicTemplate = (args: any) => {
     case 'withmenubutton':
       config = {
         ...config,
+      
         logo: (
           <span className="rds-appbar-logo-group">
             {/* Complex e-Signature SVG */}
@@ -860,8 +853,8 @@ const DynamicTemplate = (args: any) => {
             <span className="rds-appbar-logo-label">e-Signature</span>
           </span>
         ),
-  showLogo: config.showLogo,
-  tabs: ['Home', 'Agreement'],
+        showLogo: config.showLogo,
+        tabs: ['Home', 'Agreement'],
         rightActions: (
           <div className="rds-appbar-actions-group">
             <span className="rds-appbar-badge">28 Days Left</span>
@@ -939,6 +932,13 @@ const DynamicTemplate = (args: any) => {
 
   // Remove internal helper flag before spreading (keep variantStyle so AppBar can add a variant class)
   const { __wrapTransparent, ...finalConfig } = config;
+  
+  // Add menu click handler
+  finalConfig.onMenuClick = () => {
+    console.log('Menu button clicked!');
+    // You can add additional menu click logic here
+  };
+  
   if (config.__wrapTransparent) {
     return (
       <div className="rds-story-min-height-container">

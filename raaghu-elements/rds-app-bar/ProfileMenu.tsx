@@ -24,10 +24,23 @@ export interface ProfileMenuProps {
 
 export const ProfileMenu = ({ name, email, menuItems }: ProfileMenuProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [isSmallScreen, setIsSmallScreen] = React.useState(false);
   const open = Boolean(anchorEl);
   
   // Auto-generate shortName from name (replaces manual userShortName control)
   const displayShortName = name.split(' ').map(n => n.charAt(0)).join('').toUpperCase();
+  
+  // Check if screen is small to hide name text
+  React.useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth <= 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
   
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -54,16 +67,18 @@ export const ProfileMenu = ({ name, email, menuItems }: ProfileMenuProps) => {
         className="rds-profile-menu__button"
       >
         <RdsAvatar
-          subText={"Developer"}
-          displayStyle="with-name"
+          subText={isSmallScreen ? undefined : "Developer"}
+          displayStyle={isSmallScreen ? undefined : "with-name"}
           title={name}
-          showDesignation
-          showName
+          showDesignation={!isSmallScreen}
+          showName={!isSmallScreen}
           size="small"
         />
-        <svg className="rds-profile-menu__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 8L10 12L14 8" stroke="#7c4dff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
+        {!isSmallScreen && (
+          <svg className="rds-profile-menu__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 8L10 12L14 8" stroke="#7c4dff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        )}
       </IconButton>
       <MuiMenu
         anchorEl={anchorEl}
