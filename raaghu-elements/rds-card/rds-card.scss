@@ -428,6 +428,7 @@
     // Image styling for card images
     .rds-card__image {
       margin-bottom: var(--rds-spacing-md, 16px);
+      margin-right: var(--rds-spacing-md, 16px);
       
       img {
         width: 100%;
