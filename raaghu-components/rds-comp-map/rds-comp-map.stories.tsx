@@ -27,6 +27,7 @@ const meta: Meta = {
         color: {
             control: { type: 'color' },
             description: 'Primary color for the map visualization',
+            if: { arg: 'mapType', neq: 'heatmap' },
         },
     },
 } satisfies Meta<typeof RdsCompMap>;

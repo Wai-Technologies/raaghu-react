@@ -188,6 +188,59 @@
       align-items: stretch;
     }
   }
+
+  // Narrow collapsed responsive state (width < 200px)
+  &--narrow-collapsed {
+    .rds-sidebar__content {
+      align-items: center;
+    }
+
+    .rds-sidebar__nav-button {
+      justify-content: center;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .rds-sidebar__nav-item {
+      justify-content: center;
+    }
+
+    .rds-sidebar__nav-icon {
+      margin-right: 0;
+    }
+
+    .rds-sidebar__avatar-container {
+      justify-content: center;
+    }
+
+    .rds-sidebar__search-container {
+      padding: 2px 13px;
+    }
+
+    // Hide text and dropdown arrows in narrow mode
+    .MuiListItemText-root {
+      display: none;
+    }
+    
+    .MuiSvgIcon-root.MuiListItemIcon-root ~ .MuiListItemText-root + svg {
+      display: none;
+    }
+
+    // Submenu items in narrow mode - slightly indented to show hierarchy
+    .MuiCollapse-root {
+      .MuiList-root {
+        .MuiListItem-root {
+          .MuiListItemButton-root {
+            padding-left: 8px;
+            padding-right: 8px;
+            background-color: rgba(0, 0, 0, 0.04);
+            margin: 1px 4px;
+            border-radius: 4px;
+          }
+        }
+      }
+    }
+  }
   
   // (removed &__mui-override, handled globally above)
   
