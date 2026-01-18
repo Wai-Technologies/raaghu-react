@@ -98,19 +98,39 @@ const AppShellStory = (args: any) => {
           subHeader={
             <div className="rds-header__sub-header-layout rds-story-sub-header-layout">
               <div className="rds-header__sub-tabs rds-story-sub-tabs">
-                <button type="button" className="rds-story-sub-tab-button rds-story-sub-tab-button--primary" onClick={() => {}}>
+                <button 
+                  type="button" 
+                  className={`rds-story-sub-tab-button ${selectedTab === 0 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
+                  onClick={() => handleTabChange(0)}
+                >
                   <Home className="rds-story-sub-tab-icon" /> Dashboard
                 </button>
-                <button type="button" className="rds-story-sub-tab-button rds-story-sub-tab-button--inherit" onClick={() => {}}>
+                <button 
+                  type="button" 
+                  className={`rds-story-sub-tab-button ${selectedTab === 1 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
+                  onClick={() => handleTabChange(1)}
+                >
                   <ActivitiesIcon className="rds-story-sub-tab-icon" /> Activities
                 </button>
-                <button type="button" className="rds-story-sub-tab-button rds-story-sub-tab-button--inherit" onClick={() => {}}>
+                <button 
+                  type="button" 
+                  className={`rds-story-sub-tab-button ${selectedTab === 2 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
+                  onClick={() => handleTabChange(2)}
+                >
                   <DirectoryIcon className="rds-story-sub-tab-icon" /> Directory
                 </button>
-                <button type="button" className="rds-story-sub-tab-button rds-story-sub-tab-button--inherit" onClick={() => {}}>
+                <button 
+                  type="button" 
+                  className={`rds-story-sub-tab-button ${selectedTab === 3 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
+                  onClick={() => handleTabChange(3)}
+                >
                   <ProjectsIcon className="rds-story-sub-tab-icon" /> Projects
                 </button>
-                <button type="button" className="rds-story-sub-tab-button rds-story-sub-tab-button--inherit" onClick={() => {}}>
+                <button 
+                  type="button" 
+                  className={`rds-story-sub-tab-button ${selectedTab === 4 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
+                  onClick={() => handleTabChange(4)}
+                >
                   <CalendarIcon className="rds-story-sub-tab-icon" /> Calendar
                 </button>
               </div>

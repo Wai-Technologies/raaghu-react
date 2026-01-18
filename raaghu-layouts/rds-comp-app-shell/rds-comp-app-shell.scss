@@ -547,15 +547,45 @@ height: 609px;
 }
 
 .rds-story-sub-tab-button--primary {
-  color: var(--primary-color, #1976d2);
+  color: var(--rds-color-primary, #1976d2) !important;
+  font-weight: 600 !important;
+  
+  .rds-story-sub-tab-icon {
+    color: var(--rds-color-primary, #1976d2) !important;
+  }
 }
 
 .rds-story-sub-tab-button--inherit {
   color: inherit;
+  font-weight: 400;
+  
+  .rds-story-sub-tab-icon {
+    color: inherit;
+  }
 }
 
 .rds-story-sub-tab-icon {
   margin-right: 4px;
+}
+
+[data-theme="dark"], .theme-dark, .dark {
+  .rds-story-sub-tab-button--primary {
+    color: var(--rds-color-primary-light, #42a5f5) !important;
+    font-weight: 600 !important;
+    
+    .rds-story-sub-tab-icon {
+      color: var(--rds-color-primary-light, #42a5f5) !important;
+    }
+  }
+  
+  .rds-story-sub-tab-button--inherit {
+    color: inherit;
+    font-weight: 400;
+    
+    .rds-story-sub-tab-icon {
+      color: inherit;
+    }
+  }
 }
 
 .double-nav .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper, .double-nav .css-dm61o6 .MuiDrawer-paper {
