@@ -255,10 +255,6 @@ const AppShellStory = (args: any) => {
             </BrowserRouter>
           </div>
           
-          <div className="rds-appshell-add-layout-flex-center">
-            <span className="rds-appshell-add-layout-text">Add Layout</span>
-          </div>
-          
           <div className="rds-appshell-side-nav-right d-flex align-items-end justify-content-end rds-story-side-nav-right-container">
             <div className="rds-story-side-nav-right-content" id="side-nav-icon-list">
               <BrowserRouter>
@@ -376,11 +372,18 @@ const AppShellStory = (args: any) => {
 
     if (args.displayType === AppShellDisplayType.SideNav) {
       return (
-        <div className="sidenav-mobile-content">
-          <div className="rds-appshell-add-layout-flex-center">
-            <span className="rds-appshell-add-layout-text">Add Layout</span>
+        <>
+          <div className="sidenav-mobile-content">
+            <div className="rds-appshell-add-layout-flex-center">
+              <span className="rds-appshell-add-layout-text">Add Layout</span>
+            </div>
           </div>
-        </div>
+          <div className="sidenav-desktop-content">
+            <div className="rds-appshell-add-layout-flex-center">
+              <span className="rds-appshell-add-layout-text">Add Layout</span>
+            </div>
+          </div>
+        </>
       );
     }
 

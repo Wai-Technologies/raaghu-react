@@ -399,6 +399,37 @@
   width: 100%;
   min-height: 400px;
 }
+
+.rds-appshell-side-nav-center {
+  flex: 1;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: calc(100vh - 52px);
+  height: 100%;
+  width: 100%;
+  
+  .rds-appshell-add-layout-flex-center {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: relative;
+    
+    .rds-appshell-add-layout-text {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #666;
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+    }
+  }
+}
 .rds-appshell-side-nav-left {
   flex: 0 0 245px;
   min-width: 245px;
@@ -1186,6 +1217,50 @@ height: 609px;
 
 .side-nav {
   position: relative;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  
+  .sidebar-layout {
+    flex: 0 0 auto;
+    transition: width 0.3s ease;
+    width: fit-content;
+    z-index: 1;
+  }
+  
+  .topnav-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  
+  .sidebar-layout {
+    flex: 0 0 auto;
+    transition: width 0.3s ease;
+    width: fit-content;
+    z-index: 1;
+  }
+  
+  .topnav-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
   
   @media (max-width: 768px) {
     &.mobile-sidebar-open {
@@ -1264,6 +1339,10 @@ height: 609px;
           white-space: nowrap;
         }
       }
+    }
+    
+    .sidenav-desktop-content {
+      display: none;
     }
     
     &.mobile-sidebar-open .sidenav-mobile-content {
@@ -1380,6 +1459,44 @@ height: 609px;
       width: auto;
       background: transparent;
       box-shadow: none;
+      display: block !important;
+    }
+    
+    .sidenav-mobile-content {
+      display: none !important;
+    }
+    
+    .sidenav-desktop-content {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      height: calc(100vh - 52px) !important;
+      min-height: calc(100vh - 52px) !important;
+      
+      .rds-appshell-add-layout-flex-center {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: transparent;
+      }
+      
+      .rds-appshell-add-layout-text {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #666;
+        text-align: center;
+      }
+    }
+    
+    .topnav-layout {
+      display: flex !important;
+      flex-direction: column;
+      width: 100%;
+      position: relative;
+      z-index: 2;
     }
   }
 }
@@ -1621,6 +1738,28 @@ height: 609px;
 
 .relaxing {
   position: relative;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  
+  .sidebar-layout {
+    flex: 0 0 auto;
+    transition: width 0.3s ease;
+    width: fit-content;
+    z-index: 1;
+  }
+  
+  .topnav-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
   
   @media (max-width: 768px) {
     &.mobile-sidebar-open {
@@ -1763,6 +1902,33 @@ height: 609px;
       width: auto;
       background: transparent;
       box-shadow: none;
+    }
+    
+    .rds-story-relaxing-sidebar {
+      display: block !important;
+      min-width: 0px;
+      max-width: 0px;
+      height: calc(100vh - 52px);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .rds-story-relaxing-content {
+      display: flex !important;
+      flex-direction: row;
+      min-height: 0;
+      padding-top: 0;
+      position: relative;
+      z-index: 1;
+      height: calc(100vh - 52px);
+    }
+    
+    .rds-story-relaxing-layout {
+      display: flex !important;
+      flex-direction: column;
+      height: 100vh;
+      width: 100%;
+      position: relative;
     }
   }
 }
