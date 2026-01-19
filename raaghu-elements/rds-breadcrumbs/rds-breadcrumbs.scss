@@ -6,6 +6,15 @@
   align-items: center;
   position: relative;
 
+  // Ensure icons inherit color, specifically beating high-specificity global overrides
+  .MuiSvgIcon-root,
+  .dark-theme & .MuiSvgIcon-root,
+  [data-theme="dark"] & .MuiSvgIcon-root,
+  body[data-theme="dark"] & .MuiSvgIcon-root {
+    color: inherit !important;
+    fill: currentColor !important;
+  }
+
   &__item {
     display: inline-flex;
     align-items: center;

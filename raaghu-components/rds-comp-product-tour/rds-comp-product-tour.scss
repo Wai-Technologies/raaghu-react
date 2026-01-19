@@ -32,8 +32,8 @@
       padding: 30px 35px;
       border: 1px solid #f3f4f6;
       display: flex;
-      flex-direction: column;
       align-items: center;
+      flex-direction: column;
       box-sizing: border-box;
     }
 
@@ -363,8 +363,9 @@
   &__animation-section {
     display: flex;
     justify-content: center;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     width: 100%;
+    flex-shrink: 0;
 
     img, 
     .rds-comp-product-tour__gif {
@@ -380,8 +381,10 @@
   &__animation-info {
     text-align: left;
     padding: 0;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
   }
 
   &__animation-title {
@@ -403,6 +406,8 @@
     justify-content: space-between;
     width: 100%;
     flex-wrap: wrap;
+    flex-shrink: 0;
+    margin-top: auto;
   }
 
   &__animation-stepcount {
@@ -564,7 +569,8 @@
       background-color: transparent !important;
       min-width: 90px !important;
       width: 90px !important;
-      height: 36px !important;
+      height: 38px !important;
+      text-transform: none !important; 
 
       &:hover {
         background-color: #7c3aed !important;
@@ -674,6 +680,7 @@
     height: 36px !important;
     padding: 6px 12px !important;
     box-sizing: border-box !important;
+    text-transform: none !important; 
   }
 
   &__form-button-right {
@@ -687,6 +694,7 @@
       border-color: #7c3aed !important;
       color: #7c3aed !important;
       background-color: transparent !important;
+      text-transform: none !important;
 
       &:hover {
         background-color: #7c3aed !important;
@@ -702,6 +710,7 @@
       height: 36px !important;
       padding: 6px 12px !important;
       box-sizing: border-box !important;
+      text-transform: none !important; 
     }
   }
 
@@ -771,6 +780,7 @@
       background-color: #7c3aed !important; // Purple background to match theme
       border-color: #7c3aed !important; // Purple border
       color: #fff !important;
+      text-transform: none !important;
 
     }
 
@@ -779,6 +789,7 @@
       background-color: #7c3aed !important;
       border-color: #7c3aed !important;
       color: #fff !important;
+      text-transform: none !important;
     }
     .rds-file-uploader__choose-btn:hover {
       background-color: #7c3aed !important; // Darker purple on hover
@@ -792,6 +803,7 @@
       background-color: #7c3aed !important;
       border-color: #7c3aed !important;
       color: #fff !important;
+      text-transform: none !important;
     }
 
     .rds-file-uploader__text {

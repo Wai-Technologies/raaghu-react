@@ -18,6 +18,12 @@
     border-radius: 10px !important;
     padding: 0 6px !important;
     font-family: 'Poppins', Arial, sans-serif !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    max-width: fit-content !important;
   }
   
   /* Center badge pill when no children */

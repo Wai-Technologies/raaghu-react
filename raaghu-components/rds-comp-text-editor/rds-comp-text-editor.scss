@@ -149,7 +149,8 @@
     .dark-theme &, [data-theme="dark"] & {
       background-color: #424242;
       border-color: var(--rds-color-border-dark, #495057);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      /* remove inner top highlight to avoid perceived border */
+      box-shadow: none;
       .rdw-link-modal
       {
         background-color: #212529;
@@ -191,35 +192,52 @@ background-color: #202020;
           color: var(--rds-color-on-surface-dark, #e9ecef);
       }
       .rdw-option-wrapper {
-        background-color: #ffffff;
-        color: var(--rds-color-on-surface-dark, #fff);
-        border-color: var(--rds-color-border-dark, #495057);
+        background-color: transparent; /* remove white tiles in dark mode */
+        color: var(--rds-color-on-surface-dark, #f0f0f0); /* brighter icons per Figma */
+        border-color: transparent;
+        border-width: 0; /* avoid any visible edges */
         font-weight: 500;
-        text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
-        
-        svg, img {
-          /* Removed filter to improve performance */
+        text-shadow: none;
+        outline: none; /* remove focus ring */
+
+        /* Make icons appear white/light without tiles */
+        svg {
           opacity: 0.95;
+          fill: currentColor !important;
+          stroke: currentColor !important;
         }
-        
+        img { /* png glyphs from library */
+          opacity: 0.95;
+          filter: invert(0.92) brightness(1.05) contrast(1.05);
+        }
+
         &:hover {
-          /* Simplified box-shadow for better performance */
-          box-shadow: 0 0 3px rgba(255, 255, 255, 0.15);
-          background-color: var(--rds-color-surface-variant-dark, #d2d7dd);
-          border-color: var(--rds-color-primary-dark, #0d6efd);
+          box-shadow: none;
+          background-color: rgba(255, 255, 255, 0.06);
+          border-color: transparent;
+          color: #ffffff;
         }
-        
+
         &.rdw-option-active {
-          background-color: var(--rds-color-primary-dark, #0d6efd);
+          background-color: rgba(255, 255, 255, 0.12);
           color: #fff;
-          border-color: var(--rds-color-primary-light, #6ea8fe);
-          /* Removed box-shadow for better performance */
+          border-color: transparent;
+          border-width: 0;
+          box-shadow: none;
         }
+
+        &:focus,
+        &:active {
+          outline: none;
+          box-shadow: none;
+          border-color: transparent;
+          border-width: 0;
+        }
+
         &.rdw-option-disabled{
-          opacity: 0.8;
-          background-color: #ffffff !important;
+          opacity: 0.5;
+          background-color: transparent !important;
         }
-        
       }
       
       .rdw-image-wrapper {
@@ -254,29 +272,28 @@ background-color: #202020;
       
       // Dropdown components
       .rdw-dropdown-wrapper {
-        background-color: #ffffff;
+        background-color: #2a2a2a;
         border-color: var(--rds-color-border-dark, #495057);
-        
+
         .rdw-dropdown-selectedtext {
-          color: var(--rds-color-on-surface-dark, #000000);
+          color: var(--rds-color-on-surface-dark, #e9ecef);
           font-weight: 500;
         }
-        
+
         .rdw-dropdown-optionwrapper {
           background-color: #424242;
           border-color: var(--rds-color-primary-dark, #0d6efd);
-          /* Simplified box-shadow for better performance */
           box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
-          
+
           .rdw-dropdownoption-default {
             color: var(--rds-color-on-surface-dark, #e9ecef);
-            
+
             &:hover {
               background-color: var(--rds-color-primary-dark, #0d6efd);
               color: #fff;
             }
           }
-          
+
           .rdw-dropdownoption-active {
             background-color: var(--rds-color-primary-dark, #0d6efd);
           }

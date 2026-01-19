@@ -600,6 +600,27 @@
   }
 }
 
+/* Minimal mobile fix: allow the kanban container to scroll on very small screens to avoid clipping */
+@media (max-width: 375px) {
+  .rds-kanban-board-container {
+    max-height: 100vh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    /* visually hide the inner scrollbar while preserving scroll functionality */
+    scrollbar-width: none !important; /* Firefox */
+  }
+
+  .rds-kanban-board-container::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* Chrome/Safari/Webkit */
+  }
+
+  .rds-kanban-board-container::-webkit-scrollbar-thumb {
+    background: transparent !important;
+  }
+  }
+
+
 // Dark theme specific styling for dropdown menus
 .dropdown-menu {
   .MuiPaper-root {
@@ -894,7 +915,7 @@ html[data-theme="dark"],
   }
   
   .rds-kanban-board__sub-card-text.f-14.fw-400 {
-    color: var(--rds-color-on-surface, #7D7D7D) !important;
+    color: var(--rds-kanban-subcard-text-dark, #7D7D7D) !important;
   }
   
   .rds-kanban-board__sub-card-footer-left.f-12.fw-500 {

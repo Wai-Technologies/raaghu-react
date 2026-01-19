@@ -14,12 +14,21 @@ const meta: Meta = {
     },
     tags: ['autodocs'],
     argTypes: {
+        title: {
+            control: { type: 'text' },
+            description: 'Title text displayed above the map',
+        },
         mapType: {
             control: { type: 'select' },
             options: ['default', 'heatmap'],
             description: 'Select the type of map visualization',
             defaultValue: 'default'
-        }
+        },
+        color: {
+            control: { type: 'color' },
+            description: 'Primary color for the map visualization',
+            if: { arg: 'mapType', neq: 'heatmap' },
+        },
     },
 } satisfies Meta<typeof RdsCompMap>;
 

@@ -5,7 +5,6 @@ import './rds-badge.scss';
 
 export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero'> {
   children?: React.ReactNode;
-  count?: number;
   showZero?: boolean;
   max?: number;
   size?: 'small' | 'medium' | 'large';
@@ -19,7 +18,6 @@ export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero'> {
 
 const RdsBadge= ({
   children,
-  count,
   showZero = false,
   max = 99,
   badgeContent,
@@ -32,7 +30,7 @@ const RdsBadge= ({
   colorVariant = 'primary',
   ...props
 }:RdsBadgeProps) => {
-  const content = count !== undefined ? count : badgeContent;
+  const content = badgeContent;
   
   const bemClass = `rds-badge rds-badge--${size} rds-badge--${shape} rds-badge--${styleType} rds-badge--${colorVariant || 'primary'}${state === 'disabled' ? ' rds-badge--disabled' : ''}`;
   

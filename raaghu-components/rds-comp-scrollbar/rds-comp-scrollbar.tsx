@@ -56,14 +56,14 @@ const RdsCompScrollBar: React.FC<RdsScrollBarProps> = ({
             onClick={() => scrollToPosition(ScrollPosition.Start)}
             aria-label="Scroll to top"
           >
-            <RdsIconButton icon={startIcon} className="rds-scrollbar__icon" />
+            {startIcon}
           </button>
           <button
             className="rds-scrollbar__button"
             onClick={() => scrollToPosition(ScrollPosition.End)}
             aria-label="Scroll to bottom"
           >
-            <RdsIconButton icon={endIcon} className="rds-scrollbar__icon" />
+            {endIcon}
           </button>
         </div>
       )}

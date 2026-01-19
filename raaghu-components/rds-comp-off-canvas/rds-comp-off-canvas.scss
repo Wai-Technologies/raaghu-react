@@ -67,8 +67,18 @@
   transition: all 0.2s ease-in-out;
 }
 .offcanvas-close-button:hover {
-  background-color: aliceblue;
+  background-color: rgba(0, 0, 0, 0.10);
   border-radius: 5px;
+}
+
+/* Dark theme hover visibility for close button */
+.rds-theme--dark .offcanvas-close-button:hover,
+body.theme-dark .offcanvas-close-button:hover,
+body[data-theme="dark"] .offcanvas-close-button:hover,
+[data-theme="dark"] .offcanvas-close-button:hover,
+.theme-dark .offcanvas-close-button:hover,
+.dark-theme .offcanvas-close-button:hover {
+  background-color: rgba(255, 255, 255, 0.22);
 }
 
 .offcanvas-body {
@@ -161,6 +171,18 @@ body[data-theme="dark"] #offcanvas-btns .MuiButton-root,
   border: 1px solid transparent;
   transition: all 0.2s ease-in-out;
   border-radius: 5px;
+}
+
+.offcanvas-container .offcanvas-header .close:hover {
+  background-color: rgba(0, 0, 0, 0.10);
+}
+.rds-theme--dark .offcanvas-container .offcanvas-header .close:hover,
+body.theme-dark .offcanvas-container .offcanvas-header .close:hover,
+body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
+[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
+.theme-dark .offcanvas-container .offcanvas-header .close:hover,
+.dark-theme .offcanvas-container .offcanvas-header .close:hover {
+  background-color: rgba(255, 255, 255, 0.22);
 }
 
 @media (min-width: 320px) and (max-width: 414px) {
@@ -268,6 +290,7 @@ body[data-theme="dark"] #offcanvas-btns .MuiButton-root,
   #close-btn .MuiIconButton-root svg {
     width: 16px !important;
     height: 16px !important;
+    margin-left: 0 !important;
   }
 }
 // Large mobile devices
@@ -313,7 +336,8 @@ body[data-theme="dark"] #offcanvas-btns .MuiButton-root,
     min-width: 40px !important; min-height: 40px !important;
   }
   #close-btn .rds-icon-button svg, #close-btn .MuiIconButton-root svg {
-    width: 18px !important; height: 18px !important;
+    width: 18px !important; height: 18px !important; 
+    margin-left: 0 !important;
   }
 }
 

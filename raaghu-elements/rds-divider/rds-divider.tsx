@@ -115,7 +115,7 @@ const RdsDivider= ({
    <Box
     display="flex"
     alignItems="center"
-    gap={1.1}
+    gap={{ xs: 0.3, sm: 0.3, md: 0.3, lg: 1.0 }}
     px={dividerMessage ? 1 : (layout === 'horizontal' ? 2 : 0)}
   >
     {iconShow && (

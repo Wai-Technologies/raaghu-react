@@ -99,6 +99,7 @@
     "emojibase": "^16.0.0",
     "emojibase-data": "^16.0.3",
     "html-to-draftjs": "^1.5.0",
+    "lottie-react": "^2.4.1",
     "million": "^3.1.11",
     "react": "^18.3.1",
     "react-beautiful-dnd": "^13.1.1",
@@ -113,7 +114,7 @@
     "react-svg-worldmap": "^2.0.0-alpha.16",
     "react-syntax-highlighter": "^15.5.0",
     "rimraf": "^6.0.1",
-    "slate": "^0.118.0",
+    "slate": "^0.123.0",
     "slate-history": "^0.113.1",
     "slate-react": "^0.117.4",
     "wavesurfer.js": "^7.10.1"

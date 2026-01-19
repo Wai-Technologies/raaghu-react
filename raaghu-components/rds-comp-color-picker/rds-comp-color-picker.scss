@@ -633,8 +633,8 @@
   --rds-color-outline-variant: rgba(255,255,255,0.04);
   --rds-color-on-surface: #E6E7E8;
   --rds-color-on-surface-variant: #bfc2c4;
-  --rds-color-primary: #7c3aed;
-  --rds-color-primary-container: rgba(124,58,237,0.12);
+  --rds-color-primary: #1976d2;
+  --rds-color-primary-container: rgba(25,118,210,0.12);
   --rds-color-error: #ef5350;
   color: var(--rds-color-on-surface);
 
@@ -700,3 +700,8 @@
   }
 }
 
+
+
+.rds-comp-color-picker__container{
+  margin-top: 6px !important;
+}

@@ -825,6 +825,11 @@
   font-size: var(--rds-font-size-lg, 18px) !important;
 }
 
+.dark-theme .rds-adaptive-cards__activity-update-radio-group .MuiRadio-root.Mui-checked .MuiSvgIcon-root,
+[data-theme="dark"] .rds-adaptive-cards__activity-update-radio-group .MuiRadio-root.Mui-checked .MuiSvgIcon-root {
+  color: #1976d2 !important;
+}
+
 // Required Field
 .rds-adaptive-cards__required {
   color: var(--rds-error-main, #d32f2f);
