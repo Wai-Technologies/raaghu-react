@@ -170,7 +170,7 @@
   transition: background-color 0.2s ease-in-out;
   
   &-active {
-    background-color: var(--rds-background-paper, #ffffff) !important;
+    //background-color: var(--rds-background-paper, #ffffff) !important;
     color: var(--rds-text-primary,  #1976d2) !important;
     border-bottom: 3px solid var(--rds-color-primary, #1976d2) !important;
   }
@@ -540,7 +540,7 @@
   display: flex;
   align-items: center;
   padding: var(--rds-spacing-xs, 5px) var(--rds-spacing-sm, 10px) var(--rds-spacing-sm, 8px) var(--rds-spacing-xs, 8px);
-  background: var(--rds-color-profile-header-bg, #ede7f6);
+  //background: var(--rds-color-profile-header-bg, #ede7f6);
   margin-bottom: var(--rds-spacing-xs, 8px);
 }
 .rds-profile-menu__avatar-lg {
