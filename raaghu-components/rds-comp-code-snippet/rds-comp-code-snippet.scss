@@ -50,6 +50,59 @@
     }
   }
 
+  @media (max-width: 480px) {
+    &__toolbar {
+      padding: 6px 10px;
+      gap: 8px;
+    }
+
+    &__language-label {
+      font-size: 11px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 90px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    &__copy-button {
+      min-width: 90px;
+      padding: 6px 8px;
+      font-size: 12px;
+    }
+
+    &__expand-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    &__toolbar {
+      padding: 6px 8px;
+      gap: 6px;
+    }
+
+    &__language-label {
+      max-width: 68px;
+      font-size: 10px;
+    }
+
+    &__copy-button {
+      min-width: 72px;
+      padding: 5px 6px;
+      font-size: 11px;
+    }
+
+    &__expand-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+    }
+  }
+
   // Single line code display
   &__single-line-code {
     flex: 1;
