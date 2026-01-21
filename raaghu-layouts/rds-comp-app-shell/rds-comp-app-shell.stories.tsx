@@ -479,6 +479,121 @@ const AppShellStory = (args: any) => {
               onClick={handleMobileToolbarToggle}
             />
           )}
+          
+          {/* Add bottom navigation for DoubleNav and TriPane */}
+          {(args.displayType === AppShellDisplayType.DoubleNav || args.displayType === AppShellDisplayType.TriPane) && (
+            <div className="rds-footer-navigation MuiBottomNavigation-root">
+              <div style={{ 
+                display: 'flex', 
+                width: '100%', 
+                justifyContent: 'space-around', 
+                alignItems: 'center', 
+                padding: '0', 
+                height: '56px'
+              }}>
+                <button 
+                  data-active={selectedTab === 0}
+                  style={{ 
+                    background: 'none', 
+                    border: 'none', 
+                    padding: '8px 4px', 
+                    cursor: 'pointer',
+                    flex: 1,
+                    textAlign: 'center',
+                    fontSize: '11px',
+                    fontWeight: selectedTab === 0 ? '600' : '400',
+                    color: selectedTab === 0 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
+                    minWidth: 0,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  onClick={() => handleTabChange(0)}
+                >
+                  HOME
+                </button>
+                <button 
+                  data-active={selectedTab === 1}
+                  style={{ 
+                    background: 'none', 
+                    border: 'none', 
+                    padding: '8px 4px', 
+                    cursor: 'pointer',
+                    flex: 1,
+                    textAlign: 'center',
+                    fontSize: '11px',
+                    fontWeight: selectedTab === 1 ? '600' : '400',
+                    color: selectedTab === 1 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
+                    minWidth: 0,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  onClick={() => handleTabChange(1)}
+                >
+                  NEWS
+                </button>
+                <button 
+                  data-active={selectedTab === 2}
+                  style={{ 
+                    background: 'none', 
+                    border: 'none', 
+                    padding: '8px 4px', 
+                    cursor: 'pointer',
+                    flex: 1,
+                    textAlign: 'center',
+                    fontSize: '11px',
+                    fontWeight: selectedTab === 2 ? '600' : '400',
+                    color: selectedTab === 2 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
+                    minWidth: 0,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  onClick={() => handleTabChange(2)}
+                >
+                  MARKETPLACE
+                </button>
+                <button 
+                  data-active={selectedTab === 3}
+                  style={{ 
+                    background: 'none', 
+                    border: 'none', 
+                    padding: '8px 4px', 
+                    cursor: 'pointer',
+                    flex: 1,
+                    textAlign: 'center',
+                    fontSize: '11px',
+                    fontWeight: selectedTab === 3 ? '600' : '400',
+                    color: selectedTab === 3 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
+                    minWidth: 0,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  onClick={() => handleTabChange(3)}
+                >
+                  JOBS
+                </button>
+              </div>
+            </div>
+          )}
         </>
       );
     }

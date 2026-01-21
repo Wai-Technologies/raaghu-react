@@ -108,6 +108,36 @@
     display: none !important;
   }
   
+  /* Specific styling for TriPane mobile to prevent text duplication */
+  .triPane {
+    .rds-footer-navigation,
+    .MuiBottomNavigation-root {
+      /* Force clean text rendering */
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
+      
+      button {
+        /* Reset any inherited styles that might cause duplication */
+        background: none !important;
+        border: none !important;
+        outline: none !important;
+        text-decoration: none !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+        
+        /* Ensure proper text rendering */
+        font-variant: normal !important;
+        text-rendering: optimizeLegibility !important;
+        
+        /* Clear any pseudo-elements */
+        &::before,
+        &::after {
+          content: '' !important;
+          display: none !important;
+        }
+      }
+    }
+  }
+  
   .rds-appshell-appbar .MuiTabs-root,
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root,
@@ -154,6 +184,7 @@
     max-width: 50% !important;
   }
   
+  /* Bottom navigation for mobile - prevent text overlapping */
   .rds-footer-navigation,
   .MuiBottomNavigation-root {
     position: fixed !important;
@@ -161,6 +192,68 @@
     left: 0 !important;
     right: 0 !important;
     z-index: 1000 !important;
+    background: white !important;
+    border-top: 1px solid #e0e0e0 !important;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15) !important;
+    height: 56px !important;
+    display: flex !important;
+    align-items: center !important;
+    
+    /* Hide any nested or duplicate navigation elements */
+    .MuiTabs-root,
+    .rds-header__navigation {
+      display: none !important;
+    }
+    
+    /* Direct button styling to prevent inheritance issues */
+    > div {
+      display: flex !important;
+      width: 100% !important;
+      height: 100% !important;
+      align-items: center !important;
+      justify-content: space-around !important;
+      
+      > button {
+        background: none !important;
+        border: none !important;
+        padding: 8px 4px !important;
+        cursor: pointer !important;
+        flex: 1 !important;
+        text-align: center !important;
+        font-size: 11px !important;
+        font-weight: 400 !important;
+        color: inherit !important;
+        min-width: 0 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        
+        /* Prevent text duplication */
+        text-shadow: none !important;
+        text-decoration: none !important;
+        
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.04) !important;
+        }
+        
+        /* Active state styling */
+        &[data-active="true"] {
+          color: var(--rds-color-primary, #1976d2) !important;
+          font-weight: 600 !important;
+        }
+        
+        /* Clear pseudo-elements that might duplicate text */
+        &::before,
+        &::after {
+          content: none !important;
+          display: none !important;
+        }
+      }
+    }
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
@@ -173,9 +266,38 @@
       height: 3px !important;
     }
   }
+  
+  /* Ensure no duplicate bottom navigation elements */
+  .double-nav, .triPane {
+    .MuiTabs-root:not(.rds-footer-navigation *),
+    .rds-header__navigation:not(.rds-footer-navigation *) {
+      display: none !important;
+    }
+    
+    /* Ensure only one bottom navigation is visible */
+    .rds-footer-navigation:not(:first-of-type),
+    .MuiBottomNavigation-root:not(:first-of-type) {
+      display: none !important;
+    }
+    
+    /* Prevent text duplication by ensuring clean button text rendering */
+    .rds-footer-navigation button,
+    .MuiBottomNavigation-root button {
+      text-indent: 0 !important;
+      letter-spacing: 0 !important;
+      text-shadow: none !important;
+      
+      /* Ensure no pseudo-element content duplication */
+      &::before,
+      &::after {
+        content: none !important;
+        display: none !important;
+      }
+    }
+  }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 833px) {
   .TopNav {
     .rds-header__navigation,
     .MuiTabs-root:not(.rds-header__sub-tabs .MuiTabs-root),
@@ -235,10 +357,60 @@
   }
 }
 
-/* Tablet Override for Non-TopNav Stories - Show Normal Header Navigation */
-@media (min-width: 769px) and (max-width: 1024px) {
-  /* For all NON-TopNav stories, ensure normal header navigation on tablet */
-  .Default, .triPane, .double-nav, .relaxing, .side-nav {
+/* Tablet-specific breakpoint for double-nav layout (834px-1112px) */
+@media (min-width: 834px) and (max-width: 1112px) {
+  /* For double-nav and tri-pane layout - show bottom navigation like mobile */
+  .double-nav, .triPane {
+    .MuiTabs-root,
+    .rds-header__navigation,
+    .rds-appshell-appbar .MuiTabs-root,
+    .rds-header .MuiTabs-root,
+    .MuiAppBar-root .MuiTabs-root {
+      display: none !important;
+    }
+    
+    .rds-header__toolbar {
+      .MuiTabs-root {
+        display: none !important;
+      }
+    }
+    
+    /* Show bottom navigation */
+    .MuiBottomNavigation-root,
+    .rds-footer-navigation {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 1200 !important;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15) !important;
+      display: flex !important;
+      
+      .MuiTab-root.Mui-selected,
+      .MuiBottomNavigationAction-root.Mui-selected {
+        color: var(--rds-color-primary, #1976d2) !important;
+        font-weight: 600 !important;
+      }
+      
+      .MuiTabs-indicator {
+        background-color: var(--rds-color-primary, #1976d2) !important;
+        height: 3px !important;
+      }
+    }
+    
+    /* Adjust content padding for bottom navigation */
+    .doublenav-mobile-content,
+    .tripane-mobile-content {
+      padding-bottom: 70px !important;
+      
+      .rds-appshell-add-layout-flex-center {
+        min-height: calc(100vh - 68px - 70px - 32px) !important;
+      }
+    }
+  }
+  
+  /* For all other layouts, show normal behavior at this breakpoint */
+  .TopNav, .relaxing, .side-nav, .Default {
     .MuiTabs-root,
     .rds-header__navigation,
     .rds-appshell-appbar .MuiTabs-root,
@@ -270,7 +442,7 @@
   }
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1113px) {
   .MuiTabs-root,
   .rds-header__navigation,
   .rds-appshell-appbar .MuiTabs-root,
@@ -307,7 +479,7 @@
 }
 
 [data-theme="dark"], .theme-dark, .dark {
-  @media (min-width: 769px) and (max-width: 1024px) {
+  @media (min-width: 769px) and (max-width: 833px) {
     .TopNav .rds-footer-navigation,
     .TopNav .MuiBottomNavigation-root {
       background: var(--rds-background-surface, #23272b) !important;
@@ -322,6 +494,37 @@
       .MuiTabs-indicator {
         background-color: var(--rds-color-primary-light, #42a5f5) !important;
         height: 3px !important;
+      }
+    }
+  }
+
+  @media (min-width: 834px) and (max-width: 1112px) {
+    /* Dark theme support for tablet double-nav and tri-pane */
+    .double-nav, .triPane {
+      .sidebar-layout,
+      .doublenav-mobile-toolbar,
+      .tripane-mobile-toolbar {
+        .theme-dark & {
+          background: var(--dark-bg-primary, #1a1a1a) !important;
+        }
+      }
+      
+      /* Dark theme for bottom navigation on tablet */
+      .MuiBottomNavigation-root,
+      .rds-footer-navigation {
+        background: var(--rds-background-surface, #23272b) !important;
+        border-top-color: var(--rds-border-default, #444b54) !important;
+        
+        .MuiTab-root.Mui-selected,
+        .MuiBottomNavigationAction-root.Mui-selected {
+          color: var(--rds-color-primary-light, #42a5f5) !important;
+          font-weight: 600 !important;
+        }
+        
+        .MuiTabs-indicator {
+          background-color: var(--rds-color-primary-light, #42a5f5) !important;
+          height: 3px !important;
+        }
       }
     }
   }
@@ -788,6 +991,127 @@ height: 609px;
   }
 }
 
+/* Tablet-specific adjustments for layout visibility */
+@media (min-width: 834px) and (max-width: 1112px) {
+  .double-nav {
+    /* Ensure desktop layout components are hidden on tablet */
+    .rds-story-double-nav-layout {
+      display: none !important;
+    }
+    
+    /* Force mobile content structure on tablet for double-nav */
+    .doublenav-mobile-content {
+      display: flex !important;
+    }
+    
+    /* Dim content when toolbar is open */
+    .doublenav-mobile-toolbar.open ~ * .doublenav-mobile-content,
+    &:has(.doublenav-mobile-toolbar.open) .doublenav-mobile-content {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    
+    /* Ensure sidebar content is visible when opened - show expanded sidebar */
+    &.mobile-sidebar-open {
+      .sidebar-layout {
+        display: block !important;
+        
+        .double-nav-sidebar {
+          display: flex !important;
+          
+          .rds-story-double-nav-content {
+            display: block !important;
+            
+            > div:first-child {
+              display: none !important;
+            }
+            
+            > div:last-child {
+              display: block !important;
+            }
+          }
+        }
+      }
+    }
+    
+    /* Ensure toolbar toggle is visible */
+    .rds-toolbar-toggle-btn {
+      display: flex !important;
+    }
+  }
+  
+  .triPane {
+    /* Ensure desktop layout components are hidden on tablet */
+    .rds-story-tripane-layout {
+      display: none !important;
+    }
+    
+    /* Force mobile content structure on tablet for tri-pane */
+    .tripane-mobile-content {
+      display: flex !important;
+    }
+    
+    /* Specific bottom navigation styling for triPane to prevent text duplication */
+    .rds-footer-navigation,
+    .MuiBottomNavigation-root {
+      /* Prevent any text duplication or inheritance issues */
+      button {
+        font-family: inherit !important;
+        text-transform: none !important;
+        line-height: 1 !important;
+        
+        /* Clear any inherited text styles that might cause duplication */
+        &::before,
+        &::after {
+          content: none !important;
+          display: none !important;
+        }
+        
+        /* Ensure text renders cleanly */
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+      }
+    }
+    
+    /* Dim content when toolbar is open */
+    .tripane-mobile-toolbar.open ~ * .tripane-mobile-content,
+    &:has(.tripane-mobile-toolbar.open) .tripane-mobile-content {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    
+    /* Ensure sidebar content is visible when opened */
+    &.mobile-sidebar-open {
+      .sidebar-layout {
+        display: block !important;
+        
+        .tripane-sidebar {
+          display: flex !important;
+          
+          > div:first-child {
+            display: block !important;
+            
+            .MuiDrawer-root,
+            .MuiDrawer-paper {
+              display: block !important;
+              
+              > div {
+                display: flex !important;
+                flex-direction: column !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    /* Ensure toolbar toggle is visible */
+    .rds-toolbar-toggle-btn {
+      display: flex !important;
+    }
+  }
+}
+
 .TopNav {
   @media (max-width: 768px) {
     .rds-profile-menu__name,
@@ -1052,7 +1376,7 @@ height: 609px;
       top: 0;
       left: 0;
       height: 100vh;
-      width: 240px; 
+      width: 240px;
       z-index: 1000;
       transform: translateX(-100%);
       transition: transform 0.3s ease;
@@ -1171,7 +1495,212 @@ height: 609px;
     }
   }
   
-  @media (min-width: 769px) {
+  /* Tablet-specific styles (834px - 1112px) */
+  @media (min-width: 834px) and (max-width: 1112px) {
+    /* Show hamburger menu buttons for tablet */
+    .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
+      display: flex !important;
+    }
+    
+    .rds-toolbar-toggle-btn {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+      color: inherit;
+      margin-left: auto;
+      margin-right: 8px;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+    
+    /* Hide desktop layout */
+    .rds-story-double-nav-layout {
+      display: none !important;
+    }
+    
+    /* Force mobile content structure on tablet */
+    .doublenav-mobile-content {
+      display: flex !important;
+      margin-top: 68px;
+      flex: 1;
+      flex-direction: column;
+      min-height: calc(100vh - 68px);
+      transition: opacity 0.3s ease;
+      
+      .rds-appshell-add-layout-flex-center {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        
+        .rds-appshell-add-layout-text {
+          font-size: 2.5rem;
+          font-weight: bold;
+          color: #666;
+        }
+      }
+    }
+    
+    /* Main content area */
+    .topnav-layout {
+      width: 100%;
+      margin-left: 0;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    
+    /* Left sidebar - hide by default */
+    .sidebar-layout {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 240px;
+      z-index: 1000;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      background: white;
+      box-shadow: none;
+      
+      .double-nav-sidebar {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        
+        .rds-story-double-nav-content {
+          display: block;
+          flex: 1;
+          overflow-y: auto;
+          height: 100%;
+          padding-top: 68px;
+          
+          > div:first-child {
+            display: none !important;
+          }
+          
+          > div:last-child {
+            display: block !important;
+            height: calc(100vh - 68px);
+            
+            .MuiDrawer-root {
+              height: 100% !important;
+              
+              .MuiDrawer-paper {
+                margin-left: 0 !important;
+                margin-top: 0 !important;
+                position: relative !important;
+                transform: none !important;
+                width: 100% !important;
+                height: 100% !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                border-right: none !important;
+                
+                /* Ensure sidebar content fills full height */
+                > div {
+                  height: 100% !important;
+                  display: flex !important;
+                  flex-direction: column !important;
+                }
+              }
+            }
+          }
+        }
+        
+        .rds-appshell-add-layout-flex-center,
+        #details-pane-app-shell {
+          display: none;
+        }
+      }
+      
+      .theme-dark & {
+        background: var(--dark-bg-primary, #1a1a1a);
+      }
+    }
+    
+    /* Right sidebar (toolbar) styles */
+    .doublenav-mobile-toolbar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 300px;
+      background: white;
+      z-index: 1000;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
+      
+      &.open {
+        transform: translateX(0) !important;
+      }
+      
+      .doublenav-toolbar-content {
+        height: 100%;
+        overflow-y: auto;
+        padding-top: 68px;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      
+      .theme-dark & {
+        background: var(--dark-bg-primary, #1a1a1a);
+      }
+    }
+    
+    /* Left sidebar open state - use existing mobile-sidebar-open class */
+    &.mobile-sidebar-open {
+      .sidebar-layout {
+        transform: translateX(0) !important;
+        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+      }
+      
+      .doublenav-mobile-content {
+        opacity: 0.3;
+        pointer-events: none;
+      }
+      
+      /* Close right sidebar if it's open */
+      .doublenav-mobile-toolbar {
+        transform: translateX(100%) !important;
+      }
+    }
+    
+    /* Backdrop for overlay */
+    .doublenav-toolbar-backdrop,
+    .mobile-sidebar-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      cursor: pointer;
+    }
+  }
+  
+  @media (min-width: 1113px) {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none !important;
     }
@@ -1355,7 +1884,7 @@ height: 609px;
     }
   }
   
-  @media (min-width: 769px) and (max-width: 1024px) {
+  @media (min-width: 769px) and (max-width: 833px) {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: flex !important;
       margin-right: 12px;
@@ -1449,7 +1978,7 @@ height: 609px;
     }
   }
   
-  @media (min-width: 1025px) {
+  @media (min-width: 834px) {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none !important;
     }
@@ -1489,6 +2018,7 @@ height: 609px;
         font-weight: bold;
         color: #666;
         text-align: center;
+        margin-right: 115px;
       }
     }
     
@@ -1692,7 +2222,229 @@ height: 609px;
     }
   }
   
-  @media (min-width: 769px) {
+  /* Tablet-specific styles (834px - 1112px) */
+  @media (min-width: 834px) and (max-width: 1112px) {
+    /* Show hamburger menu buttons for tablet */
+    .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
+      display: flex !important;
+    }
+    
+    .rds-toolbar-toggle-btn {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+      color: inherit;
+      margin-left: auto;
+      margin-right: 8px;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+    
+    /* Hide desktop layout */
+    .rds-story-tripane-layout {
+      display: none !important;
+    }
+    
+    /* Force mobile content structure on tablet */
+    .tripane-mobile-content {
+      display: flex !important;
+      margin-top: 68px;
+      flex: 1;
+      flex-direction: column;
+      min-height: calc(100vh - 68px);
+      transition: opacity 0.3s ease;
+      
+      .rds-appshell-add-layout-flex-center {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        
+        .rds-appshell-add-layout-text {
+          font-size: 2.5rem;
+          font-weight: bold;
+          color: #666;
+        }
+      }
+    }
+    
+    /* Main content area */
+    .topnav-layout {
+      width: 100%;
+      margin-left: 0;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    
+    /* Left sidebar - hide by default */
+    .sidebar-layout {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 240px;
+      z-index: 1000;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      background: white;
+      box-shadow: none;
+      
+      .tripane-sidebar {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        
+        > div:first-child {
+          display: block !important;
+          flex: 1;
+          overflow-y: auto;
+          height: calc(100vh - 68px);
+          padding-top: 68px;
+          
+          .MuiDrawer-root {
+            height: 100% !important;
+            display: block !important;
+            
+            .MuiDrawer-paper {
+              margin-left: 0 !important;
+              margin-top: 0 !important;
+              position: relative !important;
+              transform: none !important;
+              width: 100% !important;
+              height: 100% !important;
+              box-shadow: none !important;
+              background: transparent !important;
+              border-right: none !important;
+              display: block !important;
+              
+              /* Ensure sidebar content fills full height */
+              > div {
+                height: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+              }
+            }
+          }
+        }
+        
+        .rds-appshell-add-layout-flex-center,
+        #detail-pane-one-three-one {
+          display: none;
+        }
+      }
+      
+      .theme-dark & {
+        background: var(--dark-bg-primary, #1a1a1a);
+      }
+    }
+    
+    /* Right sidebar (toolbar) styles */
+    .tripane-mobile-toolbar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: 300px;
+      background: white;
+      z-index: 1000;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
+      
+      &.open {
+        transform: translateX(0) !important;
+      }
+      
+      .tripane-toolbar-content {
+        height: 100%;
+        overflow-y: auto;
+        padding-top: 68px;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      
+      .theme-dark & {
+        background: var(--dark-bg-primary, #1a1a1a);
+      }
+    }
+    
+    /* Left sidebar open state - use existing mobile-sidebar-open class */
+    &.mobile-sidebar-open {
+      .sidebar-layout {
+        transform: translateX(0) !important;
+        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+      }
+      
+      .tripane-mobile-content {
+        opacity: 0.3;
+        pointer-events: none;
+      }
+      
+      /* Close right sidebar if it's open */
+      .tripane-mobile-toolbar {
+        transform: translateX(100%) !important;
+      }
+    }
+    
+    /* Backdrop for overlay */
+    .tripane-toolbar-backdrop,
+    .mobile-sidebar-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      cursor: pointer;
+    }
+  }
+  
+  @media (min-width: 834px) and (max-width: 833px) {
+    .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
+      display: none !important;
+    }
+    
+    .rds-toolbar-toggle-btn {
+      display: none;
+    }
+    
+    .sidebar-layout {
+      position: relative;
+      transform: none;
+      width: auto;
+      background: transparent;
+      box-shadow: none;
+    }
+    
+    .tripane-mobile-content,
+    .tripane-mobile-toolbar,
+    .tripane-toolbar-backdrop {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 1113px) {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none !important;
     }
@@ -1838,7 +2590,7 @@ height: 609px;
     }
   }
   
-  @media (min-width: 769px) and (max-width: 1024px) {
+  @media (min-width: 769px) and (max-width: 833px) {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: flex !important;
       margin-right: 12px;
@@ -1892,7 +2644,7 @@ height: 609px;
     }
   }
   
-  @media (min-width: 1025px) {
+  @media (min-width: 834px) {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none !important;
     }
@@ -1945,7 +2697,7 @@ height: 609px;
   display: block;
   cursor: pointer;
   
-  @media (min-width: 1025px) {
+  @media (min-width: 1113px) {
     display: none; 
   }
 }
@@ -1967,6 +2719,14 @@ height: 609px;
   
   &:hover {
     background-color: rgba(0, 0, 0, 0.04);
+  }
+}
+
+@media (min-width: 834px) and (max-width: 1112px) {
+  .double-nav .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
+  .double-nav .css-dm61o6 .MuiDrawer-paper {
+    margin-left: 0 !important;
+    margin-top: 0;
   }
 }
 
