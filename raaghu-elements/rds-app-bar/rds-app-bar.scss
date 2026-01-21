@@ -1472,6 +1472,27 @@
   }
 }
 
+// Add spacing between search field and actions for TopNav
+.rds-header__actions {
+  margin-left: 16px;
+  
+  @media (max-width: 834px) {
+    margin-left: 12px;
+  }
+  
+  @media (max-width: 480px) {
+    margin-left: 10px;
+  }
+  
+  @media (max-width: 420px) {
+    margin-left: 8px;
+  }
+  
+  @media (max-width: 320px) {
+    margin-left: 6px;
+  }
+}
+
 @media (max-width: 420px) {
   .rds-header__toolbar {
     padding-left: 8px !important;
