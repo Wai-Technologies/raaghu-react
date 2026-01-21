@@ -22,7 +22,7 @@ body.theme-dark .docs-story {
 }
 
 .css-11xgcgt {
-    background: none !important;
+    border-top-left-radius: 8px !important;
 }
 
 /* Material UI component overrides - all using Poppins font */
