@@ -21,6 +21,10 @@ body.theme-dark .docs-story {
   color: white !important;
 }
 
+.css-11xgcgt {
+    background: none !important;
+}
+
 /* Material UI component overrides - all using Poppins font */
 .css-x28zkw :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)),
 .css-14m39zm,
