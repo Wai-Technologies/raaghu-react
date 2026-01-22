@@ -2582,7 +2582,7 @@
   gap: 8px;
   
   // Hide on small and large views (show in bottom instead)
-  @media (max-width: 1024px) {
+  @media (max-width: 640px) {
     display: none !important;
   }
 }
