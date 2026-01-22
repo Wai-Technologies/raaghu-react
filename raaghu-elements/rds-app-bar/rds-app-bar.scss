@@ -2575,6 +2575,30 @@
   }
 }
 
+// Dashboard With Lang: Show icons in top for full view, hide for small/large
+.rds-dashboard-top-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  // Hide on small and large views (show in bottom instead)
+  @media (max-width: 1024px) {
+    display: none !important;
+  }
+}
+
+// Dashboard With Lang: Bottom navigation visibility control
+.rds-header--variant-dashboardwithlang {
+  .rds-bottom-navigation {
+    // Show footer icons on small and large views, hide on full view
+    display: none;
+    
+    @media (max-width: 1024px) {
+      display: flex !important;
+    }
+  }
+}
+
 @media (max-width: 840px) {
   .rds-header--variant-withmenubutton .rds-header__search-wrapper {
     margin-right: 12px !important;
