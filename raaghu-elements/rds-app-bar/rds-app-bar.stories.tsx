@@ -566,6 +566,10 @@ const DynamicTemplate = (args: any) => {
         title: ' ',
         leftActions: <LogoSearchTabsLeftActions />,
         rightActions: <ProfileMenu name="John Doe" email="john.doe@example.com" />,
+        // Clear userName and userEmail to prevent duplicate profile menus
+        userName: undefined,
+        userShortName: undefined,
+        userEmail: undefined,
         // Only show the left action icons in the overflow drawer for this
         // variant (so users get the icon menu shown in the screenshot).
         // Do not include the full ProfileMenu here to avoid showing the
