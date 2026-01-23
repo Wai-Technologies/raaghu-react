@@ -1453,3 +1453,29 @@ body[data-theme='dark'] .rds-comments-box__text {
         margin-left: 2px;
     }
   }
+
+  @media (max-width: 320px) and (min-width: 280px) {
+    .rds-comments-box--typing .rds-comments-box__typing-box {
+     .rds-emoji-generator {
+        width: 238px;
+        margin-left: 15px;
+    }
+    }
+}
+
+@media (max-width: 514px) and (min-width: 321px) {
+    .rds-comments-box--typing .rds-comments-box__typing-box {
+     .rds-emoji-generator {
+        width: 301px;
+        margin-left: 15px;
+    }
+    }
+}
+
+@media (max-width: 1280px) and (min-width: 650px) {
+    .rds-comments-box--typing .rds-comments-box__typing-box {
+     .rds-emoji-generator {
+        margin-left: 3px;
+    }
+    }
+}
