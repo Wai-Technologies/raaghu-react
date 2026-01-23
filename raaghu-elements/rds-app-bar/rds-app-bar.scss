@@ -1401,7 +1401,8 @@
   
   @media (max-width: 320px) {
     padding: 6px !important;
-    margin-right: -10px !important;
+    margin-right: 0px !important;
+    margin-left: -3px !important;
     
     svg {
       font-size: 18px !important;
@@ -2330,7 +2331,7 @@
 }
 
 @media (max-width: 320px) {
-  .rds-header__search-wrapper, .rds-header__search { max-width: 100px !important; min-width: 64px !important; }
+  .rds-header__search-wrapper, .rds-header__search { max-width: 84px !important; min-width: 64px !important; }
   .rds-header__title { max-width: 55% !important; font-size: 13px !important; }
   .rds-header__sub-tabs .MuiButton-root { min-width: 32px !important; padding: 4px !important; gap: 4px !important; }
   .rds-header__tabs-inline .MuiTab-root { font-size: 10px !important; padding: 4px 6px !important; }

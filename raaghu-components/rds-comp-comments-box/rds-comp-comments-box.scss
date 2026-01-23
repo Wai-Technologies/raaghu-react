@@ -1479,3 +1479,12 @@ body[data-theme='dark'] .rds-comments-box__text {
     }
     }
 }
+
+@media (max-width: 320px) and (min-width: 280px) {
+  .rds-comments-box--typing {
+    width: 307px !important;
+  }
+  .rds-comments-box--typing .rds-comments-box__send-btn {
+    margin-right: 3px !important;
+  }
+}
