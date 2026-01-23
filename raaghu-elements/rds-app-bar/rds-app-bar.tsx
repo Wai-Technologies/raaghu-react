@@ -154,10 +154,7 @@ const RdsAppBar = ({
             </Tabs>
           )}
           <span className="rds-header__title">{title}</span>
-          {/* Move leftActions to immediately left of search bar */}
-          {showSearch && typeof searchValue === 'string' && typeof onSearchChange === 'function' && leftActions && (
-            <span className="rds-header__left-actions">{leftActions}</span>
-          )}
+          
           {showSearch && typeof searchValue === 'string' && typeof onSearchChange === 'function' && (
             <div className="rds-header__search-wrapper">
               <InputBase

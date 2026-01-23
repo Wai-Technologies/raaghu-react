@@ -90,6 +90,12 @@ export const Interactive: Story = {
   args: {
     open: false,
     loading: false,
+    children: (
+      <div style={{ color: 'white', textAlign: 'center' }}>
+        <h2>Click to close</h2>
+        <p>This content can be customized via controls</p>
+      </div>
+    ),
   },
   render: (args) => {
     const [open, setOpen] = useState<boolean>(!!args.open);
@@ -109,9 +115,7 @@ export const Interactive: Story = {
           loading={!!args.loading}
           onClick={() => setOpen(false)}
         >
-          <div style={{ color: 'white', textAlign: 'center' }}>
-            <h2>Click to close</h2>
-          </div>
+          {args.children}
         </RdsBackdrop>
       </>
     );

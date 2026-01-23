@@ -137,7 +137,7 @@
     .rds-comments-box__typing-toolbar {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 6px;
       padding-top: 6px;
     }
 
@@ -1134,15 +1134,16 @@ body[data-theme='dark'] .rds-comments-box__text {
     }
   .rds-comments-box--typing {
     min-height: 80px;
+    padding-left: 0px;
     .rds-comments-box__avatar {
       width: 28px;
       height: 28px;
       font-size: 12px;
-      margin-right: 4px;
+      margin-right: 0px;
     }
     .rds-comments-box__typing-box {
       min-height: 40px;
-      width: 95vw;
+      width: 77vw;
       padding: 20px 8px 4px 8px; // Increased top padding for small screens
     }
     .rds-comments-box__typing-header {
@@ -1175,7 +1176,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: 14px;
-        margin-right: 95px;
+        margin-right: 65px;    
       }
       .rds-comments-box__thread-icons {
         gap: 4px;
@@ -1365,7 +1366,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: 16px;
-        margin-right: 160px;
+        margin-right: 140px;
       }
       .rds-comments-box__thread-icons {
         gap: 6px;
@@ -1452,3 +1453,38 @@ body[data-theme='dark'] .rds-comments-box__text {
         margin-left: 2px;
     }
   }
+
+  @media (max-width: 320px) and (min-width: 280px) {
+    .rds-comments-box--typing .rds-comments-box__typing-box {
+     .rds-emoji-generator {
+        width: 238px;
+        margin-left: 15px;
+    }
+    }
+}
+
+@media (max-width: 514px) and (min-width: 321px) {
+    .rds-comments-box--typing .rds-comments-box__typing-box {
+     .rds-emoji-generator {
+        width: 301px;
+        margin-left: 15px;
+    }
+    }
+}
+
+@media (max-width: 1280px) and (min-width: 650px) {
+    .rds-comments-box--typing .rds-comments-box__typing-box {
+     .rds-emoji-generator {
+        margin-left: 3px;
+    }
+    }
+}
+
+@media (max-width: 320px) and (min-width: 280px) {
+  .rds-comments-box--typing {
+    width: 307px !important;
+  }
+  .rds-comments-box--typing .rds-comments-box__send-btn {
+    margin-right: 3px !important;
+  }
+}

@@ -64,6 +64,7 @@ const AppShellStory = (args: any) => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
   const [mobileToolbarOpen, setMobileToolbarOpen] = React.useState(false);
   const [selectedTab, setSelectedTab] = React.useState(0);
+  const [selectedSubTab, setSelectedSubTab] = React.useState(0);
 
   const handleMobileSidebarToggle = () => {
     setMobileSidebarOpen(!mobileSidebarOpen);
@@ -83,6 +84,10 @@ const AppShellStory = (args: any) => {
     setSelectedTab(newValue);
   };
 
+  const handleSubTabChange = (newValue: number) => {
+    setSelectedSubTab(newValue);
+  };
+
   const renderTopbar = () => {
     if (args.displayType === AppShellDisplayType.TopNav) {
       return (
@@ -100,36 +105,36 @@ const AppShellStory = (args: any) => {
               <div className="rds-header__sub-tabs rds-story-sub-tabs">
                 <button 
                   type="button" 
-                  className={`rds-story-sub-tab-button ${selectedTab === 0 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
-                  onClick={() => handleTabChange(0)}
+                  className={`rds-story-sub-tab-button ${selectedSubTab === 0 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
+                  onClick={() => handleSubTabChange(0)}
                 >
                   <Home className="rds-story-sub-tab-icon" /> Dashboard
                 </button>
                 <button 
                   type="button" 
-                  className={`rds-story-sub-tab-button ${selectedTab === 1 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
-                  onClick={() => handleTabChange(1)}
+                  className={`rds-story-sub-tab-button ${selectedSubTab === 1 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
+                  onClick={() => handleSubTabChange(1)}
                 >
                   <ActivitiesIcon className="rds-story-sub-tab-icon" /> Activities
                 </button>
                 <button 
                   type="button" 
-                  className={`rds-story-sub-tab-button ${selectedTab === 2 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
-                  onClick={() => handleTabChange(2)}
+                  className={`rds-story-sub-tab-button ${selectedSubTab === 2 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
+                  onClick={() => handleSubTabChange(2)}
                 >
                   <DirectoryIcon className="rds-story-sub-tab-icon" /> Directory
                 </button>
                 <button 
                   type="button" 
-                  className={`rds-story-sub-tab-button ${selectedTab === 3 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
-                  onClick={() => handleTabChange(3)}
+                  className={`rds-story-sub-tab-button ${selectedSubTab === 3 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
+                  onClick={() => handleSubTabChange(3)}
                 >
                   <ProjectsIcon className="rds-story-sub-tab-icon" /> Projects
                 </button>
                 <button 
                   type="button" 
-                  className={`rds-story-sub-tab-button ${selectedTab === 4 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
-                  onClick={() => handleTabChange(4)}
+                  className={`rds-story-sub-tab-button ${selectedSubTab === 4 ? 'rds-story-sub-tab-button--primary' : 'rds-story-sub-tab-button--inherit'}`} 
+                  onClick={() => handleSubTabChange(4)}
                 >
                   <CalendarIcon className="rds-story-sub-tab-icon" /> Calendar
                 </button>
@@ -478,6 +483,121 @@ const AppShellStory = (args: any) => {
               className={`${args.displayType === AppShellDisplayType.DoubleNav ? 'doublenav' : 'tripane'}-toolbar-backdrop`}
               onClick={handleMobileToolbarToggle}
             />
+          )}
+          
+          {/* Add bottom navigation for DoubleNav and TriPane */}
+          {(args.displayType === AppShellDisplayType.DoubleNav || args.displayType === AppShellDisplayType.TriPane) && (
+            <div className="rds-footer-navigation MuiBottomNavigation-root">
+              <div style={{ 
+                display: 'flex', 
+                width: '100%', 
+                justifyContent: 'space-around', 
+                alignItems: 'center', 
+                padding: '0', 
+                height: '56px'
+              }}>
+                <button 
+                  data-active={selectedTab === 0}
+                  style={{ 
+                    background: 'none', 
+                    border: 'none', 
+                    padding: '8px 4px', 
+                    cursor: 'pointer',
+                    flex: 1,
+                    textAlign: 'center',
+                    fontSize: '11px',
+                    fontWeight: selectedTab === 0 ? '600' : '400',
+                    color: selectedTab === 0 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
+                    minWidth: 0,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  onClick={() => handleTabChange(0)}
+                >
+                  HOME
+                </button>
+                <button 
+                  data-active={selectedTab === 1}
+                  style={{ 
+                    background: 'none', 
+                    border: 'none', 
+                    padding: '8px 4px', 
+                    cursor: 'pointer',
+                    flex: 1,
+                    textAlign: 'center',
+                    fontSize: '11px',
+                    fontWeight: selectedTab === 1 ? '600' : '400',
+                    color: selectedTab === 1 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
+                    minWidth: 0,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  onClick={() => handleTabChange(1)}
+                >
+                  NEWS
+                </button>
+                <button 
+                  data-active={selectedTab === 2}
+                  style={{ 
+                    background: 'none', 
+                    border: 'none', 
+                    padding: '8px 4px', 
+                    cursor: 'pointer',
+                    flex: 1,
+                    textAlign: 'center',
+                    fontSize: '11px',
+                    fontWeight: selectedTab === 2 ? '600' : '400',
+                    color: selectedTab === 2 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
+                    minWidth: 0,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  onClick={() => handleTabChange(2)}
+                >
+                  MARKETPLACE
+                </button>
+                <button 
+                  data-active={selectedTab === 3}
+                  style={{ 
+                    background: 'none', 
+                    border: 'none', 
+                    padding: '8px 4px', 
+                    cursor: 'pointer',
+                    flex: 1,
+                    textAlign: 'center',
+                    fontSize: '11px',
+                    fontWeight: selectedTab === 3 ? '600' : '400',
+                    color: selectedTab === 3 ? 'var(--rds-color-primary, #1976d2)' : 'inherit',
+                    minWidth: 0,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  onClick={() => handleTabChange(3)}
+                >
+                  JOBS
+                </button>
+              </div>
+            </div>
           )}
         </>
       );

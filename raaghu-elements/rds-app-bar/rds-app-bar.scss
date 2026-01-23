@@ -11,6 +11,7 @@
   
   @media (max-width: 320px) {
     height: 20px;
+    margin-left: 10px;
   }
 }
 
@@ -256,7 +257,7 @@
     .rds-header__center-content {
       flex-shrink: 1;
       gap: 4px !important;
-      margin-left: 4px !important;
+      margin-left: 20px !important;
       
       .MuiButton-root,
       .rds-button {
@@ -283,7 +284,7 @@
     
     .rds-header__center-content {
       gap: 2px !important;
-      margin-left: 2px !important;
+      margin-left: 30px !important;
       
       .MuiButton-root,
       .rds-button {
@@ -350,11 +351,11 @@
   
   // Responsive margin adjustments
   @media (max-width: 420px) {
-    margin-right: 12px;
+    margin-right: -8px;
   }
   
   @media (max-width: 320px) {
-    margin-right: 8px;
+    margin-right: 0px;
   }
 } 
 
@@ -1400,7 +1401,9 @@
   
   @media (max-width: 320px) {
     padding: 6px !important;
-    margin-right: 5px !important;
+    margin-right: 0px !important;
+    margin-left: -3px !important;
+    
     svg {
       font-size: 18px !important;
       margin-left: 0px !important;
@@ -1472,6 +1475,27 @@
   }
 }
 
+// Add spacing between search field and actions for TopNav
+.rds-header__actions {
+  margin-left: 16px;
+  
+  @media (max-width: 834px) {
+    margin-left: 12px;
+  }
+  
+  @media (max-width: 480px) {
+    margin-left: 10px;
+  }
+  
+  @media (max-width: 420px) {
+    margin-left: 8px;
+  }
+  
+  @media (max-width: 320px) {
+    margin-left: 0px;
+  }
+}
+
 @media (max-width: 420px) {
   .rds-header__toolbar {
     padding-left: 8px !important;
@@ -1520,7 +1544,7 @@
       flex-shrink: 2;
       min-width: 30px;
       font-size: 12px !important;
-      margin: 0 2px !important;
+      margin: 0 8px !important;
     }
     
     .rds-header__search-wrapper {
@@ -2000,7 +2024,7 @@
     .rds-header--variant-logotabsactions .rds-profile-menu__button {
       order: 4 !important;
       position: absolute !important;
-      right: 0px !important;
+      right: 11px !important;
       top: 50% !important;
       transform: translateY(-50%) !important;
       z-index: 5 !important;
@@ -2223,7 +2247,7 @@
     }
   }
   .rds-header__title { max-width: 60% !important; overflow: hidden; text-overflow: ellipsis; }
-  .rds-header__toolbar { padding-left: 8px !important; padding-right: 8px !important; gap: 12px !important; }
+  .rds-header__toolbar { padding-left: 8px !important; padding-right: 8px !important; }
   .rds-app-bar, .rds-header { overflow-x: hidden !important; }
   .rds-appbar-title__user { display: none !important; }
 }
@@ -2236,7 +2260,7 @@
   .rds-header--variant-withmenubutton .rds-appbar-actions-group .MuiButton-contained {
     display: none !important;
   }
-
+  
   .rds-header--variant-withmenubutton .rds-appbar-actions-group,
   .rds-header--variant-withmenubutton .rds-header__right-actions {
     display: flex !important;
@@ -2307,7 +2331,7 @@
 }
 
 @media (max-width: 320px) {
-  .rds-header__search-wrapper, .rds-header__search { max-width: 100px !important; min-width: 64px !important; }
+  .rds-header__search-wrapper, .rds-header__search { max-width: 84px !important; min-width: 64px !important; }
   .rds-header__title { max-width: 55% !important; font-size: 13px !important; }
   .rds-header__sub-tabs .MuiButton-root { min-width: 32px !important; padding: 4px !important; gap: 4px !important; }
   .rds-header__tabs-inline .MuiTab-root { font-size: 10px !important; padding: 4px 6px !important; }
@@ -2549,6 +2573,30 @@
 
   .rds-header--variant-dashboardwithlang .rds-appbar-separator {
     display: none !important;
+  }
+}
+
+// Dashboard With Lang: Show icons in top for full view, hide for small/large
+.rds-dashboard-top-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  // Hide on small and large views (show in bottom instead)
+  @media (max-width: 640px) {
+    display: none !important;
+  }
+}
+
+// Dashboard With Lang: Bottom navigation visibility control
+.rds-header--variant-dashboardwithlang {
+  .rds-bottom-navigation {
+    // Show footer icons on small and large views, hide on full view
+    display: none;
+    
+    @media (max-width: 1024px) {
+      display: flex !important;
+    }
   }
 }
 

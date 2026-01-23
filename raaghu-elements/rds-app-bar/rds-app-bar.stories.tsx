@@ -566,6 +566,10 @@ const DynamicTemplate = (args: any) => {
         title: ' ',
         leftActions: <LogoSearchTabsLeftActions />,
         rightActions: <ProfileMenu name="John Doe" email="john.doe@example.com" />,
+        // Clear userName and userEmail to prevent duplicate profile menus
+        userName: undefined,
+        userShortName: undefined,
+        userEmail: undefined,
         // Only show the left action icons in the overflow drawer for this
         // variant (so users get the icon menu shown in the screenshot).
         // Do not include the full ProfileMenu here to avoid showing the
@@ -779,6 +783,10 @@ const DynamicTemplate = (args: any) => {
         showLogo: config.showLogo,
         
         rightActions: <ProfileMenu name={args.userName || 'John Doe'} email={args.userEmail || 'john.doe@example.com'} />,
+        // Clear userName and userEmail to prevent duplicate profile menus
+        userName: undefined,
+        userShortName: undefined,
+        userEmail: undefined,
       };
       break;
     case 'withactions':
@@ -870,6 +878,10 @@ const DynamicTemplate = (args: any) => {
             <ProfileMenu name={args.userName || 'Jane Doe'} email={args.userEmail || 'jane.doe@example.com'} />
           </div>
         ),
+        // Clear userName and userEmail to prevent duplicate profile menus
+        userName: undefined,
+        userShortName: undefined,
+        userEmail: undefined,
         overflowContent: (
           <div style={{ display: 'flex', flexDirection: 'row', gap: 12, padding: 12, width: '100%', boxSizing: 'border-box', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', gap: 40, alignItems: 'center', justifyContent: 'center', flex: 1 }}>
@@ -896,24 +908,41 @@ const DynamicTemplate = (args: any) => {
     logo: logoImg,
     showLogo: config.showLogo,
   title: <span className="rds-dashboard-title" style={{ fontWeight: 500, fontSize: 16 }}>Dashboard</span>,
-        // Right actions: theme button, small icon, language, profile (no search, no dropdown chevron)
+        // Right actions: theme button, small icon, language, profile for full view only
         rightActions: (
           <div className="rds-appbar-tabs-container" style={{ display: 'flex', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              {/* Place theme trigger after search area visually by putting it here */}
-              {/* Remove external onClick handler so the internal Menu can open on click */}
-              <ThemeMenuIcon showDropdown={false} />
-              {/* hide search for this dashboard variant */}
-              { /* search intentionally omitted */ }
-              <div className="rds-appbar-separator" />
-              <ChatBubbleIconSmall />
-              <div className="rds-appbar-separator" />
-              <LanguageMenu />
-              <div className="rds-appbar-separator" />
+              {/* Show icons in top toolbar only for full/desktop view */}
+              <div className="rds-dashboard-top-icons" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <ThemeMenuIcon showDropdown={false} />
+                <div className="rds-appbar-separator" />
+                <ChatBubbleIconSmall />
+                <div className="rds-appbar-separator" />
+                <LanguageMenu />
+                <div className="rds-appbar-separator" />
+              </div>
               <AdminProfileMenu name={args.userName || 'Admin User'} email={args.userEmail || 'admin@example.com'} onLogout={() => { console.log('Logout clicked'); }} />
             </div>
           </div>
         ),
+        // Move theme, chat, and language icons to footer for small and large views
+        overflowContent: (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', width: '100%', padding: '4px 0' }}>
+            <div style={{ transform: 'scale(0.8)' }}>
+              <ThemeMenuIcon showDropdown={false} />
+            </div>
+            <div style={{ transform: 'scale(0.8)' }}>
+              <ChatBubbleIconSmall />
+            </div>
+            <div style={{ transform: 'scale(0.8)' }}>
+              <LanguageMenu />
+            </div>
+          </div>
+        ),
+        // Clear userName and userEmail to prevent duplicate profile menus
+        userName: undefined,
+        userShortName: undefined,
+        userEmail: undefined,
       };
       break;
     default:
