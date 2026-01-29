@@ -1,6 +1,6 @@
 .rds-comp-details-pane {
   width: 338.098px;
-  height: 662px;
+  height: 671px;
   flex-direction: column;
   align-items: center;
   gap: var(--rds-spacing-xl, 24px);
@@ -2165,7 +2165,7 @@
   #details-pane-container .detail-pane-container,
   #detail-pane-container-2 .detail-pane-container {
     background-color: var(--dark-bg-primary) !important;
-    border: 1px solid var(--dark-border) !important;
+    
     color: var(--dark-text-primary) !important;
     
     * {

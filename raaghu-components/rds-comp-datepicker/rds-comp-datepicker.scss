@@ -975,7 +975,6 @@ font-weight: bold;
 
 @media (max-width: 360px) {
   .rds-datepicker {
-    &__input-container { max-width: 244px; }
     &__input { font-size: 0.95rem; padding: 0.45rem 2.6rem 0.45rem 0.6rem; }
     &__input--with-clear { padding-right: 84px; }
     &__icon-container { right: 8px; width: 28px; height: 28px; }
