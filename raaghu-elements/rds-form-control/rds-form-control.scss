@@ -4,7 +4,8 @@
   position: relative;
   
   &.MuiFormControl-fullWidth {
-    width: 119%;
+    width: 100%;
+    margin-right: 35px;
   }
   .MuiInputBase-input::placeholder,
   input::placeholder,
