@@ -202,7 +202,7 @@
       color: var(--rds-text-secondary, #6f6f6f);
       padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-md, 6px);
       border-radius: var(--rds-border-radius-sm, 4px);
-      margin-right: var(--rds-spacing-xxl, 200px);
+      margin-right: var(--rds-spacing-xxl, 210px);
     }
     .rds-comments-box__thread-icons {
       display: flex;
@@ -1176,7 +1176,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: 14px;
-        margin-right: 65px;    
+        margin-right: 105px;    
       }
       .rds-comments-box__thread-icons {
         gap: 4px;
@@ -1438,10 +1438,10 @@ body[data-theme='dark'] .rds-comments-box__text {
   }
 }
 
-@media (min-width: 834px) and (max-width: 1112px) {
+@media (min-width: 700px) and (max-width: 1112px) {
     .rds-comments-box--thread .rds-comments-box__thread-header .rds-comments-box__thread-title {
         font-size: 16px;
-        margin-right: 230px;
+        margin-right: 240px;
     }
     .rds-comments-box__comment-content .rds-comments-box__comment-header {
         min-width: 370px;
