@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import './rds-button-dropdown.scss';
 import RdsButton from '../rds-button/rds-button';
 import RdsMenu from '../rds-menu/rds-menu';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
@@ -34,6 +35,7 @@ export interface RdsButtonDropdownProps {
   showRadio?: boolean;
   isShowLeftIcon?: boolean;
   isShowRightIcon?: boolean;
+  buttonStyle?: 'filled' | 'outlined' | 'transparent';
 }
 
 const RdsButtonDropdown = ({
@@ -112,8 +114,10 @@ const RdsButtonDropdown = ({
         state={buttonState}
         style={
           styleType === 'transparent' ? 'transparent' :
-          styleType === 'primary' ? 'filled' : 'outlined'
+          styleType === 'primary' ? 'filled' :
+          styleType === 'secondary' ? 'filled' : 'outlined'
         }
+        className={styleType === 'secondary' ? 'rds-button-dropdown--secondary' : ''}
         textCase="uppercase"
       />
       <RdsMenu
@@ -121,7 +125,10 @@ const RdsButtonDropdown = ({
         anchorEl={anchorEl}
         onClose={handleClose}
         items={[]}
-        PaperProps={{ style: { minWidth: 200 } }}
+        PaperProps={{ 
+          style: { minWidth: 200 },
+          className: 'rds-button-dropdown__menu'
+        }}
       >
         <div style={{ padding: 8, minWidth: 200 }}>
           {showSearch && (
@@ -138,7 +145,7 @@ const RdsButtonDropdown = ({
           )}
           <div style={{ maxHeight: 240, overflowY: 'auto' }}>
             {filteredOptions.map(opt => (
-              <div key={opt.id} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 0' }}>
+              <div key={opt.id} className="rds-button-dropdown__option">
                 {showUserAvatar && <RdsAvatar size="small" src={opt.avatarSrc} />}
                 {multiSelect ? (
                   <RdsCheckbox

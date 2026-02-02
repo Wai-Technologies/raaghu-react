@@ -87,6 +87,7 @@ export const CustomInputWithClear = forwardRef(({ value, onClick, placeholder, i
 
 export const renderCustomHeader = ({
   date,
+  monthDate,
   changeYear,
   changeMonth,
   decreaseMonth,
@@ -99,6 +100,9 @@ export const renderCustomHeader = ({
   const startYear = currentYear - 6;
   const endYear = currentYear + 6;
   const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
+  
+  // Use monthDate if available (for multi-month view), otherwise use date
+  const displayDate = monthDate || date;
 
   return (
     <div className="rds-datepicker__custom-header">
@@ -111,7 +115,7 @@ export const renderCustomHeader = ({
       />
       <div className="rds-datepicker__custom-header-controls">
         <select
-          value={date.getMonth()}
+          value={displayDate.getMonth()}
           onChange={(e) => changeMonth(Number(e.target.value))}
           className="rds-datepicker__header-select rds-datepicker__header-select--month"
         >
@@ -121,7 +125,7 @@ export const renderCustomHeader = ({
         </select>
 
         <select
-          value={date.getFullYear()}
+          value={displayDate.getFullYear()}
           onChange={(e) => changeYear(Number(e.target.value))}
           className="rds-datepicker__header-select rds-datepicker__header-select--year"
         >

@@ -7,7 +7,12 @@ const meta: Meta<typeof RdsBackdrop> = {
   title: 'Elements/Backdrop',
   component: RdsBackdrop,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
+    docs: {
+      story: {
+        inline: true,
+      }
+    }
   },
   tags: ['autodocs'],
   argTypes: {
@@ -16,6 +21,9 @@ const meta: Meta<typeof RdsBackdrop> = {
     },
     loading: {
       control: { type: 'boolean' },
+    },
+    children: {
+      control: { type: 'text' },
     },
   },
 };
@@ -28,12 +36,32 @@ export const Default: Story = {
     open: true,
     children: 'Backdrop content',
   },
+  render: (args) => (
+    <div style={{ position: 'relative', minHeight: 300 }}>
+      <RdsBackdrop
+        {...args}
+        sx={{
+          '&.rds-backdrop': { position: 'absolute' }
+        }}
+      />
+    </div>
+  ),
 };
 
 export const Loading: Story = {
   args: {
     loading: true,
   },
+  render: (args) => (
+    <div style={{ position: 'relative', minHeight: 300 }}>
+      <RdsBackdrop
+        {...args}
+        sx={{
+          '&.rds-backdrop': { position: 'absolute' }
+        }}
+      />
+    </div>
+  ),
 };
 
 export const WithCustomContent: Story = {
@@ -46,12 +74,28 @@ export const WithCustomContent: Story = {
       </div>
     ),
   },
+  render: (args) => (
+    <div style={{ position: 'relative', minHeight: 300 }}>
+      <RdsBackdrop
+        {...args}
+        sx={{
+          '&.rds-backdrop': { position: 'absolute' }
+        }}
+      />
+    </div>
+  ),
 };
 
 export const Interactive: Story = {
   args: {
     open: false,
     loading: false,
+    children: (
+      <div style={{ color: 'white', textAlign: 'center' }}>
+        <h2>Click to close</h2>
+        <p>This content can be customized via controls</p>
+      </div>
+    ),
   },
   render: (args) => {
     const [open, setOpen] = useState<boolean>(!!args.open);
@@ -71,11 +115,16 @@ export const Interactive: Story = {
           loading={!!args.loading}
           onClick={() => setOpen(false)}
         >
-          <div style={{ color: 'white', textAlign: 'center' }}>
-            <h2>Click to close</h2>
-          </div>
+          {args.children}
         </RdsBackdrop>
       </>
     );
   },
+  parameters: {
+    docs: {
+      story: {
+        inline: true,
+      }
+    }
+  }
 };

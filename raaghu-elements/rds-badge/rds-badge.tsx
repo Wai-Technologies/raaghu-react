@@ -3,9 +3,8 @@ import { Badge as MuiBadge, type BadgeProps } from '@mui/material';
 import Notifications from '@mui/icons-material/Notifications';
 import './rds-badge.scss';
 
-export interface RdsBadgeProps extends BadgeProps {
+export interface RdsBadgeProps extends Omit<BadgeProps, 'showZero'> {
   children?: React.ReactNode;
-  count?: number;
   showZero?: boolean;
   max?: number;
   size?: 'small' | 'medium' | 'large';
@@ -19,7 +18,6 @@ export interface RdsBadgeProps extends BadgeProps {
 
 const RdsBadge= ({
   children,
-  count,
   showZero = false,
   max = 99,
   badgeContent,
@@ -32,9 +30,12 @@ const RdsBadge= ({
   colorVariant = 'primary',
   ...props
 }:RdsBadgeProps) => {
-  const content = count !== undefined ? count : badgeContent;
+  const content = badgeContent;
   
   const bemClass = `rds-badge rds-badge--${size} rds-badge--${shape} rds-badge--${styleType} rds-badge--${colorVariant || 'primary'}${state === 'disabled' ? ' rds-badge--disabled' : ''}`;
+  
+  const isZeroContent = content === 0 || content === '0';
+  
   
   let badgeInner: React.ReactNode;
   switch (layout) {
@@ -52,20 +53,35 @@ const RdsBadge= ({
       badgeInner = content?.toString();
       break;
   }
+  
   // If children is undefined, render badge pill directly
   if (!children) {
+    // Handle showZero logic for standalone badge
+    if (isZeroContent && !showZero) {
+      return null;
+    }
     return (
       <span className={bemClass}>
         <span className="rds-badge__badge">{badgeInner}</span>
       </span>
     );
   }
+  
   // Otherwise, use MUI Badge for overlays
+  // Handle showZero explicitly - if content is 0 and showZero is false, hide the badge
+  const shouldRenderBadge = !(isZeroContent && !showZero);
+  
+  if (!shouldRenderBadge) {
+    // Return children without badge if we shouldn't show zero
+    return <>{children}</>;
+  }
+  
   return (
     <MuiBadge
       badgeContent={content}
       showZero={showZero}
       max={max}
+      color={color}
       {...props}
       className={bemClass}
     >

@@ -71,28 +71,62 @@ export const Default: Story = {
   },
   render: (args) => {
     const [searchValue, setSearchValue] = useState('');
+    const [searchResults, setSearchResults] = useState<string[]>([]);
+
+    const handleSearch = (value: string) => {
+      if (args.autoSearch) {
+        // For auto search, show results below the input
+        const mockResults = value 
+          ? [`Result for "${value}"`]
+          : [];
+        setSearchResults(mockResults);
+      } else {
+        // For manual search, show alert
+        alert(`Searching for: ${value}`);
+      }
+    };
+
+    const handleClear = () => {
+      setSearchResults([]);
+    };
 
     // Ensure Storybook controls don't overwrite local value/onChange bindings
     return (
       <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400 })()}>
-    {/* Omit value/onChange from args to avoid duplicate prop warnings */}
-    {(() => {
-      const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
-      return (
-        <RdsSearch
-          value={searchValue}
-          onChange={setSearchValue}
-          onSearch={(value) => alert(`Searching for: ${value}`)}
-            {...forwardArgs}
+        {/* Omit value/onChange from args to avoid duplicate prop warnings */}
+        {(() => {
+          const { value: _v, onChange: _oc, onSearch: _os, onClear: _oclr, ...forwardArgs } = args as any;
+          return (
+            <RdsSearch
+              value={searchValue}
+              onChange={setSearchValue}
+              onSearch={handleSearch}
+              onClear={handleClear}
+              {...forwardArgs}
             />
           );
         })()}
+        {args.autoSearch && searchResults.length > 0 && (
+          <Box sx={{ mt: 2 }}>
+            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+              {searchResults.map((result, index) => (
+                <Box key={index} sx={{ py: 0.5 }}>
+                  {result}
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        )}
       </Box>
     );
   },
 };
 
 export const AutoSearch: Story = {
+  args: {
+    autoSearch: true,
+    searchDelay: 300,
+  },
   render: (args) => {
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState<string[]>([]);
@@ -101,7 +135,7 @@ export const AutoSearch: Story = {
     const handleSearch = (value: string) => {
       // Simulate search results
       const mockResults = value 
-        ? [`Result 1 for "${value}"`, `Result 2 for "${value}"`, `Result 3 for "${value}"`]
+        ? [`Result for "${value}"`]
         : [];
       setSearchResults(mockResults);
     };
@@ -109,15 +143,13 @@ export const AutoSearch: Story = {
     return (
       <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: { xs: '100%', sm: 380, md: 450 }, maxWidth: 450 })()}>
     {(() => {
-      const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+      const { value: _v, onChange: _oc, onSearch: _os, ...forwardArgs } = args as any;
       return (
         <RdsSearch
           value={searchValue}
           onChange={setSearchValue}
           onSearch={handleSearch}
           placeholder={isSmallScreen ? 'Search...' : 'Auto search (300ms delay)'}
-          autoSearch
-          searchDelay={300}
           fullWidth
           {...forwardArgs}
         />
@@ -143,24 +175,43 @@ export const FullWidth: Story = {
   parameters: {
     controls: { exclude: ['fullWidth'] },
   },
+  args: {
+    fullWidth: true,
+  },
   render: (args) => {
     const [searchValue, setSearchValue] = useState('');
+    const [searchResults, setSearchResults] = useState<string[]>([]);
+
+    const handleSearch = (value: string) => {
+      const mockResults = value ? [`Result for "${value}"`] : [];
+      setSearchResults(mockResults);
+    };
 
     return (
       <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: '100%', maxWidth: 600 })()}>
     {(() => {
-      const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+      const { value: _v, onChange: _oc, onSearch: _os, ...forwardArgs } = args as any;
       return (
         <RdsSearch
           value={searchValue}
           onChange={setSearchValue}
-          onSearch={(value) => console.log('Searching:', value)}
+          onSearch={handleSearch}
           placeholder="Full width search"
-          fullWidth
           {...forwardArgs}
         />
       );
     })()}
+        {searchResults.length > 0 && (
+          <Box sx={{ mt: 2 }}>
+            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+              {searchResults.map((result, index) => (
+                <Box key={index} sx={{ py: 0.5 }}>
+                  {result}
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        )}
       </Box>
     );
   },
@@ -170,11 +221,17 @@ export const Sizes: Story = {
   render: (args) => {
     const [small, setSmall] = useState('');
     const [medium, setMedium] = useState('');
+    const [searchResults, setSearchResults] = useState<string[]>([]);
+
+    const handleSearch = (value: string) => {
+      const mockResults = value ? [`Result for "${value}"`] : [];
+      setSearchResults(mockResults);
+    };
 
     return (
       <Box sx={(() => args.fullWidth ? { width: '100%', display: 'flex', flexDirection: 'column', gap: 3 } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 3 })()}>
   {(() => {
-    const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+    const { value: _v, onChange: _oc, onSearch: _os, ...forwardArgs } = args as any;
     return (
       <>
         <RdsSearch
@@ -182,6 +239,7 @@ export const Sizes: Story = {
           onChange={setSmall}
           placeholder="Small size"
           size="small"
+          onSearch={handleSearch}
           {...forwardArgs}
         />
         <RdsSearch
@@ -189,11 +247,23 @@ export const Sizes: Story = {
           onChange={setMedium}
           placeholder="Medium size (default)"
           size="medium"
+          onSearch={handleSearch}
           {...forwardArgs}
         />
       </>
     );
   })()}
+        {searchResults.length > 0 && (
+          <Box sx={{ mt: -1 }}>
+            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+              {searchResults.map((result, index) => (
+                <Box key={index} sx={{ py: 0.5 }}>
+                  {result}
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        )}
       </Box>
     );
   },
@@ -204,11 +274,17 @@ export const Variants: Story = {
     const [outlined, setOutlined] = useState('');
     const [filled, setFilled] = useState('');
     const [standard, setStandard] = useState('');
+    const [searchResults, setSearchResults] = useState<string[]>([]);
+
+    const handleSearch = (value: string) => {
+      const mockResults = value ? [`Result for "${value}"`] : [];
+      setSearchResults(mockResults);
+    };
 
     return (
       <Box sx={(() => args.fullWidth ? { width: '100%', display: 'flex', flexDirection: 'column', gap: 3 } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400, display: 'flex', flexDirection: 'column', gap: 3 })()}>
   {(() => {
-    const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+    const { value: _v, onChange: _oc, onSearch: _os, ...forwardArgs } = args as any;
     return (
       <>
         <RdsSearch
@@ -216,6 +292,7 @@ export const Variants: Story = {
           onChange={setOutlined}
           placeholder="Outlined (default)"
           variant="outlined"
+          onSearch={handleSearch}
           {...forwardArgs}
         />
         <RdsSearch
@@ -223,6 +300,7 @@ export const Variants: Story = {
           onChange={setFilled}
           placeholder="Filled variant"
           variant="filled"
+          onSearch={handleSearch}
           {...forwardArgs}
         />
         <RdsSearch
@@ -230,11 +308,23 @@ export const Variants: Story = {
           onChange={setStandard}
           placeholder="Standard variant"
           variant="standard"
+          onSearch={handleSearch}
           {...forwardArgs}
         />
       </>
     );
   })()}
+        {searchResults.length > 0 && (
+          <Box sx={{ mt: -1 }}>
+            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+              {searchResults.map((result, index) => (
+                <Box key={index} sx={{ py: 0.5 }}>
+                  {result}
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        )}
       </Box>
     );
   },
@@ -243,16 +333,22 @@ export const Variants: Story = {
 export const WithoutIcons: Story = {
   render: (args) => {
     const [searchValue, setSearchValue] = useState('');
+    const [searchResults, setSearchResults] = useState<string[]>([]);
+
+    const handleSearch = (value: string) => {
+      const mockResults = value ? [`Result for "${value}"`] : [];
+      setSearchResults(mockResults);
+    };
 
     return (
       <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400 })()}>
     {(() => {
-      const { value: _v, onChange: _oc, ...forwardArgs } = args as any;
+      const { value: _v, onChange: _oc, onSearch: _os, onClear: _oclr, ...forwardArgs } = args as any;
       return (
         <RdsSearch
           value={searchValue}
           onChange={setSearchValue}
-          onSearch={(value) => alert(`Searching for: ${value}`)}
+          onSearch={handleSearch}
           placeholder="Simple search"
           showSearchIcon={false}
           showClearButton={false}
@@ -260,6 +356,17 @@ export const WithoutIcons: Story = {
         />
       );
     })()}
+        {searchResults.length > 0 && (
+          <Box sx={{ mt: 2 }}>
+            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+              {searchResults.map((result, index) => (
+                <Box key={index} sx={{ py: 0.5 }}>
+                  {result}
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        )}
       </Box>
     );
   },

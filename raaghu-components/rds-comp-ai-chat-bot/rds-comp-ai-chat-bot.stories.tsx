@@ -6,7 +6,7 @@ import { Message } from "./rds-comp-ai-chat-bot";
 import { StoryObj, Meta } from "@storybook/react-vite";
 
 const meta: Meta = {
-  title: "Components/AI ChatBox/Ai Chat Bot",
+  title: "Components/AI ChatBox/AI Chat Bot",
   component: RdsCompAiChatBot,
   parameters:{
     docs:{
@@ -14,6 +14,9 @@ const meta: Meta = {
   },
   tags: ["autodocs"],
   argTypes: {
+    icon_name: {
+      table: { disable: true },
+    },
   },
 } satisfies Meta<typeof RdsCompAiChatBot>;
 

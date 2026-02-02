@@ -67,8 +67,18 @@
   transition: all 0.2s ease-in-out;
 }
 .offcanvas-close-button:hover {
-  background-color: aliceblue;
+  background-color: rgba(0, 0, 0, 0.10);
   border-radius: 5px;
+}
+
+/* Dark theme hover visibility for close button */
+.rds-theme--dark .offcanvas-close-button:hover,
+body.theme-dark .offcanvas-close-button:hover,
+body[data-theme="dark"] .offcanvas-close-button:hover,
+[data-theme="dark"] .offcanvas-close-button:hover,
+.theme-dark .offcanvas-close-button:hover,
+.dark-theme .offcanvas-close-button:hover {
+  background-color: rgba(255, 255, 255, 0.22);
 }
 
 .offcanvas-body {
@@ -87,6 +97,45 @@
   gap: 8px;
   margin-top: auto;
   padding-top: 16px;
+}
+
+.tertiary-button-container,
+.secondary-button-container,
+.primary-button-container {
+  flex: 0 0 auto;
+  min-width: fit-content;
+}
+
+.tertiary-button-container {
+  margin-right: auto;
+}
+
+.secondary-button-container {
+  margin-left: auto;
+}
+
+.primary-button-container {
+  margin-left: 8px;
+}
+
+// Ensure consistent button heights across light and dark themes
+#offcanvas-btns .rds-button,
+#offcanvas-btns .MuiButton-root {
+  min-height: 36px;
+  padding: 6px 16px;
+}
+
+// Dark theme consistency
+.rds-theme--dark #offcanvas-btns .rds-button,
+body.theme-dark #offcanvas-btns .rds-button,
+body[data-theme="dark"] #offcanvas-btns .rds-button,
+.theme-dark #offcanvas-btns .rds-button,
+.rds-theme--dark #offcanvas-btns .MuiButton-root,
+body.theme-dark #offcanvas-btns .MuiButton-root,
+body[data-theme="dark"] #offcanvas-btns .MuiButton-root,
+.theme-dark #offcanvas-btns .MuiButton-root {
+  min-height: 36px !important;
+  padding: 6px 9px !important;
 }
 
 .offcanvas-margin {
@@ -122,6 +171,18 @@
   border: 1px solid transparent;
   transition: all 0.2s ease-in-out;
   border-radius: 5px;
+}
+
+.offcanvas-container .offcanvas-header .close:hover {
+  background-color: rgba(0, 0, 0, 0.10);
+}
+.rds-theme--dark .offcanvas-container .offcanvas-header .close:hover,
+body.theme-dark .offcanvas-container .offcanvas-header .close:hover,
+body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
+[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
+.theme-dark .offcanvas-container .offcanvas-header .close:hover,
+.dark-theme .offcanvas-container .offcanvas-header .close:hover {
+  background-color: rgba(255, 255, 255, 0.22);
 }
 
 @media (min-width: 320px) and (max-width: 414px) {
@@ -177,21 +238,24 @@
     align-items: center;
   }
 
-  #offcanvas-btns .me-2:first-child {
-    align-self: center;
-  }
-  #offcanvas-btns .me-2:nth-child(2) {
-    margin-right: 12px !important;
-  }
-  
-  #offcanvas-btns > *:nth-child(2) {
-    margin-right: 12px !important;
-  }
-
-  #offcanvas-btns .me-2 {
-    margin-right: 2px !important;
+  #offcanvas-btns .tertiary-button-container,
+  #offcanvas-btns .secondary-button-container,
+  #offcanvas-btns .primary-button-container {
     flex: 1;
     min-width: 0;
+  }
+
+  #offcanvas-btns .tertiary-button-container {
+    margin-right: auto;
+  }
+
+  #offcanvas-btns .secondary-button-container {
+    margin-left: auto;
+    margin-right: 4px;
+  }
+
+  #offcanvas-btns .primary-button-container {
+    margin-left: 4px;
   }
   
   #offcanvas-btns .rds-button {
@@ -226,6 +290,7 @@
   #close-btn .MuiIconButton-root svg {
     width: 16px !important;
     height: 16px !important;
+    margin-left: 0 !important;
   }
 }
 // Large mobile devices
@@ -241,8 +306,18 @@
     padding-right: 0 !important;
   }
 
-  /* gap between second and third button */
-  #offcanvas-btns > *:nth-child(2) { margin-right: 12px !important; }
+  #offcanvas-btns .tertiary-button-container {
+    margin-right: auto;
+  }
+
+  #offcanvas-btns .secondary-button-container {
+    margin-left: auto;
+    margin-right: 8px;
+  }
+
+  #offcanvas-btns .primary-button-container {
+    margin-left: 4px;
+  }
 
   /* ensure button sizing/ellipsis */
   #offcanvas-btns .rds-button {
@@ -261,7 +336,8 @@
     min-width: 40px !important; min-height: 40px !important;
   }
   #close-btn .rds-icon-button svg, #close-btn .MuiIconButton-root svg {
-    width: 18px !important; height: 18px !important;
+    width: 18px !important; height: 18px !important; 
+    margin-left: 0 !important;
   }
 }
 

@@ -1,3 +1,4 @@
+/* stylelint-disable block-no-empty */
 // RDS Switch Component Styles
 // Toggle switch form control
 
@@ -132,6 +133,14 @@
 }
 .rds-switch--style4 .MuiSwitch-thumb {
   background: var(--rds-color-switch-thumb, #646464) !important;
+  margin-left: 4px !important;
+}
+
+// Checked state margin for styles 2 and 4
+.rds-switch--style2 .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--style2 .MuiSwitch-input:checked + .MuiSwitch-thumb,
+.rds-switch--style4 .Mui-checked + .MuiSwitch-thumb,
+.rds-switch--style4 .MuiSwitch-input:checked + .MuiSwitch-thumb {
   margin-left: 4px !important;
 }
 
@@ -338,7 +347,6 @@
   margin-left: 3px !important;
 }
 
-/* Disabled + Checked override for all colored switches */
 .rds-switch--color-primary .Mui-checked.Mui-disabled + .MuiSwitch-track,
 .rds-switch--color-primary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track {
   background: var(--rds-switch-disabled-bg, #b3d4fc) !important;
@@ -376,6 +384,20 @@
 .rds-switch--color-secondary .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
   background: var(--rds-color-on-secondary, #ffffff) !important;
   opacity: 0.6 !important;
+}
+
+[data-theme="dark"] .rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-track,
+[data-theme="dark"] .rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-track,
+[data-theme="dark"] .rds-switch--color-secondary .Mui-disabled + .MuiSwitch-track {
+  background: rgba(82,95,179,0.42) !important;
+  opacity: 0.85 !important;
+}
+
+[data-theme="dark"] .rds-switch--color-secondary .Mui-checked.Mui-disabled + .MuiSwitch-thumb,
+[data-theme="dark"] .rds-switch--color-secondary .MuiSwitch-input:checked.Mui-disabled + .MuiSwitch-thumb,
+[data-theme="dark"] .rds-switch--color-secondary .MuiSwitch-switchBase.Mui-checked.Mui-disabled .MuiSwitch-thumb {
+  background: var(--rds-color-on-secondary, #ffffff) !important;
+  opacity: 0.9 !important;
 }
 
 .rds-switch--color-warning .Mui-checked.Mui-disabled + .MuiSwitch-thumb,

@@ -48,7 +48,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     const handleResize = () => {
       const width = window.innerWidth;
       updateSizeBasedOnWidth(width);
-      setIsMobile(width < 400);
+      setIsMobile(width <= 414); // Include both small and large mobile sizes
     };
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -61,22 +61,21 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   const updateSizeBasedOnWidth = (width: number) => {
     setContainerWidth(width);
 
-    if (width < 300) {
-      setDynamicPanelSize(4);
-      setDynamicPanelMargin(1);
-    } else if (width < 400) {
-      setDynamicPanelSize(5);
-      setDynamicPanelMargin(1);
-    } else if (width < 600) {
-      setDynamicPanelSize(7);
-      setDynamicPanelMargin(2);
-    } else if (width < 900) {
+    // Responsive sizing for specific screen sizes
+    if (width <= 320) {
+      // Small mobile (320px)
+      setDynamicPanelSize(8);
+      setDynamicPanelMargin(1.2);
+    } else if (width <= 414) {
+      // Large mobile (414px) 
       setDynamicPanelSize(9);
-      setDynamicPanelMargin(3);
-    } else if (width < 1200) {
-      setDynamicPanelSize(11);
-      setDynamicPanelMargin(4);
+      setDynamicPanelMargin(1.2);
+    } else if (width <= 834) {
+      // Tablet (834px)
+      setDynamicPanelSize(8);
+      setDynamicPanelMargin(2);
     } else {
+      // Desktop and larger screens
       setDynamicPanelSize(panelSize);
       setDynamicPanelMargin(panelMargin);
     }
@@ -122,11 +121,8 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   };
 
   const getSvgWidthClass = (width: number) => {
-    if (width <= 360) return 'rds-comp-contribution__container--svgwidth-360';
-    if (width <= 600) return 'rds-comp-contribution__container--svgwidth-600';
-    if (width <= 900) return 'rds-comp-contribution__container--svgwidth-900';
-    if (width <= 1200) return 'rds-comp-contribution__container--svgwidth-1200';
-    return 'rds-comp-contribution__container--svgwidth-large';
+    // No longer using fixed width classes, let CSS handle responsive scaling
+    return '';
   };
 
   if (!panelColors || !weekNames) {
@@ -253,8 +249,9 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     });
   };
   
-  const minSvgWidth = Math.max(columns * (dynamicPanelSize + dynamicPanelMargin) + weekLabelWidth + dynamicPanelSize + dynamicPanelMargin, 320);
-  const svgWidth = Math.max(minSvgWidth, isMobile ? 360 : 0);
+  // Calculate SVG dimensions based on responsive panel sizes
+  const calculatedSvgWidth = columns * (dynamicPanelSize + dynamicPanelMargin) + weekLabelWidth + dynamicPanelSize;
+  const svgWidth = Math.max(calculatedSvgWidth, 280); // Minimum width for readability
   const svgHeight = 7 * (dynamicPanelSize + dynamicPanelMargin) + monthLabelHeight;
 
   return (
@@ -269,7 +266,12 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
               <SvgIcon
                 className="rds-comp-contribution__svg"
                 viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-                sx={{ width: svgWidth, height: svgHeight, minWidth: svgWidth }}
+                sx={{ 
+                  width: '100%', 
+                  height: 'auto', 
+                  maxWidth: '100%',
+                  minWidth: 'unset'
+                }}
               >
                 {renderContributionPanels()}
                 {renderMonthLabels()}

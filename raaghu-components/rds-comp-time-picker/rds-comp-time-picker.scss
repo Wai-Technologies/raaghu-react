@@ -343,7 +343,7 @@
           border: none;
           padding: 6px 10px;
           min-width: auto;
-          margin-right: auto;
+          // margin-right: auto;
           
           &:hover {
             background-color: rgba(99, 102, 241, 0.08);
@@ -417,19 +417,6 @@
         &:hover {
           background-color: rgba(165, 180, 252, 0.1);
         }
-      }
-    }
-    
-    .buttons {
-      button {
-        &.cancel {
-          color: #a5b4fc;
-          
-          &:hover {
-            background-color: rgba(165, 180, 252, 0.1);
-          }
-        }
-        
       }
     }
   }

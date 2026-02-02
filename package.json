@@ -1,6 +1,6 @@
 {
   "name": "@waiin/raaghu-react",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "@waiin/raaghu-react is an React based design system from Raaghu Design System built on top of MUI and Fluent UI. @waiin/raaghu-react employs React, Typescript, Vite, Millions and Storybook features to develop highly customizable UI components and pages, that provides application shells, layouts, elements, components, map and charts.",
   "keywords": [
     "react",
@@ -99,6 +99,7 @@
     "emojibase": "^16.0.0",
     "emojibase-data": "^16.0.3",
     "html-to-draftjs": "^1.5.0",
+    "lottie-react": "^2.4.1",
     "million": "^3.1.11",
     "react": "^18.3.1",
     "react-beautiful-dnd": "^13.1.1",
@@ -113,7 +114,7 @@
     "react-svg-worldmap": "^2.0.0-alpha.16",
     "react-syntax-highlighter": "^15.5.0",
     "rimraf": "^6.0.1",
-    "slate": "^0.118.0",
+    "slate": "^0.123.0",
     "slate-history": "^0.113.1",
     "slate-react": "^0.117.4",
     "wavesurfer.js": "^7.10.1"

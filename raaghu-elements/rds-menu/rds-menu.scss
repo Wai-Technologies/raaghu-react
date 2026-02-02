@@ -157,6 +157,11 @@
   .rds-menu__list {
      background-color: var(--rds-color-background, #545454);
   }
+
+  /* Default text color for menu items in dark mode */
+  .rds-menu__item {
+    color: #ffffff;
+  }
  
   .rds-menu__item.rds-menu__item--disabled {
     color: var(--rds-text-disabled, #999999);
@@ -164,28 +169,48 @@
   .rds-menu__header {
     color: var(--rds-color-surface, #d6d6d6);
     background-color: var(--rds-color-background, #5a5a5a);
+    border-bottom: 1px solid #666;
+  }
+
+  .rds-menu__divider {
+    background: #666;
   }
   
-  
-    /* change menu item background on hover in dark theme and keep text readable */
-    .rds-menu__item:hover:not(:disabled),
-    .rds-menu__item:focus-visible:not(:disabled) {
-      background: #666;
-      color: #ffffff;
-    }
+  /* change menu item background on hover in dark theme and keep text readable */
+  .rds-menu__item:hover:not(:disabled),
+  .rds-menu__item:focus-visible:not(:disabled) {
+    background: #666;
+    color: #ffffff;
+  }
 
-    .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon,
-    .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon svg,
-    .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon img {
-      color: #ffffff;
-      fill: #ffffff;
-    }
+  /* Default icon styling for non-disabled items in dark mode - only when no custom color */
+  .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) svg,
+  .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) svg {
+    color: #ffffff;
+    fill: #ffffff;
+  }
 
-    .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon,
-    .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon svg,
-    .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon img {
-      color: var(--rds-text-disabled, #999999);
-      fill: var(--rds-text-disabled, #999999);
-      stroke: var(--rds-text-disabled, #999999);
-    }
+  /* Custom colored icons in dark mode - let inline styles take precedence */
+  .rds-menu__item .rds-menu__item__icon--primary svg,
+  .rds-menu__item .rds-menu__item__icon--success svg,
+  .rds-menu__item .rds-menu__item__icon--danger svg,
+  .rds-menu__item .rds-menu__item__icon--info svg,
+  .rds-menu__item .rds-menu__item__icon--warning svg {
+    color: inherit !important;
+    fill: currentColor !important;
+  }
+
+  /* Disabled icon styling */
+  .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon,
+  .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon svg,
+  .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon img {
+    color: var(--rds-text-disabled, #999999);
+    fill: var(--rds-text-disabled, #999999);
+    stroke: var(--rds-text-disabled, #999999);
+  }
+
+  /* Shortcut text in dark mode */
+  .rds-menu__item__shortcut {
+    color: #cccccc;
+  }
 }

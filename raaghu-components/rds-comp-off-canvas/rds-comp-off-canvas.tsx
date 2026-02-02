@@ -132,21 +132,21 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
               </div>
               {(showPrimaryButton || showSecondaryButton || showTertiaryButton) && (
                 <Box className="d-flex justify-content-start mt-auto offcanvas-margin offcanvas-footer" id="offcanvas-btns">
-                  {showTertiaryButton && (
-                    <Box>
+                  <Box className="tertiary-button-container">
+                    {showTertiaryButton && (
                       <RdsButton text="RESTORE TO DEFAULT" style="transparent" size="medium" className="offcanvas-action-btn" />
-                    </Box>
-                  )}
-                  {showSecondaryButton && (
-                    <Box>
+                    )}
+                  </Box>
+                  <Box className="secondary-button-container">
+                    {showSecondaryButton && (
                       <RdsButton text="CANCEL" style="outlined" size="medium"  onClick={handleClose}/>
-                    </Box>
-                  )}
-                  {showPrimaryButton && (
-                    <Box>
+                    )}
+                  </Box>
+                  <Box className="primary-button-container">
+                    {showPrimaryButton && (
                       <RdsButton text="SAVE" style="filled" size="medium" onClick={handleClose} className="offcanvas-action-btn" />
-                    </Box>
-                  )}
+                    )}
+                  </Box>
                 </Box>
               )}
             </Box>

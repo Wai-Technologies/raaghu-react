@@ -112,7 +112,7 @@ const RdsBreadcrumbs = ({
     }
     
     // Default to NavigateNext icon
-    return <NavigateNextIcon fontSize="small" />;
+    return <span className="rds-breadcrumbs__separator"><NavigateNextIcon fontSize="small" color="inherit" /></span>;
   };
   // Filter items based on level if specified
   const getFilteredItems = () => {
@@ -188,7 +188,7 @@ const RdsBreadcrumbs = ({
     }
     
     const IconComp = iconMap[iconName.toLowerCase()] || HomeOutlinedIcon;
-    return <IconComp sx={{ fontSize: 20, verticalAlign: 'middle', mr: 0.5 }} />;
+    return <IconComp sx={{ fontSize: 20, verticalAlign: 'middle', mr: 0.5 }} color="inherit" />;
   };
 
   return (
@@ -214,7 +214,6 @@ const RdsBreadcrumbs = ({
           return (
             <Typography 
               key={index} 
-              color="text.primary"
               className={typographyClass.trim()}
               onClick={() => setSelectedIdx(index)}
               style={{ cursor: 'pointer' }}

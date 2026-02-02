@@ -47,15 +47,19 @@ export const WithLabels: Story = {
 };
 
 export const Interactive: Story = {
-  render: () => {
-    const [activeValue, setActiveValue] = useState('home');
+  args: {
+    items: navigationItems,
+    activeValue: 'home',
+    showLabels: false,
+  },
+  render: (args) => {
+    const [activeValue, setActiveValue] = useState(args.activeValue || 'home');
     
     return (
       <RdsBottomNavigation
-        items={navigationItems}
-        activeValue={activeValue}
+        {...args}
+        activeValue={args.activeValue}
         onItemChange={(value) => setActiveValue(value)}
-        showLabels
       />
     );
   },

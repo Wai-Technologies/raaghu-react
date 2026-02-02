@@ -62,6 +62,10 @@ const meta: Meta<typeof RdsFileUploader> = {
       control: 'select',
       options: ['default', 'standard'],
     },
+    state: {
+      control: 'select',
+      options: ['default', 'selected']
+    },
     style: {
       control: 'select',
       options: [

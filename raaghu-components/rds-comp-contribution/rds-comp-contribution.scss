@@ -1,39 +1,37 @@
-.rds-comp-contribution {
+ .rds-comp-contribution {
   display: block;
   width: 100%;
+  max-width: 100vw;
   background: none;
+  box-sizing: border-box;
   
   &__container {
     width: 100%;
     padding: var(--rds-spacing-lg, 20px) 0;
-    overflow-x: auto;
-    white-space: nowrap;
-    min-width: 360px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   &__wrapper {
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100%;
     max-width: 100%;
-    overflow-x: auto;
-    scrollbar-width: thin;
-    
-    &::-webkit-scrollbar {
-      height: 4px;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      background: var(--rds-color-neutral-100, rgba(0, 0, 0, 0.05));
-      border-radius: var(--rds-border-radius-sm, 10px);
-    }
+    overflow: hidden;
   }
   
   &__svg {
     fill: transparent;
     stroke: none;
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.02));
-    min-width: 360px;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    min-width: unset !important;
   }
   
   &__text {
@@ -44,14 +42,11 @@
       font-size: 14px;
       font-weight: var(--rds-font-weight-medium, 500);
       letter-spacing: -0.01em;
-      alignment-baseline: central;      
-      @media (max-width: 400px) {
-        font-size: 10px !important;
-      }
+      alignment-baseline: central;
     }
     
     &--month-mobile {
-      font-size: 10px !important;
+      font-size: 8px !important;
     }
     
     &--week {
@@ -66,6 +61,9 @@
     rx: 2;
     ry: 2;
     transition: all var(--rds-transition-duration-short, 0.15s) var(--rds-transition-timing, ease);
+    stroke: rgba(255,255,255,0.6);
+    stroke-width: 0.5;
+    shape-rendering: geometricPrecision;
     
     &:hover {
       opacity: 0.85;
@@ -77,81 +75,125 @@
     fill: #fff !important;
   }
 }
-.rds-comp-contribution__container--svgwidth-360 {
-  min-width: 360px;
-}
-.rds-comp-contribution__container--svgwidth-600 {
-  min-width: 600px;
-}
-.rds-comp-contribution__container--svgwidth-900 {
-  min-width: 900px;
-}
-.rds-comp-contribution__container--svgwidth-1200 {
-  min-width: 1200px;
-}
+// Remove fixed width containers and let content scale responsively
 
-@media (max-width: 1200px) {
-  .rds-comp-contribution__text--month {
-    font-size: 12px;
-  }
-  .rds-comp-contribution__text--week {
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 900px) {
-  .rds-comp-contribution__text--month {
-    font-size: 10px;
-  }
-  .rds-comp-contribution__text--week {
-    font-size: 8px;
-  }
-}
-
-@media (max-width: 600px) {
-  .rds-comp-contribution__text--month {
-    font-size: 8px;
-  }
-  .rds-comp-contribution__text--week {
-    font-size: 6px;
-  }
-}
-
-@media (max-width: 360px) {
-  .rds-comp-contribution__text--month {
-    font-size: 6px;
-  }
-  .rds-comp-contribution__text--week {
-    font-size: 5px;
-  }
-}
-
-@media (max-width: 400px) {
-  .rds-comp-contribution__text--month {
-    font-size: 6px;
-  }
-  .rds-comp-contribution__text--week {
-    font-size: 5px;
-  }
-  .rds-comp-contribution__container {
-    padding: 10px 0;
-  }
-  .rds-comp-contribution__wrapper {
-    justify-content: flex-start;
-  }
-}
-
+// Small mobile screens (320px)
 @media (max-width: 320px) {
-  .rds-comp-contribution__text--month {
-    font-size: 5px;
+  .rds-comp-contribution {
+    &__container {
+      padding: 6px 0px; // reduce side padding
+      width: calc(100% - 12px);
+      max-width: none;
+      margin: 0 auto;
+    }
+    
+    &__wrapper {
+      justify-content: center;
+      width: 100%;
+    }
+    
+    &__svg {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    
+    &__text--month {
+      font-size: 11px !important;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    
+    &__text--week {
+      font-size: 9px !important;
+      display: none; // hide week labels to save horizontal space on tiny screens
+    }
   }
-  .rds-comp-contribution__text--week {
-    font-size: 4px;
+}
+
+// Large mobile screens (414px)
+@media (min-width: 321px) and (max-width: 414px) {
+  .rds-comp-contribution {
+    &__container {
+      padding: 10px 4px;
+      width: 100%;
+      max-width: 414px;
+      margin: 0 auto;
+    }
+        padding: 12px 8px;
+    
+    &__wrapper {
+      justify-content: center;
+      width: 100%;
+    }
+    
+    &__svg {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    
+    &__text--month {
+      font-size: 12px !important;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    
+    &__text--week {
+      font-size: 10px !important;
+    }
   }
-  .rds-comp-contribution__container {
-    padding: 5px 0;
+}
+
+// Tablet screens (834px)
+@media (min-width: 415px) and (max-width: 834px) {
+  .rds-comp-contribution {
+    &__container {
+      padding: 15px 8px;
+      width: 100%;
+      max-width: 834px;
+      margin: 0 auto;
+    }
+    
+    &__wrapper {
+      justify-content: center;
+      width: 100%;
+    }
+    
+    &__svg {
+      transform: scale(0.95);
+      transform-origin: center;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    
+    &__text--month {
+      font-size: 9px !important;
+      font-weight: 500;
+    }
+    
+    &__text--week {
+      font-size: 7px !important;
+    }
   }
-  .rds-comp-contribution__wrapper {
-    justify-content: flex-start;
+}
+
+// Larger screens
+@media (min-width: 835px) {
+  .rds-comp-contribution {
+    &__container {
+      padding: var(--rds-spacing-lg, 20px) 0;
+    }
+    
+    &__wrapper {
+      justify-content: center;
+    }
+    
+    &__text--month {
+      font-size: 12px;
+      font-weight: 500;
+    }
+    
+    &__text--week {
+      font-size: 10px;
+    }
   }
 }

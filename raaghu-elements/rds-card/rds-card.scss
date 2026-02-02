@@ -418,7 +418,7 @@
       display: flex;
       justify-content: flex-end;
       gap: var(--rds-spacing-xs, 8px);
-      margin-top: var(--rds-spacing-md, 16px);
+      margin: var(--rds-spacing-md, 16px);
       
       .rds-button {
         margin-top: 0; // Override individual button margin
@@ -428,6 +428,7 @@
     // Image styling for card images
     .rds-card__image {
       margin-bottom: var(--rds-spacing-md, 16px);
+      margin-right: var(--rds-spacing-md, 16px);
       
       img {
         width: 100%;
@@ -489,6 +490,32 @@
         gap: var(--rds-spacing-xs, 8px);
         margin-left: var(--rds-spacing-sm) !important;
         flex-shrink: 0;
+      }
+
+      // Avatar and info row container (fallback for larger screens)
+      .rds-card__avatar-row {
+        display: contents; // Use contents by default to maintain original flex layout
+      }
+
+      // Responsive layout for 320px screens
+      @media screen and (max-width: 320px) {
+        flex-direction: column;
+        align-items: stretch;
+        
+        // Avatar and info row
+        .rds-card__avatar-row {
+          display: flex;
+          align-items: flex-start;
+          gap: var(--rds-spacing-sm, 8px);
+          margin-bottom: var(--rds-spacing-xs, 8px);
+        }
+        
+        // Edit controls below avatar info
+        .rds-card__edit-controls {
+          margin-left: 110px !important;
+          justify-content: flex-end;
+          padding-top: var(--rds-spacing-xs, 4px);
+        }
       }
     }
 
@@ -635,12 +662,23 @@
         }
       }
     }
+
+    // Responsive adjustments for editable mode
+    @media screen and (max-width: 320px) {
+      .rds-card__edit-controls {
+        margin-left: 0 !important;
+        
+        .rds-card__edit-icon {
+          margin-bottom: 0 !important;
+        }
+      }
+    }
   }
 }
 
 // Editable input fields
 .rds-card__editable-field {
-  padding: var(--rds-spacing-md, 16px);
+  padding: var(--rds-spacing-xs, 8px);
   
   // Styling for RdsInput components
   .rds-input {
@@ -711,6 +749,7 @@
 
 .rds-card__avatar-section--editable .rds-avatar{
  margin-left: var(--rds-spacing-md, 15px) !important;
+  margin-top: var(--rds-spacing-xs, 8px) !important;
 }
 
 // Target the story’s exact badge class combos to also force solid backgrounds

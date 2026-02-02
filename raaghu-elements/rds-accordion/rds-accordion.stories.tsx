@@ -73,6 +73,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    title: 'Accordion Title',
     size: 'medium',
     state: 'default',
     accordionStyle: 'bottomline',
@@ -80,7 +81,7 @@ export const Default: Story = {
     defaultExpanded: false,
     changeleftIcon: null,
   },
-  render: ({ size, state, accordionStyle, ShowLeftIcon, defaultExpanded, changeleftIcon, disabled }) => {
+  render: ({ size, state, accordionStyle, ShowLeftIcon, defaultExpanded, changeleftIcon, title, disabled }) => {
     const [expanded1, setExpanded1] = useState(defaultExpanded);
     const [expanded2, setExpanded2] = useState(defaultExpanded);
     const [expanded3, setExpanded3] = useState(defaultExpanded);
@@ -95,7 +96,7 @@ export const Default: Story = {
     return (
       <>
         <RdsAccordion 
-          title="Accordion Title " 
+          title={title} 
           size={size} 
           state={state} 
           accordionStyle={accordionStyle} 
@@ -110,7 +111,7 @@ export const Default: Story = {
           </RdsTypography>
         </RdsAccordion>
         <RdsAccordion 
-          title="Accordion Title " 
+          title={title} 
           size={size} 
           state={state} 
           accordionStyle={accordionStyle} 
@@ -125,7 +126,7 @@ export const Default: Story = {
           </RdsTypography>
         </RdsAccordion>
         <RdsAccordion 
-          title="Accordion Title " 
+          title={title} 
           size={size} 
           state={state} 
           accordionStyle={accordionStyle} 

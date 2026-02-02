@@ -1,12 +1,12 @@
 import React from 'react';
-import { Autocomplete as MuiAutocomplete, TextField, type AutocompleteProps } from '@mui/material';
-import Checkbox from '@mui/material/Checkbox';
+import { Autocomplete as MuiAutocomplete, TextField, Chip, type AutocompleteProps } from '@mui/material';
+import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import Radio from '@mui/material/Radio';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import './rds-autocomplete.scss';
 
-export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, false, false, false>, 'renderInput'> {
+export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, boolean, false, false>, 'renderInput'> {
   label?: string;
   showTitle?: boolean;
   placeholder?: string;
@@ -25,6 +25,8 @@ export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, false
   userIcon?: React.ReactNode;
   popupIcon?: React.ReactNode;
   openOnFocus?: boolean;
+  // enable multiple selection (used by product-tour form only)
+  allowMultiple?: boolean;
 }
 
 const RdsAutocomplete = <T extends { label?: string },>({
@@ -45,21 +47,26 @@ const RdsAutocomplete = <T extends { label?: string },>({
   userIcon,
   popupIcon,
   openOnFocus = false,
+  allowMultiple = false,
   ...props
 }: RdsAutocompleteProps<T>) => {
-  const [selected, setSelected] = React.useState<T | null>(
-    state === 'selected' && props.options ? (props.options[0] as T) : null
+  // Selected can be either a single item (T | null) or an array of items (T[])
+  const [selected, setSelected] = React.useState<any>(
+    allowMultiple
+      ? (state === 'selected' && props.options ? [props.options[0] as T] : [])
+      : (state === 'selected' && props.options ? (props.options[0] as T) : null)
   );
 
   React.useEffect(() => {
     if (state === 'selected' && props.options) {
-      setSelected(props.options[0] as T);
+      setSelected(allowMultiple ? [props.options[0] as T] : (props.options[0] as T));
     } else if (state !== 'selected') {
-      setSelected(null);
+      setSelected(allowMultiple ? [] : null);
     }
-  }, [state, props.options]);
+  }, [state, props.options, allowMultiple]);
 
   const [open, setOpen] = React.useState(state === 'expanded');
+  
   React.useEffect(() => {
     if (state === 'expanded') setOpen(true);
     else setOpen(false);
@@ -90,18 +97,63 @@ const RdsAutocomplete = <T extends { label?: string },>({
       )}
     <MuiAutocomplete
       {...props}
+      multiple={allowMultiple}
+      limitTags={allowMultiple ? 4 : undefined}
+      renderTags={allowMultiple ? (value, getTagProps) => {
+        const visibleTags = value.slice(0, 4);
+        const remainingCount = value.length - 4;
+        
+        return (
+          <>
+            {visibleTags.map((option, index) => (
+              <Chip
+                key={index}
+                variant="filled"
+                label={(option as any)?.label || option}
+                size="small"
+                {...getTagProps({ index })}
+                className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize}`}
+              />
+            ))}
+            {remainingCount > 0 && (
+              <Chip
+                variant="filled"
+                label={`+${remainingCount} more`}
+                size="small"
+                className={`rds-autocomplete__chip rds-autocomplete__chip--${selectSize} rds-autocomplete__chip--overflow`}
+              />
+            )}
+          </>
+        );
+      } : undefined}
       sx={{ width: '100%' }}
+      ListboxProps={{
+        sx: {
+          '& .MuiAutocomplete-option': {
+            minWidth: 'fit-content',
+          }
+        }
+      }}
       open={open}
-      onOpen={() => state !== 'expanded' && setOpen(true)}
-      onClose={() => state !== 'expanded' && setOpen(false)}
+      onOpen={() => {
+        if (state !== 'expanded') {
+          setOpen(true);
+        }
+      }}
+      onClose={(event, reason) => {
+        if (state !== 'expanded') {
+          setOpen(false);
+        }
+      }}
       disabled={props.disabled || state === 'disabled'}
-      value={selected}
-      onChange={(_, value) => setSelected(value)}
+  value={selected}
+  onChange={(_, value) => setSelected(value)}
         renderOption={(optionProps, option, { selected: checked }) => {
           const showDefault = !isShowCheckbox && !isShowRadio && !isShowUser;
           const singleMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length === 1;
-          // Reduce gap specifically for user icon to minimize space
-          const labelGap = singleMode && isShowUser ? 9 : (singleMode ? 28 : 8);
+          const multiMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length > 1;
+          // Reduce gap to minimize space between icon and text
+          const labelGap = multiMode ? 2 : (singleMode && isShowUser ? 6 : (singleMode ? 4 : 8));
           // If all three are false, show only the label
           if (showDefault) {
             return (
@@ -114,38 +166,50 @@ const RdsAutocomplete = <T extends { label?: string },>({
           }
           // Otherwise, show icons as per logic
           return (
-            <li {...optionProps} style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: `${labelGap}px`, ml: 1, mr: 1 }}>
+            <li {...optionProps} style={{ display: 'flex', alignItems: 'center', padding: 0, width: '100%' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: `${labelGap}px`, ml: 0.5, mr: 0.5, width: '100%', overflow: 'hidden' }}>
                 {(isShowCheckbox) && (
-                  <Checkbox checked={checked} tabIndex={-1} disableRipple sx={{ p: '4px' }} />
+                  <RdsCheckbox status={checked ? 'checked' : 'unchecked'} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
                 )}
                 {(isShowUser) && (
-                  <Box sx={{ display: 'flex', alignItems: 'center', p: '5px' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', p: '2px', flexShrink: 0 }}>
                     {userIcon}
                   </Box>
                 )}
                 {(isShowRadio) && (
-                  <Radio checked={checked} tabIndex={-1} disableRipple sx={{ p: '4px' }} />
+                  <Radio checked={checked} tabIndex={-1} disableRipple sx={{ p: '2px', flexShrink: 0 }} />
                 )}
-                <span>{(option as any).label || option}</span>
+                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{(option as any).label || option}</span>
               </Box>
             </li>
           );
         }}
 
         popupIcon={popupIcon}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          placeholder={placeholder}
-          helperText={showHintText ? helperText : ''}
-          error={error}
-          variant={variant}
-          className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass}`}
-          onClick={() => state !== 'expanded' && setOpen(true)}
-          onFocus={() => openOnFocus && state !== 'expanded' && setOpen(true)}
-        />
-      )}
+        renderInput={(params) => {
+          const shouldShowPlaceholder = allowMultiple 
+            ? (Array.isArray(selected) ? selected.length === 0 : !selected)
+            : true;
+          
+          return (
+            <TextField
+              {...params}
+              placeholder={shouldShowPlaceholder ? placeholder : ''}
+              helperText={showHintText ? (helperText ?? '\u00A0') : undefined}
+              error={error}
+              variant={variant}
+              className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass} ${!showHintText ? 'rds-autocomplete__textfield--hidden-helper' : ''}`}
+              onFocus={(e) => {
+                if (openOnFocus && state !== 'expanded') {
+                  setOpen(true);
+                }
+                if (params.inputProps?.onFocus) {
+                  params.inputProps.onFocus(e as React.FocusEvent<HTMLInputElement>);
+                }
+              }}
+            />
+          );
+        }}
     />
     </div>
   );

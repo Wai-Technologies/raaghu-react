@@ -18,6 +18,12 @@
     border-radius: 10px !important;
     padding: 0 6px !important;
     font-family: 'Poppins', Arial, sans-serif !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    max-width: fit-content !important;
   }
   
   /* Center badge pill when no children */
@@ -229,10 +235,10 @@
   &--small .MuiBadge-badge {
     display: grid !important;
     place-items: center !important;
-    padding: 0 !important;
+    padding: 2px !important;
     line-height: 1 !important;
-    height: 14px !important;
-    min-width: 14px !important;
+    height: 15px !important;
+    min-width: 15px !important;
     vertical-align: middle !important;
   }
 

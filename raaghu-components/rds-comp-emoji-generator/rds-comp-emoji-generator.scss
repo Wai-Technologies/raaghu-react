@@ -239,6 +239,13 @@
     flex-direction: column;
     justify-content: flex-start; // Start from top
   }
+
+  &__emoji-image {
+      width: 22px;
+      height: 22px;
+      display: inline-block;
+      vertical-align: middle;
+  }
   
   // Category title
   &__category-title {

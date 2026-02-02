@@ -17,7 +17,7 @@
   // Pagination item (button)
   .MuiPaginationItem-root {
     font-family: var(--rds-font-family, Poppins);
-    color: var(--rds-color-primary-contrast, #1976d2);
+    color: var(--rds-color-primary-contrast, #3C98FF);
     background: transparent;
     transition: background 0.2s, color 0.2s, box-shadow 0.2s;
     box-shadow: none;
@@ -29,19 +29,101 @@
     justify-content: center;
     cursor: pointer;
     outline: none;
+    min-width: 32px;
+    height: 32px;
+    [data-theme="dark"] & {
+      color: var(--rds-color-primary, #fff);
+    }
+    
+    // Hover state for light mode
+    &:hover {
+      background-color: #EBDCFF;
+    }
+    [data-theme="dark"] & {
+     &:hover {
+      background-color: #4a4a4a;
+    }
+  }
     // Default shape is circular, but allow override by variant/shape
     &.MuiPaginationItem-circular {
       border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      
+      // Maintain circular shape on hover
+      &:hover {
+        border-radius: 50%;
+      }
     }
     &.MuiPaginationItem-rounded {
       border-radius: 5px;
       padding:10px;
       justify-content: center;
       align-items: center;
+      
+      // Maintain rounded shape on hover
+      &:hover {
+        border-radius: 5px;
+      }
     }
   }
-  // Responsive styles for mobile screens
-  @media (max-width: 834px) and (min-width: 414px) {
+  // Responsive styles for medium mobile screens
+  @media (max-width: 586px) and (min-width: 415px) {
+    .MuiPaginationItem-sizeSmall {
+      margin: 0 1px !important;
+      padding: 1px 2px !important;
+      font-size: 0.7rem !important;
+      min-width: 20px !important;
+      height: 20px !important;
+    }
+
+    .MuiPaginationItem-sizeMedium {
+      margin: 0 1px !important;
+      padding: 2px 3px !important;
+      font-size: 0.75rem !important;
+      min-width: 22px !important;
+      height: 22px !important;
+    }
+
+    .MuiPaginationItem-sizeLarge {
+      margin: 0 1px !important;
+      padding: 3px 4px !important;
+      font-size: 0.8rem !important;
+      min-width: 24px !important;
+      height: 24px !important;
+    }
+
+    .MuiPagination-ul {
+      flex-wrap: nowrap;
+      gap: 2px;
+    }
+    .MuiPaginationItem-root {
+      margin: 0 1px;
+      padding: 2px 4px;
+      font-size: 0.75rem;
+      min-width: 24px;
+      height: 24px;
+    }
+    .MuiPaginationItem-root.MuiPaginationItem-rounded {
+      padding: 4px;
+      border-radius: 3px;
+    }
+    // Reduce dropdown width more
+    .MuiFormControl-root {
+      min-width: 60px !important;
+    }
+    .MuiInputLabel-root {
+      font-size: 0.75rem;
+    }
+    .MuiSelect-select {
+      font-size: 0.75rem;
+      padding: 4px 6px;
+    }
+  }
+
+  // Responsive styles for larger mobile screens
+  @media (max-width: 834px) and (min-width: 587px) {
     .MuiPaginationItem-sizeSmall {
       margin: 0 1px !important;
       padding: 1px 2px !important;
@@ -147,6 +229,20 @@
     }
   }
 
+  // Full width navigation for specific screen sizes (around 321px and 415px)
+  @media (min-width: 320px) and (max-width: 322px), (min-width: 414px) and (max-width: 416px) {
+    .MuiPagination-ul {
+      width: 100% !important;
+      justify-content: space-between !important;
+    }
+    
+    .MuiPaginationItem-root {
+      flex: 1 !important;
+      margin: 0 1px !important;
+      min-width: auto !important;
+    }
+  }
+
   // Selected (current) page
   .MuiPaginationItem-root.Mui-selected {
     font-weight: 700;
@@ -238,7 +334,227 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 16px 0;
+  margin: 16px auto;
+  width: 100%;
+  box-sizing: border-box;
+  
+  // Full width navigation for 414px screen size
+  @media (width: 414px), (min-width: 413px) and (max-width: 415px) {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    
+    &.style-1,
+    &.style-4 {
+      width: 100% !important;
+      max-width: 414px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin: 0 auto !important;
+      
+      .rds-pagination {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        
+        .MuiPagination-ul {
+          width: 100% !important;
+          justify-content: space-between !important;
+          gap: 0 !important;
+          display: flex !important;
+          align-items: center !important;
+        }
+        
+        .MuiPaginationItem-root {
+          flex: 1 !important;
+          margin: 0 1px !important;
+          min-width: auto !important;
+          max-width: none !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+      }
+      
+      .pagination-manual-input,
+      .pagination-legend,
+      .pagination-dropdown {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin: 8px 0 !important;
+      }
+    }
+  }
+  
+  // Ensure proper centering for other medium screens
+  @media (min-width: 375px) and (max-width: 768px) {
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center;
+    
+    &.style-1,
+    &.style-4 {
+      width: 100%;
+      max-width: 100%;
+      justify-content: center !important;
+      align-items: center !important;
+      
+      .pagination-manual-input {
+        justify-content: center !important;
+      }
+      
+      .pagination-legend {
+        text-align: center !important;
+      }
+    }
+    &.style-3,
+    &.style-5,
+    &.style-9 {
+        flex-direction: column !important;
+     }
+  }
+
+  // Full width navigation for styles 1, 2, 3, 4, 5, 7, and 9 on specific screen sizes
+  @media (min-width: 320px) and (max-width: 322px), (min-width: 414px) and (max-width: 416px) {
+    &.style-1,
+   // &.style-2,
+   // &.style-3,
+    &.style-4,
+    &.style-5,
+   // &.style-7,
+    &.style-9 {
+      width: 100% !important;
+      max-width: 320px !important;
+      
+      .rds-pagination {
+        width: 100% !important;
+        max-width: 320px !important;
+        
+        .MuiPagination-ul {
+          width: 100% !important;
+          max-width: 320px !important;
+          justify-content: space-between !important;
+          gap: 0 !important;
+        }
+        
+        .MuiPaginationItem-root {
+          flex: 1 !important;
+          margin: 0 1px !important;
+          min-width: auto !important;
+          max-width: none !important;
+        }
+      }
+      
+      // Ensure prev/next buttons also take appropriate space for styles 4 and 5
+      &.style-4,
+      &.style-5 {
+        .MuiButton-root {
+          flex: 1 !important;
+          margin-top: 7px!important;
+        }
+      }
+
+    }
+  }
+
+  // Add flex-direction: column for styles 1, 2, 3, 4, 5, 7, and 9 at 415px screen size
+  @media (min-width: 415px) and (max-width: 416px) {
+    &.style-1,
+    &.style-2,
+    &.style-3,
+    &.style-4,
+    &.style-5,
+    &.style-7,
+    &.style-9 {
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      width: 100% !important;
+      margin: 0 auto !important;
+      
+      // Make pagination take full width for styles 1 and 4
+      &.style-1,
+      &.style-4 {
+        .rds-pagination {
+          width: 100% !important;
+          display: flex !important;
+          justify-content: center !important;
+          
+          .MuiPagination-ul {
+            width: 100% !important;
+            justify-content: space-between !important;
+            gap: 0 !important;
+          }
+          
+          .MuiPaginationItem-root {
+            flex: 1 !important;
+            margin: 0 1px !important;
+            min-width: auto !important;
+            max-width: none !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+          }
+        }
+        
+        .pagination-manual-input,
+        .pagination-legend,
+        .pagination-dropdown {
+          display: flex !important;
+          justify-content: center !important;
+          align-items: center !important;
+          margin: 8px 0 !important;
+        }
+      }
+    }
+  }
+
+
+
+  // Additional styles for very small screens (320-414px)
+  @media (max-width: 414px) {
+    // Style 1: Even more compact
+    &.style-1 {
+      .pagination-manual-input {
+        .MuiTextField-root {
+          width: 36px;
+        }
+      }
+    }
+
+    // Style 3: More compact padding
+    &.style-3 {
+      padding: 4px 6px;
+    }
+
+    // Style 4 & 5: Smaller buttons
+    &.style-4,
+    &.style-5 {
+      .MuiButton-root {
+        padding: 2px 6px;
+        font-size: 0.7rem;
+        min-width: 32px;
+      }
+    }
+
+    // Style 9: Minimal spacing
+    &.style-9 {
+      padding: 4px 6px;
+      .MuiPagination-ul {
+        gap: 2px !important;
+      }
+      .MuiPaginationItem-root {
+        margin: 0 1px !important;
+      }
+    }
+  }
 
   // Style 2: Blue pagination buttons
   &.style-2 {
@@ -247,18 +563,15 @@
     }
     .MuiPaginationItem-root {
       color: #007bff;
-      &:hover {
-        background-color: #e6f3ff;
-      }
     }
   }
 
   // Style 3: Outlined pagination with white background
   &.style-3 {
-    background-color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    // background-color: white;
+    // padding: 8px 10px;
+    // border-radius: 4px;
+    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     // Use thin bottom border for selected items (consistent with other styles)
     .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
       background-color: transparent !important;
@@ -279,10 +592,19 @@
     }
     .MuiPaginationItem-root {
       color: #007bff;
+    }
+
+    // Dark mode styling for style-3
+    [data-theme="dark"] & {
+     // background-color: #4a4a4a;
+    
+     .MuiPaginationItem-root {
+      color: #007bff;
       &:hover {
-        background-color: #f8f9fa;
+        background-color: #68696a;
       }
     }
+  }
   }
 
   // Style 4 & 5: Button styles for Prev/Next buttons
@@ -325,21 +647,15 @@
     .pagination-legend {
       font-size: 0.875rem;
       color: rgba(0, 0, 0, 0.87);
+      margin-right: 7px;
     }
   }
 
   // Style 7: White background pagination with dots, dropdown, legend and manual input
   &.style-7 {
-    background-color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     
     .MuiPaginationItem-root {
       color: #007bff;
-      &:hover {
-        background-color: #f8f9fa;
-      }
     }
     
     .MuiPaginationItem-root.Mui-selected {
@@ -351,10 +667,6 @@
 
   // Style 8: White background with legend text only
   &.style-8 {
-    background-color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     
     .pagination-legend {
       font-size: 0.875rem;
@@ -364,12 +676,7 @@
   }
 
   // Style 9: Spaced pagination layout (1 1 1 format)
-  &.style-9 {
-    background-color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    
+  &.style-9 {  
     .MuiPagination-ul {
       gap: 16px;
     }
@@ -378,9 +685,6 @@
       color: #007bff;
       margin: 0 8px;
       border: 1px solid transparent;
-      &:hover {
-        background-color: #f8f9fa;
-      }
     }
     
     // Use thin bottom border for selected items instead of full outline
@@ -441,6 +745,7 @@
       justify-content: center !important;
       font-size: 22px !important; /* make the arrow glyph larger */
       line-height: 1 !important;
+      margin-right: 5px !important;
       &:hover {
         background-color: #0056b3 !important;
       }
@@ -473,6 +778,7 @@
         border-radius: 4px !important;
         padding: 6px 16px !important;
         min-width: auto !important;
+        margin-right: 5px !important;
       }
       
       &:hover {
@@ -487,9 +793,37 @@
   }
 }
 
+
 // Dropdown styling
 .pagination-dropdown {
   min-width: 65px !important;
+
+  // Responsive dropdown styles
+  @media (max-width: 586px) {
+    min-width: 55px !important;
+    
+    .MuiInputLabel-root {
+      font-size: 0.7rem;
+    }
+    
+    .MuiSelect-select {
+      font-size: 0.7rem;
+      padding: 4px 6px;
+    }
+  }
+  
+  @media (max-width: 414px) {
+    min-width: 50px !important;
+    
+    .MuiInputLabel-root {
+      font-size: 0.65rem;
+    }
+    
+    .MuiSelect-select {
+      font-size: 0.65rem;
+      padding: 2px 4px;
+    }
+  }
 
   // Style 3 specific dropdown styling
   &.style-3 {
@@ -519,6 +853,22 @@
   margin-left: 16px !important;
   font-size: 0.875rem !important;
   color: rgba(0, 0, 0, 0.87) !important;
+
+  // Dark mode styling for pagination legend
+  [data-theme="dark"] & {
+    color: white !important;
+  }
+
+  // Responsive legend styles
+  @media (max-width: 586px) {
+    margin-left: 0 !important;
+    font-size: 0.75rem !important;
+    text-align: center;
+  }
+
+  @media (max-width: 414px) {
+    font-size: 0.7rem !important;
+  }
 }
 
 // Manual input styling
@@ -540,6 +890,62 @@
   .MuiTypography-root {
     font-size: 0.875rem !important;
   }
+
+  // Responsive manual input styles
+  @media (max-width: 586px) {
+    margin-left: 0 !important;
+    gap: 6px !important;
+    justify-content: center;
+
+    .MuiTextField-root {
+      width: 40px;
+      .MuiInputBase-input {
+        padding: 3px 6px !important;
+        font-size: 0.75rem !important;
+      }
+    }
+
+    .MuiTypography-root {
+      font-size: 0.75rem !important;
+    }
+    &.style-5,
+     &.style-3,
+     &.style-9 {
+      margin-top: 5px !important;
+    }
+  }
+
+  @media (max-width: 414px) {
+    gap: 4px !important;
+
+    .MuiTextField-root {
+      width: 36px;
+      .MuiInputBase-input {
+        padding: 2px 4px !important;
+        font-size: 0.7rem !important;
+      }
+    }
+
+    .MuiTypography-root {
+      font-size: 0.7rem !important;
+    }
+  }
+
+  // Specific styling for 320px screen size - make input bigger
+  @media (max-width: 320px) {
+    .MuiTextField-root {
+      width: 45px !important;
+      .MuiInputBase-input {
+        padding: 4px 6px !important;
+        font-size: 0.75rem !important;
+        min-height: 20px !important;
+      }
+    }
+
+    .MuiTypography-root {
+      font-size: 0.75rem !important;
+    }
+  }
 }
 
 .css-1p5hatt-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
@@ -548,4 +954,358 @@
     padding-right: 28px !important;
     font-size: 14px !important;
     padding: 7.5px 8px !important;
+
+    // Responsive select input styles
+    @media (max-width: 586px) {
+      font-size: 12px !important;
+      padding: 6px 24px 6px 6px !important;
+      padding-right: 24px !important;
+    }
+
+    @media (max-width: 414px) {
+      font-size: 11px !important;
+      padding: 4px 20px 4px 4px !important;
+      padding-right: 20px !important;
+    }
+}
+
+// Add flex-direction: row for styles 2, 6, 7, 8, 10, and 11 at 320px screen size only
+@media (max-width: 320px) {
+  .rds-pagination-wrapper.style-6,
+  
+  .rds-pagination-wrapper.style-8,
+  .rds-pagination-wrapper.style-10,
+  .rds-pagination-wrapper.style-11 {
+    flex-direction: row !important;
+  }
+
+  // Add flex-direction: row for styles 3, 4, 5, 9 at 320px
+  .rds-pagination-wrapper.style-3,
+  .rds-pagination-wrapper.style-4,
+  .rds-pagination-wrapper.style-7,
+  .rds-pagination-wrapper.style-5,
+  .rds-pagination-wrapper.style-9,
+   .rds-pagination-wrapper.style-2 {
+    display: flex;
+    flex-direction: column !important;
+    align-items: center !important;
+    flex-wrap: nowrap;
+    max-width: 320px !important;  // Ensure container never exceeds 320px
+    width: 100% !important;
+    
+    .pagination-dropdown {
+      margin-right: 8px !important;
+      margin-bottom: 0 !important;
+      display: flex;
+      align-items: center;
+      max-width: 300px !important;  // Leave some margin for container
+    }
+    .pagination-manual-input {
+      margin-left: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      width: auto;
+      flex-basis: auto;
+     // margin-top: 10px !important;
+      justify-content: flex-start !important;
+      max-width: 300px !important;  // Leave some margin for container
+      
+      .MuiTextField-root {
+        width: 45px !important;
+        
+        .MuiInputBase-input {
+          font-size: 0.75rem !important;
+          padding: 4px 6px !important;
+          min-height: 20px !important;
+        }
+      }
+
+      .MuiTypography-root {
+        font-size: 0.75rem !important;
+      }
+    }
+    .rds-pagination {
+      margin-right: 8px !important;
+      margin-bottom: 0 !important;
+      max-width: 300px !important;  // Leave some margin for container
+      
+      .MuiPagination-ul {
+        max-width: 100% !important;
+        justify-content: space-between !important;
+        gap: 1px !important;  // Minimize gaps at 320px
+      }
+      
+      .MuiPaginationItem-root {
+        min-width: 18px !important;
+        height: 18px !important;
+        font-size: 0.7rem !important;
+        margin: 0 1px !important;
+        padding: 1px 2px !important;
+      }
+    }
+    @media (max-width: 414px) {
+      .pagination-manual-input {
+       // flex-direction: column !important;
+       // align-items: flex-start !important;
+       justify-content: center !important;
+        width: 100% !important;
+        gap: 4px !important;
+       // margin-top: 10px !important;
+      }
+    }
+  }
+  
+  // Special handling for Style 1 at 320px - stack all elements vertically with tight constraints
+  .rds-pagination-wrapper.style-1 {
+    flex-direction: column !important;
+    max-width: 320px !important;
+    width: 100% !important;
+    align-items: center !important;
+    gap: 8px !important;
+    
+    .rds-pagination {
+      max-width: 300px !important;
+      width: 100% !important;
+      
+      .MuiPagination-ul {
+        max-width: 100% !important;
+        justify-content: space-between !important;
+        gap: 1px !important;
+      }
+      
+      .MuiPaginationItem-root {
+        min-width: 16px !important;
+        height: 16px !important;
+        font-size: 0.65rem !important;
+        margin: 0 1px !important;
+        padding: 1px !important;
+      }
+    }
+    
+    .pagination-dropdown {
+      max-width: 280px !important;
+      margin-left: 0 !important;
+      
+      .MuiInputLabel-root {
+        font-size: 0.6rem !important;
+      }
+      
+      .MuiSelect-select {
+        font-size: 0.6rem !important;
+        padding: 2px 4px !important;
+      }
+    }
+    
+    .pagination-legend {
+      max-width: 280px !important;
+      margin-left: 0 !important;
+      font-size: 0.65rem !important;
+      text-align: center !important;
+    }
+    
+    .pagination-manual-input {
+      max-width: 280px !important;
+      margin-left: 0 !important;
+      gap: 4px !important;
+      
+      .MuiTextField-root {
+        width: 45px !important;
+        
+        .MuiInputBase-input {
+          font-size: 0.75rem !important;
+          padding: 4px 6px !important;
+          min-height: 20px !important;
+        }
+      }
+      
+      .MuiTypography-root {
+        font-size: 0.75rem !important;
+      }
+    }
+  }
+
+  // Special handling for Style 4 at 320px - stack all elements vertically with tight constraints
+  .rds-pagination-wrapper.style-4 {
+    flex-direction: column !important;
+    max-width: 320px !important;
+    width: 100% !important;
+    align-items: center !important;
+    gap: 8px !important;
+    
+    .rds-pagination {
+      max-width: 300px !important;
+      width: 100% !important;
+      
+      .MuiPagination-ul {
+        max-width: 100% !important;
+        justify-content: space-between !important;
+        gap: 1px !important;
+      }
+      
+      .MuiPaginationItem-root {
+        min-width: 16px !important;
+        height: 16px !important;
+        font-size: 0.65rem !important;
+        margin: 0 1px !important;
+        padding: 1px !important;
+      }
+    }
+    
+    .MuiButton-root {
+      max-width: 280px !important;
+      font-size: 0.65rem !important;
+      padding: 2px 6px !important;
+      margin: 2px 0 !important;
+    }
+    
+    .pagination-dropdown {
+      max-width: 280px !important;
+      margin-left: 0 !important;
+      
+      .MuiInputLabel-root {
+        font-size: 0.6rem !important;
+      }
+      
+      .MuiSelect-select {
+        font-size: 0.6rem !important;
+        padding: 2px 4px !important;
+      }
+    }
+    
+    .pagination-legend {
+      max-width: 280px !important;
+      margin-left: 0 !important;
+      font-size: 0.65rem !important;
+      text-align: center !important;
+    }
+    
+    .pagination-manual-input {
+      max-width: 280px !important;
+      margin-left: 0 !important;
+      gap: 4px !important;
+      
+      .MuiTextField-root {
+        width: 45px !important;
+        
+        .MuiInputBase-input {
+          font-size: 0.75rem !important;
+          padding: 4px 6px !important;
+          min-height: 20px !important;
+        }
+      }
+      
+      .MuiTypography-root {
+        font-size: 0.75rem !important;
+      }
+    }
+  }
+}
+
+// Add margin-top: 10px for specific styles at 414px screen size (excluding styles 6, 10, and 11)
+@media (max-width: 414px) {
+  .rds-pagination-wrapper.style-1,
+  .rds-pagination-wrapper.style-2,
+  .rds-pagination-wrapper.style-3,
+  //.rds-pagination-wrapper.style-4,
+  .rds-pagination-wrapper.style-5,
+  .rds-pagination-wrapper.style-7,
+  .rds-pagination-wrapper.style-8,
+  .rds-pagination-wrapper.style-9 {
+    .pagination-manual-input {
+      margin-top: 10px !important;
+    }
+  }
+}
+
+// Specific 320px width constraint for Style 1 and Style 4
+@media (max-width: 320px) {
+  .rds-pagination-wrapper.style-1,
+  .rds-pagination-wrapper.style-4 {
+    max-width: 320px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 4px !important;
+    overflow: hidden !important;
+    
+    // Force all child elements to respect the 320px boundary
+    * {
+      box-sizing: border-box !important;
+    }
+    
+    .rds-pagination,
+    .pagination-dropdown,
+    .pagination-legend,
+    .pagination-manual-input,
+    .MuiButton-root {
+      max-width: 100% !important;
+      overflow: hidden !important;
+    }
+    
+    // Ensure pagination buttons are very compact but numbers remain visible
+    .rds-pagination {
+      .MuiPagination-ul {
+        flex-wrap: nowrap !important;
+        overflow: hidden !important;
+        max-width: 100% !important;
+      }
+      
+      .MuiPaginationItem-root {
+        flex-shrink: 1 !important;
+        min-width: 18px !important;
+        max-width: 24px !important;
+        height: 18px !important;
+        font-size: 0.65rem !important;
+        margin: 0 0.5px !important;
+        padding: 0 1px !important;
+        
+        // Keep numbers visible for all pagination items
+        // Remove the dot replacement - show actual page numbers
+      }
+    }
+    
+    // Make dropdowns and inputs ultra-compact
+    .pagination-dropdown {
+      min-width: 40px !important;
+      max-width: 60px !important;
+      
+      .MuiInputLabel-root {
+        font-size: 0.5rem !important;
+        transform: scale(0.8) !important;
+      }
+      
+      .MuiSelect-select {
+        font-size: 0.5rem !important;
+        padding: 1px 2px !important;
+        min-width: 30px !important;
+      }
+    }
+    
+    .pagination-manual-input {
+      gap: 4px !important;
+      
+      .MuiTextField-root {
+        width: 45px !important;
+        
+        .MuiInputBase-input {
+          font-size: 0.75rem !important;
+          padding: 4px 6px !important;
+          text-align: center !important;
+          min-height: 20px !important;
+        }
+      }
+      
+      .MuiTypography-root {
+        font-size: 0.75rem !important;
+      }
+    }
+    
+    .pagination-legend {
+      font-size: 0.55rem !important;
+      text-align: center !important;
+      line-height: 1.2 !important;
+      max-width: 100% !important;
+      word-wrap: break-word !important;
+    }
+  }
 }

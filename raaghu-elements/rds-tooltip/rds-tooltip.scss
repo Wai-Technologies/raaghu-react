@@ -104,16 +104,30 @@
     pointer-events: none;
   }
 }
-[data-theme="dark"]{
-  .css-d56zgx-MuiButtonBase-root-MuiButton-root,
-  .MuiButtonBase-root,
-  .MuiButton-root,
-  .MuiButton-contained,
-  .MuiButton-containedPrimary,
-  .MuiButton-sizeMedium,
-  .MuiButton-containedSizeMedium,
-  .MuiButton-colorPrimary {
-    color: #ffffff !important;
+// Dark theme support
+[data-theme="dark"],
+body.theme-dark {
+  .rds-tooltip {
+    --rds-tooltip-bg: var(--rds-neutral-light, #ffffff); 
+    --rds-tooltip-color: var(--rds-text-dark, #000000);
+    --rds-tooltip-border: var(--rds-border-default, #ffffff);
+    
+    &:hover .MuiTooltip-tooltip {
+      background: var(--rds-tooltip-bg);
+      color: var(--rds-tooltip-color);
+      border-color: var(--rds-tooltip-border);
+    }
   }
+  
+  // .css-d56zgx-MuiButtonBase-root-MuiButton-root,
+  // .MuiButtonBase-root,
+  // .MuiButton-root,
+  // .MuiButton-contained,
+  // .MuiButton-containedPrimary,
+  // .MuiButton-sizeMedium,
+  // .MuiButton-containedSizeMedium,
+  // .MuiButton-colorPrimary {
+  //   color: #ffffff !important;
+  // }
 }
 

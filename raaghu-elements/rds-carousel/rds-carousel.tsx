@@ -85,8 +85,9 @@ const RdsCarousel = ({
         position: 'relative', 
         height: height, 
         overflow: 'hidden',
-        width: style === 'full width image' ? '100vw' : '100%',
-        marginLeft: style === 'full width image' ? 'calc(-50vw + 50%)' : 0,
+        width: '100%',
+        maxWidth: '100%',
+        borderRadius: '6px',
         backgroundColor: style === 'full width image'
           ? 'var(--rds-background-paper, transparent)'
           : 'transparent',
@@ -115,7 +116,7 @@ const RdsCarousel = ({
                 height: '100%',
                 position: 'relative',
                 display: 'flex',
-                flexDirection: style === 'with title' ? 'column' : 'row',
+                flexDirection: style === 'with title' || style === 'full width image' ? 'column' : 'row',
                 backgroundColor: style === 'full width image'
                   ? 'var(--rds-background-paper, transparent)'
                   : 'transparent',
@@ -140,30 +141,34 @@ const RdsCarousel = ({
               <Box 
                 className="rds-carousel__slide-content"
                 sx={{
-                  height: style === 'with title' ? 'calc(100% - 100px)' : '100%',
+                  height: style === 'with title' 
+                    ? 'calc(100% - 100px)' 
+                    : style === 'full width image' 
+                      ? 'calc(100% - 100px)' 
+                      : '100%',
                   width: '100%',
                   position: 'relative',
-                  order: style === 'with title' ? 2 : 1, // Ensure proper ordering
+                  order: style === 'with title' || style === 'full width image' ? 1 : 1, // Image first
                 }}
               >
                 {child}
-                
-                {/* Title overlay at bottom for 'full width image' style */}
-                {style === 'full width image' && (
-                  <Box className="rds-carousel__title-overlay">
-                    {displayTitle && (
-                      <Typography className="rds-carousel__title-text" variant="h5" component="h3">
-                        {displayTitle}
-                      </Typography>
-                    )}
-                    {displaySubtitle && (
-                      <Typography className="rds-carousel__title-subtitle" variant="body2">
-                        {displaySubtitle}
-                      </Typography>
-                    )}
-                  </Box>
-                )}
               </Box>
+
+              {/* Title content after image for 'full width image' style */}
+              {style === 'full width image' && (
+                <Box className="rds-carousel__title-content rds-carousel__title-content--bottom">
+                  {displayTitle && (
+                    <Typography className="rds-carousel__title-text" variant="h5" component="h3">
+                      {displayTitle}
+                    </Typography>
+                  )}
+                  {displaySubtitle && (
+                    <Typography className="rds-carousel__title-subtitle" variant="body2">
+                      {displaySubtitle}
+                    </Typography>
+                  )}
+                </Box>
+              )}
             </Box>
           );
         })}
@@ -178,7 +183,7 @@ const RdsCarousel = ({
             sx={{
               position: 'absolute',
               left: 8,
-              top: '50%',
+              top: style === 'with title' ? 'calc(50% + 50px)' : '50%', // Adjust for title area
               transform: 'translateY(-50%)',
               backgroundColor: 'rgba(0, 0, 0, 0.5)',
               color: 'white',
@@ -196,7 +201,7 @@ const RdsCarousel = ({
             sx={{
               position: 'absolute',
               right: 8,
-              top: '50%',
+              top: style === 'with title' ? 'calc(50% + 50px)' : '50%', // Adjust for title area
               transform: 'translateY(-50%)',
               backgroundColor: 'rgba(0, 0, 0, 0.5)',
               color: 'white',

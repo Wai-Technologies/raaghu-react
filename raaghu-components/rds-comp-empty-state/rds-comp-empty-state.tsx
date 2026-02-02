@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
 import { Box, Typography, Button } from '@mui/material';
+import Lottie from 'lottie-react';
 import './rds-comp-empty-state.scss';
 import emptyStatePng from './empty-state.png';
 import emptyStateDarkPng from './empty-state-dark.png';
+import illustrationLight from './illustration-light.json';
+import illustrationDark from './illustration-dark.json';
 
 export interface RdsCompEmptyStateProps {
 
@@ -20,33 +23,51 @@ export interface RdsCompEmptyStateProps {
 }
 
 const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
-
   const rawW = props.iconWidth ?? 150;
   const rawH = props.iconHeight ?? props.iconWidth ?? 150;
   const toCss = (v: string | number): string => (/^\d+$/.test(String(v)) ? `${v}px` : String(v));
   const width = toCss(rawW);
   const height = toCss(rawH);
-  // Determine image by priority: explicit iconPath prop > mode-based default > light fallback
-  let resolvedImage = emptyStatePng;
-  if (props.mode === 'Dark NRA') {
-    resolvedImage = emptyStateDarkPng;
-  } else if (props.mode === 'Light NRA') {
-    resolvedImage = emptyStatePng;
-  }
+  
+  // Auto-detect dark theme if mode not provided
+  const isDarkTheme = !props.mode && (
+    document.documentElement.getAttribute('data-theme') === 'dark' ||
+    document.body.classList.contains('dark')
+  );
+  
+  const useDarkVariant = props.mode === 'Dark NRA' || isDarkTheme;
+  
+  // Select appropriate assets based on theme
+  const resolvedImage = useDarkVariant ? emptyStateDarkPng : emptyStatePng;
+  const resolvedAnimation = useDarkVariant ? illustrationDark : illustrationLight;
   const imageSrc = props.iconPath || resolvedImage;
 
   return (
     <Fragment>
       <Box className="rds-comp-empty-state">
         <Box className="rds-comp-empty-state__content">
-          <Box className="rds-comp-empty-state__icon" data-testid="icon" style={{ width, height }}>
-            <img
-              src={imageSrc}
-              alt={props.label || props.mode || 'Empty state'}
-              loading="lazy"
-              style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
-              data-testid="emptyStateImage"
-            />
+          <Box 
+            className={`rds-comp-empty-state__icon ${props.isContinueAnimate ? 'rds-comp-empty-state__icon--animated' : ''}`} 
+            data-testid="icon" 
+            style={{ width, height }}
+          >
+            {props.isContinueAnimate ? (
+              <Lottie
+                animationData={resolvedAnimation}
+                loop={true}
+                autoplay={true}
+                style={{ width: '100%', height: '100%' }}
+                data-testid="emptyStateLottie"
+              />
+            ) : (
+              <img
+                src={imageSrc}
+                alt={props.label || props.mode || 'Empty state'}
+                loading="lazy"
+                style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+                data-testid="emptyStateImage"
+              />
+            )}
           </Box>
 
           {props.label && (

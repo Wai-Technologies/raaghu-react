@@ -11,6 +11,13 @@
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   color: var(--rds-text-primary, #333);
   border-radius: var(--rds-border-radius-md, 8px);
+  input::placeholder,
+  textarea::placeholder,
+  .MuiInputBase-input::placeholder,
+  .MuiOutlinedInput-input::placeholder {
+    color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6));
+    opacity: 1;
+  }
   
   // =======================
   // Background modifiers for specific states
@@ -74,6 +81,7 @@
       .rds-comments-box__send-icon {
         font-size: var(--rds-font-size-xl, 20px);
         color: var(--rds-primary-dark, #2161dc);
+        margin-left: 2px;
       }
     }
   }
@@ -129,7 +137,7 @@
     .rds-comments-box__typing-toolbar {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 6px;
       padding-top: 6px;
     }
 
@@ -142,10 +150,10 @@
     .rds-comments-box__send-btn {
       background: var(--rds-primary-main, #3a8bfd) !important;
       color: var(--rds-primary-contrast-text, #fff) !important;
-      width: 44px !important;
-      height: 36px !important;
-      min-width: 44px !important;
-      min-height: 36px !important;
+      width: 36px !important;
+      height: 32px !important;
+      min-width: 36px !important;
+      min-height: 32px !important;
       border-radius: 8px !important;
       display: flex !important;
       align-items: center !important;
@@ -347,6 +355,7 @@
         justify-content: center;
         .rds-comments-box__send-icon {
           color: var(--rds-primary-contrast-text, #fff);
+          margin-left: 3px;
         }
       }
     }
@@ -545,7 +554,7 @@
     margin-bottom: 0;
     box-sizing: border-box;
     &::placeholder {
-      color: var(--rds-input-placeholder, #888);
+      color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6));
       opacity: 1;
     }
   }
@@ -880,11 +889,12 @@
 // =======================
 body.theme-light,
 [data-theme="light"] {
+  --rds-placeholder-color: rgba(0, 0, 0, 0.6);
   .mention-search-input {
     background: var(--rds-background-paper-light, #fff) !important;
     color: var(--rds-text-primary-light, #181a20) !important;
     &::placeholder {
-      color: var(--rds-input-placeholder-light, #888) !important;
+      color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
       opacity: 1 !important;
     }
   }
@@ -907,7 +917,7 @@ body.theme-dark,
     pointer-events: auto !important;
     opacity: 1 !important;
     &::placeholder {
-      color: var(--rds-input-placeholder, #888) !important;
+      color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
       opacity: 1 !important;
     }
   }
@@ -936,6 +946,7 @@ body.theme-dark,
   --rds-input-bg: #23262f;
   --rds-input-border: #3a8bfd;
   --rds-input-placeholder: #888;
+  --rds-placeholder-color: rgba(255, 255, 255, 0.65);
   --rds-background-hover: #23262f;
   --rds-background-active: #23262f;
   --rds-background-selected: #23262f;
@@ -981,6 +992,11 @@ body.theme-dark,
 }
 
 
+  @media (max-width: 320px) {
+    .MuiIconButton-root svg {
+        margin-left: 3px;
+    }
+  }
 // =======================
 // Selected State Styles
 // =======================
@@ -1069,6 +1085,10 @@ body[data-theme='dark'] .rds-comments-box__text {
     margin-top: 170px !important;
     margin-left: 20px;
   }
+
+  .rds-comments-box--typing .rds-comments-box__send-icon {
+    font-size: 12px !important;
+  }
   .rds-comments-box--thread .rds-comments-box__reply-box {
     width: 100% !important;
     max-width: 95vw !important;
@@ -1088,8 +1108,8 @@ body[data-theme='dark'] .rds-comments-box__text {
         .MuiInputBase-root {
           padding: 4px 6px !important;
           height: 28px !important;
-          min-height: 28px !important;
-          max-height: 28px !important;
+          min-height: 35px !important;
+          max-height: 35px !important;
           font-size: 12px !important;
         }
         .rds-comments-box__send {
@@ -1114,15 +1134,16 @@ body[data-theme='dark'] .rds-comments-box__text {
     }
   .rds-comments-box--typing {
     min-height: 80px;
+    padding-left: 0px;
     .rds-comments-box__avatar {
       width: 28px;
       height: 28px;
       font-size: 12px;
-      margin-right: 4px;
+      margin-right: 0px;
     }
     .rds-comments-box__typing-box {
       min-height: 40px;
-      width: 95vw;
+      width: 77vw;
       padding: 20px 8px 4px 8px; // Increased top padding for small screens
     }
     .rds-comments-box__typing-header {
@@ -1155,7 +1176,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: 14px;
-        margin-right: 95px;
+        margin-right: 65px;    
       }
       .rds-comments-box__thread-icons {
         gap: 4px;
@@ -1345,7 +1366,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: 16px;
-        margin-right: 160px;
+        margin-right: 140px;
       }
       .rds-comments-box__thread-icons {
         gap: 6px;
@@ -1426,4 +1447,44 @@ body[data-theme='dark'] .rds-comments-box__text {
         min-width: 370px;
         margin-right: 0px !important;
     }
+  }
+  @media (max-width: 420px) {
+    .MuiIconButton-root svg {
+        margin-left: 2px;
+    }
+  }
+
+  @media (max-width: 320px) and (min-width: 280px) {
+    .rds-comments-box--typing .rds-comments-box__typing-box {
+     .rds-emoji-generator {
+        width: 238px;
+        margin-left: 15px;
+    }
+    }
+}
+
+@media (max-width: 514px) and (min-width: 321px) {
+    .rds-comments-box--typing .rds-comments-box__typing-box {
+     .rds-emoji-generator {
+        width: 301px;
+        margin-left: 15px;
+    }
+    }
+}
+
+@media (max-width: 1280px) and (min-width: 650px) {
+    .rds-comments-box--typing .rds-comments-box__typing-box {
+     .rds-emoji-generator {
+        margin-left: 3px;
+    }
+    }
+}
+
+@media (max-width: 320px) and (min-width: 280px) {
+  .rds-comments-box--typing {
+    width: 307px !important;
+  }
+  .rds-comments-box--typing .rds-comments-box__send-btn {
+    margin-right: 3px !important;
+  }
 }

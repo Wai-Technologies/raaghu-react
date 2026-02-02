@@ -22,7 +22,7 @@
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    gap: var(--rds-spacing-sm, 6px);
+    //gap: var(--rds-spacing-sm, 6px);
     width: auto;
   }
 
@@ -254,6 +254,7 @@
   flex: 1;
   min-width: 40px;
   max-width: 80px;
+  box-sizing: border-box;
 
   input {
     text-align: center !important;
@@ -264,10 +265,12 @@
     border: none;
     color: inherit;
     width: 100%;
+    box-sizing: border-box;
     
     &:focus {
       outline: none;
       background-color: transparent;
+      box-shadow: none;
     }
 
     // Remove number input arrows
@@ -299,6 +302,7 @@
     font-size: var(--rds-font-size-sm, 14px);
     min-width: 30px;
     max-width: 60px;
+    padding: 2px !important;
   }
 
   &--medium {
@@ -512,14 +516,7 @@
   
   // Counter buttons for dark theme
   &__button {
-    background-color: var(--rds-color-primary, #7e2eef) !important;
     color: var(--rds-primary-contrast-text, #ffffff) !important;
-    border: 1px solid var(--rds-color-primary, #7e2eef) !important;
-    
-    &:hover:not(&--disabled) {
-      background-color: var(--rds-color-primary-dark, #4f00a6) !important;
-      border-color: var(--rds-color-primary-dark, #4f00a6) !important;
-    }
     
     &:focus {
 
@@ -552,8 +549,6 @@
     &--large,
     &--increment,
     &--decrement {
-      background-color: var(--rds-color-primary, #7e2eef) !important;
-      border-color: var(--rds-color-primary, #7e2eef) !important;
       color: var(--rds-primary-contrast-text, #ffffff) !important;
     }
   }
@@ -659,7 +654,6 @@
   // Button interaction states
   &__button {
     &:active:not(&--disabled) {
-      background-color: var(--rds-color-primary-dark, #4f00a6) !important;
       transform: translateY(1px);
       transition: all 0.1s ease;
     }
@@ -758,5 +752,49 @@
   .rds-counter__input,
   .rds-counter__input input {
     color: var(--text-txt-neutral-light-default, #969696);
+  }
+}
+
+// Responsive fixes for compact variant text centering at specific breakpoints
+@media (max-width: 480px) {
+  .rds-counter--compact {
+    align-items: center;
+    
+    .rds-counter__label {
+      align-self: center;
+      margin-top: 0;
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .rds-counter__controls {
+      width: fit-content !important;
+      min-width: 100px !important;
+    }
+  }
+}
+
+// Specific fixes for 320px and 414px breakpoints
+@media (max-width: 320px) {
+  .rds-counter--compact .rds-counter__label {
+    margin-right: 8px;
+  }
+}
+
+@media (min-width: 321px) and (max-width: 420px) {
+  .rds-counter--compact .rds-counter__label {
+    margin-right: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rds-counter .MuiIconButton-root {
+    padding: 0 !important;
+  }
+
+  .rds-counter__icon svg,
+  .rds-counter__icon .MuiSvgIcon-root {
+    display: block !important;
   }
 }

@@ -4,7 +4,7 @@ import { Email, Lock, Search } from '@mui/icons-material';
 import { InputAdornment } from '@mui/material';
 
 const meta: Meta<typeof RdsTextField> = {
-  title: 'Elements/TextField',
+  title: 'Elements/Text Field',
   component: RdsTextField,
   parameters: {
     layout: 'padded',
@@ -49,6 +49,10 @@ const meta: Meta<typeof RdsTextField> = {
     rows: {
       control: 'number',
       description: 'Number of rows for multiline fields',
+    },
+    defaultValue: {
+      control: 'text',
+      description: 'Default value for the text field',
     },
   },
 };

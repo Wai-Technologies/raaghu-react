@@ -12,6 +12,7 @@ const RdsTextField: React.FC<RdsTextFieldProps> = ({
   errorMessage,
   error,
   helperText,
+  defaultValue,
   ...props
 }) => {
   const rootClassName = [
@@ -26,6 +27,9 @@ const RdsTextField: React.FC<RdsTextFieldProps> = ({
       props.FormHelperTextProps?.className,
     ].filter(Boolean).join(' '),
   };
+  const fieldProps = defaultValue !== undefined && props.value === undefined
+    ? { value: defaultValue }
+    : { defaultValue };
   return (
     <MuiTextField
       error={error || !!errorMessage}
@@ -33,6 +37,7 @@ const RdsTextField: React.FC<RdsTextFieldProps> = ({
       required={isRequired}
       className={rootClassName}
       FormHelperTextProps={mergedHelperTextProps}
+      {...fieldProps}
       {...props}
     />
   );

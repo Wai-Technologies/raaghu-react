@@ -270,50 +270,52 @@ export const WithAvatar: Story = {
           </div>
         )}
         <div className={`rds-card__avatar-section${isEditMode ? ' rds-card__avatar-section--editable' : ''}`}>
-          <RdsAvatar 
-            src="https://images.unsplash.com/photo-1494790108755-2616b612b9ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80"
-            alt="Jane Doe"
-            size="small"
-            activityRing={true}
-          />
-          <div className="rds-card__avatar-info">
-            {isEditMode ? (
-              <div className="rds-card__editable-field">
-                <RdsInput
-                  value={tempData.avatarName}
-                  onChange={(e) => handleInputChange('avatarName', e.target.value)}
-                  placeholder="Name"
-                  variant="outlined"
-                  size="small"
-                  fullWidth
-                  className="rds-card__input--avatar-name"
-                />
-                <RdsInput
-                  value={tempData.avatarDesignation}
-                  onChange={(e) => handleInputChange('avatarDesignation', e.target.value)}
-                  placeholder="Designation"
-                  variant="outlined"
-                  size="small"
-                  fullWidth
-                  className="rds-card__input--avatar-designation"
-                />
-              </div>
-            ) : (
-              <>
-                <div className="rds-card__avatar-name">
-                  {editableData.avatarName}
+          <div className="rds-card__avatar-row">
+            <RdsAvatar 
+              src="https://images.unsplash.com/photo-1494790108755-2616b612b9ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80"
+              alt="Jane Doe"
+              size="small"
+              activityRing={true}
+            />
+            <div className="rds-card__avatar-info">
+              {isEditMode ? (
+                <div className="rds-card__editable-field">
+                  <RdsInput
+                    value={tempData.avatarName}
+                    onChange={(e) => handleInputChange('avatarName', e.target.value)}
+                    placeholder="Name"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    className="rds-card__input--avatar-name"
+                  />
+                  <RdsInput
+                    value={tempData.avatarDesignation}
+                    onChange={(e) => handleInputChange('avatarDesignation', e.target.value)}
+                    placeholder="Designation"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    className="rds-card__input--avatar-designation"
+                  />
                 </div>
-                <div className="rds-card__avatar-designation">
-                  {editableData.avatarDesignation}
-                </div>
-              </>
-            )}
+              ) : (
+                <>
+                  <div className="rds-card__avatar-name">
+                    {editableData.avatarName}
+                  </div>
+                  <div className="rds-card__avatar-designation">
+                    {editableData.avatarDesignation}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
           <div className="rds-card__edit-controls">
             {isEditingEnabled && (
               <>
                 {!isEditMode ? (
-                  <div className="rds-card__edit-icon" onClick={handleEditClick}>
+                  <div className="rds-card__edit-icon" onClick={handleEditClick} style={{ marginTop: '10px', marginRight: '10px' }}>
                     <Edit />
                   </div>
                 ) : (

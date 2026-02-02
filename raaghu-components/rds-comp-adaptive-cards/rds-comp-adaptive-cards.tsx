@@ -256,6 +256,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                 />
               )}
               {type === "ActivityUpdateCard" && (
+                <div className="rds-adaptive-cards__activity-update-wrapper">
                   <ActivityUpdateCard
                     avatar={activityProps?.avatar ?? ''}
                     name={props.name ?? activityProps?.name ?? ''}
@@ -263,6 +264,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                     cardText={props.cardText}
                     radioOptions={activityProps?.radioOptions ?? []}
                   />
+                </div>
               )}
               {type === "RestaurantOrder" && (
                 <RestaurantOrderForm
@@ -290,8 +292,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
 
             {/* Card Actions by Type */}
             <CardActions
-              className={`rds-adaptive-cards__actions${type === "RestaurantOrder" ? ' rds-adaptive-cards__actions--restaurant-order' : ''}`}
-              {...(type === "ActivityUpdateCard" ? { style: { justifyContent: "flex-end", display: "flex" } } : {})}
+              className={`rds-adaptive-cards__actions${type === "RestaurantOrder" ? ' rds-adaptive-cards__actions--restaurant-order' : ''}${type === "ActivityUpdateCard" ? ' rds-adaptive-cards__actions--activity-update' : ''}`}
             >
               {type === "RestaurantOrder" ? (
                 showBtn1 ? (
@@ -338,7 +339,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                     ) : (
                       <RdsButton
                         style={getRdsButtonStyle(btn1style)}
-                        className={`rds-adaptive-cards__action-btn${type === "RestaurantOrder" ? " rds-adaptive-cards__action-btn--restaurant-order" : ""}${getRdsButtonStyle(btn1style)==='filled' ? ' rds-button__primary' : ''}`}
+                        className={`rds-adaptive-cards__action-btn${type === "RestaurantOrder" ? " rds-adaptive-cards__action-btn--restaurant-order" : ""}${type === "ActivityUpdateCard" ? " rds-adaptive-cards__action-btn--activity" : ""}${getRdsButtonStyle(btn1style)==='filled' ? ' rds-button__primary' : ''}`}
                         size={type === "RestaurantOrder" ? "small" : undefined}
                           text={btn1Label}
                       />
@@ -349,7 +350,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                     type !== "InputForm" && (
                       <RdsButton
                         style={getRdsButtonStyle(btn2style)}
-                        className={`rds-adaptive-cards__action-btn${getRdsButtonStyle(btn2style)==='filled' ? ' rds-button__primary' : ''}`}
+                        className={`rds-adaptive-cards__action-btn${type === "ActivityUpdateCard" ? " rds-adaptive-cards__action-btn--activity" : ""}${getRdsButtonStyle(btn2style)==='filled' ? ' rds-button__primary' : ''}`}
                         size="medium"
                        text={capitalizeFirstWord(btn2Label)}
                       />

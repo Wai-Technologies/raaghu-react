@@ -248,6 +248,11 @@ Secondary.parameters = {
 };
 
 export const StandaloneToggleButton: Story = {
+  args: {
+    color: 'primary',
+    size: 'medium',
+    disabled: false,
+  },
   parameters: {
     docs: {
       description: {
@@ -259,19 +264,19 @@ export const StandaloneToggleButton: Story = {
 </RdsStandaloneToggleButton>`
       }
     },
+    controls: { include: ['size', 'color', 'disabled'] },
   },
-  render: () => (
+  render: (args) => (
       <RdsStandaloneToggleButton
         value="check"
-        color="primary"
+        color={args.color}
+        size={args.size}
+        disabled={args.disabled}
         aria-label="Toggle check"
       >
         <Check />
       </RdsStandaloneToggleButton>
   )
-};
-StandaloneToggleButton.parameters = {
-  controls: { include: ['options', 'defaultValue', 'size', 'color', 'orientation', 'spacing'] },
 };
 
 export const UncontrolledWithDisplay: Story = {

@@ -115,7 +115,7 @@
       justify-content: center;
       align-items: center;
       padding: 0 12px;
-      background: var(--rds-color-primary, #3C98FF);
+      //background: var(--rds-color-primary, #3C98FF);
       color: var(--rds-primary-contrast-text, #fff);
       border-radius: 8px; /* match Figma corner radius */
       border: none;
@@ -258,58 +258,45 @@
     }
   }
   
-  // Dialog buttons for dark theme
+  // Dialog buttons for dark theme - maintain same appearance as light theme
   &__button {
-    background-color: transparent !important;
-    /* Keep dialog buttons neutral in dark theme; let specific variants control color */
-    color: var(--rds-text-secondary, #cccccc) !important;
-    border: none !important;
-
-    &:hover {
-      /* use neutral hover background rather than forcing primary purple */
-      background-color: var(--rds-background-paper, #2a2a2a) !important;
-      color: var(--rds-text-primary, #ffffff) !important;
-    }
+    color: var(--rds-color-primary, #ffffff) !important;
+    border-radius: var(--rds-border-radius, 6px) !important;
     
     &:focus {
-      outline: none !important;
-      box-shadow: none !important;
+      outline: 2px solid var(--rds-color-primary, #3c98ff) !important;
+      outline-offset: var(--rds-focus-ring-offset) !important;
     }
     
-    // Primary button variant
+    // Primary button variant - use same colors as light theme
     &__primary {
-      /* Use the button component's primary variables so hover follows global button theme */
-      background-color: var(--rds-button-primary-bg, #1976d2) !important;
+      background: var(--rds-color-primary, #3c98ff) !important;
       color: var(--rds-primary-contrast-text, #ffffff) !important;
       border: none !important;
 
       &:hover {
-        background-color: var(--rds-button-primary-bg-hover, #1565c0) !important;
+        background: var(--rds-color-primary-hover, #056cd3) !important;
       }
     }
     
-    // Secondary button variant
+    // Secondary button variant - use same colors as light theme  
     &__secondary {
-      background-color: transparent !important;
-      color: var(--rds-button-secondary-text, #1976d2) !important;
+     background: var(--rds-background-paper, #3C98FF) !important;
+      color: var(--rds-color-primary, #3c98ff) !important;
+      border: 1px solid var(--rds-color-primary, #3c98ff) !important;
+
+      
+    }
+    
+    // Dismiss/text button variant - use same colors as light theme
+    &__dismiss {
+      //background: #3C98FF !important;
+      color: var(--rds-color-primary, #1976d2) !important;
       border: none !important;
 
-      &:hover {
-        background-color: var(--rds-button-secondary-bg-hover, rgba(25,118,210,0.04)) !important;
-        color: var(--rds-primary-contrast-text, #ffffff) !important;
-      }
+     &:hover {
+      background: var(--rds-color-primary-hover-bg, #4a4a4a) !important;
     }
-    
-    // Dismiss/text button variant
-    &__dismiss {
-      background-color: transparent !important;
-      color: var(--rds-text-secondary, #cccccc) !important;
-      border: none !important;
-      
-      &:hover {
-        background-color: var(--rds-background-paper, #2a2a2a) !important;
-        color: var(--rds-text-primary, #ffffff) !important;
-      }
     }
   }
   
