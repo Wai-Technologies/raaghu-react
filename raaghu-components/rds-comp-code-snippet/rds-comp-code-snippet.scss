@@ -489,3 +489,25 @@
     background-color: transparent !important;
 }
 }
+
+@media (max-width: 360px) {
+    .css-1in3o51-MuiButton-startIcon {
+        margin-right: 3px !important;
+        margin-left: 0px !important;
+    }
+    .rds-comp-code-snippet__toolbar {
+        gap: 4px !important;
+        padding: 6px 0px !important;
+        margin-right: 3px !important;
+    }
+    .css-dp0v3c-MuiButton-endIcon {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+
+    .css-pi9tm3-MuiButtonBase-root-MuiButton-root {
+        padding: 5px 6px !important;
+        min-width: 70px !important;
+    }
+
+}
