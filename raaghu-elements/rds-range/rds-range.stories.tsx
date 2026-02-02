@@ -44,6 +44,9 @@ const meta: Meta<typeof RdsRange> = {
     showLabel: {
       control: 'boolean',
     },
+    textLabel: {
+      control: 'boolean',
+    },
     showTooltip: {
       control: 'boolean',
     },
@@ -70,6 +73,7 @@ export const Default: Story = {
     rightLabel: 100,
     showValue: false,
     showLabel: true,
+    textLabel: true,
     showTooltip: true,
   },
   render: (args) => {
@@ -96,6 +100,7 @@ export const Default: Story = {
           rightLabel={args.rightLabel}
           showValue={args.showValue}
           showLabel={args.showLabel}
+          textLabel={args.textLabel}
           showTooltip={args.showTooltip}
           step={args.step}
           disabled={args.disabled}
@@ -116,6 +121,7 @@ export const Colors: Story = {
     rightLabel: 100,
     showValue: true,
     showLabel: false,
+    textLabel: false,
     showTooltip: false,
   },
   argTypes: {
@@ -147,6 +153,7 @@ export const Colors: Story = {
           rightLabel={args.rightLabel}
           showValue={args.showValue}
           showLabel={args.showLabel}
+          textLabel={args.textLabel}
           showTooltip={args.showTooltip}
           step={args.step}
           disabled={args.disabled}
@@ -170,6 +177,7 @@ export const Colors: Story = {
           rightLabel={args.rightLabel}
           showValue={args.showValue}
           showLabel={args.showLabel}
+          textLabel={args.textLabel}
           showTooltip={args.showTooltip}
           step={args.step}
           disabled={args.disabled}
@@ -191,6 +199,7 @@ export const Disabled: Story = {
     disabled: true,
     label: 'Disabled Slider',
     showValue: true,
+    textLabel: true,
   },
 };
 
@@ -202,6 +211,7 @@ export const Interactive: Story = {
     rightLabel: 100,
     showValue: true,
     showLabel: false,
+    textLabel: false,
     showTooltip: false,
     
   },
@@ -229,6 +239,7 @@ export const Interactive: Story = {
           rightLabel={args.rightLabel}
           showValue={args.showValue}
           showLabel={args.showLabel}
+          textLabel={args.textLabel}
           showTooltip={args.showTooltip}
           step={args.step}
           disabled={args.disabled}
@@ -253,6 +264,7 @@ export const Interactive: Story = {
           rightLabel={args.rightLabel}
           showValue={args.showValue}
           showLabel={args.showLabel}
+          textLabel={args.textLabel}
           showTooltip={args.showTooltip}
           step={args.step}
           disabled={args.disabled}
@@ -278,6 +290,7 @@ export const Interactive: Story = {
           step={args.step ?? 50}
           showValue={args.showValue}
           showLabel={args.showLabel}
+          textLabel={args.textLabel}
           showTooltip={args.showTooltip}
           disabled={args.disabled}
           color={args.color}
@@ -297,6 +310,7 @@ export const RangeSlider: Story = {
     rightLabel: 100,
     label: 'Price Range',
     showValue: true,
+    textLabel: true,
   },
 };
 
@@ -309,6 +323,7 @@ export const Steps: Story = {
     marks: true,
     label: 'Progress (10% steps)',
     showValue: true,
+    textLabel: true,
   },
 };
 
@@ -319,6 +334,7 @@ export const WithCustomFormat: Story = {
     rightLabel: 100,
     label: 'Temperature',
     showValue: true,
+    textLabel: true,
     formatValue: (value: number) => `${value}°C`,
   },
 };
@@ -330,5 +346,6 @@ export const WithValue: Story = {
     rightLabel: 100,
     label: 'Brightness',
     showValue: true,
+    textLabel: true,
   },
 };
