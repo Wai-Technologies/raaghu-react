@@ -1344,6 +1344,10 @@
   .rds-appbar-logo-label{
     color: var(--rds-color-on-info, #ffffff);
   }
+
+  .rds-header--transparent {
+    background: var(--rds-color-surface, #424242) !important;
+  }
 }
 
 .css-16b6n56-MuiButtonBase-root-MuiButton-root, 
@@ -2006,7 +2010,6 @@
   @media (max-width: 320px) {
     .rds-header--variant-logotabsactions .rds-header__toolbar {
       position: relative !important;
-      padding-right: 44px !important;
       overflow: visible !important;
     }
 
