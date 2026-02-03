@@ -41,7 +41,7 @@
     align-items: center;
     padding: var(--rds-spacing-md, 12px) var(--rds-spacing-lg, 16px);
     border-radius: var(--rds-border-radius-lg, 12px);
-    gap: var(--rds-spacing-md, 12px);
+    gap: var(--rds-spacing-md, 4px);
 
     .rds-comments-box__avatar {
       width: var(--rds-avatar-size-md, 36px);
@@ -728,7 +728,7 @@
 .rds-comments-box__header {
   display: flex;
   align-items: center;
-  gap: var(--rds-spacing-xl, 16px);
+  gap: var(--rds-spacing-xl, 5px);
   position: relative;
   min-width: 320px;
   width: 100%;
@@ -757,13 +757,13 @@
 .rds-comments-box__text {
   margin-top: var(--rds-spacing-xl, 16px) !important;
   margin-bottom: var(--rds-spacing-xl, 16px) !important;
-  margin-left: var(--rds-spacing-xxxl, 70px) !important;
+  margin-left: var(--rds-spacing-xxxl, 57px) !important;
   color: var(--rds-text-primary, #181a20) !important;
   font-weight: var(--rds-typography-regular, 400) !important;
 }
 .rds-comments-box__meta {
   font-size: var(--rds-font-size-sm, 13px) !important;
-  margin-left: var(--rds-spacing-xxxl, 70px) !important;
+  margin-left: var(--rds-spacing-xxxl, 59px) !important;
   color: var(--rds-text-primary-light, #a4a3a3) !important;
 }
 .rds-comments-box__name {
@@ -1358,7 +1358,6 @@ body[data-theme='dark'] .rds-comments-box__text {
     min-width: 320px;
     max-width: 98vw;
     font-size: 15px;
-    padding: 12px;
   }
 
   .rds-comments-box--thread {
