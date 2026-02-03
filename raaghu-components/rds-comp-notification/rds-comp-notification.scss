@@ -475,6 +475,10 @@ body:not(.theme-dark):not([data-theme="dark"]) {
     color: var(--rds-text-primary, #ffffff) !important;
     border: none !important;
   }
+
+  .rds-comp-notification__primary-button {
+    color: #3C98FF !important;
+  }
   
   // Override all text elements to be white
   .MuiTypography-root,

@@ -112,13 +112,19 @@ const RdsButtonDropdown = ({
         shape={shape}
         color="primary"
         state={buttonState}
-        style={
-          styleType === 'transparent' ? 'transparent' :
-          styleType === 'primary' ? 'filled' :
-          styleType === 'secondary' ? 'filled' : 'outlined'
-        }
-        className={styleType === 'secondary' ? 'rds-button-dropdown--secondary' : ''}
-        textCase="uppercase"
+          style={
+            styleType === 'transparent' ? 'transparent' :
+            styleType === 'primary' ? 'filled' :
+            styleType === 'secondary' ? 'filled' : 'outlined'
+          }
+          className={
+            styleType === 'secondary'
+              ? 'rds-button-dropdown--secondary'
+              : styleType === 'outline'
+                ? 'rds-button-dropdown__button rds-button-dropdown--outline'
+                : ''
+          }
+          textCase="uppercase"
       />
       <RdsMenu
         open={isDropdownOpen}
@@ -161,6 +167,7 @@ const RdsButtonDropdown = ({
                     onChange={() => handleOptionChange(opt.id)}
                     state={opt.disabled ? 'disabled' : 'default'}
                     layout="icon with label"
+                    className={styleType === 'outline' ? 'rds-button-dropdown__button rds-button-dropdown--outline' : ''}
                   />
                 ) : (
                   // Fallback: Plain text option when neither checkbox nor radio is enabled

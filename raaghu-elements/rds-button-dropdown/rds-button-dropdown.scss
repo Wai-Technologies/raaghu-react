@@ -150,6 +150,28 @@ body[data-theme="dark"] .MuiButton-root {
   color: #ffffff !important;
 }
 
+/* Outline styleType: set icon and button color to #3C98FF in dark theme */
+.dark-theme .rds-button-dropdown__button.rds-button-dropdown--outline,
+[data-theme="dark"] .rds-button-dropdown__button.rds-button-dropdown--outline,
+body[data-theme="dark"] .rds-button-dropdown__button.rds-button-dropdown--outline,
+.dark-theme .rds-button-dropdown__button.rds-button-dropdown--outline .MuiSvgIcon-root,
+[data-theme="dark"] .rds-button-dropdown__button.rds-button-dropdown--outline .MuiSvgIcon-root,
+body[data-theme="dark"] .rds-button-dropdown__button.rds-button-dropdown--outline .MuiSvgIcon-root {
+  color: #3C98FF !important;
+}
+
+/* Outline styleType: set button text color to #3C98FF in dark theme */
+.dark-theme .rds-button-dropdown__button.rds-button-dropdown--outline,
+[data-theme="dark"] .rds-button-dropdown__button.rds-button-dropdown--outline,
+body[data-theme="dark"] .rds-button-dropdown__button.rds-button-dropdown--outline {
+  color: #3C98FF !important;
+}
+
+/* Outline styleType: set button text color to #3C98FF */
+.rds-button-dropdown__button.rds-button-dropdown--outline {
+  color: #3C98FF !important;
+}
+
 .dark-theme .rds-button,
 [data-theme="dark"] .rds-button,
 body[data-theme="dark"] .rds-button,
