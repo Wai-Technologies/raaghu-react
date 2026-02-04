@@ -100,4 +100,24 @@
       }
     }
   }
+  
+  @media (max-width: 320px) {
+    .rds-avatar__avatar-wrap {
+      margin-bottom: 59px;
+    }
+  }
+
+  @media (min-width: 321px) and (max-width: 768px) {
+    .rds-avatar__avatar-wrap {
+      margin-bottom: 37px;
+    }
+  }
+
+
 }
+
+// [data-theme=dark] .rds-comp-ai-icon, .dark-theme .rds-comp-ai-icon {
+//     color: var(--rds-color-primary, #7e2eef) !important;
+// }
+
+
