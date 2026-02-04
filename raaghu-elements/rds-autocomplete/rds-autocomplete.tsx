@@ -195,7 +195,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
             <TextField
               {...params}
               placeholder={shouldShowPlaceholder ? placeholder : ''}
-              helperText={showHintText ? (helperText ?? '\u00A0') : undefined}
+              helperText={helperText ?? '\u00A0'}
               error={error}
               variant={variant}
               className={`rds-autocomplete__textfield ${sizeClass} ${controlStyleClass} ${!showHintText ? 'rds-autocomplete__textfield--hidden-helper' : ''}`}
