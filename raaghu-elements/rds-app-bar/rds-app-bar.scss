@@ -1395,7 +1395,6 @@
 .MuiIconButton-root {
   @media (max-width: 420px) {
     padding: 8px !important;
-    margin-left: 6px !important;
     
     svg {
       font-size: 20px !important;
@@ -1406,7 +1405,6 @@
   @media (max-width: 320px) {
     padding: 6px !important;
     margin-right: 0px !important;
-    margin-left: -3px !important;
     
     svg {
       font-size: 18px !important;
