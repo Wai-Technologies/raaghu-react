@@ -1413,18 +1413,6 @@
   }
 }
 
-.MuiButton-root {
-  @media (max-width: 420px) {
-    padding: 6px 12px !important;
-    font-size: 13px !important;
-  }
-  
-  @media (max-width: 320px) {
-    padding: 4px 8px !important;
-    font-size: 12px !important;
-  }
-}
-
 .MuiAvatar-root {
   @media (max-width: 420px) {
     width: 28px !important;

@@ -289,6 +289,7 @@
     &__action-button {
       flex: 1 1 calc((100% - var(--rds-spacing-xs, 6px)) / 2);
       min-width: 0;
+      margin-right: 5px;
     }
 
     &__autocomplete {
