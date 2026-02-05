@@ -10,6 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import InfoOutlined from "@mui/icons-material/InfoOutlined";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
@@ -371,7 +372,10 @@ export function CalendarReminderForm({
         <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__calendar-reminder-small-text">{smallText}</RdsTypography>
       </RdsBox>
       <div className="rds-adaptive-cards__calendar-reminder-select-form">
-        <RdsTypography variant="subtitle2" className="rds-adaptive-cards__calendar-reminder-label">{calendarReminderLabel || "Snooze for"}</RdsTypography>
+        <RdsStack direction="row" spacing={0.5} alignItems="center">
+          <RdsTypography variant="subtitle2" className="rds-adaptive-cards__calendar-reminder-label">{calendarReminderLabel || "Snooze for"}</RdsTypography>
+          <InfoOutlined className="rds-adaptive-cards__calendar-reminder-info-icon" />
+        </RdsStack>
         <FormControl fullWidth size="small">
           <Select
             value={selected}
@@ -487,9 +491,12 @@ export function RestaurantOrderForm({
   return (
     <RdsStack spacing={1} component="form" className="rds-adaptive-cards__restaurant-order">
       <FormControl fullWidth required className="rds-adaptive-cards__restaurant-order-form">
-        <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
-          {entreeLabel}<span className="rds-adaptive-cards__required">*</span>
-        </RdsTypography>
+        <RdsStack direction="row" spacing={0.5} alignItems="center">
+          <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
+            {entreeLabel}<span className="rds-adaptive-cards__required">*</span>
+          </RdsTypography>
+          <InfoOutlined className="rds-adaptive-cards__restaurant-order-info-icon" />
+        </RdsStack>
         <Select
           value={entreeValue !== undefined ? entreeValue : entree}
           onChange={onEntreeChange ? onEntreeChange : (e => setEntree(e.target.value as string))}
@@ -506,9 +513,12 @@ export function RestaurantOrderForm({
         </Select>
       </FormControl>
       <FormControl fullWidth required className="rds-adaptive-cards__restaurant-order-form">
-        <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
-          {sideLabel}<span className="rds-adaptive-cards__required">*</span>
-        </RdsTypography>
+        <RdsStack direction="row" spacing={0.5} alignItems="center">
+          <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
+            {sideLabel}<span className="rds-adaptive-cards__required">*</span>
+          </RdsTypography>
+          <InfoOutlined className="rds-adaptive-cards__restaurant-order-info-icon" />
+        </RdsStack>
         <Select
           value={sideValue !== undefined ? sideValue : side}
           onChange={onSideChange ? onSideChange : (e => setSide(e.target.value as string))}
@@ -525,9 +535,12 @@ export function RestaurantOrderForm({
         </Select>
       </FormControl>
       <FormControl fullWidth required className="rds-adaptive-cards__restaurant-order-form">
-        <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
-          {drinkLabel}<span className="rds-adaptive-cards__required">*</span>
-        </RdsTypography>
+        <RdsStack direction="row" spacing={0.5} alignItems="center">
+          <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
+            {drinkLabel}<span className="rds-adaptive-cards__required">*</span>
+          </RdsTypography>
+          <InfoOutlined className="rds-adaptive-cards__restaurant-order-info-icon" />
+        </RdsStack>
         <Select
           value={drinkValue !== undefined ? drinkValue : drink}
           onChange={onDrinkChange ? onDrinkChange : (e => setDrink(e.target.value as string))}
