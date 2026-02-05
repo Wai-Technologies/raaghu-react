@@ -51,7 +51,7 @@
     color: var(--rds-color-on-surface-dark, #e9ecef);
     border-color: var(--rds-color-border-dark, #495057);
     
-    &--selected, &--active {
+    &--active {
       border-color: var(--rds-color-primary-dark, #0d6efd);
     }
     
@@ -350,6 +350,11 @@ background-color: #202020;
     // Placeholder color for selected state
     .rds-comp-text-editor--selected & .public-DraftEditorPlaceholder-root {
       color: #000000;
+      
+      // Dark theme support
+      .dark-theme &, [data-theme="dark"] & {
+        color: var(--rds-color-on-surface-dark, #e9ecef);
+      }
     }
     
     // Disabled state for editor content
