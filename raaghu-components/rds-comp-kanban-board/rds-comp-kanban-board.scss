@@ -755,6 +755,10 @@ html[data-theme="dark"],
     background-color: transparent;
   }
   
+  .rds-badge.rds-badge--primary.rds-badge--secondary > .rds-badge__badge {
+    background-color: #1c66de;
+    
+  }
   .kanban-board {
     &__card,
     &__card--add-board-320,
@@ -982,4 +986,12 @@ div[role="menu"],
     scrollbar-width: none;
     -ms-overflow-style: none !important;
   }
+}
+
+.css-1umw9bq-MuiSvgIcon-root {
+  fill: #959595 !important;
+}
+
+.css-120dh41-MuiSvgIcon-root {
+  fill: #959595 !important;
 }

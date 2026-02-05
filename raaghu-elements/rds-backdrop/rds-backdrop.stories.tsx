@@ -106,7 +106,7 @@ export const Interactive: Story = {
     }, [args.open]);
     
     return (
-      <>
+      <div style={{ position: 'relative', minHeight: 300 }}>
         <Button variant="contained" onClick={() => setOpen(true)}>
           Show Backdrop
         </Button>
@@ -114,10 +114,13 @@ export const Interactive: Story = {
           open={open}
           loading={!!args.loading}
           onClick={() => setOpen(false)}
+          sx={{
+            '&.rds-backdrop': { position: 'absolute' }
+          }}
         >
           {args.children}
         </RdsBackdrop>
-      </>
+      </div>
     );
   },
   parameters: {

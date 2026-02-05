@@ -145,7 +145,7 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
   handleDeleteHistoryItem,
   handleDeleteOlderHistoryItem,
   favouriteCardTitle = 'Create a Login page for signing up with a discount offer. It should have a field for the user\'s email and a "Get Discount" button.',
-  favouriteCardImage = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+  favouriteCardImage = "https://dummyimage.com/400x260/007bff/ffffff&text=Login+Page",
 }) => {
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 

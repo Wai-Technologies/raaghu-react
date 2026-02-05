@@ -12,7 +12,7 @@
   
   // State modifiers
   &--selected {
-    border-color: var(--rds-color-primary, #007bff);
+    border: 1px solid var(--rds-color-border, #ccc);
   }
   
   &--error {
@@ -51,7 +51,7 @@
     color: var(--rds-color-on-surface-dark, #e9ecef);
     border-color: var(--rds-color-border-dark, #495057);
     
-    &--selected, &--active {
+    &--active {
       border-color: var(--rds-color-primary-dark, #0d6efd);
     }
     
@@ -80,6 +80,13 @@
     margin-bottom: 0;
     transition: background-color 0.15s ease, border-color 0.15s ease;
     
+    // Disabled state for toolbar
+    .rds-comp-text-editor--disabled & {
+      background-color: #e0e0e0;
+      opacity: 1;
+      cursor: not-allowed;
+    }
+    
     // Toolbar buttons
     .rdw-option-wrapper {
       border: 1px solid var(--rds-color-border-light, #f1f1f1);
@@ -98,6 +105,13 @@
       /* More targeted transitions for better performance */
       transition: color 0.15s ease, background-color 0.15s ease;
       
+      // Disabled state for toolbar buttons
+      .rds-comp-text-editor--disabled & {
+        background-color: #e0e0e0;
+        border-color: #e0e0e0;
+        cursor: not-allowed;
+      }
+      
       // Interactive states
       &:hover {
         box-shadow: 1px 1px 0px var(--rds-color-border, #bfbdbd);
@@ -106,6 +120,15 @@
       &.rdw-option-active {
         background-color: var(--rds-color-surface-variant, #f1f1f1);
         color: var(--rds-color-primary, #007bff);
+      }
+    }
+    
+    // Dropdown wrappers
+    .rdw-dropdown-wrapper {
+      .rds-comp-text-editor--disabled & {
+        background-color: #e0e0e0;
+        border-color: #d0d0d0;
+        cursor: not-allowed;
       }
     }
     
@@ -151,6 +174,13 @@
       border-color: var(--rds-color-border-dark, #495057);
       /* remove inner top highlight to avoid perceived border */
       box-shadow: none;
+      
+      // Disabled state in dark theme
+      .rds-comp-text-editor--disabled & {
+        background-color: #3a3a3a;
+        opacity: 1;
+      }
+      
       .rdw-link-modal
       {
         background-color: #212529;
@@ -317,6 +347,24 @@ background-color: #202020;
     overflow: auto;
     // content no longer draws the grip; container does
     
+    // Placeholder color for selected state
+    .rds-comp-text-editor--selected & .public-DraftEditorPlaceholder-root {
+      color: #000000;
+      
+      // Dark theme support
+      .dark-theme &, [data-theme="dark"] & {
+        color: var(--rds-color-on-surface-dark, #e9ecef);
+      }
+    }
+    
+    // Disabled state for editor content
+    .rds-comp-text-editor--disabled & {
+      background-color: #e0e0e0;
+      color: #6c757d;
+      cursor: not-allowed;
+      opacity: 1;
+    }
+    
     // Content styling
     blockquote {
       border-left: 5px solid var(--rds-color-border-light, #eee);
@@ -358,6 +406,13 @@ background-color: #202020;
     .dark-theme &, [data-theme="dark"] & {
       background-color: var(--rds-color-surface-dark, #212529);
       color: var(--rds-color-on-surface-dark, #e9ecef);
+      
+      // Disabled state in dark theme for content
+      .rds-comp-text-editor--disabled & {
+        background-color: #3a3a3a;
+        color: #6c757d;
+        opacity: 1;
+      }
       
       blockquote {
         border-left-color: var(--rds-color-border-dark, #495057);

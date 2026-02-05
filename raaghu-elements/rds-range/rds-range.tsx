@@ -11,6 +11,7 @@ export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange'> {
   range?: boolean;
   formatValue?: (value: number) => string;
   showLabel?: boolean;
+  textLabel?: boolean;
   showTooltip?: boolean;
   type?: 'one-way' | 'two-way';
   level?: '1' | '2' | '3' | '4' | '5';
@@ -26,6 +27,7 @@ const RdsRange= ({
   range = false,
   formatValue,
   showLabel = false,
+  textLabel = true,
   showTooltip = false,
   type = 'one-way',
   level = '1',
@@ -162,9 +164,9 @@ const RdsRange= ({
 
   return (
     <Box className={generateClassName()} sx={{ width: '100%' }}>
-      {(label || showValue) && (
+      {((label && textLabel) || showValue) && (
         <Box className="rds-range__header" sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-          {label && (
+          {label && textLabel && (
             <Typography variant="body2" color="text.secondary" className="rds-range__label">
               {label}
             </Typography>
