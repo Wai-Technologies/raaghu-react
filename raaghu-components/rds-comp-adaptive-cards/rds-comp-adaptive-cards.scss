@@ -282,6 +282,11 @@
     font-weight: 700 !important;
     margin-bottom: var(--rds-spacing-sm, 8px) !important;
   }
+  &__calendar-reminder-info-icon {
+    font-size: 20px !important;
+    margin-bottom: 10px !important;
+    color: var(--rds-text-secondary, #646464);
+  }
   &__calendar-reminder-small-text {
     color: var(--rds-text-secondary, #646464);
   }
@@ -382,6 +387,12 @@
     font-size: var(--rds-font-size-sm, 12px);
     display: flex;
     align-items: center;
+  }
+  &__restaurant-order-info-icon {
+    font-size: 20px !important;
+    width: 20px !important;
+    height: 20px !important;
+    color: var(--rds-text-secondary, #646464);
   }
   // ----- Placeholder -----
   &__placeholder {
@@ -848,7 +859,7 @@
   font-size: var(--rds-font-size-sm, 12px);
 }
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
-.rds-adaptive-cards__restaurant-order-form svg {
+.rds-adaptive-cards__restaurant-order-form svg:not(.rds-adaptive-cards__restaurant-order-info-icon) {
   stroke: var(--rds-text-secondary, #757575) !important;
   color: var(--rds-text-secondary, #757575) !important;
   font-size: var(--rds-font-size-md, 14px) !important;
@@ -866,8 +877,8 @@
 }
 .dark-theme .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
 [data-theme="dark"] .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
-.dark-theme .rds-adaptive-cards__restaurant-order-form svg,
-[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form svg {
+.dark-theme .rds-adaptive-cards__restaurant-order-form svg:not(.rds-adaptive-cards__restaurant-order-info-icon),
+[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form svg:not(.rds-adaptive-cards__restaurant-order-info-icon) {
   stroke: var(--rds-text-secondary, #757575) !important;
   color: var(--rds-text-secondary, #757575) !important;
 }

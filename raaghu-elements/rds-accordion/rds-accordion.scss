@@ -26,7 +26,10 @@
   .rds-accordion__summary:hover .MuiAccordionSummary-expandIconWrapper {
     color: #ffffff !important;
   }
-  .rds-accordion__details {  border-color: #44474A !important; background-color: #202020 !important; }
+  .rds-accordion:not(.rds-accordion--selected):not(.rds-accordion--hover) .rds-accordion__details {
+    border-color: #44474A !important;
+    background-color: #202020 !important;
+  }
   .rds-accordion__details .MuiAccordionDetails-root,
   .rds-accordion__details .MuiAccordionDetails-root .MuiTypography-root { color: #E1E6EB !important; }
   .rds-accordion__title { color: #E1E6EB !important; }
@@ -45,6 +48,9 @@
   }
   .rds-accordion__details-panel {
     background: #202020 !important;
+  }
+  .rds-accordion.rds-accordion--expanded .rds-accordion__summary::after {
+    background: #44474A !important;
   }
 }
 .rds-accordion__container {
@@ -155,6 +161,10 @@
       margin-top: 0 !important;
       background-color: transparent !important;
     }
+    
+    .rds-accordion__summary::after {
+      display: block !important;
+    }
   }
 
   &__summary {
@@ -163,6 +173,18 @@
     min-height: 48px !important;
     padding: 0 16px !important;
     border-bottom: none !important;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0px;
+      right: 0px;
+      bottom: 0;
+      height: 1px;
+      background: #7d7d7d;
+      display: none;
+    }
     
     &:hover {
       background-color: #f8f9fa !important;
