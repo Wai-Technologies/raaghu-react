@@ -513,7 +513,7 @@
   &__football-live {
     font-size: var(--rds-font-size-xs, 10px) !important;
     font-weight: var(--rds-font-weight-normal, 400) !important;
-    border-radius: var(--rds-border-radius-md, 8px) !important;
+    border-radius: 999px !important;
     background: #f44336 !important; // Red background for live indicator
     color: white !important; // White text for contrast
     display: inline-flex !important;
@@ -1296,7 +1296,7 @@
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    max-width: 50px !important;
+    max-width: 55px !important;
     min-width: 50px !important;
     z-index: 2;
   }
