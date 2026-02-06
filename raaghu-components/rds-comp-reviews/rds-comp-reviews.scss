@@ -80,7 +80,8 @@
     }
     
     // Dark theme support
-    :root[data-theme='dark'] & {
+    :root[data-theme='dark'] &,
+    [data-theme='dark'] & {
         .card {
             background-color: #424242;
             border-color: rgba(255,255,255,0.08);
@@ -88,28 +89,218 @@
             border-radius: 6px;
         }
         
-        .card-title {
-            color: var(--rds-text-primary, #F9FAFB);
+        .card-title,
+        &__title {
+            color: var(--rds-text-primary, #F9FAFB) !important;
         }
         
-        .card-text {
-            color: var(--rds-text-secondary, #D1D5DB);
+        .card-text,
+        &__text {
+            color: var(--rds-text-secondary, #D1D5DB) !important;
         }
         
         .text-muted {
             color: var(--rds-text-tertiary, #9CA3AF) !important;
         }
         
-        .MuiRating-iconEmpty {
-            color: rgba(255, 255, 255, 0.15);
-        }
-        
         .review-footer {
             border-top-color: rgba(255,255,255,0.08);
         }
         
-        .btn-outline-primary, .btn-outline-danger {
-            border-color: currentColor;
+        // Button variants - maintain their colors
+        .btn-outline-primary {
+            border-color: var(--rds-color-primary, #1976d2);
+            color: var(--rds-color-primary, #1976d2);
+        }
+        
+        .btn-outline-danger {
+            border-color: var(--rds-color-danger, #dc3545);
+            color: var(--rds-color-danger, #dc3545);
+        }
+        
+        .btn-outline-success {
+            border-color: var(--rds-color-success, #28a745);
+            color: var(--rds-color-success, #28a745);
+        }
+        
+        .btn-outline-warning {
+            border-color: var(--rds-color-warning, #ffc107);
+            color: var(--rds-color-warning, #ffc107);
+        }
+        
+        .btn-outline-info {
+            border-color: var(--rds-color-info, #17a2b8);
+            color: var(--rds-color-info, #17a2b8);
+        }
+        
+        .btn-outline-secondary {
+            border-color: var(--rds-color-secondary, #a21caf);
+            color: var(--rds-color-secondary, #a21caf);
+        }
+        
+        // Avatar border for better visibility in dark mode
+        &__avatar,
+        .rounded-circle {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1);
+        }
+        
+        // Like/Dislike icons - maintain colors in dark mode
+        // MUI ThumbUpAltIcon (Like) - primary/blue color
+        .MuiSvgIcon-colorPrimary,
+        svg.MuiSvgIcon-colorPrimary {
+            color: var(--rds-color-primary, #2196f3) !important;
+        }
+        
+        // MUI ThumbDownAltIcon (Dislike) - danger/red color
+        .MuiSvgIcon-colorError,
+        svg.MuiSvgIcon-colorError {
+            color: var(--rds-color-danger, #dc3545) !important;
+        }
+        
+        // Additional button and icon selectors
+        .MuiIconButton-root,
+        .MuiButton-root,
+        button {
+            // Thumbs up icon
+            .MuiSvgIcon-colorPrimary {
+                color: var(--rds-color-primary, #2196f3) !important;
+            }
+            
+            // Thumbs down icon
+            .MuiSvgIcon-colorError {
+                color: var(--rds-color-danger, #dc3545) !important;
+            }
+            
+            // Font Awesome and Bootstrap icons
+            .fa-thumbs-up,
+            .bi-hand-thumbs-up {
+                color: var(--rds-color-primary, #2196f3) !important;
+            }
+            
+            .fa-thumbs-down,
+            .bi-hand-thumbs-down {
+                color: var(--rds-color-danger, #dc3545) !important;
+            }
+        }
+        
+        // Counter text colors
+        .MuiTypography-root,
+        .MuiTypography-body2 {
+            color: var(--rds-text-primary, #F9FAFB) !important;
+        }
+    }
+}
+
+// Dark mode rating color overrides - apply globally for all review components
+:root[data-theme='dark'],
+[data-theme='dark'] {
+    .rds-comp-reviews {
+        // Empty rating icons
+        .MuiRating-iconEmpty,
+        .MuiRating-root .MuiRating-iconEmpty,
+        span.MuiRating-icon.MuiRating-iconEmpty,
+        label.MuiRating-label .MuiRating-iconEmpty {
+            color: rgba(255, 255, 255, 0.15) !important;
+            
+            svg {
+                color: rgba(255, 255, 255, 0.15) !important;
+            }
+        }
+        
+        // Default filled rating icons - blue color like light mode
+        .MuiRating-iconFilled,
+        .MuiRating-root .MuiRating-iconFilled,
+        span.MuiRating-icon.MuiRating-iconFilled,
+        label.MuiRating-label .MuiRating-iconFilled,
+        .MuiRating-decimal .MuiRating-iconFilled {
+            color: #2196f3 !important;
+            
+            svg {
+                color: #2196f3 !important;
+                fill: #2196f3 !important;
+            }
+        }
+        
+        // Override MUI's default dark mode color
+        .MuiRating-root {
+            color: #2196f3 !important;
+            
+            svg {
+                color: inherit !important;
+            }
+        }
+        
+        // Color variants
+        .rds-rating--color-primary {
+            .MuiRating-iconFilled,
+            .MuiRating-root .MuiRating-iconFilled {
+                color: var(--rds-color-primary, #1976d2) !important;
+                svg { color: var(--rds-color-primary, #1976d2) !important; fill: var(--rds-color-primary, #1976d2) !important; }
+            }
+            .MuiRating-root { color: var(--rds-color-primary, #1976d2) !important; }
+        }
+        
+        .rds-rating--color-success {
+            .MuiRating-iconFilled,
+            .MuiRating-root .MuiRating-iconFilled {
+                color: var(--rds-color-success, #28a745) !important;
+                svg { color: var(--rds-color-success, #28a745) !important; fill: var(--rds-color-success, #28a745) !important; }
+            }
+            .MuiRating-root { color: var(--rds-color-success, #28a745) !important; }
+        }
+        
+        .rds-rating--color-danger {
+            .MuiRating-iconFilled,
+            .MuiRating-root .MuiRating-iconFilled {
+                color: var(--rds-color-danger, #dc3545) !important;
+                svg { color: var(--rds-color-danger, #dc3545) !important; fill: var(--rds-color-danger, #dc3545) !important; }
+            }
+            .MuiRating-root { color: var(--rds-color-danger, #dc3545) !important; }
+        }
+        
+        .rds-rating--color-warning {
+            .MuiRating-iconFilled,
+            .MuiRating-root .MuiRating-iconFilled {
+                color: var(--rds-color-warning, #ffc107) !important;
+                svg { color: var(--rds-color-warning, #ffc107) !important; fill: var(--rds-color-warning, #ffc107) !important; }
+            }
+            .MuiRating-root { color: var(--rds-color-warning, #ffc107) !important; }
+        }
+        
+        .rds-rating--color-info {
+            .MuiRating-iconFilled,
+            .MuiRating-root .MuiRating-iconFilled {
+                color: var(--rds-color-info, #17a2b8) !important;
+                svg { color: var(--rds-color-info, #17a2b8) !important; fill: var(--rds-color-info, #17a2b8) !important; }
+            }
+            .MuiRating-root { color: var(--rds-color-info, #17a2b8) !important; }
+        }
+        
+        .rds-rating--color-secondary {
+            .MuiRating-iconFilled,
+            .MuiRating-root .MuiRating-iconFilled {
+                color: var(--rds-color-secondary, #a21caf) !important;
+                svg { color: var(--rds-color-secondary, #a21caf) !important; fill: var(--rds-color-secondary, #a21caf) !important; }
+            }
+            .MuiRating-root { color: var(--rds-color-secondary, #a21caf) !important; }
+        }
+        
+        .rds-rating--color-dark {
+            .MuiRating-iconFilled,
+            .MuiRating-root .MuiRating-iconFilled {
+                color: var(--rds-color-on-surface, #343a40) !important;
+                svg { color: var(--rds-color-on-surface, #343a40) !important; fill: var(--rds-color-on-surface, #343a40) !important; }
+            }
+            .MuiRating-root { color: var(--rds-color-on-surface, #343a40) !important; }
+        }
+        
+        .rds-rating--color-light {
+            .MuiRating-iconFilled,
+            .MuiRating-root .MuiRating-iconFilled {
+                color: var(--rds-color-surface, #e0e0e0) !important;
+                svg { color: var(--rds-color-surface, #e0e0e0) !important; fill: var(--rds-color-surface, #e0e0e0) !important; }
+            }
+            .MuiRating-root { color: var(--rds-color-surface, #e0e0e0) !important; }
         }
     }
     .rating-value {

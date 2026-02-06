@@ -333,3 +333,49 @@
     .MuiSlider-track { background-color: var(--rds-color-surface, #e0e0e0); }
   }
 }
+
+// Dark theme - Keep rating icons same color as light theme
+:root[data-theme='dark'] {
+  .rds-rating {
+    .MuiRating-iconFilled {
+      color: var(--rds-color-primary, #2196f3) !important;
+    }
+
+    .MuiRating-iconEmpty {
+      color: var(--rds-color-outline, #e0e0e0) !important;
+    }
+
+    .MuiRating-iconHover {
+      color: var(--rds-color-primary-hover, #1976d2) !important;
+    }
+  }
+
+  // Maintain color variants in dark theme
+  .rds-rating--color-primary .rds-rating__stars .MuiRating-iconFilled {
+    color: var(--rds-color-primary, #1976d2) !important;
+  }
+
+  .rds-rating--color-success .rds-rating__stars .MuiRating-iconFilled {
+    color: var(--rds-color-success, #28a745) !important;
+  }
+
+  .rds-rating--color-danger .rds-rating__stars .MuiRating-iconFilled {
+    color: var(--rds-color-danger, #dc3545) !important;
+  }
+
+  .rds-rating--color-warning .rds-rating__stars .MuiRating-iconFilled {
+    color: var(--rds-color-warning, #ffc107) !important;
+  }
+
+  .rds-rating--color-info .rds-rating__stars .MuiRating-iconFilled {
+    color: var(--rds-color-info, #17a2b8) !important;
+  }
+
+  .rds-rating--color-secondary .rds-rating__stars .MuiRating-iconFilled {
+    color: var(--rds-color-secondary, #a21caf) !important;
+  }
+
+  .rds-rating--color-dark .rds-rating__stars .MuiRating-iconFilled {
+    color: var(--rds-color-on-surface, #343a40) !important;
+  }
+}
