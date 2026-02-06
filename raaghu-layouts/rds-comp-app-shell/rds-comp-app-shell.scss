@@ -865,7 +865,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       left: 0;
       right: 0;
-      bottom: 45px;
+      bottom: 63px;
       margin: 0;
       padding: 0;
       display: flex;
@@ -1055,7 +1055,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 53px;
       left: 0;
       right: 0;
-      bottom: 45px;
+      bottom: 63px;
       display: flex;
       flex-direction: column;
       transition: opacity 0.3s ease;
@@ -1209,17 +1209,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-// Large mobile specific adjustments
-@media (min-width: 415px) and (max-width: 768px) {
+@media (max-width: 414px) {
   .double-nav {
     .doublenav-mobile-content {
-      bottom: 63px !important;
+      bottom: 45px !important;
     }
   }
   
   .triPane {
     .tripane-mobile-content {
-      bottom: 63px !important;
+      bottom: 45px !important;
     }
   }
 }
