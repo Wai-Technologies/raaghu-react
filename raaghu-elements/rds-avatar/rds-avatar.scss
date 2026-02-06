@@ -71,31 +71,50 @@
 
   // Dot position modifiers - removed to avoid conflicts
 
-  // Size variants (BEM, design tokens)
+  // Size variants for text scaling
   &--smallest {
-    width: 24px;
-    height: 24px;
-    font-size: 9px;
+    .rds-avatar__name {
+      font-size: 0.75rem; // 12px
+    }
+    .rds-avatar__designation {
+      font-size: 0.625rem; // 10px
+    }
   }
+
   &--small {
-    width: 32px;
-    height: 32px;
-    font-size: 11px;
+    .rds-avatar__name {
+      font-size: 0.875rem; // 14px
+    }
+    .rds-avatar__designation {
+      font-size: 0.75rem; // 12px
+    }
   }
+
   &--medium {
-    width: 40px;
-    height: 40px;
-    font-size: 14px;
+    .rds-avatar__name {
+      font-size: 1rem; // 16px
+    }
+    .rds-avatar__designation {
+      font-size: 0.875rem; // 14px
+    }
   }
+
   &--large {
-    width: 48px;
-    height: 48px;
-    font-size: 18px;
+    .rds-avatar__name {
+      font-size: 1.125rem; // 18px
+    }
+    .rds-avatar__designation {
+      font-size: 0.95rem; // 15.2px
+    }
   }
+
   &--largest {
-    width: 64px;
-    height: 64px;
-    font-size: 21px;
+    .rds-avatar__name {
+      font-size: 1.25rem; // 20px
+    }
+    .rds-avatar__designation {
+      font-size: 1.0625rem; // 17px
+    }
   }
 
   // Shape variants
@@ -270,36 +289,7 @@
   
  // Activity dot - removed to avoid conflicts
   
-  // Size variants
-  &--smallest {
-    width: 24px;
-    height: 24px;
-    font-size: 9px;
-  }
-  
-  &--small {
-    width: 32px;
-    height: 32px;
-    font-size: 11px;
-  }
-  
-  &--medium {
-    width: 40px;
-    height: 40px;
-    font-size: 14px;
-  }
-  
-  &--large {
-    width: 48px;
-    height: 48px;
-    font-size: 18px;
-  }
-
-  &--largest {
-    width: 64px;
-    height: 64px;
-    font-size: 21px;
-  }
+  // Size variants - removed duplicate, sizes are controlled via sizeStyles in TSX
   
   // Shape variants
   &--rounded {

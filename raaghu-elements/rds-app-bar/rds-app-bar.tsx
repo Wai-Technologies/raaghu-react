@@ -72,7 +72,7 @@ const RdsAppBar = ({
   ...props
 }:RdsAppBarProps) => {
   const toolbarHeights = {
-    small: 50,
+    small: 55,
     medium: 64,
     large: 80,
   };

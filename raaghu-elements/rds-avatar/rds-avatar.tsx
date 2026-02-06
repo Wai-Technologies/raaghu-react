@@ -99,7 +99,7 @@ const RdsAvatar = ({
   if (displayStyle === 'with-name') {
     return (
       <div
-        className={`rds-avatar rds-avatar--with-name${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
+        className={`rds-avatar rds-avatar--with-name rds-avatar--${size}${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
       >
         <span className={`rds-avatar__avatar-wrap`}>
           {activityRing && <span className="rds-avatar__ring" aria-hidden="true" />}
@@ -122,7 +122,7 @@ const RdsAvatar = ({
   if (displayStyle === 'name-bottom') {
     return (
       <div
-        className={`rds-avatar rds-avatar--name-bottom${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
+        className={`rds-avatar rds-avatar--name-bottom rds-avatar--${size}${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
       >
         <span className="rds-avatar__avatar-outer">
           {activityRing && <span className="rds-avatar__ring" aria-hidden="true" />}
