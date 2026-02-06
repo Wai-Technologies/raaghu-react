@@ -215,7 +215,7 @@
   &.rds-badge--medium:has(> .MuiSvgIcon-root) .MuiBadge-dot {
     width: 18px !important;
     height: 18px !important;
-    min-width: 8px !important;
+    min-width: 18px !important;
     border-radius: 50% !important;
   }
 
@@ -224,7 +224,7 @@
   &.rds-badge--large:has(> .MuiSvgIcon-root) .MuiBadge-dot {
     width: 22px !important;
     height: 22px !important;
-    min-width: 8px !important;
+    min-width: 22px !important;
     border-radius: 50% !important;
   }
 
