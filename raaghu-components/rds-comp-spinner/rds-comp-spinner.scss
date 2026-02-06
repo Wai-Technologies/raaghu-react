@@ -106,6 +106,28 @@
   // For all types
   .spinner-label {
     margin-bottom: 0;
+    transition: font-size 0.2s ease;
+    
+    // Size variants for labels
+    &--small {
+      font-size: 0.75rem; // 12px
+      line-height: 1.2;
+    }
+    
+    &--default {
+      font-size: 0.875rem; // 14px
+      line-height: 1.4;
+    }
+    
+    &--medium {
+      font-size: 1rem; // 16px
+      line-height: 1.5;
+    }
+    
+    &--large {
+      font-size: 1.125rem; // 18px
+      line-height: 1.6;
+    }
   }
 }
 

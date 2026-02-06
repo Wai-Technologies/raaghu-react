@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react-vite";
-import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from "./rds-comp-spinner";
+import RdsCompSpinner, { SpinnerLayout, SpinnerSize, SpinnerLevel } from "./rds-comp-spinner";
 
 const meta: Meta = {
     title: 'Components/Spinner',
@@ -45,6 +45,11 @@ const meta: Meta = {
             control: { type: "select" },
             description: "Color variant of the spinner",
         },
+        level: {
+            options: ["01", "02", "03", "04"],
+            control: { type: "select" },
+            description: "Customize the level of the spinner from 25% to 100%",
+        },
     },
 } satisfies Meta<typeof RdsCompSpinner>;
 
@@ -61,6 +66,7 @@ export const Default: Story = {
         width: '50px',
         height: '50px',
         colorVariant: 'primary',
+        level: SpinnerLevel.Level04,
     },
 } satisfies Story;
-Default.parameters = { controls: { include: ['spinnerType','size','colorVariant', 'showLabel', 'layout',"labelText"] } };
+Default.parameters = { controls: { include: ['spinnerType','size','colorVariant', 'showLabel', 'layout',"labelText", 'level'] } };

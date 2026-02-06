@@ -327,7 +327,7 @@
       flex: 1;
       border-radius: var(--rds-border-radius-xl, 24px);
       padding-left: var(--rds-spacing-xs, 4px);
-      min-width: var(--rds-reply-min-width, 350px);
+      min-width: var(--rds-reply-min-width, 368px);
       max-width: var(--rds-reply-max-width, 600px);
       width: 100%;
       height: var(--rds-reply-height, 32px);
@@ -365,7 +365,7 @@
       background-color: var(--rds-primary-main, #4285f4);
       color: var(--rds-text-primary, #fff);
       font-size: var(--rds-font-size-md, 14px) !important;
-      margin-left: var(--rds-spacing-md, 10px);
+      margin-left: var(--rds-spacing-md, 0px);
     }
   }
 
@@ -1090,7 +1090,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     font-size: 12px !important;
   }
   .rds-comments-box--thread .rds-comments-box__reply-box {
-    width: 100% !important;
+    width: 108% !important;
     max-width: 95vw !important;
     box-sizing: border-box;
   }
@@ -1111,6 +1111,7 @@ body[data-theme='dark'] .rds-comments-box__text {
           min-height: 35px !important;
           max-height: 35px !important;
           font-size: 12px !important;
+          margin-right: 8px !important;
         }
         .rds-comments-box__send {
           width: 24px !important;
@@ -1176,7 +1177,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: 14px;
-        margin-right: 105px;    
+        margin-right: 98px;    
       }
       .rds-comments-box__thread-icons {
         gap: 4px;
@@ -1280,7 +1281,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     padding: 0 3px !important;
   }
   .rds-comments-box--thread .rds-comments-box__reply-box {
-    width: 100% !important;
+    width: 105% !important;
     max-width: 98vw !important;
     box-sizing: border-box;
   }
@@ -1301,6 +1302,7 @@ body[data-theme='dark'] .rds-comments-box__text {
           min-height: 40px !important;
           max-height: 32px !important;
           font-size: 14px !important;
+          margin-right: 7px !important;
         }
         .rds-comments-box__send {
           width: 28px !important;
@@ -1365,7 +1367,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: 16px;
-        margin-right: 140px;
+        margin-right: 157px;
       }
       .rds-comments-box__thread-icons {
         gap: 6px;
