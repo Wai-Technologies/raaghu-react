@@ -1,9 +1,7 @@
-// RDS AI Pundit Chat Component Styles
+
 .rds-comp-ai-chat-bot {
-  // Base component styles
   display: block;
   
-  // Input wrapper element
   &__input-wrapper {
     border-radius: var(--rds-border-radius, 5px);
     border: 1px solid var(--rds-color-border, #C6A2F6);
@@ -23,7 +21,6 @@
     }
   }
   
-  // Input with image container
   &__input-with-image {
     display: flex;
     align-items: flex-end;
@@ -158,27 +155,28 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--rds-spacing-md, 12px);
-  /* Default (regular screens): keep a single row and avoid wrapping */
   flex-direction: row;
   flex-wrap: nowrap;
-  overflow-x: visible; /* ensure no horizontal scrollbar by default */
+  overflow-x: visible; 
+  }
+
+  @media (min-width: 768px) {
+    &__button-sections {
+      align-items: flex-start;
+    }
   }
   
-  // Project actions container
   &__project-actions {
     display: flex;
     gap: var(--rds-spacing-md, 12px);
-  /* Default: keep project action buttons in a single row */
   flex-wrap: nowrap;
   }
   
   &__action-button {
     display: flex;
-    /* Default: keep each action button at natural width */
     flex: 0 0 auto;
     min-width: 0;
 
-    /* Prevent inner button text/icon from wrapping and truncate if needed */
     & > * {
       white-space: nowrap;
       overflow: hidden;
@@ -186,7 +184,6 @@
     }
   }
 
-  /* Small screens: enable responsive wrapping and avoid any horizontal scrollbar */
   @media (max-width: 375px) {
     &__button-sections {
       flex-wrap: wrap;
@@ -197,7 +194,6 @@
 
     &__project-actions {
       gap: var(--rds-spacing-xs, 6px);
-      /* Stack project action buttons vertically on very small screens */
       flex-wrap: nowrap;
       flex-direction: column;
       align-items: stretch;
@@ -205,7 +201,6 @@
     }
 
     &__action-button {
-      /* Make each project/action button full width (column layout) on small screens */
       flex: 1 1 100%;
       min-width: 0;
       width: 100%;
@@ -215,14 +210,12 @@
     }
 
     &__autocomplete {
-      /* Place the autocomplete under the action buttons on small screens */
       flex-basis: 100%;
       order: 3;
       margin-top: var(--rds-spacing-xs, 6px);
     }
   }
 
-  /* Large screens: adjust spacing and allow buttons to have a minimum comfortable width */
   @media (min-width: 1200px) {
     &__button-sections {
       gap: calc(var(--rds-spacing-md, 12px) * 1.5);
@@ -239,14 +232,12 @@
     }
   }
 
-  /* Autocomplete container default sizing */
   &__autocomplete {
-    /* Allow it to grow and take remaining horizontal space while capping at a max width */
     flex: 1 1 auto;
     max-width: var(--ai-typing-autocomplete-max-width, 60px);
     min-width: 190px;
   }
-  /* Explicitly ensure large/normal screens use row layout (reset small-screen column rules) */
+  
   @media (min-width: 376px) {
     &__project-actions {
       flex-direction: row;
@@ -270,8 +261,6 @@
     }
   }
 
-  /* Medium-small screens (376px–767px): keep both buttons on a single row,
-     each taking about half the width, and move autocomplete below */
   @media (min-width: 376px) and (max-width: 767px) {
     &__button-sections {
       flex-wrap: wrap;
@@ -299,11 +288,10 @@
     }
   }
 
-  /* Large mobile only (~414px wide) — align the "Import From Figma" button */
   @media (min-width: 400px) and (max-width: 430px) {
     &__action-button--figma {
       .MuiButton-root,
-      .css-1r3axgn-MuiButtonBase-root-MuiButton-root { /* fallback to the runtime class seen in devtools */
+      .css-1r3axgn-MuiButtonBase-root-MuiButton-root { 
         margin: -6px !important;
       }
     }
