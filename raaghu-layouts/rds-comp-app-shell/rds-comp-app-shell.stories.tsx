@@ -28,7 +28,7 @@ const meta: Meta<typeof RdsCompAppShell> = {
   title: "Application Shells",
   component: RdsCompAppShell,
   parameters: {
-    layout: "padded",
+    layout: "fullscreen",
     docs: {
       description: {
         component:
@@ -486,7 +486,7 @@ const AppShellStory = (args: any) => {
           )}
           
           {/* Add bottom navigation for DoubleNav and TriPane */}
-          {(args.displayType === AppShellDisplayType.DoubleNav || args.displayType === AppShellDisplayType.TriPane) && (
+          {(args.displayType === AppShellDisplayType.DoubleNav || args.displayType === AppShellDisplayType.TriPane) && !mobileSidebarOpen && !mobileToolbarOpen && (
             <div className="rds-footer-navigation MuiBottomNavigation-root">
               <div style={{ 
                 display: 'flex', 
