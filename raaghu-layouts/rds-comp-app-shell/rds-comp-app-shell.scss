@@ -88,6 +88,13 @@
 }
 
 .TopNav {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  
   .sidebar-layout {
     display: none;
   }
@@ -121,6 +128,20 @@
   background: #e0e0e0;
   min-height: calc(100vh - 98px);
   width: 100%;
+}
+
+.double-nav .rds-appshell-add-layout-flex-center,
+.triPane .rds-appshell-add-layout-flex-center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 .side-nav .rds-appshell-add-layout-flex-center {
@@ -230,9 +251,24 @@
 .rds-story-standard-content {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 52px);
+  height: calc(100vh - 52px);
   margin-top: 52px;
   z-index: 1;
+  
+  .rds-appshell-add-layout-center {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+  }
 }
 
 .rds-story-topnav-content {
@@ -315,14 +351,19 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   min-height: calc(100vh - 98px) !important;
 }
 
-// Logo visibility
 .double-nav-sidebar img.ps-md-2.main-logo.ps-1,
 .tripane-sidebar img.ps-md-2.main-logo.ps-1 {
   visibility: hidden;
 }
 
-// Drawer positioning
 .double-nav {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  
   .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
   .css-dm61o6 .MuiDrawer-paper {
     margin-top: 84px;
@@ -337,6 +378,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 .top-nav {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  
   .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
   .css-dm61o6 .MuiDrawer-paper {
     margin-top: 67px;
@@ -349,6 +397,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 .triPane {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  
   .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
   .css-dm61o6 .MuiDrawer-paper {
     margin-top: 84px;
@@ -398,7 +453,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     display: none !important;
   }
   
-  // TopNav specific mobile styles
   .TopNav {
     .rds-header__sub-tabs,
     .rds-story-sub-tabs {
@@ -732,7 +786,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-story-standard-content {
       position: relative;
       z-index: 1;
-      margin-bottom: 68px;
+      margin-bottom: 37px;
       padding-bottom: 68px;
       min-height: calc(100vh - 136px);
       padding-left: 16px;
@@ -790,6 +844,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: flex;
       flex-direction: column;
       height: 100vh;
+      position: relative;
     }
     
     .rds-appshell-appbar--fixed {
@@ -806,20 +861,29 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
     
     .doublenav-mobile-content {
-      margin-top: 52px;
-      flex: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 63px;
+      margin: 0;
+      padding: 0;
       display: flex;
       flex-direction: column;
-      padding-bottom: 70px;
       transition: opacity 0.3s ease;
+      z-index: 1;
+      overflow-y: auto;
       
       .rds-appshell-add-layout-flex-center {
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 8px;
-        min-height: calc(100vh - 68px - 80px - 32px);
+        border-radius: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
         
         .rds-appshell-add-layout-text {
           font-size: 2rem;
@@ -904,11 +968,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 68px;
       left: 0;
       right: 0;
-      bottom: 80px;
+      bottom: 45px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: white;
+      background: #e0e0e0;
       z-index: 1;
       
       .rds-appshell-add-layout-flex-center {
@@ -917,6 +981,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        background: transparent;
         
         .rds-appshell-add-layout-text {
           font-size: 2rem;
@@ -986,12 +1051,15 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
     
     .tripane-mobile-content {
-      margin-top: 53px;
-      flex: 1;
+      position: absolute;
+      top: 53px;
+      left: 0;
+      right: 0;
+      bottom: 63px;
       display: flex;
       flex-direction: column;
-      padding-bottom: 62px;
       transition: opacity 0.3s ease;
+      overflow-y: auto;
       
       .rds-appshell-add-layout-flex-center {
         flex: 1;
@@ -999,7 +1067,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         align-items: center;
         justify-content: center;
         border-radius: 8px;
-        min-height: calc(100vh - 68px - 80px - 32px);
+        min-height: 100%;
         
         .rds-appshell-add-layout-text {
           font-size: 2rem;
@@ -1072,25 +1140,55 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   // Relaxing mobile
   .relaxing {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    
     .rds-appshell-appbar--fixed {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 1001;
+      flex-shrink: 0;
+    }
+    
+    .rds-story-relaxing-layout {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      margin-top: 52px;
+      padding-bottom: 56px;
     }
     
     .rds-story-relaxing-content {
-      padding-top: 52px;
-      padding-bottom: 70px;
-      min-height: calc(100vh - 148px);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
       
       .rds-appshell-add-layout-flex-center {
-        border-radius: 8px;
+        flex: 1;
+        border-radius: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: calc(100vh - 116px);
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        z-index: 1;
         
         .rds-appshell-add-layout-text {
           font-size: 2rem;
@@ -1102,6 +1200,25 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .rds-story-relaxing-sidebar {
       display: none;
+    }
+    
+    .rds-footer-navigation,
+    .MuiBottomNavigation-root {
+      z-index: 1200 !important;
+    }
+  }
+}
+
+@media (max-width: 414px) {
+  .double-nav {
+    .doublenav-mobile-content {
+      bottom: 45px !important;
+    }
+  }
+  
+  .triPane {
+    .tripane-mobile-content {
+      bottom: 45px !important;
     }
   }
 }
@@ -1225,11 +1342,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 68px;
       left: 0;
       right: 0;
-      bottom: 80px;
+      bottom: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: white;
+      background: #e0e0e0;
       z-index: 1;
       
       .rds-appshell-add-layout-flex-center {
@@ -1238,6 +1355,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        background: transparent;
         
         .rds-appshell-add-layout-text {
           font-size: 2.5rem;
@@ -1260,6 +1378,19 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .relaxing .rds-story-relaxing-sidebar {
     display: none;
+  }
+  
+  // Tablet size adjustments for double-nav and tri-pane
+  .double-nav {
+    .doublenav-mobile-content {
+      bottom: 70px !important;
+    }
+  }
+  
+  .triPane {
+    .tripane-mobile-content {
+      bottom: 70px !important;
+    }
   }
 }
 
@@ -1364,10 +1495,22 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .doublenav-mobile-content,
     .tripane-mobile-content {
-      padding-bottom: 70px !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 70px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow-y: auto !important;
       
       .rds-appshell-add-layout-flex-center {
-        min-height: calc(100vh - 68px - 70px - 32px) !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 100% !important;
+        border-radius: 0 !important;
       }
     }
   }
@@ -1405,18 +1548,28 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .doublenav-mobile-content {
       display: flex !important;
-      margin-top: 68px;
-      flex: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 70px;
+      margin: 0;
+      padding: 0;
       flex-direction: column;
-      min-height: calc(100vh - 68px);
       transition: opacity 0.3s ease;
+      z-index: 1;
+      overflow-y: auto;
       
       .rds-appshell-add-layout-flex-center {
         flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 8px;
+        border-radius: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
         
         .rds-appshell-add-layout-text {
           font-size: 2.5rem;
@@ -1642,11 +1795,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .tripane-mobile-content {
       display: flex !important;
-      margin-top: 68px;
-      flex: 1;
+      position: absolute;
+      top: 68px;
+      left: 0;
+      right: 0;
+      bottom: 70px;
+      margin: 0;
+      padding: 0;
       flex-direction: column;
-      min-height: calc(100vh - 68px);
       transition: opacity 0.3s ease;
+      overflow-y: auto;
       
       .rds-appshell-add-layout-flex-center {
         flex: 1;
@@ -1886,12 +2044,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
     
     .sidenav-desktop-content {
+      position: fixed !important;
+      top: 52px !important;
+      left: 230px !important;
+      right: 50px !important;
+      bottom: 0 !important;
       display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      width: 100% !important;
-      height: calc(100vh - 52px) !important;
-      min-height: calc(100vh - 52px) !important;
+      align-items: stretch !important;
+      justify-content: stretch !important;
       
       .rds-appshell-add-layout-flex-center {
         display: flex !important;
@@ -1899,7 +2059,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         justify-content: center !important;
         width: 100% !important;
         height: 100% !important;
-        background: transparent;
+        background: #e0e0e0;
       }
       
       .rds-appshell-add-layout-text {
@@ -1907,8 +2067,16 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         font-weight: bold;
         color: #666;
         text-align: center;
-        margin-right: 115px;
       }
+    }
+    
+    .rds-appshell-side-nav-right {
+      position: fixed !important;
+      right: 0 !important;
+      top: 52px !important;
+      bottom: 0 !important;
+      width: 120px !important;
+      z-index: 10 !important;
     }
     
     .topnav-layout {
@@ -2056,6 +2224,15 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 .side-nav, .relaxing {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.side-nav, .relaxing {
   position: relative;
   margin: 0;
   padding: 0;
@@ -2094,6 +2271,15 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
 }
 
 [data-theme="dark"], .theme-dark, .dark {
+  .rds-appshell-add-layout-center,
+  .rds-appshell-add-layout-flex-center {
+    background: var(--dark-bg-secondary, #2d2d2d) !important;
+  }
+  
+  .rds-appshell-add-layout-text {
+    color: var(--dark-text-primary, #ffffff) !important;
+  }
+  
   .theme-dark .rds-appshell-add-layout-center,
   .theme-dark .rds-appshell-add-layout-flex-center,
   .theme-dark .rds-appshell-add-layout-text {
@@ -2174,6 +2360,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
   
   @media (max-width: 768px) {
+    .sidenav-mobile-content {
+      background: var(--dark-bg-secondary, #2d2d2d) !important;
+    }
+    
     .rds-footer-navigation,
     .MuiBottomNavigation-root,
     .MuiTabs-root,
@@ -2195,6 +2385,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
   
   @media (min-width: 769px) and (max-width: 833px) {
+    .sidenav-mobile-content {
+      background: var(--dark-bg-secondary, #2d2d2d) !important;
+    }
+    
     .TopNav {
       .rds-footer-navigation,
       .MuiBottomNavigation-root {
