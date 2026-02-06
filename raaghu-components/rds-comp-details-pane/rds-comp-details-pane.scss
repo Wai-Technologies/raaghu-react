@@ -963,7 +963,6 @@
 
   &__download-button-container {
     padding: 0 var(--rds-spacing-md, 6px) var(--rds-spacing-md, 16px);
-    margin-left: 15px;
   }
 
   &__download-button {
@@ -1504,7 +1503,8 @@
     }
     
     &__download-button-container {
-      padding: 0 var(--rds-spacing-sm, 8px) var(--rds-spacing-sm, 8px);
+      padding: 0 var(--rds-spacing-sm, 10px) var(--rds-spacing-sm, 8px);
+      margin-right: 2px;
     }
     
     &__action-button {
@@ -1527,9 +1527,6 @@
     }
   }
 
-/* Hide outer page/viewport scrollbar on very small screens so only the
-     component's inner scrollbar is visible (keeps inner overflow auto).
-     This targets narrow viewports where the details pane acts like an overlay. */
   html, body {
     -ms-overflow-style: none !important; /* IE and Edge */
     scrollbar-width: none !important; /* Firefox */
@@ -1766,7 +1763,8 @@
     }
     
     &__icon-delete,
-    &__activity-delete {
+    &__activity-delete,
+    &__history-delete {
       color: var(--dark-error) !important;
       
       &:hover {
@@ -2130,10 +2128,6 @@
     
     .progress-bar {
       background: var(--dark-accent) !important;
-    }
-    svg, i, .icon {
-      color: var(--dark-text-primary) !important;
-      fill: var(--dark-text-primary) !important;
     }
     
     .fa-star, .star-icon, [class*="star"] {

@@ -137,7 +137,7 @@ export const renderFormInputs = () => (
             <Box className="rds-comp-product-tour__form-input-container">
                 <RdsAutocomplete
                     controlStyle="default"
-                    helperText={undefined}
+                    helperText=""
                     isMandatory={false}
                     isShowCheckbox={true}
                     isShowRadio={false}
