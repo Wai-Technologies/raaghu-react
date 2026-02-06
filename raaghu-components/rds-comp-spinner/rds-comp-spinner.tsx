@@ -15,6 +15,13 @@ export enum SpinnerLayout {
     LabelOnTop = "Label on top",
 }
 
+export enum SpinnerLevel {
+    Level01 = "01",
+    Level02 = "02",
+    Level03 = "03",
+    Level04 = "04",
+}
+
 export interface RdsCompSpinnerProps {
     spinnerType?: string;
     width?: string;
@@ -25,6 +32,7 @@ export interface RdsCompSpinnerProps {
     size?: SpinnerSize;
     layout?: SpinnerLayout;
     colorVariant?: string;
+    level?: SpinnerLevel;
 }
 
 const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
@@ -37,6 +45,7 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
     size,
     layout,
     colorVariant,
+    level,
     ...props
 }) => {
     const spinnerClass = spinnerType === "grow" ? "spinner-grow" : "spinner-border";
@@ -59,6 +68,21 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
 
     const dimensions = getSizeDimensions();
     const classes = `${spinnerClass} ${colorClass}`.trim();
+    
+    const getOpacity = () => {
+        switch (level) {
+            case SpinnerLevel.Level01:
+                return 0.25;
+            case SpinnerLevel.Level02:
+                return 0.5;
+            case SpinnerLevel.Level03:
+                return 0.75;
+            case SpinnerLevel.Level04:
+                return 1;
+            default:
+                return 1;
+        }
+    };
     const getLayoutClass = () => {
         // Always use the layout prop to determine the layout, regardless of showLabel
         switch (layout) {
@@ -75,14 +99,29 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
         }
     };
 
+    const getLabelSizeClass = () => {
+        switch (size) {
+            case SpinnerSize.Small:
+                return "spinner-label--small";
+            case SpinnerSize.Default:
+                return "spinner-label--default";
+            case SpinnerSize.Medium:
+                return "spinner-label--medium";
+            case SpinnerSize.Large:
+                return "spinner-label--large";
+            default:
+                return "spinner-label--default";
+        }
+    };
+
     return (
         <div className={`spinner-container ${getLayoutClass()}`}>
             {showLabel && (
-                <label className="spinner-label">{labelText}</label>
+                <label className={`spinner-label ${getLabelSizeClass()}`}>{labelText}</label>
             )}
             <div 
                 className={classes} 
-                style={{ width: dimensions.width, height: dimensions.height }}
+                style={{ width: dimensions.width, height: dimensions.height, opacity: getOpacity() }}
                 role="status"
             >
             </div>
