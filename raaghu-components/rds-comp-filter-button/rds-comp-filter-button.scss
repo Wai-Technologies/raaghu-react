@@ -265,3 +265,21 @@ body[data-theme="dark"] .MuiCheckbox-root,
 .css-13y3d29 {
   padding: 16px !important;
 }
+
+.theme-dark .MuiAccordionSummary-root {
+  padding: 1px !important;
+
+ 
+}
+
+ .css-y6z1tn-MuiButtonBase-root-MuiAccordionSummary-root:after {
+    content: "";
+    left: 0px !important;
+    right: 0px !important;
+}
+
+.theme-dark .MuiBox-root .css-hldlef {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+  

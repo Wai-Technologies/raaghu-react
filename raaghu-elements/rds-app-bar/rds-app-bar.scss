@@ -1276,7 +1276,7 @@
   }
   
   @media (max-width: 320px) {
-    font-size: 14px;
+    font-size: 11px;
     margin-left: 4px;
   }
 }
@@ -1348,6 +1348,8 @@
   .rds-header--transparent {
     background: var(--rds-color-surface, #424242) !important;
   }
+
+ 
 }
 
 .css-16b6n56-MuiButtonBase-root-MuiButton-root, 
@@ -1853,7 +1855,6 @@
   .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: 52px !important; padding: 4px !important; }
     .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 90px !important; }
     .rds-header--variant-withmenubutton .rds-appbar-overflow-button { right: 70px !important; }
-    .rds-header--variant-withmenubutton .rds-appbar-logo-label { display: none !important; }
     .rds-header--variant-withmenubutton .rds-header__search-wrapper {
       position: relative !important;
       max-width: calc(100% - 100px) !important;
