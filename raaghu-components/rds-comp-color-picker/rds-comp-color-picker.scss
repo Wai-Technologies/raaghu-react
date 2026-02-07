@@ -45,11 +45,7 @@
     padding: 6px 10px;
     font-size: 14px;
     transition: all 0.2s ease;
-    //color: var(--rds-color-on-surface-variant, #171717);
-    
-    &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
-      outline-offset: 2px;
+
     }
     
     &--active {
@@ -175,11 +171,8 @@
   
   &__color-info {
     display: flex;
-    // margin-top: 12px;
     align-items: center;
     gap: 10px;
-    // padding-top: 12px;
-    //border-top: 1px solid var(--rds-color-outline-variant, #eee);
   }
   
   &__dropdown-container {
@@ -291,7 +284,6 @@
     height: 32px;
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     border-radius: var(--rds-border-radius, 4px);
-    // padding: 0 10px;
     font-size: 13px;
     color: var(--rds-color-on-surface, #333);
     background-color: var(--rds-color-surface, #ffffff);
@@ -665,7 +657,6 @@
     /* Ensure the dropdown floats above other UI and is fully visible */
     z-index: 9999;
     /* use a slight elevation so shadows render over adjacent elements */
-   // box-shadow: 0 8px 20px rgba(0,0,0,0.6);
   }
 
   /* If the button is near the edge, allow the menu to render outside parent by

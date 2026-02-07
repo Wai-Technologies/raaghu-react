@@ -67,29 +67,6 @@
     }
   }
   
-  &__loading {
-    animation: rds-button-spin 1s linear infinite;
-  }
-  
-  // Size variants
-  &__small {
-    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
-    font-size: var(--rds-font-size-xs);
-    min-height: 2var(--rds-spacing-sm);
-  }
-  
-  &__medium {
-    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
-    font-size: var(--rds-font-size-sm);
-    min-height: 36px;
-  }
-  
-  &__large {
-    padding: var(--rds-spacing-md) var(--rds-spacing-lg);
-    font-size: var(--rds-font-size-md);
-    min-height: 4var(--rds-spacing-xs);
-  }
-  
   // Color variants
   &__primary {
     background-color: var(--rds-button-primary-bg);
@@ -205,19 +182,6 @@
     // Default state - inherits base button styles
     transition: all var(--rds-transition-base);
   }
-  
-  // Shape variants
-  &__pill {
-    border-radius: 50px !important;
-  }
-
-  &__rectangle {
-    border-radius: var(--rds-border-radius-sm) !important;
-  }
-
-  .text-light {
-   color: var(--rds-button-text-color, #1976d2) !important;
- }
 }
 
 @keyframes rds-button-spin {
@@ -229,43 +193,9 @@
   }
 }
 
-.rds-theme--dark .rds-button,
-body.theme-dark .rds-button,
-body[data-theme="dark"] .rds-button,
-.theme-dark .rds-button {
-  // color: var(--rds-button-primary-text, #ffffff);
-}
-
 .rds-theme--dark .rds-button__primary,
 body.theme-dark .rds-button__primary,
 body[data-theme="dark"] .rds-button__primary,
 .theme-dark .rds-button__primary {
   color: var(--rds-button-primary-text, #ffffff);
-}
-
-.rds-theme--dark .rds-button__secondary,
-body.theme-dark .rds-button__secondary,
-body[data-theme="dark"] .rds-button__secondary,
-.theme-dark .rds-button__secondary,
-.rds-theme--dark .rds-button__text,
-body.theme-dark .rds-button__text,
-body[data-theme="dark"] .rds-button__text,
-.theme-dark .rds-button__text {
-  // color: var(--rds-button-primary-text, #ffffff); 
-}
-
-// Ensure transparent (text) style keeps primary color in dark theme when primary selected
-.rds-theme--dark .rds-button__text.MuiButton-textPrimary,
-body.theme-dark .rds-button__text.MuiButton-textPrimary,
-body[data-theme="dark"] .rds-button__text.MuiButton-textPrimary,
-.theme-dark .rds-button__text.MuiButton-textPrimary {
-  // color: var(--rds-button-text-color, #1976d2) !important;
-}
-
-// Dark theme: show primary (brand) color for transparent (text) style when primary color is selected
-.rds-theme--dark .rds-button.MuiButton-textPrimary,
-body.theme-dark .rds-button.MuiButton-textPrimary,
-body[data-theme="dark"] .rds-button.MuiButton-textPrimary,
-.theme-dark .rds-button.MuiButton-textPrimary {
-  // color: var(--rds-button-text-color, #1976d2 !important); // primary brand color
 }

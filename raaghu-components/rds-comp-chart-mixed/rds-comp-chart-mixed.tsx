@@ -5,7 +5,6 @@ export interface RdsCompMixedChartProps {
     labels: any[];
     options: any;
     dataSets: any[];
-    chartStyle: string;
     id: string;
 }
 

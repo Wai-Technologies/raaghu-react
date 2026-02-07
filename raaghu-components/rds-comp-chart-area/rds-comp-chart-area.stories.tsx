@@ -103,7 +103,6 @@ export const Default: Story = {
                 label: "Sales",
                 data: [450, 350, 750, 590, 280, 620, 100, 750, 250, 650, 380, 330],
                 borderColor: "#4DCFFF",
-                // pointBackgroundColor: "#4DCFFF",
                 backgroundColor: (context: ScriptableContext<"line">) => {
 
                     const ctx = context.chart.ctx;
@@ -119,7 +118,6 @@ export const Default: Story = {
                 },
                 fill: true,
                 pointRadius: 2,
-                // fillColor: "rgba(195, 40, 96, 0.1)",
                 tension: 0.4,
             },
             {

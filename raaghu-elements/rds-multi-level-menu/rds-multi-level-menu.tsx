@@ -119,10 +119,6 @@ export const RdsMultiLevelMenu = ({
           if (isForcedSelected && type === 'selectable') {
             isSelected = true;
           }
-          // Callback ref for the arrow icon wrapper
-          const arrowRefCb = (node: HTMLDivElement | null) => {
-            // No-op, but could be used for focus if needed
-          };
           return (
             <Box key={option.label + idx} sx={{ position: 'relative' }}>
               <MenuItem
@@ -154,7 +150,6 @@ export const RdsMultiLevelMenu = ({
                   )}
                   {isExpandable && (
                     <Box
-                      ref={arrowRefCb}
                       sx={{ ml: 'auto', cursor: 'pointer', display: 'flex', alignItems: 'center', zIndex: 2 }}
                       className={'rds-mlm-arrow'}
                       onClick={(e) => {

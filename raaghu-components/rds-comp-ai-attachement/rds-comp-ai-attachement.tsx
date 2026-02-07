@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge";
 import RdsModal from "../../raaghu-elements/rds-modal/rds-modal";
 import "./rds-comp-ai-attachement.scss";
@@ -53,9 +53,9 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
     const [showModal, setShowModal] = useState(false);
     const [figmaUrl, setFigmaUrl] = useState("");
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const firstUser = props.userData && props.userData.length > 0 ? props.userData[0] : null;
-    const [commentList, setCommentList] = useState<Comment[]>(firstUser?.comments || []);
-    const [currentUser, setCurrentUser] = useState<any>(props.userData ? props.userData[0] : null);
+    const [commentList, setCommentList] = useState<Comment[]>(
+        props.userData?.[0]?.comments || []
+    );
 
     // Icon is registered at module scope to avoid first-render race conditions
 
@@ -67,8 +67,8 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
                 const base64String = reader.result as string;
 
                 const newComment: Comment = {
-                    firstName: currentUser?.firstName || "",
-                    lastName: currentUser?.lastName || "",
+                    firstName: props.userData?.[0]?.firstName || "",
+                    lastName: props.userData?.[0]?.lastName || "",
                     comment: "",
                     image: base64String,
                 };

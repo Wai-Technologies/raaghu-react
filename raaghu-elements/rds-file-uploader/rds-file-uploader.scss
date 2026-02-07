@@ -312,139 +312,12 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
     height: 6px;
     border-radius: 3px;
   }
-}
 
-
-// RDS File uploader Component Styles
-.rds-file-uploader {
-  width: 100%;
-  display: block;
-  position: relative;
-}
-
-.rds-file-uploader__drop-zone {
-  padding: 24px 24px !important;
-  text-align: center;
-  background-color: var(--rds-background-paper, #fff); // --rds-background-paper
-  cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s;
-  border-radius: 8px;
-  position: relative;
-  min-width: 500px;
-
-  &--drag-over {
-    border-color: var(--rds-color-primary, #3390e6); // --rds-color-primary
-    background-color: var(--rds-background-paper, #fff); // --rds-background-paper
-  }
-  &--disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-    background-color: var(--rds-background-paper, #fff); // --rds-background-paper
-    border-color: var(--rds-color-outline-disabled, #bcdffb); // --rds-color-outline-disabled
+  &__form-title {
+    color: var(--rds-text-primary, #222);
   }
 }
 
-
-
-.rds-file-uploader__icon {
-  font-size: 32px;
-  margin-bottom: 8px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-
-.rds-file-uploader__title {
-  font-weight: 600;
-  margin-bottom: var(--rds-spacing-xs, 4px);
-  color: var(--rds-text-primary, #222); // --rds-text-primary
-  font-size: var(--rds-font-size-xl, 18px);
-  line-height: 1.3;
-}
-
-.rds-file-uploader__subtitle {
-  margin-bottom: 0;
-  color: var(--rds-text-primary, #222); // --rds-text-primary
-  font-size: var(--rds-font-size-lg, 16px);
-}
-
-.rds-file-uploader__browse-btn {
-  display: none;
-}
-// Browse link styling for wireframe
-.rds-file-uploader__browse-link {
-color: var(--rds-color-primary, #3390e6); // --rds-color-primary
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: underline;
-  transition: color 0.2s;
-}
-.rds-file-uploader__browse-link:hover {
-  color: var(--rds-color-primary-hover, #1976d2);
-}
-
-.rds-file-uploader__info {
-  font-size: 0.875rem;
-  color: var(--rds-color-on-surface-variant, #666);
-  margin-top: 8px;
-  letter-spacing: 0.5px;
-}
-
-
-.rds-file-uploader__file-list {
-  margin-top: 16px;
-}
-
-.rds-file-uploader__file-list-title {
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.rds-file-uploader__file-item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
-  margin-bottom: 8px;
-  border: 1px solid var(--rds-color-outline, #e0e0e0); // --rds-color-outline
-  background: var(--rds-background-paper, #fff); // --rds-background-paper
-  border-radius: var(--rds-border-radius, 6px);
-}
-
-.rds-file-uploader__file-icon {
-  font-size: 32px;
-  color: var(--rds-color-primary, #1976d2); // --rds-color-primary
-}
-
-.rds-file-uploader__file-details {
-  flex: 1;
-}
-
-.rds-file-uploader__file-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.rds-file-uploader__file-name {
-  font-weight: 500;
-}
-
-
-
-.rds-file-uploader__file-error-msg {
-    color: var(--rds-error-main, #d32f2f);
-  font-size: 12px;
-}
-
-.rds-file-uploader__file-progress {
-  height: 6px;
-  border-radius: 3px;
-}
-
-// Responsive styles for File Uploader
 // Small mobile: 320px - 414px
 @media (max-width: 834px) and (min-width: 414px) {
   .rds-file-uploader {
@@ -672,9 +545,6 @@ color: var(--rds-color-primary, #3390e6); // --rds-color-primary
   }
 }
 
-// add here 
-
-// Inline style for Typography (converted from sx prop)
 .rds-file-uploader__title--inline {
   font-weight: 500;
   color: var(--rds-text-primary, #353535) !important;

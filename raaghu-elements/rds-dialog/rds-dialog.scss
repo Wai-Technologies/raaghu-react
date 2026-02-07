@@ -7,14 +7,6 @@
   display: block;
   position: relative;
 
-  // &__title {
-  //   display: flex !important;
-  //   align-items: center !important;
-  //   justify-content: center !important;
-    
-  //   // Title styles
-  // }
-
   &__content {
     display: block;
     padding: var(--rds-spacing-2xl, 32px) var(--rds-spacing-xl, 24px);
@@ -115,7 +107,6 @@
       justify-content: center;
       align-items: center;
       padding: 0 12px;
-      //background: var(--rds-color-primary, #3C98FF);
       color: var(--rds-primary-contrast-text, #fff);
       border-radius: 8px; /* match Figma corner radius */
       border: none;
@@ -165,8 +156,6 @@
 
   &__close-button {
     position: absolute;
-    // right: var(--rds-spacing-lg, 16px);
-    // top: var(--rds-spacing-lg, 13px);
     color: var(--rds-text-secondary, #888);
   }
 
@@ -290,7 +279,6 @@
     
     // Dismiss/text button variant - use same colors as light theme
     &__dismiss {
-      //background: #3C98FF !important;
       color: var(--rds-color-primary, #1976d2) !important;
       border: none !important;
 

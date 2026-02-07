@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import RdsAccordion, { RdsAccordionGroup } from './rds-accordion';
+import RdsAccordion from './rds-accordion';
 import RdsTypography from '../rds-typography/rds-typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';

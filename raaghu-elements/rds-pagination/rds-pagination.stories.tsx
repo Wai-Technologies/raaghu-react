@@ -110,8 +110,6 @@ export const Default: Story = {
     showDropdown: false,
     showLegend: false,
     legendText: "{current} of {total} items",
-    // showFirst: false,
-    // showLast: false,
     showManualInput: true,
     paginationStyle: 'Style 1',
   },
@@ -153,8 +151,6 @@ export const Advanced: Story = {
     showDropdown: false,
     showLegend: false,
     legendText: "{current} of {total} items",
-    // showFirst: false,
-    // showLast: false,
     showManualInput: true,
     paginationStyle: 'Style 1',
   },
@@ -269,8 +265,6 @@ export const WithFirstLast: Story = {
   args: {
     count: 20,
     page: 10,
-    // showFirstButton: true,
-    // showLastButton: true,
   },
 };
 

@@ -280,10 +280,6 @@
     height: auto;
   }
   
-  // &__content {
-  //   padding: var(--rds-spacing-md, 16px);
-  // }
-  
   &__actions {
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
     display: flex;
@@ -326,10 +322,8 @@
   
   // Card content structure
   &__content {
-   // padding: var(--rds-spacing-md, 16px);
     display: flex;
     flex-direction: column;
-    // Remove generic gap, use specific margins for each element instead
   }
   
   // Tighter content padding for vertical layout with icon

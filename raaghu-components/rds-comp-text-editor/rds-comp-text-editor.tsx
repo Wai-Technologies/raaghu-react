@@ -8,20 +8,10 @@ import "./rds-comp-text-editor.scss";
 import { InputLabel as Label } from "@mui/material";
  
 export interface RdsCompTextEditorProps {
-    bounds?: string | HTMLElement;
-    children?: React.ReactElement<any>;
-    className?: string;
-    defaultValue?: any;
-    formats?: string[];
     id?: string;
-    modules?: any;
     onChange?(value: string, delta: any, source: any, editor: any): any;
     placeholder?: string;
-    preserveWhitespace?: boolean;
     readOnly?: boolean;
-    style?: React.CSSProperties;
-    tabIndex?: number;
-    theme?: string;
     value?: string;
     label?: string;
     isMandatory?: boolean;

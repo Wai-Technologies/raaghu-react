@@ -1,5 +1,5 @@
 import React, { type ReactNode } from 'react';
-import { Card as MuiCard, type CardProps, Avatar, Typography, CardContent } from '@mui/material';
+import { Card as MuiCard, type CardProps, Avatar, Typography } from '@mui/material';
 import { Person, Home, Settings, Favorite, Star, Email, Phone, LocationOn, Camera, Image, MusicNote, VideoLibrary,
          Description, Folder, CalendarToday, AccessTime, Search, Add, Edit, Delete, Check, Close, ArrowForward, ArrowBack,
          Download, Upload, Share, Notifications,

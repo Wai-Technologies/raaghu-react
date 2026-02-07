@@ -142,17 +142,6 @@ export const useFileUploader = ({
     addFiles(droppedFiles);
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = Array.from(e.target.files || []);
-    if (!selectedFiles || selectedFiles.length === 0) return;
-    const fileNames = selectedFiles.map(file => file.name).join(', ');
-    setSelectedFileName(fileNames);
-
-    addFiles(selectedFiles);
-
-    if (fileInputRef.current) fileInputRef.current.value = '';
-  };
-
   const openFileDialog = () => fileInputRef.current?.click();
 
   return {
@@ -168,7 +157,6 @@ export const useFileUploader = ({
     handleDragOver,
     handleDragLeave,
     handleDrop,
-    handleFileChange,
     openFileDialog,
     setSelectedFileName,
     setFiles,

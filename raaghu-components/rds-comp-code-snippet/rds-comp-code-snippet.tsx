@@ -80,10 +80,6 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
     }
   };
 
-  const getLines = () => {
-    return currentCode.split("\n");
-  };
-
   // Normalize language handling
   const showLanguage = !!language;
   const languageLabel = typeof language === 'string' ? language : 'html';

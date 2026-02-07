@@ -17,7 +17,6 @@ export interface ProfileMenuItem {
 
 export interface ProfileMenuProps {
   name: string;
-  // shortName?: string; // Commented out - automatically generated from name
   email: string;
   menuItems?: ProfileMenuItem[];
 }
@@ -26,9 +25,6 @@ export const ProfileMenu = ({ name, email, menuItems }: ProfileMenuProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [isSmallScreen, setIsSmallScreen] = React.useState(false);
   const open = Boolean(anchorEl);
-  
-  // Auto-generate shortName from name (replaces manual userShortName control)
-  const displayShortName = name.split(' ').map(n => n.charAt(0)).join('').toUpperCase();
   
   // Check if screen is small to hide name text
   React.useEffect(() => {
@@ -90,7 +86,7 @@ export const ProfileMenu = ({ name, email, menuItems }: ProfileMenuProps) => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <Box className="rds-profile-menu__header">
-          <Avatar className="rds-profile-menu__avatar-lg">{displayShortName}</Avatar>
+          <Avatar className="rds-profile-menu__avatar-lg">{name.split(' ').map(n => n.charAt(0)).join('').toUpperCase()}</Avatar>
           <Box>
             <Box className="rds-profile-menu__name-lg">{name}</Box>
             <Box className="rds-profile-menu__email">{email}</Box>

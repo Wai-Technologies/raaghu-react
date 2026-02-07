@@ -59,7 +59,7 @@ export const Default: Story = {
             maintainAspectRatio: false,
             elements: {
                 center: {
-                    text: "50%"  //set as you wish
+                    text: "50%"
                 }
             },
             cutoutPercentage: 75,
@@ -73,7 +73,7 @@ export const Default: Story = {
                 series: {
                     label: {
                         position: "inside",
-                        text: "total", // or "inside" | "outside"
+                        text: "total",
                         display: false
                     }
                 },

@@ -39,7 +39,6 @@ export enum ToastLayout {
     subText: string; // Subtext of Toast
     delay?: number; // Delay Time of Toast
     autohide?: boolean; // Autohide of Toast
-    borderColor?: string; // Border color of Toast
     showHeader?: boolean; // Show/Hide Header of Toast
     layout: ToastLayout; // Layout Types of Toast
     state: ToastState; // state of Toast

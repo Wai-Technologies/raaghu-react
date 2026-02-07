@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Button } from '@mui/material';
+import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RdsButton from '../rds-button/rds-button';
 import './rds-dialog.scss';
@@ -60,7 +60,6 @@ const RdsDialog = ({
                   <CloseIcon />
                 </IconButton>
               )}
-              {/* <div style={{ flex: 1, paddingLeft: ShowDissmiss ? '8px' : '0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{showTitle ? title : null}</div> */}
             </div>
           </DialogTitle>
         )}

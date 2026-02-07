@@ -7,9 +7,6 @@ export interface RdsCompBubbleChartProps {
     labels: any[];
     options: any;
     dataSets: any[];
-    chartdata?: any[];
-    chartWidth?: number;
-    chartStyle?: string;
 }
 
 const RdsCompBubbleChart = (props: RdsCompBubbleChartProps) => {

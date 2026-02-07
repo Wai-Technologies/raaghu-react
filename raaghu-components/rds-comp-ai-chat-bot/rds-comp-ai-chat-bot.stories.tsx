@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import RdsCompAiChatBot from "./rds-comp-ai-chat-bot";
-import { I18nextProvider } from "react-i18next";
-import i18n from 'i18next';
 import { Message } from "./rds-comp-ai-chat-bot";
 import { StoryObj, Meta } from "@storybook/react-vite";
 

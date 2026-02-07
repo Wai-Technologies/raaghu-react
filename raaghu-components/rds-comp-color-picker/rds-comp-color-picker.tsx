@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect, useRef } from "react";
 import "./rds-comp-color-picker.scss";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
-import { getColorDisplay, hexToRgb } from "./color-utils";
+import { getColorDisplay } from "./color-utils";
 import {
   ColorPickerGrid,
   ColorPickerSpectrum,

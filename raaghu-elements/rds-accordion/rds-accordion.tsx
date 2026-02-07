@@ -21,7 +21,6 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
   size?: 'small' | 'medium' | 'large';
   state?: 'default' | 'hover' | 'selected';
   accordionStyle?: 'border' | 'bottomline' | 'borderhide';
-  // selected?: boolean; // Removed, use state === 'selected'
 }
 
 const RdsAccordion = ({
@@ -87,38 +86,6 @@ const RdsAccordion = ({
     </div>
   );
 };
-
-export const RdsAccordionGroup: React.FC = () => (
-  <>
-    <RdsAccordion
-      title="Accordion Title 1"
-      icon={<ExpandMoreIcon />}
-      state="hover"
-    >
-      <Typography>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-        malesuada lacus ex, sit amet blandit leo lobortis eget.
-      </Typography>
-    </RdsAccordion>
-    <RdsAccordion
-      title="Accordion Title 2"
-      icon={<ExpandMoreIcon />}
-      state="selected"
-    >
-      <Typography>
-        Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-      </Typography>
-    </RdsAccordion>
-    <RdsAccordion
-      title="Accordion Title 3"
-      icon={<ExpandMoreIcon />}
-    >
-      <Typography>
-        Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.
-      </Typography>
-    </RdsAccordion>
-  </>
-);
 
 RdsAccordion.displayName = 'RdsAccordion';
 export default RdsAccordion;

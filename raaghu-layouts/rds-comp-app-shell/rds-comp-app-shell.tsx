@@ -1,8 +1,5 @@
 import React, { ReactNode, useState } from "react";
 import "./rds-comp-app-shell.scss";
-import { BrowserRouter, Outlet } from "react-router-dom";
-import RdsAppBar from "../../raaghu-elements/rds-app-bar/rds-app-bar";
-import rdsSidebar from "../../raaghu-elements/rds-sidebar/rds-sidebar";
 import { GetShellLayoutCss } from "./shell-layout";
 
 export interface RdsCompAppShellProps {

@@ -21,7 +21,6 @@ import "./rds-app-bar.scss";
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
 export interface RdsAppBarProps extends AppBarProps {
   title?: string;
-  leftActions?: React.ReactNode;
   rightActions?: React.ReactNode;
   centerContent?: React.ReactNode;
   size?: RdsAppBarSize;
@@ -31,7 +30,6 @@ export interface RdsAppBarProps extends AppBarProps {
   showMenuButton?: boolean;
   actions?: React.ReactNode;
   userName?: string;
-  userShortName?: string;
   userEmail?: string;
   searchValue?: string;
   onSearchChange?: (value: string) => void;
@@ -46,7 +44,6 @@ export interface RdsAppBarProps extends AppBarProps {
 }
 const RdsAppBar = ({
   title,
-  leftActions,
   rightActions,
   centerContent,
   children,
@@ -57,7 +54,6 @@ const RdsAppBar = ({
   showMenuButton = false,
   actions,
   userName,
-  userShortName,
   userEmail,
   searchValue,
   onSearchChange,
@@ -178,11 +174,10 @@ const RdsAppBar = ({
           {/* Render rightActions after search bar */}
           {rightActions && <span className="rds-header__right-actions">{rightActions}</span>}
 
-          {userName && userShortName && userEmail ? (
+          {userName && userEmail ? (
             <span className="rds-header__actions">
               <ProfileMenu
                 name={userName}
-                //shortName={userShortName}
                 email={userEmail}
                 menuItems={[
                   { label: 'My Profile', icon: <Person />},

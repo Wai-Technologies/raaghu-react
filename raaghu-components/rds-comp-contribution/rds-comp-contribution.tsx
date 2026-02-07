@@ -40,10 +40,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   const [columns] = useState(53);
   const [dynamicPanelSize, setDynamicPanelSize] = useState(panelSize);
   const [dynamicPanelMargin, setDynamicPanelMargin] = useState(panelMargin);
-  const [containerWidth, setContainerWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-
-  const showMonth = showMonthLabels;
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -59,8 +56,6 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   }, []);
 
   const updateSizeBasedOnWidth = (width: number) => {
-    setContainerWidth(width);
-
     // Responsive sizing for specific screen sizes
     if (width <= 320) {
       // Small mobile (320px)
@@ -118,11 +113,6 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     
     const availableWidth = size.width;
     updateSizeBasedOnWidth(availableWidth);
-  };
-
-  const getSvgWidthClass = (width: number) => {
-    // No longer using fixed width classes, let CSS handle responsive scaling
-    return '';
   };
 
   if (!panelColors || !weekNames) {
@@ -188,7 +178,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
 
   const renderMonthLabels = () => {
     if (!monthNames || monthNames.length !== 12) return null;
-    if (!showMonth) return null; 
+    if (!showMonthLabels) return null; 
     let janIndex = -1;
     let decIndex = -1;
     const monthPositions: { month: number; position: number }[] = [];
@@ -261,7 +251,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
           ref={measureRef}
           className="rds-comp-contribution"
         >
-          <div className={`rds-comp-contribution__container ${getSvgWidthClass(svgWidth)}`}>
+          <div className="rds-comp-contribution__container">
             <div className="rds-comp-contribution__wrapper">
               <SvgIcon
                 className="rds-comp-contribution__svg"

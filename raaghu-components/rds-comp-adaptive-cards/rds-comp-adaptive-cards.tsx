@@ -328,7 +328,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                           checked: undefined,
                           disabled: undefined
                         }))}
-                        onChange={(value) => console.log(value)}
+                        onChange={() => {}}
                         state="default"
                         showRadio={true}
                         showUserAvatar={true}

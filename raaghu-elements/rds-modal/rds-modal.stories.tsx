@@ -1,7 +1,6 @@
-import { DeleteOutline, Info, Warning } from '@mui/icons-material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsModal from './rds-modal';
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useState } from 'react';
 import RdsButton from '../rds-button/rds-button';
 
@@ -21,10 +20,6 @@ const meta: Meta<typeof RdsModal> = {
       control: 'text',
       description: 'Title of the modal',
     },
-    // isOpen: {
-    //   control: 'boolean',
-    //   description: 'Whether the modal is open',
-    // },
     showCloseButton: {
       control: 'boolean',
       description: 'Whether to show the close button',

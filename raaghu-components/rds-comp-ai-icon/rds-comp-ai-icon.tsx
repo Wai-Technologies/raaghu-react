@@ -1,10 +1,7 @@
-import React, { useState, useEffect, ReactElement } from "react";
+import React, { useState, useEffect } from "react";
 import './rds-comp-ai-icon.scss';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
-interface IconCache {
-  [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-}
 
 // Default Material-UI icons mapping (can be extended)
 const defaultMaterialIcons: { [key: string]: React.ComponentType<any> } = {
@@ -61,8 +58,6 @@ const createMuiIconWrapper = (MuiIcon: React.ComponentType<any>): React.Componen
   });
 };
 
-const iconCache: IconCache = {};
-
 export interface RdsCompAiIconProps {
   width?: string;
   height?: string;
@@ -77,7 +72,6 @@ export interface RdsCompAiIconProps {
   isAnimate?: boolean;
   classes?: any;
   dataTestId?: string;
-  // ...existing code...
   databsdismiss?: string;
   databstarget?: string;
   databstoggle?: string;

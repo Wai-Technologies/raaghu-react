@@ -5,7 +5,6 @@ export interface RdsCompScatterChartProps {
     labels: any[],
     options: ChartConfiguration['options'],
     dataSets: ChartConfiguration['data']['datasets'],
-    chartStyle?: string,
     id: string
 }
 

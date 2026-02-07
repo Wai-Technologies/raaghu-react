@@ -44,7 +44,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
     Category = EmojiCategory.SmileysAndPeople,
     onEmojiSelect,
     maxEmojis = 80,
-    sx = {},
+
     ...props
 }) => {
     // Root ref so nested Popover can attach to same stacking context (toolbar dropdown)

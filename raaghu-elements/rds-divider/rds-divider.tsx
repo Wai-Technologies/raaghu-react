@@ -1,5 +1,4 @@
 import React from 'react';
-import './rds-divider.scss';
 import {
   Divider as MuiDivider,
   type DividerProps,

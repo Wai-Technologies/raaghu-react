@@ -145,7 +145,6 @@
 [data-theme="dark"] .rds-mlm-paper .rds-mlm-arrow {
   color: #fff;
 }
-// .rds-mlm-paper .MuiMenuItem-root:hover .rds-mlm-arrow,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-arrow,
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-arrow {
   color: var(--rds-primary-main, #3C98FF) !important;
@@ -186,14 +185,5 @@
 }
 
 
-.css-79elbk{
-  border-bottom: 1px solid var(--rds-background-surface, #eaecf0);
-  
-  &:last-of-type {
-    border-bottom: 0;
-    .css-79elbk{
-      border-bottom: 0;
-    }
-  }
-}
+
 

@@ -25,7 +25,6 @@ export enum SpinnerLevel {
 export interface RdsCompSpinnerProps {
     spinnerType?: string;
     width?: string;
-    borderWidth?: string;
     height?: string;
     showLabel?: boolean;
     labelText?: string;
@@ -38,15 +37,13 @@ export interface RdsCompSpinnerProps {
 const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
     spinnerType = "border",
     width,
-    borderWidth,
     height,
     showLabel = false,
     labelText,
     size,
     layout,
     colorVariant,
-    level,
-    ...props
+    level
 }) => {
     const spinnerClass = spinnerType === "grow" ? "spinner-grow" : "spinner-border";
     const colorClass = colorVariant ? `text-${colorVariant}` : "";

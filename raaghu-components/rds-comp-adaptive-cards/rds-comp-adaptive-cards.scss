@@ -208,8 +208,6 @@
   &__actions--input-form {
     display: block !important;
     width: 100% !important;
-    // padding-left: var(--rds-spacing-md, 16px) !important;
-    // padding-right: var(--rds-spacing-md, 16px) !important;
     box-sizing: border-box;
   }
   &__action-btn {
@@ -233,8 +231,6 @@
   &__actions--restaurant-order {
     display: block !important;
     width: 100% !important;
-    // padding-left: var(--rds-spacing-md, 16px) !important;
-    // padding-right: var(--rds-spacing-md, 16px) !important;
     box-sizing: border-box;
     text-align: center;
   }
@@ -268,13 +264,12 @@
   &__activity-update {
     display: flex !important;
     flex-direction: column !important;
-    // gap: var(--rds-spacing-sm, 8px) !important;
     width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     position: relative !important;
-    min-height: 120px !important; // Ensure stable minimum height
+    min-height: 120px !important;
   }
   // ----- Calendar Reminder -----
   &__calendar-reminder-label {
@@ -318,21 +313,20 @@
   &__activity-update-header {
     display: flex !important;
     flex-direction: row !important;
-    align-items: flex-start !important; // Align to top for better stability
-    // gap: var(--rds-spacing-sm, 8px) !important;
+    align-items: flex-start !important;
     width: 100% !important;
-    min-height: 48px !important; // Ensure consistent height
+    min-height: 48px !important;
     padding: 0 !important;
     margin: 0 !important;
     box-sizing: border-box !important;
-    flex-wrap: nowrap !important; // Prevent wrapping
-    position: relative !important; // Establish positioning context
+    flex-wrap: nowrap !important;
+    position: relative !important;
   }
   &__activity-update-avatar {
     width: var(--rds-spacing-xl, 40px) !important;
     height: var(--rds-spacing-xl, 40px) !important;
-    min-width: var(--rds-spacing-xl, 40px) !important; // Prevent shrinking
-    flex-shrink: 0 !important; // Prevent avatar from shrinking
+    min-width: var(--rds-spacing-xl, 40px) !important;
+    flex-shrink: 0 !important;
     border-radius: 50% !important;
     display: block !important;
     margin: 0 !important;
@@ -342,31 +336,30 @@
     flex-direction: column !important;
     align-items: flex-start !important;
     justify-content: flex-start !important;
-    flex: 1 !important; // Take remaining space
-    min-width: 0 !important; // Allow text to truncate if needed
-    // gap: 2px !important; // Small consistent gap between name and date
+    flex: 1 !important;
+    min-width: 0 !important;
     padding: 0 !important;
     margin: 0 !important;
   }
   &__activity-update-name {
-    font-weight: var(--rds-font-weight-bold, 700) !important; // Make title bolder to match second screenshot
-    font-size: var(--rds-font-size-lg, 16px) !important; // Increase font size to match second screenshot
-    line-height: 1.2 !important; // Consistent line height
+    font-weight: var(--rds-font-weight-bold, 700) !important;
+    font-size: var(--rds-font-size-lg, 16px) !important;
+    line-height: 1.2 !important;
     margin-top: 5px !important;
     padding: 0 !important;
     display: block !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    color: var(--rds-text-primary, #000) !important; // Ensure strong contrast
+    color: var(--rds-text-primary, #000) !important;
   }
   &__activity-update-date,
   &__activity-update-text {
-     color: var(--rds-text-secondary, #666) !important; // Use secondary color for date as shown in second screenshot
+     color: var(--rds-text-secondary, #666) !important;
   }
   &__activity-update-date {
-    font-size: var(--rds-font-size-sm, 12px) !important; // Slightly larger than before to match second screenshot
-    font-weight: var(--rds-font-weight-normal, 400) !important; // Normal weight for date
-    line-height: 1.2 !important; // Consistent line height
+    font-size: var(--rds-font-size-sm, 12px) !important;
+    font-weight: var(--rds-font-weight-normal, 400) !important;
+    line-height: 1.2 !important;
     margin: 0 !important;
     padding: 0 !important;
     display: block !important;
@@ -396,7 +389,6 @@
   }
   // ----- Placeholder -----
   &__placeholder {
-    /* Use explicit placeholder variable with light-mode fallback */
     color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6));
     font-size: var(--rds-font-size-md, 14px);
   }

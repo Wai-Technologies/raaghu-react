@@ -3,8 +3,7 @@ import { RdsAvatar, RdsRating } from "../../raaghu-elements";
 import { Item, RevieweStyle } from "./rds-comp-reviews";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-import { Box, Card, CardContent, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { fontWeight } from "@mui/system";
+import { Box, Card, CardContent, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 /**
  * Helper function to format dates in a standard way

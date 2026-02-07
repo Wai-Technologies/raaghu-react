@@ -7,7 +7,6 @@ import './rds-tabs.scss';
 export interface RdsTabItem {
   id: string | number;
   label: string;
-  icon?: React.ReactNode; // deprecated, use leftIcon/rightIcon
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   disabled?: boolean;
@@ -61,7 +60,6 @@ const RdsTabs = ({
   const capitalizeFirstLetter = (text: string) => {
     if (typeof text !== 'string' || text.length === 0) return text;
     const result = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-    console.log(`Capitalizing: "${text}" -> "${result}"`); // Debug log
     return result;
   };
 

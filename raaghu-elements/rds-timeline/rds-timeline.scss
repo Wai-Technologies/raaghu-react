@@ -5,41 +5,7 @@
   display: block;
   position: relative;
 
-  &__item {
-    // Item styles
-    display: block;
-  }
-
-  &__separator {
-    // Separator styles
-    display: block;
-  }
-
-  &__content {
-    // Content styles
-    display: block;
-  }
-
-  &__dot {
-    // Dot styles
-    display: block;
-  }
-
-  // Interactive states
-  &:hover {
-    // Hover styles
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
-    outline-offset: var(--rds-focus-ring-offset);
-  }
-
-  &:disabled,
-  &--disabled {
-    opacity: 0.6;
-    pointer-events: none;
-  }
+  // Focus and disabled states are handled by Material-UI
 }
 
 // Dark theme support for timeline

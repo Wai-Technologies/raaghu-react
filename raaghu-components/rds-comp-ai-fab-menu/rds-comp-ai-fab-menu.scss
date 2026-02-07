@@ -239,7 +239,6 @@
     margin-top: var(--rds-spacing-sm, 8px);
     min-width: 200px;
     max-width: 300px;
-    /* Ensure dropdown opens outside parent container */
     transform: translateY(10px);
     &--left {
       left: 0;
