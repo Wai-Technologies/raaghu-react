@@ -70,7 +70,7 @@ const RdsAvatar = ({
               position: 'relative',
               zIndex: idx + 1, 
               marginLeft: idx === 0 ? 0 : `${overlapOffset}px`,
-              border: '2px solid #fff',
+              border: '0px solid #fff',
               boxSizing: 'content-box',
               background: '#e0e0e0',
             }}
