@@ -54,9 +54,7 @@ const RdsBadge= ({
       break;
   }
   
-  // If children is undefined, render badge pill directly
   if (!children) {
-    // Handle showZero logic for standalone badge
     if (isZeroContent && !showZero) {
       return null;
     }
@@ -66,13 +64,9 @@ const RdsBadge= ({
       </span>
     );
   }
-  
-  // Otherwise, use MUI Badge for overlays
-  // Handle showZero explicitly - if content is 0 and showZero is false, hide the badge
   const shouldRenderBadge = !(isZeroContent && !showZero);
   
   if (!shouldRenderBadge) {
-    // Return children without badge if we shouldn't show zero
     return <>{children}</>;
   }
   

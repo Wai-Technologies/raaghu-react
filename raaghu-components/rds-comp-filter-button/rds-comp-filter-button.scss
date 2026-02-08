@@ -161,7 +161,6 @@
     opacity: 1 !important;
   }
   .rds-filter-button__header-title{
-    // font-size: 1rem !important;
     font-family: var(--font-family-poppins, Poppins) !important;
     font-size: var(--font-size-sm, 16px) !important;
     font-style: normal !important;
@@ -169,14 +168,12 @@
     line-height: 22px !important; /* 157.143% */ 
    }
 
-  // Dark mode: action buttons background
 .rds-theme--dark .rds-filter-button__content > .MuiBox-root:last-child,
 body.theme-dark .rds-filter-button__content > .MuiBox-root:last-child,
 body[data-theme="dark"] .rds-filter-button__content > .MuiBox-root:last-child,
 .theme-dark .rds-filter-button__content > .MuiBox-root:last-child {
   background: #2a2a2a !important;
 }
-// Dark mode: better hover for filter name
 .rds-theme--dark .MuiAccordionSummary-root:hover,
 body.theme-dark .MuiAccordionSummary-root:hover,
 body[data-theme="dark"] .MuiAccordionSummary-root:hover,
@@ -184,7 +181,6 @@ body[data-theme="dark"] .MuiAccordionSummary-root:hover,
   background: #353535 !important;
   color: #fff !important;
 }
-// Dark mode styles for filter dropdown
 .rds-theme--dark .rds-filter-button__popover,
 body.theme-dark .rds-filter-button__popover,
 body[data-theme="dark"] .rds-filter-button__popover,

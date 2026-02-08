@@ -101,7 +101,6 @@ export const renderCustomHeader = ({
   const endYear = currentYear + 6;
   const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
   
-  // Use monthDate if available (for multi-month view), otherwise use date
   const displayDate = monthDate || date;
 
   return (

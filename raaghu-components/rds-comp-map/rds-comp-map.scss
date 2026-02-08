@@ -1,6 +1,3 @@
-// RDS Component Map Styles
-// Following BEM methodology with RDS prefixes
-
 .rds-comp-map {
   background: var(--rds-bg, #fff) !important;
   border: none !important;
@@ -31,7 +28,6 @@
     min-height: auto;
     height: auto;
     
-    // Handle react-svg-worldmap container
     & > div {
       width: 100%;
       max-width: 100%;
@@ -48,14 +44,12 @@
     max-width: 700px;
     min-width: 280px;
     
-    // Ensure the SVG scales properly
     & > * {
       max-width: 100%;
       height: auto;
     }
   }
 
-  // Specific styling for react-svg-worldmap wrapper
   & > div:first-child {
     width: 100%;
     height: auto;
@@ -66,7 +60,6 @@
     height: auto !important;
   }
 
-  // Ensure proper sizing for small screens
   @media (max-width: 480px) {
     svg {
       max-width: calc(100vw - 20px) !important;
@@ -84,7 +77,6 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
 
-  // Responsive behavior
   @media (max-width: 768px) {
     &__label {
       font-size: 18px;
@@ -95,7 +87,6 @@
     }
   }
 
-  // Small screens (320px and below)
   @media (max-width: 320px) {
     padding: 5px !important;
     max-width: 100vw;
@@ -133,7 +124,6 @@
       display: block;
     }
 
-    // Ensure the parent div of WorldMap component scales properly
     & > div {
       width: 310px !important;
       max-width: 310px !important;
@@ -143,7 +133,6 @@
     }
   }
 
-  // Medium small screens (321px to 414px)
   @media (min-width: 321px) and (max-width: 414px) {
     padding: 8px !important;
     max-width: 100vw;
@@ -181,7 +170,6 @@
       display: block;
     }
 
-    // Ensure the parent div of WorldMap component scales properly
     & > div {
       width: 400px !important;
       max-width: 400px !important;
@@ -191,7 +179,6 @@
     }
   }
 
-  // Heat map specific styles
   &--heatmap {
     background: linear-gradient(0deg, #FFAF00, #FFAF00),
       radial-gradient(50.38% 50.38% at 30.5% 6.53%, #2CC1A5 0%, #26BEAE 33%, #E1CF00 67.18%, #FEA200 100%),
@@ -210,7 +197,6 @@
   }
 }
 
-// Dark theme styles
 [data-bs-theme="dark"],
 [data-theme="dark"],
 .dark-theme,

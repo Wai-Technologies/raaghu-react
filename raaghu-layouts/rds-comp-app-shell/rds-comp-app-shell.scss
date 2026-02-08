@@ -280,7 +280,6 @@
   padding-bottom: 80px;
 }
 
-// Sub Tabs & Header
 .rds-story-sub-tabs {
   display: flex;
   gap: 16px;
@@ -499,7 +498,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // TriPane specific mobile text duplication fix
   .triPane {
     .rds-footer-navigation,
     .MuiBottomNavigation-root {
@@ -524,7 +522,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Bottom navigation for mobile
   .rds-footer-navigation,
   .MuiBottomNavigation-root {
     position: fixed !important;
@@ -601,7 +598,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Prevent duplicate bottom navigation
   .double-nav, .triPane {
     .MuiTabs-root:not(.rds-footer-navigation *),
     .rds-header__navigation:not(.rds-footer-navigation *) {
@@ -627,7 +623,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Hamburger menu button - only for layouts that need mobile sidebars
   .double-nav, .side-nav, .triPane, .relaxing {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: flex !important;
@@ -646,7 +641,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Default layout hamburger menu - only on mobile
   .Default {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: flex !important;
@@ -665,7 +659,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Shared mobile sidebar styles - for layouts with mobile sidebars
   .double-nav, .side-nav, .triPane, .relaxing {
     &.mobile-sidebar-open .sidebar-layout {
       position: fixed;
@@ -708,7 +701,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Default layout mobile sidebar styles
   .Default {
     &.mobile-sidebar-open {
       .sidebar-layout {
@@ -807,7 +799,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Double-nav mobile
   .double-nav {
     &.mobile-sidebar-open .sidebar-layout .double-nav-sidebar {
       display: flex;
@@ -954,7 +945,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Side-nav mobile
   .side-nav {
     .rds-appshell-side-nav-layout {
       padding-top: 68px;
@@ -1006,7 +996,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // TriPane mobile
   .triPane {
     &.mobile-sidebar-open .sidebar-layout .tripane-sidebar {
       display: flex;
@@ -1138,7 +1127,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Relaxing mobile
   .relaxing {
     position: relative;
     height: 100vh;
@@ -1280,7 +1268,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     min-height: calc(100vh - 230px);
   }
   
-  // Shared tablet styles for side-nav and relaxing
   .side-nav, .relaxing {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: flex !important;
@@ -1380,7 +1367,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     display: none;
   }
   
-  // Tablet size adjustments for double-nav and tri-pane
   .double-nav {
     .doublenav-mobile-content {
       bottom: 70px !important;
@@ -1401,7 +1387,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Top Nav tablet - move header tabs to bottom
   .top-nav {
     .MuiTabs-root,
     .rds-header__navigation,
@@ -1460,7 +1445,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Double-nav and TriPane tablet
   .double-nav, .triPane {
     .MuiTabs-root,
     .rds-header__navigation,
@@ -1515,7 +1499,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Other layouts - normal behavior (excluding top-nav which has specific tablet behavior)
   .relaxing, .side-nav, .Default {
     .MuiTabs-root,
     .rds-header__navigation,
@@ -1540,7 +1523,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // Double-nav tablet specific
   .double-nav {
     .rds-story-double-nav-layout {
       display: none !important;
@@ -1787,7 +1769,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     }
   }
   
-  // TriPane tablet specific
   .triPane {
     .rds-story-tripane-layout {
       display: none !important;

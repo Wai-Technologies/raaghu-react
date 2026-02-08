@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import "./rds-comp-navtabs.scss";
-import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge"; // Ensure you import the RdsBadge component
+import RdsBadge from "../../raaghu-elements/rds-badge/rds-badge"; 
 
 export interface RdsCompNavtabsProps {
   children?: ReactNode;
@@ -12,8 +12,8 @@ export interface RdsCompNavtabsProps {
     subText?: string;
     disabled?: boolean;
     id: any;
-    count?: number; // Ensure count is part of the navtabsItems interface
-    colorVariant?: "primary" | "secondary" | "tertiary" | "danger" | "warning" | "light" | "success"; // Include colorVariant for RdsBadge   
+    count?: number; 
+    colorVariant?: "primary" | "secondary" | "tertiary" | "danger" | "warning" | "light" | "success";  
   }[];
   type: "default" | "tabs";
   fill?: boolean;
@@ -52,7 +52,6 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
     return null;
   }
 
-  // Helper function to generate BEM classes
   const getNavClasses = () => {
     const horizontalStyles = [
       "Bottom Select",
@@ -66,7 +65,6 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
     const isHorizontalStyle = horizontalStyles.includes(props.style || "");
     let classes = ["rds-comp-navtabs__nav", "nav", "fit-content", "mobile-ul-tabs", "navtabs-icon-align", "nav-tabs"];
     
-    // Add legacy classes for backward compatibility
     if (props.id !== "chat") {
       classes.push("d-md-block");
     }
@@ -75,7 +73,6 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
       classes.push("d-flex", "flex-row", "rds-comp-navtabs__nav--horizontal");
     }
     
-    // Style-specific BEM classes
     switch (props.style) {
       case "Top Select":
         classes.push("top-select", "rds-comp-navtabs__nav--top-select");
@@ -129,17 +126,14 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
         classes.push("nav-tabs");
     }
 
-    // Type-specific classes
     if (props.type === "tabs") {
       classes.push("text-primary");
     }
 
-    // Layout-specific classes
     if (props.layout === "vertical") {
       classes.push("col-12", "d-block", "rds-comp-navtabs__nav--vertical");
     }
 
-    // Modifier classes
     if (props.fill) {
       classes.push("nav-fill");
     }
@@ -153,22 +147,18 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
     return classes.join(" ");
   };
 
-  // Helper function to get nav link classes
   const getNavLinkClasses = (navtabsItem: any) => {
     let classes = ["nav-link", "pe-auto", "mt-2", "rds-comp-navtabs__nav-link"];
     
-    // Type-specific styling
     if (props.type === "tabs") {
       classes.push("rounded-0");
     } else if (props.layout === "Vertical") {
       classes.push("rounded-2");
     }
 
-    // Active state classes
     if (navtabsItem.id === activeNavTabId) {
       classes.push("rds-comp-navtabs__nav-link--active");
       
-      // Style-specific active classes
       const activeStyles = [
         "Top Select", "Bottom Select", "Bottom Select Alt", "Top Select Alt",
         "Background Filled", "Pill", "Select Tabs", "Vertical -Alt Right Line",
@@ -187,7 +177,6 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
       classes.push("inactive", "rds-comp-navtabs__nav-link--inactive");
     }
 
-    // Disabled state
     if (navtabsItem.disabled) {
       classes.push("disabled");
     }

@@ -1,8 +1,4 @@
-// RDS List Component Styles
-// List component for displaying items with consistent styling
-
 .rds-list {
-  // Base styles
   margin: 0;
   padding: 0;
   list-style: none;
@@ -12,27 +8,22 @@
   border: none;
   box-shadow: var(--rds-shadow-2, 0 3px 5px rgba(0,0,0,0.2));
 
-  // Element: List item
   &__item {
     display: flex;
     align-items: center;
     min-height: 48px;
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
-    // background: transparent;
     transition: background-color 0.2s ease;
     
-    // Last item has no bottom border
     &:last-child {
       border-bottom: none;
     }
     
-    // Modifier: No gutters (removes horizontal padding)
     &--no-gutters {
       padding-left: 0;
       padding-right: 0;
     }
     
-    // Item states and modifiers
     &--expandable {
       padding-right: var(--rds-spacing-xl, 32px);
     }
@@ -78,7 +69,6 @@
     }
   }
 
-  // Element: Avatar container
   &__avatar {
     display: flex;
     align-items: center;
@@ -86,7 +76,7 @@
     margin-right: var(--rds-spacing-md, 16px);
     flex-shrink: 0;
   }
-  // Element: Icon container
+  
   &__icon {
     display: flex;
     align-items: center;
@@ -96,7 +86,6 @@
     margin-right: var(--rds-spacing-md);
   }
 
-  // Element: Primary content text
   &__content-primary {
     font-size: var(--rds-font-size-body, 1rem);
     font-weight: 400;
@@ -111,7 +100,6 @@
     padding-right: var(--rds-spacing-md);
   }
 
-  // Element: Secondary content text
   &__content-secondary {
     font-size: var(--rds-font-size-sm, 0.875rem);
     color: var(--rds-text-secondary);
@@ -123,7 +111,6 @@
     text-overflow: ellipsis;
   }
 
-  // Element: Action container
   &__action {
     margin-left: var(--rds-spacing-lg, 24px);
     display: flex;
@@ -132,14 +119,12 @@
     flex-shrink: 0;
   }
 
-  // Element: Divider
   &__divider {
     height: 1px;
     background-color: var(--rds-border-default);
     margin: 0;
   }
 
-  // Element: Subheader
   &__subheader {
     padding: var(--rds-spacing-md) var(--rds-spacing-md) var(--rds-spacing-sm);
     font-size: var(--rds-font-size-body);
@@ -151,13 +136,11 @@
     z-index: 1;
   }
 
-  // Modifier: Dense variant
   &--dense {
     .rds-list__item {
       min-height: 40px;
       padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-md, 16px);
       
-      // When both dense and no-gutters are applied, only adjust vertical padding
       &--no-gutters {
         padding: var(--rds-spacing-xs, 4px) 0;
       }
@@ -173,17 +156,14 @@
     }
   }
   
-  // Accessibility enhancements
   &:focus {
     outline: none;
   }
   
-  // Secondary action icon styling
   .MuiSvgIcon-root {
     margin-left: var(--rds-spacing-md, 16px);
   }
   
-  // High contrast mode support
   @media (forced-colors: active) {
     .rds-list__divider {
       border: 1px solid CanvasText;
@@ -195,7 +175,7 @@
     }
   }
 }
-/* Root list resets - following BEM and RDS guidelines */
+
 .rds-list--root {
   padding: 0;
   margin: 0;
@@ -203,11 +183,10 @@
   background-color: var(--rds-background-paper) !important;
 }
 
-/* Framework integration adjustments */
 .rds-list__item .MuiListItemButton-root {
   padding: 0;
 }
-/* Variant with sticky subheaders */
+
 .rds-list--with-subheader {
   background-color: var(--rds-background-paper);
   margin-bottom: 0;
@@ -223,11 +202,7 @@
   }
 }
 
-/* Responsive alignment modifier for demo/story usage
-   Small screens: align items to flex-start and allow text wrapping
-   Large screens: center items and keep single-line truncation */
 .rds-list--align-responsive {
-  /* Mobile-first: assume center from base styles, override for small viewports */
   @media (max-width: 599.98px) {
     .rds-list__item {
       align-items: flex-start;
@@ -245,7 +220,6 @@
     }
   }
 
-  /* Ensure large screens remain centered with truncation */
   @media (min-width: 1200px) {
     .rds-list__item {
       align-items: center;
@@ -264,7 +238,6 @@
   }
 }
 
-// Demo container for Storybook examples
 .rds-list-demo__container {
   background-color: var(--rds-background-paper);
   border-radius: var(--rds-border-radius-sm, 2px);
@@ -279,7 +252,6 @@
   }
 }
 
-// Demo grid layout for examples
 .rds-list-demo__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -287,31 +259,22 @@
   max-width: 800px;
 }
 
-/* Modifier: column responsiveness
-   - Small (<=599.98px): 1 column
-   - Medium (600px–1199.98px): 2 columns
-   - Large (>=1200px): 1 column */
 .rds-list-demo__grid--col-responsive {
-  /* Small screens: 1 column */
   @media (max-width: 599.98px) {
     grid-template-columns: 1fr;
   }
 
-  /* Large screens: 1 column */
   @media (min-width: 1600px) {
     grid-template-columns: 1fr;
   }
-  /* Medium screens inherit base 2-column grid from .rds-list-demo__grid */
 }
 
-// Demo titles
 .rds-list-demo__title {
   font-size: var(--rds-font-size-body, 16px);
   font-weight: 500;
   margin: var(--rds-spacing-sm, 8px) 0;
 }
 
-// Demo description
 .rds-list-demo__description {
   font-size: var(--rds-font-size-sm, 14px);
   color: var(--rds-text-secondary, #666);
@@ -319,7 +282,6 @@
   line-height: 1.5;
 }
 
-// Demo container (additional styles)
 .rds-list-demo__container {
   background-color: var(--rds-background-paper);
   border-radius: var(--rds-border-radius-md, 8px);
@@ -327,7 +289,6 @@
   max-width: 400px;
 }
 
-// Selection status display
 .rds-list-demo__selection-status {
   font-size: var(--rds-font-size-sm, 14px);
   color: var(--rds-text-secondary, #666);
@@ -336,7 +297,6 @@
   margin-top: var(--rds-spacing-sm, 8px);
 }
 
-// Custom themed container
 .rds-list-demo__custom-container {
   width: 280px;
   border-radius: var(--rds-border-radius-md, 4px);
@@ -369,7 +329,6 @@
   letter-spacing: 0.5px;
 }
 
-/* Custom themed list variant - should be in a separate theme file */
 .rds-list--custom-theme {
   background-color: transparent;
   border: none;
@@ -384,16 +343,12 @@
     background-color: var(--rds-overlay-hover, rgba(255, 255, 255, 0.08));
   }
 }
-/* Dark theme list overrides
-   Combines avatar color override and visibility rules for list text/icons.
-   Uses stable MUI classes and high specificity to prevent MUI-injected styles from
-   overriding our theme after navigation/refresh. */
+
 [data-theme="dark"] .rds-list,
 body.dark .rds-list,
 html.dark .rds-list,
 .dark .rds-list,
 .rds-theme--dark .rds-list {
-  /* Avatar color (use stable MUI Selector) */
   .MuiAvatar-root {
     color: var(--rds-color-on-primary, #ffffff) !important;
   }

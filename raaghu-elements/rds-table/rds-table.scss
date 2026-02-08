@@ -1,10 +1,7 @@
-// RDS Table Component Styles
 .rds-table {
-  // Base component styles
   width: 100%;
   position: relative;
   
-  // Container element
   &__container {
     background-color: var(--rds-color-surface, #ffffff);
     border-radius: var(--rds-border-radius, 8px);
@@ -13,14 +10,12 @@
     box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.12));
     max-width: 100%;
     
-    // When sticky header is enabled
     &--sticky {
       overflow-y: auto;
     }
   }
   
 
-  // Table element
   &__table {
     width: 100%;
     min-width: max-content;
@@ -29,17 +24,14 @@
     table-layout: auto;
   }
   
-  // Head section
   &__head {
     background-color: var(--rds-color-surface-variant, #f5f5f5);
   }
   
-  // Header row
   &__header-row {
     background-color: var(--rds-color-surface-variant, #f5f5f5);
   }
   
-  // Header cell
   &__header {
     padding: var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
     text-align: left;
@@ -50,7 +42,6 @@
     letter-spacing: 0.5px;
     white-space: nowrap;
     
-    // Header modifiers
     &--sortable {
       cursor: pointer;
       user-select: none;
@@ -65,8 +56,7 @@
       width: 48px;
       padding: var(--rds-spacing-md, 16px);
     }
-  }  // Header content wrapper
-  &__header-content {
+  }  &__header-content {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -74,12 +64,10 @@
     gap: var(--rds-spacing-xs, 4px);
   }
   
-  // Header label
   &__header-label {
     flex: 0 0 auto;
   }
   
-  // Sort icon
   &__sort-icon {
     opacity: 0.6;
     transition: opacity var(--rds-transition-duration, 0.15s) ease-in-out;
@@ -93,7 +81,6 @@
     }
   }
   
-  // Sort button
   &__sort-button {
     padding: var(--rds-spacing-xs, 2px) !important;
     margin-left: var(--rds-spacing-xs, 4px);
@@ -110,17 +97,14 @@
     }
   }
   
-  // Body section
   &__body {
     background-color: var(--rds-color-surface, #ffffff);
   }
   
-  // Table row
   &__row {
     border-bottom: 1px solid var(--rds-color-outline-variant, #f0f0f0);
     transition: background-color var(--rds-transition-duration, 0.15s) ease-in-out;
     
-    // Row states
     &:hover {
       background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04));
     }
@@ -138,7 +122,6 @@
     }
   }
   
-  // Table cell
   &__cell {
     padding: var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
     border-bottom: 1px solid var(--rds-color-outline-variant, #f0f0f0);
@@ -147,7 +130,6 @@
     color: var(--rds-color-on-surface, #202020);
     white-space: nowrap;
     
-    // Cell modifiers
     &--checkbox {
       width: 48px;
       padding: var(--rds-spacing-md, 16px);
@@ -175,8 +157,7 @@
     &--numeric {
       text-align: right;
     }
-  }  // Avatar cell specific styles
-  &__avatar-cell {
+  }  &__avatar-cell {
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-sm, 8px);
@@ -199,7 +180,6 @@
     color: var(--rds-color-on-surface-variant, #757575);
   }
   
-  // Badge styles
   &__badge {
     font-size: var(--rds-font-size-xs, 12px);
     font-weight: 500;
@@ -208,7 +188,6 @@
     border-radius: var(--rds-border-radius-full, 16px);
     padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 12px);
     
-    // Badge variants
     &--badge {
       background-color: var(--rds-color-info-container, #e3f2fd);
       color: var(--rds-color-on-info-container, #1976d2);
@@ -230,14 +209,12 @@
     }
   }
   
-  // Actions container
   &__actions {
     display: flex;
     gap: var(--rds-spacing-xs, 4px);
     justify-content: flex-end;
   }
   
-  // Action button
   &__action {
     padding: var(--rds-spacing-xs, 4px);
     color: var(--rds-color-on-surface-variant, #757575);
@@ -247,7 +224,6 @@
       color: var(--rds-color-primary, #1976d2);
     }
     
-    // Action variants
     &--edit {
       color: var(--rds-color-info, #1976d2);
       background-color: var(--rds-color-info-container, #e3f2fd);
@@ -271,7 +247,6 @@
     }
   }
   
-  // Multi-line text container
   &__multiline-text {
     white-space: pre-line;
   }
@@ -286,7 +261,6 @@
     color: var(--rds-color-on-surface-variant, #757575);
   }
   
-  // Link text styles
   &__link-text {
     color: var(--rds-color-primary, #1976d2);
     cursor: pointer;
@@ -299,7 +273,6 @@
     }
   }
   
-  // Progress container with text
   &__progress-container {
     display: flex;
     flex-direction: column;
@@ -314,7 +287,6 @@
     margin-top: 2px;
   }
   
-  // Horizontal content containers
   &__content-row {
     display: flex;
     gap: var(--rds-spacing-sm, 8px);
@@ -327,7 +299,6 @@
     color: var(--rds-color-on-surface, #202020);
   }
 
-  // Size variants
   &--dense {
     .rds-table__header,
     .rds-table__cell {
@@ -340,22 +311,18 @@
     }
   }
   
-  // Empty state
   &__empty {
     padding: var(--rds-spacing-xl, 32px);
     text-align: center;
     color: var(--rds-color-on-surface-variant, #757575);
   }
   
-  // Loading state
   &--loading {
     pointer-events: none;
     opacity: 0.7;
   }
 
-  // Custom checkbox styling (matching rds-checkbox square style)
   &__checkbox {
-    // Component variables for checkbox
     --checkbox-size: 18px;
     --checkbox-border-width: 2px;
     --checkbox-transition: all 0.15s ease-in-out;
@@ -366,13 +333,11 @@
       transition: var(--checkbox-transition);
       position: relative;
       
-      // Hide the default Material-UI checkbox icons
       .MuiSvgIcon-root {
         opacity: 0;
         pointer-events: none;
       }
       
-      // Element: Custom square checkbox base
       &::before {
         content: '';
         position: absolute;
@@ -388,7 +353,6 @@
         z-index: 1;
       }
       
-      // Element: Checkmark/indicator
       &::after {
         content: '';
         position: absolute;
@@ -404,7 +368,6 @@
         opacity: 0;
       }
       
-      // Interactive states
       &:hover {
         background-color: var(--rds-button-text-bg-hover, rgba(0, 0, 0, 0.04));
         
@@ -422,7 +385,6 @@
         }
       }
       
-      // State: Checked
       &.Mui-checked {
         color: var(--rds-primary-main, #2196f3);
         
@@ -437,7 +399,6 @@
         }
       }
       
-      // State: Indeterminate  
       &.MuiCheckbox-indeterminate {
         color: var(--rds-primary-main, #2196f3);
         
@@ -458,7 +419,6 @@
         }
       }
       
-      // State: Disabled
       &.Mui-disabled {
         color: var(--rds-text-disabled, #bdbdbd);
         opacity: 0.6;
@@ -478,7 +438,6 @@
     }
   }
 
-  // Material-UI specific overrides (maintain functionality)
   &.MuiPaper-root {
     background-color: var(--rds-color-surface, #ffffff);
     border-radius: var(--rds-border-radius, 8px);
@@ -523,11 +482,9 @@
   }
 }
 
-// Dark theme support
 [data-theme="dark"],
 .dark-theme {
   .rds-table {
-    // Override design tokens for dark theme
     --rds-color-surface: #1a1a1a;
     --rds-color-surface-variant: #2a2a2a;
     --rds-color-surface-hover: rgba(255, 255, 255, 0.08);
@@ -539,7 +496,6 @@
     --rds-color-primary-container-hover: rgba(120, 37, 233, 0.25);
     --rds-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.3);
     
-    // Component-specific dark theme overrides
     &__container {
       background-color: var(--rds-color-surface);
       box-shadow: var(--rds-elevation-1);
@@ -596,7 +552,6 @@
       color: var(--rds-color-on-surface-variant);
     }
     
-    // Avatar component text colors in dark theme
     .rds-avatar {
       &__name {
         color: var(--rds-color-on-surface) !important;
@@ -607,7 +562,6 @@
       }
     }
 
-    // Material-UI overrides for dark theme
     &.MuiPaper-root {
       background-color: var(--rds-color-surface) !important;
       box-shadow: var(--rds-elevation-1) !important;
@@ -640,7 +594,6 @@
       background-color: var(--rds-color-surface-hover) !important;
     }
     
-    // Dark theme checkbox styles
     &__checkbox {
       .MuiCheckbox-root {
         &::before {

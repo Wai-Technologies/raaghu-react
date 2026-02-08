@@ -13,19 +13,15 @@ export interface RdsHeaderProps extends AppBarProps {
   onMenuClick?: () => void;
   showMenuButton?: boolean;
   actions?: React.ReactNode;
-  // User profile
   userName?: string;
   userShortName?: string;
   userEmail?: string;
-  // Search
   searchValue?: string;
   onSearchChange?: (value: string) => void;
   searchPlaceholder?: string;
-  // Tabs
   tabs?: Array<string | { label: string;[key: string]: any }>;
   tabValue?: number;
   onTabChange?: (value: number) => void;
-  // Sub-header
   subHeader?: React.ReactNode;
   children?: React.ReactNode;
 }
@@ -48,7 +44,6 @@ const RdsHeader = ({
   userEmail,
   ...props
 }: RdsHeaderProps) => {
-  // Add color modifier class based on color prop
   const colorClass =
     props.color === 'primary'
       ? ' rds-header--primary'
@@ -100,7 +95,6 @@ const RdsHeader = ({
             )}
           </div>
         )}
-        {/* Render profile menu if user props are provided, else render actions */}
         {userName && userShortName && userEmail ? (
           <span className="rds-header__actions">
             <ProfileMenu

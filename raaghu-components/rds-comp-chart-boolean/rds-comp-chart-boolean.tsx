@@ -28,7 +28,6 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
     };
 
     let svg = ChartIcons[props.centerIconName || ""];
-    // If dark mode, replace stroke color with white
     if (isDarkMode() && svg) {
         svg = svg.replace(/stroke:(#666|#666666|#6c757d|#000|#222|#333|#444|#555|#888|#999|#aaa|#bbb|#ccc|#ddd|#eee|#f8f9fa|#212529|#343a40|#495057|#adb5bd|#ced4da|#dee2e6|#e9ecef|#f1f3f5|#f8f9fa|#fff|#ffffff)/gi, 'stroke:#fff');
     }

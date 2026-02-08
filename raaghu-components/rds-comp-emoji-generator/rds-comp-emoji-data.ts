@@ -1,10 +1,6 @@
 import type { Emoji } from 'emojibase';
 import data from 'emojibase-data/en/data.json';
 
-
-
-// Shared types/enums for RdsEmojiGenerator to avoid circular import issues
-
 export enum EmojiGeneratorType {
   Default = "Default",
   QuickReactions = "Quick Reactions",
@@ -26,61 +22,51 @@ export enum SkinToneState {
   Expanded = "Expanded",
 }
 
-
-// Build maps once (data.json format: array of Emoji objects with group/subgroup info)
-// Filter out newer Unicode emojis that don't render well across all systems
 const allEmojis: Emoji[] = (data as unknown as Emoji[])
   .filter(e => !!e.emoji)
   .filter(e => {
-    // Filter out emojis with Unicode version 12.0 or higher to avoid rendering issues
     if (e.version && parseFloat(e.version.toString()) >= 12.0) {
       return false;
     }
-    // Filter out complex multi-codepoint emojis that might not render properly
     if (e.emoji.length > 7) {
       return false;
     }
-    // Note: regional indicator symbols (flags) are allowed now so flags show in the UI
     return true;
   });
 
-// Map our local categories to emojibase groups (corrected alignment)
 const categoryGroupMap: Record<EmojiCategory, number[]> = {
-  [EmojiCategory.SmileysAndPeople]: [0, 1],       // Smileys & People + People & Body  
-  [EmojiCategory.AnimalsAndNature]: [3],          // Animals & Nature
-  [EmojiCategory.FoodAndDrink]: [4],              // Food & Drink
-  [EmojiCategory.TravelAndPlaces]: [5],           // Travel & Places
-  [EmojiCategory.Activities]: [6],                // Activities
-  [EmojiCategory.Objects]: [7],                   // Objects
-  [EmojiCategory.Symbols]: [8],                   // Symbols
-  [EmojiCategory.Flags]: [9],                     // Flags
+  [EmojiCategory.SmileysAndPeople]: [0, 1],
+  [EmojiCategory.AnimalsAndNature]: [3],
+  [EmojiCategory.FoodAndDrink]: [4],
+  [EmojiCategory.TravelAndPlaces]: [5],
+  [EmojiCategory.Activities]: [6],
+  [EmojiCategory.Objects]: [7],
+  [EmojiCategory.Symbols]: [8],
+  [EmojiCategory.Flags]: [9],
 };
 
 const emojiCache: Partial<Record<EmojiCategory, string[]>> = {};
 
-// Skin tone modifiers (Unicode combining characters)
 const skinToneModifiers = [
-  '', // Default (no modifier)
-  '\u{1F3FB}', // Light skin tone
-  '\u{1F3FC}', // Medium-light skin tone
-  '\u{1F3FD}', // Medium skin tone
-  '\u{1F3FE}', // Medium-dark skin tone
-  '\u{1F3FF}', // Dark skin tone
+  '',
+  '\u{1F3FB}',
+  '\u{1F3FC}',
+  '\u{1F3FD}',
+  '\u{1F3FE}',
+  '\u{1F3FF}',
 ];
 
-// Apply skin tone to emoji if it supports skin tone modification
 export const applySkinTone = (emoji: string, skinTone: number): string => {
   if (skinTone === 0 || !skinToneModifiers[skinTone]) {
-    return emoji; // Return original emoji for default or invalid skin tone
+    return emoji;
   }
   
-  // Check if emoji supports skin tone (has skin tone modifier support)
   const emojiData = allEmojis.find(e => e.emoji === emoji);
   if (emojiData && emojiData.skins && emojiData.skins.length > skinTone) {
     return emojiData.skins[skinTone].emoji;
   }
   
-  return emoji; // Return original if no skin tone support
+  return emoji;
 };
 
 export const getEmojisByCategory = (category: EmojiCategory, skinTone: number = 0): string[] => {
@@ -91,7 +77,7 @@ export const getEmojisByCategory = (category: EmojiCategory, skinTone: number = 
     const baseEmojis = allEmojis
       .filter(e => groups.includes(e.group as number))
       .map(e => applySkinTone(e.emoji, skinTone))
-      .filter(Boolean); // Remove any undefined/null values
+      .filter(Boolean);
     
     emojiCache[cacheKey] = baseEmojis;
   }
@@ -102,7 +88,6 @@ export const searchEmojis = (searchTerm: string, category?: EmojiCategory, skinT
   const term = searchTerm.trim().toLowerCase();
   if (!term) return [];
   const pool = category ? getEmojisByCategory(category, skinTone) : allEmojis.map(e => applySkinTone(e.emoji, skinTone));
-  // Basic substring match against annotation / tags if available
   return allEmojis
     .filter(e => (category ? pool.includes(applySkinTone(e.emoji, skinTone)) : true))
     .filter(e => {
@@ -114,9 +99,7 @@ export const searchEmojis = (searchTerm: string, category?: EmojiCategory, skinT
     .slice(0, 200);
 };
 
-// Get quick reaction emojis from emojibase package
 export const getQuickReactionEmojis = (): string[] => {
-  // Find specific emojis for quick reactions from the package
   const quickReactionNames = [
     'grinning face',
     'smiling face with heart-eyes', 
@@ -130,7 +113,6 @@ export const getQuickReactionEmojis = (): string[] => {
     .filter(Boolean)
     .map(e => e!.emoji);
   
-  // Fallback to first 5 smileys if not found
   if (quickEmojis.length < 5) {
     return getEmojisByCategory(EmojiCategory.SmileysAndPeople).slice(0, 5);
   }

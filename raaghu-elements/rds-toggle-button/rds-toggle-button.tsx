@@ -30,33 +30,26 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   onChange,
   value: controlledValue,
   defaultValue,
-  inputSize = 'small', // legacy prop name
-  size: sizeProp, // MUI size prop / Storybook control
+  inputSize = 'small',
+  size: sizeProp,
   disabled,
   color,
   ...props
 }) => {
   const [internalValue, setInternalValue] = useState<string | string[]>(() => {
-    // Initialize with defaultValue if provided
     if (defaultValue !== undefined) {
       return defaultValue;
     }
-    // Otherwise use first option value if enforceSelected is true
     if (enforceSelected && options.length > 0) {
       return multiple ? [options[0].value] : options[0].value;
     }
-    // Default empty state
     return multiple ? [] : '';
   });
-  // Determine if component is controlled
   const isControlled = controlledValue !== undefined;
   const value = isControlled ? controlledValue : internalValue;
-  // Update internal state if controlled value changes
   useEffect(() => {
     if (isControlled) {
-      // No need to update internal state as we're using controlled value
     } else if (enforceSelected && options.length > 0) {
-      // Make sure at least one option is selected if enforceSelected is true
       if (multiple && Array.isArray(internalValue) && internalValue.length === 0) {
         setInternalValue([options[0].value]);
       } else if (!multiple && !internalValue) {
@@ -65,8 +58,6 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
     }
   }, [enforceSelected, options, multiple, internalValue, isControlled]);
 
-  // Map inputSize to BEM modifier class
-  // Allow both `size` (storybook / MUI) and legacy `inputSize`. `size` wins.
   const effectiveSize = (sizeProp as 'small' | 'medium' | 'large' | undefined) || inputSize;
 
   const sizeClass =
@@ -76,43 +67,33 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
       ? 'rds-toggle-button--medium'
       : 'rds-toggle-button--small';
 
-  // Large size style override using design tokens
-  // (Legacy) Inline style for large retained for backward compat; CSS now handles size classes.
   const largeButtonStyle = effectiveSize === 'large' ? {} : {};
 
 
-  // Handle change with enforcement that at least one option must be selected
   const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: any) => {
     let finalValue = newValue;
     
     if (enforceSelected) {
-      // For multiple selection, ensure at least one option remains selected
       if (multiple && Array.isArray(newValue) && newValue.length === 0) {
-        return; // Don't update state or call onChange
+        return;
       } 
-      // For single selection, don't allow deselection (when newValue is null)
       else if (!multiple && newValue === null) {
-        return; // Don't update state or call onChange
+        return;
       }
     }
-    // Update internal state if uncontrolled
     if (!isControlled) {
       setInternalValue(finalValue);
     }
-    // Call onChange handler with final value
     onChange?.(event, finalValue);
   };
   
-  // Handle custom button click when using spacing
   const handleCustomButtonClick = useMemo(() => {
     return (event: React.MouseEvent<HTMLElement>, optionValue: string) => {
-      // Don't handle clicks if disabled
       if (disabled) {
         return;
       }
       
       if (multiple) {
-        // For multiple selection, toggle the value
         const newValue = Array.isArray(value) ? [...value] : [];
         const index = newValue.indexOf(optionValue);
         
@@ -121,34 +102,28 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
         } else if (!enforceSelected || newValue.length > 1) {
           newValue.splice(index, 1);
         } else {
-          return; // Prevent deselection of last item
+          return;
         }
         
         handleChange(event, newValue);
       } else {
-        // For single selection, set the value (or unset if clicking the selected button)
         const newValue = value === optionValue && !enforceSelected ? null : optionValue;
         handleChange(event, newValue);
       }
     };
   }, [multiple, value, enforceSelected, handleChange, disabled]);
 
-  // Extract remaining props
   const { ...otherProps } = props;
 
-  // Create a custom class name for proper border styling with spacing
   const getButtonClassName = useMemo(() => {
     return (index: number) => {
       const baseClass = "rds-toggle-button__button";
-      if (spacing === 0) return baseClass;
-      // Add position-specific classes for border styling
+      if (spacing === 0) return  baseClass;
       return `${baseClass} rds-toggle-button__button--spaced`;
     };
   }, [spacing]);
 
-  // Memoize rendered buttons for performance with large option lists
   const memoizedButtons = useMemo(() => {
-    // If not using custom spacing, just render normal toggle buttons
     if (spacing === 0) {
       return options.map((option, index) => (
         <MuiToggleButton
@@ -174,7 +149,6 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
       ));
     }
 
-    // With spacing, render custom button wrappers
     return options.map((option, index) => {
       const isSelected = multiple ? 
         Array.isArray(value) && value.includes(option.value) : 
@@ -182,18 +156,6 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
       const spacingStyle = index === 0 ? {} : {
         [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: `var(--rds-toggle-button-spacing, ${spacing}px)`
       };
-
-      // Define position-specific classes for proper styling
-      let positionClass = '';
-      if (options.length === 1) {
-        positionClass = 'rds-toggle-button__button-wrapper--single';
-      } else if (index === 0) {
-        positionClass = 'rds-toggle-button__button-wrapper--first';
-      } else if (index === options.length - 1) {
-        positionClass = 'rds-toggle-button__button-wrapper--last';
-      } else {
-        positionClass = 'rds-toggle-button__button-wrapper--middle';
-      }
 
       return (
         <div
@@ -226,7 +188,6 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
     });
   }, [options, value, multiple, iconTextSpacing, spacing, orientation, color, enforceSelected, getButtonClassName, handleCustomButtonClick, inputSize, largeButtonStyle]);
 
-  // Determine if we need to use custom spacing rendering
   const useCustomSpacing = spacing > 0;
 
   const countClass = effectiveSize === 'large' && options.length === 3 ? 'rds-toggle-button--large-three' : '';

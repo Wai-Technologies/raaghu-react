@@ -9,15 +9,12 @@ const meta: Meta = {
     docs: {
       source: {
         transform: (code: string) => {
-          // Transform TreeLevel enum
           code = code.replace(/level="(Level1|Level2|Level3|Level4)"/g, 'level={TreeLevel.$1}');
           code = code.replace(/level:\s*"(Level1|Level2|Level3|Level4)"/g, 'level: TreeLevel.$1');
           
-          // Transform NodeState enum
           code = code.replace(/state="(Default|Hover|Selected)"/g, 'state={NodeState.$1}');
           code = code.replace(/state:\s*"(Default|Hover|Selected)"/g, 'state: NodeState.$1');
           
-          // Transform IconType enum
           code = code.replace(/type="(Circle|Folder)"/g, 'type={IconType.$1}');
           code = code.replace(/type:\s*"(Circle|Folder)"/g, 'type: IconType.$1');
           

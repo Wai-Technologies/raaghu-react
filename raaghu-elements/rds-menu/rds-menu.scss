@@ -62,7 +62,6 @@
     }
   }
 
-  // Small size variant (BEM modifier)
   &--small {
     .rds-menu__list {
       min-width: 140px;
@@ -79,7 +78,6 @@
     }
   }
 
-  // Medium size variant (BEM modifier)
   &--medium {
     .rds-menu__list {
       min-width: 180px;
@@ -96,7 +94,6 @@
     }
   }
 
-  // Large size variant (BEM modifier)
   &--large {
     .rds-menu__list {
       min-width: 260px;
@@ -131,7 +128,6 @@
     border: none;
   }
 
-  // Animation states
   &--enter {
     opacity: 0;
     transform: scale(0.9) translateY(-8px);
@@ -153,12 +149,10 @@
 }
 
 [data-theme="dark"] {
-  /* target the actual BEM class name (was missing the leading dot) */
   .rds-menu__list {
      background-color: var(--rds-color-background, #545454);
   }
 
-  /* Default text color for menu items in dark mode */
   .rds-menu__item {
     color: #ffffff;
   }
@@ -176,21 +170,18 @@
     background: #666;
   }
   
-  /* change menu item background on hover in dark theme and keep text readable */
   .rds-menu__item:hover:not(:disabled),
   .rds-menu__item:focus-visible:not(:disabled) {
     background: #666;
     color: #ffffff;
   }
 
-  /* Default icon styling for non-disabled items in dark mode - only when no custom color */
   .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) svg,
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) svg {
     color: #ffffff;
     fill: #ffffff;
   }
 
-  /* Custom colored icons in dark mode - let inline styles take precedence */
   .rds-menu__item .rds-menu__item__icon--primary svg,
   .rds-menu__item .rds-menu__item__icon--success svg,
   .rds-menu__item .rds-menu__item__icon--danger svg,
@@ -200,7 +191,6 @@
     fill: currentColor !important;
   }
 
-  /* Disabled icon styling */
   .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon,
   .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon svg,
   .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon img {
@@ -209,7 +199,6 @@
     stroke: var(--rds-text-disabled, #999999);
   }
 
-  /* Shortcut text in dark mode */
   .rds-menu__item__shortcut {
     color: #cccccc;
   }

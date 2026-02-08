@@ -17,7 +17,6 @@ export interface ProfileMenuItem {
 
 export interface ProfileMenuProps {
   name: string;
-  // shortName?: string; // Commented out - automatically generated from name
   email: string;
   menuItems?: ProfileMenuItem[];
 }
@@ -27,10 +26,8 @@ export const ProfileMenu = ({ name, email, menuItems }: ProfileMenuProps) => {
   const [isSmallScreen, setIsSmallScreen] = React.useState(false);
   const open = Boolean(anchorEl);
   
-  // Auto-generate shortName from name (replaces manual userShortName control)
   const displayShortName = name.split(' ').map(n => n.charAt(0)).join('').toUpperCase();
   
-  // Check if screen is small to hide name text
   React.useEffect(() => {
     const checkScreenSize = () => {
       setIsSmallScreen(window.innerWidth <= 768);
@@ -48,7 +45,7 @@ export const ProfileMenu = ({ name, email, menuItems }: ProfileMenuProps) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // Default menu items if none provided
+  
   const defaultMenuItems: ProfileMenuItem[] = [
     { label: 'My Profile', icon: <PersonIcon fontSize="small" /> },
     { label: 'Theme', icon: <Brightness5Icon fontSize="small" /> },

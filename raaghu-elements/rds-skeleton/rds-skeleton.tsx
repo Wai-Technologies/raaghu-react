@@ -26,7 +26,6 @@ const RdsSkeleton = ({
   const isText = shape === 'text';
   const bemClass = `rds-skeleton rds-skeleton--${shape}` + (className ? ` ${className}` : '');
 
-  // Determine animation value: use animation prop if provided, else fallback to animated boolean
   const animationValue = typeof animation !== 'undefined' ? animation : (animated ? 'pulse' : false);
 
   if (frames > 1) {

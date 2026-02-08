@@ -7,13 +7,13 @@ import './rds-tabs.scss';
 export interface RdsTabItem {
   id: string | number;
   label: string;
-  icon?: React.ReactNode; // deprecated, use leftIcon/rightIcon
+  icon?: React.ReactNode; 
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   disabled?: boolean;
   title?: string; 
-  state?: 'default' | 'hover' | 'selected' | 'disabled'; // Control tab state for demo and Storybook
-  level?: number; // Control tab level for nested tabs
+  state?: 'default' | 'hover' | 'selected' | 'disabled'; 
+  level?: number;
 }
 
 export type RdsTabsLayout =
@@ -35,12 +35,12 @@ export interface RdsTabsProps extends Omit<TabsProps, 'orientation'> {
   onTabChange?: (tabId: string | number) => void;
   layout?: RdsTabsLayout;
   type?: 'horizontal' | 'vertical';
-  leftIcon?: React.ReactNode; // Icon to display on the left side of the tab label
-  rightIcon?: React.ReactNode; // Icon to display on the right side of the tab
-  showLeftIcon?: boolean; // Control to show/hide left icon
-  showRightIcon?: boolean; // Control to show/hide right icon
-  state?: 'default' | 'hover' | 'selected' | 'disabled'; // Control tab state for demo and Storybook
-  level?: number; // Control tab level for nested tabs
+  leftIcon?: React.ReactNode; 
+  rightIcon?: React.ReactNode; 
+  showLeftIcon?: boolean; 
+  showRightIcon?: boolean; 
+  state?: 'default' | 'hover' | 'selected' | 'disabled'; 
+  level?: number; 
 }
 
 const RdsTabs = ({
@@ -57,11 +57,9 @@ const RdsTabs = ({
   showRightIcon = true,
   ...props
 }:RdsTabsProps) => {
-  // Helper function to capitalize only the first letter
   const capitalizeFirstLetter = (text: string) => {
     if (typeof text !== 'string' || text.length === 0) return text;
     const result = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-    console.log(`Capitalizing: "${text}" -> "${result}"`); // Debug log
     return result;
   };
 
@@ -74,10 +72,8 @@ const RdsTabs = ({
     }
   };
 
-  // Map layout prop to className
 const layoutClass = `rds-tabs--${layout} rds-state--${props.state || 'default'}`;
 
-  // Inject icons for all tabs if not already present, but only if showLeftIcon/showRightIcon is true
   const tabsWithIcons = tabs.map((tab) => ({
     ...tab,
     leftIcon: showLeftIcon ? (tab.leftIcon ?? leftIcon ?? <PersonIcon fontSize="small" />) : undefined,

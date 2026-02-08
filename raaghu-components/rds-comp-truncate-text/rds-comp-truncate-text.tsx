@@ -7,9 +7,9 @@ export enum TruncateTextState {
   Hover = "Hover",
 }
 export interface RdsCompTruncateTextProps {
-  text: string; // Full text
-  maxLength: number; // Maximum characters before truncation
-  state: TruncateTextState; // Control behavior (default or hover)
+  text: string; 
+  maxLength: number; 
+  state: TruncateTextState; 
 }
 
 const RdsCompTruncateText: React.FC<RdsCompTruncateTextProps> = ({ text, maxLength, state }) => {
@@ -23,7 +23,6 @@ const RdsCompTruncateText: React.FC<RdsCompTruncateTextProps> = ({ text, maxLeng
     if (state === "Hover") setIsHovered(false);
   };
 
-  // If state is "default", show full text
   const displayText = state === "Default" ? text : text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
 
   return (

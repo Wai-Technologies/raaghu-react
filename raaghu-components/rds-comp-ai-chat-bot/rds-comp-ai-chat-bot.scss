@@ -1,4 +1,3 @@
-// RDS AI Chat Bot Component Styles
 .rds-ai-chat-bot {
     display: flex;
     flex-direction: column;
@@ -9,7 +8,6 @@
     max-width: 100%;
     position: relative;
 
-    // Messages container
     &__messages {
         flex: 1;
         overflow-y: auto;
@@ -18,34 +16,27 @@
         width: 100%;
     }
 
-    // Individual message wrapper
     &__message {
         margin-bottom: var(--rds-spacing-sm, 8px);
         
-        // Sender variant
         &--sender {
             text-align: right;
         }
         
-        // Receiver variant
         &--receiver {
             text-align: left;
         }
     }
 
-    // Input wrapper
     &__input-wrapper {
         flex-shrink: 0;
         padding: var(--rds-spacing-md, 10px);
-        // border-top: 1px solid var(--rds-color-border, #e0e0e0);
-        // background-color: var(--rds-color-surface, white);
          body.theme-dark &,
             [data-theme="dark"] & {
                 background-color: #2a2a2a;
             }
     }
 
-    // Input container
     &__input {
         width: 100%;
           body.theme-dark &,
@@ -55,7 +46,6 @@
     }
 }
 
-// Legacy class names for backward compatibility (to be deprecated)
 .chat-box {
     @extend .rds-ai-chat-bot;
 }
@@ -84,7 +74,6 @@
     @extend .rds-ai-chat-bot__input;
 }
 
-// Responsive design
 @media (max-width: 768px) {
     .rds-ai-chat-bot {
         height: 100vh;

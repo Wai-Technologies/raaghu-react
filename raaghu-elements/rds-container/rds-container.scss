@@ -1,21 +1,14 @@
-// RDS Container Component Styles
-// Layout container
-
 .rds-container {
   display: block;
   position: relative;
 
   &--fixed {
-    // Fixed state styles
   }
 
   &--fluid {
-    // Fluid state styles
   }
 
-  // Interactive states
   &:hover {
-    // Hover styles
   }
 
   &:focus-visible {

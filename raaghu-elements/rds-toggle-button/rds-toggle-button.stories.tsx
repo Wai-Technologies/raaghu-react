@@ -303,7 +303,7 @@ export const VerticalButtons: Story = {
     options: viewOptions,
     orientation: 'vertical',
     defaultValue: 'list',
-    spacing: 0, // Increased spacing for better visibility
+    spacing: 0,
   },
   parameters: {
     docs: {
@@ -321,7 +321,7 @@ export const WithSpacing: Story = {
   args: {
     options: formatOptions,
     defaultValue: 'bold',
-    spacing: 20, // Large spacing to clearly demonstrate the effect
+    spacing: 20,
   },
   parameters: {
     docs: {

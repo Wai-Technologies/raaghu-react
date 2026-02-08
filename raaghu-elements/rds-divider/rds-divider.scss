@@ -1,21 +1,14 @@
-// RDS Divider Component Styles
-// Visual divider line
-
 .rds-divider {
   display: block;
   position: relative;
 
   &--vertical {
-    // Vertical state styles
   }
 
   &--horizontal {
-    // Horizontal state styles
   }
 
-  // Interactive states
   &:hover {
-    // Hover styles
   }
 
   &:focus-visible {

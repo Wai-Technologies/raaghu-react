@@ -12,12 +12,12 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   size?: 'small' | 'medium' | 'large';
   layout?: 'text' | 'password' | 'phone number' | 'number' | 'card number';
   titlePosition?: string;
-  style?: 'default' | 'pill' | 'bottom outline'; // Now using 'style' instead of 'inputStyle'
+  style?: 'default' | 'pill' | 'bottom outline';
   state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
-  showIcon?: boolean; // New prop to control icon visibility
+  showIcon?: boolean;
   iconPosition?: 'start' | 'end';
-  iconName?: string; // Icon name if using custom icon
-  icon?: React.ReactNode; // Custom icon component provided by the user
+  iconName?: string;
+  icon?: React.ReactNode;
 }
 
 const RdsInput = ({
@@ -44,9 +44,7 @@ const RdsInput = ({
   onBlur,
   ...props
 }: RdsInputProps) => {
-  // State for password visibility
   const [showPassword, setShowPassword] = React.useState(false);
-  // Internal focus tracking to auto-apply active class when state is default
   const [isFocused, setIsFocused] = React.useState(false);
   const [internalValue, setInternalValue] = React.useState('');
   const isControlled = value !== undefined;
@@ -56,7 +54,6 @@ const RdsInput = ({
     }
   }, [layout, isControlled]);
   
-  // Toggle password visibility
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -69,19 +66,14 @@ const RdsInput = ({
   };
 
   const currentValue = isControlled ? value : internalValue;
-  // Custom styles for input size
-  // Determine size class
   const sizeClass = size === 'small' ? 'rds-input--small' : 
                      size === 'medium' ? 'rds-input--medium' : 
                      'rds-input--large';
 
-  // Pill style class
   const pillClass = style === 'pill' ? 'rds-input--pill' : style === 'bottom outline' ? 'rds-input--bottom-outline' : '';
   
-  // Active visuals when prop state='active' OR default + focused
   const active = (state === 'active') || (state === 'default' && isFocused);
 
-  // State class
   let stateClass = '';
   if (state === 'error' || error) {
     stateClass = 'rds-input--error';
@@ -95,7 +87,6 @@ const RdsInput = ({
     stateClass = 'rds-input--active';
   }
 
-  // Map layout to MUI type
   let inputType: string = 'text';
   switch (layout) {
     case 'password':
@@ -112,11 +103,9 @@ const RdsInput = ({
       inputType = 'text';
   }
   
-  // Choose appropriate custom icon
   const renderIcon = () => {
     if (!showIcon) return null;
     
-    // If a custom icon is provided, use it
     if (icon) {
       return (
         <InputAdornment position={iconPosition} className={`rds-input__icon rds-input__icon--${iconPosition}`}>
@@ -144,7 +133,6 @@ const RdsInput = ({
       'End',
       'Tab',
     ];
-    // Allow shortcuts like Ctrl/Cmd + C/V/X/A
     if (e.ctrlKey || e.metaKey) return;
 
     const input = e.currentTarget;
@@ -192,7 +180,6 @@ const RdsInput = ({
     if (digits.length > maxDigits) digits = digits.slice(0, maxDigits);
     const next = (startsWithPlus ? '+' : '') + digits;
     if (orig !== next) {
-      // Sanitize pasted/typed characters
       target.value = next;
       if (!isControlled) {
         setInternalValue(next);
@@ -254,8 +241,6 @@ const RdsInput = ({
           },
           startAdornment: iconPosition === 'start' && showIcon ? renderIcon() : null,
           endAdornment: iconPosition === 'end' && showIcon ? renderIcon() : null,
-              // Props for the underlying input element
-              // Props for the underlying input element
           inputProps: {
             ...(layout === 'phone number' || layout === 'number' || layout === 'card number'
               ? {

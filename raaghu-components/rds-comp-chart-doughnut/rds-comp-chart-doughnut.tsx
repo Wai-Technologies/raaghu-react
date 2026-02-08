@@ -51,13 +51,11 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutprops) => {
                     ctx.fillText(subTitle, width / 2, centerY + 16);
                     ctx.restore();
                     ctx.lineJoin = 'round';
-                    // ctx.subtitles.set("fontColor", "#F084C2");
                 }
             };
 
             const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
 
-            // If dark mode, set legend label color to white
             if (isDarkMode()) {
                 if (!chartOptions.plugins) chartOptions.plugins = {};
                 if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};

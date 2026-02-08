@@ -1,9 +1,7 @@
-// RDS Search Component Styles
 .rds-search {
   display: flex;
   position: relative;
   
-  // Layout modifiers
   &--column {
     flex-direction: column;
   }
@@ -24,13 +22,11 @@
     gap: 8px;
   }
   
-  // Elements
   &__label {
     font-weight: 500;
     font-size: 14px;
     color: var(--rds-color-text-secondary, rgba(0, 0, 0, 0.6));
     
-    // Label position modifiers
     &--top {
       margin-bottom: 2px;
     }
@@ -55,7 +51,6 @@
     }
   }
   
-  // Size variants
   &--small {
     gap: 2px;
   }
@@ -93,7 +88,6 @@
   }
 
   
-  // Ensure proper layout for different label positions
   &--row {
     .rds-search__input {
       flex: 1;
@@ -108,9 +102,7 @@
     }
   }
 
-  // Variant-specific styles to ensure consistent icon alignment
   &__input {
-    // Standard variant icon alignment fix
     &.MuiTextField-root {
       .MuiInput-root {
         

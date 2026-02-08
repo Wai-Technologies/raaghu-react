@@ -34,11 +34,9 @@ const RdsCompAppShell = (props: RdsCompAppShellProps) => {
   const renderTopbar = () => {
     if (!props.topbar) return null;
     
-    // If topbar is a React element and has RdsAppBar as a child, try to clone it with mobile props
     if (React.isValidElement(props.topbar)) {
       try {
         const topbarElement = props.topbar as React.ReactElement<any>;
-        // Check if it's a div containing RdsAppBar
         if (topbarElement.props && topbarElement.props.children && React.isValidElement(topbarElement.props.children)) {
           const appBarChild = topbarElement.props.children as React.ReactElement<any>;
           if (appBarChild.type && (appBarChild.type as any).displayName === 'RdsAppBar') {

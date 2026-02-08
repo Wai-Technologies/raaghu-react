@@ -1,12 +1,9 @@
-// RDS E-Signature Component Styles (variables removed per request; direct values used)
-
 .rds-e-signature {
   width: 100%;
 
 
   &__title {
     font-size: var(--rds-font-size-base, 16px) !important;
-    /* increased per new visual */
     font-weight: var(--rds-font-weight-semibold, 600);
     color: var(--rds-color-neutral-900, #1e1e1e);
     margin: 0 0 var(--rds-space-3, 12px);
@@ -20,21 +17,18 @@
     font-size: var(--rds-font-size-base, 16px);
   }
 
-  // Draw Mode Styles
   &__draw-container {
     width: 100%;
   }
 
   &__canvas-container {
     --rds-esignature-draw-height: var(--rds-signature-draw-height, 280px);
-    /* easy override */
     border: 2px dashed var(--rds-color-border-default, #b3b3b3);
     border-radius: var(--rds-radius-lg, 8px);
     width: 100%;
     max-width: 100%;
     height: var(--rds-esignature-draw-height);
     padding: 0 var(--rds-space-5, 20px) 68px;
-    /* bottom padding for controls (kept px for height positioning) */
     background-color: var(--rds-color-surface, #ffffff);
     transition: border-color .25s ease, background-color .25s ease;
     position: relative;
@@ -42,7 +36,6 @@
     flex-direction: column;
     justify-content: stretch;
 
-    // Hover feedback (non-disabled)
     &:hover {
       background-color: var(--rds-color-surface-hover, #FEF7FF);
       border: 2px dashed var(--rds-color-accent-blue-600, #2E7CE0);
@@ -50,9 +43,7 @@
 
     .rds-e-signature--disabled &:hover {
       background-color: var(--rds-color-neutral-0, #ffffff);
-      /* no hover tint while disabled */
       border-color: var(--rds-color-accent-blue-disabled, #AFCDFD);
-      /* keep light blue */
     }
 
     .rds-e-signature--selected & {
@@ -66,9 +57,7 @@
 
     .rds-e-signature--disabled & {
       background-color: var(--rds-color-neutral-0, #ffffff);
-      /* keep white when disabled */
       border-color: var(--rds-color-accent-blue-disabled, #AFCDFD);
-      /* light blue dashed */
       opacity: 1;
     }
 
@@ -95,22 +84,17 @@
     align-items: flex-end;
     justify-content: space-between;
     padding: 14px 24px 12px;
-    /* inside dashed border */
     pointer-events: none;
-    /* palette & actions will re-enable */
   }
 
   &__controls>* {
     pointer-events: auto;
   }
 
-  /* Variant sizing based on type */
   &--type-initials {
     .rds-e-signature__canvas-container {
       --rds-esignature-draw-height: 200px;
-      /* smaller for initials */
       max-width: 420px;
-      /* narrower initials box */
       padding: 0 16px 56px;
     }
 
@@ -131,11 +115,9 @@
       gap: var(--rds-space-3, 12px);
     }
 
-    /* Upload variant adjustments for initials */
     .rds-e-signature__upload-panel {
       max-width: 420px;
       border-color: var(--rds-color-accent-blue-500, #3C98FF);
-      /* always blue for initials */
       padding: 24px 20px;
     }
 
@@ -152,7 +134,6 @@
       width: 100%;
     }
 
-    /* More compact button & inputs for initials */
     .rds-e-signature__file-button {
       height: 32px;
       min-width: 108px;
@@ -173,9 +154,7 @@
       padding: 0 8px;
     }
 
-    /* Add a subtle icon before button label without changing markup */
     .rds-e-signature__file-button::before {
-      /* paperclip symbol */
       font-size: 14px;
       margin-right: 6px;
       line-height: 1;
@@ -185,9 +164,7 @@
   &--type-fullname {
     .rds-e-signature__canvas-container {
       --rds-esignature-draw-height: 240px;
-      /* slightly larger */
       max-width: var(--rds-signature-fullname-max-width, 960px);
-      /* wider for full name */
     }
   }
 
@@ -330,7 +307,6 @@
     }
   }
 
-  // Upload Mode Styles
   &__upload-container {
     width: 100%;
   }
@@ -344,12 +320,9 @@
     box-sizing: border-box;
     transition: border-color .25s ease, background-color .25s ease;
 
-    /* Disabled state inheritance */
     .rds-e-signature--disabled & {
       border-color: var(--rds-color-accent-blue-disabled, #AFCDFD);
-      /* updated gray */
       background: var(--rds-color-neutral-0, #ffffff);
-      /* keep white */
       cursor: not-allowed;
     }
 
@@ -384,7 +357,6 @@
     max-width: 500px;
   }
 
-  /* Ensure the file-row border is not visually clipped by child backgrounds */
   &__file-row {
     overflow: visible;
     background-clip: padding-box;
@@ -396,7 +368,6 @@
     box-shadow: 0 0 0 2px rgba(25, 118, 210, .15);
   }
 
-  /* modifier hook retained for future spacing tweaks when file present */
   &__upload-content {
     display: flex;
     flex-direction: column;
@@ -462,7 +433,6 @@
     text-overflow: ellipsis;
     height: 36px;
     background: var(--rds-color-neutral-0, #fff);
-    /* Remove negative overlap and keep right rounded corner visible */
     margin-left: 0;
     border-radius: 0 6px 6px 0;
   }
@@ -529,7 +499,6 @@
   }
 
   &__upload-error .rds-e-signature__error-icon {
-    /* Match standard error icon style (outlined circle) */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -551,23 +520,19 @@
     margin: 0;
   }
 
-  // Choose Mode Styles
   &__choose-container {
     width: 100%;
     padding: 0 0 4px;
     border-radius: 8px;
-    /* ensure default (medium/desktop) is not centered */
     display: block;
   }
 
-  /* Panel now only holds grid; link sits outside */
   &__choose-panel {
     border: 2px dashed var(--rds-color-accent-blue-600, #2E7CE0);
     background: var(--rds-color-neutral-0, #fff);
     border-radius: var(--rds-radius-lg, 8px);
     padding: 16px 20px 16px;
     margin-top: 6px;
-    /* Default (medium) behavior: inline-block keeps original spec */
     display: inline-block;
     width: auto;
     max-width: 100%;
@@ -581,7 +546,6 @@
 
   &__mini-grid {
     display: grid;
-    /* Default (medium) layout: 3 columns like original */
     grid-template-columns: repeat(3, auto);
     column-gap: 40px;
     row-gap: 18px;
@@ -594,7 +558,6 @@
     flex-direction: column;
     gap: 4px;
     align-items: flex-start;
-    /* default width auto to preserve original layout on normal/desktop */
   }
 
   &__mini-label {
@@ -615,7 +578,6 @@
     cursor: pointer;
     transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
     font-family: var(--rds-font-family-secondary, 'Segoe UI', sans-serif);
-    /* default auto width */
   }
 
   &__mini-card:hover:not(:disabled) {
@@ -694,15 +656,12 @@
     }
   }
 
-  // Error and Disable Messages
   &__error {
     color: var(--rds-color-error-700, #d32f2f);
     font-size: var(--rds-font-size-sm, 14px) !important;
-    /* reduced per request */
     margin-top: var(--rds-space-2, 8px);
     display: flex;
     align-items: center;
-    /* center icon & text vertically */
     gap: var(--rds-space-2, 8px);
     font-family: var(--rds-font-family-error, 'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif);
     line-height: 1.25;
@@ -712,7 +671,6 @@
   &__error-icon {
     display: inline-flex;
     width: 14px;
-    /* slightly smaller to match reduced text */
     height: 14px;
     border: 1px solid var(--rds-color-error-700, #d32f2f);
     border-radius: 50%;
@@ -722,7 +680,6 @@
     line-height: 1;
     font-weight: 600;
     margin-top: 0;
-    /* ensure natural centering */
     flex-shrink: 0;
   }
 
@@ -734,7 +691,6 @@
     font-style: italic;
   }
 
-  /* overlay removed per latest spec */
   &__disabled-text {
     color: var(--rds-color-neutral-500, #969696);
     line-height: 1.4;
@@ -745,7 +701,6 @@
     width: 100%;
   }
 
-  /* Adjust disabled message specifically for initials variant to keep cleaner wrapping */
   &--type-initials {
     .rds-e-signature__disabled-text {
       font-size: 13px;
@@ -765,7 +720,6 @@
     font-family: var(--rds-font-family-accent, 'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif);
   }
 
-  // State Modifiers
   &--selected {
 
     .rds-e-signature__canvas-container,
@@ -815,7 +769,6 @@
     }
   }
 
-  // Error modifier removed (no validation styling)
 }
 body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-group {
   background: #2a2a2a !important;
@@ -845,7 +798,7 @@ body.theme-dark .rds-e-signature__canvas-container {
 body.theme-dark .rds-e-signature__canvas-icon {
   color: #fff !important;
 }
-/* Dark mode: make rds-e-signature__title text white */
+
 body.theme-dark .rds-e-signature__title {
   color: #fff !important;
 }
@@ -882,7 +835,6 @@ body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-
   border-color: #3C98FF !important;
 }
 
-// Responsive Design
 @media (max-width: 480px) {
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
     padding: 10px;
@@ -905,7 +857,6 @@ body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-
     padding: var(--rds-esignature-spacing-md);
   }
 
-  /* Center panel and link on small screens */
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-container {
     display: flex;
     flex-direction: column;
@@ -919,8 +870,6 @@ body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-
 }
 
 @media (min-width: 1200px) {
-
-  /* Center panel and link on large screens only in Choose mode */
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-container {
     display: flex;
     flex-direction: column;
@@ -934,5 +883,3 @@ body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-
     display: flex;
   }
 }
-
-/* no special large-screen styles; desktop keeps default look */

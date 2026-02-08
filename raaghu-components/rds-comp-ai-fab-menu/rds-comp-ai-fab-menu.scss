@@ -1,4 +1,3 @@
-// RDS Fab Menu Component Styles
 .rds-fab-menu {
   position: relative;
   display: inline-block;
@@ -8,7 +7,6 @@
     margin-left: 235px;
   }
 
-  // Button element
   &__button {
     display: inline-flex;
     align-items: center;
@@ -23,10 +21,8 @@
     min-height: 48px;
     padding: 0;
     box-shadow: var(--rds-elevation-2, 0 2px 4px rgba(0, 0, 0, 0.1));
-    // Default to circular - will be overridden by background type modifiers
     border-radius: 50%;
 
-    // Size variants
     &--small {
       min-width: 40px;
       min-height: 40px;
@@ -42,7 +38,6 @@
       min-height: 56px;
     }
 
-    // Color variants
     &--primary {
       background-color: var(--rds-color-primary,#1976d2);
       color: var(--rds-color-on-primary,#ffffff);
@@ -84,7 +79,6 @@
       border: 1px solid var(--rds-color-border, #dee2e6);
     }
 
-    // Background type variants
     &--circular {
       border-radius: 50%;
     }
@@ -98,7 +92,6 @@
       box-shadow: none !important;
       border: none;
       
-      // Override color variants for no background
       &.rds-fab-menu__button--primary {
         background-color: transparent !important;
         color: var(--rds-color-primary);
@@ -140,13 +133,12 @@
         border: none;
       }
 
-      // Interactive states for no background - completely override base styles
       &:hover {
         background-color: transparent !important;
         transform: translateY(-1px);
         box-shadow: none !important;
         opacity: 0.8;
-        border-radius: 0 !important; // Completely remove any border radius
+        border-radius: 0 !important; 
       }
 
       &:focus {
@@ -155,7 +147,7 @@
         outline-offset: 2px;
         opacity: 0.9;
         box-shadow: none !important;
-        border-radius: 0 !important; // Completely remove any border radius
+        border-radius: 0 !important; 
       }
 
       &:active {
@@ -163,10 +155,9 @@
         transform: translateY(0);
         box-shadow: none !important;
         opacity: 0.7;
-        border-radius: 0 !important; // Completely remove any border radius
+        border-radius: 0 !important; 
       }
 
-      // Ensure all color variant combinations have no background
       &.rds-fab-menu__button--secondary:hover,
       &.rds-fab-menu__button--success:hover,
       &.rds-fab-menu__button--info:hover,
@@ -205,7 +196,6 @@
       }
     }
 
-    // Interactive states
     &:hover {
       transform: translateY(-1px);
       box-shadow: var(--rds-elevation-3, 0 4px 8px rgba(0, 0, 0, 0.15));
@@ -229,7 +219,6 @@
     }
   }
 
-  // Dropdown container
   &__dropdown-container {
     display: none;
     position: absolute;
@@ -239,7 +228,6 @@
     margin-top: var(--rds-spacing-sm, 8px);
     min-width: 200px;
     max-width: 300px;
-    /* Ensure dropdown opens outside parent container */
     transform: translateY(10px);
     &--left {
       left: 0;
@@ -251,7 +239,6 @@
     }
   }
 
-  // Storybook/docs specific vertical offset (only when wrapped in .rds-fab-menu-offset)
   .rds-fab-menu-offset &__dropdown-container {
     top: 13%;
   }
@@ -260,12 +247,10 @@
     display: block;
   }
 
-  // When button has no background, adjust dropdown position
   .rds-fab-menu__button--none + .rds-fab-menu__dropdown-container--open {
     margin-top: var(--rds-spacing-sm, -8px);
   }
 
-  // Dropdown menu
   &__dropdown {
     background-color: var(--rds-color-surface, #ffffff);
     border-radius: var(--rds-border-radius, 8px);
@@ -278,20 +263,17 @@
     transition: all 0.2s ease;
     overflow: hidden;
 
-    // Open state
     &--open {
       opacity: 1;
       visibility: visible;
       transform: translateY(0) scale(1);
     }
 
-    // Bordered variant
     &--bordered {
       border: 1px solid var(--rds-color-border, #dee2e6);
     }
   }
 
-  // Menu item
   &__item {
     display: flex;
     align-items: center;
@@ -305,12 +287,10 @@
     width: 100%;
     text-align: left;
 
-    // Compact variant
     &--compact {
       padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-lg, 16px);
     }
 
-    // Interactive states
     &:hover {
       background-color: var(--rds-color-surface-variant, #f5f5f5);
     }
@@ -324,7 +304,6 @@
       background-color: var(--rds-color-primary-container, #e3f2fd);
     }
 
-    // First and last item border radius
     &:first-child {
       border-top-left-radius: var(--rds-border-radius, 8px);
       border-top-right-radius: var(--rds-border-radius, 8px);
@@ -336,7 +315,6 @@
     }
   }
 
-  // Item text
   &__item-text {
     margin-left: var(--rds-spacing-md, 12px);
     font-size: var(--rds-font-size-body, 14px);
@@ -345,7 +323,6 @@
   }
 }
 
-// Animation for fab menu opening/closing
 @keyframes rds-fab-menu-bounce-in {
   0% {
     opacity: 0;
@@ -360,7 +337,6 @@
   }
 }
 
-// Dark theme support (explicit theme selectors only)
 [data-theme="dark"] .rds-fab-menu__dropdown,
 .dark-theme .rds-fab-menu__dropdown,
 .theme-dark .rds-fab-menu__dropdown {
@@ -395,7 +371,6 @@
   background-color: #a7aaae !important;
 }
 
-// High contrast mode support
 @media (prefers-contrast: high) {
   .rds-fab-menu {
     &__button {
@@ -416,7 +391,6 @@
   }
 }
 
-// Reduced motion support
 @media (prefers-reduced-motion: reduce) {
   .rds-fab-menu {
     &__button,
@@ -427,21 +401,18 @@
   }
 }
 
-// Wrapper utility specifically for Storybook/demo pages to control layout
 .rds-fab-menu-offset {
   width: 100%;
   display: flex;
-  justify-content: flex-start; // keep button at left by default
+  justify-content: flex-start; 
   position: relative;
   height: auto;
   --rds-fab-menu-open-height: 290px;
 
-  // Apply height only while menu open (modern browsers with :has)
   &:has(.rds-fab-menu--open) {
     height: var(--rds-fab-menu-open-height);
   }
 
-  // Fallback: if JS toggles this class manually
   &.rds-fab-menu-offset--open {
     height: var(--rds-fab-menu-open-height);
   }

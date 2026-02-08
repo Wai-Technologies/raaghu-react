@@ -28,8 +28,8 @@ export interface RdsCompTextEditorProps {
     labelClass?: string;
     State?:string;
     showTitle?: boolean;
-    rows?: number; // Controls editor height similar to <textarea rows>
-    resizable?: boolean; // Enables drag-to-resize (CSS resize)
+    rows?: number; 
+    resizable?: boolean;
 }
 
 const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
@@ -46,9 +46,9 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
     const [isTouch, setIsTouch] = useState(false);
     const editorRef = useRef<any>(null);
     const rows = typeof props.rows === 'number' && props.rows > 0 ? props.rows : 6;
-    const lineHeightPx = 26; // approximate readable line height
+    const lineHeightPx = 26; 
     const editorMinHeight = rows * lineHeightPx;
-    const isResizable = props.resizable !== false; // default true
+    const isResizable = props.resizable !== false; 
 
     useEffect(() => {
         if (props.value) {
@@ -71,7 +71,6 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
         
         if (props.onChange) {
             const htmlContent = draftToHtml(convertToRaw(state.getCurrentContent()));
-            // Create delta-like object for backward compatibility
             const delta = { ops: [{ insert: htmlContent }] };
             const source = "user";
             props.onChange(htmlContent, delta, source, editorRef.current);

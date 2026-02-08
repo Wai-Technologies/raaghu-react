@@ -1,10 +1,8 @@
-// RDS AI Chat Header Component Styles
 .rds-comp-ai-chat-header {
   display: flex;
   align-items: center;
   padding: var(--rds-spacing-xs, 0.5rem);
   width: 100%;
-  // Theme support
   color: var(--rds-color-on-surface, inherit);
   
   &__logo {

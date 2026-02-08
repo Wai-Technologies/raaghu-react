@@ -75,9 +75,7 @@
     fill: #fff !important;
   }
 }
-// Remove fixed width containers and let content scale responsively
 
-// Small mobile screens (320px)
 @media (max-width: 320px) {
   .rds-comp-contribution {
     &__container {
@@ -105,12 +103,11 @@
     
     &__text--week {
       font-size: 9px !important;
-      display: none; // hide week labels to save horizontal space on tiny screens
+      display: none; 
     }
   }
 }
 
-// Large mobile screens (414px)
 @media (min-width: 321px) and (max-width: 414px) {
   .rds-comp-contribution {
     &__container {
@@ -143,7 +140,6 @@
   }
 }
 
-// Tablet screens (834px)
 @media (min-width: 415px) and (max-width: 834px) {
   .rds-comp-contribution {
     &__container {
@@ -176,7 +172,6 @@
   }
 }
 
-// Larger screens
 @media (min-width: 835px) {
   .rds-comp-contribution {
     &__container {

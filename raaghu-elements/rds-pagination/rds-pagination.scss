@@ -1,12 +1,7 @@
-// RDS Pagination Component Styles
-// Pagination navigation
-
-
 .rds-pagination {
   display: block;
   position: relative;
 
-  // Target MUI root for custom styling
   .MuiPagination-ul {
     display: flex;
     justify-content: center;
@@ -14,7 +9,6 @@
     padding: 0;
   }
 
-  // Pagination item (button)
   .MuiPaginationItem-root {
     font-family: var(--rds-font-family, Poppins);
     color: var(--rds-color-primary-contrast, #3C98FF);
@@ -35,7 +29,6 @@
       color: var(--rds-color-primary, #fff);
     }
     
-    // Hover state for light mode
     &:hover {
       background-color: #EBDCFF;
     }
@@ -44,14 +37,13 @@
       background-color: #4a4a4a;
     }
   }
-    // Default shape is circular, but allow override by variant/shape
+
     &.MuiPaginationItem-circular {
       border-radius: 50%;
       width: 32px;
       height: 32px;
       min-width: 32px;
       
-      // Maintain circular shape on hover
       &:hover {
         border-radius: 50%;
       }
@@ -62,13 +54,12 @@
       justify-content: center;
       align-items: center;
       
-      // Maintain rounded shape on hover
       &:hover {
         border-radius: 5px;
       }
     }
   }
-  // Responsive styles for medium mobile screens
+
   @media (max-width: 586px) and (min-width: 415px) {
     .MuiPaginationItem-sizeSmall {
       margin: 0 1px !important;
@@ -109,7 +100,7 @@
       padding: 4px;
       border-radius: 3px;
     }
-    // Reduce dropdown width more
+
     .MuiFormControl-root {
       min-width: 60px !important;
     }
@@ -122,7 +113,6 @@
     }
   }
 
-  // Responsive styles for larger mobile screens
   @media (max-width: 834px) and (min-width: 587px) {
     .MuiPaginationItem-sizeSmall {
       margin: 0 1px !important;
@@ -163,7 +153,7 @@
       padding: 6px;
       border-radius: 4px;
     }
-    // Reduce dropdown width
+    
     .MuiFormControl-root {
       min-width: 70px !important;
     }
@@ -216,7 +206,7 @@
       padding: 6px;
       border-radius: 4px;
     }
-    // Reduce dropdown width
+
     .MuiFormControl-root {
       min-width: 70px !important;
     }
@@ -229,7 +219,6 @@
     }
   }
 
-  // Full width navigation for specific screen sizes (around 321px and 415px)
   @media (min-width: 320px) and (max-width: 322px), (min-width: 414px) and (max-width: 416px) {
     .MuiPagination-ul {
       width: 100% !important;
@@ -243,13 +232,12 @@
     }
   }
 
-  // Selected (current) page
   .MuiPaginationItem-root.Mui-selected {
     font-weight: 700;
     z-index: 1;
     border-radius: 0 !important;
   }
-  // Filled (default) selected
+
   .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
     background: transparent !important;
     color: var(--rds-color-primary, #2196f3) !important;
@@ -270,14 +258,14 @@
       border-radius: 0;
     }
   }
-  // Outlined selected
+
   .MuiPaginationItem-root.Mui-selected.MuiPaginationItem-outlined {
     background: transparent;
     color: var(--rds-color-primary, #2196f3);
     border: 2px solid var(--rds-color-primary, #2196f3);
     box-shadow: none;
   }
-  // Rounded selected (filled)
+  
   .MuiPaginationItem-root.Mui-selected.MuiPaginationItem-rounded:not(.MuiPaginationItem-outlined) {
     background: transparent !important;
     color: var(--rds-color-primary, #2196f3) !important;
@@ -297,7 +285,7 @@
       border-radius: 0;
     }
   }
-  // Rounded selected (outlined)
+  
   .MuiPaginationItem-root.Mui-selected.MuiPaginationItem-rounded.MuiPaginationItem-outlined {
     background: transparent;
     color: var(--rds-color-primary, #2196f3);
@@ -306,7 +294,6 @@
     box-shadow: none;
   }
 
-  // Disabled state
   .MuiPaginationItem-root.Mui-disabled {
     opacity: 0.5;
     pointer-events: none;
@@ -315,21 +302,18 @@
     border: none;
   }
 
-  // Ellipsis
   .MuiPaginationItem-ellipsis {
     color: var(--rds-color-primary, #2196f3);
     opacity: 0.5;
     padding: 0 8px;
   }
 
-  // Focus ring
   .MuiPaginationItem-root:focus-visible {
     outline: 2px solid var(--rds-color-primary, #2196f3);
     outline-offset: 2px;
   }
 }
 
-// Pagination wrapper styles
 .rds-pagination-wrapper {
   display: flex;
   align-items: center;
@@ -338,7 +322,6 @@
   width: 100%;
   box-sizing: border-box;
   
-  // Full width navigation for 414px screen size
   @media (width: 414px), (min-width: 413px) and (max-width: 415px) {
     display: flex !important;
     justify-content: center !important;
@@ -392,7 +375,6 @@
     }
   }
   
-  // Ensure proper centering for other medium screens
   @media (min-width: 375px) and (max-width: 768px) {
     justify-content: center !important;
     align-items: center !important;
@@ -420,14 +402,10 @@
      }
   }
 
-  // Full width navigation for styles 1, 2, 3, 4, 5, 7, and 9 on specific screen sizes
   @media (min-width: 320px) and (max-width: 322px), (min-width: 414px) and (max-width: 416px) {
     &.style-1,
-   // &.style-2,
-   // &.style-3,
     &.style-4,
     &.style-5,
-   // &.style-7,
     &.style-9 {
       width: 100% !important;
       max-width: 320px !important;
@@ -451,7 +429,6 @@
         }
       }
       
-      // Ensure prev/next buttons also take appropriate space for styles 4 and 5
       &.style-4,
       &.style-5 {
         .MuiButton-root {
@@ -463,7 +440,6 @@
     }
   }
 
-  // Add flex-direction: column for styles 1, 2, 3, 4, 5, 7, and 9 at 415px screen size
   @media (min-width: 415px) and (max-width: 416px) {
     &.style-1,
     &.style-2,
@@ -479,7 +455,6 @@
       width: 100% !important;
       margin: 0 auto !important;
       
-      // Make pagination take full width for styles 1 and 4
       &.style-1,
       &.style-4 {
         .rds-pagination {
@@ -516,11 +491,7 @@
     }
   }
 
-
-
-  // Additional styles for very small screens (320-414px)
   @media (max-width: 414px) {
-    // Style 1: Even more compact
     &.style-1 {
       .pagination-manual-input {
         .MuiTextField-root {
@@ -529,12 +500,10 @@
       }
     }
 
-    // Style 3: More compact padding
     &.style-3 {
       padding: 4px 6px;
     }
 
-    // Style 4 & 5: Smaller buttons
     &.style-4,
     &.style-5 {
       .MuiButton-root {
@@ -544,7 +513,6 @@
       }
     }
 
-    // Style 9: Minimal spacing
     &.style-9 {
       padding: 4px 6px;
       .MuiPagination-ul {
@@ -556,7 +524,6 @@
     }
   }
 
-  // Style 2: Blue pagination buttons
   &.style-2 {
     .MuiPaginationItem-root.Mui-selected {
       border-radius: 4px !important;
@@ -566,13 +533,7 @@
     }
   }
 
-  // Style 3: Outlined pagination with white background
   &.style-3 {
-    // background-color: white;
-    // padding: 8px 10px;
-    // border-radius: 4px;
-    // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    // Use thin bottom border for selected items (consistent with other styles)
     .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
       background-color: transparent !important;
       color: #007bff !important;
@@ -594,10 +555,7 @@
       color: #007bff;
     }
 
-    // Dark mode styling for style-3
     [data-theme="dark"] & {
-     // background-color: #4a4a4a;
-    
      .MuiPaginationItem-root {
       color: #007bff;
       &:hover {
@@ -607,7 +565,6 @@
   }
   }
 
-  // Style 4 & 5: Button styles for Prev/Next buttons
   &.style-4,
   &.style-5 {
     .MuiButton-root {
@@ -624,7 +581,6 @@
     }
   }
 
-  // Style 4,5,11: add spacing between Next button and dropdown only
   &.style-4 {
     .pagination-dropdown {
       margin-left: 12px !important;
@@ -642,7 +598,6 @@
     }
   }
 
-  // Style 6: Legend only styling
   &.style-6 {
     .pagination-legend {
       font-size: 0.875rem;
@@ -651,7 +606,6 @@
     }
   }
 
-  // Style 7: White background pagination with dots, dropdown, legend and manual input
   &.style-7 {
     
     .MuiPaginationItem-root {
@@ -665,9 +619,7 @@
     }
   }
 
-  // Style 8: White background with legend text only
   &.style-8 {
-    
     .pagination-legend {
       font-size: 0.875rem;
       color: rgba(0, 0, 0, 0.87);
@@ -675,7 +627,6 @@
     }
   }
 
-  // Style 9: Spaced pagination layout (1 1 1 format)
   &.style-9 {  
     .MuiPagination-ul {
       gap: 16px;
@@ -687,7 +638,6 @@
       border: 1px solid transparent;
     }
     
-    // Use thin bottom border for selected items instead of full outline
     .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
       background-color: transparent !important;
       color: #007bff !important;
@@ -705,7 +655,7 @@
         background: #007bff;
       }
     }
-    // Additional helper class for Style 9 wrapper when using custom Prev/Next
+
     .rds-style9 {
       display: flex;
       align-items: center;
@@ -730,7 +680,6 @@
     }
   }
 
-  // Style 10: Only prev and next arrows
   &.style-10 {
     .MuiButton-root {
      
@@ -743,7 +692,7 @@
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
-      font-size: 22px !important; /* make the arrow glyph larger */
+      font-size: 22px !important;
       line-height: 1 !important;
       margin-right: 5px !important;
       &:hover {
@@ -756,11 +705,9 @@
     }
   }
 
-  // Style 11: Prev arrow (circular) and next button (rectangular)
   &.style-11 {
     .MuiButton-root {
       &:first-of-type {
-        // Prev button - circular arrow
         background-color: #007bff !important;
         color: white !important;
         border-radius: 50% !important;
@@ -772,7 +719,6 @@
       }
       
       &:last-of-type {
-        // Next button - rectangular
         background-color: #007bff !important;
         color: white !important;
         border-radius: 4px !important;
@@ -793,12 +739,9 @@
   }
 }
 
-
-// Dropdown styling
 .pagination-dropdown {
   min-width: 65px !important;
 
-  // Responsive dropdown styles
   @media (max-width: 586px) {
     min-width: 55px !important;
     
@@ -825,7 +768,6 @@
     }
   }
 
-  // Style 3 specific dropdown styling
   &.style-3 {
     .MuiOutlinedInput-root {
       border-radius: 4px;
@@ -848,18 +790,15 @@
   }
 }
 
-// Legend text styling
 .pagination-legend {
   margin-left: 16px !important;
   font-size: 0.875rem !important;
   color: rgba(0, 0, 0, 0.87) !important;
 
-  // Dark mode styling for pagination legend
   [data-theme="dark"] & {
     color: white !important;
   }
 
-  // Responsive legend styles
   @media (max-width: 586px) {
     margin-left: 0 !important;
     font-size: 0.75rem !important;
@@ -871,7 +810,6 @@
   }
 }
 
-// Manual input styling
 .pagination-manual-input {
   margin-left: 16px !important;
   display: flex !important;
@@ -891,7 +829,6 @@
     font-size: 0.875rem !important;
   }
 
-  // Responsive manual input styles
   @media (max-width: 586px) {
     margin-left: 0 !important;
     gap: 6px !important;
@@ -931,7 +868,6 @@
     }
   }
 
-  // Specific styling for 320px screen size - make input bigger
   @media (max-width: 320px) {
     .MuiTextField-root {
       width: 45px !important;
@@ -955,7 +891,6 @@
     font-size: 14px !important;
     padding: 7.5px 8px !important;
 
-    // Responsive select input styles
     @media (max-width: 586px) {
       font-size: 12px !important;
       padding: 6px 24px 6px 6px !important;
@@ -969,7 +904,6 @@
     }
 }
 
-// Add flex-direction: row for styles 2, 6, 7, 8, 10, and 11 at 320px screen size only
 @media (max-width: 320px) {
   .rds-pagination-wrapper.style-6,
   
@@ -979,7 +913,6 @@
     flex-direction: row !important;
   }
 
-  // Add flex-direction: row for styles 3, 4, 5, 9 at 320px
   .rds-pagination-wrapper.style-3,
   .rds-pagination-wrapper.style-4,
   .rds-pagination-wrapper.style-7,
@@ -990,7 +923,7 @@
     flex-direction: column !important;
     align-items: center !important;
     flex-wrap: nowrap;
-    max-width: 320px !important;  // Ensure container never exceeds 320px
+    max-width: 320px !important;
     width: 100% !important;
     
     .pagination-dropdown {
@@ -998,7 +931,7 @@
       margin-bottom: 0 !important;
       display: flex;
       align-items: center;
-      max-width: 300px !important;  // Leave some margin for container
+      max-width: 300px !important;
     }
     .pagination-manual-input {
       margin-left: 0 !important;
@@ -1007,9 +940,9 @@
       gap: 8px !important;
       width: auto;
       flex-basis: auto;
-     // margin-top: 10px !important;
       justify-content: flex-start !important;
-      max-width: 300px !important;  // Leave some margin for container
+      max-width: 300px !important;
+
       
       .MuiTextField-root {
         width: 45px !important;
@@ -1028,12 +961,12 @@
     .rds-pagination {
       margin-right: 8px !important;
       margin-bottom: 0 !important;
-      max-width: 300px !important;  // Leave some margin for container
+      max-width: 300px !important;
       
       .MuiPagination-ul {
         max-width: 100% !important;
         justify-content: space-between !important;
-        gap: 1px !important;  // Minimize gaps at 320px
+        gap: 1px !important;
       }
       
       .MuiPaginationItem-root {
@@ -1046,17 +979,13 @@
     }
     @media (max-width: 414px) {
       .pagination-manual-input {
-       // flex-direction: column !important;
-       // align-items: flex-start !important;
        justify-content: center !important;
         width: 100% !important;
         gap: 4px !important;
-       // margin-top: 10px !important;
       }
     }
   }
   
-  // Special handling for Style 1 at 320px - stack all elements vertically with tight constraints
   .rds-pagination-wrapper.style-1 {
     flex-direction: column !important;
     max-width: 320px !important;
@@ -1125,7 +1054,6 @@
     }
   }
 
-  // Special handling for Style 4 at 320px - stack all elements vertically with tight constraints
   .rds-pagination-wrapper.style-4 {
     flex-direction: column !important;
     max-width: 320px !important;
@@ -1202,12 +1130,10 @@
   }
 }
 
-// Add margin-top: 10px for specific styles at 414px screen size (excluding styles 6, 10, and 11)
 @media (max-width: 414px) {
   .rds-pagination-wrapper.style-1,
   .rds-pagination-wrapper.style-2,
   .rds-pagination-wrapper.style-3,
-  //.rds-pagination-wrapper.style-4,
   .rds-pagination-wrapper.style-5,
   .rds-pagination-wrapper.style-7,
   .rds-pagination-wrapper.style-8,
@@ -1218,7 +1144,6 @@
   }
 }
 
-// Specific 320px width constraint for Style 1 and Style 4
 @media (max-width: 320px) {
   .rds-pagination-wrapper.style-1,
   .rds-pagination-wrapper.style-4 {
@@ -1228,7 +1153,6 @@
     padding: 4px !important;
     overflow: hidden !important;
     
-    // Force all child elements to respect the 320px boundary
     * {
       box-sizing: border-box !important;
     }
@@ -1242,7 +1166,6 @@
       overflow: hidden !important;
     }
     
-    // Ensure pagination buttons are very compact but numbers remain visible
     .rds-pagination {
       .MuiPagination-ul {
         flex-wrap: nowrap !important;
@@ -1258,13 +1181,9 @@
         font-size: 0.65rem !important;
         margin: 0 0.5px !important;
         padding: 0 1px !important;
-        
-        // Keep numbers visible for all pagination items
-        // Remove the dot replacement - show actual page numbers
       }
     }
     
-    // Make dropdowns and inputs ultra-compact
     .pagination-dropdown {
       min-width: 40px !important;
       max-width: 60px !important;

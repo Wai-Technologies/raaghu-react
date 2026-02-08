@@ -43,7 +43,6 @@ export const Default: Story = {
 
                             const original = Chart.defaults.plugins.legend.labels.generateLabels(chart);
                             original.forEach(label => {
-                                // label.pointStyle = 'custom-legend-point';
                             });
 
                             return original;
@@ -76,7 +75,6 @@ export const Default: Story = {
                 backgroundColor: "red"
             },
         ],
-        // isGradient: true,
         id: "linechart",
     }
 } satisfies Story;

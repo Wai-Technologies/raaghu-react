@@ -151,7 +151,6 @@ export const PerformanceStacked: Story = {
                 label: "Productive",
                 data: [15, 30, 30, 15, 60, 15, 65, 35, 65, 27, 50, 15, 20, 69],
                 backgroundColor: "rgba(111, 206, 250, 1)",
-                // borderColor: "rgba(75, 192, 192, 1)"
             },
             {
                 label: "Unproductive",

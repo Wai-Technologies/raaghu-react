@@ -1,9 +1,7 @@
-// RDS Fab Component Styles
 .rds-fab {
   display: block;
   position: relative;
 
-  /* Default/Light theme styles */
   .MuiFab-root {
     background-color: var(--rds-color-surface-variant, #f5f5f5) !important;
     color: var(--rds-color-on-surface-variant, #424242) !important;
@@ -33,7 +31,6 @@
       }
     }
 
-    // Color variants for light theme
     &.MuiFab-primary {
       background-color: var(--btn-primary-solid-default, #7825E9) !important;
       color: var(--btn-primary-text-invert, #ffffff) !important;
@@ -137,7 +134,6 @@
     }
   }
 }
-/* Common ancestor-based dark hooks */
 body.dark .MuiFab-root,
 html.dark .MuiFab-root,
 .dark .MuiFab-root,

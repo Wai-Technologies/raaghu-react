@@ -23,7 +23,7 @@ export interface RdsButtonDropdownProps {
   multiSelect?: boolean;
   showSearch?: boolean;
   onChange?: (selected: string[] | string) => void;
-  state?: 'default' | 'selected'; // allow custom state handling
+  state?: 'default' | 'selected'; 
   buttonState?: 'default' | 'hover' | 'disabled' | 'selected';
   size?: 'small' | 'medium' | 'large';
   layout?: 'icon+text' | 'text-only' | 'icon-only';
@@ -87,7 +87,6 @@ const RdsButtonDropdown = ({
     opt.label.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Dropdown open state logic
   const isDropdownOpen = state === 'selected' ? Boolean(anchorEl) || anchorEl === null : Boolean(anchorEl);
 
   const handleDropdownButtonClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -170,7 +169,6 @@ const RdsButtonDropdown = ({
                     className={styleType === 'outline' ? 'rds-button-dropdown__button rds-button-dropdown--outline' : ''}
                   />
                 ) : (
-                  // Fallback: Plain text option when neither checkbox nor radio is enabled
                   <div
                     role="option"
                     aria-selected={selected.includes(opt.id)}

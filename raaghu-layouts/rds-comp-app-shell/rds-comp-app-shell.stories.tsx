@@ -59,7 +59,6 @@ const meta: Meta<typeof RdsCompAppShell> = {
 export default meta;
 type Story = StoryObj<typeof RdsCompAppShell>;
 
-// Main story that responds to displayType control
 const AppShellStory = (args: any) => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
   const [mobileToolbarOpen, setMobileToolbarOpen] = React.useState(false);
@@ -350,7 +349,6 @@ const AppShellStory = (args: any) => {
       );
     }
 
-    // Default sidebar for Standard, Relaxing, Default, etc.
     return (
       <BrowserRouter>
         <RdsSidebar
@@ -603,7 +601,6 @@ const AppShellStory = (args: any) => {
       );
     }
 
-    // Default/Standard content
     return (
       <div className="rds-story-standard-content">
         {mobileSidebarOpen && (

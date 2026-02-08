@@ -40,7 +40,6 @@ const RdsFormControl: React.FC<RdsFormControlProps> = ({
   return (
     <MuiFormControl required={isRequiredProp} error={error} size={inputSize} {...props} className={`rds-form-control ${props.className ?? ''}`}>
       {label && (
-        // Use MUI's built-in asterisk when `required` is true; style via SCSS
         <MuiFormLabel required={isRequiredProp} className="rds-form-control__label">
           {label}
         </MuiFormLabel>

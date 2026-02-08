@@ -1,19 +1,6 @@
-// RDS Dialog Component Styles
-// Dialog modal component
-
-
-// RDS Dialog Component Styles
 .rds-dialog {
   display: block;
   position: relative;
-
-  // &__title {
-  //   display: flex !important;
-  //   align-items: center !important;
-  //   justify-content: center !important;
-    
-  //   // Title styles
-  // }
 
   &__content {
     display: block;
@@ -41,29 +28,26 @@
   }
 
   &__paper.MuiDialog-paperWidthXs:has(.rds-dialog__content svg) {
-    /* exact box sizing per design */
   width: 310px;
   min-width: 310px;
   max-width: 400px;
-  min-height: 294px; /* keep minimum height but allow content to flow */
+  min-height: 294px;
   box-sizing: border-box;
   padding: var(--rds-spacing-lg, 16px);
-  border-radius: 8px; /* corner-radius/radius-s approximated */
-  overflow: hidden; /* keep buttons inside the paper */
+  border-radius: 8px;
+  overflow: hidden;
 
-    /* title area: left-aligned and compact; leave space for close button */
     .rds-dialog__title {
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      padding: 12px 48px 8px 14px; /* tweak title left padding to match Figma */
+      padding: 12px 48px 8px 14px;
       font-size: 18px;
       font-weight: 500;
       line-height: 20px;
       color: var(--rds-text-primary, #222);
     }
 
-    /* content area centers the icon and text with specific gaps */
     .rds-dialog__content {
       padding: 0 8px 0 8px;
       display: flex;
@@ -72,21 +56,19 @@
       justify-content: flex-start;
       text-align: center;
       color: var(--rds-text-primary, #444);
-      gap: 16px; /* slightly larger gap to match Figma spacing */
+      gap: 16px;
       margin-top: 6px;
       flex: 1 1 auto;
       overflow: hidden;
     }
 
-    /* svg/icon sizing and spacing */
     .rds-dialog__content svg {
       display: block;
-      margin: 12px auto 0 auto; /* move icon slightly lower */
+      margin: 12px auto 0 auto;
       width: 56px;
       height: 56px;
     }
 
-    /* body text constrained to match Figma spacing */
     .rds-dialog__content p,
     .rds-dialog__content .MuiTypography-root {
       max-width: 248px;
@@ -96,18 +78,16 @@
       color: var(--rds-text-secondary, #757575);
     }
 
-    /* Actions are stacked and centered per design. Use exact button sizes. */
     .rds-dialog__actions {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      padding: 14px 0 22px 0; /* extra bottom padding to center buttons visually */
+      padding: 14px 0 22px 0;
       align-items: center;
       justify-content: flex-end;
       background: transparent;
     }
 
-    /* Cancel (dismiss) button — filled, specific size */
     .rds-dialog__button.rds-dialog__button__dismiss {
       width: 248px;
       height: 36px;
@@ -115,26 +95,23 @@
       justify-content: center;
       align-items: center;
       padding: 0 12px;
-      //background: var(--rds-color-primary, #3C98FF);
       color: var(--rds-primary-contrast-text, #fff);
-      border-radius: 8px; /* match Figma corner radius */
+      border-radius: 8px;
       border: none;
       box-shadow: none;
       box-sizing: border-box;
-      /* Figma typography for Cancel label */
       font-family: var(--rds-font-family-poppins);
-      font-weight: 400; /* regular */
-      font-size: var(--rds-font-size-xs, 13px); /* use project xs token when available */
+      font-weight: 400;
+      font-size: var(--rds-font-size-xs, 13px);
       line-height: 16px;
       text-align: center;
       vertical-align: middle;
       text-transform: none;
     }
 
-    /* Okay (primary) button — show as small blue text link below the filled Cancel button */
     .rds-dialog__button.rds-dialog__button__primary-link {
       width: 248px;
-      height: 36px; /* match cancel height */
+      height: 36px;
       display: inline-flex;
       justify-content: center;
       align-items: center;
@@ -153,7 +130,6 @@
       margin-left: 0px;
     }
 
-    /* place close button top-right inside this paper so title does not overlap */
     .rds-dialog__close-button {
       position: absolute;
       right: 12px;
@@ -165,8 +141,6 @@
 
   &__close-button {
     position: absolute;
-    // right: var(--rds-spacing-lg, 16px);
-    // top: var(--rds-spacing-lg, 13px);
     color: var(--rds-text-secondary, #888);
   }
 
@@ -229,26 +203,21 @@
 
 .dark-theme .rds-dialog,
 [data-theme="dark"] .rds-dialog {
-  
-  // Dialog content for dark theme
   &__content {
     color: var(--rds-text-primary, #ffffff) !important;
     background-color: transparent !important;
   }
   
-  // Dialog actions section
   &__actions {
     background-color: transparent !important;
   }
   
-  // Dialog paper/container for dark theme
   &__paper {
     background-color: var(--rds-background-paper, #1a1a1a) !important;
     border: 1px solid var(--rds-border-default, #666666) !important;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
   }
   
-  // Close button for dark theme
   &__close-button {
     color: var(--rds-text-secondary, #cccccc) !important;
     
@@ -258,7 +227,6 @@
     }
   }
   
-  // Dialog buttons for dark theme - maintain same appearance as light theme
   &__button {
     color: var(--rds-color-primary, #ffffff) !important;
     border-radius: var(--rds-border-radius, 6px) !important;
@@ -268,7 +236,6 @@
       outline-offset: var(--rds-focus-ring-offset) !important;
     }
     
-    // Primary button variant - use same colors as light theme
     &__primary {
       background: var(--rds-color-primary, #3c98ff) !important;
       color: var(--rds-primary-contrast-text, #ffffff) !important;
@@ -279,7 +246,6 @@
       }
     }
     
-    // Secondary button variant - use same colors as light theme  
     &__secondary {
      background: var(--rds-background-paper, #3C98FF) !important;
       color: var(--rds-color-primary, #3c98ff) !important;
@@ -288,9 +254,7 @@
       
     }
     
-    // Dismiss/text button variant - use same colors as light theme
     &__dismiss {
-      //background: #3C98FF !important;
       color: var(--rds-color-primary, #1976d2) !important;
       border: none !important;
 
@@ -300,13 +264,11 @@
     }
   }
   
-  // Focus states for dark theme
   &:focus-visible {
     outline: none !important;
     outline-offset: 0 !important;
   }
   
-  // Disabled state for dark theme
   &:disabled,
   &--disabled {
     opacity: 0.5 !important;
@@ -323,20 +285,13 @@
   }
 }
 
-// =============================================================================
-// DARK THEME ACCESSIBILITY ENHANCEMENTS
-// =============================================================================
-
 .dark-theme .rds-dialog,
 [data-theme="dark"] .rds-dialog {
-  
-  // Enhanced contrast for better readability
   &__content {
     text-shadow: none;
     font-weight: 400;
   }
   
-  // Better focus indicators for accessibility
   &__button {
     &:focus-visible {
       outline: none !important;

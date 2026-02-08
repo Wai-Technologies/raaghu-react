@@ -1,17 +1,12 @@
-// RDS Navtabs Component Styles
 .rds-comp-navtabs {
-  // Base styles
   display: block;
   
-  // Navigation wrapper
   &__nav {
     &.nav-tabs {
-      // Base nav-tabs styles
       .nav-link {
         cursor: pointer;
         transition: all 0.2s ease;
         
-        // Interactive states
         &:hover {
           background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04));
         }
@@ -28,14 +23,12 @@
       }
     }
     
-    // Icon alignment modifier
     &--icon-align {
       .nav-link {
         text-align: center;
       }
     }
     
-    // Layout modifiers
     &--horizontal {
       display: flex;
       flex-direction: row;
@@ -55,7 +48,6 @@
       }
     }
     
-    // Style variants - Horizontal
     &--top-select,
     &--bottom-select,
     &--top-select-alt,
@@ -71,7 +63,6 @@
       }
     }
     
-    // Style variants - Vertical
     &--vertical-alt-right-line,
     &--vertical-alt-left-line,
     &--vertical-left-line,
@@ -94,7 +85,6 @@
     }
   }
   
-  // Nav item
   &__nav-item {
     &--disabled {
       .rds-comp-navtabs__nav-link {
@@ -105,11 +95,9 @@
     }
   }
   
-  // Nav link
   &__nav-link {
     transition: all 0.2s ease;
     
-    // States
     &--active {
       background-color: var(--rds-color-primary, #7e2eef);
       color: var(--rds-color-on-primary, white);
@@ -125,19 +113,16 @@
       color: var(--rds-color-on-surface, inherit);
     }
   }
-  
-  // Label
+
   &__label {
     font-weight: 500;
     padding: 0 var(--rds-spacing-sm, 0.75rem);
   }
   
-  // Badge wrapper
   &__badge {
     margin-left: var(--rds-spacing-xs, 0.25rem);
   }
   
-  // Special cases for legacy support
   &#features {
     .nav-link {
       &.active {
@@ -150,7 +135,6 @@
   }
 }
 
-// Legacy class support for backward compatibility
 .nav-tabs {
   .nav-link {
     cursor: pointer;
@@ -171,7 +155,6 @@
     }
   }
   
-  // Horizontal style variants
   &.top-select,
   &.bottom-select,
   &.top-select-alt,
@@ -188,7 +171,6 @@
   }
 }
 
-// Standalone legacy classes
 .top-select,
 .bottom-select,
 .top-select-alt,
@@ -208,7 +190,6 @@
   text-align: start;
 }
 
-// Responsive design
 @media screen and (max-width: 1023px) {
   .bs-md-0 {
     border-left: 0px solid transparent;

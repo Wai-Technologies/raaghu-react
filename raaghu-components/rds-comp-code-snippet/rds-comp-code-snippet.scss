@@ -1,23 +1,18 @@
-// RDS Code Snippet Component Styles
 .rds-comp-code-snippet {
-  // Base component styles
   border-radius: var(--rds-border-radius, 8px);
   border: 1px solid var(--rds-color-border, #e5e7eb);
   overflow: hidden;
   font-family: var(--rds-font-family-mono, 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace);
   font-size: var(--rds-font-size-sm, 14px);
 
-  // Container element
   &__container {
     position: relative;
   }
 
-  // Wrapper element for multi-line layout
   &__wrapper {
     position: relative;
   }
 
-  // Toolbar element
   &__toolbar {
     display: flex;
     justify-content: end;
@@ -36,7 +31,6 @@
       background-color: var(--rds-color-border, #e5e7eb);
     }
 
-    // Single line toolbar modifier
     &--single-line {
       display: flex;
       align-items: center;
@@ -103,7 +97,6 @@
     }
   }
 
-  // Single line code display
   &__single-line-code {
     flex: 1;
     text-align: left;
@@ -122,7 +115,6 @@
     }
   }
 
-  // Inline highlighter class used by SyntaxHighlighter for single-line inline rendering
   &__inline-highlighter {
     display: inline !important;
     background: transparent !important;
@@ -136,14 +128,12 @@
     line-height: inherit !important;
   }
 
-  // Actions container for single line
   &__actions {
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-xs, 8px);
   }
 
-  // Language label element
   &__language-label {
     font-size: var(--rds-font-size-xs, 12px);
     font-weight: 600;
@@ -151,17 +141,14 @@
     letter-spacing: 0.05em;
   }
 
-  // Copy button element
   &__copy-button {
    min-width: 120px;
-    // Focus state for accessibility
     &:focus,
     &:focus-visible {
       outline: 2px solid var(--rds-color-primary, #3b82f6);
       outline-offset: 2px;
     }
 
-    // Copied state modifier
     &--copied {
       background-color: var(--rds-color-success, #10b981) !important;
       color: var(--rds-color-on-success, #ffffff) !important;
@@ -169,7 +156,6 @@
     }
   }
 
-  // Expand icon element
   &__expand-icon {
     cursor: pointer;
     transition: color 0.2s ease;
@@ -179,7 +165,6 @@
     }
   }
 
-  // Code content element
   &__content {
     position: relative;
 
@@ -199,7 +184,6 @@
       }
     }
 
-    // Target the SyntaxHighlighter wrapper via a class set on the component
     &__highlighter {
       background: transparent !important;
       padding: 16px !important;
@@ -207,7 +191,6 @@
       font-family: inherit !important;
       line-height: inherit !important;
 
-      // Ensure pre/code produced by the library inherit our styling
       pre, code {
         background: transparent !important;
         margin: 0 !important;
@@ -218,18 +201,15 @@
     }
   }
 
-  // Modifier when a max height is provided via CSS variable
   &__content--with-max {
     max-height: var(--rds-code-max-height, 400px);
     overflow: auto;
   }
 
-  // Code with line numbers wrapper
   &__code-with-lines {
     display: flex;
   }
 
-  // Line numbers element
   &__line-numbers {
     padding: var(--rds-spacing-md, 16px) var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
     text-align: right;
@@ -238,26 +218,22 @@
     border-right: 1px solid;
   }
 
-  // Individual line number
   &__line-number {
     display: block;
     line-height: 1.55;
     font-size: var(--rds-font-size-xs, 12px);
   }
 
-  // Code lines container
   &__code-lines {
     flex: 1;
     padding: var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px) var(--rds-spacing-md, 16px);
   }
 
-  // Individual code line
   &__code-line {
     display: block;
     line-height: 1.5;
   }
 
-  // Footer container
   &__footer {
     display: flex;
     justify-content: flex-end;
@@ -266,14 +242,12 @@
     min-height: 48px;
   }
 
-  // Show more button container
   &__show-more {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  // Light theme modifier
   &--light {
     background-color: var(--rds-color-surface, #ffffff);
     color: var(--rds-color-on-surface, #374151);
@@ -313,7 +287,6 @@
     }
   }
 
-  // Dark theme modifier
   &--dark {
     background-color: var(--rds-color-surface-dark, #1f2937);
     color: var(--rds-color-on-surface-dark, #f9fafb);
@@ -358,7 +331,6 @@
     }
   }
 
-  // Single line type modifier
   &--singleLine {
     .rds-comp-code-snippet__content pre {
       padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px);
@@ -367,7 +339,6 @@
     }
   }
 
-  // Multi line type modifier
   &--multiLine {
     .rds-comp-code-snippet__content {
       max-height: 400px;
@@ -376,7 +347,6 @@
   }
 }
 
-// Syntax highlighting classes
 .language-html {
   .tag {
     color: var(--rds-syntax-tag, #0969da);
@@ -420,7 +390,6 @@
   }
 }
 
-// Dark theme syntax highlighting
 .rds-comp-code-snippet--dark {
   .language-html {
     .tag {

@@ -48,7 +48,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     const handleResize = () => {
       const width = window.innerWidth;
       updateSizeBasedOnWidth(width);
-      setIsMobile(width <= 414); // Include both small and large mobile sizes
+      setIsMobile(width <= 414); 
     };
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -61,21 +61,16 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   const updateSizeBasedOnWidth = (width: number) => {
     setContainerWidth(width);
 
-    // Responsive sizing for specific screen sizes
     if (width <= 320) {
-      // Small mobile (320px)
       setDynamicPanelSize(8);
       setDynamicPanelMargin(1.2);
     } else if (width <= 414) {
-      // Large mobile (414px) 
       setDynamicPanelSize(9);
       setDynamicPanelMargin(1.2);
     } else if (width <= 834) {
-      // Tablet (834px)
       setDynamicPanelSize(8);
       setDynamicPanelMargin(2);
     } else {
-      // Desktop and larger screens
       setDynamicPanelSize(panelSize);
       setDynamicPanelMargin(panelMargin);
     }
@@ -121,7 +116,6 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   };
 
   const getSvgWidthClass = (width: number) => {
-    // No longer using fixed width classes, let CSS handle responsive scaling
     return '';
   };
 
@@ -249,9 +243,8 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     });
   };
   
-  // Calculate SVG dimensions based on responsive panel sizes
   const calculatedSvgWidth = columns * (dynamicPanelSize + dynamicPanelMargin) + weekLabelWidth + dynamicPanelSize;
-  const svgWidth = Math.max(calculatedSvgWidth, 280); // Minimum width for readability
+  const svgWidth = Math.max(calculatedSvgWidth, 280);
   const svgHeight = 7 * (dynamicPanelSize + dynamicPanelMargin) + monthLabelHeight;
 
   return (

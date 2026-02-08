@@ -33,30 +33,25 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
     className = "",
     disabled = false,
 }) => {
-    // Format video URL based on type
+
     const getFormattedUrl = (): string => {
         if (!videoLink) return "";
         
         switch (type) {
             case VideoPlayerType.YouTube:
-                // If it's already a valid YouTube URL, return as is
                 if (videoLink.includes("youtube.com") || videoLink.includes("youtu.be")) {
                     return videoLink;
                 }
-                // If it's just a video ID or invalid URL, use default YouTube video
                 return "https://www.youtube.com/watch?v=LXb3EKWsInQ";
                 
             case VideoPlayerType.Vimeo:
-                // If it's already a valid Vimeo URL, return as is
                 if (videoLink.includes("vimeo.com")) {
                     return videoLink;
                 }
-                // If it's just a video ID or invalid URL, use default Vimeo video
                 return "https://vimeo.com/90509568";
                 
             case VideoPlayerType.Default:
             default:
-                // For direct video files (MP4, WebM, etc.) or other URLs
                 return videoLink;
         }
     };

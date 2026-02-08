@@ -3,7 +3,6 @@ import { Box, Paper, Typography, Button, IconButton } from '@mui/material';
 import { CloudUpload, Close } from '@mui/icons-material';
 import RdsFileUploader, { FileWithProgress } from './rds-file-uploader';
 
-// ============= INTERFACES =============
 interface RdsDropZoneSideIconProps {
   mode: string;
   isDragOver: boolean;
@@ -49,7 +48,6 @@ interface UseFileUploaderProps {
   onUpload?: (files: File[]) => Promise<void>;
 }
 
-// ============= CUSTOM HOOK =============
 export const useFileUploader = ({
   maxSize,
   maxFiles,
@@ -174,8 +172,6 @@ export const useFileUploader = ({
     setFiles,
   };
 };
-
-// ============= COMPONENTS =============
 
 export const RdsDropZoneSideIcon: React.FC<RdsDropZoneSideIconProps> = ({
   mode,

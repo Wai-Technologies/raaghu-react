@@ -2,7 +2,6 @@ import React, { useRef, useState, useCallback } from 'react';
 import { Box, Typography } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
-// Shared types
 export interface PredefinedSignatureItem {
   id: string;
   name: string;
@@ -11,7 +10,6 @@ export interface PredefinedSignatureItem {
   initials: string;
 }
 
-// Upload Mode Component
 export interface RdsESignatureUploadProps {
   type: 'fullname' | 'initials';
   disabled: boolean;
@@ -20,7 +18,7 @@ export interface RdsESignatureUploadProps {
   onSignatureChange?: (signature: string | File | null) => void;
 }
 
-const MAX_FILE_BYTES = 5 * 1024 * 1024; // 5MB limit
+const MAX_FILE_BYTES = 5 * 1024 * 1024; 
 
 export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
   type,
@@ -38,7 +36,7 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > MAX_FILE_BYTES) {
-        setUploadError('File too large. Max size is 2MB'); // original message retained
+        setUploadError('File too large. Max size is 2MB'); 
         setSelectedFile(null);
         if (fileInputRef.current) fileInputRef.current.value = '';
         onSignatureChange?.(null);
@@ -122,7 +120,6 @@ export const RdsESignatureUpload: React.FC<RdsESignatureUploadProps> = ({
   );
 };
 
-// Choose Mode Component
 export interface RdsESignatureChooseProps {
   type: 'fullname' | 'initials';
   disabled: boolean;
