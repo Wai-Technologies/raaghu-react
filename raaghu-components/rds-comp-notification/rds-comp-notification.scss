@@ -243,6 +243,16 @@
     }
   }
 
+  // Adjust dismiss button position for avatar and icon styles
+  &--style-avatar,
+  &--style-icon {
+    .rds-comp-notification__dismiss {
+      &.MuiIconButton-root {
+        top: 30px;
+      }
+    }
+  }
+
   // Keep the previous (tighter) placement for the horizontal image layout so it
   // visually aligns with the title block as before.
   &--layout-horizontal.rds-comp-notification--style-image {
