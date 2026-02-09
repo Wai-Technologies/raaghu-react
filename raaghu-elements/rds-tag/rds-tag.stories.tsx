@@ -64,7 +64,7 @@ export const Removable: Story = {
   args: {
     label: 'Removable Tag',
     removable: true,
-    onRemove: () => alert('Tag removed!'),
+    onRemove: () => {},
   },
 };
 
@@ -96,7 +96,7 @@ export const Multiple: Story = {
       <RdsTag label="React" color="primary" />
       <RdsTag label="TypeScript" color="secondary" />
       <RdsTag label="Material-UI" color="success" />
-      <RdsTag label="Removable Tag"  onRemove={() => alert('Tag removed!')} removable/>
+      <RdsTag label="Removable Tag"  onRemove={() => {}} removable/>
       <RdsTag label="Vite" color="info" variant="outlined" />
       <RdsTag label="ESLint" color="error" size="small" />
     </Box>

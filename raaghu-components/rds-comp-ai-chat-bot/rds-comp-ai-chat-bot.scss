@@ -53,6 +53,14 @@
             background-color: #2a2a2a;
         }
     }
+
+    // Input icon
+    &__input-icon {
+        body.theme-dark &,
+        [data-theme="dark"] & {
+            color: #7e2eef !important;
+        }
+    }
 }
 
 // Legacy class names for backward compatibility (to be deprecated)
