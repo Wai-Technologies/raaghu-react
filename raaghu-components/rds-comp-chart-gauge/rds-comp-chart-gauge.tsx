@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import "./rds-comp-chart-gauge.scss";
 
 export interface RdsCompGaugeprops {
     labels: any[];
@@ -103,7 +104,7 @@ const RdsCompGaugeChart = (props: RdsCompGaugeprops) => {
     }, [props]);
 
     return (
-        <div>
+        <div className="rds-comp-chart-gauge">
             <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef}></canvas>
         </div>
     );

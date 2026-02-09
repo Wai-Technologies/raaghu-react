@@ -116,7 +116,7 @@ const RdsCompAreaChart = (props: lineprops) => {
     }, [props.labels, props.dataSets, props.options, props.isGradient, themeMode]);
 
     return (
-        <div>
+        <div className="rds-comp-chart-area">
             <canvas id={props.id} ref={canvasRef} />
         </div>
     );

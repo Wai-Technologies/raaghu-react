@@ -1,0 +1,12 @@
+.rds-comp-chart-doughnut {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+        canvas {
+            height: 466.2px !important;
+            width: 1180.8px !important;
+        }
+    }
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import "./rds-comp-chart-doughnut.scss";
 
 export interface RdsCompDoughnutprops {
     labels: any[];
@@ -84,7 +85,7 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutprops) => {
     }, [props]);
 
     return (
-        <div>
+        <div className="rds-comp-chart-doughnut">
             <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef}></canvas>
         </div>
     );

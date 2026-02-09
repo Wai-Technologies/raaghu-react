@@ -84,7 +84,7 @@ const RdsCompLineChart = (props: RdsComplineprops) => {
     }, [props]);
 
     return (
-        <div>
+        <div className="rds-comp-chart-line">
             <canvas data-testid={props.id} id={props.id} ref={canvasRef} />
         </div>
     );
