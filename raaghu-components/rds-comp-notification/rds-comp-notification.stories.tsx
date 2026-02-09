@@ -17,13 +17,10 @@ const meta: Meta = {
             },
             source: {
                 transform: (code: string) => {
-                    // Transform layout enum - remove spaces and transform
                     code = code.replace(/layout="([^"]+)"/g, (match, p1) => `layout={NotificationLayout.${p1.replace(/\s+/g, '')}}`);
                     code = code.replace(/layout:\s*"([^"]+)"/g, (match, p1) => `layout: NotificationLayout.${p1.replace(/\s+/g, '')}`);
-                    // Transform style enum - remove spaces and transform
                     code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={NotificationStyle.${p1.replace(/\s+/g, '')}}`);
                     code = code.replace(/style:\s*"([^"]+)"/g, (match, p1) => `style: NotificationStyle.${p1.replace(/\s+/g, '')}`);
-                    // Transform type enum - remove spaces and transform
                     code = code.replace(/type="([^"]+)"/g, (match, p1) => `type={NotificationType.${p1.replace(/\s+/g, '')}}`);
                     code = code.replace(/type:\s*"([^"]+)"/g, (match, p1) => `type: NotificationType.${p1.replace(/\s+/g, '')}`);
                     return code;

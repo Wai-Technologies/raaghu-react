@@ -24,7 +24,7 @@
       padding: 1px;
       z-index: 1;
       box-sizing: border-box;
-      pointer-events: none; /* Allow scroll interaction through controls container */
+      pointer-events: none; 
       button {
         background: transparent;
         border: none;
@@ -39,7 +39,7 @@
         align-items: center;
         justify-content: center;
         box-sizing: border-box;
-        pointer-events: auto; /* Re-enable pointer events for buttons only */
+        pointer-events: auto;
 
         &:hover {
           background-color: var(--rds-color-gray-200, #e2e8f0);
@@ -64,7 +64,6 @@
     }
 }
 
-/* Mac Scrollbar */
 .rds-scrollbar--mac .rds-scrollbar__content {
   height: calc(100% - 40px);
   overflow-y: scroll;
@@ -85,7 +84,6 @@
   margin: 0 auto;
 }
 
-/* Simple Scrollbar (Default Browser) */
 .rds-scrollbar--simple .rds-scrollbar__content {
   height: 100%;
   overflow-y: scroll;
@@ -110,9 +108,7 @@
   border-radius: var(--rds-border-radius-sm, 2px);
 }
 
-/* Override all MUI SVG Icons within scrollbar component */
 .rds-scrollbar {
-  /* Style MUI SVG icons within buttons */
   .MuiSvgIcon-root,
   [class*="-MuiSvgIcon-root"],
   svg {
@@ -149,7 +145,6 @@
   }
 }
 
-/* Dark mode styles */
 .rds-theme--dark,
 body.theme-dark,
 body[data-theme="dark"],
@@ -179,12 +174,10 @@ body[data-theme="dark"],
       }
     }
     
-    /* Dark mode scrollbar icon styling */
     &__icon {
       color: var(--rds-color-on-surface-dark, #ffffff) !important;
     }
     
-    /* Ensure MUI icons are visible in dark mode */
     .MuiSvgIcon-root,
     [class*="-MuiSvgIcon-root"] {
       color: var(--rds-color-on-surface-dark, #ffffff) !important;

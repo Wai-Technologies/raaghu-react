@@ -9,13 +9,10 @@ const meta: Meta<typeof RdsTextArea> = {
         controls: {
             exclude: ['value', 'id', 'dataTestId', 'onChange', 'onClick', 'onKeyDown', 'onFocus', 'onBlur', 'reset', 'validationPattern', 'validationMsg', 'isMultiUrl', 'customClasses']
         },
-        // Docs addon expects source.transform under parameters.docs.source
         docs: {
             source: {
                 transform: (code: string) => {
-                    // Transform state enum
                     code = code.replace(/state="([^"]+)"/g, (match, p1) => `state={TextareaState.${p1}}`);
-                    // Transform style enum  
                     code = code.replace(/style="([^"]+)"/g, (match, p1) => `style={TextareaStyle.${p1.replace(/\s+/g, "")}}`);
                     return code;
                 }
@@ -42,13 +39,12 @@ const meta: Meta<typeof RdsTextArea> = {
             control: 'boolean',
             description: 'Whether to show the label (true = show, false = hide)'
         }
-    } as any, // Use 'as any' to allow disabling non-existent props
+    } as any,
 } satisfies Meta<typeof RdsTextArea>;
 
 export default meta;
 type Story = StoryObj<typeof RdsTextArea>;
 
-// Default style - standard rounded corners
 export const Default: Story = {
     args: {
         label: "Label",

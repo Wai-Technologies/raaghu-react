@@ -36,7 +36,6 @@ const RdsButton = ({
   textCase = 'uppercase',
   ...props
 }:RdsButtonProps) => {
-  // Normalize layout prop to support Storybook options
   let normalizedLayout = layout;
   if (typeof layout === 'string') {
     switch (layout.trim().toLowerCase()) {
@@ -110,7 +109,6 @@ const RdsButton = ({
   };
 
   const getStateStyles = () => {
-    // Return empty object since we're using CSS classes for state styling
     return {};
   };
 
@@ -128,16 +126,13 @@ const RdsButton = ({
     }
   };
 
-  // Determine what to render based on layout
   const getStartIcon = () => {
     if (normalizedLayout === 'icon-only') {
       return undefined;
     }
-    // Handle showLeftIcon control with changeLeftIcon
     if (normalizedLayout === 'icon+text' && showLeftIcon) {
       return resolveIcon(changeLeftIcon);
     }
-  // icon prop removed
     return undefined;
   };
 
@@ -145,7 +140,6 @@ const RdsButton = ({
     if (normalizedLayout === 'icon-only') {
       return undefined;
     }
-    // Handle showRightIcon control with changeRightIcon
     if (normalizedLayout === 'icon+text' && showRightIcon) {
       return resolveIcon(changeRightIcon);
     }
@@ -163,14 +157,12 @@ const RdsButton = ({
       />;
     }
     if (normalizedLayout === 'icon-only') {
-      // For icon-only layout, prioritize showLeftIcon/showRightIcon with controls, then icon prop
       if (showLeftIcon) {
         return resolveIcon(changeLeftIcon);
       }
       if (showRightIcon) {
         return resolveIcon(changeRightIcon);
       }
-  // icon prop removed
       return null;
     }
     if (normalizedLayout === 'icon+text' || normalizedLayout === 'text-only') {
@@ -179,12 +171,8 @@ const RdsButton = ({
     return null;
   };
 
-  // Determine if button should be disabled based on state or disabled prop
   const isButtonDisabled = disabled || state === 'disabled';
 
-  // inputSize logic removed
-
-  // Map style prop to legacy BEM variant class names used in SCSS so variant styles apply
   const styleVariantClass = style === 'filled'
     ? 'rds-button__primary'
     : style === 'outlined'

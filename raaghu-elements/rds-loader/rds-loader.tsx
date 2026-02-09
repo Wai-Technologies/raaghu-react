@@ -9,15 +9,13 @@ export interface RdsLoaderProps {
   label?: string;
   overlay?: boolean;
   thickness?: number;
-  type?: string; // Optional prop for loader type
+  type?: string; 
 }
 
 
 const RdsLoader = (props: RdsLoaderProps) => {
-  // type logic: if present, render custom loader type and size
   if (props.type) {
     const size = props.size || "medium";
-    // Remove 'loader-' prefix if present for BEM compliance
     let type = props.type;
     if (type.startsWith('loader-')) {
       type = type.replace(/^loader-/, '');
@@ -37,7 +35,6 @@ const RdsLoader = (props: RdsLoaderProps) => {
     );
   }
 
-  // --- original code below, unchanged ---
   const {
     variant = 'circular',
     size = 'medium',

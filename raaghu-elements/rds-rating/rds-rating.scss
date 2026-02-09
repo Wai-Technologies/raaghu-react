@@ -1,11 +1,8 @@
-// RDS Rating Component Styles
 .rds-rating {
-  // display: flex;
   align-items: center;
   gap: var(--rds-spacing-sm, 8px);
   position: relative;
 
-  // Label element
   &__label {
     font-size: var(--rds-font-size-body, 14px);
     font-weight: var(--rds-font-weight-medium, 500);
@@ -13,7 +10,6 @@
     margin-right: var(--rds-spacing-xs, 4px);
   }
 
-  // Star rating elements
   &__stars {
     color: var(--rds-color-primary, #2196f3);
 
@@ -29,8 +25,6 @@
       color: var(--rds-color-primary-hover, #1976d2);
     }
 
-    // Star variants - only apply to stars, not sliders
-    // All variants use consistent colors for filled and empty stars
     &--filled {
       .MuiRating-iconFilled {
         color: var(--rds-color-primary, #2196f3);
@@ -62,7 +56,6 @@
     }
   }
 
-  // Star icon element
   &__star-icon {
     &--empty {
       opacity: 2;
@@ -70,7 +63,6 @@
     }
   }
 
-  // Slider rating elements
   &__slider-container {
     width: 200px;
     display: flex;
@@ -153,9 +145,6 @@
     color: var(--rds-color-on-surface-variant, #666);
   }
 
-  // Component variants - styles are handled by elements above
-
-  // State modifiers
   &--readonly {
     pointer-events: none;
 
@@ -180,7 +169,6 @@
     }
   }
 
-  // Interactive states
   &:hover:not(&--readonly):not(&--disabled) {
     .rds-rating__stars {
       .MuiRating-iconHover {
@@ -201,7 +189,6 @@
     pointer-events: none;
   }
 
-  // Size variants
   &--small {
     gap: var(--rds-spacing-xs, 4px);
 
@@ -234,7 +221,6 @@
     }
   }
 
-  // Position variants
   &--position-left {
     justify-content: flex-start;
   }
@@ -247,7 +233,6 @@
     justify-content: flex-end;
   }
 
-  // Level precision variants
   &--level-half {
     .MuiRating-icon {
       font-size: 1.1em;
@@ -261,7 +246,6 @@
   }
 }
 
-// Color variants
 .rds-rating--color-primary {
   .rds-rating__stars { .MuiRating-iconFilled { color: var(--rds-color-primary, #1976d2); } }
   .rds-rating__slider {
@@ -334,7 +318,6 @@
   }
 }
 
-// Dark theme - Keep rating icons same color as light theme
 :root[data-theme='dark'] {
   .rds-rating {
     .MuiRating-iconFilled {
@@ -350,7 +333,6 @@
     }
   }
 
-  // Maintain color variants in dark theme
   .rds-rating--color-primary .rds-rating__stars .MuiRating-iconFilled {
     color: var(--rds-color-primary, #1976d2) !important;
   }

@@ -13,7 +13,6 @@ const meta: Meta<typeof RdsCard> = {
   component: RdsCard,
   parameters: {
     layout: 'padded',
-    // hide auto-generated `component` control from Controls panel
   controls: { exclude: ['component', 'elevation'] },
   },
   tags: ['autodocs'],
@@ -132,12 +131,6 @@ export const Elevated: Story = {
     elevation: 8,
     children: (
       <CardContent>
-        {/* <Typography gutterBottom variant="h5" component="div">
-          Elevated Card
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          This card has increased elevation (shadow).
-        </Typography> */}
       </CardContent>
     ),
   },
@@ -219,7 +212,6 @@ export const WithAvatar: Story = {
     });
     const [tempData, setTempData] = useState(editableData);
 
-    // Get the isEditing control value, defaulting to true
     const isEditingEnabled = (args as any).isEditing !== undefined ? (args as any).isEditing : true;
 
     const handleEditClick = () => {

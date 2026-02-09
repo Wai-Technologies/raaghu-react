@@ -20,18 +20,15 @@ import './rds-comp-adaptive-cards.scss';
 
 export interface AdaptiveCardProps {
   onBtn1Click?: () => void;
-  // Controlled input values and handlers for InputForm
   nameValue?: string;
   emailValue?: string;
   phoneValue?: string;
   onNameChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onEmailChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onPhoneChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // Error handling for InputForm
   nameError?: string;
   emailError?: string;
   phoneError?: string;
-  // Controlled select values and handlers for RestaurantOrder
   entreeValue?: string;
   sideValue?: string;
   drinkValue?: string;
@@ -52,7 +49,6 @@ export interface AdaptiveCardProps {
   type?: string;
   closeIcon?: boolean;
   label?: string;
-  // InputForm customizations
   nameLabel?: string;
   namePlaceholder?: string;
   emailLabel?: string;
@@ -62,7 +58,6 @@ export interface AdaptiveCardProps {
   requiredText?: string;
   block?: boolean;
   images?: string[];
-  // FootballScorecard direct props
   leagueName?: string;
   leagueAvatar?: string;
   isLive?: boolean;
@@ -109,7 +104,6 @@ export interface AdaptiveCardProps {
   date?: string;
   calendarReminderPlaceholder?: string;
   calendarReminderLabel?: string;
-  // RestaurantOrder customizations
   entreeLabel?: string;
   entreePlaceholder?: string;
   entreeOptions?: { value: string; label: string }[];
@@ -119,12 +113,10 @@ export interface AdaptiveCardProps {
   drinkLabel?: string;
   drinkPlaceholder?: string;
   drinkOptions?: { value: string; label: string }[];
-  // CalendarReminder customizations
   snoozeLabel?: string;
   lateLabel?: string;
   options?: { value: string; label: string }[];
   placeholder?: string;
-  // ActivityUpdate customizations
   avatar?: string;
   radioOptions?: { value: string; label: string; desc: string }[];
   homeTeam?: { name: string; logo: string; status: string };
@@ -143,7 +135,6 @@ export const renderSelectValue = (placeholder?: string) => (selected: unknown) =
     <span className="rds-adaptive-cards__placeholder">{placeholder}</span>
   ) : (typeof selected === 'string' ? selected : '');
 
-// InputFormCard component, now using AdaptiveCardProps and proper destructuring
 export function InputFormCard(props: AdaptiveCardProps) {
   const {
     label = '',
@@ -261,7 +252,6 @@ export function FootballScorecardCard({
 }: AdaptiveCardProps) {
   return (
     <RdsCard className={`rds-adaptive-cards rds-adaptive-cards--football-scorecard${isLive ? ' is-live' : ''} football-scorecard-stable`} showIcon={false} showIndicator={false}>
-      {/* Header, subtitle, and description outside card */}
       <div className="rds-adaptive-cards__content">
         <RdsStack className="rds-adaptive-cards__football-header" alignItems="center">
           <RdsStack direction="row" spacing={1} alignItems="center" justifyContent="space-between" className="rds-adaptive-cards__football-header-row">

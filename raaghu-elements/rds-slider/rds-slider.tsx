@@ -30,37 +30,28 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   className,
   ...props
 }) => {
-  // Determine if this should be a range slider based on controlType
   const isRangeSlider = controlType === 'two way';
 
   let sliderStep = props.step;
   let sliderMarks = props.marks;
 
-  // Set default max if not provided
   const safeMax = typeof max === 'number' ? max : 100;
 
-  // Prevent invalid array length for marks
   if (sliderMarks === true) {
-    // Check if we have valid min/max values
     if (typeof min !== 'number' || typeof safeMax !== 'number' || safeMax <= min) {
       sliderMarks = false;
     } else {
-      // Ensure we have a valid step value when marks is true
       if (sliderStep === undefined || sliderStep === null || sliderStep <= 0) {
-        // Calculate a reasonable default step based on the range
         const range = safeMax - min;
         sliderStep = range <= 10 ? 1 : range <= 100 ? 10 : Math.ceil(range / 10);
       }
 
-      // Additional safety check: ensure step doesn't create too many marks
       const numberOfMarks = Math.floor((safeMax - min) / sliderStep) + 1;
       if (numberOfMarks > 100) {
-        // If too many marks, either increase step or disable marks
         sliderStep = Math.ceil((safeMax - min) / 20);
       }
     }
   }
-  // Initialize with appropriate default value
   const getInitialValue = () => {
     if (value !== undefined) {
       return value;
@@ -76,7 +67,6 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   const [sliderValue, setSliderValue] = React.useState<number | number[]>(getInitialValue());
 
   React.useEffect(() => {
-    // Safe equality check for external `value` (handles arrays)
     const externalValueChanged = (() => {
       if (value === undefined) return false;
       if (Array.isArray(value) && Array.isArray(sliderValue)) {
@@ -89,13 +79,11 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
       return value !== sliderValue;
     })();
 
-    // Apply external value updates first
     if (externalValueChanged) {
       setSliderValue(value as number | number[]);
       return;
     }
 
-    // Handle level-based values
     if (level && typeof level === 'number' && level >= 1 && level <= 5) {
       const percent = (level - 1) * 25;
       const calculated = min + ((safeMax - min) * percent) / 100;
@@ -110,7 +98,6 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
       return;
     }
 
-    // Handle controlType changes when no level is set
     if (isRangeSlider && !Array.isArray(sliderValue)) {
       const currentVal = typeof sliderValue === 'number' ? sliderValue : min;
       const range = (safeMax - min) * 0.2;
@@ -121,7 +108,6 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
       const average = (sliderValue[0] + sliderValue[1]) / 2;
       setSliderValue(average);
     }
-    // Note: intentionally omitting `sliderValue` from deps to avoid reacting to internal state changes
   }, [level, value, min, max, controlType, isRangeSlider, safeMax]);
 
   const formatValue = (val: number | number[]) => {
@@ -134,7 +120,6 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   const handleChange = (_: Event, newValue: number | number[], activeThumb?: number) => {
     setSliderValue(newValue);
     if (props.onChange) {
-      // @ts-ignore
       props.onChange(_, newValue, activeThumb);
     }
   };

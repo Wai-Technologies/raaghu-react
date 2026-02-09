@@ -49,7 +49,6 @@ import {
   Visibility as ViewIcon,
   DragIndicator as DragIndicatorIcon,
 } from '@mui/icons-material';
-// @ts-ignore - Suppress TypeScript errors for react-beautiful-dnd import
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -88,13 +87,13 @@ export interface RdsCompGridColumn {
   fontWeight?: string;
   disabled?: boolean;
   isEndUserEditing?: boolean;
-  isEditable?: boolean; // Enable inline editing for this column
+  isEditable?: boolean; 
   colWidth?: string;
   minWidth?: number;
   maxWidth?: number;
-  allowHtml?: boolean; // Allow HTML content in cells
-  renderCell?: (value: any, row: any) => React.ReactNode; // Custom cell renderer
-  validateCell?: (value: any, row: any) => string | null; // Custom validation function
+  allowHtml?: boolean;
+  renderCell?: (value: any, row: any) => React.ReactNode;
+  validateCell?: (value: any, row: any) => string | null;
 }
 
 export interface RdsCompGridAction {
@@ -137,10 +136,7 @@ export interface SortState {
   column: string | null;
   direction: 'asc' | 'desc';
 }
-
-// Grid Ref Interface - provides programmatic access to grid methods and properties
 export interface RdsCompGridRef {
-  // Data Management
   getData: () => any[];
   setData: (data: any[]) => void;
   addRow: (row: any) => void;
@@ -151,31 +147,26 @@ export interface RdsCompGridRef {
   clearSelection: () => void;
   selectAll: () => void;
   
-  // Filtering
   getFilters: () => FilterState;
   setFilters: (filters: FilterState) => void;
   clearFilters: () => void;
   applyFilter: (columnKey: string, value: string, operator?: string) => void;
   removeFilter: (columnKey: string) => void;
   
-  // Sorting
   getSortState: () => SortState;
   setSort: (column: string, direction: 'asc' | 'desc') => void;
   clearSort: () => void;
   
-  // Search
   getSearchValue: () => string;
   setSearchValue: (value: string) => void;
   clearSearch: () => void;
   
-  // Pagination
   getCurrentPage: () => number;
   setCurrentPage: (page: number) => void;
   getPageSize: () => number;
   setPageSize: (size: number) => void;
   getTotalPages: () => number;
   
-  // Column Management
   getVisibleColumns: () => string[];
   setColumnVisibility: (columnKeys: string | string[], visible: boolean) => void;
   showAllColumns: () => void;
@@ -184,26 +175,22 @@ export interface RdsCompGridRef {
   setColumnWidth: (columnKey: string, width: number) => void;
   resetColumnWidths: () => void;
   
-  // Grid State
   isCollapsed: () => boolean;
   toggleCollapse: () => void;
   expand: () => void;
   collapse: () => void;
   
-  // Editing
   startEdit: (rowId: string, columnKey?: string) => void;
   stopEdit: () => void;
   isEditing: () => boolean;
   getEditingRow: () => string | null;
   
-  // Export/Utility
   exportData: (format?: 'json' | 'csv') => string;
   refresh: () => void;
   scrollToRow: (rowId: string) => void;
   scrollToTop: () => void;
   scrollToBottom: () => void;
   
-  // Grid Info
   getRowCount: () => number;
   getColumnCount: () => number;
   getFilteredRowCount: () => number;
@@ -211,43 +198,36 @@ export interface RdsCompGridRef {
 }
 
 export interface RdsCompGridProps {
-  // Data
   tableHeaders: RdsCompGridColumn[];
   tableData: any[];
   
-  // State Management
-  controlledData?: any[]; // Controlled data state
-  onDataChange?: (newData: any[]) => void; // Callback when data changes
+  controlledData?: any[]; 
+  onDataChange?: (newData: any[]) => void; 
   
-  // Features
   isSort?: boolean;
   isFilter?: boolean;
   isResizable?: boolean;
   enableCheckboxSelection?: boolean;
   enableRadioButtonSelection?: boolean;
-  enableInlineEdit?: boolean; // Enable inline editing globally
-  inlineEditMode?: 'cell' | 'row'; // Inline edit mode: cell-by-cell (default) or row-based editing
-  enableRowSwapping?: boolean; // Enable row drag and drop functionality
-  enableColumnSwapping?: boolean; // Enable column drag and drop functionality
+  enableInlineEdit?: boolean;
+  inlineEditMode?: 'cell' | 'row'; 
+  enableRowSwapping?: boolean; 
+  enableColumnSwapping?: boolean; 
   
-  // UI Controls
   showHeader?: boolean;
   showSubHeader?: boolean;
   showAddNewColumn?: boolean;
   state?: State;
   
-  // Actions
   actions?: RdsCompGridAction[];
   actionPosition?: ActionPosition;
   actionColumnStyle?: ActionColumnStyle;
   
-  // Pagination
   pagination?: boolean;
   recordsPerPage?: number;
   recordsPerPageSelectListOption?: boolean;
   totalRecords?: number;
   
-  // Callbacks
   onActionSelection?: (rowData: any, actionId: any) => void;
   onRowSelect?: (data: any) => void;
   onRowClick?: (rowId: any) => void;
@@ -257,8 +237,8 @@ export interface RdsCompGridProps {
   onFilterApiRequest?: (filterRequest: FilterApiRequest) => void;
   onCellEdit?: (rowId: string, columnKey: string, newValue: any, oldValue: any) => void;
   onCellEditComplete?: (rowId: string, columnKey: string, newValue: any, isValid: boolean) => void;
-  onRowSwap?: (fromIndex: number, toIndex: number, newData: any[]) => void; // New callback for row swapping
-  onColumnSwap?: (fromIndex: number, toIndex: number, newHeaders: RdsCompGridColumn[]) => void; // Callback for column swapping
+  onRowSwap?: (fromIndex: number, toIndex: number, newData: any[]) => void; 
+  onColumnSwap?: (fromIndex: number, toIndex: number, newHeaders: RdsCompGridColumn[]) => void; 
   
   // Styling
   classes?: string;
@@ -271,7 +251,6 @@ export interface RdsCompGridProps {
   // Loading
   isLoading?: boolean;
 }
-// Sortable Row Component
 const SortableRow: React.FC<{
   id: string;
   children: React.ReactNode;
@@ -304,7 +283,6 @@ const SortableRow: React.FC<{
   );
 };
 
-// Sortable Header Cell Component
 const SortableHeaderCell: React.FC<{
   id: string;
   children: React.ReactNode;
@@ -337,7 +315,6 @@ const SortableHeaderCell: React.FC<{
   );
 };
 
-// Editable Cell Component
 const EditableCell: React.FC<{
   value: any;
   column: RdsCompGridColumn;
@@ -366,12 +343,10 @@ const EditableCell: React.FC<{
   useEffect(() => {
     if (isEditing && inputRef.current) {
       inputRef.current.focus();
-      // Only select text for text-based inputs
       if (inputRef.current.type === 'text' || inputRef.current.type === 'email' || inputRef.current.type === 'url') {
         try {
           inputRef.current.select();
         } catch (e) {
-          // Fallback: set cursor to end if select fails
           inputRef.current.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length);
         }
       }
@@ -389,7 +364,6 @@ const EditableCell: React.FC<{
   };
 
   const handleBlur = () => {
-    // Auto-save on blur
     onSave(tempValue);
   };
 
@@ -509,7 +483,6 @@ const EditableCell: React.FC<{
   );
 };
 
-// Action Menu Component
 const ActionMenu: React.FC<{
   row: any;
   actions: RdsCompGridAction[];
@@ -671,7 +644,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const [resizeStartX, setResizeStartX] = useState(0);
   const [resizeStartWidth, setResizeStartWidth] = useState(0);
   
-  // Inline editing state
   const [editingCell, setEditingCell] = useState<{rowId: string, columnKey: string} | null>(null);
   const [editingRow, setEditingRow] = useState<string | null>(null);
   const [tempCellValue, setTempCellValue] = useState<any>('');
@@ -679,11 +651,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const [cellValidationError, setCellValidationError] = useState<string>('');
   const [rowValidationErrors, setRowValidationErrors] = useState<{[columnKey: string]: string}>({});
   
-  // Drag and drop state
   const [columnOrder, setColumnOrder] = useState<RdsCompGridColumn[]>(tableHeaders);
   const [localTableData, setLocalTableData] = useState<any[]>(tableData);
   
-  // Custom drag state for better column swapping behavior
   const [customDragState, setCustomDragState] = useState<{
     isDragging: boolean;
     draggedColumnKey: string | null;
@@ -698,13 +668,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     dragPreviewVisible: false,
   });
   
-  // Internal data state management
   const [internalData, setInternalData] = useState<any[]>(tableData);
   
-  // Use controlled data if provided, otherwise use internal data
   const currentData = controlledData || internalData;
   
-  // Update internal data when tableData prop changes
   useEffect(() => {
     if (!controlledData) {
       setInternalData(tableData);
@@ -712,7 +679,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     setLocalTableData([...tableData]);
   }, [tableData, controlledData]);
   
-  // Keep columnOrder synced when tableHeaders prop changes
   useEffect(() => {
     setColumnOrder(tableHeaders);
   }, [tableHeaders]);
@@ -720,7 +686,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const filterButtonRef = useRef<HTMLButtonElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
 
-  // Global style effect for react-beautiful-dnd
   useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
@@ -756,7 +721,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     };
   }, []);
 
-  // Helper function to reorder array for drag and drop
   const reorder = (list: any[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -764,74 +728,51 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     return result;
   };
 
-  // Drag end handler for rows and columns
   const onDragEnd = (result: any) => {
-    console.log('Drag end triggered:', result);
     
-    // Clear dragging state
-    
-    // Clean up global styles
     document.body.style.userSelect = '';
     document.body.style.webkitUserSelect = '';
     
     if (!result.destination) {
-      console.log('No destination, drag cancelled');
       return;
     }
     
-    // Handle column reordering
     if (result.type === 'COLUMN') {
-      console.log('Column reordering from', result.source.index, 'to', result.destination.index);
       const newOrder = reorder(columnOrder, result.source.index, result.destination.index);
       setColumnOrder(newOrder);
       onColumnSwap?.(result.source.index, result.destination.index, newOrder);
       return;
     }
     
-    // Handle row reordering
     if (result.type === 'ROW') {
       let sourceIndex = result.source.index;
       let destinationIndex = result.destination.index;
       
-      // If pagination is enabled, adjust indices to work with full dataset
       if (pagination) {
         const startIndex = (currentPage - 1) * recordsPerPage;
         sourceIndex = startIndex + result.source.index;
         destinationIndex = startIndex + result.destination.index;
       }
       
-      console.log('Reordering from', sourceIndex, 'to', destinationIndex);
-      console.log('Local table data before reorder:', localTableData);
       const newData = reorder(localTableData, sourceIndex, destinationIndex);
-      console.log('New data after reorder:', newData);
       setLocalTableData(newData);
       onRowSwap?.(sourceIndex, destinationIndex, newData);
     }
   };
 
-  // Drag start handler to provide better visual feedback
   const onDragStart = (start: any) => {
-    console.log('Drag started:', start);
     
-    // Track which column is being dragged
     if (start.type === 'COLUMN') {
-      console.log('Starting column drag for:', start.draggableId);
     } else if (start.type === 'ROW') {
-      console.log('Starting row drag for:', start.draggableId);
     }
     
-    // Add global styles to prevent text selection during drag
     document.body.style.userSelect = 'none';
     document.body.style.webkitUserSelect = 'none';
   };
 
-  // Add drag update handler for better feedback during drag
   const onDragUpdate = (update: any) => {
-    // Track where we're dragging over for visual feedback
-    console.log('Drag update:', update);
   };
 
-  // Custom drag handlers for better column swapping behavior
   const handleCustomDragStart = (columnKey: string, columnIndex: number) => {
     if (!enableColumnSwapping) return;
     
@@ -843,11 +784,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       dragPreviewVisible: true,
     });
     
-    // Prevent text selection during drag
     document.body.style.userSelect = 'none';
     document.body.style.webkitUserSelect = 'none';
-    
-    console.log('Custom drag started for column:', columnKey, 'at index:', columnIndex);
   };
 
   const handleCustomDragOver = (targetIndex: number) => {
@@ -864,19 +802,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     
     const { draggedColumnKey, dragStartIndex } = customDragState;
     
-    // Clean up global styles
     document.body.style.userSelect = '';
     document.body.style.webkitUserSelect = '';
     
-    // If we have a valid target and it's different from start, reorder columns
     if (targetIndex !== undefined && targetIndex !== dragStartIndex && draggedColumnKey && dragStartIndex !== null) {
-      console.log('Reordering column from', dragStartIndex, 'to', targetIndex);
       const newOrder = reorder(columnOrder, dragStartIndex, targetIndex);
       setColumnOrder(newOrder);
       onColumnSwap?.(dragStartIndex, targetIndex, newOrder);
     }
     
-    // Reset drag state
     setCustomDragState({
       isDragging: false,
       draggedColumnKey: null,
@@ -884,8 +818,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       currentHoverIndex: null,
       dragPreviewVisible: false,
     });
-    
-    console.log('Custom drag ended');
   };
 
   const handleCustomDragLeave = () => {
@@ -897,12 +829,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }));
   };
 
-  // Filter and sort data
   const processedData = useMemo(() => {
-    // Use localTableData for row swapping, or current data for normal operation
     let filtered = [...(enableRowSwapping ? localTableData : currentData)];
 
-    // Apply search filter
     if (searchValue) {
       filtered = filtered.filter((row) =>
         Object.values(row).some((val) =>
@@ -911,14 +840,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       );
     }
 
-    // Apply column filters
     Object.entries(filterState).forEach(([columnKey, filter]) => {
       if (filter.value) {
         filtered = filtered.filter((row) => {
           const cellValue = row[columnKey];
           const filterValue = filter.value;
-          
-          // Get column data type for proper comparison
+
           const column = tableHeaders.find(h => h.key === columnKey);
           const dataType = column?.dataType?.toLowerCase() || 'string';
           
@@ -964,8 +891,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 return parseFloat(cellValue) <= parseFloat(filterValue);
               }
             case 'between':
-              // For between, we'll need to handle this separately as it requires two values
-              // For now, treat it as greaterThan
               if (dataType === 'date' || dataType === 'datetime' || dataType === 'timestamp') {
                 return new Date(cellValue) >= new Date(filterValue);
               } else {
@@ -978,7 +903,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       }
     });
 
-    // Apply sorting
     if (sortColumn) {
       filtered = filtered.sort((a, b) => {
         const aVal = a[sortColumn];
@@ -989,7 +913,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       });
     }
 
-    // Apply pagination
     if (pagination) {
       const startIndex = (currentPage - 1) * recordsPerPage;
       const endIndex = startIndex + recordsPerPage;
@@ -1033,7 +956,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       : visibleColumns.filter(key => key !== columnKey);
     setVisibleColumns(newVisibleColumns);
     
-    // If the column being deselected is the one with an open filter popup, close it
     if (!isVisible && selectedColumnForFilter === columnKey && isFilterPopupOpen) {
       setIsFilterPopupOpen(false);
       setSelectedColumnForFilter(null);
@@ -1045,7 +967,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     const keysArray = Array.isArray(columnKeys) ? columnKeys : [columnKeys];
     
     if (isVisible) {
-      // Add columns to visible list
       const newVisibleColumns = [...visibleColumns];
       keysArray.forEach(key => {
         if (!newVisibleColumns.includes(key)) {
@@ -1054,11 +975,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       });
       setVisibleColumns(newVisibleColumns);
     } else {
-      // Remove columns from visible list
       const newVisibleColumns = visibleColumns.filter(key => !keysArray.includes(key));
       setVisibleColumns(newVisibleColumns);
       
-      // If any of the columns being deselected has an open filter popup, close it
       if (selectedColumnForFilter && isFilterPopupOpen && keysArray.includes(selectedColumnForFilter)) {
         setIsFilterPopupOpen(false);
         setSelectedColumnForFilter(null);
@@ -1068,12 +987,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   };
 
   const getVisibleHeaders = () => {
-    // Return headers in the current column order but only those that are visible
     const visible = columnOrder.filter(header => visibleColumns.includes(header.key));
     return visible;
   };
 
-  // Get operators based on data type
   const getOperatorsForDataType = (dataType: string) => {
     switch (dataType?.toLowerCase()) {
       case 'number':
@@ -1104,7 +1021,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         return [
           { value: 'equals', label: 'Equals' }
         ];
-      default: // string, text, varchar, etc.
+      default:
         return [
           { value: 'contains', label: 'Contains' },
           { value: 'equals', label: 'Equals' },
@@ -1115,7 +1032,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }
   };
 
-  // Get input type based on data type
   const getInputTypeForDataType = (dataType: string) => {
     switch (dataType?.toLowerCase()) {
       case 'number':
@@ -1141,7 +1057,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     event.preventDefault();
     event.stopPropagation();
     
-    // If clicking on the same column, toggle the popup
     if (selectedColumnForFilter === columnKey && isFilterPopupOpen) {
       setIsFilterPopupOpen(false);
       setSelectedColumnForFilter(null);
@@ -1149,20 +1064,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       return;
     }
     
-    // If clicking on a different column, close current and open new
     if (selectedColumnForFilter !== columnKey) {
       setIsFilterPopupOpen(false);
       setSelectedColumnForFilter(columnKey);
       setFilterAnchorEl(event.currentTarget);
       
-      // Load column-specific filter state
-      
-      // Open new popup after a brief delay to ensure smooth transition
       setTimeout(() => {
         setIsFilterPopupOpen(true);
       }, 50);
     } else {
-      // Same column, just open
       setSelectedColumnForFilter(columnKey);
       setFilterAnchorEl(event.currentTarget);
       setIsFilterPopupOpen(true);
@@ -1172,7 +1082,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const handleFilterPopupClose = () => {
     setFilterAnchorEl(null);
     setIsFilterPopupOpen(false);
-    // Don't clear selectedColumnForFilter immediately to prevent label flicker
     setTimeout(() => {
       setSelectedColumnForFilter(null);
     }, 100);
@@ -1191,13 +1100,11 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       setResizeStartX(e.clientX);
       setResizeStartWidth(currentWidth);
       
-      // Prevent text selection during resize
       document.body.style.userSelect = 'none';
       document.body.style.cursor = 'col-resize';
     }
   };
 
-  // Handle click outside to close popup
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (isFilterPopupOpen && filterAnchorEl) {
@@ -1214,7 +1121,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     };
   }, [isFilterPopupOpen, filterAnchorEl]);
 
-  // Initialize column widths
   useEffect(() => {
     const initialWidths: {[columnKey: string]: number} = {};
     tableHeaders.forEach(header => {
@@ -1227,14 +1133,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     setColumnWidths(initialWidths);
   }, [tableHeaders]);
 
-  // Handle column resizing
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (isResizing && resizingColumn) {
         const deltaX = e.clientX - resizeStartX;
         const header = tableHeaders.find(h => h.key === resizingColumn);
-        const minWidth = header?.minWidth || 50; // Use user-defined minWidth or default to 50
-        const maxWidth = header?.maxWidth || 800; // Increased max width for better flexibility
+        const minWidth = header?.minWidth || 50; 
+        const maxWidth = header?.maxWidth || 800; 
         
         const requestedWidth = resizeStartWidth + deltaX;
         const newWidth = Math.max(
@@ -1255,7 +1160,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       setResizeStartX(0);
       setResizeStartWidth(0);
       
-      // Restore cursor and user selection
       document.body.style.userSelect = '';
       document.body.style.cursor = '';
     };
@@ -1272,7 +1176,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   }, [isResizing, resizingColumn, resizeStartX, resizeStartWidth, tableHeaders]);
 
   const handleColumnPanelToggle = () => {
-    // If expanding columns, collapse filter
     if (!isColumnPanelExpanded) {
       setIsFilterExpanded(false);
     }
@@ -1280,7 +1183,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   };
 
   const handleFilterToggle = () => {
-    // If expanding filter, collapse columns
     if (!isFilterExpanded) {
       setIsColumnPanelExpanded(false);
     }
@@ -1293,8 +1195,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         condition.id === id ? { ...condition, [field]: value } : condition
       )
     );
-    
-    // No real-time filtering - only update when FILTER button is clicked
   };
 
   const handleApplyFilter = () => {
@@ -1305,21 +1205,18 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         (filterConditions[0].value as unknown as Date).toISOString().split('T')[0] : 
         filterConditions[0].value;
       
-      // Update the main filter state (preserving existing filters)
       const newFilterState = { ...filterState };
       newFilterState[columnToFilter] = {
         value: filterValue,
         operator: filterConditions[0].operator as any
       };
       
-      // Update column-specific filter state
       const newColumnFilterStates = { ...columnFilterStates };
       newColumnFilterStates[columnToFilter] = {
         operator: filterConditions[0].operator,
         value: filterValue
       };
       
-      // Generate API request JSON from ALL active filters
       const activeFilters = Object.entries(newFilterState)
         .filter(([_, filter]) => filter.value && filter.value.trim() !== '')
         .map(([columnKey, filter]) => {
@@ -1342,10 +1239,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         sortBy: sortColumn || undefined,
         sortDirection: sortColumn ? (sortDirection === 'asc' ? 'ASC' : 'DESC') : undefined
       };
-      
-      console.log('Applying filter for column:', columnToFilter);
-      console.log('All active filters:', newFilterState);
-      console.log('API Request JSON:', JSON.stringify(filterApiRequest, null, 2));
       
       setFilterState(newFilterState);
       setColumnFilterStates(newColumnFilterStates);
@@ -1362,7 +1255,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       { id: 2, column: '', operator: 'contains', value: '' }
     ]);
     
-    // Clear only the current column's filter, preserve others
     if (selectedColumnForFilter) {
       const newFilterState = { ...filterState };
       delete newFilterState[selectedColumnForFilter];
@@ -1370,7 +1262,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       const newColumnFilterStates = { ...columnFilterStates };
       delete newColumnFilterStates[selectedColumnForFilter];
       
-      // Generate API request JSON from remaining active filters
       const activeFilters = Object.entries(newFilterState)
         .filter(([_, filter]) => filter.value && filter.value.trim() !== '')
         .map(([columnKey, filter]) => {
@@ -1393,10 +1284,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         sortBy: sortColumn || undefined,
         sortDirection: sortColumn ? (sortDirection === 'asc' ? 'ASC' : 'DESC') : undefined
       };
-      
-      console.log('Clearing filter for column:', selectedColumnForFilter);
-      console.log('Remaining active filters:', newFilterState);
-      console.log('API Request JSON:', JSON.stringify(filterApiRequest, null, 2));
       
       setFilterState(newFilterState);
       setColumnFilterStates(newColumnFilterStates);
@@ -1429,7 +1316,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     onRowSelect?.(rowData);
   };
 
-  // Inline editing handlers
   const handleCellEditStart = (rowId: string, columnKey: string, currentValue: any) => {
     if (!enableInlineEdit) return;
     
@@ -1445,15 +1331,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     const column = tableHeaders.find(h => h.key === columnKey);
     if (!column) return;
 
-    // Validate the value
     let validationError = '';
     
-    // Required field validation
     if (column.required && (!newValue || newValue.toString().trim() === '')) {
       validationError = 'This field is required';
     }
     
-    // Data type validation
     if (!validationError && newValue && column.dataType) {
       switch (column.dataType.toLowerCase()) {
         case 'number':
@@ -1482,7 +1365,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       }
     }
     
-    // Custom validation
     if (!validationError && column.validateCell) {
       const customError = column.validateCell(newValue, { id: rowId });
       if (customError) {
@@ -1495,7 +1377,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       return;
     }
 
-    // Convert value based on data type
     let processedValue = newValue;
     if (column.dataType) {
       switch (column.dataType.toLowerCase()) {
@@ -1514,26 +1395,20 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       }
     }
 
-    // Find the original value for comparison
     const rowIndex = currentData.findIndex(row => (row.id || currentData.indexOf(row).toString()) === rowId);
     const originalValue = rowIndex >= 0 ? currentData[rowIndex][columnKey] : null;
 
-    // Update data state immediately
     const updateData = (newData: any[]) => {
       if (controlledData && onDataChange) {
-        // Controlled mode - notify parent
         onDataChange(newData);
       } else {
-        // Uncontrolled mode - update internal state
         setInternalData(newData);
       }
     };
 
-    // Find the row and update it
     const updatedData = currentData.map((row, index) => {
       let rowIdToCheck = row.id || index.toString();
       
-      // Handle different rowId formats
       if (rowId.startsWith('row-')) {
         const rowIndex = parseInt(rowId.replace('row-', ''));
         if (index === rowIndex) {
@@ -1545,14 +1420,11 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       return row;
     });
 
-    // Update data immediately so changes are visible
     updateData(updatedData);
 
-    // Call the edit callback
     onCellEdit?.(rowId, columnKey, processedValue, originalValue);
     onCellEditComplete?.(rowId, columnKey, processedValue, true);
 
-    // Clear editing state
     setEditingCell(null);
     setTempCellValue('');
     setCellValidationError('');
@@ -1566,10 +1438,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
   const handleCellValueChange = (newValue: any) => {
     setTempCellValue(newValue);
-    setCellValidationError(''); // Clear validation error when user types
+    setCellValidationError(''); 
   };
 
-  // Row-based editing handlers
   const handleRowEditStart = (rowId: string, rowData: any) => {
     if (!enableInlineEdit || inlineEditMode !== 'row') return;
     
@@ -1584,29 +1455,23 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   };
 
   const handleRowEditSave = (rowId: string) => {
-    console.log('Row edit save called for rowId:', rowId, 'editingRow:', editingRow, 'tempRowValues:', tempRowValues);
     
     if (!editingRow || editingRow !== rowId) {
-      console.log('Row edit save cancelled - not editing this row');
       return;
     }
 
     const editableColumns = tableHeaders.filter(h => h.isEditable);
-    console.log('Editable columns:', editableColumns.map(c => c.key));
     const validationErrors: {[columnKey: string]: string} = {};
     let hasErrors = false;
 
-    // Validate all editable columns
     editableColumns.forEach(column => {
       const value = tempRowValues[column.key];
       let error = '';
 
-      // Required field validation
       if (column.required && (!value || value.toString().trim() === '')) {
         error = 'This field is required';
       }
 
-      // Data type validation
       if (!error && value && column.dataType) {
         switch (column.dataType.toLowerCase()) {
           case 'number':
@@ -1635,7 +1500,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         }
       }
 
-      // Custom validation
       if (!error && column.validateCell) {
         const customError = column.validateCell(value, { id: rowId });
         if (customError) {
@@ -1650,60 +1514,40 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     });
 
     if (hasErrors) {
-      console.log('Validation errors found:', validationErrors);
       setRowValidationErrors(validationErrors);
       return;
     }
-    
-    console.log('No validation errors, proceeding with save');
 
-    // Update data state
     const updateData = (newData: any[]) => {
       if (controlledData && onDataChange) {
-        // Controlled mode - notify parent
         onDataChange(newData);
       } else {
-        // Uncontrolled mode - update internal state
         setInternalData(newData);
       }
     };
 
-    // Process and save all values
     let updatedData = [...currentData];
     
-    // Find the row index once
     let rowIndex = -1;
     
-    // Handle different rowId formats
     if (rowId.startsWith('row-')) {
-      // Extract index from "row-0", "row-1", etc.
       const index = parseInt(rowId.replace('row-', ''));
       rowIndex = index;
-      console.log('Extracted index from rowId:', index);
     } else {
-      // Try to find by row.id or index
       rowIndex = currentData.findIndex(row => (row.id || currentData.indexOf(row).toString()) === rowId);
     }
-    
-    console.log('Row index found:', rowIndex, 'for rowId:', rowId);
     
     if (rowIndex === -1 || rowIndex >= currentData.length) {
       console.error('Row not found in currentData. rowId:', rowId, 'currentData.length:', currentData.length);
       return;
     }
     
-    // Process all columns and update the row in one go
     const updatedRow = { ...currentData[rowIndex] };
-    console.log('Original row:', currentData[rowIndex]);
-    console.log('Updated row before processing:', updatedRow);
     
     editableColumns.forEach(column => {
       const value = tempRowValues[column.key];
       let processedValue = value;
-      
-      console.log(`Processing column ${column.key}:`, { value, originalValue: currentData[rowIndex][column.key] });
 
-      // Convert value based on data type
       if (column.dataType) {
         switch (column.dataType.toLowerCase()) {
           case 'number':
@@ -1721,27 +1565,18 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         }
       }
 
-      // Find the original value for comparison
       const originalValue = rowIndex >= 0 ? currentData[rowIndex][column.key] : null;
 
-      // Update the row
       updatedRow[column.key] = processedValue;
-      console.log(`Updated ${column.key} to:`, processedValue);
 
-      // Call the edit callbacks
       onCellEdit?.(rowId, column.key, processedValue, originalValue);
       onCellEditComplete?.(rowId, column.key, processedValue, true);
     });
 
-    // Update the data array with the modified row
     updatedData[rowIndex] = updatedRow;
 
-    // Update data state immediately so changes are visible
-    console.log('Updating data with:', updatedData);
     updateData(updatedData);
 
-    // Clear editing state
-    console.log('Clearing editing state');
     setEditingRow(null);
     setTempRowValues({});
     setRowValidationErrors({});
@@ -1754,16 +1589,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   };
 
   const handleRowValueChange = (columnKey: string, newValue: any) => {
-    console.log('Row value change:', { columnKey, newValue });
     setTempRowValues(prev => {
       const newValues = {
         ...prev,
         [columnKey]: newValue
       };
-      console.log('Updated tempRowValues:', newValues);
       return newValues;
     });
-    // Clear validation error for this column when user types
     if (rowValidationErrors[columnKey]) {
       setRowValidationErrors(prev => {
         const newErrors = { ...prev };
@@ -1773,7 +1605,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }
   };
 
-  // Helper function to get row by ID
   const getRowById = (rowId: string) => {
     return currentData.find((row, index) => {
       const currentRowId = row.id || `row-${index}`;
@@ -1781,9 +1612,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }) || null;
   };
 
-  // Imperative handle for grid ref
   useImperativeHandle(ref, () => ({
-    // Data Management
     getData: () => currentData,
     setData: (data: any[]) => {
       if (controlledData && onDataChange) {
@@ -1838,7 +1667,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       setSelectedRows(new Set(allRowIds));
     },
 
-    // Filtering
     getFilters: () => filterState,
     setFilters: (filters: FilterState) => {
       setFilterState(filters);
@@ -1880,12 +1708,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       onSortChange?.({ column: null, direction: 'asc' });
     },
 
-    // Search
     getSearchValue: () => searchValue,
     setSearchValue: (value: string) => setSearchValue(value),
     clearSearch: () => setSearchValue(''),
 
-    // Pagination
     getCurrentPage: () => currentPage,
     setCurrentPage: (page: number) => {
       setCurrentPage(page);
@@ -1893,14 +1719,11 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     },
     getPageSize: () => recordsPerPage,
     setPageSize: (size: number) => {
-      // Note: This would require updating the recordsPerPage prop
-      // For now, we'll just update the current page to 1
       setCurrentPage(1);
       onPaginationHandler?.(1, size);
     },
     getTotalPages: () => Math.ceil(currentData.length / recordsPerPage),
 
-    // Column Management
     getVisibleColumns: () => visibleColumns,
     setColumnVisibility: (columnKeys: string | string[], visible: boolean) => {
       handleBulkColumnVisibilityChange(columnKeys, visible);
@@ -1952,7 +1775,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     isEditing: () => !!(editingCell || editingRow),
     getEditingRow: () => editingRow,
 
-    // Export/Utility
     exportData: (format: 'json' | 'csv' = 'json') => {
       if (format === 'csv') {
         const headers = getVisibleHeaders().map(h => h.name).join(',');
@@ -1964,12 +1786,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       return JSON.stringify(processedData, null, 2);
     },
     refresh: () => {
-      // Force re-render by updating a dummy state
       setInternalData([...currentData]);
     },
     scrollToRow: (rowId: string) => {
-      // This would require DOM manipulation
-      // For now, we'll just scroll to top
       if (tableRef.current) {
         tableRef.current.scrollIntoView({ behavior: 'smooth' });
       }
@@ -1985,7 +1804,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       }
     },
 
-    // Grid Info
     getRowCount: () => currentData.length,
     getColumnCount: () => tableHeaders.length,
     getFilteredRowCount: () => processedData.length,
@@ -2036,7 +1854,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const totalPages = Math.ceil(tableData.length / recordsPerPage);
   const activeFiltersCount = Object.keys(filterState).length + (searchValue ? 1 : 0);
 
-  // Minimal sync: when body scrolls horizontally, scroll header toolbar too
   const headerScrollRef = React.useRef<HTMLDivElement | null>(null);
   const handleBodyScroll: React.UIEventHandler<HTMLDivElement> = (e) => {
     if (headerScrollRef.current) {
@@ -2122,7 +1939,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       '& .MuiTableCell-root': {
         color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit'
       },
-      // Ensure react-beautiful-dnd elements are visible
       '& .react-beautiful-dnd-drag-handle': {
         visibility: 'visible !important',
         opacity: '1 !important',
@@ -2134,7 +1950,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       '& .react-beautiful-dnd-droppable': {
         minHeight: 'auto !important',
       },
-      // Force placeholder visibility
       '& .react-beautiful-dnd-placeholder': {
         display: 'table-cell !important',
         visibility: 'visible !important',
@@ -2149,9 +1964,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           ref={headerScrollRef}
           sx={{
             overflowX: 'auto',
-            scrollbarWidth: 'none', // Firefox
-            msOverflowStyle: 'none', // IE/Edge Legacy
-            '&::-webkit-scrollbar': { height: 0 }, // WebKit
+            scrollbarWidth: 'none', 
+            msOverflowStyle: 'none',
+            '&::-webkit-scrollbar': { height: 0 }, 
           }}
         >
           <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
@@ -2307,7 +2122,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               <TableRow sx={{ 
                 bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined 
               }}>
-                {/* Row Swapping column */}
                 {enableRowSwapping && (
                   <TableCell 
                     sx={{ 
@@ -2358,9 +2172,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   </TableCell>
                 )}
                 
-                {/* Column headers with drag and drop support */}
                 {getVisibleHeaders().map((header, index) => {
-                  // Determine visual states for custom drag
                   const isDragging = customDragState.isDragging && customDragState.draggedColumnKey === header.key;
                   const isBeingDragged = customDragState.draggedColumnKey === header.key;
                   const isDropTarget = customDragState.currentHoverIndex === index && customDragState.isDragging && !isBeingDragged;
@@ -2371,7 +2183,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   
                   return (
                     <React.Fragment key={header.key}>
-                      {/* Drop indicator removed - no visual feedback */}
                       {false && isDropBefore && (
                         <Box
                           sx={{
@@ -2409,7 +2220,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         }}
                         onDragLeave={(e) => {
                           if (enableColumnSwapping && customDragState.isDragging) {
-                            // Only call handleCustomDragLeave if leaving the table cell entirely
                             const rect = e.currentTarget.getBoundingClientRect();
                             const { clientX, clientY } = e;
                             if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) {
@@ -2451,27 +2261,21 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               cursor: 'grabbing',
                             }),
                           },
-                          // No visual feedback for dragged column
                           ...(isBeingDragged && !customDragState.dragPreviewVisible && {
                             opacity: 1,
                             position: 'relative',
                           }),
-                          // No visual feedback for drop zones
                           ...(isDropTarget && {
-                            // No styling - completely clean
                           }),
                         }}
                         onClick={(e: React.MouseEvent) => {
                           e.stopPropagation();
-                          // Only allow sorting if not currently dragging columns
                           if (!customDragState.isDragging && isSort && header.isSort) {
                             handleSort(header.key);
                           }
                         }}
                       >
                         <Stack direction="row" spacing={0.5} alignItems="center">
-                          {/* Drag indicator icon removed for column swapping to avoid visual clutter.
-                              Drag functionality remains (TableCell is still draggable). */}
                           
                           <Tooltip title={header.name} arrow>
                             <Typography 
@@ -2528,7 +2332,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           )}
                         </Stack>
                         
-                        {/* Resize handle */}
                         {header.isResizable !== false && (
                           <Box
                             role="separator"
@@ -2538,8 +2341,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             onKeyDown={(e) => {
                               if (e.key === 'Enter' || e.key === ' ') {
                                 e.preventDefault();
-                                // For keyboard users, we could implement arrow key resizing
-                                // For now, just focus the handle
                               }
                             }}
                             sx={{
@@ -2566,7 +2367,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           />
                         )}
                           
-                          {/* Drop indicator after column removed - no visual feedback */}
                           {false && isDropAfter && (
                             <Box
                               sx={{
@@ -2625,7 +2425,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 const rowId = `row-${index}`;
                 const isSelected = selectedRows.has(rowId);
                 const isRowEditing = editingRow === rowId;
-                console.log('Row editing state:', { rowId, editingRow, isRowEditing });
                 
                 return (
                   <Draggable 
@@ -2649,7 +2448,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           }),
                         }}
                       >
-                        {/* Row Swapping controls */}
                         {enableRowSwapping && (
                           <TableCell sx={{ 
                             width: '60px', 
@@ -2713,15 +2511,11 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                       const rowId = `row-${index}`;
                       const isEditing = editingCell?.rowId === rowId && editingCell?.columnKey === header.key;
                       
-                      // Check if we should render HTML content
                       const shouldRenderHtml = header.allowHtml && typeof cellValue === 'string' && cellValue.includes('<');
                       const cellText = shouldRenderHtml ? '' : (cellValue?.toString() || '');
                       
-                      // Only show tooltip if text might be truncated and not HTML
-                      // Show tooltip for any text that might be truncated (more than 10 characters)
                       const shouldShowTooltip = !shouldRenderHtml && cellText.length > 10;
                       
-                      // Use custom renderer if provided
                       if (header.renderCell) {
                         return (
                       <TableCell
@@ -2744,10 +2538,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         );
                       }
                       
-                      // Check if this cell should be editable
                       const isEditable = enableInlineEdit && header.isEditable && !shouldRenderHtml;
                       const isRowEditing = editingRow === rowId;
-                console.log('Row editing state:', { rowId, editingRow, isRowEditing });
                       const isCellEditing = isEditing && inlineEditMode === 'cell';
                       
                       return (
@@ -2782,7 +2574,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                   whiteSpace: 'nowrap',
                                   color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
                                 },
-                                // Status pill styles
                                 '& .status-pill': {
                                   display: 'inline-block',
                                   padding: '2px 8px',
@@ -2816,7 +2607,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                     color: '#ffffff',
                                   },
                                 },
-                                // Progress bar styles
                                 '& .progress-bar': {
                                   width: '100%',
                                   height: '8px',
@@ -2829,7 +2619,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                     transition: 'width 0.3s ease',
                                   },
                                 },
-                                // Verification icon styles
                                 '& .verification-icon': {
                                   display: 'inline-flex',
                                   alignItems: 'center',
@@ -2846,7 +2635,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                     color: 'white',
                                   },
                                 },
-                                // Image styles
                                 '& img': {
                                   maxWidth: '24px',
                                   maxHeight: '24px',
@@ -2854,7 +2642,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                   verticalAlign: 'middle',
                                   marginRight: '8px',
                                 },
-                                // Employee profile styles for dark theme
                                 '& .employee-name': {
                                   color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
                                   fontWeight: 'bold',
@@ -2882,14 +2669,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 '& .senior, & .lead, & .pending, & .active': {
                                   color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
                                 },
-                                // Override inline styles for colored tags in dark theme - comprehensive list of all backgrounds
                                 '& span[style*="background:"]': {
                                   color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
                                 },
                                 '& span[style*="background-color:"]': {
                                   color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
                                 },
-                                // Target specific background colors used in tags
                                 '& span[style*="background: #e3f2fd"]': {
                                   color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
                                 },
@@ -2917,14 +2702,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 '& span[style*="background: #f1f8e9"]': {
                                   color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
                                 },
-                                // Target common border radiuses used in tags
                                 '& span[style*="border-radius: 4px"]': {
                                   color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
                                 },
                                 '& span[style*="border-radius: 8px"]': {
                                   color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
                                 },
-                                // Fix for small descriptive text
                                 '& small[style*="color: #666"]': {
                                   color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7) !important' : 'inherit',
                                 },
@@ -3022,7 +2805,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 variant="contained"
                                 color="primary"
                                 onClick={() => {
-                                  console.log('Save button clicked for rowId:', rowId);
                                   handleRowEditSave(rowId);
                                 }}
                                 startIcon={<EditIcon />}
@@ -3102,7 +2884,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             '&::-webkit-scrollbar': {
               width: '6px',
             },
-                // scrollbar-width: none !important;
               scrollbarWidth: 'thin !important',
             '&::-webkit-scrollbar-track': {
               backgroundColor: theme.palette.mode === 'dark' ? '#2a2a2a' : '#f1f1f1',
@@ -3132,7 +2913,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           
           <Divider sx={{ mb: 1 }} />
           
-          {/* Column Visibility Section - Accordion Panel */}
           <Box mb={1}>
             <Box 
               sx={{ 
@@ -3236,7 +3016,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           
           <Divider sx={{ mb: 1 }} />
           
-          {/* Advanced Filter Section */}
           <Box>
             <Box 
               sx={{ 
@@ -3282,7 +3061,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 }}
               >
                 <Stack spacing={1}>
-                  {/* Dynamic Filter Controls based on Column Data Type */}
                   {(() => {
                     const selectedColumn = tableHeaders.find(h => h.key === selectedColumnForFilter);
                     const dataType = selectedColumn?.dataType || 'string';
@@ -3345,7 +3123,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           </Select>
                         </FormControl>
                         
-                        {/* Dynamic Input based on Data Type */}
                         {inputType === 'date' ? (
                           <Box onMouseDown={e => e.stopPropagation()}>
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -3574,7 +3351,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         onFilterChange?.({});
                         onFilterApiRequest?.({ filters: [], logicalOperator: 'AND' });
                         handleFilterPopupClose();
-                        console.log('Cleared all filters');
                       }}
                       sx={{ 
                         width: '100%',

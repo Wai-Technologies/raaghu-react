@@ -36,7 +36,6 @@ export interface RdsCompFilterButtonProps {
   onClear?: () => void;
   disabled?: boolean;
   className?: string;
-  /** optional icon for each filter item - either a URL string or a React node (JSX) */
   itemIcon?: string | React.ReactNode;
 }
 
@@ -141,14 +140,12 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
 
       >
         <Box className="rds-filter-button__content">
-          {/* Header */}
           <Box className="rds-filter-button__header">
             <Typography className="rds-filter-button__header-title">
               Add Filters
             </Typography>
           </Box>
 
-          {/* Search Box */}
           <Box className="rds-filter-button__search">
             <TextField
               fullWidth
@@ -160,7 +157,6 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
             />
           </Box>
 
-          {/* Filters */}
           <Box sx={{ 
             flex: 1,
             overflowY: 'auto',
@@ -289,10 +285,8 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
             ))}
           </Box>
 
-          {/* Action Buttons */}
           <Box sx={{ 
             p: 1.5, 
-            // borderTop: '1px solid #f0f0f0',
             display: 'flex',
             flexDirection: 'column',
             gap: 1,

@@ -35,29 +35,28 @@ export enum ToastLayout {
   }  
 
   export interface RdsCompToastProps {
-    headerText?: string; // Header text of Toast
-    subText: string; // Subtext of Toast
-    delay?: number; // Delay Time of Toast
-    autohide?: boolean; // Autohide of Toast
-    borderColor?: string; // Border color of Toast
-    showHeader?: boolean; // Show/Hide Header of Toast
-    layout: ToastLayout; // Layout Types of Toast
-    state: ToastState; // state of Toast
-    placeholder?: string; // Placeholder text of Toast
-    progressWidth?: number; // Progress Bar width of Toast
-    filename?: string; // Filename of Toast
-    position?: ToastPosition; // Position of Toast
-    showSubText?: boolean; // Show/Hide Subtext of Toast
-    showDismiss?: boolean; // Show/Hide Dismiss button of Toast
-    showLeading: boolean; // Show/Hide Leading Icon of Toast
-    leadingIcon: ToastLeadingIcon; // Leading Icon of Toast
-    chatTime?: string; // Chat Time of Toast
+    headerText?: string; 
+    subText: string; 
+    delay?: number; 
+    autohide?: boolean; 
+    borderColor?: string; 
+    showHeader?: boolean; 
+    layout: ToastLayout; 
+    state: ToastState; 
+    placeholder?: string; 
+    progressWidth?: number; 
+    filename?: string; 
+    position?: ToastPosition; 
+    showSubText?: boolean; 
+    showDismiss?: boolean; 
+    showLeading: boolean; 
+    leadingIcon: ToastLeadingIcon;
+    chatTime?: string; 
   }
 const RdsCompToast = (props: RdsCompToastProps) => {
     const statewiseColor = props.state === ToastState.Info ? "dark" : props.state === ToastState.Success ? "primary" : props.state === ToastState.Error ? "danger" : "light";
     const borderColor = `rds-comp-toast--border-${statewiseColor}`;
 
-    // Helper functions to convert enum values to CSS class names
     const getStateClass = (state: ToastState): string => {
         switch (state) {
             case ToastState.Info: return 'info';
@@ -180,7 +179,6 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             </div>
                         )}
 
-                        {/* Chat Layout Footer */}
                         {props.layout === ToastLayout.Chat && (
                             <div className="rds-comp-toast__footer rds-comp-toast__footer--chat">
                                 <div className="rds-comp-toast__input-group">
@@ -196,7 +194,6 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             </div>
                         )}
 
-                        {/* Request Layout Footer */}
                         {props.layout === ToastLayout.Request && (
                             <div className="rds-comp-toast__footer rds-comp-toast__footer--request">
                                 <div className="rds-comp-toast__actions">
@@ -232,7 +229,6 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             )}
                         </div>
 
-                        {/* Download Layout Footer - Simple */}
                         {props.layout === ToastLayout.Download && (
                             <div className="rds-comp-toast__footer rds-comp-toast__footer--download">
                                 <div className="rds-comp-toast__progress">
@@ -254,7 +250,6 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             </div>
                         )}
 
-                        {/* Chat Layout Footer - Simple */}
                         {props.layout === ToastLayout.Chat && (
                             <div className="rds-comp-toast__footer rds-comp-toast__footer--chat">
                                 <div className="rds-comp-toast__input-group">
@@ -271,7 +266,6 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             </div>
                         )}
 
-                        {/* Request Layout Footer - Simple */}
                         {props.layout === ToastLayout.Request && (
                             <div className="rds-comp-toast__footer rds-comp-toast__footer--request">
                                 <div className="rds-comp-toast__actions">

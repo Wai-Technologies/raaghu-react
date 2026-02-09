@@ -7,25 +7,15 @@ export interface RdsDrawerProps extends DrawerProps {
   children: React.ReactNode;
   width?: number | string;
   position?: 'left' | 'right' | 'top' | 'bottom';
-  /** When true, component renders an internal trigger button to open the drawer (uncontrolled usage). */
   showTrigger?: boolean;
-  /** Text for the trigger button. */
   triggerText?: string;
-  /** Text for the trigger button when drawer is open (for toggle behavior). */
   triggerTextWhenOpen?: string;
-  /** Initial open state when using internal (uncontrolled) mode. */
   defaultOpen?: boolean;
-  /** Additional props forwarded to the trigger RdsButton (except text & onClick which are managed). */
   triggerButtonProps?: Partial<React.ComponentProps<typeof RdsButton>>;
-  /** When true, renders a close button inside the drawer content. */
   showCloseButton?: boolean;
-  /** Text for the close button inside the drawer. */
   closeButtonText?: string;
-  /** Additional props forwarded to the close RdsButton. */
   closeButtonProps?: Partial<React.ComponentProps<typeof RdsButton>>;
-  /** When true, wraps the trigger button in a centered container (useful for stories). */
   centerTrigger?: boolean;
-  /** CSS class name for the trigger wrapper container. */
   triggerWrapperClassName?: string;
 }
 
@@ -48,27 +38,21 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
   ...props
 }) => {
   const drawerAnchor = anchor || position;
-  // If showTrigger is enabled, treat drawer as uncontrolled regardless of an 'open' prop to avoid anchor drift when switching stories
   const isControlled = !showTrigger && props.open !== undefined;
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
   const actualOpen = isControlled ? props.open : internalOpen;
 
   const handleToggle = useCallback(() => {
     if (!isControlled) setInternalOpen(!internalOpen);
-    // If controlled, consumer should update 'open' prop externally
   }, [isControlled, internalOpen]);
 
   const handleClose = useCallback((...args: any[]) => {
     if (!isControlled) setInternalOpen(false);
     if (props.onClose) {
-      // MUI onClose signature: (event: React.SyntheticEvent, reason: string) => void
-      // Forward original arguments if present
-      // @ts-ignore
       props.onClose(...(args as any));
     }
   }, [isControlled, props]);
 
-  // Determine button text based on state and props
   const getButtonText = () => {
     if (triggerTextWhenOpen && actualOpen) {
       return triggerTextWhenOpen;
@@ -76,7 +60,6 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
     return triggerText;
   };
 
-  // Render drawer content with optional close button
   const renderDrawerContent = () => {
     if (showCloseButton) {
       return (

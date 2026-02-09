@@ -73,7 +73,6 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
     if (variantStyle === 'style2') outlineClass = 'rds-banner--style2-outline';
   }
 
-  // Map variantStyle to MUI Alert variant
   let muiVariant: AlertProps['variant'] = props.variant ?? 'standard';
   if (!props.variant) {
   if (variantStyle === 'style2') {

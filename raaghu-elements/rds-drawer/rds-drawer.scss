@@ -1,6 +1,3 @@
-// RDS Drawer Component Styles
-// Slide-out navigation drawer component
-
 .rds-drawer {
   position: fixed;
   z-index: var(--rds-z-index-fixed);
@@ -98,7 +95,6 @@
   margin-left: 20px;
 }
 
-// Story-specific styles for centering trigger button
 .rds-drawer-trigger-wrapper {
   display: flex;
   justify-content: center;
@@ -107,7 +103,6 @@
   min-height: 200px;
 }
 
-// Responsive centering for persistent drawer trigger
 .rds-drawer-persistent-trigger {
   display: flex;
   justify-content: center;

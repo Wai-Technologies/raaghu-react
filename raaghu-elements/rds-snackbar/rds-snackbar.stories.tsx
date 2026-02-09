@@ -35,12 +35,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const SnackbarTemplate = (args: any) => {
-  // Use local state so we can control open both from the "Show Snackbar" button
-  // and from Storybook's controls (args.open). When args.open changes, sync it.
   const [open, setOpen] = useState<boolean>(!!args.open);
 
   useEffect(() => {
-    // When the control `open` in Storybook is toggled, reflect it in local state.
     setOpen(!!args.open);
   }, [args.open]);
 

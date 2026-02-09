@@ -208,7 +208,6 @@ export const Small: Story = {
         'maxVisibleAvatars',
         'alt',
         'src',
-        // Keep controls visible for designation toggling
       ]
     },
   },

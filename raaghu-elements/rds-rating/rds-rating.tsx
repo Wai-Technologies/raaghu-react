@@ -28,16 +28,13 @@ const RdsRating = ({
 }: RdsRatingProps) => {
   const maxRating = max || maxStars;
   
-  // For slider type, only allow 0, 2.5, 5
   const allowedSliderValues = [0, 2.5, 5];
 
-  // Helper to snap to nearest allowed value
   function snapToAllowed(val: number | null | undefined): number {
     if (val === null || val === undefined) return 0;
     return allowedSliderValues.reduce((prev, curr) => Math.abs(curr - val!) < Math.abs(prev - val!) ? curr : prev);
   }
 
-  // Internal state to manage the current rating value
   const [internalValue, setInternalValue] = useState<number | null>(() => {
     if (type === 'slider') {
       if (level !== undefined) {
@@ -56,7 +53,6 @@ const RdsRating = ({
     }
   });
   
-  // Convert string level values to numbers
   function getLevelValue(level: any): number | undefined {
     if (level === 'Left') return 0;
     if (level === 'Mid') return 2.5;
@@ -65,7 +61,6 @@ const RdsRating = ({
   }
   
 
-  // Determine the current value based on priority: internal state > level > value prop
   let currentValue: number | null = internalValue;
   if (type === 'slider') {
     currentValue = snapToAllowed(currentValue);
@@ -79,7 +74,6 @@ const RdsRating = ({
 
   const precision = type === 'slider' ? undefined : (props.precision !== undefined ? props.precision : 0.5);
 
-  // Update internal state when external value or level changes
   useEffect(() => {
     if (type === 'slider') {
       if (level !== undefined) {
@@ -98,25 +92,20 @@ const RdsRating = ({
     }
   }, [value, level, type]);
 
-  // Custom onChange handler for star rating with toggle functionality
   const handleStarChange = (event: React.SyntheticEvent, newValue: number | null) => {
     let finalValue: number | null = newValue;
     
-    // Toggle functionality: if clicking the same star, set to 0
     if (newValue === currentValue && newValue !== 0) {
       finalValue = 0;
     }
     
-    // Always update internal state for interactive behavior
     setInternalValue(finalValue);
     
-    // Call external onChange if provided
     if (onChange) {
       onChange(event, finalValue);
     }
   };
 
-  // Custom onChange handler for slider (snap to nearest allowed value)
   const handleSliderChange = (event: Event | React.SyntheticEvent, newValue: number | number[]) => {
     let value = Array.isArray(newValue) ? newValue[0] : newValue;
     value = snapToAllowed(value);
@@ -127,7 +116,6 @@ const RdsRating = ({
     }
   };
 
-  // Determine position based on level for sliders
   const getPositionClass = () => {
     if (type === 'slider' && level !== undefined) {
       const numLevel = getLevelValue(level);
@@ -168,7 +156,6 @@ const RdsRating = ({
           </span>
         )}
       </div>
-      {/* Slider Labels */}
       <div className="rds-rating__slider-labels">
         <span className="rds-rating__slider-label rds-rating__slider-label--start">No</span>
         <span className="rds-rating__slider-label rds-rating__slider-label--middle">Maybe</span>

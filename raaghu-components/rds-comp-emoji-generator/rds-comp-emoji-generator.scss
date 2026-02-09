@@ -1,18 +1,14 @@
-// RDS Emoji Generator Component Styles
-
 .rds-emoji-generator {
-  // Base styles - compact and responsive design
   display: flex;
   flex-direction: column;
   background-color: var(--rds-background-paper, #ffffff);
   border-radius: var(--rds-border-radius-lg, 12px);
   overflow: hidden;
-  width: 360px; // Component specific width
-  height: 420px; // Component specific height
+  width: 360px;
+  height: 420px;
   box-shadow: var(--rds-elevation-2, 0 4px 12px rgba(0, 0, 0, 0.08));
   gap: 0;
 
-  // Quick reactions variant
   &--quick {
     flex-direction: row;
     align-items: center;
@@ -28,7 +24,6 @@
     height: auto;
   }
   
-  // Search section
   &__search {
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
     background-color: var(--rds-background-paper, #ffffff);
@@ -77,18 +72,17 @@
       }
       
       .MuiOutlinedInput-notchedOutline {
-        display: none; // Remove Material-UI default border
+        display: none;
       }
     }
   }
 
-  // Skin tone selector - button and vertical dropdown
   &__skin-tone-button {
     transition: all 0.2s ease;
     flex-shrink: 0;
     width: 29px;
     height: 29px;
-    border-radius: var(--rds-border-radius-sm, 4px) !important; // force square overriding MUI default (50%)
+    border-radius: var(--rds-border-radius-sm, 4px) !important;
     border: 1px solid var(--rds-border-light, #e5e7eb);
     min-width: 29px;
     padding: 0;
@@ -100,10 +94,9 @@
     }
   }
 
-  // Inline expanded skin-tone vertical strip (used when State is Expanded)
   &__skin-tone-inline {
     position: absolute;
-    right: -6px; // aligned to the right edge of the popover
+    right: -6px;
     top: 30px;
     display: flex;
     flex-direction: column;
@@ -124,12 +117,10 @@
     }
   }
 
-  // Skin tone popover panel
   &__skin-tone-popover {
     padding: var(--rds-spacing-xs, 4px);
     border-radius: var(--rds-border-radius-md, 8px) !important;
     box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.15)) !important;
-    // border: 1px solid var(--rds-border-light, #e5e7eb);
     margin-top: 2px;
     min-width: auto;
     width: 45px;
@@ -156,18 +147,16 @@
     }
   }
 
-  // Individual skin tone option base (dynamic border, boxShadow, bg remain inline)
   &__skin-tone-option {
     width: 29px !important;
     height: 29px !important;
-    border-radius: 0 !important; // square buttons
+    border-radius: 0 !important;
     min-width: 29px !important;
     padding: 0 !important;
     margin: var(--rds-spacing-xs, 2px) 0 !important;
     display: block !important;
   }
   
-  // Category tabs
   &__categories {
     background-color: var(--rds-background-paper, #ffffff);
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
@@ -189,7 +178,6 @@
     }
   }
   
-  // Category chip styling
   &__category-chip {
     flex-shrink: 0;
     transition: all 0.2s ease;
@@ -198,9 +186,9 @@
     width: 32px !important;
     height: 32px !important;
     padding: 0 !important;
-    border-radius: var(--rds-border-radius-xl, 16px) !important; // circular chip stays (design intent)
-    background-color: transparent; // outlined default
-    color: var(--rds-text-secondary, #6b7280); // default icon color
+    border-radius: var(--rds-border-radius-xl, 16px) !important;
+    background-color: transparent;
+    color: var(--rds-text-secondary, #6b7280);
     .MuiChip-icon {
       font-size: 16px !important;
       color: inherit;
@@ -219,7 +207,6 @@
     
     &--selected {
       box-shadow: 0 2px 8px var(--rds-color-primary-30, rgba(59, 130, 246, 0.3));
-      // Let MUI primary filled variant supply its own background & color
     }
     
     .MuiChip-icon {
@@ -228,16 +215,15 @@
     }
   }
   
-  // Emoji grid
   &__grid {
     flex: 1;
     overflow: hidden;
     padding: var(--rds-spacing-md, 14px);
     background-color: var(--rds-background-paper, #ffffff);
-    min-height: 0; // Allow proper flex behavior
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; // Start from top
+    justify-content: flex-start;
   }
 
   &__emoji-image {
@@ -247,7 +233,6 @@
       vertical-align: middle;
   }
   
-  // Category title
   &__category-title {
     margin-bottom: var(--rds-spacing-md, 14px);
     padding: 0 var(--rds-spacing-xs, 2px);
@@ -262,21 +247,18 @@
     }
   }
   
-  // Grid container
   &__grid {
     &-container {
       display: grid;
-      grid-template-columns: repeat(7, 1fr); // Fixed 7 columns
+      grid-template-columns: repeat(7, 1fr);
       gap: var(--rds-spacing-sm, 8px);
       justify-items: center;
-      align-items: start; // Align to top
+      align-items: start;
       flex: 1;
       overflow-y: auto;
-      padding-right: var(--rds-spacing-sm, 8px); // Space for custom scrollbar
-      align-content: start; // Content starts from top
-      grid-auto-rows: min-content; // Rows adjust to content
-      
-      // Custom scrollbar styling
+      padding-right: var(--rds-spacing-sm, 8px);
+      align-content: start;
+      grid-auto-rows: min-content;
       scrollbar-width: thin;
       
       &::-webkit-scrollbar {
@@ -310,87 +292,83 @@
     }
   }
   
-  // Individual emoji item
   &__emoji {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--rds-size-lg, 36px); // Balanced size for 7-column grid
+    width: var(--rds-size-lg, 36px);
     height: var(--rds-size-lg, 36px);
     border-radius: var(--rds-border-radius-md, 8px);
     cursor: pointer;
-    transition: transform 0.2s ease; // Only transition the scale
-    font-size: var(--rds-font-size-xl, 20px); // Good size for visibility
+    transition: transform 0.2s ease;
+    font-size: var(--rds-font-size-xl, 20px);
     border: 1px solid transparent;
     background-color: transparent;
     
     &:hover {
-      transform: scale(1.1); // Only scale effect on hover
+      transform: scale(1.1);
     }
     
     &:active {
-      transform: scale(0.95); // Scale down when clicked
+      transform: scale(0.95);
     }
 
-    // Quick reactions specific styles
     &--quick {
-      width: var(--rds-size-md, 32px); // Smaller size to match wireframe
+      width: var(--rds-size-md, 32px);
       height: var(--rds-size-md, 32px);
-      border-radius: 0; // No border radius - flat design
-      font-size: var(--rds-font-size-xl, 20px); // Smaller emoji size
-      background-color: transparent; // No background
-      border: none; // No border
+      border-radius: 0;
+      font-size: var(--rds-font-size-xl, 20px);
+      background-color: transparent;
+      border: none;
       transition: transform 0.2s ease;
       
       &:hover {
-        background-color: transparent; // Keep transparent on hover
+        background-color: transparent;
         border: none;
-        transform: scale(1.1); // Only scale effect
+        transform: scale(1.1);
       }
       
       &:active {
         transform: scale(0.95);
-        background-color: transparent; // Keep transparent when clicked
+        background-color: transparent;
       }
     }
   }
 
-  // Plus icon for quick reactions
   &__plus {
-    width: var(--rds-size-md, 32px) !important; // Match emoji size from wireframe
+    width: var(--rds-size-md, 32px) !important;
     height: var(--rds-size-md, 32px) !important;
-    border-radius: 0 !important; // No border radius - flat design
+    border-radius: 0 !important;
     cursor: pointer;
-    transition: all 0.2s ease !important; // Keep transition for click effect
-    border: none !important; // Remove border
-    background-color: transparent !important; // Transparent background
+    transition: all 0.2s ease !important;
+    border: none !important;
+    background-color: transparent !important;
     padding: 0 !important;
     
     &:active {
-      transform: scale(0.95) !important; // Add click effect
-      background-color: transparent !important; // Keep transparent
+      transform: scale(0.95) !important;
+      background-color: transparent !important;
     }
     
     .MuiSvgIcon-root {
       color: var(--rds-text-secondary, #7D7D7D);
-      font-size: var(--rds-font-size-lg, 18px); // Smaller icon to match wireframe
+      font-size: var(--rds-font-size-lg, 18px);
     }
   }
 
-  // Footer section
   &__footer {
     display: flex;
     align-items: center;
-    justify-content: flex-start; // Align to left instead of center
-    gap: var(--rds-spacing-sm, 8px); // Space between emoji and text
-    padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px); // Reduced top/bottom padding
+    justify-content: flex-start;
+    gap: var(--rds-spacing-sm, 8px);
+    padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px);
     background-color: var(--rds-background-paper, #ffffff);
-    flex-shrink: 0; // Don't shrink the footer
-    min-height: var(--rds-size-xl, 48px); // Consistent footer height
+    flex-shrink: 0;
+    min-height: var(--rds-size-xl, 48px);
     
     &-emoji {
       font-size: var(--rds-font-size-xl, 20px);
-      flex-shrink: 0; // Don't shrink the emoji
+      flex-shrink: 0;
       line-height: 1;
     }
     
@@ -400,11 +378,10 @@
       font-weight: var(--rds-font-weight-normal, 400) !important;
       line-height: 1.4 !important;
       margin: 0 !important;
-      flex: 1; // Take up remaining space
+      flex: 1;
     }
   }
 
-  // Scrollbar styling
   &__grid::-webkit-scrollbar {
     width: var(--rds-spacing-xs, 6px);
   }
@@ -423,7 +400,6 @@
   }
 }
 
-// Responsive design
 @media (max-width: 480px) {
   .rds-emoji-generator {
   width: 294px;
@@ -443,14 +419,12 @@
   }
 }
 
-// Dark theme support
 .dark-theme .rds-emoji-generator,
 [data-theme="dark"] .rds-emoji-generator {
   background-color: var(--rds-background-surface, #424242);
   border-color: var(--rds-border-default, #555555);
   color: var(--rds-text-primary, #ffffff);
 
-  // Search section in dark mode
   &__search {
     background-color: var(--rds-background-surface, #424242);
     .MuiTextField-root {
@@ -477,29 +451,24 @@
     }
   }
 
-  // Skin tone button in dark mode
   &__skin-tone-button {
     border-color: var(--rds-border-default, #555555);
   }
 
-  // Skin tone popover in dark mode
   &__skin-tone-popover {
     background-color: var(--rds-background-surface, #424242) !important;
     border-color: var(--rds-border-default, #555555) !important;
   }
 
-  // Inline skin tone panel in dark mode
   &__skin-tone-inline {
     background-color: var(--rds-background-surface, #424242);
     border: 1px solid var(--rds-border-default, #555555);
   }
 
-  // Categories section in dark mode
   &__categories {
     background-color: var(--rds-background-surface, #424242);
   }
 
-  // Category chips in dark mode
   &__category-chip {
     color: var(--rds-text-secondary, #cccccc);
     
@@ -507,7 +476,6 @@
       background-color: var(--rds-background-neutral-50, #4a4a4a);
     }
     
-    // Override Material-UI styles for dark theme
     &.MuiChip-filled {
       background-color: var(--rds-color-primary, #3b82f6) !important;
       color: var(--rds-button-primary-text, #ffffff) !important;
@@ -527,17 +495,14 @@
     }
   }
 
-  // Grid section in dark mode
   &__grid {
     background-color: var(--rds-background-surface, #424242);
   }
 
-  // Category title in dark mode
   &__category-title-text {
     color: var(--rds-text-primary, #ffffff);
   }
 
-  // Grid container scrollbar in dark mode
   &__grid-container {
     
     &::-webkit-scrollbar {
@@ -565,7 +530,6 @@
     }
   }
 
-  // Footer in dark mode
   &__footer {
     background-color: var(--rds-background-surface, #424242);
     
@@ -574,7 +538,6 @@
     }
   }
 
-  // Plus icon in dark mode
   &__plus {
     .MuiSvgIcon-root {
       color: var(--rds-text-secondary, #cccccc);
@@ -582,7 +545,6 @@
   }
 }
 
-// High contrast mode
 @media (prefers-contrast: high) {
   .rds-emoji-generator {
     border-color: var(--rds-border-strong, #000000);
@@ -597,7 +559,6 @@
   }
 }
 
-// Reduced motion
 @media (prefers-reduced-motion: reduce) {
   .rds-emoji-generator {
     &__emoji {

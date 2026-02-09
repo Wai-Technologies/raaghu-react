@@ -40,7 +40,6 @@ export interface RdsSidebarItem {
   layout?: 'raaghu' | 'list' | 'toolbar';
   typeOf?: 'collapse' | 'expanded' | 'fixed';
   platform?: 'abp-list' | 'anz-list';
-  /** Optional nested submenu items */
   children?: RdsSidebarItem[];
 }
 
@@ -75,28 +74,25 @@ const RdsSidebar = ({
   ...props
 }:RdsSidebarProps) => {
   const [searchValue, setSearchValue] = React.useState("");
-  // Track which top-level items with children are expanded
   const [openMap, setOpenMap] = React.useState<Record<number, boolean>>({});
 
-  // Platform-specific menu items
   const anzMenuItems: RdsSidebarItem[] = [
-    { label: 'Dashboard', icon: <DashboardOutlined />, onClick: () => console.log('Dashboard clicked') },
-    { label: 'Saas', icon: <AppsOutlined />, onClick: () => console.log('Saas clicked') },
-    { label: 'Administration', icon: <ManageAccounts />, onClick: () => console.log('Administration clicked') },
-    { label: 'Demo UI Components', icon: <DesignServicesOutlined />, onClick: () => console.log('Demo UI Components clicked') },
+    { label: 'Dashboard', icon: <DashboardOutlined />, onClick: () => {} },
+    { label: 'Saas', icon: <AppsOutlined />, onClick: () => {} },
+    { label: 'Administration', icon: <ManageAccounts />, onClick: () => {} },
+    { label: 'Demo UI Components', icon: <DesignServicesOutlined />, onClick: () => {} },
   ];
 
   const abpMenuItems: RdsSidebarItem[] = [
-    { label: 'Dashboard', icon: <DashboardOutlined />, onClick: () => console.log('Dashboard clicked') },
-    { label: 'Saas', icon: <GroupsOutlined />, onClick: () => console.log('Saas clicked') },
-    { label: 'Invoices', icon: <ReceiptLongOutlined />, onClick: () => console.log('Invoices clicked') },
-    { label: 'Ticket Allocation', icon: <FolderOutlined />, onClick: () => console.log('Ticket Allocation clicked') },
-    { label: 'Communication', icon: <MailOutline />, onClick: () => console.log('Communication clicked') },
-    { label: 'Advertisements', icon: <CampaignOutlined />, onClick: () => console.log('Advertisements clicked') },
-    { label: 'Requests', icon: <RequestQuoteOutlined />, onClick: () => console.log('Requests clicked') },
+    { label: 'Dashboard', icon: <DashboardOutlined />, onClick: () => {} },
+    { label: 'Saas', icon: <GroupsOutlined />, onClick: () => {} },
+    { label: 'Invoices', icon: <ReceiptLongOutlined />, onClick: () => {} },
+    { label: 'Ticket Allocation', icon: <FolderOutlined />, onClick: () => {} },
+    { label: 'Communication', icon: <MailOutline />, onClick: () => {} },
+    { label: 'Advertisements', icon: <CampaignOutlined />, onClick: () => {} },
+    { label: 'Requests', icon: <RequestQuoteOutlined />, onClick: () => {} },
   ];
 
-  // Determine which items to use based on platform
   const menuItems = platform === 'abp-list' ? abpMenuItems : 
                    platform === 'anz-list' ? anzMenuItems : 
                    items;
@@ -105,30 +101,23 @@ const RdsSidebar = ({
     setOpenMap(prev => ({ ...prev, [idx]: !prev[idx] }));
   };
 
-  // Derived state for sidebar appearance
   const isCollapsed = typeOf === 'collapse' || typeOf === 'fixed';
-  // Check if width is too narrow to properly display text (responsive behavior)
   const isNarrowCollapsed = width < 200;
   const shouldShowIconsOnly = isCollapsed || isNarrowCollapsed;
   const showLabels = !shouldShowIconsOnly;
-  let showAvatar = true; // Always show avatar initially
+  let showAvatar = true;
   let showSearchBox = !shouldShowIconsOnly && showSearch;
   let drawerVariant = variant;
 
-  // Special case for list layout
   if (props.layout === 'list' && shouldShowIconsOnly) {
     showAvatar = true;
     showSearchBox = showSearch;
   }
-  // Hide search and avatar for raaghu and toolbar layouts
   if (props.layout === 'raaghu' || props.layout === 'toolbar') {
-    // Avatar should be hidden in these layouts, but respect the `showSearch` prop so
-    // consumers can toggle the search box via controls or props.
     showAvatar = false;
     showSearchBox = showSearch && !shouldShowIconsOnly;
   }
 
-  // CSS classes
   const sidebarClasses = `rds-sidebar rds-sidebar--${typeOf} ${isNarrowCollapsed ? 'rds-sidebar--narrow-collapsed' : ''}`;
   const headerClasses = `rds-sidebar__header rds-sidebar__header--${typeOf}`;
   const contentClasses = 'rds-sidebar__content';
@@ -137,7 +126,6 @@ const RdsSidebar = ({
   const avatarContainerClasses = `rds-sidebar__avatar-container rds-sidebar__avatar-container--${typeOf}`;
   const getLogoClass = () => shouldShowIconsOnly ? 'rds-sidebar__logo rds-sidebar__logo--collapse' : 'rds-sidebar__logo rds-sidebar__logo--expanded';
 
-  // Drawer styles
   const drawerSx: any = {
     width: shouldShowIconsOnly ? 64 : width,
     flexShrink: 0,

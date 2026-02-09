@@ -34,7 +34,6 @@
     }
   }
   
-  // Main input box
   &__input-box {
     flex: 1;
     padding: var(--rds-spacing-md, 15px);
@@ -78,14 +77,13 @@
         color: #fff;
       }
     }
-    // Dark mode background
+   
     body.theme-dark &,
     [data-theme="dark"] & {
       background-color: #2a2a2a;
     }
   }
   
-  // Input icon
   &__input-icon {
     color: var(--rds-color-text-secondary, #6c757d);
     font-size: var(--rds-font-size-icon, 20px);
@@ -98,7 +96,6 @@
     transition: color 0.2s ease;
   }
   
-  // Actions container
   &__actions {
     display: flex;
     justify-content: flex-end;
@@ -110,44 +107,37 @@
     }
   }
   
-  // Action icons container
   &__action-icons {
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-md, 12px);
   }
   
-  // Attach button
   &__attach {
     position: relative;
 
     .rds-fab-menu__dropdown-container {
       position: absolute;
-      // bottom: 100%;
       right: 0;
-      top: auto !important; // Override default positioning
+      top: auto !important; 
       margin-bottom: var(--rds-spacing-sm, 8px);
     }
   }
 
-  /* Small mobile specific adjustment: shift fab menu dropdown left only in typing section
-     Using explicit left positioning instead of negative margin for reliability. */
   @media (max-width: 375px) {
     &__attach {
       .rds-fab-menu__dropdown-container--open {
-        right: auto; /* cancel right alignment */
-        left: -142px; /* shift left */
+        right: auto; 
+        left: -142px;
       }
     }
   }
   
-  // Send button container
   &__send {
     display: flex;
     align-items: center;
   }
   
-  // Button sections
   &__button-sections {
     display: flex;
     margin-top: var(--rds-spacing-md, 12px);

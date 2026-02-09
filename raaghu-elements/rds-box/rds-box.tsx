@@ -14,7 +14,6 @@ const RdsBox = ({
   className,
   ...props
 }:RdsBoxProps & { className?: string }) => {
-  // Combine the base rds-box class with any additional classes
   const mergedClassName = ['rds-box', className].filter(Boolean).join(' ');
 
   return (

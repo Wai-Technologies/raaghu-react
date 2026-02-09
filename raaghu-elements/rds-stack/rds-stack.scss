@@ -1,22 +1,6 @@
-// RDS Stack Component Styles
-// Stack layout component
-
 .rds-stack {
   display: block;
   position: relative;
-
-  &--horizontal {
-    // Horizontal state styles
-  }
-
-  &--vertical {
-    // Vertical state styles
-  }
-
-  // Interactive states
-  &:hover {
-    // Hover styles
-  }
 
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
@@ -38,7 +22,7 @@
 }
 
 .rds-stack__demo-item {
-  padding: 0.25rem 0.5rem; /* p:1 equivalent */
+  padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-weight: 500;
   color: #fff;
@@ -60,7 +44,6 @@
   background-color: var(--rds-color-success-light, #2e7d32);
 }
 
-/* Dark theme overrides (assuming a .dark-theme wrapper is applied) */
 .dark-theme .rds-stack__demo-item--primary {
   background-color: var(--rds-color-primary-dark, #1976d2);
 }

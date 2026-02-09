@@ -30,13 +30,11 @@ const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
 }) => {
   const theme = useTheme();
 
-  // Determine whether to apply the dark-mode paper shadow
   const passedElevation = (props.elevation ?? 0) as number;
   const isElevationVariant = props.variant === 'elevation';
   const isDarkMode = theme?.palette?.mode === 'dark';
   const shouldUsePaperShadow = isElevationVariant && isDarkMode && passedElevation > 0;
 
-  // Use appropriate CSS variable based on theme mode
   const shadowVariable = isDarkMode ? 'var(--Paper-shadow-dark)' : 'var(--Paper-shadow-light)';
   
   const mergedSx = shouldUsePaperShadow
@@ -45,7 +43,6 @@ const RdsCardDetail: React.FC<RdsCardDetailProps> = ({
       : [props.sx || {}, { boxShadow: shadowVariable }]
     : props.sx;
 
-  // Add CSS class to make CSS variables available
   const mergedClassName = `rds-card-detail ${props.className || ''}`.trim();
 
   return (

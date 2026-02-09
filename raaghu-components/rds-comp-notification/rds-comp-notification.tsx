@@ -8,18 +8,18 @@ export enum NotificationStyle { Default = "default", Avatar = "avatar", Icon = "
 export enum NotificationType { Error = "error", Info = "info", Success = "success", Warning = "warning", }
 export interface NotificationItem { userNotificationId?: string | number; title: string; time?: string; description: string; image?: string; avatar?: string; icon?: React.ReactNode | string; status?: string; urlTitle?: string; }
 export interface RdsCompNotificationProps {
-    notifications: any[]; // Array of notifications (matching old interface)
-    title?: string; // Title for all notifications (overrides notification.title)
-    description?: string; // Description for all notifications (overrides notification.description)
-    layout?: NotificationLayout; // Layout of the notification
-    style?: NotificationStyle; // Style of the notification
-    type?: NotificationType; // Type of the notification
-    showButton?: boolean; // Show buttons in the notification
-    showPrimaryButton?: boolean; // Show primary button in the notification
-    showSecondaryButton?: boolean; // Show secondary button in the notification
-    showDismiss?: boolean; // Show dismiss button in the notification
-    onDismiss?: (event: any, notification: any) => void; // Event handler for dismiss button
-    onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; // Event handler for accept button
+    notifications: any[]; 
+    title?: string; 
+    description?: string; 
+    layout?: NotificationLayout; 
+    style?: NotificationStyle; 
+    type?: NotificationType; 
+    showButton?: boolean; 
+    showPrimaryButton?: boolean; 
+    showSecondaryButton?: boolean; 
+    showDismiss?: boolean; 
+    onDismiss?: (event: any, notification: any) => void; 
+    onAccept?: (event: React.MouseEvent<HTMLElement>, notification: any) => void; 
 }
 const CustomBellIcon: React.FC = () => (
     <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,28 +42,23 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
 }) => {
     const [visibleNotifications, setVisibleNotifications] = useState(notifications);
 
-    // Update visible notifications when prop changes
     useEffect(() => {
         setVisibleNotifications(notifications);
     }, [notifications]);
 
     const handleDismiss = (event: any, notification: any, notificationIndex: number) => {
-        // Remove the notification from visible notifications using index
         setVisibleNotifications(prev => 
             prev.filter((n, index) => index !== notificationIndex)
         );
         
-        // Call the external onDismiss handler if provided
         onDismiss?.(event, notification);
     };
 
     const handleSecondaryButtonClick = (event: any, notification: any, notificationIndex: number) => {
-        // Remove the notification when secondary button (DISMISS) is clicked
         setVisibleNotifications(prev => 
             prev.filter((n, index) => index !== notificationIndex)
         );
         
-        // Call the external onDismiss handler if provided
         onDismiss?.(event, notification);
     };
 
@@ -78,7 +73,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                     className={`rds-comp-notification rds-comp-notification--layout-${layout} rds-comp-notification--style-${style} rds-comp-notification--type-${type}`}
                     sx={{ ...getTypeStyles(), padding: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? 0 : 2, marginBottom: 2, borderRadius: 2, position: "relative",display: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? "flex" : "block",overflow: "hidden"
                     }}>
-                    {/* Image Sidebar for Horizontal Layout */}
+                   
                     {layout === NotificationLayout.Horizontal && style === NotificationStyle.Image && (
                         <Box
                             className="rds-comp-notification__image-sidebar"
@@ -96,20 +91,19 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                         </Box>
                     )}
                     
-                    {/* Content Area */}
                     <Box sx={{ 
                         flex: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? 1 : "none",
                         padding: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? 2 : 0,
                         position: "relative"
                     }}>
-                    {/* Dismiss Icon */}
+                    
                     {showDismiss && (
                         <RdsIconButton iconFilled={<Close />} size="small" onClick={(e) => handleDismiss(e, notification, index)} className="rds-comp-notification__dismiss" />)}
-                    {/* Header Section */}
+                   
                     <Box
                         className="rds-comp-notification__header"
                         sx={{ display: "flex", alignItems: layout === NotificationLayout.Horizontal ? "center" : "flex-start", flexDirection: layout === NotificationLayout.Horizontal ? "row" : "column", marginBottom: 1, }}>
-                        {/* Title section for image style with special positioning */}
+                       
                         {style === NotificationStyle.Image &&
                             (layout === NotificationLayout.Vertical ||
                                 layout === NotificationLayout.Horizontal) && (
@@ -153,7 +147,7 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
                                 )}
                             </Box>
                         )}
-                        {/* Title section for non-image styles or specific conditions */}
+                        
                         {((layout !== NotificationLayout.Vertical && style !== NotificationStyle.Image) ||
                             (layout === NotificationLayout.Horizontal && style !== NotificationStyle.Image) ||
                             (layout === NotificationLayout.Vertical && style !== NotificationStyle.Image)) && (

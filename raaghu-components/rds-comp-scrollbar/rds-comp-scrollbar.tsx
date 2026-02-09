@@ -42,7 +42,6 @@ const RdsCompScrollBar: React.FC<RdsScrollBarProps> = ({
     }
   };
 
-  // Apply position whenever type or position changes
   useEffect(() => {
     scrollToPosition(position);
   }, [position, type]);

@@ -1,4 +1,3 @@
-// Utility and helper functions for RdsCompChat
 export interface Comment {
   firstName: string;
   lastName: string;

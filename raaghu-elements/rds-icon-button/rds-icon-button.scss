@@ -2,16 +2,13 @@
   border: var(--rds-icon-button-outlined-border-width, 1.5px) solid currentColor;
 }
 
-/* Base class for the component so we can reliably scope size rules */
 .rds-icon-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  line-height: 0; /* prevent font metrics from affecting svg size */
+  line-height: 0;
 }
 
-/* Map MUI size prop to icon font-size for SVG icons and ensure custom SVGs scale.
-   Use explicit width/height and !important to override conflicting rules where needed. */
 .rds-icon-button.MuiIconButton-sizeSmall .MuiSvgIcon-root,
 .rds-icon-button.MuiIconButton-sizeSmall svg {
   font-size: var(--rds-icon-button-size-small, 18px) !important;
@@ -33,13 +30,11 @@
   height: var(--rds-icon-button-size-large, 24px) !important;
 }
 
-/* Keep outlined visual consistent */
 .rds-icon-button--outlined {
   border-radius: var(--rds-icon-button-outlined-radius, 6px);
-  padding: var(--rds-icon-button-outlined-padding, 6px); /* give outlined buttons some breathing room */
+  padding: var(--rds-icon-button-outlined-padding, 6px);
 }
 
-/* Focus indicator for keyboard users */
 .rds-icon-button:focus-visible {
   outline: 2px solid var(--rds-icon-button-focus-color, rgba(25, 118, 210, 0.32));
   outline-offset: 2px;

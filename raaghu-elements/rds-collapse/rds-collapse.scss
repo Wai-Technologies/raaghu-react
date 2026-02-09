@@ -1,22 +1,9 @@
-// RDS Collapse Component Styles
-// Collapsible content container
-
 .rds-collapse {
   display: block;
   position: relative;
 
   &__content {
-    // Content styles
     display: block;
-  }
-
-  &--expanded {
-    // Expanded state styles
-  }
-
-  // Interactive states
-  &:hover {
-    // Hover styles
   }
 
   &:focus-visible {
@@ -31,9 +18,7 @@
   }
 }
 
-// Storybook helper styles (used in stories to avoid inline sx)
 .rds-collapse__story-box {
-  //padding: var(--rds-spacing-md, 16px);
   border-radius: var(--rds-border-radius-sm, 4px);
   background-color: var(--rds-color-surface-light, #f5f5f5);
 }
@@ -50,12 +35,11 @@
   }
   .rds-collapse__story-box--warning {
     background-color: var(--rds-color-warning-light, #e6de94) !important;
-    color: #000000 !important; // explicit black text in dark theme per request
+    color: #000000 !important;
   }
 }
 
 .css-rn0nqi-MuiTypography-root {
-  // Ensure typography inside collapse has consistent spacing
   margin-bottom:  0px !important;
 }
 

@@ -21,7 +21,6 @@ export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
   size?: 'small' | 'medium' | 'large';
   state?: 'default' | 'hover' | 'selected';
   accordionStyle?: 'border' | 'bottomline' | 'borderhide';
-  // selected?: boolean; // Removed, use state === 'selected'
 }
 
 const RdsAccordion = ({
@@ -39,7 +38,6 @@ const RdsAccordion = ({
   const [isHovered, setIsHovered] = useState(false);
   const isDisabled = props.disabled;
 
-  // Only pass expanded if controlled, otherwise pass defaultExpanded
   const accordionProps: any = {
     ...props,
     className: clsx(

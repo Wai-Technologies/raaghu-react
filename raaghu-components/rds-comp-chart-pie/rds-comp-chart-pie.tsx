@@ -30,22 +30,16 @@ const RdsCompPieChart = (props: RdsCompPieProps) => {
 
     const ctx = canvasElm.getContext("2d") as CanvasRenderingContext2D;
 
-    // Destroy the existing chart if it exists
     Chart.getChart(canvasElm)?.destroy();
      const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
 
-    // If dark mode, set legend and title color to white
     if (isDarkMode()) {
-      // Ensure plugins object exists
       if (!chartOptions.plugins) chartOptions.plugins = {};
-      // Ensure legend object exists
       if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
       if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
       chartOptions.plugins.legend.labels.color = "#fff";
-      // Ensure title object exists
       if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
       chartOptions.plugins.title.color = "#fff";
-      // Set tooltip label/title color to white if using custom tooltip
       if (chartOptions.plugins.tooltip) {
         chartOptions.plugins.tooltip.titleColor = "#fff";
         chartOptions.plugins.tooltip.bodyColor = "#fff";

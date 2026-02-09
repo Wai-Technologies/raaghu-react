@@ -34,7 +34,6 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
 }) => {
   const timelinePosition = position || (alternating ? 'alternate' : 'right');
 
-  // Only pass safe props to MuiTimeline (avoid ...props which may include ref as string)
   return (
     <MuiTimeline position={timelinePosition} {...props}>
       <>

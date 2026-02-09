@@ -25,7 +25,6 @@ export interface RdsAutocompleteProps<T> extends Omit<AutocompleteProps<T, boole
   userIcon?: React.ReactNode;
   popupIcon?: React.ReactNode;
   openOnFocus?: boolean;
-  // enable multiple selection (used by product-tour form only)
   allowMultiple?: boolean;
 }
 
@@ -50,7 +49,6 @@ const RdsAutocomplete = <T extends { label?: string },>({
   allowMultiple = false,
   ...props
 }: RdsAutocompleteProps<T>) => {
-  // Selected can be either a single item (T | null) or an array of items (T[])
   const [selected, setSelected] = React.useState<any>(
     allowMultiple
       ? (state === 'selected' && props.options ? [props.options[0] as T] : [])
@@ -76,7 +74,6 @@ const RdsAutocomplete = <T extends { label?: string },>({
   else if (selectSize === 'large') sizeClass = 'rds-autocomplete--large';
   else sizeClass = 'rds-autocomplete--medium';
 
-  // Determine class for control style
   const controlStyleClass = controlStyle === 'bottom line' ? 'rds-autocomplete__textfield--bottom-line' : '';
 
   return (
@@ -89,9 +86,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
               component="span"
               className="rds-autocomplete__asterisk"
               sx={{ color: 'red', ml: '3px', fontSize: 'inherit', fontWeight: 700 }}
-            >
-              *
-            </Typography>
+            />
           )}
         </label>
       )}
@@ -152,9 +147,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
           const showDefault = !isShowCheckbox && !isShowRadio && !isShowUser;
           const singleMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length === 1;
           const multiMode = [isShowCheckbox, isShowRadio, isShowUser].filter(Boolean).length > 1;
-          // Reduce gap to minimize space between icon and text
           const labelGap = multiMode ? 2 : (singleMode && isShowUser ? 6 : (singleMode ? 4 : 8));
-          // If all three are false, show only the label
           if (showDefault) {
             return (
               <li {...optionProps}>
@@ -164,7 +157,6 @@ const RdsAutocomplete = <T extends { label?: string },>({
               </li>
             );
           }
-          // Otherwise, show icons as per logic
           return (
             <li {...optionProps} style={{ display: 'flex', alignItems: 'center', padding: 0, width: '100%' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: `${labelGap}px`, ml: 0.5, mr: 0.5, width: '100%', overflow: 'hidden' }}>

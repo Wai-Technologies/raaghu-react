@@ -25,7 +25,6 @@ export const ProfileMenu = ({ name, shortName, email, menuItems }: ProfileMenuPr
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // Default menu items if none provided
   const defaultMenuItems: ProfileMenuItem[] = [
     { label: 'My Profile' },
     { label: 'Theme' },
