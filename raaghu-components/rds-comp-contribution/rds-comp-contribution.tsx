@@ -40,15 +40,12 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   const [columns] = useState(53);
   const [dynamicPanelSize, setDynamicPanelSize] = useState(panelSize);
   const [dynamicPanelMargin, setDynamicPanelMargin] = useState(panelMargin);
-  const [containerWidth, setContainerWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-
-  const showMonth = showMonthLabels;
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
       updateSizeBasedOnWidth(width);
-      setIsMobile(width <= 414); // Include both small and large mobile sizes
+      setIsMobile(width <= 414); 
     };
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -59,23 +56,17 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   }, []);
 
   const updateSizeBasedOnWidth = (width: number) => {
-    setContainerWidth(width);
-
     // Responsive sizing for specific screen sizes
     if (width <= 320) {
-      // Small mobile (320px)
       setDynamicPanelSize(8);
       setDynamicPanelMargin(1.2);
     } else if (width <= 414) {
-      // Large mobile (414px) 
       setDynamicPanelSize(9);
       setDynamicPanelMargin(1.2);
     } else if (width <= 834) {
-      // Tablet (834px)
       setDynamicPanelSize(8);
       setDynamicPanelMargin(2);
     } else {
-      // Desktop and larger screens
       setDynamicPanelSize(panelSize);
       setDynamicPanelMargin(panelMargin);
     }
@@ -118,11 +109,6 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     
     const availableWidth = size.width;
     updateSizeBasedOnWidth(availableWidth);
-  };
-
-  const getSvgWidthClass = (width: number) => {
-    // No longer using fixed width classes, let CSS handle responsive scaling
-    return '';
   };
 
   if (!panelColors || !weekNames) {
@@ -188,7 +174,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
 
   const renderMonthLabels = () => {
     if (!monthNames || monthNames.length !== 12) return null;
-    if (!showMonth) return null; 
+    if (!showMonthLabels) return null; 
     let janIndex = -1;
     let decIndex = -1;
     const monthPositions: { month: number; position: number }[] = [];
@@ -249,9 +235,8 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     });
   };
   
-  // Calculate SVG dimensions based on responsive panel sizes
   const calculatedSvgWidth = columns * (dynamicPanelSize + dynamicPanelMargin) + weekLabelWidth + dynamicPanelSize;
-  const svgWidth = Math.max(calculatedSvgWidth, 280); // Minimum width for readability
+  const svgWidth = Math.max(calculatedSvgWidth, 280);
   const svgHeight = 7 * (dynamicPanelSize + dynamicPanelMargin) + monthLabelHeight;
 
   return (
@@ -261,7 +246,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
           ref={measureRef}
           className="rds-comp-contribution"
         >
-          <div className={`rds-comp-contribution__container ${getSvgWidthClass(svgWidth)}`}>
+          <div className="rds-comp-contribution__container">
             <div className="rds-comp-contribution__wrapper">
               <SvgIcon
                 className="rds-comp-contribution__svg"

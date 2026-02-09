@@ -13,7 +13,6 @@ const RdsTypography = ({
   children,
   ...props
 }: RdsTypographyProps) => {
-  // Map MUI variant to SCSS class
   const variantClass = variant ? `rds-typography rds-typography--${variant}` : 'rds-typography';
   return (
    <MuiTypography

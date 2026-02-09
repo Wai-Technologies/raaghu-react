@@ -1,6 +1,3 @@
-// RDS Autocomplete Component Styles
-// Autocomplete input with dropdown suggestions
-
 .rds-autocomplete {
   display: block;
   position: relative;
@@ -90,7 +87,7 @@
       padding-top: 0;
       padding-bottom: 0;
     }
-    // Ensure multi-value chips are vertically centered
+
     .MuiAutocomplete-inputRoot[class*="MuiAutocomplete-inputRoot"] {
       align-items: center;
     }
@@ -174,8 +171,6 @@
     }
   }
 
-  // Interactive states - hover styles can be added here if needed
-
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, #005fcc);
     outline-offset: var(--rds-focus-ring-offset, 2px);
@@ -199,18 +194,17 @@
 
   .MuiFormHelperText-root {
     margin-left: 0 !important;
-    min-height: 20px !important; // Ensure consistent height
+    min-height: 20px !important;
     margin-top: 3px !important;
     margin-bottom: 0 !important;
     line-height: 1.2 !important;
   }
 
-  // When helper text should be hidden but maintain layout space
   &__textfield--hidden-helper {
     .MuiFormHelperText-root {
       color: transparent !important;
-      visibility: visible !important; // Keep visible for layout spacing
-      user-select: none !important; // Prevent text selection of hidden content
+      visibility: visible !important; 
+      user-select: none !important;
     }
   }
   .MuiInputBase-input::placeholder,
@@ -231,7 +225,6 @@
     }
   }
 
-  // Bottom line control style - removes borders except bottom
   &__textfield--bottom-line {
     .MuiOutlinedInput-notchedOutline {
       border-left: none !important;
@@ -247,7 +240,6 @@
       min-height: inherit !important;
       flex-wrap: nowrap !important;
       
-      // Enable horizontal scrolling if needed for chips
       overflow-x: auto !important;
       overflow-y: hidden !important;
       

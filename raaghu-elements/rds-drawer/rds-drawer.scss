@@ -1,104 +1,11 @@
 // RDS Drawer Component Styles
 // Slide-out navigation drawer component
-
-.rds-drawer {
-  position: fixed;
-  z-index: var(--rds-z-index-fixed);
-  
-  &--left {
-    left: 0;
-    top: 0;
-    bottom: 0;
-  }
-  
-  &--right {
-    right: 0;
-    top: 0;
-    bottom: 0;
-  }
-  
-  &--top {
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  &--bottom {
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  &__backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--rds-modal-backdrop);
-    opacity: 0;
-    transition: opacity var(--rds-transition-slow);
-    
-    &--open {
-      opacity: 1;
-    }
-  }
-  
-  &__paper {
-    background-color: var(--rds-background-paper);
-    box-shadow: 0 var(--rds-spacing-sm) var(--rds-font-size-xs) -5px rgba(0, 0, 0, 0.2),
-                0 var(--rds-font-size-lg) 2var(--rds-spacing-xs) 2px rgba(0, 0, 0, 0.14),
-                0 6px 30px 5px rgba(0, 0, 0, 0.12);
-    transition: transform var(--rds-transition-slow);
-    width: 280px;
-    height: 100%;
-    overflow-y: auto;
-    
-    &--left {
-      transform: translateX(-100%);
-    }
-    
-    &--right {
-      transform: translateX(100%);
-    }
-    
-    &--top {
-      transform: translateY(-100%);
-      width: 100%;
-      height: auto;
-      max-height: 50vh;
-    }
-    
-    &--bottom {
-      transform: translateY(100%);
-      width: 100%;
-      height: auto;
-      max-height: 50vh;
-    }
-    
-    &--open {
-      transform: translate(0, 0);
-    }
-  }
-  
-  &__header {
-    padding: var(--rds-font-size-lg) 2var(--rds-spacing-xs);
-    border-bottom: 1px solid var(--rds-border-default);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  &__content {
-    padding: var(--rds-font-size-lg);
-  }
-}
+// Note: Component uses MUI Drawer, these are supplementary styles
 
 .rds-drawer-close-button {
   margin-left: 20px;
 }
 
-// Story-specific styles for centering trigger button
 .rds-drawer-trigger-wrapper {
   display: flex;
   justify-content: center;
@@ -107,7 +14,6 @@
   min-height: 200px;
 }
 
-// Responsive centering for persistent drawer trigger
 .rds-drawer-persistent-trigger {
   display: flex;
   justify-content: center;

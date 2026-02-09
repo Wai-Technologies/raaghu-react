@@ -3,7 +3,6 @@ import { Box, Button } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import RdsLoader from './rds-loader';
 
-// Reusable argTypes for hiding all controls
 const hideAllControls = {
   variant: { table: { disable: true } },
   size: { table: { disable: true } },
@@ -344,7 +343,6 @@ export const WithOverlay: Story = {
             setTimeout(() => setShowOverlay(false), 3000);
           }}
           sx={{
-            // Use theme mode to set text color to white in dark mode
             color: (theme) => theme.palette.mode === 'dark' ? '#fff' : undefined
           }}
         >

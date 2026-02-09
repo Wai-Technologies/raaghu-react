@@ -1,4 +1,3 @@
-// MUI Filled Variant Support
 .MuiAlert-filled {
   &.MuiAlert-filledInfo {
     background-color: var(--rds-alert-info-bg) !important;
@@ -22,7 +21,6 @@
   }
 }
 
-// MUI Outlined Variant Support
 .MuiAlert-outlined {
   background-color: transparent !important;
   &.MuiAlert-outlinedInfo {
@@ -42,7 +40,7 @@
     border: 1.5px solid var(--rds-alert-error-border) !important;
   }
 }
-// RDS Alert Component Styles
+
 .rds-alert {
   position: relative;
   display: flex;
@@ -66,7 +64,7 @@
     justify-content: flex-end;
     align-items: center;
     gap: 8px;
-    
+
     .rds-alert__link-button {
       margin-right: 10px;
     }
@@ -99,14 +97,12 @@
     flex-wrap: nowrap;
   }
 
-  // Adjust wrapper alignment for multiline alerts
   &.rds-alert--multiline &__wrapper {
     align-items: flex-start;
     flex-direction: column;
     gap: var(--rds-spacing-sm);
   }
 
-  // Multiline alert specific layout
   &.rds-alert--multiline {
     .rds-alert__actions {
       width: 100%;
@@ -143,20 +139,18 @@
     display: flex;
     align-items: center;
     height: 100%;
-    align-self: center; /* center icon vertically with text for single-line */
+    align-self: center;
     flex-shrink: 0;
     font-size: var(--rds-font-size-lg);
 
     color: var(--rds-alert-icon-color, inherit) !important;
   }
 
-  // Icon positioning for multiline alerts (desktop) - more specific selectors
   &.rds-alert--multiline &__icon {
     align-self: flex-start !important;
     margin-top: 2px !important;
   }
 
-  // Additional targeting for MUI Alert icon structure in multiline
   &.rds-alert--multiline .MuiAlert-icon {
     align-self: flex-start !important;
   }
@@ -207,13 +201,12 @@
     border-radius: var(--rds-border-radius-xs);
     opacity: 0.7;
     transition: opacity var(--rds-transition-base);
-    
+
     &:hover {
       opacity: 1;
     }
   }
 
-  // Size variants
   &--small {
     padding: 0.25rem 0.5rem !important;
   }
@@ -226,7 +219,6 @@
     padding: 0.5rem 1rem !important;
   }
 
-  // Style variants
 &--style1 {
   box-shadow: 0px 12px 20px -4px var(--rds-alert-shadow, rgba(0, 0, 0, 0.15)) !important;
   border: none !important;
@@ -236,8 +228,7 @@
   &--style2 {
     box-shadow: none;
     border: 1.5px solid var(--rds-alert-info-border);
-    
-    // Severity-specific border colors
+
     &.rds-alert--success {
       border:  1.5px solid var(--rds-alert-success-border, #2196f3) !important;
     }
@@ -254,17 +245,13 @@
       border:  1.5px solid var(--rds-alert-info-border, #B1B1B1) !important;
     }
   }
-// Style variants
+
 &--style3 {
   box-shadow: none !important;
   border: none !important;
   border-left-width: 6px !important;
   border-left-style: solid !important;
 
-  // Default fallback
-
-
-  // Severity-specific overrides
   &.rds-alert--success {
     border-left-color: var(--rds-alert-success-border, #2196f3) !important;
   }
@@ -283,7 +270,6 @@
 }
 }
 
-/* Extra strong override for rds-alert specifically */
 .rds-alert.MuiAlert-root {
   &.rds-alert--warning {
     background-color: var(--rds-alert-warning-bg, #FED99B) !important;
@@ -313,10 +299,9 @@
     color: var(--rds-color-on-primary,#ffffff) !important;
   }
 
-  /* Only change the color of the primary "Okay" button inside rds-alert in dark theme */
   .rds-alert .rds-alert__primary-button .MuiButton-root,
   .rds-alert .rds-alert__primary-button {
-    color: var(--rds-color-on-primary,#ffffff) !important; /* desired color for Okay button in dark theme */
+    color: var(--rds-color-on-primary,#ffffff) !important;
   }
 
   --rds-alert-success-text: #000000;

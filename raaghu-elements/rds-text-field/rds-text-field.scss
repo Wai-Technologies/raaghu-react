@@ -1,24 +1,17 @@
-// RDS Text-field Component Styles
-// Text input field
-
 .rds-text-field {
   display: block;
   position: relative;
 
   &__field {
-    // Field styles
     display: block;
   }
 
   &__label {
-    // Label styles
     display: block;
   }
 
   &__helper-text {
-    // Helper-text styles
     display: block;
-    /* follow other RDS components: force left alignment and use 14px font */
     margin-left: 0 !important;
     margin-top: 6px;
     margin-bottom: 0;
@@ -27,7 +20,6 @@
   }
 
   &__error-text {
-    // Error-text styles
     display: block;
     margin-left: 0 !important;
     margin-top: 6px;
@@ -35,8 +27,6 @@
     font-size: 14px;
     line-height: 1.2;
   }
-
-  /* state modifier blocks removed (no local styles) to avoid empty rulesets */
 
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
@@ -49,24 +39,20 @@
     pointer-events: none;
   }
 
-  // Required asterisk color for mandatory fields
   .MuiFormLabel-asterisk {
     color: var(--rds-color-error, #d32f2f);
   }
 
-  // Dark mode: ensure adornment icons (including password reveal) are visible
   html.theme-dark &,
   .theme-dark &,
   [data-theme="dark"] & {
-    // Color MUI svg icons inside InputAdornment (start/end)
     .MuiInputAdornment-root,
     .MuiInputAdornment-root * {
       color: #ffffff !important;
-      fill: #ffffff !important; // for SVG icons
+      fill: #ffffff !important;
       stroke: #ffffff !important;
     }
 
-    // Fallback: ensure adornments inside this component also get colored
     .rds-text-field .MuiInputAdornment-root,
     .rds-text-field .MuiInputAdornment-root * {
       color: #ffffff !important;
@@ -74,14 +60,12 @@
       stroke: #ffffff !important;
     }
 
-    // Browser-native password reveal button (WebKit / Blink)
     input[type="password"]::-webkit-textfield-decoration-button,
     input[type="password"]::-webkit-textfield-decoration-container {
       filter: invert(100%) !important;
       color: #ffffff !important;
     }
 
-    // Microsoft Edge / IE password reveal
     input[type="password"]::-ms-reveal {
       color: #ffffff !important;
       filter: invert(100%) !important;

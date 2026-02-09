@@ -3,7 +3,6 @@ import './rds-avatar.scss';
 import { Avatar as MuiAvatar, type AvatarProps } from '@mui/material';
 
 export interface RdsAvatarProps extends AvatarProps {
-  /** Color variant for activity ring and dot */
   colorVariant?: 'primary' | 'success' | 'danger' | 'warning' | 'light' | 'info' | 'secondary' | 'dark';
   title?: string;
   subText?: string;
@@ -15,16 +14,12 @@ export interface RdsAvatarProps extends AvatarProps {
     subText?: string;
     size?: 'smallest' | 'small' | 'medium' | 'large' | 'largest';
   }>;
-  /** Maximum number of avatars to show in stacking mode before showing +N indicator */
   maxVisibleAvatars?: number;
   activityRing?: boolean;
-  /** Show activity dot on top of avatar */
   activeDotTop?: boolean;
-  /** Show activity dot on bottom of avatar */
   activeDotBottom?: boolean;
   showName?: boolean;
   showDesignation?: boolean;
-  /** Whether to show the +N remaining count indicator in stacking mode */
   showRemainingCount?: boolean;
 }
 const sizeStyles = {
@@ -70,7 +65,7 @@ const RdsAvatar = ({
               position: 'relative',
               zIndex: idx + 1, 
               marginLeft: idx === 0 ? 0 : `${overlapOffset}px`,
-              border: '2px solid #fff',
+              border: '0px solid #fff',
               boxSizing: 'content-box',
               background: '#e0e0e0',
             }}
@@ -95,11 +90,10 @@ const RdsAvatar = ({
     );
   }
 
-  // With name (horizontal)
   if (displayStyle === 'with-name') {
     return (
       <div
-        className={`rds-avatar rds-avatar--with-name${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
+        className={`rds-avatar rds-avatar--with-name rds-avatar--${size}${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
       >
         <span className={`rds-avatar__avatar-wrap`}>
           {activityRing && <span className="rds-avatar__ring" aria-hidden="true" />}
@@ -118,11 +112,10 @@ const RdsAvatar = ({
     );
   }
 
-  // Name on bottom (vertical)
   if (displayStyle === 'name-bottom') {
     return (
       <div
-        className={`rds-avatar rds-avatar--name-bottom${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
+        className={`rds-avatar rds-avatar--name-bottom rds-avatar--${size}${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}
       >
         <span className="rds-avatar__avatar-outer">
           {activityRing && <span className="rds-avatar__ring" aria-hidden="true" />}
@@ -145,7 +138,6 @@ const RdsAvatar = ({
     );
   }
 
-  // Default fallback
   return (
     <span
       className={`rds-avatar${activityRing ? ' rds-avatar--with-ring' : ''}${activeDotTop ? ' rds-avatar--dot-top' : ''}${activeDotBottom ? ' rds-avatar--dot-bottom' : ''}${colorVariant ? ` rds-avatar--${colorVariant}` : ''}`}

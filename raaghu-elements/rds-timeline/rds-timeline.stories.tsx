@@ -1,14 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { 
-  TimelineItem, 
-  TimelineSeparator, 
-  TimelineDot, 
-  TimelineContent, 
-  TimelineConnector,
-  TimelineOppositeContent 
-} from '@mui/lab';
-import { Typography } from '@mui/material';
-import { Fastfood, LaptopMac, Hotel, RepeatOne } from '@mui/icons-material';
+import { Fastfood, LaptopMac, Hotel } from '@mui/icons-material';
 import RdsTimeline from './rds-timeline';
 
 const meta: Meta<typeof RdsTimeline> = {

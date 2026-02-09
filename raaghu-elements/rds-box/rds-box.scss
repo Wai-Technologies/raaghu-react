@@ -1,6 +1,3 @@
-// RDS Box Component Styles
-// Generic box container
-
 .rds-box {
   display: block;
   position: relative;
@@ -16,7 +13,6 @@
     pointer-events: none;
   }
 
-  // Flex container variant for button layouts
   &--flex-container {
     display: flex;
     gap: var(--rds-spacing-md, 16px);
@@ -24,7 +20,6 @@
     border: var(--rds-border-width-thin, 1px) solid var(--rds-color-outline, #79747e);
     justify-content: space-around;
     
-    // Extra small screens - stack buttons vertically
     @media (max-width: 320px) {
       flex-direction: column;
       align-items: center;
@@ -32,20 +27,17 @@
     }
   }
 
-  // Default variant - basic styling with dashed border
   &--default {
     padding: var(--rds-spacing-md, 16px); 
     border: var(--rds-border-width-thin, 1px) dashed var(--rds-color-outline, #79747e);
   }
 
-  // With padding variant - prominent background styling
   &--with-padding {
     padding: var(--rds-spacing-xl, 32px); 
     background-color: var(--rds-color-primary, #1976d2);
     color: var(--rds-color-on-primary, #ffffff);
   }
 
-  // With margin variant - margin and background styling
   &--with-margin {
     margin: var(--rds-spacing-md, 16px); 
     padding: var(--rds-spacing-md, 16px); 
@@ -53,7 +45,6 @@
     color: var(--rds-color-on-secondary, #ffffff);
   }
 
-  // Grid container variant for grid layouts
   &--grid-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -62,7 +53,6 @@
     border: var(--rds-border-width-thin, 1px) solid var(--rds-color-outline, #79747e);
   }
 
-  // Custom component variant - blue background
   &--custom-component {
     padding: var(--rds-spacing-md, 16px); 
     background-color: var(--rds-color-tertiary, #03a9f4);

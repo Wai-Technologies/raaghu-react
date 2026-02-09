@@ -7,7 +7,6 @@ export interface RdsIconButtonProps extends IconButtonProps {
   iconFilled?: React.ReactNode;
   variant?: 'outlined' | 'filled';
   tooltip?: string;
-  // Deprecated: for backward compatibility
   icon?: React.ReactNode;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
@@ -21,22 +20,19 @@ const RdsIconButton = ({
   iconFilled,
   variant = 'filled',
   tooltip,
-  icon, // deprecated
+  icon,
   children,
   size,
   onClick,
   ...props
 }:RdsIconButtonComponentProps) => {
 
-  // Helper to clone icon with fontSize prop
   const getSizedIcon = (iconNode: React.ReactNode) => {
     if (React.isValidElement(iconNode)) {
       let fontSize: 'small' | 'medium' | 'large' | undefined;
       if (size === 'small' || size === 'medium' || size === 'large') {
         fontSize = size;
       }
-      // Only add fontSize if the element type is a MUI icon (has fontSize prop)
-      // MUI icons have a 'muiName' static property
       const typeAny = iconNode.type as any;
       if (typeAny && typeof typeAny === 'function' && typeAny.muiName && fontSize) {
         return React.cloneElement(iconNode as any, { fontSize });
@@ -56,7 +52,6 @@ const RdsIconButton = ({
     buttonContent = getSizedIcon(children as React.ReactNode);
   }
 
-  // Compose a stable base class for targeting and include outlined + user classes
   const className = [
     'rds-icon-button',
     variant === 'outlined' ? 'rds-icon-button--outlined' : null,

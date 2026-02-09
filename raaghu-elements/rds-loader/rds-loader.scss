@@ -1,20 +1,12 @@
-// RDS Loader Component Styles
-// Loading indicator component with various animations
-
 .rds-loader {
   display: inline-block;
   
   &__spinner {
-    animation: rds-loader-rotate 1.4s linear infinite;
-  }
-  
-  &__circle {
     stroke: currentColor;
     stroke-linecap: round;
     animation: rds-loader-dash 1.4s ease-in-out infinite;
   }
   
-  // Size variants
   &--small {
     width: var(--rds-font-size-2xl);
     height: var(--rds-font-size-2xl);
@@ -30,7 +22,6 @@
     height: 60px;
   }
   
-  // Color variants
   &--primary {
     color: var(--rds-color-primary, var(--rds-primary-main));
   }
@@ -39,7 +30,6 @@
     color: var(--rds-color-secondary, #dc004e);
   }
   
-  // Linear loader
   &--linear {
     width: 100%;
     height: var(--rds-spacing-xs);
@@ -56,7 +46,6 @@
     }
   }
   
-  // Determinate progress
   &--determinate {
     .rds-loader__circle {
       animation: none;
@@ -102,8 +91,6 @@
   }
 }
 
-// --- Custom loaderType styles ---
-// BEM: rds-loader custom type: hash
 .rds-loader__hash {
   position: relative;
   width: 2.5em;
@@ -136,7 +123,6 @@
   100% { box-shadow: 0.5em 1em rgba(61, 184, 143, 0.75), -0.5em -1em rgba(233, 169, 32, 0.75); }
 }
 
-// BEM: rds-loader custom type: jump
 .rds-loader__jump {
   width: 48px;
   height: 48px;
@@ -177,7 +163,6 @@
   50% { transform: scale(1.2, 1); }
 }
 
-// BEM: rds-loader custom type: line-wobble
 .rds-loader__line-wobble {
   --uib-size: 80px;
   --uib-speed: 1.55s;
@@ -215,7 +200,6 @@
   50% { transform: translateX(90%); }
 }
 
-// BEM: rds-loader custom type: sand
 .rds-loader__sand {
   --c1: #673b14;
   --c2: #f8b13b;
@@ -266,7 +250,6 @@
   70%,100% { background-position: top,center }
 }
 
-// BEM: rds-loader custom type: moving
 .rds-loader__moving {
   --height-of-loader: 4px;
   --loader-color: #0071e2;
@@ -292,7 +275,6 @@
   100% { width: 0; right: 0; left: unset; }
 }
 
-// BEM: rds-loader custom type: rolling-rock
 .rds-loader__rolling-rock {
   position: relative;
   font-size: 16px;
@@ -334,7 +316,6 @@
   100% { transform: translate(0, -1em) rotate(-225deg) }
 }
 
-// BEM: rds-loader custom type: round
 .rds-loader__round {
   width: 44.8px;
   height: 44.8px;
@@ -361,7 +342,6 @@
   100% { inset: 0; transform: rotate(90deg); }
 }
 
-// BEM: rds-loader custom type: rotate
 .rds-loader__rotate, .rds-loader__rotate::before, .rds-loader__rotate::after {
   border-width: 2px;
   border-style: solid;
@@ -397,7 +377,6 @@
   to { transform: rotate(360deg) }
 }
 
-// BEM: rds-loader custom type: spin
 .rds-loader__spin {
   width: 56px;
   height: 56px;
@@ -423,7 +402,6 @@
   100% { transform: rotate(1turn); }
 }
 
-// BEM: rds-loader custom type: triangle
 .rds-loader__triangle {
   width: 50px;
   aspect-ratio: 1.154;
@@ -450,9 +428,8 @@
   30%,70% { transform: rotate(calc(var(--s,1)*120deg)) translate(calc(var(--s,1)*-5px),10px) }
   100% { transform: rotate(calc(var(--s,1)*120deg)) translate(0) }
 }
-// BEM: rds-loader custom type: spinner-ring
+
 .rds-loader__spinner-ring {
-  // Default variables (maps to large size for spinner-ring)
   --spinner-ring-size: 120px;
   --spinner-ring-border-main: 8px;
   --spinner-ring-border-pseudo: 3px;
@@ -470,7 +447,6 @@
   justify-content: center;
   box-sizing: border-box;
 
-  // Size overrides when combined with size classes
   &.loader-medium {
     --spinner-ring-size: 80px;
     --spinner-ring-border-main: 5px;
@@ -483,7 +459,6 @@
     --spinner-ring-border-pseudo: 1px;
   }
 
-  // Pseudo-elements using the variables
   &::before,
   &::after {
     content: "";

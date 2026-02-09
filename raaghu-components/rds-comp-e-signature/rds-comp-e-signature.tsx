@@ -8,12 +8,11 @@ export interface RdsCompESignatureProps {
   mode?: 'draw' | 'upload' | 'choose';
   type?: 'fullname' | 'initials';
   colourSwatch?: boolean;
-  disabled?: boolean;               // NEW: simple disabled flag
-  disabledMessage?: string;         // message displayed when disabled
-  disabledFooterMessage?: string;   // secondary footer note when disabled
+  disabled?: boolean;
+  disabledMessage?: string;
+  disabledFooterMessage?: string;
   onSignatureChange?: (signature: string | File | null) => void;
-  onModeChange?: (mode: 'draw' | 'upload' | 'choose') => void;
-  signatureData?: string | File | null; // external controlled value (future use)
+  signatureData?: string | File | null;
   predefinedSignatures?: Array<{ id: string; name: string; style: string; fullName: string; initials: string; }>;
   width?: number;
   height?: number;

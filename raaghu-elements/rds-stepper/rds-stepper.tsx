@@ -44,7 +44,6 @@ const RdsStepper: React.FC<RdsStepperProps> = ({
       activeStep={stepperActiveStep}
       orientation={stepperOrientation}
   className={rootClassName}
-  // Only pass `alternativeLabel` to MUI Stepper when orientation is horizontal.
   {...(stepperOrientation === 'horizontal' ? { alternativeLabel } : {})}
   {...props}
     >

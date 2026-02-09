@@ -1,19 +1,14 @@
-/* RDS Notification Component Styles */
 .rds-comp-notification {
-  // Base component styles
   &.MuiCard-root {
     position: relative;
     transition: all 0.3s ease;
     border: 1px solid var(--rds-form-border, #B1B1B1);
   }
 
-  // Use CSS variables for text color that automatically adapt to theme
   .MuiTypography-root {
     color: var(--rds-text-primary, inherit) !important;
   }
   
-  // Ensure main typography elements use theme-appropriate colors
-  // (avoid blanket * selector which overrides button/interactive text)
   .rds-comp-notification__title,
   .rds-comp-notification__time,
   .rds-comp-notification__description,
@@ -21,7 +16,6 @@
     color: var(--rds-text-primary, inherit) !important;
   }
 
-  // Layout variations
   &--layout-horizontal {
     .rds-comp-notification__header {
       flex-direction: row !important;
@@ -40,12 +34,10 @@
     }
   }
 
-  // Vertical layout: ensure image style aligns like avatar
   &--layout-vertical.rds-comp-notification--style-image {
-    // Keep full width for card
     width: 100%;
     
-    // Create full-width gray bar only for the image
+
     .rds-comp-notification__image-container {
       width: 100%;
       background: #E1E3EA;
@@ -70,27 +62,24 @@
       box-sizing: border-box;
     }
     
-    // Reduce vertical spacing throughout
     .rds-comp-notification__header {
-      margin-bottom: 4px; /* reduced from 8px */
+      margin-bottom: 4px; 
     }
     
     .rds-comp-notification__body {
-      margin-top: 4px !important; /* reduced spacing */
+      margin-top: 4px !important; 
     }
     
     .rds-comp-notification__footer {
-      margin-top: 8px !important; /* reduced spacing */
+      margin-top: 8px !important; 
     }
     
-    // Make sure body has no float adjustments in vertical mode
     .rds-comp-notification__body img {
       float: none !important;
       margin: 0 !important;
     }
   }
 
-  // Style variations
   &--style-avatar {
     .MuiAvatar-root {
       width: 40px;
@@ -113,14 +102,12 @@
         width: 100%;
         height: 100%;
         
-        // Use theme-appropriate icon color
         stroke: var(--rds-text-secondary, currentColor) !important;
         color: var(--rds-text-secondary, inherit) !important;
       }
     }
   }
 
-  // Add spacing under icon when layout is vertical so it doesn't sit flush with following text
   &--layout-vertical.rds-comp-notification--style-icon {
     .rds-comp-notification__icon {
       margin-bottom: 8px !important;
@@ -135,7 +122,7 @@
       margin-bottom: 0 !important;
       display: inline-block;
     }
-    // For horizontal layout, align image with avatar/icon/title
+    
     &.rds-comp-notification--layout-horizontal img {
       margin-top: 0 !important;
       margin-bottom: 0 !important;
@@ -144,7 +131,6 @@
     }
   }
 
-  // Type variations with proper colors
   &--type-error {
     background-color: var(--rds-alert-error-bg, #ffdad6) !important;
     color: var(--rds-text-primary, #333333) !important;
@@ -168,12 +154,10 @@
     color: var(--rds-text-primary, #333333) !important;
   }
 
-  // Image sidebar for horizontal layout
   &__image-sidebar {
     background: var(--rds-background-surface, #E1E3EA) !important;
   }
 
-  // Component elements
   &__header {
     position: relative;
     margin-bottom: 8px;
@@ -225,8 +209,8 @@
   &__dismiss {
     &.MuiIconButton-root {
       position: absolute;
-      top: 10px;
-      right: 0px;
+      top: 17px;
+      right: 5px;
       padding: 4px;
       background-color: transparent;
       
@@ -243,8 +227,16 @@
     }
   }
 
-  // Keep the previous (tighter) placement for the horizontal image layout so it
-  // visually aligns with the title block as before.
+  // Adjust dismiss button position for avatar and icon styles
+  &--style-avatar,
+  &--style-icon {
+    .rds-comp-notification__dismiss {
+      &.MuiIconButton-root {
+        top: 30px;
+      }
+    }
+  }
+
   &--layout-horizontal.rds-comp-notification--style-image {
     .rds-comp-notification__dismiss {
       &.MuiIconButton-root {
@@ -254,7 +246,6 @@
     }
   }
 
-  // Button styling
   &__primary-button {
     .rds-button {
       background-color: transparent !important;
@@ -280,45 +271,42 @@
     color: var(--rds-text-secondary, #646464) !important;
   }
 
-  // Special handling for horizontal layout with image
   &--layout-horizontal.rds-comp-notification--style-image {
     .rds-comp-notification__title-section {
       padding-left: 0;
     }
-    // Lift the image to align visually with the title (like avatar/icon)
+    
     .rds-comp-notification__body img {
-      margin-top: -35px !important; // pulls image up into header space
-      float: left;                   // keep text wrapping as designed
-      margin-right: 6px;           // consistent gap to text
+      margin-top: -35px !important; 
+      float: left;                  
+      margin-right: 6px;           
     }
-    // Reduce vertical spacing slightly to decrease overall card height
+    
     .rds-comp-notification__header {
-      margin-bottom: 4px; /* was 8px */
+      margin-bottom: 4px;
     }
     .rds-comp-notification__body {
-      margin-top: 4px !important; /* was 8px inline */
+      margin-top: 4px !important;
     }
     .rds-comp-notification__footer {
-      margin-top: 6px !important; /* reduce footer gap */
+      margin-top: 6px !important; 
     }
   }
 
-  // Special handling for horizontal layout with image (no left offset)
   &--layout-horizontal.rds-comp-notification--style-image {
     .rds-comp-notification__body {
       margin-left: 0 !important;
     }
   }
-  // For horizontal layout with avatar or icon, shift body right so description sits under title
+  
   &--layout-horizontal.rds-comp-notification--style-avatar,
   &--layout-horizontal.rds-comp-notification--style-icon {
     .rds-comp-notification__body {
-      margin-left: 57px !important; /* matches MUI spacing(5) used in JS (5*8=40px) */
+      margin-left: 57px !important;
     }
   }
 }
 
-// Responsive design
 @media (max-width: 768px) {
   .rds-comp-notification {
     &--layout-horizontal {
@@ -357,8 +345,6 @@
   }
 }
 
-// Additional override for system dark theme + storybook light theme scenario
-// This specifically targets the case when OS prefers dark but Storybook UI is light
 body:not(.theme-dark):not([data-theme="dark"]) {
   @media (prefers-color-scheme: dark) {
     .rds-comp-notification--type-info.rds-comp-notification--style-image {
@@ -368,7 +354,6 @@ body:not(.theme-dark):not([data-theme="dark"]) {
         border: none !important;
       }
       
-      // Force black text when system is dark but app theme is light
       .MuiTypography-root,
       .rds-comp-notification__title,
       .rds-comp-notification__time,
@@ -376,12 +361,10 @@ body:not(.theme-dark):not([data-theme="dark"]) {
         color: #000000 !important;
       }
       
-      // Black dismiss button icon
       .rds-comp-notification__dismiss svg {
         color: #000000 !important;
       }
       
-      // Black secondary button text
       .rds-comp-notification__secondary-button {
         color: #000000 !important;
       }
@@ -403,7 +386,6 @@ body:not(.theme-dark):not([data-theme="dark"]) {
   box-shadow: none !important;
 }
 
-// System theme dark + notification type info + style image = black text
 @media (prefers-color-scheme: dark) {
   .rds-comp-notification--type-info.rds-comp-notification--style-image {
     &, &.rds-comp-notification--layout-horizontal {
@@ -412,7 +394,6 @@ body:not(.theme-dark):not([data-theme="dark"]) {
       border: none !important;
     }
     
-    // Override all text elements to be black when system theme is dark
     .MuiTypography-root,
     .rds-comp-notification__title,
     .rds-comp-notification__time,
@@ -420,12 +401,10 @@ body:not(.theme-dark):not([data-theme="dark"]) {
       color: #000000 !important;
     }
     
-    // Ensure dismiss button icon is black
     .rds-comp-notification__dismiss svg {
       color: #000000 !important;
     }
     
-    // Make secondary button text black
     .rds-comp-notification__secondary-button {
       color: #000000 !important;
     }
@@ -438,8 +417,6 @@ body:not(.theme-dark):not([data-theme="dark"]) {
     }
   }
   
-  // Special case: when system is dark but storybook theme is light
-  // This handles the specific scenario mentioned in the request
   :root:not([data-theme="dark"]) .rds-comp-notification--type-info.rds-comp-notification--style-image {
     &, &.rds-comp-notification--layout-horizontal {
       background-color: var(--rds-background-paper, #ffffff) !important;
@@ -447,7 +424,6 @@ body:not(.theme-dark):not([data-theme="dark"]) {
       border: none !important;
     }
     
-    // Force all text to black when system theme is dark but app theme is light
     .MuiTypography-root,
     .rds-comp-notification__title,
     .rds-comp-notification__time,
@@ -455,19 +431,16 @@ body:not(.theme-dark):not([data-theme="dark"]) {
       color: #000000 !important;
     }
     
-    // Ensure dismiss button icon is black
     .rds-comp-notification__dismiss svg {
       color: #000000 !important;
     }
     
-    // Make secondary button text black
     .rds-comp-notification__secondary-button {
       color: #000000 !important;
     }
   }
 }
 
-// Theme-dark class handling
 .theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-image,
 .theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-default {
   &, &.rds-comp-notification--layout-horizontal {
@@ -480,7 +453,6 @@ body:not(.theme-dark):not([data-theme="dark"]) {
     color: #3C98FF !important;
   }
   
-  // Override all text elements to be white
   .MuiTypography-root,
   .rds-comp-notification__title,
   .rds-comp-notification__time,
@@ -488,12 +460,10 @@ body:not(.theme-dark):not([data-theme="dark"]) {
     color: #ffffff !important;
   }
   
-  // Ensure dismiss button icon is white
   .rds-comp-notification__dismiss svg {
     color: #ffffff !important;
   }
   
-  // Make secondary button text white
   .rds-comp-notification__secondary-button {
     color: #ffffff !important;
   }
@@ -506,7 +476,6 @@ body:not(.theme-dark):not([data-theme="dark"]) {
   }
 }
 
-// Data-theme dark attribute handling
 [data-theme="dark"] .rds-comp-notification--type-info.rds-comp-notification--style-image {
   &, &.rds-comp-notification--layout-horizontal {
     background-color: var(--rds-background-paper, #424242) !important;
@@ -514,7 +483,6 @@ body:not(.theme-dark):not([data-theme="dark"]) {
     border: none !important;
   }
   
-  // Override all text elements to be white
   .MuiTypography-root,
   .rds-comp-notification__title,
   .rds-comp-notification__time,
@@ -522,12 +490,10 @@ body:not(.theme-dark):not([data-theme="dark"]) {
     color: #ffffff !important;
   }
   
-  // Ensure dismiss button icon is white
   .rds-comp-notification__dismiss svg {
     color: #ffffff !important;
   }
   
-  // Make secondary button text white
   .rds-comp-notification__secondary-button {
     color: #ffffff !important;
   }

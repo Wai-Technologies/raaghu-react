@@ -41,8 +41,8 @@ export const Default: Story = {
                     { x: 0.5, y: 5.5 }
                 ],
                 backgroundColor: "rgb(255, 99, 132)",
-                pointStyle: 'triangle', // Set pointStyle to triangle
-                pointRadius: 8, // Set pointRadius to increase icon size
+                pointStyle: 'triangle',
+                pointRadius: 8,
             }
         ],
         labels: ["January", "February", "March", "April"],
@@ -53,10 +53,8 @@ export const Default: Story = {
                 legend: {
                     position: "top",
                     align: "center",
-                    //pointStyle: "line",
                     labels: {
                         usePointStyle: true,
-                       //  pointStyle: "triangle"
                     }
                 },
                 tooltip: {
@@ -136,7 +134,7 @@ export const WithMultiAxis: Story = {
                         color: "blue"
                     },
                     grid: {
-                        drawOnChartArea: false // only want the grid lines for one axis to show up
+                        drawOnChartArea: false
                     }
                 }
             }

@@ -58,7 +58,6 @@ const meta: Meta<typeof RdsCompESignature> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Draw mode
 export const Draw: Story = {
   args: {
     mode: 'draw',
@@ -68,7 +67,6 @@ export const Draw: Story = {
   },
 };
 
-// Upload Mode - Default State
 export const Upload: Story = {
   args: {
     mode: 'upload',
@@ -78,7 +76,6 @@ export const Upload: Story = {
   },
 };
 
-// Choose Mode - Default State
 export const Choose: Story = {
   args: {
     mode: 'choose',

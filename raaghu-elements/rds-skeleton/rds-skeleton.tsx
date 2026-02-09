@@ -2,7 +2,6 @@ import React from 'react';
 import { Skeleton as MuiSkeleton, type SkeletonProps, Box } from '@mui/material';
 
 export interface RdsSkeletonProps extends SkeletonProps {
-  lines?: number;
   frames?: number;
   shape?: 'text' | 'rectangular' | 'rounded' | 'circular';
   animated?: boolean;
@@ -12,7 +11,6 @@ export interface RdsSkeletonProps extends SkeletonProps {
 }
 
 const RdsSkeleton = ({
-  lines = 1,
   shape = 'text',
   frames = 1,
   animated = true,
@@ -26,7 +24,6 @@ const RdsSkeleton = ({
   const isText = shape === 'text';
   const bemClass = `rds-skeleton rds-skeleton--${shape}` + (className ? ` ${className}` : '');
 
-  // Determine animation value: use animation prop if provided, else fallback to animated boolean
   const animationValue = typeof animation !== 'undefined' ? animation : (animated ? 'pulse' : false);
 
   if (frames > 1) {

@@ -31,13 +31,8 @@ import {
   FontDownload,
   Highlight
 } from "@mui/icons-material";
-
-// Import enums from main component
 import { ToolbarType } from './rds-comp-toolbar';
 
-/**
- * Toolbar Button Configuration Interface
- */
 export interface ToolbarButtonConfig {
   icon: React.ReactNode;
   action: string;
@@ -46,17 +41,10 @@ export interface ToolbarButtonConfig {
   ariaLabel?: string;
 }
 
-/**
- * Toolbar Configuration Interface
- */
 export interface ToolbarConfig {
   sections: ToolbarButtonConfig[][];
 }
 
-/**
- * Toolbar Button Component
- * Internal component for rendering individual toolbar buttons
- */
 export const ToolbarButton = ({ 
   icon, 
   action, 
@@ -76,7 +64,6 @@ export const ToolbarButton = ({
   onDropdownSelect?: (parentAction: string, option: string) => void;
 }) => {
   
-  // Dropdown options based on the action type
   const getDropdownOptions = (action: string) => {
     switch (action) {
       case 'textFormat':
@@ -186,7 +173,6 @@ export const ToolbarButton = ({
 
   const dropdownOptions = hasDropdown ? getDropdownOptions(action) : [];
 
-  // ref for the button to compute dropdown position
   const buttonRef = React.useRef<HTMLButtonElement | null>(null);
   const [dropdownPos, setDropdownPos] = React.useState<{ top: number; left: number; minWidth?: number } | null>(null);
   const [portalThemeClass, setPortalThemeClass] = React.useState<string | null>(null);
@@ -199,7 +185,6 @@ export const ToolbarButton = ({
         left: rect.left + window.scrollX,
         minWidth: Math.max(rect.width, 160)
       });
-      // Try to detect a theme class on the nearest ancestor so portal inherits CSS variables
       try {
         let el: Element | null = buttonRef.current;
         let found: string | null = null;
@@ -208,19 +193,16 @@ export const ToolbarButton = ({
             const themeClass = Array.from(el.classList).find(c => /^theme|theme-|dark|light/i.test(c));
             if (themeClass) { found = themeClass; break; }
           }
-          // data-theme attribute support
           const dataTheme = (el as HTMLElement).dataset && (el as HTMLElement).dataset.theme;
           if (dataTheme) { found = dataTheme; break; }
           el = el.parentElement;
         }
         if (!found) {
-          // fallback to body/html class names
           const bodyTheme = Array.from(document.body.classList || []).find(c => /^theme|theme-|dark|light/i.test(c));
           found = bodyTheme || Array.from(document.documentElement.classList || []).find(c => /^theme|theme-|dark|light/i.test(c)) || null;
         }
         setPortalThemeClass(found);
       } catch (e) {
-        // ignore detection errors, portal will render with defaults
         setPortalThemeClass(null);
       }
     } else {
@@ -258,14 +240,11 @@ export const ToolbarButton = ({
             top: dropdownPos.top,
             left: dropdownPos.left,
             minWidth: dropdownPos.minWidth,
-            // Use a high but not max z-index so internal MUI Popovers (skin tone) can overlay it
             zIndex: 1250
           }}
           role="menu"
-          // copy detected theme into a data attr for debugging/selectors
           data-portal-theme={portalThemeClass || undefined}
         >
-          {/* If this button has regular dropdown options, render them */}
           {dropdownOptions.length > 0 && dropdownOptions.map((option, index) => (
             <button
               key={index}
@@ -277,14 +256,11 @@ export const ToolbarButton = ({
             </button>
           ))}
 
-          {/* Special-case: render emoji generator when the action is emoji or insertEmoji */}
           {(action === 'emoji' || action === 'insertEmoji') && (
             <div className="rds-comp-toolbar__emoji-portal">
               <RdsEmojiGenerator
                 Type={undefined}
                 onEmojiSelect={(e: any) => {
-                  // Forward emoji selection to toolbar handler
-                  // Convert emoji to string where possible
                   const val = typeof e === 'string' ? e : String(e);
                   onDropdownSelect?.(action, val);
                 }}
@@ -299,15 +275,8 @@ export const ToolbarButton = ({
   );
 };
 
-/**
- * Toolbar Divider Component
- * Visual separator between toolbar sections
- */
 export const Divider = () => <div className="rds-comp-toolbar__divider" />;
 
-/**
- * Get toolbar configuration based on type
- */
 export const getToolbarConfig = (type: ToolbarType | string): ToolbarConfig => {
   switch (type) {
     case ToolbarType.InlineEditor:

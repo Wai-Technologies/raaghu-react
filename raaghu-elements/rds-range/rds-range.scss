@@ -1,10 +1,8 @@
-// RDS Range Component Styles
 .rds-range {
   display: block;
   position: relative;
   width: 100%;
 
-  // Responsive: reduce width on mobile devices
   @media (max-width: 600px) {
     max-width: 370px;
   }
@@ -12,21 +10,18 @@
     max-width: 275px;
   }
 
-  // Header section with label and value
   &__header {
     display: flex;
     justify-content: space-between;
     margin-bottom: var(--rds-spacing-sm);
   }
 
-  // Footer section with min/max labels
   &__footer {
     display: flex;
     justify-content: space-between;
     margin-top: var(--rds-spacing-xs);
   }
 
-  // State modifiers
   &--disabled {
     opacity: 0.6;
     pointer-events: none;

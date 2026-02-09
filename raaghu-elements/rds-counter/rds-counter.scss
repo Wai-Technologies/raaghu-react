@@ -1,9 +1,7 @@
-// Mandatory indicator for label (BEM convention)
 .rds-counter__mandatory {
   display: inline-block;
   width: 1em;
   color: var(--rds-color-error, #d32f2f); 
-  margin-left: 4px;
   font-size: 1em;
   font-weight: bold;
   vertical-align: middle;
@@ -22,7 +20,6 @@
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    //gap: var(--rds-spacing-sm, 6px);
     width: auto;
   }
 
@@ -47,17 +44,6 @@
 
   &--disabled {
     opacity: 0.6;
-  }
-
-  // Selected visual state (non-disabled)
-  &--selected:not(.rds-counter--disabled) {
-    .rds-counter__controls {
-      // border-color: var(--rds-color-primary, #3C98FF);
-      // box-shadow: 0 0 0 2px color-mix(in srgb, var(--rds-color-primary, #3C98FF) 40%, transparent);
-    }
-    .rds-counter__label {
-     // color: var(--rds-color-primary, #3C98FF);
-    }
   }
 }
 
@@ -102,13 +88,12 @@
   height: 40px;
   justify-content: space-between;
 
-  // layout modifiers
-  &--layout-side-to-side { /* default layout: buttons left/right of value */
+  &--layout-side-to-side { 
     flex-direction: row;
   }
 
   &--layout-right-side {
-    flex-direction: row; /* value first then both buttons inline */
+    flex-direction: row;
   }
   
   &--compact {
@@ -143,9 +128,8 @@
     min-width: 180px;
   }
 
-  // ensure bottom layout can expand vertically AFTER size rules that set fixed heights
   &--layout-bottom {
-    height: auto !important; // override fixed size heights
+    height: auto !important;
     gap: var(--rds-spacing-xs, 4px);
     padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-xs, 4px) var(--rds-spacing-xs, 4px);
     flex-direction: column;
@@ -155,7 +139,7 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      padding: 2px 4px; // slight vertical spacing
+      padding: 2px 4px;
     }
 
     .rds-counter__button-group {
@@ -230,7 +214,6 @@
   }
 
   &--disabled {
-    // background-color: var(--rds-action-disabled-background, #f5f5f5) !important;
     color: var(--rds-action-disabled, #bdbdbd) !important;
     border-color: var(--rds-action-disabled, #bdbdbd) !important;
     cursor: not-allowed !important;
@@ -273,7 +256,6 @@
       box-shadow: none;
     }
 
-    // Remove number input arrows
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
@@ -334,7 +316,6 @@
   text-align: center;
   font-weight: 500;
   font-size: var(--rds-font-size-lg, 18px);
-  // Sync with label default token for visual consistency
   color: var(--text-txt-neutral-light-default, var(--rds-text-primary, #212121));
   line-height: 1.2;
   flex: 1;
@@ -395,7 +376,6 @@
   }
 }
 
-// Interactive Shopping Cart Counter Controls (compact variant)
 .rds-counter__controls--small_interactive {
   width: 100px !important;
   gap: 4px !important;
@@ -463,31 +443,23 @@
   }
 }
 
-// Responsive styles for Sizes and CompactSizes stories
 .rds-counter__responsive {
   display: flex;
   gap: var(--rds-spacing-md, 30px) !important;
   align-items: flex-start;
 
   @media (max-width: 600px) {
-    flex-direction: column; // Column layout for small screens
+    flex-direction: column;
   }
 
   @media (min-width: 601px) {
-    flex-direction: row; // Row layout for large screens
+    flex-direction: row;
   }
 }
 
-// =============================================================================
-// DARK THEME STYLES
-// =============================================================================
-
 .dark-theme .rds-counter,
 [data-theme="dark"] .rds-counter {
-  
-  // Counter label styles for dark theme
   &__label {
-    // Default dark theme neutral light token; selected state below will override
     color: var(--text-txt-neutral-light-default, var(--rds-text-primary, #ffffff)) !important;
     
     &--compact,
@@ -498,7 +470,6 @@
     }
   }
   
-  // Counter controls container
   &__controls {
     background-color: var(--rds-background-paper, #1a1a1a) !important;
     border: 1px solid var(--rds-border-default, #666666) !important;
@@ -514,13 +485,10 @@
     }
   }
   
-  // Counter buttons for dark theme
   &__button {
     color: var(--rds-primary-contrast-text, #ffffff) !important;
     
     &:focus {
-
-  // Default STATE (not selected, not disabled) in dark theme
   &:not(.rds-counter--selected):not(.rds-counter--disabled) {
     .rds-counter__value,
     .rds-counter__input,
@@ -541,7 +509,6 @@
       opacity: 0.5 !important;
     }
     
-    // Size and type variants
     &--compact,
     &--default,
     &--small,
@@ -553,7 +520,6 @@
     }
   }
   
-  // Counter input for dark theme
   &__input {
     background-color: transparent !important;
     color: var(--rds-text-primary, #ffffff) !important;
@@ -586,7 +552,6 @@
       }
     }
     
-    // Size variants
     &--compact,
     &--default,
     &--small,
@@ -597,7 +562,6 @@
     }
   }
   
-  // Counter value display for dark theme
   &__value {
     color: var(--text-txt-neutral-light-default, var(--rds-text-primary, #ffffff)) !important;
     background-color: transparent !important;
@@ -607,7 +571,6 @@
       opacity: 0.5;
     }
     
-    // Size variants
     &--compact,
     &--default,
     &--small,
@@ -617,11 +580,9 @@
     }
   }
   
-  // Counter icon for dark theme
   &__icon {
     color: inherit !important;
     
-    // Size variants maintain the same color as parent button
     &--compact,
     &--default,
     &--small,
@@ -631,7 +592,6 @@
     }
   }
   
-  // Disabled state for entire counter in dark theme
   &--disabled {
     opacity: 0.6;
     
@@ -650,8 +610,6 @@
     }
   }
 
-
-  // Button interaction states
   &__button {
     &:active:not(&--disabled) {
       transform: translateY(1px);
@@ -665,7 +623,6 @@
     }
   }
   
-  // Input focus states
   &__input {
     &:focus-within {
       background-color: var(--rds-background-paper, #1a1a1a) !important;
@@ -677,7 +634,6 @@
     }
   }
 
-  // Better text contrast for readability
   &__label,
   &__value,
   &__input {
@@ -685,7 +641,6 @@
     font-weight: 500;
   }
   
-  // Enhanced disabled state visibility
   &--disabled {
     .rds-counter__button {
       background-color: var(--rds-background-paper, #2a2a2a) !important;
@@ -700,7 +655,6 @@
   }
 }
 
-// Interactive story styles
 .rds-counter__interactive {
   &__header {
     font-weight: bold;
@@ -738,7 +692,6 @@
   &__footer {
     margin-top: var(--rds-spacing-lg, 24px);
     padding-top: var(--rds-spacing-md, 16px);
-    // border-top: 2px solid var(--rds-primary-main, #3f51b5);
     display: flex;
     justify-content: space-between;
     font-size: 1.1rem;
@@ -746,7 +699,6 @@
   }
 }
 
-// Default STATE (not selected, not disabled) unified neutral-light color
 .rds-counter:not(.rds-counter--selected):not(.rds-counter--disabled) {
   .rds-counter__value,
   .rds-counter__input,
@@ -755,7 +707,6 @@
   }
 }
 
-// Responsive fixes for compact variant text centering at specific breakpoints
 @media (max-width: 480px) {
   .rds-counter--compact {
     align-items: center;
@@ -775,7 +726,6 @@
   }
 }
 
-// Specific fixes for 320px and 414px breakpoints
 @media (max-width: 320px) {
   .rds-counter--compact .rds-counter__label {
     margin-right: 8px;

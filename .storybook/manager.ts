@@ -5,7 +5,7 @@ import '../.storybook/custom-theme.css';
 const theme = create({
   base: 'light',
   brandTitle: 'Raaghu Design System',
-  brandUrl: 'https://raaghu.ai',
+  brandUrl: 'https://waiin.com/raaghu',
   brandImage: 'https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/raaghu-design-system-lightmode.png',
 });
 

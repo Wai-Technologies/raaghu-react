@@ -1,6 +1,3 @@
-
-
-// RDS AI Message Box Component Styles
 .rds-comp-ai-message-box {
   width: 100%;
   display: block;
@@ -84,7 +81,6 @@
     }
   }
 
-  // Extra small screens (320px and below)
   @media (max-width: 320px) {
     &__container {
       padding: var(--rds-spacing-xs, 4px);
@@ -112,12 +108,6 @@
       margin-bottom: 37px;
     }
   }
-
-
 }
-
-// [data-theme=dark] .rds-comp-ai-icon, .dark-theme .rds-comp-ai-icon {
-//     color: var(--rds-color-primary, #7e2eef) !important;
-// }
 
 

@@ -8,9 +8,9 @@ import {Home, Person, Settings, Info, Send, Drafts, Inbox, Star, LabelImportant,
 } from '@mui/icons-material';
 import CommentIcon from '@mui/icons-material/Comment';
 
-// Common helper functions
 const createLogHandler = (msg: string) => () => console.log(msg);
-// Shared items for nested list example
+
+
 const nestedListItems = [
   { id: 1, primary: 'Sent mail', icon: <Send /> },
   { id: 2, primary: 'Drafts', icon: <Drafts /> },
@@ -44,7 +44,6 @@ const meta: Meta<typeof RdsList> = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-// Align Items (Avatar at top)
 export const AlignItems: Story = {
   args: {
     withDividers: true,
@@ -71,8 +70,6 @@ export const AlignItems: Story = {
     ]
   }
 };
-// Custom themed list (like Firebase example)
-// Define item arrays outside the story
 const firebaseOverviewItems = [
   {
     id: 'overview',
@@ -117,10 +114,8 @@ export const CustomizedList: Story = {
         <span className="rds-list-demo__header-title">Firebase</span>
       </div>
       
-      {/* Overview section */}
       <RdsList variant="firebase" items={firebaseOverviewItems} dense={args.dense} disablePadding={args.disablePadding} />
       
-      {/* Build section */}
       <div className="rds-list-demo__section-header">Build</div>
       <RdsList variant="firebase" items={firebaseBuildItems} dense={args.dense} disablePadding={args.disablePadding} />
     </Paper>
@@ -138,7 +133,7 @@ export const Dense: Story = {
     ],
   },
 };
-// Folder List
+
 export const Folder: Story = {
   args: {
     withDividers: true,
@@ -160,7 +155,6 @@ export const Gutterless: Story = {
     ]
   }
 };
-// Inset List Item (simulate with style)
 export const Inset: Story = {
   args: {
     withDividers: true,
@@ -171,8 +165,6 @@ export const Inset: Story = {
     ]
   }
 };
-// Interactive List (with onClick)
-// Define the item arrays outside the story
 const interactiveTextItems = [
   { id: 1, primary: 'Single-line item', onClick: createLogHandler('Clicked text 1') },
   { id: 2, primary: 'Single-line item', onClick: createLogHandler('Clicked text 2') },
@@ -200,25 +192,22 @@ const interactiveCombinedItems = [
 export const Interactive: Story = {
   render: (args) => (
   <div className="rds-list-demo__grid rds-list-demo__grid--col-responsive">
-      {/* Text only */}
+     
       <div>
         <div className="rds-list-demo__title">Text only</div>
     <RdsList className="rds-list--align-responsive" withDividers items={interactiveTextItems} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
      
-      {/* Icon with text */}
       <div>
         <div className="rds-list-demo__title">Icon with text</div>
     <RdsList className="rds-list--align-responsive" withDividers items={interactiveIconItems} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
      
-      {/* Avatar with text */}
       <div>
         <div className="rds-list-demo__title">Avatar with text</div>
     <RdsList className="rds-list--align-responsive" withDividers items={interactiveAvatarItems} dense={args.dense} disablePadding={args.disablePadding} />
       </div>
      
-      {/* Avatar with text and icon (secondary action) */}
       <div>
         <div className="rds-list-demo__title">Avatar with text and icon</div>
     <RdsList className="rds-list--align-responsive" withDividers items={interactiveCombinedItems} dense={args.dense} disablePadding={args.disablePadding} />
@@ -226,8 +215,6 @@ export const Interactive: Story = {
     </div>
   )
 };
-// Interactive Multiple Selection example with state management
-// Define selection items outside
 const multiSelectionItems = [
   { 
     id: 1, 
@@ -280,7 +267,6 @@ export const MultipleSelection: Story = {
     );
   }
 };
-// Nested list with expandable items
 export const Nested: Story = {
   args: {
     withDividers: true,
@@ -297,8 +283,7 @@ export const Selected: Story = {
     ],
   },
 };
-// Sticky Subheader
-// Define section data outside
+
 const subheaderSections = [
   {
     title: "I'm sticky 0",
@@ -357,7 +342,7 @@ export const StickySubheader: Story = {
     </div>
   )
 };
-// Gutterless List
+
 export const WithIcons: Story = {
   args: {
     withDividers: true,
@@ -389,8 +374,7 @@ export const WithDividers: Story = {
     withDividers: true,
   },
 };
-// List Controls: Checkbox - Shows different checkbox states
-// Define checkbox items outside
+
 const checkboxItems = [
   { 
     id: 1, 
@@ -427,7 +411,6 @@ export const WithCheckbox: Story = {
       }
     };
     
-    // Create the items array with the dynamic checkbox for item 3
     const itemsWithCustomCheckbox = checkboxItems.map(item => 
       item.id === 3 ? {
         ...item,
@@ -456,7 +439,7 @@ export const WithCheckbox: Story = {
     );
   }
 };
-// List Controls: Switch
+
 export const WithSwitch: Story = {
   args: {
     withDividers: true,

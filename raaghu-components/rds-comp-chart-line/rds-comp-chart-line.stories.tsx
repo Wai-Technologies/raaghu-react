@@ -1,6 +1,6 @@
 import RdsCompLineChart from "./rds-comp-chart-line";
-import * as Chart from "chart.js";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { Chart } from 'chart.js';
 
 const meta: Meta = {
     title: 'Components/Charts/Line Chart',
@@ -42,10 +42,6 @@ export const Default: Story = {
                         generateLabels: function (chart : any) {
 
                             const original = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-                            original.forEach(label => {
-                                // label.pointStyle = 'custom-legend-point';
-                            });
-
                             return original;
                         },
                     },
@@ -76,7 +72,6 @@ export const Default: Story = {
                 backgroundColor: "red"
             },
         ],
-        // isGradient: true,
         id: "linechart",
     }
 } satisfies Story;

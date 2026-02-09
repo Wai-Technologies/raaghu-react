@@ -34,14 +34,11 @@ const RdsSpeedDial: React.FC<RdsSpeedDialProps> = ({
 }) => {
   const [internalOpen, setInternalOpen] = useState(false);
   
-  // If open is explicitly true, force it to stay open
-  // If open is false or undefined, use internal state for interactions
   const isForceOpen = open === true;
-  const useInternalState = open !== true; // Use internal state when open is false or undefined
+  const useInternalState = open !== true; 
   const finalOpenState = isForceOpen ? true : internalOpen;
   
   const handleOpen = (event: React.SyntheticEvent<{}, Event>, reason: OpenReason) => {
-    // Only update internal state if not force opened
     if (useInternalState) {
       setInternalOpen(true);
     }
@@ -49,7 +46,6 @@ const RdsSpeedDial: React.FC<RdsSpeedDialProps> = ({
   };
   
   const handleClose = (event: React.SyntheticEvent<{}, Event>, reason: CloseReason) => {
-    // Only update internal state if not force opened
     if (useInternalState) {
       setInternalOpen(false);
     }
@@ -70,7 +66,7 @@ const RdsSpeedDial: React.FC<RdsSpeedDialProps> = ({
           key={action.name}
           icon={action.icon}
           tooltipTitle={action.tooltipTitle || action.name}
-          onClick={action.onClick || (() => console.log(`${action.name} clicked`))}
+          onClick={action.onClick || (() => {})}
         />
       ))}
     </MuiSpeedDial>

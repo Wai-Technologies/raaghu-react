@@ -13,7 +13,6 @@ const meta: Meta = {
         docs: {
             source: {
                 transform: (code: string) => {
-                    // Transform VideoPlayerType enum
                     code = code.replace(/type="(Default|YouTube|Vimeo)"/g, 'type={VideoPlayerType.$1}');
                     code = code.replace(/type:\s*"(Default|YouTube|Vimeo)"/g, 'type: VideoPlayerType.$1');
                     return code;

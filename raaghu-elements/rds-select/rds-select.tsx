@@ -78,7 +78,6 @@ const RdsSelect: React.FC<RdsSelectProps> = ({
           renderValue={
             !labelposition
               ? (selected) => {
-                  // MUI passes selected as an array for multiple, or as string/number for single
                   const value = Array.isArray(selected) ? selected[0] : selected;
                   if (value === undefined || value === null || value === "") {
                     return (

@@ -1,12 +1,8 @@
-// RDS Breadcrumbs Component Styles
-// Breadcrumb navigation
-
 .rds-breadcrumbs {
   display: flex;
   align-items: center;
   position: relative;
 
-  // Ensure icons inherit color, specifically beating high-specificity global overrides
   .MuiSvgIcon-root,
   .dark-theme & .MuiSvgIcon-root,
   [data-theme="dark"] & .MuiSvgIcon-root,
@@ -40,7 +36,6 @@
     user-select: none;
   }
 
-  // Pill Background Variant
   &__pill {
     .rds-breadcrumbs__item {
       padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 4px);
@@ -61,7 +56,6 @@
     }
   }
 
-  // Square Background Variant
   &__square {
     .rds-breadcrumbs__item {
       padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 4px);
@@ -82,7 +76,6 @@
     }
   }
 
-  // Without Background Variant (Default)
   &__plain {
     .rds-breadcrumbs__item {
       padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 4px);
@@ -101,7 +94,6 @@
     }
   }
 
-  // Interactive states
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset, 2px);
@@ -113,7 +105,6 @@
     pointer-events: none;
   }
 
-  // Remove default MUI styles to apply our custom ones
   .MuiBreadcrumbs-separator {
     margin: 0 var(--rds-spacing-xs, 8px);
   }

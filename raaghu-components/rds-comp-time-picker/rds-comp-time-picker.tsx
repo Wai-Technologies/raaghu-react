@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './rds-comp-time-picker.scss';
-import { RdsIconButton } from '../../raaghu-elements/index';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { CompactTimePicker, DefaultTimePicker } from './time-picker-modes';
 import { 
@@ -28,7 +27,6 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const [period, setPeriod] = useState('AM');
   const [time, setTime] = useState("");
   
-  // Separate state for compact mode
   const [tempHour, setTempHour] = useState<number>(12);
   const [tempMinute, setTempMinute] = useState<number>(0);
   const [tempPeriod, setTempPeriod] = useState<string>('AM');

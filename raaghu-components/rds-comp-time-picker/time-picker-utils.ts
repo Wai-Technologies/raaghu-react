@@ -1,6 +1,5 @@
 import { RdsTimePickerProps } from './rds-comp-time-picker';
 
-// Helper functions for the RdsCompTimePicker
 export const getButtonClasses = (colorVariant?: string) => {
   const variant = colorVariant || 'primary';
   if (variant === 'light') {
@@ -21,7 +20,6 @@ export const getInputBorderClass = (colorVariant?: string) => {
 };
 
 export const getIconColor = (colorVariant?: string): "primary" | "default" | "inherit" | "secondary" | "error" | "info" | "success" | "warning" => {
-  // Map colorVariant prop to allowed MUI IconButton color values
   const allowedColors = [
     "primary",
     "secondary",
@@ -33,7 +31,6 @@ export const getIconColor = (colorVariant?: string): "primary" | "default" | "in
   
   const variant = colorVariant || 'primary';
   
-  // Special handling for light and dark variants
   if (variant === 'light' || variant === 'dark') {
     return 'default';
   }
@@ -42,7 +39,6 @@ export const getIconColor = (colorVariant?: string): "primary" | "default" | "in
     return variant as typeof allowedColors[number];
   }
   
-  // fallback to 'primary' if not allowed
   return "primary";
 };
 

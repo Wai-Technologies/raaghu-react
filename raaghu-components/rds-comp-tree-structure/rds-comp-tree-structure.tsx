@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./rds-comp-tree-structure.scss";
-// Import everything from external file
 import { 
   fileTypeIcons as defaultFileTypeIcons, 
   getFileIcon as getDefaultFileIcon,
@@ -12,7 +11,6 @@ import {
   getAllNodeIds
 } from './fileTypeIcons';
 
-// Re-export for external use
 export { 
   defaultFileTypeIcons, 
   getDefaultFileIcon, 
@@ -52,9 +50,7 @@ const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
   };
 
   const handleCheckboxClick = (id: number) => {
-    console.log(`Checkbox clicked for node ${id}`);
-    
-    // If checkedNodes is controlled via props, don't manage internal state
+
     if (!props.checkedNodes) {
       setCheckedNodeIds((prevCheckedNodeIds) =>
         prevCheckedNodeIds.includes(id)

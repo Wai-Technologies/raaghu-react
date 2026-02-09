@@ -35,14 +35,12 @@ const RdsTooltip= ({
   wrapper,
   ...props
 }:RdsTooltipProps) => {
-  // Compose BEM class for position
   const tooltipClass = clsx(
     'rds-tooltip',
     `rds-tooltip--${(style).replace(/-.*/, '')}`,
     className
   );
 
-  // Inline style for custom colors
   const customStyle = {
     ...(tooltipStyle || {}),
   } as React.CSSProperties;

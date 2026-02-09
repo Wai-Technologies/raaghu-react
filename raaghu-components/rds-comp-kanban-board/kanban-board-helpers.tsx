@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 
-// Types and Interfaces
 export interface boardInfo {
   cardId?: number;
   name: string;
@@ -46,7 +45,6 @@ export interface RdsCompKanbanBoardProps {
   onSelectedTagsListChange?: (items: any) => void;
 }
 
-// Utility Functions
 export const formatDate = (date: Date) => {
   const day = date.getDate();
   const month = date.toLocaleString("default", { month: "long" });
@@ -78,7 +76,6 @@ export const priorityList = [
   { label: "Low", val: "Low" },
 ];
 
-// Custom Hook for Kanban Board State Management
 export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
   const [boardName, setBoardName] = useState("");
   const [allowAddingNewCard, setAllowAddingNewCard] = useState(props.allowAddingNewCard || true);
@@ -102,7 +99,6 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
   const [isSubCardDropdownOpen, setIsSubCardDropdownOpen] = useState<{ [key: number]: boolean }>({});
   const [subCardInputsVisible, setSubCardInputsVisible] = useState<number | null>(null);
 
-  // Menu anchor elements
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [subCardAnchorEl, setSubCardAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedCard, setSelectedCard] = useState<any>(null);
@@ -190,7 +186,6 @@ export const useKanbanBoardState = (props: RdsCompKanbanBoardProps) => {
   };
 };
 
-// Event Handlers
 export const createEventHandlers = (state: any, props: RdsCompKanbanBoardProps) => {
   const {
     boardName,
@@ -236,7 +231,6 @@ export const createEventHandlers = (state: any, props: RdsCompKanbanBoardProps) 
 
     setBoards((prevCards: any) => {
       const updatedCards = [...prevCards];
-      // Insert new board before the last board (keep primary board at end)
       if (updatedCards.length > 0) {
         updatedCards.splice(-1, 0, newBoard);
       } else {
@@ -421,7 +415,6 @@ export const createEventHandlers = (state: any, props: RdsCompKanbanBoardProps) 
   };
 };
 
-// Drag and Drop Handler
 export const createDragEndHandler = (boards: boardInfo[], setBoards: any) => {
   return (result: any) => {
     const { source, destination, draggableId, type } = result;
@@ -451,7 +444,6 @@ export const createDragEndHandler = (boards: boardInfo[], setBoards: any) => {
       }
 
       if (sourceCardIndex === destinationCardIndex) {
-        // Reorder within the same card
         const newSubCards = Array.from(sourceCard.subCards);
         const [movedSubCard] = newSubCards.splice(source.index, 1);
         newSubCards.splice(destination.index, 0, movedSubCard);
@@ -463,7 +455,6 @@ export const createDragEndHandler = (boards: boardInfo[], setBoards: any) => {
 
           setBoards(newBoards);
       } else {
-        // Move to a different card
         const sourceSubCards = Array.from(sourceCard.subCards);
         const destinationSubCards = Array.from(destinationCard.subCards);
 

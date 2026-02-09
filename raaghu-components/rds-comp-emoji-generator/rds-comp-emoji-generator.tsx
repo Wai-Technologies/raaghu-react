@@ -23,7 +23,6 @@ import "./rds-comp-emoji-generator.scss";
 import { getEmojisByCategory, searchEmojis } from './rds-comp-emoji-data';
 import { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';
 
-// Define props interface
 export interface RdsEmojiGeneratorProps {
     Type?: EmojiGeneratorType;
     "Show Skin Tone"?: boolean;
@@ -44,23 +43,19 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
     Category = EmojiCategory.SmileysAndPeople,
     onEmojiSelect,
     maxEmojis = 80,
-    sx = {},
+
     ...props
 }) => {
-    // Root ref so nested Popover can attach to same stacking context (toolbar dropdown)
     const rootRef = React.useRef<HTMLDivElement | null>(null);
-    // State
     const [selectedCategory, setSelectedCategory] = useState(Category);
-     // Keep internal category in sync with prop changes (e.g. Storybook controls)
     React.useEffect(() => {
         setSelectedCategory(Category);
     }, [Category]);
     
     const [searchTerm, setSearchTerm] = useState("");
-    const [selectedSkinTone, setSelectedSkinTone] = useState(0); // 0 = default/yellow
+    const [selectedSkinTone, setSelectedSkinTone] = useState(0); 
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
 
-    // Static data
     const skinToneOptions = [
         { value: 0, color: "#FFD700", label: "Default" },
         { value: 1, color: "#F7E7CE", label: "Light" },
@@ -81,7 +76,6 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
         { id: EmojiCategory.Flags, icon: FlagIcon, title: "Flags" },
     ];
 
-    // Handlers
     const handleEmojiClick = (e: any) => onEmojiSelect?.(e);
     const handleCategoryChange = (c: EmojiCategory) => setSelectedCategory(c);
     const handleSkinToneClick = (e: React.MouseEvent<HTMLElement>) => setSkinToneAnchorEl(e.currentTarget);
@@ -89,7 +83,6 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
     const handleSkinToneSelect = (t: number) => { setSelectedSkinTone(t); handleSkinToneClose(); };
     const skinTonePopoverOpen = Boolean(skinToneAnchorEl);
 
-    // Quick reactions short-circuit
     if (Type === EmojiGeneratorType.QuickReactions) {
         const quickEmojis = ["👍", "😊", "😞", "💯", "😎"];
         return (
@@ -114,13 +107,11 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
         );
     }
 
-    // Filtered emoji list
     const filteredEmojis = searchTerm
         ? searchEmojis(searchTerm, selectedCategory, selectedSkinTone)
         : getEmojisByCategory(selectedCategory, selectedSkinTone);
     const displayEmojis = maxEmojis ? filteredEmojis.slice(0, maxEmojis) : filteredEmojis;
 
-    // Helper: detect flag (regional indicator) sequences
     const isFlagEmoji = (emoji: string) => {
         return /[\u{1F1E6}-\u{1F1FF}]{2}/u.test(emoji);
     };
@@ -157,7 +148,6 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                                     style={{ backgroundColor: skinToneOptions[selectedSkinTone].color }}
                                 />
 
-                                {/* Inline expanded skin-tone panel (safe, no refs) */}
                                 {State === SkinToneState.Expanded && (
                                     <Box className="rds-emoji-generator__skin-tone-inline">
                                         {skinToneOptions.map(o => (
@@ -179,7 +169,6 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                             </Box>
                         )}
                     </Box>
-                    {/* Use the Popover only for non-expanded state to preserve original behavior */}
                     {State !== SkinToneState.Expanded && (
                         <Popover
                             open={skinTonePopoverOpen}
@@ -190,7 +179,6 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                             PaperProps={{ className: 'rds-emoji-generator__skin-tone-popover' }}
                             disableAutoFocus
                             disableEnforceFocus
-                            // Render inside the same dropdown (if present) to avoid z-index issues
                             container={() => rootRef.current?.closest('.rds-comp-toolbar__dropdown') || rootRef.current || document.body}
                         >
                             <Box className="rds-emoji-generator__skin-tone-dropdown">
@@ -274,5 +262,4 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
 };
 RdsEmojiGenerator.displayName = 'RdsEmojiGenerator';
 export default RdsEmojiGenerator;
-// Re-export enums for backward compatibility with stories and external consumers
 export { EmojiCategory, EmojiGeneratorType, SkinToneState } from './rds-comp-emoji-data';

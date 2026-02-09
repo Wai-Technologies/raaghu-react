@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, type BoxProps, Paper } from '@mui/material';
+import { Box, type BoxProps } from '@mui/material';
 import './rds-comp-layout.scss';
 import renderLayoutContent from './renderLayoutContent';
 

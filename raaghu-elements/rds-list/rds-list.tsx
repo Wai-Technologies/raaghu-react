@@ -10,7 +10,7 @@ export interface RdsListItem {
   secondary?: string;
   icon?: React.ReactNode;
   avatar?: React.ReactNode;
-  secondaryAction?: React.ReactNode; // right-aligned action/icon
+  secondaryAction?: React.ReactNode;
   onClick?: () => void;
   selected?: boolean;
   disabled?: boolean;
@@ -43,10 +43,8 @@ const RdsList: React.FC<RdsListProps> = ({
   const [openMap, setOpenMap] = useState<Record<string | number, boolean>>({});
   const [internalChecked, setInternalChecked] = useState<(string | number)[]>(checkedItems);
 
-  // Use the provided checkedItems or internal state
   const effectiveCheckedItems = checkedItems.length > 0 ? checkedItems : internalChecked;
 
-  // Root class based on variant and other props
   const variantClass = variant === 'firebase' ? 'rds-list--firebase' : '';
   const denseClass = dense ? 'rds-list--dense' : '';
   const rootClass = ['rds-list', variantClass, denseClass, className].filter(Boolean).join(' ');
@@ -60,15 +58,12 @@ const RdsList: React.FC<RdsListProps> = ({
     return cls;
   };
 
-  // Handle checkbox changes
   const handleCheckboxChange = (id: string | number) => () => {
     const isChecked = !effectiveCheckedItems.includes(id);
 
     if (onCheckboxChange) {
-      // Use callback if provided
       onCheckboxChange(id, isChecked);
     } else {
-      // Otherwise manage internal state
       const newChecked = isChecked
         ? [...effectiveCheckedItems, id]
         : effectiveCheckedItems.filter(item => item !== id);
@@ -135,7 +130,6 @@ const RdsList: React.FC<RdsListProps> = ({
     }
 
     if (variant === 'button' || item.onClick || withCheckboxes) {
-      // Create checkbox if withCheckboxes is true and no custom icon is provided
       const checkbox = withCheckboxes && !item.icon ? (
         <MuiListItemIcon className="rds-list__icon">
           <RdsCheckbox
@@ -147,7 +141,6 @@ const RdsList: React.FC<RdsListProps> = ({
         </MuiListItemIcon>
       ) : null;
 
-      // Use the provided icon or checkbox
       const icon = item.icon ? (
         <MuiListItemIcon className="rds-list__icon">
           {item.icon}
@@ -201,7 +194,6 @@ const RdsList: React.FC<RdsListProps> = ({
     );
   };
 
-  // Render with dividers between items if withDividers is true
   let children: React.ReactNode[];
   if (withDividers) {
     children = [];
@@ -210,7 +202,6 @@ const RdsList: React.FC<RdsListProps> = ({
       children.push(
         renderListItem(item)
       );
-      // Only show divider if next item is not a nested child
       if (idx < items.length - 1 && !hasChildren) {
         children.push(
           <Divider component="li" className="rds-list__divider" key={`divider-${item.id}`} />

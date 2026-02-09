@@ -1,13 +1,10 @@
-// =======================
-// Base Styles
-// =======================
 .rds-comments-box {
   display: flex;
   align-items: center;
   gap: 4px;
   max-width: var(--rds-comments-max-width, 450px) !important;
   padding: var(--rds-spacing-lg, 16px) var(--rds-spacing-xxl, 16px) var(--rds-spacing-xxxl, 24px) var(--rds-spacing-xxl, 16px);
-  background: transparent; // Default transparent background
+  background: transparent;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   color: var(--rds-text-primary, #333);
   border-radius: var(--rds-border-radius-md, 8px);
@@ -19,23 +16,17 @@
     opacity: 1;
   }
   
-  // =======================
-  // Background modifiers for specific states
-  // =======================
   &--hover {
-    background: var(--rds-background-paper, #fff); // White background for comment hover
+    background: var(--rds-background-paper, #fff);
   }
   
   &--thread {
-    background: var(--rds-background-paper, #fff); // White background for comment thread
+    background: var(--rds-background-paper, #fff);
     display: flex;
     flex-direction: column;
     gap: var(--rds-spacing-lg, 16px);
   }
   
-  // =======================
-  // Modifiers
-  // =======================  
   &--selected { 
     display: flex;
     align-items: center;
@@ -123,7 +114,6 @@
     }
 
     .rds-comments-box__typing-header {
-      // make the placeholder large and left-aligned like the screenshot
       padding: 0;
     }
 
@@ -170,9 +160,6 @@
     font-size: var(--rds-font-size-md, 14px) !important;
   }
 
-  // =======================
-  // Elements
-  // =======================
   &__avatar {
     width: var(--rds-avatar-size-md, 36px);
     height: var(--rds-avatar-size-md, 36px);
@@ -327,7 +314,7 @@
       flex: 1;
       border-radius: var(--rds-border-radius-xl, 24px);
       padding-left: var(--rds-spacing-xs, 4px);
-      min-width: var(--rds-reply-min-width, 350px);
+      min-width: var(--rds-reply-min-width, 368px);
       max-width: var(--rds-reply-max-width, 600px);
       width: 100%;
       height: var(--rds-reply-height, 32px);
@@ -365,7 +352,7 @@
       background-color: var(--rds-primary-main, #4285f4);
       color: var(--rds-text-primary, #fff);
       font-size: var(--rds-font-size-md, 14px) !important;
-      margin-left: var(--rds-spacing-md, 10px);
+      margin-left: var(--rds-spacing-md, 0px);
     }
   }
 
@@ -393,9 +380,6 @@
   &__badge-container {
     position: relative;
   }
-  // =======================
-  // Dropdowns
-  // =======================
   &__comment-dropdown-relative {
     position: relative;
   }
@@ -523,9 +507,6 @@
     font-weight: var(--rds-typography-medium, 500);
   }
 
-  // =======================
-  // Mention Dropdown
-  // =======================
   &__mention-dropdown {
     position: absolute;
     left: 0;
@@ -540,6 +521,7 @@
     color: var(--rds-text-primary, #eaf2ff);
     font-family: var(--rds-font-family-base, inherit);
   }
+  
   &__mention-search {
     padding: var(--rds-spacing-lg, 18px) var(--rds-spacing-lg, 18px) 0 var(--rds-spacing-lg, 18px);
   }
@@ -617,9 +599,6 @@
     font-size: var(--rds-font-size-xl, 20px) !important;
   }
 
-  // =======================
-  // Typing Box
-  // =======================
   &__typing-box {
     background: var(--rds-background-paper, #fff);
     border: 1.5px solid var(--rds-border-default, #bdbdbd);
@@ -634,6 +613,7 @@
     position: relative;
     box-shadow: var(--rds-typing-box-shadow, 0);
   }
+  
   &__typing-header {
     margin-bottom: var(--rds-spacing-md, 8px);
     min-height: var(--rds-typing-header-min-height, 28px);
@@ -705,9 +685,6 @@
   }
 }
 
-// =======================
-// Utility Classes
-// =======================
 .rds-comments-box__tools { 
   margin-left: var(--rds-tools-margin-left, 8rem) 
 }
@@ -725,6 +702,7 @@
   box-sizing: border-box;
   margin: 4px 0;
 }
+
 .rds-comments-box__header {
   display: flex;
   align-items: center;
@@ -742,7 +720,6 @@
   background-color: var(--rds-primary-main, #4285f4);
 }
 
-// Increase width for commentHover state
 .rds-comments-box--hover .rds-comments-box__comment-card {
   min-width: 400px;
   max-width: 600px;
@@ -781,11 +758,11 @@
 .rds-comments-box__mention-user-list-scroll-hide::-webkit-scrollbar {
   display: none;
 }
-// Ensure margin-bottom applies to the avatar in typing state
+
 .rds-comments-box--typing > .rds-comments-box__avatar {
   margin-bottom: 30px;
 }
-// Added classes for elements that previously used inline styles in JSX
+
 .rds-comments-box__emoji-trigger {
   position: relative;
 }
@@ -817,9 +794,7 @@
   pointer-events: auto;
   opacity: 1;
 }
-// =======================
-// Standalone Mention Classes
-// =======================
+
 .mention-search {
   padding: var(--rds-spacing-lg, 18px) var(--rds-spacing-lg, 18px) 0 var(--rds-spacing-lg, 18px);
 }
@@ -840,6 +815,7 @@
   cursor: pointer;
   gap: var(--rds-spacing-md, 12px);
 }
+
 .mention-user-avatar {
   max-width: var(--rds-mention-avatar-max-width, 260px) !important;
   width: 100% !important;
@@ -884,9 +860,6 @@
   font-size: var(--rds-font-size-xl, 20px) !important;
 }
 
-// =======================
-// Theme Overrides
-// =======================
 body.theme-light,
 [data-theme="light"] {
   --rds-placeholder-color: rgba(0, 0, 0, 0.6);
@@ -908,6 +881,7 @@ body.theme-light,
     color: var(--rds-text-primary, #181a20) !important;
   }
 }
+
 body.theme-dark,
 [data-theme="dark"] {
   .mention-search-input {
@@ -997,9 +971,7 @@ body.theme-dark,
         margin-left: 3px;
     }
   }
-// =======================
-// Selected State Styles
-// =======================
+
 .rds-comments-box.rds-comments-box--selected { 
   color: var(--rds-comments-selected-text, #222);
 
@@ -1014,7 +986,7 @@ body.theme-dark,
   align-items: center;
   justify-content: flex-start;
 }
-// Dark mode override
+
 [data-theme="dark"] .rds-comments-box.rds-comments-box--selected {
   --rds-comments-selected-bg: #23272f;
   --rds-comments-selected-text: #eaf2ff;
@@ -1025,7 +997,7 @@ body.theme-dark,
 
 .rds-comments-box__name,
 .rds-comments-box__text {
-  color: var(--rds-text-primary, #181a20); // default (light mode)
+  color: var(--rds-text-primary, #181a20); 
   font-weight: 500 !important;
 }
 
@@ -1037,13 +1009,6 @@ body[data-theme='dark'] .rds-comments-box__text {
 [data-theme="dark"] .rds-comments-box__avatar {
   color: #000 !important;
 }
-
-// =======================
-// Media Queries
-// =======================
-// =======================
-// Responsive Styles for Typing, Hover, and Thread States
-// =======================
 
 @media (max-width: 568px) and (min-width: 320px) {
   .rds-comments-box__header {
@@ -1090,7 +1055,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     font-size: 12px !important;
   }
   .rds-comments-box--thread .rds-comments-box__reply-box {
-    width: 100% !important;
+    width: 108% !important;
     max-width: 95vw !important;
     box-sizing: border-box;
   }
@@ -1111,6 +1076,7 @@ body[data-theme='dark'] .rds-comments-box__text {
           min-height: 35px !important;
           max-height: 35px !important;
           font-size: 12px !important;
+          margin-right: 8px !important;
         }
         .rds-comments-box__send {
           width: 24px !important;
@@ -1144,7 +1110,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__typing-box {
       min-height: 40px;
       width: 77vw;
-      padding: 20px 8px 4px 8px; // Increased top padding for small screens
+      padding: 20px 8px 4px 8px; 
     }
     .rds-comments-box__typing-header {
       min-height: 20px;
@@ -1168,7 +1134,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     width: 30px !important;
     height: 30px !important;
     font-size: 10px !important;
-    margin-right: 4px !important; // Reduce gap to __info
+    margin-right: 4px !important;
   }
 
   .rds-comments-box--thread {
@@ -1176,7 +1142,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: 14px;
-        margin-right: 105px;    
+        margin-right: 98px;    
       }
       .rds-comments-box__thread-icons {
         gap: 4px;
@@ -1280,7 +1246,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     padding: 0 3px !important;
   }
   .rds-comments-box--thread .rds-comments-box__reply-box {
-    width: 100% !important;
+    width: 105% !important;
     max-width: 98vw !important;
     box-sizing: border-box;
   }
@@ -1301,6 +1267,7 @@ body[data-theme='dark'] .rds-comments-box__text {
           min-height: 40px !important;
           max-height: 32px !important;
           font-size: 14px !important;
+          margin-right: 8px !important;
         }
         .rds-comments-box__send {
           width: 28px !important;
@@ -1326,7 +1293,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     width: 34px !important;
     height: 34px !important;
     font-size: 12px !important;
-    margin-right: 6px !important; // Reduce gap to __info
+    margin-right: 6px !important;
   }
   .rds-comments-box--typing {
     min-height: 90px;
@@ -1365,7 +1332,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
         font-size: 16px;
-        margin-right: 140px;
+        margin-right: 157px;
       }
       .rds-comments-box__thread-icons {
         gap: 6px;

@@ -65,7 +65,6 @@ const RdsAlert= ({
   }
 
   return (
-    // removed Paper wrapper so MuiAlert's variant styling (filled/outlined/standard) is visible
     <MuiAlert
       variant={variant}
       severity={severity || type}
@@ -99,7 +98,6 @@ const RdsAlert= ({
         {showButtons && (showLink || showSecondary || showPrimary) && (
           <div className="rds-alert__actions">
             {multiline ? (
-              // For multiline: restructure layout with bottom row
               <>
                 <div className="rds-alert__bottom-row">
                   <div className="rds-alert__left-actions">
@@ -114,7 +112,6 @@ const RdsAlert= ({
                 </div>
               </>
             ) : (
-              // For single line: original layout
               <>
                 {showLink && (
                       <a href="#" className="rds-alert__link-button">Link</a>

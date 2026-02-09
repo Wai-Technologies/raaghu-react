@@ -35,14 +35,14 @@ export enum DatePickerState {
     Selected = "Selected"
 }
 export interface RdsDatepickerProps {
-    selectedDate?: (date: Date | null) => void; // Selected Date
-    dateForEdit?: string; // Date for Edit
-    titleText?: string; // Title
-    showTitle?: boolean; // Show or hide Title
-    onDatePicker?: (date: Date | [Date | null, Date | null]) => void; // On Date Picker
-    datePickerStyleType?: DatePickerStyleType; // Date Picker Style Type
-    state?: DatePickerState; // Date Picker State"
-    layout?: DatePickerLayout; // Date Picker Layout
+    selectedDate?: (date: Date | null) => void; 
+    dateForEdit?: string;
+    titleText?: string; 
+    showTitle?: boolean; 
+    onDatePicker?: (date: Date | [Date | null, Date | null]) => void; 
+    datePickerStyleType?: DatePickerStyleType; 
+    state?: DatePickerState; 
+    layout?: DatePickerLayout; 
     customDate?: (dates: [Date | null, Date | null]) => void;
     isDropdownOpen: boolean;
     isDisabled?: boolean;
@@ -164,14 +164,12 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
         );
     };
 
-    // Apply existing date if provided for editing
     useEffect(() => {
         if (props.dateForEdit) {
             setStartDate(new Date(props.dateForEdit));
         }
     }, [props.dateForEdit]); 
     
-    // Handle expanded state
     useEffect(() => {
         if (props.state === "Expanded") {
             setIsDropdownOpen(true);
@@ -185,7 +183,6 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
 
     const dayClassName = (date: Date) => getDayClassName(date, startDate);
     
-    // Toggle between state and type views
     useEffect(() => {
         setShowType(false);
         setShowState(true);
@@ -196,7 +193,6 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
         setShowType(true);
     }, [props.type]);
 
-    // Handle default date setting
     useEffect(() => {
         if (props.isDefaultDate) {
             setStartDate(today);

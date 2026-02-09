@@ -1,6 +1,4 @@
-
 import { Meta, StoryObj } from '@storybook/react';
-import { Circle } from '@mui/icons-material';
 import RdsCompFilterButton, { FilterOption } from './rds-comp-filter-button';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
@@ -117,9 +115,9 @@ export const Default: Story = {
     ),
     leftIcon: <CircleOutlinedIcon sx={{ fontSize: 16 }} />,
     rightIcon: <CircleOutlinedIcon sx={{ fontSize: 16 }} />,
-    onFiltersChange: (filters: FilterOption[]) => console.log('Filters changed:', filters),
-    onApply: (filters: FilterOption[]) => console.log('Apply filters:', filters),
-    onClear: () => console.log('Clear filters'),
+    onFiltersChange: (filters: FilterOption[]) => {},
+    onApply: (filters: FilterOption[]) => {},
+    onClear: () => {},
   },
 } satisfies Story;
 

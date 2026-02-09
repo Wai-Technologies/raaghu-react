@@ -1,6 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Button, Typography, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { useState } from 'react';
 import RdsDialog from './rds-dialog';
 import RdsButton from '../rds-button/rds-button';
@@ -236,7 +236,7 @@ export const WithActions: Story = {
           onClose={() => setOpen(false)}
           actions={(
             <>
-              <Button variant="outlined" onClick={() => setOpen(false)}>Cancel</Button>
+              <RdsButton style="outlined" color="primary" onClick={() => setOpen(false)}>Cancel</RdsButton>
               <RdsButton style="filled" color="primary" onClick={() => setOpen(false)}>Confirm</RdsButton>
             </>
           )}

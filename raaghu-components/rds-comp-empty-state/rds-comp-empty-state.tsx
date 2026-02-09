@@ -8,7 +8,6 @@ import illustrationLight from './illustration-light.json';
 import illustrationDark from './illustration-dark.json';
 
 export interface RdsCompEmptyStateProps {
-
   mode?: string;
   label?: string;
   subLabel?: string;
@@ -19,7 +18,6 @@ export interface RdsCompEmptyStateProps {
   onButtonClick?: () => void;
   isContinueAnimate?: boolean;
   className?: string;
-  testId?: string;
 }
 
 const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
@@ -29,7 +27,6 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
   const width = toCss(rawW);
   const height = toCss(rawH);
   
-  // Auto-detect dark theme if mode not provided
   const isDarkTheme = !props.mode && (
     document.documentElement.getAttribute('data-theme') === 'dark' ||
     document.body.classList.contains('dark')
@@ -37,14 +34,13 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
   
   const useDarkVariant = props.mode === 'Dark NRA' || isDarkTheme;
   
-  // Select appropriate assets based on theme
   const resolvedImage = useDarkVariant ? emptyStateDarkPng : emptyStatePng;
   const resolvedAnimation = useDarkVariant ? illustrationDark : illustrationLight;
   const imageSrc = props.iconPath || resolvedImage;
 
   return (
     <Fragment>
-      <Box className="rds-comp-empty-state">
+      <Box className={`rds-comp-empty-state ${props.className || ''}`}>
         <Box className="rds-comp-empty-state__content">
           <Box 
             className={`rds-comp-empty-state__icon ${props.isContinueAnimate ? 'rds-comp-empty-state__icon--animated' : ''}`} 
