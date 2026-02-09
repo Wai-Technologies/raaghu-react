@@ -44,39 +44,13 @@
     }
   }
 
-  @media (max-width: 480px) {
-    &__toolbar {
-      padding: 6px 10px;
-      gap: 8px;
-    }
-
-    &__language-label {
-      font-size: 11px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 90px;
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    &__copy-button {
-      min-width: 90px;
-      padding: 6px 8px;
-      font-size: 12px;
-    }
-
-    &__expand-icon {
-      font-size: 18px;
-      width: 18px;
-      height: 18px;
-    }
-  }
-
   @media (max-width: 360px) {
+    .css-1in3o51-MuiButton-startIcon{
+      margin-right: 0px;
+    }
     &__toolbar {
-      padding: 6px 8px;
-      gap: 6px;
+      padding: 4px 8px 5px 4px;
+      gap: 3px;
     }
 
     &__language-label {
@@ -88,6 +62,7 @@
       min-width: 72px;
       padding: 5px 6px;
       font-size: 11px;
+      white-space: nowrap;
     }
 
     &__expand-icon {
@@ -457,30 +432,4 @@
 .rds-comp-code-snippet--light pre{
     background-color: transparent !important;
 }
-}
-
-@media (max-width: 360px) {
-    .css-1in3o51-MuiButton-startIcon {
-        margin-right: 3px !important;
-        margin-left: 0px !important;
-    }
-    .rds-comp-code-snippet__toolbar {
-        gap: 4px !important;
-        padding: 6px 0px !important;
-        margin-right: 3px !important;
-    }
-    .css-dp0v3c-MuiButton-endIcon {
-        margin-left: 0px !important;
-        margin-right: 0px !important;
-    }
-
-    .css-pi9tm3-MuiButtonBase-root-MuiButton-root {
-        padding: 5px 6px !important;
-        min-width: 70px !important;
-    }
-
-    .sb-show-main.sb-main-padded {
-        padding: 11px !important;
-    }
-
 }

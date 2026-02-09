@@ -227,6 +227,16 @@
     }
   }
 
+  // Adjust dismiss button position for avatar and icon styles
+  &--style-avatar,
+  &--style-icon {
+    .rds-comp-notification__dismiss {
+      &.MuiIconButton-root {
+        top: 30px;
+      }
+    }
+  }
+
   &--layout-horizontal.rds-comp-notification--style-image {
     .rds-comp-notification__dismiss {
       &.MuiIconButton-root {

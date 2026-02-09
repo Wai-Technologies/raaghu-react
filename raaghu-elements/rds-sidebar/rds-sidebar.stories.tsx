@@ -90,52 +90,52 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const basicItems = [
-  { label: 'Home', icon: <Home />, onClick: () => alert('Home clicked') },
+  { label: 'Home', icon: <Home />, onClick: () => {} },
   {
     label: 'Dashboard',
     icon: <Dashboard />,
     active: true,
     children: [
-      { label: 'Overview', icon: <Star />, onClick: () => alert('Overview clicked') },
-      { label: 'Stats', icon: <Inbox />, onClick: () => alert('Stats clicked') },
-      { label: 'Reports', icon: <Send />, onClick: () => alert('Reports clicked') },
+      { label: 'Overview', icon: <Star />, onClick: () => {} },
+      { label: 'Stats', icon: <Inbox />, onClick: () => {} },
+      { label: 'Reports', icon: <Send />, onClick: () => {} },
     ],
   },
-  { label: 'Profile', icon: <Person />, onClick: () => alert('Profile clicked') },
-  { label: 'Settings', icon: <Settings />, onClick: () => alert('Settings clicked') },
+  { label: 'Profile', icon: <Person />, onClick: () => {} },
+  { label: 'Settings', icon: <Settings />, onClick: () => {} },
   { label: 'Requests', icon: <Drafts />,
     active: true,
     children: [
-      { label: 'New Requests', icon: <Star />, onClick: () => alert('New Requests clicked') },
-      { label: 'Pending', icon: <Drafts />, onClick: () => alert('Pending clicked') },
-      { label: 'Approved', icon: <Send />, onClick: () => alert('Approved clicked') },
+      { label: 'New Requests', icon: <Star />, onClick: () => {} },
+      { label: 'Pending', icon: <Drafts />, onClick: () => {} },
+      { label: 'Approved', icon: <Send />, onClick: () => {} },
     ], 
   },
-  { label: 'Help', icon: <Help />, onClick: () => alert('Help clicked') },
+  { label: 'Help', icon: <Help />, onClick: () => {} },
 ];
 
 const mailItems = [
-  { label: 'Inbox', icon: <Inbox />, onClick: () => alert('Inbox clicked') },
-  { label: 'Starred', icon: <Star />, onClick: () => alert('Starred clicked') },
-  { label: 'Send email', icon: <Send />, onClick: () => alert('Send clicked') },
-  { label: 'Drafts', icon: <Drafts />, onClick: () => alert('Drafts clicked') },
+  { label: 'Inbox', icon: <Inbox />, onClick: () => {} },
+  { label: 'Starred', icon: <Star />, onClick: () => {} },
+  { label: 'Send email', icon: <Send />, onClick: () => {} },
+  { label: 'Drafts', icon: <Drafts />, onClick: () => {} },
 ];
 
 const anzMenuItems = [
-  { label: 'Dashboard', icon: <Dashboard />, onClick: () => alert('Dashboard clicked') },
-  { label: 'Saas', icon: <Business />, onClick: () => alert('Saas clicked') },
-  { label: 'Administration', icon: <AdminPanelSettings />, onClick: () => alert('Administration clicked') },
-  { label: 'Demo UI Components', icon: <Widgets />, onClick: () => alert('Demo UI Components clicked') },
+  { label: 'Dashboard', icon: <Dashboard />, onClick: () => {} },
+  { label: 'Saas', icon: <Business />, onClick: () => {} },
+  { label: 'Administration', icon: <AdminPanelSettings />, onClick: () => {} },
+  { label: 'Demo UI Components', icon: <Widgets />, onClick: () => {} },
 ];
 
 const abpMenuItems = [
-  { label: 'Dashboard', icon: <Dashboard />, onClick: () => alert('Dashboard clicked') },
-  { label: 'Saas', icon: <Business />, onClick: () => alert('Saas clicked') },
-  { label: 'Invoices', icon: <Receipt />, onClick: () => alert('Invoices clicked') },
-  { label: 'Ticket Allocation', icon: <ConfirmationNumber />, onClick: () => alert('Ticket Allocation clicked') },
-  { label: 'Communication', icon: <Chat />, onClick: () => alert('Communication clicked') },
-  { label: 'Advertisements', icon: <Campaign />, onClick: () => alert('Advertisements clicked') },
-  { label: 'Requests', icon: <Assignment />, onClick: () => alert('Requests clicked') },
+  { label: 'Dashboard', icon: <Dashboard />, onClick: () => {} },
+  { label: 'Saas', icon: <Business />, onClick: () => {} },
+  { label: 'Invoices', icon: <Receipt />, onClick: () => {} },
+  { label: 'Ticket Allocation', icon: <ConfirmationNumber />, onClick: () => {} },
+  { label: 'Communication', icon: <Chat />, onClick: () => {} },
+  { label: 'Advertisements', icon: <Campaign />, onClick: () => {} },
+  { label: 'Requests', icon: <Assignment />, onClick: () => {} },
 ];
 
 const SidebarTemplate = (args: any) => {
@@ -239,10 +239,10 @@ export const WithDisabledItems = {
   render: SidebarTemplate,
   args: {
     items: [
-      { label: 'Home', icon: <Home />, onClick: () => alert('Home clicked') },
-      { label: 'Dashboard', icon: <Dashboard />, onClick: () => alert('Dashboard clicked'), active: true },
+      { label: 'Home', icon: <Home />, onClick: () => {} },
+      { label: 'Dashboard', icon: <Dashboard />, onClick: () => {}, active: true },
       { label: 'Profile', icon: <Person />, disabled: true },
-      { label: 'Settings', icon: <Settings />, onClick: () => alert('Settings clicked') },
+      { label: 'Settings', icon: <Settings />, onClick: () => {} },
       { label: 'Help (Coming Soon)', icon: <Help />, disabled: true },
     ],
     showLogo: true,
@@ -254,10 +254,10 @@ export const WithDisabledItems = {
 export const WithoutIcons: Story = {
   args: {
     items: [
-      { label: 'Home', onClick: () => alert('Home clicked') },
-      { label: 'About', onClick: () => alert('About clicked'), active: true },
-      { label: 'Services', onClick: () => alert('Services clicked') },
-      { label: 'Contact', onClick: () => alert('Contact clicked') },
+      { label: 'Home', onClick: () => {} },
+      { label: 'About', onClick: () => {}, active: true },
+      { label: 'Services', onClick: () => {} },
+      { label: 'Contact', onClick: () => {} },
     ],
     isOpen: true,
     variant: 'permanent',
