@@ -22,7 +22,6 @@ export interface RdsToggleButtonProps extends Omit<ToggleButtonGroupProps, 'chil
 const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   options,
   multiple = false,
-  exclusive,
   orientation = 'horizontal',
   spacing = 0,
   iconTextSpacing = 8,
@@ -157,7 +156,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
       return (
         <div
           key={option.value}
-          className={`rds-toggle-button__button-wrapper ${positionClass}`}
+          className="rds-toggle-button__button-wrapper"
           style={spacingStyle}
         >
           <MuiToggleButton
@@ -200,7 +199,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
         </div>
       ) : (
         <MuiToggleButtonGroup
-          exclusive={exclusive !== undefined ? exclusive : !multiple}
+          exclusive={!multiple}
           orientation={orientation}
           onChange={handleChange}
           value={value}

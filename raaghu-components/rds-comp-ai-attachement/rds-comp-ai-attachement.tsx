@@ -80,8 +80,6 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
                 }
             };
             reader.readAsDataURL(file);
-        } else {
-            console.error("Please select a valid image file.");
         }
     };
 

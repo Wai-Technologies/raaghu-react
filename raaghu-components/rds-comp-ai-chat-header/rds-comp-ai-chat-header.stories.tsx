@@ -9,7 +9,6 @@ const meta: Meta<typeof RdsCompAiChatHeader> = {
     logoUrl: {
       control: "text",
       description: "URL of the logo image",
-      docs:{}
     },
     title: {
       control: "text",

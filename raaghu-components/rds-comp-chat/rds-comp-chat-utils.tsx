@@ -15,7 +15,6 @@ export const startCamera = async (videoRef: React.RefObject<HTMLVideoElement>) =
     }
     return stream;
   } catch (error) {
-    console.error("Camera error:", error);
   }
 };
 

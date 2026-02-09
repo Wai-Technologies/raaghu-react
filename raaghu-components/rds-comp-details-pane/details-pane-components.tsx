@@ -1021,7 +1021,7 @@ export const ThumbnailViewContent: React.FC<{
         </div>
 
         <div className="rds-comp-details-pane__download-button-container">
-          <button className="rds-comp-details-pane__download-button" onClick={() => {}}>
+          <button className="rds-comp-details-pane__download-button">
             {thumbnailButtonName || "Download Project"}
           </button>
         </div>
