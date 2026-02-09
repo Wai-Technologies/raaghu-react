@@ -66,11 +66,11 @@
   .topnav-layout {
     width: 100%;
     position: relative;
-    z-index: 2;
+    z-index: 1;
     
-    > * {
+    > .rds-appshell-appbar {
       position: relative;
-      z-index: 2;
+      z-index: 100;
     }
   }
 }
@@ -94,6 +94,8 @@
   height: 100vh;
   overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
   
   .sidebar-layout {
     display: none;
@@ -101,6 +103,10 @@
   
   .topnav-layout {
     width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 }
 
@@ -116,7 +122,7 @@
   justify-content: center;
   font-size: 2rem;
   font-weight: bold;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -251,9 +257,9 @@
 .rds-story-standard-content {
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 52px);
-  height: calc(100vh - 52px);
-  margin-top: 52px;
+  min-height: calc(100vh - 64px);
+  height: calc(100vh - 64px);
+  margin-top: 64px;
   z-index: 1;
   
   .rds-appshell-add-layout-center {
@@ -268,6 +274,7 @@
     justify-content: center;
     font-size: 2rem;
     font-weight: bold;
+    z-index: 1;
   }
 }
 
@@ -275,9 +282,20 @@
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: calc(100vh - 230px);
-  margin-top: 150px;
-  padding-bottom: 80px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  
+  .rds-appshell-add-layout-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
 }
 
 // Sub Tabs & Header
@@ -384,6 +402,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   height: 100vh;
   overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
   
   .css-1uarewv-MuiDrawer-docked .MuiDrawer-paper,
   .css-dm61o6 .MuiDrawer-paper {
@@ -393,6 +413,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .rds-header__toolbar {
     gap: 0 !important;
+  }
+  
+  .topnav-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 }
 
@@ -496,6 +523,34 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-profile-menu__button {
       min-width: auto !important;
       padding: 8px !important;
+    }
+    
+    .rds-story-topnav-content {
+      padding-bottom: 64px !important;
+      
+      .rds-appshell-add-layout-center {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+      }
+    }
+  }
+  
+  // Top Nav story specific mobile fix
+  .rds-story-topnav-content {
+    padding-bottom: 64px !important;
+    overflow: hidden;
+    box-sizing: border-box;
+    
+    .rds-appshell-add-layout-center {
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      top: auto !important;
+      left: auto !important;
     }
   }
   
@@ -786,7 +841,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-story-standard-content {
       position: relative;
       z-index: 1;
-      margin-bottom: 37px;
+      margin-bottom: 44px;
       padding-bottom: 68px;
       min-height: calc(100vh - 136px);
       padding-left: 16px;
@@ -1221,6 +1276,30 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       bottom: 45px !important;
     }
   }
+  
+  .rds-story-topnav-content {
+    padding-bottom: 56px !important;
+    
+    .rds-appshell-add-layout-center {
+      margin-top: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .rds-story-topnav-content {
+    padding-bottom: 44px !important;
+    
+    .rds-appshell-add-layout-center {
+      margin-top: 210px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+  }
 }
 
 @media (min-width: 769px) and (max-width: 833px) {
@@ -1275,9 +1354,24 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
   
   .rds-story-topnav-content {
-    margin-top: 150px;
-    padding-bottom: 80px;
-    min-height: calc(100vh - 230px);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 56px !important;
+    box-sizing: border-box;
+    
+    .rds-appshell-add-layout-center {
+      flex: 1;
+      position: relative !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      top: auto !important;
+      left: auto !important;
+    }
   }
   
   // Shared tablet styles for side-nav and relaxing
@@ -1452,10 +1546,24 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .topnav-content,
     .rds-story-topnav-content {
-      padding-bottom: 70px !important;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 64px !important;
+      box-sizing: border-box;
       
+      .rds-appshell-add-layout-center,
       .rds-appshell-add-layout-flex-center {
-        min-height: calc(100vh - 68px - 70px - 32px) !important;
+        flex: 1;
+        position: relative !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        top: auto !important;
+        left: auto !important;
       }
     }
   }
@@ -2170,9 +2278,22 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
   
   .rds-story-topnav-content {
-    margin-top: 150px;
-    padding-bottom: 20px;
-    min-height: calc(100vh - 170px);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    
+    .rds-appshell-add-layout-center {
+      flex: 1;
+      position: relative !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      top: auto !important;
+      left: auto !important;
+    }
   }
   
   .double-nav, .triPane {
