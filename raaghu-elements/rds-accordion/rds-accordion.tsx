@@ -38,7 +38,6 @@ const RdsAccordion = ({
   const [isHovered, setIsHovered] = useState(false);
   const isDisabled = props.disabled;
 
-  // Only pass expanded if controlled, otherwise pass defaultExpanded
   const accordionProps: any = {
     ...props,
     className: clsx(

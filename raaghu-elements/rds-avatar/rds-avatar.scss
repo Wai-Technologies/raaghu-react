@@ -1,15 +1,11 @@
-// RDS Avatar Component Styles
 .rds-avatar {
   display: inline-flex;
   align-items: center;
-  // justify-content: center;
   border-radius: var(--rds-border-radius-full);
   background-color: var(--rds-border-default);
-  // color: var(--rds-text-secondary);
   font-weight: 500;
   overflow: visible;
   position: relative;
-  // Image inside avatar
   &__image {
     width: 100%;
     height: 100%;
@@ -29,7 +25,7 @@
     justify-content: center;
     border-radius: 50%;
     overflow: visible;
-    padding: 5px; // reduced padding for tighter ring
+    padding: 5px;
   }
 
   &__ring {
@@ -43,7 +39,7 @@
     z-index: 0;
     pointer-events: none;
     background: transparent;
-    border-color: var(--rds-color-primary, #7c3aed); // default fallback
+    border-color: var(--rds-color-primary, #7c3aed);
   }
 
 &__dot {
@@ -56,7 +52,7 @@
   box-shadow: 0 0 0 2px var(--rds-background-paper, #f4f6fa);
   transition: background 0.2s;
   right: -2px;
-  background: var(--rds-color-primary, #7c3aed); // Add background color
+  background: var(--rds-color-primary, #7c3aed);
 
   &--top {
     top: 2px;
@@ -69,55 +65,51 @@
   }
 }
 
-  // Dot position modifiers - removed to avoid conflicts
-
-  // Size variants for text scaling
   &--smallest {
     .rds-avatar__name {
-      font-size: 0.75rem; // 12px
+      font-size: 0.75rem; 
     }
     .rds-avatar__designation {
-      font-size: 0.625rem; // 10px
+      font-size: 0.625rem;
     }
   }
 
   &--small {
     .rds-avatar__name {
-      font-size: 0.875rem; // 14px
+      font-size: 0.875rem; 
     }
     .rds-avatar__designation {
-      font-size: 0.75rem; // 12px
+      font-size: 0.75rem; 
     }
   }
 
   &--medium {
     .rds-avatar__name {
-      font-size: 1rem; // 16px
+      font-size: 1rem;
     }
     .rds-avatar__designation {
-      font-size: 0.875rem; // 14px
+      font-size: 0.875rem;
     }
   }
 
   &--large {
     .rds-avatar__name {
-      font-size: 1.125rem; // 18px
+      font-size: 1.125rem;
     }
     .rds-avatar__designation {
-      font-size: 0.95rem; // 15.2px
+      font-size: 0.95rem;
     }
   }
 
   &--largest {
     .rds-avatar__name {
-      font-size: 1.25rem; // 20px
+      font-size: 1.25rem;
     }
     .rds-avatar__designation {
-      font-size: 1.0625rem; // 17px
+      font-size: 1.0625rem; 
     }
   }
 
-  // Layout variants
   &--with-name {
     display: flex;
     align-items: center;
@@ -132,7 +124,6 @@
     gap: 4px;
     background: none;
     box-shadow: none;
-    // Ensure ring and dot styles match with-name, but move ring closer and dot accordingly
     .rds-avatar__avatar-outer,
     .rds-avatar__avatar-wrap {
       position: relative;
@@ -141,7 +132,7 @@
       justify-content: center;
       border-radius: 50%;
       overflow: visible;
-      padding: 2px; // reduced padding to bring ring closer
+      padding: 2px;
     }
     .rds-avatar__ring {
       position: absolute;
@@ -164,21 +155,18 @@
       z-index: 2;
       box-shadow: 0 0 0 2px var(--rds-background-paper, #f4f6fa);
       transition: background 0.2s;
-      right: -4px; // move dot closer to ring
+      right: -4px;
     }
-    // Dot position modifiers
+
     &.rds-avatar--dot-top .rds-avatar__dot {
-      // top: -2px; // move dot closer to ring
       right: -4px;
     }
     &.rds-avatar--dot-bottom .rds-avatar__dot {
-      bottom: -2px; // move dot closer to ring
+      bottom: -2px; 
       right: 0px;
     }
   }
   
-
-  // Info (name/designation)
   &__info {
     display: flex;
     flex-direction: column;
@@ -204,7 +192,6 @@
     margin-top: 3px;
   }
 
-  // Stacking variant
   &__stacking {
     display: flex;
     align-items: center;
@@ -221,7 +208,6 @@
     background: var(--rds-background-paper, #f4f6fa);
   }
 
-  // Color variants (prefer design tokens, fallback if needed)
   &--primary {
     .rds-avatar__ring { border-color: var(--rds-color-primary, #7c3aed); }
     .rds-avatar__dot { background: var(--rds-color-primary, #7c3aed); }
@@ -264,13 +250,11 @@
   }
 }
 
-// Avatar container for stacking
 .avatar-container {
   display: flex;
   align-items: center;
 }
 
-// Plus indicator styles
 .plus-indicator {
   display: flex;
   align-items: center;

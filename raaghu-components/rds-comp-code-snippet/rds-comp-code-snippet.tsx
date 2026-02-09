@@ -4,29 +4,22 @@ import OpenInFullOutlinedIcon from "@mui/icons-material/OpenInFullOutlined";
 import CodeOffIcon from '@mui/icons-material/CodeOff';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
-// Syntax highlighting
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/esm/default-highlight';
 import { atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import RdsButtonDropdown from "../../raaghu-elements/rds-button-dropdown/rds-button-dropdown";
-// Derive a dark variant from the light style so token colors stay consistent
 const darkStyle = {
-  // copy all token styles from atomOneLight
   ...atomOneLight as any,
   hljs: {
-    // keep the same token colors, but use a dark background and lighter default text
     ...((atomOneLight as any).hljs || {}),
     background: '#0b1220',
     color: '#e6eef6',
   },
 };
 
-// The library's bundled type can be incompatible with the TSX/React Component type
-// in some TypeScript/React versions. Create a typed alias to satisfy JSX usage.
 const Highlighter = SyntaxHighlighter as unknown as React.ComponentType<any>;
 
 export interface RdsCompCodeSnippetProps {
   code?: string;
-  // language can be a string like 'html' or a boolean to indicate showing default label
   language?: string | boolean;
   codeLines?: boolean;
   theme?: "light" | "dark";
@@ -80,7 +73,10 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
     }
   };
 
-  // Normalize language handling
+  const getLines = () => {
+    return currentCode.split("\n");
+  };
+
   const showLanguage = !!language;
   const languageLabel = typeof language === 'string' ? language : 'html';
   const highlighterStyle = theme === 'dark' ? (darkStyle as any) : (atomOneLight as any);
@@ -96,7 +92,6 @@ const RdsCompCodeSnippet: React.FC<RdsCompCodeSnippetProps> = ({
                 style={highlighterStyle}
                 showLineNumbers={false}
                 wrapLongLines={false}
-                // render as inline elements to avoid disturbing the toolbar layout
                 PreTag="span"
                 className="rds-comp-code-snippet__inline-highlighter"
               >

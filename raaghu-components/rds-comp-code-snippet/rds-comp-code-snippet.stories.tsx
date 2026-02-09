@@ -38,9 +38,7 @@ function fibonacci(n) {
 const sequence = [];
 for (let i = 0; i < 10; i++) {
   sequence.push(fibonacci(i));
-}
-
-console.log('Fibonacci sequence:', sequence);`,
+}`,
   typescript: `interface User {
   id: number;
   name: string;

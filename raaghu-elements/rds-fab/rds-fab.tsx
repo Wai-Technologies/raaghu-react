@@ -30,7 +30,6 @@ const RdsFab: React.FC<RdsFabProps> = ({
   };
 
   const isExtended = props.variant === 'extended';
-  // Only render icon+label if both are provided and variant is extended
   let fabContent;
   if (isExtended && icon && label) {
     fabContent = <><span>{icon}</span><span>{label}</span></>;

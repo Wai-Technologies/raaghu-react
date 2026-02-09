@@ -73,7 +73,6 @@
 
 .rds-tabs--pill .MuiTab-root {
   border-radius: 15rem !important;
-  // background: var(--rds-color-surface-alt, #f5f5f5);
   margin: 0 4px;
   &.Mui-selected {
     border-radius: 15rem !important;
@@ -94,7 +93,6 @@
   position: relative;
   font-family: var(--rds-font-family, Poppins);
   
-  // Ensure flap arrows are visible
   &--flap {
     overflow: visible !important;
     
@@ -111,7 +109,6 @@
     }
   }
 
-  // Tab label content (BEM: __label)
   &__label {
     display: inline-flex;
     align-items: center;
@@ -151,26 +148,26 @@
   color: var(--rds-color-on-accent, #ffffff) !important;
   border-radius: 6px 6px 0 0 !important;
   border: unset !important;
-  position: relative !important; /* required for positioning the arrow */
+  position: relative !important;
   z-index: 2 !important;
 }
 
 .rds-tabs--flap .Mui-selected::after {
   content: '';
   position: absolute;
-  bottom: -9px; /* position the arrow just below the tab */
+  bottom: -9px;
   left: 75px;
   transform: translateX(-50%);
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-top: 10px solid var(--rds-color-accent, #3C98FF); /* same as tab background */
+  border-top: 10px solid var(--rds-color-accent, #3C98FF);
   z-index: 1;
 }
 
 .rds-tabs--flap.rds-state--hover .Mui-selected:hover::after {
-  border-top-color: var(--rds-color-hover-bg, #EBDCFF) !important; /* Change to your desired hover color */
+  border-top-color: var(--rds-color-hover-bg, #EBDCFF) !important;
 }
 
 .css-jhczcq-MuiTabs-root{
@@ -199,13 +196,13 @@
 .MuiTabs-scroller{
   overflow: visible !important;
 }
-/* Arrow (flap) on the right side of the selected vertical tab */
+
 .rds-tabs--flap .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
   content: "" !important;
   position: absolute !important;
-  left: 150px !important; /* Adjusted for new width */
+  left: 150px !important;
   top: 50% !important;
-  right: -12px !important; /* Position to the right of the tab */
+  right: -12px !important;
   transform: translateY(-50%) !important;
   width: 0 !important;
   height: 0 !important;
@@ -216,7 +213,7 @@
 }
 
 .rds-tabs--flap.rds-state--hover .MuiTabs-vertical .MuiTab-root.Mui-selected:hover::after {
-  border-left-color: var(--rds-color-hover-bg, #EBDCFF) !important; /* Change to your desired hover color */
+  border-left-color: var(--rds-color-hover-bg, #EBDCFF) !important;
 }
 .rds-state--disabled .Mui-selected{
   background: var(--rds-color-disabled-bg, #EBDCFF) !important;
@@ -262,15 +259,13 @@
    justify-content: center;  
    gap: 8px;                 
    line-height: 1.5;
-   text-transform: none !important; /* Ensure our JS capitalization isn't overridden */       
+   text-transform: none !important;       
 }
 
-/* Ensure tab text respects our JavaScript capitalization */
 .rds-tabs .MuiTab-root .rds-tabs__label span {
   text-transform: none !important;
 }
 
-/* Override any Material-UI or global uppercase transforms */
 .rds-tabs .MuiTab-root,
 .rds-tabs .MuiTab-root *,
 .rds-tabs .MuiButtonBase-root,
@@ -290,27 +285,23 @@
   max-width: 150px !important;
 }
 
-// Vertical tabs specific width control
 .MuiTabs-vertical .MuiTab-root {
   max-width: 150px !important;
   min-width: 120px !important;
   width: 150px !important;
 }
 
-// Additional width control for vertical orientation
 .rds-tabs .MuiTabs-vertical {
   max-width: 150px !important;
   width: 150px !important;
 }
 
-// Horizontal tabs specific width control
 .MuiTabs-root:not(.MuiTabs-vertical) .MuiTab-root {
   max-width: 150px !important;
   min-width: 120px !important;
   width: 150px !important;
 }
 
-// General tab width control for all orientations
 .MuiTab-root {
   max-width: 150px !important;
   min-width: 120px !important;
@@ -322,10 +313,7 @@
   background-color: unset !important;
 }
 
-/* Mobile: allow wrapping to multiple rows so all tabs are visible on small screens.
-   This shows all tab levels without JS changes while preserving click behavior. */
 @media (max-width: 480px) {
-  /* Allow the tabs container to expand vertically and show multiple lines */
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-root,
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scroller,
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-scrollableX {
@@ -333,7 +321,6 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Allow the tab list to wrap into multiple rows */
   .rds-tabs:not(.MuiTabs-vertical) .MuiTabs-flexContainer {
     display: flex !important;
     gap: 6px;
@@ -342,7 +329,6 @@
     align-items: center;
   }
 
-  /* Make each tab size adapt to content and shrink to fit rows */
   .rds-tabs:not(.MuiTabs-vertical) .MuiTab-root {
     flex: 0 1 auto !important;
     width: auto !important;
@@ -353,14 +339,12 @@
     box-sizing: border-box !important;
   }
 
-  /* Allow labels to wrap inside a tab if extremely long, but prefer single-line */
   .rds-tabs:not(.MuiTabs-vertical) .MuiTab-root .rds-tabs__label {
     overflow: visible;
     text-overflow: unset;
     white-space: normal;
   }
 
-  /* Preserve accessible focus outlines when tabs wrap */
   .rds-tabs .MuiTab-root:focus-visible {
     outline: 2px solid var(--rds-color-primary, #1976d2) !important;
     outline-offset: 2px !important;

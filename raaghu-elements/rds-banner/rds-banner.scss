@@ -1,6 +1,3 @@
-// RDS Banner Component Styles
-// Banner notification component for important messages
-
 .rds-banner {
   display: flex;
   align-items: center;
@@ -49,7 +46,6 @@
     }
   }
   
-  // Severity variants
   &--info {
     background-color: var(--rds-info-light);
     border-color: var(--rds-info-main);
@@ -74,19 +70,16 @@
     color: var(--rds-alert-error-text);
   }
 
-  // Full width banner
   &--full-width {
     width: 100%;
     border-radius: 0;
   }
 
-  // Auto width banner
   &--auto-width {
     width: auto;
     border-radius: 0;
   }
 
-  // Style variants
   &--style1 {
     margin-left: var(--rds-spacing-md);
     margin-right: var(--rds-spacing-md);
@@ -123,7 +116,6 @@
     }
   }
 
-  // MUI Alert message override
   :global(.MuiAlert-message) {
     width: 100%;
     display: flex;
@@ -131,29 +123,26 @@
     justify-content: space-between;
   }
 
-  // MUI Alert action area normalization (scoped to RDS banner)
   :global(.MuiAlert-action) {
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
-  // Ensure consistent button look inside actions (for WithActions story and similar)
   :global(.MuiAlert-action .MuiButton-root) {
     height: 26px;
     border-radius: var(--rds-spacing-xs);
-    text-transform: none; // keep label casing consistent with design
+    text-transform: none;
   }
 
   :global(.MuiAlert-action .MuiButton-contained) {
-    box-shadow: none; // avoid unexpected shadow after story navigation
+    box-shadow: none;
   }
 
   :global(.MuiAlert-action .MuiButton-outlined) {
     box-shadow: none;
   }
 
-  // Banner content layout
   &__content-wrapper {
     display: flex;
     align-items: center;
@@ -171,13 +160,11 @@
     align-items: center;
   }
 
-  // Close button styling
   &__close-button {
     margin-top: 0;
     align-self: center;
   }
   
-  // Button specific styling
   &__link-button {
     margin-right: -9px;
   }
@@ -190,21 +177,18 @@
     height: 28px;
   }
 
-  // Heading styles
   &__heading {
     &--multiline {
       display: block;
     }
   }
 
-  // Action container
   &__action-container {
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
-  // Size variants
   &--small {
     padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
     .rds-banner__heading { font-size: 0.875rem; }
@@ -228,7 +212,6 @@
     .rds-banner__primary-button { height: 32px; }
   }
   
-  // Small screen responsive styles (≤768px)
   @media (max-width: 833px) {
     width: 100vw !important;
     max-width: 100vw !important;
@@ -241,7 +224,6 @@
     position: relative;
     box-sizing: border-box !important;
 
-    /* MUI overrides (root and message grouped for clarity) */
     :global(.MuiAlert-root) {
       width: 100vw !important;
       max-width: 100vw !important;
@@ -287,7 +269,6 @@
       z-index: 10;
     }
 
-    /* content */
     &__content-wrapper {
       display: flex;
       flex-direction: column;
@@ -300,7 +281,6 @@
 
     &__text-content { box-sizing: border-box; word-wrap: break-word; overflow: hidden; width: 100%; }
 
-    /* actions */
     &__actions {
       display: flex !important;
       width: 100% !important;
@@ -318,7 +298,6 @@
 
     &__heading, &__description { word-wrap: break-word; line-height: 1.4; overflow: hidden; }
 
-    // Ensure close button styling
     &__close-button {
       position: static !important;
       min-width: 24px !important;
@@ -327,7 +306,6 @@
       padding: 2px !important;
     }
 
-    // Action container adjustments
     &__action-container {
       position: absolute !important;
       top: 4px !important;
@@ -337,23 +315,22 @@
     }
   }
 
-  // Very small screens (≤480px) - tighter spacing only
 @media (min-width: 320px) and (max-width: 568px) {
     padding: 4px !important;
     
     &__content-wrapper { 
       gap: 6px; 
-      width: calc(100% - 28px); // Account for smaller close button
+      width: calc(100% - 28px);
       padding-right: 6px;
     }
     
     &__actions {
       gap: 2px;
-  position: relative; // make actions the positioning context
+  position: relative;
 
   .rds-banner__link-button {
     position: absolute !important;
-    left: -18px !important;           // adjust value if you need it closer/further
+    left: -18px !important;
   }
 
       .rds-banner__link-button,
@@ -366,7 +343,7 @@
     }
 
     :global(.MuiAlert-message) {
-      width: calc(100% - 6px) !important; // Adjust for smaller padding
+      width: calc(100% - 6px) !important;
       gap: 6px !important;
     }
 

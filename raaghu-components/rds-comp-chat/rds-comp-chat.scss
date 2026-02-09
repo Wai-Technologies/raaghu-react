@@ -1,4 +1,3 @@
-// Mobile header avatar and nav tab size adjustments
 @media (max-width: 767px) {
   .rds-comp-chat__window-header-title--mobile {
     .rds-avatar {
@@ -57,9 +56,6 @@
     margin-right: 0px;
   }
 }
-// RDS Chat Component Styles
-// This component follows BEM naming convention with rds-comp-chat prefix
-// Structure: .rds-comp-chat { __element { --modifier } }
 
 .rds-comp-chat {
   border: 1px solid #646464;
@@ -72,15 +68,13 @@
   max-height: 80vh;
   overflow: hidden;
   box-sizing: border-box;
-  position: relative; // Create positioning context for emoji popup
+  position: relative; 
 
-  // Mobile variant
   &--mobile {
-    position: relative; // Ensure positioning context for mobile
-    overflow: visible; // Allow emoji popup to be visible
+    position: relative; 
+    overflow: visible; 
   }
 
-  // Chat Screen (User List)
   &__screen {
     width: 100%;
     border-right: none;
@@ -123,7 +117,6 @@
     }
   }
 
-  // Chat Window (Messages)
   &__window {
     width: 100%;
     display: flex;
@@ -143,7 +136,7 @@
       
       &-title {
         flex: 1;
-        min-width: 0; // Allow shrinking if needed
+        min-width: 0; 
         margin-right: var(--rds-spacing-sm, 12px);
 
       @media (max-width: 480px) {
@@ -244,7 +237,6 @@
     }
   }
 
-  // Messages
   &__message {
     display: flex;
     margin-bottom: var(--rds-spacing-md, 16px);
@@ -328,7 +320,6 @@
     }
   }
 
-  // Camera Modal
   &__camera-modal {
     position: fixed;
     top: 0;
@@ -365,7 +356,6 @@
     border-radius: var(--rds-border-radius, 10px);
   }
 
-  // Emoji Picker
   &__emoji-popup {
     position: absolute;
     z-index: var(--rds-z-index-tooltip, 1000);
@@ -376,24 +366,21 @@
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    width: 360px; // Match emoji generator's natural width
+    width: 360px;
     max-height: 400px;
     
     .rds-emoji-generator {
-      // Override default size for chat context
       width: 100%;
       height: 400px;
       max-height: 400px;
-      overflow-x: hidden; // Prevent horizontal scrolling in chat context
+      overflow-x: hidden; 
       
-      // Ensure grid container only scrolls vertically
       .rds-emoji-generator__grid-container {
         overflow-x: hidden;
         overflow-y: auto;
       }
     }
     
-    // Responsive positioning
     @media (max-width: 768px) and (min-width: 415px) {
       position: absolute;
       top: auto;
@@ -408,9 +395,8 @@
         width: 100%;
         height: 350px;
         max-height: 350px;
-        overflow-x: hidden; // Prevent horizontal scrolling in chat context
+        overflow-x: hidden;
         
-        // Ensure grid container only scrolls vertically
         .rds-emoji-generator__grid-container {
           overflow-x: hidden;
           overflow-y: auto;
@@ -418,108 +404,105 @@
       }
     }
     
-    // Large mobile devices (414px and below) but above 320px
     @media (max-width: 414px) and (min-width: 321px) {
       position: absolute !important;
       top: auto !important;
       bottom: 55px !important;
       left: 8px !important;
       right: 8px !important;
-      width: auto !important; // Let left/right positioning control width
-      max-width: calc(100% - 16px) !important; // Stay well within chat container borders
+      width: auto !important;
+      max-width: calc(100% - 16px) !important; 
       margin: 0 !important;
       transform: none !important;
       
       .rds-emoji-generator {
         width: 100%;
-        height: 320px; // Reduced height to fit better
+        height: 320px; 
         max-height: 320px;
         overflow-x: hidden;
-        border-radius: 8px; // Smaller border radius
+        border-radius: 8px;
         
         .rds-emoji-generator__grid-container {
           overflow-x: hidden;
           overflow-y: auto;
-          grid-template-columns: repeat(6, 1fr); // Reduce to 6 columns for better fit
-          gap: 6px; // Smaller gap
-          padding-right: 4px; // Minimal padding for scrollbar
+          grid-template-columns: repeat(6, 1fr); 
+          gap: 6px; 
+          padding-right: 4px; 
         }
         
         .rds-emoji-generator__grid {
-          padding: 8px; // Reduced padding
+          padding: 8px; 
         }
         
         .rds-emoji-generator__emoji {
-          font-size: 18px; // Smaller emoji size
-          width: 30px; // Smaller emoji container
+          font-size: 18px; 
+          width: 30px; 
           height: 30px;
         }
         
         .rds-emoji-generator__search {
-          padding: 6px 10px; // Reduced search padding
+          padding: 6px 10px; 
         }
         
         .rds-emoji-generator__categories {
-          padding: 6px 10px; // Reduced category padding
+          padding: 6px 10px; 
         }
       }
     }
     
-    // Small mobile devices (320px and below)
     @media (max-width: 320px) {
       position: absolute !important;
       top: auto !important;
       bottom: 55px !important;
       left: 8px !important;
       right: 8px !important;
-      width: auto !important; // Let left/right positioning control width
-      max-width: calc(100% - 16px) !important; // Stay well within chat container borders
+      width: auto !important;
+      max-width: calc(100% - 16px) !important; 
       margin: 0 !important;
       transform: none !important;
       
       .rds-emoji-generator {
         width: 100%;
-        height: 300px; // Reduced height for small screens
+        height: 300px; 
         max-height: 300px;
         overflow-x: hidden;
-        border-radius: 8px; // Smaller border radius for small screens
+        border-radius: 8px; 
         
         .rds-emoji-generator__grid-container {
           overflow-x: hidden;
           overflow-y: auto;
-          grid-template-columns: repeat(6, 1fr); // Reduce to 6 columns for small screens
-          gap: 4px; // Even smaller gap
-          padding-right: 4px; // Minimal padding for scrollbar
+          grid-template-columns: repeat(6, 1fr); 
+          gap: 4px; 
+          padding-right: 4px; 
         }
         
         .rds-emoji-generator__grid {
-          padding: 6px; // Minimal padding
+          padding: 6px;
         }
         
         .rds-emoji-generator__emoji {
-          font-size: 16px; // Smaller emoji size
-          width: 28px; // Smaller emoji container
+          font-size: 16px; 
+          width: 28px; 
           height: 28px;
         }
         
         .rds-emoji-generator__search {
-          padding: 6px 8px; // Reduced search padding
+          padding: 6px 8px; 
         }
         
         .rds-emoji-generator__categories {
-          padding: 4px 8px; // Reduced category padding
+          padding: 4px 8px; 
         }
       }
     }
   }
 
-  // Input
   &__input-send {
     position: relative;
     width: 100%;
     max-width: 100%;
     display: block;
-    min-height: 44px; // ensure enough vertical space for icon centering
+    min-height: 44px; 
 
 
     input,
@@ -528,21 +511,19 @@
     .rds-input input {
       width: 100%;
       box-sizing: border-box;
-      padding-right: 56px; // room for the send icon
+      padding-right: 56px; 
       padding-left: 12px;
       height: 40px;
       line-height: 1.2;
       border-radius: 8px;
     }
 
-    // If RdsInput renders a wrapper element with its own styles, ensure it stretches
     .rds-input {
       display: block;
       background: transparent;
     }
   }
 
-  /* visually styled wrapper that looks like the input box */
   &__input-wrapper {
     position: relative;
     display: flex;
@@ -561,7 +542,6 @@
     border: 1px solid var(--rds-border-default, #555555) !important;
   }
 
-  /* make RdsInput and any native input inside stretch to fill wrapper and remove its own borders */
   &__rds-input,
   &__input-wrapper input,
   &__input-wrapper textarea,
@@ -583,7 +563,6 @@
     vertical-align: middle;
   }
 
-  /* Ensure MUI TextField wrapper also follows these rules */
   &__input-wrapper .MuiTextField-root {
     flex: 1;
     display: flex;
@@ -639,7 +618,6 @@
     }
   }
 
-  /* send icon inside the input wrapper (right) */
   &__send-icon {
     position: relative;
     flex-shrink: 0;
@@ -661,7 +639,6 @@
     }
   }
 
-  /* responsive sizing for send icon */
   @media (max-width: 767px) {
     &__send-icon { 
       width: 28px; 
@@ -690,24 +667,20 @@
     }
   }
 
-  // Footer center + input wrapper adjustments
   &__footer-center {
     flex: 1 1 auto;
     display: flex;
     align-items: center;
     min-width: 0;
     
-    /* Ensure proper initial layout calculation */
     .rds-comp-chat__input-send {
       contain: layout style;
     }
   }
 
-  // Left buttons
   &__footer-left {
     display: flex;
     align-items: center;
-    //gap: 10px;
     flex: 0 0 auto;
 
     .btn-icon,
@@ -750,7 +723,6 @@
     }
   }
 
-  // Small screens - responsive input sizing
   @media (max-width: 767px) {
     &__input-send input,
     &__input-send textarea,
@@ -777,10 +749,9 @@
     }
   }
 
-  // Dropdown Menu
   .dropdown-menu.show {
     transform: translate3d(0px, -180px, 0px);
-    max-width: 90vw; // Prevent overflow on small screens
+    max-width: 90vw; 
     
     @media (max-width: 480px) {
       transform: translate3d(0px, -150px, 0px);
@@ -788,13 +759,11 @@
     }
   }
 
-  // Icon Button Customization
   .btn-icon {
     min-width: 10px !important;
-    flex-shrink: 0; // Prevents buttons from shrinking
+    flex-shrink: 0; 
   }
 
-  // Nav tabs customization for consistent styling
   .nav-tabs {
     margin-top: 14px;
     border-bottom: 1px solid var(--rds-color-border-light, #E9E9E9);
@@ -822,22 +791,18 @@
   }
 
   .rds-comp-chat__window-header-options {
-    // ensure nav-link is clickable (pointer) when used as buttons
     .nav-link {
       cursor: pointer;
       user-select: none;
     }
-    // keep alignment
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
-  // Media grid for Media tab
   &__media-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    // gap: 12px;
     align-items: start;
     padding: var(--rds-spacing-sm, 8px) 0;
   }
@@ -883,18 +848,11 @@
 .rds-comp-chat__window-header-more {
   margin-top: 8px;
 }
-/* Hide the offscreen canvas used for capturing photos */
+
 .rds-comp-chat__canvas-hidden {
   display: none !important;
 }
 
-/* Alternatively, to scope any canvas inside the camera modal:
-.rds-comp-chat__camera-modal canvas {
-  display: none !important;
-}
-*/
-
-// Responsive Design
 @media (min-width: 768px) {
   .rds-comp-chat {
     flex-direction: row;
@@ -912,7 +870,7 @@
     &__window {
       width: 70%;
       flex: 1;
-      min-width: 0; // Prevents flex item from overflowing
+      min-width: 0; 
 
       &--full-width {
         width: 100%;
@@ -953,7 +911,7 @@
 
     &__window-main {
       flex: 1 !important;
-      min-height: calc(100vh - 140px); // Adjust based on header and footer heights
+      min-height: calc(100vh - 140px); 
     }
 
     &__message {
@@ -1008,12 +966,10 @@
 
     &__window-footer {
       padding: var(--rds-spacing-xs, 8px);
-      //gap: var(--rds-spacing-xs, 8px);
       margin-top: 29px;
     }
     
     &__footer-left {
-      //gap: var(--rds-spacing-xs, 8px);
       
       .rds-comp-chat__emoji-btn {
         width: 36px;
@@ -1064,7 +1020,6 @@
   }
 }
 
-// Emoji Picker Responsive Positioning
 @media (max-width: 768px) {
   .EmojiPickerReact {
     height: 370px !important;
@@ -1126,10 +1081,6 @@
 }
 
 [data-theme="dark"] {
-  .rds-comp-chat__message--other-user .rds-comp-chat__comment-content {
-    // Colors are now controlled via inline sx prop
-  }
-
   .rds-comp-chat__input-wrapper {
     background: #000 !important;
   }
@@ -1147,15 +1098,6 @@
   }
 }
 
-//.rds-comp-chat__screen-main .rds-comp-chat__user-item:hover, .rds-comp-chat__screen-main .chat-screen-main .user-item:hover, .chat-screen-main .rds-comp-chat__screen-main .user-item:hover {
-// .rds-avatar {
-//   &__name, &__designation {
-//     color: var(--rds-color-on-primary, #000) !important;
-//   }
-// }
-//}
-
-// Legacy class support (for backward compatibility during transition)
 .chat-container {
   @extend .rds-comp-chat;
 }

@@ -429,14 +429,12 @@ const advancedColumns = [
     label: 'Badge', 
     type: 'badge' as const,
     minWidth: 100,
-    // align: 'center' as const
   },
   { 
     id: 'status', 
     label: 'Status', 
     type: 'badge' as const,
     minWidth: 100,
-    // align: 'center' as const
   },
   { 
     id: 'actions', 
@@ -468,7 +466,7 @@ export const Default: Story = {
     rows: defaultTableData,
     columns: defaultColumns,
     selectable: false,
-    onRowAction: (action, rowId) => console.log('Action:', action, 'Row:', rowId),
+    onRowAction: (action, rowId) => {},
   },
 };
 

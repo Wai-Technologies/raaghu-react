@@ -61,10 +61,8 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
   const [showColorModeDropdown, setShowColorModeDropdown] = useState(false);
   const [selectedStyle, setSelectedStyle] = useState(style || StyleType.Type1);
   
-  // References to detect clicks outside dropdowns
   const colorModeDropdownRef = React.useRef<HTMLDivElement>(null);
   
-  // Handle clicks outside the dropdowns to close them
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (colorModeDropdownRef.current && !colorModeDropdownRef.current.contains(event.target as Node)) {
@@ -93,12 +91,10 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
     setSelectedTab(pickerType || "Grid");
   }, [pickerType]);
 
-  // Keep internal selectedStyle in sync with prop changes (Storybook controls)
   useEffect(() => {
     setSelectedStyle(style || StyleType.Type1);
   }, [style]);
 
-  // Keep color mode in sync with external control if changed
   useEffect(() => {
     if (colorMode) setSelectedColorMode(colorMode);
   }, [colorMode]);

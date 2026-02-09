@@ -614,7 +614,6 @@
   }
 }
 
-// Dark theme overrides for RDS Color Picker
 .dark-theme .rds-comp-color-picker,
 [data-theme="dark"] .rds-comp-color-picker {
   --rds-color-surface: #111214;
@@ -629,13 +628,11 @@
   color: var(--rds-color-on-surface);
 
   &__container {
-    position: relative; /* required for pseudo elements */
-    background: #000; /* pure black as in reference */
+    position: relative; 
+    background: #000; 
     border: 1px solid rgba(255,255,255,0.22);
     border-radius: 8px;
    box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-   /* allow dropdowns to escape the container when they are positioned absolutely
-     Use visible overflow so the dropdown isn't clipped in dark theme */
    overflow: visible;
 
     &::before {
@@ -649,17 +646,12 @@
   }
  
   &__dropdown-menu {
-  //  background: #000;
     border: 1px solid rgba(255,255,255,0.22);
     color: var(--rds-color-on-surface);
-    /* Ensure the dropdown floats above other UI and is fully visible */
     z-index: 9999;
     /* use a slight elevation so shadows render over adjacent elements */
   }
 
-  /* If the button is near the edge, allow the menu to render outside parent by
-     positioning it fixed instead of absolute when needed. Consumers can toggle
-     a modifier class `--fixed` on the menu when computing placement in JS. */
   &__dropdown-menu--fixed {
     position: fixed;
     top: auto;
@@ -667,13 +659,11 @@
     transform: none !important;
   }
 
-  /* swatch tiles: subtle light outline so they stand out on black */
   &__swatch-tile,
   &__swatch {
     border: 1px solid rgba(255,255,255,0.06);
   }
 
-  /* focus/selected ring for accessibility on dark */
   &__swatch-tile:focus-visible,
   &__color-cell--selected {
     outline: 2px solid rgba(255,255,255,0.12);

@@ -26,7 +26,6 @@ const RdsCheckbox = ({
   onChange,
   ...props
 }:RdsCheckboxProps) => {
-  // Determine initial state based on status prop or fallback to legacy props
   const getInitialCheckedState = () => {
     if (status !== undefined) {
       return status === 'checked';
@@ -41,26 +40,21 @@ const RdsCheckbox = ({
     return false;
   };
 
-  // Internal checked state for uncontrolled usage
   const [checked, setChecked] = React.useState(getInitialCheckedState());
 
-  // Sync with controlled props (status takes precedence over legacy props)
   React.useEffect(() => {
     if (status !== undefined) {
       setChecked(status === 'checked');
     }
   }, [status]);
 
-  // Determine current indeterminate state
   const currentIndeterminate = getInitialIndeterminateState();
 
-  // Handle change
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>, value: boolean) => {
     setChecked(value);
     if (onChange) onChange(event, value);
   };
 
-  // Generate CSS classes based on props
   const getCheckboxClasses = () => {
     const classes = ['rds-checkbox'];
     if (style) classes.push(`rds-checkbox__${style}`);

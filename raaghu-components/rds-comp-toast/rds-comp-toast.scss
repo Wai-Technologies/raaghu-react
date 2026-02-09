@@ -1,6 +1,4 @@
-// RDS Toast Component Styles
 .rds-comp-toast {
-  // Base toast styles
   background: var(--rds-color-surface, #ffffff);
   border: 1px solid var(--rds-color-border, #e0e0e0);
   border-radius: var(--rds-border-radius, 8px);
@@ -9,7 +7,6 @@
   max-width: 420px;
   overflow: hidden;
   
-  // State visibility modifiers
   &--visible {
     display: block;
     opacity: 1;
@@ -23,7 +20,6 @@
     transform: translateY(-20px);
   }
   
-  // State color modifiers
   &--info {
     border-left: 4px solid var(--rds-color-info, #7D7D7D);
   }
@@ -36,34 +32,27 @@
     border-left: 4px solid var(--rds-color-error, #BD0D1D);
   }
   
-  // Layout modifiers
   &--text {
-    // Text layout specific styles - none needed for now
     position: relative;
   }
   
   &--download {
-    // Download layout specific styles
     min-height: 120px;
   }
   
   &--chat {
-    // Chat layout specific styles
     min-height: 150px;
   }
   
   &--request {
-    // Request layout specific styles
     min-height: 100px;
   }
   
-  // Container positioning
   &__container {
     position: fixed;
     z-index: 1050;
     pointer-events: none;
     
-    // Position modifiers
     &--top-left {
       top: 1rem;
       left: 1rem;
@@ -115,7 +104,6 @@
     }
   }
   
-  // Header section
   &__header {
     pointer-events: all;
   }
@@ -127,7 +115,6 @@
     gap: var(--rds-spacing-md, 0.4rem);
   }
 
-  // Override for chat layout - remove gap and adjust padding
   &--chat &__header-content {
     padding: var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) var(--rds-spacing-lg, 1rem) !important;
     gap: 0 !important;
@@ -157,20 +144,15 @@
       box-sizing: border-box;
     }
 
-    // State-based border color for the circle icon
-    // Default (basic)
     .rds-comp-toast--basic & {
       --rds-toast-circle-color: #888;
     }
-    // Info
     .rds-comp-toast--info & {
       --rds-toast-circle-color: var(--rds-color-info, #7D7D7D);
     }
-    // Success
     .rds-comp-toast--success & {
       --rds-toast-circle-color: var(--rds-color-success, #3C98FF);
     }
-    // Error
     .rds-comp-toast--error & {
       --rds-toast-circle-color: var(--rds-color-error, #BD0D1D);
     }
@@ -199,7 +181,6 @@
       }
     }
 
-    // State-based color for the plus icon
     .rds-comp-toast--basic & {
       --rds-toast-plus-color: #888;
     }
@@ -266,7 +247,6 @@
     }
   }
   
-  // Body section
   &__body {
     padding: 0 var(--rds-spacing-lg, 1rem) var(--rds-spacing-md, 0.5rem) 2.2rem;
     color: var(--rds-color-on-surface-variant, #666666);
@@ -291,7 +271,6 @@
     font-size: var(--rds-font-size-sm, 0.875rem);
   }
   
-  // Footer section
   &__footer {
     padding: 0 var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem) var(--rds-spacing-lg, 1rem);
     
@@ -299,8 +278,7 @@
       padding-top: var(--rds-spacing-md, 0.75rem);
     }
   }
-  
-  // Progress bar
+
   &__progress {
     display: flex;
     align-items: center;
@@ -336,7 +314,6 @@
     padding: 0 0 0 1.3rem;
   }
   
-  // Input group
   &__input-group {
     margin-bottom: var(--rds-spacing-md, 0.75rem);
   }
@@ -362,8 +339,7 @@
       color: var(--rds-color-on-surface-variant, #666666);
     }
   }
-  
-  // Actions
+
   &__actions {
     display: flex;
     gap: var(--rds-spacing-xs, 8px);
@@ -378,15 +354,12 @@
     }
   }
 
-  // Left-align actions for chat layout only
   &--chat &__actions {
     justify-content: flex-start;
     margin-top: var(--rds-spacing-md, 0.5rem);
   }
 
-  // Chat layout specific adjustments to remove leading icon space
   &--chat {
-    // Hide leading icon container for chat layout to remove spacing
     & .rds-comp-toast__leading-icon {
       display: none !important;
       width: 0 !important;
@@ -394,18 +367,15 @@
       max-width: 0 !important;
     }
 
-    // Adjust header content padding to align with input/footer
     & .rds-comp-toast__header-content {
       padding-left: var(--rds-spacing-lg, 1rem) !important;
       gap: 0 !important;
     }
 
-    // Align body text with header
     & .rds-comp-toast__body {
       padding-left: var(--rds-spacing-lg, 1rem) !important;
     }
 
-    // Ensure title takes full width and starts from left
     & .rds-comp-toast__title {
       margin-left: 0 !important;
       padding-left: 0 !important;
@@ -450,14 +420,13 @@
   }
 }
 
-// Responsive styles for mobile devices
+
 @media (max-width: 480px) {
   .rds-comp-toast {
     min-width: 0;
     max-width: 95vw;
     box-sizing: border-box;
 
-    // Default container behavior on mobile: allow per-position rules to win.
     &__container {
       width: auto;
       min-width: 0;
@@ -467,7 +436,6 @@
       pointer-events: none;
     }
 
-    // Centered positions should be full-width (with centered transform)
     &__container--top-center,
     &__container--middle-center,
     &__container--bottom-center {
@@ -480,7 +448,6 @@
       box-sizing: border-box;
     }
 
-    // Left positions keep a small inset from the left edge
     &__container--top-left,
     &__container--middle-left,
     &__container--bottom-left {
@@ -489,7 +456,6 @@
       transform: none;
     }
 
-    // Right positions keep a small inset from the right edge
     &__container--top-right,
     &__container--middle-right,
     &__container--bottom-right {
@@ -498,19 +464,17 @@
       transform: none;
     }
 
-    // Ensure left/right positioned toasts don't overflow the viewport and have consistent inset
     &__container--top-left .rds-comp-toast,
     &__container--middle-left .rds-comp-toast,
     &__container--bottom-left .rds-comp-toast,
     &__container--top-right .rds-comp-toast,
     &__container--middle-right .rds-comp-toast,
     &__container--bottom-right .rds-comp-toast {
-      max-width: calc(100vw - 2rem); /* viewport minus left+right insets */
+      max-width: calc(100vw - 2rem); 
       width: auto;
       box-sizing: border-box;
     }
 
-    // For mobile, allow top/bottom offsets to work per-class
     &__container--top-left,
     &__container--top-center,
     &__container--top-right {
@@ -527,7 +491,6 @@
   }
 }
 
-// Dark theme support
 .theme-dark .rds-comp-toast {
   background: var(--rds-color-surface-dark, #121212);
   color: var(--rds-color-on-surface-dark, #ffffff);
@@ -555,7 +518,6 @@
   }
 
 
-  /* Ensure all button text is readable/white in dark theme without changing behaviors */
   &__close-btn {
     color: var(--rds-color-on-surface-dark, #ffffff);
   }

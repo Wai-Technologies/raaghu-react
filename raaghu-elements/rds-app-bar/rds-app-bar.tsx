@@ -73,12 +73,7 @@ const RdsAppBar = ({
     large: 80,
   };
   const [overflowOpen, setOverflowOpen] = React.useState(false);
-  
-  // Check if screen is small (320px or 420px) to disable overflow drawer
   const [isSmallScreen, setIsSmallScreen] = React.useState(false);
-  // Local active index for bottom navigation when the component isn't
-  // controlled via `tabs` + `onTabChange` (used by some stories like
-  // 'WithNotificationBadge' which provide Buttons instead of `tabs`).
   const [localBottomActive, setLocalBottomActive] = React.useState(0);
   
   React.useEffect(() => {
@@ -101,7 +96,7 @@ const RdsAppBar = ({
         : props.color === 'transparent'
           ? ' rds-header--transparent'
           : '';
-  // normalize variant style to a safe class name (lowercase, remove spaces)
+ 
   const variantClass = variantStyle ? ` rds-header--variant-${String(variantStyle).toLowerCase().replace(/[^a-z0-9]+/g, '')}` : '';
   return (
     <MuiAppBar
@@ -127,11 +122,9 @@ const RdsAppBar = ({
               <DehazeIcon />
             </IconButton>
           )}
-          {/*  Show logo only if showLogo is true */}
+         
           {showLogo && logo && <span className="rds-header__logo">{logo}</span>}
-          {/*  Optional center content (e.g. buttons placed after the logo) */}
           {centerContent && <span className="rds-header__center-content">{centerContent}</span>}
-          {/*  Inline tabs after logo / center content */}
           {Array.isArray(tabs) && typeof tabValue === 'number' && typeof onTabChange === 'function' && (
             <Tabs
               className="rds-header__tabs-inline"
@@ -171,7 +164,6 @@ const RdsAppBar = ({
               )}
             </div>
           )}
-          {/* Render rightActions after search bar */}
           {rightActions && <span className="rds-header__right-actions">{rightActions}</span>}
 
           {userName && userEmail ? (
@@ -189,8 +181,6 @@ const RdsAppBar = ({
             actions && <span className="rds-header__actions">{actions}</span>
           )}
           {children}
-          {/* Overflow button for small screens - opens a drawer with overflowContent */}
-          {/* Disable overflow drawer for screens 320px and 420px */}
           {overflowContent && !isSmallScreen ? (
             <>
               <IconButton
@@ -217,14 +207,10 @@ const RdsAppBar = ({
             </>
           ) : null}
           
-          {/* Bottom navigation for small screens (320px and 420px) - only for specific variants */}
           {isSmallScreen && (
-            // Special handling for WithMenuButton variant which needs both tabs AND badge/button
             (variantStyle && variantStyle.toLowerCase() === 'withmenubutton') ? (
               <Box className="rds-bottom-navigation">
-                {/* Single row with all elements */}
                 <Box className="rds-bottom-navigation-single-row">
-                  {/* Tabs */}
                   {Array.isArray(tabs) && tabs.map((t, i) => {
                     const label = typeof t === 'string' ? t : (t as any).label || String(i);
                     const isActive = tabValue === i;
@@ -243,7 +229,6 @@ const RdsAppBar = ({
                     );
                   })}
                   
-                  {/* Badge and button */}
                   <span className="rds-appbar-badge">28 Days Left</span>
                   <Button 
                     variant="contained" 
@@ -262,7 +247,6 @@ const RdsAppBar = ({
                 </Box>
               </Box>
             ) : (
-              // Regular bottom navigation logic for other variants
               (Array.isArray(tabs) && typeof tabValue === 'number' && typeof onTabChange === 'function') ? (
                 <Box
                   className="rds-bottom-navigation"
@@ -302,8 +286,6 @@ const RdsAppBar = ({
                 </Box>
               ) : (
                 overflowContent ? (
-                  // Try to clone children of overflowContent and make them
-                  // interactive by adding onClick that updates localBottomActive.
                   <Box
                     className="rds-bottom-navigation"
                     sx={{
@@ -338,7 +320,7 @@ const RdsAppBar = ({
                           }
                           return <span key={i}>{child}</span>;
                         })
-                      : // Fallback: render overflowContent as-is when it isn't a container with children
+                      :
                         overflowContent}
                   </Box>
                 ) : null

@@ -1,6 +1,4 @@
-// RDS Toolbar Component Styles
 .rds-comp-toolbar {
-  // Base component styles
   display: flex;
   align-items: center;
   padding: var(--rds-spacing-md, 8px) var(--rds-spacing-lg, 12px);
@@ -13,7 +11,6 @@
   max-width: 100%;
   min-width: 0;
   
-  // Layout variants
   &--primary {
     display: flex;
     flex-direction: row;
@@ -34,7 +31,6 @@
     }
   }
 
-  // Type variants
   &--inline-editor {
     padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-md, 8px);
     border-radius: var(--rds-border-radius-sm, 4px);
@@ -52,7 +48,6 @@
     padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-md, 10px);
   }
 
-  // State modifiers
   &--off {
     opacity: 0.7;
   }
@@ -76,7 +71,6 @@
     opacity: 1;
   }
 
-  // Element styles
   &__row {
     display: flex;
     align-items: center;
@@ -86,14 +80,13 @@
     height: 40px;
     min-width: 0;
     overflow-x: auto;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     
     &::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera */
+      display: none;
     }
 
-    // Secondary row styling (for second row in multi-row toolbars)
     &--secondary {
       background: var(--rds-color-surface-variant, #f5f5f5);
       border-radius: var(--rds-border-radius-sm, 4px);
@@ -136,7 +129,6 @@
     color: inherit;
     font-family: var(--rds-font-family-base, inherit);
     
-    // Ensure emoji and special characters display properly
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -174,12 +166,10 @@
     transition: all var(--rds-transition-base, 0.2s) ease;
     position: relative;
 
-    // Ensure icons and text display properly
     svg, .rds-comp-toolbar__text-icon, .rds-comp-toolbar__highlight-icon {
       pointer-events: none;
     }
 
-    // Interactive states
     &:hover {
       background: var(--rds-color-surface-container, #f8f9fa);
       color: var(--rds-color-on-surface, #202124);
@@ -196,7 +186,6 @@
       pointer-events: none;
     }
 
-    // Muted variant for less-prominent actions
     &--muted {
       background: transparent;
       color: var(--rds-color-on-surface-variant, #8a8f94);
@@ -221,8 +210,8 @@
    z-index: var(--rds-dropdown-z, 2147483647);
    min-width: 160px;
    max-width: calc(100vw - 24px);
-   max-height: 61vh; /* keep dropdown usable on small viewports */
-   overflow: auto; /* scroll inside dropdown when content is large */
+   max-height: 61vh;
+   overflow: auto;
    background: var(--rds-color-surface, #ffffff);
    border: 1px solid var(--rds-color-outline, #e1e5e9);
    border-radius: var(--rds-border-radius-sm, 4px);
@@ -285,7 +274,6 @@
     }
   }
 
-  // Text icon variants
   &__text-icon {
     font-weight: 600;
     font-size: var(--rds-font-size-body, 14px);
@@ -303,8 +291,6 @@
   }
 }
 
-/* Dropdown positioning responsive tweaks
-   Order: broader (<=480px) first, then narrower (<=320px) overrides */
 @media (max-width:480px) {
   .rds-comp-toolbar__dropdown {
     left: 45px !important;
@@ -316,12 +302,10 @@
 @media (max-width:320px) {
   .rds-comp-toolbar__dropdown {
     left: 12.8px !important;
-    /* Allow taller dropdown on very small screens */
     max-height: 76vh !important;
   }
 }
 
-// Responsive design
 @media (max-width: 768px) {
   .rds-comp-toolbar {
     padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 6px);
@@ -330,12 +314,10 @@
     overflow-y: hidden;
     max-width: 100%;
     
-    // Ensure proper wrapping on mobile
     &--primary {
       flex-wrap: nowrap;
       overflow-x: auto;
       
-      // Show scrollbar for primary layout on mobile
       scrollbar-width: thin;
       scrollbar-color: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3)) transparent;
       
@@ -363,7 +345,6 @@
       padding: var(--rds-spacing-xs, 4px);
       gap: var(--rds-spacing-xs, 2px);
       
-      // Show scrollbar for secondary layout on mobile (same as primary)
       scrollbar-width: thin;
       scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
       
@@ -394,19 +375,16 @@
       overflow-x: auto;
       min-width: 0;
       
-      // Make row width responsive for primary layout
       .rds-comp-toolbar--primary & {
         width: auto;
         min-width: fit-content;
       }
       
-      // Make row width responsive for secondary layout rows too
       .rds-comp-toolbar--secondary & {
         width: auto;
         min-width: fit-content;
       }
       
-      // Ensure sections don't shrink too much
       &--secondary {
         padding: var(--rds-spacing-xs, 2px);
       }
@@ -444,7 +422,6 @@
   }
 }
 
-// Extra small screens (mobile portrait)
 @media (max-width: 480px) {
   .rds-comp-toolbar {
     padding: var(--rds-spacing-xs, 3px) var(--rds-spacing-xs, 4px);
@@ -479,7 +456,6 @@
   }
 }
 
-/* Dark theme overrides: make toolbar and dropdowns black with white text/icons */
 .rds-theme--dark .rds-comp-toolbar,
 body.theme-dark .rds-comp-toolbar,
 body[data-theme="dark"] .rds-comp-toolbar,
@@ -510,7 +486,6 @@ body[data-theme="dark"] .rds-comp-toolbar .rds-comp-toolbar__button:hover,
   color: var(--rds-color-on-surface-dark, #fff) !important;
 }
 
-// Also target dropdowns rendered in a portal (not nested under .rds-comp-toolbar)
 .rds-theme--dark .rds-comp-toolbar__dropdown,
 body.theme-dark .rds-comp-toolbar__dropdown,
 body[data-theme="dark"] .rds-comp-toolbar__dropdown,
@@ -519,7 +494,6 @@ body[data-theme="dark"] .rds-comp-toolbar__dropdown,
   color: var(--rds-color-on-surface-dark, #fff) !important;
 }
 
-/* Ensure items inside portal dropdowns are white and readable */
  .rds-theme--dark .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item,
  body.theme-dark .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item,
  body[data-theme="dark"] .rds-comp-toolbar__dropdown .rds-comp-toolbar__dropdown-item,

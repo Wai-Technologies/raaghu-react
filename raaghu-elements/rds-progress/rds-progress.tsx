@@ -126,16 +126,13 @@ const RdsProgress = ({
         <Box sx={{ display: 'flex', alignItems: 'center', ...sx }}>
           <Box sx={{ display: 'flex', gap: isDash ? 0.5 : 0, alignItems: 'center' }}>
             {Array.from({ length: count }, (_, index) => {
-              // Calculate border radius for dash and block styles
               const getBorderRadius = () => {
                 if (isDash) {
-                  // For dash style: all dashes should have rounded corners
                   return 'var(--rds-border-radius-sm, 4px)';
                 } else {
-                  // For block style: round outer corners only
-                  if (index === 0) return '4px 0 0 4px'; // First block: left corners rounded
-                  if (index === count - 1) return '0 4px 4px 0'; // Last block: right corners rounded
-                  return '0'; // Middle blocks: no rounding
+                  if (index === 0) return '4px 0 0 4px';
+                  if (index === count - 1) return '0 4px 4px 0';
+                  return '0';
                 }
               };
 

@@ -1,4 +1,3 @@
-// RDS AI Pundit Chat Component
 import React, { useEffect, useState } from 'react';
 import './rds-comp-ai-typing-section.scss';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
@@ -81,8 +80,8 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
     const handleFileSelect = (file: File) => {
         const reader = new FileReader();
         reader.onloadend = () => {
-            setEnhancedImage(reader.result as string); // Set the preview image
-            setInputText(""); // Clear the input text
+            setEnhancedImage(reader.result as string); 
+            setInputText(""); 
         };
         reader.readAsDataURL(file);
     };

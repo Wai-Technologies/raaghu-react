@@ -31,7 +31,6 @@ const RdsDivider= ({
   styleVariant = 'subtle',
   ...props
 }:RdsDividerProps) => {
-  // Icon mapping: add more icons as needed
   const iconMap: Record<string, React.ElementType> = {
     InfoOutlined: InfoOutlinedIcon,
     Add: AddIcon,
@@ -42,7 +41,6 @@ const RdsDivider= ({
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
 
-  // Style-based color logic
   const getStyleColors = () => {
     switch (styleVariant) {
       case 'subtle':
@@ -82,7 +80,6 @@ const RdsDivider= ({
   const iconBorderColor = styleColors.iconBorderColor;
   const iconColor = styleColors.iconColor;
 
-  // Size-based styling
   const getSizeStyles = () => {
     switch (size) {
       case 'small':
@@ -140,10 +137,6 @@ const RdsDivider= ({
   );
 
   if (layout === 'vertical') {
-    // Render a left / vertical-divider / right layout so the component itself
-    // presents the same visual as the `Vertical` story. This embeds the
-    // surrounding context (Left / Right) into the component when
-    // `layout === 'vertical'` per user's request (Option B).
     return (
       <Box sx={{ display: 'flex', alignItems: 'center', height: 120 }}>
         <Typography variant="body2" sx={{ mr: 1 }}>Left</Typography>

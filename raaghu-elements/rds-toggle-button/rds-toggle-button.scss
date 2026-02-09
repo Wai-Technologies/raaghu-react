@@ -18,12 +18,12 @@
     .rds-toggle-button__custom-group {
       display: flex;
       flex-direction: inherit;
-      width: 100%; // Ensure full width for vertical orientation
+      width: 100%;
     }
   
     .rds-toggle-button__button-wrapper {
       display: inline-flex;
-      width: 100%; // Full width for vertical buttons
+      width: 100%;
       
       &--first .rds-toggle-button__button {
         border-top-right-radius: 0;
@@ -40,7 +40,7 @@
       }
       
       &--single .rds-toggle-button__button {
-        border-radius: var(--rds-border-radius-sm); // Keep default border radius
+        border-radius: var(--rds-border-radius-sm);
       }
 
       .rds-toggle-button__button {
@@ -121,7 +121,7 @@
 
 .rds-toggle-button__group {
   display: flex;
-  flex-wrap: nowrap; // default (desktop)
+  flex-wrap: nowrap;
   max-width: 100%;
 }
 
@@ -151,7 +151,7 @@
 
 .rds-toggle-button--spaced .rds-toggle-button__custom-group {
   display: flex;
-  flex-wrap: nowrap; // default
+  flex-wrap: nowrap;
   max-width: 100%;
 }
 
@@ -169,7 +169,7 @@
   .rds-toggle-button__group .MuiToggleButton-root,
   .rds-toggle-button__button { 
     min-width:0; 
-    box-sizing:border-box; // keep structural adjustments only
+    box-sizing:border-box;
   }
 
   .rds-toggle-button--small .rds-toggle-button__button { 
@@ -193,7 +193,7 @@
 
   .rds-toggle-button--spaced:not(.rds-toggle-button--vertical) .rds-toggle-button__button-wrapper { 
     width:auto; 
-    flex:1 1 50%; // two per row pattern for readability
+    flex:1 1 50%;
     min-width:50%;
     max-width:50%;
   }
@@ -202,9 +202,10 @@
     width:100%;
     max-width:100%;
     min-width:0; 
-    padding:6px 8px; // restore a bit of horizontal spacing to prevent overlap
+    padding:6px 8px;
     box-sizing:border-box;
   }
+
   .rds-toggle-button--spaced .rds-toggle-button__custom-group { min-width:0; flex-wrap:wrap; }
 
   .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical):not(.rds-toggle-button--spaced) .rds-toggle-button__group,
@@ -251,16 +252,16 @@
   }
 }
 
-  @media (max-width: 600px) {
+@media (max-width: 600px) {
     .rds-toggle-button--wrap-mobile .rds-toggle-button__group,
     .rds-toggle-button--wrap-mobile.rds-toggle-button--spaced .rds-toggle-button__custom-group {
       flex-wrap: wrap;
     }
     .rds-toggle-button--wrap-mobile .MuiToggleButton-root,
     .rds-toggle-button--wrap-mobile .rds-toggle-button__button {
-      flex: 1 1 50%; // two per row
+      flex: 1 1 50%;
     }
-   
+    
     .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(1),
     .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(1) .rds-toggle-button__button {
       border-top-left-radius: var(--rds-border-radius-sm, 4px);

@@ -1,6 +1,3 @@
-// RDS Timeline Component Styles
-// Timeline display component
-
 .rds-timeline {
   display: block;
   position: relative;
@@ -8,7 +5,6 @@
   // Focus and disabled states are handled by Material-UI
 }
 
-// Dark theme support for timeline
 [data-theme="dark"],
 .dark-theme {
   .MuiTimeline-root {
@@ -16,7 +12,6 @@
       color: var(--rds-text-secondary);
     }
     
-    // Timeline description text styling for dark theme
     .MuiTimelineContent-root {
       div {
         color: var(--rds-text-secondary) !important;
@@ -25,7 +20,6 @@
   }
 }
 
-// Light theme (default) description color
 .MuiTimeline-root {
   .MuiTimelineContent-root {
     div {

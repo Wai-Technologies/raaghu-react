@@ -56,7 +56,6 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     const statewiseColor = props.state === ToastState.Info ? "dark" : props.state === ToastState.Success ? "primary" : props.state === ToastState.Error ? "danger" : "light";
     const borderColor = `rds-comp-toast--border-${statewiseColor}`;
 
-    // Helper functions to convert enum values to CSS class names
     const getStateClass = (state: ToastState): string => {
         switch (state) {
             case ToastState.Info: return 'info';
@@ -179,7 +178,6 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             </div>
                         )}
 
-                        {/* Chat Layout Footer */}
                         {props.layout === ToastLayout.Chat && (
                             <div className="rds-comp-toast__footer rds-comp-toast__footer--chat">
                                 <div className="rds-comp-toast__input-group">
@@ -195,7 +193,6 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             </div>
                         )}
 
-                        {/* Request Layout Footer */}
                         {props.layout === ToastLayout.Request && (
                             <div className="rds-comp-toast__footer rds-comp-toast__footer--request">
                                 <div className="rds-comp-toast__actions">
@@ -231,7 +228,6 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             )}
                         </div>
 
-                        {/* Download Layout Footer - Simple */}
                         {props.layout === ToastLayout.Download && (
                             <div className="rds-comp-toast__footer rds-comp-toast__footer--download">
                                 <div className="rds-comp-toast__progress">
@@ -253,7 +249,6 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             </div>
                         )}
 
-                        {/* Chat Layout Footer - Simple */}
                         {props.layout === ToastLayout.Chat && (
                             <div className="rds-comp-toast__footer rds-comp-toast__footer--chat">
                                 <div className="rds-comp-toast__input-group">
@@ -270,7 +265,6 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                             </div>
                         )}
 
-                        {/* Request Layout Footer - Simple */}
                         {props.layout === ToastLayout.Request && (
                             <div className="rds-comp-toast__footer rds-comp-toast__footer--request">
                                 <div className="rds-comp-toast__actions">

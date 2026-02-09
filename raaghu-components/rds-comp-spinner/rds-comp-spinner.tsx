@@ -81,7 +81,6 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
         }
     };
     const getLayoutClass = () => {
-        // Always use the layout prop to determine the layout, regardless of showLabel
         switch (layout) {
             case SpinnerLayout.LabelOnBottom:
                 return "spinner-container--label-bottom";

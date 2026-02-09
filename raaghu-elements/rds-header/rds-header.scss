@@ -17,7 +17,6 @@
 .rds-profile-menu__button.MuiIconButton-root:hover {
   background-color: transparent !important;
 }
-// ProfileMenu BEM styles
 .rds-profile-menu__button {
   margin-left: 4px;
   padding-left: 0.5rem;
@@ -59,7 +58,6 @@
   display: flex;
   align-items: center;
   padding: var(--rds-spacing-xs, 5px) var(--rds-spacing-sm, 10px) var(--rds-spacing-sm, 8px) var(--rds-spacing-xs, 8px);
-  //background: var(--rds-color-profile-header-bg, #ede7f6);
   margin-bottom: var(--rds-spacing-xs, 8px);
 }
 .rds-profile-menu__avatar-lg {
@@ -88,8 +86,7 @@
 .rds-profile-menu__item--last {
   border-radius: 0 0 8px 8px !important;
 }
-// RDS Header Component Styles
-// Transparent modifier
+
 .rds-header--transparent {
   background: transparent !important;
   box-shadow: none !important;
@@ -266,7 +263,6 @@
     min-height: 40px;
   }
 
-  // State modifiers
   &--sticky {
     position: sticky;
     top: 0;
@@ -275,7 +271,6 @@
     box-shadow: var(--rds-elevation-2, 0 2px 8px 0 rgba(60,60,60,0.03));
   }
 
-  // Search wrapper for input and clear button
   &__search-wrapper {
     position: relative;
     display: flex;
@@ -291,7 +286,6 @@
     z-index: 1;
   }
 
-  // Only show border-bottom if no tabs are present
   &__tabs {
     ~ .rds-header__sub-header {
       border-top: none;

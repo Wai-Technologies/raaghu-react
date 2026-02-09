@@ -19,7 +19,6 @@ export const formatDate = (date?: Date) => {
   });
 };
 
-// Style1 Component
 const Style1 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
@@ -60,7 +59,6 @@ const Style1 = ({ item }: { item: Item }) => {
   );
 };
 
-// Style2 Component
 const Style2 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
@@ -90,7 +88,6 @@ const Style2 = ({ item }: { item: Item }) => {
   );
 };
 
-// Style3 Component
 const Style3 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
@@ -102,7 +99,6 @@ const Style3 = ({ item }: { item: Item }) => {
   
   return (
     <Card sx={{ p: 3, height: '100%', '& .rds-avatar__name': { fontWeight: 'bold', fontSize: '1.25rem'  } }}>
-      {/* User info with avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
         <RdsAvatar
           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
@@ -113,10 +109,8 @@ const Style3 = ({ item }: { item: Item }) => {
         />
       </Box>
 
-      {/* Review content */}
       <Typography variant="body1">{item.description}</Typography>
 
-      {/* Rating */}
       <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
         <RdsRating
           value={rating}
@@ -130,7 +124,6 @@ const Style3 = ({ item }: { item: Item }) => {
   );
 };
 
-// Style4 Component
 const Style4 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
@@ -142,7 +135,6 @@ const Style4 = ({ item }: { item: Item }) => {
   
   return (
     <Card sx={{ p: 3, height: '100%' }}>
-      {/* User info without avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box>
           <Typography variant="h6" fontWeight="bold">
@@ -154,10 +146,8 @@ const Style4 = ({ item }: { item: Item }) => {
         </Box>
       </Box>
 
-      {/* Review content */}
       <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
 
-      {/* Rating */}
       <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
         <RdsRating
           value={rating}
@@ -171,7 +161,6 @@ const Style4 = ({ item }: { item: Item }) => {
   );
 };
 
-// Style5 Component
 const Style5 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
@@ -183,7 +172,6 @@ const Style5 = ({ item }: { item: Item }) => {
   
   return (
     <Card sx={{ p: 3, height: '100%' }}>
-      {/* User info with avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <RdsAvatar
            src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
@@ -202,7 +190,6 @@ const Style5 = ({ item }: { item: Item }) => {
         </Box>
       </Box>
       
-      {/* Rating */}
       <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
         <RdsRating
           value={rating}
@@ -213,13 +200,11 @@ const Style5 = ({ item }: { item: Item }) => {
         />
       </Box>
       
-      {/* Review content */}
       <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
     </Card>
   );
 };
 
-// Style6 Component
 const Style6 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
@@ -231,7 +216,6 @@ const Style6 = ({ item }: { item: Item }) => {
   
   return (
     <Card sx={{ p: 3, height: '100%' }}>
-      {/* User info without avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box>
           <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>
@@ -243,7 +227,6 @@ const Style6 = ({ item }: { item: Item }) => {
         </Box>
       </Box>
       
-      {/* Rating */}
       <Box sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
         <RdsRating
           value={rating}
@@ -254,13 +237,11 @@ const Style6 = ({ item }: { item: Item }) => {
         />
       </Box>
       
-      {/* Review content */}
       <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
     </Card>
   );
 };
 
-// Style7 Component
 const Style7 = ({ item }: { item: Item }) => {
   const [likes, setLikes] = useState(item.likes || 35);
   const [dislikes, setDislikes] = useState(item.dislikes || 10);
@@ -284,7 +265,6 @@ const Style7 = ({ item }: { item: Item }) => {
   
   return (
     <Card sx={{ p: 3, height: '100%' }} className="rating-text">
-      {/* Header: avatar, name/date, and rating */}
       <Box
         sx={{
           display: 'flex',
@@ -323,7 +303,6 @@ const Style7 = ({ item }: { item: Item }) => {
             </Typography>
           </Box>
         </Box>
-        {/* Rating - moves below on xs */}
         <Box
           className="rating-wrapper"
           sx={{
@@ -344,10 +323,8 @@ const Style7 = ({ item }: { item: Item }) => {
         </Box>
       </Box>
       
-      {/* Description */}
       <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
       
-      {/* Like/Dislike Actions */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', my: 3 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
@@ -388,7 +365,6 @@ const Style7 = ({ item }: { item: Item }) => {
   );
 };
 
-// Style8 Component
 const Style8 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(item.rating || 4.5);
   
@@ -414,10 +390,8 @@ const Style8 = ({ item }: { item: Item }) => {
           {formatDate(item.date)}
         </Typography>
         
-        {/* Review content */}
         <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
         
-        {/* Name at the bottom */}
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Typography variant="body2" sx={{ mb: 0, textAlign: 'right', mt: 1}}>{item.name}</Typography>
         </Box>
@@ -426,7 +400,6 @@ const Style8 = ({ item }: { item: Item }) => {
   );
 };
 
-// Style9 Component
 const Style9 = ({ item }: { item: Item }) => {
   const [likes, setLikes] = useState(item.likes || 35);
   const [dislikes, setDislikes] = useState(item.dislikes || 10);
@@ -448,7 +421,6 @@ const Style9 = ({ item }: { item: Item }) => {
   
   return (
     <Card sx={{ p: 3, height: '100%' }}>
-      {/* Header with user info */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <RdsAvatar
            src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
@@ -465,7 +437,6 @@ const Style9 = ({ item }: { item: Item }) => {
         </Box>
       </Box>
       
-      {/* Rating and date */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <RdsRating
@@ -482,10 +453,8 @@ const Style9 = ({ item }: { item: Item }) => {
         </Typography>
       </Box>
     
-      {/* Review content */}
       <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
 
-      {/* Like/Dislike Section */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', my: 3 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
@@ -526,7 +495,6 @@ const Style9 = ({ item }: { item: Item }) => {
   );
 };
 
-// Style10 Component
 const Style10 = ({ item }: { item: Item }) => {
   const [likes, setLikes] = useState(item.likes || 35);
   const [dislikes, setDislikes] = useState(item.dislikes || 10);
@@ -548,7 +516,6 @@ const Style10 = ({ item }: { item: Item }) => {
   
   return (
     <Card sx={{ p: 3, height: '100%' }}>
-      {/* User info without avatar */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box>
           <Typography variant="h6" fontWeight="bold" sx={{ mb: 0 }}>{item.name}</Typography>
@@ -558,7 +525,6 @@ const Style10 = ({ item }: { item: Item }) => {
         </Box>
       </Box>
       
-      {/* Rating and date */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <RdsRating
@@ -575,10 +541,8 @@ const Style10 = ({ item }: { item: Item }) => {
         </Typography>
       </Box>
       
-      {/* Review content */}
       <Typography variant="body1" sx={{ mt: 3 }}>{item.description}</Typography>
       
-      {/* Like/Dislike Section */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', my: 3 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
@@ -619,7 +583,6 @@ const Style10 = ({ item }: { item: Item }) => {
   );
 };
 
-// Style11 Component
 const Style11 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(1);
   
@@ -668,7 +631,6 @@ const Style11 = ({ item }: { item: Item }) => {
   );
 };
 
-// Style12 Component
 const Style12 = ({ item }: { item: Item }) => {
   const [rating, setRating] = useState(1);
   

@@ -13,10 +13,9 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    padding-left: 8px; // pl: 1 (theme spacing)
+    padding-left: 8px;
   }
 
-  // Title left-aligned for side icon style
   &__title--left {
     font-weight: 500;
     color: var(--rds-text-hint, #969696);
@@ -25,7 +24,6 @@
     font-size: 20px;
   }
 
-  // Browse link left-aligned for side icon style
   &__browse-link--left {
     color: var(--rds-color-primary, #3390e6);
     font-weight: 600;
@@ -37,7 +35,6 @@
     }
   }
 
-  // Info left-aligned for side icon style
   &__info--left {
     color: var(--rds-text-secondary, #646464);
     font-weight: 400;
@@ -46,19 +43,17 @@
     margin-top: 4px;
   }
 
-  // Drop zone (block)
   &__drop-zone {
     padding: 32px 24px;
     text-align: center;
-    border: 2px dashed var(--rds-color-primary, #3390e6) !important; // --rds-color-primary
-    background-color: var(--rds-background-paper, #fff); // --rds-background-paper
+    border: 2px dashed var(--rds-color-primary, #3390e6) !important;
+    background-color: var(--rds-background-paper, #fff);
     cursor: pointer;
     transition: border-color 0.2s, background-color 0.2s;
     border-radius: var(--rds-border-radius, 8px);
     position: relative;
     min-width: 500px;
 
-    // Side icon layout (matches Paper sx styles)
     &.rds-file-uploader__drop-zone--side-icon {
       display: flex;
       align-items: center;
@@ -68,12 +63,11 @@
       padding-right: 24px;
       padding-top: 16px;
       padding-bottom: 16px;
-      border: 2px dashed var(--rds-color-primary, #2196F3) !important; // --rds-color-primary
+      border: 2px dashed var(--rds-color-primary, #2196F3) !important;
       border-radius: var(--rds-border-radius, 8px);
       box-sizing: border-box;
     }
 
-    // Modifiers
     &--with-upload-btn {
       display: flex;
       flex-direction: row;
@@ -81,7 +75,7 @@
       justify-content: space-between;
       min-height: 60px;
       padding: 16px 32px;
-      background: var(--rds-background-paper, #fff); // --rds-background-paper
+      background: var(--rds-background-paper, #fff);
       border-radius: var(--rds-border-radius, 8px);
       box-sizing: border-box;
     }
@@ -92,25 +86,23 @@
       justify-content: space-between;
       min-height: 60px;
       padding: 16px 32px;
-      border: 1.5px dashed var(--rds-color-primary, #3390e6) !important; // --rds-color-primary
-      background: var(--rds-background-paper, #fff) !important; // --rds-background-paper
+      border: 1.5px dashed var(--rds-color-primary, #3390e6) !important;
+      background: var(--rds-background-paper, #fff) !important;
       border-radius: var(--rds-border-radius, 8px);
       box-sizing: border-box;
     }
-    // States
     &--drag-over {
-      border-color: var(--rds-color-primary, #3390e6); // --rds-color-primary
-      background-color: var(--rds-background-paper, #fff); // --rds-background-paper
+      border-color: var(--rds-color-primary, #3390e6);
+      background-color: var(--rds-background-paper, #fff);
     }
     &--disabled {
       cursor: not-allowed;
       opacity: 0.6;
-      background-color: var(--rds-background-paper, #fff); // --rds-background-paper
-      border-color: var(--rds-color-outline-disabled, #bcdffb); // --rds-color-outline-disabled
+      background-color: var(--rds-background-paper, #fff);
+      border-color: var(--rds-color-outline-disabled, #bcdffb);
     }
   }
 
-  // Elements
   &__icon {
     font-size: 32px;
     color: var(--rds-file-uploader-icon-color, var(--rds-color-primary, #3390e6));
@@ -118,7 +110,6 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    // Modifier for with-upload-btn
     .rds-file-uploader__drop-zone--with-upload-btn & {
       margin: 0 16px 0 0;
       display: flex;
@@ -183,9 +174,9 @@
     display: flex;
     align-items: center;
     gap: 0;
-    background: var(--rds-background-paper, #fff); // --rds-background-paper
+    background: var(--rds-background-paper, #fff);
     border-radius: 6px;
-    border: 1px solid var(--rds-color-outline, #e0e0e0); // --rds-color-outline
+    border: 1px solid var(--rds-color-outline, #e0e0e0);
     box-sizing: border-box;
   }
   &__input {
@@ -247,7 +238,7 @@
     min-width: 0;
   }
   &__error-inline {
-    font-size: 0.75rem; // caption size
+    font-size: 0.75rem;
     color: var(--rds-color-error, #d32f2f);
     font-weight: 400;
     text-align: left;
@@ -268,7 +259,7 @@
     text-decoration: underline;
     transition: color 0.2s;
     &:hover {
-color: var(--rds-color-primary, #1976d2); // --rds-color-primary
+color: var(--rds-color-primary, #1976d2);
     }
   }
   &__file-list {
@@ -284,8 +275,8 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
     gap: 16px;
     padding: 16px;
     margin-bottom: 8px;
-    border: 1px solid var(--rds-color-outline, #e0e0e0); // --rds-color-outline
-    background: var(--rds-background-paper, #fff); // --rds-background-paper
+    border: 1px solid var(--rds-color-outline, #e0e0e0);
+    background: var(--rds-background-paper, #fff);
     border-radius: var(--rds-border-radius, 6px);
   }
   &__file-icon {
@@ -305,7 +296,7 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
     font-weight: 500;
   }
   &__file-error-msg {
-    color: var(--rds-error-main, #d32f2f); // --rds-error-main
+    color: var(--rds-error-main, #d32f2f);
     font-size: 12px;
   }
   &__file-progress {
@@ -383,8 +374,6 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
   }
 }
 
-
-// Tablet: 834px - 1024px
 @media (max-width: 1024px) and (min-width: 835px) {
   .rds-file-uploader {
     min-width: 0 !important;
@@ -431,7 +420,6 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
       font-size: var(--rds-font-size-md, 14px);
       padding-right: var(--rds-spacing-xs, 10px);
     }
-    // Improve layout for "Drop Area - With Upload Button" on mid screens
     &__drop-zone--with-upload-btn {
       flex-wrap: wrap;
       row-gap: var(--rds-spacing-xs, 8px);
@@ -518,7 +506,6 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
       font-size: var(--rds-font-size-sm, 13px);
        padding-right: var(--rds-spacing-xs, 9px);
     }
-    // Stack elements vertically for "Drop Area - With Upload Button" on small screens
     &__drop-zone--with-upload-btn {
       display: flex !important;
       flex-direction: column !important;
@@ -552,7 +539,6 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
   display: inline-block;
 }
 
-// BEM flat class for the 'or' span
 .rds-file-uploader__title-or {
   color: var(--rds-text-primary, #353535) !important;
   font-weight: 400;
@@ -560,26 +546,21 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
   display: inline;
 }
 
-// Icon box for upload arrow (BEM)
 .rds-file-uploader__icon-box {
   display: flex;
   align-items: center;
-  margin-right: 8px; // mr: 2 (theme spacing, usually 8px)
+  margin-right: 8px;
 }
 
-// Title box for right-aligned title
 .rds-file-uploader__title-box {
   flex: 1;
   text-align: right;
 }
 
-// Title 'or' span style (BEM convention, flat class)
-
 .dark-theme .rds-file-uploader,
 [data-theme="dark"] .rds-file-uploader {
   --rds-file-uploader-icon-color: #ffffff;
   
-  // Drop zone styles for dark theme
   &__drop-zone {
     background-color: var(--rds-background-paper, #1a1a1a) !important;
     border-color: var(--rds-color-primary, #2196f3) !important;
@@ -607,7 +588,6 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
     }
   }
   
-  // Text and content styles
   &__form-title {
     color: var(--rds-text-secondary, #cccccc) !important;
   }
@@ -643,7 +623,6 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
     color: var(--rds-text-secondary, #cccccc) !important;
   }
   
-  // Browse link styles
   &__browse-link {
     color: var(--rds-color-primary, #2196f3) !important;
     
@@ -660,12 +639,10 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
     }
   }
   
-  // Icon styles
   &__icon {
     color: var(--rds-file-uploader-icon-color, #ffffff) !important;
   }
   
-  // Button styles
   &__upload-btn {
     background: var(--rds-color-primary, #1976d2) !important;
     color: var(--rds-text-secondary, #cccccc) !important;
@@ -688,7 +665,6 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
     }
   }
   
-  // Input and form styles
   &__input-row {
     background: var(--rds-background-paper, #2a2a2a) !important;
     border-color: var(--rds-border-default, #666666) !important;
@@ -708,7 +684,6 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
     border-left: 1px solid var(--rds-border-default, #666666) !important;
   }
   
-  // File list styles
   &__file-item {
     background: var(--rds-background-paper, #2a2a2a) !important;
     border-color: var(--rds-border-default, #666666) !important;
@@ -726,12 +701,10 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
     color: var(--rds-color-primary, #7e2eef) !important;
   }
   
-  // File meta information
   &__file-meta {
     color: var(--rds-text-secondary, #cccccc) !important;
   }
   
-  // Error states remain as is (red color is appropriate for dark theme)
   &__file-error-msg {
     color: var(--rds-error-main, #ff5252) !important;
   }
@@ -740,7 +713,6 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
     color: var(--rds-error-main, #ff5252) !important;
   }
   
-  // Progress bar styles
   &__file-progress {
     background-color: var(--rds-background-surface, #1a1a1a) !important;
     
@@ -757,7 +729,6 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
     }
   }
   
-  // Standard view specific styles
   &__standard {
     .rds-file-uploader__input-row {
       background: var(--rds-background-paper, #2a2a2a) !important;
@@ -771,28 +742,21 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
   }
 }
 
-// =============================================================================
-// DARK THEME HOVER & FOCUS STATES
-// =============================================================================
-
 .dark-theme .rds-file-uploader,
 [data-theme="dark"] .rds-file-uploader {
   
-  // Enhanced hover states for dark theme
   &__drop-zone {
     &:hover:not(&--disabled) {
       background-color: var(--rds-background-paper, #2a2a2a) !important;
       border-color: var(--rds-color-primary, #2196f3) !important;
       transition: all 0.2s ease;
     }
-    // Removed outline per request
     &:focus-visible:not(&--disabled) {
       outline: none !important;
       outline-offset: 0;
     }
   }
   
-  // File item hover states
   &__file-item {
     &:hover {
       background: var(--rds-background-surface, #1a1a1a) !important;
@@ -801,7 +765,6 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
     }
   }
   
-  // Input row focus states
   &__input-row {
     &:focus-within {
       border-color: var(--rds-color-primary, #7e2eef) !important;
@@ -810,29 +773,22 @@ color: var(--rds-color-primary, #1976d2); // --rds-color-primary
   }
 }
 
-// =============================================================================
-// DARK THEME ACCESSIBILITY ENHANCEMENTS
-// =============================================================================
-
 .dark-theme .rds-file-uploader,
 [data-theme="dark"] .rds-file-uploader {
   
-  // High contrast focus indicators (disabled per request)
   *:focus {
     outline: none !important;
     outline-offset: 0 !important;
   }
   
-  // Better text contrast for accessibility
   &__title,
   &__subtitle,
   &__file-name,
   &__file-list-title {
     text-shadow: none;
-    font-weight: 500; // Slightly bolder for better readability
+    font-weight: 500;
   }
   
-  // Enhanced button accessibility
   &__upload-btn,
   &__choose-btn {
     &:focus {

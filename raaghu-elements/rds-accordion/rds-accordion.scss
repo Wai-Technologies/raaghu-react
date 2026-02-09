@@ -1,14 +1,10 @@
-// RDS Accordion Component Styles - MUI Compatible
-// Dark-mode: prioritize explicit theme over OS preference
 @mixin _rds-dark {
-  // Only apply dark styles when explicitly set via Storybook theme
   body[data-theme="dark"], html[data-theme="dark"],
   .theme-dark, .sb-show-main[data-theme="dark"] {
     @content;
   }
 }
 
-// Apply OS dark mode only when no explicit theme is set
 @media (prefers-color-scheme: dark) {
   body:not([data-theme]), html:not([data-theme]) {
     @include _rds-dark;
@@ -20,7 +16,6 @@
   .rds-accordion { background-color: #202020 !important; }
   .rds-accordion__summary { background-color: #202020 !important; }
   .rds-accordion__summary:hover { background-color: #1F2123 !important; }
-  /* In dark mode, when in default state and hovered, title/icon should be white for readability */
   .rds-accordion__summary:hover .rds-accordion__title,
   .rds-accordion__summary:hover .rds-accordion__icon,
   .rds-accordion__summary:hover .MuiAccordionSummary-expandIconWrapper {
@@ -39,10 +34,9 @@
     &.rds-accordion--hover .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: #b7d9ff!important; }
     &.rds-accordion--selected .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner { background-color: #b7d9ff!important; }
   }
-  // Dark theme selected header styling
+
   .rds-accordion.rds-accordion--selected {
     .rds-accordion__summary { background-color: #93c6ff!important; }
-    /* keep header background but make selected text/icons black */
     .rds-accordion__title { color: #000 !important; font-weight: 600 !important; }
     .rds-accordion__icon { color: #000 !important; }
     .MuiAccordionSummary-expandIconWrapper { color: #000 !important; }
@@ -70,7 +64,6 @@
   overflow: hidden;
   margin-bottom: 7px;
   
-  
   &.rds-accordion--bottomline {
   border: none;
   border-bottom: 1px solid #7D7D7D;
@@ -94,9 +87,7 @@
     }
   }
   
-  /* When container is used with accordionStyle='border' we show a divider under the header */
   &.rds-accordion--border {
-    /* draw an inset divider that aligns with the inner details panel */
     .rds-accordion__summary {
       position: relative;
       border-bottom: none !important;
@@ -104,17 +95,16 @@
       &::after {
         content: '';
         position: absolute;
-        left: 0px; /* match details panel horizontal margin */
+        left: 0px; 
         right: 0px;
         bottom: 0;
         height: 0.5px;
         background: #7d7d7d;
-        display: none; /* hide by default (collapsed) */
+        display: none;
       }
     }
   }
   
-  /* Show the inset divider only when the accordion is expanded */
   .rds-accordion.rds-accordion--expanded .rds-accordion__summary::after {
     display: block !important;
   }
@@ -160,7 +150,6 @@
     margin: 0 !important;
   }
 
-  // Compact the gap above details by nudging Collapse content upward when expanded
   &.rds-accordion--expanded {
 
     .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner {
@@ -243,7 +232,6 @@
   }
   
  &__details {
-    /* Outer collapse wrapper; inner panel contains visible boxed content */
     .rds-accordion__details-panel {
       border: 1.5px solid #7d7d7d;
       background: #fff;
@@ -263,7 +251,6 @@
     }
   }
 
-  // Hover state
   &--hover:not(.rds-accordion--selected):not(.rds-accordion--disabled) {
     .rds-accordion__summary {
       background-color: #93c6ff!important;
@@ -276,7 +263,6 @@
     .rds-accordion__icon, .MuiAccordionSummary-expandIconWrapper { color: #353535 !important; }
   }
 
-  // Selected state
   &--selected {
     border: 2px solid #a259ff !important;
 
@@ -294,20 +280,17 @@
     }
   }
 
-  // Expanded state
   &--expanded {
     .MuiAccordionSummary-expandIconWrapper {
       transform: rotate(180deg) !important;
     }
 
-    // When also hovered (via actual hover or forced hover class) change inner collapse background
     &.rds-accordion--hover {
       .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner {
         background-color: #b7d9ff !important;
       }
     }
 
-    // When selected, apply the same dark background color user requested earlier (#483b3b)
     &.rds-accordion--selected {
       .MuiCollapse-root .MuiCollapse-wrapper .MuiCollapse-wrapperInner {
         background-color: #b7d9ff!important;
@@ -315,14 +298,12 @@
     }
   }
 
-  // Disabled state
   &--disabled {
     opacity: 0.6;
     pointer-events: none;
     background-color: #f8f9fa !important;
   }
 
-  // Size variants
   &--small {
     .rds-accordion__summary {
       min-height: 32px !important;

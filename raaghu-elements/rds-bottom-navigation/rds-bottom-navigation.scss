@@ -1,13 +1,8 @@
-// RDS Bottom-navigation Component Styles
-// Bottom navigation bar
-
 .rds-bottom-navigation {
   display: block;
   position: relative;
 
-  // Interactive states
   &:hover {
-    // Hover styles
   }
 
   &:focus-visible {
@@ -21,9 +16,7 @@
     pointer-events: none;
   }
 
-  // Responsive design for smaller screens
   @media (max-width: 568px) {
-    // Target the Material-UI BottomNavigation with higher specificity
     .MuiBottomNavigation-root {
       .MuiBottomNavigationAction-root {
         min-width: 72px !important;

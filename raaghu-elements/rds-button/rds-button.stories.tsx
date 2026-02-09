@@ -7,7 +7,6 @@ const meta: Meta<typeof RdsButton> = {
   component: RdsButton,
   parameters: {
   layout: 'padded',
-  // hide auto-generated `component` control from Controls panel
   controls: { exclude: ['component'] },
   },
   tags: ['autodocs'],

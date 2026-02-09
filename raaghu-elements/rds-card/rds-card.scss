@@ -1,5 +1,3 @@
-// RDS Card Component Styles
-// Ensure card text color is always correct, even before theme hydration
 .rds-card {
   border-radius: var(--rds-border-radius-md, 8px);
   box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08));
@@ -7,9 +5,8 @@
   cursor: pointer;
   position: relative;
 
-  // Layout variants
   &--layout-horizontal {
-    display: block; // we'll manage rows explicitly
+    display: block;
     
     
     .rds-card__header-row {
@@ -39,19 +36,16 @@
       padding-top: 0 !important;
     }
     
-    // Typography elements inside CardContent should also have reduced top spacing
     .MuiCardContent-root .MuiTypography-gutterBottom {
       margin-top: 0 !important;
     }
     
-    // Only apply flex layout to direct children when no icon is present
     &.rds-card--hide-icon {
       > .MuiCardContent-root {
         flex: 1;
         min-width: 0;
       }
       
-      // For simple Typography content directly in card (like WithCustomPadding)
       > .MuiTypography-root:only-child {
         flex: 1;
         min-width: 0;
@@ -61,7 +55,6 @@
       }
     }
     
-    // old flow rules not needed with new rows
   }
   
   &--layout-vertical {
@@ -70,8 +63,7 @@
     
     .rds-card__icon-container--vertical {
       padding: var(--rds-spacing-md, 6px);
-      padding-bottom: var(--rds-spacing-xs, 4px); // Reduced spacing below icon for tighter layout
-      //padding-left: 17px;
+      padding-bottom: var(--rds-spacing-xs, 4px); 
     }
     
     .MuiCardContent-root {
@@ -87,7 +79,6 @@
     }
   }
   
-  // Content wrapper for both layouts
   &__content-wrapper {
     display: flex;
     flex-direction: column;
@@ -95,14 +86,12 @@
     padding-left: 14px;
   }
   
-  // Icon controls
   &--hide-icon {
     .rds-card__icon-container {
       display: none;
     }
   }
   
-  // Style variants
   &--style-outlined {
     background-color: transparent;
     border: 1px solid var(--rds-color-border-primary, #7d7d7d) !important;
@@ -115,7 +104,6 @@
     box-shadow: none;
   }
 
-  // Dark theme: make the filled variant readable in dark mode
   .rds-theme--dark &--style-filled,
   body.theme-dark &--style-filled,
   body[data-theme="dark"] &--style-filled,
@@ -123,7 +111,6 @@
     background-color: var(--rds-color-surface-dark, #424242) !important;
     color: var(--rds-color-on-surface-dark, #ffffff) !important;
 
-    // Ensure major text elements are visible
     .rds-card__title,
     .rds-card__subtext,
     .rds-card__description,
@@ -132,7 +119,6 @@
       color: var(--rds-color-on-surface-dark, #ffffff) !important;
     }
 
-    // Avatar icons and action icons
     .rds-card .rds-avatar .MuiSvgIcon-root,
     .rds-card__avatar-section .MuiSvgIcon-root,
     .rds-card__edit-icon .MuiSvgIcon-root,
@@ -141,16 +127,13 @@
       fill: var(--rds-color-on-surface-dark, #ffffff) !important;
     }
 
-    // Buttons inside card: keep their own styles but ensure text is readable
     .rds-button,
     .MuiButton-root {
       color: inherit !important;
     }
   }
   
-  // Title visibility control
   &--hide-title {
-    // Hide title elements (h1-h6, Typography with title variants)
     h1, h2, h3, h4, h5, h6,
     .MuiTypography-h1,
     .MuiTypography-h2,
@@ -162,7 +145,6 @@
       display: none;
     }
     
-    // Also hide any element with specific data attributes or classes indicating it's a title
     [data-role="card-title"],
     .card-title,
     .rds-card-title {
@@ -170,7 +152,6 @@
     }
   }
   
-  // Card indicator (line on the left edge)
   &__indicator {
     position: absolute;
     top: 0;
@@ -188,13 +169,11 @@
     border-radius: 0 var(--rds-border-radius-sm, 2px) var(--rds-border-radius-sm, 2px) 0;
   }
   
-  // Hover state
   &--hover {
     box-shadow: var(--rds-elevation-2, 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08));
     background-color: var(--rds-color-gray-200, #E1E3EA) !important;
   }
 
-  // Dark-theme overrides for hover
   .rds-theme--dark &--hover,
   body.theme-dark &--hover,
   body[data-theme="dark"] &--hover,
@@ -204,18 +183,15 @@
     color: var(--rds-color-on-surface-dark, #ffffff) !important;
   }
   
-  // Selected state
   &--selected {
     background-color: var(--rds-color-gray-200, #E1E3EA) !important;
     box-shadow: var(--rds-elevation-focus, 0 0 0 1px rgba(25, 118, 210, 0.2));
     
-    // Change subtext color to primary when card is selected
     .rds-card__subtext {
       color: var(--rds-color-primary, #3C98FF) !important;
     }
   }
 
-  // Dark-theme overrides for selected
   .rds-theme--dark &--selected,
   body.theme-dark &--selected,
   body[data-theme="dark"] &--selected,
@@ -228,7 +204,6 @@
     }
   }
   
-  // Disabled state
   &--disabled {
     opacity: 0.6;
     background-color: var(--rds-color-gray-300, #CDCDCD) !important;
@@ -236,7 +211,6 @@
     pointer-events: none;
     cursor: not-allowed;
     
-    // Disable and style buttons and interactive elements within disabled card
     .MuiButton-root,
     .rds-button,
     button {
@@ -246,7 +220,6 @@
     }
   }
 
-  // Dark-theme overrides for disabled
   .rds-theme--dark &--disabled,
   body.theme-dark &--disabled,
   body[data-theme="dark"] &--disabled,
@@ -287,7 +260,6 @@
     align-items: center;
   }
   
-  // Elevation variants
   &--elevation-0 {
     box-shadow: var(--rds-elevation-0, none);
     border: 1px solid var(--rds-card-border, #e0e0e0);
@@ -305,7 +277,6 @@
     box-shadow: var(--rds-elevation-3, 0 4px 8px rgba(0, 0, 0, 0.15));
   }
   
-  // Interactive states for clickable cards
   &--clickable {
     cursor: pointer;
     transition: transform var(--rds-transition-base, 0.2s ease-in-out), 
@@ -320,94 +291,79 @@
     }
   }
   
-  // Card content structure
   &__content {
     display: flex;
     flex-direction: column;
   }
   
-  // Tighter content padding for vertical layout with icon
   &--layout-vertical {
     .rds-card__content {
-      padding-top: var(--rds-spacing-xs, 4px); // Reduced top padding for tighter icon-to-content spacing
+      padding-top: var(--rds-spacing-xs, 4px); 
     }
   }
   
-  // Handle cards with custom inline padding (like WithCustomPadding story)
   &[style*="padding"] {
-    // For cards with inline padding, ensure content visibility
     .rds-card__content,
     .rds-card__content-wrapper {
-      // Ensure content is visible with proper min-height
       min-height: 20px;
       display: block;
     }
     
-    // For horizontal layout with custom padding - only when icon is hidden
     &.rds-card--layout-horizontal.rds-card--hide-icon {
-      // Ensure the content area spans properly for simple Typography content
       > .MuiTypography-root:only-child {
         flex: 1;
         min-width: 0;
         display: flex;
         align-items: center;
-        padding: 0; // Let the card's inline padding handle spacing
+        padding: 0;
       }
     }
   }
   
-  // Card title styling - matching screenshot specifications
   &__title {
     font-weight: var(--rds-font-weight-medium, 500);
-    font-size: var(--rds-font-size-xl, 20px) !important; // Larger title font size as per screenshot
-    line-height: 1.3; // Tighter line height for titles
+    font-size: var(--rds-font-size-xl, 20px) !important;
+    line-height: 1.3;
     color: var(--rds-color-text-secondary);
     margin: 0;
-    margin-bottom: var(--rds-spacing-xs, 2px) !important; // Very small gap after title
+    margin-bottom: var(--rds-spacing-xs, 2px) !important;
   }
   
-  // Card subtext styling - matching screenshot specifications
   &__subtext {
     font-weight: var(--rds-font-weight-normal, 400);
-    font-size: var(--rds-font-size-sm, 14px) !important; // Smaller subtitle font size as per screenshot
-    color: var(--rds-text-secondary) !important; // Slightly lighter color
+    font-size: var(--rds-font-size-sm, 14px) !important;
+    color: var(--rds-text-secondary) !important;
     margin: 0;
-    // Remove default Material-UI margins
+    
     &.MuiTypography-root {
-      margin-bottom: var(--rds-spacing-xs, 4px) !important; // Reduced spacing after subtext  
+      margin-bottom: var(--rds-spacing-xs, 4px) !important;
     }
   }
   
-  // Card description styling - matching screenshot specifications
   &__description {
     font-weight: var(--rds-font-weight-normal, 400);
-    font-size: var(--rds-font-size-sm); // Body text font size as per screenshot
+    font-size: var(--rds-font-size-sm); 
     color: var(--rds-color-text-secondary, #666666);
     margin: 0;
-    margin-bottom: var(--rds-spacing-sm, 8px) !important; // Reduced space after description
+    margin-bottom: var(--rds-spacing-sm, 8px) !important;
   }
   
-  // Additional content wrapper
   &__additional-content {
     margin-top: var(--rds-spacing-sm, 8px);
     
-    // Reset first child margin to prevent double spacing
     > *:first-child {
       margin-top: 0;
     }
     
-    // Reset last child margin to prevent overflow
     > *:last-child {
       margin-bottom: 0;
     }
     
-    // Style buttons and interactive elements
     .MuiButton-root,
     .rds-button {
       margin-top: var(--rds-spacing-xs);
     }
     
-    // Button group styling for action buttons
     .rds-card__button-group {
       display: flex;
       justify-content: flex-end;
@@ -415,11 +371,10 @@
       margin: var(--rds-spacing-md, 16px);
       
       .rds-button {
-        margin-top: 0; // Override individual button margin
+        margin-top: 0;
       }
     }
 
-    // Image styling for card images
     .rds-card__image {
       margin-bottom: var(--rds-spacing-md, 16px);
       margin-right: var(--rds-spacing-md, 16px);
@@ -433,20 +388,17 @@
       }
     }
 
-    // Badges section styling
     .rds-card__badges {
       display: flex;
       gap: var(--rds-spacing-xs, 8px);
       flex-wrap: wrap;
       margin-bottom: var(--rds-spacing-sm, 8px);
       
-      // Individual badge styling
       .rds-badge {
-        flex-shrink: 0; // Prevent badge compression
+        flex-shrink: 0;
       }
     }
 
-    // Avatar section styling
     .rds-card__avatar-section {
       display: flex;
       align-items: flex-start;
@@ -456,9 +408,8 @@
       
       .rds-card__avatar-info {
         flex: 1;
-        min-width: 0; // Prevent text overflow
+        min-width: 0;
         
-        // Avatar name styling
         .rds-card__avatar-name {
           font-size: var(--rds-font-size-md, 16px);
           font-weight: var(--rds-font-weight-semibold, 600);
@@ -467,7 +418,6 @@
           line-height: 1.3;
         }
         
-        // Avatar designation styling
         .rds-card__avatar-designation {
           font-size: var(--rds-font-size-sm, 14px);
           font-weight: var(--rds-font-weight-normal, 400);
@@ -477,7 +427,6 @@
         }
       }
       
-      // Edit controls positioning
       .rds-card__edit-controls {
         display: flex;
         align-items: center;
@@ -486,17 +435,13 @@
         flex-shrink: 0;
       }
 
-      // Avatar and info row container (fallback for larger screens)
       .rds-card__avatar-row {
-        display: contents; // Use contents by default to maintain original flex layout
+        display: contents;
       }
-
-      // Responsive layout for 320px screens
       @media screen and (max-width: 320px) {
         flex-direction: column;
         align-items: stretch;
         
-        // Avatar and info row
         .rds-card__avatar-row {
           display: flex;
           align-items: flex-start;
@@ -504,7 +449,6 @@
           margin-bottom: var(--rds-spacing-xs, 8px);
         }
         
-        // Edit controls below avatar info
         .rds-card__edit-controls {
           margin-left: 110px !important;
           justify-content: flex-end;
@@ -513,26 +457,23 @@
       }
     }
 
-    // Custom description styling for specific layouts
     .rds-card__description {
       font-size: var(--rds-font-size-sm, 14px);
       color: var(--rds-color-text-secondary);
       line-height: 1.5;
       margin: 0 0 var(--rds-spacing-md, 16px) 0;
-      display: block; // Ensure it's visible
+      display: block;
     }
   }
 
-  // Global description styling (outside of additional-content for standalone usage)
   &__description {
     font-size: var(--rds-font-size-sm, 14px);
     color: var(--rds-color-text-secondary);
     line-height: 1.5;
     margin: 0 0 var(--rds-spacing-md, 16px) 0;
-    display: block; // Ensure it's visible
+    display: block;
   }
   
-  // Title and subtext visibility controls
   &--hide-title {
     .rds-card__title {
       display: none;
@@ -556,7 +497,6 @@
   font-size: var(--rds-font-size-lg, 18px) !important;
 }
 
-// Standalone description that should always show (for custom content like in WithImage)
 .rds-card__additional-content .rds-card__description,
 .rds-card > .rds-card__description {
   display: block !important;
@@ -566,20 +506,17 @@
   margin: 0 0 var(--rds-spacing-md, 16px) 0;
 }
 
-// Tags section styling (similar to badges but with different context)
 .rds-card__tags {
   display: flex;
   gap: var(--rds-spacing-xs, 8px);
   flex-wrap: wrap;
   margin-bottom: var(--rds-spacing-md, 16px);
   
-  // Individual tag styling
   .rds-badge {
-    flex-shrink: 0; // Prevent tag compression
+    flex-shrink: 0;
   }
 }
 
-// Questions counter or metadata styling
 .rds-card__metadata {
   font-size: var(--rds-font-size-xs, 12px);
   color: var(--rds-color-text-secondary);
@@ -588,7 +525,6 @@
   padding-top: var(--rds-spacing-sm, 8px);
 }
 
-// Long description styling for WithTags story
 .rds-card__long-description {
   font-size: var(--rds-font-size-sm, 14px);
   color: var(--rds-color-text-secondary);
@@ -597,11 +533,10 @@
   display: block !important;
 }
 
-// Avatar section with editing functionality
 .rds-card__avatar-section {
   &--editable {
     position: relative;
-    align-items: flex-start !important; // Override to ensure avatar stays at start in edit mode
+    align-items: flex-start !important;
     
     .rds-card__edit-controls {
       display: flex;
@@ -633,7 +568,6 @@
       align-items: center;
       padding: var(--rds-spacing-sm, 8px);
       
-      // Button styling for RdsButton components
       .rds-button {
         font-size: var(--rds-font-size-xs, 12px);
         padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 12px);
@@ -657,7 +591,6 @@
       }
     }
 
-    // Responsive adjustments for editable mode
     @media screen and (max-width: 320px) {
       .rds-card__edit-controls {
         margin-left: 0 !important;
@@ -670,11 +603,9 @@
   }
 }
 
-// Editable input fields
 .rds-card__editable-field {
   padding: var(--rds-spacing-xs, 8px);
   
-  // Styling for RdsInput components
   .rds-input {
     margin-bottom: var(--rds-spacing-sm, 12px);
     
@@ -682,7 +613,6 @@
       margin-bottom: 0;
     }
     
-    // Override MUI TextField styles for card context
     .MuiTextField-root {
       width: 100%;
       
@@ -700,7 +630,6 @@
     }
   }
   
-  // Title input specific styling
   .rds-card__input--title {
     .MuiInputBase-input {
       font-size: var(--rds-font-size-lg);
@@ -709,7 +638,6 @@
     }
   }
   
-  // Subtitle input specific styling
   .rds-card__input--subtitle {
     .MuiInputBase-input {
       font-size: var(--rds-font-size-sm, 14px);
@@ -718,7 +646,6 @@
     }
   }
   
-  // Avatar name input specific styling
   .rds-card__input--avatar-name {
     .MuiInputBase-input {
       font-size: var(--rds-font-size-md, 16px);
@@ -727,7 +654,6 @@
     }
   }
   
-  // Avatar designation input specific styling
   .rds-card__input--avatar-designation {
     .MuiInputBase-input {
       font-size: var(--rds-font-size-sm, 14px);
@@ -746,7 +672,6 @@
   margin-top: var(--rds-spacing-xs, 8px) !important;
 }
 
-// Target the story’s exact badge class combos to also force solid backgrounds
 .rds-card .rds-card__badges .rds-badge.rds-badge--primary.rds-badge--secondary > .rds-badge__badge {
   background-color: var(--rds-badge-bg-secondary-card, #b30fbc) !important;
   color: var(--rds-badge-text-on-dark, #ffffff) !important;
@@ -762,7 +687,6 @@
 }
 
 .rds-card:not(.rds-card--style-outlined):not(.rds-card--style-filled):not([class*="rds-card--elevation"]) {
-  /* Prevent MUI from injecting its variable-based shadow for this element */
   --Paper-shadow: none !important;
   box-shadow: var(--rds-card-shadow, 0 8px 24px var(--rds-card-shadow-color, rgba(16, 45, 86, 0.08)));
 }

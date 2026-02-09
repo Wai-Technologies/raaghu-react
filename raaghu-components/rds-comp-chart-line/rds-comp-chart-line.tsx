@@ -31,7 +31,6 @@ const RdsCompLineChart = (props: RdsComplineprops) => {
         if (ctx) {
               const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
 
-            // If dark mode, set axis, tick, legend, and title color to white
             if (isDarkMode()) {
                 if (!chartOptions.scales) chartOptions.scales = {};
                 ["x", "y"].forEach(axis => {
@@ -45,16 +44,12 @@ const RdsCompLineChart = (props: RdsComplineprops) => {
                     if (!chartOptions.scales[axis].title) chartOptions.scales[axis].title = {};
                     chartOptions.scales[axis].title.color = "#fff";
                 });
-                // Ensure plugins object exists
                 if (!chartOptions.plugins) chartOptions.plugins = {};
-                // Ensure legend object exists
                 if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
                 if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
                 chartOptions.plugins.legend.labels.color = "#fff";
-                // Ensure title object exists
                 if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
                 chartOptions.plugins.title.color = "#fff";
-                // Set tooltip label/title color to white if using custom tooltip
                 if (chartOptions.plugins.tooltip) {
                     chartOptions.plugins.tooltip.titleColor = "#fff";
                     chartOptions.plugins.tooltip.bodyColor = "#fff";

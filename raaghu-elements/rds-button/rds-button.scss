@@ -1,6 +1,4 @@
-// RDS Button Component Styles
 :root {
-  // Button color variables - primary
   --rds-button-primary-bg: #1976d2;
   --rds-button-primary-bg-hover: #1565c0;
   --rds-button-primary-bg-active: #0d47a1;
@@ -8,7 +6,6 @@
   --rds-button-primary-text: #ffffff;
   --rds-button-primary-text-disabled: #9e9e9e;
   
-  // Button color variables - secondary
   --rds-button-secondary-bg: transparent;
   --rds-button-secondary-bg-hover: rgba(25, 118, 210, 0.04);
   --rds-button-secondary-bg-active: rgba(25, 118, 210, 0.12);
@@ -21,7 +18,6 @@
   --rds-button-secondary-text-active: #0d47a1;
   --rds-button-secondary-text-disabled: #9e9e9e;
   
-  // Button color variables - text
   --rds-button-text-color: #1976d2;
   --rds-button-text-color-active: #0d47a1;
   --rds-button-text-color-disabled: #9e9e9e;
@@ -108,8 +104,7 @@
       background-color: var(--rds-button-text-bg-active);
     }
   }
-  
-  // States
+
   &:disabled,
   &__disabled {
     background-color: var(--rds-button-primary-bg-disabled) !important;
@@ -122,7 +117,6 @@
     pointer-events: none;
   }
 
-  // State variants
   &__state-hover {
     &:hover {
       background-color: var(--rds-button-primary-bg-hover) !important;
@@ -134,12 +128,11 @@
   &__state-selected {
     background-color: var(--rds-button-primary-bg-active) !important;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-    
+
     &:hover {
       background-color: var(--rds-button-primary-bg-active) !important;
     }
 
-    // Handle different button styles for selected state
     &.MuiButton-outlined {
       background-color: var(--rds-button-secondary-bg-active) !important;
       border-color: var(--rds-button-secondary-border-active) !important;
@@ -165,7 +158,6 @@
       box-shadow: none !important;
     }
 
-    // Handle different button styles for disabled state
     &.MuiButton-outlined {
       background-color: var(--rds-button-secondary-bg-disabled) !important;
       border-color: var(--rds-button-secondary-border-disabled) !important;
@@ -179,7 +171,6 @@
   }
 
   &__state-default {
-    // Default state - inherits base button styles
     transition: all var(--rds-transition-base);
   }
 }

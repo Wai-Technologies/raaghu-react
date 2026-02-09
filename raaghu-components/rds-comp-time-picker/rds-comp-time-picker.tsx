@@ -27,7 +27,6 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
   const [period, setPeriod] = useState('AM');
   const [time, setTime] = useState("");
   
-  // Separate state for compact mode
   const [tempHour, setTempHour] = useState<number>(12);
   const [tempMinute, setTempMinute] = useState<number>(0);
   const [tempPeriod, setTempPeriod] = useState<string>('AM');

@@ -38,11 +38,10 @@ export interface RdsTextAreaProps {
   customClasses?: string;
 }
 
-const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
+const RdsTextArea = (props: RdsTextAreaProps): React.JSX.Element => {
   const [isValid, setIsValid] = useState(true);
   const [isMandatoryValid, setIsMandatoryValid] = useState(true);
   const [currentState, setCurrentState] = useState(props.state || TextareaState.Default);
-  // stable id for label/input association when id prop is not provided
   const idRef = useRef<string>(props.id || `rds-textarea-${Math.random().toString(36).slice(2)}`);
   const assignedId = props.id || idRef.current;
   const errorId = `${assignedId}-error`;
@@ -58,7 +57,6 @@ const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
     setCurrentState(props.state || TextareaState.Default);
   }, [props.state]);
 
-  // Check mandatory validation when isMandatory or value changes
   useEffect(() => {
     if (props.isMandatory) {
       const currentValue = props.value || '';
@@ -71,7 +69,6 @@ const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
 
-    // Check mandatory validation
     if (props.isMandatory) {
       setIsMandatoryValid(inputValue.trim().length > 0);
     }
@@ -96,7 +93,6 @@ const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
-    // Check mandatory validation on blur
     if (props.isMandatory) {
       const inputValue = e.target.value;
       setIsMandatoryValid(inputValue.trim().length > 0);
@@ -137,7 +133,6 @@ const RdsTextArea = (props: RdsTextAreaProps): JSX.Element => {
   const isDisabled = currentState === TextareaState.Disabled;
   const isError = currentState === TextareaState.Error || !isValid || (props.isMandatory && !isMandatoryValid);
 
-  // Get the appropriate validation message
   const getValidationMessage = () => {
     if (props.isMandatory && !isMandatoryValid) {
       return `${props.label || 'Label'} is required`;

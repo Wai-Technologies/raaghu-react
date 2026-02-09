@@ -75,13 +75,11 @@ export const Default: Story = {
 
     const handleSearch = (value: string) => {
       if (args.autoSearch) {
-        // For auto search, show results below the input
         const mockResults = value 
           ? [`Result for "${value}"`]
           : [];
         setSearchResults(mockResults);
       } else {
-        // For manual search, show alert
         alert(`Searching for: ${value}`);
       }
     };
@@ -90,10 +88,8 @@ export const Default: Story = {
       setSearchResults([]);
     };
 
-    // Ensure Storybook controls don't overwrite local value/onChange bindings
     return (
       <Box sx={(() => args.fullWidth ? { width: '100%' } : { width: { xs: '100%', sm: 350, md: 400 }, maxWidth: 400 })()}>
-        {/* Omit value/onChange from args to avoid duplicate prop warnings */}
         {(() => {
           const { value: _v, onChange: _oc, onSearch: _os, onClear: _oclr, ...forwardArgs } = args as any;
           return (
@@ -133,7 +129,6 @@ export const AutoSearch: Story = {
     const isSmallScreen = useMediaQuery('(max-width:414px)');
 
     const handleSearch = (value: string) => {
-      // Simulate search results
       const mockResults = value 
         ? [`Result for "${value}"`]
         : [];

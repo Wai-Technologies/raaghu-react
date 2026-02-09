@@ -16,9 +16,6 @@ export interface RdsDialogProps extends DialogProps {
   ShowPrimary?: boolean;
   ShowSecondary?: boolean;
   showTitle?: boolean;
-  /**
-   * Size passed directly to MUI Dialog maxWidth prop. Supported values align with MUI plus false to disable constraint.
-   */
   size?: 'extra-small' | 'small' | 'medium' | 'large' | 'extra-large' | false;
 }
 
@@ -35,7 +32,6 @@ const RdsDialog = ({
   size = 'medium',
   ...props
 }:RdsDialogProps) => {
-  // Map DS size to MUI's maxWidth prop values
   if (variant === 'standard') {
     return (
       <MuiDialog

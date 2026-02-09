@@ -46,7 +46,6 @@ export interface Comment {
     image?: string;
 }
 
-// Register the icon at module load so it's available on the very first render
 registerMaterialIcons({ 'attachment_icon': AttachmentIcon });
 
 const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
@@ -56,8 +55,6 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
     const [commentList, setCommentList] = useState<Comment[]>(
         props.userData?.[0]?.comments || []
     );
-
-    // Icon is registered at module scope to avoid first-render race conditions
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -78,7 +75,6 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
                     props.handleAddComment(newComment);
                 }
 
-                // Reset the file input value to allow re-uploading the same file
                 if (fileInputRef.current) {
                     fileInputRef.current.value = "";
                 }

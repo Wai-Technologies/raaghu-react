@@ -30,14 +30,12 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
 
     const ctx = canvasElm.getContext("2d") as CanvasRenderingContext2D;
 
-    // Destroy the existing chart if it exists
     if (chartInstanceRef.current) {
       chartInstanceRef.current.destroy();
     }
 
     const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
 
-    // If dark mode, set legend, title, and scale point label color to white
     if (isDarkMode()) {
       if (!chartOptions.plugins) chartOptions.plugins = {};
       if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
@@ -50,7 +48,6 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
         chartOptions.plugins.tooltip.bodyColor = "#fff";
         chartOptions.plugins.tooltip.labelColor = () => ({ borderColor: '#fff', backgroundColor: '#fff' });
       }
-      // Set scale point labels to white
       if (!chartOptions.scales) chartOptions.scales = {};
       if (!chartOptions.scales.r) chartOptions.scales.r = {};
       if (!chartOptions.scales.r.pointLabels) chartOptions.scales.r.pointLabels = {};

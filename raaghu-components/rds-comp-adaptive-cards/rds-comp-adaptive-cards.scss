@@ -7,11 +7,11 @@
   background: var(--rds-background-default, #fff);
   box-shadow: var(--rds-box-shadow-lg, 0 2px 12px rgba(0,0,0,0.04));
 } 
-/* Dark-mode & first-paint stability for image gallery */
+
 .rds-adaptive-cards--image-gallery,
 .rds-adaptive-cards--image-gallery .rds-adaptive-cards__image-list,
 .rds-adaptive-cards--image-gallery .rds-adaptive-cards__content {
-  transition: none !important; /* Avoid transition-based color shifts on mount */
+  transition: none !important;
 }
 .dark-theme .rds-adaptive-cards--image-gallery,
 [data-theme="dark"] .rds-adaptive-cards--image-gallery {
@@ -22,40 +22,36 @@
 }
 .dark-theme .rds-adaptive-cards--image-gallery .rds-adaptive-cards__image-list,
 [data-theme="dark"] .rds-adaptive-cards--image-gallery .rds-adaptive-cards__image-list {
-  background: transparent !important; /* let the parent card show through in dark mode */
+  background: transparent !important;
 }
 
-/* Ensure small/subtext color is visible in dark theme */
 .dark-theme .rds-adaptive-cards__small-text,
 [data-theme="dark"] .rds-adaptive-cards__small-text {
   color: var(--rds-text-secondary-dark, #cfcfcf) !important;
   opacity: 0.9 !important;
 }
 
-/* Ensure title color for gallery in dark-mode */
 .dark-theme .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title,
 [data-theme="dark"] .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title {
   color: var(--rds-text-primary-dark, #fff) !important;
 }
 
 .rds-adaptive-cards--football-scorecard {
-  width: var(--rds-card-width-football, 350px); // Reduced width for more compact design
-  min-width: var(--rds-card-width-football, 350px); // Ensure consistent width
+  width: var(--rds-card-width-football, 350px);
+  min-width: var(--rds-card-width-football, 350px);
   border: 1px solid var(--rds-border-light, #E9E9E9);
   border-radius: var(--rds-border-radius-lg, 12px);
   padding: var(--rds-spacing-sm, 8px);
-  box-sizing: border-box; // Include padding in width calculations
-  overflow: hidden; // Prevent content overflow during layout
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
-// Stable layout class to prevent layout shifts
 .football-scorecard-stable {
-  min-height: 200px !important; // Ensure consistent height during render
+  min-height: 200px !important;
   display: flex !important;
   flex-direction: column !important;
 }
 
-// Ensure score row displays horizontally
 .rds-adaptive-cards__football-score-section > .MuiStack-root {
   display: flex !important;
   flex-direction: row !important;
@@ -79,7 +75,6 @@
 }
 
 .rds-adaptive-cards {
-  // ----- Header -----
   &__header {
     display: flex;
     align-items: center;
@@ -94,7 +89,6 @@
   &__input-form-field { 
     margin-bottom: var(--rds-spacing-sm, 10px);
   }
-  // removed stray closing brace
   &__header-title-row {
     display: flex;
     align-items: center;
@@ -107,7 +101,6 @@
   &__title {
         font-size: var(--rds-font-size-2xl, 20px) !important;
       font-weight: var(--rds-font-weight-bold, 700) !important;
-      /* Remove fixed height to allow text to show fully */
       padding: var(--rds-spacing-none, 0) !important;
       z-index: 1;
       display: flex;
@@ -131,7 +124,6 @@
     background: transparent;
     margin-right: var(--rds-spacing-sm, 6px);
   }
-  // ----- Content -----
   &__content {
     padding: var(--rds-spacing-sm, 8px) 0 var(--rds-spacing-sm, 8px) 0;
     padding: 16px;
@@ -143,7 +135,6 @@
     font-size: var(--rds-font-size-xs, 10px);
     color: var(--rds-text-secondary, #646464);
   }
-  // ----- Image Gallery -----
   &__image-list {
     width: 100%;
     display: grid !important;
@@ -182,7 +173,7 @@
     transition: transform 0.2s;
     display: block;
   }
-  // ----- Default Slot -----
+  
   &__default-slot {
     height: var(--rds-font-size-4xl, 132px);
     border: 2px dashed var(--rds-border-default, #CDCDCD);
@@ -195,15 +186,15 @@
   &__default-slot-text {
     opacity: 0.6;
   }
-  // ----- Actions -----
+
   &__actions {
     display: flex;
     justify-content: flex-end;
     gap: var(--rds-spacing-xs, 2px);
     margin-right: var(--rds-spacing-sm, 8px);
-    align-items: center !important; /* Keep buttons vertically centered */
-    flex-wrap: nowrap !important; /* Prevent buttons from wrapping on first paint */
-    transition: none !important; /* Avoid transition-based layout shifts */
+    align-items: center !important; 
+    flex-wrap: nowrap !important; 
+    transition: none !important; 
   }
   &__actions--input-form {
     display: block !important;
@@ -252,7 +243,6 @@
     padding-bottom: var(--rds-spacing-sm, 8px);
     min-height: var(--rds-component-button-height-small, 32px);
   }
-  // Activity Update Card Actions Layout
   &__actions--activity-update {
     display: flex !important;
     justify-content: flex-end !important;
@@ -260,7 +250,6 @@
     padding: 0 !important;
     margin-top: var(--rds-spacing-sm, 8px) !important;
   }
-  // Activity Update overall container stability
   &__activity-update {
     display: flex !important;
     flex-direction: column !important;
@@ -271,7 +260,7 @@
     position: relative !important;
     min-height: 120px !important;
   }
-  // ----- Calendar Reminder -----
+
   &__calendar-reminder-label {
     font-size: var(--rds-font-size-md, 14px) !important;
     font-weight: 700 !important;
@@ -290,7 +279,6 @@
     .MuiInputBase-input::placeholder,
     .MuiOutlinedInput-input::placeholder,
     input::placeholder {
-      /* light-mode placeholder for calendar reminder inputs */
       color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
       opacity: 1 !important;
       font-size: var(--rds-font-size-xs, 12px) !important;
@@ -300,7 +288,6 @@
     }
   }
 
-  /* dark-mode placeholder override for calendar reminder inputs */
   .dark-theme .rds-adaptive-cards__calendar-reminder-input .MuiInputBase-input::placeholder,
   [data-theme="dark"] .rds-adaptive-cards__calendar-reminder-input .MuiInputBase-input::placeholder,
   .dark-theme .rds-adaptive-cards__calendar-reminder-input .MuiOutlinedInput-input::placeholder,
@@ -309,7 +296,7 @@
   [data-theme="dark"] .rds-adaptive-cards__calendar-reminder-input input::placeholder {
     color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
   }
-  // ----- Activity Update -----
+
   &__activity-update-header {
     display: flex !important;
     flex-direction: row !important;
@@ -371,7 +358,7 @@
     margin-top: var(--rds-spacing-sm, 4px) !important;
     line-height: 1.4 !important;
   }
-  // ----- Restaurant Order -----
+  
   &__restaurant-order-form {
     margin-bottom: var(--rds-spacing-none, 0);
     gap: var(--rds-spacing-sm, 8px);
@@ -387,15 +374,14 @@
     height: 20px !important;
     color: var(--rds-text-secondary, #7D7D7D) !important;
   }
-  // ----- Placeholder -----
+  
   &__placeholder {
     color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6));
     font-size: var(--rds-font-size-md, 14px);
   }
-  // ----- Football Scorecard -----
+  
   &__football-header {
     width: 100% !important;
-    // margin-bottom: var(--rds-spacing-sm, 8px) !important;
     padding: var(--rds-spacing-xs, 4px) 0 !important;
     display: flex !important;
     flex-direction: column !important;
@@ -407,14 +393,12 @@
     position: relative;
       display: flex !important; 
       align-items: center !important;
-      justify-content: space-between !important; // make space for title on left and live chip on right
-    //gap: var(--rds-spacing-sm, 58px) !important; // Increase gap to match second screenshot
+      justify-content: space-between !important;
     margin: 0 !important;
     padding: var(--rds-spacing-xs, 4px) 0 !important;
-    flex-wrap: nowrap !important; // Prevent wrapping
+    flex-wrap: nowrap !important;
   }
 
-  /* CSS-only grouping: if markup wasn't wrapped in a left-group, force avatar + title to stay together on left */
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league-avatar,
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league {
     display: inline-flex !important;
@@ -422,7 +406,6 @@
     gap: var(--rds-spacing-xs, 6px) !important;
   }
 
-  /* Ensure ordering: avatar then title on left, live chip on right */
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league-avatar {
     order: 0 !important;
     margin-right: var(--rds-spacing-xs, 8px) !important;
@@ -431,47 +414,45 @@
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-league {
     order: 1 !important;
     white-space: nowrap !important;
-    min-width: 0 !important; /* allow truncation */
+    min-width: 0 !important; 
   }
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-live,
   .rds-adaptive-cards__football-header-row > .rds-adaptive-cards__football-live--aligned {
     order: 2 !important;
-    margin-left: auto !important; /* push live chip to the far right */
+    margin-left: auto !important; 
   }
 
-    /* Left-side group: avatar + title should stay together */
     &__football-header-left {
       display: flex !important;
       align-items: center !important;
-      flex: 1 1 auto !important; /* allow this group to take remaining space but keep items together */
-      min-width: 0 !important; /* allow truncation within this group when necessary */
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
       margin-left: 67px !important;
     }
   &__football-league-avatar {
     width: var(--rds-football-league-avatar-size, 24px) !important;
     height: var(--rds-football-league-avatar-size, 24px) !important;
-    flex-shrink: 0 !important; // Prevent shrinking
+    flex-shrink: 0 !important;
     display: block !important;
-    border-radius: 50% !important; // Ensure circular shape
+    border-radius: 50% !important;
   }
   &__football-league {
-      font-weight: var(--rds-font-weight-black, 900) !important; // Increase font weight to match second screenshot
+      font-weight: var(--rds-font-weight-black, 900) !important;
       font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
       letter-spacing: var(--rds-football-league-letter-spacing, 0.5px) !important;
-      font-size: 24px !important; // Increase size to match second screenshot
+      font-size: 24px !important; 
       color: var(--rds-text-primary, #111) !important;
-      text-shadow: none !important; // Remove text shadow for cleaner look
-      display: inline-block !important; // Ensure proper inline flow
-      white-space: nowrap !important; // Prevent text wrapping
-      margin: 0 !important; // Remove margins
-      line-height: 1.2 !important; // Better line height
+      text-shadow: none !important; 
+      display: inline-block !important;
+      white-space: nowrap !important;
+      margin: 0 !important;
+      line-height: 1.2 !important;
       .dark-theme &,
       [data-theme="dark"] & {
         color: #fff !important;
       }
     }
     
-    // Ensure the league/title and the live chip have breathing room
     .rds-adaptive-cards__football-live + & {
       margin-left: var(--rds-spacing-md, 12px) !important;
     }
@@ -487,7 +468,7 @@
     [data-theme="dark"] & {
       color: #fff !important;
     }
-    /* Ensure the league/title doesn't push the avatar away: allow truncation */
+   
     min-width: 0 !important;
   }
   &__football-final {
@@ -506,19 +487,19 @@
     font-size: var(--rds-font-size-xs, 10px) !important;
     font-weight: var(--rds-font-weight-normal, 400) !important;
     border-radius: 999px !important;
-    background: #f44336 !important; // Red background for live indicator
-    color: white !important; // White text for contrast
+    background: #f44336 !important;
+    color: white !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    flex-shrink: 0 !important; // Prevent shrinking
-    margin: 0 !important; // Remove problematic margins
-    padding: 12px 6px !important; // Add proper padding
-    height: 20px !important; // Fixed height
-    min-width: 32px !important; // Minimum width
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+    padding: 12px 6px !important;
+    height: 20px !important; 
+    min-width: 32px !important;
     .dark-theme &,
     [data-theme="dark"] & {
-      background: #f44336 !important; // Keep red in dark theme
+      background: #f44336 !important;
       color: white !important;
       fill: white !important;
     }
@@ -528,10 +509,9 @@
     }
   }
 
-  /* Right-align live chip variant for desktop/tablet where header uses space-between */
   .rds-adaptive-cards__football-live--aligned {
     position: relative !important;
-    margin-left: auto !important; /* push to the far right inside a flex row */
+    margin-left: auto !important;
     margin-right: 0 !important;
     right: 0 !important;
     left: auto !important;
@@ -540,23 +520,22 @@
     justify-content: center !important;
   }
   &__football-body {
-    display: flex !important; // Essential: Enable flexbox layout for horizontal alignment
-    flex-direction: row !important; // Ensure horizontal layout
-    // margin-top: var(--rds-spacing-sm, 8px);
+    display: flex !important; 
+    flex-direction: row !important;
     width: 100%;
-    justify-content: space-around; // Better distribution of space
-    align-items: flex-start; // Align to top for better visual balance
-    gap: var(--rds-spacing-xs, 8px); // Reduce gap for tighter layout
-    min-height: 120px; // Ensure consistent height
-    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px); // Add top padding
+    justify-content: space-around; 
+    align-items: flex-start;
+    gap: var(--rds-spacing-xs, 8px);
+    min-height: 120px;
+    padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
   }
   &__football-team {
-    display: flex !important; // Enable flexbox for team container
-    flex-direction: column !important; // Stack team elements vertically
+    display: flex !important; 
+    flex-direction: column !important; 
     align-items: center;
-    flex: 1; // Allow teams to take equal space
-    min-width: 90px; // Minimum width for team names
-    max-width: 120px; // Increase max width to accommodate team names
+    flex: 1; 
+    min-width: 90px;
+    max-width: 120px; 
     text-align: center;
     gap: var(--rds-spacing-xs, 4px);
   }
@@ -576,7 +555,7 @@
           background: #4a4a4a !important;
         }
       }
-      /* Dark mode override for away team logo */
+      
       &.rds-adaptive-cards__football-logo--away {
         background: #fff !important;
         .dark-theme &,
@@ -615,35 +594,34 @@
     text-align: center;
     font-size: var(--rds-font-size-md, 14px) !important;
     letter-spacing: var(--rds-football-team-name-letter-spacing, 0.15px) !important;
-    white-space: nowrap !important; // Prevent team name from wrapping to multiple lines
-    overflow: hidden; // Hide overflow if team name is too long
-    text-overflow: ellipsis; // Show ... if text is cut off
-    max-width: 120px; // Match team container width
-    width: 100%; // Take full width of parent container
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    max-width: 120px; 
+    width: 100%; 
   }
   &__football-team-status {
     color: var(--rds-text-secondary, #646464);
     text-align: center;
     font-weight: var(--rds-font-weight-bold, 700);
     font-family: var(--rds-font-family-bold, 'Poppins', sans-serif);
-    font-size: var(--rds-font-size-sm, 12px) !important; // Smaller font for status
-    white-space: nowrap !important; // Prevent wrapping
-    max-width: 120px; // Match container width
-    width: 100%; // Take full width
+    font-size: var(--rds-font-size-sm, 12px) !important; 
+    white-space: nowrap !important;
+    max-width: 120px; 
+    width: 100%;
   }
   &__football-score-section {
-    display: flex !important; // Enable flexbox for score section
-    flex-direction: column !important; // Column layout: score on top, time below
+    display: flex !important;
+    flex-direction: column !important; 
     align-items: center !important;
     font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
-    gap: var(--rds-spacing-xs, 4px) !important; // Small gap between score and time
-    flex-shrink: 0 !important; // Prevent shrinking
-    min-width: 100px; // Adequate width for vertical layout
-    max-width: 120px; // Reasonable max width
+    gap: var(--rds-spacing-xs, 4px) !important; 
+    flex-shrink: 0 !important; 
+    min-width: 100px; 
+    max-width: 120px; 
     text-align: center !important;
   }
 
-  // Style the score row containing just the score numbers and colon
   &__football-score-row {
     display: flex !important;
     flex-direction: row !important;
@@ -657,12 +635,11 @@
     font-weight: var(--rds-font-weight-extrabold, 800) !important;
     font-family: var(--rds-font-family-bold, 'Poppins', sans-serif);
     text-align: center !important;
-    line-height: 1 !important; // Ensure tight line height for better alignment
-    display: inline-block !important; // Ensure inline display
+    line-height: 1 !important; 
+    display: inline-block !important; 
     
-    // Style the colon specifically
     &-colon {
-      margin: 0 2px !important; // Small margin around colon
+      margin: 0 2px !important; 
     }
   }
   &__football-time {
@@ -675,11 +652,11 @@
     min-width: var(--rds-spacing-xl, 50px) !important;
     border-radius: var(--rds-border-radius-sm, 4px) !important;
     font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
-    height: 20px !important; // Appropriate height for time chip
+    height: 20px !important; 
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    margin-top: 20px !important; // No margin since it's positioned below score
+    margin-top: 20px !important; 
     .dark-theme &,
     [data-theme="dark"] & {
       background: #6f6f6f !important;
@@ -688,20 +665,15 @@
   }
 }
 
-// ====================
-// Standalone Components
-// ====================
-
-// Input Form Card Styles
 .rds-adaptive-cards__action-btn--input-form {
   width: 100%;
   border-radius: var(--rds-border-radius-md, 8px);
   background: var(--rds-background-light, #fcfcfc);
   height: var(--rds-component-button-height-medium, 36px);
   padding: 1px var(--rds-spacing-sm, 12px);
-  border: 1.5px solid var(--rds-border-light, #C4C4C4); /* Match restaurant order form border */
+  border: 1.5px solid var(--rds-border-light, #C4C4C4);
   box-sizing: border-box;
-  // Remove black border on focus/active in dark mode
+  
   &:focus,
   &:active {
     outline: none;
@@ -758,16 +730,13 @@
   display: block;
 }
 
-// Chevron Icon
 .rds-adaptive-cards__chevron-icon {
   display: block;
   margin-top: var(--rds-spacing-xs, 2px);
 }
 
-// Calendar Reminder Actions
 .rds-adaptive-cards__calendar-reminder-actions {
   margin-top: var(--rds-spacing-sm, 8px);
-  /* Ensure actions render in a stable horizontal row on first paint */
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
@@ -775,10 +744,9 @@
   gap: var(--rds-spacing-sm, 8px) !important;
   width: 100% !important;
   box-sizing: border-box !important;
-  flex-wrap: nowrap !important; /* Prevent buttons from stacking due to late JS layout */
+  flex-wrap: nowrap !important; 
 }
 
-/* Ensure buttons inside calendar reminder render as inline-flex to avoid block stacking */
 .rds-adaptive-cards__calendar-reminder-actions .rds-adaptive-cards__action-btn,
 .rds-adaptive-cards__calendar-reminder-actions button,
 .rds-adaptive-cards__calendar-reminder-actions .MuiButton-root {
@@ -788,25 +756,21 @@
   vertical-align: middle !important;
 }
 
-/* Defensive: when this actions area is placed inside input-form variations, keep full width behavior stable */
 .rds-adaptive-cards__calendar-reminder-actions.rds-adaptive-cards__actions--input-form {
   justify-content: space-between !important;
   padding-left: var(--rds-spacing-sm, 8px) !important;
   padding-right: var(--rds-spacing-sm, 8px) !important;
 }
 
-// Hide instance slot when default is selected
 .rds-adaptive-cards.is-default-selected .rds-adaptive-cards__default-slot,
 .rds-adaptive-cards.is-default-selected .rds-adaptive-cards__default-slot-text {
   display: none !important;
 }
 
-// Close Button
 .rds-adaptive-cards__close-btn .MuiSvgIcon-root {
   font-size: var(--rds-close-btn-font-size, 1.8rem) !important;
 }
 
-// Activity Update Radio
 .rds-adaptive-cards__activity-update-radio  {
   font-size: var(--rds-font-size-md, 14px) !important;
   margin-left: var(--rds-spacing-xs, 4px) !important;
@@ -818,10 +782,10 @@
 }
 
 .rds-adaptive-cards__activity-update-radio-label{
-  margin-right: 2px !important; // Further reduce gap between radio and label
+  margin-right: 2px !important; 
   display: flex;
   align-items: center;
-  gap: 2px !important; // Force minimal gap between radio and label
+  gap: 2px !important; 
 }
 
 .rds-adaptive-cards__activity-update-radio-group .MuiSvgIcon-root {
@@ -833,7 +797,6 @@
   color: #1976d2 !important;
 }
 
-// Required Field
 .rds-adaptive-cards__required {
   color: var(--rds-error-main, #d32f2f);
   margin-left: var(--rds-spacing-xs, 2px);
@@ -841,12 +804,10 @@
   font-weight: var(--rds-font-weight-bold, bold);
 }
 
-// Restaurant Order Form Select
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon {
   color: var(--rds-text-secondary, #757575) !important;
 }
 .rds-adaptive-cards__restaurant-order-form .rds-adaptive-cards__placeholder {
-  /* select placeholder within restaurant order form - use placeholder variable with light fallback */
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
   font-size: var(--rds-font-size-sm, 12px);
 }
@@ -864,7 +825,6 @@
 }
 .dark-theme .rds-adaptive-cards__restaurant-order-form .rds-adaptive-cards__placeholder,
 [data-theme="dark"] .rds-adaptive-cards__restaurant-order-form .rds-adaptive-cards__placeholder {
-  /* dark mode: placeholder fallback to lighter white-ish value */
   color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
 }
 .dark-theme .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
@@ -875,7 +835,6 @@
   color: var(--rds-text-secondary, #757575) !important;
 }
 
-// Calendar Reminder Card Select Icon Size
 .rds-adaptive-cards__calendar-reminder-select-icon {
   width: var(--rds-calendar-reminder-select-icon-width, 16px) !important;
   height: var(--rds-calendar-reminder-select-icon-height, 12px) !important;
@@ -884,22 +843,20 @@
   color: var(--rds-text-secondary, #757575) !important;
   margin-right: var(--rds-spacing-sm, 8px) !important;
 }
-// Calendar Reminder Card Select Placeholder Font Size
+
 .rds-adaptive-cards__calendar-reminder-placeholder {
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6));
   font-size: var(--rds-calendar-reminder-placeholder-font-size, 0.85rem);
 }
-/* Dark mode fallback for calendar reminder placeholder */
 .dark-theme .rds-adaptive-cards__calendar-reminder-placeholder,
 [data-theme="dark"] .rds-adaptive-cards__calendar-reminder-placeholder {
   color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
 }
-// Ensure input and textarea placeholders inside input form card are larger
+
 .rds-adaptive-cards__action-btn--input-form input::placeholder,
 .rds-adaptive-cards__action-btn--input-form textarea::placeholder {
   font-size: var(--rds-font-size-xs, 12px) !important;
 }
-/* input form placeholders should use placeholder variable */
 .rds-adaptive-cards__action-btn--input-form input::placeholder,
 .rds-adaptive-cards__action-btn--input-form textarea::placeholder {
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
@@ -910,10 +867,8 @@
 [data-theme="dark"] .rds-adaptive-cards__action-btn--input-form textarea::placeholder {
   color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
 }
-// Make input form card placeholder text larger
 .rds-adaptive-cards__action-btn--input-form::placeholder {
   font-size: var(--rds-font-size-xs, 12px) !important;
-  /* when the class is present on the input element itself, ensure color follows the placeholder variable */
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
 }
 .dark-theme .rds-adaptive-cards__action-btn--input-form::placeholder,
@@ -926,10 +881,6 @@
   font-size: 12px !important;
   width: 98% !important;
 }
-
-// ====================
-// Alt Card Structure
-// ====================
 
 .rds-adaptive-cards__container {
   display: flex;
@@ -963,8 +914,8 @@
 .rds-adaptive-cards__footer {
   display: flex;
   justify-content: flex-end;
-  align-items: center; /* Center buttons vertically to avoid misalignment */
-  flex-wrap: nowrap; /* Keep buttons on a single row */
+  align-items: center; 
+  flex-wrap: nowrap;
   gap: var(--rds-spacing-sm, 8px);
   align-self: stretch;
 }
@@ -1153,10 +1104,6 @@
   inset: var(--rds-dropdown-menu-inset, 4px auto auto -67px) !important;
 }
 
-// ====================
-// Responsive Styles
-// ====================
-
 @media (min-width: 320px) and (max-width: 375px) {
   .rds-adaptive-cards,
   .adaptive-card-container {
@@ -1273,8 +1220,8 @@
     margin-bottom: var(--rds-spacing-md, 10px) !important;
   }
   .rds-adaptive-cards__football-body {
-    display: flex !important; // Ensure flex is maintained in mobile
-    flex-direction: row !important; // Keep horizontal layout
+    display: flex !important;
+    flex-direction: row !important;
     gap: var(--rds-spacing-sm, 8px) !important;
   }
   .rds-adaptive-cards__football-live {
@@ -1352,10 +1299,6 @@
   }
 }
 
-// ====================
-// Material UI Select Font Sizes
-// ====================
-
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-root,
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-select,
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-nativeInput {
@@ -1368,14 +1311,13 @@
   font-size: var(--rds-font-size-xs, 10px) !important;
 }
 .rds-adaptive-cards.rds-adaptive-cards--default {
-  min-height: 160px; // Reduce this value as needed
+  min-height: 160px; 
 }
 
 .custom-box__title-stack {
-  gap: 2px !important; // Reduce gap between items
+  gap: 2px !important;
 }
 .custom-box {
-  // padding: 0px 16px 16px 16px;
   min-height: 120px;
   background: transparent;
   border-radius: 12px;
@@ -1403,8 +1345,8 @@
   }
 
   &__title-text {
-  font-size: 1.3rem !important; // smaller font size
-  font-weight: 700 !important; // bolder font weight
+  font-size: 1.3rem !important; 
+  font-weight: 700 !important; 
   margin-right: 0; 
   }
 
@@ -1450,44 +1392,39 @@
   }
 }
 
-//material specific overrides
 .css-1lt5qva-MuiCardContent-root:last-child
 {
-  padding-bottom: 10px !important; // Ensure consistent bottom padding
+  padding-bottom: 10px !important; 
 }
  .css-1q4nm6f-MuiCardActions-root
  {
-  padding: 0px !important; // Ensure consistent bottom padding
+  padding: 0px !important; 
  }
  .css-1sos3zc-MuiStack-root>:not(style)~:not(style)
  {
-  margin-left: 0px !important; // Ensure consistent bottom padding
+  margin-left: 0px !important; 
  }
  .css-1x4jos1 > :not(style) ~ :not(style) {
     margin-left: 0px !important;
 }
 
-// Activity Update specific Material-UI overrides to prevent layout shifts
 .rds-adaptive-cards__activity-update-header.MuiStack-root > :not(style) ~ :not(style) {
-  margin-left: 8px !important; // Consistent spacing between avatar and content
+  margin-left: 8px !important; 
 }
 
 .rds-adaptive-cards__activity-update-header .MuiStack-root > :not(style) ~ :not(style) {
-  margin-top: 2px !important; // Small consistent spacing between name and date
-  margin-left: 0 !important; // No left margin for vertical stack
+  margin-top: 2px !important; 
+  margin-left: 0 !important;
 }
 
-// Prevent layout shifts from Material-UI spacing changes
 .rds-adaptive-cards__activity-update .MuiStack-root {
-  transition: none !important; // Disable transitions that could cause layout shifts
+  transition: none !important; 
 }
 
-// Force consistent positioning for the activity update components
 .rds-adaptive-cards__content .rds-adaptive-cards__activity-update {
-  position: static !important; // Ensure stable positioning context
+  position: static !important; 
 }
 
-// Activity Update wrapper to prevent layout instability
 .rds-adaptive-cards__activity-update-wrapper {
   width: 100% !important;
   display: block !important;
@@ -1497,7 +1434,6 @@
   margin: 0 !important;
 }
 
-// Ensure consistent font styling in both light and dark themes
 .rds-adaptive-cards__activity-update-name {
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
   font-size: var(--rds-font-size-lg, 18px) !important;
@@ -1508,7 +1444,6 @@
   font-size: var(--rds-font-size-lg, 14px) !important;
 }
 
-// Dark theme overrides to maintain consistent styling
 .dark-theme .rds-adaptive-cards__activity-update-name,
 [data-theme="dark"] .rds-adaptive-cards__activity-update-name {
   color: var(--rds-text-primary-dark, #fff) !important;
@@ -1528,7 +1463,6 @@
   color: #fff !important;
 }
 
-// Input form error styling
 .rds-adaptive-cards__input-error {
   border-color: #d32f2f !important;
   border-width: 2px !important;
@@ -1547,7 +1481,6 @@
   line-height: 1.4;
 }
 
-/* Extra small screens: ensure football scorecard and team names never overflow on narrow devices (320px) */
 @media (max-width: 340px) {
   .rds-adaptive-cards--football-scorecard,
   .rds-adaptive-cards__scorecard-container {
@@ -1562,9 +1495,8 @@
     justify-content: space-between !important;
   }
 
-  /* Allow teams and score section to shrink more on very small screens */
   .rds-adaptive-cards__football-team {
-    min-width: 56px !important; /* permit smaller team columns */
+    min-width: 56px !important; 
     max-width: 80px !important;
   }
 
@@ -1573,7 +1505,6 @@
     max-width: 80px !important;
   }
 
-  /* Force team name truncation and ensure it can't overflow the viewport */
   .rds-adaptive-cards__football-team-name {
     max-width: 80px !important;
     white-space: nowrap !important;
@@ -1582,7 +1513,6 @@
     font-size: 13px !important;
   }
 
-  /* Reduce the left margin used in header grouping so header doesn't push content off-screen */
   .rds-adaptive-cards__football-header-left {
     margin-left: 24px !important;
   }

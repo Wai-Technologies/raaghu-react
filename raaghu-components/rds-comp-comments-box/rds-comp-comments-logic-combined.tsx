@@ -20,9 +20,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import './rds-comp-comments-box.scss';
 import { useCommentsBoxLogic, DropdownMenu } from './rds-comp-comments-box';
 
-// Logic moved to rds-comp-comments-box.tsx
-
-
 export interface RdsCommentBoxProps {
   svgEditPath?: string;
   svgDeletePath?: string;
@@ -30,13 +27,9 @@ export interface RdsCommentBoxProps {
   imgProps?: React.ImgHTMLAttributes<HTMLImageElement>;
   svgEditProps?: React.SVGProps<SVGSVGElement>;
   svgDeleteProps?: React.SVGProps<SVGSVGElement>;
-  /** Custom React node for Edit icon in dropdown */
   editIcon?: React.ReactNode;
-  /** Custom React node for Delete icon in dropdown */
   deleteIcon?: React.ReactNode;
-  /** Custom label for Edit action */
   editLabel?: string;
-  /** Custom label for Delete action */
   deleteLabel?: string;
   state:
     | 'default'
@@ -66,8 +59,6 @@ export interface RdsCommentBoxProps {
   noImageText?: string;
   score?: string;
 }
-
-// DropdownMenu moved to rds-comp-comments-box.tsx
 
 export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
   const { state, avatarInitials = 'RD' } = props;
@@ -345,7 +336,6 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
             </RdsBox>
           </RdsBox>
           <RdsBox className="rds-comments-box__reply-box">
-            {/* <RdsAvatar className="rds-comments-box__avatar">{props.yourLogo || 'RD'}</RdsAvatar> */}
             <RdsAvatar className="rds-comments-box__avatar" src={props.yourLogo} />
             <TextField
               variant="outlined"

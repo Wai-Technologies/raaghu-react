@@ -1,10 +1,5 @@
-/**
- * RDS Reviews Component Styles
- * Following BEM naming conventions with rds- prefix
- */
 .rds-comp-reviews {
     
-    // For compatibility with existing classes
     .card {
         margin-bottom: 1rem;
         border: 1px solid rgba(0, 0, 0, .175);
@@ -22,7 +17,6 @@
         box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
     
-    // For compatibility with existing classes
     .rounded-circle {
         object-fit: cover;
         width: 32px;
@@ -38,7 +32,6 @@
         color: var(--rds-text-primary, #374151);
     }
     
-    // For compatibility with existing classes
     .card-title {
         font-weight: 500;
         font-size: 0.95rem;
@@ -56,7 +49,6 @@
         font-family: 'Poppins', sans-serif;
     }
     
-    // For compatibility with existing classes
     .card-text {
         font-size: 0.85rem;
         color: var(--rds-text-secondary, #6B7280);
@@ -79,7 +71,6 @@
         font-size: 12px;
     }
     
-    // Dark theme support
     :root[data-theme='dark'] &,
     [data-theme='dark'] & {
         .card {
@@ -107,7 +98,6 @@
             border-top-color: rgba(255,255,255,0.08);
         }
         
-        // Button variants - maintain their colors
         .btn-outline-primary {
             border-color: var(--rds-color-primary, #1976d2);
             color: var(--rds-color-primary, #1976d2);
@@ -138,40 +128,32 @@
             color: var(--rds-color-secondary, #a21caf);
         }
         
-        // Avatar border for better visibility in dark mode
         &__avatar,
         .rounded-circle {
             box-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1);
         }
         
-        // Like/Dislike icons - maintain colors in dark mode
-        // MUI ThumbUpAltIcon (Like) - primary/blue color
         .MuiSvgIcon-colorPrimary,
         svg.MuiSvgIcon-colorPrimary {
             color: var(--rds-color-primary, #2196f3) !important;
         }
         
-        // MUI ThumbDownAltIcon (Dislike) - danger/red color
         .MuiSvgIcon-colorError,
         svg.MuiSvgIcon-colorError {
             color: var(--rds-color-danger, #dc3545) !important;
         }
         
-        // Additional button and icon selectors
         .MuiIconButton-root,
         .MuiButton-root,
         button {
-            // Thumbs up icon
             .MuiSvgIcon-colorPrimary {
                 color: var(--rds-color-primary, #2196f3) !important;
             }
             
-            // Thumbs down icon
             .MuiSvgIcon-colorError {
                 color: var(--rds-color-danger, #dc3545) !important;
             }
             
-            // Font Awesome and Bootstrap icons
             .fa-thumbs-up,
             .bi-hand-thumbs-up {
                 color: var(--rds-color-primary, #2196f3) !important;
@@ -183,7 +165,6 @@
             }
         }
         
-        // Counter text colors
         .MuiTypography-root,
         .MuiTypography-body2 {
             color: var(--rds-text-primary, #F9FAFB) !important;
@@ -191,11 +172,9 @@
     }
 }
 
-// Dark mode rating color overrides - apply globally for all review components
 :root[data-theme='dark'],
 [data-theme='dark'] {
     .rds-comp-reviews {
-        // Empty rating icons
         .MuiRating-iconEmpty,
         .MuiRating-root .MuiRating-iconEmpty,
         span.MuiRating-icon.MuiRating-iconEmpty,
@@ -207,7 +186,6 @@
             }
         }
         
-        // Default filled rating icons - blue color like light mode
         .MuiRating-iconFilled,
         .MuiRating-root .MuiRating-iconFilled,
         span.MuiRating-icon.MuiRating-iconFilled,
@@ -221,7 +199,6 @@
             }
         }
         
-        // Override MUI's default dark mode color
         .MuiRating-root {
             color: #2196f3 !important;
             
@@ -230,7 +207,6 @@
             }
         }
         
-        // Color variants
         .rds-rating--color-primary {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
