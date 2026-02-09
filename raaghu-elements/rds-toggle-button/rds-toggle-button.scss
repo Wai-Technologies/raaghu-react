@@ -205,10 +205,7 @@
     padding:6px 8px;
     box-sizing:border-box;
   }
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
   .rds-toggle-button--spaced .rds-toggle-button__custom-group { min-width:0; flex-wrap:wrap; }
 
   .rds-toggle-button--large-three.rds-toggle-button--large:not(.rds-toggle-button--vertical):not(.rds-toggle-button--spaced) .rds-toggle-button__group,
@@ -255,11 +252,7 @@
   }
 }
 
-<<<<<<< Updated upstream
-  @media (max-width: 600px) {
-=======
 @media (max-width: 600px) {
->>>>>>> Stashed changes
     .rds-toggle-button--wrap-mobile .rds-toggle-button__group,
     .rds-toggle-button--wrap-mobile.rds-toggle-button--spaced .rds-toggle-button__custom-group {
       flex-wrap: wrap;
@@ -268,11 +261,7 @@
     .rds-toggle-button--wrap-mobile .rds-toggle-button__button {
       flex: 1 1 50%;
     }
-<<<<<<< Updated upstream
-   
-=======
     
->>>>>>> Stashed changes
     .rds-toggle-button--wrap-mobile .MuiToggleButton-root:nth-child(1),
     .rds-toggle-button--wrap-mobile .rds-toggle-button__button-wrapper:nth-child(1) .rds-toggle-button__button {
       border-top-left-radius: var(--rds-border-radius-sm, 4px);
