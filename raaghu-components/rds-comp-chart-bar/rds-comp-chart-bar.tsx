@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import "./rds-comp-chart-bar.scss";
 
 export interface RdsCompBarChartProps {
     labels: any[];
@@ -116,7 +117,7 @@ const RdsCompBarChart = (props: RdsCompBarChartProps) => {
      }, [props.options, props.labels, props.dataSets, props.height, props.id, themeMode]);
     
     return (
-        <div>
+        <div className="rds-comp-chart-bar">
             <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} />
         </div>
     );
