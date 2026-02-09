@@ -46,10 +46,10 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
     if (!isControlled) setInternalOpen(!internalOpen);
   }, [isControlled, internalOpen]);
 
-  const handleClose = useCallback((...args: any[]) => {
+  const handleClose = useCallback((event?: any, reason?: any) => {
     if (!isControlled) setInternalOpen(false);
     if (props.onClose) {
-      props.onClose(...(args as any));
+      (props.onClose as any)(event, reason);
     }
   }, [isControlled, props]);
 
@@ -68,7 +68,7 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
           <div className='rds-drawer-close-button'>
             <RdsButton
               text={closeButtonText}
-              onClick={handleClose}
+              onClick={() => handleClose({}, 'buttonClick')}
               color="primary"
               layout="text-only"
               shape="rectangle"
@@ -109,7 +109,7 @@ const RdsDrawer: React.FC<RdsDrawerProps> = ({
     const triggerButton = (
       <RdsButton
         text={getButtonText()}
-        onClick={triggerTextWhenOpen ? handleToggle : handleToggle}
+        onClick={handleToggle}
         color="primary"
         layout="text-only"
         shape="rectangle"

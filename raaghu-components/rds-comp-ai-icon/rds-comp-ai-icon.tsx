@@ -104,7 +104,6 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
         }
         setIconComponent(null);
       } catch (error) {
-        console.warn('Error loading icon:', error);
         setIconComponent(null);
       }
     };
@@ -156,7 +155,6 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
 
       return <Icon {...svgProps} />;
     } catch (error) {
-      console.warn('Error rendering icon:', error);
       return null;
     }
   }

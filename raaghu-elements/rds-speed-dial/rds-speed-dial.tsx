@@ -66,7 +66,7 @@ const RdsSpeedDial: React.FC<RdsSpeedDialProps> = ({
           key={action.name}
           icon={action.icon}
           tooltipTitle={action.tooltipTitle || action.name}
-          onClick={action.onClick || (() => {})}
+          onClick={action.onClick}
         />
       ))}
     </MuiSpeedDial>

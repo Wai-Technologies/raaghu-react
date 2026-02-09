@@ -35,12 +35,11 @@ const RdsRadio= ({
   radioProps,
   layout = 'icon with label',
   state = 'default',
-  row,
   selected,
   ...props
 }:RdsRadioProps) => {
   const isHoverable = state === 'hover' || state === 'default';
-  const radioRow = row ?? direction === 'row';
+  const radioRow = direction === 'row';
 
   const effectiveValue: string | undefined = React.useMemo(() => {
     if (typeof selected === 'undefined') return props.value as any;

@@ -82,11 +82,8 @@ const RdsCounter = ({
     if (!isNaN(newValue) && newValue >= min && newValue <= max) updateValue(newValue);
   };
 
-  const isCompact = variant === 'compact';
-
   const demoSelected = state === 'selected' || selected;
   const demoDisabled = state === 'disabled' || disabled;
-  const effectiveSelected = demoSelected;
   const effectiveDisabled = demoDisabled;
 
   const containerClasses = `rds-counter rds-counter--${variant} rds-counter--${size}${demoSelected ? ' rds-counter--selected' : ''}${demoDisabled ? ' rds-counter--disabled' : ''} rds-counter--layout-${layout}`;
@@ -157,7 +154,7 @@ const RdsCounter = ({
   return (
     <Box className={containerClasses}>
       {showTitle && titleText && (
-        <Typography className={`rds-counter__label ${isCompact ? 'rds-counter__label--compact' : ''} rds-counter__label--${size}`}>
+        <Typography className={`rds-counter__label ${variant === 'compact' ? 'rds-counter__label--compact' : ''} rds-counter__label--${size}`}>
           {titleText}
           <span className="rds-counter__mandatory" style={{ visibility: isMandatory ? 'visible' : 'hidden' }}>*</span>
         </Typography>

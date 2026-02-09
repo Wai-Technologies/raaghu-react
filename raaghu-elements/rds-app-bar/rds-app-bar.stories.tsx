@@ -104,15 +104,15 @@ const DashboardMenu = () => {
       </IconButton>
 
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose} anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <Brightness5 fontSize="small" style={{ marginRight: 8 }} />
           Light
         </MenuItem>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <Brightness2 fontSize="small" style={{ marginRight: 8 }} />
           Dark
         </MenuItem>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <Brightness4 fontSize="small" style={{ marginRight: 8 }} />
           Semi Dark
         </MenuItem>
@@ -158,15 +158,15 @@ const ThemeMenuIcon = ({ showDropdown = true, onClick }: { showDropdown?: boolea
         ) : null}
       </IconButton>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose} anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <Brightness5 fontSize="small" style={{ marginRight: 8 }} />
           Light
         </MenuItem>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <Brightness2 fontSize="small" style={{ marginRight: 8 }} />
           Dark
         </MenuItem>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <Brightness4 fontSize="small" style={{ marginRight: 8 }} />
           Semi Dark
         </MenuItem>
@@ -284,7 +284,7 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
           <Box sx={{ flex: 1, overflow: 'auto' }}>
             <List>
               <ListItem disablePadding>
-                <ListItemButton onClick={() => {}}>
+                <ListItemButton>
                   <ListItemIcon>
                     <AccountCircle />
                   </ListItemIcon>
@@ -292,7 +292,7 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton onClick={() => {}}>
+                <ListItemButton>
                   <ListItemIcon>
                     <Home />
                   </ListItemIcon>
@@ -300,7 +300,7 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton onClick={() => {}}>
+                <ListItemButton>
                   <ListItemIcon>
                     <Security />
                   </ListItemIcon>
@@ -308,7 +308,7 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton onClick={() => {}}>
+                <ListItemButton>
                   <ListItemIcon>
                     <Notifications />
                   </ListItemIcon>
@@ -316,7 +316,7 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton onClick={() => {}}>
+                <ListItemButton>
                   <ListItemIcon>
                     <AccountCircle />
                   </ListItemIcon>
@@ -927,7 +927,6 @@ export const Default: Story = {
     size: 'medium',
     variantStyle: 'default',
     userName: 'John Doe',
-    userShortName: 'JD',
     userEmail: 'john.doe@example.com',
   },
   render: DynamicTemplate,

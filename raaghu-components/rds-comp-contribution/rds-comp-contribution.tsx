@@ -112,11 +112,9 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   };
 
   if (!panelColors || !weekNames) {
-    console.warn('Missing required props: panelColors or weekNames');
     return null;
   }
   if (!values || !until) {
-    console.warn('Missing required props: values or until');
     return null;
   }
   const contributions = makeCalendarData(values, until, columns);
