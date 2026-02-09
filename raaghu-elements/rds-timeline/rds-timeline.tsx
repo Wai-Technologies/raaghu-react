@@ -36,8 +36,7 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
 
   return (
     <MuiTimeline position={timelinePosition} {...props}>
-      <>
-        {items.map((item, index) => (
+      {items.map((item, index) => (
           <MuiTimelineItem key={item.id}>
             {showTime && item.time && (
               <MuiTimelineOppositeContent color="text.secondary">
@@ -60,7 +59,6 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
             </MuiTimelineContent>
           </MuiTimelineItem>
         ))}
-      </>
     </MuiTimeline>
   );
 };

@@ -108,10 +108,6 @@ const RdsButton = ({
     return icon;
   };
 
-  const getStateStyles = () => {
-    return {};
-  };
-
   const getStateClassName = () => {
     switch (state) {
       case 'hover':
@@ -190,7 +186,6 @@ const RdsButton = ({
       sx={{
         ...getShapeStyles(),
         ...getTextCaseStyles(),
-        ...getStateStyles(),
         ...sx,
       }}
       startIcon={getStartIcon()}

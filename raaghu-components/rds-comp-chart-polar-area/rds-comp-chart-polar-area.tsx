@@ -6,7 +6,6 @@ export interface RdsCompPolarAreaChartProps {
     options: any,
     dataSets: any[],
     radius?: number,
-    chartStyle?: string,
     id: string
 }
 
@@ -25,13 +24,12 @@ const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const chartInstanceRef = useRef<Chart<"polarArea", number[], unknown> | null>(null);
     const CanvasId = props.id;
-    let ctx;
 
 
     useEffect(() => {
         const canvasElm = canvasRef.current;
         if (!canvasElm) return;
-        ctx = canvasElm?.getContext("2d") as CanvasRenderingContext2D;
+        const ctx = canvasElm.getContext("2d") as CanvasRenderingContext2D;
         
         if (chartInstanceRef.current) {
             chartInstanceRef.current.destroy();

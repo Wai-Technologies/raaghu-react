@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {List, ListItem, ListItemText, Typography } from '@mui/material';
+import { List, ListItem, ListItemText } from '@mui/material';
 import RdsDrawer from './rds-drawer';
 import RdsTypography from '../rds-typography/rds-typography';
 
@@ -86,10 +86,10 @@ export const Top: Story = {
     centerTrigger: true,
     children: (
       <div style={{ height: 200, padding: '16px' }}>
-        <Typography variant="h6" gutterBottom>
+        <RdsTypography variant="h6" gutterBottom>
           Top Drawer
-        </Typography>
-        <Typography variant="body1">This drawer slides from the top of the screen.</Typography>
+        </RdsTypography>
+        <RdsTypography variant="body1">This drawer slides from the top of the screen.</RdsTypography>
       </div>
     ),
   },
@@ -106,10 +106,10 @@ export const Bottom: Story = {
     centerTrigger: true,
     children: (
       <div style={{ height: 200, padding: '16px' }}>
-        <Typography variant="h6" gutterBottom>
+        <RdsTypography variant="h6" gutterBottom>
           Bottom Drawer
-        </Typography>
-        <Typography variant="body1">This drawer slides from the bottom of the screen.</Typography>
+        </RdsTypography>
+        <RdsTypography variant="body1">This drawer slides from the bottom of the screen.</RdsTypography>
       </div>
     ),
   },
@@ -144,9 +144,9 @@ export const Interactive: Story = {
     closeButtonText: 'Close Drawer',
     children: (
       <div style={{ width: 250, padding: '16px' }}>
-        <Typography variant="h6" gutterBottom>
+        <RdsTypography variant="h6" gutterBottom>
           Interactive Drawer
-        </Typography>
+        </RdsTypography>
       </div>
     ),
   },

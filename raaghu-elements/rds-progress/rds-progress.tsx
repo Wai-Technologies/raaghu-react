@@ -81,7 +81,6 @@ const RdsProgress = ({
 
   const renderStepper = () => {
     const currentStep = Math.ceil(((finalValue || 0) / 100) * totalSteps);
-  const isDark = typeof document !== 'undefined' && (document.documentElement.getAttribute('data-theme') === 'dark' || document.body.classList.contains('theme-dark'));
     return (
       <div className={`rds-progress rds-progress--stepper rds-progress--${color}`}>
         <Box sx={{ display: 'flex', alignItems: 'center', ...sx }} className="rds-progress__stepper">

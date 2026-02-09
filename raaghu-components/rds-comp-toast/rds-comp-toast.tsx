@@ -35,23 +35,22 @@ export enum ToastLayout {
   }  
 
   export interface RdsCompToastProps {
-    headerText?: string; 
-    subText: string; 
-    delay?: number; 
-    autohide?: boolean; 
-    borderColor?: string; 
-    showHeader?: boolean; 
-    layout: ToastLayout; 
-    state: ToastState; 
-    placeholder?: string; 
-    progressWidth?: number; 
-    filename?: string; 
-    position?: ToastPosition; 
-    showSubText?: boolean; 
-    showDismiss?: boolean; 
-    showLeading: boolean; 
-    leadingIcon: ToastLeadingIcon;
-    chatTime?: string; 
+    headerText?: string; // Header text of Toast
+    subText: string; // Subtext of Toast
+    delay?: number; // Delay Time of Toast
+    autohide?: boolean; // Autohide of Toast
+    showHeader?: boolean; // Show/Hide Header of Toast
+    layout: ToastLayout; // Layout Types of Toast
+    state: ToastState; // state of Toast
+    placeholder?: string; // Placeholder text of Toast
+    progressWidth?: number; // Progress Bar width of Toast
+    filename?: string; // Filename of Toast
+    position?: ToastPosition; // Position of Toast
+    showSubText?: boolean; // Show/Hide Subtext of Toast
+    showDismiss?: boolean; // Show/Hide Dismiss button of Toast
+    showLeading: boolean; // Show/Hide Leading Icon of Toast
+    leadingIcon: ToastLeadingIcon; // Leading Icon of Toast
+    chatTime?: string; // Chat Time of Toast
   }
 const RdsCompToast = (props: RdsCompToastProps) => {
     const statewiseColor = props.state === ToastState.Info ? "dark" : props.state === ToastState.Success ? "primary" : props.state === ToastState.Error ? "danger" : "light";

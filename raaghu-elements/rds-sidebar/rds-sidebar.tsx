@@ -14,14 +14,11 @@ import {
   ExpandMore,
   DashboardOutlined,
   GroupsOutlined,
-  AdminPanelSettings,
-  WidgetsOutlined,
   AppsOutlined,
   ManageAccounts,
   DesignServicesOutlined,
   ReceiptLongOutlined,
   FolderOutlined,
-  PeopleOutline,
   MailOutline,
   CampaignOutlined,
   RequestQuoteOutlined
@@ -37,7 +34,6 @@ export interface RdsSidebarItem {
   onClick?: () => void;
   active?: boolean;
   disabled?: boolean;
-  layout?: 'raaghu' | 'list' | 'toolbar';
   typeOf?: 'collapse' | 'expanded' | 'fixed';
   platform?: 'abp-list' | 'anz-list';
   children?: RdsSidebarItem[];
@@ -107,7 +103,6 @@ const RdsSidebar = ({
   const showLabels = !shouldShowIconsOnly;
   let showAvatar = true;
   let showSearchBox = !shouldShowIconsOnly && showSearch;
-  let drawerVariant = variant;
 
   if (props.layout === 'list' && shouldShowIconsOnly) {
     showAvatar = true;
@@ -152,7 +147,7 @@ const RdsSidebar = ({
     <MuiDrawer
       open={isOpen}
       onClose={onClose}
-      variant={drawerVariant}
+      variant={variant}
       sx={drawerSx}
       className={sidebarClasses}
       container={container}

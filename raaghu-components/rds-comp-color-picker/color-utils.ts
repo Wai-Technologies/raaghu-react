@@ -38,31 +38,6 @@ export const rgbToHsl = (rgb: { r: number; g: number; b: number }) => {
   return { h: Math.round(h * 60), s: Math.round(s * 100), l: Math.round(l * 100) };
 };
 
-export const hslToRgb = (h: number, s: number, l: number) => {
-  let r, g, b;
-  
-  if (s === 0) {
-    r = g = b = l;
-  } else {
-    const hue2rgb = (p: number, q: number, t: number) => {
-      if (t < 0) t += 1;
-      if (t > 1) t -= 1;
-      if (t < 1/6) return p + (q - p) * 6 * t;
-      if (t < 1/2) return q;
-      if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-      return p;
-    };
-    
-    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-    const p = 2 * l - q;
-    r = hue2rgb(p, q, h + 1/3);
-    g = hue2rgb(p, q, h);
-    b = hue2rgb(p, q, h - 1/3);
-  }
-  
-  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
-};
-
 export const componentToHex = (c: number) => {
   const hex = c.toString(16);
   return hex.length === 1 ? "0" + hex : hex;
@@ -70,35 +45,6 @@ export const componentToHex = (c: number) => {
 
 export const rgbToHex = (r: number, g: number, b: number) => {
   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-};
-
-export const hexToRgb = (hex: string): { r: number; g: number; b: number; a: number } | null => {
-    hex = hex.replace(/^#/, '');
-  
-  let r, g, b, a = 1;  
-  if (hex.length === 3) {    
-    r = parseInt(hex[0] + hex[0], 16);
-    g = parseInt(hex[1] + hex[1], 16);
-    b = parseInt(hex[2] + hex[2], 16);
-  } else if (hex.length === 4) {
-    r = parseInt(hex[0] + hex[0], 16);
-    g = parseInt(hex[1] + hex[1], 16);
-    b = parseInt(hex[2] + hex[2], 16);
-    a = parseInt(hex[3] + hex[3], 16) / 255;
-  } else if (hex.length === 6) {
-    r = parseInt(hex.substring(0, 2), 16);
-    g = parseInt(hex.substring(2, 4), 16);
-    b = parseInt(hex.substring(4, 6), 16);
-  } else if (hex.length === 8) {
-    r = parseInt(hex.substring(0, 2), 16);
-    g = parseInt(hex.substring(2, 4), 16);
-    b = parseInt(hex.substring(4, 6), 16);
-    a = parseInt(hex.substring(6, 8), 16) / 255;
-  } else {
-    return null;
-  }
-  
-  return { r, g, b, a };
 };
 
 export const hsvToRgb = (h: number, s: number, v: number) => {

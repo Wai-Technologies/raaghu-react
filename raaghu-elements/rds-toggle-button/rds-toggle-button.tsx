@@ -67,8 +67,6 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
       ? 'rds-toggle-button--medium'
       : 'rds-toggle-button--small';
 
-  const largeButtonStyle = effectiveSize === 'large' ? {} : {};
-
 
   const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: any) => {
     let finalValue = newValue;
@@ -132,7 +130,6 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
           disabled={disabled || option.disabled}
           className={`rds-toggle-button__button ${sizeClass}`}
           size={effectiveSize}
-          style={largeButtonStyle}
           aria-pressed={multiple ? 
             Array.isArray(value) && value.includes(option.value) : 
             value === option.value
@@ -168,7 +165,6 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
             disabled={disabled || option.disabled}
             className={getButtonClassName(index) + ' ' + sizeClass}
             size={effectiveSize}
-            style={largeButtonStyle}
             onClick={(e) => handleCustomButtonClick(e, option.value)}
             selected={isSelected}
             aria-pressed={isSelected}
@@ -186,7 +182,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
         </div>
       );
     });
-  }, [options, value, multiple, iconTextSpacing, spacing, orientation, color, enforceSelected, getButtonClassName, handleCustomButtonClick, inputSize, largeButtonStyle]);
+  }, [options, value, multiple, iconTextSpacing, spacing, orientation, color, enforceSelected, getButtonClassName, handleCustomButtonClick, inputSize]);
 
   const useCustomSpacing = spacing > 0;
 

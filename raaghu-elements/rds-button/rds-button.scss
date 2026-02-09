@@ -63,28 +63,7 @@
     }
   }
   
-  &__loading {
-    animation: rds-button-spin 1s linear infinite;
-  }
-  
-  &__small {
-    padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
-    font-size: var(--rds-font-size-xs);
-    min-height: 2var(--rds-spacing-sm);
-  }
-  
-  &__medium {
-    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
-    font-size: var(--rds-font-size-sm);
-    min-height: 36px;
-  }
-  
-  &__large {
-    padding: var(--rds-spacing-md) var(--rds-spacing-lg);
-    font-size: var(--rds-font-size-md);
-    min-height: 4var(--rds-spacing-xs);
-  }
-
+  // Color variants
   &__primary {
     background-color: var(--rds-button-primary-bg);
     color: var(--rds-button-primary-text);
@@ -194,18 +173,6 @@
   &__state-default {
     transition: all var(--rds-transition-base);
   }
-  
-  &__pill {
-    border-radius: 50px !important;
-  }
-
-  &__rectangle {
-    border-radius: var(--rds-border-radius-sm) !important;
-  }
-
-  .text-light {
-   color: var(--rds-button-text-color, #1976d2) !important;
- }
 }
 
 @keyframes rds-button-spin {
@@ -217,37 +184,9 @@
   }
 }
 
-.rds-theme--dark .rds-button,
-body.theme-dark .rds-button,
-body[data-theme="dark"] .rds-button,
-.theme-dark .rds-button {
-}
-
 .rds-theme--dark .rds-button__primary,
 body.theme-dark .rds-button__primary,
 body[data-theme="dark"] .rds-button__primary,
 .theme-dark .rds-button__primary {
   color: var(--rds-button-primary-text, #ffffff);
-}
-
-.rds-theme--dark .rds-button__secondary,
-body.theme-dark .rds-button__secondary,
-body[data-theme="dark"] .rds-button__secondary,
-.theme-dark .rds-button__secondary,
-.rds-theme--dark .rds-button__text,
-body.theme-dark .rds-button__text,
-body[data-theme="dark"] .rds-button__text,
-.theme-dark .rds-button__text {
-}
-
-.rds-theme--dark .rds-button__text.MuiButton-textPrimary,
-body.theme-dark .rds-button__text.MuiButton-textPrimary,
-body[data-theme="dark"] .rds-button__text.MuiButton-textPrimary,
-.theme-dark .rds-button__text.MuiButton-textPrimary {
-}
-
-.rds-theme--dark .rds-button.MuiButton-textPrimary,
-body.theme-dark .rds-button.MuiButton-textPrimary,
-body[data-theme="dark"] .rds-button.MuiButton-textPrimary,
-.theme-dark .rds-button.MuiButton-textPrimary {
 }

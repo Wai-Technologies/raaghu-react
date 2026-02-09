@@ -42,9 +42,6 @@ const meta: Meta<typeof RdsCompEmptyState> = {
     className: {
       table: { disable: true },
     },
-    testId: {
-      table: { disable: true },
-    },
   },
 };
 

@@ -110,13 +110,6 @@
     }
   }
 
-  &--rounded {
-    border-radius: var(--rds-spacing-xs);
-  }
-  &--square {
-    border-radius: 0;
-  }
-
   &--with-name {
     display: flex;
     align-items: center;
@@ -254,75 +247,6 @@
     .rds-avatar__ring { border-color: var(--rds-color-dark, #22223b); }
     .rds-avatar__dot { background: var(--rds-color-dark, #22223b); }
     .MuiAvatar-root { background-color: var(--rds-color-dark, #22223b) !important; color: white !important; }
-  }
-
-  &--rounded {
-    border-radius: var(--rds-spacing-xs);
-  }
-  
-  &--square {
-    border-radius: 0;
-  }
-  
-  &--primary {
-    background-color: var(--rds-primary-main);
-  }
-  
-  &--secondary {
-    background-color: #dc004e;
-  }
-
-  &--with-name {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    background: none;
-    box-shadow: none;
-  }
-
-  &--name-bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    background: none;
-    box-shadow: none;
-  }
-
-  &__info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    &--center {
-      align-items: center;
-      text-align: center;
-    }
-  }
-  &__name {
-    font-size: var(--rds-font-size-md, 1rem);
-    font-weight: 600;
-    color: var(--rds-text-primary);
-    line-height: 1.1;
-  }
-  &__designation {
-    font-size: var(--rds-font-size-sm, 0.95rem);
-    color: var(--rds-text-secondary, #948e8e);
-    font-weight: 400;
-    margin-top: 3px;
-  }
-
-  &__stacking {
-    display: flex;
-    align-items: center;
-    position: relative;
-    height: auto;
-    min-width: 0;
-  }
-  &__stacking-avatar {
-    box-shadow: 0 0 0 2px #fff;
-    transition: box-shadow 0.2s;
-    position: relative !important;
-    background: var(--rds-background-paper);
   }
 }
 

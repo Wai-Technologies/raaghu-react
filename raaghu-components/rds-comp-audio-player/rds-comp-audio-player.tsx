@@ -6,7 +6,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import PendingOutlinedIcon from "@mui/icons-material/PendingOutlined";
 import RdsSlider from "../../raaghu-elements/rds-slider/rds-slider";
-import MonitorWeightOutlinedIcon from "@mui/icons-material/MonitorWeightOutlined";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import SettingsSuggestSharpIcon from "@mui/icons-material/SettingsSuggestSharp";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";

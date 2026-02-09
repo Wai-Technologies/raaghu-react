@@ -16,8 +16,7 @@ export interface RdsInputProps extends Omit<TextFieldProps, 'variant' | 'style' 
   state?: 'default'|'active' | 'selected' | 'error' | 'disabled';
   showIcon?: boolean;
   iconPosition?: 'start' | 'end';
-  iconName?: string;
-  icon?: React.ReactNode;
+  icon?: React.ReactNode; // Custom icon component provided by the user
 }
 
 const RdsInput = ({
@@ -34,7 +33,6 @@ const RdsInput = ({
   state = 'default',
   showIcon = false,
   iconPosition = 'end',
-  iconName = 'search',
   icon,
   error,
   disabled,

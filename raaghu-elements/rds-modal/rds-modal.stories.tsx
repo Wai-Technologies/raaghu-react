@@ -1,7 +1,6 @@
-import { DeleteOutline, Info, Warning } from '@mui/icons-material';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsModal from './rds-modal';
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useState } from 'react';
 import RdsButton from '../rds-button/rds-button';
 

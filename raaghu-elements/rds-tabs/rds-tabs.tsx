@@ -7,7 +7,6 @@ import './rds-tabs.scss';
 export interface RdsTabItem {
   id: string | number;
   label: string;
-  icon?: React.ReactNode; 
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   disabled?: boolean;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import { Close, InfoOutlined, ExpandMore } from '@mui/icons-material';
-import { RdsCarousel, RdsBadge, RdsInput, RdsAutocomplete, RdsButton, RdsFileUploader } from '../../raaghu-elements';
+import { RdsInput, RdsAutocomplete, RdsButton } from '../../raaghu-elements';
 
 export interface RdsCompProductTourProps {
     state: "Image" | "Carousel" | "GIF" | "Form";

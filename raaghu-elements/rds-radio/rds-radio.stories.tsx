@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
 import RdsRadio from './rds-radio';
 
 const meta: Meta<typeof RdsRadio> = {
@@ -47,7 +48,6 @@ const meta: Meta<typeof RdsRadio> = {
 };
 
 export default meta;
-import React, { useState } from 'react';
 type Story = StoryObj<typeof meta>;
 
 const basicOptions = [

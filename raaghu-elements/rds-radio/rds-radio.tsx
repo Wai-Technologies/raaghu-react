@@ -39,7 +39,6 @@ const RdsRadio= ({
   selected,
   ...props
 }:RdsRadioProps) => {
-  const isDisabled = (optDisabled: boolean) => optDisabled || state === 'disabled';
   const isHoverable = state === 'hover' || state === 'default';
   const radioRow = row ?? direction === 'row';
 

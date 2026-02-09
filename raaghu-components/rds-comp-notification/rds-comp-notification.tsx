@@ -61,17 +61,13 @@ const RdsCompNotification: React.FC<RdsCompNotificationProps> = ({
         
         onDismiss?.(event, notification);
     };
-
-    const getTypeStyles = () => {
-        return {};
-    };
     return (
         <Fragment>
             {visibleNotifications.map((notification, index) => (
                 <Card
                     key={notification.userNotificationId || Math.random()}
                     className={`rds-comp-notification rds-comp-notification--layout-${layout} rds-comp-notification--style-${style} rds-comp-notification--type-${type}`}
-                    sx={{ ...getTypeStyles(), padding: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? 0 : 2, marginBottom: 2, borderRadius: 2, position: "relative",display: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? "flex" : "block",overflow: "hidden"
+                    sx={{ padding: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? 0 : 2, marginBottom: 2, borderRadius: 2, position: "relative",display: layout === NotificationLayout.Horizontal && style === NotificationStyle.Image ? "flex" : "block",overflow: "hidden"
                     }}>
                    
                     {layout === NotificationLayout.Horizontal && style === NotificationStyle.Image && (

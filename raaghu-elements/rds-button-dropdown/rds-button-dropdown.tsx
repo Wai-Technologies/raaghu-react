@@ -7,7 +7,6 @@ import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import RdsRadio from '../rds-radio/rds-radio';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
-import './rds-button-dropdown.scss';
 
 export interface RdsButtonDropdownOption {
   id: string | number;
@@ -35,7 +34,6 @@ export interface RdsButtonDropdownProps {
   showRadio?: boolean;
   isShowLeftIcon?: boolean;
   isShowRightIcon?: boolean;
-  buttonStyle?: 'filled' | 'outlined' | 'transparent';
 }
 
 const RdsButtonDropdown = ({
@@ -63,9 +61,6 @@ const RdsButtonDropdown = ({
     options.filter(o => o.checked).map(o => o.id)
   );
 
-  const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
   const handleClose = () => setAnchorEl(null);
 
   const handleOptionChange = (id: string | number) => {

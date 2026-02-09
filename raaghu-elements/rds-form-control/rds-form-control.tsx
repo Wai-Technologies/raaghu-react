@@ -2,7 +2,6 @@ import React from 'react';
 import './rds-form-control.scss';
 import {
   FormControl as MuiFormControl,
-  FormControlLabel as MuiFormControlLabel,
   FormGroup as MuiFormGroup,
   FormHelperText as MuiFormHelperText,
   FormLabel as MuiFormLabel,
@@ -15,7 +14,6 @@ export interface RdsFormControlProps extends FormControlProps {
   children: React.ReactNode;
   isRequired?: boolean;
   isGroup?: boolean;
-  inputSize?: 'small' | 'medium';
 }
 
 const RdsFormControl: React.FC<RdsFormControlProps> = ({
@@ -26,7 +24,6 @@ const RdsFormControl: React.FC<RdsFormControlProps> = ({
   isGroup = false,
   required,
   error,
-  inputSize = 'small',
   ...props
 }) => {
   const isRequiredProp = required !== undefined ? required : isRequired;
@@ -38,7 +35,7 @@ const RdsFormControl: React.FC<RdsFormControlProps> = ({
   );
 
   return (
-    <MuiFormControl required={isRequiredProp} error={error} size={inputSize} {...props} className={`rds-form-control ${props.className ?? ''}`}>
+    <MuiFormControl required={isRequiredProp} error={error} {...props} className={`rds-form-control ${props.className ?? ''}`}>
       {label && (
         <MuiFormLabel required={isRequiredProp} className="rds-form-control__label">
           {label}

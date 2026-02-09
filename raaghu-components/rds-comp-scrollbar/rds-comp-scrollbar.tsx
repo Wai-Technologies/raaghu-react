@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import "./rds-comp-scrollbar.scss";
-import {RdsIconButton} from "../../raaghu-elements/index";
 
 export enum ScrollBarType {
   Mac = "Mac",

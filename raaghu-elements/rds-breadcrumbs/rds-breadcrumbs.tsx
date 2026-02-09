@@ -181,7 +181,6 @@ const RdsBreadcrumbs = ({
         const itemLayoutClass = getLayoutClass(item.layout);
         const itemStateClass = getStateClass(item.state);
         const isSelected = (item.state === 'selected') || (state === 'selected' && !item.state);
-        const isHovered = (item.state === 'hover') || (state === 'hover' && !item.state);
 
         let typographyClass = `rds-breadcrumbs__item rds-breadcrumbs__item__active ${itemLayoutClass}`;
         if (isSelected || selectedIdx === index) {

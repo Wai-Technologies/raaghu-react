@@ -6,25 +6,6 @@ const figmaIconSrc = "assets/figma.png"
 
 const storybookIconSrc = "assets/storybook.png"
 
-const demoHistoryItems = [
-  { id: 1, name: "Login Page Creation" },
-  { id: 2, name: "Finance Dashboard Design" },
-  { id: 3, name: "E-commerce Product Page" },
-  { id: 4, name: "Social Media Profile Setup" },
-  { id: 5, name: "Onboarding Flow Builder" },
-  { id: 6, name: "Analytics Overview Dashboard" },
-];
-
-const demoOlderHistoryItems = [
-  { id: 1, name: "Signup Form Generator" },
-  { id: 2, name: "Task Management Board UI" },
-];
-
-const demoCarouselImages = [
-  { src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80", alt: "Mountain Lake" },
-  { src: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80", alt: "Scenic Valley" }
-];
-
 const meta: Meta = { 
     title: "Components/Details Pane",
     component: RdsCompDetailsPane,

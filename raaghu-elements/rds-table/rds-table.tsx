@@ -40,7 +40,6 @@ export interface RdsTableProps extends Omit<TableProps, 'children'> {
   selectable?: boolean;
   selectedRows?: string[];
   onRowSelect?: (selectedRows: string[]) => void;
-  onRowAction?: (action: string, rowId: string) => void;
   className?: string;
   sortBy?: string;
   sortDirection?: 'asc' | 'desc';
@@ -62,7 +61,6 @@ const RdsTable = ({
   selectable = false,
   selectedRows = [],
   onRowSelect,
-  onRowAction,
   className = '',
   sortBy: controlledSortBy,
   sortDirection: controlledSortDirection,

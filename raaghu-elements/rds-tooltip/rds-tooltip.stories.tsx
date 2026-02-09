@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsTooltip from './rds-tooltip';
-import { Button, IconButton } from '@mui/material';
-import {Delete, Help } from '@mui/icons-material';
+import { Delete } from '@mui/icons-material';
 import RdsButton from '../rds-button/rds-button';
 import HelpIcon from '@mui/icons-material/Help';
 

@@ -43,7 +43,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
     Category = EmojiCategory.SmileysAndPeople,
     onEmojiSelect,
     maxEmojis = 80,
-    sx = {},
+
     ...props
 }) => {
     const rootRef = React.useRef<HTMLDivElement | null>(null);

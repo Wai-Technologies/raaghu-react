@@ -5,7 +5,7 @@ import RdsBadge from '../rds-badge/rds-badge';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsInput from '../rds-input/rds-input';
 import { Typography, CardContent, CardActions } from '@mui/material';
-import { Edit, Check, Close } from '@mui/icons-material';
+import { Edit } from '@mui/icons-material';
 import { useState } from 'react';
 
 const meta: Meta<typeof RdsCard> = {

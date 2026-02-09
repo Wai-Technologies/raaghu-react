@@ -8,7 +8,6 @@ import illustrationLight from './illustration-light.json';
 import illustrationDark from './illustration-dark.json';
 
 export interface RdsCompEmptyStateProps {
-
   mode?: string;
   label?: string;
   subLabel?: string;
@@ -19,7 +18,6 @@ export interface RdsCompEmptyStateProps {
   onButtonClick?: () => void;
   isContinueAnimate?: boolean;
   className?: string;
-  testId?: string;
 }
 
 const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
@@ -42,7 +40,7 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
 
   return (
     <Fragment>
-      <Box className="rds-comp-empty-state">
+      <Box className={`rds-comp-empty-state ${props.className || ''}`}>
         <Box className="rds-comp-empty-state__content">
           <Box 
             className={`rds-comp-empty-state__icon ${props.isContinueAnimate ? 'rds-comp-empty-state__icon--animated' : ''}`} 

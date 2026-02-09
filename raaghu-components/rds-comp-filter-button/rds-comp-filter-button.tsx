@@ -11,7 +11,7 @@ import {
   TextField,
   Button
 } from '@mui/material';
-import { Circle, ExpandMore, Margin } from '@mui/icons-material';
+import { ExpandMore } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import './rds-comp-filter-button.scss';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';

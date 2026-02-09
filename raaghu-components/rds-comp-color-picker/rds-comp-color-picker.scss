@@ -46,11 +46,6 @@
     font-size: 14px;
     transition: all 0.2s ease;
     
-    &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
-      outline-offset: 2px;
-    }
-    
     &--active {
       background-color: var(--rds-color-primary, #1976d2);
       color: var(--rds-color-on-primary, #ffffff);
@@ -654,6 +649,7 @@
     border: 1px solid rgba(255,255,255,0.22);
     color: var(--rds-color-on-surface);
     z-index: 9999;
+    /* use a slight elevation so shadows render over adjacent elements */
   }
 
   &__dropdown-menu--fixed {

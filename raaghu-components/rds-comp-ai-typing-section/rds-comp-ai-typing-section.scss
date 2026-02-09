@@ -119,7 +119,7 @@
     .rds-fab-menu__dropdown-container {
       position: absolute;
       right: 0;
-      top: auto !important; 
+      top: auto !important;
       margin-bottom: var(--rds-spacing-sm, 8px);
     }
   }
@@ -127,7 +127,7 @@
   @media (max-width: 375px) {
     &__attach {
       .rds-fab-menu__dropdown-container--open {
-        right: auto; 
+        right: auto;
         left: -142px;
       }
     }

@@ -258,7 +258,7 @@
     margin: 0 !important;
     box-sizing: border-box !important;
     position: relative !important;
-    min-height: 120px !important; 
+    min-height: 120px !important;
   }
 
   &__calendar-reminder-label {
@@ -306,7 +306,7 @@
     padding: 0 !important;
     margin: 0 !important;
     box-sizing: border-box !important;
-    flex-wrap: nowrap !important; 
+    flex-wrap: nowrap !important;
     position: relative !important;
   }
   &__activity-update-avatar {
@@ -329,7 +329,7 @@
     margin: 0 !important;
   }
   &__activity-update-name {
-    font-weight: var(--rds-font-weight-bold, 700) !important; 
+    font-weight: var(--rds-font-weight-bold, 700) !important;
     font-size: var(--rds-font-size-lg, 16px) !important;
     line-height: 1.2 !important;
     margin-top: 5px !important;
@@ -344,9 +344,10 @@
      color: var(--rds-text-secondary, #666) !important;
   }
   &__activity-update-date {
-    font-size: var(--rds-font-size-sm, 12px) !important; 
-    font-weight: var(--rds-font-weight-normal, 400) !important; 
-    line-height: 1.2 !important; 
+    font-size: var(--rds-font-size-sm, 12px) !important;
+    font-weight: var(--rds-font-weight-normal, 400) !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
     padding: 0 !important;
     display: block !important;
     width: 100% !important;
