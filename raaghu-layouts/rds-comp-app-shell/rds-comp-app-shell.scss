@@ -354,18 +354,70 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   min-height: calc(100vh - 98px);
 }
 
+#details-pane-app-shell {
+  margin-top: 16px;
+  height: calc(100vh - 82px);
+  display: flex;
+  flex-direction: column;
+}
+
+#details-pane-app-shell .rds-comp-details-pane {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 !important;
+}
+
+#details-pane-app-shell .rds-comp-details-pane__toolbar-buttons-row,
+#details-pane-app-shell .rds-comp-details-pane__toolbar-buttons-row--scrollable {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 !important;
+}
+
 #details-pane-app-shell .detail-pane-container {
-  min-height: calc(100vh - 98px) !important;
-  height: 609px !important;
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 #side-nav-icon-list li.pe-xxl-0.pe-xl-0.pe-lg-0.pe-md-0.pe-0[value="4_"]:has(svg path[d*="M9.207,2.002c.643"]) {
   margin-top: 200px;
 }
 
+#detail-pane-one-three-one {
+  margin-top: 16px;
+  height: calc(100vh - 82px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#detail-pane-one-three-one .rds-comp-details-pane {
+  height: 100% !important;
+  flex-direction: column !important;
+  padding: 5px !important;
+  overflow: hidden !important;
+}
+
+#detail-pane-one-three-one .rds-comp-details-pane__toolbar-buttons-row,
+#detail-pane-one-three-one .rds-comp-details-pane__toolbar-buttons-row--scrollable {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 !important;
+}
+
 #detail-pane-one-three-one .detail-pane-container {
-  height: 609px;
-  min-height: calc(100vh - 98px) !important;
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+#detail-pane-one-three-one .custom-content-wrapper {
+  overflow: hidden !important;
 }
 
 .double-nav-sidebar img.ps-md-2.main-logo.ps-1,
@@ -1797,7 +1849,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       right: 0;
       height: 100vh;
-      width: 300px;
+      width: 395px;
       background: white;
       z-index: 1000;
       transform: translateX(100%);
@@ -2047,7 +2099,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       top: 0;
       right: 0;
       height: 100vh;
-      width: 300px;
+      width: 395px;
       background: white;
       z-index: 1000;
       transform: translateX(100%);
