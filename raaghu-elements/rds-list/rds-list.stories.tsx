@@ -8,8 +8,6 @@ import {Home, Person, Settings, Info, Send, Drafts, Inbox, Star, LabelImportant,
 } from '@mui/icons-material';
 import CommentIcon from '@mui/icons-material/Comment';
 
-const createLogHandler = (msg: string) => () => console.log(msg);
-
 
 const nestedListItems = [
   { id: 1, primary: 'Sent mail', icon: <Send /> },
@@ -74,8 +72,7 @@ const firebaseOverviewItems = [
   {
     id: 'overview',
     primary: 'Project Overview',
-    icon: <Home className="rds-list__firebase-icon" />,
-    onClick: createLogHandler('Project Overview clicked')
+    icon: <Home className="rds-list__firebase-icon" />
   }
 ];
 
@@ -83,26 +80,22 @@ const firebaseBuildItems = [
   {
     id: 'auth',
     primary: 'Authentication',
-    icon: <ManageAccounts className="rds-list__firebase-icon" />,
-    onClick: createLogHandler('Authentication clicked')
+    icon: <ManageAccounts className="rds-list__firebase-icon" />
   },
   {
     id: 'database',
     primary: 'Database',
-    icon: <Dataset className="rds-list__firebase-icon" />,
-    onClick: createLogHandler('Database clicked')
+    icon: <Dataset className="rds-list__firebase-icon" />
   },
   {
     id: 'storage',
     primary: 'Storage',
-    icon: <Storage className="rds-list__firebase-icon" />,
-    onClick: createLogHandler('Storage clicked')
+    icon: <Storage className="rds-list__firebase-icon" />
   },
   {
     id: 'hosting',
     primary: 'Hosting',
-    icon: <Cloud className="rds-list__firebase-icon" />,
-    onClick: createLogHandler('Hosting clicked')
+    icon: <Cloud className="rds-list__firebase-icon" />
   }
 ];
 
@@ -166,27 +159,27 @@ export const Inset: Story = {
   }
 };
 const interactiveTextItems = [
-  { id: 1, primary: 'Single-line item', onClick: createLogHandler('Clicked text 1') },
-  { id: 2, primary: 'Single-line item', onClick: createLogHandler('Clicked text 2') },
-  { id: 3, primary: 'Single-line item', onClick: createLogHandler('Clicked text 3') },
+  { id: 1, primary: 'Single-line item' },
+  { id: 2, primary: 'Single-line item' },
+  { id: 3, primary: 'Single-line item' },
 ];
 
 const interactiveIconItems = [
-  { id: 1, primary: 'Single-line item', icon: <Home />, onClick: createLogHandler('Clicked icon 1') },
-  { id: 2, primary: 'Single-line item', icon: <Home />, onClick: createLogHandler('Clicked icon 2') },
-  { id: 3, primary: 'Single-line item', icon: <Home />, onClick: createLogHandler('Clicked icon 3') },
+  { id: 1, primary: 'Single-line item', icon: <Home /> },
+  { id: 2, primary: 'Single-line item', icon: <Home /> },
+  { id: 3, primary: 'Single-line item', icon: <Home /> },
 ];
 
 const interactiveAvatarItems = [
-  { id: 1, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: createLogHandler('Clicked avatar 1') },
-  { id: 2, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: createLogHandler('Clicked avatar 2') },
-  { id: 3, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, onClick: createLogHandler('Clicked avatar 3') },
+  { id: 1, primary: 'Single-line item', avatar: <Avatar>R</Avatar> },
+  { id: 2, primary: 'Single-line item', avatar: <Avatar>R</Avatar> },
+  { id: 3, primary: 'Single-line item', avatar: <Avatar>R</Avatar> },
 ];
 
 const interactiveCombinedItems = [
-  { id: 1, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: createLogHandler('Clicked avatar+icon 1') },
-  { id: 2, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: createLogHandler('Clicked avatar+icon 2') },
-  { id: 3, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon />, onClick: createLogHandler('Clicked avatar+icon 3') },
+  { id: 1, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon /> },
+  { id: 2, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon /> },
+  { id: 3, primary: 'Single-line item', avatar: <Avatar>R</Avatar>, secondaryAction: <CommentIcon /> },
 ];
 
 export const Interactive: Story = {

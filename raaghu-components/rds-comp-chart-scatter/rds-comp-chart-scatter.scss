@@ -1,0 +1,13 @@
+.rds-comp-chart-scatter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // Tablet view - full screen
+    @media (min-width: 768px) and (max-width: 1024px) {
+       
+        canvas {
+           height: 600px !important;
+        }
+    }
+}

@@ -73,20 +73,20 @@ const RdsSidebar = ({
   const [openMap, setOpenMap] = React.useState<Record<number, boolean>>({});
 
   const anzMenuItems: RdsSidebarItem[] = [
-    { label: 'Dashboard', icon: <DashboardOutlined />, onClick: () => {} },
-    { label: 'Saas', icon: <AppsOutlined />, onClick: () => {} },
-    { label: 'Administration', icon: <ManageAccounts />, onClick: () => {} },
-    { label: 'Demo UI Components', icon: <DesignServicesOutlined />, onClick: () => {} },
+    { label: 'Dashboard', icon: <DashboardOutlined /> },
+    { label: 'Saas', icon: <AppsOutlined /> },
+    { label: 'Administration', icon: <ManageAccounts /> },
+    { label: 'Demo UI Components', icon: <DesignServicesOutlined /> },
   ];
 
   const abpMenuItems: RdsSidebarItem[] = [
-    { label: 'Dashboard', icon: <DashboardOutlined />, onClick: () => {} },
-    { label: 'Saas', icon: <GroupsOutlined />, onClick: () => {} },
-    { label: 'Invoices', icon: <ReceiptLongOutlined />, onClick: () => {} },
-    { label: 'Ticket Allocation', icon: <FolderOutlined />, onClick: () => {} },
-    { label: 'Communication', icon: <MailOutline />, onClick: () => {} },
-    { label: 'Advertisements', icon: <CampaignOutlined />, onClick: () => {} },
-    { label: 'Requests', icon: <RequestQuoteOutlined />, onClick: () => {} },
+    { label: 'Dashboard', icon: <DashboardOutlined /> },
+    { label: 'Saas', icon: <GroupsOutlined /> },
+    { label: 'Invoices', icon: <ReceiptLongOutlined /> },
+    { label: 'Ticket Allocation', icon: <FolderOutlined /> },
+    { label: 'Communication', icon: <MailOutline /> },
+    { label: 'Advertisements', icon: <CampaignOutlined /> },
+    { label: 'Requests', icon: <RequestQuoteOutlined /> },
   ];
 
   const menuItems = platform === 'abp-list' ? abpMenuItems : 
@@ -244,7 +244,6 @@ const RdsSidebar = ({
                       title={item.label} 
                       style="right"
                       arrow
-                      wrapper
                     >
                       {listItemButton}
                     </RdsTooltip>
@@ -284,7 +283,6 @@ const RdsSidebar = ({
                                 title={`${item.label} - ${child.label}`}
                                 style="right"
                                 arrow
-                                wrapper
                               >
                                 {childListItemButton}
                               </RdsTooltip>

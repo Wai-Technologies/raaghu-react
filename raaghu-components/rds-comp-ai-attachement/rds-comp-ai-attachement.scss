@@ -61,8 +61,8 @@
     }
 }
 
-[data-theme="dark"] .rds-comp-ai-icon,
-.dark-theme .rds-comp-ai-icon {
+[data-theme="dark"] .rds-comp-ai-icon:not(.rds-comp-ai-icon--primary),
+.dark-theme .rds-comp-ai-icon:not(.rds-comp-ai-icon--primary) {
     color: #fff !important;
 }
 

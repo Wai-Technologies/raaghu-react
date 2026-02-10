@@ -37,33 +37,65 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
     const getFormattedUrl = (): string => {
         if (!videoLink) return "";
         
-        switch (type) {
-            case VideoPlayerType.YouTube:
-                if (videoLink.includes("youtube.com") || videoLink.includes("youtu.be")) {
-                    return videoLink;
-                }
-                return "https://www.youtube.com/watch?v=LXb3EKWsInQ";
-                
-            case VideoPlayerType.Vimeo:
-                if (videoLink.includes("vimeo.com")) {
-                    return videoLink;
-                }
-                return "https://vimeo.com/90509568";
-                
-            case VideoPlayerType.Default:
-            default:
-                return videoLink;
+        if (videoLink.includes("youtube.com") || videoLink.includes("youtu.be")) {
+            let videoId = "";
+            
+            if (videoLink.includes("youtu.be/")) {
+                videoId = videoLink.split("youtu.be/")[1]?.split("?")[0];
+            } else if (videoLink.includes("youtube.com/watch?v=")) {
+                videoId = videoLink.split("v=")[1]?.split("&")[0];
+            } else if (videoLink.includes("youtube.com/embed/")) {
+                videoId = videoLink.split("embed/")[1]?.split("?")[0];
+            }
+            if (videoId && videoId.length === 11) {
+                return `https://www.youtube.com/watch?v=${videoId}`;
+            }
         }
+        
+        return videoLink;
     };
 
     const formattedUrl = getFormattedUrl();
+
+    const isYouTubeUrl = formattedUrl.includes("youtube.com") || formattedUrl.includes("youtu.be");
+    const isVimeoUrl = formattedUrl.includes("vimeo.com");
+    
+    const getPlayerConfig = () => {
+        if (type === VideoPlayerType.Vimeo || isVimeoUrl) {
+            return {
+                vimeo: {
+                    playerOptions: {
+                        controls: controls,
+                        title: false,
+                        byline: false,
+                        portrait: false
+                    }
+                }
+            };
+        }
+        
+        if (type === VideoPlayerType.YouTube || isYouTubeUrl) {
+            return {
+                youtube: {
+                    playerVars: {
+                        controls: controls ? 1 : 0,
+                        modestbranding: 1,
+                        rel: 0
+                    }
+                }
+            };
+        }
+        
+        return {
+            file: { attributes: { preload: 'auto' } }
+        };
+    };
 
     return (
         <div className={`rds-comp-video-player${disabled ? " rds-comp-video-player--disabled" : ""} ${className}`}>
             <div className="rds-comp-video-player__wrapper">
                 {React.createElement(ReactPlayer as any, {
-                    key: type === VideoPlayerType.Vimeo ? `vimeo-${formattedUrl}-controls-${controls}` : 
-                         type === VideoPlayerType.YouTube ? `youtube-${formattedUrl}-controls-${controls}` : `${formattedUrl}-${controls}`,
+                    key: `${formattedUrl}-${controls}-${Date.now()}`,
                     url: formattedUrl,
                     width: "100%",
                     height: "100%",
@@ -71,26 +103,7 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
                     muted: muted,
                     controls: controls,
                     volume: volume,
-                    config: type === VideoPlayerType.Vimeo ? {
-                        vimeo: {
-                            playerOptions: {
-                                controls: controls,
-                                title: false,
-                                byline: false,
-                                portrait: false
-                            }
-                        }
-                    } : type === VideoPlayerType.YouTube ? {
-                        youtube: {
-                            playerVars: {
-                                controls: controls ? 1 : 0,
-                                modestbranding: 1,
-                                rel: 0
-                            }
-                        }
-                    } : {
-                        file: { attributes: { preload: 'auto' } }
-                    },
+                    config: getPlayerConfig(),
                     className: "rds-comp-video-player__player",
                     style: { width, height }
                 })}

@@ -231,7 +231,7 @@
 
 @media (min-width: 834px) {
   .rds-header--variant-withactions {
-    .rds-header__logo { order: 1; }
+    //.rds-header__logo { order: 1; }
     .rds-header__tabs-inline { order: 2; margin-left: 8px; }
     .rds-header__center-content { order: 3; display: inline-flex; align-items: center;  }
     .rds-header__right-actions { order: 4; display: flex; align-items: center; margin-left: -18px; }
@@ -514,7 +514,7 @@
   margin-left: 4px;
 }
 .rds-profile-menu__dropdown {
-  margin-top: var(--rds-spacing-lg, 1.5rem);
+  margin-top: var(--rds-spacing-xs, 6px);
   min-width: 260px;
   border-radius: var(--rds-border-radius-lg, 8px);
   overflow: visible;
@@ -1600,6 +1600,87 @@
    flex: 0 1 auto !important;
    max-width: calc(100% - 160px) !important;
   }
+
+  .rds-header--variant-withtabs .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withtabs .rds-profile-menu__button .rds-avatar__info,
+  .rds-header--variant-withtabs .rds-profile-menu__button .rds-avatar__name,
+  .rds-header--variant-withtabs .rds-profile-menu__button .rds-avatar__designation,
+  .rds-header--variant-withtabs .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withtabs .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withtabs .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-withtabs .rds-profile-menu__button .MuiSvgIcon-root,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-avatar__info,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-avatar__name,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-avatar__designation,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .MuiSvgIcon-root,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .rds-avatar__info,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .rds-avatar__name,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .rds-avatar__designation,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .MuiSvgIcon-root,
+  .rds-header--variant-withactions .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withactions .rds-profile-menu__button .rds-avatar__info,
+  .rds-header--variant-withactions .rds-profile-menu__button .rds-avatar__name,
+  .rds-header--variant-withactions .rds-profile-menu__button .rds-avatar__designation,
+  .rds-header--variant-withactions .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withactions .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withactions .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-withactions .rds-profile-menu__button .MuiSvgIcon-root {
+    display: none !important;
+  }
+
+  .rds-header--variant-withtabs .rds-profile-menu__avatar,
+  .rds-header--variant-withtabs .rds-profile-menu__button .MuiAvatar-root,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__avatar,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .MuiAvatar-root,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__avatar,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .MuiAvatar-root,
+  .rds-header--variant-withactions .rds-profile-menu__avatar,
+  .rds-header--variant-withactions .rds-profile-menu__button .MuiAvatar-root {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .rds-header--variant-withtabs .rds-profile-menu__button,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button,
+  .rds-header--variant-withactions .rds-profile-menu__button {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+    min-width: auto !important;
+  }
+
+}
+
+@media (min-width: 421px) and (max-width: 840px) {
+  .rds-header--variant-withtabs,
+  .rds-header--variant-withlogoandtabs,
+  .rds-header--variant-withnotificationbadge,
+  .rds-header--variant-withactions {
+    .rds-bottom-navigation {
+      display: flex !important;
+    }
+  }
+
+  .rds-header--variant-withtabs .rds-header__actions,
+  .rds-header--variant-withlogoandtabs .rds-header__actions,
+  .rds-header--variant-withnotificationbadge .rds-header__actions,
+  .rds-header--variant-withactions .rds-header__actions {
+    display: flex !important;
+    align-items: center !important;
+    margin-left: auto !important;
+  }
+
+  body {
+    padding-bottom: 56px !important;
+  }
 }
 
 @media (max-width: 420px) {
@@ -2279,6 +2360,27 @@
   }
 
   .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 96px !important; }
+
+  // Tablet styles for variants with bottom navigation - hide inline tabs
+  .rds-header--variant-withactions .rds-header__tabs-inline,
+  .rds-header--variant-withtabs .rds-header__tabs-inline,
+  .rds-header--variant-withlogoandtabs .rds-header__tabs-inline {
+    display: none !important;
+  }
+
+  .rds-header--variant-withnotificationbadge .rds-appbar-tabs-container,
+  .rds-header--variant-withnotificationbadge .rds-header__right-actions {
+    display: none !important;
+  }
+
+  .rds-header--variant-withactions .rds-header__center-content {
+    flex: 0 1 auto !important;
+    max-width: calc(100% - 300px) !important;
+  }
+
+  .rds-header--variant-withactions .rds-appbar-actions-group {
+    display: none !important;
+  }
 }
 
 @media (max-width: 320px) {

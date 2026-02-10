@@ -7,10 +7,7 @@
 .theme-dark .rds-fab-menu .rds-comp-ai-icon__svg {
   color: #fff !important;
 }
-// RDS AI Icon Component Styles
-[data-theme=dark] .rds-comp-ai-icon, .dark-theme .rds-comp-ai-icon {
-    color: var(--rds-color-primary, #7e2eef) !important;
-}
+
 .rds-comp-ai-icon {
   // Base styles
   display: inline-flex;
@@ -35,7 +32,7 @@
     fill: currentColor;
     stroke: none;
     // Use color tokens for fill if needed
-    color: var(--rds-color-on-surface);
+    color: inherit;
     transition: color 0.2s ease;
   }
 
@@ -64,11 +61,24 @@
 
   // Color variant modifiers using raaghu design tokens
   &--primary {
-    color: var(--rds-color-primary, #7e2eef);
+    color: #7e2eef !important;
     
+    &,
     .rds-comp-ai-icon__svg {
-      color: var(--rds-color-primary, #7e2eef);
+      color: #7e2eef !important;
     }
+  }
+
+  // Ensure primary color in dark theme with highest specificity - placed at end for maximum priority
+  [data-theme="dark"] &--primary,
+  [data-theme="dark"] &--primary .rds-comp-ai-icon__svg,
+  .dark-theme &--primary,
+  .dark-theme &--primary .rds-comp-ai-icon__svg,
+  .theme-dark &--primary,
+  .theme-dark &--primary .rds-comp-ai-icon__svg,
+  body.theme-dark &--primary,
+  body.theme-dark &--primary .rds-comp-ai-icon__svg {
+    color: #7e2eef !important;
   }
 
   &--secondary {

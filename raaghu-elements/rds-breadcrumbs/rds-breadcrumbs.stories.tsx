@@ -103,10 +103,10 @@ export const Simple: Story = {
 export const WithClickHandlers: Story = {
   args: {
     items: [
-      { label: 'Home', onClick: () => alert('Navigate to Home') },
-      { label: 'Products', onClick: () => alert('Navigate to Products') },
-      { label: 'Category', onClick: () => alert('Navigate to Category') },
-      { label: 'Subcategory', onClick: () => alert('Navigate to Subcategory') },
+      { label: 'Home', onClick: () => console.log('Navigate to Home') },
+      { label: 'Products', onClick: () => console.log('Navigate to Products') },
+      { label: 'Category', onClick: () => console.log('Navigate to Category') },
+      { label: 'Subcategory', onClick: () => console.log('Navigate to Subcategory') },
       { label: 'Current Page', active: true },
     ],
     layout: 'pill background',

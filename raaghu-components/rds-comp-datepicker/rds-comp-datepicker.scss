@@ -917,18 +917,27 @@ font-weight: bold;
   }
 }
 
-@media (max-width: 576px) {
-  .rds-datepicker__popper .react-datepicker__month-container,
-  .react-datepicker-popper .react-datepicker__month-container {
+@media (min-width:  400px) and (max-width: 576px) {
+  .rds-datepicker__popper:not(.rds-datepicker__custom-dropdown *) .react-datepicker__month-container,
+  .react-datepicker-popper:not(.rds-datepicker__custom-dropdown *) .react-datepicker__month-container {
     width: 380px !important; 
   }
-  .rds-datepicker__popper .react-datepicker__year--container,
-  .react-datepicker-popper .react-datepicker__year--container {
+  .rds-datepicker__popper:not(.rds-datepicker__custom-dropdown *) .react-datepicker__year--container,
+  .react-datepicker-popper:not(.rds-datepicker__custom-dropdown *) .react-datepicker__year--container {
     width: 380px !important; 
+    .react-datepicker__year {
+     margin-left: 122px !important;
   }
-  .react-datepicker__year {
-    margin-left: 122px !important;
   }
+  
+  .rds-datepicker__custom-dropdown .rds-datepicker__popper .react-datepicker__year--container,
+  .rds-datepicker__custom-dropdown .react-datepicker-popper .react-datepicker__year--container {
+    .react-datepicker__year {
+      margin-left: 53px !important;
+    }
+  }
+  
+  
   .rds-datepicker {
     &__container {
       flex-direction: row;
@@ -995,6 +1004,7 @@ font-weight: bold;
     width: calc(85vw - 30px) !important;
     max-width: 320px !important;
   }
+  
   .react-datepicker--multi-month {
     flex-direction: column !important;
     width: calc(100vw - 30px) !important;
@@ -1016,13 +1026,20 @@ font-weight: bold;
     }
   }
   
-  .rds-datepicker__popper .react-datepicker__month-container,
-  .react-datepicker-popper .react-datepicker__month-container {
+  .rds-datepicker__popper:not(.rds-datepicker__custom-dropdown *) .react-datepicker__month-container,
+  .react-datepicker-popper:not(.rds-datepicker__custom-dropdown *) .react-datepicker__month-container {
     width: 285px !important; 
   }
+
+  .rds-datepicker__custom-dropdown .rds-datepicker__popper .react-datepicker__year--container,
+  .rds-datepicker__custom-dropdown .react-datepicker-popper .react-datepicker__year--container {
+    .react-datepicker__year {
+      margin-left: 53px !important;
+    }
+  }
   
-  .rds-datepicker__popper .react-datepicker__year--container,
-  .react-datepicker-popper .react-datepicker__year--container {
+  .rds-datepicker__popper:not(.rds-datepicker__custom-dropdown *) .react-datepicker__year--container,
+  .react-datepicker-popper:not(.rds-datepicker__custom-dropdown *) .react-datepicker__year--container {
     width: 285px !important; 
   }
   .react-datepicker__year {

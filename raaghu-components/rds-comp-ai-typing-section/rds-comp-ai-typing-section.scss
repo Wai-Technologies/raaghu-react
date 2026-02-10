@@ -94,6 +94,23 @@
     display: flex;
     align-items: center;
     transition: color 0.2s ease;
+
+    // Ensure icon color consistency in dark theme
+    .rds-comp-ai-icon--primary,
+    .rds-comp-ai-icon--primary .rds-comp-ai-icon__svg {
+      color: #7e2eef !important;
+    }
+
+    [data-theme="dark"] .rds-comp-ai-icon--primary,
+    [data-theme="dark"] .rds-comp-ai-icon--primary .rds-comp-ai-icon__svg,
+    .dark-theme .rds-comp-ai-icon--primary,
+    .dark-theme .rds-comp-ai-icon--primary .rds-comp-ai-icon__svg,
+    .theme-dark .rds-comp-ai-icon--primary,
+    .theme-dark .rds-comp-ai-icon--primary .rds-comp-ai-icon__svg,
+    body.theme-dark .rds-comp-ai-icon--primary,
+    body.theme-dark .rds-comp-ai-icon--primary .rds-comp-ai-icon__svg {
+      color: #7e2eef !important;
+    }
   }
   
   &__actions {
@@ -128,7 +145,7 @@
     &__attach {
       .rds-fab-menu__dropdown-container--open {
         right: auto;
-        left: -142px;
+        left: -129px;
       }
     }
   }

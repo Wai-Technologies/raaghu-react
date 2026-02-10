@@ -149,6 +149,42 @@ body[data-theme="dark"] #offcanvas-btns .MuiButton-root,
   width: auto;
 }
 
+.rds-theme--dark .offcanvas-cancel-btn,
+body.theme-dark .offcanvas-cancel-btn,
+body[data-theme="dark"] .offcanvas-cancel-btn,
+[data-theme="dark"] .offcanvas-cancel-btn,
+.theme-dark .offcanvas-cancel-btn,
+.dark-theme .offcanvas-cancel-btn {
+  color: #2196F3 !important;
+}
+
+.rds-theme--dark .offcanvas-cancel-btn .MuiButton-label,
+body.theme-dark .offcanvas-cancel-btn .MuiButton-label,
+body[data-theme="dark"] .offcanvas-cancel-btn .MuiButton-label,
+[data-theme="dark"] .offcanvas-cancel-btn .MuiButton-label,
+.theme-dark .offcanvas-cancel-btn .MuiButton-label,
+.dark-theme .offcanvas-cancel-btn .MuiButton-label {
+  color: #2196F3 !important;
+}
+
+.rds-theme--dark .tertiary-button-container .offcanvas-action-btn,
+body.theme-dark .tertiary-button-container .offcanvas-action-btn,
+body[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn,
+[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn,
+.theme-dark .tertiary-button-container .offcanvas-action-btn,
+.dark-theme .tertiary-button-container .offcanvas-action-btn {
+  color: #2196F3 !important;
+}
+
+.rds-theme--dark .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
+body.theme-dark .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
+body[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
+[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
+.theme-dark .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
+.dark-theme .tertiary-button-container .offcanvas-action-btn .MuiButton-label {
+  color: #2196F3 !important;
+}
+
 @media (max-width: 767px) {
   .MuiDrawer-paper {
     width: 375px !important;

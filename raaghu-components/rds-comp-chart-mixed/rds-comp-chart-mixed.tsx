@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import "./rds-comp-chart-mixed.scss";
 
 export interface RdsCompMixedChartProps {
     labels: any[];
@@ -74,7 +75,7 @@ const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
 
 
     return (
-        <div>
+        <div className="rds-comp-chart-mixed">
             <canvas data-testid={props.id} id={props.id} ref={canvasRef} />
         </div>
     );

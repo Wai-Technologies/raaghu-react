@@ -26,22 +26,6 @@
       object-fit: contain;
     }
   }
-  &--border {
-    border: 1px solid var(--rds-color-border, #ccc);
-  }
-  &--rounded {
-    border-radius: var(--rds-border-radius, 8px);
-  }
-  &--spaced {
-    margin: var(--rds-spacing-sm, 8px);
-  }
-  &--ms-5 {
-    margin-left: 32px;
-  }
-  &--word-wrap {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
   @media (max-width: 768px) {
     &__row {
       flex-direction: row;
@@ -56,6 +40,9 @@
         width: auto;
         height: auto;
       }
+    }
+    &--spaced {
+      margin-top: 1px;
     }
   }
   @media (max-width: 568px) {

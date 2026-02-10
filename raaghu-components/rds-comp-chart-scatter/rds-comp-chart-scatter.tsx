@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
+import "./rds-comp-chart-scatter.scss";
 
 export interface RdsCompScatterChartProps {
     labels: any[],
@@ -107,7 +108,7 @@ const RdsCompScatterChart = (props: RdsCompScatterChartProps) => {
     }, [id, labels, options, dataSets, themeMode]);
 
     return (
-        <div>
+        <div className="rds-comp-chart-scatter">
             <canvas id={id} ref={canvasRef} />
         </div>
     );
