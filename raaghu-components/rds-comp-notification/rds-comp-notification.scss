@@ -442,7 +442,9 @@ body:not(.theme-dark):not([data-theme="dark"]) {
 }
 
 .theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-image,
-.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-default {
+.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-default,
+.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-icon,
+.theme-dark .rds-comp-notification--type-info.rds-comp-notification--style-avatar {
   &, &.rds-comp-notification--layout-horizontal {
     background-color: var(--rds-background-paper, #424242) !important;
     color: var(--rds-text-primary, #ffffff) !important;
@@ -476,7 +478,10 @@ body:not(.theme-dark):not([data-theme="dark"]) {
   }
 }
 
-[data-theme="dark"] .rds-comp-notification--type-info.rds-comp-notification--style-image {
+[data-theme="dark"] .rds-comp-notification--type-info.rds-comp-notification--style-image,
+[data-theme="dark"] .rds-comp-notification--type-info.rds-comp-notification--style-default,
+[data-theme="dark"] .rds-comp-notification--type-info.rds-comp-notification--style-icon,
+[data-theme="dark"] .rds-comp-notification--type-info.rds-comp-notification--style-avatar {
   &, &.rds-comp-notification--layout-horizontal {
     background-color: var(--rds-background-paper, #424242) !important;
     color: var(--rds-text-primary, #ffffff) !important;

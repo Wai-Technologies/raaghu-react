@@ -45,9 +45,9 @@
   }
 
   @media (max-width: 360px) {
-    .css-1in3o51-MuiButton-startIcon{
-      margin-right: 0px;
-    }
+    // .css-1in3o51-MuiButton-startIcon{
+    //   margin-right: 0px;
+    // }
     &__toolbar {
       padding: 4px 8px 5px 4px;
       gap: 3px;
@@ -55,20 +55,21 @@
 
     &__language-label {
       max-width: 68px;
-      font-size: 10px;
+      font-size: 8px !important;
     }
 
     &__copy-button {
       min-width: 72px;
       padding: 5px 6px;
-      font-size: 11px;
+      font-size: 10px !important;
       white-space: nowrap;
+      height: 30px;
     }
 
     &__expand-icon {
-      font-size: 16px;
-      width: 16px;
-      height: 16px;
+      font-size: 16px !important;
+      width: 16px !important;
+      height: 16px !important;
     }
   }
 

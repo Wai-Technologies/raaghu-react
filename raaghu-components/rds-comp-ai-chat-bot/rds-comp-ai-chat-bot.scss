@@ -45,13 +45,6 @@
         }
     }
 
-    // Input icon
-    &__input-icon {
-        body.theme-dark &,
-        [data-theme="dark"] & {
-            color: #7e2eef !important;
-        }
-    }
 }
 
 .chat-box {
