@@ -78,8 +78,10 @@ const RdsAppBar = ({
   
   React.useEffect(() => {
     const checkScreenSize = () => {
-      const isWithMenuButton = variantStyle && String(variantStyle).toLowerCase() === 'withmenubutton';
-      const threshold = isWithMenuButton ? 840 : 420;
+      const variantLower = variantStyle ? String(variantStyle).toLowerCase() : '';
+      const tabletBottomNavVariants = ['withmenubutton', 'withactions', 'withtabs', 'withnotificationbadge', 'withlogoandtabs'];
+      const needsTabletBottomNav = tabletBottomNavVariants.includes(variantLower);
+      const threshold = needsTabletBottomNav ? 840 : 420;
       setIsSmallScreen(window.innerWidth <= threshold);
     };
 

@@ -28,7 +28,7 @@ export const ProfileMenu = ({ name, email, menuItems }: ProfileMenuProps) => {
   
   React.useEffect(() => {
     const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth <= 768);
+      setIsSmallScreen(window.innerWidth <= 834);
     };
     
     checkScreenSize();
