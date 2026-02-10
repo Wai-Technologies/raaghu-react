@@ -44,70 +44,55 @@
 
 &__dot {
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: calc(12px * var(--dot-scale, 1));
+  height: calc(12px * var(--dot-scale, 1));
   border: 0px solid #fff;
   border-radius: 50%;
   z-index: 2;
   box-shadow: 0 0 0 2px var(--rds-background-paper, #f4f6fa);
   transition: background 0.2s;
-  right: -2px;
+  right: calc(-2px * var(--dot-scale, 1));
   background: var(--rds-color-primary, #7c3aed);
 
   &--top {
-    top: 2px;
-    right: 4px;
+    top: calc(2px * var(--dot-scale, 1));
+    right: calc(4px * var(--dot-scale, 1));
   }
 
   &--bottom {
-    bottom: 3px;
-    right: 4px;
+    bottom: calc(3px * var(--dot-scale, 1));
+    right: calc(4px * var(--dot-scale, 1));
   }
 }
 
   &--smallest {
-    .rds-avatar__name {
-      font-size: 0.75rem; 
-    }
-    .rds-avatar__designation {
-      font-size: 0.625rem;
-    }
+    --dot-scale: 0.67;
+    .rds-avatar__name { font-size: 0.75rem; }
+    .rds-avatar__designation { font-size: 0.625rem; }
   }
 
   &--small {
-    .rds-avatar__name {
-      font-size: 0.875rem; 
-    }
-    .rds-avatar__designation {
-      font-size: 0.75rem; 
-    }
+    --dot-scale: 0.83;
+    .rds-avatar__name { font-size: 0.875rem; }
+    .rds-avatar__designation { font-size: 0.75rem; }
   }
 
   &--medium {
-    .rds-avatar__name {
-      font-size: 1rem;
-    }
-    .rds-avatar__designation {
-      font-size: 0.875rem;
-    }
+    --dot-scale: 1;
+    .rds-avatar__name { font-size: 1rem; }
+    .rds-avatar__designation { font-size: 0.875rem; }
   }
 
   &--large {
-    .rds-avatar__name {
-      font-size: 1.125rem;
-    }
-    .rds-avatar__designation {
-      font-size: 0.95rem;
-    }
+    --dot-scale: 1.17;
+    .rds-avatar__name { font-size: 1.125rem; }
+    .rds-avatar__designation { font-size: 0.95rem; }
   }
 
   &--largest {
-    .rds-avatar__name {
-      font-size: 1.25rem;
-    }
-    .rds-avatar__designation {
-      font-size: 1.0625rem; 
-    }
+    --dot-scale: 1.33;
+    .rds-avatar__name { font-size: 1.25rem; }
+    .rds-avatar__designation { font-size: 1.0625rem; }
   }
 
   &--with-name {
@@ -148,22 +133,22 @@
     }
     .rds-avatar__dot {
       position: absolute;
-      width: 14px;
-      height: 14px;
-      border: 2px solid #fff;
+      width: calc(14px * var(--dot-scale, 1));
+      height: calc(14px * var(--dot-scale, 1));
+      border: calc(2px * var(--dot-scale, 0.8)) solid #fff;
       border-radius: 50%;
       z-index: 2;
       box-shadow: 0 0 0 2px var(--rds-background-paper, #f4f6fa);
       transition: background 0.2s;
-      right: -4px;
+      right: calc(-4px * var(--dot-scale, 1));
     }
 
     &.rds-avatar--dot-top .rds-avatar__dot {
-      right: -4px;
+      right: calc(-4px * var(--dot-scale, 1));
     }
     &.rds-avatar--dot-bottom .rds-avatar__dot {
-      bottom: -2px; 
-      right: 0px;
+      bottom: calc(-2px * var(--dot-scale, 1));
+      right: calc(0px * var(--dot-scale, 1));
     }
   }
   
