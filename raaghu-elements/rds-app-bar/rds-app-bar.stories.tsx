@@ -997,23 +997,23 @@ WithLogo.parameters = { controls: { include: ['title', 'showLogo', 'size', 'colo
 export const HeaderWithSearch: Story = { args: { variantStyle: 'HeaderWithSearch', color: 'default' } as any, render: DynamicTemplate };
 HeaderWithSearch.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'searchPlaceholder', 'showSearch', 'showMenuButton', 'style'] } };
 
-export const WithTabs: Story = { args: { variantStyle: 'withTabs', color: 'default' } as any, render: DynamicTemplate };
-WithTabs.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
+export const WithTabs: Story = { args: { variantStyle: 'withTabs', color: 'default', userName: 'John Doe', userEmail: 'john.doe@example.com' } as any, render: DynamicTemplate };
+WithTabs.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
 
 export const WithSubHeader: Story = { args: { variantStyle: 'withSubHeader', color: 'default' } as any, render: DynamicTemplate };
 WithSubHeader.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
 
-export const WithNotificationBadge: Story = { args: { variantStyle: 'WithNotificationBadge', color: 'default' } as any, render: DynamicTemplate };
-WithNotificationBadge.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
+export const WithNotificationBadge: Story = { args: { variantStyle: 'WithNotificationBadge', color: 'default', userName: 'John Doe', userEmail: 'john.doe@example.com' } as any, render: DynamicTemplate };
+WithNotificationBadge.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
 
-export const WithLogoAndTabs: Story = { args: { variantStyle: 'WithLogoAndTabs', color: 'default' } as any, render: DynamicTemplate };
-WithLogoAndTabs.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
+export const WithLogoAndTabs: Story = { args: { variantStyle: 'WithLogoAndTabs', color: 'default', userName: 'John Doe', userEmail: 'john.doe@example.com' } as any, render: DynamicTemplate };
+WithLogoAndTabs.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
 
 export const WithUserProfile: Story = { args: { variantStyle: 'WithUserProfile', color: 'default' } as any, render: DynamicTemplate };
 WithUserProfile.parameters = { controls: { include: ['title', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
 
-export const WithActions: Story = { args: { variantStyle: 'withActions', color: 'default' } as any, render: DynamicTemplate };
-WithActions.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
+export const WithActions: Story = { args: { variantStyle: 'withActions', color: 'default', userName: 'John Doe', userEmail: 'john.doe@example.com' } as any, render: DynamicTemplate };
+WithActions.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
 
 export const WithLoginButton: Story = { args: { variantStyle: 'WithLoginButton', color: 'default' } as any, render: DynamicTemplate };
 WithLoginButton.parameters = { controls: { include: ['title', 'size', 'color', 'showMenuButton', 'style'] } };
