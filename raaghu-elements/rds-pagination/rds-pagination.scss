@@ -7,6 +7,7 @@
     justify-content: center;
     align-items: center;
     padding: 0;
+    flex-wrap: nowrap;
   }
 
   .MuiPaginationItem-root {
@@ -25,228 +26,51 @@
     outline: none;
     min-width: 32px;
     height: 32px;
+
     [data-theme="dark"] & {
       color: var(--rds-color-primary, #fff);
     }
     
     &:hover {
       background-color: #EBDCFF;
+
+      [data-theme="dark"] & {
+        background-color: #4a4a4a;
+      }
     }
-    [data-theme="dark"] & {
-     &:hover {
-      background-color: #4a4a4a;
-    }
-  }
 
     &.MuiPaginationItem-circular {
       border-radius: 50%;
       width: 32px;
       height: 32px;
       min-width: 32px;
-      
-      &:hover {
-        border-radius: 50%;
-      }
     }
+
     &.MuiPaginationItem-rounded {
       border-radius: 5px;
-      padding:10px;
+      padding: 10px;
       justify-content: center;
       align-items: center;
-      
-      &:hover {
-        border-radius: 5px;
-      }
     }
   }
 
-  @media (max-width: 586px) and (min-width: 415px) {
-    .MuiPaginationItem-sizeSmall {
-      margin: 0 1px !important;
-      padding: 1px 2px !important;
-      font-size: 0.7rem !important;
-      min-width: 20px !important;
-      height: 20px !important;
-    }
-
-    .MuiPaginationItem-sizeMedium {
-      margin: 0 1px !important;
-      padding: 2px 3px !important;
-      font-size: 0.75rem !important;
-      min-width: 22px !important;
-      height: 22px !important;
-    }
-
-    .MuiPaginationItem-sizeLarge {
-      margin: 0 1px !important;
-      padding: 3px 4px !important;
-      font-size: 0.8rem !important;
-      min-width: 24px !important;
-      height: 24px !important;
-    }
-
-    .MuiPagination-ul {
-      flex-wrap: nowrap;
-      gap: 2px;
-    }
-    .MuiPaginationItem-root {
-      margin: 0 1px;
-      padding: 2px 4px;
-      font-size: 0.75rem;
-      min-width: 24px;
-      height: 24px;
-    }
-    .MuiPaginationItem-root.MuiPaginationItem-rounded {
-      padding: 4px;
-      border-radius: 3px;
-    }
-
-    .MuiFormControl-root {
-      min-width: 60px !important;
-    }
-    .MuiInputLabel-root {
-      font-size: 0.75rem;
-    }
-    .MuiSelect-select {
-      font-size: 0.75rem;
-      padding: 4px 6px;
-    }
-  }
-
-  @media (max-width: 834px) and (min-width: 587px) {
-    .MuiPaginationItem-sizeSmall {
-      margin: 0 1px !important;
-      padding: 1px 2px !important;
-      font-size: 0.7rem !important;
-      min-width: 22px !important;
-      height: 22px !important;
-    }
-
-    .MuiPaginationItem-sizeMedium {
-      margin: 0 1px !important;
-      padding: 2px 3px !important;
-      font-size: 0.8rem !important;
-      min-width: 24px !important;
-      height: 24px !important;
-    }
-
-    .MuiPaginationItem-sizeLarge {
-      margin: 0 1px !important;
-      padding: 3px 4px !important;
-      font-size: 0.9rem !important;
-      min-width: 26px !important;
-      height: 26px !important;
-    }
-
-    .MuiPagination-ul {
-      flex-wrap: nowrap;
-      gap: 3px;
-    }
-    .MuiPaginationItem-root {
-      margin: 0 2px;
-      padding: 2px 6px;
-      font-size: 0.85rem;
-      min-width: 28px;
-      height: 28px;
-    }
-    .MuiPaginationItem-root.MuiPaginationItem-rounded {
-      padding: 6px;
-      border-radius: 4px;
-    }
-    
-    .MuiFormControl-root {
-      min-width: 70px !important;
-    }
-    .MuiInputLabel-root {
-      font-size: 0.85rem;
-    }
-    .MuiSelect-select {
-      font-size: 0.85rem;
-      padding: 6px 8px;
-    }
-  }
-
-  @media (max-width: 414px) and (min-width: 320px) {
-    .MuiPaginationItem-sizeSmall {
-      margin: 0 1px !important;
-      padding: 1px 2px !important;
-      font-size: 0.75rem !important;
-      min-width: 18px !important;
-      height: 18px !important;
-    }
-
-    .MuiPaginationItem-sizeMedium {
-      margin: 0 1px !important;
-      padding: 2px 3px !important;
-      font-size: 0.775rem !important;
-      min-width: 19px !important;
-      height: 19px !important;
-    }
-
-    .MuiPaginationItem-sizeLarge {
-      margin: 0 1px !important;
-      padding: 3px 4px !important;
-      font-size: 0.8rem !important;
-      min-width: 20px !important;
-      height: 20px !important;
-    }
-
-    .MuiPagination-ul {
-      flex-wrap: nowrap;
-      gap: 0px;
-    }
-    .MuiPaginationItem-root {
-      margin: 0 2px;
-      padding: 2px 0px;
-      font-size: 0.85rem;
-      min-width: 25px;
-      height: 25px;
-    }
-    .MuiPaginationItem-root.MuiPaginationItem-rounded {
-      padding: 6px;
-      border-radius: 4px;
-    }
-
-    .MuiFormControl-root {
-      min-width: 70px !important;
-    }
-    .MuiInputLabel-root {
-      font-size: 0.85rem;
-    }
-    .MuiSelect-select {
-      font-size: 0.85rem;
-      padding: 6px 8px;
-    }
-  }
-
-  @media (min-width: 320px) and (max-width: 322px), (min-width: 414px) and (max-width: 416px) {
-    .MuiPagination-ul {
-      width: 100% !important;
-      justify-content: space-between !important;
-    }
-    
-    .MuiPaginationItem-root {
-      flex: 1 !important;
-      margin: 0 1px !important;
-      min-width: auto !important;
-    }
-  }
 
   .MuiPaginationItem-root.Mui-selected {
     font-weight: 700;
     z-index: 1;
-    border-radius: 0 !important;
+    border-radius: 0;
   }
 
   .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
-    background: transparent !important;
-    color: var(--rds-color-primary, #2196f3) !important;
+    background: transparent;
+    color: var(--rds-color-primary, #2196f3);
     box-shadow: none;
-    border: none !important;
-    border-bottom: 1px solid var(--rds-color-primary, #2196f3) !important;
-    border-radius: 0 !important;
+    border: none;
+    border-bottom: 1px solid var(--rds-color-primary, #2196f3);
+    border-radius: 0;
     outline: none;
     position: relative;
+
     &::after {
       content: '';
       position: absolute;
@@ -267,13 +91,14 @@
   }
   
   .MuiPaginationItem-root.Mui-selected.MuiPaginationItem-rounded:not(.MuiPaginationItem-outlined) {
-    background: transparent !important;
-    color: var(--rds-color-primary, #2196f3) !important;
-    border-radius: 0 !important;
-    border: none !important;
-    border-bottom: 1px solid var(--rds-color-primary, #2196f3) !important;
+    background: transparent;
+    color: var(--rds-color-primary, #2196f3);
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid var(--rds-color-primary, #2196f3);
     box-shadow: none;
     position: relative;
+
     &::after {
       content: '';
       position: absolute;
@@ -321,910 +146,384 @@
   margin: 16px auto;
   width: 100%;
   box-sizing: border-box;
-  
-  @media (width: 414px), (min-width: 413px) and (max-width: 415px) {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    width: 100% !important;
-    margin: 0 auto !important;
-    
-    &.style-1,
-    &.style-4 {
-      width: 100% !important;
-      max-width: 414px !important;
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      justify-content: center !important;
-      margin: 0 auto !important;
-      
-      .rds-pagination {
-        width: 100% !important;
-        display: flex !important;
-        justify-content: center !important;
-        
-        .MuiPagination-ul {
-          width: 100% !important;
-          justify-content: space-between !important;
-          gap: 0 !important;
-          display: flex !important;
-          align-items: center !important;
-        }
-        
-        .MuiPaginationItem-root {
-          flex: 1 !important;
-          margin: 0 1px !important;
-          min-width: auto !important;
-          max-width: none !important;
-          display: flex !important;
-          align-items: center !important;
-          justify-content: center !important;
-        }
-      }
-      
-      .pagination-manual-input,
-      .pagination-legend,
-      .pagination-dropdown {
-        width: 100% !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        margin: 8px 0 !important;
-      }
-    }
-  }
-  
-  @media (min-width: 375px) and (max-width: 768px) {
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center;
-    
-    &.style-1,
-    &.style-4 {
-      width: 100%;
-      max-width: 100%;
-      justify-content: center !important;
-      align-items: center !important;
-      
-      .pagination-manual-input {
-        justify-content: center !important;
-      }
-      
-      .pagination-legend {
-        text-align: center !important;
-      }
-    }
-    &.style-3,
-    &.style-5,
-    &.style-9 {
-        flex-direction: column !important;
-     }
+  gap: 12px;
+}
+
+.rds-pagination-wrapper.style-2,
+.rds-pagination-wrapper.style-7 {
+  .MuiPaginationItem-root {
+    color: #007bff;
   }
 
-  @media (min-width: 320px) and (max-width: 322px), (min-width: 414px) and (max-width: 416px) {
-    &.style-1,
-    &.style-4,
-    &.style-5,
-    &.style-9 {
-      width: 100% !important;
-      max-width: 320px !important;
-      
-      .rds-pagination {
-        width: 100% !important;
-        max-width: 320px !important;
-        
-        .MuiPagination-ul {
-          width: 100% !important;
-          max-width: 320px !important;
-          justify-content: space-between !important;
-          gap: 0 !important;
-        }
-        
-        .MuiPaginationItem-root {
-          flex: 1 !important;
-          margin: 0 1px !important;
-          min-width: auto !important;
-          max-width: none !important;
-        }
-      }
-      
-      &.style-4,
-      &.style-5 {
-        .MuiButton-root {
-          flex: 1 !important;
-          margin-top: 7px!important;
-        }
-      }
-
-    }
+  .MuiPaginationItem-root.Mui-selected {
+    border-radius: 4px !important;
   }
+}
 
-  @media (min-width: 415px) and (max-width: 416px) {
-    &.style-1,
-    &.style-2,
-    &.style-3,
-    &.style-4,
-    &.style-5,
-    &.style-7,
-    &.style-9 {
-      flex-direction: column !important;
-      align-items: center !important;
-      justify-content: center !important;
-      text-align: center !important;
-      width: 100% !important;
-      margin: 0 auto !important;
-      
-      &.style-1,
-      &.style-4 {
-        .rds-pagination {
-          width: 100% !important;
-          display: flex !important;
-          justify-content: center !important;
-          
-          .MuiPagination-ul {
-            width: 100% !important;
-            justify-content: space-between !important;
-            gap: 0 !important;
-          }
-          
-          .MuiPaginationItem-root {
-            flex: 1 !important;
-            margin: 0 1px !important;
-            min-width: auto !important;
-            max-width: none !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-          }
-        }
-        
-        .pagination-manual-input,
-        .pagination-legend,
-        .pagination-dropdown {
-          display: flex !important;
-          justify-content: center !important;
-          align-items: center !important;
-          margin: 8px 0 !important;
-        }
-      }
-    }
-  }
-
-  @media (max-width: 414px) {
-    &.style-1 {
-      .pagination-manual-input {
-        .MuiTextField-root {
-          width: 36px;
-        }
-      }
-    }
-
-    &.style-3 {
-      padding: 4px 6px;
-    }
-
-    &.style-4,
-    &.style-5 {
-      .MuiButton-root {
-        padding: 2px 6px;
-        font-size: 0.7rem;
-        min-width: 32px;
-      }
-    }
-
-    &.style-9 {
-      padding: 4px 6px;
-      .MuiPagination-ul {
-        gap: 2px !important;
-      }
-      .MuiPaginationItem-root {
-        margin: 0 1px !important;
-      }
-    }
-  }
-
-  &.style-2 {
-    .MuiPaginationItem-root.Mui-selected {
-      border-radius: 4px !important;
-    }
-    .MuiPaginationItem-root {
-      color: #007bff;
-    }
-  }
-
-  &.style-3 {
-    .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
-      background-color: transparent !important;
-      color: #007bff !important;
-      border: none !important;
-      border-bottom: 1px solid #007bff !important;
-      border-radius: 0 !important;
-      position: relative;
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: #007bff;
-      }
-    }
-    .MuiPaginationItem-root {
-      color: #007bff;
-    }
+.rds-pagination-wrapper.style-3 {
+  .MuiPaginationItem-root {
+    color: #007bff;
 
     [data-theme="dark"] & {
-     .MuiPaginationItem-root {
-      color: #007bff;
       &:hover {
         background-color: #68696a;
       }
     }
   }
-  }
 
-  &.style-4,
-  &.style-5 {
-    .MuiButton-root {
-      
-      color: white !important;
-      border-radius: 4px;
-      &:hover {
-        background-color: #0056b3 !important;
-      }
-      &.Mui-disabled {
-        background-color: #e0e0e0 !important;
-        color: #999 !important;
-      }
+  .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
+    background-color: transparent !important;
+    color: #007bff !important;
+    border: none;
+    border-bottom: 1px solid #007bff !important;
+    border-radius: 0 !important;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #007bff;
     }
   }
 
-  &.style-4 {
-    .pagination-dropdown {
-      margin-left: 12px !important;
+  .pagination-dropdown .MuiOutlinedInput-root {
+    border-radius: 4px;
+    .MuiOutlinedInput-notchedOutline {
+      border-color: #ddd;
+      border-bottom: 2px solid #007bff;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-radius: 0 !important;
     }
-  }
-    &.style-11 {
-    .pagination-dropdown {
-      margin-left: 12px !important;
-    }
-  }
 
-      &.style-5 {
-    .pagination-dropdown {
-      margin-left: 12px !important;
+    &:hover .MuiOutlinedInput-notchedOutline,
+    &.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: #007bff;
     }
   }
+}
 
-  &.style-6 {
-    .pagination-legend {
-      font-size: 0.875rem;
-      color: rgba(0, 0, 0, 0.87);
-      margin-right: 7px;
+.rds-pagination-wrapper.style-4,
+.rds-pagination-wrapper.style-5,
+.rds-pagination-wrapper.style-11 {
+  .MuiButton-root {
+    color: white !important;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: #0056b3 !important;
+    }
+
+    &.Mui-disabled {
+      background-color: #e0e0e0 !important;
+      color: #999 !important;
     }
   }
+}
 
-  &.style-7 {
+.rds-pagination-wrapper.style-6,
+.rds-pagination-wrapper.style-8 {
+  .pagination-legend {
+    font-size: 0.875rem;
+  }
+}
+
+.rds-pagination-wrapper.style-8 {
+  .pagination-legend {
+    margin-left: 0 !important;
+  }
+}
+
+.rds-pagination-wrapper.style-9 {
+  .MuiPagination-ul {
+    gap: 16px;
+  }
+  
+  .MuiPaginationItem-root {
+    color: #007bff;
+    margin: 0 8px;
+    border: 1px solid transparent;
+  }
+  
+  .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
+    background-color: transparent !important;
+    color: #007bff !important;
+    border: none;
+    border-bottom: 1px solid #007bff !important;
+    border-radius: 0 !important;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #007bff;
+    }
+  }
+  
+  @media (min-width: 481px) and (max-width: 1024px) {
+    flex-direction: column;
+    align-items: center;
     
-    .MuiPaginationItem-root {
-      color: #007bff;
-    }
-    
-    .MuiPaginationItem-root.Mui-selected {
-      
-      
-      border-radius: 4px !important;
-    }
-  }
-
-  &.style-8 {
-    .pagination-legend {
-      font-size: 0.875rem;
-      color: rgba(0, 0, 0, 0.87);
+    .pagination-dropdown,
+    .pagination-legend,
+    .pagination-manual-input {
+      margin-top: 12px;
       margin-left: 0 !important;
     }
   }
+}
 
-  &.style-9 {  
-    .MuiPagination-ul {
-      gap: 16px;
-    }
-    
-    .MuiPaginationItem-root {
-      color: #007bff;
-      margin: 0 8px;
-      border: 1px solid transparent;
-    }
-    
-    .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
-      background-color: transparent !important;
-      color: #007bff !important;
-      border: none !important;
-      border-bottom: 1px solid #007bff !important;
-      border-radius: 0 !important;
-      position: relative;
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: #007bff;
-      }
+.rds-pagination-wrapper.style-10 {
+  .MuiButton-root {
+    color: white !important;
+    border-radius: 50% !important;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    line-height: 1;
+
+    &:hover {
+      background-color: #0056b3 !important;
     }
 
-    .rds-style9 {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      .rds-style9-prev, .rds-style9-next {
-        color: #007bff;
-        min-width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: transparent;
-        border: 1px solid transparent;
-      }
-      .rds-pagination-style9 {
-        .MuiPagination-ul {
-          gap: 8px;
-        }
-      }
+    &.Mui-disabled {
+      background-color: #e0e0e0 !important;
+      color: #999 !important;
     }
   }
+}
 
-  &.style-10 {
-    .MuiButton-root {
-     
+.rds-pagination-wrapper.style-11 {
+  .MuiButton-root {
+    &:first-of-type {
+      background-color: #007bff !important;
       color: white !important;
       border-radius: 50% !important;
-      width: 32px !important;
-      height: 32px !important;
-      min-width: 32px !important;
-      padding: 0 !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      font-size: 22px !important;
-      line-height: 1 !important;
-      margin-right: 5px !important;
-      &:hover {
-        background-color: #0056b3 !important;
-      }
-      &.Mui-disabled {
-        background-color: #e0e0e0 !important;
-        color: #999 !important;
-      }
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      padding: 0;
+      font-size: 22px;
     }
-  }
-
-  &.style-11 {
-    .MuiButton-root {
-      &:first-of-type {
-        background-color: #007bff !important;
-        color: white !important;
-        border-radius: 50% !important;
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
-        padding: 0 !important;
-        font-size: 22px !important; 
-      }
-      
-      &:last-of-type {
-        background-color: #007bff !important;
-        color: white !important;
-        border-radius: 4px !important;
-        padding: 6px 16px !important;
-        min-width: auto !important;
-        margin-right: 5px !important;
-      }
-      
-      &:hover {
-        background-color: #0056b3 !important;
-      }
-      
-      &.Mui-disabled {
-        background-color: #e0e0e0 !important;
-        color: #999 !important;
-      }
+    
+    &:last-of-type {
+      background-color: #007bff !important;
+      color: white !important;
+      border-radius: 4px !important;
+      padding: 6px 16px;
+      min-width: auto;
     }
   }
 }
 
 .pagination-dropdown {
-  min-width: 65px !important;
-
-  @media (max-width: 586px) {
-    min-width: 55px !important;
-    
-    .MuiInputLabel-root {
-      font-size: 0.7rem;
-    }
-    
-    .MuiSelect-select {
-      font-size: 0.7rem;
-      padding: 4px 6px;
-    }
-  }
-  
-  @media (max-width: 414px) {
-    min-width: 50px !important;
-    
-    .MuiInputLabel-root {
-      font-size: 0.65rem;
-    }
-    
-    .MuiSelect-select {
-      font-size: 0.65rem;
-      padding: 2px 4px;
-    }
-  }
-
-  &.style-3 {
-    .MuiOutlinedInput-root {
-      border-radius: 4px;
-      background: white;
-        .MuiOutlinedInput-notchedOutline {
-          border-color: #ddd;
-          border-bottom: 2px solid #007bff;
-          border-top: none;
-          border-left: none;
-          border-right: none;
-          border-radius: 0 !important;
-        }
-      &:hover .MuiOutlinedInput-notchedOutline {
-        border-color: #007bff;
-      }
-      &.Mui-focused .MuiOutlinedInput-notchedOutline {
-        border-color: #007bff;
-      }
-    }
-  }
+  min-width: 120px;
 }
 
 .pagination-legend {
-  margin-left: 16px !important;
-  font-size: 0.875rem !important;
-  color: rgba(0, 0, 0, 0.87) !important;
+  font-size: 0.875rem;
 
   [data-theme="dark"] & {
-    color: white !important;
-  }
-
-  @media (max-width: 586px) {
-    margin-left: 0 !important;
-    font-size: 0.75rem !important;
-    text-align: center;
-  }
-
-  @media (max-width: 414px) {
-    font-size: 0.7rem !important;
+    color: white;
   }
 }
 
 .pagination-manual-input {
-  margin-left: 16px !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
   .MuiTextField-root {
     width: 48px;
+
     .MuiInputBase-input {
-      text-align: center !important;
-      padding: 4px 8px !important;
-      font-size: 0.875rem !important;
+      text-align: center;
+      padding: 4px 8px;
+      font-size: 0.875rem;
     }
   }
 
   .MuiTypography-root {
-    font-size: 0.875rem !important;
+    font-size: 0.875rem;
   }
+}
 
-  @media (max-width: 586px) {
-    margin-left: 0 !important;
-    gap: 6px !important;
+@media (max-width: 480px) {
+  .rds-pagination-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    .MuiPaginationItem-root {
+      margin: 0 1px;
+      padding: 2px 3px;
+      font-size: 0.7rem;
+      min-width: 22px;
+      height: 22px;
+
+      &.MuiPaginationItem-rounded {
+        padding: 3px;
+        border-radius: 3px;
+      }
+
+      &.MuiPaginationItem-sizeSmall {
+        min-width: 18px;
+        height: 18px;
+        font-size: 0.65rem;
+      }
+
+      &.MuiPaginationItem-sizeLarge {
+        min-width: 24px;
+        height: 24px;
+        font-size: 0.75rem;
+      }
+    }
+
+    .MuiPagination-ul {
+      gap: 1px;
+    }
+
+    .pagination-dropdown {
+      min-width: 80px;
+      margin-left: 0 !important;
+
+      .MuiInputLabel-root {
+        font-size: 0.75rem;
+      }
+
+      .MuiSelect-select {
+        font-size: 0.75rem;
+        padding: 4px 6px;
+      }
+    }
+
+    .pagination-legend {
+      margin-left: 0 !important;
+      font-size: 0.75rem;
+      text-align: center;
+    }
+
+    .pagination-manual-input {
+      margin-left: 0 !important;
+      gap: 6px;
+      justify-content: center;
+
+      .MuiTextField-root {
+        width: 40px;
+
+        .MuiInputBase-input {
+          padding: 3px 6px;
+          font-size: 0.75rem;
+        }
+      }
+
+      .MuiTypography-root {
+        font-size: 0.75rem;
+      }
+    }
+
+    &.style-4,
+    &.style-5 {
+      .MuiButton-root {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+        min-width: 60px;
+      }
+    }
+
+    &.style-9 {
+      .MuiPagination-ul {
+        gap: 2px;
+      }
+
+      .MuiPaginationItem-root {
+        margin: 0 1px;
+      }
+    }
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .rds-pagination-wrapper {
+    flex-wrap: wrap;
     justify-content: center;
+    gap: 10px;
 
-    .MuiTextField-root {
-      width: 40px;
-      .MuiInputBase-input {
-        padding: 3px 6px !important;
-        font-size: 0.75rem !important;
+    .MuiPaginationItem-root {
+      margin: 0 3px;
+      padding: 2px 5px;
+      font-size: 0.85rem;
+      min-width: 28px;
+      height: 28px;
+
+      &.MuiPaginationItem-rounded {
+        padding: 6px;
+        border-radius: 4px;
+      }
+
+      &.MuiPaginationItem-sizeSmall {
+        min-width: 22px;
+        height: 22px;
+        font-size: 0.75rem;
+      }
+
+      &.MuiPaginationItem-sizeLarge {
+        min-width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
       }
     }
 
-    .MuiTypography-root {
-      font-size: 0.75rem !important;
-    }
-    &.style-5,
-     &.style-3,
-     &.style-9 {
-      margin-top: 5px !important;
-    }
-  }
-
-  @media (max-width: 414px) {
-    gap: 4px !important;
-
-    .MuiTextField-root {
-      width: 36px;
-      .MuiInputBase-input {
-        padding: 2px 4px !important;
-        font-size: 0.7rem !important;
-      }
+    .MuiPagination-ul {
+      gap: 3px;
     }
 
-    .MuiTypography-root {
-      font-size: 0.7rem !important;
-    }
-  }
-
-  @media (max-width: 320px) {
-    .MuiTextField-root {
-      width: 45px !important;
-      .MuiInputBase-input {
-        padding: 4px 6px !important;
-        font-size: 0.75rem !important;
-        min-height: 20px !important;
-      }
-    }
-
-    .MuiTypography-root {
-      font-size: 0.75rem !important;
-    }
-  }
-}
-
-.css-1p5hatt-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
-.css-1p5hatt-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
-.css-1p5hatt-MuiNativeSelect-root-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
-    padding-right: 28px !important;
-    font-size: 14px !important;
-    padding: 7.5px 8px !important;
-
-    @media (max-width: 586px) {
-      font-size: 12px !important;
-      padding: 6px 24px 6px 6px !important;
-      padding-right: 24px !important;
-    }
-
-    @media (max-width: 414px) {
-      font-size: 11px !important;
-      padding: 4px 20px 4px 4px !important;
-      padding-right: 20px !important;
-    }
-}
-
-@media (max-width: 320px) {
-  .rds-pagination-wrapper.style-6,
-  
-  .rds-pagination-wrapper.style-8,
-  .rds-pagination-wrapper.style-10,
-  .rds-pagination-wrapper.style-11 {
-    flex-direction: row !important;
-  }
-
-  .rds-pagination-wrapper.style-3,
-  .rds-pagination-wrapper.style-4,
-  .rds-pagination-wrapper.style-7,
-  .rds-pagination-wrapper.style-5,
-  .rds-pagination-wrapper.style-9,
-   .rds-pagination-wrapper.style-2 {
-    display: flex;
-    flex-direction: column !important;
-    align-items: center !important;
-    flex-wrap: nowrap;
-    max-width: 320px !important;
-    width: 100% !important;
-    
     .pagination-dropdown {
-      margin-right: 8px !important;
-      margin-bottom: 0 !important;
-      display: flex;
-      align-items: center;
-      max-width: 300px !important;
-    }
-    .pagination-manual-input {
-      margin-left: 0 !important;
-      display: flex !important;
-      align-items: center !important;
-      gap: 8px !important;
-      width: auto;
-      flex-basis: auto;
-      justify-content: flex-start !important;
-      max-width: 300px !important;
+      min-width: 100px;
 
-      
-      .MuiTextField-root {
-        width: 45px !important;
-        
-        .MuiInputBase-input {
-          font-size: 0.75rem !important;
-          padding: 4px 6px !important;
-          min-height: 20px !important;
-        }
-      }
-
-      .MuiTypography-root {
-        font-size: 0.75rem !important;
-      }
-    }
-    .rds-pagination {
-      margin-right: 8px !important;
-      margin-bottom: 0 !important;
-      max-width: 300px !important;
-      
-      .MuiPagination-ul {
-        max-width: 100% !important;
-        justify-content: space-between !important;
-        gap: 1px !important;
-      }
-      
-      .MuiPaginationItem-root {
-        min-width: 18px !important;
-        height: 18px !important;
-        font-size: 0.7rem !important;
-        margin: 0 1px !important;
-        padding: 1px 2px !important;
-      }
-    }
-    @media (max-width: 414px) {
-      .pagination-manual-input {
-       justify-content: center !important;
-        width: 100% !important;
-        gap: 4px !important;
-      }
-    }
-  }
-  
-  .rds-pagination-wrapper.style-1 {
-    flex-direction: column !important;
-    max-width: 320px !important;
-    width: 100% !important;
-    align-items: center !important;
-    gap: 8px !important;
-    
-    .rds-pagination {
-      max-width: 300px !important;
-      width: 100% !important;
-      
-      .MuiPagination-ul {
-        max-width: 100% !important;
-        justify-content: space-between !important;
-        gap: 1px !important;
-      }
-      
-      .MuiPaginationItem-root {
-        min-width: 16px !important;
-        height: 16px !important;
-        font-size: 0.65rem !important;
-        margin: 0 1px !important;
-        padding: 1px !important;
-      }
-    }
-    
-    .pagination-dropdown {
-      max-width: 280px !important;
-      margin-left: 0 !important;
-      
       .MuiInputLabel-root {
-        font-size: 0.6rem !important;
+        font-size: 0.85rem;
       }
-      
+
       .MuiSelect-select {
-        font-size: 0.6rem !important;
-        padding: 2px 4px !important;
+        font-size: 0.85rem;
+        padding: 6px 8px;
       }
     }
-    
+
     .pagination-legend {
-      max-width: 280px !important;
-      margin-left: 0 !important;
-      font-size: 0.65rem !important;
-      text-align: center !important;
+      font-size: 0.85rem;
     }
-    
+
     .pagination-manual-input {
-      max-width: 280px !important;
-      margin-left: 0 !important;
-      gap: 4px !important;
-      
+      gap: 7px;
+
       .MuiTextField-root {
-        width: 45px !important;
-        
+        width: 44px;
+
         .MuiInputBase-input {
-          font-size: 0.75rem !important;
-          padding: 4px 6px !important;
-          min-height: 20px !important;
+          padding: 4px 7px;
+          font-size: 0.85rem;
         }
       }
-      
-      .MuiTypography-root {
-        font-size: 0.75rem !important;
-      }
-    }
-  }
 
-  .rds-pagination-wrapper.style-4 {
-    flex-direction: column !important;
-    max-width: 320px !important;
-    width: 100% !important;
-    align-items: center !important;
-    gap: 8px !important;
-    
-    .rds-pagination {
-      max-width: 300px !important;
-      width: 100% !important;
-      
-      .MuiPagination-ul {
-        max-width: 100% !important;
-        justify-content: space-between !important;
-        gap: 1px !important;
-      }
-      
-      .MuiPaginationItem-root {
-        min-width: 16px !important;
-        height: 16px !important;
-        font-size: 0.65rem !important;
-        margin: 0 1px !important;
-        padding: 1px !important;
-      }
-    }
-    
-    .MuiButton-root {
-      max-width: 280px !important;
-      font-size: 0.65rem !important;
-      padding: 2px 6px !important;
-      margin: 2px 0 !important;
-    }
-    
-    .pagination-dropdown {
-      max-width: 280px !important;
-      margin-left: 0 !important;
-      
-      .MuiInputLabel-root {
-        font-size: 0.6rem !important;
-      }
-      
-      .MuiSelect-select {
-        font-size: 0.6rem !important;
-        padding: 2px 4px !important;
-      }
-    }
-    
-    .pagination-legend {
-      max-width: 280px !important;
-      margin-left: 0 !important;
-      font-size: 0.65rem !important;
-      text-align: center !important;
-    }
-    
-    .pagination-manual-input {
-      max-width: 280px !important;
-      margin-left: 0 !important;
-      gap: 4px !important;
-      
-      .MuiTextField-root {
-        width: 45px !important;
-        
-        .MuiInputBase-input {
-          font-size: 0.75rem !important;
-          padding: 4px 6px !important;
-          min-height: 20px !important;
-        }
-      }
-      
       .MuiTypography-root {
-        font-size: 0.75rem !important;
+        font-size: 0.85rem;
       }
-    }
-  }
-}
-
-@media (max-width: 414px) {
-  .rds-pagination-wrapper.style-1,
-  .rds-pagination-wrapper.style-2,
-  .rds-pagination-wrapper.style-3,
-  .rds-pagination-wrapper.style-5,
-  .rds-pagination-wrapper.style-7,
-  .rds-pagination-wrapper.style-8,
-  .rds-pagination-wrapper.style-9 {
-    .pagination-manual-input {
-      margin-top: 10px !important;
-    }
-  }
-}
-
-@media (max-width: 320px) {
-  .rds-pagination-wrapper.style-1,
-  .rds-pagination-wrapper.style-4 {
-    max-width: 320px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 4px !important;
-    overflow: hidden !important;
-    
-    * {
-      box-sizing: border-box !important;
-    }
-    
-    .rds-pagination,
-    .pagination-dropdown,
-    .pagination-legend,
-    .pagination-manual-input,
-    .MuiButton-root {
-      max-width: 100% !important;
-      overflow: hidden !important;
-    }
-    
-    .rds-pagination {
-      .MuiPagination-ul {
-        flex-wrap: nowrap !important;
-        overflow: hidden !important;
-        max-width: 100% !important;
-      }
-      
-      .MuiPaginationItem-root {
-        flex-shrink: 1 !important;
-        min-width: 18px !important;
-        max-width: 24px !important;
-        height: 18px !important;
-        font-size: 0.65rem !important;
-        margin: 0 0.5px !important;
-        padding: 0 1px !important;
-      }
-    }
-    
-    .pagination-dropdown {
-      min-width: 40px !important;
-      max-width: 60px !important;
-      
-      .MuiInputLabel-root {
-        font-size: 0.5rem !important;
-        transform: scale(0.8) !important;
-      }
-      
-      .MuiSelect-select {
-        font-size: 0.5rem !important;
-        padding: 1px 2px !important;
-        min-width: 30px !important;
-      }
-    }
-    
-    .pagination-manual-input {
-      gap: 4px !important;
-      
-      .MuiTextField-root {
-        width: 45px !important;
-        
-        .MuiInputBase-input {
-          font-size: 0.75rem !important;
-          padding: 4px 6px !important;
-          text-align: center !important;
-          min-height: 20px !important;
-        }
-      }
-      
-      .MuiTypography-root {
-        font-size: 0.75rem !important;
-      }
-    }
-    
-    .pagination-legend {
-      font-size: 0.55rem !important;
-      text-align: center !important;
-      line-height: 1.2 !important;
-      max-width: 100% !important;
-      word-wrap: break-word !important;
     }
   }
 }
