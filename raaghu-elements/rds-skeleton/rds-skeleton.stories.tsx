@@ -122,7 +122,7 @@ export const CardSkeleton: Story = {
   },
   args: {
     width: "100%",
-    height: 140,
+    height: "140px",
     animated: true,
   },
   render: (args) => (
