@@ -9,7 +9,6 @@ const meta: Meta = {
     docs: {
       source: {
         transform: (code: string) => {
-          // Transform state enum
           code = code.replace(/state="([^"]+)"/g, 'state={TruncateTextState.$1}');
           code = code.replace(/state:\s*"([^"]+)"/g, 'state: TruncateTextState.$1');
           return code;

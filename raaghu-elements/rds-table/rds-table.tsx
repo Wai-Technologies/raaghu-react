@@ -24,7 +24,6 @@ export interface RdsTableColumn {
   align?: 'left' | 'right' | 'center';
   format?: (value: any) => string | React.ReactNode;
   type?: 'text' | 'checkbox' | 'radio';
-  /** Enable sorting for this column */
   sortable?: boolean;
 }
 
@@ -41,17 +40,11 @@ export interface RdsTableProps extends Omit<TableProps, 'children'> {
   selectable?: boolean;
   selectedRows?: string[];
   onRowSelect?: (selectedRows: string[]) => void;
-  onRowAction?: (action: string, rowId: string) => void;
   className?: string;
-  /** Controlled sorted column id */
   sortBy?: string;
-  /** Controlled sort direction */
   sortDirection?: 'asc' | 'desc';
-  /** Sort change callback */
   onSortChange?: (columnId: string | undefined, direction: 'asc' | 'desc' | undefined) => void;
-  /** Uncontrolled initial sorted column */
   defaultSortBy?: string;
-  /** Uncontrolled initial sort direction (default 'asc' if defaultSortBy provided) */
   defaultSortDirection?: 'asc' | 'desc';
 }
 
@@ -68,7 +61,6 @@ const RdsTable = ({
   selectable = false,
   selectedRows = [],
   onRowSelect,
-  onRowAction,
   className = '',
   sortBy: controlledSortBy,
   sortDirection: controlledSortDirection,
@@ -77,20 +69,16 @@ const RdsTable = ({
   defaultSortDirection = 'asc',
   ...props
 }: RdsTableProps) => {
-  // Internal state for row selection when not controlled externally
   const [internalSelectedRows, setInternalSelectedRows] = React.useState<string[]>([]);
 
-  // Use controlled or internal selection state
   const currentSelectedRows = onRowSelect ? selectedRows : internalSelectedRows;
   const handleRowSelection = onRowSelect || setInternalSelectedRows;
 
-  // Internal cell-level states for independent checkbox and radio columns
   const [cellCheckboxSelected, setCellCheckboxSelected] = React.useState<Set<string | number>>(new Set());
   const [cellRadioSelected, setCellRadioSelected] = React.useState<string | number | null>(null);
   const [internalPage, setInternalPage] = React.useState(0);
   const [internalPageSize, setInternalPageSize] = React.useState(10);
 
-  // Sorting (uncontrolled fallback support)
   const [internalSortBy, setInternalSortBy] = React.useState<string | undefined>(defaultSortBy);
   const [internalSortDirection, setInternalSortDirection] = React.useState<'asc' | 'desc' | undefined>(defaultSortBy ? defaultSortDirection : undefined);
   const sortBy = controlledSortBy !== undefined ? controlledSortBy : internalSortBy;
@@ -102,10 +90,8 @@ const RdsTable = ({
     let nextDirection: 'asc' | 'desc';
     let nextColumn: string = column.id;
     if (sortBy !== column.id) {
-      // First click on a new column -> ascending
       nextDirection = 'asc';
     } else {
-      // Toggle between asc and desc only
       nextDirection = sortDirection === 'asc' ? 'desc' : 'asc';
     }
     if (onSortChange) onSortChange(nextColumn, nextDirection); else {
@@ -115,7 +101,7 @@ const RdsTable = ({
   };
 
   const sortedRows = React.useMemo(() => {
-    if (!sortBy || !sortDirection) return rows; // both always defined together in current two-state cycle
+    if (!sortBy || !sortDirection) return rows;
     const column = columns.find(c => c.id === sortBy);
     if (!column) return rows;
     const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
@@ -147,7 +133,6 @@ const RdsTable = ({
     setCellRadioSelected(rowId);
   };
 
-  // For header checkbox (in checkbox-type column): compute row ids and selection state
   const checkboxRowIds = React.useMemo<(string | number)[]>(
     () => rows.map((r: any) => (r.id ?? r.key)).filter((id: unknown) => id !== undefined) as (string | number)[],
     [rows]

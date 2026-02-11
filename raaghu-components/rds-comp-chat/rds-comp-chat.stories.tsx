@@ -80,7 +80,7 @@ export const Default: Story = {
         currentUserCommentTextColor: "#FEF7FF",
         otherUserCommentBgColor: "#E1E3EA",
         OtherUserCommentTextColor: "#202020",
-        handleAddComment: (comment) => console.log("Comment added:", comment),
+        handleAddComment: (comment) => {},
     }
 } satisfies Story;
 

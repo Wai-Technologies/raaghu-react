@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import "./rds-comp-chart-gauge.scss";
 
 export interface RdsCompGaugeprops {
     labels: any[];
@@ -55,7 +56,6 @@ const RdsCompGaugeChart = (props: RdsCompGaugeprops) => {
             };
 
              const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
-            // If dark mode, set legend label color to white
             if (isDarkMode()) {
                 if (!chartOptions.plugins) chartOptions.plugins = {};
                 if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
@@ -72,8 +72,8 @@ const RdsCompGaugeChart = (props: RdsCompGaugeprops) => {
                 },
                 options: {
                     ...chartOptions,
-                    rotation: -90, // Start from top
-                    circumference: 180, // Half circle for gauge
+                    rotation: -90,
+                    circumference: 180,
                     maintainAspectRatio: false,
                     responsive: true,
                     plugins: {
@@ -104,7 +104,7 @@ const RdsCompGaugeChart = (props: RdsCompGaugeprops) => {
     }, [props]);
 
     return (
-        <div>
+        <div className="rds-comp-chart-gauge">
             <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef}></canvas>
         </div>
     );

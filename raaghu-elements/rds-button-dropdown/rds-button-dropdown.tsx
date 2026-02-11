@@ -7,7 +7,6 @@ import RdsCheckbox from '../rds-checkbox/rds-checkbox';
 import RdsRadio from '../rds-radio/rds-radio';
 import RdsAvatar from '../rds-avatar/rds-avatar';
 import RdsSearch from '../rds-search/rds-search';
-import './rds-button-dropdown.scss';
 
 export interface RdsButtonDropdownOption {
   id: string | number;
@@ -23,7 +22,7 @@ export interface RdsButtonDropdownProps {
   multiSelect?: boolean;
   showSearch?: boolean;
   onChange?: (selected: string[] | string) => void;
-  state?: 'default' | 'selected'; // allow custom state handling
+  state?: 'default' | 'selected'; 
   buttonState?: 'default' | 'hover' | 'disabled' | 'selected';
   size?: 'small' | 'medium' | 'large';
   layout?: 'icon+text' | 'text-only' | 'icon-only';
@@ -35,7 +34,6 @@ export interface RdsButtonDropdownProps {
   showRadio?: boolean;
   isShowLeftIcon?: boolean;
   isShowRightIcon?: boolean;
-  buttonStyle?: 'filled' | 'outlined' | 'transparent';
 }
 
 const RdsButtonDropdown = ({
@@ -63,9 +61,6 @@ const RdsButtonDropdown = ({
     options.filter(o => o.checked).map(o => o.id)
   );
 
-  const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
   const handleClose = () => setAnchorEl(null);
 
   const handleOptionChange = (id: string | number) => {
@@ -87,7 +82,6 @@ const RdsButtonDropdown = ({
     opt.label.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Dropdown open state logic
   const isDropdownOpen = state === 'selected' ? Boolean(anchorEl) || anchorEl === null : Boolean(anchorEl);
 
   const handleDropdownButtonClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -112,13 +106,19 @@ const RdsButtonDropdown = ({
         shape={shape}
         color="primary"
         state={buttonState}
-        style={
-          styleType === 'transparent' ? 'transparent' :
-          styleType === 'primary' ? 'filled' :
-          styleType === 'secondary' ? 'filled' : 'outlined'
-        }
-        className={styleType === 'secondary' ? 'rds-button-dropdown--secondary' : ''}
-        textCase="uppercase"
+          style={
+            styleType === 'transparent' ? 'transparent' :
+            styleType === 'primary' ? 'filled' :
+            styleType === 'secondary' ? 'filled' : 'outlined'
+          }
+          className={
+            styleType === 'secondary'
+              ? 'rds-button-dropdown--secondary'
+              : styleType === 'outline'
+                ? 'rds-button-dropdown__button rds-button-dropdown--outline'
+                : ''
+          }
+          textCase="uppercase"
       />
       <RdsMenu
         open={isDropdownOpen}
@@ -161,9 +161,9 @@ const RdsButtonDropdown = ({
                     onChange={() => handleOptionChange(opt.id)}
                     state={opt.disabled ? 'disabled' : 'default'}
                     layout="icon with label"
+                    className={styleType === 'outline' ? 'rds-button-dropdown__button rds-button-dropdown--outline' : ''}
                   />
                 ) : (
-                  // Fallback: Plain text option when neither checkbox nor radio is enabled
                   <div
                     role="option"
                     aria-selected={selected.includes(opt.id)}

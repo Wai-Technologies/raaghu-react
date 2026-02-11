@@ -28,7 +28,7 @@ const meta: Meta<typeof RdsCompAppShell> = {
   title: "Application Shells",
   component: RdsCompAppShell,
   parameters: {
-    layout: "padded",
+    layout: "fullscreen",
     docs: {
       description: {
         component:
@@ -59,7 +59,6 @@ const meta: Meta<typeof RdsCompAppShell> = {
 export default meta;
 type Story = StoryObj<typeof RdsCompAppShell>;
 
-// Main story that responds to displayType control
 const AppShellStory = (args: any) => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = React.useState(false);
   const [mobileToolbarOpen, setMobileToolbarOpen] = React.useState(false);
@@ -350,7 +349,6 @@ const AppShellStory = (args: any) => {
       );
     }
 
-    // Default sidebar for Standard, Relaxing, Default, etc.
     return (
       <BrowserRouter>
         <RdsSidebar
@@ -486,7 +484,7 @@ const AppShellStory = (args: any) => {
           )}
           
           {/* Add bottom navigation for DoubleNav and TriPane */}
-          {(args.displayType === AppShellDisplayType.DoubleNav || args.displayType === AppShellDisplayType.TriPane) && (
+          {(args.displayType === AppShellDisplayType.DoubleNav || args.displayType === AppShellDisplayType.TriPane) && !mobileSidebarOpen && !mobileToolbarOpen && (
             <div className="rds-footer-navigation MuiBottomNavigation-root">
               <div style={{ 
                 display: 'flex', 
@@ -603,7 +601,6 @@ const AppShellStory = (args: any) => {
       );
     }
 
-    // Default/Standard content
     return (
       <div className="rds-story-standard-content">
         {mobileSidebarOpen && (

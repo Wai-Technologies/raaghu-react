@@ -1,6 +1,3 @@
-
-// Paper container styling (Figma-like)
-
 .rds-mlm-paper {
   box-shadow: 0px 8px 24px rgba(16, 24, 40, 0.12), 0px 2px 8px rgba(16, 24, 40, 0.06);
   border-radius: 12px;
@@ -8,11 +5,9 @@
   padding: 0;
   min-width: 220px;
   background: var(--rds-background-paper, #fff);
-  // smooth submenu appearance
   .MuiList-root { transition: max-height 160ms ease; }
 }
 
-// Dark theme overrides
 .dark-theme .rds-mlm-paper,
 [data-theme="dark"] .rds-mlm-paper {
   box-shadow: 0px 8px 24px rgba(0,0,0,0.7), 0px 2px 8px rgba(0,0,0,0.5);
@@ -20,14 +15,11 @@
   background: var(--rds-background-paper, #353535);
 }
 
-// On small screens, push the root menu down to avoid overlapping the trigger
 @media (max-width: 600px) {
   .rds-mlm-paper.rds-mlm-root {
     margin-top: 43px;
   }
 }
-
-// Menu items inside portal-rendered paper
 
 .rds-mlm-paper .MuiMenuItem-root {
   font-family: inherit;
@@ -83,8 +75,6 @@
   color: var(--rds-primary-light, #3C98FF);
 }
 
-// Ensure shortcut text turns primary when selected/expanded
-
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-shortcut,
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover .rds-mlm-shortcut,
 .rds-mlm-paper .MuiMenuItem-root.force-selected .rds-mlm-shortcut,
@@ -108,8 +98,6 @@
 [data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open:active .rds-mlm-shortcut {
   color: var(--rds-primary-light, #3C98FF) !important;
 }
-
-// Expanded parent in expandable mode
 
 .rds-mlm-paper .MuiMenuItem-root.expanded-open,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover,
@@ -136,7 +124,6 @@
   padding: 12px 18px;
 }
 
-// Right-arrow alignment/size like screenshot
 .rds-mlm-paper .rds-mlm-arrow {
   color: var(--rds-text-secondary, #667085);
 }
@@ -145,13 +132,11 @@
 [data-theme="dark"] .rds-mlm-paper .rds-mlm-arrow {
   color: #fff;
 }
-// .rds-mlm-paper .MuiMenuItem-root:hover .rds-mlm-arrow,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-arrow,
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-arrow {
   color: var(--rds-primary-main, #3C98FF) !important;
 }
 
-// Larger menu shows more items with scroll
 .rds-mlm-paper.size-large {
   max-height: 520px;
   overflow: auto;
@@ -186,14 +171,5 @@
 }
 
 
-.css-79elbk{
-  border-bottom: 1px solid var(--rds-background-surface, #eaecf0);
-  
-  &:last-of-type {
-    border-bottom: 0;
-    .css-79elbk{
-      border-bottom: 0;
-    }
-  }
-}
+
 

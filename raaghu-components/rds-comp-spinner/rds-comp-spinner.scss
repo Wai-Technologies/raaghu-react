@@ -1,6 +1,4 @@
-// RDS Spinner Component Styles
 :root {
-  // Spinner color variables
   --rds-spinner-primary-color: #1976d2;
   --rds-spinner-secondary-color: #6c757d;
   --rds-spinner-success-color: #28a745;
@@ -10,7 +8,6 @@
   --rds-spinner-light-color: #f8f9fa;
   --rds-spinner-dark-color: #343a40;
   
-  // Animation timing
   --rds-spinner-animation-duration: 0.75s;
 }
 
@@ -34,7 +31,6 @@
   color: var(--rds-primary-main, var(--rds-spinner-primary-color));
 }
 
-// Color variants
 .text-primary {
   color: var(--rds-primary-main, var(--rds-spinner-primary-color)) !important;
 }
@@ -67,28 +63,23 @@
   color: var(--rds-grey-900, var(--rds-spinner-dark-color)) !important;
 }
 
-// Layout classes
 .spinner-container {
-  // Base container styles
   &--default {
     display: flex;
     align-items: center;
   }
 
-  // Label on bottom layout
   &--label-bottom {
     display: flex;
     flex-direction: column-reverse;
   }
 
-  // Label and spinner layout
   &--label-spinner {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  // Spinner and label layout
   &--spinner-label {
     display: flex;
     align-items: center;
@@ -97,19 +88,37 @@
     justify-content: flex-end;
   }
 
-  // Label on top layout
   &--label-top {
     display: flex;
     flex-direction: column;
   }
   
-  // For all types
   .spinner-label {
     margin-bottom: 0;
+    transition: font-size 0.2s ease;
+    
+    &--small {
+      font-size: 0.75rem;
+      line-height: 1.2;
+    }
+    
+    &--default {
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+    
+    &--medium {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    
+    &--large {
+      font-size: 1.125rem;
+      line-height: 1.6;
+    }
   }
 }
 
-// Animation keyframes
 @keyframes spinner-border {
     to { transform: rotate(360deg); }
 }

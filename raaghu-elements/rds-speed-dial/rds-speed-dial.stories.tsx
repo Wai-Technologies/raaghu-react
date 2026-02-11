@@ -27,9 +27,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const speedDialActions = [
-  { icon: <Share />, name: 'Share', onClick: () => console.log('Share clicked') },
-  { icon: <Print />, name: 'Print', onClick: () => console.log('Print clicked') },
-  { icon: <Favorite />, name: 'Save', onClick: () => console.log('Save clicked') },
+  { icon: <Share />, name: 'Share', onClick: () => {} },
+  { icon: <Print />, name: 'Print', onClick: () => {} },
+  { icon: <Favorite />, name: 'Save', onClick: () => {} },
 ];
 
 export const Default: Story = {
@@ -96,9 +96,9 @@ export const WithTooltips: Story = {
     icon: <Speed />,
     open: false,
     actions: [
-      { icon: <Share />, name: 'Share', tooltipTitle: 'Share this item', onClick: () => console.log('Share clicked') },
-      { icon: <Print />, name: 'Print', tooltipTitle: 'Print this item', onClick: () => console.log('Print clicked') },
-      { icon: <Favorite />, name: 'Save', tooltipTitle: 'Save to favorites', onClick: () => console.log('Save clicked') },
+      { icon: <Share />, name: 'Share', tooltipTitle: 'Share this item', onClick: () => {} },
+      { icon: <Print />, name: 'Print', tooltipTitle: 'Print this item', onClick: () => {} },
+      { icon: <Favorite />, name: 'Save', tooltipTitle: 'Save to favorites', onClick: () => {} },
     ],
   },
 };

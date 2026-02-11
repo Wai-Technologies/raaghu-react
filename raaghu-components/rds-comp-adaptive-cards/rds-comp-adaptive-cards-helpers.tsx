@@ -10,6 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import InfoOutlined from "@mui/icons-material/InfoOutlined";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
@@ -19,18 +20,15 @@ import './rds-comp-adaptive-cards.scss';
 
 export interface AdaptiveCardProps {
   onBtn1Click?: () => void;
-  // Controlled input values and handlers for InputForm
   nameValue?: string;
   emailValue?: string;
   phoneValue?: string;
   onNameChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onEmailChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onPhoneChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // Error handling for InputForm
   nameError?: string;
   emailError?: string;
   phoneError?: string;
-  // Controlled select values and handlers for RestaurantOrder
   entreeValue?: string;
   sideValue?: string;
   drinkValue?: string;
@@ -51,7 +49,6 @@ export interface AdaptiveCardProps {
   type?: string;
   closeIcon?: boolean;
   label?: string;
-  // InputForm customizations
   nameLabel?: string;
   namePlaceholder?: string;
   emailLabel?: string;
@@ -61,7 +58,6 @@ export interface AdaptiveCardProps {
   requiredText?: string;
   block?: boolean;
   images?: string[];
-  // FootballScorecard direct props
   leagueName?: string;
   leagueAvatar?: string;
   isLive?: boolean;
@@ -108,7 +104,6 @@ export interface AdaptiveCardProps {
   date?: string;
   calendarReminderPlaceholder?: string;
   calendarReminderLabel?: string;
-  // RestaurantOrder customizations
   entreeLabel?: string;
   entreePlaceholder?: string;
   entreeOptions?: { value: string; label: string }[];
@@ -118,12 +113,10 @@ export interface AdaptiveCardProps {
   drinkLabel?: string;
   drinkPlaceholder?: string;
   drinkOptions?: { value: string; label: string }[];
-  // CalendarReminder customizations
   snoozeLabel?: string;
   lateLabel?: string;
   options?: { value: string; label: string }[];
   placeholder?: string;
-  // ActivityUpdate customizations
   avatar?: string;
   radioOptions?: { value: string; label: string; desc: string }[];
   homeTeam?: { name: string; logo: string; status: string };
@@ -142,7 +135,6 @@ export const renderSelectValue = (placeholder?: string) => (selected: unknown) =
     <span className="rds-adaptive-cards__placeholder">{placeholder}</span>
   ) : (typeof selected === 'string' ? selected : '');
 
-// InputFormCard component, now using AdaptiveCardProps and proper destructuring
 export function InputFormCard(props: AdaptiveCardProps) {
   const {
     label = '',
@@ -260,7 +252,6 @@ export function FootballScorecardCard({
 }: AdaptiveCardProps) {
   return (
     <RdsCard className={`rds-adaptive-cards rds-adaptive-cards--football-scorecard${isLive ? ' is-live' : ''} football-scorecard-stable`} showIcon={false} showIndicator={false}>
-      {/* Header, subtitle, and description outside card */}
       <div className="rds-adaptive-cards__content">
         <RdsStack className="rds-adaptive-cards__football-header" alignItems="center">
           <RdsStack direction="row" spacing={1} alignItems="center" justifyContent="space-between" className="rds-adaptive-cards__football-header-row">
@@ -371,7 +362,10 @@ export function CalendarReminderForm({
         <RdsTypography variant="body2" color="text.secondary" className="rds-adaptive-cards__calendar-reminder-small-text">{smallText}</RdsTypography>
       </RdsBox>
       <div className="rds-adaptive-cards__calendar-reminder-select-form">
-        <RdsTypography variant="subtitle2" className="rds-adaptive-cards__calendar-reminder-label">{calendarReminderLabel || "Snooze for"}</RdsTypography>
+        <RdsStack direction="row" spacing={0.5} alignItems="center">
+          <RdsTypography variant="subtitle2" className="rds-adaptive-cards__calendar-reminder-label">{calendarReminderLabel || "Snooze for"}</RdsTypography>
+          <InfoOutlined className="rds-adaptive-cards__calendar-reminder-info-icon" />
+        </RdsStack>
         <FormControl fullWidth size="small">
           <Select
             value={selected}
@@ -487,9 +481,12 @@ export function RestaurantOrderForm({
   return (
     <RdsStack spacing={1} component="form" className="rds-adaptive-cards__restaurant-order">
       <FormControl fullWidth required className="rds-adaptive-cards__restaurant-order-form">
-        <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
-          {entreeLabel}<span className="rds-adaptive-cards__required">*</span>
-        </RdsTypography>
+        <RdsStack direction="row" spacing={0.5} alignItems="center">
+          <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
+            {entreeLabel}<span className="rds-adaptive-cards__required">*</span>
+          </RdsTypography>
+          <InfoOutlined className="rds-adaptive-cards__restaurant-order-info-icon" />
+        </RdsStack>
         <Select
           value={entreeValue !== undefined ? entreeValue : entree}
           onChange={onEntreeChange ? onEntreeChange : (e => setEntree(e.target.value as string))}
@@ -506,9 +503,12 @@ export function RestaurantOrderForm({
         </Select>
       </FormControl>
       <FormControl fullWidth required className="rds-adaptive-cards__restaurant-order-form">
-        <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
-          {sideLabel}<span className="rds-adaptive-cards__required">*</span>
-        </RdsTypography>
+        <RdsStack direction="row" spacing={0.5} alignItems="center">
+          <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
+            {sideLabel}<span className="rds-adaptive-cards__required">*</span>
+          </RdsTypography>
+          <InfoOutlined className="rds-adaptive-cards__restaurant-order-info-icon" />
+        </RdsStack>
         <Select
           value={sideValue !== undefined ? sideValue : side}
           onChange={onSideChange ? onSideChange : (e => setSide(e.target.value as string))}
@@ -525,9 +525,12 @@ export function RestaurantOrderForm({
         </Select>
       </FormControl>
       <FormControl fullWidth required className="rds-adaptive-cards__restaurant-order-form">
-        <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
-          {drinkLabel}<span className="rds-adaptive-cards__required">*</span>
-        </RdsTypography>
+        <RdsStack direction="row" spacing={0.5} alignItems="center">
+          <RdsTypography variant="subtitle2" className="rds-adaptive-cards__restaurant-order-label">
+            {drinkLabel}<span className="rds-adaptive-cards__required">*</span>
+          </RdsTypography>
+          <InfoOutlined className="rds-adaptive-cards__restaurant-order-info-icon" />
+        </RdsStack>
         <Select
           value={drinkValue !== undefined ? drinkValue : drink}
           onChange={onDrinkChange ? onDrinkChange : (e => setDrink(e.target.value as string))}

@@ -1,6 +1,6 @@
 import React from "react";
 import { HuePicker, AlphaPicker } from "react-color";
-import { hslToRgb, rgbToHex, handleSpectrumClick, rgbToHsb, rgbToHsl } from "./color-utils";
+import { rgbToHex, handleSpectrumClick, rgbToHsb, rgbToHsl } from "./color-utils";
 import { ColorMode } from "./rds-comp-color-picker";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ColorizeOutlinedIcon from '@mui/icons-material/ColorizeOutlined';
@@ -37,7 +37,16 @@ export const ColorPickerGrid = ({
                   const hue = colIndex * (360 / 11);
                   const lightness = 12 + rowIndex * 8;
                   bgColor = `hsl(${hue}, 100%, ${lightness}%)`;
-                  const [r, g, b] = hslToRgb(hue / 360, 1, lightness / 100);
+                  // Convert HSL to RGB for hex color
+                  const l = lightness / 100;
+                  const a = 1 * Math.min(l, 1 - l);
+                  const f = (n: number) => {
+                    const k = (n + hue / 30) % 12;
+                    return l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+                  };
+                  const r = Math.round(f(0) * 255);
+                  const g = Math.round(f(8) * 255);
+                  const b = Math.round(f(4) * 255);
                   clickHex = rgbToHex(r, g, b);
                   clickRgb = { r, g, b, a: 1 };
                 }
@@ -141,7 +150,11 @@ export const ColorPickerSpectrum = ({
     </div>
   );
 };
-export const ColorPickerSliders = ({ selectedColorState, handleHueChange, handleAlphaChange }) => {
+export const ColorPickerSliders = ({ selectedColorState, handleHueChange, handleAlphaChange }: {
+  selectedColorState: { hex: string; rgb: { r: number; g: number; b: number; a: number } };
+  handleHueChange: (color: any) => void;
+  handleAlphaChange: (color: any) => void;
+}) => {
   return (
     <div className="rds-comp-color-picker__sliders-row">
       <div className="rds-comp-color-picker__eyedropper" aria-hidden="true">
@@ -339,7 +352,7 @@ export const ColorPickerInfo = ({
   );
 };
 
-export const ColorSwatchesType1 = ({ handleChange }) => {
+export const ColorSwatchesType1 = ({ handleChange }: { handleChange: (color: { hex: string }) => void }) => {
   return (
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">
@@ -370,7 +383,7 @@ export const ColorSwatchesType1 = ({ handleChange }) => {
   );
 };
 
-export const ColorSwatchesType2 = ({ handleChange }) => {
+export const ColorSwatchesType2 = ({ handleChange }: { handleChange: (color: { hex: string }) => void }) => {
   return (
     <div className="rds-comp-color-picker__swatches">
       <div className="rds-comp-color-picker__swatches-header">

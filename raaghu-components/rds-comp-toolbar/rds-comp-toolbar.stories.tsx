@@ -9,11 +9,9 @@ const meta: Meta<typeof RdsCompToolbar> = {
         docs: {
             source: {
                 transform: (code: string) => {
-                    // Transform ToolbarLayout enum
                     code = code.replace(/layout="(primary|secondary)"/g, 'layout={ToolbarLayout.$1}');
                     code = code.replace(/layout:\s*"(primary|secondary)"/g, 'layout: ToolbarLayout.$1');
                     
-                    // Transform ToolbarType enum
                     code = code.replace(/type="(inline-editor|full-featured|more-text|more-paragraph|more-rich-content|misc)"/g, (match, p1) => {
                         const enumMap: Record<string, string> = {
                             'inline-editor': 'InlineEditor',
@@ -37,7 +35,6 @@ const meta: Meta<typeof RdsCompToolbar> = {
                         return `type: ToolbarType.${enumMap[p1]}`;
                     });
                     
-                    // Transform ToolbarState enum
                     code = code.replace(/state="(off|on|disabled-on|disabled-off)"/g, (match, p1) => {
                         const enumMap: Record<string, string> = {
                             'off': 'Off',

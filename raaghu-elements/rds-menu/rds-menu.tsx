@@ -11,7 +11,7 @@ export interface RdsMenuItem {
   divider?: boolean;
   shortcut?: string;
   header?: string;
-  color?: 'primary' | 'success' | 'danger' | 'info' | 'warning' | string; // allow custom or theme colors
+  color?: 'primary' | 'success' | 'danger' | 'info' | 'warning' | string;
 }
 
 export interface RdsMenuProps extends Omit<MenuProps, 'children'> {
@@ -27,16 +27,13 @@ const RdsMenu = ({
   children,
   ...props
 }: RdsMenuProps) => {
-  // Use dense for small size, otherwise default
   const dense = size === 'small';
-  // BEM modifier for size (should be on root, not MenuList)
   const menuClassName = [
     'rds-menu',
     size ? `rds-menu--${size}` : '',
     props.className || ''
   ].filter(Boolean).join(' ');
   const menuListClassName = 'rds-menu__list';
-  // Helper to map color prop to CSS color value (can be extended or themed)
 function getColor(color: string): string {
   switch (color) {
     case 'primary':
@@ -50,7 +47,7 @@ function getColor(color: string): string {
     case 'warning':
       return '#ed6c02';
     default:
-      return color || ''; // Return empty string to let CSS handle default colors
+      return color || '';
   }
 }
   return (

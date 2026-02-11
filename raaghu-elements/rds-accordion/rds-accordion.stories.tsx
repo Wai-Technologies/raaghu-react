@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import RdsAccordion, { RdsAccordionGroup } from './rds-accordion';
+import RdsAccordion from './rds-accordion';
 import RdsTypography from '../rds-typography/rds-typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -86,7 +86,6 @@ export const Default: Story = {
     const [expanded2, setExpanded2] = useState(defaultExpanded);
     const [expanded3, setExpanded3] = useState(defaultExpanded);
 
-    // Update state when defaultExpanded control changes
     React.useEffect(() => {
       setExpanded1(defaultExpanded);
       setExpanded2(defaultExpanded);

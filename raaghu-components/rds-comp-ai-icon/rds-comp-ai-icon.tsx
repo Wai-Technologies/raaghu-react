@@ -1,40 +1,31 @@
-import React, { useState, useEffect, ReactElement } from "react";
+import React, { useState, useEffect } from "react";
 import './rds-comp-ai-icon.scss';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
-interface IconCache {
-  [key: string]: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-}
 
-// Default Material-UI icons mapping (can be extended)
 const defaultMaterialIcons: { [key: string]: React.ComponentType<any> } = {
   'users': GroupOutlinedIcon,
   'person-outline': PersonOutlineIcon,
 };
 
-// Global icon registry for extending icons
 let materialIconsRegistry: { [key: string]: React.ComponentType<any> } = {
   ...defaultMaterialIcons
 };
 
-// Function to register additional Material-UI icons
 export const registerMaterialIcon = (name: string, iconComponent: React.ComponentType<any>) => {
   materialIconsRegistry[name.toLowerCase()] = iconComponent;
-  try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { /* ignore */ }
+  try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { }
 };
 
-// Function to register multiple icons at once
 export const registerMaterialIcons = (icons: { [key: string]: React.ComponentType<any> }) => {
   Object.entries(icons).forEach(([name, component]) => {
     materialIconsRegistry[name.toLowerCase()] = component;
   });
-  try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { /* ignore */ }
+  try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { }
 };
 
-// Wrapper function to convert MUI icons to SVG components
 const createMuiIconWrapper = (MuiIcon: React.ComponentType<any>): React.ComponentType<React.SVGProps<SVGSVGElement>> => {
   return React.forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>((props, ref) => {
-    // Safely destructure props with defaults
     const {
       color,
       fontSize,
@@ -43,7 +34,6 @@ const createMuiIconWrapper = (MuiIcon: React.ComponentType<any>): React.Componen
       ...restProps
     } = props || {};
 
-    // Create safe style object
     const combinedStyle = {
       ...style,
       ...(color && { color }),
@@ -61,8 +51,6 @@ const createMuiIconWrapper = (MuiIcon: React.ComponentType<any>): React.Componen
   });
 };
 
-const iconCache: IconCache = {};
-
 export interface RdsCompAiIconProps {
   width?: string;
   height?: string;
@@ -77,7 +65,6 @@ export interface RdsCompAiIconProps {
   isAnimate?: boolean;
   classes?: any;
   dataTestId?: string;
-  // ...existing code...
   databsdismiss?: string;
   databstarget?: string;
   databstoggle?: string;
@@ -100,8 +87,6 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
   const name: string = !props.name ? "" : props.name.toLowerCase();
   const [IconComponent, setIconComponent] = useState<React.ComponentType<React.SVGProps<SVGSVGElement>> | null>(props.SvgIcon || null);
 
-  // Load Material-UI icons by name. Also listen for registry updates so child components
-  // re-resolve icons when a parent registers icons in an effect (fixes race condition).
   useEffect(() => {
     const resolveIcon = () => {
       try {
@@ -119,7 +104,6 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
         }
         setIconComponent(null);
       } catch (error) {
-        console.warn('Error loading icon:', error);
         setIconComponent(null);
       }
     };
@@ -139,10 +123,9 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
     ...(props.position === "center" && { margin: "auto" }),
     ...(props.position === "top-left" && { margin: "0" }),
     ...(props.position === "none" && {}),
-    ...(!props.position && { margin: "auto" }), // default to center if no position specified
+    ...(!props.position && { margin: "auto" }),
   };
 
-  // BEM-style root and modifier class names
   const rootClass = "rds-comp-ai-icon";
   const modifierClasses = [
     props.classes,
@@ -172,12 +155,10 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
 
       return <Icon {...svgProps} />;
     } catch (error) {
-      console.warn('Error rendering icon:', error);
       return null;
     }
   }
 
-  // If no icon component found, handle imageUrl or return null
   if (props.imageUrl) {
     return (
       <img
@@ -196,7 +177,6 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
     );
   }
 
-  // If no icon found, return null
   return null;
 };
 

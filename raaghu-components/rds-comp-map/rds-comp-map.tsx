@@ -13,7 +13,6 @@ export interface RdsCompMapProps {
 const RdsCompMap = (props: RdsCompMapProps) => {
     const { mapType = 'default' } = props;
 
-    // Default map styling function
     const defaultStylingFunction = (context: any) => {
         const opacityLevel = 0.1 + (1.5 * (context.countryValue - context.minValue) / (context.maxValue - context.minValue))
         return {
@@ -26,7 +25,6 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         }
     }
 
-    // Heat map styling function using Figma palette gradients
     const heatMapPalette = [
         '#FFAF00', 
         '#2CC1A5', 
@@ -42,7 +40,6 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         '#25BDB1'
     ];
 
-    // simple linear interpolation between palette stops
     const interpolateColor = (t: number) => {
         if (t <= 0) return heatMapPalette[0];
         if (t >= 1) return heatMapPalette[heatMapPalette.length - 1];
@@ -85,7 +82,6 @@ const RdsCompMap = (props: RdsCompMapProps) => {
 
     const stylingFunction = mapType === 'heatmap' ? heatMapStylingFunction : defaultStylingFunction;
 
-    // Determine map size based on screen width
     const getMapSize = (): "sm" | "md" | "lg" | "xl" | "xxl" | "responsive" | undefined => {
         if (typeof window !== 'undefined') {
             const width = window.innerWidth;

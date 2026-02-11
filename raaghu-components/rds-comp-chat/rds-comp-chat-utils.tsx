@@ -1,4 +1,3 @@
-// Utility and helper functions for RdsCompChat
 export interface Comment {
   firstName: string;
   lastName: string;
@@ -16,7 +15,6 @@ export const startCamera = async (videoRef: React.RefObject<HTMLVideoElement>) =
     }
     return stream;
   } catch (error) {
-    console.error("Camera error:", error);
   }
 };
 

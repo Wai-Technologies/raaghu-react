@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import Chart, { ChartConfiguration } from "chart.js/auto";
+import "./rds-comp-chart-scatter.scss";
 
 export interface RdsCompScatterChartProps {
     labels: any[],
     options: ChartConfiguration['options'],
     dataSets: ChartConfiguration['data']['datasets'],
-    chartStyle?: string,
     id: string
 }
 
@@ -26,7 +26,6 @@ const RdsCompScatterChart = (props: RdsCompScatterChartProps) => {
         return false;
     };
 
-    // Track theme mode for re-render
     const [themeMode, setThemeMode] = React.useState(() => {
         if (typeof document !== 'undefined') {
             return document.documentElement.getAttribute('data-theme') || 'light';
@@ -35,7 +34,6 @@ const RdsCompScatterChart = (props: RdsCompScatterChartProps) => {
     });
 
     React.useEffect(() => {
-        // Observe theme changes
         if (typeof window !== 'undefined') {
             const observer = new MutationObserver(mutations => {
                 mutations.forEach(mutation => {
@@ -62,7 +60,6 @@ const RdsCompScatterChart = (props: RdsCompScatterChartProps) => {
         if (ctx) {
               const chartOptions = JSON.parse(JSON.stringify(options || {}));
 
-            // If dark mode, set axis, tick, legend, and title color to white
             if (isDarkMode()) {
                 if (!chartOptions.scales) chartOptions.scales = {};
                 ["x", "y"].forEach(axis => {
@@ -76,16 +73,12 @@ const RdsCompScatterChart = (props: RdsCompScatterChartProps) => {
                     if (!chartOptions.scales[axis].title) chartOptions.scales[axis].title = {};
                     chartOptions.scales[axis].title.color = "#fff";
                 });
-                // Ensure plugins object exists
                 if (!chartOptions.plugins) chartOptions.plugins = {};
-                // Ensure legend object exists
                 if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
                 if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
                 chartOptions.plugins.legend.labels.color = "#fff";
-                // Ensure title object exists
                 if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
                 chartOptions.plugins.title.color = "#fff";
-                // Set tooltip label/title color to white if using custom tooltip
                 if (chartOptions.plugins.tooltip) {
                     chartOptions.plugins.tooltip.titleColor = "#fff";
                     chartOptions.plugins.tooltip.bodyColor = "#fff";
@@ -115,7 +108,7 @@ const RdsCompScatterChart = (props: RdsCompScatterChartProps) => {
     }, [id, labels, options, dataSets, themeMode]);
 
     return (
-        <div>
+        <div className="rds-comp-chart-scatter">
             <canvas id={id} ref={canvasRef} />
         </div>
     );

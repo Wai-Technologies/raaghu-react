@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import "./rds-comp-scrollbar.scss";
-import {RdsIconButton} from "../../raaghu-elements/index";
 
 export enum ScrollBarType {
   Mac = "Mac",
@@ -42,7 +41,6 @@ const RdsCompScrollBar: React.FC<RdsScrollBarProps> = ({
     }
   };
 
-  // Apply position whenever type or position changes
   useEffect(() => {
     scrollToPosition(position);
   }, [position, type]);

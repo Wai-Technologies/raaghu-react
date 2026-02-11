@@ -21,7 +21,6 @@
   gap: 12px;
   flex: 1;
   
-  // Responsive gap adjustments
   @media (max-width: 420px) {
     gap: 8px;
   }
@@ -35,7 +34,6 @@
   display: block;
 }
 
-// Search field in stories
 .rds-story-search-field {
   min-width: 180px;
   @media (max-width: 834px) {
@@ -65,18 +63,15 @@
     }
 }
 
-// Container with minimal height
 .rds-story-min-height-container {
   min-height: 100px;
 }
 
-// Actions container for navigation icons  
 .rds-story-nav-actions {
   display: flex;
   align-items: center;
   gap: 16px;
   
-  // Responsive gap adjustments
   @media (max-width: 834px) {
     gap: 12px;
   }
@@ -90,7 +85,6 @@
   }
 }
 
-// Individual action item with cursor
 .rds-story-nav-action {
   cursor: pointer;
  
@@ -171,14 +165,12 @@
   transition: background-color 0.2s ease-in-out;
   
   &-active {
-    //background-color: var(--rds-background-paper, #ffffff) !important;
     color: var(--rds-text-primary,  #1976d2) !important;
     border-bottom: 3px solid var(--rds-color-primary, #1976d2) !important;
   }
   white-space: nowrap;
   min-width: auto;
   
-  // Responsive tab button adjustments
   @media (max-width: 834px) {
     font-size: 15px;
     padding: 6px 14px;
@@ -239,7 +231,7 @@
 
 @media (min-width: 834px) {
   .rds-header--variant-withactions {
-    .rds-header__logo { order: 1; }
+    //.rds-header__logo { order: 1; }
     .rds-header__tabs-inline { order: 2; margin-left: 8px; }
     .rds-header__center-content { order: 3; display: inline-flex; align-items: center;  }
     .rds-header__right-actions { order: 4; display: flex; align-items: center; margin-left: -18px; }
@@ -324,7 +316,6 @@
   gap: 16px;
   flex-shrink: 0;
   
-  // Responsive gap adjustments
   @media (max-width: 834px) {
     gap: 12px;
   }
@@ -342,14 +333,13 @@
     }
   }
 }
-// Right actions for avatar
+
 .rds-header__right-actions {
   display: flex;
   align-items: center;
   margin-right: 16px;
   flex-shrink: 0;
   
-  // Responsive margin adjustments
   @media (max-width: 420px) {
     margin-right: -8px;
   }
@@ -384,7 +374,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     
-    // Responsive title adjustments
     @media (max-width: 834px) {
       font-size: var(--rds-font-size-xl);
       margin: 0 var(--rds-font-size-md);
@@ -429,7 +418,6 @@
     }
   }
 
-  // Color variants
   &--primary {
     background-color: var(--rds-appbar-bg, var(--rds-primary-main));
   }
@@ -444,9 +432,6 @@
   }
 }
 
-// =======================
-//  Profile Menu styles (from header.scss)
-// =======================
 .rds-profile-menu__item-icon {
   display: inline-flex;
   align-items: center;
@@ -507,7 +492,6 @@
   font-size: var(--rds-font-size-body, 1rem);
   flex-shrink: 0;
   
-  // Responsive avatar adjustments
   @media (max-width: 834px) {
     width: 30px !important;
     height: 30px !important;
@@ -530,7 +514,7 @@
   margin-left: 4px;
 }
 .rds-profile-menu__dropdown {
-  margin-top: var(--rds-spacing-lg, 1.5rem);
+  margin-top: var(--rds-spacing-xs, 6px);
   min-width: 260px;
   border-radius: var(--rds-border-radius-lg, 8px);
   overflow: visible;
@@ -541,7 +525,6 @@
   display: flex;
   align-items: center;
   padding: var(--rds-spacing-xs, 5px) var(--rds-spacing-sm, 10px) var(--rds-spacing-sm, 8px) var(--rds-spacing-xs, 8px);
-  //background: var(--rds-color-profile-header-bg, #ede7f6);
   margin-bottom: var(--rds-spacing-xs, 8px);
 }
 .rds-profile-menu__avatar-lg {
@@ -562,7 +545,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   
-  // Responsive name adjustments
   @media (max-width: 420px) {
     font-size: var(--rds-font-size-md, 14px);
   }
@@ -580,7 +562,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   
-  // Responsive email adjustments
   @media (max-width: 420px) {
     font-size: var(--rds-font-size-xs, 11px);
   }
@@ -601,9 +582,6 @@
   border-radius: 0 0 8px 8px !important;
 }
 
-// =======================
-//  RDS Header Component Styles (from header.scss)
-// =======================
 .rds-header--transparent {
   background: transparent !important;
   box-shadow: none !important;
@@ -685,7 +663,6 @@
     box-sizing: border-box;
     overflow: hidden;
     
-    // Responsive behavior for different screen sizes
     @media (max-width: 834px) {
       padding-left: var(--rds-spacing-lg, 24px);
       padding-right: var(--rds-spacing-lg, 24px);
@@ -721,7 +698,6 @@
     letter-spacing: var(--rds-letter-spacing, 0.1px);
     flex-shrink: 0;
     
-    // Responsive behavior for different screen sizes
     @media (max-width: 834px) {
       min-width: var(--rds-header-logo-min-width, 100px);
       font-size: var(--rds-font-size-md, 19px);
@@ -761,7 +737,6 @@
     text-overflow: ellipsis;
     flex-shrink: 1;
     
-    // Responsive behavior for different screen sizes
     @media (max-width: 834px) {
       min-width: 70px;
       font-size: var(--rds-font-size-base, 17px);
@@ -816,7 +791,6 @@
     white-space: nowrap;
   }
 
-  /* Slightly tighten the MenuList spacing */
   .rds-language-menu-list {
     padding-top: 4px !important;
     padding-bottom: 4px !important;
@@ -852,7 +826,6 @@
     overflow-y: auto !important;
     box-sizing: border-box;
     
-    // Responsive list adjustments
     @media (max-width: 420px) {
       max-height: 300px !important;
     }
@@ -1010,7 +983,6 @@
     align-items: center;
     gap: 4px;
     flex: 1;
-    /* Center tabs by default on larger screens */
     justify-content: center;
 
     .MuiButton-root {
@@ -1276,7 +1248,7 @@
   }
   
   @media (max-width: 320px) {
-    font-size: 14px;
+    font-size: 11px;
     margin-left: 4px;
   }
 }
@@ -1312,7 +1284,6 @@
   white-space: nowrap;
   flex-shrink: 0;
   
-  // Responsive badge adjustments
   @media (max-width: 420px) {
     font-size: 11px;
     padding: 3px 8px;
@@ -1325,7 +1296,7 @@
     margin-right: 4px;
   }
 }
-// DARK MODE OVERRIDES
+
 [data-theme="dark"], .dark {
   --rds-appbar-bg: #181c20;
   --rds-appbar-color: #fff;
@@ -1334,7 +1305,6 @@
   --rds-appbar-secondary-bg: #7c2946;
   --rds-appbar-badge-bg: #232e3a;
   --rds-appbar-badge-color: #90caf9;
-   // Existing app bar dark mode overrides...
   --rds-color-surface-alt: var(--rds-background-surface, #23272b);
   --rds-color-on-surface: var(--rds-text-primary, #e3e3e3);
   --rds-color-border: var(--rds-border-default, #444b54);
@@ -1344,6 +1314,12 @@
   .rds-appbar-logo-label{
     color: var(--rds-color-on-info, #ffffff);
   }
+
+  .rds-header--transparent {
+    background: var(--rds-color-surface, #424242) !important;
+  }
+
+ 
 }
 
 .css-16b6n56-MuiButtonBase-root-MuiButton-root, 
@@ -1374,7 +1350,6 @@
 .css-wor01b {
     min-width: 60px !important;
     
-    // Responsive tab adjustments
     @media (max-width: 834px) {
       min-width: 55px !important;
     }
@@ -1391,7 +1366,6 @@
 .MuiIconButton-root {
   @media (max-width: 420px) {
     padding: 8px !important;
-    margin-left: 6px !important;
     
     svg {
       font-size: 20px !important;
@@ -1402,24 +1376,11 @@
   @media (max-width: 320px) {
     padding: 6px !important;
     margin-right: 0px !important;
-    margin-left: -3px !important;
     
     svg {
       font-size: 18px !important;
       margin-left: 0px !important;
     }
-  }
-}
-
-.MuiButton-root {
-  @media (max-width: 420px) {
-    padding: 6px 12px !important;
-    font-size: 13px !important;
-  }
-  
-  @media (max-width: 320px) {
-    padding: 4px 8px !important;
-    font-size: 12px !important;
   }
 }
 
@@ -1475,7 +1436,6 @@
   }
 }
 
-// Add spacing between search field and actions for TopNav
 .rds-header__actions {
   margin-left: 16px;
   
@@ -1568,7 +1528,7 @@
  
   .rds-profile-menu__button {
     .MuiBox-root {
-      display: none; // Hide profile text details on very small screens
+      display: none;
     }
   }
   
@@ -1587,7 +1547,6 @@
 .rds-appbar-overflow-button .rds-overflow-icon { display: inline-flex; }
 .rds-appbar-overflow-button .rds-overflow-icon--hamburger { display: none; }
 
-/* Remove overflow button and dehaze icon for 320px and 420px screen sizes */
 @media (max-width: 420px) {
   .rds-appbar-overflow-button {
     display: none !important;
@@ -1641,6 +1600,87 @@
    flex: 0 1 auto !important;
    max-width: calc(100% - 160px) !important;
   }
+
+  .rds-header--variant-withtabs .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withtabs .rds-profile-menu__button .rds-avatar__info,
+  .rds-header--variant-withtabs .rds-profile-menu__button .rds-avatar__name,
+  .rds-header--variant-withtabs .rds-profile-menu__button .rds-avatar__designation,
+  .rds-header--variant-withtabs .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withtabs .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withtabs .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-withtabs .rds-profile-menu__button .MuiSvgIcon-root,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-avatar__info,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-avatar__name,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-avatar__designation,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .MuiSvgIcon-root,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .rds-avatar__info,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .rds-avatar__name,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .rds-avatar__designation,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .MuiSvgIcon-root,
+  .rds-header--variant-withactions .rds-profile-menu__button .MuiBox-root,
+  .rds-header--variant-withactions .rds-profile-menu__button .rds-avatar__info,
+  .rds-header--variant-withactions .rds-profile-menu__button .rds-avatar__name,
+  .rds-header--variant-withactions .rds-profile-menu__button .rds-avatar__designation,
+  .rds-header--variant-withactions .rds-profile-menu__button .rds-profile-menu__name-lg,
+  .rds-header--variant-withactions .rds-profile-menu__button .rds-profile-menu__email,
+  .rds-header--variant-withactions .rds-profile-menu__button .rds-profile-menu__chevron,
+  .rds-header--variant-withactions .rds-profile-menu__button .MuiSvgIcon-root {
+    display: none !important;
+  }
+
+  .rds-header--variant-withtabs .rds-profile-menu__avatar,
+  .rds-header--variant-withtabs .rds-profile-menu__button .MuiAvatar-root,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__avatar,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button .MuiAvatar-root,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__avatar,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button .MuiAvatar-root,
+  .rds-header--variant-withactions .rds-profile-menu__avatar,
+  .rds-header--variant-withactions .rds-profile-menu__button .MuiAvatar-root {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .rds-header--variant-withtabs .rds-profile-menu__button,
+  .rds-header--variant-withnotificationbadge .rds-profile-menu__button,
+  .rds-header--variant-withlogoandtabs .rds-profile-menu__button,
+  .rds-header--variant-withactions .rds-profile-menu__button {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+    min-width: auto !important;
+  }
+
+}
+
+@media (min-width: 421px) and (max-width: 840px) {
+  .rds-header--variant-withtabs,
+  .rds-header--variant-withlogoandtabs,
+  .rds-header--variant-withnotificationbadge,
+  .rds-header--variant-withactions {
+    .rds-bottom-navigation {
+      display: flex !important;
+    }
+  }
+
+  .rds-header--variant-withtabs .rds-header__actions,
+  .rds-header--variant-withlogoandtabs .rds-header__actions,
+  .rds-header--variant-withnotificationbadge .rds-header__actions,
+  .rds-header--variant-withactions .rds-header__actions {
+    display: flex !important;
+    align-items: center !important;
+    margin-left: auto !important;
+  }
+
+  body {
+    padding-bottom: 56px !important;
+  }
 }
 
 @media (max-width: 420px) {
@@ -1682,23 +1722,19 @@
     display: none !important;
   }
 
-  /* Logo Tabs Actions - show bottom navigation */
   .rds-header--variant-logotabsactions .rds-story-nav-actions { display: none !important; }
   .rds-header--variant-logotabsactions .rds-story-nav-action { display: none !important; }
   .rds-header--variant-logotabsactions .rds-profile-menu__button { display: inline-flex !important; }
   .rds-header--variant-logotabsactions .rds-appbar-overflow-button { display: none !important; }
-  /* With Tabs - show bottom navigation */
   .rds-header--variant-withtabs .rds-header__tabs-inline { display: none !important; }
   .rds-header--variant-withtabs .rds-appbar-overflow-button { display: none !important; }
   .rds-header--variant-withtabs .rds-profile-menu__button { order: 99 !important; margin-left: auto !important; }
-  /* With Actions - show bottom navigation */
   .rds-header--variant-withactions .rds-header__tabs-inline { display: none !important; }
   .rds-header--variant-withactions .rds-appbar-overflow-button { display: none !important; }
   .rds-header--variant-withactions .rds-profile-menu__button { order: 99 !important; margin-left: auto !important; }
   .rds-header--variant-withactions .rds-appbar-actions-group,
   .rds-header--variant-withactions .rds-appbar-actions-group .MuiButton-root,
   .rds-header--variant-withactions .rds-header__right-actions { display: none !important; }
-  /* With Logo and Tabs - show bottom navigation */
   .rds-header--variant-withlogoandtabs .rds-header__tabs-inline { display: none !important; }
   .rds-header--variant-withlogoandtabs .rds-appbar-overflow-button { display: none !important; }
   .rds-header--variant-withlogoandtabs .rds-profile-menu__button { order: 99 !important; margin-left: auto !important; }
@@ -1863,7 +1899,6 @@
   .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: 52px !important; padding: 4px !important; }
     .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 90px !important; }
     .rds-header--variant-withmenubutton .rds-appbar-overflow-button { right: 70px !important; }
-    .rds-header--variant-withmenubutton .rds-appbar-logo-label { display: none !important; }
     .rds-header--variant-withmenubutton .rds-header__search-wrapper {
       position: relative !important;
       max-width: calc(100% - 100px) !important;
@@ -1892,7 +1927,7 @@
     font-size: 11px !important;
     opacity: 0.9 !important;
   }
-  /* Remove separators on small screens */
+
   .rds-appbar-separator { display: none !important; }
 
   .rds-header__sub-tabs {
@@ -1971,11 +2006,10 @@
     align-items: center !important;
   }
 
-  /* Ensure logotabsactions shows avatar after search on small screens */
   @media (max-width: 420px) {
     .rds-header--variant-logotabsactions .rds-header__toolbar {
       position: relative !important;
-      padding-right: 56px !important; /* reserve room for avatar */
+      padding-right: 56px !important; 
       overflow: visible !important;
     }
 
@@ -2006,7 +2040,6 @@
   @media (max-width: 320px) {
     .rds-header--variant-logotabsactions .rds-header__toolbar {
       position: relative !important;
-      padding-right: 44px !important;
       overflow: visible !important;
     }
 
@@ -2138,7 +2171,7 @@
 
     .rds-header--variant-dashboardwithlang .rds-header__toolbar {
       padding-left: 8px !important;
-      padding-right: 56px !important; /* reserve room for avatar */
+      padding-right: 56px !important; 
       gap: 8px !important;
     }
 
@@ -2310,7 +2343,6 @@
     padding-right: 6px !important;
   }
 
-  /* Hide avatar text/details so avatar is compact and doesn't overlap search */
   .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root,
   .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__name-lg,
   .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__email,
@@ -2328,6 +2360,27 @@
   }
 
   .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 96px !important; }
+
+  // Tablet styles for variants with bottom navigation - hide inline tabs
+  .rds-header--variant-withactions .rds-header__tabs-inline,
+  .rds-header--variant-withtabs .rds-header__tabs-inline,
+  .rds-header--variant-withlogoandtabs .rds-header__tabs-inline {
+    display: none !important;
+  }
+
+  .rds-header--variant-withnotificationbadge .rds-appbar-tabs-container,
+  .rds-header--variant-withnotificationbadge .rds-header__right-actions {
+    display: none !important;
+  }
+
+  .rds-header--variant-withactions .rds-header__center-content {
+    flex: 0 1 auto !important;
+    max-width: calc(100% - 300px) !important;
+  }
+
+  .rds-header--variant-withactions .rds-appbar-actions-group {
+    display: none !important;
+  }
 }
 
 @media (max-width: 320px) {
@@ -2576,22 +2629,18 @@
   }
 }
 
-// Dashboard With Lang: Show icons in top for full view, hide for small/large
 .rds-dashboard-top-icons {
   display: flex;
   align-items: center;
   gap: 8px;
   
-  // Hide on small and large views (show in bottom instead)
   @media (max-width: 640px) {
     display: none !important;
   }
 }
 
-// Dashboard With Lang: Bottom navigation visibility control
 .rds-header--variant-dashboardwithlang {
   .rds-bottom-navigation {
-    // Show footer icons on small and large views, hide on full view
     display: none;
     
     @media (max-width: 1024px) {

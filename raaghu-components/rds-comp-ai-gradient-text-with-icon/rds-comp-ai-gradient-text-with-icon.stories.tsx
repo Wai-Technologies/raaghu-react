@@ -6,9 +6,6 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 const meta: Meta = {
     title: "Components/AI ChatBox/Gradient Text With Icon",
     component: RdsCompAiGradientTextWithIcon,
-    argTypes: {
-       
-    },
     parameters: {
         layout: 'padded',
     },

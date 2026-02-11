@@ -1,5 +1,4 @@
 .rds-tooltip {
-  // Base popper styles
   --rds-tooltip-bg: var(--rds-background-paper, #222);
   --rds-tooltip-color: var(--rds-text-primary, #fff);
   --rds-tooltip-border: var(--rds-border-default, #222);
@@ -21,25 +20,20 @@
     transition: background 0.2s, color 0.2s, border 0.2s;
   }
 
-  // Wrapper used to allow Tooltip to attach refs/handlers when child doesn't forward ref
   .rds-tooltip__child-wrapper {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     line-height: 1;
-    cursor: inherit; // inherit cursor from child
-    // keep wrapper transparent to pointer-events except child
+    cursor: inherit;
     pointer-events: auto;
   }
 
-  // Arrow styling
   .MuiTooltip-arrow {
     color: var(--rds-tooltip-bg);
     filter: drop-shadow(0 1px 2px rgba(0,0,0,0.12));
   }
 
-
-  // Position modifiers (all variants)
   &--top .MuiTooltip-tooltip,
   &--top-start .MuiTooltip-tooltip,
   &--top-end .MuiTooltip-tooltip {
@@ -65,7 +59,6 @@
     transform-origin: center left;
   }
 
-  // Arrow position tweaks for visual alignment (all variants)
   &--top .MuiTooltip-arrow,
   &--top-start .MuiTooltip-arrow,
   &--top-end .MuiTooltip-arrow {
@@ -87,7 +80,6 @@
     margin-left: -0.4em;
   }
 
-  // Interactive states
   &:hover .MuiTooltip-tooltip {
     background: var(--rds-primary-light, #333);
     color: var(--rds-tooltip-color, #fff);
@@ -104,7 +96,7 @@
     pointer-events: none;
   }
 }
-// Dark theme support
+
 [data-theme="dark"],
 body.theme-dark {
   .rds-tooltip {
@@ -118,16 +110,4 @@ body.theme-dark {
       border-color: var(--rds-tooltip-border);
     }
   }
-  
-  // .css-d56zgx-MuiButtonBase-root-MuiButton-root,
-  // .MuiButtonBase-root,
-  // .MuiButton-root,
-  // .MuiButton-contained,
-  // .MuiButton-containedPrimary,
-  // .MuiButton-sizeMedium,
-  // .MuiButton-containedSizeMedium,
-  // .MuiButton-colorPrimary {
-  //   color: #ffffff !important;
-  // }
 }
-

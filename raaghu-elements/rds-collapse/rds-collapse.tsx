@@ -38,7 +38,7 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
           sx={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            gap: 1,
             cursor: showToggleButton ? 'pointer' : 'default',
             py: 1,
           }}
@@ -55,6 +55,8 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
               sx={{
                 transform: internalExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
                 transition: 'transform 0.2s',
+                p: 0,
+                ml: 0,
               }}
             >
               <ExpandMore />

@@ -35,18 +35,15 @@ const RdsRadio= ({
   radioProps,
   layout = 'icon with label',
   state = 'default',
-  row,
   selected,
   ...props
 }:RdsRadioProps) => {
-  const isDisabled = (optDisabled: boolean) => optDisabled || state === 'disabled';
   const isHoverable = state === 'hover' || state === 'default';
-  const radioRow = row ?? direction === 'row';
+  const radioRow = direction === 'row';
 
   const effectiveValue: string | undefined = React.useMemo(() => {
     if (typeof selected === 'undefined') return props.value as any;
     if (selected === false) return undefined;
-    // selected true
     if (props.value) return props.value as any;
     const first = options.find(o => !o.disabled);
     return first ? first.value : undefined;
@@ -118,7 +115,6 @@ const RdsRadio= ({
       );
     }
 
-    // Default: icon with label
     return (
       <FormControlLabel
         key={option.value}
@@ -144,7 +140,6 @@ const RdsRadio= ({
           row={radioRow}
           className="rds-radio__group"
           value={effectiveValue}
-          // If selected is controlled we block onChange bubbling outward so stories/consumers see forced state
           onChange={(e, val) => {
             if (typeof selected === 'undefined' && props.onChange) {
               props.onChange(e as any, val);

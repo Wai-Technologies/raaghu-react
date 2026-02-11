@@ -1,4 +1,3 @@
-// Off-canvas specific styles
 .offcanvas-header {
   background-color: var(--rds-offcanvas-header-bg, transparent);
 }
@@ -9,7 +8,6 @@
   font-weight: var(--font-weight-medium, 500);
 }
 
-// Drawer paper sizing and placement helpers
 .offcanvas-drawer .MuiDrawer-paper {
   box-sizing: border-box;
   padding: 0;
@@ -71,7 +69,6 @@
   border-radius: 5px;
 }
 
-/* Dark theme hover visibility for close button */
 .rds-theme--dark .offcanvas-close-button:hover,
 body.theme-dark .offcanvas-close-button:hover,
 body[data-theme="dark"] .offcanvas-close-button:hover,
@@ -118,14 +115,12 @@ body[data-theme="dark"] .offcanvas-close-button:hover,
   margin-left: 8px;
 }
 
-// Ensure consistent button heights across light and dark themes
 #offcanvas-btns .rds-button,
 #offcanvas-btns .MuiButton-root {
   min-height: 36px;
   padding: 6px 16px;
 }
 
-// Dark theme consistency
 .rds-theme--dark #offcanvas-btns .rds-button,
 body.theme-dark #offcanvas-btns .rds-button,
 body[data-theme="dark"] #offcanvas-btns .rds-button,
@@ -152,6 +147,42 @@ body[data-theme="dark"] #offcanvas-btns .MuiButton-root,
 
 .offcanvas-action-btn {
   width: auto;
+}
+
+.rds-theme--dark .offcanvas-cancel-btn,
+body.theme-dark .offcanvas-cancel-btn,
+body[data-theme="dark"] .offcanvas-cancel-btn,
+[data-theme="dark"] .offcanvas-cancel-btn,
+.theme-dark .offcanvas-cancel-btn,
+.dark-theme .offcanvas-cancel-btn {
+  color: #2196F3 !important;
+}
+
+.rds-theme--dark .offcanvas-cancel-btn .MuiButton-label,
+body.theme-dark .offcanvas-cancel-btn .MuiButton-label,
+body[data-theme="dark"] .offcanvas-cancel-btn .MuiButton-label,
+[data-theme="dark"] .offcanvas-cancel-btn .MuiButton-label,
+.theme-dark .offcanvas-cancel-btn .MuiButton-label,
+.dark-theme .offcanvas-cancel-btn .MuiButton-label {
+  color: #2196F3 !important;
+}
+
+.rds-theme--dark .tertiary-button-container .offcanvas-action-btn,
+body.theme-dark .tertiary-button-container .offcanvas-action-btn,
+body[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn,
+[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn,
+.theme-dark .tertiary-button-container .offcanvas-action-btn,
+.dark-theme .tertiary-button-container .offcanvas-action-btn {
+  color: #2196F3 !important;
+}
+
+.rds-theme--dark .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
+body.theme-dark .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
+body[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
+[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
+.theme-dark .tertiary-button-container .offcanvas-action-btn .MuiButton-label,
+.dark-theme .tertiary-button-container .offcanvas-action-btn .MuiButton-label {
+  color: #2196F3 !important;
 }
 
 @media (max-width: 767px) {
@@ -293,7 +324,6 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
     margin-left: 0 !important;
   }
 }
-// Large mobile devices
 @media (min-width: 414px) and (max-width: 896px) {
   .offcanvas-drawer .MuiDrawer-paper { width: 400px !important; }
   #offcanvas-btns, .offcanvas-margin {
@@ -319,7 +349,6 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
     margin-left: 4px;
   }
 
-  /* ensure button sizing/ellipsis */
   #offcanvas-btns .rds-button {
     font-size: 12px !important;
     padding: 6px 8px !important;
@@ -329,7 +358,6 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
     text-overflow: ellipsis;
   }
 
-  /* close icon sizing */
   #close-btn .rds-icon-button, #close-btn .MuiIconButton-root {
     padding: 6px 8px !important;
     width: 40px !important; height: 40px !important;
@@ -341,7 +369,6 @@ body[data-theme="dark"] .offcanvas-container .offcanvas-header .close:hover,
   }
 }
 
-// Allow consumers to override width/height via CSS variables per-instance
 :root {
   --rds-offcanvas-width: 650px;
   --rds-offcanvas-height: 100%;

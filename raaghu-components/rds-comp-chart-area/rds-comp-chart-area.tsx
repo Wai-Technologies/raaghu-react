@@ -26,7 +26,6 @@ const RdsCompAreaChart = (props: lineprops) => {
         return false;
     };
 
-    // Track theme mode for re-render
     const [themeMode, setThemeMode] = React.useState(() => {
         if (typeof document !== 'undefined') {
             return document.documentElement.getAttribute('data-theme') || 'light';
@@ -35,7 +34,6 @@ const RdsCompAreaChart = (props: lineprops) => {
     });
 
     useEffect(() => {
-        // Observe theme changes
         if (typeof window !== 'undefined') {
             const observer = new MutationObserver(mutations => {
                 mutations.forEach(mutation => {
@@ -62,7 +60,6 @@ const RdsCompAreaChart = (props: lineprops) => {
 
          const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
 
-        // If dark mode, set axis, tick, and label color to white
         if (isDarkMode()) {
             if (!chartOptions.scales) chartOptions.scales = {};
             ["x", "y"].forEach(axis => {
@@ -77,11 +74,9 @@ const RdsCompAreaChart = (props: lineprops) => {
                     chartOptions.scales[axis].title.color = "#fff";
                 }
             });
-            // Set legend label color to white
             if (chartOptions.plugins && chartOptions.plugins.legend && chartOptions.plugins.legend.labels) {
                 chartOptions.plugins.legend.labels.color = "#fff";
             }
-            // Set tooltip label/title color to white if using custom tooltip
             if (chartOptions.plugins && chartOptions.plugins.tooltip) {
                 chartOptions.plugins.tooltip.titleColor = "#fff";
                 chartOptions.plugins.tooltip.bodyColor = "#fff";
@@ -121,7 +116,7 @@ const RdsCompAreaChart = (props: lineprops) => {
     }, [props.labels, props.dataSets, props.options, props.isGradient, themeMode]);
 
     return (
-        <div>
+        <div className="rds-comp-chart-area">
             <canvas id={props.id} ref={canvasRef} />
         </div>
     );

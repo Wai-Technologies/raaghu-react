@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import {Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import './rds-stack.scss';
 import RdsStack from './rds-stack';
 import RdsBox from '../rds-box/rds-box';

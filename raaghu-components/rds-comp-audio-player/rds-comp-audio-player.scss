@@ -1,9 +1,6 @@
-// RDS Audio Player Component Styles
 .rds-comp-audio-player {
-  // Base component styles
   display: block;
   
-  // Collapsed container styles
   &__collapsed-container {
     display: flex;
     align-items: center;
@@ -50,7 +47,6 @@
     }
   }
 
-  // Audio Player styles
   &__player {
     display: flex;
     align-items: center;
@@ -89,7 +85,6 @@
     position: relative;
     z-index: 2;
     
-    // Ensure direct SVG icon children are properly aligned
     > svg {
       display: flex;
       align-items: center;
@@ -121,7 +116,6 @@
       }
     }
 
-    // Ensure fab menus are positioned consistently
     .rds-fab-menu {
       position: relative;
       display: flex;
@@ -129,7 +123,6 @@
     }
   }
 
-  // Control buttons
   &__control-btn {
     background: none;
     border: none;
@@ -194,7 +187,6 @@
   margin: 0 var(--rds-spacing-sm, 8px);
   }
 
-  // Legacy support for old class names
   &__side-controls {
     display: flex;
     align-items: center;
@@ -231,7 +223,7 @@
     }
   }
 
-  // Vertical Volume Slider
+
   &__volume-slider-container {
     position: absolute;
     top: 85%;
@@ -259,7 +251,6 @@
     margin-bottom: var(--rds-spacing-sm, 8px);
   }
 
-  // Settings Modal
   &__settings-modal {
     position: absolute;
     top: 85%;
@@ -345,7 +336,6 @@
     }
   }
 
-  // Audio Edition styles
   &__edition-container {
     background: var(--rds-color-surface-variant);
     border-radius: var(--rds-border-radius-lg, 12px);
@@ -694,7 +684,6 @@
     font-family: var(--rds-font-family-mono, monospace);
   }
 
-  // Keyframe animations
   @keyframes rds-comp-audio-player-slide-down {
     from {
       opacity: 0;
@@ -706,7 +695,6 @@
     }
   }
 
-  // Responsive design
   @media (max-width: 768px) {
     &__player {
       min-width: auto;
@@ -722,7 +710,6 @@
       align-items: stretch;
     }
 
-    // First row: Current time, slider, total time
     &__current-time {
       order: 1;
       align-self: flex-start;
@@ -746,7 +733,6 @@
       padding-bottom: var(--rds-spacing-xs, 3px);
     }
 
-    // Create a time row container for the first 3 elements
     &__current-time,
     &__slider,
     &__total-time {
@@ -754,7 +740,6 @@
       align-items: center;
     }
 
-    // Group time elements in same row
     &__main-controls {
       display: grid;
       grid-template-columns: auto 1fr auto;
@@ -800,7 +785,6 @@
       justify-self: end;
     }
 
-    // Third row: Extra controls span full width
     &__extra-controls {
       width: 100%;
       justify-content: center;
@@ -865,7 +849,6 @@
     }
   }
 
-  // Extra small mobile devices (phones in portrait)
   @media (max-width: 480px) {
     &__edition-timemarks {
       font-size: var(--rds-font-size-caption, 10px);
@@ -917,7 +900,6 @@
     }
   }
 
-  // High contrast mode support
   @media (prefers-contrast: high) {
     &__waveform-blue-bar {
       border: 2px solid var(--rds-color-on-primary, #fff);
@@ -928,7 +910,6 @@
     }
   }
 
-  // Reduced motion support
   @media (prefers-reduced-motion: reduce) {
     &__waveform-blue-bar,
     &__waveform-bar-handle,

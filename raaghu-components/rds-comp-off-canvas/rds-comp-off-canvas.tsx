@@ -16,8 +16,6 @@ export interface RdsCompOffcanvasProps {
   offcanvaswidth?: number;
   onShow?: () => void;
   onClose?: () => void;
-  buttonname?: string;
-  offcanvasbutton?: ReactNode;
   children?: ReactNode;
   onclick?: (data: any) => void;
   className?: string;
@@ -35,15 +33,12 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
   offcanvaswidth = 650,
   onShow,
   onClose,
-  buttonname,
-  offcanvasbutton,
   children,
   onclick,
   className,
   showPrimaryButton = false,
   showSecondaryButton = false,
   showTertiaryButton = false,
-  ...props
 }) => {
   const [internalOpen, setInternalOpen] = useState(false);
   const drawerOpen = internalOpen;
@@ -69,18 +64,6 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
       default:
         return "right";
     }
-  };
-  const getWidth = () => {
-    if (placement === RdsOffcanvasPlacement.Top || placement === RdsOffcanvasPlacement.Bottom) {
-      return "100%";
-    }
-    return offcanvaswidth;
-  };
-  const getHeight = () => {
-    if (placement === RdsOffcanvasPlacement.Top || placement === RdsOffcanvasPlacement.Bottom) {
-      return offcanvaswidth;
-    }
-    return "100%";
   };
   const isCanvasTitle = canvasTitle !== "" && canvasTitle !== undefined;
   const getBackdropProps = () => {
@@ -139,7 +122,7 @@ const RdsCompOffcanvas: React.FC<RdsCompOffcanvasProps> = ({
                   </Box>
                   <Box className="secondary-button-container">
                     {showSecondaryButton && (
-                      <RdsButton text="CANCEL" style="outlined" size="medium"  onClick={handleClose}/>
+                      <RdsButton text="CANCEL" style="outlined" size="medium"  onClick={handleClose} className="offcanvas-cancel-btn"/>
                     )}
                   </Box>
                   <Box className="primary-button-container">

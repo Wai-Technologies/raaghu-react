@@ -39,7 +39,6 @@ export const Default: Story = {
         uploadText: "Upload From Figma",
         importText: "Import From This Device",
         modalText: "Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file.",
-        handleAddComment: (comment) => console.log('Comment added:', comment),
         menuAlignment: "left",
     },
 }

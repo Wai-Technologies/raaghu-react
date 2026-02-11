@@ -6,7 +6,6 @@ const meta: Meta<typeof RdsCheckbox> = {
   component: RdsCheckbox,
   parameters: {
     layout: 'padded',
-    // hide auto-generated `component` control from Controls panel
   controls: { exclude: ['cssStyle', 'slots', 'slotProps', 'component'] },
   },
   tags: ['autodocs'],

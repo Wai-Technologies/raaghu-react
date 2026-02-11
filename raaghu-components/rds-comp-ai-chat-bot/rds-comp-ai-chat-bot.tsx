@@ -52,7 +52,6 @@ const RdsCompAiChatBot = (props: RdsCompAiChatBotProps) => {
 
     const handleAddComment = (comment: AttachmentComment) => {
         if (!comment.image) {
-            console.error("Comment image is undefined");
             return;
         }
         if (comment.image.startsWith("http")) {

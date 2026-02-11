@@ -2,12 +2,9 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import RdsCompAdaptiveCards from './rds-comp-adaptive-cards';
 
-// Create an action logger that will show in the Actions panel
 const createActionLogger = (actionName: string) => {
     return (...args: any[]) => {
-        console.log(`${actionName}:`, ...args);
         
-        // Try to emit to Storybook Actions addon if available
         try {
             const addons = (window as any)?.__STORYBOOK_ADDONS_CHANNEL__;
             if (addons) {
@@ -27,8 +24,7 @@ const createActionLogger = (actionName: string) => {
                 });
             }
         } catch (e) {
-            // Fallback to just console logging
-            console.log(`Action logged: ${actionName}`, args);
+           
         }
     };
 };
@@ -83,7 +79,6 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
         activityProps: { control: 'object' },
         name: { control: 'text', description: 'Name for ActivityUpdateCard' },
         date: { control: 'text', description: 'Date for ActivityUpdateCard' },
-        // Removed duplicate namePlaceholder for ActivityUpdateCard
         sideOptions: { control: 'object', description: 'Options for ActivityUpdateCard' },
         sidePlaceholder: { control: 'text', description: 'Select Placeholder for CalendarReminderCard' },
         onBtn1Click: { action: 'button clicked' },
@@ -92,7 +87,6 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
 
 export default meta;
 
-// Minimal default story
 export const Default: StoryObj<typeof RdsCompAdaptiveCards> = {
     args: {
         cardTitle: 'Title',
@@ -262,7 +256,6 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
             const { name, value } = e.target;
             setForm({ ...form, [name]: value });
             
-            // Clear error when user starts typing
             if (errors[name as keyof typeof errors]) {
                 setErrors({ ...errors, [name]: '' });
             }
@@ -277,13 +270,11 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
 
             let hasErrors = false;
 
-            // Validate name
             if (!form.name.trim()) {
                 newErrors.name = 'Name is required';
                 hasErrors = true;
             }
 
-            // Validate email
             if (!form.email.trim()) {
                 newErrors.email = 'Email is required';
                 hasErrors = true;
@@ -292,7 +283,6 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
                 hasErrors = true;
             }
 
-            // Validate phone
             if (!form.phone.trim()) {
                 newErrors.phone = 'Phone number is required';
                 hasErrors = true;
@@ -312,7 +302,6 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
             setShowErrors(true);
             
             if (validateForm()) {
-                // Log successful form submission to the Actions panel
                 logFormSubmission({
                     formData: form,
                     timestamp: new Date().toISOString(),
@@ -320,12 +309,10 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
                     validationStatus: 'passed'
                 });
                 
-                // Clear the form after successful submission
                 setForm({ name: '', email: '', phone: '' });
                 setErrors({ name: '', email: '', phone: '' });
                 setShowErrors(false);
             } else {
-                // Log validation errors to the Actions panel
                 const emptyFields = [];
                 if (!form.name.trim()) emptyFields.push('Name');
                 if (!form.email.trim()) emptyFields.push('Email');

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
-import { Add, Save, Delete, Edit, Close, ArrowForward, ArrowBack, RadioButtonUnchecked } from '@mui/icons-material';
 import RdsButton from './rds-button';
 
 const meta: Meta<typeof RdsButton> = {
@@ -8,7 +7,6 @@ const meta: Meta<typeof RdsButton> = {
   component: RdsButton,
   parameters: {
   layout: 'padded',
-  // hide auto-generated `component` control from Controls panel
   controls: { exclude: ['component'] },
   },
   tags: ['autodocs'],

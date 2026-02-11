@@ -32,8 +32,6 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj<typeof RdsMenu>;
 
-
-// Note: Set open: false for Docs. Enable open in Canvas/Preview for live demo.
 export const Default: Story = {
   args: {
     items: [
@@ -53,7 +51,6 @@ export const Default: Story = {
       setAnchorEl(null);
     };
 
-    // Inject onClick into each item
     const items = (args.items || []).map(item => ({ ...item, onClick: handleClose }));
 
     return (
@@ -172,7 +169,6 @@ export const Dense: Story = {
     );
   },
 };
-// Custom color menu example
 export const WithCustomColor: Story = {
   args: {
     size: 'medium',
@@ -201,7 +197,6 @@ export const WithCustomColor: Story = {
       setAnchorEl(null);
     };
 
-    // Apply the selected color to all items when menu is opened
     const items = (args.items || []).map(item => ({ ...item, color: args.color, onClick: handleClose }));
 
     return (
@@ -282,7 +277,6 @@ export const CustomizedMenu: Story = {
       setAnchorEl(null);
     };
 
-    // Inject onClick into each item
     const items = (args.items || []).map(item => ({
       ...item,
       onClick: handleClose,

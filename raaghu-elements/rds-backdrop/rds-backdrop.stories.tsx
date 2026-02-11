@@ -67,12 +67,7 @@ export const Loading: Story = {
 export const WithCustomContent: Story = {
   args: {
     open: true,
-    children: (
-      <div style={{ color: 'white', textAlign: 'center' }}>
-        <h2>Custom Content</h2>
-        <p>This is a custom backdrop content</p>
-      </div>
-    ),
+    children: 'This is a custom backdrop content',
   },
   render: (args) => (
     <div style={{ position: 'relative', minHeight: 300 }}>
@@ -81,7 +76,12 @@ export const WithCustomContent: Story = {
         sx={{
           '&.rds-backdrop': { position: 'absolute' }
         }}
-      />
+      >
+        <div style={{ color: 'white', textAlign: 'center' }}>
+          <h2>Custom Content</h2>
+          <p>{args.children}</p>
+        </div>
+      </RdsBackdrop>
     </div>
   ),
 };
@@ -90,34 +90,38 @@ export const Interactive: Story = {
   args: {
     open: false,
     loading: false,
-    children: (
-      <div style={{ color: 'white', textAlign: 'center' }}>
-        <h2>Click to close</h2>
-        <p>This content can be customized via controls</p>
-      </div>
-    ),
+    children: 'This content can be customized via controls',
   },
   render: (args) => {
     const [open, setOpen] = useState<boolean>(!!args.open);
 
-    // Sync local state with Storybook controls so toggling knobs works.
     useEffect(() => {
       setOpen(!!args.open);
     }, [args.open]);
     
     return (
-      <>
-        <Button variant="contained" onClick={() => setOpen(true)}>
+      <div style={{ position: 'relative', minHeight: 300 }}>
+        <Button 
+          variant="contained" 
+          onClick={() => setOpen(true)}
+          sx={{ color: '#ffffff' }}
+        >
           Show Backdrop
         </Button>
         <RdsBackdrop
           open={open}
           loading={!!args.loading}
           onClick={() => setOpen(false)}
+          sx={{
+            '&.rds-backdrop': { position: 'absolute' }
+          }}
         >
-          {args.children}
+          <div style={{ color: 'white', textAlign: 'center' }}>
+            <h2>Click to close</h2>
+            <p>{args.children}</p>
+          </div>
         </RdsBackdrop>
-      </>
+      </div>
     );
   },
   parameters: {

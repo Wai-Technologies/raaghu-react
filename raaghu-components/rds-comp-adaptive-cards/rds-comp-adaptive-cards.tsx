@@ -16,7 +16,6 @@ import {
   AdaptiveCardProps,
 } from "./rds-comp-adaptive-cards-helpers";
 
-// Types for backward compatibility props
 type FootballProps = {
   leagueName?: string;
   leagueAvatar?: string;
@@ -84,7 +83,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
     label,
     block,
     images,
-    // FootballScorecard direct props
     leagueName,
     leagueAvatar,
     isLive,
@@ -103,20 +101,16 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
     activityProps = {} as Partial<ActivityProps>,
   } = merged;
 
-  // ----- Derived Props -----
   const calendarLabel = type === "CalenderReminder" ? (label || variantDefaults.label) : label;
   const calendarSmallText = type === "CalenderReminder" ? (smallText || variantDefaults.smallText) : smallText;
   const inputFormLabel = type === "InputForm" ? (label || variantDefaults.label) : undefined;
   const inputFormSmallText = type === "InputForm" ? (smallText || variantDefaults.smallText) : undefined;
 
-  // ----- State -----
   const [entree, setEntree] = useState("");
   const [side, setSide] = useState("");
   const [drink, setDrink] = useState("");
-  // Card visibility state
   const [visible, setVisible] = useState(true);
 
-  // ----- Render by Type ----- 
   if (!visible) return null;
   if (type === "ImageGallery") {
     return (
@@ -131,7 +125,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
     );
   }
   if (type === "FootballScorecard") {
-    // Prefer direct props, fallback to footballProps for backward compatibility
     return (
       <FootballScorecardCard
         leagueName={leagueName ?? footballProps?.leagueName ?? ''}
@@ -156,12 +149,10 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
     );
   }
 
-  // ----- Main Card Layout -----
   return (
     visible && (
       <RdsCardDetail className={`rds-adaptive-cards rds-adaptive-cards--default${type === 'Default' ? ' is-default-selected' : ''}`}>
         
-        {/* Default Type Layout */}
         {type === 'Default' ? (
           <RdsBox className="custom-box">
             <RdsStack direction="row" alignItems="center" spacing={1} className="custom-box__title-stack">
@@ -201,7 +192,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
           </RdsBox>
         ) : (
           <>
-            {/* Card Header */}
             <CardHeader
               className="rds-adaptive-cards__header"
               title={showHeader && ( 
@@ -215,7 +205,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
               )}
             />
 
-            {/* Card Content by Type */}
             <CardContent className="rds-adaptive-cards__content">
               {type === "CalenderReminder" && (
                 <CalendarReminderForm 
@@ -290,7 +279,6 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
               )}
             </CardContent>
 
-            {/* Card Actions by Type */}
             <CardActions
               className={`rds-adaptive-cards__actions${type === "RestaurantOrder" ? ' rds-adaptive-cards__actions--restaurant-order' : ''}${type === "ActivityUpdateCard" ? ' rds-adaptive-cards__actions--activity-update' : ''}`}
             >
@@ -328,7 +316,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                           checked: undefined,
                           disabled: undefined
                         }))}
-                        onChange={(value) => console.log(value)}
+                        onChange={() => {}}
                         state="default"
                         showRadio={true}
                         showUserAvatar={true}

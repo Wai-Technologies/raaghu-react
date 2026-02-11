@@ -18,11 +18,6 @@ const meta: Meta<typeof RdsCompAiTypingSection> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const sampleMessages: { id: string; text: string; sender: 'user' | 'ai'; }[] = [
-	{ id: '1', text: 'Hello AI!', sender: 'user' },
-	{ id: '2', text: 'Hi! How can I help you today?', sender: 'ai' },
-];
-
 export const Default: Story = {
     args: {
         colorVariant: "#353535",

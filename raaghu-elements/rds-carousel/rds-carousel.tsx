@@ -14,10 +14,10 @@ export interface RdsCarouselProps {
   type?: 'circle' | 'line';
   state?: '1' | '2' | '3' | '4';
   style?: 'default' | 'with title' | 'full width image';
-  titles?: string[]; // Optional titles for 'with title' style
-  subtitles?: string[]; // Optional subtitles for 'with title' style
-  title?: string; // single title fallback for all slides (useful for Storybook controls)
-  subtitle?: string; // single subtitle fallback for all slides
+  titles?: string[];
+  subtitles?: string[];
+  title?: string;
+  subtitle?: string;
 }
 
 const RdsCarousel = ({
@@ -40,7 +40,6 @@ const RdsCarousel = ({
   const theme = useTheme();
 
   React.useEffect(() => {
-    // If state prop is provided, update internal state to match (only initially)
     if (state && !isNaN(parseInt(state))) {
       const stateIndex = parseInt(state) - 1;
       if (stateIndex >= 0 && stateIndex < children.length) {
@@ -50,7 +49,6 @@ const RdsCarousel = ({
   }, [state, children.length]);
 
   React.useEffect(() => {
-    // Run autoplay regardless of state prop, but only if autoPlay is enabled
     if (autoPlay && children.length > 1) {
       const interval = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % children.length);
@@ -71,7 +69,6 @@ const RdsCarousel = ({
     setCurrentIndex(index);
   };
 
-  // Get CSS class names based on style prop
   const getCarouselClasses = () => {
     const baseClass = 'rds-carousel';
     const styleClass = `${baseClass}--${style.replace(' ', '-')}`;
@@ -93,7 +90,6 @@ const RdsCarousel = ({
           : 'transparent',
       }}
     >
-      {/* Slides */}
       <Box
         sx={{
           display: 'flex',
@@ -103,7 +99,6 @@ const RdsCarousel = ({
         }}
       >
         {children.map((child, index) => {
-          // compute display text: prefer per-slide arrays, fallback to single-string props, then defaults
           const displayTitle = (titles && titles[index]) ?? title ?? `Card Title`;
           const displaySubtitle = (subtitles && subtitles[index]) ?? subtitle ?? `In a laoreet purus. Integer turpis quam, laoreet id`;
 
@@ -122,7 +117,6 @@ const RdsCarousel = ({
                   : 'transparent',
               }}
             >
-              {/* Title above image for 'with title' style */}
               {style === 'with title' && (
                 <Box className="rds-carousel__title-content rds-carousel__title-content--top">
                   {displayTitle && (
@@ -154,7 +148,6 @@ const RdsCarousel = ({
                 {child}
               </Box>
 
-              {/* Title content after image for 'full width image' style */}
               {style === 'full width image' && (
                 <Box className="rds-carousel__title-content rds-carousel__title-content--bottom">
                   {displayTitle && (
@@ -174,7 +167,6 @@ const RdsCarousel = ({
         })}
       </Box>
 
-      {/* Navigation Arrows */}
       {showArrows && children.length > 1 && (
         <>
           <IconButton
@@ -183,7 +175,7 @@ const RdsCarousel = ({
             sx={{
               position: 'absolute',
               left: 8,
-              top: style === 'with title' ? 'calc(50% + 50px)' : '50%', // Adjust for title area
+              top: style === 'with title' ? 'calc(50% + 50px)' : '50%',
               transform: 'translateY(-50%)',
               backgroundColor: 'rgba(0, 0, 0, 0.5)',
               color: 'white',
@@ -201,7 +193,7 @@ const RdsCarousel = ({
             sx={{
               position: 'absolute',
               right: 8,
-              top: style === 'with title' ? 'calc(50% + 50px)' : '50%', // Adjust for title area
+              top: style === 'with title' ? 'calc(50% + 50px)' : '50%',
               transform: 'translateY(-50%)',
               backgroundColor: 'rgba(0, 0, 0, 0.5)',
               color: 'white',
@@ -216,7 +208,6 @@ const RdsCarousel = ({
         </>
       )}
 
-      {/* Dots */}
       {showDots && children.length > 1 && (
         <Box
           className="rds-carousel__indicators"
@@ -245,7 +236,7 @@ const RdsCarousel = ({
                   ? theme.palette.primary.main 
                   : style === 'full width image' 
                     ? 'rgba(255, 255, 255, 0.8)' 
-                    : '#BDBDBD', // Gray for regular styles, white for full width image
+                    : '#BDBDBD',
                 border: style === 'full width image' 
                   ? (currentIndex === index 
                       ? '1px solid var(--rds-color-primary, #1976d2)' 
@@ -258,7 +249,7 @@ const RdsCarousel = ({
                     ? theme.palette.primary.main 
                     : style === 'full width image' 
                       ? 'rgba(255, 255, 255, 0.9)' 
-                      : '#9E9E9E', // Different hover colors based on style
+                      : '#9E9E9E',
                 },
               }}
             />

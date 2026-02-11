@@ -1,6 +1,3 @@
-// RDS Pagination Helper Functions and Configurations
-// Moved from rds-pagination.tsx to reduce file size
-
 export interface StyleConfig {
   showPagination: boolean;
   showDropdownControl: boolean;
@@ -18,7 +15,6 @@ export interface StyleConfig {
   boundaryCount?: number;
 }
 
-// Define style configurations for 11 different pagination styles
 export const getStyleConfig = (style: string): StyleConfig => {
   switch (style) {
     case 'Style 1':
@@ -33,7 +29,6 @@ export const getStyleConfig = (style: string): StyleConfig => {
         shape: 'circular' as const,
         size: 'medium' as const,
         styleClass: 'style-1',
-        // Reduce page numbers for mobile screens to fit within 320px
         siblingCount: 0,
         boundaryCount: 1
       };
@@ -60,7 +55,6 @@ export const getStyleConfig = (style: string): StyleConfig => {
         showManualInputControl: true,
         showFirstControl: false,
         showLastControl: false,
-        // Use 'text' variant so selected pages use bottom-border styling
         variant: 'text' as const,
         shape: 'circular' as const,
         size: 'medium' as const,
@@ -81,7 +75,6 @@ export const getStyleConfig = (style: string): StyleConfig => {
         shape: 'circular' as const,
         size: 'medium' as const,
         styleClass: 'style-4',
-        // Reduce page numbers for mobile screens to fit within 320px
         siblingCount: 0,
         boundaryCount: 1
       };
@@ -199,16 +192,12 @@ export const getStyleConfig = (style: string): StyleConfig => {
   }
 };
 
-// Calculate pagination configuration
 export const calculatePaginationConfig = (
   paginationStyle: string,
   styleConfig: StyleConfig
 ) => {
-  // Check if we're on a very small screen (320px or less)
-  const isVerySmallScreen = typeof window !== 'undefined' && window.innerWidth <= 320;
-  
-  // Ensure ellipsis position for specific styles (Style 2 and Style 7)
-  // Force siblingCount and boundaryCount so dots appear after page 2
+  const isVerySmallScreen = typeof window !== 'undefined' && window.innerWidth <= 360;
+  const isSmallScreen = typeof window !== 'undefined' && window.innerWidth <= 480;
   const paginationSiblingCount = typeof styleConfig.siblingCount === 'number'
     ? styleConfig.siblingCount
     : (paginationStyle === 'Style 2' || paginationStyle === 'Style 7' ? 0 : undefined);
@@ -216,12 +205,15 @@ export const calculatePaginationConfig = (
     ? styleConfig.boundaryCount
     : (paginationStyle === 'Style 2' || paginationStyle === 'Style 7' ? 2 : undefined);
 
-  // Final values to pass to MUI Pagination — make absolutely explicit for Style 2 and 7
   let finalSiblingCount = (paginationStyle === 'Style 2' || paginationStyle === 'Style 7') ? 0 : (typeof paginationSiblingCount === 'number' ? paginationSiblingCount : 0);
   let finalBoundaryCount = (paginationStyle === 'Style 2' || paginationStyle === 'Style 7') ? 1 : (typeof paginationBoundaryCount === 'number' ? paginationBoundaryCount : 1);
 
-  // For Style 1 and Style 4 on very small screens, minimize pagination items to fit in 320px
-  if (isVerySmallScreen && (paginationStyle === 'Style 1' || paginationStyle === 'Style 4')) {
+  if (isVerySmallScreen) {
+    finalSiblingCount = 0;
+    finalBoundaryCount = 1;
+  }
+  
+  else if (isSmallScreen) {
     finalSiblingCount = 0;
     finalBoundaryCount = 1;
   }
@@ -229,21 +221,19 @@ export const calculatePaginationConfig = (
   return { finalSiblingCount, finalBoundaryCount };
 };
 
-// Calculate total pages and records
 export const calculateTotalPages = (
   count: number | undefined,
   totalPages: number | undefined,
   pageSize: number
 ) => {
-  // If count is number of pages, use it directly. If it's number of records, calculate pages.
+ 
   let totalPagesCalc = 1;
   let totalRecords = 0;
   if (typeof count === 'number' && count > 1 && (!totalPages || totalPages < 2)) {
-    // count is likely number of pages
     totalPagesCalc = count;
     totalRecords = count * pageSize;
   } else {
-    // count is likely number of records
+    
     totalRecords = count || totalPages || 1;
     totalPagesCalc = Math.ceil(totalRecords / pageSize);
   }
@@ -251,7 +241,6 @@ export const calculateTotalPages = (
   return { totalPagesCalc, totalRecords };
 };
 
-// Generate legend text
 export const generateLegendText = (
   legendText: string,
   currentPageNumber: number,

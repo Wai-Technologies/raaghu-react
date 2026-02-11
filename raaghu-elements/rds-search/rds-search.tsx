@@ -35,11 +35,9 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
 }) => {
   const [searchTimeout, setSearchTimeout] = React.useState<ReturnType<typeof setTimeout> | null>(null);
 
-  // read fullWidth explicitly so we can toggle container class
   const fullWidthProp = Boolean((props as any).fullWidth);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // If the consumer passed disabled via props, respect it
     if ((props as any).disabled) return;
 
     const newValue = event.target.value;
@@ -79,10 +77,8 @@ const RdsSearch: React.FC<RdsSearchProps> = ({
       if (searchTimeout) {
         clearTimeout(searchTimeout);
       }
-    };
-  }, [searchTimeout]);
+    };  }, [searchTimeout]);
 
-  // Generate CSS classes based on props
   const containerClasses = [
     'rds-search',
     `rds-search--${labelPosition === 'top' ? 'column'

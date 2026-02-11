@@ -1,6 +1,4 @@
-// RDS Popover Component Styles
 .rds-popover {
-  // Base styles
   display: block;
   position: relative;
   overflow: visible;
@@ -12,14 +10,12 @@
     background-color: #A0A0A0;
   }
 
-  // Paper styles (Material-UI Popover paper override)
   &__paper {
     overflow: visible !important;
     border: 1px solid rgba(0, 0, 0, 0.12) !important;
     box-shadow: none !important;
   }
 
-  // Elements
   &__container {
     padding: var(--rds-spacing-md, 16px);
     max-width: 400px;
@@ -53,7 +49,6 @@
     color: var(--rds-text-primary, var(--rds-color-text-primary));
   }
 
-  // Arrow styles base
   &__arrow {
     position: absolute;
     z-index: 1500;
@@ -61,7 +56,6 @@
     width: 0;
     height: 0;
 
-    // Arrow direction variants with positioning and styling
     &--top {
       top: -8px;
       border-left: 8px solid transparent;
@@ -69,7 +63,6 @@
       border-bottom: 8px solid var(--rds-color-surface, #fff);
       filter: drop-shadow(0px -1px 0px rgba(0, 0, 0, 0.12));
 
-      // Position variants for top arrows
       &.rds-popover__arrow--bottom-left {
         left: 30px;
       }
@@ -91,7 +84,6 @@
       border-top: 8px solid var(--rds-color-surface, #fff);
       filter: drop-shadow(0px 1px 0px rgba(0, 0, 0, 0.12));
 
-      // Position variants for bottom arrows
       &.rds-popover__arrow--top-left {
         left: 30px;
       }
@@ -113,7 +105,6 @@
       border-right: 8px solid var(--rds-color-surface, #fff);
       filter: drop-shadow(-1px 0px 0px rgba(0, 0, 0, 0.12));
 
-      // Position variants for left arrows
       &.rds-popover__arrow--right-top {
         top: 20%;
         transform: translateY(-140%);
@@ -137,7 +128,6 @@
       border-left: 8px solid var(--rds-color-surface, #fff);
       filter: drop-shadow(1px 0px 0px rgba(0, 0, 0, 0.12));
 
-      // Position variants for right arrows
       &.rds-popover__arrow--left-top {
         top: 20%;
         transform: translateY(-120%);
@@ -155,7 +145,6 @@
     }
   }
 
-  // Position control styles
   &__position-controls {
     display: flex;
     flex-direction: column;
@@ -209,7 +198,6 @@
     margin-bottom: var(--rds-spacing-xs, 4px);
   }
 
-  // Modifiers
   &--wide {
     .rds-popover__container {
       min-width: 300px;
@@ -224,7 +212,6 @@
     }
   }
 
-  // States
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset, 2px);
@@ -236,7 +223,6 @@
   color: #fff !important;
 }
 
-// Custom popover styles for WithList story on small screens
 @media (max-width: 320px) {
   .with-list-popover .rds-popover__container {
     max-width: 220px !important;

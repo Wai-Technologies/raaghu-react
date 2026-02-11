@@ -7,7 +7,6 @@ import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-// Add more icons as needed
 import './rds-breadcrumbs.scss';
 
 export enum BreadcrumbSeparator {
@@ -20,7 +19,6 @@ export enum BreadcrumbSeparator {
   Plus = "+",
 }
 
-// Map string names to icon components
 const iconMap: Record<string, React.ElementType> = {
   home: HomeOutlinedIcon,
   folder: FolderOutlinedIcon,
@@ -28,17 +26,12 @@ const iconMap: Record<string, React.ElementType> = {
   business: BusinessOutlinedIcon,
   inventory: InventoryOutlinedIcon,
   star: StarBorderOutlinedIcon,
-  // Add more mappings as needed
 };
 
-// Default icons for each breadcrumb level/position
 const getDefaultIconForPosition = (index: number, label: string): string => {
-  // Smart icon assignment based on position and label content
   if (index === 0) {
-    return 'home'; // First item is always home
+    return 'home';
   }
-  
-  // Check label content for smart icon assignment
   const labelLower = label.toLowerCase();
   if (labelLower.includes('product') || labelLower.includes('shop') || labelLower.includes('store')) {
     return 'inventory';
@@ -53,7 +46,6 @@ const getDefaultIconForPosition = (index: number, label: string): string => {
     return 'business';
   }
   
-  // Fallback based on position
   const positionIcons = ['home', 'inventory', 'category', 'folder', 'star'];
   return positionIcons[index] || 'folder';
 };
@@ -78,9 +70,9 @@ export interface RdsBreadcrumbsProps extends Omit<BreadcrumbsProps, 'children'> 
   layout?: 'pill background' | 'without background' | 'square background';
   showIcon?: boolean;
   state?: 'default' | 'hover' | 'selected';
-  icon?: string; // Icon name to use from iconMap
-  title?: string; // Title for the first breadcrumb
-  autoIcons?: boolean; // Automatically assign icons based on position and content
+  icon?: string;
+  title?: string;
+  autoIcons?: boolean;
 }
 
 const RdsBreadcrumbs = ({
@@ -96,25 +88,19 @@ const RdsBreadcrumbs = ({
   autoIcons = true,
   ...props
 }:RdsBreadcrumbsProps) => {
-  // Track which breadcrumb is selected by click (for selected state)
   const [selectedIdx, setSelectedIdx] = React.useState<number | null>(null);
   
-  // Helper function to get the separator element
   const getSeparator = (): React.ReactNode => {
-    // If separator prop is provided, use it directly
     if (separator !== undefined) {
       return separator;
     }
     
-    // If separatorType is provided, use the enum value
     if (separatorType) {
       return <span className="rds-breadcrumbs__separator">{separatorType}</span>;
     }
     
-    // Default to NavigateNext icon
     return <span className="rds-breadcrumbs__separator"><NavigateNextIcon fontSize="small" color="inherit" /></span>;
   };
-  // Filter items based on level if specified
   const getFilteredItems = () => {
     if (!level) return items;
 
@@ -130,10 +116,7 @@ const RdsBreadcrumbs = ({
     return items.slice(0, maxItems);
   };
 
-  // Get filtered items first, then apply title only to the first item
   let filteredItems = getFilteredItems();
-  
-  // If title prop is provided, override the label of ONLY the first item
   if (props.title && filteredItems.length > 0) {
     filteredItems = filteredItems.map((item, index) => {
       if (index === 0) {
@@ -143,7 +126,6 @@ const RdsBreadcrumbs = ({
     });
   }
 
-  // Generate CSS classes based on layout
   const getLayoutClass = (itemLayout?: string) => {
     const activeLayout = itemLayout || layout;
     switch (activeLayout) {
@@ -158,7 +140,7 @@ const RdsBreadcrumbs = ({
   };
 
   const breadcrumbsClass = `rds-breadcrumbs ${getLayoutClass()} ${className || ''}`.trim();
-  // Helper to get state class
+  
   const getStateClass = (itemState?: string) => {
     const activeState = itemState || state || 'default';
     switch (activeState) {
@@ -172,11 +154,8 @@ const RdsBreadcrumbs = ({
     }
   };
 
-  // Helper to get the icon component for a breadcrumb
   const getIconComponent = (itemIcon?: string, globalIcon?: string, index?: number, label?: string): React.ReactNode => {
     let iconName: string;
-    
-    // Priority order: item.icon > global icon > auto-generated icon > fallback
     if (itemIcon) {
       iconName = itemIcon;
     } else if (globalIcon) {
@@ -202,9 +181,7 @@ const RdsBreadcrumbs = ({
         const itemLayoutClass = getLayoutClass(item.layout);
         const itemStateClass = getStateClass(item.state);
         const isSelected = (item.state === 'selected') || (state === 'selected' && !item.state);
-        const isHovered = (item.state === 'hover') || (state === 'hover' && !item.state);
 
-        // Compose class list for Typography (last/active/selected)
         let typographyClass = `rds-breadcrumbs__item rds-breadcrumbs__item__active ${itemLayoutClass}`;
         if (isSelected || selectedIdx === index) {
           typographyClass += ' rds-breadcrumbs__item__selected';
@@ -224,7 +201,6 @@ const RdsBreadcrumbs = ({
           );
         }
 
-        // Only enable hover effect if state is 'hover' (either on item or global)
         const enableHoverClass = (item.state === 'hover' || (!item.state && state === 'hover')) ? 'rds-breadcrumbs__item__enable-hover' : '';
         return (
           <Link

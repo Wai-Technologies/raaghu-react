@@ -16,15 +16,12 @@ export interface RdsCounterProps {
   showInput?: boolean;
   titleText?: string;
   variant?: 'default' | 'compact';
-  /** Layout of buttons relative to the value/input */
   layout?: 'right-side' | 'side-to-side' | 'bottom';
-  /** Placeholder text shown when input is empty (only when showInput = true) */
   placeholder?: string;
   controlsClassName?: string;
   showTitle?: boolean;
   isMandatory?: boolean;
   selected?: boolean;
-  // optional convenience prop for Storybook/demo only: 'default' | 'selected' | 'disabled'
   state?: 'default' | 'selected' | 'disabled';
 }
 
@@ -85,15 +82,10 @@ const RdsCounter = ({
     if (!isNaN(newValue) && newValue >= min && newValue <= max) updateValue(newValue);
   };
 
-  const isCompact = variant === 'compact';
-
-  // if state prop is provided, map to selected/disabled for demo usage
   const demoSelected = state === 'selected' || selected;
   const demoDisabled = state === 'disabled' || disabled;
-  const effectiveSelected = demoSelected;
   const effectiveDisabled = demoDisabled;
 
-  // unified render path for both variants with layout logic
   const containerClasses = `rds-counter rds-counter--${variant} rds-counter--${size}${demoSelected ? ' rds-counter--selected' : ''}${demoDisabled ? ' rds-counter--disabled' : ''} rds-counter--layout-${layout}`;
 
   const buildValue = (valueVariant: 'compact' | 'default') => (
@@ -155,14 +147,14 @@ const RdsCounter = ({
         </Box>
       );
     }
-    // side-to-side
+    
     return <Box className={base}>{decButton}{valueNode}{incButton}</Box>;
   };
 
   return (
     <Box className={containerClasses}>
       {showTitle && titleText && (
-        <Typography className={`rds-counter__label ${isCompact ? 'rds-counter__label--compact' : ''} rds-counter__label--${size}`}>
+        <Typography className={`rds-counter__label ${variant === 'compact' ? 'rds-counter__label--compact' : ''} rds-counter__label--${size}`}>
           {titleText}
           <span className="rds-counter__mandatory" style={{ visibility: isMandatory ? 'visible' : 'hidden' }}>*</span>
         </Typography>

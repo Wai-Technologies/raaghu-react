@@ -11,6 +11,7 @@ export interface RdsRangeProps extends Omit<SliderProps, 'value' | 'onChange'> {
   range?: boolean;
   formatValue?: (value: number) => string;
   showLabel?: boolean;
+  textLabel?: boolean;
   showTooltip?: boolean;
   type?: 'one-way' | 'two-way';
   level?: '1' | '2' | '3' | '4' | '5';
@@ -26,6 +27,7 @@ const RdsRange= ({
   range = false,
   formatValue,
   showLabel = false,
+  textLabel = true,
   showTooltip = false,
   type = 'one-way',
   level = '1',
@@ -44,7 +46,6 @@ const RdsRange= ({
     return min + (step * (levelNum - 1));
   };
 
-  // Internal state for slider value (for interactive behavior)
   const [internalValue, setInternalValue] = React.useState<number | number[]>(
     value !== undefined && value !== null
       ? value
@@ -55,14 +56,12 @@ const RdsRange= ({
           : min
   );
 
-  // Sync internal value with external value prop
   React.useEffect(() => {
     if (value !== undefined && value !== null) {
       setInternalValue(value);
     }
   }, [value]);
 
-  // Reset internal value when type or level changes
   React.useEffect(() => {
     if (type === 'one-way') {
       setInternalValue(calculateLevelValue(level));
@@ -71,18 +70,14 @@ const RdsRange= ({
     }
   }, [type, level, min, max]);
 
-  // Use internal value for slider
   const effectiveValue = internalValue;
 
-  // Use original marks prop instead of generating level marks
   const marks = props.marks;
 
-  // Generate CSS class names based on component state
   const generateClassName = () => {
     const baseClass = 'rds-range';
     const classes = [baseClass];
     
-    // Add type modifier
     if (type === 'one-way') {
       classes.push(`${baseClass}--one-way`);
       if (level) {
@@ -92,7 +87,6 @@ const RdsRange= ({
       classes.push(`${baseClass}--two-way`);
     }
     
-    // Add state modifiers
     if (props.disabled) {
       classes.push(`${baseClass}--disabled`);
     }
@@ -105,12 +99,10 @@ const RdsRange= ({
       classes.push(`${baseClass}--with-labels`);
     }
     
-    // Add size modifier if available
     if (props.size) {
       classes.push(`${baseClass}--${props.size}`);
     }
     
-    // Add color modifier if available
     if (props.color) {
       classes.push(`${baseClass}--${props.color}`);
     }
@@ -140,7 +132,6 @@ const RdsRange= ({
     return formatValue ? formatValue(val) : val.toString();
   };
 
-  // Custom ValueLabelComponent for tooltip
   const ValueLabelComponent = (props: any) => {
     const { children, value } = props;
     
@@ -162,9 +153,9 @@ const RdsRange= ({
 
   return (
     <Box className={generateClassName()} sx={{ width: '100%' }}>
-      {(label || showValue) && (
+      {((label && textLabel) || showValue) && (
         <Box className="rds-range__header" sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-          {label && (
+          {label && textLabel && (
             <Typography variant="body2" color="text.secondary" className="rds-range__label">
               {label}
             </Typography>

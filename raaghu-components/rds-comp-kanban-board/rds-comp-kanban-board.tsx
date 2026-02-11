@@ -204,7 +204,6 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                       <Paper {...props} className="rds-kanban-board__autocomplete-paper"
                                       />
                                     )}
-                                    // Ensure the popper doesn't clip long labels and appears above other elements
                                     slotProps={{
                                       popper: {
                                         modifiers: [

@@ -1,15 +1,11 @@
-// Utility override for MUI close button position in collapse/fixed only
 .rds-sidebar--collapse .MuiDrawer-paper .MuiIconButton-root,
 .rds-sidebar--fixed .MuiDrawer-paper .MuiIconButton-root {
   right: 23px !important;
 }
-// RDS Sidebar Component Styles
 .rds-sidebar {
-  // Base sidebar styles
   display: flex;
   flex-shrink: 0;
   
-  // Content container
   &__content {
     flex: 1;
     display: flex;
@@ -17,7 +13,6 @@
     overflow-x: hidden;
   }
   
-  // Header section (logo/avatar area)
   &__header {
     display: flex;
     margin-bottom: 12px;
@@ -28,7 +23,7 @@
     }
     
     &--expanded {
-      padding: 12px 16px 0 16px;
+      padding: 9px 16px 0 16px;
       justify-content: flex-start;
     }
     
@@ -38,7 +33,6 @@
     }
   }
   
-  // Logo styles - more specific targeting
   &__logo {
     height: auto;
     
@@ -55,7 +49,6 @@
     }
   }
   
-  // Search section
   &__search-section {
     width: 100%;
     padding: 0;
@@ -72,7 +65,6 @@
     right: 24px;
   }
   
-  // Navigation list
   &__nav-list {
     flex: 1;
     padding: 0;
@@ -139,7 +131,6 @@
     }
   }
   
-  // Footer section
   &__footer {
     width: 100%;
     padding: 0;
@@ -170,7 +161,6 @@
     }
   }
   
-  // Layout and type combinations - more specific styles
   &--collapse {
     .rds-sidebar__content {
       align-items: center;
@@ -189,7 +179,6 @@
     }
   }
 
-  // Narrow collapsed responsive state (width < 200px)
   &--narrow-collapsed {
     .rds-sidebar__content {
       align-items: center;
@@ -217,7 +206,6 @@
       padding: 2px 13px;
     }
 
-    // Hide text and dropdown arrows in narrow mode
     .MuiListItemText-root {
       display: none;
     }
@@ -226,7 +214,6 @@
       display: none;
     }
 
-    // Submenu items in narrow mode - slightly indented to show hierarchy
     .MuiCollapse-root {
       .MuiList-root {
         .MuiListItem-root {
@@ -242,9 +229,6 @@
     }
   }
   
-  // (removed &__mui-override, handled globally above)
-  
-  // Ensure MUI drawer paper doesn't override our styles
   .MuiDrawer-paper {
     img {
       &.rds-sidebar__logo--collapse {
@@ -266,19 +250,14 @@
     }
   }
 
-  // Override MUI selected/active backgrounds within the sidebar
-  // This prevents MUI's default rgba(60,152,255,0.08) from showing on dropdowns, lists, menus, etc.
-  // Scoped to .rds-sidebar to avoid affecting other components.
   .Mui-selected,
   .MuiListItem-root.Mui-selected,
   .MuiMenuItem-root.Mui-selected,
   .MuiButtonBase-root.Mui-selected {
     background-color: transparent !important;
-    /* Remove ripple/overlay color if present */
     color: inherit !important;
   }
 
-  /* Also clear hover/focus/active states that may reapply the background */
   .Mui-selected:hover,
   .MuiListItem-root.Mui-selected:hover,
   .MuiMenuItem-root.Mui-selected:hover,
@@ -294,7 +273,6 @@
     background-color: transparent !important;
   }
 
-  /* If the selected style is applied to descendant elements like .MuiTouchRipple-root, hide it */
   .Mui-selected .MuiTouchRipple-root,
   .MuiListItem-root.Mui-selected .MuiTouchRipple-root,
   .MuiMenuItem-root.Mui-selected .MuiTouchRipple-root,

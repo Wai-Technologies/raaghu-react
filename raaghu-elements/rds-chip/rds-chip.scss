@@ -1,38 +1,19 @@
-// RDS Chip Component Styles
-// Chip display component
-
 .rds-chip {
   display: block;
   position: relative;
 
   &__label {
-    // Label styles
     display: block;
   }
 
   &__avatar {
-    // Avatar styles
     display: block;
   }
 
   &__delete {
-    // Delete styles
     display: block;
   }
-
-  &--deletable {
-    // Deletable state styles
-  }
-
-  &--clickable {
-    // Clickable state styles
-  }
-
-  // Interactive states
-  &:hover {
-    // Hover styles
-  }
-
+  
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset);

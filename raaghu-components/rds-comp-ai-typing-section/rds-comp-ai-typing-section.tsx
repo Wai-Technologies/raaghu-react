@@ -1,10 +1,8 @@
-// RDS AI Pundit Chat Component
 import React, { useEffect, useState } from 'react';
 import './rds-comp-ai-typing-section.scss';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsAutocomplete from '../../raaghu-elements/rds-autocomplete/rds-autocomplete';
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
-import SendIcon from '@mui/icons-material/Send';
 import RdsCompAiAttachement, { Comment as AttachmentComment } from '../../raaghu-components/rds-comp-ai-attachement/rds-comp-ai-attachement';
 import RdsCompAiIcon, { registerMaterialIcons } from '../rds-comp-ai-icon/rds-comp-ai-icon';
 
@@ -16,7 +14,6 @@ export interface RdsCompAiTypingSectionProps {
   onAddComment?: (comment: AttachmentComment) => void;
   previewImage?: string;
   type?: string;
-  warningMsg?: boolean;
   autoCompleteMaxWidth?: string; 
 }
 declare global {
@@ -32,16 +29,11 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
   onSend,
   previewImage,
   type,
-  warningMsg,
   onAddComment,
   autoCompleteMaxWidth
 }) => {
   const [inputText, setInputText] = useState<string>("");
-  const [prevInputText, setPrevInputText] = useState<string>("");
-  const [showEnhancer, setShowEnhancer] = useState<boolean>(false);
-  const [attachmentComment, setAttachmentComment] = useState<AttachmentComment | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const [showWarning, setShowWarning] = useState<boolean>(true);
   const [enhancedImage, setEnhancedImage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -59,18 +51,6 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
             });
         }, []);
 
-  useEffect(() => {
-    if (warningMsg !== undefined) {
-      setShowWarning(warningMsg);
-    }
-  }, [warningMsg]);
-
-    const handleEnhancerClick = () => {
-        setInputText(prevInputText);
-        setEnhancedImage(attachmentComment?.image || null);
-        setShowEnhancer(false);
-    };
-
     const handleMicClick = () => {
     if (!('webkitSpeechRecognition' in window)) {
       return;
@@ -80,9 +60,6 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
         recognition.continuous = false;
         recognition.interimResults = false;
         recognition.lang = "en-US";
-
-  recognition.onstart = () => {
-  };
         
         recognition.onresult = (event: any) => {
             const transcript = event.results[0][0].transcript;
@@ -92,29 +69,22 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
     };
 
     const handleSent = () => {
-        setPrevInputText(inputText);
         onSend && onSend(inputText, enhancedImage || previewImage);
         setInputText("");
         setEnhancedImage(null);
-        setShowEnhancer(true);
     };
 
     const handleFileSelect = (file: File) => {
         const reader = new FileReader();
         reader.onloadend = () => {
-            setEnhancedImage(reader.result as string); // Set the preview image
-            setInputText(""); // Clear the input text
+            setEnhancedImage(reader.result as string); 
+            setInputText(""); 
         };
         reader.readAsDataURL(file);
     };
 
     const handleAddComment = (comment: AttachmentComment) => {
-        setAttachmentComment(comment);
         onAddComment && onAddComment(comment);
-    };
-
-    const handleCloseWarning = () => {
-      setShowWarning(false);
     };
 
     const handleFigmaSubmit = (value: string) => {

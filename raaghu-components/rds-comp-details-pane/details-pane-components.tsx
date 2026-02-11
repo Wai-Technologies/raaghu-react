@@ -145,7 +145,7 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
   handleDeleteHistoryItem,
   handleDeleteOlderHistoryItem,
   favouriteCardTitle = 'Create a Login page for signing up with a discount offer. It should have a field for the user\'s email and a "Get Discount" button.',
-  favouriteCardImage = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
+  favouriteCardImage = "https://dummyimage.com/400x260/007bff/ffffff&text=Login+Page",
 }) => {
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
@@ -219,7 +219,6 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
             id="history"
             role="tabpanel"
           >
-            {/* Today's history */}
             <div className="rds-comp-details-pane__section-heading">
               <span className="rds-comp-details-pane__section-heading-text">Today</span>
               <span className="rds-comp-details-pane__section-heading-line"></span>
@@ -228,7 +227,6 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
               {historyItems.map(item => renderHistoryItem(item, handleDeleteHistoryItem))}
             </div>
             
-            {/* Older history */}
             <div className="rds-comp-details-pane__section-heading">
               <span className="rds-comp-details-pane__section-heading-text">Older</span>
               <span className="rds-comp-details-pane__section-heading-line"></span>
@@ -309,15 +307,11 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
   );
 };
 
-/**
- * RealEstateContent - Component for the real estate view
- */
 export const RealEstateContent: React.FC<RealEstateContentProps> = ({
   estateTitle,
   estateDescription,
   carouselImages = []
 }) => {
-  // Define badges array with sample data
   const badges: { content: string; color: "primary" | "secondary" | "success" | "default" | "error" | "info" | "warning"; size: "small" | "medium" | "large"; shape?: "rectangle" | "pill" }[] = [
     { content: "O Badge", color: "primary", size: "small", shape: "rectangle" },
     { content: "O Badge", color: "primary", size: "small", shape: "rectangle" },
@@ -327,7 +321,6 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
   return (
     <div className="custom-content-wrapper" id="details-pane-container">
       <div className="rds-comp-details-pane__detail-pane-container">
-        {/* Image Carousel */}
         <div className="rds-comp-details-pane__real-estate-carousel" id="carousel-indicator">
           <RdsCarousel
             autoPlay={false}
@@ -350,14 +343,12 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
         </div>
         
         <div>
-          {/* Title */}
           <div className="rds-comp-details-pane__real-estate-title" id="text-color-change">
             <RdsTypography variant="h6" fontWeight="bold">
               {estateTitle}
             </RdsTypography>
           </div>
 
-          {/* Badges */}
           <div className="rds-comp-details-pane__real-estate-badges">
             {badges.map((badge, index) => (
               <span 
@@ -375,21 +366,18 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
             ))}
           </div>
 
-          {/* Description */}
           <div className="rds-comp-details-pane__real-estate-description" id="estate-description">
             <RdsTypography variant="body2" fontWeight="normal">
               {estateDescription}
             </RdsTypography>
           </div>
 
-          {/* Guest Information */}
           <div className="rds-comp-details-pane__real-estate-footer">
             <RdsTypography variant="body1" fontWeight="600">
               1 Adult, 0 Children
             </RdsTypography>
           </div>
 
-          {/* Guest Selection Controls */}
           <div className="rds-comp-details-pane__guest-selection-container">
             <div className="rds-comp-details-pane__guest-counter">
               <div>
@@ -427,13 +415,9 @@ export const RealEstateContent: React.FC<RealEstateContentProps> = ({
   );
 };
 
-/**
- * SelectionContent - Component for the selection view
- */
 export const SelectionContent: React.FC<SelectionContentProps> = ({
   headerSubText = "Agent Information"
 }) => {
-  // Sample agent data
   const agents = [
     { id: 1, name: "Jane Doe", designation: "Designation", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face", count: 4 },
     { id: 2, name: "Jane Doe", designation: "Designation", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face", count: 4 },
@@ -446,7 +430,6 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
   return (
     <div className="custom-content-wrapper" id="detail-pane-container-2">
       <div className="detail-pane-container rds-comp-details-pane__selection-container" id="detail-pain-lable">
-        {/* Header */}
         <div className="rds-comp-details-pane__header-container">
           <h3 className="rds-comp-details-pane__title"> Bayshore Transportation System </h3>
           <p className="rds-comp-details-pane__subtitle">{headerSubText}</p>
@@ -454,7 +437,6 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
         
         <hr className="rds-comp-details-pane__divider" />
         
-        {/* Search */}
         <div className="rds-comp-details-pane__search-container">
           <RdsSearch
             value={searchValue}
@@ -469,7 +451,6 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
           
         </div>
         
-        {/* Agent list */}
         <div>
           {agents.map((agent) => (
             <div
@@ -501,7 +482,6 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
                     label=""
                     layout="icon"
                     onChange={(val: any) => {
-                      // RdsRadio might pass either the selected value or an event
                       const parsed = typeof val === 'object' && val?.target ? String(val.target.value) : String(val);
                       setSelectedAgent(parsed);
                     }}
@@ -525,9 +505,6 @@ export const SelectionContent: React.FC<SelectionContentProps> = ({
   );
 };
 
-/**
- * ToolbarContent - Component for the toolbar view
- */
 export const ToolbarContent: React.FC<ToolbarContentProps> = ({
   initialTab = 'icon_font',
   figmaIconSrc,
@@ -624,7 +601,6 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
               </div>
             </div>
             <hr className="rds-comp-details-pane__toolbar-divider" />
-            {/* Toolbar tab content */}
             <div>
               {activeToolbarTab === 'icon_font' && (
                 <div>
@@ -1008,8 +984,6 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
           <FigmaUIKitButton 
             text="Download the Figma UI Kit"
             onClick={() => {
-              // Add your click handler logic here
-              console.log('Download Figma UI Kit clicked');
             }}
             className="rds-comp-details-pane__figma-button"
             figmaIconSrc={figmaIconSrc}
@@ -1018,8 +992,6 @@ export const ToolbarContent: React.FC<ToolbarContentProps> = ({
           <StorybookButton 
             text="Go to Storybook"
             onClick={() => {
-              // Add your click handler logic here
-              console.log('Go to Storybook clicked');
             }}
             className="rds-comp-details-pane__storybook-button"
              storybookIconSrc={storybookIconSrc}
@@ -1049,7 +1021,7 @@ export const ThumbnailViewContent: React.FC<{
         </div>
 
         <div className="rds-comp-details-pane__download-button-container">
-          <button className="rds-comp-details-pane__download-button" onClick={() => {}}>
+          <button className="rds-comp-details-pane__download-button">
             {thumbnailButtonName || "Download Project"}
           </button>
         </div>

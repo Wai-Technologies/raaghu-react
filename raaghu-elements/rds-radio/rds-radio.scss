@@ -1,12 +1,7 @@
-// RDS Radio Component Styles
-// Radio button form control
-
 .rds-radio {
-  // Base styles
   display: block;
   position: relative;
 
-  // Elements
   &__group {
     gap: var(--rds-spacing-sm, 8px);
     display: flex;
@@ -28,8 +23,7 @@
       line-height: var(--rds-line-height-body, 1.5);
       color: #646464 !important;
     }
-  
-    // Option modifiers
+
     &--icon {
       .MuiFormControlLabel-label {
         display: none;
@@ -48,8 +42,7 @@
         }
       }
     }
-    
-    // Disabled state
+
     &.Mui-disabled {
       color: var(--rds-text-disabled, var(--rds-color-text-disabled));
       
@@ -110,7 +103,6 @@
     }
   }
 
-  // Layout variant modifiers
   &--icon {
     .MuiFormControlLabel-label {
       display: none;
@@ -145,7 +137,6 @@
     }
   }
 
-  // State variant modifiers
   &--disabled {
     opacity: 0.6;
     pointer-events: none;
@@ -165,7 +156,6 @@
     }
   }
 
-  // Interactive states
   &:focus-visible {
     outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset, 2px);
@@ -176,27 +166,22 @@
     opacity: 0.6;
     pointer-events: none;
   }
-  /* Use stable MUI class selectors (avoid generated classname tokens that change between mounts)
-     Scoped under .rds-radio so they apply consistently after navigation/refresh */
 
   .MuiFormLabel-root {
     color: #646464 !important;
   }
 
-  /* Radio checked color */
   .MuiButtonBase-root.MuiRadio-root.Mui-checked,
   .MuiRadio-root.Mui-checked {
     color: #3C98FF !important;
   }
 
-  /* Disabled label color */
   .MuiFormControlLabel-root .MuiFormControlLabel-label.Mui-disabled {
     color: #757575 !important;
   }
 
 }
 
-/* Dark theme: scope to .rds-radio to ensure styles persist and don't accidentally depend on global order */
 [data-theme="dark"] .rds-radio {
   .MuiFormControlLabel-label {
     font-size: var(--rds-font-size-body, 1rem);
@@ -206,7 +191,7 @@
    .MuiFormLabel-root {
     color: var(--rds-color-light, #ffffff) !important;
   }
-  // Ensure radio button icon has same color in dark mode
+  
   .MuiRadio-root.Mui-checked,
   .MuiButtonBase-root.MuiRadio-root.Mui-checked {
     color: #3C98ff !important;

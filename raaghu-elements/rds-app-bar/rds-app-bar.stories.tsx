@@ -10,7 +10,6 @@ import { useTheme } from '@mui/material/styles';
 import './rds-app-bar.scss';
 import { TextField } from '@mui/material';
 
-//  Reusable Icon Components
 const HomeIcon = () => (
   <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M17 8.92615C17.0011 8.75532 16.9667 8.58612 16.8989 8.42932C16.8311 8.27252 16.7314 8.13155 16.6061 8.01538L9 1L1.39387 8.01538C1.26861 8.13155 1.1689 8.27252 1.1011 8.42932C1.03329 8.58612 0.998872 8.75532 1.00003 8.92615V15.7692C1.00003 16.0957 1.1297 16.4087 1.36051 16.6395C1.59132 16.8703 1.90437 17 2.23079 17H15.7692C16.0956 17 16.4087 16.8703 16.6395 16.6395C16.8703 16.4087 17 16.0957 17 15.7692V8.92615Z" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round"/>
@@ -48,7 +47,6 @@ const CameraIcon = () => (
   </svg>
 );
 
-//  Icons for sub-header tabs
 const ActivitiesIcon = () => (
   <svg width="18" height="18" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M16.501 5.23077H18.901C19.3253 5.23077 19.7323 5.36044 20.0323 5.59125C20.3324 5.82207 20.501 6.13512 20.501 6.46154V18.7692C20.501 19.0957 20.3324 19.4087 20.0323 19.6395C19.7323 19.8703 19.3253 20 18.901 20H6.10098C5.67663 20 5.26966 19.8703 4.96961 19.6395C4.66955 19.4087 4.50098 19.0957 4.50098 18.7692V6.46154C4.50098 6.13512 4.66955 5.82207 4.96961 5.59125C5.26966 5.36044 5.67663 5.23077 6.10098 5.23077H8.50098M16.501 5.23077C16.501 4.55103 15.7846 4 14.901 4H10.101C9.21732 4 8.50098 4.55103 8.50098 5.23077M16.501 5.23077L16.501 5.84615C16.501 6.52589 15.7846 7.07692 14.901 7.07692H10.101C9.21732 7.07692 8.50098 6.52589 8.50098 5.84615L8.50098 5.23077M8.50098 10.1538H16.501M8.50098 13.2308H16.501M8.50098 16.3077H16.501" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round"/>
@@ -73,7 +71,6 @@ const CalendarIcon = () => (
   </svg>
 );
 
-//  Reusable Actions Component
 const LogoSearchTabsLeftActions = () => (
   <div className="rds-logo-search-tabs__left-actions">
     <HomeIcon />
@@ -84,7 +81,6 @@ const LogoSearchTabsLeftActions = () => (
   </div>
 );
 
-// Dashboard menu shown next to logo: shows 'Dashboard' text and a sun icon button to open theme choices
 const DashboardMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -94,7 +90,6 @@ const DashboardMenu = () => {
     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       <div style={{ fontWeight: 500 }}>Dashboard</div>
       <IconButton size="small" color="inherit" onClick={handleOpen} aria-label="theme">
-        {/* small sun-like icon similar to provided attachment */}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.2"/>
           <path d="M12 1v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
@@ -109,15 +104,15 @@ const DashboardMenu = () => {
       </IconButton>
 
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose} anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <Brightness5 fontSize="small" style={{ marginRight: 8 }} />
           Light
         </MenuItem>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <Brightness2 fontSize="small" style={{ marginRight: 8 }} />
           Dark
         </MenuItem>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <Brightness4 fontSize="small" style={{ marginRight: 8 }} />
           Semi Dark
         </MenuItem>
@@ -126,7 +121,6 @@ const DashboardMenu = () => {
   );
 };
 
-// Theme icon + menu (icon-only variant so we can place it on the right)
 const ThemeMenuIcon = ({ showDropdown = true, onClick }: { showDropdown?: boolean; onClick?: (e: React.MouseEvent<HTMLElement>) => void }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -138,7 +132,6 @@ const ThemeMenuIcon = ({ showDropdown = true, onClick }: { showDropdown?: boolea
         size="small"
         color="inherit"
         onClick={(e) => {
-          // If an external onClick handler is provided, call it and don't open the menu
           if (onClick) {
             onClick(e);
             return;
@@ -165,15 +158,15 @@ const ThemeMenuIcon = ({ showDropdown = true, onClick }: { showDropdown?: boolea
         ) : null}
       </IconButton>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose} onClick={handleClose} anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <Brightness5 fontSize="small" style={{ marginRight: 8 }} />
           Light
         </MenuItem>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <Brightness2 fontSize="small" style={{ marginRight: 8 }} />
           Dark
         </MenuItem>
-        <MenuItem onClick={() => {}}>
+        <MenuItem>
           <Brightness4 fontSize="small" style={{ marginRight: 8 }} />
           Semi Dark
         </MenuItem>
@@ -182,7 +175,6 @@ const ThemeMenuIcon = ({ showDropdown = true, onClick }: { showDropdown?: boolea
   );
 };
 
-// Language selector menu (matches screenshot list)
 const LanguageMenu = () => {
   const languages = [
     'العربية',
@@ -207,18 +199,14 @@ const LanguageMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [selected, setSelected] = React.useState('English (UK)');
   const open = Boolean(anchorEl);
-  // Make the menu take almost the full viewport height (leave some offset for appbar/padding).
-  // Use a CSS calc so it responds to viewport changes: subtract 120px as a safe offset.
   const menuHeightCss = 'calc(100vh - 120px)';
   const shortCode = React.useMemo(() => {
-    // derive a short code (e.g., English -> EN, '繁體中文' -> 繁體)
     if (!selected) return 'EN';
     if (selected.includes('English')) return 'EN';
     if (selected.includes('Türkçe')) return 'TR';
     if (selected.includes('Français')) return 'FR';
     if (selected.includes('Español')) return 'ES';
     if (selected === 'العربية') return 'AR';
-    // fallback to first two letters uppercase
     return selected.slice(0, 2).toUpperCase();
   }, [selected]);
   return (
@@ -249,7 +237,6 @@ const LanguageMenu = () => {
   );
 };
 
-// Small chat / notification style bubble icon used between theme and language
 const ChatBubbleIconSmall = () => (
   <IconButton size="small" color="inherit" aria-label="chat">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -261,7 +248,6 @@ const ChatBubbleIconSmall = () => (
   </IconButton>
 );
 
-// Admin profile panel: large dropdown with avatar, name, email, actions and logout
 const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', onLogout }: { name?: string; email?: string; onLogout?: () => void }) => {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
@@ -298,7 +284,7 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
           <Box sx={{ flex: 1, overflow: 'auto' }}>
             <List>
               <ListItem disablePadding>
-                <ListItemButton onClick={() => {}}>
+                <ListItemButton>
                   <ListItemIcon>
                     <AccountCircle />
                   </ListItemIcon>
@@ -306,7 +292,7 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton onClick={() => {}}>
+                <ListItemButton>
                   <ListItemIcon>
                     <Home />
                   </ListItemIcon>
@@ -314,7 +300,7 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton onClick={() => {}}>
+                <ListItemButton>
                   <ListItemIcon>
                     <Security />
                   </ListItemIcon>
@@ -322,7 +308,7 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton onClick={() => {}}>
+                <ListItemButton>
                   <ListItemIcon>
                     <Notifications />
                   </ListItemIcon>
@@ -330,7 +316,7 @@ const AdminProfileMenu = ({ name = 'Admin User', email = 'admin@example.com', on
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
-                <ListItemButton onClick={() => {}}>
+                <ListItemButton>
                   <ListItemIcon>
                     <AccountCircle />
                   </ListItemIcon>
@@ -363,7 +349,6 @@ const meta: Meta<typeof RdsAppBar> = {
   component: RdsAppBar,
   parameters: {
     layout: 'padded',
-    // hide these autogenerated controls from the Controls panel
     controls: {
     exclude: ['component', 'onMenuClick', 'actions', 'onSearchChange', 'leftActions', 'rightActions', 'centerContent', 'tabs', 'tabValue', 'onTabChange', 'subHeader', 'logo'],
   },
@@ -443,7 +428,6 @@ const meta: Meta<typeof RdsAppBar> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Dynamic template that renders different stories based on variantStyle ("style" control)
 const DynamicTemplate = (args: any) => {
   const [tabValue, setTabValue] = React.useState(args.tabValue ?? 0);
   const [searchValue, setSearchValue] = React.useState(args.searchValue ?? '');
@@ -508,7 +492,6 @@ const DynamicTemplate = (args: any) => {
   const variantStyle = (args.variantStyle || 'default') as string;
   const normalized = variantStyle.toLowerCase();
 
-  // Common default baseline
   const normalizedShowLogo = typeof args.showLogo === 'boolean' ? args.showLogo : true;
   let config: any = {
     ...args,
@@ -555,7 +538,6 @@ const DynamicTemplate = (args: any) => {
             <IconButton color="inherit"><AccountCircle /></IconButton>
           </>
         ),
-        // No overflow content - this story should not have bottom navigation
       };
       break;
     case 'logosearchtabs':
@@ -566,14 +548,9 @@ const DynamicTemplate = (args: any) => {
         title: ' ',
         leftActions: <LogoSearchTabsLeftActions />,
         rightActions: <ProfileMenu name="John Doe" email="john.doe@example.com" />,
-        // Clear userName and userEmail to prevent duplicate profile menus
         userName: undefined,
         userShortName: undefined,
         userEmail: undefined,
-        // Only show the left action icons in the overflow drawer for this
-        // variant (so users get the icon menu shown in the screenshot).
-        // Do not include the full ProfileMenu here to avoid showing the
-        // avatar + name/designation inside the drawer.
         overflowContent: (
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
             <HomeIcon />
@@ -601,11 +578,7 @@ const DynamicTemplate = (args: any) => {
             <ProfileMenu name={args.userName || 'John Doe'} email={args.userEmail || 'john.doe@example.com'} />
           </div>
         ),
-        // Put the same actions into overflow for small screens
         overflowContent: (
-          // Only include the left action icons in the overflow Drawer —
-          // keep the ProfileMenu in the app bar so the avatar + name
-          // are available inline and clicking it shows the profile.
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
             <HomeIcon />
             <CompassIcon />
@@ -631,9 +604,6 @@ const DynamicTemplate = (args: any) => {
             <span className="rds-story-nav-action"><BellIcon /></span>
           </div>
         ),
-        // Provide the same icons to the overflow drawer so they remain
-        // accessible on small screens (320 / 420). This enables the
-        // three-dot overflow button to appear and reveal the icons.
         overflowContent: (
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
             <CameraIcon />
@@ -694,9 +664,6 @@ const DynamicTemplate = (args: any) => {
         logo: logoImg,
         showLogo: config.showLogo,
         tabs: ['HOME', 'NEWS', 'MARKETPLACE', 'JOBS'],
-        // Provide overflowContent so on small screens the tabs are
-        // accessible via the three-dot button. Drawer will show them
-        // stacked in a column.
         overflowContent: (
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
             <Button variant="text" size="small">HOME</Button>
@@ -740,10 +707,6 @@ const DynamicTemplate = (args: any) => {
             </div>
           </div>
         ),
-        // Provide the same items to the overflow drawer so they remain accessible
-        // on very small screens (320 / 420). The component will show the overflow
-        // button automatically when `overflowContent` is present and the CSS
-        // makes that button visible at <=420px.
         overflowContent: (
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
             <Button variant="text" color="inherit" size="small">Home</Button>
@@ -761,8 +724,6 @@ const DynamicTemplate = (args: any) => {
         showLogo: config.showLogo,
         title: '',
         tabs: ['Dashboard', 'Projects', 'Calendar'],
-        // provide overflowContent so the app bar can show the three-dot overflow
-        // button on very small screens (<=320px) and reveal the tabs in a drawer
         overflowContent: (
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
             <Button variant="text" size="small">Dashboard</Button>
@@ -783,7 +744,6 @@ const DynamicTemplate = (args: any) => {
         showLogo: config.showLogo,
         
         rightActions: <ProfileMenu name={args.userName || 'John Doe'} email={args.userEmail || 'john.doe@example.com'} />,
-        // Clear userName and userEmail to prevent duplicate profile menus
         userName: undefined,
         userShortName: undefined,
         userEmail: undefined,
@@ -801,7 +761,6 @@ const DynamicTemplate = (args: any) => {
             <MenuIcon />
           </IconButton>
         ),
-        // Place primary call-to-action buttons right after the logo
         centerContent: (
           <div style={{ display: 'flex', gap: 7, alignItems: 'center' }}>
             <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="filled" text="Find Jobs" textCase="uppercase" />
@@ -809,19 +768,15 @@ const DynamicTemplate = (args: any) => {
             <RdsButton color="primary" layout="text-only" shape="rectangle" size="medium" state="default" style="transparent" text="Employers" textCase="uppercase" />
           </div>
         ),
-        // Keep Employers in overflow only
         
         showSearch: false,
         searchValue: undefined,
         onSearchChange: undefined,
-        // Provide overflowContent so the tabs and right-side actions are
-        // accessible via the three-dot overflow button on small screens (320 / 420px).
         overflowContent: (
           <div style={{ display: 'flex', gap: 6, alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
             <Button variant="text" size="small">Community</Button>
             <Button variant="text" size="small">Jobs</Button>
             <Button variant="text" size="small">Resources</Button>
-            {/* Include Employers in overflow so it appears in the bottom navigation on very small screens */}
           </div>
         ),
       };
@@ -840,7 +795,6 @@ const DynamicTemplate = (args: any) => {
       
         logo: (
           <span className="rds-appbar-logo-group">
-            {/* Complex e-Signature SVG */}
             <svg width="35" height="35" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clipPath="url(#clip0_20819_18212)">
                 <rect x="1" width="43.44" height="44" rx="21.72" fill="#2E43FF" />
@@ -878,7 +832,6 @@ const DynamicTemplate = (args: any) => {
             <ProfileMenu name={args.userName || 'Jane Doe'} email={args.userEmail || 'jane.doe@example.com'} />
           </div>
         ),
-        // Clear userName and userEmail to prevent duplicate profile menus
         userName: undefined,
         userShortName: undefined,
         userEmail: undefined,
@@ -889,7 +842,6 @@ const DynamicTemplate = (args: any) => {
               <Button variant="text" size="small">AGREEMENT</Button>
             </div>
 
-            {/* Right: badge placeholder (keeps spacing) */}
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <span className="rds-appbar-badge">28 Days Left</span>
             </div>
@@ -908,11 +860,9 @@ const DynamicTemplate = (args: any) => {
     logo: logoImg,
     showLogo: config.showLogo,
   title: <span className="rds-dashboard-title" style={{ fontWeight: 500, fontSize: 16 }}>Dashboard</span>,
-        // Right actions: theme button, small icon, language, profile for full view only
         rightActions: (
           <div className="rds-appbar-tabs-container" style={{ display: 'flex', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              {/* Show icons in top toolbar only for full/desktop view */}
               <div className="rds-dashboard-top-icons" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <ThemeMenuIcon showDropdown={false} />
                 <div className="rds-appbar-separator" />
@@ -921,11 +871,10 @@ const DynamicTemplate = (args: any) => {
                 <LanguageMenu />
                 <div className="rds-appbar-separator" />
               </div>
-              <AdminProfileMenu name={args.userName || 'Admin User'} email={args.userEmail || 'admin@example.com'} onLogout={() => { console.log('Logout clicked'); }} />
+              <AdminProfileMenu name={args.userName || 'Admin User'} email={args.userEmail || 'admin@example.com'} onLogout={() => {}} />
             </div>
           </div>
         ),
-        // Move theme, chat, and language icons to footer for small and large views
         overflowContent: (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', width: '100%', padding: '4px 0' }}>
             <div style={{ transform: 'scale(0.8)' }}>
@@ -939,14 +888,12 @@ const DynamicTemplate = (args: any) => {
             </div>
           </div>
         ),
-        // Clear userName and userEmail to prevent duplicate profile menus
         userName: undefined,
         userShortName: undefined,
         userEmail: undefined,
       };
       break;
     default:
-      // Fallback to default config
       config = {
         ...config,
         title: 'App Title',
@@ -959,13 +906,9 @@ const DynamicTemplate = (args: any) => {
       };
   }
 
-  // Remove internal helper flag before spreading (keep variantStyle so AppBar can add a variant class)
   const { __wrapTransparent, ...finalConfig } = config;
   
-  // Add menu click handler
   finalConfig.onMenuClick = () => {
-    console.log('Menu button clicked!');
-    // You can add additional menu click logic here
   };
   
   if (config.__wrapTransparent) {
@@ -984,14 +927,12 @@ export const Default: Story = {
     size: 'medium',
     variantStyle: 'default',
     userName: 'John Doe',
-    userShortName: 'JD',
     userEmail: 'john.doe@example.com',
   },
   render: DynamicTemplate,
 };
 Default.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton', 'userName', 'userEmail'] } };
 
-// Individual stories for direct access
 export const WithSearch: Story = {
   args: {
     size: 'medium',
@@ -1004,7 +945,6 @@ export const WithSearch: Story = {
 };
 WithSearch.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton', 'title'] } };
 
-/*  Merged Header Stories */
 export const HeaderDefault: Story = {
   args: { variantStyle: 'headerDefault', color: 'default' } as any,
   render: DynamicTemplate,
@@ -1057,23 +997,23 @@ WithLogo.parameters = { controls: { include: ['title', 'showLogo', 'size', 'colo
 export const HeaderWithSearch: Story = { args: { variantStyle: 'HeaderWithSearch', color: 'default' } as any, render: DynamicTemplate };
 HeaderWithSearch.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'searchPlaceholder', 'showSearch', 'showMenuButton', 'style'] } };
 
-export const WithTabs: Story = { args: { variantStyle: 'withTabs', color: 'default' } as any, render: DynamicTemplate };
-WithTabs.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
+export const WithTabs: Story = { args: { variantStyle: 'withTabs', color: 'default', userName: 'John Doe', userEmail: 'john.doe@example.com' } as any, render: DynamicTemplate };
+WithTabs.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
 
 export const WithSubHeader: Story = { args: { variantStyle: 'withSubHeader', color: 'default' } as any, render: DynamicTemplate };
 WithSubHeader.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
 
-export const WithNotificationBadge: Story = { args: { variantStyle: 'WithNotificationBadge', color: 'default' } as any, render: DynamicTemplate };
-WithNotificationBadge.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
+export const WithNotificationBadge: Story = { args: { variantStyle: 'WithNotificationBadge', color: 'default', userName: 'John Doe', userEmail: 'john.doe@example.com' } as any, render: DynamicTemplate };
+WithNotificationBadge.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
 
-export const WithLogoAndTabs: Story = { args: { variantStyle: 'WithLogoAndTabs', color: 'default' } as any, render: DynamicTemplate };
-WithLogoAndTabs.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
+export const WithLogoAndTabs: Story = { args: { variantStyle: 'WithLogoAndTabs', color: 'default', userName: 'John Doe', userEmail: 'john.doe@example.com' } as any, render: DynamicTemplate };
+WithLogoAndTabs.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
 
 export const WithUserProfile: Story = { args: { variantStyle: 'WithUserProfile', color: 'default' } as any, render: DynamicTemplate };
 WithUserProfile.parameters = { controls: { include: ['title', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
 
-export const WithActions: Story = { args: { variantStyle: 'withActions', color: 'default' } as any, render: DynamicTemplate };
-WithActions.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style'] } };
+export const WithActions: Story = { args: { variantStyle: 'withActions', color: 'default', userName: 'John Doe', userEmail: 'john.doe@example.com' } as any, render: DynamicTemplate };
+WithActions.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
 
 export const WithLoginButton: Story = { args: { variantStyle: 'WithLoginButton', color: 'default' } as any, render: DynamicTemplate };
 WithLoginButton.parameters = { controls: { include: ['title', 'size', 'color', 'showMenuButton', 'style'] } };

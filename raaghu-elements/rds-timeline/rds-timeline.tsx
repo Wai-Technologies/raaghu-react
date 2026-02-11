@@ -34,11 +34,9 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
 }) => {
   const timelinePosition = position || (alternating ? 'alternate' : 'right');
 
-  // Only pass safe props to MuiTimeline (avoid ...props which may include ref as string)
   return (
     <MuiTimeline position={timelinePosition} {...props}>
-      <>
-        {items.map((item, index) => (
+      {items.map((item, index) => (
           <MuiTimelineItem key={item.id}>
             {showTime && item.time && (
               <MuiTimelineOppositeContent color="text.secondary">
@@ -61,7 +59,6 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
             </MuiTimelineContent>
           </MuiTimelineItem>
         ))}
-      </>
     </MuiTimeline>
   );
 };

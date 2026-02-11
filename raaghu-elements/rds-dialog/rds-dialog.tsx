@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton, Button } from '@mui/material';
+import { Dialog as MuiDialog, type DialogProps, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RdsButton from '../rds-button/rds-button';
 import './rds-dialog.scss';
@@ -16,9 +16,6 @@ export interface RdsDialogProps extends DialogProps {
   ShowPrimary?: boolean;
   ShowSecondary?: boolean;
   showTitle?: boolean;
-  /**
-   * Size passed directly to MUI Dialog maxWidth prop. Supported values align with MUI plus false to disable constraint.
-   */
   size?: 'extra-small' | 'small' | 'medium' | 'large' | 'extra-large' | false;
 }
 
@@ -35,7 +32,6 @@ const RdsDialog = ({
   size = 'medium',
   ...props
 }:RdsDialogProps) => {
-  // Map DS size to MUI's maxWidth prop values
   if (variant === 'standard') {
     return (
       <MuiDialog
@@ -60,7 +56,6 @@ const RdsDialog = ({
                   <CloseIcon />
                 </IconButton>
               )}
-              {/* <div style={{ flex: 1, paddingLeft: ShowDissmiss ? '8px' : '0', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{showTitle ? title : null}</div> */}
             </div>
           </DialogTitle>
         )}

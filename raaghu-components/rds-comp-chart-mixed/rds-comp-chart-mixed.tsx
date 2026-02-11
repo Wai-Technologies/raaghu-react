@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import "./rds-comp-chart-mixed.scss";
 
 export interface RdsCompMixedChartProps {
     labels: any[];
     options: any;
     dataSets: any[];
-    chartStyle: string;
     id: string;
 }
 
@@ -13,7 +13,6 @@ const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
     
  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-    // Helper to detect dark mode from body or html attribute/class
     const isDarkMode = () => {
         if (typeof window !== 'undefined') {
             return (
@@ -33,7 +32,7 @@ const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
         if (ctx) {
             const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
 
-            // If dark mode, set axis, tick, and legend color to white
+
             if (isDarkMode()) {
                 if (!chartOptions.scales) chartOptions.scales = {};
                 ["x", "y"].forEach(axis => {
@@ -48,9 +47,7 @@ const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
                         chartOptions.scales[axis].title.color = "#fff";
                     }
                 });
-                // Ensure plugins object exists
                 if (!chartOptions.plugins) chartOptions.plugins = {};
-                // Ensure legend object exists
                 if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
                 if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
                 chartOptions.plugins.legend.labels.color = "#fff";
@@ -78,7 +75,7 @@ const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
 
 
     return (
-        <div>
+        <div className="rds-comp-chart-mixed">
             <canvas data-testid={props.id} id={props.id} ref={canvasRef} />
         </div>
     );

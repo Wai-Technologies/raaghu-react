@@ -1,13 +1,12 @@
 .time-picker-container {
   position: relative;
-//   width: 100%;
   
   .time-input-container {
     position: relative;
-    display: inline-flex; /* shrink to content width so icon sits at input edge */
+    display: inline-flex;
     align-items: center;
     cursor: pointer;
-    width: fit-content; /* ensure container doesn't stretch full width */
+    width: fit-content;
     max-width: 100%;
     
     &.disabled {
@@ -16,10 +15,9 @@
     }
     
     .time-input {
-      // width: 100%;
   height: 34px;
       padding: 6px 12px;
-  padding-right: 34px; /* leave room for icon */
+  padding-right: 34px;
       border: 1px solid var(--rds-border-subtle, #E0E0E0);
       border-radius: 4px;
       text-align: left;
@@ -49,7 +47,7 @@
       }
     }
     
-    .border-primary { border-color: #6366f1; }
+    .border-primary { border-color: #1976d2; }
     .border-secondary { border-color: #9ca3af; }
     .border-success { border-color: #10b981; }
     .border-error, .border-danger { border-color: #ef4444; }
@@ -65,8 +63,8 @@
       transform: translateY(-50%);
       display: inline-flex;
       align-items: center;
-      height: 34px; /* match input height for perfect centering */
-      pointer-events: none; /* allow clicks to pass to input */
+      height: 34px;
+      pointer-events: none;
       color: var(--rds-text-secondary, #757575);
     }
   }
@@ -92,7 +90,7 @@
     }
     
     &.border-primary { 
-      border-color: #6366f1;
+      border-color: #1976d2;
     }
     
     .row {
@@ -114,7 +112,7 @@
       width: auto;
       font-weight: 500;
       font-size: 14px;
-      color: #6366f1;
+      color: #000000;
       
       &.time-display-compact {
         font-size: 13px;
@@ -132,7 +130,7 @@
     }
     
     .now-button {
-      color: #6366f1;
+      color: #1976d2;
       font-size: 11px;
       cursor: pointer;
       font-weight: 600;
@@ -164,8 +162,8 @@
       justify-content: space-between;
       gap: 8px;
       width: 100%;
-      margin-bottom: 10px; /* Add spacing before buttons */
-      position: relative; /* For proper stacking context */
+      margin-bottom: 10px;
+      position: relative;
       
       .time-select-dropdown {
         flex: 1;
@@ -181,13 +179,11 @@
           max-width: 70px;
         }
         
-        /* Ensure dropdowns don't overlap the buttons */
         .MuiAutocomplete-popper {
           z-index: 1005;
         }
       }
       
-      /* Styles for native select elements */
       .time-select-container {
         flex: 1;
         margin: 0 4px;
@@ -321,7 +317,7 @@
       &.buttons-compact {
         margin-top: 12px;
         position: relative;
-        z-index: 1010; /* Higher than MUI dropdowns which are typically 1000 */
+        z-index: 1010;
       }
       
       button {
@@ -343,7 +339,6 @@
           border: none;
           padding: 6px 10px;
           min-width: auto;
-          // margin-right: auto;
           
           &:hover {
             background-color: rgba(99, 102, 241, 0.08);
@@ -364,7 +359,7 @@
           }
         }
         
-        &.bg-primary { background-color: #6366f1; }
+        &.bg-primary { background-color: #1976d2; }
         &.bg-secondary { background-color: #9ca3af; }
         &.bg-success { background-color: #10b981; }
         &.bg-error, &.bg-danger { background-color: #ef4444; }
@@ -387,7 +382,6 @@
   }
 }
 
-/* Dark theme styles */
 .theme-dark {
   .time-picker, .time-picker-compact {
     background: #333;
@@ -395,11 +389,11 @@
     border: 1px solid #555;
     
     .time-display {
-      color: #a5b4fc;
+      color: #999999;
     }
     
     .now-button {
-      color: #a5b4fc;
+      color: #1976d2;
       
       &:hover {
         background-color: rgba(165, 180, 252, 0.1);
@@ -438,7 +432,6 @@
   }
 }
 
-/* MUI Override styles for Time Picker Component */
 .MuiAutocomplete-root {
   &.time-select-dropdown {
     width: 100%;
@@ -491,7 +484,6 @@
   }
 }
 
-/* Override for icon buttons in time picker */
 .MuiButtonBase-root.MuiIconButton-root {
   &.time-control-button {
     padding: 6px;
@@ -507,9 +499,8 @@
   }
 }
 
-/* Override for dropdown options */
 .MuiAutocomplete-popper {
-  z-index: 1005; /* Lower than the buttons but still high enough */
+  z-index: 1005;
   .MuiPaper-root {
     margin-top: 4px;
     border-radius: 4px;

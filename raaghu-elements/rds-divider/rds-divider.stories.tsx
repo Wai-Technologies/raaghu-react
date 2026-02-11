@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsDivider from './rds-divider';
-import { Typography, Box } from '@mui/material';
 
 const meta: Meta<typeof RdsDivider> = {
   title: 'Elements/Divider',

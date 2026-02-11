@@ -182,7 +182,6 @@ export const WithActions: Story = {
   args: {
     description: 'New features are available!',
     type: 'success',
-    // className: 'rds-banner--with-actions',
     actions: (
       <Box sx={{ display: 'flex', gap: 1, marginBottom: "3px" }}>
         <Button size="small" variant="outlined" color="inherit">
