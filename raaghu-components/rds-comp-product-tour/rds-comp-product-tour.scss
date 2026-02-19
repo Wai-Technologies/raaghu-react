@@ -1102,3 +1102,9 @@
     background-color: #1f2937 !important;
   }
 }
+
+@media (max-width: 320px) {
+.sb-show-main.sb-main-padded {
+padding: 20px;
+}
+}
