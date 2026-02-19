@@ -167,7 +167,7 @@ const RdsButton = ({
     return null;
   };
 
-  const isButtonDisabled = disabled || state === 'disabled';
+  const isButtonDisabled = disabled || state === 'disabled' || isLoading;
 
   const styleVariantClass = style === 'filled'
     ? 'rds-button__primary'
