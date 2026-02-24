@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsSelect Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const SELECT_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-select--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiSelect-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsSelect Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(SELECT_STORY_URL);
-    await page.waitForSelector('.MuiSelect-root', { timeout: 10000 });
+    await navigateToStory(page, SELECT_STORY_URL);
   });
 
   test('should render select component', async ({ page }) => {
@@ -22,7 +30,6 @@ test.describe('RdsSelect Component', () => {
     const select = page.locator('.MuiSelect-root').first();
     
     await select.click();
-    await page.waitForTimeout(300);
     
     const dropdown = page.locator('.MuiPopover-root, .MuiMenu-root');
     await expect(dropdown).toBeVisible();
@@ -32,18 +39,15 @@ test.describe('RdsSelect Component', () => {
     const select = page.locator('.MuiSelect-root').first();
     
     await select.click();
-    await page.waitForTimeout(300);
     
     const option = page.locator('[role="option"]').first();
     await option.click();
-    await page.waitForTimeout(300);
     
     await expect(select).toBeVisible();
   });
 
   test('should not open when disabled', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-select--with-disabled-options`);
-    await page.waitForSelector('.MuiSelect-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-select--with-disabled-options`);
     
     const select = page.locator('.MuiSelect-root').first();
     await expect(select).toBeVisible();
@@ -51,8 +55,7 @@ test.describe('RdsSelect Component', () => {
 
   test('should apply different sizes', async ({ page }) => {
     // Test small size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-select--default&args=size:small`);
-    await page.waitForSelector('.MuiSelect-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-select--default&args=size:small`);
     
     let select = page.locator('.MuiInputBase-root').first();
     await expect(select).toHaveClass(/MuiInputBase-sizeSmall/);
@@ -62,29 +65,24 @@ test.describe('RdsSelect Component', () => {
     const combobox = page.locator('[role="combobox"]').first();
     
     await combobox.click();
-    await page.waitForTimeout(500);
     
     const listbox = page.locator('[role="listbox"]');
     await expect(listbox).toBeVisible();
     
     await page.keyboard.press('ArrowDown');
-    await page.waitForTimeout(200);
     
     await page.keyboard.press('Escape');
-    await page.waitForTimeout(300);
   });
 
   test('should show placeholder when no value selected', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-select--default&args=placeholder:Select option`);
-    await page.waitForSelector('.MuiSelect-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-select--default&args=placeholder:Select option`);
     
     const select = page.locator('.MuiSelect-root').first();
     await expect(select).toBeVisible();
   });
 
   test('should apply error state', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-select--with-error`);
-    await page.waitForSelector('.MuiSelect-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-select--with-error`);
     
     const selectContainer = page.locator('.MuiInputBase-root').first();
     await expect(selectContainer).toHaveClass(/Mui-error/);
@@ -94,8 +92,7 @@ test.describe('RdsSelect Component', () => {
 test.describe('RdsSelect Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(SELECT_STORY_URL);
-    await page.waitForSelector('.MuiSelect-root', { timeout: 10000 });
+    await navigateToStory(page, SELECT_STORY_URL);
     
     const select = page.locator('.MuiSelect-root').first();
     await expect(select).toBeVisible();

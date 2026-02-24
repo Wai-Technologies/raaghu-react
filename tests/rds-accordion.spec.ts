@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsAccordion Component E2E Tests
@@ -11,12 +11,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const ACCORDION_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.rds-accordion') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsAccordion Component', () => {
   test.beforeEach(async ({ page }) => {
-    // Navigate to the accordion story
-    await page.goto(ACCORDION_STORY_URL);
-    // Wait for the component to be fully loaded
-    await page.waitForSelector('.rds-accordion', { timeout: 10000 });
+    await navigateToStory(page, ACCORDION_STORY_URL);
   });
 
   test('should render accordion with title', async ({ page }) => {
@@ -33,9 +39,6 @@ test.describe('RdsAccordion Component', () => {
     // Click to expand
     await accordionSummary.click();
     
-    // Wait for expansion animation
-    await page.waitForTimeout(500);
-    
     // Verify expanded state
     await expect(accordion).toHaveClass(/Mui-expanded/);
     
@@ -50,12 +53,10 @@ test.describe('RdsAccordion Component', () => {
     
     // Expand accordion
     await accordionSummary.click();
-    await page.waitForTimeout(500);
     await expect(accordion).toHaveClass(/Mui-expanded/);
     
     // Collapse accordion
     await accordionSummary.click();
-    await page.waitForTimeout(500);
     
     // Verify collapsed state
     await expect(accordion).not.toHaveClass(/Mui-expanded/);
@@ -79,7 +80,6 @@ test.describe('RdsAccordion Component', () => {
     
     // Press Enter to expand
     await page.keyboard.press('Enter');
-    await page.waitForTimeout(300);
     
     // Verify expansion
     const accordion = page.locator('.rds-accordion').first();
@@ -88,8 +88,7 @@ test.describe('RdsAccordion Component', () => {
 
   test('should display left icon when ShowLeftIcon is true', async ({ page }) => {
     // Navigate to a story with left icon enabled
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=ShowLeftIcon:true;changeleftIcon:Add`);
-    await page.waitForSelector('.rds-accordion', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=ShowLeftIcon:true;changeleftIcon:Add`);
     
     const leftIcon = page.locator('.rds-accordion__icon').first();
     await expect(leftIcon).toBeVisible();
@@ -97,8 +96,7 @@ test.describe('RdsAccordion Component', () => {
 
   test('should hide left icon when ShowLeftIcon is false', async ({ page }) => {
     // Navigate to a story with left icon disabled
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=ShowLeftIcon:false;changeleftIcon:Add`);
-    await page.waitForLoadState('networkidle');
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=ShowLeftIcon:false;changeleftIcon:Add`);
     
     const leftIcon = page.locator('.rds-accordion__icon').first();
     await expect(leftIcon).toHaveCount(0);
@@ -106,22 +104,19 @@ test.describe('RdsAccordion Component', () => {
 
   test('should apply correct size classes', async ({ page }) => {
     // Test small size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=size:small`);
-    await page.waitForLoadState('networkidle');
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=size:small`);
     
     let accordion = page.locator('.rds-accordion').first();
     await expect(accordion).toHaveClass(/rds-accordion--small/);
     
     // Test medium size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=size:medium`);
-    await page.waitForLoadState('networkidle');
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=size:medium`);
     
     accordion = page.locator('.rds-accordion').first();
     await expect(accordion).toHaveClass(/rds-accordion--medium/);
     
     // Test large size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=size:large`);
-    await page.waitForLoadState('networkidle');
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=size:large`);
     
     accordion = page.locator('.rds-accordion').first();
     await expect(accordion).toHaveClass(/rds-accordion--large/);
@@ -129,22 +124,19 @@ test.describe('RdsAccordion Component', () => {
 
   test('should apply correct style variants', async ({ page }) => {
     // Test border style
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=accordionStyle:border`);
-    await page.waitForLoadState('networkidle');
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=accordionStyle:border`);
     
     let accordion = page.locator('.rds-accordion').first();
     await expect(accordion).toHaveClass(/rds-accordion--border/);
     
     // Test bottomline style
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=accordionStyle:bottomline`);
-    await page.waitForLoadState('networkidle');
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=accordionStyle:bottomline`);
     
     accordion = page.locator('.rds-accordion').first();
     await expect(accordion).toHaveClass(/rds-accordion--bottomline/);
     
     // Test borderhide style
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=accordionStyle:borderhide`);
-    await page.waitForLoadState('networkidle');
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=accordionStyle:borderhide`);
     
     accordion = page.locator('.rds-accordion').first();
     await expect(accordion).toHaveClass(/rds-accordion--borderhide/);
@@ -152,8 +144,7 @@ test.describe('RdsAccordion Component', () => {
 
   test('should not expand when disabled', async ({ page }) => {
     // Navigate to disabled accordion
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=disabled:true`);
-    await page.waitForSelector('.rds-accordion', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-accordion--default&args=disabled:true`);
     
     const accordion = page.locator('.MuiAccordion-root').first();
     const accordionSummary = accordion.locator('.rds-accordion__summary');
@@ -163,7 +154,6 @@ test.describe('RdsAccordion Component', () => {
     
     // Try to click (should not expand)
     await accordionSummary.click({ force: true });
-    await page.waitForTimeout(500);
     
     // Verify it remains collapsed
     await expect(accordion).not.toHaveClass(/Mui-expanded/);
@@ -176,7 +166,6 @@ test.describe('RdsAccordion Component', () => {
     
     // Expand first accordion
     await firstAccordion.locator('.rds-accordion__summary').click();
-    await page.waitForTimeout(300);
     
     // Verify only first is expanded
     await expect(firstAccordion).toHaveClass(/Mui-expanded/);
@@ -185,7 +174,6 @@ test.describe('RdsAccordion Component', () => {
     
     // Expand second accordion
     await secondAccordion.locator('.rds-accordion__summary').click();
-    await page.waitForTimeout(300);
     
     // Verify both first and second are expanded
     await expect(firstAccordion).toHaveClass(/Mui-expanded/);
@@ -199,7 +187,6 @@ test.describe('RdsAccordion Component', () => {
     
     // Expand to reveal content
     await accordionSummary.click();
-    await page.waitForTimeout(300);
     
     // Check for content
     const content = accordion.locator('.rds-accordion__details-panel');
@@ -220,7 +207,6 @@ test.describe('RdsAccordion Component', () => {
     
     // Expand and check again
     await accordionButton.click();
-    await page.waitForTimeout(500);
     
     ariaExpanded = await accordionButton.getAttribute('aria-expanded');
     expect(ariaExpanded).toBe('true');
@@ -232,9 +218,6 @@ test.describe('RdsAccordion Component', () => {
     
     // Hover over accordion
     await accordionSummary.hover();
-    
-    // Wait a bit for hover effects
-    await page.waitForTimeout(100);
     
     // Check if hover effects are applied (you can verify specific styles if needed)
     await expect(accordionSummary).toBeVisible();
@@ -249,9 +232,6 @@ test.describe('RdsAccordion Component', () => {
     await accordionSummary.click();
     await accordionSummary.click();
     
-    // Wait for animations to settle
-    await page.waitForTimeout(500);
-    
     // Component should still be functional
     await expect(accordion).toBeVisible();
   });
@@ -261,19 +241,15 @@ test.describe('RdsAccordion Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     // Set mobile viewport
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(ACCORDION_STORY_URL);
+    await navigateToStory(page, ACCORDION_STORY_URL);
     
     // Wait for accordion to be visible with longer timeout for Firefox
     const accordion = page.locator('.rds-accordion').first();
     await expect(accordion).toBeVisible({ timeout: 15000 });
     
-    // Wait for any animations to complete
-    await page.waitForTimeout(500);
-    
     // Test expand functionality on mobile
     const accordionSummary = accordion.locator('.rds-accordion__summary');
     await accordionSummary.click();
-    await page.waitForTimeout(500);
     
     await expect(accordion).toHaveClass(/Mui-expanded/, { timeout: 10000 });
   });
@@ -281,8 +257,7 @@ test.describe('RdsAccordion Responsive Behavior', () => {
   test('should render correctly on tablet viewport', async ({ page }) => {
     // Set tablet viewport
     await page.setViewportSize({ width: 768, height: 1024 });
-    await page.goto(ACCORDION_STORY_URL);
-    await page.waitForLoadState('networkidle');
+    await navigateToStory(page, ACCORDION_STORY_URL);
     
     const accordion = page.locator('.rds-accordion').first();
     await expect(accordion).toBeVisible();
@@ -291,21 +266,17 @@ test.describe('RdsAccordion Responsive Behavior', () => {
   test('should render correctly on desktop viewport', async ({ page }) => {
     // Set desktop viewport
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await page.goto(ACCORDION_STORY_URL);
+    await navigateToStory(page, ACCORDION_STORY_URL);
     
     // Wait for accordion to be visible with longer timeout for Firefox
     const accordion = page.locator('.rds-accordion').first();
     await expect(accordion).toBeVisible({ timeout: 15000 });
-    
-    // Wait for any animations to complete
-    await page.waitForTimeout(500);
   });
 });
 
 test.describe('RdsAccordion Visual Regression', () => {
   test('should match screenshot in collapsed state', async ({ page }) => {
-    await page.goto(ACCORDION_STORY_URL);
-    await page.waitForLoadState('networkidle');
+    await navigateToStory(page, ACCORDION_STORY_URL);
     
     const accordion = page.locator('.rds-accordion').first();
     
@@ -314,7 +285,7 @@ test.describe('RdsAccordion Visual Regression', () => {
   });
 
   test('should match screenshot in expanded state', async ({ page }) => {
-    await page.goto(ACCORDION_STORY_URL);
+    await navigateToStory(page, ACCORDION_STORY_URL);
     
     const accordion = page.locator('.rds-accordion').first();
     await expect(accordion).toBeVisible({ timeout: 15000 });
@@ -323,9 +294,6 @@ test.describe('RdsAccordion Visual Regression', () => {
     
     // Expand accordion
     await accordionSummary.click();
-    
-    // Wait longer for expansion animation to complete (Firefox may need more time)
-    await page.waitForTimeout(800);
     
     // Verify expanded state before taking screenshot
     await expect(accordion).toHaveClass(/Mui-expanded/, { timeout: 10000 });

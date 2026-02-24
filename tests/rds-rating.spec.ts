@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsRating Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const RATING_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-rating--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiRating-root') {
+  await page.goto(storyUrl, { waitUntil: 'load', timeout: 30000 });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsRating Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(RATING_STORY_URL);
-    await page.waitForSelector('.MuiRating-root', { timeout: 10000 });
+    await navigateToStory(page, RATING_STORY_URL);
   });
 
   test('should render rating component', async ({ page }) => {
@@ -31,22 +39,19 @@ test.describe('RdsRating Component', () => {
     
     // Click directly on the rating component to interact with it
     await rating.click();
-    await page.waitForTimeout(200);
     
     await expect(rating).toBeVisible();
   });
 
   test('should not change rating when disabled', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-rating--disabled`);
-    await page.waitForSelector('.MuiRating-root', { timeout: 15000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-rating--disabled`);
     
     const rating = page.locator('.MuiRating-root').first();
     await expect(rating).toBeVisible();
   });
 
   test('should not change rating when readonly', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-rating--read-only`);
-    await page.waitForSelector('.MuiRating-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-rating--read-only`);
     
     const rating = page.locator('.MuiRating-root').first();
     await expect(rating).toBeVisible();
@@ -54,23 +59,20 @@ test.describe('RdsRating Component', () => {
 
   test('should apply different sizes', async ({ page }) => {
     // Test small size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-rating--small`);
-    await page.waitForSelector('.MuiRating-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-rating--small`);
     
     let rating = page.locator('.MuiRating-root').first();
     await expect(rating).toBeVisible();
     
     // Test large size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-rating--large`);
-    await page.waitForSelector('.MuiRating-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-rating--large`);
     
     rating = page.locator('.MuiRating-root').first();
     await expect(rating).toBeVisible();
   });
 
   test('should support half rating precision', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-rating--half-star`);
-    await page.waitForSelector('.MuiRating-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-rating--half-star`);
     
     const rating = page.locator('.MuiRating-root').first();
     await expect(rating).toBeVisible();
@@ -80,9 +82,7 @@ test.describe('RdsRating Component', () => {
     const rating = page.locator('.MuiRating-root').first();
     
     await rating.click();
-    await page.waitForTimeout(100);
     await page.keyboard.press('ArrowRight');
-    await page.waitForTimeout(100);
     
     await expect(rating).toBeVisible();
   });

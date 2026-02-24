@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsRadio Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const RADIO_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-radio--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiRadio-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsRadio Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(RADIO_STORY_URL);
-    await page.waitForSelector('.MuiRadio-root', { timeout: 10000 });
+    await navigateToStory(page, RADIO_STORY_URL);
   });
 
   test('should render radio component', async ({ page }) => {
@@ -23,14 +31,12 @@ test.describe('RdsRadio Component', () => {
     const input = radio.locator('input[type="radio"]');
     
     await radio.click();
-    await page.waitForTimeout(200);
     
     await expect(input).toBeChecked();
   });
 
   test('should not select when disabled', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-radio--default&args=state:disabled`);
-    await page.waitForSelector('.MuiRadio-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-radio--default&args=state:disabled`);
     
     const radio = page.locator('.MuiRadio-root').first();
     const input = radio.locator('input[type="radio"]');
@@ -40,8 +46,7 @@ test.describe('RdsRadio Component', () => {
 
   test('should apply different sizes', async ({ page }) => {
     // Test horizontal layout as an alternative to size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-radio--horizontal`);
-    await page.waitForSelector('.MuiRadio-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-radio--horizontal`);
     
     let radios = page.locator('.MuiRadio-root');
     await expect(radios.first()).toBeVisible();
@@ -55,26 +60,22 @@ test.describe('RdsRadio Component', () => {
     await expect(input).toBeFocused();
     
     await page.keyboard.press('Space');
-    await page.waitForTimeout(200);
     
     await expect(input).toBeChecked();
   });
 
   test('should only allow one selection in radio group', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-radio--horizontal`);
-    await page.waitForSelector('.MuiRadio-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-radio--horizontal`);
     
     const firstRadio = page.locator('.MuiRadio-root').nth(0);
     const secondRadio = page.locator('.MuiRadio-root').nth(1);
     
     await firstRadio.click();
-    await page.waitForTimeout(200);
     
     const firstInput = firstRadio.locator('input[type="radio"]');
     await expect(firstInput).toBeChecked();
     
     await secondRadio.click();
-    await page.waitForTimeout(200);
     
     const secondInput = secondRadio.locator('input[type="radio"]');
     await expect(secondInput).toBeChecked();
@@ -92,8 +93,7 @@ test.describe('RdsRadio Component', () => {
 test.describe('RdsRadio Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(RADIO_STORY_URL);
-    await page.waitForSelector('.MuiRadio-root', { timeout: 10000 });
+    await navigateToStory(page, RADIO_STORY_URL);
     
     const radio = page.locator('.MuiRadio-root').first();
     await expect(radio).toBeVisible();

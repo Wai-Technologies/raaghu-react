@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsCheckbox Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const CHECKBOX_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-checkbox--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiCheckbox-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsCheckbox Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(CHECKBOX_STORY_URL);
-    await page.waitForSelector('.MuiCheckbox-root', { timeout: 10000 });
+    await navigateToStory(page, CHECKBOX_STORY_URL);
   });
 
   test('should render checkbox component', async ({ page }) => {
@@ -27,7 +35,6 @@ test.describe('RdsCheckbox Component', () => {
     
     // Click to toggle
     await checkbox.click();
-    await page.waitForTimeout(200);
     
     // Verify state changed
     const newChecked = await input.isChecked();
@@ -35,8 +42,7 @@ test.describe('RdsCheckbox Component', () => {
   });
 
   test('should not toggle when disabled', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-checkbox--default&args=isDisabled:true`);
-    await page.waitForSelector('.MuiCheckbox-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-checkbox--default&args=isDisabled:true`);
     
     const checkbox = page.locator('.MuiCheckbox-root').first();
     const input = checkbox.locator('input[type="checkbox"]');
@@ -46,15 +52,13 @@ test.describe('RdsCheckbox Component', () => {
 
   test('should apply different sizes', async ({ page }) => {
     // Test small size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-checkbox--default&args=size:small`);
-    await page.waitForSelector('.MuiCheckbox-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-checkbox--default&args=size:small`);
     
     let checkbox = page.locator('.MuiCheckbox-root').first();
     await expect(checkbox).toHaveClass(/MuiCheckbox-sizeSmall/);
     
     // Test medium size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-checkbox--default&args=size:medium`);
-    await page.waitForSelector('.MuiCheckbox-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-checkbox--default&args=size:medium`);
     
     checkbox = page.locator('.MuiCheckbox-root').first();
     await expect(checkbox).toHaveClass(/MuiCheckbox-sizeMedium/);
@@ -68,14 +72,12 @@ test.describe('RdsCheckbox Component', () => {
     await expect(input).toBeFocused();
     
     await page.keyboard.press('Space');
-    await page.waitForTimeout(200);
     
     await expect(input).toBeChecked();
   });
 
   test('should display indeterminate state', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-checkbox--indeterminate`);
-    await page.waitForSelector('.MuiCheckbox-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-checkbox--indeterminate`);
     
     const checkbox = page.locator('.MuiCheckbox-root').first();
     await expect(checkbox).toHaveClass(/MuiCheckbox-indeterminate/);
@@ -92,8 +94,7 @@ test.describe('RdsCheckbox Component', () => {
 test.describe('RdsCheckbox Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(CHECKBOX_STORY_URL);
-    await page.waitForSelector('.MuiCheckbox-root', { timeout: 10000 });
+    await navigateToStory(page, CHECKBOX_STORY_URL);
     
     const checkbox = page.locator('.MuiCheckbox-root').first();
     await expect(checkbox).toBeVisible();

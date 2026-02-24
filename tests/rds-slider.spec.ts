@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsSlider Component E2E Tests
@@ -7,14 +7,21 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const SLIDER_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-slider--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiSlider-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsSlider Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(SLIDER_STORY_URL);
-    await page.waitForSelector('.MuiSlider-root', { timeout: 10000 });
+    await navigateToStory(page, SLIDER_STORY_URL);
   });
 
   test('should render slider component', async ({ page }) => {
-    await page.waitForTimeout(500);
     const slider = page.locator('.MuiSlider-root').first();
     await expect(slider).toBeVisible();
   });
@@ -34,7 +41,6 @@ test.describe('RdsSlider Component', () => {
       await page.mouse.down();
       await page.mouse.move(sliderBox.x + sliderBox.width * 0.7, sliderBox.y + sliderBox.height / 2);
       await page.mouse.up();
-      await page.waitForTimeout(200);
       
       await expect(thumb).toBeVisible();
     }
@@ -46,16 +52,13 @@ test.describe('RdsSlider Component', () => {
     
     await input.focus();
     await page.keyboard.press('ArrowRight');
-    await page.waitForTimeout(100);
     await page.keyboard.press('ArrowRight');
-    await page.waitForTimeout(100);
     
     await expect(thumb).toBeVisible();
   });
 
   test('should not change value when disabled', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-slider--default&args=disabled:true`);
-    await page.waitForSelector('.MuiSlider-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-slider--default&args=disabled:true`);
     
     const slider = page.locator('.MuiSlider-root').first();
     await expect(slider).toHaveClass(/Mui-disabled/);
@@ -64,23 +67,20 @@ test.describe('RdsSlider Component', () => {
   test('should apply different sizes', async ({ page }) => {
     // Test with different level values (1-5) which is the available size-like prop
     // Level 1
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-slider--default&args=level:1`);
-    await page.waitForSelector('.MuiSlider-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-slider--default&args=level:1`);
     
     let slider = page.locator('.MuiSlider-root').first();
     await expect(slider).toBeVisible();
     
     // Level 3
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-slider--default&args=level:3`);
-    await page.waitForSelector('.MuiSlider-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-slider--default&args=level:3`);
     
     slider = page.locator('.MuiSlider-root').first();
     await expect(slider).toBeVisible();
   });
 
   test('should display marks when specified', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-slider--with-marks`);
-    await page.waitForSelector('.MuiSlider-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-slider--with-marks`);
     
     const marks = page.locator('.MuiSlider-mark').first();
     
@@ -90,12 +90,10 @@ test.describe('RdsSlider Component', () => {
   });
 
   test('should display value label on hover', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-slider--default&args=valueLabelDisplay:auto`);
-    await page.waitForSelector('.MuiSlider-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-slider--default&args=valueLabelDisplay:auto`);
     
     const thumb = page.locator('.MuiSlider-thumb').first();
     await thumb.hover();
-    await page.waitForTimeout(300);
     
     const valueLabel = page.locator('.MuiSlider-valueLabel');
     

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsInput Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const INPUT_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-input--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiInputBase-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsInput Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(INPUT_STORY_URL);
-    await page.waitForSelector('.MuiInputBase-root', { timeout: 10000 });
+    await navigateToStory(page, INPUT_STORY_URL);
   });
 
   test('should render input component', async ({ page }) => {
@@ -34,16 +42,14 @@ test.describe('RdsInput Component', () => {
   });
 
   test('should not accept input when disabled', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-input--default&args=disabled:true`);
-    await page.waitForSelector('.MuiInputBase-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-input--default&args=disabled:true`);
     
     const input = page.locator('.MuiInputBase-input').first();
     await expect(input).toBeDisabled();
   });
 
   test('should apply error state', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-input--default&args=error:true`);
-    await page.waitForSelector('.MuiInputBase-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-input--default&args=error:true`);
     
     const inputContainer = page.locator('.MuiInputBase-root').first();
     await expect(inputContainer).toHaveClass(/Mui-error/);
@@ -51,15 +57,13 @@ test.describe('RdsInput Component', () => {
 
   test('should apply different sizes', async ({ page }) => {
     // Test small size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-input--default&args=size:small`);
-    await page.waitForSelector('.MuiInputBase-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-input--default&args=size:small`);
     
     let inputContainer = page.locator('.MuiInputBase-root').first();
     await expect(inputContainer).toHaveClass(/MuiInputBase-sizeSmall/);
     
     // Test medium size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-input--default&args=size:medium`);
-    await page.waitForSelector('.MuiInputBase-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-input--default&args=size:medium`);
     
     inputContainer = page.locator('.MuiInputBase-root').first();
     await expect(inputContainer).toBeVisible();
@@ -98,9 +102,7 @@ test.describe('RdsInput Component', () => {
 test.describe('RdsInput Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(INPUT_STORY_URL);
-    await page.waitForSelector('.MuiInputBase-root', { timeout: 10000 });
-    await page.waitForTimeout(500);
+    await navigateToStory(page, INPUT_STORY_URL);
     
     const input = page.locator('.MuiInputBase-input').first();
     await expect(input).toBeVisible();
@@ -108,9 +110,7 @@ test.describe('RdsInput Responsive Behavior', () => {
 
   test('should render correctly on tablet viewport', async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
-    await page.goto(INPUT_STORY_URL);
-    await page.waitForSelector('.MuiInputBase-root', { timeout: 10000 });
-    await page.waitForTimeout(500);
+    await navigateToStory(page, INPUT_STORY_URL);
     
     const input = page.locator('.MuiInputBase-input').first();
     await expect(input).toBeVisible();
@@ -118,9 +118,7 @@ test.describe('RdsInput Responsive Behavior', () => {
 
   test('should render correctly on desktop viewport', async ({ page }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await page.goto(INPUT_STORY_URL);
-    await page.waitForSelector('.MuiInputBase-root', { timeout: 10000 });
-    await page.waitForTimeout(500);
+    await navigateToStory(page, INPUT_STORY_URL);
     
     const input = page.locator('.MuiInputBase-input').first();
     await expect(input).toBeVisible();

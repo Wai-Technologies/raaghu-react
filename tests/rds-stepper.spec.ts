@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsStepper Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const STEPPER_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-stepper--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiStepper-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsStepper Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(STEPPER_STORY_URL);
-    await page.waitForSelector('.MuiStepper-root', { timeout: 10000 });
+    await navigateToStory(page, STEPPER_STORY_URL);
   });
 
   test('should render stepper component', async ({ page }) => {
@@ -33,7 +41,6 @@ test.describe('RdsStepper Component', () => {
     
     if (await nextButton.count() > 0) {
       await nextButton.click();
-      await page.waitForTimeout(300);
       
       await expect(nextButton).toBeVisible();
     }
@@ -45,10 +52,8 @@ test.describe('RdsStepper Component', () => {
     
     if (await nextButton.count() > 0 && await backButton.count() > 0) {
       await nextButton.click();
-      await page.waitForTimeout(300);
       
       await backButton.click();
-      await page.waitForTimeout(300);
       
       await expect(backButton).toBeVisible();
     }
@@ -56,8 +61,7 @@ test.describe('RdsStepper Component', () => {
 
   test('should apply different orientations', async ({ page }) => {
     // Test vertical direction
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-stepper--default&args=direction:vertical`);
-    await page.waitForSelector('.MuiStepper-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-stepper--default&args=direction:vertical`);
     
     const stepper = page.locator('.MuiStepper-root').first();
     await expect(stepper).toHaveClass(/MuiStepper-vertical/);
@@ -82,8 +86,7 @@ test.describe('RdsStepper Component', () => {
   });
 
   test('should apply alternative label style', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-stepper--alternative-label`);
-    await page.waitForSelector('.MuiStepper-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-stepper--alternative-label`);
     
     const stepper = page.locator('.MuiStepper-root').first();
     await expect(stepper).toHaveClass(/MuiStepper-alternativeLabel/);
@@ -93,8 +96,7 @@ test.describe('RdsStepper Component', () => {
 test.describe('RdsStepper Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(STEPPER_STORY_URL);
-    await page.waitForSelector('.MuiStepper-root', { timeout: 10000 });
+    await navigateToStory(page, STEPPER_STORY_URL);
     
     const stepper = page.locator('.MuiStepper-root').first();
     await expect(stepper).toBeVisible();

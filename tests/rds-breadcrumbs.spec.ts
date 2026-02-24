@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsBreadcrumbs Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const BREADCRUMBS_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-breadcrumbs--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiBreadcrumbs-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsBreadcrumbs Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(BREADCRUMBS_STORY_URL);
-    await page.waitForSelector('.MuiBreadcrumbs-root', { timeout: 10000 });
+    await navigateToStory(page, BREADCRUMBS_STORY_URL);
   });
 
   test('should render breadcrumbs component', async ({ page }) => {
@@ -24,7 +32,6 @@ test.describe('RdsBreadcrumbs Component', () => {
   });
 
   test('should display separator between items', async ({ page }) => {
-    await page.waitForTimeout(500);
     const separator = page.locator('.MuiBreadcrumbs-separator').first();
     await expect(separator).toBeVisible();
   });
@@ -39,8 +46,7 @@ test.describe('RdsBreadcrumbs Component', () => {
   });
 
   test('should show max items when specified', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-breadcrumbs--default&args=maxItems:3`);
-    await page.waitForSelector('.MuiBreadcrumbs-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-breadcrumbs--default&args=maxItems:3`);
     
     const breadcrumbs = page.locator('.MuiBreadcrumbs-root').first();
     await expect(breadcrumbs).toBeVisible();
@@ -55,8 +61,7 @@ test.describe('RdsBreadcrumbs Component', () => {
 test.describe('RdsBreadcrumbs Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(BREADCRUMBS_STORY_URL);
-    await page.waitForSelector('.MuiBreadcrumbs-root', { timeout: 10000 });
+    await navigateToStory(page, BREADCRUMBS_STORY_URL);
     
     const breadcrumbs = page.locator('.MuiBreadcrumbs-root').first();
     await expect(breadcrumbs).toBeVisible();
@@ -64,8 +69,7 @@ test.describe('RdsBreadcrumbs Responsive Behavior', () => {
 
   test('should render correctly on tablet viewport', async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
-    await page.goto(BREADCRUMBS_STORY_URL);
-    await page.waitForSelector('.MuiBreadcrumbs-root', { timeout: 10000 });
+    await navigateToStory(page, BREADCRUMBS_STORY_URL);
     
     const breadcrumbs = page.locator('.MuiBreadcrumbs-root').first();
     await expect(breadcrumbs).toBeVisible();

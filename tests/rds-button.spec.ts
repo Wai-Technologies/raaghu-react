@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsButton Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const BUTTON_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-button--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiButton-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsButton Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(BUTTON_STORY_URL);
-    await page.waitForSelector('.MuiButton-root', { timeout: 10000 });
+    await navigateToStory(page, BUTTON_STORY_URL);
   });
 
   test('should render button with text', async ({ page }) => {
@@ -26,15 +34,13 @@ test.describe('RdsButton Component', () => {
 
   test('should apply correct variant classes', async ({ page }) => {
     // Test Primary variant using story
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-button--primary`);
-    await page.waitForSelector('.MuiButton-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-button--primary`);
     
     let button = page.locator('.MuiButton-root').first();
     await expect(button).toBeVisible();
     
     // Test Outlined variant using story
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-button--outlined`);
-    await page.waitForSelector('.MuiButton-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-button--outlined`);
     
     button = page.locator('.MuiButton-root').first();
     await expect(button).toHaveClass(/MuiButton-outlined/);
@@ -42,30 +48,26 @@ test.describe('RdsButton Component', () => {
 
   test('should apply correct size classes', async ({ page }) => {
     // Test small size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-button--default&args=size:small`);
-    await page.waitForSelector('.MuiButton-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-button--default&args=size:small`);
     
     let button = page.locator('.MuiButton-root').first();
     await expect(button).toHaveClass(/MuiButton-sizeSmall/);
     
     // Test medium size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-button--default&args=size:medium`);
-    await page.waitForSelector('.MuiButton-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-button--default&args=size:medium`);
     
     button = page.locator('.MuiButton-root').first();
     await expect(button).toHaveClass(/MuiButton-sizeMedium/);
     
     // Test large size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-button--default&args=size:large`);
-    await page.waitForSelector('.MuiButton-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-button--default&args=size:large`);
     
     button = page.locator('.MuiButton-root').first();
     await expect(button).toHaveClass(/MuiButton-sizeLarge/);
   });
 
   test('should not be clickable when disabled', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-button--disabled`);
-    await page.waitForSelector('.MuiButton-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-button--disabled`);
     
     const button = page.locator('.MuiButton-root').first();
     await expect(button).toBeDisabled();
@@ -85,15 +87,12 @@ test.describe('RdsButton Component', () => {
     const button = page.locator('.MuiButton-root').first();
     
     await button.hover();
-    await page.waitForTimeout(100);
     
     await expect(button).toBeVisible();
   });
 
   test('should display icon when provided', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-button--with-start-icon`);
-    await page.waitForSelector('.MuiButton-root', { timeout: 10000 });
-    await page.waitForTimeout(500);
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-button--with-start-icon`);
     
     const button = page.locator('.MuiButton-root').first();
     const icon = button.locator('.MuiSvgIcon-root');
@@ -105,8 +104,7 @@ test.describe('RdsButton Component', () => {
 test.describe('RdsButton Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(BUTTON_STORY_URL);
-    await page.waitForSelector('.MuiButton-root', { timeout: 10000 });
+    await navigateToStory(page, BUTTON_STORY_URL);
     
     const button = page.locator('.MuiButton-root').first();
     await expect(button).toBeVisible();
@@ -114,8 +112,7 @@ test.describe('RdsButton Responsive Behavior', () => {
 
   test('should render correctly on tablet viewport', async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
-    await page.goto(BUTTON_STORY_URL);
-    await page.waitForSelector('.MuiButton-root', { timeout: 10000 });
+    await navigateToStory(page, BUTTON_STORY_URL);
     
     const button = page.locator('.MuiButton-root').first();
     await expect(button).toBeVisible();
@@ -123,8 +120,7 @@ test.describe('RdsButton Responsive Behavior', () => {
 
   test('should render correctly on desktop viewport', async ({ page }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await page.goto(BUTTON_STORY_URL);
-    await page.waitForSelector('.MuiButton-root', { timeout: 10000 });
+    await navigateToStory(page, BUTTON_STORY_URL);
     
     const button = page.locator('.MuiButton-root').first();
     await expect(button).toBeVisible();

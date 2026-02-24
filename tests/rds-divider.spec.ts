@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsDivider Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const DIVIDER_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-divider--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiDivider-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsDivider Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(DIVIDER_STORY_URL);
-    await page.waitForSelector('.MuiDivider-root', { timeout: 10000 });
+    await navigateToStory(page, DIVIDER_STORY_URL);
   });
 
   test('should render divider component', async ({ page }) => {
@@ -24,8 +32,7 @@ test.describe('RdsDivider Component', () => {
     await expect(divider).toBeVisible();
     
     // Test vertical orientation
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-divider--vertical`);
-    await page.waitForSelector('.MuiDivider-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-divider--vertical`);
     
     divider = page.locator('.MuiDivider-root').first();
     await expect(divider).toBeVisible();
@@ -37,16 +44,14 @@ test.describe('RdsDivider Component', () => {
     await expect(divider).toBeVisible();
     
     // Test with text variant
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-divider--with-text`);
-    await page.waitForSelector('.MuiDivider-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-divider--with-text`);
     
     divider = page.locator('.MuiDivider-root').first();
     await expect(divider).toBeVisible();
   });
 
   test('should display text when provided', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-divider--with-text`);
-    await page.waitForSelector('.MuiDivider-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-divider--with-text`);
     
     const dividerText = page.locator('.MuiDivider-wrapper').first();
     
@@ -57,16 +62,14 @@ test.describe('RdsDivider Component', () => {
 
   test('should apply different text alignments', async ({ page }) => {
     // Test with text divider
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-divider--with-text`);
-    await page.waitForSelector('.MuiDivider-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-divider--with-text`);
     
     let divider = page.locator('.MuiDivider-root').first();
     await expect(divider).toBeVisible();
   });
 
   test('should apply flexItem class when specified', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-divider--flexed`);
-    await page.waitForSelector('.MuiDivider-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-divider--flexed`);
     
     const divider = page.locator('.MuiDivider-root').first();
     await expect(divider).toBeVisible();
@@ -81,8 +84,7 @@ test.describe('RdsDivider Component', () => {
 test.describe('RdsDivider Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(DIVIDER_STORY_URL);
-    await page.waitForSelector('.MuiDivider-root', { timeout: 10000 });
+    await navigateToStory(page, DIVIDER_STORY_URL);
     
     const divider = page.locator('.MuiDivider-root').first();
     await expect(divider).toBeVisible();
@@ -90,8 +92,7 @@ test.describe('RdsDivider Responsive Behavior', () => {
 
   test('should render correctly on tablet viewport', async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
-    await page.goto(DIVIDER_STORY_URL);
-    await page.waitForSelector('.MuiDivider-root', { timeout: 10000 });
+    await navigateToStory(page, DIVIDER_STORY_URL);
     
     const divider = page.locator('.MuiDivider-root').first();
     await expect(divider).toBeVisible();

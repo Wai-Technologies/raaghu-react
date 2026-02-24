@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsPagination Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const PAGINATION_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-pagination--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiPagination-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsPagination Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(PAGINATION_STORY_URL);
-    await page.waitForSelector('.MuiPagination-root', { timeout: 10000 });
+    await navigateToStory(page, PAGINATION_STORY_URL);
   });
 
   test('should render pagination component', async ({ page }) => {
@@ -27,7 +35,6 @@ test.describe('RdsPagination Component', () => {
     const nextButton = page.locator('.MuiPaginationItem-root[aria-label*="next"], .MuiPaginationItem-root[aria-label*="Next"]').first();
     
     await nextButton.click();
-    await page.waitForTimeout(300);
     
     await expect(nextButton).toBeVisible();
   });
@@ -35,11 +42,9 @@ test.describe('RdsPagination Component', () => {
   test('should navigate to previous page', async ({ page }) => {
     const pageTwo = page.locator('.MuiPaginationItem-root').filter({ hasText: '2' }).first();
     await pageTwo.click();
-    await page.waitForTimeout(300);
     
     const prevButton = page.locator('.MuiPaginationItem-root[aria-label*="previous"], .MuiPaginationItem-root[aria-label*="Previous"]').first();
     await prevButton.click();
-    await page.waitForTimeout(300);
     
     await expect(prevButton).toBeVisible();
   });
@@ -48,15 +53,13 @@ test.describe('RdsPagination Component', () => {
     const pageThree = page.locator('.MuiPaginationItem-root').filter({ hasText: '3' }).first();
     
     await pageThree.click();
-    await page.waitForTimeout(300);
     
     await expect(pageThree).toHaveClass(/Mui-selected/);
   });
 
   test('should apply different variants', async ({ page }) => {
     // Test outlined variant
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-pagination--default&args=variant:outlined`);
-    await page.waitForSelector('.MuiPagination-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-pagination--default&args=variant:outlined`);
     
     const pageButton = page.locator('.MuiPaginationItem-root').first();
     await expect(pageButton).toHaveClass(/MuiPaginationItem-outlined/);
@@ -64,8 +67,7 @@ test.describe('RdsPagination Component', () => {
 
   test('should apply different sizes', async ({ page }) => {
     // Test small size
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-pagination--default&args=size:small`);
-    await page.waitForSelector('.MuiPagination-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-pagination--default&args=size:small`);
     
     const pageButton = page.locator('.MuiPaginationItem-root').first();
     await expect(pageButton).toHaveClass(/MuiPaginationItem-sizeSmall/);
@@ -79,7 +81,6 @@ test.describe('RdsPagination Component', () => {
     
     // Navigate to next page button using keyboard  
     await page.keyboard.press('Tab');
-    await page.waitForTimeout(100);
     
     const focused = await page.evaluate(() => {
       const el = document.activeElement as HTMLElement;

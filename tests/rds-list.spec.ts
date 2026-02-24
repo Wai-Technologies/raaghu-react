@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsList Component E2E Tests
@@ -7,11 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const LIST_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-list--align-items&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiList-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsList Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(LIST_STORY_URL, { waitUntil: 'load' });
-    await page.waitForTimeout(1000);
-    await page.locator('.MuiList-root').waitFor({ state: 'visible', timeout: 10000 });
+    await navigateToStory(page, LIST_STORY_URL);
   });
 
   test('should render list component', async ({ page }) => {
@@ -26,32 +33,27 @@ test.describe('RdsList Component', () => {
 
   test('should handle list item click', async ({ page }) => {
     // Navigate to Multiple Selection story which has clickable items
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-list--multiple-selection`, { waitUntil: 'load' });
-    await page.waitForTimeout(1000);
-    const listItemButton = page.locator('.MuiListItemButton-root').first();
-    await listItemButton.waitFor({ state: 'visible', timeout: 15000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-list--multiple-selection`, '.MuiListItemButton-root');
     
+    const listItemButton = page.locator('.MuiListItemButton-root').first();
     await listItemButton.click();
     await expect(listItemButton).toBeVisible();
   });
 
   test('should apply different density', async ({ page }) => {
     // Use the Dense story which has dense list configuration
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-list--dense`, { waitUntil: 'load' });
-    await page.waitForTimeout(1000);
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-list--dense`);
     
     const list = page.locator('.MuiList-root').first();
-    await list.waitFor({ state: 'visible', timeout: 15000 });
     // Component uses custom rds-list--dense class instead of MUI's dense prop
     await expect(list).toHaveClass(/rds-list--dense/);
   });
 
   test('should display list item icon', async ({ page }) => {
     // Use With Icons story
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-list--with-icons`, { waitUntil: 'load' });
-    await page.waitForTimeout(1000);
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-list--with-icons`, '.MuiListItemIcon-root');
+    
     const listItemIcon = page.locator('.MuiListItemIcon-root').first();
-    await listItemIcon.waitFor({ state: 'visible', timeout: 15000 });
     await expect(listItemIcon).toBeVisible();
   });
 
@@ -62,21 +64,18 @@ test.describe('RdsList Component', () => {
 
   test('should handle hover state', async ({ page }) => {
     // Use Multiple Selection story for interactive items
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-list--multiple-selection`, { waitUntil: 'load' });
-    await page.waitForTimeout(1000);
-    const listItemButton = page.locator('.MuiListItemButton-root').first();
-    await listItemButton.waitFor({ state: 'visible', timeout: 15000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-list--multiple-selection`, '.MuiListItemButton-root');
     
+    const listItemButton = page.locator('.MuiListItemButton-root').first();
     await listItemButton.hover();
     await expect(listItemButton).toBeVisible();
   });
 
   test('should apply selected state', async ({ page }) => {
     // Use Multiple Selection story which has clickable list item buttons
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-list--multiple-selection`);
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-list--multiple-selection`, '.MuiListItemButton-root');
     
     const listItemButton = page.locator('.MuiListItemButton-root').first();
-    await listItemButton.waitFor({ state: 'visible', timeout: 15000 });
     await listItemButton.click();
     await expect(listItemButton).toBeVisible();
   });
@@ -85,21 +84,17 @@ test.describe('RdsList Component', () => {
 test.describe('RdsList Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(LIST_STORY_URL, { waitUntil: 'load' });
-    await page.waitForTimeout(1000);
+    await navigateToStory(page, LIST_STORY_URL);
     
     const list = page.locator('.MuiList-root').first();
-    await list.waitFor({ state: 'visible', timeout: 15000 });
     await expect(list).toBeVisible();
   });
 
   test('should render correctly on tablet viewport', async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
-    await page.goto(LIST_STORY_URL, { waitUntil: 'load' });
-    await page.waitForTimeout(1000);
+    await navigateToStory(page, LIST_STORY_URL);
     
     const list = page.locator('.MuiList-root').first();
-    await list.waitFor({ state: 'visible', timeout: 15000 });
     await expect(list).toBeVisible();
   });
 });

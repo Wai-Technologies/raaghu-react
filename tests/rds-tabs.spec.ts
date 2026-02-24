@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsTabs Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const TABS_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-tabs--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiTabs-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsTabs Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(TABS_STORY_URL);
-    await page.waitForSelector('.MuiTabs-root', { timeout: 10000 });
+    await navigateToStory(page, TABS_STORY_URL);
   });
 
   test('should render tabs component', async ({ page }) => {
@@ -26,7 +34,6 @@ test.describe('RdsTabs Component', () => {
     await expect(firstTab).toHaveClass(/Mui-selected/);
     
     await secondTab.click();
-    await page.waitForTimeout(300);
     await expect(secondTab).toBeVisible();
   });
 
@@ -42,7 +49,6 @@ test.describe('RdsTabs Component', () => {
     await expect(firstTab).toBeFocused();
     
     await page.keyboard.press('ArrowRight');
-    await page.waitForTimeout(200);
     
     const secondTab = page.locator('.MuiTab-root').nth(1);
     await expect(secondTab).toBeFocused();
@@ -50,8 +56,7 @@ test.describe('RdsTabs Component', () => {
 
   test('should apply different orientations', async ({ page }) => {
     // Test vertical orientation
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-tabs--vertical`);
-    await page.waitForSelector('.MuiTabs-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-tabs--vertical`);
     
     const tabs = page.locator('.MuiTabs-root').first();
     await expect(tabs).toBeVisible();
@@ -72,8 +77,7 @@ test.describe('RdsTabs Component', () => {
   });
 
   test('should apply disabled state to tabs', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-tabs--second-tab-active`);
-    await page.waitForSelector('.MuiTabs-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-tabs--second-tab-active`);
     
     const tabs = page.locator('.MuiTab-root').first();
     await expect(tabs).toBeVisible();
@@ -83,8 +87,7 @@ test.describe('RdsTabs Component', () => {
 test.describe('RdsTabs Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(TABS_STORY_URL);
-    await page.waitForSelector('.MuiTabs-root', { timeout: 10000 });
+    await navigateToStory(page, TABS_STORY_URL);
     
     const tabs = page.locator('.MuiTabs-root').first();
     await expect(tabs).toBeVisible();
@@ -92,8 +95,7 @@ test.describe('RdsTabs Responsive Behavior', () => {
 
   test('should render correctly on tablet viewport', async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
-    await page.goto(TABS_STORY_URL);
-    await page.waitForSelector('.MuiTabs-root', { timeout: 10000 });
+    await navigateToStory(page, TABS_STORY_URL);
     
     const tabs = page.locator('.MuiTabs-root').first();
     await expect(tabs).toBeVisible();

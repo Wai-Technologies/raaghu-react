@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsTextArea Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const TEXTAREA_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-text-area--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = 'textarea') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsTextArea Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(TEXTAREA_STORY_URL);
-    await page.waitForSelector('textarea', { timeout: 10000 });
+    await navigateToStory(page, TEXTAREA_STORY_URL);
   });
 
   test('should render textarea component', async ({ page }) => {
@@ -27,33 +35,28 @@ test.describe('RdsTextArea Component', () => {
   });
 
   test('should show placeholder text', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-text-area--default&args=placeholder:Enter description`);
-    await page.waitForSelector('textarea', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-text-area--default&args=placeholder:Enter description`);
     
     const textarea = page.locator('textarea').first();
     await expect(textarea).toHaveAttribute('placeholder', 'Enter description');
   });
 
   test('should not accept input when disabled', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-text-area--default&args=state:Disabled`);
-    await page.waitForSelector('textarea', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-text-area--default&args=state:Disabled`);
     
     const textarea = page.locator('textarea').first();
     await expect(textarea).toBeDisabled();
   });
 
   test('should respect row count', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-text-area--default&args=rows:5`);
-    await page.waitForSelector('textarea', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-text-area--default&args=rows:5`);
     
     const textarea = page.locator('textarea').first();
     await expect(textarea).toHaveAttribute('rows', '5');
   });
 
   test('should apply error state', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-text-area--default&args=state:error`);
-    await page.waitForSelector('textarea', { timeout: 10000 });
-    await page.waitForTimeout(500);
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-text-area--default&args=state:error`);
     
     const textarea = page.locator('textarea').first();
     await expect(textarea).toBeVisible();
@@ -79,8 +82,7 @@ test.describe('RdsTextArea Component', () => {
 test.describe('RdsTextArea Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(TEXTAREA_STORY_URL);
-    await page.waitForSelector('textarea', { timeout: 10000 });
+    await navigateToStory(page, TEXTAREA_STORY_URL);
     
     const textarea = page.locator('textarea').first();
     await expect(textarea).toBeVisible();
@@ -88,8 +90,7 @@ test.describe('RdsTextArea Responsive Behavior', () => {
 
   test('should render correctly on tablet viewport', async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
-    await page.goto(TEXTAREA_STORY_URL);
-    await page.waitForSelector('textarea', { timeout: 10000 });
+    await navigateToStory(page, TEXTAREA_STORY_URL);
     
     const textarea = page.locator('textarea').first();
     await expect(textarea).toBeVisible();

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsTable Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const TABLE_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-table--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiTable-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsTable Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(TABLE_STORY_URL);
-    await page.waitForSelector('.MuiTable-root', { timeout: 10000 });
+    await navigateToStory(page, TABLE_STORY_URL);
   });
 
   test('should render table component', async ({ page }) => {
@@ -41,17 +49,14 @@ test.describe('RdsTable Component', () => {
 
   test('should apply different sizes', async ({ page }) => {
     // Test small size using the SmallSize story
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-table--small-size`);
-    await page.waitForSelector('.MuiTable-root', { timeout: 15000 });
-    await page.waitForTimeout(1000);
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-table--small-size`);
     
     const table = page.locator('.MuiTable-root').first();
     await expect(table).toBeVisible();
   });
 
   test('should apply sticky header when specified', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-table--default&args=stickyHeader:true`);
-    await page.waitForSelector('.MuiTable-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-table--default&args=stickyHeader:true`);
     
     const table = page.locator('.MuiTable-root').first();
     await expect(table).toHaveClass(/MuiTable-stickyHeader/);
@@ -61,19 +66,16 @@ test.describe('RdsTable Component', () => {
     const row = page.locator('.MuiTableBody-root .MuiTableRow-root').first();
     
     await row.hover();
-    await page.waitForTimeout(100);
     
     await expect(row).toBeVisible();
   });
 
   test('should select table row when clickable', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-table--default&args=selectable:true`);
-    await page.waitForSelector('.MuiTable-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-table--default&args=selectable:true`);
     
     const checkbox = page.locator('.MuiTableBody-root .MuiCheckbox-root').first();
     if (await checkbox.count() > 0) {
       await checkbox.click();
-      await page.waitForTimeout(200);
       
       const input = checkbox.locator('input');
       await expect(input).toBeChecked();
@@ -84,9 +86,7 @@ test.describe('RdsTable Component', () => {
 test.describe('RdsTable Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(TABLE_STORY_URL);
-    await page.waitForSelector('.MuiTable-root', { timeout: 10000 });
-    await page.waitForTimeout(500);
+    await navigateToStory(page, TABLE_STORY_URL);
     
     const table = page.locator('.MuiTable-root').first();
     await expect(table).toBeVisible();
@@ -94,8 +94,7 @@ test.describe('RdsTable Responsive Behavior', () => {
 
   test('should render correctly on tablet viewport', async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
-    await page.goto(TABLE_STORY_URL);
-    await page.waitForSelector('.MuiTable-root', { timeout: 10000 });
+    await navigateToStory(page, TABLE_STORY_URL);
     
     const table = page.locator('.MuiTable-root').first();
     await expect(table).toBeVisible();

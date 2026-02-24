@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * RdsAlert Component E2E Tests
@@ -7,10 +7,18 @@ import { test, expect } from '@playwright/test';
 const STORYBOOK_URL = 'http://localhost:6006';
 const ALERT_STORY_URL = `${STORYBOOK_URL}/iframe.html?id=elements-alert--default&viewMode=story`;
 
+/**
+ * Helper function to navigate to a story and wait for it to be ready
+ */
+async function navigateToStory(page: Page, storyUrl: string, selector: string = '.MuiAlert-root') {
+  await page.goto(storyUrl, { waitUntil: 'networkidle' });
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForSelector(selector, { timeout: 15000, state: 'visible' });
+}
+
 test.describe('RdsAlert Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(ALERT_STORY_URL);
-    await page.waitForSelector('.MuiAlert-root', { timeout: 10000 });
+    await navigateToStory(page, ALERT_STORY_URL);
   });
 
   test('should render alert component', async ({ page }) => {
@@ -25,15 +33,13 @@ test.describe('RdsAlert Component', () => {
 
   test('should apply different severity levels', async ({ page }) => {
     // Test error severity
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-alert--error`);
-    await page.waitForSelector('.MuiAlert-root', { timeout: 15000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-alert--error`);
     
     let alert = page.locator('.MuiAlert-root').first();
     await expect(alert).toBeVisible();
     
     // Test warning severity
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-alert--warning`);
-    await page.waitForSelector('.MuiAlert-root', { timeout: 15000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-alert--warning`);
     
     alert = page.locator('.MuiAlert-root').first();
     await expect(alert).toBeVisible();
@@ -41,31 +47,27 @@ test.describe('RdsAlert Component', () => {
 
   test('should apply different variants', async ({ page }) => {
     // Test outlined variant
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-alert--outlined`);
-    await page.waitForSelector('.MuiAlert-root', { timeout: 15000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-alert--outlined`);
     
     let alert = page.locator('.MuiAlert-root').first();
     await expect(alert).toBeVisible();
     
     // Test filled variant
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-alert--filled`);
-    await page.waitForSelector('.MuiAlert-root', { timeout: 15000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-alert--filled`);
     
     alert = page.locator('.MuiAlert-root').first();
     await expect(alert).toBeVisible();
   });
 
   test('should display close button when closeable', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-alert--default`);
-    await page.waitForSelector('.MuiAlert-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-alert--default`);
     
     const alert = page.locator('.MuiAlert-root').first();
     await expect(alert).toBeVisible();
   });
 
   test('should close alert when close button clicked', async ({ page }) => {
-    await page.goto(`${STORYBOOK_URL}/iframe.html?id=elements-alert--default`);
-    await page.waitForSelector('.MuiAlert-root', { timeout: 10000 });
+    await navigateToStory(page, `${STORYBOOK_URL}/iframe.html?id=elements-alert--default`);
     
     const alert = page.locator('.MuiAlert-root').first();
     await expect(alert).toBeVisible();
@@ -85,8 +87,7 @@ test.describe('RdsAlert Component', () => {
 test.describe('RdsAlert Responsive Behavior', () => {
   test('should render correctly on mobile viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto(ALERT_STORY_URL);
-    await page.waitForSelector('.MuiAlert-root', { timeout: 10000 });
+    await navigateToStory(page, ALERT_STORY_URL);
     
     const alert = page.locator('.MuiAlert-root').first();
     await expect(alert).toBeVisible();
@@ -94,8 +95,7 @@ test.describe('RdsAlert Responsive Behavior', () => {
 
   test('should render correctly on tablet viewport', async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
-    await page.goto(ALERT_STORY_URL);
-    await page.waitForSelector('.MuiAlert-root', { timeout: 10000 });
+    await navigateToStory(page, ALERT_STORY_URL);
     
     const alert = page.locator('.MuiAlert-root').first();
     await expect(alert).toBeVisible();
