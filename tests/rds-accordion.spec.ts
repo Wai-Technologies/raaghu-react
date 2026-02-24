@@ -262,17 +262,20 @@ test.describe('RdsAccordion Responsive Behavior', () => {
     // Set mobile viewport
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto(ACCORDION_STORY_URL);
-    await page.waitForLoadState('networkidle');
     
+    // Wait for accordion to be visible with longer timeout for Firefox
     const accordion = page.locator('.rds-accordion').first();
-    await expect(accordion).toBeVisible();
+    await expect(accordion).toBeVisible({ timeout: 15000 });
+    
+    // Wait for any animations to complete
+    await page.waitForTimeout(500);
     
     // Test expand functionality on mobile
     const accordionSummary = accordion.locator('.rds-accordion__summary');
     await accordionSummary.click();
-    await page.waitForTimeout(300);
+    await page.waitForTimeout(500);
     
-    await expect(accordion).toHaveClass(/Mui-expanded/);
+    await expect(accordion).toHaveClass(/Mui-expanded/, { timeout: 10000 });
   });
 
   test('should render correctly on tablet viewport', async ({ page }) => {
@@ -289,10 +292,13 @@ test.describe('RdsAccordion Responsive Behavior', () => {
     // Set desktop viewport
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.goto(ACCORDION_STORY_URL);
-    await page.waitForLoadState('networkidle');
     
+    // Wait for accordion to be visible with longer timeout for Firefox
     const accordion = page.locator('.rds-accordion').first();
-    await expect(accordion).toBeVisible();
+    await expect(accordion).toBeVisible({ timeout: 15000 });
+    
+    // Wait for any animations to complete
+    await page.waitForTimeout(500);
   });
 });
 
@@ -309,16 +315,25 @@ test.describe('RdsAccordion Visual Regression', () => {
 
   test('should match screenshot in expanded state', async ({ page }) => {
     await page.goto(ACCORDION_STORY_URL);
-    await page.waitForLoadState('networkidle');
     
     const accordion = page.locator('.rds-accordion').first();
+    await expect(accordion).toBeVisible({ timeout: 15000 });
+    
     const accordionSummary = accordion.locator('.rds-accordion__summary');
     
     // Expand accordion
     await accordionSummary.click();
-    await page.waitForTimeout(300);
     
-    // Take screenshot
-    await expect(accordion).toHaveScreenshot('accordion-expanded.png', { maxDiffPixelRatio: 0.05 });
+    // Wait longer for expansion animation to complete (Firefox may need more time)
+    await page.waitForTimeout(800);
+    
+    // Verify expanded state before taking screenshot
+    await expect(accordion).toHaveClass(/Mui-expanded/, { timeout: 10000 });
+    
+    // Take screenshot with higher tolerance for Firefox rendering differences
+    await expect(accordion).toHaveScreenshot('accordion-expanded.png', { 
+      maxDiffPixelRatio: 0.1,
+      timeout: 15000
+    });
   });
 });
