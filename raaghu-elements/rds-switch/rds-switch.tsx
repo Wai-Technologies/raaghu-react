@@ -78,8 +78,10 @@ const RdsSwitch = ({
   const colorClass = `rds-switch--color-${normalizedColor}`;
   const styleClass = `rds-switch rds-switch--${normalizedStyleType} ${colorClass}`;
 
+  const { defaultChecked: _, ...restProps } = props;
+
   const switchProps: SwitchProps = {
-    ...props,
+    ...restProps,
     checked: isControlled ? props.checked : internalChecked,
     disabled,
     onChange: handleChange,

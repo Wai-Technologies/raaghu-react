@@ -11,6 +11,7 @@ export interface RdsProgressProps {
   type?: 'linear' | 'circular';
   style?: 'circular' | 'line' | 'stepper' | 'dash' | 'block';
   value?: number;
+  valueBuffer?: number;
   steps?: 0 | 1 | 2 | 3 | 4 | 5;
   variant?: 'determinate' | 'indeterminate' | 'buffer' | 'query';
   color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
@@ -27,6 +28,7 @@ const RdsProgress = ({
   type = 'linear',
   style = 'line',
   value,
+  valueBuffer,
   steps,
   variant = 'indeterminate',
   color = 'primary',
@@ -77,7 +79,7 @@ const RdsProgress = ({
 
   const renderCircular = () => renderWithLabel(getBaseClasses('circular'), <MuiCircularProgress variant={variant as any} value={finalValue} color={color} size={size} thickness={thickness} sx={sx} />, 'overlay');
 
-  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant as any} value={finalValue} color={color} sx={sx} />, 'side');
+  const renderLinear = () => renderWithLabel(getBaseClasses('line'), <MuiLinearProgress variant={variant as any} value={finalValue} valueBuffer={valueBuffer} color={color} sx={sx} />, 'side');
 
   const renderStepper = () => {
     const currentStep = Math.ceil(((finalValue || 0) / 100) * totalSteps);
