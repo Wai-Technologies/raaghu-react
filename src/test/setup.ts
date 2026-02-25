@@ -62,6 +62,14 @@ beforeAll(() => {
     if (errorStr.includes('A component is `contentEditable` and contains `children` managed by React')) {
       return;
     }
+    // Suppress MUI Select out-of-range value warnings from tests
+    if (errorStr.includes('You have provided an out-of-range value') && errorStr.includes('select component')) {
+      return;
+    }
+    // Suppress input value null warnings from MUI Select
+    if (errorStr.includes('value` prop on `input` should not be null')) {
+      return;
+    }
     
     originalError.call(console, ...args);
   };
@@ -69,4 +77,23 @@ beforeAll(() => {
 
 afterAll(() => {
   console.error = originalError;
+});
+
+// Suppress console.warn for MUI warnings
+const originalWarn = console.warn;
+beforeAll(() => {
+  console.warn = (...args: any[]) => {
+    const warnStr = typeof args[0] === 'string' ? args[0] : String(args[0]);
+    
+    // Suppress MUI Select out-of-range value warnings
+    if (warnStr.includes('You have provided an out-of-range value') && warnStr.includes('select')) {
+      return;
+    }
+    
+    originalWarn.call(console, ...args);
+  };
+});
+
+afterAll(() => {
+  console.warn = originalWarn;
 });
