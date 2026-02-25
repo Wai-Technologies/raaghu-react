@@ -26,16 +26,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: '20'
 
       - name: install and build storybook
         if: ${{ github.event.inputs.environment != 'New' }}
         run: |
-          bun install
-          bun run build-storybook
+          npm install
+          npm run build-storybook
           # mkdir storybook-static/assets
           # cp .storybook/assets/* storybook-static/assets
           cp web.config storybook-static
@@ -43,8 +43,8 @@ jobs:
       - name: install and build storybook for new environment
         if: ${{ github.event.inputs.environment == 'New' }}
         run: |
-          bun install
-          bun run build-storybook
+          npm install
+          npm run build-storybook
           # mkdir storybook-static/assets
           # cp .storybook/assets/* storybook-static/assets
           cp web.config storybook-static
