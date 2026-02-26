@@ -5,9 +5,10 @@ import {
   CircularProgress
 } from '@mui/material';
 
-export interface RdsBackdropProps extends BackdropProps {
+export interface RdsBackdropProps extends Omit<BackdropProps, 'open'> {
   loading?: boolean;
   loadingComponent?: React.ReactNode;
+  open?: boolean;
 }
 
 const RdsBackdrop: React.FC<RdsBackdropProps> = ({

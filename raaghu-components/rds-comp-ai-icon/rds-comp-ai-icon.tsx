@@ -60,7 +60,7 @@ export interface RdsCompAiIconProps {
   stroke?: boolean;
   strokeWidth?: string;
   borderRadius?: string;
-  onClick?: React.MouseEventHandler<HTMLElement | SVGSVGElement>;
+  onClick?: React.MouseEventHandler<HTMLElement | SVGSVGElement> | null;
   opacity?: string;
   isAnimate?: boolean;
   classes?: any;
@@ -141,7 +141,7 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
       const Icon = IconComponent;
       const svgProps = {
         className: `${className} ${rootClass}__svg`,
-        onClick: props.onClick as React.MouseEventHandler<SVGSVGElement>,
+        onClick: props.onClick || undefined,
         id: props.id,
         "data-testid": props.dataTestId,
         style,
@@ -164,7 +164,7 @@ const RdsCompAiIcon = (props: RdsCompAiIconProps) => {
       <img
         src={props.imageUrl}
         className={`${className} ${rootClass}__img`}
-        onClick={props.onClick}
+        onClick={props.onClick || undefined}
         role="img"
         id={props.id}
         data-testid={props.dataTestId}

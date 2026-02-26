@@ -3,7 +3,7 @@ export default {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
-  moduleNameMapping: {
+  moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@raaghu/elements/(.*)$': '<rootDir>/raaghu-elements/$1',
     '^@raaghu/layouts/(.*)$': '<rootDir>/raaghu-layouts/$1',
@@ -11,8 +11,9 @@ export default {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
   testMatch: [
-    '<rootDir>/**/__tests__/**/*.(ts|tsx|js)',
-    '<rootDir>/**/?(*.)(spec|test).(ts|tsx|js)'
+    '<rootDir>/**/__tests__/**/*.{ts,tsx,js}',
+    '<rootDir>/**/*.test.{ts,tsx,js}',
+    '<rootDir>/**/*.spec.{ts,tsx,js}'
   ],
   collectCoverageFrom: [
     'raaghu-elements/**/*.{ts,tsx}',
@@ -35,7 +36,19 @@ export default {
   },
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', {
-      tsconfig: 'tsconfig.json',
+      tsconfig: {
+        jsx: 'react-jsx',
+        esModuleInterop: true,
+        allowSyntheticDefaultImports: true,
+        moduleResolution: 'node',
+        resolveJsonModule: true,
+        isolatedModules: true,
+        noEmit: true,
+        target: 'ES2022',
+        lib: ['ES2022', 'DOM', 'DOM.Iterable'],
+        skipLibCheck: true,
+        strict: true,
+      },
       useESM: true
     }]
   },
