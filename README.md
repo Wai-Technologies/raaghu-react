@@ -104,7 +104,7 @@
 
 <p align="center">Built for Web Apps and Power Apps</p>
 <p align="center">
-  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/microsoft-power-apps-logo.avif" width="165" style="max-width:90%; margin: 0 20px;" alt="Microsoft Power Apps"/>
+  <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/microsoft-power-apps-logo.png" width="165" style="max-width:90%; margin: 0 20px;" alt="Microsoft Power Apps"/>
 </p>
 
 ## <a name='why'></a> Why Choose Raaghu Design System?
@@ -369,17 +369,17 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 <tr>
 <td align="center" width="33%">
   <a href="https://youtu.be/LiZdckORQEg" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/trailer.gif" alt="Raaghu Trailer" width="240">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/trailer.png" alt="Raaghu Trailer" width="240">
   </a>
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/TgNxlkP1qww" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/why_raaghu.gif" alt="Why Raaghu" width="240">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/why_raaghu.png" alt="Why Raaghu" width="240">
   </a>
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/FlU9GiVXkc0" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/raaghu_introduction.gif" alt="Raaghu Introduction" width="240">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/raaghu_introduction.png" alt="Raaghu Introduction" width="240">
   </a>
 </td>
 </tr>
@@ -398,17 +398,17 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 <tr>
 <td align="center" width="33%">
   <a href="https://youtu.be/kZDPn5CHkhg" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/source_code.gif" alt="Raaghu Source Code" width="240">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/source_code.png" alt="Raaghu Source Code" width="240">
   </a>
 </td>
 <td align="center" style="width: 33%;">
   <a href="https://youtu.be/kZDPn5CHkhg">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/packages.gif" alt="Raaghu Package" width="240">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/packages.png" alt="Raaghu Package" width="240">
   </a>
 </td>
 <td align="center" width="33%">
   <a href="https://youtu.be/qYAqjI_ta20" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/storybook.gif" alt="Raaghu Storybook" width="240">
+    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/storybook.png" alt="Raaghu Storybook" width="240">
   </a>
 </td>
 </tr>
