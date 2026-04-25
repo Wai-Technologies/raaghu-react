@@ -15,7 +15,7 @@
   </a>
 </p>
 
-</br>
+<br>
 
 <div align="center">
 
@@ -32,8 +32,8 @@
 
 </div>
 
-</br>
-</br>
+<br>
+<br>
 
 <h1 style="border-bottom:0;">Contents</h1>
 
@@ -45,7 +45,7 @@
 - [Communities](#communities)
 - [How to Contribute](#contribute)
 
-</br></br>
+<br><br>
 
 ## <a name='raaghu-intro'></a> What is Raaghu Design System?
 
@@ -53,20 +53,14 @@
   <b>The Raaghu Design System</b> is an AI-powered, component-driven development platform backed by a large, active community. We continuously enhance our platform by adding app shells, layouts, and component designs, which are transformed into coded components by AI Pundit and community members, enriching our component library. Each design component is seamlessly connected to code through Figma Code Connect, allowing designers and developers to achieve 3x faster front-end development. All components are rigorously tested using Chromatic to ensure quality and reliability.
 
 </p>
-</br>
+<br>
 <div align="center">
 
 <p> Built on a Robust Technology Stack </p>
-</br>
-<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/typescript.svg" width="50" height="50" alt="TypeScript"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/MillionJS.svg" width="50" height="50" alt="Atomic Design"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Storybook.svg" width="50" height="50" alt="Storybook"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/figma.svg" width="50" height="50" alt="figma"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Lottiefiles.svg" width="50" height="50" alt="Lottiefiles"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<br>
+<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/typescript.svg" width="50" height="50" alt="TypeScript"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/MillionJS.svg" width="50" height="50" alt="Atomic Design"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Storybook.svg" width="50" height="50" alt="Storybook"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/figma.svg" width="50" height="50" alt="figma"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Lottiefiles.svg" width="50" height="50" alt="Lottiefiles"/>
 </div>
-</br>
+<br>
 <!-- <p>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/build%20using-dark.png?raw=true?">
@@ -79,7 +73,7 @@
   Design System offers a Figma design kit available on the Figma Community and provides well-tested UI components documented in Storybook.
 </div>
 
-</br>
+<br>
 
 <div align="center">
 
@@ -100,7 +94,7 @@
   </a>
 
 </div>
-</br></br>
+<br><br>
 
 <p align="center">Built for Web Apps and Power Apps</p>
 <p align="center">
@@ -140,7 +134,7 @@
   </a>
 
 </div>
-</br>
+<br>
 <div align="center">
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
@@ -160,7 +154,7 @@
   </a>
 
 </div>
-</br>
+<br>
 <div align="center">
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
@@ -180,7 +174,7 @@
   </a>
 
 </div>
-</br>
+<br>
 <div align="center">
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
@@ -207,7 +201,7 @@
 <p>
 The Raaghu Design System streamlines front-end development by combining an AI-powered component-driven approach with seamless design-to-code integration. Designers use the Figma design kit, available on the Figma Community, to create prototypes, which are automatically linked to code via Figma Code Connect. Raaghu’s AI Pundit converts these designs into fully functional, reusable components, documented in Storybook. Continuous updates from community contributors and rigorous testing with Chromatic ensure quality, enabling designers and developers to achieve up to 3x faster development.
 </p>
-</br></br>
+<br><br>
 
 <p>
 <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/storybook-page.gif" alt="Storybook Gif" width="1000"> -->
@@ -230,7 +224,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 </p> -->
 
 <!-- ## <a name='features'></a> Features
-</br>
+<br>
 <p>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/features-dark.png?raw=true?">
@@ -243,7 +237,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 <!-- <p>
   Learn more about Raaghu Design System
 </p>  -->
-<!-- </br> -->
+<!-- <br> -->
 
 <div align="center">
 
@@ -264,7 +258,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
   </a>
 
 </div>
-</br>
+<br>
 <div align="center">
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
@@ -284,7 +278,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
   </a>
 
 </div>
-</br>
+<br>
 <div align="center">
 
   <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
@@ -352,11 +346,11 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
     </td>
   </tr>
 </table> -->
-</br>
+<br>
 
 ## <a name='insights'></a> Raaghu Resources
 
-</br> 
+<br> 
 <table width="100%">
 <thead>
 <tr>
@@ -385,7 +379,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 </tr>
 </tbody>
 </table>
-</br> 
+<br> 
 <table width="100%">
 <thead>
 <tr>
@@ -414,7 +408,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 </tr>
 </tbody>
 </table>
- </br> </br>
+ <br> <br>
 
 ## <a name='started'></a> Getting Started with Raaghu
 
@@ -456,4 +450,4 @@ This project is licensed under the MIT License - see the [`LICENSE`](https://git
     We expect our contributors to participate at it's highest potential and abide by our <a href="https://github.com/shubham-waii/raaghu/blob/development/CODE_OF_CONDUCT.md"> Code of Conduct</a>. Please read and follow it.<br>
     Let's build a great community and software together :relaxed:
 </p>
-</br>
+<br>
