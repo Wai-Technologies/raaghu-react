@@ -58,17 +58,7 @@
 
 <p> Built on a Robust Technology Stack </p>
 <br>
-<table align="center" border="0" cellpadding="12" cellspacing="0" style="margin: 0 auto;">
-  <tr style="background-color: transparent;">
-    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React"/></td>
-    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite"/></td>
-    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/typescript.svg" width="50" height="50" alt="TypeScript"/></td>
-    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/MillionJS.svg" width="50" height="50" alt="Atomic Design"/></td>
-    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Storybook.svg" width="50" height="50" alt="Storybook"/></td>
-    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/figma.svg" width="50" height="50" alt="figma"/></td>
-    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Lottiefiles.svg" width="50" height="50" alt="Lottiefiles"/></td>
-  </tr>
-</table>
+<p align="center"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React" style="display:inline-block;margin:0 20px"/>&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite" style="display:inline-block;margin:0 20px"/>&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/typescript.svg" width="50" height="50" alt="TypeScript" style="display:inline-block;margin:0 20px"/>&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/MillionJS.svg" width="50" height="50" alt="Atomic Design" style="display:inline-block;margin:0 20px"/>&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Storybook.svg" width="50" height="50" alt="Storybook" style="display:inline-block;margin:0 20px"/>&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/figma.svg" width="50" height="50" alt="figma" style="display:inline-block;margin:0 20px"/>&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Lottiefiles.svg" width="50" height="50" alt="Lottiefiles" style="display:inline-block;margin:0 20px"/></p>
 </div>
 <br>
 <!-- <p>
@@ -125,88 +115,13 @@
   </picture>
 </p> -->
 
-<table align="center" border="0" cellpadding="10" cellspacing="0" style="border-collapse: collapse; border: none;">
-  <tr style="background-color: transparent;">
-    <td align="center" style="border-style: none; background-color: transparent;">
-      <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card_dark.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card_light.png?raw=true">
-          <img alt="AI Powered" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card_light.png?raw=true" width="400" height="250">
-        </picture>
-      </a>
-    </td>
-    <td align="center" style="border-style: none; background-color: transparent;">
-      <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card_dark.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card_light.png?raw=true">
-          <img alt="Figma" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card_light.png?raw=true" width="400" height="250">
-        </picture>
-      </a>
-    </td>
-  </tr>
-  <tr style="background-color: transparent;">
-    <td align="center" style="border-style: none; background-color: transparent;">
-      <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card_dark.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card_light.png?raw=true">
-          <img alt="Seamless Design" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card_light.png?raw=true" width="400" height="250">
-        </picture>
-      </a>
-    </td>
-    <td align="center" style="border-style: none; background-color: transparent;">
-      <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card_dark.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card_light.png?raw=true">
-          <img alt="Community Support" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card_light.png?raw=true" width="400" height="250">
-        </picture>
-      </a>
-    </td>
-  </tr>
-  <tr style="background-color: transparent;">
-    <td align="center" style="border-style: none; background-color: transparent;">
-      <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card_dark.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card_light.png?raw=true">
-          <img alt="Storybook Documentation" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card_light.png?raw=true" width="400" height="250">
-        </picture>
-      </a>
-    </td>
-    <td align="center" style="border-style: none; background-color: transparent;">
-      <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card_dark.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card_light.png?raw=true">
-          <img alt="3x Faster" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card_light.png?raw=true" width="400" height="250">
-        </picture>
-      </a>
-    </td>
-  </tr>
-  <tr style="background-color: transparent;">
-    <td align="center" style="border-style: none; background-color: transparent;">
-      <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card_dark.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card_light.png?raw=true">
-          <img alt="Rigorous Testing" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card_light.png?raw=true" width="400" height="250">
-        </picture>
-      </a>
-    </td>
-    <td align="center" style="border-style: none; background-color: transparent;">
-      <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card_dark.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card_light.png?raw=true">
-          <img alt="Constant Innovation" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card_light.png?raw=true" width="400" height="250">
-        </picture>
-      </a>
-    </td>
-  </tr>
-</table>
+<p align="center"><a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card_dark.png?raw=true"><source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card_light.png?raw=true"><img alt="AI Powered" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card_light.png?raw=true" width="400" height="250" style="height:250px;object-fit:fill"></picture></a>&nbsp;&nbsp;<a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card_dark.png?raw=true"><source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card_light.png?raw=true"><img alt="Figma" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card_light.png?raw=true" width="400" height="250" style="height:250px;object-fit:fill"></picture></a></p>
+
+<p align="center"><a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card_dark.png?raw=true"><source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card_light.png?raw=true"><img alt="Seamless Design" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card_light.png?raw=true" width="400" height="250" style="height:250px;object-fit:fill"></picture></a>&nbsp;&nbsp;<a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card_dark.png?raw=true"><source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card_light.png?raw=true"><img alt="Community Support" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card_light.png?raw=true" width="400" height="250" style="height:250px;object-fit:fill"></picture></a></p>
+
+<p align="center"><a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card_dark.png?raw=true"><source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card_light.png?raw=true"><img alt="Storybook Documentation" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card_light.png?raw=true" width="400" height="250" style="height:250px;object-fit:fill"></picture></a>&nbsp;&nbsp;<a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card_dark.png?raw=true"><source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card_light.png?raw=true"><img alt="3x Faster" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card_light.png?raw=true" width="400" height="250" style="height:250px;object-fit:fill"></picture></a></p>
+
+<p align="center"><a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card_dark.png?raw=true"><source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card_light.png?raw=true"><img alt="Rigorous Testing" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card_light.png?raw=true" width="400" height="250" style="height:250px;object-fit:fill"></picture></a>&nbsp;&nbsp;<a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card_dark.png?raw=true"><source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card_light.png?raw=true"><img alt="Constant Innovation" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card_light.png?raw=true" width="400" height="250" style="height:250px;object-fit:fill"></picture></a></p>
 
 <!--
 ## <a name='how'></a> How Raaghu Design System Works?
@@ -246,65 +161,17 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
   </picture>
 </p>  -->
 
-## <a name='learn-more'></a> More about Raaghu Design System -->
+## <a name='learn-more'></a> More about Raaghu Design System
 <!-- <p>
   Learn more about Raaghu Design System
 </p> 
 <!-- <br> -->
 
-<table align="center" border="0" cellpadding="10" cellspacing="0" style="border-collapse: collapse; border: none;">
-  <tr style="background-color: transparent;">
-    <td align="center" style="border-style: none; background-color: transparent;">
-      <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true">
-          <img alt="App Shell" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true" width="350" height="220">
-        </picture>
-      </a>
-    </td>
-    <td align="center" style="border-style: none; background-color: transparent;">
-      <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true">
-          <img alt="Layouts" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true" width="350" height="220">
-        </picture>
-      </a>
-    </td>
-  </tr>
-  <tr style="background-color: transparent;">
-    <td align="center" style="border-style: none; background-color: transparent;">
-      <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/elements_card.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/elements_card.png?raw=true">
-          <img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/elements_card.png?raw=true" width="350" height="220">
-        </picture>
-      </a>
-    </td>
-    <td align="center" style="border-style: none; background-color: transparent;">
-      <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/components_card.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/components_card.png?raw=true">
-          <img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/components_card.png?raw=true" width="350" height="220">
-        </picture>
-      </a>
-    </td>
-  </tr>
-  <tr style="background-color: transparent;">
-    <td align="center" colspan="2" style="border-style: none; background-color: transparent;">
-      <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true">
-          <source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true">
-          <img alt="Design Tokens" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true" width="350" height="220">
-        </picture>
-      </a>
-    </td>
-  </tr>
-</table>
+<p align="center"><a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true"><source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true"><img alt="App Shell" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true" width="350" height="220" align="top"></picture></a>&nbsp;&nbsp;<a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true"><source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true"><img alt="Layouts" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true" width="350" height="220" align="top"></picture></a></p>
+
+<p align="center"><a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/elements_card.png?raw=true"><source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/elements_card.png?raw=true"><img alt="Elements" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/elements_card.png?raw=true" width="350" height="220" align="top"></picture></a>&nbsp;&nbsp;<a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/components_card.png?raw=true"><source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/components_card.png?raw=true"><img alt="Components" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/components_card.png?raw=true" width="350" height="220" align="top"></picture></a></p>
+
+<p align="center"><a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true"><source media="(prefers-color-scheme: light)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true"><img alt="Design Tokens" src="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true" width="350" height="220"></picture></a></p>
 
 <!-- Centered table with dark/light mode support for images -->
 <!-- <table align="center" cellpadding="12" style="width: 100%; max-width: 100%;">
@@ -366,62 +233,30 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 ## <a name='insights'></a> Raaghu Resources
 
 <br> 
-<table width="100%">
-<thead>
+<table align="center" border="0" cellpadding="8" cellspacing="0">
 <tr>
-<th align="center" width="33%">Accelerate Your Frontend Development with raaghu!</th>
-<th align="center" width="33%">Supercharge Your React Projects with Raaghu </th>
-<th align="center" width="33%">Introduction to Raaghu</th>
+<td align="center">Accelerate Your Frontend Development with raaghu!</td>
+<td align="center">Supercharge Your React Projects with Raaghu</td>
+<td align="center">Introduction to Raaghu</td>
 </tr>
-</thead>
-<tbody>
 <tr>
-<td align="center" width="33%">
-  <a href="https://youtu.be/LiZdckORQEg" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/trailer.gif" alt="Raaghu Trailer" width="240">
-  </a>
-</td>
-<td align="center" width="33%">
-  <a href="https://youtu.be/TgNxlkP1qww" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/why_raaghu.gif" alt="Why Raaghu" width="240">
-  </a>
-</td>
-<td align="center" width="33%">
-  <a href="https://youtu.be/FlU9GiVXkc0" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/raaghu_introduction.gif" alt="Raaghu Introduction" width="240">
-  </a>
-</td>
+<td align="center"><a href="https://youtu.be/LiZdckORQEg" target="_blank"><img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/trailer.gif" alt="Raaghu Trailer" width="240"></a></td>
+<td align="center"><a href="https://youtu.be/TgNxlkP1qww" target="_blank"><img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/why_raaghu.gif" alt="Why Raaghu" width="240"></a></td>
+<td align="center"><a href="https://youtu.be/FlU9GiVXkc0" target="_blank"><img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/raaghu_introduction.gif" alt="Raaghu Introduction" width="240"></a></td>
 </tr>
-</tbody>
 </table>
 <br> 
-<table width="100%">
-<thead>
+<table align="center" border="0" cellpadding="8" cellspacing="0">
 <tr>
-<th align="center" width="33%">Building Web Apps with Raaghu Source Code</th>
-<th align="center" width="33%">Building Web Apps with Raaghu Package</th>
-<th align="center" width="33%">Storybook - Backbone of Raaghu Design System</th>
+<td align="center">Building Web Apps with Raaghu Source Code</td>
+<td align="center">Building Web Apps with Raaghu Package</td>
+<td align="center">Storybook - Backbone of Raaghu Design System</td>
 </tr>
-</thead>
-<tbody>
 <tr>
-<td align="center" width="33%">
-  <a href="https://youtu.be/kZDPn5CHkhg" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/source_code.gif" alt="Raaghu Source Code" width="240">
-  </a>
-</td>
-<td align="center" style="width: 33%;">
-  <a href="https://youtu.be/kZDPn5CHkhg">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/packages.gif" alt="Raaghu Package" width="240">
-  </a>
-</td>
-<td align="center" width="33%">
-  <a href="https://youtu.be/qYAqjI_ta20" target="_blank">
-    <img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/storybook.gif" alt="Raaghu Storybook" width="240">
-  </a>
-</td>
+<td align="center"><a href="https://youtu.be/kZDPn5CHkhg" target="_blank"><img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/source_code.gif" alt="Raaghu Source Code" width="240"></a></td>
+<td align="center"><a href="https://youtu.be/kZDPn5CHkhg"><img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/packages.gif" alt="Raaghu Package" width="240"></a></td>
+<td align="center"><a href="https://youtu.be/qYAqjI_ta20" target="_blank"><img src="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/storybook.gif" alt="Raaghu Storybook" width="240"></a></td>
 </tr>
-</tbody>
 </table>
  <br> <br>
 
