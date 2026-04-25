@@ -58,7 +58,17 @@
 
 <p> Built on a Robust Technology Stack </p>
 <br>
-<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/typescript.svg" width="50" height="50" alt="TypeScript"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/MillionJS.svg" width="50" height="50" alt="Atomic Design"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Storybook.svg" width="50" height="50" alt="Storybook"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/figma.svg" width="50" height="50" alt="figma"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Lottiefiles.svg" width="50" height="50" alt="Lottiefiles"/>
+<table align="center" border="0" cellpadding="12" cellspacing="0" style="margin: 0 auto;">
+  <tr style="background-color: transparent;">
+    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/react.svg" width="50" height="50" alt="React"/></td>
+    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/vite.svg" width="50" height="50" alt="Vite"/></td>
+    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/typescript.svg" width="50" height="50" alt="TypeScript"/></td>
+    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/MillionJS.svg" width="50" height="50" alt="Atomic Design"/></td>
+    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Storybook.svg" width="50" height="50" alt="Storybook"/></td>
+    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/figma.svg" width="50" height="50" alt="figma"/></td>
+    <td align="center" style="border-style: none; background-color: transparent;"><img src="https://raaghu.ai/assets/img/Revamp_website_images/Technology-Stacks/Lottiefiles.svg" width="50" height="50" alt="Lottiefiles"/></td>
+  </tr>
+</table>
 </div>
 <br>
 <!-- <p>
@@ -116,8 +126,8 @@
 </p> -->
 
 <table align="center" border="0" cellpadding="10" cellspacing="0" style="border-collapse: collapse; border: none;">
-  <tr>
-    <td align="center" style="border: none; padding: 10px;">
+  <tr style="background-color: transparent;">
+    <td align="center" style="border-style: none; background-color: transparent;">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/ai_powered_card_dark.png?raw=true">
@@ -126,7 +136,7 @@
         </picture>
       </a>
     </td>
-    <td align="center" style="border: none; padding: 10px;">
+    <td align="center" style="border-style: none; background-color: transparent;">
       <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/figma_card_dark.png?raw=true">
@@ -136,8 +146,8 @@
       </a>
     </td>
   </tr>
-  <tr>
-    <td align="center" style="border: none; padding: 10px;">
+  <tr style="background-color: transparent;">
+    <td align="center" style="border-style: none; background-color: transparent;">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Seamles_design_card_dark.png?raw=true">
@@ -146,7 +156,7 @@
         </picture>
       </a>
     </td>
-    <td align="center" style="border: none; padding: 10px;">
+    <td align="center" style="border-style: none; background-color: transparent;">
       <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/community_support_card_dark.png?raw=true">
@@ -156,8 +166,8 @@
       </a>
     </td>
   </tr>
-  <tr>
-    <td align="center" style="border: none; padding: 10px;">
+  <tr style="background-color: transparent;">
+    <td align="center" style="border-style: none; background-color: transparent;">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/storybook_doc_card_dark.png?raw=true">
@@ -166,7 +176,7 @@
         </picture>
       </a>
     </td>
-    <td align="center" style="border: none; padding: 10px;">
+    <td align="center" style="border-style: none; background-color: transparent;">
       <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/3x_faster_card_dark.png?raw=true">
@@ -176,8 +186,8 @@
       </a>
     </td>
   </tr>
-  <tr>
-    <td align="center" style="border: none; padding: 10px;">
+  <tr style="background-color: transparent;">
+    <td align="center" style="border-style: none; background-color: transparent;">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/testing_card_dark.png?raw=true">
@@ -186,7 +196,7 @@
         </picture>
       </a>
     </td>
-    <td align="center" style="border: none; padding: 10px;">
+    <td align="center" style="border-style: none; background-color: transparent;">
       <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/inovation_card_dark.png?raw=true">
@@ -243,8 +253,8 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
 <!-- <br> -->
 
 <table align="center" border="0" cellpadding="10" cellspacing="0" style="border-collapse: collapse; border: none;">
-  <tr>
-    <td align="center" style="border: none; padding: 10px;">
+  <tr style="background-color: transparent;">
+    <td align="center" style="border-style: none; background-color: transparent;">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/App_Shell_card.png?raw=true">
@@ -253,7 +263,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
         </picture>
       </a>
     </td>
-    <td align="center" style="border: none; padding: 10px;">
+    <td align="center" style="border-style: none; background-color: transparent;">
       <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/layouts_card.png?raw=true">
@@ -263,8 +273,8 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
       </a>
     </td>
   </tr>
-  <tr>
-    <td align="center" style="border: none; padding: 10px;">
+  <tr style="background-color: transparent;">
+    <td align="center" style="border-style: none; background-color: transparent;">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/elements_card.png?raw=true">
@@ -273,7 +283,7 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
         </picture>
       </a>
     </td>
-    <td align="center" style="border: none; padding: 10px;">
+    <td align="center" style="border-style: none; background-color: transparent;">
       <a href="https://react.raaghu.ai/?path=/docs/components-account-external-provider--docs" rel="nofollow">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-designsystem/components_card.png?raw=true">
@@ -283,8 +293,8 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
       </a>
     </td>
   </tr>
-  <tr>
-    <td align="center" colspan="2" style="border: none; padding: 10px;">
+  <tr style="background-color: transparent;">
+    <td align="center" colspan="2" style="border-style: none; background-color: transparent;">
       <a href="https://react.raaghu.ai/?path=/docs/elements-accordion--docs" rel="nofollow">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/Design_tokens_card.png?raw=true">
