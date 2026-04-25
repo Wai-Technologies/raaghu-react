@@ -236,10 +236,10 @@ The Raaghu Design System streamlines front-end development by combining an AI-po
   </picture>
 </p>  -->
 
-<!-- ## <a name='learn-more'></a> More about Raaghu Design System -->
+## <a name='learn-more'></a> More about Raaghu Design System -->
 <!-- <p>
   Learn more about Raaghu Design System
-</p>  -->
+</p> 
 <!-- <br> -->
 
 <table align="center" border="0" cellpadding="10" cellspacing="0" style="border-collapse: collapse; border: none;">
