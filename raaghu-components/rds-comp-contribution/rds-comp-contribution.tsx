@@ -1,8 +1,11 @@
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import React, { useState, useEffect } from 'react';
 import Measure, { BoundingRect } from 'react-measure';
 import './rds-comp-contribution.scss';
 import SvgIcon from '@mui/material/SvgIcon';
+
+dayjs.extend(customParseFormat);
 
 export interface RdsCompContributionProps {  
   showMonthLabels?: boolean;
@@ -81,7 +84,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   };
 
   const makeCalendarData = (history: { [k: string]: number }, lastDay: string, columns: number) => {
-    const d = dayjs(lastDay, { format: dateFormat });
+    const d = dayjs(lastDay, dateFormat);
     const lastWeekend = d.endOf('week');
     const endDate = d.endOf('day');
   

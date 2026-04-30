@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import RdsCompAiMessageBox from "../rds-comp-ai-message-box/rds-comp-ai-message-box";
 import RdsCompAiTypingSection from "../rds-comp-ai-typing-section/rds-comp-ai-typing-section";
 import { Comment as AttachmentComment } from "../rds-comp-ai-attachement/rds-comp-ai-attachement";
-import RdsCompAiChatHeader from "../rds-comp-ai-chat-header/rds-comp-ai-chat-header";
+import RdsCompAiChatHeader, { ChatHeaderSize } from "../rds-comp-ai-chat-header/rds-comp-ai-chat-header";
 import "./rds-comp-ai-chat-bot.scss";
 
 export interface RdsCompAiChatBotProps {
@@ -81,6 +81,7 @@ const RdsCompAiChatBot = (props: RdsCompAiChatBotProps) => {
                 <RdsCompAiChatHeader
                     logoUrl={aiLogoUrl}
                     title="New Chat Started"
+                    size={ChatHeaderSize.Medium}
                 />
                 {messages.map((message) => (
                     <div

@@ -13,32 +13,38 @@ const RdsTextField: React.FC<RdsTextFieldProps> = ({
   error,
   helperText,
   defaultValue,
+  className,
+  FormHelperTextProps: formHelperTextProps,
   ...props
 }) => {
   const rootClassName = [
     'rds-text-field',
-    props.className,
+    className,
   ].filter(Boolean).join(' ');
 
   const mergedHelperTextProps = {
-    ...props.FormHelperTextProps,
+    ...formHelperTextProps,
     className: [
       'rds-text-field__helper-text',
-      props.FormHelperTextProps?.className,
+      formHelperTextProps?.className,
     ].filter(Boolean).join(' '),
   };
+  
+  // Handle defaultValue - only pass it if explicitly provided and no value prop is present
+  // to prevent React warnings about controlled/uncontrolled components
   const fieldProps = defaultValue !== undefined && props.value === undefined
-    ? { value: defaultValue }
-    : { defaultValue };
+    ? { defaultValue } 
+    : {};
+    
   return (
     <MuiTextField
       error={error || !!errorMessage}
       helperText={errorMessage || helperText}
       required={isRequired}
-      className={rootClassName}
       FormHelperTextProps={mergedHelperTextProps}
       {...fieldProps}
       {...props}
+      className={rootClassName}
     />
   );
 };

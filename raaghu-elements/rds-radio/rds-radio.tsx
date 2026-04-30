@@ -125,6 +125,8 @@ const RdsRadio= ({
     );
   };
 
+  const { value: _ignoredValue, ...restProps } = props;
+
   return (
     <FormControl 
       component="fieldset" 
@@ -145,7 +147,7 @@ const RdsRadio= ({
               props.onChange(e as any, val);
             }
           }}
-          {...props}
+          {...restProps}
         >
           {options.map(renderOption)}
         </RadioGroup>
