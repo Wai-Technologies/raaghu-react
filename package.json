@@ -1,6 +1,6 @@
 {
   "name": "@waiin/raaghu-react",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "@waiin/raaghu-react is an React based design system from Raaghu Design System built on top of MUI and Fluent UI. @waiin/raaghu-react employs React, Typescript, Vite, Millions and Storybook features to develop highly customizable UI components and pages, that provides application shells, layouts, elements, components, map and charts.",
   "keywords": [
     "react",
