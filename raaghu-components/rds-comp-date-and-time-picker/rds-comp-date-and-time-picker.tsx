@@ -492,7 +492,7 @@ export default function RdsCompDatePicker({
         sx: {
           boxShadow: 'none',
           border: '2px solid #2196F3 ',
-          borderRadius: '8px',
+          borderRadius: '4px',
         },
         ...slotProps?.desktopPaper,
       },
