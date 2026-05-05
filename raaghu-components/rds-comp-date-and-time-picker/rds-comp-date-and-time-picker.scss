@@ -1113,6 +1113,37 @@
   margin-top: 3px !important;
 }
 
+// Action bar button styling for all pickers
+.MuiPickersLayout-actionBar {
+  padding: 8px 16px !important;
+
+  .MuiButton-root {
+    text-transform: none !important;
+    font-weight: 500 !important;
+    border-radius: 6px !important;
+  }
+
+  // Cancel button — plain text
+  .MuiButton-root:first-of-type {
+    color: rgba(0, 0, 0, 0.6) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  // OK button — filled blue
+  .MuiButton-root:last-of-type {
+    background-color: #2196F3 !important;
+    color: #fff !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    box-shadow: none !important;
+
+    &:hover {
+      background-color: #1976d2 !important;
+    }
+  }
+}
+
 .rds-date-picker--timerange .MuiStack-root .MuiBox-root .MuiFormControl-root {
     width: 100%;
     min-width: 154px;
