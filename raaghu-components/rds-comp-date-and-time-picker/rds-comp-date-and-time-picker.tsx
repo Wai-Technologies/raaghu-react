@@ -476,6 +476,18 @@ export default function RdsCompDatePicker({
         className: 'rds-date-picker__day',
       },
       ...slotProps,
+      popper: {
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, 8],
+            },
+          },
+          ...(slotProps?.popper?.modifiers ?? []),
+        ],
+        ...slotProps?.popper,
+      },
     },
   } as const;
 
