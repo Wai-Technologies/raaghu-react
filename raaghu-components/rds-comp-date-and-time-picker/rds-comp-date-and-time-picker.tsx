@@ -598,7 +598,7 @@ export default function RdsCompDatePicker({
         return (
           <TimePicker
             {...singlePickerProps}
-            format={format || (showSeconds ? 'HH:mm:ss a' : 'HH:mm a')}
+            format={format || (showSeconds ? 'hh:mm:ss' : 'hh:mm')}
             views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
             ampm={true}
             timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
@@ -609,7 +609,7 @@ export default function RdsCompDatePicker({
         return (
           <DateTimePicker
             {...singlePickerProps}
-            format={format || (showSeconds ? 'MM/DD/YYYY HH:mm:ss a' : 'MM/DD/YYYY HH:mm a')}
+            format={format || (showSeconds ? 'MM/DD/YYYY hh:mm:ss' : 'MM/DD/YYYY hh:mm')}
             ampm={true}
             views={showSeconds ? ['year', 'month', 'day', 'hours', 'minutes', 'seconds'] : ['year', 'month', 'day', 'hours', 'minutes']}
             timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
