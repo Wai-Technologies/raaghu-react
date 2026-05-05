@@ -9,6 +9,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { TimeClock } from '@mui/x-date-pickers/TimeClock';
+import { MultiSectionDigitalClock } from '@mui/x-date-pickers/MultiSectionDigitalClock';
 import Popover from '@mui/material/Popover';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
@@ -349,7 +350,6 @@ function RangeDateTime({
   minTime,
   maxTime,
   multiMonth,
-  size = 'medium',
 }: {
   value: [Dayjs | null, Dayjs | null];
   onChange: (v: [Dayjs | null, Dayjs | null]) => void;
@@ -361,11 +361,47 @@ function RangeDateTime({
   multiMonth?: boolean;
   size?: 'small' | 'medium';
 }) {
+  const [start, end] = value;
+
+  const handleStartTimeChange = (newStart: Dayjs | null) => {
+    onChange([newStart, end]);
+  };
+
+  const handleEndTimeChange = (newEnd: Dayjs | null) => {
+    onChange([start, newEnd]);
+  };
+
   return (
-    <Stack direction="column" spacing={2}>
+    <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
       <RangeCalendar value={value} onChange={onChange} minDate={minDate} maxDate={maxDate} multiMonth={multiMonth} />
-      <RangeTime value={value} onChange={onChange} showSeconds={showSeconds} minTime={minTime} maxTime={maxTime} size={size} />
-    </Stack>
+      <Box sx={{ width: '1px', bgcolor: '#2196F3', alignSelf: 'stretch', my: 1, mx: 1 }} />
+      <Box>
+        <Box sx={{ fontSize: '0.75rem', color: 'text.secondary', mb: 0.5, textAlign: 'center' }}>Start Time</Box>
+        <MultiSectionDigitalClock
+          value={start}
+          onChange={handleStartTimeChange}
+          views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
+          timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
+          ampm
+          minTime={minTime}
+          maxTime={end ?? maxTime}
+        />
+      </Box>
+      
+      <Box sx={{ width: '.5px', alignSelf: 'stretch', my: 1, mx: 1 }} />
+      <Box>
+        <Box sx={{ fontSize: '0.75rem', color: 'text.secondary', mb: 0.5, textAlign: 'center' }}>End Time</Box>
+        <MultiSectionDigitalClock
+          value={end}
+          onChange={handleEndTimeChange}
+          views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
+          timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
+          ampm
+          minTime={start ?? minTime}
+          maxTime={maxTime}
+        />
+      </Box>
+    </Box>
   );
 }
 
@@ -596,7 +632,6 @@ export default function RdsCompDatePicker({
                     minTime={minTime}
                     maxTime={maxTime}
                     multiMonth={isMultiMonth}
-                    size={size}
                   />
                 )}
               </>
