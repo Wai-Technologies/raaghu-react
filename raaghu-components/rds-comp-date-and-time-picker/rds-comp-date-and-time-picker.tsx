@@ -315,6 +315,7 @@ function RangeTime({
             textField: {
               size: size,
               fullWidth: true,
+              sx: { '& .MuiOutlinedInput-root': { border: '2px solid #2196F3', borderRadius: '4px' } },
             },
           }}
         />
@@ -333,6 +334,7 @@ function RangeTime({
             textField: {
               size: size,
               fullWidth: true,
+              sx: { '& .MuiOutlinedInput-root': { border: '2px solid #2196F3', borderRadius: '4px' } },
             },
           }}
         />
@@ -359,7 +361,6 @@ function RangeDateTime({
   minTime?: Dayjs;
   maxTime?: Dayjs;
   multiMonth?: boolean;
-  size?: 'small' | 'medium';
 }) {
   const [start, end] = value;
 
@@ -586,7 +587,7 @@ export default function RdsCompDatePicker({
           transformOrigin={{ vertical: 'top', horizontal: 'left' }}
           className="MuiPickersPopper-root"
         >
-          <Paper elevation={3} sx={{ p: 2 }}>
+          <Paper elevation={3} sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', border: '2px solid #2196F3', borderRadius: '4px', boxShadow: 'none' }}>
             {style === 'custom' && variant === 'daterange' ? (
               <CustomDateRangeLayout
                 selectedPreset={selectedPreset}
