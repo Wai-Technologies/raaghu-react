@@ -315,7 +315,16 @@ function RangeTime({
             textField: {
               size: size,
               fullWidth: true,
-              sx: { '& .MuiOutlinedInput-root': { border: '2px solid #2196F3', borderRadius: '4px' } },
+              sx: {
+                '& .MuiOutlinedInput-root': {
+                  '&:hover fieldset': {
+                    borderColor: '#2196F3',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#2196F3',
+                  },
+                },
+              },
             },
           }}
         />
@@ -334,7 +343,16 @@ function RangeTime({
             textField: {
               size: size,
               fullWidth: true,
-              sx: { '& .MuiOutlinedInput-root': { border: '2px solid #2196F3', borderRadius: '4px' } },
+              sx: {
+                '& .MuiOutlinedInput-root': {
+                  '&:hover fieldset': {
+                    borderColor: '#2196F3',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#2196F3',
+                  },
+                },
+              },
             },
           }}
         />
@@ -491,6 +509,16 @@ export default function RdsCompDatePicker({
         size,
         required: isRequired,
         className: `rds-date-picker__input ${disabled ? 'rds-date-picker__input--disabled' : ''} ${readOnly ? 'rds-date-picker__input--readonly' : ''} ${isRequired ? 'rds-date-picker__input--required' : ''}`,
+        sx: {
+          '& .MuiOutlinedInput-root': {
+            '&:hover fieldset': {
+              borderColor: '#2196F3',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#2196F3',
+            },
+          },
+        },
         InputLabelProps: {
           ...(isRequired && { 
             disableAnimation: false,
@@ -561,6 +589,16 @@ export default function RdsCompDatePicker({
           size={size}
           fullWidth
           disabled={disabled}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              '&:hover fieldset': {
+                borderColor: '#2196F3',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: '#2196F3',
+              },
+            },
+          }}
           InputProps={{ readOnly: true, style: { cursor: disabled ? 'default' : 'pointer' },
             endAdornment: (
               <InputAdornment position="end">
@@ -637,7 +675,7 @@ export default function RdsCompDatePicker({
                 )}
               </>
             )}
-            <Box display="flex" justifyContent="flex-end" gap={1} mt={2}>
+            <Box display="flex" justifyContent="flex-end" gap={1} mt={2} width="100%">
               <Button size="small" onClick={() => { setRangeValue([null, null]); onChange?.([null, null]); }}>Clear</Button>
               <Button size="small" variant="contained" onClick={() => setAnchorEl(null)}>Apply</Button>
             </Box>
