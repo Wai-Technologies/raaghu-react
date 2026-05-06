@@ -316,6 +316,9 @@ function RangeTime({
               fullWidth: true,
               sx: {
                 '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#2196F3',
+                  },
                   '&:hover fieldset': {
                     borderColor: '#2196F3',
                   },
@@ -328,6 +331,13 @@ function RangeTime({
             popper: {
               placement: 'bottom-start',
               modifiers: [{ name: 'offset', options: { offset: [0, 4] } }],
+            },
+            desktopPaper: {
+              sx: {
+                boxShadow: 'none',
+                border: '2px solid #2196F3',
+                borderRadius: '4px',
+              },
             },
           }}
         />
@@ -348,6 +358,9 @@ function RangeTime({
               fullWidth: true,
               sx: {
                 '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#2196F3',
+                  },
                   '&:hover fieldset': {
                     borderColor: '#2196F3',
                   },
@@ -360,6 +373,13 @@ function RangeTime({
             popper: {
               placement: 'bottom-start',
               modifiers: [{ name: 'offset', options: { offset: [0, 4] } }],
+            },
+            desktopPaper: {
+              sx: {
+                boxShadow: 'none',
+                border: '2px solid #2196F3',
+                borderRadius: '4px',
+              },
             },
           }}
         />
