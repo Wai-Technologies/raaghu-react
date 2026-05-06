@@ -99,7 +99,10 @@ export const TimePicker: Story = {
         placeholder: 'HH:MM AM/PM',
         size: 'small',
         showSeconds: true,
-    }
+    },
+    argTypes: {
+        layout: { table: { disable: true } },
+    },
 };
 
 export const DateTimePicker: Story = {
@@ -109,6 +112,9 @@ export const DateTimePicker: Story = {
         placeholder: 'MM/DD/YYYY HH:MM:SS AM/PM',
         size: 'small',
         showSeconds: true,
+    },
+    argTypes: {
+        layout: { table: { disable: true } },
     },
     render: (args) => (
         <RdsCompDatePicker
@@ -125,6 +131,9 @@ export const DateRangePicker: Story = {
         style: 'default',
         size: 'small',
     },
+    argTypes: {
+        layout: { table: { disable: true } },
+    },
     render: (args) => (
         <RdsCompDatePicker
             {...args}
@@ -139,7 +148,10 @@ export const TimeRangePicker: Story = {
         placeholder: 'Start time - End time',
         size: 'small',
         showSeconds: true,
-    }
+    },
+    argTypes: {
+        layout: { table: { disable: true } },
+    },
 };
 
 export const DateTimeRangePicker: Story = {
@@ -148,6 +160,67 @@ export const DateTimeRangePicker: Story = {
         placeholder: 'Start date & time - End date & time',
         size: 'small',
         showSeconds: true,
+    },
+    argTypes: {
+        layout: { table: { disable: true } },
+    },
+    render: (args) => (
+        <RdsCompDatePicker
+            {...args}
+            minDate={dayjs('1900-01-01')}
+        />
+    ),
+};
+
+export const YearPicker: Story = {
+    args: {
+        variant: 'date',
+        layout: 'Year Picker',
+        label: 'Select Year',
+        placeholder: 'YYYY',
+        size: 'small',
+    },
+    argTypes: {
+        layout: { control: false },
+    },
+    render: (args) => (
+        <RdsCompDatePicker
+            {...args}
+            minDate={dayjs('1900-01-01')}
+            maxDate={dayjs('2100-12-31')}
+        />
+    ),
+};
+
+export const MonthPicker: Story = {
+    args: {
+        variant: 'date',
+        layout: 'Month Picker',
+        label: 'Select Month',
+        placeholder: 'MMMM YYYY',
+        size: 'small',
+    },
+    argTypes: {
+        layout: { control: false },
+    },
+    render: (args) => (
+        <RdsCompDatePicker
+            {...args}
+            minDate={dayjs('1900-01-01')}
+            maxDate={dayjs('2100-12-31')}
+        />
+    ),
+};
+
+export const MultiMonthPicker: Story = {
+    args: {
+        variant: 'daterange',
+        layout: 'Multi Month',
+        placeholder: 'Start date - End date',
+        size: 'small',
+    },
+    argTypes: {
+        layout: { control: false },
     },
     render: (args) => (
         <RdsCompDatePicker

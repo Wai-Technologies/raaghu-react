@@ -750,18 +750,22 @@ export default function RdsCompDatePicker({
       case 'Year Picker':
         return (
           <DatePicker
+            key="year-picker"
             {...singlePickerProps}
             format={format || 'YYYY'}
             views={['year']}
+            openTo="year"
           />
         );
       
       case 'Month Picker':
         return (
           <DatePicker
+            key="month-picker"
             {...singlePickerProps}
-            format={format || 'MMMM'}
-            views={['month']}
+            format={format || 'MMMM YYYY'}
+            views={['year', 'month']}
+            openTo="month"
           />
         );
       
@@ -773,6 +777,7 @@ export default function RdsCompDatePicker({
       default:
         return (
           <DatePicker
+            key="default-picker"
             {...singlePickerProps}
             views={['year', 'month', 'day']}
             openTo="day"
