@@ -325,6 +325,10 @@ function RangeTime({
                 },
               },
             },
+            popper: {
+              placement: 'bottom-start',
+              modifiers: [{ name: 'offset', options: { offset: [0, 4] } }],
+            },
           }}
         />
       </Box>
@@ -352,6 +356,10 @@ function RangeTime({
                   },
                 },
               },
+            },
+            popper: {
+              placement: 'bottom-start',
+              modifiers: [{ name: 'offset', options: { offset: [0, 4] } }],
             },
           }}
         />
