@@ -459,6 +459,7 @@ export default function RdsCompDatePicker({
 
   const [selectedPreset, setSelectedPreset] = React.useState<string>('custom');
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const inputContainerRef = React.useRef<HTMLDivElement>(null);
 
   // Handle preset selection
   const handlePresetSelect = (preset: DateRangePreset) => {
@@ -541,6 +542,7 @@ export default function RdsCompDatePicker({
       },
       ...slotProps,
       popper: {
+        placement: 'bottom-start',
         modifiers: [
           {
             name: 'offset',
@@ -581,41 +583,43 @@ export default function RdsCompDatePicker({
 
     return (
       <>
-        <TextField
-          onClick={(e) => { if (!disabled) setAnchorEl(e.currentTarget as HTMLElement); }}
-          value={inputValue}
-          placeholder={placeholder}
-          label={formattedLabel}
-          size={size}
-          disabled={disabled}
-          sx={{
-            '& .MuiOutlinedInput-root': {
-              '&:hover fieldset': {
-                borderColor: '#2196F3',
+        <div ref={inputContainerRef} style={{ display: 'inline-block' }}>
+          <TextField
+            onClick={() => { if (!disabled) setAnchorEl(inputContainerRef.current); }}
+            value={inputValue}
+            placeholder={placeholder}
+            label={formattedLabel}
+            size={size}
+            disabled={disabled}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '&:hover fieldset': {
+                  borderColor: '#2196F3',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#2196F3',
+                },
               },
-              '&.Mui-focused fieldset': {
-                borderColor: '#2196F3',
-              },
-            },
-          }}
-          InputProps={{ readOnly: true, style: { cursor: disabled ? 'default' : 'pointer' },
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  edge="end"
-                  size={size === 'small' ? 'small' : 'medium'}
-                  onClick={(e) => { e.stopPropagation(); if (!disabled) setAnchorEl(e.currentTarget as HTMLElement); }}
-                  disabled={disabled || readOnly}
-                  aria-label="open calendar"
-                >
-                  <EventIcon fontSize="small" />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-          error={error}
-          className={`rds-date-picker__input ${disabled ? 'rds-date-picker__input--disabled' : ''} ${readOnly ? 'rds-date-picker__input--readonly' : ''} ${isRequired ? 'rds-date-picker__input--required' : ''}`}
-        />
+            }}
+            InputProps={{ readOnly: true, style: { cursor: disabled ? 'default' : 'pointer' },
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    edge="end"
+                    size={size === 'small' ? 'small' : 'medium'}
+                    onClick={(e) => { e.stopPropagation(); if (!disabled) setAnchorEl(inputContainerRef.current); }}
+                    disabled={disabled || readOnly}
+                    aria-label="open calendar"
+                  >
+                    <EventIcon fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            error={error}
+            className={`rds-date-picker__input ${disabled ? 'rds-date-picker__input--disabled' : ''} ${readOnly ? 'rds-date-picker__input--readonly' : ''} ${isRequired ? 'rds-date-picker__input--required' : ''}`}
+          />
+        </div>
         <Popover
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
@@ -623,6 +627,7 @@ export default function RdsCompDatePicker({
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'left' }}
           className="MuiPickersPopper-root"
+          marginThreshold={8}
         >
           <Paper elevation={3} sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', border: '2px solid #2196F3', borderRadius: '4px', boxShadow: 'none' }}>
             {style === 'custom' && variant === 'daterange' ? (
