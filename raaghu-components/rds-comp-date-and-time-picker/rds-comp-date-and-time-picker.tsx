@@ -19,7 +19,6 @@ import EventIcon from '@mui/icons-material/Event';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import './rds-comp-date-and-time-picker.scss';
 
 export interface RdsCompDatePickerProps {
   variant?: 'date' | 'time' | 'datetime' | 'daterange' | 'timerange' | 'datetimerange';
@@ -576,7 +575,8 @@ export default function RdsCompDatePicker({
 
   // Custom combined field for range variants
   const renderRangeField = () => {
-    const inputValue = formatRangeText(variant as any, rangeValue, showSeconds);
+    const effectiveRangeVariant = (variant === 'date' && layout === 'Multi Month') ? 'daterange' : variant as any;
+    const inputValue = formatRangeText(effectiveRangeVariant, rangeValue, showSeconds);
     const isMultiMonth = layout === 'Multi Month';
 
     return (
@@ -642,7 +642,7 @@ export default function RdsCompDatePicker({
               </CustomDateRangeLayout>
             ) : (
               <>
-                {variant === 'daterange' && (
+                {(variant === 'daterange' || (variant === 'date' && layout === 'Multi Month')) && (
                   <RangeCalendar
                     value={rangeValue}
                     onChange={handleRangeChange}
