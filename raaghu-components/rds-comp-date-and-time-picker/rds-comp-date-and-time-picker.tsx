@@ -755,6 +755,20 @@ export default function RdsCompDatePicker({
             format={format || 'YYYY'}
             views={['year']}
             openTo="year"
+            slots={{ actionBar: () => null }}
+            slotProps={{
+              ...singlePickerProps.slotProps,
+              desktopPaper: {
+                sx: {
+                  boxShadow: 'none',
+                  border: '2px solid #2196F3',
+                  borderRadius: '4px',
+                  '& .MuiDateCalendar-root': { height: 'auto' },
+                  '& .MuiPickersLayout-contentWrapper': { height: 'auto' },
+                  '& .MuiYearCalendar-root': { height: 'auto', maxHeight: '280px', overflowY: 'auto' },
+                },
+              },
+            }}
           />
         );
       
@@ -766,6 +780,20 @@ export default function RdsCompDatePicker({
             format={format || 'MMMM YYYY'}
             views={['year', 'month']}
             openTo="month"
+            slots={{ actionBar: () => null }}
+            slotProps={{
+              ...singlePickerProps.slotProps,
+              desktopPaper: {
+                sx: {
+                  boxShadow: 'none',
+                  border: '2px solid #2196F3',
+                  borderRadius: '4px',
+                  '& .MuiDateCalendar-root': { height: 'auto' },
+                  '& .MuiPickersLayout-contentWrapper': { height: 'auto' },
+                  '& .MuiMonthCalendar-root': { height: 'auto' },
+                },
+              },
+            }}
           />
         );
       
