@@ -681,22 +681,21 @@
       font-weight: 600;
       
       &:not(.Mui-selected) {
-        background-color: #fff;
-        color: #2196F3;
-        border-radius: 4px;
+        // background-color: transparent !important;
+        color: var(--rds-color-primary, #2196F3) !important;
       }
       
       // When today's date is selected, ensure white text color
       &.Mui-selected {
-        background-color: #2196F3 !important;
-        color: #fff !important;
-        border: 2px solid #2196F3 !important;
+        background-color: var(--rds-color-primary, #2196F3) !important;
+        color: var(--rds-color-on-primary, #fff) !important;
+        border: 2px solid var(--rds-color-primary, #2196F3) !important;
         font-weight: 600 !important;
         
         &:hover {
-          background-color: #1976d2 !important;
-          color: #fff !important;
-          border: 2px solid #1976d2 !important;
+          background-color: var(--rds-color-primary-dark, #1976d2) !important;
+          color: var(--rds-color-on-primary, #fff) !important;
+          border: 2px solid var(--rds-color-primary-dark, #1976d2) !important;
         }
       }
     }
