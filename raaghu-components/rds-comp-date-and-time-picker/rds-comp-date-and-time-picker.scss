@@ -553,7 +553,7 @@
   }
   
   .MuiFormControl-root {
-    width: auto;
+    width: fit-content;
     min-width: 200px; // Base minimum width for usability
     max-width: 300px; // Increased to accommodate range pickers
     

@@ -504,7 +504,7 @@ export default function RdsCompDatePicker({
         error,
         label: formattedLabel,
         placeholder: placeholder,
-        fullWidth: true,
+        fullWidth: false,
         size,
         required: isRequired,
         className: `rds-date-picker__input ${disabled ? 'rds-date-picker__input--disabled' : ''} ${readOnly ? 'rds-date-picker__input--readonly' : ''} ${isRequired ? 'rds-date-picker__input--required' : ''}`,
@@ -587,7 +587,6 @@ export default function RdsCompDatePicker({
           placeholder={placeholder}
           label={formattedLabel}
           size={size}
-          fullWidth
           disabled={disabled}
           sx={{
             '& .MuiOutlinedInput-root': {
