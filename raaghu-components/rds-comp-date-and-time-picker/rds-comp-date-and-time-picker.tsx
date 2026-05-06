@@ -628,6 +628,7 @@ export default function RdsCompDatePicker({
           transformOrigin={{ vertical: 'top', horizontal: 'left' }}
           className="MuiPickersPopper-root"
           marginThreshold={8}
+          slotProps={{ paper: { sx: { mt: '4px' } } }}
         >
           <Paper elevation={3} sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', border: '2px solid #2196F3', borderRadius: '4px', boxShadow: 'none' }}>
             {style === 'custom' && variant === 'daterange' ? (
