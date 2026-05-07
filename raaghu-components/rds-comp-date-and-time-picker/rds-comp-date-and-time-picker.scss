@@ -960,6 +960,17 @@
 .rds-date-picker__time-range-item {
   flex: 1;
   min-width: 0;
+
+  .MuiFormControl-root {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .MuiInputBase-root {
+    width: 100%;
+    min-width: 0;
+  }
 }
 
 .rds-date-picker__range-actions {
@@ -1378,23 +1389,20 @@
 
 // Specific styles for time range picker component
 .rds-date-picker--timerange {
-  .MuiStack-root {
-    display: flex;
-    gap: 16px;
+  // Layout for the two side-by-side time inputs
+  .rds-date-picker__time-range-stack {
     width: 100%;
-    
-    .MuiBox-root {
-      flex: 1;
-      min-width: 0;
-      
-      .MuiFormControl-root {
-        width: 100%;
-        min-width: 160px;
-        max-width: none;
-      }
+  }
+
+  .rds-date-picker__time-range-item {
+    .MuiFormControl-root {
+      width: 100% !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      margin-left: 0 !important;
     }
   }
-  
+
   // Ensure proper spacing and layout for time range inputs
   .MuiFormControl-root {
     margin-bottom: 0;
@@ -1484,13 +1492,6 @@
       background-color: #1976d2 !important;
     }
   }
-}
-
-.rds-date-picker--timerange .MuiStack-root .MuiBox-root .MuiFormControl-root {
-    width: 100%;
-    min-width: 154px;
-    max-width: none;
-    margin-left: -14px;
 }
 
 @media (max-width: 430px) {
