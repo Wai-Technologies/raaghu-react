@@ -1,4 +1,4 @@
-import RdsCompDatePicker, { DatePickerDemo } from "./rds-comp-date-and-time-picker";
+import RdsCompDatePicker from "./rds-comp-date-and-time-picker";
 import { Meta, StoryObj } from "@storybook/react";
 import dayjs from 'dayjs';
 

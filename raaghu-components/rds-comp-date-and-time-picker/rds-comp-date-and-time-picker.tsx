@@ -9,7 +9,6 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
-import { TimeClock } from '@mui/x-date-pickers/TimeClock';
 import { MultiSectionDigitalClock } from '@mui/x-date-pickers/MultiSectionDigitalClock';
 import Popover from '@mui/material/Popover';
 import Paper from '@mui/material/Paper';
@@ -40,8 +39,6 @@ export interface RdsCompDatePickerProps {
   className?: string;
   size?: 'small' | 'medium';
   slotProps?: Record<string, any>;
-  state?: 'default' | 'expanded' | 'selected';
-  changeIcon?: 'dashboard-settings' | 'date-picker';
   style?: 'default' | 'custom';
   type?: 'dropdown' | 'selector';
   showSeconds?: boolean; // New prop to control seconds display
@@ -434,9 +431,6 @@ export default function RdsCompDatePicker({
   showSeconds = true,
   isRequired = false,
 }: RdsCompDatePickerProps) {
-  // Determine if we need range values
-  const isRangeVariant = variant.includes('range') || layout === 'Multi Month';
-
   // State management
   const [dateValue, setDateValue] = React.useState<Dayjs | null>(
     Array.isArray(value) ? value[0] : (value as Dayjs | null) || null
