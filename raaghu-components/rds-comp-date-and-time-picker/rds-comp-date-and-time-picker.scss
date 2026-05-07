@@ -261,6 +261,20 @@
     background-color: var(--rds-color-surface, #ffffff);
   }
 
+  &__range-input-container {
+    display: inline-block;
+  }
+
+  // Open state for range/multi-month input (popover is open)
+  &__input--open {
+    .MuiOutlinedInput-root {
+      .MuiOutlinedInput-notchedOutline {
+        border-color: var(--rds-color-primary, #2196F3) !important;
+        border-width: 2px !important;
+      }
+    }
+  }
+
   // Input element styling
   &__input {
     cursor: pointer;
@@ -514,13 +528,13 @@
     cursor: pointer;
     
     &:hover .MuiOutlinedInput-notchedOutline {
-      border-width: 2px;
-      border-color: var(--rds-color-primary, #1976d2);
+      border-width: 2px !important;
+      border-color: var(--rds-color-primary, #2196F3) !important;
     }
     
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
-      border-width: 2px;
-      border-color: var(--rds-color-primary, #1976d2);
+      border-width: 2px !important;
+      border-color: var(--rds-color-primary, #2196F3) !important;
     }
     
     &.Mui-error .MuiOutlinedInput-notchedOutline {
@@ -946,6 +960,103 @@
 
 .MuiPickersPopper-root {
   animation: rds-date-picker-fade-in 0.2s ease-out;
+}
+
+// ==============================================
+// Global portal styles for RDS Date Picker
+// (Portals render outside .rds-date-picker in DOM)
+// ==============================================
+
+// Base picker paper (DatePicker, TimePicker, DateTimePicker dropdowns)
+.rds-date-picker__picker-paper {
+  box-shadow: none !important;
+  border: 2px solid #2196F3 !important;
+  border-radius: 4px !important;
+}
+
+// Year picker paper - adjusts internal calendar heights
+.rds-date-picker__year-picker-paper {
+  .MuiDateCalendar-root {
+    height: auto;
+  }
+
+  .MuiPickersLayout-contentWrapper {
+    height: auto;
+  }
+
+  .MuiYearCalendar-root {
+    height: auto;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+}
+
+// Month picker paper - adjusts internal calendar heights
+.rds-date-picker__month-picker-paper {
+  .MuiDateCalendar-root {
+    height: auto;
+  }
+
+  .MuiPickersLayout-contentWrapper {
+    height: auto;
+  }
+
+  .MuiMonthCalendar-root {
+    height: auto;
+  }
+}
+
+// Range picker Popover paper
+.rds-date-picker__range-paper {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #2196F3 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+}
+
+// Top margin gap between input and popover
+.rds-date-picker__popover-paper-gap {
+  margin-top: 4px;
+}
+
+// Custom range day state classes (applied via className in renderDaySlot)
+.rds-date-picker__day--in-range {
+  background-color: var(--rds-color-primary-hover, #E3F2FD) !important;
+  color: var(--rds-color-primary, #1976d2) !important;
+}
+
+.rds-date-picker__day--range-end-point {
+  background-color: var(--rds-color-primary, #2196F3) !important;
+  color: var(--rds-color-on-primary, #fff) !important;
+}
+
+// RangeDateTime layout classes
+.rds-date-picker__range-datetime {
+  display: flex;
+  align-items: flex-start;
+}
+
+.rds-date-picker__range-datetime-divider {
+  width: 1px;
+  background-color: #2196F3;
+  align-self: stretch;
+  margin: 8px;
+}
+
+.rds-date-picker__range-datetime-spacer {
+  width: 0.5px;
+  align-self: stretch;
+  margin: 8px;
+}
+
+.rds-date-picker__range-datetime-time-label {
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin-bottom: 4px;
+  text-align: center;
 }
 
 // Global override to ensure all date picker elements use square borders

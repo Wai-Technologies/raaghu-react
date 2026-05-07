@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './rds-comp-date-and-time-picker.scss';
 import dayjs, { Dayjs } from 'dayjs';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -198,17 +199,11 @@ function RangeCalendar({
       <PickersDay
         {...dayProps}
         onClick={() => handleSelect(day)}
-        sx={{
-          borderRadius: '4px !important',
-          ...(inRange && {
-            backgroundColor: 'var(--rds-color-primary-hover, #E3F2FD) !important',
-            color: 'var(--rds-color-primary, #1976d2) !important',
-          }),
-          ...(isStart || isEnd ? {
-            backgroundColor: 'var(--rds-color-primary, #2196F3) !important',
-            color: 'var(--rds-color-on-primary, #fff) !important',
-          } : {}),
-        }}
+        className={[
+          dayProps.className,
+          inRange ? 'rds-date-picker__day--in-range' : '',
+          (isStart || isEnd) ? 'rds-date-picker__day--range-end-point' : '',
+        ].filter(Boolean).join(' ')}
       />
     );
   };
@@ -314,30 +309,13 @@ function RangeTime({
             textField: {
               size: size,
               fullWidth: true,
-              sx: {
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: '#2196F3',
-                  },
-                  '&:hover fieldset': {
-                    borderColor: '#2196F3',
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#2196F3',
-                  },
-                },
-              },
             },
             popper: {
               placement: 'bottom-start',
               modifiers: [{ name: 'offset', options: { offset: [0, 4] } }],
             },
             desktopPaper: {
-              sx: {
-                boxShadow: 'none',
-                border: '2px solid #2196F3',
-                borderRadius: '4px',
-              },
+              className: 'rds-date-picker__picker-paper',
             },
           }}
         />
@@ -356,30 +334,13 @@ function RangeTime({
             textField: {
               size: size,
               fullWidth: true,
-              sx: {
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: '#2196F3',
-                  },
-                  '&:hover fieldset': {
-                    borderColor: '#2196F3',
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#2196F3',
-                  },
-                },
-              },
             },
             popper: {
               placement: 'bottom-start',
               modifiers: [{ name: 'offset', options: { offset: [0, 4] } }],
             },
             desktopPaper: {
-              sx: {
-                boxShadow: 'none',
-                border: '2px solid #2196F3',
-                borderRadius: '4px',
-              },
+              className: 'rds-date-picker__picker-paper',
             },
           }}
         />
@@ -418,11 +379,11 @@ function RangeDateTime({
   };
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+    <Box className="rds-date-picker__range-datetime">
       <RangeCalendar value={value} onChange={onChange} minDate={minDate} maxDate={maxDate} multiMonth={multiMonth} />
-      <Box sx={{ width: '1px', bgcolor: '#2196F3', alignSelf: 'stretch', my: 1, mx: 1 }} />
+      <Box className="rds-date-picker__range-datetime-divider" />
       <Box>
-        <Box sx={{ fontSize: '0.75rem', color: 'text.secondary', mb: 0.5, textAlign: 'center' }}>Start Time</Box>
+        <Box className="rds-date-picker__range-datetime-time-label">Start Time</Box>
         <MultiSectionDigitalClock
           value={start}
           onChange={handleStartTimeChange}
@@ -433,10 +394,9 @@ function RangeDateTime({
           maxTime={end ?? maxTime}
         />
       </Box>
-      
-      <Box sx={{ width: '.5px', alignSelf: 'stretch', my: 1, mx: 1 }} />
+      <Box className="rds-date-picker__range-datetime-spacer" />
       <Box>
-        <Box sx={{ fontSize: '0.75rem', color: 'text.secondary', mb: 0.5, textAlign: 'center' }}>End Time</Box>
+        <Box className="rds-date-picker__range-datetime-time-label">End Time</Box>
         <MultiSectionDigitalClock
           value={end}
           onChange={handleEndTimeChange}
@@ -537,16 +497,6 @@ export default function RdsCompDatePicker({
         size,
         required: isRequired,
         className: `rds-date-picker__input ${disabled ? 'rds-date-picker__input--disabled' : ''} ${readOnly ? 'rds-date-picker__input--readonly' : ''} ${isRequired ? 'rds-date-picker__input--required' : ''}`,
-        sx: {
-          '& .MuiOutlinedInput-root': {
-            '&:hover fieldset': {
-              borderColor: '#2196F3',
-            },
-            '&.Mui-focused fieldset': {
-              borderColor: '#2196F3',
-            },
-          },
-        },
         InputLabelProps: {
           ...(isRequired && { 
             disableAnimation: false,
@@ -583,11 +533,7 @@ export default function RdsCompDatePicker({
         ...slotProps?.popper,
       },
       desktopPaper: {
-        sx: {
-          boxShadow: 'none',
-          border: '2px solid #2196F3 ',
-          borderRadius: '4px',
-        },
+        className: 'rds-date-picker__picker-paper',
         ...slotProps?.desktopPaper,
       },
     },
@@ -611,7 +557,7 @@ export default function RdsCompDatePicker({
 
     return (
       <>
-        <div ref={inputContainerRef} style={{ display: 'inline-block' }}>
+        <div ref={inputContainerRef} className="rds-date-picker__range-input-container">
           <TextField
             onClick={() => { if (!disabled) setAnchorEl(inputContainerRef.current); }}
             value={inputValue}
@@ -619,25 +565,7 @@ export default function RdsCompDatePicker({
             label={formattedLabel}
             size={size}
             disabled={disabled}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                ...(Boolean(anchorEl) && {
-                  '& fieldset': {
-                    borderColor: '#2196F3',
-                    borderWidth: '2px',
-                  },
-                }),
-                '&:hover fieldset': {
-                  borderColor: '#2196F3',
-                  borderWidth: '2px',
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#2196F3',
-                  borderWidth: '2px',
-                },
-              },
-            }}
-            InputProps={{ readOnly: true, style: { cursor: disabled ? 'default' : 'pointer' },
+            InputProps={{ readOnly: true,
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
@@ -653,7 +581,7 @@ export default function RdsCompDatePicker({
               ),
             }}
             error={error}
-            className={`rds-date-picker__input ${disabled ? 'rds-date-picker__input--disabled' : ''} ${readOnly ? 'rds-date-picker__input--readonly' : ''} ${isRequired ? 'rds-date-picker__input--required' : ''}`}
+            className={`rds-date-picker__input${disabled ? ' rds-date-picker__input--disabled' : ''}${readOnly ? ' rds-date-picker__input--readonly' : ''}${isRequired ? ' rds-date-picker__input--required' : ''}${Boolean(anchorEl) ? ' rds-date-picker__input--open' : ''}`}
           />
         </div>
         <Popover
@@ -664,9 +592,9 @@ export default function RdsCompDatePicker({
           transformOrigin={{ vertical: 'top', horizontal: 'left' }}
           className="MuiPickersPopper-root"
           marginThreshold={8}
-          slotProps={{ paper: { sx: { mt: '4px' } } }}
+          slotProps={{ paper: { className: 'rds-date-picker__popover-paper-gap' } }}
         >
-          <Paper elevation={3} sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', border: '2px solid #2196F3', borderRadius: '4px', boxShadow: 'none' }}>
+          <Paper elevation={3} className="rds-date-picker__range-paper">
             {style === 'custom' && variant === 'daterange' ? (
               <CustomDateRangeLayout
                 selectedPreset={selectedPreset}
@@ -800,14 +728,7 @@ export default function RdsCompDatePicker({
             slotProps={{
               ...singlePickerProps.slotProps,
               desktopPaper: {
-                sx: {
-                  boxShadow: 'none',
-                  border: '2px solid #2196F3',
-                  borderRadius: '4px',
-                  '& .MuiDateCalendar-root': { height: 'auto' },
-                  '& .MuiPickersLayout-contentWrapper': { height: 'auto' },
-                  '& .MuiYearCalendar-root': { height: 'auto', maxHeight: '280px', overflowY: 'auto' },
-                },
+                className: 'rds-date-picker__picker-paper rds-date-picker__year-picker-paper',
               },
             }}
           />
@@ -825,14 +746,7 @@ export default function RdsCompDatePicker({
             slotProps={{
               ...singlePickerProps.slotProps,
               desktopPaper: {
-                sx: {
-                  boxShadow: 'none',
-                  border: '2px solid #2196F3',
-                  borderRadius: '4px',
-                  '& .MuiDateCalendar-root': { height: 'auto' },
-                  '& .MuiPickersLayout-contentWrapper': { height: 'auto' },
-                  '& .MuiMonthCalendar-root': { height: 'auto' },
-                },
+                className: 'rds-date-picker__picker-paper rds-date-picker__month-picker-paper',
               },
             }}
           />
