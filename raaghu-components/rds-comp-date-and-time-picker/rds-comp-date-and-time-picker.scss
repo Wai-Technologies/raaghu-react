@@ -263,6 +263,14 @@
 
   &__range-input-container {
     display: inline-block;
+
+    // Show beginning of text with ellipsis — prevents Chrome scrolling
+    // to cursor-end in controlled readonly inputs
+    .MuiInputBase-input {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
   }
 
   // Open state for range/multi-month input (popover is open)
@@ -933,9 +941,7 @@
   }
 }
 
-// ==============================================
 // Utility layout classes
-// ==============================================
 
 .rds-date-picker__range-calendar-row {
   display: flex;
@@ -964,9 +970,7 @@
   width: 100%;
 }
 
-// ==============================================
 // Responsive design
-// ==============================================
 
 // Large mobile (up to 767px)
 @media (max-width: 767px) {
@@ -1013,10 +1017,24 @@
     }
 
     &__range-input-container {
+      display: block;
       width: 100%;
 
-      .MuiTextField-root {
-        width: 100%;
+      .MuiTextField-root,
+      .MuiFormControl-root {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+      }
+
+      .MuiInputBase-root {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        .MuiInputBase-input {
+          min-width: 0 !important;
+          width: 100%;
+        }
       }
     }
   }
@@ -1176,10 +1194,6 @@
   animation: rds-date-picker-fade-in 0.2s ease-out;
 }
 
-// ==============================================
-// Global portal styles for RDS Date Picker
-// (Portals render outside .rds-date-picker in DOM)
-// ==============================================
 
 // Base picker paper (DatePicker, TimePicker, DateTimePicker dropdowns)
 .rds-date-picker__picker-paper {
