@@ -601,7 +601,7 @@
   }
   
   .MuiDayCalendar-weekDayLabel {
-    font-weight: var(--rds-font-weight-semibold, 600);
+    font-weight: 400;
     color: var(--rds-color-text-secondary, #666);
   }
   
@@ -619,7 +619,7 @@
 
     &.Mui-selected {
       background-color: #2196F3;
-      font-weight: 600;
+      font-weight: 400;
       border-radius: 4px;
       color: #fff;
       &:hover {
@@ -633,7 +633,7 @@
       border-radius: 4px;
       background-color: #fff;
       color: #2196F3;
-      font-weight: 600;
+      font-weight: 400;
       
       &:not(.Mui-selected) {
         color: var(--rds-color-primary, #2196F3) !important;
@@ -779,6 +779,17 @@
       font-size: 0.875rem;
     }
 
+    // Ensure input font size remains consistent on mobile
+    .MuiInputBase-root {
+      .MuiInputBase-input {
+        font-size: var(--rds-font-size-body1, 1rem) !important;
+
+        &::placeholder {
+          font-size: var(--rds-font-size-body1, 1rem) !important;
+        }
+      }
+    }
+
     &__range-input-container {
       display: block;
       width: 100%;
@@ -797,6 +808,11 @@
         .MuiInputBase-input {
           min-width: 0 !important;
           width: 100%;
+          font-size: var(--rds-font-size-body1, 1rem) !important;
+
+          &::placeholder {
+            font-size: var(--rds-font-size-body1, 1rem) !important;
+          }
         }
       }
     }
@@ -884,6 +900,29 @@
     &__custom-layout {
       width: calc(100vw - 16px);
     }
+
+    // Ensure input font size remains consistent on small mobile
+    .MuiInputBase-root {
+      .MuiInputBase-input {
+        font-size: var(--rds-font-size-body1, 1rem) !important;
+
+        &::placeholder {
+          font-size: var(--rds-font-size-body1, 1rem) !important;
+        }
+      }
+    }
+
+    &__range-input-container {
+      .MuiInputBase-root {
+        .MuiInputBase-input {
+          font-size: var(--rds-font-size-body1, 1rem) !important;
+
+          &::placeholder {
+            font-size: var(--rds-font-size-body1, 1rem) !important;
+          }
+        }
+      }
+    }
   }
 
   .rds-date-picker__popover-paper-gap {
@@ -893,7 +932,7 @@
   .rds-date-picker__range-paper {
     max-width: 100%;
     padding: 8px;
-    max-height: calc(100dvh - 64px);
+    max-height: calc(100dvh - 8px);
 
     // Force calendar to use full available width
     .MuiDateCalendar-root {
@@ -1095,7 +1134,7 @@
         background-color: var(--rds-color-primary, #2196F3) !important;
         color: var(--rds-color-on-primary, #fff) !important;
         border: 2px solid var(--rds-color-primary, #2196F3) !important;
-        font-weight: 600 !important;
+        font-weight: 400 !important;
         
         &:hover {
           background-color: var(--rds-color-primary-dark, #1976d2) !important;
@@ -1178,7 +1217,7 @@
         &.Mui-selected {
           background-color: var(--rds-color-primary, #1976d2);
           color: var(--rds-color-on-primary, white);
-          font-weight: 600;
+          font-weight: 400;
         }
       }
       
