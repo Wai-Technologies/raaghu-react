@@ -19,7 +19,7 @@ import IconButton from '@mui/material/IconButton';
 import EventIcon from '@mui/icons-material/Event';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+
 
 export interface RdsCompDatePickerProps {
   variant?: 'date' | 'time' | 'datetime' | 'daterange' | 'timerange' | 'datetimerange';
@@ -209,7 +209,7 @@ function RangeCalendar({
   };
 
   const calendars = (
-    <Box display="flex" gap={2}>
+    <Box className="rds-date-picker__range-calendar-row">
       <DateCalendar
         value={currentMonth}
         onChange={(newMonth) => newMonth && handleMonthChange(newMonth)}
@@ -294,8 +294,8 @@ function RangeTime({
   }, [end, maxTime]);
   
   return (
-    <Stack direction="row" spacing={2}>
-      <Box flex={1}>
+    <div className="rds-date-picker__time-range-stack">
+      <div className="rds-date-picker__time-range-item">
         <TimePicker
           label="Start Time"
           value={start}
@@ -319,8 +319,8 @@ function RangeTime({
             },
           }}
         />
-      </Box>
-      <Box flex={1}>
+      </div>
+      <div className="rds-date-picker__time-range-item">
         <TimePicker
           label="End Time"
           value={end}
@@ -344,8 +344,8 @@ function RangeTime({
             },
           }}
         />
-      </Box>
-    </Stack>
+      </div>
+    </div>
   );
 }
 
@@ -644,7 +644,7 @@ export default function RdsCompDatePicker({
                 )}
               </>
             )}
-            <Box display="flex" justifyContent="flex-end" gap={1} mt={2} width="100%">
+            <Box className="rds-date-picker__range-actions">
               <Button size="small" onClick={() => { setRangeValue([null, null]); onChange?.([null, null]); }}>Clear</Button>
               <Button size="small" variant="contained" onClick={() => setAnchorEl(null)}>Apply</Button>
             </Box>

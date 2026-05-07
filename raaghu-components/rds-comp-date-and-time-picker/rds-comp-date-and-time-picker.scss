@@ -933,15 +933,229 @@
   }
 }
 
+// ==============================================
+// Utility layout classes
+// ==============================================
+
+.rds-date-picker__range-calendar-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.rds-date-picker__time-range-stack {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  width: 100%;
+}
+
+.rds-date-picker__time-range-item {
+  flex: 1;
+  min-width: 0;
+}
+
+.rds-date-picker__range-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+// ==============================================
 // Responsive design
-@media (max-width: 768px) {
+// ==============================================
+
+// Large mobile (up to 767px)
+@media (max-width: 767px) {
   .rds-date-picker {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+
+    &--datetimerange,
+    &--timerange,
+    &--daterange,
+    &--multi-month {
+      min-width: 0;
+      width: 100%;
+
+      .MuiFormControl-root {
+        min-width: 0;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .MuiInputBase-root {
+        min-width: 0;
+        width: 100%;
+
+        .MuiInputBase-input {
+          min-width: 0;
+        }
+      }
+    }
+
+    .MuiFormControl-root {
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+
     .MuiDateCalendar-root {
       border-radius: 8px;
     }
-    
+
     .MuiPickersDay-root {
       font-size: 0.875rem;
+    }
+
+    &__range-input-container {
+      width: 100%;
+
+      .MuiTextField-root {
+        width: 100%;
+      }
+    }
+  }
+
+  // Outer Popover paper — constrain to viewport width on mobile
+  .rds-date-picker__popover-paper-gap {
+    max-width: calc(100vw - 16px) !important;
+    overflow: hidden;
+  }
+
+  // Popover paper adapts to viewport
+  .rds-date-picker__range-paper {
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 12px;
+    max-height: calc(100dvh - 80px);
+    box-sizing: border-box;
+
+    // Force DateCalendar to fit the available width inside the paper
+    .MuiDateCalendar-root {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+  }
+
+  // Range datetime stacks vertically on mobile
+  .rds-date-picker__range-datetime {
+    flex-direction: column;
+
+    .rds-date-picker__range-datetime-divider {
+      width: auto;
+      height: 1px;
+      margin: 8px 0;
+    }
+
+    .rds-date-picker__range-datetime-spacer {
+      width: auto;
+      height: 0;
+      margin: 4px 0;
+    }
+  }
+
+  // Calendar row stacks vertically on mobile
+  .rds-date-picker__range-calendar-row {
+    flex-direction: column;
+  }
+
+  // Time range stacks vertically on mobile
+  .rds-date-picker__time-range-stack {
+    flex-direction: column;
+  }
+
+  .rds-date-picker__time-range-item {
+    flex: none;
+    width: 100%;
+  }
+
+  // Custom date range layout becomes vertical on mobile
+  .rds-date-picker__custom-layout {
+    flex-direction: column;
+    min-width: 0;
+    width: calc(100vw - 32px);
+    min-height: auto;
+
+    .rds-date-picker__preset-panel {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid var(--rds-color-border, #e0e0e0);
+    }
+
+    .rds-date-picker__preset-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+    }
+  }
+}
+
+// Small mobile (up to 480px)
+@media (max-width: 480px) {
+  .rds-date-picker {
+    &__custom-layout {
+      width: calc(100vw - 16px);
+    }
+  }
+
+  .rds-date-picker__popover-paper-gap {
+    max-width: calc(100vw - 8px) !important;
+  }
+
+  .rds-date-picker__range-paper {
+    max-width: 100%;
+    padding: 8px;
+    max-height: calc(100dvh - 64px);
+
+    // Force calendar to use full available width
+    .MuiDateCalendar-root {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+    }
+
+    // Hide week-number column to recover horizontal space on tiny screens
+    .MuiDayCalendar-weekNumberLabel,
+    .MuiDayCalendar-weekNumber {
+      display: none !important;
+    }
+
+    // Tighten day cells so 7 columns fit within ~280px content area
+    .MuiDayCalendar-header,
+    .MuiDayCalendar-weekContainer {
+      justify-content: space-between;
+    }
+
+    .MuiPickersDay-root {
+      width: 32px !important;
+      height: 32px !important;
+      font-size: 0.8rem !important;
+      margin: 1px !important;
+    }
+
+    .MuiDayCalendar-weekDayLabel {
+      width: 32px !important;
+      font-size: 0.75rem !important;
+    }
+
+    // Scale calendar header navigation
+    .MuiPickersCalendarHeader-root {
+      padding-left: 8px;
+      padding-right: 4px;
+    }
+  }
+
+  .rds-date-picker__range-calendar-row {
+    .MuiDateCalendar-root {
+      width: 100% !important;
+      max-width: 100% !important;
     }
   }
 }
@@ -1015,6 +1229,10 @@
   border: 2px solid #2196F3 !important;
   border-radius: 4px !important;
   box-shadow: none !important;
+  // Allow scrolling when content exceeds viewport height (datetime range on small screens)
+  max-height: calc(100dvh - 100px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 // Top margin gap between input and popover
