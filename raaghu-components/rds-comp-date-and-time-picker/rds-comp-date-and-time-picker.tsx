@@ -621,11 +621,19 @@ export default function RdsCompDatePicker({
             disabled={disabled}
             sx={{
               '& .MuiOutlinedInput-root': {
+                ...(Boolean(anchorEl) && {
+                  '& fieldset': {
+                    borderColor: '#2196F3',
+                    borderWidth: '2px',
+                  },
+                }),
                 '&:hover fieldset': {
                   borderColor: '#2196F3',
+                  borderWidth: '2px',
                 },
                 '&.Mui-focused fieldset': {
                   borderColor: '#2196F3',
+                  borderWidth: '2px',
                 },
               },
             }}
