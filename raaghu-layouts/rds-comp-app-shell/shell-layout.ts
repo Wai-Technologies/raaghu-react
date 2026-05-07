@@ -4,8 +4,11 @@ const DefaultCss = `Default`;
 
 export const GetShellLayoutCss = (displayType: AppShellDisplayType) => {
     switch (displayType) {
+        case AppShellDisplayType.Basic:
         case AppShellDisplayType.Default:
             return DefaultCss;
+        case AppShellDisplayType.Header:
+            return "top-nav";
         case AppShellDisplayType.Relaxing:
             return "relaxing";
         case AppShellDisplayType.TopNav:
