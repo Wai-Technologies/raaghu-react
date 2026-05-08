@@ -12,16 +12,7 @@ const meta: Meta<RdsBannerProps & { showOutline?: boolean }> = {
   args: {
     showOutline: false,
   },
-  decorators: [
-    (Story, ctx) => {
-      const { args } = ctx as unknown as { args: (RdsBannerProps & { showOutline?: boolean }) };
-      const shouldHide = (args?.variantStyle ?? 'style1') === 'style1' && (args?.showOutline ?? false) === false;
-      const extraArgs = shouldHide
-        ? { style: { ...(args?.style || {}), borderBottomColor: 'transparent' } }
-        : { style: args?.style };
-      return <Story args={{ ...args, ...extraArgs }} />;
-    },
-  ],
+  decorators: [],
   tags: ['autodocs'],
   argTypes: {
     description: {

@@ -234,20 +234,6 @@
       padding: 0 !important;
     }
 
-    .rds-banner {
-    .rds-banner__action-container {
-      position: relative !important;
-    }
-
-    .rds-banner__close-button {
-      position: absolute !important;
-      top: -8px !important;
-      right: -8px !important;
-      transform: none !important;
-      margin-top: 0 !important;
-    }
-  }
-
     :global(.MuiAlert-message) {
       width: 100% !important;
       display: flex !important;
@@ -326,12 +312,6 @@
     
     &__actions {
       gap: 2px;
-  position: relative;
-
-  .rds-banner__link-button {
-    position: absolute !important;
-    left: -18px !important;
-  }
 
       .rds-banner__link-button,
       .rds-banner__secondary-button,
@@ -348,9 +328,9 @@
     }
 
     &__close-button {
-      min-width: 110px !important;
+      min-width: 20px !important;
       width: 20px !important;
-      height: 40px !important;
+      height: 20px !important;
     }
 
     &__action-container {
@@ -359,19 +339,4 @@
   }
 }
 
-@media (min-width: 414px) and (max-width: 833px) {
-  .rds-banner {
-    .rds-banner__action-container {
-      position: relative !important;
-    }
-
-    .rds-banner__close-button {
-      position: absolute !important;
-      top: -8px !important;
-      right: -8px !important;
-      transform: none !important;
-      margin-top: 0 !important;
-    }
-  }
-}
                                  
