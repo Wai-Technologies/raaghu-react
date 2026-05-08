@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button, Box } from '@mui/material';
+import { Button } from '@mui/material';
 import React, { useState } from 'react';
 import RdsBanner, { type RdsBannerProps } from './rds-banner';
+import './rds-banner.stories.scss';
 
 const meta: Meta<RdsBannerProps & { showOutline?: boolean }> = {
   title: 'Elements/Banner',
@@ -174,14 +175,14 @@ export const WithActions: Story = {
     description: 'New features are available!',
     type: 'success',
     actions: (
-      <Box sx={{ display: 'flex', gap: 1, marginBottom: "3px" }}>
+      <div className="rds-banner-story__with-actions">
         <Button size="small" variant="outlined" color="inherit">
           Learn More
         </Button>
         <Button size="small" variant="contained" color="inherit">
           Update Now
         </Button>
-      </Box>
+      </div>
     ),
   },
 };
@@ -205,58 +206,53 @@ export const Interactive: Story = {
     };
 
     return (
-      <Box sx={{ width: 600 }}>
-        <Box sx={{ mb: 2 }}>
+      <div className="rds-banner-story__interactive">
+        <div className="rds-banner-story__reset">
           <Button onClick={resetBanners} variant="outlined" size="small">
             Reset Banners
           </Button>
-        </Box>
+        </div>
         
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <div className="rds-banner-story__list">
           {banners.map(banner => (
             banner.visible && (
               <RdsBanner
                 key={banner.id}
                 description={banner.description}
                 type={banner.type}
-    variantStyle={(args as any)?.variantStyle ?? 'style1'}
-    style={(args as any)?.style}
+                variantStyle={(args as any)?.variantStyle ?? 'style1'}
                 onClose={() => handleClose(banner.id)}
               />
             )
           ))}
-        </Box>
-      </Box>
+        </div>
+      </div>
     );
   },
 };
 
 export const AllTypes: Story = {
   render: (args) => (
-    <Box sx={{ width: 600, display: 'flex', flexDirection: 'column', gap: 1 }}>
+    <div className="rds-banner-story__wrapper">
       <RdsBanner
         description="This is an info banner with useful information."
         type="info"
         variantStyle={(args as any)?.variantStyle ?? 'style1'}
-        style={(args as any)?.style}
       />
       <RdsBanner
         description="This is a success banner for positive feedback."
         type="success"
         variantStyle={(args as any)?.variantStyle ?? 'style1'}
-        style={(args as any)?.style}
       />
       <RdsBanner
         description="This is a warning banner to alert users."
         type="warning"
         variantStyle={(args as any)?.variantStyle ?? 'style1'}
-        style={(args as any)?.style}
       />
       <RdsBanner
         description="This is an error banner for critical issues."
         type="error"
         variantStyle={(args as any)?.variantStyle ?? 'style1'}
-        style={(args as any)?.style}
       />
       <RdsBanner
         Icon
@@ -264,24 +260,22 @@ export const AllTypes: Story = {
         showDescription
         showTitle
         size="medium"
-        style={{
-          borderBottomColor: 'transparent'
-        }}
+        className="rds-banner--transparent-border-bottom"
         title="Heading Title."
-        type="success"        
+        type="success"
         variantStyle="style1"
       />
       <RdsBanner
         Icon
         description="This is the description of the banner."
-        showDescription                              
+        showDescription
         showTitle
         size="medium"
         title="Heading Title."
         type="warning"
         variantStyle="style1"
       />
-    </Box>
+    </div>
   ),
 };
 
