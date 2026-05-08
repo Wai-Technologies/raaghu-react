@@ -83,7 +83,6 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
   }
 
   return (
-    <MuiAlert
     <div className={`rds-banner__wrapper${actions ? ' rds-banner__wrapper--has-actions' : ''}`}>
       {actions && (
         <div className="rds-banner__custom-actions">
