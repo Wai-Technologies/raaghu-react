@@ -84,13 +84,19 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
 
   return (
     <MuiAlert
+    <div className={`rds-banner__wrapper${actions ? ' rds-banner__wrapper--has-actions' : ''}`}>
+      {actions && (
+        <div className="rds-banner__custom-actions">
+          {actions}
+        </div>
+      )}
+      <MuiAlert
       severity={type}
       variant={muiVariant}
       icon={Icon ? <InfoOutlinedIcon /> : false}
   className={`rds-banner ${sizeClass} ${styleClass} ${severityClass} ${widthClass}${outlineClass ? ` ${outlineClass}` : ''}${props.className ? ` ${props.className}` : ''}`}
       action={
         <div className="rds-banner__action-container">
-          {actions}
           {closable && (
             <IconButton
               aria-label="close"
@@ -142,6 +148,7 @@ const RdsBanner: React.FC<RdsBannerProps> = ({
         )}
       </div>
     </MuiAlert>
+    </div>
   );
 };
 
