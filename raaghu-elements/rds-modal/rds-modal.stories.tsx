@@ -50,7 +50,6 @@ const ModalTemplate = (args: any) => {
         {...args}
         isOpen={open}
         onClose={() => setOpen(false)}
-        onClick={() => setOpen(false)}
       >
         {args.children}
       </RdsModal>
