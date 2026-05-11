@@ -147,8 +147,9 @@ const getMuiVariant = () => {
   font-family: var(--rds-font-family-base);
   transition: all var(--rds-transition-base);
 
-  // Override MUI defaults when needed
-  .Mui{pascal}-root { /* ... */ }
+  // ⚠️ Do NOT add blanket .Mui{pascal}-root overrides for background-color or color here!
+  // Only override MUI theme properties INSIDE specific BEM style-variant selectors below.
+  // MUI's color/variant props handle theming for the default/filled style.
 
   &:focus-visible {
     outline: var(--rds-focus-ring);
@@ -168,6 +169,12 @@ const getMuiVariant = () => {
 ```
 
 **Rules:** BEM naming, CSS custom properties with `--rds-*` design tokens, nest MUI class overrides inside Raaghu root, avoid `!important`
+
+**⚠️ CRITICAL — MUI Theme Color Safety Rules:**
+- **NEVER** add blanket `.Mui{pascal}-root { background-color: ...; color: ...; }` inside the element root class — this overrides MUI's theme system and causes invisible text (e.g., white text on white background)
+- **ONLY** override `background-color`, `color` inside **specific BEM style-variant** selectors (e.g., for an outlined or transparent variant)
+- For the **default/filled** style, let MUI handle theming via its `variant` and `color` props
+- If the element uses MUI's `sx` prop for conditional styling, do NOT duplicate those overrides in SCSS
 
 ### 4c. `{rdsKebab}.stories.tsx` — Storybook
 
@@ -273,6 +280,97 @@ const VIEWPORTS = {
 } as const;
 
 test.describe('{rdsPascal} — QA Validation', () => {
+
+  // ─── 0. Content Visibility Validation (catches invisible text) ──
+  // This section catches the #1 visual bug: CSS conflicts making content invisible.
+  // It runs BEFORE snapshots so failures are caught on first run without baselines.
+
+  test('element renders with visible, non-zero-size content (Default story)', async ({ page }) => {
+    await page.goto(`${STORY_URL}?id=${STORY_ID}--default&viewMode=story`);
+    await page.locator(`.${COMPONENT}`).waitFor({ state: 'visible' });
+
+    const result = await page.evaluate((selector) => {
+      const root = document.querySelector(selector);
+      if (!root) return { ok: false, issues: ['Element root not found in DOM'] };
+
+      const issues: string[] = [];
+      const rect = root.getBoundingClientRect();
+
+      // Check 1: Non-zero dimensions
+      if (rect.width === 0 || rect.height === 0) {
+        issues.push(`Element has zero dimensions (${rect.width}×${rect.height})`);
+      }
+
+      // Check 2: Not hidden via CSS
+      const style = getComputedStyle(root);
+      if (style.display === 'none' || style.visibility === 'hidden' || style.opacity === '0') {
+        issues.push(`Element hidden via CSS (display:${style.display}, visibility:${style.visibility}, opacity:${style.opacity})`);
+      }
+
+      // Check 3: Text content is visible with sufficient contrast
+      const textEls = root.querySelectorAll(
+        'button, a, span, p, label, input, [role="button"], [class*="label"]'
+      );
+      for (const el of Array.from(textEls)) {
+        const text = el.textContent?.trim();
+        if (!text) continue;
+        const elStyle = getComputedStyle(el);
+        const elRect = el.getBoundingClientRect();
+        if (elRect.width === 0 || elRect.height === 0) {
+          issues.push(`"${text}" has zero dimensions`);
+          continue;
+        }
+        if (elStyle.display === 'none' || elStyle.visibility === 'hidden' || elStyle.opacity === '0') {
+          issues.push(`"${text}" is hidden via CSS`);
+          continue;
+        }
+        const fg = elStyle.color;
+        const bg = elStyle.backgroundColor;
+        if (fg && bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+          const fgNums = fg.match(/\d+/g)?.map(Number) as [number, number, number] | undefined;
+          const bgNums = bg.match(/\d+/g)?.map(Number) as [number, number, number] | undefined;
+          if (fgNums && bgNums) {
+            const l1 = 0.2126 * (fgNums[0]/255) + 0.7152 * (fgNums[1]/255) + 0.0722 * (fgNums[2]/255);
+            const l2 = 0.2126 * (bgNums[0]/255) + 0.7152 * (bgNums[1]/255) + 0.0722 * (bgNums[2]/255);
+            const ratio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+            if (ratio < 2.0) {
+              issues.push(`"${text}" has very low contrast (${ratio.toFixed(1)}:1) — fg:${fg} bg:${bg}`);
+            }
+          }
+        }
+      }
+
+      return { ok: issues.length === 0, issues };
+    }, `.${COMPONENT}`);
+
+    expect(result.ok, `Visual issues found:\n${result.issues.join('\n')}`).toBe(true);
+  });
+
+  // Check every style variant renders with visible content
+  // Update this array with ALL exported story names from the stories file
+  const allVariants = ['default', 'disabled'];
+  for (const variant of allVariants) {
+    test(`"${variant}" variant has visible, non-empty content`, async ({ page }) => {
+      await page.goto(`${STORY_URL}?id=${STORY_ID}--${variant}&viewMode=story`);
+      await page.locator(`.${COMPONENT}`).waitFor({ state: 'visible', timeout: 10000 });
+
+      const result = await page.evaluate((selector) => {
+        const root = document.querySelector(selector);
+        if (!root) return { ok: false, reason: 'Root element not found' };
+
+        const rect = root.getBoundingClientRect();
+        if (rect.height < 1) return { ok: false, reason: `Element too small: ${rect.width}×${rect.height}` };
+
+        const style = getComputedStyle(root);
+        if (style.display === 'none') return { ok: false, reason: 'Element has display:none' };
+        if (style.visibility === 'hidden') return { ok: false, reason: 'Element has visibility:hidden' };
+
+        return { ok: true, reason: `Visible at ${Math.round(rect.width)}×${Math.round(rect.height)}` };
+      }, `.${COMPONENT}`);
+
+      expect(result.ok, `Variant "${variant}": ${result.reason}`).toBe(true);
+    });
+  }
 
   // ─── 1. Responsive Rendering ─────────────────────────────────
   for (const [viewport, size] of Object.entries(VIEWPORTS)) {
@@ -506,38 +604,62 @@ If ANY fail:
 - MUI renders differently → `console.log(container.innerHTML)` to inspect
 - Needs ThemeProvider → wrap in `<ThemeProvider theme={createTheme()}>`
 
+> **⚠️ IMPORTANT:** Unit tests mock MUI components, so they do NOT catch visual issues like:
+> - White text on white background (CSS color conflicts)
+> - SCSS overriding MUI theme colors incorrectly  
+> - Content being invisible despite being in the DOM
+>
+> You MUST run Playwright QA tests (step 7d) to catch these. Do NOT skip.
+
 ### 7c. Build verification
 ```bash
 bunx tsc --noEmit --pretty
 ```
 
-### 7d. Playwright QA tests (CRITICAL — treat like a QA sign-off)
+### 7d. Playwright QA tests — MANDATORY (catches ALL visual/CSS bugs unit tests miss)
 
-**Prerequisites:** Storybook must be running. The Playwright config auto-starts it, but if it's already running on port 6006, tests reuse it.
+**This is the single most critical verification step.** Unit tests mock MUI components — they CANNOT detect visual issues like invisible text, broken layouts, or CSS conflicts. The `.spec.ts` file runs in a REAL browser and catches everything automatically.
 
-```bash
-npx playwright test --grep "{rdsPascal}" --project=chromium
-```
+**The spec.ts includes Section 0 (Content Visibility Validation)** which programmatically checks:
+- Element has non-zero dimensions (not collapsed/hidden)
+- Element is not hidden via `display:none`, `visibility:hidden`, or `opacity:0`
+- Text color vs background color has sufficient contrast (catches white-on-white)
+- Every story variant (default, disabled, etc.) renders with visible content
+- **These checks work on FIRST RUN — no screenshot baselines needed**
 
-If this is the **first run** for this element (no baseline screenshots exist), run with `--update-snapshots` first to create baselines:
+If Storybook is already running on port 6006, tests reuse it. Otherwise Playwright auto-starts it via `webServer` config.
+
+**First run (creates baseline screenshots):**
 ```bash
 npx playwright test --grep "{rdsPascal}" --project=chromium --update-snapshots
 ```
 
-If ANY Playwright tests fail:
-1. **Visual snapshot mismatch** → inspect the diff in `playwright-report/`. If the new rendering is correct, update baselines with `--update-snapshots`. If not, fix the component.
-2. **Accessibility violation** → read the axe violation details. Fix the component (add missing `aria-*`, fix contrast, add labels). Re-run.
-3. **Keyboard navigation fails** → ensure the MUI component is focusable. Add `tabIndex={0}` if needed, or check if MUI already handles it.
-4. **Disabled state not blocking** → verify `disabled` or `aria-disabled` is set on interactive elements. Check `pointer-events: none` in SCSS.
-5. **Overflow at a viewport** → check SCSS for `overflow`, `max-width`, `box-sizing`. MUI `sx` responsive values may help: `sx={{ width: { xs: '100%', md: 'auto' } }}`.
-6. **Console errors** → fix the React warning or MUI error in the component code.
-7. **Theme issue** → verify MUI `sx` uses theme tokens (`'primary.main'`, `'background.paper'`) not hardcoded colors.
+**Subsequent runs (detects regressions):**
+```bash
+npx playwright test --grep "{rdsPascal}" --project=chromium
+```
 
-Repeat until ALL Playwright tests pass.
+**If ANY tests fail — diagnose and fix:**
 
-**What these tests cover (QA checklist):**
+| Failure | Root Cause | Fix |
+|---|---|---|
+| "has very low contrast" | SCSS overrides MUI theme bg/color | Remove blanket `.MuiXxx-root { background-color }`. Let MUI variant/color props handle it |
+| "has zero dimensions" | Element in DOM but not rendered | Check `display`, `overflow`, `height` in SCSS |
+| "Element hidden via CSS" | CSS hiding the element | Check `display:none`, `visibility:hidden`, `opacity:0` |
+| Accessibility violation | Missing ARIA / contrast | Add `aria-*`, fix color contrast, add labels |
+| Keyboard nav fails | MUI component not focusable | Add `tabIndex={0}` or check MUI handles it |
+| Disabled state not blocking | Missing `disabled`/`aria-disabled` | Set on interactive elements + `pointer-events: none` |
+| Console errors | React/MUI warnings | Fix the warning in element code |
+| Snapshot mismatch | Visual regression | Inspect `playwright-report/`. Update baseline or fix element |
+| Overflow at viewport | Missing responsive CSS | Check `overflow`, `max-width`, `box-sizing` |
+
+**Repeat until ALL pass. Do NOT skip. Do NOT report as 'next steps'.**
+
+**What Playwright QA tests cover (full checklist):**
 | Check | What it validates |
 |---|---|
+| **Content visibility** | Element has non-zero size, is not CSS-hidden, text has contrast > 2:1 — **catches white-on-white** |
+| **Variant rendering** | Every story variant renders with visible content |
 | Responsive rendering | No overflow, non-zero dimensions at 375px / 768px / 1920px |
 | Visual snapshots | Pixel-level regression detection per viewport |
 | Accessibility audit | WCAG 2.1 AA compliance via axe-core |
@@ -549,12 +671,12 @@ Repeat until ALL Playwright tests pass.
 | No console errors | Zero uncaught JS errors |
 | Story variants load | Every Storybook story renders without crash |
 
-### 7e. Final report (only after ALL pass)
+### 7e. Final report (only after ALL pass including Playwright QA)
 - All 6 files created
 - MUI component wrapped + API page link
 - Raaghu props → MUI prop mapping
 - MUI props preserved via pass-through
 - Unit test results (X tests passed)
-- Playwright QA results (X tests passed — responsiveness, a11y, keyboard, themes)
+- Playwright QA results (X tests passed — content visibility, responsiveness, a11y, keyboard, themes)
 - Baseline screenshots created in `{rdsKebab}/{rdsKebab}.spec.ts-snapshots/`
-- Next steps: update Figma `node-id=TODO`, preview with `bun run storybook`
+- Next steps: update Figma `node-id=TODO`
