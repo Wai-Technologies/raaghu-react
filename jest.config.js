@@ -13,7 +13,6 @@ export default {
   testMatch: [
     '<rootDir>/**/__tests__/**/*.{ts,tsx,js}',
     '<rootDir>/**/*.test.{ts,tsx,js}',
-    '<rootDir>/**/*.spec.{ts,tsx,js}'
   ],
   collectCoverageFrom: [
     'raaghu-elements/**/*.{ts,tsx}',

@@ -126,6 +126,11 @@ yarn-error.log
 /storybook-static
 storybook-static/*
 
+# Playwright
+/playwright-report/
+/playwright/.cache/
+/test-results/
+
 # Chromatic
 .chromatic/
 chromatic.log

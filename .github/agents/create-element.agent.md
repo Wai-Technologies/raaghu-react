@@ -1,6 +1,6 @@
 ---
 name: create-element
-description: Create a new Raaghu design system ELEMENT (primitive UI) by wrapping a MUI component. Generates all 5 required files (.tsx, .scss, .stories.tsx, .test.tsx, .figma.tsx), validates against MUI API docs, runs tests, and iterates until everything passes.
+description: Create a new Raaghu design system ELEMENT (primitive UI) by wrapping a MUI component. Generates all 6 required files (.tsx, .scss, .stories.tsx, .test.tsx, .figma.tsx, .spec.ts), validates against MUI API docs, runs unit + Playwright QA tests, and iterates until everything passes.
 argument-hint: "MUI component name to wrap, e.g. Slider, Rating, ImageList, LinearProgress"
 tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'todo']
 ---
@@ -79,7 +79,7 @@ Read these files to match the EXACT code style, patterns, and conventions used i
 
 ## Step 4 — Create 5 files
 
-Create folder `raaghu-elements/{rdsKebab}/` with exactly these 5 files:
+Create folder `raaghu-elements/{rdsKebab}/` with exactly these 6 files:
 
 ### 4a. `{rdsKebab}.tsx` — Main component
 
@@ -249,6 +249,215 @@ figma.connect(
 );
 ```
 
+### 4f. `{rdsKebab}.spec.ts` — Playwright QA Tests
+
+This file runs real-browser QA validation against Storybook stories — the same checks a QA engineer would perform manually.
+
+**Derive the Storybook story ID** from the story title:
+- Story title `Elements/Linear Progress` → storyId = `elements-linear-progress`
+- Pattern: lowercase title, `/` → `-`, spaces → `-`
+
+```ts
+import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+const STORY_URL = 'http://localhost:6006/iframe.html';
+const COMPONENT = '{rdsKebab}';
+const STORY_ID = 'elements-{kebab}';  // derived from storyTitle
+
+// Viewports matching Storybook / Chromatic config
+const VIEWPORTS = {
+  mobile:  { width: 375,  height: 667  },
+  tablet:  { width: 768,  height: 1024 },
+  desktop: { width: 1920, height: 1080 },
+} as const;
+
+test.describe('{rdsPascal} — QA Validation', () => {
+
+  // ─── 1. Responsive Rendering ─────────────────────────────────
+  for (const [viewport, size] of Object.entries(VIEWPORTS)) {
+    test(`renders without overflow at ${viewport} (${size.width}×${size.height})`, async ({ page }) => {
+      await page.setViewportSize(size);
+      await page.goto(`${STORY_URL}?id=${STORY_ID}--default&viewMode=story`);
+      await page.locator(`.${COMPONENT}`).waitFor({ state: 'visible' });
+
+      // No horizontal scrollbar
+      const hasOverflow = await page.evaluate(() =>
+        document.documentElement.scrollWidth > document.documentElement.clientWidth
+      );
+      expect(hasOverflow).toBe(false);
+
+      // Element has non-zero dimensions
+      const box = await page.locator(`.${COMPONENT}`).boundingBox();
+      expect(box).not.toBeNull();
+      expect(box!.width).toBeGreaterThan(0);
+      expect(box!.height).toBeGreaterThan(0);
+    });
+
+    test(`visual snapshot at ${viewport}`, async ({ page }) => {
+      await page.setViewportSize(size);
+      await page.goto(`${STORY_URL}?id=${STORY_ID}--default&viewMode=story`);
+      await page.locator(`.${COMPONENT}`).waitFor({ state: 'visible' });
+
+      await expect(page.locator(`.${COMPONENT}`)).toHaveScreenshot(
+        `${COMPONENT}-${viewport}.png`,
+        { maxDiffPixelRatio: 0.05 }
+      );
+    });
+  }
+
+  // ─── 2. Accessibility (WCAG 2.1 AA) ──────────────────────────
+  test('passes axe accessibility audit', async ({ page }) => {
+    await page.goto(`${STORY_URL}?id=${STORY_ID}--default&viewMode=story`);
+    await page.locator(`.${COMPONENT}`).waitFor({ state: 'visible' });
+
+    const results = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .analyze();
+    expect(results.violations).toEqual([]);
+  });
+
+  // ─── 3. Keyboard Navigation ──────────────────────────────────
+  test('is focusable via Tab key', async ({ page }) => {
+    await page.goto(`${STORY_URL}?id=${STORY_ID}--default&viewMode=story`);
+    await page.locator(`.${COMPONENT}`).waitFor({ state: 'visible' });
+
+    await page.keyboard.press('Tab');
+    const activeTag = await page.evaluate(() =>
+      document.activeElement?.tagName?.toLowerCase() ?? 'body'
+    );
+    expect(activeTag).not.toBe('body');
+  });
+
+  test('Enter / Space activation does not throw', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('pageerror', (err) => errors.push(err.message));
+
+    await page.goto(`${STORY_URL}?id=${STORY_ID}--default&viewMode=story`);
+    await page.locator(`.${COMPONENT}`).waitFor({ state: 'visible' });
+
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await page.keyboard.press('Space');
+
+    expect(errors).toEqual([]);
+  });
+
+  // ─── 4. Hover & Focus States ─────────────────────────────────
+  test('hover state visual snapshot', async ({ page }) => {
+    await page.goto(`${STORY_URL}?id=${STORY_ID}--default&viewMode=story`);
+    const el = page.locator(`.${COMPONENT}`);
+    await el.waitFor({ state: 'visible' });
+    await el.hover();
+
+    await expect(el).toHaveScreenshot(
+      `${COMPONENT}-hover.png`,
+      { maxDiffPixelRatio: 0.05 }
+    );
+  });
+
+  test('focus-visible state visual snapshot', async ({ page }) => {
+    await page.goto(`${STORY_URL}?id=${STORY_ID}--default&viewMode=story`);
+    await page.locator(`.${COMPONENT}`).waitFor({ state: 'visible' });
+    await page.keyboard.press('Tab');
+
+    await expect(page.locator(`.${COMPONENT}`)).toHaveScreenshot(
+      `${COMPONENT}-focus.png`,
+      { maxDiffPixelRatio: 0.05 }
+    );
+  });
+
+  // ─── 5. Disabled State ────────────────────────────────────────
+  test('disabled state blocks interaction', async ({ page }) => {
+    await page.goto(`${STORY_URL}?id=${STORY_ID}--disabled&viewMode=story`);
+    await page.locator(`.${COMPONENT}`).waitFor({ state: 'visible' });
+
+    const isNonInteractive = await page.evaluate((selector) => {
+      const root = document.querySelector(selector);
+      if (!root) return false;
+      const rootStyle = getComputedStyle(root);
+      if (rootStyle.pointerEvents === 'none') return true;
+
+      // Check interactive children (buttons, inputs, etc.)
+      const els = root.querySelectorAll(
+        'button, input, select, textarea, [role="button"]'
+      );
+      if (els.length > 0) {
+        return Array.from(els).every(
+          (el) =>
+            el.hasAttribute('disabled') ||
+            el.getAttribute('aria-disabled') === 'true'
+        );
+      }
+      return (
+        root.hasAttribute('disabled') ||
+        root.getAttribute('aria-disabled') === 'true'
+      );
+    }, `.${COMPONENT}`);
+
+    expect(isNonInteractive).toBe(true);
+  });
+
+  test('disabled state visual snapshot', async ({ page }) => {
+    await page.goto(`${STORY_URL}?id=${STORY_ID}--disabled&viewMode=story`);
+    await page.locator(`.${COMPONENT}`).waitFor({ state: 'visible' });
+
+    await expect(page.locator(`.${COMPONENT}`)).toHaveScreenshot(
+      `${COMPONENT}-disabled.png`,
+      { maxDiffPixelRatio: 0.05 }
+    );
+  });
+
+  // ─── 6. Theme Variants (Light / Dark) ─────────────────────────
+  for (const theme of ['light', 'dark'] as const) {
+    test(`${theme} theme renders correctly`, async ({ page }) => {
+      await page.goto(
+        `${STORY_URL}?id=${STORY_ID}--default&viewMode=story&globals=theme:${theme}`
+      );
+      await page.locator(`.${COMPONENT}`).waitFor({ state: 'visible' });
+
+      await expect(page.locator(`.${COMPONENT}`)).toHaveScreenshot(
+        `${COMPONENT}-theme-${theme}.png`,
+        { maxDiffPixelRatio: 0.05 }
+      );
+    });
+  }
+
+  // ─── 7. No Console Errors ─────────────────────────────────────
+  test('renders without console errors', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('pageerror', (err) => errors.push(err.message));
+
+    await page.goto(`${STORY_URL}?id=${STORY_ID}--default&viewMode=story`);
+    await page.locator(`.${COMPONENT}`).waitFor({ state: 'visible' });
+
+    expect(errors).toEqual([]);
+  });
+
+  // ─── 8. All Story Variants Load ────────────────────────────────
+  // Update this array with every exported story name (lowercase, hyphenated)
+  const storyVariants = ['default', 'disabled'];
+  for (const variant of storyVariants) {
+    test(`story "${variant}" loads without crashing`, async ({ page }) => {
+      const errors: string[] = [];
+      page.on('pageerror', (err) => errors.push(err.message));
+
+      await page.goto(`${STORY_URL}?id=${STORY_ID}--${variant}&viewMode=story`);
+      await page.waitForLoadState('networkidle');
+
+      expect(errors).toEqual([]);
+    });
+  }
+});
+```
+
+**Rules:**
+- Derive `STORY_ID` from `storyTitle` — lowercase, `/` → `-`, spaces → `-`
+- Update the `storyVariants` array with ALL exported story names from the stories file
+- Visual snapshots use component locator (not full page) for stability
+- The `maxDiffPixelRatio: 0.05` tolerates font-rendering differences across runs
+- Disabled check is multi-layer: root `pointer-events`, child `disabled` attrs, `aria-disabled`
+
 ## Step 5 — Update barrel export
 
 In `raaghu-elements/index.ts`, add after the LAST existing export lines:
@@ -302,10 +511,50 @@ If ANY fail:
 bunx tsc --noEmit --pretty
 ```
 
-### 7d. Final report (only after ALL pass)
-- All 5 files created
+### 7d. Playwright QA tests (CRITICAL — treat like a QA sign-off)
+
+**Prerequisites:** Storybook must be running. The Playwright config auto-starts it, but if it's already running on port 6006, tests reuse it.
+
+```bash
+npx playwright test --grep "{rdsPascal}" --project=chromium
+```
+
+If this is the **first run** for this element (no baseline screenshots exist), run with `--update-snapshots` first to create baselines:
+```bash
+npx playwright test --grep "{rdsPascal}" --project=chromium --update-snapshots
+```
+
+If ANY Playwright tests fail:
+1. **Visual snapshot mismatch** → inspect the diff in `playwright-report/`. If the new rendering is correct, update baselines with `--update-snapshots`. If not, fix the component.
+2. **Accessibility violation** → read the axe violation details. Fix the component (add missing `aria-*`, fix contrast, add labels). Re-run.
+3. **Keyboard navigation fails** → ensure the MUI component is focusable. Add `tabIndex={0}` if needed, or check if MUI already handles it.
+4. **Disabled state not blocking** → verify `disabled` or `aria-disabled` is set on interactive elements. Check `pointer-events: none` in SCSS.
+5. **Overflow at a viewport** → check SCSS for `overflow`, `max-width`, `box-sizing`. MUI `sx` responsive values may help: `sx={{ width: { xs: '100%', md: 'auto' } }}`.
+6. **Console errors** → fix the React warning or MUI error in the component code.
+7. **Theme issue** → verify MUI `sx` uses theme tokens (`'primary.main'`, `'background.paper'`) not hardcoded colors.
+
+Repeat until ALL Playwright tests pass.
+
+**What these tests cover (QA checklist):**
+| Check | What it validates |
+|---|---|
+| Responsive rendering | No overflow, non-zero dimensions at 375px / 768px / 1920px |
+| Visual snapshots | Pixel-level regression detection per viewport |
+| Accessibility audit | WCAG 2.1 AA compliance via axe-core |
+| Keyboard navigation | Tab-focusable, Enter/Space don't crash |
+| Hover state | Visual hover feedback captured |
+| Focus-visible | Focus ring visible on keyboard navigation |
+| Disabled state | Blocks pointer events + `disabled`/`aria-disabled` set |
+| Theme variants | Light and dark theme render correctly |
+| No console errors | Zero uncaught JS errors |
+| Story variants load | Every Storybook story renders without crash |
+
+### 7e. Final report (only after ALL pass)
+- All 6 files created
 - MUI component wrapped + API page link
 - Raaghu props → MUI prop mapping
 - MUI props preserved via pass-through
-- Test results (X tests passed)
+- Unit test results (X tests passed)
+- Playwright QA results (X tests passed — responsiveness, a11y, keyboard, themes)
+- Baseline screenshots created in `{rdsKebab}/{rdsKebab}.spec.ts-snapshots/`
 - Next steps: update Figma `node-id=TODO`, preview with `bun run storybook`
