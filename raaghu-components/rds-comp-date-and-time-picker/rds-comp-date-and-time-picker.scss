@@ -6,7 +6,13 @@
   width: auto;
   min-width: 200px; // Base minimum width
   max-width: 600px; // Allow for wider range pickers
-  
+  // Global input styles for all variants
+  .MuiInputBase-input {
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 1rem;
+  }
+
   // Specific width adjustments based on content and variant
   &--datetimerange {
     min-width: 400px;
@@ -700,6 +706,13 @@
   flex-direction: row;
   gap: 16px;
   flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+
+  .MuiDateCalendar-root {
+    flex: 1;
+    min-width: 0;
+  }
 }
 
 .rds-date-picker__time-range-stack {
@@ -832,6 +845,7 @@
     padding: 12px;
     max-height: calc(100dvh - 80px);
     box-sizing: border-box;
+    align-items: stretch;
 
     // Force DateCalendar to fit the available width inside the paper
     .MuiDateCalendar-root {
@@ -843,6 +857,7 @@
   // Range datetime stacks vertically on mobile
   .rds-date-picker__range-datetime {
     flex-direction: column;
+    width: 100%;
 
     .rds-date-picker__range-datetime-divider {
       width: auto;
@@ -860,11 +875,18 @@
   // Calendar row stacks vertically on mobile
   .rds-date-picker__range-calendar-row {
     flex-direction: column;
+    width: 100%;
+
+    .MuiDateCalendar-root {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
   }
 
   // Time range stacks vertically on mobile
   .rds-date-picker__time-range-stack {
     flex-direction: column;
+    width: 100%;
   }
 
   .rds-date-picker__time-range-item {
@@ -932,7 +954,8 @@
   .rds-date-picker__range-paper {
     max-width: 100%;
     padding: 8px;
-    max-height: calc(100dvh - 8px);
+    max-height: calc(100dvh - 64px);
+    align-items: stretch;
 
     // Force calendar to use full available width
     .MuiDateCalendar-root {
@@ -1041,7 +1064,7 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   border: 2px solid #2196F3 !important;
   border-radius: 4px !important;
   box-shadow: none !important;
@@ -1049,11 +1072,16 @@
   max-height: calc(100dvh - 100px);
   overflow-y: auto;
   overflow-x: hidden;
+  // Take full width of parent popover paper to match input width
+  width: 100%;
+  box-sizing: border-box;
 }
 
 // Top margin gap between input and popover
 .rds-date-picker__popover-paper-gap {
   margin-top: 4px;
+  // Ensures popover respects inline width style set by component
+  box-sizing: border-box;
 }
 
 // Custom range day state classes (applied via className in renderDaySlot)
@@ -1071,6 +1099,8 @@
 .rds-date-picker__range-datetime {
   display: flex;
   align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .rds-date-picker__range-datetime-divider {

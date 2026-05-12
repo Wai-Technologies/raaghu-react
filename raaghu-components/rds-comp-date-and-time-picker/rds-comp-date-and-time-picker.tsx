@@ -546,24 +546,8 @@ export default function RdsCompDatePicker({
           ...(isRequired && { 
             disableAnimation: false,
             shrink: undefined,
-            sx: {
-              '&::after': {
-                content: '""',
-                display: 'none !important'
-              },
-              '& .MuiFormLabel-asterisk': {
-                display: 'none !important'
-              }
-            }
           }),
           ...slotProps?.textField?.InputLabelProps,
-        },
-        inputProps: {
-          style: {
-            fontFamily: 'inherit',
-            fontWeight: 400,
-            fontSize: '1rem',
-          },
         },
         ...slotProps?.textField,
       },
@@ -632,7 +616,6 @@ export default function RdsCompDatePicker({
                 </InputAdornment>
               ),
             }}
-            inputProps={{ style: { fontFamily: 'inherit', fontWeight: 400, fontSize: '1rem' } }}
             error={error}
             className={`rds-date-picker__input${disabled ? ' rds-date-picker__input--disabled' : ''}${readOnly ? ' rds-date-picker__input--readonly' : ''}${isRequired ? ' rds-date-picker__input--required' : ''}${Boolean(anchorEl) ? ' rds-date-picker__input--open' : ''}`}
           />
@@ -744,7 +727,6 @@ export default function RdsCompDatePicker({
                 </InputAdornment>
               ),
             }}
-            inputProps={{ style: { fontFamily: 'inherit', fontWeight: 400, fontSize: '1rem' } }}
             error={error}
             helperText={helperText}
             className={`rds-date-picker__input${disabled ? ' rds-date-picker__input--disabled' : ''}${readOnly ? ' rds-date-picker__input--readonly' : ''}${isRequired ? ' rds-date-picker__input--required' : ''}${Boolean(dateTimeAnchorEl) ? ' rds-date-picker__input--open' : ''}`}
