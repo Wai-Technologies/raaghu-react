@@ -34,19 +34,19 @@
   }
   
   &--timerange {
-    min-width: 280px;
-    max-width: 300px;
+    min-width: 460px;
+    max-width: 460px;
     
     .MuiFormControl-root {
-      min-width: 280px;
-      max-width: 300px;
+      min-width: 460px;
+      max-width: 460px;
     }
     
     .MuiInputBase-root {
-      min-width: 280px;
+      min-width: 460px;
       
       .MuiInputBase-input {
-        min-width: 230px; // Leave space for icon
+        min-width: 460px; // Leave space for icon
         padding-right: 48px; // Extra padding for icon
       }
     }
