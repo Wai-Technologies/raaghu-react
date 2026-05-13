@@ -47,6 +47,7 @@ export { default as RdsTabs } from './rds-tabs/rds-tabs';
 export { default as RdsTimeline } from './rds-timeline/rds-timeline';
 export { default as RdsToggleButton, RdsStandaloneToggleButton } from './rds-toggle-button/rds-toggle-button';
 export { default as RdsTooltip } from './rds-tooltip/rds-tooltip';
+export { default as RdsTransition } from './rds-transition/rds-transition';
 export { default as RdsCarousel } from './rds-carousel/rds-carousel';
 export { default as RdsTag } from './rds-tag/rds-tag';
 export { default as RdsCardDetail } from './rds-card-detail/rds-card-detail';
@@ -115,6 +116,7 @@ export type {
   RdsStandaloneToggleButtonProps 
 } from './rds-toggle-button/rds-toggle-button';
 export type { RdsTooltipProps } from './rds-tooltip/rds-tooltip';
+export type { RdsTransitionProps, TransitionType, TransitionDirection } from './rds-transition/rds-transition';
 export type { RdsCarouselProps } from './rds-carousel/rds-carousel';
 export type { RdsTagProps } from './rds-tag/rds-tag';
 export type { RdsCardDetailProps } from './rds-card-detail/rds-card-detail';
