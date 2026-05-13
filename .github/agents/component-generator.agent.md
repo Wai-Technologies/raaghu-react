@@ -1365,6 +1365,13 @@ raaghu-{elements|components}/rds-{comp-}{name}/
 └── rds-{comp-}{name}.stories.tsx
 ```
 
+**⚠️ CRITICAL: DO NOT CREATE `index.ts` inside component folders**
+- Export directly from `raaghu-components/index.ts` using:
+  ```typescript
+  export {default as RdsCompName, type RdsCompNameProps} from './rds-comp-name/rds-comp-name';
+  ```
+- DO NOT create intermediate `index.ts` files at the component level
+
 ## ✅ VERIFICATION CHECKLIST (Before submitting)
 
 - [ ] Component has BOTH controlled (value) and uncontrolled (defaultValue) modes
@@ -1381,7 +1388,8 @@ raaghu-{elements|components}/rds-{comp-}{name}/
 - [ ] Component looks correct in BOTH light & dark themes
 - [ ] Dark theme variables defined in SCSS (via `[data-theme="dark"]` or `@media (prefers-color-scheme: dark)`)
 - [ ] Tests pass: `npm test -- --testPathPattern="{name}"`
-- [ ] Component exported in `index.ts`
+- [ ] NO `index.ts` file created at component level
+- [ ] Component exported in `raaghu-components/index.ts` (direct export from component file, not intermediate index)
 
 ## 📝 COLOR & SPACING STANDARDS (Use These Exactly)
 

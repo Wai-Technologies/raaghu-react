@@ -37,6 +37,7 @@ export { default as RdsCompProductTour } from './rds-comp-product-tour/rds-comp-
 export {default as RdsCompEmojiGenerator} from './rds-comp-emoji-generator/rds-comp-emoji-generator';
 export {default as RdsCompEmptyState} from './rds-comp-empty-state/rds-comp-empty-state';
 export {default as RdsCompESignature} from './rds-comp-e-signature/rds-comp-e-signature';
+export {default as RdsCompScheduler, type RdsCompSchedulerProps, type SchedulerEvent} from './rds-comp-scheduler/rds-comp-scheduler';
 
 // export { default as RdsCompGrid } from './rds-comp-grid/rds-comp-grid';// paid component
 export { default as RdsCompAiAttachement } from './rds-comp-ai-attachement/rds-comp-ai-attachement';
