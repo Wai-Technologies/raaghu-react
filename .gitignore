@@ -180,4 +180,8 @@ output*.log
 .yarn/unplugged
 .yarn/build-state.yml
 .yarn/install-state.gz
-.pnp.*
+.pnp/
+
+# Ignore component generator files
+component-generator.agent.md
+component-generator.prompt.md
