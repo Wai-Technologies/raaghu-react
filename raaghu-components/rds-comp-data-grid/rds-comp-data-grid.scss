@@ -1,0 +1,546 @@
+.rds-comp-data-grid {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--rds-background-surface, #ffffff);
+  color: var(--rds-text-primary, #212121);
+  border: 1px solid var(--rds-border-default, #e0e0e0);
+  border-radius: var(--rds-border-radius-sm, 4px);
+  overflow: hidden;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+
+  // Dark mode base
+  @media (prefers-color-scheme: dark) {
+    background-color: #121212;
+    color: #ffffff;
+    border-color: #303030;
+  }
+
+  [data-theme="dark"] & {
+    background-color: #121212;
+    color: #ffffff;
+    border-color: #303030;
+  }
+
+  // ─── MUI DataGrid Overrides ─────────────────────────────────────────────────
+  .MuiDataGrid-root {
+    background-color: var(--rds-background-surface, #ffffff);
+    color: var(--rds-text-primary, #212121);
+    border: none; // We handle border at parent level
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #121212;
+      color: #ffffff;
+    }
+  }
+
+  // Header styling
+  .MuiDataGrid-columnHeader {
+    background-color: var(--rds-background-hover, #f5f5f5);
+    color: var(--rds-text-primary, #212121);
+    font-weight: 600;
+    font-size: var(--rds-font-size-base, 14px);
+    border-bottom: 2px solid var(--rds-border-default, #e0e0e0);
+    border-right: 1px solid var(--rds-border-default, #e0e0e0);
+
+    &:hover {
+      background-color: #eeeeee;
+
+      @media (prefers-color-scheme: dark) {
+        background-color: #2a2a2a;
+      }
+
+      [data-theme="dark"] & {
+        background-color: #2a2a2a;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      border-bottom-color: #303030;
+      border-right-color: #303030;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      border-bottom-color: #303030;
+      border-right-color: #303030;
+    }
+  }
+
+  // Cell styling
+  .MuiDataGrid-cell {
+    color: var(--rds-text-primary, #212121);
+    border-right: 1px solid var(--rds-border-default, #e0e0e0);
+    border-bottom: 1px solid var(--rds-border-default, #e0e0e0);
+    padding: var(--rds-spacing-md, 16px);
+    font-size: var(--rds-font-size-base, 14px);
+
+    @media (prefers-color-scheme: dark) {
+      color: #ffffff;
+      border-right-color: #303030;
+      border-bottom-color: #303030;
+    }
+
+    [data-theme="dark"] & {
+      color: #ffffff;
+      border-right-color: #303030;
+      border-bottom-color: #303030;
+    }
+
+    &:focus-within {
+      outline: 2px solid var(--rds-color-primary, #1976d2);
+      outline-offset: -1px;
+    }
+  }
+
+  // Row styling
+  .MuiDataGrid-row {
+    background-color: var(--rds-background-surface, #ffffff);
+    border-bottom: 1px solid var(--rds-border-default, #e0e0e0);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #121212;
+      border-bottom-color: #303030;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #121212;
+      border-bottom-color: #303030;
+    }
+
+    &:hover:not(.MuiDataGrid-row--dynamicHeight) {
+      background-color: var(--rds-background-hover, #f5f5f5);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: #1e1e1e;
+      }
+
+      [data-theme="dark"] & {
+        background-color: #1e1e1e;
+      }
+    }
+
+    // Selected row styling
+    &.Mui-selected {
+      background-color: rgba(var(--rds-color-primary-rgb, 25, 118, 210), 0.1) !important;
+      border-color: var(--rds-color-primary, #1976d2);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: rgba(100, 181, 246, 0.15) !important;
+        border-color: #64b5f6;
+      }
+
+      [data-theme="dark"] & {
+        background-color: rgba(100, 181, 246, 0.15) !important;
+        border-color: #64b5f6;
+      }
+
+      &:hover {
+        background-color: rgba(var(--rds-color-primary-rgb, 25, 118, 210), 0.15) !important;
+
+        @media (prefers-color-scheme: dark) {
+          background-color: rgba(100, 181, 246, 0.2) !important;
+        }
+
+        [data-theme="dark"] & {
+          background-color: rgba(100, 181, 246, 0.2) !important;
+        }
+      }
+    }
+  }
+
+  // Pagination styling
+  .MuiTablePagination-root {
+    background-color: var(--rds-background-hover, #f5f5f5);
+    color: var(--rds-text-primary, #212121);
+    border-top: 1px solid var(--rds-border-default, #e0e0e0);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      border-top-color: #303030;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      border-top-color: #303030;
+    }
+
+    .MuiInputBase-root {
+      color: var(--rds-text-primary, #212121);
+
+      @media (prefers-color-scheme: dark) {
+        color: #ffffff;
+      }
+
+      [data-theme="dark"] & {
+        color: #ffffff;
+      }
+    }
+
+    .MuiSelect-icon {
+      color: var(--rds-text-primary, #212121);
+
+      @media (prefers-color-scheme: dark) {
+        color: #ffffff;
+      }
+
+      [data-theme="dark"] & {
+        color: #ffffff;
+      }
+    }
+  }
+
+  // Checkbox styling (for row selection)
+  .MuiCheckbox-root {
+    color: var(--rds-text-secondary, #757575);
+
+    @media (prefers-color-scheme: dark) {
+      color: #b0b0b0;
+    }
+
+    [data-theme="dark"] & {
+      color: #b0b0b0;
+    }
+
+    &.Mui-checked {
+      color: var(--rds-color-primary, #1976d2);
+
+      @media (prefers-color-scheme: dark) {
+        color: #64b5f6;
+      }
+
+      [data-theme="dark"] & {
+        color: #64b5f6;
+      }
+    }
+  }
+
+  // ─── Variant Styles ─────────────────────────────────────────────────────────
+  &--standard {
+    border: 1px solid var(--rds-border-default, #e0e0e0);
+    border-radius: var(--rds-border-radius-sm, 4px);
+    box-shadow: none;
+
+    @media (prefers-color-scheme: dark) {
+      border-color: #303030;
+    }
+
+    [data-theme="dark"] & {
+      border-color: #303030;
+    }
+  }
+
+  &--elevated {
+    border: none;
+    border-radius: var(--rds-border-radius-md, 8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    @media (prefers-color-scheme: dark) {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="dark"] & {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  &--outlined {
+    border: 2px solid var(--rds-border-default, #e0e0e0);
+    border-radius: var(--rds-border-radius-sm, 4px);
+    box-shadow: none;
+
+    @media (prefers-color-scheme: dark) {
+      border-color: #303030;
+    }
+
+    [data-theme="dark"] & {
+      border-color: #303030;
+    }
+  }
+
+  // ─── Striped Rows ───────────────────────────────────────────────────────────
+  &--striped {
+    .MuiDataGrid-row {
+      &:nth-of-type(even) {
+        background-color: var(--rds-background-hover, #f5f5f5);
+
+        @media (prefers-color-scheme: dark) {
+          background-color: #1e1e1e;
+        }
+
+        [data-theme="dark"] & {
+          background-color: #1e1e1e;
+        }
+
+        &:hover {
+          background-color: #eeeeee;
+
+          @media (prefers-color-scheme: dark) {
+            background-color: #2a2a2a;
+          }
+
+          [data-theme="dark"] & {
+            background-color: #2a2a2a;
+          }
+        }
+      }
+    }
+  }
+
+  // ─── Hoverable Rows ─────────────────────────────────────────────────────────
+  &--hoverable {
+    .MuiDataGrid-row {
+      transition: background-color 0.2s ease;
+
+      &:hover:not(.MuiDataGrid-row--dynamicHeight) {
+        background-color: var(--rds-background-hover, #f5f5f5);
+
+        @media (prefers-color-scheme: dark) {
+          background-color: #1e1e1e;
+        }
+
+        [data-theme="dark"] & {
+          background-color: #1e1e1e;
+        }
+      }
+    }
+  }
+
+  // ─── Non-Hoverable Rows (Disable hover effects) ──────────────────────────────
+  &--not-hoverable {
+    .MuiDataGrid-row {
+      &:hover:not(.MuiDataGrid-row--dynamicHeight) {
+        background-color: var(--rds-background-surface, #ffffff) !important;
+        cursor: default;
+
+        @media (prefers-color-scheme: dark) {
+          background-color: #121212 !important;
+        }
+
+        [data-theme="dark"] & {
+          background-color: #121212 !important;
+        }
+      }
+    }
+  }
+
+  // ─── Compact Density ────────────────────────────────────────────────────────
+  &--compact {
+    .MuiDataGrid-cell {
+      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
+      font-size: var(--rds-font-size-sm, 12px);
+      min-height: 32px;
+    }
+
+    .MuiDataGrid-columnHeader {
+      min-height: 36px;
+      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
+      font-size: var(--rds-font-size-sm, 12px);
+    }
+
+    .MuiTablePagination-root {
+      font-size: var(--rds-font-size-sm, 12px);
+      min-height: 36px;
+    }
+  }
+
+  // ─── Bordered Cells ─────────────────────────────────────────────────────────
+  &--bordered {
+    .MuiDataGrid-cell {
+      border-right: 1px solid var(--rds-border-default, #e0e0e0);
+      border-bottom: 1px solid var(--rds-border-default, #e0e0e0);
+
+      @media (prefers-color-scheme: dark) {
+        border-right-color: #303030;
+        border-bottom-color: #303030;
+      }
+
+      [data-theme="dark"] & {
+        border-right-color: #303030;
+        border-bottom-color: #303030;
+      }
+    }
+  }
+
+  // ─── No Border Variant ──────────────────────────────────────────────────────
+  &:not(.rds-comp-data-grid--bordered) {
+    .MuiDataGrid-cell {
+      border-right: none;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    .MuiDataGrid-columnHeader {
+      border-right: none;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+
+  // ─── Column Header Drag Indicator ───────────────────────────────────────────
+  .MuiDataGrid-columnHeaderDraggableContainer {
+    .MuiDataGrid-columnHeaderDraggableContainer--active {
+      background-color: rgba(var(--rds-color-primary-rgb, 25, 118, 210), 0.1);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: rgba(100, 181, 246, 0.1);
+      }
+
+      [data-theme="dark"] & {
+        background-color: rgba(100, 181, 246, 0.1);
+      }
+    }
+  }
+
+  // ─── Filter Icon Styling ────────────────────────────────────────────────────
+  .MuiDataGrid-columnHeaderTitleContainer--alignCenter {
+    .MuiDataGrid-columnHeaderTitle {
+      color: var(--rds-text-primary, #212121);
+
+      @media (prefers-color-scheme: dark) {
+        color: #ffffff;
+      }
+
+      [data-theme="dark"] & {
+        color: #ffffff;
+      }
+    }
+  }
+
+  // ─── Menu Item Styling (for column menu) ────────────────────────────────────
+  .MuiMenuItem-root {
+    color: var(--rds-text-primary, #212121);
+
+    &:hover {
+      background-color: var(--rds-background-hover, #f5f5f5);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      color: #ffffff;
+
+      &:hover {
+        background-color: #1e1e1e;
+      }
+    }
+
+    [data-theme="dark"] & {
+      color: #ffffff;
+
+      &:hover {
+        background-color: #1e1e1e;
+      }
+    }
+  }
+
+  // ─── Sort Icon Styling ──────────────────────────────────────────────────────
+  .MuiDataGrid-sortIcon {
+    color: var(--rds-text-secondary, #757575);
+
+    @media (prefers-color-scheme: dark) {
+      color: #b0b0b0;
+    }
+
+    [data-theme="dark"] & {
+      color: #b0b0b0;
+    }
+  }
+
+  // ─── Empty State Message ────────────────────────────────────────────────────
+  .MuiDataGrid-noRowsOverlay {
+    .MuiBox-root {
+      color: var(--rds-text-secondary, #757575);
+      font-size: var(--rds-font-size-base, 14px);
+
+      @media (prefers-color-scheme: dark) {
+        color: #b0b0b0;
+      }
+
+      [data-theme="dark"] & {
+        color: #b0b0b0;
+      }
+    }
+  }
+
+  // ─── Loading Overlay ────────────────────────────────────────────────────────
+  .MuiDataGrid-loadingOverlay {
+    background-color: rgba(255, 255, 255, 0.7);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: rgba(18, 18, 18, 0.7);
+    }
+
+    [data-theme="dark"] & {
+      background-color: rgba(18, 18, 18, 0.7);
+    }
+
+    .MuiCircularProgress-root {
+      color: var(--rds-color-primary, #1976d2);
+
+      @media (prefers-color-scheme: dark) {
+        color: #64b5f6;
+      }
+
+      [data-theme="dark"] & {
+        color: #64b5f6;
+      }
+    }
+  }
+
+  // ─── Toolbar Styling ────────────────────────────────────────────────────────
+  .MuiDataGrid-toolbarContainer {
+    padding: var(--rds-spacing-md, 16px);
+    background-color: var(--rds-background-hover, #f5f5f5);
+    border-bottom: 1px solid var(--rds-border-default, #e0e0e0);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #1e1e1e;
+      border-bottom-color: #303030;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #1e1e1e;
+      border-bottom-color: #303030;
+    }
+
+    button {
+      color: var(--rds-text-primary, #212121);
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        color: #ffffff;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.08);
+        }
+      }
+
+      [data-theme="dark"] & {
+        color: #ffffff;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.08);
+        }
+      }
+    }
+  }
+}
