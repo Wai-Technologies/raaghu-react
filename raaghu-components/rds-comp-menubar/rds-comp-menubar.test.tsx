@@ -1,408 +1,363 @@
 import React from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import RdsCompMenubar, { MenubarItem } from './rds-comp-menubar';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import RdsCompMenubar, { RdsCompMenubarItem } from './rds-comp-menubar';
+import {
+  Edit as EditIcon,
+  Delete as DeleteIcon,
+  Save as SaveIcon,
+} from '@mui/icons-material';
 
-const defaultItems: MenubarItem[] = [
-  { id: 'file', label: 'File' },
-  { id: 'edit', label: 'Edit' },
-  { id: 'view', label: 'View' },
-];
-
-const itemsWithSubmenu: MenubarItem[] = [
+const defaultItems: RdsCompMenubarItem[] = [
   {
     id: 'file',
     label: 'File',
     submenu: [
-      { id: 'new', label: 'New' },
-      { id: 'open', label: 'Open' },
-      { id: 'save', label: 'Save', disabled: true },
+      { id: 'new', label: 'New', shortcut: 'Ctrl+N' },
+      { id: 'open', label: 'Open', shortcut: 'Ctrl+O' },
+      { id: 'save', label: 'Save', shortcut: 'Ctrl+S', icon: <SaveIcon /> },
     ],
   },
   {
     id: 'edit',
     label: 'Edit',
     submenu: [
-      { id: 'undo', label: 'Undo' },
-      { id: 'redo', label: 'Redo' },
+      { id: 'cut', label: 'Cut', shortcut: 'Ctrl+X' },
+      { id: 'copy', label: 'Copy', shortcut: 'Ctrl+C' },
+      { id: 'paste', label: 'Paste', shortcut: 'Ctrl+V' },
     ],
+  },
+  {
+    id: 'help',
+    label: 'Help',
   },
 ];
 
 describe('RdsCompMenubar', () => {
-  describe('Rendering', () => {
-    it('should render menubar with items', () => {
+  // ──────────────────────────────────────────────────────────────────────────────
+  describe('Uncontrolled Mode', () => {
+    // ────────────────────────────────────────────────────────────────────────────
+    it('renders menubar with items', () => {
       render(<RdsCompMenubar items={defaultItems} />);
-      expect(screen.getByTestId('rds-comp-menubar')).toBeInTheDocument();
-      expect(screen.getByText('File')).toBeInTheDocument();
-      expect(screen.getByText('Edit')).toBeInTheDocument();
-      expect(screen.getByText('View')).toBeInTheDocument();
+
+      const menubar = screen.getByTestId('rds-comp-menubar');
+      expect(menubar).toBeInTheDocument();
+      expect(screen.getByTestId('rds-menubar-item-file')).toBeInTheDocument();
+      expect(screen.getByTestId('rds-menubar-item-edit')).toBeInTheDocument();
+      expect(screen.getByTestId('rds-menubar-item-help')).toBeInTheDocument();
     });
 
-    it('should have correct CSS classes', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} size="medium" variant="text" />
-      );
-      const menubar = container.querySelector('.rds-comp-menubar');
-      expect(menubar).toHaveClass('rds-comp-menubar--medium');
-      expect(menubar).toHaveClass('rds-comp-menubar--text');
+    // ────────────────────────────────────────────────────────────────────────────
+    it('displays submenu when item with submenu is clicked', async () => {
+      render(<RdsCompMenubar items={defaultItems} />);
+
+      const fileItem = screen.getByTestId('rds-menubar-item-file');
+      fireEvent.click(fileItem);
+
+      await waitFor(() => {
+        expect(screen.getByTestId('rds-menubar-subitem-new')).toBeInTheDocument();
+        expect(screen.getByTestId('rds-menubar-subitem-open')).toBeInTheDocument();
+      });
     });
 
-    it('should render with correct orientation', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} orientation="horizontal" />
-      );
-      expect(container.querySelector('.rds-comp-menubar--horizontal')).toBeInTheDocument();
+    // ────────────────────────────────────────────────────────────────────────────
+    it('closes submenu when clicking the same item again', async () => {
+      render(<RdsCompMenubar items={defaultItems} />);
+
+      const fileItem = screen.getByTestId('rds-menubar-item-file');
+
+      // Open submenu
+      fireEvent.click(fileItem);
+      await waitFor(() => {
+        expect(screen.getByTestId('rds-menubar-subitem-new')).toBeInTheDocument();
+      });
+
+      // Close submenu
+      fireEvent.click(fileItem);
+      await waitFor(() => {
+        expect(screen.queryByTestId('rds-menubar-subitem-new')).not.toBeInTheDocument();
+      });
     });
 
-    it('should render vertical orientation', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} orientation="vertical" />
-      );
-      expect(container.querySelector('.rds-comp-menubar--vertical')).toBeInTheDocument();
-    });
-  });
+    // ────────────────────────────────────────────────────────────────────────────
+    it('calls onClick callback when subitem is clicked', async () => {
+      const handleClick = jest.fn();
+      const itemsWithCallback: RdsCompMenubarItem[] = [
+        {
+          id: 'file',
+          label: 'File',
+          submenu: [
+            { id: 'new', label: 'New', onClick: handleClick },
+          ],
+        },
+      ];
 
-  describe('Size Variants', () => {
-    it('should apply small size class', () => {
-      const { container } = render(<RdsCompMenubar items={defaultItems} size="small" />);
-      expect(container.querySelector('.rds-comp-menubar--small')).toBeInTheDocument();
-    });
+      render(<RdsCompMenubar items={itemsWithCallback} />);
 
-    it('should apply large size class', () => {
-      const { container } = render(<RdsCompMenubar items={defaultItems} size="large" />);
-      expect(container.querySelector('.rds-comp-menubar--large')).toBeInTheDocument();
-    });
-  });
+      const fileItem = screen.getByTestId('rds-menubar-item-file');
+      fireEvent.click(fileItem);
 
-  describe('Color Variants', () => {
-    it('should apply color classes', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} color="primary" />
-      );
-      expect(container.querySelector('.rds-comp-menubar--primary')).toBeInTheDocument();
+      await waitFor(() => {
+        const newItem = screen.getByTestId('rds-menubar-subitem-new');
+        fireEvent.click(newItem);
+      });
+
+      expect(handleClick).toHaveBeenCalled();
     });
 
-    it('should apply secondary color', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} color="secondary" />
-      );
-      expect(container.querySelector('.rds-comp-menubar--secondary')).toBeInTheDocument();
-    });
-
-    it('should apply success color', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} color="success" />
-      );
-      expect(container.querySelector('.rds-comp-menubar--success')).toBeInTheDocument();
-    });
-
-    it('should apply error color', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} color="error" />
-      );
-      expect(container.querySelector('.rds-comp-menubar--error')).toBeInTheDocument();
-    });
-  });
-
-  describe('Variant Styling', () => {
-    it('should apply filled variant', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} variant="filled" />
-      );
-      expect(container.querySelector('.rds-comp-menubar--filled')).toBeInTheDocument();
-    });
-
-    it('should apply outlined variant', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} variant="outlined" />
-      );
-      expect(container.querySelector('.rds-comp-menubar--outlined')).toBeInTheDocument();
-    });
-  });
-
-  describe('Disabled Items', () => {
-    it('should render disabled items with correct class', () => {
-      const disabledItems: MenubarItem[] = [
+    // ────────────────────────────────────────────────────────────────────────────
+    it('respects disabled flag on menu items', () => {
+      const itemsWithDisabled: RdsCompMenubarItem[] = [
         { id: 'file', label: 'File' },
         { id: 'edit', label: 'Edit', disabled: true },
       ];
-      const { container } = render(<RdsCompMenubar items={disabledItems} />);
-      const disabledItem = container.querySelector('.rds-comp-menubar__item--disabled');
-      expect(disabledItem).toBeInTheDocument();
+
+      render(<RdsCompMenubar items={itemsWithDisabled} />);
+
+      const editItem = screen.getByTestId('rds-menubar-item-edit');
+      expect(editItem).toHaveClass('Mui-disabled');
     });
 
-    it('should not allow clicking disabled items', () => {
-      const mockClick = jest.fn();
-      const disabledItems: MenubarItem[] = [
-        { id: 'file', label: 'File', disabled: true, onClick: mockClick },
+    // ────────────────────────────────────────────────────────────────────────────
+    it('displays icons in menu items when provided', () => {
+      const itemsWithIcons: RdsCompMenubarItem[] = [
+        { id: 'edit', label: 'Edit', icon: <EditIcon /> },
+        { id: 'delete', label: 'Delete', icon: <DeleteIcon /> },
       ];
-      render(<RdsCompMenubar items={disabledItems} />);
-      const button = screen.getByText('File').closest('button');
-      fireEvent.click(button!);
-      expect(mockClick).not.toHaveBeenCalled();
-    });
-  });
 
-  describe('Horizontal Menubar with Submenus', () => {
-    it('should render items with submenu indicator', () => {
-      const { container } = render(
-        <RdsCompMenubar items={itemsWithSubmenu} orientation="horizontal" />
-      );
-      const submenuItems = container.querySelectorAll('.rds-comp-menubar__item--has-submenu');
-      expect(submenuItems.length).toBe(2);
+      const { container } = render(<RdsCompMenubar items={itemsWithIcons} />);
+
+      const menubar = container.querySelector('.rds-comp-menubar__icon');
+      expect(menubar).toBeInTheDocument();
     });
 
-    it('should open submenu on click (horizontal)', () => {
-      render(<RdsCompMenubar items={itemsWithSubmenu} orientation="horizontal" />);
-      const fileButton = screen.getByText('File');
-      fireEvent.click(fileButton);
-      expect(screen.getByText('New')).toBeInTheDocument();
-      expect(screen.getByText('Open')).toBeInTheDocument();
+    // ────────────────────────────────────────────────────────────────────────────
+    it('displays shortcut text when provided', () => {
+      render(<RdsCompMenubar items={defaultItems} />);
+
+      const fileItem = screen.getByTestId('rds-menubar-item-file');
+      fireEvent.click(fileItem);
+
+      const shortcutElements = screen.getAllByText(/Ctrl\+/);
+      expect(shortcutElements.length).toBeGreaterThan(0);
     });
 
-    it('should close submenu when clicking a submenu item', async () => {
-      const user = userEvent.setup();
-      const mockCallback = jest.fn();
-      const items: MenubarItem[] = [
-        {
-          id: 'file',
-          label: 'File',
-          submenu: [
-            { id: 'new', label: 'New', onClick: mockCallback },
-          ],
-        },
-      ];
-      render(<RdsCompMenubar items={items} orientation="horizontal" />);
-      const fileButton = screen.getByText('File');
-      await user.click(fileButton);
-      expect(screen.getByText('New')).toBeInTheDocument();
-      const newItem = screen.getByText('New');
-      await user.click(newItem);
-      // Verify the submenu item click handler was called
-      expect(mockCallback).toHaveBeenCalled();
-    });
-
-    it('should handle submenu item clicks', () => {
-      const mockClick = jest.fn();
-      const items: MenubarItem[] = [
-        {
-          id: 'file',
-          label: 'File',
-          submenu: [
-            { id: 'new', label: 'New', onClick: mockClick },
-          ],
-        },
-      ];
-      render(<RdsCompMenubar items={items} orientation="horizontal" />);
-      const fileButton = screen.getByText('File');
-      fireEvent.click(fileButton);
-      const newItem = screen.getByText('New');
-      fireEvent.click(newItem);
-      expect(mockClick).toHaveBeenCalled();
-    });
-  });
-
-  describe('Vertical Menubar with Submenus', () => {
-    it('should expand/collapse submenu on click (vertical)', async () => {
-      const user = userEvent.setup();
-      render(<RdsCompMenubar items={itemsWithSubmenu} orientation="vertical" />);
-      const fileButton = screen.getByText('File');
-      
-      // Initially collapsed, submenu not visible
-      expect(screen.queryByText('New')).not.toBeInTheDocument();
-      
-      // Click to expand
-      await user.click(fileButton);
-      expect(screen.getByText('New')).toBeInTheDocument();
-      
-      // Click to collapse
-      await user.click(fileButton);
-      // Wait for collapse animation to complete
-      setTimeout(() => {
-        expect(screen.queryByText('New')).not.toBeInTheDocument();
-      }, 100);
-    });
-
-    it('should handle multiple submenus in vertical mode', () => {
-      render(<RdsCompMenubar items={itemsWithSubmenu} orientation="vertical" />);
-      const fileButton = screen.getByText('File');
-      fireEvent.click(fileButton);
-      expect(screen.getByText('New')).toBeInTheDocument();
-    });
-  });
-
-  describe('Callbacks', () => {
-    it('should call onItemClick when item is clicked', () => {
-      const mockCallback = jest.fn();
-      render(
-        <RdsCompMenubar items={defaultItems} onItemClick={mockCallback} />
-      );
-      const fileButton = screen.getByText('File');
-      fireEvent.click(fileButton);
-      // When no submenu is clicked, only itemId is passed (subItemId is undefined)
-      expect(mockCallback).toHaveBeenCalledWith('file', undefined);
-    });
-
-    it('should call onItemClick with both item and sub-item IDs', () => {
-      const mockCallback = jest.fn();
+    // ────────────────────────────────────────────────────────────────────────────
+    it('calls onMenuChange callback when menu opens/closes', () => {
+      const handleMenuChange = jest.fn();
       render(
         <RdsCompMenubar
-          items={itemsWithSubmenu}
-          orientation="horizontal"
-          onItemClick={mockCallback}
+          items={defaultItems}
+          onMenuChange={handleMenuChange}
         />
       );
-      const fileButton = screen.getByText('File');
-      fireEvent.click(fileButton);
-      const newItem = screen.getByText('New');
-      fireEvent.click(newItem);
-      expect(mockCallback).toHaveBeenCalledWith('file', 'new');
+
+      const fileItem = screen.getByTestId('rds-menubar-item-file');
+      fireEvent.click(fileItem);
+
+      expect(handleMenuChange).toHaveBeenCalledWith('file');
     });
 
-    it('should call item onClick callback', () => {
-      const mockClick = jest.fn();
-      const items: MenubarItem[] = [
-        { id: 'file', label: 'File', onClick: mockClick },
-      ];
-      render(<RdsCompMenubar items={items} />);
-      const fileButton = screen.getByText('File');
-      fireEvent.click(fileButton);
-      expect(mockClick).toHaveBeenCalled();
-    });
-  });
+    // ────────────────────────────────────────────────────────────────────────────
+    it('switches between different submenus', async () => {
+      render(<RdsCompMenubar items={defaultItems} />);
 
-  describe('Badge Support', () => {
-    it('should render badge when provided', () => {
-      const items: MenubarItem[] = [
-        { id: 'file', label: 'File', badge: 5 },
-      ];
-      render(<RdsCompMenubar items={items} />);
-      expect(screen.getByText('5')).toBeInTheDocument();
-    });
+      // Open File menu
+      const fileItem = screen.getByTestId('rds-menubar-item-file');
+      fireEvent.click(fileItem);
 
-    it('should render string badge', () => {
-      const items: MenubarItem[] = [
-        { id: 'file', label: 'File', badge: 'NEW' },
-      ];
-      render(<RdsCompMenubar items={items} />);
-      expect(screen.getByText('NEW')).toBeInTheDocument();
+      await waitFor(() => {
+        expect(screen.getByTestId('rds-menubar-subitem-new')).toBeInTheDocument();
+      });
+
+      // Open Edit menu (should close File menu)
+      const editItem = screen.getByTestId('rds-menubar-item-edit');
+      fireEvent.click(editItem);
+
+      await waitFor(() => {
+        expect(screen.getByTestId('rds-menubar-subitem-cut')).toBeInTheDocument();
+      });
     });
   });
 
+  // ──────────────────────────────────────────────────────────────────────────────
+  describe('Controlled Mode (openId + onMenuChange)', () => {
+    // ────────────────────────────────────────────────────────────────────────────
+    it('reflects controlled openId prop', async () => {
+      const { rerender } = render(
+        <RdsCompMenubar
+          items={defaultItems}
+          openId={null}
+        />
+      );
+
+      await waitFor(() => {
+        rerender(
+          <RdsCompMenubar
+            items={defaultItems}
+            openId="file"
+          />
+        );
+      });
+
+      await waitFor(() => {
+        expect(screen.getByTestId('rds-menubar-item-file')).toHaveClass('rds-comp-menubar__item--active');
+      }, { timeout: 2000 });
+    });
+
+    // ────────────────────────────────────────────────────────────────────────────
+    it('calls onMenuChange callback in controlled mode', () => {
+      const handleMenuChange = jest.fn();
+      render(
+        <RdsCompMenubar
+          items={defaultItems}
+          openId={null}
+          onMenuChange={handleMenuChange}
+        />
+      );
+
+      const fileItem = screen.getByTestId('rds-menubar-item-file');
+      fireEvent.click(fileItem);
+
+      expect(handleMenuChange).toHaveBeenCalledWith('file');
+    });
+
+    // ────────────────────────────────────────────────────────────────────────────
+    it('controlled mode prevents internal state updates', () => {
+      const handleMenuChange = jest.fn();
+      const { rerender } = render(
+        <RdsCompMenubar
+          items={defaultItems}
+          openId="file"
+          onMenuChange={handleMenuChange}
+        />
+      );
+
+      const editItem = screen.getByTestId('rds-menubar-item-edit');
+      fireEvent.click(editItem);
+
+      expect(handleMenuChange).toHaveBeenCalledWith('edit');
+
+      // Rerender with same openId to verify controlled behavior
+      rerender(
+        <RdsCompMenubar
+          items={defaultItems}
+          openId="file"
+          onMenuChange={handleMenuChange}
+        />
+      );
+
+      // Menu should still show File menu
+      expect(screen.getByTestId('rds-menubar-item-file')).toHaveClass('rds-comp-menubar__item--active');
+    });
+  });
+
+  // ──────────────────────────────────────────────────────────────────────────────
+  describe('MUI Props', () => {
+    // ────────────────────────────────────────────────────────────────────────────
+    it('applies size prop correctly', () => {
+      const { container } = render(
+        <RdsCompMenubar items={defaultItems} size="large" />
+      );
+
+      expect(container.querySelector('.rds-comp-menubar--large')).toBeInTheDocument();
+    });
+
+    // ────────────────────────────────────────────────────────────────────────────
+    it('applies variant prop correctly', () => {
+      const { container } = render(
+        <RdsCompMenubar items={defaultItems} variant="filled" />
+      );
+
+      expect(container.querySelector('.rds-comp-menubar--filled')).toBeInTheDocument();
+    });
+
+    // ────────────────────────────────────────────────────────────────────────────
+    it('applies color prop correctly', () => {
+      const { container } = render(
+        <RdsCompMenubar items={defaultItems} color="success" />
+      );
+
+      expect(container.querySelector('.rds-comp-menubar--color-success')).toBeInTheDocument();
+    });
+
+    // ────────────────────────────────────────────────────────────────────────────
+    it('applies fullWidth prop correctly', () => {
+      const { container } = render(
+        <RdsCompMenubar items={defaultItems} fullWidth={true} />
+      );
+
+      expect(container.querySelector('.rds-comp-menubar--full-width')).toBeInTheDocument();
+    });
+
+    // ────────────────────────────────────────────────────────────────────────────
+    it('closeOnItemClick prop controls menu closure', async () => {
+      const handleMenuChange = jest.fn();
+      render(
+        <RdsCompMenubar
+          items={defaultItems}
+          onMenuChange={handleMenuChange}
+          closeOnItemClick={true}
+        />
+      );
+
+      const fileItem = screen.getByTestId('rds-menubar-item-file');
+      fireEvent.click(fileItem);
+
+      await waitFor(() => {
+        const newItem = screen.getByTestId('rds-menubar-subitem-new');
+        fireEvent.click(newItem);
+      });
+
+      // Menu should close after item click
+      expect(handleMenuChange).toHaveBeenLastCalledWith(null);
+    });
+
+    // ────────────────────────────────────────────────────────────────────────────
+    it('closeOnItemClick=false keeps menu open', async () => {
+      const handleMenuChange = jest.fn();
+      render(
+        <RdsCompMenubar
+          items={defaultItems}
+          onMenuChange={handleMenuChange}
+          closeOnItemClick={false}
+        />
+      );
+
+      const fileItem = screen.getByTestId('rds-menubar-item-file');
+      fireEvent.click(fileItem);
+
+      await waitFor(() => {
+        const newItem = screen.getByTestId('rds-menubar-subitem-new');
+        fireEvent.click(newItem);
+      });
+
+      // Menu should still be open
+      expect(handleMenuChange).not.toHaveBeenLastCalledWith(null);
+    });
+  });
+
+  // ──────────────────────────────────────────────────────────────────────────────
   describe('Accessibility', () => {
-    it('should have proper ARIA attributes', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} orientation="horizontal" />
-      );
-      const menuList = container.querySelector('[role="menubar"]');
-      expect(menuList).toBeInTheDocument();
+    // ────────────────────────────────────────────────────────────────────────────
+    it('has proper ARIA attributes on menu items', () => {
+      render(<RdsCompMenubar items={defaultItems} />);
+
+      const fileItem = screen.getByTestId('rds-menubar-item-file');
+      expect(fileItem).toHaveAttribute('role', 'menuitem');
     });
 
-    it('should mark items with submenu as aria-haspopup', () => {
-      const { container } = render(
-        <RdsCompMenubar items={itemsWithSubmenu} orientation="horizontal" />
-      );
-      const button = screen.getByText('File').closest('button');
-      expect(button).toHaveAttribute('aria-haspopup', 'true');
-    });
-
-    it('should update aria-expanded state', () => {
-      render(<RdsCompMenubar items={itemsWithSubmenu} orientation="horizontal" />);
-      const button = screen.getByText('File').closest('button');
-      expect(button).toHaveAttribute('aria-expanded', 'false');
-      fireEvent.click(button!);
-      expect(button).toHaveAttribute('aria-expanded', 'true');
-    });
-  });
-
-  describe('Icon Support', () => {
-    it('should render icons when provided', () => {
-      const items: MenubarItem[] = [
-        {
-          id: 'file',
-          label: 'File',
-          icon: <span data-testid="file-icon">📄</span>,
-        },
+    // ────────────────────────────────────────────────────────────────────────────
+    it('shows divider when divider flag is true', () => {
+      const itemsWithDivider: RdsCompMenubarItem[] = [
+        { id: 'file', label: 'File', divider: true },
+        { id: 'edit', label: 'Edit' },
       ];
-      render(<RdsCompMenubar items={items} />);
-      expect(screen.getByTestId('file-icon')).toBeInTheDocument();
-    });
 
-    it('should render submenu item icons', () => {
-      const items: MenubarItem[] = [
-        {
-          id: 'file',
-          label: 'File',
-          submenu: [
-            {
-              id: 'new',
-              label: 'New',
-              icon: <span data-testid="new-icon">✨</span>,
-            },
-          ],
-        },
-      ];
-      render(<RdsCompMenubar items={items} orientation="horizontal" />);
-      const fileButton = screen.getByText('File');
-      fireEvent.click(fileButton);
-      expect(screen.getByTestId('new-icon')).toBeInTheDocument();
-    });
-  });
+      const { container } = render(<RdsCompMenubar items={itemsWithDivider} />);
 
-  describe('Active State', () => {
-    it('should apply active class to active item', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} activeId="file" />
-      );
-      const activeItem = container.querySelector('.rds-comp-menubar__item--active');
-      expect(activeItem).toHaveTextContent('File');
-    });
-
-    it('should update active state on prop change', () => {
-      const { container, rerender } = render(
-        <RdsCompMenubar items={defaultItems} activeId="file" />
-      );
-      let activeItem = container.querySelector('.rds-comp-menubar__item--active');
-      expect(activeItem).toHaveTextContent('File');
-
-      rerender(<RdsCompMenubar items={defaultItems} activeId="edit" />);
-      activeItem = container.querySelector('.rds-comp-menubar__item--active');
-      expect(activeItem).toHaveTextContent('Edit');
-    });
-  });
-
-  describe('Theme Support', () => {
-    it('should apply dark theme class', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} theme="dark" />
-      );
-      expect(container.querySelector('[data-theme="dark"]')).toBeInTheDocument();
-    });
-
-    it('should apply light theme class', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} theme="light" />
-      );
-      expect(container.querySelector('[data-theme="light"]')).toBeInTheDocument();
-    });
-  });
-
-  describe('Layout Variants', () => {
-    it('should apply compact layout', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} layout="compact" />
-      );
-      expect(container.querySelector('.rds-comp-menubar--compact')).toBeInTheDocument();
-    });
-  });
-
-  describe('Custom CSS Class', () => {
-    it('should apply custom class', () => {
-      const { container } = render(
-        <RdsCompMenubar items={defaultItems} className="custom-class" />
-      );
-      expect(container.querySelector('.custom-class')).toBeInTheDocument();
+      const divider = container.querySelector('.rds-comp-menubar__divider');
+      expect(divider).toBeInTheDocument();
     });
   });
 });

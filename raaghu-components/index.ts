@@ -4,11 +4,11 @@ export {default as RdsCompColorPicker} from './rds-comp-color-picker/rds-comp-co
 export {default as RdsCompToast} from './rds-comp-toast/rds-comp-toast';
 export {default as RdsCompChip, type RdsCompChipProps} from './rds-comp-chip/rds-comp-chip';
 export {default as RdsCompButtonGroup, type RdsCompButtonGroupProps, type RdsCompButtonGroupOption} from './rds-comp-button-group/rds-comp-button-group';
+export {default as RdsCompMenubar, type RdsCompMenubarProps, type RdsCompMenubarItem} from './rds-comp-menubar/rds-comp-menubar';
 export {default as RdsCompScrollbar} from './rds-comp-scrollbar/rds-comp-scrollbar';
 export {default as RdsCompTruncatedText} from './rds-comp-truncate-text/rds-comp-truncate-text';
 export {default as RdsCompOffcanvas} from './rds-comp-off-canvas/rds-comp-off-canvas';
 export {default as RdsCompFilterButton} from './rds-comp-filter-button/rds-comp-filter-button';
-export {default as RdsMenubar, type MenubarItem, type MenuSubItem, type RdsMenubarProps} from './rds-comp-menubar/rds-comp-menubar';
 // export { default as RdsCompAreaChart } from "./rds-comp-chart-area/rds-comp-chart-area";
 // export { default as RdsCompLineChart } from "./rds-comp-chart-line/rds-comp-chart-line";
 // export { default as RdsCompPieChart } from "./rds-comp-chart-pie/rds-comp-chart-pie";
