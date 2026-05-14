@@ -199,6 +199,22 @@ const RdsCompScheduler: React.FC<RdsCompSchedulerProps> = ({
   const currentDisplayDate = isControlled ? controlledDate : internalDate;
 
   // Helper functions
+  // Helper function to check if a date is disabled
+  const isDateDisabled = useCallback((date: Date): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const checkDate = new Date(date);
+    checkDate.setHours(0, 0, 0, 0);
+
+    if (disablePast && checkDate < today) {
+      return true;
+    }
+    if (disableFuture && checkDate > today) {
+      return true;
+    }
+    return false;
+  }, [disablePast, disableFuture]);
+
   const handleDateChange = useCallback(
     (newDate: Date) => {
       if (!isControlled) {
@@ -330,6 +346,20 @@ const RdsCompScheduler: React.FC<RdsCompSchedulerProps> = ({
       return;
     }
 
+    // Validate that start and end dates are not disabled
+    const startDate = new Date(`${formData.startDate}`);
+    const endDate = new Date(`${formData.endDate}`);
+
+    if (isDateDisabled(startDate)) {
+      alert(disablePast && disableFuture ? 'Cannot create event on this date' : disablePast ? 'Cannot create event on past dates' : 'Cannot create event on future dates');
+      return;
+    }
+
+    if (isDateDisabled(endDate)) {
+      alert(disablePast && disableFuture ? 'Cannot create event on this date' : disablePast ? 'Cannot create event on past dates' : 'Cannot create event on future dates');
+      return;
+    }
+
     const startTimeStr = formData.allDay ? 'T00:00:00' : `T${formData.startTime || '09:00'}:00`;
     const endTimeStr = formData.allDay ? 'T00:00:00' : `T${formData.endTime || '10:00'}:00`;
 
@@ -352,7 +382,7 @@ const RdsCompScheduler: React.FC<RdsCompSchedulerProps> = ({
     }
 
     handleCloseForm();
-  }, [formData, isEditing, allLocalEvents, onEventAdd, onEventUpdate, handleCloseForm]);
+  }, [formData, isEditing, allLocalEvents, onEventAdd, onEventUpdate, handleCloseForm, isDateDisabled, disablePast, disableFuture]);
 
   const handleFormChange = useCallback(
     (field: string, value: any) => {
@@ -418,6 +448,60 @@ const RdsCompScheduler: React.FC<RdsCompSchedulerProps> = ({
 
   const weekDays = useMemo(() => getWeekDays(), [currentDisplayDate]);
 
+  // Check if navigation buttons should be disabled
+  const isPreviousDisabled = useCallback((): boolean => {
+    if (!disablePast) return false;
+    const newDate = new Date(currentDisplayDate);
+    if (view === 'month') {
+      newDate.setMonth(newDate.getMonth() - 1);
+    } else if (view === 'week') {
+      newDate.setDate(newDate.getDate() - 7);
+    } else {
+      newDate.setDate(newDate.getDate() - 1);
+    }
+    
+    // Check if entire month/week/day would be in the past
+    const endDate = new Date(newDate);
+    if (view === 'month') {
+      endDate.setMonth(endDate.getMonth() + 1);
+      endDate.setDate(0);
+    } else if (view === 'week') {
+      endDate.setDate(endDate.getDate() + 6);
+    }
+    
+    endDate.setHours(23, 59, 59, 999);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    return endDate < today;
+  }, [currentDisplayDate, view, disablePast]);
+
+  const isNextDisabled = useCallback((): boolean => {
+    if (!disableFuture) return false;
+    const newDate = new Date(currentDisplayDate);
+    if (view === 'month') {
+      newDate.setMonth(newDate.getMonth() + 1);
+    } else if (view === 'week') {
+      newDate.setDate(newDate.getDate() + 7);
+    } else {
+      newDate.setDate(newDate.getDate() + 1);
+    }
+    
+    // Check if entire month/week/day would be in the future
+    const startDate = new Date(newDate);
+    if (view === 'month') {
+      startDate.setDate(1);
+    } else if (view === 'week') {
+      startDate.setDate(startDate.getDate() - 6);
+    }
+    
+    startDate.setHours(0, 0, 0, 0);
+    const today = new Date();
+    today.setHours(23, 59, 59, 999);
+    
+    return startDate > today;
+  }, [currentDisplayDate, view, disableFuture]);
+
   const rootClasses = [
     'rds-comp-scheduler',
     `rds-comp-scheduler--${size}`,
@@ -446,6 +530,7 @@ const RdsCompScheduler: React.FC<RdsCompSchedulerProps> = ({
               onClick={handlePrevious}
               className="rds-comp-scheduler__nav-btn"
               aria-label="Previous"
+              disabled={isPreviousDisabled()}
             >
               <ChevronLeftIcon />
             </IconButton>
@@ -459,6 +544,7 @@ const RdsCompScheduler: React.FC<RdsCompSchedulerProps> = ({
               onClick={handleNext}
               className="rds-comp-scheduler__nav-btn"
               aria-label="Next"
+              disabled={isNextDisabled()}
             >
               <ChevronRightIcon />
             </IconButton>
@@ -483,6 +569,7 @@ const RdsCompScheduler: React.FC<RdsCompSchedulerProps> = ({
             {calendarDays.map((day, idx) => {
               const isToday =
                 day && day.toDateString() === new Date().toDateString();
+              const isDisabled = day && isDateDisabled(day);
               const dayEvents = day ? getEventsForDate(day) : [];
 
               return (
@@ -492,12 +579,13 @@ const RdsCompScheduler: React.FC<RdsCompSchedulerProps> = ({
                     'rds-comp-scheduler__day-cell',
                     !day && 'rds-comp-scheduler__day-cell--empty',
                     isToday && 'rds-comp-scheduler__day-cell--today',
+                    isDisabled && 'rds-comp-scheduler__day-cell--disabled',
                   ]
                     .filter(Boolean)
                     .join(' ')}
                   data-testid={`day-cell-${day?.getDate() || 'empty'}`}
-                  onClick={() => day && handleOpenFormWithDate(day)}
-                  style={{ cursor: day ? 'pointer' : 'default' }}
+                  onClick={() => day && !isDisabled && handleOpenFormWithDate(day)}
+                  style={{ cursor: day && !isDisabled ? 'pointer' : 'default', opacity: isDisabled ? 0.5 : 1 }}
                 >
                   {day && (
                     <>
@@ -515,14 +603,16 @@ const RdsCompScheduler: React.FC<RdsCompSchedulerProps> = ({
                               .filter(Boolean)
                               .join(' ')}
                             onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedEvent(event);
-                              onEventClick?.(event);
-                              handleOpenForm(event);
+                              if (!isDisabled) {
+                                e.stopPropagation();
+                                setSelectedEvent(event);
+                                onEventClick?.(event);
+                                handleOpenForm(event);
+                              }
                             }}
                             data-testid={`event-${event.id}`}
                             role="button"
-                            tabIndex={0}
+                            tabIndex={isDisabled ? -1 : 0}
                           >
                             <span className="rds-comp-scheduler__event-badge" />
                             <div className="rds-comp-scheduler__event-title">
@@ -555,13 +645,14 @@ const RdsCompScheduler: React.FC<RdsCompSchedulerProps> = ({
           </div>
           <div className="rds-comp-scheduler__week-body">
             {weekDays.map((day, dayIdx) => {
+              const isDisabled = isDateDisabled(day);
               const dayEvents = getEventsForDate(day);
               return (
                 <div 
                   key={dayIdx} 
-                  className="rds-comp-scheduler__week-column"
-                  onClick={() => handleOpenFormWithDate(day)}
-                  style={{ cursor: 'pointer' }}
+                  className={`rds-comp-scheduler__week-column ${isDisabled ? 'rds-comp-scheduler__week-column--disabled' : ''}`}
+                  onClick={() => !isDisabled && handleOpenFormWithDate(day)}
+                  style={{ cursor: isDisabled ? 'default' : 'pointer', opacity: isDisabled ? 0.5 : 1 }}
                 >
                   {dayEvents.map((event) => (
                     <div
@@ -573,14 +664,16 @@ const RdsCompScheduler: React.FC<RdsCompSchedulerProps> = ({
                         .filter(Boolean)
                         .join(' ')}
                       onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedEvent(event);
-                        onEventClick?.(event);
-                        handleOpenForm(event);
+                        if (!isDisabled) {
+                          e.stopPropagation();
+                          setSelectedEvent(event);
+                          onEventClick?.(event);
+                          handleOpenForm(event);
+                        }
                       }}
                       data-testid={`event-${event.id}`}
                       role="button"
-                      tabIndex={0}
+                      tabIndex={isDisabled ? -1 : 0}
                     >
                       <span className="rds-comp-scheduler__event-badge" />
                       <div className="rds-comp-scheduler__event-title">
@@ -665,15 +758,17 @@ const RdsCompScheduler: React.FC<RdsCompSchedulerProps> = ({
                 )}
               </div>
             ))}
-            <Button 
-              variant="outlined" 
-              size="small" 
-              onClick={() => handleOpenFormWithDate(currentDisplayDate)}
-              startIcon={<AddIcon />}
-              style={{ width: '100%', marginTop: '8px' }}
-            >
-              Add Event for {currentDisplayDate.toDateString()}
-            </Button>
+            {!isDateDisabled(currentDisplayDate) && (
+              <Button 
+                variant="outlined" 
+                size="small" 
+                onClick={() => handleOpenFormWithDate(currentDisplayDate)}
+                startIcon={<AddIcon />}
+                style={{ width: '100%', marginTop: '8px' }}
+              >
+                Add Event for {currentDisplayDate.toDateString()}
+              </Button>
+            )}
           </div>
         </div>
       )}
@@ -831,17 +926,17 @@ const RdsCompScheduler: React.FC<RdsCompSchedulerProps> = ({
 
             {/* Event Summary */}
             {formData.startDate && (
-              <Box sx={{ mt: 3, p: 2, backgroundColor: '#f5f5f5', borderRadius: 1 }}>
-                <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600 }}>
+              <div className="rds-comp-scheduler__event-summary">
+                <Typography variant="subtitle2" className="rds-comp-scheduler__event-summary-title">
                   Scheduled Time
                 </Typography>
-                <Typography variant="body2" sx={{ mb: 0.5 }}>
+                <Typography variant="body2" className="rds-comp-scheduler__event-summary-text">
                   <strong>Start:</strong> {new Date(`${formData.startDate}${formData.allDay ? '' : `T${formData.startTime}`}`).toLocaleString()}
                 </Typography>
-                <Typography variant="body2" sx={{ mb: 1 }}>
+                <Typography variant="body2" className="rds-comp-scheduler__event-summary-text">
                   <strong>End:</strong> {new Date(`${formData.endDate}${formData.allDay ? '' : `T${formData.endTime}`}`).toLocaleString()}
                 </Typography>
-              </Box>
+              </div>
             )}
           </Box>
         </DialogContent>

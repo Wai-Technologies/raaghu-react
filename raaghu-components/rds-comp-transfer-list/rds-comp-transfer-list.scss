@@ -1,0 +1,565 @@
+.rds-comp-transfer-list {
+  display: block;
+  width: 100%;
+
+  // ─── Container ────────────────────────────────────────────────────
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--rds-spacing-lg, 24px);
+    align-items: flex-start;
+    padding: var(--rds-spacing-lg, 24px);
+    background-color: var(--rds-background-surface, #ffffff);
+    border-radius: var(--rds-border-radius-md, 8px);
+    border: 1px solid var(--rds-border-default, #e0e0e0);
+    transition: all 0.2s ease;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #121212;
+      border-color: #303030;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #121212;
+      border-color: #303030;
+    }
+  }
+
+  // ─── List Wrapper ─────────────────────────────────────────────────
+  &__list-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 300px;
+  }
+
+  // ─── Card Styling ─────────────────────────────────────────────────
+  &__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--rds-background-surface, #ffffff);
+    border: 1px solid var(--rds-border-default, #e0e0e0);
+    border-radius: var(--rds-border-radius-md, 8px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #1e1e1e;
+      border-color: #303030;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="dark"] & {
+      background-color: #1e1e1e;
+      border-color: #303030;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  // ─── Header Styling ──────────────────────────────────────────────
+  &__header {
+    background-color: var(--rds-background-hover, #f5f5f5);
+    border-bottom: 1px solid var(--rds-border-default, #e0e0e0);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #2a2a2a;
+      border-bottom-color: #303030;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #2a2a2a;
+      border-bottom-color: #303030;
+    }
+
+    .MuiCardHeader-title {
+      color: var(--rds-text-primary, #212121);
+      font-weight: 600;
+      font-size: var(--rds-font-size-base, 14px);
+
+      @media (prefers-color-scheme: dark) {
+        color: #ffffff;
+      }
+
+      [data-theme="dark"] & {
+        color: #ffffff;
+      }
+    }
+
+    .MuiCardHeader-subheader {
+      color: var(--rds-text-secondary, #757575);
+      font-size: var(--rds-font-size-sm, 12px);
+
+      @media (prefers-color-scheme: dark) {
+        color: #b0b0b0;
+      }
+
+      [data-theme="dark"] & {
+        color: #b0b0b0;
+      }
+    }
+  }
+
+  // ─── List Styling ─────────────────────────────────────────────────
+  &__list {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 400px;
+    background-color: var(--rds-background-surface, #ffffff);
+    padding: 0;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #1e1e1e;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #1e1e1e;
+    }
+
+    // Scrollbar styling
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--rds-border-default, #e0e0e0);
+      border-radius: 4px;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: var(--rds-border-light, #d0d0d0);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        background: #303030;
+
+        &:hover {
+          background: #404040;
+        }
+      }
+
+      [data-theme="dark"] & {
+        background: #303030;
+
+        &:hover {
+          background: #404040;
+        }
+      }
+    }
+  }
+
+  // ─── List Item Styling ────────────────────────────────────────────
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: var(--rds-spacing-xs, 4px);
+    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
+    background-color: var(--rds-background-surface, #ffffff);
+    color: var(--rds-text-primary, #212121);
+    border: none;
+    border-bottom: 1px solid var(--rds-border-light, #f0f0f0);
+    transition: all 0.15s ease;
+    cursor: pointer;
+
+    &:hover:not(&--disabled) {
+      background-color: var(--rds-background-hover, #f5f5f5);
+    }
+
+    &--selected {
+      background-color: var(--rds-background-active, #eeeeee);
+      color: var(--rds-text-primary, #212121);
+      font-weight: 500;
+
+      .MuiCheckbox-root {
+        color: var(--rds-color-primary, #1976d2);
+      }
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background-color: var(--rds-background-surface, #ffffff);
+      color: var(--rds-text-disabled, #bdbdbd);
+
+      .MuiCheckbox-root {
+        color: var(--rds-text-disabled, #bdbdbd);
+      }
+    }
+
+    // Dark mode variants
+    @media (prefers-color-scheme: dark) {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      border-bottom-color: #2a2a2a;
+
+      &:hover:not(&--disabled) {
+        background-color: #262626;
+      }
+
+      &--selected {
+        background-color: #2a2a2a;
+        color: #ffffff;
+      }
+
+      &--disabled {
+        background-color: #1e1e1e;
+        color: #616161;
+      }
+    }
+
+    [data-theme="dark"] & {
+      background-color: #1e1e1e;
+      color: #ffffff;
+      border-bottom-color: #2a2a2a;
+
+      &:hover:not(&--disabled) {
+        background-color: #262626;
+      }
+
+      &--selected {
+        background-color: #2a2a2a;
+        color: #ffffff;
+      }
+
+      &--disabled {
+        background-color: #1e1e1e;
+        color: #616161;
+      }
+    }
+  }
+
+  // ─── Checkbox Styling ─────────────────────────────────────────────
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    min-width: 40px;
+    padding: 0;
+    margin: 0 !important;
+    color: var(--rds-text-primary, #212121);
+
+    .MuiCheckbox-root {
+      padding: 4px;
+      color: inherit;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] & {
+      color: #ffffff;
+    }
+  }
+
+  // ─── Icon Styling ─────────────────────────────────────────────────
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    min-width: 32px;
+    padding: 0;
+    margin: 0 !important;
+    color: var(--rds-text-secondary, #757575);
+    font-size: 20px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      color: #b0b0b0;
+    }
+
+    [data-theme="dark"] & {
+      color: #b0b0b0;
+    }
+  }
+
+  // ─── Text Styling ─────────────────────────────────────────────────
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rds-spacing-xs, 4px);
+    flex: 1;
+    margin: 0 !important;
+
+    .MuiListItemText-primary {
+      color: var(--rds-text-primary, #212121);
+      font-size: var(--rds-font-size-base, 14px);
+      font-weight: 500;
+      line-height: 1.4;
+
+      @media (prefers-color-scheme: dark) {
+        color: #ffffff;
+      }
+
+      [data-theme="dark"] & {
+        color: #ffffff;
+      }
+    }
+
+    .MuiListItemText-secondary {
+      color: var(--rds-text-secondary, #757575);
+      font-size: var(--rds-font-size-sm, 12px);
+      line-height: 1.3;
+
+      @media (prefers-color-scheme: dark) {
+        color: #b0b0b0;
+      }
+
+      [data-theme="dark"] & {
+        color: #b0b0b0;
+      }
+    }
+  }
+
+  // ─── Buttons Container ────────────────────────────────────────────
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--rds-spacing-md, 16px);
+    padding: var(--rds-spacing-md, 16px) 0;
+    min-height: 300px;
+  }
+
+  // ─── Button Styling ───────────────────────────────────────────────
+  &__button {
+    min-width: 80px;
+    white-space: nowrap;
+    color: var(--rds-color-primary, #1976d2);
+    border-color: var(--rds-color-primary, #1976d2);
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background-color: rgba(25, 118, 210, 0.04);
+      border-color: var(--rds-color-primary, #1976d2);
+    }
+
+    &:disabled {
+      color: var(--rds-text-disabled, #bdbdbd);
+      border-color: var(--rds-border-default, #e0e0e0);
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      color: #64b5f6;
+      border-color: #64b5f6;
+
+      &:hover:not(:disabled) {
+        background-color: rgba(100, 181, 246, 0.08);
+      }
+
+      &:disabled {
+        color: #616161;
+        border-color: #303030;
+      }
+    }
+
+    [data-theme="dark"] & {
+      color: #64b5f6;
+      border-color: #64b5f6;
+
+      &:hover:not(:disabled) {
+        background-color: rgba(100, 181, 246, 0.08);
+      }
+
+      &:disabled {
+        color: #616161;
+        border-color: #303030;
+      }
+    }
+  }
+
+  // ─── Size Variants ────────────────────────────────────────────────
+  &--small {
+    .rds-comp-transfer-list__container {
+      gap: var(--rds-spacing-md, 16px);
+      padding: var(--rds-spacing-md, 16px);
+    }
+
+    .rds-comp-transfer-list__list-wrapper {
+      min-height: 200px;
+    }
+
+    .rds-comp-transfer-list__list {
+      max-height: 250px;
+    }
+
+    .rds-comp-transfer-list__item {
+      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
+      font-size: var(--rds-font-size-sm, 12px);
+    }
+
+    .rds-comp-transfer-list__checkbox {
+      width: 32px;
+      min-width: 32px;
+    }
+
+    .rds-comp-transfer-list__icon {
+      width: 24px;
+      min-width: 24px;
+
+      svg {
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+      }
+    }
+
+    .rds-comp-transfer-list__header {
+      .MuiCardHeader-title {
+        font-size: var(--rds-font-size-sm, 12px);
+      }
+
+      .MuiCardHeader-subheader {
+        font-size: 10px;
+      }
+    }
+
+    .rds-comp-transfer-list__text {
+      .MuiListItemText-primary {
+        font-size: 12px;
+      }
+
+      .MuiListItemText-secondary {
+        font-size: 10px;
+      }
+    }
+
+    .rds-comp-transfer-list__button {
+      min-width: 60px;
+      font-size: 12px;
+      padding: 4px 8px;
+    }
+  }
+
+  &--medium {
+    .rds-comp-transfer-list__container {
+      gap: var(--rds-spacing-lg, 24px);
+      padding: var(--rds-spacing-lg, 24px);
+    }
+
+    .rds-comp-transfer-list__list-wrapper {
+      min-height: 300px;
+    }
+
+    .rds-comp-transfer-list__list {
+      max-height: 400px;
+    }
+
+    .rds-comp-transfer-list__item {
+      padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
+      font-size: var(--rds-font-size-base, 14px);
+    }
+
+    .rds-comp-transfer-list__header {
+      .MuiCardHeader-title {
+        font-size: var(--rds-font-size-base, 14px);
+      }
+    }
+
+    .rds-comp-transfer-list__button {
+      min-width: 80px;
+      font-size: 14px;
+      padding: 6px 12px;
+    }
+  }
+
+  &--large {
+    .rds-comp-transfer-list__container {
+      gap: var(--rds-spacing-xl, 32px);
+      padding: var(--rds-spacing-xl, 32px);
+    }
+
+    .rds-comp-transfer-list__list-wrapper {
+      min-height: 400px;
+    }
+
+    .rds-comp-transfer-list__list {
+      max-height: 500px;
+    }
+
+    .rds-comp-transfer-list__item {
+      padding: var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
+      font-size: var(--rds-font-size-lg, 16px);
+    }
+
+    .rds-comp-transfer-list__checkbox {
+      width: 44px;
+      min-width: 44px;
+    }
+
+    .rds-comp-transfer-list__icon {
+      width: 40px;
+      min-width: 40px;
+
+      svg {
+        width: 24px;
+        height: 24px;
+        font-size: 24px;
+      }
+    }
+
+    .rds-comp-transfer-list__header {
+      px: 3 !important;
+      py: 2 !important;
+
+      .MuiCardHeader-title {
+        font-size: var(--rds-font-size-lg, 16px);
+        font-weight: 700;
+      }
+
+      .MuiCardHeader-subheader {
+        font-size: 12px;
+      }
+    }
+
+    .rds-comp-transfer-list__text {
+      .MuiListItemText-primary {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .MuiListItemText-secondary {
+        font-size: 13px;
+      }
+    }
+
+    .rds-comp-transfer-list__button {
+      min-width: 100px;
+      font-size: 16px;
+      padding: 8px 16px;
+    }
+  }
+
+  // ─── Responsive Design ────────────────────────────────────────────
+  @media (max-width: 768px) {
+    .rds-comp-transfer-list__container {
+      grid-template-columns: 1fr;
+      gap: var(--rds-spacing-md, 16px);
+    }
+
+    .rds-comp-transfer-list__buttons {
+      flex-direction: row;
+      justify-content: center;
+      min-height: auto;
+      padding: var(--rds-spacing-md, 16px) 0;
+
+      .rds-comp-transfer-list__button {
+        flex: 1;
+        min-width: unset;
+      }
+    }
+  }
+}
