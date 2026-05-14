@@ -3,7 +3,7 @@ import { Chip, ChipProps } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 import './rds-comp-chip.scss';
 
-export interface RdsCompChipProps extends Omit<ChipProps, 'variant' | 'size' | 'color'> {
+export interface RdsCompChipProps extends Omit<ChipProps, 'variant' | 'size' | 'color' | 'avatar' | 'icon' | 'onDelete' | 'defaultValue' | 'onChange'> {
   /**
    * The content of the component
    */
@@ -102,7 +102,8 @@ const RdsCompChip: React.FC<RdsCompChipProps> = ({
         setInternalSelected(newSelected);
       }
       
-      onChange?.(value ?? label ?? '', newSelected);
+      const chipValue = typeof value === 'string' || typeof value === 'number' ? value : (typeof label === 'string' ? label : '');
+      onChange?.(chipValue, newSelected);
       onClick?.(event);
     }
   };
@@ -128,8 +129,9 @@ const RdsCompChip: React.FC<RdsCompChipProps> = ({
   const muiColor = isSelected && color !== 'default' ? (color as any) : 'default';
   const muiVariant = variant === 'outlined' ? 'outlined' : 'filled';
 
-  // Extract data-testid from props to avoid duplication
-  const { 'data-testid': dataTestId, ...restProps } = props;
+  // Extract custom data attributes from props
+  const dataTestId = (props as Record<string, any>)['data-testid'];
+  const { ...restProps } = props;
 
   return (
     <div

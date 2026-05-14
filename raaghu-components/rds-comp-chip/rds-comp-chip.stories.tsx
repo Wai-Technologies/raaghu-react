@@ -43,27 +43,6 @@ const meta: Meta<typeof RdsCompChip> = {
       control: 'boolean',
       description: 'If true, the chip is selected (shows color)',
     },
-    icon: {
-      control: 'select',
-      options: {
-        'None': undefined,
-        'Favorite': 'favorite',
-        'Star': 'star',
-        'Verified': 'verified',
-        'CheckCircle': 'checkCircle',
-        'Delete': 'delete',
-        'Face': 'face',
-      },
-      description: 'Leading icon to display in the chip',
-    },
-    avatar: {
-      control: 'boolean',
-      description: 'If true, displays an avatar instead of icon',
-    },
-    onDelete: {
-      control: 'boolean',
-      description: 'If true, shows delete icon and makes chip deletable',
-    },
     onClick: {
       action: 'clicked',
       description: 'Callback fired when the chip is clicked',
@@ -72,7 +51,19 @@ const meta: Meta<typeof RdsCompChip> = {
       action: 'changed',
       description: 'Callback fired when the chip selection state changes',
     },
-  },
+    showIcon: {
+      control: 'boolean',
+      description: 'Show leading icon (Storybook control)',
+    },
+    showAvatar: {
+      control: 'boolean',
+      description: 'Show avatar instead of icon (Storybook control)',
+    },
+    showDelete: {
+      control: 'boolean',
+      description: 'Show delete button (Storybook control)',
+    },
+  } as any,
 };
 
 export default meta;
@@ -96,9 +87,14 @@ const getAvatar = () => <Avatar sx={{ width: 32, height: 32 }}>JD</Avatar>;
 
 // ─── Default Story ───────────────────────────────────────────────────────
 export const Default: Story = {
-  render: (args) => {
+  render: (args: any) => {
     const [deleted, setDeleted] = useState(false);
     const [selected, setSelected] = useState(args.selected || false);
+    
+    // Filter out custom Storybook-only controls
+    const chipProps = Object.fromEntries(
+      Object.entries(args).filter(([key]) => !['showAvatar', 'showDelete', 'showIcon', 'icon'].includes(key))
+    );
 
     if (deleted) {
       return <div style={{ padding: '16px', color: '#666' }}>Chip deleted! ✓</div>;
@@ -106,11 +102,11 @@ export const Default: Story = {
 
     return (
       <RdsCompChip
-        {...args}
+        {...chipProps}
         selected={selected}
-        icon={args.icon ? getIcon(args.icon) : undefined}
-        avatar={args.avatar ? getAvatar() : undefined}
-        onDelete={args.onDelete ? () => setDeleted(true) : undefined}
+        icon={args.showIcon && !args.showAvatar ? <Favorite /> : undefined}
+        avatar={args.showAvatar ? getAvatar() : undefined}
+        onDelete={args.showDelete ? () => setDeleted(true) : undefined}
         onChange={(value, isSelected) => setSelected(isSelected)}
       />
     );
@@ -122,10 +118,10 @@ export const Default: Story = {
     color: 'default',
     disabled: false,
     selected: false,
-    icon: undefined,
-    avatar: false,
-    onDelete: false,
-  },
+    showIcon: true,
+    showAvatar: false,
+    showDelete: false,
+  } as any,
 };
 
 
