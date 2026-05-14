@@ -1,248 +1,342 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import RdsCompChip from './rds-comp-chip';
-
-// Mock SCSS
-jest.mock('./rds-comp-chip.scss', () => ({}));
-
-const mockOptions = [
-  { id: 'chip-1', label: 'React', deletable: false },
-  { id: 'chip-2', label: 'TypeScript', deletable: true },
-  { id: 'chip-3', label: 'MUI', deletable: false, disabled: false },
-];
+import { DeleteOutline } from '@mui/icons-material';
 
 describe('RdsCompChip', () => {
-  describe('Rendering', () => {
-    it('should render all chip options', () => {
-      render(<RdsCompChip options={mockOptions} />);
-      expect(screen.getByTestId('chip-chip-1')).toBeInTheDocument();
-      expect(screen.getByTestId('chip-chip-2')).toBeInTheDocument();
-      expect(screen.getByTestId('chip-chip-3')).toBeInTheDocument();
-    });
-
-    it('should render with correct CSS classes', () => {
-      const { container } = render(
-        <RdsCompChip options={mockOptions} size="medium" variant="filled" />
-      );
-      expect(container.querySelector('.rds-comp-chip')).toHaveClass(
-        'rds-comp-chip--medium',
-        'rds-comp-chip--filled'
-      );
-    });
-
-    it('should render with correct size classes', () => {
-      const { container } = render(
-        <RdsCompChip options={mockOptions} size="large" />
-      );
-      expect(container.querySelector('.rds-comp-chip')).toHaveClass('rds-comp-chip--large');
-    });
-  });
-
   describe('Uncontrolled Mode', () => {
-    it('should select chip with defaultValue on click', () => {
-      const handleChange = jest.fn();
-      render(
-        <RdsCompChip 
-          options={mockOptions} 
-          defaultValue="chip-1"
-          onChange={handleChange}
-        />
-      );
-
-      const chip1 = screen.getByTestId('chip-chip-1');
-      expect(chip1).toHaveAttribute('aria-pressed', 'true');
-
-      fireEvent.click(screen.getByTestId('chip-chip-2'));
-      expect(handleChange).toHaveBeenCalledWith('chip-2');
+    it('should render with default value', () => {
+      render(<RdsCompChip label="Test Chip" />);
+      expect(screen.getByTestId('rds-comp-chip')).toBeInTheDocument();
+      expect(screen.getByText('Test Chip')).toBeInTheDocument();
     });
 
-    it('should toggle selection when clicking same chip', () => {
+    it('should toggle selected state on click in uncontrolled mode', () => {
       const handleChange = jest.fn();
       render(
-        <RdsCompChip 
-          options={mockOptions} 
-          defaultValue="chip-1"
+        <RdsCompChip
+          label="Test Chip"
+          defaultValue={false}
           onChange={handleChange}
         />
       );
 
-      const chip1 = screen.getByTestId('chip-chip-1');
-      fireEvent.click(chip1);
-      expect(handleChange).toHaveBeenCalledWith('');
+      const chip = screen.getByRole('button', { name: /Test Chip/i });
+      fireEvent.click(chip);
+
+      expect(handleChange).toHaveBeenCalledWith('Test Chip', true);
     });
 
-    it('should handle multiple selection', () => {
+    it('should toggle selection multiple times', () => {
       const handleChange = jest.fn();
       render(
-        <RdsCompChip 
-          options={mockOptions} 
-          defaultValue={['chip-1']}
+        <RdsCompChip
+          label="Toggle Chip"
+          defaultValue={false}
           onChange={handleChange}
-          multiple
         />
       );
 
-      fireEvent.click(screen.getByTestId('chip-chip-2'));
-      expect(handleChange).toHaveBeenCalledWith(['chip-1', 'chip-2']);
+      const chip = screen.getByRole('button', { name: /Toggle Chip/i });
+      fireEvent.click(chip);
+      expect(handleChange).toHaveBeenLastCalledWith('Toggle Chip', true);
     });
 
-    it('should respect disabled state', () => {
-      const handleChange = jest.fn();
-      const disabledOptions = [
-        { ...mockOptions[0], disabled: true },
-        ...mockOptions.slice(1),
-      ];
-
+    it('should call onDelete when delete icon is clicked', () => {
+      const handleDelete = jest.fn();
       render(
-        <RdsCompChip 
-          options={disabledOptions} 
+        <RdsCompChip
+          label="Deletable Chip"
+          onDelete={handleDelete}
+        />
+      );
+
+      // Find the delete button - MUI renders it as a button
+      const deleteButtons = screen.getAllByRole('button');
+      const deleteButton = deleteButtons.find((btn) => {
+        // The delete button has the close icon, which should be the second button
+        return btn.className && btn.className.includes('MuiChip-deleteIcon');
+      });
+
+      if (deleteButton) {
+        fireEvent.click(deleteButton);
+        expect(handleDelete).toHaveBeenCalled();
+      }
+    });
+
+    it('should not toggle selection when disabled', () => {
+      const handleChange = jest.fn();
+      render(
+        <RdsCompChip
+          label="Disabled Chip"
+          disabled
           onChange={handleChange}
         />
       );
 
-      const disabledChip = screen.getByTestId('chip-chip-1');
-      fireEvent.click(disabledChip);
+      const chip = screen.getByRole('button', { name: /Disabled Chip/i });
+      fireEvent.click(chip);
+
+      // onChange should not be called
       expect(handleChange).not.toHaveBeenCalled();
     });
   });
 
   describe('Controlled Mode', () => {
-    it('should reflect controlled value', () => {
+    it('should update when value prop changes', () => {
       const { rerender } = render(
-        <RdsCompChip 
-          options={mockOptions} 
-          value="chip-1"
-        />
+        <RdsCompChip label="Controlled Chip" selected={false} />
       );
 
-      const chip1 = screen.getByTestId('chip-chip-1');
-      expect(chip1).toHaveAttribute('aria-pressed', 'true');
+      let chip = screen.getByTestId('rds-comp-chip');
+      expect(chip).toHaveAttribute('aria-pressed', 'false');
 
       rerender(
-        <RdsCompChip 
-          options={mockOptions} 
-          value="chip-2"
-        />
+        <RdsCompChip label="Controlled Chip" selected={true} />
       );
 
-      const chip2 = screen.getByTestId('chip-chip-2');
-      expect(chip2).toHaveAttribute('aria-pressed', 'true');
-      expect(chip1).toHaveAttribute('aria-pressed', 'false');
+      chip = screen.getByTestId('rds-comp-chip');
+      expect(chip).toHaveAttribute('aria-pressed', 'true');
     });
 
-    it('should call onChange on chip click', () => {
+    it('should call onChange when clicked', () => {
       const handleChange = jest.fn();
       render(
-        <RdsCompChip 
-          options={mockOptions} 
-          value="chip-1"
+        <RdsCompChip
+          label="Controlled Chip"
+          selected={false}
           onChange={handleChange}
         />
       );
 
-      fireEvent.click(screen.getByTestId('chip-chip-2'));
-      expect(handleChange).toHaveBeenCalledWith('chip-2');
+      const chip = screen.getByRole('button', { name: /Controlled Chip/i });
+      fireEvent.click(chip);
+
+      expect(handleChange).toHaveBeenCalledWith('Controlled Chip', true);
     });
 
-    it('should handle multiple controlled selection', () => {
-      const handleChange = jest.fn();
-      render(
-        <RdsCompChip 
-          options={mockOptions} 
-          value={['chip-1', 'chip-2']}
-          onChange={handleChange}
-          multiple
+    it('should respect controlled selected prop', () => {
+      const { rerender } = render(
+        <RdsCompChip
+          label="Test"
+          value="test-value"
+          selected={false}
         />
       );
 
-      const chip1 = screen.getByTestId('chip-chip-1');
-      const chip2 = screen.getByTestId('chip-chip-2');
+      expect(screen.getByTestId('rds-comp-chip')).toHaveAttribute('aria-pressed', 'false');
 
-      expect(chip1).toHaveAttribute('aria-pressed', 'true');
-      expect(chip2).toHaveAttribute('aria-pressed', 'true');
+      rerender(
+        <RdsCompChip
+          label="Test"
+          value="test-value"
+          selected={true}
+        />
+      );
 
-      fireEvent.click(screen.getByTestId('chip-chip-3'));
-      expect(handleChange).toHaveBeenCalledWith(['chip-1', 'chip-2', 'chip-3']);
+      expect(screen.getByTestId('rds-comp-chip')).toHaveAttribute('aria-pressed', 'true');
+    });
+
+    it('should not change UI on click in fully controlled mode', () => {
+      const { rerender } = render(
+        <RdsCompChip
+          label="Fully Controlled"
+          selected={false}
+          onChange={jest.fn()}
+        />
+      );
+
+      const chip = screen.getByTestId('rds-comp-chip');
+      fireEvent.click(chip);
+
+      // aria-pressed should remain false until parent updates the prop
+      expect(chip).toHaveAttribute('aria-pressed', 'false');
     });
   });
 
-  describe('Delete Functionality', () => {
-    it('should call onDelete when delete icon is clicked', () => {
-      const handleDelete = jest.fn();
-      const optionsWithDelete = [
-        {
-          id: 'chip-1',
-          label: 'Deletable',
-          deletable: true,
-          onDelete: handleDelete,
-        },
-      ];
-
-      render(<RdsCompChip options={optionsWithDelete} />);
-
-      const deleteButton = screen.getByTestId('chip-chip-1').querySelector('[data-testid*="deleteIcon"]');
-      if (deleteButton) {
-        fireEvent.click(deleteButton);
-        expect(handleDelete).toHaveBeenCalledWith('chip-1');
-      }
-    });
-  });
-
-  describe('Props Reflection', () => {
-    it('should apply size variants', () => {
-      const { container: smallContainer } = render(
-        <RdsCompChip options={mockOptions} size="small" />
-      );
-      expect(smallContainer.querySelector('.rds-comp-chip--small')).toBeInTheDocument();
-
-      const { container: largeContainer } = render(
-        <RdsCompChip options={mockOptions} size="large" />
-      );
-      expect(largeContainer.querySelector('.rds-comp-chip--large')).toBeInTheDocument();
-    });
-
-    it('should apply variant classes', () => {
-      const { container: filledContainer } = render(
-        <RdsCompChip options={mockOptions} variant="filled" />
-      );
-      expect(filledContainer.querySelector('.rds-comp-chip--filled')).toBeInTheDocument();
-
-      const { container: outlinedContainer } = render(
-        <RdsCompChip options={mockOptions} variant="outlined" />
-      );
-      expect(outlinedContainer.querySelector('.rds-comp-chip--outlined')).toBeInTheDocument();
-    });
-
-    it('should apply color classes', () => {
+  describe('MUI Props', () => {
+    it('should apply size variant - small', () => {
       const { container } = render(
-        <RdsCompChip options={mockOptions} color="primary" />
+        <RdsCompChip label="Small Chip" size="small" />
       );
-      expect(container.querySelector('.rds-comp-chip--primary')).toBeInTheDocument();
-    });
-  });
 
-  describe('Accessibility', () => {
-    it('should have proper ARIA attributes', () => {
-      render(<RdsCompChip options={mockOptions} defaultValue="chip-1" />);
-
-      const chip = screen.getByTestId('chip-chip-1');
-      expect(chip).toHaveAttribute('aria-label');
-      expect(chip).toHaveAttribute('aria-pressed');
+      expect(container.querySelector('.rds-comp-chip--small')).toBeInTheDocument();
     });
 
-    it('should have proper role and data-testid on container', () => {
-      const { container } = render(<RdsCompChip options={mockOptions} />);
-      const root = container.querySelector('[data-testid="rds-comp-chip"]');
+    it('should apply size variant - medium', () => {
+      const { container } = render(
+        <RdsCompChip label="Medium Chip" size="medium" />
+      );
 
-      expect(root).toHaveAttribute('role', 'group');
-      expect(root).toHaveAttribute('data-testid', 'rds-comp-chip');
+      expect(container.querySelector('.rds-comp-chip--medium')).toBeInTheDocument();
     });
-  });
 
-  describe('Display Names', () => {
+    it('should apply variant - filled', () => {
+      const { container } = render(
+        <RdsCompChip label="Filled Chip" variant="filled" />
+      );
+
+      expect(container.querySelector('.rds-comp-chip--filled')).toBeInTheDocument();
+    });
+
+    it('should apply variant - outlined', () => {
+      const { container } = render(
+        <RdsCompChip label="Outlined Chip" variant="outlined" />
+      );
+
+      expect(container.querySelector('.rds-comp-chip--outlined')).toBeInTheDocument();
+    });
+
+    it('should apply color variant', () => {
+      const { container } = render(
+        <RdsCompChip label="Primary Chip" color="primary" />
+      );
+
+      expect(container.querySelector('.rds-comp-chip--color-primary')).toBeInTheDocument();
+    });
+
+    it('should apply all color variants', () => {
+      const colors = ['default', 'primary', 'secondary', 'error', 'warning', 'info', 'success'];
+
+      colors.forEach((color) => {
+        const { container } = render(
+          <RdsCompChip
+            label={`${color} Chip`}
+            color={color as any}
+          />
+        );
+
+        expect(container.querySelector(`.rds-comp-chip--color-${color}`)).toBeInTheDocument();
+      });
+    });
+
+    it('should be disabled when disabled prop is true', () => {
+      const { container } = render(
+        <RdsCompChip label="Disabled Chip" disabled />
+      );
+
+      expect(container.querySelector('.rds-comp-chip--disabled')).toBeInTheDocument();
+      expect(screen.getByTestId('rds-comp-chip')).toHaveAttribute('aria-disabled', 'true');
+    });
+
+    it('should have proper accessibility attributes', () => {
+      render(
+        <RdsCompChip label="Accessible Chip" selected={false} />
+      );
+
+      const wrapper = screen.getByTestId('rds-comp-chip');
+      expect(wrapper).toHaveAttribute('aria-pressed', 'false');
+      expect(wrapper).toHaveAttribute('aria-disabled', 'false');
+
+      // MUI Chip itself should be a button
+      const chip = screen.getByRole('button', { name: /Accessible Chip/i });
+      expect(chip).toBeInTheDocument();
+    });
+
+    it('should render with avatar when provided', () => {
+      render(
+        <RdsCompChip
+          label="Avatar Chip"
+          avatar={<div data-testid="test-avatar">Avatar</div>}
+        />
+      );
+
+      expect(screen.getByTestId('test-avatar')).toBeInTheDocument();
+    });
+
+    it('should render with icon when provided', () => {
+      render(
+        <RdsCompChip
+          label="Icon Chip"
+          icon={<DeleteOutline data-testid="test-icon" />}
+        />
+      );
+
+      expect(screen.getByTestId('test-icon')).toBeInTheDocument();
+    });
+
+    it('should show selected state visually', () => {
+      const { container } = render(
+        <RdsCompChip
+          label="Selected Chip"
+          selected={true}
+        />
+      );
+
+      expect(container.querySelector('.rds-comp-chip--selected')).toBeInTheDocument();
+    });
+
+    it('should combine multiple classes correctly', () => {
+      const { container } = render(
+        <RdsCompChip
+          label="Complex Chip"
+          variant="outlined"
+          size="small"
+          color="success"
+          selected={true}
+        />
+      );
+
+      const chip = container.querySelector('.rds-comp-chip');
+      expect(chip).toHaveClass('rds-comp-chip--outlined');
+      expect(chip).toHaveClass('rds-comp-chip--small');
+      expect(chip).toHaveClass('rds-comp-chip--color-success');
+      expect(chip).toHaveClass('rds-comp-chip--selected');
+    });
+
     it('should have correct display name', () => {
       expect(RdsCompChip.displayName).toBe('RdsCompChip');
+    });
+  });
+
+  describe('Color Reflection on Selection', () => {
+    it('should show color variant only when selected', () => {
+      const { container, rerender } = render(
+        <RdsCompChip
+          label="Color Chip"
+          color="primary"
+          selected={false}
+        />
+      );
+
+      // When not selected, should not have color class applied to MUI component
+      expect(container.querySelector('.rds-comp-chip--selected')).not.toBeInTheDocument();
+
+      // When selected, should show color variant
+      rerender(
+        <RdsCompChip
+          label="Color Chip"
+          color="primary"
+          selected={true}
+        />
+      );
+
+      expect(container.querySelector('.rds-comp-chip--selected')).toBeInTheDocument();
+    });
+  });
+
+  describe('Event Propagation', () => {
+    it('should stop propagation on delete event', () => {
+      const handleDelete = jest.fn();
+      const handleClick = jest.fn();
+      render(
+        <RdsCompChip
+          label="Delete Chip"
+          onDelete={handleDelete}
+          onClick={handleClick}
+        />
+      );
+
+      // Find the delete button - MUI renders it as a button
+      const deleteButtons = screen.getAllByRole('button');
+      const deleteButton = deleteButtons.find((btn) => {
+        // The delete button has the close icon
+        return btn.className && btn.className.includes('MuiChip-deleteIcon');
+      });
+
+      if (deleteButton) {
+        fireEvent.click(deleteButton);
+        expect(handleDelete).toHaveBeenCalled();
+      }
     });
   });
 });

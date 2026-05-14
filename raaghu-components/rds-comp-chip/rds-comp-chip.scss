@@ -1,449 +1,553 @@
 .rds-comp-chip {
-  display: block;
-  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
 
-  // ─── Container ────────────────────────────────────────────────────
-  &__container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--rds-spacing-md, 16px);
-    align-items: center;
-    padding: var(--rds-spacing-md, 16px);
+  // ─── Base Chip Styling ─────────────────────────────────────────────────
+  &__mui {
+    // Light mode defaults
     background-color: var(--rds-background-surface, #ffffff);
-    border-radius: var(--rds-border-radius-sm, 4px);
+    color: var(--rds-text-primary, #212121);
     border: 1px solid var(--rds-border-default, #e0e0e0);
-    transition: all 0.2s ease;
+    
+    // Ensure MUI doesn't use inline styles
+    &.MuiChip-root {
+      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+      font-size: var(--rds-font-size-base, 14px);
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
 
+    // Dark mode
     @media (prefers-color-scheme: dark) {
       background-color: #2a2a2a;
+      color: #ffffff;
       border-color: #303030;
     }
 
     [data-theme="dark"] & {
       background-color: #2a2a2a;
+      color: #ffffff;
       border-color: #303030;
     }
-  }
 
-  // ─── Chip Item Styling ────────────────────────────────────────────
-  &__item {
-    transition: all 0.2s ease;
-    color: var(--rds-text-primary, #212121);
-
-    // Light mode - default appearance
-    background-color: var(--rds-background-hover, #f5f5f5);
-    border: 1px solid var(--rds-border-default, #e0e0e0);
-
-    &:hover:not(&--disabled) {
-      background-color: var(--rds-background-active, #eeeeee);
+    // Hover state
+    &:hover:not(.MuiChip-disabled) {
+      background-color: var(--rds-background-hover, #f5f5f5);
       border-color: var(--rds-color-primary, #1976d2);
       cursor: pointer;
-    }
 
-    &--selected {
-      background-color: var(--rds-color-primary, #1976d2);
-      color: #ffffff;
-      border-color: var(--rds-color-primary, #1976d2);
-      font-weight: 600;
+      @media (prefers-color-scheme: dark) {
+        background-color: #363636;
+        border-color: #64b5f6;
+      }
 
-      .MuiChip-deleteIcon {
-        color: rgba(255, 255, 255, 0.7);
-        
-        &:hover {
-          color: #ffffff;
-        }
+      [data-theme="dark"] & {
+        background-color: #363636;
+        border-color: #64b5f6;
       }
     }
 
-    &--disabled {
+    // Disabled state
+    &.MuiChip-disabled {
       opacity: 0.5;
       cursor: not-allowed;
       color: var(--rds-text-disabled, #bdbdbd);
-      background-color: var(--rds-background-surface, #ffffff);
-      border-color: var(--rds-border-light, #f0f0f0);
-    }
 
-    // Dark mode variants
-    @media (prefers-color-scheme: dark) {
-      background-color: #363636;
-      border-color: #303030;
-      color: #ffffff;
-
-      &:hover:not(&--disabled) {
-        background-color: #424242;
-        border-color: #64b5f6;
+      @media (prefers-color-scheme: dark) {
+        color: #616161;
       }
 
-      &--disabled {
-        background-color: #2a2a2a;
+      [data-theme="dark"] & {
         color: #616161;
       }
     }
 
-    [data-theme="dark"] & {
-      background-color: #363636;
-      border-color: #303030;
-      color: #ffffff;
-
-      &:hover:not(&--disabled) {
-        background-color: #424242;
-        border-color: #64b5f6;
-      }
-
-      &--disabled {
-        background-color: #2a2a2a;
-        color: #616161;
-      }
-    }
-  }
-
-  // ─── Size Variants (Visual Distinction Required) ────────────────────
-  &--small {
-    .rds-comp-chip__container {
-      padding: var(--rds-spacing-sm, 8px);
-      gap: var(--rds-spacing-xs, 4px);
+    // Focus/Active state
+    &:focus-visible {
+      outline: 2px solid var(--rds-color-primary, #1976d2);
+      outline-offset: 2px;
     }
 
-    .rds-comp-chip__item {
-      height: 24px;
-      font-size: var(--rds-font-size-sm, 12px);
-
-      .MuiChip-icon {
-        width: 16px !important;
-        height: 16px !important;
-        font-size: 16px !important;
-        margin-right: 4px !important;
-      }
-
-      .MuiAvatar-root {
-        width: 20px !important;
-        height: 20px !important;
-        font-size: 10px !important;
-        margin-right: 4px !important;
-      }
-
-      .MuiChip-deleteIcon {
-        width: 16px !important;
-        height: 16px !important;
-        font-size: 16px !important;
-        margin-right: -4px !important;
-        margin-left: 4px !important;
-      }
-    }
-  }
-
-  &--medium {
-    .rds-comp-chip__container {
-      padding: var(--rds-spacing-md, 16px);
-      gap: var(--rds-spacing-md, 16px);
-    }
-
-    .rds-comp-chip__item {
-      height: 32px;
-      font-size: var(--rds-font-size-base, 14px);
-
-      .MuiChip-icon {
-        width: 20px !important;
-        height: 20px !important;
-        font-size: 20px !important;
-        margin-right: 8px !important;
-      }
-
-      .MuiAvatar-root {
-        width: 24px !important;
-        height: 24px !important;
-        font-size: 12px !important;
-        margin-right: 8px !important;
-      }
-
-      .MuiChip-deleteIcon {
-        width: 18px !important;
-        height: 18px !important;
-        font-size: 18px !important;
-        margin-right: -6px !important;
-        margin-left: 8px !important;
-      }
-    }
-  }
-
-  &--large {
-    .rds-comp-chip__container {
-      padding: var(--rds-spacing-lg, 24px);
-      gap: var(--rds-spacing-lg, 24px);
-    }
-
-    .rds-comp-chip__item {
-      height: 40px;
-      font-size: var(--rds-font-size-lg, 16px);
-      font-weight: 500;
-
-      .MuiChip-icon {
-        width: 24px !important;
-        height: 24px !important;
-        font-size: 24px !important;
-        margin-right: 12px !important;
-      }
-
-      .MuiAvatar-root {
-        width: 28px !important;
-        height: 28px !important;
-        font-size: 14px !important;
-        margin-right: 12px !important;
-      }
-
-      .MuiChip-deleteIcon {
-        width: 20px !important;
-        height: 20px !important;
-        font-size: 20px !important;
-        margin-right: -8px !important;
-        margin-left: 12px !important;
-      }
-    }
-  }
-
-  // ─── Variant: Outlined ────────────────────────────────────────────
-  &--outlined {
-    .rds-comp-chip__item {
-      // Light mode
-      background-color: transparent;
+    // Delete icon styling
+    .MuiChip-deleteIcon {
       color: var(--rds-text-primary, #212121);
-      border: 2px solid var(--rds-border-default, #e0e0e0);
+      margin-right: -6px;
+      transition: color 0.2s ease;
 
-      &:hover:not(&--disabled) {
-        background-color: var(--rds-background-hover, #f5f5f5);
-        border-color: var(--rds-color-primary, #1976d2);
-      }
-
-      &--selected {
-        background-color: var(--rds-background-hover, #f5f5f5);
-        border-color: var(--rds-color-primary, #1976d2);
+      &:hover {
         color: var(--rds-text-primary, #212121);
       }
 
-      // Dark mode
       @media (prefers-color-scheme: dark) {
-        background-color: transparent;
         color: #ffffff;
-        border-color: #303030;
+      }
 
-        &:hover:not(&--disabled) {
+      [data-theme="dark"] & {
+        color: #ffffff;
+      }
+    }
+
+    // Avatar styling
+    .MuiChip-avatar {
+      margin-left: -8px;
+      margin-right: 8px;
+    }
+
+    // Icon styling
+    .MuiChip-icon {
+      color: var(--rds-text-primary, #212121);
+      margin-left: 0;
+      margin-right: 8px;
+      font-size: 18px;
+
+      @media (prefers-color-scheme: dark) {
+        color: #ffffff;
+      }
+
+      [data-theme="dark"] & {
+        color: #ffffff;
+      }
+    }
+
+    // Label styling
+    .MuiChip-label {
+      padding: 0;
+      display: inline-block;
+      white-space: nowrap;
+    }
+  }
+
+  // ─── Variant: Filled ──────────────────────────────────────────────────
+  &--filled {
+    .rds-comp-chip__mui {
+      background-color: var(--rds-background-surface, #ffffff);
+      border: 1px solid var(--rds-border-default, #e0e0e0);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: #2a2a2a;
+        border-color: #303030;
+      }
+
+      [data-theme="dark"] & {
+        background-color: #2a2a2a;
+        border-color: #303030;
+      }
+    }
+  }
+
+  // ─── Variant: Outlined ────────────────────────────────────────────────
+  &--outlined {
+    .rds-comp-chip__mui {
+      background-color: transparent;
+      border: 1.5px solid var(--rds-border-default, #e0e0e0);
+      color: var(--rds-text-primary, #212121);
+
+      @media (prefers-color-scheme: dark) {
+        border-color: #303030;
+        color: #ffffff;
+      }
+
+      [data-theme="dark"] & {
+        border-color: #303030;
+        color: #ffffff;
+      }
+
+      &:hover:not(.MuiChip-disabled) {
+        background-color: var(--rds-background-hover, #f5f5f5);
+
+        @media (prefers-color-scheme: dark) {
           background-color: #363636;
-          border-color: #64b5f6;
         }
 
-        &--selected {
-          background-color: #1e1e1e;
-          border-color: #64b5f6;
+        [data-theme="dark"] & {
+          background-color: #363636;
+        }
+      }
+    }
+  }
+
+  // ─── Size: Small ──────────────────────────────────────────────────────
+  &--small {
+    .rds-comp-chip__mui {
+      height: 24px;
+      padding: 0 8px;
+      font-size: var(--rds-font-size-sm, 12px);
+
+      .MuiChip-icon {
+        font-size: 16px;
+        margin-right: 4px;
+      }
+
+      .MuiChip-avatar {
+        width: 24px;
+        height: 24px;
+        margin-left: -8px;
+        margin-right: 4px;
+      }
+
+      .MuiChip-deleteIcon {
+        font-size: 16px;
+        margin-right: -4px;
+      }
+    }
+  }
+
+  // ─── Size: Medium (Default) ───────────────────────────────────────────
+  &--medium {
+    .rds-comp-chip__mui {
+      height: 32px;
+      padding: 0 12px;
+      font-size: var(--rds-font-size-base, 14px);
+
+      .MuiChip-icon {
+        font-size: 20px;
+        margin-right: 8px;
+      }
+
+      .MuiChip-avatar {
+        width: 32px;
+        height: 32px;
+        margin-left: -8px;
+        margin-right: 8px;
+      }
+
+      .MuiChip-deleteIcon {
+        font-size: 18px;
+        margin-right: -6px;
+      }
+    }
+  }
+
+  // ─── Color: Default ──────────────────────────────────────────────────
+  &--color-default {
+    .rds-comp-chip__mui {
+      background-color: var(--rds-background-surface, #ffffff);
+      color: var(--rds-text-primary, #212121);
+      border: 1px solid var(--rds-border-default, #e0e0e0);
+
+      @media (prefers-color-scheme: dark) {
+        background-color: #2a2a2a;
+        color: #ffffff;
+        border-color: #303030;
+      }
+
+      [data-theme="dark"] & {
+        background-color: #2a2a2a;
+        color: #ffffff;
+        border-color: #303030;
+      }
+
+      .MuiChip-deleteIcon {
+        color: var(--rds-text-primary, #212121);
+
+        @media (prefers-color-scheme: dark) {
+          color: #ffffff;
+        }
+
+        [data-theme="dark"] & {
           color: #ffffff;
         }
       }
 
-      [data-theme="dark"] & {
-        background-color: transparent;
-        color: #ffffff;
-        border-color: #303030;
+      .MuiChip-icon {
+        color: var(--rds-text-primary, #212121);
 
-        &:hover:not(&--disabled) {
-          background-color: #363636;
-          border-color: #64b5f6;
+        @media (prefers-color-scheme: dark) {
+          color: #ffffff;
         }
 
-        &--selected {
-          background-color: #1e1e1e;
-          border-color: #64b5f6;
+        [data-theme="dark"] & {
           color: #ffffff;
         }
       }
     }
   }
 
-  // ─── Color Variant Selectors (Apply to Selected Items) ────────────
-  &--primary {
-    .rds-comp-chip__item--selected {
-      background-color: var(--rds-color-primary, #1976d2);
-      border-color: var(--rds-color-primary, #1976d2);
+  // ─── Color: Primary (Only when selected) ────────────────────────────
+  &--color-primary.rds-comp-chip--selected .rds-comp-chip__mui {
+    background-color: var(--rds-color-primary, #1976d2);
+    border-color: var(--rds-color-primary, #1976d2);
+    color: #ffffff;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #64b5f6;
+      border-color: #64b5f6;
+      color: #121212;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #64b5f6;
+      border-color: #64b5f6;
+      color: #121212;
+    }
+
+    .MuiChip-deleteIcon {
       color: #ffffff;
 
       @media (prefers-color-scheme: dark) {
-        background-color: #64b5f6;
         color: #121212;
       }
 
       [data-theme="dark"] & {
-        background-color: #64b5f6;
         color: #121212;
       }
     }
 
-    &.rds-comp-chip--outlined {
-      .rds-comp-chip__item--selected {
-        background-color: #e3f2fd;
-        border-color: var(--rds-color-primary, #1976d2);
-        color: var(--rds-color-primary, #1976d2);
+    .MuiChip-icon {
+      color: #ffffff;
 
-        @media (prefers-color-scheme: dark) {
-          background-color: rgba(100, 181, 246, 0.15);
-          border-color: #64b5f6;
-          color: #64b5f6;
-        }
+      @media (prefers-color-scheme: dark) {
+        color: #121212;
+      }
 
-        [data-theme="dark"] & {
-          background-color: rgba(100, 181, 246, 0.15);
-          border-color: #64b5f6;
-          color: #64b5f6;
-        }
+      [data-theme="dark"] & {
+        color: #121212;
       }
     }
   }
 
-  &--success {
-    .rds-comp-chip__item--selected {
-      background-color: var(--rds-color-success, #388e3c);
-      border-color: var(--rds-color-success, #388e3c);
+  // ─── Color: Secondary (Only when selected) ────────────────────────────
+  &--color-secondary.rds-comp-chip--selected .rds-comp-chip__mui {
+    background-color: var(--rds-color-secondary, #7c4dff);
+    border-color: var(--rds-color-secondary, #7c4dff);
+    color: #ffffff;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #ba68c8;
+      border-color: #ba68c8;
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #ba68c8;
+      border-color: #ba68c8;
+      color: #ffffff;
+    }
+
+    .MuiChip-deleteIcon {
+      color: #ffffff;
+    }
+
+    .MuiChip-icon {
+      color: #ffffff;
+    }
+  }
+
+  // ─── Color: Error (Only when selected) ────────────────────────────────
+  &--color-error.rds-comp-chip--selected .rds-comp-chip__mui {
+    background-color: var(--rds-color-error, #d32f2f);
+    border-color: var(--rds-color-error, #d32f2f);
+    color: #ffffff;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #ef5350;
+      border-color: #ef5350;
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #ef5350;
+      border-color: #ef5350;
+      color: #ffffff;
+    }
+
+    .MuiChip-deleteIcon {
+      color: #ffffff;
+    }
+
+    .MuiChip-icon {
+      color: #ffffff;
+    }
+  }
+
+  // ─── Color: Warning (Only when selected) ──────────────────────────────
+  &--color-warning.rds-comp-chip--selected .rds-comp-chip__mui {
+    background-color: var(--rds-color-warning, #f57c00);
+    border-color: var(--rds-color-warning, #f57c00);
+    color: #ffffff;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #ffb74d;
+      border-color: #ffb74d;
+      color: #121212;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #ffb74d;
+      border-color: #ffb74d;
+      color: #121212;
+    }
+
+    .MuiChip-deleteIcon {
       color: #ffffff;
 
       @media (prefers-color-scheme: dark) {
-        background-color: #66bb6a;
         color: #121212;
       }
 
       [data-theme="dark"] & {
-        background-color: #66bb6a;
         color: #121212;
       }
     }
 
-    &.rds-comp-chip--outlined {
-      .rds-comp-chip__item--selected {
-        background-color: #e8f5e9;
-        border-color: var(--rds-color-success, #388e3c);
-        color: var(--rds-color-success, #388e3c);
+    .MuiChip-icon {
+      color: #ffffff;
 
-        @media (prefers-color-scheme: dark) {
-          background-color: rgba(102, 187, 106, 0.15);
-          border-color: #66bb6a;
-          color: #66bb6a;
-        }
+      @media (prefers-color-scheme: dark) {
+        color: #121212;
+      }
 
-        [data-theme="dark"] & {
-          background-color: rgba(102, 187, 106, 0.15);
-          border-color: #66bb6a;
-          color: #66bb6a;
-        }
+      [data-theme="dark"] & {
+        color: #121212;
       }
     }
   }
 
-  &--error {
-    .rds-comp-chip__item--selected {
-      background-color: var(--rds-color-error, #d32f2f);
-      border-color: var(--rds-color-error, #d32f2f);
+  // ─── Color: Info (Only when selected) ──────────────────────────────────
+  &--color-info.rds-comp-chip--selected .rds-comp-chip__mui {
+    background-color: var(--rds-color-info, #0097a7);
+    border-color: var(--rds-color-info, #0097a7);
+    color: #ffffff;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #4dd0e1;
+      border-color: #4dd0e1;
+      color: #121212;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #4dd0e1;
+      border-color: #4dd0e1;
+      color: #121212;
+    }
+
+    .MuiChip-deleteIcon {
       color: #ffffff;
 
       @media (prefers-color-scheme: dark) {
-        background-color: #ef5350;
-        color: #ffffff;
+        color: #121212;
       }
 
       [data-theme="dark"] & {
-        background-color: #ef5350;
-        color: #ffffff;
+        color: #121212;
       }
     }
 
-    &.rds-comp-chip--outlined {
-      .rds-comp-chip__item--selected {
-        background-color: #ffebee;
-        border-color: var(--rds-color-error, #d32f2f);
-        color: var(--rds-color-error, #d32f2f);
+    .MuiChip-icon {
+      color: #ffffff;
 
-        @media (prefers-color-scheme: dark) {
-          background-color: rgba(239, 83, 80, 0.15);
-          border-color: #ef5350;
-          color: #ef5350;
-        }
+      @media (prefers-color-scheme: dark) {
+        color: #121212;
+      }
 
-        [data-theme="dark"] & {
-          background-color: rgba(239, 83, 80, 0.15);
-          border-color: #ef5350;
-          color: #ef5350;
-        }
+      [data-theme="dark"] & {
+        color: #121212;
       }
     }
   }
 
-  &--warning {
-    .rds-comp-chip__item--selected {
-      background-color: var(--rds-color-warning, #f57c00);
-      border-color: var(--rds-color-warning, #f57c00);
+  // ─── Color: Success (Only when selected) ──────────────────────────────
+  &--color-success.rds-comp-chip--selected .rds-comp-chip__mui {
+    background-color: var(--rds-color-success, #388e3c);
+    border-color: var(--rds-color-success, #388e3c);
+    color: #ffffff;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #81c784;
+      border-color: #81c784;
+      color: #121212;
+    }
+
+    [data-theme="dark"] & {
+      background-color: #81c784;
+      border-color: #81c784;
+      color: #121212;
+    }
+
+    .MuiChip-deleteIcon {
       color: #ffffff;
 
       @media (prefers-color-scheme: dark) {
-        background-color: #ffb74d;
         color: #121212;
       }
 
       [data-theme="dark"] & {
-        background-color: #ffb74d;
         color: #121212;
       }
     }
 
-    &.rds-comp-chip--outlined {
-      .rds-comp-chip__item--selected {
-        background-color: #fff3e0;
-        border-color: var(--rds-color-warning, #f57c00);
-        color: var(--rds-color-warning, #f57c00);
+    .MuiChip-icon {
+      color: #ffffff;
 
-        @media (prefers-color-scheme: dark) {
-          background-color: rgba(255, 183, 77, 0.15);
-          border-color: #ffb74d;
-          color: #ffb74d;
-        }
+      @media (prefers-color-scheme: dark) {
+        color: #121212;
+      }
 
-        [data-theme="dark"] & {
-          background-color: rgba(255, 183, 77, 0.15);
-          border-color: #ffb74d;
-          color: #ffb74d;
-        }
+      [data-theme="dark"] & {
+        color: #121212;
       }
     }
   }
 
-  &--info {
-    .rds-comp-chip__item--selected {
-      background-color: var(--rds-color-info, #2196f3);
-      border-color: var(--rds-color-info, #2196f3);
-      color: #ffffff;
+  // ─── Selected State ──────────────────────────────────────────────────
+  &--selected {
+    .rds-comp-chip__mui {
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
       @media (prefers-color-scheme: dark) {
-        background-color: #64b5f6;
-        color: #121212;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
       }
 
       [data-theme="dark"] & {
-        background-color: #64b5f6;
-        color: #121212;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
       }
     }
+  }
 
-    &.rds-comp-chip--outlined {
-      .rds-comp-chip__item--selected {
-        background-color: #e3f2fd;
-        border-color: var(--rds-color-info, #2196f3);
-        color: var(--rds-color-info, #2196f3);
+  // ─── Disabled State ──────────────────────────────────────────────────
+  &--disabled {
+    .rds-comp-chip__mui {
+      opacity: 0.5;
+      cursor: not-allowed;
+      color: var(--rds-text-disabled, #bdbdbd);
+
+      @media (prefers-color-scheme: dark) {
+        color: #616161;
+      }
+
+      [data-theme="dark"] & {
+        color: #616161;
+      }
+
+      .MuiChip-deleteIcon {
+        color: var(--rds-text-disabled, #bdbdbd);
 
         @media (prefers-color-scheme: dark) {
-          background-color: rgba(100, 181, 246, 0.15);
-          border-color: #64b5f6;
-          color: #64b5f6;
+          color: #616161;
         }
 
         [data-theme="dark"] & {
-          background-color: rgba(100, 181, 246, 0.15);
-          border-color: #64b5f6;
-          color: #64b5f6;
+          color: #616161;
         }
+      }
+
+      .MuiChip-icon {
+        color: var(--rds-text-disabled, #bdbdbd);
+
+        @media (prefers-color-scheme: dark) {
+          color: #616161;
+        }
+
+        [data-theme="dark"] & {
+          color: #616161;
+        }
+      }
+
+      &:hover {
+        background-color: inherit;
+        border-color: inherit;
       }
     }
   }

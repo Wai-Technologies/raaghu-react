@@ -10,7 +10,137 @@ argument-hint: "Component name, description, and any specific requirements (e.g.
 
 Generate bug-free, production-ready React components for raaghu-react design system with **automatic dark & light theme support** and **MUI playground-inspired Storybook stories**.
 
-## 🎯 QUICK REFERENCE: MUI PLAYGROUNDS
+## � LEARNING FROM ISSUES
+
+This agent learns from component issues to continuously improve generation quality. After generating components, if issues are found:
+
+1. **Report Issue**: Describe the problem and desired fix
+2. **Get Fix**: Agent applies the fix to the component
+3. **Learn Pattern**: Agent learns from the issue to prevent similar problems in future components
+
+### How the Learning Loop Works
+
+1. **Issue Reported** → Describe what's wrong with the generated component
+2. **Analysis** → Root cause identified (styling, props, accessibility, etc.)
+3. **Fix Applied** → Component is corrected with proper implementation
+4. **Pattern Learned** → Issue pattern added to \"Learned Issues\" log below
+5. **Prevention** → Similar issues avoided in future components via updated rules
+
+### 📚 LEARNED ISSUES LOG (Maintained from User Feedback)
+
+This log captures recurring issues and their solutions to prevent repetition. When users report issues with components, they are documented here to train the generator.
+
+#### Issue Template
+```
+## Issue #N: [Category] - [Brief Title]
+- **Problem**: What goes wrong
+- **Root Cause**: Why it happens
+- **Solution**: How to fix it
+- **Prevention Rule**: How to avoid it in future
+- **Affected Components**: [List]
+- **Date Found**: YYYY-MM-DD
+```
+
+#### Current Learned Issues
+
+##### Issue #1: Styling - Inline Styles in JSX
+- **Problem**: Components use `sx={}` or `style={}` props instead of CSS classes
+- **Root Cause**: Easier to write inline but breaks theme consistency and makes dark mode unreliable
+- **Solution**: Move all styling to `.scss` file, use CSS classes and variables only
+- **Prevention Rule**: RULE 0 enforced - NO inline styles in `.tsx`. 100% of styling in `.scss` with CSS variables
+- **Applied Since**: Agent initialization
+- **Check in Review**: Grep component `.tsx` for `sx=`, `style=`, `css=` - should find ZERO matches
+
+##### Issue #2: Colors - Hardcoded Theme-Unaware Colors
+- **Problem**: Colors like `#212121`, `#ffffff` hardcoded without dark theme awareness
+- **Root Cause**: Developer copied colors without considering dark mode contrast
+- **Solution**: Use CSS variables with fallbacks AND explicit dark theme overrides
+- **Prevention Rule**: Every color must use `var(--rds-*, #fallback)` AND have `@media (prefers-color-scheme: dark)` + `[data-theme=\"dark\"]` overrides
+- **Applied Since**: Initial rule set
+- **Check in Review**: 
+  - Text colors should use `var(--rds-text-primary, #212121)` not just `#212121`
+  - Every color change needs dark mode section
+  - Test in both light and dark themes
+
+##### Issue #3: Props - Size/Color Not Reflecting Visually
+- **Problem**: Changing `size` or `color` prop doesn't visually change component
+- **Root Cause**: Props exist but not connected to CSS class or styling logic
+- **Solution**: Map props to BEM classes (e.g., `.rds-comp--small`) with CSS variables
+- **Prevention Rule**: RULE 7 - All props must affect output. Test each prop in Storybook and verify visual change
+- **Applied Since**: Agent initialization
+- **Check in Review**:
+  - Create Storybook story for each prop
+  - Change prop value and verify UI updates
+  - Size prop: small (24px) → medium (32px) → large (40px) must be visually distinct
+  - Color prop: each color must have unique background/text
+
+##### Issue #4: State - Uncontrolled Components Don't Work
+- **Problem**: Component stays at initial value; clicks don't change internal state
+- **Root Cause**: Missing `useState` for uncontrolled mode or missing `handleChange` logic
+- **Solution**: Implement both controlled AND uncontrolled modes (RULE 1)
+- **Prevention Rule**: RULE 1 mandatory - Component must work both ways with proper state pattern
+- **Applied Since**: Agent initialization
+- **Check in Review**: Test both `defaultValue` and `value` props in Storybook
+
+##### Issue #5: Accessibility - Missing ARIA Attributes
+- **Problem**: Component doesn't have proper roles, aria-labels, aria-pressed, etc.
+- **Root Cause**: Developer focused only on visual rendering, skipped accessibility
+- **Solution**: Add required ARIA attributes based on component type (button, radio, checkbox, etc.)
+- **Prevention Rule**: Use proper ARIA attributes: `role=\"button\"`, `aria-pressed`, `data-testid`, etc.
+- **Applied Since**: Initial rule set
+- **Check in Review**: `npm test` should cover aria-* attributes
+
+##### Issue #6: Tests - Missing Test Categories
+- **Problem**: Tests only check happy path; missing error, disabled, controlled modes
+- **Root Cause**: Test template didn't cover all 3 required categories
+- **Solution**: Tests must have Uncontrolled, Controlled, MUI Props categories
+- **Prevention Rule**: Test file must have 3 describe blocks: Uncontrolled, Controlled, MUI Props
+- **Applied Since**: Agent initialization
+- **Check in Review**: `npm test -- --testPathPattern=\"{name}\"` passes all categories
+
+##### Issue #7: Stories - Interactive Story Broken (Value Without onChange)
+- **Problem**: Stories with `value` prop but no `onChange` freeze the UI
+- **Root Cause**: Controlled mode without state handler
+- **Solution**: Default story uses `defaultValue` (uncontrolled). Interactive story uses `render` + `useState` + `onChange`
+- **Prevention Rule**: RULE 4 - Never mix `value` without `onChange` in stories
+- **Applied Since**: Agent initialization
+- **Check in Review**: Open Storybook, interact with stories - all should be responsive
+
+##### Issue #8: Styling - Missing Size Variant Visual Differences
+- **Problem**: Small, medium, large sizes exist in props but look identical
+- **Root Cause**: CSS classes exist but don't have different padding, font-size, height
+- **Solution**: Each size variant must have distinct visual appearance
+- **Prevention Rule**: Size variants must differ in height, font-size, padding, icon size
+- **Applied Since**: Agent initialization
+- **Check in Review**: Storybook \"AllSizes\" story - sizes must be visually distinct
+
+##### Issue #9: Documentation - Missing Storybook Stories
+- **Problem**: Component doesn't have playground stories (AllColors, AllSizes, etc.)
+- **Root Cause**: Only Default + Interactive stories created; MUI playground patterns not followed
+- **Solution**: Create 6+ playground stories: AllColors, AllSizes, AllVariants, States, Interactive, UseCases
+- **Prevention Rule**: Required minimum stories with clear section headers and visual grouping
+- **Applied Since**: Post-MVP
+- **Check in Review**: Storybook shows 6+ stories with descriptive headers
+
+##### Issue #10: Props Forwarding - MUI Props Not Forwarded
+- **Problem**: Passing `disabled`, `variant`, `color` to component but they don't work
+- **Root Cause**: Props exist in interface but don't forward to MUI component
+- **Solution**: Use spread operator to forward all props: `<MuiComponent {...props} />`
+- **Prevention Rule**: RULE 2 - Always forward all MUI props using spread operator
+- **Applied Since**: Agent initialization
+- **Check in Review**: Component accepts and reflects MUI-standard props
+
+#### Issue Recording Process
+
+When a user reports an issue:
+1. **Document** the issue following the template above
+2. **Identify Root Cause** from existing learned issues or new pattern
+3. **Apply Fix** to the specific component
+4. **Update Agent** - Add issue to log if not already present
+5. **Test** - Verify fix works in both light and dark themes
+6. **Prevent** - Similar issues won't occur in future components
+
+## �🎯 QUICK REFERENCE: MUI PLAYGROUNDS
 
 **Before generating any component, check these MUI playgrounds for reference patterns**:
 
@@ -1372,8 +1502,78 @@ raaghu-{elements|components}/rds-{comp-}{name}/
   ```
 - DO NOT create intermediate `index.ts` files at the component level
 
+## 🔄 ISSUE RESOLUTION WORKFLOW
+
+When a user reports issues with a generated component, follow this structured approach:
+
+### Step 1: Report the Issue
+Users should clearly describe what's broken:
+```
+## Issue Report: [Component Name]
+
+### Issues Found
+1. [Specific issue description]
+2. [Another issue]
+
+### Steps to Reproduce
+- [How to see the issue]
+
+### Expected Behavior
+- [What should happen]
+```
+
+### Step 2: Check Learned Issues Log
+- Cross-reference reported issues with the **Learned Issues** section above
+- Identify root cause from the prevention rules
+- Apply specific fix from the solution section
+
+### Step 3: Fix the Component
+- Apply targeted fix to component files (.tsx, .scss, .test.tsx, .stories.tsx)
+- Verify fix in both light and dark themes
+- Run `npm test` to ensure tests pass
+- Open Storybook to visually verify fix
+
+### Step 4: Document Learning
+For NEW issue types not in the log:
+1. Create issue entry following the template
+2. Add to \"Current Learned Issues\" section
+3. Extract prevention rule
+4. Update verification checklist
+5. Update CRITICAL RULES section if appropriate
+
+### Step 5: Prevent Recurrence
+- Add issue to checklist items
+- Reference issue in CRITICAL RULES
+- Include in code generation template
+- Future components automatically avoid the issue
+
+### Common Issue Patterns Quick Reference
+
+| Issue | Root Cause | Quick Fix | Prevention |
+|-------|-----------|----------|-----------|
+| Props don't change UI | Props not mapped to CSS classes | Add `.rds-comp--{prop}` classes | RULE 7: All props must visually reflect |
+| Dark mode colors broken | Hardcoded colors without dark overrides | Add `@media (prefers-color-scheme: dark)` | RULE 0: All colors use CSS variables |
+| Uncontrolled mode doesn't work | Missing `useState` logic | Add controlled/uncontrolled state pattern | RULE 1: Implement both modes |
+| Storybook story frozen | `value` without `onChange` handler | Use `render` + `useState` in Interactive | RULE 4: Never mix value + no onChange |
+| Tests fail | Missing 3 test categories | Add Uncontrolled, Controlled, MUI Props | RULE 6: All 3 categories required |
+| Size variants look identical | Missing CSS variants with different sizes | Add `.rds-comp--small/medium/large` styles | RULE 8: Visual size differences required |
+
 ## ✅ VERIFICATION CHECKLIST (Before submitting)
 
+### Preventing Known Issues (From Learning Log)
+Before verifying, review the **Learned Issues** section and ensure:
+- [ ] **Issue #1**: ZERO inline styles - verify no `sx={}`, `style={}`, `css={}` in `.tsx`
+- [ ] **Issue #2**: All colors use variables with dark theme - every color has dark mode override
+- [ ] **Issue #3**: All props reflect visually - test each prop in Storybook, verify UI changes
+- [ ] **Issue #4**: Both controlled + uncontrolled modes work - test `defaultValue` AND `value` + `onChange`
+- [ ] **Issue #5**: ARIA attributes present - component has `role`, `aria-*`, `data-testid` as appropriate
+- [ ] **Issue #6**: 3 test categories exist - Uncontrolled, Controlled, MUI Props
+- [ ] **Issue #7**: Interactive story works - change props in Storybook, UI responds immediately
+- [ ] **Issue #8**: Size variants visually distinct - small/medium/large are clearly different
+- [ ] **Issue #9**: 6+ playground stories - AllColors, AllSizes, AllVariants, States, Interactive
+- [ ] **Issue #10**: MUI props forward - `variant`, `size`, `color`, `disabled` all work on component
+
+### Component Structure
 - [ ] Component has BOTH controlled (value) and uncontrolled (defaultValue) modes
 - [ ] Uncontrolled: clicking works without external state
 - [ ] Default story uses `defaultValue`; Interactive uses `render` + `useState`

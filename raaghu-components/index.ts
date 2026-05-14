@@ -1,8 +1,8 @@
 export {default as RdsCompSpinner} from './rds-comp-spinner/rds-comp-spinner';
 export {default as RdsCompContribution} from './rds-comp-contribution/rds-comp-contribution';
 export {default as RdsCompColorPicker} from './rds-comp-color-picker/rds-comp-color-picker';
-export {default as RdsCompChip, type RdsCompChipProps, type ChipOption} from './rds-comp-chip/rds-comp-chip';
 export {default as RdsCompToast} from './rds-comp-toast/rds-comp-toast';
+export {default as RdsCompChip, type RdsCompChipProps} from './rds-comp-chip/rds-comp-chip';
 export {default as RdsCompScrollbar} from './rds-comp-scrollbar/rds-comp-scrollbar';
 export {default as RdsCompTruncatedText} from './rds-comp-truncate-text/rds-comp-truncate-text';
 export {default as RdsCompOffcanvas} from './rds-comp-off-canvas/rds-comp-off-canvas';

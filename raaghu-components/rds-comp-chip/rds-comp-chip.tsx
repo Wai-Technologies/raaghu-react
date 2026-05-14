@@ -1,202 +1,162 @@
-import React, { useState, useEffect } from 'react';
-import { Chip as MuiChip, ChipProps as MuiChipProps, Box } from '@mui/material';
+import React, { useState } from 'react';
+import { Chip, ChipProps } from '@mui/material';
+import { Close as CloseIcon } from '@mui/icons-material';
 import './rds-comp-chip.scss';
 
-/**
- * Individual chip option item
- */
-export interface ChipOption {
-  /** Unique identifier for the chip */
-  id: string | number;
-  /** Display label for the chip */
-  label: string;
-  /** Optional icon to display (leading icon) */
-  icon?: React.ReactNode;
-  /** Optional avatar element */
-  avatar?: React.ReactNode;
-  /** Whether the chip is deletable */
-  deletable?: boolean;
-  /** Whether the chip is disabled */
+export interface RdsCompChipProps extends Omit<ChipProps, 'variant' | 'size' | 'color'> {
+  /**
+   * The content of the component
+   */
+  label?: React.ReactNode;
+  
+  /**
+   * If true, the component will be disabled
+   */
   disabled?: boolean;
-  /** Callback when delete icon is clicked */
-  onDelete?: (id: string | number) => void;
-  /** Callback when chip is clicked */
-  onClick?: (id: string | number) => void;
-}
-
-/**
- * Props for RdsCompChip component
- */
-export interface RdsCompChipProps extends Omit<MuiChipProps, 'variant'> {
-  /** Array of chip options to render */
-  options: ChipOption[];
-  /** Currently selected chip ID(s) - controlled mode */
-  value?: string | number | (string | number)[];
-  /** Default selected chip ID(s) - uncontrolled mode */
-  defaultValue?: string | number | (string | number)[];
-  /** Allow multiple chips to be selected */
-  multiple?: boolean;
-  /** Size of chips */
-  size?: 'small' | 'medium' | 'large';
-  /** Color variant */
-  color?: 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info' | 'default';
-  /** Chip style variant */
+  
+  /**
+   * The variant to use
+   * @default 'filled'
+   */
   variant?: 'filled' | 'outlined';
-  /** Whether chips are clickable/selectable */
-  clickable?: boolean;
-  /** Custom CSS class */
-  className?: string;
-  /** Callback when selection changes */
-  onChange?: (value: string | number | (string | number)[]) => void;
+  
+  /**
+   * The size of the component
+   * @default 'medium'
+   */
+  size?: 'small' | 'medium';
+  
+  /**
+   * The color of the component
+   * @default 'default'
+   */
+  color?: 'default' | 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success';
+  
+  /**
+   * Avatar element to display
+   */
+  avatar?: React.ReactElement;
+  
+  /**
+   * Icon element to display
+   */
+  icon?: React.ReactElement;
+  
+  /**
+   * Callback fired when the delete icon is clicked
+   */
+  onDelete?: (event: React.MouseEvent<HTMLElement>) => void;
+  
+  /**
+   * Callback fired when the chip is clicked
+   */
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  
+  /**
+   * If true, the chip is selected
+   */
+  selected?: boolean;
+  
+  /**
+   * Controlled mode: selected state
+   */
+  value?: string | number | boolean;
+  
+  /**
+   * Uncontrolled mode: default selected state
+   */
+  defaultValue?: string | number | boolean;
+  
+  /**
+   * Callback fired when the chip is selected/deselected
+   */
+  onChange?: (value: string | number | boolean, isSelected: boolean) => void;
 }
 
-/**
- * RdsCompChip - Selection component using MUI Chip
- * Supports both controlled and uncontrolled modes
- * Supports single and multiple selection
- * Supports deletion and custom colors
- * 
- * @example
- * // Uncontrolled
- * <RdsCompChip 
- *   options={options}
- *   defaultValue="option1"
- *   onChange={(val) => console.log(val)}
- * />
- * 
- * // Controlled
- * <RdsCompChip 
- *   options={options}
- *   value={selected}
- *   onChange={setSelected}
- *   multiple
- * />
- */
 const RdsCompChip: React.FC<RdsCompChipProps> = ({
-  options,
-  value: controlledValue,
-  defaultValue,
-  multiple = false,
+  label,
+  disabled = false,
+  variant = 'filled',
   size = 'medium',
   color = 'default',
-  variant = 'filled',
-  clickable = true,
-  className,
+  avatar,
+  icon,
+  onDelete,
+  onClick,
+  selected: controlledSelected,
+  value,
+  defaultValue,
   onChange,
+  className,
   ...props
 }) => {
-  // ─── State Management (Controlled + Uncontrolled) ────────────────
-  const [internalValue, setInternalValue] = useState<string | number | (string | number)[]>(() => {
-    if (defaultValue !== undefined) {
-      return defaultValue;
-    }
-    return multiple ? [] : '';
-  });
+  const [internalSelected, setInternalSelected] = useState(defaultValue === true);
+  const isControlled = controlledSelected !== undefined || value !== undefined;
+  const isSelected = isControlled ? (controlledSelected ?? false) : internalSelected;
 
-  const isControlled = controlledValue !== undefined;
-  const value = isControlled ? controlledValue : internalValue;
-
-  // Sync when defaultValue changes (uncontrolled mode only)
-  useEffect(() => {
-    if (!isControlled && defaultValue !== undefined) {
-      setInternalValue(defaultValue);
-    }
-  }, [defaultValue, isControlled]);
-
-  // ─── Event Handlers ──────────────────────────────────────────────
-  const handleChipClick = (optionId: string | number) => {
-    const option = options.find(o => o.id === optionId);
-    
-    if (option?.disabled || !clickable) return;
-
-    let newValue: string | number | (string | number)[];
-
-    if (multiple) {
-      const currentArray = Array.isArray(value) ? [...value] : [];
-      const index = currentArray.indexOf(optionId);
-
-      if (index === -1) {
-        currentArray.push(optionId);
-      } else {
-        currentArray.splice(index, 1);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (!disabled) {
+      const newSelected = !isSelected;
+      
+      if (!isControlled) {
+        setInternalSelected(newSelected);
       }
-      newValue = currentArray;
-    } else {
-      // Toggle: clicking same item deselects, clicking different selects
-      newValue = value === optionId ? '' : optionId;
+      
+      onChange?.(value ?? label ?? '', newSelected);
+      onClick?.(event);
     }
-
-    if (!isControlled) {
-      setInternalValue(newValue);
-    }
-
-    onChange?.(newValue);
-    option?.onClick?.(optionId);
   };
 
-  const handleChipDelete = (optionId: string | number) => {
-    const option = options.find(o => o.id === optionId);
-    option?.onDelete?.(optionId);
+  const handleDelete = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    onDelete?.(event);
   };
 
-  // ─── Helper Functions ────────────────────────────────────────────
-  const isChipSelected = (optionId: string | number): boolean => {
-    if (multiple) {
-      return Array.isArray(value) && value.includes(optionId);
-    }
-    return value === optionId;
-  };
+  const rootClasses = [
+    'rds-comp-chip',
+    `rds-comp-chip--${variant}`,
+    `rds-comp-chip--${size}`,
+    `rds-comp-chip--color-${color}`,
+    isSelected && 'rds-comp-chip--selected',
+    disabled && 'rds-comp-chip--disabled',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
 
-  // ─── CSS Classes ─────────────────────────────────────────────────
-  const getRootClasses = (): string => {
-    const classes = ['rds-comp-chip'];
-    classes.push(`rds-comp-chip--${size}`);
-    classes.push(`rds-comp-chip--${variant}`);
-    classes.push(`rds-comp-chip--${color}`);
-    if (multiple) classes.push('rds-comp-chip--multiple');
-    if (className) classes.push(className);
-    return classes.join(' ');
-  };
+  // Determine the MUI color based on selection and controlled state
+  const muiColor = isSelected && color !== 'default' ? (color as any) : 'default';
+  const muiVariant = variant === 'outlined' ? 'outlined' : 'filled';
 
-  // ─── Render ──────────────────────────────────────────────────────
+  // Extract data-testid from props to avoid duplication
+  const { 'data-testid': dataTestId, ...restProps } = props;
+
   return (
-    <Box
-      className={getRootClasses()}
+    <div
+      className={rootClasses}
       role="group"
-      data-testid="rds-comp-chip"
-      {...props}
+      data-testid={dataTestId || 'rds-comp-chip'}
+      aria-disabled={disabled}
+      aria-pressed={isSelected}
     >
-      <div className="rds-comp-chip__container">
-        {options.map((option) => {
-          const isSelected = isChipSelected(option.id);
-          const chipColor = isSelected && clickable ? (color as any) : 'default';
-          const isDisabled = option.disabled;
-
-          return (
-            <MuiChip
-              key={option.id}
-              label={option.label}
-              icon={option.icon}
-              avatar={option.avatar}
-              onDelete={option.deletable ? () => handleChipDelete(option.id) : undefined}
-              onClick={clickable ? () => handleChipClick(option.id) : undefined}
-              disabled={isDisabled}
-              color={chipColor}
-              variant={variant === 'outlined' ? 'outlined' : 'filled'}
-              size={size === 'large' ? 'medium' : size}
-              aria-pressed={clickable ? isSelected : undefined}
-              aria-label={option.label}
-              data-testid={`chip-${option.id}`}
-              className={`rds-comp-chip__item ${
-                isSelected ? 'rds-comp-chip__item--selected' : ''
-              } ${isDisabled ? 'rds-comp-chip__item--disabled' : ''}`}
-            />
-          );
-        })}
-      </div>
-    </Box>
+      <Chip
+        label={label}
+        disabled={disabled}
+        variant={muiVariant}
+        size={size}
+        color={muiColor}
+        avatar={avatar}
+        icon={icon}
+        onDelete={onDelete ? handleDelete : undefined}
+        onClick={handleClick}
+        deleteIcon={onDelete ? <CloseIcon /> : undefined}
+        className="rds-comp-chip__mui"
+        {...restProps}
+      />
+    </div>
   );
 };
 
 RdsCompChip.displayName = 'RdsCompChip';
+
 export default RdsCompChip;
