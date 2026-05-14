@@ -16,6 +16,9 @@
       font-size: var(--rds-font-size-base, 14px);
       font-weight: 500;
       transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
     // Dark mode
@@ -72,7 +75,8 @@
     // Delete icon styling
     .MuiChip-deleteIcon {
       color: var(--rds-text-primary, #212121);
-      margin-right: -6px;
+      margin-left: auto;
+      margin-right: 0;
       transition: color 0.2s ease;
 
       &:hover {
@@ -90,16 +94,18 @@
 
     // Avatar styling
     .MuiChip-avatar {
-      margin-left: -8px;
-      margin-right: 8px;
+      margin-left: 0;
+      margin-right: 0;
+      flex-shrink: 0;
     }
 
     // Icon styling
     .MuiChip-icon {
       color: var(--rds-text-primary, #212121);
       margin-left: 0;
-      margin-right: 8px;
+      margin-right: 0;
       font-size: 18px;
+      flex-shrink: 0;
 
       @media (prefers-color-scheme: dark) {
         color: #ffffff;
@@ -139,17 +145,17 @@
   // ─── Variant: Outlined ────────────────────────────────────────────────
   &--outlined {
     .rds-comp-chip__mui {
-      background-color: transparent;
-      border: 1.5px solid var(--rds-border-default, #e0e0e0);
+      background-color: transparent !important;
+      border: 1.5px solid var(--rds-border-default, #e0e0e0) !important;
       color: var(--rds-text-primary, #212121);
 
       @media (prefers-color-scheme: dark) {
-        border-color: #303030;
+        border-color: #303030 !important;
         color: #ffffff;
       }
 
       [data-theme="dark"] & {
-        border-color: #303030;
+        border-color: #303030 !important;
         color: #ffffff;
       }
 
@@ -164,6 +170,12 @@
           background-color: #363636;
         }
       }
+
+      // Ensure outlined variant doesn't have filled styles
+      &.MuiChip-outlined {
+        background-color: transparent !important;
+        border: 1.5px solid var(--rds-border-default, #e0e0e0) !important;
+      }
     }
   }
 
@@ -173,22 +185,29 @@
       height: 24px;
       padding: 0 8px;
       font-size: var(--rds-font-size-sm, 12px);
+      gap: 6px;
 
       .MuiChip-icon {
         font-size: 16px;
-        margin-right: 4px;
+        margin-right: 0;
       }
 
       .MuiChip-avatar {
-        width: 24px;
-        height: 24px;
-        margin-left: -8px;
-        margin-right: 4px;
+        width: 18px;
+        height: 18px;
+        margin-left: 0;
+        margin-right: 0;
+
+        img, svg {
+          width: 100%;
+          height: 100%;
+        }
       }
 
       .MuiChip-deleteIcon {
         font-size: 16px;
-        margin-right: -4px;
+        margin-left: auto;
+        margin-right: 0;
       }
     }
   }
@@ -199,22 +218,29 @@
       height: 32px;
       padding: 0 12px;
       font-size: var(--rds-font-size-base, 14px);
+      gap: 8px;
 
       .MuiChip-icon {
         font-size: 20px;
-        margin-right: 8px;
+        margin-right: 0;
       }
 
       .MuiChip-avatar {
-        width: 32px;
-        height: 32px;
-        margin-left: -8px;
-        margin-right: 8px;
+        width: 24px;
+        height: 24px;
+        margin-left: 0;
+        margin-right: 0;
+
+        img, svg {
+          width: 100%;
+          height: 100%;
+        }
       }
 
       .MuiChip-deleteIcon {
         font-size: 18px;
-        margin-right: -6px;
+        margin-left: auto;
+        margin-right: 0;
       }
     }
   }
@@ -307,6 +333,47 @@
     }
   }
 
+  // ─── Outlined + Color: Primary (Only when selected) ────────────────────────────
+  &--outlined.rds-comp-chip--selected.rds-comp-chip--color-primary .rds-comp-chip__mui {
+    background-color: transparent !important;
+    border-color: var(--rds-color-primary, #1976d2) !important;
+    color: var(--rds-color-primary, #1976d2);
+
+    @media (prefers-color-scheme: dark) {
+      border-color: #64b5f6 !important;
+      color: #64b5f6;
+    }
+
+    [data-theme="dark"] & {
+      border-color: #64b5f6 !important;
+      color: #64b5f6;
+    }
+
+    .MuiChip-deleteIcon {
+      color: var(--rds-color-primary, #1976d2);
+
+      @media (prefers-color-scheme: dark) {
+        color: #64b5f6;
+      }
+
+      [data-theme="dark"] & {
+        color: #64b5f6;
+      }
+    }
+
+    .MuiChip-icon {
+      color: var(--rds-color-primary, #1976d2);
+
+      @media (prefers-color-scheme: dark) {
+        color: #64b5f6;
+      }
+
+      [data-theme="dark"] & {
+        color: #64b5f6;
+      }
+    }
+  }
+
   // ─── Color: Secondary (Only when selected) ────────────────────────────
   &--color-secondary.rds-comp-chip--selected .rds-comp-chip__mui {
     background-color: var(--rds-color-secondary, #7c4dff);
@@ -334,6 +401,47 @@
     }
   }
 
+  // ─── Outlined + Color: Secondary (Only when selected) ────────────────────────────
+  &--outlined.rds-comp-chip--selected.rds-comp-chip--color-secondary .rds-comp-chip__mui {
+    background-color: transparent !important;
+    border-color: var(--rds-color-secondary, #7c4dff) !important;
+    color: var(--rds-color-secondary, #7c4dff);
+
+    @media (prefers-color-scheme: dark) {
+      border-color: #ba68c8 !important;
+      color: #ba68c8;
+    }
+
+    [data-theme="dark"] & {
+      border-color: #ba68c8 !important;
+      color: #ba68c8;
+    }
+
+    .MuiChip-deleteIcon {
+      color: var(--rds-color-secondary, #7c4dff);
+
+      @media (prefers-color-scheme: dark) {
+        color: #ba68c8;
+      }
+
+      [data-theme="dark"] & {
+        color: #ba68c8;
+      }
+    }
+
+    .MuiChip-icon {
+      color: var(--rds-color-secondary, #7c4dff);
+
+      @media (prefers-color-scheme: dark) {
+        color: #ba68c8;
+      }
+
+      [data-theme="dark"] & {
+        color: #ba68c8;
+      }
+    }
+  }
+
   // ─── Color: Error (Only when selected) ────────────────────────────────
   &--color-error.rds-comp-chip--selected .rds-comp-chip__mui {
     background-color: var(--rds-color-error, #d32f2f);
@@ -358,6 +466,47 @@
 
     .MuiChip-icon {
       color: #ffffff;
+    }
+  }
+
+  // ─── Outlined + Color: Error (Only when selected) ────────────────────────────────
+  &--outlined.rds-comp-chip--selected.rds-comp-chip--color-error .rds-comp-chip__mui {
+    background-color: transparent !important;
+    border-color: var(--rds-color-error, #d32f2f) !important;
+    color: var(--rds-color-error, #d32f2f);
+
+    @media (prefers-color-scheme: dark) {
+      border-color: #ef5350 !important;
+      color: #ef5350;
+    }
+
+    [data-theme="dark"] & {
+      border-color: #ef5350 !important;
+      color: #ef5350;
+    }
+
+    .MuiChip-deleteIcon {
+      color: var(--rds-color-error, #d32f2f);
+
+      @media (prefers-color-scheme: dark) {
+        color: #ef5350;
+      }
+
+      [data-theme="dark"] & {
+        color: #ef5350;
+      }
+    }
+
+    .MuiChip-icon {
+      color: var(--rds-color-error, #d32f2f);
+
+      @media (prefers-color-scheme: dark) {
+        color: #ef5350;
+      }
+
+      [data-theme="dark"] & {
+        color: #ef5350;
+      }
     }
   }
 
@@ -400,6 +549,47 @@
 
       [data-theme="dark"] & {
         color: #121212;
+      }
+    }
+  }
+
+  // ─── Outlined + Color: Warning (Only when selected) ──────────────────────────────
+  &--outlined.rds-comp-chip--selected.rds-comp-chip--color-warning .rds-comp-chip__mui {
+    background-color: transparent !important;
+    border-color: var(--rds-color-warning, #f57c00) !important;
+    color: var(--rds-color-warning, #f57c00);
+
+    @media (prefers-color-scheme: dark) {
+      border-color: #ffb74d !important;
+      color: #ffb74d;
+    }
+
+    [data-theme="dark"] & {
+      border-color: #ffb74d !important;
+      color: #ffb74d;
+    }
+
+    .MuiChip-deleteIcon {
+      color: var(--rds-color-warning, #f57c00);
+
+      @media (prefers-color-scheme: dark) {
+        color: #ffb74d;
+      }
+
+      [data-theme="dark"] & {
+        color: #ffb74d;
+      }
+    }
+
+    .MuiChip-icon {
+      color: var(--rds-color-warning, #f57c00);
+
+      @media (prefers-color-scheme: dark) {
+        color: #ffb74d;
+      }
+
+      [data-theme="dark"] & {
+        color: #ffb74d;
       }
     }
   }
@@ -447,6 +637,47 @@
     }
   }
 
+  // ─── Outlined + Color: Info (Only when selected) ──────────────────────────────────
+  &--outlined.rds-comp-chip--selected.rds-comp-chip--color-info .rds-comp-chip__mui {
+    background-color: transparent !important;
+    border-color: var(--rds-color-info, #0097a7) !important;
+    color: var(--rds-color-info, #0097a7);
+
+    @media (prefers-color-scheme: dark) {
+      border-color: #4dd0e1 !important;
+      color: #4dd0e1;
+    }
+
+    [data-theme="dark"] & {
+      border-color: #4dd0e1 !important;
+      color: #4dd0e1;
+    }
+
+    .MuiChip-deleteIcon {
+      color: var(--rds-color-info, #0097a7);
+
+      @media (prefers-color-scheme: dark) {
+        color: #4dd0e1;
+      }
+
+      [data-theme="dark"] & {
+        color: #4dd0e1;
+      }
+    }
+
+    .MuiChip-icon {
+      color: var(--rds-color-info, #0097a7);
+
+      @media (prefers-color-scheme: dark) {
+        color: #4dd0e1;
+      }
+
+      [data-theme="dark"] & {
+        color: #4dd0e1;
+      }
+    }
+  }
+
   // ─── Color: Success (Only when selected) ──────────────────────────────
   &--color-success.rds-comp-chip--selected .rds-comp-chip__mui {
     background-color: var(--rds-color-success, #388e3c);
@@ -486,6 +717,47 @@
 
       [data-theme="dark"] & {
         color: #121212;
+      }
+    }
+  }
+
+  // ─── Outlined + Color: Success (Only when selected) ──────────────────────────────
+  &--outlined.rds-comp-chip--selected.rds-comp-chip--color-success .rds-comp-chip__mui {
+    background-color: transparent !important;
+    border-color: var(--rds-color-success, #388e3c) !important;
+    color: var(--rds-color-success, #388e3c);
+
+    @media (prefers-color-scheme: dark) {
+      border-color: #81c784 !important;
+      color: #81c784;
+    }
+
+    [data-theme="dark"] & {
+      border-color: #81c784 !important;
+      color: #81c784;
+    }
+
+    .MuiChip-deleteIcon {
+      color: var(--rds-color-success, #388e3c);
+
+      @media (prefers-color-scheme: dark) {
+        color: #81c784;
+      }
+
+      [data-theme="dark"] & {
+        color: #81c784;
+      }
+    }
+
+    .MuiChip-icon {
+      color: var(--rds-color-success, #388e3c);
+
+      @media (prefers-color-scheme: dark) {
+        color: #81c784;
+      }
+
+      [data-theme="dark"] & {
+        color: #81c784;
       }
     }
   }
