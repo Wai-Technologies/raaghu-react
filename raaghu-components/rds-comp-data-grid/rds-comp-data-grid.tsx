@@ -238,17 +238,17 @@ const RdsCompDataGrid: React.FC<RdsCompDataGridProps> = ({
         sx={{
           // Column header background & text — guaranteed to override MUI emotion styles
           '& .MuiDataGrid-columnHeader': {
-            backgroundColor: '#e3f2fd',
-            background: 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)',
-            color: '#1565c0',
+            backgroundColor: '#f5f5f5',
+            background: 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)',
+            color: '#424242',
             fontWeight: 700,
             fontSize: '14px',
             letterSpacing: '0.4px',
             textTransform: 'uppercase',
-            borderBottom: '3px solid #1976d2',
+            borderBottom: '3px solid #212121',
             '&:hover': {
-              background: 'linear-gradient(135deg, #bbdefb 0%, #90caf9 100%)',
-              color: '#0d47a1',
+              background: 'linear-gradient(135deg, #d0d0d0 0%, #bdbdbd 100%)',
+              color: '#212121',
             },
           },
           '& .MuiDataGrid-columnHeaderTitle': {
@@ -265,7 +265,7 @@ const RdsCompDataGrid: React.FC<RdsCompDataGridProps> = ({
           },
           // Sort icon color
           '& .MuiDataGrid-sortIcon': {
-            color: '#1565c0',
+            color: '#424242',
             opacity: 1,
           },
           // Column separator
@@ -274,13 +274,13 @@ const RdsCompDataGrid: React.FC<RdsCompDataGridProps> = ({
           },
           '@media (prefers-color-scheme: dark)': {
             '& .MuiDataGrid-columnHeader': {
-              backgroundColor: '#1565c0',
-              background: 'linear-gradient(135deg, #1565c0 0%, #1976d2 100%)',
+              backgroundColor: '#2a2a2a',
+              background: 'linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%)',
               color: '#ffffff',
-              borderBottomColor: '#42a5f5',
+              borderBottomColor: '#424242',
               '&:hover': {
-                background: 'linear-gradient(135deg, #1976d2 0%, #2196f3 100%)',
-                color: '#e3f2fd',
+                background: 'linear-gradient(135deg, #333333 0%, #242424 100%)',
+                color: '#e0e0e0',
               },
             },
             '& .MuiDataGrid-sortIcon': {
