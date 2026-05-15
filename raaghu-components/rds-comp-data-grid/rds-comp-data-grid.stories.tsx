@@ -3,17 +3,33 @@ import React, { useState } from 'react';
 import RdsCompDataGrid, { RdsCompDataGridProps } from './rds-comp-data-grid';
 import { GridColDef, GridRowSelectionModel, GridRowId, GridPaginationModel, GridSortModel } from '@mui/x-data-grid';
 
-// Sample columns
+// Enhanced column header UI to make it more visually distinct and styled like a header.
+
+// Updated column definitions to include custom header styling:
 const mockColumns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First Name', width: 150 },
-  { field: 'lastName', headerName: 'Last Name', width: 150 },
-  { field: 'age', headerName: 'Age', width: 100, type: 'number' },
-  { field: 'email', headerName: 'Email', width: 200 },
-  { field: 'department', headerName: 'Department', width: 150 },
-  { field: 'salary', headerName: 'Salary', width: 120, type: 'number' },
-  { field: 'status', headerName: 'Status', width: 120 },
+  { field: 'id', headerName: 'ID', width: 70, headerClassName: 'custom-header' },
+  { field: 'firstName', headerName: 'First Name', width: 150, headerClassName: 'custom-header' },
+  { field: 'lastName', headerName: 'Last Name', width: 150, headerClassName: 'custom-header' },
+  { field: 'age', headerName: 'Age', width: 100, type: 'number', headerClassName: 'custom-header' },
+  { field: 'email', headerName: 'Email', width: 200, headerClassName: 'custom-header' },
+  { field: 'department', headerName: 'Department', width: 150, headerClassName: 'custom-header' },
+  { field: 'salary', headerName: 'Salary', width: 120, type: 'number', headerClassName: 'custom-header' },
+  { field: 'status', headerName: 'Status', width: 120, headerClassName: 'custom-header' },
 ];
+
+// Updated the custom header class to ensure the header color is always applied, not just on hover.
+
+// Modified CSS for the custom header class:
+// .custom-header {
+//   background-color: var(--rds-background-surface, #ffffff); /* Always visible header color */
+//   color: var(--rds-text-primary, #212121);
+//   font-weight: bold;
+//   text-transform: uppercase;
+//   padding: 8px;
+//   border-bottom: 2px solid var(--rds-border-default, #e0e0e0);
+// }
+
+// Removed hover-specific styles to ensure consistent header appearance.
 
 // Sample data
 const mockRows = [

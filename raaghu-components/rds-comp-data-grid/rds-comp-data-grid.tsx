@@ -235,6 +235,62 @@ const RdsCompDataGrid: React.FC<RdsCompDataGridProps> = ({
         onSortModelChange={handleSortModelChange}
         filterModel={filterModel}
         onFilterModelChange={handleFilterModelChange}
+        sx={{
+          // Column header background & text — guaranteed to override MUI emotion styles
+          '& .MuiDataGrid-columnHeader': {
+            backgroundColor: '#e3f2fd',
+            background: 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)',
+            color: '#1565c0',
+            fontWeight: 700,
+            fontSize: '14px',
+            letterSpacing: '0.4px',
+            textTransform: 'uppercase',
+            borderBottom: '3px solid #1976d2',
+            '&:hover': {
+              background: 'linear-gradient(135deg, #bbdefb 0%, #90caf9 100%)',
+              color: '#0d47a1',
+            },
+          },
+          '& .MuiDataGrid-columnHeaderTitle': {
+            fontWeight: 700,
+          },
+          // Remove circular background from sort icon button
+          '& .MuiDataGrid-columnHeader .MuiIconButton-root': {
+            backgroundColor: 'transparent',
+            borderRadius: 0,
+            padding: '2px',
+            '&:hover': {
+              backgroundColor: 'transparent',
+            },
+          },
+          // Sort icon color
+          '& .MuiDataGrid-sortIcon': {
+            color: '#1565c0',
+            opacity: 1,
+          },
+          // Column separator
+          '& .MuiDataGrid-columnSeparator': {
+            color: '#bbdefb',
+          },
+          '@media (prefers-color-scheme: dark)': {
+            '& .MuiDataGrid-columnHeader': {
+              backgroundColor: '#1565c0',
+              background: 'linear-gradient(135deg, #1565c0 0%, #1976d2 100%)',
+              color: '#ffffff',
+              borderBottomColor: '#42a5f5',
+              '&:hover': {
+                background: 'linear-gradient(135deg, #1976d2 0%, #2196f3 100%)',
+                color: '#e3f2fd',
+              },
+            },
+            '& .MuiDataGrid-sortIcon': {
+              color: '#ffffff',
+            },
+            '& .MuiDataGrid-columnSeparator': {
+              color: '#42a5f5',
+            },
+          },
+        }}
         {...props}
       />
     </div>
