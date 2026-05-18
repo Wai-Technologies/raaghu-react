@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import RdsCompMenubar, { RdsCompMenubarProps, RdsCompMenubarItem } from './rds-comp-menubar';
+import './rds-comp-menubar.stories.scss';
 import {
   Edit as EditIcon,
   Delete as DeleteIcon,
@@ -199,7 +200,7 @@ export const Default: Story = {
     color: 'primary',
   },
   render: (args) => (
-    <div style={{ display: 'flex', justifyContent: 'flex-start', padding: 8 }}>
+    <div className="rds-menubar-story">
       <RdsCompMenubar {...args} />
     </div>
   ),
@@ -218,7 +219,7 @@ export const WithIcons: Story = {
     variant: 'outlined',
   },
   render: (args) => (
-    <div style={{ display: 'flex', justifyContent: 'flex-start', padding: 8 }}>
+    <div className="rds-menubar-story">
       <RdsCompMenubar {...args} />
     </div>
   ),
@@ -238,7 +239,7 @@ export const FullFeature: Story = {
     color: 'primary',
   },
   render: (args) => (
-    <div style={{ display: 'flex', justifyContent: 'flex-start', padding: 8 }}>
+    <div className="rds-menubar-story">
       <RdsCompMenubar {...args} />
     </div>
   ),

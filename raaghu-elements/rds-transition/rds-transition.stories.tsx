@@ -102,11 +102,7 @@ export const Interactive: Story = {
                 variant={transitionType === type ? 'contained' : 'outlined'}
                 size="small"
                 onClick={() => setTransitionType(type)}
-                style={
-                  transitionType === type
-                    ? { backgroundColor: '#e0e0e0', color: '#000' }
-                    : undefined
-                }
+                className={transitionType === type ? 'rds-transition__control-btn--selected' : ''}
               >
                 {type}
               </Button>
@@ -121,7 +117,7 @@ export const Interactive: Story = {
                     variant={direction === dir ? 'contained' : 'outlined'}
                     size="small"
                     onClick={() => setDirection(dir)}
-                    style={direction === dir ? { backgroundColor: '#e0e0e0', color: '#000' } : undefined}
+                    className={direction === dir ? 'rds-transition__control-btn--selected' : ''}
                   >
                     {dir}
                   </Button>

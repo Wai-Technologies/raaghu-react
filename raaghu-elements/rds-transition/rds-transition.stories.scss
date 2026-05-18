@@ -1,3 +1,6 @@
+/* Note: This file imports centralized color variables from the design theme. */
+@import '../../raaghu-react-themes/src/styles/variables/color-variables.scss';
+
 /* Story-specific styles for RdsTransition stories */
 .rds-transition__story {
   width: 100%;
@@ -45,19 +48,19 @@
 }
 
 .rds-transition__bg-f5 {
-  background-color: #f5f5f5;
+  background-color: $gray-100;
 }
 
 .rds-transition__bg-e3f {
-  background-color: #e3f2fd;
+  background-color: $secondary-50;
 }
 
 .rds-transition__bg-f3e {
-  background-color: #f3e5f5;
+  background-color: $tertiary-50;
 }
 
 .rds-transition__bg-e8f {
-  background-color: #e8f5e9;
+  background-color: $success-10;
 }
 
 .rds-transition__mb-sm {
@@ -81,5 +84,11 @@
 .custom-transition .rds-transition__card--md,
 .custom-transition .rds-transition__card--sm {
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 20px rgba($dark-0, 0.15);
+}
+
+/* Selected state for small control buttons in stories */
+.rds-transition__control-btn--selected {
+  background-color: $gray-300 !important;
+  color: $black !important;
 }

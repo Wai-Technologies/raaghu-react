@@ -1,26 +1,26 @@
+@import '../../raaghu-react-themes/src/styles/variables/color-variables.scss';
+
 .rds-comp-menubar {
   display: inline-flex;
   flex-direction: row;
   position: relative;
-  background-color: var(--rds-background-surface, #ffffff);
-  border: 1px solid var(--rds-border-default, #e0e0e0);
-  border-radius: var(--rds-border-radius-sm, 4px);
+  background-color: var(--rds-background-surface);
+  border: 1px solid var(--rds-border-default);
+  border-radius: var(--rds-border-radius-sm);
   height: auto;
   width: auto;
   box-sizing: border-box;
 
-  // ─── Dark Mode ─────────────────────────────────────────────────────────────
   @media (prefers-color-scheme: dark) {
-    background-color: #2a2a2a;
-    border-color: #303030;
+    background-color: $dark-200;
+    border-color: $dark-300;
   }
 
   [data-theme="dark"] & {
-    background-color: #2a2a2a;
-    border-color: #303030;
+    background-color: $dark-200;
+    border-color: $dark-300;
   }
 
-  // ─── Full Width ────────────────────────────────────────────────────────────
   &--full-width {
     display: flex;
     width: 100%;
@@ -29,32 +29,12 @@
       width: 100%;
       flex: 1;
 
-      li {
-        flex: 1;
-        flex-shrink: 0;
-      }
+      li { flex: 1; }
     }
 
-    .rds-comp-menubar__item-wrapper {
-      flex: 1;
-      flex-shrink: 0;
-      min-width: 0;
-    }
-
-    .rds-comp-menubar__item {
-      width: 100%;
-      justify-content: center;
-      flex-shrink: 0;
-      flex-grow: 1;
-    }
-
-    // Ensure shortcut doesn't interfere
-    .rds-comp-menubar__shortcut {
-      margin-left: auto;
-    }
+    .rds-comp-menubar__item { width: 100%; justify-content: center; }
   }
 
-  // ─── Menu List ─────────────────────────────────────────────────────────────
   &__menu-list {
     display: flex !important;
     flex-direction: row;
@@ -65,650 +45,107 @@
     margin: 0;
     list-style: none;
     align-items: stretch;
-
-    // Horizontal layout
-    li {
-      display: flex;
-      margin: 0;
-      padding: 0;
-      flex-shrink: 1;
-    }
   }
 
-  // ─── Item Wrapper ──────────────────────────────────────────────────────────
-  &__item-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    position: relative;
-    flex-shrink: 1;
-  }
+  &__item-wrapper { display: flex; flex-direction: column; align-items: stretch; position: relative; }
 
-  // ─── Menu Item Base ────────────────────────────────────────────────────────
   &__item {
     display: flex;
     align-items: center;
-    gap: var(--rds-spacing-xs, 4px);
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
-    color: var(--rds-text-primary, #212121);
-    background-color: var(--rds-background-surface, #ffffff);
+    gap: var(--rds-spacing-xs);
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md);
+    color: var(--rds-text-primary);
+    background-color: var(--rds-background-surface);
     border: none;
-    border-radius: 0;
-    font-size: var(--rds-font-size-base, 14px);
+    font-size: var(--rds-font-size-base);
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
     white-space: nowrap;
-    position: relative;
-    margin: 0;
-    text-transform: none;
     min-height: 40px;
 
     &:hover:not(&--disabled) {
-      background-color: var(--rds-background-hover, #f5f5f5);
-      color: var(--rds-text-primary, #212121);
+      background-color: var(--rds-background-hover);
+      color: var(--rds-text-primary);
     }
 
-    &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
-      outline-offset: -2px;
-    }
+    &:focus-visible { outline: 2px solid var(--rds-color-primary); outline-offset: -2px; }
 
-    &.Mui-disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      color: var(--rds-text-disabled, #bdbdbd);
+    &.Mui-disabled { opacity: 0.5; cursor: not-allowed; color: var(--rds-text-disabled); }
 
-      @media (prefers-color-scheme: dark) {
-        color: #616161;
-      }
-
-      [data-theme="dark"] & {
-        color: #616161;
-      }
-    }
-
-    // Dark mode
     @media (prefers-color-scheme: dark) {
-      color: #ffffff;
-      background-color: #2a2a2a;
+      color: $white;
+      background-color: $dark-200;
 
-      &:hover:not(&--disabled) {
-        background-color: #363636;
-      }
+      &:hover:not(&--disabled) { background-color: $dark-300; }
     }
 
     [data-theme="dark"] & {
-      color: #ffffff;
-      background-color: #2a2a2a;
+      color: $white;
+      background-color: $dark-200;
 
-      &:hover:not(&--disabled) {
-        background-color: #363636;
-      }
+      &:hover:not(&--disabled) { background-color: $dark-300; }
     }
 
-    // Active state
     &--active {
-      background-color: var(--rds-color-primary, #1976d2);
-      color: #ffffff;
+      background-color: var(--rds-color-primary);
+      color: $white;
 
-      @media (prefers-color-scheme: dark) {
-        background-color: #64b5f6;
-        color: #121212;
-      }
-
-      [data-theme="dark"] & {
-        background-color: #64b5f6;
-        color: #121212;
-      }
+      @media (prefers-color-scheme: dark) { background-color: var(--rds-color-primary); color: $gray-900; }
+      [data-theme="dark"] & { background-color: var(--rds-color-primary); color: $gray-900; }
     }
   }
 
-  // ─── Icon in Menu Item ─────────────────────────────────────────────────────
-  &__icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    color: inherit;
+  &__icon { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; }
+  &__label { flex: 1; display: flex; align-items: center; font-weight: 500; }
+  &__chevron { display: inline-flex; width: 20px; height: 20px; margin-left: var(--rds-spacing-xs); }
+  &__shortcut { margin-left: var(--rds-spacing-md); color: var(--rds-text-secondary); opacity: 0.8; }
+  &__divider { border-top: 1px solid var(--rds-border-default); width: 100%; }
 
-    svg {
-      width: 20px;
-      height: 20px;
-      font-size: 20px;
-    }
-  }
-
-  // ─── Label ────────────────────────────────────────────────────────────────
-  &__label {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    color: inherit;
-    font-weight: 500;
-  }
-
-  // ─── Chevron (indicates submenu) ────────────────────────────────────────────
-  &__chevron {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    margin-left: var(--rds-spacing-xs, 4px);
-    color: inherit;
-
-    &::after {
-      content: '▾';
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
-  // ─── Shortcut Text ────────────────────────────────────────────────────────
-  &__shortcut {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: var(--rds-spacing-md, 16px);
-    font-size: var(--rds-font-size-sm, 12px);
-    color: var(--rds-text-secondary, #757575);
-    opacity: 0.7;
-
-    @media (prefers-color-scheme: dark) {
-      color: #b0b0b0;
-    }
-
-    [data-theme="dark"] & {
-      color: #b0b0b0;
-    }
-  }
-
-  // ─── Divider ────────────────────────────────────────────────────────────────
-  &__divider {
-    border: none;
-    border-top: 1px solid var(--rds-border-default, #e0e0e0);
-    margin: 0;
-    padding: 0;
-    width: 100%;
-
-    @media (prefers-color-scheme: dark) {
-      border-top-color: #303030;
-    }
-
-    [data-theme="dark"] & {
-      border-top-color: #303030;
-    }
-  }
-
-  // ─── Submenu ────────────────────────────────────────────────────────────────
-  &__submenu {
-    .MuiPaper-root {
-      background-color: var(--rds-background-surface, #ffffff);
-      color: var(--rds-text-primary, #212121);
-      border: 1px solid var(--rds-border-default, #e0e0e0);
-      border-radius: var(--rds-border-radius-sm, 4px);
-
-      @media (prefers-color-scheme: dark) {
-        background-color: #2a2a2a;
-        color: #ffffff;
-        border-color: #303030;
-      }
-
-      [data-theme="dark"] & {
-        background-color: #2a2a2a;
-        color: #ffffff;
-        border-color: #303030;
-      }
-    }
-
-    .MuiList-root {
-      padding: var(--rds-spacing-xs, 4px) 0;
-    }
-  }
-
-  // ─── Subitem ────────────────────────────────────────────────────────────────
-  &__subitem {
-    display: flex;
-    align-items: center;
-    gap: var(--rds-spacing-xs, 4px);
-    padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
-    color: var(--rds-text-primary, #212121);
-    background-color: var(--rds-background-surface, #ffffff);
-    border: none;
-    font-size: var(--rds-font-size-base, 14px);
-    font-weight: 400;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    margin: 0;
-    text-transform: none;
-    min-height: 36px;
-
-    &:hover:not(.Mui-disabled) {
-      background-color: var(--rds-background-hover, #f5f5f5);
-      color: var(--rds-text-primary, #212121);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
-      outline-offset: -2px;
-    }
-
-    &.Mui-disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      color: var(--rds-text-disabled, #bdbdbd);
-
-      @media (prefers-color-scheme: dark) {
-        color: #616161;
-      }
-
-      [data-theme="dark"] & {
-        color: #616161;
-      }
-    }
-
-    // Dark mode
-    @media (prefers-color-scheme: dark) {
-      color: #ffffff;
-      background-color: #2a2a2a;
-
-      &:hover:not(.Mui-disabled) {
-        background-color: #363636;
-      }
-    }
-
-    [data-theme="dark"] & {
-      color: #ffffff;
-      background-color: #2a2a2a;
-
-      &:hover:not(.Mui-disabled) {
-        background-color: #363636;
-      }
-    }
-  }
-
-  // ─── Icon in Subitem ────────────────────────────────────────────────────────
-  &__sub-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    color: inherit;
-
-    svg {
-      width: 20px;
-      height: 20px;
-      font-size: 20px;
-    }
-  }
-
-  // ─── Label in Subitem ──────────────────────────────────────────────────────
-  &__sub-label {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    color: inherit;
-    font-weight: 400;
-  }
-
-  // ─── Shortcut in Subitem ───────────────────────────────────────────────────
-  &__sub-shortcut {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: var(--rds-spacing-md, 16px);
-    font-size: var(--rds-font-size-sm, 12px);
-    color: var(--rds-text-secondary, #757575);
-    opacity: 0.7;
-
-    @media (prefers-color-scheme: dark) {
-      color: #b0b0b0;
-    }
-
-    [data-theme="dark"] & {
-      color: #b0b0b0;
-    }
-  }
-
-  // ─── Size: Small ────────────────────────────────────────────────────────────
+  // Size variants
   &--small {
-    .rds-comp-menubar__item {
-      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
-      font-size: var(--rds-font-size-sm, 12px);
-      min-height: 32px;
-    }
-
-    .rds-comp-menubar__icon {
-      width: 16px;
-      height: 16px;
-      min-width: 16px;
-
-      svg {
-        width: 16px;
-        height: 16px;
-        font-size: 16px;
-      }
-    }
-
-    .rds-comp-menubar__chevron {
-      width: 16px;
-      height: 16px;
-
-      &::after {
-        font-size: 10px;
-      }
-    }
-
-    .rds-comp-menubar__shortcut {
-      font-size: 10px;
-      margin-left: var(--rds-spacing-xs, 4px);
-    }
-
-    .rds-comp-menubar__subitem {
-      padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
-      font-size: var(--rds-font-size-sm, 12px);
-      min-height: 28px;
-    }
-
-    .rds-comp-menubar__sub-icon {
-      width: 16px;
-      height: 16px;
-      min-width: 16px;
-
-      svg {
-        width: 16px;
-        height: 16px;
-        font-size: 16px;
-      }
-    }
-
-    .rds-comp-menubar__sub-shortcut {
-      font-size: 10px;
-      margin-left: var(--rds-spacing-xs, 4px);
-    }
+    .rds-comp-menubar__item { padding: var(--rds-spacing-xs) var(--rds-spacing-sm); font-size: var(--rds-font-size-sm); min-height: 32px; }
+    .rds-comp-menubar__icon, .rds-comp-menubar__chevron { width: 16px; height: 16px; }
+    .rds-comp-menubar__shortcut { font-size: 10px; margin-left: var(--rds-spacing-xs); }
   }
 
-  // ─── Size: Medium (Default) ────────────────────────────────────────────────
   &--medium {
-    .rds-comp-menubar__item {
-      padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
-      font-size: var(--rds-font-size-base, 14px);
-      min-height: 40px;
-    }
-
-    .rds-comp-menubar__icon {
-      width: 20px;
-      height: 20px;
-      min-width: 20px;
-
-      svg {
-        width: 20px;
-        height: 20px;
-        font-size: 20px;
-      }
-    }
-
-    .rds-comp-menubar__chevron {
-      width: 20px;
-      height: 20px;
-
-      &::after {
-        font-size: 12px;
-      }
-    }
-
-    .rds-comp-menubar__shortcut {
-      font-size: var(--rds-font-size-sm, 12px);
-      margin-left: var(--rds-spacing-md, 16px);
-    }
-
-    .rds-comp-menubar__subitem {
-      padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
-      font-size: var(--rds-font-size-base, 14px);
-      min-height: 36px;
-    }
-
-    .rds-comp-menubar__sub-icon {
-      width: 20px;
-      height: 20px;
-      min-width: 20px;
-
-      svg {
-        width: 20px;
-        height: 20px;
-        font-size: 20px;
-      }
-    }
-
-    .rds-comp-menubar__sub-shortcut {
-      font-size: var(--rds-font-size-sm, 12px);
-      margin-left: var(--rds-spacing-md, 16px);
-    }
+    .rds-comp-menubar__item { padding: var(--rds-spacing-sm) var(--rds-spacing-md); font-size: var(--rds-font-size-base); min-height: 40px; }
+    .rds-comp-menubar__icon, .rds-comp-menubar__chevron { width: 20px; height: 20px; }
+    .rds-comp-menubar__shortcut { font-size: var(--rds-font-size-sm); margin-left: var(--rds-spacing-md); }
   }
 
-  // ─── Size: Large ────────────────────────────────────────────────────────────
   &--large {
-    .rds-comp-menubar__item {
-      padding: var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
-      font-size: var(--rds-font-size-lg, 16px);
-      min-height: 48px;
-      font-weight: 600;
-    }
-
-    .rds-comp-menubar__icon {
-      width: 24px;
-      height: 24px;
-      min-width: 24px;
-
-      svg {
-        width: 24px;
-        height: 24px;
-        font-size: 24px;
-      }
-    }
-
-    .rds-comp-menubar__chevron {
-      width: 24px;
-      height: 24px;
-
-      &::after {
-        font-size: 14px;
-      }
-    }
-
-    .rds-comp-menubar__shortcut {
-      font-size: var(--rds-font-size-base, 14px);
-      margin-left: var(--rds-spacing-lg, 24px);
-    }
-
-    .rds-comp-menubar__subitem {
-      padding: var(--rds-spacing-md, 16px) var(--rds-spacing-lg, 24px);
-      font-size: var(--rds-font-size-base, 14px);
-      min-height: 40px;
-    }
-
-    .rds-comp-menubar__sub-icon {
-      width: 24px;
-      height: 24px;
-      min-width: 24px;
-
-      svg {
-        width: 24px;
-        height: 24px;
-        font-size: 24px;
-      }
-    }
-
-    .rds-comp-menubar__sub-shortcut {
-      font-size: var(--rds-font-size-base, 14px);
-      margin-left: var(--rds-spacing-lg, 24px);
-    }
+    .rds-comp-menubar__item { padding: var(--rds-spacing-md) var(--rds-spacing-lg); font-size: var(--rds-font-size-lg); min-height: 48px; font-weight: 600; }
+    .rds-comp-menubar__icon, .rds-comp-menubar__chevron { width: 24px; height: 24px; }
+    .rds-comp-menubar__shortcut { font-size: var(--rds-font-size-base); margin-left: var(--rds-spacing-lg); }
   }
 
-  // ─── Variant: Outlined ──────────────────────────────────────────────────────
   &--outlined {
-    border: 1px solid var(--rds-border-default, #e0e0e0);
+    border: 1px solid var(--rds-border-default);
 
-    // Ensure items respect outlined background (transparent) so root border is visible
-    .rds-comp-menubar__item {
-      background-color: transparent;
-      color: var(--rds-text-primary, #212121);
-    }
+    .rds-comp-menubar__item { background-color: transparent; color: var(--rds-text-primary); }
+    .rds-comp-menubar__item:hover:not(&--disabled) { background-color: rgba($dark-0, 0.04); }
 
-    .rds-comp-menubar__item:hover:not(&--disabled) {
-      background-color: rgba(0,0,0,0.04);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      border-color: #303030;
-    }
-
-    [data-theme="dark"] & {
-      border-color: #303030;
-    }
+    @media (prefers-color-scheme: dark) { border-color: $dark-300; }
+    [data-theme="dark"] & { border-color: $dark-300; }
   }
 
-  // ─── Variant: Filled ────────────────────────────────────────────────────────
   &--filled {
-    background-color: var(--rds-background-hover, #f5f5f5);
+    background-color: var(--rds-background-hover);
     border: none;
 
-    // Items should be transparent so the filled background is visible
-    .rds-comp-menubar__item {
-      background-color: transparent;
-      color: var(--rds-text-primary, #212121);
-    }
+    .rds-comp-menubar__item { background-color: transparent; color: var(--rds-text-primary); }
+    .rds-comp-menubar__item:hover:not(&--disabled) { background-color: rgba($dark-0, 0.06); }
 
-    .rds-comp-menubar__item:hover:not(&--disabled) {
-      background-color: rgba(0,0,0,0.06);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      background-color: #363636;
-    }
-
-    [data-theme="dark"] & {
-      background-color: #363636;
-    }
+    @media (prefers-color-scheme: dark) { background-color: $dark-300; }
+    [data-theme="dark"] & { background-color: $dark-300; }
   }
 
-  // ─── Color Variants ─────────────────────────────────────────────────────────
-  // Primary (default)
-  &--color-primary {
-    .rds-comp-menubar__item--active {
-      background-color: var(--rds-color-primary, #1976d2);
-      color: #ffffff;
-
-      @media (prefers-color-scheme: dark) {
-        background-color: #64b5f6;
-        color: #121212;
-      }
-
-      [data-theme="dark"] & {
-        background-color: #64b5f6;
-        color: #121212;
-      }
-    }
-  }
-
-  // Secondary
-  &--color-secondary {
-    .rds-comp-menubar__item--active {
-      background-color: var(--rds-color-secondary, #7c4dff);
-      color: #ffffff;
-
-      @media (prefers-color-scheme: dark) {
-        background-color: #b39ddb;
-        color: #121212;
-      }
-
-      [data-theme="dark"] & {
-        background-color: #b39ddb;
-        color: #121212;
-      }
-    }
-  }
-
-  // Success
-  &--color-success {
-    .rds-comp-menubar__item--active {
-      background-color: var(--rds-color-success, #388e3c);
-      color: #ffffff;
-
-      @media (prefers-color-scheme: dark) {
-        background-color: #81c784;
-        color: #121212;
-      }
-
-      [data-theme="dark"] & {
-        background-color: #81c784;
-        color: #121212;
-      }
-    }
-  }
-
-  // Error
-  &--color-error {
-    .rds-comp-menubar__item--active {
-      background-color: var(--rds-color-error, #d32f2f);
-      color: #ffffff;
-
-      @media (prefers-color-scheme: dark) {
-        background-color: #ef5350;
-        color: #ffffff;
-      }
-
-      [data-theme="dark"] & {
-        background-color: #ef5350;
-        color: #ffffff;
-      }
-    }
-  }
-
-  // Warning
-  &--color-warning {
-    .rds-comp-menubar__item--active {
-      background-color: var(--rds-color-warning, #f57c00);
-      color: #ffffff;
-
-      @media (prefers-color-scheme: dark) {
-        background-color: #ffb74d;
-        color: #121212;
-      }
-
-      [data-theme="dark"] & {
-        background-color: #ffb74d;
-        color: #121212;
-      }
-    }
-  }
-
-  // Info
-  &--color-info {
-    .rds-comp-menubar__item--active {
-      background-color: var(--rds-color-info, #0097a7);
-      color: #ffffff;
-
-      @media (prefers-color-scheme: dark) {
-        background-color: #80deea;
-        color: #121212;
-      }
-
-      [data-theme="dark"] & {
-        background-color: #80deea;
-        color: #121212;
-      }
-    }
-  }
+  &--color-primary .rds-comp-menubar__item--active { background-color: var(--rds-color-primary); color: $white; }
+  &--color-secondary .rds-comp-menubar__item--active { background-color: var(--rds-color-secondary); color: $white; }
+  &--color-success .rds-comp-menubar__item--active { background-color: var(--rds-color-success); color: $white; }
+  &--color-error .rds-comp-menubar__item--active { background-color: var(--rds-color-error); color: $white; }
+  &--color-warning .rds-comp-menubar__item--active { background-color: var(--rds-color-warning); color: $white; }
+  &--color-info .rds-comp-menubar__item--active { background-color: var(--rds-color-info); color: $white; }
 }
