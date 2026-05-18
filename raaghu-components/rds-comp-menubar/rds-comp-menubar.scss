@@ -161,4 +161,23 @@
 
   &--color-info .rds-comp-menubar__item--active { background-color: var(--rds-color-info); }
   &--color-info .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-info-contrast-text, theme.$black); }
+
+  // Dark theme: ensure contrast text falls back to white
+  @media (prefers-color-scheme: dark) {
+    &--color-primary .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-primary-contrast-text, theme.$white); }
+    &--color-secondary .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-secondary-contrast-text, theme.$white); }
+    &--color-success .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-success-contrast-text, theme.$white); }
+    &--color-error .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-error-contrast-text, theme.$white); }
+    &--color-warning .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-warning-contrast-text, theme.$white); }
+    &--color-info .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-info-contrast-text, theme.$white); }
+  }
+
+  [data-theme="dark"] & {
+    &--color-primary .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-primary-contrast-text, theme.$white); }
+    &--color-secondary .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-secondary-contrast-text, theme.$white); }
+    &--color-success .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-success-contrast-text, theme.$white); }
+    &--color-error .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-error-contrast-text, theme.$white); }
+    &--color-warning .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-warning-contrast-text, theme.$white); }
+    &--color-info .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-info-contrast-text, theme.$white); }
+  }
 }
