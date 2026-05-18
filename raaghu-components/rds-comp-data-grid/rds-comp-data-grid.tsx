@@ -272,6 +272,16 @@ const RdsCompDataGrid: React.FC<RdsCompDataGridProps> = ({
           '& .MuiDataGrid-columnSeparator': {
             color: '#bbdefb',
           },
+          // Ensure selected rows use gray (override any theme primary blue)
+          '& .MuiDataGrid-row.Mui-selected, & .MuiDataGrid-row.Mui-selected:hover': {
+            backgroundColor: 'rgba(117,117,117,0.15) !important',
+            borderLeft: '3px solid #757575 !important',
+            boxShadow: 'inset 0 0 0 1px rgba(117,117,117,0.3) !important',
+          },
+          '& .MuiDataGrid-row.Mui-selected .MuiDataGrid-cell': {
+            backgroundColor: 'transparent !important',
+            color: '#212121 !important',
+          },
           '@media (prefers-color-scheme: dark)': {
             '& .MuiDataGrid-columnHeader': {
               backgroundColor: '#2a2a2a',
@@ -288,6 +298,16 @@ const RdsCompDataGrid: React.FC<RdsCompDataGridProps> = ({
             },
             '& .MuiDataGrid-columnSeparator': {
               color: '#42a5f5',
+            },
+            // Dark mode: selected rows gray override
+            '& .MuiDataGrid-row.Mui-selected, & .MuiDataGrid-row.Mui-selected:hover': {
+              backgroundColor: 'rgba(158,158,158,0.15) !important',
+              borderLeft: '3px solid #9e9e9e !important',
+              boxShadow: 'inset 0 0 0 1px rgba(158,158,158,0.3) !important',
+            },
+            '& .MuiDataGrid-row.Mui-selected .MuiDataGrid-cell': {
+              backgroundColor: 'transparent !important',
+              color: '#ffffff !important',
             },
           },
         }}

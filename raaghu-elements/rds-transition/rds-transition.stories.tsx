@@ -102,6 +102,11 @@ export const Interactive: Story = {
                 variant={transitionType === type ? 'contained' : 'outlined'}
                 size="small"
                 onClick={() => setTransitionType(type)}
+                style={
+                  transitionType === type
+                    ? { backgroundColor: '#e0e0e0', color: '#000' }
+                    : undefined
+                }
               >
                 {type}
               </Button>
@@ -116,6 +121,7 @@ export const Interactive: Story = {
                     variant={direction === dir ? 'contained' : 'outlined'}
                     size="small"
                     onClick={() => setDirection(dir)}
+                    style={direction === dir ? { backgroundColor: '#e0e0e0', color: '#000' } : undefined}
                   >
                     {dir}
                   </Button>
