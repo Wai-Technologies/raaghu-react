@@ -1,0 +1,85 @@
+/* Story-specific styles for RdsTransition stories */
+.rds-transition__story {
+  width: 100%;
+}
+
+.rds-transition__pad {
+  padding: 24px; /* replaces sx={{ p: 3 }} */
+}
+
+.rds-transition__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rds-transition__stack--mb {
+  margin-bottom: 24px;
+}
+
+.rds-transition__stack--space {
+  gap: 24px;
+}
+
+.rds-transition__row {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.rds-transition__wrap {
+  flex-wrap: wrap;
+}
+
+.rds-transition__card--md {
+  max-width: 400px;
+}
+
+.rds-transition__card--sm {
+  max-width: 300px;
+}
+
+.rds-transition__btn-fit {
+  width: fit-content;
+}
+
+.rds-transition__bg-f5 {
+  background-color: #f5f5f5;
+}
+
+.rds-transition__bg-e3f {
+  background-color: #e3f2fd;
+}
+
+.rds-transition__bg-f3e {
+  background-color: #f3e5f5;
+}
+
+.rds-transition__bg-e8f {
+  background-color: #e8f5e9;
+}
+
+.rds-transition__mb-sm {
+  margin-bottom: 16px;
+}
+
+.rds-transition__mb-xs {
+  margin-bottom: 8px;
+}
+
+.rds-transition__slide-item {
+  margin-bottom: 12px;
+}
+
+.rds-transition__duration-item {
+  margin-bottom: 12px;
+}
+
+/* Custom transition styling when className is passed to RdsTransition */
+.custom-transition .MuiCard-root,
+.custom-transition .rds-transition__card--md,
+.custom-transition .rds-transition__card--sm {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}

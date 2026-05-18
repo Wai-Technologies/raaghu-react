@@ -1,13 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React, { useState } from 'react';
-import { Box, Button, Card, CardContent, Typography, Stack } from '@mui/material';
+import { Button, Card, CardContent, Typography } from '@mui/material';
 import RdsTransition from './rds-transition';
+import './rds-transition.stories.scss';
 
 const meta: Meta<typeof RdsTransition> = {
   title: 'Elements/Transition',
   component: RdsTransition,
   parameters: {
     layout: 'padded',
+    docs: {
+      source: {
+        type: 'code',
+        language: 'tsx',
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -53,9 +60,9 @@ export const Default: Story = {
     unmountOnExit: false,
   },
   render: (args) => (
-    <Box sx={{ p: 3 }}>
+    <div className="rds-transition__story rds-transition__pad">
       <RdsTransition {...args}>
-        <Card sx={{ maxWidth: 400 }}>
+        <Card className="rds-transition__card--md">
           <CardContent>
             <Typography variant="h6" gutterBottom>
               Transition Content
@@ -66,7 +73,7 @@ export const Default: Story = {
           </CardContent>
         </Card>
       </RdsTransition>
-    </Box>
+    </div>
   ),
 };
 
@@ -78,17 +85,17 @@ export const Interactive: Story = {
     const [direction, setDirection] = useState<'up' | 'down' | 'left' | 'right'>('down');
 
     return (
-      <Box sx={{ p: 3 }}>
-        <Stack spacing={2} sx={{ mb: 3 }}>
+      <div className="rds-transition__story rds-transition__pad">
+        <div className="rds-transition__stack rds-transition__stack--mb">
           <Button
             variant="contained"
             onClick={() => setIsVisible(!isVisible)}
-            sx={{ width: 'fit-content' }}
+            className="rds-transition__btn-fit"
           >
             {isVisible ? 'Hide' : 'Show'} Content
           </Button>
 
-          <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1 }}>
+          <div className="rds-transition__row rds-transition__wrap">
             {(['fade', 'grow', 'slide', 'zoom'] as const).map((type) => (
               <Button
                 key={type}
@@ -99,23 +106,23 @@ export const Interactive: Story = {
                 {type}
               </Button>
             ))}
-          </Stack>
+          </div>
 
           {transitionType === 'slide' && (
-            <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1 }}>
+            <div className="rds-transition__row rds-transition__wrap">
               {(['up', 'down', 'left', 'right'] as const).map((dir) => (
-                <Button
-                  key={dir}
-                  variant={direction === dir ? 'contained' : 'outlined'}
-                  size="small"
-                  onClick={() => setDirection(dir)}
-                >
-                  {dir}
-                </Button>
-              ))}
-            </Stack>
+                  <Button
+                    key={dir}
+                    variant={direction === dir ? 'contained' : 'outlined'}
+                    size="small"
+                    onClick={() => setDirection(dir)}
+                  >
+                    {dir}
+                  </Button>
+                ))}
+              </div>
           )}
-        </Stack>
+        </div>
 
         <RdsTransition
           type={transitionType}
@@ -124,12 +131,12 @@ export const Interactive: Story = {
           duration={300}
           unmountOnExit={false}
         >
-          <Card sx={{ maxWidth: 400 }}>
+          <Card className="rds-transition__card--md">
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 {transitionType.toUpperCase()} Transition
               </Typography>
-              <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
+              <Typography variant="body2" color="textSecondary" className="rds-transition__mb-sm">
                 Transition Type: <strong>{transitionType}</strong>
               </Typography>
               {transitionType === 'slide' && (
@@ -140,7 +147,7 @@ export const Interactive: Story = {
             </CardContent>
           </Card>
         </RdsTransition>
-      </Box>
+      </div>
     );
   },
 };
@@ -153,9 +160,9 @@ export const FadeTransition: Story = {
     in: true,
   },
   render: (args) => (
-    <Box sx={{ p: 3 }}>
+    <div className="rds-transition__story rds-transition__pad">
       <RdsTransition {...args}>
-        <Card sx={{ maxWidth: 400, backgroundColor: '#f5f5f5' }}>
+        <Card className="rds-transition__card--md rds-transition__bg-f5">
           <CardContent>
             <Typography variant="h6" gutterBottom>
               Fade Transition
@@ -166,7 +173,7 @@ export const FadeTransition: Story = {
           </CardContent>
         </Card>
       </RdsTransition>
-    </Box>
+    </div>
   ),
 };
 
@@ -178,9 +185,9 @@ export const GrowTransition: Story = {
     in: true,
   },
   render: (args) => (
-    <Box sx={{ p: 3 }}>
+    <div className="rds-transition__story rds-transition__pad">
       <RdsTransition {...args}>
-        <Card sx={{ maxWidth: 400, backgroundColor: '#e3f2fd' }}>
+        <Card className="rds-transition__card--md rds-transition__bg-e3f">
           <CardContent>
             <Typography variant="h6" gutterBottom>
               Grow Transition
@@ -191,7 +198,7 @@ export const GrowTransition: Story = {
           </CardContent>
         </Card>
       </RdsTransition>
-    </Box>
+    </div>
   ),
 };
 
@@ -204,15 +211,15 @@ export const SlideTransition: Story = {
     in: true,
   },
   render: (args) => (
-    <Box sx={{ p: 3 }}>
-      <Stack spacing={2}>
+    <div className="rds-transition__story rds-transition__pad">
+      <div className="rds-transition__stack">
         {(['up', 'down', 'left', 'right'] as const).map((dir) => (
-          <Box key={dir}>
-            <Typography variant="subtitle2" sx={{ mb: 1 }}>
+          <div key={dir} className="rds-transition__slide-item">
+            <Typography variant="subtitle2" className="rds-transition__mb-xs">
               Slide {dir}:
             </Typography>
             <RdsTransition {...args} direction={dir}>
-              <Card sx={{ maxWidth: 300, backgroundColor: '#f3e5f5' }}>
+              <Card className="rds-transition__card--sm rds-transition__bg-f3e">
                 <CardContent>
                   <Typography variant="body2">
                     Slides in from the {dir}
@@ -220,10 +227,10 @@ export const SlideTransition: Story = {
                 </CardContent>
               </Card>
             </RdsTransition>
-          </Box>
+          </div>
         ))}
-      </Stack>
-    </Box>
+      </div>
+    </div>
   ),
 };
 
@@ -235,9 +242,9 @@ export const ZoomTransition: Story = {
     in: true,
   },
   render: (args) => (
-    <Box sx={{ p: 3 }}>
+    <div className="rds-transition__story rds-transition__pad">
       <RdsTransition {...args}>
-        <Card sx={{ maxWidth: 400, backgroundColor: '#e8f5e9' }}>
+        <Card className="rds-transition__card--md rds-transition__bg-e8f">
           <CardContent>
             <Typography variant="h6" gutterBottom>
               Zoom Transition
@@ -248,22 +255,22 @@ export const ZoomTransition: Story = {
           </CardContent>
         </Card>
       </RdsTransition>
-    </Box>
+    </div>
   ),
 };
 
 // ─── Duration Variations Story ──────────────────────────────────────────────
 export const DurationVariations: Story = {
   render: () => (
-    <Box sx={{ p: 3 }}>
-      <Stack spacing={3}>
+    <div className="rds-transition__story rds-transition__pad">
+      <div className="rds-transition__stack rds-transition__stack--space">
         {[200, 300, 500, 800].map((duration) => (
-          <Box key={duration}>
-            <Typography variant="subtitle2" sx={{ mb: 1 }}>
+          <div key={duration} className="rds-transition__duration-item">
+            <Typography variant="subtitle2" className="rds-transition__mb-xs">
               Duration: {duration}ms
             </Typography>
             <RdsTransition type="fade" duration={duration} in={true}>
-              <Card sx={{ maxWidth: 300 }}>
+              <Card className="rds-transition__card--sm">
                 <CardContent>
                   <Typography variant="body2">
                     This transition takes {duration}ms
@@ -271,10 +278,10 @@ export const DurationVariations: Story = {
                 </CardContent>
               </Card>
             </RdsTransition>
-          </Box>
+          </div>
         ))}
-      </Stack>
-    </Box>
+      </div>
+    </div>
   ),
 };
 
@@ -284,11 +291,11 @@ export const UnmountOnExit: Story = {
     const [isVisible, setIsVisible] = useState(true);
 
     return (
-      <Box sx={{ p: 3 }}>
+      <div className="rds-transition__story rds-transition__pad">
         <Button
           variant="contained"
           onClick={() => setIsVisible(!isVisible)}
-          sx={{ mb: 2 }}
+          className="rds-transition__mb-sm"
         >
           {isVisible ? 'Hide' : 'Show'} Content (Unmounts on Exit)
         </Button>
@@ -299,7 +306,7 @@ export const UnmountOnExit: Story = {
           duration={300}
           unmountOnExit={true}
         >
-          <Card sx={{ maxWidth: 400 }}>
+          <Card className="rds-transition__card--md">
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 Content with Unmount
@@ -310,7 +317,7 @@ export const UnmountOnExit: Story = {
             </CardContent>
           </Card>
         </RdsTransition>
-      </Box>
+      </div>
     );
   },
 };
@@ -322,15 +329,11 @@ export const CustomStyling: Story = {
     duration: 400,
     in: true,
     className: 'custom-transition',
-    style: {
-      borderRadius: '12px',
-      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
-    },
   },
   render: (args) => (
-    <Box sx={{ p: 3 }}>
+    <div className="rds-transition__story rds-transition__pad">
       <RdsTransition {...args}>
-        <Card sx={{ maxWidth: 400 }}>
+        <Card className="rds-transition__card--md">
           <CardContent>
             <Typography variant="h6" gutterBottom>
               Custom Styled
@@ -341,6 +344,6 @@ export const CustomStyling: Story = {
           </CardContent>
         </Card>
       </RdsTransition>
-    </Box>
+    </div>
   ),
 };

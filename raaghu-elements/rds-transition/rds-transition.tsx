@@ -88,11 +88,6 @@ export interface RdsTransitionProps extends Omit<TransitionProps, 'children' | '
    * Additional CSS class
    */
   className?: string;
-
-  /**
-   * Style to apply to wrapper
-   */
-  style?: React.CSSProperties;
 }
 
 /**
@@ -123,7 +118,6 @@ const RdsTransition: React.FC<RdsTransitionProps> = ({
   mountOnEnter = false,
   timeout = duration,
   className = '',
-  style = {},
   ...props
 }) => {
   // Determine which MUI transition component to use
@@ -143,7 +137,6 @@ const RdsTransition: React.FC<RdsTransitionProps> = ({
     const wrapperDiv = (
       <div
         className={`rds-transition rds-transition--${type} ${className}`}
-        style={style}
         role="region"
         aria-live="polite"
       >
@@ -164,7 +157,6 @@ const RdsTransition: React.FC<RdsTransitionProps> = ({
           <Slide {...transitionProps} direction={direction}>
             <div
               className={`rds-transition rds-transition--slide rds-transition--slide-${direction} ${className}`}
-              style={style}
               role="region"
               aria-live="polite"
             >
