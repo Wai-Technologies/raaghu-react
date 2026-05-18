@@ -19,7 +19,7 @@ const meta: Meta<typeof RdsCompMenubar> = {
   component: RdsCompMenubar,
   tags: ['autodocs'],
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
     docs: {
       description: {
         component:
@@ -198,6 +198,11 @@ export const Default: Story = {
     variant: 'outlined',
     color: 'primary',
   },
+  render: (args) => (
+    <div style={{ display: 'flex', justifyContent: 'flex-start', padding: 8 }}>
+      <RdsCompMenubar {...args} />
+    </div>
+  ),
 };
 
 
@@ -212,6 +217,11 @@ export const WithIcons: Story = {
     size: 'medium',
     variant: 'outlined',
   },
+  render: (args) => (
+    <div style={{ display: 'flex', justifyContent: 'flex-start', padding: 8 }}>
+      <RdsCompMenubar {...args} />
+    </div>
+  ),
 };
 
 
@@ -227,4 +237,9 @@ export const FullFeature: Story = {
     variant: 'outlined',
     color: 'primary',
   },
+  render: (args) => (
+    <div style={{ display: 'flex', justifyContent: 'flex-start', padding: 8 }}>
+      <RdsCompMenubar {...args} />
+    </div>
+  ),
 };

@@ -1,12 +1,12 @@
 .rds-comp-menubar {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   position: relative;
   background-color: var(--rds-background-surface, #ffffff);
   border: 1px solid var(--rds-border-default, #e0e0e0);
   border-radius: var(--rds-border-radius-sm, 4px);
   height: auto;
-  width: 100%;
+  width: auto;
   box-sizing: border-box;
 
   // ─── Dark Mode ─────────────────────────────────────────────────────────────
@@ -22,6 +22,7 @@
 
   // ─── Full Width ────────────────────────────────────────────────────────────
   &--full-width {
+    display: flex;
     width: 100%;
 
     .rds-comp-menubar__menu-list {
@@ -59,7 +60,7 @@
     flex-direction: row;
     padding: 0 !important;
     gap: 0;
-    width: 100%;
+    width: auto;
     height: 100%;
     margin: 0;
     list-style: none;
