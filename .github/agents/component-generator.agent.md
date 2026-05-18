@@ -320,20 +320,19 @@ export const InteractivePlayground: Story = {
 
 ## 🔴 7 CRITICAL RULES (Hard Constraints)
 
-**Rule 0: ZERO INLINE STYLES + THEME AWARE COLORS**
-- ALL styling in `.scss` file only
-- NO `sx={}` or `style={}` in `.tsx` (except genuinely dynamic prop values)
-- Every color must use CSS variables with light-mode fallbacks:
-  - Text: `var(--rds-text-primary, #212121)` for headers (light mode: dark gray, dark mode: white)
-  - Background: `var(--rds-background-surface, #ffffff)` for containers (light: white, dark: #121212)
-  - Borders: `var(--rds-border-default, #e0e0e0)` for edges (light: light gray, dark: #303030)
-  - Components: `var(--rds-color-primary, #1976d2)` for actions
-- **⚠️ CRITICAL: Hardcoded color fallbacks (#212121, #f5f5f5 etc) must work in BOTH light & dark themes**
-  - If using `#212121` (black), it becomes invisible in dark mode — always add `@media (prefers-color-scheme: dark)` + `[data-theme="dark"]` overrides
-  - Example: `color: var(--rds-text-primary, #212121);` needs dark theme: `@media (prefers-color-scheme: dark) { color: #ffffff; }`
-- Every `<Box>`, `<Stack>`, `<Typography>` must have `className`, NOT `sx`
-- **All color changes must have explicit dark theme support** (see SCSS Dark Theme Pattern below)
-- Automatic dark mode support via CSS variables + media queries (no extra TypeScript logic needed)
+**Rule 0: ZERO INLINE STYLES + THEME-AWARE COLORS (USE `raaghu-react-themes` TOKENS ONLY)**
+ - Token-first requirement: All colors and theme values MUST be referenced from the repo's canonical theme/token source (for example: `raaghu-react-themes/src/tokens` or `raaghu-react-themes/tokens/design-tokens.ts`). Do NOT hardcode hex/rgb/hsl values in `.scss` or `.tsx`.
+ - If a semantic token is missing, add it to the tokens source and open a small PR; do not embed raw color literals in components.
+ - ALL styling must live in `.scss`. NO `sx={}` or `style={}` in `.tsx` except for genuinely dynamic inline values that cannot be represented with classes.
+ - Color usage pattern:
+   - Text: `color: var(--rds-text-primary, #212121);`
+   - Background: `background: var(--rds-background-surface, #ffffff);`
+   - Borders: `border-color: var(--rds-border-default, #e0e0e0);`
+   - Action/primary: `color/background: var(--rds-color-primary, #1976d2);`
+ - CRITICAL: Never make primary styles depend on raw hardcoded color literals. Fallback literals inside `var()` are allowed but tokens must be the authoritative source and must include dark-mode mappings.
+ - Ensure explicit dark-mode support for every semantic token via CSS variable overrides (`[data-theme="dark"]` or `@media (prefers-color-scheme: dark)`). Do not assume fallback literals will provide adequate contrast in dark mode.
+ - Every `<Box>`, `<Stack>`, `<Typography>` or MUI primitive must be given a `className` (do not use `sx` for primary styling).
+ - Automatic theme switching should be implemented with CSS variables + overrides; avoid adding theme-switching logic in component TypeScript unless strictly necessary.
 
 **Rule 1: Controlled + Uncontrolled State** (ESSENTIAL — component won't work without both)
 ```typescript

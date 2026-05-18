@@ -90,10 +90,10 @@
     }
 
     &--active {
-      background-color: var(--rds-color-primary);
+      background-color: var(--rds-primary-main);
 
-      @media (prefers-color-scheme: dark) { background-color: var(--rds-color-primary); }
-      [data-theme="dark"] & { background-color: var(--rds-color-primary); }
+      @media (prefers-color-scheme: dark) { background-color: var(--rds-primary-main); }
+      [data-theme="dark"] & { background-color: var(--rds-primary-main); }
     }
   }
 
@@ -144,22 +144,22 @@
     [data-theme="dark"] & { background-color: theme.$dark-300; }
   }
 
-  &--color-primary .rds-comp-menubar__item--active { background-color: var(--rds-color-primary); }
+  &--color-primary .rds-comp-menubar__item--active { background-color: var(--rds-primary-main); }
   &--color-primary .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-primary-contrast-text, theme.$black); }
 
-  &--color-secondary .rds-comp-menubar__item--active { background-color: var(--rds-color-secondary); }
+  &--color-secondary .rds-comp-menubar__item--active { background-color: var(--rds-secondary-main); }
   &--color-secondary .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-secondary-contrast-text, theme.$black); }
 
-  &--color-success .rds-comp-menubar__item--active { background-color: var(--rds-color-success); }
+  &--color-success .rds-comp-menubar__item--active { background-color: var(--rds-success-main); }
   &--color-success .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-success-contrast-text, theme.$black); }
 
-  &--color-error .rds-comp-menubar__item--active { background-color: var(--rds-color-error); }
+  &--color-error .rds-comp-menubar__item--active { background-color: var(--rds-error-main); }
   &--color-error .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-error-contrast-text, theme.$black); }
 
-  &--color-warning .rds-comp-menubar__item--active { background-color: var(--rds-color-warning); }
+  &--color-warning .rds-comp-menubar__item--active { background-color: var(--rds-warning-main); }
   &--color-warning .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-warning-contrast-text, theme.$black); }
 
-  &--color-info .rds-comp-menubar__item--active { background-color: var(--rds-color-info); }
+  &--color-info .rds-comp-menubar__item--active { background-color: var(--rds-info-main); }
   &--color-info .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-info-contrast-text, theme.$black); }
 
   // Dark theme: ensure contrast text falls back to white
