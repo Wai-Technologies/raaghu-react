@@ -4,8 +4,8 @@
   display: inline-flex;
   flex-direction: row;
   position: relative;
-  background-color: var(--rds-background-surface);
-  border: 1px solid var(--rds-border-default);
+  background-color: transparent;
+  border: none;
   border-radius: var(--rds-border-radius-sm);
   height: auto;
   width: auto;
@@ -57,7 +57,7 @@
     gap: var(--rds-spacing-xs);
     padding: var(--rds-spacing-sm) var(--rds-spacing-md);
     color: var(--rds-text-primary);
-    background-color: var(--rds-background-surface);
+    background-color: transparent;
     border: none;
     font-size: var(--rds-font-size-base);
     font-weight: 500;
@@ -91,15 +91,14 @@
 
     &--active {
       background-color: var(--rds-color-primary);
-      color: var(--rds-primary-contrast-text, theme.$white);
 
-      @media (prefers-color-scheme: dark) { background-color: var(--rds-color-primary); color: var(--rds-primary-contrast-text, theme.$black); }
-      [data-theme="dark"] & { background-color: var(--rds-color-primary); color: var(--rds-primary-contrast-text, theme.$black); }
+      @media (prefers-color-scheme: dark) { background-color: var(--rds-color-primary); }
+      [data-theme="dark"] & { background-color: var(--rds-color-primary); }
     }
   }
 
   &__icon { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; }
-  &__label { flex: 1; display: flex; align-items: center; font-weight: 500; }
+  &__label { flex: 1; display: flex; align-items: center; font-weight: 500; color: var(--rds-text-primary); }
   &__chevron { display: inline-flex; width: 20px; height: 20px; margin-left: var(--rds-spacing-xs); }
   &__shortcut { margin-left: var(--rds-spacing-md); color: var(--rds-text-secondary); opacity: 0.8; }
   &__divider { border-top: 1px solid var(--rds-border-default); width: 100%; }
@@ -135,7 +134,7 @@
   }
 
   &--filled {
-    background-color: var(--rds-background-hover, var(--rds-background-surface));
+    background-color: var(--rds-background-surface);
     border: none;
 
     .rds-comp-menubar__item { background-color: transparent; color: var(--rds-text-primary); }
@@ -145,10 +144,21 @@
     [data-theme="dark"] & { background-color: theme.$dark-300; }
   }
 
-  &--color-primary .rds-comp-menubar__item--active { background-color: var(--rds-color-primary); color: var(--rds-primary-contrast-text, theme.$white); }
-  &--color-secondary .rds-comp-menubar__item--active { background-color: var(--rds-color-secondary); color: var(--rds-secondary-contrast-text, theme.$white); }
-  &--color-success .rds-comp-menubar__item--active { background-color: var(--rds-color-success); color: var(--rds-success-contrast-text, theme.$white); }
-  &--color-error .rds-comp-menubar__item--active { background-color: var(--rds-color-error); color: var(--rds-error-contrast-text, theme.$white); }
-  &--color-warning .rds-comp-menubar__item--active { background-color: var(--rds-color-warning); color: var(--rds-warning-contrast-text, theme.$white); }
-  &--color-info .rds-comp-menubar__item--active { background-color: var(--rds-color-info); color: var(--rds-info-contrast-text, theme.$white); }
+  &--color-primary .rds-comp-menubar__item--active { background-color: var(--rds-color-primary); }
+  &--color-primary .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-primary-contrast-text, theme.$black); }
+
+  &--color-secondary .rds-comp-menubar__item--active { background-color: var(--rds-color-secondary); }
+  &--color-secondary .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-secondary-contrast-text, theme.$black); }
+
+  &--color-success .rds-comp-menubar__item--active { background-color: var(--rds-color-success); }
+  &--color-success .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-success-contrast-text, theme.$black); }
+
+  &--color-error .rds-comp-menubar__item--active { background-color: var(--rds-color-error); }
+  &--color-error .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-error-contrast-text, theme.$black); }
+
+  &--color-warning .rds-comp-menubar__item--active { background-color: var(--rds-color-warning); }
+  &--color-warning .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-warning-contrast-text, theme.$black); }
+
+  &--color-info .rds-comp-menubar__item--active { background-color: var(--rds-color-info); }
+  &--color-info .rds-comp-menubar__item--active .rds-comp-menubar__label { color: var(--rds-info-contrast-text, theme.$black); }
 }
