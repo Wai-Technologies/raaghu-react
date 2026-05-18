@@ -560,6 +560,16 @@
   &--outlined {
     border: 1px solid var(--rds-border-default, #e0e0e0);
 
+    // Ensure items respect outlined background (transparent) so root border is visible
+    .rds-comp-menubar__item {
+      background-color: transparent;
+      color: var(--rds-text-primary, #212121);
+    }
+
+    .rds-comp-menubar__item:hover:not(&--disabled) {
+      background-color: rgba(0,0,0,0.04);
+    }
+
     @media (prefers-color-scheme: dark) {
       border-color: #303030;
     }
@@ -573,6 +583,16 @@
   &--filled {
     background-color: var(--rds-background-hover, #f5f5f5);
     border: none;
+
+    // Items should be transparent so the filled background is visible
+    .rds-comp-menubar__item {
+      background-color: transparent;
+      color: var(--rds-text-primary, #212121);
+    }
+
+    .rds-comp-menubar__item:hover:not(&--disabled) {
+      background-color: rgba(0,0,0,0.06);
+    }
 
     @media (prefers-color-scheme: dark) {
       background-color: #363636;
