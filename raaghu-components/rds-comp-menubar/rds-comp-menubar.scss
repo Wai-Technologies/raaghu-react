@@ -1,4 +1,4 @@
-@import '../../raaghu-react-themes/src/styles/variables/color-variables.scss';
+@use '../../raaghu-react-themes/src/styles/variables/color-variables' as theme;
 
 .rds-comp-menubar {
   display: inline-flex;
@@ -12,13 +12,13 @@
   box-sizing: border-box;
 
   @media (prefers-color-scheme: dark) {
-    background-color: $dark-200;
-    border-color: $dark-300;
+    background-color: theme.$dark-200;
+    border-color: theme.$dark-300;
   }
 
   [data-theme="dark"] & {
-    background-color: $dark-200;
-    border-color: $dark-300;
+    background-color: theme.$dark-200;
+    border-color: theme.$dark-300;
   }
 
   &--full-width {
@@ -31,6 +31,8 @@
 
       li { flex: 1; }
     }
+
+    .rds-comp-menubar__item-wrapper { flex: 1; }
 
     .rds-comp-menubar__item { width: 100%; justify-content: center; }
   }
@@ -64,8 +66,8 @@
     white-space: nowrap;
     min-height: 40px;
 
-    &:hover:not(&--disabled) {
-      background-color: var(--rds-background-hover);
+    &:hover:not(.Mui-disabled) {
+      background-color: var(--rds-background-hover, var(--rds-background-surface));
       color: var(--rds-text-primary);
     }
 
@@ -74,25 +76,25 @@
     &.Mui-disabled { opacity: 0.5; cursor: not-allowed; color: var(--rds-text-disabled); }
 
     @media (prefers-color-scheme: dark) {
-      color: $white;
-      background-color: $dark-200;
+      color: theme.$white;
+      background-color: theme.$dark-200;
 
-      &:hover:not(&--disabled) { background-color: $dark-300; }
+      &:hover:not(.Mui-disabled) { background-color: var(--rds-background-hover, theme.$dark-300); }
     }
 
     [data-theme="dark"] & {
-      color: $white;
-      background-color: $dark-200;
+      color: theme.$white;
+      background-color: theme.$dark-200;
 
-      &:hover:not(&--disabled) { background-color: $dark-300; }
+      &:hover:not(.Mui-disabled) { background-color: var(--rds-background-hover, theme.$dark-300); }
     }
 
     &--active {
       background-color: var(--rds-color-primary);
-      color: $white;
+      color: var(--rds-primary-contrast-text, theme.$white);
 
-      @media (prefers-color-scheme: dark) { background-color: var(--rds-color-primary); color: $gray-900; }
-      [data-theme="dark"] & { background-color: var(--rds-color-primary); color: $gray-900; }
+      @media (prefers-color-scheme: dark) { background-color: var(--rds-color-primary); color: var(--rds-primary-contrast-text, theme.$black); }
+      [data-theme="dark"] & { background-color: var(--rds-color-primary); color: var(--rds-primary-contrast-text, theme.$black); }
     }
   }
 
@@ -122,30 +124,31 @@
   }
 
   &--outlined {
+    background-color: transparent;
     border: 1px solid var(--rds-border-default);
 
     .rds-comp-menubar__item { background-color: transparent; color: var(--rds-text-primary); }
-    .rds-comp-menubar__item:hover:not(&--disabled) { background-color: rgba($dark-0, 0.04); }
+    .rds-comp-menubar__item:hover:not(.Mui-disabled) { background-color: var(--rds-background-hover, var(--rds-background-surface)); }
 
-    @media (prefers-color-scheme: dark) { border-color: $dark-300; }
-    [data-theme="dark"] & { border-color: $dark-300; }
+    @media (prefers-color-scheme: dark) { border-color: theme.$dark-300; }
+    [data-theme="dark"] & { border-color: theme.$dark-300; }
   }
 
   &--filled {
-    background-color: var(--rds-background-hover);
+    background-color: var(--rds-background-hover, var(--rds-background-surface));
     border: none;
 
     .rds-comp-menubar__item { background-color: transparent; color: var(--rds-text-primary); }
-    .rds-comp-menubar__item:hover:not(&--disabled) { background-color: rgba($dark-0, 0.06); }
+    .rds-comp-menubar__item:hover:not(.Mui-disabled) { background-color: var(--rds-background-active, var(--rds-background-hover, var(--rds-background-surface))); }
 
-    @media (prefers-color-scheme: dark) { background-color: $dark-300; }
-    [data-theme="dark"] & { background-color: $dark-300; }
+    @media (prefers-color-scheme: dark) { background-color: theme.$dark-300; }
+    [data-theme="dark"] & { background-color: theme.$dark-300; }
   }
 
-  &--color-primary .rds-comp-menubar__item--active { background-color: var(--rds-color-primary); color: $white; }
-  &--color-secondary .rds-comp-menubar__item--active { background-color: var(--rds-color-secondary); color: $white; }
-  &--color-success .rds-comp-menubar__item--active { background-color: var(--rds-color-success); color: $white; }
-  &--color-error .rds-comp-menubar__item--active { background-color: var(--rds-color-error); color: $white; }
-  &--color-warning .rds-comp-menubar__item--active { background-color: var(--rds-color-warning); color: $white; }
-  &--color-info .rds-comp-menubar__item--active { background-color: var(--rds-color-info); color: $white; }
+  &--color-primary .rds-comp-menubar__item--active { background-color: var(--rds-color-primary); color: var(--rds-primary-contrast-text, theme.$white); }
+  &--color-secondary .rds-comp-menubar__item--active { background-color: var(--rds-color-secondary); color: var(--rds-secondary-contrast-text, theme.$white); }
+  &--color-success .rds-comp-menubar__item--active { background-color: var(--rds-color-success); color: var(--rds-success-contrast-text, theme.$white); }
+  &--color-error .rds-comp-menubar__item--active { background-color: var(--rds-color-error); color: var(--rds-error-contrast-text, theme.$white); }
+  &--color-warning .rds-comp-menubar__item--active { background-color: var(--rds-color-warning); color: var(--rds-warning-contrast-text, theme.$white); }
+  &--color-info .rds-comp-menubar__item--active { background-color: var(--rds-color-info); color: var(--rds-info-contrast-text, theme.$white); }
 }
