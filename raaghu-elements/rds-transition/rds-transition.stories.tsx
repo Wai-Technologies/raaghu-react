@@ -29,10 +29,6 @@ const meta: Meta<typeof RdsTransition> = {
       control: 'boolean',
       description: 'Whether the component is visible',
     },
-    easing: {
-      control: 'text',
-      description: 'Custom timing function',
-    },
     unmountOnExit: {
       control: 'boolean',
       description: 'Whether to unmount the component when not visible',
