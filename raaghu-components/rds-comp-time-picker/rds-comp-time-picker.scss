@@ -25,8 +25,15 @@
       color: var(--rds-text-primary, #333333);
       cursor: pointer;
       outline: none;
-      background-color: #fff;
-      transition: border-color 0.2s;
+      background-color: var(--rds-neutral-0, #fff);
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       
       &:hover:not(:disabled) {
         border-color: var(--rds-border-hover, #BDBDBD);
@@ -47,7 +54,7 @@
       }
     }
     
-    .border-primary { border-color: #1976d2; }
+    .border-primary { border-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); }
     .border-secondary { border-color: #9ca3af; }
     .border-success { border-color: #10b981; }
     .border-error, .border-danger { border-color: #ef4444; }
@@ -78,7 +85,7 @@
     min-width: 300px;
     max-width: 350px;
     margin-top: 8px;
-    background-color: #ffffff;
+    background-color: var(--rds-neutral-0, #fff);
     border: 1px solid #E0E0E0;
     border-radius: 6px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -90,7 +97,7 @@
     }
     
     &.border-primary { 
-      border-color: #1976d2;
+      border-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
     }
     
     .row {
@@ -112,7 +119,7 @@
       width: auto;
       font-weight: 500;
       font-size: 14px;
-      color: #000000;
+      color: var(--rds-text-primary, #000);
       
       &.time-display-compact {
         font-size: 13px;
@@ -130,7 +137,7 @@
     }
     
     .now-button {
-      color: #1976d2;
+      color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
       font-size: 11px;
       cursor: pointer;
       font-weight: 600;
@@ -237,7 +244,14 @@
         justify-content: center;
         text-align: center;
         border-radius: 4px;
-        transition: background-color 0.2s;
+        
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       }
     }
     
@@ -328,7 +342,14 @@
         font-weight: 500;
         font-size: 13px;
         min-width: 50px;
-        transition: background-color 0.2s;
+        
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
         text-transform: none;
         letter-spacing: normal;
         line-height: 1.5;
@@ -359,7 +380,7 @@
           }
         }
         
-        &.bg-primary { background-color: #1976d2; }
+        &.bg-primary { background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); }
         &.bg-secondary { background-color: #9ca3af; }
         &.bg-success { background-color: #10b981; }
         &.bg-error, &.bg-danger { background-color: #ef4444; }
@@ -375,7 +396,7 @@
         &.text-warning { color: #f59e0b; }
         &.text-info { color: #3b82f6; }
         &.text-light { color: #f3f4f6; }
-        &.text-white { color: #ffffff; }
+        &.text-white { color: var(--rds-neutral-0, #fff); }
         &.text-dark { color: #1f2937; }
       }
     }
@@ -385,7 +406,7 @@
 .theme-dark {
   .time-picker, .time-picker-compact {
     background: #333;
-    color: #fff;
+    color: var(--rds-neutral-0, #fff);
     border: 1px solid #555;
     
     .time-display {
@@ -393,7 +414,7 @@
     }
     
     .now-button {
-      color: #1976d2;
+      color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
       
       &:hover {
         background-color: rgba(165, 180, 252, 0.1);
@@ -417,17 +438,17 @@
   
   .time-input {
     background: #333;
-    color: #fff;
+    color: var(--rds-neutral-0, #fff);
     border: 1px solid #555;
   }
 
   .time-picker-container .time-picker .time-controls-row .time-select-container .time-select, .time-picker-container .time-picker-compact .time-controls-row .time-select-container .time-select
   {
-    background-color: #333;
+    background-color: var(--rds-text-primary, #333);
     color: #F5F5F5;
   }
 .time-picker-container .time-input-container .time-input  {
-    background-color: #333;
+    background-color: var(--rds-text-primary, #333);
     color: #F5F5F5;
   }
 }

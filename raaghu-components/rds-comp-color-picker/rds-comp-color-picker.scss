@@ -38,16 +38,23 @@
   &__tab {
     cursor: pointer;
     border: none;
-    background-color: #fff;
+    background-color: var(--rds-background-paper, #fff);
     flex: 1;
     text-align: center;
     border-radius: var(--rds-border-radius, 4px);
     padding: 6px 10px;
     font-size: 14px;
-    transition: all 0.2s ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     
     &--active {
-      background-color: var(--rds-color-primary, #1976d2);
+      background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       color: var(--rds-color-on-primary, #ffffff);
     }
   }
@@ -77,7 +84,7 @@
   &__color-cell {
     flex: 1;
     cursor: pointer;
-    transition: transform 0.1s ease;
+    transition: transform var(--rds-transition-fast, 0.1s ease);
     
     &:hover {
       transform: scale(1.15);
@@ -101,7 +108,7 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: var(--rds-color-primary, #1976d2);
+    background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -136,7 +143,7 @@
     cursor: pointer;
     
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
+      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       outline-offset: 2px;
     }
   }
@@ -190,7 +197,7 @@
     z-index: 2;
     
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
+      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       outline-offset: 2px;
     }
   }
@@ -230,18 +237,25 @@
     z-index: 10;
     margin-top: 4px;
     overflow: hidden;
-    animation: fadeIn 0.2s ease-out;
+    animation: fadeIn var(--rds-transition-base, 0.2s) ease-out;
   }
   
   &__dropdown-item {
     padding: 8px 16px;
     font-size: 14px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     color: var(--rds-color-on-surface, #333);
     
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
+      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       outline-offset: 2px;
     }
     
@@ -255,7 +269,7 @@
       position: relative;
       
       &::before {
-        content: '•';
+        content: 'â€¢';
         position: absolute;
         left: 6px;
         color: var(--rds-color-primary, #9751F2);
@@ -354,7 +368,7 @@
     }
     
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
+      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       outline-offset: 2px;
     }
   }
@@ -403,7 +417,7 @@
     }
     
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
+      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       outline-offset: 2px;
     }
   }
@@ -421,14 +435,14 @@
     border-radius: var(--rds-border-radius, 6px);
     border: 1px solid var(--rds-color-outline-variant, rgba(0,0,0,0.08));
     cursor: pointer;
-    transition: transform 0.1s ease;
+    transition: transform var(--rds-transition-fast, 0.1s ease);
     
     &:hover {
       transform: scale(1.05);
     }
     
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
+      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       outline-offset: 2px;
     }
   }
@@ -469,7 +483,7 @@
     padding: 2px;
     
     &--active {
-      border: 2px solid var(--rds-color-primary, #1976d2);
+      border: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     }
     
     &:hover:not(&--active) {
@@ -513,8 +527,8 @@
     
     &--active {
       background-color: var(--rds-color-primary-container, #e6f2ff);
-      border-color: var(--rds-color-primary, #1976d2);
-      color: var(--rds-color-primary, #1976d2);
+      border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     }
   }
   
@@ -622,7 +636,7 @@
   --rds-color-outline-variant: rgba(255,255,255,0.04);
   --rds-color-on-surface: #E6E7E8;
   --rds-color-on-surface-variant: #bfc2c4;
-  --rds-color-primary: #1976d2;
+  --rds-color-primary: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
   --rds-color-primary-container: rgba(25,118,210,0.12);
   --rds-color-error: #ef5350;
   color: var(--rds-color-on-surface);

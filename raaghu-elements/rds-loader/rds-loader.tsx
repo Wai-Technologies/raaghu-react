@@ -127,7 +127,7 @@ const RdsLoader = (props: RdsLoaderProps) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 9999,
+          zIndex: 'var(--rds-z-index-tooltip, 9999)',
         }}
       >
         {renderLoader()}

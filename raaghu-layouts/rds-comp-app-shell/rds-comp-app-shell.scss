@@ -9,7 +9,14 @@
     right: 0;
     background: var(--rds-color-surface, #fff);
     box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0,0,0,0.08));
-    transition: box-shadow 0.2s ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
   }
 }
 
@@ -21,17 +28,17 @@
   .MuiBottomNavigationAction-root.Mui-selected,
   .rds-tab--selected,
   .rds-nav-tab--selected {
-    color: var(--rds-color-primary, #1976d2) !important;
+    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
     font-weight: 600 !important;
   }
   
   .MuiTabs-indicator {
-    background-color: var(--rds-color-primary, #1976d2) !important;
+    background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
     height: 3px !important;
   }
   
   .MuiBottomNavigationAction-root.Mui-selected .MuiBottomNavigationAction-label {
-    color: var(--rds-color-primary, #1976d2) !important;
+    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
     font-weight: 600 !important;
   }
   
@@ -77,7 +84,14 @@
 
 .sidebar-layout {
   flex: 0 0 auto;
-  transition: width 0.3s ease;
+  
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
 }
 
 .topnav-layout {
@@ -116,7 +130,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: #e0e0e0;
+  background: var(--rds-neutral-300, #e0e0e0);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -131,7 +145,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e0e0e0;
+  background: var(--rds-neutral-300, #e0e0e0);
   min-height: calc(100vh - 98px);
   width: 100%;
 }
@@ -187,7 +201,7 @@
     .rds-appshell-add-layout-text {
       font-size: 2rem;
       font-weight: bold;
-      color: #666;
+      color: var(--rds-text-secondary, #666);
       text-align: center;
       position: absolute;
       top: 50%;
@@ -268,7 +282,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: #e0e0e0;
+    background: var(--rds-neutral-300, #e0e0e0);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -311,18 +325,25 @@
   cursor: pointer;
   padding: 8px 12px;
   border-radius: 4px;
-  transition: background-color 0.2s;
+  
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
   
   &:hover {
     background-color: rgba(0, 0, 0, 0.04);
   }
   
   &--primary {
-    color: var(--rds-color-primary, #1976d2) !important;
+    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
     font-weight: 600 !important;
     
     .rds-story-sub-tab-icon {
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
     }
   }
   
@@ -681,7 +702,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         }
         
         &[data-active="true"] {
-          color: var(--rds-color-primary, #1976d2) !important;
+          color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
           font-weight: 600 !important;
         }
         
@@ -695,12 +716,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
       font-weight: 600 !important;
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary, #1976d2) !important;
+      background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
       height: 3px !important;
     }
   }
@@ -775,7 +796,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 240px;
       z-index: 1000;
       transform: translateX(0);
-      transition: transform 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       background: white;
       box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
       
@@ -792,7 +820,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 240px;
       z-index: 1000;
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       background: white;
       
       .theme-dark & {
@@ -818,7 +853,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         width: 240px;
         z-index: 1000;
         transform: translateX(0);
-        transition: transform 0.3s ease;
+        
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
         background: white;
         box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
         
@@ -844,7 +886,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 240px;
       z-index: 1000;
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       background: white;
       
       .theme-dark & {
@@ -901,7 +950,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         min-height: calc(100vh - 200px);
         font-size: 2rem;
         font-weight: bold;
-        color: #666;
+        color: var(--rds-text-secondary, #666);
       }
     }
   }
@@ -968,7 +1017,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: 0;
       display: flex;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       z-index: 1;
       overflow-y: auto;
       
@@ -986,7 +1042,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         .rds-appshell-add-layout-text {
           font-size: 2rem;
           font-weight: bold;
-          color: #666;
+          color: var(--rds-text-secondary, #666);
         }
       }
     }
@@ -1000,7 +1056,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: 8px;
       cursor: pointer;
       border-radius: 4px;
-      transition: background-color 0.2s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       color: inherit;
       
       &:hover {
@@ -1023,7 +1086,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       background: white;
       z-index: 1002;
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
       
       &.open {
@@ -1069,7 +1139,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #e0e0e0;
+      background: var(--rds-neutral-300, #e0e0e0);
       z-index: 1;
       
       .rds-appshell-add-layout-flex-center {
@@ -1083,7 +1153,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         .rds-appshell-add-layout-text {
           font-size: 2rem;
           font-weight: bold;
-          color: #666;
+          color: var(--rds-text-secondary, #666);
           text-align: center;
           white-space: nowrap;
         }
@@ -1154,7 +1224,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       bottom: 63px;
       display: flex;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       overflow-y: auto;
       
       .rds-appshell-add-layout-flex-center {
@@ -1168,7 +1245,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         .rds-appshell-add-layout-text {
           font-size: 2rem;
           font-weight: bold;
-          color: #666;
+          color: var(--rds-text-secondary, #666);
         }
       }
     }
@@ -1182,7 +1259,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: 8px;
       cursor: pointer;
       border-radius: 4px;
-      transition: background-color 0.2s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       color: inherit;
       
       &:hover {
@@ -1205,7 +1289,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       background: white;
       z-index: 1002;
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
       
       &.open {
@@ -1288,7 +1379,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         .rds-appshell-add-layout-text {
           font-size: 2rem;
           font-weight: bold;
-          color: #666;
+          color: var(--rds-text-secondary, #666);
         }
       }
     }
@@ -1383,12 +1474,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
       font-weight: 600 !important;
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary, #1976d2) !important;
+      background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
       height: 3px !important;
     }
   }
@@ -1429,7 +1520,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 240px;
       z-index: 1000;
       transform: translateX(0);
-      transition: transform 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       background: white;
       box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
       
@@ -1446,7 +1544,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 240px;
       z-index: 1000;
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       background: white;
       
       .theme-dark & {
@@ -1479,7 +1584,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #e0e0e0;
+      background: var(--rds-neutral-300, #e0e0e0);
       z-index: 1;
       
       .rds-appshell-add-layout-flex-center {
@@ -1493,7 +1598,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         .rds-appshell-add-layout-text {
           font-size: 2.5rem;
           font-weight: bold;
-          color: #666;
+          color: var(--rds-text-secondary, #666);
           text-align: center;
           white-space: nowrap;
         }
@@ -1568,13 +1673,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         min-width: 0 !important;
         
         &.Mui-selected {
-          color: var(--rds-color-primary, #1976d2) !important;
+          color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
           font-weight: 600 !important;
         }
       }
       
       .MuiTabs-indicator {
-        background-color: var(--rds-color-primary, #1976d2) !important;
+        background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
         height: 3px !important;
         top: 0 !important;
         bottom: auto !important;
@@ -1627,12 +1732,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       
       .MuiTab-root.Mui-selected,
       .MuiBottomNavigationAction-root.Mui-selected {
-        color: var(--rds-color-primary, #1976d2) !important;
+        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
         font-weight: 600 !important;
       }
       
       .MuiTabs-indicator {
-        background-color: var(--rds-color-primary, #1976d2) !important;
+        background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
         height: 3px !important;
       }
     }
@@ -1698,7 +1803,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       margin: 0;
       padding: 0;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       z-index: 1;
       overflow-y: auto;
       
@@ -1716,7 +1828,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         .rds-appshell-add-layout-text {
           font-size: 2.5rem;
           font-weight: bold;
-          color: #666;
+          color: var(--rds-text-secondary, #666);
         }
       }
     }
@@ -1740,7 +1852,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: 8px;
       cursor: pointer;
       border-radius: 4px;
-      transition: background-color 0.2s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       color: inherit;
       margin-left: auto;
       margin-right: 8px;
@@ -1773,7 +1892,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 240px;
       z-index: 1000;
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       background: white;
       box-shadow: none;
       display: block !important;
@@ -1853,7 +1979,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       background: white;
       z-index: 1000;
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
       
       &.open {
@@ -1944,7 +2077,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       margin: 0;
       padding: 0;
       flex-direction: column;
-      transition: opacity 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       overflow-y: auto;
       
       .rds-appshell-add-layout-flex-center {
@@ -1957,7 +2097,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         .rds-appshell-add-layout-text {
           font-size: 2.5rem;
           font-weight: bold;
-          color: #666;
+          color: var(--rds-text-secondary, #666);
         }
       }
     }
@@ -1999,7 +2139,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       padding: 8px;
       cursor: pointer;
       border-radius: 4px;
-      transition: background-color 0.2s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       color: inherit;
       margin-left: auto;
       margin-right: 8px;
@@ -2032,7 +2179,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       width: 240px;
       z-index: 1000;
       transform: translateX(-100%);
-      transition: transform 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       background: white;
       box-shadow: none;
       display: block !important;
@@ -2103,7 +2257,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       background: white;
       z-index: 1000;
       transform: translateX(100%);
-      transition: transform 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
       
       &.open {
@@ -2200,13 +2361,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         justify-content: center !important;
         width: 100% !important;
         height: 100% !important;
-        background: #e0e0e0;
+        background: var(--rds-neutral-300, #e0e0e0);
       }
       
       .rds-appshell-add-layout-text {
         font-size: 2rem;
         font-weight: bold;
-        color: #666;
+        color: var(--rds-text-secondary, #666);
         text-align: center;
       }
     }
@@ -2366,12 +2527,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root {
     .MuiTab-root.Mui-selected {
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
       font-weight: 600 !important;
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary, #1976d2) !important;
+      background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
       height: 3px !important;
     }
   }
@@ -2396,7 +2557,14 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   
   .sidebar-layout {
     flex: 0 0 auto;
-    transition: width 0.3s ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     width: fit-content;
     z-index: 1;
   }

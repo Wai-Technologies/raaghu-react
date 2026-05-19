@@ -14,7 +14,7 @@
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-weight: 500;
-  color: #fff;
+  color: var(--rds-neutral-0, #fff);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -22,7 +22,7 @@
 }
 
 .rds-stack__demo-item--primary {
-  background-color: var(--rds-color-primary-light, #1976d2);
+  background-color: var(--rds-color-primary-light, var(--rds-primary-main, #1976d2));
 }
 
 .rds-stack__demo-item--secondary {
@@ -34,7 +34,7 @@
 }
 
 .dark-theme .rds-stack__demo-item--primary {
-  background-color: var(--rds-color-primary-dark, #1976d2);
+  background-color: var(--rds-color-primary-dark, var(--rds-primary-main, #1976d2));
 }
 .dark-theme .rds-stack__demo-item--secondary {
   background-color: var(--rds-color-secondary-dark, #9c27b0);

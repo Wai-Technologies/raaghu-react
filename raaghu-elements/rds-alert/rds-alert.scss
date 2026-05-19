@@ -393,7 +393,7 @@
   .rds-alert__link-button .MuiButton-root,
   .rds-alert__actions .rds-alert__link-button,
   .rds-alert__link-button.MuiButton-root {
-    color: var(--rds-color-on-primary, #1976d2) !important;
+    color: var(--rds-color-on-primary, var(--rds-primary-main, #1976d2)) !important;
   }
 }
 

@@ -7,7 +7,7 @@
     margin-top: 16px;
     padding: 16px;
     border-radius: 8px;
-    background-color: #A0A0A0;
+    background-color: var(--rds-neutral-500, var(--rds-neutral-500, #A0A0A0));
   }
 
   &__paper {
@@ -60,7 +60,7 @@
       top: -8px;
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;
-      border-bottom: 8px solid var(--rds-color-surface, #fff);
+      border-bottom: 8px solid var(--rds-color-surface, var(--rds-neutral-0, #ffffff));
       filter: drop-shadow(0px -1px 0px rgba(0, 0, 0, 0.12));
 
       &.rds-popover__arrow--bottom-left {
@@ -81,7 +81,7 @@
       bottom: -8px;
       border-left: 8px solid transparent;
       border-right: 8px solid transparent;
-      border-top: 8px solid var(--rds-color-surface, #fff);
+      border-top: 8px solid var(--rds-color-surface, var(--rds-neutral-0, #ffffff));
       filter: drop-shadow(0px 1px 0px rgba(0, 0, 0, 0.12));
 
       &.rds-popover__arrow--top-left {
@@ -102,7 +102,7 @@
       left: -8px;
       border-top: 8px solid transparent;
       border-bottom: 8px solid transparent;
-      border-right: 8px solid var(--rds-color-surface, #fff);
+      border-right: 8px solid var(--rds-color-surface, var(--rds-neutral-0, #ffffff));
       filter: drop-shadow(-1px 0px 0px rgba(0, 0, 0, 0.12));
 
       &.rds-popover__arrow--right-top {
@@ -125,7 +125,7 @@
       right: -8px;
       border-top: 8px solid transparent;
       border-bottom: 8px solid transparent;
-      border-left: 8px solid var(--rds-color-surface, #fff);
+      border-left: 8px solid var(--rds-color-surface, var(--rds-neutral-0, #ffffff));
       filter: drop-shadow(1px 0px 0px rgba(0, 0, 0, 0.12));
 
       &.rds-popover__arrow--left-top {
@@ -169,8 +169,15 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background-color: var(--rds-color-surface, #ffffff);
-    transition: all 0.2s ease;
+    background-color: var(--rds-color-surface, var(--rds-neutral-0, #ffffff)fff);
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
 
     &:hover {
       background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
@@ -180,7 +187,7 @@
     &--selected {
       background-color: var(--rds-color-primary, var(--rds-primary-main));
       border-color: var(--rds-color-primary, var(--rds-primary-main));
-      color: var(--rds-color-on-primary, #ffffff);
+      color: var(--rds-color-on-primary, var(--rds-neutral-0, #ffffff)fff);
     }
 
     &--disabled {
@@ -220,7 +227,7 @@
 
 
 .MuiButton-containedSuccess, .MuiButton-containedPrimary, .MuiButton-containedSecondary {
-  color: #fff !important;
+  color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)fff) !important;
 }
 
 @media (max-width: 320px) {

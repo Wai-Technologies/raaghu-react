@@ -5,7 +5,14 @@
 
   --checkbox-size: 18px;
   --checkbox-border-width: 2px;
-  --checkbox-transition: all 0.15s ease-in-out;
+  --checkbox-
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
 
   &__label {
     color: var(--rds-text-primary);

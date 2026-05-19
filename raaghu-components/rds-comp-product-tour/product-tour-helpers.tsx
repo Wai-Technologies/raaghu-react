@@ -74,7 +74,7 @@ export const renderCloseButton = (showDismiss: boolean, handleClose: () => void)
         className="rds-comp-product-tour__close-btn"
         aria-label="Close"
         onClick={handleClose}
-        sx={{ position: 'absolute', top: 12, right: 14, zIndex: 10, color: '#9E9E9E' }}
+        sx={{ position: 'absolute', top: 12, right: 14, zIndex: 'var(--rds-z-index-popover, 10)', color: 'var(--rds-text-secondary, #9E9E9E)' }}
     >
         <Close />
     </IconButton>

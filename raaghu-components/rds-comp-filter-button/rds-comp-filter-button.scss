@@ -6,7 +6,14 @@
 
 
   &__trigger {
-    transition: all 0.2s ease-in-out;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     &--open {
       box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.15));
       margin-bottom: var(--rds-spacing-sm, 10px);
@@ -104,7 +111,7 @@
   .rds-filter-button__header {
     padding: 16px;
     border-bottom: none;
-    background-color: #fff;
+    background-color: var(--rds-neutral-0, #fff);
     flex-shrink: 0;
     position: relative;
   }
@@ -173,14 +180,14 @@ body.theme-dark .MuiAccordionSummary-root:hover,
 body[data-theme="dark"] .MuiAccordionSummary-root:hover,
 .theme-dark .MuiAccordionSummary-root:hover {
   background: #353535 !important;
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 .rds-theme--dark .rds-filter-button__popover,
 body.theme-dark .rds-filter-button__popover,
 body[data-theme="dark"] .rds-filter-button__popover,
 .theme-dark .rds-filter-button__popover {
   background: #2a2a2a !important;
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
   border-color: #444 !important;
 }
 
@@ -189,7 +196,7 @@ body.theme-dark .rds-filter-button__content,
 body[data-theme="dark"] .rds-filter-button__content,
 .theme-dark .rds-filter-button__content {
   background: #2a2a2a !important;
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 
 .rds-theme--dark .rds-filter-button__header,
@@ -197,35 +204,35 @@ body.theme-dark .rds-filter-button__header,
 body[data-theme="dark"] .rds-filter-button__header,
 .theme-dark .rds-filter-button__header {
   background: #2a2a2a !important;
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 
 .rds-theme--dark .rds-filter-button__header-title,
 body.theme-dark .rds-filter-button__header-title,
 body[data-theme="dark"] .rds-filter-button__header-title,
 .theme-dark .rds-filter-button__header-title {
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 
 .rds-theme--dark .MuiTypography-root,
 body.theme-dark .MuiTypography-root,
 body[data-theme="dark"] .MuiTypography-root,
 .theme-dark .MuiTypography-root {
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 
 .rds-theme--dark .MuiAccordionSummary-root,
 body.theme-dark .MuiAccordionSummary-root,
 body[data-theme="dark"] .MuiAccordionSummary-root,
 .theme-dark .MuiAccordionSummary-root {
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 
 .rds-theme--dark .MuiAccordionDetails-root,
 body.theme-dark .MuiAccordionDetails-root,
 body[data-theme="dark"] .MuiAccordionDetails-root,
 .theme-dark .MuiAccordionDetails-root {
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 
 .rds-theme--dark .MuiTextField-root,
@@ -233,7 +240,7 @@ body.theme-dark .MuiTextField-root,
 body[data-theme="dark"] .MuiTextField-root,
 .theme-dark .MuiTextField-root {
   background: #232323 !important;
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 
 .rds-theme--dark .MuiOutlinedInput-root,
@@ -241,7 +248,7 @@ body.theme-dark .MuiOutlinedInput-root,
 body[data-theme="dark"] .MuiOutlinedInput-root,
 .theme-dark .MuiOutlinedInput-root {
   background: #232323 !important;
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
   border-color: #444 !important;
 }
 
@@ -249,7 +256,7 @@ body[data-theme="dark"] .MuiOutlinedInput-root,
 body.theme-dark .MuiCheckbox-root,
 body[data-theme="dark"] .MuiCheckbox-root,
 .theme-dark .MuiCheckbox-root {
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 
 .css-13y3d29 {

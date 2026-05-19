@@ -240,7 +240,7 @@ export const ToolbarButton = ({
             top: dropdownPos.top,
             left: dropdownPos.left,
             minWidth: dropdownPos.minWidth,
-            zIndex: 1250
+            zIndex: 'var(--rds-z-index-overlay, 1250)'
           }}
           role="menu"
           data-portal-theme={portalThemeClass || undefined}

@@ -5,7 +5,14 @@
   min-height: 200px;
   background-color: var(--rds-color-surface, #fff);
   color: var(--rds-color-on-surface, #212529);
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
   resize: none;
   position: relative;
   
@@ -72,7 +79,14 @@
     padding: var(--rds-spacing-xs, 6px);
     border-bottom: 1px solid var(--rds-color-border, #ccc);
     margin-bottom: 0;
-    transition: background-color 0.15s ease, border-color 0.15s ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     
     .rds-comp-text-editor--disabled & {
       background-color: #e0e0e0;
@@ -94,7 +108,14 @@
       background: var(--rds-color-surface, white);
       color: var(--rds-color-on-surface, #212529);
       text-transform: capitalize;
-      transition: color 0.15s ease, background-color 0.15s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       
       .rds-comp-text-editor--disabled & {
         background-color: #e0e0e0;
@@ -228,12 +249,12 @@ background-color: #202020;
           box-shadow: none;
           background-color: rgba(255, 255, 255, 0.06);
           border-color: transparent;
-          color: #ffffff;
+          color: var(--rds-neutral-0, #fff);
         }
 
         &.rdw-option-active {
           background-color: rgba(255, 255, 255, 0.12);
-          color: #fff;
+          color: var(--rds-neutral-0, #fff);
           border-color: transparent;
           border-width: 0;
           box-shadow: none;
@@ -302,7 +323,7 @@ background-color: #202020;
 
             &:hover {
               background-color: var(--rds-color-primary-dark, #0d6efd);
-              color: #fff;
+              color: var(--rds-neutral-0, #fff);
             }
           }
 
@@ -322,12 +343,19 @@ background-color: #202020;
     line-height: var(--rds-line-height-body, 1.5);
     background-color: var(--rds-color-surface, #fff);
     color: var(--rds-color-on-surface, #212529);
-    transition: background-color 0.2s ease, color 0.2s ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     resize: vertical;
     overflow: auto;
     
     .rds-comp-text-editor--selected & .public-DraftEditorPlaceholder-root {
-      color: #000000;
+      color: var(--rds-text-primary, #000);
       
       .dark-theme &, [data-theme="dark"] & {
         color: var(--rds-color-on-surface-dark, #e9ecef);
@@ -411,7 +439,14 @@ background-color: #202020;
   margin-bottom: var(--rds-spacing-xs, 0.5rem);
   font-weight: var(--rds-font-weight-medium, 500);
   color: var(--rds-color-on-surface, #212529);
-  transition: color 0.2s ease;
+  
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
   
   .dark-theme &, [data-theme="dark"] & {
     color: var(--rds-color-on-surface-dark, #e9ecef);

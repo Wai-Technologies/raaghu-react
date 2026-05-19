@@ -151,7 +151,7 @@
     &:hover {
       border-radius: var(--rds-border-radius, 4px) !important;
       background-color: var(--rds-color-primary-hover, #E3F2FD) !important;
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
     }
     
     &.Mui-selected {
@@ -161,7 +161,7 @@
       
       &:hover {
         border-radius: var(--rds-border-radius, 4px) !important;
-        background-color: var(--rds-color-primary-dark, #1976d2) !important;
+        background-color: var(--rds-color-primary-dark, var(--rds-primary-main, #1976d2)) !important;
       }
     }
     
@@ -181,7 +181,7 @@
   
   .MuiDateRangePickerDay-rangeIntervalDayHighlight {
     background-color: var(--rds-color-primary-hover, #E3F2FD) !important;
-    color: var(--rds-color-primary, #1976d2) !important;
+    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
   }
   
   .MuiDateRangePickerDay-rangeIntervalDayHighlightStart,
@@ -234,15 +234,22 @@
     font-weight: 400;
     text-align: left;
     cursor: pointer;
-    transition: all 0.2s ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
 
     &:hover {
       background-color: var(--rds-color-primary-hover, #e3f2fd);
-      color: var(--rds-color-primary, #1976d2);
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     }
 
     &--selected {
-      background-color: var(--rds-color-primary, #1976d2);
+      background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       color: var(--rds-color-on-primary, #ffffff);
       font-weight: 600;
 
@@ -321,13 +328,13 @@
     .MuiInputLabel-root {
       // Add visual indication that field is required
       &.Mui-focused {
-        color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       }
     }
 
     .MuiOutlinedInput-root {
       &.Mui-focused .MuiOutlinedInput-notchedOutline {
-        border-color: var(--rds-color-primary, #1976d2);
+        border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       }
     }
     
@@ -444,7 +451,14 @@
   // Custom styling for Material-UI date picker components
   .MuiInputBase-root {
     border-radius: var(--rds-border-radius-lg, 8px);
-    transition: all 0.3s ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     cursor: pointer;
     min-height: 56px; // Ensure consistent height
     display: flex;
@@ -467,7 +481,14 @@
         color: var(--rds-color-text-secondary, rgba(0, 0, 0, 0.6));
         opacity: 1;
         font-style: normal;
-        transition: opacity 0.2s ease;
+        
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
         white-space: nowrap; // Prevent wrapping
         overflow: visible; // Show full placeholder
         text-overflow: clip; // Don't truncate placeholder
@@ -515,12 +536,12 @@
     
     &:hover .MuiOutlinedInput-notchedOutline {
       border-width: 2px;
-      border-color: var(--rds-color-primary, #1976d2);
+      border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     }
     
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
       border-width: 2px;
-      border-color: var(--rds-color-primary, #1976d2);
+      border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     }
     
     &.Mui-error .MuiOutlinedInput-notchedOutline {
@@ -585,14 +606,21 @@
   .MuiInputLabel-root {
     font-weight: var(--rds-font-weight-medium, 500);
     transform-origin: top left;
-    transition: all 0.2s ease-in-out;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     pointer-events: none; // Prevent label from blocking clicks
     position: absolute;
     z-index: 1;
     
     &.Mui-focused {
       font-weight: var(--rds-font-weight-semibold, 600);
-      color: var(--rds-color-primary, #1976d2);
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     }
     
     &.Mui-error {
@@ -653,22 +681,22 @@
   .MuiPickersDay-root {
     border-radius: 4px;
     font-weight: 500;
-    background-color: #fff;
+    background-color: var(--rds-neutral-0, #fff);
     color: #222;
 
     &:hover {
       background-color: #E3F2FD;
       border-radius: 4px;
-      color: #1976d2;
+      color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
     }
 
     &.Mui-selected {
       background-color: #2196F3;
       font-weight: 600;
       border-radius: 4px;
-      color: #fff;
+      color: var(--rds-neutral-0, #fff);
       &:hover {
-        background-color: #1976d2;
+        background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
         border-radius: 4px;
       }
     }
@@ -676,12 +704,12 @@
     &.MuiPickersDay-today {
       border: 2px solid #2196F3;
       border-radius: 4px;
-      background-color: #fff;
+      background-color: var(--rds-neutral-0, #fff);
       color: #2196F3;
       font-weight: 600;
       
       &:not(.Mui-selected) {
-        background-color: #fff;
+        background-color: var(--rds-neutral-0, #fff);
         color: #2196F3;
         border-radius: 4px;
       }
@@ -689,14 +717,14 @@
       // When today's date is selected, ensure white text color
       &.Mui-selected {
         background-color: #2196F3 !important;
-        color: #fff !important;
+        color: var(--rds-neutral-0, #fff) !important;
         border: 2px solid #2196F3 !important;
         font-weight: 600 !important;
         
         &:hover {
-          background-color: #1976d2 !important;
-          color: #fff !important;
-          border: 2px solid #1976d2 !important;
+          background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
+          color: var(--rds-neutral-0, #fff) !important;
+          border: 2px solid var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
         }
       }
     }
@@ -712,7 +740,7 @@
     font-weight: 500;
     
     &.Mui-selected {
-      background-color: #1976d2;
+      background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
       color: white;
       font-weight: 600;
     }
@@ -725,7 +753,7 @@
     &.MuiDateRangePickerDay-rangeIntervalDayHighlight {
       background-color: #E3F2FD; // Light blue background for range interval
       border-radius: 4px; // Square background for range interval
-      color: #1976d2; // Blue text for range interval
+      color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Blue text for range interval
     }
     
     &.MuiDateRangePickerDay-rangeIntervalDayHighlightStart,
@@ -741,7 +769,7 @@
       
       &:hover {
         background-color: #E3F2FD; // Light blue hover
-        color: #1976d2; // Blue text on hover
+        color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Blue text on hover
         border-radius: 4px;
       }
       
@@ -751,7 +779,7 @@
         border-radius: 4px;
         
         &:hover {
-          background-color: #1976d2; // Darker blue on selected hover
+          background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Darker blue on selected hover
           border-radius: 4px;
         }
       }
@@ -770,7 +798,7 @@
       
       &:hover {
         background-color: #E3F2FD; // Light blue hover background
-        color: #1976d2; // Blue text on hover
+        color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Blue text on hover
         border-radius: 4px; // Square hover state
       }
       
@@ -781,7 +809,7 @@
         border-radius: 4px; // Square selected state
         
         &:hover {
-          background-color: #1976d2; // Darker blue on selected hover
+          background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Darker blue on selected hover
           border-radius: 4px; // Square selected hover state
         }
       }
@@ -806,7 +834,7 @@
       
       &:hover {
         background-color: #E3F2FD; // Light blue hover background
-        color: #1976d2; // Blue text on hover
+        color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Blue text on hover
         border-radius: 4px; // Square hover state
       }
       
@@ -817,7 +845,7 @@
         border-radius: 4px; // Square selected state
         
         &:hover {
-          background-color: #1976d2; // Darker blue on selected hover
+          background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Darker blue on selected hover
           border-radius: 4px; // Square selected hover state
         }
       }
@@ -946,7 +974,7 @@
 }
 
 .MuiPickersPopper-root {
-  animation: rds-date-picker-fade-in 0.2s ease-out;
+  animation: rds-date-picker-fade-in var(--rds-transition-base, 0.2s) ease-out;
 }
 
 // Global override to ensure all date picker elements use square borders
@@ -964,7 +992,7 @@
     &:hover {
       border-radius: var(--rds-border-radius, 4px) !important;
       background-color: var(--rds-color-primary-hover, #E3F2FD) !important;
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
     }
     
     &.Mui-selected {
@@ -974,7 +1002,7 @@
       
       &:hover {
         border-radius: var(--rds-border-radius, 4px) !important;
-        background-color: var(--rds-color-primary-dark, #1976d2) !important;
+        background-color: var(--rds-color-primary-dark, var(--rds-primary-main, #1976d2)) !important;
       }
     }
     
@@ -996,9 +1024,9 @@
         font-weight: 600 !important;
         
         &:hover {
-          background-color: var(--rds-color-primary-dark, #1976d2) !important;
+          background-color: var(--rds-color-primary-dark, var(--rds-primary-main, #1976d2)) !important;
           color: var(--rds-color-on-primary, #fff) !important;
-          border: 2px solid var(--rds-color-primary-dark, #1976d2) !important;
+          border: 2px solid var(--rds-color-primary-dark, var(--rds-primary-main, #1976d2)) !important;
         }
       }
     }
@@ -1006,7 +1034,7 @@
     &.MuiDateRangePickerDay-rangeIntervalDayHighlight {
       border-radius: var(--rds-border-radius, 4px) !important;
       background-color: var(--rds-color-primary-hover, #E3F2FD) !important;
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
     }
     
     &.MuiDateRangePickerDay-rangeIntervalDayHighlightStart,
@@ -1091,11 +1119,11 @@
         
         &:hover {
           background-color: var(--rds-color-primary-hover, #E3F2FD);
-          color: var(--rds-color-primary, #1976d2);
+          color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
         }
         
         &.Mui-selected {
-          background-color: var(--rds-color-primary, #1976d2);
+          background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
           color: var(--rds-color-on-primary, white);
           font-weight: 600;
         }

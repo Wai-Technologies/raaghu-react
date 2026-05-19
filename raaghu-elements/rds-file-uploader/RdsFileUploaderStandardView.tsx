@@ -71,7 +71,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
           disabled={disabled}
           sx={{
             minWidth: 120,
-            fontSize: 15,
+            fontSize: 'var(--rds-font-size-md, 0.9375rem)',
             fontWeight: 500,
             padding: '8px 16px',
             flexShrink: 0,

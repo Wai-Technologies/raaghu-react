@@ -99,8 +99,8 @@
         }
         
         .btn-outline-primary {
-            border-color: var(--rds-color-primary, #1976d2);
-            color: var(--rds-color-primary, #1976d2);
+            border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+            color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
         }
         
         .btn-outline-danger {
@@ -210,10 +210,10 @@
         .rds-rating--color-primary {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-primary, #1976d2) !important;
-                svg { color: var(--rds-color-primary, #1976d2) !important; fill: var(--rds-color-primary, #1976d2) !important; }
+                color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
+                svg { color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important; fill: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important; }
             }
-            .MuiRating-root { color: var(--rds-color-primary, #1976d2) !important; }
+            .MuiRating-root { color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important; }
         }
         
         .rds-rating--color-success {

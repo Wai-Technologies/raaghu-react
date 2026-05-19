@@ -2,7 +2,7 @@
 
 // Default CSS Variables (Light Theme)
 :root {
-  --rds-grid-bg: #ffffff;
+  --rds-grid-bg: var(--rds-neutral-0, #ffffff);
   --rds-grid-bg-alt: #f5f5f5;
   --rds-grid-text: #333333;
   --rds-grid-text-subtle: #666666;
@@ -20,12 +20,12 @@ html[data-theme="dark"],
 html[class*="dark"],
 html[data-story-dark-mode] {
   --rds-grid-bg: #333333;
-  --rds-grid-bg-alt: #424242;
-  --rds-grid-header-bg: #424242;  /* Specific variable for headers */
-  --rds-grid-text: #ffffff;
+  --rds-grid-bg-alt: var(--rds-surface-dark, #424242);
+  --rds-grid-header-bg: var(--rds-surface-dark, #424242);  /* Specific variable for headers */
+  --rds-grid-text: var(--rds-neutral-0, #ffffff);
   --rds-grid-text-subtle: #cccccc;
   --rds-grid-border: #3f3d3d;
-  --rds-grid-border-soft: #5a5a5a;
+  --rds-grid-border-soft: var(--rds-border-dark-elevated, #5a5a5a);
   --rds-grid-border-alt: #666666;
 }
 
@@ -178,18 +178,18 @@ html[data-story-dark-mode] .rds-comp-grid {
   th.MuiTableCell-head,
   [role="columnheader"],
   .rds-comp-grid__header-cell {
-    background-color: #424242 !important;
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)) !important;
   }
   // .rds-comp-grid-sub-header
   // {
-  //   background-color: #424242 !important;
+  //   background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)) !important;
   //   color: white;
   // }
   // .rds-comp-grid__header,
   // .rds-comp-grid__subheader,
   // .rds-comp-grid-header,
   // .rds-comp-grid-sub-header {
-  //   background-color: #424242 !important;
+  //   background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)) !important;
   //   color: var(--rds-grid-text) !important;
   //   border-bottom-color: var(--rds-grid-border-soft) !important;
   // }
@@ -277,22 +277,22 @@ html[data-story-dark-mode] .rds-comp-grid {
   [data-theme="dark"] button[class*="MuiButton"],
   html[data-theme="dark"] button[class*="MuiButton"],
   .theme-dark button[class*="MuiButton"] {
-    background-color: #424242 !important;
-    color: #ffffff !important;
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)) !important;
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
     
     &:hover {
-      background-color: #505050 !important;
+      background-color: var(--rds-surface-dark-hover, var(--rds-surface-dark-hover, #505050)) !important;
     }
     
     /* Make sure button text is visible */
     & > span {
-      color: #ffffff !important;
+      color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
     }
     
     /* Handle button icons */
     & .MuiSvgIcon-root {
-      color: #ffffff !important;
-      fill: #ffffff !important;
+      color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
+      fill: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
     }
   }
 
@@ -393,64 +393,64 @@ html[data-story-dark-mode] .rds-comp-grid {
   }
 
   .rds-comp-grid-pagination {
-    background-color: #424242;
-    border-top-color: #5a5a5a;
-    color: #ffffff;
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242));
+    border-top-color: var(--rds-border-dark-elevated, #5a5a5a);
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff));
   }
 
   .rds-comp-grid-empty-state {
-    background-color: #424242;
-    color: #ffffff;
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242));
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff));
   }
 
   .rds-comp-grid-filter-operator,
   .rds-comp-grid-filter-input,
   .rds-comp-grid-filter-select {
-    background-color: #424242;
-    color: #ffffff;
-    border-color: #5a5a5a;
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242));
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff));
+    border-color: var(--rds-border-dark-elevated, var(--rds-border-dark-elevated, #5a5a5a));
   }
 
-  .rds-comp-grid-column-item:hover { background-color: #4a4a4a; }
-  .rds-comp-grid-column-list { background-color: #424242; border-color:#5a5a5a; }
+  .rds-comp-grid-column-item:hover { background-color: var(--rds-surface-dark-hover, var(--rds-surface-dark-hover, #4a4a4a)); }
+  .rds-comp-grid-column-list { background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)); border-color: var(--rds-border-dark-elevated, var(--rds-border-dark-elevated, #5a5a5a)); }
   .rds-comp-grid-resize-handle:hover { background-color:#6a6a6a; }
   
   // New structure (non-BEM) class names support
   // .rds-comp-grid-header,
   // .rds-comp-grid-sub-header {
-  //   background-color:#424242 !important;
-  //   color:#ffffff;
-  //   border-bottom:1px solid #5a5a5a;
+  //   background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)) !important;
+  //   color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff));
+  //   border-bottom:1px solid var(--rds-border-dark-elevated, #5a5a5a);
   // }
   // .rds-comp-grid-header-controls button,
   // .rds-comp-grid-sub-header-toggle {
-  //   color:#ffffff;
+  //   color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff));
   // }
-  .rds-comp-grid-table { background-color:#424242; }
+  .rds-comp-grid-table { background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)); }
   .rds-comp-grid-header-cell {
-    background-color:#424242;
-    color:#ffffff;
-    border-bottom:2px solid #5a5a5a;
-    border-right:1px solid #5a5a5a;
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242));
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff));
+    border-bottom:2px solid var(--rds-border-dark-elevated, #5a5a5a);
+    border-right:1px solid var(--rds-border-dark-elevated, #5a5a5a);
   }
   .rds-comp-grid-row {
-    background-color:#424242;
-    &:nth-child(even){ background-color:#3a3a3a; }
-    &:hover{ background-color:#505050; }
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242));
+    &:nth-child(even){ background-color: var(--rds-surface-dark-alt, var(--rds-surface-dark-alt, #3a3a3a)); }
+    &:hover{ background-color: var(--rds-surface-dark-hover, var(--rds-surface-dark-hover, #505050)); }
   }
-  .rds-comp-grid-row-selected { background-color:#505050; }
+  .rds-comp-grid-row-selected { background-color: var(--rds-surface-dark-hover, var(--rds-surface-dark-hover, #505050)); }
   .rds-comp-grid-cell {
     background-color:transparent;
-    color:#ffffff;
-    border-right:1px solid #5a5a5a;
-    border-bottom:1px solid #5a5a5a;
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff));
+    border-right:1px solid var(--rds-border-dark-elevated, #5a5a5a);
+    border-bottom:1px solid var(--rds-border-dark-elevated, #5a5a5a);
   }
   .rds-comp-grid-cell-text,
-  .rds-comp-grid-cell-html { color:#ffffff; }
-  .rds-comp-grid-pagination { background-color:#424242; border-top:1px solid #5a5a5a; }
-  .rds-comp-grid-empty-state { background-color:#424242; color:#ffffff; }
+  .rds-comp-grid-cell-html { color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)); }
+  .rds-comp-grid-pagination { background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)); border-top: 1px solid var(--rds-border-dark-elevated, var(--rds-border-dark-elevated, #5a5a5a)); }
+  .rds-comp-grid-empty-state { background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)); color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)); }
   .rds-comp-grid-resize-handle { background-color:transparent; }
-  .rds-comp-grid-resize-handle:hover { background-color:#606060; }
+  .rds-comp-grid-resize-handle:hover { background-color: var(--rds-surface-dark-hover, var(--rds-surface-dark-hover, #606060)); }
 }
 
 // Responsive design
@@ -672,15 +672,15 @@ html.theme-dark {
 
   .rds-comp-grid-row {
   &:hover {
-    background-color: #424242 !important;
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)) !important;
   }
 
   &:nth-child(even) {
-    background-color: #424242 !important;
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)) !important;
   }
 
   &-selected {
-    background-color: #424242 !important;
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)) !important;
   }
 }
   
@@ -768,7 +768,7 @@ html.theme-dark {
   height: 100%;
   border: 1px solid #e1e1e1;
   border-radius: 4px;
-  background-color: #ffffff;
+  background-color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff));
   overflow: hidden;
   color: #333333;
 }
@@ -778,7 +778,7 @@ html.theme-dark {
   height: 100%;
   border: 1px solid #e1e1e1;
   border-radius: 4px;
-  background-color: #ffffff;
+  background-color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff));
   overflow: hidden;
 
   &__header {
@@ -907,7 +907,14 @@ html.theme-dark {
     color: var(--colorNeutralForeground1);
     font-size: var(--fontSizeBase200);
     cursor: pointer;
-    transition: all 0.2s ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     
     &:hover:not(:disabled) {
       background-color: var(--colorNeutralBackground1Hover);
@@ -1067,7 +1074,14 @@ html.theme-dark {
           width: 4px;
           cursor: col-resize;
           background-color: transparent;
-          transition: background-color 0.2s ease;
+          
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
 
           &:hover {
             background-color: #0078d4;
@@ -1358,7 +1372,7 @@ html.theme-dark {
     
     &.status-renewal {
       background-color: #0078d4;
-      color: #ffffff;
+      color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff));
     }
   }
   
@@ -1372,7 +1386,14 @@ html.theme-dark {
     .progress-fill {
       height: 100%;
       background-color: #0066cc !important;
-      transition: width 0.3s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     }
   }
   
@@ -1466,7 +1487,14 @@ html.theme-dark {
   width: 4px;
   cursor: col-resize;
   background-color: transparent;
-  transition: background-color 0.2s ease;
+  
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
   z-index: 10;
 
   &:hover {
@@ -1514,7 +1542,7 @@ html.theme-dark {
   max-height: 100px;
   overflow: visible;
   padding: 4px;
-  background-color: #ffffff;
+  background-color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff));
   border: 1px solid #e1e1e1;
   border-radius: 2px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -1552,10 +1580,10 @@ html.theme-dark {
 
   &-active {
     background-color: #0078d4 !important;
-    color: #ffffff;
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff));
 
     .rds-comp-grid-filter-label {
-      color: #ffffff;
+      color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff));
     }
   }
 
@@ -1620,7 +1648,14 @@ html.theme-dark {
   padding: 4px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
 
   &:hover {
     background-color: #f8f9fa;
@@ -1642,7 +1677,14 @@ html.theme-dark {
   gap: 8px;
   padding: 4px;
   border-radius: 4px;
-  transition: background-color 0.2s;
+  
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
 
   &:hover {
     background-color: #f8f9fa;
@@ -1679,19 +1721,19 @@ html[data-theme="dark"] .MuiButtonBase-root,
 .rds-theme--dark .MuiButtonBase-root,
 [data-theme="dark"] .MuiButtonBase-root,
 [data-story-dark-mode] .MuiButtonBase-root {
-  background-color: #424242 !important;
-  color: #ffffff !important;
+  background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)) !important;
+  color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
   border-color: #666666 !important;
   
   /* Text inside buttons */
   span {
-    color: #ffffff !important;
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
   }
   
   /* Icons inside buttons */
   svg {
-    fill: #ffffff !important;
-    color: #ffffff !important;
+    fill: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
   }
 }
 
@@ -1710,7 +1752,7 @@ html[data-story-dark-mode],
   .rds-comp-grid-container thead th,
   .rds-comp-grid-container .fui-DataGridHeaderCell,
   .rds-comp-grid-container th.MuiTableCell-head {
-    background-color: #424242 !important;
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)) !important;
   }
   
   /* Direct targeting of elements in the screenshot */
@@ -1724,28 +1766,28 @@ html[data-story-dark-mode],
   button[title*="FILTERS"],
   button[title*="SORT"],
   button[title*="HIDE"] {
-    background-color: #424242 !important;
-    color: #ffffff !important;
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)) !important;
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
     border: 1px solid #666666 !important;
     
     /* Target button text */
     .MuiButton-label,
     span {
-      color: #ffffff !important;
+      color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
     }
     
     /* Target button icons */
     .MuiSvgIcon-root,
     svg {
-      color: #ffffff !important;
-      fill: #ffffff !important;
+      color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
+      fill: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
     }
   }
   
   /* Target the search input specifically */
   input[placeholder="Search..."] {
     background-color: #333333 !important;
-    color: #ffffff !important;
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
     border: 1px solid #666666 !important;
     
     &::placeholder {
@@ -1764,8 +1806,8 @@ html[data-story-dark-mode],
   div[class*="controls"],
   header,
   [class*="header"] {
-    background-color: #424242 !important;
-    color: #ffffff !important;
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)) !important;
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
     border-color: #555555 !important;
   }
   
@@ -1776,16 +1818,16 @@ html[data-story-dark-mode],
   .MuiToolbar-root button,
   .MuiButtonBase-root {
     background-color: #333333 !important;
-    color: #ffffff !important;
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
     
     &:hover {
-      background-color: #505050 !important;
+      background-color: var(--rds-surface-dark-hover, var(--rds-surface-dark-hover, #505050)) !important;
     }
     
     /* Make sure all icons and text are visible */
     svg, span {
-      color: #ffffff !important;
-      fill: #ffffff !important;
+      color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
+      fill: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
     }
   }
   
@@ -1794,7 +1836,7 @@ html[data-story-dark-mode],
   input[placeholder*="Search"],
   div[role="search"] input {
     background-color: #333333 !important;
-    color: #ffffff !important;
+    color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
     border-color: #555555 !important;
     
     &::placeholder {
@@ -1812,12 +1854,12 @@ html[data-story-dark-mode],
   .rds-comp-grid__header,
   .rds-comp-grid-header,
   .rds-comp-grid-header {
-    background-color: #424242 !important;
+    background-color: var(--rds-surface-dark, var(--rds-surface-dark, #424242)) !important;
     border-bottom: 1px solid #555555 !important;
     
     /* All elements inside this toolbar */
     * {
-      color: #ffffff !important;
+      color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
     }
     
     /* All buttons inside this toolbar */
@@ -1827,7 +1869,7 @@ html[data-story-dark-mode],
       
       /* Button contents */
       span, svg {
-        color: #ffffff !important;
+        color: var(--rds-neutral-0, var(--rds-neutral-0, #ffffff)) !important;
       }
     }
   }
@@ -1885,7 +1927,14 @@ html[data-story-dark-mode],
     padding: 0 2px;
     min-height: 16px;
     border-radius: 2px;
-    transition: background-color 0.2s;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
 
     &:hover {
       background-color: #e6f3ff;

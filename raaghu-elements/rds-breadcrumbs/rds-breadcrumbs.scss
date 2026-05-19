@@ -15,7 +15,14 @@
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    transition: all 0.2s ease-in-out;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     cursor: pointer;
 
     &__active {
@@ -24,7 +31,7 @@
 
     &__enable-hover:hover {
       background-color: var(--rds-color-primary-light, #e3f2fd);
-      color: var(--rds-color-primary, #1976d2);
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     }
   }
 
@@ -43,15 +50,15 @@
 
       &__enable-hover:hover {
         background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       }
       &__selected {
-        background-color: var(--rds-color-primary, #1976d2);
+        background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
         color: var(--rds-color-on-primary, #fff);
       }
       &__active {
         background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       }
     }
   }
@@ -63,15 +70,15 @@
 
       &__enable-hover:hover {
         background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       }
       &__selected {
-        background-color: var(--rds-color-primary, #1976d2);
+        background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
         color: var(--rds-color-on-primary, #fff);
       }
       &__active {
         background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       }
     }
   }
@@ -88,7 +95,7 @@
 
       &__selected {
         background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
         border-radius: var(--rds-border-radius, 4px);
       }
     }

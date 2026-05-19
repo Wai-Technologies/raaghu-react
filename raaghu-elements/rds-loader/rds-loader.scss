@@ -194,7 +194,7 @@
   transform: translateX(-90%);
   background-color: var(--uib-color);
 }
-.theme-dark .rds-loader__line-wobble, .theme-dark .rds-loader__moving { background-color: #fff; }
+.theme-dark .rds-loader__line-wobble, .theme-dark .rds-loader__moving { background-color: var(--rds-neutral-0, var(--rds-neutral-0, #fff)); }
 @keyframes wobble {
   0%, 100% { transform: translateX(-90%); }
   50% { transform: translateX(90%); }

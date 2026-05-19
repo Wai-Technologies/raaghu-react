@@ -1,37 +1,39 @@
-// Base color palette
-$primary: #7e2eef !default;
-$secondary: #2539FF !default;
+// Base color palette — aligned with design-tokens.ts (MUI-based palette)
+// Single source of truth: change values here and they cascade to CSS vars + SCSS components
+$primary: #3C98FF !default;    // = colorTokens.primary[700]  — light-theme primary.main
+$secondary: #2534E9 !default;  // = colorTokens.secondary[700] — light-theme secondary.main
 $tertiary: #DA25E9 !default;
 $neutral: #7D7D7D !default;
-$error: #E02D30 !default;
-$warning: #EA6C0C !default;
-$success: #24993A !default;
+$error: #BD0D1D !default;      // = colorTokens.error[700]   — light-theme error.main
+$warning: #C2510C !default;    // = colorTokens.warning[700]  — light-theme warning.main
+$success: #1F7630 !default;    // = colorTokens.success[700]  — light-theme success.main
 $info: #2196f3 !default;
 $danger: #f44336 !default;
 $light: #ffffff !default;
 $dark: #212121 !default;
 
-// Color scale definitions
-$primary-10: #FEF7FF !default;
-$primary-50: #EBDCFF !default;
-$primary-100: #D4BBFF !default;
-$primary-200: #BE98FF !default;
-$primary-300: #A875FF !default;
-$primary-400: #7825E9 !default;
-$primary-500: #7e2eef !default;
-$primary-600: #4F00A6 !default;
-$primary-700: #340071 !default;
-$primary-800: #19003E !default;
-$primary-900: #0D001F !default;
+// Primary color scale — MUI blue palette (matches colorTokens.primary in design-tokens.ts)
+$primary-10: #e3f2fd !default;
+$primary-50: #e3f2fd !default;
+$primary-100: #bbdefb !default;
+$primary-200: #3C98FF !default;  // = colorTokens.primary[200] — dark-theme normal
+$primary-300: #64b5f6 !default;  // MUI blue-300
+$primary-400: #42a5f5 !default;  // MUI blue-400
+$primary-500: #2196f3 !default;  // = colorTokens.primary[500] — MUI blue base
+$primary-600: #1e88e5 !default;  // MUI blue-600
+$primary-700: #3C98FF !default;  // = colorTokens.primary[700] — light-theme normal
+$primary-800: #1565c0 !default;  // = colorTokens.primary[800]
+$primary-900: #0d47a1 !default;  // = colorTokens.primary[900]
 
+// Secondary color scale — custom blue palette (matches colorTokens.secondary in design-tokens.ts)
 $secondary-10: #EBF3FF !default;
 $secondary-50: #BCD5FF !default;
-$secondary-100: #93B8FF !default;
+$secondary-100: #93B8FF !default;  // colorTokens.secondary[100]
 $secondary-200: #698FFF !default;
-$secondary-300: #4666FF !default;
-$secondary-400: #2534E9 !default;
-$secondary-500: #2539FF !default;
-$secondary-600: #1827BB !default;
+$secondary-300: #4666FF !default;  // = colorTokens.secondary[250] — dark-theme hover
+$secondary-400: #2534E9 !default;  // = colorTokens.secondary[200] — dark-theme normal
+$secondary-500: #2534E9 !default;  // = colorTokens.secondary[700] — light-theme normal
+$secondary-600: #1827BB !default;  // = colorTokens.secondary[750] — light-theme hover
 $secondary-700: #1D2B92 !default;
 $secondary-800: #111755 !default;
 $secondary-900: #0A0D2A !default;
@@ -60,41 +62,44 @@ $neutral-700: #646464 !default;
 $neutral-800: #4C4C4C !default;
 $neutral-900: #353535 !default;
 
-$error-10: #FFF8F7 !default;
-$error-50: #FFDAD6 !default;
-$error-100: #FFB3AD !default;
-$error-200: #FF8980 !default;
-$error-300: #FF544F !default;
-$error-400: #BD0D1D !default;
-$error-500: #E02D30 !default;
-$error-600: #930011 !default;
-$error-700: #680009 !default;
-$error-800: #410003 !default;
-$error-900: #200001 !default;
+// Error color scale — matches colorTokens.error in design-tokens.ts
+$error-10: #ffebee !default;
+$error-50: #ffcdd2 !default;
+$error-100: #ef9a9a !default;
+$error-200: #e57373 !default;  // = colorTokens.error[300]
+$error-300: #FF544F !default;  // = colorTokens.error[250] — dark-theme hover
+$error-400: #BD0D1D !default;  // = colorTokens.error[200/700] — normal
+$error-500: #f44336 !default;  // = colorTokens.error[500] — base
+$error-600: #e53935 !default;
+$error-700: #BD0D1D !default;  // = colorTokens.error[700] — light-theme normal
+$error-800: #930011 !default;  // = colorTokens.error[750] — light-theme hover
+$error-900: #b71c1c !default;
 
+// Warning color scale — matches colorTokens.warning in design-tokens.ts
 $warning-10: #FFF9ED !default;
 $warning-50: #FED99B !default;
 $warning-100: #FDC674 !default;
 $warning-200: #FBA33C !default;
-$warning-300: #F98816 !default;
-$warning-400: #C2510C !default;
-$warning-500: #EA6C0C !default;
-$warning-600: #9A4012 !default;
-$warning-700: #7C3712 !default;
-$warning-800: #431907 !default;
-$warning-900: #211C03 !default;
+$warning-300: #F98816 !default;  // = colorTokens.warning[250] — dark-theme hover
+$warning-400: #C2510C !default;  // = colorTokens.warning[200/700] — normal
+$warning-500: #ff9800 !default;  // = colorTokens.warning[500] base (MUI orange)
+$warning-600: #9A4012 !default;  // = colorTokens.warning[750] — light-theme hover
+$warning-700: #C2510C !default;  // = colorTokens.warning[700] — light-theme normal
+$warning-800: #7C3712 !default;
+$warning-900: #431907 !default;
 
+// Success color scale — matches colorTokens.success in design-tokens.ts
 $success-10: #F0FFF2 !default;
 $success-50: #C1F1C9 !default;
 $success-100: #90E5A0 !default;
 $success-200: #58D06E !default;
-$success-300: #31B64A !default;
-$success-400: #1F7630 !default;
-$success-500: #24993A !default;
-$success-600: #1D5E2A !default;
-$success-700: #1A4D25 !default;
-$success-800: #092A11 !default;
-$success-900: #041508 !default;
+$success-300: #31B64A !default;  // = colorTokens.success[250] — dark-theme hover
+$success-400: #1F7630 !default;  // = colorTokens.success[200/700] — normal
+$success-500: #4caf50 !default;  // = colorTokens.success[500] — MUI green base
+$success-600: #1D5E2A !default;  // = colorTokens.success[750] — light-theme hover
+$success-700: #1F7630 !default;  // = colorTokens.success[700] — light-theme normal
+$success-800: #1A4D25 !default;
+$success-900: #092A11 !default;
 
 // Gray scale
 $gray-50: #fafafa !default;

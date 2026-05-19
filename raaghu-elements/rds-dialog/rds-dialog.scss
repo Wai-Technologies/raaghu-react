@@ -149,8 +149,8 @@
     font-size: var(--rds-font-size-md, 16px);
     border-radius: var(--rds-border-radius, 6px);
     background: var(--rds-background-paper, #fff);
-    color: var(--rds-color-primary, #1976d2);
-    border: 1px solid var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+    border: 1px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
 
     &:hover {
       background: var(--rds-color-primary-hover-bg, #e3f2fd);
@@ -167,8 +167,8 @@
     }
 
     &__secondary {
-      color: var(--rds-color-primary, #1976d2);
-      border: 1px solid var(--rds-color-primary, #1976d2);
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      border: 1px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       background: var(--rds-background-paper, #fff);
 
       &:hover {
@@ -177,7 +177,7 @@
     }
 
     &__dismiss {
-      color: var(--rds-color-primary, #1976d2);
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       background: transparent;
 
       &:hover {
@@ -255,7 +255,7 @@
     }
     
     &__dismiss {
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
       border: none !important;
 
      &:hover {

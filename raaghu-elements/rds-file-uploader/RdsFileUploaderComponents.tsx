@@ -218,7 +218,7 @@ export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
       onDrop={onDrop}
-      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', minHeight: 60, px: 3, py: 2, border: '1.5px dashed #2196F3', background: '#fff', cursor: disabled ? 'not-allowed' : 'pointer' }}
+      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', minHeight: 60, px: 3, py: 2, border: '1.5px dashed var(--rds-primary-main)', background: 'var(--rds-background-paper, #fff)', cursor: disabled ? 'not-allowed' : 'pointer' }}
     >
       <Box className="rds-file-uploader__icon-box">
         <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: 'var(--rds-file-uploader-icon-color, #4a4a4a)' }} />

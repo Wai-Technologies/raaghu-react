@@ -1,23 +1,23 @@
 .rds-tabs--line-left .MuiTab-root {
   border-left: 2px solid transparent;
   &.Mui-selected {
-    border-left: 2px solid var(--rds-color-primary, #1976d2);
-    color: var(--rds-color-primary, #1976d2);
+    border-left: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       border-radius: unset !important;
   }
 }
 .rds-tabs--line-bottom .MuiTab-root {
   border-bottom: 2px solid transparent;
   &.Mui-selected {
-    border-bottom: 2px solid var(--rds-color-primary, #1976d2);
-    color: var(--rds-color-primary, #1976d2);
+    border-bottom: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       border-radius: unset !important;
   }
 }
 .rds-tabs--line-bottom-solid .MuiTab-root {
   border-bottom: 3px solid transparent;
   &.Mui-selected {
-    border-bottom: 3px solid var(--rds-color-primary, #1976d2);
+    border-bottom: 3px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     color: var(--rds-color-accent, #3C98FF) !important; // Use accent token
     border-radius: unset !important;
     background: var(--rds-color-accent-bg, #3D98FF4D) !important; // Use accent bg token
@@ -26,7 +26,7 @@
 .rds-tabs--line-left-solid .MuiTab-root {
   border-left: 3px solid transparent;
   &.Mui-selected {
-    border-left: 3px solid var(--rds-color-primary, #1976d2);
+    border-left: 3px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     color: var(--rds-color-accent, #3C98FF) !important;
     border-radius: unset !important;
     background: var(--rds-color-accent-bg, #3D98FF4D) !important;
@@ -36,8 +36,8 @@
 .rds-tabs--line-right .MuiTab-root {
   border-right: 2px solid transparent;
   &.Mui-selected {
-    border-right: 2px solid var(--rds-color-primary, #1976d2);
-    color: var(--rds-color-primary, #1976d2);
+    border-right: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     border-radius: unset !important;
   }
 }
@@ -45,7 +45,7 @@
 .rds-tabs--line-right-solid .MuiTab-root {
   border-right: 3px solid transparent;
   &.Mui-selected {
-    border-right: 3px solid var(--rds-color-primary, #1976d2);
+    border-right: 3px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     color: var(--rds-color-accent, #3C98FF) !important;
     border-radius: unset !important;
     background: var(--rds-color-accent-bg, #3D98FF4D) !important;
@@ -55,8 +55,8 @@
 .rds-tabs--line-top .MuiTab-root {
   border-top: 2px solid transparent;
   &.Mui-selected {
-    border-top: 2px solid var(--rds-color-primary, #1976d2);
-    color: var(--rds-color-primary, #1976d2);
+    border-top: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       border-radius: unset !important;
   }
 }
@@ -64,7 +64,7 @@
 .rds-tabs--line-top-solid .MuiTab-root {
   border-top: 3px solid transparent;
   &.Mui-selected {
-    border-top: 3px solid var(--rds-color-primary, #1976d2);
+    border-top: 3px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     color: var(--rds-color-accent, #3C98FF) !important;
     border-radius: unset !important;
     background: var(--rds-color-accent-bg, #3D98FF4D) !important;
@@ -346,7 +346,7 @@
   }
 
   .rds-tabs .MuiTab-root:focus-visible {
-    outline: 2px solid var(--rds-color-primary, #1976d2) !important;
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
     outline-offset: 2px !important;
   }
 }

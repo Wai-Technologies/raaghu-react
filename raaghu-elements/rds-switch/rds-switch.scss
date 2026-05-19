@@ -224,7 +224,7 @@
 }
 
 .rds-switch--color-primary .MuiSwitch-thumb {
-  background: #ffffff !important;
+  background-color: var(--rds-background-paper, #fff) !important;
 }
 
 .rds-switch--color-secondary .Mui-checked + .MuiSwitch-track,
@@ -280,7 +280,7 @@
 
 .rds-switch--color-info .Mui-checked + .MuiSwitch-thumb,
 .rds-switch--color-info .MuiSwitch-input:checked + .MuiSwitch-thumb {
-  background: #1976d2 !important;
+  background: var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
 }
 
 .rds-switch--color-info .MuiSwitch-thumb {

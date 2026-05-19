@@ -30,6 +30,6 @@
   }
   .rds-collapse__story-box--warning {
     background-color: var(--rds-color-warning-light, #e6de94) !important;
-    color: #000000 !important;
+    color: var(--rds-text-primary, var(--rds-text-primary, #000000)) !important;
   }
 }

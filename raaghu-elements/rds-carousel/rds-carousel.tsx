@@ -84,7 +84,7 @@ const RdsCarousel = ({
         overflow: 'hidden',
         width: '100%',
         maxWidth: '100%',
-        borderRadius: '6px',
+        borderRadius: 'var(--rds-border-radius-md, 8px)',
         backgroundColor: style === 'full width image'
           ? 'var(--rds-background-paper, transparent)'
           : 'transparent',
@@ -177,11 +177,11 @@ const RdsCarousel = ({
               left: 8,
               top: style === 'with title' ? 'calc(50% + 50px)' : '50%',
               transform: 'translateY(-50%)',
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              color: 'white',
+              backgroundColor: 'var(--rds-overlay-dark, rgba(0, 0, 0, 0.5))',
+              color: 'var(--rds-neutral-0, #ffffff)',
               zIndex: 2,
               '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                backgroundColor: 'var(--rds-overlay-darker, rgba(0, 0, 0, 0.7))',
               },
             }}
           >
@@ -195,11 +195,11 @@ const RdsCarousel = ({
               right: 8,
               top: style === 'with title' ? 'calc(50% + 50px)' : '50%',
               transform: 'translateY(-50%)',
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              color: 'white',
+              backgroundColor: 'var(--rds-overlay-dark, rgba(0, 0, 0, 0.5))',
+              color: 'var(--rds-neutral-0, #ffffff)',
               zIndex: 2,
               '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                backgroundColor: 'var(--rds-overlay-darker, rgba(0, 0, 0, 0.7))',
               },
             }}
           >

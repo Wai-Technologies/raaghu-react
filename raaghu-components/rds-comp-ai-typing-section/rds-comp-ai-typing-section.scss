@@ -9,7 +9,14 @@
     box-shadow: var(--rds-elevation-2, 0px 0px 12px 0px rgba(0, 0, 0, 0.18));
     padding: var(--rds-spacing-md, 12px);
     position: relative;
-    transition: all 0.2s ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     
     &:focus-within {
       border-color: var(--rds-color-primary, #C6A2F6);
@@ -50,7 +57,14 @@
     border: none;
     outline: none;
     margin: 0;
-    transition: all 0.2s ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     
     &::placeholder {
       font-weight: var(--rds-font-weight-medium, 500);
@@ -60,7 +74,7 @@
       line-height: var(--rds-line-height-body, 16px);
         body.theme-dark &,
       [data-theme="dark"] & {
-        color: #fff;
+        color: var(--rds-neutral-0, #fff);
       }
     }
     
@@ -74,7 +88,7 @@
       opacity: 1;
       body.theme-dark &,
       [data-theme="dark"] & {
-        color: #fff;
+        color: var(--rds-neutral-0, #fff);
       }
     }
    
@@ -93,7 +107,14 @@
     pointer-events: none;
     display: flex;
     align-items: center;
-    transition: color 0.2s ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
 
     // Ensure icon color consistency in dark theme
     .rds-comp-ai-icon--primary,

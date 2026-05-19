@@ -55,11 +55,11 @@ const RdsButton = ({
   const getShapeStyles = () => {
     if (shape === 'pill') {
       return {
-        borderRadius: '50px',
+        borderRadius: 'var(--rds-border-radius-pill)',
       };
     }
     return {
-      borderRadius: '4px',
+      borderRadius: 'var(--rds-border-radius-sm)',
     };
   };
 

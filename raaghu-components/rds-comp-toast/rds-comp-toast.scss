@@ -11,7 +11,14 @@
     display: block;
     opacity: 1;
     transform: translateY(0);
-    transition: all 0.3s ease-in-out;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
   }
   
   &--hidden {
@@ -242,7 +249,7 @@
     }
     
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #1976d2);
+      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       outline-offset: 2px;
     }
   }
@@ -294,10 +301,17 @@
   }
   
   &__progress-bar {
-    background: var(--rds-color-primary, #1976d2);
+    background: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     height: 100%;
     border-radius: inherit;
-    transition: width var(--rds-transition-duration-standard, 0.3s) ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
   }
   
   &__progress-label {
@@ -326,12 +340,18 @@
     font-size: var(--rds-font-size-base, 0.875rem);
     color: var(--rds-color-on-surface, #212121);
     background: var(--rds-color-surface, #ffffff);
-    transition: border-color var(--rds-transition-duration-short, 0.2s) ease,
-                box-shadow var(--rds-transition-duration-short, 0.2s) ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     
     &:focus {
       outline: none;
-      border-color: var(--rds-color-primary, #1976d2);
+      border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
     }
     
@@ -389,10 +409,17 @@
     font-weight: var(--rds-font-weight-medium, 500);
     cursor: pointer;
     border: 1px solid transparent;
-    transition: all var(--rds-transition-duration-short, 0.2s) ease;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     
     &--primary {
-      background: var(--rds-color-primary, #1976d2);
+      background: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       color: var(--rds-color-on-primary, #ffffff);
       
       &:hover {
@@ -406,7 +433,7 @@
     
     &--secondary {
       background: transparent;
-      color: var(--rds-color-primary, #1976d2);
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       border-color: transparent;
       
       &:hover {

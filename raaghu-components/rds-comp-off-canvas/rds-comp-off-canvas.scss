@@ -62,7 +62,14 @@
   padding: 8px;
   border: 1px solid transparent;
   border-radius: 5px;
-  transition: all 0.2s ease-in-out;
+  
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
 }
 .offcanvas-close-button:hover {
   background-color: rgba(0, 0, 0, 0.10);
@@ -200,7 +207,14 @@ body[data-theme="dark"] .tertiary-button-container .offcanvas-action-btn .MuiBut
   cursor: pointer;
   padding: 3px 8px;
   border: 1px solid transparent;
-  transition: all 0.2s ease-in-out;
+  
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
   border-radius: 5px;
 }
 

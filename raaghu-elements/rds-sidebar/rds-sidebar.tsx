@@ -137,7 +137,7 @@ const RdsSidebar = ({
           position: 'fixed',
           top: 0,
           left: 0,
-          zIndex: 1200,
+          zIndex: 'var(--rds-z-index-banner, 1200)',
         })
       })
     }

@@ -34,7 +34,7 @@
 
   &--with-padding {
     padding: var(--rds-spacing-xl, 32px); 
-    background-color: var(--rds-color-primary, #1976d2);
+    background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     color: var(--rds-color-on-primary, #ffffff);
   }
 

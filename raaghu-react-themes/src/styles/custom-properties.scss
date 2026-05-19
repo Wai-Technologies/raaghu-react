@@ -26,6 +26,24 @@
   --rds-neutral-light: #{$neutral-100};
   --rds-neutral-dark: #{$neutral-600};
   --rds-neutral-contrast-text: #{$white};
+  // Neutral Scale
+  --rds-neutral-0: #{$white};
+  --rds-neutral-50: #{$neutral-50};
+  --rds-neutral-100: #{$neutral-100};
+  --rds-neutral-200: #{$neutral-200};
+  --rds-neutral-300: #{$neutral-300};
+  --rds-neutral-400: #{$neutral-400};
+  --rds-neutral-500: #{$neutral-500};
+  --rds-neutral-600: #{$neutral-600};
+  --rds-neutral-700: #{$neutral-700};
+  --rds-neutral-800: #{$neutral-800};
+  --rds-neutral-900: #{$neutral-900};
+  // Dark surface tokens (for dark theme component overrides)
+  --rds-surface-dark: #424242;
+  --rds-surface-dark-hover: #505050;
+  --rds-surface-dark-alt: #3a3a3a;
+  --rds-surface-dark-deep: #2a2a2a;
+  --rds-border-dark-elevated: #5a5a5a;
   
   // Status Colors
   --rds-error-main: #{$error};
@@ -159,7 +177,23 @@
   --rds-border-radius-md: 8px;
   --rds-border-radius-lg: 12px;
   --rds-border-radius-xl: 16px;
+  --rds-border-radius-pill: 9999px;
   --rds-border-radius-full: 9999px;
+
+  // Overlay / backdrop backgrounds
+  --rds-overlay-dark: rgba(0, 0, 0, 0.5);
+  --rds-overlay-darker: rgba(0, 0, 0, 0.7);
+  --rds-overlay-semi: rgba(128, 128, 128, 0.4);
+
+  // Z-Index scale — matches zIndexTokens in design-tokens.ts
+  --rds-z-index-dropdown: 1000;
+  --rds-z-index-sticky: 1100;
+  --rds-z-index-banner: 1200;
+  --rds-z-index-overlay: 1300;
+  --rds-z-index-modal: 1400;
+  --rds-z-index-popover: 1500;
+  --rds-z-index-toast: 1700;
+  --rds-z-index-tooltip: 1800;
   
   // Elevation (Box Shadows)
   --rds-elevation-0: none;
@@ -198,4 +232,24 @@
   --rds-modal-backdrop: rgba(0, 0, 0, 0.5);
   --rds-tooltip-bg: #{$tooltip-bg};
   --rds-tooltip-text: #{$tooltip-color};
+
+  // Primary shades (for components that need specific tones)
+  --rds-primary-dark: #{$primary-800};
+  --rds-primary-light: #{$primary-300};
+
+  // Code block
+  --rds-code-bg: #0b1220;
+  --rds-code-color: #e6eef6;
+
+  // Action states
+  --rds-action-hover: rgba(0, 0, 0, 0.04);
+  --rds-action-active: rgba(0, 0, 0, 0.54);
+  --rds-action-disabled: rgba(0, 0, 0, 0.26);
+
+  // Font sizes
+  --rds-font-size-xs: 0.75rem;
+  --rds-font-size-sm: 0.8125rem;
+  --rds-font-size-md: 0.9375rem;
+  --rds-font-size-base: 1rem;
+  --rds-font-size-lg: 1.125rem;
 }

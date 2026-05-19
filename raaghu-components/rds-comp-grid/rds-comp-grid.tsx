@@ -1934,10 +1934,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
   return (
     <Card sx={{
-      bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
-      color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+      bgcolor: 'background.paper',
+      color: 'text.primary',
       '& .MuiTableCell-root': {
-        color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit'
+        color: 'text.primary'
       },
       '& .react-beautiful-dnd-drag-handle': {
         visibility: 'visible !important',
@@ -1954,7 +1954,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         display: 'table-cell !important',
         visibility: 'visible !important',
         opacity: '0.5 !important',
-        backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+        backgroundColor: 'action.hover',
         border: '2px dashed',
         borderColor: theme.palette.primary.main,
       },
@@ -1970,7 +1970,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           }}
         >
           <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
-            bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined
+            bgcolor: 'background.paper'
           }}>
             <Stack direction="row" spacing={2} alignItems="center" justifyContent="space-between">
             <TextField
@@ -2018,7 +2018,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
       {showFilters && (
         <Box p={2} borderBottom="1px solid" borderColor="divider" sx={{
-          bgcolor: theme.palette.mode === 'dark' ? '#333333' : 'grey.50'
+          bgcolor: 'action.hover'
         }}>
           <Grid container spacing={2} alignItems="center">
             {tableHeaders.filter(header => header.isFilter).map((header) => (
@@ -2082,7 +2082,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
       {showSubHeader && (
         <Box p={1.5} borderBottom="1px solid" borderColor="divider" sx={{ 
-          bgcolor: theme => theme.palette.mode === 'dark' ? '#424242' : 'grey.100'
+          bgcolor: 'action.selected'
         }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Stack direction="row" spacing={1} alignItems="center">
@@ -2106,7 +2106,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           onScroll={handleBodyScroll}
           elevation={0}
           sx={{
-            bgcolor: theme.palette.mode === 'dark' ? '#333333' : undefined,
+            bgcolor: 'background.paper',
           }}
         >
           <DragDropContext 
@@ -2116,19 +2116,19 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
           >
             <Table stickyHeader ref={tableRef} sx={{ tableLayout: 'fixed' }}>
             <TableHead sx={{ 
-              bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined,
-              '& th': { bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined }
+              bgcolor: 'background.paper',
+              '& th': { bgcolor: 'action.hover !important' }
             }}>
               <TableRow sx={{ 
-                bgcolor: theme.palette.mode === 'dark' ? '#424242' : undefined 
+                bgcolor: 'background.paper' 
               }}>
                 {enableRowSwapping && (
                   <TableCell 
                     sx={{ 
                       width: '60px',
                       padding: '8px',
-                      borderRight: '1px solid #d1d1d1',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      bgcolor: 'action.hover !important',
                     }}
                   >
                   </TableCell>
@@ -2139,8 +2139,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     padding="checkbox" 
                     sx={{ 
                       width: '50px',
-                      borderRight: '1px solid #d1d1d1',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      bgcolor: 'action.hover !important',
                     }}
                   >
                     <Checkbox
@@ -2162,8 +2162,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     padding="checkbox" 
                     sx={{ 
                       width: '50px',
-                      borderRight: '1px solid #d1d1d1',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                      borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                      bgcolor: 'action.hover !important',
                     }}
                   >
                     <Typography variant="caption" color="text.secondary">
@@ -2244,15 +2244,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
                           whiteSpace: 'nowrap',
-                          borderRight: '1px solid #d1d1d1',
-                          bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                          borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                          bgcolor: 'action.hover !important',
                           transition: isDragging ? 'none' : 'all 0.2s ease',
                           '&:last-child': {
                             borderRight: 'none',
                           },
                           '&:hover': {
                             ...(enableColumnSwapping && !isDragging && !customDragState.isDragging && {
-                              backgroundColor: theme.palette.mode === 'dark' ? '#525252 !important' : 'rgba(0, 0, 0, 0.04)',
+                              backgroundColor: 'action.hover',
                               cursor: 'grab',
                             }),
                           },
@@ -2390,7 +2390,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     sx={{ 
                       width: '100px',
                       borderRight: 'none',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                      bgcolor: 'action.hover !important',
                     }}
                   >
                     <Typography variant="subtitle2" fontWeight="medium">
@@ -2404,7 +2404,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     sx={{ 
                       width: '150px',
                       borderRight: 'none',
-                      bgcolor: theme.palette.mode === 'dark' ? '#424242 !important' : undefined,
+                      bgcolor: 'action.hover !important',
                     }}
                   >
                     <Typography variant="subtitle2" fontWeight="medium">
@@ -2452,7 +2452,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           <TableCell sx={{ 
                             width: '60px', 
                             padding: '8px',
-                            borderRight: '1px solid #d1d1d1',
+                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
                             textAlign: 'center',
                             verticalAlign: 'middle'
                           }}>
@@ -2483,7 +2483,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         {enableCheckboxSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: '1px solid #d1d1d1' }}
+                        sx={{ borderRight: '1px solid var(--rds-border-default, #d1d1d1)' }}
                       >
                         <Checkbox
                           checked={isSelected}
@@ -2495,7 +2495,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     {enableRadioButtonSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: '1px solid #d1d1d1' }}
+                        sx={{ borderRight: '1px solid var(--rds-border-default, #d1d1d1)' }}
                       >
                         <Radio
                           checked={isSelected}
@@ -2524,7 +2524,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             width: cellWidth,
                             minWidth: header.minWidth || 50,
                             maxWidth: header.maxWidth || 800,
-                            borderRight: '1px solid #d1d1d1',
+                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
@@ -2549,8 +2549,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             width: cellWidth,
                             minWidth: header.minWidth || 50,
                             maxWidth: header.maxWidth || 800,
-                            borderRight: '1px solid #d1d1d1',
-                            color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit',
+                            borderRight: '1px solid var(--rds-border-default, #d1d1d1)',
+                            color: 'text.primary',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
@@ -2566,13 +2566,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',
                                 width: '100%',
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : 'inherit',
+                                color: 'text.primary',
                                 '& *': {
                                   maxWidth: '100%',
                                   overflow: 'hidden',
                                   textOverflow: 'ellipsis',
                                   whiteSpace: 'nowrap',
-                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& .status-pill': {
                                   display: 'inline-block',
@@ -2583,39 +2583,34 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                   textAlign: 'center',
                                   minWidth: '60px',
                                   '&.status-qualified': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? '#155724' : '#d4edda',
-                                    color: theme.palette.mode === 'dark' ? '#d4edda' : '#155724',
+                                    backgroundColor: theme.palette.success.dark, color: theme.palette.success.contrastText,
                                   },
                                   '&.status-negotiation': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? '#856404' : '#fff3cd',
-                                    color: theme.palette.mode === 'dark' ? '#fff3cd' : '#856404',
+                                    backgroundColor: theme.palette.warning.dark, color: theme.palette.warning.contrastText,
                                   },
                                   '&.status-unqualified': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? '#721c24' : '#f8d7da',
-                                    color: theme.palette.mode === 'dark' ? '#f8d7da' : '#721c24',
+                                    backgroundColor: theme.palette.error.dark, color: theme.palette.error.contrastText,
                                   },
                                   '&.status-proposal': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? '#495057' : '#e9ecef',
-                                    color: theme.palette.mode === 'dark' ? '#e9ecef' : '#495057',
+                                    backgroundColor: theme.palette.action.selected, color: theme.palette.text.primary,
                                   },
                                   '&.status-new': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? '#0066cc' : '#cce5ff',
-                                    color: theme.palette.mode === 'dark' ? '#cce5ff' : '#0066cc',
+                                    backgroundColor: theme.palette.primary.light, color: theme.palette.primary.contrastText,
                                   },
                                   '&.status-renewal': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? '#0078d4' : '#0078d4',
-                                    color: '#ffffff',
+                                    backgroundColor: theme.palette.primary.main,
+                                    color: 'common.white',
                                   },
                                 },
                                 '& .progress-bar': {
                                   width: '100%',
                                   height: '8px',
-                                  backgroundColor: '#e9ecef',
+                                  backgroundColor: 'action.selected',
                                   borderRadius: '4px',
                                   overflow: 'hidden',
                                   '& .progress-fill': {
                                     height: '100%',
-                                    backgroundColor: '#0078d4',
+                                    backgroundColor: 'primary.main',
                                     transition: 'width 0.3s ease',
                                   },
                                 },
@@ -2627,12 +2622,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                   height: '20px',
                                   borderRadius: '50%',
                                   '&.verified': {
-                                    backgroundColor: '#28a745',
-                                    color: 'white',
+                                    backgroundColor: 'success.main',
+                                    color: 'common.white',
                                   },
                                   '&.not-verified': {
-                                    backgroundColor: '#dc3545',
-                                    color: 'white',
+                                    backgroundColor: 'error.main',
+                                    color: 'common.white',
                                   },
                                 },
                                 '& img': {
@@ -2643,70 +2638,70 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                   marginRight: '8px',
                                 },
                                 '& .employee-name': {
-                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
+                                  color: 'text.primary',
                                   fontWeight: 'bold',
                                 },
                                 '& .employee-title': {
-                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.8) !important' : 'inherit',
+                                  color: 'text.secondary',
                                 },
                                 '& .tag': {
-                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.9) !important' : 'inherit',
-                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.23) !important' : 'inherit',
+                                  color: 'text.primary',
+                                  borderColor: 'divider',
                                 },
                                 '& .badge, & span[class*="badge"], & .chip, & span[class*="chip"]': {
-                                  color: theme.palette.mode === 'dark' ? '#ffffff !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& .last-active': {
-                                  color: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.7) !important' : 'inherit',
+                                  color: 'text.disabled',
                                 },
                                 '& .online, & .away': {
-                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.23) !important' : 'inherit',
+                                  borderColor: 'divider',
                                 },
                                 '& .leadership, & .management, & .strategy, & .planning, & .coordination, & .reporting': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
-                                  borderColor: theme.palette.mode === 'dark' ? 'transparent !important' : 'inherit',
+                                  color: 'text.primary',
+                                  borderColor: 'transparent',
                                 },
                                 '& .senior, & .lead, & .pending, & .active': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& span[style*="background:"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& span[style*="background-color:"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& span[style*="background: #e3f2fd"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& span[style*="background: #e8eaf6"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& span[style*="background: #fce4ec"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& span[style*="background: #e8f5e8"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& span[style*="background: #fff3e0"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& span[style*="background: #f3e5f5"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& span[style*="background: #e1f5fe"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& span[style*="background: #e0f2f1"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& span[style*="background: #f1f8e9"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& span[style*="border-radius: 4px"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& span[style*="border-radius: 8px"]': {
-                                  color: theme.palette.mode === 'dark' ? '#000000 !important' : 'inherit',
+                                  color: 'text.primary',
                                 },
                                 '& small[style*="color: #666"]': {
                                   color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7) !important' : 'inherit',
@@ -2869,14 +2864,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             maxHeight: 250,
             overflow: 'auto',
             overflowY: 'auto',
-            zIndex: 1300,
-            backgroundColor: theme.palette.mode === 'dark' ? '#424242' : undefined,
-            color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+            zIndex: 'var(--rds-z-index-modal, 1300)',
+            backgroundColor: 'background.paper',
+            color: 'text.primary',
             '& .MuiTypography-root': {
-              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+              color: 'text.primary',
             },
             '& .MuiIconButton-root': {
-              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+              color: 'text.primary',
             },
             '& .MuiDivider-root': {
               borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : undefined,
@@ -2886,14 +2881,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
             },
               scrollbarWidth: 'thin !important',
             '&::-webkit-scrollbar-track': {
-              backgroundColor: theme.palette.mode === 'dark' ? '#2a2a2a' : '#f1f1f1',
+              backgroundColor: 'action.hover',
             },
             '&::-webkit-scrollbar-thumb': {
-              backgroundColor: theme.palette.mode === 'dark' ? '#555' : '#c1c1c1',
+              backgroundColor: theme.palette.action.disabled,
               borderRadius: '3px',
             },
             '&::-webkit-scrollbar-thumb:hover': {
-              backgroundColor: theme.palette.mode === 'dark' ? '#777' : '#a8a8a8',
+              backgroundColor: theme.palette.action.disabledBackground,
             },
           }
         }}
@@ -2934,14 +2929,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 sx={{ 
                   flexGrow: 1, 
                   fontSize: '12px',
-                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                  color: 'text.primary',
                 }}
               >
                 Columns
               </Typography>
               {isColumnPanelExpanded ? 
-                <ArrowUpIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} /> : 
-                <ArrowDownIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} />
+                <ArrowUpIcon sx={{ fontSize: '12px', color: 'text.primary' }} /> : 
+                <ArrowDownIcon sx={{ fontSize: '12px', color: 'text.primary' }} />
               }
             </Box>
             
@@ -2954,7 +2949,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
                   borderTop: 'none',
                   borderRadius: '0 0 4px 4px',
-                  backgroundColor: theme.palette.mode === 'dark' ? '#4a4a4a' : 'grey.50',
+                  backgroundColor: 'action.hover',
                   width: '100%',
                   maxHeight: '80px',
                   overflowY: 'auto',
@@ -2987,10 +2982,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           size="small"
                           sx={{ 
                             padding: '2px',
-                            color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                            color: 'text.primary',
                             '& .MuiSvgIcon-root': {
                               fontSize: 14,
-                              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                              color: 'text.primary',
                             }
                           }}
                         />
@@ -3002,7 +2997,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           sx: { 
                             fontSize: '12px',
                             fontWeight: '400',
-                            color: theme.palette.mode === 'dark' ? '#ffffff' : undefined 
+                            color: 'text.primary' 
                           }
                         }}
                         sx={{ ml: 0 }}
@@ -3038,14 +3033,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 sx={{ 
                   flexGrow: 1, 
                   fontSize: '12px',
-                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined
+                  color: 'text.primary'
                 }}
               >
                 Filter
               </Typography>
               {isFilterExpanded ? 
-                <ArrowUpIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} /> : 
-                <ArrowDownIcon sx={{ fontSize: '12px', color: theme.palette.mode === 'dark' ? '#ffffff' : undefined }} />
+                <ArrowUpIcon sx={{ fontSize: '12px', color: 'text.primary' }} /> : 
+                <ArrowDownIcon sx={{ fontSize: '12px', color: 'text.primary' }} />
               }
             </Box>
             
@@ -3056,7 +3051,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   border: '1px solid',
                   borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'divider',
                   borderRadius: '0 0 4px 4px',
-                  backgroundColor: theme.palette.mode === 'dark' ? '#4a4a4a' : 'grey.50',
+                  backgroundColor: 'action.hover',
                   width: '100%'
                 }}
               >
@@ -3075,7 +3070,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             sx={{ 
                               fontSize: '12px', 
                               fontWeight: '500', 
-                              color: theme.palette.mode === 'dark' ? '#ffffff' : '#333',
+                              color: 'text.primary',
                               mb: 0.5,
                               display: 'block'
                             }}
@@ -3088,17 +3083,17 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             sx={{ 
                               fontSize: '12px',
                               height: '32px',
-                              color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
-                              backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : '#fff',
+                              color: 'text.primary',
+                              backgroundColor: 'background.paper',
                               '& .MuiOutlinedInput-notchedOutline': {
                                 borderWidth: 1,
-                                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#d0d0d0'
+                                borderColor: 'divider'
                               },
                               '& .MuiSvgIcon-root': {
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                color: 'text.primary',
                               },
                               '& .MuiSelect-icon': {
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                color: 'text.primary',
                               },
                             }}
                           >
@@ -3108,7 +3103,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 value={op.value} 
                                 sx={{ 
                                   fontSize: '12px',
-                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                  color: 'text.primary',
                                   '&.Mui-selected': {
                                     backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.16)' : undefined,
                                   },
@@ -3135,18 +3130,18 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                     fullWidth: true,
                                     placeholder: 'Select date...',
                                     sx: {
-                                      backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : undefined,
+                                      backgroundColor: 'background.paper',
                                       '& .MuiInputBase-input': {
                                         fontSize: '10px',
                                         height: '24px',
                                         padding: '4px 8px',
-                                        color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                        color: 'text.primary',
                                       },
                                       '& .MuiOutlinedInput-notchedOutline': {
                                         borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : undefined,
                                       },
                                       '& .MuiSvgIcon-root': {
-                                        color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                        color: 'text.primary',
                                       }
                                     }
                                   }
@@ -3161,7 +3156,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               sx={{ 
                                 fontSize: '12px', 
                                 fontWeight: '500', 
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : '#333',
+                                color: 'text.primary',
                                 mb: 0.5,
                                 display: 'block'
                               }}
@@ -3176,21 +3171,21 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               size="small"
                               fullWidth
                               sx={{
-                                backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : '#fff',
+                                backgroundColor: 'background.paper',
                                 '& .MuiInputBase-input': {
                                   fontSize: '12px',
                                   height: '20px',
                                   padding: '6px 8px',
-                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                  color: 'text.primary',
                                 },
                                 '& .MuiOutlinedInput-root': {
                                   height: '32px'
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#d0d0d0',
+                                  borderColor: 'divider',
                                 },
                                 '& .MuiInputLabel-root': {
-                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                  color: 'text.primary',
                                 },
                                 '&::placeholder': {
                                   color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
@@ -3205,7 +3200,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               sx={{ 
                                 fontSize: '12px', 
                                 fontWeight: '500', 
-                                color: theme.palette.mode === 'dark' ? '#ffffff' : '#333',
+                                color: 'text.primary',
                                 mb: 0.5,
                                 display: 'block'
                               }}
@@ -3220,21 +3215,21 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               size="small"
                               fullWidth
                               sx={{
-                                backgroundColor: theme.palette.mode === 'dark' ? '#5a5a5a' : '#fff',
+                                backgroundColor: 'background.paper',
                                 '& .MuiInputBase-input': {
                                   fontSize: '12px',
                                   height: '20px',
                                   padding: '6px 8px',
-                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                  color: 'text.primary',
                                 },
                                 '& .MuiOutlinedInput-root': {
                                   height: '32px'
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
-                                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : '#d0d0d0',
+                                  borderColor: 'divider',
                                 },
                                 '& .MuiInputLabel-root': {
-                                  color: theme.palette.mode === 'dark' ? '#ffffff' : undefined,
+                                  color: 'text.primary',
                                 },
                                 '&::placeholder': {
                                   color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
@@ -3297,10 +3292,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         minWidth: '60px',
                         textTransform: 'uppercase',
                         letterSpacing: '0.5px',
-                        backgroundColor: theme.palette.mode === 'dark' ? '#1976d2' : '#1976d2',
-                        color: '#ffffff',
+                        backgroundColor: 'primary.main',
+                        color: 'common.white',
                         '&:hover': {
-                          backgroundColor: theme.palette.mode === 'dark' ? '#1565c0' : '#1565c0',
+                          backgroundColor: 'primary.dark',
                         },
                         borderRadius: '4px',
                         boxShadow: 'none',
@@ -3323,10 +3318,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         minWidth: '60px',
                         textTransform: 'uppercase',
                         letterSpacing: '0.5px',
-                        borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#d0d0d0',
-                        color: theme.palette.mode === 'dark' ? '#ffffff' : '#666666',
+                        borderColor: 'divider',
+                        color: 'text.secondary',
                         '&:hover': {
-                          borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : '#999999',
+                          borderColor: 'divider',
                           backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)',
                         },
                         borderRadius: '4px',
@@ -3360,10 +3355,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         mt: 1,
                         textTransform: 'uppercase',
                         letterSpacing: '0.3px',
-                        color: theme.palette.mode === 'dark' ? '#ff6b6b' : '#d32f2f',
+                        color: 'error.light',
                         '&:hover': {
                           backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 107, 107, 0.08)' : 'rgba(211, 47, 47, 0.04)',
-                          color: theme.palette.mode === 'dark' ? '#ff5252' : '#b71c1c',
+                          color: 'error.main',
                         },
                         borderRadius: '4px',
                         textDecoration: 'none',

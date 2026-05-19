@@ -9,7 +9,7 @@
   color: var(--rds-color-on-surface);
 
   &:focus-within {
-    outline: 2px solid var(--rds-color-primary, #1976d2);
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
     outline-offset: 2px;
     border-radius: var(--rds-border-radius-xs, 2px);
   }

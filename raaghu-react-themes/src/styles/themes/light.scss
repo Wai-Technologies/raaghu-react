@@ -5,11 +5,11 @@
 $theme-name: "light" !default;
 
 // Background colors for light theme
-$bg-primary-darker-default: #19003E !default;
-$bg-primary-dark-default: #7825E9 !default;
-$bg-primary-medium-default: #D4BBFF !default;
-$bg-primary-light-default: #EBDCFF !default;
-$bg-primary-lighter-default: #FEF7FF !default;
+$bg-primary-darker-default: $primary-800 !default;  // #1565c0
+$bg-primary-dark-default: $primary !default;         // #3C98FF
+$bg-primary-medium-default: $primary-100 !default;   // #bbdefb
+$bg-primary-light-default: $primary-50 !default;     // #e3f2fd
+$bg-primary-lighter-default: $primary-10 !default;   // #e3f2fd
 
 $bg-secondary-darker-default: #111755 !default;
 $bg-secondary-dark-default: #2534E9 !default;
@@ -46,10 +46,10 @@ $bg-success-dark-default: $success-400 !default;
 $bg-success-medium-default: $success-800 !default;
 
 // Icon colors for light theme
-$icon-primary-outline-default: #7825E9 !default;
-$icon-primary-outline-hover: #4F00A6 !default;
-$icon-primary-outline-selected: #340071 !default;
-$icon-primary-outline-disabled: #D4BBFF !default;
+$icon-primary-outline-default: $primary !default;         // #3C98FF
+$icon-primary-outline-hover: #2E7CE0 !default;            // = colorTokens.primary[750]
+$icon-primary-outline-selected: $primary-800 !default;    // #1565c0
+$icon-primary-outline-disabled: $primary-100 !default;    // #bbdefb
 $icon-primary-outline-invert: #FFFFFF !default;
 
 $icon-secondary-outline-default: #2534E9 !default;
@@ -86,21 +86,21 @@ $icon-success-outline-default: #1F7630 !default;
 $icon-success-outline-hover: #1D5E2A !default;
 $icon-success-outline-selected: #1A4D25 !default;
 
-// Button colors for light theme
-$btn-primary-solid-default: #7825E9 !default;
-$btn-primary-solid-hover: #4F00A6 !default;
-$btn-primary-solid-selected: #340071 !default;
-$btn-primary-solid-disabled: #D4BBFF !default;
-$btn-primary-outline-default: #7825E9 !default;
-$btn-primary-outline-hover: #4F00A6 !default;
-$btn-primary-outline-selected: #340071 !default;
-$btn-primary-outline-disabled: #D4BBFF !default;
+// Button colors for light theme — references SCSS vars (MUI blue palette)
+$btn-primary-solid-default: $primary !default;            // #3C98FF
+$btn-primary-solid-hover: #2E7CE0 !default;               // = colorTokens.primary[750]
+$btn-primary-solid-selected: $primary-800 !default;       // #1565c0
+$btn-primary-solid-disabled: $primary-100 !default;       // #bbdefb
+$btn-primary-outline-default: $primary !default;          // #3C98FF
+$btn-primary-outline-hover: #2E7CE0 !default;             // = colorTokens.primary[750]
+$btn-primary-outline-selected: $primary-800 !default;     // #1565c0
+$btn-primary-outline-disabled: $primary-100 !default;     // #bbdefb
 $btn-primary-transparent-default: #ffffff !default;
-$btn-primary-transparent-hover: #EBDCFF !default;
-$btn-primary-transparent-selected: #D4BBFF !default;
-$btn-primary-transparent-disabled: #EBDCFF !default;
-$btn-primary-text-default: #7825E9 !default;
-$btn-primary-text-disabled: #A875FF !default;
+$btn-primary-transparent-hover: $primary-50 !default;     // #e3f2fd
+$btn-primary-transparent-selected: $primary-100 !default; // #bbdefb
+$btn-primary-transparent-disabled: $primary-50 !default;  // #e3f2fd
+$btn-primary-text-default: $primary !default;             // #3C98FF
+$btn-primary-text-disabled: $primary-300 !default;        // #64b5f6
 $btn-primary-text-invert: #FFFFFF !default;
 
 $btn-secondary-solid-default: #2534E9 !default;

@@ -11,8 +11,8 @@ const darkStyle = {
   ...atomOneLight as any,
   hljs: {
     ...((atomOneLight as any).hljs || {}),
-    background: '#0b1220',
-    color: '#e6eef6',
+    background: 'var(--rds-code-bg, #0b1220)',
+    color: 'var(--rds-code-color, #e6eef6)',
   },
 };
 

@@ -47,7 +47,7 @@
     }
 
     .rds-e-signature--selected & {
-      border-color: var(--rds-color-primary-700, #1976d2);
+      border-color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
     }
 
     .rds-e-signature--active & {
@@ -364,7 +364,7 @@
   }
 
   &__file-row:focus-within {
-    border-color: var(--rds-color-primary-700, #1976d2);
+    border-color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
     box-shadow: 0 0 0 2px rgba(25, 118, 210, .15);
   }
 
@@ -411,7 +411,7 @@
   }
 
   &__file-button:hover:not(:disabled) {
-    background: var(--rds-color-primary-700, #1976d2);
+    background: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
   }
 
   &__file-button:disabled {
@@ -465,7 +465,7 @@
   }
 
   &__file-delete:focus-visible {
-    outline: 2px solid var(--rds-color-primary-700, #1976d2);
+    outline: 2px solid var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
     outline-offset: -2px;
   }
 
@@ -643,7 +643,7 @@
   }
 
   &__create-link {
-    color: var(--rds-color-primary-700, #1976d2);
+    color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
     font-size: var(--rds-font-size-sm, 14px);
     cursor: pointer;
     display: inline-flex;
@@ -724,7 +724,7 @@
 
     .rds-e-signature__canvas-container,
     .rds-e-signature__upload-area {
-      border-color: var(--rds-color-primary-700, #1976d2);
+      border-color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
       border-style: solid;
       box-shadow: var(--rds-shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
     }
@@ -774,50 +774,50 @@ body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-
   background: #2a2a2a !important;
 }
 body.theme-dark .rds-e-signature__file-limit {
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 body.theme-dark .rds-e-signature__upload-label {
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 body.theme-dark .rds-e-signature__upload-panel {
   background: #2a2a2a !important;
 }
 body.theme-dark .rds-e-signature__file-text {
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
   background: #4a4a4a !important;
 }
 body.theme-dark .rds-e-signature__file-row {
   background: #4a4a4a !important;
 }
 body.theme-dark .rds-e-signature__canvas-title {
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 body.theme-dark .rds-e-signature__canvas-container {
   background: #2a2a2a !important;
 }
 body.theme-dark .rds-e-signature__canvas-icon {
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 
 body.theme-dark .rds-e-signature__title {
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-grid {
   background: #2a2a2a !important;
 }
 body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
   background: #2a2a2a !important;
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
   border-color: #444 !important;
 }
 body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card,
 body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card.rds-e-signature__mini-card {
   background: #232323 !important;
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
   border-color: #444 !important;
 }
 body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-label {
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
   background: #2a2a2a !important;
 }
 body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-full-wrapper {
@@ -827,8 +827,8 @@ body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-
   background: #2a2a2a !important;
 }
 body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card--selected {
-  border-color: #1976d2 !important;
-  box-shadow: 0 0 0 1px #1976d2 !important;
+  border-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
+  box-shadow: 0 0 0 1px var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
 }
 body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card:hover:not(:disabled) {
   background: #333 !important;

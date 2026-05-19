@@ -94,7 +94,7 @@
 }
 
 .rds-header--primary {
-  background: var(--rds-color-primary, #1976d2) !important;
+  background: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
   color: var(--rds-color-on-primary, #fff) !important;
   .rds-header__title,
   .rds-header__actions,
@@ -112,8 +112,8 @@
   .MuiTab-root {
     color: var(--rds-color-on-primary, #fff);
     &.Mui-selected {
-      color: var(--rds-color-primary, #1976d2);
-      background: #fff;
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      background-color: var(--rds-background-paper, #fff);
     }
   }
 }
@@ -138,7 +138,7 @@
     color: var(--rds-color-on-secondary, #fff);
     &.Mui-selected {
       color: var(--rds-color-secondary, #9c27b0);
-      background: #fff;
+      background-color: var(--rds-background-paper, #fff);
     }
   }
 }
@@ -202,9 +202,16 @@
     height: 36px;
     display: flex;
     align-items: center;
-    transition: border-color 0.2s;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     &:focus-within {
-      border-color: var(--rds-color-primary, #1976d2);
+      border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       outline-offset: 2px;
     }
     input {
@@ -230,7 +237,7 @@
     border-bottom: none;
     .MuiTabs-indicator {
       height: 2px;
-      background: var(--rds-color-primary, #1976d2);
+      background: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       border-radius: 2px 2px 0 0;
     }
     .MuiTabs-flexContainer {
@@ -245,7 +252,7 @@
       border-radius: var(--rds-border-radius, 6px) var(--rds-border-radius, 6px) 0 0;
       border-bottom: none;
       &.Mui-selected {
-        color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
         background: var(--rds-color-surface, #fff);
         box-shadow: none;
       }

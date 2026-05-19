@@ -165,14 +165,14 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
               width: '6px',
             },
             '&::-webkit-scrollbar-track': {
-              background: '#f1f1f1',
+              background: 'var(--rds-background-default, #f1f1f1)',
             },
             '&::-webkit-scrollbar-thumb': {
-              background: '#c1c1c1',
+              background: 'var(--rds-neutral-400, #c1c1c1)',
               borderRadius: '3px',
             },
             '&::-webkit-scrollbar-thumb:hover': {
-              background: '#a8a8a8',
+              background: 'var(--rds-neutral-500, #a8a8a8)',
             },
           }}>
             {localFilters.map((filter, index) => (
@@ -192,7 +192,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                 }}
               >
                 <AccordionSummary
-                  expandIcon={<ExpandMore sx={{ color: '#666' }} />}
+                  expandIcon={<ExpandMore sx={{ color: 'var(--rds-text-secondary, #666)' }} />}
                   sx={{
                     minHeight: '48px',
                     px: 2,
@@ -206,7 +206,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                       }
                     },
                     '&:hover': {
-                      backgroundColor: '#f9f9f9',
+                      backgroundColor: 'var(--rds-action-hover, #f9f9f9)',
                     },
                     '&:after': {
                       content: '""',
@@ -215,7 +215,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                       left: '16px',
                       right: '16px',
                       height: '1px',
-                      backgroundColor: '#f0f0f0',
+                      backgroundColor: 'var(--rds-border-default, #f0f0f0)',
                       display: index === localFilters.length - 1 ? 'none' : 'block',
                     }
                   }}
@@ -232,7 +232,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                     <Typography sx={{ 
                       fontSize: '14px', 
                       fontWeight: 500,
-                      color: '#333'
+                      color: 'var(--rds-text-primary, #333)'
                     }}>
                       {filter.name}
                     </Typography>
@@ -253,9 +253,9 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                             onChange={(e) => handleFilterChange(filter.id, value, e.target.checked)}
                             size="small"
                             sx={{
-                              color: '#ccc',
+                              color: 'var(--rds-text-disabled, #ccc)',
                               '&.Mui-checked': {
-                                color: '#1976d2',
+                                color: 'var(--rds-primary-main)',
                               },
                               '& .MuiSvgIcon-root': {
                                 fontSize: 16,
@@ -266,7 +266,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                         label={
                           <Typography sx={{ 
                             fontSize: '13px',
-                            color: '#555'
+                            color: 'var(--rds-text-secondary, #555)'
                           }}>
                             {value}
                           </Typography>
@@ -291,20 +291,20 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
             flexDirection: 'column',
             gap: 1,
             flexShrink: 0,
-            backgroundColor: '#fff'
+            backgroundColor: 'var(--rds-background-paper, #fff)'
           }}>
             <Button
               variant="contained"
               fullWidth
               onClick={handleApply}
               sx={{
-                backgroundColor: '#1976d2',
-                color: 'white',
+                backgroundColor: 'var(--rds-primary-main)',
+                color: 'common.white',
                 textTransform: 'none',
                 fontWeight: 500,
                 py: 1,
                 '&:hover': {
-                  backgroundColor: '#1565c0',
+                  backgroundColor: 'var(--rds-primary-dark)',
                 }
               }}
             >
@@ -315,14 +315,14 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
               fullWidth
               onClick={handleClearAll}
               sx={(theme) => ({
-                borderColor: '#e0e0e0',
-                 color: theme.palette.mode === 'dark' ? '#fff' : '#666',
+                borderColor: 'var(--rds-border-default, #e0e0e0)',
+                 color: theme.palette.mode === 'dark' ? '#fff' : 'var(--rds-text-secondary, #666)',
                 textTransform: 'none',
                 fontWeight: 500,
                 py: 1,
                 '&:hover': {
-                   backgroundColor: theme.palette.mode === 'dark' ? '#353535' : '#f9f9f9',
-                  borderColor: '#d0d0d0',
+                   backgroundColor: theme.palette.mode === 'dark' ? '#353535' : 'var(--rds-action-hover, #f9f9f9)',
+                  borderColor: 'var(--rds-border-default, #d0d0d0)',
                 }
               })}
             >

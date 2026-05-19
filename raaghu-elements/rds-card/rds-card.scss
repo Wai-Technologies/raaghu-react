@@ -165,7 +165,14 @@
     width: 100%;
     height: 100%;
     background-color: var(--rds-color-gray-700, #646464) !important;
-    transition: var(--rds-transition-base, all 0.2s ease-in-out);
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     border-radius: 0 var(--rds-border-radius-sm, 2px) var(--rds-border-radius-sm, 2px) 0;
   }
   
@@ -279,8 +286,14 @@
   
   &--clickable {
     cursor: pointer;
-    transition: transform var(--rds-transition-base, 0.2s ease-in-out), 
-                box-shadow var(--rds-transition-base, 0.2s ease-in-out);
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     
     &:hover {
       transform: translateY(-2px);
@@ -549,7 +562,14 @@
       cursor: pointer;
       padding: var(--rds-spacing-xs, 4px);
       border-radius: var(--rds-border-radius-sm, 4px);
-      transition: background-color 0.2s ease;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       margin-bottom: 50px !important;
       
       &:hover {
@@ -558,7 +578,7 @@
       
       .MuiSvgIcon-root {
         font-size: var(--rds-font-size-lg);
-        color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       }
     }
     
@@ -583,7 +603,14 @@
         cursor: pointer;
         padding: var(--rds-spacing-xs, 4px);
         border-radius: var(--rds-border-radius-sm, 4px);
-        transition: background-color 0.2s ease;
+        
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
         
         &:hover {
           background-color: var(--rds-color-hover, rgba(0, 0, 0, 0.04));
@@ -620,7 +647,7 @@
         font-size: var(--rds-font-size-sm, 14px) !important;
         
         &.Mui-focused fieldset {
-          border-color: var(--rds-color-primary, #1976d2);
+          border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
         }
         
         .MuiInputBase-input {

@@ -48,22 +48,22 @@ export const VolumeSliderComponent: React.FC<VolumeSliderProps> = ({
           max={100}
           sx={{
             height: 120,
-            color: '#1976d2',
+            color: 'var(--rds-primary-main)',
             '& .MuiSlider-thumb': {
               width: 16,
               height: 16,
-              backgroundColor: '#1976d2',
+              backgroundColor: 'var(--rds-primary-main)',
               '&:hover': {
                 boxShadow: '0 0 0 8px rgba(25, 118, 210, 0.16)',
               },
             },
             '& .MuiSlider-track': {
               width: 4,
-              backgroundColor: '#1976d2',
+              backgroundColor: 'var(--rds-primary-main)',
             },
             '& .MuiSlider-rail': {
               width: 4,
-              backgroundColor: '#e0e0e0',
+              backgroundColor: 'var(--rds-neutral-300, #e0e0e0)',
             },
           }}
         />

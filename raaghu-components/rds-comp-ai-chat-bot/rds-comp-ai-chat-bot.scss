@@ -33,7 +33,7 @@
         padding: var(--rds-spacing-md, 10px);
          body.theme-dark &,
             [data-theme="dark"] & {
-                background-color: #2a2a2a;
+                background-color: var(--rds-background-paper, #2a2a2a);
             }
     }
 
@@ -41,7 +41,7 @@
         width: 100%;
           body.theme-dark &,
         [data-theme="dark"] & {
-            background-color: #2a2a2a;
+            background-color: var(--rds-background-paper, #2a2a2a);
         }
     }
 

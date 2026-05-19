@@ -162,11 +162,18 @@
   text-transform: none;
   padding: 6px 16px;
   border-radius: 0px !important;
-  transition: background-color 0.2s ease-in-out;
+  
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
   
   &-active {
-    color: var(--rds-text-primary,  #1976d2) !important;
-    border-bottom: 3px solid var(--rds-color-primary, #1976d2) !important;
+    color: var(--rds-text-primary,  var(--rds-primary-main, #1976d2)) !important;
+    border-bottom: 3px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
   }
   white-space: nowrap;
   min-width: auto;
@@ -589,7 +596,7 @@
 }
 
 .rds-header--primary {
-  background: var(--rds-color-primary, #1976d2) !important;
+  background: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
   color: var(--rds-color-on-primary, #fff) !important;
   .rds-header__title,
   .rds-header__actions,
@@ -607,8 +614,8 @@
   .MuiTab-root {
     color: var(--rds-color-on-primary, #fff);
     &.Mui-selected {
-      color: var(--rds-color-primary, #1976d2);
-      background: #fff;
+      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      background: var(--rds-background-paper, #fff);
     }
   }
 }
@@ -633,7 +640,7 @@
     color: var(--rds-color-on-secondary, #fff);
     &.Mui-selected {
       color: var(--rds-color-secondary, #9c27b0);
-      background: #fff;
+      background: var(--rds-background-paper, #fff);
     }
   }
 }
@@ -847,7 +854,14 @@
     height: 36px;
     display: flex;
     align-items: center;
-    transition: border-color 0.2s;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     width: 100%;
     flex-shrink: 1;
  
@@ -879,7 +893,7 @@
     }
     
     &:focus-within {
-      border-color: var(--rds-color-primary, #1976d2);
+      border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       outline-offset: 2px;
     }
     input {
@@ -937,7 +951,7 @@
     border-bottom: none;
     .MuiTabs-indicator {
       height: 2px;
-      background: var(--rds-color-primary, #1976d2);
+      background: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
       border-radius: 2px 2px 0 0;
     }
     .MuiTabs-flexContainer {
@@ -952,7 +966,7 @@
       border-radius: var(--rds-border-radius, 6px) var(--rds-border-radius, 6px) 0 0;
       border-bottom: none;
       &.Mui-selected {
-        color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
         background: var(--rds-color-surface, #fff);
         box-shadow: none;
       }
@@ -994,7 +1008,7 @@
       min-width: auto;
 
       &.MuiButton-textPrimary {
-        background-color: var(--rds-color-primary, #1976d2);
+        background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
         color: white;
         
         &:hover {
@@ -1188,13 +1202,13 @@
       }
       
       &.Mui-selected {
-        color: var(--rds-color-primary, #1976d2) !important;
+        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
       }
     }
     
     .MuiTabs-indicator {
       height: 2px !important;
-      background-color: var(--rds-color-primary, #1976d2) !important;
+      background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
     }
     
     .MuiTabs-flexContainer {
@@ -1233,7 +1247,7 @@
   margin-left: 8px;
   font-weight: 500;
   font-size: 18px;
-  color: #353535;
+  color: var(--rds-text-primary, #353535);
   white-space: nowrap;
   white-space: nowrap;
 
@@ -1299,7 +1313,7 @@
 
 [data-theme="dark"], .dark {
   --rds-appbar-bg: #181c20;
-  --rds-appbar-color: #fff;
+  --rds-appbar-color: var(--rds-neutral-0, #fff);
   --rds-appbar-shadow: rgba(0,0,0,0.5);
   --rds-appbar-separator-bg: #FFFFFF;
   --rds-appbar-secondary-bg: #7c2946;
@@ -2480,7 +2494,7 @@
   }
 
   .rds-bottom-nav-tab--active {
-    color: #1976D2 !important; 
+    color: var(--rds-primary-main) !important; 
   }
 
   .rds-appbar-badge {
@@ -2661,6 +2675,6 @@
 
 @media (max-width: 420px) {
   .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-contained {
-    color: #fff !important;
+    color: var(--rds-neutral-0, #fff) !important;
   }
 }

@@ -1,29 +1,7 @@
-:root {
-  --rds-button-primary-bg: #1976d2;
-  --rds-button-primary-bg-hover: #1565c0;
-  --rds-button-primary-bg-active: #0d47a1;
-  --rds-button-primary-bg-disabled: #e0e0e0;
-  --rds-button-primary-text: #ffffff;
-  --rds-button-primary-text-disabled: #9e9e9e;
-  
-  --rds-button-secondary-bg: transparent;
-  --rds-button-secondary-bg-hover: rgba(25, 118, 210, 0.04);
-  --rds-button-secondary-bg-active: rgba(25, 118, 210, 0.12);
-  --rds-button-secondary-bg-disabled: transparent;
-  --rds-button-secondary-border: #1976d2;
-  --rds-button-secondary-border-hover: #1565c0;
-  --rds-button-secondary-border-active: #0d47a1;
-  --rds-button-secondary-border-disabled: #e0e0e0;
-  --rds-button-secondary-text: #1976d2;
-  --rds-button-secondary-text-active: #0d47a1;
-  --rds-button-secondary-text-disabled: #9e9e9e;
-  
-  --rds-button-text-color: #1976d2;
-  --rds-button-text-color-active: #0d47a1;
-  --rds-button-text-color-disabled: #9e9e9e;
-  --rds-button-text-bg-hover: rgba(25, 118, 210, 0.04);
-  --rds-button-text-bg-active: rgba(25, 118, 210, 0.12);
-}
+// rds-button.scss — All color/spacing values consumed via CSS custom properties
+// defined globally in raaghu-react-themes/src/styles/custom-properties.scss.
+// Do NOT redefine :root variables here; component-level :root overrides
+// would silently override the centralized theme.
 
 .rds-button {
   display: inline-flex;
@@ -41,8 +19,8 @@
   transition: all var(--rds-transition-base);
   outline: none;
   border: none;
-  min-height: 36px;
-  max-width: 220px;
+  min-height: var(--rds-spacing-xl);
+  max-width: var(--rds-spacing-3xl);
   width: auto;
   white-space: nowrap;
   
@@ -121,13 +99,13 @@
     &:hover {
       background-color: var(--rds-button-primary-bg-hover) !important;
       transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+      box-shadow: var(--rds-elevation-2);
     }
   }
 
   &__state-selected {
     background-color: var(--rds-button-primary-bg-active) !important;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--rds-elevation-1);
 
     &:hover {
       background-color: var(--rds-button-primary-bg-active) !important;
@@ -155,7 +133,7 @@
     &:hover {
       background-color: var(--rds-button-primary-bg-disabled) !important;
       transform: none !important;
-      box-shadow: none !important;
+      box-shadow: var(--rds-elevation-0) !important;
     }
 
     &.MuiButton-outlined {
@@ -188,5 +166,5 @@
 body.theme-dark .rds-button__primary,
 body[data-theme="dark"] .rds-button__primary,
 .theme-dark .rds-button__primary {
-  color: var(--rds-button-primary-text, #ffffff);
+  color: var(--rds-button-primary-text);
 }

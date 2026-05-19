@@ -7,8 +7,8 @@
   justify-content: center;
   
   & .MuiBadge-badge {
-    background-color: #1976d2 !important;
-    color: #ffffff !important;
+    background-color: var(--rds-primary-main) !important;
+    color: var(--rds-neutral-0, #ffffff) !important;
     font-weight: 500 !important;
     font-size: 0.75rem !important;
     min-width: 20px !important;
@@ -35,8 +35,8 @@
     top: 0;
     transform: none;
     margin: 0 auto;
-    background: #e0c7ff;
-    color: #6c2eb7;
+    background: var(--rds-primary-100, #e3f2fd);
+    color: var(--rds-primary-800, #1565c0);
     font-family: 'Poppins', Arial, sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -52,36 +52,36 @@
     border-radius: 16px;
   }
   &--primary > .rds-badge__badge {
-    background: #e0c7ff;
-    color: #6c2eb7;
+    background: var(--rds-primary-100, #e3f2fd);
+    color: var(--rds-primary-800, #1565c0);
     border: none;
   }
   &--primary .MuiBadge-badge {
-    background-color: #6c2eb7 !important;
-    color: #ffffff !important;
+    background-color: var(--rds-primary-main) !important;
+    color: var(--rds-neutral-0, #ffffff) !important;
   }
   
   &--outline > .rds-badge__badge {
     background: transparent;
-    color: #6c2eb7;
-    border: 2px solid #6c2eb7;
+    color: var(--rds-primary-main);
+    border: 2px solid var(--rds-primary-main);
     box-shadow: none;
   }
   &--outline .MuiBadge-badge {
     background-color: transparent !important;
-    color: #6c2eb7 !important;
-    border: 2px solid #6c2eb7 !important;
+    color: var(--rds-primary-main) !important;
+    border: 2px solid var(--rds-primary-main) !important;
   }
   
   &--transparent > .rds-badge__badge {
     background: transparent !important;
-    color: #6c2eb7;
+    color: var(--rds-primary-main);
     border: none !important;
     box-shadow: none !important;
   }
   &--transparent .MuiBadge-badge {
     background-color: transparent !important;
-    color: #6c2eb7 !important;
+    color: var(--rds-primary-main) !important;
     border: none !important;
     box-shadow: none !important;
   }
@@ -94,7 +94,7 @@
   }
 
   $rds-badge-colors: (
-    primary: (#6c2eb7 #e0c7ff),
+    primary: (var(--rds-primary-800, #1565c0) var(--rds-primary-100, #e3f2fd)),
     secondary: (#1e88e5 #bbdefb),
     tertiary: (#6d4c41 #d7ccc8),
     danger: (#d32f2f #ffcdd2),
@@ -112,7 +112,7 @@
     
     &.rds-badge--primary.rds-badge--#{$key} .MuiBadge-badge {
       background-color: list.nth($value, 1) !important;
-      color: #ffffff !important;
+      color: var(--rds-neutral-0, #ffffff) !important;
     }
 
     &.rds-badge--outline.rds-badge--#{$key} > .rds-badge__badge {
@@ -149,8 +149,8 @@
     border-radius: 16px !important;
   }
   &--disabled > .rds-badge__badge {
-    background: #f3f3f3 !important;
-    color: #bdbdbd !important;
+    background: var(--rds-neutral-100, #f3f3f3) !important;
+    color: var(--rds-neutral-400, #bdbdbd) !important;
     border: none !important;
     box-shadow: none !important;
     cursor: not-allowed !important;
@@ -159,8 +159,8 @@
     transition: none;
   }
   &--disabled .MuiBadge-badge {
-    background-color: #f3f3f3 !important;
-    color: #bdbdbd !important;
+    background-color: var(--rds-neutral-100, #f3f3f3) !important;
+    color: var(--rds-neutral-400, #bdbdbd) !important;
     border: none !important;
     box-shadow: none !important;
     cursor: not-allowed !important;
@@ -315,8 +315,8 @@
   
   &__badge {
     position: static;
-    background: #e0c7ff;
-    color: #6c2eb7;
+    background: var(--rds-primary-100, #e3f2fd);
+    color: var(--rds-primary-800, #1565c0);
     border-radius: 16px;
     font-weight: 600;
     box-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);

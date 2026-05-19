@@ -39,7 +39,7 @@
     z-index: 0;
     pointer-events: none;
     background: transparent;
-    border-color: var(--rds-color-primary, #7c3aed);
+    border-color: var(--rds-color-primary, var(--rds-primary-main, #7c3aed));
   }
 
 &__dot {
@@ -50,9 +50,16 @@
   border-radius: 50%;
   z-index: 2;
   box-shadow: 0 0 0 2px var(--rds-background-paper, #f4f6fa);
-  transition: background 0.2s;
+  
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
   right: calc(-2px * var(--dot-scale, 1));
-  background: var(--rds-color-primary, #7c3aed);
+  background: var(--rds-color-primary, var(--rds-primary-main, #7c3aed));
 
   &--top {
     top: calc(2px * var(--dot-scale, 1));
@@ -139,7 +146,14 @@
       border-radius: 50%;
       z-index: 2;
       box-shadow: 0 0 0 2px var(--rds-background-paper, #f4f6fa);
-      transition: background 0.2s;
+      
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
       right: calc(-4px * var(--dot-scale, 1));
     }
 
@@ -187,16 +201,23 @@
 
   &__stacking-avatar {
     box-shadow: 0 0 0 2px #fff;
-    transition: box-shadow 0.2s;
+    
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
     position: absolute;
     top: 0;
     background: var(--rds-background-paper, #f4f6fa);
   }
 
   &--primary {
-    .rds-avatar__ring { border-color: var(--rds-color-primary, #7c3aed); }
-    .rds-avatar__dot { background: var(--rds-color-primary, #7c3aed); }
-    .MuiAvatar-root { background-color: var(--rds-color-primary, #7c3aed) !important; }
+    .rds-avatar__ring { border-color: var(--rds-color-primary, var(--rds-primary-main, #7c3aed)); }
+    .rds-avatar__dot { background: var(--rds-color-primary, var(--rds-primary-main, #7c3aed)); }
+    .MuiAvatar-root { background-color: var(--rds-color-primary, var(--rds-primary-main, #7c3aed)) !important; }
   }
   &--secondary {
     .rds-avatar__ring { border-color: var(--rds-color-secondary, #a21caf); }
@@ -226,7 +247,7 @@
   &--light {
     .rds-avatar__ring { border-color: var(--rds-color-light, #e0e0e0); }
     .rds-avatar__dot { background: var(--rds-color-light, #e0e0e0); }
-    .MuiAvatar-root { background-color: var(--rds-color-light, #e0e0e0) !important; color: #333 !important; }
+    .MuiAvatar-root { background-color: var(--rds-neutral-300, #e0e0e0) !important; color: var(--rds-text-primary, #333) !important; }
   }
   &--dark {
     .rds-avatar__ring { border-color: var(--rds-color-dark, #22223b); }
@@ -245,8 +266,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: #ccc;
-  color: #fff;
+  background-color: var(--rds-neutral-300, #ccc);
+  color: var(--rds-neutral-0, #fff);
   font-weight: bold;
   z-index: 1;
 }
@@ -288,5 +309,5 @@ html.theme-dark .rds-avatar .MuiAvatar-root,
 }
  
 .theme-light #avatarname {
-  color: #22223b !important;
+  color: var(--rds-text-primary, #22223b) !important;
 }

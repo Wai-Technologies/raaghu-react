@@ -3,7 +3,7 @@
   &__list {
     min-width: 180px;
     padding: 6px 0;
-    background: #fff;
+    background: var(--rds-background-paper, #fff);
     box-shadow: 0 4px 16px rgba(0,0,0,0.10);
     border-radius: 10px;
     display: flex;
@@ -18,25 +18,25 @@
     font-size: 1rem;
     min-height: 40px;
     cursor: pointer;
-    transition: background 0.18s, color 0.18s;
+    transition: background var(--rds-transition-fast, 0.18s), color var(--rds-transition-fast, 0.18s);
     border: none;
     background: none;
     width: 100%;
     text-align: left;
-    color: #222;
+    color: var(--rds-text-primary, #222);
     box-sizing: border-box;
     outline: none;
     position: relative;
     &:hover:not(:disabled), &:focus-visible:not(:disabled) {
-      background: #f0f4fa;
-      color: #1976d2;
+      background: var(--rds-action-hover, #f0f4fa);
+      color: var(--rds-primary-main);
     }
     &:focus-visible {
-      box-shadow: 0 0 0 2px #1976d2 inset;
+      box-shadow: 0 0 0 2px var(--rds-primary-main) inset;
       z-index: 1;
     }
     &--disabled {
-      color: #bbb;
+      color: var(--rds-text-disabled, #bbb);
       cursor: not-allowed;
       background: none;
     }
@@ -55,7 +55,7 @@
     }
     &__shortcut {
       margin-left: 16px;
-      color: #888;
+      color: var(--rds-text-secondary, #888);
       font-size: 0.92em;
       letter-spacing: 0.5px;
       font-family: var(--rds-font-family-base, Poppins);
@@ -113,17 +113,17 @@
   &__header {
     font-weight: 600;
     font-size: 0.98em;
-    color: #555;
+    color: var(--rds-text-secondary, #555);
     padding: 8px 16px 4px 16px;
     margin-bottom: 2px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    background: #f7f7fa;
+    background: var(--rds-background-default, #f7f7fa);
     border-bottom: 1px solid #eee;
   }
   &__divider {
     height: 1px;
-    background: #e0e0e0;
+    background: var(--rds-neutral-300, #e0e0e0);
     margin: 4px 0;
     border: none;
   }
@@ -154,7 +154,7 @@
   }
 
   .rds-menu__item {
-    color: #ffffff;
+    color: var(--rds-neutral-0, #fff);
   }
  
   .rds-menu__item.rds-menu__item--disabled {
@@ -172,13 +172,13 @@
   
   .rds-menu__item:hover:not(:disabled),
   .rds-menu__item:focus-visible:not(:disabled) {
-    background: #666;
-    color: #ffffff;
+    background: var(--rds-action-active, #666);
+    color: var(--rds-neutral-0, #ffffff);
   }
 
   .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) svg,
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) svg {
-    color: #ffffff;
+    color: var(--rds-neutral-0, #fff);
     fill: #ffffff;
   }
 
@@ -200,6 +200,6 @@
   }
 
   .rds-menu__item__shortcut {
-    color: #cccccc;
+    color: var(--rds-text-disabled, #cccccc);
   }
 }

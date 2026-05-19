@@ -14,7 +14,7 @@
 [data-theme="dark"] {
   .rds-stepper {
     .MuiStepLabel-iconContainer .MuiStepIcon-root .MuiStepIcon-text {
-      color: #fff !important;
+      color: var(--rds-neutral-0, #fff) !important;
       fill: #fff !important;
     }
     

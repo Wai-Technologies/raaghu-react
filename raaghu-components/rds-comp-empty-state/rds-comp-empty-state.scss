@@ -3,7 +3,7 @@
 [data-theme="dark"] .rds-comp-empty-state__subtitle,
 body.dark .rds-comp-empty-state__title,
 body.dark .rds-comp-empty-state__subtitle {
-  color: #fff !important;
+  color: var(--rds-neutral-0, #fff) !important;
 }
 
 [data-theme="dark"] .rds-comp-empty-state,

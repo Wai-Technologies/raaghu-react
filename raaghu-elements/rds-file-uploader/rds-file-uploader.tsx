@@ -109,7 +109,7 @@ const RdsFileUploader = ({
         <Box className={`rds-file-uploader rds-file-uploader--mode-${mode}`}>
           {showTitle && (
             <Typography className="rds-file-uploader__form-title" variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
-              {title || 'File Upload'}{isMandatory && <span style={{ color: 'red' }}> *</span>}
+              {title || 'File Upload'}{isMandatory && <span style={{ color: 'var(--rds-error-main)' }}> *</span>}
             </Typography>
           )}
 

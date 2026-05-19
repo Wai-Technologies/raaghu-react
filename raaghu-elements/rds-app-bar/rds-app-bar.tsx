@@ -175,7 +175,7 @@ const RdsAppBar = ({
                 email={userEmail}
                 menuItems={[
                   { label: 'My Profile', icon: <Person />},
-                  { label: 'Logout', icon: <LogoutIcon />, sx: { color: 'red' } },
+                  { label: 'Logout', icon: <LogoutIcon />, sx: { color: 'var(--rds-error-main)' } },
                 ]}
               />
             </span>
@@ -237,8 +237,8 @@ const RdsAppBar = ({
                     color="primary" 
                     sx={{ 
                       minWidth: 'auto', 
-                      fontWeight: 500, 
-                      fontSize: 12, 
+                      fontWeight: 500,
+                      fontSize: 'var(--rds-font-size-sm, 12px)',
                       boxShadow: 'none', 
                       textTransform: 'none',
                       padding: '4px 8px'
@@ -263,8 +263,8 @@ const RdsAppBar = ({
                     display: 'flex',
                     justifyContent: 'space-around',
                     alignItems: 'center',
-                    zIndex: 1000,
-                    borderTop: '1px solid var(--rds-color-border, #e0e0e0)',
+                    zIndex: 'var(--rds-z-index-dropdown, 1000)',
+                    borderTop: '1px solid var(--rds-border-default, #e0e0e0)',
                     boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
                   }}
                 >
@@ -300,8 +300,8 @@ const RdsAppBar = ({
                       display: 'flex',
                       justifyContent: 'space-around',
                       alignItems: 'center',
-                      zIndex: 1000,
-                      borderTop: '1px solid var(--rds-color-border, #e0e0e0)',
+                      zIndex: 'var(--rds-z-index-dropdown, 1000)',
+                      borderTop: '1px solid var(--rds-border-default, #e0e0e0)',
                       boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)'
                     }}
                   >

@@ -28,7 +28,14 @@
   min-width: 220px;
   padding: 8px 16px;
   margin: 0;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  
+        param($m)
+        $prop = $m.Groups[1].Value
+        $dur = $m.Groups[2].Value
+        $rest = $m.Groups[3].Value
+        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
+        "transition: ${prop}var($var, $dur$rest);"
+    
   color: var(--rds-text-primary, #101828);
   background: transparent;
 }
@@ -130,7 +137,7 @@
 
 .dark-theme .rds-mlm-paper .rds-mlm-arrow,
 [data-theme="dark"] .rds-mlm-paper .rds-mlm-arrow {
-  color: #fff;
+  color: var(--rds-neutral-0, #fff);
 }
 .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-arrow,
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-arrow {

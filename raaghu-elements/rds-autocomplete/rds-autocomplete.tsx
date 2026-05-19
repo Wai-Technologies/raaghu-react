@@ -85,7 +85,7 @@ const RdsAutocomplete = <T extends { label?: string },>({
             <Typography
               component="span"
               className="rds-autocomplete__asterisk"
-              sx={{ color: 'red', ml: '3px', fontSize: 'inherit', fontWeight: 700 }}
+              sx={{ color: 'var(--rds-error-main)', ml: '3px', fontSize: 'inherit', fontWeight: 700 }}
             />
           )}
         </label>

@@ -48,14 +48,14 @@
   [data-theme="dark"] & {
     .MuiInputAdornment-root,
     .MuiInputAdornment-root * {
-      color: #ffffff !important;
+      color: var(--rds-neutral-0, #fff) !important;
       fill: #ffffff !important;
       stroke: #ffffff !important;
     }
 
     .rds-text-field .MuiInputAdornment-root,
     .rds-text-field .MuiInputAdornment-root * {
-      color: #ffffff !important;
+      color: var(--rds-neutral-0, #fff) !important;
       fill: #ffffff !important;
       stroke: #ffffff !important;
     }
@@ -63,11 +63,11 @@
     input[type="password"]::-webkit-textfield-decoration-button,
     input[type="password"]::-webkit-textfield-decoration-container {
       filter: invert(100%) !important;
-      color: #ffffff !important;
+      color: var(--rds-neutral-0, #fff) !important;
     }
 
     input[type="password"]::-ms-reveal {
-      color: #ffffff !important;
+      color: var(--rds-neutral-0, #fff) !important;
       filter: invert(100%) !important;
     }
   }
