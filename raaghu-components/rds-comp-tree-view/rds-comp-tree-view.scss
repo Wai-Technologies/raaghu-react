@@ -1,0 +1,146 @@
+@use '../../raaghu-react-themes/src/styles/variables/color-variables' as theme;
+
+.rds-comp-tree-view {
+  display: block;
+  padding: var(--rds-spacing-sm, 8px);
+  border-radius: var(--rds-border-radius-sm, 4px);
+
+  &__label {
+    font-size: var(--rds-font-size-base, 14px);
+    color: var(--rds-text-primary, #{theme.$dark});
+    padding: 4px 6px;
+    line-height: 20px;
+  }
+
+  &__row {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__chev {
+    background: transparent;
+    border: none;
+    padding: 2px 6px;
+    font-size: 12px;
+    cursor: pointer;
+    color: var(--rds-text-secondary, #{theme.$dark-400});
+  }
+
+  &__checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1.5px solid var(--rds-border-default, #{theme.$gray-300});
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+
+    &.is-checked {
+      background: var(--rds-primary-main, #{theme.$primary});
+      border-color: var(--rds-primary-main, #{theme.$primary});
+
+      &::after {
+        content: '✓';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1;
+        width: 100%;
+        height: 100%;
+        text-shadow: none;
+      }
+    }
+  }
+
+  &__icon {
+    width: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__native {
+    margin-top: 8px;
+  }
+
+  &__fallback {
+    list-style: none;
+    padding-left: var(--rds-spacing-sm, 8px);
+
+    &-item {
+      padding: 4px 6px;
+      color: var(--rds-text-primary, #{theme.$dark});
+      position: relative;
+      min-height: 28px;
+
+      .rds-comp-tree-view__label {
+        font-size: var(--rds-font-size-base, 14px);
+      }
+    }
+  }
+
+  &--small { font-size: var(--rds-font-size-sm, 12px); }
+  &--medium { font-size: var(--rds-font-size-base, 14px); }
+  &--large { font-size: var(--rds-font-size-lg, 16px); }
+
+  // Variant surface when placed on light surface
+  background-color: transparent;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: theme.$dark-200;
+    color: theme.$white;
+  }
+
+  [data-theme="dark"] & {
+    background-color: theme.$dark-200;
+    color: theme.$white;
+  }
+
+  &--lines {
+    // vertical connector for parent -> children
+    .rds-comp-tree-view__fallback-item.has-children::before {
+      content: '';
+      position: absolute;
+      left: 14px; /* leave space for chevron */
+      top: 12px; /* start below chevron */
+      bottom: 0;
+      width: 1px; /* thinner line */
+      background: var(--rds-line-color, #{theme.$black});
+      opacity: 1;
+      border-radius: 1px;
+      z-index: 1;
+    }
+
+    /* horizontal connectors removed to avoid lines between files */
+
+    /* Ensure chev, icon and label sit above connector lines */
+    .rds-comp-tree-view__chev,
+    .rds-comp-tree-view__icon,
+    .rds-comp-tree-view__label {
+      position: relative;
+      z-index: 2;
+      background: var(--rds-background-surface, #{theme.$light});
+    }
+
+    /* Checkbox: surface bg when unchecked, primary bg when checked */
+    .rds-comp-tree-view__checkbox {
+      position: relative;
+      z-index: 2;
+      background: var(--rds-background-surface, #{theme.$light});
+
+      &.is-checked {
+        background: var(--rds-primary-main, #{theme.$primary}) !important;
+        border-color: var(--rds-primary-main, #{theme.$primary}) !important;
+      }
+    }
+  }
+}
