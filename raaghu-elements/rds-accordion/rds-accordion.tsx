@@ -4,12 +4,14 @@ import {
   AccordionSummary as MuiAccordionSummary,
   AccordionDetails as MuiAccordionDetails,
   type AccordionProps,
-  Typography
+  Typography,
+  Slide
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import clsx from 'clsx';
 import './rds-accordion.scss';
+import RdsTransition from '../rds-transition/rds-transition';
 
 export interface RdsAccordionProps extends Omit<AccordionProps, 'children'> {
   ShowLeftIcon?: boolean;
@@ -33,18 +35,31 @@ const RdsAccordion = ({
   size = 'medium',
   state = 'default',
   accordionStyle = 'border',
-  ...props
+  TransitionComponent: providedTransitionComponent,
+  TransitionProps: providedTransitionProps,
+  ...propsRest
 }: RdsAccordionProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const isDisabled = props.disabled;
+  const isDisabled = propsRest.disabled;
+
+  // Determine the final TransitionComponent and TransitionProps
+  // Default to using Slide if direction is specified, since Collapse doesn't support direction
+  let finalTransitionComponent = providedTransitionComponent;
+  let finalTransitionProps = providedTransitionProps;
+
+  const hasDirection = providedTransitionProps && (providedTransitionProps as any).direction;
+  if (hasDirection && !finalTransitionComponent) {
+    // If direction is passed without TransitionComponent, use Slide to honor the direction prop
+    finalTransitionComponent = Slide as any;
+  }
 
   const accordionProps: any = {
-    ...props,
+    ...propsRest,
     className: clsx(
       'rds-accordion',
       size && `rds-accordion--${size}`,
       accordionStyle && `rds-accordion--${accordionStyle}`,
-      (props.expanded ?? defaultExpanded) && 'rds-accordion--expanded',
+      (propsRest.expanded ?? defaultExpanded) && 'rds-accordion--expanded',
       state === 'selected' && 'rds-accordion--selected',
       state === 'hover' && isHovered && 'rds-accordion--hover',
       isDisabled && 'rds-accordion--disabled',
@@ -52,10 +67,21 @@ const RdsAccordion = ({
     onMouseEnter: () => setIsHovered(true),
     onMouseLeave: () => setIsHovered(false),
   };
-  if (typeof props.expanded === 'boolean') {
-    accordionProps.expanded = props.expanded;
+  
+  if (typeof propsRest.expanded === 'boolean') {
+    accordionProps.expanded = propsRest.expanded;
   } else {
     accordionProps.defaultExpanded = defaultExpanded;
+  }
+
+  // Always set TransitionComponent and TransitionProps explicitly
+  // This ensures they are not lost in the spread operation
+  if (finalTransitionComponent) {
+    accordionProps.TransitionComponent = finalTransitionComponent;
+  }
+
+  if (finalTransitionProps) {
+    accordionProps.TransitionProps = finalTransitionProps;
   }
 
   return (

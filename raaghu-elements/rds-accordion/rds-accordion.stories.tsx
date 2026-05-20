@@ -302,3 +302,102 @@ export const LongContent: Story = {
     );
   },
 };
+
+export const SlideDirections: Story = {
+  args: {
+    title: 'Slide Animation Test',
+    defaultExpanded: false,
+    accordionStyle: 'border',
+    ShowLeftIcon: true,
+    state: 'default',
+    changeleftIcon: null,
+    children: (
+      <RdsTypography color="text.secondary">
+        This accordion expands with a slide animation. Try expanding and collapsing to see the transition effect in different directions.
+      </RdsTypography>
+    ),
+  },
+  render: ({ title, size, defaultExpanded, accordionStyle, ShowLeftIcon, changeleftIcon, children, disabled, state }) => {
+    const [expanded, setExpanded] = useState(defaultExpanded);
+
+    React.useEffect(() => {
+      setExpanded(defaultExpanded);
+    }, [defaultExpanded]);
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div>
+          <h4 style={{ marginTop: 0 }}>Slide Left</h4>
+          <RdsAccordion
+            title={title}
+            size={size}
+            accordionStyle={accordionStyle}
+            ShowLeftIcon={ShowLeftIcon}
+            disabled={disabled}
+            state={state}
+            expanded={expanded}
+            onChange={(_, isExpanded) => setExpanded(isExpanded)}
+            changeleftIcon={changeleftIcon}
+            TransitionProps={{ direction: 'left' }}
+          >
+            {children}
+          </RdsAccordion>
+        </div>
+
+        <div>
+          <h4>Slide Right</h4>
+          <RdsAccordion
+            title={title}
+            size={size}
+            accordionStyle={accordionStyle}
+            ShowLeftIcon={ShowLeftIcon}
+            disabled={disabled}
+            state={state}
+            expanded={expanded}
+            onChange={(_, isExpanded) => setExpanded(isExpanded)}
+            changeleftIcon={changeleftIcon}
+            TransitionProps={{ direction: 'right' }}
+          >
+            {children}
+          </RdsAccordion>
+        </div>
+
+        <div>
+          <h4>Slide Up</h4>
+          <RdsAccordion
+            title={title}
+            size={size}
+            accordionStyle={accordionStyle}
+            ShowLeftIcon={ShowLeftIcon}
+            disabled={disabled}
+            state={state}
+            expanded={expanded}
+            onChange={(_, isExpanded) => setExpanded(isExpanded)}
+            changeleftIcon={changeleftIcon}
+            TransitionProps={{ direction: 'up' }}
+          >
+            {children}
+          </RdsAccordion>
+        </div>
+
+        <div>
+          <h4>Slide Down (Default)</h4>
+          <RdsAccordion
+            title={title}
+            size={size}
+            accordionStyle={accordionStyle}
+            ShowLeftIcon={ShowLeftIcon}
+            disabled={disabled}
+            state={state}
+            expanded={expanded}
+            onChange={(_, isExpanded) => setExpanded(isExpanded)}
+            changeleftIcon={changeleftIcon}
+            TransitionProps={{ direction: 'down' }}
+          >
+            {children}
+          </RdsAccordion>
+        </div>
+      </div>
+    );
+  },
+};
