@@ -1,7 +1,18 @@
 import React, { useState, useCallback } from 'react';
 import { TreeView, TreeItem, TreeViewProps } from '@mui/lab';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+// styles
+// Small arrow SVGs matching design (thin chevrons)
+const ArrowRight: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden focusable="false" {...props}>
+    <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const ArrowDown: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden focusable="false" {...props}>
+    <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
 import './rds-comp-tree-view.scss';
 
 export interface RdsTreeNode {
@@ -41,7 +52,7 @@ const renderNodes = (nodes: RdsTreeNode[]) =>
     </TreeItem>
   ));
 
-// removed static native renderer — a dynamic native renderer is created inside the component
+// native fallback renderer is created inside the component
 
 const RdsCompTreeView = React.forwardRef<HTMLDivElement, RdsCompTreeViewProps>(
   (
@@ -95,8 +106,8 @@ const RdsCompTreeView = React.forwardRef<HTMLDivElement, RdsCompTreeViewProps>(
           expanded={expanded}
           selected={selected as any}
           defaultExpanded={defaultExpanded}
-          defaultCollapseIcon={<ExpandMoreIcon />}
-          defaultExpandIcon={<ChevronRightIcon />}
+          defaultCollapseIcon={<ArrowDown className="rds-comp-tree-view__mui-icon" />}
+          defaultExpandIcon={<ArrowRight className="rds-comp-tree-view__mui-icon" />}
           onNodeToggle={handleNodeToggle}
           onNodeSelect={handleNodeSelect}
           {...props}
@@ -144,11 +155,11 @@ const RdsCompTreeView = React.forwardRef<HTMLDivElement, RdsCompTreeViewProps>(
                   const hasChildren = !!(n.children && n.children.length > 0);
                   const expandedNow = Array.isArray(expanded) && expanded.includes(n.id);
                   return (
-                    <li key={n.id} className={`rds-comp-tree-view__fallback-item ${hasChildren ? 'has-children' : 'is-leaf'} ${expandedNow ? 'is-expanded' : ''}`} role="treeitem" aria-expanded={hasChildren ? expandedNow : undefined} style={{ paddingLeft: `${level * 16}px` }}>
+                    <li key={n.id} className={`rds-comp-tree-view__fallback-item ${hasChildren ? 'has-children' : 'is-leaf'} ${expandedNow ? 'is-expanded' : ''} rds-comp-tree-view__fallback-item--lvl-${level}`} role="treeitem" aria-expanded={hasChildren ? expandedNow : undefined}>
                       <div className="rds-comp-tree-view__row">
                         {hasChildren ? (
                           <button type="button" className="rds-comp-tree-view__chev" aria-label={expandedNow ? 'Collapse' : 'Expand'} onClick={() => toggleExpand(n.id)}>
-                            {expandedNow ? '▾' : '▸'}
+                            {expandedNow ? <ArrowDown /> : <ArrowRight />}
                           </button>
                         ) : (
                           <span className="rds-comp-tree-view__chev" />

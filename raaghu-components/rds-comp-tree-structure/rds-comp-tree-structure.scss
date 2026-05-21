@@ -42,6 +42,15 @@
   &__node-children {
     margin-left: var(--rds-spacing-lg, 20px);
   }
+
+  // Level-based indentation classes (avoid inline styles)
+  &__node--lvl-0 { margin-left: 0; }
+  &__node--lvl-1 { margin-left: 20px; }
+  &__node--lvl-2 { margin-left: 40px; }
+  &__node--lvl-3 { margin-left: 60px; }
+  &__node--lvl-4 { margin-left: 80px; }
+  &__node--lvl-5 { margin-left: 100px; }
+  &__node--lvl-6 { margin-left: 120px; }
   
   // Chevron icon
   &__chevron {

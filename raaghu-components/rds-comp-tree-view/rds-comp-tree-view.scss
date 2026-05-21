@@ -21,10 +21,24 @@
   &__chev {
     background: transparent;
     border: none;
-    padding: 2px 6px;
-    font-size: 12px;
+    padding: 0;
+    font-size: 16px;
     cursor: pointer;
     color: var(--rds-text-secondary, #{theme.$dark-400});
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    line-height: 1;
+
+    svg {
+      width: 12px;
+      height: 12px;
+      display: block;
+    }
   }
 
   &__checkbox {
@@ -63,9 +77,32 @@
 
   &__icon {
     width: 20px;
+    height: 20px;
+    min-width: 20px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    line-height: 1;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+  }
+
+  /* Increase sizes for MUI TreeView icons (Expand/Collapse icons) */
+  .rds-comp-tree-view .MuiTreeItem-iconContainer {
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rds-comp-tree-view .MuiTreeItem-iconContainer svg {
+    width: 18px;
+    height: 18px;
   }
 
   &__native {
@@ -84,6 +121,12 @@
 
       .rds-comp-tree-view__label {
         font-size: var(--rds-font-size-base, 14px);
+      }
+    }
+    // Level-based indentation classes (avoid inline styles)
+    @for $i from 0 through 6 {
+      &-item--lvl-#{$i} {
+        padding-left: #{($i * 16)}px;
       }
     }
   }
@@ -107,7 +150,7 @@
 
   &--lines {
     // vertical connector for parent -> children
-    .rds-comp-tree-view__fallback-item.has-children::before {
+    .rds-comp-tree-view__fallback-item.has-children.is-expanded::before {
       content: '';
       position: absolute;
       left: 14px; /* leave space for chevron */
@@ -129,6 +172,16 @@
       position: relative;
       z-index: 2;
       background: var(--rds-background-surface, #{theme.$light});
+
+      @media (prefers-color-scheme: dark) {
+        background: #{theme.$dark-200};
+        color: #{theme.$white};
+      }
+
+      [data-theme="dark"] & {
+        background: #{theme.$dark-200};
+        color: #{theme.$white};
+      }
     }
 
     /* Checkbox: surface bg when unchecked, primary bg when checked */
@@ -136,6 +189,14 @@
       position: relative;
       z-index: 2;
       background: var(--rds-background-surface, #{theme.$light});
+
+      @media (prefers-color-scheme: dark) {
+        background: #{theme.$dark-200};
+      }
+
+      [data-theme="dark"] & {
+        background: #{theme.$dark-200};
+      }
 
       &.is-checked {
         background: var(--rds-primary-main, #{theme.$primary}) !important;
