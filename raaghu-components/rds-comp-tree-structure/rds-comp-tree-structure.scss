@@ -104,7 +104,7 @@
   // Node text
   &__text {
     margin-left: var(--rds-spacing-xs, 2px);
-    color: var(--rds-color-on-surface, #212121);
+    color: var(--rds-text-primary, #212121);
   }
   
   // Action buttons
@@ -162,15 +162,33 @@
   }
 }
 
-// Dark theme support
-.theme-dark .rds-comp-tree-structure {
-  &__text {
-    color: var(--rds-color-on-surface-dark, #fffdfd);
+// Dark theme support: prefer system + explicit data-theme
+@media (prefers-color-scheme: dark) {
+  .rds-comp-tree-structure {
+    &__text { color: var(--rds-text-primary, #ffffff); }
+
+    &__node {
+      &:hover {
+        background-color: var(--rds-color-primary-hover-dark, rgba(126, 46, 239, 0.12));
+      }
+    }
+
+    &__icon--folder,
+    &__icon--folder .MuiSvgIcon-root,
+    &__icon--folder svg,
+    &__icon--folder svg * {
+      color: var(--rds-color-warning, #FFB300) !important;
+      fill: var(--rds-color-warning, #FFB300) !important;
+    }
   }
-  
+}
+
+[data-theme="dark"] .rds-comp-tree-structure {
+  &__text { color: var(--rds-text-primary, #ffffff); }
+
   &__node {
     &:hover {
-      background-color: var(--rds-color-primary-hover-dark, rgba(126, 46, 239, 0.2));
+      background-color: var(--rds-color-primary-hover-dark, rgba(126, 46, 239, 0.12));
     }
   }
 

@@ -148,6 +148,25 @@
     color: theme.$white;
   }
 
+  // Ensure labels use theme text color in dark mode (explicit overrides)
+  @media (prefers-color-scheme: dark) {
+    .rds-comp-tree-view__label {
+      color: var(--rds-text-primary, #{theme.$white}) !important;
+    }
+
+    .rds-comp-tree-view__fallback-item .rds-comp-tree-view__label {
+      color: var(--rds-text-primary, #{theme.$white}) !important;
+    }
+  }
+
+  [data-theme="dark"] .rds-comp-tree-view__label {
+    color: var(--rds-text-primary, #{theme.$white}) !important;
+  }
+
+  [data-theme="dark"] .rds-comp-tree-view__fallback-item .rds-comp-tree-view__label {
+    color: var(--rds-text-primary, #{theme.$white}) !important;
+  }
+
   &--lines {
     // vertical connector for parent -> children
     .rds-comp-tree-view__fallback-item.has-children.is-expanded::before {
@@ -157,7 +176,7 @@
       top: 12px; /* start below chevron */
       bottom: 0;
       width: 1px; /* thinner line */
-      background: var(--rds-line-color, #{theme.$black});
+      background: var(--rds-border-default, #{theme.$gray-300});
       opacity: 1;
       border-radius: 1px;
       z-index: 1;
@@ -201,6 +220,19 @@
       &.is-checked {
         background: var(--rds-primary-main, #{theme.$primary}) !important;
         border-color: var(--rds-primary-main, #{theme.$primary}) !important;
+      }
+    }
+
+    // Dark mode overrides for connector line
+    @media (prefers-color-scheme: dark) {
+      .rds-comp-tree-view__fallback-item.has-children.is-expanded::before {
+        background: var(--rds-border-default, #{theme.$dark-300});
+      }
+    }
+
+    [data-theme="dark"] & {
+      .rds-comp-tree-view__fallback-item.has-children.is-expanded::before {
+        background: var(--rds-border-default, #{theme.$dark-300});
       }
     }
   }

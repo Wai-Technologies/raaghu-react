@@ -12,6 +12,8 @@ const meta: Meta<typeof RdsCompTreeView> = {
     showLines: { control: 'boolean' },
     showCheckbox: { control: 'boolean' },
     itemSize: { control: { type: 'select' }, options: ['small', 'medium', 'large'] },
+    // Removed size from controls as itemSize is present
+    size: { table: { disable: true } },
   },
 };
 
@@ -41,30 +43,9 @@ export const Default: Story = {
   args: {
     nodes: sample,
     defaultExpanded: ['1'],
-    size: 'medium',
     multiSelect: false,
     showLines: true,
     showCheckbox: false,
     itemSize: 'medium',
-  },
-};
-
-export const Interactive: Story = {
-  render: (args) => {
-    const [expanded, setExpanded] = useState<string[]>(args.defaultExpanded || ['1']);
-    const [selected, setSelected] = useState<string | string[] | null>(null);
-
-    return (
-      <div>
-        <RdsCompTreeView
-          {...args}
-          nodes={sample}
-          expanded={expanded}
-          onNodeToggle={(e) => setExpanded(e)}
-          selected={selected as any}
-          onNodeSelect={(s) => setSelected(s as any)}
-        />
-      </div>
-    );
   },
 };
