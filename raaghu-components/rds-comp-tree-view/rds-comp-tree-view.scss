@@ -64,8 +64,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #ffffff;
-        font-size: 14px;
+        color: var(--rds-text-primary, #{theme.$white});
+        font-size: var(--rds-font-size-base, 14px);
         font-weight: bold;
         line-height: 1;
         width: 100%;
@@ -193,13 +193,13 @@
       background: var(--rds-background-surface, #{theme.$light});
 
       @media (prefers-color-scheme: dark) {
-        background: #{theme.$dark-200};
-        color: #{theme.$white};
+        background: var(--rds-background-surface, #{theme.$dark-200});
+        color: var(--rds-text-primary, #{theme.$white});
       }
 
       [data-theme="dark"] & {
-        background: #{theme.$dark-200};
-        color: #{theme.$white};
+        background: var(--rds-background-surface, #{theme.$dark-200});
+        color: var(--rds-text-primary, #{theme.$white});
       }
     }
 
@@ -218,8 +218,8 @@
       }
 
       &.is-checked {
-        background: var(--rds-primary-main, #{theme.$primary}) !important;
-        border-color: var(--rds-primary-main, #{theme.$primary}) !important;
+        background: var(--rds-color-primary, #{theme.$primary}) !important;
+        border-color: var(--rds-color-primary, #{theme.$primary}) !important;
       }
     }
 
