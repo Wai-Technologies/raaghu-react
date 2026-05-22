@@ -16,24 +16,17 @@
     
     .time-input {
   height: 34px;
-      padding: 6px 12px;
+      padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   padding-right: 34px;
       border: 1px solid var(--rds-border-subtle, #E0E0E0);
-      border-radius: 4px;
+      border-radius: var(--rds-border-radius-sm);
       text-align: left;
-      font-size: 14px;
+      font-size: var(--rds-font-size-md);
       color: var(--rds-text-primary, #333333);
       cursor: pointer;
       outline: none;
-      background-color: var(--rds-neutral-0, #fff);
-      
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+      background-color: #fff;
+      transition: border-color 0.2s;
       
       &:hover:not(:disabled) {
         border-color: var(--rds-border-hover, #BDBDBD);
@@ -54,7 +47,7 @@
       }
     }
     
-    .border-primary { border-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); }
+    .border-primary { border-color: #1976d2; }
     .border-secondary { border-color: #9ca3af; }
     .border-success { border-color: #10b981; }
     .border-error, .border-danger { border-color: #ef4444; }
@@ -84,20 +77,20 @@
     width: 100%;
     min-width: 300px;
     max-width: 350px;
-    margin-top: 8px;
-    background-color: var(--rds-neutral-0, #fff);
+    margin-top: var(--rds-spacing-sm);
+    background-color: #ffffff;
     border: 1px solid #E0E0E0;
-    border-radius: 6px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    padding: 14px;
+    border-radius: var(--rds-border-radius-sm);
+    padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+    z-index: var(--rds-z-index-modal, 500);
+    padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
     
     &.time-picker-compact {
-      padding: 12px 16px;
+      padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) var(--rds-spacing-md);
     }
     
     &.border-primary { 
-      border-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
+      border-color: #1976d2;
     }
     
     .row {
@@ -112,14 +105,14 @@
       width: 100%;
       height: 1px;
       background-color: var(--rds-border-subtle, #E0E0E0);
-      margin: 8px 0 12px;
+      margin: var(--rds-spacing-sm) 0 calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
     }
     
     .time-display {
       width: auto;
       font-weight: 500;
-      font-size: 14px;
-      color: var(--rds-text-primary, #000);
+      font-size: var(--rds-font-size-md);
+      color: #000000;
       
       &.time-display-compact {
         font-size: 13px;
@@ -137,7 +130,7 @@
     }
     
     .now-button {
-      color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
+      color: #1976d2;
       font-size: 11px;
       cursor: pointer;
       font-weight: 600;
@@ -145,7 +138,7 @@
       text-align: right;
       text-transform: uppercase;
       width: auto;
-      padding: 4px 6px;
+      padding: var(--rds-spacing-xs) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
       letter-spacing: 0.5px;
       
       &:hover {
@@ -155,7 +148,7 @@
     }
     
     .time-values-container {
-      margin: 10px 0 14px;
+      margin: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) 0 calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -167,9 +160,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      gap: var(--rds-spacing-sm);
       width: 100%;
-      margin-bottom: 10px;
+      margin-bottom: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs));
       position: relative;
       
       .time-select-dropdown {
@@ -187,7 +180,7 @@
         }
         
         .MuiAutocomplete-popper {
-          z-index: 1005;
+          z-index: var(--rds-z-index-tooltip, 600);
         }
       }
       
@@ -206,11 +199,11 @@
         .time-select {
           width: 100%;
           height: 38px;
-          padding: 8px;
-          border-radius: 4px;
+          padding: var(--rds-spacing-sm);
+          border-radius: var(--rds-border-radius-sm);
           border: 1px solid #ced4da;
           background-color: white;
-          font-size: 14px;
+          font-size: var(--rds-font-size-md);
           appearance: auto;
           color: #686161;
           
@@ -221,7 +214,7 @@
           }
           
           option {
-            padding: 4px;
+            padding: var(--rds-spacing-xs);
           }
         }
       }
@@ -231,10 +224,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 24px;
+      gap: var(--rds-spacing-3xl);
       
       .time-value {
-        font-size: 18px;
+        font-size: var(--rds-font-size-xl);
         font-weight: 600;
         color: #6366f1;
         width: 36px;
@@ -243,15 +236,8 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        border-radius: 4px;
-        
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+        border-radius: var(--rds-border-radius-sm);
+        transition: background-color 0.2s;
       }
     }
     
@@ -259,8 +245,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      margin: 10px 0;
+      gap: var(--rds-spacing-sm);
+      margin: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) 0;
       
       .time-value-display {
         font-size: 17px;
@@ -277,7 +263,7 @@
         
         .time-control {
           position: absolute;
-          font-size: 12px;
+          font-size: var(--rds-font-size-sm);
           color: #6366f1;
           cursor: pointer;
           opacity: 0.7;
@@ -323,33 +309,26 @@
     .buttons {
       display: flex;
       justify-content: flex-end;
-      margin-top: 16px;
-      gap: 8px;
+      margin-top: var(--rds-spacing-md);
+      gap: var(--rds-spacing-sm);
       position: relative;
-      z-index: 2;
+      z-index: var(--rds-z-index-layer-2);
       
       &.buttons-compact {
-        margin-top: 12px;
+        margin-top: var(--rds-spacing-sm);
         position: relative;
-        z-index: 1010;
+        z-index: var(--rds-z-index-portal);
       }
       
       button {
         border: none;
-        padding: 6px 12px;
-        border-radius: 6px;
+        padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+        border-radius: var(--rds-border-radius-sm);
         cursor: pointer;
         font-weight: 500;
         font-size: 13px;
         min-width: 50px;
-        
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+        transition: background-color 0.2s;
         text-transform: none;
         letter-spacing: normal;
         line-height: 1.5;
@@ -358,7 +337,7 @@
           background: transparent;
           color: #6366f1;
           border: none;
-          padding: 6px 10px;
+          padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-sm) + var(--rds-spacing-xs));
           min-width: auto;
           
           &:hover {
@@ -370,7 +349,7 @@
         &.set-time {
           background: #6366f1;
           color: white;
-          padding: 6px 12px;
+          padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
           min-width: 70px;
           cursor: pointer;
           pointer-events: auto;
@@ -380,7 +359,7 @@
           }
         }
         
-        &.bg-primary { background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); }
+        &.bg-primary { background-color: #1976d2; }
         &.bg-secondary { background-color: #9ca3af; }
         &.bg-success { background-color: #10b981; }
         &.bg-error, &.bg-danger { background-color: #ef4444; }
@@ -396,60 +375,10 @@
         &.text-warning { color: #f59e0b; }
         &.text-info { color: #3b82f6; }
         &.text-light { color: #f3f4f6; }
-        &.text-white { color: var(--rds-neutral-0, #fff); }
+        &.text-white { color: #ffffff; }
         &.text-dark { color: #1f2937; }
       }
     }
-  }
-}
-
-.theme-dark {
-  .time-picker, .time-picker-compact {
-    background: #333;
-    color: var(--rds-neutral-0, #fff);
-    border: 1px solid #555;
-    
-    .time-display {
-      color: #999999;
-    }
-    
-    .now-button {
-      color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
-      
-      &:hover {
-        background-color: rgba(165, 180, 252, 0.1);
-      }
-    }
-    
-    .time-values-display {
-      .time-value, .time-value-colon, .time-value-period {
-        color: #a5b4fc;
-      }
-    }
-    
-    .time-controls {
-      .time-control-up, .time-control-down {
-        &:hover {
-          background-color: rgba(165, 180, 252, 0.1);
-        }
-      }
-    }
-  }
-  
-  .time-input {
-    background: #333;
-    color: var(--rds-neutral-0, #fff);
-    border: 1px solid #555;
-  }
-
-  .time-picker-container .time-picker .time-controls-row .time-select-container .time-select, .time-picker-container .time-picker-compact .time-controls-row .time-select-container .time-select
-  {
-    background-color: var(--rds-text-primary, #333);
-    color: #F5F5F5;
-  }
-.time-picker-container .time-input-container .time-input  {
-    background-color: var(--rds-text-primary, #333);
-    color: #F5F5F5;
   }
 }
 
@@ -462,10 +391,10 @@
       background-color: white;
       color: #6366f1;
       padding: 0;
-      font-size: 14px;
+      font-size: var(--rds-font-size-md);
       height: 34px;
       min-height: 34px;
-      border-radius: 6px;
+      border-radius: var(--rds-border-radius-sm);
       border: 1px solid #E0E0E0;
       
       .MuiOutlinedInput-notchedOutline {
@@ -474,7 +403,7 @@
       
       .MuiInputBase-input {
         color: #6366f1;
-        padding: 4px 6px;
+        padding: var(--rds-spacing-xs) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
         text-align: center;
         font-weight: 500;
         min-width: 35px;
@@ -494,7 +423,7 @@
         
         .MuiSvgIcon-root {
           color: #6366f1;
-          font-size: 18px;
+          font-size: var(--rds-font-size-xl);
         }
       }
       
@@ -507,7 +436,7 @@
 
 .MuiButtonBase-root.MuiIconButton-root {
   &.time-control-button {
-    padding: 6px;
+    padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
     
     &:hover {
       background-color: rgba(99, 102, 241, 0.08);
@@ -521,19 +450,19 @@
 }
 
 .MuiAutocomplete-popper {
-  z-index: 1005;
+  z-index: var(--rds-z-index-tooltip, 600);
   .MuiPaper-root {
-    margin-top: 4px;
-    border-radius: 4px;
+    margin-top: var(--rds-spacing-xs);
+    border-radius: var(--rds-border-radius-sm);
     max-height: 200px;
     
     .MuiAutocomplete-listbox {
-      padding: 4px 0;
+      padding: var(--rds-spacing-xs) 0;
       max-height: 200px;
       
       .MuiAutocomplete-option {
         min-height: 36px;
-        padding: 6px 12px;
+        padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
         
         &[aria-selected="true"] {
           background-color: rgba(99, 102, 241, 0.08);

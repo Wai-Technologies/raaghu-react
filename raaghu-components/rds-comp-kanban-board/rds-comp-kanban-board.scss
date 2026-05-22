@@ -11,8 +11,8 @@
 .rds-kanban-board-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  padding: 8px;
+  gap: var(--rds-spacing-sm);
+  padding: var(--rds-spacing-sm);
   align-items: flex-start;
 }
 
@@ -26,11 +26,11 @@
   &__card {
   min-height: 600px !important;
     min-width: 320px !important;
-    background-color: var(--rds-background-paper, #ffffff);
-    color: var(--txt-neutral-darker-default, #000000);
+    background-color: var(--rds-background-paper);
+    color: var(--txt-neutral-darker-default);
     
     &--empty-board {
-      border: 1px dashed var(--bg-primary-medium-default, #D4BBFF) !important;
+      border: 1px dashed var(--rds-surface-primary-medium, #D4BBFF) !important;
     }
     
     &--add-board-320 {
@@ -50,11 +50,11 @@
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
-    margin-bottom: 16px !important;
-    background-color: var(--bg-primary-light-default, #ebdcff) !important;
-    color: var(--txt-neutral-darker-default, #000000) !important;
+    margin-bottom: var(--rds-spacing-md) !important;
+    background-color: var(--rds-surface-primary-light, #ebdcff) !important;
+    color: var(--txt-neutral-darker-default) !important;
     min-height: 35px !important;
-    padding: 8px !important;
+    padding: var(--rds-spacing-sm) !important;
     margin-left: -8px !important;
     margin-right: -8px !important;
     margin-top: -8px !important;
@@ -73,48 +73,48 @@
   }
 
   &__title-count {
-    margin-left: 8px !important;
+    margin-left: var(--rds-spacing-sm) !important;
   }
 
   &__header-button {
-    margin-right: 8px !important;
-    color: var(--txt-neutral-darker-default, #000000) !important;
+    margin-right: var(--rds-spacing-sm) !important;
+    color: var(--txt-neutral-darker-default) !important;
     
     &:hover {
-      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04)) !important;
     }
   }
 
   .card {
     padding: 5px !important;
   min-height: 600px !important;
-    border: 1px solid var(--bg-primary-medium-default, #D4BBFF);
-    background-color: var(--rds-background-paper, #ffffff);
+    border: 1px solid var(--rds-surface-primary-medium, #D4BBFF);
+    background-color: var(--rds-background-paper);
   }
 
   .card-header {
-    background-color: var(--bg-primary-light-default, #ebdcff) !important;
+    background-color: var(--rds-surface-primary-light, #ebdcff) !important;
     color: var(--txt-neutral-darker-default, #000000);
     min-height: 35px !important;
     height: 35px !important;
     display: flex !important;
     align-items: center !important;
     flex-direction: row !important;
-    border-bottom: 1px solid var(--bg-primary-medium-default, #D4BBFF) !important;
+    border-bottom: 1px solid var(--rds-surface-primary-medium, #D4BBFF) !important;
     padding-left: 18px !important;
-    padding-right: 8px !important;
-    font-size: 16px !important;
+    padding-right: var(--rds-spacing-sm) !important;
+    font-size: var(--rds-font-size-lg) !important;
     font-weight: 500 !important;
     letter-spacing: 0.5px;
   }
 
   .card-body {
     padding: 0px 12px !important;
-    color: var(--txt-neutral-darker-default, #000000);
+    color: var(--txt-neutral-darker-default);
   }
 
   .pt-3 {
-    padding-top: 8px !important;
+    padding-top: var(--rds-spacing-sm) !important;
   }
 
   .btn-sm svg {
@@ -131,9 +131,9 @@
   ul {
     min-width: 125px !important;
     padding: 6px 0px;
-    border-color: var(--bg-primary-medium-default, #ebdcff) !important;
-    background-color: var(--rds-background-paper, #ffffff);
-    color: var(--txt-neutral-darker-default, #000000);
+    border-color: var(--rds-surface-primary-medium, #ebdcff) !important;
+    background-color: var(--rds-background-paper);
+    color: var(--txt-neutral-darker-default);
   }
 
   .sub-card {
@@ -145,9 +145,9 @@
       display: flex !important;
       align-items: center !important;
       flex-direction: row !important;
-      border-bottom: 1px solid var(--bg-primary-medium-default, #D4BBFF) !important;
+      border-bottom: 1px solid var(--rds-surface-primary-medium, #D4BBFF) !important;
       padding-left: 18px !important;
-      padding-right: 8px !important;
+      padding-right: var(--rds-spacing-sm) !important;
       font-size: 15px !important;
       font-weight: 500 !important;
       letter-spacing: 0.5px;
@@ -176,12 +176,12 @@
 .add-board {
   width: 100% !important;
   height: 100% !important;
-  background-color: var(--rds-background-paper, #fff);
-  color: var(--txt-neutral-darker-default, #000000);
+  background-color: var(--rds-background-paper);
+  color: var(--txt-neutral-darker-default);
   border-radius: 0.5rem !important;
   
   &--with-input {
-    padding: 16px !important;
+    padding: var(--rds-spacing-md) !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -199,18 +199,18 @@
 
 .rds-kanban-board {
   &__sub-cards-container {
-    padding-left: 8px !important;
-    padding-right: 8px !important;
+    padding-left: var(--rds-spacing-sm) !important;
+    padding-right: var(--rds-spacing-sm) !important;
   }
 }
 
 .rds-kanban-board__sub-card {
-  margin-top: 8px !important;
+  margin-top: var(--rds-spacing-sm) !important;
   
   &-card {
     background-color: var(--rds-background-paper, #FEF7FF) !important;
     color: var(--txt-neutral-darker-default, #000000) !important;
-    border: 1px solid var(--bg-neutral-light-default, #e0e0e0) !important;
+    border: 1px solid var(--rds-surface-neutral-light, #e0e0e0) !important;
     border-radius: 0px !important;
   min-height: 133.6px !important;
   }
@@ -227,13 +227,13 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 8px;
+    margin-bottom: var(--rds-spacing-sm);
   }
   
   &-header-left {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
   }
   
   &-header-right {
@@ -243,7 +243,7 @@
   }
   
   &-body {
-    margin-bottom: 16px;
+    margin-bottom: var(--rds-spacing-md);
   }
   
   &-text {
@@ -269,23 +269,23 @@
 
 .rds-kanban-board {
   &__menu-paper {
-    background-color: var(--rds-background-paper, #ffffff) !important;
-    color: var(--txt-neutral-darker-default, #000000) !important;
-    border: 1px solid var(--bg-neutral-light-default, #e0e0e0) !important;
+    background-color: var(--rds-background-paper) !important;
+    color: var(--txt-neutral-darker-default) !important;
+    border: 1px solid var(--rds-surface-neutral-light, #e0e0e0) !important;
   }
   
   &__menu-item {
-    font-size: 14px !important;
-    padding: 8px 16px !important;
+    font-size: var(--rds-font-size-md) !important;
+    padding: var(--rds-spacing-sm) 16px !important;
     color: var(--txt-neutral-darker-default, #000000) !important;
     
     &:hover {
-      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04)) !important;
     }
   }
   
   &__menu-icon {
-    margin-right: 8px !important;
+    margin-right: var(--rds-spacing-sm) !important;
     width: 16px !important;
     height: 16px !important;
   }
@@ -301,7 +301,7 @@
     color: var(--txt-neutral-darker-default, #000000);
     
     &:hover {
-      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04));
+      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
     }
   }
 }
@@ -310,19 +310,19 @@
   color: var(--txt-neutral-darker-default, #000000) !important;
   
   &:hover {
-    background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+    background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04)) !important;
   }
 }
 
 .rds-kanban-board__input-field {
-  margin-bottom: 16px !important;
+  margin-bottom: var(--rds-spacing-md) !important;
   
   .MuiOutlinedInput-root {
     background-color: var(--rds-background-paper, #ffffff);
     color: var(--txt-neutral-darker-default, #000000);
     
     fieldset {
-      border-color: var(--bg-neutral-light-default, #e0e0e0);
+      border-color: var(--rds-surface-neutral-light, #e0e0e0);
     }
     
     &:hover fieldset {
@@ -349,14 +349,14 @@
 }
 
 .rds-kanban-board__autocomplete {
-  margin-bottom: 16px !important;
+  margin-bottom: var(--rds-spacing-md) !important;
   
   .MuiOutlinedInput-root {
     background-color: var(--rds-background-paper, #ffffff);
     color: var(--txt-neutral-darker-default, #000000);
     
     fieldset {
-      border-color: var(--bg-neutral-light-default, #e0e0e0);
+      border-color: var(--rds-surface-neutral-light, #e0e0e0);
     }
     
     &:hover fieldset {
@@ -378,7 +378,7 @@
   }
   
   .MuiChip-root {
-    background-color: var(--bg-primary-light-default, #ebdcff);
+    background-color: var(--rds-surface-primary-light, #ebdcff);
     color: var(--txt-neutral-darker-default, #000000);
   }
 }
@@ -391,7 +391,7 @@
     color: var(--txt-neutral-darker-default, #000000);
     
     &:hover {
-      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04));
+      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
     }
   }
 }
@@ -400,7 +400,7 @@
   display: flex;
   align-items: center;
   width: 100% !important;
-  gap: 8px !important;
+  gap: var(--rds-spacing-sm) !important;
   
   &--full-width {
     width: 100% !important;
@@ -419,16 +419,16 @@
   color: var(--txt-neutral-darker-default, #000000) !important;
   
   &:hover {
-    background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+    background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04)) !important;
   }
 }
 
 .rds-kanban-board__add-item-form {
-  margin-top: 16px !important;
+  margin-top: var(--rds-spacing-md) !important;
 }
 
 .rds-kanban-board__add-item-simple {
-  margin-top: 16px !important;
+  margin-top: var(--rds-spacing-md) !important;
 }
 
 .priority-btn {
@@ -445,15 +445,15 @@
 }
 
 .f-12 {
-  font-size: 12px !important;
+  font-size: var(--rds-font-size-sm) !important;
 }
 
 .f-14 {
-  font-size: 14px !important;
+  font-size: var(--rds-font-size-md) !important;
 }
 
 .f-16 {
-  font-size: 16px !important;
+  font-size: var(--rds-font-size-lg) !important;
 }
 
 .fw-400 {
@@ -521,14 +521,7 @@
 }
 
 .sub-card {
-  
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+  transition: background-color 0.2s ease;
   cursor: grab;
 
   &.dragging {
@@ -541,10 +534,10 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--rds-breakpoint-md)) {
   .rds-kanban-board-container {
     padding: 0px 16px 5px !important;
-    gap: 8px !important;
+    gap: var(--rds-spacing-sm) !important;
     justify-content: center !important;
     align-items: center !important;
   }
@@ -572,7 +565,7 @@
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: var(--rds-breakpoint-375)) {
   .rds-kanban-board-container {
     max-height: 100vh !important;
     overflow-y: auto !important;
@@ -595,14 +588,14 @@
   .MuiPaper-root {
     background-color: var(--rds-background-paper, #ffffff) !important;
     color: var(--txt-neutral-darker-default, #000000) !important;
-    border: 1px solid var(--bg-neutral-light-default, #e0e0e0) !important;
+    border: 1px solid var(--rds-surface-neutral-light, #e0e0e0) !important;
   }
   
   .MuiMenuItem-root {
     color: var(--txt-neutral-darker-default, #000000) !important;
     
     &:hover {
-      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04)) !important;
+      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04)) !important;
     }
   }
 }
@@ -614,7 +607,7 @@
       color: var(--txt-neutral-darker-default, #000000);
       
       fieldset {
-        border-color: var(--bg-neutral-light-default, #e0e0e0);
+        border-color: var(--rds-surface-neutral-light, #e0e0e0);
       }
       
       &:hover fieldset {
@@ -642,7 +635,7 @@
       color: var(--txt-neutral-darker-default, #000000);
       
       fieldset {
-        border-color: var(--bg-neutral-light-default, #e0e0e0);
+        border-color: var(--rds-surface-neutral-light, #e0e0e0);
       }
       
       &:hover fieldset {
@@ -667,7 +660,7 @@
     color: var(--txt-neutral-darker-default, #000000);
     
     &:hover {
-      background-color: var(--bg-primary-lighter-default, rgba(144, 76, 236, 0.04));
+      background-color: var(--rds-surface-primary-subtle, rgba(144, 76, 236, 0.04));
     }
   }
   
@@ -696,202 +689,10 @@
 }
 
 .rds-kanban-board__sub-card-footer-left.f-12.fw-500 {
-  color: var(--rds-text-primary, #000) !important;
+  color: #000000 !important;
 }
 
 body[data-bs-theme="dark"],
-html[data-theme="dark"],
-.dark,
-.theme-dark {
-  --dark-surface: #1e1e1e;
-  --dark-surface-variant: #2a2a2a;
-  --dark-on-surface: #ffffff;
-  --dark-on-surface-variant: #e0e0e0;
-  --dark-primary: #3c98ff;
-  --dark-primary-container: #2d1b69;
-  --dark-outline: #444444;
-  --dark-outline-variant: #555555;
-  --dark-text-secondary: #cccccc;
-  --dark-hover-alpha: rgba(60, 152, 255, 0.08);
-  --dark-selected-alpha: rgba(60, 152, 255, 0.12);
-  --dark-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  
-  .rds-kanban-board-container {
-    background-color: transparent;
-  }
-
-  
-  .rds-badge.rds-badge--primary.rds-badge--secondary > .rds-badge__badge {
-    background-color: #1c66de;
-    
-  }
-  .kanban-board {
-    &__card,
-    &__card--add-board-320,
-    &__card--add-board-280,
-    &__card-content,
-    .card,
-    .card-body {
-      background-color: var(--rds-color-surface, var(--dark-surface)) !important;
-      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-      border-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
-    }
-    
-    &__card-header,
-    .card-header {
-      background-color: #1E5FC7 !important;
-      color: var(--rds-color-on-primary-container, var(--dark-on-surface)) !important;
-      border-bottom-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
-    }
-    
-    .sub-card .card,
-    .sub-card .card-body,
-    .rds-kanban-board__sub-card-card {
-      background-color: var(--rds-color-surface-variant, #AFCDFD) !important;
-      color: var(--rds-color-on-surface-variant, var(--dark-on-surface-variant)) !important;
-      border-color: var(--rds-color-outline-variant, var(--dark-outline-variant)) !important;
-    }
-    
-    .MuiCard-root,
-    .MuiCardContent-root,
-    .MuiPaper-root {
-      color: var(--rds-color-on-surface, #1e1e1e) !important;
-    }
-    
-    .MuiTypography-root {
-      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-    }
-  }
-  
-  .add-board {
-    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
-    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-    border-color: var(--rds-color-outline-variant, var(--dark-outline)) !important;
-  }
-  
-  .rds-kanban-board__input-field,
-  .rds-kanban-board__autocomplete,
-  .MuiOutlinedInput-root {
-    .MuiOutlinedInput-root,
-    &.MuiOutlinedInput-root {
-      background-color: var(--rds-color-surface, var(--dark-surface)) !important;
-      color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-      
-      fieldset,
-      .MuiOutlinedInput-notchedOutline {
-        border-color: var(--rds-color-outline, #666666) !important;
-      }
-      
-      &:hover fieldset,
-      &:hover .MuiOutlinedInput-notchedOutline {
-        border-color: var(--rds-color-primary, var(--dark-primary)) !important;
-      }
-      
-      &.Mui-focused fieldset,
-      &.Mui-focused .MuiOutlinedInput-notchedOutline {
-        border-color: var(--rds-color-primary, var(--dark-primary)) !important;
-      }
-    }
-    
-    .MuiInputLabel-root {
-      color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
-      
-      &.Mui-focused {
-        color: var(--rds-color-primary, var(--dark-primary)) !important;
-      }
-    }
-  }
-  
-  .rds-kanban-board__add-button,
-  .add-item-btn .btn {
-    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
-    color: var(--rds-color-primary, var(--dark-primary)) !important;
-    border-color: var(--rds-color-primary, var(--dark-primary)) !important;
-    
-    &:hover {
-      background-color: var(--rds-color-primary-hover, var(--dark-hover-alpha)) !important;
-    }
-  }
-  
-  .MuiMenu-root .MuiPaper-root,
-  .MuiPopover-root .MuiPaper-root,
-  .rds-kanban-board__menu-paper,
-  .rds-kanban-board__select-menu .MuiPaper-root,
-  .rds-kanban-board__autocomplete-paper {
-    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
-    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-    border: 1px solid var(--rds-color-outline-variant, var(--dark-outline)) !important;
-    box-shadow: var(--dark-box-shadow) !important;
-  }
-  
-  .MuiMenu-list,
-  .MuiAutocomplete-listbox {
-    background-color: var(--rds-color-surface, var(--dark-surface)) !important;
-    padding: 4px 0 !important;
-    max-height: 200px !important;
-  }
-  
-  .MuiMenuItem-root,
-  .rds-kanban-board__menu-item,
-  .MuiAutocomplete-option {
-    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-    background-color: transparent !important;
-    padding: 8px 16px !important;
-    
-    &:hover,
-    &.Mui-focusVisible,
-    &.Mui-focused {
-      background-color: var(--rds-color-primary-hover, var(--dark-hover-alpha)) !important;
-      color: var(--rds-color-primary, var(--dark-primary)) !important;
-    }
-    
-    &.Mui-selected,
-    &[aria-selected="true"] {
-      background-color: var(--rds-color-primary-container, var(--dark-selected-alpha)) !important;
-      color: var(--rds-color-primary, var(--dark-primary)) !important;
-      
-      &:hover {
-        background-color: rgba(60, 152, 255, 0.16) !important;
-      }
-    }
-  }
-  
-  .MuiAutocomplete-noOptions {
-    color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
-  }
-  
-  .MuiSelect-root {
-    color: var(--rds-color-on-surface, var(--dark-on-surface)) !important;
-    
-    .MuiSelect-icon {
-      color: var(--rds-color-on-surface-variant, var(--dark-text-secondary)) !important;
-    }
-  }
-  
-  .MuiChip-root {
-    background-color: var(--rds-color-primary-container, var(--dark-selected-alpha)) !important;
-    color: var(--rds-color-primary, var(--dark-primary)) !important;
-    
-    .MuiChip-deleteIcon {
-      color: var(--rds-color-primary, var(--dark-primary)) !important;
-      
-      &:hover {
-        color: var(--rds-color-on-primary-container, var(--dark-on-surface)) !important;
-      }
-    }
-  }
-  .rds-kanban-board__sub-card-header-left .MuiTypography-root {
-    color: var(--rds-color-on-surface-variant, #7D7D7D) !important;
-  }
-  
-  .rds-kanban-board__sub-card-text.f-14.fw-400 {
-    color: var(--rds-kanban-subcard-text-dark, #7D7D7D) !important;
-  }
-  
-  .rds-kanban-board__sub-card-footer-left.f-12.fw-500 {
-    color: var(--rds-color-on-surface-variant, #7D7D7D) !important;
-  }
-}
 .MuiMenu-list,
 .MuiAutocomplete-listbox,
 .MuiSelect-root .MuiMenu-list,

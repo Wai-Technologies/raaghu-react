@@ -1,0 +1,108 @@
+// Shared ProfileMenu styles — imported by rds-app-bar, rds-header, and ProfileMenu component
+
+.rds-profile-menu__item-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-right: var(--rds-spacing-sm, 12px);
+  font-size: var(--rds-font-size-xl);
+  vertical-align: middle;
+}
+
+.rds-profile-menu__dropdown .MuiList-root {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  padding-top: 0;
+  padding-bottom: 0;
+  outline: 0;
+}
+
+.rds-profile-menu__button.MuiIconButton-root:hover {
+  background-color: transparent !important;
+}
+
+.rds-profile-menu__button {
+  --rds-profile-menu-button-margin-left: 4px;
+  --rds-profile-menu-button-gap: 8px;
+  --rds-profile-menu-button-radius: 16px;
+  margin-left: var(--rds-spacing-xs);
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+  border-radius: var(--rds-profile-menu-button-radius, 16px);
+  display: flex;
+  align-items: center;
+  gap: var(--rds-profile-menu-button-gap, 8px);
+}
+
+.rds-profile-menu__avatar {
+  width: var(--rds-profile-menu-avatar-size, 32px) !important;
+  height: var(--rds-profile-menu-avatar-size, 32px) !important;
+  background: var(--rds-color-avatar-bg, var(--rds-color-surface-alt)) !important;
+  color: var(--rds-color-avatar-fg, var(--rds-primary-main)) !important;
+  font-weight: var(--rds-font-weight-semibold, 600);
+  font-size: var(--rds-font-size-body, 1rem);
+}
+
+.rds-profile-menu__chevron {
+  margin-left: var(--rds-spacing-xs);
+  color: var(--rds-secondary-main);
+}
+
+.rds-profile-menu__name {
+  margin-left: var(--rds-spacing-xs, 8px);
+  font-weight: var(--rds-font-weight-semibold, 600);
+  font-size: var(--rds-font-size-body, 15px);
+  color: var(--rds-text-primary);
+  font-family: var(--rds-font-family-base, Poppins, sans-serif);
+  letter-spacing: var(--rds-letter-spacing, 0.1px);
+  text-transform: none;
+}
+
+.rds-profile-menu__dropdown {
+  margin-top: var(--rds-spacing-xs, 6px);
+  min-width: var(--rds-profile-menu-dropdown-min-width, 260px);
+  border-radius: var(--rds-border-radius-lg, 8px);
+  overflow: visible;
+  filter: var(--rds-elevation-2, drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.12)));
+  padding: 0;
+}
+
+.rds-profile-menu__header {
+  display: flex;
+  align-items: center;
+  padding: var(--rds-spacing-xs, 5px) var(--rds-spacing-sm, 10px) var(--rds-spacing-sm, 8px)
+    var(--rds-spacing-xs, 8px);
+  margin-bottom: var(--rds-spacing-xs, 8px);
+}
+
+.rds-profile-menu__avatar-lg {
+  width: var(--rds-profile-menu-avatar-size-lg, 44px) !important;
+  height: var(--rds-profile-menu-avatar-size-lg, 44px) !important;
+  margin-right: var(--rds-spacing-md, 1rem);
+  background: var(--rds-color-avatar-bg, var(--rds-color-surface-alt)) !important;
+  color: var(--rds-color-avatar-fg, var(--rds-primary-main)) !important;
+  font-weight: var(--rds-font-weight-semibold, 600);
+  font-size: var(--rds-font-size-lg, 1.2rem);
+}
+
+.rds-profile-menu__name-lg {
+  font-weight: var(--rds-font-weight-bold, 700);
+  font-size: var(--rds-font-size-lg, 16px);
+  color: var(--rds-text-primary);
+  line-height: 1.2;
+}
+
+.rds-profile-menu__email {
+  font-size: var(--rds-font-size-xs, 13px);
+  color: var(--rds-primary-main);
+  font-weight: var(--rds-font-weight-medium, 500);
+}
+
+.rds-profile-menu__item {
+  font-size: var(--rds-font-size-base, 15px) !important;
+}
+
+.rds-profile-menu__item--last {
+  border-radius: 0 0 var(--rds-border-radius-lg, 8px) var(--rds-border-radius-lg, 8px) !important;
+}

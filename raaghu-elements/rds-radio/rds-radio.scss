@@ -1,6 +1,8 @@
 .rds-radio {
   display: block;
   position: relative;
+  --rds-radio-hover-bg: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+  --rds-radio-focus-ring-width: 2px;
 
   &__group {
     gap: var(--rds-spacing-sm, 8px);
@@ -21,7 +23,7 @@
     .MuiFormControlLabel-label {
       font-size: var(--rds-font-size-body, 1rem);
       line-height: var(--rds-line-height-body, 1.5);
-      color: #646464 !important;
+      color: var(--rds-text-secondary, #646464) !important;
     }
 
     &--icon {
@@ -38,7 +40,7 @@
     &--hoverable {
       &:hover {
         .MuiRadio-root {
-          background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+          background-color: var(--rds-radio-hover-bg, var(--rds-action-hover, rgba(0, 0, 0, 0.04)));
         }
       }
     }
@@ -85,7 +87,7 @@
 
     &:hover {
       .MuiRadio-root {
-        background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+        background-color: var(--rds-radio-hover-bg, var(--rds-action-hover, rgba(0, 0, 0, 0.04)));
       }
     }
 
@@ -97,7 +99,7 @@
     &--hoverable {
       &:hover {
         .MuiRadio-root {
-          background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+          background-color: var(--rds-radio-hover-bg, var(--rds-action-hover, rgba(0, 0, 0, 0.04)));
         }
       }
     }
@@ -152,12 +154,12 @@
 
   &--hover {
     .MuiRadio-root:hover {
-      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
+      background-color: var(--rds-radio-hover-bg, var(--rds-action-hover, rgba(0, 0, 0, 0.04)));
     }
   }
 
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-radio-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset, 2px);
   }
 
@@ -168,16 +170,16 @@
   }
 
   .MuiFormLabel-root {
-    color: #646464 !important;
+    color: var(--rds-text-secondary, #646464) !important;
   }
 
   .MuiButtonBase-root.MuiRadio-root.Mui-checked,
   .MuiRadio-root.Mui-checked {
-    color: #3C98FF !important;
+    color: var(--rds-primary-main, #3c98ff) !important;
   }
 
   .MuiFormControlLabel-root .MuiFormControlLabel-label.Mui-disabled {
-    color: #757575 !important;
+    color: var(--rds-text-disabled, #757575) !important;
   }
 
 }
@@ -194,11 +196,11 @@
   
   .MuiRadio-root.Mui-checked,
   .MuiButtonBase-root.MuiRadio-root.Mui-checked {
-    color: #3C98ff !important;
+    color: var(--rds-primary-main, #3c98ff) !important;
     
     svg {
-      color: #3C98ff !important;
-      fill: #3C98ff !important;
+      color: var(--rds-primary-main, #3c98ff) !important;
+      fill: var(--rds-primary-main, #3c98ff) !important;
     }
   }
 }

@@ -136,7 +136,7 @@ export const RdsMultiLevelMenu = ({
                   )}
                   {isExpandable && (
                     <Box
-                      sx={{ ml: 'auto', cursor: 'pointer', display: 'flex', alignItems: 'center', zIndex: 2 }}
+                      sx={{ ml: 'auto', cursor: 'pointer', display: 'flex', alignItems: 'center', zIndex: 'calc(var(--rds-z-index-base) + 2)' }}
                       className={'rds-mlm-arrow'}
                       onClick={(e) => {
                         e.stopPropagation();

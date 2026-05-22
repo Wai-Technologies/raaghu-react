@@ -99,8 +99,82 @@ export const colorTokens = {
     800: '#424242',
     900: '#212121',
     1000: '#000000',
-  }
+  },
+
+  tertiary: {
+    10: '#FEF3FF',
+    50: '#F9CCFF',
+    100: '#F8A4FF',
+    200: '#F56EFF',
+    300: '#EB37FE',
+    400: '#B30FBC',
+    500: '#DA25E9',
+    600: '#940F99',
+    700: '#7B127D',
+    800: '#530054',
+    900: '#29002A',
+  },
+
+  info: {
+    10: '#E3F2FD',
+    50: '#BBDEFB',
+    100: '#90CAF9',
+    200: '#64B5F6',
+    300: '#42A5F5',
+    400: '#2196F3',
+    500: '#1E88E5',
+    600: '#1976D2',
+    700: '#1565C0',
+    800: '#0D47A1',
+    900: '#0B3D91',
+  },
 };
+
+/** Extended breakpoints for responsive SCSS (injected as --rds-breakpoint-*). */
+export const extendedBreakpointTokens = {
+  xs: '0px',
+  sm: '600px',
+  md: '900px',
+  lg: '1200px',
+  xl: '1536px',
+  'mobile-sm': '320px',
+  'mobile-md': '375px',
+  'mobile-lg': '414px',
+  'tablet-sm': '768px',
+  'tablet-md': '834px',
+  'tablet-lg': '1024px',
+  '280': '280px',
+  '340': '340px',
+  '360': '360px',
+  '375': '375px',
+  '380': '380px',
+  '400': '400px',
+  '420': '420px',
+  '430': '430px',
+  '514': '514px',
+  '568': '568px',
+  '576': '576px',
+  '600': '600px',
+  '640': '640px',
+  '650': '650px',
+  '700': '700px',
+  '767': '767px',
+  '769': '769px',
+  '800': '800px',
+  '833': '833px',
+  '834': '834px',
+  '835': '835px',
+  '840': '840px',
+  '896': '896px',
+  '900': '900px',
+  '991': '991px',
+  '992': '992px',
+  '1023': '1023px',
+  '1025': '1025px',
+  '1112': '1112px',
+  '1280': '1280px',
+  '1600': '1600px',
+} as const;
 
 // Typography Tokens
 export const typographyTokens = {
@@ -283,7 +357,7 @@ export const componentTokens = {
   }
 };
 
-// Export all tokens as a single object
+// Export all tokens as a single object (single human-edited source for the design system)
 export const designTokens = {
   color: colorTokens,
   typography: typographyTokens,
@@ -293,6 +367,7 @@ export const designTokens = {
   animation: animationTokens,
   zIndex: zIndexTokens,
   breakpoint: breakpointTokens,
+  extendedBreakpoint: extendedBreakpointTokens,
   component: componentTokens,
 };
 

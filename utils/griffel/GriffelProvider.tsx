@@ -5,20 +5,24 @@
  * It integrates with the existing MUI theme system and provides theme-aware styling.
  */
 
-import React, { createContext, useContext, ReactNode, useEffect } from 'react';
-import { RendererProvider, SSRProvider, makeStyles } from '@griffel/react';
+import React, { createContext, useContext, useEffect, type ReactNode } from 'react';
+import { RendererProvider } from '@griffel/react';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-import { lightTheme, darkTheme } from '../../raaghu-react-themes/src/styles/themes';
+import { lightTheme, darkTheme } from '../../raaghu-react-themes/src/mui';
 import { designTokens, useLightThemeStyles, useDarkThemeStyles, createGlobalStyles, createThemeAwareTokens } from './griffel-config';
-import { loadTheme, initializeTheme } from '../../raaghu-react-themes/src/theme-loader';
+import { applyRaaghuTheme, initializeRaaghuTheme } from '../../raaghu-react-themes/src/provider/theme-utils';
 
 // Create a custom renderer for Griffel (only for SSR)
 const renderer = typeof window === 'undefined' ? {
   renderRule: () => '',
   renderKeyframe: () => '',
   renderFontFace: () => '',
-} : undefined;
+} as any : undefined;
+
+// Pre-define theme style hooks at module level (React hooks must be unconditional)
+const useLightGlobalStyles = createGlobalStyles('light');
+const useDarkGlobalStyles = createGlobalStyles('dark');
 
 
 interface GriffelContextType {
@@ -47,19 +51,21 @@ export function GriffelProvider({
   initialTheme = 'light' 
 }: Readonly<GriffelProviderProps>) {
   const [theme, setTheme] = React.useState<'light' | 'dark'>(initialTheme);
-  const globalStyleClasses = createGlobalStyles(theme);
+  const lightStyles = useLightGlobalStyles();
+  const darkStyles = useDarkGlobalStyles();
+  const globalStyleClasses = theme === 'light' ? lightStyles : darkStyles;
   const currentDesignTokens = createThemeAwareTokens(theme);
   
   const toggleTheme = React.useCallback(() => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     // Update the document theme attributes for SCSS compatibility
-    loadTheme(newTheme);
+    applyRaaghuTheme(newTheme);
   }, [theme]);
 
   // Initialize theme on mount
   useEffect(() => {
-    const detectedTheme = initializeTheme();
+    const detectedTheme = initializeRaaghuTheme();
     setTheme(detectedTheme);
   }, []);
 
@@ -74,8 +80,7 @@ export function GriffelProvider({
   }), [theme, toggleTheme, currentDesignTokens]);
 
   return (
-    <SSRProvider>
-      <RendererProvider renderer={renderer}>
+    <RendererProvider renderer={renderer}>
         <ThemeProvider theme={muiTheme}>
           <CssBaseline />
           <GriffelContext.Provider value={contextValue}>
@@ -95,7 +100,6 @@ export function GriffelProvider({
           </GriffelContext.Provider>
         </ThemeProvider>
       </RendererProvider>
-    </SSRProvider>
   );
 }
 
@@ -113,7 +117,7 @@ export const withGriffel = <P extends object>(
     
     return (
       <Component
-        {...props}
+        {...(props as any)}
         ref={ref}
         theme={theme}
         designTokens={designTokens}

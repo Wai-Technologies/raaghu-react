@@ -6,7 +6,7 @@
  */
 
 import { makeStyles, mergeClasses } from '@griffel/react';
-import { lightTheme, darkTheme } from '../../raaghu-react-themes/src/styles/themes';
+import { lightTheme, darkTheme } from '../../raaghu-react-themes/src/mui';
 import { designTokens as originalDesignTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
 /**

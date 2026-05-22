@@ -22,7 +22,7 @@
       top: 0;
       left: 0;
       padding: 1px;
-      z-index: 1;
+      z-index: var(--rds-z-index-layer-1);
       box-sizing: border-box;
       pointer-events: none; 
       button {
@@ -55,7 +55,7 @@
     justify-content: center;
     margin: 0 auto;
     position: relative;
-    z-index: 0;
+    z-index: var(--rds-z-index-base);
   }
     .rds-scrollbar__inner-content {
         height: 800px;
@@ -142,45 +142,5 @@
     width: 10px;
     height: 10px;
     color: var(--rds-color-gray-500, #94a3b8);
-  }
-}
-
-.rds-theme--dark,
-body.theme-dark,
-body[data-theme="dark"],
-[data-theme="dark"],
-.theme-dark {
-  .rds-scrollbar {
-    background-color: var(--rds-color-surface-dark, #1e1e1e);
-    border-color: var(--rds-color-gray-600, #555555);
-    
-    &--mac {
-      .rds-scrollbar__controls {
-        button {
-          &:hover {
-            background-color: var(--rds-color-gray-700, #404040);
-          }
-        }
-      }
-    }
-    
-    &__button {
-      &:hover {
-        background-color: var(--rds-color-gray-700, #404040);
-      }
-      
-      .rds-scrollbar__icon {
-        color: var(--rds-color-on-surface-dark, #ffffff) !important;
-      }
-    }
-    
-    &__icon {
-      color: var(--rds-color-on-surface-dark, #ffffff) !important;
-    }
-    
-    .MuiSvgIcon-root,
-    [class*="-MuiSvgIcon-root"] {
-      color: var(--rds-color-on-surface-dark, #ffffff) !important;
-    }
   }
 }

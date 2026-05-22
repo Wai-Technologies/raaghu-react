@@ -1,4 +1,5 @@
 .rds-collapse {
+  --rds-collapse-focus-ring-width: 2px;
   display: block;
   position: relative;
 
@@ -7,7 +8,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-collapse-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset);
   }
 }
@@ -30,6 +31,6 @@
   }
   .rds-collapse__story-box--warning {
     background-color: var(--rds-color-warning-light, #e6de94) !important;
-    color: var(--rds-text-primary, var(--rds-text-primary, #000000)) !important;
+    color: var(--rds-text-primary, #000000) !important;
   }
 }

@@ -83,7 +83,7 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding-left: 14px;
+    padding-left: var(--rds-card-content-padding-left, 14px);
   }
   
   &--hide-icon {
@@ -102,35 +102,6 @@
     background-color: var(--rds-color-surface-light, #FEF7FF) !important; 
     border: none;
     box-shadow: none;
-  }
-
-  .rds-theme--dark &--style-filled,
-  body.theme-dark &--style-filled,
-  body[data-theme="dark"] &--style-filled,
-  .theme-dark &--style-filled {
-    background-color: var(--rds-color-surface-dark, #424242) !important;
-    color: var(--rds-color-on-surface-dark, #ffffff) !important;
-
-    .rds-card__title,
-    .rds-card__subtext,
-    .rds-card__description,
-    .rds-card__additional-content,
-    .rds-card__avatar-section {
-      color: var(--rds-color-on-surface-dark, #ffffff) !important;
-    }
-
-    .rds-card .rds-avatar .MuiSvgIcon-root,
-    .rds-card__avatar-section .MuiSvgIcon-root,
-    .rds-card__edit-icon .MuiSvgIcon-root,
-    .rds-card__action-icon .MuiSvgIcon-root {
-      color: var(--rds-color-on-surface-dark, #ffffff) !important;
-      fill: var(--rds-color-on-surface-dark, #ffffff) !important;
-    }
-
-    .rds-button,
-    .MuiButton-root {
-      color: inherit !important;
-    }
   }
   
   &--hide-title {
@@ -158,36 +129,20 @@
     left: 0;
     bottom: 0;
     width: var(--rds-spacing-xs, 4px);
-    z-index: 1;
+    z-index: calc(var(--rds-z-index-base) + 1);
   }
   
   &__indicator-icon {
     width: 100%;
     height: 100%;
     background-color: var(--rds-color-gray-700, #646464) !important;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: var(--rds-transition-base, all 0.2s ease-in-out);
     border-radius: 0 var(--rds-border-radius-sm, 2px) var(--rds-border-radius-sm, 2px) 0;
   }
   
   &--hover {
     box-shadow: var(--rds-elevation-2, 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08));
     background-color: var(--rds-color-gray-200, #E1E3EA) !important;
-  }
-
-  .rds-theme--dark &--hover,
-  body.theme-dark &--hover,
-  body[data-theme="dark"] &--hover,
-  .theme-dark &--hover {
-    background-color: var(--rds-color-surface-variant-dark, #303030) !important;
-    box-shadow: var(--rds-elevation-2-dark, 0 4px 8px rgba(0, 0, 0, 0.6)) !important;
-    color: var(--rds-color-on-surface-dark, #ffffff) !important;
   }
   
   &--selected {
@@ -196,18 +151,6 @@
     
     .rds-card__subtext {
       color: var(--rds-color-primary, #3C98FF) !important;
-    }
-  }
-
-  .rds-theme--dark &--selected,
-  body.theme-dark &--selected,
-  body[data-theme="dark"] &--selected,
-  .theme-dark &--selected {
-    background-color: var(--rds-color-surface-selected-dark, #3b3b3b) !important;
-    box-shadow: var(--rds-elevation-focus-dark, 0 0 0 1px rgba(255,255,255,0.04)) !important;
-
-    .rds-card__subtext {
-      color: var(--rds-color-primary-dark, #66B2FF) !important;
     }
   }
   
@@ -222,24 +165,6 @@
     .rds-button,
     button {
       color: var(--rds-color-disabled-text, #9e9e9e) !important;
-      pointer-events: none !important;
-      cursor: not-allowed !important;
-    }
-  }
-
-  .rds-theme--dark &--disabled,
-  body.theme-dark &--disabled,
-  body[data-theme="dark"] &--disabled,
-  .theme-dark &--disabled {
-    opacity: 0.7;
-    background-color: var(--rds-color-disabled-surface-dark, #272727) !important;
-    color: var(--rds-color-disabled-text-dark, #9e9e9e) !important;
-    pointer-events: none !important;
-
-    .MuiButton-root,
-    .rds-button,
-    button {
-      color: var(--rds-color-disabled-text-dark, #9e9e9e) !important;
       pointer-events: none !important;
       cursor: not-allowed !important;
     }
@@ -286,17 +211,11 @@
   
   &--clickable {
     cursor: pointer;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: transform var(--rds-transition-base, 0.2s ease-in-out), 
+                box-shadow var(--rds-transition-base, 0.2s ease-in-out);
     
     &:hover {
-      transform: translateY(-2px);
+      transform: translateY(var(--rds-card-hover-offset, -2px));
     }
     
     &:active {
@@ -318,7 +237,7 @@
   &[style*="padding"] {
     .rds-card__content,
     .rds-card__content-wrapper {
-      min-height: 20px;
+      min-height: var(--rds-card-content-min-height, 20px);
       display: block;
     }
     
@@ -451,7 +370,7 @@
       .rds-card__avatar-row {
         display: contents;
       }
-      @media screen and (max-width: 320px) {
+      @media screen and (max-width: var(--rds-breakpoint-xs)) {
         flex-direction: column;
         align-items: stretch;
         
@@ -463,7 +382,7 @@
         }
         
         .rds-card__edit-controls {
-          margin-left: 110px !important;
+          margin-left: var(--rds-card-avatar-controls-mobile-offset, 110px) !important;
           justify-content: flex-end;
           padding-top: var(--rds-spacing-xs, 4px);
         }
@@ -562,23 +481,12 @@
       cursor: pointer;
       padding: var(--rds-spacing-xs, 4px);
       border-radius: var(--rds-border-radius-sm, 4px);
-      
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
-      margin-bottom: 50px !important;
-      
-      &:hover {
-        background-color: var(--rds-color-hover, rgba(0, 0, 0, 0.04));
+      transition: background-color var(--rds-transition-base);
       }
       
       .MuiSvgIcon-root {
         font-size: var(--rds-font-size-lg);
-        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+        color: var(--rds-color-primary, #1976d2);
       }
     }
     
@@ -591,8 +499,8 @@
       .rds-button {
         font-size: var(--rds-font-size-xs, 12px);
         padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 12px);
-        min-width: 60px;
-        height: 32px;
+        min-width: var(--rds-card-action-min-width, 60px);
+        height: var(--rds-card-action-height, 32px);
         text-transform: uppercase;
         font-weight: var(--rds-font-weight-medium, 500);
         border-radius: var(--rds-border-radius-xs, 4px);
@@ -603,22 +511,15 @@
         cursor: pointer;
         padding: var(--rds-spacing-xs, 4px);
         border-radius: var(--rds-border-radius-sm, 4px);
-        
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+        transition: background-color var(--rds-transition-base, 0.2s ease-in-out);
         
         &:hover {
-          background-color: var(--rds-color-hover, rgba(0, 0, 0, 0.04));
+          background-color: var(--rds-color-hover, var(--rds-color-overlay-hover, rgba(0, 0, 0, 0.04)));
         }
       }
     }
 
-    @media screen and (max-width: 320px) {
+    @media screen and (max-width: var(--rds-breakpoint-xs)) {
       .rds-card__edit-controls {
         margin-left: 0 !important;
         
@@ -647,7 +548,7 @@
         font-size: var(--rds-font-size-sm, 14px) !important;
         
         &.Mui-focused fieldset {
-          border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+          border-color: var(--rds-color-primary, #1976d2);
         }
         
         .MuiInputBase-input {
@@ -695,7 +596,7 @@
 }
 
 .rds-card__avatar-section--editable .rds-avatar{
- margin-left: var(--rds-spacing-md, 15px) !important;
+ margin-left: var(--rds-card-avatar-offset-left, 15px) !important;
   margin-top: var(--rds-spacing-xs, 8px) !important;
 }
 
@@ -716,16 +617,4 @@
 .rds-card:not(.rds-card--style-outlined):not(.rds-card--style-filled):not([class*="rds-card--elevation"]) {
   --Paper-shadow: none !important;
   box-shadow: var(--rds-card-shadow, 0 8px 24px var(--rds-card-shadow-color, rgba(16, 45, 86, 0.08)));
-}
-
-[data-theme="dark"] {
-.css-155c0ib-MuiAvatar-root {
-   color: var(--rds-text-primary, #ffffff);
-}
-}
-
-[data-theme="dark"] {
-.rds-card__indicator-icon {
-    background-color: var(--rds-color-gray-700, #969696) !important;
-}
 }

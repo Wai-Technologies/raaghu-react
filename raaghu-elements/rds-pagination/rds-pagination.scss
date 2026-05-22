@@ -1,4 +1,10 @@
 .rds-pagination {
+  --rds-pagination-item-size: var(--rds-spacing-xl, 32px);
+  --rds-pagination-focus-ring-width: 2px;
+  --rds-pagination-focus-ring-offset: 2px;
+  --rds-pagination-selected-border-width: 1px;
+  --rds-pagination-selected-outline-width: 2px;
+  --rds-pagination-disabled-opacity: 0.5;
   display: block;
   position: relative;
 
@@ -14,48 +20,41 @@
     font-family: var(--rds-font-family, Poppins);
     color: var(--rds-color-primary-contrast, #3C98FF);
     background: transparent;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: var(--rds-transition-base);
     box-shadow: none;
     border: none;
-    margin: 0 4px;
+    margin: 0 var(--rds-spacing-xs, 4px);
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     outline: none;
-    min-width: 32px;
-    height: 32px;
+    min-width: var(--rds-pagination-item-size, var(--rds-spacing-xl, 32px));
+    height: var(--rds-pagination-item-size, var(--rds-spacing-xl, 32px));
 
     [data-theme="dark"] & {
       color: var(--rds-color-primary, #fff);
     }
     
     &:hover {
-      background-color: #EBDCFF;
+      background-color: var(--rds-primary-light);
 
       [data-theme="dark"] & {
-        background-color: #4a4a4a;
+        background-color: var(--rds-neutral-dark);
       }
     }
 
     &.MuiPaginationItem-circular {
       border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      min-width: 32px;
+      width: var(--rds-pagination-item-size, var(--rds-spacing-xl, 32px));
+      height: var(--rds-pagination-item-size, var(--rds-spacing-xl, 32px));
+      min-width: var(--rds-pagination-item-size, var(--rds-spacing-xl, 32px));
     }
 
     &.MuiPaginationItem-rounded {
-      border-radius: 5px;
-      padding: 10px;
+      border-radius: calc(1.25 * var(--rds-spacing-xs, 4px));
+      padding: calc(2.5 * var(--rds-spacing-xs, 4px));
       justify-content: center;
       align-items: center;
     }
@@ -63,8 +62,8 @@
 
 
   .MuiPaginationItem-root.Mui-selected {
-    font-weight: 700;
-    z-index: 1;
+    font-weight: var(--rds-font-weight-bold, 700);
+    z-index: calc(var(--rds-z-index-base) + 1);
     border-radius: 0;
   }
 
@@ -73,7 +72,7 @@
     color: var(--rds-color-primary, #2196f3);
     box-shadow: none;
     border: none;
-    border-bottom: 1px solid var(--rds-color-primary, #2196f3);
+    border-bottom: var(--rds-pagination-selected-border-width, 1px) solid var(--rds-color-primary, #2196f3);
     border-radius: 0;
     outline: none;
     position: relative;
@@ -84,7 +83,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 1px;
+      height: var(--rds-pagination-selected-border-width, 1px);
       background: var(--rds-color-primary, #2196f3);
       border-radius: 0;
     }
@@ -93,7 +92,7 @@
   .MuiPaginationItem-root.Mui-selected.MuiPaginationItem-outlined {
     background: transparent;
     color: var(--rds-color-primary, #2196f3);
-    border: 2px solid var(--rds-color-primary, #2196f3);
+    border: var(--rds-pagination-selected-outline-width, 2px) solid var(--rds-color-primary, #2196f3);
     box-shadow: none;
   }
   
@@ -102,7 +101,7 @@
     color: var(--rds-color-primary, #2196f3);
     border-radius: 0;
     border: none;
-    border-bottom: 1px solid var(--rds-color-primary, #2196f3);
+    border-bottom: var(--rds-pagination-selected-border-width, 1px) solid var(--rds-color-primary, #2196f3);
     box-shadow: none;
     position: relative;
 
@@ -112,7 +111,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 1px;
+      height: var(--rds-pagination-selected-border-width, 1px);
       background: var(--rds-color-primary, #2196f3);
       border-radius: 0;
     }
@@ -122,27 +121,27 @@
     background: transparent;
     color: var(--rds-color-primary, #2196f3);
     border-radius: 5px;
-    border: 2px solid var(--rds-color-primary, #2196f3);
+    border: var(--rds-pagination-selected-outline-width, 2px) solid var(--rds-color-primary, #2196f3);
     box-shadow: none;
   }
 
   .MuiPaginationItem-root.Mui-disabled {
-    opacity: 0.5;
+    opacity: var(--rds-pagination-disabled-opacity, 0.5);
     pointer-events: none;
-    background: #e0e0e0;
-    color: #bdbdbd;
+    background: var(--rds-action-disabled-background);
+    color: var(--rds-action-disabled);
     border: none;
   }
 
   .MuiPaginationItem-ellipsis {
     color: var(--rds-color-primary, #2196f3);
-    opacity: 0.5;
-    padding: 0 8px;
+    opacity: var(--rds-pagination-disabled-opacity, 0.5);
+    padding: 0 var(--rds-spacing-sm);
   }
 
   .MuiPaginationItem-root:focus-visible {
-    outline: 2px solid var(--rds-color-primary, #2196f3);
-    outline-offset: 2px;
+    outline: var(--rds-pagination-focus-ring-width, 2px) solid var(--rds-color-primary, #2196f3);
+    outline-offset: var(--rds-pagination-focus-ring-offset, 2px);
   }
 }
 
@@ -150,39 +149,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 16px auto;
+  margin: var(--rds-spacing-md, 16px) auto;
   width: 100%;
   box-sizing: border-box;
-  gap: 12px;
+  gap: calc(3 * var(--rds-spacing-xs, 4px));
 }
 
 .rds-pagination-wrapper.style-2,
 .rds-pagination-wrapper.style-7 {
   .MuiPaginationItem-root {
-    color: #007bff;
+    color: var(--rds-color-primary);
   }
 
   .MuiPaginationItem-root.Mui-selected {
-    border-radius: 4px !important;
+    border-radius: var(--rds-border-radius-sm, 4px) !important;
   }
 }
 
 .rds-pagination-wrapper.style-3 {
   .MuiPaginationItem-root {
-    color: #007bff;
+    color: var(--rds-color-primary);
 
     [data-theme="dark"] & {
       &:hover {
-        background-color: #68696a;
+        background-color: var(--rds-neutral-dark);
       }
     }
   }
 
   .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
     background-color: transparent !important;
-    color: #007bff !important;
+    color: var(--rds-color-primary) !important;
     border: none;
-    border-bottom: 1px solid #007bff !important;
+    border-bottom: 1px solid var(--rds-color-primary) !important;
     border-radius: 0 !important;
     position: relative;
 
@@ -193,15 +192,15 @@
       left: 0;
       right: 0;
       height: 1px;
-      background: #007bff;
+      background: var(--rds-color-primary);
     }
   }
 
   .pagination-dropdown .MuiOutlinedInput-root {
-    border-radius: 4px;
+    border-radius: var(--rds-border-radius-sm);
     .MuiOutlinedInput-notchedOutline {
-      border-color: #ddd;
-      border-bottom: 2px solid #007bff;
+      border-color: var(--rds-border-light);
+      border-bottom: 2px solid var(--rds-color-primary);
       border-top: none;
       border-left: none;
       border-right: none;
@@ -210,7 +209,7 @@
 
     &:hover .MuiOutlinedInput-notchedOutline,
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
-      border-color: #007bff;
+      border-color: var(--rds-color-primary);
     }
   }
 }
@@ -219,16 +218,16 @@
 .rds-pagination-wrapper.style-5,
 .rds-pagination-wrapper.style-11 {
   .MuiButton-root {
-    color: white !important;
-    border-radius: 4px;
+    color: var(--rds-color-on-primary) !important;
+    border-radius: var(--rds-border-radius-sm);
 
     &:hover {
-      background-color: #0056b3 !important;
+      background-color: var(--rds-primary-dark) !important;
     }
 
     &.Mui-disabled {
-      background-color: #e0e0e0 !important;
-      color: #999 !important;
+      background-color: var(--rds-action-disabled-background) !important;
+      color: var(--rds-action-disabled) !important;
     }
   }
 }
@@ -248,20 +247,20 @@
 
 .rds-pagination-wrapper.style-9 {
   .MuiPagination-ul {
-    gap: 16px;
+    gap: var(--rds-spacing-md, 16px);
   }
   
   .MuiPaginationItem-root {
-    color: #007bff;
-    margin: 0 8px;
+    color: var(--rds-color-primary);
+    margin: 0 var(--rds-spacing-sm, 8px);
     border: 1px solid transparent;
   }
   
   .MuiPaginationItem-root.Mui-selected:not(.MuiPaginationItem-outlined) {
     background-color: transparent !important;
-    color: #007bff !important;
+    color: var(--rds-color-primary) !important;
     border: none;
-    border-bottom: 1px solid #007bff !important;
+    border-bottom: 1px solid var(--rds-color-primary) !important;
     border-radius: 0 !important;
     position: relative;
 
@@ -272,18 +271,18 @@
       left: 0;
       right: 0;
       height: 1px;
-      background: #007bff;
+      background: var(--rds-color-primary);
     }
   }
   
-  @media (min-width: 481px) and (max-width: 1024px) {
+  @media (min-width: var(--rds-breakpoint-xs)) and (max-width: var(--rds-breakpoint-tablet-lg)) {
     flex-direction: column;
     align-items: center;
     
     .pagination-dropdown,
     .pagination-legend,
     .pagination-manual-input {
-      margin-top: 12px;
+      margin-top: calc(3 * var(--rds-spacing-xs, 4px));
       margin-left: 0 !important;
     }
   }
@@ -291,7 +290,7 @@
 
 .rds-pagination-wrapper.style-10 {
   .MuiButton-root {
-    color: white !important;
+    color: var(--rds-color-on-primary) !important;
     border-radius: 50% !important;
     width: 32px;
     height: 32px;
@@ -304,12 +303,12 @@
     line-height: 1;
 
     &:hover {
-      background-color: #0056b3 !important;
+      background-color: var(--rds-primary-dark) !important;
     }
 
     &.Mui-disabled {
-      background-color: #e0e0e0 !important;
-      color: #999 !important;
+      background-color: var(--rds-action-disabled-background) !important;
+      color: var(--rds-action-disabled) !important;
     }
   }
 }
@@ -317,8 +316,8 @@
 .rds-pagination-wrapper.style-11 {
   .MuiButton-root {
     &:first-of-type {
-      background-color: #007bff !important;
-      color: white !important;
+      background-color: var(--rds-color-primary) !important;
+      color: var(--rds-color-on-primary) !important;
       border-radius: 50% !important;
       width: 40px;
       height: 40px;
@@ -328,10 +327,10 @@
     }
     
     &:last-of-type {
-      background-color: #007bff !important;
-      color: white !important;
-      border-radius: 4px !important;
-      padding: 6px 16px;
+      background-color: var(--rds-color-primary) !important;
+      color: var(--rds-color-on-primary) !important;
+      border-radius: var(--rds-border-radius-sm) !important;
+      padding: calc(var(--rds-spacing-xs) * 1.5) var(--rds-spacing-md);
       min-width: auto;
     }
   }
@@ -352,14 +351,14 @@
 .pagination-manual-input {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--rds-spacing-sm);
 
   .MuiTextField-root {
     width: 48px;
 
     .MuiInputBase-input {
       text-align: center;
-      padding: 4px 8px;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
       font-size: 0.875rem;
     }
   }
@@ -369,21 +368,21 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: var(--rds-breakpoint-xs)) {
   .rds-pagination-wrapper {
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
 
     .MuiPaginationItem-root {
       margin: 0 1px;
-      padding: 2px 3px;
+      padding: calc(var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-xs) * 0.75);
       font-size: 0.7rem;
       min-width: 22px;
       height: 22px;
 
       &.MuiPaginationItem-rounded {
-        padding: 3px;
+        padding: calc(var(--rds-spacing-xs) * 0.75);
         border-radius: 3px;
       }
 
@@ -401,12 +400,8 @@
     }
 
     .MuiPagination-ul {
-      gap: 1px;
+      gap: calc(var(--rds-spacing-xs) * 0.25);
     }
-
-    .pagination-dropdown {
-      min-width: 80px;
-      margin-left: 0 !important;
 
       .MuiInputLabel-root {
         font-size: 0.75rem;
@@ -414,7 +409,7 @@
 
       .MuiSelect-select {
         font-size: 0.75rem;
-        padding: 4px 6px;
+        padding: var(--rds-spacing-xs) calc(var(--rds-spacing-xs) * 1.5);
       }
     }
 
@@ -426,14 +421,14 @@
 
     .pagination-manual-input {
       margin-left: 0 !important;
-      gap: 6px;
+      gap: calc(var(--rds-spacing-xs) * 1.5);
       justify-content: center;
 
       .MuiTextField-root {
         width: 40px;
 
         .MuiInputBase-input {
-          padding: 3px 6px;
+          padding: calc(var(--rds-spacing-xs) * 0.75) calc(var(--rds-spacing-xs) * 1.5);
           font-size: 0.75rem;
         }
       }
@@ -446,7 +441,7 @@
     &.style-4,
     &.style-5 {
       .MuiButton-root {
-        padding: 4px 8px;
+        padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
         font-size: 0.75rem;
         min-width: 60px;
       }
@@ -454,7 +449,7 @@
 
     &.style-9 {
       .MuiPagination-ul {
-        gap: 2px;
+        gap: calc(var(--rds-spacing-xs) * 0.5);
       }
 
       .MuiPaginationItem-root {
@@ -464,22 +459,22 @@
   }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
+@media (min-width: var(--rds-breakpoint-xs)) and (max-width: var(--rds-breakpoint-tablet-sm)) {
   .rds-pagination-wrapper {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2);
 
     .MuiPaginationItem-root {
       margin: 0 3px;
-      padding: 2px 5px;
+      padding: calc(var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-xs) * 1.25);
       font-size: 0.85rem;
       min-width: 28px;
       height: 28px;
 
       &.MuiPaginationItem-rounded {
-        padding: 6px;
-        border-radius: 4px;
+        padding: calc(var(--rds-spacing-xs) * 1.5);
+        border-radius: var(--rds-border-radius-sm);
       }
 
       &.MuiPaginationItem-sizeSmall {
@@ -496,7 +491,7 @@
     }
 
     .MuiPagination-ul {
-      gap: 3px;
+      gap: calc(var(--rds-spacing-xs) * 0.75);
     }
 
     .pagination-dropdown {
@@ -508,7 +503,7 @@
 
       .MuiSelect-select {
         font-size: 0.85rem;
-        padding: 6px 8px;
+        padding: calc(var(--rds-spacing-xs) * 1.5) var(--rds-spacing-sm);
       }
     }
 
@@ -517,13 +512,13 @@
     }
 
     .pagination-manual-input {
-      gap: 7px;
+      gap: calc(var(--rds-spacing-sm) - 1px);
 
       .MuiTextField-root {
         width: 44px;
 
         .MuiInputBase-input {
-          padding: 4px 7px;
+          padding: var(--rds-spacing-xs) calc(var(--rds-spacing-sm) - 1px);
           font-size: 0.85rem;
         }
       }

@@ -4,7 +4,7 @@
     align-items: center;
 
     // Tablet view - full screen
-    @media (min-width: 768px) and (max-width: 1024px) {
+    @media (min-width: var(--rds-breakpoint-md)) and (max-width: var(--rds-breakpoint-lg)) {
        
         canvas {
             height: 600px !important;

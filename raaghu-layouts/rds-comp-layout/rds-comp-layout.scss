@@ -5,14 +5,7 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+  transition: box-shadow 0.3s;
 }
 
 .rds-comp-layout-inner-wrapper_basic {
@@ -27,7 +20,7 @@
 
 .rds-comp-layout__card_basic {
   position: relative;
-  padding: 20px; 
+  padding: var(--rds-spacing-lg); 
   border: 1px solid #d3dcea;
   background: var(--rds-background-default);
   min-height: 200px;
@@ -35,14 +28,7 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+  transition: box-shadow 0.3s, border 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,18 +57,18 @@
 
 .rds-comp-layout__paper {
   border: 1px solid #d3dcea;
-  border-radius: 5px !important;
+  border-radius: var(--rds-border-radius-sm) !important;
   background: var(--rds-background-default);
   box-shadow: var(--rds-box-shadow-card, 0 0 6px 5px rgba(77, 82, 89, 0.07))!important;
   
   &--height-xs {
     min-height: 80px;
     
-    @media (min-width: 600px) {
+    @media (min-width: var(--rds-breakpoint-600)) {
       min-height: 100px;
     }
     
-    @media (min-width: 900px) {
+    @media (min-width: var(--rds-breakpoint-md)) {
       min-height: 100px;
     }
   }
@@ -90,11 +76,11 @@
   &--height-sm {
     min-height: 80px;
     
-    @media (min-width: 600px) {
+    @media (min-width: var(--rds-breakpoint-600)) {
       min-height: 120px;
     }
     
-    @media (min-width: 900px) {
+    @media (min-width: var(--rds-breakpoint-md)) {
       min-height: 120px;
     }
   }
@@ -102,11 +88,11 @@
   &--height-md {
     min-height: 120px;
     
-    @media (min-width: 600px) {
+    @media (min-width: var(--rds-breakpoint-600)) {
       min-height: 180px;
     }
     
-    @media (min-width: 900px) {
+    @media (min-width: var(--rds-breakpoint-md)) {
       min-height: 180px;
     }
   }
@@ -114,11 +100,11 @@
   &--height-lg {
     min-height: 180px;
     
-    @media (min-width: 600px) {
+    @media (min-width: var(--rds-breakpoint-600)) {
       min-height: 240px;
     }
     
-    @media (min-width: 900px) {
+    @media (min-width: var(--rds-breakpoint-md)) {
       min-height: 240px;
     }
   }
@@ -126,11 +112,11 @@
   &--height-xl {
     min-height: 240px;
     
-    @media (min-width: 600px) {
+    @media (min-width: var(--rds-breakpoint-600)) {
       min-height: 360px;
     }
     
-    @media (min-width: 900px) {
+    @media (min-width: var(--rds-breakpoint-md)) {
       min-height: 360px;
     }
   }
@@ -138,11 +124,11 @@
   &--height-xxl {
     min-height: 240px;
     
-    @media (min-width: 600px) {
+    @media (min-width: var(--rds-breakpoint-600)) {
       min-height: 360px;
     }
     
-    @media (min-width: 900px) {
+    @media (min-width: var(--rds-breakpoint-md)) {
       min-height: 400px;
     }
   }
@@ -150,11 +136,11 @@
   &--height-full {
     min-height: 240px;
     
-    @media (min-width: 600px) {
+    @media (min-width: var(--rds-breakpoint-600)) {
       min-height: 360px;
     }
     
-    @media (min-width: 900px) {
+    @media (min-width: var(--rds-breakpoint-md)) {
       min-height: 500px;
     }
   }
@@ -162,11 +148,11 @@
   &--height-tall {
     min-height: 400px;
     
-    @media (min-width: 600px) {
+    @media (min-width: var(--rds-breakpoint-600)) {
       min-height: 600px;
     }
     
-    @media (min-width: 900px) {
+    @media (min-width: var(--rds-breakpoint-md)) {
       min-height: 600px;
     }
   }
@@ -174,11 +160,11 @@
   &--height-spotlight {
     min-height: 120px;
     
-    @media (min-width: 600px) {
+    @media (min-width: var(--rds-breakpoint-600)) {
       min-height: 180px;
     }
     
-    @media (min-width: 900px) {
+    @media (min-width: var(--rds-breakpoint-md)) {
       min-height: 400px;
     }
   }
@@ -186,11 +172,11 @@
   &--height-stacks {
     min-height: 180px;
     
-    @media (min-width: 600px) {
+    @media (min-width: var(--rds-breakpoint-600)) {
       min-height: 240px;
     }
     
-    @media (min-width: 900px) {
+    @media (min-width: var(--rds-breakpoint-md)) {
       min-height: 300px;
     }
   }
@@ -198,11 +184,11 @@
   &--height-relaxed-left {
     min-height: 180px;
     
-    @media (min-width: 600px) {
+    @media (min-width: var(--rds-breakpoint-600)) {
       min-height: 600px;
     }
     
-    @media (min-width: 900px) {
+    @media (min-width: var(--rds-breakpoint-md)) {
       min-height: 600px;
     }
   }
@@ -210,19 +196,19 @@
   &--height-relaxed-big {
     min-height: 180px;
     
-    @media (min-width: 600px) {
+    @media (min-width: var(--rds-breakpoint-600)) {
       min-height: 360px;
     }
     
-    @media (min-width: 900px) {
+    @media (min-width: var(--rds-breakpoint-md)) {
       min-height: 360px;
     }
   }
 }
 
-@media (min-width: 600px) {
+@media (min-width: var(--rds-breakpoint-600)) {
   .rds-comp-layout-inner-wrapper {
-    padding: 16px;
+    padding: var(--rds-spacing-md);
   }
 }
 .rds-layout {
@@ -249,7 +235,7 @@
   display: block;
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--rds-breakpoint-md)) {
   .rds-layout.row {
     flex-direction: column;
   }

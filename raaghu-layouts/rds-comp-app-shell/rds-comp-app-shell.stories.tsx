@@ -21,7 +21,7 @@ import {
   People as DirectoryIcon,
   LocalActivity as ActivitiesIcon,
 } from "@mui/icons-material";
-import { ProfileMenu } from "../../raaghu-elements/rds-app-bar/ProfileMenu";
+import { ProfileMenu } from "../../raaghu-elements/shared/components/ProfileMenu";
 import { Notifications as BellIcon } from "@mui/icons-material";
 
 const meta: Meta<typeof RdsCompAppShell> = {

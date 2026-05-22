@@ -98,6 +98,7 @@ const RdsHeader = ({
         {userName && userShortName && userEmail ? (
           <span className="rds-header__actions">
             <ProfileMenu
+              variant="compact"
               name={userName}
               shortName={userShortName}
               email={userEmail}

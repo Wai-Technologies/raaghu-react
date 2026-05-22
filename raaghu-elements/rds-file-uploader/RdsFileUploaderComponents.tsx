@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Paper, Typography, Button, IconButton } from '@mui/material';
 import { CloudUpload, Close } from '@mui/icons-material';
 import RdsFileUploader, { FileWithProgress } from './rds-file-uploader';
+import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 
 interface RdsDropZoneSideIconProps {
   mode: string;
@@ -170,6 +171,8 @@ export const RdsDropZoneSideIcon: React.FC<RdsDropZoneSideIconProps> = ({
   onDrop,
   openFileDialog,
 }) => {
+  const tokens = useRdsTokens();
+
   return (
     <Paper
       variant={mode === 'standard' ? 'elevation' : 'outlined'}
@@ -191,8 +194,8 @@ export const RdsDropZoneSideIcon: React.FC<RdsDropZoneSideIconProps> = ({
           (PNG, JPG, DOC, PDF, PPT)
         </Typography>
       </Box>
-      <Box sx={{ ml: 2, display: 'flex', alignItems: 'center' }}>
-        <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: 'var(--rds-file-uploader-icon-color, var(--rds-neutral-main, #4a4a4a))' }} />
+      <Box sx={{ ml: tokens.space(2), display: 'flex', alignItems: 'center' }}>
+        <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: tokens.cssVar('file-uploader-icon-color') }} />
       </Box>
     </Paper>
   );
@@ -207,6 +210,8 @@ export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
   onDrop,
   openFileDialog,
 }) => {
+  const tokens = useRdsTokens();
+
   return (
     <Paper
       variant={mode === 'standard' ? 'elevation' : 'outlined'}
@@ -218,10 +223,10 @@ export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
       onDrop={onDrop}
-      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', minHeight: 60, px: 3, py: 2, border: '1.5px dashed var(--rds-primary-main)', background: 'var(--rds-background-paper, #fff)', cursor: disabled ? 'not-allowed' : 'pointer' }}
+      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', minHeight: 60, px: 3, py: 2, border: '1.5px dashed var(--rds-primary-main)', background: tokens.color.surface, cursor: disabled ? 'not-allowed' : 'pointer' }}
     >
       <Box className="rds-file-uploader__icon-box">
-        <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: 'var(--rds-file-uploader-icon-color, #4a4a4a)' }} />
+        <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: tokens.cssVar('file-uploader-icon-color') }} />
       </Box>
       <Box className="rds-file-uploader__title-box">
         <Typography className="rds-file-uploader__title rds-file-uploader__title--inline" variant="h6" gutterBottom>
@@ -233,7 +238,7 @@ export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
         className="rds-file-uploader__upload-btn"
         onClick={openFileDialog}
         disabled={disabled}
-        sx={{ ml: 'var(--rds-spacing-md, 16px)', minWidth: 'var(--rds-spacing-2xl, 120px)', fontWeight: 600, fontSize: 'var(--rds-font-size-md, 14px)', p: 'var(--rds-spacing-xs, 4px) var(--rds-spacing-lg, 14px)', textTransform: 'uppercase', background: 'var(--rds-color-primary-hover, #3390e6)' }}
+        sx={{ ml: tokens.space(2), minWidth: 'var(--rds-spacing-2xl, 120px)', fontWeight: 600, fontSize: 'var(--rds-font-size-md, 14px)', p: `${tokens.space(0.5)} ${tokens.space(1.75)}`, textTransform: 'uppercase', background: tokens.color.primary }}
       >
         Upload Files
       </Button>
@@ -250,6 +255,8 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
   onDrop,
   openFileDialog,
 }) => {
+  const tokens = useRdsTokens();
+
   return (
     <Paper
       variant={mode === 'standard' ? 'elevation' : 'outlined'}
@@ -264,7 +271,7 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
       onClick={!disabled ? openFileDialog : undefined}
       sx={mode === 'standard' ? { boxShadow: 3 } : {}}
     >
-      <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: 'var(--rds-file-uploader-icon-color, var(--rds-neutral-main, #4a4a4a))' }} />
+      <CloudUpload className="rds-file-uploader__icon" fontSize="large" sx={{ color: tokens.cssVar('file-uploader-icon-color') }} />
       <Typography className="rds-file-uploader__title" variant="h6" gutterBottom>
         Drag and Drop files or <span className="rds-file-uploader__browse-link" onClick={(e) => { e.stopPropagation(); if (!disabled) openFileDialog(); }}>Browse</span>
       </Typography>
@@ -286,6 +293,8 @@ export const RdsFileList: React.FC<RdsFileListProps> = ({
   removeFile,
   formatFileSize,
 }) => {
+  const tokens = useRdsTokens();
+
   return (
     <Box className="rds-file-uploader__file-list">
       <Typography className="rds-file-uploader__file-list-title" variant="subtitle2" gutterBottom>
@@ -302,18 +311,18 @@ export const RdsFileList: React.FC<RdsFileListProps> = ({
             minWidth: { xs: 0, sm: 0, md: 'var(--rds-spacing-2xl, 400px)' },
             maxWidth: { xs: '98vw', sm: '98vw', md: 'var(--rds-spacing-3xl, 500px)' },
             height: 'var(--rds-spacing-xl, 36px)',
-            background: 'var(--rds-background-surface, #E1E3EA)',
-            borderRadius: 'var(--rds-border-radius-sm, 4px)',
-            border: '1px solid var(--rds-neutral-main, #7D7D7D)',
-            px: 'var(--rds-spacing-xs, 4px)',
+            background: tokens.color.surface,
+            borderRadius: tokens.radius.sm,
+            border: `1px solid ${tokens.color.textMuted}`,
+            px: tokens.space(0.5),
             py: 0,
-            mb: 'var(--rds-spacing-xs, 4px)',
+            mb: tokens.space(0.5),
             fontSize: { xs: 'var(--rds-font-size-sm, 13px)', sm: 'var(--rds-font-size-md, 14px)', md: 'var(--rds-font-size-md, 15px)' },
           }}
         >
           <Typography
             sx={{
-              color: 'var(--rds-neutral-900, #353535)',
+              color: tokens.color.text,
               fontWeight: 500,
               flex: 1,
               overflow: 'hidden',
@@ -326,10 +335,10 @@ export const RdsFileList: React.FC<RdsFileListProps> = ({
           </Typography>
           <Typography
             sx={{
-              color: 'var(--rds-neutral-700, #646464)',
+              color: tokens.color.textMuted,
               fontWeight: 400,
               fontSize: 'var(--rds-font-size-md, 14px)',
-              ml: 'var(--rds-spacing-md, 16px)',
+              ml: tokens.space(2),
               minWidth: 'var(--rds-spacing-xl, 70px)',
               textAlign: 'right',
             }}
@@ -341,10 +350,10 @@ export const RdsFileList: React.FC<RdsFileListProps> = ({
             size="small"
             onClick={() => removeFile(index)}
             disabled={isUploading}
-            sx={{ ml: 'var(--rds-spacing-xs, 4px)', color: 'var(--rds-neutral-main, #7D7D7D)', background: 'transparent', borderRadius: '50%', '&:hover': { background: 'var(--rds-neutral-300, #D1D3DA)' }, p: 'var(--rds-spacing-xxs, 4px)' }}
+            sx={{ ml: tokens.space(0.5), color: tokens.color.textMuted, background: 'transparent', borderRadius: tokens.radius.full, '&:hover': { background: tokens.color.divider }, p: tokens.space(0.5) }}
             aria-label="Remove file"
           >
-            <Close fontSize="small" sx={{ color: 'var(--rds-neutral-main, #7D7D7D)' }} />
+            <Close fontSize="small" sx={{ color: tokens.color.textMuted }} />
           </IconButton>
         </Box>
       ))}

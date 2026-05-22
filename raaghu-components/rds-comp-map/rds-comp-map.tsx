@@ -73,7 +73,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         return {
             fill: color,
             fillOpacity: 0.7 + (0.3 * intensity),
-            stroke: '#222',
+            stroke: 'var(--rds-border-dark)',
             strokeWidth: 0.5,
             strokeOpacity: 0.7,
             cursor: 'pointer'

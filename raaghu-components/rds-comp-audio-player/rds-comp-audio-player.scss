@@ -22,14 +22,7 @@
     border-radius: 50%;
     background: var(--rds-color-secondary-container, #e6e0ff);
     color: var(--rds-color-on-secondary-container, #333);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all var(--rds-transition-base);
     
     &--purple {
       background: var(--rds-color-secondary-container, #e6e0ff);
@@ -47,17 +40,10 @@
     width: 32px;
     height: 32px;
     color: var(--rds-color-on-surface, #333);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: color var(--rds-transition-base);
 
     &:hover {
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      color: var(--rds-color-primary, #1976d2);
     }
   }
 
@@ -97,7 +83,7 @@
     gap: var(--rds-spacing-md, 15px);
     margin-right: var(--rds-spacing-md, 12px);
     position: relative;
-    z-index: 2;
+    z-index: var(--rds-z-index-layer-2);
     
     > svg {
       display: flex;
@@ -110,17 +96,10 @@
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 14px;
+      font-size: var(--rds-font-size-md);
       padding: var(--rds-spacing-xs, 4px);
       border-radius: var(--rds-border-radius-sm, 4px);
-      
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+      transition: all 0.2s ease;
       color: var(--rds-color-on-surface-variant);
       display: flex;
       align-items: center;
@@ -128,11 +107,11 @@
       
       &:hover {
         background: var(--rds-color-surface-variant);
-        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+        color: var(--rds-color-primary, #1976d2);
       }
       
       &:focus-visible {
-        outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+        outline: 2px solid var(--rds-color-primary, #1976d2);
         outline-offset: 2px;
       }
     }
@@ -148,17 +127,10 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: var(--rds-font-size-lg);
     padding: var(--rds-spacing-xs, 4px);
     border-radius: var(--rds-border-radius-sm, 4px);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all 0.2s ease;
     color: var(--rds-color-on-surface-variant);
     display: flex;
     align-items: center;
@@ -166,11 +138,11 @@
 
     &:hover {
       background: var(--rds-color-surface-variant);
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      color: var(--rds-color-primary, #1976d2);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      outline: 2px solid var(--rds-color-primary, #1976d2);
       outline-offset: 2px;
     }
 
@@ -181,21 +153,14 @@
   }
 
   &__play-btn {
-    background: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+    background: var(--rds-color-primary, #1976d2);
     color: var(--rds-color-on-primary, #fff);
     border: none;
     padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px);
     border-radius: var(--rds-border-radius-sm, 6px);
     cursor: pointer;
-    font-size: 16px;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    font-size: var(--rds-font-size-lg);
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -206,7 +171,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      outline: 2px solid var(--rds-color-primary, #1976d2);
       outline-offset: 2px;
     }
 
@@ -228,12 +193,12 @@
     gap: var(--rds-spacing-md, 12px);
     margin-right: var(--rds-spacing-md, 12px);
     position: relative;
-    z-index: 2;
+    z-index: var(--rds-z-index-layer-2);
   }
 
   &__fabmenu-wrapper {
     position: relative;
-    z-index: 10;
+    z-index: var(--rds-z-index-raised);
     margin-right: var(--rds-spacing-sm, 8px);
   }
 
@@ -241,26 +206,19 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 14px;
+    font-size: var(--rds-font-size-md);
     padding: var(--rds-spacing-xs, 4px);
     border-radius: var(--rds-border-radius-sm, 4px);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all 0.2s ease;
     color: var(--rds-color-on-surface-variant, #666);
 
     &:hover {
       background: var(--rds-color-surface-variant, #f5f5f5);
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      color: var(--rds-color-primary, #1976d2);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      outline: 2px solid var(--rds-color-primary, #1976d2);
       outline-offset: 2px;
     }
   }
@@ -270,13 +228,13 @@
     position: absolute;
     top: 85%;
     right: 8px;
-    z-index: 100;
+    z-index: var(--rds-z-index-dropdown, 100);
     background: var(--rds-color-surface, white);
     border-radius: var(--rds-border-radius-sm, 6px);
     padding: var(--rds-spacing-lg, 16px) var(--rds-spacing-md, 12px);
     border: 1px solid var(--rds-color-outline-variant, #e1e7ef);
     box-shadow: var(--rds-elevation-3, 0 8px 32px rgba(0, 0, 0, 0.12));
-    animation: rds-comp-audio-player-slide-down var(--rds-transition-base, 0.2s) ease-out;
+    animation: rds-comp-audio-player-slide-down 0.2s ease-out;
   }
 
   &__volume-slider {
@@ -288,8 +246,8 @@
   }
 
   &__speaker-icon {
-    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-    font-size: 24px !important;
+    color: var(--rds-color-primary, #1976d2);
+    font-size: var(--rds-font-size-3xl) !important;
     margin-bottom: var(--rds-spacing-sm, 8px);
   }
 
@@ -297,14 +255,14 @@
     position: absolute;
     top: 85%;
     right: 250px;
-    z-index: 100;
+    z-index: var(--rds-z-index-dropdown, 100);
     background: var(--rds-color-surface, white);
     border-radius: var(--rds-border-radius, 8px);
     padding: var(--rds-spacing-xl, 20px);
     border: 1px solid var(--rds-color-outline-variant, #e1e7ef);
     min-width: 320px;
     box-shadow: var(--rds-elevation-3, 0 8px 32px rgba(0, 0, 0, 0.12));
-    animation: rds-comp-audio-player-slide-down var(--rds-transition-base, 0.2s) ease-out;
+    animation: rds-comp-audio-player-slide-down 0.2s ease-out;
   }
 
   &__settings-header {
@@ -350,7 +308,7 @@
     text-align: center;
     font-size: var(--rds-font-size-body-medium, 14px);
     font-weight: var(--rds-font-weight-medium, 500);
-    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+    color: var(--rds-color-primary, #1976d2);
     background: var(--rds-color-primary-container, #f5f8ff);
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-lg, 16px);
     border-radius: var(--rds-border-radius-sm, 6px);
@@ -364,23 +322,16 @@
     cursor: pointer;
     padding: var(--rds-spacing-xs, 4px);
     border-radius: var(--rds-border-radius-sm, 4px);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all 0.2s ease;
     color: var(--rds-color-on-surface-variant);
 
     &:hover {
       background: var(--rds-color-surface-variant);
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      color: var(--rds-color-primary, #1976d2);
     }
 
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      outline: 2px solid var(--rds-color-primary, #1976d2);
       outline-offset: 2px;
     }
   }
@@ -413,18 +364,11 @@
     cursor: pointer;
     font-size: var(--rds-font-size-body-medium, 14px);
     font-weight: var(--rds-font-weight-medium, 500);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all 0.2s ease;
     font-family: var(--rds-font-family, inherit);
 
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      outline: 2px solid var(--rds-color-primary, #1976d2);
       outline-offset: 2px;
     }
   }
@@ -455,21 +399,14 @@
     overflow: hidden;
     user-select: none;
     cursor: default;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all 0.2s ease;
 
     &--dragging {
       cursor: col-resize;
     }
 
     &:focus-within {
-      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      outline: 2px solid var(--rds-color-primary, #1976d2);
       outline-offset: 2px;
     }
   }
@@ -488,16 +425,9 @@
     width: var(--selection-width, 80%);
     background: var(--rds-color-primary-container-variant, rgba(25, 118, 210, 0.1));
     border: 1px solid var(--rds-color-primary-outline, rgba(25, 118, 210, 0.3));
-    z-index: 1;
+    z-index: var(--rds-z-index-layer-1);
     pointer-events: none;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all 0.2s ease;
   }
 
   &__waveform-disabled-overlay {
@@ -505,16 +435,9 @@
     top: 0;
     bottom: 0;
     background: var(--rds-color-surface-disabled, rgba(108, 117, 125, 0.15));
-    z-index: 1;
+    z-index: var(--rds-z-index-layer-1);
     pointer-events: none;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all 0.2s ease;
     
     &--left {
       left: 0;
@@ -534,17 +457,10 @@
     top: 0;
     bottom: 0;
     width: 10px;
-    background: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-    z-index: 2;
+    background: var(--rds-color-primary, #1976d2);
+    z-index: var(--rds-z-index-layer-2);
     cursor: col-resize;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: background-color 0.2s ease;
     outline: none;
     
     &:hover {
@@ -612,16 +528,9 @@
     background: var(--rds-color-on-primary, #fff);
     border-radius: var(--rds-border-radius-xs, 3px);
     box-shadow: var(--rds-elevation-1, 0 1px 4px rgba(0,0,0,0.10));
-    z-index: 3;
+    z-index: var(--rds-z-index-layer-3);
     pointer-events: none;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all 0.2s ease;
 
     &::before {
       content: '';
@@ -631,16 +540,9 @@
       transform: translate(-50%, -50%);
       width: 1px;
       height: 20px;
-      background: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      background: var(--rds-color-primary, #1976d2);
       border-radius: 1px;
-      
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+      transition: all 0.2s ease;
     }
   }
 
@@ -692,14 +594,7 @@
     cursor: pointer;
     font-size: var(--rds-font-size-body-medium, 14px);
     color: var(--rds-color-on-surface-variant);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all 0.2s ease;
     font-family: var(--rds-font-family, inherit);
     
     &:hover {
@@ -708,16 +603,16 @@
     }
     
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      outline: 2px solid var(--rds-color-primary, #1976d2);
       outline-offset: 2px;
     }
     
     &--active {
       background: var(--rds-color-primary-container, #e3f2fd);
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      color: var(--rds-color-primary, #1976d2);
       
       .rds-comp-audio-player__btn-icon {
-        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+        color: var(--rds-color-primary, #1976d2);
       }
     }
 
@@ -730,14 +625,7 @@
   &__btn-icon {
     width: 16px;
     height: 16px;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: color 0.2s ease;
   }
 
   &__edition-zoom {
@@ -754,20 +642,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+      transition: all 0.2s ease;
       color: var(--rds-color-on-surface-variant);
       
       &:hover:not(:disabled) {
         background: var(--rds-color-primary-container, #e3f2fd);
-        border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+        border-color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-primary, #1976d2);
       }
       
       &:disabled {
@@ -776,7 +657,7 @@
       }
       
       &:focus-visible {
-        outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+        outline: 2px solid var(--rds-color-primary, #1976d2);
         outline-offset: 2px;
       }
     }
@@ -814,7 +695,7 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: var(--rds-breakpoint-md)) {
     &__player {
       min-width: auto;
       flex-direction: column;
@@ -968,7 +849,7 @@
     }
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: var(--rds-breakpoint-sm)) {
     &__edition-timemarks {
       font-size: var(--rds-font-size-caption, 10px);
     }
@@ -1051,35 +932,35 @@
   }
 
   .rds-comp-audio-player__edition-btn--active {
-    background: rgba(25, 118, 210, 0.2);
-    color: #90caf9;
+    background: var(--rds-color-primary-overlay, rgba(25, 118, 210, 0.2));
+    color: var(--rds-color-primary-light, #90caf9);
     
     &:hover {
-      background: rgba(25, 118, 210, 0.3);
-      color: #bbdefb;
+      background: var(--rds-color-primary-overlay-strong, rgba(25, 118, 210, 0.3));
+      color: var(--rds-color-primary-lighter, #bbdefb);
     }
     
     .rds-comp-audio-player__btn-icon {
-      color: #90caf9;
+      color: var(--rds-color-primary-light, #90caf9);
     }
   }
 
   .rds-comp-audio-player__edition-zoom {
     button {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.7);
+      background: var(--rds-color-surface-overlay, rgba(255, 255, 255, 0.05));
+      border-color: var(--rds-color-border-overlay, rgba(255, 255, 255, 0.1));
+      color: var(--rds-color-on-surface-overlay, rgba(255, 255, 255, 0.7));
       
       &:hover:not(:disabled) {
-        background: rgba(15, 119, 223, 0.2);
-        border-color: #90caf9;
-        color: #90caf9;
+        background: var(--rds-color-primary-overlay-soft, rgba(15, 119, 223, 0.2));
+        border-color: var(--rds-color-primary-light, #90caf9);
+        color: var(--rds-color-primary-light, #90caf9);
       }
     }
   }
 }
 
-@media (max-width: 430px) {
+@media (max-width: var(--rds-breakpoint-430)) {
   .rds-comp-audio-player__settings-modal {
       top: 95%;
       right: -17px;

@@ -2,33 +2,40 @@
 // Slide-out navigation drawer component
 // Note: Component uses MUI Drawer, these are supplementary styles
 
+$rds-drawer-breakpoint-md: 768px;
+$rds-drawer-breakpoint-sm: 480px;
+
 .rds-drawer-close-button {
-  margin-left: 20px;
+  margin-left: var(--rds-drawer-close-button-margin-left, 20px);
 }
 
 .rds-drawer-trigger-wrapper {
+  --rds-drawer-trigger-min-height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 200px;
+  min-height: var(--rds-drawer-trigger-min-height, 200px);
 }
 
 .rds-drawer-persistent-trigger {
+  --rds-drawer-persistent-min-height: 200px;
+  --rds-drawer-persistent-min-height-md: 150px;
+  --rds-drawer-persistent-min-height-sm: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 200px;
+  min-height: var(--rds-drawer-persistent-min-height, 200px);
   padding: var(--rds-spacing-lg);
   
-  @media (max-width: 768px) {
-    min-height: 150px;
+  @media (max-width: $rds-drawer-breakpoint-md) {
+    min-height: var(--rds-drawer-persistent-min-height-md, 150px);
     padding: var(--rds-spacing-md);
   }
   
-  @media (max-width: 480px) {
-    min-height: 120px;
+  @media (max-width: $rds-drawer-breakpoint-sm) {
+    min-height: var(--rds-drawer-persistent-min-height-sm, 120px);
     padding: var(--rds-spacing-sm);
   }
 }

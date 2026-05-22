@@ -1,27 +1,27 @@
 .rds-comments-box {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--rds-spacing-xs);
   max-width: var(--rds-comments-max-width, 450px) !important;
   padding: var(--rds-spacing-lg, 16px) var(--rds-spacing-xxl, 16px) var(--rds-spacing-xxxl, 24px) var(--rds-spacing-xxl, 16px);
   background: transparent;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
-  color: var(--rds-text-primary, #333);
+  color: var(--rds-text-primary);
   border-radius: var(--rds-border-radius-md, 8px);
   input::placeholder,
   textarea::placeholder,
   .MuiInputBase-input::placeholder,
   .MuiOutlinedInput-input::placeholder {
-    color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6));
+    color: var(--rds-placeholder-color);
     opacity: 1;
   }
   
   &--hover {
-    background: var(--rds-background-paper, #fff);
+    background: var(--rds-background-paper);
   }
   
   &--thread {
-    background: var(--rds-background-paper, #fff);
+    background: var(--rds-background-paper);
     display: flex;
     flex-direction: column;
     gap: var(--rds-spacing-lg, 16px);
@@ -38,7 +38,7 @@
       width: var(--rds-avatar-size-md, 36px);
       height: var(--rds-avatar-size-md, 36px);
       background-color: var(--rds-primary-main, #4285f4);
-      color: var(--rds-primary-contrast-text, #fff);
+      color: var(--rds-primary-contrast-text);
       font-size: var(--rds-font-size-md, 14px);
       font-weight: var(--rds-typography-semibold, 600);
       display: flex;
@@ -55,7 +55,7 @@
         input {
           padding: var(--rds-spacing-md, 10px) var(--rds-spacing-lg, 14px);
           font-size: var(--rds-font-size-lg, 16px);
-          color: var(--rds-text-primary, #000);
+          color: var(--rds-text-primary);
         }
         fieldset {
           display: none;
@@ -72,7 +72,7 @@
       .rds-comments-box__send-icon {
         font-size: var(--rds-font-size-xl, 20px);
         color: var(--rds-primary-dark, #2161dc);
-        margin-left: 2px;
+        margin-left: var(--rds-border-radius-xs);
       }
     }
   }
@@ -83,14 +83,14 @@
     background-color: var(--rds-error-dark, #c62828);
     border-radius: 50%;
     position: absolute;
-    top: 4px !important;
-    right: 10px !important;
-    z-index: 10;
+    top: var(--rds-spacing-xs) !important;
+    right: calc(var(--rds-spacing-sm) + var(--rds-border-radius-xs)) !important;
+    z-index: var(--rds-z-index-raised);
   }
 
   &--typing {
     min-height: var(--rds-typing-min-height, 106px);
-    border-radius: 12px;
+    border-radius: var(--rds-border-radius-lg);
     padding: 18px 20px;
     align-items: flex-start;
 
@@ -108,9 +108,9 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      padding-left: 8px;
-       background: var(--rds-background-paper, #fff);
+      gap: var(--rds-spacing-sm);
+      padding-left: var(--rds-spacing-sm);
+      background: var(--rds-background-paper);
     }
 
     .rds-comments-box__typing-header {
@@ -118,10 +118,10 @@
     }
 
     .rds-comments-box__typing-placeholder {
-      font-size: 20px;
+      font-size: var(--rds-font-size-2xl);
       font-weight: 400;
-      color: var(--rds-text-primary, #333);
-      padding: 8px 0;
+      color: var(--rds-text-primary);
+      padding: var(--rds-spacing-sm) 0;
     }
 
     .rds-comments-box__typing-toolbar {
@@ -133,18 +133,18 @@
 
     .rds-comments-box__toolbar-icons {
       display: flex;
-      gap: 16px;
+      gap: var(--rds-spacing-md);
       align-items: center;
     }
 
     .rds-comments-box__send-btn {
       background: var(--rds-primary-main, #3a8bfd) !important;
-      color: var(--rds-primary-contrast-text, #fff) !important;
+      color: var(--rds-primary-contrast-text) !important;
       width: 36px !important;
       height: 32px !important;
       min-width: 36px !important;
       min-height: 32px !important;
-      border-radius: 8px !important;
+      border-radius: var(--rds-border-radius-md) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
@@ -152,7 +152,7 @@
       padding: 0 !important;
     }
 
-    .rds-comments-box__send-icon { font-size: 18px !important; }
+    .rds-comments-box__send-icon { font-size: var(--rds-font-size-xl) !important; }
   }
 
   .rds-comments-box__avatar {
@@ -404,14 +404,7 @@
     align-items: center;
     padding: var(--rds-spacing-xs, 6px) 0;
     cursor: pointer;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: background var(--rds-transition-base);
     &:hover {
       background-color: var(--rds-background-hover, #f0f0f0);
     }
@@ -457,14 +450,7 @@
     padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-md, 12px);
     cursor: pointer;
     margin-bottom: var(--rds-spacing-xs, 2px);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: background var(--rds-transition-base);
     &:hover {
       background: var(--rds-background-hover, #e3f2fd);
     }
@@ -502,14 +488,7 @@
     padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-md, 12px);
     cursor: pointer;
     margin-bottom: var(--rds-spacing-xs, 2px);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: background 0.2s;
     &:hover {
       background: var(--rds-background-hover, #e3f2fd);
     }
@@ -666,7 +645,7 @@
     flex: 1;
   }
   &__send-btn {
-    background: var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
+    background: var(--rds-primary-main, #1976d2) !important;
     color: var(--rds-primary-contrast-text, #fff) !important;
     border-radius: var(--rds-border-radius-md, 8px) !important;
     width: var(--rds-send-btn-size, 28px) !important;
@@ -676,19 +655,12 @@
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: background 0.2s !important;
     box-shadow: none !important;
     border: none !important;
     padding: 0 !important;
     &:hover {
-      background: var(--rds-primary-dark, var(--rds-primary-main, #1976d2)) !important;
+      background: var(--rds-primary-dark, #1976d2) !important;
     }
   }
   &__send-icon {
@@ -706,7 +678,7 @@
   }
   &__emoji-icon, &__attach-icon, &__mention-icon {
     font-size: var(--rds-font-size-lg, 18px) !important;
-    color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
+    color: var(--rds-primary-main, #1976d2) !important;
   }
   &__gif-icon {
     font-size: var(--rds-font-size-xxl, 30px) !important;
@@ -718,8 +690,8 @@
 }
 .rds-comments-box__score-border {
   border: 1px solid var(--rds-border-default, #bdbdbd);
-  border-radius: 8px;
-  padding: 4px 2px;
+  border-radius: var(--rds-border-radius-md);
+  padding: var(--rds-spacing-xs) 2px;
   background: var(--rds-background-paper, #fff);
   display: flex;
   align-items: center;
@@ -797,7 +769,7 @@
 
 .rds-comments-box__emoji-dropdown {
   position: absolute;
-  z-index: 9999;
+  z-index: var(--rds-z-index-modal);
   top: 40px;
   left: -24px;
   min-width: 240px;
@@ -813,11 +785,11 @@
   position: absolute;
   top: 100%;
   right: 0;
-  margin-top: 8px;
+  margin-top: var(--rds-spacing-sm);
 }
 
 .rds-comments-box__mention-search-input {
-  z-index: 9999;
+  z-index: var(--rds-z-index-modal);
   position: relative;
   pointer-events: auto;
   opacity: 1;
@@ -889,112 +861,8 @@
 }
 
 body.theme-light,
-[data-theme="light"] {
-  --rds-placeholder-color: rgba(0, 0, 0, 0.6);
-  .mention-search-input {
-    background: var(--rds-background-paper-light, #fff) !important;
-    color: var(--rds-text-primary-light, #181a20) !important;
-    &::placeholder {
-      color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
-      opacity: 1 !important;
-    }
-  }
-  .commentbox.thread .vote .score {
-    background: var(--rds-background-thread-vote-light, #f5f8ff) !important;
-    color: var(--rds-text-primary-light, #222) !important;
-    border-radius: var(--rds-border-radius-md, 6px);
-    border: 1px solid var(--rds-border-default, #bdbdbd) !important;
-  }
-  .rds-comments-box__mention-user-name {
-    color: var(--rds-text-primary, #181a20) !important;
-  }
-}
 
-body.theme-dark,
-[data-theme="dark"] {
-  .mention-search-input {
-    border: 2px solid var(--rds-primary-main, #3a8bfd) !important;
-    background: var(--rds-background-paper, #181a20) !important;
-    color: var(--rds-text-primary, #eaf2ff) !important;
-    pointer-events: auto !important;
-    opacity: 1 !important;
-    &::placeholder {
-      color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
-      opacity: 1 !important;
-    }
-  }
-  .commentbox.thread {
-    border: 1.5px solid var(--rds-border-default, #bdbdbd) !important;
-    border-radius: var(--rds-border-radius-lg, 12px) !important;
-  }
-  --rds-background-paper: #181a20;
-  --rds-background-surface: #23262f;
-  --rds-card-shadow: 0 2px 8px rgba(0,0,0,0.5);
-  --rds-text-primary: #eaf2ff;
-  --rds-text-secondary: #bdbdbd;
-  --rds-text-disabled: #888;
-  --rds-primary-main: #3a8bfd;
-  --rds-primary-dark: #1560b3;
-  --rds-primary-light: #90caf9;
-  --rds-primary-contrast-text: #fff;
-  --rds-border-default: #3a8bfd;
-  --rds-border-light: #23262f;
-  --rds-neutral-600: #bdbdbd;
-  --rds-neutral-dark: #888;
-  --rds-error-main: #d32f2f;
-  --rds-error-dark: #c62828;
-  --rds-success-main: #43a047;
-  --rds-warning-main: #ffa726;
-  --rds-input-bg: #23262f;
-  --rds-input-border: #3a8bfd;
-  --rds-input-placeholder: #888;
-  --rds-placeholder-color: rgba(255, 255, 255, 0.65);
-  --rds-background-hover: #23262f;
-  --rds-background-active: #23262f;
-  --rds-background-selected: #23262f;
-  --rds-background-thread: #23262f;
-  --rds-background-dropdown: #23262f;
-  --rds-background-mention: #23262f;
-  --rds-background-attachment: #23262f;
-  --rds-background-toolbar: #23262f;
-  --rds-background-send: #1560b3;
-  --rds-background-reply: #23262f;
-  --rds-background-comment: #23262f;
-  --rds-background-card: #23262f;
-  --rds-background-meta: #23262f;
-  --rds-background-preview: #23262f;
-  --rds-background-avatar: #23262f;
-  --rds-background-dot: #d32f2f;
-  --rds-background-divider: #23262f;
-  --rds-background-badge: #23262f;
-  --rds-background-thread-header: #23262f;
-  --rds-background-thread-body: #23262f;
-  --rds-background-thread-title: #23262f;
-  --rds-background-thread-icons: #23262f;
-  --rds-background-thread-divider: #23262f;
-  --rds-background-thread-reply: #23262f;
-  --rds-background-thread-vote: #23262f;
-  --rds-background-thread-content: #23262f;
-  --rds-background-thread-comment-header: #23262f;
-  --rds-background-thread-comment-info: #23262f;
-  --rds-background-thread-tools: #23262f;
-  --rds-background-thread-text: #23262f;
-  --rds-background-thread-meta: #23262f;
-  --rds-background-thread-translate: #23262f;
-  --rds-background-paper: #181a20;
-  --rds-background-surface: #23262f;
-  --rds-card-shadow: 0 2px 8px rgba(0,0,0,0.5);
-  --rds-text-primary: #eaf2ff;
-  --rds-primary-main: #3a8bfd;
-  --rds-primary-dark: #1560b3;
-  --rds-primary-contrast-text: #fff;
-  --rds-border-default: #3a8bfd;
-  --rds-neutral-600: #bdbdbd;
-  --rds-error-main: #d32f2f;
-}
-
-
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-mobile-sm)) {
     .MuiIconButton-root svg {
         margin-left: 3px;
     }
@@ -1014,31 +882,12 @@ body.theme-dark,
   align-items: center;
   justify-content: flex-start;
 }
-
-[data-theme="dark"] .rds-comments-box.rds-comments-box--selected {
-  --rds-comments-selected-bg: #23272f;
-  --rds-comments-selected-text: #eaf2ff;
-  --rds-comments-selected-border: #333a45;
-  --rds-comments-input-bg: #181a20;
-  --rds-comments-input-text: #eaf2ff;
-}
-
 .rds-comments-box__name,
 .rds-comments-box__text {
   color: var(--rds-text-primary, #181a20); 
   font-weight: 500 !important;
 }
-
-body[data-theme='dark'] .rds-comments-box__name,
-body[data-theme='dark'] .rds-comments-box__text {
-  color: var(--rds-text-primary, #a4a3a3) !important;
-}
-
-[data-theme="dark"] .rds-comments-box__avatar {
-  color: var(--rds-text-primary, #000) !important;
-}
-
-@media (max-width: 568px) and (min-width: 320px) {
+@media (max-width: var(--rds-breakpoint-sm)) and (min-width: var(--rds-breakpoint-mobile-sm)) {
   .rds-comments-box__header {
     padding-left: 0 !important;
     margin-left: 0 !important;
@@ -1055,14 +904,14 @@ body[data-theme='dark'] .rds-comments-box__text {
     right: 8px !important;
   }
   .rds-comments-box__toolbar-icons {
-    gap: 4px !important;
+    gap: var(--rds-spacing-xs) !important;
   }
   .rds-comments-box--thread .rds-comments-box__thread-header {
     justify-content: flex-end !important;
   }
   .rds-comments-box__pushpin-icon,
   .rds-comments-box__more-icon {
-    font-size: 16px !important;
+    font-size: var(--rds-font-size-lg) !important;
   }
   .rds-comments-box--thread .rds-comments-box__score-border {
     min-width: 20px !important;
@@ -1080,7 +929,7 @@ body[data-theme='dark'] .rds-comments-box__text {
   }
 
   .rds-comments-box--typing .rds-comments-box__send-icon {
-    font-size: 12px !important;
+    font-size: var(--rds-font-size-sm) !important;
   }
   .rds-comments-box--thread .rds-comments-box__reply-box {
     width: 108% !important;
@@ -1097,14 +946,14 @@ body[data-theme='dark'] .rds-comments-box__text {
         height: 28px !important;
         min-height: 28px !important;
         max-height: 32px !important;
-        font-size: 12px !important;
+        font-size: var(--rds-font-size-sm) !important;
         .MuiInputBase-root {
-          padding: 4px 6px !important;
+          padding: var(--rds-spacing-xs) 6px !important;
           height: 28px !important;
           min-height: 35px !important;
           max-height: 35px !important;
-          font-size: 12px !important;
-          margin-right: 8px !important;
+          font-size: var(--rds-font-size-sm) !important;
+          margin-right: var(--rds-spacing-sm) !important;
         }
         .rds-comments-box__send {
           width: 24px !important;
@@ -1115,7 +964,7 @@ body[data-theme='dark'] .rds-comments-box__text {
           max-height: 24px !important;
           padding: 2px !important;
           .rds-comments-box__send-icon {
-            font-size: 14px !important;
+            font-size: var(--rds-font-size-md) !important;
           }
         }
       }
@@ -1123,7 +972,7 @@ body[data-theme='dark'] .rds-comments-box__text {
         width: 24px !important;
         height: 24px !important;
         font-size: 10px !important;
-        margin-left: 4px !important;
+        margin-left: var(--rds-spacing-xs) !important;
       }
     }
   .rds-comments-box--typing {
@@ -1132,7 +981,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__avatar {
       width: 28px;
       height: 28px;
-      font-size: 12px;
+      font-size: var(--rds-font-size-sm);
       margin-right: 0px;
     }
     .rds-comments-box__typing-box {
@@ -1143,7 +992,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__typing-header {
       min-height: 20px;
       height: 20px;
-      margin-bottom: 4px;
+      margin-bottom: var(--rds-spacing-xs);
     }
     .rds-comments-box__send-btn {
       width: 22px !important;
@@ -1162,22 +1011,22 @@ body[data-theme='dark'] .rds-comments-box__text {
     width: 30px !important;
     height: 30px !important;
     font-size: 10px !important;
-    margin-right: 4px !important;
+    margin-right: var(--rds-spacing-xs) !important;
   }
 
   .rds-comments-box--thread {
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
-        font-size: 14px;
+        font-size: var(--rds-font-size-md);
         margin-right: 98px;    
       }
       .rds-comments-box__thread-icons {
-        gap: 4px;
+        gap: var(--rds-spacing-xs);
         .rds-comments-box__more-icon,
         .rds-comments-box__pushpin-icon,
         .rds-comments-box__close-icon {
-          font-size: 18px;
+          font-size: var(--rds-font-size-xl);
         }
       }
     }
@@ -1193,13 +1042,13 @@ body[data-theme='dark'] .rds-comments-box__text {
   .rds-comments-box__mention-user-avatar {
     width: 28px !important;
     height: 28px !important;
-    font-size: 12px !important;
+    font-size: var(--rds-font-size-sm) !important;
   }
   .rds-comments-box__text,
   .rds-comments-box__meta,
   .rds-comments-box__name,
   .rds-comments-box__time {
-    font-size: 12px !important;
+    font-size: var(--rds-font-size-sm) !important;
   }
   .rds-comments-box__tools,
   .rds-comments-box__hover-tools {
@@ -1209,7 +1058,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     min-width: 250px;
     .rds-comments-box__comment-header {
       min-width: 180px;
-      margin-bottom: 4px;
+      margin-bottom: var(--rds-spacing-xs);
       margin-right: 18px !important;
       .rds-comments-box__avatar {
         width: 24px;
@@ -1217,7 +1066,7 @@ body[data-theme='dark'] .rds-comments-box__text {
         font-size: 10px !important;
       }
       .rds-comments-box__name {
-        font-size: 12px;
+        font-size: var(--rds-font-size-sm);
       }
       .rds-comments-box__time {
         font-size: 10px;
@@ -1242,7 +1091,7 @@ body[data-theme='dark'] .rds-comments-box__text {
   }
 }
 
-@media (min-width: 414px) and (max-width: 896px) {
+@media (min-width: var(--rds-breakpoint-mobile-lg)) and (max-width: var(--rds-breakpoint-md)) {
   .rds-comments-box__header {
     padding-left: 0 !important;
     margin-left: 0 !important;
@@ -1260,7 +1109,7 @@ body[data-theme='dark'] .rds-comments-box__text {
   }
   .rds-comments-box__pushpin-icon,
   .rds-comments-box__more-icon {
-    font-size: 18px !important;
+    font-size: var(--rds-font-size-xl) !important;
     justify-content: flex-end !important;
   }
   .rds-comments-box--thread .rds-comments-box__score-border {
@@ -1288,14 +1137,14 @@ body[data-theme='dark'] .rds-comments-box__text {
         height: 28px !important;
         min-height: 28px !important;
         max-height: 32px !important;
-        font-size: 14px !important;
+        font-size: var(--rds-font-size-md) !important;
         .MuiInputBase-root {
-          padding: 4px 8px !important;
+          padding: var(--rds-spacing-xs) 8px !important;
           height: 32px !important;
           min-height: 40px !important;
           max-height: 32px !important;
-          font-size: 14px !important;
-          margin-right: 8px !important;
+          font-size: var(--rds-font-size-md) !important;
+          margin-right: var(--rds-spacing-sm) !important;
         }
         .rds-comments-box__send {
           width: 28px !important;
@@ -1304,23 +1153,23 @@ body[data-theme='dark'] .rds-comments-box__text {
           min-height: 28px !important;
           max-width: 28px !important;
           max-height: 28px !important;
-          padding: 4px !important;
+          padding: var(--rds-spacing-xs) !important;
           .rds-comments-box__send-icon {
-            font-size: 16px !important;
+            font-size: var(--rds-font-size-lg) !important;
           }
         }
       }
       .rds-comments-box__avatar {
         width: 28px !important;
         height: 28px !important;
-        font-size: 12px !important;
+        font-size: var(--rds-font-size-sm) !important;
         margin-left: 6px !important;
       }
     }
   .rds-comments-box--hover .rds-comments-box__avatar--hover {
     width: 34px !important;
     height: 34px !important;
-    font-size: 12px !important;
+    font-size: var(--rds-font-size-sm) !important;
     margin-right: 6px !important;
   }
   .rds-comments-box--typing {
@@ -1328,7 +1177,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     .rds-comments-box__avatar {
       width: 32px;
       height: 32px;
-      font-size: 14px;
+      font-size: var(--rds-font-size-md);
       margin-right: 6px;
     }
     .rds-comments-box__typing-box {
@@ -1356,10 +1205,10 @@ body[data-theme='dark'] .rds-comments-box__text {
   }
 
   .rds-comments-box--thread {
-    gap: 12px;
+    gap: var(--rds-spacing-sm);
     .rds-comments-box__thread-header {
       .rds-comments-box__thread-title {
-        font-size: 16px;
+        font-size: var(--rds-font-size-lg);
         margin-right: 157px;
       }
       .rds-comments-box__thread-icons {
@@ -1383,13 +1232,13 @@ body[data-theme='dark'] .rds-comments-box__text {
   .rds-comments-box__mention-user-avatar {
     width: 32px !important;
     height: 32px !important;
-    font-size: 14px !important;
+    font-size: var(--rds-font-size-md) !important;
   }
   .rds-comments-box__text,
   .rds-comments-box__meta,
   .rds-comments-box__name,
   .rds-comments-box__time {
-    font-size: 14px !important;
+    font-size: var(--rds-font-size-md) !important;
   }
   .rds-comments-box__tools,
   .rds-comments-box__hover-tools {
@@ -1404,13 +1253,13 @@ body[data-theme='dark'] .rds-comments-box__text {
       .rds-comments-box__avatar {
         width: 28px;
         height: 28px;
-        font-size: 12px !important;
+        font-size: var(--rds-font-size-sm) !important;
       }
       .rds-comments-box__name {
-        font-size: 14px;
+        font-size: var(--rds-font-size-md);
       }
       .rds-comments-box__time {
-        font-size: 12px;
+        font-size: var(--rds-font-size-sm);
       }
     }
     .rds-comments-box__text {
@@ -1432,9 +1281,9 @@ body[data-theme='dark'] .rds-comments-box__text {
   }
 }
 
-@media (min-width: 700px) and (max-width: 1112px) {
+@media (min-width: var(--rds-breakpoint-700)) and (max-width: var(--rds-breakpoint-1112)) {
     .rds-comments-box--thread .rds-comments-box__thread-header .rds-comments-box__thread-title {
-        font-size: 16px;
+        font-size: var(--rds-font-size-lg);
         margin-right: 240px;
     }
     .rds-comments-box__comment-content .rds-comments-box__comment-header {
@@ -1442,13 +1291,13 @@ body[data-theme='dark'] .rds-comments-box__text {
         margin-right: 0px !important;
     }
   }
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     .MuiIconButton-root svg {
         margin-left: 2px;
     }
   }
 
-  @media (max-width: 320px) and (min-width: 280px) {
+  @media (max-width: var(--rds-breakpoint-mobile-sm)) and (min-width: var(--rds-breakpoint-280)) {
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         width: 238px;
@@ -1457,7 +1306,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     }
 }
 
-@media (max-width: 514px) and (min-width: 321px) {
+@media (max-width: var(--rds-breakpoint-514)) and (min-width: var(--rds-breakpoint-mobile-sm)) {
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         width: 301px;
@@ -1466,7 +1315,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     }
 }
 
-@media (max-width: 1280px) and (min-width: 650px) {
+@media (max-width: var(--rds-breakpoint-lg)) and (min-width: var(--rds-breakpoint-650)) {
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         margin-left: 3px;
@@ -1474,7 +1323,7 @@ body[data-theme='dark'] .rds-comments-box__text {
     }
 }
 
-@media (max-width: 320px) and (min-width: 280px) {
+@media (max-width: var(--rds-breakpoint-mobile-sm)) and (min-width: var(--rds-breakpoint-280)) {
   .rds-comments-box--typing {
     width: 307px !important;
   }

@@ -1,5 +1,5 @@
 :root {
-  --rds-spinner-primary-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
+  --rds-spinner-primary-color: #1976d2;
   --rds-spinner-secondary-color: #6c757d;
   --rds-spinner-success-color: #28a745;
   --rds-spinner-danger-color: #dc3545;
@@ -77,14 +77,14 @@
   &--label-spinner {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--rds-spacing-sm);
   }
 
   &--spinner-label {
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
-    gap: 0.5rem;
+    gap: var(--rds-spacing-sm);
     justify-content: flex-end;
   }
 
@@ -95,14 +95,7 @@
   
   .spinner-label {
     margin-bottom: 0;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: font-size var(--rds-transition-base);
     
     &--small {
       font-size: 0.75rem;

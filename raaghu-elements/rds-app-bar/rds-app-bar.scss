@@ -1,32 +1,39 @@
+@import '../shared/styles/rds-profile-menu.scss';
+@import '../shared/styles/rds-profile-menu-app-bar-overrides.scss';
+
+$rds-app-bar-breakpoint-md: 834px;
+$rds-app-bar-breakpoint-sm: 420px;
+$rds-app-bar-breakpoint-xs: 320px;
+
 .rds-story-logo {
-  height: 32px;
+  height: var(--rds-spacing-xl, 32px);
  
-  @media (max-width: 834px) {
-    height: 28px;
+  @media (max-width: $rds-app-bar-breakpoint-md) {
+    height: calc(3.5 * var(--rds-spacing-xs, 4px));
   }
   
-  @media (max-width: 420px) {
-    height: 24px;
+  @media (max-width: $rds-app-bar-breakpoint-sm) {
+    height: var(--rds-spacing-lg, 24px);
   }
   
-  @media (max-width: 320px) {
-    height: 20px;
-    margin-left: 10px;
+  @media (max-width: $rds-app-bar-breakpoint-xs) {
+    height: calc(2.5 * var(--rds-spacing-xs, 4px));
+    margin-left: calc(2.5 * var(--rds-spacing-xs, 4px));
   }
 }
 
 .rds-story-logo-search-container {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--rds-spacing-md, 16px);
   flex: 1;
   
-  @media (max-width: 420px) {
-    gap: 8px;
+  @media (max-width: var(--rds-breakpoint-420)) {
+    gap: var(--rds-spacing-sm, 8px);
   }
   
-  @media (max-width: 320px) {
-    gap: 6px;
+  @media (max-width: var(--rds-breakpoint-xs)) {
+    gap: calc(1.5 * var(--rds-spacing-xs, 4px));
   }
 }
 
@@ -35,70 +42,81 @@
 }
 
 .rds-story-search-field {
-  min-width: 180px;
-  @media (max-width: 834px) {
-    min-width: 160px;
-    max-width: 220px;
+  --rds-story-search-min-width: 180px;
+  --rds-story-search-min-width-md: 160px;
+  --rds-story-search-max-width-md: 220px;
+  --rds-story-search-min-width-sm: 140px;
+  --rds-story-search-max-width-sm: 200px;
+  --rds-story-search-min-width-xs: 120px;
+  --rds-story-search-max-width-xs: 180px;
+  --rds-story-search-min-width-2xs: 100px;
+  --rds-story-search-max-width-2xs: 140px;
+  min-width: var(--rds-story-search-min-width, 180px);
+  @media (max-width: $rds-app-bar-breakpoint-md) {
+    min-width: var(--rds-story-search-min-width-md, 160px);
+    max-width: var(--rds-story-search-max-width-md, 220px);
   }
  
-  @media (max-width: 480px) {
-    min-width: 140px;
+  @media (max-width: var(--rds-breakpoint-sm)) {
+    min-width: var(--rds-story-search-min-width-sm, 140px);
     flex: 1;
-    max-width: 200px;
+    max-width: var(--rds-story-search-max-width-sm, 200px);
   }
   
-  @media (max-width: 420px) {
-    min-width: 120px;
-    max-width: 180px;
+  @media (max-width: $rds-app-bar-breakpoint-sm) {
+    min-width: var(--rds-story-search-min-width-xs, 120px);
+    max-width: var(--rds-story-search-max-width-xs, 180px);
   }
   
-  @media (max-width: 320px) {
-    min-width: 100px;
-    max-width: 140px;
+  @media (max-width: $rds-app-bar-breakpoint-xs) {
+    min-width: var(--rds-story-search-min-width-2xs, 100px);
+    max-width: var(--rds-story-search-max-width-2xs, 140px);
   }
 }
- @media (min-width: 840px) {
+ @media (min-width: var(--rds-breakpoint-840)) {
     .rds-header--variant-withactions .rds-header__tabs-inline {
       margin-right: 370px;
     }
 }
 
 .rds-story-min-height-container {
-  min-height: 100px;
+  min-height: calc(25 * var(--rds-spacing-xs, 4px));
 }
 
 .rds-story-nav-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--rds-spacing-md, 16px);
   
-  @media (max-width: 834px) {
-    gap: 12px;
+  @media (max-width: var(--rds-breakpoint-834)) {
+    gap: calc(3 * var(--rds-spacing-xs, 4px));
   }
   
-  @media (max-width: 420px) {
-    gap: 8px;
+  @media (max-width: var(--rds-breakpoint-420)) {
+    gap: var(--rds-spacing-sm, 8px);
   }
   
-  @media (max-width: 320px) {
-    gap: 6px;
+  @media (max-width: var(--rds-breakpoint-xs)) {
+    gap: calc(1.5 * var(--rds-spacing-xs, 4px));
   }
 }
 
 .rds-story-nav-action {
+  --rds-story-nav-icon-size-sm: 16px;
+  --rds-story-nav-icon-size-xs: 14px;
   cursor: pointer;
  
-  @media (max-width: 420px) {
+  @media (max-width: $rds-app-bar-breakpoint-sm) {
     svg {
-      width: 16px;
-      height: 16px;
+      width: var(--rds-story-nav-icon-size-sm, 16px);
+      height: var(--rds-story-nav-icon-size-sm, 16px);
     }
   }
   
-  @media (max-width: 320px) {
+  @media (max-width: $rds-app-bar-breakpoint-xs) {
     svg {
-      width: 14px;
-      height: 14px;
+      width: var(--rds-story-nav-icon-size-xs, 14px);
+      height: var(--rds-story-nav-icon-size-xs, 14px);
     }
   }
 }
@@ -110,41 +128,49 @@
   flex-shrink: 1;
   min-width: 0;
   
-  @media (max-width: 834px) {
+  @media (max-width: var(--rds-breakpoint-834)) {
     flex-wrap: nowrap;
     overflow: hidden;
   }
   
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     gap: 0;
   }
   
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     gap: 0;
     flex-shrink: 2;
   }
 }
 
 .rds-appbar-separator {
+  --rds-appbar-separator-horizontal-margin: 8px;
+  --rds-appbar-separator-horizontal-margin-sm: 6px;
+  --rds-appbar-separator-horizontal-margin-xs: 4px;
+  --rds-appbar-separator-min-height: 24px;
+  --rds-appbar-separator-min-height-sm: 20px;
+  --rds-appbar-separator-min-height-xs: 18px;
+  --rds-appbar-separator-max-height: 60px;
+  --rds-appbar-separator-width: 1px;
   align-self: center;
   display: block;
   flex-shrink: 0; 
   height: calc(100% - 16px); 
-  min-height: 24px;
-  max-height: 60px;
-  width: 1px;
+  min-height: var(--rds-appbar-separator-min-height, 24px);
+  max-height: var(--rds-appbar-separator-max-height, 60px);
+  width: var(--rds-appbar-separator-width, 1px);
   background-color: var(--rds-appbar-separator-bg, #D0D0D0);
   background-clip: padding-box;
-  margin: 0 8px;
+  margin: 0 var(--rds-appbar-separator-horizontal-margin, 8px);
   
-  @media (max-width: 420px) {
-    margin: 0 6px;
-    min-height: 20px;
+  @media (max-width: $rds-app-bar-breakpoint-sm) {
+    margin: 0 var(--rds-appbar-separator-horizontal-margin-sm, 6px);
+    min-height: var(--rds-appbar-separator-min-height-sm, 20px);
   }
   
-  @media (max-width: 320px) {
-    margin: 0 4px;
-    min-height: 18px;
+  @media (max-width: $rds-app-bar-breakpoint-xs) {
+    margin: 0 var(--rds-appbar-separator-horizontal-margin-xs, 4px);
+    min-height: var(--rds-appbar-separator-min-height-xs, 18px);
   }
 }
 
@@ -157,96 +183,97 @@
 }
 
 .rds-appbar-tab-btn {
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: var(--rds-font-weight-semibold, 600);
+  font-size: var(--rds-font-size-lg);
   text-transform: none;
-  padding: 6px 16px;
-  border-radius: 0px !important;
-  
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+  padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-md, 16px);
+  border-radius: var(--rds-border-radius-none) !important;
+  transition: background-color var(--rds-transition-base);
   
   &-active {
-    color: var(--rds-text-primary,  var(--rds-primary-main, #1976d2)) !important;
-    border-bottom: 3px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
+    color: var(--rds-text-primary,  #1976d2) !important;
+    border-bottom: 3px solid var(--rds-color-primary, #1976d2) !important;
   }
   white-space: nowrap;
   min-width: auto;
   
-  @media (max-width: 834px) {
-    font-size: 15px;
-    padding: 6px 14px;
+  @media (max-width: var(--rds-breakpoint-834)) {
+    font-size: var(--rds-font-size-md); // 15px → md (14px, closest token)
+    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) calc(3.5 * var(--rds-spacing-xs, 4px));
   }
   
-  @media (max-width: 420px) {
-    font-size: 14px;
-    padding: 6px 12px;
+  @media (max-width: var(--rds-breakpoint-420)) {
+    font-size: var(--rds-font-size-md);
+    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) calc(3 * var(--rds-spacing-xs, 4px));
   }
   
-  @media (max-width: 320px) {
-    font-size: 13px;
-    padding: 6px 8px;
+  @media (max-width: var(--rds-breakpoint-xs)) {
+    font-size: var(--rds-font-size-sm); // 13px → sm (12px, closest token)
+    padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-sm, 8px);
   }
 }
 
 .rds-header__logo-search {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: calc(3 * var(--rds-spacing-xs, 4px));
   flex: 1;
 }
 
 .rds-header__logo-img {
-  height: 32px;
+  height: var(--rds-spacing-xl, 32px);
   display: block;
 }
 
 .rds-header__center-content {
+  --rds-header-center-gap-mobile: 12px;
+  --rds-header-center-gap-xs: 10px;
+  --rds-header-center-margin-left-mobile: 95px;
+  --rds-header-center-margin-left-xs: 30px;
+  --rds-header-center-button-font-size-mobile: 12px;
+  --rds-header-center-button-font-size-xs: 11px;
+  --rds-header-center-button-min-height-mobile: 32px;
+  --rds-header-center-button-min-height-xs: 28px;
   display: inline-flex;
   align-items: center;
-  gap: 8px; 
+  gap: var(--rds-spacing-sm, 8px); 
 
-  @media (max-width: 420px) {
-    gap: 12px; 
-    margin-left: 95px;
+  @media (max-width: $rds-app-bar-breakpoint-sm) {
+    gap: var(--rds-header-center-gap-mobile, 12px); 
+    margin-left: var(--rds-header-center-margin-left-mobile, 95px);
   }
 
-  @media (max-width: 320px) {
-    gap: 10px; 
-    margin-left: 30px;
+  @media (max-width: $rds-app-bar-breakpoint-xs) {
+    gap: calc(2.5 * var(--rds-spacing-xs, 4px)); 
+    margin-left: var(--rds-header-center-margin-left-xs, 30px);
   }
 
   .rds-button {
-    @media (max-width: 420px) {
-      font-size: 12px; 
+    @media (max-width: $rds-app-bar-breakpoint-sm) {
+      font-size: var(--rds-header-center-button-font-size-mobile, 12px); 
       padding: 6px 10px;
-      min-height: 32px;
+      min-height: var(--rds-header-center-button-min-height-mobile, 32px);
     }
 
-    @media (max-width: 320px) {
-      font-size: 11px;
-      padding: 5px 8px;
-      min-height: 28px;
+    @media (max-width: $rds-app-bar-breakpoint-xs) {
+      font-size: var(--rds-header-center-button-font-size-xs, 11px);
+      padding: calc(var(--rds-spacing-xs) + 1px) var(--rds-spacing-sm);
+      min-height: var(--rds-header-center-button-min-height-xs, 28px);
     }
   }
 }
 
-@media (min-width: 834px) {
+@media (min-width: var(--rds-breakpoint-834)) {
   .rds-header--variant-withactions {
     //.rds-header__logo { order: 1; }
-    .rds-header__tabs-inline { order: 2; margin-left: 8px; }
+    .rds-header__tabs-inline { order: 2; margin-left: var(--rds-spacing-sm); }
     .rds-header__center-content { order: 3; display: inline-flex; align-items: center;  }
     .rds-header__right-actions { order: 4; display: flex; align-items: center; margin-left: -18px; }
     .rds-header__actions { order: 5; margin-left: auto; }
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: var(--rds-breakpoint-420)) {
   .rds-header--variant-withactions {
     .rds-header__logo {
       flex-shrink: 0;
@@ -255,12 +282,12 @@
     
     .rds-header__center-content {
       flex-shrink: 1;
-      gap: 4px !important;
+      gap: var(--rds-spacing-xs) !important;
       margin-left: 20px !important;
       
       .MuiButton-root,
       .rds-button {
-        font-size: 10px !important;
+        font-size: var(--rds-font-size-xs) !important; // 10px → xs
         padding: 4px 8px !important;
         min-width: auto !important;
         white-space: nowrap;
@@ -275,19 +302,19 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: var(--rds-breakpoint-xs)) {
   .rds-header--variant-withactions {
     .rds-header__logo {
       max-width: 60px;
     }
     
     .rds-header__center-content {
-      gap: 2px !important;
+      gap: calc(var(--rds-spacing-xs) / 2) !important;
       margin-left: 30px !important;
       
       .MuiButton-root,
       .rds-button {
-        font-size: 9px !important;
+        font-size: var(--rds-font-size-xs) !important; // 9px → xs (10px, closest token)
         padding: 3px 6px !important;
       }
     }
@@ -305,13 +332,13 @@
   margin: 0;
   padding: 0;
   
-  @media (max-width: 480px) {
+  @media (max-width: var(--rds-breakpoint-sm)) {
     min-width: 140px;
     flex: 1;
     max-width: 200px;
   }
   
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     min-width: 120px;
     max-width: 160px;
   }
@@ -320,19 +347,19 @@
 .rds-logo-search-tabs__left-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--rds-spacing-md);
   flex-shrink: 0;
   
-  @media (max-width: 834px) {
-    gap: 12px;
+  @media (max-width: var(--rds-breakpoint-834)) {
+    gap: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   }
   
-  @media (max-width: 420px) {
-    gap: 8px;
+  @media (max-width: var(--rds-breakpoint-420)) {
+    gap: var(--rds-spacing-sm);
   }
   
-  @media (max-width: 320px) {
-    gap: 6px;
+  @media (max-width: var(--rds-breakpoint-xs)) {
+    gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
     
     svg {
       width: 16px;
@@ -344,14 +371,14 @@
 .rds-header__right-actions {
   display: flex;
   align-items: center;
-  margin-right: 16px;
+  margin-right: var(--rds-spacing-md);
   flex-shrink: 0;
   
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     margin-right: -8px;
   }
   
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     margin-right: 0px;
   }
 } 
@@ -362,7 +389,7 @@
   padding: 0 var(--rds-font-size-lg);
   background-color: var(--rds-appbar-bg, var(--rds-primary-main));
   color: var(--rds-appbar-color, var(--rds-background-paper));
-  min-height: 6var(--rds-spacing-xs);
+  min-height: var(--rds-spacing-lg, 24px);
   box-shadow: 0 2px var(--rds-spacing-xs) var(--rds-appbar-shadow, rgba(0, 0, 0, 0.2));
   position: relative;
   z-index: var(--rds-z-index-sticky);
@@ -381,17 +408,17 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     
-    @media (max-width: 834px) {
+    @media (max-width: var(--rds-breakpoint-834)) {
       font-size: var(--rds-font-size-xl);
       margin: 0 var(--rds-font-size-md);
     }
     
-    @media (max-width: 420px) {
+    @media (max-width: var(--rds-breakpoint-420)) {
       font-size: var(--rds-font-size-lg);
       margin: 0 var(--rds-font-size-sm);
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: var(--rds-breakpoint-xs)) {
       font-size: var(--rds-font-size-md);
       margin: 0 var(--rds-font-size-xs);
     }
@@ -401,11 +428,11 @@
     margin-right: var(--rds-spacing-sm);
     flex-shrink: 0;
     
-    @media (max-width: 420px) {
+    @media (max-width: var(--rds-breakpoint-420)) {
       margin-right: var(--rds-spacing-xs);
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: var(--rds-breakpoint-xs)) {
       margin-right: var(--rds-spacing-xs);
     }
   }
@@ -416,11 +443,11 @@
     gap: var(--rds-spacing-sm);
     flex-shrink: 0;
     
-    @media (max-width: 420px) {
+    @media (max-width: var(--rds-breakpoint-420)) {
       gap: var(--rds-spacing-xs);
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: var(--rds-breakpoint-xs)) {
       gap: var(--rds-spacing-xs);
     }
   }
@@ -439,174 +466,28 @@
   }
 }
 
-.rds-profile-menu__item-icon {
-  display: inline-flex;
-  align-items: center;
-  margin-right: 12px;
-  font-size: 18px;
-  vertical-align: middle;
-}
-.rds-profile-menu__dropdown .MuiList-root {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  outline: 0;
-}
-.rds-profile-menu__button.MuiIconButton-root:hover {
-  background-color: transparent !important;
-}
-.rds-profile-menu__button {
-  margin-left: 4px;
-  padding-left: 0.5rem;
-  padding-right: 1rem;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  min-width: 0;
-  
-  @media (max-width: 834px) {
-    padding-left: 0.4rem;
-    padding-right: 0.8rem;
-    gap: 6px;
-  }
-  
-  @media (max-width: 420px) {
-    padding-left: 0.3rem;
-    padding-right: 0.6rem;
-    gap: 4px;
-    margin-left: 2px;
-  }
-  
-  @media (max-width: 320px) {
-    padding-left: 0.2rem;
-    padding-right: 0.4rem;
-    gap: 2px;
-    margin-left: 1px;
-  }
-}
-
-.rds-profile-menu__avatar {
-  width: 32px !important;
-  height: 32px !important;
-  background: var(--rds-color-avatar-bg, var(--rds-color-surface-alt, #e0d7fa)) !important;
-  color: var(--rds-color-avatar-fg, var(--rds-color-primary, #7c4dff)) !important;
-  font-weight: var(--rds-font-weight-semibold, 600);
-  font-size: var(--rds-font-size-body, 1rem);
-  flex-shrink: 0;
-  
-  @media (max-width: 834px) {
-    width: 30px !important;
-    height: 30px !important;
-    font-size: 0.9rem;
-  }
-  
-  @media (max-width: 420px) {
-    width: 28px !important;
-    height: 28px !important;
-    font-size: 0.8rem;
-  }
-  
-  @media (max-width: 320px) {
-    width: 24px !important;
-    height: 24px !important;
-    font-size: 0.7rem;
-  }
-}
-.rds-profile-menu__chevron {
-  margin-left: 4px;
-}
-.rds-profile-menu__dropdown {
-  margin-top: var(--rds-spacing-xs, 6px);
-  min-width: 260px;
-  border-radius: var(--rds-border-radius-lg, 8px);
-  overflow: visible;
-  filter: var(--rds-elevation-2, drop-shadow(0px 2px 8px rgba(0,0,0,0.12)));
-  padding: 0;
-}
-.rds-profile-menu__header {
-  display: flex;
-  align-items: center;
-  padding: var(--rds-spacing-xs, 5px) var(--rds-spacing-sm, 10px) var(--rds-spacing-sm, 8px) var(--rds-spacing-xs, 8px);
-  margin-bottom: var(--rds-spacing-xs, 8px);
-}
-.rds-profile-menu__avatar-lg {
-  width: 44px !important;
-  height: 44px !important;
-  margin-right: var(--rds-spacing-md, 1rem);
-  background: var(--rds-color-avatar-bg, var(--rds-color-surface-alt, #e0d7fa)) !important;
-  color: var(--rds-color-avatar-fg, var(--rds-color-primary)) !important;
-  font-weight: var(--rds-font-weight-semibold, 600);
-  font-size: var(--rds-font-size-lg, 1.2rem);
-}
-.rds-profile-menu__name-lg {
-  font-weight: var(--rds-font-weight-bold, 700);
-  font-size: var(--rds-font-size-lg, 16px);
-  color: var(--rds-color-profile-name, #3d2461);
-  line-height: 1.2;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  
-  @media (max-width: 420px) {
-    font-size: var(--rds-font-size-md, 14px);
-  }
-  
-  @media (max-width: 320px) {
-    font-size: var(--rds-font-size-sm, 13px);
-  }
-}
-
-.rds-profile-menu__email {
-  font-size: var(--rds-font-size-xs, 13px);
-  color: var(--rds-color-primary, #7c4dff);
-  font-weight: var(--rds-font-weight-medium, 500);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  
-  @media (max-width: 420px) {
-    font-size: var(--rds-font-size-xs, 11px);
-  }
-  
-  @media (max-width: 320px) {
-    font-size: var(--rds-font-size-xs, 10px);
-  }
-}
-
-.rds-header--primary .rds-profile-menu__email,
-.rds-header--secondary .rds-profile-menu__email {
-  color: inherit !important;
-}
-.rds-profile-menu__item {
-  font-size: 15px !important;
-}
-.rds-profile-menu__item--last {
-  border-radius: 0 0 8px 8px !important;
-}
-
 .rds-header--transparent {
-  background: transparent !important;
-  box-shadow: none !important;
-  color: var(--rds-color-on-surface, #222);
+  &.rds-header {
+    background: transparent;
+    box-shadow: none;
+    color: var(--rds-color-on-surface, #222);
+  }
 }
 
 .rds-header--primary {
-  background: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
-  color: var(--rds-color-on-primary, #fff) !important;
+  &.rds-header {
+    background: var(--rds-color-primary, #1976d2);
+    color: var(--rds-color-on-primary, #fff);
+  }
   .rds-header__title,
   .rds-header__actions,
   .rds-header__logo {
-    color: var(--rds-color-on-primary, #fff) !important;
+    color: var(--rds-color-on-primary, #fff);
   }
   .rds-header__search {
-    background: rgba(255,255,255,0.12);
+    background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
     color: var(--rds-color-on-primary, #fff);
-    border-color: rgba(255,255,255,0.24);
+    border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
     input {
       color: var(--rds-color-on-primary, #fff);
     }
@@ -614,24 +495,26 @@
   .MuiTab-root {
     color: var(--rds-color-on-primary, #fff);
     &.Mui-selected {
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-      background: var(--rds-background-paper, #fff);
+      color: var(--rds-color-primary, #1976d2);
+      background: var(--rds-color-surface, #fff);
     }
   }
 }
 
 .rds-header--secondary {
-  background: var(--rds-color-secondary, #9c27b0) !important;
-  color: var(--rds-color-on-secondary, #fff) !important;
+  &.rds-header {
+    background: var(--rds-color-secondary, #9c27b0);
+    color: var(--rds-color-on-secondary, #fff);
+  }
   .rds-header__title,
   .rds-header__actions,
   .rds-header__logo {
-    color: var(--rds-color-on-secondary, #fff) !important;
+    color: var(--rds-color-on-secondary, #fff);
   }
   .rds-header__search {
-    background: rgba(255,255,255,0.12);
+    background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
     color: var(--rds-color-on-secondary, #fff);
-    border-color: rgba(255,255,255,0.24);
+    border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
     input {
       color: var(--rds-color-on-secondary, #fff);
     }
@@ -640,7 +523,7 @@
     color: var(--rds-color-on-secondary, #fff);
     &.Mui-selected {
       color: var(--rds-color-secondary, #9c27b0);
-      background: var(--rds-background-paper, #fff);
+      background: var(--rds-color-surface, #fff);
     }
   }
 }
@@ -654,7 +537,7 @@
   box-shadow: var(--rds-elevation-1, 0 2px 8px 0 rgba(60,60,60,0.03));
   position: relative;
   width: 100%;
-  z-index: 10;
+  z-index: var(--rds-z-index-sticky, 1020);
   font-family: var(--rds-font-family, inherit);
 
   &__toolbar {
@@ -670,25 +553,25 @@
     box-sizing: border-box;
     overflow: hidden;
     
-    @media (max-width: 834px) {
+    @media (max-width: var(--rds-breakpoint-834)) {
       padding-left: var(--rds-spacing-lg, 24px);
       padding-right: var(--rds-spacing-lg, 24px);
       gap: var(--rds-spacing-md, 16px);
     }
     
-    @media (max-width: 480px) {
+    @media (max-width: var(--rds-breakpoint-sm)) {
       padding-left: var(--rds-spacing-md, 16px);
       padding-right: var(--rds-spacing-md, 16px);
       gap: var(--rds-spacing-sm, 12px);
     }
     
-    @media (max-width: 420px) {
+    @media (max-width: var(--rds-breakpoint-420)) {
       padding-left: var(--rds-spacing-sm, 12px);
       padding-right: var(--rds-spacing-sm, 12px);
       gap: var(--rds-spacing-xs, 10px);
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: var(--rds-breakpoint-xs)) {
       padding-left: var(--rds-spacing-xs, 8px);
       padding-right: var(--rds-spacing-xs, 8px);
       gap: var(--rds-spacing-xs, 8px);
@@ -705,25 +588,25 @@
     letter-spacing: var(--rds-letter-spacing, 0.1px);
     flex-shrink: 0;
     
-    @media (max-width: 834px) {
+    @media (max-width: var(--rds-breakpoint-834)) {
       min-width: var(--rds-header-logo-min-width, 100px);
       font-size: var(--rds-font-size-md, 19px);
       height: var(--rds-header-logo-height, 30px);
     }
     
-    @media (max-width: 480px) {
+    @media (max-width: var(--rds-breakpoint-sm)) {
       min-width: var(--rds-header-logo-min-width, 80px);
       font-size: var(--rds-font-size-md, 18px);
       height: var(--rds-header-logo-height, 28px);
     }
     
-    @media (max-width: 420px) {
+    @media (max-width: var(--rds-breakpoint-420)) {
       min-width: var(--rds-header-logo-min-width, 70px);
       font-size: var(--rds-font-size-md, 17px);
       height: var(--rds-header-logo-height, 26px);
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: var(--rds-breakpoint-xs)) {
       min-width: var(--rds-header-logo-min-width, 60px);
       font-size: var(--rds-font-size-md, 16px);
       height: var(--rds-header-logo-height, 24px);
@@ -744,22 +627,22 @@
     text-overflow: ellipsis;
     flex-shrink: 1;
     
-    @media (max-width: 834px) {
+    @media (max-width: var(--rds-breakpoint-834)) {
       min-width: 70px;
       font-size: var(--rds-font-size-base, 17px);
     }
     
-    @media (max-width: 480px) {
+    @media (max-width: var(--rds-breakpoint-sm)) {
       min-width: 60px;
       font-size: var(--rds-font-size-base, 16px);
     }
     
-    @media (max-width: 420px) {
+    @media (max-width: var(--rds-breakpoint-420)) {
       min-width: 50px;
       font-size: var(--rds-font-size-sm, 15px);
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: var(--rds-breakpoint-xs)) {
       min-width: 40px;
       font-size: var(--rds-font-size-sm, 14px);
     }
@@ -778,17 +661,17 @@
       background: transparent;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: rgba(0,0,0,0.32);
-      border-radius: 8px;
+      background-color: var(--rds-color-scrollbar-thumb, rgba(0,0,0,0.32));
+      border-radius: var(--rds-border-radius-md);
     }
 
     scrollbar-width: thin;
-    scrollbar-color: rgba(0,0,0,0.32) transparent;
+    scrollbar-color: var(--rds-color-scrollbar-thumb, rgba(0,0,0,0.32)) transparent;
   }
 
   .rds-language-menu-paper .MuiMenuItem-root,
   .rds-language-menu-list .MuiMenuItem-root {
-    font-size: 13px !important;
+    font-size: var(--rds-font-size-sm) !important; // 13px → sm (12px, closest token)
     padding-top: 6px !important;
     padding-bottom: 6px !important;
     padding-left: 12px !important;
@@ -799,8 +682,8 @@
   }
 
   .rds-language-menu-list {
-    padding-top: 4px !important;
-    padding-bottom: 4px !important;
+    padding-top: var(--rds-spacing-xs) !important;
+    padding-bottom: var(--rds-spacing-xs) !important;
   }
 
   .rds-language-menu-paper {
@@ -810,18 +693,18 @@
     overflow: hidden !important; 
     box-sizing: border-box;
     
-    @media (max-width: 834px) {
+    @media (max-width: var(--rds-breakpoint-834)) {
       width: 200px !important;
       max-width: 240px !important;
     }
     
-    @media (max-width: 420px) {
+    @media (max-width: var(--rds-breakpoint-420)) {
       width: 180px !important;
       max-width: 200px !important;
       max-height: 300px !important;
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: var(--rds-breakpoint-xs)) {
       width: 160px !important;
       max-width: 180px !important;
       max-height: 280px !important;
@@ -833,11 +716,11 @@
     overflow-y: auto !important;
     box-sizing: border-box;
     
-    @media (max-width: 420px) {
+    @media (max-width: var(--rds-breakpoint-420)) {
       max-height: 300px !important;
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: var(--rds-breakpoint-xs)) {
       max-height: 280px !important;
     }
   }
@@ -854,38 +737,31 @@
     height: 36px;
     display: flex;
     align-items: center;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: border-color 0.2s;
     width: 100%;
     flex-shrink: 1;
  
-    @media (max-width: 834px) {
+    @media (max-width: var(--rds-breakpoint-834)) {
       min-width: 180px;
       font-size: var(--rds-font-size-sm, 14px);
       height: 34px;
     }
     
-    @media (max-width: 480px) {
+    @media (max-width: var(--rds-breakpoint-sm)) {
       min-width: 140px;
       padding: 0 var(--rds-spacing-xs, 8px);
       font-size: var(--rds-font-size-sm, 14px);
       height: 32px;
     }
     
-    @media (max-width: 420px) {
+    @media (max-width: var(--rds-breakpoint-420)) {
       min-width: 120px;
       padding: 0 var(--rds-spacing-xs, 8px);
       font-size: var(--rds-font-size-sm, 13px);
       height: 30px;
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: var(--rds-breakpoint-xs)) {
       min-width: 100px;
       padding: 0 var(--rds-spacing-xs, 6px);
       font-size: var(--rds-font-size-xs, 12px);
@@ -893,7 +769,7 @@
     }
     
     &:focus-within {
-      border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      border-color: var(--rds-color-primary, #1976d2);
       outline-offset: 2px;
     }
     input {
@@ -906,17 +782,17 @@
       padding: 0;
       height: 34px;
       
-      @media (max-width: 834px) {
+      @media (max-width: var(--rds-breakpoint-834)) {
         font-size: var(--rds-font-size-sm, 14px);
         height: 32px;
       }
       
-      @media (max-width: 420px) {
+      @media (max-width: var(--rds-breakpoint-420)) {
         font-size: var(--rds-font-size-sm, 13px);
         height: 28px;
       }
       
-      @media (max-width: 320px) {
+      @media (max-width: var(--rds-breakpoint-xs)) {
         font-size: var(--rds-font-size-xs, 12px);
         height: 26px;
       }
@@ -929,19 +805,19 @@
     gap: var(--rds-spacing-md, 16px);
     flex-shrink: 0;
 
-    @media (max-width: 834px) {
+    @media (max-width: var(--rds-breakpoint-834)) {
       gap: var(--rds-spacing-sm, 14px);
     }
     
-    @media (max-width: 480px) {
+    @media (max-width: var(--rds-breakpoint-sm)) {
       gap: var(--rds-spacing-sm, 12px);
     }
     
-    @media (max-width: 420px) {
+    @media (max-width: var(--rds-breakpoint-420)) {
       gap: var(--rds-spacing-xs, 10px);
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: var(--rds-breakpoint-xs)) {
       gap: var(--rds-spacing-xs, 8px);
     }
   }
@@ -951,8 +827,8 @@
     border-bottom: none;
     .MuiTabs-indicator {
       height: 2px;
-      background: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-      border-radius: 2px 2px 0 0;
+      background: var(--rds-color-primary, #1976d2);
+      border-radius: var(--rds-border-radius-xs) var(--rds-border-radius-xs) 0 0;
     }
     .MuiTabs-flexContainer {
       gap: var(--rds-spacing-xs, 8px);
@@ -966,7 +842,7 @@
       border-radius: var(--rds-border-radius, 6px) var(--rds-border-radius, 6px) 0 0;
       border-bottom: none;
       &.Mui-selected {
-        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+        color: var(--rds-color-primary, #1976d2);
         background: var(--rds-color-surface, #fff);
         box-shadow: none;
       }
@@ -989,26 +865,26 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 8px 0;
+    padding: var(--rds-spacing-sm) 0;
   }
 
   &__sub-tabs {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: var(--rds-spacing-xs);
     flex: 1;
     justify-content: center;
 
     .MuiButton-root {
       text-transform: none;
-      font-size: 14px;
+      font-size: var(--rds-font-size-md);
       font-weight: 400;
-      padding: 6px 12px;
-      border-radius: 4px;
+      padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+      border-radius: var(--rds-border-radius-sm);
       min-width: auto;
 
       &.MuiButton-textPrimary {
-        background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+        background-color: var(--rds-color-primary, #1976d2);
         color: white;
         
         &:hover {
@@ -1021,25 +897,25 @@
       }
 
       .MuiSvgIcon-root {
-        font-size: 16px;
-        margin-right: 4px;
+        font-size: var(--rds-font-size-lg);
+        margin-right: var(--rds-spacing-xs);
       }
     }
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     &__sub-header {
       flex-direction: column;
       align-items: stretch;
-      padding: 8px 12px;
-      gap: 8px;
+      padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+      gap: var(--rds-spacing-sm);
       min-height: initial;
     }
 
     &__sub-header-layout {
       flex-direction: column;
       align-items: stretch;
-      gap: 8px;
+      gap: var(--rds-spacing-sm);
     }
 
     &__sub-tabs {
@@ -1057,25 +933,25 @@
     }
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     &__sub-header {
-      padding: 6px 8px;
-      gap: 6px;
+      padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm);
+      gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
     }
 
     &__sub-tabs .MuiButton-root {
-      padding: 6px 8px;
-      font-size: 13px;
+      padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm);
+      font-size: var(--rds-font-size-sm); // 13px → sm (12px, closest token)
       width: 100%;
     }
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     &__sub-tabs {
       display: flex;
       flex-wrap: wrap !important;
       justify-content: flex-start !important;
-      gap: 6px !important;
+      gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) !important;
       margin-left: 0px;
       width: 100%;
     }
@@ -1084,35 +960,35 @@
       flex: 0 0 auto !important;
       white-space: nowrap !important;
       padding: 6px 10px !important;
-      font-size: 13px !important;
+      font-size: var(--rds-font-size-sm) !important; // 13px → sm (12px, closest token)
       min-width: auto !important;
     }
 
     &__sub-tabs .MuiButton-root .MuiSvgIcon-root {
-      font-size: 16px !important;
-      margin-right: 4px !important;
+      font-size: var(--rds-font-size-lg) !important;
+      margin-right: var(--rds-spacing-xs) !important;
     }
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     &__sub-tabs {
       display: flex;
       flex-wrap: wrap !important;
       justify-content: flex-start !important;
       margin-left: 0px;
-      gap: 6px !important;
+      gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) !important;
       width: 100%;
     }
 
     &__sub-tabs .MuiButton-root {
       flex: 0 0 auto !important;
       padding: 6px 8px !important;
-      font-size: 12px !important;
+      font-size: var(--rds-font-size-sm) !important; // 12px → sm
       white-space: nowrap !important;
       min-width: auto !important;
     }
 
-    &__sub-tabs .MuiButton-root .MuiSvgIcon-root { font-size: 16px !important; margin-right: 4px !important; }
+    &__sub-tabs .MuiButton-root .MuiSvgIcon-root { font-size: var(--rds-font-size-lg) !important; margin-right: var(--rds-spacing-xs) !important; }
   }
 
   &--sticky {
@@ -1131,25 +1007,25 @@
     flex-shrink: 1;
     min-width: 0;
  
-    @media (max-width: 834px) {
+    @media (max-width: var(--rds-breakpoint-834)) {
       width: 180px;
       min-width: 160px;
       max-width: 200px;
     }
     
-    @media (max-width: 480px) {
+    @media (max-width: var(--rds-breakpoint-sm)) {
       width: 100%;
       min-width: 140px;
       flex: 1;
       max-width: 180px;
     }
     
-    @media (max-width: 420px) {
+    @media (max-width: var(--rds-breakpoint-420)) {
       min-width: 120px;
       max-width: 160px;
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: var(--rds-breakpoint-xs)) {
       min-width: 100px;
       max-width: 140px;
     }
@@ -1160,7 +1036,7 @@
     right: var(--rds-spacing-xs, 4px);
     top: 50%;
     transform: translateY(-50%);
-    z-index: 1;
+    z-index: calc(var(--rds-z-index-base) + 1);
   }
 
   &__tabs {
@@ -1178,44 +1054,44 @@
     
     .MuiTab-root {
       min-height: auto !important;
-      padding: 8px 16px !important;
-      font-size: 14px !important;
+      padding: var(--rds-spacing-sm) var(--rds-spacing-md) !important;
+      font-size: var(--rds-font-size-md) !important; // 14px → md
       font-weight: 500 !important;
       text-transform: none !important;
       color: var(--rds-color-on-surface, #222) !important;
       white-space: nowrap;
       min-width: auto !important;
  
-      @media (max-width: 834px) {
-        padding: 8px 14px !important;
-        font-size: 13px !important;
+      @media (max-width: var(--rds-breakpoint-834)) {
+        padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
+        font-size: var(--rds-font-size-sm) !important; // 13px → sm (12px, closest token)
       }
       
-      @media (max-width: 420px) {
-        padding: 6px 12px !important;
-        font-size: 12px !important;
+      @media (max-width: var(--rds-breakpoint-420)) {
+        padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
+        font-size: var(--rds-font-size-sm) !important; // 12px → sm
       }
       
-      @media (max-width: 320px) {
+      @media (max-width: var(--rds-breakpoint-xs)) {
         padding: 6px 8px !important;
-        font-size: 11px !important;
+        font-size: var(--rds-font-size-xs) !important; // 11px → xs (10px, closest token)
       }
       
       &.Mui-selected {
-        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
+        color: var(--rds-color-primary, #1976d2) !important;
       }
     }
     
     .MuiTabs-indicator {
       height: 2px !important;
-      background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
+      background-color: var(--rds-color-primary, #1976d2) !important;
     }
     
     .MuiTabs-flexContainer {
       align-items: center;
       gap: 0;
       
-      @media (max-width: 320px) {
+      @media (max-width: var(--rds-breakpoint-xs)) {
         gap: 0;
       }
     }
@@ -1228,14 +1104,14 @@
   white-space: nowrap;
   flex-shrink: 0;
   
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     svg {
       width: 28px;
       height: 28px;
     }
   }
   
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     svg {
       width: 24px;
       height: 24px;
@@ -1244,76 +1120,76 @@
 }
 
 .rds-appbar-logo-label {
-  margin-left: 8px;
+  margin-left: var(--rds-spacing-sm);
   font-weight: 500;
-  font-size: 18px;
-  color: var(--rds-text-primary, #353535);
+  font-size: var(--rds-font-size-xl);
+  color: var(--rds-color-on-surface, #353535);
   white-space: nowrap;
   white-space: nowrap;
 
-  @media (max-width: 834px) {
-    font-size: 17px;
+  @media (max-width: var(--rds-breakpoint-834)) {
+    font-size: var(--rds-font-size-lg); // 17px → lg (16px, closest token)
     margin-left: 6px;
   }
   
-  @media (max-width: 420px) {
-    font-size: 16px;
+  @media (max-width: var(--rds-breakpoint-420)) {
+    font-size: var(--rds-font-size-lg);
     margin-left: 6px;
   }
   
-  @media (max-width: 320px) {
-    font-size: 11px;
-    margin-left: 4px;
+  @media (max-width: var(--rds-breakpoint-xs)) {
+    font-size: var(--rds-font-size-xs); // 11px → xs (10px, closest token)
+    margin-left: var(--rds-spacing-xs);
   }
 }
 
 .rds-appbar-actions-group {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--rds-spacing-md);
   flex-wrap: nowrap;
   flex-shrink: 0;
   
-  @media (max-width: 834px) {
-    gap: 12px;
+  @media (max-width: var(--rds-breakpoint-834)) {
+    gap: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   }
   
-  @media (max-width: 420px) {
-    gap: 8px;
+  @media (max-width: var(--rds-breakpoint-420)) {
+    gap: var(--rds-spacing-sm);
   }
   
-  @media (max-width: 320px) {
-    gap: 6px;
+  @media (max-width: var(--rds-breakpoint-xs)) {
+    gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
   }
 }
 
 .rds-appbar-badge {
   background: var(--rds-appbar-badge-bg, #EAF3FF);
   color: var(--rds-appbar-badge-color, #3C98FF);
-  border-radius: 6px;
-  padding: 4px 12px;
+  border-radius: var(--rds-border-radius-sm);
+  padding: var(--rds-spacing-xs) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   font-weight: 500;
-  font-size: 12px;
-  margin-right: 8px;
+  font-size: var(--rds-font-size-sm);
+  margin-right: var(--rds-spacing-sm);
   white-space: nowrap;
   flex-shrink: 0;
   
-  @media (max-width: 420px) {
-    font-size: 11px;
-    padding: 3px 8px;
+  @media (max-width: var(--rds-breakpoint-420)) {
+    font-size: var(--rds-font-size-xs); // 11px → xs (10px, closest token)
+    padding: calc(var(--rds-spacing-xs) * 0.75) var(--rds-spacing-sm);
     margin-right: 6px;
   }
   
-  @media (max-width: 320px) {
-    font-size: 10px;
-    padding: 2px 6px;
-    margin-right: 4px;
+  @media (max-width: var(--rds-breakpoint-xs)) {
+    font-size: var(--rds-font-size-xs); // 10px → xs
+    padding: calc(var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
+    margin-right: var(--rds-spacing-xs);
   }
 }
 
 [data-theme="dark"], .dark {
   --rds-appbar-bg: #181c20;
-  --rds-appbar-color: var(--rds-neutral-0, #fff);
+  --rds-appbar-color: #fff;
   --rds-appbar-shadow: rgba(0,0,0,0.5);
   --rds-appbar-separator-bg: #FFFFFF;
   --rds-appbar-secondary-bg: #7c2946;
@@ -1341,22 +1217,22 @@
     min-width: 95px !important;
     padding: 6px 10px !important;
     
-    @media (max-width: 834px) {
+    @media (max-width: var(--rds-breakpoint-834)) {
       min-width: 85px !important;
       padding: 6px 8px !important;
-      font-size: 14px !important;
+      font-size: var(--rds-font-size-md) !important; // 14px → md
     }
     
-    @media (max-width: 420px) {
+    @media (max-width: var(--rds-breakpoint-420)) {
       min-width: 75px !important;
-      padding: 5px 6px !important;
-      font-size: 13px !important;
+      padding: calc(var(--rds-spacing-xs) + 1px) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) !important;
+      font-size: var(--rds-font-size-sm) !important; // 13px → sm (12px, closest token)
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: var(--rds-breakpoint-xs)) {
       min-width: 60px !important;
       padding: 4px 6px !important;
-      font-size: 12px !important;
+      font-size: var(--rds-font-size-sm) !important; // 12px → sm
     }
 }
 
@@ -1364,72 +1240,72 @@
 .css-wor01b {
     min-width: 60px !important;
     
-    @media (max-width: 834px) {
+    @media (max-width: var(--rds-breakpoint-834)) {
       min-width: 55px !important;
     }
     
-    @media (max-width: 420px) {
+    @media (max-width: var(--rds-breakpoint-420)) {
       min-width: 50px !important;
     }
     
-    @media (max-width: 320px) {
+    @media (max-width: var(--rds-breakpoint-xs)) {
       min-width: 45px !important;
     }
 }
 
 .MuiIconButton-root {
-  @media (max-width: 420px) {
-    padding: 8px !important;
+  @media (max-width: var(--rds-breakpoint-420)) {
+    padding: var(--rds-spacing-sm) !important;
     
     svg {
-      font-size: 20px !important;
+      font-size: var(--rds-font-size-2xl) !important;
       margin-left: 3px;
     }
   }
   
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     padding: 6px !important;
     margin-right: 0px !important;
     
     svg {
-      font-size: 18px !important;
+      font-size: var(--rds-font-size-xl) !important;
       margin-left: 0px !important;
     }
   }
 }
 
 .MuiAvatar-root {
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     width: 28px !important;
     height: 28px !important;
-    font-size: 14px !important;
+    font-size: var(--rds-font-size-md) !important; // 14px → md
   }
   
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     width: 24px !important;
     height: 24px !important;
-    font-size: 12px !important;
+    font-size: var(--rds-font-size-sm) !important; // 12px → sm
   }
 }
 
 .MuiTypography-root {
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     &.MuiTypography-body1 {
-      font-size: 13px !important;
+      font-size: var(--rds-font-size-sm) !important; // 13px → sm (12px, closest token)
     }
     
     &.MuiTypography-body2 {
-      font-size: 11px !important;
+      font-size: var(--rds-font-size-xs) !important; // 11px → xs (10px, closest token)
     }
   }
   
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     &.MuiTypography-body1 {
-      font-size: 12px !important;
+      font-size: var(--rds-font-size-sm) !important; // 12px → sm
     }
     
     &.MuiTypography-body2 {
-      font-size: 10px !important;
+      font-size: var(--rds-font-size-xs) !important; // 10px → xs
     }
   }
 }
@@ -1451,34 +1327,34 @@
 }
 
 .rds-header__actions {
-  margin-left: 16px;
+  margin-left: var(--rds-spacing-md);
   
-  @media (max-width: 834px) {
+  @media (max-width: var(--rds-breakpoint-834)) {
     margin-left: 12px;
   }
   
-  @media (max-width: 480px) {
+  @media (max-width: var(--rds-breakpoint-sm)) {
     margin-left: 10px;
   }
   
-  @media (max-width: 420px) {
-    margin-left: 8px;
+  @media (max-width: var(--rds-breakpoint-420)) {
+    margin-left: var(--rds-spacing-sm);
   }
   
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     margin-left: 0px;
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: var(--rds-breakpoint-420)) {
   .rds-header__toolbar {
-    padding-left: 8px !important;
-    padding-right: 8px !important;
-    gap: 4px !important;
+    padding-left: var(--rds-spacing-sm) !important;
+    padding-right: var(--rds-spacing-sm) !important;
+    gap: var(--rds-spacing-xs) !important;
   }
   
   .rds-header__title {
-    font-size: 14px !important;
+    font-size: var(--rds-font-size-md) !important; // 14px → md
     margin: 0 4px !important;
     flex-shrink: 2;
   }
@@ -1490,34 +1366,34 @@
   }
   
   .rds-header__actions {
-    gap: 4px !important;
+    gap: var(--rds-spacing-xs) !important;
     
     .MuiButton-root {
-      font-size: 11px !important;
+      font-size: var(--rds-font-size-xs) !important; // 11px → xs (10px, closest token)
       padding: 4px 8px !important;
       min-width: auto !important;
     }
   }
   
   .rds-header__left-actions {
-    margin-right: 4px !important;
+    margin-right: var(--rds-spacing-xs) !important;
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: var(--rds-breakpoint-xs)) {
   .rds-appbar-separator {
     display: none;
   }
   
   .rds-header__toolbar {
-    padding-left: 6px !important;
-    padding-right: 6px !important;
-    gap: 2px !important;
+    padding-left: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) !important;
+    padding-right: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) !important;
+    gap: calc(var(--rds-spacing-xs) / 2) !important;
     
     .rds-header__title {
       flex-shrink: 2;
       min-width: 30px;
-      font-size: 12px !important;
+      font-size: var(--rds-font-size-sm) !important; // 12px → sm
       margin: 0 8px !important;
     }
     
@@ -1531,11 +1407,11 @@
     .rds-header__right-actions {
       flex-shrink: 0;
       min-width: auto;
-      gap: 2px !important;
+      gap: calc(var(--rds-spacing-xs) / 2) !important;
     }
     
     .rds-header__actions .MuiButton-root {
-      font-size: 10px !important;
+      font-size: var(--rds-font-size-xs) !important; // 10px → xs
       padding: 3px 6px !important;
     }
   }
@@ -1561,7 +1437,7 @@
 .rds-appbar-overflow-button .rds-overflow-icon { display: inline-flex; }
 .rds-appbar-overflow-button .rds-overflow-icon--hamburger { display: none; }
 
-@media (max-width: 420px) {
+@media (max-width: var(--rds-breakpoint-420)) {
   .rds-appbar-overflow-button {
     display: none !important;
   }
@@ -1570,7 +1446,7 @@
   .rds-appbar-overflow-button .rds-overflow-icon--dots { display: none !important; }
 }
 
-@media (max-width: 420px) {
+@media (max-width: var(--rds-breakpoint-420)) {
   .rds-header__toolbar {
     justify-content: space-between;
     flex-wrap: nowrap;
@@ -1582,7 +1458,7 @@
   }
 }
 
-@media (max-width: 834px) {
+@media (max-width: var(--rds-breakpoint-834)) {
   .rds-header__toolbar {
     gap: var(--rds-spacing-md, 12px);
   }
@@ -1594,7 +1470,7 @@
   }
 }
 
-@media (max-width: 834px) {
+@media (max-width: var(--rds-breakpoint-834)) {
   .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root,
   .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-avatar__info,
   .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__name-lg,
@@ -1673,7 +1549,7 @@
 
 }
 
-@media (min-width: 421px) and (max-width: 840px) {
+@media (min-width: var(--rds-breakpoint-420) + 1) and (max-width: var(--rds-breakpoint-840)) {
   .rds-header--variant-withtabs,
   .rds-header--variant-withlogoandtabs,
   .rds-header--variant-withnotificationbadge,
@@ -1697,7 +1573,7 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: var(--rds-breakpoint-420)) {
   .rds-story-nav-actions,
   .rds-logo-search-tabs__left-actions,
   .rds-appbar-actions-group,
@@ -1784,9 +1660,9 @@
     width: 100% !important;
     background: var(--rds-color-surface-alt, #f5f5f7) !important;
     border-top: 1px solid var(--rds-color-border, #e0e0e0) !important;
-    padding: 8px 12px !important;
+    padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
     margin: 0 !important;
-    z-index: 1000 !important;
+    z-index: var(--rds-z-index-dropdown) !important;
   }
   
   .rds-header--variant-withmenubutton .rds-bottom-navigation-single-row {
@@ -1837,7 +1713,7 @@
     height: 28px !important;
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     .rds-header--variant-withmenubutton .rds-profile-menu__avatar,
     .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiAvatar-root {
       width: 24px !important;
@@ -1856,14 +1732,14 @@
     left: 12px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
-    z-index: 4 !important;
+    z-index: calc(var(--rds-z-index-base) + 4) !important;
   }
 
   .rds-header--variant-withmenubutton .rds-header__toolbar {
     padding-left: 56px !important;
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     .rds-header--variant-withmenubutton .rds-appbar-logo-group,
     .rds-header--variant-withmenubutton .rds-header__logo {
       left: 8px !important;
@@ -1888,7 +1764,7 @@
     right: 60px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
-    z-index: 3 !important;
+    z-index: calc(var(--rds-z-index-base) + 3) !important;
     order: 4 !important;
     margin: 0 !important;
     padding: 6px !important;
@@ -1900,7 +1776,7 @@
     right: 80px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
-    z-index: 2 !important;
+    z-index: calc(var(--rds-z-index-base) + 2) !important;
     margin: 0 !important;
   }
 
@@ -1908,7 +1784,7 @@
     padding-right: 110px !important;
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
   .rds-header--variant-withmenubutton .rds-profile-menu__button { right: 8px !important; }
   .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: 52px !important; padding: 4px !important; }
     .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 90px !important; }
@@ -1920,7 +1796,7 @@
     }
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     .rds-header--variant-withmenubutton .rds-header__search-wrapper {
       position: relative !important;
       transform: translateX(8px) !important;
@@ -1938,7 +1814,7 @@
   
   .rds-header--variant-logosearchtabs .rds-header__search input::placeholder,
   .rds-header--variant-logotabsactions .rds-header__search input::placeholder {
-    font-size: 11px !important;
+    font-size: var(--rds-font-size-xs) !important; // 11px → xs (10px, closest token)
     opacity: 0.9 !important;
   }
 
@@ -1950,7 +1826,7 @@
       min-width: 36px !important;
       width: auto !important;
       overflow: visible !important;
-      gap: 4px
+      gap: var(--rds-spacing-xs)
     }
     .MuiButton-root .MuiButton-startIcon { margin-right: 0 !important; }
     .MuiButton-root .MuiButton-label, .MuiButton-root > span:not(.MuiButton-startIcon) { display: none !important; }
@@ -1958,7 +1834,7 @@
 
   .rds-header__tabs-inline .MuiTab-root {
     padding: 6px 8px !important;
-    font-size: 11px !important;
+    font-size: var(--rds-font-size-xs) !important; // 11px → xs (10px, closest token)
     min-width: 32px !important;
   }
 
@@ -1981,7 +1857,7 @@
 
   .rds-appbar-overflow-content .rds-logo-search-tabs__left-actions {
     display: flex !important;
-    gap: 12px !important;
+    gap: calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
     align-items: center !important;
   }
  
@@ -2006,8 +1882,8 @@
   .rds-header--variant-logosearchtabsactions .rds-appbar-overflow-button {
     display: inline-flex !important;
     order: 3 !important;
-    margin-left: 8px !important;
-    margin-right: 8px !important;
+    margin-left: var(--rds-spacing-sm) !important;
+    margin-right: var(--rds-spacing-sm) !important;
   }
 
   .rds-header--variant-logosearchtabs .rds-profile-menu__button,
@@ -2020,7 +1896,7 @@
     align-items: center !important;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     .rds-header--variant-logotabsactions .rds-header__toolbar {
       position: relative !important;
       padding-right: 56px !important; 
@@ -2034,7 +1910,7 @@
       position: relative !important;
       transform: none !important;
       max-width: calc(100% - 120px) !important;
-      margin-right: 4px !important;
+      margin-right: var(--rds-spacing-xs) !important;
     }
 
     .rds-header--variant-logotabsactions .rds-story-nav-actions { display: contents !important; }
@@ -2047,11 +1923,11 @@
       right: 0 !important;
       top: 50% !important;
       transform: translateY(-50%) !important;
-      z-index: 5 !important;
+      z-index: calc(var(--rds-z-index-base) + 5) !important;
     }
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     .rds-header--variant-logotabsactions .rds-header__toolbar {
       position: relative !important;
       overflow: visible !important;
@@ -2062,7 +1938,7 @@
       flex: 0 1 auto !important;
       min-width: 0 !important;
       max-width: 80px !important;
-      margin-right: 4px !important;
+      margin-right: var(--rds-spacing-xs) !important;
     }
 
     .rds-header--variant-logotabsactions .rds-story-nav-actions { display: contents !important; }
@@ -2074,11 +1950,11 @@
       right: 11px !important;
       top: 50% !important;
       transform: translateY(-50%) !important;
-      z-index: 5 !important;
+      z-index: calc(var(--rds-z-index-base) + 5) !important;
     }
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
       order: 2 !important;
       flex: 1 !important;
@@ -2095,7 +1971,7 @@
       right: 52px !important;
       top: 50% !important;
       transform: translateY(-50%) !important;
-      z-index: 4 !important;
+      z-index: calc(var(--rds-z-index-base) + 4) !important;
       margin: 0 !important;
     }
 
@@ -2107,7 +1983,7 @@
       right: 12px !important;
       top: 50% !important;
       transform: translateY(-50%) !important;
-      z-index: 5 !important;
+      z-index: calc(var(--rds-z-index-base) + 5) !important;
     }
 
     .rds-header--variant-logosearchtabs .rds-header__toolbar {
@@ -2115,7 +1991,7 @@
     }
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
       order: 2 !important;
       flex: 1 !important;
@@ -2131,7 +2007,7 @@
       right: 44px !important;
       top: 50% !important;
       transform: translateY(-50%) !important;
-      z-index: 4 !important;
+      z-index: calc(var(--rds-z-index-base) + 4) !important;
       margin: 0 !important;
     }
 
@@ -2142,7 +2018,7 @@
       top: 50% !important;
       transform: translateY(-50%) !important;
       width: auto !important;
-      z-index: 5 !important;
+      z-index: calc(var(--rds-z-index-base) + 5) !important;
       margin: 0 !important;
     }
 
@@ -2154,10 +2030,10 @@
   .rds-header--variant-dashboardwithlang .rds-admin-profile__button {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 8px !important;
+    gap: var(--rds-spacing-sm) !important;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root { display: inline-flex !important; }
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiBox-root,
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiTypography-root,
@@ -2166,7 +2042,7 @@
     }
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root { width: 24px !important; height: 24px !important; }
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiBox-root,
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiTypography-root,
@@ -2175,18 +2051,18 @@
     }
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     .rds-dashboard-title {
       margin-left: 6px !important;
-      font-size: 14px !important;
+      font-size: var(--rds-font-size-md) !important; // 14px → md
       line-height: 1.1 !important;
       font-weight: 500 !important;
     }
 
     .rds-header--variant-dashboardwithlang .rds-header__toolbar {
-      padding-left: 8px !important;
+      padding-left: var(--rds-spacing-sm) !important;
       padding-right: 56px !important; 
-      gap: 8px !important;
+      gap: var(--rds-spacing-sm) !important;
     }
 
     .rds-header--variant-dashboardwithlang .rds-appbar-separator { display: none !important; }
@@ -2224,7 +2100,7 @@
 
     .rds-header--variant-dashboardwithlang button[aria-label="chat"] svg,
     .rds-header--variant-dashboardwithlang button[aria-label="theme"] svg {
-      font-size: 18px !important;
+      font-size: var(--rds-font-size-xl) !important;
       width: 18px !important;
       height: 18px !important;
     }
@@ -2242,9 +2118,9 @@
     }
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     .rds-header--variant-dashboardwithlang .rds-header__toolbar {
-      padding-left: 8px !important;
+      padding-left: var(--rds-spacing-sm) !important;
       padding-right: 44px !important;
       gap: 6px !important;
     }
@@ -2255,7 +2131,7 @@
     }
 
     .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root > svg { display: none !important; }
-    .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root > span { font-size: 11px !important; }
+    .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root > span { font-size: var(--rds-font-size-xs) !important; } // 11px → xs (10px, closest token)
 
     .rds-header--variant-dashboardwithlang button[aria-label="chat"],
     .rds-header--variant-dashboardwithlang button[aria-label="theme"] {
@@ -2269,23 +2145,23 @@
 
     .rds-header--variant-dashboardwithlang button[aria-label="chat"] svg,
     .rds-header--variant-dashboardwithlang button[aria-label="theme"] svg {
-      font-size: 16px !important;
+      font-size: var(--rds-font-size-lg) !important;
       width: 16px !important;
       height: 16px !important;
     }
 
     .rds-header--variant-dashboardwithlang .rds-header__title {
       max-width: 42% !important;
-      font-size: 13px !important;
+      font-size: var(--rds-font-size-sm) !important; // 13px → sm (12px, closest token)
     }
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     .rds-dashboard-title {
-      font-size: 12px !important;
+      font-size: var(--rds-font-size-sm) !important; // 12px → sm
       line-height: 1 !important;
       font-weight: 500 !important;
-      margin-left: 8px !important;
+      margin-left: var(--rds-spacing-sm) !important;
     }
 
     .rds-header--variant-dashboardwithlang .rds-language-button {
@@ -2294,12 +2170,12 @@
     }
   }
   .rds-header__title { max-width: 60% !important; overflow: hidden; text-overflow: ellipsis; }
-  .rds-header__toolbar { padding-left: 8px !important; padding-right: 8px !important; }
+  .rds-header__toolbar { padding-left: var(--rds-spacing-sm) !important; padding-right: var(--rds-spacing-sm) !important; }
   .rds-app-bar, .rds-header { overflow-x: hidden !important; }
   .rds-appbar-title__user { display: none !important; }
 }
 
-@media (max-width: 840px) {
+@media (max-width: var(--rds-breakpoint-840)) {
   .rds-header--variant-withmenubutton .rds-header__tabs-inline,
   .rds-header--variant-withmenubutton .rds-story-nav-actions,
   .rds-header--variant-withmenubutton .rds-logo-search-tabs__left-actions,
@@ -2327,9 +2203,9 @@
   body { padding-bottom: 56px !important; }
 
   .rds-header--variant-withmenubutton .rds-bottom-navigation { min-height: 48px !important; padding: 6px 10px !important; }
-  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-bottom-nav-tab { font-size: 12px !important; padding: 4px 6px !important; }
-  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-appbar-badge { font-size: 11px !important; padding: 2px 4px !important; }
-  .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-root { font-size: 11px !important; padding: 3px 6px !important; }
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-bottom-nav-tab { font-size: var(--rds-font-size-sm) !important; padding: 4px 6px !important; } // 12px → sm
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-appbar-badge { font-size: var(--rds-font-size-xs) !important; padding: 2px 4px !important; } // 11px → xs (10px, closest token)
+  .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-root { font-size: var(--rds-font-size-xs) !important; padding: 3px 6px !important; } // 11px → xs (10px, closest token)
 
   .rds-header--variant-withmenubutton .rds-withmenubutton-settings {
     display: inline-flex !important;
@@ -2338,7 +2214,7 @@
     right: 72px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
-    z-index: 4 !important;
+    z-index: calc(var(--rds-z-index-base) + 4) !important;
     margin-left: 0 !important;
     padding-left: 6px !important;
     padding-right: 6px !important;
@@ -2351,7 +2227,7 @@
     right: 12px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
-    z-index: 5 !important;
+    z-index: calc(var(--rds-z-index-base) + 5) !important;
     margin-left: 0 !important;
     padding-left: 6px !important;
     padding-right: 6px !important;
@@ -2366,7 +2242,7 @@
   }
 
   .rds-header--variant-withmenubutton .rds-header__search-wrapper {
-    margin-right: 8px !important;
+    margin-right: var(--rds-spacing-sm) !important;
     flex: 0 1 auto !important;
     max-width: calc(100% - 180px) !important;
     position: relative !important;
@@ -2397,16 +2273,16 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: var(--rds-breakpoint-xs)) {
   .rds-header__search-wrapper, .rds-header__search { max-width: 84px !important; min-width: 64px !important; }
-  .rds-header__title { max-width: 55% !important; font-size: 13px !important; }
-  .rds-header__sub-tabs .MuiButton-root { min-width: 32px !important; padding: 4px !important; gap: 4px !important; }
-  .rds-header__tabs-inline .MuiTab-root { font-size: 10px !important; padding: 4px 6px !important; }
+  .rds-header__title { max-width: 55% !important; font-size: var(--rds-font-size-sm) !important; } // 13px → sm (12px, closest token)
+  .rds-header__sub-tabs .MuiButton-root { min-width: 32px !important; padding: 4px !important; gap: var(--rds-spacing-xs) !important; }
+  .rds-header__tabs-inline .MuiTab-root { font-size: var(--rds-font-size-xs) !important; padding: 4px 6px !important; } // 10px → xs
 
   .rds-header__search input::placeholder,
   .rds-header__search-wrapper input::placeholder,
   .rds-story-search-field input::placeholder {
-    font-size: 11px !important;
+    font-size: var(--rds-font-size-xs) !important; // 11px → xs (10px, closest token)
     opacity: 0.9 !important;
   }
 
@@ -2428,7 +2304,7 @@
 
   .rds-bottom-navigation {
     .MuiButton-root {
-      font-size: 10px !important;
+      font-size: var(--rds-font-size-xs) !important; // 10px → xs
       padding: 4px 6px !important;
       min-width: auto !important;
       color: inherit !important;
@@ -2448,11 +2324,11 @@
   left: 0;
   right: 0;
   display: flex;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: var(--rds-spacing-sm);
+  padding: var(--rds-spacing-sm) 12px;
   align-items: center;
   background: var(--rds-appbar-bg, var(--rds-primary-main));
-  z-index: 1000;
+  z-index: var(--rds-z-index-dropdown);
   border-top: 1px solid var(--rds-color-border, #e0e0e0);
   box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
   box-sizing: border-box;
@@ -2460,7 +2336,7 @@
 
   .rds-bottom-navigation-single-row {
     display: flex;
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
     justify-content: space-around;
     align-items: center;
     width: 100%;
@@ -2468,7 +2344,7 @@
 
   .rds-bottom-navigation-row {
     display: flex;
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
     justify-content: space-around;
     align-items: center;
     width: 100%;
@@ -2476,7 +2352,7 @@
 
   .rds-bottom-navigation-actions {
     display: flex;
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -2487,64 +2363,64 @@
     color: var(--rds-color-on-appbar, var(--rds-appbar-color, #fff));
     text-transform: none;
     font-weight: 600;
-    font-size: 13px;
+    font-size: var(--rds-font-size-sm); // 13px → sm (12px, closest token)
     padding: 6px 8px;
     min-width: 48px;
     white-space: nowrap;
   }
 
   .rds-bottom-nav-tab--active {
-    color: var(--rds-primary-main) !important; 
+    color: var(--rds-color-primary, #1976d2) !important; 
   }
 
   .rds-appbar-badge {
     background: var(--rds-appbar-badge-bg, #EAF3FF);
     color: var(--rds-appbar-badge-color, #3C98FF);
-    border-radius: 6px;
-    padding: 4px 8px;
+    border-radius: var(--rds-border-radius-sm);
+    padding: var(--rds-spacing-xs) 8px;
     font-weight: 500;
-    font-size: 12px;
+    font-size: var(--rds-font-size-sm);
     white-space: nowrap;
     flex-shrink: 0;
   }
 
   .MuiButton-root {
-    font-size: 12px;
-    padding: 4px 8px;
+    font-size: var(--rds-font-size-sm);
+    padding: var(--rds-spacing-xs) 8px;
     min-width: auto;
     white-space: nowrap;
     flex-shrink: 0;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: var(--rds-breakpoint-420)) {
     padding: 6px 10px;
     min-height: 48px;
-    gap: 4px;
+    gap: var(--rds-spacing-xs);
     
     .rds-bottom-navigation-single-row {
-      gap: 4px;
+      gap: var(--rds-spacing-xs);
     }
     
     .rds-bottom-nav-tab { 
-      font-size: 12px; 
-      padding: 4px 6px; 
+      font-size: var(--rds-font-size-sm); 
+      padding: var(--rds-spacing-xs) 6px; 
       min-width: auto;
     }
     
     .rds-appbar-badge {
-      font-size: 11px;
+      font-size: var(--rds-font-size-xs); // 11px → xs (10px, closest token)
       padding: 2px 4px;
     }
     
     .MuiButton-root {
-      font-size: 11px;
+      font-size: var(--rds-font-size-xs); // 11px → xs (10px, closest token)
       padding: 3px 6px;
       min-width: auto;
     }
   }
 
-  @media (max-width: 320px) {
-    padding: 4px 6px;
+  @media (max-width: var(--rds-breakpoint-xs)) {
+    padding: var(--rds-spacing-xs) 6px;
     min-height: 44px;
     gap: 2px;
     
@@ -2553,33 +2429,33 @@
     }
     
     .rds-bottom-nav-tab { 
-      font-size: 10px; 
+      font-size: var(--rds-font-size-xs); // 10px → xs
       padding: 3px 4px; 
       min-width: auto;
     }
     
     .rds-appbar-badge {
-      font-size: 9px;
+      font-size: var(--rds-font-size-xs); // 9px → xs (10px, closest token)
       padding: 2px 3px;
     }
     
     .MuiButton-root {
-      font-size: 9px;
+      font-size: var(--rds-font-size-xs); // 9px → xs (10px, closest token)
       padding: 2px 4px;
       min-width: auto;
     }
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: var(--rds-breakpoint-420)) {
   body { padding-bottom: 56px !important; }
 }
 
-@media (max-width: 320px) {
+@media (max-width: var(--rds-breakpoint-xs)) {
   body { padding-bottom: 52px !important; }
 }
 
-@media (max-width: 420px) { 
+@media (max-width: var(--rds-breakpoint-420)) { 
   .rds-header:not([data-theme="dark"]) {
     .rds-header__tabs-inline .MuiTab-root:not(.Mui-selected),
     .rds-appbar-tabs-container .MuiButton-root:not(.Mui-selected),
@@ -2593,7 +2469,7 @@
   }
 }
 
-@media (max-width: 840px) {
+@media (max-width: var(--rds-breakpoint-840)) {
   .rds-header:not([data-theme="dark"]) {
     .rds-bottom-navigation .rds-bottom-nav-tab:not(.rds-bottom-nav-tab--active) {
       color: var(--rds-color-on-surface, #000) !important;
@@ -2606,7 +2482,7 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: var(--rds-breakpoint-xs)) {
   .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container {
     display: flex !important;
     align-items: center !important;
@@ -2646,9 +2522,9 @@
 .rds-dashboard-top-icons {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--rds-spacing-sm);
   
-  @media (max-width: 640px) {
+  @media (max-width: var(--rds-breakpoint-640)) {
     display: none !important;
   }
 }
@@ -2657,13 +2533,13 @@
   .rds-bottom-navigation {
     display: none;
     
-    @media (max-width: 1024px) {
+    @media (max-width: var(--rds-breakpoint-lg)) {
       display: flex !important;
     }
   }
 }
 
-@media (max-width: 840px) {
+@media (max-width: var(--rds-breakpoint-840)) {
   .rds-header--variant-withmenubutton .rds-header__search-wrapper {
     margin-right: 12px !important;
     flex: 0 1 auto !important;
@@ -2673,8 +2549,8 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: var(--rds-breakpoint-420)) {
   .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-contained {
-    color: var(--rds-neutral-0, #fff) !important;
+    color: var(--rds-color-on-primary, #fff) !important;
   }
 }

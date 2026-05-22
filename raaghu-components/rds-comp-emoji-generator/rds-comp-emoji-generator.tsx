@@ -157,8 +157,8 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                                                 className="rds-emoji-generator__skin-tone-option"
                                                 style={{
                                                     backgroundColor: o.color,
-                                                    border: selectedSkinTone === o.value ? '2px solid #3b82f6' : '1px solid #e5e7eb',
-                                                    boxShadow: selectedSkinTone === o.value ? '0 0 0 1px rgba(59,130,246,0.3)' : 'none'
+                                                    border: selectedSkinTone === o.value ? '2px solid var(--rds-primary-main)' : '1px solid var(--rds-border-default)',
+                                                    boxShadow: selectedSkinTone === o.value ? '0 0 0 1px var(--rds-primary-light)' : 'none'
                                                 }}
                                                 title={o.label}
                                                 size="small"
@@ -189,8 +189,8 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                                         className="rds-emoji-generator__skin-tone-option"
                                         style={{
                                             backgroundColor: o.color,
-                                            border: selectedSkinTone === o.value ? '2px solid #3b82f6' : '1px solid #e5e7eb',
-                                            boxShadow: selectedSkinTone === o.value ? '0 0 0 1px rgba(59,130,246,0.3)' : 'none'
+                                            border: selectedSkinTone === o.value ? '2px solid var(--rds-primary-main)' : '1px solid var(--rds-border-default)',
+                                            boxShadow: selectedSkinTone === o.value ? '0 0 0 1px var(--rds-primary-light)' : 'none'
                                         }}
                                         title={o.label}
                                     />

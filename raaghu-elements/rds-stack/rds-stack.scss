@@ -1,19 +1,23 @@
 .rds-stack {
   display: block;
   position: relative;
+  --rds-stack-divider-color-light: rgba(0, 0, 0, 0.12);
+  --rds-stack-divider-color-dark: rgba(219, 219, 219, 0.59);
+  --rds-stack-item-radius: var(--rds-border-radius-sm, 4px);
+  --rds-stack-item-font-weight: var(--rds-font-weight-medium, 500);
 }
 
 .rds-stack .MuiDivider-root,
 .rds-stack .rds-stack__divider {
-  background-color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12));
-  color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12));
-  border-color: var(--rds-stack-divider-color, rgba(0, 0, 0, 0.12));
+  background-color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light, rgba(0, 0, 0, 0.12)));
+  color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light, rgba(0, 0, 0, 0.12)));
+  border-color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light, rgba(0, 0, 0, 0.12)));
 }
 
 .rds-stack__demo-item {
   padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-weight: 500;
+  border-radius: var(--rds-stack-item-radius, var(--rds-border-radius-sm, 4px));
+  font-weight: var(--rds-stack-item-font-weight, var(--rds-font-weight-medium, 500));
   color: var(--rds-neutral-0, #fff);
   display: inline-flex;
   align-items: center;
@@ -31,20 +35,4 @@
 
 .rds-stack__demo-item--success {
   background-color: var(--rds-color-success-light, #2e7d32);
-}
-
-.dark-theme .rds-stack__demo-item--primary {
-  background-color: var(--rds-color-primary-dark, var(--rds-primary-main, #1976d2));
-}
-.dark-theme .rds-stack__demo-item--secondary {
-  background-color: var(--rds-color-secondary-dark, #9c27b0);
-}
-.dark-theme .rds-stack__demo-item--success {
-  background-color: var(--rds-color-success-dark, #2e7d32);
-}
-.dark-theme .rds-stack .MuiDivider-root,
-.rds-stack .rds-stack__divider {
-  background-color: var(--rds-stack-divider-color, rgba(219, 219, 219, 0.59));
-  color: var(--rds-stack-divider-color, rgba(224, 218, 218, 0.479));
-  border-color: var(--rds-stack-divider-color, rgba(145, 144, 144, 0.621));
 }

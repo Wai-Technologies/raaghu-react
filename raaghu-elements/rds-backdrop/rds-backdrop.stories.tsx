@@ -104,7 +104,7 @@ export const Interactive: Story = {
         <Button 
           variant="contained" 
           onClick={() => setOpen(true)}
-          sx={{ color: '#ffffff' }}
+          sx={{ color: (theme) => theme.palette.common.white }}
         >
           Show Backdrop
         </Button>

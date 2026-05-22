@@ -26,14 +26,14 @@
       object-fit: contain;
     }
   }
-  @media (max-width: 768px) {
+  @media (max-width: var(--rds-breakpoint-md)) {
     &__row {
       flex-direction: row;
       align-items: flex-start;
     }
     &__image-wrapper {
-      margin-left: 10px;
-      max-width: calc(100% - 10px);
+      margin-left: var(--rds-spacing-sm);
+      max-width: calc(100% - var(--rds-spacing-sm));
       align-items: flex-start;
       .rds-comp-ai-message-box__image {
         max-width: 100%;
@@ -45,7 +45,7 @@
       margin-top: 1px;
     }
   }
-  @media (max-width: 568px) {
+  @media (max-width: var(--rds-breakpoint-568)) {
     &__container {
       padding: var(--rds-spacing-xs, 8px);
     }
@@ -54,8 +54,8 @@
       align-items: flex-start;
     }
     &__image-wrapper {
-      margin-left: 10px;
-      max-width: calc(100% - 10px);
+      margin-left: var(--rds-spacing-sm);
+      max-width: calc(100% - var(--rds-spacing-sm));
       align-items: flex-start;
       .rds-comp-ai-message-box__image {
         max-width: 100%;
@@ -68,13 +68,13 @@
     }
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     &__container {
       padding: var(--rds-spacing-xs, 4px);
     }
     &__image-wrapper {
-      margin-left: 8px;
-      max-width: calc(100% - 8px);
+      margin-left: var(--rds-spacing-sm);
+      max-width: calc(100% - var(--rds-spacing-sm));
       .rds-comp-ai-message-box__image {
         max-width: 100%;
         width: 100%;
@@ -84,13 +84,13 @@
     }
   }
   
-  @media (max-width: 320px) {
+  @media (max-width: var(--rds-breakpoint-xs)) {
     .rds-avatar__avatar-wrap {
       margin-bottom: 59px;
     }
   }
 
-  @media (min-width: 321px) and (max-width: 768px) {
+  @media (min-width: var(--rds-breakpoint-xs)) and (max-width: var(--rds-breakpoint-md)) {
     .rds-avatar__avatar-wrap {
       margin-bottom: 37px;
     }

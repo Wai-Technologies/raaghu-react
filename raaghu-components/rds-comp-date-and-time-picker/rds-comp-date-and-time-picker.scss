@@ -151,7 +151,7 @@
     &:hover {
       border-radius: var(--rds-border-radius, 4px) !important;
       background-color: var(--rds-color-primary-hover, #E3F2FD) !important;
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
+      color: var(--rds-color-primary, #1976d2) !important;
     }
     
     &.Mui-selected {
@@ -161,7 +161,7 @@
       
       &:hover {
         border-radius: var(--rds-border-radius, 4px) !important;
-        background-color: var(--rds-color-primary-dark, var(--rds-primary-main, #1976d2)) !important;
+        background-color: var(--rds-color-primary-dark, #1976d2) !important;
       }
     }
     
@@ -181,7 +181,7 @@
   
   .MuiDateRangePickerDay-rangeIntervalDayHighlight {
     background-color: var(--rds-color-primary-hover, #E3F2FD) !important;
-    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
+    color: var(--rds-color-primary, #1976d2) !important;
   }
   
   .MuiDateRangePickerDay-rangeIntervalDayHighlightStart,
@@ -195,7 +195,7 @@
     display: flex;
     min-height: 400px;
     min-width: 600px;
-    border-radius: 12px;
+    border-radius: var(--rds-border-radius-lg);
     overflow: hidden;
     background-color: var(--rds-color-surface, #ffffff);
     box-shadow: var(--rds-elevation-3, 0 4px 6px rgba(0, 0, 0, 0.1));
@@ -234,22 +234,15 @@
     font-weight: 400;
     text-align: left;
     cursor: pointer;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all 0.2s ease;
 
     &:hover {
       background-color: var(--rds-color-primary-hover, #e3f2fd);
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      color: var(--rds-color-primary, #1976d2);
     }
 
     &--selected {
-      background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      background-color: var(--rds-color-primary, #1976d2);
       color: var(--rds-color-on-primary, #ffffff);
       font-weight: 600;
 
@@ -328,13 +321,13 @@
     .MuiInputLabel-root {
       // Add visual indication that field is required
       &.Mui-focused {
-        color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+        color: var(--rds-color-primary, #1976d2);
       }
     }
 
     .MuiOutlinedInput-root {
       &.Mui-focused .MuiOutlinedInput-notchedOutline {
-        border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+        border-color: var(--rds-color-primary, #1976d2);
       }
     }
     
@@ -451,14 +444,7 @@
   // Custom styling for Material-UI date picker components
   .MuiInputBase-root {
     border-radius: var(--rds-border-radius-lg, 8px);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all 0.3s ease;
     cursor: pointer;
     min-height: 56px; // Ensure consistent height
     display: flex;
@@ -481,14 +467,7 @@
         color: var(--rds-color-text-secondary, rgba(0, 0, 0, 0.6));
         opacity: 1;
         font-style: normal;
-        
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+        transition: opacity 0.2s ease;
         white-space: nowrap; // Prevent wrapping
         overflow: visible; // Show full placeholder
         text-overflow: clip; // Don't truncate placeholder
@@ -536,12 +515,12 @@
     
     &:hover .MuiOutlinedInput-notchedOutline {
       border-width: 2px;
-      border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      border-color: var(--rds-color-primary, #1976d2);
     }
     
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
       border-width: 2px;
-      border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      border-color: var(--rds-color-primary, #1976d2);
     }
     
     &.Mui-error .MuiOutlinedInput-notchedOutline {
@@ -606,21 +585,14 @@
   .MuiInputLabel-root {
     font-weight: var(--rds-font-weight-medium, 500);
     transform-origin: top left;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all 0.2s ease-in-out;
     pointer-events: none; // Prevent label from blocking clicks
     position: absolute;
-    z-index: 1;
+    z-index: var(--rds-z-index-layer-1);
     
     &.Mui-focused {
       font-weight: var(--rds-font-weight-semibold, 600);
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      color: var(--rds-color-primary, #1976d2);
     }
     
     &.Mui-error {
@@ -652,7 +624,7 @@
   
   // Date picker popup/popper styles
   .MuiPickersPopper-root {
-    z-index: 1300;
+    z-index: var(--rds-z-index-modal, 500);
     
     .MuiPaper-root {
       box-shadow: none !important;
@@ -679,52 +651,52 @@
   }
   
   .MuiPickersDay-root {
-    border-radius: 4px;
-    font-weight: 500;
-    background-color: var(--rds-neutral-0, #fff);
-    color: #222;
+    border-radius: var(--rds-border-radius-sm);
+    font-weight: var(--rds-font-weight-medium, 500);
+    background-color: var(--rds-color-surface, #fff);
+    color: var(--rds-color-text-primary, #222);
 
     &:hover {
-      background-color: #E3F2FD;
-      border-radius: 4px;
-      color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
+      background-color: var(--rds-color-primary-hover, #E3F2FD);
+      border-radius: var(--rds-border-radius-sm);
+      color: var(--rds-color-primary, #1976d2);
     }
 
     &.Mui-selected {
-      background-color: #2196F3;
-      font-weight: 600;
-      border-radius: 4px;
-      color: var(--rds-neutral-0, #fff);
+      background-color: var(--rds-color-primary, #2196F3);
+      font-weight: var(--rds-font-weight-semibold, 600);
+      border-radius: var(--rds-border-radius-sm);
+      color: var(--rds-color-on-primary, #fff);
       &:hover {
-        background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
-        border-radius: 4px;
+        background-color: var(--rds-color-primary-dark, #1976d2);
+        border-radius: var(--rds-border-radius-sm);
       }
     }
 
     &.MuiPickersDay-today {
-      border: 2px solid #2196F3;
-      border-radius: 4px;
-      background-color: var(--rds-neutral-0, #fff);
-      color: #2196F3;
-      font-weight: 600;
+      border: 2px solid var(--rds-color-primary, #2196F3);
+      border-radius: var(--rds-border-radius-sm);
+      background-color: var(--rds-color-surface, #fff);
+      color: var(--rds-color-primary, #2196F3);
+      font-weight: var(--rds-font-weight-semibold, 600);
       
       &:not(.Mui-selected) {
-        background-color: var(--rds-neutral-0, #fff);
-        color: #2196F3;
-        border-radius: 4px;
+        background-color: var(--rds-color-surface, #fff);
+        color: var(--rds-color-primary, #2196F3);
+        border-radius: var(--rds-border-radius-sm);
       }
       
       // When today's date is selected, ensure white text color
       &.Mui-selected {
-        background-color: #2196F3 !important;
-        color: var(--rds-neutral-0, #fff) !important;
-        border: 2px solid #2196F3 !important;
-        font-weight: 600 !important;
+        background-color: var(--rds-color-primary, #2196F3) !important;
+        color: var(--rds-color-on-primary, #fff) !important;
+        border: 2px solid var(--rds-color-primary, #2196F3) !important;
+        font-weight: var(--rds-font-weight-semibold, 600) !important;
         
         &:hover {
-          background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
-          color: var(--rds-neutral-0, #fff) !important;
-          border: 2px solid var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
+          background-color: var(--rds-color-primary-dark, #1976d2) !important;
+          color: var(--rds-color-on-primary, #fff) !important;
+          border: 2px solid var(--rds-color-primary-dark, #1976d2) !important;
         }
       }
     }
@@ -732,17 +704,17 @@
   
   // Time picker styles
   .MuiTimeClock-root {
-    background: white;
-    border-radius: 12px;
+    background: var(--rds-color-surface, #fff);
+    border-radius: var(--rds-border-radius-lg);
   }
   
   .MuiClockNumber-root {
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium, 500);
     
     &.Mui-selected {
-      background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
-      color: white;
-      font-weight: 600;
+      background-color: var(--rds-color-primary-dark, #1976d2);
+      color: var(--rds-color-on-primary, #fff);
+      font-weight: var(--rds-font-weight-semibold, 600);
     }
   }
   
@@ -751,36 +723,36 @@
     border-radius: 4px; // Square border radius for range picker days
     
     &.MuiDateRangePickerDay-rangeIntervalDayHighlight {
-      background-color: #E3F2FD; // Light blue background for range interval
+      background-color: var(--rds-color-primary-hover, #E3F2FD); // Light blue background for range interval
       border-radius: 4px; // Square background for range interval
-      color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Blue text for range interval
+      color: var(--rds-color-primary-dark, #1976d2); // Blue text for range interval
     }
     
     &.MuiDateRangePickerDay-rangeIntervalDayHighlightStart,
     &.MuiDateRangePickerDay-rangeIntervalDayHighlightEnd {
-      background-color: #2196F3; // Bright blue background for range start/end
-      color: white; // White text for range start/end
+      background-color: var(--rds-color-primary, #2196F3); // Bright blue background for range start/end
+      color: var(--rds-color-on-primary, #fff); // White text for range start/end
       border-radius: 4px; // Square background for range start/end
     }
     
     // Override circular styles for range picker days
     &.MuiPickersDay-root {
-      border-radius: 4px;
+      border-radius: var(--rds-border-radius-sm);
       
       &:hover {
-        background-color: #E3F2FD; // Light blue hover
-        color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Blue text on hover
-        border-radius: 4px;
+        background-color: var(--rds-color-primary-hover, #E3F2FD); // Light blue hover
+        color: var(--rds-color-primary-dark, #1976d2); // Blue text on hover
+        border-radius: var(--rds-border-radius-sm);
       }
       
       &.Mui-selected {
-        background-color: #2196F3; // Bright blue selected
-        color: white; // White text on selected
-        border-radius: 4px;
+        background-color: var(--rds-color-primary, #2196F3); // Bright blue selected
+        color: var(--rds-color-on-primary, #fff); // White text on selected
+        border-radius: var(--rds-border-radius-sm);
         
         &:hover {
-          background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Darker blue on selected hover
-          border-radius: 4px;
+          background-color: var(--rds-color-primary-dark, #1976d2); // Darker blue on selected hover
+          border-radius: var(--rds-border-radius-sm);
         }
       }
     }
@@ -788,35 +760,35 @@
 
   // Year picker styles
   .MuiYearPicker-root {
-    background: white;
-    border-radius: 12px;
+    background: var(--rds-color-surface, #fff);
+    border-radius: var(--rds-border-radius-lg);
     
     .MuiPickersYear-root {
-      font-weight: 500;
+      font-weight: var(--rds-font-weight-medium, 500);
       border-radius: 4px; // Changed from 8px to 4px for square appearance
-      margin: 4px;
+      margin: var(--rds-spacing-xs);
       
       &:hover {
-        background-color: #E3F2FD; // Light blue hover background
-        color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Blue text on hover
+        background-color: var(--rds-color-primary-hover, #E3F2FD); // Light blue hover background
+        color: var(--rds-color-primary-dark, #1976d2); // Blue text on hover
         border-radius: 4px; // Square hover state
       }
       
       &.Mui-selected {
-        background-color: #2196F3; // Bright blue selected background
-        color: white; // White text on selected
-        font-weight: 600;
+        background-color: var(--rds-color-primary, #2196F3); // Bright blue selected background
+        color: var(--rds-color-on-primary, #fff); // White text on selected
+        font-weight: var(--rds-font-weight-semibold, 600);
         border-radius: 4px; // Square selected state
         
         &:hover {
-          background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Darker blue on selected hover
+          background-color: var(--rds-color-primary-dark, #1976d2); // Darker blue on selected hover
           border-radius: 4px; // Square selected hover state
         }
       }
       
       &.MuiPickersYear-yearButton {
         font-size: 1rem;
-        padding: 12px 16px;
+        padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) var(--rds-spacing-md);
         border-radius: 4px; // Square button
       }
     }
@@ -824,35 +796,35 @@
 
   // Month picker styles
   .MuiMonthPicker-root {
-    background: white;
-    border-radius: 12px;
+    background: var(--rds-color-surface, #fff);
+    border-radius: var(--rds-border-radius-lg);
     
     .MuiPickersMonth-root {
-      font-weight: 500;
+      font-weight: var(--rds-font-weight-medium, 500);
       border-radius: 4px; // Changed from 8px to 4px for square appearance
-      margin: 4px;
+      margin: var(--rds-spacing-xs);
       
       &:hover {
-        background-color: #E3F2FD; // Light blue hover background
-        color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Blue text on hover
+        background-color: var(--rds-color-primary-hover, #E3F2FD); // Light blue hover background
+        color: var(--rds-color-primary-dark, #1976d2); // Blue text on hover
         border-radius: 4px; // Square hover state
       }
       
       &.Mui-selected {
-        background-color: #2196F3; // Bright blue selected background
-        color: white; // White text on selected
-        font-weight: 600;
+        background-color: var(--rds-color-primary, #2196F3); // Bright blue selected background
+        color: var(--rds-color-on-primary, #fff); // White text on selected
+        font-weight: var(--rds-font-weight-semibold, 600);
         border-radius: 4px; // Square selected state
         
         &:hover {
-          background-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)); // Darker blue on selected hover
+          background-color: var(--rds-color-primary-dark, #1976d2); // Darker blue on selected hover
           border-radius: 4px; // Square selected hover state
         }
       }
       
       &.MuiPickersMonth-monthButton {
         font-size: 0.9rem;
-        padding: 10px 14px;
+        padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
         border-radius: 4px; // Square button
       }
     }
@@ -861,14 +833,14 @@
   // Multi-month layout styles (using DateRangePicker with multiple calendars)
   .MuiDateRangeCalendar-root {
     display: flex;
-    gap: 16px;
+    gap: var(--rds-spacing-md);
     
     .MuiDateCalendar-root {
       margin: 0;
       
       &:not(:last-child) {
         border-right: 1px solid #e0e0e0;
-        padding-right: 16px;
+        padding-right: var(--rds-spacing-md);
       }
     }
   }
@@ -949,10 +921,10 @@
 }
 
 // Responsive design
-@media (max-width: 768px) {
+@media (max-width: var(--rds-breakpoint-md)) {
   .rds-date-picker {
     .MuiDateCalendar-root {
-      border-radius: 8px;
+      border-radius: var(--rds-border-radius-md);
     }
     
     .MuiPickersDay-root {
@@ -974,7 +946,7 @@
 }
 
 .MuiPickersPopper-root {
-  animation: rds-date-picker-fade-in var(--rds-transition-base, 0.2s) ease-out;
+  animation: rds-date-picker-fade-in 0.2s ease-out;
 }
 
 // Global override to ensure all date picker elements use square borders
@@ -992,7 +964,7 @@
     &:hover {
       border-radius: var(--rds-border-radius, 4px) !important;
       background-color: var(--rds-color-primary-hover, #E3F2FD) !important;
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
+      color: var(--rds-color-primary, #1976d2) !important;
     }
     
     &.Mui-selected {
@@ -1002,7 +974,7 @@
       
       &:hover {
         border-radius: var(--rds-border-radius, 4px) !important;
-        background-color: var(--rds-color-primary-dark, var(--rds-primary-main, #1976d2)) !important;
+        background-color: var(--rds-color-primary-dark, #1976d2) !important;
       }
     }
     
@@ -1024,9 +996,9 @@
         font-weight: 600 !important;
         
         &:hover {
-          background-color: var(--rds-color-primary-dark, var(--rds-primary-main, #1976d2)) !important;
+          background-color: var(--rds-color-primary-dark, #1976d2) !important;
           color: var(--rds-color-on-primary, #fff) !important;
-          border: 2px solid var(--rds-color-primary-dark, var(--rds-primary-main, #1976d2)) !important;
+          border: 2px solid var(--rds-color-primary-dark, #1976d2) !important;
         }
       }
     }
@@ -1034,7 +1006,7 @@
     &.MuiDateRangePickerDay-rangeIntervalDayHighlight {
       border-radius: var(--rds-border-radius, 4px) !important;
       background-color: var(--rds-color-primary-hover, #E3F2FD) !important;
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
+      color: var(--rds-color-primary, #1976d2) !important;
     }
     
     &.MuiDateRangePickerDay-rangeIntervalDayHighlightStart,
@@ -1057,7 +1029,7 @@
     .MuiMenuItem-root {
       font-size: 0.8rem !important; // Reduced font size
       min-height: 32px !important; // Reduced height
-      padding: 4px 8px !important; // Reduced padding
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important; // Reduced padding
     }
   }
 }
@@ -1066,7 +1038,7 @@
 .rds-date-picker--timerange {
   .MuiStack-root {
     display: flex;
-    gap: 16px;
+    gap: var(--rds-spacing-md);
     width: 100%;
     
     .MuiBox-root {
@@ -1096,12 +1068,12 @@
         .MuiMenuItem-root {
           font-size: 0.75rem !important;
           min-height: 28px !important;
-          padding: 2px 6px !important;
+          padding: calc(var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) !important;
           line-height: 1.2;
         }
         
         .MuiList-root {
-          padding: 4px 0;
+          padding: var(--rds-spacing-xs) 0;
         }
       }
     }
@@ -1115,22 +1087,22 @@
       .MuiMenuItem-root {
         font-size: 0.8rem !important;
         min-height: 30px !important;
-        padding: 3px 7px !important;
+        padding: calc(var(--rds-spacing-xs) * 0.75) calc(var(--rds-spacing-sm) - 1px) !important;
         
         &:hover {
           background-color: var(--rds-color-primary-hover, #E3F2FD);
-          color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+          color: var(--rds-color-primary, #1976d2);
         }
         
         &.Mui-selected {
-          background-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+          background-color: var(--rds-color-primary, #1976d2);
           color: var(--rds-color-on-primary, white);
           font-weight: 600;
         }
       }
       
       .MuiList-root {
-        padding: 2px 0;
+        padding: calc(var(--rds-spacing-xs) / 2) 0;
       }
     }
   }
@@ -1148,7 +1120,7 @@
     margin-left: -14px;
 }
 
-@media (max-width: 430px) {
+@media (max-width: var(--rds-breakpoint-430)) {
     .css-11yms7-MuiDateCalendar-root {
       width: 288px !important;
      }

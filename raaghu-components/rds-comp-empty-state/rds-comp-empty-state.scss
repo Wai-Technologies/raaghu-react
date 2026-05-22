@@ -1,19 +1,18 @@
-
 [data-theme="dark"] .rds-comp-empty-state__title,
 [data-theme="dark"] .rds-comp-empty-state__subtitle,
 body.dark .rds-comp-empty-state__title,
 body.dark .rds-comp-empty-state__subtitle {
-  color: var(--rds-neutral-0, #fff) !important;
+  color: var(--rds-neutral-0) !important;
 }
 
 [data-theme="dark"] .rds-comp-empty-state,
 body.dark .rds-comp-empty-state {
-  background-color: #1a1a1a;
+  background-color: var(--rds-color-surface-dark);
 }
 
 [data-theme="dark"] .rds-comp-empty-state__subtitle,
 body.dark .rds-comp-empty-state__subtitle {
-  color: #b0b0b0 !important;
+  color: var(--rds-text-secondary) !important;
 }
 
 .rds-comp-empty-state {
@@ -63,7 +62,7 @@ body.dark .rds-comp-empty-state__subtitle {
 
   &__title {
     font-weight: var(--rds-font-weight-medium, 500) !important;
-    color: var(--rds-text-primary, #111827) !important;
+    color: var(--rds-text-primary) !important;
     font-size: var(--rds-font-size-lg, 1.09375rem) !important;
     line-height: 1.4 !important;
     margin: var(--rds-spacing-xs, 4px) 0 !important;
@@ -72,7 +71,7 @@ body.dark .rds-comp-empty-state__subtitle {
   }
 
   &__subtitle {
-    color: var(--rds-empty-state-subtitle-color, #202020) !important;
+    color: var(--rds-text-secondary) !important;
     font-size: var(--rds-font-size-sm, 14px) !important;
     line-height: 1.5 !important;
     margin: var(--rds-spacing-xs, 4px) 0 !important;
@@ -88,16 +87,16 @@ body.dark .rds-comp-empty-state__subtitle {
   &__button {
     background-color: var(--rds-color-neutral-600, #646464) !important; 
     color: var(--rds-color-neutral-50, #ffffff) !important;
-    border-radius: 4px !important;
+    border-radius: var(--rds-border-radius-sm) !important;
     padding: 6px 15px !important;
-    font-size: 14px !important;
+    font-size: var(--rds-font-size-md) !important;
     font-weight: 500 !important;
     text-transform: none !important;
     min-width: 160px !important;
     line-height: 1.2 !important;
     box-shadow: none !important;
     border: 1px solid var(--rds-color-neutral-600, #525252) !important;
-    transition: background-color .15s ease, border-color .15s ease, color .15s ease !important;
+    transition: background-color var(--rds-transition-fast), border-color var(--rds-transition-fast), color var(--rds-transition-fast) !important;
     font-family: 'Poppins', var(--rds-font-family, 'Poppins', sans-serif) !important;
 
     &:hover {
@@ -117,7 +116,7 @@ body.dark .rds-comp-empty-state__subtitle {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--rds-breakpoint-md)) {
   .rds-comp-empty-state {
     padding: var(--rds-spacing-lg, 24px) var(--rds-spacing-md, 16px);
     min-height: var(--rds-size-4xl, 200px);

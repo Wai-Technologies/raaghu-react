@@ -31,18 +31,10 @@
     &__input-wrapper {
         flex-shrink: 0;
         padding: var(--rds-spacing-md, 10px);
-         body.theme-dark &,
-            [data-theme="dark"] & {
-                background-color: var(--rds-background-paper, #2a2a2a);
-            }
     }
 
     &__input {
         width: 100%;
-          body.theme-dark &,
-        [data-theme="dark"] & {
-            background-color: var(--rds-background-paper, #2a2a2a);
-        }
     }
 
 }
@@ -75,7 +67,7 @@
     @extend .rds-ai-chat-bot__input;
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--rds-breakpoint-md)) {
     .rds-ai-chat-bot {
         height: 100vh;
         min-height: 400px;

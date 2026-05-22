@@ -49,7 +49,7 @@ import {
   Visibility as ViewIcon,
   DragIndicator as DragIndicatorIcon,
 } from '@mui/icons-material';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -2192,7 +2192,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             bottom: 0,
                             width: '4px',
                             backgroundColor: theme.palette.primary.main,
-                            zIndex: 999,
+                            zIndex: 'var(--rds-z-index-portal)',
                           }}
                         />
                       )}
@@ -2351,7 +2351,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               width: '6px',
                               cursor: 'col-resize',
                               backgroundColor: isResizing && resizingColumn === header.key ? 'primary.main' : 'transparent',
-                              zIndex: 10,
+                              zIndex: 'var(--rds-z-index-raised)',
                               transition: 'all 0.2s ease',
                               '&:hover': {
                                 backgroundColor: 'primary.main',
@@ -2376,7 +2376,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 bottom: 0,
                                 width: '4px',
                                 backgroundColor: theme.palette.primary.main,
-                                zIndex: 999,
+                                zIndex: 'var(--rds-z-index-portal)',
                               }}
                             />
                           )}
@@ -2444,7 +2444,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         sx={{ 
                           cursor: 'pointer',
                           ...(dragSnapshot.isDragging && {
-                            backgroundColor: isSelected ? '#e6f3ff' : undefined,
+                            backgroundColor: isSelected ? 'var(--rds-primary-light)' : undefined,
                           }),
                         }}
                       >
@@ -2483,7 +2483,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         {enableCheckboxSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: '1px solid var(--rds-border-default, #d1d1d1)' }}
+                        sx={{ borderRight: (theme) => `1px solid ${theme.palette.divider}` }}
                       >
                         <Checkbox
                           checked={isSelected}
@@ -2495,7 +2495,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     {enableRadioButtonSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: '1px solid var(--rds-border-default, #d1d1d1)' }}
+                        sx={{ borderRight: (theme) => `1px solid ${theme.palette.divider}` }}
                       >
                         <Radio
                           checked={isSelected}
@@ -2664,48 +2664,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 '& .senior, & .lead, & .pending, & .active': {
                                   color: 'text.primary',
                                 },
-                                '& span[style*="background:"]': {
-                                  color: 'text.primary',
-                                },
-                                '& span[style*="background-color:"]': {
-                                  color: 'text.primary',
-                                },
-                                '& span[style*="background: #e3f2fd"]': {
-                                  color: 'text.primary',
-                                },
-                                '& span[style*="background: #e8eaf6"]': {
-                                  color: 'text.primary',
-                                },
-                                '& span[style*="background: #fce4ec"]': {
-                                  color: 'text.primary',
-                                },
-                                '& span[style*="background: #e8f5e8"]': {
-                                  color: 'text.primary',
-                                },
-                                '& span[style*="background: #fff3e0"]': {
-                                  color: 'text.primary',
-                                },
-                                '& span[style*="background: #f3e5f5"]': {
-                                  color: 'text.primary',
-                                },
-                                '& span[style*="background: #e1f5fe"]': {
-                                  color: 'text.primary',
-                                },
-                                '& span[style*="background: #e0f2f1"]': {
-                                  color: 'text.primary',
-                                },
-                                '& span[style*="background: #f1f8e9"]': {
-                                  color: 'text.primary',
-                                },
-                                '& span[style*="border-radius: 4px"]': {
-                                  color: 'text.primary',
-                                },
-                                '& span[style*="border-radius: 8px"]': {
-                                  color: 'text.primary',
-                                },
-                                '& small[style*="color: #666"]': {
-                                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.7) !important' : 'inherit',
-                                },
+                                // Style attribute selectors removed - using CSS classes instead
+                                // See rds-comp-grid.scss for themed cell styling classes
                               }}
                               dangerouslySetInnerHTML={{ __html: cellValue }}
                             />

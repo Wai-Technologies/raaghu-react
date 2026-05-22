@@ -1,0 +1,124 @@
+/**
+ * Chart Theme Utilities
+ *
+ * Shared helpers for all rds-comp-chart-* components.
+ * Colors are read from CSS custom properties at runtime so they
+ * automatically respond to theme switching without any hardcoded values.
+ */
+
+import { isDarkMode } from '../raaghu-react-themes/src/provider/theme-utils';
+
+export { isDarkMode };
+
+/**
+ * Reads a CSS custom property value from the document root.
+ * Falls back to the provided default if the property is not set.
+ */
+export function getCSSVar(property: string, fallback = ''): string {
+  if (typeof window === 'undefined') return fallback;
+  const value = getComputedStyle(document.documentElement)
+    .getPropertyValue(property)
+    .trim();
+  return value || fallback;
+}
+
+/**
+ * Returns the current theme's text color for chart labels/ticks/titles.
+ * Reads --rds-text-primary so it automatically follows the active theme.
+ */
+export function chartTextColor(): string {
+  return getCSSVar('--rds-text-primary', isDarkMode() ? '#e0e0e0' : '#212121');
+}
+
+/**
+ * Returns the current theme's muted text color (for secondary labels).
+ * Reads --rds-text-secondary.
+ */
+export function chartMutedColor(): string {
+  return getCSSVar('--rds-text-secondary', isDarkMode() ? '#9e9e9e' : '#757575');
+}
+
+/**
+ * Returns the current theme's grid line color for chart axes.
+ */
+export function chartGridColor(): string {
+  return isDarkMode()
+    ? getCSSVar('--rds-border-opacity-light', 'rgba(255,255,255,0.15)')
+    : getCSSVar('--rds-border-opacity-light', 'rgba(0,0,0,0.1)');
+}
+
+/**
+ * Returns the current theme's tooltip background color.
+ */
+export function chartTooltipBg(): string {
+  return getCSSVar('--rds-background-paper', isDarkMode() ? '#424242' : '#ffffff');
+}
+
+/**
+ * Returns the current theme's tooltip text color.
+ */
+export function chartTooltipTextColor(): string {
+  return getCSSVar('--rds-text-primary', isDarkMode() ? '#e0e0e0' : '#212121');
+}
+
+/**
+ * Applies dark/light theme colors to a Chart.js options object in-place.
+ *
+ * Handles:
+ *  - axis ticks, grid lines, borders, and titles (for x/y/r axes)
+ *  - legend label color
+ *  - chart title color
+ *  - tooltip title/body/label colors
+ *
+ * @param chartOptions  A mutable Chart.js options object (already deep-cloned)
+ * @param axes          Which axis keys to apply scale colors to (default: ['x', 'y'])
+ */
+export function applyChartThemeColors(
+  chartOptions: any,
+  axes: string[] = ['x', 'y']
+): void {
+  const textColor   = chartTextColor();
+  const gridColor   = chartGridColor();
+  const tooltipBg   = chartTooltipBg();
+  const tooltipText = chartTooltipTextColor();
+
+  // ── Scales ──────────────────────────────────────────────────────────────────
+  if (axes.length > 0) {
+    if (!chartOptions.scales) chartOptions.scales = {};
+    axes.forEach(axis => {
+      if (!chartOptions.scales[axis]) chartOptions.scales[axis] = {};
+      if (!chartOptions.scales[axis].grid)   chartOptions.scales[axis].grid   = {};
+      if (!chartOptions.scales[axis].ticks)  chartOptions.scales[axis].ticks  = {};
+      if (!chartOptions.scales[axis].border) chartOptions.scales[axis].border = {};
+      if (!chartOptions.scales[axis].title)  chartOptions.scales[axis].title  = {};
+
+      chartOptions.scales[axis].grid.color   = gridColor;
+      chartOptions.scales[axis].ticks.color  = textColor;
+      chartOptions.scales[axis].border.color = textColor;
+      chartOptions.scales[axis].title.color  = textColor;
+    });
+  }
+
+  // ── Plugins ─────────────────────────────────────────────────────────────────
+  if (!chartOptions.plugins) chartOptions.plugins = {};
+
+  // Legend
+  if (!chartOptions.plugins.legend)        chartOptions.plugins.legend        = {};
+  if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
+  chartOptions.plugins.legend.labels.color = textColor;
+
+  // Title
+  if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
+  chartOptions.plugins.title.color = textColor;
+
+  // Tooltip
+  if (chartOptions.plugins.tooltip) {
+    chartOptions.plugins.tooltip.backgroundColor = tooltipBg;
+    chartOptions.plugins.tooltip.titleColor      = tooltipText;
+    chartOptions.plugins.tooltip.bodyColor       = tooltipText;
+    chartOptions.plugins.tooltip.labelColor      = () => ({
+      borderColor:     textColor,
+      backgroundColor: textColor,
+    });
+  }
+}

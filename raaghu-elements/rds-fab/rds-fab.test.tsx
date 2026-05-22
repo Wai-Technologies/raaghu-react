@@ -341,7 +341,7 @@ describe('RdsFab', () => {
         <RdsFab
           {...defaultProps}
           position="bottom-right"
-          sx={{ zIndex: 1000 }}
+          sx={{ zIndex: 'var(--rds-z-index-dropdown)' }}
         />
       );
       const fab = container.querySelector('.MuiFab-root') as HTMLElement;

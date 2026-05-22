@@ -15,14 +15,7 @@
     background-color: var(--rds-color-primary);
     color: var(--rds-color-on-primary);
     cursor: pointer;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all var(--rds-transition-base);
     outline: none;
     min-width: 48px;
     min-height: 48px;
@@ -46,8 +39,8 @@
     }
 
     &--primary {
-      background-color: var(--rds-color-primary,var(--rds-primary-main, #1976d2));
-      color: var(--rds-color-on-primary,#ffffff);
+      background-color: var(--rds-primary-main);
+      color: var(--rds-primary-contrast-text);
     }
 
     &--secondary {
@@ -83,7 +76,7 @@
     &--light {
       background-color: var(--rds-color-light, #f8f9fa);
       color: var(--rds-color-on-light, #000000);
-      border: 1px solid var(--rds-color-border, #dee2e6);
+      border: 1px solid var(--rds-color-border);
     }
 
     &--circular {
@@ -136,7 +129,7 @@
 
       &.rds-fab-menu__button--light {
         background-color: transparent !important;
-        color: var(--rds-color-light-content, #6c757d);
+        color: var(--rds-text-secondary);
         border: none;
       }
 
@@ -231,7 +224,7 @@
     position: absolute;
     top: 100%;
     right: 0;
-    z-index: 1000;
+    z-index: var(--rds-z-index-dropdown);
     margin-top: var(--rds-spacing-sm, 8px);
     min-width: 200px;
     max-width: 300px;
@@ -259,7 +252,7 @@
   }
 
   &__dropdown {
-    background-color: var(--rds-color-surface, #ffffff);
+    background-color: var(--rds-color-surface);
     border-radius: var(--rds-border-radius, 8px);
     box-shadow: var(--rds-elevation-3, 0 4px 12px rgba(0, 0, 0, 0.15));
     min-width: 220px;
@@ -267,14 +260,7 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px) scale(0.95);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all var(--rds-transition-base);
     overflow: hidden;
 
     &--open {
@@ -284,7 +270,7 @@
     }
 
     &--bordered {
-      border: 1px solid var(--rds-color-border, #dee2e6);
+      border: 1px solid var(--rds-color-border);
     }
   }
 
@@ -295,14 +281,7 @@
     color: var(--rds-color-on-surface, #000000);
     text-decoration: none;
     cursor: pointer;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: background-color var(--rds-transition-base);
     border: none;
     background: none;
     width: 100%;
@@ -357,41 +336,6 @@
     transform: translateY(0) scale(1);
   }
 }
-
-[data-theme="dark"] .rds-fab-menu__dropdown,
-.dark-theme .rds-fab-menu__dropdown,
-.theme-dark .rds-fab-menu__dropdown {
-  background-color: var(--rds-surface-dark-deep, var(--rds-surface-dark-deep, #2a2a2a)) !important;
-  color: var(--rds-color-on-surface-dark, #ffffff);
-}
-
-[data-theme="dark"] .rds-fab-menu__item,
-.dark-theme .rds-fab-menu__item,
-.theme-dark .rds-fab-menu__item {
-  color: var(--rds-color-on-surface-dark, #ffffff);
-}
-
-[data-theme="dark"] .rds-fab-menu__item:hover,
-[data-theme="dark"] .rds-fab-menu__item:focus,
-.dark-theme .rds-fab-menu__item:hover,
-.dark-theme .rds-fab-menu__item:focus,
-.theme-dark .rds-fab-menu__item:hover,
-.theme-dark .rds-fab-menu__item:focus {
-  background-color: var(--rds-neutral-900, var(--rds-neutral-900, #353535)) !important;
-}
-
-[data-theme="dark"] .rds-fab-menu__item:active,
-.dark-theme .rds-fab-menu__item:active,
-.theme-dark .rds-fab-menu__item:active {
-  background-color: var(--rds-color-primary-container-dark, #1565c0);
-}
-
-[data-theme="dark"] .rds-fab-menu__button--light,
-.dark-theme .rds-fab-menu__button--light,
-.theme-dark .rds-fab-menu__button--light {
-  background-color: var(--rds-neutral-500, var(--rds-neutral-500, #a7aaae)) !important;
-}
-
 @media (prefers-contrast: high) {
   .rds-fab-menu {
     &__button {
@@ -399,11 +343,11 @@
     }
 
     &__dropdown {
-      border: 2px solid var(--rds-color-border, #000000);
+      border: 2px solid var(--rds-color-border);
     }
 
     &__item {
-      border-bottom: 1px solid var(--rds-color-border, #000000);
+      border-bottom: 1px solid var(--rds-color-border);
 
       &:last-child {
         border-bottom: none;

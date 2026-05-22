@@ -11,14 +11,7 @@
     display: block;
     opacity: 1;
     transform: translateY(0);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all var(--rds-transition-slow);
   }
   
   &--hidden {
@@ -57,28 +50,28 @@
   
   &__container {
     position: fixed;
-    z-index: 1050;
+    z-index: var(--rds-z-index-toast);
     pointer-events: none;
     
     &--top-left {
-      top: 1rem;
-      left: 1rem;
+      top: var(--rds-spacing-md);
+      left: var(--rds-spacing-md);
     }
     
     &--top-center {
-      top: 1rem;
+      top: var(--rds-spacing-md);
       left: 50%;
       transform: translateX(-50%);
     }
     
     &--top-right {
-      top: 1rem;
-      right: 1rem;
+      top: var(--rds-spacing-md);
+      right: var(--rds-spacing-md);
     }
     
     &--middle-left {
       top: 50%;
-      left: 1rem;
+      left: var(--rds-spacing-md);
       transform: translateY(-50%);
     }
     
@@ -90,24 +83,24 @@
     
     &--middle-right {
       top: 50%;
-      right: 1rem;
+      right: var(--rds-spacing-md);
       transform: translateY(-50%);
     }
     
     &--bottom-left {
-      bottom: 1rem;
-      left: 1rem;
+      bottom: var(--rds-spacing-md);
+      left: var(--rds-spacing-md);
     }
     
     &--bottom-center {
-      bottom: 1rem;
+      bottom: var(--rds-spacing-md);
       left: 50%;
       transform: translateX(-50%);
     }
     
     &--bottom-right {
-      bottom: 1rem;
-      right: 1rem;
+      bottom: var(--rds-spacing-md);
+      right: var(--rds-spacing-md);
     }
   }
   
@@ -249,7 +242,7 @@
     }
     
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      outline: 2px solid var(--rds-primary-main);
       outline-offset: 2px;
     }
   }
@@ -301,17 +294,10 @@
   }
   
   &__progress-bar {
-    background: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+    background: var(--rds-color-primary, #1976d2);
     height: 100%;
     border-radius: inherit;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: width var(--rds-transition-duration-standard, 0.3s) ease;
   }
   
   &__progress-label {
@@ -340,18 +326,12 @@
     font-size: var(--rds-font-size-base, 0.875rem);
     color: var(--rds-color-on-surface, #212121);
     background: var(--rds-color-surface, #ffffff);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: border-color var(--rds-transition-duration-short, 0.2s) ease,
+                box-shadow var(--rds-transition-duration-short, 0.2s) ease;
     
     &:focus {
       outline: none;
-      border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      border-color: var(--rds-color-primary, #1976d2);
       box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
     }
     
@@ -409,17 +389,10 @@
     font-weight: var(--rds-font-weight-medium, 500);
     cursor: pointer;
     border: 1px solid transparent;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all var(--rds-transition-duration-short, 0.2s) ease;
     
     &--primary {
-      background: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      background: var(--rds-color-primary, #1976d2);
       color: var(--rds-color-on-primary, #ffffff);
       
       &:hover {
@@ -433,7 +406,7 @@
     
     &--secondary {
       background: transparent;
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      color: var(--rds-color-primary, #1976d2);
       border-color: transparent;
       
       &:hover {
@@ -448,7 +421,7 @@
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: var(--rds-breakpoint-sm)) {
   .rds-comp-toast {
     min-width: 0;
     max-width: 95vw;
@@ -515,42 +488,5 @@
       bottom: 1rem;
       top: auto;
     }
-  }
-}
-
-.theme-dark .rds-comp-toast {
-  background: var(--rds-color-surface-dark, #121212);
-  color: var(--rds-color-on-surface-dark, #ffffff);
-  
-  &__title {
-    color: var(--rds-color-on-surface-dark, #ffffff);
-  }
-  
-  &__body,
-  &__text,
-  &__chat-time,
-  &__progress-label,
-  &__filename {
-    color: var(--rds-color-on-surface-variant-dark, #cccccc);
-  }
-  
-  &__input {
-    background: var(--rds-color-surface-variant-dark, #1e1e1e);
-    border-color: var(--rds-color-border-dark, #333333);
-    color: var(--rds-color-on-surface-dark, #ffffff);
-    
-    &::placeholder {
-      color: var(--rds-color-on-surface-variant-dark, #cccccc);
-    }
-  }
-
-
-  &__close-btn {
-    color: var(--rds-color-on-surface-dark, #ffffff);
-  }
-
-  .css-1goqzru-MuiButtonBase-root-MuiButton-root,
-  .css-kicv99-MuiButtonBase-root-MuiButton-root {
-    color: var(--rds-color-on-surface-dark, #ffffff);
   }
 }

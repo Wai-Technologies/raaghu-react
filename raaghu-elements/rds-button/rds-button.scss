@@ -1,5 +1,5 @@
 // rds-button.scss — All color/spacing values consumed via CSS custom properties
-// defined globally in raaghu-react-themes/src/styles/custom-properties.scss.
+// defined at runtime via injectTokens() in design-tokens.ts.
 // Do NOT redefine :root variables here; component-level :root overrides
 // would silently override the centralized theme.
 
@@ -12,9 +12,9 @@
   border-radius: var(--rds-border-radius-sm);
   font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-sm);
-  font-weight: 500;
+  font-weight: var(--rds-font-weight-medium);
   text-transform: uppercase;
-  letter-spacing: 0.02857em;
+  letter-spacing: var(--rds-letter-spacing-button);
   cursor: pointer;
   transition: all var(--rds-transition-base);
   outline: none;
@@ -30,7 +30,7 @@
   }
   
   &__icon {
-    font-size: 1var(--rds-spacing-sm);
+    font-size: var(--rds-font-size-md);
     
     &--start {
       order: -1;
@@ -160,11 +160,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.rds-theme--dark .rds-button__primary,
-body.theme-dark .rds-button__primary,
-body[data-theme="dark"] .rds-button__primary,
-.theme-dark .rds-button__primary {
-  color: var(--rds-button-primary-text);
 }

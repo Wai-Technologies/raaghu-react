@@ -5,15 +5,15 @@
   &__logo {
     height: 32px;
     width: 32px;
-    margin-right: 8px;
+    margin-right: var(--rds-spacing-sm);
   }
 
   &__title {
-    font-size: 1rem;
+    font-size: var(--rds-font-size-base);
     font-weight: 500;
     background: linear-gradient(90deg, #6269FD 0%, #1FD9FA 32.5%, #5481FC 73.5%, #862FFF 92.5%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-left: 12px;
+    margin-left: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs));
   }
 }

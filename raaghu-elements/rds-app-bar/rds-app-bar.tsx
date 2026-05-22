@@ -17,6 +17,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Person from '@mui/icons-material/Person';
 import Close from '@mui/icons-material/Close';
 import { ProfileMenu } from './ProfileMenu';
+import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import "./rds-app-bar.scss";
 export type RdsAppBarSize = 'small' | 'medium' | 'large';
 export interface RdsAppBarProps extends AppBarProps {
@@ -72,6 +73,7 @@ const RdsAppBar = ({
     medium: 64,
     large: 80,
   };
+  const tokens = useRdsTokens();
   const [overflowOpen, setOverflowOpen] = React.useState(false);
   const [isSmallScreen, setIsSmallScreen] = React.useState(false);
   const [localBottomActive, setLocalBottomActive] = React.useState(0);
@@ -120,7 +122,7 @@ const RdsAppBar = ({
       >
         <Box className="rds-header__toolbar" sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
           {showMenuButton && (
-            <IconButton edge="start" color="inherit" aria-label="menu" onClick={onMenuClick} sx={{ mr: 2 }}>
+            <IconButton edge="start" color="inherit" aria-label="menu" onClick={onMenuClick} sx={{ mr: tokens.space(2) }}>
               <DehazeIcon />
             </IconButton>
           )}
@@ -196,14 +198,14 @@ const RdsAppBar = ({
                   <DehazeIcon />
                 </span>
               </IconButton>
-              <Drawer anchor="right" open={Boolean((overflowOpen))} onClose={() => setOverflowOpen(false)} PaperProps={{ sx: { width: 320 } }}>
-                <Box sx={{ p: 2, height: '100%', boxSizing: 'border-box' }}>
+              <Drawer anchor="right" open={Boolean((overflowOpen))} onClose={() => setOverflowOpen(false)} PaperProps={{ sx: { width: tokens.space(40) } }}>
+                <Box sx={{ p: tokens.space(2), height: '100%', boxSizing: 'border-box' }}>
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <IconButton onClick={() => setOverflowOpen(false)} aria-label="close">
                       <Close />
                     </IconButton>
                   </Box>
-                  <Box className="rds-appbar-overflow-content" sx={{ mt: 1 }}>{overflowContent}</Box>
+                  <Box className="rds-appbar-overflow-content" sx={{ mt: tokens.space(1) }}>{overflowContent}</Box>
                 </Box>
               </Drawer>
             </>
@@ -241,7 +243,7 @@ const RdsAppBar = ({
                       fontSize: 'var(--rds-font-size-sm, 12px)',
                       boxShadow: 'none', 
                       textTransform: 'none',
-                      padding: '4px 8px'
+                      padding: 'var(--rds-spacing-xs) var(--rds-spacing-sm)'
                     }}
                   >
                     View Plans
@@ -258,14 +260,14 @@ const RdsAppBar = ({
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    background: 'var(--rds-appbar-bg, var(--rds-primary-main))',
-                    padding: '8px 12px',
+                    background: tokens.color.primary,
+                    padding: `${tokens.space(1)} ${tokens.space(2)}`,
                     display: 'flex',
                     justifyContent: 'space-around',
                     alignItems: 'center',
-                    zIndex: 'var(--rds-z-index-dropdown, 1000)',
-                    borderTop: '1px solid var(--rds-border-default, #e0e0e0)',
-                    boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
+                    zIndex: tokens.zIndex.dropdown,
+                    borderTop: `1px solid ${tokens.cssVar('border-default')}`,
+                    boxShadow: tokens.cssVar('elevation-2'),
                   }}
                 >
                   {tabs.map((t, i) => {
@@ -295,14 +297,14 @@ const RdsAppBar = ({
                       bottom: 0,
                       left: 0,
                       right: 0,
-                      background: 'var(--rds-appbar-bg, var(--rds-primary-main))',
-                      padding: '8px 16px',
+                      background: tokens.color.primary,
+                      padding: `${tokens.space(1)} ${tokens.space(3)}`,
                       display: 'flex',
                       justifyContent: 'space-around',
                       alignItems: 'center',
-                      zIndex: 'var(--rds-z-index-dropdown, 1000)',
-                      borderTop: '1px solid var(--rds-border-default, #e0e0e0)',
-                      boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)'
+                      zIndex: tokens.zIndex.dropdown,
+                      borderTop: `1px solid ${tokens.cssVar('border-default')}`,
+                      boxShadow: tokens.cssVar('elevation-2'),
                     }}
                   >
                     {React.isValidElement(overflowContent) && (overflowContent as any).props?.children

@@ -1,21 +1,21 @@
 .rds-mlm-paper {
-  box-shadow: 0px 8px 24px rgba(16, 24, 40, 0.12), 0px 2px 8px rgba(16, 24, 40, 0.06);
-  border-radius: 12px;
+  --rds-mlm-shadow: 0px 8px 24px rgba(16, 24, 40, 0.12), 0px 2px 8px rgba(16, 24, 40, 0.06);
+  --rds-mlm-shadow-dark: 0px 8px 24px rgba(0,0,0,0.7), 0px 2px 8px rgba(0,0,0,0.5);
+  --rds-mlm-radius: 12px;
+  --rds-mlm-min-width: 220px;
+  --rds-mlm-item-padding-y: 8px;
+  --rds-mlm-item-padding-x: 16px;
+  --rds-mlm-item-transition: var(--rds-transition-fast, 0.15s ease-in-out);
+  box-shadow: var(--rds-mlm-shadow, 0px 8px 24px rgba(16, 24, 40, 0.12), 0px 2px 8px rgba(16, 24, 40, 0.06));
+  border-radius: var(--rds-mlm-radius, 12px);
   border: 1px solid var(--rds-background-paper, rgba(16, 24, 40, 0.08));
   padding: 0;
-  min-width: 220px;
+  min-width: var(--rds-mlm-min-width, 220px);
   background: var(--rds-background-paper, #fff);
-  .MuiList-root { transition: max-height 160ms ease; }
+  .MuiList-root { transition: max-height var(--rds-transition-base, 0.16s ease-in-out); }
 }
 
-.dark-theme .rds-mlm-paper,
-[data-theme="dark"] .rds-mlm-paper {
-  box-shadow: 0px 8px 24px rgba(0,0,0,0.7), 0px 2px 8px rgba(0,0,0,0.5);
-  border: 1px solid var(--rds-background-paper, #353535);
-  background: var(--rds-background-paper, #353535);
-}
-
-@media (max-width: 600px) {
+@media (max-width: var(--rds-breakpoint-600)) {
   .rds-mlm-paper.rds-mlm-root {
     margin-top: 43px;
   }
@@ -23,26 +23,14 @@
 
 .rds-mlm-paper .MuiMenuItem-root {
   font-family: inherit;
-  font-size: 14px;
+  font-size: var(--rds-font-size-md);
   line-height: 20px;
-  min-width: 220px;
-  padding: 8px 16px;
+  min-width: var(--rds-mlm-min-width, 220px);
+  padding: var(--rds-mlm-item-padding-y, 8px) var(--rds-mlm-item-padding-x, 16px);
   margin: 0;
-  
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+  transition: background-color var(--rds-mlm-item-transition, 0.15s ease-in-out), color var(--rds-mlm-item-transition, 0.15s ease-in-out);
   color: var(--rds-text-primary, #101828);
   background: transparent;
-}
-
-.dark-theme .rds-mlm-paper .MuiMenuItem-root,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root {
-  color: var(--rds-text-primary, #e0e0e0);
 }
 
 
@@ -53,33 +41,12 @@
   background-color: var(--rds-background-surface-hover, #d0d4da);
 }
 
-.dark-theme .rds-mlm-paper .MuiMenuItem-root:hover,
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.force-hover,
-.dark-theme .rds-mlm-paper .MuiMenuItem-root:active,
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.Mui-focusVisible,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root:hover,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.force-hover,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root:active,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.Mui-focusVisible {
-  background-color: var(--rds-background-surface-hover, #23272b);
-}
-
 
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected,
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover,
 .rds-mlm-paper .MuiMenuItem-root.force-selected {
   background-color: var(--rds-primary-light, #EBDCFF) !important;
   color: var(--rds-primary-main, #3C98FF) !important;
-}
-
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.Mui-selected,
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover,
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.force-selected,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.Mui-selected,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.force-selected {
-  background-color: var(--rds-primary-dark, #1E5FC7) !important;
-  color: var(--rds-primary-light, #3C98FF);
 }
 
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-shortcut,
@@ -91,21 +58,6 @@
   color: var(--rds-primary-main, #3C98FF) !important;
 }
 
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-shortcut,
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover .rds-mlm-shortcut,
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.force-selected .rds-mlm-shortcut,
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-shortcut,
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover .rds-mlm-shortcut,
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.expanded-open:active .rds-mlm-shortcut,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-shortcut,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.Mui-selected:hover .rds-mlm-shortcut,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.force-selected .rds-mlm-shortcut,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-shortcut,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover .rds-mlm-shortcut,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open:active .rds-mlm-shortcut {
-  color: var(--rds-primary-light, #3C98FF) !important;
-}
-
 .rds-mlm-paper .MuiMenuItem-root.expanded-open,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover,
 .rds-mlm-paper .MuiMenuItem-root.expanded-open:active {
@@ -113,31 +65,16 @@
   color: var(--rds-primary-main, #3C98FF) !important;
 }
 
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.expanded-open,
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover,
-.dark-theme .rds-mlm-paper .MuiMenuItem-root.expanded-open:active,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open:hover,
-[data-theme="dark"] .rds-mlm-paper .MuiMenuItem-root.expanded-open:active {
-  background-color: var(--rds-primary-dark, #1E5FE7) !important;
-  color: var(--rds-primary-light, #3C98FF) !important;
-}
-
 
 .rds-mlm-paper .MuiMenuItem-root.large {
-  font-size: 16px;
+  font-size: var(--rds-font-size-lg);
   line-height: 24px;
   min-height: 48px;
-  padding: 12px 18px;
+  padding: var(--rds-spacing-md, 12px) calc(var(--rds-spacing-lg, 16px) + var(--rds-spacing-xxs, 2px));
 }
 
 .rds-mlm-paper .rds-mlm-arrow {
   color: var(--rds-text-secondary, #667085);
-}
-
-.dark-theme .rds-mlm-paper .rds-mlm-arrow,
-[data-theme="dark"] .rds-mlm-paper .rds-mlm-arrow {
-  color: var(--rds-neutral-0, #fff);
 }
 .rds-mlm-paper .MuiMenuItem-root.expanded-open .rds-mlm-arrow,
 .rds-mlm-paper .MuiMenuItem-root.Mui-selected .rds-mlm-arrow {
@@ -152,15 +89,10 @@
 
 .rds-mlm-paper .rds-mlm-shortcut {
   color: var(--rds-text-secondary, #272727);
-  font-size: 16px !important;
-  margin-left: 8px;
+  font-size: var(--rds-font-size-lg) !important;
+  margin-left: var(--rds-spacing-sm, 8px);
   min-width: 72px;
   text-align: right;
-}
-
-.dark-theme .rds-mlm-paper .rds-mlm-shortcut,
-[data-theme="dark"] .rds-mlm-paper .rds-mlm-shortcut {
-  color: var(--rds-text-secondary, #b1b1b1);
 }
 
 
@@ -169,12 +101,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: 8px;
-}
-
-.dark-theme .rds-mlm-paper .rds-mlm-leading,
-[data-theme="dark"] .rds-mlm-paper .rds-mlm-leading {
-  color: var(--rds-primary-light, #3C98FF);
+  margin-right: var(--rds-spacing-sm, 8px);
 }
 
 

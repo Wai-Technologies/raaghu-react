@@ -30,7 +30,7 @@
     height: var(--rds-esignature-draw-height);
     padding: 0 var(--rds-space-5, 20px) 68px;
     background-color: var(--rds-color-surface, #ffffff);
-    transition: border-color .25s ease, background-color .25s ease;
+    transition: border-color var(--rds-transition-base), background-color var(--rds-transition-base);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -62,11 +62,11 @@
     }
 
     .rds-e-signature__controls {
-      z-index: 1;
+      z-index: var(--rds-z-index-layer-1);
     }
 
     .rds-e-signature__canvas {
-      z-index: 0;
+      z-index: var(--rds-z-index-base);
     }
 
     .rds-e-signature--error & {
@@ -103,7 +103,7 @@
     }
 
     .rds-e-signature__canvas-icon {
-      font-size: 20px;
+      font-size: var(--rds-font-size-2xl);
     }
 
     .rds-e-signature__color-button {
@@ -118,7 +118,7 @@
     .rds-e-signature__upload-panel {
       max-width: 420px;
       border-color: var(--rds-color-accent-blue-500, #3C98FF);
-      padding: 24px 20px;
+      padding: var(--rds-spacing-lg) 20px;
     }
 
     .rds-e-signature__file-row {
@@ -150,12 +150,12 @@
 
     .rds-e-signature__file-delete {
       height: 32px;
-      font-size: 16px;
+      font-size: var(--rds-font-size-lg);
       padding: 0 8px;
     }
 
     .rds-e-signature__file-button::before {
-      font-size: 14px;
+      font-size: var(--rds-font-size-md);
       margin-right: 6px;
       line-height: 1;
     }
@@ -184,9 +184,9 @@
   &__canvas-title {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
     font-size: var(--rds-font-size-xl, 22px);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-color-neutral-700, #5c5c5c);
     letter-spacing: .2px;
   }
@@ -219,10 +219,10 @@
   &__color-button {
     width: 32px;
     height: 32px;
-    border-radius: 4px;
+    border-radius: var(--rds-border-radius-sm);
     border: 1px solid transparent;
     cursor: pointer;
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    transition: transform var(--rds-transition-base), box-shadow var(--rds-transition-base), border-color var(--rds-transition-base);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -251,8 +251,8 @@
 
   &__checkmark {
     color: var(--rds-color-neutral-0, #ffffff);
-    font-size: 16px;
-    font-weight: 500;
+    font-size: var(--rds-font-size-lg);
+    font-weight: var(--rds-font-weight-medium, 500);
     line-height: 1;
     text-shadow: 0 1px 0 rgba(0,0,0,0.4);
   }
@@ -264,7 +264,7 @@
 
     .rds-e-signature__checkmark {
       color: var(--rds-color-neutral-0, #ffffff);
-      font-weight: 700;
+      font-weight: var(--rds-font-weight-bold, 700);
     }
   }
 
@@ -286,7 +286,7 @@
     align-items: center;
     justify-content: center;
     color: var(--rds-color-neutral-700, #5c5c5c);
-    font-size: 20px;
+    font-size: var(--rds-font-size-2xl);
 
     &:hover:not(:disabled) {
       color: var(--rds-color-neutral-1000, #000000);
@@ -341,7 +341,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--rds-spacing-sm);
   }
 
   &__file-row,
@@ -380,7 +380,7 @@
     color: var(--rds-color-neutral-900, #222);
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: var(--rds-spacing-xs);
     margin: 0;
   }
 
@@ -405,7 +405,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px 0 0 6px;
+    border-radius: var(--rds-border-radius-sm) 0 0 6px;
     box-shadow: none;
     transition: background-color .2s ease;
   }
@@ -455,7 +455,7 @@
     justify-content: center;
     padding: 0 10px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: var(--rds-font-size-xl);
     transition: color .2s ease, background-color .2s ease;
     height: 36px;
   }
@@ -491,10 +491,10 @@
   &__upload-error {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 8px;
+    gap: var(--rds-spacing-sm);
+    margin-top: var(--rds-spacing-sm);
     color: var(--rds-color-error-accent, #ff4444);
-    font-size: 14px;
+    font-size: var(--rds-font-size-md);
     font-weight: 500;
   }
 
@@ -514,8 +514,8 @@
   }
 
   &__upload-error .rds-e-signature__error-text {
-    color: #ff4444;
-    font-size: 14px;
+    color: var(--rds-color-error-accent, #ff4444);
+    font-size: var(--rds-font-size-md);
     font-weight: 500;
     margin: 0;
   }
@@ -523,7 +523,7 @@
   &__choose-container {
     width: 100%;
     padding: 0 0 4px;
-    border-radius: 8px;
+    border-radius: var(--rds-border-radius-md);
     display: block;
   }
 
@@ -531,7 +531,7 @@
     border: 2px dashed var(--rds-color-accent-blue-600, #2E7CE0);
     background: var(--rds-color-neutral-0, #fff);
     border-radius: var(--rds-radius-lg, 8px);
-    padding: 16px 20px 16px;
+    padding: var(--rds-spacing-md) 20px 16px;
     margin-top: 6px;
     display: inline-block;
     width: auto;
@@ -556,7 +556,7 @@
   &__mini-group {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: var(--rds-spacing-xs);
     align-items: flex-start;
   }
 
@@ -569,7 +569,7 @@
   &__mini-card {
     border: 1px solid var(--rds-color-border-subtle, #D0D7DE);
     background: var(--rds-color-neutral-0, #fff);
-    border-radius: 4px;
+    border-radius: var(--rds-border-radius-sm);
     padding: 2px 6px;
     display: inline-flex;
     align-items: stretch;
@@ -595,7 +595,7 @@
     align-items: center;
     justify-content: center;
     background: var(--rds-color-neutral-soft, #F8F9FA);
-    border-radius: 4px;
+    border-radius: var(--rds-border-radius-sm);
     min-height: 34px;
     padding: 0 12px;
     min-width: 120px;
@@ -606,7 +606,7 @@
     align-items: center;
     justify-content: center;
     background: var(--rds-color-neutral-soft, #F8F9FA);
-    border-radius: 4px;
+    border-radius: var(--rds-border-radius-sm);
     min-height: 34px;
     padding: 0 12px;
     min-width: 60px;
@@ -629,7 +629,7 @@
   }
 
   &__create-custom {
-    margin-top: 4px;
+    margin-top: var(--rds-spacing-xs);
   }
 
   &__choose-error {
@@ -770,72 +770,7 @@
   }
 
 }
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-group {
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature__file-limit {
-  color: var(--rds-neutral-0, #fff) !important;
-}
-body.theme-dark .rds-e-signature__upload-label {
-  color: var(--rds-neutral-0, #fff) !important;
-}
-body.theme-dark .rds-e-signature__upload-panel {
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature__file-text {
-  color: var(--rds-neutral-0, #fff) !important;
-  background: #4a4a4a !important;
-}
-body.theme-dark .rds-e-signature__file-row {
-  background: #4a4a4a !important;
-}
-body.theme-dark .rds-e-signature__canvas-title {
-  color: var(--rds-neutral-0, #fff) !important;
-}
-body.theme-dark .rds-e-signature__canvas-container {
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature__canvas-icon {
-  color: var(--rds-neutral-0, #fff) !important;
-}
-
-body.theme-dark .rds-e-signature__title {
-  color: var(--rds-neutral-0, #fff) !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-grid {
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
-  background: #2a2a2a !important;
-  color: var(--rds-neutral-0, #fff) !important;
-  border-color: #444 !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card,
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card.rds-e-signature__mini-card {
-  background: #232323 !important;
-  color: var(--rds-neutral-0, #fff) !important;
-  border-color: #444 !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-label {
-  color: var(--rds-neutral-0, #fff) !important;
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-full-wrapper {
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-initials-wrapper {
-  background: #2a2a2a !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card--selected {
-  border-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
-  box-shadow: 0 0 0 1px var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
-}
-body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-card:hover:not(:disabled) {
-  background: #333 !important;
-  border-color: #3C98FF !important;
-}
-
-@media (max-width: 480px) {
+@media (max-width: var(--rds-breakpoint-sm)) {
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
     padding: 10px;
     margin-left: auto;
@@ -869,7 +804,7 @@ body.theme-dark .rds-e-signature.rds-e-signature--choose .rds-e-signature__mini-
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: var(--rds-breakpoint-xl)) {
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-container {
     display: flex;
     flex-direction: column;

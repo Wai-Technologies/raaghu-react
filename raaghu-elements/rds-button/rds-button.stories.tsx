@@ -179,25 +179,3 @@ export const WithStartIcon: Story = {
   },
 };
 
-export const Theming: Story = {
-  args: {
-    text: 'Theme Token Example',
-    style: 'filled',
-    color: 'primary',
-    size: 'medium',
-    shape: 'pill',
-    layout: 'icon+text',
-    showLeftIcon: true,
-    showRightIcon: true,
-    changeLeftIcon: 'add',
-    changeRightIcon: 'save',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: `This story demonstrates the rds-button using only theme tokens from the Raaghu Design System.\n\n- **Colors:** var(--rds-button-primary-bg), var(--rds-button-primary-text)\n- **Spacing:** var(--rds-spacing-sm), var(--rds-spacing-md)\n- **Border Radius:** var(--rds-border-radius-pill)\n- **Shadow:** var(--rds-elevation-2)\n\nSwitch your app theme (light/dark) to see the button update automatically.`
-      }
-    }
-  }
-};
-

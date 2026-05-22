@@ -4,40 +4,30 @@
   
   &.MuiFormControl-fullWidth {
     width: 100%;
-    margin-right: 35px;
+    margin-right: var(--rds-form-control-fullwidth-margin-right, 35px);
   }
   .MuiInputBase-input::placeholder,
   input::placeholder,
   textarea::placeholder,
   .MuiAutocomplete-inputRoot input::placeholder {
-    color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
+    color: var(--rds-placeholder-color) !important;
     opacity: 1 !important;
-  }
-
-  .dark-theme &, [data-theme="dark"] & {
-    .MuiInputBase-input::placeholder,
-    input::placeholder,
-    textarea::placeholder,
-    .MuiAutocomplete-inputRoot input::placeholder {
-      color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
-      opacity: 1 !important;
-    }
   }
 }
 
 .rds-form-control__asterisk {
-  color: #d32f2f;
+  color: var(--rds-form-control-asterisk-color);
   margin-left: 0.25rem;
-  font-weight: 600;
+  font-weight: var(--rds-form-control-asterisk-font-weight);
 }
 
 .rds-form-control .MuiFormLabel-asterisk {
-  color: #d32f2f !important;
+  color: var(--rds-form-control-asterisk-color) !important;
 }
 
 .rds-form-control .MuiFormLabel-root.Mui-focused .MuiFormLabel-asterisk,
 .rds-form-control .MuiFormLabel-root.Mui-error .MuiFormLabel-asterisk {
-  color: #d32f2f !important;
+  color: var(--rds-form-control-asterisk-color) !important;
 }
 
 .rds-form-control .MuiFormHelperText-root,

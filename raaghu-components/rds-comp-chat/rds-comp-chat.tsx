@@ -42,7 +42,7 @@ export interface RdsCompChatProps {
 }
 
 const RdsCompChat = (props: RdsCompChatProps) => {
-  const { currentUserCommentBgColor = "#7825E9", currentUserCommentTextColor = "#FEF7FF", otherUserCommentBgColor = "#D6D6D6", OtherUserCommentTextColor = "#202020" } = props;
+  const { currentUserCommentBgColor = "var(--rds-secondary-main)", currentUserCommentTextColor = "var(--rds-neutral-0)", otherUserCommentBgColor = "var(--rds-neutral-300)", OtherUserCommentTextColor = "var(--rds-text-primary)" } = props;
 
   const [state, setState] = useState({
     isMobile: window.innerWidth <= 600,

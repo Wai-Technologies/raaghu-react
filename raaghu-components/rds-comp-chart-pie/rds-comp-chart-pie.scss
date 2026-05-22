@@ -11,10 +11,10 @@
 		width: 100% !important;
 		height: 335px !important;
 		max-width: 100%;
-		@media (max-width: 600px) {
+		@media (max-width: var(--rds-breakpoint-600)) {
 			height: 335px !important;
 		}
-		@media (max-width: 400px) {
+		@media (max-width: var(--rds-breakpoint-400)) {
 			height: 335px !important;
 		}
 	}

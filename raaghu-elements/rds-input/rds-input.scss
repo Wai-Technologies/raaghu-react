@@ -1,4 +1,25 @@
 .rds-input {
+  --rds-input-border-width-thin: calc(var(--rds-spacing-xs) / 4);
+  --rds-input-border-width-thick: calc(var(--rds-spacing-xs) / 2);
+  --rds-input-focus-ring-error: 0 0 0 var(--rds-input-border-width-thick) var(--rds-error-light);
+  --rds-input-padding-small-y: calc(var(--rds-spacing-xs) / 2);
+  --rds-input-padding-small-x: calc(var(--rds-spacing-sm) - var(--rds-input-border-width-thin));
+  --rds-input-padding-medium-y: var(--rds-spacing-xs);
+  --rds-input-padding-medium-x: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
+  --rds-input-padding-large-y: calc(var(--rds-spacing-sm) - var(--rds-input-border-width-thin));
+  --rds-input-padding-large-x: calc(var(--rds-spacing-md) - var(--rds-input-border-width-thin));
+  --rds-input-mui-padding-small-y: calc(var(--rds-spacing-sm) + (var(--rds-input-border-width-thin) / 2));
+  --rds-input-mui-padding-medium-y: calc(var(--rds-spacing-md) + (var(--rds-input-border-width-thin) / 2));
+  --rds-input-mui-padding-small-x: var(--rds-spacing-sm);
+  --rds-input-mui-padding-medium-x: calc(var(--rds-spacing-xs) / 2);
+  --rds-input-mui-padding-large-x: calc(var(--rds-input-border-width-thick) / 2);
+  --rds-input-label-large-x: calc(var(--rds-spacing-md) - (var(--rds-input-border-width-thick) / 2));
+  --rds-input-label-large-y: calc(var(--rds-spacing-lg) - (var(--rds-spacing-xs) / 2));
+  --rds-input-font-size-label: var(--rds-font-size-sm);
+  --rds-input-asterisk-offset: calc(var(--rds-input-border-width-thick));
+  --rds-input-sr-only-size: var(--rds-input-border-width-thin);
+  --rds-input-sr-only-offset: calc(var(--rds-input-sr-only-size) * -1);
+
   position: relative;
   display: inline-flex;
   flex-direction: column;
@@ -6,38 +27,37 @@
   width: 100%;
 
   &__label {
-    font-size: var(--rds-font-size-sm);
-    font-weight: 500;
+    font-size: var(--rds-input-font-size-label);
+    font-weight: var(--rds-font-weight-medium);
     color: var(--rds-text-secondary);
     margin-bottom: var(--rds-spacing-xs);
   }
 
   &__asterisk {
-    color: var(--rds-alert-error-border, #d32f2f);
-    margin-left: 2px;
+    color: var(--rds-alert-error-border);
+    margin-left: var(--rds-input-asterisk-offset);
     font-size: inherit;
-    font-weight: 700;
+    font-weight: var(--rds-font-weight-bold);
   }
 
   &__field {
     padding: var(--rds-font-size-sm) var(--rds-font-size-lg);
-    border: 1px solid var(--rds-border-default);
-    border-radius: var(--rds-spacing-xs);
+    border: var(--rds-input-border-width-thin) solid var(--rds-border-default);
+    border-radius: var(--rds-border-radius-xs);
     font-size: var(--rds-font-size-sm);
     font-family: var(--rds-font-family-base);
-    background-color: var(--rds-background-paper, #fff);
+    background-color: var(--rds-background-paper);
     transition: border-color var(--rds-transition-base), box-shadow var(--rds-transition-base);
 
     &:focus {
       outline: none;
-      border-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
-      box-shadow: var(--rds-focus-ring, 0 0 0 2px rgba(25, 118, 210, 0.2));
+      border-color: var(--rds-primary-main);
+      box-shadow: var(--rds-focus-ring);
     }
 
     &::placeholder {
-      color: var(--rds-text-disabled, #9e9e9e);
+      color: var(--rds-text-disabled);
     }
-
   }
 
   &__helper-text {
@@ -53,152 +73,151 @@
   }
 
   &__icon {
-    color: var(--rds-text-secondary, #757575);
+    color: var(--rds-text-secondary);
     display: flex;
     align-items: center;
     justify-content: center;
 
     &--end {
-      margin-left: var(--rds-spacing-xs, 4px);
+      margin-left: var(--rds-spacing-xs);
     }
 
     &--start {
-      margin-right: var(--rds-spacing-xs, 4px);
+      margin-right: var(--rds-spacing-xs);
     }
   }
 
   &__error {
     .rds-input__field {
-      border-color: var(--rds-error-main, #d32f2f);
+      border-color: var(--rds-error-main);
 
       &:focus {
-        border-color: var(--rds-error-main, #d32f2f);
-        box-shadow: 0 0 0 2px var(--rds-error-light, rgba(211, 47, 47, 0.2));
+        border-color: var(--rds-error-main);
+        box-shadow: var(--rds-input-focus-ring-error);
       }
     }
 
     .rds-input__label {
-      color: var(--rds-error-main, #d32f2f);
+      color: var(--rds-error-main);
     }
 
     .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-error-main, #d32f2f) !important;
-      border-width: 1px;
+      border-color: var(--rds-error-main) !important;
+      border-width: var(--rds-input-border-width-thin);
     }
   }
 
   &--disabled {
     .rds-input__field {
-      background-color: var(--rds-background-surface, #f5f5f5);
-      color: var(--rds-text-disabled, #9e9e9e);
+      background-color: var(--rds-background-surface);
+      color: var(--rds-text-disabled);
       cursor: not-allowed;
     }
 
     .rds-input__label {
-      color: var(--rds-text-disabled, #9e9e9e);
+      color: var(--rds-text-disabled);
     }
 
     .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-border-light, #e0e0e0) !important;
-      border-width: 1px;
+      border-color: var(--rds-border-light) !important;
+      border-width: var(--rds-input-border-width-thin);
     }
   }
 
   &__active {
     .rds-input__field {
-      border-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
+      border-color: var(--rds-primary-main);
     }
 
     .rds-input__label {
-      color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
+      color: var(--rds-primary-main);
     }
 
     .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
-      border-width: 2px;
+      border-color: var(--rds-primary-main) !important;
+      border-width: var(--rds-input-border-width-thick);
     }
   }
 
   &__selected {
     .rds-input__field {
-      border-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
+      border-color: var(--rds-primary-main);
     }
 
     .rds-input__label {
-      color: var(--rds-primary-main, var(--rds-primary-main, #1976d2));
+      color: var(--rds-primary-main);
     }
 
     .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
-      border-width: 1px;
+      border-color: var(--rds-primary-main) !important;
+      border-width: var(--rds-input-border-width-thin);
     }
   }
 
   &--small {
     .rds-input__field {
-      padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 6px) !important;
-      font-size: var(--rds-font-size-sm, 12px) !important;
+      padding: var(--rds-input-padding-small-y) var(--rds-input-padding-small-x) !important;
+      font-size: var(--rds-font-size-sm) !important;
     }
 
     .MuiInputBase-root {
-      font-size: var(--rds-font-size-sm, 12px) !important;
+      font-size: var(--rds-font-size-sm) !important;
     }
 
     .MuiInputBase-input {
-      padding: 8.5px 8px !important;
+      padding: var(--rds-input-mui-padding-small-y) var(--rds-input-mui-padding-small-x) !important;
     }
   }
 
   &--medium {
     .rds-input__field {
-      padding: var(--rds-spacing-sm, 4px) var(--rds-spacing-md, 12px) !important;
-      font-size: var(--rds-font-size-md, 14px) !important;
+      padding: var(--rds-input-padding-medium-y) var(--rds-input-padding-medium-x) !important;
+      font-size: var(--rds-font-size-md) !important;
     }
 
     .MuiInputBase-root {
-      font-size: var(--rds-font-size-md, 14px) !important;
+      font-size: var(--rds-font-size-md) !important;
     }
 
     .MuiInputBase-input {
-      padding: 16.5px 2px !important;
+      padding: var(--rds-input-mui-padding-medium-y) var(--rds-input-mui-padding-medium-x) !important;
     }
   }
 
   &--large {
     .rds-input__field {
-      padding: var(--rds-spacing-md, 6px) var(--rds-spacing-lg, 14px) !important;
-      font-size: var(--rds-font-size-lg, 16px) !important;
+      padding: var(--rds-input-padding-large-y) var(--rds-input-padding-large-x) !important;
+      font-size: var(--rds-font-size-lg) !important;
     }
 
     .MuiInputBase-root {
-      font-size: var(--rds-font-size-lg, 16px) !important;
+      font-size: var(--rds-font-size-lg) !important;
     }
 
     .MuiInputBase-input {
-      padding: 16.5px 1px !important;
+      padding: var(--rds-input-mui-padding-medium-y) var(--rds-input-mui-padding-large-x) !important;
     }
 
     .MuiInputLabel-root:not(.MuiInputLabel-shrink) {
-      transform: translate(14px, 22px) scale(1) !important;
+      transform: translate(var(--rds-input-label-large-x), var(--rds-input-label-large-y)) scale(1) !important;
     }
   }
 
   &--pill {
-
     .MuiOutlinedInput-root,
     .MuiFilledInput-root,
     .MuiInputBase-root {
-      border-radius: var(--rds-border-radius-full, 9999px) !important;
-      padding-right: var(--rds-spacing-lg, 24px) !important;
+      border-radius: var(--rds-border-radius-full) !important;
+      padding-right: var(--rds-spacing-lg) !important;
       box-sizing: border-box;
     }
 
     .MuiOutlinedInput-notchedOutline {
-      border-radius: var(--rds-border-radius-full, 9999px) !important;
+      border-radius: var(--rds-border-radius-full) !important;
     }
 
     .MuiInputBase-input {
-      border-radius: var(--rds-border-radius-full, 9999px) !important;
+      border-radius: var(--rds-border-radius-full) !important;
     }
   }
 
@@ -208,16 +227,8 @@
     .MuiInputBase-root,
     &__field {
       border: none;
-      border-radius: 0;
-      border-bottom: 2px solid var(--rds-border-default, #ced4da);
-      
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+      border-radius: var(--rds-border-radius-none);
+      border-bottom: var(--rds-input-border-width-thick) solid var(--rds-border-default);
     }
 
     &.rds-input--error,
@@ -226,7 +237,7 @@
       .MuiFilledInput-root,
       .MuiInputBase-root,
       .rds-input__field {
-        border-bottom: 2px solid var(--rds-error-main, #d32f2f);
+        border-bottom: var(--rds-input-border-width-thick) solid var(--rds-error-main);
       }
     }
 
@@ -236,7 +247,7 @@
       .MuiFilledInput-root,
       .MuiInputBase-root,
       .rds-input__field {
-        border-bottom: 2px solid var(--rds-primary-main, var(--rds-primary-main, #1976d2));
+        border-bottom: var(--rds-input-border-width-thick) solid var(--rds-primary-main);
       }
     }
 
@@ -245,88 +256,84 @@
       .MuiFilledInput-root,
       .MuiInputBase-root,
       .rds-input__field {
-        border-bottom: 2px solid var(--rds-border-light, #e0e0e0);
-        background-color: var(--rds-background-surface, #f5f5f5);
-        color: var(--rds-text-disabled, #9e9e9e);
+        border-bottom: var(--rds-input-border-width-thick) solid var(--rds-border-light);
+        background-color: var(--rds-background-surface);
+        color: var(--rds-text-disabled);
         cursor: not-allowed;
       }
     }
-    &.rds-input--selected{
+
+    &.rds-input--selected {
       .MuiOutlinedInput-root,
       .MuiFilledInput-root,
       .MuiInputBase-root,
       .rds-input__field {
-        border-bottom: 2px solid var(--rds-primary-main, var(--rds-primary-main, #1976d2));
+        border-bottom: var(--rds-input-border-width-thick) solid var(--rds-primary-main);
       }
     }
   }
 
-}
-
-.rds-input {
   &--error {
     .MuiFormLabel-root.Mui-error {
-      color: var(--rds-error-main, #d32f2f) !important;
+      color: var(--rds-error-main) !important;
     }
 
     .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-error-main, #d32f2f) !important;
+      border-color: var(--rds-error-main) !important;
     }
 
     .MuiFormHelperText-root.Mui-error {
-      color: var(--rds-error-main, #d32f2f) !important;
+      color: var(--rds-error-main) !important;
     }
   }
 
   &--active {
     .MuiFormLabel-root.Mui-focused {
-      color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
+      color: var(--rds-primary-main) !important;
     }
 
     .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
-      border-width: 2px;
+      border-color: var(--rds-primary-main) !important;
+      border-width: var(--rds-input-border-width-thick);
     }
   }
 
   &--selected {
     .MuiFormLabel-root {
-      color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
+      color: var(--rds-primary-main) !important;
     }
 
     .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-primary-main, var(--rds-primary-main, #1976d2)) !important;
+      border-color: var(--rds-primary-main) !important;
     }
   }
 
   &--disabled {
     .MuiFormLabel-root.Mui-disabled {
-      color: var(--rds-text-disabled, #9e9e9e) !important;
+      color: var(--rds-text-disabled) !important;
     }
 
     .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
-      border-color: var(--rds-border-light, #e0e0e0) !important;
+      border-color: var(--rds-border-light) !important;
     }
 
     .MuiInputBase-root.Mui-disabled {
-      background-color: var(--rds-background-surface, #f5f5f5);
-      color: var(--rds-text-disabled, #9e9e9e);
+      background-color: var(--rds-background-surface);
+      color: var(--rds-text-disabled);
     }
   }
 
   .MuiFormLabel-root.Mui-required .MuiFormLabel-asterisk {
-    color: var(--rds-error-main, #d32f2f) !important;
+    color: var(--rds-error-main) !important;
   }
 
   .MuiOutlinedInput-notchedOutline legend {
-    font-size: 0.75rem !important;
+    font-size: var(--rds-font-size-sm) !important;
   }
-  .MuiFormHelperText-root {
-    margin-left: 0 !important;
-  }
-}
 
-.rds-input {
+  .MuiFormHelperText-root {
+    margin-left: var(--rds-border-radius-none) !important;
+  }
 
   &:focus-visible {
     outline: var(--rds-focus-ring);
@@ -335,55 +342,27 @@
 
   .sr-only {
     position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
+    width: var(--rds-input-sr-only-size);
+    height: var(--rds-input-sr-only-size);
+    padding: var(--rds-border-radius-none);
+    margin: var(--rds-input-sr-only-offset);
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip: rect(var(--rds-border-radius-none), var(--rds-border-radius-none), var(--rds-border-radius-none), var(--rds-border-radius-none));
     white-space: nowrap;
-    border: 0;
+    border: var(--rds-border-radius-none);
   }
+
   .MuiInputBase-input::placeholder,
   input::placeholder,
   textarea::placeholder,
   .MuiAutocomplete-inputRoot input::placeholder {
-    color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
+    color: var(--rds-text-hint) !important;
     opacity: 1 !important;
   }
 }
 
-.dark-theme .rds-input,
-[data-theme="dark"] .rds-input {
+// MuiInputLabel shrink background uses the default background token automatically
 
-  .MuiInputBase-root,
-  .MuiOutlinedInput-root,
-  .MuiFilledInput-root,
-  .MuiInput-root {
-    background-color: var(--rds-background-paper, #424242);
-  }
-  .MuiInputLabel-root {
-    background-color: transparent;
-  }
-  .MuiInputLabel-root.MuiInputLabel-shrink {
-    background-color: var(--dark-bg-primary, #000) !important;
-  }
-
-   .MuiSvgIcon-root{
-      color: #f6f4f4!important;
-      fill: #efe8e8!important;
-  }
-  
-  
-    .MuiInputBase-input::placeholder,
-    input::placeholder,
-    textarea::placeholder,
-    .MuiAutocomplete-inputRoot input::placeholder {
-      color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
-      opacity: 1 !important;
-    }
-  
-}
-.css-1t6h741-MuiFormHelperText-root{
-  margin-left: 0px !important;
+.css-1t6h741-MuiFormHelperText-root {
+  margin-left: var(--rds-border-radius-none) !important;
 }

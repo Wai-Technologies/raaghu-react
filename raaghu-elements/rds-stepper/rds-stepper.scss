@@ -1,13 +1,17 @@
+$rds-stepper-breakpoint-sm: 420px;
+
 .rds-stepper {
+  --rds-stepper-mobile-offset-left: -10px;
+  --rds-stepper-mobile-step-padding-right: 0px;
   position: relative;
 }
 
-@media (max-width: 420px) {
+@media (max-width: $rds-stepper-breakpoint-sm) {
   .rds-stepper {
-    margin-left: -10px;
+    margin-left: var(--rds-stepper-mobile-offset-left, -10px);
   }
   .MuiStep-root {
-    padding-right: 0px !important;
+    padding-right: var(--rds-stepper-mobile-step-padding-right, 0px) !important;
   }
 }
 

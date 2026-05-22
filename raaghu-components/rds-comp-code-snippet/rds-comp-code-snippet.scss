@@ -44,13 +44,13 @@
     }
   }
 
-  @media (max-width: 360px) {
+  @media (max-width: var(--rds-breakpoint-360)) {
     // .css-1in3o51-MuiButton-startIcon{
     //   margin-right: 0px;
     // }
     &__toolbar {
-      padding: 4px 8px 5px 4px;
-      gap: 3px;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) calc(var(--rds-spacing-xs) + 1px) var(--rds-spacing-xs);
+      gap: calc(var(--rds-spacing-xs) * 0.75);
     }
 
     &__language-label {
@@ -60,14 +60,14 @@
 
     &__copy-button {
       min-width: 72px;
-      padding: 5px 6px;
+      padding: calc(var(--rds-spacing-xs) + 1px) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
       font-size: 10px !important;
       white-space: nowrap;
       height: 30px;
     }
 
     &__expand-icon {
-      font-size: 16px !important;
+      font-size: var(--rds-font-size-lg) !important;
       width: 16px !important;
       height: 16px !important;
     }
@@ -121,7 +121,7 @@
    min-width: 120px;
     &:focus,
     &:focus-visible {
-      outline: 2px solid var(--rds-color-primary, #3b82f6);
+      outline: 2px solid var(--rds-primary-main);
       outline-offset: 2px;
     }
 
@@ -134,14 +134,7 @@
 
   &__expand-icon {
     cursor: pointer;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: color var(--rds-transition-base);
 
     &:hover {
       color: var(--rds-color-primary, #3b82f6);
@@ -169,7 +162,7 @@
 
     &__highlighter {
       background: transparent !important;
-      padding: 16px !important;
+      padding: var(--rds-spacing-md) !important;
       margin: 0 !important;
       font-family: inherit !important;
       line-height: inherit !important;

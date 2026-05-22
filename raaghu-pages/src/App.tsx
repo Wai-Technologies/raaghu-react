@@ -52,7 +52,7 @@ const useAppStyles = makeStyles({
     position: 'fixed',
     top: '20px',
     right: '20px',
-    zIndex: 1000,
+    zIndex: 'var(--rds-z-index-portal)',
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     padding: '12px 16px',
     borderRadius: '12px',

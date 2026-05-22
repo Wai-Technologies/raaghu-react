@@ -84,22 +84,22 @@ const RdsDivider= ({
     switch (size) {
       case 'small':
         return {
-          borderWidth: '1px',
+          borderWidth: 'var(--rds-divider-border-width-sm, 1px)',
           marginY: 2,
         };
       case 'medium':
         return {
-          borderWidth: '2px',
+          borderWidth: 'var(--rds-divider-border-width-md, 2px)',
           marginY: 2,
         };
       case 'large':
         return {
-          borderWidth: '3px',
+          borderWidth: 'var(--rds-divider-border-width-lg, 3px)',
           marginY: 2,
         };
       default:
         return {
-          borderWidth: '2px',
+          borderWidth: 'var(--rds-divider-border-width-md, 2px)',
           marginY: 2,
         };
     }
@@ -117,14 +117,14 @@ const RdsDivider= ({
     {iconShow && (
       <Box
         sx={{
-          width: 28,
-          height: 28,
+          width: 'var(--rds-divider-icon-box-size, 28px)',
+          height: 'var(--rds-divider-icon-box-size, 28px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
         }}
       >
-        <IconComponent sx={{ fontSize: 21, color: iconColor }} />
+        <IconComponent sx={{ fontSize: 'var(--rds-divider-icon-size, 21px)', color: iconColor }} />
       </Box>
     )}
   {dividerMessage && (
@@ -138,7 +138,7 @@ const RdsDivider= ({
 
   if (layout === 'vertical') {
     return (
-      <Box sx={{ display: 'flex', alignItems: 'center', height: 120 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', height: 'var(--rds-divider-vertical-container-height, 120px)' }}>
         <Typography variant="body2" sx={{ mr: 1 }}>Left</Typography>
         <MuiDivider
           orientation="vertical"

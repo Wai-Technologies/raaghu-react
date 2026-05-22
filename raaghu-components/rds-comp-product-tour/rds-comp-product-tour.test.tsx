@@ -209,7 +209,7 @@ describe('RdsCompProductTour', () => {
         <RdsCompProductTour {...defaultProps} state="Image" slides={mockSlides} showVisualPlaceholder={false} />
       );
       const section = container.querySelector('.rds-comp-product-tour__image-section');
-      expect(section).toHaveStyle('height: 220px');
+      expect(section).toHaveStyle('height: calc(var(--rds-spacing-xl) * 7)');
       expect(section).toHaveStyle('background: transparent');
     });
 
@@ -284,7 +284,7 @@ describe('RdsCompProductTour', () => {
       const boxes = screen.getAllByTestId('box');
       const placeholder = boxes.find(box => {
         const style = box.getAttribute('style') || '';
-        return style.includes('height') && style.includes('220px') && style.includes('background') && style.includes('transparent');
+        return style.includes('height') && style.includes('calc(var(--rds-spacing-xl) * 7)') && style.includes('background') && style.includes('transparent');
       });
       expect(placeholder).toBeInTheDocument();
     });

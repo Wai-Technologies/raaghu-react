@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Box, IconButton, useTheme, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
+import { useRdsTokens } from '../shared/hooks/useRdsTokens';
 import './rds-carousel.scss';
 
 export interface RdsCarouselProps {
@@ -37,7 +38,7 @@ const RdsCarousel = ({
   subtitle,
 }:RdsCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const theme = useTheme();
+  const tokens = useRdsTokens();
 
   React.useEffect(() => {
     if (state && !isNaN(parseInt(state))) {
@@ -84,10 +85,8 @@ const RdsCarousel = ({
         overflow: 'hidden',
         width: '100%',
         maxWidth: '100%',
-        borderRadius: 'var(--rds-border-radius-md, 8px)',
-        backgroundColor: style === 'full width image'
-          ? 'var(--rds-background-paper, transparent)'
-          : 'transparent',
+        borderRadius: tokens.radius.md,
+        backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
       }}
     >
       <Box
@@ -112,9 +111,7 @@ const RdsCarousel = ({
                 position: 'relative',
                 display: 'flex',
                 flexDirection: style === 'with title' || style === 'full width image' ? 'column' : 'row',
-                backgroundColor: style === 'full width image'
-                  ? 'var(--rds-background-paper, transparent)'
-                  : 'transparent',
+                backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
               }}
             >
               {style === 'with title' && (
@@ -174,14 +171,14 @@ const RdsCarousel = ({
             className="rds-carousel__navigation rds-carousel__navigation--prev"
             sx={{
               position: 'absolute',
-              left: 8,
+              left: tokens.space(1),
               top: style === 'with title' ? 'calc(50% + 50px)' : '50%',
               transform: 'translateY(-50%)',
-              backgroundColor: 'var(--rds-overlay-dark, rgba(0, 0, 0, 0.5))',
-              color: 'var(--rds-neutral-0, #ffffff)',
-              zIndex: 2,
+              backgroundColor: tokens.cssVar('overlay-dark'),
+              color: tokens.cssVar('neutral-0'),
+              zIndex: tokens.zIndex.layer2,
               '&:hover': {
-                backgroundColor: 'var(--rds-overlay-darker, rgba(0, 0, 0, 0.7))',
+                backgroundColor: tokens.cssVar('overlay-darker'),
               },
             }}
           >
@@ -192,14 +189,14 @@ const RdsCarousel = ({
             className="rds-carousel__navigation rds-carousel__navigation--next"
             sx={{
               position: 'absolute',
-              right: 8,
+              right: tokens.space(1),
               top: style === 'with title' ? 'calc(50% + 50px)' : '50%',
               transform: 'translateY(-50%)',
-              backgroundColor: 'var(--rds-overlay-dark, rgba(0, 0, 0, 0.5))',
-              color: 'var(--rds-neutral-0, #ffffff)',
-              zIndex: 2,
+              backgroundColor: tokens.cssVar('overlay-dark'),
+              color: tokens.cssVar('neutral-0'),
+              zIndex: tokens.zIndex.layer2,
               '&:hover': {
-                backgroundColor: 'var(--rds-overlay-darker, rgba(0, 0, 0, 0.7))',
+                backgroundColor: tokens.cssVar('overlay-darker'),
               },
             }}
           >
@@ -213,12 +210,12 @@ const RdsCarousel = ({
           className="rds-carousel__indicators"
           sx={{
             position: 'absolute',
-            bottom: 16,
+            bottom: tokens.space(2),
             left: '50%',
             transform: 'translateX(-50%)',
             display: 'flex',
-            gap: 1,
-            zIndex: 2,
+            gap: tokens.space(1),
+            zIndex: tokens.zIndex.layer2,
           }}
         >
           {children.map((_, index) => (
@@ -229,27 +226,30 @@ const RdsCarousel = ({
                 currentIndex === index ? 'rds-carousel__indicator__active' : ''
               }`}
               sx={{
-                width: type === 'circle' ? 12 : 24,
-                height: type === 'circle' ? 12 : 4,
-                borderRadius: type === 'circle' ? '50%' : 2,
-                backgroundColor: currentIndex === index 
-                  ? theme.palette.primary.main 
-                  : style === 'full width image' 
-                    ? 'rgba(255, 255, 255, 0.8)' 
-                    : '#BDBDBD',
-                border: style === 'full width image' 
-                  ? (currentIndex === index 
-                      ? '1px solid var(--rds-color-primary, #1976d2)' 
-                      : '1px solid rgba(0, 0, 0, 0.2)') 
-                  : 'none',
+                width: type === 'circle' ? tokens.space(1.5) : tokens.space(3),
+                height: type === 'circle' ? tokens.space(1.5) : tokens.space(0.5),
+                borderRadius: type === 'circle' ? tokens.radius.full : tokens.radius.sm,
+                backgroundColor:
+                  currentIndex === index
+                    ? tokens.color.primary
+                    : style === 'full width image'
+                      ? tokens.cssVar('neutral-0')
+                      : tokens.cssVar('neutral-400'),
+                opacity: currentIndex === index || style !== 'full width image' ? 1 : 0.8,
+                border:
+                  style === 'full width image'
+                    ? `1px solid ${currentIndex === index ? tokens.color.primary : tokens.cssVar('border-opacity-light')}`
+                    : 'none',
                 cursor: 'pointer',
-                transition: 'background-color 0.2s',
+                transition: 'background-color 0.2s, opacity 0.2s',
                 '&:hover': {
-                  backgroundColor: currentIndex === index 
-                    ? theme.palette.primary.main 
-                    : style === 'full width image' 
-                      ? 'rgba(255, 255, 255, 0.9)' 
-                      : '#9E9E9E',
+                  backgroundColor:
+                    currentIndex === index
+                      ? tokens.color.primary
+                      : style === 'full width image'
+                        ? tokens.cssVar('neutral-0')
+                        : tokens.cssVar('neutral-500'),
+                  opacity: 1,
                 },
               }}
             />

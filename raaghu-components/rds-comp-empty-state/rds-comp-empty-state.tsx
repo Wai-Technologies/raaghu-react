@@ -75,7 +75,7 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
               sx={{
                 fontSize: '20px',
                 fontWeight: 600,
-                color: props.mode === 'Dark NRA' ? '#fff' : '#374151',
+                color: (theme) => props.mode === 'Dark NRA' ? theme.palette.common.white : theme.palette.grey[800],
                 marginBottom: '8px',
                 marginTop: '24px',
               }}
@@ -89,7 +89,10 @@ const RdsCompEmptyState = (props: RdsCompEmptyStateProps) => {
               variant="body1"
               className="rds-comp-empty-state__subtitle"
               data-testid="sublabelElement"
-              sx={{ textAlign: 'center', color: props.mode === 'Dark NRA' ? '#fff' : undefined }}
+              sx={{ 
+                textAlign: 'center', 
+                color: (theme) => props.mode === 'Dark NRA' ? theme.palette.common.white : theme.palette.text.primary 
+              }}
             >
               {props.subLabel}
             </Typography>

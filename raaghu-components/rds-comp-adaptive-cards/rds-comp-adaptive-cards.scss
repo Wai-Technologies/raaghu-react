@@ -1,4 +1,3 @@
-@import '../../raaghu-react-themes/src/styles/raaghu-react-theme.scss';
 .rds-adaptive-cards--image-gallery {
   width: 100%;
   max-width: var(--rds-card-max-width, 1200px);
@@ -14,29 +13,6 @@
 .rds-adaptive-cards--image-gallery .rds-adaptive-cards__content {
   transition: none !important;
 }
-.dark-theme .rds-adaptive-cards--image-gallery,
-[data-theme="dark"] .rds-adaptive-cards--image-gallery {
-  background: var(--rds-background-dark, $background-dark) !important;
-  border-color: rgba(255,255,255,0.06) !important;
-  box-shadow: none !important;
-  color: var(--rds-text-primary-dark, $text-primary-dark) !important;
-}
-.dark-theme .rds-adaptive-cards--image-gallery .rds-adaptive-cards__image-list,
-[data-theme="dark"] .rds-adaptive-cards--image-gallery .rds-adaptive-cards__image-list {
-  background: transparent !important;
-}
-
-.dark-theme .rds-adaptive-cards__small-text,
-[data-theme="dark"] .rds-adaptive-cards__small-text {
-  color: var(--rds-text-secondary-dark, $text-secondary-dark) !important;
-  opacity: 0.9 !important;
-}
-
-.dark-theme .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title,
-[data-theme="dark"] .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title {
-  color: var(--rds-text-primary-dark, $text-primary-dark) !important;
-}
-
 .rds-adaptive-cards--football-scorecard {
   width: var(--rds-card-width-football, 350px);
   min-width: var(--rds-card-width-football, 350px);
@@ -58,7 +34,7 @@
   flex-direction: row !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 8px !important;
+  gap: var(--rds-spacing-sm) !important;
 }
 
 .rds-adaptive-cards__football-score-section .css-9jay18 {
@@ -85,7 +61,7 @@
     padding-bottom: var(--rds-spacing-none, 0) !important;
     margin-top: var(--rds-spacing-none, 0) !important;
     margin-bottom: var(--rds-spacing-none, 0) !important;
-    padding: 16px;
+    padding: var(--rds-spacing-md);
   }
   &__input-form-field { 
     margin-bottom: var(--rds-spacing-sm, 10px);
@@ -103,19 +79,15 @@
         font-size: var(--rds-font-size-2xl, 20px) !important;
       font-weight: var(--rds-font-weight-bold, 700) !important;
       padding: var(--rds-spacing-none, 0) !important;
-      z-index: 1;
+      z-index: var(--rds-z-index-layer-1);
       display: flex;
       align-items: center;
       justify-content: flex-start;
       text-align: left !important;
-      padding-top: 4px !important;
+      padding-top: var(--rds-spacing-xs) !important;
       padding-bottom: var(--rds-spacing-none, 0) !important;
       line-height: 1.1 !important;
       font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
-      .dark-theme &,
-      [data-theme="dark"] & {
-        color: var(--rds-text-primary, $text-primary) !important;
-      }
   }
   &__title-icon {
     width: var(--rds-font-size-xl, 20px);
@@ -127,7 +99,7 @@
   }
   &__content {
     padding: var(--rds-spacing-sm, 8px) 0 var(--rds-spacing-sm, 8px) 0;
-    padding: 16px;
+    padding: var(--rds-spacing-md);
   }
   &__input-form-card { 
     padding: 0 16px 0 16px;
@@ -171,7 +143,7 @@
     height: 100%;
     object-fit: cover;
     border-radius: var(--rds-border-radius-sm, 4px);
-    transition: transform 0.2s;
+    transition: transform var(--rds-transition-base);
     display: block;
   }
   
@@ -268,7 +240,7 @@
     margin-bottom: var(--rds-spacing-sm, 8px) !important;
   }
   &__calendar-reminder-info-icon {
-    font-size: 20px !important;
+    font-size: var(--rds-font-size-2xl) !important;
     margin-bottom: 10px !important;
     color: var(--rds-text-secondary, $text-secondary) !important;
   }
@@ -287,15 +259,6 @@
     &::placeholder {
       font-size: var(--rds-font-size-xs, 12px) !important;
     }
-  }
-
-  .dark-theme .rds-adaptive-cards__calendar-reminder-input .MuiInputBase-input::placeholder,
-  [data-theme="dark"] .rds-adaptive-cards__calendar-reminder-input .MuiInputBase-input::placeholder,
-  .dark-theme .rds-adaptive-cards__calendar-reminder-input .MuiOutlinedInput-input::placeholder,
-  [data-theme="dark"] .rds-adaptive-cards__calendar-reminder-input .MuiOutlinedInput-input::placeholder,
-  .dark-theme .rds-adaptive-cards__calendar-reminder-input input::placeholder,
-  [data-theme="dark"] .rds-adaptive-cards__calendar-reminder-input input::placeholder {
-    color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
   }
 
   &__activity-update-header {
@@ -370,7 +333,7 @@
     align-items: center;
   }
   &__restaurant-order-info-icon {
-    font-size: 20px !important;
+    font-size: var(--rds-font-size-2xl) !important;
     width: 20px !important;
     height: 20px !important;
     color: var(--rds-text-secondary, $text-secondary) !important;
@@ -441,17 +404,13 @@
       font-weight: var(--rds-font-weight-black, 900) !important;
       font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
       letter-spacing: var(--rds-football-league-letter-spacing, 0.5px) !important;
-      font-size: 24px !important; 
+      font-size: var(--rds-font-size-3xl) !important; 
       color: var(--rds-text-primary, $text-primary) !important;
       text-shadow: none !important; 
       display: inline-block !important;
       white-space: nowrap !important;
       margin: 0 !important;
       line-height: 1.2 !important;
-      .dark-theme &,
-      [data-theme="dark"] & {
-        color: var(--rds-text-primary, $text-primary) !important;
-      }
     }
     
     .rds-adaptive-cards__football-live + & {
@@ -465,11 +424,6 @@
     margin: var(--rds-spacing-xs, 2px) 0 !important;
     letter-spacing: var(--rds-football-date-letter-spacing, 0.5px) !important;
     text-align: center !important;
-    .dark-theme &,
-    [data-theme="dark"] & {
-      color: var(--rds-text-primary, $text-primary) !important;
-    }
-   
     min-width: 0 !important;
   }
   &__football-final {
@@ -479,10 +433,6 @@
     font-weight: var(--rds-font-weight-medium, 500) !important;
     text-align: center !important;
     margin: 0 !important;
-     .dark-theme &,
-    [data-theme="dark"] & {
-      color: var(--rds-text-primary, $text-primary) !important;
-    }
   }
   &__football-live {
     font-size: var(--rds-font-size-xs, 10px) !important;
@@ -495,19 +445,9 @@
     justify-content: center !important;
     flex-shrink: 0 !important;
     margin: 0 !important;
-    padding: 12px 6px !important;
+    padding: var(--rds-spacing-sm) 6px !important;
     height: 20px !important; 
     min-width: 32px !important;
-    .dark-theme &,
-    [data-theme="dark"] & {
-      background: var(--rds-status-live, $status-live) !important;
-      color: var(--rds-text-on-status, $text-on-status) !important;
-      fill: var(--rds-text-on-status, $text-on-status) !important;
-    }
-    .dark-theme & svg circle,
-    [data-theme="dark"] & svg circle {
-      fill: white !important;
-    }
   }
 
   .rds-adaptive-cards__football-live--aligned {
@@ -551,18 +491,10 @@
     overflow: hidden;
      &.rds-adaptive-cards__football-logo--home {
       background-color: var(--rds-background-default, $background-default) !important;
-        .dark-theme &,
-        [data-theme="dark"] & {
-          background: var(--rds-background-dark, $background-dark) !important;
-        }
       }
       
       &.rds-adaptive-cards__football-logo--away {
         background: var(--rds-background-default, $background-default) !important;
-        .dark-theme &,
-        [data-theme="dark"] & {
-          background: var(--rds-background-dark, $background-dark) !important;
-        }
       }
   }
   &__football-img {
@@ -572,11 +504,6 @@
     border: none;
     object-fit: cover;
     background: var(--rds-background-default, $background-default);
-     .dark-theme &,
-    [data-theme="dark"] & {
-      background: var(--rds-background-dark, $background-dark) !important;
-      border: 1px solid var(--rds-border-dark, $border-dark) !important;
-    }
     display: block;
     &--barca {
       width: 100%;
@@ -658,11 +585,6 @@
     align-items: center !important;
     justify-content: center !important;
     margin-top: 20px !important; 
-    .dark-theme &,
-    [data-theme="dark"] & {
-      background: var(--rds-background-dark, $background-dark) !important;
-      color: var(--rds-text-primary, $text-primary) !important;
-    }
   }
 }
 
@@ -682,22 +604,6 @@
     box-shadow: none !important;
   }
 }
-.dark-theme .rds-adaptive-cards__action-btn--input-form,
-[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form {
-  background: var(--rds-background-dark, $background-dark) !important;
-  color: var(--rds-text-primary-dark, $text-primary-dark) !important;
-  border-color: var(--rds-border-light, $border-light) !important;
-  box-shadow: none !important;
-}
-.dark-theme .rds-adaptive-cards__action-btn--input-form:focus,
-[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form:focus,
-.dark-theme .rds-adaptive-cards__action-btn--input-form:active,
-[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form:active {
-  outline: none;
-  border-color: var(--rds-border-light, $border-light) !important;
-  box-shadow: none !important;
-}
-
 .rds-adaptive-cards__input-form-container {
   width: 100%;
   max-width: var(--rds-input-form-max-width, 400px);
@@ -720,10 +626,6 @@
   color: var(--rds-text-secondary, $text-secondary);
   margin-bottom: var(--rds-spacing-lg, 16px);
   font-size: var(--rds-font-size-xs, 12px);
-}
-.dark-theme .rds-adaptive-cards__input-form-small-text,
-[data-theme="dark"] .rds-adaptive-cards__input-form-small-text {
-  color: var(--rds-text-primary, $text-primary) !important;
 }
 .rds-adaptive-cards__input-form-field-label {
   font-size: var(--rds-font-size-md, 15px);
@@ -793,11 +695,6 @@
   font-size: var(--rds-font-size-lg, 18px) !important;
 }
 
-.dark-theme .rds-adaptive-cards__activity-update-radio-group .MuiRadio-root.Mui-checked .MuiSvgIcon-root,
-[data-theme="dark"] .rds-adaptive-cards__activity-update-radio-group .MuiRadio-root.Mui-checked .MuiSvgIcon-root {
-  color: var(--rds-primary-color, $primary-color) !important;
-}
-
 .rds-adaptive-cards__required {
   color: var(--rds-error-main, $error-main);
   margin-left: var(--rds-spacing-xs, 2px);
@@ -820,22 +717,6 @@
   width: var(--rds-font-size-md, 14px) !important;
   height: var(--rds-font-size-md, 14px) !important;
 }
-.dark-theme .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon,
-[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon {
-  color: var(--rds-text-secondary, $text-secondary) !important;
-}
-.dark-theme .rds-adaptive-cards__restaurant-order-form .rds-adaptive-cards__placeholder,
-[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form .rds-adaptive-cards__placeholder {
-  color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
-}
-.dark-theme .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
-[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
-.dark-theme .rds-adaptive-cards__restaurant-order-form svg:not(.rds-adaptive-cards__restaurant-order-info-icon),
-[data-theme="dark"] .rds-adaptive-cards__restaurant-order-form svg:not(.rds-adaptive-cards__restaurant-order-info-icon) {
-  stroke: var(--rds-text-secondary, $text-secondary) !important;
-  color: var(--rds-text-secondary, $text-secondary) !important;
-}
-
 .rds-adaptive-cards__calendar-reminder-select-icon {
   width: var(--rds-calendar-reminder-select-icon-width, 16px) !important;
   height: var(--rds-calendar-reminder-select-icon-height, 12px) !important;
@@ -849,11 +730,6 @@
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6));
   font-size: var(--rds-calendar-reminder-placeholder-font-size, 0.85rem);
 }
-.dark-theme .rds-adaptive-cards__calendar-reminder-placeholder,
-[data-theme="dark"] .rds-adaptive-cards__calendar-reminder-placeholder {
-  color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
-}
-
 .rds-adaptive-cards__action-btn--input-form input::placeholder,
 .rds-adaptive-cards__action-btn--input-form textarea::placeholder {
   font-size: var(--rds-font-size-xs, 12px) !important;
@@ -861,25 +737,15 @@
 .rds-adaptive-cards__action-btn--input-form input::placeholder,
 .rds-adaptive-cards__action-btn--input-form textarea::placeholder {
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
-}
-.dark-theme .rds-adaptive-cards__action-btn--input-form input::placeholder,
-[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form input::placeholder,
-.dark-theme .rds-adaptive-cards__action-btn--input-form textarea::placeholder,
-[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form textarea::placeholder {
-  color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
 }
 .rds-adaptive-cards__action-btn--input-form::placeholder {
   font-size: var(--rds-font-size-xs, 12px) !important;
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
 }
-.dark-theme .rds-adaptive-cards__action-btn--input-form::placeholder,
-[data-theme="dark"] .rds-adaptive-cards__action-btn--input-form::placeholder {
-  color: var(--rds-placeholder-color, rgba(255, 255, 255, 0.65)) !important;
-}
 .rds-adaptive-cards__action-btn--input-form-button{
   margin-left: 0px !important;
   margin-right: 0px !important;
-  font-size: 12px !important;
+  font-size: var(--rds-font-size-sm) !important;
   width: 98% !important;
 }
 
@@ -1105,7 +971,7 @@
   inset: var(--rds-dropdown-menu-inset, 4px auto auto -67px) !important;
 }
 
-@media (min-width: 320px) and (max-width: 375px) {
+@media (min-width: var(--rds-breakpoint-mobile-sm)) and (max-width: var(--rds-breakpoint-mobile-md)) {
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100% !important;
@@ -1116,10 +982,10 @@
     margin-bottom: var(--rds-title-margin-bottom-mobile, 6px) !important;
   }
   .rds-adaptive-cards--image-gallery .rds-adaptive-cards__title {
-    font-size: 18px !important;
+    font-size: var(--rds-font-size-xl) !important;
     font-weight: 700 !important;
-    padding-top: 4px !important;
-    padding-bottom: 8px !important;
+    padding-top: var(--rds-spacing-xs) !important;
+    padding-bottom: var(--rds-spacing-sm) !important;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1168,19 +1034,15 @@
       max-width: 50px !important;
       min-width: 50px !important;
       font-size: 9px !important;
-      z-index: 2;
+      z-index: var(--rds-z-index-layer-2);
     }
 
   .rds-adaptive-cards__football-logo {
     width: var(--rds-football-logo-size-mobile, 72px);
      &.rds-adaptive-cards__football-logo--away {
-        .dark-theme &,
-        [data-theme="dark"] & {
-          background: var(--rds-background-dark, $background-dark) !important;
-        }
       }
   
-  @media (max-width: 340px) {
+  @media (max-width: var(--rds-breakpoint-340)) {
     .rds-adaptive-cards__football-live {
       position: relative !important;
       left: 0 !important;
@@ -1191,12 +1053,12 @@
       justify-content: center !important;
       max-width: 48px !important;
       font-size: 9px !important;
-      z-index: 2;
+      z-index: var(--rds-z-index-dropdown, 1000);
     }
     .rds-adaptive-cards__football-league {
       font-size: 15px !important;
       letter-spacing: 0.3px !important;
-      font-weight: 700 !important;
+      font-weight: var(--rds-font-weight-bold, 700) !important;
     }
   }
     height: var(--rds-football-logo-size-mobile, 72px);
@@ -1238,16 +1100,16 @@
     justify-content: center !important;
     max-width: 55px !important;
     min-width: 50px !important;
-    z-index: 2;
+    z-index: var(--rds-z-index-layer-2);
   }
 }
-@media (max-width: 320px) {
+@media (max-width: var(--rds-breakpoint-mobile-sm)) {
   .rds-adaptive-cards__football-header-left {
       margin-left: 27px !important;
     }
 }
 
-@media (min-width: 376px) and (max-width: 480px) {
+@media (min-width: var(--rds-breakpoint-mobile-md)) and (max-width: var(--rds-breakpoint-xs)) {
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100% !important;
@@ -1279,7 +1141,7 @@
   }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
+@media (min-width: var(--rds-breakpoint-xs)) and (max-width: var(--rds-breakpoint-tablet-sm)) {
   .rds-adaptive-cards,
   .adaptive-card-container {
     width: 100% !important;
@@ -1321,18 +1183,18 @@
 .custom-box {
   min-height: 120px;
   background: transparent;
-  border-radius: 12px;
+  border-radius: var(--rds-border-radius-lg);
   box-shadow: none;
   position: relative;
 
   &__close-icon {
     align-self: center;
     left: 10px !important;
-    font-size: 12px !important;
+    font-size: var(--rds-font-size-sm) !important;
   }
   
   &__title-stack {
-    margin-bottom: 16px;
+    margin-bottom: var(--rds-spacing-md);
     display: flex;
     align-items: center;
     gap: 14px;
@@ -1353,12 +1215,12 @@
 
   &__slot {
     border: 2px dashed var(--rds-border-default, $border-default);
-    border-radius: 8px;
+    border-radius: var(--rds-border-radius-md);
     min-height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
+    margin-bottom: var(--rds-spacing-lg);
      width: 100%;
     height: 120px;
     box-sizing: border-box;
@@ -1380,7 +1242,7 @@
   &__actions {
     display: flex;
     justify-content: flex-end;
-    gap: 4px;
+    gap: var(--rds-spacing-xs);
   }
 
   &__button--cancel {
@@ -1410,7 +1272,7 @@
 }
 
 .rds-adaptive-cards__activity-update-header.MuiStack-root > :not(style) ~ :not(style) {
-  margin-left: 8px !important; 
+  margin-left: var(--rds-spacing-sm) !important; 
 }
 
 .rds-adaptive-cards__activity-update-header .MuiStack-root > :not(style) ~ :not(style) {
@@ -1445,25 +1307,6 @@
   font-size: var(--rds-font-size-lg, 14px) !important;
 }
 
-.dark-theme .rds-adaptive-cards__activity-update-name,
-[data-theme="dark"] .rds-adaptive-cards__activity-update-name {
-  color: var(--rds-text-primary-dark, $text-primary-dark) !important;
-  font-weight: var(--rds-font-weight-bold, 700) !important;
-  font-size: var(--rds-font-size-lg, 18px) !important;
-}
-
-.dark-theme .rds-adaptive-cards__activity-update-date,
-[data-theme="dark"] .rds-adaptive-cards__activity-update-date {
-  color: var(--rds-text-secondary-dark, $text-secondary-dark) !important;
-  font-weight: var(--rds-font-weight-normal, 400) !important;
-  font-size: var(--rds-font-size-sm, 12px) !important;
-}
-
-.dark-theme .rds-adaptive-cards__activity-update-text,
-[data-theme="dark"] .rds-adaptive-cards__activity-update-text {
-  color: var(--rds-text-primary-dark, $text-primary-dark) !important;
-}
-
 .rds-adaptive-cards__input-error {
   border-color: var(--rds-error-main, $error-main) !important;
   border-width: 2px !important;
@@ -1476,13 +1319,13 @@
 .rds-adaptive-cards__error-message {
   color: var(--rds-error-main, $error-main);
   font-size: 0.8rem;
-  margin-top: 4px;
-  margin-bottom: 8px;
+  margin-top: var(--rds-spacing-xs);
+  margin-bottom: var(--rds-spacing-sm);
   font-weight: 400;
   line-height: 1.4;
 }
 
-@media (max-width: 340px) {
+@media (max-width: var(--rds-breakpoint-340)) {
   .rds-adaptive-cards--football-scorecard,
   .rds-adaptive-cards__scorecard-container {
     width: 100% !important;

@@ -15,14 +15,7 @@
     padding: var(--rds-spacing-xs, 8px);
     cursor: pointer;
     border-radius: var(--rds-border-radius-sm, 4px);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: background-color var(--rds-transition-duration-short, 0.2s) ease;
     
     // Node state modifiers
     &--hover {
@@ -54,14 +47,7 @@
   &__chevron {
     margin-top: var(--rds-spacing-sm, 2px);
     cursor: pointer;
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: transform var(--rds-transition-duration-short, 0.2s) ease;
     
     &--expanded {
       transform: rotate(90deg);
@@ -125,14 +111,7 @@
     border: 1px solid var(--rds-color-primary, #7e2eef);
     border-radius: var(--rds-border-radius-xs, 3px);
     padding: var(--rds-spacing-xs, 8px);
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all var(--rds-transition-duration-short, 0.3s) ease;
     cursor: pointer;
     background: transparent;
     color: var(--rds-color-primary, #7e2eef);
@@ -151,7 +130,7 @@
 }
 
 // Responsive styles
-@media (max-width: 768px) {
+@media (max-width: var(--rds-breakpoint-md)) {
   .rds-comp-tree-structure {
     &__node {
       margin-left: -18px !important;
@@ -171,26 +150,5 @@
         height: 16px;
       }
     }
-  }
-}
-
-// Dark theme support
-.theme-dark .rds-comp-tree-structure {
-  &__text {
-    color: var(--rds-color-on-surface-dark, #fffdfd);
-  }
-  
-  &__node {
-    &:hover {
-      background-color: var(--rds-color-primary-hover-dark, rgba(126, 46, 239, 0.2));
-    }
-  }
-
-  &__icon--folder,
-  &__icon--folder .MuiSvgIcon-root,
-  &__icon--folder svg,
-  &__icon--folder svg * {
-    color: var(--rds-color-warning, #FFB300) !important;
-    fill: var(--rds-color-warning, #FFB300) !important;
   }
 }

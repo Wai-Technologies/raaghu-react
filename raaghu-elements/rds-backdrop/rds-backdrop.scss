@@ -1,4 +1,6 @@
 .rds-backdrop {
+  --rds-backdrop-focus-ring-width: 2px;
+  --rds-backdrop-disabled-opacity: 0.6;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,31 +11,21 @@
   bottom: 0;
   width: 100%;
   height: 100%;
-  z-index: 1300;
-  background-color: var(--rds-background-overlay, rgba(0, 0, 0, 0.5));
+  z-index: var(--rds-z-index-modal-backdrop);
+  background-color: var(--rds-background-overlay);
 
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-backdrop-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
   &--disabled {
-    opacity: 0.6;
+    opacity: var(--rds-backdrop-disabled-opacity, 0.6);
     pointer-events: none;
   }
 
-  .dark-theme &,
-  [data-theme="dark"] & {
-    background-color: rgba(128, 128, 128, 0.4);
-  }
-
   .MuiCircularProgress-root {
-    color: var(--rds-text-primary, #000);
-    
-    .dark-theme &,
-    [data-theme="dark"] & {
-      color: var(--rds-text-primary, #fff);
-    }
+    color: var(--rds-text-primary);
   }
 }

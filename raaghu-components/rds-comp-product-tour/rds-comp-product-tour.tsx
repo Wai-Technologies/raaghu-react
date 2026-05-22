@@ -102,7 +102,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                         <img src={effectiveSlides[currentIndex] ? effectiveSlides[currentIndex].imgUrl : ""} alt="Tour Step" className="rds-comp-product-tour__image" />
                     </Box>
                 ) : (
-                    <Box className="rds-comp-product-tour__image-section" sx={{ height: "220px", background: "transparent" }} />
+                    <Box className="rds-comp-product-tour__image-section" sx={{ height: 'calc(var(--rds-spacing-xl) * 7)', background: 'transparent' }} />
                 )}
                 <Box className="rds-comp-product-tour__info-nav-section">
                     {renderInfoSection(header, description)}
@@ -123,7 +123,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                 <Box className="rds-comp-product-tour__carousel-wrapper">
                     <RdsCarousel showDots={false} showArrows={false} type="circle" style="default" height="300px" state={carouselState as unknown as '1' | '2' | '3' | '4' | undefined}>
                         {showVisualPlaceholder ? effectiveSlides.map((slide, index) => (
-                            <img key={index} src={slide.imgUrl} alt={`Slide ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }} />
+                            <img key={index} src={slide.imgUrl} alt={`Slide ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--rds-border-radius-md)' }} />
                         )) : []}
                     </RdsCarousel>
                 </Box>
@@ -147,7 +147,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                         <img src="/assets/animation.gif" alt="Tour Animation GIF" className="rds-comp-product-tour__gif" />
                     </Box>
                 ) : (
-                    <Box sx={{ height: "220px", width: "100%", background: "transparent" }} />
+                    <Box sx={{ height: 'calc(var(--rds-spacing-xl) * 7)', width: '100%', background: 'transparent' }} />
                 )}
                 <Box className="rds-comp-product-tour__animation-info">
                     <Typography variant="h5" className="rds-comp-product-tour__animation-title">{header}</Typography>

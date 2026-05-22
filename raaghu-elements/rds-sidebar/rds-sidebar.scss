@@ -1,8 +1,12 @@
 .rds-sidebar--collapse .MuiDrawer-paper .MuiIconButton-root,
 .rds-sidebar--fixed .MuiDrawer-paper .MuiIconButton-root {
-  right: 23px !important;
+  right: var(--rds-sidebar-collapse-icon-offset, 23px) !important;
 }
 .rds-sidebar {
+  --rds-sidebar-header-gap: 12px;
+  --rds-sidebar-nav-min-height: 48px;
+  --rds-sidebar-overlay-bg: var(--rds-action-hover);
+  --rds-sidebar-subitem-radius: 4px;
   display: flex;
   flex-shrink: 0;
   
@@ -15,10 +19,10 @@
   
   &__header {
     display: flex;
-    margin-bottom: 12px;
+    margin-bottom: var(--rds-sidebar-header-gap, 12px);
     
     &--collapse {
-      padding: 16px 0 0 0;
+      padding: var(--rds-spacing-md) 0 0 0;
       justify-content: flex-start;
     }
     
@@ -28,7 +32,7 @@
     }
     
     &--fixed {
-      padding: 16px 0 0 0;
+      padding: var(--rds-spacing-md) 0 0 0;
       justify-content: flex-start;
     }
   }
@@ -56,7 +60,7 @@
   
   &__search-divider {
     border: none;
-    border-top: 1px solid var(--rds-color-border, #e0e0e0);
+    border-top: 1px solid var(--rds-border-default);
     margin: 0 0 12px 0;
   }
   
@@ -87,7 +91,7 @@
   }
   
   &__nav-button {
-    min-height: 48px;
+    min-height: var(--rds-sidebar-nav-min-height, 48px);
     
     .MuiListItemText-root {
       flex-shrink: 0;
@@ -105,8 +109,8 @@
     
     &--expanded {
       justify-content: flex-start;
-      padding-left: 16px;
-      padding-right: 16px;
+      padding-left: var(--rds-spacing-md);
+      padding-right: var(--rds-spacing-md);
     }
     
     &--fixed {
@@ -123,7 +127,7 @@
     align-items: center;
     
     &--with-label {
-      margin-right: 4px;
+      margin-right: var(--rds-spacing-xs);
     }
     
     &--no-label {
@@ -139,12 +143,12 @@
   
   &__footer-divider {
     border: none;
-    border-top: 1px solid var(--rds-color-border, #e0e0e0);
+    border-top: 1px solid var(--rds-border-default);
     margin: 0;
   }
   
   &__avatar-container {
-    padding: 4px 16px;
+    padding: var(--rds-spacing-xs) 16px;
     display: flex;
     overflow-x: hidden;
     
@@ -218,11 +222,11 @@
       .MuiList-root {
         .MuiListItem-root {
           .MuiListItemButton-root {
-            padding-left: 8px;
-            padding-right: 8px;
-            background-color: rgba(0, 0, 0, 0.04);
+            padding-left: var(--rds-spacing-sm);
+            padding-right: var(--rds-spacing-sm);
+            background-color: var(--rds-sidebar-overlay-bg);
             margin: 1px 4px;
-            border-radius: 4px;
+            border-radius: var(--rds-sidebar-subitem-radius, 4px);
           }
         }
       }

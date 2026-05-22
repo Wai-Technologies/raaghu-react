@@ -1,0 +1,86 @@
+// App-bar / header context overrides for ProfileMenu (responsive + themed headers)
+
+.rds-profile-menu__button {
+  border-radius: var(--rds-border-radius-xl);
+  flex-shrink: 0;
+  min-width: 0;
+
+  @media (max-width: var(--rds-breakpoint-834)) {
+    padding-left: 0.4rem;
+    padding-right: 0.8rem;
+    gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
+  }
+
+  @media (max-width: var(--rds-breakpoint-420)) {
+    padding-left: 0.3rem;
+    padding-right: 0.6rem;
+    gap: var(--rds-spacing-xs);
+    margin-left: 2px;
+  }
+
+  @media (max-width: var(--rds-breakpoint-xs)) {
+    padding-left: 0.2rem;
+    padding-right: 0.4rem;
+    gap: calc(var(--rds-spacing-xs) / 2);
+    margin-left: 1px;
+  }
+}
+
+.rds-profile-menu__avatar {
+  flex-shrink: 0;
+
+  @media (max-width: var(--rds-breakpoint-834)) {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: var(--rds-font-size-sm);
+  }
+
+  @media (max-width: var(--rds-breakpoint-420)) {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: var(--rds-font-size-sm);
+  }
+
+  @media (max-width: var(--rds-breakpoint-xs)) {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: var(--rds-font-size-xs);
+  }
+}
+
+.rds-profile-menu__name-lg {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @media (max-width: var(--rds-breakpoint-420)) {
+    font-size: var(--rds-font-size-md, 14px);
+  }
+
+  @media (max-width: var(--rds-breakpoint-xs)) {
+    font-size: var(--rds-font-size-sm, 13px);
+  }
+}
+
+.rds-profile-menu__email {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @media (max-width: var(--rds-breakpoint-420)) {
+    font-size: var(--rds-font-size-xs, 11px);
+  }
+
+  @media (max-width: var(--rds-breakpoint-xs)) {
+    font-size: var(--rds-font-size-xs, 10px);
+  }
+}
+
+.rds-header--primary .rds-profile-menu__email,
+.rds-header--secondary .rds-profile-menu__email {
+  color: inherit !important;
+}
+
+.rds-profile-menu__item {
+  font-size: var(--rds-font-size-md) !important;
+}

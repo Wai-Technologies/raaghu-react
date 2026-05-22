@@ -1,17 +1,20 @@
 .rds-skeleton {
+  --rds-skeleton-gap: 8px;
+  --rds-skeleton-focus-ring-width: 2px;
+  --rds-skeleton-disabled-opacity: 0.6;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--rds-skeleton-gap, 8px);
   position: relative;
 
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-skeleton-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset);
   }
 
   &:disabled,
   &--disabled {
-    opacity: 0.6;
+    opacity: var(--rds-skeleton-disabled-opacity, 0.6);
     pointer-events: none;
   }
 }

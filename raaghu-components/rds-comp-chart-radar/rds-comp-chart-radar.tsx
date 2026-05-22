@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
+import { applyChartThemeColors, chartTextColor } from "../chart-utils";
 import "./rds-comp-chart-radar.scss";
 
 export interface RdsCompRadarProps {
@@ -10,17 +11,6 @@ export interface RdsCompRadarProps {
 }
 
 const RdsCompRadarChart = (props: RdsCompRadarProps) => {
-  const isDarkMode = () => {
-    if (typeof window !== 'undefined') {
-      return (
-        document.body.classList.contains('theme-dark') ||
-        document.body.classList.contains('dark-theme') ||
-        document.documentElement.getAttribute('data-theme') === 'dark' ||
-        document.body.getAttribute('data-theme') === 'dark'
-      );
-    }
-    return false;
-  };
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
 
@@ -29,42 +19,29 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
     if (!canvasElm) return;
 
     const ctx = canvasElm.getContext("2d") as CanvasRenderingContext2D;
-
-    if (chartInstanceRef.current) {
-      chartInstanceRef.current.destroy();
-    }
+    chartInstanceRef.current?.destroy();
 
     const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+    // Apply theme colors to plugins; radar uses 'r' axis for point labels
+    applyChartThemeColors(chartOptions, ['r']);
 
-    if (isDarkMode()) {
-      if (!chartOptions.plugins) chartOptions.plugins = {};
-      if (!chartOptions.plugins.legend) chartOptions.plugins.legend = {};
-      if (!chartOptions.plugins.legend.labels) chartOptions.plugins.legend.labels = {};
-      chartOptions.plugins.legend.labels.color = "#fff";
-      if (!chartOptions.plugins.title) chartOptions.plugins.title = {};
-      chartOptions.plugins.title.color = "#fff";
-      if (chartOptions.plugins.tooltip) {
-        chartOptions.plugins.tooltip.titleColor = "#fff";
-        chartOptions.plugins.tooltip.bodyColor = "#fff";
-        chartOptions.plugins.tooltip.labelColor = () => ({ borderColor: '#fff', backgroundColor: '#fff' });
-      }
-      if (!chartOptions.scales) chartOptions.scales = {};
-      if (!chartOptions.scales.r) chartOptions.scales.r = {};
-      if (!chartOptions.scales.r.pointLabels) chartOptions.scales.r.pointLabels = {};
-      chartOptions.scales.r.pointLabels.color = "#fff";
-    }
+    // Ensure r-axis point labels also pick up the theme color
+    if (!chartOptions.scales)                          chartOptions.scales = {};
+    if (!chartOptions.scales.r)                        chartOptions.scales.r = {};
+    if (!chartOptions.scales.r.pointLabels)            chartOptions.scales.r.pointLabels = {};
+    chartOptions.scales.r.pointLabels.color = chartTextColor();
+
+    const textColor = chartTextColor();
+
     const radarCanvas = new Chart(ctx, {
       type: "radar",
-      data: {
-        labels: props.labels,
-        datasets: props.dataSets,
-      },
+      data: { labels: props.labels, datasets: props.dataSets },
       options: {
-           ...chartOptions,
+        ...chartOptions,
         plugins: {
           ...((chartOptions && chartOptions.plugins) || {}),
           legend: {
-           ...(chartOptions && chartOptions.plugins && chartOptions.plugins.legend ? chartOptions.plugins.legend : {}),
+            ...(chartOptions?.plugins?.legend || {}),
             position: 'top',
             align: 'start',
             labels: {
@@ -74,12 +51,9 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
               padding: 20,
               usePointStyle: true,
               pointStyle: 'circle',
-              font: {
-                size: 12,
-                weight: '500',
-                family: 'inherit',
-              },
-               color: (isDarkMode() ? '#fff' : '#333333'),
+              font: { size: 12, weight: '500', family: 'inherit' },
+              // Read from CSS var at render time — no hardcoded color
+              color: textColor,
             },
           },
         },
@@ -88,8 +62,8 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
 
     if (radarCanvas != null) {
       radarCanvas.canvas.style.height = "350px";
-      radarCanvas.canvas.style.width = "450px";
-      chartInstanceRef.current = radarCanvas; 
+      radarCanvas.canvas.style.width  = "450px";
+      chartInstanceRef.current = radarCanvas;
     }
   }, [props]);
 

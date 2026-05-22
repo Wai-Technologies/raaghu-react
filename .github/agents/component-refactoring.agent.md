@@ -1,535 +1,743 @@
----
+﻿---
 name: component-refactoring
-description: "Automatically refactor Raaghu React components to use centralized design tokens from raaghu-react-theme.scss. Pass a component name (e.g., 'rds-button', 'rds-comp-data-grid') and this agent will: find all component files, identify hardcoded styles, apply token-based refactoring using SCSS variables, validate changes, run tests, and create a commit. Single source of truth for colors enables application-wide updates by changing one file."
-version: 1.1
+description: "Enterprise Design System Refactoring Platform for Raaghu React. Audits and refactors components to use centralized design tokens covering colors, spacing, typography, breakpoints, MUI sx props, shadows, z-index, and transitions. Detects duplicate styles, scores token coverage, generates dependency graphs, and enforces lint rules to prevent future regressions. Single source of truth enables application-wide updates from one file."
+version: 2.0
 category: component-modernization
 applyTo: []
 ---
 
-# Component Refactoring Agent
+# Component Refactoring Agent v2.0
+## Enterprise Design System Refactoring Platform
 
 ## Purpose
-Automatically refactor Raaghu React components to use SCSS variables from `raaghu-react-theme.scss` instead of hardcoded values. This agent orchestrates the complete migration of a single component to use centralized theme colors, enabling application-wide theme changes from a single file.
+
+Fully audit and refactor Raaghu React components to use centralized design tokens covering:
+
+- **Colors** — hex/RGB/HSL -> SCSS variables + CSS custom properties
+- **Spacing** — hardcoded px/rem -> design tokens (`$spacing-*`, `--rds-spacing-*`)
+- **Typography** — hardcoded font sizes, weights, families -> typography tokens
+- **Breakpoints** — hardcoded `@media` queries -> `$breakpoint-*` tokens
+- **MUI `sx` props** — inline styles bypassing the MUI theme -> `theme.*` accessors
+- **Shadows / z-index / transitions** — hardcoded values -> centralized tokens
+- **Duplicate styles** — repeated `sx` objects / SCSS blocks -> shared components or mixins
+- **Component variants** — custom one-off styles -> standardized `variant=` props
+
+This agent produces measurable output:
+- Token Coverage Report (per category, per file)
+- Design System Health Score (A-F grade)
+- Theme Dependency Graph
+- Lint rule scaffolding to prevent future regressions
 
 ## What This Agent Does
 
 When invoked with a component name, the agent:
 
-1. **Locates** all files for the component (TSX, SCSS, test files, stories)
-2. **Analyzes** hardcoded colors, spacing, borders, shadows, z-index values
-3. **Applies** refactoring patterns using SCSS variables from `raaghu-react-theme.scss`
-4. **Validates** the changes don't break existing functionality
-5. **Tests** light/dark theme switching works correctly
-6. **Updates** stories with new token-based examples
-7. **Creates** a git commit with detailed message
-8. **Reports** before/after metrics and validation results
-
-## Key Feature: Single Source of Truth
-
-**Change one file, update entire application:**
-```
-raaghu-react-themes/src/styles/raaghu-react-theme.scss
-└─ All components using SCSS variables automatically update
-```
-
-Example:
-```scss
-// In raaghu-react-theme.scss
-$primary-color: #7825E9;  // Change this value
-
-// Result: All 50+ components using $primary-color update instantly
-```
+1. **Locates** all files for the component (TSX, SCSS, test files)
+2. **Audits** hardcoded values across all 8 style categories
+3. **Detects** MUI `sx` props that bypass theme tokens
+4. **Detects** duplicate style blocks across the codebase
+5. **Detects** components that should use standardized variants instead of custom styles
+6. **Applies** refactoring using SCSS variables, CSS custom properties, and MUI theme accessors
+7. **Scores** token coverage before and after (per category + overall grade)
+8. **Validates** the changes compile and pass tests
+9. **Reports** the Theme Dependency Graph impact
+10. **Creates** a git commit with full before/after metrics
 
 ## Usage
 
 ```
-@github.copilot /refactor-component component-name
+@github.copilot /refactor-component rds-button
+@github.copilot /refactor-component rds-comp-data-grid
+@github.copilot /refactor-component rds-card
 ```
 
-### Examples
+---
 
-```
-/refactor-component rds-button
-/refactor-component rds-comp-data-grid
-/refactor-component rds-comp-filter-button
-/refactor-component rds-carousel
-/refactor-component rds-card
-```
+## STRICT SAFETY RULES (NEVER VIOLATE)
+
+> These rules prevent codebase corruption. Violating them has previously caused broken builds and SCSS syntax errors.
+
+1. **NEVER modify `*.stories.tsx` files** — Story files are managed separately by the development team.
+2. **NEVER run bulk regex replacements via shell scripts** — No PowerShell, sed, awk, or scripted mass-replace on SCSS files. Use only targeted, line-specific file edits.
+3. **NEVER inject non-SCSS code into `.scss` files** — PowerShell blocks (`param($m)`, `$var = switch(...)`) in SCSS files corrupt the build.
+4. **NEVER use `Nvar()` syntax** — `6var(--token)` is invalid CSS. Use `calc(N * var(--token))`.
+5. **NEVER leave `var()` with empty parentheses** — Always include the token name: `var(--rds-primary-main)`.
+6. **Always use targeted, line-specific edits** — Replace one block at a time, include 3+ lines of context before/after.
+7. **Validate each change before moving to the next file** — Check SCSS compiles cleanly after every edit.
+
+---
 
 ## Step-by-Step Process
 
 ### Step 1: Component Discovery
+
 - Search for component in `raaghu-elements/` and `raaghu-components/`
-- Identify all related files (main component, SCSS, tests, stories)
-- List all files that will be modified
-
-### Step 2: Hardcoded Value Detection
-- Scan for hardcoded hex colors (#XXXXXX)
-- Scan for hardcoded spacing (px values not using tokens)
-- Scan for hardcoded border-radius
-- Scan for hardcoded shadows
-- Scan for hardcoded z-index
-- Report: Count of each type, total hardcoded values
-
-### Step 3: Refactoring Strategy
-- **Primary source of truth:** `raaghu-react-theme.scss` contains all SCSS variables
-- Consult COMPONENT_REFACTORING_GUIDE.md for component-specific patterns
-- Map hardcoded hex colors to SCSS variables from raaghu-react-theme.scss
-- Identify which approach to use (in priority order):
-  1. **SCSS variables** (SCSS files) - `$primary-color`, `$background-light`, etc.
-  2. **CSS custom properties** - `var(--rds-primary-main)` backed by SCSS
-  3. **Token import usage** - For spacing, sizing, transitions
-  4. **Theme palette** - As fallback for MUI-specific components
-
-### Step 4: Apply Changes
-Using patterns that reference `raaghu-react-theme.scss` as the single source of truth:
-
-**For SCSS files (Primary Pattern - Most Common):**
-```scss
-// raaghu-react-theme.scss contains:
-// $primary-color: #7825E9
-// $primary-light: #9d4edd
-// $background-light: #f5f5f5
-// $text-dark: #424242
-
-// Before ❌
-background-color: #1976d2;     // Hardcoded - breaks on theme change
-color: #424242;                 // Hardcoded - breaks on theme change
-
-// After ✓ (References raaghu-react-theme.scss)
-@import '../../raaghu-react-themes/src/styles/raaghu-react-theme.scss';
-
-background-color: $primary-color;     // Changes when theme file updates
-color: $text-dark;                     // Changes when theme file updates
-padding: $spacing-md;                  // All spacing from theme file
-border-radius: $border-radius-md;      // All borders from theme file
-```
-
-**For TSX files - Import and use SCSS variables:**
-```typescript
-// Import theme variables
-import '../../raaghu-react-themes/src/styles/raaghu-react-theme.scss';
-
-// Use CSS custom properties that reference the SCSS variables
-sx={{
-  backgroundColor: 'var(--rds-bg-light)',  // Backed by $background-light from theme
-  color: 'var(--rds-text-dark)',           // Backed by $text-dark from theme
-  padding: 'var(--rds-spacing-md)'         // Backed by $spacing-md from theme
-}}
-```
-
-**For component modules - Use theme variables directly:**
-```typescript
-// For components that need to reference theme colors in TypeScript
-import { useTheme } from '@mui/material/styles';
-
-const MyComponent = () => {
-  const theme = useTheme();
-  
-  // Use CSS variables (which are backed by raaghu-react-theme.scss)
-  return (
-    <div style={{
-      backgroundColor: 'var(--rds-primary-color)',  // From raaghu-react-theme.scss
-      color: 'var(--rds-text-dark)'                 // From raaghu-react-theme.scss
-    }}>
-      Content
-    </div>
-  );
-};
-```
-
-### Step 5: Validation
-After applying changes, validate:
-
-- ✓ **No syntax errors** - Component compiles without errors
-- ✓ **SCSS theme imported** - `raaghu-react-theme.scss` imported where needed
-- ✓ **SCSS variables used** - All colors reference theme variables (e.g., `$primary-color`)
-- ✓ **CSS variables defined** - Variables in custom-properties.scss back the SCSS variables
-- ✓ **No hardcoded hex values** - Grep confirms no `#XXXXXX` patterns remain
-- ✓ **Theme updates propagate** - Changes to raaghu-react-theme.scss update component
-- ✓ **Backwards compatible** - Visual appearance unchanged
-
-### Step 6: Testing
-Run automated tests:
-
-```bash
-# 1. Build test
-npm run build
-
-# 2. Component test
-npm run test -- <component-name> --watch=false
-
-# 3. Theme switching test
-npm run test -- <component-name>.theme.test.ts --watch=false
-
-# 4. Visual regression (if available)
-npm run test:visual
-```
-
-Expected results:
-- All existing tests pass ✓
-- New theme tests pass ✓
-- No console errors or warnings ✓
-- Component renders identically in light/dark mode ✓
-
-### Step 7: Story Updates
-Update Storybook stories:
-- Add "Theming" story showing light/dark switching
-- Update code examples to show token usage
-- Document new styling patterns
-- Add accessibility notes
-
-### Step 8: Commit & Report
-Create git commit:
-
-```
-refactor(component-name): use colors from raaghu-react-theme.scss
-
-BREAKING CHANGE: None
-MIGRATION: This component now references raaghu-react-theme.scss instead of hardcoded colors.
-
-Theme Source of Truth:
-- raaghu-react-themes/src/styles/raaghu-react-theme.scss
-- Update that file once → all components using it update automatically
-
-Changes:
-- Replaced 15+ hardcoded hex colors with SCSS variables from raaghu-react-theme.scss
-- Replaced 8 hardcoded spacing values with SCSS theme tokens
-- Updated SCSS to import and use theme variables
-- Component now responds to theme file changes
-
-Migration Pattern:
-  Before: background-color: #1976d2;  // Hardcoded
-  After:  background-color: $primary-color;  // From raaghu-react-theme.scss
-
-  Before: color: '#424242'  // Hardcoded
-  After:  color: var(--rds-text-dark)  // Backed by raaghu-react-theme.scss
-
-Files Modified:
-- component-name.tsx (or component-name.scss)
-- component-name.test.tsx
-- component-name.stories.tsx
-
-How to Update Application Theme:
-- Edit: raaghu-react-themes/src/styles/raaghu-react-theme.scss
-- Change any color variable (e.g., $primary-color: #NEW_COLOR)
-- Result: All components using this component's file will automatically update
-
-Validation:
-✓ All tests passing
-✓ Colors reference theme file
-✓ Theme changes propagate correctly
-✓ No hardcoded values remaining
-✓ Visual regression approved
-
-Closes: #<issue-number>
-Related: COMPONENT_REFACTORING_GUIDE.md, raaghu-react-theme.scss
-```
-
-## Component Refactoring Priority
-
-The agent prioritizes components based on impact:
-
-### 🔴 CRITICAL (Fix First)
-1. **rds-button** - Used everywhere, blocks other work
-2. **rds-comp-data-grid** - 100% hardcoded, high visibility
-
-**Effort:** 2-4 hours each | **Impact:** Fixes theme consistency
-
-### 🟠 HIGH (Week 2)
-3. **rds-comp-filter-button** - 80% hardcoded
-4. **rds-carousel** - Mixed hardcoded/tokens
-5. **rds-card** - Spacing magic numbers
-
-**Effort:** 2-3 hours each | **Impact:** User-facing components
-
-### 🟡 MEDIUM (Week 3+)
-6. **rds-banner** - Spacing issues
-7. **rds-avatar** - Background color
-8. **rds-backdrop** - Color hardcoded
-9. All remaining components
-
-**Effort:** 1-2 hours each | **Impact:** System completeness
-
-## Reference Guides & Theme Sources
-
-**Primary Source of Truth:**
-- **raaghu-react-theme.scss** - All colors, spacing, sizing, and other design tokens
-  - Location: `raaghu-react-themes/src/styles/raaghu-react-theme.scss`
-  - Contains: `$primary-color`, `$background-light`, `$text-dark`, `$spacing-*`, etc.
-  - Update this file → entire application updates instantly
-
-**Supporting Resources:**
-- **COMPONENT_REFACTORING_GUIDE.md** - Component-specific patterns
-- **DESIGN_SYSTEM_IMPLEMENTATION_GUIDE.md** - Common utilities and patterns
-- **DESIGN_SYSTEM_AUDIT_REPORT.md** - Complete analysis of issues
-- **custom-properties.scss** - CSS custom properties that map to SCSS variables
-- **design-tokens.ts** - TypeScript token definitions (secondary)
-
-## Key Patterns Used
-
-**Priority Order (Use in this order):**
-
-### Pattern 1: SCSS Variables (MOST PREFERRED)
-```scss
-// ✓ PRIMARY: Direct reference to raaghu-react-theme.scss
-// Automatically updates when theme file changes
-
-// Import at top of SCSS file
-@import '../../raaghu-react-themes/src/styles/raaghu-react-theme.scss';
-
-// Then use variables directly
-background-color: $primary-color;        // Updates when $primary-color changes
-color: $text-dark;                        // Updates when $text-dark changes
-padding: $spacing-md;                     // All spacing from theme
-border-color: $border-light;              // All borders from theme
-box-shadow: $elevation-1;                 // All shadows from theme
-```
-
-### Pattern 2: CSS Custom Properties (backed by SCSS)
-```scss
-// ✓ SECONDARY: CSS variables backed by SCSS theme
-// Used when SCSS not available
-background-color: var(--rds-primary-color, $primary-color);
-color: var(--rds-text-dark, $text-dark);
-```
-
-### Pattern 3: TypeScript CSS Variable Usage
-```typescript
-// ✓ For TSX components needing theme colors
-// CSS variables are backed by raaghu-react-theme.scss SCSS variables
-
-sx={{
-  backgroundColor: 'var(--rds-bg-light)',      // Backed by theme
-  color: 'var(--rds-text-dark)',              // Backed by theme
-  borderColor: 'var(--rds-border-light)'      // Backed by theme
-}}
-```
-
-### Pattern 4: Design Tokens (for spacing/sizing)
-```typescript
-// ✓ For spacing, sizing, transitions not dependent on colors
-import { designTokens } from '@waiin/raaghu-react-themes/tokens';
-
-padding: `${designTokens.spacing.md}px`
-transition: designTokens.transition.base
-```
-
-## How to Update Application Theme
-
-To change colors application-wide, update a single file:
-
-```bash
-# 1. Open the theme file
-open raaghu-react-themes/src/styles/raaghu-react-theme.scss
-
-# 2. Update any color variable
-# Example: Change primary color
-$primary-color: #FF00FF;  // Was #7825E9, now bright magenta
-
-# 3. Save the file
-
-# 4. Rebuild the application
-npm run build
-
-# 5. Result: All 50+ components using $primary-color instantly updated
-```
-
-**Example theme variables available:**
-```scss
-// Colors
-$primary-color: #7825E9;
-$primary-light: #9d4edd;
-$primary-dark: #5a189a;
-$secondary-color: #FF6B6B;
-$background-light: #f5f5f5;
-$background-dark: #1a1a1a;
-$text-dark: #424242;
-$text-light: #ffffff;
-$border-light: #e0e0e0;
-$border-dark: #424242;
-
-// Spacing
-$spacing-xs: 4px;
-$spacing-sm: 8px;
-$spacing-md: 16px;
-$spacing-lg: 24px;
-$spacing-xl: 32px;
-
-// Sizing
-$border-radius-sm: 4px;
-$border-radius-md: 8px;
-$border-radius-lg: 12px;
-
-// Elevation/Shadows
-$elevation-1: 0 1px 3px rgba(0, 0, 0, 0.12);
-$elevation-2: 0 3px 6px rgba(0, 0, 0, 0.16);
-$elevation-3: 0 10px 20px rgba(0, 0, 0, 0.19);
-```
-
-## Rollback
-
-If validation fails, the agent will:
-
-1. Revert all changes to the component
-2. Report what went wrong
-3. Suggest manual intervention points
-4. Provide detailed error logs
-
-```bash
-git reset --hard HEAD
-git clean -fd
-```
-
-## Success Metrics
-
-After refactoring, the component should achieve:
-
-- ✅ **0 hardcoded color values** (all use theme SCSS variables)
-- ✅ **0 hardcoded spacing values** (all use design tokens)
-- ✅ **100% theme switching support** (light/dark both work)
-- ✅ **All tests passing** (no regressions)
-- ✅ **Zero visual changes** (appearance identical)
-- ✅ **Colors update with theme file** (instant propagation)
-
-## Common Issues & Solutions
-
-### Issue: "Cannot find SCSS variable '$primary-color'"
-**Solution:** Ensure `raaghu-react-theme.scss` is imported at top of SCSS file:
-```scss
-@import '../../raaghu-react-themes/src/styles/raaghu-react-theme.scss';
-```
-
-### Issue: "CSS variable not defined"
-**Solution:** Check custom-properties.scss for the CSS variable:
-```bash
-grep --rds-variable-name raaghu-react-themes/src/styles/custom-properties.scss
-```
-
-### Issue: "Tests failing after changes"
-**Solution:** Component files unchanged, issue is with test mocks:
-```typescript
-// Mock theme variables
-jest.mock('../../raaghu-react-themes/src/styles/raaghu-react-theme.scss', () => ({
-  'primary-color': '#7825E9'
-}));
-```
-
-### Issue: "Visual changes after refactoring"
-**Solution:** This shouldn't happen if using same color values. If it does:
-1. Compare before/after screenshots
-2. Check computed styles in browser DevTools
-3. Verify all color mappings are correct
-
-## Output Format
-
-The agent provides a detailed report:
-
-```
-COMPONENT REFACTORING REPORT
-============================
-
-Component: rds-button
-Status: ✅ SUCCESS
-Duration: 2h 15m
-
-HARDCODED VALUES FOUND & FIXED
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Colors Fixed:        8 → All now use $primary-color, $text-dark, etc.
-Spacing Fixed:       5 → All now use $spacing-md, $spacing-lg, etc.
-Border-Radius:       1 → Now uses $border-radius-md
-Total Replaced:      14
-
-BEFORE METRICS
-──────────────
-Hardcoded Values:    14
-SCSS Variable Usage: 0%
-Theme File Support:  None
-Files Modified:      2
-
-AFTER METRICS
-──────────────
-Hardcoded Values:    0
-SCSS Variable Usage: 100%
-Theme File Support:  Full (raaghu-react-theme.scss)
-Files Modified:      2
-
-FILES CHANGED
-─────────────
-• raaghu-elements/rds-button/rds-button.scss
-• raaghu-elements/rds-button/rds-button.tsx
-
-VALIDATION RESULTS
-──────────────────
-✓ Build successful
-✓ Unit tests passing (12/12)
-✓ Theme switching verified
-✓ Visual regression approved
-✓ No hardcoded values remaining
-✓ Theme file references working
-
-HOW TO UPDATE THEME
-───────────────────
-Edit: raaghu-react-themes/src/styles/raaghu-react-theme.scss
-Change: $primary-color: #7825E9 → $primary-color: #NEW_COLOR
-Result: rds-button component updates automatically
-
-COMMIT
-──────
-refactor(rds-button): use colors from raaghu-react-theme.scss
-[SHA: abc123...]
-
-NEXT STEPS
-──────────
-1. Review changes in git diff
-2. Test theme switching in Storybook
-3. Merge to users/rahul/design-system-enhancement
-4. Proceed with next component: rds-comp-data-grid
-
-PROPAGATION CONFIRMED
-────────────────────
-✓ Changes to raaghu-react-theme.scss will update this component
-✓ Application-wide theme changes work from single file
-```
-
-## Invoking the Agent
-
-### In VS Code Chat
-```
-@github.copilot /refactor-component rds-button
-```
-
-### As a Slash Command
-Type `/` in chat, search for "refactor component", then enter component name.
-
-### With Full Parameters
-```
-/refactor-component --component rds-button --validate --create-pr
-```
-
-## Limitations
-
-This agent:
-- ❌ Cannot create new SCSS variables (must exist in raaghu-react-theme.scss)
-- ❌ Cannot modify multiple unrelated components (one at a time)
-- ❌ Requires component to be in standard folder structure
-- ⚠️ Visual regression testing requires Percy/Chromatic setup
-- ⚠️ PR creation requires GitHub authentication
-
-## Next Steps After Refactoring
-
-1. **Code Review** - Team reviews changes
-2. **Theme Test** - Update theme colors, verify all components update
-3. **Visual Testing** - Design system owner approves appearance
-4. **Merge** - PR merged to development branch
-5. **Deploy to Storybook** - Updated component visible in docs
-6. **Next Component** - Refactor next priority component
+- Identify all related files: `.tsx`, `.scss`, `.test.tsx`
+- List every file that will be modified before making any changes
 
 ---
 
-**Agent Version:** 1.1  
-**Created:** May 18, 2026  
-**Last Updated:** May 18, 2026  
-**Status:** Production Ready  
-**Theme Source:** raaghu-react-theme.scss  
-**Support:** See COMPONENT_REFACTORING_GUIDE.md for detailed patterns
+### Step 2: Full-Spectrum Hardcoded Value Audit
+
+Run all detection scans and report counts per category:
+
+#### 2a. Colors (SCSS + TSX)
+
+Patterns to detect:
+- `#[0-9a-fA-F]{3,8}` — hex colors
+- `rgb\(` — rgb() colors
+- `rgba\(` — rgba() colors
+- `hsl\(` / `hsla\(` — hsl colors
+
+Report: N hardcoded color values found in X files
+
+#### 2b. Spacing (SCSS + TSX)
+
+Patterns to detect (NOT already using var()):
+- `padding:\s*\d+px` — direct pixel padding
+- `margin:\s*\d+px` — direct pixel margin
+- `gap:\s*\d+px` — direct pixel gap
+- `\d+(\.\d+)?rem` — non-token rem values
+
+Report: N hardcoded spacing values found
+
+#### 2c. Typography
+
+Patterns to detect:
+- `font-size:\s*\d` — hardcoded font size
+- `font-weight:\s*[4-9]\d\d` — hardcoded numeric weight
+- `font-family:[^;$v]` — hardcoded font family string
+- `line-height:\s*\d` — hardcoded line height
+- `letter-spacing:\s*[\d.]` — hardcoded letter spacing
+
+Report: N hardcoded typography values found
+
+#### 2d. Breakpoints
+
+Patterns to detect:
+- `@media.*max-width:\s*\d+px` — hardcoded max-width breakpoint
+- `@media.*min-width:\s*\d+px` — hardcoded min-width breakpoint
+
+Report: N hardcoded breakpoints found
+
+#### 2e. MUI sx Props Bypassing Theme
+
+Patterns to detect in TSX files:
+- `sx={{...color: "#` — hardcoded color in sx
+- `sx={{...backgroundColor: "#` — hardcoded bg in sx
+- `sx={{...borderRadius: "\d` — hardcoded radius string in sx
+- `sx={{...fontSize: "\d` — hardcoded font size string in sx
+- `sx={{...fontWeight: \d` — hardcoded numeric weight in sx
+- `sx={{...boxShadow: "` — hardcoded shadow string in sx
+- `sx={{...zIndex: \d` — hardcoded z-index number in sx
+
+Report: N sx props bypassing theme found
+
+#### 2f. Shadows, z-index, Transitions
+
+Patterns to detect:
+- `box-shadow:\s*\d` — hardcoded shadow (not a variable)
+- `z-index:\s*\d+` — hardcoded z-index
+- `transition:[^$v]` — transition not using a token variable
+
+#### 2g. Duplicate Style Blocks
+
+Strategy:
+- Collect all sx={{ ... }} object literals from TSX files across the codebase
+- Collect repeated SCSS class blocks (same property+value combos in 3+ files)
+- Flag any sx object or SCSS block appearing in 3 or more places
+
+Report: N duplicate style patterns found across X files  
+Suggestion: extract to shared component or SCSS mixin
+
+#### 2h. Non-Standardized Component Variants
+
+Strategy:
+- Find Button/Badge/Alert/Card with inline overrides instead of variant prop
+- Flag: `<Button style={{color:'#d32f2f'}}>` where `variant="danger"` should be used
+- Flag: `<Card sx={{p:2, borderRadius:2}}>` that duplicates default RdsCard styling
+
+Report: N variant standardization opportunities found
+
+---
+
+### Step 3: Token Coverage Score (Before)
+
+Calculate and display the pre-refactoring score:
+
+```
+TOKEN COVERAGE REPORT - BEFORE
+Component: <component-name>
+
+  Colors:      [X]%   ([tokenized] / [total] values)
+  Spacing:     [X]%
+  Typography:  [X]%
+  Breakpoints: [X]%
+  MUI sx:      [X]%   ([compliant props] / [total sx props])
+  Shadows:     [X]%
+  Transitions: [X]%
+  z-index:     [X]%
+
+  Overall:     [weighted avg]%
+
+DESIGN SYSTEM HEALTH SCORE
+  Centralization:      [X]%
+  Hardcoded Styles:    [X]%
+  Theme Compliance:    [X]%
+  MUI Compliance:      [X]%
+  Responsive Tokens:   [X]%
+
+  Overall Grade: [A+/A/A-/B+/B/B-/C/D/F]
+```
+
+Grading scale:
+
+| Score   | Grade |
+|---------|-------|
+| 95-100% | A+    |
+| 90-94%  | A     |
+| 85-89%  | A-    |
+| 80-84%  | B+    |
+| 75-79%  | B     |
+| 70-74%  | B-    |
+| 60-69%  | C     |
+| 50-59%  | D     |
+| < 50%   | F     |
+
+---
+
+### Step 4: Refactoring Strategy
+
+**CSS Variable First Architecture (preferred for runtime theming):**
+
+```
+raaghu-react-theme.scss     <- SCSS variables (build-time source of truth)
+         |
+custom-properties.scss      <- CSS custom properties (runtime theming, dark/light)
+         |
+MUI theme adapter            <- theme.palette / theme.spacing / theme.typography
+         |
+Components                   <- SCSS files + TSX sx props consuming all of the above
+```
+
+This layered approach enables:
+- Build-time theming via SCSS variables
+- Runtime dark/light switching via CSS custom properties (zero rebuild)
+- MUI component consistency via the MUI theme adapter
+- User/brand customization at the CSS variable layer
+
+Identify the correct refactoring target for each hardcoded value:
+
+| Value Type    | SCSS Variable          | CSS Custom Property          | MUI Accessor                      |
+|---------------|------------------------|------------------------------|-----------------------------------|
+| Brand color   | `$primary-color`       | `var(--rds-primary-main)`    | `theme.palette.primary.main`      |
+| Background    | `$background-light`    | `var(--rds-bg-light)`        | `theme.palette.background.default`|
+| Text color    | `$text-dark`           | `var(--rds-text-dark)`       | `theme.palette.text.primary`      |
+| Spacing       | `$spacing-md`          | `var(--rds-spacing-md)`      | `theme.spacing(2)`                |
+| Font size     | `$font-size-md`        | `var(--rds-font-size-md)`    | `theme.typography.body1.fontSize` |
+| Font weight   | `$font-weight-medium`  | `var(--rds-font-weight-med)` | `theme.typography.fontWeightMedium`|
+| Border radius | `$border-radius-md`    | `var(--rds-border-radius-md)`| `theme.shape.borderRadius`        |
+| Shadow        | `$elevation-2`         | `var(--rds-elevation-2)`     | `theme.shadows[2]`                |
+| z-index       | `$z-index-modal`       | `var(--rds-z-index-modal)`   | `theme.zIndex.modal`              |
+| Breakpoint    | `$breakpoint-md`       | —                            | `theme.breakpoints.down("md")`    |
+
+---
+
+### Step 5: Apply Changes
+
+#### 5a. SCSS File - Colors
+
+```scss
+// Before
+background-color: #1976d2;
+color: #424242;
+border-color: rgba(0,0,0,0.12);
+
+// After
+background-color: $primary-color;
+color: $text-dark;
+border-color: $border-light;
+```
+
+#### 5b. SCSS File - Spacing
+
+```scss
+// Before
+padding: 16px;
+margin: 8px 16px;
+gap: 4px;
+
+// After
+padding: $spacing-md;
+margin: $spacing-sm $spacing-md;
+gap: $spacing-xs;
+```
+
+#### 5c. SCSS File - Typography
+
+```scss
+// Before
+font-size: 14px;
+font-weight: 500;
+font-family: "Roboto", sans-serif;
+line-height: 1.5;
+letter-spacing: 0.02em;
+
+// After
+font-size: $font-size-md;
+font-weight: $font-weight-medium;
+font-family: $font-family-base;
+line-height: $line-height-base;
+letter-spacing: $letter-spacing-normal;
+```
+
+#### 5d. SCSS File - Breakpoints
+
+```scss
+// Before
+@media (max-width: 768px) { ... }
+@media (min-width: 1024px) { ... }
+
+// After
+@media (max-width: $breakpoint-md) { ... }
+@media (min-width: $breakpoint-lg) { ... }
+```
+
+#### 5e. SCSS File - Shadows / z-index / Transitions
+
+```scss
+// Before
+box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+z-index: 1000;
+transition: all 0.3s ease;
+
+// After
+box-shadow: $elevation-2;
+z-index: $z-index-dropdown;
+transition: $transition-base;
+```
+
+#### 5f. MUI sx Props - Replace All Inline Values
+
+```tsx
+// Before - bypasses MUI theme entirely
+<Box sx={{
+  color: "#1976d2",
+  backgroundColor: "#f5f5f5",
+  borderRadius: "8px",
+  fontSize: "14px",
+  fontWeight: 500,
+  boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+  zIndex: 1300
+}} />
+
+// After - uses MUI theme tokens throughout
+<Box sx={{
+  color: "primary.main",
+  backgroundColor: "background.default",
+  p: 2,
+  borderRadius: 1,
+  fontSize: "body2.fontSize",
+  fontWeight: "fontWeightMedium",
+  boxShadow: 2,
+  zIndex: "modal"
+}} />
+```
+
+MUI sx shorthand token reference:
+
+| Category      | Hardcoded (before)   | MUI Token (after)           |
+|---------------|----------------------|-----------------------------|
+| Color         | `"#1976d2"`          | `"primary.main"`            |
+| Background    | `"#fff"`             | `"background.paper"`        |
+| Spacing       | `"16px"`             | `2` (theme.spacing units)   |
+| Border radius | `"8px"`              | `1` (borderRadius units)    |
+| Shadow        | `"0 2px ..."`        | `2` (theme.shadows index)   |
+| z-index       | `1300`               | `"modal"`                   |
+| Font size     | `"14px"`             | `"body2.fontSize"`          |
+| Font weight   | `500`                | `"fontWeightMedium"`        |
+
+#### 5g. Duplicate Style Consolidation
+
+When the same sx object appears in 3+ files, use the shared Raaghu component:
+
+```tsx
+// Before - same pattern in 15 files
+<Card sx={{ p: 2, borderRadius: 2, boxShadow: 1 }} />
+
+// After - use the shared component (correct defaults built in)
+<RdsCard />
+```
+
+When the same SCSS block appears in 3+ files, extract to a mixin in raaghu-react-theme.scss:
+
+```scss
+// Before - repeated in many files
+.element { display: flex; align-items: center; gap: 8px; }
+
+// After - shared mixin
+@mixin rds-flex-row($gap: $spacing-sm) {
+  display: flex;
+  align-items: center;
+  gap: $gap;
+}
+.element { @include rds-flex-row; }
+```
+
+#### 5h. Component Variant Standardization
+
+```tsx
+// Before - custom one-off red styling
+<Button sx={{ backgroundColor: "#d32f2f", color: "#fff" }}>Delete</Button>
+
+// After - standardized variant
+<Button variant="danger">Delete</Button>
+```
+
+Standardized variants to enforce:
+- **Button**: `primary | secondary | outlined | danger | ghost | link`
+- **Badge**: `default | primary | success | warning | danger | info`
+- **Alert**: `success | warning | error | info`
+- **Card**: `default | elevated | outlined | flat`
+
+---
+
+### Step 6: Token Coverage Score (After)
+
+Re-run the same audit and display the improvement:
+
+```
+TOKEN COVERAGE REPORT - AFTER
+Component: <component-name>
+
+                  BEFORE    AFTER     CHANGE
+  Colors:          42%  ->   100%    +58%
+  Spacing:         67%  ->   100%    +33%
+  Typography:      20%  ->    95%    +75%
+  Breakpoints:      0%  ->   100%   +100%
+  MUI sx:          15%  ->    92%    +77%
+  Shadows:         50%  ->   100%    +50%
+  Transitions:     33%  ->   100%    +67%
+  z-index:         25%  ->   100%    +75%
+
+  Overall:         32%  ->    98%    +66%
+
+DESIGN SYSTEM HEALTH SCORE
+  Centralization:      98%   (was 32%)
+  Hardcoded Styles:     2%   (was 68%)
+  Theme Compliance:    98%
+  MUI Compliance:      92%
+  Responsive Tokens:  100%
+
+  Overall Grade: A+  (was F)
+```
+
+---
+
+### Step 7: Theme Dependency Graph
+
+After refactoring, output the dependency chain to show propagation impact:
+
+```
+THEME DEPENDENCY GRAPH
+
+raaghu-react-theme.scss
+  |-- custom-properties.scss
+        |-- rds-button.scss          <- component just refactored
+        |     |-- rds-comp-toolbar.scss
+        |     `-- rds-comp-filter-button.scss
+        |-- rds-card.scss
+        |     |-- rds-comp-kanban-board.scss
+        |     `-- rds-comp-grid.scss
+        `-- rds-input.scss
+              `-- rds-comp-data-grid.scss
+
+Impact: Changing $primary-color in raaghu-react-theme.scss
+        now propagates to 7 dependent components automatically.
+```
+
+To build this graph:
+1. Read every `.scss` file`s `@import` / `@use` statements
+2. Build a directed graph: `theme.scss -> element.scss -> composite.scss`
+3. For the refactored component, show its position and all downstream dependents
+
+---
+
+### Step 8: Validation
+
+After all changes, confirm every item below passes:
+
+- No SCSS syntax errors — file compiles cleanly (bun run tsc --noEmit)
+- No hardcoded hex colors — grep: 0 matches for `#[0-9a-fA-F]{3,8}`
+- No hardcoded px spacing — spacing properties use `$spacing-*` or `var(--rds-spacing-*)`
+- No hardcoded typography — `font-size` and `font-weight` use variables
+- No hardcoded breakpoints — all `@media` queries use `$breakpoint-*`
+- No sx props with literal colors — grep: 0 matches for `sx.*color.*#`
+- Token coverage >= 95% per category
+- Design System Health Grade >= A-
+- Visual appearance unchanged
+
+---
+
+### Step 9: Testing
+
+```bash
+bun run tsc --noEmit
+npm run test -- <component-name> --watch=false
+npm run build
+```
+
+---
+
+### Step 10: Story Updates (SKIPPED - DO NOT MODIFY STORIES)
+
+`*.stories.tsx` files must NEVER be modified by this agent.
+Storybook story changes are handled separately by the development team.
+
+---
+
+### Step 11: Lint Rule Scaffolding
+
+After refactoring the component, scaffold lint rules to prevent future hardcoding.
+Only add these if the project already uses the relevant tool.
+
+#### Stylelint (SCSS/CSS)
+
+```js
+// stylelint.config.js
+{
+  "rules": {
+    "color-no-hex": true,
+    "declaration-property-value-disallowed-list": {
+      "padding":       ["/^\\d+px$/"],
+      "margin":        ["/^\\d+px$/"],
+      "gap":           ["/^\\d+px$/"],
+      "font-size":     ["/^\\d+px$/"],
+      "border-radius": ["/^\\d+px$/"]
+    }
+  }
+}
+```
+
+#### ESLint (TSX - MUI sx props)
+
+```js
+// eslint.config.js
+{
+  rules: {
+    "no-restricted-syntax": [
+      "warn",
+      {
+        selector: "JSXAttribute[name.name='sx'] ObjectExpression > Property[key.name='color'] > Literal[value=/^#/]",
+        message: "Use a theme.palette token string (e.g. 'primary.main') instead of a hardcoded color in sx."
+      },
+      {
+        selector: "JSXAttribute[name.name='sx'] ObjectExpression > Property[key.name='backgroundColor'] > Literal[value=/^#/]",
+        message: "Use a theme.palette token string instead of a hardcoded backgroundColor in sx."
+      },
+      {
+        selector: "JSXAttribute[name.name='sx'] ObjectExpression > Property[key.name='borderRadius'] > Literal[value=/px$/]",
+        message: "Use a numeric theme.shape.borderRadius multiplier instead of a px string in sx."
+      },
+      {
+        selector: "JSXAttribute[name.name='sx'] ObjectExpression > Property[key.name='fontSize'] > Literal[value=/px$/]",
+        message: "Use a typography token string (e.g. 'body2.fontSize') instead of a px string in sx."
+      }
+    ]
+  }
+}
+```
+
+---
+
+### Step 12: Commit and Report
+
+```
+refactor(<component-name>): migrate to centralized design tokens (v2)
+
+TOKEN COVERAGE IMPROVEMENT:
+  Colors:      42% -> 100%  (+58%)
+  Spacing:     67% -> 100%  (+33%)
+  Typography:  20% ->  95%  (+75%)
+  Breakpoints:  0% -> 100% (+100%)
+  MUI sx:      15% ->  92%  (+77%)
+  Overall:     32% ->  98%  (+66%)
+
+DESIGN SYSTEM HEALTH:
+  Before: F (32%)
+  After:  A+ (98%)
+
+CHANGES:
+  - Replaced N hardcoded colors with $primary-color / var(--rds-*)
+  - Replaced N hardcoded spacing values with $spacing-* tokens
+  - Replaced N hardcoded typography values with $font-size-* / $font-weight-*
+  - Replaced N hardcoded @media breakpoints with $breakpoint-* tokens
+  - Refactored N MUI sx props to use theme.palette / theme.spacing
+  - Consolidated N duplicate style patterns
+  - Standardized N component variants (variant="danger" etc.)
+
+THEME DEPENDENCY GRAPH:
+  raaghu-react-theme.scss -> custom-properties.scss -> <component>.scss
+  Downstream: N dependent composite components now auto-update
+
+ARCHITECTURE: SCSS Variables -> CSS Custom Properties -> MUI Theme -> Components
+
+FILES MODIFIED:
+  - <component>.scss
+  - <component>.tsx  (sx props and useTheme() updates only)
+  NOT MODIFIED: *.stories.tsx
+
+NO BREAKING CHANGES. Visual appearance unchanged. All tests pass.
+```
+
+---
+
+## Token Reference Map
+
+### Colors
+
+```scss
+$primary-color:    #7825E9;   -> var(--rds-primary-main)       -> theme.palette.primary.main
+$primary-light:    #9d4edd;   -> var(--rds-primary-light)      -> theme.palette.primary.light
+$primary-dark:     #5a189a;   -> var(--rds-primary-dark)       -> theme.palette.primary.dark
+$secondary-color:  #FF6B6B;   -> var(--rds-secondary-main)     -> theme.palette.secondary.main
+$background-light: #f5f5f5;   -> var(--rds-bg-light)           -> theme.palette.background.default
+$background-dark:  #1a1a1a;   -> var(--rds-bg-dark)            -> theme.palette.background.paper
+$text-dark:        #424242;   -> var(--rds-text-dark)           -> theme.palette.text.primary
+$text-light:       #ffffff;   -> var(--rds-text-light)          -> theme.palette.text.secondary
+$border-light:     #e0e0e0;   -> var(--rds-border-light)        -> theme.palette.divider
+$border-dark:      #424242;   -> var(--rds-border-dark)
+$error-color:      #d32f2f;   -> var(--rds-error-main)          -> theme.palette.error.main
+$success-color:    #388e3c;   -> var(--rds-success-main)        -> theme.palette.success.main
+$warning-color:    #f57c00;   -> var(--rds-warning-main)        -> theme.palette.warning.main
+$info-color:       #0288d1;   -> var(--rds-info-main)           -> theme.palette.info.main
+```
+
+### Spacing
+
+```scss
+$spacing-xs:   4px;  -> var(--rds-spacing-xs)   -> theme.spacing(0.5)
+$spacing-sm:   8px;  -> var(--rds-spacing-sm)   -> theme.spacing(1)
+$spacing-md:  16px;  -> var(--rds-spacing-md)   -> theme.spacing(2)
+$spacing-lg:  24px;  -> var(--rds-spacing-lg)   -> theme.spacing(3)
+$spacing-xl:  32px;  -> var(--rds-spacing-xl)   -> theme.spacing(4)
+$spacing-2xl: 48px;  -> var(--rds-spacing-2xl)  -> theme.spacing(6)
+$spacing-3xl: 64px;  -> var(--rds-spacing-3xl)  -> theme.spacing(8)
+```
+
+### Typography
+
+```scss
+$font-family-base:       "Roboto", "Helvetica Neue", sans-serif;
+$font-size-xs:    10px;  -> var(--rds-font-size-xs)   -> theme.typography.caption.fontSize
+$font-size-sm:    12px;  -> var(--rds-font-size-sm)   -> theme.typography.body2.fontSize
+$font-size-md:    14px;  -> var(--rds-font-size-md)   -> theme.typography.body1.fontSize
+$font-size-lg:    16px;  -> var(--rds-font-size-lg)   -> theme.typography.subtitle1.fontSize
+$font-size-xl:    20px;  -> var(--rds-font-size-xl)   -> theme.typography.h5.fontSize
+$font-size-2xl:   24px;  -> var(--rds-font-size-2xl)  -> theme.typography.h4.fontSize
+
+$font-weight-regular: 400; -> var(--rds-font-weight-regular) -> theme.typography.fontWeightRegular
+$font-weight-medium:  500; -> var(--rds-font-weight-medium)  -> theme.typography.fontWeightMedium
+$font-weight-bold:    700; -> var(--rds-font-weight-bold)    -> theme.typography.fontWeightBold
+
+$line-height-base:       1.5;
+$line-height-tight:      1.25;
+$letter-spacing-normal:  0.02em;
+$letter-spacing-wide:    0.05em;
+```
+
+### Breakpoints
+
+```scss
+$breakpoint-xs:    0px;
+$breakpoint-sm:  600px;   -> theme.breakpoints.down("sm")
+$breakpoint-md:  900px;   -> theme.breakpoints.down("md")
+$breakpoint-lg: 1200px;   -> theme.breakpoints.down("lg")
+$breakpoint-xl: 1536px;   -> theme.breakpoints.down("xl")
+```
+
+### Shadows, z-index, Transitions
+
+```scss
+$elevation-0: none;
+$elevation-1: 0 1px 3px rgba(0,0,0,0.12);    -> var(--rds-elevation-1)  -> theme.shadows[1]
+$elevation-2: 0 3px 6px rgba(0,0,0,0.16);     -> var(--rds-elevation-2)  -> theme.shadows[2]
+$elevation-3: 0 10px 20px rgba(0,0,0,0.19);   -> var(--rds-elevation-3)  -> theme.shadows[4]
+$elevation-4: 0 14px 28px rgba(0,0,0,0.25);   -> var(--rds-elevation-4)  -> theme.shadows[8]
+
+$z-index-dropdown:  1000;  -> var(--rds-z-index-dropdown) -> theme.zIndex.tooltip - 300
+$z-index-sticky:    1020;
+$z-index-modal:     1300;  -> var(--rds-z-index-modal)    -> theme.zIndex.modal
+$z-index-popover:   1400;  -> var(--rds-z-index-popover)  -> theme.zIndex.popover
+$z-index-tooltip:   1500;  -> var(--rds-z-index-tooltip)  -> theme.zIndex.tooltip
+
+$transition-fast:   all 0.1s ease-in-out;
+$transition-base:   all 0.2s ease-in-out;
+$transition-slow:   all 0.3s ease-in-out;
+$transition-colors: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+```
+
+### Border Radius
+
+```scss
+$border-radius-none: 0;
+$border-radius-sm:    4px;    -> var(--rds-border-radius-sm)   -> theme.shape.borderRadius * 0.5
+$border-radius-md:    8px;    -> var(--rds-border-radius-md)   -> theme.shape.borderRadius
+$border-radius-lg:   12px;    -> var(--rds-border-radius-lg)   -> theme.shape.borderRadius * 1.5
+$border-radius-xl:   16px;    -> var(--rds-border-radius-xl)   -> theme.shape.borderRadius * 2
+$border-radius-full: 9999px;  -> var(--rds-border-radius-full)
+```
+
+---
+
+## Component Refactoring Priority
+
+### CRITICAL (Phase 1)
+1. **rds-button** — Used everywhere, blocks all other work
+2. **rds-input** — Foundation of all form components
+3. **rds-select** — Foundation of all form components
+4. **rds-comp-data-grid** — 100% hardcoded, high visibility
+
+### HIGH (Phase 2)
+5. **rds-card** — Used inside most composite components
+6. **rds-modal** — z-index and spacing issues
+7. **rds-comp-filter-button** — 80% hardcoded
+8. **rds-carousel** — Mixed hardcoded/tokens
+
+### MEDIUM (Phase 3+)
+9. **rds-checkbox, rds-radio** — Border and color
+10. **rds-avatar, rds-badge, rds-banner** — Background color
+11. **rds-backdrop, rds-tooltip** — Color and z-index
+12. All remaining elements and composite components
+
+---
+
+## Reference Files
+
+| File | Purpose |
+|---|---|
+| `raaghu-react-themes/src/styles/raaghu-react-theme.scss` | Primary source of truth - all SCSS tokens |
+| `raaghu-react-themes/src/styles/custom-properties.scss` | CSS custom properties (runtime theming) |
+| `raaghu-react-themes/src/styles/variables/color-variables.scss` | Color palette definitions |
+| `raaghu-react-themes/src/mui-theme-adapter.ts` | MUI ThemeProvider config |
+| `raaghu-react-themes/tokens/design-tokens.ts` | TypeScript token definitions |
+| `utils/griffel/GriffelProvider.tsx` | Griffel CSS-in-JS wrapper |
+
+---
+
+## Rollback
+
+If validation fails at any step:
+
+```bash
+git restore <component>.scss
+git restore <component>.tsx
+```
+
+Then report: which detection category failed, which specific value caused the issue, and the recommended manual intervention point.
+
+---
+
+**Agent Version:** 2.0
+**Last Updated:** May 2026
+**Status:** Production Ready - Enterprise Design System Refactoring Platform

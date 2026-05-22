@@ -1,8 +1,8 @@
 .rds-textarea-container {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  margin-bottom: 16px;
+  gap: var(--rds-textarea-stack-gap, 3px);
+  margin-bottom: var(--rds-spacing-md, 16px);
 
   .textarea-label {
   font-family: var(--rds-font-family-base, Poppins);
@@ -20,7 +20,7 @@
 
  .rds-textarea {
   width: 100%;
-  min-height: 120px;
+  min-height: var(--rds-textarea-min-height, 120px);
   padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-md, 8px);
   font-size: var(--rds-font-size-md, 14px);
   font-family: var(--rds-font-family-base, Poppins);
@@ -28,14 +28,7 @@
   border: 1px solid var(--rds-border-default, #e0e0e0);
   outline: none;
   resize: vertical;
-  
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+  transition: all var(--rds-transition-base, 0.2s) ease-in-out;
   background-color: var(--rds-background-paper, #ffffff);
 
     &::placeholder {
@@ -58,7 +51,7 @@
 
     &.textarea-bottom-outline {
       border-radius: var(--rds-border-radius-md, 4px);
-      border-bottom: 2px solid var(--rds-border-default, #1d1d1d) !important;
+      border-bottom: var(--rds-textarea-bottom-border-width, 2px) solid var(--rds-border-default, #1d1d1d) !important;
       padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-md, 8px);
       background-color: var(--rds-background-paper, #ffffff);
     }
@@ -71,7 +64,7 @@
       border-color: var(--rds-primary-main, #3C98FF);
 
       &.textarea-bottom-outline {
-        border-bottom: 3px solid var(--rds-primary-main, #3C98FF) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main, #3C98FF) !important;
       }
     }
 
@@ -79,7 +72,7 @@
       border-color: var(--rds-border-selected, #7D7D7D);
 
       &.textarea-bottom-outline {
-        border-bottom: 3px solid var(--rds-border-selected, #7D7D7D) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected, #7D7D7D) !important;
       }
     }
 
@@ -95,7 +88,7 @@
 
       &.textarea-bottom-outline {
         background-color: var(--rds-background-disabled, #e9ecef) !important;
-        border-bottom: 3px solid var(--rds-border-disabled, #dee2e6) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled, #dee2e6) !important;
       }
     }
 
@@ -103,7 +96,7 @@
       border-color: var(--rds-error-main, #BD0D1D);
 
       &.textarea-bottom-outline {
-        border-bottom: 3px solid var(--rds-error-main, #BD0D1D) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-error-main, #BD0D1D) !important;
       }
     }
   }
@@ -127,14 +120,14 @@
     &.textarea-bottom-outline {
       background-color: var(--rds-background-paper, #1e1e1e) !important;
       color: var(--rds-text-primary, #ffffff) !important;
-      border-bottom: 3px solid var(--rds-primary-main, #ffffff) !important;
+      border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main, #ffffff) !important;
     }
 
     &.textarea-active {
       border-color: var(--rds-primary-main, #3C98FF);
 
       &.textarea-bottom-outline {
-        border-bottom: 3px solid var(--rds-primary-main, #3C98FF) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main, #3C98FF) !important;
       }
     }
 
@@ -142,7 +135,7 @@
       border-color: var(--rds-border-selected, #7D7D7D);
 
       &.textarea-bottom-outline {
-        border-bottom: 3px solid var(--rds-border-selected, #7D7D7D) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected, #7D7D7D) !important;
       }
     }
 
@@ -157,7 +150,7 @@
 
       &.textarea-bottom-outline {
         background-color: var(--rds-background-disabled, #2b2b2b) !important;
-        border-bottom: 3px solid var(--rds-border-disabled, #3a3a3a) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled, #3a3a3a) !important;
       }
     }
 
@@ -165,7 +158,7 @@
       border-color: var(--rds-error-main, #BD0D1D);
 
       &.textarea-bottom-outline {
-        border-bottom: 3px solid var(--rds-error-main, #BD0D1D) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-error-main, #BD0D1D) !important;
       }
     }
   }

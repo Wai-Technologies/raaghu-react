@@ -5,14 +5,7 @@
     &.nav-tabs {
       .nav-link {
         cursor: pointer;
-        
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+        transition: all 0.2s ease;
         
         &:hover {
           background-color: var(--rds-color-surface-hover, rgba(0, 0, 0, 0.04));
@@ -103,14 +96,7 @@
   }
   
   &__nav-link {
-    
-        param($m)
-        $prop = $m.Groups[1].Value
-        $dur = $m.Groups[2].Value
-        $rest = $m.Groups[3].Value
-        $var = switch($dur) { 'var(--rds-transition-fast, 0.15s)' {'--rds-transition-fast'} 'var(--rds-transition-base, 0.2s)' {'--rds-transition-base'} 'var(--rds-transition-slow, 0.3s)' {'--rds-transition-slow'} }
-        "transition: ${prop}var($var, $dur$rest);"
-    
+    transition: all 0.2s ease;
     
     &--active {
       background-color: var(--rds-color-primary, #7e2eef);
@@ -204,7 +190,7 @@
   text-align: start;
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: var(--rds-breakpoint-1023)) {
   .bs-md-0 {
     border-left: 0px solid transparent;
   }

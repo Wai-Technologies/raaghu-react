@@ -7,6 +7,7 @@
   align-items: center;
   justify-content: center;
   line-height: 0;
+  --rds-icon-button-focus-ring-width: 2px;
 }
 
 .rds-icon-button.MuiIconButton-sizeSmall .MuiSvgIcon-root,
@@ -36,6 +37,6 @@
 }
 
 .rds-icon-button:focus-visible {
-  outline: 2px solid var(--rds-icon-button-focus-color, rgba(25, 118, 210, 0.32));
-  outline-offset: 2px;
+  outline: var(--rds-icon-button-focus-ring-width, 2px) solid var(--rds-icon-button-focus-color, rgba(25, 118, 210, 0.32));
+  outline-offset: var(--rds-icon-button-focus-ring-width, 2px);
 }

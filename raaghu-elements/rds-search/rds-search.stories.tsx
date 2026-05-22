@@ -3,6 +3,13 @@ import { Box, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
 import RdsSearch from './rds-search';
 
+// Shared styles for search results box - uses theme palette instead of hardcoded colors
+const searchResultsBoxSx = {
+  p: 1,
+  backgroundColor: (theme: any) => theme.palette.mode === 'dark' ? theme.palette.grey[900] : theme.palette.grey[100],
+  borderRadius: 1,
+};
+
 const meta: Meta<typeof RdsSearch> = {
   title: 'Elements/Search',
   component: RdsSearch,
@@ -104,7 +111,7 @@ export const Default: Story = {
         })()}
         {args.autoSearch && searchResults.length > 0 && (
           <Box sx={{ mt: 2 }}>
-            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+            <Box sx={searchResultsBoxSx}>
               {searchResults.map((result, index) => (
                 <Box key={index} sx={{ py: 0.5 }}>
                   {result}
@@ -152,7 +159,7 @@ export const AutoSearch: Story = {
     })()}
         <Box sx={{ mt: 2 }}>
           {searchResults.length > 0 && (
-            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+            <Box sx={searchResultsBoxSx}>
               {searchResults.map((result, index) => (
                 <Box key={index} sx={{ py: 0.5 }}>
                   {result}
@@ -198,7 +205,7 @@ export const FullWidth: Story = {
     })()}
         {searchResults.length > 0 && (
           <Box sx={{ mt: 2 }}>
-            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+            <Box sx={searchResultsBoxSx}>
               {searchResults.map((result, index) => (
                 <Box key={index} sx={{ py: 0.5 }}>
                   {result}
@@ -250,7 +257,7 @@ export const Sizes: Story = {
   })()}
         {searchResults.length > 0 && (
           <Box sx={{ mt: -1 }}>
-            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+            <Box sx={searchResultsBoxSx}>
               {searchResults.map((result, index) => (
                 <Box key={index} sx={{ py: 0.5 }}>
                   {result}
@@ -311,7 +318,7 @@ export const Variants: Story = {
   })()}
         {searchResults.length > 0 && (
           <Box sx={{ mt: -1 }}>
-            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+            <Box sx={searchResultsBoxSx}>
               {searchResults.map((result, index) => (
                 <Box key={index} sx={{ py: 0.5 }}>
                   {result}
@@ -353,7 +360,7 @@ export const WithoutIcons: Story = {
     })()}
         {searchResults.length > 0 && (
           <Box sx={{ mt: 2 }}>
-            <Box sx={{ p: 1, backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#222' : 'grey.100', borderRadius: 1 }}>
+            <Box sx={searchResultsBoxSx}>
               {searchResults.map((result, index) => (
                 <Box key={index} sx={{ py: 0.5 }}>
                   {result}

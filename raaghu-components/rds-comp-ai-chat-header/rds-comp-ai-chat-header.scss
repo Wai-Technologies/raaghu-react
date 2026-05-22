@@ -1,7 +1,7 @@
 .rds-comp-ai-chat-header {
   display: flex;
   align-items: center;
-  padding: var(--rds-spacing-xs, 0.5rem);
+  padding: var(--rds-spacing-xs);
   width: 100%;
   color: var(--rds-color-on-surface, inherit);
   
@@ -19,22 +19,18 @@
   }
 
   &__text {
-    margin-left: var(--rds-spacing-md, 1rem);
+    margin-left: var(--rds-spacing-md);
     margin-top: 18px;
-    font-size: 1.25rem;
+    font-size: var(--rds-font-size-xl);
     white-space: nowrap;
     &--small {
-      font-size: 14px;
+      font-size: var(--rds-font-size-md);
     }
     &--medium {
-      font-size: 18px;
+      font-size: var(--rds-font-size-xl);
     }
     &--large {
-      font-size: 24px;
+      font-size: var(--rds-font-size-3xl);
     }
   }
-}
-
-.theme-dark .rds-comp-ai-chat-header {
-  color: var(--rds-color-on-surface-dark, #dee2e6) !important;
 }
