@@ -2,6 +2,7 @@ export {default as RdsCompSpinner} from './rds-comp-spinner/rds-comp-spinner';
 export {default as RdsCompContribution} from './rds-comp-contribution/rds-comp-contribution';
 export {default as RdsCompColorPicker} from './rds-comp-color-picker/rds-comp-color-picker';
 export {default as RdsCompToast} from './rds-comp-toast/rds-comp-toast';
+export {default as RdsCompMaterialIcon, type RdsCompMaterialIconProps, type MaterialIconStyle, type MaterialIconSize, type MaterialIconColor} from './rds-comp-material-icon/rds-comp-material-icon';
 export {default as RdsCompChip, type RdsCompChipProps} from './rds-comp-chip/rds-comp-chip';
 export {default as RdsCompButtonGroup, type RdsCompButtonGroupProps, type RdsCompButtonGroupOption} from './rds-comp-button-group/rds-comp-button-group';
 export {default as RdsCompMenubar, type RdsCompMenubarProps, type RdsCompMenubarItem} from './rds-comp-menubar/rds-comp-menubar';
@@ -22,6 +23,7 @@ export {default as RdsCompFilterButton} from './rds-comp-filter-button/rds-comp-
 // export { default as RdsCompScatterChart } from "./rds-comp-chart-scatter/rds-comp-chart-scatter";
 // export { default as RdsCompStackedChart } from "./rds-comp-chart-stacked/rds-comp-chart-stacked";
 // export { default as RdsCompBubbleChart } from "./rds-comp-chart-bubble/rds-comp-chart-bubble";
+export { default as RdsCompFunnelChart, type RdsCompFunnelChartProps } from './rds-comp-chart-funnel/rds-comp-chart-funnel';
 export { default as RdsCompAiChatBot } from './rds-comp-ai-chat-bot/rds-comp-ai-chat-bot';
 export { default as RdsCompAudioPlayer } from './rds-comp-audio-player/rds-comp-audio-player';
 export {default as RdsCompVideoPlayer} from './rds-comp-video-player/rds-comp-video-player';

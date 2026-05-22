@@ -1,0 +1,260 @@
+.rds-material-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  vertical-align: middle;
+  flex-shrink: 0;
+
+  // ─── Base Icon Styling ────────────────────────────────────────────────────
+  svg {
+    display: flex;
+    fill: currentColor;
+    flex-shrink: 0;
+    user-select: none;
+    width: 1em;
+    height: 1em;
+    transition: all 0.2s ease;
+  }
+
+  // ─── Color Variants ───────────────────────────────────────────────────────
+  
+  // Inherit (default) - inherits parent text color
+  &--inherit {
+    color: inherit;
+    
+    @media (prefers-color-scheme: dark) {
+      color: inherit;
+    }
+
+    [data-theme="dark"] & {
+      color: inherit;
+    }
+  }
+
+  // Primary color
+  &--primary {
+    color: var(--rds-color-primary, #1976d2);
+    
+    @media (prefers-color-scheme: dark) {
+      color: #64b5f6;
+    }
+
+    [data-theme="dark"] & {
+      color: #64b5f6;
+    }
+  }
+
+  // Secondary color
+  &--secondary {
+    color: var(--rds-color-secondary, #7c4dff);
+    
+    @media (prefers-color-scheme: dark) {
+      color: #ba68c8;
+    }
+
+    [data-theme="dark"] & {
+      color: #ba68c8;
+    }
+  }
+
+  // Success color
+  &--success {
+    color: var(--rds-color-success, #388e3c);
+    
+    @media (prefers-color-scheme: dark) {
+      color: #81c784;
+    }
+
+    [data-theme="dark"] & {
+      color: #81c784;
+    }
+  }
+
+  // Error color
+  &--error {
+    color: var(--rds-color-error, #d32f2f);
+    
+    @media (prefers-color-scheme: dark) {
+      color: #ef5350;
+    }
+
+    [data-theme="dark"] & {
+      color: #ef5350;
+    }
+  }
+
+  // Warning color
+  &--warning {
+    color: var(--rds-color-warning, #f57c00);
+    
+    @media (prefers-color-scheme: dark) {
+      color: #ffb74d;
+    }
+
+    [data-theme="dark"] & {
+      color: #ffb74d;
+    }
+  }
+
+  // Info color
+  &--info {
+    color: var(--rds-color-info, #0097a7);
+    
+    @media (prefers-color-scheme: dark) {
+      color: #4dd0e1;
+    }
+
+    [data-theme="dark"] & {
+      color: #4dd0e1;
+    }
+  }
+
+  // Disabled state
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    color: var(--rds-text-disabled, #bdbdbd);
+    
+    @media (prefers-color-scheme: dark) {
+      color: #616161;
+    }
+
+    [data-theme="dark"] & {
+      color: #616161;
+    }
+
+    svg {
+      pointer-events: none;
+    }
+  }
+
+  // ─── Size Variants ────────────────────────────────────────────────────────
+  
+  // Extra small (16px)
+  &--extraSmall {
+    svg {
+      width: 16px;
+      height: 16px;
+      font-size: 16px;
+    }
+  }
+
+  // Small (20px)
+  &--small {
+    svg {
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
+    }
+  }
+
+  // Medium (24px) - default
+  &--medium {
+    svg {
+      width: 24px;
+      height: 24px;
+      font-size: 24px;
+    }
+  }
+
+  // Large (32px)
+  &--large {
+    svg {
+      width: 32px;
+      height: 32px;
+      font-size: 32px;
+    }
+  }
+
+  // Extra large (40px)
+  &--extraLarge {
+    svg {
+      width: 40px;
+      height: 40px;
+      font-size: 40px;
+    }
+  }
+
+  // ─── Style Variants ───────────────────────────────────────────────────────
+  
+  // Filled style (default, no special styling needed)
+  &--filled {
+    svg {
+      font-variation-settings: 'FILL' 1;
+    }
+  }
+
+  // Outlined style
+  &--outlined {
+    svg {
+      font-variation-settings: 'FILL' 0;
+    }
+  }
+
+  // Rounded style
+  &--rounded {
+    svg {
+      font-variation-settings: 'FILL' 1, 'wght' 400;
+      border-radius: var(--rds-border-radius-md, 8px);
+    }
+  }
+
+  // Two Tone style
+  &--twoTone {
+    svg {
+      font-variation-settings: 'FILL' 1;
+      opacity: 0.85;
+    }
+  }
+
+  // Sharp style
+  &--sharp {
+    svg {
+      font-variation-settings: 'FILL' 1;
+      font-weight: bold;
+    }
+  }
+
+  // ─── Interactive States ───────────────────────────────────────────────────
+  
+  // Clickable state
+  &--clickable {
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+
+    &:not(.rds-material-icon--disabled) {
+      &:hover {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+
+      &:active {
+        transform: scale(0.95);
+        opacity: 0.7;
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--rds-color-primary, #1976d2);
+        outline-offset: 2px;
+        border-radius: var(--rds-border-radius-sm, 4px);
+      }
+    }
+  }
+
+  // ─── Not Found State ───────────────────────────────────────────────────────
+  
+  &--not-found {
+    color: var(--rds-color-error, #d32f2f);
+    opacity: 0.5;
+
+    @media (prefers-color-scheme: dark) {
+      color: #ef5350;
+    }
+
+    [data-theme="dark"] & {
+      color: #ef5350;
+    }
+  }
+}
