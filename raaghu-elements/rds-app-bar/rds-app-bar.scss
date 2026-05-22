@@ -537,7 +537,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   box-shadow: var(--rds-elevation-1, 0 2px 8px 0 rgba(60,60,60,0.03));
   position: relative;
   width: 100%;
-  z-index: var(--rds-z-index-sticky, 1020);
+  z-index: var(--rds-z-index-sticky, 1100);
   font-family: var(--rds-font-family, inherit);
 
   &__toolbar {
@@ -1188,13 +1188,13 @@ $rds-app-bar-breakpoint-xs: 320px;
 }
 
 [data-theme="dark"], .dark {
-  --rds-appbar-bg: #181c20;
-  --rds-appbar-color: #fff;
+  --rds-appbar-bg: var(--rds-appbar-bg-dark);
+  --rds-appbar-color: var(--rds-neutral-0);
   --rds-appbar-shadow: rgba(0,0,0,0.5);
-  --rds-appbar-separator-bg: #FFFFFF;
-  --rds-appbar-secondary-bg: #7c2946;
-  --rds-appbar-badge-bg: #232e3a;
-  --rds-appbar-badge-color: #90caf9;
+  --rds-appbar-separator-bg: var(--rds-neutral-0);
+  --rds-appbar-secondary-bg: var(--rds-appbar-secondary-bg-dark);
+  --rds-appbar-badge-bg: var(--rds-appbar-badge-bg-dark);
+  --rds-appbar-badge-color: var(--rds-appbar-badge-color-dark);
   --rds-color-surface-alt: var(--rds-background-surface, #23272b);
   --rds-color-on-surface: var(--rds-text-primary, #e3e3e3);
   --rds-color-border: var(--rds-border-default, #444b54);

@@ -118,7 +118,7 @@
     letter-spacing: 0.5px;
     text-transform: uppercase;
     background: var(--rds-background-default, #f7f7fa);
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--rds-border-light);
   }
   &__divider {
     height: 1px;
@@ -162,11 +162,11 @@
   .rds-menu__header {
     color: var(--rds-color-surface, #d6d6d6);
     background-color: var(--rds-color-background, #5a5a5a);
-    border-bottom: 1px solid #666;
+    border-bottom: 1px solid var(--rds-border-default);
   }
 
   .rds-menu__divider {
-    background: #666;
+    background: var(--rds-border-default);
   }
   
   .rds-menu__item:hover:not(:disabled),

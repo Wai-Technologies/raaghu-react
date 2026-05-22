@@ -1,4 +1,4 @@
-.rds-comments-box {
+﻿.rds-comments-box {
   display: flex;
   align-items: center;
   gap: var(--rds-spacing-xs);
@@ -439,7 +439,7 @@
     border-radius: var(--rds-border-radius-md, 8px);
     box-shadow: var(--rds-elevation-1, 0 2px 8px rgba(0,0,0,0.08));
     padding: var(--rds-spacing-xs, 4px) 0;
-    z-index: var(--rds-z-index-dropdown, 2000);
+    z-index: var(--rds-z-index-dropdown, 1000);
     min-width: var(--rds-dropdown-min-width, 140px);
     width: var(--rds-dropdown-width, 140px);
     background: var(--rds-background-paper, #f5faff);
@@ -477,7 +477,7 @@
     border-radius: var(--rds-border-radius-md, 8px);
     box-shadow: var(--rds-card-shadow, 0 2px 8px rgba(0,0,0,0.08));
     padding: var(--rds-spacing-xs, 4px) 0;
-    z-index: var(--rds-z-index-dropdown, 3000);
+    z-index: var(--rds-z-index-dropdown, 1000);
     min-width: var(--rds-dropdown-min-width, 160px);
     width: var(--rds-dropdown-width, 160px);
     background: var(--rds-background-paper, #f5faff);

@@ -1,12 +1,12 @@
 :root {
-  --rds-spinner-primary-color: #1976d2;
-  --rds-spinner-secondary-color: #6c757d;
-  --rds-spinner-success-color: #28a745;
-  --rds-spinner-danger-color: #dc3545;
-  --rds-spinner-warning-color: #ffc107;
-  --rds-spinner-info-color: #17a2b8;
-  --rds-spinner-light-color: #f8f9fa;
-  --rds-spinner-dark-color: #343a40;
+  --rds-spinner-primary-color: var(--rds-primary-main);
+  --rds-spinner-secondary-color: var(--rds-text-secondary);
+  --rds-spinner-success-color: var(--rds-semantic-success-main);
+  --rds-spinner-danger-color: var(--rds-semantic-error-main);
+  --rds-spinner-warning-color: var(--rds-semantic-warning-main);
+  --rds-spinner-info-color: var(--rds-info-dark);
+  --rds-spinner-light-color: var(--rds-surface-subtle);
+  --rds-spinner-dark-color: var(--rds-text-primary);
   
   --rds-spinner-animation-duration: 0.75s;
 }

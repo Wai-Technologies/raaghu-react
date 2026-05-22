@@ -624,7 +624,7 @@
   
   // Date picker popup/popper styles
   .MuiPickersPopper-root {
-    z-index: var(--rds-z-index-modal, 500);
+    z-index: var(--rds-z-index-modal, 1400);
     
     .MuiPaper-root {
       box-shadow: none !important;
@@ -839,7 +839,7 @@
       margin: 0;
       
       &:not(:last-child) {
-        border-right: 1px solid #e0e0e0;
+        border-right: 1px solid var(--rds-border-default);
         padding-right: var(--rds-spacing-md);
       }
     }

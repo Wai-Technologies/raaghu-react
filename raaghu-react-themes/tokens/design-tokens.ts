@@ -357,6 +357,327 @@ export const componentTokens = {
   }
 };
 
+/**
+ * Surface / UI chrome tokens — named semantic aliases used by build-rds-css-vars.ts.
+ * These are NOT raw palette entries; they carry intent (e.g. "code background").
+ */
+export const surfaceTokens = {
+  /** Dark code-block background */
+  codeBg: '#0b1220',
+  /** Light code-block foreground */
+  codeColor: '#e6eef6',
+
+  // ── Light-theme surface neutrals ──────────────────────────────────────────
+  /** Darkest neutral surface (light theme) */
+  neutralDarker: '#202020',
+  /** Dark neutral surface (light theme) */
+  neutralDark: '#4C4C4C',
+  /** Medium neutral surface (light theme) */
+  neutralMedium: '#CDCDCD',
+
+  // ── Dark-mode UI chrome ───────────────────────────────────────────────────
+  /** Standard dark surface (cards, panels) */
+  darkBase: '#424242',
+  /** Hovered dark surface */
+  darkHover: '#505050',
+  /** Alternate dark surface */
+  darkAlt: '#3a3a3a',
+  /** Deep dark surface */
+  darkDeep: '#2a2a2a',
+  /** Elevated dark border */
+  darkElevatedBorder: '#5a5a5a',
+  /** Dark surface variant */
+  darkVariant: '#303030',
+  /** Selected dark surface */
+  darkSelected: '#3b3b3b',
+  /** Disabled dark surface */
+  darkDisabled: '#272727',
+  /** Container dark surface */
+  darkContainer: '#4a4a4a',
+  /** Surface hover (dark) */
+  darkSurfaceHover: '#1F2123',
+  /** Variant hover (dark) */
+  darkVariantHover: '#b9b7b7',
+  /** Disabled container (dark) */
+  darkDisabledContainer: '#4a4a4a',
+};
+
+/**
+ * Semantic button / interactive color tokens not covered by colorTokens palette.
+ * These represent specific design decisions for interactive states.
+ */
+export const interactiveTokens = {
+  // ── Light-theme secondary button ──────────────────────────────────────────
+  /** Secondary button hover background */
+  secondaryBgHover: '#EBDCFF',
+  /** Secondary button active background */
+  secondaryBgActive: '#D4BBFF',
+  /** Secondary button text color */
+  secondaryText: '#7825E9',
+  /** Secondary button disabled text */
+  secondaryTextDisabled: '#A875FF',
+
+  // ── Alert backgrounds ─────────────────────────────────────────────────────
+  /** Alert success border (uses primary purple brand) */
+  alertSuccessBorder: '#7825E9',
+  /** Alert error background */
+  alertErrorBg: '#FFDAD6',
+  /** Alert warning background (neutral mid) */
+  alertWarningBg: '#CDCDCD',
+};
+
+/**
+ * Alpha / overlay tokens — semi-transparent values used for overlays, actions, borders.
+ */
+export const alphaTokens = {
+  // ── Overlays ──────────────────────────────────────────────────────────────
+  /** Standard modal/overlay scrim */
+  overlayDark: 'rgba(0, 0, 0, 0.5)',
+  /** Heavy overlay scrim */
+  overlayDarker: 'rgba(0, 0, 0, 0.7)',
+  /** Semi-transparent grey overlay */
+  overlaySemi: 'rgba(128, 128, 128, 0.4)',
+
+  // ── Light-theme action states ─────────────────────────────────────────────
+  /** Hover state background (light) */
+  actionHoverLight: 'rgba(0, 0, 0, 0.04)',
+  /** Active state (light) */
+  actionActiveLight: 'rgba(0, 0, 0, 0.54)',
+  /** Disabled state (light) */
+  actionDisabledLight: 'rgba(0, 0, 0, 0.26)',
+
+  // ── Dark-theme action states ──────────────────────────────────────────────
+  /** Hover state background (dark) */
+  actionHoverDark: 'rgba(255, 255, 255, 0.08)',
+  /** Active state (dark) */
+  actionActiveDark: 'rgba(255, 255, 255, 0.16)',
+  /** Disabled state (dark) */
+  actionDisabledDark: 'rgba(255, 255, 255, 0.3)',
+
+  // ── Border alphas ─────────────────────────────────────────────────────────
+  /** Light-theme border with opacity */
+  borderOpacityLight: 'rgba(0, 0, 0, 0.12)',
+  /** Dark-theme border with opacity */
+  borderOpacityDark: 'rgba(255, 255, 255, 0.12)',
+
+  // ── Placeholder colors ────────────────────────────────────────────────────
+  /** Placeholder text (light theme) */
+  placeholderLight: 'rgba(0, 0, 0, 0.6)',
+  /** Placeholder text (dark theme) */
+  placeholderDark: 'rgba(255, 255, 255, 0.65)',
+
+  // ── Modal backdrop ────────────────────────────────────────────────────────
+  /** Modal backdrop scrim */
+  modalBackdrop: 'rgba(0, 0, 0, 0.5)',
+
+  // ── Dark-theme toggle / scrollbar ─────────────────────────────────────────
+  /** Toggle group border (dark) */
+  toggleGroupBorderDark: 'rgba(255, 255, 255, 0.23)',
+  /** Toggle group disabled border (dark) */
+  toggleGroupBorderDisabledDark: 'rgba(100, 100, 100, 0.5)',
+
+  // ── Dark-theme elevation shadows ──────────────────────────────────────────
+  /** Elevation shadow level 2 (dark) */
+  elevation2Dark: '0 4px 8px rgba(0, 0, 0, 0.6)',
+  /** Focus ring elevation (dark) */
+  elevationFocusDark: '0 0 0 1px rgba(255, 255, 255, 0.04)',
+};
+
+/**
+ * Elevation shadow tokens for the shared CSS var map.
+ * These are the Material-style layered shadows used by --rds-elevation-*.
+ */
+export const elevationTokens = {
+  0: 'none',
+  1: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+  2: '0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12)',
+  3: '0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10)',
+  4: '0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05)',
+  5: '0 20px 40px rgba(0, 0, 0, 0.20)',
+};
+
+/**
+ * Dark-mode grid / data-table surface tokens.
+ */
+export const gridTokens = {
+  bg: '#424242',
+  bgAlt: '#3a3a3a',
+  headerBg: '#424242',
+  textSubtle: '#bdbdbd',
+  border: '#5a5a5a',
+};
+
+/**
+ * Dark-mode icon / text muted tokens.
+ */
+export const iconTokens = {
+  mutedDark: '#B0B3B8',
+  onSurfaceVariantDark: '#E1E6EB',
+};
+
+/**
+ * Scrollbar tokens (dark mode).
+ */
+export const scrollbarTokens = {
+  track: '#2a2a2a',
+  thumb: '#555555',
+  thumbHover: '#6a6a6a',
+};
+
+/**
+ * App bar component tokens — dark-mode overrides that have no palette equivalent.
+ */
+export const appBarTokens = {
+  /** Dark app bar background — deeper than page background */
+  darkBg: '#181c20',
+  /** Dark secondary-variant app bar background */
+  darkSecondaryBg: '#7c2946',
+  /** Dark badge background */
+  darkBadgeBg: '#232e3a',
+  /** Dark badge foreground — light blue accent */
+  darkBadgeColor: '#90caf9',
+};
+
+/**
+ * Misc UI tokens that don't fit other categories.
+ */
+export const miscTokens = {
+  /** Offcanvas cancel / link color */
+  offcanvasCancelColor: '#2196F3',
+  /** Dark-mode disabled text */
+  disabledTextDark: '#9e9e9e',
+  /** Dark-mode border color */
+  borderColorDark: '#44474A',
+  /** Letter-spacing for MUI button (matches MUI default) */
+  letterSpacingButton: '0.02857em',
+  /** Backdrop blur value */
+  backdropBlur: '2px',
+  /** Focus ring offset */
+  focusRingOffset: '2px',
+  /** Base font size (px, for CSS var) */
+  fontSizeBase: '14px',
+};
+
+/**
+ * Spinner component tokens — fallback colors for the spinner variants.
+ * These are used as CSS custom property defaults in rds-comp-spinner.scss.
+ */
+export const spinnerTokens = {
+  primaryColor: '#1976d2',
+  secondaryColor: '#6c757d',
+  successColor: '#28a745',
+  dangerColor: '#dc3545',
+  warningColor: '#ffc107',
+  infoColor: '#17a2b8',
+  lightColor: '#f8f9fa',
+  darkColor: '#343a40',
+  animationDuration: '0.75s',
+};
+
+/**
+ * Input component tokens — computed padding/border values for the input element.
+ * These are defined as local CSS vars inside .rds-input and referenced by child rules.
+ * Injecting them at :root ensures they are available even outside the .rds-input scope.
+ */
+export const inputTokens = {
+  borderWidthThin: 'calc(var(--rds-spacing-xs) / 4)',
+  borderWidthThick: 'calc(var(--rds-spacing-xs) / 2)',
+  focusRingError: '0 0 0 var(--rds-input-border-width-thick) var(--rds-error-light)',
+  paddingSmallY: 'calc(var(--rds-spacing-xs) / 2)',
+  paddingSmallX: 'calc(var(--rds-spacing-sm) - var(--rds-input-border-width-thin))',
+  paddingMediumY: 'var(--rds-spacing-xs)',
+  paddingMediumX: 'calc(var(--rds-spacing-md) - var(--rds-spacing-xs))',
+  paddingLargeY: 'calc(var(--rds-spacing-sm) - var(--rds-input-border-width-thin))',
+  paddingLargeX: 'calc(var(--rds-spacing-md) - var(--rds-input-border-width-thin))',
+  muiPaddingSmallY: 'calc(var(--rds-spacing-sm) + (var(--rds-input-border-width-thin) / 2))',
+  muiPaddingMediumY: 'calc(var(--rds-spacing-md) + (var(--rds-input-border-width-thin) / 2))',
+  muiPaddingSmallX: 'var(--rds-spacing-sm)',
+  muiPaddingMediumX: 'calc(var(--rds-spacing-xs) / 2)',
+  muiPaddingLargeX: 'calc(var(--rds-input-border-width-thick) / 2)',
+  labelLargeX: 'calc(var(--rds-spacing-md) - (var(--rds-input-border-width-thick) / 2))',
+  labelLargeY: 'calc(var(--rds-spacing-lg) - (var(--rds-spacing-xs) / 2))',
+  fontSizeLabel: 'var(--rds-font-size-sm)',
+  asteriskOffset: 'calc(var(--rds-input-border-width-thick))',
+  srOnlySize: 'var(--rds-input-border-width-thin)',
+  srOnlyOffset: 'calc(var(--rds-input-sr-only-size) * -1)',
+};
+
+/**
+ * Tooltip component tokens — arrow geometry and focus ring.
+ */
+export const tooltipTokens = {
+  borderWidth: '1.5px',
+  arrowOffset: '0.4em',
+  arrowShadow: 'var(--rds-elevation-2)',
+  focusRingWidth: '2px',
+};
+
+/**
+ * E-signature component tokens.
+ */
+export const esignatureTokens = {
+  drawHeight: 'var(--rds-signature-draw-height, 280px)',
+  spacingMd: 'var(--rds-spacing-md)',
+};
+
+/**
+ * FAB menu component tokens.
+ */
+export const fabMenuTokens = {
+  openHeight: '290px',
+};
+
+/**
+ * AI gradient brand tokens for rds-comp-ai-gradient-text-with-icon.
+ */
+export const aiGradientTokens = {
+  gradientStart: '#7825E9',
+  gradientMid: '#E91E8C',
+  gradientEnd: '#FF6B6B',
+};
+
+/**
+ * Switch component tokens — disabled secondary background.
+ */
+export const switchTokens = {
+  disabledSecondaryBg: 'rgba(24, 39, 187, 0.24)',
+};
+
+/**
+ * Semantic color aliases used in components but not covered by the main palette.
+ * These provide stable names for colors that appear in multiple components.
+ */
+export const semanticAliasTokens = {
+  /** Generic "dark" color (Bootstrap-style) */
+  colorDark: '#343a40',
+  /** Generic gray-500 (Bootstrap-style) */
+  colorGray500: '#adb5bd',
+  /** Generic icon color (neutral mid) */
+  colorIcon: '#646464',
+  /** Generic text color alias */
+  colorText: 'var(--rds-text-primary)',
+  /** Generic background color alias */
+  colorBackground: 'var(--rds-background-default)',
+  /** Background hover alias */
+  backgroundHover: 'var(--rds-action-hover)',
+  /** Action disabled background */
+  actionDisabledBackground: 'var(--rds-background-surface)',
+  /** Surface alt (slightly different from surface) */
+  colorSurfaceAlt: 'var(--rds-background-surface)',
+  /** Surface disabled */
+  colorSurfaceDisabled: 'var(--rds-background-surface)',
+  /** Switch label color */
+  colorSwitchLabel: '#757575',
+  /** On-secondary contrast text */
+  colorOnSecondary: '#ffffff',
+  /** Popover surface border */
+  popoverSurfaceBorder: '1px solid var(--rds-border-opacity-light)',
+  /** Sidebar overlay background */
+  sidebarOverlayBg: 'var(--rds-action-hover)',
+  /** Font size body alias */
+  fontSizeBody: 'var(--rds-font-size-sm)',
+};
+
 // Export all tokens as a single object (single human-edited source for the design system)
 export const designTokens = {
   color: colorTokens,
@@ -369,6 +690,23 @@ export const designTokens = {
   breakpoint: breakpointTokens,
   extendedBreakpoint: extendedBreakpointTokens,
   component: componentTokens,
+  surface: surfaceTokens,
+  interactive: interactiveTokens,
+  alpha: alphaTokens,
+  elevation: elevationTokens,
+  grid: gridTokens,
+  icon: iconTokens,
+  scrollbar: scrollbarTokens,
+  misc: miscTokens,
+  appBar: appBarTokens,
+  spinner: spinnerTokens,
+  input: inputTokens,
+  tooltip: tooltipTokens,
+  esignature: esignatureTokens,
+  fabMenu: fabMenuTokens,
+  aiGradient: aiGradientTokens,
+  switch: switchTokens,
+  semanticAlias: semanticAliasTokens,
 };
 
 export default designTokens;

@@ -25,7 +25,7 @@
       color: var(--rds-text-primary, #333333);
       cursor: pointer;
       outline: none;
-      background-color: #fff;
+      background-color: var(--rds-neutral-0);
       transition: border-color 0.2s;
       
       &:hover:not(:disabled) {
@@ -47,14 +47,14 @@
       }
     }
     
-    .border-primary { border-color: #1976d2; }
-    .border-secondary { border-color: #9ca3af; }
-    .border-success { border-color: #10b981; }
-    .border-error, .border-danger { border-color: #ef4444; }
-    .border-warning { border-color: #f59e0b; }
-    .border-info { border-color: #3b82f6; }
-    .border-light { border-color: #f3f4f6; }
-    .border-dark { border-color: #1f2937; }
+    .border-primary { border-color: var(--rds-primary-main); }
+    .border-secondary { border-color: var(--rds-border-default); }
+    .border-success { border-color: var(--rds-semantic-success-main); }
+    .border-error, .border-danger { border-color: var(--rds-semantic-error-main); }
+    .border-warning { border-color: var(--rds-semantic-warning-main); }
+    .border-info { border-color: var(--rds-info-dark); }
+    .border-light { border-color: var(--rds-border-light); }
+    .border-dark { border-color: var(--rds-text-primary); }
     
     .time-icon {
       position: absolute;
@@ -78,11 +78,11 @@
     min-width: 300px;
     max-width: 350px;
     margin-top: var(--rds-spacing-sm);
-    background-color: #ffffff;
-    border: 1px solid #E0E0E0;
+    background-color: var(--rds-neutral-0);
+    border: 1px solid var(--rds-border-default);
     border-radius: var(--rds-border-radius-sm);
     padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
-    z-index: var(--rds-z-index-modal, 500);
+    z-index: var(--rds-z-index-modal, 1400);
     padding: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
     
     &.time-picker-compact {
@@ -90,7 +90,7 @@
     }
     
     &.border-primary { 
-      border-color: #1976d2;
+      border-color: var(--rds-primary-main);
     }
     
     .row {
@@ -112,7 +112,7 @@
       width: auto;
       font-weight: 500;
       font-size: var(--rds-font-size-md);
-      color: #000000;
+      color: var(--rds-neutral-900);
       
       &.time-display-compact {
         font-size: 13px;
@@ -130,7 +130,7 @@
     }
     
     .now-button {
-      color: #1976d2;
+      color: var(--rds-primary-main);
       font-size: 11px;
       cursor: pointer;
       font-weight: 600;
@@ -142,7 +142,7 @@
       letter-spacing: 0.5px;
       
       &:hover {
-        color: #4f46e5;
+        color: var(--rds-primary-dark);
         text-decoration: underline;
       }
     }
@@ -180,7 +180,7 @@
         }
         
         .MuiAutocomplete-popper {
-          z-index: var(--rds-z-index-tooltip, 600);
+          z-index: var(--rds-z-index-tooltip, 1800);
         }
       }
       
@@ -201,15 +201,15 @@
           height: 38px;
           padding: var(--rds-spacing-sm);
           border-radius: var(--rds-border-radius-sm);
-          border: 1px solid #ced4da;
+          border: 1px solid var(--rds-border-light);
           background-color: white;
           font-size: var(--rds-font-size-md);
           appearance: auto;
-          color: #686161;
+          color: var(--rds-text-secondary);
           
           &:focus {
             outline: none;
-            border-color: #6366f1;
+            border-color: var(--rds-primary-main);
             box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
           }
           
@@ -229,7 +229,7 @@
       .time-value {
         font-size: var(--rds-font-size-xl);
         font-weight: 600;
-        color: #6366f1;
+        color: var(--rds-primary-main);
         width: 36px;
         height: 36px;
         display: flex;
@@ -251,7 +251,7 @@
       .time-value-display {
         font-size: 17px;
         font-weight: 600;
-        color: #6366f1;
+        color: var(--rds-primary-main);
         min-width: 45px;
         height: 45px;
         display: flex;
@@ -264,7 +264,7 @@
         .time-control {
           position: absolute;
           font-size: var(--rds-font-size-sm);
-          color: #6366f1;
+          color: var(--rds-primary-main);
           cursor: pointer;
           opacity: 0.7;
           
@@ -285,14 +285,14 @@
       .time-value-colon {
         font-size: 17px;
         font-weight: 600;
-        color: #6366f1;
+        color: var(--rds-primary-main);
         margin: 0 4px;
       }
       
       .time-value-period {
         font-size: 17px;
         font-weight: 600;
-        color: #6366f1;
+        color: var(--rds-primary-main);
         min-width: 45px;
         margin-left: 5px;
         display: flex;
@@ -335,7 +335,7 @@
         
         &.cancel {
           background: transparent;
-          color: #6366f1;
+          color: var(--rds-primary-main);
           border: none;
           padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-sm) + var(--rds-spacing-xs));
           min-width: auto;
@@ -347,7 +347,7 @@
         }
         
         &.set-time {
-          background: #6366f1;
+          background: var(--rds-primary-main);
           color: white;
           padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
           min-width: 70px;
@@ -359,24 +359,24 @@
           }
         }
         
-        &.bg-primary { background-color: #1976d2; }
-        &.bg-secondary { background-color: #9ca3af; }
-        &.bg-success { background-color: #10b981; }
-        &.bg-error, &.bg-danger { background-color: #ef4444; }
-        &.bg-warning { background-color: #f59e0b; }
-        &.bg-info { background-color: #3b82f6; }
-        &.bg-light { background-color: #f3f4f6; }
-        &.bg-dark { background-color: #1f2937; }
+        &.bg-primary { background-color: var(--rds-primary-main); }
+        &.bg-secondary { background-color: var(--rds-text-secondary); }
+        &.bg-success { background-color: var(--rds-semantic-success-main); }
+        &.bg-error, &.bg-danger { background-color: var(--rds-semantic-error-main); }
+        &.bg-warning { background-color: var(--rds-semantic-warning-main); }
+        &.bg-info { background-color: var(--rds-info-dark); }
+        &.bg-light { background-color: var(--rds-surface-subtle); }
+        &.bg-dark { background-color: var(--rds-text-primary); }
         
-        &.text-primary { color: #6366f1; }
-        &.text-secondary { color: #9ca3af; }
-        &.text-success { color: #10b981; }
-        &.text-error, &.text-danger { color: #ef4444; }
-        &.text-warning { color: #f59e0b; }
-        &.text-info { color: #3b82f6; }
-        &.text-light { color: #f3f4f6; }
-        &.text-white { color: #ffffff; }
-        &.text-dark { color: #1f2937; }
+        &.text-primary { color: var(--rds-primary-main); }
+        &.text-secondary { color: var(--rds-text-secondary); }
+        &.text-success { color: var(--rds-semantic-success-main); }
+        &.text-error, &.text-danger { color: var(--rds-semantic-error-main); }
+        &.text-warning { color: var(--rds-semantic-warning-main); }
+        &.text-info { color: var(--rds-info-dark); }
+        &.text-light { color: var(--rds-text-disabled); }
+        &.text-white { color: var(--rds-neutral-0); }
+        &.text-dark { color: var(--rds-text-primary); }
       }
     }
   }
@@ -389,20 +389,20 @@
     
     .MuiOutlinedInput-root {
       background-color: white;
-      color: #6366f1;
+      color: var(--rds-primary-main);
       padding: 0;
       font-size: var(--rds-font-size-md);
       height: 34px;
       min-height: 34px;
       border-radius: var(--rds-border-radius-sm);
-      border: 1px solid #E0E0E0;
+      border: 1px solid var(--rds-border-default);
       
       .MuiOutlinedInput-notchedOutline {
         border: none;
       }
       
       .MuiInputBase-input {
-        color: #6366f1;
+        color: var(--rds-primary-main);
         padding: var(--rds-spacing-xs) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
         text-align: center;
         font-weight: 500;
@@ -412,7 +412,7 @@
         width: 100%;
         
         &::placeholder {
-          color: #6366f1;
+          color: var(--rds-primary-main);
           opacity: 1;
           font-weight: 500;
         }
@@ -422,13 +422,13 @@
         right: 2px;
         
         .MuiSvgIcon-root {
-          color: #6366f1;
+          color: var(--rds-primary-main);
           font-size: var(--rds-font-size-xl);
         }
       }
       
       .MuiAutocomplete-popupIndicator {
-        color: #6366f1;
+        color: var(--rds-primary-main);
       }
     }
   }
@@ -450,7 +450,7 @@
 }
 
 .MuiAutocomplete-popper {
-  z-index: var(--rds-z-index-tooltip, 600);
+  z-index: var(--rds-z-index-tooltip, 1800);
   .MuiPaper-root {
     margin-top: var(--rds-spacing-xs);
     border-radius: var(--rds-border-radius-sm);

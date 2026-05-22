@@ -226,13 +226,13 @@
   border-top: 0;
   box-sizing: content-box;
   border-radius: 0 0 40% 40%;
-  mask: linear-gradient(#000 0 0) bottom/4px 2px no-repeat,
-    linear-gradient(#000 0 0);
-  -webkit-mask: linear-gradient(#000 0 0) bottom/4px 2px no-repeat,
-    linear-gradient(#000 0 0);
+  mask: linear-gradient(var(--rds-neutral-900) 0 0) bottom/4px 2px no-repeat,
+    linear-gradient(var(--rds-neutral-900) 0 0);
+  -webkit-mask: linear-gradient(var(--rds-neutral-900) 0 0) bottom/4px 2px no-repeat,
+    linear-gradient(var(--rds-neutral-900) 0 0);
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
-  background: linear-gradient(var(--d,0deg),var(--c2) 50%,#0000 0) bottom /100% 205%,
+  background: linear-gradient(var(--d,0deg),var(--c2) 50%,transparent 0) bottom /100% 205%,
     linear-gradient(var(--c2) 0 0) center/0 100%;
   background-repeat: no-repeat;
   animation: inherit;
@@ -324,17 +324,17 @@
   height: 44.8px;
   color: var(--rds-loader-round-color, #554cb5);
   position: relative;
-  background: radial-gradient(11.2px,currentColor 94%,#0000);
+  background: radial-gradient(11.2px,currentColor 94%,transparent);
 }
 .rds-loader__round:before {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: radial-gradient(10.08px at bottom right,#0000 94%,currentColor) top    left,
-          radial-gradient(10.08px at bottom left ,#0000 94%,currentColor) top    right,
-          radial-gradient(10.08px at top    right,#0000 94%,currentColor) bottom left,
-          radial-gradient(10.08px at top    left ,#0000 94%,currentColor) bottom right;
+    background: radial-gradient(10.08px at bottom right,transparent 94%,currentColor) top    left,
+      radial-gradient(10.08px at bottom left ,transparent 94%,currentColor) top    right,
+      radial-gradient(10.08px at top    right,transparent 94%,currentColor) bottom left,
+      radial-gradient(10.08px at top    left ,transparent 94%,currentColor) bottom right;
   background-size: 22.4px 22.4px;
   background-repeat: no-repeat;
   animation: loader 1.5s infinite cubic-bezier(0.3,1,0,1);
@@ -384,7 +384,7 @@
   width: 56px;
   height: 56px;
   display: grid;
-  border: 4px solid #0000;
+  border: 4px solid transparent;
   border-radius: 50%;
   border-right-color: var(--rds-loader-spin-color, #004dff);
   animation: spinner-a4dj62 1s infinite linear;
@@ -409,7 +409,7 @@
   width: 50px;
   aspect-ratio: 1.154;
   position: relative;
-  background: conic-gradient(from 120deg at 50% 64%,#0000, #ff1919 1deg 120deg,#0000 121deg);
+  background: conic-gradient(from 120deg at 50% 64%,transparent, var(--rds-semantic-error-main) 1deg 120deg,transparent 121deg);
   animation: l27-0 1.5s infinite cubic-bezier(0.3,1,0,1);
 }
 .rds-loader__triangle:before, .rds-loader__triangle:after {
@@ -440,8 +440,8 @@
   width: var(--spinner-ring-size);
   height: var(--spinner-ring-size);
   border: var(--spinner-ring-border-main) solid transparent;
-  border-top: var(--spinner-ring-border-main) solid #6c2bd9;
-  border-right: var(--spinner-ring-border-main) solid #6c2bd9;
+  border-top: var(--spinner-ring-border-main) solid var(--rds-primary-dark);
+  border-right: var(--spinner-ring-border-main) solid var(--rds-primary-dark);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   position: relative;
@@ -466,7 +466,7 @@
   &::after {
     content: "";
     position: absolute;
-    border: var(--spinner-ring-border-pseudo) solid #6c2bd9;
+    border: var(--spinner-ring-border-pseudo) solid var(--rds-primary-dark);
     border-radius: 50%;
     left: 50%;
     top: 50%;

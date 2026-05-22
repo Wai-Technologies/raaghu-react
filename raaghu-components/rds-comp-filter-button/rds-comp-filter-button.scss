@@ -104,7 +104,7 @@
   .rds-filter-button__header {
     padding: var(--rds-spacing-md, 16px);
     border-bottom: none;
-    background-color: #fff;
+    background-color: var(--rds-neutral-0);
     flex-shrink: 0;
     position: relative;
   }
@@ -116,7 +116,7 @@
     left: var(--rds-spacing-md, 16px);
     right: var(--rds-spacing-md, 16px);
     height: 1px;
-    background: #f0f0f0;
+    background: var(--rds-border-light);
   }
   
   .rds-filter-button__search {

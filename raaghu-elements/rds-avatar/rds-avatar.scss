@@ -226,7 +226,7 @@
   &--light {
     .rds-avatar__ring { border-color: var(--rds-color-light, #e0e0e0); }
     .rds-avatar__dot { background: var(--rds-color-light, #e0e0e0); }
-    .MuiAvatar-root { background-color: var(--rds-color-light, #e0e0e0) !important; color: #333 !important; }
+    .MuiAvatar-root { background-color: var(--rds-color-light, #e0e0e0) !important; color: var(--rds-text-primary) !important; }
   }
   &--dark {
     .rds-avatar__ring { border-color: var(--rds-color-dark, #22223b); }

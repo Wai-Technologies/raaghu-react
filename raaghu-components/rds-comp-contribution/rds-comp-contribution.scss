@@ -50,7 +50,7 @@
     }
     
     &--week {
-      fill: #666;
+      fill: var(--rds-text-secondary);
       font-size: var(--rds-font-size-sm);
       text-anchor: end;
       letter-spacing: -0.01em;

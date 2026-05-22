@@ -1,11 +1,11 @@
 import { createTheme } from '@mui/material/styles';
-import { typographyTokens, shadowTokens, breakpointTokens } from '../../tokens/design-tokens';
+import { typographyTokens, shadowTokens, breakpointTokens, radiusTokens } from '../../tokens/design-tokens';
 import { designSystemComponentOverrides } from './overrides';
 import { lightMuiPalette } from './palette';
 
 /**
  * Light MUI theme — palette uses resolved hex from design-tokens.ts (required for MUI color math).
- * Runtime --rds-* CSS vars are injected separately for RDS SCSS via injectTokens().
+ * Palette uses runtime CSS vars injected by injectTokens() — see tokens/build-rds-css-vars.ts
  */
 export const lightTheme = createTheme({
   breakpoints: {
@@ -39,7 +39,8 @@ export const lightTheme = createTheme({
   },
 
   shape: {
-    borderRadius: 4,
+    // radiusTokens.base = '0.25rem' = 4px — matches --rds-border-radius-sm in build-rds-css-vars.ts
+    borderRadius: parseFloat(radiusTokens.base) * 16,
   },
 
   shadows: [

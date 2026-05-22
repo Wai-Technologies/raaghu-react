@@ -7,6 +7,7 @@ import {
   getRaaghuThemeMode,
   initializeRaaghuTheme,
   type RaaghuThemeMode,
+  type RdsBrandOverrides,
 } from './theme-utils';
 
 export interface RaaghuThemeProviderProps {
@@ -18,6 +19,16 @@ export interface RaaghuThemeProviderProps {
   /** When true, reads localStorage / prefers-color-scheme on mount */
   initializeOnMount?: boolean;
   onModeChange?: (mode: RaaghuThemeMode) => void;
+  /**
+   * Optional white-label / brand overrides applied on top of the base token set.
+   * Keys must be valid `--rds-*` CSS variable names.
+   *
+   * @example
+   * <RaaghuThemeProvider brandOverrides={{ '--rds-primary-main': '#FF6600' }}>
+   *   <App />
+   * </RaaghuThemeProvider>
+   */
+  brandOverrides?: RdsBrandOverrides;
 }
 
 /**
@@ -39,6 +50,7 @@ export function RaaghuThemeProvider({
   defaultMode = 'light',
   initializeOnMount = true,
   onModeChange,
+  brandOverrides,
 }: Readonly<RaaghuThemeProviderProps>) {
   const [internalMode, setInternalMode] = useState<RaaghuThemeMode>(defaultMode);
   const mode = controlledMode ?? internalMode;
@@ -50,9 +62,9 @@ export function RaaghuThemeProvider({
   }, [initializeOnMount, controlledMode]);
 
   useEffect(() => {
-    applyRaaghuTheme(mode);
+    applyRaaghuTheme(mode, brandOverrides);
     onModeChange?.(mode);
-  }, [mode, onModeChange]);
+  }, [mode, onModeChange, brandOverrides]);
 
   const muiTheme = useMemo(() => (mode === 'dark' ? darkTheme : lightTheme), [mode]);
 
@@ -61,10 +73,10 @@ export function RaaghuThemeProvider({
       if (controlledMode === undefined) {
         setInternalMode(next);
       }
-      applyRaaghuTheme(next);
+      applyRaaghuTheme(next, brandOverrides);
       onModeChange?.(next);
     },
-    [controlledMode, onModeChange],
+    [controlledMode, onModeChange, brandOverrides],
   );
 
   const contextValue = useMemo(

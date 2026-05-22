@@ -255,7 +255,7 @@
       position: relative;
       
       &::before {
-        content: '•';
+        content: 'ï¿½';
         position: absolute;
         left: 6px;
         color: var(--rds-color-primary, #9751F2);
@@ -550,7 +550,7 @@
     position: relative;
     background: linear-gradient(
       to right,
-      #fff 0%, #fff 100%
+      var(--rds-neutral-0) 0%, var(--rds-neutral-0) 100%
     );
     border-radius: var(--rds-border-radius, 4px);
     border: 1px solid var(--rds-color-outline, #e0e0e0);

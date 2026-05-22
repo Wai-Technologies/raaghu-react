@@ -37,8 +37,8 @@
     width: 12px;
     height: 12px;
     background:
-      linear-gradient(135deg, transparent 50%, #c8c8c8 50%) 0 0/6px 6px no-repeat,
-      linear-gradient(135deg, transparent 50%, #c8c8c8 50%) 6px 6px/6px 6px no-repeat;
+      linear-gradient(135deg, transparent 50%, var(--rds-border-light) 50%) 0 0/6px 6px no-repeat,
+      linear-gradient(135deg, transparent 50%, var(--rds-border-light) 50%) 6px 6px/6px 6px no-repeat;
     pointer-events: none;
   }
 }
@@ -55,7 +55,7 @@
     transition: background-color 0.15s ease, border-color 0.15s ease;
     
     .rds-comp-text-editor--disabled & {
-      background-color: #e0e0e0;
+      background-color: var(--rds-surface-subtle);
       opacity: 1;
       cursor: not-allowed;
     }
@@ -77,8 +77,8 @@
       transition: color 0.15s ease, background-color 0.15s ease;
       
       .rds-comp-text-editor--disabled & {
-        background-color: #e0e0e0;
-        border-color: #e0e0e0;
+        background-color: var(--rds-surface-subtle);
+        border-color: var(--rds-border-default);
         cursor: not-allowed;
       }
       
@@ -94,8 +94,8 @@
     
     .rdw-dropdown-wrapper {
       .rds-comp-text-editor--disabled & {
-        background-color: #e0e0e0;
-        border-color: #d0d0d0;
+        background-color: var(--rds-surface-subtle);
+        border-color: var(--rds-border-light);
         cursor: not-allowed;
       }
     }
@@ -107,7 +107,7 @@
         color: var(--rds-color-on-surface, #212529);
         border: 1px solid var(--rds-color-border, #ccc);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        z-index: var(--rds-z-index-modal, 500);
+        z-index: var(--rds-z-index-modal, 1400);
         
         .rdw-image-modal-header-option {
           color: var(--rds-color-on-surface, #212529);
@@ -149,14 +149,14 @@
     overflow: auto;
     
     .rds-comp-text-editor--selected & .public-DraftEditorPlaceholder-root {
-      color: #000000;
+      color: var(--rds-neutral-900);
       
 
     }
     
     .rds-comp-text-editor--disabled & {
-      background-color: #e0e0e0;
-      color: #6c757d;
+      background-color: var(--rds-surface-subtle);
+      color: var(--rds-text-secondary);
       cursor: not-allowed;
       opacity: 1;
     }
@@ -217,7 +217,7 @@
 }
 
 .rdw-link-modal-input,.rdw-image-modal-size-input,.rdw-image-modal-alt-input{
-  border: 1px solid #cdc8c8 !important;
+  border: 1px solid var(--rds-border-light) !important;
 }
 @media (max-width: var(--rds-breakpoint-430)) {
   .rds-comp-text-editor {
@@ -256,7 +256,7 @@
       max-width: 320px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       border: 1px solid var(--rds-color-border, #ccc);
-      z-index: var(--rds-z-index-modal, 500);
+      z-index: var(--rds-z-index-modal, 1400);
     }
   }
 }

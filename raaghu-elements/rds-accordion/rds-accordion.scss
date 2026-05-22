@@ -60,7 +60,7 @@
 .rds-accordion__container {
   --rds-accordion-container-radius: 4px;
   --rds-accordion-container-gap-bottom: calc(1.75 * var(--rds-spacing-xs, 4px));
-  --rds-accordion-item-divider-color: #dee2e6;
+  --rds-accordion-item-divider-color: var(--rds-border-light);
   border: 1px solid var(--rds-border-default, #7D7D7D);
   background: var(--rds-color-surface, #fff);
   border-radius: var(--rds-accordion-container-radius, 4px);

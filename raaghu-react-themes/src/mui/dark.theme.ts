@@ -39,7 +39,8 @@ export const darkTheme = createTheme({
   },
 
   shape: {
-    borderRadius: parseInt(radiusTokens.base, 10),
+    // radiusTokens.base = '0.25rem' = 4px — matches --rds-border-radius-sm in build-rds-css-vars.ts
+    borderRadius: parseFloat(radiusTokens.base) * 16,
   },
 
   shadows: [

@@ -4,9 +4,17 @@
  * Storybook, chart-utils, and client applications.
  */
 
-import { injectTokens } from '../../tokens/build-rds-css-vars';
+import { injectTokens, type RdsBrandOverrides } from '../../tokens/build-rds-css-vars';
 
-export type RaaghuThemeMode = 'light' | 'dark' | 'semi-dark';
+/**
+ * Supported theme modes for the Raaghu Design System.
+ *
+ * Note: `'semi-dark'` was previously accepted but is not implemented.
+ * Only `'light'` and `'dark'` are supported.
+ */
+export type RaaghuThemeMode = 'light' | 'dark';
+
+export { type RdsBrandOverrides };
 
 export const THEME_STORAGE_KEY = 'raaghu-theme';
 
@@ -38,8 +46,11 @@ export function isDarkMode(): boolean {
 
 /**
  * Applies theme to the DOM so runtime --rds-* tokens and MUI stay in sync.
+ *
+ * @param mode - Theme mode. Only `'light'` and `'dark'` are supported.
+ * @param overrides - Optional brand overrides applied on top of the base token set.
  */
-export function applyRaaghuTheme(mode: RaaghuThemeMode): void {
+export function applyRaaghuTheme(mode: RaaghuThemeMode, overrides?: RdsBrandOverrides): void {
   if (typeof document === 'undefined') return;
 
   const isDark = mode === 'dark';
@@ -62,13 +73,13 @@ export function applyRaaghuTheme(mode: RaaghuThemeMode): void {
     localStorage.setItem(THEME_STORAGE_KEY, mode);
   }
 
-  injectTokens(mode);
+  injectTokens(mode, overrides);
 }
 
 export function getRaaghuThemeMode(): RaaghuThemeMode {
   if (typeof document === 'undefined') return 'light';
   const htmlTheme = document.documentElement.getAttribute('data-theme');
-  if (htmlTheme === 'dark' || htmlTheme === 'semi-dark' || htmlTheme === 'light') {
+  if (htmlTheme === 'dark' || htmlTheme === 'light') {
     return htmlTheme;
   }
   return isDarkMode() ? 'dark' : 'light';
@@ -88,8 +99,8 @@ export function initializeRaaghuTheme(): RaaghuThemeMode {
     window.matchMedia?.('(prefers-color-scheme: dark)')?.matches;
 
   const mode: RaaghuThemeMode =
-    stored === 'dark' || stored === 'semi-dark'
-      ? stored
+    stored === 'dark'
+      ? 'dark'
       : stored === 'light'
         ? 'light'
         : prefersDark

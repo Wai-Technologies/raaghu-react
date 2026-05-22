@@ -228,7 +228,7 @@
     position: absolute;
     top: 85%;
     right: 8px;
-    z-index: var(--rds-z-index-dropdown, 100);
+    z-index: var(--rds-z-index-dropdown, 1000);
     background: var(--rds-color-surface, white);
     border-radius: var(--rds-border-radius-sm, 6px);
     padding: var(--rds-spacing-lg, 16px) var(--rds-spacing-md, 12px);
@@ -255,7 +255,7 @@
     position: absolute;
     top: 85%;
     right: 250px;
-    z-index: var(--rds-z-index-dropdown, 100);
+    z-index: var(--rds-z-index-dropdown, 1000);
     background: var(--rds-color-surface, white);
     border-radius: var(--rds-border-radius, 8px);
     padding: var(--rds-spacing-xl, 20px);

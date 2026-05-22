@@ -74,7 +74,7 @@
     :root[data-theme='dark'] &,
     [data-theme='dark'] & {
         .card {
-            background-color: #424242;
+            background-color: var(--rds-surface-subtle);
             border-color: rgba(255,255,255,0.08);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             border-radius: var(--rds-border-radius-sm);
@@ -191,16 +191,16 @@
         span.MuiRating-icon.MuiRating-iconFilled,
         label.MuiRating-label .MuiRating-iconFilled,
         .MuiRating-decimal .MuiRating-iconFilled {
-            color: #2196f3 !important;
+            color: var(--rds-primary-main) !important;
             
             svg {
-                color: #2196f3 !important;
-                fill: #2196f3 !important;
+                color: var(--rds-primary-main) !important;
+                fill: var(--rds-primary-main) !important;
             }
         }
         
         .MuiRating-root {
-            color: #2196f3 !important;
+            color: var(--rds-primary-main) !important;
             
             svg {
                 color: inherit !important;

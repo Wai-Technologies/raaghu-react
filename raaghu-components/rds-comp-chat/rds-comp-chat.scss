@@ -1,4 +1,4 @@
-@media (max-width: var(--rds-breakpoint-tablet-sm)) {
+﻿@media (max-width: var(--rds-breakpoint-tablet-sm)) {
   .rds-comp-chat__window-header-title--mobile {
     .rds-avatar {
       width: 32px !important;
@@ -58,7 +58,7 @@
 }
 
 .rds-comp-chat {
-  border: 1px solid #646464;
+  border: 1px solid var(--rds-border-default);
   border-radius: var(--rds-border-radius, 5px);
   display: flex;
   flex-direction: column;
@@ -331,7 +331,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: var(--rds-z-index-modal, 1000);
+    z-index: var(--rds-z-index-modal, 1400);
 
     button {
       margin-top: var(--rds-spacing-xs, 10px);
@@ -358,7 +358,7 @@
 
   &__emoji-popup {
     position: absolute;
-    z-index: var(--rds-z-index-tooltip, 1000);
+    z-index: var(--rds-z-index-tooltip, 1800);
     bottom: 100%;
     left: 0;
     margin-bottom: var(--rds-spacing-sm);
@@ -1082,17 +1082,17 @@
 
 [data-theme="dark"] {
   .rds-comp-chat__input-wrapper {
-    background: #000 !important;
+    background: var(--rds-neutral-900) !important;
   }
 
   .rds-comp-chat__screen-main .rds-comp-chat__user-item {
     &:hover {
-      background-color: #1E5FC7 !important;
+      background-color: var(--rds-primary-main) !important;
       color: white !important;
     }
 
     &--selected {
-      background-color: #1E5FC7 !important;
+      background-color: var(--rds-primary-main) !important;
       color: white !important;
     }
   }

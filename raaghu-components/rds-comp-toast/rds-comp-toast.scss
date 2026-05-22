@@ -145,7 +145,7 @@
     }
 
     .rds-comp-toast--basic & {
-      --rds-toast-circle-color: #888;
+      --rds-toast-circle-color: var(--rds-text-secondary);
     }
     .rds-comp-toast--info & {
       --rds-toast-circle-color: var(--rds-color-info, #7D7D7D);
@@ -182,7 +182,7 @@
     }
 
     .rds-comp-toast--basic & {
-      --rds-toast-plus-color: #888;
+      --rds-toast-plus-color: var(--rds-text-secondary);
     }
     .rds-comp-toast--info & {
       --rds-toast-plus-color: var(--rds-color-info, #7D7D7D);

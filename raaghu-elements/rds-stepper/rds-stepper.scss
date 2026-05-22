@@ -19,12 +19,12 @@ $rds-stepper-breakpoint-sm: 420px;
   .rds-stepper {
     .MuiStepLabel-iconContainer .MuiStepIcon-root .MuiStepIcon-text {
       color: var(--rds-neutral-0, #fff) !important;
-      fill: #fff !important;
+      fill: var(--rds-neutral-0) !important;
     }
     
     .MuiStepLabel-iconContainer .MuiStepIcon-root svg path {
-      fill: #fff !important;
-      stroke: #fff !important;
+      fill: var(--rds-neutral-0) !important;
+      stroke: var(--rds-neutral-0) !important;
     }
   }
 }

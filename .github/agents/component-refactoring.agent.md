@@ -1,547 +1,462 @@
-﻿---
+---
 name: component-refactoring
-description: "Enterprise Design System Refactoring Platform for Raaghu React. Audits and refactors components to use centralized design tokens covering colors, spacing, typography, breakpoints, MUI sx props, shadows, z-index, and transitions. Detects duplicate styles, scores token coverage, generates dependency graphs, and enforces lint rules to prevent future regressions. Single source of truth enables application-wide updates from one file."
-version: 2.0
+description: "Enterprise Design System Refactoring Agent for Raaghu React. Audits and refactors components to use centralized design tokens. Pipeline: design-tokens.ts -> build-rds-css-vars.ts -> injectTokens() -> --rds-* CSS vars -> SCSS + MUI palette."
+version: 3.0
 category: component-modernization
 applyTo: []
 ---
 
-# Component Refactoring Agent v2.0
+# Component Refactoring Agent v3.0
 ## Enterprise Design System Refactoring Platform
 
-## Purpose
+---
 
-Fully audit and refactor Raaghu React components to use centralized design tokens covering:
+## ARCHITECTURE (read this first - do not assume old file structure)
 
-- **Colors** — hex/RGB/HSL -> SCSS variables + CSS custom properties
-- **Spacing** — hardcoded px/rem -> design tokens (`$spacing-*`, `--rds-spacing-*`)
-- **Typography** — hardcoded font sizes, weights, families -> typography tokens
-- **Breakpoints** — hardcoded `@media` queries -> `$breakpoint-*` tokens
-- **MUI `sx` props** — inline styles bypassing the MUI theme -> `theme.*` accessors
-- **Shadows / z-index / transitions** — hardcoded values -> centralized tokens
-- **Duplicate styles** — repeated `sx` objects / SCSS blocks -> shared components or mixins
-- **Component variants** — custom one-off styles -> standardized `variant=` props
+The Raaghu design token pipeline works like this:
 
-This agent produces measurable output:
-- Token Coverage Report (per category, per file)
-- Design System Health Score (A-F grade)
-- Theme Dependency Graph
-- Lint rule scaffolding to prevent future regressions
+design-tokens.ts          <- human-edited source of truth (TypeScript)
+       |
+build-rds-css-vars.ts     <- pure projection, zero raw hex (TypeScript)
+       |
+injectTokens(mode)        <- sets --rds-* on document.documentElement
+       |
+       +---> SCSS files   <- consume var(--rds-*)
+       +---> MUI palette  <- palette entries use var(--rds-*) strings
+       +---> brandOverrides <- applied on top for white-labeling
 
-## What This Agent Does
+## ACTUAL SOURCE OF TRUTH FILES
 
-When invoked with a component name, the agent:
+| File | Purpose |
+|---|---|
+| `raaghu-react-themes/tokens/design-tokens.ts` | All token values - edit here only |
+| `raaghu-react-themes/tokens/build-rds-css-vars.ts` | Injects --rds-* vars at runtime |
+| `raaghu-react-themes/src/provider/RaaghuThemeProvider.tsx` | React provider |
+| `raaghu-react-themes/src/provider/theme-utils.ts` | applyRaaghuTheme(), RaaghuThemeMode type |
+| `raaghu-react-themes/src/mui/light.theme.ts` | MUI light theme |
+| `raaghu-react-themes/src/mui/dark.theme.ts` | MUI dark theme |
+| `raaghu-react-themes/src/mui/overrides.ts` | MUI component overrides |
+| `scripts/check-hex-in-scss.sh` | CI hex gate script |
+| `scripts/hex-baseline.txt` | Current allowed hex count |
 
-1. **Locates** all files for the component (TSX, SCSS, test files)
-2. **Audits** hardcoded values across all 8 style categories
-3. **Detects** MUI `sx` props that bypass theme tokens
-4. **Detects** duplicate style blocks across the codebase
-5. **Detects** components that should use standardized variants instead of custom styles
-6. **Applies** refactoring using SCSS variables, CSS custom properties, and MUI theme accessors
-7. **Scores** token coverage before and after (per category + overall grade)
-8. **Validates** the changes compile and pass tests
-9. **Reports** the Theme Dependency Graph impact
-10. **Creates** a git commit with full before/after metrics
-
-## Usage
-
-```
-@github.copilot /refactor-component rds-button
-@github.copilot /refactor-component rds-comp-data-grid
-@github.copilot /refactor-component rds-card
-```
+DO NOT reference or look for:
+- raaghu-react-theme.scss (removed)
+- custom-properties.scss (removed)
+- color-variables.scss (removed)
+- _tokens.scss (removed)
+- css-vars/light-vars.scss (removed)
 
 ---
 
 ## STRICT SAFETY RULES (NEVER VIOLATE)
 
-> These rules prevent codebase corruption. Violating them has previously caused broken builds and SCSS syntax errors.
-
-1. **NEVER modify `*.stories.tsx` files** — Story files are managed separately by the development team.
-2. **NEVER run bulk regex replacements via shell scripts** — No PowerShell, sed, awk, or scripted mass-replace on SCSS files. Use only targeted, line-specific file edits.
-3. **NEVER inject non-SCSS code into `.scss` files** — PowerShell blocks (`param($m)`, `$var = switch(...)`) in SCSS files corrupt the build.
-4. **NEVER use `Nvar()` syntax** — `6var(--token)` is invalid CSS. Use `calc(N * var(--token))`.
-5. **NEVER leave `var()` with empty parentheses** — Always include the token name: `var(--rds-primary-main)`.
-6. **Always use targeted, line-specific edits** — Replace one block at a time, include 3+ lines of context before/after.
-7. **Validate each change before moving to the next file** — Check SCSS compiles cleanly after every edit.
-
----
-
-## Step-by-Step Process
-
-### Step 1: Component Discovery
-
-- Search for component in `raaghu-elements/` and `raaghu-components/`
-- Identify all related files: `.tsx`, `.scss`, `.test.tsx`
-- List every file that will be modified before making any changes
+1. NEVER modify *.stories.tsx files
+2. NEVER run bulk regex via shell scripts (no PowerShell sed/awk mass replace)
+3. NEVER inject non-SCSS code into .scss files
+4. NEVER use Nvar() syntax - use calc(N * var(--token))
+5. NEVER leave var() with empty parentheses
+6. NEVER add raw hex inside build-rds-css-vars.ts - if a color is needed, add it to design-tokens.ts first
+7. Always use targeted line-specific edits with 3+ lines context
+8. Validate after every file - not at the end of a batch
+9. NEVER replace var(--rds-*, #fallback) - the fallback hex is intentional
 
 ---
 
-### Step 2: Full-Spectrum Hardcoded Value Audit
+## Usage
 
-Run all detection scans and report counts per category:
+@github-copilot refactor rds-button
+@github-copilot refactor rds-comp-data-grid
+@github-copilot refactor rds-badge
 
-#### 2a. Colors (SCSS + TSX)
+---
 
-Patterns to detect:
-- `#[0-9a-fA-F]{3,8}` — hex colors
-- `rgb\(` — rgb() colors
-- `rgba\(` — rgba() colors
-- `hsl\(` / `hsla\(` — hsl colors
+## Step 1: Component Discovery
 
-Report: N hardcoded color values found in X files
+Search in raaghu-elements/ and raaghu-components/
+List all related files: .tsx, .scss, .test.tsx
+DO NOT list *.stories.tsx - they will not be modified
 
-#### 2b. Spacing (SCSS + TSX)
+---
 
-Patterns to detect (NOT already using var()):
-- `padding:\s*\d+px` — direct pixel padding
-- `margin:\s*\d+px` — direct pixel margin
-- `gap:\s*\d+px` — direct pixel gap
-- `\d+(\.\d+)?rem` — non-token rem values
+## Step 2: Full Audit - All 8 Categories
+
+### 2a. Colors
+
+Scan for bare hex NOT inside var():
+  Pattern: #[0-9a-fA-F]{3,8}
+  Exclude: lines matching var(--rds-*, #hex) - those are valid fallbacks
+  Exclude: lines starting with // or /* (comments)
+
+Also scan for bare rgba() not inside var():
+  Pattern: rgba\(\d
+
+Report: N bare hex, M bare rgba found
+
+### 2b. Spacing
+
+Scan for hardcoded px NOT already using var(--rds-spacing-*):
+  padding:\s*\d+px
+  margin:\s*\d+px
+  gap:\s*\d+px
+  width:\s*\d+px (fixed widths only, not percentages)
 
 Report: N hardcoded spacing values found
 
-#### 2c. Typography
+### 2c. Typography
 
-Patterns to detect:
-- `font-size:\s*\d` — hardcoded font size
-- `font-weight:\s*[4-9]\d\d` — hardcoded numeric weight
-- `font-family:[^;$v]` — hardcoded font family string
-- `line-height:\s*\d` — hardcoded line height
-- `letter-spacing:\s*[\d.]` — hardcoded letter spacing
+Scan for:
+  font-size:\s*\d+px  (not using var(--rds-font-size-*))
+  font-weight:\s*[4-9]\d\d  (not using var(--rds-font-weight-*))
+  font-family:[^v;] (not using var(--rds-font-family-*))
 
 Report: N hardcoded typography values found
 
-#### 2d. Breakpoints
+### 2d. Breakpoints
 
-Patterns to detect:
-- `@media.*max-width:\s*\d+px` — hardcoded max-width breakpoint
-- `@media.*min-width:\s*\d+px` — hardcoded min-width breakpoint
+Scan for:
+  @media.*max-width:\s*\d+px  (not using var(--rds-breakpoint-*))
+  @media.*min-width:\s*\d+px
 
 Report: N hardcoded breakpoints found
 
-#### 2e. MUI sx Props Bypassing Theme
+### 2e. MUI sx Props
 
-Patterns to detect in TSX files:
-- `sx={{...color: "#` — hardcoded color in sx
-- `sx={{...backgroundColor: "#` — hardcoded bg in sx
-- `sx={{...borderRadius: "\d` — hardcoded radius string in sx
-- `sx={{...fontSize: "\d` — hardcoded font size string in sx
-- `sx={{...fontWeight: \d` — hardcoded numeric weight in sx
-- `sx={{...boxShadow: "` — hardcoded shadow string in sx
-- `sx={{...zIndex: \d` — hardcoded z-index number in sx
+Scan .tsx files for sx props with literal values:
+  sx={{.*color.*"#    <- hardcoded hex color
+  sx={{.*fontSize.*"  <- hardcoded font size string
+  sx={{.*fontWeight.*\d  <- hardcoded numeric weight
+  sx={{.*borderRadius.*"  <- hardcoded radius
+  sx={{.*boxShadow.*"  <- hardcoded shadow string
+  sx={{.*zIndex.*\d   <- hardcoded z-index number
 
-Report: N sx props bypassing theme found
+Report: N sx props bypassing theme tokens
 
-#### 2f. Shadows, z-index, Transitions
+### 2f. Shadows / z-index / Transitions
 
-Patterns to detect:
-- `box-shadow:\s*\d` — hardcoded shadow (not a variable)
-- `z-index:\s*\d+` — hardcoded z-index
-- `transition:[^$v]` — transition not using a token variable
+Scan for:
+  box-shadow:\s*\d  (not var(--rds-elevation-*))
+  z-index:\s*\d+    (not var(--rds-z-index-*))
 
-#### 2g. Duplicate Style Blocks
+  ALSO CHECK: z-index values in range 100-700
+  (old scale - should be 1000+ in new scale)
 
-Strategy:
-- Collect all sx={{ ... }} object literals from TSX files across the codebase
-- Collect repeated SCSS class blocks (same property+value combos in 3+ files)
-- Flag any sx object or SCSS block appearing in 3 or more places
+Report: N hardcoded shadows, M hardcoded z-index values
+Flag any z-index below 1000 as CRITICAL
 
-Report: N duplicate style patterns found across X files  
-Suggestion: extract to shared component or SCSS mixin
+### 2g. Legacy Variable Check (CRITICAL)
 
-#### 2h. Non-Standardized Component Variants
+Scan for any --txt-* variable usage:
+  var(--txt-
 
-Strategy:
-- Find Button/Badge/Alert/Card with inline overrides instead of variant prop
-- Flag: `<Button style={{color:'#d32f2f'}}>` where `variant="danger"` should be used
-- Flag: `<Card sx={{p:2, borderRadius:2}}>` that duplicates default RdsCard styling
+Expected: 0 results
+If found: CRITICAL - these vars are never injected
+Flag: replace with --rds-text-primary / --rds-text-secondary
 
-Report: N variant standardization opportunities found
+### 2h. Missing Injected Vars Check
+
+For any var(--rds-*) used in the component SCSS,
+verify the variable name exists in build-rds-css-vars.ts.
+
+If a var(--rds-xyz) is used but not injected:
+  Flag as: UNINJECTED VAR - will silently fall back to browser default
+
+### 2i. Duplicate Style Check
+
+Collect sx={{...}} object literals from the component TSX.
+Check if the same object appears in 3+ other files.
+If yes: flag for extraction to shared component or hook.
 
 ---
 
-### Step 3: Token Coverage Score (Before)
-
-Calculate and display the pre-refactoring score:
+## Step 3: Token Coverage Score (Before)
 
 ```
 TOKEN COVERAGE REPORT - BEFORE
-Component: <component-name>
+Component: <name>
 
-  Colors:      [X]%   ([tokenized] / [total] values)
-  Spacing:     [X]%
-  Typography:  [X]%
-  Breakpoints: [X]%
-  MUI sx:      [X]%   ([compliant props] / [total sx props])
-  Shadows:     [X]%
-  Transitions: [X]%
-  z-index:     [X]%
+  Colors:      X%  (tokenized / total bare values)
+  Spacing:     X%
+  Typography:  X%
+  Breakpoints: X%
+  MUI sx:      X%
+  Shadows:     X%
+  z-index:     X%
+  Legacy vars: PASS / FAIL (--txt-* found or not)
+  Missing vars: N vars used but not injected
 
-  Overall:     [weighted avg]%
-
-DESIGN SYSTEM HEALTH SCORE
-  Centralization:      [X]%
-  Hardcoded Styles:    [X]%
-  Theme Compliance:    [X]%
-  MUI Compliance:      [X]%
-  Responsive Tokens:   [X]%
-
-  Overall Grade: [A+/A/A-/B+/B/B-/C/D/F]
+  Overall: X%
+  Grade: [A+/A/A-/B+/B/B-/C/D/F]
 ```
 
-Grading scale:
-
-| Score   | Grade |
-|---------|-------|
-| 95-100% | A+    |
-| 90-94%  | A     |
-| 85-89%  | A-    |
-| 80-84%  | B+    |
-| 75-79%  | B     |
-| 70-74%  | B-    |
-| 60-69%  | C     |
-| 50-59%  | D     |
-| < 50%   | F     |
+Grading:
+  95-100% = A+
+  90-94%  = A
+  85-89%  = A-
+  80-84%  = B+
+  75-79%  = B
+  70-74%  = B-
+  60-69%  = C
+  50-59%  = D
+  < 50%   = F
 
 ---
 
-### Step 4: Refactoring Strategy
+## Step 4: Refactoring Strategy
 
-**CSS Variable First Architecture (preferred for runtime theming):**
+Primary target: CSS custom properties (runtime theming)
+Secondary: SCSS variables only if custom property not available
+Never: hardcoded values
 
-```
-raaghu-react-theme.scss     <- SCSS variables (build-time source of truth)
-         |
-custom-properties.scss      <- CSS custom properties (runtime theming, dark/light)
-         |
-MUI theme adapter            <- theme.palette / theme.spacing / theme.typography
-         |
-Components                   <- SCSS files + TSX sx props consuming all of the above
-```
+| Value type | Use this |
+|---|---|
+| Any color | var(--rds-primary-main) etc |
+| Spacing | var(--rds-spacing-sm/md/lg) |
+| Font size | var(--rds-font-size-sm/md/lg) |
+| Font weight | var(--rds-font-weight-regular/medium/bold) |
+| Border radius | var(--rds-border-radius-sm/md/lg) |
+| Shadow | var(--rds-elevation-1/2/3/4) |
+| z-index | var(--rds-z-index-dropdown/modal/tooltip) |
+| Breakpoint | var(--rds-breakpoint-sm/md/lg/xl) |
 
-This layered approach enables:
-- Build-time theming via SCSS variables
-- Runtime dark/light switching via CSS custom properties (zero rebuild)
-- MUI component consistency via the MUI theme adapter
-- User/brand customization at the CSS variable layer
-
-Identify the correct refactoring target for each hardcoded value:
-
-| Value Type    | SCSS Variable          | CSS Custom Property          | MUI Accessor                      |
-|---------------|------------------------|------------------------------|-----------------------------------|
-| Brand color   | `$primary-color`       | `var(--rds-primary-main)`    | `theme.palette.primary.main`      |
-| Background    | `$background-light`    | `var(--rds-bg-light)`        | `theme.palette.background.default`|
-| Text color    | `$text-dark`           | `var(--rds-text-dark)`       | `theme.palette.text.primary`      |
-| Spacing       | `$spacing-md`          | `var(--rds-spacing-md)`      | `theme.spacing(2)`                |
-| Font size     | `$font-size-md`        | `var(--rds-font-size-md)`    | `theme.typography.body1.fontSize` |
-| Font weight   | `$font-weight-medium`  | `var(--rds-font-weight-med)` | `theme.typography.fontWeightMedium`|
-| Border radius | `$border-radius-md`    | `var(--rds-border-radius-md)`| `theme.shape.borderRadius`        |
-| Shadow        | `$elevation-2`         | `var(--rds-elevation-2)`     | `theme.shadows[2]`                |
-| z-index       | `$z-index-modal`       | `var(--rds-z-index-modal)`   | `theme.zIndex.modal`              |
-| Breakpoint    | `$breakpoint-md`       | —                            | `theme.breakpoints.down("md")`    |
+If no --rds-* var exists for a value:
+  1. Add token to design-tokens.ts
+  2. Add injection in build-rds-css-vars.ts
+  3. THEN use var(--rds-new-token) in the component
+  NEVER hardcode the value directly in the component
 
 ---
 
-### Step 5: Apply Changes
+## Step 5: Apply Changes
 
-#### 5a. SCSS File - Colors
-
+### SCSS Colors
 ```scss
-// Before
-background-color: #1976d2;
+/* Before */
+background-color: #3C98FF;
 color: #424242;
-border-color: rgba(0,0,0,0.12);
+border: 1px solid rgba(0,0,0,0.12);
 
-// After
-background-color: $primary-color;
-color: $text-dark;
-border-color: $border-light;
+/* After */
+background-color: var(--rds-primary-main);
+color: var(--rds-text-primary);
+border: 1px solid var(--rds-border-default);
 ```
 
-#### 5b. SCSS File - Spacing
-
+### SCSS Spacing
 ```scss
-// Before
+/* Before */
 padding: 16px;
 margin: 8px 16px;
 gap: 4px;
 
-// After
-padding: $spacing-md;
-margin: $spacing-sm $spacing-md;
-gap: $spacing-xs;
+/* After */
+padding: var(--rds-spacing-md);
+margin: var(--rds-spacing-sm) var(--rds-spacing-md);
+gap: var(--rds-spacing-xs);
 ```
 
-#### 5c. SCSS File - Typography
-
+### SCSS Typography
 ```scss
-// Before
+/* Before */
 font-size: 14px;
 font-weight: 500;
-font-family: "Roboto", sans-serif;
-line-height: 1.5;
-letter-spacing: 0.02em;
 
-// After
-font-size: $font-size-md;
-font-weight: $font-weight-medium;
-font-family: $font-family-base;
-line-height: $line-height-base;
-letter-spacing: $letter-spacing-normal;
+/* After */
+font-size: var(--rds-font-size-md);
+font-weight: var(--rds-font-weight-medium);
 ```
 
-#### 5d. SCSS File - Breakpoints
-
+### SCSS Breakpoints
 ```scss
-// Before
+/* Before */
 @media (max-width: 768px) { ... }
-@media (min-width: 1024px) { ... }
 
-// After
-@media (max-width: $breakpoint-md) { ... }
-@media (min-width: $breakpoint-lg) { ... }
+/* After */
+@media (max-width: var(--rds-breakpoint-md)) { ... }
 ```
 
-#### 5e. SCSS File - Shadows / z-index / Transitions
+Note: var() in @media has limited browser support in older Safari.
+If targeting older Safari, use the static px value from
+breakpointTokens as a comment reference:
+/* --rds-breakpoint-md = 900px */
+@media (max-width: 900px) { ... }
 
+### SCSS z-index
 ```scss
-// Before
-box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-z-index: 1000;
-transition: all 0.3s ease;
+/* Before - OLD SCALE */
+z-index: 500;
 
-// After
-box-shadow: $elevation-2;
-z-index: $z-index-dropdown;
-transition: $transition-base;
+/* Before - raw number */
+z-index: 1300;
+
+/* After - always use var() */
+z-index: var(--rds-z-index-modal);
 ```
 
-#### 5f. MUI sx Props - Replace All Inline Values
-
+### MUI sx Props
 ```tsx
-// Before - bypasses MUI theme entirely
+/* Before */
 <Box sx={{
-  color: "#1976d2",
+  color: "#3C98FF",
   backgroundColor: "#f5f5f5",
-  borderRadius: "8px",
   fontSize: "14px",
   fontWeight: 500,
-  boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
   zIndex: 1300
 }} />
 
-// After - uses MUI theme tokens throughout
+/* After - MUI theme tokens */
 <Box sx={{
   color: "primary.main",
   backgroundColor: "background.default",
-  p: 2,
-  borderRadius: 1,
   fontSize: "body2.fontSize",
   fontWeight: "fontWeightMedium",
-  boxShadow: 2,
   zIndex: "modal"
 }} />
 ```
 
-MUI sx shorthand token reference:
-
-| Category      | Hardcoded (before)   | MUI Token (after)           |
-|---------------|----------------------|-----------------------------|
-| Color         | `"#1976d2"`          | `"primary.main"`            |
-| Background    | `"#fff"`             | `"background.paper"`        |
-| Spacing       | `"16px"`             | `2` (theme.spacing units)   |
-| Border radius | `"8px"`              | `1` (borderRadius units)    |
-| Shadow        | `"0 2px ..."`        | `2` (theme.shadows index)   |
-| z-index       | `1300`               | `"modal"`                   |
-| Font size     | `"14px"`             | `"body2.fontSize"`          |
-| Font weight   | `500`                | `"fontWeightMedium"`        |
-
-#### 5g. Duplicate Style Consolidation
-
-When the same sx object appears in 3+ files, use the shared Raaghu component:
-
-```tsx
-// Before - same pattern in 15 files
-<Card sx={{ p: 2, borderRadius: 2, boxShadow: 1 }} />
-
-// After - use the shared component (correct defaults built in)
-<RdsCard />
-```
-
-When the same SCSS block appears in 3+ files, extract to a mixin in raaghu-react-theme.scss:
-
+### Legacy --txt-* Variables
 ```scss
-// Before - repeated in many files
-.element { display: flex; align-items: center; gap: 8px; }
+/* Before - CRITICAL, these vars are never injected */
+color: var(--txt-neutral-default);
+background: var(--txt-primary-bg);
 
-// After - shared mixin
-@mixin rds-flex-row($gap: $spacing-sm) {
-  display: flex;
-  align-items: center;
-  gap: $gap;
-}
-.element { @include rds-flex-row; }
+/* After */
+color: var(--rds-text-primary);
+background: var(--rds-surface-default);
 ```
-
-#### 5h. Component Variant Standardization
-
-```tsx
-// Before - custom one-off red styling
-<Button sx={{ backgroundColor: "#d32f2f", color: "#fff" }}>Delete</Button>
-
-// After - standardized variant
-<Button variant="danger">Delete</Button>
-```
-
-Standardized variants to enforce:
-- **Button**: `primary | secondary | outlined | danger | ghost | link`
-- **Badge**: `default | primary | success | warning | danger | info`
-- **Alert**: `success | warning | error | info`
-- **Card**: `default | elevated | outlined | flat`
 
 ---
 
-### Step 6: Token Coverage Score (After)
-
-Re-run the same audit and display the improvement:
+## Step 6: Token Coverage Score (After)
 
 ```
 TOKEN COVERAGE REPORT - AFTER
-Component: <component-name>
+Component: <name>
 
-                  BEFORE    AFTER     CHANGE
-  Colors:          42%  ->   100%    +58%
-  Spacing:         67%  ->   100%    +33%
-  Typography:      20%  ->    95%    +75%
-  Breakpoints:      0%  ->   100%   +100%
-  MUI sx:          15%  ->    92%    +77%
-  Shadows:         50%  ->   100%    +50%
-  Transitions:     33%  ->   100%    +67%
-  z-index:         25%  ->   100%    +75%
+              BEFORE  AFTER   CHANGE
+  Colors:      X%  ->  Y%    +Z%
+  Spacing:     X%  ->  Y%    +Z%
+  Typography:  X%  ->  Y%    +Z%
+  Breakpoints: X%  ->  Y%    +Z%
+  MUI sx:      X%  ->  Y%    +Z%
+  Shadows:     X%  ->  Y%    +Z%
+  z-index:     X%  ->  Y%    +Z%
+  Legacy vars: FAIL -> PASS
+  Missing vars: N  ->  0
 
-  Overall:         32%  ->    98%    +66%
-
-DESIGN SYSTEM HEALTH SCORE
-  Centralization:      98%   (was 32%)
-  Hardcoded Styles:     2%   (was 68%)
-  Theme Compliance:    98%
-  MUI Compliance:      92%
-  Responsive Tokens:  100%
-
-  Overall Grade: A+  (was F)
+  Overall: X% -> Y%
+  Grade: [before] -> [after]
 ```
 
 ---
 
-### Step 7: Theme Dependency Graph
+## Step 7: Theme Dependency Graph
 
-After refactoring, output the dependency chain to show propagation impact:
+Show the actual pipeline impact:
 
 ```
-THEME DEPENDENCY GRAPH
+design-tokens.ts
+       |
+build-rds-css-vars.ts
+       |
+injectTokens() -> :root { --rds-* }
+       |
+       +---> <component>.scss (just refactored)
+       |       +---> rds-comp-*.scss (dependents)
+       |
+       +---> MUI palette var(--rds-primary-main)
+               +---> MuiButton, MuiTextField, etc.
 
-raaghu-react-theme.scss
-  |-- custom-properties.scss
-        |-- rds-button.scss          <- component just refactored
-        |     |-- rds-comp-toolbar.scss
-        |     `-- rds-comp-filter-button.scss
-        |-- rds-card.scss
-        |     |-- rds-comp-kanban-board.scss
-        |     `-- rds-comp-grid.scss
-        `-- rds-input.scss
-              `-- rds-comp-data-grid.scss
-
-Impact: Changing $primary-color in raaghu-react-theme.scss
-        now propagates to 7 dependent components automatically.
+Impact: changing colorTokens.primary[700] in design-tokens.ts
+now propagates to this component automatically.
 ```
-
-To build this graph:
-1. Read every `.scss` file`s `@import` / `@use` statements
-2. Build a directed graph: `theme.scss -> element.scss -> composite.scss`
-3. For the refactored component, show its position and all downstream dependents
 
 ---
 
-### Step 8: Validation
+## Step 8: Validation
 
-After all changes, confirm every item below passes:
+After all changes confirm:
 
-- No SCSS syntax errors — file compiles cleanly (bun run tsc --noEmit)
-- No hardcoded hex colors — grep: 0 matches for `#[0-9a-fA-F]{3,8}`
-- No hardcoded px spacing — spacing properties use `$spacing-*` or `var(--rds-spacing-*)`
-- No hardcoded typography — `font-size` and `font-weight` use variables
-- No hardcoded breakpoints — all `@media` queries use `$breakpoint-*`
-- No sx props with literal colors — grep: 0 matches for `sx.*color.*#`
-- Token coverage >= 95% per category
-- Design System Health Grade >= A-
-- Visual appearance unchanged
+1. TypeScript compiles:
+   tsc --noEmit
+   Expected: zero errors
+
+2. Zero bare hex in modified files:
+   grep -n '#[0-9a-fA-F]\{3,8\}' <component>.scss \
+   | grep -v 'var(--rds'
+   Expected: 0 results
+
+3. Zero legacy --txt-* vars:
+   grep -n 'var(--txt-' <component>.scss
+   Expected: 0 results
+
+4. Zero old z-index scale values:
+   grep -n 'z-index:' <component>.scss \
+   | grep -v 'var(--rds' \
+   | grep -E '[1-9][0-9]{2}$'
+   Expected: 0 results (no values below 1000)
+
+5. All var(--rds-*) used are actually injected:
+   For each var(--rds-xyz) in the component,
+   confirm --rds-xyz exists in build-rds-css-vars.ts
+
+6. CI hex gate still passes:
+   bash scripts/check-hex-in-scss.sh
+   Expected: exits 0
 
 ---
 
-### Step 9: Testing
+## Step 9: Testing
 
-```bash
-bun run tsc --noEmit
+tsc --noEmit
 npm run test -- <component-name> --watch=false
-npm run build
-```
 
 ---
 
-### Step 10: Story Updates (SKIPPED - DO NOT MODIFY STORIES)
+## Step 10: Stories - DO NOT MODIFY
 
-`*.stories.tsx` files must NEVER be modified by this agent.
-Storybook story changes are handled separately by the development team.
+*.stories.tsx files must NEVER be changed by this agent.
 
 ---
 
-### Step 11: Lint Rule Scaffolding
+## Step 11: Lint Rule Scaffolding
 
-After refactoring the component, scaffold lint rules to prevent future hardcoding.
-Only add these if the project already uses the relevant tool.
+Only add if project already uses the tool.
 
-#### Stylelint (SCSS/CSS)
-
+### Stylelint - SCSS bare hex only
 ```js
 // stylelint.config.js
+// NOTE: do NOT use "color-no-hex: true" - it flags valid fallbacks
+// Use a custom regex pattern instead:
 {
   "rules": {
-    "color-no-hex": true,
     "declaration-property-value-disallowed-list": {
-      "padding":       ["/^\\d+px$/"],
-      "margin":        ["/^\\d+px$/"],
-      "gap":           ["/^\\d+px$/"],
-      "font-size":     ["/^\\d+px$/"],
-      "border-radius": ["/^\\d+px$/"]
+      "color":            ["/^#[0-9a-fA-F]/"],
+      "background-color": ["/^#[0-9a-fA-F]/"],
+      "border-color":     ["/^#[0-9a-fA-F]/"],
+      "background":       ["/^#[0-9a-fA-F]/"]
     }
   }
 }
+// This blocks bare hex assignments but not var(--rds-*, #fallback)
 ```
 
-#### ESLint (TSX - MUI sx props)
-
+### ESLint - MUI sx hardcoded values
 ```js
-// eslint.config.js
 {
   rules: {
     "no-restricted-syntax": [
       "warn",
       {
         selector: "JSXAttribute[name.name='sx'] ObjectExpression > Property[key.name='color'] > Literal[value=/^#/]",
-        message: "Use a theme.palette token string (e.g. 'primary.main') instead of a hardcoded color in sx."
+        message: "Use theme token e.g. 'primary.main' not a hex in sx"
       },
       {
         selector: "JSXAttribute[name.name='sx'] ObjectExpression > Property[key.name='backgroundColor'] > Literal[value=/^#/]",
-        message: "Use a theme.palette token string instead of a hardcoded backgroundColor in sx."
+        message: "Use theme token instead of hardcoded backgroundColor in sx"
       },
       {
-        selector: "JSXAttribute[name.name='sx'] ObjectExpression > Property[key.name='borderRadius'] > Literal[value=/px$/]",
-        message: "Use a numeric theme.shape.borderRadius multiplier instead of a px string in sx."
-      },
-      {
-        selector: "JSXAttribute[name.name='sx'] ObjectExpression > Property[key.name='fontSize'] > Literal[value=/px$/]",
-        message: "Use a typography token string (e.g. 'body2.fontSize') instead of a px string in sx."
+        selector: "JSXAttribute[name.name='sx'] ObjectExpression > Property[key.name='zIndex'] > Literal[value=/^[0-9]/]",
+        message: "Use theme.zIndex token string e.g. 'modal' instead of number"
       }
     ]
   }
@@ -550,194 +465,169 @@ Only add these if the project already uses the relevant tool.
 
 ---
 
-### Step 12: Commit and Report
+## Step 12: Commit Message
 
 ```
-refactor(<component-name>): migrate to centralized design tokens (v2)
+refactor(<component>): migrate to centralized design tokens (v3)
 
-TOKEN COVERAGE IMPROVEMENT:
-  Colors:      42% -> 100%  (+58%)
-  Spacing:     67% -> 100%  (+33%)
-  Typography:  20% ->  95%  (+75%)
-  Breakpoints:  0% -> 100% (+100%)
-  MUI sx:      15% ->  92%  (+77%)
-  Overall:     32% ->  98%  (+66%)
+TOKEN COVERAGE:
+  Colors:      X% -> Y%  (+Z%)
+  Spacing:     X% -> Y%  (+Z%)
+  Typography:  X% -> Y%  (+Z%)
+  Breakpoints: X% -> Y%  (+Z%)
+  MUI sx:      X% -> Y%  (+Z%)
+  Overall:     X% -> Y%  (+Z%)
+  Grade: [F] -> [A+]
 
-DESIGN SYSTEM HEALTH:
-  Before: F (32%)
-  After:  A+ (98%)
+FIXED:
+  - N bare hex -> var(--rds-*)
+  - N bare px spacing -> var(--rds-spacing-*)
+  - N MUI sx props -> theme tokens
+  - N legacy --txt-* -> --rds-text-*  (if applicable)
+  - N uninjected vars added to build-rds-css-vars.ts (if applicable)
 
-CHANGES:
-  - Replaced N hardcoded colors with $primary-color / var(--rds-*)
-  - Replaced N hardcoded spacing values with $spacing-* tokens
-  - Replaced N hardcoded typography values with $font-size-* / $font-weight-*
-  - Replaced N hardcoded @media breakpoints with $breakpoint-* tokens
-  - Refactored N MUI sx props to use theme.palette / theme.spacing
-  - Consolidated N duplicate style patterns
-  - Standardized N component variants (variant="danger" etc.)
+PIPELINE:
+  design-tokens.ts -> build-rds-css-vars.ts -> injectTokens()
+  -> --rds-* -> this component now auto-updates on token change
 
-THEME DEPENDENCY GRAPH:
-  raaghu-react-theme.scss -> custom-properties.scss -> <component>.scss
-  Downstream: N dependent composite components now auto-update
-
-ARCHITECTURE: SCSS Variables -> CSS Custom Properties -> MUI Theme -> Components
-
-FILES MODIFIED:
-  - <component>.scss
-  - <component>.tsx  (sx props and useTheme() updates only)
-  NOT MODIFIED: *.stories.tsx
-
-NO BREAKING CHANGES. Visual appearance unchanged. All tests pass.
+NOT MODIFIED: *.stories.tsx
+NO BREAKING CHANGES. Visual appearance unchanged. Tests pass.
 ```
 
 ---
 
-## Token Reference Map
+## Token Reference Map (matches actual design-tokens.ts)
 
-### Colors
+### Colors - use var(--rds-*) directly
 
-```scss
-$primary-color:    #7825E9;   -> var(--rds-primary-main)       -> theme.palette.primary.main
-$primary-light:    #9d4edd;   -> var(--rds-primary-light)      -> theme.palette.primary.light
-$primary-dark:     #5a189a;   -> var(--rds-primary-dark)       -> theme.palette.primary.dark
-$secondary-color:  #FF6B6B;   -> var(--rds-secondary-main)     -> theme.palette.secondary.main
-$background-light: #f5f5f5;   -> var(--rds-bg-light)           -> theme.palette.background.default
-$background-dark:  #1a1a1a;   -> var(--rds-bg-dark)            -> theme.palette.background.paper
-$text-dark:        #424242;   -> var(--rds-text-dark)           -> theme.palette.text.primary
-$text-light:       #ffffff;   -> var(--rds-text-light)          -> theme.palette.text.secondary
-$border-light:     #e0e0e0;   -> var(--rds-border-light)        -> theme.palette.divider
-$border-dark:      #424242;   -> var(--rds-border-dark)
-$error-color:      #d32f2f;   -> var(--rds-error-main)          -> theme.palette.error.main
-$success-color:    #388e3c;   -> var(--rds-success-main)        -> theme.palette.success.main
-$warning-color:    #f57c00;   -> var(--rds-warning-main)        -> theme.palette.warning.main
-$info-color:       #0288d1;   -> var(--rds-info-main)           -> theme.palette.info.main
+```
+var(--rds-primary-main)          <- colorTokens.primary[700]
+var(--rds-primary-light)         <- colorTokens.primary[300]
+var(--rds-primary-dark)          <- colorTokens.primary[900]
+var(--rds-secondary-main)        <- colorTokens.secondary[700]
+var(--rds-text-primary)          <- dark text
+var(--rds-text-secondary)        <- medium grey text
+var(--rds-text-disabled)         <- muted/disabled text
+var(--rds-surface-default)       <- page background
+var(--rds-surface-subtle)        <- card/panel background
+var(--rds-border-default)        <- standard border
+var(--rds-border-light)          <- subtle border/divider
+var(--rds-neutral-0)             <- pure white (#fff)
+var(--rds-neutral-900)           <- near black
+var(--rds-semantic-success-main) <- success green
+var(--rds-success-light)         <- light success background
+var(--rds-success-dark)          <- dark success text
+var(--rds-semantic-error-main)   <- error red
+var(--rds-error-light)           <- light error background
+var(--rds-error-dark)            <- dark error text
+var(--rds-semantic-warning-main) <- warning orange/yellow
+var(--rds-warning-light)         <- light warning background
+var(--rds-warning-dark)          <- dark warning text
+var(--rds-info-main)             <- info blue
+var(--rds-info-light)            <- light info background
+var(--rds-info-dark)             <- dark info text
 ```
 
 ### Spacing
-
-```scss
-$spacing-xs:   4px;  -> var(--rds-spacing-xs)   -> theme.spacing(0.5)
-$spacing-sm:   8px;  -> var(--rds-spacing-sm)   -> theme.spacing(1)
-$spacing-md:  16px;  -> var(--rds-spacing-md)   -> theme.spacing(2)
-$spacing-lg:  24px;  -> var(--rds-spacing-lg)   -> theme.spacing(3)
-$spacing-xl:  32px;  -> var(--rds-spacing-xl)   -> theme.spacing(4)
-$spacing-2xl: 48px;  -> var(--rds-spacing-2xl)  -> theme.spacing(6)
-$spacing-3xl: 64px;  -> var(--rds-spacing-3xl)  -> theme.spacing(8)
+```
+var(--rds-spacing-xs)    <- 4px
+var(--rds-spacing-sm)    <- 8px
+var(--rds-spacing-md)    <- 16px
+var(--rds-spacing-lg)    <- 24px
+var(--rds-spacing-xl)    <- 32px
+var(--rds-spacing-2xl)   <- 48px
+var(--rds-spacing-3xl)   <- 64px
 ```
 
 ### Typography
-
-```scss
-$font-family-base:       "Roboto", "Helvetica Neue", sans-serif;
-$font-size-xs:    10px;  -> var(--rds-font-size-xs)   -> theme.typography.caption.fontSize
-$font-size-sm:    12px;  -> var(--rds-font-size-sm)   -> theme.typography.body2.fontSize
-$font-size-md:    14px;  -> var(--rds-font-size-md)   -> theme.typography.body1.fontSize
-$font-size-lg:    16px;  -> var(--rds-font-size-lg)   -> theme.typography.subtitle1.fontSize
-$font-size-xl:    20px;  -> var(--rds-font-size-xl)   -> theme.typography.h5.fontSize
-$font-size-2xl:   24px;  -> var(--rds-font-size-2xl)  -> theme.typography.h4.fontSize
-
-$font-weight-regular: 400; -> var(--rds-font-weight-regular) -> theme.typography.fontWeightRegular
-$font-weight-medium:  500; -> var(--rds-font-weight-medium)  -> theme.typography.fontWeightMedium
-$font-weight-bold:    700; -> var(--rds-font-weight-bold)    -> theme.typography.fontWeightBold
-
-$line-height-base:       1.5;
-$line-height-tight:      1.25;
-$letter-spacing-normal:  0.02em;
-$letter-spacing-wide:    0.05em;
+```
+var(--rds-font-size-xs)            <- 10px
+var(--rds-font-size-sm)            <- 12px
+var(--rds-font-size-md)            <- 14px
+var(--rds-font-size-lg)            <- 16px
+var(--rds-font-size-xl)            <- 20px
+var(--rds-font-size-2xl)           <- 24px
+var(--rds-font-weight-regular)     <- 400
+var(--rds-font-weight-medium)      <- 500
+var(--rds-font-weight-bold)        <- 700
+var(--rds-font-family-base)        <- Poppins/Roboto
 ```
 
-### Breakpoints
-
-```scss
-$breakpoint-xs:    0px;
-$breakpoint-sm:  600px;   -> theme.breakpoints.down("sm")
-$breakpoint-md:  900px;   -> theme.breakpoints.down("md")
-$breakpoint-lg: 1200px;   -> theme.breakpoints.down("lg")
-$breakpoint-xl: 1536px;   -> theme.breakpoints.down("xl")
+### Elevation / Shadows
+```
+var(--rds-elevation-0)   <- none
+var(--rds-elevation-1)   <- subtle shadow
+var(--rds-elevation-2)   <- card shadow
+var(--rds-elevation-3)   <- modal shadow
+var(--rds-elevation-4)   <- overlay shadow
+var(--rds-elevation-5)   <- maximum shadow
 ```
 
-### Shadows, z-index, Transitions
-
-```scss
-$elevation-0: none;
-$elevation-1: 0 1px 3px rgba(0,0,0,0.12);    -> var(--rds-elevation-1)  -> theme.shadows[1]
-$elevation-2: 0 3px 6px rgba(0,0,0,0.16);     -> var(--rds-elevation-2)  -> theme.shadows[2]
-$elevation-3: 0 10px 20px rgba(0,0,0,0.19);   -> var(--rds-elevation-3)  -> theme.shadows[4]
-$elevation-4: 0 14px 28px rgba(0,0,0,0.25);   -> var(--rds-elevation-4)  -> theme.shadows[8]
-
-$z-index-dropdown:  1000;  -> var(--rds-z-index-dropdown) -> theme.zIndex.tooltip - 300
-$z-index-sticky:    1020;
-$z-index-modal:     1300;  -> var(--rds-z-index-modal)    -> theme.zIndex.modal
-$z-index-popover:   1400;  -> var(--rds-z-index-popover)  -> theme.zIndex.popover
-$z-index-tooltip:   1500;  -> var(--rds-z-index-tooltip)  -> theme.zIndex.tooltip
-
-$transition-fast:   all 0.1s ease-in-out;
-$transition-base:   all 0.2s ease-in-out;
-$transition-slow:   all 0.3s ease-in-out;
-$transition-colors: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+### Z-index (1000+ scale only)
+```
+var(--rds-z-index-dropdown)  <- 1000
+var(--rds-z-index-sticky)    <- 1100
+var(--rds-z-index-banner)    <- 1200
+var(--rds-z-index-modal)     <- 1400
+var(--rds-z-index-popover)   <- 1500
+var(--rds-z-index-tooltip)   <- 1800
 ```
 
 ### Border Radius
+```
+var(--rds-border-radius-sm)    <- 4px
+var(--rds-border-radius-md)    <- 8px
+var(--rds-border-radius-lg)    <- 12px
+var(--rds-border-radius-xl)    <- 16px
+var(--rds-border-radius-full)  <- 9999px
+```
 
-```scss
-$border-radius-none: 0;
-$border-radius-sm:    4px;    -> var(--rds-border-radius-sm)   -> theme.shape.borderRadius * 0.5
-$border-radius-md:    8px;    -> var(--rds-border-radius-md)   -> theme.shape.borderRadius
-$border-radius-lg:   12px;    -> var(--rds-border-radius-lg)   -> theme.shape.borderRadius * 1.5
-$border-radius-xl:   16px;    -> var(--rds-border-radius-xl)   -> theme.shape.borderRadius * 2
-$border-radius-full: 9999px;  -> var(--rds-border-radius-full)
+### Breakpoints
+```
+var(--rds-breakpoint-xs)          <- 0px
+var(--rds-breakpoint-sm)          <- 600px
+var(--rds-breakpoint-md)          <- 900px
+var(--rds-breakpoint-lg)          <- 1200px
+var(--rds-breakpoint-xl)          <- 1536px
+var(--rds-breakpoint-mobile-sm)   <- mobile small
+var(--rds-breakpoint-mobile-md)   <- mobile medium
+var(--rds-breakpoint-tablet-sm)   <- tablet small
+var(--rds-breakpoint-tablet-md)   <- tablet medium
 ```
 
 ---
 
-## Component Refactoring Priority
+## Priority Queue
 
-### CRITICAL (Phase 1)
-1. **rds-button** — Used everywhere, blocks all other work
-2. **rds-input** — Foundation of all form components
-3. **rds-select** — Foundation of all form components
-4. **rds-comp-data-grid** — 100% hardcoded, high visibility
+### CRITICAL
+1. rds-comp-time-picker    <- highest bare hex remaining
+2. rds-comp-product-tour   <- second highest
+3. rds-fab
+4. rds-comp-datepicker
 
-### HIGH (Phase 2)
-5. **rds-card** — Used inside most composite components
-6. **rds-modal** — z-index and spacing issues
-7. **rds-comp-filter-button** — 80% hardcoded
-8. **rds-carousel** — Mixed hardcoded/tokens
+### HIGH
+5. rds-button
+6. rds-input
+7. rds-comp-data-grid
 
-### MEDIUM (Phase 3+)
-9. **rds-checkbox, rds-radio** — Border and color
-10. **rds-avatar, rds-badge, rds-banner** — Background color
-11. **rds-backdrop, rds-tooltip** — Color and z-index
-12. All remaining elements and composite components
-
----
-
-## Reference Files
-
-| File | Purpose |
-|---|---|
-| `raaghu-react-themes/src/styles/raaghu-react-theme.scss` | Primary source of truth - all SCSS tokens |
-| `raaghu-react-themes/src/styles/custom-properties.scss` | CSS custom properties (runtime theming) |
-| `raaghu-react-themes/src/styles/variables/color-variables.scss` | Color palette definitions |
-| `raaghu-react-themes/src/mui-theme-adapter.ts` | MUI ThemeProvider config |
-| `raaghu-react-themes/tokens/design-tokens.ts` | TypeScript token definitions |
-| `utils/griffel/GriffelProvider.tsx` | Griffel CSS-in-JS wrapper |
+### MEDIUM
+8. rds-checkbox, rds-radio
+9. rds-avatar, rds-badge, rds-banner
+10. rds-backdrop, rds-tooltip
 
 ---
 
 ## Rollback
 
-If validation fails at any step:
+If validation fails:
+  git restore <component>.scss
+  git restore <component>.tsx
 
-```bash
-git restore <component>.scss
-git restore <component>.tsx
-```
-
-Then report: which detection category failed, which specific value caused the issue, and the recommended manual intervention point.
+Report: which step failed, which specific value caused the issue.
 
 ---
 
-**Agent Version:** 2.0
-**Last Updated:** May 2026
-**Status:** Production Ready - Enterprise Design System Refactoring Platform
+Agent Version: 3.0
+Last Updated: May 2026
+Architecture: design-tokens.ts -> build-rds-css-vars.ts -> injectTokens() -> --rds-* -> SCSS + MUI
+Status: Production Ready

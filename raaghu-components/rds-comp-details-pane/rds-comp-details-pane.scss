@@ -1034,7 +1034,7 @@
     object-fit: cover;
   }
 
-  &__icon-history { color: #969696; }
+  &__icon-history { color: var(--rds-text-disabled); }
 
   &__icon-delete {
     height: 15px !important;
@@ -1045,7 +1045,7 @@
   &__icon-edit {
     width: 17px !important;
     height: 17px !important;
-    color: #7D7D7D !important;
+    color: var(--rds-text-secondary) !important;
   }
 
   &__icon-star {
@@ -1072,7 +1072,7 @@
     gap: var(--rds-spacing-sm);
   }
 
-  &__history-icon { width:36px; height:36px; border-radius:50%; border:1px solid rgba(0,0,0,0.08); display:flex; align-items:center; justify-content:center; flex-shrink:0; background:#fff; }
+  &__history-icon { width:36px; height:36px; border-radius:50%; border:1px solid var(--rds-border-opacity-light); display:flex; align-items:center; justify-content:center; flex-shrink:0; background:var(--rds-background-paper); }
 
   &__activity-body {
     flex: 1;

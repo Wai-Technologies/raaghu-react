@@ -553,8 +553,8 @@
     box-sizing: border-box;
 
     .rds-button {
-      border-color: #7c3aed !important;
-      color: #7c3aed !important;
+      border-color: var(--rds-secondary-main) !important;
+      color: var(--rds-secondary-main) !important;
       background-color: transparent !important;
       min-width: 90px !important;
       width: 90px !important;
@@ -562,8 +562,8 @@
       text-transform: none !important; 
 
       &:hover {
-        background-color: #7c3aed !important;
-        color: #fff !important;
+        background-color: var(--rds-secondary-main) !important;
+        color: var(--rds-neutral-0) !important;
       }
     }
   }
@@ -578,7 +578,7 @@
     .rds-select {
       .MuiOutlinedInput-root {
         .MuiOutlinedInput-notchedOutline {
-          border-color: #e5e7eb !important;
+          border-color: var(--rds-border-light) !important;
           border-width: 1px !important;
         }
       }
@@ -587,23 +587,23 @@
     .rds-autocomplete__textfield {
       & input::placeholder {
         font-size: var(--rds-font-size-md);
-        color: #9e9e9e;
+        color: var(--rds-text-secondary);
         opacity: 1;
       }
     
       & input::-webkit-input-placeholder {
         font-size: var(--rds-font-size-md);
-        color: #9e9e9e;
+        color: var(--rds-text-secondary);
       }
     
       & input::-moz-placeholder {
         font-size: var(--rds-font-size-md);
-        color: #9e9e9e;
+        color: var(--rds-text-secondary);
       }
      
       & input:-ms-input-placeholder {
         font-size: var(--rds-font-size-md);
-        color: #9e9e9e;
+        color: var(--rds-text-secondary);
       }
     }
     
@@ -613,26 +613,26 @@
       & input::placeholder,
       & textarea::placeholder {
         font-size: var(--rds-font-size-md);
-        color: #9e9e9e;
+        color: var(--rds-text-secondary);
         opacity: 1;
       }
 
       & input::-webkit-input-placeholder,
       & textarea::-webkit-input-placeholder {
         font-size: var(--rds-font-size-md);
-        color: #9e9e9e;
+        color: var(--rds-text-secondary);
       }
 
       & input::-moz-placeholder,
       & textarea::-moz-placeholder {
         font-size: var(--rds-font-size-md);
-        color: #9e9e9e;
+        color: var(--rds-text-secondary);
       }
 
       & input:-ms-input-placeholder,
       & textarea:-ms-input-placeholder {
         font-size: var(--rds-font-size-md);
-        color: #9e9e9e;
+        color: var(--rds-text-secondary);
       }
     }
   }
@@ -669,14 +669,14 @@
     margin-top: 0;
 
     .rds-button {
-      border-color: #7c3aed !important;
-      color: #7c3aed !important;
+      border-color: var(--rds-secondary-main) !important;
+      color: var(--rds-secondary-main) !important;
       background-color: transparent !important;
       text-transform: none !important;
 
       &:hover {
-        background-color: #7c3aed !important;
-        color: #fff !important;
+        background-color: var(--rds-secondary-main) !important;
+        color: var(--rds-neutral-0) !important;
       }
     }
 
@@ -741,7 +741,7 @@
       max-width: 100% !important;
       box-sizing: border-box !important;
       padding: var(--rds-spacing-md) !important;
-      border: 2px dashed #e0e0e0 !important;
+      border: 2px dashed var(--rds-border-default) !important;
       border-radius: var(--rds-border-radius-md) !important;
     }
 
@@ -753,30 +753,30 @@
 
     .rds-file-uploader__button {
       max-width: fit-content !important;
-      background-color: #7c3aed !important;
-      border-color: #7c3aed !important;
-      color: #fff !important;
+      background-color: var(--rds-secondary-main) !important;
+      border-color: var(--rds-secondary-main) !important;
+      color: var(--rds-neutral-0) !important;
       text-transform: none !important;
 
     }
 
     .rds-file-uploader__choose-btn {
-      background-color: #7c3aed !important;
-      border-color: #7c3aed !important;
-      color: #fff !important;
+      background-color: var(--rds-secondary-main) !important;
+      border-color: var(--rds-secondary-main) !important;
+      color: var(--rds-neutral-0) !important;
       text-transform: none !important;
     }
     .rds-file-uploader__choose-btn:hover {
-      background-color: #7c3aed !important; 
-      border-color: #7c3aed !important;
-      color: #fff !important;
+      background-color: var(--rds-secondary-main) !important; 
+      border-color: var(--rds-secondary-main) !important;
+      color: var(--rds-neutral-0) !important;
     }
 
     .rds-file-uploader__drop-zone .MuiButton-root,
     .rds-file-uploader__drop-zone button {
-      background-color: #7c3aed !important;
-      border-color: #7c3aed !important;
-      color: #fff !important;
+      background-color: var(--rds-secondary-main) !important;
+      border-color: var(--rds-secondary-main) !important;
+      color: var(--rds-neutral-0) !important;
       text-transform: none !important;
     }
 
@@ -799,7 +799,7 @@
   &__form-stepcount {
     font-size: 15px !important;
     font-weight: 500 !important;
-    color: #222 !important;
+    color: var(--rds-text-primary) !important;
   }
 
   &__form-navigation-actions {
@@ -811,7 +811,7 @@
   &__form-skip {
     font-size: 15px !important;
     margin-right: var(--rds-spacing-md);
-    color: #7c3aed !important;
+    color: var(--rds-secondary-main) !important;
     font-weight: 500 !important;
     cursor: pointer;
   }
@@ -824,8 +824,8 @@
 
   &__form-arrow-prev,
   &__form-arrow-next {
-    border: 0.5px solid #7c3aed;
-    background: #fff;
+    border: 0.5px solid var(--rds-secondary-main);
+    background: var(--rds-neutral-0);
     width: 32px;
     height: 32px;
     border-radius: var(--rds-border-radius-sm);
@@ -846,13 +846,13 @@
   }
 
   &__form-arrow-prev {
-    color: #7c3aed;
+    color: var(--rds-secondary-main);
     box-shadow: none;
   }
 
   &__form-arrow-next {
-    background: #7c3aed;
-    color: #fff;
+    background: var(--rds-secondary-main);
+    color: var(--rds-neutral-0);
     border: none;
   }
 }

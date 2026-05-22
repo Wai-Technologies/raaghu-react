@@ -40,7 +40,7 @@
       .MuiInputBase-root {
         background-color: var(--rds-background-paper);
         border-radius: var(--rds-border-radius-sm, 4px);
-        border: 1px solid #dde1e8;
+        border: 1px solid var(--rds-border-light);
         transition: all var(--rds-transition-base);
         font-size: var(--rds-font-size-md);
         color: var(--rds-text-primary);
@@ -105,7 +105,7 @@
     background-color: var(--rds-background-paper);
     border-radius: var(--rds-border-radius-md);
     box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.15));
-    z-index: var(--rds-z-index-toast, 700);
+    z-index: var(--rds-z-index-toast, 1700);
     min-width: 36px;
     align-items: center;
 
@@ -455,3 +455,4 @@
     }
   }
 }
+
