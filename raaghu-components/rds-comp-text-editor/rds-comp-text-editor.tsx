@@ -36,8 +36,8 @@ const RdsCompTextEditor = (props: RdsCompTextEditorProps) => {
     const [isTouch, setIsTouch] = useState(false);
     const editorRef = useRef<any>(null);
     const rows = typeof props.rows === 'number' && props.rows > 0 ? props.rows : 6;
-    const lineHeightPx = 26; 
-    const editorMinHeight = rows * lineHeightPx;
+    const lineHeightVar = 'var(--rds-line-height-body, 26px)';
+    const editorMinHeight = `calc(${rows} * ${lineHeightVar})`;
     const isResizable = props.resizable !== false; 
 
     useEffect(() => {

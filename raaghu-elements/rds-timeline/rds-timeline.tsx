@@ -52,7 +52,7 @@ const RdsTimeline: React.FC<RdsTimelineProps> = ({
             <MuiTimelineContent>
               <strong>{item.title}</strong>
               {item.description && (
-                <div style={{ marginTop: 'var(--rds-timeline-description-margin-top, 4px)' }}>
+                <div style={{ marginTop: 'var(--rds-timeline-description-margin-top, var(--rds-spacing-xs))' }}>
                   {item.description}
                 </div>
               )}

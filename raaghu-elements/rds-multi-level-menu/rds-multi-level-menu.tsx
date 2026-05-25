@@ -28,11 +28,11 @@ const menuItemStyle = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  minWidth: 220,
+  minWidth: 'var(--rds-mlm-min-width, 220px)',
 };
 
 const menuPaperStyle = {
-  minWidth: 220,
+  minWidth: 'var(--rds-mlm-min-width, 220px)',
 };
 
 
@@ -93,7 +93,7 @@ export const RdsMultiLevelMenu = ({
         MenuListProps={{ autoFocusItem: open, disablePadding: true }}
         PaperProps={{
           sx: level === 0
-            ? { ...menuPaperStyle, mt: { xs: '43px', sm: 0 } }
+            ? { ...menuPaperStyle, mt: { xs: 'var(--rds-mlm-root-offset, 43px)', sm: 0 } }
             : menuPaperStyle,
           className: `rds-mlm-paper ${level === 0 ? 'rds-mlm-root' : ''} type-${type} size-${size}`
         }}

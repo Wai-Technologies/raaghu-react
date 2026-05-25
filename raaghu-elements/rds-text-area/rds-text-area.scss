@@ -9,7 +9,7 @@
   font-size: var(--rds-font-size-md, 14px);
 
     .required-asterisk {
-      color: var(--rds-error-main, #dc3545);
+      color: var(--rds-error-main);
       font-weight: 600;
     }
   }
@@ -61,29 +61,29 @@
     }
 
     &.textarea-active {
-      border-color: var(--rds-primary-main, #3C98FF);
+      border-color: var(--rds-primary-main);
 
       &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main, #3C98FF) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main) !important;
       }
     }
 
     &.textarea-selected {
-      border-color: var(--rds-border-selected, #7D7D7D);
+      border-color: var(--rds-border-selected);
 
       &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected, #7D7D7D) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected) !important;
       }
     }
 
     &.textarea-disabled {
-      background-color: var(--rds-background-disabled, #e9ecef);
-      border-color: var(--rds-border-disabled, #dee2e6);
-      color: var(--rds-text-disabled, #6c757d);
+      background-color: var(--rds-background-disabled);
+      border-color: var(--rds-border-disabled);
+      color: var(--rds-text-disabled);
       cursor: not-allowed;
       
       &::placeholder {
-        color: var(--rds-text-disabled, #adb5bd);
+        color: var(--rds-text-disabled);
       }
 
       &.textarea-bottom-outline {
@@ -93,17 +93,17 @@
     }
 
     &.textarea-error {
-      border-color: var(--rds-error-main, #BD0D1D);
+      border-color: var(--rds-error-main);
 
       &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-error-main, #BD0D1D) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-error-main) !important;
       }
     }
   }
 
   .error-message {
     font-size: var(--rds-font-size-sm, 13px);
-    color: var(--rds-error-main, #BD0D1D);
+    color: var(--rds-error-main);
     font-family: var(--rds-font-family-base, Poppins);
     font-weight: 400;
   }
@@ -118,47 +118,47 @@
     }
 
     &.textarea-bottom-outline {
-      background-color: var(--rds-background-paper, #1e1e1e) !important;
-      color: var(--rds-text-primary, #ffffff) !important;
-      border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main, #ffffff) !important;
+      background-color: var(--rds-background-paper) !important;
+      color: var(--rds-text-primary) !important;
+      border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main) !important;
     }
 
     &.textarea-active {
-      border-color: var(--rds-primary-main, #3C98FF);
+      border-color: var(--rds-primary-main);
 
       &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main, #3C98FF) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-primary-main) !important;
       }
     }
 
     &.textarea-selected {
-      border-color: var(--rds-border-selected, #7D7D7D);
+      border-color: var(--rds-border-selected);
 
       &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected, #7D7D7D) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-selected) !important;
       }
     }
 
     &.textarea-disabled {
-      background-color: var(--rds-background-disabled, #2b2b2b);
-      border-color: var(--rds-border-disabled, #3a3a3a);
-      color: var(--rds-text-disabled, #6c757d);
+      background-color: var(--rds-background-disabled);
+      border-color: var(--rds-border-disabled);
+      color: var(--rds-text-disabled);
 
       &::placeholder {
-        color: var(--rds-text-disabled, #6c757d);
+        color: var(--rds-text-disabled);
       }
 
       &.textarea-bottom-outline {
-        background-color: var(--rds-background-disabled, #2b2b2b) !important;
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled, #3a3a3a) !important;
+        background-color: var(--rds-background-disabled) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled) !important;
       }
     }
 
     &.textarea-error {
-      border-color: var(--rds-error-main, #BD0D1D);
+      border-color: var(--rds-error-main);
 
       &.textarea-bottom-outline {
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-error-main, #BD0D1D) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-error-main) !important;
       }
     }
   }

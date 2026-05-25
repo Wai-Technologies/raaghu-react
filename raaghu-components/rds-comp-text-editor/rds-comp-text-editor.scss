@@ -2,7 +2,7 @@
   border: 1px solid var(--rds-color-border, #ccc);
   border-radius: var(--rds-border-radius, 2px);
   padding: 0;
-  min-height: 200px;
+  min-height: var(--rds-editor-min-height, 200px);
   background-color: var(--rds-color-surface, #fff);
   color: var(--rds-color-on-surface, #212529);
   transition: border-color 0.15s ease, background-color 0.15s ease;
@@ -32,10 +32,10 @@
   &--resizable::after {
     content: '';
     position: absolute;
-    right: 6px;
-    bottom: 6px;
-    width: 12px;
-    height: 12px;
+    right: var(--rds-spacing-xxs, 6px);
+    bottom: var(--rds-spacing-xxs, 6px);
+    width: var(--rds-resize-handle-size, 12px);
+    height: var(--rds-resize-handle-size, 12px);
     background:
       linear-gradient(135deg, transparent 50%, var(--rds-border-light) 50%) 0 0/6px 6px no-repeat,
       linear-gradient(135deg, transparent 50%, var(--rds-border-light) 50%) 6px 6px/6px 6px no-repeat;
@@ -63,8 +63,8 @@
     .rdw-option-wrapper {
       border: 1px solid var(--rds-color-border-light, #f1f1f1);
       padding: var(--rds-spacing-xxs, 5px);
-      min-width: 25px;
-      height: 25px;
+      min-width: var(--rds-toolbar-button-size, 25px);
+      height: var(--rds-toolbar-button-size, 25px);
       border-radius: var(--rds-border-radius-sm, 2px);
       margin: 0 var(--rds-spacing-xxs, 4px);
       display: flex;
@@ -106,7 +106,7 @@
         background-color: var(--rds-color-surface, #fff);
         color: var(--rds-color-on-surface, #212529);
         border: 1px solid var(--rds-color-border, #ccc);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--rds-elevation-3, 0 2px 8px rgba(0, 0, 0, 0.1));
         z-index: var(--rds-z-index-modal, 1400);
         
         .rdw-image-modal-header-option {
@@ -136,11 +136,11 @@
     }
   }
   
-  .rdw-editor-main,
+    .rdw-editor-main,
   .rds-comp-text-editor__content {
     padding: var(--rds-spacing-sm, 10px);
     font-size: var(--rds-font-size-body, 14px);
-    min-height: 150px;
+    min-height: var(--rds-editor-content-min-height, 150px);
     line-height: var(--rds-line-height-body, 1.5);
     background-color: var(--rds-color-surface, #fff);
     color: var(--rds-color-on-surface, #212529);
@@ -162,7 +162,7 @@
     }
     
     blockquote {
-      border-left: 5px solid var(--rds-color-border-light, #eee);
+      border-left: var(--rds-blockquote-border-width, 5px) solid var(--rds-color-border-light, #eee);
       padding-left: var(--rds-spacing-sm, 10px);
       margin-left: 0;
       color: var(--rds-color-text-secondary, #6c757d);
@@ -228,7 +228,7 @@
       left: -93px;
       max-height: calc(100vh - 100px);
       overflow-y: auto;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: var(--rds-elevation-4, 0 4px 12px rgba(0, 0, 0, 0.15));
       border: 1px solid var(--rds-color-border, #ccc);
       
       @media (max-width: var(--rds-breakpoint-xs)) {
@@ -254,7 +254,7 @@
       right: 0;
       left: auto;
       max-width: 320px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: var(--rds-elevation-4, 0 4px 12px rgba(0, 0, 0, 0.15));
       border: 1px solid var(--rds-color-border, #ccc);
       z-index: var(--rds-z-index-modal, 1400);
     }

@@ -9,13 +9,13 @@
 	}
 	canvas {
 		width: 100% !important;
-		height: 335px !important;
+		height: var(--rds-comp-chart-pie-height) !important;
 		max-width: 100%;
 		@media (max-width: var(--rds-breakpoint-600)) {
-			height: 335px !important;
+			height: var(--rds-comp-chart-pie-height) !important;
 		}
 		@media (max-width: var(--rds-breakpoint-400)) {
-			height: 335px !important;
+			height: var(--rds-comp-chart-pie-height) !important;
 		}
 	}
 }

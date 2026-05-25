@@ -1,14 +1,12 @@
 .rds-mlm-paper {
-  --rds-mlm-shadow: 0px 8px 24px rgba(16, 24, 40, 0.12), 0px 2px 8px rgba(16, 24, 40, 0.06);
-  --rds-mlm-shadow-dark: 0px 8px 24px rgba(0,0,0,0.7), 0px 2px 8px rgba(0,0,0,0.5);
-  --rds-mlm-radius: 12px;
+  /* use centralized design tokens where available */
   --rds-mlm-min-width: 220px;
   --rds-mlm-item-padding-y: 8px;
   --rds-mlm-item-padding-x: 16px;
   --rds-mlm-item-transition: var(--rds-transition-fast, 0.15s ease-in-out);
-  box-shadow: var(--rds-mlm-shadow, 0px 8px 24px rgba(16, 24, 40, 0.12), 0px 2px 8px rgba(16, 24, 40, 0.06));
-  border-radius: var(--rds-mlm-radius, 12px);
-  border: 1px solid var(--rds-background-paper, rgba(16, 24, 40, 0.08));
+  box-shadow: var(--rds-elevation-3);
+  border-radius: var(--rds-border-radius-md, 12px);
+  border: 1px solid var(--rds-border-default);
   padding: 0;
   min-width: var(--rds-mlm-min-width, 220px);
   background: var(--rds-background-paper, #fff);
@@ -24,7 +22,7 @@
 .rds-mlm-paper .MuiMenuItem-root {
   font-family: inherit;
   font-size: var(--rds-font-size-md);
-  line-height: 20px;
+  line-height: 1.25;
   min-width: var(--rds-mlm-min-width, 220px);
   padding: var(--rds-mlm-item-padding-y, 8px) var(--rds-mlm-item-padding-x, 16px);
   margin: 0;
@@ -91,7 +89,7 @@
   color: var(--rds-text-secondary, #272727);
   font-size: var(--rds-font-size-lg) !important;
   margin-left: var(--rds-spacing-sm, 8px);
-  min-width: 72px;
+  min-width: var(--rds-mlm-shortcut-min-width, 72px);
   text-align: right;
 }
 

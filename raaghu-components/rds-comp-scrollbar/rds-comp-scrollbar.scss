@@ -1,7 +1,7 @@
 .rds-scrollbar {
   position: relative;
   overflow: hidden;
-  width: 18px;
+  width: calc(var(--rds-spacing-md) + 2px);
   height: 300px;
   display: flex;
   justify-content: center;
@@ -21,7 +21,7 @@
       height: 100%;
       top: 0;
       left: 0;
-      padding: 1px;
+      padding: var(--rds-spacing-xs);
       z-index: var(--rds-z-index-layer-1);
       box-sizing: border-box;
       pointer-events: none; 
@@ -29,12 +29,12 @@
         background: transparent;
         border: none;
         cursor: pointer;
-        font-size: 10px;
+        font-size: var(--rds-font-size-xs);
         padding: 0;
         height: auto;
         width: 100%;
-        min-height: 16px;
-        max-height: 20px;
+        min-height: var(--rds-spacing-md);
+        max-height: calc(var(--rds-spacing-md) + 4px);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -72,14 +72,14 @@
 }
 
 .rds-scrollbar--mac .rds-scrollbar__content::-webkit-scrollbar {
-  width: 4px;
-  margin: 0 3px;
+  width: var(--rds-spacing-xs);
+  margin: 0 calc(var(--rds-spacing-xs) - 1px);
 }
 
 .rds-scrollbar--mac .rds-scrollbar__content::-webkit-scrollbar-thumb {
   background-color: var(--rds-color-gray-500, #94a3b8);
   border-radius: var(--rds-border-radius-full, 9999px);
-  width: 4px;
+  width: var(--rds-spacing-xs);
   min-height: 40px;
   margin: 0 auto;
 }
@@ -91,14 +91,14 @@
 }
 
 .rds-scrollbar--simple .rds-scrollbar__content::-webkit-scrollbar {
-  width: 4px;
-  margin: 0 3px;
+  width: var(--rds-spacing-xs);
+  margin: 0 calc(var(--rds-spacing-xs) - 1px);
 }
 
 .rds-scrollbar--simple .rds-scrollbar__content::-webkit-scrollbar-thumb {
   background-color: var(--rds-color-gray-400, #9ca3af);
   border-radius: var(--rds-border-radius-sm, 2px);
-  width: 4px;
+  width: var(--rds-spacing-xs);
   min-height: 40px;
   margin: 0 auto;
 }
@@ -112,8 +112,8 @@
   .MuiSvgIcon-root,
   [class*="-MuiSvgIcon-root"],
   svg {
-    width: 10px;
-    height: 10px;
+    width: var(--rds-font-size-xs);
+    height: var(--rds-font-size-xs);
     color: var(--rds-color-gray-500, #94a3b8);
   }
 }
@@ -122,8 +122,8 @@
   background-color: transparent;
   margin: 0;
   width: 100%;
-  min-height: 16px;
-  max-height: 20px;
+  min-height: var(--rds-spacing-md);
+  max-height: calc(var(--rds-spacing-md) + 4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,8 +139,8 @@
   }
   
   svg {
-    width: 10px;
-    height: 10px;
+    width: var(--rds-font-size-xs);
+    height: var(--rds-font-size-xs);
     color: var(--rds-color-gray-500, #94a3b8);
   }
 }

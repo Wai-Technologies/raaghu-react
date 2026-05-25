@@ -3,11 +3,18 @@
     justify-content: center;
     align-items: center;
 
-    // Tablet view - full screen
+    // Canvas sizing: prefer centralized theme tokens
+    .rds-chart-canvas,
+    canvas {
+        width: 100%;
+        height: var(--rds-comp-chart-bar-default-height);
+    }
+
+    // Tablet view - use tablet-specific token
     @media (min-width: var(--rds-breakpoint-md)) and (max-width: var(--rds-breakpoint-lg)) {
-       
+        .rds-chart-canvas,
         canvas {
-            height: 600px !important;
+            height: var(--rds-comp-chart-bar-tablet-height) !important;
         }
     }
 }

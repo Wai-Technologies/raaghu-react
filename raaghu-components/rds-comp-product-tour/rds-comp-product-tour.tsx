@@ -121,7 +121,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                     <Typography variant="body2" className="rds-comp-product-tour__carousel-desc">{description}</Typography>
                 </Box>
                 <Box className="rds-comp-product-tour__carousel-wrapper">
-                    <RdsCarousel showDots={false} showArrows={false} type="circle" style="default" height="300px" state={carouselState as unknown as '1' | '2' | '3' | '4' | undefined}>
+                    <RdsCarousel showDots={false} showArrows={false} type="circle" style="default" height="var(--rds-carousel-height, 300px)" state={carouselState as unknown as '1' | '2' | '3' | '4' | undefined}>
                         {showVisualPlaceholder ? effectiveSlides.map((slide, index) => (
                             <img key={index} src={slide.imgUrl} alt={`Slide ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--rds-border-radius-md)' }} />
                         )) : []}

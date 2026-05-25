@@ -62,6 +62,36 @@ export function chartTooltipTextColor(): string {
 }
 
 /**
+ * Returns a Chart.js-compatible font string constructed from design tokens.
+ * Example output: "700 20px Poppins"
+ */
+export function chartFont(
+  weight: 'regular' | 'medium' | 'bold',
+  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+): string {
+  const weightMap: Record<string, string> = {
+    regular: '--rds-font-weight-regular',
+    medium: '--rds-font-weight-medium',
+    bold: '--rds-font-weight-bold',
+  };
+
+  const sizeMap: Record<string, string> = {
+    xs: '--rds-font-size-xs',
+    sm: '--rds-font-size-sm',
+    md: '--rds-font-size-md',
+    lg: '--rds-font-size-lg',
+    xl: '--rds-font-size-xl',
+    '2xl': '--rds-font-size-2xl',
+  };
+
+  const weightVal = getCSSVar(weightMap[weight] || '--rds-font-weight-regular', '400');
+  const sizeVal = getCSSVar(sizeMap[size] || '--rds-font-size-md', '14px');
+  const family = getCSSVar('--rds-font-family-base', 'Poppins');
+
+  return `${weightVal} ${sizeVal} ${family}`;
+}
+
+/**
  * Applies dark/light theme colors to a Chart.js options object in-place.
  *
  * Handles:

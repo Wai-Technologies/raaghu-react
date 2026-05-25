@@ -44,8 +44,8 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
   text = 'Filter',
   showLeftIcon = true,
   showRightIcon = true,
-  leftIcon = <CircleOutlinedIcon  sx={{ fontSize: 16 }} />,
-  rightIcon = <CircleOutlinedIcon  sx={{ fontSize: 16 }} />,
+  leftIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
+  rightIcon = <CircleOutlinedIcon  sx={{ fontSize: 'var(--rds-icon-size-sm, 16px)' }} />,
   filters = [],
   onFiltersChange,
   onApply,
@@ -205,15 +205,12 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                         margin: 0,
                       }
                     },
-                    '&:hover': {
-                      backgroundColor: 'var(--rds-action-hover, #f9f9f9)',
-                    },
                     '&:after': {
                       content: '""',
                       position: 'absolute',
                       bottom: 0,
-                      left: '16px',
-                      right: '16px',
+                      left: 'var(--rds-spacing-md, 16px)',
+                      right: 'var(--rds-spacing-md, 16px)',
                       height: '1px',
                       backgroundColor: 'var(--rds-border-default, #f0f0f0)',
                       display: index === localFilters.length - 1 ? 'none' : 'block',
@@ -230,8 +227,8 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                     ) : null}
 
                     <Typography sx={{ 
-                      fontSize: '14px', 
-                      fontWeight: 500,
+                      fontSize: 'var(--rds-font-size-md, 14px)', 
+                      fontWeight: 'var(--rds-font-weight-medium, 500)',
                       color: 'var(--rds-text-primary, #333)'
                     }}>
                       {filter.name}
@@ -258,14 +255,14 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                                 color: 'var(--rds-primary-main)',
                               },
                               '& .MuiSvgIcon-root': {
-                                fontSize: 16,
+                                fontSize: 'var(--rds-icon-size-sm, 16px)',
                               }
                             }}
                           />
                         }
                         label={
                           <Typography sx={{ 
-                            fontSize: '13px',
+                            fontSize: 'var(--rds-font-size-sm, 13px)',
                             color: 'var(--rds-text-secondary, #555)'
                           }}>
                             {value}
@@ -274,7 +271,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                         sx={{
                           margin: 0,
                           '& .MuiFormControlLabel-label': {
-                            paddingLeft: '4px'
+                            paddingLeft: 'var(--rds-spacing-xs, 4px)'
                           }
                         }}
                       />

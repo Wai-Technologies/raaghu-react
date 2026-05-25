@@ -6,16 +6,16 @@ $rds-drawer-breakpoint-md: 768px;
 $rds-drawer-breakpoint-sm: 480px;
 
 .rds-drawer-close-button {
-  margin-left: var(--rds-drawer-close-button-margin-left, 20px);
+  margin-left: var(--rds-drawer-close-button-margin-left, var(--rds-spacing-md));
 }
 
 .rds-drawer-trigger-wrapper {
-  --rds-drawer-trigger-min-height: 200px;
+  --rds-drawer-trigger-min-height: var(--rds-spacing-3xl);
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: var(--rds-drawer-trigger-min-height, 200px);
+  min-height: var(--rds-drawer-trigger-min-height, var(--rds-spacing-3xl));
 }
 
 .rds-drawer-persistent-trigger {

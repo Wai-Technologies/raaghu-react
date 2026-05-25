@@ -64,14 +64,14 @@
     
     &--spectrum {
       height: 160px;
-      margin: 0 0 12px 0;
+      margin: 0 0 var(--rds-spacing-md) 0;
     }
   }
   
   &__color-row {
     display: flex;
     gap: 0;
-    height: 16px;
+    height: var(--rds-spacing-md);
   }
   
   &__color-cell {
@@ -119,7 +119,7 @@
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-sm);
-    margin: 2px 0 12px;
+    margin: var(--rds-spacing-xs) 0 var(--rds-spacing-md);
   }
 
   &__eyedropper {
@@ -170,7 +170,7 @@
   &__color-info {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: var(--rds-spacing-sm);
   }
   
   &__dropdown-container {
@@ -309,8 +309,8 @@
     height: 32px;
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     border-radius: var(--rds-border-radius, 4px);
-    padding: 0 10px;
-    font-size: 13px;
+    padding: 0 var(--rds-spacing-sm);
+    font-size: var(--rds-font-size-sm);
     text-align: center;
     color: var(--rds-color-on-surface, #333);
     background-color: var(--rds-color-surface, #ffffff);
@@ -329,7 +329,7 @@
     margin-bottom: var(--rds-spacing-sm);
     
     span {
-      font-size: 13px;
+      font-size: var(--rds-font-size-sm);
       font-weight: 500;
       color: var(--rds-color-on-surface, #333);
     }
@@ -374,7 +374,7 @@
   &__swatch-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: var(--rds-spacing-sm);
     cursor: pointer;
   }
 
@@ -487,7 +487,7 @@
   &__mode-swatch-gradient {
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, #ff4f00, #00f5ff);
+    background: linear-gradient(to right, var(--rds-semantic-warning-main), var(--rds-info-main));
     border-radius: var(--rds-border-radius-xs);
   }
   
@@ -524,7 +524,7 @@
     label {
       display: block;
       margin-bottom: var(--rds-spacing-xs);
-      font-size: 13px;
+      font-size: var(--rds-font-size-sm);
       color: var(--rds-color-on-surface, #212121);
     }
   }
@@ -567,11 +567,11 @@
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    border: 2px solid white;
+    border: 2px solid var(--rds-neutral-0);
     top: -8px;
     transform: translateX(-8px);
     cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    box-shadow: var(--rds-elevation-1, 0 1px 4px rgba(0,0,0,0.2));
     z-index: var(--rds-z-index-layer-1);
     
     &:hover {

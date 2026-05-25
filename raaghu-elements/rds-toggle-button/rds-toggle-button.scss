@@ -2,12 +2,12 @@
   display: flex;
   position: relative;
   --rds-toggle-focus-ring-width: 2px;
-  --rds-toggle-group-border-light: rgba(0, 0, 0, 0.23);
-  --rds-toggle-group-border-dark: rgba(255, 255, 255, 0.23);
-  --rds-toggle-group-border-disabled-light: rgba(100, 100, 100, 0.3);
-  --rds-toggle-group-border-disabled-dark: rgba(100, 100, 100, 0.5);
+  --rds-toggle-group-border-light: var(--rds-border-light, rgba(0, 0, 0, 0.23));
+  --rds-toggle-group-border-dark: var(--rds-border-light, rgba(255, 255, 255, 0.23));
+  --rds-toggle-group-border-disabled-light: var(--rds-border-light, rgba(100, 100, 100, 0.3));
+  --rds-toggle-group-border-disabled-dark: var(--rds-border-light, rgba(100, 100, 100, 0.5));
   --rds-toggle-button-selected-shadow: inset 0 0 0 1px currentColor;
-  --rds-toggle-button-spaced-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+  --rds-toggle-button-spaced-shadow: inset 0 0 0 1px var(--rds-border-light, rgba(0, 0, 0, 0.12));
   
   &--horizontal {
     flex-direction: row;
@@ -132,27 +132,27 @@
   max-width: 100%;
 }
 
-.rds-toggle-button--small .rds-toggle-button__button { 
-  font-size: var(--rds-font-size-sm, 0.75rem); 
-  padding: var(--rds-spacing-xs,4px) var(--rds-spacing-sm,8px); 
-  min-height: 32px;
+  .rds-toggle-button--small .rds-toggle-button__button { 
+  font-size: var(--rds-font-size-sm); 
+  padding: var(--rds-spacing-xs) var(--rds-spacing-sm); 
+  min-height: var(--rds-toggle-min-height-sm);
 }
 .rds-toggle-button--medium .rds-toggle-button__button { 
-  font-size: var(--rds-font-size-md, 0.875rem); 
-  padding: var(--rds-spacing-sm,8px) var(--rds-spacing-md,12px); 
-  min-height: 36px;
+  font-size: var(--rds-font-size-md); 
+  padding: var(--rds-spacing-sm) var(--rds-spacing-md); 
+  min-height: var(--rds-toggle-min-height-md);
 }
 .rds-toggle-button--large .rds-toggle-button__button { 
-  font-size: var(--rds-font-size-lg, 1rem); 
-  padding: var(--rds-spacing-md,12px) var(--rds-spacing-lg,16px); 
-  min-height: 44px;
+  font-size: var(--rds-font-size-lg); 
+  padding: var(--rds-spacing-md) var(--rds-spacing-lg); 
+  min-height: var(--rds-toggle-min-height-lg);
 }
 
 @media (max-width:var(--rds-breakpoint-400)){
   .rds-toggle-button--large .rds-toggle-button__button { 
-    padding: var(--rds-spacing-sm,8px) var(--rds-spacing-md,12px); 
-    font-size: var(--rds-font-size-md,0.875rem);
-    min-height: 40px;
+    padding: var(--rds-spacing-sm) var(--rds-spacing-md); 
+    font-size: var(--rds-font-size-md);
+    min-height: var(--rds-toggle-min-height-lg-mobile);
   }
 }
 
@@ -313,8 +313,8 @@
   .rds-toggle-button__button { 
     flex:1 1 1; 
     min-width:0; 
-    padding:6px 10px; 
-    font-size:0.8rem; 
+    padding: var(--rds-spacing-xs, 6px) var(--rds-spacing-sm, 10px); 
+    font-size: var(--rds-font-size-sm, 0.8rem); 
     box-sizing:border-box; 
   }
 

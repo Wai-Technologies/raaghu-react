@@ -45,17 +45,17 @@ const RdsDivider= ({
     switch (styleVariant) {
       case 'subtle':
         return {
-          dividerColor: isDark ? 'grey.700' : 'grey.300',
-          textColor: isDark ? 'grey.400' : 'grey.600',
-          iconBorderColor: isDark ? 'grey.700' : 'grey.300',
-          iconColor: isDark ? 'grey.400' : 'grey.700',
+          dividerColor: 'divider',
+          textColor: 'text.secondary',
+          iconBorderColor: 'divider',
+          iconColor: 'text.secondary',
         };
       case 'strong':
         return {
-          dividerColor: isDark ? 'grey.600' : 'grey.400',
-          textColor: isDark ? 'grey.300' : 'grey.700',
-          iconBorderColor: isDark ? 'grey.600' : 'grey.400',
-          iconColor: isDark ? 'grey.300' : 'grey.800',
+          dividerColor: 'divider',
+          textColor: 'text.primary',
+          iconBorderColor: 'divider',
+          iconColor: 'text.primary',
         };
       case 'primary':
         return {
@@ -128,7 +128,7 @@ const RdsDivider= ({
       </Box>
     )}
   {dividerMessage && (
-    <Typography variant="body2" sx={{ fontWeight: 500, color: textColor }}>
+    <Typography variant="body2" sx={{ fontWeight: 'fontWeightMedium', color: textColor }}>
       {dividerMessage}
     </Typography>
   )}

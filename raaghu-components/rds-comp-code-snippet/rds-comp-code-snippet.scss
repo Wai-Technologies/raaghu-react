@@ -55,7 +55,7 @@
 
     &__language-label {
       max-width: 68px;
-      font-size: 8px !important;
+      font-size: var(--rds-font-size-xs, 8px) !important;
     }
 
     &__copy-button {

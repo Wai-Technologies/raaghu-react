@@ -16,7 +16,7 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: calc(var(--rds-z-index-base) + 2);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--rds-carousel-navigation-bg, rgba(0, 0, 0, 0.5));
     color: var(--rds-color-on-primary, #fff);
     border: none;
     border-radius: 50%;
@@ -30,7 +30,7 @@
     opacity: 0.85;
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: var(--rds-carousel-navigation-bg-hover, rgba(0, 0, 0, 0.7));
     }
 
     &--prev {
@@ -54,7 +54,7 @@
   &__indicator {
     cursor: pointer;
     transition: var(--rds-transition-base);
-    background-color: var(--rds-color-gray-400, #BDBDBD);
+    background-color: var(--rds-carousel-indicator-bg, var(--rds-color-gray-400, #BDBDBD));
     border: 1px solid transparent;
 
     &--circle {
@@ -70,8 +70,8 @@
     }
     
     &__active {
-      background-color: var(--rds-color-primary, #1976d2) !important;
-      border-color: var(--rds-color-primary, #1976d2) !important;
+      background-color: var(--rds-carousel-indicator-active, var(--rds-color-primary, #1976d2)) !important;
+      border-color: var(--rds-carousel-indicator-active, var(--rds-color-primary, #1976d2)) !important;
     }
     
     &:hover:not(.rds-carousel__indicator__active) {
@@ -203,7 +203,7 @@
       background-color: var(--rds-color-surface, #ffffff);
       color: var(--rds-color-text-primary, #212121);
       border-radius: 0 0 4px 4px;
-      border-top: 1px solid var(--rds-color-divider, #e0e0e0);
+      border-top: 1px solid var(--rds-carousel-divider, var(--rds-color-divider, #e0e0e0));
     }
     
     .rds-carousel__indicators {

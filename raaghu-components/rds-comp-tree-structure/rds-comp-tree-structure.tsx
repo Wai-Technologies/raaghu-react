@@ -19,7 +19,7 @@ export {
   IconType, 
   type RdsCompTreeStructureProps 
 };
-
+        style={{ marginLeft: `calc(${level} * var(--rds-spacing-md, 16px))` }}
 const RdsCompTreeStructure = (props: RdsCompTreeStructureProps) => {
   const [expandedNodeIds, setExpandedNodeIds] = useState<number[]>([]);
   const [hoveredNodeId, setHoveredNodeId] = useState<number | null>(null);

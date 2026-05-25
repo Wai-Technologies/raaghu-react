@@ -99,8 +99,8 @@ function App() {
           onClick={toggleTheme}
           sx={{ 
             textTransform: 'none',
-            fontWeight: 600,
-            borderRadius: '8px',
+            fontWeight: 'fontWeightMedium',
+            borderRadius: 'var(--rds-border-radius-md)',
             px: 2,
             py: 1
           }}

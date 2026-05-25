@@ -5,10 +5,7 @@
   display: inline-flex;
   vertical-align: middle;
   justify-content: center;
-  --rds-badge-dot-font-size: 0.75rem;
-  --rds-badge-dot-min-size: 20px;
-  --rds-badge-dot-padding-x: 6px;
-  --rds-badge-pill-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);
+  // badge sizing and shadow are provided by centralized --rds-* tokens
   
   & .MuiBadge-badge {
     background-color: var(--rds-primary-main) !important;

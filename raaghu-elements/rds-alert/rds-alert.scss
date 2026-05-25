@@ -42,13 +42,6 @@
 }
 
 .rds-alert {
-  --rds-alert-padding-sm: 0.25rem 0.5rem;
-  --rds-alert-padding-md: 0.375rem 0.75rem;
-  --rds-alert-padding-lg: 0.5rem 1rem;
-  --rds-alert-style1-shadow: 0px 12px 20px -4px var(--rds-alert-shadow, rgba(0, 0, 0, 0.15));
-  --rds-alert-style-border-width: 1.5px;
-  --rds-alert-left-border-width: 6px;
-  --rds-alert-link-font-size: 0.8125rem;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -73,7 +66,7 @@
     gap: var(--rds-spacing-sm, 8px);
 
     .rds-alert__link-button {
-      margin-right: 10px;
+      margin-right: var(--rds-alert-link-margin-right, 10px);
     }
   }
   &--error {

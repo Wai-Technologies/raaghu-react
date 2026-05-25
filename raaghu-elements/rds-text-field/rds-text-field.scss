@@ -33,7 +33,7 @@
   }
 
   &:focus-visible {
-    outline: var(--rds-text-field-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-text-field-focus-ring-width, 2px) solid var(--rds-primary-main);
     outline-offset: var(--rds-focus-ring-offset);
   }
 
@@ -44,7 +44,7 @@
   }
 
   .MuiFormLabel-asterisk {
-    color: var(--rds-color-error, #d32f2f);
+    color: var(--rds-error-main);
   }
 
   .MuiInputBase-input::placeholder,

@@ -247,20 +247,18 @@ describe('RdsContainer', () => {
       expect(muiContainer).toHaveStyle('padding: 1.5em');
     });
 
-    it('should not apply padding when not provided', () => {
+    it('should apply default padding when not provided', () => {
       const { container } = renderWithTheme(<RdsContainer {...defaultProps} />);
       const muiContainer = container.querySelector('.MuiContainer-root') as HTMLElement;
-      const style = muiContainer.getAttribute('style') || '';
-      expect(style).not.toContain('padding');
+      expect(muiContainer.getAttribute('data-rds-container-padding')).toBe('applied');
     });
 
-    it('should not apply padding when undefined', () => {
+    it('should apply default padding when undefined', () => {
       const { container } = renderWithTheme(
         <RdsContainer padding={undefined} {...defaultProps} />
       );
       const muiContainer = container.querySelector('.MuiContainer-root') as HTMLElement;
-      const style = muiContainer.getAttribute('style') || '';
-      expect(style).not.toContain('padding');
+      expect(muiContainer.getAttribute('data-rds-container-padding')).toBe('applied');
     });
 
     it('should combine custom padding with sx prop', () => {
@@ -716,11 +714,10 @@ describe('RdsContainer', () => {
       expect(muiContainer).toBeInTheDocument();
     });
 
-    it('should not apply padding by default', () => {
+    it('should apply default padding by default', () => {
       const { container } = renderWithTheme(<RdsContainer {...defaultProps} />);
       const muiContainer = container.querySelector('.MuiContainer-root') as HTMLElement;
-      const style = muiContainer.getAttribute('style') || '';
-      expect(style).not.toContain('padding');
+      expect(muiContainer.getAttribute('data-rds-container-padding')).toBe('applied');
     });
 
     it('should apply maxWidth by default (md)', () => {

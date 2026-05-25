@@ -53,8 +53,7 @@ export enum ToastLayout {
     chatTime?: string; // Chat Time of Toast
   }
 const RdsCompToast = (props: RdsCompToastProps) => {
-    const statewiseColor = props.state === ToastState.Info ? "dark" : props.state === ToastState.Success ? "primary" : props.state === ToastState.Error ? "danger" : "light";
-    const borderColor = `rds-comp-toast--border-${statewiseColor}`;
+    // state and layout classes are handled by getStateClass / getLayoutClass
 
     const getStateClass = (state: ToastState): string => {
         switch (state) {
@@ -84,19 +83,32 @@ const RdsCompToast = (props: RdsCompToastProps) => {
         }
     };
 
+    // Legacy border class mapping (keeps compatibility with existing tests/styles)
+    const _stateClass = getStateClass(props.state);
+    const borderTokenMap: Record<string, string> = {
+        basic: 'light',
+        info: 'dark',
+        success: 'primary',
+        error: 'danger',
+    };
+    const borderColor = `rds-comp-toast--border-${borderTokenMap[_stateClass] || 'light'}`;
+
     const [showState, setshowState] = useState("show");
 
     useEffect(() => {
+        let toastTimer: ReturnType<typeof setTimeout> | undefined;
         if (props.autohide) {
-            var toastTimer = setTimeout(() => {
+            toastTimer = setTimeout(() => {
                 setshowState("hide");
-            }, props.delay || 3000);
+            }, props.delay ?? 3000);
         }
 
         return () => {
-            clearTimeout(toastTimer);
+            if (toastTimer) {
+                clearTimeout(toastTimer);
+            }
         };
-    });
+    }, [props.autohide, props.delay]);
 
     const getPositionClasses = () => {
         switch (props.position) {

@@ -1,14 +1,5 @@
 .rds-button-dropdown {
-  --rds-button-dropdown-menu-padding: var(--rds-spacing-sm, 8px);
-  --rds-button-dropdown-menu-min-width: 200px;
-  --rds-button-dropdown-hover-bg: var(--rds-surface-subtle);
-  --rds-button-dropdown-hover-bg-dark: var(--rds-text-secondary);
-  --rds-button-dropdown-selected-bg: var(--rds-primary-main);
-  --rds-button-dropdown-selected-text: var(--rds-neutral-0);
-  --rds-button-dropdown-secondary-bg: var(--rds-primary-dark);
-  --rds-button-dropdown-secondary-bg-hover: var(--rds-primary-dark);
-  --rds-button-dropdown-secondary-bg-active: var(--rds-primary-dark);
-  --rds-button-dropdown-transition: var(--rds-transition-base, 0.2s ease-in-out);
+  // dropdown menu sizing and colors provided by centralized --rds-* tokens
   &__menu {
     padding: var(--rds-button-dropdown-menu-padding, var(--rds-spacing-sm, 8px));
     min-width: var(--rds-button-dropdown-menu-min-width, 200px);

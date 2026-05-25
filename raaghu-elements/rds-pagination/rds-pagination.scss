@@ -120,7 +120,7 @@
   .MuiPaginationItem-root.Mui-selected.MuiPaginationItem-rounded.MuiPaginationItem-outlined {
     background: transparent;
     color: var(--rds-color-primary, #2196f3);
-    border-radius: 5px;
+    border-radius: var(--rds-border-radius-sm);
     border: var(--rds-pagination-selected-outline-width, 2px) solid var(--rds-color-primary, #2196f3);
     box-shadow: none;
   }
@@ -181,7 +181,7 @@
     background-color: transparent !important;
     color: var(--rds-color-primary) !important;
     border: none;
-    border-bottom: 1px solid var(--rds-color-primary) !important;
+    border-bottom: var(--rds-pagination-selected-border-width, 1px) solid var(--rds-color-primary) !important;
     border-radius: 0 !important;
     position: relative;
 
@@ -191,7 +191,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 1px;
+      height: var(--rds-pagination-selected-border-width, 1px);
       background: var(--rds-color-primary);
     }
   }
@@ -260,7 +260,7 @@
     background-color: transparent !important;
     color: var(--rds-color-primary) !important;
     border: none;
-    border-bottom: 1px solid var(--rds-color-primary) !important;
+    border-bottom: var(--rds-pagination-selected-border-width, 1px) solid var(--rds-color-primary) !important;
     border-radius: 0 !important;
     position: relative;
 
@@ -270,7 +270,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 1px;
+      height: var(--rds-pagination-selected-border-width, 1px);
       background: var(--rds-color-primary);
     }
   }
@@ -292,14 +292,14 @@
   .MuiButton-root {
     color: var(--rds-color-on-primary) !important;
     border-radius: 50% !important;
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
+    width: var(--rds-spacing-xl);
+    height: var(--rds-spacing-xl);
+    min-width: var(--rds-spacing-xl);
     padding: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: var(--rds-font-size-2xl);
     line-height: 1;
 
     &:hover {
@@ -319,11 +319,11 @@
       background-color: var(--rds-color-primary) !important;
       color: var(--rds-color-on-primary) !important;
       border-radius: 50% !important;
-      width: 40px;
-      height: 40px;
-      min-width: 40px;
+      width: calc(1.25 * var(--rds-spacing-xl));
+      height: calc(1.25 * var(--rds-spacing-xl));
+      min-width: calc(1.25 * var(--rds-spacing-xl));
       padding: 0;
-      font-size: 22px;
+      font-size: var(--rds-font-size-2xl);
     }
     
     &:last-of-type {
@@ -337,14 +337,14 @@
 }
 
 .pagination-dropdown {
-  min-width: 120px;
+  min-width: var(--rds-pagination-dropdown-min-width);
 }
 
 .pagination-legend {
-  font-size: 0.875rem;
+  font-size: var(--rds-font-size-md);
 
   [data-theme="dark"] & {
-    color: white;
+    color: var(--rds-neutral-0);
   }
 }
 
@@ -354,17 +354,17 @@
   gap: var(--rds-spacing-sm);
 
   .MuiTextField-root {
-    width: 48px;
+    width: var(--rds-spacing-2xl);
 
     .MuiInputBase-input {
       text-align: center;
       padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
-      font-size: 0.875rem;
+      font-size: var(--rds-font-size-md);
     }
   }
 
   .MuiTypography-root {
-    font-size: 0.875rem;
+    font-size: var(--rds-font-size-md);
   }
 }
 
@@ -375,27 +375,27 @@
     gap: var(--rds-spacing-sm);
 
     .MuiPaginationItem-root {
-      margin: 0 1px;
+      margin: 0 calc(var(--rds-spacing-xs) * 0.25);
       padding: calc(var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-xs) * 0.75);
-      font-size: 0.7rem;
-      min-width: 22px;
-      height: 22px;
+      font-size: var(--rds-pagination-font-size-sm);
+      min-width: var(--rds-pagination-item-size-sm);
+      height: var(--rds-pagination-item-size-sm);
 
       &.MuiPaginationItem-rounded {
         padding: calc(var(--rds-spacing-xs) * 0.75);
-        border-radius: 3px;
+        border-radius: var(--rds-border-radius-sm);
       }
 
       &.MuiPaginationItem-sizeSmall {
-        min-width: 18px;
-        height: 18px;
-        font-size: 0.65rem;
+        min-width: var(--rds-pagination-item-size-xs);
+        height: var(--rds-pagination-item-size-xs);
+        font-size: var(--rds-pagination-font-size-xs);
       }
 
       &.MuiPaginationItem-sizeLarge {
-        min-width: 24px;
-        height: 24px;
-        font-size: 0.75rem;
+        min-width: var(--rds-pagination-item-size-md);
+        height: var(--rds-pagination-item-size-md);
+        font-size: var(--rds-pagination-font-size-md);
       }
     }
 
@@ -415,7 +415,7 @@
 
     .pagination-legend {
       margin-left: 0 !important;
-      font-size: 0.75rem;
+      font-size: var(--rds-font-size-sm);
       text-align: center;
     }
 
@@ -425,11 +425,11 @@
       justify-content: center;
 
       .MuiTextField-root {
-        width: 40px;
+        width: calc(1.25 * var(--rds-spacing-xl));
 
         .MuiInputBase-input {
           padding: calc(var(--rds-spacing-xs) * 0.75) calc(var(--rds-spacing-xs) * 1.5);
-          font-size: 0.75rem;
+          font-size: var(--rds-pagination-font-size-sm);
         }
       }
 
@@ -442,8 +442,8 @@
     &.style-5 {
       .MuiButton-root {
         padding: var(--rds-spacing-xs) var(--rds-spacing-sm);
-        font-size: 0.75rem;
-        min-width: 60px;
+        font-size: var(--rds-pagination-font-size-md);
+        min-width: var(--rds-pagination-button-min-width);
       }
     }
 
@@ -453,7 +453,7 @@
       }
 
       .MuiPaginationItem-root {
-        margin: 0 1px;
+        margin: 0 calc(var(--rds-spacing-xs) * 0.25);
       }
     }
   }
@@ -466,11 +466,11 @@
     gap: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2);
 
     .MuiPaginationItem-root {
-      margin: 0 3px;
+      margin: 0 var(--rds-pagination-small-gap-offset);
       padding: calc(var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-xs) * 1.25);
       font-size: 0.85rem;
-      min-width: 28px;
-      height: 28px;
+      min-width: var(--rds-pagination-item-size-lg);
+      height: var(--rds-pagination-item-size-lg);
 
       &.MuiPaginationItem-rounded {
         padding: calc(var(--rds-spacing-xs) * 1.5);
@@ -478,15 +478,15 @@
       }
 
       &.MuiPaginationItem-sizeSmall {
-        min-width: 22px;
-        height: 22px;
-        font-size: 0.75rem;
+        min-width: var(--rds-pagination-item-size-sm);
+        height: var(--rds-pagination-item-size-sm);
+        font-size: var(--rds-pagination-font-size-md);
       }
 
       &.MuiPaginationItem-sizeLarge {
-        min-width: 30px;
-        height: 30px;
-        font-size: 0.9rem;
+        min-width: var(--rds-pagination-item-size-xl);
+        height: var(--rds-pagination-item-size-xl);
+        font-size: var(--rds-pagination-font-size-lg);
       }
     }
 
@@ -495,7 +495,7 @@
     }
 
     .pagination-dropdown {
-      min-width: 100px;
+      min-width: var(--rds-pagination-dropdown-min-width);
 
       .MuiInputLabel-root {
         font-size: 0.85rem;
@@ -512,19 +512,19 @@
     }
 
     .pagination-manual-input {
-      gap: calc(var(--rds-spacing-sm) - 1px);
+      gap: calc(var(--rds-spacing-sm) - var(--rds-pagination-small-offset, 1px));
 
       .MuiTextField-root {
-        width: 44px;
+        width: var(--rds-pagination-textfield-width);
 
         .MuiInputBase-input {
-          padding: var(--rds-spacing-xs) calc(var(--rds-spacing-sm) - 1px);
+          padding: var(--rds-spacing-xs) calc(var(--rds-spacing-sm) - var(--rds-pagination-small-offset, 1px));
           font-size: 0.85rem;
         }
       }
 
       .MuiTypography-root {
-        font-size: 0.85rem;
+        font-size: var(--rds-pagination-font-size-md);
       }
     }
   }

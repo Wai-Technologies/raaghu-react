@@ -1,17 +1,17 @@
 .rds-stack {
   display: block;
   position: relative;
-  --rds-stack-divider-color-light: rgba(0, 0, 0, 0.12);
-  --rds-stack-divider-color-dark: rgba(219, 219, 219, 0.59);
+  --rds-stack-divider-color-light: var(--rds-border-light);
+  --rds-stack-divider-color-dark: var(--rds-border-default);
   --rds-stack-item-radius: var(--rds-border-radius-sm, 4px);
   --rds-stack-item-font-weight: var(--rds-font-weight-medium, 500);
 }
 
 .rds-stack .MuiDivider-root,
 .rds-stack .rds-stack__divider {
-  background-color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light, rgba(0, 0, 0, 0.12)));
-  color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light, rgba(0, 0, 0, 0.12)));
-  border-color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light, rgba(0, 0, 0, 0.12)));
+  background-color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light));
+  color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light));
+  border-color: var(--rds-stack-divider-color, var(--rds-stack-divider-color-light));
 }
 
 .rds-stack__demo-item {

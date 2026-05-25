@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     height: 95vh;
-    min-height: 500px;
+    min-height: var(--rds-ai-chat-bot-min-height, 500px);
     max-height: 100vh;
     width: 100%;
     max-width: 100%;

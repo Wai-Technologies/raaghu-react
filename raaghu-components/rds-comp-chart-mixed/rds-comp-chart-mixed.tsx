@@ -26,17 +26,14 @@ const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
             options: chartOptions,
         });
 
-        if (mixedCanvas !== null) {
-            mixedCanvas.canvas.style.height = "86vh";
-            mixedCanvas.canvas.style.width = "100vh";
-        }
+        // Canvas sizing is controlled by CSS variables (theme tokens)
 
         return () => { mixedCanvas.destroy(); };
     }, [props]);
 
     return (
         <div className="rds-comp-chart-mixed">
-            <canvas data-testid={props.id} id={props.id} ref={canvasRef} />
+            <canvas className="rds-chart-canvas" data-testid={props.id} id={props.id} ref={canvasRef} />
         </div>
     );
 };

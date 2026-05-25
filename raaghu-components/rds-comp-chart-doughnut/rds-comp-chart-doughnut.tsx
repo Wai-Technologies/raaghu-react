@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import { applyChartThemeColors, chartTextColor, chartMutedColor } from "../chart-utils";
+import { applyChartThemeColors, chartTextColor, chartMutedColor, chartFont } from "../chart-utils";
 import "./rds-comp-chart-doughnut.scss";
 
 export interface RdsCompDoughnutprops {
@@ -34,14 +34,14 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutprops) => {
                 const mutedColor   = chartMutedColor();
 
                 c.save();
-                c.font = "700 20px Poppins";
+                c.font = chartFont('bold', 'xl');
                 c.textAlign = "center";
                 c.fillStyle = primaryColor;
                 c.fillText(title, width / 2, centerY - 10);
                 c.restore();
 
                 c.save();
-                c.font = "500 16px Poppins";
+                c.font = chartFont('medium', 'lg');
                 c.textAlign = "center";
                 c.fillStyle = mutedColor;
                 c.fillText(subTitle, width / 2, centerY + 16);

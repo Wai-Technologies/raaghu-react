@@ -37,6 +37,6 @@
 }
 
 .rds-icon-button:focus-visible {
-  outline: var(--rds-icon-button-focus-ring-width, 2px) solid var(--rds-icon-button-focus-color, rgba(25, 118, 210, 0.32));
+  outline: var(--rds-icon-button-focus-ring-width, 2px) solid var(--rds-icon-button-focus-color, var(--rds-info-main));
   outline-offset: var(--rds-icon-button-focus-ring-width, 2px);
 }

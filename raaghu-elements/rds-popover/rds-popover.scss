@@ -12,6 +12,15 @@
   --rds-popover-surface-shadow-right: drop-shadow(1px 0px 0px var(--rds-border-opacity-light));
   --rds-popover-position-option-size: 32px;
   --rds-popover-list-mobile-padding: var(--rds-spacing-sm, 6px);
+  --rds-popover-container-max-width: 400px;
+  --rds-popover-container-min-width: 200px;
+  --rds-popover-wide-min-width: 300px;
+  --rds-popover-wide-max-width: 600px;
+  --rds-popover-narrow-min-width: 150px;
+  --rds-popover-narrow-max-width: 250px;
+  --rds-popover-position-grid-max-width: 120px;
+  --rds-popover-list-mobile-max-width: 220px;
+  --rds-popover-list-mobile-min-width: 120px;
 
   &-highlight-box {
     margin-top: var(--rds-spacing-md, 16px);
@@ -28,8 +37,8 @@
 
   &__container {
     padding: var(--rds-spacing-md, 16px);
-    max-width: 400px;
-    min-width: 200px;
+    max-width: var(--rds-popover-container-max-width, 400px);
+    min-width: var(--rds-popover-container-min-width, 200px);
     position: relative;
     overflow: visible;
   }
@@ -166,7 +175,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--rds-spacing-xs, 4px);
-    max-width: 120px;
+    max-width: var(--rds-popover-position-grid-max-width, 120px);
     margin: 0 auto;
   }
 
@@ -210,15 +219,15 @@
 
   &--wide {
     .rds-popover__container {
-      min-width: 300px;
-      max-width: 600px;
+      min-width: var(--rds-popover-wide-min-width, 300px);
+      max-width: var(--rds-popover-wide-max-width, 600px);
     }
   }
 
   &--narrow {
     .rds-popover__container {
-      min-width: 150px;
-      max-width: 250px;
+      min-width: var(--rds-popover-narrow-min-width, 150px);
+      max-width: var(--rds-popover-narrow-max-width, 250px);
     }
   }
 
@@ -235,8 +244,8 @@
 
 @media (max-width: var(--rds-breakpoint-mobile-sm)) {
   .with-list-popover .rds-popover__container {
-    max-width: 220px !important;
-    min-width: 120px !important;
+    max-width: var(--rds-popover-list-mobile-max-width, 220px) !important;
+    min-width: var(--rds-popover-list-mobile-min-width, 120px) !important;
     padding: var(--rds-popover-list-mobile-padding, var(--rds-spacing-sm, 6px)) !important;
     font-size: 0.95rem;
   }

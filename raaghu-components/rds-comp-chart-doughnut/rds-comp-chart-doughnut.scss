@@ -5,8 +5,10 @@
 
     @media (min-width: var(--rds-breakpoint-md)) and (max-width: var(--rds-breakpoint-lg)) {
         canvas {
-            height: 466.2px !important;
-            width: 1180.8px !important;
+            /* Use viewport-relative sizing instead of hardcoded pixels
+               so charts respond to theme and layout changes. */
+            height: 66vh !important;
+            width: 66vh !important;
         }
     }
 }

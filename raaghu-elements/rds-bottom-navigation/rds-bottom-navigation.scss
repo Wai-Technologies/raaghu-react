@@ -1,16 +1,7 @@
 $rds-bottom-navigation-mobile-breakpoint: 568px;
 
 .rds-bottom-navigation {
-  --rds-bottom-navigation-z-index: var(--rds-z-index-dropdown);
-  --rds-bottom-navigation-focus-ring-width: 2px;
-  --rds-bottom-navigation-disabled-opacity: 0.6;
-  --rds-bottom-navigation-action-min-width: 72px;
-  --rds-bottom-navigation-action-padding-y: 6px;
-  --rds-bottom-navigation-action-padding-x: 8px;
-  --rds-bottom-navigation-label-font-size: 0.8rem;
-  --rds-bottom-navigation-label-margin-top: 2px;
-  --rds-bottom-navigation-label-line-height: 1.2;
-  --rds-bottom-navigation-icon-size: 1.6rem;
+  // bottom-navigation sizing and tokens provided by centralized --rds-* vars
   display: block;
   position: fixed;
   bottom: 0;

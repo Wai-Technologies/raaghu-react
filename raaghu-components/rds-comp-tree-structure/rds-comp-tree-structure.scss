@@ -20,12 +20,12 @@
     // Node state modifiers
     &--hover {
       &:hover {
-        background-color: var(--rds-color-primary-hover-light, #EBDCFF);
+        background-color: var(--rds-primary-light, #EBDCFF);
       }
     }
-    
+
     &--selected {
-      background-color: var(--rds-color-primary-selected-light, #E1D5F7);
+      background-color: var(--rds-primary-light, #E1D5F7);
     }
   }
   
@@ -68,9 +68,9 @@
     margin-top: var(--rds-spacing-sm, 2px);
     
     &--folder {
-      color: var(--rds-color-warning, #FFB300);
+      color: var(--rds-warning-main, #FFB300);
       margin-top: var(--rds-spacing-sm, 2px);
-      
+
       svg,
       svg * {
         fill: currentColor !important;
@@ -79,7 +79,7 @@
     }
     
     &--file {
-      color: var(--rds-color-info, #0066cc);
+      color: var(--rds-info-main, #0066cc);
     }
     
     &--circle {
@@ -87,7 +87,7 @@
       width: 12px;
       height: 12px;
       margin-bottom: var(--rds-spacing-xs, 2px);
-      background-color: var(--rds-color-border, #CDCDCD);
+      background-color: var(--rds-border-default, #CDCDCD);
       border-radius: 50%;
     }
   }
@@ -95,7 +95,7 @@
   // Node text
   &__text {
     margin-left: var(--rds-spacing-xs, 2px);
-    color: var(--rds-color-on-surface, #212121);
+    color: var(--rds-text-primary, #212121);
   }
   
   // Action buttons
@@ -108,13 +108,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--rds-color-primary, #7e2eef);
+    border: 1px solid var(--rds-primary-main, #7e2eef);
     border-radius: var(--rds-border-radius-xs, 3px);
     padding: var(--rds-spacing-xs, 8px);
     transition: all var(--rds-transition-duration-short, 0.3s) ease;
     cursor: pointer;
     background: transparent;
-    color: var(--rds-color-primary, #7e2eef);
+    color: var(--rds-primary-main, #7e2eef);
     
     svg {
       width: 16px;
@@ -123,8 +123,8 @@
     }
     
     &:hover {
-      background-color: var(--rds-color-primary, #7e2eef);
-      color: var(--rds-color-on-primary, #EBDCFF);
+      background-color: var(--rds-primary-main, #7e2eef);
+      color: var(--rds-text-primary, #EBDCFF);
     }
   }
 }
@@ -133,7 +133,7 @@
 @media (max-width: var(--rds-breakpoint-md)) {
   .rds-comp-tree-structure {
     &__node {
-      margin-left: -18px !important;
+      margin-left: calc(-1 * var(--rds-spacing-md, 16px)) !important;
     }
     &__actions {
       display: flex !important;

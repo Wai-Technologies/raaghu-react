@@ -2,6 +2,7 @@
 import React from 'react';
 import { WorldMap } from 'react-svg-worldmap';
 import './rds-comp-map.scss';
+import { componentTokens } from '../../raaghu-react-themes/tokens/design-tokens';
 
 export interface RdsCompMapProps {
     title?: any,
@@ -25,9 +26,9 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         }
     }
 
-    const heatMapPalette = [
-        '#FFAF00', 
-        '#2CC1A5', 
+    const heatMapPalette = componentTokens.map?.heatmapPalette || [
+        '#FFAF00',
+        '#2CC1A5',
         '#26BEAE',
         '#E1CF00',
         '#FEA200',
@@ -37,7 +38,7 @@ const RdsCompMap = (props: RdsCompMapProps) => {
         '#F84A00',
         '#1DBBBC',
         '#FC4703',
-        '#25BDB1'
+        '#25BDB1',
     ];
 
     const interpolateColor = (t: number) => {

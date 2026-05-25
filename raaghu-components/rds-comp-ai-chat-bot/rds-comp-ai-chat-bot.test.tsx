@@ -9,14 +9,16 @@ jest.mock('./rds-comp-ai-chat-bot.scss', () => ({}));
 
 // Mock child components
 jest.mock('../rds-comp-ai-chat-header/rds-comp-ai-chat-header', () => {
-  return function MockRdsCompAiChatHeader({ logoUrl, title, ...props }: any) {
+  const ChatHeaderSize = { Small: 'small', Medium: 'medium', Large: 'large' } as const;
+  function MockRdsCompAiChatHeader({ logoUrl, title, ...props }: any) {
     return (
       <div data-testid="chat-header" {...props}>
         <img src={logoUrl} alt="logo" data-testid="header-logo" />
         <h2 data-testid="header-title">{title}</h2>
       </div>
     );
-  };
+  }
+  return { __esModule: true, default: MockRdsCompAiChatHeader, ChatHeaderSize };
 });
 
 jest.mock('../rds-comp-ai-message-box/rds-comp-ai-message-box', () => {

@@ -100,7 +100,7 @@ const RdsCompAiChatBot = (props: RdsCompAiChatBotProps) => {
             <div className="rds-ai-chat-bot__input-wrapper">
                 <div className="rds-ai-chat-bot__input">
                     <RdsCompAiTypingSection
-                        colorVariant="#353535"
+                        colorVariant="var(--rds-text-secondary)"
                         onSend={handleSendMessage}
                         placeholderText={placeholderText || "Ask me anything"}
                         icon_name={icon_name}

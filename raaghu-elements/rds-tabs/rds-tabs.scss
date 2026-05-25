@@ -91,9 +91,9 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  font-family: var(--rds-font-family, Poppins);
-  --rds-tabs-corner-radius: 6px;
-  --rds-tabs-pill-radius: 15rem;
+  font-family: var(--rds-font-family-base, Poppins);
+  --rds-tabs-corner-radius: var(--rds-border-radius-md, 6px);
+  --rds-tabs-pill-radius: var(--rds-border-radius-full, 15rem);
   --rds-tabs-flap-arrow-bottom: -9px;
   --rds-tabs-flap-arrow-left: 75px;
   --rds-tabs-flap-arrow-size: 10px;
@@ -101,7 +101,7 @@
   --rds-tabs-tab-min-width: 120px;
   --rds-tabs-tab-mobile-min-width: 140px;
   --rds-tabs-tab-mobile-max-width: 200px;
-  --rds-tabs-mobile-font-size: 0.85rem;
+  --rds-tabs-mobile-font-size: var(--rds-font-size-sm, 0.85rem);
   
   &--flap {
     overflow: visible !important;

@@ -1,24 +1,4 @@
 .rds-file-uploader {
-  --rds-file-uploader-dropzone-padding-y: 32px;
-  --rds-file-uploader-dropzone-padding-x: 24px;
-  --rds-file-uploader-dropzone-min-width: 500px;
-  --rds-file-uploader-dropzone-min-height: 60px;
-  --rds-file-uploader-dropzone-border-radius: var(--rds-border-radius, 8px);
-  --rds-file-uploader-dropzone-border-width: 2px;
-  --rds-file-uploader-icon-size: 32px;
-  --rds-file-uploader-btn-min-width: 120px;
-  --rds-file-uploader-control-radius: 6px;
-  --rds-file-uploader-disabled-opacity: 0.6;
-  --rds-file-uploader-side-padding-left: 8px;
-  --rds-file-uploader-title-size-left: 20px;
-  --rds-file-uploader-info-size-left: 15px;
-  --rds-file-uploader-upload-padding-y: 4px;
-  --rds-file-uploader-upload-padding-x: 13px;
-  --rds-file-uploader-filename-height: 40px;
-  --rds-file-uploader-hint-row-height: 20px;
-  --rds-file-uploader-hint-padding-right: 10px;
-  --rds-file-uploader-file-progress-height: 6px;
-  --rds-file-uploader-file-progress-radius: 3px;
   display: block;
   position: relative;
   width: 100%;
@@ -79,8 +59,8 @@
       align-items: center;
       justify-content: space-between;
       min-height: var(--rds-file-uploader-dropzone-min-height, 60px);
-      padding-left: 24px;
-      padding-right: 24px;
+      padding-left: var(--rds-spacing-lg, 24px);
+      padding-right: var(--rds-spacing-lg, 24px);
       padding-top: var(--rds-spacing-md);
       padding-bottom: var(--rds-spacing-md);
       border: var(--rds-file-uploader-dropzone-border-width, 2px) dashed var(--rds-color-primary, #2196F3) !important;
@@ -94,7 +74,7 @@
       align-items: center;
       justify-content: space-between;
       min-height: var(--rds-file-uploader-dropzone-min-height, 60px);
-      padding: var(--rds-spacing-md) 32px;
+      padding: var(--rds-spacing-md) var(--rds-spacing-xl, 32px);
       background: var(--rds-background-paper, #fff);
       border-radius: var(--rds-file-uploader-dropzone-border-radius, var(--rds-border-radius, 8px));
       box-sizing: border-box;
@@ -105,8 +85,8 @@
       align-items: center;
       justify-content: space-between;
       min-height: var(--rds-file-uploader-dropzone-min-height, 60px);
-      padding: var(--rds-spacing-md) 32px;
-      border: 1.5px dashed var(--rds-color-primary, #3390e6) !important;
+      padding: var(--rds-spacing-md) var(--rds-spacing-xl, 32px);
+      border: var(--rds-file-uploader-dropzone-border-width, 1.5px) dashed var(--rds-color-primary, #3390e6) !important;
       background: var(--rds-background-paper, #fff) !important;
       border-radius: var(--rds-file-uploader-dropzone-border-radius, var(--rds-border-radius, 8px));
       box-sizing: border-box;
@@ -130,8 +110,8 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    .rds-file-uploader__drop-zone--with-upload-btn & {
-      margin: 0 16px 0 0;
+      .rds-file-uploader__drop-zone--with-upload-btn & {
+      margin: 0 var(--rds-spacing-md, 16px) 0 0;
       display: flex;
       align-items: center;
     }
@@ -326,6 +306,15 @@ color: var(--rds-color-primary, #1976d2);
 
   &__form-title {
     color: var(--rds-text-primary, #222);
+  }
+
+  .rds-file-uploader__placeholder-img {
+    max-width: var(--rds-spacing-2xl, 120px);
+    opacity: 0.7;
+  }
+
+  .rds-file-uploader__mandatory-asterisk {
+    color: var(--rds-color-error, #d32f2f);
   }
 }
 

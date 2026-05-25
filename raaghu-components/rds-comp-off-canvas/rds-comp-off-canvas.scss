@@ -65,7 +65,7 @@
   transition: all 0.2s ease-in-out;
 }
 .offcanvas-close-button:hover {
-  background-color: rgba(0, 0, 0, 0.10);
+  background-color: var(--rds-overlay-hover, rgba(0, 0, 0, 0.10));
   border-radius: var(--rds-border-radius-sm);
 }
 .offcanvas-body {
@@ -127,7 +127,7 @@
 }
 @media (max-width: var(--rds-breakpoint-767)) {
   .MuiDrawer-paper {
-    width: 375px !important;
+    width: var(--rds-offcanvas-mobile-width, 375px) !important;
   }
 }
 
@@ -145,11 +145,11 @@
 }
 
 .offcanvas-container .offcanvas-header .close:hover {
-  background-color: rgba(0, 0, 0, 0.10);
+  background-color: var(--rds-overlay-hover, rgba(0, 0, 0, 0.10));
 }
 @media (min-width: var(--rds-breakpoint-xs)) and (max-width: var(--rds-breakpoint-420)) {
   .offcanvas-drawer .MuiDrawer-paper {
-    width: 320px !important;
+    width: var(--rds-offcanvas-mobile-small-width, 320px) !important;
   }
   .offcanvas-margin {
     display: flex;
@@ -242,16 +242,16 @@
   #close-btn .rds-icon-button,
   #close-btn .MuiIconButton-root {
     padding: 6px 8px !important;
-    min-width: 36px !important;
-    min-height: 36px !important;
-    width: 36px !important;
-    height: 36px !important;
+    min-width: var(--rds-icon-button-size, 36px) !important;
+    min-height: var(--rds-icon-button-size, 36px) !important;
+    width: var(--rds-icon-button-size, 36px) !important;
+    height: var(--rds-icon-button-size, 36px) !important;
   }
   
   #close-btn .rds-icon-button svg,
   #close-btn .MuiIconButton-root svg {
-    width: 16px !important;
-    height: 16px !important;
+    width: var(--rds-icon-button-svg-size, 16px) !important;
+    height: var(--rds-icon-button-svg-size, 16px) !important;
     margin-left: 0 !important;
   }
 }
@@ -291,11 +291,11 @@
 
   #close-btn .rds-icon-button, #close-btn .MuiIconButton-root {
     padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm) !important;
-    width: 40px !important; height: 40px !important;
-    min-width: 40px !important; min-height: 40px !important;
+    width: var(--rds-icon-button-lg-size, 40px) !important; height: var(--rds-icon-button-lg-size, 40px) !important;
+    min-width: var(--rds-icon-button-lg-size, 40px) !important; min-height: var(--rds-icon-button-lg-size, 40px) !important;
   }
   #close-btn .rds-icon-button svg, #close-btn .MuiIconButton-root svg {
-    width: 18px !important; height: 18px !important; 
+    width: var(--rds-icon-button-lg-svg-size, 18px) !important; height: var(--rds-icon-button-lg-svg-size, 18px) !important; 
     margin-left: 0 !important;
   }
 }

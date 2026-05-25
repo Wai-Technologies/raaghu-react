@@ -3,6 +3,11 @@
     justify-content: center;
     align-items: center;
 
+    canvas {
+        height: 86vh;
+        width: auto;
+    }
+
     // Tablet view - full screen
     @media (min-width: var(--rds-breakpoint-md)) and (max-width: var(--rds-breakpoint-lg)) {
         

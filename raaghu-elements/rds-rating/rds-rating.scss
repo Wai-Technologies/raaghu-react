@@ -64,7 +64,8 @@
 
   &__star-icon {
     &--empty {
-      opacity: 2;
+      --rds-rating-empty-opacity: 0.6;
+      opacity: var(--rds-rating-empty-opacity, 0.6);
       color: var(--rds-color-outline-variant);
     }
   }
@@ -123,7 +124,7 @@
     position: relative;
     font-size: var(--rds-font-size-caption, 12px);
     color: var(--rds-color-on-surface-variant);
-    padding: 0 var(--rds-spacing-xs, 6px);
+    padding: 0 var(--rds-spacing-xs, 4px);
     height: var(--rds-spacing-md, 16px);
   }
 

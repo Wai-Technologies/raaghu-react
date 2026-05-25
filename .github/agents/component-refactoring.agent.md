@@ -407,8 +407,35 @@ After all changes confirm:
 
 ## Step 9: Testing
 
+Run TypeScript checks and then run tests for the specific component only. The agent MUST prefer a single-file test run when the user specifies a component. Do NOT run the full Jest suite without explicit user confirmation.
+
+Local commands (single-file):
+```bash
+# Run a single test file directly
+npx jest raaghu-elements/my-component/my-component.test.tsx --runInBand
+
+# Or using a script that passes args to jest
+# package.json script: "test:one": "jest --runInBand"
+# then run:
+npm run test:one -- raaghu-elements/my-component/my-component.test.tsx
+```
+
+Run TypeScript checks first:
+```bash
 tsc --noEmit
-npm run test -- <component-name> --watch=false
+```
+
+Agent execution rules:
+- If the user specifies a component or test file path, run the single-file Jest command above.
+- If the user requests "run tests" without specifying a component, ask a clarifying question before running the full suite.
+- To run the full suite (only after explicit consent):
+```bash
+npx jest --ci --runInBand
+```
+
+Notes:
+- Use `--runInBand` to keep CI/local output serial and deterministic when debugging.
+- Prefer `--testPathPattern` for folder-based runs when multiple related tests should execute.
 
 ---
 

@@ -40,7 +40,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   panelSize = 11,
   panelMargin = 2,
 }) => {
-  const [columns] = useState(53);
+  const columns = 53;
   const [dynamicPanelSize, setDynamicPanelSize] = useState(panelSize);
   const [dynamicPanelMargin, setDynamicPanelMargin] = useState(panelMargin);
   const [isMobile, setIsMobile] = useState(false);
@@ -75,11 +75,11 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     }
   };
 
-  const getPanelPosition = (row: number, col: number) => {
+  const getPanelPosition = (colIndex: number, rowIndex: number) => {
     const bounds = dynamicPanelSize + dynamicPanelMargin;
     return {
-      x: weekLabelWidth + bounds * row,
-      y: monthLabelHeight + bounds * col,
+      x: weekLabelWidth + bounds * colIndex,
+      y: monthLabelHeight + bounds * rowIndex,
     };
   };
 
@@ -120,7 +120,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   if (!values || !until) {
     return null;
   }
-  const contributions = makeCalendarData(values, until, columns);
+  const contributions = React.useMemo(() => makeCalendarData(values, until, columns), [values, until, columns, dateFormat]);
   const renderWeekLabels = () => {
     if (!weekNames || weekNames.length < 7) return null;
     
@@ -249,7 +249,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
         >
           <div className="rds-comp-contribution__container">
             <div className="rds-comp-contribution__wrapper">
-              <SvgIcon
+                      <SvgIcon
                 className="rds-comp-contribution__svg"
                 viewBox={`0 0 ${svgWidth} ${svgHeight}`}
                 sx={{ 
@@ -259,8 +259,9 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
                   minWidth: 'unset'
                 }}
               >
-                {renderContributionPanels()}
-                {renderMonthLabels()}
+                        {renderWeekLabels()}
+                        {renderContributionPanels()}
+                        {renderMonthLabels()}
               </SvgIcon>
             </div>
           </div>

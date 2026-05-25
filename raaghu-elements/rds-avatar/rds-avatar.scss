@@ -34,7 +34,7 @@
     left: 1px;
     right: 1px;
     bottom: 1px;
-    border: 2.5px solid currentColor;
+    border: var(--rds-avatar-ring-width, 2.5px) solid currentColor;
     border-radius: var(--rds-border-radius-full, 50%);
     z-index: var(--rds-z-index-base);
     pointer-events: none;
@@ -44,14 +44,14 @@
 
 &__dot {
   position: absolute;
-  width: calc(12px * var(--dot-scale, 1));
-  height: calc(12px * var(--dot-scale, 1));
+  width: calc(var(--rds-avatar-dot-size, 12px) * var(--rds-avatar-dot-scale, 1));
+  height: calc(var(--rds-avatar-dot-size, 12px) * var(--rds-avatar-dot-scale, 1));
   border: 0px solid var(--rds-color-on-primary, #fff);
   border-radius: var(--rds-border-radius-full, 50%);
   z-index: calc(var(--rds-z-index-base) + 2);
-  box-shadow: 0 0 0 2px var(--rds-background-paper, #f4f6fa);
+  box-shadow: 0 0 0 var(--rds-avatar-dot-border-width, 2px) var(--rds-background-paper, #f4f6fa);
   transition: background var(--rds-transition-base);
-  right: calc(-2px * var(--dot-scale, 1));
+  right: calc(-1 * var(--rds-avatar-dot-border-width, 2px) * var(--rds-avatar-dot-scale, 1));
   background: var(--rds-color-primary, #7c3aed);
 
   &--top {
@@ -133,12 +133,12 @@
     }
     .rds-avatar__dot {
       position: absolute;
-      width: calc(14px * var(--dot-scale, 1));
-      height: calc(14px * var(--dot-scale, 1));
-      border: calc(2px * var(--dot-scale, 0.8)) solid var(--rds-color-on-primary, #fff);
+      width: calc(var(--rds-avatar-dot-size-lg, 14px) * var(--rds-avatar-dot-scale, 1));
+      height: calc(var(--rds-avatar-dot-size-lg, 14px) * var(--rds-avatar-dot-scale, 1));
+      border: calc(var(--rds-avatar-dot-border-width, 2px) * var(--rds-avatar-dot-scale, 0.8)) solid var(--rds-color-on-primary, #fff);
       border-radius: var(--rds-border-radius-full, 50%);
       z-index: calc(var(--rds-z-index-base) + 2);
-      box-shadow: 0 0 0 2px var(--rds-background-paper, #f4f6fa);
+      box-shadow: 0 0 0 var(--rds-avatar-dot-border-width, 2px) var(--rds-background-paper, #f4f6fa);
       transition: background var(--rds-transition-base);
       right: calc(-4px * var(--dot-scale, 1));
     }

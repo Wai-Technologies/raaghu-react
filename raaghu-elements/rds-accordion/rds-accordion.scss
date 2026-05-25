@@ -145,6 +145,15 @@
   --rds-accordion-size-md: 20px;
   --rds-accordion-size-lg: 28px;
   --rds-accordion-disabled-opacity: 0.6;
+  /* Component-local spacing vars (preserve existing layout but avoid raw px usage) */
+  --rds-accordion-summary-content-margin-sm: 6px;
+  --rds-accordion-summary-content-margin-md: 12px;
+  --rds-accordion-summary-content-margin-lg: 16px;
+  --rds-accordion-details-margin-top: 12px;
+  --rds-accordion-details-margin-right: 12px;
+  --rds-accordion-details-margin-bottom: 20px;
+  --rds-accordion-details-margin-left: 12px;
+  --rds-accordion-details-min-height: 80px;
   border: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
@@ -180,7 +189,6 @@
     border-radius: 0 !important;
     min-height: 48px !important;
     min-height: var(--rds-accordion-summary-height-md, 48px) !important;
-    padding: 0 16px !important;
     padding: 0 var(--rds-accordion-summary-padding-md-x, 16px) !important;
     border-bottom: none !important;
     position: relative;
@@ -203,10 +211,10 @@
     }
     
     .MuiAccordionSummary-content {
-      margin: 12px 0 !important;
+      margin: var(--rds-accordion-summary-content-margin-md, 12px) 0 !important;
       
       &.Mui-expanded {
-        margin: 12px 0 !important;
+        margin: var(--rds-accordion-summary-content-margin-md, 12px) 0 !important;
       }
     }
     
@@ -251,8 +259,8 @@
       border: 1.5px solid var(--rds-border-default, #7d7d7d);
       background: var(--rds-color-surface, #fff);
       border-radius: var(--rds-border-radius-sm);
-      margin: 12px 12px 20px 12px;
-      min-height: 80px;
+      margin: var(--rds-accordion-details-margin-top, 12px) var(--rds-accordion-details-margin-right, 12px) var(--rds-accordion-details-margin-bottom, 20px) var(--rds-accordion-details-margin-left, 12px);
+      min-height: var(--rds-accordion-details-min-height, 80px);
       padding: var(--rds-spacing-md, 16px) calc(5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-lg, 24px) calc(5 * var(--rds-spacing-xs, 4px));
       box-sizing: border-box;
       display: flex;
@@ -325,10 +333,10 @@
       padding: 0 var(--rds-accordion-summary-padding-sm, 8px) !important;
       
       .MuiAccordionSummary-content {
-        margin: 6px 0 !important;
+        margin: var(--rds-accordion-summary-content-margin-sm, 6px) 0 !important;
         
         &.Mui-expanded {
-          margin: 6px 0 !important;
+          margin: var(--rds-accordion-summary-content-margin-sm, 6px) 0 !important;
         }
       }
     }
@@ -379,10 +387,10 @@
       padding: 0 var(--rds-accordion-summary-padding-lg-x, 24px) !important;
       
       .MuiAccordionSummary-content {
-        margin: 16px 0 !important;
+        margin: var(--rds-accordion-summary-content-margin-lg, 16px) 0 !important;
         
         &.Mui-expanded {
-          margin: 16px 0 !important;
+          margin: var(--rds-accordion-summary-content-margin-lg, 16px) 0 !important;
         }
       }
     }

@@ -130,6 +130,8 @@ export const colorTokens = {
   },
 };
 
+// (component-specific blocks for detailsPane and eSignature relocated below)
+
 /** Extended breakpoints for responsive SCSS (injected as --rds-breakpoint-*). */
 export const extendedBreakpointTokens = {
   xs: '0px',
@@ -190,6 +192,17 @@ export const typographyTokens = {
     base: '1rem',     // 16px
     lg: '1.125rem',   // 18px
     xl: '1.25rem',    // 20px
+    popover: {
+      containerMaxWidth: '400px',
+      containerMinWidth: '200px',
+      wideMinWidth: '300px',
+      wideMaxWidth: '600px',
+      narrowMinWidth: '150px',
+      narrowMaxWidth: '250px',
+      positionGridMaxWidth: '120px',
+      listMobileMaxWidth: '220px',
+      listMobileMinWidth: '120px',
+    },
     '2xl': '1.5rem',  // 24px
     '3xl': '1.875rem', // 30px
     '4xl': '2.25rem', // 36px
@@ -252,6 +265,19 @@ export const spacingTokens = {
   64: '16rem',    // 256px
 };
 
+// Exact pixel aliases for spacing (useful for CSS var injection when exact px needed)
+export const spacingExact = {
+  hairline: '1px',
+  xxs: '2px',
+  xs: '4px',
+  sm: '8px',
+  md: '16px',
+  lg: '24px',
+  xl: '32px',
+  '2xl': '48px',
+  '3xl': '64px',
+} as const;
+
 // Border Radius Tokens
 export const radiusTokens = {
   none: '0px',
@@ -300,6 +326,7 @@ export const zIndexTokens = {
   auto: 'auto',
   base: 0,
   docked: 10,
+  above: 2,
   dropdown: 1000,
   sticky: 1100,
   banner: 1200,
@@ -355,6 +382,359 @@ export const componentTokens = {
       large: '32px',
     }
   }
+  ,
+  alert: {
+    padding: {
+      small: '0.25rem 0.5rem',
+      medium: '0.375rem 0.75rem',
+      large: '0.5rem 1rem',
+    },
+    style: {
+      style1Shadow: '0px 12px 20px -4px rgba(0, 0, 0, 0.15)',
+      borderWidth: '1.5px',
+      leftBorderWidth: '6px',
+    },
+    linkFontSize: '0.8125rem',
+    linkMarginRight: '0.625rem',
+  }
+  ,
+  container: {
+    padding: spacingTokens[4],
+  }
+  ,
+  chip: {
+    focusRingWidth: '2px',
+    disabledOpacity: '0.6',
+  },
+  toggleButton: {
+    minHeight: {
+      small: '32px',
+      medium: '36px',
+      large: '44px',
+      largeMobile: '40px',
+    },
+    spacing: {
+      xs: '4px',
+      sm: '8px',
+      md: '12px',
+    },
+    shadow: {
+      selected: 'inset 0 0 0 1px currentColor',
+      spaced: 'inset 0 0 0 1px rgba(0, 0, 0, 0.12)',
+    }
+  },
+  aiAttachment: {
+    minWidth: '273px',
+    fabLeftOffset: '-18px',
+    fabBottom: '10px',
+    transformX: '30px',
+    transformY: '97.5px',
+  },
+  aiIcon: {
+    size: '22px',
+  },
+  aiTyping: {
+    textareaHeight: '100px',
+    autocompleteMinWidth: '190px',
+    actionButtonMinWidth: '140px',
+    fabLeftOffset: '-129px',
+    actionButtonMarginRight: '5px',
+    autocompleteMaxWidth: '60px',
+  },
+  chart: {
+    bar: {
+      // Heights for various presets used by the component
+      barchart1Height: '65vh',
+      histogramSize: '50px',
+      defaultHeight: '76vh',
+      tabletHeight: '600px',
+      // Pie chart height token (used by pie component)
+      pieHeight: '335px',
+      // Dataset default colors (source of truth for component examples)
+      dataset: {
+        ds1Bg: '#4BC0C0', // rgba(75,192,192,1)
+        ds1Border: '#4BC0C0',
+        ds2Bg: '#36A2EB', // rgba(54,162,235,1)
+        ds2Border: '#36A2EB',
+        datasetBg: '#4BC0C0',
+        datasetBorder: '#36A2EB',
+      }
+    },
+    boolean: {
+      size: '20vh'
+    }
+  },
+  accordion: {
+    summary: {
+      height: {
+        small: '32px',
+        medium: '48px',
+        large: '64px',
+      },
+      paddingX: {
+        small: '8px',
+        medium: '16px',
+        large: '24px',
+      },
+      contentMargin: {
+        small: '6px',
+        medium: '12px',
+        large: '16px',
+      },
+      iconSize: {
+        small: '16px',
+        medium: '20px',
+        large: '28px',
+      }
+    },
+    details: {
+      marginTop: '12px',
+      marginRight: '12px',
+      marginBottom: '20px',
+      marginLeft: '12px',
+      minHeight: '80px',
+      paddingY: '16px'
+    },
+    disabledOpacity: '0.6'
+  }
+  ,
+  fileUploader: {
+    dropzone: {
+      paddingY: '32px',
+      paddingX: '24px',
+      minWidth: '500px',
+      minHeight: '60px',
+      borderRadius: '8px',
+      borderWidth: '2px'
+    },
+    iconSize: '32px',
+    button: {
+      minWidth: '120px',
+    },
+    controlRadius: '6px',
+    disabledOpacity: '0.6',
+    sidePaddingLeft: '8px',
+    titleSizeLeft: '20px',
+    infoSizeLeft: '15px',
+    uploadPaddingY: '4px',
+    uploadPaddingX: '13px',
+    filenameHeight: '40px',
+    hintRowHeight: '20px',
+    hintPaddingRight: '10px',
+    fileProgressHeight: '6px',
+    fileProgressRadius: '3px'
+  }
+  ,
+  menu: {
+    listMinWidth: '180px',
+    listMinWidthSmall: '140px',
+    listMinWidthMedium: '180px',
+    listMinWidthLarge: '260px',
+    itemMinHeight: '40px',
+    itemMinHeightSmall: '26px',
+    itemMinHeightLarge: '56px',
+    headerMarginBottom: '2px',
+    focusRing: '2px',
+    letterSpacing: '0.5px',
+    /* Multi-level menu specific tokens */
+    mlmMinWidth: '220px',
+    mlmRootOffset: '43px',
+  }
+  ,
+  // Avatar tokens used across components
+  avatar: {
+    size: {
+      small: '28px',
+      medium: '32px',
+      large: '40px',
+    },
+    // fallback font-size for avatar initials
+    initialsFontSize: '0.875rem',
+  },
+  // Chat component size tokens
+  chat: {
+    height: '600px',
+    maxHeight: '80vh',
+    videoMaxWidth: '600px',
+    messageMaxWidth: '280px',
+  }
+  ,
+  // Kanban board component tokens
+  kanban: {
+    columnWidth: '300px',
+    columnGap: '20px',
+    cardMinHeight: '600px',
+    cardMinWidth: '320px',
+    addBoardMinWidth320: '320px',
+    addBoardMinWidth280: '280px',
+    subcardMinHeight: '133.6px',
+    dropdownMinWidth: '125px',
+    subcardPadding: '15px',
+    subcardPaddingBottom: '15px',
+    subcardPaddingInner: '8px',
+    truncateMaxWidth: '265px',
+    truncateHoverMaxWidth: '130px',
+    btnMargin: '20px 0px 6px 0px',
+    addBoardBtnPadding: '0px 6px',
+    containerMobilePadding: '0px 16px 5px',
+    addItemMargin: '6px 0px',
+    subcardsContainerPadding: '0px 8px 8px 8px',
+  },
+  // Map component tokens (heatmap palette)
+  map: {
+    heatmapPalette: [
+      '#FFAF00',
+      '#2CC1A5',
+      '#26BEAE',
+      '#E1CF00',
+      '#FEA200',
+      '#28C0AB',
+      '#F94E00',
+      '#CCDE00',
+      '#F84A00',
+      '#1DBBBC',
+      '#FC4703',
+      '#25BDB1',
+    ],
+  },
+};
+
+  // Toolbar component tokens (used by rds-comp-toolbar)
+  componentTokens.toolbar = {
+    height: '40px',
+    heightMobile: '32px',
+    spacingXxs: spacingExact.xxs, // 2px
+  };
+
+// Component-specific tokens for details pane + e-signature (relocated)
+componentTokens.detailsPane = {
+  width: '338.098px',
+  height: '671px',
+  padding: '14px 7px',
+  headerMarginLeft: '17px',
+  tabUnderlineOffset: '-2px',
+  tabUnderlineHeight: '3px',
+  activityItemPadding: '8px 5px',
+  sectionLineHeight: '1px',
+  agentCardBeforeWidth: '5px',
+  agentNameMarginBottom: '3px',
+  agentRadioSize: '16px',
+  footerFixedMarginLeft: '-28px',
+  footerButtonHeight: '36px',
+  footerButtonMaxWidth: '360px',
+  favouriteCardImageMaxWidth: '340px',
+  carouselIndicatorsTop: '180px',
+  thumbnailViewWidth: '329px',
+  thumbnailViewHeight: '596px',
+  downloadButtonContainerMarginRight: '3px',
+  historyItemPadding: '10px 8px',
+  historyIconSize: '36px',
+  carouselMobileMarginRight: '-30px',
+  carouselMobileHeight: '152px',
+  mobileWidth: '281.098px',
+  mobileHeight: '543px',
+};
+
+componentTokens.eSignature = {
+  paddingBottom: '68px',
+  controlsPadding: '14px 24px 12px',
+  drawHeightCompact: '200px',
+  compactMaxWidth: '420px',
+  compactPaddingBottom: '56px',
+  uploadPanelMaxWidth: '420px',
+  uploadPanelPadding: '20px',
+  fileButtonHeight: '32px',
+  fileButtonMinWidth: '108px',
+  fileButtonFontSize: '13px',
+  fileButtonPadding: '0 12px',
+  fileTextHeight: '32px',
+  fileTextFontSize: '13px',
+  fileTextPaddingHorizontal: '12px',
+  fileDeleteHeight: '32px',
+  fileDeletePaddingHorizontal: '8px',
+  colorPaletteGap: '10px',
+  colorButtonSize: '32px',
+};
+
+// Pagination component tokens
+componentTokens.pagination = {
+  itemSize: {
+    xs: '18px',
+    sm: '22px',
+    md: '24px',
+    lg: '28px',
+    xl: '30px',
+  },
+  buttonMinWidth: '60px',
+  textFieldWidth: '44px',
+  smallGapOffset: '3px',
+  dropdownMinWidth: '120px',
+  fontSize: {
+    xs: '0.65rem',
+    sm: '0.7rem',
+    md: '0.75rem',
+    lg: '0.85rem',
+  }
+};
+
+// Progress component tokens
+componentTokens.progress = {
+  dashWidth: '50px',
+  dashHeight: '5px',
+  blockWidth: '80px',
+  blockHeight: '40px',
+  stepSize: '40px',
+  stepSizeMobile: '30px',
+  connectorWidth: '60px',
+  connectorWidthMobile: '35px',
+  innerDotSize: '20px',
+  transition: '0.2s ease-in-out',
+};
+
+// Range component tokens (used by rds-range)
+componentTokens.range = {
+  maxWidthSm: '370px',
+  maxWidthXs: '275px',
+  sliderWidthMobile: '288px',
+  sliderWidthTablet: '382px',
+  disabledOpacity: '0.6',
+};
+
+// Component tokens for emoji generator and empty state (used by components)
+componentTokens.emojiGenerator = {
+  width: '360px',
+  height: '420px',
+  iconSizeSm: '29px',
+  iconSizeXs: '22px',
+  popoverWidth: '45px',
+  inlineMinWidth: '36px',
+};
+
+componentTokens.emptyState = {
+  maxWidth: '640px',
+  padding: '32px',
+  buttonPadding: '6px 15px',
+};
+
+// Table component tokens
+componentTokens.table = {
+  stickyMaxHeight: '440px',
+  actionsWidth: '120px',
+  checkbox: {
+    size: '18px',
+    borderWidth: '2px',
+    checkWidth: '6px',
+    checkHeight: '10px',
+    indeterminateWidth: '8px',
+    indeterminateHeight: '2px',
+    hoverRingSize: '4px',
+    focusRingSize: '2px',
+    disabledOpacity: '0.6',
+  },
+  focus: {
+    ringWidth: '2px',
+    ringOffset: '2px',
+  }
 };
 
 /**
@@ -368,6 +748,35 @@ export const surfaceTokens = {
   codeColor: '#e6eef6',
 
   // ── Light-theme surface neutrals ──────────────────────────────────────────
+  // Adaptive Cards component tokens (component-scoped defaults)
+  adaptiveCards: {
+    thumbWidth: '20px',
+    minThumbWidth: '32px',
+    minWidth: '90px',
+    maxWidth: '120px',
+    minWidth100: '100px',
+    inputPaddingVertical: '1px',
+    inputPaddingHorizontal: '16px',
+    gapXxs: '2px',
+    gapXs: '6px',
+    gap: '14px',
+    maxWidthSm: '50px',
+    minWidthSm: '50px',
+    maxWidthXs: '48px',
+    maxWidthMd: '55px',
+    iconWidth: '24px',
+    borderWidth: '2px',
+    minHeight200: '200px',
+    minHeight160: '160px',
+    minHeight120: '120px',
+    minHeight48: '48px',
+    fontSizeXxs: '9px',
+    fontSizeSm: '13px',
+    fontSizeMd: '15px',
+    errorRing: '0 0 0 2px rgba(189,13,29,0.2)',
+    imageListItemHeightMobile: '120px',
+    footballLogoSizeMobile: '72px'
+  },
   /** Darkest neutral surface (light theme) */
   neutralDarker: '#202020',
   /** Dark neutral surface (light theme) */
@@ -641,6 +1050,8 @@ export const aiGradientTokens = {
  */
 export const switchTokens = {
   disabledSecondaryBg: 'rgba(24, 39, 187, 0.24)',
+  /** Track border radius for styled switches (exact 25px when requested) */
+  trackBorderRadius: '25px',
 };
 
 /**
@@ -676,6 +1087,30 @@ export const semanticAliasTokens = {
   sidebarOverlayBg: 'var(--rds-action-hover)',
   /** Font size body alias */
   fontSizeBody: 'var(--rds-font-size-sm)',
+  /** --- Component/alias tokens added for rds-counter refactor --- */
+  /** Primary main token used by components */
+  rdsPrimaryMain: colorTokens.primary[700],
+  /** Primary darker/hover variant */
+  rdsPrimaryDark: colorTokens.primary[750],
+  /** Primary contrast text color */
+  rdsPrimaryContrastText: '#ffffff',
+  /** Primary hover alias (explicit) */
+  rdsPrimaryHover: colorTokens.primary[750],
+  /** Secondary text color alias */
+  rdsTextSecondary: colorTokens.neutral[600],
+  /** Default border color used across components */
+  rdsBorderDefault: colorTokens.neutral[400],
+  /** Medium border radius alias */
+  rdsBorderRadiusMd: radiusTokens.md,
+  /** Extra-extra-small spacing (used as 2px fallback) */
+  rdsSpacingXxs: '2px',
+  /** Focus ring width used by components as fallback */
+  rdsFocusRingWidth: '2px',
+  /** Action disabled color and background aliases */
+  rdsActionDisabled: colorTokens.neutral[400],
+  rdsActionDisabledBackground: colorTokens.neutral[100],
+  /** Icon button focus color (used by rds-icon-button) */
+  rdsIconButtonFocusColor: colorTokens.info[600],
 };
 
 // Export all tokens as a single object (single human-edited source for the design system)

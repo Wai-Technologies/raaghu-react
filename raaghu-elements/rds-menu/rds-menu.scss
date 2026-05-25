@@ -1,6 +1,6 @@
 .rds-menu {
   &__list {
-    min-width: 180px;
+    min-width: var(--rds-menu-list-min-width);
     padding: calc(var(--rds-spacing-xs) * 1.5) 0;
     background: var(--rds-background-paper, #fff);
     box-shadow: var(--rds-elevation-3, 0 4px 16px rgba(0,0,0,0.10));
@@ -15,7 +15,7 @@
     gap: var(--rds-spacing-md, 12px);
     padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) + var(--rds-spacing-xs));
     font-size: 1rem;
-    min-height: 40px;
+    min-height: var(--rds-menu-item-min-height);
     cursor: pointer;
     transition: background var(--rds-transition-fast, 0.18s ease-in-out), color var(--rds-transition-fast, 0.18s ease-in-out);
     border: none;
@@ -31,7 +31,7 @@
       color: var(--rds-primary-main);
     }
     &:focus-visible {
-      box-shadow: 0 0 0 2px var(--rds-primary-main) inset;
+      box-shadow: 0 0 0 var(--rds-menu-focus-ring) var(--rds-primary-main) inset;
       z-index: calc(var(--rds-z-index-base) + 1);
     }
     &--disabled {
@@ -56,19 +56,19 @@
       margin-left: var(--rds-spacing-md);
       color: var(--rds-text-secondary, #888);
       font-size: 0.92em;
-      letter-spacing: 0.5px;
+      letter-spacing: var(--rds-menu-letter-spacing);
       font-family: var(--rds-font-family-base, Poppins);
     }
   }
 
   &--small {
     .rds-menu__list {
-      min-width: 140px;
+      min-width: var(--rds-menu-list-min-width-small);
       max-width: 225px;
     }
     .rds-menu__item {
       font-size: 0.80rem;
-      min-height: 26px;
+      min-height: var(--rds-menu-item-min-height-small);
       padding: var(--rds-spacing-xs) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
     }
     .rds-menu__header {
@@ -79,12 +79,12 @@
 
   &--medium {
     .rds-menu__list {
-      min-width: 180px;
+      min-width: var(--rds-menu-list-min-width-medium);
       max-width: 260px;
     }
     .rds-menu__item {
       font-size: 1rem;
-      min-height: 40px;
+      min-height: var(--rds-menu-item-min-height);
       padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-md) + var(--rds-spacing-xs));
     }
     .rds-menu__header {
@@ -95,12 +95,12 @@
 
   &--large {
     .rds-menu__list {
-      min-width: 260px;
+      min-width: var(--rds-menu-list-min-width-large);
       max-width: 340px;
     }
     .rds-menu__item {
       font-size: 1.18rem;
-      min-height: 56px;
+      min-height: var(--rds-menu-item-min-height-large);
       padding: calc(var(--rds-spacing-md) + var(--rds-spacing-xs) / 2) var(--rds-spacing-xl);
     }
     .rds-menu__header {
@@ -110,12 +110,12 @@
   }
 
   &__header {
-    font-weight: 600;
+    font-weight: var(--rds-menu-header-font-weight, 600);
     font-size: 0.98em;
     color: var(--rds-text-secondary, #555);
     padding: var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-xs) var(--rds-spacing-md);
-    margin-bottom: 2px;
-    letter-spacing: 0.5px;
+    margin-bottom: var(--rds-menu-header-margin-bottom);
+    letter-spacing: var(--rds-menu-letter-spacing);
     text-transform: uppercase;
     background: var(--rds-background-default, #f7f7fa);
     border-bottom: 1px solid var(--rds-border-light);

@@ -1,47 +1,54 @@
 .rds-comp-ai-attachement {
     display: block;
 
+    /* Component-scoped layout tokens (consumed from centralized design tokens) */
+    --rds-ai-attachment-min-width: 273px;
+    --rds-ai-attachment-fab-left-offset: -18px;
+    --rds-ai-attachment-fab-bottom: 10px;
+    --rds-ai-attachment-transform-x: 30px;
+    --rds-ai-attachment-transform-y: 97.5px;
+
     &__icon {
         height: 32px;
         width: 32px;
     }
 
     &__dropdown {
-        .rds-fab-menu__dropdown {
-            min-width: 273px !important;
+            .rds-fab-menu__dropdown {
+            min-width: var(--rds-ai-attachment-min-width) !important;
             max-width: none !important;
         }
 
-        .dropdown-menu {
-            min-width: 273px !important;
+            .dropdown-menu {
+            min-width: var(--rds-ai-attachment-min-width) !important;
             width: auto !important;
         }
 
         .rds-comp-ai-fab-menu {
-            .dropdown-menu {
-                min-width: 273px !important;
+                .dropdown-menu {
+                min-width: var(--rds-ai-attachment-min-width) !important;
                 width: auto !important;
             }
             
-            .rds-fab-menu__dropdown {
-                min-width: 273px !important;
+                .rds-fab-menu__dropdown {
+                min-width: var(--rds-ai-attachment-min-width) !important;
                 max-width: none !important;
             }
         }
 
         .fab-dropdown {
-            min-width: 273px !important;
+            min-width: var(--rds-ai-attachment-min-width) !important;
             width: auto !important;
         }
 
         #fab-list {
             .dropdown-menu.show {
                 top: auto !important;
-                bottom: 10px !important;
-                left: -18px !important;
+                bottom: var(--rds-ai-attachment-fab-bottom) !important;
+                left: var(--rds-ai-attachment-fab-left-offset) !important;
                 right: auto !important;
-                transform: translate3d(30px, 97.5px, 0px) !important;
-                min-width: 273px !important;
+                transform: translate3d(var(--rds-ai-attachment-transform-x), var(--rds-ai-attachment-transform-y), 0) !important;
+                min-width: var(--rds-ai-attachment-min-width) !important;
                 width: auto !important;
             }
         }
@@ -52,11 +59,24 @@
     }
     
     &__upload-text {
-        padding-right: 10px !important;
+        padding-right: var(--rds-spacing-sm) !important;
+    }
+
+    &__file-input {
+        display: none;
+    }
+
+    &__reset-btn {
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: inherit;
+        font: inherit;
+        padding: 0;
     }
 
     &:focus-visible {
-        outline: 2px solid var(--rds-color-primary);
+        outline: 2px solid var(--rds-primary-main);
         outline-offset: 2px;
     }
 }

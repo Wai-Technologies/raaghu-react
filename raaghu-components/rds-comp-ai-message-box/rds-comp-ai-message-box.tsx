@@ -10,15 +10,17 @@ export interface RdsCompAiMessageBoxProps {
   avatar?: string;
 }
 
-const RdsCompAiMessageBox = (props: RdsCompAiMessageBoxProps) => {
-  const avatarSrc =
-    props.avatar ??
-    props.avtar ??
+const RdsCompAiMessageBox: React.FC<RdsCompAiMessageBoxProps> = ({
+  isImage,
+  message,
+  src,
+  avtar,
+  avatar,
+}) => {
+  const avatarSrc = avatar ?? avtar ??
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face";
 
-  const imageSrc =
-    props.src ??
-    "https://via.placeholder.com/480x320.png?text=Image+placeholder";
+  const imageSrc = src ?? "https://via.placeholder.com/480x320.png?text=Image+placeholder";
 
   return (
     <div className="rds-comp-ai-message-box">
@@ -30,11 +32,11 @@ const RdsCompAiMessageBox = (props: RdsCompAiMessageBoxProps) => {
             showDesignation
             showName={false}
             src={avatarSrc}
-            subText={props.message}
+            subText={message}
             title="Jane Doe"
           />
         </div>
-        {props.isImage && (
+        {isImage && (
           <div className="rds-comp-ai-message-box__image-wrapper">
             <img
               src={imageSrc}

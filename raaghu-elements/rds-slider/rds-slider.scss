@@ -1,8 +1,8 @@
 .rds-slider {
-  --rds-slider-inline-padding: 10px;
+  --rds-slider-inline-padding: var(--rds-spacing-sm, 10px);
   --rds-slider-label-offset-top: -12px;
   --rds-slider-label-offset-left: -10px;
-  --rds-slider-container-gap: 12px;
+  --rds-slider-container-gap: var(--rds-spacing-sm, 12px);
   --rds-slider-font-weight-medium: 500;
   --rds-slider-font-weight-regular: 400;
   --rds-slider-label-muted-color: var(--rds-color-on-surface-variant, #666);

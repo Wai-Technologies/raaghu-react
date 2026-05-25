@@ -6,6 +6,8 @@
   --rds-tooltip-arrow-offset: 0.4em;
   --rds-tooltip-arrow-shadow: var(--rds-elevation-2);
   --rds-tooltip-focus-ring-width: 2px;
+  --rds-tooltip-min-width: 80px;
+  --rds-tooltip-max-width: 320px;
   z-index: var(--rds-z-index-popover);
 
   .MuiTooltip-tooltip {
@@ -17,8 +19,8 @@
     font-family: var(--rds-font-family-base);
     box-shadow: var(--rds-elevation-2);
     padding: var(--rds-spacing-xs) calc(3 * var(--rds-spacing-xs));
-    min-width: 80px;
-    max-width: 320px;
+    min-width: var(--rds-tooltip-min-width);
+    max-width: var(--rds-tooltip-max-width);
     text-align: center;
     position: relative;
     transition: var(--rds-transition-base);

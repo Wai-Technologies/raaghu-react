@@ -98,7 +98,7 @@ describe('RdsCompAiTypingSection', () => {
   describe('Basic Rendering', () => {
     it('renders the component without crashing', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      expect(container.querySelector('.rds-comp-ai-chat-bot')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-ai-typing-section')).toBeInTheDocument();
     });
 
     it('renders with correct display name for debugging', () => {
@@ -107,13 +107,13 @@ describe('RdsCompAiTypingSection', () => {
 
     it('renders main container with correct class', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const mainContainer = container.querySelector('.rds-comp-ai-chat-bot');
-      expect(mainContainer).toHaveClass('rds-comp-ai-chat-bot');
+      const mainContainer = container.querySelector('.rds-comp-ai-typing-section');
+      expect(mainContainer).toHaveClass('rds-comp-ai-typing-section');
     });
 
     it('renders textarea input', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box');
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box');
       expect(textarea).toBeInTheDocument();
       expect(textarea?.tagName).toBe('TEXTAREA');
     });
@@ -125,13 +125,13 @@ describe('RdsCompAiTypingSection', () => {
       const { container } = render(
         <RdsCompAiTypingSection {...defaultProps} placeholderText={placeholder} />
       );
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       expect(textarea.placeholder).toBe(placeholder);
     });
 
     it('renders default placeholder when not provided', () => {
       const { container } = render(<RdsCompAiTypingSection icon_name="test" />);
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       expect(textarea.placeholder).toBe('Placeholder Text');
     });
 
@@ -139,7 +139,7 @@ describe('RdsCompAiTypingSection', () => {
       const { container, rerender } = render(
         <RdsCompAiTypingSection {...defaultProps} />
       );
-      let textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      let textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       expect(textarea.placeholder).toBe('Type your message...');
 
       // Simulate file upload by rendering with mock state
@@ -150,7 +150,7 @@ describe('RdsCompAiTypingSection', () => {
   describe('Text Input', () => {
     it('updates input value when typing', async () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       
       await userEvent.type(textarea, 'Hello World');
       expect(textarea.value).toBe('Hello World');
@@ -158,7 +158,7 @@ describe('RdsCompAiTypingSection', () => {
 
     it('handles multiline text input', async () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       
       await userEvent.type(textarea, 'Line 1{enter}Line 2');
       expect(textarea.value).toContain('Line 1');
@@ -170,7 +170,7 @@ describe('RdsCompAiTypingSection', () => {
       const { container } = render(
         <RdsCompAiTypingSection {...defaultProps} onSend={onSend} />
       );
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       const sendButton = screen.getByTestId('btn-icon-only');
       
       await userEvent.type(textarea, 'Test message');
@@ -190,7 +190,7 @@ describe('RdsCompAiTypingSection', () => {
 
     it('handles very long text input', async () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       const longText = 'a'.repeat(1000);
       
       // Use fireEvent to set value directly to avoid userEvent timeout
@@ -200,7 +200,7 @@ describe('RdsCompAiTypingSection', () => {
 
     it('handles special characters in input', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
 
       const specialText = '<script>alert("xss")</script>';
       fireEvent.change(textarea, { target: { value: specialText } });
@@ -217,10 +217,10 @@ describe('RdsCompAiTypingSection', () => {
 
 it('hides enhance icon when input has text', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
 
       fireEvent.change(textarea, { target: { value: 'Some text' } });
-      const iconSpan = container.querySelector('.rds-comp-ai-chat-bot__input-icon');
+      const iconSpan = container.querySelector('.rds-comp-ai-typing-section__input-icon');
       // Icon should have no visible content when input has text
       expect(!iconSpan?.textContent || iconSpan?.textContent === '').toBe(true);
     });
@@ -238,7 +238,7 @@ it('hides enhance icon when input has text', () => {
       const { container } = render(
         <RdsCompAiTypingSection {...defaultProps} onSend={onSend} />
       );
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       const sendButton = screen.getByTestId('btn-icon-only');
       
       fireEvent.change(textarea, { target: { value: 'Test message' } });
@@ -256,7 +256,7 @@ it('hides enhance icon when input has text', () => {
           previewImage="https://example.com/image.jpg"
         />
       );
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       const sendButton = screen.getByTestId('btn-icon-only');
       
       fireEvent.change(textarea, { target: { value: 'Test' } });
@@ -267,7 +267,7 @@ it('hides enhance icon when input has text', () => {
 
     it('does not call onSend if callback not provided', async () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       const sendButton = screen.getByTestId('btn-icon-only');
       
       await userEvent.type(textarea, 'Test message');
@@ -356,7 +356,7 @@ it('hides enhance icon when input has text', () => {
           autoCompleteMaxWidth="500px"
         />
       );
-      const autocompleteDiv = container.querySelector('.rds-comp-ai-chat-bot__autocomplete');
+      const autocompleteDiv = container.querySelector('.rds-comp-ai-typing-section__autocomplete');
       expect(autocompleteDiv).toHaveStyle({ '--ai-typing-autocomplete-max-width': '500px' });
     });
   });
@@ -371,9 +371,9 @@ it('hides enhance icon when input has text', () => {
       });
 
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const inputWithImage = container.querySelector('.rds-comp-ai-chat-bot__input-with-image');
+      const inputWithImage = container.querySelector('.rds-comp-ai-typing-section__input-with-image');
       
-      expect(inputWithImage?.className).toContain('rds-comp-ai-chat-bot__input-with-image--mobile');
+      expect(inputWithImage?.className).toContain('rds-comp-ai-typing-section__input-with-image--mobile');
     });
 
     it('does not apply mobile class on desktop viewport', () => {
@@ -385,7 +385,7 @@ it('hides enhance icon when input has text', () => {
       });
 
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const inputWithImage = container.querySelector('.rds-comp-ai-chat-bot__input-with-image');
+      const inputWithImage = container.querySelector('.rds-comp-ai-typing-section__input-with-image');
       
       expect(inputWithImage?.className).not.toContain('--mobile');
     });
@@ -404,7 +404,7 @@ it('hides enhance icon when input has text', () => {
       fireEvent.resize(window);
 
       await waitFor(() => {
-        const inputWithImage = container.querySelector('.rds-comp-ai-chat-bot__input-with-image');
+        const inputWithImage = container.querySelector('.rds-comp-ai-typing-section__input-with-image');
         expect(inputWithImage?.className).toContain('--mobile');
       });
     });
@@ -413,7 +413,7 @@ it('hides enhance icon when input has text', () => {
   describe('Props and Defaults', () => {
     it('renders with minimum props', () => {
       const { container } = render(<RdsCompAiTypingSection icon_name="test" />);
-      expect(container.querySelector('.rds-comp-ai-chat-bot')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-ai-typing-section')).toBeInTheDocument();
     });
 
     it('renders with all props provided', () => {
@@ -429,14 +429,14 @@ it('hides enhance icon when input has text', () => {
           autoCompleteMaxWidth="600px"
         />
       );
-      expect(container.querySelector('.rds-comp-ai-chat-bot')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-ai-typing-section')).toBeInTheDocument();
     });
 
     it('updates when props change', () => {
       const { rerender, container } = render(
         <RdsCompAiTypingSection {...defaultProps} />
       );
-      let textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      let textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       expect(textarea.placeholder).toBe('Type your message...');
 
       rerender(
@@ -445,7 +445,7 @@ it('hides enhance icon when input has text', () => {
           placeholderText="New placeholder"
         />
       );
-      textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       expect(textarea.placeholder).toBe('New placeholder');
     });
   });
@@ -453,25 +453,25 @@ it('hides enhance icon when input has text', () => {
   describe('Container Structure', () => {
     it('renders input wrapper container', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const wrapper = container.querySelector('.rds-comp-ai-chat-bot__input-wrapper');
+      const wrapper = container.querySelector('.rds-comp-ai-typing-section__input-wrapper');
       expect(wrapper).toBeInTheDocument();
     });
 
     it('renders action icons container', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const actionIcons = container.querySelector('.rds-comp-ai-chat-bot__action-icons');
+      const actionIcons = container.querySelector('.rds-comp-ai-typing-section__action-icons');
       expect(actionIcons).toBeInTheDocument();
     });
 
     it('renders button sections container', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const buttonSections = container.querySelector('.rds-comp-ai-chat-bot__button-sections');
+      const buttonSections = container.querySelector('.rds-comp-ai-typing-section__button-sections');
       expect(buttonSections).toBeInTheDocument();
     });
 
     it('renders project actions container', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const projectActions = container.querySelector('.rds-comp-ai-chat-bot__project-actions');
+      const projectActions = container.querySelector('.rds-comp-ai-typing-section__project-actions');
       expect(projectActions).toBeInTheDocument();
     });
   });
@@ -506,7 +506,7 @@ it('hides enhance icon when input has text', () => {
       const { container } = render(
         <RdsCompAiTypingSection icon_name="test" />
       );
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       expect(textarea.placeholder).toBe('Placeholder Text');
     });
 
@@ -514,7 +514,7 @@ it('hides enhance icon when input has text', () => {
       const { container } = render(
         <RdsCompAiTypingSection {...defaultProps} previewImage="" />
       );
-      expect(container.querySelector('.rds-comp-ai-chat-bot')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-ai-typing-section')).toBeInTheDocument();
     });
 
     it('handles undefined callbacks gracefully', async () => {
@@ -530,7 +530,7 @@ it('hides enhance icon when input has text', () => {
       const { container } = render(
         <RdsCompAiTypingSection {...defaultProps} onSend={onSend} />
       );
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       const sendButton = screen.getByTestId('btn-icon-only');
       
       await userEvent.type(textarea, 'First');
@@ -544,7 +544,7 @@ it('hides enhance icon when input has text', () => {
 
 it('handles special whitespace characters', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
 
       const whitespaceText = '  \t\n  test  \t\n  ';
       fireEvent.change(textarea, { target: { value: whitespaceText } });
@@ -553,7 +553,7 @@ it('handles special whitespace characters', () => {
 
 it('handles emoji input', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
 
       const emojiText = 'Hello 👋 World 🌍';
       fireEvent.change(textarea, { target: { value: emojiText } });
@@ -562,7 +562,7 @@ it('handles emoji input', () => {
 
     it('handles Unicode characters', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
 
       const unicodeText = '你好世界 مرحبا בעולם';
       fireEvent.change(textarea, { target: { value: unicodeText } });
@@ -573,7 +573,7 @@ it('handles emoji input', () => {
   describe('Accessibility', () => {
     it('textarea has title attribute', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box');
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box');
       expect(textarea).toHaveAttribute('title', 'Enter your prompt here');
     });
 
@@ -598,17 +598,17 @@ it('handles emoji input', () => {
   describe('CSS Classes', () => {
     it('applies all required CSS classes', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      expect(container.querySelector('.rds-comp-ai-chat-bot')).toBeInTheDocument();
-      expect(container.querySelector('.rds-comp-ai-chat-bot__input-wrapper')).toBeInTheDocument();
-      expect(container.querySelector('.rds-comp-ai-chat-bot__input-with-image')).toBeInTheDocument();
-      expect(container.querySelector('.rds-comp-ai-chat-bot__input-box')).toBeInTheDocument();
-      expect(container.querySelector('.rds-comp-ai-chat-bot__actions')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-ai-typing-section')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-ai-typing-section__input-wrapper')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-ai-typing-section__input-with-image')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-ai-typing-section__input-box')).toBeInTheDocument();
+      expect(container.querySelector('.rds-comp-ai-typing-section__actions')).toBeInTheDocument();
     });
 
     it('applies muted placeholder class to textarea', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
-      const textarea = container.querySelector('.rds-comp-ai-chat-bot__input-box');
-      expect(textarea).toHaveClass('rds-comp-ai-chat-bot__input-box--muted-placeholder');
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box');
+      expect(textarea).toHaveClass('rds-comp-ai-typing-section__input-box--muted-placeholder');
     });
   });
 });

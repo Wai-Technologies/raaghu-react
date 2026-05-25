@@ -1,8 +1,7 @@
 .rds-radio {
   display: block;
   position: relative;
-  --rds-radio-hover-bg: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
-  --rds-radio-focus-ring-width: 2px;
+  /* use centralized tokens */
 
   &__group {
     gap: var(--rds-spacing-sm, 8px);
@@ -39,8 +38,8 @@
     
     &--hoverable {
       &:hover {
-        .MuiRadio-root {
-          background-color: var(--rds-radio-hover-bg, var(--rds-action-hover, rgba(0, 0, 0, 0.04)));
+          .MuiRadio-root {
+          background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
         }
       }
     }
@@ -86,8 +85,8 @@
     }
 
     &:hover {
-      .MuiRadio-root {
-        background-color: var(--rds-radio-hover-bg, var(--rds-action-hover, rgba(0, 0, 0, 0.04)));
+        .MuiRadio-root {
+        background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
       }
     }
 
@@ -99,7 +98,7 @@
     &--hoverable {
       &:hover {
         .MuiRadio-root {
-          background-color: var(--rds-radio-hover-bg, var(--rds-action-hover, rgba(0, 0, 0, 0.04)));
+          background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
         }
       }
     }
@@ -154,12 +153,12 @@
 
   &--hover {
     .MuiRadio-root:hover {
-      background-color: var(--rds-radio-hover-bg, var(--rds-action-hover, rgba(0, 0, 0, 0.04)));
+      background-color: var(--rds-action-hover, rgba(0, 0, 0, 0.04));
     }
   }
 
   &:focus-visible {
-    outline: var(--rds-radio-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
+    outline: var(--rds-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset, 2px);
   }
 

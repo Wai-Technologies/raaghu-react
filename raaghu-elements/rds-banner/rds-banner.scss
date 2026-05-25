@@ -1,8 +1,5 @@
 .rds-banner {
-  --rds-banner-close-hover-bg: rgba(0, 0, 0, 0.08);
-  --rds-banner-style-left-border-width: 6px;
-  --rds-banner-mobile-offset: -8px;
-  --rds-banner-mobile-gap-xs: 6px;
+  // banner sizing and offsets are provided by centralized --rds-* tokens
   display: flex;
   align-items: center;
   padding: var(--rds-spacing-sm) var(--rds-spacing-md);

@@ -41,15 +41,11 @@ const RdsCompScatterChart = (props: RdsCompScatterChartProps) => {
         applyChartThemeColors(chartOptions);
 
         chartRef.current = new Chart(ctx, {
-            type: "bar",
+            type: "scatter",
             data: { labels, datasets: dataSets },
             options: chartOptions,
         });
 
-        if (chartRef.current !== null) {
-            chartRef.current.canvas.style.height = "76vh";
-            chartRef.current.canvas.style.width = "100vh";
-        }
 
         return () => { chartRef.current?.destroy(); };
     }, [id, labels, options, dataSets, themeMode]);

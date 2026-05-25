@@ -1,5 +1,13 @@
-.rds-comp-ai-chat-bot {
+.rds-comp-ai-typing-section {
   display: block;
+
+  /* Use global --rds-* tokens (falls back to component defaults) */
+  --ai-typing-textarea-height: var(--rds-ai-typing-textarea-height, 100px);
+  --ai-typing-autocomplete-min-width: var(--rds-ai-typing-autocomplete-min-width, 190px);
+  --ai-typing-autocomplete-max-width: var(--rds-ai-typing-autocomplete-max-width, 60px);
+  --ai-typing-action-button-min-width: var(--rds-ai-typing-action-button-min-width, 140px);
+  --ai-typing-fab-left-offset: var(--rds-ai-typing-fab-left-offset, -129px);
+  --ai-typing-margin-right: var(--rds-ai-typing-action-button-margin-right, 5px);
   
   &__input-wrapper {
     border-radius: var(--rds-border-radius, 5px);
@@ -30,12 +38,12 @@
   }
   
   &__input-box {
-    flex: 1;
-    padding: var(--rds-spacing-md, 15px);
-    font-size: var(--rds-font-size-body, 14px);
-    background-color: var(--rds-color-surface, #fff);
-    color: var(--rds-color-on-surface, #353535);
-    height: 100px;
+  flex: 1;
+  padding: var(--rds-spacing-md, 15px);
+  font-size: var(--rds-font-size-body, 14px);
+  background-color: var(--rds-color-surface, #fff);
+  color: var(--rds-color-on-surface, #353535);
+  height: var(--ai-typing-textarea-height);
     box-sizing: border-box;
     line-height: 1.5;
     resize: none;
@@ -144,13 +152,13 @@
     }
   }
   
-  &__project-actions {
+    &__project-actions {
     display: flex;
     gap: var(--rds-spacing-md, 12px);
   flex-wrap: nowrap;
   }
   
-  &__action-button {
+    &__action-button {
     display: flex;
     flex: 0 0 auto;
     min-width: 0;
@@ -182,7 +190,7 @@
       flex: 1 1 100%;
       min-width: 0;
       width: 100%;
-      &.rds-comp-ai-chat-bot__action-button--figma {
+      &.rds-comp-ai-typing-section__action-button--figma {
         margin-top: 0;
       }
     }
@@ -206,14 +214,14 @@
 
     &__action-button {
       flex: 0 1 auto;
-      min-width: 140px;
+      min-width: var(--ai-typing-action-button-min-width);
     }
   }
 
-  &__autocomplete {
+    &__autocomplete {
     flex: 1 1 auto;
     max-width: var(--ai-typing-autocomplete-max-width, 60px);
-    min-width: 190px;
+    min-width: var(--ai-typing-autocomplete-min-width);
   }
   
   @media (min-width: 376px) {
@@ -226,9 +234,9 @@
     }
 
     &__action-button {
-      flex: 0 0 auto;
-      width: auto;
-      min-width: 0;
+      flex: 0 1 auto;
+      min-width: var(--ai-typing-action-button-min-width);
+    }
       margin-top: 0;
     }
 
@@ -253,10 +261,10 @@
       gap: var(--rds-spacing-xs, 6px);
     }
 
-    &__action-button {
+      &__action-button {
       flex: 1 1 calc((100% - var(--rds-spacing-xs, 6px)) / 2);
       min-width: 0;
-      margin-right: 5px;
+      margin-right: var(--ai-typing-margin-right);
     }
 
     &__autocomplete {

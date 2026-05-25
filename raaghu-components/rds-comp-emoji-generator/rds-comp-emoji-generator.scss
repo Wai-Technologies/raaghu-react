@@ -4,8 +4,8 @@
   background-color: var(--rds-background-paper);
   border-radius: var(--rds-border-radius-lg, 12px);
   overflow: hidden;
-  width: 360px;
-  height: 420px;
+  width: var(--rds-emoji-generator-width, 360px);
+  height: var(--rds-emoji-generator-height, 420px);
   box-shadow: var(--rds-elevation-2, 0 4px 12px rgba(0, 0, 0, 0.08));
   gap: 0;
 
@@ -80,11 +80,11 @@
   &__skin-tone-button {
     transition: all var(--rds-transition-base);
     flex-shrink: 0;
-    width: 29px;
-    height: 29px;
+    width: var(--rds-size-sm, 29px);
+    height: var(--rds-size-sm, 29px);
     border-radius: var(--rds-border-radius-sm, 4px) !important;
     border: 1px solid var(--rds-border-light, #e5e7eb);
-    min-width: 29px;
+    min-width: var(--rds-size-sm, 29px);
     padding: 0;
     margin-left: var(--rds-spacing-sm, 8px);
     
@@ -106,13 +106,13 @@
     border-radius: var(--rds-border-radius-md);
     box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.15));
     z-index: var(--rds-z-index-toast, 1700);
-    min-width: 36px;
+    min-width: var(--rds-size-md, 36px);
     align-items: center;
 
     .MuiIconButton-root {
-      width: 29px !important;
-      height: 29px !important;
-      min-width: 29px !important;
+      width: var(--rds-size-sm, 29px) !important;
+      height: var(--rds-size-sm, 29px) !important;
+      min-width: var(--rds-size-sm, 29px) !important;
       padding: var(--rds-spacing-xs) !important;
     }
   }
@@ -123,7 +123,7 @@
     box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.15)) !important;
     margin-top: 2px;
     min-width: auto;
-    width: 45px;
+    width: var(--rds-size-sm, 45px);
   }
 
   &__skin-tone-dropdown {
@@ -135,9 +135,9 @@
     .MuiIconButton-root {
       transition: all var(--rds-transition-base);
       display: block !important;
-      width: 29px !important;
-      height: 29px !important;
-      min-width: 29px !important;
+        width: var(--rds-size-sm, 29px) !important;
+        height: var(--rds-size-sm, 29px) !important;
+        min-width: var(--rds-size-sm, 29px) !important;
       padding: 0 !important;
       
       &:hover {
@@ -148,10 +148,10 @@
   }
 
   &__skin-tone-option {
-    width: 29px !important;
-    height: 29px !important;
+    width: var(--rds-size-sm, 29px) !important;
+    height: var(--rds-size-sm, 29px) !important;
     border-radius: 0 !important;
-    min-width: 29px !important;
+    min-width: var(--rds-size-sm, 29px) !important;
     padding: 0 !important;
     margin: var(--rds-spacing-xs, 2px) 0 !important;
     display: block !important;
@@ -201,7 +201,7 @@
     
     &:hover {
       transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.1));
       background-color: var(--rds-background-neutral-50, #f3f4f6);
     }
     
@@ -227,8 +227,8 @@
   }
 
   &__emoji-image {
-      width: 22px;
-      height: 22px;
+      width: var(--rds-size-xs, 22px);
+      height: var(--rds-size-xs, 22px);
       display: inline-block;
       vertical-align: middle;
   }

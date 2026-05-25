@@ -1,10 +1,7 @@
 .rds-box {
   display: block;
   position: relative;
-  --rds-box-surface-outline: var(--rds-color-outline, #79747e);
-  --rds-box-surface-primary: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-  --rds-box-surface-secondary: var(--rds-color-secondary, #e91e63);
-  --rds-box-surface-tertiary: var(--rds-color-tertiary, #03a9f4);
+  // box surface tokens provided by centralized --rds-* theme vars
 
   &:focus-visible {
     outline: var(--rds-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));

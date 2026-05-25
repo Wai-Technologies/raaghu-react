@@ -31,6 +31,37 @@
   color: var(--rds-primary-main, var(--rds-spinner-primary-color));
 }
 
+/* Default and size modifier classes for consistent sizing */
+.spinner-border,
+.spinner-grow {
+  width: 30px;
+  height: 30px;
+}
+
+.spinner-border.spinner--small,
+.spinner-grow.spinner--small {
+  width: 15px;
+  height: 15px;
+}
+
+.spinner-border.spinner--default,
+.spinner-grow.spinner--default {
+  width: 30px;
+  height: 30px;
+}
+
+.spinner-border.spinner--medium,
+.spinner-grow.spinner--medium {
+  width: 35px;
+  height: 35px;
+}
+
+.spinner-border.spinner--large,
+.spinner-grow.spinner--large {
+  width: 45px;
+  height: 45px;
+}
+
 .text-primary {
   color: var(--rds-primary-main, var(--rds-spinner-primary-color)) !important;
 }

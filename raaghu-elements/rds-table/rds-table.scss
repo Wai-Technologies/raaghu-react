@@ -12,6 +12,7 @@
     
     &--sticky {
       overflow-y: auto;
+      max-height: var(--rds-table-sticky-max-height, 440px);
     }
   }
   
@@ -53,7 +54,7 @@
     }
     
     &--checkbox {
-      width: 48px;
+      width: var(--rds-spacing-2xl, 48px);
       padding: var(--rds-spacing-md, 16px);
     }
   }  &__header-content {
@@ -99,8 +100,8 @@
   
   &__body {
     background-color: var(--rds-color-surface);
+    z-index: var(--rds-z-index-base, 1);
   }
-        z-index: var(--rds-z-index-base, 1);
   &__row {
     border-bottom: 1px solid var(--rds-color-outline-variant);
     transition: background-color var(--rds-transition-duration, 0.15s) ease-in-out;
@@ -131,7 +132,7 @@
     white-space: nowrap;
     
     &--checkbox {
-      width: 48px;
+      width: var(--rds-spacing-2xl, 48px);
       padding: var(--rds-spacing-md, 16px);
     }
     
@@ -150,7 +151,7 @@
     }
     
     &--actions {
-      width: 120px;
+      width: var(--rds-table-actions-width, 120px);
       text-align: right;
     }
     
@@ -323,15 +324,15 @@
   }
 
   &__checkbox {
-    --checkbox-size: 18px;
+    --checkbox-size: var(--rds-spacing-md, 16px);
     --checkbox-border-width: 2px;
     --checkbox-transition: var(--rds-transition-fast);
-    --rds-table-checkbox-check-width: 6px;
-    --rds-table-checkbox-check-height: 10px;
-    --rds-table-checkbox-indeterminate-width: 8px;
-    --rds-table-checkbox-indeterminate-height: 2px;
-    --rds-table-checkbox-hover-ring-size: 4px;
-    --rds-table-checkbox-focus-ring-size: 2px;
+    --rds-table-checkbox-check-width: var(--rds-table-checkbox-check-width, 6px);
+    --rds-table-checkbox-check-height: var(--rds-table-checkbox-check-height, 10px);
+    --rds-table-checkbox-indeterminate-width: var(--rds-table-checkbox-indeterminate-width, 8px);
+    --rds-table-checkbox-indeterminate-height: var(--rds-table-checkbox-indeterminate-height, 2px);
+    --rds-table-checkbox-hover-ring-size: var(--rds-table-checkbox-hover-ring-size, 4px);
+    --rds-table-checkbox-focus-ring-size: var(--rds-table-checkbox-focus-ring-size, 2px);
     --rds-table-checkbox-disabled-opacity: 0.6;
     
     .MuiCheckbox-root {

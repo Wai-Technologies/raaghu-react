@@ -168,7 +168,7 @@ describe('RdsDivider', () => {
     it('should apply correct height styling for vertical layout', () => {
       const { container } = renderWithTheme(<RdsDivider layout="vertical" />);
       const rootBox = container.firstChild as HTMLElement;
-      expect(rootBox).toHaveStyle('height: 120px');
+        expect(rootBox).toHaveStyle('height: var(--rds-divider-vertical-container-height, 120px)');
       expect(rootBox).toHaveStyle('display: flex');
       expect(rootBox).toHaveStyle('align-items: center');
     });

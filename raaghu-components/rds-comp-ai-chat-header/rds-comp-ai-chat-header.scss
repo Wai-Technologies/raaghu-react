@@ -20,7 +20,7 @@
 
   &__text {
     margin-left: var(--rds-spacing-md);
-    margin-top: 18px;
+    margin-top: var(--rds-spacing-md);
     font-size: var(--rds-font-size-xl);
     white-space: nowrap;
     &--small {

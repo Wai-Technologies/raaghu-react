@@ -25,7 +25,7 @@ const RdsLayout= ({
   ...props
 }:RdsLayoutProps) => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', '--rds-header-height': `${headerHeight}px` } as any}>
       {showHeader && header && (
         <RdsHeader
           title={header.title}
@@ -37,10 +37,14 @@ const RdsLayout= ({
       <Box
         component="main"
         sx={{
+          // Keep the CSS var for runtime theming, but set an explicit px
+          // value here so tests and inline-style consumers receive a
+          // concrete `margin-top` value.
           marginTop: showHeader ? `${headerHeight}px` : 0,
           flexGrow: 1,
           padding: padding,
         }}
+        style={showHeader ? { marginTop: `${headerHeight}px` } : undefined}
       >
         <Container maxWidth={maxWidth} {...props}>
           {children}

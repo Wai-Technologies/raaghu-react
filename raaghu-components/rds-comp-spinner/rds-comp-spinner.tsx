@@ -65,6 +65,22 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
 
     const dimensions = getSizeDimensions();
     const classes = `${spinnerClass} ${colorClass}`.trim();
+    const getSizeClass = () => {
+        switch (size) {
+            case SpinnerSize.Small:
+                return "spinner--small";
+            case SpinnerSize.Default:
+                return "spinner--default";
+            case SpinnerSize.Medium:
+                return "spinner--medium";
+            case SpinnerSize.Large:
+                return "spinner--large";
+            default:
+                return "";
+        }
+    };
+    const sizeClass = getSizeClass();
+    const combinedClasses = `${classes} ${sizeClass}`.trim();
     
     const getOpacity = () => {
         switch (level) {
@@ -115,8 +131,8 @@ const RdsCompSpinner: React.FC<RdsCompSpinnerProps> = ({
             {showLabel && (
                 <label className={`spinner-label ${getLabelSizeClass()}`}>{labelText}</label>
             )}
-            <div 
-                className={classes} 
+            <div
+                className={combinedClasses}
                 style={{ width: dimensions.width, height: dimensions.height, opacity: getOpacity() }}
                 role="status"
             >

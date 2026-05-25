@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
 import { applyChartThemeColors } from "../chart-utils";
+import "./rds-comp-chart-polar-area.scss";
 
 export interface RdsCompPolarAreaChartProps {
     labels: any[];
@@ -39,7 +40,7 @@ const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
     }, [props]);
 
     return (
-        <div>
+        <div className="rds-comp-chart-polar-area-container">
             <canvas id={CanvasId} ref={canvasRef} />
         </div>
     );

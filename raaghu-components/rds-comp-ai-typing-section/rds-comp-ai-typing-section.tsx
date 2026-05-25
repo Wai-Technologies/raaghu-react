@@ -92,11 +92,11 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
     };
 
   return (
-    <div className="rds-comp-ai-chat-bot">
-      <div className="rds-comp-ai-chat-bot__input-wrapper">
-        <div className={`rds-comp-ai-chat-bot__input-with-image${ isMobile ? " rds-comp-ai-chat-bot__input-with-image--mobile" : "" }`} >
+    <div className="rds-comp-ai-typing-section">
+      <div className="rds-comp-ai-typing-section__input-wrapper">
+        <div className={`rds-comp-ai-typing-section__input-with-image${ isMobile ? " rds-comp-ai-typing-section__input-with-image--mobile" : "" }`} >
           <textarea
-            className="rds-comp-ai-chat-bot__input-box rds-comp-ai-chat-bot__input-box--muted-placeholder"
+            className="rds-comp-ai-typing-section__input-box rds-comp-ai-typing-section__input-box--muted-placeholder"
             placeholder={
               !enhancedImage ? placeholderText || "Placeholder Text" : ""
             }
@@ -105,7 +105,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
             title="Enter your prompt here"
           />
           {!inputText && (
-            <span className="rds-comp-ai-chat-bot__input-icon">
+            <span className="rds-comp-ai-typing-section__input-icon">
               <RdsCompAiIcon
                 colorVariant="primary"
                 height="24px"
@@ -117,9 +117,9 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
             </span>
           )}
         </div>
-        <div className={`rds-comp-ai-chat-bot__actions${ isMobile ? " rds-comp-ai-chat-bot__actions--mobile" : "" }`}>
-          <div className="rds-comp-ai-chat-bot__action-icons">
-            <div className="rds-comp-ai-chat-bot__attach" id="Premium">
+        <div className={`rds-comp-ai-typing-section__actions${ isMobile ? " rds-comp-ai-typing-section__actions--mobile" : "" }`}>
+          <div className="rds-comp-ai-typing-section__action-icons">
+            <div className="rds-comp-ai-typing-section__attach" id="Premium">
                   <RdsCompAiAttachement
                     badgeColor="primary"
                   badgeLabel="Premium"
@@ -137,7 +137,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
                   menuAlignment="right"
                 />
             </div>
-            <div className="rds-comp-ai-chat-bot__send">
+            <div className="rds-comp-ai-typing-section__send">
               <RdsButton
                 color="primary"
                 changeLeftIcon="add"
@@ -150,9 +150,9 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
           </div>
         </div>
       </div>
-      <div className="rds-comp-ai-chat-bot__button-sections">
-        <div className="rds-comp-ai-chat-bot__project-actions">
-          <div className="rds-comp-ai-chat-bot__action-button rds-comp-ai-chat-bot__action-button--project">
+      <div className="rds-comp-ai-typing-section__button-sections">
+        <div className="rds-comp-ai-typing-section__project-actions">
+          <div className="rds-comp-ai-typing-section__action-button rds-comp-ai-typing-section__action-button--project">
             <RdsButton
               color="primary"
               changeLeftIcon="add"
@@ -162,7 +162,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
               size="medium"
             />
           </div>
-          <div className="rds-comp-ai-chat-bot__action-button rds-comp-ai-chat-bot__action-button--figma">
+          <div className="rds-comp-ai-typing-section__action-button rds-comp-ai-typing-section__action-button--figma">
             <RdsButton
               color="primary"
               changeLeftIcon="add"
@@ -173,7 +173,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
           </div>
         </div>
         <div
-          className="rds-comp-ai-chat-bot__autocomplete"
+          className="rds-comp-ai-typing-section__autocomplete"
           style={autoCompleteMaxWidth ? { ['--ai-typing-autocomplete-max-width' as any]: autoCompleteMaxWidth } : undefined}
         >
           <RdsAutocomplete

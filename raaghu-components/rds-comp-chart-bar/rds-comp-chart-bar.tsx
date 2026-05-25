@@ -49,13 +49,13 @@ const RdsCompBarChart = (props: RdsCompBarChartProps) => {
                 barCanvas.canvas.style.height = typeof props.height === "number" ? `${props.height}px` : String(props.height);
                 barCanvas.canvas.style.width = "100%";
             } else if (props.id === "barchart1") {
-                barCanvas.canvas.style.height = "65vh";
+                barCanvas.canvas.style.height = "var(--rds-comp-chart-bar-barchart1-height, 65vh)";
                 barCanvas.canvas.style.width = "100%";
             } else if (props.id === "histogram") {
-                barCanvas.canvas.style.height = "50px";
-                barCanvas.canvas.style.width = "50px";
+                barCanvas.canvas.style.height = "var(--rds-comp-chart-bar-histogram-size, 50px)";
+                barCanvas.canvas.style.width = "var(--rds-comp-chart-bar-histogram-size, 50px)";
             } else {
-                barCanvas.canvas.style.height = "76vh";
+                barCanvas.canvas.style.height = "var(--rds-comp-chart-bar-default-height, 76vh)";
                 barCanvas.canvas.style.width = "100%";
             }
         }

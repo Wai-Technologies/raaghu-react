@@ -33,6 +33,26 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
 
     const textColor = chartTextColor();
 
+    const getFontSizeFromVar = (varName: string, fallback = 12) => {
+      try {
+        const v = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+        if (!v) return fallback;
+        const n = parseInt(v.replace(/px$/, ""), 10);
+        return Number.isNaN(n) ? fallback : n;
+      } catch (e) {
+        return fallback;
+      }
+    };
+
+    const getFontWeightFromVar = (varName: string, fallback: number | string = '500') => {
+      try {
+        const v = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+        return v || fallback;
+      } catch (e) {
+        return fallback;
+      }
+    };
+
     const radarCanvas = new Chart(ctx, {
       type: "radar",
       data: { labels: props.labels, datasets: props.dataSets },
@@ -51,7 +71,11 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
               padding: 20,
               usePointStyle: true,
               pointStyle: 'circle',
-              font: { size: 12, weight: '500', family: 'inherit' },
+              font: {
+                size: getFontSizeFromVar('--rds-font-size-md', 12),
+                weight: getFontWeightFromVar('--rds-font-weight-medium', '500'),
+                family: 'inherit',
+              },
               // Read from CSS var at render time — no hardcoded color
               color: textColor,
             },
@@ -61,8 +85,14 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
     });
 
     if (radarCanvas != null) {
-      radarCanvas.canvas.style.height = "350px";
-      radarCanvas.canvas.style.width  = "450px";
+      // Prefer explicit sizes via props.radius; fall back to CSS-controlled sizing
+      if (props && (props as any).radius) {
+        radarCanvas.canvas.style.height = (props as any).radius + "px";
+      } else {
+        // leave sizing to CSS/parent container for responsiveness
+        radarCanvas.canvas.style.height = '';
+        radarCanvas.canvas.style.width = '';
+      }
       chartInstanceRef.current = radarCanvas;
     }
   }, [props]);

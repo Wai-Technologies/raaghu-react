@@ -48,7 +48,6 @@ const RdsCompStackedChart = (props: RdsCompStackedprops) => {
         });
 
         if (chartRef.current !== null) {
-            chartRef.current.canvas.style.height = "86vh";
         }
 
         return () => { chartRef.current?.destroy(); };

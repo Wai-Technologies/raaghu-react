@@ -1,11 +1,11 @@
 .rds-comp-product-tour {
   &__container {
     background: var(--rds-background-paper);
-    box-shadow: 0 4px 32px 0 rgba(162, 89, 255, 0.18);
+    box-shadow: 0 4px 32px 0 var(--rds-product-tour-shadow, rgba(162, 89, 255, 0.18));
     border-radius: var(--rds-border-radius-xl);
     margin: var(--rds-spacing-xl) auto;
     width: 100%;
-    max-width: 550px;
+    max-width: var(--rds-product-tour-max-width, 550px);
     position: relative;
     overflow: visible;
     padding: 0;
@@ -19,7 +19,7 @@
     &--carousel {
   width: 100%;
   width: 100%;
-  max-width: 520px;
+  max-width: var(--rds-carousel-max-width, 520px);
   height: auto;
   margin: var(--rds-spacing-lg) auto;
   padding: calc(var(--rds-spacing-xl) - var(--rds-spacing-xs)) calc(var(--rds-spacing-xl) - var(--rds-spacing-xs)) var(--rds-spacing-lg) calc(var(--rds-spacing-xl) - var(--rds-spacing-xs));
@@ -38,7 +38,7 @@
     &--form {
       padding: var(--rds-spacing-md) calc(var(--rds-spacing-sm) + var(--rds-spacing-xs));
       max-width: 700px;
-      margin-top: 15px;
+      margin-top: var(--rds-spacing-md);
       height: auto;
       min-height: unset;
       width: 100%;
@@ -53,7 +53,7 @@
     height: var(--rds-spacing-md);
     background: var(--rds-secondary-main);
     border-radius: 50%;
-    box-shadow: 0 0 0 var(--rds-spacing-sm) rgba(135, 46, 252, 0.15);
+    box-shadow: 0 0 0 var(--rds-spacing-sm) var(--rds-product-tour-dot-shadow, rgba(135, 46, 252, 0.15));
     z-index: var(--rds-z-index-local-50);
 
     &--top-left {
@@ -99,7 +99,7 @@
 
   &__image-section {
     width: 100%;
-    height: 260px;
+    height: var(--rds-product-tour-image-height, 260px);
     margin: 0;
     border-radius: var(--rds-border-radius-md) var(--rds-border-radius-md) 0 0;
     overflow: hidden;
@@ -233,7 +233,7 @@
 
   &__carousel-wrapper {
     width: 100%;
-    height: 300px;
+      height: var(--rds-carousel-height, 300px);
     border-radius: var(--rds-border-radius-md);
     overflow: hidden;
     margin-bottom: 0;
@@ -266,7 +266,7 @@
     width: var(--rds-spacing-sm);
     height: var(--rds-spacing-sm);
     border-radius: 50%;
-    background-color: rgba(124, 58, 237, 0.3);
+    background-color: var(--rds-carousel-dot-bg, rgba(124, 58, 237, 0.3));
     transition: background-color 0.2s ease;
 
     &--active {
@@ -275,7 +275,7 @@
   }
 
   &__carousel-spacer {
-    height: 16px;
+    height: var(--rds-spacing-md);
   }
 
   &__carousel-nav-row {
@@ -364,7 +364,7 @@
       width: 100%;
       height: auto;
       display: block;
-      margin: 0 auto 24px auto;
+        margin: 0 auto var(--rds-spacing-lg) auto;
     }
   }
 
@@ -826,8 +826,8 @@
   &__form-arrow-next {
     border: 0.5px solid var(--rds-secondary-main);
     background: var(--rds-neutral-0);
-    width: 32px;
-    height: 32px;
+    width: var(--rds-spacing-xl);
+    height: var(--rds-spacing-xl);
     border-radius: var(--rds-border-radius-sm);
     display: flex;
     align-items: center;
@@ -836,8 +836,8 @@
     padding: 0;
 
     svg {
-      width: 18px;
-      height: 18px;
+      width: var(--rds-icon-button-lg-svg-size, 18px);
+      height: var(--rds-icon-button-lg-svg-size, 18px);
       fill: none;
       display: block;
       margin: auto;
@@ -913,7 +913,7 @@
     }
 
     .rds-comp-product-tour__carousel-wrapper {
-      height: 280px; 
+      height: var(--rds-carousel-mobile-height, 280px); 
       border-radius: var(--rds-border-radius-sm);
     }
 
@@ -927,8 +927,8 @@
     }
 
     .rds-comp-product-tour__carousel-dot {
-      width: 6px;
-      height: 6px;
+      width: var(--rds-carousel-dot-size, 6px);
+      height: var(--rds-carousel-dot-size, 6px);
     }
 
     .rds-comp-product-tour__carousel-nav-row,

@@ -28,7 +28,7 @@
     width: 100%;
     max-width: 100%;
     height: var(--rds-esignature-draw-height);
-    padding: 0 var(--rds-space-5, 20px) 68px;
+    padding: 0 var(--rds-space-5, 20px) var(--rds-esignature-padding-bottom, 68px);
     background-color: var(--rds-color-surface, #ffffff);
     transition: border-color var(--rds-transition-base), background-color var(--rds-transition-base);
     position: relative;
@@ -83,7 +83,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    padding: 14px 24px 12px;
+    padding: var(--rds-esignature-controls-padding, 14px 24px 12px);
     pointer-events: none;
   }
 
@@ -93,9 +93,9 @@
 
   &--type-initials {
     .rds-e-signature__canvas-container {
-      --rds-esignature-draw-height: 200px;
-      max-width: 420px;
-      padding: 0 16px 56px;
+      --rds-esignature-draw-height: var(--rds-esignature-draw-height-compact, 200px);
+      max-width: var(--rds-esignature-compact-max-width, 420px);
+      padding: 0 16px var(--rds-esignature-compact-padding-bottom, 56px);
     }
 
     .rds-e-signature__canvas-title {
@@ -116,9 +116,9 @@
     }
 
     .rds-e-signature__upload-panel {
-      max-width: 420px;
+      max-width: var(--rds-esignature-upload-panel-max-width, 420px);
       border-color: var(--rds-color-accent-blue-500, #3C98FF);
-      padding: var(--rds-spacing-lg) 20px;
+      padding: var(--rds-esignature-upload-panel-padding, var(--rds-spacing-lg) 20px);
     }
 
     .rds-e-signature__file-row {
@@ -135,23 +135,23 @@
     }
 
     .rds-e-signature__file-button {
-      height: 32px;
-      min-width: 108px;
-      font-size: 13px;
-      padding: 0 12px;
-      border-radius: 5px 0 0 5px;
+      height: var(--rds-file-button-height, 32px);
+      min-width: var(--rds-file-button-min-width, 108px);
+      font-size: var(--rds-file-button-font-size, 13px);
+      padding: var(--rds-file-button-padding, 0 12px);
+      border-radius: var(--rds-file-button-radius, 5px) 0 0 var(--rds-file-button-radius, 5px);
     }
 
     .rds-e-signature__file-text {
-      height: 32px;
-      font-size: 13px;
-      padding: 0 12px;
+      height: var(--rds-file-text-height, 32px);
+      font-size: var(--rds-file-text-font-size, 13px);
+      padding: 0 var(--rds-file-text-padding-horizontal, 12px);
     }
 
     .rds-e-signature__file-delete {
-      height: 32px;
+      height: var(--rds-file-delete-height, 32px);
       font-size: var(--rds-font-size-lg);
-      padding: 0 8px;
+      padding: 0 var(--rds-file-delete-padding-horizontal, 8px);
     }
 
     .rds-e-signature__file-button::before {
@@ -212,13 +212,13 @@
 
   &__color-palette {
     display: flex;
-    gap: 10px;
+    gap: var(--rds-color-palette-gap, 10px);
     position: static;
   }
 
   &__color-button {
-    width: 32px;
-    height: 32px;
+    width: var(--rds-color-button-size, 32px);
+    height: var(--rds-color-button-size, 32px);
     border-radius: var(--rds-border-radius-sm);
     border: 1px solid transparent;
     cursor: pointer;
@@ -254,7 +254,7 @@
     font-size: var(--rds-font-size-lg);
     font-weight: var(--rds-font-weight-medium, 500);
     line-height: 1;
-    text-shadow: 0 1px 0 rgba(0,0,0,0.4);
+    text-shadow: var(--rds-text-shadow, 0 1px 0 rgba(0,0,0,0.4));
   }
 
   &__color-button--selected {
@@ -363,9 +363,9 @@
     box-sizing: border-box;
   }
 
-  &__file-row:focus-within {
+    &__file-row:focus-within {
     border-color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
-    box-shadow: 0 0 0 2px rgba(25, 118, 210, .15);
+    box-shadow: var(--rds-focus-ring, 0 0 0 2px rgba(25, 118, 210, .15));
   }
 
   &__upload-content {

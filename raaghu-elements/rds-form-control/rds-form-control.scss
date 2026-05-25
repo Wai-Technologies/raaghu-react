@@ -4,7 +4,7 @@
   
   &.MuiFormControl-fullWidth {
     width: 100%;
-    margin-right: var(--rds-form-control-fullwidth-margin-right, 35px);
+    margin-right: var(--rds-form-control-fullwidth-margin-right);
   }
   .MuiInputBase-input::placeholder,
   input::placeholder,
@@ -17,7 +17,7 @@
 
 .rds-form-control__asterisk {
   color: var(--rds-form-control-asterisk-color);
-  margin-left: 0.25rem;
+  margin-left: var(--rds-spacing-xs);
   font-weight: var(--rds-form-control-asterisk-font-weight);
 }
 

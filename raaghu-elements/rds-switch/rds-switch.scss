@@ -89,7 +89,7 @@
 .rds-switch--style1 .MuiSwitch-track {
   background: var(--rds-color-switch-track, #c0c0c3) !important;
   height: var(--rds-switch-style1-track-height, 1.5rem) !important;
-  border-radius: 25px !important;
+  border-radius: var(--rds-switch-track-border-radius, var(--rds-border-radius-3xl, 1.5rem)) !important;
   width: var(--rds-switch-style1-track-width, 5.5rem) !important;
 }
 .rds-switch--style1 .MuiSwitch-thumb {

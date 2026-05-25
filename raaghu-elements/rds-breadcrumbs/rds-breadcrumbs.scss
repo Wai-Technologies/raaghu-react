@@ -2,10 +2,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  --rds-breadcrumbs-focus-ring-width: 2px;
-  --rds-breadcrumbs-separator-gap: var(--rds-spacing-sm, 8px);
-  --rds-breadcrumbs-item-padding-y: var(--rds-spacing-xs, 2px);
-  --rds-breadcrumbs-item-padding-x: var(--rds-spacing-sm, 4px);
+  // breadcrumbs sizing and focus tokens provided by centralized --rds-* vars
 
   .MuiSvgIcon-root {
     color: inherit !important;

@@ -15,4 +15,11 @@
             width: 100% !important;
 		}
 	}
+
+	&-container canvas {
+		display: block;
+		width: 100%;
+		height: 100%;
+		max-width: 100%;
+	}
 }

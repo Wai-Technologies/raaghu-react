@@ -44,9 +44,9 @@ const RdsProgress = ({
   const getProgressValue = () => steps !== undefined && ['circular', 'line', 'stepper', 'dash', 'block'].includes(style) ? steps * 20 : value;
 
   const getColorValue = () => ({
-    primary: 'var(--rds-color-primary, #1976d2)', secondary: 'var(--rds-color-secondary, #dc004e)', error: 'var(--rds-color-error, #d32f2f)',
-    info: 'var(--rds-color-info, #0288d1)', success: 'var(--rds-color-success, #2e7d32)', warning: 'var(--rds-color-warning, #ed6c02)',
-  })[color] || 'var(--rds-color-primary, #1976d2)';
+    primary: 'var(--rds-color-primary)', secondary: 'var(--rds-color-secondary)', error: 'var(--rds-color-error)',
+    info: 'var(--rds-color-info)', success: 'var(--rds-color-success)', warning: 'var(--rds-color-warning)',
+  })[color] || 'var(--rds-color-primary)';
 
   const getBaseClasses = (styleType: string) => `rds-progress rds-progress--${styleType} rds-progress--${color}${variant === 'indeterminate' ? ' rds-progress--indeterminate' : ''}`;
 
@@ -96,10 +96,10 @@ const RdsProgress = ({
               <React.Fragment key={index}>
                 <Box
                   className={`rds-progress__stepper-step ${typeClass} rds-progress__stepper-step--${stepClass}`}
-                  sx={{ width: 40, height: 40 }}
+                  sx={{ width: 'var(--rds-progress-step-size)', height: 'var(--rds-progress-step-size)' }}
                 >
                   {stepperType === 'number' ? (
-                    <Typography variant="body2" className="rds-progress__stepper-number" sx={{ fontWeight: 600, fontSize: '14px' }}>{stepNumber}</Typography>
+                    <Typography variant="body2" className="rds-progress__stepper-number" sx={{ fontWeight: 'var(--rds-font-weight-bold)', fontSize: 'var(--rds-font-size-sm)' }}>{stepNumber}</Typography>
                   ) : (
                     <span className="rds-progress__stepper-inner-dot" />
                   )}
@@ -107,7 +107,7 @@ const RdsProgress = ({
                 {index < totalSteps - 1 && (
                   <Box
                     className={`rds-progress__stepper-connector ${isCompleted ? 'rds-progress__stepper-connector--completed' : ''}`}
-                    sx={{ width: 60, height: 2 }}
+                      sx={{ width: 'var(--rds-progress-connector-width)', height: '2px' }}
                   />
                 )}
               </React.Fragment>
@@ -130,10 +130,10 @@ const RdsProgress = ({
             {Array.from({ length: count }, (_, index) => {
               const getBorderRadius = () => {
                 if (isDash) {
-                  return 'var(--rds-border-radius-sm, 4px)';
+                  return 'var(--rds-border-radius-sm)';
                 } else {
-                  if (index === 0) return '4px 0 0 4px';
-                  if (index === count - 1) return '0 4px 4px 0';
+                  if (index === 0) return 'var(--rds-border-radius-sm) 0 0 var(--rds-border-radius-sm)';
+                  if (index === count - 1) return '0 var(--rds-border-radius-sm) var(--rds-border-radius-sm) 0';
                   return '0';
                 }
               };
@@ -143,11 +143,11 @@ const RdsProgress = ({
                   key={index}
                   className={`rds-progress__${type} ${index < filledCount ? `rds-progress__${type}--filled` : ''}`}
                   sx={{
-                    width: isDash ? 50 : 80, 
-                    height: isDash ? 5 : 40, 
-                    backgroundColor: index < filledCount ? colorValue : 'var(--rds-color-gray-300, #e0e0e0)',
+                    width: isDash ? 'var(--rds-progress-dash-width)' : 'var(--rds-progress-block-width)', 
+                    height: isDash ? 'var(--rds-progress-dash-height)' : 'var(--rds-progress-block-height)', 
+                    backgroundColor: index < filledCount ? colorValue : 'var(--rds-color-gray-300)',
                     borderRadius: getBorderRadius(),
-                    ...(isDash ? {} : { display: 'flex', alignItems: 'center', justifyContent: 'center', color: index < filledCount ? 'white' : 'var(--rds-color-gray-600, #666)', fontWeight: 'bold', fontSize: '14px' })
+                    ...(isDash ? {} : { display: 'flex', alignItems: 'center', justifyContent: 'center', color: index < filledCount ? 'var(--rds-color-white)' : 'var(--rds-color-gray-600)', fontWeight: 'var(--rds-font-weight-bold)', fontSize: 'var(--rds-font-size-sm)' })
                   }}
                 >
                   {!isDash && `Step ${index + 1}`}

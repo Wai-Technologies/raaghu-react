@@ -25,10 +25,10 @@ export const designSystemComponentOverrides: Components<Theme> = {
       }),
       root: ({ theme }) => ({
         '&:hover .MuiOutlinedInput-notchedOutline': {
-          borderColor: theme.palette.text.primary,
+          borderColor: 'var(--rds-primary-dark)',
         },
         '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-          borderColor: theme.palette.primary.main,
+          borderColor: 'var(--rds-primary-main)',
           boxShadow: `0 0 0 ${theme.spacing(0.25)} color-mix(in srgb, ${theme.palette.primary.main} 20%, transparent)`,
         },
         '&.Mui-error .MuiOutlinedInput-notchedOutline': {
@@ -47,7 +47,7 @@ export const designSystemComponentOverrides: Components<Theme> = {
           backgroundColor: alpha(theme.palette.text.primary, theme.palette.mode === 'dark' ? 0.22 : 0.1),
         },
         '&.Mui-focused': {
-          backgroundColor: alpha(theme.palette.primary.main, 0.08),
+          backgroundColor: 'color-mix(in srgb, var(--rds-primary-main) 8%, transparent)',
         },
       }),
       underline: ({ theme }) => ({
@@ -215,11 +215,18 @@ export const designSystemComponentOverrides: Components<Theme> = {
   },
   MuiButton: {
     styleOverrides: {
-      root: {},
+      root: {
+        '&:focus-visible': {
+          boxShadow: '0 0 0 3px var(--rds-primary-light)',
+        },
+        '&.Mui-disabled': {
+          backgroundColor: 'var(--rds-text-disabled)',
+        },
+      },
       containedPrimary: {
         backgroundColor: 'var(--rds-button-primary-bg)',
         '&:hover': {
-          backgroundColor: 'var(--rds-button-primary-bg-hover)',
+          backgroundColor: 'var(--rds-primary-dark)',
         },
       },
       containedSecondary: {
@@ -245,6 +252,51 @@ export const designSystemComponentOverrides: Components<Theme> = {
         '&:hover': {
           backgroundColor: 'var(--rds-error-dark)',
         },
+      },
+    },
+  },
+  MuiTextField: {
+    styleOverrides: {
+      root: {
+        '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+          borderColor: 'var(--rds-primary-dark)',
+        },
+        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+          borderColor: 'var(--rds-primary-main)',
+        },
+      },
+    },
+  },
+  MuiCheckbox: {
+    styleOverrides: {
+      root: {
+        '&.Mui-checked': {
+          color: 'var(--rds-primary-main)',
+        },
+      },
+    },
+  },
+  MuiRadio: {
+    styleOverrides: {
+      root: {
+        '&.Mui-checked': {
+          color: 'var(--rds-primary-main)',
+        },
+      },
+    },
+  },
+  MuiSwitch: {
+    styleOverrides: {
+      switchBase: {
+        '&.Mui-checked': {
+          color: 'var(--rds-primary-main)',
+        },
+        '&.Mui-checked + .MuiSwitch-track': {
+          backgroundColor: 'var(--rds-primary-light)',
+        },
+      },
+      thumb: {
+        backgroundColor: 'var(--rds-primary-main)',
       },
     },
   },

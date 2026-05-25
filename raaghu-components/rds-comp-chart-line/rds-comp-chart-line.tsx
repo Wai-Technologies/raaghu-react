@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import { applyChartThemeColors } from "../chart-utils";
+import { applyChartThemeColors, getCSSVar } from "../chart-utils";
 import "./rds-comp-chart-line.scss";
 
 export interface RdsComplineprops {
@@ -31,8 +31,9 @@ const RdsCompLineChart = (props: RdsComplineprops) => {
                 lineCanvas.canvas.style.height = "65vh";
                 lineCanvas.canvas.style.width = "100vh";
             } else if (props.id === "linechart2") {
-                lineCanvas.canvas.style.height = "50px";
-                lineCanvas.canvas.style.width = "50px";
+                const smallSize = getCSSVar('--rds-spacing-2xl', '50px');
+                lineCanvas.canvas.style.height = smallSize;
+                lineCanvas.canvas.style.width = smallSize;
             } else {
                 lineCanvas.canvas.style.height = "76vh";
                 lineCanvas.canvas.style.width = "100vh";

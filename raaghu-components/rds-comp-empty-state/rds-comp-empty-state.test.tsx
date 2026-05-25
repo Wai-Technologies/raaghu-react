@@ -35,11 +35,28 @@ jest.mock('@mui/material', () => {
         {children}
       </div>
     )),
-    Typography: ({ children, variant, className, sx, ...props }: any) => (
-      <div className={`typography ${className || ''}`} style={sx} {...props}>
-        {children}
-      </div>
-    ),
+    Typography: ({ children, variant, className, sx, ...props }: any) => {
+      const fakeTheme = {
+        palette: {
+          common: { white: '#ffffff' },
+          grey: { 800: '#424242' },
+          text: { primary: '#000000' },
+        },
+      };
+      let resolvedStyle: any = typeof sx === 'function' ? sx(fakeTheme) : sx;
+      if (resolvedStyle && typeof resolvedStyle === 'object') {
+        resolvedStyle = Object.keys(resolvedStyle).reduce((acc: any, key) => {
+          const val = resolvedStyle[key];
+          acc[key] = typeof val === 'function' ? val(fakeTheme) : val;
+          return acc;
+        }, {} as any);
+      }
+      return (
+        <div className={`typography ${className || ''}`} style={resolvedStyle} {...props}>
+          {children}
+        </div>
+      );
+    },
     Button: ({ children, variant, className, onClick, ...props }: any) => (
       <button className={`button ${variant || ''} ${className || ''}`} onClick={onClick} {...props}>
         {children}

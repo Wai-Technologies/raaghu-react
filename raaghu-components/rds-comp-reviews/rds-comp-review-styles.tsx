@@ -29,9 +29,9 @@ const Style1 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <Card sx={{ height: '100%' }}>
+      <Card sx={{ height: '100%' }}>
       <CardContent sx={{ textAlign: 'center' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'center', '& .rds-avatar__name': { fontWeight: 'bold', fontSize: '1.25rem' } }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', '& .rds-avatar__name': { fontWeight: 'fontWeightMedium', fontSize: 'h6.fontSize' } }}>
           <RdsAvatar
             src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
             title={item.name}
@@ -98,7 +98,7 @@ const Style3 = ({ item }: { item: Item }) => {
   };
   
   return (
-    <Card sx={{ p: 3, height: '100%', '& .rds-avatar__name': { fontWeight: 'bold', fontSize: '1.25rem'  } }}>
+    <Card sx={{ p: 3, height: '100%', '& .rds-avatar__name': { fontWeight: 'fontWeightMedium', fontSize: 'h6.fontSize'  } }}>
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
         <RdsAvatar
           src={item.imageUrl || "https://source.unsplash.com/random/200x200/?portrait"}
@@ -293,8 +293,8 @@ const Style7 = ({ item }: { item: Item }) => {
           <Box sx={{ minWidth: 0 }}>
             <Typography
               variant="h6"
-              fontWeight="bold"
-              sx={{ fontSize: { xs: '1rem', sm: '1.25rem' }, lineHeight: 1.2 }}
+              fontWeight="fontWeightMedium"
+              sx={{ fontSize: { xs: 'body1.fontSize', sm: 'h6.fontSize' }, lineHeight: 1.2 }}
             >
               {item.name}
             </Typography>
@@ -608,11 +608,11 @@ const Style11 = ({ item }: { item: Item }) => {
         <Typography variant="subtitle1" color="text.secondary" sx={{ textAlign: 'center' }}>
           {item.username}
         </Typography>
-        <Box sx={{ 
+          <Box sx={{ 
           display: 'flex', 
           justifyContent: 'center', 
           alignItems: 'center', 
-          gap: '4px', 
+          gap: 0.5, 
           my: 3 
         }}>
           <RdsRating

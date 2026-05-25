@@ -17,8 +17,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: calc(2.5 * var(--rds-spacing-md, 16px));
+    height: calc(2.5 * var(--rds-spacing-md, 16px));
     border-radius: 50%;
     background: var(--rds-color-secondary-container, #e6e0ff);
     color: var(--rds-color-on-secondary-container, #333);
@@ -37,8 +37,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: calc(2 * var(--rds-spacing-md, 16px));
+    height: calc(2 * var(--rds-spacing-md, 16px));
     color: var(--rds-color-on-surface, #333);
     transition: color var(--rds-transition-base);
 
@@ -55,8 +55,8 @@
     background: var(--rds-color-surface);
     border-radius: var(--rds-border-radius, 10px);
     position: relative;
-    min-width: 900px;
-    min-height: 70px;
+    min-width: var(--rds-breakpoint-md, 900px);
+    min-height: calc(4.375 * var(--rds-spacing-md, 16px));
     box-sizing: border-box;
     border: 1px solid var(--rds-color-outline-variant, #e1e7ef);
 
@@ -182,7 +182,7 @@
 
   &__slider {
   flex: 1;
-  min-width: 100px;
+  min-width: calc(6.25 * var(--rds-spacing-md, 16px));
   max-width: 100%;
   margin: 0 var(--rds-spacing-sm, 8px);
   }
@@ -227,7 +227,7 @@
   &__volume-slider-container {
     position: absolute;
     top: 85%;
-    right: 8px;
+    right: var(--rds-spacing-sm, 8px);
     z-index: var(--rds-z-index-dropdown, 1000);
     background: var(--rds-color-surface, white);
     border-radius: var(--rds-border-radius-sm, 6px);
@@ -395,7 +395,7 @@
     margin: 0;
     position: relative;
     width: 100%;
-    height: 200px;
+    height: calc(12.5 * var(--rds-spacing-md, 16px));
     overflow: hidden;
     user-select: none;
     cursor: default;
@@ -456,7 +456,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 10px;
+    width: calc(0.625 * var(--rds-spacing-md, 16px));
     background: var(--rds-color-primary, #1976d2);
     z-index: var(--rds-z-index-layer-2);
     cursor: col-resize;
@@ -523,8 +523,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 4px;
-    height: 40px;
+    width: var(--rds-spacing-xs, 4px);
+    height: calc(2.5 * var(--rds-spacing-md, 16px));
     background: var(--rds-color-on-primary, #fff);
     border-radius: var(--rds-border-radius-xs, 3px);
     box-shadow: var(--rds-elevation-1, 0 1px 4px rgba(0,0,0,0.10));

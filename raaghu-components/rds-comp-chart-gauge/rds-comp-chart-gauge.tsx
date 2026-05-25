@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Chart from "chart.js/auto";
-import { applyChartThemeColors, chartTextColor, chartMutedColor } from "../chart-utils";
+import { applyChartThemeColors, chartTextColor, chartMutedColor, chartFont } from "../chart-utils";
 import "./rds-comp-chart-gauge.scss";
 
 export interface RdsCompGaugeprops {
@@ -35,14 +35,14 @@ const RdsCompGaugeChart = (props: RdsCompGaugeprops) => {
                 const mutedColor   = chartMutedColor();
 
                 c.save();
-                c.font = "700 20px Poppins";
+                c.font = chartFont('bold', 'xl');
                 c.textAlign = "center";
                 c.fillStyle = primaryColor;
                 c.fillText(title, width / 2, top + (height / 1.5));
                 c.restore();
 
                 c.save();
-                c.font = "500 14px Poppins";
+                c.font = chartFont('medium', 'md');
                 c.textAlign = "center";
                 c.fillStyle = mutedColor;
                 c.fillText(subTitle, width / 2, top + (height / 1.2));

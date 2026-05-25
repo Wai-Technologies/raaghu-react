@@ -53,12 +53,12 @@
   }
 
     &__paper {
-    width: 380px;
-    max-height: 450px;
+    width: var(--rds-filter-popover-width, 380px);
+    max-height: var(--rds-filter-popover-max-height, 450px);
     border-radius: var(--rds-border-radius, 8px);
     box-shadow: var(--rds-elevation-3, 0 4px 20px rgba(0,0,0,0.1));
     border: 1px solid var(--rds-color-border, #e0e0e0);
-    margin-top: 3px !important;
+    margin-top: var(--rds-filter-popover-gap, 3px) !important;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -76,22 +76,22 @@
 }
 
 .rds-filter-button__popover .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-h4boo0-MuiPaper-root-MuiPopover-paper {
-    position: absolute !important;
-    top: 55px !important;
-    left: 0 !important;
+  position: absolute !important;
+  top: var(--rds-filter-popover-top, 55px) !important;
+  left: 0 !important;
   }
 
   .rds-filter-button__popover {
-    width: 380px !important;
-    max-height: 450px !important;
+    width: var(--rds-filter-popover-width, 380px) !important;
+    max-height: var(--rds-filter-popover-max-height, 450px) !important;
     border-radius: var(--rds-border-radius, 8px) !important;
     box-shadow: var(--rds-elevation-3, 0 4px 20px rgba(0,0,0,0.1)) !important;
     border: 1px solid var(--rds-color-border, #e0e0e0) !important;
-    margin-top: 3px !important;
+    margin-top: var(--rds-filter-popover-gap, 3px) !important;
     overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
-    top: 55px !important;
+    top: var(--rds-filter-popover-top, 55px) !important;
   }
 
   .rds-filter-button__content {
@@ -132,7 +132,7 @@
 
   .rds-filter-button__search .MuiOutlinedInput-input,
   .rds-filter-button__search .MuiInputBase-input {
-    padding: var(--rds-spacing-sm) 12px;
+    padding: var(--rds-spacing-sm) var(--rds-spacing-sm);
     font-size: var(--rds-font-size-md);
     color: inherit;
   }
@@ -143,10 +143,10 @@
     opacity: 1;
   }
   .rds-filter-button__header-title{
-    font-family: var(--font-family-poppins, Poppins) !important;
-    font-size: var(--font-size-sm, 16px) !important;
+    font-family: var(--rds-font-family-base, Poppins) !important;
+    font-size: var(--rds-font-size-lg, 16px) !important;
     font-style: normal !important;
-    font-weight: var(--font-weight-large, 600) !important;
+    font-weight: var(--rds-font-weight-medium, 600) !important;
     line-height: 22px !important;
    }
 .css-13y3d29 {

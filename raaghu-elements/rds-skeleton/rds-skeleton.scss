@@ -1,5 +1,5 @@
 .rds-skeleton {
-  --rds-skeleton-gap: 8px;
+  --rds-skeleton-gap: var(--rds-spacing-sm, 8px);
   --rds-skeleton-focus-ring-width: 2px;
   --rds-skeleton-disabled-opacity: 0.6;
   display: flex;

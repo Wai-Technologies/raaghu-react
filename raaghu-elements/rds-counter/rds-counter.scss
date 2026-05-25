@@ -1,7 +1,7 @@
 .rds-counter__mandatory {
   display: inline-block;
   width: 1em;
-  color: var(--rds-color-error, #d32f2f); 
+  color: var(--rds-semantic-error-main, var(--rds-color-error, #d32f2f));
   font-size: 1em;
   font-weight: var(--rds-font-weight-bold, 700);
   vertical-align: middle;
@@ -10,9 +10,9 @@
 
 
 .rds-counter {
-  --rds-counter-gap-default: 10px;
-  --rds-counter-gap-small: 6px;
-  --rds-counter-gap-large: 14px;
+  --rds-counter-gap-default: var(--rds-spacing-md, 10px);
+  --rds-counter-gap-small: var(--rds-spacing-sm, 6px);
+  --rds-counter-gap-large: var(--rds-spacing-lg, 14px);
   --rds-counter-disabled-opacity: 0.6;
   display: flex;
   flex-direction: column;
@@ -92,8 +92,8 @@
   --rds-counter-controls-min-width-large: 180px;
   display: flex;
   align-items: center;
-  border: 1px solid var(--rds-neutral-main, #7D7D7D);
-  border-radius: var(--rds-border-radius, 4px);
+  border: 1px solid var(--rds-border-default, #7D7D7D);
+  border-radius: var(--rds-border-radius-md, 4px);
   padding: var(--rds-spacing-xs, 4px);
   gap: var(--rds-spacing-sm, 6px);
   width: fit-content;
@@ -151,7 +151,7 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      padding: 2px 4px;
+      padding: var(--rds-spacing-xxs, 2px) var(--rds-spacing-xs, 4px);
     }
 
     .rds-counter__button-group {
@@ -184,7 +184,7 @@
   height: var(--rds-spacing-xl, 32px) !important;
   min-width: var(--rds-spacing-xl, 32px) !important;
   border-radius: var(--rds-border-radius, 4px) !important;
-  background-color: var(--rds-color-primary, #3C98FF) !important;
+  background-color: var(--rds-primary-main, var(--rds-color-primary, #3C98FF)) !important;
   color: var(--rds-primary-contrast-text, #fff) !important;
   display: flex;
   align-items: center;
@@ -193,8 +193,8 @@
   border: 1px solid var(--rds-color-primary, #3C98FF) !important;
 
   &:hover:not(.rds-counter__button--disabled) {
-    background-color: var(--rds-color-primary-hover, #1976d2) !important;
-    border-color: var(--rds-color-primary-hover, #1976d2) !important;
+    background-color: var(--rds-primary-dark, var(--rds-color-primary-hover, #1976d2)) !important;
+    border-color: var(--rds-primary-dark, var(--rds-color-primary-hover, #1976d2)) !important;
   }
 
   &--compact {
@@ -301,7 +301,7 @@
     font-size: var(--rds-font-size-sm, 14px);
     min-width: 30px;
     max-width: 60px;
-    padding: 2px !important;
+    padding: var(--rds-spacing-xxs, 2px) !important;
   }
 
   &--medium {
@@ -333,7 +333,7 @@
   text-align: center;
   font-weight: var(--rds-font-weight-medium, 500);
   font-size: var(--rds-font-size-lg, 18px);
-  color: var(--text-txt-neutral-light-default, var(--rds-text-primary, #212121));
+  color: var(--rds-text-secondary, var(--rds-text-primary, #212121));
   line-height: 1.2;
   flex: 1;
   min-width: 40px;
@@ -397,19 +397,19 @@
   width: var(--rds-counter-controls-min-width-small, 100px) !important;
   gap: var(--rds-spacing-xs) !important;
   height: var(--rds-counter-controls-height-small, 32px) !important;
-  margin-left: 18px !important;
+  margin-left: var(--rds-spacing-md, 16px) !important;
 }
 
 .rds-counter__controls--medium_interactive {
-  width: 120px !important;
-  gap: 6px !important;
-  height: 36px !important;
+  width: var(--rds-counter-controls-min-width-medium, 120px) !important;
+  gap: var(--rds-spacing-sm, 6px) !important;
+  height: var(--rds-counter-controls-height-compact, 36px) !important;
 }
 
 .rds-counter__controls--large_interactive {
   width: var(--rds-counter-controls-min-width-medium, 140px) !important;
   gap: var(--rds-spacing-sm) !important;
-  height: 44px !important;
+  height: var(--rds-counter-controls-height-large, 44px) !important;
 }
 
 @media (max-width: var(--rds-breakpoint-xs)) {

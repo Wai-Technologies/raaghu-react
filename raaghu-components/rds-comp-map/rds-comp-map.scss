@@ -74,7 +74,7 @@
     height: auto;
     max-width: 700px;
     border-radius: var(--rds-border-radius-sm);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: var(--rds-elevation-2);
   }
 
   @media (max-width: var(--rds-breakpoint-md)) {
@@ -141,8 +141,8 @@
     min-height: auto;
     
     &__label {
-      font-size: 17px;
-      margin-bottom: 10px;
+      font-size: var(--rds-font-size-lg, 17px);
+      margin-bottom: var(--rds-spacing-sm, 10px);
     }
     
     &__center {

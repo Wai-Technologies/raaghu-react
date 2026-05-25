@@ -1,17 +1,17 @@
 $rds-stepper-breakpoint-sm: 420px;
 
 .rds-stepper {
-  --rds-stepper-mobile-offset-left: -10px;
-  --rds-stepper-mobile-step-padding-right: 0px;
+  --rds-stepper-mobile-offset-left: calc(-1 * var(--rds-spacing-sm, 10px));
+  --rds-stepper-mobile-step-padding-right: var(--rds-spacing-xs, 0px);
   position: relative;
 }
 
 @media (max-width: $rds-stepper-breakpoint-sm) {
   .rds-stepper {
-    margin-left: var(--rds-stepper-mobile-offset-left, -10px);
+    margin-left: var(--rds-stepper-mobile-offset-left);
   }
   .MuiStep-root {
-    padding-right: var(--rds-stepper-mobile-step-padding-right, 0px) !important;
+    padding-right: var(--rds-stepper-mobile-step-padding-right) !important;
   }
 }
 

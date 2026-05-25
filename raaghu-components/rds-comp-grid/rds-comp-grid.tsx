@@ -2834,7 +2834,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               color: 'text.primary',
             },
             '& .MuiDivider-root': {
-              borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : undefined,
+              borderColor: 'divider',
             },
             '&::-webkit-scrollbar': {
               width: '6px',
@@ -2877,9 +2877,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 p: 1,
                 borderRadius: 0.5,
                 border: '1px solid',
-                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
+                borderColor: 'divider',
                 width: '100%',
-                '&:hover': { backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'action.hover' }
+                '&:hover': { backgroundColor: 'action.hover' }
               }}
               onClick={handleColumnPanelToggle}
             >
@@ -2906,7 +2906,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   mt: 0,
                   p: 0.25,
                   border: '1px solid',
-                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
+                  borderColor: 'divider',
                   borderTop: 'none',
                   borderRadius: '0 0 4px 4px',
                   backgroundColor: 'action.hover',
@@ -2980,10 +2980,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 p: 1,
                 borderRadius: 0.5,
                 border: '1px solid',
-                borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'divider',
+                borderColor: 'divider',
                 width: '100%',
                 mb: 0.5,
-                '&:hover': { backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'action.hover' }
+                '&:hover': { backgroundColor: 'action.hover' }
               }}
               onClick={handleFilterToggle}
             >
@@ -3009,7 +3009,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 sx={{ 
                   p: 0.5,
                   border: '1px solid',
-                  borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'divider',
+                  borderColor: 'divider',
                   borderRadius: '0 0 4px 4px',
                   backgroundColor: 'action.hover',
                   width: '100%'
@@ -3065,10 +3065,10 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                   fontSize: '12px',
                                   color: 'text.primary',
                                   '&.Mui-selected': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.16)' : undefined,
+                                    backgroundColor: 'action.selected',
                                   },
                                   '&:hover': {
-                                    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : undefined,
+                                    backgroundColor: 'action.hover',
                                   }
                                 }}
                               >
@@ -3098,7 +3098,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                         color: 'text.primary',
                                       },
                                       '& .MuiOutlinedInput-notchedOutline': {
-                                        borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : undefined,
+                                        borderColor: 'divider',
                                       },
                                       '& .MuiSvgIcon-root': {
                                         color: 'text.primary',
@@ -3148,7 +3148,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                   color: 'text.primary',
                                 },
                                 '&::placeholder': {
-                                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
+                                  color: 'text.secondary',
                                 }
                               }}
                             />
@@ -3191,8 +3191,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 '& .MuiInputLabel-root': {
                                   color: 'text.primary',
                                 },
-                                '&::placeholder': {
-                                  color: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.5)' : undefined,
+                                  '&::placeholder': {
+                                  color: 'text.secondary',
                                 }
                               }}
                             />
@@ -3282,7 +3282,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         color: 'text.secondary',
                         '&:hover': {
                           borderColor: 'divider',
-                          backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)',
+                          backgroundColor: 'action.hover',
                         },
                         borderRadius: '4px',
                         boxShadow: 'none',
@@ -3317,13 +3317,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         letterSpacing: '0.3px',
                         color: 'error.light',
                         '&:hover': {
-                          backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 107, 107, 0.08)' : 'rgba(211, 47, 47, 0.04)',
+                          backgroundColor: 'error.light',
                           color: 'error.main',
                         },
                         borderRadius: '4px',
                         textDecoration: 'none',
-                        '&:active': {
-                          backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 107, 107, 0.12)' : 'rgba(211, 47, 47, 0.08)',
+                          '&:active': {
+                          backgroundColor: 'error.main',
                         }
                       }}
                     >

@@ -150,7 +150,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
         Array.isArray(value) && value.includes(option.value) : 
         value === option.value;
       const spacingStyle = index === 0 ? {} : {
-        [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: `var(--rds-toggle-button-spacing, ${spacing}px)`
+        [orientation === 'vertical' ? 'marginTop' : 'marginLeft']: `var(--rds-toggle-button-spacing, var(--rds-spacing-sm, ${spacing}px))`
       };
 
       return (

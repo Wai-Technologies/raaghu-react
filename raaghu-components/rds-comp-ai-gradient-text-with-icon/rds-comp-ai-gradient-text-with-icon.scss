@@ -3,14 +3,14 @@
   align-items: center;
 
   &__logo {
-    height: 32px;
-    width: 32px;
+    height: var(--rds-spacing-xl);
+    width: var(--rds-spacing-xl);
     margin-right: var(--rds-spacing-sm);
   }
 
   &__title {
     font-size: var(--rds-font-size-base);
-    font-weight: 500;
+    font-weight: var(--rds-font-weight-medium);
     background: linear-gradient(
       to right,
       var(--rds-ai-gradient-start),

@@ -1,9 +1,4 @@
-$rds-range-breakpoint-sm: 600px;
-$rds-range-breakpoint-xs: 400px;
-$rds-range-breakpoint-mobile-min: 320px;
-$rds-range-breakpoint-mobile-max: 568px;
-$rds-range-breakpoint-tablet-min: 414px;
-$rds-range-breakpoint-tablet-max: 896px;
+/* use centralized breakpoint tokens where possible */
 
 .rds-range {
   --rds-range-max-width-sm: 370px;
@@ -15,10 +10,10 @@ $rds-range-breakpoint-tablet-max: 896px;
   position: relative;
   width: 100%;
 
-  @media (max-width: $rds-range-breakpoint-sm) {
+  @media (max-width: var(--rds-breakpoint-sm, 600px)) {
     max-width: var(--rds-range-max-width-sm, 370px);
   }
-  @media (max-width: $rds-range-breakpoint-xs) {
+  @media (max-width: var(--rds-breakpoint-xs, 400px)) {
     max-width: var(--rds-range-max-width-xs, 275px);
   }
 
@@ -40,12 +35,12 @@ $rds-range-breakpoint-tablet-max: 896px;
   }
 }
 
-@media (max-width: $rds-range-breakpoint-mobile-max) and (min-width: $rds-range-breakpoint-mobile-min) {
+@media (max-width: var(--rds-breakpoint-mobile-max, 568px)) and (min-width: var(--rds-breakpoint-mobile-min, 320px)) {
   .css-3k03ww, .css-1fm6jzk {
     width: var(--rds-range-slider-width-mobile, 288px) !important;
   }
 }
-@media (min-width: $rds-range-breakpoint-tablet-min) and (max-width: $rds-range-breakpoint-tablet-max) {
+@media (min-width: var(--rds-breakpoint-tablet-min, 414px)) and (max-width: var(--rds-breakpoint-tablet-max, 896px)) {
   .css-3k03ww, .css-1fm6jzk {
     width: var(--rds-range-slider-width-tablet, 382px) !important;
   }

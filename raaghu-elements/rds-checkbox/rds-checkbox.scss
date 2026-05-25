@@ -6,6 +6,15 @@
   --checkbox-size: 18px;
   --checkbox-border-width: 2px;
   --checkbox-transition: var(--rds-transition-fast);
+  /* component-level fallback variables to avoid raw px in styles */
+  --rds-checkbox-check-width: 6px;
+  --rds-checkbox-check-height: 10px;
+  --rds-checkbox-indeterminate-width: 8px;
+  --rds-checkbox-indeterminate-height: 2px;
+  --rds-checkbox-hover-ring-size: 4px;
+  --rds-checkbox-focus-ring-width: 2px;
+  --rds-checkbox-focus-ring-offset: 2px;
+  --rds-checkbox-disabled-opacity: 0.6;
 
   &__label {
     color: var(--rds-text-primary);
@@ -28,8 +37,8 @@
     }
     
     &:focus-visible {
-      outline: 2px solid var(--rds-primary-main);
-      outline-offset: 2px;
+      outline: var(--rds-checkbox-focus-ring-width, 2px) solid var(--rds-primary-main);
+      outline-offset: var(--rds-checkbox-focus-ring-offset, 2px);
     }
 
     &.Mui-checked {
@@ -101,7 +110,7 @@
     &.rds-checkbox--circular {
       .MuiCheckbox-root:not(.Mui-disabled)::before {
         border-color: var(--rds-primary-main);
-        box-shadow: 0 0 0 4px var(--rds-primary-alpha-10);
+        box-shadow: 0 0 0 var(--rds-checkbox-hover-ring-size, 4px) var(--rds-primary-alpha-10);
       }
     }
 
@@ -113,7 +122,7 @@
       &.rds-checkbox--circular {
         .MuiCheckbox-root:not(.Mui-disabled)::before {
           border-color: var(--rds-secondary-main);
-          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10);
+          box-shadow: 0 0 0 var(--rds-checkbox-hover-ring-size, 4px) var(--rds-secondary-alpha-10);
         }
       }
     }
@@ -143,7 +152,7 @@
         
         &:hover:not(.Mui-disabled)::before {
           border-color: var(--rds-primary-main);
-          box-shadow: 0 0 0 4px var(--rds-primary-alpha-10);
+          box-shadow: 0 0 0 var(--rds-checkbox-hover-ring-size, 4px) var(--rds-primary-alpha-10);
         }
       }
     }
@@ -158,11 +167,11 @@
         
         &:hover:not(.Mui-disabled)::before {
           border-color: var(--rds-primary-main);
-          box-shadow: 0 0 0 4px var(--rds-primary-alpha-10);
+          box-shadow: 0 0 0 var(--rds-checkbox-hover-ring-size, 4px) var(--rds-primary-alpha-10);
         }
         
         &:focus-visible::before {
-          box-shadow: 0 0 0 2px var(--rds-primary-main);
+          box-shadow: 0 0 0 var(--rds-checkbox-focus-ring-width, 2px) var(--rds-primary-main);
         }
       }
     }
@@ -186,7 +195,7 @@
         
         &:hover:not(.Mui-disabled)::before {
           border-color: var(--rds-secondary-main);
-          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10);
+          box-shadow: 0 0 0 var(--rds-checkbox-hover-ring-size, 4px) var(--rds-secondary-alpha-10);
         }
       }
     }
@@ -201,11 +210,11 @@
         
         &:hover:not(.Mui-disabled)::before {
           border-color: var(--rds-secondary-main);
-          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10);
+          box-shadow: 0 0 0 var(--rds-checkbox-hover-ring-size, 4px) var(--rds-secondary-alpha-10);
         }
         
         &:focus-visible::before {
-          box-shadow: 0 0 0 2px var(--rds-secondary-main);
+          box-shadow: 0 0 0 var(--rds-checkbox-focus-ring-width, 2px) var(--rds-secondary-main);
         }
       }
     }
@@ -240,10 +249,10 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 6px;
-        height: 10px;
+        width: var(--rds-checkbox-check-width, 6px);
+        height: var(--rds-checkbox-check-height, 10px);
         border: solid var(--rds-primary-contrast-text);
-        border-width: 0 2px 2px 0;
+        border-width: 0 var(--checkbox-border-width, 2px) var(--checkbox-border-width, 2px) 0;
         transform: translate(-60%, -70%) rotate(45deg) scale(0);
         transition: var(--checkbox-transition);
         z-index: var(--rds-z-index-above, 2);
@@ -270,8 +279,8 @@
         
         &::after {
           content: '';
-          width: 8px;
-          height: 2px;
+          width: var(--rds-checkbox-indeterminate-width, 8px);
+          height: var(--rds-checkbox-indeterminate-height, 2px);
           border: none;
           background-color: var(--rds-primary-contrast-text);
           border-radius: calc(var(--rds-border-radius-sm, 4px) / 4);
@@ -296,7 +305,7 @@
       &:hover:not(.Mui-disabled) {
         &::before {
           border-color: var(--rds-primary-main);
-          box-shadow: 0 0 0 4px var(--rds-primary-alpha-10);
+          box-shadow: 0 0 0 var(--rds-checkbox-hover-ring-size, 4px) var(--rds-primary-alpha-10);
         }
       }
       
@@ -350,11 +359,10 @@
         content: '';
         position: absolute;
         top: 50%;
-                width: var(--rds-checkbox-indeterminate-width, 8px);
-                height: var(--rds-checkbox-indeterminate-height, 2px);
-        height: 10px;
+        width: var(--rds-checkbox-indeterminate-width, 8px);
+        height: var(--rds-checkbox-indeterminate-height, 2px);
         border: solid var(--rds-primary-contrast-text);
-        border-width: 0 2px 2px 0;
+        border-width: 0 var(--checkbox-border-width, 2px) var(--checkbox-border-width, 2px) 0;
         transform: translate(-60%, -70%) rotate(45deg) scale(0);
         transition: var(--checkbox-transition);
         z-index: calc(var(--rds-z-index-base) + 2);
@@ -381,8 +389,8 @@
         
         &::after {
           content: '';
-          width: 8px;
-          height: 2px;
+          width: var(--rds-checkbox-indeterminate-width, 8px);
+          height: var(--rds-checkbox-indeterminate-height, 2px);
           border: none;
           background-color: var(--rds-primary-contrast-text);
           border-radius: calc(var(--rds-border-radius-sm, 4px) / 4);
@@ -402,11 +410,11 @@
         
         &:hover:not(.Mui-disabled)::before {
           border-color: var(--rds-secondary-main);
-          box-shadow: 0 0 0 4px var(--rds-secondary-alpha-10);
+          box-shadow: 0 0 0 var(--rds-checkbox-hover-ring-size, 4px) var(--rds-secondary-alpha-10);
         }
         
         &:focus-visible::before {
-          box-shadow: 0 0 0 2px var(--rds-secondary-main);
+          box-shadow: 0 0 0 var(--rds-checkbox-focus-ring-width, 2px) var(--rds-secondary-main);
         }
       }
     }
@@ -415,11 +423,11 @@
       .MuiCheckbox-root {
         &:hover:not(.Mui-disabled)::before {
           border-color: var(--rds-primary-main);
-          box-shadow: 0 0 0 4px var(--rds-primary-alpha-10);
+          box-shadow: 0 0 0 var(--rds-checkbox-hover-ring-size, 4px) var(--rds-primary-alpha-10);
         }
         
         &:focus-visible::before {
-          box-shadow: 0 0 0 2px var(--rds-primary-main);
+          box-shadow: 0 0 0 var(--rds-checkbox-focus-ring-width, 2px) var(--rds-primary-main);
         }
       }
     }
@@ -441,7 +449,7 @@
       &:hover:not(.Mui-disabled) {
         &::before {
           border-color: var(--rds-primary-main);
-          box-shadow: 0 0 0 4px var(--rds-primary-alpha-10);
+          box-shadow: 0 0 0 var(--rds-checkbox-hover-ring-size, 4px) var(--rds-primary-alpha-10);
         }
       }
       
@@ -449,7 +457,7 @@
         outline: none;
         
         &::before {
-          box-shadow: 0 0 0 2px var(--rds-primary-main);
+          box-shadow: 0 0 0 var(--rds-checkbox-focus-ring-width, 2px) var(--rds-primary-main);
         }
       }
     }
