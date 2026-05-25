@@ -2,7 +2,7 @@
   position: relative;
   display: block;
   width: 100%;
-  max-width: 480px;
+  max-width: var(--rds-player-max-width, 480px);
   
   &__wrapper {
     position: relative;
@@ -10,14 +10,14 @@
     height: 100%;
     overflow: hidden;
     border-radius: var(--rds-border-radius-sm);
-    background-color: var(--rds-color-surface, #000);
+    background-color: var(--rds-color-surface);
   }
   
   &__player {
     width: 100% !important;
     height: 100% !important;
-    max-width: 480px;
-    min-height: 180px;
+    max-width: var(--rds-player-max-width, 480px);
+    min-height: var(--rds-player-min-height, 180px);
     aspect-ratio: 16 / 9;
     
     & > div {
@@ -38,7 +38,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--rds-color-surface-variant, rgba(0, 0, 0, 0.6));
+    background-color: var(--rds-color-surface-variant);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -46,11 +46,11 @@
   }
   
   &__disabled-message {
-    color: var(--rds-color-on-surface-variant, #fff);
+    color: var(--rds-color-on-surface-variant);
     font-size: var(--rds-font-size-body, 14px);
     text-align: center;
     padding: var(--rds-spacing-md, 16px);
-    background-color: var(--rds-color-surface, rgba(0, 0, 0, 0.8));
+    background-color: var(--rds-color-surface);
     border-radius: var(--rds-border-radius-sm);
   }
   
@@ -65,13 +65,13 @@
   
   @media (max-width: var(--rds-breakpoint-md)) {
     &__player {
-      min-height: 150px;
+      min-height: var(--rds-player-min-height-sm, 150px);
     }
   }
   
   @media (max-width: var(--rds-breakpoint-sm)) {
     &__player {
-      min-height: 120px;
+      min-height: var(--rds-player-min-height-xs, 120px);
     }
     
     &__disabled-message {

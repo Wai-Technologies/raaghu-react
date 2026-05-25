@@ -214,10 +214,12 @@ export const ToolbarButton = ({
     <div className="rds-comp-toolbar__button-container">
       <button
         ref={buttonRef}
+        type="button"
         className={`rds-comp-toolbar__button ${isActive ? 'rds-comp-toolbar__button--active' : ''} ${isDisabled ? 'rds-comp-toolbar__button--disabled' : ''} ${buttonClassName}`}
         onClick={onClick}
         disabled={isDisabled}
         aria-label={ariaLabel || action}
+        aria-haspopup={hasDropdown ? true : undefined}
         aria-pressed={isActive}
         aria-expanded={hasDropdown ? isDropdownOpen : undefined}
         data-testid={`toolbar-button-${action}`}

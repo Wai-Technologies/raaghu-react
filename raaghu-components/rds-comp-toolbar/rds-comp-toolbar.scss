@@ -38,7 +38,7 @@
   }
 
   &--full-featured:not(.rds-comp-toolbar--primary) {
-    background-color: var(--rds-color-surface-variant, #f2f3f4);
+    background-color: var(--rds-color-surface-variant);
   }
 
   &--more-text,
@@ -58,12 +58,12 @@
 
   &--disabled-on {
     pointer-events: none;
-    background: var(--rds-color-surface-variant, #f5f5f5);
+    background: var(--rds-color-surface-variant);
   }
 
   &--disabled-on {
     .rds-comp-toolbar__button {
-      color: var(--rds-color-on-surface-variant, #9aa0a6);
+      color: var(--rds-color-on-surface-variant);
     }
   }
 
@@ -72,13 +72,13 @@
   }
 
   &__row {
-    display: flex;
-    align-items: center;
-    gap: var(--rds-spacing-md, 8px);
-    padding: var(--rds-spacing-xs, 2px) 4px;
-    width: 778px;
-    height: 40px;
-    min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--rds-spacing-md, 8px);
+  padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 6px);
+  width: auto;
+  height: var(--rds-toolbar-row-height, 40px);
+  min-width: 0;
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -92,11 +92,11 @@
       border-radius: var(--rds-border-radius-sm, 4px);
 
       .rds-comp-toolbar__button {
-        color: var(--rds-color-on-surface-variant, #5f6368);
+        color: var(--rds-color-on-surface-variant);
         
         &:hover {
-          background: var(--rds-color-surface-container-high, #e3e6ea);
-          color: var(--rds-color-on-surface, #202124);
+          background: var(--rds-color-surface-container-high);
+          color: var(--rds-color-on-surface);
         }
       }
     }
@@ -112,7 +112,7 @@
   &__divider {
     width: 1px;
     height: 24px;
-    background: var(--rds-color-outline, #e1e5e9);
+    background: var(--rds-color-outline);
     margin: 0 var(--rds-spacing-xs, 4px);
   }
 
@@ -146,7 +146,7 @@
     text-align: center;
     color: inherit;
     font-family: var(--rds-font-family-base, inherit);
-    background: linear-gradient(to bottom, transparent 50%, var(--rds-color-warning, #ffeb3b) 50%);
+    background: linear-gradient(to bottom, transparent 50%, var(--rds-color-warning) 50%);
     border-radius: var(--rds-border-radius-xs, 2px);
   }
 
@@ -161,7 +161,7 @@
     background: transparent;
     border-radius: var(--rds-border-radius-sm, 4px);
     cursor: pointer;
-    color: var(--rds-color-on-surface-variant, #5f6368);
+    color: var(--rds-color-on-surface-variant);
     font-size: var(--rds-font-size-md, 14px);
     transition: all var(--rds-transition-base);
     position: relative;
@@ -171,12 +171,12 @@
     }
 
     &:hover {
-      background: var(--rds-color-surface-container, #f8f9fa);
-      color: var(--rds-color-on-surface, #202124);
+      background: var(--rds-color-surface-container);
+      color: var(--rds-color-on-surface);
     }
 
     &:focus {
-      outline: var(--rds-focus-ring, 2px solid var(--rds-color-primary, #1a73e8));
+      outline: var(--rds-focus-ring, 2px solid var(--rds-color-primary));
       outline-offset: var(--rds-focus-ring-offset, 2px);
     }
 
@@ -188,12 +188,12 @@
 
     &--muted {
       background: transparent;
-      color: var(--rds-color-on-surface-variant, #8a8f94);
+      color: var(--rds-color-on-surface-variant);
       opacity: 0.9;
 
       &:hover {
-        background: var(--rds-color-surface-container, #f8f9fa);
-        color: var(--rds-color-on-surface, #202124);
+        background: var(--rds-color-surface-container);
+        color: var(--rds-color-on-surface);
       }
     }
   }
@@ -212,8 +212,8 @@
    max-width: calc(100vw - 24px);
    max-height: 61vh;
    overflow: auto;
-   background: var(--rds-color-surface, #ffffff);
-   border: 1px solid var(--rds-color-outline, #e1e5e9);
+  background: var(--rds-color-surface);
+  border: 1px solid var(--rds-color-outline);
    border-radius: var(--rds-border-radius-sm, 4px);
    box-shadow: var(--rds-elevation-3, 0 8px 24px rgba(0, 0, 0, 0.12));
    padding: var(--rds-spacing-xs, 4px) 0;
@@ -222,8 +222,8 @@
    -webkit-overflow-scrolling: touch;
    background-clip: padding-box;
    transform-origin: top left;
-   color: var(--rds-color-on-surface, #202124);
-   background-color: var(--rds-color-surface, #ffffff);
+  color: var(--rds-color-on-surface);
+  background-color: var(--rds-color-surface);
   }
 
   &__dropdown-item {
@@ -239,12 +239,12 @@
     transition: background-color var(--rds-transition-base);
 
     &:hover {
-      background: var(--rds-color-surface-container, #f8f9fa);
+      background: var(--rds-color-surface-container);
     }
 
     &:focus {
       outline: none;
-      background: var(--rds-color-surface-container, #f8f9fa);
+      background: var(--rds-color-surface-container);
     }
 
     &:disabled {
@@ -280,7 +280,7 @@
   }
 
   &__highlight-icon {
-    background: linear-gradient(to bottom, transparent 60%, var(--rds-color-warning, #ffeb3b) 60%);
+    background: linear-gradient(to bottom, transparent 60%, var(--rds-color-warning) 60%);
     font-weight: 600;
     padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-xs, 4px);
   }
@@ -319,7 +319,7 @@
       overflow-x: auto;
       
       scrollbar-width: thin;
-      scrollbar-color: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3)) transparent;
+      scrollbar-color: var(--rds-color-on-surface-variant) transparent;
       
       &::-webkit-scrollbar {
         height: 6px;
@@ -327,16 +327,16 @@
       }
       
       &::-webkit-scrollbar-track {
-        background: var(--rds-color-surface-variant, rgba(0, 0, 0, 0.1));
+        background: var(--rds-color-surface-variant);
         border-radius: var(--rds-border-radius-xs, 3px);
       }
       
       &::-webkit-scrollbar-thumb {
-        background: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3));
+        background: var(--rds-color-on-surface-variant);
         border-radius: var(--rds-border-radius-xs, 3px);
         
         &:hover {
-          background: var(--rds-color-on-surface, rgba(0, 0, 0, 0.5));
+          background: var(--rds-color-on-surface);
         }
       }
     }

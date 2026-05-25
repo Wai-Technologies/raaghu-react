@@ -95,7 +95,7 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
         <div className={`rds-comp-video-player${disabled ? " rds-comp-video-player--disabled" : ""} ${className}`}>
             <div className="rds-comp-video-player__wrapper">
                 {React.createElement(ReactPlayer as any, {
-                    key: `${formattedUrl}-${controls}-${Date.now()}`,
+                    key: `${formattedUrl}-${controls}`,
                     url: formattedUrl,
                     width: "100%",
                     height: "100%",
