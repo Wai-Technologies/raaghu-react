@@ -79,6 +79,14 @@
   width: auto;
   height: var(--rds-toolbar-row-height, 40px);
   min-width: 0;
+    &__row {
+    display: flex;
+    align-items: center;
+    gap: var(--rds-spacing-md, 8px);
+    	padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-xs, 4px);
+    	width: 100%;
+    	height: var(--rds-toolbar-height, 40px);
+    min-width: 0;
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -330,11 +338,11 @@
         background: var(--rds-color-surface-variant);
         border-radius: var(--rds-border-radius-xs, 3px);
       }
-      
+
       &::-webkit-scrollbar-thumb {
         background: var(--rds-color-on-surface-variant);
         border-radius: var(--rds-border-radius-xs, 3px);
-        
+
         &:hover {
           background: var(--rds-color-on-surface);
         }
@@ -346,7 +354,7 @@
       gap: var(--rds-spacing-xs, 2px);
       
       scrollbar-width: thin;
-      scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+      scrollbar-color: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3)) transparent;
       
       &::-webkit-scrollbar {
         height: 6px;
@@ -354,23 +362,23 @@
       }
       
       &::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.1);
-        border-radius: 3px;
+        background: var(--rds-color-surface-variant, rgba(0, 0, 0, 0.1));
+        border-radius: var(--rds-border-radius-xs, 3px);
       }
-      
+
       &::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 3px;
-        
+        background: var(--rds-color-on-surface-variant, rgba(0, 0, 0, 0.3));
+        border-radius: var(--rds-border-radius-xs, 3px);
+
         &:hover {
-          background: rgba(0, 0, 0, 0.5);
+          background: var(--rds-color-on-surface, rgba(0, 0, 0, 0.5));
         }
       }
     }
 
-    &__row {
-      gap: var(--rds-spacing-xs, 4px);
-      padding: var(--rds-spacing-xs, 1px) 3px;
+      &__row {
+      	gap: var(--rds-spacing-xs, 4px);
+      	padding: var(--rds-spacing-xs, 1px) var(--rds-spacing-xs, 3px);
       flex-wrap: nowrap;
       overflow-x: auto;
       min-width: 0;
@@ -391,7 +399,7 @@
     }
 
     &__section {
-      gap: 1px;
+      gap: var(--rds-spacing-xxs, 1px);
       flex-shrink: 0;
       min-width: 0;
     }
@@ -439,14 +447,14 @@
     
     &__text-icon,
     &__highlight-icon {
-      font-size: 11px;
+      font-size: var(--rds-font-size-sm, 11px);
       min-width: 12px;
       min-height: 12px;
     }
 
     &__divider {
       height: 18px;
-      margin: 0 1px;
+      margin: 0 var(--rds-spacing-xxs, 1px);
       flex-shrink: 0;
     }
     
