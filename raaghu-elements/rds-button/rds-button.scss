@@ -20,7 +20,7 @@
   outline: none;
   border: none;
   min-height: var(--rds-spacing-xl);
-  max-width: var(--rds-spacing-3xl);
+  /* max-width removed to prevent clipping of button text */
   width: auto;
   white-space: nowrap;
   
@@ -60,9 +60,12 @@
     color: var(--rds-button-secondary-text);
     border: 1px solid var(--rds-button-secondary-border);
     
+    /* Change hover to keep background transparent and use primary color for
+       border/text to match desired outlined look (no filled/purple hover). */
     &:hover {
-      background-color: var(--rds-button-secondary-bg-hover);
-      border-color: var(--rds-button-secondary-border-hover);
+      background-color: transparent;
+      color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
+      border-color: var(--rds-button-primary-bg-hover, var(--rds-primary-main));
     }
     
     &:active {
@@ -75,7 +78,7 @@
     color: var(--rds-button-text-color);
     
     &:hover {
-      background-color: var(--rds-button-text-bg-hover);
+      background-color: var(--rds-button-text-variant-bg, var(--rds-button-text-bg-hover));
     }
     
     &:active {
@@ -150,6 +153,20 @@
 
   &__state-default {
     transition: all var(--rds-transition-base);
+  }
+
+  /* Explicit shape classes to ensure shape control applies */
+  &--shape-pill {
+    border-radius: var(--rds-border-radius-pill);
+  }
+
+  &--shape-rectangle {
+    border-radius: var(--rds-border-radius-sm);
+  }
+
+  /* Allow disabling default uppercase via class if needed */
+  &--textcase-unset {
+    text-transform: none;
   }
 }
 

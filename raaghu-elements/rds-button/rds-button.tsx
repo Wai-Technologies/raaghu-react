@@ -122,6 +122,10 @@ const RdsButton = ({
     }
   };
 
+  const getShapeClassName = () => {
+    return shape === 'pill' ? 'rds-button--shape-pill' : 'rds-button--shape-rectangle';
+  };
+
   const getStartIcon = () => {
     if (normalizedLayout === 'icon-only') {
       return undefined;
@@ -182,11 +186,16 @@ const RdsButton = ({
       disabled={isButtonDisabled}
       variant={style === 'filled' ? 'contained' : style === 'transparent' ? 'text' : style}
       color={color as any}
-      className={`rds-button ${styleVariantClass} ${getStateClassName()}`.replace(/\s+/g, ' ').trim()}
+      className={`rds-button ${styleVariantClass} ${getStateClassName()} ${getShapeClassName()}`.replace(/\s+/g, ' ').trim()}
       sx={{
         ...getShapeStyles(),
         ...getTextCaseStyles(),
         ...sx,
+      }}
+      style={{
+        ...getShapeStyles() as React.CSSProperties,
+        ...getTextCaseStyles() as React.CSSProperties,
+        ...(sx as any),
       }}
       startIcon={getStartIcon()}
       endIcon={getEndIcon()}
