@@ -156,22 +156,22 @@
   }
   .rds-alert--success &__icon,
   .rds-alert--success .rds-alert__icon {
-    color: var(--rds-icon-primary-outline-default, #2196f3) !important;
+    color: var(--rds-icon-primary-outline-default, var(--rds-alert-success-border)) !important;
   }
 
   .rds-alert--info &__icon,
   .rds-alert--info .rds-alert__icon {
-    color: var(--rds-icon-neutral-outline-default, #6b6b6b) !important;
+    color: var(--rds-icon-neutral-outline-default, var(--rds-alert-info-border)) !important;
   }
 
   .rds-alert--warning &__icon,
   .rds-alert--warning .rds-alert__icon {
-    color: var(--rds-icon-warning, #ff9800) !important;
+    color: var(--rds-icon-warning, var(--rds-alert-warning-border)) !important;
   }
 
   .rds-alert--error &__icon,
   .rds-alert--error .rds-alert__icon {
-    color: var(--rds-icon-error, #f44336) !important;
+    color: var(--rds-icon-error, var(--rds-alert-error-border)) !important;
   }
 
   &__content {
@@ -230,19 +230,19 @@
     border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-info-border);
 
     &.rds-alert--success {
-      border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-success-border, #2196f3) !important;
+      border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-success-border) !important;
     }
 
     &.rds-alert--error {
-      border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-error-border, #f44336) !important;
+      border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-error-border) !important;
     }
 
     &.rds-alert--warning {
-      border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-warning-border, #ff9800) !important;
+      border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-warning-border) !important;
     }
 
     &.rds-alert--info {
-      border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-info-border, #B1B1B1) !important;
+      border: var(--rds-alert-style-border-width, 1.5px) solid var(--rds-alert-info-border) !important;
     }
   }
 
@@ -253,55 +253,67 @@
   border-left-style: solid !important;
 
   &.rds-alert--success {
-    border-left-color: var(--rds-alert-success-border, #2196f3) !important;
+    border-left-color: var(--rds-alert-success-border) !important;
   }
 
   &.rds-alert--error {
-    border-left-color: var(--rds-alert-error-border, #f44336) !important;
+    border-left-color: var(--rds-alert-error-border) !important;
   }
 
   &.rds-alert--warning {
-    border-left-color: var(--rds-alert-warning-border, #ff9800) !important;
+    border-left-color: var(--rds-alert-warning-border) !important;
   }
 
   &.rds-alert--info {
-    border-left-color: var(--rds-alert-info-border, #B1B1B1) !important;
+    border-left-color: var(--rds-alert-info-border) !important;
   }
 }
 }
 
 .rds-alert.MuiAlert-root {
   &.rds-alert--warning {
-    background-color: var(--rds-alert-warning-bg, #FED99B) !important;
+    background-color: var(--rds-alert-warning-bg) !important;
   }
   
   &.rds-alert--success {
-    background-color: var(--rds-alert-success-bg, #EBDCFF) !important;
+    background-color: var(--rds-alert-success-bg) !important;
   }
   
   &.rds-alert--error {
-    background-color: var(--rds-alert-error-bg, #FFDAD6) !important;
+    background-color: var(--rds-alert-error-bg) !important;
   }
 
   &.rds-alert--info {
-    background-color: var(--rds-alert-info-bg, #ffffff) !important;
+    background-color: var(--rds-alert-info-bg) !important;
   }
 }
 
 [data-theme="dark"] {
 
+  .rds-alert.MuiAlert-root.rds-alert--success{
+    background-color: var(--rds-alert-success-bg) !important;
+  }
+
+  .rds-alert.MuiAlert-root.rds-alert--warning{
+    background-color: var(--rds-alert-warning-bg) !important;
+  }
+
+  .rds-alert.MuiAlert-root.rds-alert--error{
+    background-color: var(--rds-alert-error-bg) !important;
+  }
+
   .rds-alert.MuiAlert-root.rds-alert--info{
-    background-color: var(--rds-background-paper, #424242) !important;
-    color: var(--rds-color-on-primary,#ffffff) !important;
+    background-color: var(--rds-alert-info-bg) !important;
+    color: var(--rds-color-on-primary) !important;
   }
   .rds-alert--info .rds-alert__icon, .rds-alert .rds-alert--info .rds-alert__icon 
   {
-    color: var(--rds-color-on-primary,#ffffff) !important;
+    color: var(--rds-color-on-primary) !important;
   }
 
   .rds-alert .rds-alert__primary-button .MuiButton-root,
   .rds-alert .rds-alert__primary-button {
-    color: var(--rds-color-on-primary,#ffffff) !important;
+    color: var(--rds-color-on-primary) !important;
   }
 }
 
