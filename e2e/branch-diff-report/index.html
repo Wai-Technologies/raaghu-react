@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Branch Visual Diff Report</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 16px; margin: 0; background: #fafafa; }
+    #summary {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 12px 0;
+      margin-bottom: 12px;
+    }
+    table { border-collapse: collapse; width: 100%; background: #fff; }
+    th, td { border: 1px solid #e0e0e0; padding: 10px; vertical-align: top; }
+    th { background: #f5f5f5; text-align: left; }
+    tr.ok { background: #ecfdf3; }
+    tr.fix { background: #fff1f2; }
+    img { border: 1px solid #ddd; background: #fff; }
+    button { margin-right: 6px; margin-bottom: 6px; padding: 8px 12px; border: 0; border-radius: 4px; cursor: pointer; }
+    .ok-btn { background: #16a34a; color: #fff; }
+    .fix-btn { background: #dc2626; color: #fff; }
+    .meta { font-size: 12px; color: #666; margin-top: 4px; }
+    .caption { margin-top: 6px; font-size: 12px; color: #444; }
+  </style>
+</head>
+<body>
+  <div id="summary">
+    <h2>Visual Diff Report: dev vs centralization</h2>
+    <p>
+      Acceptable: <span id="ok-count">0</span>
+      &nbsp;|&nbsp; Needs Fix: <span id="fix-count">0</span>
+      &nbsp;|&nbsp; Pending: <span id="pending-count">4</span>
+    </p>
+    <button onclick="downloadReport()">Download Fix List</button>
+    <button onclick="saveDecisions()">Save Decisions</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Story</th>
+        <th>DEV</th>
+        <th>CENTRALIZED</th>
+        <th>DIFF</th>
+        <th>Decision</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr data-name="elements-accordion--default">
+        <td>
+          <strong>elements-accordion--default</strong>
+          <div class="meta">Diff: 100.000% (threshold 2.00%)</div>
+          <div class="meta">Pixels: 1024000/1024000</div>
+        </td>
+        <td><img src="elements-accordion--default--dev.png" width="420" alt="elements-accordion--default dev"/><div class="caption">DEV</div></td>
+        <td><img src="elements-accordion--default--centralized.png" width="420" alt="elements-accordion--default centralized"/><div class="caption">CENTRALIZED</div></td>
+        <td><img src="elements-accordion--default--diff.png" width="420" alt="elements-accordion--default diff"/><div class="caption">DIFF</div></td>
+        <td>
+          <button class="ok-btn" onclick="mark('elements-accordion--default','ok')">Acceptable</button>
+          <button class="fix-btn" onclick="mark('elements-accordion--default','fix')">Needs Fix</button>
+        </td>
+      </tr>
+    
+      <tr data-name="elements-accordion--expanded">
+        <td>
+          <strong>elements-accordion--expanded</strong>
+          <div class="meta">Diff: 99.998% (threshold 2.00%)</div>
+          <div class="meta">Pixels: 1023979/1024000</div>
+        </td>
+        <td><img src="elements-accordion--expanded--dev.png" width="420" alt="elements-accordion--expanded dev"/><div class="caption">DEV</div></td>
+        <td><img src="elements-accordion--expanded--centralized.png" width="420" alt="elements-accordion--expanded centralized"/><div class="caption">CENTRALIZED</div></td>
+        <td><img src="elements-accordion--expanded--diff.png" width="420" alt="elements-accordion--expanded diff"/><div class="caption">DIFF</div></td>
+        <td>
+          <button class="ok-btn" onclick="mark('elements-accordion--expanded','ok')">Acceptable</button>
+          <button class="fix-btn" onclick="mark('elements-accordion--expanded','fix')">Needs Fix</button>
+        </td>
+      </tr>
+    
+      <tr data-name="elements-alert--default">
+        <td>
+          <strong>elements-alert--default</strong>
+          <div class="meta">Diff: 100.000% (threshold 2.00%)</div>
+          <div class="meta">Pixels: 1024000/1024000</div>
+        </td>
+        <td><img src="elements-alert--default--dev.png" width="420" alt="elements-alert--default dev"/><div class="caption">DEV</div></td>
+        <td><img src="elements-alert--default--centralized.png" width="420" alt="elements-alert--default centralized"/><div class="caption">CENTRALIZED</div></td>
+        <td><img src="elements-alert--default--diff.png" width="420" alt="elements-alert--default diff"/><div class="caption">DIFF</div></td>
+        <td>
+          <button class="ok-btn" onclick="mark('elements-alert--default','ok')">Acceptable</button>
+          <button class="fix-btn" onclick="mark('elements-alert--default','fix')">Needs Fix</button>
+        </td>
+      </tr>
+    
+      <tr data-name="elements-alert--success">
+        <td>
+          <strong>elements-alert--success</strong>
+          <div class="meta">Diff: 100.000% (threshold 2.00%)</div>
+          <div class="meta">Pixels: 1024000/1024000</div>
+        </td>
+        <td><img src="elements-alert--success--dev.png" width="420" alt="elements-alert--success dev"/><div class="caption">DEV</div></td>
+        <td><img src="elements-alert--success--centralized.png" width="420" alt="elements-alert--success centralized"/><div class="caption">CENTRALIZED</div></td>
+        <td><img src="elements-alert--success--diff.png" width="420" alt="elements-alert--success diff"/><div class="caption">DIFF</div></td>
+        <td>
+          <button class="ok-btn" onclick="mark('elements-alert--success','ok')">Acceptable</button>
+          <button class="fix-btn" onclick="mark('elements-alert--success','fix')">Needs Fix</button>
+        </td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+  <script>
+    const storyMap = [
+  {
+    "id": "elements-accordion--default",
+    "story": "elements-accordion--default"
+  },
+  {
+    "id": "elements-accordion--expanded",
+    "story": "elements-accordion--expanded"
+  },
+  {
+    "id": "elements-alert--default",
+    "story": "elements-alert--default"
+  },
+  {
+    "id": "elements-alert--success",
+    "story": "elements-alert--success"
+  }
+];
+    const decisions = JSON.parse(localStorage.getItem('branchDiffDecisions') || '{}');
+
+    function rowById(id) {
+      return document.querySelector('tr[data-name="' + id + '"]');
+    }
+
+    function applyRowClass(id, status) {
+      const row = rowById(id);
+      if (!row) return;
+      row.classList.remove('ok', 'fix');
+      if (status === 'ok') row.classList.add('ok');
+      if (status === 'fix') row.classList.add('fix');
+    }
+
+    function updateCounts() {
+      const values = Object.values(decisions);
+      const ok = values.filter((v) => v === 'ok').length;
+      const fix = values.filter((v) => v === 'fix').length;
+      const pending = 4 - ok - fix;
+      document.getElementById('ok-count').textContent = String(ok);
+      document.getElementById('fix-count').textContent = String(fix);
+      document.getElementById('pending-count').textContent = String(pending);
+    }
+
+    function mark(id, status) {
+      decisions[id] = status;
+      applyRowClass(id, status);
+      updateCounts();
+    }
+
+    function saveDecisions() {
+      localStorage.setItem('branchDiffDecisions', JSON.stringify(decisions));
+      alert('Decisions saved in browser localStorage.');
+    }
+
+    function downloadReport() {
+      const needsFix = storyMap
+        .filter((item) => decisions[item.id] === 'fix')
+        .map((item) => item.story)
+        .join('
+');
+
+      const content = 'Components/stories needing fix:
+
+' + (needsFix || 'None');
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'fix-list.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    for (const item of storyMap) {
+      if (decisions[item.id]) {
+        applyRowClass(item.id, decisions[item.id]);
+      }
+    }
+    updateCounts();
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "story": "elements-accordion--default",
+  "devFile": "elements-accordion--default--dev.png",
+  "centralizedFile": "elements-accordion--default--centralized.png",
+  "diffFile": "elements-accordion--default--diff.png",
+  "diffPixels": 1024000,
+  "totalPixels": 1024000,
+  "diffRatio": 1,
+  "threshold": 0.02,
+  "strictMode": false
+}
