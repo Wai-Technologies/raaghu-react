@@ -9,6 +9,7 @@ dayjs.extend(customParseFormat);
 
 export interface RdsCompContributionProps {  
   showMonthLabels?: boolean;
+  showWeekLabels?: boolean;
   weekNames?: string[];
   monthNames?: string[];
   panelColors?: string[];
@@ -26,6 +27,7 @@ export interface RdsCompContributionProps {
 
 const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   showMonthLabels = true,
+  showWeekLabels = false,
   weekNames,
   monthNames,
   panelColors,
@@ -114,7 +116,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     updateSizeBasedOnWidth(availableWidth);
   };
 
-  if (!panelColors || !weekNames) {
+  if (!panelColors) {
     return null;
   }
   if (!values || !until) {
@@ -122,6 +124,7 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   }
   const contributions = React.useMemo(() => makeCalendarData(values, until, columns), [values, until, columns, dateFormat]);
   const renderWeekLabels = () => {
+    if (!showWeekLabels) return null;
     if (!weekNames || weekNames.length < 7) return null;
     
     return Array.from({ length: 7 }, (_, j) => (

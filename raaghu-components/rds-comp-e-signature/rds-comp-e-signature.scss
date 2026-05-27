@@ -313,7 +313,7 @@
 
   &__upload-panel {
     background: var(--rds-color-neutral-0, #fff);
-    padding: 28px 13px;
+    padding: var(--rds-spacing-xl, 28px) var(--rds-spacing-md, 13px);
     border: 2px dashed var(--rds-color-border-default, #d1d5db);
     border-radius: var(--rds-radius-lg, 8px);
     width: 100%;
@@ -371,7 +371,7 @@
   &__upload-content {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--rds-spacing-sm, 10px);
   }
 
   &__upload-label {
@@ -547,8 +547,8 @@
   &__mini-grid {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    column-gap: 40px;
-    row-gap: 18px;
+    column-gap: var(--rds-spacing-2xl, 40px);
+    row-gap: var(--rds-spacing-md, 18px);
     width: 100%;
     box-sizing: border-box;
   }
@@ -570,11 +570,11 @@
     border: 1px solid var(--rds-color-border-subtle, #D0D7DE);
     background: var(--rds-color-neutral-0, #fff);
     border-radius: var(--rds-border-radius-sm);
-    padding: 2px 6px;
+    padding: 2px var(--rds-spacing-xs, 6px);
     display: inline-flex;
     align-items: stretch;
     justify-content: flex-start;
-    gap: 6px;
+    gap: var(--rds-spacing-xs, 6px);
     cursor: pointer;
     transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
     font-family: var(--rds-font-family-secondary, 'Segoe UI', sans-serif);
@@ -597,7 +597,7 @@
     background: var(--rds-color-neutral-soft, #F8F9FA);
     border-radius: var(--rds-border-radius-sm);
     min-height: 34px;
-    padding: 0 12px;
+    padding: 0 var(--rds-spacing-sm, 12px);
     min-width: 120px;
   }
 
@@ -608,7 +608,7 @@
     background: var(--rds-color-neutral-soft, #F8F9FA);
     border-radius: var(--rds-border-radius-sm);
     min-height: 34px;
-    padding: 0 12px;
+    padding: 0 var(--rds-spacing-sm, 12px);
     min-width: 60px;
   }
 
@@ -770,6 +770,58 @@
   }
 
 }
+/* Dark theme overrides: use surface-dark variables so panels aren't white in dark mode */
+[data-theme="dark"] .rds-e-signature__upload-panel,
+:root[data-theme="dark"] .rds-e-signature__upload-panel,
+[data-theme="dark"] .rds-e-signature__choose-panel,
+:root[data-theme="dark"] .rds-e-signature__choose-panel,
+[data-theme="dark"] .rds-e-signature__canvas-container,
+:root[data-theme="dark"] .rds-e-signature__canvas-container,
+[data-theme="dark"] .rds-e-signature__file-row,
+:root[data-theme="dark"] .rds-e-signature__file-row,
+[data-theme="dark"] .rds-e-signature__mini-card,
+:root[data-theme="dark"] .rds-e-signature__mini-card,
+[data-theme="dark"] .rds-e-signature__mini-full-wrapper,
+:root[data-theme="dark"] .rds-e-signature__mini-full-wrapper,
+[data-theme="dark"] .rds-e-signature__mini-initials-wrapper,
+:root[data-theme="dark"] .rds-e-signature__mini-initials-wrapper {
+  background: var(--rds-color-surface-dark, #1f1f1f) !important;
+  border-color: var(--rds-color-border-subtle-dark, #2b2b2b) !important;
+  color: var(--rds-color-neutral-0, #ffffff);
+}
+
+[data-theme="dark"] .rds-e-signature__upload-panel--hover,
+:root[data-theme="dark"] .rds-e-signature__upload-panel--hover {
+  background: var(--rds-color-surface-hover-dark, #2a2a2a) !important;
+}
+
+/* Dark-mode text color fixes: ensure neutral-500 usages remain visible on dark backgrounds */
+[data-theme="dark"] .rds-e-signature__file-text--placeholder,
+:root[data-theme="dark"] .rds-e-signature__file-text--placeholder,
+[data-theme="dark"] .rds-e-signature__disabled-text,
+:root[data-theme="dark"] .rds-e-signature__disabled-text,
+[data-theme="dark"] .rds-e-signature__canvas-title,
+:root[data-theme="dark"] .rds-e-signature__canvas-title,
+[data-theme="dark"] .rds-e-signature__mini-label,
+:root[data-theme="dark"] .rds-e-signature__mini-label,
+[data-theme="dark"] .rds-e-signature__file-limit,
+:root[data-theme="dark"] .rds-e-signature__file-limit {
+  color: var(--rds-text-secondary, #D1D5DB) !important;
+}
+
+/* file-text container should use dark surface and readable text in dark mode */
+[data-theme="dark"] .rds-e-signature__file-text,
+:root[data-theme="dark"] .rds-e-signature__file-text {
+  background: var(--rds-color-surface-dark, #1f1f1f) !important;
+  color: var(--rds-text-secondary, #D1D5DB) !important;
+  border-color: var(--rds-color-border-subtle-dark, #2b2b2b) !important;
+}
+
+[data-theme="dark"] .rds-e-signature__upload-label,
+:root[data-theme="dark"] .rds-e-signature__upload-label {
+  color: var(--rds-color-neutral-0, #ffffff) !important;
+}
+
 @media (max-width: var(--rds-breakpoint-sm)) {
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
     padding: 10px;

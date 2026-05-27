@@ -39,7 +39,7 @@
     
     &--month {
       fill: var(--rds-color-text-primary, #333);
-      font-size: var(--rds-font-size-md);
+      font-size: 12px;
       font-weight: var(--rds-font-weight-medium, 500);
       letter-spacing: -0.01em;
       alignment-baseline: central;
@@ -92,7 +92,7 @@
     }
     
     &__text--month {
-      font-size: 11px !important;
+      font-size: 10px !important;
       font-weight: 600;
       letter-spacing: 0.02em;
     }
@@ -125,7 +125,7 @@
     }
     
     &__text--month {
-      font-size: var(--rds-font-size-sm) !important;
+      font-size: 11px !important;
       font-weight: 600;
       letter-spacing: 0.02em;
     }
@@ -158,7 +158,7 @@
     }
     
     &__text--month {
-      font-size: 9px !important;
+      font-size: 8px !important;
       font-weight: 500;
     }
     
@@ -179,7 +179,7 @@
     }
     
     &__text--month {
-      font-size: var(--rds-font-size-sm);
+      font-size: 13px;
       font-weight: 500;
     }
     

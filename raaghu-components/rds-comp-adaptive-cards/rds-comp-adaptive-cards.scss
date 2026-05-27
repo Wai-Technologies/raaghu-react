@@ -1,11 +1,11 @@
-.rds-adaptive-cards--image-gallery {
+﻿.rds-adaptive-cards--image-gallery {
   width: 100%;
   max-width: var(--rds-card-max-width, 1200px);
-  border: 1px solid var(--rds-border-light, $border-light);
-  border-radius: var(--rds-border-radius-xl, $border-radius-xl);
-  padding: var(--rds-spacing-lg, $spacing-lg) 0 0 0;
-  background: var(--rds-background-default, $background-default);
-  box-shadow: var(--rds-box-shadow-lg, $elevation-2);
+  border: 1px solid var(--rds-border-light);
+  border-radius: var(--rds-border-radius-xl);
+  padding: var(--rds-spacing-lg) 0 0 0;
+  background: var(--rds-background-default);
+  box-shadow: var(--rds-box-shadow-lg);
 } 
 
 .rds-adaptive-cards--image-gallery,
@@ -16,7 +16,7 @@
 .rds-adaptive-cards--football-scorecard {
   width: var(--rds-card-width-football, 350px);
   min-width: var(--rds-card-width-football, 350px);
-  border: 1px solid var(--rds-border-light, $border-light);
+  border: 1px solid var(--rds-border-light);
   border-radius: var(--rds-border-radius-lg, 12px);
   padding: var(--rds-spacing-sm, 8px);
   box-sizing: border-box;
@@ -46,9 +46,9 @@
 .rds-adaptive-cards--default {
   width: var(--rds-card-width-default, 450px);
   height: var(--rds-alt-card-body-height, auto);
-  border: 1px solid var(--rds-border-light, $border-light);
-  border-radius: var(--rds-border-radius-lg, $border-radius-lg);
-  padding: var(--rds-spacing-xs, $spacing-xs) 0 0 0;
+  border: 1px solid var(--rds-border-light);
+  border-radius: var(--rds-border-radius-lg);
+  padding: var(--rds-spacing-xs) 0 0 0;
 }
 
 .rds-adaptive-cards {
@@ -93,7 +93,7 @@
     width: var(--rds-font-size-xl, 20px);
     height: var(--rds-font-size-xl, 20px);
     border-radius: 50%;
-    border: 2px solid var(--rds-border-dark, $border-dark);
+    border: 2px solid var(--rds-border-dark);
     background: transparent;
     margin-right: var(--rds-spacing-sm, 6px);
   }
@@ -106,14 +106,14 @@
   }
   &__small-text {
     font-size: var(--rds-font-size-xs, 10px);
-    color: var(--rds-text-secondary, $text-secondary);
+    color: var(--rds-text-secondary);
   }
   &__image-list {
     width: 100%;
     display: grid !important;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--rds-spacing-none, 0);
-    background: var(--rds-background-light, $background-light);
+    background: var(--rds-background-light);
     padding: var(--rds-spacing-none, 0);
     border-radius: var(--rds-border-radius-md, 8px);
     box-sizing: border-box;
@@ -122,7 +122,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--rds-background-default, $background-default);
+    background: var(--rds-background-default);
     border-radius: var(--rds-border-radius-sm, 4px);
     box-shadow: none;
     overflow: hidden;
@@ -131,8 +131,8 @@
     min-width: var(--rds-spacing-none, 0);
     height: var(--rds-image-list-item-height, 180px);
     &:hover {
-      box-shadow: var(--rds-box-shadow-hover, $elevation-3);
-      border-color: var(--rds-border-hover, $border-hover);
+      box-shadow: var(--rds-box-shadow-hover);
+      border-color: var(--rds-border-hover);
       .rds-adaptive-cards__image {
         transform: scale(1.04);
       }
@@ -149,12 +149,12 @@
   
   &__default-slot {
     height: var(--rds-font-size-4xl, 132px);
-    border: 2px dashed var(--rds-border-default, $border-default);
+    border: 2px dashed var(--rds-border-default);
     border-radius: var(--rds-border-radius-sm, 4px);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--rds-text-secondary, $text-secondary);
+    color: var(--rds-text-secondary);
   }
   &__default-slot-text {
     opacity: 0.6;
@@ -242,10 +242,10 @@
   &__calendar-reminder-info-icon {
     font-size: var(--rds-font-size-2xl) !important;
     margin-bottom: 10px !important;
-    color: var(--rds-text-secondary, $text-secondary) !important;
+    color: var(--rds-text-secondary) !important;
   }
   &__calendar-reminder-small-text {
-    color: var(--rds-text-secondary, $text-secondary);
+    color: var(--rds-text-secondary);
   }
   &__calendar-reminder-input {
     font-size: var(--rds-font-size-md, 13px) !important;
@@ -301,11 +301,11 @@
     display: block !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    color: var(--rds-text-primary, $text-primary) !important;
+    color: var(--rds-text-primary) !important;
   }
     &__activity-update-date,
     &__activity-update-text {
-      color: var(--rds-text-secondary, $text-secondary) !important;
+      color: var(--rds-text-secondary) !important;
     }
   &__activity-update-date {
     font-size: var(--rds-font-size-sm, 12px) !important;
@@ -336,7 +336,7 @@
     font-size: var(--rds-font-size-2xl) !important;
     width: var(--rds-adaptive-cards-thumb-width, 20px) !important;
     height: 20px !important;
-    color: var(--rds-text-secondary, $text-secondary) !important;
+    color: var(--rds-text-secondary) !important;
   }
   
   &__placeholder {
@@ -405,7 +405,7 @@
       font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
       letter-spacing: var(--rds-football-league-letter-spacing, 0.5px) !important;
       font-size: var(--rds-font-size-3xl) !important; 
-      color: var(--rds-text-primary, $text-primary) !important;
+      color: var(--rds-text-primary) !important;
       text-shadow: none !important; 
       display: inline-block !important;
       white-space: nowrap !important;
@@ -417,7 +417,7 @@
       margin-left: var(--rds-spacing-md, 12px) !important;
     }
   &__football-date {
-    color: var(--rds-text-secondary, $text-secondary) !important;
+    color: var(--rds-text-secondary) !important;
     font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
     font-size: var(--rds-football-date-font-size, 12px) !important;
     font-weight: var(--rds-font-weight-medium, 500) !important;
@@ -427,7 +427,7 @@
     min-width: 0 !important;
   }
   &__football-final {
-    color: var(--rds-text-secondary, $text-secondary) !important;
+    color: var(--rds-text-secondary) !important;
     font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
     font-size: var(--rds-football-final-font-size, 12px) !important;
     font-weight: var(--rds-font-weight-medium, 500) !important;
@@ -438,8 +438,8 @@
     font-size: var(--rds-font-size-xs, 10px) !important;
     font-weight: var(--rds-font-weight-normal, 400) !important;
     border-radius: 999px !important;
-    background: var(--rds-status-live, $status-live) !important;
-    color: var(--rds-text-on-status, $text-on-status) !important;
+    background: #d32f2f !important;
+    color: #ffffff !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -459,6 +459,10 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+  }
+  .rds-adaptive-cards__football-live .MuiChip-label,
+  .rds-adaptive-cards__football-live--aligned .MuiChip-label {
+    color: #ffffff !important;
   }
   &__football-body {
     display: flex !important; 
@@ -484,18 +488,42 @@
     width: var(--rds-spacing-2xl, 80px);
     height: var(--rds-spacing-2xl, 80px);
     border-radius: 50%;
-    background: var(--rds-background-default, $background-default);
+    background: var(--rds-background-default);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
      &.rds-adaptive-cards__football-logo--home {
-      background-color: var(--rds-background-default, $background-default) !important;
+      background-color: var(--rds-background-default) !important;
       }
       
       &.rds-adaptive-cards__football-logo--away {
-        background: var(--rds-background-default, $background-default) !important;
+        background: var(--rds-background-default) !important;
       }
+  }
+
+  /* Ensure logos match dark-mode surface and scores are visible (white) */
+  .rds-adaptive-cards--football-scorecard[data-theme="dark"] & {
+    &__football-logo,
+    &__football-logo.rds-adaptive-cards__football-logo--home,
+    &__football-logo.rds-adaptive-cards__football-logo--away {
+      background: var(--rds-surface-dark-alt, rgba(255,255,255,0.04)) !important;
+    }
+
+    &__football-img {
+      background: transparent !important;
+    }
+
+    &__football-score,
+    &__football-score-colon,
+    &__football-score * {
+      color: #ffffff !important;
+    }
+
+    &__football-time {
+      background: var(--rds-surface-dark-alt, rgba(255,255,255,0.04)) !important;
+      color: #ffffff !important;
+    }
   }
   &__football-img {
     width: 100%;
@@ -503,7 +531,7 @@
     border-radius: 50%;
     border: none;
     object-fit: cover;
-    background: var(--rds-background-default, $background-default);
+    background: var(--rds-background-default);
     display: block;
     &--barca {
       width: 100%;
@@ -512,7 +540,7 @@
       border: none;
       object-fit: cover;
       margin-top: var(--rds-football-img-barca-margin-top, 5px);
-      background: var(--rds-background-default, $background-default);
+      background: var(--rds-background-default);
     }
   }
   
@@ -529,7 +557,7 @@
     width: 100%; 
   }
   &__football-team-status {
-    color: var(--rds-text-secondary, $text-secondary);
+    color: var(--rds-text-secondary);
     text-align: center;
     font-weight: var(--rds-font-weight-bold, 700);
     font-family: var(--rds-font-family-bold, 'Poppins', sans-serif);
@@ -571,8 +599,8 @@
     }
   }
   &__football-time {
-    background: var(--rds-background-default, $background-default) !important;
-    color: var(--rds-text-secondary, $text-secondary) !important;
+    background: var(--rds-background-default) !important;
+    color: var(--rds-text-secondary) !important;
     font-size: var(--rds-font-size-xs, 12px) !important;
     font-weight: var(--rds-font-weight-bold, 700) !important;
     letter-spacing: var(--rds-football-time-letter-spacing, 0.5px) !important;
@@ -591,16 +619,16 @@
 .rds-adaptive-cards__action-btn--input-form {
   width: 100%;
   border-radius: var(--rds-border-radius-md, 8px);
-  background: var(--rds-background-light, $background-light);
+  background: var(--rds-background-light);
   height: var(--rds-component-button-height-medium, 36px);
   padding: var(--rds-adaptive-cards-input-padding-vertical, 1px) var(--rds-spacing-sm, 12px);
-  border: 1.5px solid var(--rds-border-light, $border-light);
+  border: 1.5px solid var(--rds-border-light);
   box-sizing: border-box;
   
   &:focus,
   &:active {
     outline: none;
-    border-color: var(--rds-border-light, $border-light) !important;
+    border-color: var(--rds-border-light) !important;
     box-shadow: none !important;
   }
 }
@@ -609,7 +637,7 @@
   max-width: var(--rds-input-form-max-width, 400px);
   margin: var(--rds-spacing-none, 0) auto;
   padding: var(--rds-spacing-lg, 16px);
-  background: var(--rds-background-default, $background-default);
+  background: var(--rds-background-default);
   border-radius: var(--rds-border-radius-lg, 12px);
   box-shadow: var(--rds-box-shadow-md, 0 2px 8px rgba(0,0,0,0.04));
 }
@@ -623,7 +651,7 @@
   margin-bottom: var(--rds-spacing-xs, 4px);
 }
 .rds-adaptive-cards__input-form-small-text {
-  color: var(--rds-text-secondary, $text-secondary);
+  color: var(--rds-text-secondary);
   margin-bottom: var(--rds-spacing-lg, 16px);
   font-size: var(--rds-font-size-xs, 12px);
 }
@@ -680,7 +708,7 @@
 }
 .rds-adaptive-cards__activity-update-radio-desc {
   font-size: var(--rds-adaptive-cards-font-size-xxs, 9px) !important;
-  color: var(--rds-text-secondary, $text-secondary);
+  color: var(--rds-text-secondary);
   font-weight: var(--rds-font-weight-normal, 400);
 }
 
@@ -696,14 +724,14 @@
 }
 
 .rds-adaptive-cards__required {
-  color: var(--rds-error-main, $error-main);
+  color: var(--rds-error-main);
   margin-left: var(--rds-spacing-xs, 2px);
   font-size: var(--rds-required-font-size, 1em);
   font-weight: var(--rds-font-weight-bold, bold);
 }
 
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon {
-  color: var(--rds-text-secondary, $text-secondary) !important;
+  color: var(--rds-text-secondary) !important;
 }
 .rds-adaptive-cards__restaurant-order-form .rds-adaptive-cards__placeholder {
   color: var(--rds-placeholder-color, rgba(0, 0, 0, 0.6)) !important;
@@ -711,8 +739,8 @@
 }
 .rds-adaptive-cards__restaurant-order-form .MuiSelect-icon svg,
 .rds-adaptive-cards__restaurant-order-form svg:not(.rds-adaptive-cards__restaurant-order-info-icon) {
-  stroke: var(--rds-text-secondary, $text-secondary) !important;
-  color: var(--rds-text-secondary, $text-secondary) !important;
+  stroke: var(--rds-text-secondary) !important;
+  color: var(--rds-text-secondary) !important;
   font-size: var(--rds-font-size-md, 14px) !important;
   width: var(--rds-font-size-md, 14px) !important;
   height: var(--rds-font-size-md, 14px) !important;
@@ -721,8 +749,8 @@
   width: var(--rds-calendar-reminder-select-icon-width, 16px) !important;
   height: var(--rds-calendar-reminder-select-icon-height, 12px) !important;
   font-size: var(--rds-font-size-xs, 12px) !important;
-  stroke: var(--rds-text-secondary, $text-secondary) !important;
-  color: var(--rds-text-secondary, $text-secondary) !important;
+  stroke: var(--rds-text-secondary) !important;
+  color: var(--rds-text-secondary) !important;
   margin-right: var(--rds-spacing-sm, 8px) !important;
 }
 
@@ -757,8 +785,8 @@
   align-items: flex-start;
   gap: var(--rds-spacing-md, 16px);
   border-radius: var(--rds-border-radius-xl, 12px);
-  border: 1px solid var(--rds-border-light, $border-light);
-  background: var(--rds-background-default, $background-default);
+  border: 1px solid var(--rds-border-light);
+  background: var(--rds-background-default);
 }
 .rds-adaptive-cards__header-alt {
   display: flex;
@@ -776,7 +804,7 @@
   gap: var(--rds-spacing-sm, 8px);
   align-self: stretch;
   border-radius: var(--rds-border-radius-sm, 4px);
-  border: 2px dashed var(--rds-border-default, $border-default);
+  border: 2px dashed var(--rds-border-default);
 }
 .rds-adaptive-cards__footer {
   display: flex;
@@ -787,15 +815,67 @@
   align-self: stretch;
 }
 .rds-adaptive-cards__title-alt {
-  color: var(--rds-text-primary, $text-primary);
+  color: var(--rds-text-primary);
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-size: var(--rds-font-size-2xl, 16px);
   font-style: normal;
   font-weight: var(--rds-font-weight-bold, 700) !important;
   line-height: normal;
 }
+
+/* Dark theme overrides for football scorecard to ensure logo and time backgrounds
+   match other dark surfaces and scores/time text stay white. These selectors
+   intentionally use [data-theme="dark"] to match Storybook/theming. */
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo,
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo--home,
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo--away {
+  background: var(--rds-surface-dark-alt, #3a3a3a) !important;
+}
+
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-img {
+  background: transparent !important;
+}
+
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-time,
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-time .MuiChip-root {
+  background: var(--rds-surface-dark-alt, #3a3a3a) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-time .MuiChip-label {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-score,
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-score-colon,
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-score * {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-team-name,
+[data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-team-status {
+  color: var(--rds-text-primary) !important;
+}
+
+[data-theme="dark"] .rds-adaptive-cards {
+  input,
+  textarea,
+  .MuiInputBase-input,
+  .MuiOutlinedInput-input,
+  .MuiInputBase-input::placeholder,
+  .MuiOutlinedInput-input::placeholder {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
+
+  /* For MUI filled/outlined inputs ensure label and helper text contrast if needed */
+  .MuiInputLabel-root,
+  .MuiFormHelperText-root {
+    color: var(--rds-text-secondary) !important;
+  }
+}
 .rds-adaptive-cards__small-text-alt {
-  color: var(--rds-text-secondary, $text-secondary);
+  color: var(--rds-text-secondary);
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-size: var(--rds-font-size-xs, 10px);
   font-style: normal;
@@ -804,7 +884,7 @@
 }
 .rds-adaptive-cards__text {
   align-self: stretch;
-  color: var(--rds-text-secondary, $text-secondary);
+  color: var(--rds-text-secondary);
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-size: var(--rds-font-size-md, 11px);
   font-style: normal;
@@ -819,8 +899,8 @@
   align-items: flex-start;
   gap: var(--rds-spacing-xs, 4px);
   border-radius: var(--rds-border-radius-sm, 4px);
-  border: 1px solid var(--rds-border-light, $border-light);
-  background: var(--rds-background-default, $background-default);
+  border: 1px solid var(--rds-border-light);
+  background: var(--rds-background-default);
 }
 .rds-adaptive-cards__image-body img {
   width: 100%;
@@ -837,8 +917,8 @@
   align-items: flex-start;
   gap: var(--rds-spacing-xs, 4px);
   border-radius: var(--rds-border-radius-md, 8px);
-  border: 1px solid var(--rds-border-light, $border-light);
-  background: var(--rds-background-default, $background-default);
+  border: 1px solid var(--rds-border-light);
+  background: var(--rds-background-default);
 }
 .rds-adaptive-cards__scorecard-header-container {
   display: flex;
@@ -853,7 +933,7 @@
   gap: var(--rds-spacing-xs, 4px);
 }
 .rds-adaptive-cards__scorecard-text {
-  color: var(--rds-text-primary, $text-primary);
+  color: var(--rds-text-primary);
   text-align: center;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-size: var(--rds-font-size-3xl, 19px);
@@ -862,7 +942,7 @@
   line-height: normal;
 }
 .rds-adaptive-cards__scorecard-subtext {
-  color: var(--rds-text-secondary, $text-secondary);
+  color: var(--rds-text-secondary);
   text-align: center;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-size: var(--rds-font-size-md, 11px);
@@ -882,11 +962,11 @@
   width: var(--rds-spacing-2xl, 100px);
   height: var(--rds-spacing-2xl, 100px);
   border-radius: 50%;
-  border: 2px solid var(--rds-border-light, $border-light);
+  border: 2px solid var(--rds-border-light);
   object-fit: cover;
-  background: var(--rds-background-default, $background-default);
+  background: var(--rds-background-default);
   aspect-ratio: 1/1;
-  color: var(--rds-text-primary, $text-primary);
+  color: var(--rds-text-primary);
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-size: var(--rds-font-size-4xl, 25px);
   font-style: normal;
@@ -901,11 +981,11 @@
   align-items: flex-end;
   gap: var(--rds-spacing-sm, 8px);
   border-radius: var(--rds-border-radius-sm, 4px);
-  background: var(--rds-background-default, $background-light);
+  background: var(--rds-background-default);
 }
 .rds-adaptive-cards__match-timer {
   font-size: var(--rds-font-size-md, 11px);
-  color: var(--rds-text-secondary, $text-secondary); 
+  color: var(--rds-text-secondary); 
   text-align: center;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-style: normal;
@@ -929,7 +1009,7 @@
 }
 .rds-adaptive-cards__team-name {
   font-size: var(--rds-font-size-md, 13px) !important;
-  color: var(--rds-text-secondary, $text-secondary);
+  color: var(--rds-text-secondary);
   text-align: center;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-style: normal;
@@ -939,7 +1019,7 @@
 }
 .rds-adaptive-cards__team-status {
   font-size: var(--rds-font-size-lg, 13px);
-  color: var(--rds-text-secondary, $text-secondary);
+  color: var(--rds-text-secondary);
   text-align: center;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
   font-style: normal;
@@ -956,9 +1036,9 @@
   left: var(--rds-badge-left, 285px);
   top: var(--rds-badge-top, 25px);
   border-radius: var(--rds-border-radius-full, 9999px);
-  background: var(--rds-badge-error-bg, $error-main);
+  background: var(--rds-badge-error-bg);
   overflow: hidden;
-  color: var(--rds-badge-error-text, $text-primary);
+  color: var(--rds-badge-error-text);
   text-align: center;
   text-overflow: ellipsis;
   font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
@@ -1064,7 +1144,7 @@
     height: var(--rds-football-logo-size-mobile, 72px);
     border-radius: 50%;
     object-fit: cover;
-    background: var(--rds-background-default, $background-default);
+    background: var(--rds-background-default);
     display: block;
     margin-bottom: var(--rds-spacing-none, 0);
   }
@@ -1203,7 +1283,7 @@
   &__circle {
     width: var(--rds-adaptive-cards-icon-width, 24px);
     height: 24px;
-    border: 2px solid var(--rds-border-light, $border-light);
+    border: 2px solid var(--rds-border-light);
     border-radius: 50%;
   }
 
@@ -1214,7 +1294,7 @@
   }
 
   &__slot {
-    border: 2px dashed var(--rds-border-default, $border-default);
+    border: 2px dashed var(--rds-border-default);
     border-radius: var(--rds-border-radius-md);
     min-height: 120px;
     display: flex;
@@ -1246,12 +1326,22 @@
   }
 
   &__button--cancel {
-    color: var(--rds-primary-color, $primary-color) !important;
+    color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
   }
 
   &__button--done {
-    background-color: var(--rds-primary-color, $primary-color) !important;
-    color: var(--rds-text-primary, $text-primary) !important;
+    background-color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
+    border-color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
+    color: var(--rds-text-primary, var(--rds-button-primary-text)) !important;
+  }
+
+  &__button--done:hover,
+  &__button--done:active,
+  &__button--done.MuiButton-contained,
+  &__button--done.MuiButton-contained:hover,
+  &__button--done.MuiButton-contained:active {
+    background-color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
+    border-color: var(--rds-primary-color, var(--rds-button-primary-bg)) !important;
   }
 }
 
@@ -1308,16 +1398,16 @@
 }
 
 .rds-adaptive-cards__input-error {
-  border-color: var(--rds-error-main, $error-main) !important;
+  border-color: var(--rds-error-main) !important;
   border-width: var(--rds-adaptive-cards-border-width, 2px) !important;
   &:focus {
-    outline-color: var(--rds-error-main, $error-main) !important;
-    box-shadow: var(--rds-adaptive-cards-error-ring, 0 0 0 2px rgba($error-main, 0.2)) !important;
+    outline-color: var(--rds-error-main) !important;
+    box-shadow: var(--rds-adaptive-cards-error-ring) !important;
   }
 }
 
 .rds-adaptive-cards__error-message {
-  color: var(--rds-error-main, $error-main);
+  color: var(--rds-error-main);
   font-size: 0.8rem;
   margin-top: var(--rds-spacing-xs);
   margin-bottom: var(--rds-spacing-sm);
