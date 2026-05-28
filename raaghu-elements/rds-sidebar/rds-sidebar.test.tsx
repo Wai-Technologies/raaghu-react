@@ -159,7 +159,11 @@ describe('RdsSidebar', () => {
     it('should call onClick when item clicked', async () => {
       const user = userEvent.setup();
       const onClick = jest.fn();
-      const items = [{ label: 'Home', onClick, icon: <span>🏠</span> }];
+      const items = [{
+        label: 'Home',
+        onClick,
+        icon: <span>🏠</span>,
+      }];
       
       renderWithTheme(
         <RdsSidebar items={items} isOpen={true} />

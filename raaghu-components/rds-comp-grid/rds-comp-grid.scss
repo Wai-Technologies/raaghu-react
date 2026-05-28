@@ -102,14 +102,14 @@
   &__empty-state-description { color: var(--rds-grid-text-subtle); }
   &__sort-icon, &-sort-icon { margin-left: var(--rds-spacing-xs, 4px); color: var(--rds-grid-text-subtle); }
   &__filter-icon, &-filter-icon { margin-left: var(--rds-spacing-xs, 4px); color: var(--rds-grid-text-subtle); cursor:pointer; }
-  &__filter-icon-active { color: var(--colorBrandBackground, #0078d4); }
+  &__filter-icon-active { color: var(--colorBrandBackground, var(--rds-primary-main)); }
   &__action-button, &-action-button { min-width:auto; }
   &__resize-handle, &-resize-handle { position:absolute; right:0; top:0; bottom:0; width:4px; cursor:col-resize; background:transparent; transition: background-color var(--rds-transition-base); z-index: var(--rds-z-index-raised); &:hover{ background: var(--rds-grid-row-hover); } }
 
   // Modifiers --------------------------------------------------------------
   &--compact { .rds-comp-grid__header-cell, .rds-comp-grid__cell { padding: var(--spacingVerticalXS,4px) var(--spacingHorizontalS,8px); font-size: var(--fontSizeBase100,12px);} }
   &--loading { opacity:.6; pointer-events:none; }
-  &--error { border-color: var(--colorPaletteRedBorder1, #d13438); background: var(--colorPaletteRedBackground1, #fde7e9); }
+  &--error { border-color: var(--colorPaletteRedBorder1, var(--rds-error-main)); background: var(--colorPaletteRedBackground1, var(--rds-color-error-container)); }
 }
 
 // Filter Popup -------------------------------------------------------------
@@ -123,7 +123,7 @@
 .rds-comp-grid__column-panel-item { display:flex; align-items:center; gap: var(--rds-spacing-xs, 4px); padding:2px var(--rds-spacing-xs, 4px); border-radius: calc(var(--rds-border-radius-sm, 4px) / 2); transition: background-color var(--rds-transition-base); &:hover{ background: var(--rds-grid-row-hover); } }
 
 // Accessibility Helpers ----------------------------------------------------
-.rds-comp-grid__resize-handle:focus { outline:2px solid var(--colorBrandBackground, #0078d4); outline-offset:-2px; }
+.rds-comp-grid__resize-handle:focus { outline:2px solid var(--colorBrandBackground, var(--rds-primary-main)); outline-offset:-2px; }
 
 .rds-comp-grid--dark {
   color: var(--rds-grid-text);
@@ -147,7 +147,7 @@
   .rds-comp-grid__header-cell {
     background-color: var(--rds-grid-header-bg) !important;
   }
-  // .rds-comp-grid-sub-header
+ // .rds-comp-grid-sub-header
   // {
   //   background-color: #424242 !important;
   //   color: white;
@@ -160,7 +160,6 @@
   //   color: var(--rds-grid-text) !important;
   //   border-bottom-color: var(--rds-grid-border-soft) !important;
   // }
-
   /* Header toolbar row with search, filters, buttons */
   .rds-comp-grid-toolbar,
   .rds-comp-grid__toolbar,
@@ -357,7 +356,7 @@
   .rds-comp-grid-column-list { background-color: var(--rds-grid-bg); border-color: var(--rds-grid-border); }
   .rds-comp-grid-resize-handle:hover { background-color: var(--rds-color-scrollbar-thumb-hover); }
   
-  // New structure (non-BEM) class names support
+   // New structure (non-BEM) class names support
   // .rds-comp-grid-header,
   // .rds-comp-grid-sub-header {
   //   background-color:#424242 !important;
@@ -721,7 +720,7 @@
           transition: background-color var(--rds-transition-base);
 
           &:hover {
-            background-color: var(--colorBrandBackground, #0078d4);
+            background-color: var(--colorBrandBackground, var(--rds-primary-main));
           }
         }
       }
@@ -899,7 +898,7 @@
 
   &--resizable {
     &:hover .rds-comp-grid-resize-handle {
-      background-color: var(--colorBrandBackground, #0078d4);
+      background-color: var(--colorBrandBackground, var(--rds-primary-main));
       opacity: 0.7;
     }
   }
@@ -1099,7 +1098,7 @@
   color: var(--rds-grid-text-subtle, #666);
 
   &-active {
-    background-color: var(--colorBrandBackground, #0078d4) !important;
+    background-color: var(--colorBrandBackground, var(--rds-primary-main)) !important;
     color: var(--rds-color-light, #ffffff) !important;
   }
 }
@@ -1121,12 +1120,12 @@
   z-index: var(--rds-z-index-raised);
 
   &:hover {
-    background-color: var(--colorBrandBackground, #0078d4);
+    background-color: var(--colorBrandBackground, var(--rds-primary-main));
     opacity: 0.7;
   }
 
   &:active {
-    background-color: var(--colorBrandBackground, #0078d4);
+    background-color: var(--colorBrandBackground, var(--rds-primary-main));
     opacity: 1;
   }
 }
@@ -1202,7 +1201,7 @@
   background-color: var(--rds-grid-bg-alt);
 
   &-active {
-    background-color: var(--colorBrandBackground, #0078d4) !important;
+    background-color: var(--colorBrandBackground, var(--rds-primary-main)) !important;
     color: var(--rds-color-light, #ffffff);
 
     .rds-comp-grid-filter-label {
@@ -1238,8 +1237,8 @@
 
   &:focus {
     outline: none;
-    border-color: var(--colorBrandBackground, #0078d4);
-    box-shadow: 0 0 0 1px var(--colorBrandBackground, #0078d4);
+    border-color: var(--colorBrandBackground, var(--rds-primary-main));
+    box-shadow: 0 0 0 1px var(--colorBrandBackground, var(--rds-primary-main));
   }
 }
 
@@ -1330,7 +1329,7 @@
     color: var(--rds-neutral-0) !important;
   }
 
-//         background-color: #f8f9fa;
+  //         background-color: #f8f9fa;
 //       }
 
 //       &:hover {
@@ -1455,7 +1454,6 @@
   color: var(--rds-text-primary);
 }
 
-// Secondary text styling (replaces hardcoded #666)
 .rds-grid-cell-text-secondary {
   color: var(--rds-text-secondary);
 }

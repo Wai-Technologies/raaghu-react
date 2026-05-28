@@ -9,7 +9,7 @@ import RdsCompAiIcon, { registerMaterialIcons } from '../rds-comp-ai-icon/rds-co
 export interface RdsCompAiTypingSectionProps {
   colorVariant?: string;
   placeholderText?: string;
-  icon_name: string;
+  iconName: string;
   onSend?: (inputText: string, image?: string) => void;
   onAddComment?: (comment: AttachmentComment) => void;
   previewImage?: string;
@@ -25,7 +25,7 @@ declare global {
 const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
   colorVariant,
   placeholderText,
-  icon_name,
+  iconName,
   onSend,
   previewImage,
   type,

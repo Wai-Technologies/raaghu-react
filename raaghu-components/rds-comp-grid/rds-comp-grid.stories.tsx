@@ -5,7 +5,7 @@ import { Button, Box, Stack, Typography, Divider } from '@mui/material';
 import RdsCompGrid, { RdsCompGridColumn, RdsCompGridAction, ActionPosition, State, ActionColumnStyle, RdsCompGridRef } from './rds-comp-grid';
 
 const meta: Meta<typeof RdsCompGrid> = {
-  title: 'Components/Grid',
+  title: 'Internal/Grid',
   component: RdsCompGrid,
   parameters: {
     layout: 'padded',

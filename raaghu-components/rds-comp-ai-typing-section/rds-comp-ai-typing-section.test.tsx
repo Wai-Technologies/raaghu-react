@@ -90,7 +90,7 @@ jest.mock('../rds-comp-ai-attachement/rds-comp-ai-attachement', () => {
 
 // Default props for testing
 const defaultProps: RdsCompAiTypingSectionProps = {
-  icon_name: 'enhance',
+  iconName: 'enhance',
   placeholderText: 'Type your message...',
 };
 
@@ -130,7 +130,7 @@ describe('RdsCompAiTypingSection', () => {
     });
 
     it('renders default placeholder when not provided', () => {
-      const { container } = render(<RdsCompAiTypingSection icon_name="test" />);
+      const { container } = render(<RdsCompAiTypingSection iconName="test" />);
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       expect(textarea.placeholder).toBe('Placeholder Text');
     });
@@ -412,14 +412,14 @@ it('hides enhance icon when input has text', () => {
 
   describe('Props and Defaults', () => {
     it('renders with minimum props', () => {
-      const { container } = render(<RdsCompAiTypingSection icon_name="test" />);
+      const { container } = render(<RdsCompAiTypingSection iconName="test" />);
       expect(container.querySelector('.rds-comp-ai-typing-section')).toBeInTheDocument();
     });
 
     it('renders with all props provided', () => {
       const { container } = render(
         <RdsCompAiTypingSection
-          icon_name="enhance"
+          iconName="enhance"
           colorVariant="primary"
           placeholderText="Custom text"
           onSend={jest.fn()}
@@ -441,7 +441,7 @@ it('hides enhance icon when input has text', () => {
 
       rerender(
         <RdsCompAiTypingSection 
-          icon_name="test" 
+          iconName="test" 
           placeholderText="New placeholder"
         />
       );
@@ -484,12 +484,12 @@ it('hides enhance icon when input has text', () => {
       render(
         <div>
           <RdsCompAiTypingSection 
-            icon_name="test1" 
+            iconName="test1" 
             placeholderText="First" 
             onSend={onSend1}
           />
           <RdsCompAiTypingSection 
-            icon_name="test2" 
+            iconName="test2" 
             placeholderText="Second" 
             onSend={onSend2}
           />
@@ -504,7 +504,7 @@ it('hides enhance icon when input has text', () => {
   describe('Edge Cases', () => {
     it('handles undefined placeholderText', () => {
       const { container } = render(
-        <RdsCompAiTypingSection icon_name="test" />
+        <RdsCompAiTypingSection iconName="test" />
       );
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       expect(textarea.placeholder).toBe('Placeholder Text');

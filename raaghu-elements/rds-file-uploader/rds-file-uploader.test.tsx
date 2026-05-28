@@ -20,9 +20,9 @@ jest.mock('./RdsFileUploaderStandardView', () => {
 
 jest.mock('./RdsFileUploaderComponents', () => ({
   RdsDropZoneSideIcon: ({ openFileDialog }: any) => (
-    <div data-testid="drop-zone-side-icon" onClick={openFileDialog}>
+    <button type="button" data-testid="drop-zone-side-icon" onClick={openFileDialog} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
       Drop Zone Side Icon
-    </div>
+    </button>
   ),
   RdsDropZoneWithButton: ({ openFileDialog }: any) => (
     <div data-testid="drop-zone-with-button" onClick={openFileDialog}>
@@ -30,9 +30,9 @@ jest.mock('./RdsFileUploaderComponents', () => ({
     </div>
   ),
   RdsDropZoneDefault: ({ openFileDialog }: any) => (
-    <div data-testid="drop-zone-default" onClick={openFileDialog}>
+    <button type="button" data-testid="drop-zone-default" onClick={openFileDialog} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
       Drop Zone Default
-    </div>
+    </button>
   ),
   RdsFileList: ({ files }: any) => (
     <div data-testid="file-list">

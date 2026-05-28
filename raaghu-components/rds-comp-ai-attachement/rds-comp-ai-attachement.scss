@@ -41,7 +41,7 @@
             width: auto !important;
         }
 
-        #fab-list {
+        [id="fab-list"] {
             .dropdown-menu.show {
                 top: auto !important;
                 bottom: var(--rds-ai-attachment-fab-bottom) !important;

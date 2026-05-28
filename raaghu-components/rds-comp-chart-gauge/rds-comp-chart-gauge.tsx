@@ -3,7 +3,7 @@ import Chart from "chart.js/auto";
 import { applyChartThemeColors, chartTextColor, chartMutedColor, chartFont } from "../chart-utils";
 import "./rds-comp-chart-gauge.scss";
 
-export interface RdsCompGaugeprops {
+export interface RdsCompGaugeProps {
     labels: any[];
     options: any;
     dataSets: any[];
@@ -14,7 +14,7 @@ export interface RdsCompGaugeprops {
     maxValue?: number;
 }
 
-const RdsCompGaugeChart = (props: RdsCompGaugeprops) => {
+const RdsCompGaugeChart = (props: RdsCompGaugeProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const CanvasId = props.id;
 

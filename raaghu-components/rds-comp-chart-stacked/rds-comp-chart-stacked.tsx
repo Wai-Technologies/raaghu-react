@@ -3,14 +3,14 @@ import Chart from "chart.js/auto";
 import { applyChartThemeColors } from "../chart-utils";
 import "./rds-comp-chart-stacked.scss";
 
-export interface RdsCompStackedprops {
+export interface RdsCompStackedProps {
     labels: any[];
     options: any;
     dataSets: any[];
     id: string;
 }
 
-const RdsCompStackedChart = (props: RdsCompStackedprops) => {
+const RdsCompStackedChart = (props: RdsCompStackedProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const chartRef = useRef<Chart | null>(null);
     const CanvasId = props.id;

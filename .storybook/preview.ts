@@ -64,6 +64,15 @@ const preview: Preview = {
       diffThreshold: 0.2,
       pauseAnimationAtEnd: true,
     },
+    a11y: {
+      config: {},
+      options: {
+        checks: {
+          'color-contrast': { enabled: true },
+        },
+        restoreScroll: true,
+      },
+    },
   },
   decorators: [
     (Story, context) => {

@@ -1117,6 +1117,30 @@ export const semanticAliasTokens = {
   rdsIconButtonFocusColor: colorTokens.info[600],
 };
 
+export const mapTokens = {
+  heatmap: {
+    color1:  '#FFAF00',
+    color2:  '#2CC1A5',
+    color3:  '#26BEAE',
+    color4:  '#E1CF00',
+    color5:  '#FEA200',
+    color6:  '#28C0AB',
+    color7:  '#F94E00',
+    color8:  '#CCDE00',
+    color9:  '#F84A00',
+    color10: '#1DBBBC',
+    color11: '#FC4703',
+    color12: '#25BDB1',
+  },
+};
+
+export const chartPaletteTokens = {
+  dataset: {
+    teal: '#4BC0C0',
+    blue: '#36A2EB',
+  },
+};
+
 // Export all tokens as a single object (single human-edited source for the design system)
 export const designTokens = {
   color: colorTokens,
@@ -1146,6 +1170,8 @@ export const designTokens = {
   aiGradient: aiGradientTokens,
   switch: switchTokens,
   semanticAlias: semanticAliasTokens,
+  map: mapTokens,
+  chartPalette: chartPaletteTokens,
 };
 
 export default designTokens;

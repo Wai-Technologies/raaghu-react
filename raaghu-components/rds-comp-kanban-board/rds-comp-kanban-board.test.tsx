@@ -16,7 +16,7 @@ jest.mock('@mui/material', () => ({
   Chip: ({ children, label, ...props }: any) => <div data-testid="chip" {...props}>{label || children}</div>,
   Avatar: ({ children, alt, src, ...props }: any) => <div data-testid="avatar" {...props} data-src={src}>{children}</div>,
   Menu: ({ children, open, anchorEl, onClose, ...props }: any) => open ? <div data-testid="menu" {...props}>{children}</div> : null,
-  MenuItem: ({ children, onClick, ...props }: any) => <div data-testid="menu-item" onClick={onClick} {...props}>{children}</div>,
+  MenuItem: ({ children, onClick, ...props }: any) => <button type="button" data-testid="menu-item" onClick={onClick} {...props} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>{children}</button>,
   TextField: ({ value, onChange, onKeyDown, placeholder, ...props }: any) => (
     <input 
       data-testid="text-field" 

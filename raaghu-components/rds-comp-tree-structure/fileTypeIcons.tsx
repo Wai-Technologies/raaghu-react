@@ -342,7 +342,7 @@ export const TreeNode = ({
             <span></span>
           )}
           {(isHovered && props.showActions) && (
-            <div className="rds-comp-tree-structure__actions" onClick={(e) => e.stopPropagation()}>
+            <div className="rds-comp-tree-structure__actions" role="button" tabIndex={-1} aria-label="Item actions" onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
               <small
                 className="rds-comp-tree-structure__action-btn"
                 onMouseEnter={() => handleIconMouseEnter("plus")}

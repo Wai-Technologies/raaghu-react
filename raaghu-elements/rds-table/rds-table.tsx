@@ -250,7 +250,7 @@ const RdsTable = ({
                       />
                       </div>
                     ) : (
-                      <div className="rds-table__header-content" onClick={() => handleSort(column)} style={{ cursor: column.sortable ? 'pointer' : undefined }}>
+                      <div className="rds-table__header-content" role="button" tabIndex={0} onClick={() => handleSort(column)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSort(column); } }} style={{ cursor: column.sortable ? 'pointer' : undefined }}>
                         <span className="rds-table__header-label">{column.label}</span>
                         {column.sortable && (
                           <IconButton

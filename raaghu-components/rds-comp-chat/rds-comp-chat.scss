@@ -1043,7 +1043,7 @@
 }
 
 @media (max-width: var(--rds-breakpoint-mobile-sm)) {
-  #fab-list .dropdown-menu.show {
+  [id="fab-list"] .dropdown-menu.show {
     width: auto !important;
     height: auto !important;
     max-width: calc(100vw - 2rem);

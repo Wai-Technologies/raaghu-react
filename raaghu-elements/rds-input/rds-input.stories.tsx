@@ -99,7 +99,7 @@ export const Required: Story = {
 };
 Required.parameters = { controls: { include: ['label', 'isMandatory', 'placeholder', 'size', 'layout', 'titlePosition'] } };
 
-export const withLabel: Story = {
+export const WithLabel: Story = {
   args: {
     label: 'Input',
     placeholder: 'Enter value',
@@ -108,9 +108,9 @@ export const withLabel: Story = {
     titlePosition: 'inline-title'
   },
 };
-withLabel.parameters = { controls: { include: ['label', 'placeholder', 'size', 'layout', 'titlePosition'] } };
+WithLabel.parameters = { controls: { include: ['label', 'placeholder', 'size', 'layout', 'titlePosition'] } };
 
-export const withError: Story = {
+export const WithError: Story = {
   args: {
     label: 'Input with Error',
     hintText: 'This field has an error',
@@ -121,4 +121,4 @@ export const withError: Story = {
     state: 'error',
   },
 };
-withError.parameters = { controls: { include: ['label', 'hintText', 'placeholder', 'size', 'layout', 'titlePosition', 'state'] } };
+WithError.parameters = { controls: { include: ['label', 'hintText', 'placeholder', 'size', 'layout', 'titlePosition', 'state'] } };

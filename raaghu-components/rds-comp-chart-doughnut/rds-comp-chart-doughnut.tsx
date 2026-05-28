@@ -3,7 +3,7 @@ import Chart from "chart.js/auto";
 import { applyChartThemeColors, chartTextColor, chartMutedColor, chartFont } from "../chart-utils";
 import "./rds-comp-chart-doughnut.scss";
 
-export interface RdsCompDoughnutprops {
+export interface RdsCompDoughnutProps {
     labels: any[];
     options: any;
     dataSets: any[];
@@ -12,7 +12,7 @@ export interface RdsCompDoughnutprops {
     subTitleText?: string;
 }
 
-const RdsCompDoughnutChart = (props: RdsCompDoughnutprops) => {
+const RdsCompDoughnutChart = (props: RdsCompDoughnutProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const CanvasId = props.id;
 

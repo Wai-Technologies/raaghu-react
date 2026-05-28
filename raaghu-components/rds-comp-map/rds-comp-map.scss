@@ -181,11 +181,11 @@
   }
 
   &--heatmap {
-    background: linear-gradient(0deg, #FFAF00, #FFAF00),
-      radial-gradient(50.38% 50.38% at 30.5% 6.53%, #2CC1A5 0%, #26BEAE 33%, #E1CF00 67.18%, #FEA200 100%),
-      radial-gradient(61.69% 61.69% at 78.5% 19.32%, #28C0AB 0%, #F94E00 38.26%, #CCDE00 100%),
-      radial-gradient(36.18% 63.42% at 35.64% 37.56%, #F84A00 0%, #1DBBBC 44.15%, rgba(181, 228, 62, 0) 100%),
-      radial-gradient(18.75% 43.04% at 26.5% 80.97%, #FC4703 0%, #25BDB1 50%, rgba(252, 71, 3, 0) 100%);
+    background: linear-gradient(0deg, var(--rds-comp-map-heatmap-0), var(--rds-comp-map-heatmap-0)),
+      radial-gradient(50.38% 50.38% at 30.5% 6.53%, var(--rds-comp-map-heatmap-1) 0%, var(--rds-comp-map-heatmap-2) 33%, var(--rds-comp-map-heatmap-3) 67.18%, var(--rds-comp-map-heatmap-4) 100%),
+      radial-gradient(61.69% 61.69% at 78.5% 19.32%, var(--rds-comp-map-heatmap-5) 0%, var(--rds-comp-map-heatmap-6) 38.26%, var(--rds-comp-map-heatmap-7) 100%),
+      radial-gradient(36.18% 63.42% at 35.64% 37.56%, var(--rds-comp-map-heatmap-8) 0%, var(--rds-comp-map-heatmap-9) 44.15%, rgba(181, 228, 62, 0) 100%),
+      radial-gradient(18.75% 43.04% at 26.5% 80.97%, var(--rds-comp-map-heatmap-10) 0%, var(--rds-comp-map-heatmap-11) 50%, rgba(252, 71, 3, 0) 100%);
 
     .rds-comp-map__label {
       color: var(--rds-text, #333);

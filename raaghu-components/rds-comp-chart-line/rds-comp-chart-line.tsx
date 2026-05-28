@@ -3,14 +3,14 @@ import Chart from "chart.js/auto";
 import { applyChartThemeColors, getCSSVar } from "../chart-utils";
 import "./rds-comp-chart-line.scss";
 
-export interface RdsComplineprops {
+export interface RdsCompLineProps {
     labels: any[];
     options: any;
     dataSets: any[];
     id: string;
 }
 
-const RdsCompLineChart = (props: RdsComplineprops) => {
+const RdsCompLineChart = (props: RdsCompLineProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     const [themeMode, setThemeMode] = React.useState(() => {

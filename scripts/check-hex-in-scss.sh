@@ -54,7 +54,7 @@ for dir in "${SCAN_DIRS[@]}"; do
       continue
     fi
 
-    count=$(grep -oE "$HEX_PATTERN" "$scss_file" 2>/dev/null | wc -l | tr -d '[:space:]')
+    count=$(grep -oE "$HEX_PATTERN" "$scss_file" 2>/dev/null | wc -l | tr -d '[:space:]') || count=0
     if [[ "$count" -gt 0 ]]; then
       TOTAL=$((TOTAL + count))
       OFFENDING_FILES+=("$count	$scss_file")

@@ -11,7 +11,7 @@ export interface RdsCompAiChatBotProps {
     placeholderText?: string;
     messages: Message[];
     setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
-    icon_name: string;
+    iconName: string;
 }
 
 export interface Message {
@@ -22,7 +22,7 @@ export interface Message {
 }
 
 const RdsCompAiChatBot = (props: RdsCompAiChatBotProps) => {
-    const { aiLogoUrl, userAvatarUrl, placeholderText, messages, setMessages, icon_name } = props;
+    const { aiLogoUrl, userAvatarUrl, placeholderText, messages, setMessages, iconName } = props;
     const [inputText, setInputText] = useState<string>("");
     const [inputImage, setInputImage] = useState<string | null>(null);
 
@@ -103,7 +103,7 @@ const RdsCompAiChatBot = (props: RdsCompAiChatBotProps) => {
                         colorVariant="var(--rds-text-secondary)"
                         onSend={handleSendMessage}
                         placeholderText={placeholderText || "Ask me anything"}
-                        icon_name={icon_name}
+                        iconName={iconName}
                         onAddComment={handleAddComment}
                         previewImage={inputImage || undefined}
                     />

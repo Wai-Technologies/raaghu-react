@@ -41,7 +41,7 @@ jest.mock('../rds-comp-ai-typing-section/rds-comp-ai-typing-section', () => {
     colorVariant,
     onSend,
     placeholderText,
-    icon_name,
+    iconName,
     onAddComment,
     previewImage,
     ...props
@@ -89,7 +89,7 @@ jest.mock('../rds-comp-ai-typing-section/rds-comp-ai-typing-section', () => {
         {previewImage && (
           <img src={previewImage} alt="preview" data-testid="image-preview" />
         )}
-        {icon_name && <span data-testid="icon-name">{icon_name}</span>}
+        {iconName && <span data-testid="icon-name">{iconName}</span>}
       </div>
     );
   };
@@ -102,7 +102,7 @@ const defaultProps: RdsCompAiChatBotProps = {
   placeholderText: 'Ask me anything',
   messages: [],
   setMessages: jest.fn(),
-  icon_name: 'chat-icon',
+  iconName: 'chat-icon',
 };
 
 const sampleMessages: Message[] = [
@@ -282,7 +282,7 @@ describe('RdsCompAiChatBot', () => {
       render(
         <RdsCompAiChatBot
           {...defaultProps}
-          icon_name="custom-icon"
+          iconName="custom-icon"
         />
       );
       expect(screen.getByTestId('icon-name')).toHaveTextContent('custom-icon');
@@ -292,7 +292,7 @@ describe('RdsCompAiChatBot', () => {
       const { rerender } = render(
         <RdsCompAiChatBot
           {...defaultProps}
-          icon_name="icon-1"
+          iconName="icon-1"
         />
       );
       expect(screen.getByTestId('icon-name')).toHaveTextContent('icon-1');
@@ -300,7 +300,7 @@ describe('RdsCompAiChatBot', () => {
       rerender(
         <RdsCompAiChatBot
           {...defaultProps}
-          icon_name="icon-2"
+          iconName="icon-2"
         />
       );
       expect(screen.getByTestId('icon-name')).toHaveTextContent('icon-2');
@@ -313,7 +313,7 @@ describe('RdsCompAiChatBot', () => {
         aiLogoUrl: 'https://example.com/logo.jpg',
         messages: [],
         setMessages: jest.fn(),
-        icon_name: 'icon',
+        iconName: 'icon',
       };
       render(<RdsCompAiChatBot {...minimalProps} />);
       const input = screen.getByTestId('message-input') as HTMLInputElement;

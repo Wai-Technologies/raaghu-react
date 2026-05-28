@@ -76,8 +76,8 @@ jest.mock('./rds-comp-toolbar-config', () => ({
       {icon}
       {hasDropdown && isDropdownOpen && (
         <div className="rds-comp-toolbar__dropdown">
-          <div role="menuitem" onClick={() => onDropdownSelect(action, 'option1')}>Option 1</div>
-          <div role="menuitem" onClick={() => onDropdownSelect(action, 'option2')}>Option 2</div>
+          <button type="button" role="menuitem" onClick={() => onDropdownSelect(action, 'option1')} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Option 1</button>
+          <button type="button" role="menuitem" onClick={() => onDropdownSelect(action, 'option2')} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>Option 2</button>
         </div>
       )}
     </button>

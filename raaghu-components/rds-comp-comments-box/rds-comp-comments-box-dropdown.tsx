@@ -33,18 +33,18 @@ export const DropdownMenu: React.FC<DropdownMenuProps & { labels?: { computer?: 
   if (!visible) return null;
   return (
     <div ref={menuRef} className="rds-comments-box__attachment-dropdown-menu">
-      <div className="rds-comments-box__attachment-dropdown-item" onClick={() => { onSelect(labels?.computer || 'Computer'); onClose(); }}>
+      <button type="button" className="rds-comments-box__attachment-dropdown-item" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => { onSelect(labels?.computer || 'Computer'); onClose(); }}>
         <ComputerIcon className="rds-comments-box__attachment-dropdown-icon" />
         <span className="rds-comments-box__attachment-dropdown-label">{labels?.computer || 'Computer'}</span>
-      </div>
-      <div className="rds-comments-box__attachment-dropdown-item" onClick={() => { onSelect(labels?.googleDrive || 'Google Drive'); onClose(); }}>
+      </button>
+      <button type="button" className="rds-comments-box__attachment-dropdown-item" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => { onSelect(labels?.googleDrive || 'Google Drive'); onClose(); }}>
         <InsertDriveFileIcon className="rds-comments-box__attachment-dropdown-icon" />
         <span className="rds-comments-box__attachment-dropdown-label">{labels?.googleDrive || 'Google Drive'}</span>
-      </div>
-      <div className="rds-comments-box__attachment-dropdown-item" onClick={() => { onSelect(labels?.oneDrive || 'One Drive'); onClose(); }}>
+      </button>
+      <button type="button" className="rds-comments-box__attachment-dropdown-item" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => { onSelect(labels?.oneDrive || 'One Drive'); onClose(); }}>
         <CloudIcon className="rds-comments-box__attachment-dropdown-icon" />
         <span className="rds-comments-box__attachment-dropdown-label">{labels?.oneDrive || 'One Drive'}</span>
-      </div>
+      </button>
     </div>
   );
 };

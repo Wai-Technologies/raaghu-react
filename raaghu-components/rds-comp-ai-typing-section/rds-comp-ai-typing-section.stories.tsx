@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsCompAiTypingSection> = {
 	},
 	tags: ['autodocs'],
 	argTypes: {
-		icon_name: {
+		iconName: {
 			table: { disable: true },
 		},
 	},
@@ -22,7 +22,7 @@ export const Default: Story = {
     args: {
         colorVariant: "#353535",
         placeholderText: "How can AI Pundit help you today?",
-        icon_name: "enhancer",
+        iconName: "enhancer",
         type: "default",
     }
 } satisfies Story;

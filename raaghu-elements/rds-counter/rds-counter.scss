@@ -522,7 +522,7 @@
   .rds-counter__value,
   .rds-counter__input,
   .rds-counter__input input {
-    color: var(--text-txt-neutral-light-default, #969696);
+    color: var(--text-txt-neutral-light-default, var(--rds-text-secondary));
   }
 }
 

@@ -9,7 +9,7 @@ jest.mock('./rds-comp-emoji-generator.scss', () => ({}));
 // Mock MUI components
 jest.mock('@mui/material', () => ({
   Box: React.forwardRef(({ children, className, onClick, ...props }: any, ref: any) => (
-    <div ref={ref} className={className} onClick={onClick} data-testid={props['data-testid']}>
+    <div ref={ref} className={className} onClick={onClick} data-testid={props['data-testid']} role={onClick ? 'button' : undefined} tabIndex={onClick ? 0 : undefined} onKeyDown={onClick ? (e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(e); } } : undefined}>
       {children}
     </div>
   )),
@@ -49,7 +49,7 @@ jest.mock('@mui/material', () => ({
   ),
   Popover: ({ open, children, onClose }: any) => (
     open ? (
-      <div data-testid="skin-tone-popover" onClick={onClose}>
+      <div data-testid="skin-tone-popover" role="button" tabIndex={0} onClick={onClose} onKeyDown={(e: any) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClose(); } }}>
         {children}
       </div>
     ) : null

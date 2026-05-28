@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import RdsCompTreeStructure, { IconType, NodeState, RdsCompTreeStructureProps, TreeLevel, defaultFileTypeIcons, getDefaultFileIcon } from './rds-comp-tree-structure';
 
 const meta: Meta = {
-  title: 'Components/Tree Structure',
+  title: 'Internal/Tree Structure',
   component: RdsCompTreeStructure,
   parameters: {
     layout: 'padded',

@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import dayjs from 'dayjs';
 
 const meta: Meta = { 
-    title: "Components/Date Time Picker",
+    title: "Internal/Date Time Picker",
     component: RdsCompDatePicker,
     parameters: {
         layout: 'padded',
