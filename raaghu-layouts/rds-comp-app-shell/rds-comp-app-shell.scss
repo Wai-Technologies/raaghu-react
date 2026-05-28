@@ -515,7 +515,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (max-width: var(--rds-breakpoint-md)) {
+@media (max-width: 900px) {
   .TopNav, .Default, .relaxing, .side-nav, .triPane, .double-nav {
     .rds-header__navigation,
     .MuiTabs-root {
@@ -636,7 +636,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     left: 0 !important;
     right: 0 !important;
     z-index: var(--rds-z-index-modal, 1400) !important;
-    background: white !important;
     border-top: 1px solid var(--rds-border-default) !important;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15) !important;
     height: 56px !important;
@@ -1280,22 +1279,22 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@media (max-width: 576px) {
   .double-nav {
     .doublenav-mobile-content {
       bottom: 45px !important;
     }
   }
-  
+
   .triPane {
     .tripane-mobile-content {
       bottom: 45px !important;
     }
   }
-  
+
   .rds-story-topnav-content {
     padding-bottom: 56px !important;
-    
+
     .rds-appshell-add-layout-center {
       margin-top: 0 !important;
       display: flex !important;
@@ -1305,10 +1304,10 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@media (max-width: 480px) {
   .rds-story-topnav-content {
     padding-bottom: 44px !important;
-    
+
     .rds-appshell-add-layout-center {
       margin-top: 210px !important;
       display: flex !important;
@@ -1318,7 +1317,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (min-width: var(--rds-breakpoint-769)) and (max-width: var(--rds-breakpoint-833)) {
+@media (min-width: 769px) and (max-width: 833px) {
   .TopNav {
     .rds-header__navigation,
     .MuiTabs-root:not(.rds-header__sub-tabs .MuiTabs-root),
@@ -1356,6 +1355,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     right: 0 !important;
     z-index: var(--rds-z-index-toast, 1700) !important;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15) !important;
+    background: transparent !important;
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
@@ -1494,7 +1494,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (min-width: var(--rds-breakpoint-834)) and (max-width: var(--rds-breakpoint-1112)) {
+@media (min-width: 834px) and (max-width: 1112px) {
   .Default {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none !important;
@@ -1513,7 +1513,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: 0 !important;
       right: 0 !important;
       z-index: var(--rds-z-index-toast, 1700) !important;
-      background: var(--rds-background-surface, #ffffff) !important;
+      background: transparent !important;
       border-top: 1px solid var(--rds-border-default, #e0e0e0) !important;
       box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15) !important;
       display: flex !important;
@@ -1585,6 +1585,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       right: 0 !important;
       z-index: var(--rds-z-index-toast, 1700) !important;
       box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15) !important;
+      background: transparent !important;
       display: flex !important;
       
       .MuiTab-root.Mui-selected,
@@ -2111,7 +2112,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (min-width: var(--rds-breakpoint-834)) {
+@media (min-width: 834px) {
   .side-nav {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none !important;
@@ -2217,7 +2218,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (min-width: var(--rds-breakpoint-1025)) {
+@media (min-width: 1025px) {
   .Default {
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none !important;
@@ -2233,7 +2234,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (min-width: var(--rds-breakpoint-1112) + 1) {
+@media (min-width: 1113px) {
   .MuiTabs-root,
   .rds-header__navigation,
   .rds-appshell-appbar .MuiTabs-root,
@@ -2307,7 +2308,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   }
 }
 
-@media (min-width: var(--rds-breakpoint-769)) {
+@media (min-width: 769px) {
   .rds-appshell-appbar .MuiTabs-root,
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root {

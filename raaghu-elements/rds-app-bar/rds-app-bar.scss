@@ -1,4 +1,4 @@
-@import '../shared/styles/rds-profile-menu.scss';
+﻿@import '../shared/styles/rds-profile-menu.scss';
 @import '../shared/styles/rds-profile-menu-app-bar-overrides.scss';
 
 $rds-app-bar-breakpoint-md: 834px;
@@ -28,11 +28,11 @@ $rds-app-bar-breakpoint-xs: 320px;
   gap: var(--rds-spacing-md, 16px);
   flex: 1;
   
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     gap: var(--rds-spacing-sm, 8px);
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     gap: calc(1.5 * var(--rds-spacing-xs, 4px));
   }
 }
@@ -57,7 +57,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     max-width: var(--rds-story-search-max-width-md, 220px);
   }
  
-  @media (max-width: var(--rds-breakpoint-sm)) {
+  @media (max-width: 600px) {
     min-width: var(--rds-story-search-min-width-sm, 140px);
     flex: 1;
     max-width: var(--rds-story-search-max-width-sm, 200px);
@@ -73,7 +73,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     max-width: var(--rds-story-search-max-width-2xs, 140px);
   }
 }
- @media (min-width: var(--rds-breakpoint-840)) {
+ @media (min-width: 840px) {
     .rds-header--variant-withactions .rds-header__tabs-inline {
       margin-right: 370px;
     }
@@ -88,15 +88,15 @@ $rds-app-bar-breakpoint-xs: 320px;
   align-items: center;
   gap: var(--rds-spacing-md, 16px);
   
-  @media (max-width: var(--rds-breakpoint-834)) {
+  @media (max-width: 834px) {
     gap: calc(3 * var(--rds-spacing-xs, 4px));
   }
   
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     gap: var(--rds-spacing-sm, 8px);
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     gap: calc(1.5 * var(--rds-spacing-xs, 4px));
   }
 }
@@ -128,16 +128,16 @@ $rds-app-bar-breakpoint-xs: 320px;
   flex-shrink: 1;
   min-width: 0;
   
-  @media (max-width: var(--rds-breakpoint-834)) {
+  @media (max-width: 834px) {
     flex-wrap: nowrap;
     overflow: hidden;
   }
   
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     gap: 0;
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     gap: 0;
     flex-shrink: 2;
   }
@@ -197,17 +197,17 @@ $rds-app-bar-breakpoint-xs: 320px;
   white-space: nowrap;
   min-width: auto;
   
-  @media (max-width: var(--rds-breakpoint-834)) {
+  @media (max-width: 834px) {
     font-size: var(--rds-font-size-md); // 15px → md (14px, closest token)
     padding: calc(1.5 * var(--rds-spacing-xs, 4px)) calc(3.5 * var(--rds-spacing-xs, 4px));
   }
   
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     font-size: var(--rds-font-size-md);
     padding: calc(1.5 * var(--rds-spacing-xs, 4px)) calc(3 * var(--rds-spacing-xs, 4px));
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     font-size: var(--rds-font-size-sm); // 13px → sm (12px, closest token)
     padding: calc(1.5 * var(--rds-spacing-xs, 4px)) var(--rds-spacing-sm, 8px);
   }
@@ -263,7 +263,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
-@media (min-width: var(--rds-breakpoint-834)) {
+@media (min-width: 834px) {
   .rds-header--variant-withactions {
     //.rds-header__logo { order: 1; }
     .rds-header__tabs-inline { order: 2; margin-left: var(--rds-spacing-sm); }
@@ -273,7 +273,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
-@media (max-width: var(--rds-breakpoint-420)) {
+@media (max-width: 420px) {
   .rds-header--variant-withactions {
     .rds-header__logo {
       flex-shrink: 0;
@@ -302,7 +302,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@media (max-width: 320px) {
   .rds-header--variant-withactions {
     .rds-header__logo {
       max-width: 60px;
@@ -332,13 +332,13 @@ $rds-app-bar-breakpoint-xs: 320px;
   margin: 0;
   padding: 0;
   
-  @media (max-width: var(--rds-breakpoint-sm)) {
+  @media (max-width: 600px) {
     min-width: 140px;
     flex: 1;
     max-width: 200px;
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     min-width: 120px;
     max-width: 160px;
   }
@@ -350,15 +350,15 @@ $rds-app-bar-breakpoint-xs: 320px;
   gap: var(--rds-spacing-md);
   flex-shrink: 0;
   
-  @media (max-width: var(--rds-breakpoint-834)) {
+  @media (max-width: 834px) {
     gap: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   }
   
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     gap: var(--rds-spacing-sm);
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
     
     svg {
@@ -374,11 +374,11 @@ $rds-app-bar-breakpoint-xs: 320px;
   margin-right: var(--rds-spacing-md);
   flex-shrink: 0;
   
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     margin-right: -8px;
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     margin-right: 0px;
   }
 } 
@@ -408,17 +408,17 @@ $rds-app-bar-breakpoint-xs: 320px;
     text-overflow: ellipsis;
     white-space: nowrap;
     
-    @media (max-width: var(--rds-breakpoint-834)) {
+    @media (max-width: 834px) {
       font-size: var(--rds-font-size-xl);
       margin: 0 var(--rds-font-size-md);
     }
     
-    @media (max-width: var(--rds-breakpoint-420)) {
+    @media (max-width: 420px) {
       font-size: var(--rds-font-size-lg);
       margin: 0 var(--rds-font-size-sm);
     }
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @media (max-width: 320px) {
       font-size: var(--rds-font-size-md);
       margin: 0 var(--rds-font-size-xs);
     }
@@ -428,11 +428,11 @@ $rds-app-bar-breakpoint-xs: 320px;
     margin-right: var(--rds-spacing-sm);
     flex-shrink: 0;
     
-    @media (max-width: var(--rds-breakpoint-420)) {
+    @media (max-width: 420px) {
       margin-right: var(--rds-spacing-xs);
     }
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @media (max-width: 320px) {
       margin-right: var(--rds-spacing-xs);
     }
   }
@@ -443,11 +443,11 @@ $rds-app-bar-breakpoint-xs: 320px;
     gap: var(--rds-spacing-sm);
     flex-shrink: 0;
     
-    @media (max-width: var(--rds-breakpoint-420)) {
+    @media (max-width: 420px) {
       gap: var(--rds-spacing-xs);
     }
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @media (max-width: 320px) {
       gap: var(--rds-spacing-xs);
     }
   }
@@ -553,25 +553,25 @@ $rds-app-bar-breakpoint-xs: 320px;
     box-sizing: border-box;
     overflow: hidden;
     
-    @media (max-width: var(--rds-breakpoint-834)) {
+    @media (max-width: 834px) {
       padding-left: var(--rds-spacing-lg, 24px);
       padding-right: var(--rds-spacing-lg, 24px);
       gap: var(--rds-spacing-md, 16px);
     }
     
-    @media (max-width: var(--rds-breakpoint-sm)) {
+    @media (max-width: 600px) {
       padding-left: var(--rds-spacing-md, 16px);
       padding-right: var(--rds-spacing-md, 16px);
       gap: var(--rds-spacing-sm, 12px);
     }
     
-    @media (max-width: var(--rds-breakpoint-420)) {
+    @media (max-width: 420px) {
       padding-left: var(--rds-spacing-sm, 12px);
       padding-right: var(--rds-spacing-sm, 12px);
       gap: var(--rds-spacing-xs, 10px);
     }
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @media (max-width: 320px) {
       padding-left: var(--rds-spacing-xs, 8px);
       padding-right: var(--rds-spacing-xs, 8px);
       gap: var(--rds-spacing-xs, 8px);
@@ -588,25 +588,25 @@ $rds-app-bar-breakpoint-xs: 320px;
     letter-spacing: var(--rds-letter-spacing, 0.1px);
     flex-shrink: 0;
     
-    @media (max-width: var(--rds-breakpoint-834)) {
+    @media (max-width: 834px) {
       min-width: var(--rds-header-logo-min-width, 100px);
       font-size: var(--rds-font-size-md, 19px);
       height: var(--rds-header-logo-height, 30px);
     }
     
-    @media (max-width: var(--rds-breakpoint-sm)) {
+    @media (max-width: 600px) {
       min-width: var(--rds-header-logo-min-width, 80px);
       font-size: var(--rds-font-size-md, 18px);
       height: var(--rds-header-logo-height, 28px);
     }
     
-    @media (max-width: var(--rds-breakpoint-420)) {
+    @media (max-width: 420px) {
       min-width: var(--rds-header-logo-min-width, 70px);
       font-size: var(--rds-font-size-md, 17px);
       height: var(--rds-header-logo-height, 26px);
     }
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @media (max-width: 320px) {
       min-width: var(--rds-header-logo-min-width, 60px);
       font-size: var(--rds-font-size-md, 16px);
       height: var(--rds-header-logo-height, 24px);
@@ -627,22 +627,22 @@ $rds-app-bar-breakpoint-xs: 320px;
     text-overflow: ellipsis;
     flex-shrink: 1;
     
-    @media (max-width: var(--rds-breakpoint-834)) {
+    @media (max-width: 834px) {
       min-width: 70px;
       font-size: var(--rds-font-size-base, 17px);
     }
     
-    @media (max-width: var(--rds-breakpoint-sm)) {
+    @media (max-width: 600px) {
       min-width: 60px;
       font-size: var(--rds-font-size-base, 16px);
     }
     
-    @media (max-width: var(--rds-breakpoint-420)) {
+    @media (max-width: 420px) {
       min-width: 50px;
       font-size: var(--rds-font-size-sm, 15px);
     }
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @media (max-width: 320px) {
       min-width: 40px;
       font-size: var(--rds-font-size-sm, 14px);
     }
@@ -693,18 +693,18 @@ $rds-app-bar-breakpoint-xs: 320px;
     overflow: hidden !important; 
     box-sizing: border-box;
     
-    @media (max-width: var(--rds-breakpoint-834)) {
+    @media (max-width: 834px) {
       width: 200px !important;
       max-width: 240px !important;
     }
     
-    @media (max-width: var(--rds-breakpoint-420)) {
+    @media (max-width: 420px) {
       width: 180px !important;
       max-width: 200px !important;
       max-height: 300px !important;
     }
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @media (max-width: 320px) {
       width: 160px !important;
       max-width: 180px !important;
       max-height: 280px !important;
@@ -716,11 +716,11 @@ $rds-app-bar-breakpoint-xs: 320px;
     overflow-y: auto !important;
     box-sizing: border-box;
     
-    @media (max-width: var(--rds-breakpoint-420)) {
+    @media (max-width: 420px) {
       max-height: 300px !important;
     }
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @media (max-width: 320px) {
       max-height: 280px !important;
     }
   }
@@ -741,27 +741,27 @@ $rds-app-bar-breakpoint-xs: 320px;
     width: 100%;
     flex-shrink: 1;
  
-    @media (max-width: var(--rds-breakpoint-834)) {
+    @media (max-width: 834px) {
       min-width: 180px;
       font-size: var(--rds-font-size-sm, 14px);
       height: 34px;
     }
     
-    @media (max-width: var(--rds-breakpoint-sm)) {
+    @media (max-width: 600px) {
       min-width: 140px;
       padding: 0 var(--rds-spacing-xs, 8px);
       font-size: var(--rds-font-size-sm, 14px);
       height: 32px;
     }
     
-    @media (max-width: var(--rds-breakpoint-420)) {
+    @media (max-width: 420px) {
       min-width: 120px;
       padding: 0 var(--rds-spacing-xs, 8px);
       font-size: var(--rds-font-size-sm, 13px);
       height: 30px;
     }
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @media (max-width: 320px) {
       min-width: 100px;
       padding: 0 var(--rds-spacing-xs, 6px);
       font-size: var(--rds-font-size-xs, 12px);
@@ -782,17 +782,17 @@ $rds-app-bar-breakpoint-xs: 320px;
       padding: 0;
       height: 34px;
       
-      @media (max-width: var(--rds-breakpoint-834)) {
+      @media (max-width: 834px) {
         font-size: var(--rds-font-size-sm, 14px);
         height: 32px;
       }
       
-      @media (max-width: var(--rds-breakpoint-420)) {
+      @media (max-width: 420px) {
         font-size: var(--rds-font-size-sm, 13px);
         height: 28px;
       }
       
-      @media (max-width: var(--rds-breakpoint-xs)) {
+      @media (max-width: 320px) {
         font-size: var(--rds-font-size-xs, 12px);
         height: 26px;
       }
@@ -805,19 +805,19 @@ $rds-app-bar-breakpoint-xs: 320px;
     gap: var(--rds-spacing-md, 16px);
     flex-shrink: 0;
 
-    @media (max-width: var(--rds-breakpoint-834)) {
+    @media (max-width: 834px) {
       gap: var(--rds-spacing-sm, 14px);
     }
     
-    @media (max-width: var(--rds-breakpoint-sm)) {
+    @media (max-width: 600px) {
       gap: var(--rds-spacing-sm, 12px);
     }
     
-    @media (max-width: var(--rds-breakpoint-420)) {
+    @media (max-width: 420px) {
       gap: var(--rds-spacing-xs, 10px);
     }
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @media (max-width: 320px) {
       gap: var(--rds-spacing-xs, 8px);
     }
   }
@@ -903,7 +903,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     &__sub-header {
       flex-direction: column;
       align-items: stretch;
@@ -933,7 +933,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     &__sub-header {
       padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) var(--rds-spacing-sm);
       gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
@@ -946,7 +946,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     &__sub-tabs {
       display: flex;
       flex-wrap: wrap !important;
@@ -970,7 +970,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     &__sub-tabs {
       display: flex;
       flex-wrap: wrap !important;
@@ -1007,25 +1007,25 @@ $rds-app-bar-breakpoint-xs: 320px;
     flex-shrink: 1;
     min-width: 0;
  
-    @media (max-width: var(--rds-breakpoint-834)) {
+    @media (max-width: 834px) {
       width: 180px;
       min-width: 160px;
       max-width: 200px;
     }
     
-    @media (max-width: var(--rds-breakpoint-sm)) {
+    @media (max-width: 600px) {
       width: 100%;
       min-width: 140px;
       flex: 1;
       max-width: 180px;
     }
     
-    @media (max-width: var(--rds-breakpoint-420)) {
+    @media (max-width: 420px) {
       min-width: 120px;
       max-width: 160px;
     }
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @media (max-width: 320px) {
       min-width: 100px;
       max-width: 140px;
     }
@@ -1062,17 +1062,17 @@ $rds-app-bar-breakpoint-xs: 320px;
       white-space: nowrap;
       min-width: auto !important;
  
-      @media (max-width: var(--rds-breakpoint-834)) {
+      @media (max-width: 834px) {
         padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
         font-size: var(--rds-font-size-sm) !important; // 13px → sm (12px, closest token)
       }
       
-      @media (max-width: var(--rds-breakpoint-420)) {
+      @media (max-width: 420px) {
         padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
         font-size: var(--rds-font-size-sm) !important; // 12px → sm
       }
       
-      @media (max-width: var(--rds-breakpoint-xs)) {
+      @media (max-width: 320px) {
         padding: 6px 8px !important;
         font-size: var(--rds-font-size-xs) !important; // 11px → xs (10px, closest token)
       }
@@ -1091,7 +1091,7 @@ $rds-app-bar-breakpoint-xs: 320px;
       align-items: center;
       gap: 0;
       
-      @media (max-width: var(--rds-breakpoint-xs)) {
+      @media (max-width: 320px) {
         gap: 0;
       }
     }
@@ -1104,14 +1104,14 @@ $rds-app-bar-breakpoint-xs: 320px;
   white-space: nowrap;
   flex-shrink: 0;
   
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     svg {
       width: 28px;
       height: 28px;
     }
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     svg {
       width: 24px;
       height: 24px;
@@ -1127,17 +1127,17 @@ $rds-app-bar-breakpoint-xs: 320px;
   white-space: nowrap;
   white-space: nowrap;
 
-  @media (max-width: var(--rds-breakpoint-834)) {
+  @media (max-width: 834px) {
     font-size: var(--rds-font-size-lg); // 17px → lg (16px, closest token)
     margin-left: 6px;
   }
   
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     font-size: var(--rds-font-size-lg);
     margin-left: 6px;
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     font-size: var(--rds-font-size-xs); // 11px → xs (10px, closest token)
     margin-left: var(--rds-spacing-xs);
   }
@@ -1150,15 +1150,15 @@ $rds-app-bar-breakpoint-xs: 320px;
   flex-wrap: nowrap;
   flex-shrink: 0;
   
-  @media (max-width: var(--rds-breakpoint-834)) {
+  @media (max-width: 834px) {
     gap: calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   }
   
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     gap: var(--rds-spacing-sm);
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     gap: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
   }
 }
@@ -1174,13 +1174,13 @@ $rds-app-bar-breakpoint-xs: 320px;
   white-space: nowrap;
   flex-shrink: 0;
   
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     font-size: var(--rds-font-size-xs); // 11px → xs (10px, closest token)
     padding: calc(var(--rds-spacing-xs) * 0.75) var(--rds-spacing-sm);
     margin-right: 6px;
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     font-size: var(--rds-font-size-xs); // 10px → xs
     padding: calc(var(--rds-spacing-xs) / 2) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
     margin-right: var(--rds-spacing-xs);
@@ -1217,19 +1217,19 @@ $rds-app-bar-breakpoint-xs: 320px;
     min-width: 95px !important;
     padding: 6px 10px !important;
     
-    @media (max-width: var(--rds-breakpoint-834)) {
+    @media (max-width: 834px) {
       min-width: 85px !important;
       padding: 6px 8px !important;
       font-size: var(--rds-font-size-md) !important; // 14px → md
     }
     
-    @media (max-width: var(--rds-breakpoint-420)) {
+    @media (max-width: 420px) {
       min-width: 75px !important;
       padding: calc(var(--rds-spacing-xs) + 1px) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) !important;
       font-size: var(--rds-font-size-sm) !important; // 13px → sm (12px, closest token)
     }
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @media (max-width: 320px) {
       min-width: 60px !important;
       padding: 4px 6px !important;
       font-size: var(--rds-font-size-sm) !important; // 12px → sm
@@ -1240,21 +1240,21 @@ $rds-app-bar-breakpoint-xs: 320px;
 .css-wor01b {
     min-width: 60px !important;
     
-    @media (max-width: var(--rds-breakpoint-834)) {
+    @media (max-width: 834px) {
       min-width: 55px !important;
     }
     
-    @media (max-width: var(--rds-breakpoint-420)) {
+    @media (max-width: 420px) {
       min-width: 50px !important;
     }
     
-    @media (max-width: var(--rds-breakpoint-xs)) {
+    @media (max-width: 320px) {
       min-width: 45px !important;
     }
 }
 
 .MuiIconButton-root {
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     padding: var(--rds-spacing-sm) !important;
     
     svg {
@@ -1263,7 +1263,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     padding: 6px !important;
     margin-right: 0px !important;
     
@@ -1275,13 +1275,13 @@ $rds-app-bar-breakpoint-xs: 320px;
 }
 
 .MuiAvatar-root {
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     width: 28px !important;
     height: 28px !important;
     font-size: var(--rds-font-size-md) !important; // 14px → md
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     width: 24px !important;
     height: 24px !important;
     font-size: var(--rds-font-size-sm) !important; // 12px → sm
@@ -1289,7 +1289,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 }
 
 .MuiTypography-root {
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     &.MuiTypography-body1 {
       font-size: var(--rds-font-size-sm) !important; // 13px → sm (12px, closest token)
     }
@@ -1299,7 +1299,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     &.MuiTypography-body1 {
       font-size: var(--rds-font-size-sm) !important; // 12px → sm
     }
@@ -1329,24 +1329,24 @@ $rds-app-bar-breakpoint-xs: 320px;
 .rds-header__actions {
   margin-left: var(--rds-spacing-md);
   
-  @media (max-width: var(--rds-breakpoint-834)) {
+  @media (max-width: 834px) {
     margin-left: 12px;
   }
   
-  @media (max-width: var(--rds-breakpoint-sm)) {
+  @media (max-width: 600px) {
     margin-left: 10px;
   }
   
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     margin-left: var(--rds-spacing-sm);
   }
   
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     margin-left: 0px;
   }
 }
 
-@media (max-width: var(--rds-breakpoint-420)) {
+@media (max-width: 420px) {
   .rds-header__toolbar {
     padding-left: var(--rds-spacing-sm) !important;
     padding-right: var(--rds-spacing-sm) !important;
@@ -1380,7 +1380,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@media (max-width: 320px) {
   .rds-appbar-separator {
     display: none;
   }
@@ -1437,7 +1437,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 .rds-appbar-overflow-button .rds-overflow-icon { display: inline-flex; }
 .rds-appbar-overflow-button .rds-overflow-icon--hamburger { display: none; }
 
-@media (max-width: var(--rds-breakpoint-420)) {
+@media (max-width: 420px) {
   .rds-appbar-overflow-button {
     display: none !important;
   }
@@ -1446,7 +1446,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   .rds-appbar-overflow-button .rds-overflow-icon--dots { display: none !important; }
 }
 
-@media (max-width: var(--rds-breakpoint-420)) {
+@media (max-width: 420px) {
   .rds-header__toolbar {
     justify-content: space-between;
     flex-wrap: nowrap;
@@ -1458,7 +1458,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
-@media (max-width: var(--rds-breakpoint-834)) {
+@media (max-width: 834px) {
   .rds-header__toolbar {
     gap: var(--rds-spacing-md, 12px);
   }
@@ -1470,7 +1470,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
-@media (max-width: var(--rds-breakpoint-834)) {
+@media (max-width: 834px) {
   .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiBox-root,
   .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-avatar__info,
   .rds-header--variant-withmenubutton .rds-profile-menu__button .rds-profile-menu__name-lg,
@@ -1549,7 +1549,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 
 }
 
-@media (min-width: var(--rds-breakpoint-420) + 1) and (max-width: var(--rds-breakpoint-840)) {
+@media (min-width: 421px) and (max-width: 840px) {
   .rds-header--variant-withtabs,
   .rds-header--variant-withlogoandtabs,
   .rds-header--variant-withnotificationbadge,
@@ -1573,7 +1573,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
-@media (max-width: var(--rds-breakpoint-420)) {
+@media (max-width: 420px) {
   .rds-story-nav-actions,
   .rds-logo-search-tabs__left-actions,
   .rds-appbar-actions-group,
@@ -1713,7 +1713,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     height: 28px !important;
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     .rds-header--variant-withmenubutton .rds-profile-menu__avatar,
     .rds-header--variant-withmenubutton .rds-profile-menu__button .MuiAvatar-root {
       width: 24px !important;
@@ -1739,7 +1739,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     padding-left: 56px !important;
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     .rds-header--variant-withmenubutton .rds-appbar-logo-group,
     .rds-header--variant-withmenubutton .rds-header__logo {
       left: 8px !important;
@@ -1784,7 +1784,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     padding-right: 110px !important;
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
   .rds-header--variant-withmenubutton .rds-profile-menu__button { right: 8px !important; }
   .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: 52px !important; padding: 4px !important; }
     .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 90px !important; }
@@ -1796,7 +1796,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     .rds-header--variant-withmenubutton .rds-header__search-wrapper {
       position: relative !important;
       transform: translateX(8px) !important;
@@ -1896,7 +1896,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     align-items: center !important;
   }
 
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     .rds-header--variant-logotabsactions .rds-header__toolbar {
       position: relative !important;
       padding-right: 56px !important; 
@@ -1927,7 +1927,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     .rds-header--variant-logotabsactions .rds-header__toolbar {
       position: relative !important;
       overflow: visible !important;
@@ -1954,7 +1954,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
       order: 2 !important;
       flex: 1 !important;
@@ -1991,7 +1991,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     .rds-header--variant-logosearchtabs .rds-header__search-wrapper {
       order: 2 !important;
       flex: 1 !important;
@@ -2033,7 +2033,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     gap: var(--rds-spacing-sm) !important;
   }
 
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root { display: inline-flex !important; }
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiBox-root,
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiTypography-root,
@@ -2042,7 +2042,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root { width: 24px !important; height: 24px !important; }
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiBox-root,
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button .MuiTypography-root,
@@ -2051,7 +2051,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     .rds-dashboard-title {
       margin-left: 6px !important;
       font-size: var(--rds-font-size-md) !important; // 14px → md
@@ -2118,7 +2118,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     .rds-header--variant-dashboardwithlang .rds-header__toolbar {
       padding-left: var(--rds-spacing-sm) !important;
       padding-right: 44px !important;
@@ -2156,7 +2156,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     .rds-dashboard-title {
       font-size: var(--rds-font-size-sm) !important; // 12px → sm
       line-height: 1 !important;
@@ -2175,7 +2175,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   .rds-appbar-title__user { display: none !important; }
 }
 
-@media (max-width: var(--rds-breakpoint-840)) {
+@media (max-width: 840px) {
   .rds-header--variant-withmenubutton .rds-header__tabs-inline,
   .rds-header--variant-withmenubutton .rds-story-nav-actions,
   .rds-header--variant-withmenubutton .rds-logo-search-tabs__left-actions,
@@ -2273,7 +2273,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@media (max-width: 320px) {
   .rds-header__search-wrapper, .rds-header__search { max-width: 84px !important; min-width: 64px !important; }
   .rds-header__title { max-width: 55% !important; font-size: var(--rds-font-size-sm) !important; } // 13px → sm (12px, closest token)
   .rds-header__sub-tabs .MuiButton-root { min-width: 32px !important; padding: 4px !important; gap: var(--rds-spacing-xs) !important; }
@@ -2392,7 +2392,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     flex-shrink: 0;
   }
 
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     padding: 6px 10px;
     min-height: 48px;
     gap: var(--rds-spacing-xs);
@@ -2419,7 +2419,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-xs)) {
+  @media (max-width: 320px) {
     padding: var(--rds-spacing-xs) 6px;
     min-height: 44px;
     gap: 2px;
@@ -2447,15 +2447,15 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
-@media (max-width: var(--rds-breakpoint-420)) {
+@media (max-width: 420px) {
   body { padding-bottom: 56px !important; }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@media (max-width: 320px) {
   body { padding-bottom: 52px !important; }
 }
 
-@media (max-width: var(--rds-breakpoint-420)) { 
+@media (max-width: 420px) { 
   .rds-header:not([data-theme="dark"]) {
     .rds-header__tabs-inline .MuiTab-root:not(.Mui-selected),
     .rds-appbar-tabs-container .MuiButton-root:not(.Mui-selected),
@@ -2469,7 +2469,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
-@media (max-width: var(--rds-breakpoint-840)) {
+@media (max-width: 840px) {
   .rds-header:not([data-theme="dark"]) {
     .rds-bottom-navigation .rds-bottom-nav-tab:not(.rds-bottom-nav-tab--active) {
       color: var(--rds-color-on-surface, #000) !important;
@@ -2482,7 +2482,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
-@media (max-width: var(--rds-breakpoint-xs)) {
+@media (max-width: 320px) {
   .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container {
     display: flex !important;
     align-items: center !important;
@@ -2524,7 +2524,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   align-items: center;
   gap: var(--rds-spacing-sm);
   
-  @media (max-width: var(--rds-breakpoint-640)) {
+  @media (max-width: 640px) {
     display: none !important;
   }
 }
@@ -2533,13 +2533,13 @@ $rds-app-bar-breakpoint-xs: 320px;
   .rds-bottom-navigation {
     display: none;
     
-    @media (max-width: var(--rds-breakpoint-lg)) {
+    @media (max-width: 1200px) {
       display: flex !important;
     }
   }
 }
 
-@media (max-width: var(--rds-breakpoint-840)) {
+@media (max-width: 840px) {
   .rds-header--variant-withmenubutton .rds-header__search-wrapper {
     margin-right: 12px !important;
     flex: 0 1 auto !important;
@@ -2549,8 +2549,10 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 }
 
-@media (max-width: var(--rds-breakpoint-420)) {
+@media (max-width: 420px) {
   .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-contained {
     color: var(--rds-color-on-primary, #fff) !important;
   }
 }
+
+
