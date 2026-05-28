@@ -207,8 +207,9 @@ const RdsInput = ({
     }
   };
   const computedPlaceholder = placeholder ?? getPlaceholder(layout);
+  const inlineTitleClass = titlePosition === 'inline-title' ? 'rds-input--inline-title' : '';
   return (
-    <div className={`rds-input ${sizeClass} ${pillClass} ${stateClass}`.trim()}>
+    <div className={`rds-input ${sizeClass} ${pillClass} ${stateClass} ${inlineTitleClass}`.trim()}>
       {titlePosition === 'title-above' && label && (
         <label className="rds-input__label">
           {label}

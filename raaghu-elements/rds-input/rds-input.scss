@@ -366,3 +366,25 @@
 .css-1t6h741-MuiFormHelperText-root {
   margin-left: var(--rds-border-radius-none) !important;
 }
+
+.rds-input--inline-title {
+  .MuiOutlinedInput-notchedOutline {
+    legend {
+      max-width: 0.01px !important;
+      width: 0.01px !important;
+      padding: 0 !important;
+      visibility: hidden !important;
+      border: 0 !important;
+    }
+    overflow: hidden; 
+  }
+
+  .MuiInputLabel-root {
+    background: var(--rds-background-paper) !important;
+    padding: 0 0.25rem !important;
+  }
+
+  .MuiInputLabel-root.MuiInputLabel-shrink {
+    transform: translate(0.5rem, -0.6rem) scale(0.85) !important;
+  }
+}

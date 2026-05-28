@@ -1449,3 +1449,96 @@
     margin-left: 24px !important;
   }
 }
+
+.rds-adaptive-cards {
+  box-sizing: border-box;
+}
+
+.rds-adaptive-cards--default {
+  width: min(100%, 450px);
+  max-width: 450px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.rds-adaptive-cards--football-scorecard {
+  width: min(100%, 350px);
+  max-width: 350px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.rds-adaptive-cards__content,
+.custom-box,
+.custom-box__slot {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.rds-adaptive-cards__actions,
+.custom-box__actions {
+  flex-wrap: nowrap !important;
+}
+
+@media (max-width: 834px) {
+  .rds-adaptive-cards--default,
+  .rds-adaptive-cards--football-scorecard {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .rds-adaptive-cards__header,
+  .rds-adaptive-cards__content,
+  .rds-adaptive-cards__actions {
+    padding-left: var(--rds-spacing-sm, 12px) !important;
+    padding-right: var(--rds-spacing-sm, 12px) !important;
+  }
+
+  .rds-adaptive-cards__actions,
+  .custom-box__actions {
+    flex-wrap: wrap !important;
+    row-gap: var(--rds-spacing-xs, 6px);
+  }
+
+  .rds-adaptive-cards__action-btn--input-form,
+  .rds-adaptive-cards__action-btn--input-form-button,
+  .rds-adaptive-cards__action-btn--restaurant-order {
+    height: 36px !important;
+    min-height: 36px !important;
+  }
+
+  .rds-adaptive-cards__restaurant-order-form .MuiOutlinedInput-root,
+  .rds-adaptive-cards__restaurant-order-form .MuiInputBase-root {
+    height: 36px !important;
+    min-height: 36px !important;
+    box-sizing: border-box !important;
+  }
+
+  .rds-adaptive-cards__restaurant-order-form .MuiSelect-select {
+    min-height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+  }
+
+  .rds-adaptive-cards__football-header-left {
+    margin-left: 0 !important;
+    justify-content: center !important;
+  }
+
+  .rds-adaptive-cards__football-header-row {
+    gap: var(--rds-spacing-xs, 6px) !important;
+  }
+
+  .rds-adaptive-cards__football-team,
+  .rds-adaptive-cards__football-score-section {
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+
+  .rds-adaptive-cards__football-team-name,
+  .rds-adaptive-cards__football-team-status {
+    max-width: 100% !important;
+  }
+}

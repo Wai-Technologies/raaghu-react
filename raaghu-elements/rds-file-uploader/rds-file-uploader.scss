@@ -2,6 +2,7 @@
   display: block;
   position: relative;
   width: 100%;
+  box-sizing: border-box;
 
   &__form-title {
   color: var(--rds-text-primary, #222);
@@ -52,12 +53,18 @@
     transition: border-color var(--rds-transition-base), background-color var(--rds-transition-base);
     border-radius: var(--rds-file-uploader-dropzone-border-radius, var(--rds-border-radius, 8px));
     position: relative;
-    min-width: var(--rds-file-uploader-dropzone-min-width, 500px);
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 
     &.rds-file-uploader__drop-zone--side-icon {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
       min-height: var(--rds-file-uploader-dropzone-min-height, 60px);
       padding-left: var(--rds-spacing-lg, 24px);
       padding-right: var(--rds-spacing-lg, 24px);
@@ -73,6 +80,9 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
       min-height: var(--rds-file-uploader-dropzone-min-height, 60px);
       padding: var(--rds-spacing-md) var(--rds-spacing-xl, 32px);
       background: var(--rds-background-paper, #fff);
@@ -84,6 +94,9 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
       min-height: var(--rds-file-uploader-dropzone-min-height, 60px);
       padding: var(--rds-spacing-md) var(--rds-spacing-xl, 32px);
       border: var(--rds-file-uploader-dropzone-border-width, 1.5px) dashed var(--rds-color-primary, #3390e6) !important;
@@ -218,6 +231,7 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     min-height: var(--rds-file-uploader-hint-row-height, 20px);
     margin-top: var(--rds-spacing-xs, 4px) !important;
     gap: var(--rds-spacing-sm, 8px);
@@ -228,13 +242,15 @@
     margin-left: auto;
     align-self: flex-end;
     text-align: right;
+    white-space: nowrap;
     padding-right: var(--rds-file-uploader-hint-padding-right, 10px);
     width: auto;
   }
   &__hint-wrapper {
     display: flex;
-    flex: 1;
+    flex: 0 0 auto;
     justify-content: flex-end;
+    margin-left: auto;
     min-width: 0;
   }
   &__error-inline {
@@ -242,7 +258,7 @@
     color: var(--rds-color-error, #d32f2f);
     font-weight: var(--rds-font-weight-regular, 400);
     text-align: left;
-    flex-shrink: 0;
+    flex: 1 1 auto;
     visibility: hidden;
     padding-right: var(--rds-spacing-xs);
     line-height: 1.2;
@@ -321,12 +337,13 @@ color: var(--rds-color-primary, #1976d2);
 // Small mobile: 320px - 414px
 @media (max-width: var(--rds-breakpoint-834)) and (min-width: var(--rds-breakpoint-420)) {
   .rds-file-uploader {
-    width: var(--rds-spacing-2xl, 326px) !important;
-    max-width: 98vw !important;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0 auto;
     &__drop-zone {
       min-width: 0 !important;
-      max-width: 98vw !important;
+      width: 100% !important;
+      max-width: 100% !important;
       margin: 0 auto;
       padding: var(--rds-spacing-md, 16px) var(--rds-spacing-xs, 10px) !important;
       font-size: var(--rds-font-size-md, 15px);
@@ -457,11 +474,12 @@ color: var(--rds-color-primary, #1976d2);
 @media (max-width: var(--rds-breakpoint-xs)) and (min-width: var(--rds-breakpoint-xs)) {
   .rds-file-uploader {
     min-width: 0 !important;
-    max-width: 90vw !important;
+    max-width: 100% !important;
     margin: 0 auto;
     &__drop-zone {
       min-width: 0 !important;
-      max-width: 98vw !important;
+      width: 100% !important;
+      max-width: 100% !important;
       margin: 0 auto;
       padding: var(--rds-spacing-md, 16px) var(--rds-spacing-xs, 10px) !important;
       font-size: var(--rds-font-size-md, 15px);
