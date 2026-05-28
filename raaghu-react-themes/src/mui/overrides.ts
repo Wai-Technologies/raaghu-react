@@ -170,10 +170,32 @@ export const designSystemComponentOverrides: Components<Theme> = {
         borderRadius: theme.shape.borderRadius,
         fontWeight: theme.typography.fontWeightMedium,
       }),
-      filled: ({ theme }) => ({
-        backgroundColor: 'var(--rds-color-primary-container)',
-        color: theme.palette.primary.main,
-      }),
+      filled: ({ theme, ownerState }: any) => {
+        const colorKey = ownerState?.color as string | undefined;
+
+        if (!colorKey || colorKey === 'default') {
+          return {
+            backgroundColor: 'var(--rds-color-primary-container)',
+            color: theme.palette.primary.main,
+          };
+        }
+
+        const paletteColor = theme.palette[colorKey as keyof typeof theme.palette] as
+          | { main?: string; contrastText?: string }
+          | undefined;
+
+        if (!paletteColor?.main) {
+          return {
+            backgroundColor: 'var(--rds-color-primary-container)',
+            color: theme.palette.primary.main,
+          };
+        }
+
+        return {
+          backgroundColor: paletteColor.main,
+          color: paletteColor.contrastText ?? theme.palette.common.white,
+        };
+      },
       outlined: ({ theme }) => ({
         borderColor: theme.palette.divider,
       }),

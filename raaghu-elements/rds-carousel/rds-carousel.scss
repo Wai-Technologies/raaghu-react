@@ -81,17 +81,23 @@
 
   &__title-content {
     padding: var(--rds-spacing-md, 16px);
-    background-color: var(--rds-color-surface, #ffffff);
+    background-color: var(--rds-carousel-title-bg, #f6f8fb);
     min-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: var(--rds-spacing-xs, 4px);
+    border: 1px solid var(--rds-carousel-title-border, #e7ecf2);
+
+    &--top {
+      border-radius: var(--rds-border-radius-sm, 4px) var(--rds-border-radius-sm, 4px) 0 0;
+      border-bottom: 1px solid var(--rds-carousel-divider, #e0e0e0);
+    }
 
     &--bottom {
       order: 2;
       min-height: 80px;
-      border-radius: 0 0 4px 4px;
+      border-radius: 0 0 var(--rds-border-radius-sm, 4px) var(--rds-border-radius-sm, 4px);
     }
   }
   
@@ -149,10 +155,10 @@
 
   &--with-title {
     border-radius: var(--rds-border-radius-sm, 4px);
-    background-color: var(--rds-color-surface, #ffffff);
+    background-color: var(--rds-carousel-wrapper-bg, #f3f5f8);
     
     .rds-carousel__slide {
-      background-color: var(--rds-color-surface, #ffffff);
+      background-color: var(--rds-carousel-wrapper-bg, #f3f5f8);
     }
     
     .rds-carousel__indicators {
@@ -160,7 +166,7 @@
     }
     
     .rds-carousel__slide-content {
-      border-radius: 0 0 4px 4px;
+      border-radius: 0 0 var(--rds-border-radius-sm, 4px) var(--rds-border-radius-sm, 4px);
     }
     
     .rds-carousel__navigation {
@@ -181,7 +187,7 @@
       border-radius: var(--rds-border-radius-sm, 4px);
       width: 100%;
       max-width: 100%;
-      background-color: var(--rds-color-surface, #ffffff);
+      background-color: var(--rds-carousel-wrapper-bg, #f3f5f8);
     }
     
     .rds-carousel__slide-content {
@@ -200,9 +206,9 @@
     }
 
     .rds-carousel__title-content--bottom {
-      background-color: var(--rds-color-surface, #ffffff);
+      background-color: var(--rds-carousel-title-bg, #f6f8fb);
       color: var(--rds-color-text-primary, #212121);
-      border-radius: 0 0 4px 4px;
+      border-radius: 0 0 var(--rds-border-radius-sm, 4px) var(--rds-border-radius-sm, 4px);
       border-top: 1px solid var(--rds-carousel-divider, var(--rds-color-divider, #e0e0e0));
     }
     
@@ -558,4 +564,52 @@
     height: 265px !important;
   }
 }
+
+  [data-theme="dark"] .rds-carousel,
+  .theme-dark .rds-carousel,
+  .sb-show-main[data-theme="dark"] .rds-carousel {
+    .rds-carousel__title-content {
+      background-color: var(--rds-carousel-title-bg-dark, #16181a) !important;
+      border: 1px solid var(--rds-carousel-title-border-dark, rgba(255,255,255,0.04)) !important;
+      color: var(--rds-color-surface, #ffffff) !important;
+    }
+
+    .rds-carousel__title-content--bottom {
+      background-color: var(--rds-carousel-title-bg-dark, #16181a) !important;
+      border-top: 1px solid var(--rds-carousel-title-border-dark, rgba(255,255,255,0.06)) !important;
+      color: var(--rds-color-surface, #ffffff) !important;
+    }
+
+    &--with-title, &--full-width-image {
+      background-color: transparent !important;
+
+      .rds-carousel__slide {
+        background-color: transparent !important;
+      }
+    }
+
+    .rds-carousel__title-text {
+      color: var(--rds-color-surface, #ffffff) !important;
+      opacity: 0.95;
+    }
+
+    .rds-carousel__title-subtitle {
+      color: var(--rds-color-surface, #ffffff) !important;
+      opacity: 0.75 !important;
+    }
+  }
+
+  [data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-text,
+  .theme-dark .rds-carousel .rds-carousel__title-content .rds-carousel__title-text,
+  .sb-show-main[data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-text {
+    color: var(--rds-color-surface, #ffffff) !important;
+    opacity: 1 !important;
+  }
+
+  [data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-subtitle,
+  .theme-dark .rds-carousel .rds-carousel__title-content .rds-carousel__title-subtitle,
+  .sb-show-main[data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-subtitle {
+    color: var(--rds-color-surface, #ffffff) !important;
+    opacity: 0.85 !important;
+  }
 

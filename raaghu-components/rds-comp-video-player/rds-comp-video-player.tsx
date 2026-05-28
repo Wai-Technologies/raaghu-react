@@ -106,6 +106,14 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
                     config: getPlayerConfig(),
                     className: "rds-comp-video-player__player",
                 })}
+                {/* Reserve the native controls height when controls are disabled so layout doesn't shift.
+                    This spacer keeps the player size consistent when toggling controls on/off. */}
+                {!controls && (
+                    <div
+                        className="rds-comp-video-player__controls-spacer"
+                        aria-hidden="true"
+                    />
+                )}
             </div>
             {disabled && (
                 <div className="rds-comp-video-player__overlay">
