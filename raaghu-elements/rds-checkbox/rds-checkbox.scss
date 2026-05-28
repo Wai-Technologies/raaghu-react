@@ -33,7 +33,7 @@
     transition: var(--checkbox-transition);
 
     &:hover {
-      background-color: var(--rds-button-text-bg-hover);
+      background-color: var(--rds-primary-alpha-10);
     }
     
     &:focus-visible {
@@ -322,11 +322,9 @@
         
             outline: var(--rds-checkbox-focus-ring-width, 2px) solid var(--rds-primary-main);
             outline-offset: var(--rds-checkbox-focus-ring-offset, 2px);
-        }
       }
     }
   }
-            opacity: var(--rds-checkbox-disabled-opacity, 0.6);
   &__circular {
     .MuiCheckbox-root {
       position: relative;
@@ -515,4 +513,5 @@
 }
 
   }
+}
 }

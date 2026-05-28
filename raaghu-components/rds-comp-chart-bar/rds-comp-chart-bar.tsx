@@ -36,11 +36,18 @@ const RdsCompBarChart = (props: RdsCompBarChartProps) => {
         if (!ctx) return;
 
         const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        
+        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
+        const chartData = { labels: props.labels, datasets: props.dataSets };
+        if (!chartOptions.data) {
+            chartOptions.data = chartData;
+        }
+        
         applyChartThemeColors(chartOptions);
 
         const barCanvas = new Chart(ctx, {
             type: "bar",
-            data: { labels: props.labels, datasets: props.dataSets },
+            data: chartData,
             options: { ...chartOptions, responsive: true, maintainAspectRatio: false },
         });
 

@@ -3,9 +3,9 @@
   position: relative;
   --rds-toggle-focus-ring-width: 2px;
   --rds-toggle-group-border-light: var(--rds-border-light, rgba(0, 0, 0, 0.23));
-  --rds-toggle-group-border-dark: var(--rds-border-light, rgba(255, 255, 255, 0.23));
+  --rds-toggle-group-border-dark: var(--rds-border-dark, rgba(255, 255, 255, 0.23));
   --rds-toggle-group-border-disabled-light: var(--rds-border-light, rgba(100, 100, 100, 0.3));
-  --rds-toggle-group-border-disabled-dark: var(--rds-border-light, rgba(100, 100, 100, 0.5));
+  --rds-toggle-group-border-disabled-dark: var(--rds-border-dark, rgba(100, 100, 100, 0.5));
   --rds-toggle-button-selected-shadow: inset 0 0 0 1px currentColor;
   --rds-toggle-button-spaced-shadow: inset 0 0 0 1px var(--rds-border-light, rgba(0, 0, 0, 0.12));
   
