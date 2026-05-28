@@ -72,25 +72,18 @@
   }
 
   &__row {
-  display: flex;
-  align-items: center;
-  gap: var(--rds-spacing-md, 8px);
-  padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-sm, 6px);
-  width: auto;
-  height: var(--rds-toolbar-row-height, 40px);
-  min-width: 0;
-    &__row {
     display: flex;
     align-items: center;
     gap: var(--rds-spacing-md, 8px);
-    	padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-xs, 4px);
-    	width: 100%;
-    	height: var(--rds-toolbar-height, 40px);
+    padding: var(--rds-spacing-xs, 2px) var(--rds-spacing-xs, 4px);
+    width: auto;
+    height: var(--rds-toolbar-height, 40px);
     min-width: 0;
+    flex-wrap: nowrap;
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    
+
     &::-webkit-scrollbar {
       display: none;
     }
@@ -101,7 +94,7 @@
 
       .rds-comp-toolbar__button {
         color: var(--rds-color-on-surface-variant);
-        
+
         &:hover {
           background: var(--rds-color-surface-container-high);
           color: var(--rds-color-on-surface);
@@ -113,6 +106,7 @@
   &__section {
     display: flex;
     align-items: center;
+    gap: var(--rds-spacing-md, 8px);
     gap: var(--rds-spacing-xs, 2px);
     flex-shrink: 0;
   }

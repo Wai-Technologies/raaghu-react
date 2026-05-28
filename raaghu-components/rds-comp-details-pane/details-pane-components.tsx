@@ -15,7 +15,8 @@ import {
   RdsSearch,
   RdsAvatar,
   RdsAccordion,
-  RdsRadio
+  RdsRadio,
+  RdsCheckbox
 } from "../../raaghu-elements";
 import RdsCompTreeStructure, { IconType, TreeLevel } from '../rds-comp-tree-structure/rds-comp-tree-structure';
 import FigmaIcon from './rds-comp-details-pane.stories';
@@ -252,11 +253,11 @@ export const HistoryFavoritesTabs: React.FC<HistoryFavoriteTabsProps> = ({
                   onClick={() => toggleSelection(idx)}                 
                 >
                   <div className="rds-comp-details-pane__favourite-card-header">
-                    <input
-                      type="checkbox"
+                    <RdsCheckbox
                       className="rds-comp-details-pane__favourite-checkbox"
-                      checked={selectedIndexes.includes(idx)}
-                      readOnly
+                      showText={false}
+                      status={selectedIndexes.includes(idx) ? 'checked' : 'unchecked'}
+                      onChange={(e: any, checked?: boolean) => { e.stopPropagation(); toggleSelection(idx); }}
                     />
                     <span className="rds-comp-details-pane__favourite-title">
                       {favouriteCardTitle}

@@ -138,8 +138,10 @@ const RdsCompTimePicker = (props: RdsTimePickerProps) => {
     }
   };
 
+  const variantClass = `time-picker-variant-${props.colorVariant || 'primary'}`;
+
   return (
-    <div className="time-picker-container">
+    <div className={`time-picker-container ${variantClass}`}>
       <div
         className={`time-input-container ${props.disabled ? 'disabled' : ''}`}
         onClick={!props.disabled ? togglePicker : undefined}

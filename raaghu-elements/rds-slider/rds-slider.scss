@@ -9,6 +9,7 @@
   display: block;
   position: relative;
   padding-inline: var(--rds-slider-inline-padding, 10px);
+  overflow: visible;
   
   &__label-row {
     display: flex;
@@ -35,6 +36,16 @@
     display: flex;
     align-items: center;
     gap: var(--rds-slider-container-gap, 12px);
+    min-width: 0; /* allow children to shrink properly */
+  }
+
+  /* make the MUI Slider expand to fill available space between labels */
+  &__container .MuiSlider-root {
+    flex: 1 1 auto;
+    min-width: 0;
+    /* ensure the track has extra padding so the thumb doesn't overlap the right label */
+    padding-inline-end: 20px; /* space for thumb + small gap */
+    padding-inline-start: 8px; /* small start padding for symmetry */
   }
 
   &__left-label,
@@ -45,6 +56,8 @@
     font-weight: var(--rds-slider-font-weight-regular, 400);
     white-space: nowrap;
   }
+  &__left-label { margin-right: 8px; }
+  &__right-label { margin-left: 8px; }
 }
 
 .rds-slider__story-wrapper {

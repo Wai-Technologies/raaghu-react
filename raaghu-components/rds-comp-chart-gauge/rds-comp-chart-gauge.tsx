@@ -18,6 +18,22 @@ const RdsCompGaugeChart = (props: RdsCompGaugeprops) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const CanvasId = props.id;
 
+    const [themeMode, setThemeMode] = React.useState(() => {
+        if (typeof document !== 'undefined') {
+            return document.documentElement.getAttribute('data-theme') || 'light';
+        }
+        return 'light';
+    });
+
+    React.useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const observer = new MutationObserver(() => {
+            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        return () => observer.disconnect();
+    }, []);
+
     useEffect(() => {
         const ctx = canvasRef.current?.getContext("2d");
         if (!ctx) return;
@@ -51,12 +67,19 @@ const RdsCompGaugeChart = (props: RdsCompGaugeprops) => {
         };
 
         const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        
+        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
+        const chartData = { labels: props.labels, datasets: props.dataSets };
+        if (!chartOptions.data) {
+            chartOptions.data = chartData;
+        }
+        
         applyChartThemeColors(chartOptions, []);
 
         const gaugeCanvas = new Chart(ctx, {
             type: "doughnut",
             plugins: [centerText],
-            data: { labels: props.labels, datasets: props.dataSets },
+            data: chartData,
             options: {
                 ...chartOptions,
                 rotation: -90,
@@ -85,7 +108,7 @@ const RdsCompGaugeChart = (props: RdsCompGaugeprops) => {
         }
 
         return () => { gaugeCanvas.destroy(); };
-    }, [props]);
+    }, [props, themeMode]);
 
     return (
         <div className="rds-comp-chart-gauge">

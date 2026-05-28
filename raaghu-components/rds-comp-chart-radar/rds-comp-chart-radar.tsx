@@ -14,6 +14,22 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
 
+  const [themeMode, setThemeMode] = React.useState(() => {
+    if (typeof document !== 'undefined') {
+        return document.documentElement.getAttribute('data-theme') || 'light';
+    }
+    return 'light';
+  });
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const observer = new MutationObserver(() => {
+        setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     const canvasElm = canvasRef.current;
     if (!canvasElm) return;
@@ -30,6 +46,12 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
     if (!chartOptions.scales.r)                        chartOptions.scales.r = {};
     if (!chartOptions.scales.r.pointLabels)            chartOptions.scales.r.pointLabels = {};
     chartOptions.scales.r.pointLabels.color = chartTextColor();
+    
+    // Prepare chart data with datasets so applyChartThemeColors can resolve colors
+    const chartData = { labels: props.labels, datasets: props.dataSets };
+    if (!chartOptions.data) {
+        chartOptions.data = chartData;
+    }
 
     const textColor = chartTextColor();
 
@@ -95,7 +117,7 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
       }
       chartInstanceRef.current = radarCanvas;
     }
-  }, [props]);
+  }, [props, themeMode]);
 
   return (
     <div className="rds-comp-chart-radar-container">

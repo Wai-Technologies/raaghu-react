@@ -13,16 +13,39 @@ export interface RdsComplineprops {
 const RdsCompLineChart = (props: RdsComplineprops) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
+    const [themeMode, setThemeMode] = React.useState(() => {
+        if (typeof document !== 'undefined') {
+            return document.documentElement.getAttribute('data-theme') || 'light';
+        }
+        return 'light';
+    });
+
+    React.useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const observer = new MutationObserver(() => {
+            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        return () => observer.disconnect();
+    }, []);
+
     useEffect(() => {
         const ctx = canvasRef.current?.getContext("2d");
         if (!ctx) return;
 
         const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        
+        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
+        const chartData = { labels: props.labels, datasets: props.dataSets };
+        if (!chartOptions.data) {
+            chartOptions.data = chartData;
+        }
+        
         applyChartThemeColors(chartOptions);
 
         const lineCanvas = new Chart(ctx, {
             type: "line",
-            data: { labels: props.labels, datasets: props.dataSets },
+            data: chartData,
             options: chartOptions,
         });
 
@@ -41,7 +64,7 @@ const RdsCompLineChart = (props: RdsComplineprops) => {
         }
 
         return () => { lineCanvas.destroy(); };
-    }, [props]);
+    }, [props, themeMode];
 
     return (
         <div className="rds-comp-chart-line">
