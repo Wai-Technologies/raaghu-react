@@ -35,6 +35,12 @@
     pointer-events: auto;
   }
 
+  .rds-tooltip__wrapper {
+    display: inline-block;
+    line-height: 1;
+    cursor: inherit;
+  }
+
   .MuiTooltip-arrow {
     color: var(--rds-tooltip-bg);
     filter: var(--rds-tooltip-arrow-shadow);
@@ -86,11 +92,8 @@
     margin-left: calc(-1 * var(--rds-tooltip-arrow-offset));
   }
 
-  &:hover .MuiTooltip-tooltip {
-    background: var(--rds-primary-light);
-    color: var(--rds-tooltip-color);
-    border-color: var(--rds-primary-main);
-  }
+  /* Hover color change intentionally removed to keep tooltip appearance
+     consistent and avoid the bright highlight on parent hover. */
 
   &:focus-visible .MuiTooltip-tooltip {
     outline: var(--rds-tooltip-focus-ring-width) solid var(--rds-primary-main);

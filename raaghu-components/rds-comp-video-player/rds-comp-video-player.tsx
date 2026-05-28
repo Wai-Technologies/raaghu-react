@@ -23,7 +23,7 @@ export interface RdsVideoPlayerProps {
 
 const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
     width = "100%",
-    height = "auto",
+    height = "100%",
     autoplay = false,
     muted = false,
     videoLink,
@@ -95,17 +95,16 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
         <div className={`rds-comp-video-player${disabled ? " rds-comp-video-player--disabled" : ""} ${className}`}>
             <div className="rds-comp-video-player__wrapper">
                 {React.createElement(ReactPlayer as any, {
-                    key: `${formattedUrl}-${controls}`,
+                    key: `${formattedUrl}`,
                     url: formattedUrl,
                     width: "100%",
                     height: "100%",
                     playing: autoplay && !disabled,
                     muted: muted,
-                    controls: controls,
+                    controls: (!isYouTubeUrl && !isVimeoUrl) ? controls : undefined,
                     volume: volume,
                     config: getPlayerConfig(),
                     className: "rds-comp-video-player__player",
-                    style: { width, height }
                 })}
                 {/* Reserve the native controls height when controls are disabled so layout doesn't shift.
                     This spacer keeps the player size consistent when toggling controls on/off. */}
