@@ -31,6 +31,22 @@
       object-fit: cover;
     }
   }
+
+  /* When native controls are hidden we still reserve space at the bottom
+     so the player size remains consistent and toggling controls doesn't
+     change the overall layout. */
+  &__controls-spacer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--rds-player-controls-height, 48px);
+    pointer-events: none; /* should not intercept clicks */
+    /* visually match typical native control area: subtle gradient to blend */
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%);
+    border-bottom-left-radius: var(--rds-border-radius-sm);
+    border-bottom-right-radius: var(--rds-border-radius-sm);
+  }
   
   &__overlay {
     position: absolute;

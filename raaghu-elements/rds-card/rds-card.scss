@@ -85,6 +85,16 @@
     flex: 1;
     padding-left: var(--rds-card-content-padding-left, 14px);
   }
+
+  &--layout-vertical.rds-card--with-indicator {
+    .rds-card__content-wrapper {
+      padding-left: calc(var(--rds-card-content-padding-left, 14px) + var(--rds-spacing-xs, 4px));
+    }
+
+    .rds-card__additional-content {
+      padding-left: var(--rds-spacing-xs, 4px);
+    }
+  }
   
   &--hide-icon {
     .rds-card__icon-container {

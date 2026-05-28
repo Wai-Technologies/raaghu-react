@@ -36,16 +36,23 @@ const RdsCompAreaChart = (props: lineprops) => {
         chartRef.current?.destroy();
 
         const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+        
+        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
+        const chartData = {
+            labels: props.labels,
+            datasets: props.dataSets.map(dataset =>
+                props.isGradient ? { ...dataset, backgroundColor: dataset.backgroundColor } : dataset
+            ),
+        };
+        if (!chartOptions.data) {
+            chartOptions.data = chartData;
+        }
+        
         applyChartThemeColors(chartOptions);
 
         const AreaCanvas = new Chart(ctx, {
             type: "line",
-            data: {
-                labels: props.labels,
-                datasets: props.dataSets.map(dataset =>
-                    props.isGradient ? { ...dataset, backgroundColor: dataset.backgroundColor } : dataset
-                ),
-            },
+            data: chartData,
             options: chartOptions,
         });
 
