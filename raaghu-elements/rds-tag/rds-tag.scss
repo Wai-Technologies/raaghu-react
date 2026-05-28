@@ -1,6 +1,21 @@
 .rds-tag {
-  display: block;
+  display: inline-flex;
   position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.rds-tag .MuiChip-root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rds-tag .MuiChip-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 [data-theme="dark"]{
