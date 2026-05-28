@@ -3,16 +3,16 @@ import {
   Box, 
   Typography, 
   Popover, 
-  Accordion, 
-  AccordionSummary, 
+  Accordion,
+  AccordionSummary,
   AccordionDetails,
-  Checkbox,
   FormControlLabel,
   TextField,
   Button
 } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
+import RdsCheckbox from '../../raaghu-elements/rds-checkbox/rds-checkbox';
 import './rds-comp-filter-button.scss';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
@@ -245,19 +245,10 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                       <FormControlLabel
                         key={value}
                         control={
-                          <Checkbox
+                          <RdsCheckbox
                             checked={filter.selectedValues?.includes(value) || false}
-                            onChange={(e) => handleFilterChange(filter.id, value, e.target.checked)}
+                            onChange={(e, checked) => handleFilterChange(filter.id, value, checked)}
                             size="small"
-                            sx={{
-                              color: 'var(--rds-text-disabled, #ccc)',
-                              '&.Mui-checked': {
-                                color: 'var(--rds-primary-main)',
-                              },
-                              '& .MuiSvgIcon-root': {
-                                fontSize: 'var(--rds-icon-size-sm, 16px)',
-                              }
-                            }}
                           />
                         }
                         label={

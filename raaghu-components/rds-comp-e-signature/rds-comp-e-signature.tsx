@@ -196,12 +196,12 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
           {colourSwatch && (
             <Box className="rds-e-signature__color-palette">
                   {colors.map((color, index) => (
-                <Box
-                  key={color}
-                  className={`rds-e-signature__color-button ${selectedColor === color ? 'rds-e-signature__color-button--selected' : ''}`}
-                  onClick={() => setSelectedColor(color)}
-                  style={{ backgroundColor: color }}
-                >
+                  <Box
+                    key={color}
+                    className={`rds-e-signature__color-button ${selectedColor === color ? 'rds-e-signature__color-button--selected' : ''}`}
+                    onClick={() => setSelectedColor(color)}
+                    data-color={color}
+                  >
                   {selectedColor === color && <span className="rds-e-signature__checkmark">✓</span>}
                 </Box>
               ))}
