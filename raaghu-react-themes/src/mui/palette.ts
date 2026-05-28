@@ -32,7 +32,7 @@ export function lightMuiPalette(): PaletteOptions {
     secondary: {
       main: s[700],
       light: s[100],
-      dark: s[600],
+      dark: s[750],
       contrastText: white,
     },
     error: {
@@ -99,7 +99,7 @@ export function darkMuiPalette(): PaletteOptions {
     secondary: {
       main: s[200],
       light: s[100],
-      dark: s[400],
+      dark: s[250],
       contrastText: n[900],
     },
     error: {

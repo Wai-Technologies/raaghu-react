@@ -1,8 +1,3 @@
-/**
- * Builds flat --rds-* CSS custom property maps from design-tokens.ts.
- * This file is a pure projection of design-tokens.ts — zero raw hex/rgba/px literals.
- */
-
 import {
   aiGradientTokens,
   alphaTokens,
@@ -321,8 +316,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-adaptive-cards-font-size-xxs': componentTokens.adaptiveCards?.fontSizeXxs || '9px',
     '--rds-adaptive-cards-font-size-sm': componentTokens.adaptiveCards?.fontSizeSm || '13px',
     '--rds-adaptive-cards-font-size-md': componentTokens.adaptiveCards?.fontSizeMd || '15px',
-    '--rds-adaptive-cards-input-padding-horizontal': componentTokens.adaptiveCards?.inputPaddingHorizontal || '16px',
-    '--rds-adaptive-cards-input-padding-vertical': componentTokens.adaptiveCards?.inputPaddingVertical || '1px',
     '--rds-adaptive-cards-error-ring': componentTokens.adaptiveCards?.errorRing || '0 0 0 2px rgba(189,13,29,0.2)',
     '--rds-image-list-item-height-mobile': componentTokens.adaptiveCards?.imageListItemHeightMobile || '120px',
     '--rds-football-logo-size-mobile': componentTokens.adaptiveCards?.footballLogoSizeMobile || '72px',
@@ -589,7 +582,6 @@ function sharedCssVars(): Record<string, string> {
     '--rds-button-dropdown-secondary-bg-active': 'var(--rds-primary-dark)',
     '--rds-button-dropdown-transition': 'var(--rds-transition-base)',
     // ── Card component tokens
-    '--rds-card-border': 'var(--rds-border-light)',
     '--rds-card-content-padding-left': '14px',
     '--rds-card-content-min-height': '20px',
     '--rds-card-hover-offset': '-2px',
@@ -769,6 +761,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-button-secondary-bg-disabled': n[100],
     // ── Button text ──────────────────────────────────────────────────────────
     '--rds-button-text-bg-hover': t[50],
+    '--rds-button-text-variant-bg': interactiveTokens.variantTextBg,
     '--rds-button-text-bg-active': t[100],
     '--rds-button-text-color': t[400],
     '--rds-button-text-color-active': t[500],
@@ -782,7 +775,7 @@ function lightThemeCssVars(): Record<string, string> {
     '--rds-alert-error-text': e[600],
     '--rds-alert-warning-bg': interactiveTokens.alertWarningBg,
     '--rds-alert-warning-border': w[700],
-    '--rds-alert-warning-text': w[600],
+    '--rds-alert-warning-text': w[700],
     '--rds-alert-info-bg': white,
     '--rds-alert-info-border': n[700],
     '--rds-alert-info-text': i[600],
@@ -1001,6 +994,29 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-appbar-secondary-bg-dark': appBarTokens.darkSecondaryBg,
     '--rds-appbar-badge-bg-dark': appBarTokens.darkBadgeBg,
     '--rds-appbar-badge-color-dark': appBarTokens.darkBadgeColor,
+    // ── Form (dark overrides) ─────────────────────────────────────────────────
+    '--rds-form-bg': n[800],
+    '--rds-form-border': n[700],
+    '--rds-form-border-focus': p[200],
+    '--rds-form-bg-focus': n[800],
+    '--rds-form-control-asterisk-color': e[200],
+    // ── Alerts (dark overrides) ───────────────────────────────────────────────
+    '--rds-alert-success-bg': 'rgba(31, 118, 48, 0.15)',
+    '--rds-alert-success-border': su[200],
+    '--rds-alert-success-text': su[200],
+    '--rds-alert-error-bg': 'rgba(189, 13, 29, 0.15)',
+    '--rds-alert-error-border': e[200],
+    '--rds-alert-error-text': e[200],
+    '--rds-alert-warning-bg': 'rgba(160, 120, 0, 0.15)',
+    '--rds-alert-warning-border': w[200],
+    '--rds-alert-warning-text': w[200],
+    '--rds-alert-info-bg': n[800],
+    '--rds-alert-info-border': n[400],
+    '--rds-alert-info-text': p[200],
+    // ── Badge (dark overrides) ────────────────────────────────────────────────
+    '--rds-badge-error-bg': e[200],
+    '--rds-badge-warning-bg': w[200],
+    '--rds-badge-neutral-bg': n[200],
   };
 }
 
@@ -1053,7 +1069,6 @@ export function injectTokens(mode: RdsThemeMode = 'light', overrides?: RdsBrandO
     root.style.setProperty(name, value);
     TRACKED_CSS_VAR_KEYS.add(name);
   }
-
   if (overrides) {
     const knownKeys = new Set(Object.keys(vars));
     Object.entries(overrides).forEach(([key, value]) => {

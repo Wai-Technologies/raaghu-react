@@ -3,13 +3,14 @@
   position: relative;
   overflow: visible;
   --rds-popover-arrow-size: 8px;
+  --rds-popover-arrow-edge-inset: 8px;
   --rds-popover-arrow-offset-primary: 30px;
   --rds-popover-arrow-offset-secondary: 42px;
-  --rds-popover-surface-border: 1px solid var(--rds-border-opacity-light);
-  --rds-popover-surface-shadow-top: drop-shadow(0px -1px 0px var(--rds-border-opacity-light));
-  --rds-popover-surface-shadow-bottom: drop-shadow(0px 1px 0px var(--rds-border-opacity-light));
-  --rds-popover-surface-shadow-left: drop-shadow(-1px 0px 0px var(--rds-border-opacity-light));
-  --rds-popover-surface-shadow-right: drop-shadow(1px 0px 0px var(--rds-border-opacity-light));
+  --rds-popover-surface-border: 1px solid var(--rds-border-default);
+  --rds-popover-surface-shadow-top: drop-shadow(0px -1px 0px var(--rds-border-default));
+  --rds-popover-surface-shadow-bottom: drop-shadow(0px 1px 0px var(--rds-border-default));
+  --rds-popover-surface-shadow-left: drop-shadow(-1px 0px 0px var(--rds-border-default));
+  --rds-popover-surface-shadow-right: drop-shadow(1px 0px 0px var(--rds-border-default));
   --rds-popover-position-option-size: 32px;
   --rds-popover-list-mobile-padding: var(--rds-spacing-sm, 6px);
   --rds-popover-container-max-width: 400px;
@@ -125,13 +126,11 @@
       filter: var(--rds-popover-surface-shadow-left, drop-shadow(-1px 0px 0px rgba(0, 0, 0, 0.12)));
 
       &.rds-popover__arrow--right-top {
-        top: 20%;
-        transform: translateY(-140%);
+        top: var(--rds-popover-arrow-edge-inset, 8px);
       }
 
       &.rds-popover__arrow--right-bottom {
-        top: 80%;
-        transform: translateY(60%);
+        bottom: var(--rds-popover-arrow-edge-inset, 8px);
       }
 
       &.rds-popover__arrow--right-center {
@@ -148,13 +147,11 @@
       filter: var(--rds-popover-surface-shadow-right, drop-shadow(1px 0px 0px rgba(0, 0, 0, 0.12)));
 
       &.rds-popover__arrow--left-top {
-        top: 20%;
-        transform: translateY(-120%);
+        top: var(--rds-popover-arrow-edge-inset, 8px);
       }
 
       &.rds-popover__arrow--left-bottom {
-        top: 80%;
-        transform: translateY(40%);
+        bottom: var(--rds-popover-arrow-edge-inset, 8px);
       }
 
       &.rds-popover__arrow--left-center {

@@ -1,5 +1,6 @@
 .rds-comp-map {
-  background: var(--rds-bg, #fff) !important;
+  /* Use theme variable and avoid forcing white fallback so dark themes stay dark */
+  background: var(--rds-bg, transparent) !important;
   border: none !important;
   box-shadow: none !important;
   padding: calc(var(--rds-spacing-sm) + var(--rds-spacing-xs)) !important;
@@ -193,6 +194,28 @@
 
     svg {
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+  }
+}
+
+/* Dark-theme SVG/background fixes so the map doesn't render a white inner canvas */
+body[data-theme="dark"], html[data-theme="dark"], .theme-dark, .sb-show-main[data-theme="dark"],
+.rds-theme--dark, body.theme-dark, .dark-theme {
+  .rds-comp-map {
+    background: var(--rds-bg, transparent) !important;
+
+    svg {
+      background-color: var(--rds-color-surface-dark, #1f1f1f) !important;
+    }
+
+    /* Some world map implementations render a rect or a white group; ensure it's dark */
+    svg rect, svg > rect, svg g rect {
+      fill: var(--rds-color-surface-dark, #1f1f1f) !important;
+    }
+
+    /* Make label and surrounding areas adapt to dark theme */
+    &__label {
+      color: var(--rds-color-on-surface-dark, #e6e6e6);
     }
   }
 }

@@ -39,6 +39,7 @@ const RdsCarousel = ({
 }:RdsCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const tokens = useRdsTokens();
+  const hasTitleLayout = style === 'with title' || style === 'full width image';
 
   React.useEffect(() => {
     if (state && !isNaN(parseInt(state))) {
@@ -110,7 +111,7 @@ const RdsCarousel = ({
                 height: '100%',
                 position: 'relative',
                 display: 'flex',
-                flexDirection: style === 'with title' || style === 'full width image' ? 'column' : 'row',
+                flexDirection: hasTitleLayout ? 'column' : 'row',
                 backgroundColor: style === 'full width image' ? tokens.color.surface : 'transparent',
               }}
             >
@@ -132,14 +133,12 @@ const RdsCarousel = ({
               <Box 
                 className="rds-carousel__slide-content"
                 sx={{
-                  height: style === 'with title' 
-                    ? 'calc(100% - 100px)' 
-                    : style === 'full width image' 
-                      ? 'calc(100% - 100px)' 
-                      : '100%',
+                  height: hasTitleLayout ? 'auto' : '100%',
+                  flex: hasTitleLayout ? 1 : 'unset',
+                  minHeight: 0,
                   width: '100%',
                   position: 'relative',
-                  order: style === 'with title' || style === 'full width image' ? 1 : 1, // Image first
+                  order: 1,
                 }}
               >
                 {child}
@@ -172,7 +171,12 @@ const RdsCarousel = ({
             sx={{
               position: 'absolute',
               left: tokens.space(1),
-              top: style === 'with title' ? 'calc(50% + 50px)' : '50%',
+              top:
+                style === 'with title'
+                  ? 'calc(50% + 50px)'
+                  : style === 'full width image'
+                    ? 'calc(50% - 50px)'
+                    : '50%',
               transform: 'translateY(-50%)',
               backgroundColor: tokens.cssVar('overlay-dark'),
               color: tokens.cssVar('neutral-0'),
@@ -190,7 +194,12 @@ const RdsCarousel = ({
             sx={{
               position: 'absolute',
               right: tokens.space(1),
-              top: style === 'with title' ? 'calc(50% + 50px)' : '50%',
+              top:
+                style === 'with title'
+                  ? 'calc(50% + 50px)'
+                  : style === 'full width image'
+                    ? 'calc(50% - 50px)'
+                    : '50%',
               transform: 'translateY(-50%)',
               backgroundColor: tokens.cssVar('overlay-dark'),
               color: tokens.cssVar('neutral-0'),

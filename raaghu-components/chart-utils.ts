@@ -42,9 +42,10 @@ export function chartMutedColor(): string {
  * Returns the current theme's grid line color for chart axes.
  */
 export function chartGridColor(): string {
+  // Keep grid lines visibly light in dark mode across all charts.
   return isDarkMode()
-    ? getCSSVar('--rds-border-opacity-light', 'rgba(255,255,255,0.15)')
-    : getCSSVar('--rds-border-opacity-light', 'rgba(0,0,0,0.1)');
+    ? getCSSVar('--rds-comp-chart-grid-color-dark', 'rgba(255,255,255,0.28)')
+    : getCSSVar('--rds-comp-chart-grid-color-light', 'rgba(0,0,0,0.12)');
 }
 
 /**
@@ -99,6 +100,7 @@ export function chartFont(
  *  - legend label color
  *  - chart title color
  *  - tooltip title/body/label colors
+ *  - dataset colors (resolves CSS variables in backgroundColor and borderColor)
  *
  * @param chartOptions  A mutable Chart.js options object (already deep-cloned)
  * @param axes          Which axis keys to apply scale colors to (default: ['x', 'y'])
@@ -129,6 +131,19 @@ export function applyChartThemeColors(
     });
   }
 
+  // ── Datasets ─────────────────────────────────────────────────────────────────
+  // Resolve CSS variables in dataset colors
+  if (chartOptions.data && chartOptions.data.datasets && Array.isArray(chartOptions.data.datasets)) {
+    chartOptions.data.datasets.forEach((dataset: any) => {
+      if (dataset.backgroundColor) {
+        dataset.backgroundColor = resolveColorValue(dataset.backgroundColor);
+      }
+      if (dataset.borderColor) {
+        dataset.borderColor = resolveColorValue(dataset.borderColor);
+      }
+    });
+  }
+
   // ── Plugins ─────────────────────────────────────────────────────────────────
   if (!chartOptions.plugins) chartOptions.plugins = {};
 
@@ -151,4 +166,29 @@ export function applyChartThemeColors(
       backgroundColor: textColor,
     });
   }
+}
+
+/**
+ * Resolves CSS variable references in color values.
+ * Handles both single color strings and arrays of color strings.
+ * 
+ * @param colorValue A color string with possible CSS var() syntax or array of such strings
+ * @returns The resolved color value(s)
+ */
+function resolveColorValue(colorValue: any): any {
+  if (Array.isArray(colorValue)) {
+    return colorValue.map(color => resolveColorValue(color));
+  }
+  
+  if (typeof colorValue === 'string' && colorValue.includes('var(')) {
+    // Extract CSS variable name from "var(--rds-..., fallback)"
+    const varMatch = colorValue.match(/var\(([^,)]+)(?:,\s*([^)]+))?\)/);
+    if (varMatch) {
+      const varName = varMatch[1].trim();
+      const fallback = varMatch[2] ? varMatch[2].trim() : '';
+      return getCSSVar(varName, fallback);
+    }
+  }
+  
+  return colorValue;
 }

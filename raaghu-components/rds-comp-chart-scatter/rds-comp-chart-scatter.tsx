@@ -38,11 +38,18 @@ const RdsCompScatterChart = (props: RdsCompScatterChartProps) => {
         if (!ctx) return;
 
         const chartOptions = JSON.parse(JSON.stringify(options || {}));
+        
+        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
+        const chartData = { labels, datasets: dataSets };
+        if (!chartOptions.data) {
+            chartOptions.data = chartData;
+        }
+        
         applyChartThemeColors(chartOptions);
 
         chartRef.current = new Chart(ctx, {
             type: "scatter",
-            data: { labels, datasets: dataSets },
+            data: chartData,
             options: chartOptions,
         });
 

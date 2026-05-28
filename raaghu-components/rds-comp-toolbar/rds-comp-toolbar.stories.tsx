@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from "@storybook/react";
-import RdsCompToolbar, { RdsCompToolbarProps, ToolbarLayout, ToolbarType, ToolbarState } from "./rds-comp-toolbar";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import RdsCompToolbar, { ToolbarLayout, ToolbarType, ToolbarState } from "./rds-comp-toolbar";
 
 const meta: Meta<typeof RdsCompToolbar> = {
     title: "Components/Toolbar",
