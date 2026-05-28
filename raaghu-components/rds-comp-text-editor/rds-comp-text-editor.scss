@@ -93,6 +93,52 @@
     }
     
     .rdw-dropdown-wrapper {
+      border: 1px solid var(--rds-color-border-light, #ddd);
+      background: var(--rds-color-surface, #fff);
+      color: var(--rds-color-on-surface, #212529);
+      border-radius: var(--rds-border-radius-sm, 2px);
+      min-width: 110px;
+      min-height: var(--rds-toolbar-button-size, 25px);
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+      &:hover {
+        box-shadow: 1px 1px 0 var(--rds-color-border, #bfbdbd);
+      }
+
+      .rdw-dropdown-selectedtext {
+        color: inherit;
+        padding: 0 var(--rds-spacing-xs, 8px);
+        line-height: var(--rds-toolbar-button-size, 25px);
+      }
+
+      .rdw-dropdown-carettoopen {
+        border-top-color: var(--rds-color-on-surface, #212529);
+      }
+
+      .rdw-dropdown-carettoclose {
+        border-bottom-color: var(--rds-color-on-surface, #212529);
+      }
+
+      .rdw-dropdown-optionwrapper {
+        background: var(--rds-color-surface, #fff);
+        border: 1px solid var(--rds-color-border-light, #ddd);
+        box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
+        border-radius: var(--rds-border-radius-sm, 2px);
+        z-index: var(--rds-z-index-dropdown, 1300);
+      }
+
+      .rdw-dropdownoption-default,
+      .rdw-dropdownoption-highlighted,
+      .rdw-dropdownoption-active {
+        color: var(--rds-color-on-surface, #212529);
+        background: transparent;
+      }
+
+      .rdw-dropdownoption-default:hover,
+      .rdw-dropdownoption-highlighted {
+        background: var(--rds-color-surface-variant, #f1f1f1);
+      }
+
       .rds-comp-text-editor--disabled & {
         background-color: var(--rds-surface-subtle);
         border-color: var(--rds-border-light);
@@ -219,6 +265,36 @@
 .rdw-link-modal-input,.rdw-image-modal-size-input,.rdw-image-modal-alt-input{
   border: 1px solid var(--rds-border-light) !important;
 }
+
+html[data-theme='dark'] .rds-comp-text-editor__wrapper .rdw-editor-toolbar,
+body[data-theme='dark'] .rds-comp-text-editor__wrapper .rdw-editor-toolbar,
+body.theme-dark .rds-comp-text-editor__wrapper .rdw-editor-toolbar,
+body.dark-theme .rds-comp-text-editor__wrapper .rdw-editor-toolbar {
+  .rdw-option-wrapper,
+  .rdw-dropdown-wrapper,
+  .rdw-dropdown-selectedtext,
+  .rdw-dropdown-carettoopen,
+  .rdw-dropdown-carettoclose {
+    color: var(--rds-color-on-surface, #f5f5f5);
+  }
+
+  .rdw-option-wrapper img,
+  .rdw-dropdown-wrapper img {
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+  }
+
+  .rdw-option-wrapper svg,
+  .rdw-option-wrapper svg path,
+  .rdw-option-wrapper svg g,
+  .rdw-dropdown-wrapper svg,
+  .rdw-dropdown-wrapper svg path,
+  .rdw-dropdown-wrapper svg g {
+    fill: currentColor;
+    stroke: currentColor;
+  }
+}
+
 @media (max-width: var(--rds-breakpoint-430)) {
   .rds-comp-text-editor {
     .rdw-link-modal{

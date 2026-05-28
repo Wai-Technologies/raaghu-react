@@ -4,7 +4,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSwitch from './rds-switch';
 import '@testing-library/jest-dom';
 
-// Mock SCSS
 jest.mock('./rds-switch.scss', () => ({}));
 
 const renderWithTheme = (component: React.ReactElement, isDark = false) => {
