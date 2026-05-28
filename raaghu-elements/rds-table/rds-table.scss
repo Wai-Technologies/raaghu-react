@@ -450,7 +450,7 @@
     background-color: var(--rds-color-surface);
     border-radius: var(--rds-border-radius, 8px);
     overflow: visible;
-    box-shadow: var(--rds-elevation-1));
+    box-shadow: var(--rds-elevation-1);
   }
   
   .MuiTableContainer-root {
@@ -488,4 +488,5 @@
   .MuiTableRow-root:hover {
     background-color: var(--rds-color-surface-hover) !important;
   }
+}
 }

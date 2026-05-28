@@ -237,6 +237,7 @@ export const typographyTokens = {
     normal: '0em',
     wide: '0.025em',
     wider: '0.05em',
+      // Secondary Colors (blue/indigo brand palette)
     widest: '0.1em',
   }
 };
@@ -826,13 +827,16 @@ export const interactiveTokens = {
   /** Secondary button disabled text */
   secondaryTextDisabled: '#A875FF',
 
+  /** Variant text background used for text-buttons hover (semi-transparent blue) */
+  variantTextBg: 'rgba(60, 152, 255, 0.04)',
+
   // ── Alert backgrounds ─────────────────────────────────────────────────────
   /** Alert success border (uses primary purple brand) */
   alertSuccessBorder: '#7825E9',
   /** Alert error background */
   alertErrorBg: '#FFDAD6',
   /** Alert warning background (neutral mid) */
-  alertWarningBg: '#CDCDCD',
+  alertWarningBg: '#FED99B',
 };
 
 /**
@@ -984,7 +988,6 @@ export const spinnerTokens = {
 };
 
 /**
- * Input component tokens — computed padding/border values for the input element.
  * These are defined as local CSS vars inside .rds-input and referenced by child rules.
  * Injecting them at :root ensures they are available even outside the .rds-input scope.
  */
@@ -996,6 +999,7 @@ export const inputTokens = {
   paddingSmallX: 'calc(var(--rds-spacing-sm) - var(--rds-input-border-width-thin))',
   paddingMediumY: 'var(--rds-spacing-xs)',
   paddingMediumX: 'calc(var(--rds-spacing-md) - var(--rds-spacing-xs))',
+    /** Secondary button hover background */
   paddingLargeY: 'calc(var(--rds-spacing-sm) - var(--rds-input-border-width-thin))',
   paddingLargeX: 'calc(var(--rds-spacing-md) - var(--rds-input-border-width-thin))',
   muiPaddingSmallY: 'calc(var(--rds-spacing-sm) + (var(--rds-input-border-width-thin) / 2))',
@@ -1082,7 +1086,7 @@ export const semanticAliasTokens = {
   /** On-secondary contrast text */
   colorOnSecondary: '#ffffff',
   /** Popover surface border */
-  popoverSurfaceBorder: '1px solid var(--rds-border-opacity-light)',
+    popoverSurfaceBorder: '1px solid var(--rds-border-default)', // uses theme-aware border-default token
   /** Sidebar overlay background */
   sidebarOverlayBg: 'var(--rds-action-hover)',
   /** Font size body alias */

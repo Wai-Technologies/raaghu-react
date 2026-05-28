@@ -54,8 +54,7 @@
     padding: var(--rds-spacing-sm, 10px);
     background: var(--rds-color-surface);
     border-radius: var(--rds-border-radius, 10px);
-    position: relative;
-    min-width: var(--rds-breakpoint-md, 900px);
+    position: relative;    min-width: var(--rds-breakpoint-md, 900px);
     min-height: calc(4.375 * var(--rds-spacing-md, 16px));
     box-sizing: border-box;
     border: 1px solid var(--rds-color-outline-variant, #e1e7ef);

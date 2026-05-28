@@ -16,6 +16,22 @@ const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
     const chartInstanceRef = useRef<Chart<"polarArea", number[], unknown> | null>(null);
     const CanvasId = props.id;
 
+    const [themeMode, setThemeMode] = React.useState(() => {
+        if (typeof document !== 'undefined') {
+            return document.documentElement.getAttribute('data-theme') || 'light';
+        }
+        return 'light';
+    });
+
+    React.useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const observer = new MutationObserver(() => {
+            setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        return () => observer.disconnect();
+    }, []);
+
     useEffect(() => {
         const canvasElm = canvasRef.current;
         if (!canvasElm) return;
@@ -25,11 +41,18 @@ const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
 
         const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
         // Polar area uses 'r' axis — pass empty array; applyChartThemeColors handles plugins
+        
+        // Prepare chart data with datasets so applyChartThemeColors can resolve colors
+        const chartData = { labels: props.labels, datasets: props.dataSets };
+        if (!chartOptions.data) {
+            chartOptions.data = chartData;
+        }
+        
         applyChartThemeColors(chartOptions, []);
 
         const PolarCanvas = new Chart(ctx, {
             type: "polarArea",
-            data: { labels: props.labels, datasets: props.dataSets },
+            data: chartData,
             options: chartOptions,
         });
 
@@ -37,7 +60,7 @@ const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
             PolarCanvas.canvas.style.height = props.radius + "px";
             chartInstanceRef.current = PolarCanvas;
         }
-    }, [props]);
+    }, [props, themeMode]);
 
     return (
         <div className="rds-comp-chart-polar-area-container">
