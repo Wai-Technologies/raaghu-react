@@ -14,6 +14,22 @@ export interface RdsCompPieProps {
 const RdsCompPieChart = (props: RdsCompPieProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
+  const [themeMode, setThemeMode] = React.useState(() => {
+    if (typeof document !== 'undefined') {
+        return document.documentElement.getAttribute('data-theme') || 'light';
+    }
+    return 'light';
+  });
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const observer = new MutationObserver(() => {
+        setThemeMode(document.documentElement.getAttribute('data-theme') || 'light');
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     const canvasElm = canvasRef.current;
     if (!canvasElm) return;
@@ -22,15 +38,22 @@ const RdsCompPieChart = (props: RdsCompPieProps) => {
     Chart.getChart(canvasElm)?.destroy();
 
     const chartOptions = JSON.parse(JSON.stringify(props.options || {}));
+    
+    // Prepare chart data with datasets so applyChartThemeColors can resolve colors
+    const chartData = { labels: props.labels, datasets: props.dataSets };
+    if (!chartOptions.data) {
+        chartOptions.data = chartData;
+    }
+    
     // No axes for pie charts — pass empty array
     applyChartThemeColors(chartOptions, []);
 
     new Chart(ctx, {
       type: "pie",
-      data: { labels: props.labels, datasets: props.dataSets },
+      data: chartData,
       options: { ...chartOptions, radius: props.radius },
     });
-  }, [props]);
+  }, [props, themeMode]);
 
   return (
     <div className="rds-comp-chart-pie">

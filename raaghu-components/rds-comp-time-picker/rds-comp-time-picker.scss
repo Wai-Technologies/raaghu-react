@@ -1,5 +1,32 @@
 .time-picker-container {
   position: relative;
+  --rds-time-picker-accent: var(--rds-primary-main, #0d6efd);
+  --rds-time-picker-accent-rgb: var(--rds-primary-rgb, 13, 110, 253);
+
+  &.time-picker-variant-secondary {
+    --rds-time-picker-accent: var(--rds-secondary-main, var(--rds-text-secondary, #6c757d));
+    --rds-time-picker-accent-rgb: var(--rds-secondary-rgb, var(--rds-text-secondary-rgb, 108, 117, 125));
+  }
+
+  &.time-picker-variant-success {
+    --rds-time-picker-accent: var(--rds-semantic-success-main, var(--rds-success-main, #198754));
+    --rds-time-picker-accent-rgb: var(--rds-semantic-success-rgb, var(--rds-success-rgb, 25, 135, 84));
+  }
+
+  &.time-picker-variant-error {
+    --rds-time-picker-accent: var(--rds-semantic-error-main, var(--rds-error-main, #dc3545));
+    --rds-time-picker-accent-rgb: var(--rds-semantic-error-rgb, var(--rds-error-rgb, 220, 53, 69));
+  }
+
+  &.time-picker-variant-warning {
+    --rds-time-picker-accent: var(--rds-semantic-warning-main, var(--rds-warning-main, #f59e0b));
+    --rds-time-picker-accent-rgb: var(--rds-semantic-warning-rgb, var(--rds-warning-rgb, 245, 158, 11));
+  }
+
+  &.time-picker-variant-info {
+    --rds-time-picker-accent: var(--rds-info-main, var(--rds-info-dark, #0dcaf0));
+    --rds-time-picker-accent-rgb: var(--rds-info-rgb, 13, 202, 240);
+  }
   
   .time-input-container {
     position: relative;
@@ -33,8 +60,8 @@
       }
       
       &:focus {
-        border-color: var(--rds-primary-500);
-        box-shadow: 0 0 0 2px rgba(var(--rds-primary-rgb), 0.2);
+        border-color: var(--rds-time-picker-accent);
+        box-shadow: 0 0 0 2px rgba(var(--rds-time-picker-accent-rgb), 0.2);
       }
       
       &:disabled {
@@ -49,9 +76,9 @@
     
     .border-primary { border-color: var(--rds-primary-main); }
     .border-secondary { border-color: var(--rds-border-default); }
-    .border-success { border-color: var(--rds-semantic-success-main); }
-    .border-error, .border-danger { border-color: var(--rds-semantic-error-main); }
-    .border-warning { border-color: var(--rds-semantic-warning-main); }
+    .border-success { border-color: var(--rds-semantic-success-main, var(--rds-success-main, #198754)); }
+    .border-error, .border-danger { border-color: var(--rds-semantic-error-main, var(--rds-error-main, #dc3545)); }
+    .border-warning { border-color: var(--rds-semantic-warning-main, var(--rds-warning-main, #f59e0b)); }
     .border-info { border-color: var(--rds-info-dark); }
     .border-light { border-color: var(--rds-border-light); }
     .border-dark { border-color: var(--rds-text-primary); }
@@ -92,6 +119,19 @@
     &.border-primary { 
       border-color: var(--rds-primary-main);
     }
+
+    &.border-success {
+      border-color: var(--rds-semantic-success-main, var(--rds-success-main, #198754));
+    }
+
+    &.border-error,
+    &.border-danger {
+      border-color: var(--rds-semantic-error-main, var(--rds-error-main, #dc3545));
+    }
+
+    &.border-warning {
+      border-color: var(--rds-semantic-warning-main, var(--rds-warning-main, #f59e0b));
+    }
     
     .row {
       margin: 0;
@@ -124,13 +164,13 @@
         cursor: pointer;
         
         &:hover {
-          background-color: rgba(var(--rds-primary-rgb), 0.08);
+          background-color: rgba(var(--rds-time-picker-accent-rgb), 0.08);
         }
       }
     }
     
     .now-button {
-      color: var(--rds-primary-main);
+      color: var(--rds-time-picker-accent);
       font-size: var(--rds-font-size-xs);
       cursor: pointer;
       font-weight: 600;
@@ -142,7 +182,7 @@
       letter-spacing: 0.5px;
       
       &:hover {
-        color: var(--rds-primary-dark);
+        color: var(--rds-time-picker-accent);
         text-decoration: underline;
       }
     }
@@ -209,8 +249,8 @@
           
               &:focus {
                 outline: none;
-                border-color: var(--rds-primary-main);
-                box-shadow: 0 0 0 2px rgba(var(--rds-primary-rgb), 0.2);
+                border-color: var(--rds-time-picker-accent);
+                box-shadow: 0 0 0 2px rgba(var(--rds-time-picker-accent-rgb), 0.2);
               }
           
           option {
@@ -230,6 +270,7 @@
         font-size: var(--rds-font-size-xl);
         font-weight: 600;
         color: var(--rds-primary-main);
+        color: var(--rds-time-picker-accent);
         width: 36px;
         height: 36px;
         display: flex;
@@ -252,6 +293,7 @@
         font-size: var(--rds-font-size-lg);
         font-weight: 600;
         color: var(--rds-primary-main);
+        color: var(--rds-time-picker-accent);
         min-width: 45px;
         height: 45px;
         display: flex;
@@ -265,6 +307,7 @@
           position: absolute;
           font-size: var(--rds-font-size-sm);
           color: var(--rds-primary-main);
+          color: var(--rds-time-picker-accent);
           cursor: pointer;
           opacity: 0.7;
           
@@ -285,14 +328,14 @@
       .time-value-colon {
           font-size: var(--rds-font-size-lg);
         font-weight: 600;
-        color: var(--rds-primary-main);
+        color: var(--rds-time-picker-accent);
         margin: 0 4px;
       }
       
       .time-value-period {
         font-size: 17px;
         font-weight: 600;
-        color: var(--rds-primary-main);
+        color: var(--rds-time-picker-accent);
         min-width: 45px;
         margin-left: 5px;
         display: flex;
@@ -335,7 +378,7 @@
         
         &.cancel {
           background: transparent;
-          color: var(--rds-primary-main);
+          color: var(--rds-time-picker-accent);
           border: none;
           padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-sm) + var(--rds-spacing-xs));
           min-width: auto;
@@ -361,18 +404,18 @@
         
         &.bg-primary { background-color: var(--rds-primary-main); }
         &.bg-secondary { background-color: var(--rds-text-secondary); }
-        &.bg-success { background-color: var(--rds-semantic-success-main); }
-        &.bg-error, &.bg-danger { background-color: var(--rds-semantic-error-main); }
-        &.bg-warning { background-color: var(--rds-semantic-warning-main); }
+        &.bg-success { background-color: var(--rds-semantic-success-main, var(--rds-success-main, #198754)); }
+        &.bg-error, &.bg-danger { background-color: var(--rds-semantic-error-main, var(--rds-error-main, #dc3545)); }
+        &.bg-warning { background-color: var(--rds-semantic-warning-main, var(--rds-warning-main, #f59e0b)); }
         &.bg-info { background-color: var(--rds-info-dark); }
         &.bg-light { background-color: var(--rds-surface-subtle); }
         &.bg-dark { background-color: var(--rds-text-primary); }
         
         &.text-primary { color: var(--rds-primary-main); }
         &.text-secondary { color: var(--rds-text-secondary); }
-        &.text-success { color: var(--rds-semantic-success-main); }
-        &.text-error, &.text-danger { color: var(--rds-semantic-error-main); }
-        &.text-warning { color: var(--rds-semantic-warning-main); }
+        &.text-success { color: var(--rds-semantic-success-main, var(--rds-success-main, #198754)); }
+        &.text-error, &.text-danger { color: var(--rds-semantic-error-main, var(--rds-error-main, #dc3545)); }
+        &.text-warning { color: var(--rds-semantic-warning-main, var(--rds-warning-main, #f59e0b)); }
         &.text-info { color: var(--rds-info-dark); }
         &.text-light { color: var(--rds-text-disabled); }
         &.text-white { color: var(--rds-neutral-0); }
@@ -389,7 +432,7 @@
     
     .MuiOutlinedInput-root {
     background-color: var(--rds-neutral-0);
-      color: var(--rds-primary-main);
+      color: var(--rds-time-picker-accent);
       padding: 0;
       font-size: var(--rds-font-size-md);
       height: 34px;
@@ -402,7 +445,7 @@
       }
       
       .MuiInputBase-input {
-        color: var(--rds-primary-main);
+        color: var(--rds-time-picker-accent);
         padding: var(--rds-spacing-xs) calc(var(--rds-spacing-sm) - var(--rds-spacing-xs));
         text-align: center;
         font-weight: 500;
@@ -412,7 +455,7 @@
         width: 100%;
         
         &::placeholder {
-          color: var(--rds-primary-main);
+          color: var(--rds-time-picker-accent);
           opacity: 1;
           font-weight: 500;
         }
@@ -422,13 +465,13 @@
         right: 2px;
         
         .MuiSvgIcon-root {
-          color: var(--rds-primary-main);
+          color: var(--rds-time-picker-accent);
           font-size: var(--rds-font-size-xl);
         }
       }
       
       .MuiAutocomplete-popupIndicator {
-        color: var(--rds-primary-main);
+        color: var(--rds-time-picker-accent);
       }
     }
   }
@@ -465,11 +508,11 @@
         padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
         
         &[aria-selected="true"] {
-          background-color: rgba(var(--rds-primary-rgb), 0.08);
+          background-color: rgba(var(--rds-time-picker-accent-rgb), 0.08);
         }
         
         &.Mui-focused {
-          background-color: rgba(var(--rds-primary-rgb), 0.12);
+          background-color: rgba(var(--rds-time-picker-accent-rgb), 0.12);
         }
       }
     }

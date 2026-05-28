@@ -2,6 +2,11 @@
   --rds-switch-focus-ring-width: 2px;
   --rds-switch-disabled-opacity: 0.6;
   --rds-switch-disabled-track-opacity: 0.4;
+  --rds-switch-root-width: 44px;
+  --rds-switch-root-height: 24px;
+  --rds-switch-thumb-size: 20px;
+  --rds-switch-thumb-padding: 2px;
+  --rds-switch-thumb-translate-x: 20px;
   --rds-switch-thumb-offset-x: 4px;
   --rds-switch-thumb-offset-x-checked: 3px;
   --rds-switch-style1-track-height: 1.5rem;
@@ -20,15 +25,6 @@
     display: block;
   }
 
-  &--checked {
-  }
-
-  &--disabled {
-  }
-
-  &:hover {
-  }
-
   &:focus-visible {
     outline: var(--rds-switch-focus-ring-width, 2px) solid var(--rds-color-primary, var(--rds-primary-main));
     outline-offset: var(--rds-focus-ring-offset, 2px);
@@ -40,18 +36,7 @@
     pointer-events: none;
   }
 }
-.css-rehya9-MuiSwitch-root {
-  width: calc(16.25 * var(--rds-spacing-xs, 4px)) !important;
-}
-.css-bnbzk8 {
-  width: calc(16.25 * var(--rds-spacing-xs, 4px)) !important;
-}
-.css-aqlqb4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase {
-  right: 1.2rem !important;
-}
-.css-aqlqb4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase:hover {
-  background-color: unset !important;
-}
+
 .MuiButtonBase-root.MuiSwitchBase-root.MuiSwitch-switchBase:hover {
   background-color: transparent !important;
 }
@@ -86,16 +71,57 @@
   }
 }
 
+.rds-switch--row {
+  display: inline-flex;
+  align-items: center;
+}
+
+.rds-switch.MuiSwitch-root {
+  vertical-align: middle;
+}
+
+.rds-switch.MuiSwitch-root,
+.rds-switch .MuiSwitch-root {
+  width: var(--rds-switch-root-width) !important;
+  height: var(--rds-switch-root-height) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+
+.rds-switch .MuiSwitch-switchBase {
+  left: 0 !important;
+  right: auto !important;
+  top: 0 !important;
+  margin: 0 !important;
+  padding: var(--rds-switch-thumb-padding) !important;
+  transform: translateX(0) !important;
+}
+
+.rds-switch .MuiSwitch-switchBase.Mui-checked {
+  transform: translateX(var(--rds-switch-thumb-translate-x)) !important;
+}
+
+.rds-switch .MuiSwitch-thumb {
+  width: var(--rds-switch-thumb-size) !important;
+  height: var(--rds-switch-thumb-size) !important;
+  box-sizing: border-box;
+  margin: 0 !important;
+}
+
+.rds-switch .MuiSwitch-track {
+  opacity: 1 !important;
+  overflow: hidden;
+}
+
 .rds-switch--style1 .MuiSwitch-track {
   background: var(--rds-color-switch-track, #c0c0c3) !important;
-  height: var(--rds-switch-style1-track-height, 1.5rem) !important;
+  height: 100% !important;
   border-radius: var(--rds-switch-track-border-radius, var(--rds-border-radius-3xl, 1.5rem)) !important;
-  width: var(--rds-switch-style1-track-width, 5.5rem) !important;
+  width: 100% !important;
 }
 .rds-switch--style1 .MuiSwitch-thumb {
   background: var(--rds-color-switch-thumb, #646464) !important;
-  margin-top: 0.3rem !important;
-  margin-left: var(--rds-switch-thumb-offset-x, 4px) !important;
 }
 
 .rds-switch--style2 .MuiSwitch-track {
@@ -109,24 +135,26 @@
 
 .rds-switch--style3 .MuiSwitch-track {
   background: var(--rds-color-switch-track, #c0c0c3) !important;
-  height: var(--rds-switch-style3-track-height, 1.4rem) !important;
+  height: 100% !important;
   border-radius: var(--rds-border-radius-sm, 4px) !important;
 }
 .rds-switch--style3 .MuiSwitch-thumb {
   background: var(--rds-color-switch-thumb, #646464) !important;
   border-radius: var(--rds-border-radius-sm, 4px) !important;
-  margin-top: 0.25rem !important;
-  margin-left: var(--rds-switch-thumb-offset-x, 4px) !important;
 }
 
 .rds-switch--style4 .MuiSwitch-track {
   background: var(--rds-color-switch-track, #c0c0c3) !important;
-  height: var(--rds-switch-style4-track-height, var(--rds-spacing-sm, 8px)) !important;
-  margin-top: calc(var(--rds-spacing-xs, 4px) / 2) !important;
+  height: 10px !important;
+  border-radius: 999px !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: translateY(-50%) !important;
 }
 .rds-switch--style4 .MuiSwitch-thumb {
   background: var(--rds-color-switch-thumb, #646464) !important;
-  margin-left: var(--rds-switch-thumb-offset-x, 4px) !important;
 }
 
 .rds-switch--style2 .Mui-checked + .MuiSwitch-thumb,
@@ -138,14 +166,12 @@
 
 .rds-switch--style5 .MuiSwitch-track {
   background: var(--rds-color-switch-track, #c0c0c3) !important;
-  height: var(--rds-switch-style3-track-height, 1.4rem) !important;
+  height: 100% !important;
   border-radius: calc(2.5 * var(--rds-spacing-xs, 4px)) !important;
   position: relative !important;
 }
 .rds-switch--style5 .MuiSwitch-thumb {
   background: var(--rds-color-switch-thumb, #646464) !important;
-  margin-top: 0.25rem !important;
-  margin-left: var(--rds-switch-thumb-offset-x, 4px) !important;
 }
 
 .rds-switch--style5 .MuiSwitch-track::before {
@@ -170,15 +196,27 @@
 
 .rds-switch--style6 .MuiSwitch-track {
   background: var(--rds-color-switch-track, #c0c0c3) !important;
-  height: var(--rds-switch-style3-track-height, 1.4rem) !important;
+  height: 100% !important;
   border-radius: calc(0.75 * var(--rds-spacing-xs, 4px)) !important;
   position: relative !important;
 }
 .rds-switch--style6 .MuiSwitch-thumb {
   background: var(--rds-color-switch-thumb, #646464) !important;
   border-radius: var(--rds-border-radius-sm, 4px) !important;
-  margin-top: 0.25rem !important;
-  margin-left: var(--rds-switch-thumb-offset-x, 4px) !important;
+}
+
+.rds-switch--style5,
+.rds-switch--style6 {
+  --rds-switch-root-width: 52px;
+  --rds-switch-thumb-translate-x: 28px;
+}
+
+.rds-switch--style4 {
+  --rds-switch-root-width: 40px;
+  --rds-switch-root-height: 20px;
+  --rds-switch-thumb-size: 16px;
+  --rds-switch-thumb-padding: 2px;
+  --rds-switch-thumb-translate-x: 20px;
 }
 
 .rds-switch--style6 .MuiSwitch-track::before {
@@ -323,7 +361,7 @@
 .Mui-checked + .MuiSwitch-thumb,
 .MuiSwitch-input:checked + .MuiSwitch-thumb {
   background: var(--rds-color-on-primary, #ffffff) !important;
-  margin-left: var(--rds-switch-thumb-offset-x-checked, 3px) !important;
+  margin-left: 0 !important;
 }
 
 .rds-switch--color-primary .Mui-checked.Mui-disabled + .MuiSwitch-track,
@@ -402,11 +440,22 @@
   color: var(--rds-color-on-primary, #ffffff) !important;
 }
 
+.rds-switch--style1.MuiFormControlLabel-root,
+.rds-switch--style3.MuiFormControlLabel-root,
+.rds-switch--style4.MuiFormControlLabel-root,
+.rds-switch--style5.MuiFormControlLabel-root,
+.rds-switch--style6.MuiFormControlLabel-root {
+  align-items: center !important;
+}
+
 .rds-switch--style1 .MuiFormControlLabel-label,
 .rds-switch--style3 .MuiFormControlLabel-label,
+.rds-switch--style4 .MuiFormControlLabel-label,
 .rds-switch--style5 .MuiFormControlLabel-label,
 .rds-switch--style6 .MuiFormControlLabel-label {
-  margin-top: 0.5rem !important;
+  margin-top: 0 !important;
+  display: inline-flex;
+  align-items: center;
 }
 
 .MuiSwitch-track .css-1khxa25{
