@@ -823,9 +823,7 @@
   line-height: normal;
 }
 
-/* Dark theme overrides for football scorecard to ensure logo and time backgrounds
-   match other dark surfaces and scores/time text stay white. These selectors
-   intentionally use [data-theme="dark"] to match Storybook/theming. */
+
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo,
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo--home,
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo--away {
