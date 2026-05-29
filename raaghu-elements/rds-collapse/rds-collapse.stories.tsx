@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Typography, Box } from '@mui/material';
 import RdsCollapse from './rds-collapse';
 import RdsTypography from '../../raaghu-elements/rds-typography/rds-typography';

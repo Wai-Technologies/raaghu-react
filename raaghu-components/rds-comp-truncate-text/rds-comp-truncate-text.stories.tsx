@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompTruncatedText, { TruncateTextState } from './rds-comp-truncate-text';
 
 const meta: Meta = {

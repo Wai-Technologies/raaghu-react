@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Box, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
 import RdsSearch from './rds-search';

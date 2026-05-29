@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Typography, Box } from '@mui/material';
 import { Share, Favorite } from '@mui/icons-material';
 import RdsCardDetail from './rds-card-detail';

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Typography, Box, List, ListItem, ListItemText } from '@mui/material';
 import React, { useState } from 'react';
 import RdsPopover from './rds-popover';

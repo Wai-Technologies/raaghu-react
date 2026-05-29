@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Box } from '@mui/material';
 import React, { useState } from 'react';
 import RdsBanner, { type RdsBannerProps } from './rds-banner';

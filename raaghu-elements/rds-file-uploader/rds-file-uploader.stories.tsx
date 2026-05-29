@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import RdsFileUploader, { FileWithProgress } from './rds-file-uploader';
 import { renderFileUploader } from './RdsFileUploaderComponents';

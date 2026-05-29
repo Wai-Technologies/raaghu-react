@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompFilterButton, { FilterOption } from './rds-comp-filter-button';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 

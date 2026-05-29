@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import RdsCompTreeStructure, { IconType, NodeState, RdsCompTreeStructureProps, TreeLevel, defaultFileTypeIcons, getDefaultFileIcon } from './rds-comp-tree-structure';
 
 const meta: Meta = {
