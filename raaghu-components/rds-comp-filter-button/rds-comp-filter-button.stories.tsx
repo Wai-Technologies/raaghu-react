@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from '@storybook/test';
 import RdsCompFilterButton, { FilterOption } from './rds-comp-filter-button';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 
@@ -123,4 +124,22 @@ export const Default: Story = {
 
 Default.parameters = {
   controls: { include: ['shape', 'text', 'showLeftIcon', 'showRightIcon', 'disabled'] },
+};
+
+export const FilterOpen: Story = {
+  name: 'Interaction: Open Filter Panel',
+  args: {
+    text: 'Filter',
+    shape: 'rectangle',
+    showLeftIcon: true,
+    showRightIcon: true,
+    disabled: false,
+    filters: sampleFilters,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const btn = canvas.getAllByRole('button')[0]
+    await userEvent.click(btn)
+    await expect(canvasElement).toBeTruthy()
+  }
 };
