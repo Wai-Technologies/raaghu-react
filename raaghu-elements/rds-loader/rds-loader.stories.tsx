@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from '@storybook/test';
 import { Box, Button } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import RdsLoader from './rds-loader';
@@ -65,6 +66,18 @@ const meta: Meta<typeof RdsLoader> = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const LoaderVisible: Story = {
+  name: 'Interaction: Loader Token Color',
+  args: {
+    type: 'spinner-ring',
+  },
+  play: async ({ canvasElement }) => {
+    const loader = canvasElement.firstElementChild
+    await expect(loader).not.toBeNull()
+    await expect(loader).toBeVisible()
+  }
+};
 
 export const Default: Story = {
   args: {

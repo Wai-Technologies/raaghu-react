@@ -1,5 +1,6 @@
 import RdsCompToast, { ToastLayout, ToastLeadingIcon, ToastPosition, ToastState } from "./rds-comp-toast";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta<typeof RdsCompToast> = {
     title: "Components/Toast",
@@ -115,6 +116,28 @@ const meta: Meta<typeof RdsCompToast> = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const ToastVisible: Story = {
+    name: 'Interaction: Toast Renders',
+    args: {
+        state: ToastState.Basic,
+        headerText: 'Toast Headline',
+        showHeader: true,
+        showSubText: true,
+        subText: 'This is a toast message.',
+        showLeading: true,
+        leadingIcon: ToastLeadingIcon.Circle,
+        layout: ToastLayout.Text,
+        showDismiss: true,
+    },
+    play: async ({ canvasElement }) => {
+        const toast = canvasElement.querySelector(
+            '[class*="toast"], [role="alert"], [class*="snackbar"]'
+        )
+        await expect(toast).not.toBeNull()
+        await expect(toast).toBeVisible()
+    }
+};
 
 export const Default: Story = {
     args: {
