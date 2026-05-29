@@ -15,6 +15,7 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions',
     '@storybook/addon-coverage',
     '@storybook/addon-mcp',
+    '@storybook/addon-vitest',
   ],
   framework: {
     name: '@storybook/react-vite',
