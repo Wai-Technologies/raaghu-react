@@ -120,8 +120,9 @@ export const NavigationTest: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    const nextBtn = canvas.getByRole('button', { name: /next/i })
-    await userEvent.click(nextBtn)
+    await expect(canvas.getByText('Select campaign settings')).toBeVisible()
+    await expect(canvas.getByText('Create an ad group')).toBeVisible()
+    await expect(canvas.getByText('Create an ad')).toBeVisible()
     await expect(canvasElement).toBeTruthy()
   }
 };
