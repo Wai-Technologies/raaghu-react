@@ -1,8 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Box, Typography, IconButton, Paper } from '@mui/material';
 import { Brush, Save, Delete, Undo } from '@mui/icons-material';
+import { getCSSVar } from '../chart-utils';
 import { RdsESignatureUpload, RdsESignatureChoose } from './rds-comp-e-signature-modes';
 import './rds-comp-e-signature.scss';
+
+const defaultPenColor = () => getCSSVar('--rds-text-primary');
+const penColorOptions = () => [
+  getCSSVar('--rds-text-primary'),
+  getCSSVar('--rds-info-main'),
+  getCSSVar('--rds-error-main'),
+];
 
 export interface RdsCompESignatureProps {
   mode?: 'draw' | 'upload' | 'choose';
@@ -37,19 +45,20 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
     { id: '6', name: 'Style 6', style: 'modern', fullName: 'John Doe', initials: 'J.D' },
   ],
   width = 695,
-  penColor = '#000000',
+  penColor,
   title = 'Draw Signature',
 }) => {
+  const resolvedPenColor = penColor ?? defaultPenColor();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(penColor);
+  const [selectedColor, setSelectedColor] = useState(resolvedPenColor);
   const [isHovered, setIsHovered] = useState(false);
   const strokesRef = useRef<{ x: number; y: number; }[][]>([]);
   const [showLengthError, setShowLengthError] = useState(false);
 
   const [hasDrawn, setHasDrawn] = useState(false);
 
-  const colors = ['#000000', '#0066ff', '#ff0000'];
+  const colors = penColorOptions();
 
   useEffect(() => {
     if (!canvasRef.current || mode !== 'draw') return;

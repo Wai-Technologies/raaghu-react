@@ -1,0 +1,11 @@
+.app-main {
+  padding: var(--rds-spacing-lg);
+  min-height: 100%;
+  box-sizing: border-box;
+  background: var(--rds-background-default);
+}
+
+.app-logo {
+  height: 32px;
+  width: auto;
+}

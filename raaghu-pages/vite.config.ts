@@ -10,6 +10,7 @@ export default defineConfig({
   plugins: [react(), griffel()],
   resolve: {
     alias: {
+      '@': path.join(__dirname, 'src'),
       '@raaghu/elements': path.join(repoRoot, 'raaghu-elements'),
       '@raaghu/components': path.join(repoRoot, 'raaghu-components'),
       '@raaghu/layouts': path.join(repoRoot, 'raaghu-layouts'),

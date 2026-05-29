@@ -379,7 +379,7 @@
     font-size: var(--rds-font-size-label-small, 12px);
     color: var(--rds-color-on-surface-variant);
     margin-bottom: var(--rds-spacing-sm, 8px);
-    font-family: var(--rds-font-family-mono, monospace);
+    font-family: var(--rds-font-family-mono);
   }
 
   &__edition-timemark {

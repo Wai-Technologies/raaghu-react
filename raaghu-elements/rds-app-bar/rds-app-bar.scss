@@ -1,5 +1,5 @@
-﻿@import '../shared/styles/rds-profile-menu.scss';
-@import '../shared/styles/rds-profile-menu-app-bar-overrides.scss';
+﻿@use '../shared/styles/rds-profile-menu';
+@use '../shared/styles/rds-profile-menu-app-bar-overrides';
 
 $rds-app-bar-breakpoint-md: 834px;
 $rds-app-bar-breakpoint-sm: 420px;

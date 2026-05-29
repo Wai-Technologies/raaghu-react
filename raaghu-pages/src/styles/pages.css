@@ -1,0 +1,26 @@
+.page-header {
+  margin-bottom: var(--rds-spacing-md);
+}
+
+.page-header__title {
+  margin-top: var(--rds-spacing-sm);
+  color: var(--rds-text-primary);
+}
+
+.page-header__subtitle {
+  margin-top: var(--rds-spacing-xs);
+  color: var(--rds-text-secondary);
+}
+
+.page-panel {
+  padding: var(--rds-spacing-md);
+}
+
+.page-panel__title {
+  margin-bottom: var(--rds-spacing-md);
+  color: var(--rds-text-primary);
+}
+
+.page-chart {
+  min-height: 280px;
+}

@@ -165,14 +165,14 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
               width: '6px',
             },
             '&::-webkit-scrollbar-track': {
-              background: 'var(--rds-background-default, #f1f1f1)',
+              background: 'var(--rds-background-default)',
             },
             '&::-webkit-scrollbar-thumb': {
-              background: 'var(--rds-neutral-400, #c1c1c1)',
+              background: 'var(--rds-neutral-400)',
               borderRadius: '3px',
             },
             '&::-webkit-scrollbar-thumb:hover': {
-              background: 'var(--rds-neutral-500, #a8a8a8)',
+              background: 'var(--rds-neutral-500)',
             },
           }}>
             {localFilters.map((filter, index) => (
@@ -212,7 +212,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                       left: 'var(--rds-spacing-md, 16px)',
                       right: 'var(--rds-spacing-md, 16px)',
                       height: '1px',
-                      backgroundColor: 'var(--rds-border-default, #f0f0f0)',
+                      backgroundColor: 'var(--rds-border-default)',
                       display: index === localFilters.length - 1 ? 'none' : 'block',
                     }
                   }}
@@ -229,7 +229,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                     <Typography sx={{ 
                       fontSize: 'var(--rds-font-size-md, 14px)', 
                       fontWeight: 'var(--rds-font-weight-medium, 500)',
-                      color: 'var(--rds-text-primary, #333)'
+                      color: 'var(--rds-text-primary)'
                     }}>
                       {filter.name}
                     </Typography>
@@ -254,7 +254,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                         label={
                           <Typography sx={{ 
                             fontSize: 'var(--rds-font-size-sm, 13px)',
-                            color: 'var(--rds-text-secondary, #555)'
+                            color: 'var(--rds-text-secondary)'
                           }}>
                             {value}
                           </Typography>
@@ -279,7 +279,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
             flexDirection: 'column',
             gap: 1,
             flexShrink: 0,
-            backgroundColor: 'var(--rds-background-paper, #fff)'
+            backgroundColor: 'var(--rds-background-paper)'
           }}>
             <Button
               variant="contained"

@@ -6,16 +6,12 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": false,
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
-
-    /* Linting — pages app only; dependency packages use root tsconfig */
     "strict": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
@@ -24,6 +20,7 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "@raaghu/elements": ["../raaghu-elements"],
       "@raaghu/elements/*": ["../raaghu-elements/*"],
       "@raaghu/components": ["../raaghu-components"],

@@ -1,5 +1,5 @@
-
 import React from 'react';
+import { getCSSVar } from '../chart-utils';
 import { WorldMap } from 'react-svg-worldmap';
 import './rds-comp-map.scss';
 import { componentTokens } from '../../raaghu-react-themes/tokens/design-tokens';
@@ -16,10 +16,12 @@ const RdsCompMap = (props: RdsCompMapProps) => {
 
     const defaultStylingFunction = (context: any) => {
         const opacityLevel = 0.1 + (1.5 * (context.countryValue - context.minValue) / (context.maxValue - context.minValue))
+        const highlightFill = getCSSVar('--rds-info-main');
+        const strokeColor = getCSSVar('--rds-success-main');
         return {
-            fill: context.country === "US" ? "blue" : props.color,
+            fill: context.country === "US" ? highlightFill : props.color,
             fillOpacity: opacityLevel,
-            stroke: "green",
+            stroke: strokeColor,
             strokeWidth: 1,
             strokeOpacity: 0.2,
             cursor: "pointer"
