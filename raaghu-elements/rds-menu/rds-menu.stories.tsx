@@ -290,8 +290,9 @@ export const OpenClose: Story = {
     const canvas = within(canvasElement)
     const trigger = canvas.getAllByRole('button')[0]
     await userEvent.click(trigger)
-    await expect(canvasElement.querySelector(
-      '[role="menu"], [class*="menu"], [class*="dropdown"]'
+    // MUI Menu renders in a portal at document.body — must query outside canvasElement
+    await expect(document.querySelector(
+      '[role="menu"], [class*="MuiMenu-list"], [class*="MuiPaper-root"]'
     )).not.toBeNull()
   }
 };
