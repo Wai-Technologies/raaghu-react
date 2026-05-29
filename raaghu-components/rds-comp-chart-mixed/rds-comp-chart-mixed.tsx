@@ -52,7 +52,7 @@ const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
         // Canvas sizing is controlled by CSS variables (theme tokens)
 
         return () => { mixedCanvas.destroy(); };
-    }, [props, themeMode];
+    }, [props, themeMode]);
 
     return (
         <div className="rds-comp-chart-mixed">

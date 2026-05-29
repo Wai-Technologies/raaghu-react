@@ -149,14 +149,12 @@
   }
  // .rds-comp-grid-sub-header
   // {
-  //   background-color: #424242 !important;
   //   color: white;
   // }
   // .rds-comp-grid__header,
   // .rds-comp-grid__subheader,
   // .rds-comp-grid-header,
   // .rds-comp-grid-sub-header {
-  //   background-color: #424242 !important;
   //   color: var(--rds-grid-text) !important;
   //   border-bottom-color: var(--rds-grid-border-soft) !important;
   // }
@@ -357,16 +355,6 @@
   .rds-comp-grid-resize-handle:hover { background-color: var(--rds-color-scrollbar-thumb-hover); }
   
    // New structure (non-BEM) class names support
-  // .rds-comp-grid-header,
-  // .rds-comp-grid-sub-header {
-  //   background-color:#424242 !important;
-  //   color:#ffffff;
-  //   border-bottom:1px solid #5a5a5a;
-  // }
-  // .rds-comp-grid-header-controls button,
-  // .rds-comp-grid-sub-header-toggle {
-  //   color:#ffffff;
-  // }
   .rds-comp-grid-table { background-color: var(--rds-grid-bg); }
   .rds-comp-grid-header-cell {
     background-color: var(--rds-grid-bg);
@@ -853,8 +841,6 @@
 //   justify-content: space-between;
 //   align-items: center;
 //   padding: var(--rds-spacing-sm) 16px;
-//   border-bottom: 1px solid #e1e1e1;
-//   // background-color: #f8f9fa;
 
 //   &-left {
 //     display: flex;
@@ -868,7 +854,6 @@
 //   }
 
 //   &-dots {
-//     color: #666;
 //     cursor: pointer;
 //   }
 
@@ -1329,15 +1314,12 @@
     color: var(--rds-neutral-0) !important;
   }
 
-  //         background-color: #f8f9fa;
-//       }
 
 //       &:hover {
 //         background-color: var(--colorNeutralBackground1Hover);
 //       }
 
 //       &--selected {
-//         background-color: #e6f3ff;
 //       }
 //     }
 //   }

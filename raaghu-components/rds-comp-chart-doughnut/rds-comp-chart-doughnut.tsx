@@ -90,7 +90,7 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutProps) => {
         }
 
         return () => { doughnutCanvas.destroy(); };
-    }, [props, themeMode];
+    }, [props, themeMode]);
 
     return (
         <div className="rds-comp-chart-doughnut">

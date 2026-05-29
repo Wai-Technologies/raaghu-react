@@ -89,7 +89,7 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
                 boolCanvas.destroy();
             };
         }
-    }, [props, themeMode];
+    }, [props, themeMode]);
 
     return (
         <div>
