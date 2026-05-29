@@ -25,14 +25,14 @@
   font-size: var(--rds-font-size-md, 14px);
   font-family: var(--rds-font-family-base, Poppins);
   line-height: 1.5;
-  border: 1px solid var(--rds-border-default, #e0e0e0);
+  border: 1px solid var(--rds-border-default);
   outline: none;
   resize: vertical;
   transition: all var(--rds-transition-base, 0.2s) ease-in-out;
-  background-color: var(--rds-background-paper, #ffffff);
+  background-color: var(--rds-background-paper);
 
     &::placeholder {
-      color: var(--rds-text-secondary, #646464);
+      color: var(--rds-text-secondary);
       font-weight: 400;
     }
 
@@ -51,13 +51,13 @@
 
     &.textarea-bottom-outline {
       border-radius: var(--rds-border-radius-md, 4px);
-      border-bottom: var(--rds-textarea-bottom-border-width, 2px) solid var(--rds-border-default, #1d1d1d) !important;
+      border-bottom: var(--rds-textarea-bottom-border-width, 2px) solid var(--rds-border-default) !important;
       padding: var(--rds-spacing-sm, 6px) var(--rds-spacing-md, 8px);
-      background-color: var(--rds-background-paper, #ffffff);
+      background-color: var(--rds-background-paper);
     }
 
     &.textarea-default {
-      border-color: var(--rds-border-default, #e0e0e0);
+      border-color: var(--rds-border-default);
     }
 
     &.textarea-active {
@@ -87,8 +87,8 @@
       }
 
       &.textarea-bottom-outline {
-        background-color: var(--rds-background-disabled, #e9ecef) !important;
-        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled, #dee2e6) !important;
+        background-color: var(--rds-background-disabled) !important;
+        border-bottom: var(--rds-textarea-bottom-border-width-active, 3px) solid var(--rds-border-disabled) !important;
       }
     }
 
@@ -110,11 +110,11 @@
 }
 [data-theme="dark"] {
   .rds-textarea {
-    background-color: var(--rds-background-paper, #1e1e1e);
-    color: var(--rds-text-primary, #ffffff);
+    background-color: var(--rds-background-paper);
+    color: var(--rds-text-primary);
 
     &::placeholder {
-      color: var(--rds-text-secondary, #bdbdbd);
+      color: var(--rds-text-secondary);
     }
 
     &.textarea-bottom-outline {

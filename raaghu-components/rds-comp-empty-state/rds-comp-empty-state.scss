@@ -85,8 +85,8 @@ body.dark .rds-comp-empty-state__subtitle {
   }
 
   &__button {
-    background-color: var(--rds-color-neutral-600, #646464) !important; 
-    color: var(--rds-color-neutral-50, #ffffff) !important;
+    background-color: var(--rds-color-neutral-600) !important; 
+    color: var(--rds-color-neutral-50) !important;
     border-radius: var(--rds-border-radius-sm) !important;
     padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-md, 16px) !important;
     font-size: var(--rds-font-size-md) !important;
@@ -95,22 +95,22 @@ body.dark .rds-comp-empty-state__subtitle {
     min-width: 160px !important;
     line-height: 1.2 !important;
     box-shadow: none !important;
-    border: 1px solid var(--rds-color-neutral-600, #525252) !important;
+    border: 1px solid var(--rds-color-neutral-600) !important;
     transition: background-color var(--rds-transition-fast), border-color var(--rds-transition-fast), color var(--rds-transition-fast) !important;
     font-family: 'Poppins', var(--rds-font-family, 'Poppins', sans-serif) !important;
 
     &:hover {
-      background-color: var(--rds-color-neutral-700, #454545) !important;
-      border-color: var(--rds-color-neutral-700, #454545) !important;
+      background-color: var(--rds-color-neutral-700) !important;
+      border-color: var(--rds-color-neutral-700) !important;
     }
 
     &:active {
-      background-color: var(--rds-color-neutral-800, #3a3a3a) !important;
-      border-color: var(--rds-color-neutral-800, #3a3a3a) !important;
+      background-color: var(--rds-color-neutral-800) !important;
+      border-color: var(--rds-color-neutral-800) !important;
     }
 
     &:focus-visible {
-      outline: 2px solid var(--rds-focus-ring, #8B5CF6) !important;
+      outline: 2px solid var(--rds-focus-ring) !important;
       outline-offset: 2px !important;
     }
   }
@@ -152,11 +152,11 @@ body.dark .rds-comp-empty-state__subtitle {
 @media (prefers-contrast: high) {
   .rds-comp-empty-state {
     &__title {
-      color: var(--rds-text-primary, #000000) !important;
+      color: var(--rds-text-primary) !important;
     }
 
     &__subtitle {
-      color: var(--rds-text-secondary, #333333) !important;
+      color: var(--rds-text-secondary) !important;
     }
   }
 }

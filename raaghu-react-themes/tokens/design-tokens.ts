@@ -1115,6 +1115,10 @@ export const semanticAliasTokens = {
   rdsActionDisabledBackground: colorTokens.neutral[100],
   /** Icon button focus color (used by rds-icon-button) */
   rdsIconButtonFocusColor: colorTokens.info[600],
+  /** Tab selected accent (line-solid variants) */
+  tabAccent: colorTokens.primary[200],
+  /** Tab selected background tint */
+  tabAccentBg: 'rgba(60, 152, 255, 0.3)',
 };
 
 // Export all tokens as a single object (single human-edited source for the design system)

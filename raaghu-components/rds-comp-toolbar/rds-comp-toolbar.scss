@@ -89,7 +89,7 @@
     }
 
     &--secondary {
-      background: var(--rds-color-surface-variant, #f5f5f5);
+      background: var(--rds-color-surface-variant);
       border-radius: var(--rds-border-radius-sm, 4px);
 
       .rds-comp-toolbar__button {
@@ -234,7 +234,7 @@
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 12px);
     border: none;
     background: transparent;
-    color: var(--rds-color-on-surface, #202124);
+    color: var(--rds-color-on-surface);
     font-size: var(--rds-font-size-md, 14px);
     text-align: left;
     cursor: pointer;

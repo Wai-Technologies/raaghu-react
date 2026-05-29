@@ -628,6 +628,11 @@ function sharedCssVars(): Record<string, string> {
     '--rds-color-on-secondary': semanticAliasTokens.colorOnSecondary,
     '--rds-popover-surface-border': semanticAliasTokens.popoverSurfaceBorder,
     '--rds-sidebar-overlay-bg': semanticAliasTokens.sidebarOverlayBg,
+    '--rds-tab-accent': semanticAliasTokens.tabAccent,
+    '--rds-tab-accent-bg': semanticAliasTokens.tabAccentBg,
+    '--rds-color-primary': 'var(--rds-primary-main)',
+    '--rds-color-accent': 'var(--rds-tab-accent)',
+    '--rds-color-accent-bg': 'var(--rds-tab-accent-bg)',
   };
 }
 

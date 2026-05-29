@@ -104,27 +104,27 @@
 
       &.rds-fab-menu__button--success {
         background-color: transparent !important;
-        color: var(--rds-color-success, #28a745);
+        color: var(--rds-color-success);
       }
 
       &.rds-fab-menu__button--info {
         background-color: transparent !important;
-        color: var(--rds-color-info, #17a2b8);
+        color: var(--rds-color-info);
       }
 
       &.rds-fab-menu__button--warning {
         background-color: transparent !important;
-        color: var(--rds-color-warning, #ffc107);
+        color: var(--rds-color-warning);
       }
 
       &.rds-fab-menu__button--danger {
         background-color: transparent !important;
-        color: var(--rds-color-danger, #dc3545);
+        color: var(--rds-color-danger);
       }
 
       &.rds-fab-menu__button--dark {
         background-color: transparent !important;
-        color: var(--rds-color-dark, #343a40);
+        color: var(--rds-color-dark);
       }
 
       &.rds-fab-menu__button--light {

@@ -82,16 +82,16 @@
         
         .card-title,
         &__title {
-            color: var(--rds-text-primary, #F9FAFB) !important;
+            color: var(--rds-text-primary) !important;
         }
         
         .card-text,
         &__text {
-            color: var(--rds-text-secondary, #D1D5DB) !important;
+            color: var(--rds-text-secondary) !important;
         }
         
         .text-muted {
-            color: var(--rds-text-tertiary, #9CA3AF) !important;
+            color: var(--rds-text-tertiary) !important;
         }
         
         .review-footer {
@@ -99,33 +99,33 @@
         }
         
         .btn-outline-primary {
-            border-color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-            color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+            border-color: var(--rds-color-primary, var(--rds-primary-main));
+            color: var(--rds-color-primary, var(--rds-primary-main));
         }
         
         .btn-outline-danger {
-            border-color: var(--rds-color-danger, #dc3545);
-            color: var(--rds-color-danger, #dc3545);
+            border-color: var(--rds-color-danger);
+            color: var(--rds-color-danger);
         }
         
         .btn-outline-success {
-            border-color: var(--rds-color-success, #28a745);
-            color: var(--rds-color-success, #28a745);
+            border-color: var(--rds-color-success);
+            color: var(--rds-color-success);
         }
         
         .btn-outline-warning {
-            border-color: var(--rds-color-warning, #ffc107);
-            color: var(--rds-color-warning, #ffc107);
+            border-color: var(--rds-color-warning);
+            color: var(--rds-color-warning);
         }
         
         .btn-outline-info {
-            border-color: var(--rds-color-info, #17a2b8);
-            color: var(--rds-color-info, #17a2b8);
+            border-color: var(--rds-color-info);
+            color: var(--rds-color-info);
         }
         
         .btn-outline-secondary {
-            border-color: var(--rds-color-secondary, #a21caf);
-            color: var(--rds-color-secondary, #a21caf);
+            border-color: var(--rds-color-secondary);
+            color: var(--rds-color-secondary);
         }
         
         &__avatar,
@@ -135,39 +135,39 @@
         
         .MuiSvgIcon-colorPrimary,
         svg.MuiSvgIcon-colorPrimary {
-            color: var(--rds-color-primary, #2196f3) !important;
+            color: var(--rds-color-primary) !important;
         }
         
         .MuiSvgIcon-colorError,
         svg.MuiSvgIcon-colorError {
-            color: var(--rds-color-danger, #dc3545) !important;
+            color: var(--rds-color-danger) !important;
         }
         
         .MuiIconButton-root,
         .MuiButton-root,
         button {
             .MuiSvgIcon-colorPrimary {
-                color: var(--rds-color-primary, #2196f3) !important;
+                color: var(--rds-color-primary) !important;
             }
             
             .MuiSvgIcon-colorError {
-                color: var(--rds-color-danger, #dc3545) !important;
+                color: var(--rds-color-danger) !important;
             }
             
             .fa-thumbs-up,
             .bi-hand-thumbs-up {
-                color: var(--rds-color-primary, #2196f3) !important;
+                color: var(--rds-color-primary) !important;
             }
             
             .fa-thumbs-down,
             .bi-hand-thumbs-down {
-                color: var(--rds-color-danger, #dc3545) !important;
+                color: var(--rds-color-danger) !important;
             }
         }
         
         .MuiTypography-root,
         .MuiTypography-body2 {
-            color: var(--rds-text-primary, #F9FAFB) !important;
+            color: var(--rds-text-primary) !important;
         }
     }
 }
@@ -210,73 +210,73 @@
         .rds-rating--color-primary {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
-                svg { color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important; fill: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important; }
+                color: var(--rds-color-primary, var(--rds-primary-main)) !important;
+                svg { color: var(--rds-color-primary, var(--rds-primary-main)) !important; fill: var(--rds-color-primary, var(--rds-primary-main)) !important; }
             }
-            .MuiRating-root { color: var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important; }
+            .MuiRating-root { color: var(--rds-color-primary, var(--rds-primary-main)) !important; }
         }
         
         .rds-rating--color-success {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-success, #28a745) !important;
-                svg { color: var(--rds-color-success, #28a745) !important; fill: var(--rds-color-success, #28a745) !important; }
+                color: var(--rds-color-success) !important;
+                svg { color: var(--rds-color-success) !important; fill: var(--rds-color-success) !important; }
             }
-            .MuiRating-root { color: var(--rds-color-success, #28a745) !important; }
+            .MuiRating-root { color: var(--rds-color-success) !important; }
         }
         
         .rds-rating--color-danger {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-danger, #dc3545) !important;
-                svg { color: var(--rds-color-danger, #dc3545) !important; fill: var(--rds-color-danger, #dc3545) !important; }
+                color: var(--rds-color-danger) !important;
+                svg { color: var(--rds-color-danger) !important; fill: var(--rds-color-danger) !important; }
             }
-            .MuiRating-root { color: var(--rds-color-danger, #dc3545) !important; }
+            .MuiRating-root { color: var(--rds-color-danger) !important; }
         }
         
         .rds-rating--color-warning {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-warning, #ffc107) !important;
-                svg { color: var(--rds-color-warning, #ffc107) !important; fill: var(--rds-color-warning, #ffc107) !important; }
+                color: var(--rds-color-warning) !important;
+                svg { color: var(--rds-color-warning) !important; fill: var(--rds-color-warning) !important; }
             }
-            .MuiRating-root { color: var(--rds-color-warning, #ffc107) !important; }
+            .MuiRating-root { color: var(--rds-color-warning) !important; }
         }
         
         .rds-rating--color-info {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-info, #17a2b8) !important;
-                svg { color: var(--rds-color-info, #17a2b8) !important; fill: var(--rds-color-info, #17a2b8) !important; }
+                color: var(--rds-color-info) !important;
+                svg { color: var(--rds-color-info) !important; fill: var(--rds-color-info) !important; }
             }
-            .MuiRating-root { color: var(--rds-color-info, #17a2b8) !important; }
+            .MuiRating-root { color: var(--rds-color-info) !important; }
         }
         
         .rds-rating--color-secondary {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-secondary, #a21caf) !important;
-                svg { color: var(--rds-color-secondary, #a21caf) !important; fill: var(--rds-color-secondary, #a21caf) !important; }
+                color: var(--rds-color-secondary) !important;
+                svg { color: var(--rds-color-secondary) !important; fill: var(--rds-color-secondary) !important; }
             }
-            .MuiRating-root { color: var(--rds-color-secondary, #a21caf) !important; }
+            .MuiRating-root { color: var(--rds-color-secondary) !important; }
         }
         
         .rds-rating--color-dark {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-on-surface, #343a40) !important;
-                svg { color: var(--rds-color-on-surface, #343a40) !important; fill: var(--rds-color-on-surface, #343a40) !important; }
+                color: var(--rds-color-on-surface) !important;
+                svg { color: var(--rds-color-on-surface) !important; fill: var(--rds-color-on-surface) !important; }
             }
-            .MuiRating-root { color: var(--rds-color-on-surface, #343a40) !important; }
+            .MuiRating-root { color: var(--rds-color-on-surface) !important; }
         }
         
         .rds-rating--color-light {
             .MuiRating-iconFilled,
             .MuiRating-root .MuiRating-iconFilled {
-                color: var(--rds-color-surface, #e0e0e0) !important;
-                svg { color: var(--rds-color-surface, #e0e0e0) !important; fill: var(--rds-color-surface, #e0e0e0) !important; }
+                color: var(--rds-color-surface) !important;
+                svg { color: var(--rds-color-surface) !important; fill: var(--rds-color-surface) !important; }
             }
-            .MuiRating-root { color: var(--rds-color-surface, #e0e0e0) !important; }
+            .MuiRating-root { color: var(--rds-color-surface) !important; }
         }
     }
     .rating-value {

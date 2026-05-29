@@ -1,43 +1,43 @@
 .rds-tabs--line-left .MuiTab-root {
   border-left: 2px solid transparent;
   &.Mui-selected {
-    border-left: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+    border-left: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-primary, var(--rds-primary-main));
       border-radius: unset !important;
   }
 }
 .rds-tabs--line-bottom .MuiTab-root {
   border-bottom: 2px solid transparent;
   &.Mui-selected {
-    border-bottom: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+    border-bottom: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-primary, var(--rds-primary-main));
       border-radius: unset !important;
   }
 }
 .rds-tabs--line-bottom-solid .MuiTab-root {
   border-bottom: 3px solid transparent;
   &.Mui-selected {
-    border-bottom: 3px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-    color: var(--rds-color-accent, #3C98FF) !important; // Use accent token
+    border-bottom: 3px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-accent) !important; // Use accent token
     border-radius: unset !important;
-    background: var(--rds-color-accent-bg, #3D98FF4D) !important; // Use accent bg token
+    background: var(--rds-color-accent-bg) !important; // Use accent bg token
   }
 }
 .rds-tabs--line-left-solid .MuiTab-root {
   border-left: 3px solid transparent;
   &.Mui-selected {
-    border-left: 3px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-    color: var(--rds-color-accent, #3C98FF) !important;
+    border-left: 3px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-accent) !important;
     border-radius: unset !important;
-    background: var(--rds-color-accent-bg, #3D98FF4D) !important;
+    background: var(--rds-color-accent-bg) !important;
   }
 }
 
 .rds-tabs--line-right .MuiTab-root {
   border-right: 2px solid transparent;
   &.Mui-selected {
-    border-right: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+    border-right: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-primary, var(--rds-primary-main));
     border-radius: unset !important;
   }
 }
@@ -45,18 +45,18 @@
 .rds-tabs--line-right-solid .MuiTab-root {
   border-right: 3px solid transparent;
   &.Mui-selected {
-    border-right: 3px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-    color: var(--rds-color-accent, #3C98FF) !important;
+    border-right: 3px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-accent) !important;
     border-radius: unset !important;
-    background: var(--rds-color-accent-bg, #3D98FF4D) !important;
+    background: var(--rds-color-accent-bg) !important;
   }
 }
 
 .rds-tabs--line-top .MuiTab-root {
   border-top: 2px solid transparent;
   &.Mui-selected {
-    border-top: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-    color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+    border-top: 2px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-primary, var(--rds-primary-main));
       border-radius: unset !important;
   }
 }
@@ -64,10 +64,10 @@
 .rds-tabs--line-top-solid .MuiTab-root {
   border-top: 3px solid transparent;
   &.Mui-selected {
-    border-top: 3px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-    color: var(--rds-color-accent, #3C98FF) !important;
+    border-top: 3px solid var(--rds-color-primary, var(--rds-primary-main));
+    color: var(--rds-color-accent) !important;
     border-radius: unset !important;
-    background: var(--rds-color-accent-bg, #3D98FF4D) !important;
+    background: var(--rds-color-accent-bg) !important;
   }
 }
 
@@ -76,8 +76,8 @@
   margin: 0 var(--rds-spacing-xs, 4px);
   &.Mui-selected {
     border-radius: var(--rds-tabs-pill-radius, 15rem) !important;
-    background: var(--rds-color-primary, #3C98FF) !important;
-    color: var(--rds-color-on-primary, #fff) !important;
+    background: var(--rds-color-primary) !important;
+    color: var(--rds-color-on-primary) !important;
   }
 }
 .rds-tabs--pill .MuiTab-root:hover {
@@ -127,35 +127,35 @@
 }
 
 .rds-state--default .Mui-selected {
-  color: var(--rds-color-default, #646464) !important;
+  color: var(--rds-color-default) !important;
   border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
 }
 .rds-tabs--filled .Mui-selected {
-  background: var(--rds-color-accent, #3C98FF) !important;
-  color: var(--rds-color-on-accent, #ffffff) !important;
+  background: var(--rds-color-accent) !important;
+  color: var(--rds-color-on-accent) !important;
   border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
   border: unset !important;
 }
 
 .rds-state--hover .Mui-selected:hover {
-  background: var(--rds-color-hover-bg, #EBDCFF) !important;
-  color: var(--rds-color-default, #646464) !important;
+  background: var(--rds-color-hover-bg) !important;
+  color: var(--rds-color-default) !important;
 }
 
 .rds-state--selected .Mui-selected {
-  background: var(--rds-color-accent, #3C98FF) !important;
-  color: var(--rds-color-on-accent, #ffffff) !important;
+  background: var(--rds-color-accent) !important;
+  color: var(--rds-color-on-accent) !important;
   border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
 }
 
 .rds-state--filled .Mui-selected {
-  background: var(--rds-color-accent, #3C98FF) !important;
-  color: var(--rds-color-on-accent, #ffffff) !important;
+  background: var(--rds-color-accent) !important;
+  color: var(--rds-color-on-accent) !important;
   border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
 }
 .rds-tabs--flap .Mui-selected {
-  background: var(--rds-color-accent, #3C98FF) !important;
-  color: var(--rds-color-on-accent, #ffffff) !important;
+  background: var(--rds-color-accent) !important;
+  color: var(--rds-color-on-accent) !important;
   border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
   border: unset !important;
   position: relative !important;
@@ -172,12 +172,12 @@
   height: 0;
   border-left: var(--rds-tabs-flap-arrow-size, 10px) solid transparent;
   border-right: var(--rds-tabs-flap-arrow-size, 10px) solid transparent;
-  border-top: var(--rds-tabs-flap-arrow-size, 10px) solid var(--rds-color-accent, #3C98FF);
+  border-top: var(--rds-tabs-flap-arrow-size, 10px) solid var(--rds-color-accent);
   z-index: calc(var(--rds-z-index-base) + 1);
 }
 
 .rds-tabs--flap.rds-state--hover .Mui-selected:hover::after {
-  border-top-color: var(--rds-color-hover-bg, #EBDCFF) !important;
+  border-top-color: var(--rds-color-hover-bg) !important;
 }
 
 .css-jhczcq-MuiTabs-root{
@@ -218,34 +218,34 @@
   height: 0 !important;
   border-top: 8px solid transparent !important;
   border-bottom: 8px solid transparent !important;
-  border-left: 12px solid var(--rds-color-accent, #3C98FF) !important;
+  border-left: 12px solid var(--rds-color-accent) !important;
   z-index: calc(var(--rds-z-index-base) + 1) !important;
 }
 
 .rds-tabs--flap.rds-state--hover .MuiTabs-vertical .MuiTab-root.Mui-selected:hover::after {
-  border-left-color: var(--rds-color-hover-bg, #EBDCFF) !important;
+  border-left-color: var(--rds-color-hover-bg) !important;
 }
 .rds-state--disabled .Mui-selected{
-  background: var(--rds-color-disabled-bg, #EBDCFF) !important;
-  color: var(--rds-color-disabled, #AFCDFD) !important;
+  background: var(--rds-color-disabled-bg) !important;
+  color: var(--rds-color-disabled) !important;
   border-radius: var(--rds-tabs-corner-radius, 6px) var(--rds-tabs-corner-radius, 6px) 0 0 !important;
 }
 
 .rds-tabs--flap.rds-state--disabled .Mui-selected::after {
-  border-top-color: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  border-top-color: var(--rds-color-disabled-bg) !important;
   pointer-events: none;
   opacity: 0.6;
 }
 
 .rds-tabs--flap.rds-state--disabled .MuiTabs-vertical .MuiTab-root.Mui-selected::after {
-  border-left-color: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  border-left-color: var(--rds-color-disabled-bg) !important;
   pointer-events: none;
   opacity: 0.6;
 }
 
 .rds-tabs--pill.rds-state--disabled .MuiTab-root.Mui-selected {
-  background: var(--rds-color-disabled-bg, #EBDCFF) !important;
-  color: var(--rds-color-disabled, #AFCDFD) !important;
+  background: var(--rds-color-disabled-bg) !important;
+  color: var(--rds-color-disabled) !important;
   border-radius: var(--rds-tabs-pill-radius, 15rem) !important;
   pointer-events: none;
   opacity: 0.6;
@@ -255,10 +255,10 @@
 .rds-tabs--line-left-solid.rds-state--disabled .MuiTab-root.Mui-selected,
 .rds-tabs--line-right-solid.rds-state--disabled .MuiTab-root.Mui-selected,
 .rds-tabs--line-top-solid.rds-state--disabled .MuiTab-root.Mui-selected {
-  background: var(--rds-color-disabled-bg, #EBDCFF) !important;
-  color: var(--rds-color-disabled, #AFCDFD) !important;
+  background: var(--rds-color-disabled-bg) !important;
+  color: var(--rds-color-disabled) !important;
   border-radius: unset !important;
-  border-color: var(--rds-color-disabled-bg, #EBDCFF) !important;
+  border-color: var(--rds-color-disabled-bg) !important;
   pointer-events: none;
   opacity: 0.6;
 }
@@ -356,7 +356,7 @@
   }
 
   .rds-tabs .MuiTab-root:focus-visible {
-    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2)) !important;
+    outline: 2px solid var(--rds-color-primary, var(--rds-primary-main)) !important;
     outline-offset: 2px !important;
   }
 }
@@ -370,7 +370,7 @@
     height: 18px !important;
     border-top: 27px solid transparent !important;
     border-bottom: 22px solid transparent !important;
-    border-left: 34px solid var(--rds-color-accent, #3C98FF) !important;
+    border-left: 34px solid var(--rds-color-accent) !important;
     z-index: calc(var(--rds-z-index-base) + 1) !important;
 }
 .rds-tabs--flap .Mui-selected {

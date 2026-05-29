@@ -2,7 +2,7 @@
   &__list {
     min-width: var(--rds-menu-list-min-width);
     padding: calc(var(--rds-spacing-xs) * 1.5) 0;
-    background: var(--rds-background-paper, #fff);
+    background: var(--rds-background-paper);
     box-shadow: var(--rds-elevation-3, 0 4px 16px rgba(0,0,0,0.10));
     border-radius: var(--rds-border-radius-lg, 10px);
     display: flex;
@@ -22,12 +22,12 @@
     background: none;
     width: 100%;
     text-align: left;
-    color: var(--rds-text-primary, #222);
+    color: var(--rds-text-primary);
     box-sizing: border-box;
     outline: none;
     position: relative;
     &:hover:not(:disabled), &:focus-visible:not(:disabled) {
-      background: var(--rds-action-hover, #f0f4fa);
+      background: var(--rds-action-hover);
       color: var(--rds-primary-main);
     }
     &:focus-visible {
@@ -35,7 +35,7 @@
       z-index: calc(var(--rds-z-index-base) + 1);
     }
     &--disabled {
-      color: var(--rds-text-disabled, #bbb);
+      color: var(--rds-text-disabled);
       cursor: not-allowed;
       background: none;
     }
@@ -54,7 +54,7 @@
     }
     &__shortcut {
       margin-left: var(--rds-spacing-md);
-      color: var(--rds-text-secondary, #888);
+      color: var(--rds-text-secondary);
       font-size: 0.92em;
       letter-spacing: var(--rds-menu-letter-spacing);
       font-family: var(--rds-font-family-base, Poppins);
@@ -112,17 +112,17 @@
   &__header {
     font-weight: var(--rds-menu-header-font-weight, 600);
     font-size: 0.98em;
-    color: var(--rds-text-secondary, #555);
+    color: var(--rds-text-secondary);
     padding: var(--rds-spacing-sm) var(--rds-spacing-md) var(--rds-spacing-xs) var(--rds-spacing-md);
     margin-bottom: var(--rds-menu-header-margin-bottom);
     letter-spacing: var(--rds-menu-letter-spacing);
     text-transform: uppercase;
-    background: var(--rds-background-default, #f7f7fa);
+    background: var(--rds-background-default);
     border-bottom: 1px solid var(--rds-border-light);
   }
   &__divider {
     height: 1px;
-    background: var(--rds-neutral-300, #e0e0e0);
+    background: var(--rds-neutral-300);
     margin: var(--rds-spacing-xs) 0;
     border: none;
   }
@@ -149,19 +149,19 @@
 
 [data-theme="dark"] {
   .rds-menu__list {
-     background-color: var(--rds-color-background, #545454);
+     background-color: var(--rds-color-background);
   }
 
   .rds-menu__item {
-    color: var(--rds-neutral-0, #fff);
+    color: var(--rds-neutral-0);
   }
  
   .rds-menu__item.rds-menu__item--disabled {
-    color: var(--rds-text-disabled, #999999);
+    color: var(--rds-text-disabled);
   }
   .rds-menu__header {
-    color: var(--rds-color-surface, #d6d6d6);
-    background-color: var(--rds-color-background, #5a5a5a);
+    color: var(--rds-color-surface);
+    background-color: var(--rds-color-background);
     border-bottom: 1px solid var(--rds-border-default);
   }
 
@@ -171,14 +171,14 @@
   
   .rds-menu__item:hover:not(:disabled),
   .rds-menu__item:focus-visible:not(:disabled) {
-    background: var(--rds-action-active, #666);
-    color: var(--rds-neutral-0, #ffffff);
+    background: var(--rds-action-active);
+    color: var(--rds-neutral-0);
   }
 
   .rds-menu__item:not(.rds-menu__item--disabled) .rds-menu__item__icon:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) svg,
   .rds-menu__item:not(.rds-menu__item--disabled) .MuiListItemIcon-root:not(.rds-menu__item__icon--primary):not(.rds-menu__item__icon--success):not(.rds-menu__item__icon--danger):not(.rds-menu__item__icon--info):not(.rds-menu__item__icon--warning) svg {
-    color: var(--rds-neutral-0, #fff);
-    fill: var(--rds-neutral-0, #ffffff);
+    color: var(--rds-neutral-0);
+    fill: var(--rds-neutral-0);
   }
 
   .rds-menu__item .rds-menu__item__icon--primary svg,
@@ -193,12 +193,12 @@
   .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon,
   .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon svg,
   .rds-menu__item.rds-menu__item--disabled .rds-menu__item__icon img {
-    color: var(--rds-text-disabled, #999999);
-    fill: var(--rds-text-disabled, #999999);
-    stroke: var(--rds-text-disabled, #999999);
+    color: var(--rds-text-disabled);
+    fill: var(--rds-text-disabled);
+    stroke: var(--rds-text-disabled);
   }
 
   .rds-menu__item__shortcut {
-    color: var(--rds-text-disabled, #cccccc);
+    color: var(--rds-text-disabled);
   }
 }

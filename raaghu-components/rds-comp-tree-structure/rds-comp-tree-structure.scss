@@ -20,12 +20,12 @@
     // Node state modifiers
     &--hover {
       &:hover {
-        background-color: var(--rds-primary-light, #EBDCFF);
+        background-color: var(--rds-primary-light);
       }
     }
 
     &--selected {
-      background-color: var(--rds-primary-light, #E1D5F7);
+      background-color: var(--rds-primary-light);
     }
   }
   
@@ -68,7 +68,7 @@
     margin-top: var(--rds-spacing-sm, 2px);
     
     &--folder {
-      color: var(--rds-warning-main, #FFB300);
+      color: var(--rds-warning-main);
       margin-top: var(--rds-spacing-sm, 2px);
 
       svg,
@@ -79,7 +79,7 @@
     }
     
     &--file {
-      color: var(--rds-info-main, #0066cc);
+      color: var(--rds-info-main);
     }
     
     &--circle {
@@ -87,7 +87,7 @@
       width: 12px;
       height: 12px;
       margin-bottom: var(--rds-spacing-xs, 2px);
-      background-color: var(--rds-border-default, #CDCDCD);
+      background-color: var(--rds-border-default);
       border-radius: 50%;
     }
   }
@@ -95,7 +95,7 @@
   // Node text
   &__text {
     margin-left: var(--rds-spacing-xs, 2px);
-    color: var(--rds-text-primary, #212121);
+    color: var(--rds-text-primary);
   }
   
   // Action buttons
@@ -108,13 +108,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--rds-primary-main, #7e2eef);
+    border: 1px solid var(--rds-primary-main);
     border-radius: var(--rds-border-radius-xs, 3px);
     padding: var(--rds-spacing-xs, 8px);
     transition: all var(--rds-transition-duration-short, 0.3s) ease;
     cursor: pointer;
     background: transparent;
-    color: var(--rds-primary-main, #7e2eef);
+    color: var(--rds-primary-main);
     
     svg {
       width: 16px;
@@ -123,8 +123,8 @@
     }
     
     &:hover {
-      background-color: var(--rds-primary-main, #7e2eef);
-      color: var(--rds-text-primary, #EBDCFF);
+      background-color: var(--rds-primary-main);
+      color: var(--rds-text-primary);
     }
   }
 }

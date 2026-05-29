@@ -64,7 +64,7 @@ const RdsCompLineChart = (props: RdsComplineprops) => {
         }
 
         return () => { lineCanvas.destroy(); };
-    }, [props, themeMode];
+    }, [props, themeMode]);
 
     return (
         <div className="rds-comp-chart-line">

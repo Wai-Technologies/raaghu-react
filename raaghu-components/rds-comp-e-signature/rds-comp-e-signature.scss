@@ -5,7 +5,7 @@
   &__title {
     font-size: var(--rds-font-size-base, 16px) !important;
     font-weight: var(--rds-font-weight-semibold, 600);
-    color: var(--rds-color-neutral-900, #1e1e1e);
+    color: var(--rds-color-neutral-900);
     margin: 0 0 var(--rds-space-3, 12px);
     display: flex;
     align-items: center;
@@ -13,7 +13,7 @@
   }
 
   &__required {
-    color: var(--rds-color-error-700, #d32f2f);
+    color: var(--rds-color-error-700);
     font-size: var(--rds-font-size-base, 16px);
   }
 
@@ -23,13 +23,13 @@
 
   &__canvas-container {
     --rds-esignature-draw-height: var(--rds-signature-draw-height, 280px);
-    border: 2px dashed var(--rds-color-border-default, #b3b3b3);
+    border: 2px dashed var(--rds-color-border-default);
     border-radius: var(--rds-radius-lg, 8px);
     width: 100%;
     max-width: 100%;
     height: var(--rds-esignature-draw-height);
     padding: 0 var(--rds-space-5, 20px) var(--rds-esignature-padding-bottom, 68px);
-    background-color: var(--rds-color-surface, #ffffff);
+    background-color: var(--rds-color-surface);
     transition: border-color var(--rds-transition-base), background-color var(--rds-transition-base);
     position: relative;
     display: flex;
@@ -37,27 +37,27 @@
     justify-content: stretch;
 
     &:hover {
-      background-color: var(--rds-color-surface-hover, #FEF7FF);
-      border: 2px dashed var(--rds-color-accent-blue-600, #2E7CE0);
+      background-color: var(--rds-color-surface-hover);
+      border: 2px dashed var(--rds-color-accent-blue-600);
     }
 
     .rds-e-signature--disabled &:hover {
-      background-color: var(--rds-color-neutral-0, #ffffff);
-      border-color: var(--rds-color-accent-blue-disabled, #AFCDFD);
+      background-color: var(--rds-color-neutral-0);
+      border-color: var(--rds-color-accent-blue-disabled);
     }
 
     .rds-e-signature--selected & {
-      border-color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
+      border-color: var(--rds-color-primary-700, var(--rds-primary-main));
     }
 
     .rds-e-signature--active & {
-      background-color: var(--rds-color-neutral-0, #ffffff);
-      border-color: var(--rds-color-primary-900, #0d47a1);
+      background-color: var(--rds-color-neutral-0);
+      border-color: var(--rds-color-primary-900);
     }
 
     .rds-e-signature--disabled & {
-      background-color: var(--rds-color-neutral-0, #ffffff);
-      border-color: var(--rds-color-accent-blue-disabled, #AFCDFD);
+      background-color: var(--rds-color-neutral-0);
+      border-color: var(--rds-color-accent-blue-disabled);
       opacity: 1;
     }
 
@@ -70,7 +70,7 @@
     }
 
     .rds-e-signature--error & {
-      border-color: var(--rds-color-error-700, #d32f2f);
+      border-color: var(--rds-color-error-700);
       border-style: dashed;
     }
   }
@@ -117,7 +117,7 @@
 
     .rds-e-signature__upload-panel {
       max-width: var(--rds-esignature-upload-panel-max-width, 420px);
-      border-color: var(--rds-color-accent-blue-500, #3C98FF);
+      border-color: var(--rds-color-accent-blue-500);
       padding: var(--rds-esignature-upload-panel-padding, var(--rds-spacing-lg) 20px);
     }
 
@@ -187,13 +187,13 @@
     gap: var(--rds-spacing-sm);
     font-size: var(--rds-font-size-xl, 22px);
     font-weight: var(--rds-font-weight-medium, 500);
-    color: var(--rds-color-neutral-700, #5c5c5c);
+    color: var(--rds-color-neutral-700);
     letter-spacing: .2px;
   }
 
   &__canvas-icon {
     font-size: var(--rds-font-size-icon-lg, 26px);
-    color: var(--rds-color-neutral-700, #5c5c5c);
+    color: var(--rds-color-neutral-700);
   }
 
   &__canvas {
@@ -228,15 +228,15 @@
     justify-content: center;
 
     &:first-child {
-      background-color: var(--rds-color-neutral-1000, #000000) !important;
+      background-color: var(--rds-color-neutral-1000) !important;
     }
 
     &:nth-child(2) {
-      background-color: var(--rds-color-blue-600, #0066ff) !important;
+      background-color: var(--rds-color-blue-600) !important;
     }
 
     &:nth-child(3) {
-      background-color: var(--rds-color-red-600, #ff0000) !important;
+      background-color: var(--rds-color-red-600) !important;
     }
 
     &:hover:not(:disabled) {
@@ -250,7 +250,7 @@
   }
 
   &__checkmark {
-    color: var(--rds-color-neutral-0, #ffffff);
+    color: var(--rds-color-neutral-0);
     font-size: var(--rds-font-size-lg);
     font-weight: var(--rds-font-weight-medium, 500);
     line-height: 1;
@@ -263,7 +263,7 @@
     justify-content: center;
 
     .rds-e-signature__checkmark {
-      color: var(--rds-color-neutral-0, #ffffff);
+      color: var(--rds-color-neutral-0);
       font-weight: var(--rds-font-weight-bold, 700);
     }
   }
@@ -285,19 +285,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--rds-color-neutral-700, #5c5c5c);
+    color: var(--rds-color-neutral-700);
     font-size: var(--rds-font-size-2xl);
 
     &:hover:not(:disabled) {
-      color: var(--rds-color-neutral-1000, #000000);
+      color: var(--rds-color-neutral-1000);
       transform: translateY(-2px);
     }
 
     &--delete {
-      color: var(--rds-color-red-danger, #c30000);
+      color: var(--rds-color-red-danger);
 
       &:hover:not(:disabled) {
-        color: var(--rds-color-red-danger-hover, #ff1a1a);
+        color: var(--rds-color-red-danger-hover);
       }
     }
 
@@ -312,28 +312,28 @@
   }
 
   &__upload-panel {
-    background: var(--rds-color-neutral-0, #fff);
+    background: var(--rds-color-neutral-0);
     padding: var(--rds-spacing-xl, 28px) var(--rds-spacing-md, 13px);
-    border: 2px dashed var(--rds-color-border-default, #d1d5db);
+    border: 2px dashed var(--rds-color-border-default);
     border-radius: var(--rds-radius-lg, 8px);
     width: 100%;
     box-sizing: border-box;
     transition: border-color .25s ease, background-color .25s ease;
 
     .rds-e-signature--disabled & {
-      border-color: var(--rds-color-accent-blue-disabled, #AFCDFD);
-      background: var(--rds-color-neutral-0, #ffffff);
+      border-color: var(--rds-color-accent-blue-disabled);
+      background: var(--rds-color-neutral-0);
       cursor: not-allowed;
     }
 
     &--hover {
-      border-color: var(--rds-color-accent-blue-600, #2E7CE0);
-      background: var(--rds-color-surface-hover, #FEF7FF);
+      border-color: var(--rds-color-accent-blue-600);
+      background: var(--rds-color-surface-hover);
     }
 
     &--error {
-      border-color: var(--rds-color-error-accent, #ff4444);
-      background: var(--rds-color-error-50, #fff5f5);
+      border-color: var(--rds-color-error-accent);
+      background: var(--rds-color-error-50);
     }
   }
 
@@ -349,8 +349,8 @@
     display: flex;
     align-items: center;
     gap: 0;
-    background: var(--rds-color-neutral-0, #fff);
-    border: 1px solid var(--rds-color-neutral-300, #e0e0e0);
+    background: var(--rds-color-neutral-0);
+    border: 1px solid var(--rds-color-neutral-300);
     border-radius: var(--rds-radius-md, 6px);
     box-sizing: border-box;
     width: 100%;
@@ -364,7 +364,7 @@
   }
 
     &__file-row:focus-within {
-    border-color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
+    border-color: var(--rds-color-primary-700, var(--rds-primary-main));
     box-shadow: var(--rds-focus-ring, 0 0 0 2px rgba(25, 118, 210, .15));
   }
 
@@ -377,7 +377,7 @@
   &__upload-label {
     font-size: var(--rds-font-size-sm, 14px);
     font-weight: var(--rds-font-weight-semibold, 600);
-    color: var(--rds-color-neutral-900, #222);
+    color: var(--rds-color-neutral-900);
     display: inline-flex;
     align-items: center;
     gap: var(--rds-spacing-xs);
@@ -393,8 +393,8 @@
   }
 
   &__file-button {
-    background: var(--rds-color-accent-blue-500, #3C98FF);
-    color: var(--rds-color-neutral-0, #fff);
+    background: var(--rds-color-accent-blue-500);
+    color: var(--rds-color-neutral-0);
     border: none;
     padding: 0 var(--rds-space-4, 16px);
     cursor: pointer;
@@ -411,13 +411,13 @@
   }
 
   &__file-button:hover:not(:disabled) {
-    background: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
+    background: var(--rds-color-primary-700, var(--rds-primary-main));
   }
 
   &__file-button:disabled {
-    background: var(--rds-color-accent-blue-200, #c7def5);
+    background: var(--rds-color-accent-blue-200);
     cursor: not-allowed;
-    color: var(--rds-color-neutral-0, #fff);
+    color: var(--rds-color-neutral-0);
   }
 
   &__file-text {
@@ -427,29 +427,29 @@
     padding: 0 14px;
     font-size: var(--rds-font-size-sm, 14px);
     font-weight: var(--rds-font-weight-medium, 500);
-    color: var(--rds-color-neutral-900, #222);
+    color: var(--rds-color-neutral-900);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     height: 36px;
-    background: var(--rds-color-neutral-0, #fff);
+    background: var(--rds-color-neutral-0);
     margin-left: 0;
     border-radius: 0 6px 6px 0;
   }
 
   &__file-text--placeholder {
-    color: var(--rds-color-neutral-500, #888);
+    color: var(--rds-color-neutral-500);
     font-weight: var(--rds-font-weight-normal, 400);
   }
 
   .rds-e-signature--disabled &__file-text {
-    color: var(--rds-color-neutral-600, #777);
+    color: var(--rds-color-neutral-600);
   }
 
   &__file-delete {
     background: transparent;
     border: none;
-    color: var(--rds-color-red-delete, #b30000);
+    color: var(--rds-color-red-delete);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -461,11 +461,11 @@
   }
 
   &__file-delete:hover {
-    color: var(--rds-color-red-delete-hover, #e30000);
+    color: var(--rds-color-red-delete-hover);
   }
 
   &__file-delete:focus-visible {
-    outline: 2px solid var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
+    outline: 2px solid var(--rds-color-primary-700, var(--rds-primary-main));
     outline-offset: -2px;
   }
 
@@ -482,7 +482,7 @@
   }
 
   &__file-limit {
-    color: var(--rds-color-neutral-700, #6b6b6b);
+    color: var(--rds-color-neutral-700);
     font-size: var(--rds-font-size-xs, 13px) !important;
     font-weight: var(--rds-font-weight-normal, 400);
     margin-top: var(--rds-space-1, 4px);
@@ -493,7 +493,7 @@
     align-items: center;
     gap: var(--rds-spacing-sm);
     margin-top: var(--rds-spacing-sm);
-    color: var(--rds-color-error-accent, #ff4444);
+    color: var(--rds-color-error-accent);
     font-size: var(--rds-font-size-md);
     font-weight: 500;
   }
@@ -504,17 +504,17 @@
     justify-content: center;
     width: 14px;
     height: 14px;
-    border: 1px solid var(--rds-color-error-700, #d32f2f);
+    border: 1px solid var(--rds-color-error-700);
     border-radius: 50%;
     background: transparent;
-    color: var(--rds-color-error-700, #d32f2f);
+    color: var(--rds-color-error-700);
     font-size: 9px;
     font-weight: 600;
     line-height: 1;
   }
 
   &__upload-error .rds-e-signature__error-text {
-    color: var(--rds-color-error-accent, #ff4444);
+    color: var(--rds-color-error-accent);
     font-size: var(--rds-font-size-md);
     font-weight: 500;
     margin: 0;
@@ -528,8 +528,8 @@
   }
 
   &__choose-panel {
-    border: 2px dashed var(--rds-color-accent-blue-600, #2E7CE0);
-    background: var(--rds-color-neutral-0, #fff);
+    border: 2px dashed var(--rds-color-accent-blue-600);
+    background: var(--rds-color-neutral-0);
     border-radius: var(--rds-radius-lg, 8px);
     padding: var(--rds-spacing-md) 20px 16px;
     margin-top: 6px;
@@ -540,8 +540,8 @@
   }
 
   &__choose-panel--error {
-    border-color: var(--rds-color-error-dark, #c04343);
-    background: var(--rds-color-error-50, #fff5f5);
+    border-color: var(--rds-color-error-dark);
+    background: var(--rds-color-error-50);
   }
 
   &__mini-grid {
@@ -563,12 +563,12 @@
   &__mini-label {
     font-size: var(--rds-font-size-xs, 13px);
     font-weight: var(--rds-font-weight-medium, 500);
-    color: var(--rds-color-neutral-900, #202124);
+    color: var(--rds-color-neutral-900);
   }
 
   &__mini-card {
-    border: 1px solid var(--rds-color-border-subtle, #D0D7DE);
-    background: var(--rds-color-neutral-0, #fff);
+    border: 1px solid var(--rds-color-border-subtle);
+    background: var(--rds-color-neutral-0);
     border-radius: var(--rds-border-radius-sm);
     padding: 2px var(--rds-spacing-xs, 6px);
     display: inline-flex;
@@ -581,20 +581,20 @@
   }
 
   &__mini-card:hover:not(:disabled) {
-    border-color: var(--rds-color-accent-blue-500, #3C98FF);
-    background: var(--rds-color-accent-blue-bg-hover, #F5FAFF);
+    border-color: var(--rds-color-accent-blue-500);
+    background: var(--rds-color-accent-blue-bg-hover);
   }
 
   &__mini-card--selected {
-    border: 1px solid var(--rds-color-accent-blue-700, #0862C6);
-    box-shadow: 0 0 0 1px var(--rds-color-accent-blue-700, #0862C6);
+    border: 1px solid var(--rds-color-accent-blue-700);
+    box-shadow: 0 0 0 1px var(--rds-color-accent-blue-700);
   }
 
   &__mini-full-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--rds-color-neutral-soft, #F8F9FA);
+    background: var(--rds-color-neutral-soft);
     border-radius: var(--rds-border-radius-sm);
     min-height: 34px;
     padding: 0 var(--rds-spacing-sm, 12px);
@@ -605,7 +605,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--rds-color-neutral-soft, #F8F9FA);
+    background: var(--rds-color-neutral-soft);
     border-radius: var(--rds-border-radius-sm);
     min-height: 34px;
     padding: 0 var(--rds-spacing-sm, 12px);
@@ -633,7 +633,7 @@
   }
 
   &__choose-error {
-    color: var(--rds-color-error-dark, #c04343);
+    color: var(--rds-color-error-dark);
     font-size: var(--rds-font-size-xs, 12px);
     display: flex;
     align-items: center;
@@ -643,7 +643,7 @@
   }
 
   &__create-link {
-    color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
+    color: var(--rds-color-primary-700, var(--rds-primary-main));
     font-size: var(--rds-font-size-sm, 14px);
     cursor: pointer;
     display: inline-flex;
@@ -651,13 +651,13 @@
     gap: var(--rds-space-1, 4px);
 
     &:hover {
-      color: var(--rds-color-primary-800, #1565c0);
+      color: var(--rds-color-primary-800);
       text-decoration: underline;
     }
   }
 
   &__error {
-    color: var(--rds-color-error-700, #d32f2f);
+    color: var(--rds-color-error-700);
     font-size: var(--rds-font-size-sm, 14px) !important;
     margin-top: var(--rds-space-2, 8px);
     display: flex;
@@ -672,7 +672,7 @@
     display: inline-flex;
     width: 14px;
     height: 14px;
-    border: 1px solid var(--rds-color-error-700, #d32f2f);
+    border: 1px solid var(--rds-color-error-700);
     border-radius: 50%;
     align-items: center;
     justify-content: center;
@@ -684,7 +684,7 @@
   }
 
   &__disable-message {
-    color: var(--rds-color-neutral-600, #757575);
+    color: var(--rds-color-neutral-600);
     font-size: var(--rds-font-size-xs, 12px);
     margin-top: var(--rds-space-2, 8px);
     text-align: left;
@@ -692,7 +692,7 @@
   }
 
   &__disabled-text {
-    color: var(--rds-color-neutral-500, #969696);
+    color: var(--rds-color-neutral-500);
     line-height: 1.4;
     white-space: pre-line;
     text-align: center;
@@ -714,7 +714,7 @@
   }
 
   &__disabled-footer {
-    color: var(--rds-color-accent-blue-600, #2E7CE0);
+    color: var(--rds-color-accent-blue-600);
     font-size: var(--rds-font-size-sm, 14px) !important;
     margin-top: var(--rds-space-3, 12px);
     font-family: var(--rds-font-family-accent, 'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif);
@@ -724,7 +724,7 @@
 
     .rds-e-signature__canvas-container,
     .rds-e-signature__upload-area {
-      border-color: var(--rds-color-primary-700, var(--rds-primary-main, #1976d2));
+      border-color: var(--rds-color-primary-700, var(--rds-primary-main));
       border-style: solid;
       box-shadow: var(--rds-shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
     }
@@ -734,7 +734,7 @@
 
     .rds-e-signature__canvas-container,
     .rds-e-signature__upload-area {
-      border-color: var(--rds-color-primary-900, #0d47a1);
+      border-color: var(--rds-color-primary-900);
       border-style: solid;
       box-shadow: var(--rds-shadow-hover, 0 4px 12px rgba(0, 0, 0, 0.15));
     }
@@ -753,11 +753,11 @@
     }
 
     .rds-e-signature__action-button {
-      color: var(--rds-color-neutral-disabled-icon, #b3b3b3) !important;
+      color: var(--rds-color-neutral-disabled-icon) !important;
     }
 
     .rds-e-signature__action-button--delete {
-      color: var(--rds-color-neutral-disabled-icon, #b3b3b3) !important;
+      color: var(--rds-color-neutral-disabled-icon) !important;
     }
 
     .rds-e-signature__color-button {
@@ -765,7 +765,7 @@
     }
 
     .rds-e-signature__canvas-title {
-      color: var(--rds-color-neutral-500, #969696);
+      color: var(--rds-color-neutral-500);
     }
   }
 
@@ -785,14 +785,14 @@
 :root[data-theme="dark"] .rds-e-signature__mini-full-wrapper,
 [data-theme="dark"] .rds-e-signature__mini-initials-wrapper,
 :root[data-theme="dark"] .rds-e-signature__mini-initials-wrapper {
-  background: var(--rds-color-surface-dark, #1f1f1f) !important;
-  border-color: var(--rds-color-border-subtle-dark, #2b2b2b) !important;
-  color: var(--rds-color-neutral-0, #ffffff);
+  background: var(--rds-color-surface-dark) !important;
+  border-color: var(--rds-color-border-subtle-dark) !important;
+  color: var(--rds-color-neutral-0);
 }
 
 [data-theme="dark"] .rds-e-signature__upload-panel--hover,
 :root[data-theme="dark"] .rds-e-signature__upload-panel--hover {
-  background: var(--rds-color-surface-hover-dark, #2a2a2a) !important;
+  background: var(--rds-color-surface-hover-dark) !important;
 }
 
 /* Dark-mode text color fixes: ensure neutral-500 usages remain visible on dark backgrounds */
@@ -806,20 +806,20 @@
 :root[data-theme="dark"] .rds-e-signature__mini-label,
 [data-theme="dark"] .rds-e-signature__file-limit,
 :root[data-theme="dark"] .rds-e-signature__file-limit {
-  color: var(--rds-text-secondary, #D1D5DB) !important;
+  color: var(--rds-text-secondary) !important;
 }
 
 /* file-text container should use dark surface and readable text in dark mode */
 [data-theme="dark"] .rds-e-signature__file-text,
 :root[data-theme="dark"] .rds-e-signature__file-text {
-  background: var(--rds-color-surface-dark, #1f1f1f) !important;
-  color: var(--rds-text-secondary, #D1D5DB) !important;
-  border-color: var(--rds-color-border-subtle-dark, #2b2b2b) !important;
+  background: var(--rds-color-surface-dark) !important;
+  color: var(--rds-text-secondary) !important;
+  border-color: var(--rds-color-border-subtle-dark) !important;
 }
 
 [data-theme="dark"] .rds-e-signature__upload-label,
 :root[data-theme="dark"] .rds-e-signature__upload-label {
-  color: var(--rds-color-neutral-0, #ffffff) !important;
+  color: var(--rds-color-neutral-0) !important;
 }
 
 @media (max-width: var(--rds-breakpoint-sm)) {

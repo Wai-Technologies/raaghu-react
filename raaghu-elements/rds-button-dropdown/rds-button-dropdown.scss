@@ -32,12 +32,12 @@
     outline: none;
 
     &:hover:not(&--selected) {
-      background-color: var(--rds-button-dropdown-hover-bg, #f5f5f5);
+      background-color: var(--rds-button-dropdown-hover-bg);
     }
 
     &--selected {
-      background-color: var(--rds-button-dropdown-selected-bg, #3C98FF);
-      color: var(--rds-button-dropdown-selected-text, #ffffff);
+      background-color: var(--rds-button-dropdown-selected-bg);
+      color: var(--rds-button-dropdown-selected-text);
     }
 
     &--disabled {
@@ -75,47 +75,47 @@
 }
 
 .rds-button-dropdown--secondary {
-  background-color: var(--rds-button-dropdown-secondary-bg, #2534E9) !important;
-  color: var(--rds-button-dropdown-selected-text, #ffffff) !important;
+  background-color: var(--rds-button-dropdown-secondary-bg) !important;
+  color: var(--rds-button-dropdown-selected-text) !important;
   border: none !important;
   
   &:hover {
-    background-color: var(--rds-button-dropdown-secondary-bg-hover, #1d2bb8) !important;
-    color: var(--rds-button-dropdown-selected-text, #ffffff) !important;
+    background-color: var(--rds-button-dropdown-secondary-bg-hover) !important;
+    color: var(--rds-button-dropdown-selected-text) !important;
   }
   
   &:active {
-    background-color: var(--rds-button-dropdown-secondary-bg-active, #162291) !important;
-    color: var(--rds-button-dropdown-selected-text, #ffffff) !important;
+    background-color: var(--rds-button-dropdown-secondary-bg-active) !important;
+    color: var(--rds-button-dropdown-selected-text) !important;
   }
   
   &:focus {
-    background-color: var(--rds-button-dropdown-secondary-bg, #2534E9) !important;
-    color: var(--rds-button-dropdown-selected-text, #ffffff) !important;
+    background-color: var(--rds-button-dropdown-secondary-bg) !important;
+    color: var(--rds-button-dropdown-selected-text) !important;
   }
   
   .MuiSvgIcon-root {
-    color: var(--rds-button-dropdown-selected-text, #ffffff) !important;
+    color: var(--rds-button-dropdown-selected-text) !important;
   }
   
   &.MuiButton-root {
-    background-color: var(--rds-button-dropdown-secondary-bg, #2534E9) !important;
-    color: var(--rds-button-dropdown-selected-text, #ffffff) !important;
+    background-color: var(--rds-button-dropdown-secondary-bg) !important;
+    color: var(--rds-button-dropdown-selected-text) !important;
     border: none !important;
     
     &:hover {
-      background-color: var(--rds-button-dropdown-secondary-bg-hover, #1d2bb8) !important;
-      color: var(--rds-button-dropdown-selected-text, #ffffff) !important;
+      background-color: var(--rds-button-dropdown-secondary-bg-hover) !important;
+      color: var(--rds-button-dropdown-selected-text) !important;
     }
     
     &:active {
-      background-color: var(--rds-button-dropdown-secondary-bg-active, #162291) !important;
-      color: var(--rds-button-dropdown-selected-text, #ffffff) !important;
+      background-color: var(--rds-button-dropdown-secondary-bg-active) !important;
+      color: var(--rds-button-dropdown-selected-text) !important;
     }
   }
 }
 
 .rds-button-dropdown__button.rds-button-dropdown--outline {
-  color: var(--rds-button-dropdown-selected-bg, #3C98FF) !important;
+  color: var(--rds-button-dropdown-selected-bg) !important;
 }
 

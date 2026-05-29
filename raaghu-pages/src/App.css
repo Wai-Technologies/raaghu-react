@@ -1,42 +1,33 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.rds-demo-page-content {
+  padding: var(--rds-spacing-lg);
+  min-height: 100%;
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.rds-demo-section {
+  margin-bottom: var(--rds-spacing-xl);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.rds-demo-section-title {
+  margin-bottom: var(--rds-spacing-md);
+  color: var(--rds-text-primary);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.rds-demo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rds-spacing-md);
+  align-items: flex-start;
 }
 
-.card {
-  padding: 2em;
+.rds-demo-card-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--rds-spacing-md);
+  margin-bottom: var(--rds-spacing-lg);
 }
 
-.read-the-docs {
-  color: #888;
+.rds-story-logo {
+  height: 32px;
+  width: auto;
 }

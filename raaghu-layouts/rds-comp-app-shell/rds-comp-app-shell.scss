@@ -7,7 +7,7 @@
     top: 0;
     left: 0;
     right: 0;
-    background: var(--rds-color-surface, #fff);
+    background: var(--rds-color-surface);
     box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0,0,0,0.08));
     transition: box-shadow 0.2s ease;
   }
@@ -21,23 +21,23 @@
   .MuiBottomNavigationAction-root.Mui-selected,
   .rds-tab--selected,
   .rds-nav-tab--selected {
-    color: var(--rds-color-primary, #1976d2) !important;
+    color: var(--rds-color-primary) !important;
     font-weight: 600 !important;
   }
   
   .MuiTabs-indicator {
-    background-color: var(--rds-color-primary, #1976d2) !important;
+    background-color: var(--rds-color-primary) !important;
     height: 3px !important;
   }
   
   .MuiBottomNavigationAction-root.Mui-selected .MuiBottomNavigationAction-label {
-    color: var(--rds-color-primary, #1976d2) !important;
+    color: var(--rds-color-primary) !important;
     font-weight: 600 !important;
   }
   
   .MuiTab-root:hover,
   .MuiBottomNavigationAction-root:hover {
-    color: var(--rds-color-primary-hover, #1565c0) !important;
+    color: var(--rds-color-primary-hover) !important;
     opacity: 0.8;
   }
   
@@ -318,11 +318,11 @@
   }
   
   &--primary {
-    color: var(--rds-color-primary, #1976d2) !important;
+    color: var(--rds-color-primary) !important;
     font-weight: 600 !important;
     
     .rds-story-sub-tab-icon {
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary) !important;
     }
   }
   
@@ -497,7 +497,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     padding: 0;
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--rds-color-on-surface, #000);
+    color: var(--rds-color-on-surface);
   }
   
   &__content {
@@ -680,7 +680,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         }
         
         &[data-active="true"] {
-          color: var(--rds-color-primary, #1976d2) !important;
+          color: var(--rds-color-primary) !important;
           font-weight: 600 !important;
         }
         
@@ -694,12 +694,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary) !important;
       font-weight: 600 !important;
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary, #1976d2) !important;
+      background-color: var(--rds-color-primary) !important;
       height: 3px !important;
     }
   }
@@ -1359,12 +1359,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary) !important;
       font-weight: 600 !important;
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary, #1976d2) !important;
+      background-color: var(--rds-color-primary) !important;
       height: 3px !important;
     }
   }
@@ -1514,7 +1514,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       right: 0 !important;
       z-index: var(--rds-z-index-toast, 1700) !important;
       background: transparent !important;
-      border-top: 1px solid var(--rds-border-default, #e0e0e0) !important;
+      border-top: 1px solid var(--rds-border-default) !important;
       box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15) !important;
       display: flex !important;
       width: 100% !important;
@@ -1530,13 +1530,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         min-width: 0 !important;
         
         &.Mui-selected {
-          color: var(--rds-color-primary, #1976d2) !important;
+          color: var(--rds-color-primary) !important;
           font-weight: 600 !important;
         }
       }
       
       .MuiTabs-indicator {
-        background-color: var(--rds-color-primary, #1976d2) !important;
+        background-color: var(--rds-color-primary) !important;
         height: 3px !important;
         top: 0 !important;
         bottom: auto !important;
@@ -1590,12 +1590,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       
       .MuiTab-root.Mui-selected,
       .MuiBottomNavigationAction-root.Mui-selected {
-        color: var(--rds-color-primary, #1976d2) !important;
+        color: var(--rds-color-primary) !important;
         font-weight: 600 !important;
       }
       
       .MuiTabs-indicator {
-        background-color: var(--rds-color-primary, #1976d2) !important;
+        background-color: var(--rds-color-primary) !important;
         height: 3px !important;
       }
     }
@@ -2313,12 +2313,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root {
     .MuiTab-root.Mui-selected {
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary) !important;
       font-weight: 600 !important;
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary, #1976d2) !important;
+      background-color: var(--rds-color-primary) !important;
       height: 3px !important;
     }
   }

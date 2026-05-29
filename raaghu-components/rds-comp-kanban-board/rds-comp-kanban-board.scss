@@ -30,7 +30,7 @@
     color: var(--rds-text-primary);
     
     &--empty-board {
-      border: 1px dashed var(--rds-surface-primary-medium, #D4BBFF) !important;
+      border: 1px dashed var(--rds-surface-primary-medium) !important;
     }
     
     &--add-board-320 {
@@ -51,7 +51,7 @@
     justify-content: space-between !important;
     align-items: center !important;
     margin-bottom: var(--rds-spacing-md) !important;
-    background-color: var(--rds-surface-primary-light, #ebdcff) !important;
+    background-color: var(--rds-surface-primary-light) !important;
     color: var(--rds-text-primary) !important;
     min-height: 35px !important;
     padding: var(--rds-spacing-sm) !important;
@@ -88,19 +88,19 @@
   .card {
     padding: var(--rds-spacing-xs, 5px) !important;
   min-height: 600px !important;
-    border: 1px solid var(--rds-surface-primary-medium, #D4BBFF);
+    border: 1px solid var(--rds-surface-primary-medium);
     background-color: var(--rds-background-paper);
   }
 
   .card-header {
-    background-color: var(--rds-surface-primary-light, #ebdcff) !important;
+    background-color: var(--rds-surface-primary-light) !important;
     color: var(--rds-text-primary);
     min-height: 35px !important;
     height: 35px !important;
     display: flex !important;
     align-items: center !important;
     flex-direction: row !important;
-    border-bottom: 1px solid var(--rds-surface-primary-medium, #D4BBFF) !important;
+    border-bottom: 1px solid var(--rds-surface-primary-medium) !important;
     padding-left: var(--rds-spacing-md, 18px) !important;
     padding-right: var(--rds-spacing-sm) !important;
     font-size: var(--rds-font-size-lg) !important;
@@ -131,7 +131,7 @@
   ul {
     min-width: var(--rds-kanban-dropdown-min-width, 125px) !important;
     padding: var(--rds-kanban-dropdown-padding-vertical, 6px) 0px;
-    border-color: var(--rds-surface-primary-medium, #ebdcff) !important;
+    border-color: var(--rds-surface-primary-medium) !important;
     background-color: var(--rds-background-paper);
     color: var(--rds-text-primary);
   }
@@ -145,7 +145,7 @@
       display: flex !important;
       align-items: center !important;
       flex-direction: row !important;
-      border-bottom: 1px solid var(--rds-surface-primary-medium, #D4BBFF) !important;
+      border-bottom: 1px solid var(--rds-surface-primary-medium) !important;
       padding-left: 18px !important;
       padding-right: var(--rds-spacing-sm) !important;
       font-size: var(--rds-font-size-md, 15px) !important;
@@ -208,9 +208,9 @@
   margin-top: var(--rds-spacing-sm) !important;
   
   &-card {
-    background-color: var(--rds-background-paper, #FEF7FF) !important;
+    background-color: var(--rds-background-paper) !important;
     color: var(--rds-text-primary) !important;
-    border: 1px solid var(--rds-surface-neutral-light, #e0e0e0) !important;
+    border: 1px solid var(--rds-surface-neutral-light) !important;
     border-radius: 0px !important;
   min-height: 133.6px !important;
   }
@@ -271,7 +271,7 @@
   &__menu-paper {
     background-color: var(--rds-background-paper) !important;
     color: var(--rds-text-primary) !important;
-    border: 1px solid var(--rds-surface-neutral-light, #e0e0e0) !important;
+    border: 1px solid var(--rds-surface-neutral-light) !important;
   }
   
   &__menu-item {
@@ -293,7 +293,7 @@
 
 .rds-kanban-board__select-menu {
   .MuiPaper-root {
-    background-color: var(--rds-background-paper, #ffffff);
+    background-color: var(--rds-background-paper);
     color: var(--rds-text-primary);
   }
   
@@ -318,11 +318,11 @@
   margin-bottom: var(--rds-spacing-md) !important;
   
   .MuiOutlinedInput-root {
-    background-color: var(--rds-background-paper, #ffffff);
+    background-color: var(--rds-background-paper);
     color: var(--rds-text-primary);
     
     fieldset {
-      border-color: var(--rds-surface-neutral-light, #e0e0e0);
+      border-color: var(--rds-surface-neutral-light);
     }
     
     &:hover fieldset {
@@ -352,11 +352,11 @@
   margin-bottom: var(--rds-spacing-md) !important;
   
   .MuiOutlinedInput-root {
-    background-color: var(--rds-background-paper, #ffffff);
+    background-color: var(--rds-background-paper);
     color: var(--rds-text-primary);
     
     fieldset {
-      border-color: var(--rds-surface-neutral-light, #e0e0e0);
+      border-color: var(--rds-surface-neutral-light);
     }
     
     &:hover fieldset {
@@ -378,13 +378,13 @@
   }
   
   .MuiChip-root {
-    background-color: var(--rds-surface-primary-light, #ebdcff);
+    background-color: var(--rds-surface-primary-light);
     color: var(--rds-text-primary);
   }
 }
 
 .rds-kanban-board__autocomplete-paper {
-  background-color: var(--rds-background-paper, #ffffff);
+  background-color: var(--rds-background-paper);
   color: var(--rds-text-primary);
   
   .MuiAutocomplete-option {
@@ -411,7 +411,7 @@
   flex-grow: 1;
   border: 1px solid var(--rds-primary-main) !important;
   color: var(--rds-primary-main) !important;
-  background-color: var(--rds-background-paper, #ffffff) !important;
+  background-color: var(--rds-background-paper) !important;
   text-transform: none !important;
 }
 
@@ -486,7 +486,7 @@
   border: 1px solid var(--rds-primary-main) !important;
   color: var(--rds-primary-main) !important;
     text-transform: none;
-    background-color: var(--rds-background-paper, #ffffff);
+    background-color: var(--rds-background-paper);
   }
   
   svg {
@@ -586,9 +586,9 @@
 
 .dropdown-menu {
   .MuiPaper-root {
-    background-color: var(--rds-background-paper, #ffffff) !important;
+    background-color: var(--rds-background-paper) !important;
     color: var(--rds-text-primary) !important;
-    border: 1px solid var(--rds-surface-neutral-light, #e0e0e0) !important;
+    border: 1px solid var(--rds-surface-neutral-light) !important;
   }
   
   .MuiMenuItem-root {
@@ -603,11 +603,11 @@
 .kanban-board {
   .MuiTextField-root {
     .MuiOutlinedInput-root {
-      background-color: var(--rds-background-paper, #ffffff);
+      background-color: var(--rds-background-paper);
       color: var(--rds-text-primary);
       
       fieldset {
-        border-color: var(--rds-surface-neutral-light, #e0e0e0);
+        border-color: var(--rds-surface-neutral-light);
       }
       
       &:hover fieldset {
@@ -631,11 +631,11 @@
   
   .MuiFormControl-root {
     .MuiOutlinedInput-root {
-      background-color: var(--rds-background-paper, #ffffff);
+      background-color: var(--rds-background-paper);
       color: var(--rds-text-primary);
       
       fieldset {
-        border-color: var(--rds-surface-neutral-light, #e0e0e0);
+        border-color: var(--rds-surface-neutral-light);
       }
       
       &:hover fieldset {

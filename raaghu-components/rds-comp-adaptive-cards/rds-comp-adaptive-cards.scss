@@ -438,8 +438,8 @@
     font-size: var(--rds-font-size-xs, 10px) !important;
     font-weight: var(--rds-font-weight-normal, 400) !important;
     border-radius: 999px !important;
-    background: #d32f2f !important;
-    color: #ffffff !important;
+    background: var(--rds-error-dark) !important;
+    color: var(--rds-neutral-0) !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -462,7 +462,7 @@
   }
   .rds-adaptive-cards__football-live .MuiChip-label,
   .rds-adaptive-cards__football-live--aligned .MuiChip-label {
-    color: #ffffff !important;
+    color: var(--rds-neutral-0) !important;
   }
   &__football-body {
     display: flex !important; 
@@ -517,12 +517,12 @@
     &__football-score,
     &__football-score-colon,
     &__football-score * {
-      color: #ffffff !important;
+      color: var(--rds-neutral-0) !important;
     }
 
     &__football-time {
       background: var(--rds-surface-dark-alt, rgba(255,255,255,0.04)) !important;
-      color: #ffffff !important;
+      color: var(--rds-neutral-0) !important;
     }
   }
   &__football-img {
@@ -827,7 +827,7 @@
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo,
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo--home,
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-logo--away {
-  background: var(--rds-surface-dark-alt, #3a3a3a) !important;
+  background: var(--rds-surface-dark-alt) !important;
 }
 
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-img {
@@ -836,18 +836,18 @@
 
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-time,
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-time .MuiChip-root {
-  background: var(--rds-surface-dark-alt, #3a3a3a) !important;
-  color: #ffffff !important;
+  background: var(--rds-surface-dark-alt) !important;
+  color: var(--rds-neutral-0) !important;
 }
 
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-time .MuiChip-label {
-  color: #ffffff !important;
+  color: var(--rds-neutral-0) !important;
 }
 
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-score,
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-score-colon,
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-score * {
-  color: #ffffff !important;
+  color: var(--rds-neutral-0) !important;
 }
 
 [data-theme="dark"] .rds-adaptive-cards--football-scorecard .rds-adaptive-cards__football-team-name,
@@ -862,8 +862,8 @@
   .MuiOutlinedInput-input,
   .MuiInputBase-input::placeholder,
   .MuiOutlinedInput-input::placeholder {
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
+    color: var(--rds-neutral-0) !important;
+    -webkit-text-fill-color: var(--rds-neutral-0) !important;
   }
 
   /* For MUI filled/outlined inputs ensure label and helper text contrast if needed */

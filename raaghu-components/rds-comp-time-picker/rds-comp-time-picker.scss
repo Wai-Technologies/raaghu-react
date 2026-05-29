@@ -1,30 +1,30 @@
 .time-picker-container {
   position: relative;
-  --rds-time-picker-accent: var(--rds-primary-main, #0d6efd);
+  --rds-time-picker-accent: var(--rds-primary-main);
   --rds-time-picker-accent-rgb: var(--rds-primary-rgb, 13, 110, 253);
 
   &.time-picker-variant-secondary {
-    --rds-time-picker-accent: var(--rds-secondary-main, var(--rds-text-secondary, #6c757d));
+    --rds-time-picker-accent: var(--rds-secondary-main, var(--rds-text-secondary));
     --rds-time-picker-accent-rgb: var(--rds-secondary-rgb, var(--rds-text-secondary-rgb, 108, 117, 125));
   }
 
   &.time-picker-variant-success {
-    --rds-time-picker-accent: var(--rds-semantic-success-main, var(--rds-success-main, #198754));
+    --rds-time-picker-accent: var(--rds-semantic-success-main, var(--rds-success-main));
     --rds-time-picker-accent-rgb: var(--rds-semantic-success-rgb, var(--rds-success-rgb, 25, 135, 84));
   }
 
   &.time-picker-variant-error {
-    --rds-time-picker-accent: var(--rds-semantic-error-main, var(--rds-error-main, #dc3545));
+    --rds-time-picker-accent: var(--rds-semantic-error-main, var(--rds-error-main));
     --rds-time-picker-accent-rgb: var(--rds-semantic-error-rgb, var(--rds-error-rgb, 220, 53, 69));
   }
 
   &.time-picker-variant-warning {
-    --rds-time-picker-accent: var(--rds-semantic-warning-main, var(--rds-warning-main, #f59e0b));
+    --rds-time-picker-accent: var(--rds-semantic-warning-main, var(--rds-warning-main));
     --rds-time-picker-accent-rgb: var(--rds-semantic-warning-rgb, var(--rds-warning-rgb, 245, 158, 11));
   }
 
   &.time-picker-variant-info {
-    --rds-time-picker-accent: var(--rds-info-main, var(--rds-info-dark, #0dcaf0));
+    --rds-time-picker-accent: var(--rds-info-main, var(--rds-info-dark));
     --rds-time-picker-accent-rgb: var(--rds-info-rgb, 13, 202, 240);
   }
   
@@ -45,18 +45,18 @@
   height: 34px;
       padding: calc(var(--rds-spacing-sm) - var(--rds-spacing-xs)) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   padding-right: 34px;
-      border: 1px solid var(--rds-border-subtle, #E0E0E0);
+      border: 1px solid var(--rds-border-subtle);
       border-radius: var(--rds-border-radius-sm);
       text-align: left;
       font-size: var(--rds-font-size-md);
-      color: var(--rds-text-primary, #333333);
+      color: var(--rds-text-primary);
       cursor: pointer;
       outline: none;
       background-color: var(--rds-neutral-0);
       transition: border-color 0.2s;
       
       &:hover:not(:disabled) {
-        border-color: var(--rds-border-hover, #BDBDBD);
+        border-color: var(--rds-border-hover);
       }
       
       &:focus {
@@ -65,7 +65,7 @@
       }
       
       &:disabled {
-        background-color: var(--rds-background-disabled, #F5F5F5);
+        background-color: var(--rds-background-disabled);
         cursor: not-allowed;
       }
       
@@ -76,9 +76,9 @@
     
     .border-primary { border-color: var(--rds-primary-main); }
     .border-secondary { border-color: var(--rds-border-default); }
-    .border-success { border-color: var(--rds-semantic-success-main, var(--rds-success-main, #198754)); }
-    .border-error, .border-danger { border-color: var(--rds-semantic-error-main, var(--rds-error-main, #dc3545)); }
-    .border-warning { border-color: var(--rds-semantic-warning-main, var(--rds-warning-main, #f59e0b)); }
+    .border-success { border-color: var(--rds-semantic-success-main, var(--rds-success-main)); }
+    .border-error, .border-danger { border-color: var(--rds-semantic-error-main, var(--rds-error-main)); }
+    .border-warning { border-color: var(--rds-semantic-warning-main, var(--rds-warning-main)); }
     .border-info { border-color: var(--rds-info-dark); }
     .border-light { border-color: var(--rds-border-light); }
     .border-dark { border-color: var(--rds-text-primary); }
@@ -121,16 +121,16 @@
     }
 
     &.border-success {
-      border-color: var(--rds-semantic-success-main, var(--rds-success-main, #198754));
+      border-color: var(--rds-semantic-success-main, var(--rds-success-main));
     }
 
     &.border-error,
     &.border-danger {
-      border-color: var(--rds-semantic-error-main, var(--rds-error-main, #dc3545));
+      border-color: var(--rds-semantic-error-main, var(--rds-error-main));
     }
 
     &.border-warning {
-      border-color: var(--rds-semantic-warning-main, var(--rds-warning-main, #f59e0b));
+      border-color: var(--rds-semantic-warning-main, var(--rds-warning-main));
     }
     
     .row {
@@ -144,7 +144,7 @@
     .time-divider {
       width: 100%;
       height: 1px;
-      background-color: var(--rds-border-subtle, #E0E0E0);
+      background-color: var(--rds-border-subtle);
       margin: var(--rds-spacing-sm) 0 calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
     }
     
@@ -404,18 +404,18 @@
         
         &.bg-primary { background-color: var(--rds-primary-main); }
         &.bg-secondary { background-color: var(--rds-text-secondary); }
-        &.bg-success { background-color: var(--rds-semantic-success-main, var(--rds-success-main, #198754)); }
-        &.bg-error, &.bg-danger { background-color: var(--rds-semantic-error-main, var(--rds-error-main, #dc3545)); }
-        &.bg-warning { background-color: var(--rds-semantic-warning-main, var(--rds-warning-main, #f59e0b)); }
+        &.bg-success { background-color: var(--rds-semantic-success-main, var(--rds-success-main)); }
+        &.bg-error, &.bg-danger { background-color: var(--rds-semantic-error-main, var(--rds-error-main)); }
+        &.bg-warning { background-color: var(--rds-semantic-warning-main, var(--rds-warning-main)); }
         &.bg-info { background-color: var(--rds-info-dark); }
         &.bg-light { background-color: var(--rds-surface-subtle); }
         &.bg-dark { background-color: var(--rds-text-primary); }
         
         &.text-primary { color: var(--rds-primary-main); }
         &.text-secondary { color: var(--rds-text-secondary); }
-        &.text-success { color: var(--rds-semantic-success-main, var(--rds-success-main, #198754)); }
-        &.text-error, &.text-danger { color: var(--rds-semantic-error-main, var(--rds-error-main, #dc3545)); }
-        &.text-warning { color: var(--rds-semantic-warning-main, var(--rds-warning-main, #f59e0b)); }
+        &.text-success { color: var(--rds-semantic-success-main, var(--rds-success-main)); }
+        &.text-error, &.text-danger { color: var(--rds-semantic-error-main, var(--rds-error-main)); }
+        &.text-warning { color: var(--rds-semantic-warning-main, var(--rds-warning-main)); }
         &.text-info { color: var(--rds-info-dark); }
         &.text-light { color: var(--rds-text-disabled); }
         &.text-white { color: var(--rds-neutral-0); }
