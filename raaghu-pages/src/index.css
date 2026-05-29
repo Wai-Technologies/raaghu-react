@@ -1,4 +1,3 @@
-/* Minimal page-level reset — colors come from Raaghu theme tokens */
 html,
 body,
 #root {
@@ -11,4 +10,21 @@ body {
   font-family: var(--rds-font-family-base);
   color: var(--rds-text-primary);
   background-color: var(--rds-background-default);
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rds-spacing-lg);
+  min-height: 100vh;
+  padding: var(--rds-spacing-lg);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.welcome__logo {
+  width: 64px;
+  height: 64px;
 }
