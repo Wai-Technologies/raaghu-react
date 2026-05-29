@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from '@storybook/test';
 import RdsTypography from './rds-typography';
 
 const meta: Meta<typeof RdsTypography> = {
@@ -145,4 +146,16 @@ export const NoWrap: Story = {
     noWrap: true,
     variant: 'body1',
   },
+};
+
+export const TextVisible: Story = {
+  name: 'Interaction: Typography renders text',
+  args: {
+    text: 'Hello Design System',
+    variant: 'body1',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText('Hello Design System')).toBeVisible()
+  }
 };

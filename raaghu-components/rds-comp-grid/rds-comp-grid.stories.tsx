@@ -1,3 +1,4 @@
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React, { useRef, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -98,6 +99,15 @@ const meta: Meta<typeof RdsCompGrid> = {
 };
 
 export default meta;
+type Story = StoryObj<typeof RdsCompGrid>;
+
+export const Default: Story = {
+  args: {},
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.firstElementChild;
+    expect(el).toBeTruthy();
+  },
+};
 // type Story = StoryObj<typeof RdsCompGrid>;
 
 // // Sample data

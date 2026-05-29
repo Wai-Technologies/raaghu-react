@@ -1,6 +1,7 @@
 import React from "react";
 import RdsCompAiFabMenu from "./rds-comp-ai-fab-menu";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 
 const meta: Meta = {
     title: 'Components/AI ChatBox/Fab Menu',
@@ -55,6 +56,11 @@ export default meta;
 type Story = StoryObj<typeof RdsCompAiFabMenu>;
 
 export const Default: Story = {
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const buttons = canvasElement.querySelectorAll('button');
+        expect(buttons.length).toBeGreaterThan(0);
+    },
     args: {
         colorVariant: "light",
         size: "medium",

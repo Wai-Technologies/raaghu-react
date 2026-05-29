@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, waitFor } from '@storybook/test';
 import RdsSelect from './rds-select';
 
 const meta: Meta<typeof RdsSelect> = {
@@ -89,4 +90,26 @@ export const WithValue: Story = {
     value: 'option2',
     options: basicOptions,
   },
+};
+
+export const SelectOpen: Story = {
+  name: 'Interaction: Open dropdown',
+  args: {
+    label: 'Select Option',
+    options: basicOptions,
+    inputPlaceholder: 'Please select...',
+    size: 'small',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    // MUI non-native Select renders trigger as role="combobox"
+    const trigger = canvas.getByRole('combobox')
+    await expect(trigger).toBeVisible()
+    await userEvent.click(trigger)
+    // MUI listbox opens in a portal at document.body
+    await waitFor(
+      () => expect(document.querySelector('[role="listbox"]')).not.toBeNull(),
+      { timeout: 2000 }
+    )
+  }
 };

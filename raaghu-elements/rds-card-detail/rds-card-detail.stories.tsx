@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from '@storybook/test';
 import { Button, Typography, Box } from '@mui/material';
 import { Share, Favorite } from '@mui/icons-material';
 import RdsCardDetail from './rds-card-detail';
@@ -117,4 +118,18 @@ export const Outlined: Story = {
       </Typography>
     ),
   },
+};
+
+export const CardDetailVisible: Story = {
+  name: 'Interaction: Card detail renders title and content',
+  args: {
+    title: 'Detail Card',
+    subtitle: 'Card subtitle text',
+    children: <Typography>Card body content</Typography>,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText('Detail Card')).toBeVisible()
+    await expect(canvas.getByText('Card subtitle text')).toBeVisible()
+  }
 };

@@ -1,6 +1,7 @@
 import RdsCompBubbleChart from "./rds-comp-chart-bubble";
 import "./rds-comp-chart-bubble.scss";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Bubble Chart',
@@ -73,4 +74,18 @@ export const Default: Story = {
             exclude: ['chartWidth', 'chartStyle',],
         },
     },
+};
+export const ChartRenders: Story = {
+  name: 'Interaction: Bubble chart renders canvas',
+  args: {
+    id: 'test-bubble',
+    labels: [10, 20, 30],
+    dataSets: [{ label: 'D', data: [10, 20, 15], backgroundColor: 'rgba(75,192,192,0.6)' }],
+    options: { responsive: true, maintainAspectRatio: false },
+  },
+  play: async ({ canvasElement }) => {
+    const chart = canvasElement.querySelector('canvas')
+    await expect(chart).not.toBeNull()
+    await expect(chart).toBeVisible()
+  }
 };

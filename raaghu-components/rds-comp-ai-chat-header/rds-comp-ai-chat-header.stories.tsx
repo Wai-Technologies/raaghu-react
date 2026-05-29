@@ -1,4 +1,5 @@
 import React from "react";
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompAiChatHeader, { ChatHeaderSize } from "./rds-comp-ai-chat-header";
 
@@ -42,5 +43,9 @@ export const Default: Story = {
     logoUrl: "https://raaghustorageaccount.blob.core.windows.net/raaghu-blob/pundit-color-logo.png",
     title: "New Chat Started",
     size: ChatHeaderSize.Medium,
+  },
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.firstElementChild;
+    expect(el).toBeTruthy();
   },
 };

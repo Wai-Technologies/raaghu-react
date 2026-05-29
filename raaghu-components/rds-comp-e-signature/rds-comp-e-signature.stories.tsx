@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 import RdsCompESignature from './rds-comp-e-signature';
 
 const meta: Meta<typeof RdsCompESignature> = {
@@ -64,6 +65,10 @@ export const Draw: Story = {
     type: 'fullname',
     colourSwatch: true,
     title: 'Draw Signature',
+  },
+  play: async ({ canvasElement }) => {
+    const c = canvasElement.querySelector('canvas');
+    expect(c).toBeTruthy();
   },
 };
 

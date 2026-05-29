@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 import RdsCompTreeStructure, { IconType, NodeState, RdsCompTreeStructureProps, TreeLevel, defaultFileTypeIcons, getDefaultFileIcon } from './rds-comp-tree-structure';
 
 const meta: Meta = {
@@ -216,3 +217,31 @@ export default meta;
 // Default.parameters = {
 //   controls: { include: ['level', 'state', 'showChewron', 'showCheckbox', 'showFolder', 'showFile',  'text', 'showActions', 'showCollapsed', 'Language', 'type', 'treeData'] },
 // };
+
+export const Default: StoryObj<RdsCompTreeStructureProps> = {
+  args: {
+    level: TreeLevel.Level2,
+    state: NodeState.Default,
+    showChewron: true,
+    showCheckbox: false,
+    showFolder: true,
+    showFile: true,
+    showActions: false,
+    showCollapsed: false,
+    type: IconType.Folder,
+    treeData: [
+      {
+        id: 1,
+        name: "src",
+        icon: "folder",
+        children: [
+          { id: 2, name: "index.ts", icon: "file", children: [] },
+        ],
+      },
+    ],
+  },
+  play: async ({ canvasElement }) => {
+    const tree = canvasElement.querySelector('[role="tree"]') || canvasElement.firstElementChild;
+    expect(tree).toBeTruthy();
+  },
+};

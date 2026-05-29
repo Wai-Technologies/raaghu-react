@@ -1,5 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 import RdsCompReviews, { RevieweStyle, VariantType } from "./rds-comp-reviews";
 
 const meta: Meta = { 
@@ -34,6 +35,10 @@ export default meta;
 type Story = StoryObj<typeof RdsCompReviews>;
 
 export const Default: Story = {
+play: async ({ canvasElement }) => {
+  const el = canvasElement.firstElementChild;
+  expect(el).toBeTruthy();
+},
 args: {
         variantType: VariantType.Default,
         style: RevieweStyle.Style1,

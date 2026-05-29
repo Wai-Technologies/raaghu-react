@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from '@storybook/test';
 import RdsChip from './rds-chip';
+import { expect, userEvent, within, fn } from '@storybook/test';
 import { Face, Delete, Done } from '@mui/icons-material';
 
 const meta: Meta<typeof RdsChip> = {
@@ -113,4 +115,21 @@ export const Success: Story = {
     color: 'success',
     icon: <Done />,
   },
+};
+
+export const ClickTest: Story = {
+  name: 'Interaction: Chip click fires callback',
+  args: {
+    text: 'Click Me',
+    clickable: true,
+    onClick: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement)
+    // MUI Chip renders as role="button" but accessible name is empty — query without name filter
+    const chip = canvas.getByRole('button')
+    await expect(chip).toBeVisible()
+    await userEvent.click(chip)
+    await expect(args.onClick).toHaveBeenCalledOnce()
+  }
 };

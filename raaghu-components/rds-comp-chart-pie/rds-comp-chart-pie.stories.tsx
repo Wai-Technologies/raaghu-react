@@ -1,6 +1,7 @@
 
 import RdsCompPieChart from "./rds-comp-chart-pie";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Pie Chart',
@@ -70,4 +71,19 @@ export const Default: Story = {
             },
         ],
     },
+};
+
+export const ChartRenders: Story = {
+  name: 'Interaction: Pie chart renders canvas',
+  args: {
+    id: 'test-pie',
+    labels: ['A', 'B', 'C'],
+    options: { maintainAspectRatio: false },
+    dataSets: [{ data: [33, 33, 34], backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'] }],
+  },
+  play: async ({ canvasElement }) => {
+    const chart = canvasElement.querySelector('canvas')
+    await expect(chart).not.toBeNull()
+    await expect(chart).toBeVisible()
+  }
 };

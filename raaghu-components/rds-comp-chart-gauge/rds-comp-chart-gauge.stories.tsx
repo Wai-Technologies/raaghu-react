@@ -1,5 +1,6 @@
 import RdsCompGaugeChart from "./rds-comp-chart-gauge";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Gauge Chart',
@@ -229,3 +230,17 @@ export const RedOnly: Story = {
         ]
     }
 } satisfies Story;
+export const ChartRenders: Story = {
+  name: 'Interaction: Gauge chart renders canvas',
+  args: {
+    id: 'test-gauge',
+    labels: ['Value'],
+    options: { maintainAspectRatio: false },
+    dataSets: [{ data: [75], backgroundColor: ['#4bc0c0'] }],
+  },
+  play: async ({ canvasElement }) => {
+    const chart = canvasElement.querySelector('canvas')
+    await expect(chart).not.toBeNull()
+    await expect(chart).toBeVisible()
+  }
+};

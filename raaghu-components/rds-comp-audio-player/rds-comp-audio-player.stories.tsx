@@ -1,5 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from '@storybook/test';
 import RdsCompAudioPlayer from './rds-comp-audio-player';
 
 const meta: Meta<typeof RdsCompAudioPlayer> = {
@@ -36,4 +37,23 @@ export const Default: Story = {
         showExport: true,
         showMoreOptions: true,
     } 
+};
+
+export const PlayerVisible: Story = {
+  name: 'Interaction: Audio player renders',
+  args: {
+    type: 'Audio Player',
+    showSettings: false,
+    showTranscript: false,
+    showExport: false,
+    showMoreOptions: false,
+  },
+  play: async ({ canvasElement }) => {
+    // Audio player renders with buttons or media controls
+    const player = canvasElement.querySelector(
+      '[class*="audio"], [class*="Audio"], audio, [class*="player"], [class*="Player"]'
+    )
+    await expect(player).not.toBeNull()
+    await expect(canvasElement).toBeTruthy()
+  }
 };

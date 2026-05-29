@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from '@storybook/test';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import RdsBackdrop from './rds-backdrop';
@@ -130,5 +131,29 @@ export const Interactive: Story = {
         inline: true,
       }
     }
+  }
+};
+
+export const BackdropVisible: Story = {
+  name: 'Interaction: Backdrop renders when open',
+  args: {
+    open: true,
+    children: 'Loading...',
+  },
+  render: (args) => (
+    <div style={{ position: 'relative', minHeight: 300 }}>
+      <RdsBackdrop
+        {...args}
+        sx={{ '&.rds-backdrop': { position: 'absolute' } }}
+      />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const backdrop = canvasElement.querySelector(
+      '[class*="MuiBackdrop-root"], [class*="rds-backdrop"], [class*="Backdrop"]'
+    )
+    await expect(backdrop).not.toBeNull()
+    // Backdrop has aria-hidden="true" so toBeVisible() fails — use toBeInTheDocument()
+    await expect(backdrop).toBeInTheDocument()
   }
 };

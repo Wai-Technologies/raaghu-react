@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 import { Speed, Share, Print, Favorite } from '@mui/icons-material';
 import RdsSpeedDial from './rds-speed-dial';
 
@@ -38,6 +39,10 @@ export const Default: Story = {
     icon: <Speed />,
     open: false,
     actions: speedDialActions,
+  },
+  play: async ({ canvasElement }) => {
+    const fab = canvasElement.querySelector('.MuiSpeedDial-fab, button') || canvasElement.firstElementChild;
+    expect(fab).toBeTruthy();
   },
 };
 

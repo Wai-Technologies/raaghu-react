@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from '@storybook/test';
 import RdsSwitch from './rds-switch';
 
 const meta: Meta<typeof RdsSwitch> = {
@@ -83,4 +84,20 @@ export const DisabledChecked: Story = {
     disabled: true,
     defaultChecked: true,
   },
+};
+export const ToggleOn: Story = {
+  name: 'Interaction: Toggle switch on',
+  args: {
+    label: 'Toggle Me',
+    showLabel: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    // MUI Switch uses role="switch" (not "checkbox" like MUI Checkbox)
+    const switchEl = canvas.getByRole('switch')
+    await expect(switchEl).toBeInTheDocument()
+    await expect(switchEl).not.toBeChecked()
+    await userEvent.click(switchEl)
+    await expect(switchEl).toBeChecked()
+  }
 };

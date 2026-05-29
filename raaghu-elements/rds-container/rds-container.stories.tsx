@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 import RdsContainer from './rds-container';
 import { Typography, Paper } from '@mui/material';
 
@@ -41,6 +42,10 @@ const sampleContent = (
 export const Default: Story = {
   args: {
     children: sampleContent,
+  },
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.firstElementChild;
+    expect(el).toBeTruthy();
   },
 };
 

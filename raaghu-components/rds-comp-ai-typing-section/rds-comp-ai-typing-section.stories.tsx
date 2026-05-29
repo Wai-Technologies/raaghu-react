@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 import RdsCompAiTypingSection from './rds-comp-ai-typing-section';
 
 const meta: Meta<typeof RdsCompAiTypingSection> = {
@@ -19,6 +20,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+    play: async ({ canvasElement }) => {
+        const el = canvasElement.firstElementChild;
+        expect(el).toBeTruthy();
+    },
     args: {
         colorVariant: "#353535",
         placeholderText: "How can AI Pundit help you today?",

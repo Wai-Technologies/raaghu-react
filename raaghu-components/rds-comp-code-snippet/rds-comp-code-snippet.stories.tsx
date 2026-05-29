@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from '@storybook/test';
 import RdsCompCodeSnippet from './rds-comp-code-snippet';
 
 const sampleCodeSnippets = {
@@ -123,4 +124,21 @@ export const Default: Story = {
     codeLines: false,
     sampleCodeSnippets,
   },
+};
+export const CodeVisible: Story = {
+  name: 'Interaction: Code snippet renders',
+  args: {
+    language: true,
+    theme: 'light',
+    type: 'multiLine',
+    codeLines: false,
+    sampleCodeSnippets,
+  },
+  play: async ({ canvasElement }) => {
+    const code = canvasElement.querySelector(
+      'pre, code, [class*="code"], [class*="Code"], [class*="snippet"], [class*="Snippet"]'
+    )
+    await expect(code).not.toBeNull()
+    await expect(code).toBeVisible()
+  }
 };

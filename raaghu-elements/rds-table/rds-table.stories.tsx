@@ -1,4 +1,5 @@
 
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import RdsTable from './rds-table';
@@ -467,6 +468,11 @@ export const Default: Story = {
     columns: defaultColumns,
     selectable: false,
     onRowAction: (action, rowId) => {},
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const table = canvas.getByRole('table');
+    await expect(table).toBeVisible();
   },
 };
 

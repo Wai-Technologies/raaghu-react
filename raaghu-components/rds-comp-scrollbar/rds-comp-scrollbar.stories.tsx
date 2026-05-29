@@ -1,4 +1,5 @@
 import React from "react";
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 import { Meta, StoryFn, StoryObj } from "@storybook/react-vite";
 import RdsScrollBar, { ScrollBarType, ScrollPosition } from "./rds-comp-scrollbar";
  import { ArrowDropDown, ArrowDropUp} from "@mui/icons-material";
@@ -50,7 +51,11 @@ export const Default: Story = {
       showButtons: true,
       startIcon: <ArrowDropUp />,
       endIcon: <ArrowDropDown />,
-    }
+    },
+    play: async ({ canvasElement }) => {
+      const el = canvasElement.firstElementChild;
+      expect(el).toBeTruthy();
+    },
 } satisfies Story;
    Default.parameters = { controls: { include: ['type', 'position', 'showButtons'] } };
     

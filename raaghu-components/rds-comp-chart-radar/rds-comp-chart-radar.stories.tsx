@@ -1,5 +1,6 @@
 import RdsCompRadarChart from "./rds-comp-chart-radar";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Radar Chart',
@@ -220,4 +221,18 @@ export const Default: Story = {
 
 
     }
+};
+export const ChartRenders: Story = {
+  name: 'Interaction: Radar chart renders canvas',
+  args: {
+    id: 'test-radar',
+    labels: ['Speed', 'Strength', 'Stamina'],
+    dataSets: [{ label: 'D', data: [80, 60, 70], backgroundColor: 'rgba(75,192,192,0.3)', borderColor: 'rgba(75,192,192,1)' }],
+    options: { responsive: true, maintainAspectRatio: false },
+  },
+  play: async ({ canvasElement }) => {
+    const chart = canvasElement.querySelector('canvas')
+    await expect(chart).not.toBeNull()
+    await expect(chart).toBeVisible()
+  }
 };

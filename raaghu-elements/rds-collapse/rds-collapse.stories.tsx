@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from '@storybook/test';
 import { Typography, Box } from '@mui/material';
 import RdsCollapse from './rds-collapse';
 import RdsTypography from '../../raaghu-elements/rds-typography/rds-typography';
@@ -111,4 +112,21 @@ export const LongContent: Story = {
       </Box>
     ),
   },
+};
+
+export const CollapseVisible: Story = {
+  name: 'Interaction: Collapse renders title and toggle',
+  args: {
+    title: 'Test Section',
+    expanded: false,
+    children: <Typography>Content here</Typography>,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText('Test Section')).toBeVisible()
+    const toggleBtn = canvas.getByRole('button')
+    await expect(toggleBtn).toBeVisible()
+    // Initially collapsed — MUI hides content via MuiCollapse-hidden class
+    await expect(canvasElement.querySelector('[class*="MuiCollapse-hidden"]')).not.toBeNull()
+  }
 };

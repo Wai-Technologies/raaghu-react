@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import RdsCompNavtabs from "./rds-comp-navtabs";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from '@storybook/test';
 
 
 const meta: Meta = {
@@ -66,3 +67,23 @@ export const Default: Story = {
     }
 } satisfies Story;
 Default.parameters = { controls: { include: ['navtabsItems', 'justified', 'style'] } };
+
+export const TabsVisible: Story = {
+  name: 'Interaction: Nav tabs render and first is active',
+  args: {
+    navtabsItems: [
+      { label: 'Tab One', tablink: '#tab1', ariacontrols: 'tab1', id: 'tab1' },
+      { label: 'Tab Two', tablink: '#tab2', ariacontrols: 'tab2', id: 'tab2' },
+      { label: 'Tab Three', tablink: '#tab3', ariacontrols: 'tab3', id: 'tab3' },
+    ],
+    style: 'Bottom Select',
+    justified: false,
+    layout: 'Horizontal',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText('Tab One')).toBeVisible()
+    await expect(canvas.getByText('Tab Two')).toBeVisible()
+    await expect(canvas.getByText('Tab Three')).toBeVisible()
+  }
+} satisfies Story;

@@ -1,3 +1,4 @@
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsCompMap from "./rds-comp-map";
 
@@ -36,6 +37,10 @@ export default meta;
 type Story = StoryObj<typeof RdsCompMap>;
 
 export const Default: Story = {
+    play: async ({ canvasElement }) => {
+        const el = canvasElement.firstElementChild;
+        expect(el).toBeTruthy();
+    },
     args: {
         title: 'Map',
         color: '#A478E6',

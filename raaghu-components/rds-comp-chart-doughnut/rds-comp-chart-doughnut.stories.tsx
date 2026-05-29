@@ -1,5 +1,6 @@
 import RdsCompDoughnutChart from "./rds-comp-chart-doughnut";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Doughnut Chart',
@@ -168,3 +169,18 @@ export const Advanced: Story = {
         ]
     }
 };
+export const ChartRenders: Story = {
+  name: 'Interaction: Doughnut chart renders canvas',
+  args: {
+    id: 'test-doughnut',
+    labels: ['A', 'B', 'C'],
+    options: { maintainAspectRatio: false },
+    dataSets: [{ data: [30, 40, 30], backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'] }],
+  },
+  play: async ({ canvasElement }) => {
+    // Chart.js renders to a <canvas> element
+    const chart = canvasElement.querySelector('canvas')
+    await expect(chart).not.toBeNull()
+    await expect(chart).toBeVisible()
+  }
+} satisfies Story;

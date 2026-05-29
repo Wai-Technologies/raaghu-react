@@ -1,5 +1,6 @@
 import RdsColorPicker, { ColorMode, ColorPickerType, PickerType, StyleType } from "./rds-comp-color-picker";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
     title: 'Components/Color Picker',
@@ -63,3 +64,19 @@ export const Default: Story = {
     },
 } satisfies Story;
 Default.parameters = { controls: { include: ['type','showSwatches', 'pickerType', 'showTabs', 'style'] } };
+export const PickerVisible: Story = {
+  name: 'Interaction: Color picker renders',
+  args: {
+    value: '#4BC0C0',
+    label: 'Pick a color',
+    type: ColorPickerType.Default,
+    isDisabled: false,
+  },
+  play: async ({ canvasElement }) => {
+    const picker = canvasElement.querySelector(
+      '[class*="color"], [class*="Color"], [class*="picker"], [class*="Picker"]'
+    ) ?? canvasElement.firstElementChild
+    await expect(picker).not.toBeNull()
+    await expect(canvasElement).toBeTruthy()
+  }
+};

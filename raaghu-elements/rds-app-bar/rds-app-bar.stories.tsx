@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within } from '@storybook/test';
 import { ProfileMenu } from './ProfileMenu';
 import RdsAppBar from './rds-app-bar';
 import { Button, IconButton, Avatar, Badge, Box, Divider, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
@@ -1023,3 +1024,22 @@ WithMenuButton.parameters = { controls: { include: ['title', 'showLogo', 'size',
 
 export const DashboardWithLang: Story = { args: { variantStyle: 'dashboardWithLang', color: 'default', showSearch: false } as any, render: DynamicTemplate };
 DashboardWithLang.parameters = { controls: { include: ['title', 'showLogo', 'size', 'color', 'showMenuButton', 'style', 'userName', 'userEmail'] } };
+
+export const AppBarVisible: Story = {
+  name: 'Interaction: App bar renders header',
+  args: {
+    size: 'medium',
+    variantStyle: 'default',
+    userName: 'John Doe',
+    userEmail: 'john.doe@example.com',
+  } as any,
+  render: DynamicTemplate,
+  play: async ({ canvasElement }) => {
+    // MUI AppBar renders as <header role="banner"> or with MuiAppBar class
+    const header = canvasElement.querySelector(
+      'header, [role="banner"], [class*="MuiAppBar-root"]'
+    )
+    await expect(header).not.toBeNull()
+    await expect(header).toBeVisible()
+  }
+};

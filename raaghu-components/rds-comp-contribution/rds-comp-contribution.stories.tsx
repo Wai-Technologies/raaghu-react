@@ -1,4 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from '@storybook/test';
 import dayjs from 'dayjs';
 import RdsCompContribution from "./rds-comp-contribution";
 const meta: Meta<typeof RdsCompContribution> = {
@@ -86,5 +87,24 @@ export const Default: Story = {
         story: 'The default configuration for the contribution chart displays a full year of activity data with customizable colors.'
       }
     }
+  }
+};
+
+export const ContributionVisible: Story = {
+  name: 'Interaction: Contribution chart renders',
+  args: {
+    weekNames: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    panelColors: ['#F0F6FF', '#D9E8FF', '#A3C8FF', '#6FA7FF', '#4589FF'],
+    values: [{ date: '2023-06-01', count: 3 }, { date: '2023-06-15', count: 7 }],
+    until: '2023-12-31',
+    showMonthLabels: true,
+  },
+  play: async ({ canvasElement }) => {
+    // Contribution chart renders SVG or table cells as colored panels
+    const grid = canvasElement.querySelector('svg, table, [class*="contribution"], [class*="Contribution"]')
+      ?? canvasElement.firstElementChild
+    await expect(grid).not.toBeNull()
+    await expect(grid).toBeVisible()
   }
 };

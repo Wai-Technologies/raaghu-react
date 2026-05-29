@@ -1,5 +1,6 @@
 import RdsTextArea, { TextareaState, TextareaStyle } from "./rds-text-area";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta<typeof RdsTextArea> = {
     title: 'Elements/Text Area',
@@ -55,4 +56,22 @@ export const Default: Story = {
         showTitle: true,
         rows: 4
     }
+};
+export const TypeText: Story = {
+  name: 'Interaction: Type in textarea',
+  args: {
+    placeholder: 'Type here...',
+    rows: 4,
+    showTitle: true,
+    style: TextareaStyle.Default,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const textarea = canvas.getByRole('textbox')
+    await expect(textarea).toBeVisible()
+    await userEvent.click(textarea)
+    await expect(textarea).toHaveFocus()
+    await userEvent.type(textarea, 'Hello Raaghu')
+    await expect(textarea).toHaveValue('Hello Raaghu')
+  }
 };

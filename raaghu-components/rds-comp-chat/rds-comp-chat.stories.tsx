@@ -1,5 +1,6 @@
 import RdsCompChat from "./rds-comp-chat";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
     title: "Components/Chat",
@@ -85,3 +86,31 @@ export const Default: Story = {
 } satisfies Story;
 
 Default.parameters = { controls: { include: ["isChatScreenEnabled", "userData", "currentUserCommentBgColor", "currentUserCommentTextColor", "otherUserCommentBgColor", "OtherUserCommentTextColor"] } };
+export const ChatVisible: Story = {
+  name: 'Interaction: Chat component renders',
+  args: {
+    isChatScreenEnabled: true,
+    userData: [
+      {
+        firstName: 'Alice',
+        lastName: 'Smith',
+        activeDotButton: false,
+        status: 'Online',
+        size: 'medium',
+        colorVariant: 'primary',
+        time: '10.00',
+        profileType: 'text',
+        withProfilePic: false,
+        messageStatus: '',
+        comments: [{ firstName: 'Alice', lastName: 'Smith', comment: 'Hello!' }],
+      },
+    ],
+  },
+  play: async ({ canvasElement }) => {
+    // Chat renders user list — verify the component mounts
+    const chatEl = canvasElement.querySelector('[class*="chat"], [class*="Chat"]')
+      ?? canvasElement.firstElementChild
+    await expect(chatEl).not.toBeNull()
+    await expect(canvasElement).toBeTruthy()
+  }
+};

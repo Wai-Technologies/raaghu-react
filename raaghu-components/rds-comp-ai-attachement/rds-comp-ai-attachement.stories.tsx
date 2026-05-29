@@ -1,5 +1,6 @@
 import RdsCompAiAttachement from "./rds-comp-ai-attachement";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
  
 const meta: Meta = {
     title: "Components/AI ChatBox/Attachement",
@@ -28,6 +29,10 @@ export default meta;
 type Story = StoryObj<typeof RdsCompAiAttachement>;
 
 export const Default: Story = {
+    play: async ({ canvasElement }) => {
+        const el = canvasElement.firstElementChild;
+        expect(el).toBeTruthy();
+    },
     args: {
         menuIcon: "attachment_icon",
         modalTitle: "Import From Figma",

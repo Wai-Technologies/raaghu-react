@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, waitFor } from '@storybook/test';
 import { List, ListItem, ListItemText } from '@mui/material';
 import RdsDrawer from './rds-drawer';
 import RdsTypography from '../rds-typography/rds-typography';
@@ -153,4 +154,26 @@ export const Interactive: Story = {
 };
 Interactive.parameters = {
   controls: { include: ['showTrigger', 'triggerText', 'anchor', 'children', 'variant', 'showCloseButton', 'centerTrigger'] },
+};
+
+export const OpenDrawer: Story = {
+  name: 'Interaction: Open drawer',
+  args: {
+    showTrigger: true,
+    triggerText: 'Open Drawer',
+    anchor: 'left',
+    centerTrigger: true,
+    children: drawerContent,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const trigger = canvas.getByRole('button', { name: /open drawer/i })
+    await expect(trigger).toBeVisible()
+    await userEvent.click(trigger)
+    // MUI Drawer renders paper in a portal at document.body
+    await waitFor(
+      () => expect(document.querySelector('[class*="MuiDrawer-paper"]')).not.toBeNull(),
+      { timeout: 2000 }
+    )
+  }
 };

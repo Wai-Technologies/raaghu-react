@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn } from '@storybook/test';
 import { Add, Edit, Favorite } from '@mui/icons-material';
 import RdsFab from './rds-fab';
 
@@ -107,4 +108,20 @@ export const Success: Story = {
     color: 'success',
     children: <Add />,
   },
+};
+
+export const ClickFab: Story = {
+  name: 'Interaction: FAB click fires callback',
+  args: {
+    color: 'primary',
+    children: <Add />,
+    onClick: fn(),
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement)
+    const fab = canvas.getByRole('button')
+    await expect(fab).toBeVisible()
+    await userEvent.click(fab)
+    await expect(args.onClick).toHaveBeenCalledOnce()
+  }
 };

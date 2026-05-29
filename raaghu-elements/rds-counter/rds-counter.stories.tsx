@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import RdsCounter from './rds-counter';
@@ -78,6 +79,13 @@ export const Default: Story = {
     placeholder: '00',
   },
   render: (args) => <RdsCounter {...args} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const buttons = canvasElement.querySelectorAll('button');
+    expect(buttons.length).toBeGreaterThan(0);
+    const display = canvasElement.querySelector('input, [class*=value], [class*=count]') || canvasElement.firstElementChild;
+    expect(display).toBeTruthy();
+  },
 };
 
 export const Compact: Story = {
