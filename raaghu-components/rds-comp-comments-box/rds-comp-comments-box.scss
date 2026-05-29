@@ -1,11 +1,11 @@
-﻿.rds-comments-box {
+.rds-comments-box {
   display: flex;
   align-items: center;
   gap: var(--rds-spacing-xs);
   max-width: var(--rds-comments-max-width, 450px) !important;
   padding: var(--rds-spacing-lg, 16px) var(--rds-spacing-xxl, 16px) var(--rds-spacing-xxxl, 24px) var(--rds-spacing-xxl, 16px);
   background: transparent;
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-family: var(--rds-font-family-base);
   color: var(--rds-text-primary);
   border-radius: var(--rds-border-radius-md, 8px);
   input::placeholder,
@@ -519,7 +519,7 @@
     padding: 0;
     background: var(--rds-background-paper);
     color: var(--rds-text-primary);
-    font-family: var(--rds-font-family-base, inherit);
+    font-family: var(--rds-font-family-base);
   }
   
   &__mention-search {

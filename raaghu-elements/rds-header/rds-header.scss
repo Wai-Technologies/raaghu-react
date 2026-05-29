@@ -71,7 +71,7 @@
   position: relative;
   width: 100%;
   z-index: var(--rds-z-index-sticky, 1100);
-  font-family: var(--rds-font-family, inherit);
+  font-family: var(--rds-font-family-base);
 
   &__toolbar {
     display: flex;

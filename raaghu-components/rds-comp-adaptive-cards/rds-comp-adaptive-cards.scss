@@ -1,4 +1,4 @@
-﻿.rds-adaptive-cards--image-gallery {
+.rds-adaptive-cards--image-gallery {
   width: 100%;
   max-width: var(--rds-card-max-width, 1200px);
   border: 1px solid var(--rds-border-light);
@@ -87,7 +87,7 @@
       padding-top: var(--rds-spacing-xs) !important;
       padding-bottom: var(--rds-spacing-none, 0) !important;
       line-height: 1.1 !important;
-      font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
+      font-family: var(--rds-font-family-base) !important;
   }
   &__title-icon {
     width: var(--rds-font-size-xl, 20px);
@@ -183,7 +183,7 @@
     font-size: var(--rds-font-size-sm, 12px) !important;
     min-height: var(--rds-component-button-height-small, 34px) !important;
     height: var(--rds-component-button-height-small, 34px) !important;
-  font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
+  font-family: var(--rds-font-family-base) !important;
     font-weight: var(--rds-font-weight-normal, 400) !important;
     text-transform: none !important;
     display: block;
@@ -202,7 +202,7 @@
     font-size: var(--rds-font-size-sm, 12px) !important;
     min-height: var(--rds-component-button-height-small, 32px) !important;
     height: var(--rds-component-button-height-small, 34px) !important;
-   font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
+   font-family: var(--rds-font-family-base) !important;
     font-weight: var(--rds-font-weight-normal, 400) !important;
     text-transform: none !important;
     padding: var(--rds-spacing-xs, 3px) var(--rds-spacing-sm, 12px) !important;
@@ -402,7 +402,7 @@
   }
   &__football-league {
       font-weight: var(--rds-font-weight-black, 900) !important;
-      font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
+      font-family: var(--rds-font-family-base) !important;
       letter-spacing: var(--rds-football-league-letter-spacing, 0.5px) !important;
       font-size: var(--rds-font-size-3xl) !important; 
       color: var(--rds-text-primary) !important;
@@ -418,7 +418,7 @@
     }
   &__football-date {
     color: var(--rds-text-secondary) !important;
-    font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
+    font-family: var(--rds-font-family-base) !important;
     font-size: var(--rds-football-date-font-size, 12px) !important;
     font-weight: var(--rds-font-weight-medium, 500) !important;
     margin: var(--rds-spacing-xs, 2px) 0 !important;
@@ -428,7 +428,7 @@
   }
   &__football-final {
     color: var(--rds-text-secondary) !important;
-    font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
+    font-family: var(--rds-font-family-base) !important;
     font-size: var(--rds-football-final-font-size, 12px) !important;
     font-weight: var(--rds-font-weight-medium, 500) !important;
     text-align: center !important;
@@ -546,7 +546,7 @@
   
   &__football-team-name {
     font-weight: var(--rds-font-weight-black, 1000) !important;
-    font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
+    font-family: var(--rds-font-family-base) !important;
     text-align: center;
     font-size: var(--rds-font-size-md, 14px) !important;
     letter-spacing: var(--rds-football-team-name-letter-spacing, 0.15px) !important;
@@ -560,7 +560,7 @@
     color: var(--rds-text-secondary);
     text-align: center;
     font-weight: var(--rds-font-weight-bold, 700);
-    font-family: var(--rds-font-family-bold, 'Poppins', sans-serif);
+    font-family: var(--rds-font-family-base);
     font-size: var(--rds-font-size-sm, 12px) !important; 
     white-space: nowrap !important;
     max-width: var(--rds-adaptive-cards-max-width, 120px);
@@ -570,7 +570,7 @@
     display: flex !important;
     flex-direction: column !important; 
     align-items: center !important;
-    font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+    font-family: var(--rds-font-family-base);
     gap: var(--rds-spacing-xs, 4px) !important; 
     flex-shrink: 0 !important; 
     min-width: var(--rds-adaptive-cards-min-width-100, 100px); 
@@ -589,7 +589,7 @@
   &__football-score {
     font-size: var(--rds-font-size-4xl, 38px) !important;
     font-weight: var(--rds-font-weight-extrabold, 800) !important;
-    font-family: var(--rds-font-family-bold, 'Poppins', sans-serif);
+    font-family: var(--rds-font-family-base);
     text-align: center !important;
     line-height: 1 !important; 
     display: inline-block !important; 
@@ -607,7 +607,7 @@
     padding: var(--rds-spacing-sm, 15px) var(--rds-spacing-sm, 8px) !important;
     min-width: var(--rds-spacing-xl, 50px) !important;
     border-radius: var(--rds-border-radius-sm, 4px) !important;
-    font-family: var(--rds-font-family-bold, 'Poppins', sans-serif) !important;
+    font-family: var(--rds-font-family-base) !important;
     height: 20px !important; 
     display: inline-flex !important;
     align-items: center !important;
@@ -816,7 +816,7 @@
 }
 .rds-adaptive-cards__title-alt {
   color: var(--rds-text-primary);
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-2xl, 16px);
   font-style: normal;
   font-weight: var(--rds-font-weight-bold, 700) !important;
@@ -874,7 +874,7 @@
 }
 .rds-adaptive-cards__small-text-alt {
   color: var(--rds-text-secondary);
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-xs, 10px);
   font-style: normal;
   font-weight: var(--rds-font-weight-normal, 400);
@@ -883,7 +883,7 @@
 .rds-adaptive-cards__text {
   align-self: stretch;
   color: var(--rds-text-secondary);
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-md, 11px);
   font-style: normal;
   font-weight: var(--rds-font-weight-normal, 400);
@@ -933,7 +933,7 @@
 .rds-adaptive-cards__scorecard-text {
   color: var(--rds-text-primary);
   text-align: center;
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-3xl, 19px);
   font-style: normal;
   font-weight: var(--rds-font-weight-semibold, 600);
@@ -942,7 +942,7 @@
 .rds-adaptive-cards__scorecard-subtext {
   color: var(--rds-text-secondary);
   text-align: center;
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-md, 11px);
   font-style: normal;
   font-weight: var(--rds-font-weight-medium, 500);
@@ -965,7 +965,7 @@
   background: var(--rds-background-default);
   aspect-ratio: 1/1;
   color: var(--rds-text-primary);
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-4xl, 25px);
   font-style: normal;
   font-weight: var(--rds-font-weight-semibold, 600);
@@ -985,7 +985,7 @@
   font-size: var(--rds-font-size-md, 11px);
   color: var(--rds-text-secondary); 
   text-align: center;
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-family: var(--rds-font-family-base);
   font-style: normal;
   font-weight: var(--rds-font-weight-medium, 500);
   line-height: var(--rds-spacing-md, 22px);
@@ -1009,7 +1009,7 @@
   font-size: var(--rds-font-size-md, 13px) !important;
   color: var(--rds-text-secondary);
   text-align: center;
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-family: var(--rds-font-family-base);
   font-style: normal;
   font-weight: var(--rds-font-weight-bold, 700);
   line-height: normal;
@@ -1019,7 +1019,7 @@
   font-size: var(--rds-font-size-lg, 13px);
   color: var(--rds-text-secondary);
   text-align: center;
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-family: var(--rds-font-family-base);
   font-style: normal;
   font-weight: var(--rds-font-weight-normal, 400);
   line-height: normal;
@@ -1039,7 +1039,7 @@
   color: var(--rds-badge-error-text);
   text-align: center;
   text-overflow: ellipsis;
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+  font-family: var(--rds-font-family-base);
   font-size: var(--rds-font-size-xs, 8px);
   font-style: normal;
   font-weight: var(--rds-font-weight-normal, 400);
@@ -1386,12 +1386,12 @@
 }
 
 .rds-adaptive-cards__activity-update-name {
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
+  font-family: var(--rds-font-family-base) !important;
   font-size: var(--rds-font-size-lg, 18px) !important;
 }
 
 .rds-adaptive-cards__activity-update-date {
-  font-family: var(--rds-font-family-base, 'Poppins', sans-serif) !important;
+  font-family: var(--rds-font-family-base) !important;
   font-size: var(--rds-font-size-lg, 14px) !important;
 }
 

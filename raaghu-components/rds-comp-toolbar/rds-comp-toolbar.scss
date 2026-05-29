@@ -129,7 +129,7 @@
     min-height: 16px;
     text-align: center;
     color: inherit;
-    font-family: var(--rds-font-family-base, inherit);
+    font-family: var(--rds-font-family-base);
     
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -147,7 +147,7 @@
     min-height: 16px;
     text-align: center;
     color: inherit;
-    font-family: var(--rds-font-family-base, inherit);
+    font-family: var(--rds-font-family-base);
     background: linear-gradient(to bottom, transparent 50%, var(--rds-color-warning) 50%);
     border-radius: var(--rds-border-radius-xs, 2px);
   }

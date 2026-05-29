@@ -48,7 +48,7 @@
     line-height: 1.5;
     resize: none;
     border-radius: var(--rds-border-radius-sm, 3px);
-    font-family: var(--rds-font-family, Poppins);
+    font-family: var(--rds-font-family-base);
     font-weight: var(--rds-font-weight-medium, 500);
     border: none;
     outline: none;
@@ -58,7 +58,7 @@
     &::placeholder {
       font-weight: var(--rds-font-weight-medium, 500);
       color: var(--rds-placeholder-color);
-      font-family: var(--rds-font-family, Poppins);
+      font-family: var(--rds-font-family-base);
       font-size: var(--rds-font-size-body, 14px);
       line-height: var(--rds-line-height-body, 16px);
     }

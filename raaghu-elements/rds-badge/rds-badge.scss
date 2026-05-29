@@ -16,7 +16,7 @@
     height: var(--rds-badge-dot-min-size, 20px) !important;
     border-radius: var(--rds-border-radius-md, 8px) !important;
     padding: 0 var(--rds-badge-dot-padding-x, 6px) !important;
-    font-family: var(--rds-font-family-base, 'Poppins', Arial, sans-serif) !important;
+    font-family: var(--rds-font-family-base) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -38,7 +38,7 @@
     margin: 0 auto;
     background: var(--rds-primary-100);
     color: var(--rds-primary-800);
-    font-family: var(--rds-font-family-base, 'Poppins', Arial, sans-serif);
+    font-family: var(--rds-font-family-base);
     font-weight: var(--rds-font-weight-regular, 400);
     font-style: normal;
     font-size: 0.875rem;

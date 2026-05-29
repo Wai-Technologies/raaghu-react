@@ -91,7 +91,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  font-family: var(--rds-font-family-base, Poppins);
+  font-family: var(--rds-font-family-base);
   --rds-tabs-corner-radius: var(--rds-border-radius-md, 6px);
   --rds-tabs-pill-radius: var(--rds-border-radius-full, 15rem);
   --rds-tabs-flap-arrow-bottom: -9px;

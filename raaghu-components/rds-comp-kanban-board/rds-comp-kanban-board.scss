@@ -17,7 +17,7 @@
 }
 
 .kanban-board {
-  font-family: var(--rds-font-family-base, Poppins) !important;
+  font-family: var(--rds-font-family-base) !important;
   width: var(--rds-kanban-column-width, 300px) !important;
   min-width: var(--rds-kanban-column-width, 300px) !important;
   max-width: var(--rds-kanban-column-width, 300px) !important;

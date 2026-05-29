@@ -183,7 +183,7 @@ export const typographyTokens = {
   fontFamily: {
     primary: '"Poppins", sans-serif',
     secondary: '"Poppins", sans-serif',
-    monospace: '"Roboto Mono", "Monaco", "Consolas", monospace',
+    monospace: '"Poppins", sans-serif',
   },
   
   fontSize: {

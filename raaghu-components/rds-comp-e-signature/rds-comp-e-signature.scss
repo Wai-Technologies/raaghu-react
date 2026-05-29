@@ -577,7 +577,7 @@
     gap: var(--rds-spacing-xs, 6px);
     cursor: pointer;
     transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
-    font-family: var(--rds-font-family-secondary, 'Segoe UI', sans-serif);
+    font-family: var(--rds-font-family-base);
   }
 
   &__mini-card:hover:not(:disabled) {
@@ -615,7 +615,7 @@
   &__mini-full {
     font-size: var(--rds-font-size-sm, 14px);
     font-weight: var(--rds-font-weight-normal, 400);
-    font-family: var(--rds-font-family-base, 'Segoe UI', sans-serif);
+    font-family: var(--rds-font-family-base);
   }
 
   &__mini-initials {
@@ -663,7 +663,7 @@
     display: flex;
     align-items: center;
     gap: var(--rds-space-2, 8px);
-    font-family: var(--rds-font-family-error, 'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif);
+    font-family: var(--rds-font-family-base);
     line-height: 1.25;
     font-weight: var(--rds-font-weight-medium, 500);
   }
@@ -717,7 +717,7 @@
     color: var(--rds-color-accent-blue-600);
     font-size: var(--rds-font-size-sm, 14px) !important;
     margin-top: var(--rds-space-3, 12px);
-    font-family: var(--rds-font-family-accent, 'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif);
+    font-family: var(--rds-font-family-base);
   }
 
   &--selected {

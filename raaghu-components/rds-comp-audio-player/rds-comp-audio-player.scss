@@ -272,7 +272,7 @@
       font-weight: var(--rds-font-weight-medium, 600);
       color: var(--rds-color-on-surface);
       margin: 0;
-      font-family: var(--rds-font-family, inherit);
+      font-family: var(--rds-font-family-base);
     }
   }
 
@@ -364,7 +364,7 @@
     font-size: var(--rds-font-size-body-medium, 14px);
     font-weight: var(--rds-font-weight-medium, 500);
     transition: all 0.2s ease;
-    font-family: var(--rds-font-family, inherit);
+    font-family: var(--rds-font-family-base);
 
     &:focus-visible {
       outline: 2px solid var(--rds-color-primary);
@@ -379,7 +379,7 @@
     font-size: var(--rds-font-size-label-small, 12px);
     color: var(--rds-color-on-surface-variant);
     margin-bottom: var(--rds-spacing-sm, 8px);
-    font-family: var(--rds-font-family-mono);
+    font-family: var(--rds-font-family-base);
   }
 
   &__edition-timemark {
@@ -566,14 +566,14 @@
     font-size: var(--rds-font-size-title-medium, 18px);
     font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-color-on-surface);
-    font-family: var(--rds-font-family-mono, monospace);
+    font-family: var(--rds-font-family-base);
   }
 
   &__edition-duration {
     font-size: var(--rds-font-size-body-medium, 14px);
     color: var(--rds-color-on-surface-variant);
     font-weight: var(--rds-font-weight-regular, 400);
-    font-family: var(--rds-font-family, inherit);
+    font-family: var(--rds-font-family-base);
   }
 
   &__edition-buttons {
@@ -594,7 +594,7 @@
     font-size: var(--rds-font-size-body-medium, 14px);
     color: var(--rds-color-on-surface-variant);
     transition: all 0.2s ease;
-    font-family: var(--rds-font-family, inherit);
+    font-family: var(--rds-font-family-base);
     
     &:hover {
       background: var(--rds-color-surface-variant);
@@ -680,7 +680,7 @@
     padding: 2px var(--rds-spacing-sm, 8px);
     border-radius: var(--rds-border-radius-md, 12px);
     border: 1px solid var(--rds-color-outline-variant);
-    font-family: var(--rds-font-family-mono, monospace);
+    font-family: var(--rds-font-family-base);
   }
 
   @keyframes rds-comp-audio-player-slide-down {
