@@ -1,235 +1,239 @@
 # Theme Integration Guide
 
-## ✅ Complete Theme Integration Status
+## How the Theme System Works
 
-All CSS/SCSS files in the Raaghu Design System now use `raaghu-react-themes` as the single point of contact for theme-related values.
+Theming in Raaghu is **entirely runtime** — there are no compiled SCSS theme files
+to import. Instead, `RaaghuThemeProvider` calls `injectTokens(mode)` on every
+mode change, which writes `--rds-*` CSS custom properties directly onto
+`document.documentElement`. Component SCSS reads those variables.
 
-### What Was Changed
-
-#### 1. **Created CSS Custom Properties System**
-- **File**: `raaghu-react-themes/src/styles/custom-properties.scss`
-- **Purpose**: Centralized CSS custom properties that map SCSS variables to usable CSS variables
-- **Coverage**: 150+ design tokens covering colors, spacing, typography, elevations, and transitions
-
-#### 2. **Updated All Component SCSS Files**
-- **Count**: 41 out of 60 component SCSS files were updated
-- **Approach**: Replaced hardcoded values with theme variables
-- **Automation**: Used script to ensure consistency across all files
-
-#### 3. **Theme System Integration**
-- **Import Structure**: Added custom properties to theme files
-- **Consistency**: All components now use the same design system tokens
-- **Maintainability**: Single source of truth for all styling values
-
-### Theme Variable Categories
-
-#### Core Color System
-```scss
-// Primary Colors
---rds-primary-main: #{$primary}
---rds-primary-light: #{$primary-100}
---rds-primary-dark: #{$primary-600}
-
-// Status Colors  
---rds-error-main: #{$error}
---rds-warning-main: #{$warning}
---rds-success-main: #{$success}
---rds-info-main: #{$info}
+```
+RaaghuThemeProvider
+  └── applyRaaghuTheme(mode)
+        └── injectTokens(mode)              ← build-rds-css-vars.ts
+              └── document.documentElement  ← --rds-* vars updated
 ```
 
-#### Component-Specific Colors
-```scss
-// Button Colors
---rds-button-primary-bg: #{$btn-primary-solid-default}
---rds-button-primary-bg-hover: #{$btn-primary-solid-hover}
-
-// Alert Colors
---rds-alert-success-bg: #{$alert-success-bg}
---rds-alert-error-bg: #{$alert-error-bg}
-
-// Badge Colors
---rds-badge-primary-bg: #{$badge-primary-bg}
---rds-badge-primary-text: #{$badge-primary-color}
-```
-
-#### Layout & Spacing
-```scss
-// Spacing Scale
---rds-spacing-xs: 4px
---rds-spacing-sm: 8px  
---rds-spacing-md: 16px
---rds-spacing-lg: 24px
-
-// Border Radius
---rds-border-radius-sm: 4px
---rds-border-radius-md: 8px
---rds-border-radius-full: 9999px
-```
-
-#### Typography
-```scss
-// Font Families
---rds-font-family-base: "Poppins", sans-serif
-
-// Font Sizes
---rds-font-size-xs: 10px
---rds-font-size-sm: 12px
---rds-font-size-md: 14px
-```
-
-#### Effects & Interactions
-```scss
-// Elevations
---rds-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.12)
---rds-elevation-2: 0 3px 6px rgba(0, 0, 0, 0.15)
-
-// Transitions
---rds-transition-fast: 0.15s ease
---rds-transition-base: 0.2s ease
-
-// Focus States
---rds-focus-ring: 0 0 0 2px var(--rds-primary-main)
---rds-focus-ring-offset: 2px
-```
-
-### Integration Examples
-
-#### Before (Hardcoded Values)
-```scss
-.rds-button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  background-color: #1976d2;
-  color: white;
-  transition: all 0.2s ease;
-  
-  &:focus {
-    outline: 2px solid #1976d2;
-    outline-offset: 2px;
-  }
-}
-```
-
-#### After (Theme Variables)
-```scss
-.rds-button {
-  padding: var(--rds-spacing-sm) var(--rds-spacing-md);
-  border-radius: var(--rds-border-radius-sm);
-  background-color: var(--rds-button-primary-bg);
-  color: var(--rds-button-primary-text);
-  transition: all var(--rds-transition-base);
-  
-  &:focus {
-    outline: var(--rds-focus-ring);
-    outline-offset: var(--rds-focus-ring-offset);
-  }
-}
-```
-
-### How to Use in Your Components
-
-#### 1. Import Theme in Your App
-```tsx
-// In your main app file
-import '@waiin/raaghu-react/raaghu-react-themes/src/styles/themes/light.scss';
-```
-
-#### 2. Use Variables in Component SCSS
-```scss
-.my-component {
-  // Use semantic color variables
-  background-color: var(--rds-background-paper);
-  color: var(--rds-text-primary);
-  border: 1px solid var(--rds-border-default);
-  
-  // Use spacing scale
-  padding: var(--rds-spacing-md);
-  margin: var(--rds-spacing-sm) 0;
-  
-  // Use typography scale
-  font-family: var(--rds-font-family-base);
-  font-size: var(--rds-font-size-md);
-  
-  // Use elevation system
-  box-shadow: var(--rds-elevation-2);
-  
-  // Use transition system
-  transition: all var(--rds-transition-base);
-}
-```
-
-#### 3. Component States
-```scss
-.my-component {
-  // Default state uses theme variables
-  background-color: var(--rds-button-primary-bg);
-  
-  &:hover {
-    background-color: var(--rds-button-primary-bg-hover);
-  }
-  
-  &:disabled {
-    background-color: var(--rds-button-primary-bg-disabled);
-    color: var(--rds-button-primary-text-disabled);
-  }
-}
-```
-
-### Theme Switching
-
-#### Light Theme
-```scss
-@import 'raaghu-react-themes/src/styles/themes/light.scss';
-```
-
-#### Dark Theme  
-```scss
-@import 'raaghu-react-themes/src/styles/themes/dark.scss';
-```
-
-#### Semi-Dark Theme
-```scss
-@import 'raaghu-react-themes/src/styles/themes/semi-dark.scss';
-```
-
-### Benefits Achieved
-
-#### ✅ **Single Source of Truth**
-All styling values now come from `raaghu-react-themes`, ensuring consistency across the entire design system.
-
-#### ✅ **Easy Theme Switching**
-Simply change the theme import to switch between light, dark, and semi-dark themes.
-
-#### ✅ **Maintainability**
-Update colors, spacing, or typography in one place and see changes reflected across all components.
-
-#### ✅ **Developer Experience**
-Clear, semantic variable names make it easy to understand and use the design system.
-
-#### ✅ **Performance**
-CSS custom properties allow for efficient runtime theme switching without rebuilding CSS.
-
-#### ✅ **Consistency**
-All components use the same spacing scale, color palette, and interaction patterns.
-
-### Validation
-
-Run this command to verify all components are using theme variables:
-
-```bash
-# Search for any remaining hardcoded values
-grep -r "#[0-9a-fA-F]\{3,6\}" raaghu-elements/*/**.scss
-grep -r "px" raaghu-elements/*/**.scss | grep -v "var(--rds"
-```
-
-### Next Steps for Developers
-
-1. **Always use CSS custom properties** when creating new components
-2. **Reference the theme variables** instead of hardcoded values  
-3. **Test components across all themes** to ensure proper integration
-4. **Extend the custom properties** file when adding new design tokens
-5. **Follow the established patterns** for consistency
+MUI's `ThemeProvider` is also updated simultaneously — `RaaghuThemeProvider`
+switches between `lightTheme` and `darkTheme` (from `src/mui/`) which both
+mirror the token values.
 
 ---
 
-**🎉 Achievement Unlocked:** Complete theme integration with single point of contact for all styling values!
+## Quick Start
+
+### 1. Install / import
+
+```tsx
+// main.tsx or app entry
+import 'raaghu-react-themes/src/styles/index.scss';
+import { RaaghuThemeProvider } from 'raaghu-react-themes';
+import { createRoot } from 'react-dom/client';
+import App from './App';
+
+createRoot(document.getElementById('root')!).render(
+  <RaaghuThemeProvider defaultMode="light">
+    <App />
+  </RaaghuThemeProvider>
+);
+```
+
+`index.scss` only contains global resets (box-sizing, body font, scrollbar).
+It uses `var(--rds-*)` and does not define any colors by itself.
+
+### 2. Toggle the theme from any component
+
+```tsx
+import { useRaaghuTheme } from 'raaghu-react-themes';
+
+function ThemeToggle() {
+  const { toggleMode, isDark, mode } = useRaaghuTheme();
+
+  return (
+    <button onClick={toggleMode}>
+      {isDark ? '☀️ Light mode' : '🌙 Dark mode'}
+    </button>
+  );
+}
+```
+
+### 3. Set a specific mode
+
+```tsx
+const { setMode } = useRaaghuTheme();
+setMode('dark');
+setMode('light');
+```
+
+### 4. Controlled mode (parent drives the theme)
+
+```tsx
+<RaaghuThemeProvider mode={userPreference} onModeChange={savePreference}>
+  <App />
+</RaaghuThemeProvider>
+```
+
+### 5. Brand overrides (white-label)
+
+Pass `brandOverrides` to replace specific tokens for a client theme:
+
+```tsx
+<RaaghuThemeProvider
+  brandOverrides={{
+    '--rds-primary-main':  '#FF6600',
+    '--rds-primary-light': '#FF8533',
+    '--rds-primary-dark':  '#CC5200',
+  }}
+>
+  <App />
+</RaaghuThemeProvider>
+```
+
+---
+
+## Available CSS Custom Properties
+
+All `--rds-*` variables are injected at runtime. The canonical list is in
+`tokens/build-rds-css-vars.ts`. Key categories:
+
+### Colors
+```css
+--rds-primary-main          /* brand primary */
+--rds-primary-light
+--rds-primary-dark
+--rds-primary-50  …  --rds-primary-900
+--rds-secondary-main
+--rds-success-main
+--rds-warning-main
+--rds-error-main
+--rds-text-primary
+--rds-text-secondary
+--rds-text-disabled
+--rds-background-default    /* page background */
+--rds-background-paper      /* card / panel surface */
+--rds-background-surface
+--rds-divider
+--rds-action-hover
+--rds-action-disabled
+```
+
+### Typography
+```css
+--rds-font-family-base
+--rds-font-size-xs   --rds-font-size-sm   --rds-font-size-base
+--rds-font-size-lg   --rds-font-size-xl
+--rds-line-height-base
+```
+
+### Spacing
+```css
+--rds-spacing-xs    /* 4px  */
+--rds-spacing-sm    /* 8px  */
+--rds-spacing-md    /* 16px */
+--rds-spacing-lg    /* 24px */
+--rds-spacing-xl    /* 32px */
+```
+
+### Shape
+```css
+--rds-border-radius-sm   --rds-border-radius-md
+--rds-border-radius-lg   --rds-border-radius-full
+```
+
+### Elevation
+```css
+--rds-elevation-1  …  --rds-elevation-5
+```
+
+### Z-index
+```css
+--rds-z-index-dropdown   --rds-z-index-modal
+--rds-z-index-tooltip    --rds-z-index-portal
+```
+
+---
+
+## Writing Component SCSS
+
+Always use tokens. Never hardcode hex values.
+
+```scss
+// Good
+.rds-my-component {
+  background-color: var(--rds-background-paper);
+  color:            var(--rds-text-primary);
+  border:           1px solid var(--rds-divider);
+  border-radius:    var(--rds-border-radius-md);
+  padding:          var(--rds-spacing-md);
+  box-shadow:       var(--rds-elevation-2);
+  transition:       background-color 200ms ease;
+
+  &:hover {
+    background-color: var(--rds-action-hover);
+  }
+
+  &--primary {
+    background-color: var(--rds-primary-main);
+    color:            var(--rds-primary-contrast-text);
+  }
+}
+```
+
+```scss
+// Bad — these will not switch in dark mode
+.rds-my-component {
+  background-color: #ffffff;
+  color: #212121;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+```
+
+---
+
+## Extending the Token Set
+
+To add a new token:
+
+1. Add the value to the appropriate export in `tokens/design-tokens.ts`
+2. Map it to a `--rds-*` CSS variable name in `tokens/build-rds-css-vars.ts`
+   (add entries to both the light and dark maps)
+3. If the token affects MUI components, add it to `src/mui/palette.ts`
+4. Use `var(--rds-your-new-token)` in SCSS
+
+**Only edit `design-tokens.ts`** for the raw values — the build script and
+the SCSS are downstream consumers of that file.
+
+---
+
+## Persistence and Initialization
+
+On mount, `RaaghuThemeProvider` reads from `localStorage` key `'raaghu-theme'`.
+If absent, it falls back to `prefers-color-scheme`. If that is unavailable,
+it uses `defaultMode` (default: `'light'`).
+
+To programmatically clear the stored preference:
+
+```ts
+localStorage.removeItem('raaghu-theme');
+```
+
+---
+
+## Storybook
+
+Storybook uses `RaaghuThemeProvider` in `.storybook/preview.ts`. Use the
+light/dark toolbar toggle to verify both modes. No extra setup is needed
+in individual story files.
+
+---
+
+## What NOT to Do
+
+| Avoid | Use instead |
+|---|---|
+| Importing `themes/light.scss` | These files do not exist |
+| Importing `themes/dark.scss` | These files do not exist |
+| `setMode('semi-dark')` | Only `'light'` and `'dark'` are supported |
+| Wrapping with `GriffelProvider` | Use `RaaghuThemeProvider` |
+| Hardcoding hex in SCSS | Use `var(--rds-*)` tokens |
+| Importing individual color variables | Use CSS custom properties at runtime |

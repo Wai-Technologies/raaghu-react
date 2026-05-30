@@ -31,6 +31,9 @@
   },
   "homepage": "https://waiin.com/raaghu-open-source-design-system",
   "license": "Apache License 2.0",
+  "workspaces": [
+    "raaghu-pages"
+  ],
   "files": [
     "raaghu-components/",
     "raaghu-elements/",
@@ -67,11 +70,11 @@
     "chromatic": "bun run chromatic --project-token=chpt_e0908206295b243",
     "chromatic:build": "npm run build-storybook && bun run chromatic --project-token=chpt_e0908206295b243",
     "chromatic:test": "bun run chromatic --project-token=chpt_e0908206295b243 --exit-once-uploaded",
-    "pages": "powershell -c \"$pagesDir = Get-ChildItem -Directory -Name '*-pages' | Select-Object -First 1; if ($pagesDir) { Set-Location $pagesDir; bun run dev } else { Write-Host 'No *-pages directory found' }\"",
-    "pages:dev": "powershell -c \"$pagesDir = Get-ChildItem -Directory -Name '*-pages' | Select-Object -First 1; if ($pagesDir) { Set-Location $pagesDir; bun run dev } else { Write-Host 'No *-pages directory found' }\"",
-    "pages:build": "powershell -c \"$pagesDir = Get-ChildItem -Directory -Name '*-pages' | Select-Object -First 1; if ($pagesDir) { Set-Location $pagesDir; bun run build } else { Write-Host 'No *-pages directory found' }\"",
-    "pages:lint": "powershell -c \"$pagesDir = Get-ChildItem -Directory -Name '*-pages' | Select-Object -First 1; if ($pagesDir) { Set-Location $pagesDir; bun run lint } else { Write-Host 'No *-pages directory found' }\"",
-    "pages:preview": "powershell -c \"$pagesDir = Get-ChildItem -Directory -Name '*-pages' | Select-Object -First 1; if ($pagesDir) { Set-Location $pagesDir; bun run preview } else { Write-Host 'No *-pages directory found' }\"",
+    "pages": "bun run --filter raaghu-pages dev",
+    "pages:dev": "bun run --filter raaghu-pages dev",
+    "pages:build": "bun run --filter raaghu-pages build",
+    "pages:lint": "bun run --filter raaghu-pages lint",
+    "pages:preview": "bun run --filter raaghu-pages preview",
     "install:bun": "bun install",
     "clean": "bun run rimraf node_modules dist storybook-static bun.lock",
     "clean:install": "bun run clean && bun install",
