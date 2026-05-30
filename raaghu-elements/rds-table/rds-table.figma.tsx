@@ -187,7 +187,6 @@ figma.connect(
       align: 'center' 
     }
   ]}
-  onRowAction={() => {}}
   rows={[
     {
       badge1: 'Badge',

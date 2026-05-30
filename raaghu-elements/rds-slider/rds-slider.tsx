@@ -120,7 +120,7 @@ const RdsSlider: React.FC<RdsSliderProps> = ({
   const handleChange = (_: Event, newValue: number | number[], activeThumb?: number) => {
     setSliderValue(newValue);
     if (props.onChange) {
-      props.onChange(_, newValue, activeThumb);
+      props.onChange(_, newValue, activeThumb ?? 0);
     }
   };
 

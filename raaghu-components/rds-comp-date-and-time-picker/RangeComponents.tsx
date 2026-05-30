@@ -156,8 +156,8 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
     <Box display="flex" gap={2}>
       <DateCalendar
         value={currentMonth}
-        onChange={(newMonth) => newMonth && handleMonthChange(newMonth)}
-        onMonthChange={(newMonth) => setCurrentMonth(newMonth)}
+        onChange={(newMonth: any) => newMonth && handleMonthChange(newMonth as Dayjs)}
+        onMonthChange={(newMonth: any) => setCurrentMonth(newMonth as Dayjs)}
         minDate={minDate}
         maxDate={maxDate}
         slots={{ day: renderDaySlot }}
@@ -172,8 +172,8 @@ export function RangeCalendar({ value, onChange, minDate, maxDate, multiMonth }:
       {multiMonth && (
         <DateCalendar
           value={currentMonth.add(1, 'month')}
-          onChange={(newMonth) => newMonth && handleMonthChange(newMonth.subtract(1, 'month'))}
-          onMonthChange={(newMonth) => setCurrentMonth(newMonth.subtract(1, 'month'))}
+          onChange={(newMonth: any) => newMonth && handleMonthChange((newMonth as Dayjs).subtract(1, 'month'))}
+          onMonthChange={(newMonth: any) => setCurrentMonth((newMonth as Dayjs).subtract(1, 'month'))}
           minDate={minDate}
           maxDate={maxDate}
           slots={{ day: renderDaySlot }}
@@ -221,7 +221,7 @@ export function RangeTime({
         <TimePicker
           label="Start Time"
           value={start}
-          onChange={handleStartTimeChange}
+          onChange={handleStartTimeChange as any}
           ampm={true}
           views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
           timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}
@@ -239,7 +239,7 @@ export function RangeTime({
         <TimePicker
           label="End Time"
           value={end}
-          onChange={handleEndTimeChange}
+          onChange={handleEndTimeChange as any}
           ampm={true}
           views={showSeconds ? ['hours', 'minutes', 'seconds'] : ['hours', 'minutes']}
           timeSteps={{ hours: 1, minutes: 1, seconds: 1 }}

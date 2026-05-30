@@ -21,6 +21,8 @@ export interface RdsTooltipProps extends  Omit<TooltipProps,'style'> {
   tooltipStyle?: React.CSSProperties;
   arrow?: boolean;
   label?: React.ReactNode;
+  /** Storybook helper: whether to wrap children in a span (default is always true internally) */
+  wrapper?: boolean;
 }
 
 const RdsTooltip= ({

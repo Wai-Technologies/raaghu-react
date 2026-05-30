@@ -262,7 +262,7 @@ describe('RdsCompAiFabMenu', () => {
       const variants = ['primary', 'danger', 'secondary'];
       variants.forEach((variant) => {
         const { container, unmount } = render(
-          <RdsCompAiFabMenu {...defaultProps} colorVariant={variant} />
+          <RdsCompAiFabMenu {...defaultProps} colorVariant={variant as 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'dark' | 'light'} />
         );
         const button = container.querySelector(`.rds-fab-menu__button--${variant}`);
         expect(button).toBeInTheDocument();

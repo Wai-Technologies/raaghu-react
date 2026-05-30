@@ -96,7 +96,7 @@ export const ContributionVisible: Story = {
     weekNames: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
     monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     panelColors: ['#F0F6FF', '#D9E8FF', '#A3C8FF', '#6FA7FF', '#4589FF'],
-    values: [{ date: '2023-06-01', count: 3 }, { date: '2023-06-15', count: 7 }],
+    values: { '2023-06-01': 3, '2023-06-15': 7 },
     until: '2023-12-31',
     showMonthLabels: true,
   },

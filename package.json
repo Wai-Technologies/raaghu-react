@@ -31,6 +31,16 @@
   },
   "homepage": "https://waiin.com/raaghu-open-source-design-system",
   "license": "Apache License 2.0",
+  "main": "./index.ts",
+  "module": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "import": "./index.ts",
+      "require": "./index.ts"
+    }
+  },
   "workspaces": [
     "raaghu-pages"
   ],
@@ -38,7 +48,6 @@
     "raaghu-components/",
     "raaghu-elements/",
     "raaghu-layouts/",
-    "raaghu-pages/",
     "raaghu-react-themes/",
     "utils/",
     "index.ts",
@@ -81,7 +90,9 @@
     "install:bun": "bun install",
     "clean": "bun run rimraf node_modules dist storybook-static bun.lock",
     "clean:install": "bun run clean && bun install",
-    "type-check": "bun run tsc --noEmit"
+    "type-check": "bun run tsc --noEmit",
+    "type-check:all": "tsc --noEmit --project tsconfig.library.json",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -184,5 +195,12 @@
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "4.9.5"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "@emotion/react": ">=11.0.0",
+    "@emotion/styled": ">=11.0.0",
+    "@mui/material": ">=7.0.0"
   }
 }

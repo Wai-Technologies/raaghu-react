@@ -9,7 +9,7 @@ on:
       - review_request_removed
 
 permissions:
-  pull-requests: none
+  pull-requests: write
 
 jobs:
   assign:

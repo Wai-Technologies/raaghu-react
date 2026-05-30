@@ -92,7 +92,7 @@ const RdsDatepicker = (props: RdsDatepickerProps) => {
     const handlerDateChange = (date: Date | null) => {
         setStartDate(date);
         if (typeof props.selectedDate === 'function') props.selectedDate(date);
-        if (typeof props.onDatePicker === 'function') props.onDatePicker(date);
+        if (typeof props.onDatePicker === 'function') props.onDatePicker(date as Date);
     };
 
     const handlerDateTimeChange = (date: any) => {

@@ -30,6 +30,18 @@ export { default as RdsCompTimePicker } from './rds-comp-time-picker/rds-comp-ti
 export { default as RdsCompToolbar } from './rds-comp-toolbar/rds-comp-toolbar';
 // INTERNAL: not part of public API
 // export { default as RdsCompTreeStructure } from './rds-comp-tree-structure/rds-comp-tree-structure';
+// INTERNAL: not part of public API
+// export { default as RdsCompAdaptiveCards } from './rds-comp-adaptive-cards/rds-comp-adaptive-cards';
+// INTERNAL: not part of public API
+// export { default as RdsCompChat } from './rds-comp-chat/rds-comp-chat';
+// INTERNAL: not part of public API
+// export { default as RdsCompCodeSnippet } from './rds-comp-code-snippet/rds-comp-code-snippet';
+// INTERNAL: not part of public API
+// export { default as RdsCommentBox } from './rds-comp-comments-box/rds-comp-comments-box';
+// INTERNAL: not part of public API
+// export { default as RdsCompDetailsPane } from './rds-comp-details-pane/rds-comp-details-pane';
+// INTERNAL: not part of public API
+// export { default as RdsCompNavtabs } from './rds-comp-navtabs/rds-comp-navtabs';
 export { default as RdsCompDatepicker } from './rds-comp-datepicker/rds-comp-datepicker';
 export { default as RdsCompKanbanBoard} from './rds-comp-kanban-board/rds-comp-kanban-board';
 export { default as RdsCompProductTour } from './rds-comp-product-tour/rds-comp-product-tour';

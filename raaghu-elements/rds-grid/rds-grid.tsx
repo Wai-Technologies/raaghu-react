@@ -6,7 +6,7 @@ import {
 import './rds-grid.scss';
 
 export interface RdsGridProps extends GridProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const RdsGrid: React.FC<RdsGridProps> = ({

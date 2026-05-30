@@ -170,7 +170,7 @@ const RdsCompProductTour: React.FC<RdsCompProductTourProps> = ({
                 <Box className="rds-comp-product-tour__form-content">
                     <Box className="rds-comp-product-tour__form-title-badge-row">
                         <Typography variant="h6" className="rds-comp-product-tour__form-title">{header}</Typography>
-                        <RdsBadge count={undefined} badgeContent="Badge" size="medium" colorVariant="primary" shape="pill" layout="text" />
+                        <RdsBadge badgeContent="Badge" size="medium" colorVariant="primary" shape="pill" layout="text" />
                     </Box>
                     <Typography variant="body2" className="rds-comp-product-tour__form-description">{description}</Typography>
                     <Box className="rds-comp-product-tour__form-tabs-wrapper">

@@ -947,7 +947,8 @@ describe('RdsCompOffcanvas', () => {
 
   describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsCompOffcanvas show={true} title="Test Panel" onClose={jest.fn()} />);
+      const offcanvasProps = { show: true, title: "Test Panel", onClose: jest.fn() } as any;
+      const { container } = render(<RdsCompOffcanvas {...offcanvasProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });

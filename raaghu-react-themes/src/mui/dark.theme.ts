@@ -44,7 +44,7 @@ export const darkTheme = createTheme({
   },
 
   shadows: [
-    shadowTokens.none,
+    shadowTokens.none as 'none',
     shadowTokens.sm,
     shadowTokens.base,
     shadowTokens.md,

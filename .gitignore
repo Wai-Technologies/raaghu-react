@@ -125,6 +125,7 @@ yarn-error.log
 # Storybook
 /storybook-static
 storybook-static/*
+/storybook-test/
 
 # Chromatic
 .chromatic/
@@ -181,6 +182,11 @@ output*.log
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Test output artifacts
+test-output.txt
+test_output.txt
+injected-vars.txt
 
 # Playwright
 /test-results/

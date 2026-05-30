@@ -101,6 +101,7 @@ export const ChatVisible: Story = {
         time: '10.00',
         profileType: 'text',
         withProfilePic: false,
+        profilePic: '',
         messageStatus: '',
         comments: [{ firstName: 'Alice', lastName: 'Smith', comment: 'Hello!' }],
       },

@@ -126,7 +126,7 @@ export const ClickItem: Story = {
       { label: 'Products', onClick: fn() },
       { label: 'Current Page', active: true },
     ],
-    layout: 'default',
+    layout: 'without background',
     showIcon: false,
   },
   play: async ({ canvasElement, args }) => {

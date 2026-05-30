@@ -68,11 +68,11 @@ export const Default: Story = {
         alignment: "left",
         backgroundType: "circular",
         listItems: [
-            { value: "New Role", some: "value", key: "new", icon: "users", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Refresh", some: "value", key: "refresh", icon: "refresh", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Export to excel", some: "value", key: "export", icon: "export", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Delete", some: "value", key: "delete", icon: "delete", iconWidth: "24px", iconHeight: "24px" },
-            { value: "Download", some: "value", key: "download", icon: "download", iconWidth: "24px", iconHeight: "24px" },
+            { value: "New Role", key: "new", icon: "users", iconWidth: "24px", iconHeight: "24px" },
+            { value: "Refresh", key: "refresh", icon: "refresh", iconWidth: "24px", iconHeight: "24px" },
+            { value: "Export to excel", key: "export", icon: "export", iconWidth: "24px", iconHeight: "24px" },
+            { value: "Delete", key: "delete", icon: "delete", iconWidth: "24px", iconHeight: "24px" },
+            { value: "Download", key: "download", icon: "download", iconWidth: "24px", iconHeight: "24px" },
         ]
     }
 } satisfies Story;

@@ -280,14 +280,14 @@ export const NavigatePage: Story = {
         {...args}
         page={page}
         pageSize={10}
-        onChange={(_: React.SyntheticEvent, value: number) => setPage(value)}
+        onChange={(_: React.ChangeEvent<unknown>, value: number) => setPage(value)}
         onPageChange={setPage}
         pageSizeOptions={[10, 25, 50]}
       />
     );
   },
   args: {
-    total: 50,
+    totalPages: 5,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)

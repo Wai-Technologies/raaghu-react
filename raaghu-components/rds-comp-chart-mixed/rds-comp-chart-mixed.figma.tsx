@@ -19,7 +19,8 @@ figma.connect(
       showLegend: figma.boolean("Show Legend"),
       showLineDataset: figma.boolean("Show Line Dataset"),
     },
-    example: (props) => <RdsCompMixedChart
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    example: (props: any) => <RdsCompMixedChart
     {...props}
     dataSets={[
       {

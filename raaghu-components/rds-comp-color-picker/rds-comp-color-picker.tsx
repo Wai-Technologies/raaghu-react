@@ -51,7 +51,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
   const getDefaultColorHex = () => {
     if (value) return value;
     try {
-      if (typeof window !== 'undefined' && window.getComputedStyle) {
+      if (typeof window !== 'undefined') {
         const computed = getComputedStyle(document.documentElement).getPropertyValue('--rds-color-primary') || '';
         const trimmed = computed.trim();
         if (trimmed) return trimmed;

@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsChip> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    text: {
+    label: {
       control: 'text',
       description: 'Text to display on the chip',
     },
@@ -46,34 +46,34 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    text: 'Default Chip',
+    label: 'Default Chip',
   },
 };
 
 export const Primary: Story = {
   args: {
-    text: 'Primary Chip',
+    label: 'Primary Chip',
     color: 'primary',
   },
 };
 
 export const Secondary: Story = {
   args: {
-    text: 'Secondary Chip',
+    label: 'Secondary Chip',
     color: 'secondary',
   },
 };
 
 export const Outlined: Story = {
   args: {
-    text: 'Outlined Chip',
+    label: 'Outlined Chip',
     variant: 'outlined',
   },
 };
 
 export const Clickable: Story = {
   args: {
-    text: 'Clickable Chip',
+    label: 'Clickable Chip',
     clickable: true,
     onClick: () => alert('Chip clicked!'),
   },
@@ -81,14 +81,14 @@ export const Clickable: Story = {
 
 export const WithIcon: Story = {
   args: {
-    text: 'Chip with Icon',
+    label: 'Chip with Icon',
     icon: <Face />,
   },
 };
 
 export const WithDeleteIcon: Story = {
   args: {
-    text: 'Deletable Chip',
+    label: 'Deletable Chip',
     onDelete: () => alert('Chip deleted!'),
     deleteIcon: <Delete />,
   },
@@ -96,21 +96,21 @@ export const WithDeleteIcon: Story = {
 
 export const Small: Story = {
   args: {
-    text: 'Small Chip',
+    label: 'Small Chip',
     size: 'small',
   },
 };
 
 export const Disabled: Story = {
   args: {
-    text: 'Disabled Chip',
+    label: 'Disabled Chip',
     disabled: true,
   },
 };
 
 export const Success: Story = {
   args: {
-    text: 'Success',
+    label: 'Success',
     color: 'success',
     icon: <Done />,
   },
@@ -119,7 +119,7 @@ export const Success: Story = {
 export const ClickTest: Story = {
   name: 'Interaction: Chip click fires callback',
   args: {
-    text: 'Click Me',
+    label: 'Click Me',
     clickable: true,
     onClick: fn(),
   },

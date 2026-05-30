@@ -301,7 +301,7 @@ export const WithName: Story = {
 export const AvatarVisible: Story = {
   name: 'Interaction: Avatar renders with accessible name',
   args: {
-    name: 'John Doe',
+    title: 'John Doe',
     size: 'medium',
     color: 'primary',
   },

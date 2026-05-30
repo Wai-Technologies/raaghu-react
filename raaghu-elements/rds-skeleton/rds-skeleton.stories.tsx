@@ -118,7 +118,7 @@ export const CardSkeleton: Story = {
   argTypes: {
     shape: { table: { disable: true }, control: false },
     frames: { table: { disable: true }, control: false },
-    lines: { table: { disable: true }, control: false },
+    // lines: { table: { disable: true }, control: false }, // removed: not in RdsSkeletonProps
     component: { table: { disable: true }, control: false },
   },
   args: {

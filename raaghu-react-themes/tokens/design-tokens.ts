@@ -349,7 +349,9 @@ export const breakpointTokens = {
 };
 
 // Component Tokens
-export const componentTokens = {
+// The `& Record<string, any>` allows dynamic property assignment after declaration
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _componentTokensBase = {
   button: {
     height: {
       small: '32px',
@@ -599,6 +601,8 @@ export const componentTokens = {
     ],
   },
 };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const componentTokens: typeof _componentTokensBase & Record<string, any> = _componentTokensBase as any;
 
   // Toolbar component tokens (used by rds-comp-toolbar)
   componentTokens.toolbar = {

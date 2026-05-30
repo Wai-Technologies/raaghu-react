@@ -17,7 +17,7 @@ registerMaterialIcons({
 });
 export interface RdsCompAiFabMenuItem {
     key: string;
-    value: string;
+    value: React.ReactNode;
     icon?: string;
     iconWidth?: string;
     iconHeight?: string;

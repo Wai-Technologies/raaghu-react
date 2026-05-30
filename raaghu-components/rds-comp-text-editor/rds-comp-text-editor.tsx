@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
+// @ts-expect-error no declaration file for draft-js
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
+// @ts-expect-error no declaration file for react-draft-wysiwyg
 import { Editor } from 'react-draft-wysiwyg';
+// @ts-expect-error no declaration file for draftjs-to-html
 import draftToHtml from 'draftjs-to-html';
+// @ts-expect-error no declaration file for html-to-draftjs
 import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import "./rds-comp-text-editor.scss";

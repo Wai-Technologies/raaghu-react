@@ -467,7 +467,6 @@ export const Default: Story = {
     rows: defaultTableData,
     columns: defaultColumns,
     selectable: false,
-    onRowAction: (action, rowId) => {},
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

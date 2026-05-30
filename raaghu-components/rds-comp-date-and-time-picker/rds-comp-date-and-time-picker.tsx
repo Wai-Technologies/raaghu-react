@@ -162,17 +162,18 @@ export default function RdsCompDatePicker({
       },
       ...slotProps,
     },
-  } as const;
+  };
 
   // Props specific to single value pickers
-  const singlePickerProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const singlePickerProps: any = {
     ...baseProps,
     value: dateValue,
     onChange: handleDateChange,
     minTime,
     maxTime,
     format,
-  } as const;
+  };
 
   // Custom combined field for range variants
   const renderRangeField = () => {
