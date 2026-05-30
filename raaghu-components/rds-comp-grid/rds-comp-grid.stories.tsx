@@ -102,7 +102,13 @@ export default meta;
 type Story = StoryObj<typeof RdsCompGrid>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    tableHeaders: [
+      { key: 'id', name: 'ID', dataType: 'number' as const, isSort: true, isFilter: true, isResizable: true, isEditable: false, minWidth: 80, colWidth: '100px' },
+      { key: 'name', name: 'Name', dataType: 'string' as const, isSort: true, isFilter: true, isResizable: true, isEditable: true, minWidth: 150, colWidth: '200px' },
+    ],
+    tableData: [],
+  },
   play: async ({ canvasElement }) => {
     const el = canvasElement.firstElementChild;
     expect(el).toBeTruthy();

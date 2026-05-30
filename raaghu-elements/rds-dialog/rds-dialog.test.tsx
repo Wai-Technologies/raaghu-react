@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsDialog from './rds-dialog';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-dialog.scss', () => ({}));
@@ -23,13 +24,13 @@ jest.mock('@mui/material', () => ({
   Dialog: ({ children, onClose, maxWidth, open, ...props }: any) => {
     if (!open) return null;
     return (
-      <div data-testid="dialog-root" role="dialog" {...props}>
+      <div data-testid="dialog-root" role="dialog" aria-labelledby="mock-dialog-title" {...props}>
         {children}
       </div>
     );
   },
   DialogTitle: ({ children, ...props }: any) => (
-    <div data-testid="dialog-title" {...props}>{children}</div>
+    <div id="mock-dialog-title" data-testid="dialog-title" {...props}>{children}</div>
   ),
   DialogContent: ({ children, ...props }: any) => (
     <div data-testid="dialog-content" {...props}>{children}</div>
@@ -564,6 +565,14 @@ describe('RdsDialog', () => {
         />
       );
       expect(screen.queryByText('Not Visible')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsDialog open={true} title="Test Dialog" onClose={jest.fn()} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

@@ -6,6 +6,7 @@ import RdsCompOffcanvas, {
   RdsCompOffcanvasProps,
 } from './rds-comp-off-canvas';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-off-canvas.scss', () => ({}));
@@ -941,6 +942,14 @@ describe('RdsCompOffcanvas', () => {
       await waitFor(() => {
         expect(screen.getByTestId('drawer')).toBeInTheDocument();
       });
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompOffcanvas show={true} title="Test Panel" onClose={jest.fn()} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RdsFormControl, { RdsFormControlProps } from './rds-form-control';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-form-control.scss', () => ({}));
@@ -708,6 +709,14 @@ describe('RdsFormControl', () => {
       );
       const label = container.querySelector('.MuiFormLabel-root');
       expect(label).toHaveClass('Mui-disabled');
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsFormControl label="Name"><input type="text" id="name-input" aria-label="Name" /></RdsFormControl>);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

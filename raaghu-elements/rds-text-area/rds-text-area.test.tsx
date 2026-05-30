@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import RdsTextArea, { TextareaState, TextareaStyle, RdsTextAreaProps } from './rds-text-area';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-text-area.scss', () => ({}));
@@ -729,6 +730,14 @@ describe('RdsTextArea', () => {
     it('should handle label without value', () => {
       render(<RdsTextArea label="Label Only" dataTestId="test-textarea" />);
       expect(screen.getByText('Label Only')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsTextArea label="Message" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

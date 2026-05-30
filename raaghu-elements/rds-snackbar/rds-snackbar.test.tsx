@@ -3,6 +3,7 @@ import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSnackbar from './rds-snackbar';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-snackbar.scss', () => ({}));
@@ -653,6 +654,14 @@ describe('RdsSnackbar', () => {
     test('should be identifiable in React DevTools', () => {
       const Component = RdsSnackbar;
       expect(Component.displayName).toBe('RdsSnackbar');
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = renderWithTheme(<RdsSnackbar open={true} message="Test notification" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

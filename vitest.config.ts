@@ -28,6 +28,16 @@ export default defineConfig({
       '@storybook/test',
       'storybook/preview-api',
     ],
+    // These CJS packages use runtime require() for missing/peer deps (immutable,
+    // draft-js). Excluding them prevents Vite's pre-bundle phase from crashing
+    // at test startup. They are loaded on-demand by the browser at story render.
+    exclude: [
+      'markdown-to-jsx',
+      'immutable',
+      'draft-js',
+      'html-to-draftjs',
+      'react-draft-wysiwyg',
+    ],
   },
   test: {
     browser: {
