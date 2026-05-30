@@ -15,6 +15,15 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    /* Path aliases — must mirror vite.config.ts resolve.alias */
+    "baseUrl": ".",
+    "paths": {
+      "@raaghu/elements/*":   ["../raaghu-elements/*"],
+      "@raaghu/components/*": ["../raaghu-components/*"],
+      "@raaghu/layouts/*":    ["../raaghu-layouts/*"],
+      "@raaghu/themes/*":     ["../raaghu-react-themes/*"]
+    },
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
