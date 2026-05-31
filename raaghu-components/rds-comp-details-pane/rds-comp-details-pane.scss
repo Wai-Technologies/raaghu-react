@@ -614,6 +614,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--rds-spacing-sm, 8px);
     margin-top: var(--rds-spacing-lg, 8px);
   }
 
@@ -629,6 +631,8 @@
   &__counter-button-left {
     margin-left: calc(var(--rds-spacing-xxs, 5px) * 1);
     margin-top: 10px;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 .rds-counter__controls--medium {
     height: 38px;
@@ -683,7 +687,7 @@
         display: flex;
         align-items: center;
 
-        @media (max-width: var(--rds-breakpoint-380)) {
+        @media (max-width: 380px) {
           right: 4px;
           top: 50%;
           transform: translateY(-50%);
@@ -1146,14 +1150,16 @@
 
 }
 
-@media screen and (max-width: var(--rds-breakpoint-xs)) {
+@media screen and (max-width: 640px) {
   .rds-comp-details-pane {
     width: var(--rds-details-pane-mobile-width, 281.098px);
-    height: var(--rds-details-pane-mobile-height, 543px);
+    height: auto;
+    min-height: var(--rds-details-pane-mobile-height, 543px);
     max-width: 100vw;
-    padding: var(--rds-spacing-sm);        
+    padding: var(--rds-spacing-sm);
     gap: var(--rds-spacing-sm, 12px);
-    overflow: hidden; 
+    overflow-y: auto;
+    overflow-x: hidden; 
     &__header {
       
       margin-left: var(--rds-spacing-sm) !important;
@@ -1563,7 +1569,7 @@
   }
 
 }
-@media screen and (min-width: var(--rds-breakpoint-420)) {
+@media screen and (min-width: 420px) {
   .rds-comp-details-pane {
     margin-left: 25px;
   }

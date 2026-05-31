@@ -400,17 +400,18 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-sm)) {
+@media (max-width: 600px) {
   .rds-emoji-generator {
-  width: 294px;
+    width: min(294px, 100%);
+
     &__grid-container {
       grid-template-columns: repeat(auto-fit, minmax(var(--rds-size-lg, 35px), 1fr));
     }
-    
+
     &__emoji {
       font-size: var(--rds-font-size-lg, 18px);
     }
-    
+
     &__categories-container {
       .MuiChip-root {
         font-size: var(--rds-font-size-xs, 11px);

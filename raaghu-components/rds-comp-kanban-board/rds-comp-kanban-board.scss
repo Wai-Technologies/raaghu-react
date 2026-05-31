@@ -534,7 +534,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-md)) {
+@media (max-width: 900px) {
   .rds-kanban-board-container {
     padding: var(--rds-kanban-container-mobile-padding, 0px 16px 5px) !important;
     gap: var(--rds-spacing-sm) !important;
@@ -565,7 +565,7 @@
   }
 }
 
-@media (max-width: var(--rds-breakpoint-375)) {
+@media (max-width: 375px) {
   .rds-kanban-board-container {
     max-height: 100vh !important;
     overflow-y: auto !important;

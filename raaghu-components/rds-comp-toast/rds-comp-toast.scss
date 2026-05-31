@@ -3,8 +3,8 @@
   border: 1px solid var(--rds-color-border, #e0e0e0);
   border-radius: var(--rds-border-radius, 8px);
   box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.12));
-  min-width: 420px;
-  max-width: 420px;
+  min-width: min(420px, 95vw);
+  max-width: min(420px, 95vw);
   overflow: hidden;
   
   &--visible {
@@ -421,7 +421,7 @@
 }
 
 
-@media (max-width: var(--rds-breakpoint-sm)) {
+@media (max-width: 600px) {
   .rds-comp-toast {
     min-width: 0;
     max-width: 95vw;

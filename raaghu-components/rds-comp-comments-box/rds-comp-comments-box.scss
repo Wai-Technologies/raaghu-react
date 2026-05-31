@@ -248,7 +248,7 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: var(--rds-spacing-md, 8px);
-      min-width: 380px;
+      min-width: 0;
       max-width: 100%;
       .rds-comments-box__avatar {
         width: var(--rds-avatar-size-md, 36px);
@@ -314,7 +314,7 @@
       flex: 1;
       border-radius: var(--rds-border-radius-xl, 24px);
       padding-left: var(--rds-spacing-xs, 4px);
-      min-width: var(--rds-reply-min-width, 368px);
+      min-width: var(--rds-reply-min-width, 0px);
       max-width: var(--rds-reply-max-width, 600px);
       width: 100%;
       height: var(--rds-reply-height, 32px);
@@ -604,7 +604,8 @@
     border: 1.5px solid var(--rds-border-default, #bdbdbd);
     border-radius: var(--rds-border-radius-lg, 12px);
     min-height: var(--rds-typing-box-min-height, 60px);
-    width: var(--rds-typing-box-width, 380px);
+    width: 100%;
+    max-width: var(--rds-typing-box-width, 380px);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -708,7 +709,7 @@
   align-items: center;
   gap: var(--rds-spacing-xl, 5px);
   position: relative;
-  min-width: 320px;
+  min-width: 0;
   width: 100%;
   max-width: 600px;
 }
@@ -721,7 +722,7 @@
 }
 
 .rds-comments-box--hover .rds-comments-box__comment-card {
-  min-width: 400px;
+  min-width: 0;
   max-width: 600px;
   width: 100%;
 }
@@ -860,7 +861,7 @@
   font-size: var(--rds-font-size-xl, 20px) !important;
 }
 
-  @media (max-width: var(--rds-breakpoint-mobile-sm)) {
+  @media (max-width: 320px) {
     .MuiIconButton-root svg {
         margin-left: 3px;
     }
@@ -885,7 +886,7 @@
   color: var(--rds-text-primary, #181a20); 
   font-weight: 500 !important;
 }
-@media (max-width: var(--rds-breakpoint-sm)) and (min-width: var(--rds-breakpoint-mobile-sm)) {
+@media (max-width: 600px) and (min-width: 320px) {
   .rds-comments-box__header {
     padding-left: 0 !important;
     margin-left: 0 !important;
@@ -1089,7 +1090,7 @@
   }
 }
 
-@media (min-width: var(--rds-breakpoint-mobile-lg)) and (max-width: var(--rds-breakpoint-md)) {
+@media (min-width: 414px) and (max-width: 900px) {
   .rds-comments-box__header {
     padding-left: 0 !important;
     margin-left: 0 !important;
@@ -1279,7 +1280,7 @@
   }
 }
 
-@media (min-width: var(--rds-breakpoint-700)) and (max-width: var(--rds-breakpoint-1112)) {
+@media (min-width: 700px) and (max-width: 1112px) {
     .rds-comments-box--thread .rds-comments-box__thread-header .rds-comments-box__thread-title {
         font-size: var(--rds-font-size-lg);
         margin-right: 240px;
@@ -1289,13 +1290,13 @@
         margin-right: 0px !important;
     }
   }
-  @media (max-width: var(--rds-breakpoint-420)) {
+  @media (max-width: 420px) {
     .MuiIconButton-root svg {
         margin-left: 2px;
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-mobile-sm)) and (min-width: var(--rds-breakpoint-280)) {
+  @media (max-width: 320px) and (min-width: 280px) {
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         width: 238px;
@@ -1304,7 +1305,7 @@
     }
 }
 
-@media (max-width: var(--rds-breakpoint-514)) and (min-width: var(--rds-breakpoint-mobile-sm)) {
+@media (max-width: 514px) and (min-width: 320px) {
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         width: 301px;
@@ -1313,7 +1314,7 @@
     }
 }
 
-@media (max-width: var(--rds-breakpoint-lg)) and (min-width: var(--rds-breakpoint-650)) {
+@media (max-width: 1200px) and (min-width: 650px) {
     .rds-comments-box--typing .rds-comments-box__typing-box {
      .rds-emoji-generator {
         margin-left: 3px;
@@ -1321,7 +1322,7 @@
     }
 }
 
-@media (max-width: var(--rds-breakpoint-mobile-sm)) and (min-width: var(--rds-breakpoint-280)) {
+@media (max-width: 320px) and (min-width: 280px) {
   .rds-comments-box--typing {
     width: 307px !important;
   }

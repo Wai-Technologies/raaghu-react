@@ -2,7 +2,6 @@ import React, { useState, useMemo, useRef, useEffect, forwardRef, useImperativeH
 import {
   Box,
   TextField,
-  Button,
   Typography,
   Table,
   TableBody,
@@ -48,6 +47,7 @@ import {
   Visibility as ViewIcon,
   DragIndicator as DragIndicatorIcon,
 } from '@mui/icons-material';
+import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -1888,15 +1888,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 sx={{ minWidth: 200 }}
               />
               <Stack direction="row" spacing={1}>
-                <Button startIcon={<AddIcon />} variant="outlined" size="small">
-                  Add New
-                </Button>
-                <Button startIcon={<PersonIcon />} variant="outlined" size="small">
-                  Person
-                </Button>
-                <Button
-                  startIcon={<FilterIcon />}
-                  variant={activeFiltersCount > 0 ? "contained" : "outlined"}
+                <RdsButton showLeftIcon={true} changeLeftIcon={<AddIcon />} style="outlined" size="small" text="Add New" />
+                <RdsButton showLeftIcon={true} changeLeftIcon={<PersonIcon />} style="outlined" size="small" text="Person" />
+                <RdsButton
+                  showLeftIcon={true}
+                  changeLeftIcon={<FilterIcon />}
+                  style={activeFiltersCount > 0 ? "filled" : "outlined"}
                   size="small"
                   onClick={() => setShowFilters(!showFilters)}
                 >
@@ -1904,13 +1901,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   {activeFiltersCount > 0 && (
                     <Chip label={activeFiltersCount} size="small" color="primary" sx={{ ml: 1 }} />
                   )}
-                </Button>
-                <Button startIcon={<SortIcon />} variant="outlined" size="small">
-                  Sort
-                </Button>
-                <Button startIcon={<VisibilityIcon />} variant="outlined" size="small">
-                  Hide
-                </Button>
+                </RdsButton>
+                <RdsButton showLeftIcon={true} changeLeftIcon={<SortIcon />} style="outlined" size="small" text="Sort" />
+                <RdsButton showLeftIcon={true} changeLeftIcon={<VisibilityIcon />} style="outlined" size="small" text="Hide" />
                 <IconButton size="small">
                   <MoreIcon />
                 </IconButton>
@@ -1982,15 +1975,12 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               sx={{ minWidth: 200 }}
             />
             <Stack direction="row" spacing={1}>
-              <Button startIcon={<AddIcon />} variant="outlined" size="small">
-                Add New
-              </Button>
-              <Button startIcon={<PersonIcon />} variant="outlined" size="small">
-                Person
-              </Button>
-              <Button
-                startIcon={<FilterIcon />}
-                variant={activeFiltersCount > 0 ? "contained" : "outlined"}
+              <RdsButton showLeftIcon={true} changeLeftIcon={<AddIcon />} style="outlined" size="small" text="Add New" />
+              <RdsButton showLeftIcon={true} changeLeftIcon={<PersonIcon />} style="outlined" size="small" text="Person" />
+              <RdsButton
+                showLeftIcon={true}
+                changeLeftIcon={<FilterIcon />}
+                style={activeFiltersCount > 0 ? "filled" : "outlined"}
                 size="small"
                 onClick={() => setShowFilters(!showFilters)}
               >
@@ -1998,13 +1988,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 {activeFiltersCount > 0 && (
                   <Chip label={activeFiltersCount} size="small" color="primary" sx={{ ml: 1 }} />
                 )}
-              </Button>
-              <Button startIcon={<SortIcon />} variant="outlined" size="small">
-                Sort
-              </Button>
-              <Button startIcon={<VisibilityIcon />} variant="outlined" size="small">
-                Hide
-              </Button>
+              </RdsButton>
+              <RdsButton showLeftIcon={true} changeLeftIcon={<SortIcon />} style="outlined" size="small" text="Sort" />
+              <RdsButton showLeftIcon={true} changeLeftIcon={<VisibilityIcon />} style="outlined" size="small" text="Hide" />
               <IconButton size="small">
                 <MoreIcon />
               </IconButton>
@@ -2049,12 +2035,14 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               </Grid>
             ))}
             <Grid>
-              <Button
-                startIcon={<ClearIcon />}
+              <RdsButton
+                showLeftIcon={true}
+                changeLeftIcon={<ClearIcon />}
                 onClick={clearAllFilters}
-                variant="outlined"
+                style="outlined"
                 size="small"
                 color="secondary"
+                text="Clear All"
                 sx={{
                   fontSize: '11px',
                   fontWeight: 600,
@@ -2070,9 +2058,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     boxShadow: 'none',
                   }
                 }}
-              >
-                Clear All
-              </Button>
+              />
             </Grid>
           </Grid>
         </Box>
@@ -2729,16 +2715,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         <Stack direction="row" spacing={0.5}>
                           {actionColumnStyle === ActionColumnStyle.ShowButtonsDirectly ? (
                             actions.map((action) => (
-                              <Button
+                              <RdsButton
                                 key={action.id}
                                 size={action.size || "small"}
-                                variant={action.variant || "outlined"}
+                                style={action.variant === 'contained' ? 'filled' : action.variant === 'text' ? 'transparent' : 'outlined'}
                                 color={action.color || "primary"}
                                 disabled={action.disabled || false}
                                 onClick={() => onActionSelection?.(row, action.id)}
-                              >
-                                {action.displayName}
-                              </Button>
+                                text={action.displayName}
+                              />
                             ))
                           ) : (
                             <ActionMenu row={row} actions={actions} onActionSelection={onActionSelection} />
@@ -2753,37 +2738,37 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         <Stack direction="row" spacing={0.5}>
                           {isRowEditing ? (
                             <>
-                              <Button
+                              <RdsButton
                                 size="small"
-                                variant="contained"
+                                style="filled"
                                 color="primary"
                                 onClick={() => {
                                   handleRowEditSave(rowId);
                                 }}
-                                startIcon={<EditIcon />}
-                              >
-                                Save
-                              </Button>
-                              <Button
+                                showLeftIcon={true}
+                                changeLeftIcon={<EditIcon />}
+                                text="Save"
+                              />
+                              <RdsButton
                                 size="small"
-                                variant="outlined"
+                                style="outlined"
                                 color="secondary"
                                 onClick={handleRowEditCancel}
-                                startIcon={<ClearIcon />}
-                              >
-                                Cancel
-                              </Button>
+                                showLeftIcon={true}
+                                changeLeftIcon={<ClearIcon />}
+                                text="Cancel"
+                              />
                             </>
                           ) : (
-                            <Button
+                            <RdsButton
                               size="small"
-                              variant="outlined"
+                              style="outlined"
                               color="primary"
                               onClick={() => handleRowEditStart(rowId, row)}
-                              startIcon={<EditIcon />}
-                            >
-                              Edit Row
-                            </Button>
+                              showLeftIcon={true}
+                              changeLeftIcon={<EditIcon />}
+                              text="Edit Row"
+                            />
                           )}
                         </Stack>
                       </TableCell>
@@ -3237,12 +3222,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
 
                   {/* Action Buttons */}
                   <Stack direction="row" spacing={1} sx={{ mt: 1.5 }}>
-                    <Button
-                      variant="contained"
+                    <RdsButton
+                      style="filled"
                       color="primary"
                       size="small"
                       onClick={handleApplyFilter}
-                      sx={{ 
+                      text="Filter"
+                      sx={{
                         flexGrow: 1,
                         fontSize: '11px',
                         fontWeight: 600,
@@ -3261,14 +3247,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           boxShadow: 'none',
                         }
                       }}
-                    >
-                      Filter
-                    </Button>
-                    <Button
-                      variant="outlined"
+                    />
+                    <RdsButton
+                      style="outlined"
                       size="small"
                       onClick={handleClearAdvancedFilter}
-                      sx={{ 
+                      text="Clear"
+                      sx={{
                         flexGrow: 1,
                         fontSize: '11px',
                         fontWeight: 600,
@@ -3288,15 +3273,13 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           boxShadow: 'none',
                         }
                       }}
-                    >
-                      Clear
-                    </Button>
+                    />
                   </Stack>
                   
                   {/* Clear All Filters Button */}
                   {Object.keys(filterState).length > 0 && (
-                    <Button
-                      variant="text"
+                    <RdsButton
+                      style="transparent"
                       size="small"
                       onClick={() => {
                         setFilterState({});
@@ -3305,7 +3288,8 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         onFilterApiRequest?.({ filters: [], logicalOperator: 'AND' });
                         handleFilterPopupClose();
                       }}
-                      sx={{ 
+                      text="Clear All Filters"
+                      sx={{
                         width: '100%',
                         fontSize: '10px',
                         fontWeight: 500,
@@ -3320,13 +3304,11 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         },
                         borderRadius: '4px',
                         textDecoration: 'none',
-                          '&:active': {
+                        '&:active': {
                           backgroundColor: 'error.main',
                         }
                       }}
-                    >
-                      Clear All Filters
-                    </Button>
+                    />
                   )}
                 </Stack>
               </Box>

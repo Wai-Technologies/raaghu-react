@@ -13,7 +13,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import EventIcon from '@mui/icons-material/Event';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import Stack from '@mui/material/Stack';
 import './rds-comp-date-and-time-picker.scss';
 
@@ -268,8 +268,8 @@ export default function RdsCompDatePicker({
               </>
             )}
             <Box display="flex" justifyContent="flex-end" gap={1} mt={2}>
-              <Button size="small" onClick={() => { setRangeValue([null, null]); onChange?.([null, null]); }}>Clear</Button>
-              <Button size="small" variant="contained" onClick={() => setAnchorEl(null)}>Apply</Button>
+              <RdsButton style="transparent" size="small" text="Clear" onClick={() => { setRangeValue([null, null]); onChange?.([null, null]); }} />
+              <RdsButton style="filled" size="small" text="Apply" onClick={() => setAnchorEl(null)} />
             </Box>
           </Paper>
         </Popover>

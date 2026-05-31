@@ -120,7 +120,7 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-375)) {
+  @media (max-width: 375px) {
     &__attach {
       .rds-fab-menu__dropdown-container--open {
         right: auto;
@@ -146,7 +146,7 @@
   overflow-x: visible; 
   }
 
-  @media (min-width: var(--rds-breakpoint-md)) {
+  @media (min-width: 900px) {
     &__button-sections {
       align-items: flex-start;
     }
@@ -170,7 +170,7 @@
     }
   }
 
-  @media (max-width: var(--rds-breakpoint-375)) {
+  @media (max-width: 375px) {
     &__button-sections {
       flex-wrap: wrap;
       gap: 0;
@@ -202,7 +202,7 @@
     }
   }
 
-  @media (min-width: var(--rds-breakpoint-xl)) {
+  @media (min-width: 1536px) {
     &__button-sections {
       gap: calc(var(--rds-spacing-md, 12px) * 1.5);
       flex-wrap: nowrap;
@@ -246,7 +246,7 @@
     }
   }
 
-  @media (min-width: 376px) and (max-width: var(--rds-breakpoint-767)) {
+  @media (min-width: 376px) and (max-width: 767px) {
     &__button-sections {
       flex-wrap: wrap;
       gap: var(--rds-spacing-xs, 6px);
@@ -258,12 +258,18 @@
       width: 100%;
       flex-wrap: nowrap;
       gap: var(--rds-spacing-xs, 6px);
+      justify-content: flex-start;
     }
 
-      &__action-button {
-      flex: 1 1 calc((100% - var(--rds-spacing-xs, 6px)) / 2);
+    &__action-button {
+      flex: 1 1 0;
       min-width: 0;
-      margin-right: var(--ai-typing-margin-right);
+      margin-right: 0;
+
+      & > * {
+        overflow: visible;
+        width: 100%;
+      }
     }
 
     &__autocomplete {
@@ -273,7 +279,7 @@
     }
   }
 
-  @media (min-width: var(--rds-breakpoint-400)) and (max-width: var(--rds-breakpoint-430)) {
+  @media (min-width: 400px) and (max-width: 430px) {
     &__action-button--figma {
       .MuiButton-root,
       .css-1r3axgn-MuiButtonBase-root-MuiButton-root { 

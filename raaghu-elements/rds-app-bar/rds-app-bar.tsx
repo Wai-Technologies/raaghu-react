@@ -9,8 +9,8 @@ import {
   Drawer,
   Tabs,
   Tab,
-  Button,
 } from '@mui/material';
+import RdsButton from '../rds-button/rds-button';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Dehaze as DehazeIcon } from '@mui/icons-material';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -219,35 +219,33 @@ const RdsAppBar = ({
                     const label = typeof t === 'string' ? t : (t as any).label || String(i);
                     const isActive = tabValue === i;
                     return (
-                      <Button
+                      <RdsButton
                         key={label + i}
                         role="tab"
                         aria-selected={isActive}
                         onClick={() => typeof onTabChange === 'function' && onTabChange(i)}
                         className={`rds-bottom-nav-tab ${isActive ? 'rds-bottom-nav-tab--active' : ''}`}
-                        variant="text"
+                        style="transparent"
                         size="small"
-                      >
-                        {label}
-                      </Button>
+                        text={label}
+                      />
                     );
                   })}
-                  
+
                   <span className="rds-appbar-badge">28 Days Left</span>
-                  <Button 
-                    variant="contained" 
-                    color="primary" 
-                    sx={{ 
-                      minWidth: 'auto', 
+                  <RdsButton
+                    style="filled"
+                    color="primary"
+                    text="View Plans"
+                    textCase="capitalize"
+                    sx={{
+                      minWidth: 'auto',
                       fontWeight: 500,
                       fontSize: 'var(--rds-font-size-sm, 12px)',
-                      boxShadow: 'none', 
-                      textTransform: 'none',
+                      boxShadow: 'none',
                       padding: 'var(--rds-spacing-xs) var(--rds-spacing-sm)'
                     }}
-                  >
-                    View Plans
-                  </Button>
+                  />
                 </Box>
               </Box>
             ) : (
@@ -273,17 +271,16 @@ const RdsAppBar = ({
                     const label = typeof t === 'string' ? t : (t as any).label || String(i);
                     const isActive = tabValue === i;
                     return (
-                      <Button
+                      <RdsButton
                         key={label + i}
                         role="tab"
                         aria-selected={isActive}
                         onClick={() => onTabChange(i)}
                         className={`rds-bottom-nav-tab ${isActive ? 'rds-bottom-nav-tab--active' : ''}`}
-                        variant="text"
+                        style="transparent"
                         size="small"
-                      >
-                        {label}
-                      </Button>
+                        text={label}
+                      />
                     );
                   })}
                 </Box>

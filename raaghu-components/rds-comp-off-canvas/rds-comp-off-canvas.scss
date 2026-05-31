@@ -125,9 +125,9 @@
 .offcanvas-action-btn {
   width: auto;
 }
-@media (max-width: var(--rds-breakpoint-767)) {
+@media (max-width: 767px) {
   .MuiDrawer-paper {
-    width: var(--rds-offcanvas-mobile-width, 375px) !important;
+    width: min(375px, 100vw) !important;
   }
 }
 
@@ -147,9 +147,9 @@
 .offcanvas-container .offcanvas-header .close:hover {
   background-color: var(--rds-overlay-hover, rgba(0, 0, 0, 0.10));
 }
-@media (min-width: var(--rds-breakpoint-xs)) and (max-width: var(--rds-breakpoint-420)) {
+@media (max-width: 420px) {
   .offcanvas-drawer .MuiDrawer-paper {
-    width: var(--rds-offcanvas-mobile-small-width, 320px) !important;
+    width: min(320px, 100vw) !important;
   }
   .offcanvas-margin {
     display: flex;
@@ -255,8 +255,8 @@
     margin-left: 0 !important;
   }
 }
-@media (min-width: var(--rds-breakpoint-xs)) and (max-width: var(--rds-breakpoint-896)) {
-  .offcanvas-drawer .MuiDrawer-paper { width: 400px !important; }
+@media (max-width: 896px) {
+  .offcanvas-drawer .MuiDrawer-paper { width: min(400px, 100vw) !important; }
   #offcanvas-btns, .offcanvas-margin {
     display: flex;
     flex-wrap: nowrap;

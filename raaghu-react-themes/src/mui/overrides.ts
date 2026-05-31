@@ -245,36 +245,46 @@ export const designSystemComponentOverrides: Components<Theme> = {
           backgroundColor: 'var(--rds-text-disabled)',
         },
       },
-      containedPrimary: {
+      containedPrimary: ({ theme }) => ({
         backgroundColor: 'var(--rds-button-primary-bg)',
+        color: theme.palette.primary.contrastText,
         '&:hover': {
           backgroundColor: 'var(--rds-primary-dark)',
+          color: theme.palette.primary.contrastText,
         },
-      },
-      containedSecondary: {
+      }),
+      containedSecondary: ({ theme }) => ({
         backgroundColor: 'var(--rds-secondary-main)',
+        color: theme.palette.secondary.contrastText,
         '&:hover': {
           backgroundColor: 'var(--rds-secondary-dark)',
+          color: theme.palette.secondary.contrastText,
         },
-      },
-      containedSuccess: {
+      }),
+      containedSuccess: ({ theme }) => ({
         backgroundColor: 'var(--rds-success-main)',
+        color: theme.palette.success.contrastText,
         '&:hover': {
           backgroundColor: 'var(--rds-success-dark)',
+          color: theme.palette.success.contrastText,
         },
-      },
-      containedWarning: {
+      }),
+      containedWarning: ({ theme }) => ({
         backgroundColor: 'var(--rds-warning-main)',
+        color: theme.palette.warning.contrastText,
         '&:hover': {
           backgroundColor: 'var(--rds-warning-dark)',
+          color: theme.palette.warning.contrastText,
         },
-      },
-      containedError: {
+      }),
+      containedError: ({ theme }) => ({
         backgroundColor: 'var(--rds-error-main)',
+        color: theme.palette.error.contrastText,
         '&:hover': {
           backgroundColor: 'var(--rds-error-dark)',
+          color: theme.palette.error.contrastText,
         },
-      },
+      }),
     },
   },
   MuiTextField: {

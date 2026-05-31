@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button as MuiButton, type ButtonProps } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { Add, Delete, Save, Edit, Close, ArrowForward, ArrowBack, RadioButtonUnchecked, ChevronRight, ChevronLeft, KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material';
 import RdsCompSpinner, { SpinnerLayout, SpinnerSize } from '../../raaghu-components/rds-comp-spinner/rds-comp-spinner';
 import './rds-button.scss';
@@ -36,6 +37,7 @@ const RdsButton = ({
   textCase = 'uppercase',
   ...props
 }:RdsButtonProps) => {
+  const theme = useTheme();
   let normalizedLayout = layout;
   if (typeof layout === 'string') {
     switch (layout.trim().toLowerCase()) {
@@ -171,6 +173,15 @@ const RdsButton = ({
     return null;
   };
 
+  const getFilledTextColor = (): string | undefined => {
+    if (style !== 'filled' || !color || color === 'inherit') return undefined;
+    const paletteColor = theme.palette[color as keyof typeof theme.palette];
+    if (paletteColor && typeof paletteColor === 'object' && 'contrastText' in paletteColor) {
+      return (paletteColor as { contrastText: string }).contrastText;
+    }
+    return undefined;
+  };
+
   const isButtonDisabled = disabled || state === 'disabled' || isLoading;
 
   const styleVariantClass = style === 'filled'
@@ -195,6 +206,7 @@ const RdsButton = ({
       style={{
         ...getShapeStyles() as React.CSSProperties,
         ...getTextCaseStyles() as React.CSSProperties,
+        ...(getFilledTextColor() ? { color: getFilledTextColor() } : {}),
         ...(sx as any),
       }}
       startIcon={getStartIcon()}

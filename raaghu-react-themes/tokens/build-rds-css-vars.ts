@@ -970,6 +970,8 @@ function darkThemeCssVars(): Record<string, string> {
     '--rds-border-default': n[700],
     '--rds-border-light': n[800],
     '--rds-border-dark': n[600],
+    // ── Button primary ───────────────────────────────────────────────────────
+    '--rds-button-primary-text': white,
     // ── Semantic aliases ─────────────────────────────────────────────────────
     '--rds-color-on-surface': 'var(--rds-text-primary)',
     '--rds-color-on-surface-variant': 'var(--rds-text-secondary)',

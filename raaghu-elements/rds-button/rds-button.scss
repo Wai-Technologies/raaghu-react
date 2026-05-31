@@ -178,3 +178,10 @@
     transform: rotate(360deg);
   }
 }
+
+[data-theme="dark"] {
+  .rds-button.MuiButton-contained,
+  .rds-button.rds-button__primary {
+    color: #ffffff !important;
+  }
+}

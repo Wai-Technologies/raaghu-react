@@ -822,7 +822,7 @@
   color: var(--rds-color-neutral-0, #ffffff) !important;
 }
 
-@media (max-width: var(--rds-breakpoint-sm)) {
+@media (max-width: 600px) {
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
     padding: 10px;
     margin-left: auto;
@@ -856,7 +856,7 @@
   }
 }
 
-@media (min-width: var(--rds-breakpoint-xl)) {
+@media (min-width: 1536px) {
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-container {
     display: flex;
     flex-direction: column;

@@ -159,7 +159,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
               showLeftIcon
               text="New Project"
               style="filled"
-              size="medium"
+              size={isMobile ? "small" : "medium"}
             />
           </div>
           <div className="rds-comp-ai-typing-section__action-button rds-comp-ai-typing-section__action-button--figma">
@@ -169,6 +169,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
               showLeftIcon
               text="Import From Figma"
               style="outlined"
+              size={isMobile ? "small" : "medium"}
             />
           </div>
         </div>

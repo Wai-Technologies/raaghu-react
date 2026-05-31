@@ -8,7 +8,6 @@ import {
   AccordionDetails,
   FormControlLabel,
   TextField,
-  Button
 } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
@@ -281,41 +280,22 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
             flexShrink: 0,
             backgroundColor: 'var(--rds-background-paper, #fff)'
           }}>
-            <Button
-              variant="contained"
+            <RdsButton
+              style="filled"
               fullWidth
+              text="Apply"
+              textCase="capitalize"
               onClick={handleApply}
-              sx={{
-                backgroundColor: 'var(--rds-primary-main)',
-                color: 'common.white',
-                textTransform: 'none',
-                fontWeight: 500,
-                py: 1,
-                '&:hover': {
-                  backgroundColor: 'var(--rds-primary-dark)',
-                }
-              }}
-            >
-              Apply
-            </Button>
-            <Button
-              variant="outlined"
+              sx={{ py: 1 }}
+            />
+            <RdsButton
+              style="outlined"
               fullWidth
+              text="Clear All"
+              textCase="capitalize"
               onClick={handleClearAll}
-              sx={{
-                borderColor: 'var(--rds-border-default)',
-                color: 'var(--rds-text-secondary)',
-                textTransform: 'none',
-                fontWeight: 500,
-                py: 1,
-                '&:hover': {
-                  backgroundColor: 'var(--rds-action-hover)',
-                  borderColor: 'var(--rds-border-default)',
-                }
-              }}
-            >
-              Clear All
-            </Button>
+              sx={{ py: 1 }}
+            />
           </Box>
         </Box>
       </Popover>

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Paper, Typography, Button, IconButton } from '@mui/material';
+import { Box, Paper, Typography, IconButton } from '@mui/material';
+import RdsButton from '../rds-button/rds-button';
 import { CloudUpload, Close } from '@mui/icons-material';
 import RdsFileUploader, { FileWithProgress } from './rds-file-uploader';
 import { useRdsTokens } from '../shared/hooks/useRdsTokens';
@@ -244,15 +245,14 @@ export const RdsDropZoneWithButton: React.FC<RdsDropZoneWithButtonProps> = ({
           Drag and Drop files<span className="rds-file-uploader__title-or">or</span>
         </Typography>
       </Box>
-      <Button
-        variant="contained"
+      <RdsButton
+        style="filled"
+        text="Upload Files"
         className="rds-file-uploader__upload-btn"
         onClick={openFileDialog}
         disabled={disabled}
-        sx={{ ml: tokens.space(2), minWidth: 'var(--rds-spacing-2xl, 120px)', fontWeight: 600, fontSize: 'var(--rds-font-size-md, 14px)', p: `${tokens.space(0.5)} ${tokens.space(1.75)}`, textTransform: 'uppercase', background: tokens.color.primary }}
-      >
-        Upload Files
-      </Button>
+        sx={{ ml: tokens.space(2), minWidth: 'var(--rds-spacing-2xl, 120px)', fontWeight: 600, fontSize: 'var(--rds-font-size-md, 14px)', p: `${tokens.space(0.5)} ${tokens.space(1.75)}` }}
+      />
     </Paper>
   );
 };

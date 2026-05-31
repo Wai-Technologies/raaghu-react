@@ -67,11 +67,11 @@
     @extend .rds-ai-chat-bot__input;
 }
 
-@media (max-width: var(--rds-breakpoint-md)) {
+@media (max-width: 900px) {
     .rds-ai-chat-bot {
         height: 100vh;
         min-height: 400px;
-        
+
         &__input-wrapper {
             padding: var(--rds-spacing-sm, 8px);
         }

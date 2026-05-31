@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Typography, Button, IconButton } from '@mui/material';
+import { Box, Typography, IconButton } from '@mui/material';
+import RdsButton from '../rds-button/rds-button';
 
 interface RdsFileUploaderStandardViewProps {
   showTitle: boolean;
@@ -64,8 +65,8 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
         onDragLeave={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); } : undefined}
         onDrop={dragAndDrop && !disabled ? (e) => { e.preventDefault(); setInternalDragOver(false); const droppedFiles = Array.from(e.dataTransfer.files); handleFileSelect({ target: { files: droppedFiles } } as any); } : undefined}
       >
-        <Button
-          variant="contained"
+        <RdsButton
+          style="filled"
           component="label"
           className="rds-file-uploader__choose-btn"
           disabled={disabled}
@@ -85,7 +86,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
             disabled={disabled}
             onChange={handleFileSelect}
           />
-        </Button>
+        </RdsButton>
         <Typography
           className="rds-file-uploader__filename"
           variant="body2"
