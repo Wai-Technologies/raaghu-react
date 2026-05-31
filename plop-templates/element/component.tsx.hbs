@@ -2,16 +2,43 @@ import React from 'react';
 import './rds-{{kebabCase name}}.scss';
 
 export interface Rds{{pascalCase name}}Props {
+  /** Primary content */
+  label?: string;
+  /** Visual size variant */
+  size?: 'small' | 'medium' | 'large';
+  /** Disables interaction */
+  disabled?: boolean;
+  /** Additional CSS class */
   className?: string;
+  /** Click handler */
+  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
+  /** Child elements */
   children?: React.ReactNode;
 }
 
 const Rds{{pascalCase name}}: React.FC<Rds{{pascalCase name}}Props> = ({
+  label,
+  size = 'medium',
+  disabled = false,
   className,
+  onClick,
   children,
 }) => {
   return (
-    <div className={`rds-{{kebabCase name}} ${className || ''}`}>
+    <div
+      className={[
+        'rds-{{kebabCase name}}',
+        `rds-{{kebabCase name}}--${size}`,
+        disabled ? 'rds-{{kebabCase name}}--disabled' : '',
+        className || '',
+      ].filter(Boolean).join(' ')}
+      onClick={!disabled ? onClick : undefined}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick && !disabled ? 0 : undefined}
+      onKeyDown={onClick && !disabled ? (e) => { if (e.key === 'Enter' || e.key === ' ') onClick(e as any); } : undefined}
+      aria-disabled={disabled || undefined}
+    >
+      {label && <span className="rds-{{kebabCase name}}__label">{label}</span>}
       {children}
     </div>
   );

@@ -121,3 +121,6 @@ export const DefaultTimePicker: React.FC<DefaultTimePickerProps> = ({
     </div>
   );
 };
+
+CompactTimePicker.displayName = 'CompactTimePicker';
+DefaultTimePicker.displayName = 'DefaultTimePicker';

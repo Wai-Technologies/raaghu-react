@@ -20,3 +20,5 @@ const RdsCommentBox: React.FC<RdsCommentBoxProps> = (props) => {
 };
 
 export default RdsCommentBox;
+
+RdsCommentBox.displayName = 'RdsCommentBox';

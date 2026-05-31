@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, within } from '@storybook/test';
+import { expect, within, userEvent } from '@storybook/test';
 import Rds{{pascalCase name}} from './rds-{{kebabCase name}}';
 
 const meta: Meta<typeof Rds{{pascalCase name}}> = {
@@ -8,8 +8,14 @@ const meta: Meta<typeof Rds{{pascalCase name}}> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
+    size: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+    },
+    disabled: { control: 'boolean' },
+    label: { control: 'text' },
     className: { control: 'text' },
   },
 };
@@ -19,11 +25,38 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: '{{pascalCase name}} content',
+    label: '{{pascalCase name}}',
+    size: 'medium',
+    disabled: false,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const el = canvasElement.querySelector('.rds-{{kebabCase name}}');
+    expect(el).toBeInTheDocument();
+    expect(el).toHaveClass('rds-{{kebabCase name}}--medium');
+  },
+};
+
+export const Small: Story = {
+  args: { ...Default.args, size: 'small' },
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.querySelector('.rds-{{kebabCase name}}--small');
+    expect(el).toBeInTheDocument();
+  },
+};
+
+export const Large: Story = {
+  args: { ...Default.args, size: 'large' },
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.querySelector('.rds-{{kebabCase name}}--large');
+    expect(el).toBeInTheDocument();
+  },
+};
+
+export const Disabled: Story = {
+  args: { ...Default.args, disabled: true },
+  play: async ({ canvasElement }) => {
+    const el = canvasElement.querySelector('.rds-{{kebabCase name}}--disabled');
     expect(el).toBeInTheDocument();
   },
 };

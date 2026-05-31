@@ -162,7 +162,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
               )}
               <RdsBox sx={{ flex: 1 }} />
               {closeIcon && (
-                <IconButton size="small" className="custom-box__close-icon" onClick={() => setVisible(false)}>
+                <IconButton aria-label="Close" size="small" className="custom-box__close-icon" onClick={() => setVisible(false)}>
                   <CloseIcon />
                 </IconButton>
               )}
@@ -201,7 +201,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
                 </RdsStack>
               )}
               action={closeIcon && (
-                <IconButton size="small" className="rds-adaptive-cards__close-btn" onClick={() => setVisible(false)}><CloseIcon /></IconButton>
+                <IconButton aria-label="Close" size="small" className="rds-adaptive-cards__close-btn" onClick={() => setVisible(false)}><CloseIcon /></IconButton>
               )}
             />
 

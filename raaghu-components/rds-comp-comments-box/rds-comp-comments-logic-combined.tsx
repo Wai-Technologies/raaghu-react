@@ -75,7 +75,7 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton className="rds-comments-box__send">
+                  <IconButton aria-label="Send" className="rds-comments-box__send">
                     <SendIcon fontSize="inherit" className="rds-comments-box__send-icon" />
                   </IconButton>
                 </InputAdornment>
@@ -206,11 +206,11 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
                 <RdsTypography className="rds-comments-box__time">{props.hoverTime}</RdsTypography>
               </RdsBox>
               <RdsBox className="rds-comments-box__hover-tools">
-                <IconButton disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
+                <IconButton aria-label="More options" disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
                   <PushPinOutlinedIcon className="rds-comments-box__pushpin-icon" />
                 </IconButton>
                 <span className="rds-comments-box__dropdown-trigger">
-                  <IconButton className="rds-comments-box__more-btn" ref={logic.hoverMoreBtnRef} onClick={() => logic.setHoverDropdownOpen((open: boolean) => !open)}>
+                  <IconButton aria-label="More options" className="rds-comments-box__more-btn" ref={logic.hoverMoreBtnRef} onClick={() => logic.setHoverDropdownOpen((open: boolean) => !open)}>
                     <MoreHorizIcon className="rds-comments-box__more-icon" />
                   </IconButton>
                   {logic.hoverDropdownOpen && (
@@ -248,7 +248,7 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
             <RdsTypography className="rds-comments-box__thread-title">{props.threadTitle}</RdsTypography>
             <RdsBox className="rds-comments-box__thread-icons relative">
               <span className="rds-comments-box__dropdown-trigger">
-                <IconButton className="rds-comments-box__more-btn" ref={logic.threadMoreBtnHeaderRef} onClick={() => logic.setThreadDropdownOpenHeader((open: boolean) => !open)}>
+                <IconButton aria-label="More options" className="rds-comments-box__more-btn" ref={logic.threadMoreBtnHeaderRef} onClick={() => logic.setThreadDropdownOpenHeader((open: boolean) => !open)}>
                   <MoreHorizIcon className="rds-comments-box__more-icon" />
                 </IconButton>
                 {logic.threadDropdownOpenHeader && (
@@ -272,10 +272,10 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
                   </div>
                 )}
               </span>
-              <IconButton disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
+              <IconButton aria-label="Close" disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
                 <PushPinOutlinedIcon className="rds-comments-box__pushpin-icon" />
               </IconButton>
-              <IconButton className="rds-comments-box__close-btn"><CloseIcon className="rds-comments-box__close-icon" /></IconButton>
+              <IconButton aria-label="Close" className="rds-comments-box__close-btn"><CloseIcon className="rds-comments-box__close-icon" /></IconButton>
             </RdsBox>
           </RdsBox>
           <Divider className="rds-comments-box__thread-divider" />
@@ -295,11 +295,11 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
                   <RdsTypography className="rds-comments-box__time">{props.time}</RdsTypography>
                 </RdsBox>
                 <RdsBox className="rds-comments-box__tools relative">
-                  <IconButton disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
+                  <IconButton aria-label="More options" disableRipple disableFocusRipple className="rds-comments-box__pushpin-btn">
                     <PushPinOutlinedIcon className="rds-comments-box__pushpin-icon" />
                   </IconButton>
                   <span className="rds-comments-box__dropdown-trigger">
-                    <IconButton className="rds-comments-box__more-btn" ref={logic.threadMoreBtnToolsRef} onClick={() => logic.setThreadDropdownOpenTools((open: boolean) => !open)}>
+                    <IconButton aria-label="More options" className="rds-comments-box__more-btn" ref={logic.threadMoreBtnToolsRef} onClick={() => logic.setThreadDropdownOpenTools((open: boolean) => !open)}>
                       <MoreHorizIcon className="rds-comments-box__more-icon" />
                     </IconButton>
                     {logic.threadDropdownOpenTools && ( 
@@ -344,7 +344,7 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton className="rds-comments-box__send">
+                    <IconButton aria-label="Send" className="rds-comments-box__send">
                       <SendIcon fontSize="inherit" className="rds-comments-box__send-icon" />
                     </IconButton>
                   </InputAdornment>
@@ -358,3 +358,5 @@ export const RdsCommentBoxLogic: React.FC<RdsCommentBoxProps> = (props) => {
       return null;
   }
 };
+
+RdsCommentBoxLogic.displayName = 'RdsCommentBoxLogic';

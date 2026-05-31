@@ -47,7 +47,7 @@ const RdsCompAppShell = (props: RdsCompAppShellProps) => {
           }
         }
       } catch (error) {
-        console.warn('Could not clone topbar element:', error);
+        // Topbar clone failed — render without cloning
       }
     }
     

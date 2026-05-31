@@ -62,6 +62,8 @@
   ],
   "scripts": {
     "generate": "plop",
+    "health": "node scripts/collect-health-data.js",
+    "health:check": "node scripts/health-check.js",
     "size": "size-limit",
     "dev": "bun run vite",
     "build": "bun run tsc -b && bun run vite build",

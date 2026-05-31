@@ -497,3 +497,6 @@ export const getToolbarConfig = (type: ToolbarType | string): ToolbarConfig => {
       };
   }
 };
+
+ToolbarButton.displayName = 'ToolbarButton';
+Divider.displayName = 'Divider';

@@ -98,6 +98,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                     </Box>
                 ))}
                 <IconButton
+                  aria-label="Filter"
                     className="rds-emoji-generator__plus"
                     onClick={() => onEmojiSelect?.('+')}
                     size="small"
@@ -144,6 +145,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                         {showSkinTone && (
                             <Box sx={{ position: 'relative' }}>
                                 <IconButton
+                                  aria-label="Select emoji"
                                     className="rds-emoji-generator__skin-tone-button"
                                     onClick={handleSkinToneClick}
                                     style={{ backgroundColor: skinToneOptions[selectedSkinTone].color }}
@@ -153,6 +155,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                                     <Box className="rds-emoji-generator__skin-tone-inline">
                                         {skinToneOptions.map(o => (
                                             <IconButton
+                                              aria-label="Select emoji"
                                                 key={o.value}
                                                 onClick={() => handleSkinToneSelect(o.value)}
                                                 className="rds-emoji-generator__skin-tone-option"
@@ -185,6 +188,7 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
                             <Box className="rds-emoji-generator__skin-tone-dropdown">
                                 {skinToneOptions.map(o => (
                                     <IconButton
+                                      aria-label="Select emoji"
                                         key={o.value}
                                         onClick={() => handleSkinToneSelect(o.value)}
                                         className="rds-emoji-generator__skin-tone-option"

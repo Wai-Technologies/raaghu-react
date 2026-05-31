@@ -37,6 +37,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                           </Box>
                         </Box>
                         <IconButton size="small" className="btn-sm kanban-board__header-button"
+                          aria-label="Close"
                         >
                           <MoreVertIcon />
                         </IconButton>
@@ -47,6 +48,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                         <Box className="add-item-btn btn-margin rds-kanban-board__button-container">
                           <RdsButton style="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={onAddButtonClick} className="rds-kanban-board__add-button" text="Add Board" />
                           <IconButton size="small" onClick={onCancel} className="rds-kanban-board__close-button"
+                            aria-label="Close"
                           >
                             <CloseIcon />
                           </IconButton>
@@ -70,6 +72,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                           </Box>
                         </Box>
                         <IconButton size="small" className="btn-sm kanban-board__header-button"
+                          aria-label="More options"
                         >
                           <MoreVertIcon />
                         </IconButton>
@@ -103,6 +106,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                         )}
                       </Box>
                       <IconButton size="small" onClick={(e) => toggleDropdown(index, e)} className="btn-sm kanban-board__header-button"
+                        aria-label="More options"
                       >
                         <MoreVertIcon />
                       </IconButton>
@@ -124,6 +128,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                           <RdsBadge badgeContent="Badge" color="secondary" size="small" shape="rectangle" colorVariant='secondary'
                                           />
                                           <IconButton size="small" onClick={(e) => toggleSubCardDropdown(subCard.SubcardId, e, subCard, index)} className="btn-sm rds-kanban-board__subcard-dropdown-button"
+                                            aria-label="More options"
                                           >
                                             <MoreVertIcon fontSize="small" />
                                           </IconButton>
@@ -217,6 +222,7 @@ const RdsCompKanbanBoard = (props: RdsCompKanbanBoardProps) => {
                                   <Box className="add-item-btn btn-margin add-board rds-kanban-board__button-container">
                                     <RdsButton style="outlined" size="medium" showLeftIcon changeLeftIcon={PlusIcon} onClick={() => onAddSubCardClick(index)} className="rds-kanban-board__add-button" text="Add Item" />
                                     <IconButton size="small" onClick={() => state.setSubCardInputsVisible(null)} className="close-board rds-kanban-board__close-button"
+                                      aria-label="Close"
                                     >
                                       <CloseIcon fontSize="small" />
                                     </IconButton>

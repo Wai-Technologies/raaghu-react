@@ -496,3 +496,7 @@ export const renderDatePickerTypeView = (
     
     return null;
 };
+
+CustomButtons.displayName = 'CustomButtons';
+ExampleCustomInput.displayName = 'ExampleCustomInput';
+CustomInputWithClear.displayName = 'CustomInputWithClear';

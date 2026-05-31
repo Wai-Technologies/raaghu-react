@@ -133,3 +133,5 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
   );
 };
 export default RdsFileUploaderStandardView;
+
+RdsFileUploaderStandardView.displayName = 'RdsFileUploaderStandardView';
