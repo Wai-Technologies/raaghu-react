@@ -354,7 +354,7 @@ const meta: Meta<typeof RdsAppBar> = {
     exclude: ['component', 'onMenuClick', 'actions', 'onSearchChange', 'leftActions', 'rightActions', 'centerContent', 'tabs', 'tabValue', 'onTabChange', 'subHeader', 'logo'],
   },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: ({
     size: {
       control: { type: 'select' },

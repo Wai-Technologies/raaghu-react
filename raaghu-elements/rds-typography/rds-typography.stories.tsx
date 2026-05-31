@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsTypography> = {
       include: ['text', 'variant', 'color', 'align', 'gutterBottom', 'noWrap'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     text: {
       control: 'text',

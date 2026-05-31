@@ -13,7 +13,7 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         style: {
             options: ["Favourites", "Favourites - New Folder", "Prompt History", "Real Estate","Selection","Toolbar","Thumbnail View"],

@@ -14,7 +14,7 @@ const meta: Meta = {
 },
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         radius: { control: 'number' }, 
     },

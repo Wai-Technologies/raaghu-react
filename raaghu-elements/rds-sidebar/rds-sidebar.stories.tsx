@@ -47,7 +47,7 @@ When a platform is specified, the component automatically displays the appropria
     exclude: ['component', 'slots', 'slotProps', 'onClose'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     isOpen: {
       control: 'boolean',

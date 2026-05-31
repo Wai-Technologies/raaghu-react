@@ -90,7 +90,7 @@ const meta: Meta<typeof RdsCompCodeSnippet> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     code: {
       control: { type: 'text' },

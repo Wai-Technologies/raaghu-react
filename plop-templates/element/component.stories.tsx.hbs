@@ -1,0 +1,29 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, within } from '@storybook/test';
+import Rds{{pascalCase name}} from './rds-{{kebabCase name}}';
+
+const meta: Meta<typeof Rds{{pascalCase name}}> = {
+  title: 'Elements/{{pascalCase name}}',
+  component: Rds{{pascalCase name}},
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    className: { control: 'text' },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    children: '{{pascalCase name}} content',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const el = canvasElement.querySelector('.rds-{{kebabCase name}}');
+    expect(el).toBeInTheDocument();
+  },
+};

@@ -36,7 +36,7 @@ const meta: Meta<typeof RdsCompAppShell> = {
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", 'stable'],
   argTypes: {
     displayType: {
       control: { type: "select" },

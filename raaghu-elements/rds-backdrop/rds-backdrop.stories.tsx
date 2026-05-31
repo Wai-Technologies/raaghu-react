@@ -15,7 +15,7 @@ const meta: Meta<typeof RdsBackdrop> = {
       }
     }
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     open: {
       control: { type: 'boolean' },

@@ -73,6 +73,32 @@ const preview: Preview = {
         restoreScroll: true,
       },
     },
+    badgesConfig: {
+      stable: {
+        styles: {
+          backgroundColor: '#1a7f37',
+          borderColor: '#1a7f37',
+          color: '#fff',
+        },
+        title: 'Stable',
+      },
+      beta: {
+        styles: {
+          backgroundColor: '#9a6700',
+          borderColor: '#9a6700',
+          color: '#fff',
+        },
+        title: 'Beta',
+      },
+      experimental: {
+        styles: {
+          backgroundColor: '#cf222e',
+          borderColor: '#cf222e',
+          color: '#fff',
+        },
+        title: 'Experimental',
+      },
+    },
   },
   decorators: [
     (Story, context) => {

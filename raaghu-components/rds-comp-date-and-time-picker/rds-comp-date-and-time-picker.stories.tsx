@@ -10,7 +10,7 @@ const meta: Meta = {
         layout: 'padded',
         controls: {exclude: ['type']},
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         variant: {
             control: { type: 'select' },

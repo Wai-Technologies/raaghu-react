@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsHeader> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     title: {
       control: 'text',

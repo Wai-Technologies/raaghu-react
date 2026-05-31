@@ -13,7 +13,7 @@ const meta: Meta = {
     }
 }
     },
-    tags: ["autodocs"]
+    tags: ["autodocs", 'stable']
 } satisfies Meta<typeof RdsCompChat>;
 
 export default meta;

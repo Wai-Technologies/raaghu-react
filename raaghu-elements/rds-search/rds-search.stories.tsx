@@ -17,7 +17,7 @@ const meta: Meta<typeof RdsSearch> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     label: {
       control: 'text',

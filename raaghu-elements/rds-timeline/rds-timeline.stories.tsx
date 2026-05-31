@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsTimeline> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     position: {
       control: { type: 'select' },

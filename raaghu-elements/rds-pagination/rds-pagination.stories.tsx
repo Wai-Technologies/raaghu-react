@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsPagination> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     count: {
       control: 'number',

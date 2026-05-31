@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsContainer> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     maxWidth: {
       control: { type: 'select' },

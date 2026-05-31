@@ -12,7 +12,7 @@ const meta: Meta<typeof RdsStack> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     direction: {
       control: { type: 'select' },

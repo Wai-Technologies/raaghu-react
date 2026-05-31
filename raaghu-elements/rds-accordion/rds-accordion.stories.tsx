@@ -16,7 +16,7 @@ const meta: Meta<typeof RdsAccordion> = {
       exclude: ['disableGutters','expanded','TransitionComponent','TransitionProps','slots','slotProps','component','children','icon','classes','onChange','sx'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     title: {
       control: 'text',

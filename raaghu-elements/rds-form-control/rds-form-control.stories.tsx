@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsFormControl> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     variant: {
       control: { type: 'select' },

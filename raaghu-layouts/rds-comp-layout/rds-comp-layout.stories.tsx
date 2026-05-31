@@ -12,7 +12,7 @@ const meta: Meta<typeof RdsCompLayout> = {
       include: ['displayType', 'hasShadow'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     spacing: {
       control: { type: 'number', min: 0, max: 10 },

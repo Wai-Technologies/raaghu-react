@@ -10,7 +10,7 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'beta'],
 } satisfies Meta<typeof RdsCompAiGradientTextWithIcon>;
 
 

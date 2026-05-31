@@ -12,7 +12,7 @@ const meta: Meta<typeof RdsRadio> = {
     exclude: ['radioProps', 'ref'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     options: {
       control: 'object',

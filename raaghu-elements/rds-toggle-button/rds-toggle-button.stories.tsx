@@ -10,7 +10,7 @@ const meta: Meta<typeof RdsToggleButton> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     value: {
       control: { type: 'object' },

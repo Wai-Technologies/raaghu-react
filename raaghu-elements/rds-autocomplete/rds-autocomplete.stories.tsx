@@ -28,7 +28,7 @@ const meta: Meta<typeof RdsAutocomplete> = {
     exclude: ['component', 'slots', 'slotProps', 'ref'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     variant: {
       control: { type: 'select' },

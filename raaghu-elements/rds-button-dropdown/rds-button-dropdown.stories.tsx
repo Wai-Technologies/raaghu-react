@@ -23,7 +23,7 @@ const meta: Meta<typeof RdsButtonDropdown> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     buttonText: {
       control: 'text',

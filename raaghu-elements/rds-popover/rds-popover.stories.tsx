@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsPopover> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     position: {
       control: 'select',

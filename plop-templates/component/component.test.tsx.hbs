@@ -1,0 +1,42 @@
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import RdsComp{{pascalCase name}}, { RdsComp{{pascalCase name}}Props } from './rds-comp-{{kebabCase name}}';
+import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
+
+jest.mock('./rds-comp-{{kebabCase name}}.scss', () => ({}));
+
+describe('RdsComp{{pascalCase name}}', () => {
+  const defaultProps: RdsComp{{pascalCase name}}Props = {};
+
+  describe('Basic Rendering', () => {
+    it('should render component without crashing', () => {
+      const { container } = render(<RdsComp{{pascalCase name}} {...defaultProps} />);
+      expect(container.querySelector('.rds-comp-{{kebabCase name}}')).toBeInTheDocument();
+    });
+
+    it('should have correct displayName', () => {
+      expect(RdsComp{{pascalCase name}}.displayName).toBe('RdsComp{{pascalCase name}}');
+    });
+
+    it('should render children', () => {
+      render(<RdsComp{{pascalCase name}}>Test content</RdsComp{{pascalCase name}}>);
+      expect(screen.getByText('Test content')).toBeInTheDocument();
+    });
+
+    it('should apply custom className', () => {
+      const { container } = render(
+        <RdsComp{{pascalCase name}} className="custom-class" />
+      );
+      expect(container.querySelector('.rds-comp-{{kebabCase name}}.custom-class')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsComp{{pascalCase name}} {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+  });
+});

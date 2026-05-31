@@ -13,7 +13,7 @@ const meta = {
     exclude: ['onSelect'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     type: {
       control: { type: 'select' },

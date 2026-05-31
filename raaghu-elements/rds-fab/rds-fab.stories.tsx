@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsFab> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     color: {
       control: { type: 'select' },

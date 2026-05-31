@@ -1,0 +1,21 @@
+import React from 'react';
+import './rds-{{kebabCase name}}.scss';
+
+export interface Rds{{pascalCase name}}Props {
+  className?: string;
+  children?: React.ReactNode;
+}
+
+const Rds{{pascalCase name}}: React.FC<Rds{{pascalCase name}}Props> = ({
+  className,
+  children,
+}) => {
+  return (
+    <div className={`rds-{{kebabCase name}} ${className || ''}`}>
+      {children}
+    </div>
+  );
+};
+
+Rds{{pascalCase name}}.displayName = 'Rds{{pascalCase name}}';
+export default Rds{{pascalCase name}};

@@ -10,7 +10,7 @@ const meta: Meta<typeof RdsDrawer> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     anchor: {
       control: { type: 'select' },

@@ -13,7 +13,7 @@ const meta: Meta<typeof RdsBadge> = {
       exclude: ['component', 'slots', 'slotProps', 'color', 'children'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     size: {
       control: { type: 'select' },

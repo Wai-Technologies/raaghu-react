@@ -19,7 +19,7 @@ const meta: Meta<typeof RdsTable> = {
       exclude: ['rows', 'columns','onRowAction','onPageChange','onPageSizeChange','selectedRows','onRowSelect','className','component'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     size: {
       control: { type: 'select' },

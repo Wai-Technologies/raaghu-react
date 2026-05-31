@@ -18,7 +18,7 @@ const meta: Meta<typeof RdsIconButton> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     size: {
       control: 'select',

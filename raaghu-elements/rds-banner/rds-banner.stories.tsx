@@ -23,7 +23,7 @@ const meta: Meta<RdsBannerProps & { showOutline?: boolean }> = {
       return <Story args={{ ...args, ...extraArgs }} />;
     },
   ],
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     description: {
       control: 'text',

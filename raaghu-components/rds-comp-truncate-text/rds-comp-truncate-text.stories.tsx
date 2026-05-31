@@ -17,7 +17,7 @@ const meta: Meta = {
       }
     }
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     state: {
       options: Object.values(TruncateTextState),

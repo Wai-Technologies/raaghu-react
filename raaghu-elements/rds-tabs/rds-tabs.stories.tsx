@@ -15,7 +15,7 @@ const meta: Meta<typeof RdsTabs> = {
       include: ['tabs', 'activeTab', 'type', 'layout', 'title', 'state', 'leftIcon', 'rightIcon', 'showLeftIcon', 'showRightIcon', 'level'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     tabs: {
       control: 'object',

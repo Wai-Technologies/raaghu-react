@@ -19,7 +19,7 @@ const meta: Meta = {
             }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         size: {
             options: ["Default", "Small", "Large",],

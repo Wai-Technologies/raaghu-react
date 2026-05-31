@@ -11,7 +11,7 @@ const meta: Meta = {
     docs:{
     }
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", 'beta'],
   argTypes: {
     iconName: {
       table: { disable: true },
