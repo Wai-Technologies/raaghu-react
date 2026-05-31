@@ -740,7 +740,7 @@
     &__input-send input,
     &__input-send textarea,
     &__input-send .rds-input {
-      font-size: 13px;
+      font-size: var(--rds-font-size-xs, 13px);
     }
     
     &__input-wrapper {
@@ -959,7 +959,7 @@
         
         .nav-tabs .nav-link {
           padding: var(--rds-spacing-xs, 4px) var(--rds-spacing-sm, 8px);
-          font-size: 13px;
+          font-size: var(--rds-font-size-xs, 13px);
         }
       }
     }

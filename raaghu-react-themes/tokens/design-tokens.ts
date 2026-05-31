@@ -1145,6 +1145,36 @@ export const chartPaletteTokens = {
   },
 };
 
+/** Emoji skin-tone modifier colors (Unicode standard) */
+export const emojiSkinToneColors = {
+  default:     '#FFD700',
+  light:       '#F7E7CE',
+  mediumLight: '#F3D2A2',
+  medium:      '#D08B5B',
+  mediumDark:  '#AE7242',
+  dark:        '#7C4A2E',
+};
+
+/** E-signature pen color palette */
+export const eSignaturePenColors = {
+  black: '#000000',
+  blue:  '#0066FF',
+  red:   '#FF0000',
+};
+
+/** File-type icon colors — used by rds-comp-tree-structure/fileTypeIcons.tsx */
+export const fileTypeIconColors = {
+  blue:      '#2534E9',  // CSS, C++, TypeScript, JavaScript
+  pink:      '#F55385',  // SQL / database
+  orange:    '#E37933',  // Python / Jupyter
+  lightGray: '#D4D7D6',  // Plain text / unknown
+  yellow:    '#CBCB41',  // YAML / config
+  purple:    '#A074C4',  // Env / Markdown
+  red:       '#CC3E44',  // Git / error
+  steel:     '#6D8086',  // Settings / config
+  darkSteel: '#41535B',  // Git / Stencil
+};
+
 // Export all tokens as a single object (single human-edited source for the design system)
 export const designTokens = {
   color: colorTokens,
@@ -1176,6 +1206,9 @@ export const designTokens = {
   semanticAlias: semanticAliasTokens,
   map: mapTokens,
   chartPalette: chartPaletteTokens,
+  fileTypeIcon: fileTypeIconColors,
+  emojiSkinTone: emojiSkinToneColors,
+  eSignaturePen: eSignaturePenColors,
 };
 
 export default designTokens;

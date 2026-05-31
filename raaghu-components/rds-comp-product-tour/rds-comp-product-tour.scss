@@ -797,7 +797,7 @@
   }
 
   &__form-stepcount {
-    font-size: 15px !important;
+    font-size: var(--rds-font-size-md, 15px) !important;
     font-weight: 500 !important;
     color: var(--rds-text-primary) !important;
   }
@@ -809,7 +809,7 @@
   }
 
     &__form-skip {
-    font-size: 15px !important;
+    font-size: var(--rds-font-size-md, 15px) !important;
     margin-right: var(--rds-spacing-md);
     color: var(--rds-primary-main) !important;
     font-weight: 500 !important;

@@ -89,7 +89,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
         <Typography
           className="rds-file-uploader__filename"
           variant="body2"
-          sx={{ color: (theme) => selectedFileName ? theme.palette.grey[900] : theme.palette.grey[600] }}
+          sx={{ color: selectedFileName ? 'var(--rds-text-primary)' : 'var(--rds-text-secondary)' }}
         >
           {showPreview
             ? (selectedFileName ? selectedFileName : 'No file chosen')
@@ -117,7 +117,7 @@ const RdsFileUploaderStandardView: React.FC<RdsFileUploaderStandardViewProps> = 
         <Typography
           className="rds-file-uploader__hint"
           variant="caption"
-          sx={{ color: (theme) => showHint ? theme.palette.grey[900] : 'transparent', fontWeight: 400, textAlign: 'right', minWidth: 0 }}
+          sx={{ color: showHint ? 'var(--rds-text-primary)' : 'transparent', fontWeight: 400, textAlign: 'right', minWidth: 0 }}
         >
           {showHint ? hintText : '\u00A0'}
         </Typography>

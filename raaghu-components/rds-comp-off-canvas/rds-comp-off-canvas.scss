@@ -173,7 +173,7 @@
   }
   
   .offcanvas-margin .rds-button {
-    font-size: 11px !important;
+    font-size: var(--rds-font-size-caption, 11px) !important;
     padding: 5px 7px;
     width: 100% !important;
     white-space: nowrap;
@@ -186,7 +186,7 @@
   }
   
   .offcanvas-margin .rds-button span {
-    font-size: 11px !important;
+    font-size: var(--rds-font-size-caption, 11px) !important;
     display: inline-block;
     white-space: nowrap;
     line-height: 1.2;
@@ -221,7 +221,7 @@
   }
   
   #offcanvas-btns .rds-button {
-    font-size: 11px !important;
+    font-size: var(--rds-font-size-caption, 11px) !important;
     padding: 5px 7px;
     width: 100% !important;
     white-space: nowrap;
@@ -234,7 +234,7 @@
   }
   
   #offcanvas-btns .rds-button span {
-    font-size: 11px !important;
+    font-size: var(--rds-font-size-caption, 11px) !important;
     display: inline-block;
     white-space: nowrap;
     line-height: 1.2;

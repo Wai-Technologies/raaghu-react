@@ -508,7 +508,7 @@
     border-radius: 50%;
     background: transparent;
     color: var(--rds-color-error-700, #d32f2f);
-    font-size: 9px;
+    font-size: var(--rds-font-size-caption, 9px);
     font-weight: 600;
     line-height: 1;
   }
@@ -676,7 +676,7 @@
     border-radius: 50%;
     align-items: center;
     justify-content: center;
-    font-size: 9px;
+    font-size: var(--rds-font-size-caption, 9px);
     line-height: 1;
     font-weight: 600;
     margin-top: 0;
@@ -703,7 +703,7 @@
 
   &--type-initials {
     .rds-e-signature__disabled-text {
-      font-size: 13px;
+      font-size: var(--rds-font-size-xs, 13px);
       line-height: 1.35;
       width: 100%;
       background: transparent;

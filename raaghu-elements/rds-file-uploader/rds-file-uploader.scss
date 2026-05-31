@@ -296,7 +296,7 @@ color: var(--rds-color-primary, #1976d2);
     border-radius: var(--rds-border-radius, 6px);
   }
   &__file-icon {
-    font-size: 32px;
+    font-size: var(--rds-font-size-4xl, 32px);
     color: var(--rds-color-primary, #1976d2);
   }
   &__file-details {

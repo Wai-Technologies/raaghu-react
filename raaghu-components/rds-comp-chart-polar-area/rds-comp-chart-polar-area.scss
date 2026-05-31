@@ -1,9 +1,10 @@
-/* Add responsive canvas sizing for polar area chart */
+/* Responsive canvas sizing for polar area chart */
 .rds-comp-chart-polar-area-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
+	border-radius: var(--rds-border-radius-sm, 4px);
 
 	canvas {
 		display: block;

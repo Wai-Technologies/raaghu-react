@@ -36,6 +36,6 @@ export default defineConfig({
     emptyOutDir: true,
   },
   optimizeDeps: {
-        include: ["charts"],
-    }
+    include: ["chart.js"],
+  }
   })

@@ -70,7 +70,7 @@
       }
       
       &::placeholder {
-        font-size: 13px;
+        font-size: var(--rds-font-size-xs, 13px);
       }
     }
     
@@ -155,7 +155,7 @@
       color: var(--rds-neutral-900);
       
       &.time-display-compact {
-        font-size: 13px;
+        font-size: var(--rds-font-size-xs, 13px);
       }
     }
     
@@ -333,7 +333,7 @@
       }
       
       .time-value-period {
-        font-size: 17px;
+        font-size: var(--rds-font-size-lg, 17px);
         font-weight: 600;
         color: var(--rds-time-picker-accent);
         min-width: 45px;

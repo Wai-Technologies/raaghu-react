@@ -61,9 +61,9 @@ const RdsModal= ({
               onClick={onClose}
               sx={{
                 position: 'absolute',
-                right: (theme) => theme.spacing(1),
-                top: (theme) => theme.spacing(1),
-                color: (theme) => theme.palette.grey[500],
+                right: 'var(--rds-spacing-sm, 8px)',
+                top: 'var(--rds-spacing-sm, 8px)',
+                color: 'var(--rds-neutral-500)',
               }}
             >
               <CloseIcon />

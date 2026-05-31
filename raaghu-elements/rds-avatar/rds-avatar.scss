@@ -254,13 +254,13 @@
 .plus-indecator-smallest {
   width: 24px;
   height: 24px;
-  font-size: 8px;
+  font-size: var(--rds-font-size-caption, 8px);
 }
 
 .plus-indecator-small {
   width: 32px;
   height: 32px;
-  font-size: 11px;
+  font-size: var(--rds-font-size-caption, 11px);
 }
 
 .plus-indecator-medium {

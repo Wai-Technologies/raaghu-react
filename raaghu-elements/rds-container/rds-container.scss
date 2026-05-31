@@ -1,0 +1,6 @@
+// RDS Container — MUI Container wrapper
+// Ensures components participate in theme color transitions
+.rds-container {
+  transition: color var(--rds-transition-base, 150ms ease-in-out),
+              background-color var(--rds-transition-base, 150ms ease-in-out);
+}

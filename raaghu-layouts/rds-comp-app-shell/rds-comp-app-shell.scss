@@ -547,7 +547,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         justify-content: flex-start !important;
         text-align: left !important;
         padding: var(--rds-spacing-sm) calc(var(--rds-spacing-md) - var(--rds-spacing-xs)) !important;
-        font-size: 13px !important;
+        font-size: var(--rds-font-size-xs, 13px) !important;
         min-width: auto !important;
         white-space: nowrap !important;
         
@@ -661,7 +661,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         cursor: pointer !important;
         flex: 1 !important;
         text-align: center !important;
-        font-size: 11px !important;
+        font-size: var(--rds-font-size-caption, 11px) !important;
         font-weight: 400 !important;
         color: inherit !important;
         min-width: 0 !important;

@@ -1,3 +1,4 @@
+import { emojiSkinToneColors } from '../../raaghu-react-themes/tokens/design-tokens';
 import React, { useState } from "react";
 import {
     Box,
@@ -57,12 +58,12 @@ const RdsEmojiGenerator: React.FC<RdsEmojiGeneratorProps> = ({
     const [skinToneAnchorEl, setSkinToneAnchorEl] = useState<HTMLElement | null>(null);
 
     const skinToneOptions = [
-        { value: 0, color: "#FFD700", label: "Default" },
-        { value: 1, color: "#F7E7CE", label: "Light" },
-        { value: 2, color: "#F3D2A2", label: "Medium Light" },
-        { value: 3, color: "#D08B5B", label: "Medium" },
-        { value: 4, color: "#AE7242", label: "Medium Dark" },
-        { value: 5, color: "#7C4A2E", label: "Dark" },
+        { value: 0, color: emojiSkinToneColors.default, label: "Default" },
+        { value: 1, color: emojiSkinToneColors.light, label: "Light" },
+        { value: 2, color: emojiSkinToneColors.mediumLight, label: "Medium Light" },
+        { value: 3, color: emojiSkinToneColors.medium, label: "Medium" },
+        { value: 4, color: emojiSkinToneColors.mediumDark, label: "Medium Dark" },
+        { value: 5, color: emojiSkinToneColors.dark, label: "Dark" },
     ];
 
     const categoryTabs = [

@@ -4,7 +4,6 @@ import {
   type DividerProps,
   Box,
   Typography,
-  useTheme,
 } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AddIcon from '@mui/icons-material/Add';
@@ -38,8 +37,6 @@ const RdsDivider= ({
   };
   const normalizedIconName = iconName?.trim();
   const IconComponent = normalizedIconName && iconMap[normalizedIconName] ? iconMap[normalizedIconName] : InfoOutlinedIcon;
-  const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
 
   const getStyleColors = () => {
     switch (styleVariant) {
@@ -59,17 +56,17 @@ const RdsDivider= ({
         };
       case 'primary':
         return {
-          dividerColor: theme.palette.primary.main,
-          textColor: theme.palette.primary.main,
-          iconBorderColor: theme.palette.primary.main,
-          iconColor: theme.palette.primary.main,
+          dividerColor: 'var(--rds-primary-main)',
+          textColor: 'var(--rds-primary-main)',
+          iconBorderColor: 'var(--rds-primary-main)',
+          iconColor: 'var(--rds-primary-main)',
         };
       default:
         return {
-          dividerColor: isDark ? 'grey.700' : 'grey.300',
-          textColor: isDark ? 'grey.400' : 'grey.600',
-          iconBorderColor: isDark ? 'grey.700' : 'grey.300',
-          iconColor: isDark ? 'grey.400' : 'grey.700',
+          dividerColor: 'var(--rds-border-default)',
+          textColor: 'var(--rds-text-secondary)',
+          iconBorderColor: 'var(--rds-border-default)',
+          iconColor: 'var(--rds-text-secondary)',
         };
     }
   };

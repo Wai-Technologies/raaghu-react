@@ -8,6 +8,7 @@ import {
   ColorModeSwatches,
   GradientEditor
 } from "./color-picker-components";
+import { colorTokens } from "../../raaghu-react-themes/tokens/design-tokens";
 
 export enum ColorPickerType {
   Default = "Default",
@@ -59,7 +60,7 @@ const RdsColorPicker = (props: RdsColorPickerProps) => {
     } catch (e) {
       // ignore
     }
-    return '#9751F2';
+    return colorTokens.primary[400];
   };
 
   const hexToRgb = (hex: string) => {

@@ -39,14 +39,14 @@
     
     &--month {
       fill: var(--rds-color-text-primary, #333);
-      font-size: 12px;
+      font-size: var(--rds-font-size-xs, 12px);
       font-weight: var(--rds-font-weight-medium, 500);
       letter-spacing: -0.01em;
       alignment-baseline: central;
     }
     
     &--month-mobile {
-      font-size: 8px !important;
+      font-size: var(--rds-font-size-caption, 8px) !important;
     }
     
     &--week {
@@ -92,13 +92,13 @@
     }
     
     &__text--month {
-      font-size: 10px !important;
+      font-size: var(--rds-font-size-caption, 10px) !important;
       font-weight: 600;
       letter-spacing: 0.02em;
     }
     
     &__text--week {
-      font-size: 9px !important;
+      font-size: var(--rds-font-size-caption, 9px) !important;
       display: none; 
     }
   }
@@ -125,13 +125,13 @@
     }
     
     &__text--month {
-      font-size: 11px !important;
+      font-size: var(--rds-font-size-caption, 11px) !important;
       font-weight: 600;
       letter-spacing: 0.02em;
     }
     
     &__text--week {
-      font-size: 10px !important;
+      font-size: var(--rds-font-size-caption, 10px) !important;
     }
   }
 }
@@ -158,12 +158,12 @@
     }
     
     &__text--month {
-      font-size: 8px !important;
+      font-size: var(--rds-font-size-caption, 8px) !important;
       font-weight: 500;
     }
     
     &__text--week {
-      font-size: 7px !important;
+      font-size: var(--rds-font-size-caption, 7px) !important;
     }
   }
 }
@@ -179,12 +179,12 @@
     }
     
     &__text--month {
-      font-size: 13px;
+      font-size: var(--rds-font-size-xs, 13px);
       font-weight: 500;
     }
     
     &__text--week {
-      font-size: 10px;
+      font-size: var(--rds-font-size-caption, 10px);
     }
   }
 }

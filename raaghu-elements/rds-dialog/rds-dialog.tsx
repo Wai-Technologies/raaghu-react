@@ -105,7 +105,7 @@ const RdsDialog = ({
                 position: 'absolute',
                 right: 8,
                 top: 8,
-                color: (theme) => theme.palette.grey[500],
+                color: 'var(--rds-neutral-500)',
               }}
             >
               <CloseIcon />

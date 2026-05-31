@@ -1,3 +1,4 @@
+import { eSignaturePenColors } from '../../raaghu-react-themes/tokens/design-tokens';
 import React, { useState, useRef, useEffect } from 'react';
 import { Box, Typography, IconButton, Paper } from '@mui/material';
 import { Brush, Save, Delete, Undo } from '@mui/icons-material';
@@ -37,7 +38,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
     { id: '6', name: 'Style 6', style: 'modern', fullName: 'John Doe', initials: 'J.D' },
   ],
   width = 695,
-  penColor = '#000000',
+  penColor = eSignaturePenColors.black,
   title = 'Draw Signature',
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -49,7 +50,7 @@ const RdsCompESignature: React.FC<RdsCompESignatureProps> = ({
 
   const [hasDrawn, setHasDrawn] = useState(false);
 
-  const colors = ['#000000', '#0066ff', '#ff0000'];
+  const colors = [eSignaturePenColors.black, eSignaturePenColors.blue, eSignaturePenColors.red];
 
   useEffect(() => {
     if (!canvasRef.current || mode !== 'draw') return;
