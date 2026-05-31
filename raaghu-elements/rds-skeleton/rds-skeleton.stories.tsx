@@ -12,7 +12,7 @@ const meta: Meta<typeof RdsSkeleton> = {
       include: ['shape', 'frames', 'animated', 'animation', 'width', 'height'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     shape: {
       control: 'select',

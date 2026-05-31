@@ -10,7 +10,7 @@ const meta: Meta<typeof RdsCardDetail> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     elevation: {
       control: { type: 'range', min: 0, max: 24 },

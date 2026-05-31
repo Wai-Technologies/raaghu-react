@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsAvatar> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     colorVariant: {
       control: 'select',

@@ -24,7 +24,7 @@ const meta: Meta = {
       }
     }
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     level: {
       control: {

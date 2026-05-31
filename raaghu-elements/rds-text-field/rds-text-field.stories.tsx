@@ -10,7 +10,7 @@ const meta: Meta<typeof RdsTextField> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     label: {
       control: 'text',

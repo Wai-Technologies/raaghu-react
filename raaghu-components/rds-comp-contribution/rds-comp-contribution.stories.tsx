@@ -13,7 +13,7 @@ const meta: Meta<typeof RdsCompContribution> = {
       }
     }
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", 'beta'],
   argTypes: {
     showMonthLabels: {
       description: 'Whether to show month labels at the top of the contribution graph',

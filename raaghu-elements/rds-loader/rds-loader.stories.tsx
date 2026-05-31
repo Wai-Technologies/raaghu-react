@@ -21,7 +21,7 @@ const meta: Meta<typeof RdsLoader> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     variant: {
       control: 'select',

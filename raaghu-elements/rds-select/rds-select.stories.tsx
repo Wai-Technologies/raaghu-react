@@ -8,7 +8,7 @@ const meta: Meta<typeof RdsSelect> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     options: {
       control: 'object',

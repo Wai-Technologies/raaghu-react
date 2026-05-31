@@ -8,7 +8,7 @@ const meta: Meta = {
     parameters: {
         layout: "padded",
     },
-    tags: ["autodocs"],
+    tags: ["autodocs", 'stable'],
     argTypes: {
         state: {
             options: ["Image", "Carousel", "Form", "GIF"],

@@ -13,7 +13,7 @@ const meta: Meta = {
             }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'beta'],
     argTypes: {
         title: {
             control: { type: 'text' },

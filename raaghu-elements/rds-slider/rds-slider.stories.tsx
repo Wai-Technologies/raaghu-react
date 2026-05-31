@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsSlider> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     controlType: {
       control: { type: 'select' },

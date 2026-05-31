@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsDivider> = {
       exclude: ['component','flexItem'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
 
   argTypes: {
     layout: {

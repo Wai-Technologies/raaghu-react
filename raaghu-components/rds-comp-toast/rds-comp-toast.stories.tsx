@@ -30,7 +30,7 @@ const meta: Meta<typeof RdsCompToast> = {
         }
     },
     
-    tags: ["autodocs"],
+    tags: ["autodocs", 'stable'],
     argTypes: {
         state: {
             options: Object.values(ToastState), 

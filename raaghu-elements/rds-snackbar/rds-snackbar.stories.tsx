@@ -10,7 +10,7 @@ const meta: Meta<typeof RdsSnackbar> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     message: {
       control: 'text',

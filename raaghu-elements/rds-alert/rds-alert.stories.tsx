@@ -15,7 +15,7 @@ const meta: Meta<typeof RdsAlert> = {
             exclude: ['component', 'slots', 'slotProps', 'variant']
         },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     description: {
       control: 'text',

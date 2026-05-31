@@ -1,0 +1,29 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, within } from '@storybook/test';
+import RdsComp{{pascalCase name}} from './rds-comp-{{kebabCase name}}';
+
+const meta: Meta<typeof RdsComp{{pascalCase name}}> = {
+  title: 'Components/{{pascalCase name}}',
+  component: RdsComp{{pascalCase name}},
+  parameters: {
+    layout: 'padded',
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    className: { control: 'text' },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    children: '{{pascalCase name}} content',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const el = canvasElement.querySelector('.rds-comp-{{kebabCase name}}');
+    expect(el).toBeInTheDocument();
+  },
+};

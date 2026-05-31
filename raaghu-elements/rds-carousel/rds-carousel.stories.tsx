@@ -20,7 +20,7 @@ const meta: Meta<typeof RdsCarousel> = {
       return <Story />;
     },
   ],
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     autoPlay: {
       control: 'boolean',

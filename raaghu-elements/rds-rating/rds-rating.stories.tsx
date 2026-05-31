@@ -12,7 +12,7 @@ const meta: Meta<typeof RdsRating> = {
     exclude: ['component', 'slots', 'slotProps', 'precision'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     value: {
       control: { type: 'number', min: 0, max: 5, step: 0.5 },

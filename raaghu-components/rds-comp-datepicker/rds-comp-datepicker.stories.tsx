@@ -26,7 +26,7 @@ const meta: Meta = {
             }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         datePickerStyleType: {
             options: ["Dropdown", "Selector"],

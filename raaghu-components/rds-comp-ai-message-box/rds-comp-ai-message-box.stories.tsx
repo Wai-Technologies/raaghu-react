@@ -9,7 +9,7 @@ const meta: Meta = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'beta'],
   argTypes: {
     avtar: {
       table: { disable: true },

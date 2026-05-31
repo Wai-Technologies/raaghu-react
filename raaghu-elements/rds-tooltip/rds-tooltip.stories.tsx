@@ -14,7 +14,7 @@ const meta: Meta<typeof RdsTooltip> = {
     exclude: ['ref', 'slots', 'slotProps'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     label: {
       control: 'text',

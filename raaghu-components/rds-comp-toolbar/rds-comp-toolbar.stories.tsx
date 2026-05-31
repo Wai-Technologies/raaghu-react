@@ -114,7 +114,7 @@ const meta: Meta<typeof RdsCompToolbar> = {
             },
         },
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
 } satisfies Meta<typeof RdsCompToolbar>;
 
 export default meta;

@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsGrid> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     container: {
       control: { type: 'boolean' },

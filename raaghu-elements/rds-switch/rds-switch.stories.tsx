@@ -8,7 +8,7 @@ const meta: Meta<typeof RdsSwitch> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     layout: {
       control: 'select',

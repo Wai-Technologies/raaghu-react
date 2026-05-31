@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsSpeedDial> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     direction: {
       control: { type: 'select' },

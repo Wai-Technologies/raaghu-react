@@ -10,7 +10,7 @@ const meta: Meta<typeof RdsButton> = {
   layout: 'padded',
   controls: { exclude: ['component'] },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     text: {
       control: 'text',

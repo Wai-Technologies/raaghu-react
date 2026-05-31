@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsCheckbox> = {
     layout: 'padded',
   controls: { exclude: ['cssStyle', 'slots', 'slotProps', 'component'] },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     labeltext: {
       control: 'text',

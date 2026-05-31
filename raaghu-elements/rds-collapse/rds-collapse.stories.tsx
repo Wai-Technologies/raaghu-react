@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsCollapse> = {
     layout: 'centered',
     controls: { exclude: ['timeout'] },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     expanded: {
       control: 'boolean',

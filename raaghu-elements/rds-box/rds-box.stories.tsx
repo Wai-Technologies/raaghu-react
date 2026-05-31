@@ -16,7 +16,7 @@ const meta: Meta<typeof RdsBox> = {
       }
     }
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     children: { 
       control: { type: 'text' },

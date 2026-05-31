@@ -25,7 +25,7 @@ const meta: Meta = {
       }
     }
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     placement: {
       options: ["top", "bottom", "end", "start"],

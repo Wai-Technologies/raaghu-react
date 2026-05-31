@@ -12,7 +12,7 @@ const meta: Meta = {
     exclude: ['onChange', 'value'],
     },
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", 'stable'],
   argTypes: {
     colorVariant: {
       options: [

@@ -95,7 +95,7 @@ const meta: Meta<typeof RdsCompGrid> = {
       defaultValue: ActionColumnStyle.ShowDots,
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
 };
 
 export default meta;

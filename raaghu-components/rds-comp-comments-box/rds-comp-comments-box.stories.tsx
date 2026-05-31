@@ -77,7 +77,7 @@ const meta: Meta<typeof RdsCommentBox> = {
     exclude: ['editIcon', 'deleteIcon'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     avatarInitials: { control: 'text', description: 'Initials for avatar' },
     placeholderText: { control: 'text', description: 'Placeholder text for input' },

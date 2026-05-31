@@ -19,7 +19,7 @@ const meta: Meta<typeof RdsFileUploader> = {
     exclude: ['onFilesChange', 'onUpload'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     title: {
       control: 'text',

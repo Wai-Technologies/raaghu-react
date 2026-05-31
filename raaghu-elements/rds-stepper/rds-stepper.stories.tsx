@@ -11,7 +11,7 @@ const meta: Meta<typeof RdsStepper> = {
       exclude: ['alternativeLabel'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     currentStep: {
       control: { type: 'number' },

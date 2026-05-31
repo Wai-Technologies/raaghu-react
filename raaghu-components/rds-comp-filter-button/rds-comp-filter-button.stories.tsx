@@ -9,7 +9,7 @@ const meta: Meta = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     shape: {
       options: ['rectangle', 'pill'],

@@ -13,7 +13,7 @@ const meta: Meta<typeof RdsCounter> = {
     exclude: ['onChange', 'controlsClassName','disabled','defaultValue'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     size: {
       control: 'select',

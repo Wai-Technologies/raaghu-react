@@ -312,13 +312,24 @@ export const animationTokens = {
     slow: '350ms',
     slower: '500ms',
   },
-  
   easing: {
     linear: 'linear',
     easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
     easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
     easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  }
+  },
+};
+
+// Motion tokens — canonical alias for animationTokens used by the design system pipeline
+export const motionTokens = {
+  duration: animationTokens.duration,
+  easing: animationTokens.easing,
+  transition: {
+    fast:   `${animationTokens.duration.fast} ${animationTokens.easing.easeInOut}`,
+    base:   `${animationTokens.duration.normal} ${animationTokens.easing.easeInOut}`,
+    slow:   `${animationTokens.duration.slow} ${animationTokens.easing.easeInOut}`,
+    bounce: `${animationTokens.duration.slow} cubic-bezier(0.34, 1.56, 0.64, 1)`,
+  },
 };
 
 // Z-Index Tokens

@@ -10,7 +10,7 @@ const meta: Meta<typeof RdsBottomNavigation> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     activeValue: {
       control: { type: 'text' },

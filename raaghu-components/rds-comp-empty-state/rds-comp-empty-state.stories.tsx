@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsCompEmptyState> = {
   parameters: {
     layout: "padded",
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", 'stable'],
   argTypes: {
     mode: {
       control: { type: 'select' },

@@ -17,7 +17,7 @@ const meta: Meta = {
       exclude: ['component', 'slots', 'slotProps', 'children', 'actions', 'onClose'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     open: { control: { type: 'boolean' } },
   size: { control: { type: 'select' }, options: ['extra-small', 'small', 'medium', 'large', 'extra-large', false] },

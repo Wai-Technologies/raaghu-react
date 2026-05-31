@@ -32,7 +32,7 @@ const meta: Meta<typeof RdsCompAiChatHeader> = {
       },
   },
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", 'beta'],
 };
 
 export default meta;

@@ -14,7 +14,7 @@ const meta: Meta<typeof RdsModal> = {
       exclude: ['component', 'slots', 'slotProps', 'onClose', 'actions', 'icon', 'isOpen'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     title: {
       control: 'text',

@@ -8,7 +8,7 @@ const meta: Meta<typeof RdsBreadcrumbs> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     items: {
       control: 'object',

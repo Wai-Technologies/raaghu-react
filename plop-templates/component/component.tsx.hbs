@@ -1,0 +1,21 @@
+import React from 'react';
+import './rds-comp-{{kebabCase name}}.scss';
+
+export interface RdsComp{{pascalCase name}}Props {
+  className?: string;
+  children?: React.ReactNode;
+}
+
+const RdsComp{{pascalCase name}}: React.FC<RdsComp{{pascalCase name}}Props> = ({
+  className,
+  children,
+}) => {
+  return (
+    <div className={`rds-comp-{{kebabCase name}} ${className || ''}`}>
+      {children}
+    </div>
+  );
+};
+
+RdsComp{{pascalCase name}}.displayName = 'RdsComp{{pascalCase name}}';
+export default RdsComp{{pascalCase name}};

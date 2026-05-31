@@ -12,7 +12,7 @@ const meta: Meta<typeof RdsRange> = {
     exclude: ['component', 'onChange', 'formatValue'],
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     label: {
       control: 'text',

@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsPaper> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     elevation: {
       control: 'number',

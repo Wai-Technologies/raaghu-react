@@ -9,7 +9,7 @@ const meta: Meta<typeof RdsProgress> = {
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     style: {
       control: {

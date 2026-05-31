@@ -20,7 +20,7 @@ const meta: Meta<typeof RdsTextArea> = {
             }
         }
     },
-    tags: ['autodocs'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         state: {
             control: 'select',

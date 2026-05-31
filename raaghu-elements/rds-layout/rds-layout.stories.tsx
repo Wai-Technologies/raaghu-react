@@ -10,7 +10,7 @@ const meta: Meta<typeof RdsLayout> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     showHeader: {
       control: 'boolean',
