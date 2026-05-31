@@ -40,3 +40,39 @@ jobs:
           name: playwright-report
           path: playwright-report
           retention-days: 14
+
+  visual-regression:
+    name: Visual Regression (branch-compare)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run visual regression smoke tests
+        run: npm run test:visual:smoke
+        env:
+          STORYBOOK_URL: ${{ vars.STORYBOOK_URL || '' }}
+
+      - name: Upload visual diff report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diff-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
