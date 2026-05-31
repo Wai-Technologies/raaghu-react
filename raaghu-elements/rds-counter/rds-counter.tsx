@@ -114,6 +114,7 @@ const RdsCounter = ({
 
   const decButton = (
     <IconButton
+      aria-label="Decrease value"
       onClick={handleDecrement}
   disabled={effectiveDisabled || (typeof currentValue === 'number' ? currentValue <= min : false)}
       size={size === 'small' ? 'small' : 'medium'}
@@ -124,6 +125,7 @@ const RdsCounter = ({
   );
   const incButton = (
     <IconButton
+      aria-label="Increase value"
       onClick={handleIncrement}
   disabled={effectiveDisabled || (typeof currentValue === 'number' ? currentValue >= max : false)}
       size={size === 'small' ? 'small' : 'medium'}

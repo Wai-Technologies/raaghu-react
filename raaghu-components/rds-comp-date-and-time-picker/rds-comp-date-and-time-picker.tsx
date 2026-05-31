@@ -194,6 +194,7 @@ export default function RdsCompDatePicker({
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton
+                  aria-label="Draw"
                   edge="end"
                   size={size === 'small' ? 'small' : 'medium'}
                   onClick={(e) => { e.stopPropagation(); if (!disabled) setAnchorEl(e.currentTarget as HTMLElement); }}
@@ -481,3 +482,6 @@ export function DatePickerDemo() {
     </LocalizationProvider>
   );
 }
+
+DatePickerDemo.displayName = 'DatePickerDemo';
+RdsCompDatePicker.displayName = 'RdsCompDatePicker';

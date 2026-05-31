@@ -544,3 +544,12 @@ export const GradientEditor: React.FC<{
     </div>
   );
 };
+
+ColorPickerGrid.displayName = 'ColorPickerGrid';
+ColorPickerSpectrum.displayName = 'ColorPickerSpectrum';
+ColorPickerSliders.displayName = 'ColorPickerSliders';
+ColorPickerInfo.displayName = 'ColorPickerInfo';
+ColorSwatchesType1.displayName = 'ColorSwatchesType1';
+ColorSwatchesType2.displayName = 'ColorSwatchesType2';
+ColorModeSwatches.displayName = 'ColorModeSwatches';
+GradientEditor.displayName = 'GradientEditor';

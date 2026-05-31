@@ -357,6 +357,7 @@ export const RdsFileList: React.FC<RdsFileListProps> = ({
             {formatFileSize(fileWithProgress.file.size)}
           </Typography>
           <IconButton
+            aria-label="Delete"
             className="rds-file-uploader__file-remove"
             size="small"
             onClick={() => removeFile(index)}
@@ -371,3 +372,8 @@ export const RdsFileList: React.FC<RdsFileListProps> = ({
     </Box>
   );
 };
+
+RdsDropZoneSideIcon.displayName = 'RdsDropZoneSideIcon';
+RdsDropZoneWithButton.displayName = 'RdsDropZoneWithButton';
+RdsDropZoneDefault.displayName = 'RdsDropZoneDefault';
+RdsFileList.displayName = 'RdsFileList';

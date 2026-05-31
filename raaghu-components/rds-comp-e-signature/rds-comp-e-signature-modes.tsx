@@ -209,3 +209,6 @@ export default {
   RdsESignatureUpload,
   RdsESignatureChoose,
 };
+
+RdsESignatureUpload.displayName = 'RdsESignatureUpload';
+RdsESignatureChoose.displayName = 'RdsESignatureChoose';

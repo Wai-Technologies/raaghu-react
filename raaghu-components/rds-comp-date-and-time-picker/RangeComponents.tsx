@@ -276,3 +276,8 @@ export function RangeDateTime(props: {
     </Stack>
   );
 }
+
+CustomDateRangeLayout.displayName = 'CustomDateRangeLayout';
+RangeCalendar.displayName = 'RangeCalendar';
+RangeTime.displayName = 'RangeTime';
+RangeDateTime.displayName = 'RangeDateTime';

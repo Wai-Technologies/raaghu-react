@@ -2,17 +2,59 @@ import React from 'react';
 import './rds-comp-{{kebabCase name}}.scss';
 
 export interface RdsComp{{pascalCase name}}Props {
+  /** Title shown in the header area */
+  title?: string;
+  /** Controls visibility */
+  isOpen?: boolean;
+  /** Loading state */
+  loading?: boolean;
+  /** Additional CSS class */
   className?: string;
+  /** Called when the component requests to close */
+  onClose?: () => void;
+  /** Child elements */
   children?: React.ReactNode;
 }
 
 const RdsComp{{pascalCase name}}: React.FC<RdsComp{{pascalCase name}}Props> = ({
+  title,
+  isOpen = true,
+  loading = false,
   className,
+  onClose,
   children,
 }) => {
+  if (!isOpen) return null;
+
   return (
-    <div className={`rds-comp-{{kebabCase name}} ${className || ''}`}>
-      {children}
+    <div
+      className={[
+        'rds-comp-{{kebabCase name}}',
+        loading ? 'rds-comp-{{kebabCase name}}--loading' : '',
+        className || '',
+      ].filter(Boolean).join(' ')}
+      role="region"
+      aria-label={title}
+      aria-busy={loading || undefined}
+    >
+      {title && (
+        <div className="rds-comp-{{kebabCase name}}__header">
+          <span className="rds-comp-{{kebabCase name}}__title">{title}</span>
+          {onClose && (
+            <button
+              className="rds-comp-{{kebabCase name}}__close"
+              onClick={onClose}
+              aria-label="Close"
+              type="button"
+            >
+              ×
+            </button>
+          )}
+        </div>
+      )}
+      <div className="rds-comp-{{kebabCase name}}__body">
+        {children}
+      </div>
     </div>
   );
 };

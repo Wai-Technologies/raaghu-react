@@ -254,6 +254,7 @@ const RdsTable = ({
                         <span className="rds-table__header-label">{column.label}</span>
                         {column.sortable && (
                           <IconButton
+                            aria-label="Filter"
                             size="small"
                             className={`rds-table__sort-button ${active ? 'rds-table__sort-button--active' : ''}`}
                             onClick={(e) => { e.stopPropagation(); handleSort(column); }}

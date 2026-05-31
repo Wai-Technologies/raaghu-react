@@ -403,3 +403,5 @@ export const TreeNode = ({
 };
 
 export default fileTypeIcons;
+
+TreeNode.displayName = 'TreeNode';

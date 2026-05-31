@@ -520,6 +520,7 @@ const ActionMenu: React.FC<{
   return (
     <>
       <IconButton
+        aria-label="Action"
         size="small"
         onClick={handleClick}
         sx={{
@@ -1536,7 +1537,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     }
     
     if (rowIndex === -1 || rowIndex >= currentData.length) {
-      console.error('Row not found in currentData. rowId:', rowId, 'currentData.length:', currentData.length);
+      // Row not found — skip update silently
       return;
     }
     
@@ -1911,7 +1912,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 <Button startIcon={<VisibilityIcon />} variant="outlined" size="small">
                   Hide
                 </Button>
-                <IconButton size="small">
+                <IconButton aria-label="Action" size="small">
                   <MoreIcon />
                 </IconButton>
               </Stack>
@@ -2005,7 +2006,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               <Button startIcon={<VisibilityIcon />} variant="outlined" size="small">
                 Hide
               </Button>
-              <IconButton size="small">
+              <IconButton aria-label="Filter" size="small">
                 <MoreIcon />
               </IconButton>
             </Stack>
@@ -2087,11 +2088,11 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               <Typography variant="subtitle2" fontWeight="medium">
                 {noDataHeaderTitle}
               </Typography>
-              <IconButton size="small">
+              <IconButton aria-label="Toggle collapse" size="small">
                 <MoreIcon />
               </IconButton>
             </Stack>
-            <IconButton size="small" onClick={toggleCollapse}>
+            <IconButton aria-label="Toggle collapse" size="small" onClick={toggleCollapse}>
               {isCollapsed ? <ArrowDownIcon /> : <ArrowUpIcon />}
             </IconButton>
           </Stack>
@@ -2294,7 +2295,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           )}
                           {isSort && header.isSort && (
                             <Tooltip title="Sort">
-                              <IconButton size="small">
+                              <IconButton aria-label="Filter" size="small">
                                 {(() => {
                                   if (sortColumn === header.key) {
                                     if (sortDirection === 'asc') {
@@ -2311,6 +2312,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             <Tooltip title="Click to open filters and column visibility">
                               <span>
                                 <IconButton 
+                                  aria-label="Filter"
                                   size="small" 
                                   onClick={(e) => handleFilterIconClick(e, header.key)}
                                   ref={filterButtonRef}
@@ -2859,7 +2861,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                 'Controls'
               }
             </Typography>
-            <IconButton size="small" onClick={handleFilterPopupClose} sx={{ width: '20px', height: '20px' }}>
+            <IconButton aria-label="Close" size="small" onClick={handleFilterPopupClose} sx={{ width: '20px', height: '20px' }}>
               <ClearIcon sx={{ fontSize: '14px' }} />
             </IconButton>
           </Stack>

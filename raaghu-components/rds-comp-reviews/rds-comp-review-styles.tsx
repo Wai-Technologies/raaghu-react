@@ -705,3 +705,16 @@ export const renderReviewStyle = (item: Item, style?: RevieweStyle) => {
       return null;
   }
 };
+
+Style1.displayName = 'Style1';
+Style2.displayName = 'Style2';
+Style3.displayName = 'Style3';
+Style4.displayName = 'Style4';
+Style5.displayName = 'Style5';
+Style6.displayName = 'Style6';
+Style7.displayName = 'Style7';
+Style8.displayName = 'Style8';
+Style9.displayName = 'Style9';
+Style10.displayName = 'Style10';
+Style11.displayName = 'Style11';
+Style12.displayName = 'Style12';

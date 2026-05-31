@@ -1053,3 +1053,11 @@ export const ThumbnailViewContent: React.FC<{
     </div>
   );
 };
+
+FigmaUIKitButton.displayName = 'FigmaUIKitButton';
+StorybookButton.displayName = 'StorybookButton';
+HistoryFavoritesTabs.displayName = 'HistoryFavoritesTabs';
+RealEstateContent.displayName = 'RealEstateContent';
+SelectionContent.displayName = 'SelectionContent';
+ToolbarContent.displayName = 'ToolbarContent';
+ThumbnailViewContent.displayName = 'ThumbnailViewContent';

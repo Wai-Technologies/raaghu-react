@@ -210,3 +210,7 @@ export const AudioEditionControls: React.FC<AudioEditionControlsProps> = ({
     </div>
   );
 };
+
+VolumeSliderComponent.displayName = 'VolumeSliderComponent';
+SettingsModalComponent.displayName = 'SettingsModalComponent';
+AudioEditionControls.displayName = 'AudioEditionControls';

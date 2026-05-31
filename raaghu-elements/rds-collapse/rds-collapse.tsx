@@ -51,6 +51,7 @@ const RdsCollapse: React.FC<RdsCollapseProps> = ({
           )}
           {showToggleButton && (
             <IconButton
+              aria-label={internalExpanded ? 'Collapse' : 'Expand'}
               size="small"
               sx={{
                 transform: internalExpanded ? 'rotate(180deg)' : 'rotate(0deg)',

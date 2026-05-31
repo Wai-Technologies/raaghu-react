@@ -50,3 +50,5 @@ export const DropdownMenu: React.FC<DropdownMenuProps & { labels?: { computer?: 
 };
 
 export default DropdownMenu;
+
+DropdownMenu.displayName = 'DropdownMenu';

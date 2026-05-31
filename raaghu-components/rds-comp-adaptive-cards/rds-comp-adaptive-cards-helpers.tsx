@@ -218,7 +218,7 @@ export function ImageGalleryCard({ cardTitle, smallText, images, showHeader, clo
             {showDismiss && <RdsBox className="rds-adaptive-cards__title-icon" />}
             <RdsTypography variant="h6" className="rds-adaptive-cards__title">{cardTitle}</RdsTypography>
             {closeIcon && (
-              <IconButton size="small" className="rds-adaptive-cards__close-btn"><CloseIcon /></IconButton>
+              <IconButton aria-label="Close" size="small" className="rds-adaptive-cards__close-btn"><CloseIcon /></IconButton>
             )}
           </RdsStack>
         </div>
@@ -549,3 +549,10 @@ export function RestaurantOrderForm({
     </RdsStack>
   );
 }
+
+InputFormCard.displayName = 'InputFormCard';
+ImageGalleryCard.displayName = 'ImageGalleryCard';
+FootballScorecardCard.displayName = 'FootballScorecardCard';
+CalendarReminderForm.displayName = 'CalendarReminderForm';
+ActivityUpdateCard.displayName = 'ActivityUpdateCard';
+RestaurantOrderForm.displayName = 'RestaurantOrderForm';

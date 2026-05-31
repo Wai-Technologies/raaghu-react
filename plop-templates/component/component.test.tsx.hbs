@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import RdsComp{{pascalCase name}}, { RdsComp{{pascalCase name}}Props } from './rds-comp-{{kebabCase name}}';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -7,7 +7,10 @@ import { axe } from 'jest-axe';
 jest.mock('./rds-comp-{{kebabCase name}}.scss', () => ({}));
 
 describe('RdsComp{{pascalCase name}}', () => {
-  const defaultProps: RdsComp{{pascalCase name}}Props = {};
+  const defaultProps: RdsComp{{pascalCase name}}Props = {
+    title: 'Test {{pascalCase name}}',
+    isOpen: true,
+  };
 
   describe('Basic Rendering', () => {
     it('should render component without crashing', () => {
@@ -19,16 +22,52 @@ describe('RdsComp{{pascalCase name}}', () => {
       expect(RdsComp{{pascalCase name}}.displayName).toBe('RdsComp{{pascalCase name}}');
     });
 
+    it('should render title', () => {
+      render(<RdsComp{{pascalCase name}} {...defaultProps} />);
+      expect(screen.getByText('Test {{pascalCase name}}')).toBeInTheDocument();
+    });
+
     it('should render children', () => {
-      render(<RdsComp{{pascalCase name}}>Test content</RdsComp{{pascalCase name}}>);
-      expect(screen.getByText('Test content')).toBeInTheDocument();
+      render(<RdsComp{{pascalCase name}} {...defaultProps}>Body content</RdsComp{{pascalCase name}}>);
+      expect(screen.getByText('Body content')).toBeInTheDocument();
     });
 
     it('should apply custom className', () => {
-      const { container } = render(
-        <RdsComp{{pascalCase name}} className="custom-class" />
-      );
-      expect(container.querySelector('.rds-comp-{{kebabCase name}}.custom-class')).toBeInTheDocument();
+      const { container } = render(<RdsComp{{pascalCase name}} className="custom" />);
+      expect(container.querySelector('.rds-comp-{{kebabCase name}}.custom')).toBeInTheDocument();
+    });
+  });
+
+  describe('Visibility', () => {
+    it('should not render when isOpen is false', () => {
+      const { container } = render(<RdsComp{{pascalCase name}} isOpen={false} />);
+      expect(container.querySelector('.rds-comp-{{kebabCase name}}')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Loading State', () => {
+    it('should apply loading class when loading', () => {
+      const { container } = render(<RdsComp{{pascalCase name}} {...defaultProps} loading />);
+      expect(container.querySelector('.rds-comp-{{kebabCase name}}--loading')).toBeInTheDocument();
+    });
+  });
+
+  describe('Close Button', () => {
+    it('should render close button when onClose provided', () => {
+      render(<RdsComp{{pascalCase name}} {...defaultProps} onClose={jest.fn()} />);
+      expect(screen.getByRole('button', { name: /close/i })).toBeInTheDocument();
+    });
+
+    it('should call onClose when close button clicked', () => {
+      const onClose = jest.fn();
+      render(<RdsComp{{pascalCase name}} {...defaultProps} onClose={onClose} />);
+      fireEvent.click(screen.getByRole('button', { name: /close/i }));
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not render close button without onClose', () => {
+      render(<RdsComp{{pascalCase name}} {...defaultProps} />);
+      expect(screen.queryByRole('button', { name: /close/i })).not.toBeInTheDocument();
     });
   });
 

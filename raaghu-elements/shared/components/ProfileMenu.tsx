@@ -85,6 +85,7 @@ export const ProfileMenu = ({
   return (
     <>
       <IconButton
+        aria-label="Draw"
         color="inherit"
         onClick={handleClick}
         size="small"
@@ -182,3 +183,5 @@ export const ProfileMenu = ({
 };
 
 export default ProfileMenu;
+
+ProfileMenu.displayName = 'ProfileMenu';

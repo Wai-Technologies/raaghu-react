@@ -166,6 +166,7 @@ const RdsCarousel = ({
       {showArrows && children.length > 1 && (
         <>
           <IconButton
+            aria-label="Previous slide"
             onClick={prevSlide}
             className="rds-carousel__navigation rds-carousel__navigation--prev"
             sx={{
@@ -189,6 +190,7 @@ const RdsCarousel = ({
             <ChevronLeft />
           </IconButton>
           <IconButton
+            aria-label="Next slide"
             onClick={nextSlide}
             className="rds-carousel__navigation rds-carousel__navigation--next"
             sx={{
