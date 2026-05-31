@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsContainer, { RdsContainerProps } from './rds-container';
+import { axe } from 'jest-axe';
 
 // Mock SCSS imports
 jest.mock('./rds-container.scss', () => ({}));
@@ -603,7 +604,13 @@ describe('RdsContainer', () => {
       );
       const main = container.querySelector('main');
       expect(main).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsContainer {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should support aria attributes', () => {
       renderWithTheme(

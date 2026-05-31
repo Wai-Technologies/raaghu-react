@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompAiFabMenu, { RdsCompAiFabMenuProps } from './rds-comp-ai-fab-menu';
 
 // Mock SCSS
@@ -439,7 +440,13 @@ describe('RdsCompAiFabMenu', () => {
       render(<RdsCompAiFabMenu {...defaultProps} />);
       const button = screen.getByTestId('fab-menu-btn');
       expect(button).toHaveAttribute('type', 'button');
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompAiFabMenu {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('has proper role attribute on dropdown', () => {
       const { container } = render(<RdsCompAiFabMenu {...defaultProps} />);

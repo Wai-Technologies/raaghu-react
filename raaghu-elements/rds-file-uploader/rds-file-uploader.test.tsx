@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsFileUploader, { RdsFileUploaderProps, FileWithProgress } from './rds-file-uploader';
 
 // Mock SCSS
@@ -578,7 +579,13 @@ describe('RdsFileUploader', () => {
       const title = container.querySelector('.rds-file-uploader__form-title');
       expect(title).toBeInTheDocument();
       expect(title).toHaveTextContent('Upload Files');
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsFileUploader {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should support keyboard navigation', () => {
       const { container } = render(

@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsEmojiGenerator, { EmojiGeneratorType, SkinToneState, EmojiCategory } from './rds-comp-emoji-generator';
 
 // Mock SCSS
@@ -642,6 +643,14 @@ describe('RdsEmojiGenerator', () => {
         <RdsEmojiGenerator Type={EmojiGeneratorType.Default} />
       );
       expect(container.querySelector('.rds-emoji-generator')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsEmojiGenerator />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

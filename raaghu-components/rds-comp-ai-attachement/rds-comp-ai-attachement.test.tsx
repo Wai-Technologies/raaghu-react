@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompAiAttachement, { RdsCompAiAttachementProps, UserData, Comment } from './rds-comp-ai-attachement';
 
 // Mock SCSS
@@ -377,7 +378,13 @@ describe('RdsCompAiAttachement', () => {
       render(<RdsCompAiAttachement {...defaultProps} />);
       const buttons = screen.getAllByRole('button');
       expect(buttons.length).toBeGreaterThan(0);
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompAiAttachement {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
   });
 
   describe('Edge Cases', () => {

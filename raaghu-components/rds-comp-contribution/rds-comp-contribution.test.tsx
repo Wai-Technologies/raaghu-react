@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompContribution from './rds-comp-contribution';
 import dayjs from 'dayjs';
 
@@ -765,6 +766,14 @@ describe('RdsCompContribution', () => {
       );
       const svg = container.querySelector('.rds-comp-contribution__svg');
       expect(svg).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompContribution {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

@@ -30,7 +30,6 @@ import {
   ListItemIcon,
   Divider,
   Grid,
-  useTheme,
 } from '@mui/material';
 import {
   Search as SearchIcon,
@@ -616,7 +615,6 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   noDataHeaderTitle = 'Data Grid',
   isLoading = false,
 }, ref) => {
-  const theme = useTheme();
   const [isCollapsed, setIsCollapsed] = useState(state === State.Collapsed);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
@@ -1956,7 +1954,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
         opacity: '0.5 !important',
         backgroundColor: 'action.hover',
         border: '2px dashed',
-        borderColor: theme.palette.primary.main,
+        borderColor: 'var(--rds-primary-main)',
       },
     }}>
       {showHeader && (
@@ -2191,7 +2189,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                             top: 0,
                             bottom: 0,
                             width: '4px',
-                            backgroundColor: theme.palette.primary.main,
+                            backgroundColor: 'var(--rds-primary-main)',
                             zIndex: 'var(--rds-z-index-portal)',
                           }}
                         />
@@ -2375,7 +2373,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                 top: 0,
                                 bottom: 0,
                                 width: '4px',
-                                backgroundColor: theme.palette.primary.main,
+                                backgroundColor: 'var(--rds-primary-main)',
                                 zIndex: 'var(--rds-z-index-portal)',
                               }}
                             />
@@ -2470,9 +2468,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                               <DragIndicatorIcon 
                                 fontSize="small" 
                                 sx={{ 
-                                  color: theme.palette.text.secondary,
+                                  color: 'var(--rds-text-secondary)',
                                   '&:hover': {
-                                    color: theme.palette.text.primary,
+                                    color: 'var(--rds-text-primary)',
                                   }
                                 }} 
                               />
@@ -2483,7 +2481,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                         {enableCheckboxSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: (theme) => `1px solid ${theme.palette.divider}` }}
+                        sx={{ borderRight: (theme) => `1px solid ${'var(--rds-border-default)'}` }}
                       >
                         <Checkbox
                           checked={isSelected}
@@ -2495,7 +2493,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                     {enableRadioButtonSelection && (
                       <TableCell 
                         padding="checkbox"
-                        sx={{ borderRight: (theme) => `1px solid ${theme.palette.divider}` }}
+                        sx={{ borderRight: (theme) => `1px solid ${'var(--rds-border-default)'}` }}
                       >
                         <Radio
                           checked={isSelected}
@@ -2583,22 +2581,22 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                                   textAlign: 'center',
                                   minWidth: '60px',
                                   '&.status-qualified': {
-                                    backgroundColor: theme.palette.success.dark, color: theme.palette.success.contrastText,
+                                    backgroundColor: 'var(--rds-success-dark)', color: 'var(--rds-neutral-0)',
                                   },
                                   '&.status-negotiation': {
-                                    backgroundColor: theme.palette.warning.dark, color: theme.palette.warning.contrastText,
+                                    backgroundColor: 'var(--rds-semantic-warning-dark)', color: 'var(--rds-neutral-0)',
                                   },
                                   '&.status-unqualified': {
-                                    backgroundColor: theme.palette.error.dark, color: theme.palette.error.contrastText,
+                                    backgroundColor: 'var(--rds-error-main)', color: 'var(--rds-neutral-0)',
                                   },
                                   '&.status-proposal': {
-                                    backgroundColor: theme.palette.action.selected, color: theme.palette.text.primary,
+                                    backgroundColor: 'var(--rds-action-selected)', color: 'var(--rds-text-primary)',
                                   },
                                   '&.status-new': {
-                                    backgroundColor: theme.palette.primary.light, color: theme.palette.primary.contrastText,
+                                    backgroundColor: 'var(--rds-primary-light)', color: 'var(--rds-neutral-0)',
                                   },
                                   '&.status-renewal': {
-                                    backgroundColor: theme.palette.primary.main,
+                                    backgroundColor: 'var(--rds-primary-main)',
                                     color: 'common.white',
                                   },
                                 },
@@ -2844,11 +2842,11 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               backgroundColor: 'action.hover',
             },
             '&::-webkit-scrollbar-thumb': {
-              backgroundColor: theme.palette.action.disabled,
+              backgroundColor: 'var(--rds-action-disabled)',
               borderRadius: '3px',
             },
             '&::-webkit-scrollbar-thumb:hover': {
-              backgroundColor: theme.palette.action.disabledBackground,
+              backgroundColor: 'var(--rds-action-disabled)'Background,
             },
           }
         }}

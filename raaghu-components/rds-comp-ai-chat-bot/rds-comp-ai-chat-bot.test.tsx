@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompAiChatBot, { RdsCompAiChatBotProps, Message } from './rds-comp-ai-chat-bot';
 
 // Mock SCSS
@@ -423,7 +424,13 @@ describe('RdsCompAiChatBot', () => {
       expect(container.querySelector('.rds-ai-chat-bot')).toBeInTheDocument();
       expect(container.querySelector('.rds-ai-chat-bot__messages')).toBeInTheDocument();
       expect(container.querySelector('.rds-ai-chat-bot__input-wrapper')).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompAiChatBot {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('input field is properly labeled with placeholder', () => {
       render(<RdsCompAiChatBot {...defaultProps} />);

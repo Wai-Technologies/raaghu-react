@@ -453,7 +453,13 @@ describe('RdsTextArea', () => {
       );
       const textarea = screen.getByTestId('test-textarea');
       expect(textarea).toHaveAttribute('aria-invalid');
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsTextArea label="Message" />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should have aria-required when isMandatory', () => {
       render(
@@ -730,14 +736,6 @@ describe('RdsTextArea', () => {
     it('should handle label without value', () => {
       render(<RdsTextArea label="Label Only" dataTestId="test-textarea" />);
       expect(screen.getByText('Label Only')).toBeInTheDocument();
-    });
-  });
-
-  describe('Accessibility', () => {
-    it('has no axe accessibility violations', async () => {
-      const { container } = render(<RdsTextArea label="Message" />);
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
     });
   });
 });

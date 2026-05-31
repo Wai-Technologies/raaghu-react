@@ -677,9 +677,6 @@ describe('RdsTextField', () => {
       const input = container.querySelector('input') as HTMLInputElement;
       expect(input.value).toBe('uncontrolled');
     });
-  });
-
-  describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
       const { container } = renderWithTheme(<RdsTextField label="Name" />);
       const results = await axe(container);

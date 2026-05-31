@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsDivider, { RdsDividerProps } from './rds-divider';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-divider.scss', () => ({}));
@@ -476,7 +477,13 @@ describe('RdsDivider', () => {
         <RdsDivider dividerMessage="Accessible Divider" />
       );
       expect(container.querySelector('.MuiDivider-root')).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsDivider {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should support aria-label', () => {
       const { container } = renderWithTheme(

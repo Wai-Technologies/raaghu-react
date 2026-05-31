@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompCodeSnippet from './rds-comp-code-snippet';
 
 // Mock dependencies
@@ -759,7 +760,13 @@ describe('RdsCompCodeSnippet', () => {
       render(<RdsCompCodeSnippet {...defaultProps} />);
       const copyButton = screen.getAllByTestId('rds-button')[0];
       expect(copyButton).toHaveAttribute('aria-label', 'Copy code');
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompCodeSnippet {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('renders semantic HTML structure', () => {
       const { container } = render(

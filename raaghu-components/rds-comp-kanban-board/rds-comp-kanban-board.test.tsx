@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor, within } from '@testing-library/rea
 import userEvent from '@testing-library/user-event';
 import RdsCompKanbanBoard from './rds-comp-kanban-board';
 import { boardInfo, RdsCompKanbanBoardProps } from './kanban-board-helpers';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-kanban-board.scss', () => ({}));
@@ -893,6 +894,14 @@ describe('RdsCompKanbanBoard', () => {
       ];
       renderComponent({ boardData });
       expect(screen.getByTestId('drag-drop-context')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompKanbanBoard {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

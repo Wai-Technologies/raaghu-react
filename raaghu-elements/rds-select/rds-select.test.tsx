@@ -811,9 +811,6 @@ describe('RdsSelect', () => {
     it('should have correct displayName', () => {
       expect(RdsSelect.displayName).toBe('RdsSelect');
     });
-  });
-
-  describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
       const { container } = renderWithTheme(<RdsSelect label="Choose" options={[{ label: 'Option 1', value: '1' }]} value="" />);
       const results = await axe(container);

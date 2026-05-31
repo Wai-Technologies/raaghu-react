@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsTabs, { RdsTabItem, RdsTabsLayout } from './rds-tabs';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-tabs.scss', () => ({}));
@@ -593,7 +594,13 @@ describe('RdsTabs', () => {
       );
       const tablist = container.querySelector('[role="tablist"]');
       expect(tablist).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsTabs />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should have proper tab roles', () => {
       const { container } = renderWithTheme(

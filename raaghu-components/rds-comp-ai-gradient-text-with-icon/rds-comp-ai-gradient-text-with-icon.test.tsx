@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompAiGradientTextWithIcon, { RdsCompAiGradientTextProps } from './rds-comp-ai-gradient-text-with-icon';
 
 // Mock SCSS
@@ -498,7 +499,13 @@ describe('RdsCompAiGradientTextWithIcon', () => {
       render(<RdsCompAiGradientTextWithIcon {...defaultProps} />);
       const heading = screen.getByRole('heading', { level: 6 });
       expect(heading).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompAiGradientTextWithIcon {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('heading contains text content', () => {
       render(

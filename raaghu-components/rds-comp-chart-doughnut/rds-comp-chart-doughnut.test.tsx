@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompDoughnutChart from './rds-comp-chart-doughnut';
 
 // Mock SCSS
@@ -715,7 +716,13 @@ describe('RdsCompDoughnutChart', () => {
       const { container } = render(<RdsCompDoughnutChart {...defaultProps} />);
       const canvas = container.querySelector('canvas');
       expect(canvas).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompDoughnutChart {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('canvas has id attribute', () => {
       const { container } = render(<RdsCompDoughnutChart {...defaultProps} />);

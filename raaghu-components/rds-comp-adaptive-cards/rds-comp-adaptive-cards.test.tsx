@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompAdaptiveCards from './rds-comp-adaptive-cards';
 import { AdaptiveCardProps } from './rds-comp-adaptive-cards-helpers';
 
@@ -881,7 +882,13 @@ describe('RdsCompAdaptiveCards', () => {
       );
       const button = screen.getByRole('button', { hidden: true });
       expect(button).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompAdaptiveCards />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('renders form inputs with proper labels', () => {
       render(

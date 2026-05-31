@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompTextEditor, { RdsCompTextEditorProps } from './rds-comp-text-editor';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-text-editor.scss', () => ({}));
@@ -594,6 +595,14 @@ describe('RdsCompTextEditor', () => {
 
       const container = screen.getByTestId('draft-editor').parentElement;
       expect(container).toHaveClass('rds-comp-text-editor--selected');
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompTextEditor {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

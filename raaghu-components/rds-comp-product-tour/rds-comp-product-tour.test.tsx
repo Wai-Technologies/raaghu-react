@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsCompProductTour from './rds-comp-product-tour';
 import { RdsCompProductTourProps } from './product-tour-helpers';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-product-tour.scss', () => ({}));
@@ -845,6 +846,14 @@ describe('RdsCompProductTour', () => {
         />
       );
       expect(screen.getByText(specialHeader, { exact: false })).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompProductTour {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

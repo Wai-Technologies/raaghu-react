@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RdsAccordion from './rds-accordion';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-accordion.scss', () => ({}));
@@ -674,6 +675,14 @@ describe('RdsAccordion', () => {
       expect(screen.getByText('Paragraph 1')).toBeInTheDocument();
       expect(screen.getByText('Paragraph 2')).toBeInTheDocument();
       expect(screen.getByText('Paragraph 3')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsAccordion {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

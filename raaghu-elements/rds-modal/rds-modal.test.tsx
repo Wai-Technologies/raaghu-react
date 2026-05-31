@@ -639,9 +639,6 @@ describe('RdsModal', () => {
       }
       expect(screen.getByText('Test Modal')).toBeInTheDocument();
     });
-  });
-
-  describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
       const { container } = renderWithTheme(<RdsModal title="Test Modal" isOpen={true} onClose={jest.fn()} />);
       const results = await axe(container);

@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCommentBox, { useCommentsBoxLogic, DropdownMenu } from './rds-comp-comments-box';
 import { ColorPickerType } from '../rds-comp-color-picker/rds-comp-color-picker';
 
@@ -733,6 +734,14 @@ describe('DropdownMenu Component', () => {
       );
       expect(screen.getByText('Custom Computer')).toBeInTheDocument();
       expect(screen.getByText('Google Drive')).toBeInTheDocument();
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCommentBox {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

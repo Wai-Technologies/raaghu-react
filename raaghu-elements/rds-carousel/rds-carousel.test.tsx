@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCarousel, { RdsCarouselProps } from './rds-carousel';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-carousel.scss', () => ({}));
@@ -627,7 +628,13 @@ describe('RdsCarousel', () => {
       renderWithTheme(<RdsCarousel {...defaultProps} />);
       const buttons = screen.getAllByRole('button');
       expect(buttons.length).toBeGreaterThan(0);
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCarousel {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should have focusable navigation buttons', () => {
       renderWithTheme(<RdsCarousel {...defaultProps} />);

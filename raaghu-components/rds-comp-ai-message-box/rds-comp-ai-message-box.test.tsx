@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompAiMessageBox, { RdsCompAiMessageBoxProps } from './rds-comp-ai-message-box';
 
 // Mock SCSS
@@ -446,7 +447,13 @@ describe('RdsCompAiMessageBox', () => {
       const { container } = render(<RdsCompAiMessageBox isImage={true} />);
       const image = container.querySelector('.rds-comp-ai-message-box__image') as HTMLImageElement;
       expect(image.alt).toBe('message image');
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompAiMessageBox {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('renders avatar with alt text from props', () => {
       render(<RdsCompAiMessageBox {...defaultProps} />);

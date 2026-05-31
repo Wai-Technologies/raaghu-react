@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompAiTypingSection, { RdsCompAiTypingSectionProps } from './rds-comp-ai-typing-section';
 
 // Mock SCSS
@@ -575,7 +576,13 @@ it('handles emoji input', () => {
       const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
       const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box');
       expect(textarea).toHaveAttribute('title', 'Enter your prompt here');
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompAiTypingSection {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('buttons are keyboard accessible', () => {
       const onSend = jest.fn();

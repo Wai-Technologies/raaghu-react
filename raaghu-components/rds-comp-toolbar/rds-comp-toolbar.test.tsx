@@ -7,6 +7,7 @@ import RdsCompToolbar, {
   RdsCompToolbarProps,
 } from './rds-comp-toolbar';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-toolbar.scss', () => ({}));
@@ -654,7 +655,13 @@ describe('RdsCompToolbar', () => {
       render(<RdsCompToolbar {...defaultProps} />);
       const toolbar = screen.getByRole('toolbar');
       expect(toolbar).toHaveAttribute('aria-label');
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompToolbar {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should pass aria-label to buttons', () => {
       render(<RdsCompToolbar {...defaultProps} />);

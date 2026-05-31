@@ -7,6 +7,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DeleteIcon from '@mui/icons-material/Delete';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-menu.scss', () => ({}));
@@ -616,7 +617,13 @@ describe('RdsMenu', () => {
       // Verify at least one menu item exists
       const menuItems = screen.getAllByRole('menuitem');
       expect(menuItems.length).toBeGreaterThan(0);
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsMenu />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should render menu items', () => {
       renderWithTheme(

@@ -8,6 +8,7 @@ import RdsCompToast, {
   RdsCompToastProps,
 } from './rds-comp-toast';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-toast.scss', () => ({}));
@@ -886,6 +887,14 @@ describe('RdsCompToast', () => {
       render(<RdsCompToast {...defaultProps} />);
       const alert = screen.getByRole('alert');
       expect(alert).toHaveClass('rds-comp-toast');
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompToast {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

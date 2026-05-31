@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsColorPicker, { ColorPickerType, PickerType, ColorMode, StyleType } from './rds-comp-color-picker';
 
 // Mock dependencies
@@ -502,7 +503,13 @@ describe('RdsColorPicker', () => {
     it('renders with Fragment wrapper', () => {
       const { container } = render(<RdsColorPicker {...defaultProps} />);
       expect(container.querySelector('.rds-comp-color-picker')).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsColorPicker {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('button has proper semantic structure', () => {
       render(<RdsColorPicker {...defaultProps} type={ColorPickerType.Button} />);

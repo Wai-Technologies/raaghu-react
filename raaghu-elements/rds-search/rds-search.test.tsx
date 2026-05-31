@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsSearch from './rds-search';
+import { axe } from 'jest-axe';
 
 jest.mock('./rds-search.scss', () => ({}));
 
@@ -615,7 +616,13 @@ describe('RdsSearch', () => {
       );
       const searchButton = screen.getByLabelText('search');
       expect(searchButton).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsSearch />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('should have accessible clear button', () => {
       renderWithTheme(

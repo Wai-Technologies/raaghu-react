@@ -678,22 +678,9 @@ describe('RdsSidebar', () => {
       expect(screen.getByText('Home')).toBeInTheDocument();
       expect(screen.getByTestId('rds-search')).toBeInTheDocument();
     });
-  });
-
-  describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
-      // Known issue: MUI List renders <div> elements directly inside <ul> in certain
-      // configurations, violating HTML list semantics. The 'list' and 'listitem' rules
-      // are suppressed here until the sidebar component is refactored to use correct
-      // semantic HTML (e.g. replacing MuiList with a nav/ul structure).
-      const axeWithConfig = configureAxe({
-        rules: {
-          list: { enabled: false },
-          listitem: { enabled: false },
-        },
-      });
       const { container } = renderWithTheme(<RdsSidebar items={[{ label: 'Home', onClick: () => {} }]} isOpen={true} variant="permanent" />);
-      const results = await axeWithConfig(container);
+      const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
   });

@@ -655,9 +655,6 @@ describe('RdsSnackbar', () => {
       const Component = RdsSnackbar;
       expect(Component.displayName).toBe('RdsSnackbar');
     });
-  });
-
-  describe('Accessibility', () => {
     it('has no axe accessibility violations', async () => {
       const { container } = renderWithTheme(<RdsSnackbar open={true} message="Test notification" />);
       const results = await axe(container);

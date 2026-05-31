@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsHeader, { RdsHeaderProps } from './rds-header';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-header.scss', () => ({}));
@@ -525,6 +526,14 @@ describe('RdsHeader', () => {
         fireEvent.click(button);
         expect(onMenuClick).toHaveBeenCalled();
       }
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsHeader {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

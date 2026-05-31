@@ -5,6 +5,7 @@ import RdsCompVideoPlayer, {
   RdsVideoPlayerProps,
 } from './rds-comp-video-player';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 
 // Mock SCSS
 jest.mock('./rds-comp-video-player.scss', () => ({}));
@@ -682,6 +683,14 @@ describe('RdsCompVideoPlayer', () => {
       );
       const mainDiv = container.querySelector('.rds-comp-video-player');
       expect(mainDiv).toHaveClass('rds-comp-video-player');
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompVideoPlayer {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
   });
 });

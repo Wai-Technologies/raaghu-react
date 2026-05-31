@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { axe } from 'jest-axe';
 import RdsCompBarChart from './rds-comp-chart-bar';
 
 // Mock SCSS
@@ -751,7 +752,13 @@ describe('RdsCompBarChart', () => {
       render(<RdsCompBarChart {...defaultProps} />);
       const canvas = screen.getByTestId(defaultProps.id);
       expect(canvas).toBeInTheDocument();
+  
+    it('has no axe accessibility violations', async () => {
+      const { container } = render(<RdsCompBarChart {...defaultProps} />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
     });
+  });
 
     it('parent container has semantic markup', () => {
       const { container } = render(<RdsCompBarChart {...defaultProps} />);
