@@ -192,7 +192,7 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
                 }}
               >
                 <AccordionSummary
-                  expandIcon={<ExpandMore sx={{ color: (theme) => theme.palette.text.secondary }} />}
+                  expandIcon={<ExpandMore sx={{ color: 'var(--rds-text-secondary)' }} />}
                   sx={{
                     minHeight: '48px',
                     px: 2,
@@ -302,17 +302,17 @@ const RdsCompFilterButton: React.FC<RdsCompFilterButtonProps> = ({
               variant="outlined"
               fullWidth
               onClick={handleClearAll}
-              sx={(theme) => ({
+              sx={{
                 borderColor: 'var(--rds-border-default)',
-                color: theme.palette.text.secondary,
+                color: 'var(--rds-text-secondary)',
                 textTransform: 'none',
                 fontWeight: 500,
                 py: 1,
                 '&:hover': {
-                  backgroundColor: theme.palette.action.hover,
+                  backgroundColor: 'var(--rds-action-hover)',
                   borderColor: 'var(--rds-border-default)',
                 }
-              })}
+              }}
             >
               Clear All
             </Button>

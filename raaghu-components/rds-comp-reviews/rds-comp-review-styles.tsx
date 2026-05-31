@@ -3,7 +3,7 @@ import { RdsAvatar, RdsRating } from "../../raaghu-elements";
 import { Item, RevieweStyle } from "./rds-comp-reviews";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-import { Box, Card, CardContent, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Card, CardContent, Typography, useMediaQuery } from "@mui/material";
 
 /**
  * Helper function to format dates in a standard way
@@ -246,8 +246,7 @@ const Style7 = ({ item }: { item: Item }) => {
   const [likes, setLikes] = useState(item.likes || 35);
   const [dislikes, setDislikes] = useState(item.dislikes || 10);
   const [rating, setRating] = useState(item.rating || 4.5);
-  const theme = useTheme();
-  const isXs = useMediaQuery(theme.breakpoints.down('sm'));
+  const isXs = useMediaQuery('(max-width: 600px)');
   
   const handleLike = () => {
     setLikes(prev => prev + 1);
