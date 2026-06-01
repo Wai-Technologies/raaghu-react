@@ -182,6 +182,6 @@
 [data-theme="dark"] {
   .rds-button.MuiButton-contained,
   .rds-button.rds-button__primary {
-    color: #ffffff !important;
+    color: var(--rds-neutral-0) !important;
   }
 }
