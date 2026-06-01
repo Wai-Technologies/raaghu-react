@@ -62,8 +62,6 @@
   ],
   "scripts": {
     "generate": "plop",
-    "health": "node scripts/collect-health-data.js",
-    "health:check": "node scripts/health-check.js",
     "size": "size-limit",
     "dev": "bun run vite",
     "build": "bun run tsc -b && bun run vite build",
@@ -157,7 +155,6 @@
     "@storybook/addon-a11y": "^9.1.20",
     "@storybook/addon-coverage": "^3.0.1",
     "@storybook/addon-docs": "^9.1.7",
-    "@storybook/addon-interactions": "^8.6.18",
     "@storybook/addon-links": "^9.1.7",
     "@storybook/addon-mcp": "^0.6.0",
     "@storybook/addon-vitest": "^9.1.20",
