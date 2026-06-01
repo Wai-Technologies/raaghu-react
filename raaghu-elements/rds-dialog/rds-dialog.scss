@@ -17,7 +17,7 @@
     padding: var(--rds-spacing-2xl, 32px) var(--rds-spacing-xl, 24px);
     text-align: center;
     font-size: var(--rds-font-size-md, 16px);
-    color: var(--rds-text-primary, #444444);
+    color: var(--rds-text-primary);
   }
 
   &__actions {
@@ -33,7 +33,7 @@
     width: 100%;
     border-radius: var(--rds-border-radius-lg, 12px);
     box-shadow: var(--rds-elevation-2);
-    background: var(--rds-background-paper, #ffffff);
+    background: var(--rds-background-paper);
     margin: var(--rds-spacing-2xl, 32px) auto;
   }
 
@@ -55,7 +55,7 @@
       font-size: var(--rds-font-size-xl);
       font-weight: var(--rds-font-weight-medium, 500);
       line-height: 20px;
-      color: var(--rds-text-primary, #222222);
+      color: var(--rds-text-primary);
     }
 
     .rds-dialog__content {
@@ -65,7 +65,7 @@
       align-items: center;
       justify-content: flex-start;
       text-align: center;
-      color: var(--rds-text-primary, #444);
+      color: var(--rds-text-primary);
       gap: var(--rds-spacing-md);
       margin-top: 6px;
       flex: 1 1 auto;
@@ -85,7 +85,7 @@
       margin: 0 auto;
       font-size: var(--rds-font-size-md);
       line-height: 1.45;
-      color: var(--rds-text-secondary, #757575);
+      color: var(--rds-text-secondary);
     }
 
     .rds-dialog__actions {
@@ -105,12 +105,12 @@
       justify-content: center;
       align-items: center;
       padding: 0 12px;
-      color: var(--rds-primary-contrast-text, #ffffff);
+      color: var(--rds-primary-contrast-text);
       border-radius: var(--rds-border-radius-md);
       border: none;
       box-shadow: none;
       box-sizing: border-box;
-      font-family: var(--rds-font-family-poppins);
+      font-family: var(--rds-font-family-base);
       font-weight: var(--rds-font-weight-regular, 400);
       font-size: var(--rds-font-size-xs, 13px);
       line-height: 16px;
@@ -127,7 +127,7 @@
       align-items: center;
       padding: 0;
       background: transparent;
-      color: var(--rds-primary-main, var(--rds-color-primary, #3C98FF));
+      color: var(--rds-primary-main, var(--rds-color-primary));
       border: none;
       border-radius: var(--rds-border-radius-sm);
       box-shadow: none;
@@ -144,54 +144,54 @@
       position: absolute;
       right: var(--rds-spacing-sm, 12px);
       top: var(--rds-spacing-sm, 12px);
-      color: var(--rds-text-secondary, #888888);
+      color: var(--rds-text-secondary);
       z-index: var(--rds-z-index-above, 3);
     }
   }
 
   &__close-button {
     position: absolute;
-    color: var(--rds-text-secondary, #888888);
+    color: var(--rds-text-secondary);
   }
 
   &__button {
     min-width: var(--rds-spacing-xl, 80px);
     font-size: var(--rds-font-size-md, 16px);
     border-radius: var(--rds-border-radius, 6px);
-    background: var(--rds-background-paper, #ffffff);
-    color: var(--rds-primary-main, var(--rds-color-primary, #1976d2));
-    border: 1px solid var(--rds-primary-main, var(--rds-color-primary, #1976d2));
+    background: var(--rds-background-paper);
+    color: var(--rds-primary-main, var(--rds-color-primary));
+    border: 1px solid var(--rds-primary-main, var(--rds-color-primary));
 
     &:hover {
-      background: var(--rds-color-primary-hover-bg, #e3f2fd);
+      background: var(--rds-color-primary-hover-bg);
     }
 
     &__primary {
-      background: var(--rds-primary-main, var(--rds-color-primary, #3C98FF)) !important;
-      color: var(--rds-primary-contrast-text, #ffffff);
+      background: var(--rds-primary-main, var(--rds-color-primary)) !important;
+      color: var(--rds-primary-contrast-text);
       box-shadow: none;
 
       &:hover {
-        background: var(--rds-primary-dark, var(--rds-color-primary-hover, #1565c0));
+        background: var(--rds-primary-dark, var(--rds-color-primary-hover));
       }
     }
 
     &__secondary {
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-      border: 1px solid var(--rds-color-primary, var(--rds-primary-main, #1976d2));
-      background: var(--rds-background-paper, #fff);
+      color: var(--rds-color-primary, var(--rds-primary-main));
+      border: 1px solid var(--rds-color-primary, var(--rds-primary-main));
+      background: var(--rds-background-paper);
 
       &:hover {
-        background: var(--rds-color-primary-hover-bg, #e3f2fd);
+        background: var(--rds-color-primary-hover-bg);
       }
     }
 
     &__dismiss {
-      color: var(--rds-color-primary, var(--rds-primary-main, #1976d2));
+      color: var(--rds-color-primary, var(--rds-primary-main));
       background: transparent;
 
       &:hover {
-        background: var(--rds-color-primary-hover-bg, #e3f2fd);
+        background: var(--rds-color-primary-hover-bg);
       }
     }
   }

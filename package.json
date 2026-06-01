@@ -63,6 +63,7 @@
   "scripts": {
     "dev": "bun run vite",
     "build": "bun run tsc -b && bun run vite build",
+    "build:lib": "bun run tsc -b && bun run vite build",
     "lint": "bun run eslint .",
     "preview": "bun run vite preview",
     "test": "bun run jest",

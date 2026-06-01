@@ -18,7 +18,7 @@
 
   &__label {
     color: var(--rds-text-primary);
-    font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+    font-family: var(--rds-font-family-base);
     font-size: var(--rds-font-size-md, 14px);
     margin-left: var(--rds-spacing-xs, 4px);
     
@@ -64,7 +64,7 @@
     
     .MuiFormControlLabel-label {
       color: var(--rds-text-primary);
-      font-family: var(--rds-font-family-base, 'Poppins', sans-serif);
+      font-family: var(--rds-font-family-base);
       font-size: var(--rds-font-size-md, 14px);
       line-height: 1.5;
       

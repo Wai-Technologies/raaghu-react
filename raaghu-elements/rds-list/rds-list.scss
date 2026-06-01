@@ -261,7 +261,7 @@
     max-height: var(--rds-list-demo-sticky-height, 400px);
     overflow: auto;
     width: var(--rds-list-demo-sticky-width, 285px);
-    border: 1px solid var(--rds-border-default, #e0e0e0);
+    border: 1px solid var(--rds-border-default);
     border-radius: var(--rds-border-radius-sm, 2px);
   }
 }
@@ -291,7 +291,7 @@
 
 .rds-list-demo__description {
   font-size: var(--rds-font-size-sm, 14px);
-  color: var(--rds-text-secondary, #666);
+  color: var(--rds-text-secondary);
   margin-bottom: var(--rds-spacing-sm, 12px);
   line-height: 1.5;
 }
@@ -305,9 +305,9 @@
 
 .rds-list-demo__selection-status {
   font-size: var(--rds-font-size-sm, 14px);
-  color: var(--rds-text-secondary, #666);
+  color: var(--rds-text-secondary);
   padding: var(--rds-spacing-sm, 12px) 0;
-  border-top: 1px solid var(--rds-border-light, #eee);
+  border-top: 1px solid var(--rds-border-light);
   margin-top: var(--rds-spacing-sm, 8px);
 }
 

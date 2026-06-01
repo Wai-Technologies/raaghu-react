@@ -12,7 +12,7 @@
         }
         
         &:focus-visible {
-          outline: 2px solid var(--rds-color-primary, #7e2eef);
+          outline: 2px solid var(--rds-color-primary);
           outline-offset: 2px;
         }
         
@@ -78,7 +78,7 @@
       
       .nav-link {
         &.selected {
-          background-color: var(--rds-color-primary, #8000ff);
+          background-color: var(--rds-color-primary);
           color: var(--rds-color-on-primary, white);
         }
       }
@@ -99,12 +99,12 @@
     transition: all 0.2s ease;
     
     &--active {
-      background-color: var(--rds-color-primary, #7e2eef);
+      background-color: var(--rds-color-primary);
       color: var(--rds-color-on-primary, white);
     }
     
     &--selected {
-      background-color: var(--rds-color-primary, #7e2eef);
+      background-color: var(--rds-color-primary);
       color: var(--rds-color-on-primary, white);
     }
     
@@ -126,7 +126,7 @@
   &[id="features"] {
     .nav-link {
       &.active {
-        background-color: var(--rds-color-primary, #7e2eef);
+        background-color: var(--rds-color-primary);
         color: var(--rds-color-on-primary, white);
       }
       
@@ -150,7 +150,7 @@
     width: unset;
     
     .nav-link.selected {
-      background-color: var(--rds-color-primary, #8000ff);
+      background-color: var(--rds-color-primary);
       color: var(--rds-color-on-primary, white);
     }
   }

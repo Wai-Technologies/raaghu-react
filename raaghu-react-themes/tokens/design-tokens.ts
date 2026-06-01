@@ -183,7 +183,7 @@ export const typographyTokens = {
   fontFamily: {
     primary: '"Poppins", sans-serif',
     secondary: '"Poppins", sans-serif',
-    monospace: '"Roboto Mono", "Monaco", "Consolas", monospace',
+    monospace: '"Poppins", sans-serif',
   },
   
   fontSize: {
@@ -1119,6 +1119,10 @@ export const semanticAliasTokens = {
   rdsActionDisabledBackground: colorTokens.neutral[100],
   /** Icon button focus color (used by rds-icon-button) */
   rdsIconButtonFocusColor: colorTokens.info[600],
+  /** Tab selected accent (line-solid variants) */
+  tabAccent: colorTokens.primary[200],
+  /** Tab selected background tint */
+  tabAccentBg: 'rgba(60, 152, 255, 0.3)',
 };
 
 export const mapTokens = {

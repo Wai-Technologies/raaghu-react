@@ -16,7 +16,7 @@
     padding: var(--rds-spacing-sm, 8px) var(--rds-spacing-md, 16px);
     background-color: var(--rds-background-paper);
     border-radius: var(--rds-border-radius-xl, 20px);
-    border: 1px solid var(--rds-border-light, #e5e7eb);
+    border: 1px solid var(--rds-border-light);
     box-shadow: var(--rds-elevation-1, 0 1px 3px rgba(0, 0, 0, 0.1));
     width: fit-content;
     min-width: auto;
@@ -46,7 +46,7 @@
         color: var(--rds-text-primary);
         
         &:hover {
-          border-color: var(--rds-border-hover, #d1d5db);
+          border-color: var(--rds-border-hover);
           background-color: var(--rds-background-paper);
         }
         
@@ -62,13 +62,13 @@
         color: var(--rds-text-primary);
         
         &::placeholder {
-          color: var(--rds-text-secondary, #6b7280);
+          color: var(--rds-text-secondary);
           opacity: 0.8;
         }
       }
       
       .MuiSvgIcon-root {
-        color: var(--rds-text-secondary, #6b7280);
+        color: var(--rds-text-secondary);
       }
       
       .MuiOutlinedInput-notchedOutline {
@@ -83,7 +83,7 @@
     width: var(--rds-size-sm, 29px);
     height: var(--rds-size-sm, 29px);
     border-radius: var(--rds-border-radius-sm, 4px) !important;
-    border: 1px solid var(--rds-border-light, #e5e7eb);
+    border: 1px solid var(--rds-border-light);
     min-width: var(--rds-size-sm, 29px);
     padding: 0;
     margin-left: var(--rds-spacing-sm, 8px);
@@ -188,7 +188,7 @@
     padding: 0 !important;
     border-radius: var(--rds-border-radius-xl, 16px) !important;
     background-color: transparent;
-    color: var(--rds-text-secondary, #6b7280);
+    color: var(--rds-text-secondary);
     .MuiChip-icon {
       font-size: var(--rds-font-size-lg) !important;
       color: inherit;
@@ -202,7 +202,7 @@
     &:hover {
       transform: translateY(-1px);
       box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0, 0, 0, 0.1));
-      background-color: var(--rds-background-neutral-50, #f3f4f6);
+      background-color: var(--rds-background-neutral-50);
     }
     
     &--selected {
@@ -263,31 +263,31 @@
       
       &::-webkit-scrollbar {
         width: var(--rds-spacing-xs, 6px);
-        background-color: var(--rds-background-neutral-50, #f8fafc);
+        background-color: var(--rds-background-neutral-50);
         border-radius: var(--rds-border-radius-xs, 3px);
       }
       
       &::-webkit-scrollbar-track {
-        background-color: var(--rds-background-neutral-50, #f8fafc);
+        background-color: var(--rds-background-neutral-50);
         border-radius: var(--rds-border-radius-xs, 3px);
       }
       
       &::-webkit-scrollbar-thumb {
-        background-color: var(--rds-border-default, #cbd5e1);
+        background-color: var(--rds-border-default);
         border-radius: var(--rds-border-radius-xs, 3px);
         transition: background-color 0.2s ease;
         
         &:hover {
-          background-color: var(--rds-border-hover, #94a3b8);
+          background-color: var(--rds-border-hover);
         }
         
         &:active {
-          background-color: var(--rds-border-strong, #64748b);
+          background-color: var(--rds-border-strong);
         }
       }
       
       &::-webkit-scrollbar-corner {
-        background-color: var(--rds-background-neutral-50, #f8fafc);
+        background-color: var(--rds-background-neutral-50);
       }
     }
   }
@@ -351,7 +351,7 @@
     }
     
     .MuiSvgIcon-root {
-      color: var(--rds-text-secondary, #7D7D7D);
+      color: var(--rds-text-secondary);
       font-size: var(--rds-font-size-lg, 18px);
     }
   }
@@ -362,7 +362,7 @@
     justify-content: flex-start;
     gap: var(--rds-spacing-sm, 8px);
     padding: var(--rds-spacing-sm, 12px) var(--rds-spacing-md, 16px);
-    background-color: var(--rds-background-paper, #ffffff);
+    background-color: var(--rds-background-paper);
     flex-shrink: 0;
     min-height: var(--rds-size-xl, 48px);
     
@@ -373,7 +373,7 @@
     }
     
     &-text {
-      color: var(--rds-text-secondary, #6b7280);
+      color: var(--rds-text-secondary);
       font-size: var(--rds-font-size-sm, 14px) !important;
       font-weight: var(--rds-font-weight-normal, 400) !important;
       line-height: 1.4 !important;
@@ -387,16 +387,16 @@
   }
   
   &__grid::-webkit-scrollbar-track {
-    background: var(--rds-background-neutral-50, #ffffff);
+    background: var(--rds-background-neutral-50);
   }
   
   &__grid::-webkit-scrollbar-thumb {
-    background: var(--rds-border-default, #e5e7eb);
+    background: var(--rds-border-default);
     border-radius: var(--rds-border-radius-xs, 3px);
   }
   
   &__grid::-webkit-scrollbar-thumb:hover {
-    background: var(--rds-border-hover, #d1d5db);
+    background: var(--rds-border-hover);
   }
 }
 
@@ -421,13 +421,13 @@
 }
 @media (prefers-contrast: high) {
   .rds-emoji-generator {
-    border-color: var(--rds-border-strong, #000000);
+    border-color: var(--rds-border-strong);
     
     &__emoji {
       border: 1px solid transparent;
       
       &:hover {
-        border-color: var(--rds-color-primary, #3b82f6);
+        border-color: var(--rds-color-primary);
       }
     }
   }

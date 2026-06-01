@@ -15,7 +15,7 @@
   &__header {
     padding: var(--rds-spacing-md, 16px);
     border-bottom: none;
-    background-color: var(--rds-color-surface, #fff);
+    background-color: var(--rds-color-surface);
     flex-shrink: 0;
     position: relative;
     &:after {
@@ -25,7 +25,7 @@
       left: var(--rds-spacing-md, 16px);
       right: var(--rds-spacing-md, 16px);
       height: 1px;
-      background: var(--rds-color-border, #f0f0f0);
+      background: var(--rds-color-border);
     }
   }
 
@@ -41,14 +41,14 @@
     width: 380px !important;
 
   } 
-      background: var(--rds-color-scrollbar-track, #f1f1f1);
+      background: var(--rds-color-scrollbar-track);
     }
     &::-webkit-scrollbar-thumb {
-      background: var(--rds-color-scrollbar-thumb, #c1c1c1);
+      background: var(--rds-color-scrollbar-thumb);
       border-radius: calc(0.75 * var(--rds-border-radius-sm, 4px));
     }
     &::-webkit-scrollbar-thumb:hover {
-      background: var(--rds-color-scrollbar-thumb-hover, #a8a8a8);
+      background: var(--rds-color-scrollbar-thumb-hover);
     }
   }
 
@@ -57,7 +57,7 @@
     max-height: var(--rds-filter-popover-max-height, 450px);
     border-radius: var(--rds-border-radius, 8px);
     box-shadow: var(--rds-elevation-3, 0 4px 20px rgba(0,0,0,0.1));
-    border: 1px solid var(--rds-color-border, #e0e0e0);
+    border: 1px solid var(--rds-color-border);
     margin-top: var(--rds-filter-popover-gap, 3px) !important;
     overflow: hidden;
     display: flex;
@@ -69,7 +69,7 @@
     flex-direction: column;
     height: 100%;
     max-height: 450px;
-    background: var(--rds-color-surface, #fff);
+    background: var(--rds-color-surface);
     border-radius: var(--rds-border-radius, 8px);
     overflow: hidden;
   }
@@ -86,7 +86,7 @@
     max-height: var(--rds-filter-popover-max-height, 450px) !important;
     border-radius: var(--rds-border-radius, 8px) !important;
     box-shadow: var(--rds-elevation-3, 0 4px 20px rgba(0,0,0,0.1)) !important;
-    border: 1px solid var(--rds-color-border, #e0e0e0) !important;
+    border: 1px solid var(--rds-color-border) !important;
     margin-top: var(--rds-filter-popover-gap, 3px) !important;
     overflow: hidden !important;
     display: flex !important;
@@ -127,7 +127,7 @@
  
   .rds-filter-button__search .MuiOutlinedInput-root {
     border-radius: var(--rds-border-radius-sm, 4px);
-    background-color: var(--rds-color-surface, #fff);
+    background-color: var(--rds-color-surface);
   }
 
   .rds-filter-button__search .MuiOutlinedInput-input,
@@ -143,7 +143,7 @@
     opacity: 1;
   }
   .rds-filter-button__header-title{
-    font-family: var(--rds-font-family-base, Poppins) !important;
+    font-family: var(--rds-font-family-base) !important;
     font-size: var(--rds-font-size-lg, 16px) !important;
     font-style: normal !important;
     font-weight: var(--rds-font-weight-medium, 600) !important;

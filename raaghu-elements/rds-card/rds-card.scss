@@ -104,12 +104,12 @@
   
   &--style-outlined {
     background-color: transparent;
-    border: 1px solid var(--rds-card-border, #e0e0e0) !important;
+    border: 1px solid var(--rds-card-border) !important;
     box-shadow: none;
   }
   
   &--style-filled {
-    background-color: var(--rds-color-surface-light, #FEF7FF) !important; 
+    background-color: var(--rds-color-surface-light) !important; 
     border: none;
     box-shadow: none;
   }
@@ -145,36 +145,36 @@
   &__indicator-icon {
     width: 100%;
     height: 100%;
-    background-color: var(--rds-card-indicator-bg, var(--rds-color-gray-700, #646464)) !important;
+    background-color: var(--rds-card-indicator-bg, var(--rds-color-gray-700)) !important;
     transition: var(--rds-transition-base, all 0.2s ease-in-out);
     border-radius: 0 var(--rds-border-radius-sm, 2px) var(--rds-border-radius-sm, 2px) 0;
   }
   
   &--hover {
     box-shadow: var(--rds-elevation-2, 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08));
-    background-color: var(--rds-card-bg-hover, var(--rds-color-gray-200, #E1E3EA)) !important;
+    background-color: var(--rds-card-bg-hover, var(--rds-color-gray-200)) !important;
   }
   
   &--selected {
-    background-color: var(--rds-card-selected-bg, var(--rds-color-gray-200, #E1E3EA)) !important;
+    background-color: var(--rds-card-selected-bg, var(--rds-color-gray-200)) !important;
     box-shadow: var(--rds-elevation-focus, 0 0 0 1px rgba(25, 118, 210, 0.2));
     
     .rds-card__subtext {
-      color: var(--rds-color-primary, #3C98FF) !important;
+      color: var(--rds-color-primary) !important;
     }
   }
   
   &--disabled {
     opacity: 0.6;
-    background-color: var(--rds-card-disabled-bg, var(--rds-color-gray-300, #CDCDCD)) !important;
-    color: var(--rds-card-text-disabled, var(--rds-color-disabled-text, #9e9e9e));
+    background-color: var(--rds-card-disabled-bg, var(--rds-color-gray-300)) !important;
+    color: var(--rds-card-text-disabled, var(--rds-color-disabled-text));
     pointer-events: none;
     cursor: not-allowed;
     
     .MuiButton-root,
     .rds-button,
     button {
-      color: var(--rds-color-disabled-text, #9e9e9e) !important;
+      color: var(--rds-color-disabled-text) !important;
       pointer-events: none !important;
       cursor: not-allowed !important;
     }
@@ -182,7 +182,7 @@
   
   &__header {
     padding: var(--rds-spacing-md, 16px);
-    border-bottom: 1px solid var(--rds-card-border, var(--rds-border-light, #e0e0e0));
+    border-bottom: 1px solid var(--rds-card-border, var(--rds-border-light));
     
     &:last-child {
       border-bottom: none;
@@ -204,7 +204,7 @@
   
   &--elevation-0 {
     box-shadow: var(--rds-elevation-0, none);
-    border: 1px solid var(--rds-card-border, #e0e0e0);
+    border: 1px solid var(--rds-card-border);
   }
   
   &--elevation-1 {
@@ -285,7 +285,7 @@
   &__description {
     font-weight: var(--rds-font-weight-normal, 400);
     font-size: var(--rds-font-size-sm); 
-    color: var(--rds-card-text-secondary, var(--rds-color-text-secondary, #666666));
+    color: var(--rds-card-text-secondary, var(--rds-color-text-secondary));
     margin: 0;
     margin-bottom: var(--rds-spacing-sm, 8px) !important;
   }
@@ -496,7 +496,7 @@
       
       .MuiSvgIcon-root {
         font-size: var(--rds-font-size-lg);
-        color: var(--rds-color-primary, #1976d2);
+        color: var(--rds-color-primary);
       }
     }
     
@@ -558,7 +558,7 @@
         font-size: var(--rds-font-size-sm, 14px) !important;
         
         &.Mui-focused fieldset {
-          border-color: var(--rds-color-primary, #1976d2);
+          border-color: var(--rds-color-primary);
         }
         
         .MuiInputBase-input {
@@ -611,17 +611,17 @@
 }
 
 .rds-card .rds-card__badges .rds-badge.rds-badge--primary.rds-badge--secondary > .rds-badge__badge {
-  background-color: var(--rds-badge-bg-secondary-card, #b30fbc) !important;
-  color: var(--rds-badge-text-on-dark, #ffffff) !important;
+  background-color: var(--rds-badge-bg-secondary-card) !important;
+  color: var(--rds-badge-text-on-dark) !important;
 }
 .rds-card .rds-card__badges .rds-badge.rds-badge--primary.rds-badge--primary > .rds-badge__badge {
-  background-color: var(--rds-badge-bg-primary-card, #2534e9);
-  color: var(--rds-badge-text-on-dark, #ffffff) !important;
+  background-color: var(--rds-badge-bg-primary-card);
+  color: var(--rds-badge-text-on-dark) !important;
 }
 
 .rds-card .rds-card__tags .rds-badge.rds-badge--primary.rds-badge--primary > .rds-badge__badge {
-  background-color: var(--rds-badge-bg-primary-card, #2534e9);
-  color: var(--rds-badge-text-on-dark, #ffffff) !important;
+  background-color: var(--rds-badge-bg-primary-card);
+  color: var(--rds-badge-text-on-dark) !important;
 }
 
 .rds-card:not(.rds-card--style-outlined):not(.rds-card--style-filled):not([class*="rds-card--elevation"]) {

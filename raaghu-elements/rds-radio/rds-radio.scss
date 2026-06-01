@@ -15,14 +15,14 @@
   }
 
   &__option {
-    color: var(--rds-text-primary, var(--rds-color-text-primary, #2196f3));
+    color: var(--rds-text-primary, var(--rds-color-text-primary));
     display: flex;
     align-items: center;
     
     .MuiFormControlLabel-label {
       font-size: var(--rds-font-size-body, 1rem);
       line-height: var(--rds-line-height-body, 1.5);
-      color: var(--rds-text-secondary, #646464) !important;
+      color: var(--rds-text-secondary) !important;
     }
 
     &--icon {
@@ -169,16 +169,16 @@
   }
 
   .MuiFormLabel-root {
-    color: var(--rds-text-secondary, #646464) !important;
+    color: var(--rds-text-secondary) !important;
   }
 
   .MuiButtonBase-root.MuiRadio-root.Mui-checked,
   .MuiRadio-root.Mui-checked {
-    color: var(--rds-primary-main, #3c98ff) !important;
+    color: var(--rds-primary-main) !important;
   }
 
   .MuiFormControlLabel-root .MuiFormControlLabel-label.Mui-disabled {
-    color: var(--rds-text-disabled, #757575) !important;
+    color: var(--rds-text-disabled) !important;
   }
 
 }
@@ -187,19 +187,19 @@
   .MuiFormControlLabel-label {
     font-size: var(--rds-font-size-body, 1rem);
     line-height: var(--rds-line-height-body, 1.5);
-    color: var(--rds-color-light, #ffffff) !important;
+    color: var(--rds-color-light) !important;
   }
    .MuiFormLabel-root {
-    color: var(--rds-color-light, #ffffff) !important;
+    color: var(--rds-color-light) !important;
   }
   
   .MuiRadio-root.Mui-checked,
   .MuiButtonBase-root.MuiRadio-root.Mui-checked {
-    color: var(--rds-primary-main, #3c98ff) !important;
+    color: var(--rds-primary-main) !important;
     
     svg {
-      color: var(--rds-primary-main, #3c98ff) !important;
-      fill: var(--rds-primary-main, #3c98ff) !important;
+      color: var(--rds-primary-main) !important;
+      fill: var(--rds-primary-main) !important;
     }
   }
 }

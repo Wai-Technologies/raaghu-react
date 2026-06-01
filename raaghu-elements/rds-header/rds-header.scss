@@ -1,57 +1,57 @@
-@import '../shared/styles/rds-profile-menu.scss';
+@use '../shared/styles/rds-profile-menu';
 
 .rds-header--transparent {
   background: transparent !important;
   box-shadow: none !important;
-  color: var(--rds-color-on-surface, #222);
+  color: var(--rds-color-on-surface);
 }
 
 .rds-header--primary {
-  background: var(--rds-color-primary, #1976d2) !important;
-  color: var(--rds-color-on-primary, #fff) !important;
+  background: var(--rds-color-primary) !important;
+  color: var(--rds-color-on-primary) !important;
   .rds-header__title,
   .rds-header__actions,
   .rds-header__logo {
-    color: var(--rds-color-on-primary, #fff) !important;
+    color: var(--rds-color-on-primary) !important;
   }
   .rds-header__search {
     background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
-    color: var(--rds-color-on-primary, #fff);
+    color: var(--rds-color-on-primary);
     border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
     input {
-      color: var(--rds-color-on-primary, #fff);
+      color: var(--rds-color-on-primary);
     }
   }
   .MuiTab-root {
-    color: var(--rds-color-on-primary, #fff);
+    color: var(--rds-color-on-primary);
     &.Mui-selected {
-      color: var(--rds-color-primary, #1976d2);
-      background: var(--rds-color-surface, #fff);
+      color: var(--rds-color-primary);
+      background: var(--rds-color-surface);
     }
   }
 }
 
 .rds-header--secondary {
-  background: var(--rds-color-secondary, #9c27b0) !important;
-  color: var(--rds-color-on-secondary, #fff) !important;
+  background: var(--rds-color-secondary) !important;
+  color: var(--rds-color-on-secondary) !important;
   .rds-header__title,
   .rds-header__actions,
   .rds-header__logo {
-    color: var(--rds-color-on-secondary, #fff) !important;
+    color: var(--rds-color-on-secondary) !important;
   }
   .rds-header__search {
     background: var(--rds-color-surface-overlay, rgba(255,255,255,0.12));
-    color: var(--rds-color-on-secondary, #fff);
+    color: var(--rds-color-on-secondary);
     border-color: var(--rds-color-border-overlay, rgba(255,255,255,0.24));
     input {
-      color: var(--rds-color-on-secondary, #fff);
+      color: var(--rds-color-on-secondary);
     }
   }
   .MuiTab-root {
-    color: var(--rds-color-on-secondary, #fff);
+    color: var(--rds-color-on-secondary);
     &.Mui-selected {
-      color: var(--rds-color-secondary, #9c27b0);
-      background: var(--rds-color-surface, #fff);
+      color: var(--rds-color-secondary);
+      background: var(--rds-color-surface);
     }
   }
 }
@@ -64,14 +64,14 @@
   --rds-header-focus-ring-offset: 2px;
   display: flex;
   flex-direction: column;
-  background: var(--rds-color-surface, #fff);
-  color: var(--rds-color-on-surface, #222);
-  border-bottom: 1px solid var(--rds-color-border, #e0e0e0);
+  background: var(--rds-color-surface);
+  color: var(--rds-color-on-surface);
+  border-bottom: 1px solid var(--rds-color-border);
   box-shadow: var(--rds-elevation-1, 0 2px 8px 0 rgba(60,60,60,0.03));
   position: relative;
   width: 100%;
   z-index: var(--rds-z-index-sticky, 1100);
-  font-family: var(--rds-font-family, inherit);
+  font-family: var(--rds-font-family-base);
 
   &__toolbar {
     display: flex;
@@ -98,7 +98,7 @@
     flex-grow: 1;
     font-weight: var(--rds-font-weight-semibold, 600);
     font-size: var(--rds-font-size-md, 18px);
-    color: var(--rds-color-on-surface, #222);
+    color: var(--rds-color-on-surface);
     letter-spacing: var(--rds-letter-spacing-wide, 0.2px);
     display: flex;
     align-items: center;
@@ -110,19 +110,19 @@
 
   &__search {
     min-width: var(--rds-header-search-width, 220px);
-    color: var(--rds-color-on-surface, #222);
-    background: var(--rds-color-surface-alt, #f5f5f7);
+    color: var(--rds-color-on-surface);
+    background: var(--rds-color-surface-alt);
     padding: 0 var(--rds-spacing-sm, 12px);
     border-radius: var(--rds-border-radius, 6px);
     font-size: var(--rds-font-size-body, 15px);
-    border: 1px solid var(--rds-color-border, #e0e0e0);
+    border: 1px solid var(--rds-color-border);
     box-shadow: none;
     height: var(--rds-header-search-height, 36px);
     display: flex;
     align-items: center;
     transition: border-color var(--rds-transition-base);
     &:focus-within {
-      border-color: var(--rds-color-primary, #1976d2);
+      border-color: var(--rds-color-primary);
       outline-offset: var(--rds-header-focus-ring-offset, 2px);
     }
     input {
@@ -131,7 +131,7 @@
       outline: none;
       width: 100%;
       font-size: var(--rds-font-size-body, 15px);
-      color: var(--rds-color-on-surface, #222);
+      color: var(--rds-color-on-surface);
       padding: 0;
       height: var(--rds-header-search-input-height, 34px);
     }
@@ -148,7 +148,7 @@
     border-bottom: none;
     .MuiTabs-indicator {
       height: 2px;
-      background: var(--rds-color-primary, #1976d2);
+      background: var(--rds-color-primary);
       border-radius: var(--rds-border-radius-xs) 2px 0 0;
     }
     .MuiTabs-flexContainer {
@@ -158,24 +158,24 @@
       min-height: var(--rds-header-tabs-height, 40px);
       font-weight: var(--rds-font-weight-medium, 500);
       font-size: var(--rds-font-size-body, 15px);
-      color: var(--rds-color-on-surface, #222);
+      color: var(--rds-color-on-surface);
       padding: 0 var(--rds-spacing-lg, 20px);
       border-radius: var(--rds-border-radius, 6px) var(--rds-border-radius, 6px) 0 0;
       border-bottom: none;
       &.Mui-selected {
-        color: var(--rds-color-primary, #1976d2);
-        background: var(--rds-color-surface, #fff);
+        color: var(--rds-color-primary);
+        background: var(--rds-color-surface);
         box-shadow: none;
       }
     }
   }
 
   &__sub-header {
-    background: var(--rds-color-surface-alt, #f5f5f7);
+    background: var(--rds-color-surface-alt);
     padding: var(--rds-spacing-xs, 8px) var(--rds-spacing-xl, 32px);
-    border-top: 1px solid var(--rds-color-border, #e0e0e0);
+    border-top: 1px solid var(--rds-color-border);
     font-size: var(--rds-font-size-body, 15px);
-    color: var(--rds-color-on-surface, #222);
+    color: var(--rds-color-on-surface);
     display: flex;
     align-items: center;
     min-height: var(--rds-header-tabs-height, 40px);

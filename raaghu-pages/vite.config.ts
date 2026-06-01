@@ -1,18 +1,27 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import griffel from '@griffel/vite-plugin'
-import { fileURLToPath, URL } from 'url'
+import path from 'path';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import griffel from '@griffel/vite-plugin';
 
-// Aliases let page files import as @raaghu/elements/... instead of ../../../raaghu-elements/...
-// Vite resolves these; tsconfig.app.json paths mirrors them for TypeScript.
+const repoRoot = path.resolve(__dirname, '..');
+
 export default defineConfig({
+  root: __dirname,
   plugins: [react(), griffel()],
   resolve: {
     alias: {
-      '@raaghu/elements':    fileURLToPath(new URL('../raaghu-elements',      import.meta.url)),
-      '@raaghu/components':  fileURLToPath(new URL('../raaghu-components',    import.meta.url)),
-      '@raaghu/layouts':     fileURLToPath(new URL('../raaghu-layouts',       import.meta.url)),
-      '@raaghu/themes':      fileURLToPath(new URL('../raaghu-react-themes',  import.meta.url)),
+      '@': path.join(__dirname, 'src'),
+      '@raaghu/elements': path.join(repoRoot, 'raaghu-elements'),
+      '@raaghu/components': path.join(repoRoot, 'raaghu-components'),
+      '@raaghu/layouts': path.join(repoRoot, 'raaghu-layouts'),
+      '@raaghu/themes': path.join(repoRoot, 'raaghu-react-themes'),
     },
   },
-})
+  server: {
+    port: 5174,
+  },
+  build: {
+    outDir: path.join(__dirname, 'dist'),
+    emptyOutDir: true,
+  },
+});

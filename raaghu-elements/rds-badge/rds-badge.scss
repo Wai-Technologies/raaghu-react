@@ -9,14 +9,14 @@
   
   & .MuiBadge-badge {
     background-color: var(--rds-primary-main) !important;
-    color: var(--rds-neutral-0, #ffffff) !important;
+    color: var(--rds-neutral-0) !important;
     font-weight: var(--rds-font-weight-medium, 500) !important;
     font-size: var(--rds-badge-dot-font-size, 0.75rem) !important;
     min-width: var(--rds-badge-dot-min-size, 20px) !important;
     height: var(--rds-badge-dot-min-size, 20px) !important;
     border-radius: var(--rds-border-radius-md, 8px) !important;
     padding: 0 var(--rds-badge-dot-padding-x, 6px) !important;
-    font-family: var(--rds-font-family-base, 'Poppins', Arial, sans-serif) !important;
+    font-family: var(--rds-font-family-base) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -36,9 +36,9 @@
     top: 0;
     transform: none;
     margin: 0 auto;
-    background: var(--rds-primary-100, #e3f2fd);
-    color: var(--rds-primary-800, #1565c0);
-    font-family: var(--rds-font-family-base, 'Poppins', Arial, sans-serif);
+    background: var(--rds-primary-100);
+    color: var(--rds-primary-800);
+    font-family: var(--rds-font-family-base);
     font-weight: var(--rds-font-weight-regular, 400);
     font-style: normal;
     font-size: 0.875rem;
@@ -53,13 +53,13 @@
     border-radius: var(--rds-border-radius-xl, 16px);
   }
   &--primary > .rds-badge__badge {
-    background: var(--rds-primary-100, #e3f2fd);
-    color: var(--rds-primary-800, #1565c0);
+    background: var(--rds-primary-100);
+    color: var(--rds-primary-800);
     border: none;
   }
   &--primary .MuiBadge-badge {
     background-color: var(--rds-primary-main) !important;
-    color: var(--rds-neutral-0, #ffffff) !important;
+    color: var(--rds-neutral-0) !important;
   }
   
   &--outline > .rds-badge__badge {
@@ -95,7 +95,7 @@
   }
 
   $rds-badge-colors: (
-    primary: (var(--rds-primary-800, #1565c0) var(--rds-primary-100, #e3f2fd)),
+    primary: (var(--rds-primary-800) var(--rds-primary-100)),
     secondary: (var(--rds-primary-main) var(--rds-primary-light)),
     tertiary: (var(--rds-semantic-warning-dark) var(--rds-warning-light)),
     danger: (var(--rds-semantic-error-main) var(--rds-error-light)),
@@ -113,7 +113,7 @@
     
     &.rds-badge--primary.rds-badge--#{$key} .MuiBadge-badge {
       background-color: list.nth($value, 1) !important;
-      color: var(--rds-neutral-0, #ffffff) !important;
+      color: var(--rds-neutral-0) !important;
     }
 
     &.rds-badge--outline.rds-badge--#{$key} > .rds-badge__badge {
@@ -150,8 +150,8 @@
     border-radius: var(--rds-border-radius-xl, 16px) !important;
   }
   &--disabled > .rds-badge__badge {
-    background: var(--rds-neutral-100, #f3f3f3) !important;
-    color: var(--rds-neutral-400, #bdbdbd) !important;
+    background: var(--rds-neutral-100) !important;
+    color: var(--rds-neutral-400) !important;
     border: none !important;
     box-shadow: none !important;
     cursor: not-allowed !important;
@@ -160,8 +160,8 @@
     transition: none;
   }
   &--disabled .MuiBadge-badge {
-    background-color: var(--rds-neutral-100, #f3f3f3) !important;
-    color: var(--rds-neutral-400, #bdbdbd) !important;
+    background-color: var(--rds-neutral-100) !important;
+    color: var(--rds-neutral-400) !important;
     border: none !important;
     box-shadow: none !important;
     cursor: not-allowed !important;
@@ -316,8 +316,8 @@
   
   &__badge {
     position: static;
-    background: var(--rds-primary-100, #e3f2fd);
-    color: var(--rds-primary-800, #1565c0);
+    background: var(--rds-primary-100);
+    color: var(--rds-primary-800);
     border-radius: var(--rds-border-radius-xl, 16px);
     font-weight: var(--rds-font-weight-semibold, 600);
     box-shadow: 0 1px 4px rgba(108, 46, 183, 0.08);

@@ -20,7 +20,7 @@
 
 [data-theme="dark"]{
     .MuiChip-label {
-      color: var(--rds-button-primary-text, #ffffff);
+      color: var(--rds-button-primary-text);
     }
    
     .MuiChip-outlined {
@@ -30,7 +30,7 @@
     }
 
     .MuiChip-deleteIcon{
-      color: var(--rds-button-primary-text, #ffffff) !important;
+      color: var(--rds-button-primary-text) !important;
     }
     .MuiChip-outlined .MuiChip-deleteIcon{
       color: inherit !important;

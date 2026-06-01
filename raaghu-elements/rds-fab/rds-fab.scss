@@ -3,133 +3,133 @@
   position: relative;
 
   .MuiFab-root {
-    background-color: var(--rds-surface-subtle, #f5f5f5) !important;
-    color: var(--rds-text-primary, #424242) !important;
+    background-color: var(--rds-surface-subtle) !important;
+    color: var(--rds-text-primary) !important;
 
     .MuiFab-label,
     span,
     svg,
     .MuiSvgIcon-root {
-      color: var(--rds-text-primary, #424242) !important;
+      color: var(--rds-text-primary) !important;
       fill: currentColor !important;
     }
 
     &:hover {
-      background-color: var(--rds-color-surface-variant-hover, #e8e8e8) !important;
+      background-color: var(--rds-color-surface-variant-hover) !important;
     }
 
     &.Mui-disabled {
-      background-color: var(--rds-surface-subtle, #f0f0f0) !important;
+      background-color: var(--rds-surface-subtle) !important;
 
       .MuiFab-label,
       span,
       svg,
       .MuiSvgIcon-root {
-        color: var(--rds-text-disabled, #888888) !important;
-        fill: var(--rds-text-disabled, #888888) !important;
+        color: var(--rds-text-disabled) !important;
+        fill: var(--rds-text-disabled) !important;
         opacity: 0.5 !important;
       }
     }
 
     &.MuiFab-primary {
-      background-color: var(--rds-primary-main, #7825E9) !important;
-      color: var(--rds-neutral-0, #ffffff) !important;
+      background-color: var(--rds-primary-main) !important;
+      color: var(--rds-neutral-0) !important;
       
       .MuiFab-label,
       span,
       svg,
       .MuiSvgIcon-root {
-        color: var(--rds-neutral-0, #ffffff) !important;
+        color: var(--rds-neutral-0) !important;
         fill: currentColor !important;
       }
 
       &:hover {
-        background-color: var(--rds-primary-dark, #4F00A6) !important;
+        background-color: var(--rds-primary-dark) !important;
       }
     }
 
     &.MuiFab-secondary {
-      background-color: var(--rds-secondary-main, #2534E9) !important;
-      color: var(--rds-neutral-0, #ffffff) !important;
+      background-color: var(--rds-secondary-main) !important;
+      color: var(--rds-neutral-0) !important;
       
       .MuiFab-label,
       span,
       svg,
       .MuiSvgIcon-root {
-        color: var(--rds-neutral-0, #ffffff) !important;
+        color: var(--rds-neutral-0) !important;
         fill: currentColor !important;
       }
 
       &:hover {
-        background-color: var(--rds-secondary-dark, #1827BB) !important;
+        background-color: var(--rds-secondary-dark) !important;
       }
     }
 
     &.MuiFab-error {
-      background-color: var(--rds-semantic-error-main, #BD0D1D) !important;
-      color: var(--rds-neutral-0, #ffffff) !important;
+      background-color: var(--rds-semantic-error-main) !important;
+      color: var(--rds-neutral-0) !important;
       
       .MuiFab-label,
       span,
       svg,
       .MuiSvgIcon-root {
-        color: var(--rds-neutral-0, #ffffff) !important;
+        color: var(--rds-neutral-0) !important;
         fill: currentColor !important;
       }
 
       &:hover {
-        background-color: var(--rds-error-dark, #930011) !important;
+        background-color: var(--rds-error-dark) !important;
       }
     }
 
     &.MuiFab-warning {
-      background-color: var(--rds-warning-main, #C2510C) !important;
-      color: var(--rds-neutral-0, #ffffff) !important;
+      background-color: var(--rds-warning-main) !important;
+      color: var(--rds-neutral-0) !important;
       
       .MuiFab-label,
       span,
       svg,
       .MuiSvgIcon-root {
-        color: var(--rds-neutral-0, #ffffff) !important;
+        color: var(--rds-neutral-0) !important;
         fill: currentColor !important;
       }
 
       &:hover {
-        background-color: var(--rds-warning-dark, #7C3712) !important;
+        background-color: var(--rds-warning-dark) !important;
       }
     }
 
     &.MuiFab-success {
-      background-color: var(--rds-semantic-success-main, #1F7630) !important;
-      color: var(--rds-neutral-0, #ffffff) !important;
+      background-color: var(--rds-semantic-success-main) !important;
+      color: var(--rds-neutral-0) !important;
       
       .MuiFab-label,
       span,
       svg,
       .MuiSvgIcon-root {
-        color: var(--rds-neutral-0, #ffffff) !important;
+        color: var(--rds-neutral-0) !important;
         fill: currentColor !important;
       }
 
       &:hover {
-        background-color: var(--rds-success-dark, #1A4D25) !important;
+        background-color: var(--rds-success-dark) !important;
       }
     }
 
     &.MuiFab-info {
-      background-color: var(--rds-info-main, #0288d1) !important;
-      color: var(--rds-neutral-0, #ffffff) !important;
+      background-color: var(--rds-info-main) !important;
+      color: var(--rds-neutral-0) !important;
       
       .MuiFab-label,
       span,
       svg,
       .MuiSvgIcon-root {
-        color: var(--rds-neutral-0, #ffffff) !important;
+        color: var(--rds-neutral-0) !important;
         fill: currentColor !important;
       }
 
       &:hover {
-        background-color: var(--rds-info-dark, #01579b) !important;
+        background-color: var(--rds-info-dark) !important;
       }
     }
   }

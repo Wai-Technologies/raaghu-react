@@ -21,8 +21,8 @@
     }
 
     &__enable-hover:hover {
-      background-color: var(--rds-color-primary-light, #e3f2fd);
-      color: var(--rds-color-primary, #1976d2);
+      background-color: var(--rds-color-primary-light);
+      color: var(--rds-color-primary);
     }
   }
 
@@ -40,16 +40,16 @@
       border-radius: var(--rds-border-radius-pill, 20px);
 
       &__enable-hover:hover {
-        background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        background-color: var(--rds-color-primary-light);
+        color: var(--rds-color-primary);
       }
       &__selected {
-        background-color: var(--rds-color-primary, #1976d2);
-        color: var(--rds-color-on-primary, #fff);
+        background-color: var(--rds-color-primary);
+        color: var(--rds-color-on-primary);
       }
       &__active {
-        background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        background-color: var(--rds-color-primary-light);
+        color: var(--rds-color-primary);
       }
     }
   }
@@ -60,16 +60,16 @@
       border-radius: var(--rds-border-radius, 4px);
 
       &__enable-hover:hover {
-        background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        background-color: var(--rds-color-primary-light);
+        color: var(--rds-color-primary);
       }
       &__selected {
-        background-color: var(--rds-color-primary, #1976d2);
-        color: var(--rds-color-on-primary, #fff);
+        background-color: var(--rds-color-primary);
+        color: var(--rds-color-on-primary);
       }
       &__active {
-        background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        background-color: var(--rds-color-primary-light);
+        color: var(--rds-color-primary);
       }
     }
   }
@@ -80,13 +80,13 @@
       color: var(--rds-color-text-primary);
 
       &__enable-hover:hover {
-        color: var(--rds-color-primary-dark, #1565c0);
+        color: var(--rds-color-primary-dark);
         text-decoration: underline;
       }
 
       &__selected {
-        background-color: var(--rds-color-primary-light, #e3f2fd);
-        color: var(--rds-color-primary, #1976d2);
+        background-color: var(--rds-color-primary-light);
+        color: var(--rds-color-primary);
         border-radius: var(--rds-border-radius, 4px);
       }
     }

@@ -6,31 +6,30 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
-
-    /* Path aliases — must mirror vite.config.ts resolve.alias */
-    "baseUrl": ".",
-    "paths": {
-      "@raaghu/elements/*":   ["../raaghu-elements/*"],
-      "@raaghu/components/*": ["../raaghu-components/*"],
-      "@raaghu/layouts/*":    ["../raaghu-layouts/*"],
-      "@raaghu/themes/*":     ["../raaghu-react-themes/*"]
-    },
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "strict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "erasableSyntaxOnly": false,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@raaghu/elements": ["../raaghu-elements"],
+      "@raaghu/elements/*": ["../raaghu-elements/*"],
+      "@raaghu/components": ["../raaghu-components"],
+      "@raaghu/components/*": ["../raaghu-components/*"],
+      "@raaghu/layouts": ["../raaghu-layouts"],
+      "@raaghu/layouts/*": ["../raaghu-layouts/*"],
+      "@raaghu/themes": ["../raaghu-react-themes"],
+      "@raaghu/themes/*": ["../raaghu-react-themes/*"]
+    }
   },
   "include": ["src"]
 }

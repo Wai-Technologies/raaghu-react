@@ -307,7 +307,7 @@
     background: none;
     border: none;
     margin-left: auto !important;
-    font-family: Poppins;
+    font-family: var(--rds-font-family-base);
   }
 
   &__carousel-arrows {

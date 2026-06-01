@@ -17,7 +17,7 @@
     transform: translateY(-50%);
     z-index: calc(var(--rds-z-index-base) + 2);
     background-color: var(--rds-carousel-navigation-bg, rgba(0, 0, 0, 0.5));
-    color: var(--rds-color-on-primary, #fff);
+    color: var(--rds-color-on-primary);
     border: none;
     border-radius: 50%;
     width: 40px;
@@ -54,7 +54,7 @@
   &__indicator {
     cursor: pointer;
     transition: var(--rds-transition-base);
-    background-color: var(--rds-carousel-indicator-bg, var(--rds-color-gray-400, #BDBDBD));
+    background-color: var(--rds-carousel-indicator-bg, var(--rds-color-gray-400));
     border: 1px solid transparent;
 
     &--circle {
@@ -70,28 +70,28 @@
     }
     
     &__active {
-      background-color: var(--rds-carousel-indicator-active, var(--rds-color-primary, #1976d2)) !important;
-      border-color: var(--rds-carousel-indicator-active, var(--rds-color-primary, #1976d2)) !important;
+      background-color: var(--rds-carousel-indicator-active, var(--rds-color-primary)) !important;
+      border-color: var(--rds-carousel-indicator-active, var(--rds-color-primary)) !important;
     }
     
     &:hover:not(.rds-carousel__indicator__active) {
-      background-color: var(--rds-color-gray-500, #9E9E9E);
+      background-color: var(--rds-color-gray-500);
     }
   }
 
   &__title-content {
     padding: var(--rds-spacing-md, 16px);
-    background-color: var(--rds-carousel-title-bg, #f6f8fb);
+    background-color: var(--rds-carousel-title-bg);
     min-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: var(--rds-spacing-xs, 4px);
-    border: 1px solid var(--rds-carousel-title-border, #e7ecf2);
+    border: 1px solid var(--rds-carousel-title-border);
 
     &--top {
       border-radius: var(--rds-border-radius-sm, 4px) var(--rds-border-radius-sm, 4px) 0 0;
-      border-bottom: 1px solid var(--rds-carousel-divider, #e0e0e0);
+      border-bottom: 1px solid var(--rds-carousel-divider);
     }
 
     &--bottom {
@@ -106,8 +106,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: var(--rds-color-surface, #ffffff);
-    color: var(--rds-color-text-primary, #212121);
+    background-color: var(--rds-color-surface);
+    color: var(--rds-color-text-primary);
     padding: var(--rds-spacing-md, 16px);
     z-index: calc(var(--rds-z-index-base) + 1);
     min-height: 80px;
@@ -120,14 +120,14 @@
   &__title-text {
     font-size: var(--rds-font-size-h5, 1.5rem);
     font-weight: var(--rds-font-weight-medium, 500);
-    color: var(--rds-color-text-primary, #212121);
+    color: var(--rds-color-text-primary);
     margin: 0;
     line-height: 1.3;
   }
 
   &__title-subtitle {
     font-size: var(--rds-font-size-body2, 0.875rem);
-    color: var(--rds-color-text-secondary, #757575);
+    color: var(--rds-color-text-secondary);
     margin: 0;
     line-height: 1.4;
     opacity: 0.8;
@@ -155,10 +155,10 @@
 
   &--with-title {
     border-radius: var(--rds-border-radius-sm, 4px);
-    background-color: var(--rds-carousel-wrapper-bg, #f3f5f8);
+    background-color: var(--rds-carousel-wrapper-bg);
     
     .rds-carousel__slide {
-      background-color: var(--rds-carousel-wrapper-bg, #f3f5f8);
+      background-color: var(--rds-carousel-wrapper-bg);
     }
     
     .rds-carousel__indicators {
@@ -187,7 +187,7 @@
       border-radius: var(--rds-border-radius-sm, 4px);
       width: 100%;
       max-width: 100%;
-      background-color: var(--rds-carousel-wrapper-bg, #f3f5f8);
+      background-color: var(--rds-carousel-wrapper-bg);
     }
     
     .rds-carousel__slide-content {
@@ -206,27 +206,27 @@
     }
 
     .rds-carousel__title-content--bottom {
-      background-color: var(--rds-carousel-title-bg, #f6f8fb);
-      color: var(--rds-color-text-primary, #212121);
+      background-color: var(--rds-carousel-title-bg);
+      color: var(--rds-color-text-primary);
       border-radius: 0 0 var(--rds-border-radius-sm, 4px) var(--rds-border-radius-sm, 4px);
-      border-top: 1px solid var(--rds-carousel-divider, var(--rds-color-divider, #e0e0e0));
+      border-top: 1px solid var(--rds-carousel-divider, var(--rds-color-divider));
     }
     
     .rds-carousel__indicators {
       bottom: var(--rds-spacing-md, 16px);
       
       .rds-carousel__indicator {
-        background-color: var(--rds-color-gray-400, #BDBDBD);
-        border: 1px solid var(--rds-color-gray-300, #e0e0e0);
+        background-color: var(--rds-color-gray-400);
+        border: 1px solid var(--rds-color-gray-300);
         
         &__active {
-          background-color: var(--rds-color-primary, #1976d2) !important;
-          border: 1px solid var(--rds-color-primary, #1976d2);
+          background-color: var(--rds-color-primary) !important;
+          border: 1px solid var(--rds-color-primary);
         }
         
         &:hover:not(.rds-carousel__indicator__active) {
-          background-color: var(--rds-color-gray-500, #9E9E9E);
-          border: 1px solid var(--rds-color-gray-400, #BDBDBD);
+          background-color: var(--rds-color-gray-500);
+          border: 1px solid var(--rds-color-gray-400);
         }
       }
     }
@@ -243,7 +243,7 @@
   }
   
   &:focus-visible {
-    outline: 2px solid var(--rds-color-primary, #1976d2);
+    outline: 2px solid var(--rds-color-primary);
     outline-offset: 2px;
   }
 }
@@ -569,15 +569,15 @@
   .theme-dark .rds-carousel,
   .sb-show-main[data-theme="dark"] .rds-carousel {
     .rds-carousel__title-content {
-      background-color: var(--rds-carousel-title-bg-dark, #16181a) !important;
+      background-color: var(--rds-carousel-title-bg-dark) !important;
       border: 1px solid var(--rds-carousel-title-border-dark, rgba(255,255,255,0.04)) !important;
-      color: var(--rds-color-surface, #ffffff) !important;
+      color: var(--rds-color-surface) !important;
     }
 
     .rds-carousel__title-content--bottom {
-      background-color: var(--rds-carousel-title-bg-dark, #16181a) !important;
+      background-color: var(--rds-carousel-title-bg-dark) !important;
       border-top: 1px solid var(--rds-carousel-title-border-dark, rgba(255,255,255,0.06)) !important;
-      color: var(--rds-color-surface, #ffffff) !important;
+      color: var(--rds-color-surface) !important;
     }
 
     &--with-title, &--full-width-image {
@@ -589,12 +589,12 @@
     }
 
     .rds-carousel__title-text {
-      color: var(--rds-color-surface, #ffffff) !important;
+      color: var(--rds-color-surface) !important;
       opacity: 0.95;
     }
 
     .rds-carousel__title-subtitle {
-      color: var(--rds-color-surface, #ffffff) !important;
+      color: var(--rds-color-surface) !important;
       opacity: 0.75 !important;
     }
   }
@@ -602,14 +602,14 @@
   [data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-text,
   .theme-dark .rds-carousel .rds-carousel__title-content .rds-carousel__title-text,
   .sb-show-main[data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-text {
-    color: var(--rds-color-surface, #ffffff) !important;
+    color: var(--rds-color-surface) !important;
     opacity: 1 !important;
   }
 
   [data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-subtitle,
   .theme-dark .rds-carousel .rds-carousel__title-content .rds-carousel__title-subtitle,
   .sb-show-main[data-theme="dark"] .rds-carousel .rds-carousel__title-content .rds-carousel__title-subtitle {
-    color: var(--rds-color-surface, #ffffff) !important;
+    color: var(--rds-color-surface) !important;
     opacity: 0.85 !important;
   }
 

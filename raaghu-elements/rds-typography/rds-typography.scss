@@ -1,7 +1,7 @@
 // Import breakpoint variables so @media queries use the token scale
 .rds-typography {
   margin: 0;
-  font-family: var(--rds-font-family, var(--rds-font-family-base));
+  font-family: var(--rds-font-family-base);
 
   // ── Component-scoped size tokens ─────────────────────────────────────────────
   // These are overridable per-instance via inline style or a parent selector.

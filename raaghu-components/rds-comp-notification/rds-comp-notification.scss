@@ -2,7 +2,7 @@
   &.MuiCard-root {
     position: relative;
     transition: all var(--rds-transition-slow);
-    border: 1px solid var(--rds-form-border, #B1B1B1);
+    border: 1px solid var(--rds-form-border);
   }
 
   .MuiTypography-root {
@@ -132,30 +132,30 @@
   }
 
   &--type-error {
-    background-color: var(--rds-alert-error-bg, #ffdad6) !important;
+    background-color: var(--rds-alert-error-bg) !important;
     color: var(--rds-text-primary) !important;
     border: none !important;
   }
 
   &--type-info {
-    background-color: var(--rds-background-paper, #ffffff) !important;
+    background-color: var(--rds-background-paper) !important;
     color: var(--rds-text-primary) !important;
   }
 
   &--type-success {
-    background-color: var(--rds-alert-success-bg, #ebdcff) !important;
+    background-color: var(--rds-alert-success-bg) !important;
     border: none !important;
     color: var(--rds-text-primary) !important;
   }
 
   &--type-warning {
-    background-color: var(--rds-alert-warning-bg, #fed99b) !important;
+    background-color: var(--rds-alert-warning-bg) !important;
     border: none !important;
     color: var(--rds-text-primary) !important;
   }
 
   &__image-sidebar {
-    background: var(--rds-background-surface, #E1E3EA) !important;
+    background: var(--rds-background-surface) !important;
   }
 
   &__header {
@@ -268,7 +268,7 @@
     }
   }
   .rds-comp-notification__secondary-button{
-    color: var(--rds-text-secondary, #646464) !important;
+    color: var(--rds-text-secondary) !important;
   }
 
   &--layout-horizontal.rds-comp-notification--style-image {
@@ -349,7 +349,7 @@ body:not(.theme-dark):not([data-theme="dark"]) {
   @media (prefers-color-scheme: dark) {
     .rds-comp-notification--type-info.rds-comp-notification--style-image {
       &, &.rds-comp-notification--layout-horizontal {
-        background-color: var(--rds-background-paper, #ffffff) !important;
+        background-color: var(--rds-background-paper) !important;
         color: var(--rds-neutral-900) !important;
         border: none !important;
       }
@@ -370,7 +370,7 @@ body:not(.theme-dark):not([data-theme="dark"]) {
       }
       
       .MuiPaper-root, .MuiCard-root { 
-        background-color: var(--rds-background-paper, #ffffff) !important; 
+        background-color: var(--rds-background-paper) !important; 
       }
       .rds-comp-notification__image-container { 
         background-color: transparent !important; 
@@ -389,7 +389,7 @@ body:not(.theme-dark):not([data-theme="dark"]) {
 @media (prefers-color-scheme: dark) {
   .rds-comp-notification--type-info.rds-comp-notification--style-image {
     &, &.rds-comp-notification--layout-horizontal {
-      background-color: var(--rds-background-paper, #ffffff) !important;
+      background-color: var(--rds-background-paper) !important;
       color: var(--rds-neutral-900) !important;
       border: none !important;
     }
@@ -410,7 +410,7 @@ body:not(.theme-dark):not([data-theme="dark"]) {
     }
     
     .MuiPaper-root, .MuiCard-root { 
-      background-color: var(--rds-background-paper, #ffffff) !important; 
+      background-color: var(--rds-background-paper) !important; 
     }
     .rds-comp-notification__image-container { 
       background-color: transparent !important; 
@@ -419,7 +419,7 @@ body:not(.theme-dark):not([data-theme="dark"]) {
   
   :root:not([data-theme="dark"]) .rds-comp-notification--type-info.rds-comp-notification--style-image {
     &, &.rds-comp-notification--layout-horizontal {
-      background-color: var(--rds-background-paper, #ffffff) !important;
+      background-color: var(--rds-background-paper) !important;
       color: var(--rds-neutral-900) !important;
       border: none !important;
     }

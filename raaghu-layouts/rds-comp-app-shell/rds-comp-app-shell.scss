@@ -7,8 +7,8 @@
     top: 0;
     left: 0;
     right: 0;
-    background: var(--rds-color-surface, #fff);
-    box-shadow: var(--rds-elevation-2, 0 2px 8px rgba(0,0,0,0.08));
+    background: var(--rds-color-surface);
+    box-shadow: var(--rds-elevation-2);
     transition: box-shadow 0.2s ease;
   }
 }
@@ -21,29 +21,29 @@
   .MuiBottomNavigationAction-root.Mui-selected,
   .rds-tab--selected,
   .rds-nav-tab--selected {
-    color: var(--rds-color-primary, #1976d2) !important;
+    color: var(--rds-color-primary) !important;
     font-weight: 600 !important;
   }
   
   .MuiTabs-indicator {
-    background-color: var(--rds-color-primary, #1976d2) !important;
+    background-color: var(--rds-color-primary) !important;
     height: 3px !important;
   }
   
   .MuiBottomNavigationAction-root.Mui-selected .MuiBottomNavigationAction-label {
-    color: var(--rds-color-primary, #1976d2) !important;
+    color: var(--rds-color-primary) !important;
     font-weight: 600 !important;
   }
   
   .MuiTab-root:hover,
   .MuiBottomNavigationAction-root:hover {
-    color: var(--rds-color-primary-hover, #1565c0) !important;
+    color: var(--rds-color-primary-hover) !important;
     opacity: 0.8;
   }
   
   .MuiTab-root.Mui-focusVisible,
   .MuiBottomNavigationAction-root.Mui-focusVisible {
-    background-color: rgba(25, 118, 210, 0.04) !important;
+    background-color: var(--rds-color-primary-container) !important;
   }
 }
 
@@ -314,15 +314,15 @@
   transition: background-color 0.2s;
   
   &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: var(--rds-action-hover);
   }
   
   &--primary {
-    color: var(--rds-color-primary, #1976d2) !important;
+    color: var(--rds-color-primary) !important;
     font-weight: 600 !important;
     
     .rds-story-sub-tab-icon {
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary) !important;
     }
   }
   
@@ -342,7 +342,7 @@
 
 #sidebar.toggle.hide,
 nav#sidebar {
-  box-shadow: 1px 0px 6px 0px rgba(0, 0, 0, 0.16) !important;
+  box-shadow: var(--rds-elevation-2) !important;
   z-index: var(--rds-z-index-layer-1) !important;
 }
 
@@ -497,7 +497,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     padding: 0;
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--rds-color-on-surface, #000);
+    color: var(--rds-color-on-surface);
   }
   
   &__content {
@@ -608,7 +608,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .triPane {
     .rds-footer-navigation,
     .MuiBottomNavigation-root {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
+      font-family: var(--rds-font-family-base) !important;
       
       button {
         background: none !important;
@@ -637,7 +637,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     right: 0 !important;
     z-index: var(--rds-z-index-modal, 1400) !important;
     border-top: 1px solid var(--rds-border-default) !important;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: var(--rds-elevation-3) !important;
     height: 56px !important;
     display: flex !important;
     align-items: center !important;
@@ -676,11 +676,11 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         text-decoration: none !important;
         
         &:hover {
-          background-color: rgba(0, 0, 0, 0.04) !important;
+          background-color: var(--rds-action-hover) !important;
         }
         
         &[data-active="true"] {
-          color: var(--rds-color-primary, #1976d2) !important;
+          color: var(--rds-color-primary) !important;
           font-weight: 600 !important;
         }
         
@@ -694,12 +694,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary) !important;
       font-weight: 600 !important;
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary, #1976d2) !important;
+      background-color: var(--rds-color-primary) !important;
       height: 3px !important;
     }
   }
@@ -742,7 +742,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       &:hover {
-        background-color: rgba(0, 0, 0, 0.04);
+        background-color: var(--rds-action-hover);
       }
     }
   }
@@ -760,7 +760,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       }
       
       &:hover {
-        background-color: rgba(0, 0, 0, 0.04);
+        background-color: var(--rds-action-hover);
       }
     }
   }
@@ -776,7 +776,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       transform: translateX(0);
       transition: transform 0.3s ease;
       background: white;
-      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+      box-shadow: var(--rds-elevation-3);
     }
     
     .sidebar-layout {
@@ -811,7 +811,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         transform: translateX(0);
         transition: transform 0.3s ease;
         background: white;
-        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--rds-elevation-3);
       }
       
       .rds-story-standard-content {
@@ -987,7 +987,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       color: inherit;
       
       &:hover {
-        background-color: rgba(0, 0, 0, 0.04);
+        background-color: var(--rds-action-hover);
       }
       
       svg {
@@ -1007,7 +1007,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
       transition: transform 0.3s ease;
-      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+      box-shadow: var(--rds-elevation-3);
       
       &.open {
         transform: translateX(0);
@@ -1026,7 +1026,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: var(--rds-overlay-dark);
       z-index: var(--rds-z-index-drawer, 1200);
     }
   }
@@ -1165,7 +1165,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       color: inherit;
       
       &:hover {
-        background-color: rgba(0, 0, 0, 0.04);
+        background-color: var(--rds-action-hover);
       }
       
       svg {
@@ -1185,7 +1185,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
       transition: transform 0.3s ease;
-      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+      box-shadow: var(--rds-elevation-3);
       
       &.open {
         transform: translateX(0);
@@ -1204,7 +1204,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: var(--rds-overlay-dark);
       z-index: var(--rds-z-index-drawer, 1200);
     }
   }
@@ -1354,17 +1354,17 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     left: 0 !important;
     right: 0 !important;
     z-index: var(--rds-z-index-toast, 1700) !important;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15) !important;
+    box-shadow: var(--rds-elevation-3) !important;
     background: transparent !important;
     
     .MuiTab-root.Mui-selected,
     .MuiBottomNavigationAction-root.Mui-selected {
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary) !important;
       font-weight: 600 !important;
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary, #1976d2) !important;
+      background-color: var(--rds-color-primary) !important;
       height: 3px !important;
     }
   }
@@ -1407,7 +1407,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       transform: translateX(0);
       transition: transform 0.3s ease;
       background: white;
-      box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+      box-shadow: var(--rds-elevation-3);
     }
     
     .sidebar-layout {
@@ -1514,8 +1514,8 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       right: 0 !important;
       z-index: var(--rds-z-index-toast, 1700) !important;
       background: transparent !important;
-      border-top: 1px solid var(--rds-border-default, #e0e0e0) !important;
-      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15) !important;
+      border-top: 1px solid var(--rds-border-default) !important;
+      box-shadow: var(--rds-elevation-3) !important;
       display: flex !important;
       width: 100% !important;
       .MuiTabs-flexContainer {
@@ -1530,13 +1530,13 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
         min-width: 0 !important;
         
         &.Mui-selected {
-          color: var(--rds-color-primary, #1976d2) !important;
+          color: var(--rds-color-primary) !important;
           font-weight: 600 !important;
         }
       }
       
       .MuiTabs-indicator {
-        background-color: var(--rds-color-primary, #1976d2) !important;
+        background-color: var(--rds-color-primary) !important;
         height: 3px !important;
         top: 0 !important;
         bottom: auto !important;
@@ -1584,18 +1584,18 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: 0 !important;
       right: 0 !important;
       z-index: var(--rds-z-index-toast, 1700) !important;
-      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15) !important;
+      box-shadow: var(--rds-elevation-3) !important;
       background: transparent !important;
       display: flex !important;
       
       .MuiTab-root.Mui-selected,
       .MuiBottomNavigationAction-root.Mui-selected {
-        color: var(--rds-color-primary, #1976d2) !important;
+        color: var(--rds-color-primary) !important;
         font-weight: 600 !important;
       }
       
       .MuiTabs-indicator {
-        background-color: var(--rds-color-primary, #1976d2) !important;
+        background-color: var(--rds-color-primary) !important;
         height: 3px !important;
       }
     }
@@ -1709,7 +1709,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       margin-right: var(--rds-spacing-sm);
       
       &:hover {
-        background-color: rgba(0, 0, 0, 0.04);
+        background-color: var(--rds-action-hover);
       }
       
       svg {
@@ -1813,7 +1813,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
       transition: transform 0.3s ease;
-      box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
+      box-shadow: var(--rds-elevation-3);
       
       &.open {
         transform: translateX(0) !important;
@@ -1831,7 +1831,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     &.mobile-sidebar-open {
       .sidebar-layout {
         transform: translateX(0) !important;
-        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--rds-elevation-3);
         display: block !important;
         visibility: visible !important;
       }
@@ -1872,7 +1872,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: var(--rds-overlay-dark);
       z-index: var(--rds-z-index-drawer, 1200);
       cursor: pointer;
     }
@@ -1960,7 +1960,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       margin-right: var(--rds-spacing-sm);
       
       &:hover {
-        background-color: rgba(0, 0, 0, 0.04);
+        background-color: var(--rds-action-hover);
       }
       
       svg {
@@ -2055,7 +2055,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       z-index: var(--rds-z-index-modal, 1400);
       transform: translateX(100%);
       transition: transform 0.3s ease;
-      box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
+      box-shadow: var(--rds-elevation-3);
       
       &.open {
         transform: translateX(0) !important;
@@ -2073,7 +2073,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     &.mobile-sidebar-open {
       .sidebar-layout {
         transform: translateX(0) !important;
-        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--rds-elevation-3);
         display: block !important;
         visibility: visible !important;
       }
@@ -2105,7 +2105,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: var(--rds-overlay-dark);
       z-index: var(--rds-z-index-drawer, 1200);
       cursor: pointer;
     }
@@ -2313,12 +2313,12 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   .rds-header .MuiTabs-root,
   .MuiAppBar-root .MuiTabs-root {
     .MuiTab-root.Mui-selected {
-      color: var(--rds-color-primary, #1976d2) !important;
+      color: var(--rds-color-primary) !important;
       font-weight: 600 !important;
     }
     
     .MuiTabs-indicator {
-      background-color: var(--rds-color-primary, #1976d2) !important;
+      background-color: var(--rds-color-primary) !important;
       height: 3px !important;
     }
   }
@@ -2365,7 +2365,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--rds-overlay-dark);
   z-index: var(--rds-z-index-drawer, 1200);
   display: block;
   cursor: pointer;

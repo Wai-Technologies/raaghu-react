@@ -18,7 +18,7 @@ $rds-stepper-breakpoint-sm: 420px;
 [data-theme="dark"] {
   .rds-stepper {
     .MuiStepLabel-iconContainer .MuiStepIcon-root .MuiStepIcon-text {
-      color: var(--rds-neutral-0, #fff) !important;
+      color: var(--rds-neutral-0) !important;
       fill: var(--rds-neutral-0) !important;
     }
     
