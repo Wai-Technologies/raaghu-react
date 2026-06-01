@@ -2327,7 +2327,6 @@ $rds-app-bar-breakpoint-xs: 320px;
   gap: var(--rds-spacing-sm);
   padding: var(--rds-spacing-sm) 12px;
   align-items: center;
-  background: var(--rds-appbar-bg, var(--rds-primary-main));
   z-index: var(--rds-z-index-dropdown);
   border-top: 1px solid var(--rds-color-border, #e0e0e0);
   box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
