@@ -1,5 +1,6 @@
 import RdsCompAiAttachement from "./rds-comp-ai-attachement";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
  
 const meta: Meta = {
     title: "Components/AI ChatBox/Attachement",
@@ -40,6 +41,9 @@ export const Default: Story = {
         importText: "Import From This Device",
         modalText: "Ask AI Pundit to turn your designs into code by attaching a link to a desired section or frame in your Figma file.",
         menuAlignment: "left",
+    },
+    play: async ({ canvasElement }) => {
+        await expect(canvasElement.firstChild).toBeTruthy();
     },
 }
 Default.parameters = { controls: { include: ['menuIcon', 'modalTitle', 'hintText', 'inputPlaceholder', 'showBadge', 'badgeLabel', 'badgeColor', 'uploadText', 'importText', 'modalText'] } };

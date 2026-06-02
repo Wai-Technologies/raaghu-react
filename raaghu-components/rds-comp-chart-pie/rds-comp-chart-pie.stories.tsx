@@ -1,6 +1,7 @@
 
 import RdsCompPieChart from "./rds-comp-chart-pie";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Pie Chart',
@@ -69,6 +70,10 @@ export const Default: Story = {
                 borderWidth: 1,
             },
         ],
+    },
+    play: async ({ canvas }) => {
+        const chart = await canvas.findByRole('img');
+        await expect(chart).toBeInTheDocument();
     },
 };
 

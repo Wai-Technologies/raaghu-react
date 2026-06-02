@@ -1,5 +1,6 @@
 import RdsCompRadarChart from "./rds-comp-chart-radar";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Radar Chart',
@@ -219,6 +220,10 @@ export const Default: Story = {
         ],
 
 
-    }
+    },
+    play: async ({ canvas }) => {
+        const chart = await canvas.findByRole('img');
+        await expect(chart).toBeInTheDocument();
+    },
 };
 

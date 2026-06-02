@@ -818,3 +818,60 @@ describe('RdsSelect', () => {
     });
   });
 });
+
+describe('RdsSelect — keyboard navigation', () => {
+  const mockOptions = [
+    { label: 'Option 1', value: 'option1' },
+    { label: 'Option 2', value: 'option2' },
+    { label: 'Option 3', value: 'option3' },
+  ];
+
+  it('combobox is focusable via Tab', async () => {
+    renderWithTheme(<RdsSelect options={mockOptions} value="" />);
+    await userEvent.tab();
+    expect(screen.getByRole('combobox')).toHaveFocus();
+  });
+
+  it('opens listbox on Space key', async () => {
+    renderWithTheme(<RdsSelect options={mockOptions} value="" onChange={jest.fn()} />);
+    const select = screen.getByRole('combobox');
+    select.focus();
+    await userEvent.keyboard(' ');
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+  });
+
+  it('opens listbox on Enter key', async () => {
+    renderWithTheme(<RdsSelect options={mockOptions} value="" onChange={jest.fn()} />);
+    const select = screen.getByRole('combobox');
+    select.focus();
+    await userEvent.keyboard('{Enter}');
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+  });
+
+  it('closes listbox on Escape key', async () => {
+    renderWithTheme(<RdsSelect options={mockOptions} value="" onChange={jest.fn()} />);
+    const select = screen.getByRole('combobox');
+    await userEvent.click(select);
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  });
+
+  it('highlights first option on ArrowDown after opening', async () => {
+    renderWithTheme(<RdsSelect options={mockOptions} value="" onChange={jest.fn()} />);
+    const select = screen.getByRole('combobox');
+    await userEvent.click(select);
+    await userEvent.keyboard('{ArrowDown}');
+    const options = screen.getAllByRole('option');
+    const focusedOption = options.find(o => o.classList.contains('Mui-focused'));
+    expect(focusedOption).toBeTruthy();
+  });
+
+  it('does not open when disabled', async () => {
+    renderWithTheme(<RdsSelect options={mockOptions} value="" disabled />);
+    const select = screen.getByRole('combobox');
+    select.focus();
+    await userEvent.keyboard(' ');
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+  });
+});

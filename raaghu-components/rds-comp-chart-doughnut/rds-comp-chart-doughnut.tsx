@@ -10,6 +10,7 @@ export interface RdsCompDoughnutProps {
     id: string;
     titleText?: string;
     subTitleText?: string;
+    chartLabel?: string;
 }
 
 const RdsCompDoughnutChart = (props: RdsCompDoughnutProps) => {
@@ -94,7 +95,7 @@ const RdsCompDoughnutChart = (props: RdsCompDoughnutProps) => {
 
     return (
         <div className="rds-comp-chart-doughnut">
-            <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} />
+            <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Doughnut chart'} />
         </div>
     );
 };

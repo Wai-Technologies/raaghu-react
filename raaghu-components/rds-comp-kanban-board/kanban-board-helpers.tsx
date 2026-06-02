@@ -416,63 +416,49 @@ export const createEventHandlers = (state: any, props: RdsCompKanbanBoardProps) 
 };
 
 export const createDragEndHandler = (boards: boardInfo[], setBoards: any) => {
-  return (result: any) => {
-    const { source, destination, draggableId, type } = result;
+  return (event: { active: { id: any; data: { current: any } }; over: { id: any; data: { current: any } } | null }) => {
+    const { active, over } = event;
+    if (!over) return;
 
-    if (!destination) {
-      return;
+    const activeId = active.id;
+    const overId = over.id;
+    if (activeId === overId) return;
+
+    // Source info comes from useSortable data
+    const sourceBoardIndex: number = active.data.current?.boardIndex ?? -1;
+    const sourceSubCardIndex: number = active.data.current?.subCardIndex ?? -1;
+    if (sourceBoardIndex === -1 || sourceSubCardIndex === -1) return;
+
+    // Destination: either a column drop zone ("column-N") or another subcard
+    let destBoardIndex: number;
+    let destSubCardIndex: number;
+
+    if (typeof overId === 'string' && overId.startsWith('column-')) {
+      destBoardIndex = parseInt(overId.replace('column-', ''), 10);
+      destSubCardIndex = boards[destBoardIndex]?.subCards.length ?? 0;
+    } else {
+      destBoardIndex = over.data.current?.boardIndex ?? -1;
+      destSubCardIndex = over.data.current?.subCardIndex ?? -1;
     }
-    if (source.droppableId === destination.droppableId && source.index === destination.index) {
-      return;
-    }
 
-    if (type === "subCard") {
-      const sourceCardIndex = Number(source.droppableId);
-      const destinationCardIndex = Number(destination.droppableId);
+    if (destBoardIndex < 0 || destBoardIndex >= boards.length) return;
 
-    // Validate indices
-    if (sourceCardIndex < 0 || sourceCardIndex >= boards.length ||
-        destinationCardIndex < 0 || destinationCardIndex >= boards.length) {
-        return;
-      }
-
-      const sourceCard = boards[sourceCardIndex];
-      const destinationCard = boards[destinationCardIndex];
-
-      if (!sourceCard || !destinationCard) {
-        return;
-      }
-
-      if (sourceCardIndex === destinationCardIndex) {
-        const newSubCards = Array.from(sourceCard.subCards);
-        const [movedSubCard] = newSubCards.splice(source.index, 1);
-        newSubCards.splice(destination.index, 0, movedSubCard);
-        const newBoards = Array.from(boards);
-          newBoards[sourceCardIndex] = {
-            ...newBoards[sourceCardIndex],
-            subCards: newSubCards,
-          };
-
-          setBoards(newBoards);
-      } else {
-        const sourceSubCards = Array.from(sourceCard.subCards);
-        const destinationSubCards = Array.from(destinationCard.subCards);
-
-        const [movedSubCard] = sourceSubCards.splice(source.index, 1);
-        destinationSubCards.splice(destination.index, 0, movedSubCard);
-
-          const newBoards = Array.from(boards);
-          newBoards[sourceCardIndex] = {
-            ...newBoards[sourceCardIndex],
-            subCards: sourceSubCards,
-          };
-          newBoards[destinationCardIndex] = {
-            ...newBoards[destinationCardIndex],
-            subCards: destinationSubCards,
-          };
-
-          setBoards(newBoards);
-      }
+    if (sourceBoardIndex === destBoardIndex) {
+      const newSubCards = Array.from(boards[sourceBoardIndex].subCards);
+      const [moved] = newSubCards.splice(sourceSubCardIndex, 1);
+      newSubCards.splice(destSubCardIndex, 0, moved);
+      const newBoards = Array.from(boards);
+      newBoards[sourceBoardIndex] = { ...newBoards[sourceBoardIndex], subCards: newSubCards };
+      setBoards(newBoards);
+    } else {
+      const sourceSubCards = Array.from(boards[sourceBoardIndex].subCards);
+      const destSubCards = Array.from(boards[destBoardIndex].subCards);
+      const [moved] = sourceSubCards.splice(sourceSubCardIndex, 1);
+      destSubCards.splice(destSubCardIndex, 0, moved);
+      const newBoards = Array.from(boards);
+      newBoards[sourceBoardIndex] = { ...newBoards[sourceBoardIndex], subCards: sourceSubCards };
+      newBoards[destBoardIndex] = { ...newBoards[destBoardIndex], subCards: destSubCards };
+      setBoards(newBoards);
     }
   };
 };

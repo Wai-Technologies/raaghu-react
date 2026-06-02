@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Typography, Box } from '@mui/material';
 import { Share, Favorite } from '@mui/icons-material';
 import RdsCardDetail from './rds-card-detail';
+import { expect } from 'storybook/test';
 
 const meta: Meta<typeof RdsCardDetail> = {
   title: 'Elements/Card Detail',
@@ -33,6 +34,9 @@ export const Default: Story = {
         This is the main content of the card. It can contain any type of content including text, images, and other components.
       </Typography>
     ),
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
 

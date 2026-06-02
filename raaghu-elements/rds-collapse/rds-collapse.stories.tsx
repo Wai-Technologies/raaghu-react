@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent } from 'storybook/test';
 import { Typography, Box } from '@mui/material';
 import RdsCollapse from './rds-collapse';
 import RdsTypography from '../../raaghu-elements/rds-typography/rds-typography';
@@ -38,6 +39,12 @@ export const Default: Story = {
         </RdsTypography>
       </Box>
     ),
+  },
+  play: async ({ canvas }) => {
+    const button = await canvas.findByRole('button');
+    await expect(button).toBeInTheDocument();
+    await userEvent.click(button);
+    await expect(await canvas.findByText('This is the content that can be collapsed and expanded.')).toBeInTheDocument();
   },
 };
 

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsBox from './rds-box';
 import {Typography } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
+import { expect } from 'storybook/test';
 
 const meta: Meta<typeof RdsBox> = {
   title: 'Elements/Box',
@@ -41,7 +42,10 @@ export const Default: Story = {
         </RdsBox>`
       }
     }
-  }
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
+  },
 };
 
 export const WithPadding: Story = {

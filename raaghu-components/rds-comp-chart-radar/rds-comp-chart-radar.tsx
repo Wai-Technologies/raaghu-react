@@ -8,6 +8,7 @@ export interface RdsCompRadarProps {
   options: any;
   dataSets: any[];
   id: string;
+  chartLabel?: string;
 }
 
 const RdsCompRadarChart = (props: RdsCompRadarProps) => {
@@ -121,7 +122,7 @@ const RdsCompRadarChart = (props: RdsCompRadarProps) => {
 
   return (
     <div className="rds-comp-chart-radar-container">
-      <canvas id={props.id} ref={canvasRef} />
+      <canvas id={props.id} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Radar chart'} />
     </div>
   );
 };

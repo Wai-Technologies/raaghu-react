@@ -51,3 +51,4 @@ export { default as RdsCompAiGradientTextWithIcon } from './rds-comp-ai-gradient
 export { default as RdsCompAiMessageBox } from './rds-comp-ai-message-box/rds-comp-ai-message-box';
 export { default as RdsCompAiChatHeader } from './rds-comp-ai-chat-header/rds-comp-ai-chat-header';
 // export { default as RdsCompDatePicker } from './rds-comp-date-and-time-picker/rds-comp-date-and-time-picker'; // INTERNAL: incomplete implementation — not part of public API
+export { default as RdsCompDemoWidget } from './rds-comp-demo-widget/rds-comp-demo-widget';

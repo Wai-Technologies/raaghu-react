@@ -9,6 +9,7 @@ export interface lineprops {
     dataSets: any[];
     id: string;
     isGradient: boolean;
+    chartLabel?: string;
 }
 
 const RdsCompAreaChart = (props: lineprops) => {
@@ -65,7 +66,7 @@ const RdsCompAreaChart = (props: lineprops) => {
 
     return (
         <div className="rds-comp-chart-area">
-            <canvas id={props.id} ref={canvasRef} />
+            <canvas id={props.id} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Area chart'} />
         </div>
     );
 };

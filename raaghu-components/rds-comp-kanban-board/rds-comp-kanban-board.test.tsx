@@ -55,19 +55,31 @@ jest.mock('@mui/icons-material', () => ({
   DeleteIcon: () => <span data-testid="delete-icon">🗑</span>,
 }));
 
-// Mock hello-pangea/dnd
-jest.mock('@hello-pangea/dnd', () => ({
-  DragDropContext: ({ children, onDragEnd }: any) => <div data-testid="drag-drop-context">{children}</div>,
-  Droppable: React.forwardRef(({ children, droppableId }: any, ref: any) => (
-    <div data-testid="droppable" data-id={droppableId} ref={ref}>
-      {children?.({ droppableProps: {}, innerRef: jest.fn(), placeholder: null }, {} as any)}
-    </div>
-  )),
-  Draggable: React.forwardRef(({ children, draggableId, index }: any, ref: any) => (
-    <div data-testid="draggable" data-id={draggableId} ref={ref}>
-      {children?.({ draggableProps: {}, dragHandleProps: {}, innerRef: jest.fn() }, {} as any)}
-    </div>
-  )),
+// Mock @dnd-kit
+jest.mock('@dnd-kit/core', () => ({
+  DndContext: ({ children }: any) => <div data-testid="dnd-context">{children}</div>,
+  closestCenter: jest.fn(),
+  KeyboardSensor: jest.fn(),
+  PointerSensor: jest.fn(),
+  useSensor: jest.fn(),
+  useSensors: jest.fn(() => []),
+  useDroppable: () => ({ setNodeRef: jest.fn() }),
+}));
+jest.mock('@dnd-kit/sortable', () => ({
+  SortableContext: ({ children }: any) => <>{children}</>,
+  sortableKeyboardCoordinates: jest.fn(),
+  useSortable: () => ({
+    attributes: {},
+    listeners: {},
+    setNodeRef: jest.fn(),
+    transform: null,
+    transition: null,
+    isDragging: false,
+  }),
+  verticalListSortingStrategy: jest.fn(),
+}));
+jest.mock('@dnd-kit/utilities', () => ({
+  CSS: { Transform: { toString: () => '' } },
 }));
 
 // Mock Raaghu components

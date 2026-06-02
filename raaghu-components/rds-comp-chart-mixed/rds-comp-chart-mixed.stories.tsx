@@ -1,6 +1,7 @@
 import RdsCompMixedChart from "./rds-comp-chart-mixed";
 import "./rds-comp-chart-mixed.scss";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Mixed Chart',
@@ -72,5 +73,9 @@ export const Default: Story = {
         controls: {
             exclude: ['chartStyle'],
         },
+    },
+    play: async ({ canvas }) => {
+        const chart = await canvas.findByRole('img');
+        await expect(chart).toBeInTheDocument();
     },
 };

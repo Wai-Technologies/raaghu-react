@@ -1,6 +1,7 @@
 import RdsCompBooleanChart from "./rds-comp-chart-boolean";
 import "./rds-comp-chart-boolean.scss";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Boolean Chart',
@@ -107,5 +108,9 @@ export const Default: Story = {
                     'chartStyle', 
             ],
         },
-     }, 
+     },
+    play: async ({ canvas }) => {
+        const chart = await canvas.findByRole('img');
+        await expect(chart).toBeInTheDocument();
+    },
 };

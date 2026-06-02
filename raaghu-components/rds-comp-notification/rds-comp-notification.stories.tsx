@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 import RdsCompNotification, {
     NotificationLayout,
     NotificationStyle,
@@ -78,7 +79,11 @@ export const Default: Story = {
                 description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.",
             }
         ]
-    }
+    },
+    play: async ({ canvas }) => {
+        const title = await canvas.findByText('Notification Title');
+        await expect(title).toBeInTheDocument();
+    },
 }
 
 Default.parameters = {

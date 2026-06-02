@@ -646,3 +646,40 @@ describe('RdsModal', () => {
     });
   });
 });
+
+describe('RdsModal — keyboard navigation', () => {
+  const onClose = jest.fn();
+
+  beforeEach(() => { onClose.mockClear(); });
+
+  it('closes on Escape key', async () => {
+    renderWithTheme(<RdsModal title="Escape Test" isOpen onClose={onClose} />);
+    await userEvent.keyboard('{Escape}');
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it('close button is reachable via Tab', async () => {
+    renderWithTheme(<RdsModal title="Tab Test" isOpen onClose={onClose} showCloseButton />);
+    await userEvent.tab();
+    expect(screen.getByLabelText('close')).toHaveFocus();
+  });
+
+  it('close button activates on Enter', async () => {
+    renderWithTheme(<RdsModal title="Enter Test" isOpen onClose={onClose} showCloseButton />);
+    screen.getByLabelText('close').focus();
+    await userEvent.keyboard('{Enter}');
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it('close button activates on Space', async () => {
+    renderWithTheme(<RdsModal title="Space Test" isOpen onClose={onClose} showCloseButton />);
+    screen.getByLabelText('close').focus();
+    await userEvent.keyboard(' ');
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it('does not show close button when closed', () => {
+    renderWithTheme(<RdsModal title="Closed" isOpen={false} onClose={onClose} />);
+    expect(screen.queryByLabelText('close')).not.toBeInTheDocument();
+  });
+});

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsAvatar from './rds-avatar';
 import { Person } from '@mui/icons-material';
+import { expect } from 'storybook/test';
 
 const meta: Meta<typeof RdsAvatar> = {
   title: 'Elements/Avatar',
@@ -86,6 +87,9 @@ export const Default: Story = {
         'src'
       ]
     },
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
 

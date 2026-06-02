@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import RdsAccordion from './rds-accordion';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -684,5 +685,49 @@ describe('RdsAccordion', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsAccordion — keyboard navigation', () => {
+  const defaultProps = {
+    title: 'Accordion Title',
+    children: <div>Accordion Content</div>,
+  };
+
+  it('summary is focusable via Tab', async () => {
+    render(<RdsAccordion {...defaultProps} />);
+    await userEvent.tab();
+    expect(document.activeElement?.getAttribute('role')).toBe('button');
+  });
+
+  it('expands on Enter key', async () => {
+    render(<RdsAccordion {...defaultProps} />);
+    const summary = screen.getByRole('button', { name: /accordion title/i });
+    summary.focus();
+    await userEvent.keyboard('{Enter}');
+    expect(screen.getByText('Accordion Content')).toBeInTheDocument();
+  });
+
+  it('expands on Space key', async () => {
+    render(<RdsAccordion {...defaultProps} />);
+    const summary = screen.getByRole('button', { name: /accordion title/i });
+    summary.focus();
+    await userEvent.keyboard(' ');
+    expect(screen.getByText('Accordion Content')).toBeInTheDocument();
+  });
+
+  it('collapses when expanded and Enter pressed again', async () => {
+    render(<RdsAccordion {...defaultProps} defaultExpanded />);
+    const summary = screen.getByRole('button', { name: /accordion title/i });
+    summary.focus();
+    await userEvent.keyboard('{Enter}');
+    const root = document.querySelector('.MuiAccordion-root');
+    expect(root).not.toHaveClass('Mui-expanded');
+  });
+
+  it('is not focusable when disabled', async () => {
+    render(<RdsAccordion {...defaultProps} disabled />);
+    const summary = screen.getByRole('button', { name: /accordion title/i });
+    expect(summary).toBeDisabled();
   });
 });

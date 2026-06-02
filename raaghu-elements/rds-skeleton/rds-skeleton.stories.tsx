@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSkeleton from './rds-skeleton';
 import { Card, CardContent } from '@mui/material';
+import { expect } from 'storybook/test';
 
 const meta: Meta<typeof RdsSkeleton> = {
   title: 'Elements/Skeleton',
@@ -51,6 +52,10 @@ export const Text: Story = {
     frames: 3,
     width: '100%',
     animated: true,
+  },
+  play: async ({ canvas }) => {
+    const skeleton = await canvas.findByRole('progressbar', { hidden: true });
+    await expect(skeleton).toBeInTheDocument();
   },
 };
 

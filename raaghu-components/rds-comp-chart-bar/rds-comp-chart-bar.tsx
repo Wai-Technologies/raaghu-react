@@ -9,6 +9,7 @@ export interface RdsCompBarChartProps {
     dataSets: any[];
     id: any;
     height?: string | number;
+    chartLabel?: string;
 }
 
 const RdsCompBarChart = (props: RdsCompBarChartProps) => {
@@ -72,7 +73,7 @@ const RdsCompBarChart = (props: RdsCompBarChartProps) => {
 
     return (
         <div className="rds-comp-chart-bar">
-            <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} />
+            <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Bar chart'} />
         </div>
     );
 };

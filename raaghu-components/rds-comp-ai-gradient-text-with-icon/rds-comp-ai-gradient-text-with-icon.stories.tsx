@@ -1,5 +1,6 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 import RdsCompAiGradientTextWithIcon from "./rds-comp-ai-gradient-text-with-icon";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
  
@@ -23,5 +24,8 @@ export const Default: Story = {
         title: "AI Pundit is creating some magic for you",
         showImage: true,
         showIcon: true,
+    },
+    play: async ({ canvasElement }) => {
+        await expect(canvasElement.firstChild).toBeTruthy();
     },
 }

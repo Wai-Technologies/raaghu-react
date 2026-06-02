@@ -9,6 +9,7 @@ export interface RdsCompPolarAreaChartProps {
     dataSets: any[];
     radius?: number;
     id: string;
+    chartLabel?: string;
 }
 
 const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
@@ -64,7 +65,7 @@ const RdsCompPolarAreaChart = (props: RdsCompPolarAreaChartProps) => {
 
     return (
         <div className="rds-comp-chart-polar-area-container">
-            <canvas id={CanvasId} ref={canvasRef} />
+            <canvas id={CanvasId} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Polar area chart'} />
         </div>
     );
 };

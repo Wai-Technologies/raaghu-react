@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompEmptyState from "./rds-comp-empty-state";
+import { expect } from 'storybook/test';
 
 
 const meta: Meta<typeof RdsCompEmptyState> = {
@@ -56,7 +57,10 @@ export const Standard: Story = {
     iconWidth: 150,
     buttonText: "Add New Data",
     isContinueAnimate: false,
-  
+
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
 

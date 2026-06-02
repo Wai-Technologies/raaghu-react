@@ -1,6 +1,7 @@
 import RdsCompAreaChart from "./rds-comp-chart-area";
 import { ScriptableContext } from "chart.js";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 
 
 const meta: Meta = {
@@ -152,6 +153,10 @@ export const Default: Story = {
                     'isGradient', 
             ],
         },
-     },    
+     },
+    play: async ({ canvas }) => {
+        const chart = await canvas.findByRole('img');
+        await expect(chart).toBeInTheDocument();
+    },
 };
 

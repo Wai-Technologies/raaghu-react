@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import { ProfileMenu } from './ProfileMenu';
 import RdsAppBar from './rds-app-bar';
 import { Button, IconButton, Avatar, Badge, Box, Divider, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, ListItemButton } from '@mui/material';
@@ -930,6 +931,9 @@ export const Default: Story = {
     userEmail: 'john.doe@example.com',
   },
   render: DynamicTemplate,
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
+  },
 };
 Default.parameters = { controls: { include: ['color', 'style', 'size', 'showMenuButton', 'userName', 'userEmail'] } };
 
