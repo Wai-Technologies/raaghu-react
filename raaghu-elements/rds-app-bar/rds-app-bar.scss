@@ -75,7 +75,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 }
  @media (min-width: 840px) {
     .rds-header--variant-withactions .rds-header__tabs-inline {
-      margin-right: 370px;
+      flex-shrink: 0;
     }
 }
 
@@ -265,11 +265,10 @@ $rds-app-bar-breakpoint-xs: 320px;
 
 @media (min-width: 834px) {
   .rds-header--variant-withactions {
-    //.rds-header__logo { order: 1; }
-    .rds-header__tabs-inline { order: 2; margin-left: var(--rds-spacing-sm); }
-    .rds-header__center-content { order: 3; display: inline-flex; align-items: center;  }
-    .rds-header__right-actions { order: 4; display: flex; align-items: center; margin-left: -18px; }
-    .rds-header__actions { order: 5; margin-left: auto; }
+    .rds-header__tabs-inline { order: 2; margin-left: var(--rds-spacing-sm); flex-shrink: 0; }
+    .rds-header__center-content { order: 3; display: inline-flex; align-items: center; margin-left: auto; }
+    .rds-header__right-actions { order: 4; display: flex; align-items: center; }
+    .rds-header__actions { order: 5; }
   }
 }
 
@@ -282,22 +281,30 @@ $rds-app-bar-breakpoint-xs: 320px;
     
     .rds-header__center-content {
       flex-shrink: 1;
-      gap: var(--rds-spacing-xs) !important;
-      margin-left: 20px !important;
-      
+      gap: 3px !important;
+      margin-left: auto !important;
+
       .MuiButton-root,
       .rds-button {
-        font-size: var(--rds-font-size-xs) !important; // 10px ? xs
-        padding: 4px 8px !important;
+        font-size: 10px !important;
+        padding: 2px 6px !important;
         min-width: auto !important;
+        min-height: 24px !important;
+        line-height: 1.2 !important;
         white-space: nowrap;
       }
     }
-    
-    .rds-header__left-actions {
-      .MuiIconButton-root {
-        padding: 6px !important;
-      }
+
+    .rds-header__actions {
+      flex-shrink: 0;
+    }
+
+    .rds-profile-menu__button .MuiBox-root,
+    .rds-profile-menu__button .rds-profile-menu__name-lg,
+    .rds-profile-menu__button .rds-profile-menu__email,
+    .rds-profile-menu__button .rds-profile-menu__chevron,
+    .rds-avatar__info {
+      display: none !important;
     }
   }
 }
@@ -309,19 +316,14 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
     
     .rds-header__center-content {
-      gap: calc(var(--rds-spacing-xs) / 2) !important;
-      margin-left: 30px !important;
-      
+      gap: 2px !important;
+
       .MuiButton-root,
       .rds-button {
-        font-size: var(--rds-font-size-xs) !important; // 9px ? xs (10px, closest token)
-        padding: 3px 6px !important;
-      }
-    }
-    
-    .rds-header__left-actions {
-      .MuiIconButton-root {
-        padding: 4px !important;
+        font-size: 9px !important;
+        padding: 2px 4px !important;
+        min-height: 22px !important;
+        line-height: 1.1 !important;
       }
     }
   }
@@ -1164,8 +1166,9 @@ $rds-app-bar-breakpoint-xs: 320px;
 }
 
 .rds-appbar-badge {
-  background: var(--rds-appbar-badge-bg);
-  color: var(--rds-appbar-badge-color);
+  background: var(--rds-appbar-badge-bg, rgba(25, 118, 210, 0.1));
+  color: var(--rds-appbar-badge-color, var(--rds-color-primary, #1976d2));
+  border: 1px solid currentColor;
   border-radius: var(--rds-border-radius-sm);
   padding: var(--rds-spacing-xs) calc(var(--rds-spacing-md) - var(--rds-spacing-xs));
   font-weight: 500;
@@ -2265,7 +2268,15 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   .rds-header--variant-withactions .rds-header__center-content {
     flex: 0 1 auto !important;
-    max-width: calc(100% - 300px) !important;
+    gap: 4px !important;
+    .MuiButton-root,
+    .rds-button {
+      padding: 3px 8px !important;
+      min-width: auto !important;
+      min-height: auto !important;
+      line-height: 1.4 !important;
+      white-space: nowrap;
+    }
   }
 
   .rds-header--variant-withactions .rds-appbar-actions-group {
