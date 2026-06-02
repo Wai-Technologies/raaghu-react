@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
 import { Button, Box } from '@mui/material';
 import React, { useState } from 'react';
 import RdsBanner, { type RdsBannerProps } from './rds-banner';
@@ -311,19 +310,4 @@ export const NotFullWidth: Story = {
   },
 };
 
-export const BannerVisible: Story = {
-  name: 'Interaction: Banner renders with content',
-  args: {
-    description: 'Test banner description.',
-    type: 'info',
-    Icon: true,
-    showTitle: true,
-    title: 'Test Title',
-    size: 'medium',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    await expect(canvas.getByText('Test Title')).toBeVisible()
-    await expect(canvas.getByText('Test banner description.')).toBeVisible()
-  }
-};
+

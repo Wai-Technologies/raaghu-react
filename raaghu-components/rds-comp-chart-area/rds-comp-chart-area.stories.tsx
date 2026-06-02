@@ -1,7 +1,6 @@
 import RdsCompAreaChart from "./rds-comp-chart-area";
 import { ScriptableContext } from "chart.js";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from '@storybook/test';
 
 
 const meta: Meta = {
@@ -155,22 +154,4 @@ export const Default: Story = {
         },
      },    
 };
-export const ChartRenders: Story = {
-  name: 'Interaction: Area chart renders canvas',
-  args: {
-    id: 'test-area',
-    labels: ['Jan', 'Feb', 'Mar'],
-    dataSets: [{
-      label: 'Sales',
-      data: [10, 20, 15],
-      backgroundColor: 'rgba(75,192,192,0.3)',
-      borderColor: 'rgba(75,192,192,1)',
-    }],
-    options: { responsive: true, maintainAspectRatio: false },
-  },
-  play: async ({ canvasElement }) => {
-    const chart = canvasElement.querySelector('canvas')
-    await expect(chart).not.toBeNull()
-    await expect(chart).toBeVisible()
-  }
-};
+

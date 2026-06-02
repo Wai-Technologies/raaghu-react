@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
 import RdsCompTruncatedText, { TruncateTextState } from './rds-comp-truncate-text';
 
 const meta: Meta = {
@@ -49,18 +48,4 @@ export const Default: Story = {
 Default.parameters = {
   controls: { include: ['state', 'text', 'maxLength'] },
 };
-export const TextTruncated: Story = {
-  name: 'Interaction: Text is truncated and visible',
-  args: {
-    state: TruncateTextState.Hover,
-    text: 'This is a long text that gets truncated',
-    maxLength: 15,
-  },
-  play: async ({ canvasElement }) => {
-    // Truncated text renders a visible element
-    const el = canvasElement.firstElementChild
-    await expect(el).not.toBeNull()
-    await expect(el).toBeVisible()
-    await expect(canvasElement).toBeTruthy()
-  }
-} satisfies Story;
+

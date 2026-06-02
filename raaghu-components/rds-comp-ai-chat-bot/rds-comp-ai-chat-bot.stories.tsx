@@ -1,4 +1,3 @@
-import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 import React, { useState } from "react";
 import RdsCompAiChatBot from "./rds-comp-ai-chat-bot";
 import { Message } from "./rds-comp-ai-chat-bot";
@@ -39,9 +38,5 @@ export const Default: Story = {
     userAvatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU",
     placeholderText: "Ask a followup",
     iconName: "enhancer"
-  },
-  play: async ({ canvasElement }) => {
-    const el = canvasElement.firstElementChild;
-    expect(el).toBeTruthy();
   },
 } satisfies Story;

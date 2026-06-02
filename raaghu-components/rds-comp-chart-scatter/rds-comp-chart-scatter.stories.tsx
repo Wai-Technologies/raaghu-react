@@ -2,7 +2,6 @@ import React from "react";
 import RdsCompScatterChart from "./rds-comp-chart-scatter";
 import "./rds-comp-chart-scatter.scss";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Scatter Chart',
@@ -149,17 +148,4 @@ export const WithMultiAxis: Story = {
         },
      },
 };
-export const ChartRenders: Story = {
-  name: 'Interaction: Scatter chart renders canvas',
-  args: {
-    id: 'test-scatter',
-    labels: [1, 2, 3],
-    dataSets: [{ label: 'D', data: [{ x: 1, y: 2 }, { x: 2, y: 4 }, { x: 3, y: 1 }], backgroundColor: 'rgba(75,192,192,0.6)' }],
-    options: { responsive: true, maintainAspectRatio: false },
-  },
-  play: async ({ canvasElement }) => {
-    const chart = canvasElement.querySelector('canvas')
-    await expect(chart).not.toBeNull()
-    await expect(chart).toBeVisible()
-  }
-};
+

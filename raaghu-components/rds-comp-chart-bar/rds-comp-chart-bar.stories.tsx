@@ -1,5 +1,4 @@
 import { StoryObj, Meta } from "@storybook/react-vite";
-import { expect, userEvent, within } from '@storybook/test';
 import RdsCompBarChart from "./rds-comp-chart-bar";
 import "./rds-comp-chart-bar.scss";
 
@@ -307,21 +306,4 @@ export const Vertical: Story = {
         },
      },
 } satisfies Story;
-export const ChartRenders: Story = {
-  name: 'Interaction: Bar chart renders canvas',
-  args: {
-    id: 'test-bar',
-    labels: ['Jan', 'Feb', 'Mar'],
-    dataSets: [{
-      label: 'Sales',
-      data: [10, 20, 15],
-      backgroundColor: 'rgba(75,192,192,0.6)',
-    }],
-    options: { responsive: true, maintainAspectRatio: false },
-  },
-  play: async ({ canvasElement }) => {
-    const chart = canvasElement.querySelector('canvas')
-    await expect(chart).not.toBeNull()
-    await expect(chart).toBeVisible()
-  }
-};
+

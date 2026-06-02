@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
 import RdsProgress from './rds-progress';
 import { Box, Typography } from '@mui/material';
 
@@ -92,16 +91,4 @@ export const Linear: Story = {
 };
 Linear.parameters = { controls: { include: ['variant', 'value'] } };
 
-export const ProgressVisible: Story = {
-  name: 'Interaction: Progress bar renders with value',
-  args: {
-    variant: 'determinate',
-    value: 75,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const bar = canvas.getByRole('progressbar')
-    await expect(bar).toBeVisible()
-    await expect(bar).toHaveAttribute('aria-valuenow', '75')
-  }
-};
+

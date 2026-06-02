@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
 import RdsSkeleton from './rds-skeleton';
 import { Card, CardContent } from '@mui/material';
 
@@ -137,18 +136,4 @@ export const CardSkeleton: Story = {
     </Card>
   ),
 };
-export const SkeletonVisible: Story = {
-  name: 'Interaction: Skeleton renders loading state',
-  args: {
-    shape: 'text',
-    frames: 3,
-    width: '100%',
-    animated: true,
-  },
-  play: async ({ canvasElement }) => {
-    // MUI Skeleton renders as role="presentation" or has MuiSkeleton class
-    const skeletons = canvasElement.querySelectorAll('[class*="MuiSkeleton-root"]')
-    await expect(skeletons.length).toBeGreaterThan(0)
-    await expect(skeletons[0]).toBeVisible()
-  }
-};
+

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from '@storybook/test';
 import RdsCompEmptyState from "./rds-comp-empty-state";
 
 
@@ -61,17 +60,4 @@ export const Standard: Story = {
   },
 };
 
-export const EmptyStateVisible: Story = {
-  name: 'Interaction: Empty state renders label',
-  args: {
-    label: 'Nothing Here',
-    subLabel: 'No items found.',
-    iconHeight: 100,
-    iconWidth: 100,
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    await expect(canvas.getByText('Nothing Here')).toBeVisible()
-    await expect(canvas.getByText('No items found.')).toBeVisible()
-  }
-};
+

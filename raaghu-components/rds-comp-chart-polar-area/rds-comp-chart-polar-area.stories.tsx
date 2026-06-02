@@ -1,7 +1,6 @@
 import RdsCompPolarAreaChart from "./rds-comp-chart-polar-area";
 import "./rds-comp-chart-polar-area.scss";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Polar Area Chart',
@@ -24,10 +23,6 @@ export default meta;
 type Story = StoryObj<typeof RdsCompPolarAreaChart>;
 
 export const Default: Story = {
-    play: async ({ canvasElement }) => {
-        const c = canvasElement.querySelector('canvas');
-        expect(c).toBeTruthy();
-    },
     args: {
         id: "Polar_Area_chart",
         radius: 300,

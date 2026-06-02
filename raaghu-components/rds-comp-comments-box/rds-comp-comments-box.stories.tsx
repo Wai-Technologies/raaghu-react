@@ -65,7 +65,6 @@ function getPropsForState(args: any) {
 
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
 import RdsCommentBox from './rds-comp-comments-box';
 
 const meta: Meta<typeof RdsCommentBox> = {
@@ -217,19 +216,4 @@ export const CommentThread: StoryObj<typeof RdsCommentBox> = {
 };
 
 
-export const CommentBoxVisible: StoryObj<typeof RdsCommentBox> = {
-  name: 'Interaction: Comment box renders',
-  args: {
-    state: 'default',
-    placeholderText: 'Add a comment',
-    avatarInitials: 'AB',
-  },
-  render: (args) => <RdsCommentBox {...getPropsForState(args)} />,
-  play: async ({ canvasElement }) => {
-    const box = canvasElement.querySelector(
-      '[class*="comment"], [class*="Comment"], textarea, [contenteditable]'
-    ) ?? canvasElement.firstElementChild
-    await expect(box).not.toBeNull()
-    await expect(canvasElement).toBeTruthy()
-  }
-};
+

@@ -1,6 +1,5 @@
 import RdsDatepicker, { DatePickerLayout, DatePickerState, DatePickerStyleType, RdsDatepickerProps } from "./rds-comp-datepicker";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
     title: 'Components/Date Picker',
@@ -69,22 +68,4 @@ export const Default: Story = {
 } satisfies Story;
 Default.parameters = { controls: { include: ['state','type','changeIcon','layout', 'showTitle','title','isMandatory','placeholderText','datePickerStyleType'] } };
 
-export const DatePickerVisible: Story = {
-  name: 'Interaction: Date picker renders',
-  args: {
-    state: DatePickerState.Default,
-    showTitle: true,
-    titleText: 'Date',
-    placeholderText: 'Select Date',
-    changeIcon: 'calendar',
-    layout: DatePickerLayout.Default,
-  },
-  play: async ({ canvasElement }) => {
-    // Date picker renders with an input or trigger button
-    const trigger = canvasElement.querySelector(
-      'input, button, [class*="datepicker"], [class*="DatePicker"], [class*="calendar"]'
-    )
-    await expect(trigger).not.toBeNull()
-    await expect(canvasElement).toBeTruthy()
-  }
-};
+

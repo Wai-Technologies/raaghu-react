@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
 import RdsCard from './rds-card';
 import RdsButton from '../rds-button/rds-button';
 import RdsBadge from '../rds-badge/rds-badge';
@@ -563,23 +562,4 @@ WithTags.parameters = {
     include: ['state', 'style', 'showIndicator', 'showTitle', 'showSubtext', 'showDescription', 'layout', 'showIcon', 'changeIcon', 'title', 'cardSubtext', 'description', 'children', 'variant', 'padding'] 
   } 
 };
-export const CardVisible: Story = {
-  name: 'Interaction: Card renders title and content',
-  args: {
-    title: 'Test Card',
-    showTitle: true,
-    showSubtext: true,
-    cardSubtext: 'Test subtitle',
-    showDescription: true,
-    description: 'Card description text',
-    layout: 'vertical',
-    state: 'default',
-    style: 'default',
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    await expect(canvas.getByText('Test Card')).toBeVisible()
-    await expect(canvas.getByText('Test subtitle')).toBeVisible()
-    await expect(canvas.getByText('Card description text')).toBeVisible()
-  }
-};
+

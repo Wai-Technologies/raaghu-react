@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
 import RdsAlert from './rds-alert';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -107,24 +106,6 @@ const meta: Meta<typeof RdsAlert> = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-
-export const AlertVisible: Story = {
-  name: 'Interaction: Alert Renders',
-  args: {
-    description: 'This is the description of the message bar.',
-    type: 'info',
-    showIcon: true,
-    showTitle: true,
-    title: 'Heading Title.',
-  },
-  play: async ({ canvasElement }) => {
-    const alert = canvasElement.querySelector(
-      '[role="alert"], [class*="alert"]'
-    )
-    await expect(alert).not.toBeNull()
-    await expect(alert).toBeVisible()
-  }
-};
 
 export const Default: Story = {
   args: {

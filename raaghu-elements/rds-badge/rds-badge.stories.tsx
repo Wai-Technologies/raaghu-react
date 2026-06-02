@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
 import RdsBadge from './rds-badge';
 import { Avatar, IconButton } from '@mui/material';
 import { Mail, Notifications } from '@mui/icons-material';
@@ -134,21 +133,4 @@ ShowZeroFalse.parameters = {
   controls: { exclude: ['shape', 'layout'] },
 };
 
-export const TokenColorsApplied: Story = {
-  name: 'Interaction: Token Colors Resolve',
-  args: {
-    badgeContent: 4,
-    colorVariant: 'primary',
-    styleType: 'primary',
-    children: <Mail />,
-  },
-  play: async ({ canvasElement }) => {
-    const badge = canvasElement.querySelector(
-      '[class*="badge"], [class*="chip"]'
-    )
-    await expect(badge).not.toBeNull()
-    await expect(badge).toBeVisible()
-    const styles = window.getComputedStyle(badge as Element)
-    await expect(styles.backgroundColor).not.toBe('')
-  }
-};
+

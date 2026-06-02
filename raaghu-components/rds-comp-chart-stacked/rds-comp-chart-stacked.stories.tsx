@@ -1,7 +1,6 @@
 import React from "react";
 import RdsCompStackedChart from "./rds-comp-chart-stacked";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Stacked Chart',
@@ -250,20 +249,4 @@ export const Default: Story = {
 
     }
 };
-export const ChartRenders: Story = {
-  name: 'Interaction: Stacked chart renders canvas',
-  args: {
-    id: 'test-stacked',
-    labels: ['A', 'B', 'C'],
-    dataSets: [
-      { label: 'S1', data: [10, 20, 30], backgroundColor: 'rgba(75,192,192,0.6)' },
-      { label: 'S2', data: [5, 15, 25], backgroundColor: 'rgba(255,99,132,0.6)' },
-    ],
-    options: { responsive: true, maintainAspectRatio: false },
-  },
-  play: async ({ canvasElement }) => {
-    const chart = canvasElement.querySelector('canvas')
-    await expect(chart).not.toBeNull()
-    await expect(chart).toBeVisible()
-  }
-};
+

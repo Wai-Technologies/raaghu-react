@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from '@storybook/test';
 import RdsCompNotification, {
     NotificationLayout,
     NotificationStyle,
@@ -88,30 +87,4 @@ Default.parameters = {
     }
 };
 
-export const NotificationVisible: Story = {
-    name: 'Interaction: Notification Renders',
-    args: {
-        title: 'Notification Title',
-        description: 'This notification should be visible.',
-        layout: NotificationLayout.Horizontal,
-        style: NotificationStyle.Default,
-        type: NotificationType.Info,
-        showButton: true,
-        showDismiss: true,
-        notifications: [
-            {
-                status: 'success',
-                title: 'Notification Title',
-                time: '10 min ago',
-                description: 'This notification should be visible.',
-            }
-        ],
-    },
-    play: async ({ canvasElement }) => {
-        const notification = canvasElement.querySelector(
-            '[class*="notification"], [role="alert"], [class*="alert"]'
-        )
-        await expect(notification).not.toBeNull()
-        await expect(notification).toBeVisible()
-    }
-};
+

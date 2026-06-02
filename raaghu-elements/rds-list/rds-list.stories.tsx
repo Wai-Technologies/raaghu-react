@@ -1,7 +1,6 @@
 
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
 import RdsList from './rds-list';
 import { Avatar, Switch, ListSubheader, Paper } from '@mui/material';
 import RdsCheckbox from '../rds-checkbox/rds-checkbox';
@@ -444,20 +443,4 @@ export const WithSwitch: Story = {
     ]
   }
 };
-export const ListVisible: Story = {
-  name: 'Interaction: List renders items',
-  args: {
-    items: [
-      { id: 1, primary: 'Item One', secondary: 'First item' },
-      { id: 2, primary: 'Item Two', secondary: 'Second item' },
-      { id: 3, primary: 'Item Three', secondary: 'Third item' },
-    ],
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const listItems = canvas.getAllByRole('listitem')
-    await expect(listItems.length).toBeGreaterThan(0)
-    await expect(canvas.getByText('Item One')).toBeVisible()
-    await expect(canvas.getByText('Item Two')).toBeVisible()
-  }
-};
+

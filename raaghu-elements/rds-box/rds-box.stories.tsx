@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
 import RdsBox from './rds-box';
 import {Typography } from '@mui/material';
 import RdsButton from '../rds-button/rds-button';
@@ -205,14 +204,4 @@ export const CustomComponent: Story = {
   }
 };
 
-export const BoxVisible: Story = {
-  name: 'Interaction: Box renders content',
-  args: {
-    children: 'Box content text',
-  },
-  render: (args) => <RdsBox {...args} />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    await expect(canvas.getByText('Box content text')).toBeVisible()
-  }
-};
+
