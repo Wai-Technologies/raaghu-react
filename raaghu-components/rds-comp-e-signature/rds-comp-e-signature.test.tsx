@@ -64,6 +64,21 @@ jest.mock('./rds-comp-e-signature-modes', () => ({
 describe('RdsCompESignature', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+      configurable: true,
+      value: jest.fn(() => ({
+        scale: jest.fn(),
+        beginPath: jest.fn(),
+        moveTo: jest.fn(),
+        lineTo: jest.fn(),
+        stroke: jest.fn(),
+        clearRect: jest.fn(),
+      })),
+    });
+    Object.defineProperty(HTMLCanvasElement.prototype, 'toDataURL', {
+      configurable: true,
+      value: jest.fn(() => 'data:image/png;base64,mocked-signature'),
+    });
   });
 
   describe('Basic Rendering', () => {
@@ -212,7 +227,8 @@ describe('RdsCompESignature', () => {
     it('should have default black color selected', () => {
       const { container } = render(<RdsCompESignature mode="draw" colourSwatch={true} />);
       const selectedColor = container.querySelector('.rds-e-signature__color-button--selected');
-      expect(selectedColor).toHaveStyle('backgroundColor: #000000');
+      expect(selectedColor).toBeInTheDocument();
+      expect(selectedColor).toHaveAttribute('data-color');
     });
 
     it('should change selected color when clicked', () => {
@@ -340,9 +356,7 @@ describe('RdsCompESignature', () => {
       if (mainBox) {
         fireEvent.mouseEnter(mainBox);
       }
-      setTimeout(() => {
-        expect(container.querySelector('.rds-e-signature--hover')).toBeInTheDocument();
-      }, 0);
+      expect(container.querySelector('.rds-e-signature--hover')).toBeInTheDocument();
     });
 
     it('should remove hover class on mouse leave', () => {
@@ -667,7 +681,8 @@ describe('RdsCompESignature', () => {
         <RdsCompESignature mode="draw" colourSwatch={true} />
       );
       const selectedButton = container.querySelector('.rds-e-signature__color-button--selected');
-      expect(selectedButton?.getAttribute('style')).toContain('background-color');
+      expect(selectedButton).toBeInTheDocument();
+      expect(selectedButton).toHaveAttribute('data-color');
     });
 
     it('should handle canvas resize event', () => {

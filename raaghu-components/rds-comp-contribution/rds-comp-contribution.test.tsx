@@ -80,11 +80,12 @@ describe('RdsCompContribution', () => {
       expect(container.firstChild).toBeNull();
     });
 
-    test('should return null if weekNames is missing', () => {
+    test('should render without week labels if weekNames is missing', () => {
       const { container } = render(
         <RdsCompContribution {...defaultProps} weekNames={undefined} />
       );
-      expect(container.firstChild).toBeNull();
+      expect(container.firstChild).not.toBeNull();
+      expect(container.querySelector('.rds-comp-contribution__text--week')).not.toBeInTheDocument();
     });
 
     test('should return null if values is missing', () => {

@@ -15,7 +15,7 @@ const meta: Meta<typeof RdsCompAudioPlayer> = {
     },
 }
     },
-    tags: ['autodocs', 'beta'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
             type: {
                 control: 'select',

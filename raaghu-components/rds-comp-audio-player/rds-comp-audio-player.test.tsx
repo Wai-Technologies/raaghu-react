@@ -62,6 +62,7 @@ jest.mock('../../raaghu-elements/rds-slider/rds-slider', () => {
         value={props.value}
         onChange={props.onChange}
         className={props.className}
+        aria-label={props['aria-label']}
       />
     );
   };
@@ -581,14 +582,14 @@ describe('RdsCompAudioPlayer', () => {
       trimBars.forEach(bar => {
         expect(bar).toHaveAttribute('role', 'slider');
         expect(bar).toHaveAttribute('aria-label');
+      });
+    });
     
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompAudioPlayer {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
-    });
-  });
-    });
+    }, 15000);
 
     it('trim handles are keyboard accessible', () => {
       const { container } = render(

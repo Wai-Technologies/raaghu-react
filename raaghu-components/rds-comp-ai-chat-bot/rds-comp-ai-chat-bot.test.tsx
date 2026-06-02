@@ -76,6 +76,7 @@ jest.mock('../rds-comp-ai-typing-section/rds-comp-ai-typing-section', () => {
           data-testid="image-input"
           type="file"
           accept="image/*"
+          aria-label="Upload image"
           onChange={(e: any) => {
             const file = e.target.files?.[0];
             if (file) {
@@ -424,13 +425,13 @@ describe('RdsCompAiChatBot', () => {
       expect(container.querySelector('.rds-ai-chat-bot')).toBeInTheDocument();
       expect(container.querySelector('.rds-ai-chat-bot__messages')).toBeInTheDocument();
       expect(container.querySelector('.rds-ai-chat-bot__input-wrapper')).toBeInTheDocument();
+    });
   
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompAiChatBot {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('input field is properly labeled with placeholder', () => {
       render(<RdsCompAiChatBot {...defaultProps} />);

@@ -378,13 +378,13 @@ describe('RdsCompAiAttachement', () => {
       render(<RdsCompAiAttachement {...defaultProps} />);
       const buttons = screen.getAllByRole('button');
       expect(buttons.length).toBeGreaterThan(0);
+    });
   
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompAiAttachement {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
   });
 
   describe('Edge Cases', () => {

@@ -447,13 +447,13 @@ describe('RdsCompAiMessageBox', () => {
       const { container } = render(<RdsCompAiMessageBox isImage={true} />);
       const image = container.querySelector('.rds-comp-ai-message-box__image') as HTMLImageElement;
       expect(image.alt).toBe('message image');
+    });
   
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompAiMessageBox {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('renders avatar with alt text from props', () => {
       render(<RdsCompAiMessageBox {...defaultProps} />);

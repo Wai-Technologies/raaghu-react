@@ -23,7 +23,7 @@ export interface RdsVideoPlayerProps {
 
 const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
     width = "100%",
-    height = "100%",
+    height = "auto",
     autoplay = false,
     muted = false,
     videoLink,
@@ -97,11 +97,11 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
                 {React.createElement(ReactPlayer as any, {
                     key: `${formattedUrl}`,
                     url: formattedUrl,
-                    width: "100%",
-                    height: "100%",
+                    width: width,
+                    height: height,
                     playing: autoplay && !disabled,
                     muted: muted,
-                    controls: (!isYouTubeUrl && !isVimeoUrl) ? controls : undefined,
+                    controls: controls,
                     volume: volume,
                     config: getPlayerConfig(),
                     className: "rds-comp-video-player__player",

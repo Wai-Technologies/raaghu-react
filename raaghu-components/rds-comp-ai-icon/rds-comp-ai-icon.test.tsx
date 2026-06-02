@@ -532,13 +532,13 @@ describe('RdsCompAiIcon', () => {
       const { container } = render(<RdsCompAiIcon {...defaultProps} />);
       const icon = getIcon(container);
       expect(icon?.tagName).toBe('svg');
+    });
   
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompAiIcon {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('supports aria-controls attribute for accessibility', () => {
       const { container } = render(

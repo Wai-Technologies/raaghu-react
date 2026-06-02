@@ -8,7 +8,7 @@ const meta: Meta<typeof RdsCompAiTypingSection> = {
 	parameters: {
 		layout: 'padded',
 	},
-	tags: ['autodocs', 'beta'],
+	tags: ['autodocs', 'stable'],
 	argTypes: {
 		iconName: {
 			table: { disable: true },

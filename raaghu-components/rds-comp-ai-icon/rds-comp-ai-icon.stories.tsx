@@ -9,7 +9,7 @@ const meta: Meta = {
     parameters: {
         layout: 'padded',
     },
-    tags: ['autodocs', 'beta'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         colorVariant: {
             options: ["primary", "success", "danger", "warning", "light", "info", "secondary", "dark"],

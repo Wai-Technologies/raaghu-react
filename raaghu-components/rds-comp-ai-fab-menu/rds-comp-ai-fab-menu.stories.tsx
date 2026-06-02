@@ -16,7 +16,7 @@ const meta: Meta = {
             </div>
         )
     ],
-    tags: ['autodocs', 'beta'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         colorVariant: {
             options: [

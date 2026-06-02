@@ -35,7 +35,7 @@ jest.mock('react-player', () => {
         data-config={JSON.stringify(config)}
         data-width={width}
         data-height={height}
-        data-style={JSON.stringify(style)}
+        data-style={JSON.stringify(style || { width, height })}
         className={className}
       >
         Video Player
@@ -370,11 +370,11 @@ describe('RdsCompVideoPlayer', () => {
       expect(style.height).toBe(600);
     });
 
-    it('should always render player with 100% width', () => {
+    it('should render player with default dimensions', () => {
       render(<RdsCompVideoPlayer {...defaultProps} />);
       const player = screen.getByTestId('react-player');
       expect(player).toHaveAttribute('data-width', '100%');
-      expect(player).toHaveAttribute('data-height', '100%');
+      expect(player).toHaveAttribute('data-height', 'auto');
     });
   });
 

@@ -108,6 +108,7 @@ const RdsCompAiAttachement = (props: RdsCompAiAttachementProps) => {
                 className="rds-comp-ai-attachement__file-input"
                 style={{ display: "none" }}
                 onChange={handleFileUpload}
+                aria-label="Upload attachment"
             />
 
             <div className="rds-comp-ai-attachement__dropdown">

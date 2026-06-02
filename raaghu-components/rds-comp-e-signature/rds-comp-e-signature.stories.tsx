@@ -13,7 +13,7 @@ const meta: Meta<typeof RdsCompESignature> = {
       },
     },
   },
-  tags: ['autodocs', 'beta'],
+  tags: ['autodocs', 'stable'],
   argTypes: {
     mode: {
       control: 'select',

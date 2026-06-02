@@ -1,7 +1,9 @@
 import { Navigate, type RouteObject } from 'react-router-dom';
 import HomePage from '@/pages/HomePage';
+import DashboardPage from '@/pages/DashboardPage';
 
 export const routes: RouteObject[] = [
   { path: '/', element: <HomePage /> },
-  { path: '*', element: <Navigate to="/" replace /> },
+  { path: '/dashboard', element: <DashboardPage /> },
+  { path: '*', element: <Navigate to="/dashboard" replace /> },
 ];

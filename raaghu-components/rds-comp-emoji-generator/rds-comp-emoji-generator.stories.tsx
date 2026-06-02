@@ -16,7 +16,7 @@ const meta: Meta = {
             }
         }
     },
-    tags: ['autodocs', 'beta'],
+    tags: ['autodocs', 'stable'],
     argTypes: {
         Type: {
             options: Object.values(EmojiGeneratorType),

@@ -181,7 +181,7 @@ describe('RdsCompAiFabMenu', () => {
 
     it('renders list items with correct role', () => {
       render(<RdsCompAiFabMenu {...defaultProps} />);
-      const items = screen.getAllByRole('link');
+      const items = screen.getAllByRole('menuitem');
       expect(items.length).toBeGreaterThanOrEqual(defaultListItems.length);
     });
 
@@ -204,7 +204,7 @@ describe('RdsCompAiFabMenu', () => {
         icon: 'list',
       }));
       render(<RdsCompAiFabMenu listItems={manyItems} />);
-      const items = screen.getAllByRole('link');
+      const items = screen.getAllByRole('menuitem');
       expect(items.length).toBe(20);
     });
 
@@ -440,13 +440,13 @@ describe('RdsCompAiFabMenu', () => {
       render(<RdsCompAiFabMenu {...defaultProps} />);
       const button = screen.getByTestId('fab-menu-btn');
       expect(button).toHaveAttribute('type', 'button');
+    });
   
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompAiFabMenu {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('has proper role attribute on dropdown', () => {
       const { container } = render(<RdsCompAiFabMenu {...defaultProps} />);
@@ -454,9 +454,9 @@ describe('RdsCompAiFabMenu', () => {
       expect(dropdown).toBeInTheDocument();
     });
 
-    it('list items have link role', () => {
+    it('list items have menuitem role', () => {
       render(<RdsCompAiFabMenu {...defaultProps} />);
-      const items = screen.getAllByRole('link');
+      const items = screen.getAllByRole('menuitem');
       expect(items.length).toBeGreaterThan(0);
     });
 

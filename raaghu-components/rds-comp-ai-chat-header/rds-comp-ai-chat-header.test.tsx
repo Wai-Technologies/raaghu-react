@@ -349,13 +349,13 @@ describe('RdsCompAiChatHeader', () => {
       render(<RdsCompAiChatHeader {...defaultProps} />);
       const heading = screen.getByRole('heading', { level: 3 });
       expect(heading).toBeInTheDocument();
+    });
   
     it('has no axe accessibility violations', async () => {
       const { container } = render(<RdsCompAiChatHeader {...defaultProps} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
-  });
 
     it('logo has proper alt text', () => {
       render(<RdsCompAiChatHeader {...defaultProps} />);

@@ -103,6 +103,7 @@ const RdsCompAiTypingSection: React.FC<RdsCompAiTypingSectionProps> = ({
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             title="Enter your prompt here"
+            aria-label="Prompt input"
           />
           {!inputText && (
             <span className="rds-comp-ai-typing-section__input-icon">

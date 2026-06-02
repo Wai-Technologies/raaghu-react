@@ -115,9 +115,10 @@ const RdsCompAiFabMenu = (props: RdsCompAiFabMenuProps) => {
                     {props.listItems.map((listItem) => (
                         <a 
                             key={listItem.key} 
-                            role="link"  
+                            role="menuitem"
                             className={`rds-fab-menu__item ${props.id === "attachment-text" ? 'rds-fab-menu__item--compact' : ''}`}
                             onClick={handleItemClick(listItem.onClick)}
+                            tabIndex={0}
                         >
                             <RdsCompAiIcon 
                                 name={listItem.icon} 

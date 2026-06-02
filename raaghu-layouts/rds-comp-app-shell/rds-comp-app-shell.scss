@@ -67,6 +67,7 @@
     width: 100%;
     position: relative;
     z-index: var(--rds-z-index-layer-1);
+    overflow-y: auto;
     
     > .rds-appshell-appbar {
       position: relative;
