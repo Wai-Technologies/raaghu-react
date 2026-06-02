@@ -1088,7 +1088,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       display: flex;
       flex-direction: column;
       height: 100vh;
-      padding-top: 68px;
       
       > div:first-child {
         display: block;
@@ -1195,7 +1194,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       .tripane-toolbar-content {
         height: 100%;
         overflow-y: auto;
-        padding-top: 68px;
       }
     }
     
@@ -1500,8 +1498,17 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
     .rds-header__toolbar .MuiIconButton-root[aria-label="menu"] {
       display: none !important;
     }
+
+    .sidebar-layout {
+      position: relative !important;
+      transform: none !important;
+      width: auto !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      z-index: var(--rds-z-index-layer-1) !important;
+    }
   }
-  
+
   .top-nav {
     .MuiTabs-root,
     .rds-header__navigation,
@@ -1586,21 +1593,30 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       right: 0 !important;
       z-index: var(--rds-z-index-toast, 1700) !important;
       box-shadow: var(--rds-elevation-3) !important;
-      background: transparent !important;
+      background: var(--rds-surface-primary, #ffffff) !important;
       display: flex !important;
-      
+
       .MuiTab-root.Mui-selected,
       .MuiBottomNavigationAction-root.Mui-selected {
         color: var(--rds-color-primary) !important;
         font-weight: 600 !important;
       }
-      
+
       .MuiTabs-indicator {
         background-color: var(--rds-color-primary) !important;
         height: 3px !important;
       }
     }
-    
+
+    // Higher-specificity rule to override .rds-footer-navigation:not(:first-of-type) { display: none }
+    // from the @media (max-width: 900px) block which has specificity (0,3,0).
+    .topnav-layout .MuiBottomNavigation-root,
+    .topnav-layout .rds-footer-navigation {
+      display: flex !important;
+      background: var(--rds-surface-primary, #ffffff) !important;
+      border-top: 1px solid var(--rds-border-default) !important;
+    }
+
     .doublenav-mobile-content,
     .tripane-mobile-content {
       position: absolute !important;
@@ -1611,7 +1627,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       margin: 0 !important;
       padding: 0 !important;
       overflow-y: auto !important;
-      
+
       .rds-appshell-add-layout-flex-center {
         width: 100% !important;
         height: 100% !important;
@@ -2065,7 +2081,6 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       .tripane-toolbar-content {
         height: 100%;
         overflow-y: auto;
-        padding-top: 68px;
         padding-left: var(--rds-spacing-md);
         padding-right: var(--rds-spacing-md);
       }
@@ -2166,6 +2181,7 @@ nav#sidebar.bd-links.text-capitalize.sidebar.overflow-x-hidden.overflow-y-auto.p
       bottom: 0 !important;
       width: 120px !important;
       z-index: var(--rds-z-index-raised) !important;
+      display: block !important;
     }
     
     .topnav-layout {
