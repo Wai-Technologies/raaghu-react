@@ -1,6 +1,6 @@
 import RdsTextArea, { TextareaState, TextareaStyle } from "./rds-text-area";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 
 const meta: Meta<typeof RdsTextArea> = {
     title: 'Elements/Text Area',

@@ -1,7 +1,7 @@
 import React from "react";
 import RdsCompTextEditor from "./rds-comp-text-editor";
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Text Editor',

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn } from '@storybook/test';
+import { expect, userEvent, within, fn } from 'storybook/test';
 import RdsIconButton from './rds-icon-button';
 import { 
   Favorite, 

@@ -1,5 +1,5 @@
 
-import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
 import RdsTable from './rds-table';

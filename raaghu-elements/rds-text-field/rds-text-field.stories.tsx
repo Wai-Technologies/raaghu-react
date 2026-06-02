@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 import RdsTextField from './rds-text-field';
 import { Email, Lock, Search } from '@mui/icons-material';
 import { InputAdornment } from '@mui/material';

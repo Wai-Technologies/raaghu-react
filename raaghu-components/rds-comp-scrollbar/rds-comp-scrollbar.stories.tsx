@@ -1,5 +1,5 @@
 import React from "react";
-import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import { Meta, StoryFn, StoryObj } from "@storybook/react-vite";
 import RdsScrollBar, { ScrollBarType, ScrollPosition } from "./rds-comp-scrollbar";
  import { ArrowDropDown, ArrowDropUp} from "@mui/icons-material";

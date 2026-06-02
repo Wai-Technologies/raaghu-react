@@ -1,4 +1,4 @@
-import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Typography } from '@mui/material';
 import './rds-stack.scss';

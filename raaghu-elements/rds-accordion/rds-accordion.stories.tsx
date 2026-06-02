@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 import RdsAccordion from './rds-accordion';
 import RdsTypography from '../rds-typography/rds-typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';

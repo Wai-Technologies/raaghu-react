@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import RdsCompCodeSnippet from './rds-comp-code-snippet';
 
 const sampleCodeSnippets = {
@@ -122,6 +123,9 @@ export const Default: Story = {
     type: "multiLine",
     codeLines: false,
     sampleCodeSnippets,
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
 

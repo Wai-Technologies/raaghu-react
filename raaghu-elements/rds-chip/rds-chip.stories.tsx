@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, fn } from '@storybook/test';
+import { expect, userEvent, within, fn } from 'storybook/test';
 import RdsChip from './rds-chip';
 import { Face, Delete, Done } from '@mui/icons-material';
 

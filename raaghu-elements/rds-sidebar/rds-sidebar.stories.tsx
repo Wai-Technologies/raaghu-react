@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsSidebar from './rds-sidebar';
 import { Button, Box } from '@mui/material';

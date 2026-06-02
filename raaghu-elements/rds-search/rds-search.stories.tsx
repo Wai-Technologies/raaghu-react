@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 import { Box, useMediaQuery } from '@mui/material';
 import React, { useState } from 'react';
 import RdsSearch from './rds-search';
