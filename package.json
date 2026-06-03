@@ -100,7 +100,9 @@
     "clean:install": "bun run clean && bun install",
     "type-check": "bun run tsc --noEmit",
     "type-check:all": "tsc --noEmit --project tsconfig.library.json",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test:visual:all": "playwright test tests/specs/visual/branch-compare.spec.ts --grep \"all Default\"",
+    "test:visual:all:update": "playwright test tests/specs/visual/branch-compare.spec.ts --grep \"all Default\" --update-snapshots"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
