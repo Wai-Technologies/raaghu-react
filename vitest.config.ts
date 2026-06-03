@@ -49,5 +49,27 @@ export default defineConfig({
       './.storybook/vitest.setup.ts',
       './vitest.setup.ts',
     ],
+    coverage: {
+      provider: 'istanbul',
+      reporter: ['text', 'lcov', 'html'],
+      include: [
+        'raaghu-elements/**/*.{ts,tsx}',
+        'raaghu-components/**/*.{ts,tsx}',
+        'raaghu-layouts/**/*.{ts,tsx}',
+      ],
+      exclude: [
+        '**/*.stories.{ts,tsx}',
+        '**/*.test.{ts,tsx}',
+        '**/*.spec.{ts,tsx}',
+        '**/node_modules/**',
+        '**/index.ts',
+      ],
+      thresholds: {
+        statements: 60,
+        branches: 50,
+        functions: 60,
+        lines: 60,
+      },
+    },
   },
 });

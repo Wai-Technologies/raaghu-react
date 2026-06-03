@@ -127,6 +127,9 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
   if (!values || !until) {
     return null;
   }
+  if (!contributions) {
+    return null;
+  }
   const renderWeekLabels = () => {
     if (!showWeekLabels) return null;
     if (!weekNames || weekNames.length < 7) return null;
