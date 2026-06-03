@@ -7,6 +7,7 @@ const meta: Meta = {
     title: 'Components/Charts/Line Chart',
     component: RdsCompLineChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             description: {

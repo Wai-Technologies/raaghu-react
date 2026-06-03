@@ -8,6 +8,7 @@ const meta: Meta = {
   title: 'Components/Off Canvas',
   component: RdsCompOffcanvas,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     docs: {
       description: {

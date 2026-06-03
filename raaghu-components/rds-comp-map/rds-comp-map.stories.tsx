@@ -6,6 +6,7 @@ const meta: Meta = {
     title: 'Components/Map',
     component: RdsCompMap,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs: {
             description: {

@@ -563,7 +563,7 @@ describe('RdsProgress', () => {
       const { rerender } = renderWithTheme(
         <RdsProgress style="line" value={50} variant="determinate" />
       );
-      let lineProgress = document.querySelector('.rds-progress--line');
+      const lineProgress = document.querySelector('.rds-progress--line');
       expect(lineProgress).toBeInTheDocument();
 
       rerender(

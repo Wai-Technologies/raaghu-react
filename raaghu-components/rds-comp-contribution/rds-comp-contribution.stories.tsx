@@ -6,6 +6,7 @@ const meta: Meta<typeof RdsCompContribution> = {
   title: "Components/Contribution",
   component: RdsCompContribution,
   parameters: {
+        status: { type: 'stable' },
     layout: "padded",
     docs: {
       description: {

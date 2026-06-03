@@ -146,7 +146,7 @@
   }
 
   &__slider-container {
-    margin: 6px 0;
+    margin: var(--rds-spacing-compact) 0;
     position: relative;
     
     .hue-horizontal {
@@ -185,7 +185,7 @@
     border: none;
     padding: 0;
     min-width: 70px;
-    gap: 6px;
+    gap: var(--rds-spacing-compact);
     position: relative;
     z-index: var(--rds-z-index-layer-2);
     
@@ -453,7 +453,7 @@
   }
   &__mode-switcher {
     display: flex;
-    gap: 10px;
+    gap: var(--rds-spacing-cozy);
     margin-top: var(--rds-spacing-sm);
   }
   
@@ -466,7 +466,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2px;
+    padding: var(--rds-spacing-xxs);
     
     &--active {
       border: 2px solid var(--rds-color-primary, #1976d2);
@@ -504,7 +504,7 @@
   
   &__gradient-btn {
     flex: 1;
-    padding: 6px 12px;
+    padding: var(--rds-spacing-compact) var(--rds-spacing-3);
     border-radius: var(--rds-border-radius, 4px);
     border: 1px solid var(--rds-color-outline, #e0e0e0);
     background-color: var(--rds-color-surface, #fff);

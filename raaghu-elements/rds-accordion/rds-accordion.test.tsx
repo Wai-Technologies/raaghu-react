@@ -283,7 +283,7 @@ describe('RdsAccordion', () => {
       const summary = container.querySelector('.rds-accordion__summary');
       fireEvent.click(summary!);
 
-      let collapse = container.querySelector('.MuiCollapse-root');
+      const collapse = container.querySelector('.MuiCollapse-root');
       expect(collapse).toHaveClass('MuiCollapse-hidden');
     });
   });

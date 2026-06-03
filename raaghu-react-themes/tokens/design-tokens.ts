@@ -277,6 +277,19 @@ export const spacingExact = {
   xl: '32px',
   '2xl': '48px',
   '3xl': '64px',
+  // Sub-token fills (gaps between named sizes, present in legacy SCSS)
+  micro: '3px',
+  tight: '5px',
+  compact: '6px',
+  cozy: '10px',
+  // Exact oddball values (legacy SCSS only — avoid in new components)
+  '7': '7px',
+  '13': '13px',
+  '14': '14px',
+  '15': '15px',
+  '18': '18px',
+  '22': '22px',
+  '52': '52px',
 } as const;
 
 // Border Radius Tokens
@@ -361,7 +374,7 @@ export const breakpointTokens = {
 
 // Component Tokens
 // The `& Record<string, any>` allows dynamic property assignment after declaration
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 const _componentTokensBase = {
   button: {
     height: {
@@ -1225,5 +1238,24 @@ export const designTokens = {
   emojiSkinTone: emojiSkinToneColors,
   eSignaturePen: eSignaturePenColors,
 };
+
+export const syntaxTokens = {
+  attribute: '#B16B00',
+  attributeDark: '#FFB85C',
+  function: '#D946EF',
+  functionDark: '#F97EF3',
+  keyword: '#2563EB',
+  keywordDark: '#60A5FA',
+  property: '#059669',
+  propertyDark: '#10B981',
+  selector: '#DC2626',
+  selectorDark: '#F87171',
+  string: '#16A34A',
+  stringDark: '#4ADE80',
+  tag: '#4F46E5',
+  tagDark: '#818CF8',
+  value: '#7C3AED',
+  valueDark: '#A78BFA',
+} as const;
 
 export default designTokens;

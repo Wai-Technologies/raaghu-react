@@ -8,6 +8,7 @@ const meta: Meta<typeof RdsRange> = {
   title: 'Elements/Range',
   component: RdsRange,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: {
     exclude: ['component', 'onChange', 'formatValue'],

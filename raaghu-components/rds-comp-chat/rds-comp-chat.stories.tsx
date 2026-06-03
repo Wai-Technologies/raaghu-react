@@ -6,6 +6,7 @@ const meta: Meta = {
     title: "Components/Chat",
     component: RdsCompChat,
     parameters: {
+            status: { type: 'stable' },
         layout: "padded",
         docs: {
     description: {

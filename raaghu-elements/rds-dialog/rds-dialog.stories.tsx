@@ -12,6 +12,7 @@ const meta: Meta = {
   title: 'Elements/Dialog',
   component: RdsDialog,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: {
       exclude: ['component', 'slots', 'slotProps', 'children', 'actions', 'onClose'],

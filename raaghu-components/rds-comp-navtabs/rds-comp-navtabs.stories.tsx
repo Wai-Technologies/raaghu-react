@@ -8,6 +8,7 @@ const meta: Meta = {
     title: 'Components/Navtabs',
     component: RdsCompNavtabs,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             description: {

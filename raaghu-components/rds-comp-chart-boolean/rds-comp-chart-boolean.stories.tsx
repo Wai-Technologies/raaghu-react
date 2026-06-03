@@ -7,6 +7,7 @@ const meta: Meta = {
     title: 'Components/Charts/Boolean Chart',
     component: RdsCompBooleanChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs: {
            description: {

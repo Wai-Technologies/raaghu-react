@@ -13,6 +13,7 @@ const meta: Meta<typeof RdsCard> = {
   title: 'Elements/Card',
   component: RdsCard,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   controls: { exclude: ['component', 'elevation'] },
   },

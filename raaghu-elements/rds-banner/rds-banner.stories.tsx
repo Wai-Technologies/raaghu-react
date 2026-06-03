@@ -8,6 +8,7 @@ const meta: Meta<RdsBannerProps & { showOutline?: boolean }> = {
   title: 'Elements/Banner',
   component: RdsBanner,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   args: {

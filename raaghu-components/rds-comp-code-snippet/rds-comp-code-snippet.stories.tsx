@@ -88,6 +88,7 @@ const meta: Meta<typeof RdsCompCodeSnippet> = {
   title: 'Components/Code Snippet',
   component: RdsCompCodeSnippet,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

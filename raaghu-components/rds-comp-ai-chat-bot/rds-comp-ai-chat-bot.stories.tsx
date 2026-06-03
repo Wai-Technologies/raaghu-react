@@ -7,7 +7,8 @@ import { expect } from 'storybook/test';
 const meta: Meta = {
   title: "Components/AI ChatBox/AI Chat Bot",
   component: RdsCompAiChatBot,
-  parameters:{
+  parameters: {
+        status: { type: 'stable' },
     docs:{
     }
   },

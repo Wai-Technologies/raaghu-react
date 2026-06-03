@@ -88,7 +88,7 @@ const RdsTable = ({
     if (column.type === 'checkbox' || column.type === 'radio') return;
     if (!column.sortable) return;
     let nextDirection: 'asc' | 'desc';
-    let nextColumn: string = column.id;
+    const nextColumn: string = column.id;
     if (sortBy !== column.id) {
       nextDirection = 'asc';
     } else {
@@ -254,7 +254,6 @@ const RdsTable = ({
                         <span className="rds-table__header-label">{column.label}</span>
                         {column.sortable && (
                           <IconButton
-                            aria-label="Filter"
                             size="small"
                             className={`rds-table__sort-button ${active ? 'rds-table__sort-button--active' : ''}`}
                             onClick={(e) => { e.stopPropagation(); handleSort(column); }}

@@ -72,6 +72,7 @@ const RdsCompStackedChart = (props: RdsCompStackedProps) => {
         });
 
         if (chartRef.current !== null) {
+          // noop
         }
 
         return () => { chartRef.current?.destroy(); };

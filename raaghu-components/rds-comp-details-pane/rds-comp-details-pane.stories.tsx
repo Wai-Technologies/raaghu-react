@@ -11,6 +11,7 @@ const meta: Meta = {
     title: "Components/Details Pane",
     component: RdsCompDetailsPane,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
     },
     tags: ['autodocs', 'stable'],

@@ -6,6 +6,7 @@ const meta: Meta<typeof RdsCompAiTypingSection> = {
 	title: 'Components/AI ChatBox/Typing Section',
 	component: RdsCompAiTypingSection,
 	parameters: {
+		    status: { type: 'stable' },
 		layout: 'padded',
 	},
 	tags: ['autodocs', 'stable'],

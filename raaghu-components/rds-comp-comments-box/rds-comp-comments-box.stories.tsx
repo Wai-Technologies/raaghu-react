@@ -72,6 +72,7 @@ const meta: Meta<typeof RdsCommentBox> = {
   title: 'Components/Comment Box',
   component: RdsCommentBox,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
     exclude: ['editIcon', 'deleteIcon'],

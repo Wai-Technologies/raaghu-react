@@ -46,8 +46,8 @@
       align-items: center;
       border-radius: var(--rds-border-radius-md);
       box-sizing: border-box;
-      margin: 4px 0;
-      padding: 40px 0;
+      margin: var(--rds-spacing-xs) 0;
+      padding: var(--rds-spacing-10) 0;
     }
     
     .rds-comp-notification__image-container img {
@@ -443,6 +443,6 @@ body:not(.theme-dark):not([data-theme="dark"]) {
 .css-60eszb
 {
   position: unset !important;
-  padding: 0px !important;
+  padding: var(--rds-spacing-0) !important;
 }
 

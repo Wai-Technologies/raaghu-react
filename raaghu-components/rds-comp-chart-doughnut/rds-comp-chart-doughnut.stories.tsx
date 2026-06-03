@@ -6,6 +6,7 @@ const meta: Meta = {
     title: 'Components/Charts/Doughnut Chart',
     component: RdsCompDoughnutChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             description: {

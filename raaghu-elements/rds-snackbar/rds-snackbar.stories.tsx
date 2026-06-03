@@ -8,6 +8,7 @@ const meta: Meta<typeof RdsSnackbar> = {
   title: 'Elements/Snackbar',
   component: RdsSnackbar,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

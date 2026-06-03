@@ -8,6 +8,7 @@ const meta: Meta<typeof RdsDrawer> = {
   title: 'Elements/Drawer',
   component: RdsDrawer,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],

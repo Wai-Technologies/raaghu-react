@@ -7,6 +7,7 @@ const meta: Meta = {
     title: 'Components/Charts/Bar Chart',
     component: RdsCompBarChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             description: {

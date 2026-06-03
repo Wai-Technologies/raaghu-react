@@ -48,6 +48,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
   const value = isControlled ? controlledValue : internalValue;
   useEffect(() => {
     if (isControlled) {
+      // noop
     } else if (enforceSelected && options.length > 0) {
       if (multiple && Array.isArray(internalValue) && internalValue.length === 0) {
         setInternalValue([options[0].value]);
@@ -68,7 +69,7 @@ const RdsToggleButton: React.FC<RdsToggleButtonProps> = ({
 
 
   const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: any) => {
-    let finalValue = newValue;
+    const finalValue = newValue;
     
     if (enforceSelected) {
       if (multiple && Array.isArray(newValue) && newValue.length === 0) {

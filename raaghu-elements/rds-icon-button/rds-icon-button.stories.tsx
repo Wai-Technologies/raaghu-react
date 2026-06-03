@@ -16,6 +16,7 @@ const meta: Meta<typeof RdsIconButton> = {
   title: 'Elements/IconButton',
   component: RdsIconButton,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

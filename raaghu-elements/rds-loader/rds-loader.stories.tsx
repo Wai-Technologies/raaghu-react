@@ -19,6 +19,7 @@ const meta: Meta<typeof RdsLoader> = {
   title: 'Elements/Loader',
   component: RdsLoader,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],

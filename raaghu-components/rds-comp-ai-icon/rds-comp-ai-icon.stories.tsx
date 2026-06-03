@@ -7,6 +7,7 @@ const meta: Meta = {
     title: 'Components/AI ChatBox/Icon',
     component: RdsCompAiIcon,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
     },
     tags: ['autodocs', 'stable'],

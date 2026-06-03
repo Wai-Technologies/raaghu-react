@@ -12,6 +12,7 @@ const meta: Meta = {
   title: 'Elements/Menu',
   component: RdsMenu,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
     exclude: ['component', 'slots', 'slotProps'],

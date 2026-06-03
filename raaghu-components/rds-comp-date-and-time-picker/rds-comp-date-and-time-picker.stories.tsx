@@ -7,6 +7,7 @@ const meta: Meta = {
     title: "Internal/Date Time Picker",
     component: RdsCompDatePicker,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         controls: {exclude: ['type']},
     },

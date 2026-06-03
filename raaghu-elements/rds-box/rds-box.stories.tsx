@@ -8,6 +8,7 @@ const meta: Meta<typeof RdsBox> = {
   title: 'Elements/Box',
   component: RdsBox,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: { include: ['children'] },
     docs: {

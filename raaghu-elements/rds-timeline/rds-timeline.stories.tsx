@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsTimeline> = {
   title: 'Elements/Timeline',
   component: RdsTimeline,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],

@@ -28,6 +28,7 @@ const meta: Meta<typeof RdsList> = {
   title: 'Elements/List',
   component: RdsList,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],

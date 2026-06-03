@@ -6,6 +6,7 @@ const meta: Meta = {
     title: 'Components/Charts/Gauge Chart',
     component: RdsCompGaugeChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         controls: {
         exclude: ['value', 'maxValue'],

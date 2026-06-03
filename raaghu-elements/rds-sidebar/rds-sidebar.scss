@@ -62,7 +62,7 @@
   &__search-divider {
     border: none;
     border-top: 1px solid var(--rds-border-default);
-    margin: 0 0 12px 0;
+    margin: 0 0 var(--rds-spacing-3) 0;
   }
   
   &__search-container {

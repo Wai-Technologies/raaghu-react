@@ -7,6 +7,7 @@ const meta: Meta = {
   title: "Components/AI ChatBox/Message Box",
   component: RdsCompAiMessageBox,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

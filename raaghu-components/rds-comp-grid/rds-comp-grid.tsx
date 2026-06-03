@@ -761,7 +761,9 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
   const onDragStart = (start: any) => {
     
     if (start.type === 'COLUMN') {
+      // noop
     } else if (start.type === 'ROW') {
+      // noop
     }
     
     document.body.style.userSelect = 'none';
@@ -1405,7 +1407,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
     };
 
     const updatedData = currentData.map((row, index) => {
-      let rowIdToCheck = row.id || index.toString();
+      const rowIdToCheck = row.id || index.toString();
       
       if (rowId.startsWith('row-')) {
         const rowIndex = parseInt(rowId.replace('row-', ''));
@@ -1524,7 +1526,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
       }
     };
 
-    let updatedData = [...currentData];
+    const updatedData = [...currentData];
     
     let rowIndex = -1;
     
@@ -2160,14 +2162,15 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                   const isDragging = customDragState.isDragging && customDragState.draggedColumnKey === header.key;
                   const isBeingDragged = customDragState.draggedColumnKey === header.key;
                   const isDropTarget = customDragState.currentHoverIndex === index && customDragState.isDragging && !isBeingDragged;
-                  const isDropBefore = customDragState.currentHoverIndex === index && customDragState.isDragging && 
+                  const isDropBefore = customDragState.currentHoverIndex === index && customDragState.isDragging &&
                                       customDragState.dragStartIndex !== null && customDragState.dragStartIndex > index;
-                  const isDropAfter = customDragState.currentHoverIndex === index && customDragState.isDragging && 
+                  const isDropAfter = customDragState.currentHoverIndex === index && customDragState.isDragging &&
                                      customDragState.dragStartIndex !== null && customDragState.dragStartIndex < index;
-                  
+                  const dropIndicatorsEnabled = false;
+
                   return (
                     <React.Fragment key={header.key}>
-                      {false && isDropBefore && (
+                      {dropIndicatorsEnabled && isDropBefore && (
                         <Box
                           sx={{
                             position: 'absolute',
@@ -2351,7 +2354,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
                           />
                         )}
                           
-                          {false && isDropAfter && (
+                          {dropIndicatorsEnabled && isDropAfter && (
                             <Box
                               sx={{
                                 position: 'absolute',
@@ -2831,7 +2834,7 @@ const RdsCompGrid = forwardRef<RdsCompGridRef, RdsCompGridProps>(({
               borderRadius: '3px',
             },
             '&::-webkit-scrollbar-thumb:hover': {
-              backgroundColor: 'var(--rds-action-disabled)'Background,
+              backgroundColor: 'var(--rds-action-disabled)',
             },
           }
         }}

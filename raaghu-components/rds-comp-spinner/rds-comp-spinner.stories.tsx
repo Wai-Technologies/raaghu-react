@@ -6,6 +6,7 @@ const meta: Meta = {
     title: 'Components/Spinner',
     component: RdsCompSpinner,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs :{
               source :{

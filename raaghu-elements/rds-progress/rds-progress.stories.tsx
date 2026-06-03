@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsProgress> = {
   title: 'Elements/Progress',
   component: RdsProgress,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

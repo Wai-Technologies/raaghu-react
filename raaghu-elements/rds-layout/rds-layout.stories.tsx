@@ -8,6 +8,7 @@ const meta: Meta<typeof RdsLayout> = {
   title: 'Elements/Layout',
   component: RdsLayout,
   parameters: {
+        status: { type: 'stable' },
     layout: 'fullscreen',
   },
   tags: ['autodocs', 'stable'],

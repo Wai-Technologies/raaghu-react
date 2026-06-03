@@ -8,6 +8,7 @@ const meta: Meta<typeof RdsBackdrop> = {
   title: 'Elements/Backdrop',
   component: RdsBackdrop,
   parameters: {
+        status: { type: 'stable' },
     layout: 'fullscreen',
     docs: {
       story: {

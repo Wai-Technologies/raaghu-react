@@ -6,6 +6,7 @@ const meta: Meta<typeof RdsCompToolbar> = {
     title: "Components/Toolbar",
     component: RdsCompToolbar,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs: {
             source: {

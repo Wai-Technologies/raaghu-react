@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsCompAudioPlayer> = {
     title: "Components/Audio Player",
     component: RdsCompAudioPlayer,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs: {
     description: {

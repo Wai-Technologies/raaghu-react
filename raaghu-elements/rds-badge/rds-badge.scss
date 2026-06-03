@@ -171,7 +171,7 @@
   }
   &--small .rds-badge__badge {
     font-size: 0.75rem;
-    padding: 2px 12px;
+    padding: var(--rds-spacing-xxs) var(--rds-spacing-3);
     border-radius: var(--rds-border-radius-md, 8px);
     min-width: 40px;
     height: 24px;
@@ -216,7 +216,7 @@
   &--small .MuiBadge-badge {
     display: grid !important;
     place-items: center !important;
-    padding: 2px !important;
+    padding: var(--rds-spacing-xxs) !important;
     line-height: 1 !important;
     height: 15px !important;
     min-width: 15px !important;
@@ -301,7 +301,7 @@
   
   &--large .rds-badge__badge {
     font-size: 1.25rem;
-    padding: 6px 24px;
+    padding: var(--rds-spacing-compact) var(--rds-spacing-lg);
     border-radius: var(--rds-border-radius-xl, 16px);
     min-width: 80px;
     height: 40px;
@@ -311,7 +311,7 @@
     min-width: 24px !important;
     height: 24px !important;
     border-radius: var(--rds-border-radius-lg, 12px) !important;
-    padding: 0 8px !important;
+    padding: 0 var(--rds-spacing-sm) !important;
   }
   
   &__badge {

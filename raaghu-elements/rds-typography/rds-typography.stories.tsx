@@ -6,6 +6,7 @@ const meta: Meta<typeof RdsTypography> = {
   title: 'Elements/Typography',
   component: RdsTypography,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
      controls: {
       include: ['text', 'variant', 'color', 'align', 'gutterBottom', 'noWrap'],

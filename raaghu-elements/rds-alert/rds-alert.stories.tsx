@@ -10,6 +10,7 @@ const meta: Meta<typeof RdsAlert> = {
   title: 'Elements/Alert',
   component: RdsAlert,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
             exclude: ['component', 'slots', 'slotProps', 'variant']

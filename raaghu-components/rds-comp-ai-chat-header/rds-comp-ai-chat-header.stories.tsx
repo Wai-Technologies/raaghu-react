@@ -22,6 +22,7 @@ const meta: Meta<typeof RdsCompAiChatHeader> = {
     },
   },
   parameters: {
+        status: { type: 'stable' },
     layout: "padded",
     docs: {
       source: {

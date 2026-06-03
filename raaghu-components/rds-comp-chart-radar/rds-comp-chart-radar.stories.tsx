@@ -6,6 +6,7 @@ const meta: Meta = {
     title: 'Components/Charts/Radar Chart',
     component: RdsCompRadarChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs: {
     description: {

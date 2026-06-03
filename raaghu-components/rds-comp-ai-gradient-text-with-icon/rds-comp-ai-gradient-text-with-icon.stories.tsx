@@ -8,6 +8,7 @@ const meta: Meta = {
     title: "Components/AI ChatBox/Gradient Text With Icon",
     component: RdsCompAiGradientTextWithIcon,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
     },
     tags: ['autodocs', 'stable'],

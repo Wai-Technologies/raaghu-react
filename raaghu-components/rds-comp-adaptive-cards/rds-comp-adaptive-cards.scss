@@ -595,7 +595,7 @@
     display: inline-block !important; 
     
     &-colon {
-      margin: 0 2px !important; 
+      margin: 0 var(--rds-spacing-xxs) !important; 
     }
   }
   &__football-time {

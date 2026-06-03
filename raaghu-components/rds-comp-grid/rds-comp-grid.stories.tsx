@@ -9,6 +9,7 @@ const meta: Meta<typeof RdsCompGrid> = {
   title: 'Internal/Grid',
   component: RdsCompGrid,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   argTypes: {

@@ -7,6 +7,7 @@ const meta: Meta = {
     title: 'Components/Video Player',
     component: RdsCompVideoPlayer,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         controls: {
             exclude: ['width', 'height'],

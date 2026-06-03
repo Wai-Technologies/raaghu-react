@@ -6,6 +6,7 @@ const meta: Meta = {
     title: 'Components/Color Picker',
     component: RdsColorPicker,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs: {
             

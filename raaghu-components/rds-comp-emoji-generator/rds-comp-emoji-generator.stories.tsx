@@ -6,6 +6,7 @@ const meta: Meta = {
     title: 'Components/Emoji Generator',
     component: RdsEmojiGenerator,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
     controls: {
     exclude: ['onEmojiSelect'],

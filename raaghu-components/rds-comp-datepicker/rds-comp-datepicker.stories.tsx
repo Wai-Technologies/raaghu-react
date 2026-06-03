@@ -6,6 +6,7 @@ const meta: Meta = {
     title: 'Components/Date Picker',
     component: RdsDatepicker,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs :{
             description: {

@@ -41,6 +41,7 @@
       "require": "./index.ts"
     }
   },
+  "sideEffects": false,
   "workspaces": [
     "raaghu-pages"
   ],

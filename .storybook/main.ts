@@ -1,4 +1,7 @@
+import { fileURLToPath } from "node:url";
+import { dirname } from "node:path";
 import type { StorybookConfig } from '@storybook/react-vite';
+import remarkGfm from 'remark-gfm';
 
 const config: StorybookConfig = {
   stories: [
@@ -10,15 +13,24 @@ const config: StorybookConfig = {
     "../raaghu-layouts/**/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-docs',
-    '@storybook/addon-a11y',
-    '@storybook/addon-coverage',
-    '@storybook/addon-mcp',
-    '@storybook/addon-vitest',
+    getAbsolutePath("@storybook/addon-links"),
+    {
+      name: getAbsolutePath("@storybook/addon-docs"),
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    },
+    getAbsolutePath("@storybook/addon-a11y"),
+    getAbsolutePath("@storybook/addon-coverage"),
+    getAbsolutePath("@storybook/addon-mcp"),
+    getAbsolutePath("@storybook/addon-vitest"),
   ],
   framework: {
-    name: '@storybook/react-vite',
+    name: getAbsolutePath("@storybook/react-vite"),
     options: {},
   },
   staticDirs: [{ from: '../.storybook/public', to: '/' }],
@@ -26,10 +38,16 @@ const config: StorybookConfig = {
     check: false,
     reactDocgen: 'react-docgen-typescript',
     reactDocgenTypescriptOptions: {
+      tsconfigPath: 'tsconfig.library.json',
       shouldExtractLiteralValuesFromEnum: true,
       propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
+      exclude: ['**/*.test.tsx', '**/*.spec.tsx', '**/*.test.ts', '**/*.spec.ts'],
     },
   },
 };
 
 export default config;
+
+function getAbsolutePath(value: string): any {
+  return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
+}

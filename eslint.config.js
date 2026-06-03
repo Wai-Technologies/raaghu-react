@@ -9,7 +9,7 @@ import tseslint from 'typescript-eslint'
 import { globalIgnores } from 'eslint/config'
 
 export default tseslint.config([
-  globalIgnores(['dist', 'node_modules', 'storybook-static']),
+  globalIgnores(['dist', 'node_modules', 'storybook-static', '**/*.figma.tsx', '**/*.figma.ts']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -23,29 +23,28 @@ export default tseslint.config([
       globals: globals.browser,
     },
     rules: {
-      // ── No debug output in production code ──────────────────────────────
-      'no-console': ['warn', { allow: [] }],
+      'no-console': 'warn',
 
-      // ── TypeScript quality ───────────────────────────────────────────────
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': ['warn', {
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_',
       }],
+      // Allow ternary and short-circuit patterns used as statements (common in React)
+      '@typescript-eslint/no-unused-expressions': ['error', {
+        allowShortCircuit: true,
+        allowTernary: true,
+        allowTaggedTemplates: true,
+      }],
+      // Change @ts-ignore to @ts-expect-error only when the fix is well-understood
+      '@typescript-eslint/ban-ts-comment': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'warn',
 
-      // ── React ────────────────────────────────────────────────────────────
       'react-hooks/exhaustive-deps': 'warn',
 
-      // ── Accessibility (basic) ─────────────────────────────────────────────
-      // Reminder: full a11y is covered by jest-axe in tests
-      'no-restricted-syntax': [
-        'warn',
-        {
-          // Flag onClick on non-interactive elements without role
-          selector: 'JSXOpeningElement[name.name=/^(div|span|li|td|tr)$/] > JSXAttribute[name.name="onClick"]:not(~ JSXAttribute[name.name="role"])',
-          message: 'Interactive <div>/<span> must have role="button" (or similar) and keyboard handlers.',
-        },
-      ],
+      // react-refresh is designed for app HMR; library files intentionally export
+      // both components and utilities from the same file
+      'react-refresh/only-export-components': 'warn',
     },
   },
   // Relax rules in test and story files

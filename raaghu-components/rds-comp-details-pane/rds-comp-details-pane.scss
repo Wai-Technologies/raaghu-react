@@ -1181,7 +1181,7 @@
     
     &__search-container {
       margin-bottom: var(--rds-spacing-sm, 12px);
-      padding: 0 4px;
+      padding: 0 var(--rds-spacing-xs);
     }
     
     &__search-field {
@@ -1587,5 +1587,5 @@
 }
 
   .css-97gwpj-MuiButtonBase-root-MuiButton-root{
-  padding: 0px 6px !important;
+  padding: var(--rds-spacing-0) var(--rds-spacing-compact) !important;
 }

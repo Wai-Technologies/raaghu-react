@@ -6,6 +6,7 @@ const meta: Meta = {
   title: 'Components/Truncated Text',
   component: RdsCompTruncatedText,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     docs: {
       source: {

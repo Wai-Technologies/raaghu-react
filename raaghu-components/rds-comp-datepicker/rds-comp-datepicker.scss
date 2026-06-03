@@ -323,7 +323,7 @@ font-weight: bold;
 
 .rds-datepicker__header-select {
   height: 32px;
-  padding: 0 8px;
+  padding: 0 var(--rds-spacing-sm);
   padding-right: 36px;
   border: 1px solid var(--rds-color-border);
   background: var(--rds-neutral-0);
@@ -509,7 +509,7 @@ font-weight: bold;
 }
 .react-datepicker__today-button {
   border-top: 1px solid var(--rds-border-default) !important;
-  padding: 5px 0 !important;
+  padding: var(--rds-spacing-tight) 0 !important;
   border-bottom-left-radius: 6px !important;
   border-bottom-right-radius: 6px !important;
 
@@ -703,7 +703,7 @@ font-weight: bold;
     .react-datepicker__month-container {
       width: 100% !important;
       min-width: auto !important;
-      margin: 5px 0 !important;
+      margin: var(--rds-spacing-tight) 0 !important;
       flex: none !important;
       border-right: none !important;
       border-bottom: 1px solid var(--rds-color-border) !important;

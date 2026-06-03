@@ -10,6 +10,7 @@ const meta: Meta = {
     title: "Components/Notification",
     component: RdsCompNotification,
     parameters: {
+            status: { type: 'stable' },
         layout: "padded",
         docs: {
             description: {

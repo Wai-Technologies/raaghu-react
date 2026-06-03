@@ -7,6 +7,7 @@ const meta: Meta = {
     title: 'Components/Charts/Bubble Chart',
     component: RdsCompBubbleChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             description: {

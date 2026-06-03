@@ -8,6 +8,7 @@ const meta: Meta<typeof RdsCardDetail> = {
   title: 'Elements/Card Detail',
   component: RdsCardDetail,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],

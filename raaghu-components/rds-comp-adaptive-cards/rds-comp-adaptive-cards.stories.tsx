@@ -25,7 +25,7 @@ const createActionLogger = (actionName: string) => {
                 });
             }
         } catch (e) {
-           
+          // handled
         }
     };
 };
@@ -34,6 +34,7 @@ const meta: Meta<typeof RdsCompAdaptiveCards> = {
     title: 'Components/Adaptive Cards',
     component: RdsCompAdaptiveCards,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
  
     },
@@ -290,7 +291,7 @@ export const InputForm: StoryObj<typeof RdsCompAdaptiveCards> = {
             if (!form.phone.trim()) {
                 newErrors.phone = 'Phone number is required';
                 hasErrors = true;
-            } else if (!/^[\d\s\-\+\(\)]{10,}$/.test(form.phone.replace(/\s/g, ''))) {
+            } else if (!/^[\d\s\-+()]{10,}$/.test(form.phone.replace(/\s/g, ''))) {
                 newErrors.phone = 'Please enter a valid phone number';
                 hasErrors = true;
             }

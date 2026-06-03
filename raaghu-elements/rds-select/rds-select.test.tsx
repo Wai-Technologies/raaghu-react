@@ -598,7 +598,7 @@ describe('RdsSelect', () => {
       );
       
       // Verify initial option exists
-      let selects = container.querySelectorAll('.rds-select__field');
+      const selects = container.querySelectorAll('.rds-select__field');
       expect(selects.length).toBeGreaterThan(0);
       
       rerender(

@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsCompEmptyState> = {
   title: "Components/Empty State",
   component: RdsCompEmptyState,
   parameters: {
+        status: { type: 'stable' },
     layout: "padded",
   },
   tags: ["autodocs", 'stable'],

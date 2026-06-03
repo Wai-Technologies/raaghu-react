@@ -8,6 +8,7 @@ const meta: Meta<typeof RdsCollapse> = {
   title: 'Elements/Collapse',
   component: RdsCollapse,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: { exclude: ['timeout'] },
   },

@@ -293,7 +293,7 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
   );
 };
 
-export const renderFileUploader = (args: any) => {
+export const RenderFileUploader = (args: any) => {
   const [files, setFiles] = React.useState<FileWithProgress[]>([]);  
   return <RdsFileUploader {...args} onFilesChange={setFiles} />;
 };
@@ -357,13 +357,12 @@ export const RdsFileList: React.FC<RdsFileListProps> = ({
             {formatFileSize(fileWithProgress.file.size)}
           </Typography>
           <IconButton
-            aria-label="Delete"
+            aria-label="Remove file"
             className="rds-file-uploader__file-remove"
             size="small"
             onClick={() => removeFile(index)}
             disabled={isUploading}
             sx={{ ml: tokens.space(0.5), color: tokens.color.textMuted, background: 'transparent', borderRadius: tokens.radius.full, '&:hover': { background: tokens.color.divider }, p: tokens.space(0.5) }}
-            aria-label="Remove file"
           >
             <Close fontSize="small" sx={{ color: tokens.color.textMuted }} />
           </IconButton>

@@ -8,6 +8,7 @@ const meta: Meta<typeof RdsBadge> = {
   title: 'Elements/Badge',
   component: RdsBadge,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
       exclude: ['component', 'slots', 'slotProps', 'color', 'children'],

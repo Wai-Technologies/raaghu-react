@@ -10,6 +10,7 @@ const meta: Meta<typeof RdsStack> = {
   title: 'Elements/Stack',
   component: RdsStack,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],

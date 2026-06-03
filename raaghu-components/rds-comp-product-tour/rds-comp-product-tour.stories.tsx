@@ -6,6 +6,7 @@ const meta: Meta = {
     title: "Components/Product Tour",
     component: RdsCompProductTour,
     parameters: {
+            status: { type: 'stable' },
         layout: "padded",
     },
     tags: ["autodocs", 'stable'],

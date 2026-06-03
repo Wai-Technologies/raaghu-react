@@ -174,7 +174,7 @@
   
   .offcanvas-margin .rds-button {
     font-size: var(--rds-font-size-caption, 11px) !important;
-    padding: 5px 7px;
+    padding: var(--rds-spacing-tight) var(--rds-spacing-7);
     width: 100% !important;
     white-space: nowrap;
     overflow: hidden;
@@ -193,7 +193,7 @@
   }
 
   #offcanvas-btns {
-    padding: 0 5px;
+    padding: 0 var(--rds-spacing-tight);
     display: flex;
     flex-wrap: nowrap;
     gap: var(--rds-spacing-xs);
@@ -222,7 +222,7 @@
   
   #offcanvas-btns .rds-button {
     font-size: var(--rds-font-size-caption, 11px) !important;
-    padding: 5px 7px;
+    padding: var(--rds-spacing-tight) var(--rds-spacing-7);
     width: 100% !important;
     white-space: nowrap;
     overflow: hidden;
@@ -241,7 +241,7 @@
   }
   #close-btn .rds-icon-button,
   #close-btn .MuiIconButton-root {
-    padding: 6px 8px !important;
+    padding: var(--rds-spacing-compact) var(--rds-spacing-sm) !important;
     min-width: var(--rds-icon-button-size, 36px) !important;
     min-height: var(--rds-icon-button-size, 36px) !important;
     width: var(--rds-icon-button-size, 36px) !important;

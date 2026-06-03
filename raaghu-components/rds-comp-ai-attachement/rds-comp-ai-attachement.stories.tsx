@@ -14,6 +14,7 @@ const meta: Meta = {
         },
     },
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             story: {

@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsSkeleton> = {
   title: 'Elements/Skeleton',
   component: RdsSkeleton,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
       include: ['shape', 'frames', 'animated', 'animation', 'width', 'height'],

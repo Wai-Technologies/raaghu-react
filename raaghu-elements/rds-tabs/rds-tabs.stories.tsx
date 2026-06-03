@@ -10,6 +10,7 @@ const meta: Meta<typeof RdsTabs> = {
   title: 'Elements/Tabs',
   component: RdsTabs,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
       include: ['tabs', 'activeTab', 'type', 'layout', 'title', 'state', 'leftIcon', 'rightIcon', 'showLeftIcon', 'showRightIcon', 'level'],

@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsCarousel> = {
   title: 'Elements/Carousel',
   component: RdsCarousel,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: {
         exclude: ['titles', 'subtitles'],

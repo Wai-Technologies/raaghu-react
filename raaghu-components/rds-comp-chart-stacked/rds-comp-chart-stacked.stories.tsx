@@ -7,6 +7,7 @@ const meta: Meta = {
     title: 'Components/Charts/Stacked Chart',
     component: RdsCompStackedChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs: {
   description: {

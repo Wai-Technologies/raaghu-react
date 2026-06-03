@@ -9,6 +9,7 @@ const meta: Meta = {
     title: "Components/Scrollbar",
     component: RdsScrollBar,
     parameters: {
+          status: { type: 'stable' },
       layout: 'padded',
       docs:{
         source :{

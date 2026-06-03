@@ -569,7 +569,7 @@ color: var(--rds-color-primary, #1976d2);
 .rds-file-uploader__title-or {
   color: var(--rds-text-primary, #353535) !important;
   font-weight: var(--rds-font-weight-regular, 400);
-  margin: 0 8px;
+  margin: 0 var(--rds-spacing-sm);
   display: inline;
 }
 

@@ -8,6 +8,7 @@ const meta: Meta = {
     title: 'Components/Charts/Scatter Chart',
     component: RdsCompScatterChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
       docs: {
   description: {

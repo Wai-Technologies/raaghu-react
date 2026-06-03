@@ -8,6 +8,7 @@ const meta: Meta = {
     title: 'Components/Charts/Area Chart',
     component: RdsCompAreaChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             description: {

@@ -349,6 +349,7 @@ const meta: Meta<typeof RdsAppBar> = {
   title: 'Elements/AppBar',
   component: RdsAppBar,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
     exclude: ['component', 'onMenuClick', 'actions', 'onSearchChange', 'leftActions', 'rightActions', 'centerContent', 'tabs', 'tabValue', 'onTabChange', 'subHeader', 'logo'],

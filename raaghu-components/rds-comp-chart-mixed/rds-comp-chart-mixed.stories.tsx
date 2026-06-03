@@ -7,6 +7,7 @@ const meta: Meta = {
     title: 'Components/Charts/Mixed Chart',
     component: RdsCompMixedChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             description: {

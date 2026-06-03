@@ -7,6 +7,7 @@ const meta: Meta = {
     title: 'Components/Charts/Polar Area Chart',
     component: RdsCompPolarAreaChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs: {
     description: {

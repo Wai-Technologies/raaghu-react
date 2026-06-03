@@ -6,6 +6,7 @@ const meta: Meta<typeof RdsCompToast> = {
     title: "Components/Toast",
     component: RdsCompToast,
     parameters: {
+            status: { type: 'stable' },
         layout: "padded",
         controls: {
         exclude: ['delay', 'autohide', 'borderColor'],

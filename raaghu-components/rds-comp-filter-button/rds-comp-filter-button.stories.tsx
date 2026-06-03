@@ -7,6 +7,7 @@ const meta: Meta = {
   title: 'Components/Filter Button',
   component: RdsCompFilterButton,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

@@ -7,6 +7,7 @@ const meta: Meta = {
     title: 'Components/AI ChatBox/Fab Menu',
     component: RdsCompAiFabMenu,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
     },
     decorators: [

@@ -793,7 +793,7 @@ describe('RdsTooltip', () => {
       await user.hover(button!);
       
       await waitFor(() => {
-        let tooltip = document.querySelector('.rds-tooltip--top');
+        const tooltip = document.querySelector('.rds-tooltip--top');
         expect(tooltip).toBeInTheDocument();
       });
       
@@ -815,7 +815,7 @@ describe('RdsTooltip', () => {
       await user.hover(button!);
       
       await waitFor(() => {
-        let tooltip = document.querySelector('.rds-tooltip--bottom');
+        const tooltip = document.querySelector('.rds-tooltip--bottom');
         expect(tooltip).toBeInTheDocument();
       });
     });
@@ -832,7 +832,7 @@ describe('RdsTooltip', () => {
       await user.hover(button!);
       
       await waitFor(() => {
-        let arrow = document.querySelector('[class*="MuiTooltip-arrow"]');
+        const arrow = document.querySelector('[class*="MuiTooltip-arrow"]');
         expect(arrow).not.toBeInTheDocument();
       });
       

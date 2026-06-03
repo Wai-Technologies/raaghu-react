@@ -116,13 +116,17 @@ const RdsCompContribution: React.FC<RdsCompContributionProps> = ({
     updateSizeBasedOnWidth(availableWidth);
   };
 
+  const contributions = React.useMemo(() => {
+    if (!values || !until || !panelColors) return null;
+    return makeCalendarData(values, until, columns);
+  }, [values, until, columns, dateFormat, panelColors]);
+
   if (!panelColors) {
     return null;
   }
   if (!values || !until) {
     return null;
   }
-  const contributions = React.useMemo(() => makeCalendarData(values, until, columns), [values, until, columns, dateFormat]);
   const renderWeekLabels = () => {
     if (!showWeekLabels) return null;
     if (!weekNames || weekNames.length < 7) return null;

@@ -424,7 +424,7 @@
     flex: 1;
     display: inline-flex;
     align-items: center;
-    padding: 0 14px;
+    padding: 0 var(--rds-spacing-14);
     font-size: var(--rds-font-size-sm, 14px);
     font-weight: var(--rds-font-weight-medium, 500);
     color: var(--rds-color-neutral-900, #222);
@@ -453,7 +453,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0 10px;
+    padding: 0 var(--rds-spacing-cozy);
     cursor: pointer;
     font-size: var(--rds-font-size-xl);
     transition: color .2s ease, background-color .2s ease;
@@ -522,7 +522,7 @@
 
   &__choose-container {
     width: 100%;
-    padding: 0 0 4px;
+    padding: 0 0 var(--rds-spacing-xs);
     border-radius: var(--rds-border-radius-md);
     display: block;
   }
@@ -637,8 +637,8 @@
     font-size: var(--rds-font-size-xs, 12px);
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin: 6px 0 0 4px;
+    gap: var(--rds-spacing-compact);
+    margin: var(--rds-spacing-compact) 0 0 var(--rds-spacing-xs);
     font-weight: var(--rds-font-weight-medium, 500);
   }
 
@@ -824,7 +824,7 @@
 
 @media (max-width: 600px) {
   .rds-e-signature.rds-e-signature--choose .rds-e-signature__choose-panel {
-    padding: 10px;
+    padding: var(--rds-spacing-cozy);
     margin-left: auto;
     margin-right: auto;
   }

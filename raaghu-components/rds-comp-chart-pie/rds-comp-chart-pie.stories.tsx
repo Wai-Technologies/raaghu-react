@@ -7,6 +7,7 @@ const meta: Meta = {
     title: 'Components/Charts/Pie Chart',
     component: RdsCompPieChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             description: {

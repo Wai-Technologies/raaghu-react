@@ -8,6 +8,7 @@ const meta: Meta<typeof RdsToggleButton> = {
   title: 'Elements/Toggle Button',
   component: RdsToggleButton,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],

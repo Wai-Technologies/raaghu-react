@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsAvatar> = {
   title: 'Elements/Avatar',
   component: RdsAvatar,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

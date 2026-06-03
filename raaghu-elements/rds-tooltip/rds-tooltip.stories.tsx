@@ -9,6 +9,7 @@ const meta: Meta<typeof RdsTooltip> = {
   title: 'Elements/Tooltip',
   component: RdsTooltip,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: {
     exclude: ['ref', 'slots', 'slotProps'],

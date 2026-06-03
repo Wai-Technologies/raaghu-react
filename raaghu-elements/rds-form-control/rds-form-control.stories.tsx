@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsFormControl> = {
   title: 'Elements/Form Control',
   component: RdsFormControl,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],
