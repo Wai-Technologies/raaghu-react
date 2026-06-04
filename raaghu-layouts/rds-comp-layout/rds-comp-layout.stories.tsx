@@ -1,6 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, within } from '@storybook/test';
+import { expect, within } from 'storybook/test';
 import RdsCompLayout from './rds-comp-layout';
 
 const meta: Meta<typeof RdsCompLayout> = {

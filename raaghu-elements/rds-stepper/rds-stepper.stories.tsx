@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 import RdsStepper from './rds-stepper';
 
 const meta: Meta<typeof RdsStepper> = {

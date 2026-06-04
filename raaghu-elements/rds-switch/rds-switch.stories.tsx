@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 import RdsSwitch from './rds-switch';
 
 const meta: Meta<typeof RdsSwitch> = {

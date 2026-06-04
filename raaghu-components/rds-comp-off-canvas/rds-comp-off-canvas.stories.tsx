@@ -1,5 +1,5 @@
 import React from "react";
-import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import RdsCompOffcanvas, { RdsOffcanvasBackDrop, RdsOffcanvasPlacement } from "./rds-comp-off-canvas";
 import RdsButton from "../../raaghu-elements/rds-button/rds-button";
 import { Meta, StoryObj } from "@storybook/react";

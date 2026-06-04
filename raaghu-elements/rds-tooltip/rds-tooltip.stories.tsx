@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from '@storybook/test';
+import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsTooltip from './rds-tooltip';
 import { Delete } from '@mui/icons-material';
 import RdsButton from '../rds-button/rds-button';

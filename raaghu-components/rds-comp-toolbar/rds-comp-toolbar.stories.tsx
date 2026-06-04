@@ -1,4 +1,4 @@
-import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 import { Meta, StoryObj } from "@storybook/react-vite";
 import RdsCompToolbar, { ToolbarLayout, ToolbarType, ToolbarState } from "./rds-comp-toolbar";
 

@@ -1,6 +1,6 @@
 import RdsCompProductTour from "./rds-comp-product-tour";
 import { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within, fn, waitFor } from '@storybook/test';
+import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
 
 const meta: Meta = {
     title: "Components/Product Tour",

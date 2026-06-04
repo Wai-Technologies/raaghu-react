@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 import { Home, Favorite, LocationOn, Folder } from '@mui/icons-material';
 import { useState } from 'react';
 import RdsBottomNavigation from './rds-bottom-navigation';

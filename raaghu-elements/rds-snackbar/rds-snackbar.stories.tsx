@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within, waitFor } from '@storybook/test';
+import { expect, userEvent, within, waitFor } from 'storybook/test';
 import RdsSnackbar from './rds-snackbar';
 import { useState, useEffect } from 'react';
 import RdsButton from '../rds-button/rds-button';

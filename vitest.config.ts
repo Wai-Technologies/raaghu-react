@@ -25,7 +25,7 @@ export default defineConfig({
       '@testing-library/jest-dom/matchers',
       'react',
       'react-dom',
-      '@storybook/test',
+      'storybook/test',
       'storybook/preview-api',
     ],
     // These CJS packages use runtime require() for missing/peer deps (immutable,
