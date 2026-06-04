@@ -254,10 +254,10 @@ const RdsTable = ({
                         <span className="rds-table__header-label">{column.label}</span>
                         {column.sortable && (
                           <IconButton
+                            aria-label={active ? `Sort ${column.label} ${sortDirection}` : `Sort ${column.label}`}
                             size="small"
                             className={`rds-table__sort-button ${active ? 'rds-table__sort-button--active' : ''}`}
                             onClick={(e) => { e.stopPropagation(); handleSort(column); }}
-                            aria-label={active ? `Sort ${column.label} ${sortDirection}` : `Sort ${column.label}`}
                           >
                             <SwapVertIcon className={`rds-table__sort-icon ${sortDirection === 'desc' && active ? 'rds-table__sort-icon--desc' : ''}`} fontSize="small" />
                           </IconButton>
