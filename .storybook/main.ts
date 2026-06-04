@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-vite';
+import type { InlineConfig } from 'vite';
 
 const config: StorybookConfig = {
   stories: [
@@ -29,6 +30,21 @@ const config: StorybookConfig = {
       shouldExtractLiteralValuesFromEnum: true,
       propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
     },
+  },
+  async viteFinal(config: InlineConfig) {
+    return {
+      ...config,
+      css: {
+        ...config.css,
+        preprocessorOptions: {
+          ...config.css?.preprocessorOptions,
+          scss: {
+            ...config.css?.preprocessorOptions?.scss,
+            api: 'modern',
+          },
+        },
+      },
+    };
   },
 };
 
