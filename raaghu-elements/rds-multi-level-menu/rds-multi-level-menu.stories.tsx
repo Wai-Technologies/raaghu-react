@@ -8,6 +8,7 @@ const meta = {
   title: 'Elements/Multi Level Menu',
   component: RdsMultiLevelMenu,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
     exclude: ['onSelect'],

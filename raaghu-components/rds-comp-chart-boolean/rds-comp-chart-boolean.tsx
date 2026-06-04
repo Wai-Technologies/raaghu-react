@@ -10,6 +10,7 @@ export interface RdsCompBooleanChartProps {
     chartStyle?: string;
     id: string;
     centerIconName?: string;
+    chartLabel?: string;
 }
 
 const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
@@ -93,7 +94,7 @@ const RdsCompBooleanChart = (props: RdsCompBooleanChartProps) => {
 
     return (
         <div>
-            <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} />
+            <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Boolean chart'} />
         </div>
     );
 };

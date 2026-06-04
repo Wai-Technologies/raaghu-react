@@ -9,6 +9,7 @@ const meta: Meta<typeof RdsHeader> = {
   title: 'Elements/Header',
   component: RdsHeader,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

@@ -6,6 +6,7 @@ const meta: Meta<typeof RdsStepper> = {
   title: 'Elements/Stepper',
   component: RdsStepper,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: {
       exclude: ['alternativeLabel'],

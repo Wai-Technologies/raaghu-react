@@ -251,7 +251,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   .rds-button {
     @media (max-width: $rds-app-bar-breakpoint-sm) {
       font-size: var(--rds-header-center-button-font-size-mobile, 12px); 
-      padding: 6px 10px;
+      padding: var(--rds-spacing-compact) var(--rds-spacing-cozy);
       min-height: var(--rds-header-center-button-min-height-mobile, 32px);
     }
 
@@ -281,13 +281,13 @@ $rds-app-bar-breakpoint-xs: 320px;
     
     .rds-header__center-content {
       flex-shrink: 1;
-      gap: 3px !important;
+      gap: var(--rds-spacing-micro) !important;
       margin-left: auto !important;
 
       .MuiButton-root,
       .rds-button {
         font-size: 10px !important;
-        padding: 2px 6px !important;
+        padding: var(--rds-spacing-xxs) var(--rds-spacing-compact) !important;
         min-width: auto !important;
         min-height: 24px !important;
         line-height: 1.2 !important;
@@ -316,12 +316,12 @@ $rds-app-bar-breakpoint-xs: 320px;
     }
     
     .rds-header__center-content {
-      gap: 2px !important;
+      gap: var(--rds-spacing-xxs) !important;
 
       .MuiButton-root,
       .rds-button {
         font-size: 9px !important;
-        padding: 2px 4px !important;
+        padding: var(--rds-spacing-xxs) var(--rds-spacing-xs) !important;
         min-height: 22px !important;
         line-height: 1.1 !important;
       }
@@ -930,7 +930,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     &__sub-tabs .MuiButton-root {
       width: auto;
       white-space: normal;
-      padding: 6px 10px;
+      padding: var(--rds-spacing-compact) var(--rds-spacing-cozy);
       min-width: 0;
     }
   }
@@ -961,7 +961,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     &__sub-tabs .MuiButton-root {
       flex: 0 0 auto !important;
       white-space: nowrap !important;
-      padding: 6px 10px !important;
+      padding: var(--rds-spacing-compact) var(--rds-spacing-cozy) !important;
       font-size: var(--rds-font-size-sm) !important; // 13px ? sm (12px, closest token)
       min-width: auto !important;
     }
@@ -984,7 +984,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 
     &__sub-tabs .MuiButton-root {
       flex: 0 0 auto !important;
-      padding: 6px 8px !important;
+      padding: var(--rds-spacing-compact) var(--rds-spacing-sm) !important;
       font-size: var(--rds-font-size-sm) !important; // 12px ? sm
       white-space: nowrap !important;
       min-width: auto !important;
@@ -1075,7 +1075,7 @@ $rds-app-bar-breakpoint-xs: 320px;
       }
       
       @media (max-width: 320px) {
-        padding: 6px 8px !important;
+        padding: var(--rds-spacing-compact) var(--rds-spacing-sm) !important;
         font-size: var(--rds-font-size-xs) !important; // 11px ? xs (10px, closest token)
       }
       
@@ -1218,11 +1218,11 @@ $rds-app-bar-breakpoint-xs: 320px;
 .css-16b6n56-MuiButtonBase-root-MuiButton-root, 
 .css-1gjwngd {
     min-width: 95px !important;
-    padding: 6px 10px !important;
+    padding: var(--rds-spacing-compact) var(--rds-spacing-cozy) !important;
     
     @media (max-width: 834px) {
       min-width: 85px !important;
-      padding: 6px 8px !important;
+      padding: var(--rds-spacing-compact) var(--rds-spacing-sm) !important;
       font-size: var(--rds-font-size-md) !important; // 14px ? md
     }
     
@@ -1234,7 +1234,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     
     @media (max-width: 320px) {
       min-width: 60px !important;
-      padding: 4px 6px !important;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-compact) !important;
       font-size: var(--rds-font-size-sm) !important; // 12px ? sm
     }
 }
@@ -1267,7 +1267,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
   
   @media (max-width: 320px) {
-    padding: 6px !important;
+    padding: var(--rds-spacing-compact) !important;
     margin-right: 0px !important;
     
     svg {
@@ -1358,7 +1358,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   
   .rds-header__title {
     font-size: var(--rds-font-size-md) !important; // 14px ? md
-    margin: 0 4px !important;
+    margin: 0 var(--rds-spacing-xs) !important;
     flex-shrink: 2;
   }
   
@@ -1373,7 +1373,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     
     .MuiButton-root {
       font-size: var(--rds-font-size-xs) !important; // 11px ? xs (10px, closest token)
-      padding: 4px 8px !important;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-sm) !important;
       min-width: auto !important;
     }
   }
@@ -1397,7 +1397,7 @@ $rds-app-bar-breakpoint-xs: 320px;
       flex-shrink: 2;
       min-width: 30px;
       font-size: var(--rds-font-size-sm) !important; // 12px ? sm
-      margin: 0 8px !important;
+      margin: 0 var(--rds-spacing-sm) !important;
     }
     
     .rds-header__search-wrapper {
@@ -1415,7 +1415,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     
     .rds-header__actions .MuiButton-root {
       font-size: var(--rds-font-size-xs) !important; // 10px ? xs
-      padding: 3px 6px !important;
+      padding: var(--rds-spacing-micro) var(--rds-spacing-compact) !important;
     }
   }
  
@@ -1427,7 +1427,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   
   .rds-header__left-actions {
     .MuiIconButton-root {
-      padding: 6px !important;
+      padding: var(--rds-spacing-compact) !important;
     }
   }
 }
@@ -1770,7 +1770,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     z-index: calc(var(--rds-z-index-base) + 3) !important;
     order: 4 !important;
     margin: 0 !important;
-    padding: 6px !important;
+    padding: var(--rds-spacing-compact) !important;
   }
 
   .rds-header--variant-withmenubutton .rds-appbar-overflow-button {
@@ -1789,7 +1789,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   @media (max-width: 320px) {
   .rds-header--variant-withmenubutton .rds-profile-menu__button { right: 8px !important; }
-  .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: 52px !important; padding: 4px !important; }
+  .rds-header--variant-withmenubutton .rds-withmenubutton-settings { right: var(--rds-spacing-52) !important; padding: var(--rds-spacing-xs) !important; }
     .rds-header--variant-withmenubutton .rds-header__toolbar { padding-right: 90px !important; }
     .rds-header--variant-withmenubutton .rds-appbar-overflow-button { right: 70px !important; }
     .rds-header--variant-withmenubutton .rds-header__search-wrapper {
@@ -1825,7 +1825,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   .rds-header__sub-tabs {
     .MuiButton-root {
-      padding: 6px !important;
+      padding: var(--rds-spacing-compact) !important;
       min-width: 36px !important;
       width: auto !important;
       overflow: visible !important;
@@ -1836,7 +1836,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   .rds-header__tabs-inline .MuiTab-root {
-    padding: 6px 8px !important;
+    padding: var(--rds-spacing-compact) var(--rds-spacing-sm) !important;
     font-size: var(--rds-font-size-xs) !important; // 11px ? xs (10px, closest token)
     min-width: 32px !important;
   }
@@ -2087,7 +2087,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 
     .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container button,
     .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root {
-      padding: 4px 6px !important;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-compact) !important;
       min-width: 36px !important;
     }
     .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container .MuiButton-root > svg { display: none !important; }
@@ -2096,8 +2096,8 @@ $rds-app-bar-breakpoint-xs: 320px;
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
-      padding: 4px !important;
-      margin: 0 2px !important;
+      padding: var(--rds-spacing-xs) !important;
+      margin: 0 var(--rds-spacing-xxs) !important;
       min-width: auto !important;
     }
 
@@ -2125,7 +2125,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     .rds-header--variant-dashboardwithlang .rds-header__toolbar {
       padding-left: var(--rds-spacing-sm) !important;
       padding-right: 44px !important;
-      gap: 6px !important;
+      gap: var(--rds-spacing-compact) !important;
     }
 
     .rds-header--variant-dashboardwithlang .rds-admin-profile__button > .MuiAvatar-root {
@@ -2141,8 +2141,8 @@ $rds-app-bar-breakpoint-xs: 320px;
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
-      padding: 3px !important;
-      margin: 0 2px !important;
+      padding: var(--rds-spacing-micro) !important;
+      margin: 0 var(--rds-spacing-xxs) !important;
       min-width: auto !important;
     }
 
@@ -2205,7 +2205,7 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   body { padding-bottom: 56px !important; }
 
-  .rds-header--variant-withmenubutton .rds-bottom-navigation { min-height: 48px !important; padding: 6px 10px !important; }
+  .rds-header--variant-withmenubutton .rds-bottom-navigation { min-height: 48px !important; padding: var(--rds-spacing-compact) var(--rds-spacing-cozy) !important; }
   .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-bottom-nav-tab { font-size: var(--rds-font-size-sm) !important; padding: 4px 6px !important; } // 12px ? sm
   .rds-header--variant-withmenubutton .rds-bottom-navigation .rds-appbar-badge { font-size: var(--rds-font-size-xs) !important; padding: 2px 4px !important; } // 11px ? xs (10px, closest token)
   .rds-header--variant-withmenubutton .rds-bottom-navigation .MuiButton-root { font-size: var(--rds-font-size-xs) !important; padding: 3px 6px !important; } // 11px ? xs (10px, closest token)
@@ -2268,10 +2268,10 @@ $rds-app-bar-breakpoint-xs: 320px;
 
   .rds-header--variant-withactions .rds-header__center-content {
     flex: 0 1 auto !important;
-    gap: 4px !important;
+    gap: var(--rds-spacing-xs) !important;
     .MuiButton-root,
     .rds-button {
-      padding: 3px 8px !important;
+      padding: var(--rds-spacing-micro) var(--rds-spacing-sm) !important;
       min-width: auto !important;
       min-height: auto !important;
       line-height: 1.4 !important;
@@ -2316,7 +2316,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   .rds-bottom-navigation {
     .MuiButton-root {
       font-size: var(--rds-font-size-xs) !important; // 10px ? xs
-      padding: 4px 6px !important;
+      padding: var(--rds-spacing-xs) var(--rds-spacing-compact) !important;
       min-width: auto !important;
       color: inherit !important;
     }
@@ -2374,7 +2374,7 @@ $rds-app-bar-breakpoint-xs: 320px;
     text-transform: none;
     font-weight: 600;
     font-size: var(--rds-font-size-sm); // 13px ? sm (12px, closest token)
-    padding: 6px 8px;
+    padding: var(--rds-spacing-compact) var(--rds-spacing-sm);
     min-width: 48px;
     white-space: nowrap;
   }
@@ -2403,7 +2403,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   }
 
   @media (max-width: 420px) {
-    padding: 6px 10px;
+    padding: var(--rds-spacing-compact) var(--rds-spacing-cozy);
     min-height: 48px;
     gap: var(--rds-spacing-xs);
     
@@ -2419,12 +2419,12 @@ $rds-app-bar-breakpoint-xs: 320px;
     
     .rds-appbar-badge {
       font-size: var(--rds-font-size-xs); // 11px ? xs (10px, closest token)
-      padding: 2px 4px;
+      padding: var(--rds-spacing-xxs) var(--rds-spacing-xs);
     }
     
     .MuiButton-root {
       font-size: var(--rds-font-size-xs); // 11px ? xs (10px, closest token)
-      padding: 3px 6px;
+      padding: var(--rds-spacing-micro) var(--rds-spacing-compact);
       min-width: auto;
     }
   }
@@ -2432,26 +2432,26 @@ $rds-app-bar-breakpoint-xs: 320px;
   @media (max-width: 320px) {
     padding: var(--rds-spacing-xs) 6px;
     min-height: 44px;
-    gap: 2px;
+    gap: var(--rds-spacing-xxs);
     
     .rds-bottom-navigation-single-row {
-      gap: 2px;
+      gap: var(--rds-spacing-xxs);
     }
     
     .rds-bottom-nav-tab { 
       font-size: var(--rds-font-size-xs); // 10px ? xs
-      padding: 3px 4px; 
+      padding: var(--rds-spacing-micro) var(--rds-spacing-xs); 
       min-width: auto;
     }
     
     .rds-appbar-badge {
       font-size: var(--rds-font-size-xs); // 9px ? xs (10px, closest token)
-      padding: 2px 3px;
+      padding: var(--rds-spacing-xxs) var(--rds-spacing-micro);
     }
     
     .MuiButton-root {
       font-size: var(--rds-font-size-xs); // 9px ? xs (10px, closest token)
-      padding: 2px 4px;
+      padding: var(--rds-spacing-xxs) var(--rds-spacing-xs);
       min-width: auto;
     }
   }
@@ -2496,7 +2496,7 @@ $rds-app-bar-breakpoint-xs: 320px;
   .rds-header--variant-dashboardwithlang .rds-appbar-tabs-container {
     display: flex !important;
     align-items: center !important;
-    gap: 6px !important;
+    gap: var(--rds-spacing-compact) !important;
     flex-shrink: 0 !important;
   }
 
@@ -2509,8 +2509,8 @@ $rds-app-bar-breakpoint-xs: 320px;
     align-items: center !important;
     justify-content: center !important;
     min-width: auto !important;
-    padding: 3px !important;
-    margin: 0 2px !important;
+    padding: var(--rds-spacing-micro) !important;
+    margin: 0 var(--rds-spacing-xxs) !important;
   }
 
   .rds-header--variant-dashboardwithlang button[aria-label="chat"],
@@ -2519,8 +2519,8 @@ $rds-app-bar-breakpoint-xs: 320px;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 3px !important;
-    margin: 0 2px !important;
+    padding: var(--rds-spacing-micro) !important;
+    margin: 0 var(--rds-spacing-xxs) !important;
     min-width: auto !important;
   }
 

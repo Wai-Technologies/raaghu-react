@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsPagination> = {
   title: 'Elements/Pagination',
   component: RdsPagination,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

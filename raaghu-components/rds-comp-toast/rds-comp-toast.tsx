@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./rds-comp-toast.scss";
 import RdsButton from '../../raaghu-elements/rds-button/rds-button';
 import RdsProgress from '../../raaghu-elements/rds-progress/rds-progress';
@@ -51,6 +51,7 @@ export enum ToastLayout {
     showLeading: boolean; // Show/Hide Leading Icon of Toast
     leadingIcon: ToastLeadingIcon; // Leading Icon of Toast
     chatTime?: string; // Chat Time of Toast
+    pauseOnHover?: boolean; // Pause auto-hide timer on mouse hover (WCAG 2.2.1)
   }
 const RdsCompToast = (props: RdsCompToastProps) => {
     // state and layout classes are handled by getStateClass / getLayoutClass
@@ -94,20 +95,32 @@ const RdsCompToast = (props: RdsCompToastProps) => {
     const borderColor = `rds-comp-toast--border-${borderTokenMap[_stateClass] || 'light'}`;
 
     const [showState, setshowState] = useState("show");
+    const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>();
+    const remainingRef = useRef<number>(props.delay ?? 3000);
+    const startTimeRef = useRef<number>(0);
+
+    const startTimer = (duration: number) => {
+        startTimeRef.current = Date.now();
+        timerRef.current = setTimeout(() => setshowState("hide"), duration);
+    };
+
+    const pauseTimer = () => {
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
+            remainingRef.current -= Date.now() - startTimeRef.current;
+        }
+    };
+
+    const resumeTimer = () => {
+        if (remainingRef.current > 0) startTimer(remainingRef.current);
+    };
 
     useEffect(() => {
-        let toastTimer: ReturnType<typeof setTimeout> | undefined;
         if (props.autohide) {
-            toastTimer = setTimeout(() => {
-                setshowState("hide");
-            }, props.delay ?? 3000);
+            remainingRef.current = props.delay ?? 3000;
+            startTimer(remainingRef.current);
         }
-
-        return () => {
-            if (toastTimer) {
-                clearTimeout(toastTimer);
-            }
-        };
+        return () => { if (timerRef.current) clearTimeout(timerRef.current); };
     }, [props.autohide, props.delay]);
 
     const getPositionClasses = () => {
@@ -132,7 +145,10 @@ const RdsCompToast = (props: RdsCompToastProps) => {
                 aria-live="assertive"
                 aria-atomic="true"
                 className={`rds-comp-toast rds-comp-toast--${getStateClass(props.state)} rds-comp-toast--${getLayoutClass(props.layout)} ${borderColor} ${showState === "show" ? "rds-comp-toast--visible" : "rds-comp-toast--hidden"}`}
-                id="toastId">
+                id="toastId"
+                onMouseEnter={props.autohide && props.pauseOnHover ? pauseTimer : undefined}
+                onMouseLeave={props.autohide && props.pauseOnHover ? resumeTimer : undefined}
+            >
                 {props.showHeader && (
                     <div className="rds-comp-toast__header">
                         <div className="rds-comp-toast__header-content">

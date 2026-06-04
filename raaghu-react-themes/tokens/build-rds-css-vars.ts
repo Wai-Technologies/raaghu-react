@@ -28,6 +28,7 @@ import {
   typographyTokens,
   zIndexTokens,
   spacingExact,
+  syntaxTokens,
 } from './design-tokens';
 
 export type RdsThemeMode = 'light' | 'dark';
@@ -173,6 +174,10 @@ function sharedCssVars(): Record<string, string> {
     '--rds-typography-font-weight-regular': String(typographyTokens.fontWeight.normal),
     '--rds-typography-font-weight-medium': String(typographyTokens.fontWeight.medium),
     // ── Spacing ──────────────────────────────────────────────────────────────
+    '--rds-spacing-0': spacingTokens[0],
+    '--rds-spacing-3': spacingTokens[3],
+    '--rds-spacing-5': spacingTokens[5],
+    '--rds-spacing-10': spacingTokens[10],
     '--rds-spacing-xs': spacingTokens[1],
     '--rds-spacing-sm': spacingTokens[2],
     '--rds-spacing-md': spacingTokens[4],
@@ -190,6 +195,18 @@ function sharedCssVars(): Record<string, string> {
     '--rds-spacing-xl-px': spacingExact.xl,
     '--rds-spacing-2xl-px': spacingExact['2xl'],
     '--rds-spacing-3xl-px': spacingExact['3xl'],
+    // Sub-token fills (gap-filling values found in legacy SCSS)
+    '--rds-spacing-micro': spacingExact.micro,
+    '--rds-spacing-tight': spacingExact.tight,
+    '--rds-spacing-compact': spacingExact.compact,
+    '--rds-spacing-cozy': spacingExact.cozy,
+    '--rds-spacing-7': spacingExact['7'],
+    '--rds-spacing-13': spacingExact['13'],
+    '--rds-spacing-14': spacingExact['14'],
+    '--rds-spacing-15': spacingExact['15'],
+    '--rds-spacing-18': spacingExact['18'],
+    '--rds-spacing-22': spacingExact['22'],
+    '--rds-spacing-52': spacingExact['52'],
     // ── Border radius ────────────────────────────────────────────────────────
     '--rds-border-radius-none': radiusTokens.none,
     '--rds-border-radius-xs': radiusTokens.sm,
@@ -378,30 +395,30 @@ function sharedCssVars(): Record<string, string> {
     '--rds-kanban-add-item-margin': componentTokens.kanban?.addItemMargin || '6px 0px',
     '--rds-kanban-subcards-container-padding': componentTokens.kanban?.subcardsContainerPadding || '0px 8px 8px 8px',
     // Map component heatmap palette (component-scoped)
-    '--rds-comp-map-heatmap-0': componentTokens.map?.heatmapPalette?.[0] || '#FFAF00',
-    '--rds-comp-map-heatmap-1': componentTokens.map?.heatmapPalette?.[1] || '#2CC1A5',
-    '--rds-comp-map-heatmap-2': componentTokens.map?.heatmapPalette?.[2] || '#26BEAE',
-    '--rds-comp-map-heatmap-3': componentTokens.map?.heatmapPalette?.[3] || '#E1CF00',
-    '--rds-comp-map-heatmap-4': componentTokens.map?.heatmapPalette?.[4] || '#FEA200',
-    '--rds-comp-map-heatmap-5': componentTokens.map?.heatmapPalette?.[5] || '#28C0AB',
-    '--rds-comp-map-heatmap-6': componentTokens.map?.heatmapPalette?.[6] || '#F94E00',
-    '--rds-comp-map-heatmap-7': componentTokens.map?.heatmapPalette?.[7] || '#CCDE00',
-    '--rds-comp-map-heatmap-8': componentTokens.map?.heatmapPalette?.[8] || '#F84A00',
-    '--rds-comp-map-heatmap-9': componentTokens.map?.heatmapPalette?.[9] || '#1DBBBC',
-    '--rds-comp-map-heatmap-10': componentTokens.map?.heatmapPalette?.[10] || '#FC4703',
-    '--rds-comp-map-heatmap-11': componentTokens.map?.heatmapPalette?.[11] || '#25BDB1',
+    '--rds-comp-map-heatmap-0': componentTokens.map?.heatmapPalette?.[0],
+    '--rds-comp-map-heatmap-1': componentTokens.map?.heatmapPalette?.[1],
+    '--rds-comp-map-heatmap-2': componentTokens.map?.heatmapPalette?.[2],
+    '--rds-comp-map-heatmap-3': componentTokens.map?.heatmapPalette?.[3],
+    '--rds-comp-map-heatmap-4': componentTokens.map?.heatmapPalette?.[4],
+    '--rds-comp-map-heatmap-5': componentTokens.map?.heatmapPalette?.[5],
+    '--rds-comp-map-heatmap-6': componentTokens.map?.heatmapPalette?.[6],
+    '--rds-comp-map-heatmap-7': componentTokens.map?.heatmapPalette?.[7],
+    '--rds-comp-map-heatmap-8': componentTokens.map?.heatmapPalette?.[8],
+    '--rds-comp-map-heatmap-9': componentTokens.map?.heatmapPalette?.[9],
+    '--rds-comp-map-heatmap-10': componentTokens.map?.heatmapPalette?.[10],
+    '--rds-comp-map-heatmap-11': componentTokens.map?.heatmapPalette?.[11],
     // ── Chart component tokens (component-scoped defaults)
     '--rds-comp-chart-bar-barchart1-height': componentTokens.chart?.bar?.barchart1Height || '65vh',
     '--rds-comp-chart-bar-histogram-size': componentTokens.chart?.bar?.histogramSize || '50px',
     '--rds-comp-chart-bar-default-height': componentTokens.chart?.bar?.defaultHeight || '76vh',
     '--rds-comp-chart-bar-tablet-height': componentTokens.chart?.bar?.tabletHeight || '600px',
     '--rds-comp-chart-pie-height': componentTokens.chart?.bar?.pieHeight || componentTokens.chart?.pie?.pieHeight || componentTokens.chart?.pieHeight || '335px',
-    '--rds-comp-chart-bar-ds1-bg': componentTokens.chart?.bar?.dataset?.ds1Bg || '#4BC0C0',
-    '--rds-comp-chart-bar-ds1-border': componentTokens.chart?.bar?.dataset?.ds1Border || '#4BC0C0',
-    '--rds-comp-chart-bar-ds2-bg': componentTokens.chart?.bar?.dataset?.ds2Bg || '#36A2EB',
-    '--rds-comp-chart-bar-ds2-border': componentTokens.chart?.bar?.dataset?.ds2Border || '#36A2EB',
-    '--rds-comp-chart-bar-dataset-bg': componentTokens.chart?.bar?.dataset?.datasetBg || '#4BC0C0',
-    '--rds-comp-chart-bar-dataset-border': componentTokens.chart?.bar?.dataset?.datasetBorder || '#36A2EB',
+    '--rds-comp-chart-bar-ds1-bg': componentTokens.chart?.bar?.dataset?.ds1Bg,
+    '--rds-comp-chart-bar-ds1-border': componentTokens.chart?.bar?.dataset?.ds1Border,
+    '--rds-comp-chart-bar-ds2-bg': componentTokens.chart?.bar?.dataset?.ds2Bg,
+    '--rds-comp-chart-bar-ds2-border': componentTokens.chart?.bar?.dataset?.ds2Border,
+    '--rds-comp-chart-bar-dataset-bg': componentTokens.chart?.bar?.dataset?.datasetBg,
+    '--rds-comp-chart-bar-dataset-border': componentTokens.chart?.bar?.dataset?.datasetBorder,
     '--rds-comp-chart-boolean-size': componentTokens.chart?.boolean?.size || '20vh',
     // ── Table component tokens
     '--rds-table-sticky-max-height': componentTokens.table?.stickyMaxHeight || '440px',
@@ -652,6 +669,171 @@ function sharedCssVars(): Record<string, string> {
     '--rds-color-primary': 'var(--rds-primary-main)',
     '--rds-color-accent': 'var(--rds-tab-accent)',
     '--rds-color-accent-bg': 'var(--rds-tab-accent-bg)',
+    // ── Semantic missing vars (used in SCSS, mapped to design tokens) ─────────
+    // Accordion
+    '--rds-accordion-item-divider-color': 'var(--rds-border-default)',
+    // Backgrounds & surfaces
+    '--rds-background-light': white,
+    '--rds-background-neutral-50': colorTokens.neutral[50],
+    '--rds-background-surface-hover': 'var(--rds-action-hover)',
+    '--rds-surface-subtle': colorTokens.neutral[50],
+    // Badge
+    '--rds-badge-bg-primary-card': colorTokens.primary[50],
+    '--rds-badge-bg-secondary-card': colorTokens.secondary[50],
+    '--rds-badge-text-on-dark': white,
+    // Borders
+    '--rds-border-hover': colorTokens.neutral[400],
+    '--rds-border-selected': colorTokens.primary[700],
+    '--rds-border-strong': colorTokens.neutral[600],
+    '--rds-border-subtle': colorTokens.neutral[200],
+    // Box shadows
+    '--rds-box-shadow-xs': elevationTokens[1],
+    '--rds-box-shadow-hover': elevationTokens[2],
+    '--rds-box-shadow-lg': elevationTokens[3],
+    // Carousel
+    '--rds-carousel-title-bg': colorTokens.neutral[50],
+    '--rds-carousel-title-bg-dark': colorTokens.neutral[800],
+    '--rds-carousel-title-border': colorTokens.neutral[200],
+    '--rds-carousel-wrapper-bg': white,
+    // Color palette aliases
+    '--rds-color-accent-light': colorTokens.primary[100],
+    '--rds-color-background-light': white,
+    '--rds-color-border-hover': colorTokens.neutral[400],
+    '--rds-color-border-light': colorTokens.neutral[200],
+    '--rds-color-default': colorTokens.neutral[900],
+    '--rds-color-disabled': colorTokens.neutral[400],
+    '--rds-color-disabled-border': colorTokens.neutral[200],
+    '--rds-color-divider': colorTokens.neutral[300],
+    '--rds-color-gray-100': colorTokens.neutral[100],
+    '--rds-color-gray-200': colorTokens.neutral[200],
+    '--rds-color-gray-300': colorTokens.neutral[300],
+    '--rds-color-gray-400': colorTokens.neutral[400],
+    '--rds-color-gray-600': colorTokens.neutral[600],
+    '--rds-color-gray-700': colorTokens.neutral[700],
+    '--rds-color-hover': 'var(--rds-action-hover)',
+    '--rds-color-input-disabled': colorTokens.neutral[100],
+    '--rds-color-light': white,
+    '--rds-color-neutral-1000': black,
+    '--rds-color-neutral-50': colorTokens.neutral[50],
+    '--rds-color-neutral-600': colorTokens.neutral[600],
+    '--rds-color-neutral-700': colorTokens.neutral[700],
+    '--rds-color-neutral-800': colorTokens.neutral[800],
+    '--rds-color-neutral-900': colorTokens.neutral[900],
+    // On-color tokens
+    '--rds-color-on-accent': white,
+    '--rds-color-on-danger': white,
+    '--rds-color-on-dark': white,
+    '--rds-color-on-default': white,
+    '--rds-color-on-light': colorTokens.neutral[900],
+    '--rds-color-on-primary-soft': white,
+    '--rds-color-on-secondary-container': white,
+    '--rds-color-on-success': white,
+    '--rds-color-on-tertiary': white,
+    '--rds-color-on-warning': white,
+    // Placeholder & text colors
+    '--rds-color-placeholder': colorTokens.neutral[500],
+    '--rds-color-text-placeholder': colorTokens.neutral[500],
+    '--rds-color-text-secondary-dark': colorTokens.neutral[400],
+    '--rds-color-text-tertiary': colorTokens.neutral[600],
+    '--rds-color-white': white,
+    // Primary variants
+    '--rds-color-primary-bg': colorTokens.primary[700],
+    '--rds-color-primary-contrast': white,
+    '--rds-color-primary-hover-bg': colorTokens.primary[800],
+    '--rds-color-primary-light': colorTokens.primary[100],
+    '--rds-color-primary-lighter': colorTokens.primary[50],
+    '--rds-color-primary-outline': colorTokens.primary[700],
+    '--rds-color-primary-pressed': colorTokens.primary[900],
+    // Secondary variants
+    '--rds-color-secondary-container': colorTokens.secondary[50],
+    '--rds-color-secondary-container-hover': colorTokens.secondary[100],
+    // Surface variants
+    '--rds-color-surface-container-high': colorTokens.neutral[100],
+    '--rds-color-surface-light': white,
+    '--rds-color-surface-readonly': colorTokens.neutral[50],
+    '--rds-color-surface-variant-hover': colorTokens.neutral[100],
+    // Switch colors
+    '--rds-color-switch-thumb': white,
+    '--rds-color-switch-track': colorTokens.neutral[400],
+    '--rds-switch-active-bg': colorTokens.primary[700],
+    '--rds-switch-disabled-bg': colorTokens.neutral[200],
+    '--rds-switch-inactive-bg': colorTokens.neutral[300],
+    // Switch dimensions (match defaults defined in rds-switch.scss)
+    '--rds-switch-root-width': '44px',
+    '--rds-switch-root-height': '24px',
+    '--rds-switch-thumb-size': '20px',
+    '--rds-switch-thumb-padding': '2px',
+    '--rds-switch-thumb-translate-x': '20px',
+    // Tertiary
+    '--rds-color-tertiary': colorTokens.tertiary[500],
+    // Comments
+    '--rds-comments-input-bg': white,
+    '--rds-comments-input-text': colorTokens.neutral[900],
+    '--rds-comments-selected-text': colorTokens.primary[50],
+    // Focus & selection
+    '--rds-focus-color': colorTokens.primary[700],
+    '--rds-grid-row-selected': colorTokens.primary[50],
+    // Font size aliases
+    '--rds-font-size-caption': typographyTokens.fontSize.xs,
+    // Loader colors
+    '--rds-loader-jump-fill': colorTokens.primary[700],
+    '--rds-loader-jump-shadow': 'rgba(0,0,0,0.2)',
+    '--rds-loader-rotate-primary': colorTokens.primary[700],
+    '--rds-loader-rotate-secondary': colorTokens.primary[500],
+    '--rds-loader-rotate-tertiary': colorTokens.primary[300],
+    '--rds-loader-round-color': colorTokens.primary[700],
+    '--rds-loader-sand-dark': colorTokens.primary[700],
+    '--rds-loader-sand-light': colorTokens.primary[200],
+    '--rds-loader-spinner-accent': colorTokens.primary[500],
+    // Off-canvas
+    '--rds-offcanvas-border': colorTokens.neutral[300],
+    // Primary numeric aliases
+    '--rds-primary-100': colorTokens.primary[100],
+    '--rds-primary-800': colorTokens.primary[800],
+    '--rds-primary-rgb': '60,152,255',
+    // Border radius aliases
+    '--rds-radius-base': radiusTokens.base,
+    '--rds-radius-lg': radiusTokens.lg,
+    // Semantic status colors
+    '--rds-semantic-error-main': colorTokens.error[700],
+    '--rds-semantic-success-main': colorTokens.success[700],
+    '--rds-semantic-warning-dark': colorTokens.warning[600],
+    '--rds-semantic-warning-main': colorTokens.warning[700],
+    // Stack dividers
+    '--rds-stack-divider-color-dark': colorTokens.neutral[700],
+    '--rds-stack-divider-color-light': colorTokens.neutral[300],
+    // Stepper mobile dimensions (match defaults in rds-stepper.scss)
+    '--rds-stepper-mobile-offset-left': spacingTokens[2],
+    '--rds-stepper-mobile-step-padding-right': spacingTokens[1],
+    // Syntax highlighting (light / dark variants)
+    '--rds-syntax-attribute': syntaxTokens.attribute,
+    '--rds-syntax-attribute-dark': syntaxTokens.attributeDark,
+    '--rds-syntax-function': syntaxTokens.function,
+    '--rds-syntax-function-dark': syntaxTokens.functionDark,
+    '--rds-syntax-keyword': syntaxTokens.keyword,
+    '--rds-syntax-keyword-dark': syntaxTokens.keywordDark,
+    '--rds-syntax-property': syntaxTokens.property,
+    '--rds-syntax-property-dark': syntaxTokens.propertyDark,
+    '--rds-syntax-selector': syntaxTokens.selector,
+    '--rds-syntax-selector-dark': syntaxTokens.selectorDark,
+    '--rds-syntax-string': syntaxTokens.string,
+    '--rds-syntax-string-dark': syntaxTokens.stringDark,
+    '--rds-syntax-tag': syntaxTokens.tag,
+    '--rds-syntax-tag-dark': syntaxTokens.tagDark,
+    '--rds-syntax-value': syntaxTokens.value,
+    '--rds-syntax-value-dark': syntaxTokens.valueDark,
+    // Text aliases
+    '--rds-text-primary-light': colorTokens.neutral[900],
+    '--rds-text-tertiary': colorTokens.neutral[600],
+    // Time picker
+    '--rds-time-picker-accent': colorTokens.primary[700],
+    '--rds-time-picker-accent-rgb': '60,152,255',
+    // Toast
+    '--rds-toast-circle-color': colorTokens.neutral[600],
+    '--rds-toast-plus-color': colorTokens.neutral[600],
+    // Tooltip dimensions
+    '--rds-tooltip-max-width': '320px',
+    '--rds-tooltip-min-width': '80px',
   };
 }
 
@@ -1057,12 +1239,12 @@ export function buildRdsCssVars(mode: RdsThemeMode): Record<string, string> {
  * A map of `--rds-*` CSS variable overrides for white-label / multi-brand theming.
  *
  * Keys must be valid `--rds-*` CSS variable names that exist in the design token set.
- * Values must be valid CSS color or size strings (e.g. `'#FF6600'`, `'1rem'`).
+ * Values must be valid CSS color or size strings (e.g. `'1rem'`, `'2px solid'`).
  *
  * @example
  * const overrides: RdsBrandOverrides = {
- *   '--rds-primary-main': '#FF6600',
- *   '--rds-primary-dark': '#CC5200',
+ *   '--rds-primary-main': 'var(--brand-primary)',
+ *   '--rds-primary-dark': 'var(--brand-primary-dark)',
  * };
  */
 export type RdsBrandOverrides = Partial<Record<string, string>>;

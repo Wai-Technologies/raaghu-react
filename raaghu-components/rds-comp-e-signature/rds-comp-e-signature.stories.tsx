@@ -6,6 +6,7 @@ const meta: Meta<typeof RdsCompESignature> = {
   title: 'Components/E-Signature',
   component: RdsCompESignature,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     docs: {
       description: {

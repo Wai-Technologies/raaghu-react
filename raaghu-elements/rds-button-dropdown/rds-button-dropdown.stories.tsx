@@ -21,6 +21,7 @@ const meta: Meta<typeof RdsButtonDropdown> = {
   title: 'Elements/Button Dropdown',
   component: RdsButtonDropdown,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

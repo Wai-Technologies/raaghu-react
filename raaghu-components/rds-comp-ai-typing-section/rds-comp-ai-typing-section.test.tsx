@@ -140,7 +140,7 @@ describe('RdsCompAiTypingSection', () => {
       const { container, rerender } = render(
         <RdsCompAiTypingSection {...defaultProps} />
       );
-      let textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
+      const textarea = container.querySelector('.rds-comp-ai-typing-section__input-box') as HTMLTextAreaElement;
       expect(textarea.placeholder).toBe('Type your message...');
 
       // Simulate file upload by rendering with mock state

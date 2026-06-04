@@ -8,6 +8,7 @@ export interface RdsCompStackedProps {
     options: any;
     dataSets: any[];
     id: string;
+    chartLabel?: string;
 }
 
 const RdsCompStackedChart = (props: RdsCompStackedProps) => {
@@ -71,6 +72,7 @@ const RdsCompStackedChart = (props: RdsCompStackedProps) => {
         });
 
         if (chartRef.current !== null) {
+          // noop
         }
 
         return () => { chartRef.current?.destroy(); };
@@ -78,7 +80,7 @@ const RdsCompStackedChart = (props: RdsCompStackedProps) => {
 
     return (
         <div className="stack-chart-container">
-            <canvas id={CanvasId} ref={canvasRef} />
+            <canvas id={CanvasId} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Stacked chart'} />
         </div>
     );
 };

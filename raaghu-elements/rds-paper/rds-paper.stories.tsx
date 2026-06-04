@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsPaper> = {
   title: 'Elements/Paper',
   component: RdsPaper,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

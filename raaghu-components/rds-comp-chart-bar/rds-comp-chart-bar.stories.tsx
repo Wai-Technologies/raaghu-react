@@ -1,4 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 import RdsCompBarChart from "./rds-comp-chart-bar";
 import "./rds-comp-chart-bar.scss";
 
@@ -6,6 +7,7 @@ const meta: Meta = {
     title: 'Components/Charts/Bar Chart',
     component: RdsCompBarChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             description: {
@@ -74,6 +76,10 @@ export const BorderRadius: Story = {
             ],
         },
      },
+    play: async ({ canvas }) => {
+        const chart = await canvas.findByRole('img');
+        await expect(chart).toBeInTheDocument();
+    },
 
 } satisfies Story;
 export const Horizontal: Story = {

@@ -299,7 +299,7 @@
     padding: 0 var(--rds-spacing-sm, 8px);
     
     .MuiSlider-root {
-      padding: 15px 0;
+      padding: var(--rds-spacing-15) 0;
     }
   }
 

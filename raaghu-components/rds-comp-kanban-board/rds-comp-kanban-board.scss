@@ -189,7 +189,7 @@
   }
   
   &--center-button {
-    padding: 0px !important;
+    padding: var(--rds-spacing-0) !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;

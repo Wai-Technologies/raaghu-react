@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsFab> = {
   title: 'Elements/Fab',
   component: RdsFab,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],

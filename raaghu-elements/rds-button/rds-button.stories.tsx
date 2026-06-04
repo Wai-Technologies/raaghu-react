@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsButton> = {
   title: 'Elements/Button',
   component: RdsButton,
   parameters: {
+      status: { type: 'stable' },
   layout: 'padded',
   controls: { exclude: ['component'] },
   },

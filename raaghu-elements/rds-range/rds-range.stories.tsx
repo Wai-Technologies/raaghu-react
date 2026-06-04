@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import RdsRange from './rds-range';
@@ -7,6 +8,7 @@ const meta: Meta<typeof RdsRange> = {
   title: 'Elements/Range',
   component: RdsRange,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: {
     exclude: ['component', 'onChange', 'formatValue'],
@@ -77,9 +79,7 @@ export const Default: Story = {
   },
   render: (args) => {
     const [singleValue, setSingleValue] = useState(30);
-    const [rangeValue, setRangeValue] = useState([20, 80]);
-
-    const isOneWay = args.type === 'one-way';
+    const [rangeValue, setRangeValue] = useState([20, 80]);    const isOneWay = args.type === 'one-way';
 
     return (
       <Box sx={{ width: 400, display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -109,6 +109,10 @@ export const Default: Story = {
         />
       </Box>
     );
+  },
+  play: async ({ canvas }) => {
+    const slider = await canvas.findByRole('slider');
+    await expect(slider).toBeInTheDocument();
   },
 };
 

@@ -27,6 +27,7 @@ const meta: Meta<typeof RdsSidebar> = {
   title: 'Elements/Sidebar',
   component: RdsSidebar,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     docs: {
       story: {

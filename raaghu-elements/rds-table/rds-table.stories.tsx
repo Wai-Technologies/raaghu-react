@@ -14,6 +14,7 @@ const meta: Meta<typeof RdsTable> = {
   title: 'Elements/Table',
   component: RdsTable,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
       exclude: ['rows', 'columns','onRowAction','onPageChange','onPageSizeChange','selectedRows','onRowSelect','className','component'],

@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsContainer> = {
   title: 'Elements/Container',
   component: RdsContainer,
   parameters: {
+        status: { type: 'stable' },
     layout: 'fullscreen',
   },
   tags: ['autodocs', 'stable'],

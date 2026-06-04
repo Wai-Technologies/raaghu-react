@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsSlider> = {
   title: 'Elements/Slider',
   component: RdsSlider,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

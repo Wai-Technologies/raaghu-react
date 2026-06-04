@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RdsCheckbox, { RdsCheckboxProps } from './rds-checkbox';
 import { axe } from 'jest-axe';
@@ -708,5 +709,38 @@ describe('RdsCheckbox', () => {
       const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
       expect(checkbox.checked).toBe(false);
     });
+  });
+});
+
+describe('RdsCheckbox — keyboard navigation', () => {
+  it('is focusable via Tab', async () => {
+    renderWithTheme(<RdsCheckbox labeltext="Focus Test" showText />);
+    await userEvent.tab();
+    expect(screen.getByRole('checkbox')).toHaveFocus();
+  });
+
+  it('toggles checked state on Space key', async () => {
+    const handleChange = jest.fn();
+    renderWithTheme(<RdsCheckbox labeltext="Toggle" showText onChange={handleChange} />);
+    const checkbox = screen.getByRole('checkbox');
+    checkbox.focus();
+    await userEvent.keyboard(' ');
+    expect(handleChange).toHaveBeenCalled();
+  });
+
+  it('does not toggle when disabled', async () => {
+    const handleChange = jest.fn();
+    renderWithTheme(<RdsCheckbox labeltext="Disabled" showText disabled onChange={handleChange} />);
+    const checkbox = screen.getByRole('checkbox');
+    expect(checkbox).toBeDisabled();
+    await userEvent.keyboard(' ');
+    expect(handleChange).not.toHaveBeenCalled();
+  });
+
+  it('sets focus on the underlying checkbox input', async () => {
+    renderWithTheme(<RdsCheckbox labeltext="Input Focus" showText />);
+    const checkbox = screen.getByRole('checkbox');
+    checkbox.focus();
+    expect(checkbox).toHaveFocus();
   });
 });

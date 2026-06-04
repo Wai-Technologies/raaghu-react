@@ -632,7 +632,7 @@ describe('RdsCompTimePicker', () => {
     it('should maintain state consistency through multiple interactions', () => {
       const onChange = jest.fn();
       render(<RdsCompTimePicker {...defaultProps} onChange={onChange} />);
-      let input = screen.getByPlaceholderText('12:00 AM') as HTMLInputElement;
+      const input = screen.getByPlaceholderText('12:00 AM') as HTMLInputElement;
       expect(input.value).toBe('');
 
       fireEvent.click(input);

@@ -8,6 +8,7 @@ export interface RdsCompScatterChartProps {
     options: ChartConfiguration['options'];
     dataSets: ChartConfiguration['data']['datasets'];
     id: string;
+    chartLabel?: string;
 }
 
 const RdsCompScatterChart = (props: RdsCompScatterChartProps) => {
@@ -59,7 +60,7 @@ const RdsCompScatterChart = (props: RdsCompScatterChartProps) => {
 
     return (
         <div className="rds-comp-chart-scatter">
-            <canvas id={id} ref={canvasRef} />
+            <canvas id={id} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Scatter chart'} />
         </div>
     );
 };

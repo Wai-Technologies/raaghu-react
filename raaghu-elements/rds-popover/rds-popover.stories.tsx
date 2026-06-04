@@ -9,6 +9,7 @@ const meta: Meta<typeof RdsPopover> = {
   title: 'Elements/Popover',
   component: RdsPopover,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],

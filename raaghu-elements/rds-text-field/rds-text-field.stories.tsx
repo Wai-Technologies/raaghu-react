@@ -8,6 +8,7 @@ const meta: Meta<typeof RdsTextField> = {
   title: 'Elements/Text Field',
   component: RdsTextField,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

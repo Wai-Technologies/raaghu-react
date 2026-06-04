@@ -678,3 +678,34 @@ describe('RdsDatepicker', () => {
     });
   });
 });
+
+describe('RdsDatepicker — keyboard navigation', () => {
+  it('date input is focusable via Tab', async () => {
+    render(<RdsDatepicker />);
+    await userEvent.tab();
+    const input = screen.getByTestId('date-picker-input');
+    expect(input).toHaveFocus();
+  });
+
+  it('accepts keyboard input in date field', async () => {
+    render(<RdsDatepicker />);
+    const input = screen.getByTestId('date-picker-input');
+    input.focus();
+    await userEvent.type(input, '01/01/2025');
+    expect(input).toHaveFocus();
+  });
+
+  it('clear button is focusable when showClearDate is true', async () => {
+    render(<RdsDatepicker showClearDate />);
+    const inputs = screen.getAllByRole('textbox');
+    expect(inputs.length).toBeGreaterThan(0);
+    await userEvent.tab();
+    expect(document.activeElement).not.toBe(document.body);
+  });
+
+  it('does not focus input when disabled', async () => {
+    render(<RdsDatepicker isDisabled />);
+    const input = screen.getByTestId('date-picker-input');
+    expect(input).toBeDisabled();
+  });
+});

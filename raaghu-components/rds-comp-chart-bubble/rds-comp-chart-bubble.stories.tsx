@@ -1,11 +1,13 @@
 import RdsCompBubbleChart from "./rds-comp-chart-bubble";
 import "./rds-comp-chart-bubble.scss";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Bubble Chart',
     component: RdsCompBubbleChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs:{
             description: {
@@ -72,6 +74,10 @@ export const Default: Story = {
         controls: {
             exclude: ['chartWidth', 'chartStyle',],
         },
+    },
+    play: async ({ canvas }) => {
+        const chart = await canvas.findByRole('img');
+        await expect(chart).toBeInTheDocument();
     },
 };
 

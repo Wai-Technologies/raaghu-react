@@ -8,6 +8,7 @@ export interface RdsCompMixedChartProps {
     options: any;
     dataSets: any[];
     id: string;
+    chartLabel?: string;
 }
 
 const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
@@ -56,7 +57,7 @@ const RdsCompMixedChart = (props: RdsCompMixedChartProps) => {
 
     return (
         <div className="rds-comp-chart-mixed">
-            <canvas className="rds-chart-canvas" data-testid={props.id} id={props.id} ref={canvasRef} />
+            <canvas className="rds-chart-canvas" data-testid={props.id} id={props.id} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Mixed chart'} />
         </div>
     );
 };

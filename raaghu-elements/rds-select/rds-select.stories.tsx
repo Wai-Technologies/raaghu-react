@@ -6,6 +6,7 @@ const meta: Meta<typeof RdsSelect> = {
   title: 'Elements/Select',
   component: RdsSelect,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

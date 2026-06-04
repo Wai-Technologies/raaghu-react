@@ -9,6 +9,7 @@ export interface RdsCompPieProps {
   dataSets: any[];
   radius: number;
   id: string;
+  chartLabel?: string;
 }
 
 const RdsCompPieChart = (props: RdsCompPieProps) => {
@@ -58,7 +59,7 @@ const RdsCompPieChart = (props: RdsCompPieProps) => {
   return (
     <div className="rds-comp-chart-pie">
       <div className="chart-container">
-        <canvas id={props.id} ref={canvasRef} />
+        <canvas id={props.id} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Pie chart'} />
       </div>
     </div>
   );

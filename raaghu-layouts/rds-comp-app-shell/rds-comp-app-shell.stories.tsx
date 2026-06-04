@@ -1,5 +1,6 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 import RdsCompAppShell, { AppShellDisplayType } from "./rds-comp-app-shell";
 import RdsAppBar from "../../raaghu-elements/rds-app-bar/rds-app-bar";
 import { BrowserRouter } from "react-router-dom";
@@ -632,6 +633,9 @@ export const DoubleNav: Story = {
     displayType: AppShellDisplayType.DoubleNav,
   },
   render: AppShellStory,
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
+  },
 };
 
 export const Relaxing: Story = {

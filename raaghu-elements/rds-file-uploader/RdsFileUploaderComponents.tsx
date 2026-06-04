@@ -293,7 +293,7 @@ export const RdsDropZoneDefault: React.FC<RdsDropZoneDefaultProps> = ({
   );
 };
 
-export const renderFileUploader = (args: any) => {
+export const RenderFileUploader = (args: any) => {
   const [files, setFiles] = React.useState<FileWithProgress[]>([]);  
   return <RdsFileUploader {...args} onFilesChange={setFiles} />;
 };

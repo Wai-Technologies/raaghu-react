@@ -2,11 +2,13 @@ import React from "react";
 import RdsCompScatterChart from "./rds-comp-chart-scatter";
 import "./rds-comp-chart-scatter.scss";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Scatter Chart',
     component: RdsCompScatterChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
       docs: {
   description: {
@@ -76,6 +78,10 @@ export const Default: Story = {
             ],
         },
      },
+    play: async ({ canvas }) => {
+        const chart = await canvas.findByRole('img');
+        await expect(chart).toBeInTheDocument();
+    },
 };
 
 export const WithMultiAxis: Story = {

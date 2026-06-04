@@ -8,6 +8,7 @@ export interface RdsCompLineProps {
     options: any;
     dataSets: any[];
     id: string;
+    chartLabel?: string;
 }
 
 const RdsCompLineChart = (props: RdsCompLineProps) => {
@@ -68,7 +69,7 @@ const RdsCompLineChart = (props: RdsCompLineProps) => {
 
     return (
         <div className="rds-comp-chart-line">
-            <canvas data-testid={props.id} id={props.id} ref={canvasRef} />
+            <canvas data-testid={props.id} id={props.id} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Line chart'} />
         </div>
     );
 };

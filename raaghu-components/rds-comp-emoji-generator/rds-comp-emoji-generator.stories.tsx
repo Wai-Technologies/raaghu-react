@@ -1,4 +1,4 @@
-import { expect, userEvent, within, fn, waitFor } from 'storybook/test';
+import { expect, within } from 'storybook/test';
 import { StoryObj, Meta } from "@storybook/react-vite";
 import RdsEmojiGenerator, { EmojiCategory, EmojiGeneratorType, SkinToneState } from "./rds-comp-emoji-generator";
 
@@ -6,6 +6,7 @@ const meta: Meta = {
     title: 'Components/Emoji Generator',
     component: RdsEmojiGenerator,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
     controls: {
     exclude: ['onEmojiSelect'],

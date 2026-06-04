@@ -79,13 +79,14 @@ export const getColorDisplay = (colorMode: string, colorState: {
   switch (colorMode) {
     case 'RGB':
       return `rgb(${colorState.rgb.r}, ${colorState.rgb.g}, ${colorState.rgb.b})`;
-    case 'HSB':
+    case 'HSB': {
       const hsb = rgbToHsb(colorState.rgb);
       return `hsb(${hsb.h}, ${hsb.s}%, ${hsb.b}%)`;
-    case 'HSL':
+    }
+    case 'HSL': {
       const hsl = rgbToHsl(colorState.rgb);
       return `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
-    case 'HEX':
+    }    case 'HEX':
     default:
       return colorState.hex;
   }

@@ -8,6 +8,7 @@ const meta: Meta = {
     title: "Components/Kanban Board",
     component: RdsCompKanbanBoard,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
     controls: {
     exclude: ['onSubCardOption', 'onCardOption', 'onAddQuestionSaveHandler', 'onSelectedTagsListChange', 'isIlliustrationSmall', 'illustration'],

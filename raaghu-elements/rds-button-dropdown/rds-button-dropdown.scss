@@ -53,7 +53,7 @@
 }
 .rds-button-dropdown__item-label {
 	cursor: pointer;
-	padding: 6px 8px;
+	padding: var(--rds-spacing-compact) var(--rds-spacing-sm);
 	width: 100%;
 	box-sizing: border-box;
 	display: block;
@@ -62,8 +62,8 @@
 .rds-button-dropdown__option {
 	display: flex;
 	align-items: center;
-	gap: 0px;
-	padding: 6px 4px;
+	gap: var(--rds-spacing-0);
+	padding: var(--rds-spacing-compact) var(--rds-spacing-xs);
 
 	.rds-avatar {
 		margin-right: -4px !important;

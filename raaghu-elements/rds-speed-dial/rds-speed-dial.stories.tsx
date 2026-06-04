@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsSpeedDial> = {
   title: 'Elements/Speed Dial',
   component: RdsSpeedDial,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],

@@ -129,7 +129,7 @@
   }
 
   &__info {
-    padding: 0 0 8px 0;
+    padding: 0 0 var(--rds-spacing-sm) 0;
   }
 
   &__title {
@@ -284,7 +284,7 @@
     justify-content: space-between;
     width: 100%;
     margin-top: 0;
-    padding: 0 6px;
+    padding: 0 var(--rds-spacing-compact);
   }
 
   &__carousel-stepcount {
@@ -933,7 +933,7 @@
 
     .rds-comp-product-tour__carousel-nav-row,
     .rds-comp-product-tour__carousel-spacer {
-      padding: 0 4px;
+      padding: 0 var(--rds-spacing-xs);
       height: auto;
     }
 

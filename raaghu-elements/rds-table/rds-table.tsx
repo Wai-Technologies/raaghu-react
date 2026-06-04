@@ -88,7 +88,7 @@ const RdsTable = ({
     if (column.type === 'checkbox' || column.type === 'radio') return;
     if (!column.sortable) return;
     let nextDirection: 'asc' | 'desc';
-    let nextColumn: string = column.id;
+    const nextColumn: string = column.id;
     if (sortBy !== column.id) {
       nextDirection = 'asc';
     } else {

@@ -11,6 +11,7 @@ const meta: Meta<typeof RdsAccordion> = {
   title: 'Elements/Accordion',
   component: RdsAccordion,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
      controls: {
       exclude: ['disableGutters','expanded','TransitionComponent','TransitionProps','slots','slotProps','component','children','icon','classes','onChange','sx'],

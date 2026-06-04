@@ -1,11 +1,13 @@
 import React from "react";
 import RdsCompStackedChart from "./rds-comp-chart-stacked";
 import { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from 'storybook/test';
 
 const meta: Meta = {
     title: 'Components/Charts/Stacked Chart',
     component: RdsCompStackedChart,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs: {
   description: {
@@ -247,6 +249,10 @@ export const Default: Story = {
         ],
 
 
-    }
+    },
+    play: async ({ canvas }) => {
+        const chart = await canvas.findByRole('img');
+        await expect(chart).toBeInTheDocument();
+    },
 };
 

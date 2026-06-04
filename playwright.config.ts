@@ -40,9 +40,15 @@ const projects = runCrossBrowser
 export default defineConfig({
   testDir: '.',
   testMatch: ['tests/**/*.spec.ts', 'e2e/**/*.spec.ts'],
+  snapshotDir: './tests/snapshots',
+  snapshotPathTemplate: '{snapshotDir}/{arg}{-projectName}{-snapshotSuffix}{ext}',
   timeout: 45_000,
   expect: {
     timeout: 8_000,
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.01,
+      animations: 'disabled',
+    },
   },
   /* Run tests in files in parallel */
   fullyParallel: true,

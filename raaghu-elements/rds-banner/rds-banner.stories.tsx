@@ -2,11 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button, Box } from '@mui/material';
 import React, { useState } from 'react';
 import RdsBanner, { type RdsBannerProps } from './rds-banner';
+import { expect } from 'storybook/test';
 
 const meta: Meta<RdsBannerProps & { showOutline?: boolean }> = {
   title: 'Elements/Banner',
   component: RdsBanner,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   args: {
@@ -115,6 +117,9 @@ export const Info: Story = {
     size: 'medium',
     multiline: false,
     showDescription: true,
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
 

@@ -8,20 +8,20 @@ const defaultMaterialIcons: { [key: string]: React.ComponentType<any> } = {
   'person-outline': PersonOutlineIcon,
 };
 
-let materialIconsRegistry: { [key: string]: React.ComponentType<any> } = {
+const materialIconsRegistry: { [key: string]: React.ComponentType<any> } = {
   ...defaultMaterialIcons
 };
 
 export const registerMaterialIcon = (name: string, iconComponent: React.ComponentType<any>) => {
   materialIconsRegistry[name.toLowerCase()] = iconComponent;
-  try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { }
+  try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { /* handled */ }
 };
 
 export const registerMaterialIcons = (icons: { [key: string]: React.ComponentType<any> }) => {
   Object.entries(icons).forEach(([name, component]) => {
     materialIconsRegistry[name.toLowerCase()] = component;
   });
-  try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { }
+  try { window.dispatchEvent(new CustomEvent('rds-icons-updated')); } catch (e) { /* handled */ }
 };
 
 const createMuiIconWrapper = (MuiIcon: React.ComponentType<any>): React.ComponentType<React.SVGProps<SVGSVGElement>> => {

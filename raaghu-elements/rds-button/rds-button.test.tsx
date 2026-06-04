@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 import RdsButton from './rds-button';
@@ -52,5 +53,43 @@ describe('RdsButton', () => {
     const { container } = render(<RdsButton text="Axe Test Button" color="primary" style="filled" />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+});
+
+describe('RdsButton — keyboard navigation', () => {
+  it('is focusable via Tab', async () => {
+    render(<RdsButton text="Focus Me" />);
+    await userEvent.tab();
+    expect(screen.getByRole('button')).toHaveFocus();
+  });
+
+  it('activates on Enter key', async () => {
+    const handleClick = jest.fn();
+    render(<RdsButton text="Press Enter" onClick={handleClick} />);
+    screen.getByRole('button').focus();
+    await userEvent.keyboard('{Enter}');
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('activates on Space key', async () => {
+    const handleClick = jest.fn();
+    render(<RdsButton text="Press Space" onClick={handleClick} />);
+    screen.getByRole('button').focus();
+    await userEvent.keyboard(' ');
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not activate when disabled', async () => {
+    const handleClick = jest.fn();
+    render(<RdsButton text="Disabled" disabled onClick={handleClick} />);
+    screen.getByRole('button').focus();
+    await userEvent.keyboard('{Enter}');
+    expect(handleClick).not.toHaveBeenCalled();
+  });
+
+  it('is not reachable via Tab when disabled', async () => {
+    render(<RdsButton text="Disabled Tab" disabled />);
+    await userEvent.tab();
+    expect(screen.getByRole('button')).not.toHaveFocus();
   });
 });

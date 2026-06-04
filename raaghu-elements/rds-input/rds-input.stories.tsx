@@ -10,6 +10,7 @@ const meta: Meta<typeof RdsInput> = {
   title: 'Elements/Input',
   component: RdsInput,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

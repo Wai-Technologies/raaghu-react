@@ -15,6 +15,7 @@ const meta: Meta<typeof RdsSearch> = {
   title: 'Elements/Search',
   component: RdsSearch,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],

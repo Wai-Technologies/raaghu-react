@@ -8,6 +8,7 @@ export interface RdsCompBubbleChartProps {
     labels: any[];
     options: any;
     dataSets: any[];
+    chartLabel?: string;
 }
 
 const RdsCompBubbleChart = (props: RdsCompBubbleChartProps) => {
@@ -54,7 +55,7 @@ const RdsCompBubbleChart = (props: RdsCompBubbleChartProps) => {
 
     return (
         <div>
-            <canvas data-testid={props.id} id={props.id} ref={canvasRef} width={300} height={300} />
+            <canvas data-testid={props.id} id={props.id} ref={canvasRef} width={300} height={300} role="img" aria-label={props.chartLabel ?? 'Bubble chart'} />
         </div>
     );
 };

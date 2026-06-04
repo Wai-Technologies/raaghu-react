@@ -24,6 +24,57 @@ body.theme-dark .docs-story {
     border-top-left-radius: 8px !important;
 }
 
+/* ── Introduction page dark mode overrides ── */
+[data-theme="dark"] #storybook-docs,
+[data-theme="dark"] .sbdocs-wrapper,
+[data-theme="dark"] .sbdocs-content {
+  background-color: #1b1b1b !important;
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .containerContent,
+[data-theme="dark"] .containerContent p {
+  color: #c8c8c8 !important;
+}
+
+[data-theme="dark"] .toolsUsedSection {
+  background-color: #1a2f42 !important;
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .seamlessUIContent,
+[data-theme="dark"] .chartUIContent {
+  background-color: #2a2a2a !important;
+  color: #c8c8c8 !important;
+}
+
+[data-theme="dark"] .learnMoreSection {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .learnMoreSection:hover {
+  background-color: #1a3a50 !important;
+}
+
+[data-theme="dark"] a.learnMoreSection {
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .link-item {
+  color: #e0e0e0 !important;
+  border-color: #ffffff20 !important;
+}
+
+[data-theme="dark"] .link-item:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 0 3px 10px 0 !important;
+}
+
+[data-theme="dark"] .title,
+[data-theme="dark"] strong {
+  color: #f0f0f0 !important;
+}
+
 /* Material UI component overrides - all using Poppins font */
 .css-x28zkw :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)),
 .css-14m39zm,

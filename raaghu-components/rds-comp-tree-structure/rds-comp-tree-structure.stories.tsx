@@ -6,6 +6,7 @@ const meta: Meta = {
   title: 'Internal/Tree Structure',
   component: RdsCompTreeStructure,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     docs: {
       source: {

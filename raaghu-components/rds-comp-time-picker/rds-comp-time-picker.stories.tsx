@@ -7,6 +7,7 @@ const meta: Meta = {
   title: "Components/Time Picker",
   component: RdsCompTimePicker,
   parameters: {
+        status: { type: 'stable' },
     layout: "padded",
     controls: {
     exclude: ['onChange', 'value'],

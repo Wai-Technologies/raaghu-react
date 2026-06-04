@@ -6,6 +6,7 @@ const meta: Meta<typeof RdsTextArea> = {
     title: 'Elements/Text Area',
     component: RdsTextArea,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         controls: {
             exclude: ['value', 'id', 'dataTestId', 'onChange', 'onClick', 'onKeyDown', 'onFocus', 'onBlur', 'reset', 'validationPattern', 'validationMsg', 'isMultiUrl', 'customClasses']

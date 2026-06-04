@@ -61,7 +61,7 @@ const RdsCompAdaptiveCards = (props: AdaptiveCardProps) => {
     label: '',
     smallText: '',
   };
-  let merged = { ...variantDefaults, ...props };
+  const merged = { ...variantDefaults, ...props };
   
   const allowedButtonStyles = ['filled', 'outlined', 'transparent'] as const;
   const getRdsButtonStyle = (style: any) =>

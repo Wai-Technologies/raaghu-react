@@ -7,6 +7,7 @@ const meta: Meta = {
     title: "Components/Reviews",
     component: RdsCompReviews,
     parameters: {
+            status: { type: 'stable' },
         layout: 'padded',
         docs :{
                 source:{

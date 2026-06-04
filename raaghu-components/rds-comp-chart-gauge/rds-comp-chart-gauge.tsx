@@ -12,6 +12,7 @@ export interface RdsCompGaugeProps {
     subTitleText?: string;
     value?: number;
     maxValue?: number;
+    chartLabel?: string;
 }
 
 const RdsCompGaugeChart = (props: RdsCompGaugeProps) => {
@@ -112,7 +113,7 @@ const RdsCompGaugeChart = (props: RdsCompGaugeProps) => {
 
     return (
         <div className="rds-comp-chart-gauge">
-            <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} />
+            <canvas data-testid={CanvasId} id={CanvasId} ref={canvasRef} role="img" aria-label={props.chartLabel ?? 'Gauge chart'} />
         </div>
     );
 };

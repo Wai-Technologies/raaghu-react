@@ -1,6 +1,7 @@
-import React from "react";
-import ReactPlayer from "react-player";
+import React, { Suspense, lazy } from "react";
 import "./rds-comp-video-player.scss";
+
+const ReactPlayer = lazy(() => import('react-player'));
 
 export enum VideoPlayerType {
     Default = "Default",
@@ -94,18 +95,20 @@ const RdsCompVideoPlayer: React.FC<RdsVideoPlayerProps> = ({
     return (
         <div className={`rds-comp-video-player${disabled ? " rds-comp-video-player--disabled" : ""} ${className}`}>
             <div className="rds-comp-video-player__wrapper">
-                {React.createElement(ReactPlayer as any, {
-                    key: `${formattedUrl}`,
-                    url: formattedUrl,
-                    width: width,
-                    height: height,
-                    playing: autoplay && !disabled,
-                    muted: muted,
-                    controls: controls,
-                    volume: volume,
-                    config: getPlayerConfig(),
-                    className: "rds-comp-video-player__player",
-                })}
+                <Suspense fallback={<div className="rds-comp-video-player__loading" aria-label="Loading video player" />}>
+                    {React.createElement(ReactPlayer as any, {
+                        key: `${formattedUrl}`,
+                        url: formattedUrl,
+                        width: width,
+                        height: height,
+                        playing: autoplay && !disabled,
+                        muted: muted,
+                        controls: controls,
+                        volume: volume,
+                        config: getPlayerConfig(),
+                        className: "rds-comp-video-player__player",
+                    })}
+                </Suspense>
                 {/* Reserve the native controls height when controls are disabled so layout doesn't shift.
                     This spacer keeps the player size consistent when toggling controls on/off. */}
                 {!controls && (

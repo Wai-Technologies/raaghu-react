@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsRating> = {
   title: 'Elements/Rating',
   component: RdsRating,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: {
     exclude: ['component', 'slots', 'slotProps', 'precision'],

@@ -516,10 +516,12 @@ describe('RdsContainer', () => {
     });
 
     it('should render conditional children', () => {
+      const show = true;
+      const hide = false;
       renderWithTheme(
         <RdsContainer>
-          {true && <p>Visible content</p>}
-          {false && <p>Hidden content</p>}
+          {show && <p>Visible content</p>}
+          {hide && <p>Hidden content</p>}
         </RdsContainer>
       );
       expect(screen.getByText('Visible content')).toBeInTheDocument();

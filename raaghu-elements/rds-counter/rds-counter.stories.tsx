@@ -8,6 +8,7 @@ const meta: Meta<typeof RdsCounter> = {
   title: 'Elements/Counter',
   component: RdsCounter,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: {
     exclude: ['onChange', 'controlsClassName','disabled','defaultValue'],

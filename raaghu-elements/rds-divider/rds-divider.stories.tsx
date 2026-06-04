@@ -6,6 +6,7 @@ const meta: Meta<typeof RdsDivider> = {
   title: 'Elements/Divider',
   component: RdsDivider,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
       exclude: ['component','flexItem'],

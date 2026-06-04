@@ -1,0 +1,33 @@
+{
+  "$schema": "https://raaghu.io/schemas/rules.json",
+  "version": "1.0.0",
+  "rules": {
+    "no-hardcoded-hex": {
+      "severity": "error",
+      "message": "Use --rds-* CSS variables instead of raw hex values",
+      "scope": ["*.scss", "*.css"],
+      "gate": "scripts/check-hex-in-scss.sh"
+    },
+    "no-hardcoded-spacing": {
+      "severity": "warning",
+      "message": "Use var(--rds-spacing-*) instead of hardcoded px spacing",
+      "scope": ["*.scss", "*.css"],
+      "gate": "scripts/check-spacing-in-scss.sh"
+    },
+    "story-must-have-status": {
+      "severity": "warning",
+      "message": "All stories must declare parameters.status.type (stable|beta|experimental)",
+      "scope": ["*.stories.tsx"]
+    },
+    "component-must-have-metadata": {
+      "severity": "warning",
+      "message": "All components must have a metadata.json file",
+      "scope": ["raaghu-elements/**", "raaghu-components/**"]
+    },
+    "no-missing-css-vars": {
+      "severity": "error",
+      "message": "All var(--rds-*) used in SCSS must be injected by build-rds-css-vars.ts",
+      "scope": ["*.scss"]
+    }
+  }
+}

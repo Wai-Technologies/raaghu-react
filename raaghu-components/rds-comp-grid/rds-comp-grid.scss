@@ -583,7 +583,7 @@
     background-color: var(--colorBrandBackground);
     color: var(--colorNeutralForegroundOnBrand);
     border-radius: var(--borderRadiusCircular);
-    padding: 2px 6px;
+    padding: var(--rds-spacing-xxs) var(--rds-spacing-compact);
     font-size: var(--fontSizeBase100);
     margin-left: var(--spacingHorizontalXS);
   }
@@ -959,7 +959,7 @@
   
   .status-pill {
     display: inline-block;
-    padding: 2px 8px;
+    padding: var(--rds-spacing-xxs) var(--rds-spacing-sm);
     border-radius: var(--rds-border-radius-lg);
     font-size: var(--rds-font-size-sm);
     font-weight: 500;
@@ -1213,7 +1213,7 @@
 }
 
 .rds-comp-grid-filter-operator {
-  padding: 6px 8px;
+  padding: var(--rds-spacing-compact) var(--rds-spacing-sm);
   border: 1px solid var(--rds-border-default);
   border-radius: var(--rds-border-radius-sm, 4px);
   background-color: var(--rds-grid-bg, #ffffff);
@@ -1349,7 +1349,7 @@
 // Column accordion panel styles
 .rds-comp-grid-column-panel {
   margin-top: 0;
-  padding: 2px;
+  padding: var(--rds-spacing-xxs);
   border: 1px solid var(--rds-border-default);
   border-top: none;
   border-radius: 0 0 4px 4px;
@@ -1359,8 +1359,8 @@
   &-item {
     display: flex;
     align-items: center;
-    gap: 2px;
-    padding: 0 2px;
+    gap: var(--rds-spacing-xxs);
+    padding: 0 var(--rds-spacing-xxs);
     min-height: 16px;
     border-radius: var(--rds-border-radius-xs);
     transition: background-color 0.2s;

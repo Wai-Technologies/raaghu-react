@@ -23,6 +23,7 @@ const meta: Meta<typeof RdsAutocomplete> = {
   title: 'Elements/Autocomplete',
   component: RdsAutocomplete,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: {
     exclude: ['component', 'slots', 'slotProps', 'ref'],

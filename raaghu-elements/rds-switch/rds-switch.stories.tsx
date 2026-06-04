@@ -6,6 +6,7 @@ const meta: Meta<typeof RdsSwitch> = {
   title: 'Elements/Switch',
   component: RdsSwitch,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   },
   tags: ['autodocs', 'stable'],

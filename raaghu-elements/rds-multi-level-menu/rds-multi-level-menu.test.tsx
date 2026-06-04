@@ -346,7 +346,7 @@ describe('RdsMultiLevelMenu', () => {
       
       // Select File
       await userEvent.click(button);
-      let fileItem = screen.getByText('File');
+      const fileItem = screen.getByText('File');
       await userEvent.click(fileItem);
       
       await waitFor(() => expect(onSelect).toHaveBeenCalledWith({ label: 'File' }));

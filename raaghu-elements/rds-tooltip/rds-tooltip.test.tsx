@@ -793,7 +793,7 @@ describe('RdsTooltip', () => {
       await user.hover(button!);
       
       await waitFor(() => {
-        let tooltip = document.querySelector('.rds-tooltip--top');
+        const tooltip = document.querySelector('.rds-tooltip--top');
         expect(tooltip).toBeInTheDocument();
       });
       
@@ -815,7 +815,7 @@ describe('RdsTooltip', () => {
       await user.hover(button!);
       
       await waitFor(() => {
-        let tooltip = document.querySelector('.rds-tooltip--bottom');
+        const tooltip = document.querySelector('.rds-tooltip--bottom');
         expect(tooltip).toBeInTheDocument();
       });
     });
@@ -832,7 +832,7 @@ describe('RdsTooltip', () => {
       await user.hover(button!);
       
       await waitFor(() => {
-        let arrow = document.querySelector('[class*="MuiTooltip-arrow"]');
+        const arrow = document.querySelector('[class*="MuiTooltip-arrow"]');
         expect(arrow).not.toBeInTheDocument();
       });
       
@@ -932,6 +932,52 @@ describe('RdsTooltip', () => {
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
+  });
+});
+
+describe('RdsTooltip — keyboard navigation', () => {
+  it('trigger element is focusable via Tab', async () => {
+    renderWithTheme(
+      <RdsTooltip title="Tab Test" label="Tab Test">
+        <button>Tab Target</button>
+      </RdsTooltip>
+    );
+    await userEvent.tab();
+    expect(screen.getByRole('button', { name: 'Tab Target' })).toHaveFocus();
+  });
+
+  it('calls onOpen when trigger receives focus', async () => {
+    const onOpen = jest.fn();
+    renderWithTheme(
+      <RdsTooltip title="Focus Tooltip" label="Focus Tooltip" onOpen={onOpen}>
+        <button>Focus Me</button>
+      </RdsTooltip>
+    );
+    const trigger = screen.getByRole('button', { name: 'Focus Me' });
+    fireEvent.focus(trigger);
+    expect(onOpen).toHaveBeenCalled();
+  });
+
+  it('calls onClose when trigger loses focus', async () => {
+    const onClose = jest.fn();
+    renderWithTheme(
+      <RdsTooltip title="Blur Tooltip" label="Blur Tooltip" onClose={onClose}>
+        <button>Blur Me</button>
+      </RdsTooltip>
+    );
+    const trigger = screen.getByRole('button', { name: 'Blur Me' });
+    fireEvent.focus(trigger);
+    fireEvent.blur(trigger);
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it('shows tooltip when open prop is true', () => {
+    renderWithTheme(
+      <RdsTooltip title="Always Open" label="Always Open" open>
+        <button>Anchor</button>
+      </RdsTooltip>
+    );
+    expect(screen.getByRole('tooltip')).toBeInTheDocument();
   });
 });
 

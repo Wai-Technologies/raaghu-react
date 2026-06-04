@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsGrid> = {
   title: 'Elements/Grid',
   component: RdsGrid,
   parameters: {
+        status: { type: 'stable' },
     layout: 'fullscreen',
   },
   tags: ['autodocs', 'stable'],

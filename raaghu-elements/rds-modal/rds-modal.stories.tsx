@@ -9,6 +9,7 @@ const meta: Meta<typeof RdsModal> = {
   title: 'Elements/Modal',
   component: RdsModal,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
     controls: {
       exclude: ['component', 'slots', 'slotProps', 'onClose', 'actions', 'icon', 'isOpen'],

@@ -6,6 +6,7 @@ const meta: Meta<typeof RdsCheckbox> = {
   title: 'Elements/Checkbox',
   component: RdsCheckbox,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
   controls: { exclude: ['cssStyle', 'slots', 'slotProps', 'component'] },
   },

@@ -8,6 +8,7 @@ const meta: Meta<typeof RdsBottomNavigation> = {
   title: 'Elements/Bottom Navigation',
   component: RdsBottomNavigation,
   parameters: {
+        status: { type: 'stable' },
     layout: 'centered',
   },
   tags: ['autodocs', 'stable'],

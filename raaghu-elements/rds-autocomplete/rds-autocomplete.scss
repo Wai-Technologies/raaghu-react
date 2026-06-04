@@ -250,7 +250,7 @@
   }
 
   &__chip {
-    margin: 2px !important;
+    margin: var(--rds-spacing-xxs) !important;
     max-width: 120px !important;
     font-size: 0.75rem !important;
     

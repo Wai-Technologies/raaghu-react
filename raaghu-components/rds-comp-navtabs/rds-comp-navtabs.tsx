@@ -63,7 +63,7 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
     ];
     
     const isHorizontalStyle = horizontalStyles.includes(props.style || "");
-    let classes = ["rds-comp-navtabs__nav", "nav", "fit-content", "mobile-ul-tabs", "navtabs-icon-align", "nav-tabs"];
+    const classes = ["rds-comp-navtabs__nav", "nav", "fit-content", "mobile-ul-tabs", "navtabs-icon-align", "nav-tabs"];
     
     if (props.id !== "chat") {
       classes.push("d-md-block");
@@ -148,7 +148,7 @@ const RdsCompNavtabs = (props: RdsCompNavtabsProps) => {
   };
 
   const getNavLinkClasses = (navtabsItem: any) => {
-    let classes = ["nav-link", "pe-auto", "mt-2", "rds-comp-navtabs__nav-link"];
+    const classes = ["nav-link", "pe-auto", "mt-2", "rds-comp-navtabs__nav-link"];
     
     if (props.type === "tabs") {
       classes.push("rounded-0");

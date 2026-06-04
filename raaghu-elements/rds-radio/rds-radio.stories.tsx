@@ -7,6 +7,7 @@ const meta: Meta<typeof RdsRadio> = {
   title: 'Elements/Radio',
   component: RdsRadio,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
     controls: {
     exclude: ['radioProps', 'ref'],

@@ -154,7 +154,7 @@ describe('RdsToggleButton', () => {
         <RdsToggleButton options={mockOptions} value="option1" onChange={() => {}} />
       );
       
-      let option1Button = screen.getByText('Option 1').closest('button');
+      const option1Button = screen.getByText('Option 1').closest('button');
       expect(option1Button).toHaveAttribute('aria-pressed', 'true');
       
       rerender(
@@ -243,7 +243,7 @@ describe('RdsToggleButton', () => {
         />
       );
       
-      let option1Button = screen.getByText('Option 1').closest('button');
+      const option1Button = screen.getByText('Option 1').closest('button');
       expect(option1Button).toHaveAttribute('aria-pressed', 'true');
       
       rerender(
@@ -692,7 +692,7 @@ describe('RdsToggleButton', () => {
         />
       );
       
-      let option1Button = screen.getByText('Option 1').closest('button');
+      const option1Button = screen.getByText('Option 1').closest('button');
       expect(option1Button).toHaveAttribute('aria-pressed', 'true');
       
       rerender(
@@ -719,7 +719,7 @@ describe('RdsToggleButton', () => {
       );
       
       // In single mode, verify button selection
-      let option1Button = screen.getByText('Option 1').closest('button');
+      const option1Button = screen.getByText('Option 1').closest('button');
       expect(option1Button).toHaveAttribute('aria-pressed', 'true');
       
       rerender(

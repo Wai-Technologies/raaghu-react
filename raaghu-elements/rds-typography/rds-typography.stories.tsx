@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import RdsTypography from './rds-typography';
+import { expect } from 'storybook/test';
 
 const meta: Meta<typeof RdsTypography> = {
   title: 'Elements/Typography',
   component: RdsTypography,
   parameters: {
+        status: { type: 'stable' },
     layout: 'padded',
      controls: {
       include: ['text', 'variant', 'color', 'align', 'gutterBottom', 'noWrap'],
@@ -49,6 +51,9 @@ export const Heading1: Story = {
   args: {
     text: 'Heading 1',
     variant: 'h1',
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.firstChild).toBeTruthy();
   },
 };
 
